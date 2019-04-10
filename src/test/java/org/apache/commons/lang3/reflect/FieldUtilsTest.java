@@ -1052,7 +1052,7 @@ public class FieldUtilsTest {
         try {
             FieldUtils.removeFinalModifier(field, forceAccess);
         } catch (UnsupportedOperationException exception) {
-            if(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_12)) {
+            if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_12)) {
                 assertTrue(exception.getCause() instanceof NoSuchFieldException);
             } else {
                 fail("No exception should be thrown for java prior to 12.0");
