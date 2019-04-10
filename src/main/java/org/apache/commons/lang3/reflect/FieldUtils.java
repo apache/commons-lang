@@ -18,6 +18,7 @@ package org.apache.commons.lang3.reflect;
 
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.Validate;
 
 import java.lang.annotation.Annotation;
@@ -712,8 +713,12 @@ public class FieldUtils {
      *            match {@code public} fields.
      * @throws IllegalArgumentException
      *             if the field is {@code null}
+     * @deprecated As of java 12.0, we can no longer drop the <code>final</code> modifier, thus
+     *             rendering this method obsolete. The JDK discussion about this change can be found
+     *             here: http://mail.openjdk.java.net/pipermail/core-libs-dev/2018-November/056486.html
      * @since 3.3
      */
+    @Deprecated
     public static void removeFinalModifier(final Field field, final boolean forceAccess) {
         Validate.isTrue(field != null, "The field must not be null");
 
@@ -734,7 +739,13 @@ public class FieldUtils {
                 }
             }
         } catch (final NoSuchFieldException | IllegalAccessException ignored) {
-            // The field class contains always a modifiers field
+            if (SystemUtils.IS_JAVA_12 || SystemUtils.IS_JAVA_13) {
+              throw new UnsupportedOperationException(
+                  "In java 12+ final cannot be removed.",
+                  ignored
+              );
+            }
+            // else no exception is thrown because we can modify final.
         }
     }
 
