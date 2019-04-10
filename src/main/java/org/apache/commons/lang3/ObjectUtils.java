@@ -182,12 +182,12 @@ public class ObjectUtils {
      * <p>Caller responsible for thread-safety and exception handling of default value supplier</p>
      *
      * <pre>
-     * ObjectUtils.lazyDefaultIfNull(null, () -> null)      = null
-     * ObjectUtils.lazyDefaultIfNull(null, null)            = null
-     * ObjectUtils.lazyDefaultIfNull(null, () -> "")        = ""
-     * ObjectUtils.lazyDefaultIfNull(null, () -> "zz")      = "zz"
-     * ObjectUtils.lazyDefaultIfNull("abc", *)              = "abc"
-     * ObjectUtils.lazyDefaultIfNull(Boolean.TRUE, *)       = Boolean.TRUE
+     * ObjectUtils.lazyDefaultIfNull(null, () -&gt; null)        = null
+     * ObjectUtils.lazyDefaultIfNull(null, null)                 = null
+     * ObjectUtils.lazyDefaultIfNull(null, () -&gt; "")          = ""
+     * ObjectUtils.lazyDefaultIfNull(null, () -&gt; "zz")        = "zz"
+     * ObjectUtils.lazyDefaultIfNull("abc", *)                   = "abc"
+     * ObjectUtils.lazyDefaultIfNull(Boolean.TRUE, *)            = Boolean.TRUE
      * </pre>
      *
      * @param <T> the type of the object
