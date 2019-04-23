@@ -99,6 +99,7 @@ public class MutablePairTest {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         final ObjectOutputStream out = new ObjectOutputStream(baos);
         out.writeObject(origPair);
+        out.close();
         final MutablePair<Integer, String> deserializedPair = (MutablePair<Integer, String>) new ObjectInputStream(
                 new ByteArrayInputStream(baos.toByteArray())).readObject();
         assertEquals(origPair, deserializedPair);

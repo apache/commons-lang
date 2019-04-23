@@ -136,6 +136,7 @@ public class ImmutablePairTest {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         final ObjectOutputStream out = new ObjectOutputStream(baos);
         out.writeObject(origPair);
+        out.close();
         final ImmutablePair<Integer, String> deserializedPair = (ImmutablePair<Integer, String>) new ObjectInputStream(
                 new ByteArrayInputStream(baos.toByteArray())).readObject();
         assertEquals(origPair, deserializedPair);
