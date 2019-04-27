@@ -905,9 +905,9 @@
     </profile>
 
     <profile>
-      <id>java11</id>
+      <id>java11+</id>
       <activation>
-        <jdk>11</jdk>
+        <jdk>[11,)</jdk>
       </activation>
       <properties>
         <!-- workaround for https://bugs.openjdk.java.net/browse/JDK-8212233
