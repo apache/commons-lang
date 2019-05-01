@@ -47,6 +47,7 @@ The <action> type attribute can be add,update,fix,remove.
 
   <release version="3.10" date="YYYY-MM-DD" description="TBD">
     <action issue="LANG-1450" type="fix" dev="chtompki">Generate javadoc jar on build.</action>
+    <action issue="LANG-1455" type="add" dev="ggregory">Add a DaemonThreadFactory.</action>
   </release>
 
   <release version="3.9" date="2019-04-09" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11">
