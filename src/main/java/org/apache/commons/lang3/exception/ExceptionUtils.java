@@ -388,7 +388,7 @@ public class ExceptionUtils {
     public static int getThrowableCount(final Throwable throwable) {
         return getThrowableList(throwable).size();
     }
-    
+
     /**
      * <p>Returns the list of <code>Throwable</code> objects in the
      * exception chain.</p>
