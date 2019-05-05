@@ -285,9 +285,8 @@ public class ExceptionUtils {
         return list;
     }
 
-    //-----------------------------------------------------------------------
     /**
-     * <p>Returns the (zero based) index of the first <code>Throwable</code>
+     * <p>Returns the (zero-based) index of the first <code>Throwable</code>
      * that matches the specified class (exactly) in the exception chain.
      * Subclasses of the specified class do not match - see
      * {@link #indexOfType(Throwable, Class)} for the opposite.</p>
@@ -305,7 +304,27 @@ public class ExceptionUtils {
     }
 
     /**
-     * <p>Returns the (zero based) index of the first <code>Throwable</code>
+     * <p>Returns the first <code>Throwable</code>
+     * that matches the specified class (exactly) in the exception chain.
+     * Subclasses of the specified class do not match - see
+     * {@link #throwableOfType(Throwable, Class)} for the opposite.</p>
+     *
+     * <p>A <code>null</code> throwable returns <code>null</code>.
+     * A <code>null</code> type returns <code>null</code>.
+     * No match in the chain returns <code>null</code>.</p>
+     *
+     * @param <T> the type of Throwable you are searching.
+     * @param throwable  the throwable to inspect, may be null
+     * @param clazz  the class to search for, subclasses do not match, null returns null
+     * @return the index into the throwable chain, null if no match or null input
+     * @since 3.10
+     */
+    public static <T extends Throwable> T throwableOfThrowable(final Throwable throwable, final Class<T> clazz) {
+        return throwableOf(throwable, clazz, 0, false);
+    }
+
+    /**
+     * <p>Returns the (zero-based) index of the first <code>Throwable</code>
      * that matches the specified type in the exception chain from
      * a specified index.
      * Subclasses of the specified class do not match - see
@@ -319,7 +338,7 @@ public class ExceptionUtils {
      *
      * @param throwable  the throwable to inspect, may be null
      * @param clazz  the class to search for, subclasses do not match, null returns -1
-     * @param fromIndex  the (zero based) index of the starting position,
+     * @param fromIndex  the (zero-based) index of the starting position,
      *  negative treated as zero, larger than chain size returns -1
      * @return the index into the throwable chain, -1 if no match or null input
      */
@@ -327,9 +346,33 @@ public class ExceptionUtils {
         return indexOf(throwable, clazz, fromIndex, false);
     }
 
-    //-----------------------------------------------------------------------
     /**
-     * <p>Returns the (zero based) index of the first <code>Throwable</code>
+     * <p>Returns the first <code>Throwable</code>
+     * that matches the specified type in the exception chain from
+     * a specified index.
+     * Subclasses of the specified class do not match - see
+     * {@link #throwableOfType(Throwable, Class, int)} for the opposite.</p>
+     *
+     * <p>A <code>null</code> throwable returns <code>null</code>.
+     * A <code>null</code> type returns <code>null</code>.
+     * No match in the chain returns <code>null</code>.
+     * A negative start index is treated as zero.
+     * A start index greater than the number of throwables returns <code>null</code>.</p>
+     *
+     * @param <T> the type of Throwable you are searching.
+     * @param throwable  the throwable to inspect, may be null
+     * @param clazz  the class to search for, subclasses do not match, null returns null
+     * @param fromIndex  the (zero-based) index of the starting position,
+     *  negative treated as zero, larger than chain size returns null
+     * @return the index into the throwable chain, null if no match or null input
+     * @since 3.10
+     */
+    public static <T extends Throwable> T throwableOfThrowable(final Throwable throwable, final Class<T> clazz, final int fromIndex) {
+        return throwableOf(throwable, clazz, fromIndex, false);
+    }
+    
+    /**
+     * <p>Returns the (zero-based) index of the first <code>Throwable</code>
      * that matches the specified class or subclass in the exception chain.
      * Subclasses of the specified class do match - see
      * {@link #indexOfThrowable(Throwable, Class)} for the opposite.</p>
@@ -348,7 +391,52 @@ public class ExceptionUtils {
     }
 
     /**
-     * <p>Returns the (zero based) index of the first <code>Throwable</code>
+     * <p>Returns the throwable of the first <code>Throwable</code>
+     * that matches the specified class or subclass in the exception chain.
+     * Subclasses of the specified class do match - see
+     * {@link #throwableOfThrowable(Throwable, Class)} for the opposite..</p>
+     *
+     * <p>A <code>null</code> throwable returns <code>null</code>.
+     * A <code>null</code> type returns <code>null</code>.
+     * No match in the chain returns <code>null</code>.</p>
+     *
+     * @param <T> the type of Throwable you are searching.
+     * @param throwable  the throwable to inspect, may be null
+     * @param type  the type to search for, subclasses match, null returns null
+     * @return the index into the throwable chain, null if no match or null input
+     * @since 3.10
+     */
+    public static <T extends Throwable> T throwableOfType(final Throwable throwable, final Class<T> type) {
+        return throwableOf(throwable, type, 0, true);
+    }
+
+    /**
+     * <p>Returns the first <code>Throwable</code>
+     * that matches the specified type in the exception chain from
+     * a specified index.
+     * Subclasses of the specified class do match - see
+     * {@link #throwableOfThrowable(Throwable, Class)} for the opposite.</p>
+     *
+     * <p>A <code>null</code> throwable returns <code>null</code>.
+     * A <code>null</code> type returns <code>null</code>.
+     * No match in the chain returns <code>null</code>.
+     * A negative start index is treated as zero.
+     * A start index greater than the number of throwables returns <code>null</code>.</p>
+     *
+     * @param <T> the type of Throwable you are searching.
+     * @param throwable  the throwable to inspect, may be null
+     * @param type  the type to search for, subclasses match, null returns null
+     * @param fromIndex  the (zero-based) index of the starting position,
+     *  negative treated as zero, larger than chain size returns null
+     * @return the index into the throwable chain, null if no match or null input
+     * @since 3.10
+     */
+    public static <T extends Throwable> T throwableOfType(final Throwable throwable, final Class<T> type, final int fromIndex) {
+        return throwableOf(throwable, type, fromIndex, true);
+    }
+
+    /**
+     * <p>Returns the (zero-based) index of the first <code>Throwable</code>
      * that matches the specified type in the exception chain from
      * a specified index.
      * Subclasses of the specified class do match - see
@@ -362,7 +450,7 @@ public class ExceptionUtils {
      *
      * @param throwable  the throwable to inspect, may be null
      * @param type  the type to search for, subclasses match, null returns -1
-     * @param fromIndex  the (zero based) index of the starting position,
+     * @param fromIndex  the (zero-based) index of the starting position,
      *  negative treated as zero, larger than chain size returns -1
      * @return the index into the throwable chain, -1 if no match or null input
      * @since 2.1
@@ -376,7 +464,7 @@ public class ExceptionUtils {
      *
      * @param throwable  the throwable to inspect, may be null
      * @param type  the type to search for, subclasses match, null returns -1
-     * @param fromIndex  the (zero based) index of the starting position,
+     * @param fromIndex  the (zero-based) index of the starting position,
      *  negative treated as zero, larger than chain size returns -1
      * @param subclass if <code>true</code>, compares with {@link Class#isAssignableFrom(Class)}, otherwise compares
      * using references
@@ -407,6 +495,45 @@ public class ExceptionUtils {
             }
         }
         return -1;
+    }
+
+    /**
+     * <p>Worker method for the <code>throwableOfType</code> methods.</p>
+     *
+     * @param <T> the type of Throwable you are searching.
+     * @param throwable  the throwable to inspect, may be null
+     * @param type  the type to search, subclasses match, null returns null
+     * @param fromIndex  the (zero-based) index of the starting position,
+     *  negative treated as zero, larger than chain size returns null
+     * @param subclass if <code>true</code>, compares with {@link Class#isAssignableFrom(Class)}, otherwise compares
+     * using references
+     * @return throwable of the <code>type</code> within throwables nested within the specified <code>throwable</code>
+     */
+    private static <T extends Throwable> T throwableOf(final Throwable throwable, final Class<T> type, int fromIndex, final boolean subclass) {
+        if (throwable == null || type == null) {
+            return null;
+        }
+        if (fromIndex < 0) {
+            fromIndex = 0;
+        }
+        final Throwable[] throwables = getThrowables(throwable);
+        if (fromIndex >= throwables.length) {
+            return null;
+        }
+        if (subclass) {
+            for (int i = fromIndex; i < throwables.length; i++) {
+                if (type.isAssignableFrom(throwables[i].getClass())) {
+                    return type.cast(throwables[i]);
+                }
+            }
+        } else {
+            for (int i = fromIndex; i < throwables.length; i++) {
+                if (type.equals(throwables[i].getClass())) {
+                    return type.cast(throwables[i]);
+                }
+            }
+        }
+        return null;
     }
 
     //-----------------------------------------------------------------------
