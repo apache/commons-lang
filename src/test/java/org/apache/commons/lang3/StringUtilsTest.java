@@ -2688,7 +2688,7 @@ public class StringUtilsTest {
         // StringUtils.removeIgnoreCase("queued", "zZ") = "queued"
         assertEquals("queued", StringUtils.removeIgnoreCase("queued", "zZ"));
 
-        // StringUtils.removeIgnoreCase("İa", "a") = "?"
+        // StringUtils.removeIgnoreCase("İa", "a") = "İ"
         assertEquals("İ", StringUtils.removeIgnoreCase("İa", "a"));
     }
 
