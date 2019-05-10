@@ -40,9 +40,6 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
  */
 public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, R>>, Serializable {
 
-    /** Serialization version */
-    private static final long serialVersionUID = 4954918890077093841L;
-
     private static final class PairAdapter<L, R> extends Pair<L, R> {
 
         private static final long serialVersionUID = 1L;
@@ -63,6 +60,9 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
         }
 
     }
+
+    /** Serialization version */
+    private static final long serialVersionUID = 4954918890077093841L;
 
     /**
      * An empty array.
@@ -106,51 +106,6 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
 
     //-----------------------------------------------------------------------
     /**
-     * <p>Gets the left element from this pair.</p>
-     *
-     * <p>When treated as a key-value pair, this is the key.</p>
-     *
-     * @return the left element, may be null
-     */
-    public abstract L getLeft();
-
-    /**
-     * <p>Gets the right element from this pair.</p>
-     *
-     * <p>When treated as a key-value pair, this is the value.</p>
-     *
-     * @return the right element, may be null
-     */
-    public abstract R getRight();
-
-    /**
-     * <p>Gets the key from this pair.</p>
-     *
-     * <p>This method implements the {@code Map.Entry} interface returning the
-     * left element as the key.</p>
-     *
-     * @return the left element as the key, may be null
-     */
-    @Override
-    public final L getKey() {
-        return getLeft();
-    }
-
-    /**
-     * <p>Gets the value from this pair.</p>
-     *
-     * <p>This method implements the {@code Map.Entry} interface returning the
-     * right element as the value.</p>
-     *
-     * @return the right element as the value, may be null
-     */
-    @Override
-    public R getValue() {
-        return getRight();
-    }
-
-    //-----------------------------------------------------------------------
-    /**
      * <p>Compares the pair based on the left element followed by the right element.
      * The types must be {@code Comparable}.</p>
      *
@@ -180,6 +135,51 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
                     && Objects.equals(getValue(), other.getValue());
         }
         return false;
+    }
+
+    /**
+     * <p>Gets the key from this pair.</p>
+     *
+     * <p>This method implements the {@code Map.Entry} interface returning the
+     * left element as the key.</p>
+     *
+     * @return the left element as the key, may be null
+     */
+    @Override
+    public final L getKey() {
+        return getLeft();
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Gets the left element from this pair.</p>
+     *
+     * <p>When treated as a key-value pair, this is the key.</p>
+     *
+     * @return the left element, may be null
+     */
+    public abstract L getLeft();
+
+    /**
+     * <p>Gets the right element from this pair.</p>
+     *
+     * <p>When treated as a key-value pair, this is the value.</p>
+     *
+     * @return the right element, may be null
+     */
+    public abstract R getRight();
+
+    /**
+     * <p>Gets the value from this pair.</p>
+     *
+     * <p>This method implements the {@code Map.Entry} interface returning the
+     * right element as the value.</p>
+     *
+     * @return the right element as the value, may be null
+     */
+    @Override
+    public R getValue() {
+        return getRight();
     }
 
     /**

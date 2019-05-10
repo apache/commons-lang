@@ -45,6 +45,16 @@ public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
     public static final ImmutableTriple<?, ?, ?>[] EMPTY_ARRAY = new ImmutableTriple[0];
 
     /**
+     * An immutable triple of nulls.
+     */
+    // This is not defined with generics to avoid warnings in call sites.
+    @SuppressWarnings("rawtypes")
+    private static final ImmutableTriple NULL = of(null, null, null);
+
+    /** Serialization version */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * Returns the empty array singleton that can be assigned without compiler warning.
      *
      * @param <L> the left element type
@@ -60,16 +70,6 @@ public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
     }
 
     /**
-     * An immutable triple of nulls.
-     */
-    // This is not defined with generics to avoid warnings in call sites.
-    @SuppressWarnings("rawtypes")
-    private static final ImmutableTriple NULL = of(null, null, null);
-
-    /** Serialization version */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Returns an immutable triple of nulls.
      *
      * @param <L> the left element of this triple. Value is {@code null}.
@@ -81,13 +81,6 @@ public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
     public static <L, M, R> ImmutableTriple<L, M, R> nullTriple() {
         return NULL;
     }
-
-    /** Left object */
-    public final L left;
-    /** Middle object */
-    public final M middle;
-    /** Right object */
-    public final R right;
 
     /**
      * <p>Obtains an immutable triple of three objects inferring the generic types.</p>
@@ -106,6 +99,13 @@ public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
     public static <L, M, R> ImmutableTriple<L, M, R> of(final L left, final M middle, final R right) {
         return new ImmutableTriple<>(left, middle, right);
     }
+    /** Left object */
+    public final L left;
+    /** Middle object */
+    public final M middle;
+
+    /** Right object */
+    public final R right;
 
     /**
      * Create a new triple instance.

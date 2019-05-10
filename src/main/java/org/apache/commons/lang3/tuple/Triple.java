@@ -39,9 +39,6 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
  */
 public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Serializable {
 
-    /** Serialization version */
-    private static final long serialVersionUID = 1L;
-
     private static final class TripleAdapter<L, M, R> extends Triple<L, M, R> {
 
         private static final long serialVersionUID = 1L;
@@ -62,6 +59,9 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
         }
 
     }
+
+    /** Serialization version */
+    private static final long serialVersionUID = 1L;
 
     /**
      * An empty array.
@@ -108,28 +108,6 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
 
     //-----------------------------------------------------------------------
     /**
-     * <p>Gets the left element from this triple.</p>
-     *
-     * @return the left element, may be null
-     */
-    public abstract L getLeft();
-
-    /**
-     * <p>Gets the middle element from this triple.</p>
-     *
-     * @return the middle element, may be null
-     */
-    public abstract M getMiddle();
-
-    /**
-     * <p>Gets the right element from this triple.</p>
-     *
-     * @return the right element, may be null
-     */
-    public abstract R getRight();
-
-    //-----------------------------------------------------------------------
-    /**
      * <p>Compares the triple based on the left element, followed by the middle element,
      * finally the right element.
      * The types must be {@code Comparable}.</p>
@@ -163,6 +141,28 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
         }
         return false;
     }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Gets the left element from this triple.</p>
+     *
+     * @return the left element, may be null
+     */
+    public abstract L getLeft();
+
+    /**
+     * <p>Gets the middle element from this triple.</p>
+     *
+     * @return the middle element, may be null
+     */
+    public abstract M getMiddle();
+
+    /**
+     * <p>Gets the right element from this triple.</p>
+     *
+     * @return the right element, may be null
+     */
+    public abstract R getRight();
 
     /**
      * <p>Returns a suitable hash code.</p>

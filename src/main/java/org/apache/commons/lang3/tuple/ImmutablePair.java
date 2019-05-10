@@ -44,6 +44,16 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
     public static final ImmutablePair<?, ?>[] EMPTY_ARRAY = new ImmutablePair[0];
 
     /**
+     * An immutable pair of nulls.
+     */
+    // This is not defined with generics to avoid warnings in call sites.
+    @SuppressWarnings("rawtypes")
+    private static final ImmutablePair NULL = of(null, null);
+
+    /** Serialization version */
+    private static final long serialVersionUID = 4954918890077093841L;
+
+    /**
      * Returns the empty array singleton that can be assigned without compiler warning.
      *
      * @param <L> the left element type
@@ -58,16 +68,6 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
-     * An immutable pair of nulls.
-     */
-    // This is not defined with generics to avoid warnings in call sites.
-    @SuppressWarnings("rawtypes")
-    private static final ImmutablePair NULL = of(null, null);
-
-    /** Serialization version */
-    private static final long serialVersionUID = 4954918890077093841L;
-
-    /**
      * Returns an immutable pair of nulls.
      *
      * @param <L> the left element of this pair. Value is {@code null}.
@@ -78,11 +78,6 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
     public static <L, R> ImmutablePair<L, R> nullPair() {
         return NULL;
     }
-
-    /** Left object */
-    public final L left;
-    /** Right object */
-    public final R right;
 
     /**
      * <p>Obtains an immutable pair of two objects inferring the generic types.</p>
@@ -99,6 +94,11 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
     public static <L, R> ImmutablePair<L, R> of(final L left, final R right) {
         return new ImmutablePair<>(left, right);
     }
+    /** Left object */
+    public final L left;
+
+    /** Right object */
+    public final R right;
 
     /**
      * Create a new pair instance.
