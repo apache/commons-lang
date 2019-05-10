@@ -47,6 +47,9 @@ public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Returns the empty array singleton that can be assigned without compiler warning.
      *
+     * @param <L> the left element type
+     * @param <M> the middle element type
+     * @param <R> the right element type
      * @return the empty array singleton that can be assigned without compiler warning.
      *
      * @since 3.10.

@@ -41,6 +41,8 @@ public class MutablePair<L, R> extends Pair<L, R> {
     /**
      * Returns the empty array singleton that can be assigned without compiler warning.
      *
+     * @param <L> the left element type
+     * @param <R> the right element type
      * @return the empty array singleton that can be assigned without compiler warning.
      *
      * @since 3.10.
