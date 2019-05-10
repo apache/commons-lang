@@ -28,6 +28,28 @@ package org.apache.commons.lang3.tuple;
  */
 public class MutablePair<L, R> extends Pair<L, R> {
 
+    /**
+     * An empty array.
+     * <p>
+     * Consider using {@link #emptyArray()} to avoid generics warnings.
+     * </p>
+     *
+     * @since 3.10.
+     */
+    public static final MutablePair<?, ?>[] EMPTY_ARRAY = new MutablePair[0];
+
+    /**
+     * Returns the empty array singleton that can be assigned without compiler warning.
+     * 
+     * @return the empty array singleton that can be assigned without compiler warning.
+     *
+     * @since 3.10.
+     */
+    @SuppressWarnings("unchecked")
+    public static final <L, R> MutablePair<L, R>[] emptyArray() {
+        return (MutablePair<L, R>[]) EMPTY_ARRAY;
+    }
+
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
 

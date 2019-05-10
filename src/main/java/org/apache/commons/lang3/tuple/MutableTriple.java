@@ -29,6 +29,28 @@ package org.apache.commons.lang3.tuple;
  */
 public class MutableTriple<L, M, R> extends Triple<L, M, R> {
 
+    /**
+     * The empty array singleton.
+     * <p>
+     * Consider using {@link #emptyArray()} to avoid generics warnings.
+     * </p>
+     *
+     * @since 3.10.
+     */
+    public static final MutableTriple<?, ?, ?>[] EMPTY_ARRAY = new MutableTriple[0];
+    
+    /**
+     * Returns the empty array singleton that can be assigned without compiler warning.
+     * 
+     * @return the empty array singleton that can be assigned without compiler warning.
+     *
+     * @since 3.10.
+     */
+    @SuppressWarnings("unchecked")
+    public static final <L, M, R> MutableTriple<L, M, R>[] emptyArray() {
+        return (MutableTriple<L, M, R>[]) EMPTY_ARRAY;
+    }
+
     /** Serialization version */
     private static final long serialVersionUID = 1L;
 

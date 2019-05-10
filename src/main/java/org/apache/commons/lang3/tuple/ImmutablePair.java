@@ -34,6 +34,28 @@ package org.apache.commons.lang3.tuple;
 public final class ImmutablePair<L, R> extends Pair<L, R> {
 
     /**
+     * An empty array.
+     * <p>
+     * Consider using {@link #emptyArray()} to avoid generics warnings.
+     * </p>
+     *
+     * @since 3.10.
+     */
+    public static final ImmutablePair<?, ?>[] EMPTY_ARRAY = new ImmutablePair[0];
+
+    /**
+     * Returns the empty array singleton that can be assigned without compiler warning.
+     * 
+     * @return the empty array singleton that can be assigned without compiler warning.
+     *
+     * @since 3.10.
+     */
+    @SuppressWarnings("unchecked")
+    public static final <L, R> ImmutablePair<L, R>[] emptyArray() {
+        return (ImmutablePair<L, R>[]) EMPTY_ARRAY;
+    }
+
+    /**
      * An immutable pair of nulls.
      */
     // This is not defined with generics to avoid warnings in call sites.

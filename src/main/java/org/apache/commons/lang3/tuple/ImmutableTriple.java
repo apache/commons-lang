@@ -35,6 +35,28 @@ package org.apache.commons.lang3.tuple;
 public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
 
     /**
+     * An empty array.
+     * <p>
+     * Consider using {@link #emptyArray()} to avoid generics warnings.
+     * </p>
+     *
+     * @since 3.10.
+     */
+    public static final ImmutableTriple<?, ?, ?>[] EMPTY_ARRAY = new ImmutableTriple[0];
+
+    /**
+     * Returns the empty array singleton that can be assigned without compiler warning.
+     * 
+     * @return the empty array singleton that can be assigned without compiler warning.
+     *
+     * @since 3.10.
+     */
+    @SuppressWarnings("unchecked")
+    public static final <L, M, R> ImmutableTriple<L, M, R>[] emptyArray() {
+        return (ImmutableTriple<L, M, R>[]) EMPTY_ARRAY;
+    }
+
+    /**
      * An immutable triple of nulls.
      */
     // This is not defined with generics to avoid warnings in call sites.

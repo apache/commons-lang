@@ -40,6 +40,19 @@ import org.junit.jupiter.api.Test;
 public class ImmutablePairTest {
 
     @Test
+    public void testEmptyArrayLength() {
+        @SuppressWarnings("unchecked")
+        final ImmutablePair<Integer, String>[] empty = (ImmutablePair<Integer, String>[]) ImmutablePair.EMPTY_ARRAY;
+        assertEquals(0, empty.length);
+    }
+    
+    @Test
+    public void testEmptyArrayGenerics() {
+        final ImmutablePair<Integer, String>[] empty = ImmutablePair.emptyArray();
+        assertEquals(0, empty.length);
+    }
+    
+    @Test
     public void testBasic() {
         final ImmutablePair<Integer, String> pair = new ImmutablePair<>(0, "foo");
         assertEquals(0, pair.left.intValue());
