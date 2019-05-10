@@ -45,13 +45,13 @@ public class ImmutableTripleTest {
         final ImmutableTriple<Integer, String, Boolean>[] empty = (ImmutableTriple<Integer, String, Boolean>[]) ImmutableTriple.EMPTY_ARRAY;
         assertEquals(0, empty.length);
     }
-    
+
     @Test
     public void testEmptyArrayGenerics() {
         final ImmutableTriple<Integer, String, Boolean>[] empty = ImmutableTriple.emptyArray();
         assertEquals(0, empty.length);
     }
-    
+
     @Test
     public void testBasic() {
         final ImmutableTriple<Integer, String, Boolean> triple = new ImmutableTriple<>(0, "foo", Boolean.TRUE);

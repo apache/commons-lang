@@ -38,13 +38,13 @@ public class MutablePairTest {
         final MutablePair<Integer, String>[] empty = (MutablePair<Integer, String>[]) MutablePair.EMPTY_ARRAY;
         assertEquals(0, empty.length);
     }
-    
+
     @Test
     public void testEmptyArrayGenerics() {
         final MutablePair<Integer, String>[] empty = MutablePair.emptyArray();
         assertEquals(0, empty.length);
     }
-        
+
     @Test
     public void testBasic() {
         final MutablePair<Integer, String> pair = new MutablePair<>(0, "foo");

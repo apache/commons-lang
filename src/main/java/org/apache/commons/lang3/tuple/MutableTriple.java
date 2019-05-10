@@ -38,10 +38,10 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
      * @since 3.10.
      */
     public static final MutableTriple<?, ?, ?>[] EMPTY_ARRAY = new MutableTriple[0];
-    
+
     /**
      * Returns the empty array singleton that can be assigned without compiler warning.
-     * 
+     *
      * @return the empty array singleton that can be assigned without compiler warning.
      *
      * @since 3.10.

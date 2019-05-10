@@ -38,13 +38,13 @@ public class MutableTripleTest {
         final MutableTriple<Integer, String, Boolean>[] empty = (MutableTriple<Integer, String, Boolean>[]) MutableTriple.EMPTY_ARRAY;
         assertEquals(0, empty.length);
     }
-    
+
     @Test
     public void testEmptyArrayGenerics() {
         final MutableTriple<Integer, String, Boolean>[] empty = MutableTriple.emptyArray();
         assertEquals(0, empty.length);
     }
-    
+
     @Test
     public void testBasic() {
         final MutableTriple<Integer, String, Boolean> triple = new MutableTriple<>(0, "foo", Boolean.FALSE);
