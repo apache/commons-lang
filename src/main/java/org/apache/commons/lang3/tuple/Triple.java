@@ -42,6 +42,52 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     /** Serialization version */
     private static final long serialVersionUID = 1L;
 
+    private static final class TripleAdapter<L, M, R> extends Triple<L, M, R> {
+
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public L getLeft() {
+            return null;
+        }
+
+        @Override
+        public M getMiddle() {
+            return null;
+        }
+
+        @Override
+        public R getRight() {
+            return null;
+        }
+
+    }
+
+    /**
+     * An empty array.
+     * <p>
+     * Consider using {@link #emptyArray()} to avoid generics warnings.
+     * </p>
+     *
+     * @since 3.10.
+     */
+    public static final Triple<?, ?, ?>[] EMPTY_ARRAY = new TripleAdapter[0];
+
+    /**
+     * Returns the empty array singleton that can be assigned without compiler warning.
+     *
+     * @param <L> the left element type
+     * @param <M> the middle element type
+     * @param <R> the right element type
+     * @return the empty array singleton that can be assigned without compiler warning.
+     *
+     * @since 3.10.
+     */
+    @SuppressWarnings("unchecked")
+    public static <L, M, R> Triple<L, M, R>[] emptyArray() {
+        return (Triple<L, M, R>[]) EMPTY_ARRAY;
+    }
+
     /**
      * <p>Obtains an immutable triple of three objects inferring the generic types.</p>
      *

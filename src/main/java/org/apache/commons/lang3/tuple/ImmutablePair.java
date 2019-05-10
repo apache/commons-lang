@@ -53,7 +53,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      * @since 3.10.
      */
     @SuppressWarnings("unchecked")
-    public static final <L, R> ImmutablePair<L, R>[] emptyArray() {
+    public static <L, R> ImmutablePair<L, R>[] emptyArray() {
         return (ImmutablePair<L, R>[]) EMPTY_ARRAY;
     }
 

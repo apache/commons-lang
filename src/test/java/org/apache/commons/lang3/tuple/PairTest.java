@@ -34,6 +34,19 @@ import org.junit.jupiter.api.Test;
 public class PairTest {
 
     @Test
+    public void testEmptyArrayLength() {
+        @SuppressWarnings("unchecked")
+        final Pair<Integer, String>[] empty = (Pair<Integer, String>[]) Pair.EMPTY_ARRAY;
+        assertEquals(0, empty.length);
+    }
+
+    @Test
+    public void testEmptyArrayGenerics() {
+        final Pair<Integer, String>[] empty = Pair.emptyArray();
+        assertEquals(0, empty.length);
+    }
+
+    @Test
     public void testComparable1() {
         final Pair<String, String> pair1 = Pair.of("A", "D");
         final Pair<String, String> pair2 = Pair.of("B", "C");

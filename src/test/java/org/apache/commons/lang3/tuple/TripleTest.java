@@ -31,6 +31,19 @@ import org.junit.jupiter.api.Test;
 public class TripleTest {
 
     @Test
+    public void testEmptyArrayLength() {
+        @SuppressWarnings("unchecked")
+        final Triple<Integer, String, Boolean>[] empty = (Triple<Integer, String, Boolean>[]) Triple.EMPTY_ARRAY;
+        assertEquals(0, empty.length);
+    }
+
+    @Test
+    public void testEmptyArrayGenerics() {
+        final Triple<Integer, String, Boolean>[] empty = Triple.emptyArray();
+        assertEquals(0, empty.length);
+    }
+
+    @Test
     public void testComparable1() {
         final Triple<String, String, String> triple1 = Triple.of("A", "D", "A");
         final Triple<String, String, String> triple2 = Triple.of("B", "C", "A");
