@@ -1643,17 +1643,17 @@ public class StringUtils {
         for (int i = startPos; i < endLimit; i++) {
             int j = 0;
             while (j < searchStr.length()) {
-                Character c1 = str.charAt(i + j);
-                Character c2 = searchStr.charAt(j);
-                if (c1 == c2) {
-                    j++;
-                    continue;
-                }
-                //Some alphabets like Turkish have special case conversion rules
-                //(one character converted to a specific case could result in more than one character).
-                String s1 = c1.toString();
-                String s2 = c2.toString();
-                if (s1.toLowerCase().equals(s2.toLowerCase()) ||
+                // Character.toLower/UpperCase is not Locale sensitive
+                // String.toLower/UpperCase is Locale sensitive
+                String s1 = ((Character) str.charAt(i + j)).toString();
+                String s2 = ((Character) searchStr.charAt(j)).toString();
+                // From String.regionMatches:
+                // Unfortunately, conversion to uppercase does not work properly
+                // for the Georgian alphabet, which has strange rules about case
+                // conversion. So we need to make one last check before
+                // exiting.
+                if ( s1.equals(s2) ||
+                        s1.toLowerCase().equals(s2.toLowerCase()) ||
                         s1.toUpperCase().equals(s2.toUpperCase())) {
                     j++;
                     continue;
