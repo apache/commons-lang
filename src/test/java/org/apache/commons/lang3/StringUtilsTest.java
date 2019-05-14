@@ -2687,6 +2687,9 @@ public class StringUtilsTest {
 
         // StringUtils.removeIgnoreCase("queued", "zZ") = "queued"
         assertEquals("queued", StringUtils.removeIgnoreCase("queued", "zZ"));
+
+        // StringUtils.removeIgnoreCase("\u0130x", "x") = "\u0130"
+        assertEquals("\u0130", StringUtils.removeIgnoreCase("\u0130x", "x"));
     }
 
     @Test
