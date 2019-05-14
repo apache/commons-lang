@@ -1184,6 +1184,10 @@ public class StringUtilsTest {
         assertEquals("", StringUtils.replace("foofoofoo", "foo", ""));
         assertEquals("barbarbar", StringUtils.replace("foofoofoo", "foo", "bar"));
         assertEquals("farfarfar", StringUtils.replace("foofoofoo", "oo", "ar"));
+
+        assertEquals("qoO0oO0", StringUtils.replace("queue", "ue", "oO0"));
+        assertEquals("qoO0oO0d", StringUtils.replace("queued", "ue", "oO0"));
+        assertEquals("qUeoO0d", StringUtils.replace("qUeued", "ue", "oO0"));
     }
 
     @Test
@@ -2687,6 +2691,29 @@ public class StringUtilsTest {
 
         // StringUtils.removeIgnoreCase("queued", "zZ") = "queued"
         assertEquals("queued", StringUtils.removeIgnoreCase("queued", "zZ"));
+
+        //Some alphabets like Turkish have special case conversion rules
+        //(one character converted to a specific case could result in more than one character).
+        assertEquals("\u0130", StringUtils.removeIgnoreCase("\u0130a", "a"));
+        assertEquals("a", StringUtils.removeIgnoreCase("\u0130a", "\u0130"));
+        assertEquals("\u0587", StringUtils.removeIgnoreCase("\u0587a", "a"));
+        assertEquals("a", StringUtils.removeIgnoreCase("\u0587a", "\u0587"));
+        assertEquals("\u0587\u0130", StringUtils.removeIgnoreCase("\u0587\u0130a", "a"));
+
+        Locale defaultLocale = Locale.getDefault();
+        Locale.setDefault(new Locale("tr"));
+        assertEquals("I\u0131", StringUtils.removeIgnoreCase("\u0130iI\u0131", "i"));
+        assertEquals("\u0130i", StringUtils.removeIgnoreCase("\u0130iI\u0131", "I"));
+        assertEquals("I\u0131", StringUtils.removeIgnoreCase("\u0130iI\u0131", "\u0130"));
+        assertEquals("\u0130i", StringUtils.removeIgnoreCase("\u0130iI\u0131", "\u0131"));
+        Locale.setDefault(Locale.ROOT);
+        assertEquals("\u0130", StringUtils.removeIgnoreCase("\u0130iI\u0131", "i"));
+        assertEquals("\u0130", StringUtils.removeIgnoreCase("\u0130iI\u0131", "I"));
+        assertEquals("iI\u0131", StringUtils.removeIgnoreCase("\u0130iI\u0131", "\u0130"));
+        assertEquals("\u0130", StringUtils.removeIgnoreCase("\u0130iI\u0131", "\u0131"));
+        Locale.setDefault(defaultLocale);
+
+        assertEquals("\u03B1\u03B2", StringUtils.removeIgnoreCase("\u03B1\u03B2\u03B3\u03B4", "\u03B3\u0394"));
     }
 
     @Test
