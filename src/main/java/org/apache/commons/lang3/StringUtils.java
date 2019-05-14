@@ -1471,6 +1471,11 @@ public class StringUtils {
         return CharSequenceUtils.indexOf(seq, searchSeq, startPos);
     }
 
+    private static int indexOf(String str, String searchStr, int fromIndex, boolean ignoreCase) {
+        return ignoreCase ? indexOfIgnoreCase(str, searchStr, fromIndex)
+                : indexOf(str, searchStr, fromIndex);
+    }
+
     /**
      * <p>Finds the n-th index within a CharSequence, handling {@code null}.
      * This method uses {@link String#indexOf(String)} if possible.</p>
@@ -1643,15 +1648,11 @@ public class StringUtils {
         for (int i = startPos; i < endLimit; i++) {
             int j = 0;
             while (j < searchStr.length()) {
-                // Character.toLower/UpperCase is not Locale sensitive
-                // String.toLower/UpperCase is Locale sensitive
+                // Character.toLower/UpperCase isn't Locale sensitive
+                // while String.toLower/UpperCase is.
                 String s1 = ((Character) str.charAt(i + j)).toString();
                 String s2 = ((Character) searchStr.charAt(j)).toString();
-                // From String.regionMatches:
-                // Unfortunately, conversion to uppercase does not work properly
-                // for the Georgian alphabet, which has strange rules about case
-                // conversion. So we need to make one last check before
-                // exiting.
+                // The same check as in String.regionMatches():
                 if ( s1.equals(s2) ||
                         s1.toLowerCase().equals(s2.toLowerCase()) ||
                         s1.toUpperCase().equals(s2.toUpperCase())) {
@@ -5642,11 +5643,6 @@ public class StringUtils {
          }
          buf.append(text, start, text.length());
          return buf.toString();
-     }
-
-     private static int indexOf(String str, String searchStr, int fromIndex, boolean ignoreCase) {
-         return ignoreCase ? indexOfIgnoreCase(str, searchStr, fromIndex)
-                           : indexOf(str, searchStr, fromIndex);
      }
 
     /**
