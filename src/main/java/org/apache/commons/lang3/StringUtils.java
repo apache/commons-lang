@@ -3133,6 +3133,37 @@ public class StringUtils {
         return list.toArray(new String [list.size()]);
     }
 
+    /**
+     * <p>Replaces the given String, with the String which is nested in between two Strings.</p>
+     *
+     * <p>A {@code null} input String returns {@code null}.
+     * A {@code null} open/close returns an input String (no match).</p>
+     *
+     * @param str  the String containing the substring, may be null
+     * @param replace the Sting to be replaced, which is nested in between open and close substrings, may be null
+     * @param open  the String before the substring, may be null
+     * @param close  the String after the substring, may be null
+     * @return the replaced String, if no match return the same input String
+     */
+    public static String replaceSubstringInBetween(final String str, final String replace, final String open, final String close) {
+        if (str == null) {
+            return null;
+        }
+        if (open == null || close == null || replace == null) {
+            return str;
+        }
+        final int start = str.indexOf(open);
+        if (start != INDEX_NOT_FOUND) {
+            String preceding = str.substring(0, start);
+            final int end = str.indexOf(close, start + open.length());
+            if (end != INDEX_NOT_FOUND) {
+                String exceeding = str.substring(end + close.length(), str.length());
+                //String middleString = str.substring(start + open.length(), end);
+                return preceding + open + replace + close + exceeding;
+            }
+        }
+        return str;
+    }
     // Nested extraction
     //-----------------------------------------------------------------------
 
