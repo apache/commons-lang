@@ -16,9 +16,6 @@
  */
 package org.apache.commons.lang3.text;
 
-import org.checkerframework.checker.nullness.qual.*;
-
-
 import static java.util.FormattableFlags.LEFT_JUSTIFY;
 
 import java.util.Formattable;
