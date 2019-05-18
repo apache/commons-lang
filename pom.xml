@@ -937,7 +937,7 @@
       </annotationProcessorPaths>
       <annotationProcessors>
         <!-- Add all the checkers you want to enable here -->
-        <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
+        <annotationProcessor>org.checkerframework.checker.index.IndexChecker</annotationProcessor>
       </annotationProcessors>
       <compilerArgs>
         <!-- location of the annotated JDK, which comes from a Maven dependency -->
@@ -1055,7 +1055,7 @@
             <source>${java.version}</source>
             <target>${java.version}</target>
             <annotationProcessors>
-              <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
+              <annotationProcessor>org.checkerframework.checker.index.IndexChecker</annotationProcessor>
             </annotationProcessors>
             <compilerArgs>
               <arg>-Xbootclasspath/p:${org.checkerframework:jdk8:jar}</arg>

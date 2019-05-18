@@ -1,0 +1,15 @@
+Main Files:
+
+Text - 270 errors (approximately) - 24 files
+Builder - 3 errors - 21 files
+Exception - 1 error - 7 files
+Math - 30 errors - 4 files
+Reflect - 27 errors - 9 files
+Time - 51 errors - 14 files
+
+Base package - ArrayUtils(128) + CharSequenceUtils(11) + CharSet.java(6) + CharSetUtils.java(1) + CharUtils.java (4) + ClassUtils.java(15) + Conversion.java (61) + EnumUtils.java (2) + LocaleUtils.java (6) + ObjectUtils.java (5) + RandomStringUtils.java (3) + RandomUtils.java (2) +
+StringEscapeUtils.java (4) + StringUtils.java (104) + ThreadUtils.java(4) = 356 errors
+
+Test Files:
+
+

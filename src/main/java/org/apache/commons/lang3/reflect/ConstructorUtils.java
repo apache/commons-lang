@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.reflect;
 
+import org.checkerframework.checker.nullness.qual.*;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
@@ -196,7 +198,7 @@ public class ConstructorUtils {
      * @see #getAccessibleConstructor(java.lang.reflect.Constructor)
      * @throws NullPointerException if {@code cls} is {@code null}
      */
-    public static <T> Constructor<T> getAccessibleConstructor(final Class<T> cls,
+    @Nullable public static <T> Constructor<T> getAccessibleConstructor(final Class<T> cls,
             final Class<?>... parameterTypes) {
         Validate.notNull(cls, "class cannot be null");
         try {
@@ -217,7 +219,7 @@ public class ConstructorUtils {
      * @see java.lang.SecurityManager
      * @throws NullPointerException if {@code ctor} is {@code null}
      */
-    public static <T> Constructor<T> getAccessibleConstructor(final Constructor<T> ctor) {
+    @Nullable public static <T> Constructor<T> getAccessibleConstructor(final Constructor<T> ctor) {
         Validate.notNull(ctor, "constructor cannot be null");
         return MemberUtils.isAccessible(ctor)
                 && isAccessible(ctor.getDeclaringClass()) ? ctor : null;
@@ -241,7 +243,7 @@ public class ConstructorUtils {
      * @return the constructor, null if no matching accessible constructor found
      * @throws NullPointerException if {@code cls} is {@code null}
      */
-    public static <T> Constructor<T> getMatchingAccessibleConstructor(final Class<T> cls,
+    @Nullable public static <T> Constructor<T> getMatchingAccessibleConstructor(final Class<T> cls,
             final Class<?>... parameterTypes) {
         Validate.notNull(cls, "class cannot be null");
         // see if we can find the constructor directly
