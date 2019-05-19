@@ -31,6 +31,9 @@ import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
+import org.checkerframework.checker.index.qual.*;
+import org.checkerframework.common.value.qual.*;
+
 /**
  * <p>Provides utilities for manipulating and examining
  * <code>Throwable</code> objects.</p>
@@ -508,24 +511,30 @@ public class ExceptionUtils {
      * @return an array of stack trace frames, never null
      * @since 2.0
      */
+    @SuppressWarnings({"index","assignment.type.incompatible"}) /*
+        final Throwable @MinLen(1) [] throwables = getThrowables(throwable); // throwable != null => @MinLen(1)
+        nextTrace = getStackFrameList(throwables[i - 1]); // i != -1 => i - 1 is a valid index for throwables
+        frames.add(throwables[i].toString()); // i is a valid index for throwables
+        frames.add(WRAPPED_MARKER + throwables[i].toString()); // i is a valid index for throwables
+    */
     public static String[] getRootCauseStackTrace(final Throwable throwable) {
         if (throwable == null) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
-        final Throwable throwables[] = getThrowables(throwable);
-        final int count = throwables.length;
+        final Throwable @MinLen(1) [] throwables = getThrowables(throwable); // throwable != null => @MinLen(1)
+        final @Positive int count = throwables.length;
         final List<String> frames = new ArrayList<>();
         List<String> nextTrace = getStackFrameList(throwables[count - 1]);
-        for (int i = count; --i >= 0;) {
+        for (@GTENegativeOne int i = count; --i >= 0;) {
             final List<String> trace = nextTrace;
             if (i != 0) {
-                nextTrace = getStackFrameList(throwables[i - 1]);
+                nextTrace = getStackFrameList(throwables[i - 1]); // i != -1 => i - 1 is a valid index for throwables
                 removeCommonFrames(trace, nextTrace);
             }
             if (i == count - 1) {
-                frames.add(throwables[i].toString());
+                frames.add(throwables[i].toString()); // i is a valid index for throwables
             } else {
-                frames.add(WRAPPED_MARKER + throwables[i].toString());
+                frames.add(WRAPPED_MARKER + throwables[i].toString()); // i is a valid index for throwables
             }
             frames.addAll(trace);
         }

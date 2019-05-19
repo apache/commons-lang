@@ -27,6 +27,8 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import org.checkerframework.checker.index.qual.*;
+
 /**
  * <p>Controls <code>String</code> formatting for {@link ToStringBuilder}.
  * The main public interface is always via <code>ToStringBuilder</code>.</p>
@@ -386,7 +388,7 @@ public abstract class ToStringStyle implements Serializable {
      */
     public void appendToString(final StringBuffer buffer, final String toString) {
         if (toString != null) {
-            final int pos1 = toString.indexOf(contentStart) + contentStart.length();
+            @SuppressWarnings("assignment.type.incompatible") final @LTEqLengthOf("toString") int pos1 = toString.indexOf(contentStart) + contentStart.length(); // maximum value of toString.indexOf(String str) + str.length() can be toString.length()
             final int pos2 = toString.lastIndexOf(contentEnd);
             if (pos1 != pos2 && pos1 >= 0 && pos2 >= 0) {
                 if (fieldSeparatorAtStart) {
@@ -436,13 +438,16 @@ public abstract class ToStringStyle implements Serializable {
      * @param buffer  the <code>StringBuffer</code> to populate
      * @since 2.0
      */
+    @SuppressWarnings("index") /* for (@LTEqLengthOf({"len","sepLen"}) int i = 0; i < sepLen; i++) { // i < sepLen.length() and len >= sepLen => i < len.length()
+    if (buffer.charAt(len - 1 - i) != fieldSeparator.charAt(sepLen - 1 - i)) { // len - 1 - i and seplen - 1 - i is NonNegative within the loop
+    */
     protected void removeLastFieldSeparator(final StringBuffer buffer) {
         final int len = buffer.length();
         final int sepLen = fieldSeparator.length();
         if (len > 0 && sepLen > 0 && len >= sepLen) {
             boolean match = true;
-            for (int i = 0; i < sepLen; i++) {
-                if (buffer.charAt(len - 1 - i) != fieldSeparator.charAt(sepLen - 1 - i)) {
+            for (@NonNegative @LTEqLengthOf({"len","sepLen"}) int i = 0; i < sepLen; i++) { // i < sepLen.length() and len >= sepLen => i < len.length()
+                if (buffer.charAt(len - 1 - i) != fieldSeparator.charAt(sepLen - 1 - i)) { // len - 1 - i and seplen - 1 - i is NonNegative within the loop
                     match = false;
                     break;
                 }

@@ -38,6 +38,9 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.Builder;
 
+import org.checkerframework.checker.index.qual.*;
+import org.checkerframework.common.value.qual.*;
+
 /**
  * <p> Utility methods focusing on type inspection, particularly with regard to
  * generics. </p>
@@ -871,7 +874,7 @@ public class TypeUtils {
         // get the subject parameterized type's arguments
         final Type[] typeArgs = parameterizedType.getActualTypeArguments();
         // and get the corresponding type variables from the raw class
-        final TypeVariable<?>[] typeParams = cls.getTypeParameters();
+        @SuppressWarnings("assignment.type.incompatible") final TypeVariable<?> @SameLen("typeArgs") [] typeParams = cls.getTypeParameters(); // each typeArgs' corresponging type variables, hence of same length as typeArgs[]
 
         // map the arguments to their respective type variables
         for (int i = 0; i < typeParams.length; i++) {
@@ -1000,6 +1003,11 @@ public class TypeUtils {
      * @param parameterizedType the parameterized type
      * @param typeVarAssigns the map to be filled
      */
+    @SuppressWarnings({"assignment.type.incompatible","compound.assignment.type.incompatible", "array.access.unsafe.high"}) /*
+    final TypeVariable<?> @SameLen("typeArgs") [] typeVars = getRawType(parameterizedType).getTypeParameters(); // getRawType(parameterizedType).getTypeParameters() has same length as parameterizedType.getActualTypeArguments()
+    for (@IndexOrHigh({"typeVars","typeArgs"}) int i = 0; i < typeArgs.length; i++) { // typeVars has the same length as typeArgs, hence i is @IndexOrHigh("typeVars")
+    final TypeVariable<?> typeVar = typeVars[i]; // i is a valid index for typeVars inside the loop
+    */
     private static <T> void mapTypeVariablesToArguments(final Class<T> cls,
             final ParameterizedType parameterizedType, final Map<TypeVariable<?>, Type> typeVarAssigns) {
         // capture the type variables from the owner type that have assignments
@@ -1018,14 +1026,14 @@ public class TypeUtils {
 
         // of the cls's type variables that are arguments of parameterizedType,
         // find out which ones can be determined from the super type's arguments
-        final TypeVariable<?>[] typeVars = getRawType(parameterizedType).getTypeParameters();
+        final TypeVariable<?> @SameLen("typeArgs") [] typeVars = getRawType(parameterizedType).getTypeParameters(); // getRawType(parameterizedType).getTypeParameters() has same length as parameterizedType.getActualTypeArguments()
 
         // use List view of type parameters of cls so the contains() method can be used:
         final List<TypeVariable<Class<T>>> typeVarList = Arrays.asList(cls
                 .getTypeParameters());
 
-        for (int i = 0; i < typeArgs.length; i++) {
-            final TypeVariable<?> typeVar = typeVars[i];
+        for (@IndexOrHigh({"typeVars","typeArgs"}) int i = 0; i < typeArgs.length; i++) { // typeVars has the same length as typeArgs, hence i is @IndexOrHigh("typeVars")
+            final TypeVariable<?> typeVar = typeVars[i]; // i is a valid index for typeVars inside the loop
             final Type typeArg = typeArgs[i];
 
             // argument of parameterizedType is a type variable of cls
@@ -1427,6 +1435,7 @@ public class TypeUtils {
      * @return boolean
      * @since 3.2
      */
+    @SuppressWarnings("array.access.unsafe.high.constant") // getImplicitLowerBounds returns an array with minimum length 1
     public static boolean containsTypeVariables(final Type type) {
         if (type instanceof TypeVariable<?>) {
             return true;
@@ -1531,12 +1540,15 @@ public class TypeUtils {
      * @param variables expected map keys
      * @return array of map values corresponding to specified keys
      */
+    @SuppressWarnings({"array.access.unsafe.high","compound.assignment.type.incompatible"})/*
+    result[index++] = mappings.get(var); // result.length = variables.length, hence result[index++] is valid, also, index++ is a valid assignment for @IndexOrHigh("result") 
+    */
     private static Type[] extractTypeArgumentsFrom(final Map<TypeVariable<?>, Type> mappings, final TypeVariable<?>[] variables) {
-        final Type[] result = new Type[variables.length];
-        int index = 0;
+        final Type @SameLen("variables") [] result = new Type[variables.length];
+        @IndexOrHigh("result") int index = 0;
         for (final TypeVariable<?> var : variables) {
             Validate.isTrue(mappings.containsKey(var), "missing argument mapping for %s", toString(var));
-            result[index++] = mappings.get(var);
+            result[index++] = mappings.get(var); // result.length = variables.length, hence result[index++] is valid, also, index++ is a valid assignment for @IndexOrHigh("result")
         }
         return result;
     }
@@ -1800,7 +1812,7 @@ public class TypeUtils {
             buf.append('.').append(raw.getSimpleName());
         }
 
-        final int[] recursiveTypeIndexes = findRecursiveTypes(p);
+        final int @LTEqLengthOf("p.getActualTypeArguments()") [] recursiveTypeIndexes = findRecursiveTypes(p);
 
         if (recursiveTypeIndexes.length > 0) {
             appendRecursiveTypes(buf, recursiveTypeIndexes, p.getActualTypeArguments());
@@ -1811,9 +1823,14 @@ public class TypeUtils {
         return buf.toString();
     }
 
-    private static void appendRecursiveTypes(final StringBuilder buf, final int[] recursiveTypeIndexes, final Type[] argumentTypes) {
-        for (int i = 0; i < recursiveTypeIndexes.length; i++) {
-            appendAllTo(buf.append('<'), ", ", argumentTypes[i].toString()).append('>');
+    @SuppressWarnings({"compound.assignment.type.incompatible","array.access.unsafe.high","assignment.type.incompatible"})/*
+    for (@IndexOrHigh("argumentTypes") int i = 0; i < recursiveTypeIndexes.length; i++) // i <= argumentTypes.length
+    appendAllTo(buf.append('<'), ", ", argumentTypes[i].toString()).append('>'); // i is a valid index of argumentTypes
+    indexesToRemove = ArrayUtils.add(indexesToRemove, i); // ArrayUtils.add(indexesToRemove, i) at the end of the loop returns an array with maximum possible length of p.getActualTypeArguments().length 
+    */
+    private static void appendRecursiveTypes(final StringBuilder buf, final int @LTEqLengthOf("#3") [] recursiveTypeIndexes, final Type[] argumentTypes) {
+        for (@IndexOrHigh("argumentTypes") int i = 0; i < recursiveTypeIndexes.length; i++) { // i <= argumentTypes.length
+            appendAllTo(buf.append('<'), ", ", argumentTypes[i].toString()).append('>'); // i is a valid index of argumentTypes 
         }
 
         final Type[] argumentsFiltered = ArrayUtils.removeAll(argumentTypes, recursiveTypeIndexes);
@@ -1823,13 +1840,16 @@ public class TypeUtils {
         }
     }
 
-    private static int[] findRecursiveTypes(final ParameterizedType p) {
+    @SuppressWarnings("assignment.type.incompatible")/*
+    indexesToRemove = ArrayUtils.add(indexesToRemove, i); // ArrayUtils.add(indexesToRemove, i) at the end of the loop returns an array with maximum possible length of p.getActualTypeArguments().length 
+    */
+    private static int @LTEqLengthOf("#1.getActualTypeArguments()") [] findRecursiveTypes(final ParameterizedType p) {
         final Type[] filteredArgumentTypes = Arrays.copyOf(p.getActualTypeArguments(), p.getActualTypeArguments().length);
-        int[] indexesToRemove = {};
+        int @LTEqLengthOf("p.getActualTypeArguments()") [] indexesToRemove = {};
         for (int i = 0; i < filteredArgumentTypes.length; i++) {
             if (filteredArgumentTypes[i] instanceof TypeVariable<?>) {
                 if (containsVariableTypeSameParametrizedTypeBound(((TypeVariable<?>) filteredArgumentTypes[i]), p)) {
-                    indexesToRemove = ArrayUtils.add(indexesToRemove, i);
+                    indexesToRemove = ArrayUtils.add(indexesToRemove, i); // ArrayUtils.add(indexesToRemove, i) at the end of the loop returns an array with maximum possible length of p.getActualTypeArguments().length 
                 }
             }
         }

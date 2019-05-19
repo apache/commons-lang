@@ -37,6 +37,9 @@ import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.ClassUtils.Interfaces;
 import org.apache.commons.lang3.Validate;
 
+import org.checkerframework.checker.index.qual.*;
+import org.checkerframework.common.value.qual.*;
+
 /**
  * <p>Utility reflection methods focused on {@link Method}s, originally from Commons BeanUtils.
  * Differences from the BeanUtils version may be noted, especially where similar functionality
@@ -443,9 +446,10 @@ public class MethodUtils {
         return method.invoke(null, args);
     }
 
+    @SuppressWarnings({"assignment.type.incompatible","argument.type.incompatible"}) // isVarArgs() => args and methodParameterTypes have at lease 1 element
     private static Object[] toVarArgs(final Method method, Object[] args) {
         if (method.isVarArgs()) {
-            final Class<?>[] methodParameterTypes = method.getParameterTypes();
+            final Class<?> @MinLen(1) [] methodParameterTypes = method.getParameterTypes();
             args = getVarArgs(args, methodParameterTypes);
         }
         return args;
@@ -461,7 +465,10 @@ public class MethodUtils {
      * @return an array of the variadic arguments passed to the method
      * @since 3.5
      */
-    static Object[] getVarArgs(final Object[] args, final Class<?>[] methodParameterTypes) {
+    @SuppressWarnings({"assignment.type.incompatible","argument.type.incompatible"}) /* final @LTLengthOf(value={"args"}, offset={"methodParameterTypes.length - 1"}) @Positive int varArgLength = args.length - methodParameterTypes.length + 1; // args.length > methodParameterTypes.length
+
+    */
+    static Object[] getVarArgs(final Object @MinLen(1) [] args, final Class<?> @LTEqLengthOf("#1") @MinLen(1) [] methodParameterTypes) {
         if (args.length == methodParameterTypes.length
                 && args[args.length - 1].getClass().equals(methodParameterTypes[methodParameterTypes.length - 1])) {
             // The args array is already in the canonical form for the method.
@@ -476,11 +483,11 @@ public class MethodUtils {
 
         // Construct a new array for the variadic parameters
         final Class<?> varArgComponentType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
-        final int varArgLength = args.length - methodParameterTypes.length + 1;
+        final @LTLengthOf(value={"args"}, offset={"methodParameterTypes.length - 1"}) @Positive int varArgLength = args.length - methodParameterTypes.length + 1; // args.length > methodParameterTypes.length
 
         Object varArgsArray = Array.newInstance(ClassUtils.primitiveToWrapper(varArgComponentType), varArgLength);
         // Copy the variadic arguments into the varargs array.
-        System.arraycopy(args, methodParameterTypes.length - 1, varArgsArray, 0, varArgLength);
+        System.arraycopy(args, methodParameterTypes.length - 1, varArgsArray, 0, varArgLength); // varArgLength -> no. of componenets to be copied, varArgLength <= args.length and varArgsArray.length, hence valid argument
 
         if (varArgComponentType.isPrimitive()) {
             // unbox from wrapper type to primitive type
@@ -700,7 +707,7 @@ public class MethodUtils {
         }
 
         if (bestMatch != null && bestMatch.isVarArgs() && bestMatch.getParameterTypes().length > 0 && parameterTypes.length > 0) {
-            final Class<?>[] methodParameterTypes = bestMatch.getParameterTypes();
+            @SuppressWarnings("assignment.type.incompatible") final Class<?> @MinLen(1) [] methodParameterTypes = bestMatch.getParameterTypes(); // bestMatch.getParameterTypes().length > 0 => methodParameterTypes has a minimum length of 1
             final Class<?> methodParameterComponentType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
             final String methodParameterComponentTypeName = ClassUtils.primitiveToWrapper(methodParameterComponentType).getName();
             final String parameterTypeName = parameterTypes[parameterTypes.length - 1].getName();
@@ -763,18 +770,21 @@ public class MethodUtils {
      * @param toClassArray
      * @return the aggregate number of inheritance hops between assignable argument class types.
      */
+    @SuppressWarnings({"compound.assignment.type.incompatible","array.access.unsafe.high"}) /* for (@IndexOrHigh({"classArray","toClassArray"}) int offset = 0; offset < classArray.length; offset++) { // ClassUtils.isAssignable() => offset -> @IndexOrHigh("toClassArray") && classArray and toClassArray have at least one element
+    offset is a valid index of toClassArray inside the loop for (@IndexOrHigh({"classArray","toClassArray"}) int offset = 0; offset < classArray.length; offset++)
+    */
     private static int distance(final Class<?>[] classArray, final Class<?>[] toClassArray) {
         int answer = 0;
 
         if (!ClassUtils.isAssignable(classArray, toClassArray, true)) {
             return -1;
         }
-        for (int offset = 0; offset < classArray.length; offset++) {
+        for (@IndexOrHigh({"classArray","toClassArray"}) int offset = 0; offset < classArray.length; offset++) { // ClassUtils.isAssignable() => offset -> @IndexOrHigh("toClassArray")
             // Note InheritanceUtils.distance() uses different scoring system.
-            if (classArray[offset].equals(toClassArray[offset])) {
+            if (classArray[offset].equals(toClassArray[offset])) { // offset is a valid index inside the loop
                 continue;
-            } else if (ClassUtils.isAssignable(classArray[offset], toClassArray[offset], true)
-                    && !ClassUtils.isAssignable(classArray[offset], toClassArray[offset], false)) {
+            } else if (ClassUtils.isAssignable(classArray[offset], toClassArray[offset], true) // offset is a valid index inside the loop
+                    && !ClassUtils.isAssignable(classArray[offset], toClassArray[offset], false)) { // offset is a valid index inside the loop
                 answer++;
             } else {
                 answer = answer + 2;
@@ -792,6 +802,9 @@ public class MethodUtils {
      * @throws NullPointerException if the specified method is {@code null}
      * @since 3.2
      */
+    @SuppressWarnings({"compound.assignment.type.incompatible", "array.access.unsafe.high"}) /* for (@IndexOrHigh({"method.getGenericParameterTypes()","m.getGenericParameterTypes()"}) int i = 0; i < parameterTypes.length; i++) { //  method.getGenericParameterTypes().length =  m.getGenericParameterTypes().length = parameterTypes.length
+    i is a valid index of method.getGenericParameterTypes() and m.getGenericParameterTypes() inside the loop  for (@IndexOrHigh({"method.getGenericParameterTypes()","m.getGenericParameterTypes()"}) int i = 0; i < parameterTypes.length; i++) 
+    */
     public static Set<Method> getOverrideHierarchy(final Method method, final Interfaces interfacesBehavior) {
         Validate.notNull(method);
         final Set<Method> result = new LinkedHashSet<>();
@@ -817,9 +830,9 @@ public class MethodUtils {
             }
             // necessary to get arguments every time in the case that we are including interfaces
             final Map<TypeVariable<?>, Type> typeArguments = TypeUtils.getTypeArguments(declaringClass, m.getDeclaringClass());
-            for (int i = 0; i < parameterTypes.length; i++) {
-                final Type childType = TypeUtils.unrollVariables(typeArguments, method.getGenericParameterTypes()[i]);
-                final Type parentType = TypeUtils.unrollVariables(typeArguments, m.getGenericParameterTypes()[i]);
+            for (@IndexOrHigh({"method.getGenericParameterTypes()","m.getGenericParameterTypes()"}) int i = 0; i < parameterTypes.length; i++) { //  method.getGenericParameterTypes().length =  m.getGenericParameterTypes().length = parameterTypes.length
+                final Type childType = TypeUtils.unrollVariables(typeArguments, method.getGenericParameterTypes()[i]); // i is a valid index for method.getGenericParameterTypes() inside the loop
+                final Type parentType = TypeUtils.unrollVariables(typeArguments, m.getGenericParameterTypes()[i]); // i is a valid index for m.getGenericParameterTypes() inside the loop
                 if (!TypeUtils.equals(childType, parentType)) {
                     continue hierarchyTraversal;
                 }
