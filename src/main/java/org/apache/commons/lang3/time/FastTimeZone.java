@@ -84,8 +84,9 @@ public class FastTimeZone {
         return group != null ? Integer.parseInt(group) : 0;
     }
 
+    @SuppressWarnings("argument.type.incompatible")
     private static boolean parseSign(final String group) {
-        return group != null && group.charAt(0) == '-';
+        return group != null && group.charAt(0) == '-'; // if group == null, group.charAt(0) is not evaluated
     }
 
     // do not instantiate
