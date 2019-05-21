@@ -39,6 +39,7 @@ public class StopWatchTest {
         try {
             Thread.sleep(550);
         } catch (final InterruptedException ex) {
+            // ignore
         }
         watch.stop();
         final long time = watch.getTime();
@@ -67,6 +68,7 @@ public class StopWatchTest {
         try {
             Thread.sleep(500);
         } catch (final InterruptedException ex) {
+            // ignore
         }
         assertTrue(watch.getTime() < 2000);
     }
@@ -93,6 +95,7 @@ public class StopWatchTest {
         try {
             Thread.sleep(550);
         } catch (final InterruptedException ex) {
+            // ignore
         }
         watch.split();
         final long splitTime = watch.getSplitTime();
@@ -100,11 +103,13 @@ public class StopWatchTest {
         try {
             Thread.sleep(550);
         } catch (final InterruptedException ex) {
+            // ignore
         }
         watch.unsplit();
         try {
             Thread.sleep(550);
         } catch (final InterruptedException ex) {
+            // ignore
         }
         watch.stop();
         final long totalTime = watch.getTime();
@@ -123,17 +128,20 @@ public class StopWatchTest {
         try {
             Thread.sleep(550);
         } catch (final InterruptedException ex) {
+            // ignore
         }
         watch.suspend();
         final long suspendTime = watch.getTime();
         try {
             Thread.sleep(550);
         } catch (final InterruptedException ex) {
+            // ignore
         }
         watch.resume();
         try {
             Thread.sleep(550);
         } catch (final InterruptedException ex) {
+            // ignore
         }
         watch.stop();
         final long totalTime = watch.getTime();
@@ -151,12 +159,14 @@ public class StopWatchTest {
         try {
             Thread.sleep(200);
         } catch (final InterruptedException ex) {
+            // ignore
         }
         watch.suspend();
         final long suspendTime = watch.getTime();
         try {
             Thread.sleep(200);
         } catch (final InterruptedException ex) {
+            // ignore
         }
         watch.stop();
         final long totalTime = watch.getTime();
