@@ -166,8 +166,7 @@ public class StopWatchTest {
 
     @Test
     public void testLang315() {
-        final StopWatch watch = new StopWatch();
-        watch.start();
+        final StopWatch watch = StopWatch.createStarted();
         try {
             Thread.sleep(200);
         } catch (final InterruptedException ex) {
@@ -203,8 +202,7 @@ public class StopWatchTest {
     //-----------------------------------------------------------------------
     @Test
     public void testStopWatchSimple() {
-        final StopWatch watch = new StopWatch();
-        watch.start();
+        final StopWatch watch = StopWatch.createStarted();
         try {
             Thread.sleep(550);
         } catch (final InterruptedException ex) {
@@ -238,8 +236,7 @@ public class StopWatchTest {
 
     @Test
     public void testStopWatchSplit() {
-        final StopWatch watch = new StopWatch();
-        watch.start();
+        final StopWatch watch = StopWatch.createStarted();
         try {
             Thread.sleep(550);
         } catch (final InterruptedException ex) {
@@ -277,8 +274,7 @@ public class StopWatchTest {
 
     @Test
     public void testStopWatchSuspend() {
-        final StopWatch watch = new StopWatch();
-        watch.start();
+        final StopWatch watch = StopWatch.createStarted();
         try {
             Thread.sleep(550);
         } catch (final InterruptedException ex) {
@@ -304,5 +300,18 @@ public class StopWatchTest {
         assertTrue(suspendTime < 700);
         assertTrue(totalTime >= 1000);
         assertTrue(totalTime < 1300);
+    }
+
+    @Test
+    public void testToSplitString() {
+        final StopWatch watch = StopWatch.createStarted();
+        try {
+            Thread.sleep(550);
+        } catch (final InterruptedException ex) {
+            // ignore
+        }
+        watch.split();
+        final String splitStr = watch.toSplitString();
+        assertEquals(splitStr.length(), 12, "Formatted split string not the correct length");
     }
 }
