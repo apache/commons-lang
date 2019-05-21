@@ -24,6 +24,8 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.Validate;
 
+import org.checkerframework.common.value.qual.*;
+
 /**
  * <p> Utility reflection methods focused on constructors, modeled after
  * {@link MethodUtils}. </p>
@@ -104,6 +106,7 @@ public class ConstructorUtils {
      * @throws InstantiationException if an error occurs on instantiation
      * @see Constructor#newInstance
      */
+    @SuppressWarnings({"argument.type.incompatible","assignment.type.incompatible"}) // args = MethodUtils.getVarArgs(args, methodParameterTypes); // isVarArgs => args has at least one element
     public static <T> T invokeConstructor(final Class<T> cls, Object[] args, Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
             InstantiationException {
@@ -115,8 +118,8 @@ public class ConstructorUtils {
                 "No such accessible constructor on object: " + cls.getName());
         }
         if (ctor.isVarArgs()) {
-            final Class<?>[] methodParameterTypes = ctor.getParameterTypes();
-            args = MethodUtils.getVarArgs(args, methodParameterTypes);
+            final Class<?> @MinLen(1) [] methodParameterTypes = ctor.getParameterTypes(); // isVarArgs() => @MinLen(1)
+            args = MethodUtils.getVarArgs(args, methodParameterTypes); // isVarArgs => args has at least one element
         }
         return ctor.newInstance(args);
     }

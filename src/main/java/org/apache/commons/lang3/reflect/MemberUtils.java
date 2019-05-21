@@ -24,6 +24,8 @@ import java.lang.reflect.Modifier;
 
 import org.apache.commons.lang3.ClassUtils;
 
+import org.checkerframework.checker.index.qual.*;
+
 /**
  * Contains common code for working with {@link java.lang.reflect.Method Methods}/{@link java.lang.reflect.Constructor Constructors},
  * extracted and refactored from {@link MethodUtils} when it was imported from Commons BeanUtils.
@@ -162,20 +164,20 @@ abstract class MemberUtils {
             // When isVarArgs is true, srcArgs and dstArgs may differ in length.
             // There are two special cases to consider:
             final boolean noVarArgsPassed = srcArgs.length < destArgs.length;
-            final boolean explicitArrayForVarags = srcArgs.length == destArgs.length && srcArgs[srcArgs.length-1].isArray();
+            @SuppressWarnings("array.access.unsafe.low") final boolean explicitArrayForVarags = srcArgs.length == destArgs.length && srcArgs[srcArgs.length-1].isArray(); // isVarArgs => srcArgs.length != 0
 
             final float varArgsCost = 0.001f;
-            final Class<?> destClass = destArgs[destArgs.length-1].getComponentType();
+            @SuppressWarnings("array.access.unsafe.low") final Class<?> destClass = destArgs[destArgs.length-1].getComponentType(); // isVarArgs => destArgs.length != 0
             if (noVarArgsPassed) {
                 // When no varargs passed, the best match is the most generic matching type, not the most specific.
                 totalCost += getObjectTransformationCost(destClass, Object.class) + varArgsCost;
             } else if (explicitArrayForVarags) {
-                final Class<?> sourceClass = srcArgs[srcArgs.length-1].getComponentType();
+                @SuppressWarnings("array.access.unsafe.low") final Class<?> sourceClass = srcArgs[srcArgs.length-1].getComponentType(); // isVarArgs => srcArgs.length != 0
                 totalCost += getObjectTransformationCost(sourceClass, destClass) + varArgsCost;
             } else {
                 // This is typical varargs case.
                 for (int i = destArgs.length-1; i < srcArgs.length; i++) {
-                    final Class<?> srcClass = srcArgs[i];
+                    @SuppressWarnings("array.access.unsafe.low") final Class<?> srcClass = srcArgs[i]; // i < srcArgs.length
                     totalCost += getObjectTransformationCost(srcClass, destClass) + varArgsCost;
                 }
             }
@@ -260,13 +262,13 @@ abstract class MemberUtils {
         }
 
         if (method.isVarArgs()) {
-            int i;
+            @IndexOrHigh("parameterTypes") int i;
             for (i = 0; i < methodParameterTypes.length - 1 && i < parameterTypes.length; i++) {
                 if (!ClassUtils.isAssignable(parameterTypes[i], methodParameterTypes[i], true)) {
                     return false;
                 }
             }
-            final Class<?> varArgParameterType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
+            @SuppressWarnings("array.access.unsafe.low") final Class<?> varArgParameterType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType(); // method.isVarArgs() => methodParameterTypes.length != 0
             for (; i < parameterTypes.length; i++) {
                 if (!ClassUtils.isAssignable(parameterTypes[i], varArgParameterType, true)) {
                     return false;
