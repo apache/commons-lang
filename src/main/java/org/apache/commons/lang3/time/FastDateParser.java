@@ -39,8 +39,10 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.index.qual.*;
-import org.checkerframework.common.value.qual.*;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.IndexFor;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.common.value.qual.MinLen;
 
 /**
  * <p>FastDateParser is a fast and thread-safe version of

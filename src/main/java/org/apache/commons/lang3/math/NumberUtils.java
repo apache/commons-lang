@@ -24,6 +24,10 @@ import java.math.RoundingMode;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.IndexFor;
+import org.checkerframework.common.value.qual.MinLen;
+
 /**
  * <p>Provides extra functionality for Java Number classes.</p>
  *
@@ -647,6 +651,11 @@ public class NumberUtils {
      * @return Number created from the string (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
+    @SuppressWarnings("argument.type.incompatible")/*
+    final char lastChar = str.charAt(str.length() - 1); // !StringUtils.isBlank(str) => str.length != 0
+    exp = str.substring(expPos + 1, str.length() - 1); // !StringUtils.isBlank(str) => str.length != 0
+    final String numeric = str.substring(0, str.length() - 1); // !StringUtils.isBlank(str) => str.length != 0
+    */
     public static Number createNumber(final String str) {
         if (str == null) {
             return null;
@@ -682,7 +691,7 @@ public class NumberUtils {
             }
             return createInteger(str);
         }
-        final char lastChar = str.charAt(str.length() - 1);
+        final char lastChar = str.charAt(str.length() - 1); // !StringUtils.isBlank(str) => str.length != 0
         String mant;
         String dec;
         String exp;
@@ -694,7 +703,7 @@ public class NumberUtils {
         if (decPos > -1) { // there is a decimal point
             if (expPos > -1) { // there is an exponent
                 if (expPos < decPos || expPos > str.length()) { // prevents double exponent causing IOOBE
-                    throw new NumberFormatException(str + " is not a valid number.");
+                      throw new NumberFormatException(str + " is not a valid number.");
                 }
                 dec = str.substring(decPos + 1, expPos);
             } else {
@@ -714,12 +723,12 @@ public class NumberUtils {
         }
         if (!Character.isDigit(lastChar) && lastChar != '.') {
             if (expPos > -1 && expPos < str.length() - 1) {
-                exp = str.substring(expPos + 1, str.length() - 1);
+                exp = str.substring(expPos + 1, str.length() - 1); // !StringUtils.isBlank(str) => str.length != 0
             } else {
                 exp = null;
             }
             //Requesting a specific type..
-            final String numeric = str.substring(0, str.length() - 1);
+            final String numeric = str.substring(0, str.length() - 1); // !StringUtils.isBlank(str) => str.length != 0
             final boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
             switch (lastChar) {
                 case 'l' :
@@ -824,7 +833,7 @@ public class NumberUtils {
      * @param str the string representation of the number
      * @return mantissa of the given number
      */
-    private static String getMantissa(final String str) {
+    private static String getMantissa(final @MinLen(1) String str) {
         return getMantissa(str, str.length());
     }
 
@@ -837,7 +846,7 @@ public class NumberUtils {
      * @param stopPos the position of the exponent or decimal point
      * @return mantissa of the given number
      */
-    private static String getMantissa(final String str, final int stopPos) {
+    private static String getMantissa(final @MinLen(1) String str, final @IndexOrHigh("#1") int stopPos) {
         final char firstChar = str.charAt(0);
         final boolean hasSign = firstChar == '-' || firstChar == '+';
 
@@ -933,7 +942,6 @@ public class NumberUtils {
         }
         return Long.decode(str);
     }
-
     /**
      * <p>Convert a <code>String</code> to a <code>BigInteger</code>;
      * since 3.2 it handles hex (0x or #) and octal (0) notations.</p>
@@ -944,11 +952,14 @@ public class NumberUtils {
      * @return converted <code>BigInteger</code> (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
+    @SuppressWarnings("compound.assignment.type.incompatible")/*
+    
+    */
     public static BigInteger createBigInteger(final String str) {
         if (str == null) {
             return null;
         }
-        int pos = 0; // offset within string
+        @IndexOrHigh("str") int pos = 0; // offset within string
         int radix = 10;
         boolean negate = false; // need to negate later?
         if (str.startsWith("-")) {
@@ -957,10 +968,10 @@ public class NumberUtils {
         }
         if (str.startsWith("0x", pos) || str.startsWith("0X", pos)) { // hex
             radix = 16;
-            pos += 2;
+            pos += 2; // str.startsWith("0x")=> @MinLen(2)
         } else if (str.startsWith("#", pos)) { // alternative hex (allowed by Long/Integer)
             radix = 16;
-            pos++;
+            pos++; // str.startsWith("#") => @MinLen(1)
         } else if (str.startsWith("0", pos) && str.length() > pos + 1) { // octal; so long as there are additional digits
             radix = 8;
             pos++;
@@ -1013,7 +1024,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns min
-        long min = array[0];
+        @SuppressWarnings("array.access.unsafe.high.constant") long min = array[0]; // validateArray(array) => array.length != 0
         for (int i = 1; i < array.length; i++) {
             if (array[i] < min) {
                 min = array[i];
@@ -1037,7 +1048,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns min
-        int min = array[0];
+        @SuppressWarnings("array.access.unsafe.high.constant") int min = array[0]; // validateArray(array) => array.length != 0
         for (int j = 1; j < array.length; j++) {
             if (array[j] < min) {
                 min = array[j];
@@ -1061,7 +1072,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns min
-        short min = array[0];
+        @SuppressWarnings("array.access.unsafe.high.constant") short min = array[0]; // validateArray(array) => array.length != 0
         for (int i = 1; i < array.length; i++) {
             if (array[i] < min) {
                 min = array[i];
@@ -1085,7 +1096,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns min
-        byte min = array[0];
+        @SuppressWarnings("array.access.unsafe.high.constant") byte min = array[0]; // validateArray(array) => array.length != 0
         for (int i = 1; i < array.length; i++) {
             if (array[i] < min) {
                 min = array[i];
@@ -1110,7 +1121,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns min
-        double min = array[0];
+        @SuppressWarnings("array.access.unsafe.high.constant") double min = array[0]; // validateArray(array) => array.length != 0
         for (int i = 1; i < array.length; i++) {
             if (Double.isNaN(array[i])) {
                 return Double.NaN;
@@ -1138,7 +1149,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns min
-        float min = array[0];
+        @SuppressWarnings("array.access.unsafe.high.constant") float min = array[0]; // validateArray(array) => array.length != 0
         for (int i = 1; i < array.length; i++) {
             if (Float.isNaN(array[i])) {
                 return Float.NaN;
@@ -1167,7 +1178,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns max
-        long max = array[0];
+        @SuppressWarnings("array.access.unsafe.high.constant") long max = array[0]; // validateArray(array) => array.length != 0
         for (int j = 1; j < array.length; j++) {
             if (array[j] > max) {
                 max = array[j];
@@ -1191,7 +1202,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns max
-        int max = array[0];
+        @SuppressWarnings("array.access.unsafe.high.constant") int max = array[0]; // validateArray(array) => array.length != 0
         for (int j = 1; j < array.length; j++) {
             if (array[j] > max) {
                 max = array[j];
@@ -1215,7 +1226,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns max
-        short max = array[0];
+        @SuppressWarnings("array.access.unsafe.high.constant") short max = array[0]; // validateArray(array) => array.length != 0
         for (int i = 1; i < array.length; i++) {
             if (array[i] > max) {
                 max = array[i];
@@ -1239,7 +1250,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns max
-        byte max = array[0];
+        @SuppressWarnings("array.access.unsafe.high.constant") byte max = array[0]; // validateArray(array) => array.length != 0
         for (int i = 1; i < array.length; i++) {
             if (array[i] > max) {
                 max = array[i];
@@ -1264,7 +1275,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns max
-        double max = array[0];
+        @SuppressWarnings("array.access.unsafe.high.constant") double max = array[0]; // validateArray(array) => array.length != 0
         for (int j = 1; j < array.length; j++) {
             if (Double.isNaN(array[j])) {
                 return Double.NaN;
@@ -1292,7 +1303,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns max
-        float max = array[0];
+        @SuppressWarnings("array.access.unsafe.high.constant") float max = array[0]; // validateArray(array) => array.length != 0
         for (int j = 1; j < array.length; j++) {
             if (Float.isNaN(array[j])) {
                 return Float.NaN;
@@ -1599,7 +1610,7 @@ public class NumberUtils {
         if (StringUtils.isEmpty(str)) {
             return false;
         }
-        final char[] chars = str.toCharArray();
+        @SuppressWarnings("assignment.type.incompatible") final char @MinLen(1) [] chars = str.toCharArray(); // !StringUtils.isEmpty(str) => str.toCharArray has at least 1 element
         int sz = chars.length;
         boolean hasExp = false;
         boolean hasDecPoint = false;
@@ -1725,14 +1736,18 @@ public class NumberUtils {
      * @return {@code true} if the string is a parsable number.
      * @since 3.4
      */
+    @SuppressWarnings("argument.type.incompatible")/*
+    if (str.charAt(str.length() - 1) == '.') { // !StringUtils.isEmpty(str) => str.length() != 0 
+    if (str.charAt(0) == '-') { // !StringUtils.isEmpty(str) => str.length() != 0 
+    */
     public static boolean isParsable(final String str) {
         if (StringUtils.isEmpty(str)) {
             return false;
         }
-        if (str.charAt(str.length() - 1) == '.') {
+        if (str.charAt(str.length() - 1) == '.') { // !StringUtils.isEmpty(str) => str.length() != 0 
             return false;
         }
-        if (str.charAt(0) == '-') {
+        if (str.charAt(0) == '-') { // !StringUtils.isEmpty(str) => str.length() != 0 
             if (str.length() == 1) {
                 return false;
             }
@@ -1741,9 +1756,9 @@ public class NumberUtils {
         return withDecimalsParsing(str, 0);
     }
 
-    private static boolean withDecimalsParsing(final String str, final int beginIdx) {
+    private static boolean withDecimalsParsing(final String str, final @IndexFor("#1") int beginIdx) {
         int decimalPoints = 0;
-        for (int i = beginIdx; i < str.length(); i++) {
+        for (@IndexOrHigh("str") int i = beginIdx; i < str.length(); i++) {
             final boolean isDecimalPoint = str.charAt(i) == '.';
             if (isDecimalPoint) {
                 decimalPoints++;

@@ -38,8 +38,9 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.Builder;
 
-import org.checkerframework.checker.index.qual.*;
-import org.checkerframework.common.value.qual.*;
+import org.checkerframework.checker.index.qual.LTEqLengthOf;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.SameLen;
 
 /**
  * <p> Utility methods focusing on type inspection, particularly with regard to

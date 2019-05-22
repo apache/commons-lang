@@ -24,7 +24,7 @@ import java.lang.reflect.Modifier;
 
 import org.apache.commons.lang3.ClassUtils;
 
-import org.checkerframework.checker.index.qual.*;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
 
 /**
  * Contains common code for working with {@link java.lang.reflect.Method Methods}/{@link java.lang.reflect.Constructor Constructors},

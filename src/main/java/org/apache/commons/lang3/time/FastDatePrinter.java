@@ -33,8 +33,12 @@ import java.util.concurrent.ConcurrentMap;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
-import org.checkerframework.checker.index.qual.*;
-import org.checkerframework.common.value.qual.*;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.LTEqLengthOf;
+import org.checkerframework.checker.index.qual.LTLengthOf;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.GTENegativeOne;
+import org.checkerframework.common.value.qual.MinLen;
 
 /**
  * <p>FastDatePrinter is a fast and thread-safe version of

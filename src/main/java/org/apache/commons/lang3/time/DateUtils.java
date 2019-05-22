@@ -28,8 +28,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.Validate;
 
-import org.checkerframework.checker.index.qual.*;
-import org.checkerframework.common.value.qual.*;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.common.value.qual.MinLen;
 
 /**
  * <p>A suite of utilities surrounding the use of the
