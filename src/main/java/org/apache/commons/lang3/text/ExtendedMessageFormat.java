@@ -487,12 +487,11 @@ public class ExtendedMessageFormat extends MessageFormat {
         final char[] c = pattern.toCharArray();
         final int lastHold = start;
         for (int i = pos.getIndex(); i < pattern.length(); i++) {
-            switch (c[pos.getIndex()]) {
-            case QUOTE:
+            if (c[pos.getIndex()] == QUOTE) {
                 next(pos);
                 return appendTo == null ? null : appendTo.append(c, lastHold,
                         pos.getIndex() - lastHold);
-            default:
+            } else {
                 next(pos);
             }
         }

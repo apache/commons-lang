@@ -1,0 +1,39 @@
+import org.checkerframework.common.value.qual.MinLen;
+package java.util.regex;
+
+class Matcher implements MatchResult {
+    Pattern pattern();
+    MatchResult toMatchResult();
+    Matcher usePattern(Pattern arg0);
+    Matcher reset();
+    Matcher reset(CharSequence arg0);
+    int start();
+    int start(int arg0);
+    int start(String arg0);
+    int end();
+    int end(int arg0);
+    int end(String arg0);
+    String group();
+    @MinLen(1) String group(int arg0);
+    String group(String arg0);
+    int groupCount();
+    boolean matches();
+    boolean find();
+    boolean find(int arg0);
+    boolean lookingAt();
+    static String quoteReplacement(String arg0);
+    Matcher appendReplacement(StringBuffer arg0, String arg1);
+    StringBuffer appendTail(StringBuffer arg0);
+    String replaceAll(String arg0);
+    String replaceFirst(String arg0);
+    Matcher region(int arg0, int arg1);
+    int regionStart();
+    int regionEnd();
+    boolean hasTransparentBounds();
+    Matcher useTransparentBounds(boolean arg0);
+    boolean hasAnchoringBounds();
+    Matcher useAnchoringBounds(boolean arg0);
+    String toString();
+    boolean hitEnd();
+    boolean requireEnd();
+}

@@ -652,9 +652,9 @@ public class NumberUtils {
      * @throws NumberFormatException if the value cannot be converted
      */
     @SuppressWarnings("argument.type.incompatible")/*
-    final char lastChar = str.charAt(str.length() - 1); // !StringUtils.isBlank(str) => str.length != 0
-    exp = str.substring(expPos + 1, str.length() - 1); // !StringUtils.isBlank(str) => str.length != 0
-    final String numeric = str.substring(0, str.length() - 1); // !StringUtils.isBlank(str) => str.length != 0
+    #1 - !StringUtils.isBlank(str) => str.length != 0
+    #2 - !StringUtils.isBlank(str) => str.length != 0
+    #3 - !StringUtils.isBlank(str) => str.length != 0
     */
     public static Number createNumber(final String str) {
         if (str == null) {
@@ -691,7 +691,7 @@ public class NumberUtils {
             }
             return createInteger(str);
         }
-        final char lastChar = str.charAt(str.length() - 1); // !StringUtils.isBlank(str) => str.length != 0
+        final char lastChar = str.charAt(str.length() - 1); // #1
         String mant;
         String dec;
         String exp;
@@ -723,12 +723,12 @@ public class NumberUtils {
         }
         if (!Character.isDigit(lastChar) && lastChar != '.') {
             if (expPos > -1 && expPos < str.length() - 1) {
-                exp = str.substring(expPos + 1, str.length() - 1); // !StringUtils.isBlank(str) => str.length != 0
+                exp = str.substring(expPos + 1, str.length() - 1); // #2
             } else {
                 exp = null;
             }
             //Requesting a specific type..
-            final String numeric = str.substring(0, str.length() - 1); // !StringUtils.isBlank(str) => str.length != 0
+            final String numeric = str.substring(0, str.length() - 1); // #3
             final boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
             switch (lastChar) {
                 case 'l' :
@@ -953,7 +953,8 @@ public class NumberUtils {
      * @throws NumberFormatException if the value cannot be converted
      */
     @SuppressWarnings("compound.assignment.type.incompatible")/*
-    
+    #4 - str.startsWith("0x")=> @MinLen(2)
+    #5 - str.startsWith("#") => @MinLen(1)
     */
     public static BigInteger createBigInteger(final String str) {
         if (str == null) {
@@ -968,10 +969,10 @@ public class NumberUtils {
         }
         if (str.startsWith("0x", pos) || str.startsWith("0X", pos)) { // hex
             radix = 16;
-            pos += 2; // str.startsWith("0x")=> @MinLen(2)
+            pos += 2; // #4
         } else if (str.startsWith("#", pos)) { // alternative hex (allowed by Long/Integer)
             radix = 16;
-            pos++; // str.startsWith("#") => @MinLen(1)
+            pos++; // #5
         } else if (str.startsWith("0", pos) && str.length() > pos + 1) { // octal; so long as there are additional digits
             radix = 8;
             pos++;
@@ -1737,17 +1738,17 @@ public class NumberUtils {
      * @since 3.4
      */
     @SuppressWarnings("argument.type.incompatible")/*
-    if (str.charAt(str.length() - 1) == '.') { // !StringUtils.isEmpty(str) => str.length() != 0 
-    if (str.charAt(0) == '-') { // !StringUtils.isEmpty(str) => str.length() != 0 
+    #6 - !StringUtils.isEmpty(str) => str.length() != 0 
+    #7 - !StringUtils.isEmpty(str) => str.length() != 0 
     */
     public static boolean isParsable(final String str) {
         if (StringUtils.isEmpty(str)) {
             return false;
         }
-        if (str.charAt(str.length() - 1) == '.') { // !StringUtils.isEmpty(str) => str.length() != 0 
+        if (str.charAt(str.length() - 1) == '.') { // #6
             return false;
         }
-        if (str.charAt(0) == '-') { // !StringUtils.isEmpty(str) => str.length() != 0 
+        if (str.charAt(0) == '-') { // #7
             if (str.length() == 1) {
                 return false;
             }

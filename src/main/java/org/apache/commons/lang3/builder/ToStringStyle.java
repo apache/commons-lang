@@ -439,16 +439,16 @@ public abstract class ToStringStyle implements Serializable {
      * @param buffer  the <code>StringBuffer</code> to populate
      * @since 2.0
      */
-    @SuppressWarnings("index") /* for (@LTEqLengthOf({"len","sepLen"}) int i = 0; i < sepLen; i++) { // i < sepLen.length() and len >= sepLen => i < len.length()
-    if (buffer.charAt(len - 1 - i) != fieldSeparator.charAt(sepLen - 1 - i)) { // len - 1 - i and seplen - 1 - i is NonNegative within the loop
+    @SuppressWarnings("index") /* #1 - i < sepLen.length() and len >= sepLen => i < len.length()
+    #2 - i < sepLen && i < len inside the loop, hence len - 1 - i and sepLen - 1 - i are non negative
     */
     protected void removeLastFieldSeparator(final StringBuffer buffer) {
         final int len = buffer.length();
         final int sepLen = fieldSeparator.length();
         if (len > 0 && sepLen > 0 && len >= sepLen) {
             boolean match = true;
-            for (@NonNegative @LTEqLengthOf({"len","sepLen"}) int i = 0; i < sepLen; i++) { // i < sepLen.length() and len >= sepLen => i < len.length()
-                if (buffer.charAt(len - 1 - i) != fieldSeparator.charAt(sepLen - 1 - i)) { // len - 1 - i and seplen - 1 - i is NonNegative within the loop
+            for (@NonNegative @LTEqLengthOf({"buffer","fieldSeparator"}) int i = 0; i < sepLen; i++) { // #1
+            if (buffer.charAt(len - 1 - i) != fieldSeparator.charAt(sepLen - 1 - i)) { // #2
                     match = false;
                     break;
                 }

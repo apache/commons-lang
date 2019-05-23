@@ -25,6 +25,7 @@ import java.lang.reflect.Modifier;
 import org.apache.commons.lang3.ClassUtils;
 
 import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Contains common code for working with {@link java.lang.reflect.Method Methods}/{@link java.lang.reflect.Constructor Constructors},
@@ -177,7 +178,7 @@ abstract class MemberUtils {
             } else {
                 // This is typical varargs case.
                 for (int i = destArgs.length-1; i < srcArgs.length; i++) {
-                    @SuppressWarnings("array.access.unsafe.low") final Class<?> srcClass = srcArgs[i]; // i < srcArgs.length
+                    @SuppressWarnings("array.access.unsafe.low") final Class<?> srcClass = srcArgs[i]; // isVarArgs => destArgs.length != 0
                     totalCost += getObjectTransformationCost(srcClass, destClass) + varArgsCost;
                 }
             }
@@ -262,7 +263,7 @@ abstract class MemberUtils {
         }
 
         if (method.isVarArgs()) {
-            @IndexOrHigh("parameterTypes") int i;
+            @NonNegative int i;
             for (i = 0; i < methodParameterTypes.length - 1 && i < parameterTypes.length; i++) {
                 if (!ClassUtils.isAssignable(parameterTypes[i], methodParameterTypes[i], true)) {
                     return false;

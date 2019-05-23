@@ -153,7 +153,7 @@ public class IEEE754rUtils {
         Validate.isTrue(array.length != 0, "Array cannot be empty.");
 
         // Finds and returns max
-        @SuppressWarnings("array.access.unsage.high.constant") double max = array[0]; // Validate.isTrue(array.length != 0, "Array cannot be empty."); => array has a non zero length
+        @SuppressWarnings("array.access.unsafe.high.constant") double max = array[0]; // Validate.isTrue(array.length != 0, "Array cannot be empty."); => array has a non zero length
         for (int j = 1; j < array.length; j++) {
             max = max(array[j], max);
         }
@@ -175,7 +175,7 @@ public class IEEE754rUtils {
         Validate.isTrue(array.length != 0, "Array cannot be empty.");
 
         // Finds and returns max
-        @SuppressWarnings("array.access.unsage.high.constant") float max = array[0]; // Validate.isTrue(array.length != 0, "Array cannot be empty."); => array has a non zero length
+        @SuppressWarnings("array.access.unsafe.high.constant") float max = array[0]; // Validate.isTrue(array.length != 0, "Array cannot be empty."); => array has a non zero length
         for (int j = 1; j < array.length; j++) {
             max = max(array[j], max);
         }
