@@ -542,7 +542,8 @@ public class FastDateParser implements DateParser, Serializable {
 
         @Override
         boolean parse(final FastDateParser parser, final Calendar calendar, final String source, final ParsePosition pos, final int maxWidth) {
-            @SuppressWarnings("argument.type.incompatible") final Matcher matcher = pattern.matcher(source.substring(pos.getIndex())); // cannot annotate pos.getIndex() as @LTEqLengthOf("source"), but pos.getIndex() return the current parse position, which has to be @LTEqLengthOf("source")
+            @SuppressWarnings("argument.type.incompatible") // cannot annotate pos.getIndex() as @LTEqLengthOf("source"), but pos.getIndex() return the current parse position, which has to be @LTEqLengthOf("source")
+            final Matcher matcher = pattern.matcher(source.substring(pos.getIndex()));
             if (!matcher.lookingAt()) {
                 pos.setErrorIndex(pos.getIndex());
                 return false;
@@ -678,7 +679,8 @@ public class FastDateParser implements DateParser, Serializable {
         @Override
         boolean parse(final FastDateParser parser, final Calendar calendar, final String source, final ParsePosition pos, final int maxWidth) {
             for (@IndexOrHigh("formatField") int idx = 0; idx < formatField.length(); ++idx) {
-                @SuppressWarnings("assignment.type.incompatible") final @IndexOrHigh("source") int sIdx = idx + pos.getIndex(); // idx and pos.getIndex() both are non negative, and when idx + pos.getIndex() reaches source.length() the loop terminates, hence @IndexOrHigh
+                @SuppressWarnings("assignment.type.incompatible") //when idx + pos.getIndex() reaches source.length() the loop terminates, hence @IndexOrHigh
+                final @IndexOrHigh("source") int sIdx = idx + pos.getIndex();
                 if (sIdx == source.length()) {
                     pos.setErrorIndex(sIdx);
                     return false;
@@ -760,7 +762,8 @@ public class FastDateParser implements DateParser, Serializable {
 
         @Override
         boolean parse(final FastDateParser parser, final Calendar calendar, final String source, final ParsePosition pos, final int maxWidth) {
-            @SuppressWarnings("assignment.type.incompatible") @IndexOrHigh("source") int idx = pos.getIndex(); // pos.getIndex() is non negative
+            @SuppressWarnings("assignment.type.incompatible")
+            @IndexOrHigh("source") int idx = pos.getIndex(); // cannot annotate pos.getIndex() as @LTEqLengthOf("source"), but pos.getIndex() return the current parse position, which has to be @LTEqLengthOf("source")
             int last = source.length();
 
             if (maxWidth == 0) {
@@ -791,7 +794,8 @@ public class FastDateParser implements DateParser, Serializable {
                 return false;
             }
 
-            @SuppressWarnings("argument.type.incompatible") final int value = Integer.parseInt(source.substring(pos.getIndex(), idx)); // pos.getIndex() is non negative
+            @SuppressWarnings("argument.type.incompatible") // pos.getIndex() is non negative
+            final int value = Integer.parseInt(source.substring(pos.getIndex(), idx));
             pos.setIndex(idx);
 
             calendar.set(field, modify(parser, value));

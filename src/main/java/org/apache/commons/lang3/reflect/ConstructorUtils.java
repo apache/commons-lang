@@ -106,7 +106,7 @@ public class ConstructorUtils {
      * @throws InstantiationException if an error occurs on instantiation
      * @see Constructor#newInstance
      */
-    @SuppressWarnings({"argument.type.incompatible","assignment.type.incompatible"}) // args = MethodUtils.getVarArgs(args, methodParameterTypes); // isVarArgs => args has at least one element
+    @SuppressWarnings({"argument.type.incompatible","assignment.type.incompatible"}) // #1 isVarArgs => args has at least one element
     public static <T> T invokeConstructor(final Class<T> cls, Object[] args, Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
             InstantiationException {
@@ -119,7 +119,7 @@ public class ConstructorUtils {
         }
         if (ctor.isVarArgs()) {
             final Class<?> @MinLen(1) [] methodParameterTypes = ctor.getParameterTypes(); // isVarArgs() => @MinLen(1)
-            args = MethodUtils.getVarArgs(args, methodParameterTypes); // isVarArgs => args has at least one element
+            args = MethodUtils.getVarArgs(args, methodParameterTypes); // #1
         }
         return ctor.newInstance(args);
     }

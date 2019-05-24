@@ -876,7 +876,8 @@ public class TypeUtils {
         // get the subject parameterized type's arguments
         final Type[] typeArgs = parameterizedType.getActualTypeArguments();
         // and get the corresponding type variables from the raw class
-        @SuppressWarnings("assignment.type.incompatible") final TypeVariable<?> @SameLen("typeArgs") [] typeParams = cls.getTypeParameters(); // each typeArgs' corresponding type variables, hence of same length as typeArgs[]
+        @SuppressWarnings("assignment.type.incompatible") // each typeArgs' corresponding type variables, hence of same length as typeArgs[]
+        final TypeVariable<?> @SameLen("typeArgs") [] typeParams = cls.getTypeParameters();
 
         // map the arguments to their respective type variables
         for (int i = 0; i < typeParams.length; i++) {
@@ -1205,7 +1206,8 @@ public class TypeUtils {
      */
     public static Type @MinLen(1) [] getImplicitLowerBounds(final WildcardType wildcardType) {
         Validate.notNull(wildcardType, "wildcardType is null");
-        @SuppressWarnings("assignment.type.incompatible") final Type @MinLen(1) [] bounds = wildcardType.getLowerBounds(); // Validate.notNull() => wildcardType.getLowerBounds() returns an array of @MinLen(1)
+        @SuppressWarnings("assignment.type.incompatible") // Validate.notNull() => wildcardType.getLowerBounds() returns an array of @MinLen(1)
+        final Type @MinLen(1) [] bounds = wildcardType.getLowerBounds();
 
         return bounds.length == 0 ? new Type[] { null } : bounds;
     }

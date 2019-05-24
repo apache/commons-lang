@@ -210,7 +210,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             }
 
             Rule rule;
-            @SuppressWarnings("argument.type.incompatible") final char c = token.charAt(0); // tokenLen != 0 as checked by the previous if statement
+            @SuppressWarnings("argument.type.incompatible") // tokenLen != 0 as checked by the previous if statement
+            final char c = token.charAt(0);
 
             switch (c) {
             case 'G': // era designator (text)
@@ -303,7 +304,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 }
                 break;
             case '\'': // literal text
-                @SuppressWarnings("argument.type.incompatible") final String sub = token.substring(1); // token has a minimum length 1
+                @SuppressWarnings("argument.type.incompatible") // token has a minimum length 1
+                final String sub = token.substring(1);
                 if (sub.length() == 1) {
                     rule = new CharacterLiteral(sub.charAt(0));
                 } else {

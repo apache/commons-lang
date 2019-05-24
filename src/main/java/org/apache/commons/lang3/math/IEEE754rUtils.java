@@ -41,7 +41,8 @@ public class IEEE754rUtils {
         Validate.isTrue(array.length != 0, "Array cannot be empty.");
 
         // Finds and returns min
-        @SuppressWarnings("array.access.unsafe.high.constant") double min = array[0]; // Validate.isTrue(array.length != 0, "Array cannot be empty.") => array has a non zero length
+        @SuppressWarnings("array.access.unsafe.high.constant") // Validate.isTrue(array.length != 0, "Array cannot be empty.") => array has a non zero length
+        double min = array[0];
         for (int i = 1; i < array.length; i++) {
             min = min(array[i], min);
         }
@@ -63,7 +64,8 @@ public class IEEE754rUtils {
         Validate.isTrue(array.length != 0, "Array cannot be empty.");
 
         // Finds and returns min
-         @SuppressWarnings("array.access.unsafe.high.constant") float min = array[0]; // Validate.isTrue(array.length != 0, "Array cannot be empty."); => array has a non zero length
+        @SuppressWarnings("array.access.unsafe.high.constant") // Validate.isTrue(array.length != 0, "Array cannot be empty."); => array has a non zero length
+        float min = array[0];
         for (int i = 1; i < array.length; i++) {
             min = min(array[i], min);
         }
@@ -153,7 +155,8 @@ public class IEEE754rUtils {
         Validate.isTrue(array.length != 0, "Array cannot be empty.");
 
         // Finds and returns max
-        @SuppressWarnings("array.access.unsafe.high.constant") double max = array[0]; // Validate.isTrue(array.length != 0, "Array cannot be empty."); => array has a non zero length
+        @SuppressWarnings("array.access.unsafe.high.constant") // Validate.isTrue(array.length != 0, "Array cannot be empty."); => array has a non zero length
+        double max = array[0];
         for (int j = 1; j < array.length; j++) {
             max = max(array[j], max);
         }
@@ -175,7 +178,8 @@ public class IEEE754rUtils {
         Validate.isTrue(array.length != 0, "Array cannot be empty.");
 
         // Finds and returns max
-        @SuppressWarnings("array.access.unsafe.high.constant") float max = array[0]; // Validate.isTrue(array.length != 0, "Array cannot be empty."); => array has a non zero length
+        @SuppressWarnings("array.access.unsafe.high.constant") // Validate.isTrue(array.length != 0, "Array cannot be empty."); => array has a non zero length
+        float max = array[0];
         for (int j = 1; j < array.length; j++) {
             max = max(array[j], max);
         }

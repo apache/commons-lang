@@ -389,8 +389,8 @@ public abstract class ToStringStyle implements Serializable {
      */
     public void appendToString(final StringBuffer buffer, final String toString) {
         if (toString != null) {
-            @SuppressWarnings("assignment.type.incompatible")
-            final @LTEqLengthOf("toString") int pos1 = toString.indexOf(contentStart) + contentStart.length(); // maximum value of toString.indexOf(String str) + str.length() can be toString.length()
+            @SuppressWarnings("assignment.type.incompatible") // maximum value of toString.indexOf(String str) + str.length() can be toString.length()
+            final @LTEqLengthOf("toString") int pos1 = toString.indexOf(contentStart) + contentStart.length();
             final int pos2 = toString.lastIndexOf(contentEnd);
             if (pos1 != pos2 && pos1 >= 0 && pos2 >= 0) {
                 if (fieldSeparatorAtStart) {
