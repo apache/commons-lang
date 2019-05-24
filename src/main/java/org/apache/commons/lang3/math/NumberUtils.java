@@ -703,7 +703,7 @@ public class NumberUtils {
         if (decPos > -1) { // there is a decimal point
             if (expPos > -1) { // there is an exponent
                 if (expPos < decPos || expPos > str.length()) { // prevents double exponent causing IOOBE
-                      throw new NumberFormatException(str + " is not a valid number.");
+                    throw new NumberFormatException(str + " is not a valid number.");
                 }
                 dec = str.substring(decPos + 1, expPos);
             } else {

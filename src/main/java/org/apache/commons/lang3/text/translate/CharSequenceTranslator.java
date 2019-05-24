@@ -21,6 +21,8 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Locale;
 
+import org.checkerframework.checker.index.qual.IndexFor;
+
 /**
  * An API for translating text.
  * Its core use is to escape and unescape text. Because escaping and unescaping
@@ -48,7 +50,7 @@ public abstract class CharSequenceTranslator {
      * @return int count of codepoints consumed
      * @throws IOException if and only if the Writer produces an IOException
      */
-    public abstract int translate(CharSequence input, int index, Writer out) throws IOException;
+    public abstract int translate(CharSequence input, @IndexFor("#1") int index, Writer out) throws IOException;
 
     /**
      * Helper for non-Writer usage.

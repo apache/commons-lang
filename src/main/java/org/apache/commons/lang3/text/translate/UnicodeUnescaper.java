@@ -19,6 +19,8 @@ package org.apache.commons.lang3.text.translate;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.checkerframework.checker.index.qual.IndexFor;
+
 /**
  * Translates escaped Unicode values of the form \\u+\d\d\d\d back to
  * Unicode. It supports multiple 'u' characters and will work with or
@@ -35,8 +37,12 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("argument.type.incompatible") /*
+    #1 index + i + 4 <= input.length() as checked by the if statement
+    #2 False negative, argument to out.write() need not be non negative
+    */
     @Override
-    public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
+    public int translate(final CharSequence input, final @IndexFor("#1") int index, final Writer out) throws IOException {
         if (input.charAt(index) == '\\' && index + 1 < input.length() && input.charAt(index + 1) == 'u') {
             // consume optional additional 'u' chars
             int i = 2;
@@ -50,11 +56,11 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
 
             if (index + i + 4 <= input.length()) {
                 // Get 4 hex digits
-                final CharSequence unicode = input.subSequence(index + i, index + i + 4);
+                final CharSequence unicode = input.subSequence(index + i, index + i + 4); // #1
 
                 try {
                     final int value = Integer.parseInt(unicode.toString(), 16);
-                    out.write((char) value);
+                    out.write((char) value); // #2
                 } catch (final NumberFormatException nfe) {
                     throw new IllegalArgumentException("Unable to parse unicode value: " + unicode, nfe);
                 }
