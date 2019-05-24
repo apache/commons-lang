@@ -235,7 +235,7 @@ public class FastDateParser implements DateParser, Serializable {
             return new StrategyAndWidth(getStrategy(c, width, definingCalendar), width);
         }
 
-        @SuppressWarnings("argument.type.incompatible") //  else if (c == '\'' && (++currentIdx == pattern.length() || pattern.charAt(currentIdx) != '\'')) { // currentIdx < pattern.length()
+        @SuppressWarnings("argument.type.incompatible") // #1 - currentIdx < pattern.length() as checked by the condition inside the while loop
         private StrategyAndWidth literal() {
             boolean activeQuote = false;
 
@@ -244,7 +244,7 @@ public class FastDateParser implements DateParser, Serializable {
                 final char c = pattern.charAt(currentIdx);
                 if (!activeQuote && isFormatLetter(c)) {
                     break;
-                } else if (c == '\'' && (++currentIdx == pattern.length() || pattern.charAt(currentIdx) != '\'')) { // currentIdx < pattern.length()
+                } else if (c == '\'' && (++currentIdx == pattern.length() || pattern.charAt(currentIdx) != '\'')) { // #1
                     activeQuote = !activeQuote;
                     continue;
                 }
@@ -433,7 +433,7 @@ public class FastDateParser implements DateParser, Serializable {
     // Support for strategies
     //-----------------------------------------------------------------------
 
-    @SuppressWarnings("argument.type.incompatible") // if (sb.charAt(sb.length() - 1) == '.') { // sb.append() => sb.length != 0
+    @SuppressWarnings("argument.type.incompatible") // #2 - sb.append() => sb.length != 0
     private static StringBuilder simpleQuote(final StringBuilder sb, final String value) {
         for (int i = 0; i < value.length(); ++i) {
             final char c = value.charAt(i);
@@ -455,7 +455,7 @@ public class FastDateParser implements DateParser, Serializable {
                 sb.append(c);
             }
         }
-        if (sb.charAt(sb.length() - 1) == '.') { // sb.append() => sb.length != 0
+        if (sb.charAt(sb.length() - 1) == '.') { // #2
             // trailing '.' is optional
             sb.append('?');
         }
@@ -542,7 +542,7 @@ public class FastDateParser implements DateParser, Serializable {
 
         @Override
         boolean parse(final FastDateParser parser, final Calendar calendar, final String source, final ParsePosition pos, final int maxWidth) {
-            @SuppressWarnings("argument.type.incompatible") final Matcher matcher = pattern.matcher(source.substring(pos.getIndex())); // pos.getIndex() is non negative as it tells the current parse position
+            @SuppressWarnings("argument.type.incompatible") final Matcher matcher = pattern.matcher(source.substring(pos.getIndex())); // cannot annotate pos.getIndex() as @LTEqLengthOf("source"), but pos.getIndex() return the current parse position, which has to be @LTEqLengthOf("source")
             if (!matcher.lookingAt()) {
                 pos.setErrorIndex(pos.getIndex());
                 return false;
@@ -707,7 +707,7 @@ public class FastDateParser implements DateParser, Serializable {
          * @param definingCalendar  The Calendar to use
          * @param locale  The Locale to use
          */
-        @SuppressWarnings("argument.type.incompatible") // regex.setLength(regex.length()-1); // regex.append("((?iu)") => regex.length() != 0
+        @SuppressWarnings("argument.type.incompatible") // #1 regex.append("((?iu)") => regex.length() != 0
         CaseInsensitiveTextStrategy(final @NonNegative int field, final Calendar definingCalendar, final Locale locale) {
             this.field = field;
             this.locale = locale;
@@ -715,7 +715,7 @@ public class FastDateParser implements DateParser, Serializable {
             final StringBuilder regex = new StringBuilder();
             regex.append("((?iu)");
             lKeyValues = appendDisplayNames(definingCalendar, locale, field, regex);
-            regex.setLength(regex.length()-1); // regex.append("((?iu)") => regex.length() != 0
+            regex.setLength(regex.length()-1); // #1
             regex.append(")");
             createPattern(regex);
         }

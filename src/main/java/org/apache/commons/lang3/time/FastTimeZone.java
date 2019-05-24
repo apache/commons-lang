@@ -20,6 +20,8 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.checkerframework.common.value.qual.MinLen;
+
 /**
  * Faster methods to produce custom time zones.
  *
@@ -84,8 +86,7 @@ public class FastTimeZone {
         return group != null ? Integer.parseInt(group) : 0;
     }
 
-    @SuppressWarnings("argument.type.incompatible")
-    private static boolean parseSign(final String group) {
+    private static boolean parseSign(final @MinLen(1) String group) {
         return group != null && group.charAt(0) == '-'; // if group == null, group.charAt(0) is not evaluated
     }
 

@@ -285,8 +285,8 @@ public class WordUtils {
             wrapOn = " ";
         }
         final Pattern patternToWrapOn = Pattern.compile(wrapOn);
-        final @NonNegative int inputLineLength = str.length();
-        @NonNegative int offset = 0;
+        final int inputLineLength = str.length();
+        int offset = 0;
         final StringBuilder wrappedLine = new StringBuilder(inputLineLength + 32);
 
         while (offset < inputLineLength) {

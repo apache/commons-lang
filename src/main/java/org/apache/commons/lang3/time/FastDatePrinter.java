@@ -169,8 +169,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         final List<Rule> rulesList = parsePattern();
         mRules = rulesList.toArray(new Rule[rulesList.size()]);
 
-        @NonNegative int len = 0;
-        for (@GTENegativeOne @LTEqLengthOf("mRules") int i=mRules.length; --i >= 0; ) {
+        int len = 0;
+        for (int i=mRules.length; --i >= 0; ) {
             len += mRules[i].estimateLength();
         }
 
@@ -199,7 +199,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         final int length = mPattern.length();
         final @NonNegative @LTLengthOf("mPattern") int[] indexRef = new int[1];
 
-        for (@IndexOrHigh("mPattern") int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             indexRef[0] = i;
             final String token = parseToken(mPattern, indexRef);
             i = indexRef[0];
@@ -210,7 +210,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             }
 
             Rule rule;
-            @SuppressWarnings("argument.type.incompatible") final char c = token.charAt(0); // tokenLen != 0
+            @SuppressWarnings("argument.type.incompatible") final char c = token.charAt(0); // tokenLen != 0 as checked by the previous if statement
 
             switch (c) {
             case 'G': // era designator (text)
@@ -327,7 +327,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @param indexRef  index references
      * @return parsed token
      */
-    @SuppressWarnings("assignment.type.incompatible") // indexRef[0] = i; // i >= 0 here as i++ occurs after every previous iteration, hence i exits with a non negative value
+    @SuppressWarnings("assignment.type.incompatible") // #1 checker suspects i to be negative due to the i-- inside the loop, but the loop does an i++ after every iteration, hence i cannot be negative in this statement
     protected String parseToken(final String pattern, final @NonNegative @LTLengthOf("#1") int @MinLen(1) [] indexRef) { // index references are valid indices for pattern
         final StringBuilder buf = new StringBuilder();
 
@@ -368,7 +368,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                     }
                 } else if (!inLiteral &&
                          (c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z')) {
-                    i--; 
+                    i--;
                     break;
                 } else {
                     buf.append(c);
@@ -376,7 +376,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             }
         }
 
-        indexRef[0] = i; // i >= 0 here as i++ occurs after every previous iteration, hence i exits with a non negative value
+        indexRef[0] = i; // #1
         return buf.toString();
     }
 
@@ -699,8 +699,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @param value the value to append digits from.
      */
     @SuppressWarnings({"compound.assignment.type.incompatible","array.access.unsafe.high"}) /*
-    work[digit++] = (char) (value % 10 + '0'); // work[digit++] is valid inside the loop
-    while (--digit >= 0) { // digit cannot be less than -1
+    #2 value/10 in every iteration => loop can run a maximum of 10 times because log(Integer.MAX_VALUE) = 9.3, and work.length = 10, hence work[digit++] can have a maximum value of work[9]
+    #3 digit exits the previous loop with a non negative value, hence --digit>=0 => minimum value of digit to be -1
     */
     private static void appendFullDigits(final Appendable buffer, int value, int minFieldWidth) throws IOException {
         // specialized paths for 1 to 4 digits -> avoid the memory allocation from the temporary work array
@@ -751,7 +751,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             final char[] work = new char[MAX_DIGITS];
             @GTENegativeOne @LTEqLengthOf("work") int digit = 0;
             while (value != 0) {
-                work[digit++] = (char) (value % 10 + '0'); // work[digit++] is valid inside the loop
+                work[digit++] = (char) (value % 10 + '0'); // #2
                 value = value / 10;
             }
 
@@ -762,7 +762,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             }
 
             // reverse
-            while (--digit >= 0) { // digit cannot be less than -1
+            while (--digit >= 0) { // #3
                 buffer.append(work[digit]);
             }
         }
