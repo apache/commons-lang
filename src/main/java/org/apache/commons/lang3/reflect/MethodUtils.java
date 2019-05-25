@@ -710,7 +710,7 @@ public class MethodUtils {
             MemberUtils.setAccessibleWorkaround(bestMatch);
         }
 
-        Class<?>[] bestMatch_getParameterTypes = bestMatch.getParameterTypes();
+        Class<?>[] bestMatch_getParameterTypes = bestMatch == null ? null : bestMatch.getParameterTypes();
 
         if (bestMatch != null && bestMatch.isVarArgs() && bestMatch_getParameterTypes.length > 0 && parameterTypes.length > 0) {
             final Class<?> @MinLen(1) [] methodParameterTypes = bestMatch_getParameterTypes;

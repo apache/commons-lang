@@ -1006,9 +1006,8 @@ public class TypeUtils {
      * @param parameterizedType the parameterized type
      * @param typeVarAssigns the map to be filled
      */
-    @SuppressWarnings({"assignment.type.incompatible","compound.assignment.type.incompatible", "array.access.unsafe.high"}) /*
+    @SuppressWarnings({"assignment.type.incompatible", "array.access.unsafe.high"}) /*
     #5 - getRawType(parameterizedType).getTypeParameters() has same length as parameterizedType.getActualTypeArguments()
-    #6 - typeVars has the same length as typeArgs, hence i is @IndexOrHigh("typeVars") and i < typeVars.length inside the loop
     */
     private static <T> void mapTypeVariablesToArguments(final Class<T> cls,
             final ParameterizedType parameterizedType, final Map<TypeVariable<?>, Type> typeVarAssigns) {
@@ -1034,8 +1033,8 @@ public class TypeUtils {
         final List<TypeVariable<Class<T>>> typeVarList = Arrays.asList(cls
                 .getTypeParameters());
 
-        for (@IndexOrHigh({"typeVars","typeArgs"}) int i = 0; i < typeArgs.length; i++) { // #6
-            final TypeVariable<?> typeVar = typeVars[i]; // i < typeVars.length inside the loop
+        for (int i = 0; i < typeArgs.length; i++) {
+            final TypeVariable<?> typeVar = typeVars[i];
             final Type typeArg = typeArgs[i];
 
             // argument of parameterizedType is a type variable of cls
@@ -1188,11 +1187,15 @@ public class TypeUtils {
      * @return a non-empty array containing the upper bounds of the wildcard
      * type.
      */
-    public static Type[] getImplicitUpperBounds(final WildcardType wildcardType) {
-        Validate.notNull(wildcardType, "wildcardType is null");
-        final Type[] bounds = wildcardType.getUpperBounds();
+    @SuppressWarnings({"assignment.type.incompatible","return.type.incompatible"}) /*
+    #1 Validate.notNull() => wildcardType.getImplicitUpperBounds() returns an array of @MinLen(1)
+    #2 new Type[] {Object.class} has length 1
+    */
+    public static Type @MinLen(1) [] getImplicitUpperBounds(final WildcardType wildcardType) {
+        Validate.notNull(wildcardType, "wildcardType is null"); // #1
+        final Type @MinLen(1) [] bounds = wildcardType.getUpperBounds();
 
-        return bounds.length == 0 ? new Type[] { Object.class } : normalizeUpperBounds(bounds);
+        return bounds.length == 0 ? new Type[] { Object.class } : normalizeUpperBounds(bounds); // #2
     }
 
     /**
@@ -1206,7 +1209,7 @@ public class TypeUtils {
      */
     public static Type @MinLen(1) [] getImplicitLowerBounds(final WildcardType wildcardType) {
         Validate.notNull(wildcardType, "wildcardType is null");
-        @SuppressWarnings("assignment.type.incompatible") // Validate.notNull() => wildcardType.getLowerBounds() returns an array of @MinLen(1)
+        @SuppressWarnings("assignment.type.incompatible") // Validate.notNull() => wildcardType.getImplicitLowerBounds() returns an array of @MinLen(1)
         final Type @MinLen(1) [] bounds = wildcardType.getLowerBounds();
 
         return bounds.length == 0 ? new Type[] { null } : bounds;
@@ -1438,7 +1441,6 @@ public class TypeUtils {
      * @return boolean
      * @since 3.2
      */
-    @SuppressWarnings("array.access.unsafe.high.constant") // getImplicitLowerBounds returns an array with minimum length 1
     public static boolean containsTypeVariables(final Type type) {
         if (type instanceof TypeVariable<?>) {
             return true;
@@ -1815,7 +1817,7 @@ public class TypeUtils {
             buf.append('.').append(raw.getSimpleName());
         }
 
-        final int @SameLen("p.getActualTypeArguments()") [] recursiveTypeIndexes = findRecursiveTypes(p);
+        final int @LTEqLengthOf("p.getActualTypeArguments()") [] recursiveTypeIndexes = findRecursiveTypes(p);
 
         if (recursiveTypeIndexes.length > 0) {
             appendRecursiveTypes(buf, recursiveTypeIndexes, p.getActualTypeArguments());
@@ -1826,13 +1828,10 @@ public class TypeUtils {
         return buf.toString();
     }
 
-    @SuppressWarnings({"compound.assignment.type.incompatible","array.access.unsafe.high","assignment.type.incompatible"})/*
-    #1 - i <= argumentTypes.length
-    #2 - i <recursiveTypeIndexes.length => i < argumentTypes.length
-    */
-    private static void appendRecursiveTypes(final StringBuilder buf, final int @SameLen("#3") [] recursiveTypeIndexes, final Type[] argumentTypes) {
+    @SuppressWarnings({"compound.assignment.type.incompatible","array.access.unsafe.high"}) // #1 recursiveTypeIndexes.length <= argumentTypes.indexes => i++ from 0 to recursiveTypeIndexes.length has i @IndexOrHigh("argumentTypes")
+    private static void appendRecursiveTypes(final StringBuilder buf, final int @LTEqLengthOf("#3") [] recursiveTypeIndexes, final Type[] argumentTypes) {
         for (@IndexOrHigh("argumentTypes") int i = 0; i < recursiveTypeIndexes.length; i++) { // #1
-            appendAllTo(buf.append('<'), ", ", argumentTypes[i].toString()).append('>'); // #2
+            appendAllTo(buf.append('<'), ", ", argumentTypes[i].toString()).append('>');
         }
 
         final Type[] argumentsFiltered = ArrayUtils.removeAll(argumentTypes, recursiveTypeIndexes);
@@ -1842,13 +1841,13 @@ public class TypeUtils {
         }
     }
     @SuppressWarnings("assignment.type.incompatible")/*
-    #3 Array.copy(array, n) returns an array of length n 
-    #4 i -> @IndexFor("p.getActualTypeArguments()") inside the loop
+    #3 Array.copyOf(array, n) returns an array of length n 
+    #4 Keeps on adding an element every time this statement is carried out, hence no. of elements <= no. of times loop runs, hence @LTEqLengthOf("p.getActualTypeArguments()")
     */
-    private static int @SameLen("#1.getActualTypeArguments()") [] findRecursiveTypes(final ParameterizedType p) {
+    private static int @LTEqLengthOf("#1.getActualTypeArguments()") [] findRecursiveTypes(final ParameterizedType p) {
         final Type @SameLen("p.getActualTypeArguments()") [] filteredArgumentTypes = Arrays.copyOf(p.getActualTypeArguments(), p.getActualTypeArguments().length); // #3
-        int @SameLen("p.getActualTypeArguments()") [] indexesToRemove = {};
-        for (@IndexOrHigh("p.getActualTypeArguments()") int i = 0; i < filteredArgumentTypes.length; i++) {
+        int @LTEqLengthOf("p.getActualTypeArguments()") [] indexesToRemove = {};
+        for (int i = 0; i < filteredArgumentTypes.length; i++) {
             if (filteredArgumentTypes[i] instanceof TypeVariable<?>) {
                 if (containsVariableTypeSameParametrizedTypeBound(((TypeVariable<?>) filteredArgumentTypes[i]), p)) {
                     indexesToRemove = ArrayUtils.add(indexesToRemove, i); // #4

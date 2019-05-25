@@ -441,7 +441,7 @@ public abstract class ToStringStyle implements Serializable {
      * @since 2.0
      */
     @SuppressWarnings("index") /* #1 - i < sepLen.length() and len >= sepLen => i < len.length()
-    #2 - i < sepLen && i < len inside the loop, hence len - 1 - i and sepLen - 1 - i are non negative
+    #2 - i < sepLen && i < len inside the loop, hence len - 1 - i and sepLen - 1 - i are non negative, i.e. len >= sepLen makes this code safe, but SameLen checker cannot handle non-equal array sizes
     */
     protected void removeLastFieldSeparator(final StringBuffer buffer) {
         final int len = buffer.length();

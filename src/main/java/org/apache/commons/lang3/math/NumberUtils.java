@@ -652,9 +652,7 @@ public class NumberUtils {
      * @throws NumberFormatException if the value cannot be converted
      */
     @SuppressWarnings("argument.type.incompatible")/*
-    #1 - !StringUtils.isBlank(str) => str.length != 0
-    #2 - !StringUtils.isBlank(str) => str.length != 0
-    #3 - !StringUtils.isBlank(str) => str.length != 0
+    #1, #2, #3 - !StringUtils.isBlank(str) => str.length != 0
     */
     public static Number createNumber(final String str) {
         if (str == null) {
@@ -1772,7 +1770,7 @@ public class NumberUtils {
 
     private static boolean withDecimalsParsing(final String str, final @IndexFor("#1") int beginIdx) {
         int decimalPoints = 0;
-        for (@IndexOrHigh("str") int i = beginIdx; i < str.length(); i++) {
+        for (int i = beginIdx; i < str.length(); i++) {
             final boolean isDecimalPoint = str.charAt(i) == '.';
             if (isDecimalPoint) {
                 decimalPoints++;

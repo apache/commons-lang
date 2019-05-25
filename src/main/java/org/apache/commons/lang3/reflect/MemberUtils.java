@@ -273,7 +273,7 @@ abstract class MemberUtils {
                     return false;
                 }
             }
-            @SuppressWarnings("array.access.unsafe.low") // method.isVarArgs() => methodParameterTypes.length != 0s
+            @SuppressWarnings("array.access.unsafe.low") // method.isVarArgs() => methodParameterTypes.length != 0
             final Class<?> varArgParameterType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
             for (; i < parameterTypes.length; i++) {
                 if (!ClassUtils.isAssignable(parameterTypes[i], varArgParameterType, true)) {
