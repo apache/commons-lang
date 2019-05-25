@@ -22,6 +22,11 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.GTENegativeOne;
+import org.checkerframework.checker.index.qual.LTEqLengthOf;
+
 /**
  * <p>Operations on Strings that contain words.</p>
  *
@@ -286,16 +291,16 @@ public class WordUtils {
         }
         final Pattern patternToWrapOn = Pattern.compile(wrapOn);
         final int inputLineLength = str.length();
-        int offset = 0;
+        @NonNegative @LTEqLengthOf("str") int offset = 0;
         final StringBuilder wrappedLine = new StringBuilder(inputLineLength + 32);
 
         while (offset < inputLineLength) {
-            int spaceToWrapAt = -1;
+            @GTENegativeOne @LTEqLengthOf("str") int spaceToWrapAt = -1;
             Matcher matcher = patternToWrapOn.matcher(
                 str.substring(offset, Math.min((int) Math.min(Integer.MAX_VALUE, offset + wrapLength + 1L), inputLineLength)));
             if (matcher.find()) {
                 if (matcher.start() == 0) {
-                    offset += matcher.end();
+                    offset += matcher.end(); // matcher.end() returns the offset after the last character matched, hence it returns @LTEqLengthOf
                     continue;
                 }
                 spaceToWrapAt = matcher.start() + offset;
@@ -663,7 +668,7 @@ public class WordUtils {
         }
         final int strLen = str.length();
         final char[] buf = new char[strLen / 2 + 1];
-        int count = 0;
+        @IndexOrHigh("buf") int count = 0;
         boolean lastWasGap = true;
         for (int i = 0; i < strLen; i++) {
             final char ch = str.charAt(i);

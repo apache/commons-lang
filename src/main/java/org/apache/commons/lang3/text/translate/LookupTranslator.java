@@ -21,6 +21,13 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import org.checkerframework.common.value.qual.MinLen;
+import org.checkerframework.common.value.qual.ArrayLen;
+import org.checkerframework.checker.index.qual.IndexFor;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.LTEqLengthOf;
+import org.checkerframework.checker.index.qual.LTLengthOf;
+
 /**
  * Translates a value using a lookup table.
  *
@@ -34,8 +41,8 @@ public class LookupTranslator extends CharSequenceTranslator {
 
     private final HashMap<String, String> lookupMap;
     private final HashSet<Character> prefixSet;
-    private final int shortest;
-    private final int longest;
+    private final @NonNegative int shortest;
+    private final @NonNegative int longest;
 
     /**
      * Define the lookup table to be used in translation
@@ -46,15 +53,19 @@ public class LookupTranslator extends CharSequenceTranslator {
      *
      * @param lookup CharSequence[][] table of size [*][2]
      */
-    public LookupTranslator(final CharSequence[]... lookup) {
+    @SuppressWarnings({"enhancedfor.type.incompatible","argument.type.incompatible"}) /*
+    #1 CharSequence is of the type [*][2] (according to the documentation), hence Charsequence has length 2
+    #2 Minimum 1 row ensures seq[0].charAt(0) to be valid
+    */
+    public LookupTranslator(final CharSequence @MinLen(1) []... lookup) {
         lookupMap = new HashMap<>();
         prefixSet = new HashSet<>();
         int _shortest = Integer.MAX_VALUE;
         int _longest = 0;
         if (lookup != null) {
-            for (final CharSequence[] seq : lookup) {
+            for (final CharSequence @ArrayLen(2) [] seq : lookup) { // #1
                 this.lookupMap.put(seq[0].toString(), seq[1].toString());
-                this.prefixSet.add(seq[0].charAt(0));
+                this.prefixSet.add(seq[0].charAt(0)); // #2
                 final int sz = seq[0].length();
                 if (sz < _shortest) {
                     _shortest = sz;
@@ -72,7 +83,7 @@ public class LookupTranslator extends CharSequenceTranslator {
      * {@inheritDoc}
      */
     @Override
-    public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
+    public int translate(final CharSequence input, final @IndexFor("#1") int index, final Writer out) throws IOException {
         // check if translation exists for the input at position index
         if (prefixSet.contains(input.charAt(index))) {
             int max = longest;
@@ -80,7 +91,7 @@ public class LookupTranslator extends CharSequenceTranslator {
                 max = input.length() - index;
             }
             // implement greedy algorithm by trying maximum match first
-            for (int i = max; i >= shortest; i--) {
+            for (@SuppressWarnings("assignment.type.incompatible") @LTLengthOf(value = {"input"}, offset = {"index-1"}) int i = max; i >= shortest; i--) { // if index + longest > input.length(), max = input.length() - index and i goes from max till shortest. Else max < input.length() - index and the annotation meaning is retained
                 final CharSequence subSeq = input.subSequence(index, index + i);
                 final String result = lookupMap.get(subSeq.toString());
 

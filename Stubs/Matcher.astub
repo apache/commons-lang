@@ -1,4 +1,5 @@
 import org.checkerframework.common.value.qual.MinLen;
+import org.checkerframework.checker.index.qual.NonNegative;
 package java.util.regex;
 
 class Matcher implements MatchResult {
@@ -7,12 +8,12 @@ class Matcher implements MatchResult {
     Matcher usePattern(Pattern arg0);
     Matcher reset();
     Matcher reset(CharSequence arg0);
-    int start();
-    int start(int arg0);
-    int start(String arg0);
-    int end();
-    int end(int arg0);
-    int end(String arg0);
+    @NonNegative int start();
+    @NonNegative int start(int arg0);
+    @NonNegative int start(String arg0);
+    @NonNegative int end();
+    @NonNegative int end(int arg0);
+    @NonNegative int end(String arg0);
     String group();
     @MinLen(1) String group(int arg0);
     String group(String arg0);

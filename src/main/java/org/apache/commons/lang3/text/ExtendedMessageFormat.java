@@ -29,6 +29,10 @@ import java.util.Objects;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
 
+import org.checkerframework.checker.index.qual.SameLen;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.LTEqLengthOf;
+
 /**
  * Extends <code>java.text.MessageFormat</code> to allow pluggable/additional formatting
  * options for embedded format elements.  Client code should specify a registry
@@ -143,6 +147,10 @@ public class ExtendedMessageFormat extends MessageFormat {
      *
      * @param pattern String
      */
+    @SuppressWarnings({"array.access.unsafe.high","compound.assignment.type.incompatible"}) /*
+    #1, #2, #3, #4 - pos.getIndex() < pattern.length() => pos.getIndex() is a valid index for c
+    #5, #6 it.hasNext() ensures i to go only till origFormats.length
+    */
     @Override
     public final void applyPattern(final String pattern) {
         if (registry == null) {
@@ -155,10 +163,10 @@ public class ExtendedMessageFormat extends MessageFormat {
         final StringBuilder stripCustom = new StringBuilder(pattern.length());
 
         final ParsePosition pos = new ParsePosition(0);
-        final char[] c = pattern.toCharArray();
+        final char @SameLen("pattern") [] c = pattern.toCharArray();
         int fmtCount = 0;
         while (pos.getIndex() < pattern.length()) {
-            switch (c[pos.getIndex()]) {
+            switch (c[pos.getIndex()]) { // #1
             case QUOTE:
                 appendQuotedString(pattern, pos, stripCustom);
                 break;
@@ -171,7 +179,7 @@ public class ExtendedMessageFormat extends MessageFormat {
                 seekNonWs(pattern, pos);
                 Format format = null;
                 String formatDescription = null;
-                if (c[pos.getIndex()] == START_FMT) {
+                if (c[pos.getIndex()] == START_FMT) { // #2
                     formatDescription = parseFormatDescription(pattern,
                             next(pos));
                     format = getFormat(formatDescription);
@@ -183,13 +191,13 @@ public class ExtendedMessageFormat extends MessageFormat {
                 foundDescriptions.add(format == null ? null : formatDescription);
                 Validate.isTrue(foundFormats.size() == fmtCount);
                 Validate.isTrue(foundDescriptions.size() == fmtCount);
-                if (c[pos.getIndex()] != END_FE) {
+                if (c[pos.getIndex()] != END_FE) { // #3
                     throw new IllegalArgumentException(
                             "Unreadable format element at position " + start);
                 }
                 //$FALL-THROUGH$
             default:
-                stripCustom.append(c[pos.getIndex()]);
+                stripCustom.append(c[pos.getIndex()]); // #4
                 next(pos);
             }
         }
@@ -199,11 +207,11 @@ public class ExtendedMessageFormat extends MessageFormat {
             final Format[] origFormats = getFormats();
             // only loop over what we know we have, as MessageFormat on Java 1.3
             // seems to provide an extra format element:
-            int i = 0;
-            for (final Iterator<Format> it = foundFormats.iterator(); it.hasNext(); i++) {
+            @IndexOrHigh("origFormats") int i = 0;
+            for (final Iterator<Format> it = foundFormats.iterator(); it.hasNext(); i++) { // #5
                 final Format f = it.next();
                 if (f != null) {
-                    origFormats[i] = f;
+                    origFormats[i] = f; // #6
                 }
             }
             super.setFormats(origFormats);
@@ -324,16 +332,20 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param pos current parse position
      * @return argument index
      */
+    @SuppressWarnings("argument.type.incompatible")/*
+    #1, #2 - pos.getIndex() < pattern.length() (condition for the loop) => pos.Index is a valid index for pattern
+    #3 - pos.getIndex() will be equal to pattern.length() here as it is the value with which it exits from the loop
+    */
     private int readArgumentIndex(final String pattern, final ParsePosition pos) {
         final int start = pos.getIndex();
         seekNonWs(pattern, pos);
         final StringBuilder result = new StringBuilder();
         boolean error = false;
         for (; !error && pos.getIndex() < pattern.length(); next(pos)) {
-            char c = pattern.charAt(pos.getIndex());
+            char c = pattern.charAt(pos.getIndex()); // #1
             if (Character.isWhitespace(c)) {
                 seekNonWs(pattern, pos);
-                c = pattern.charAt(pos.getIndex());
+                c = pattern.charAt(pos.getIndex()); // #2
                 if (c != START_FMT && c != END_FE) {
                     error = true;
                     continue;
@@ -353,7 +365,7 @@ public class ExtendedMessageFormat extends MessageFormat {
         if (error) {
             throw new IllegalArgumentException(
                     "Invalid format argument index at position " + start + ": "
-                            + pattern.substring(start, pos.getIndex()));
+                            + pattern.substring(start, pos.getIndex())); // #3
         }
         throw new IllegalArgumentException(
                 "Unterminated format element at position " + start);
@@ -366,20 +378,23 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param pos current parse position
      * @return Format description String
      */
+    @SuppressWarnings("argument.type.incompatible")/*
+    #1, #2 - pos.getIndex() < pattern.length() as checked by the condition in the if statement
+    */
     private String parseFormatDescription(final String pattern, final ParsePosition pos) {
         final int start = pos.getIndex();
         seekNonWs(pattern, pos);
         final int text = pos.getIndex();
         int depth = 1;
         for (; pos.getIndex() < pattern.length(); next(pos)) {
-            switch (pattern.charAt(pos.getIndex())) {
+            switch (pattern.charAt(pos.getIndex())) { // #1
             case START_FE:
                 depth++;
                 break;
             case END_FE:
                 depth--;
                 if (depth == 0) {
-                    return pattern.substring(text, pos.getIndex());
+                    return pattern.substring(text, pos.getIndex()); // #2
                 }
                 break;
             case QUOTE:
@@ -409,6 +424,7 @@ public class ExtendedMessageFormat extends MessageFormat {
         int fe = -1;
         int depth = 0;
         while (pos.getIndex() < pattern.length()) {
+            @SuppressWarnings("argument.type.incompatible") // pos.getIndex() < pattern.length() => pos.getIndex() is a valid index for pattern
             final char c = pattern.charAt(pos.getIndex());
             switch (c) {
             case QUOTE:
@@ -472,9 +488,15 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param appendTo optional StringBuilder to append
      * @return <code>appendTo</code>
      */
+    @SuppressWarnings({"assignment.type.incompatible","array.access.unsafe.high","argument.type.incompatible"}) /*
+    #1, #2 - pos.getIndex() returns the current parse position which is always @LTEqLengthOf("pattern")
+    #3 - i goes from pos.getIndex() to pattern.length() - 1, and next(pos) in every case => pos goes from current parse position till pattern.length() - 1
+    #4 - lastHold is the initial parse position, hence lastHold <= pos.getIndex()
+    #5 - whenever appendQuotedString() is called, it is checked that pos.getIndex() < pattern.length
+    */
     private StringBuilder appendQuotedString(final String pattern, final ParsePosition pos,
             final StringBuilder appendTo) {
-        assert pattern.toCharArray()[pos.getIndex()] == QUOTE :
+        assert pattern.toCharArray()[pos.getIndex()] == QUOTE : // #5
             "Quoted string must start with quote character";
 
         // handle quote character at the beginning of the string
@@ -483,15 +505,15 @@ public class ExtendedMessageFormat extends MessageFormat {
         }
         next(pos);
 
-        final int start = pos.getIndex();
+        final @LTEqLengthOf("pattern") int start = pos.getIndex(); // #1
         final char[] c = pattern.toCharArray();
-        final int lastHold = start;
-        for (int i = pos.getIndex(); i < pattern.length(); i++) {
-            switch (c[pos.getIndex()]) {
+        final @LTEqLengthOf("c") int lastHold = start;
+        for (@IndexOrHigh("c") int i = pos.getIndex(); i < pattern.length(); i++) { // #2
+            switch (c[pos.getIndex()]) { // #3
             case QUOTE:
                 next(pos);
                 return appendTo == null ? null : appendTo.append(c, lastHold,
-                        pos.getIndex() - lastHold);
+                        pos.getIndex() - lastHold); // #4
             default:
                 next(pos);
             }
