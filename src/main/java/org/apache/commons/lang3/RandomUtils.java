@@ -226,7 +226,7 @@ public class RandomUtils {
      * <p> Returns a random float within 0 - Float.MAX_VALUE </p>
      *
      * @return the random float
-     * @see #nextFloat()
+     * @see #nextFloat(float, float)
      * @since 3.5
      */
     public static float nextFloat() {
