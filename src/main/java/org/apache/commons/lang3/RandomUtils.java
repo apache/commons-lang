@@ -166,23 +166,23 @@ public class RandomUtils {
      *
      * @param startInclusive
      *            the smallest value that can be returned, must be non-negative
-     * @param endInclusive
-     *            the upper bound (included)
+     * @param endExclusive
+     *            the upper bound (not included)
      * @throws IllegalArgumentException
-     *             if {@code startInclusive > endInclusive} or if
+     *             if {@code startInclusive > endExclusive} or if
      *             {@code startInclusive} is negative
      * @return the random double
      */
-    public static double nextDouble(final double startInclusive, final double endInclusive) {
-        Validate.isTrue(endInclusive >= startInclusive,
+    public static double nextDouble(final double startInclusive, final double endExclusive) {
+        Validate.isTrue(endExclusive >= startInclusive,
                 "Start value must be smaller or equal to end value.");
         Validate.isTrue(startInclusive >= 0, "Both range values must be non-negative.");
 
-        if (startInclusive == endInclusive) {
+        if (startInclusive == endExclusive) {
             return startInclusive;
         }
 
-        return startInclusive + ((endInclusive - startInclusive) * RANDOM.nextDouble());
+        return startInclusive + ((endExclusive - startInclusive) * RANDOM.nextDouble());
     }
 
     /**
@@ -203,23 +203,23 @@ public class RandomUtils {
      *
      * @param startInclusive
      *            the smallest value that can be returned, must be non-negative
-     * @param endInclusive
-     *            the upper bound (included)
+     * @param endExclusive
+     *            the upper bound (not included)
      * @throws IllegalArgumentException
-     *             if {@code startInclusive > endInclusive} or if
+     *             if {@code startInclusive > endExclusive} or if
      *             {@code startInclusive} is negative
      * @return the random float
      */
-    public static float nextFloat(final float startInclusive, final float endInclusive) {
-        Validate.isTrue(endInclusive >= startInclusive,
+    public static float nextFloat(final float startInclusive, final float endExclusive) {
+        Validate.isTrue(endExclusive >= startInclusive,
                 "Start value must be smaller or equal to end value.");
         Validate.isTrue(startInclusive >= 0, "Both range values must be non-negative.");
 
-        if (startInclusive == endInclusive) {
+        if (startInclusive == endExclusive) {
             return startInclusive;
         }
 
-        return startInclusive + ((endInclusive - startInclusive) * RANDOM.nextFloat());
+        return startInclusive + ((endExclusive - startInclusive) * RANDOM.nextFloat());
     }
 
     /**
