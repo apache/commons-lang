@@ -22,10 +22,8 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.IndexOrLow;
 import org.checkerframework.checker.index.qual.IndexOrHigh;
-import org.checkerframework.checker.index.qual.GTENegativeOne;
-import org.checkerframework.checker.index.qual.LTEqLengthOf;
 
 /**
  * <p>Operations on Strings that contain words.</p>
@@ -291,16 +289,16 @@ public class WordUtils {
         }
         final Pattern patternToWrapOn = Pattern.compile(wrapOn);
         final int inputLineLength = str.length();
-        @NonNegative @LTEqLengthOf("str") int offset = 0;
+        int offset = 0;
         final StringBuilder wrappedLine = new StringBuilder(inputLineLength + 32);
 
         while (offset < inputLineLength) {
-            @GTENegativeOne @LTEqLengthOf("str") int spaceToWrapAt = -1;
+            int spaceToWrapAt = -1;
             Matcher matcher = patternToWrapOn.matcher(
                 str.substring(offset, Math.min((int) Math.min(Integer.MAX_VALUE, offset + wrapLength + 1L), inputLineLength)));
             if (matcher.find()) {
                 if (matcher.start() == 0) {
-                    offset += matcher.end(); // matcher.end() returns the offset after the last character matched, hence it returns @LTEqLengthOf
+                    offset += matcher.end();
                     continue;
                 }
                 spaceToWrapAt = matcher.start() + offset;
@@ -659,6 +657,7 @@ public class WordUtils {
      * @see #initials(String)
      * @since 2.2
      */
+    @SuppressWarnings({"array.access.unsafe.high","compound.assignment.type.incompatible"}) // count can reach the maximum value of strLen/2 by this assignment, and the maximum value to be used in the index can be (strLen-1)/2, because when count++ happens, lastWasGap is set to false, and it will require at least one more run to set lastWasGapto true and then count++ can happen in the next iteration
     public static String initials(final String str, final char... delimiters) {
         if (StringUtils.isEmpty(str)) {
             return str;
@@ -676,7 +675,7 @@ public class WordUtils {
             if (isDelimiter(ch, delimiters)) {
                 lastWasGap = true;
             } else if (lastWasGap) {
-                buf[count++] = ch;
+                buf[count++] = ch; // #1
                 lastWasGap = false;
             } else {
                 continue; // ignore ch

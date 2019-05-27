@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.text.translate;
 
+import org.checkerframework.common.value.qual.ArrayLen;
+
 /**
  * Class holding various entity data for HTML and XML - generally for use with
  * the LookupTranslator.
@@ -446,11 +448,12 @@ public class EntityArrays {
      * @param array String[][] to be inverted
      * @return String[][] inverted array
      */
+    @SuppressWarnings("array.access.unsafe.high.constant") // #1, #2 - checker is imprecise for double dimensional array
     public static String[][] invert(final String[][] array) {
-        final String[][] newarray = new String[array.length][2];
+        final String[] @ArrayLen(2) [] newarray = new String[array.length][2];
         for (int i = 0; i<array.length; i++) {
-            newarray[i][0] = array[i][1];
-            newarray[i][1] = array[i][0];
+            newarray[i][0] = array[i][1]; // #1
+            newarray[i][1] = array[i][0]; // #2
         }
         return newarray;
     }

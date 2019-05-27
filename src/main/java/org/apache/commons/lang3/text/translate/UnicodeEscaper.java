@@ -102,6 +102,7 @@ public class UnicodeEscaper extends CodePointTranslator {
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("argument.type.incompatible") // argument of out.write() need not to @NonNegative
     @Override
     public boolean translate(final int codepoint, final Writer out) throws IOException {
         if (between) {
@@ -119,10 +120,10 @@ public class UnicodeEscaper extends CodePointTranslator {
             out.write(toUtf16Escape(codepoint));
         } else {
           out.write("\\u");
-          out.write(HEX_DIGITS[(codepoint >> 12) & 15]);
-          out.write(HEX_DIGITS[(codepoint >> 8) & 15]);
-          out.write(HEX_DIGITS[(codepoint >> 4) & 15]);
-          out.write(HEX_DIGITS[(codepoint) & 15]);
+          out.write(HEX_DIGITS[(codepoint >> 12) & 15]); // #1
+          out.write(HEX_DIGITS[(codepoint >> 8) & 15]); // #2
+          out.write(HEX_DIGITS[(codepoint >> 4) & 15]); // #3
+          out.write(HEX_DIGITS[(codepoint) & 15]); // #4
         }
         return true;
     }

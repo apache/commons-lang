@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.text.translate;
 
+import org.checkerframework.common.value.qual.MinLen;
+
 /**
  * Translates codepoints to their Unicode escaped value suitable for Java source.
  *
@@ -110,7 +112,8 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
      */
     @Override
     protected String toUtf16Escape(final int codepoint) {
-        final char[] surrogatePair = Character.toChars(codepoint);
+        @SuppressWarnings("assignment.type.incompatible") // array has @MinLen(2) if codepoint > 0xffff, which is checked when this function is called
+        final char @MinLen(2) [] surrogatePair = Character.toChars(codepoint);
         return "\\u" + hex(surrogatePair[0]) + "\\u" + hex(surrogatePair[1]);
     }
 

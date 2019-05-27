@@ -459,11 +459,12 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param pattern String to read
      * @param pos current position
      */
+    @SuppressWarnings("argument.type.incompatible") // pos.getIndex() goes from initial parse position till pattern.length()
     private void seekNonWs(final String pattern, final ParsePosition pos) {
         int len = 0;
         final char[] buffer = pattern.toCharArray();
         do {
-            len = StrMatcher.splitMatcher().isMatch(buffer, pos.getIndex());
+            len = StrMatcher.splitMatcher().isMatch(buffer, pos.getIndex()); // #1
             pos.setIndex(pos.getIndex() + len);
         } while (len > 0 && pos.getIndex() < pattern.length());
     }

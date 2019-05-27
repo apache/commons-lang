@@ -19,6 +19,8 @@ package org.apache.commons.lang3.text.translate;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.checkerframework.checker.index.qual.IndexFor;
+
 /**
  * Translate escaped octal Strings back to their octal values.
  *
@@ -38,26 +40,32 @@ public class OctalUnescaper extends CharSequenceTranslator {
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("argument.type.incompatible") /*
+    #1 - remaining > 0 => index + 1 < input.length()
+    #2 - remaining > 1 => index + 2 < input.length()
+    #3 - remaining > 2 => index + 3 < input.length()
+    #4 argument need not be @NonNegative
+    */
     @Override
-    public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
+    public int translate(final CharSequence input, final @IndexFor("#1") int index, final Writer out) throws IOException {
         final int remaining = input.length() - index - 1; // how many characters left, ignoring the first \
         final StringBuilder builder = new StringBuilder();
-        if (input.charAt(index) == '\\' && remaining > 0 && isOctalDigit(input.charAt(index + 1)) ) {
+        if (input.charAt(index) == '\\' && remaining > 0 && isOctalDigit(input.charAt(index + 1)) ) { // #1
             final int next = index + 1;
             final int next2 = index + 2;
             final int next3 = index + 3;
 
             // we know this is good as we checked it in the if block above
-            builder.append(input.charAt(next));
+            builder.append(input.charAt(next)); // #1
 
-            if (remaining > 1 && isOctalDigit(input.charAt(next2))) {
-                builder.append(input.charAt(next2));
-                if (remaining > 2 && isZeroToThree(input.charAt(next)) && isOctalDigit(input.charAt(next3))) {
-                    builder.append(input.charAt(next3));
+            if (remaining > 1 && isOctalDigit(input.charAt(next2))) { // #2
+                builder.append(input.charAt(next2)); // #2
+                if (remaining > 2 && isZeroToThree(input.charAt(next)) && isOctalDigit(input.charAt(next3))) { // #3
+                    builder.append(input.charAt(next3)); // #3
                 }
             }
 
-            out.write( Integer.parseInt(builder.toString(), 8) );
+            out.write( Integer.parseInt(builder.toString(), 8) ); // #4
             return 1 + builder.length();
         }
         return 0;
