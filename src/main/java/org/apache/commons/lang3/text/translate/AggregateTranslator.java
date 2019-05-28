@@ -21,6 +21,8 @@ import java.io.Writer;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import org.checkerframework.checker.index.qual.IndexFor;
+
 /**
  * Executes a sequence of translators one after the other. Execution ends whenever
  * the first translator consumes codepoints from the input.
@@ -50,7 +52,7 @@ public class AggregateTranslator extends CharSequenceTranslator {
      * {@inheritDoc}
      */
     @Override
-    public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
+    public int translate(final CharSequence input, final @IndexFor("#1") int index, final Writer out) throws IOException {
         for (final CharSequenceTranslator translator : translators) {
             final int consumed = translator.translate(input, index, out);
             if (consumed != 0) {

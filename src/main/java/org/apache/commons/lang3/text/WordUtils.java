@@ -274,6 +274,11 @@ public class WordUtils {
      *               if blank string is provided a space character will be used
      * @return a line with newlines inserted, <code>null</code> if null input
      */
+    @SuppressWarnings({"assignment.type.incompatible","compound.assignment.type.incompatible"}) /*
+    #1 matcher is on the substring of str that starts with offset index, hence (offset + matcher.end())'s max value = offset + str.length() - 1 - offset = str.length() - 1
+    #2, #3 matcher is on the substring of str that starts with offset index, hence (offset + matcher.start())'s max value = offset + str.length() - 1 - offset = str.length() - 1
+    #4 matcher is on the substring of str that starts with offset + wrapLength index, hence (offset + wrapLength + matcher.start())'s max value = offset + wrapLength + str.length() - 1 - offset - wrapLength = str.length() - 1
+    */
     public static String wrap(final String str, int wrapLength, String newLineStr, final boolean wrapLongWords, String wrapOn) {
         if (str == null) {
             return null;
@@ -289,19 +294,19 @@ public class WordUtils {
         }
         final Pattern patternToWrapOn = Pattern.compile(wrapOn);
         final int inputLineLength = str.length();
-        int offset = 0;
+        @IndexOrHigh("str") int offset = 0;
         final StringBuilder wrappedLine = new StringBuilder(inputLineLength + 32);
 
         while (offset < inputLineLength) {
-            int spaceToWrapAt = -1;
+            @IndexOrLow("str") int spaceToWrapAt = -1;
             Matcher matcher = patternToWrapOn.matcher(
                 str.substring(offset, Math.min((int) Math.min(Integer.MAX_VALUE, offset + wrapLength + 1L), inputLineLength)));
             if (matcher.find()) {
                 if (matcher.start() == 0) {
-                    offset += matcher.end();
+                    offset += matcher.end(); // #1
                     continue;
                 }
-                spaceToWrapAt = matcher.start() + offset;
+                spaceToWrapAt = matcher.start() + offset; // #2
             }
 
             // only last line without leading spaces is left
@@ -310,7 +315,7 @@ public class WordUtils {
             }
 
             while (matcher.find()) {
-                spaceToWrapAt = matcher.start() + offset;
+                spaceToWrapAt = matcher.start() + offset; // #3
             }
 
             if (spaceToWrapAt >= offset) {
@@ -330,7 +335,7 @@ public class WordUtils {
                     // do not wrap really long word, just extend beyond limit
                     matcher = patternToWrapOn.matcher(str.substring(offset + wrapLength));
                     if (matcher.find()) {
-                        spaceToWrapAt = matcher.start() + offset + wrapLength;
+                        spaceToWrapAt = matcher.start() + offset + wrapLength; // #4
                     }
 
                     if (spaceToWrapAt >= 0) {

@@ -19,6 +19,8 @@ package org.apache.commons.lang3.text.translate;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.checkerframework.checker.index.qual.IndexFor;
+
 /**
  * Helper subclass to CharSequenceTranslator to allow for translations that
  * will replace up to one character at a time.
@@ -36,7 +38,7 @@ public abstract class CodePointTranslator extends CharSequenceTranslator {
      * {@inheritDoc}
      */
     @Override
-    public final int translate(final CharSequence input, final int index, final Writer out) throws IOException {
+    public final int translate(final CharSequence input, final @IndexFor("#1") int index, final Writer out) throws IOException {
         final int codepoint = Character.codePointAt(input, index);
         final boolean consumed = translate(codepoint, out);
         return consumed ? 1 : 0;
