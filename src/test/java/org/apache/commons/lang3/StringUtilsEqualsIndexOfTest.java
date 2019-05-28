@@ -375,6 +375,44 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(-1, StringUtils.indexOfAny("ab", 'z'));
     }
 
+    @Test
+    public void testLastIndexOfAny_StringCharArray() {
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar(null, (char[]) null));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar(null, new char[0]));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar(null, 'a','b'));
+
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("", (char[]) null));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("", new char[0]));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("", 'a','b'));
+
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("zzabyycdxx", (char[]) null));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("zzabyycdxx", new char[0]));
+        assertEquals(2, StringUtils.lastIndexOfAnyChar("zzabyycdxx", 'z','a'));
+        assertEquals(5, StringUtils.lastIndexOfAnyChar("zzabyycdxx", 'b','y'));
+        assertEquals(1, StringUtils.lastIndexOfAnyChar("ab", 'b'));
+        assertEquals(0, StringUtils.lastIndexOfAnyChar("ab", 'a'));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("ab", 'z'));
+    }
+
+    @Test
+    public void testLastIndexOfAny_String() {
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar(null,(String)null));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar(null, ""));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar(null, "ab"));
+
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("", (String)null));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("", ""));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("", "ab"));
+
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("zzabyycdxx", (String)null));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("zzabyycdxx", ""));
+        assertEquals(2, StringUtils.lastIndexOfAnyChar("zzabyycdxx", "za"));
+        assertEquals(5, StringUtils.lastIndexOfAnyChar("zzabyycdxx", "by"));
+        assertEquals(1, StringUtils.lastIndexOfAnyChar("ab", "b"));
+        assertEquals(0, StringUtils.lastIndexOfAnyChar("ab", "a"));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("ab", "z"));
+    }
+
     /**
      * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */

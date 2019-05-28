@@ -2137,6 +2137,81 @@ public class StringUtils {
         return indexOfAny(cs, searchChars.toCharArray());
     }
 
+    /**
+     * <p>Search a CharSequence to find the last index of any
+     * character in the given set of characters.</p>
+     *
+     * <p>A {@code null} String will return {@code -1}.
+     * A {@code null} search string will return {@code -1}.</p>
+     *
+     * <pre>
+     * StringUtils.lastIndexOfAnyChar(null, *)            = -1
+     * StringUtils.lastIndexOfAnyChar("", *)              = -1
+     * StringUtils.lastIndexOfAnyChar(*, null)            = -1
+     * StringUtils.lastIndexOfAnyChar(*, "")              = -1
+     * StringUtils.lastIndexOfAnyChar("zzabyycdxx", "za") = 2
+     * StringUtils.lastIndexOfAnyChar("zzabyycdxx", "by") = 5
+     * StringUtils.lastIndexOfAnyChar("ab", 'a')          = 0
+     * StringUtils.lastIndexOfAnyChar("ab", 'b')          = 1
+     * StringUtils.lastIndexOfAnyChar("aba","z")          = -1
+     * </pre>
+     *
+     * @param cs  the CharSequence to check, may be null
+     * @param searchChars  the chars to search for, may be null
+     * @return the last index of any of the chars, -1 if no match or null input
+     */
+     public static int lastIndexOfAnyChar( final CharSequence cs,final String searchChars) {
+        return searchChars == null ? INDEX_NOT_FOUND : lastIndexOfAnyChar(cs,searchChars.toCharArray());
+    }
+
+   /**
+     * <p>Search a CharSequence to find the last index of any
+     * character in the given set of characters.</p>
+     *
+     * <p>A {@code null} String will return {@code -1}.
+     * A {@code null} or zero length search array will return {@code -1}.</p>
+     *
+     * <pre>
+     * StringUtils.lastIndexOfAnyChar(null, *)                = -1
+     * StringUtils.lastIndexOfAnyChar("", *)                  = -1
+     * StringUtils.lastIndexOfAnyChar(*, null)                = -1
+     * StringUtils.lastIndexOfAnyChar(*, [])                  = -1
+     * StringUtils.lastIndexOfAnyChar("zzabyycdxx",['z','a']) = 2
+     * StringUtils.lastIndexOfAnyChar("zzabyycdxx",['b','y']) = 5
+     * StringUtils.lastIndexOfAnyChar("aba", ['z'])           = -1
+     * </pre>
+     *
+     * @param cs  the CharSequence to check, may be null
+     * @param searchChars  the chars to search for, may be null
+     * @return the last index of any of the chars, -1 if no match or null input
+     */
+    public static int lastIndexOfAnyChar( final CharSequence cs,final char... searchChars) {
+        if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
+            return INDEX_NOT_FOUND;
+        }
+        int csLen = cs.length();
+        int csLast = csLen - 1;
+        int searchLen = searchChars.length;
+        int searchLast = searchLen - 1;
+        for (int i = csLast ; i >= 0 ; i--) {
+            char ch = cs.charAt(i);
+            for (int j = 0; j < searchLen; j++) {
+                if (searchChars[j] == ch) {
+                    if (i < csLast && j < searchLast &&  Character.isHighSurrogate(ch) ) {
+                        // ch is a supplementary character
+                        if (searchChars[j + 1] == cs.charAt(i + 1)) {
+                            return i;
+                        }
+                    } else {
+                        return i;
+                    }
+                }
+            }
+        }
+        return INDEX_NOT_FOUND;
+    }
+
+
     // ContainsAny
     //-----------------------------------------------------------------------
     /**
