@@ -147,8 +147,10 @@ public class ExtendedMessageFormat extends MessageFormat {
      *
      * @param pattern String
      */
-    @SuppressWarnings({"array.access.unsafe.high","compound.assignment.type.incompatible"}) /*
-    #1, #2, #3, #4 - pos.getIndex() < pattern.length() => pos.getIndex() is a valid index for c
+    @SuppressWarnings({"array.access.unsafe.high","compound.assignment.type.incompatible","array.access.unsafe.high.range"}) /*
+    #1 - readArgumentIndex(pattern, next(pos)) will throw an exception if next(pos) is not a valid index, hence the new pos_index is a valid index as well
+    #2 formatDescription = parseFormatDescription(pattern, next(pos)); will throw an exception if next(pos) is not a valid index, hence the new pos_index is a valid index as well
+    #3 - If the path of #1 and/or #2 is followed, pos_index is valid due to the above argument, else it is valid due to the check pos_index < pattern.length()
     #5, #6 it.hasNext() ensures i to go only till origFormats.length
     */
     @Override
@@ -165,23 +167,26 @@ public class ExtendedMessageFormat extends MessageFormat {
         final ParsePosition pos = new ParsePosition(0);
         final char @SameLen("pattern") [] c = pattern.toCharArray();
         int fmtCount = 0;
-        while (pos.getIndex() < pattern.length()) {
-            switch (c[pos.getIndex()]) { // #1
+        int pos_index = pos.getIndex();
+        while (pos_index < pattern.length()) {
+            switch (c[pos_index]) {
             case QUOTE:
                 appendQuotedString(pattern, pos, stripCustom);
                 break;
             case START_FE:
                 fmtCount++;
                 seekNonWs(pattern, pos);
-                final int start = pos.getIndex();
+                final int start = pos_index;
                 final int index = readArgumentIndex(pattern, next(pos));
                 stripCustom.append(START_FE).append(index);
                 seekNonWs(pattern, pos);
+                pos_index = pos.getIndex();
                 Format format = null;
                 String formatDescription = null;
-                if (c[pos.getIndex()] == START_FMT) { // #2
+                if (c[pos_index] == START_FMT) { // #1
                     formatDescription = parseFormatDescription(pattern,
                             next(pos));
+                    pos_index = pos.getIndex();
                     format = getFormat(formatDescription);
                     if (format == null) {
                         stripCustom.append(START_FMT).append(formatDescription);
@@ -191,14 +196,15 @@ public class ExtendedMessageFormat extends MessageFormat {
                 foundDescriptions.add(format == null ? null : formatDescription);
                 Validate.isTrue(foundFormats.size() == fmtCount);
                 Validate.isTrue(foundDescriptions.size() == fmtCount);
-                if (c[pos.getIndex()] != END_FE) { // #3
+                if (c[pos_index] != END_FE) { // #2
                     throw new IllegalArgumentException(
                             "Unreadable format element at position " + start);
                 }
                 //$FALL-THROUGH$
             default:
-                stripCustom.append(c[pos.getIndex()]); // #4
+                stripCustom.append(c[pos_index]); // #3
                 next(pos);
+                pos_index = pos.getIndex();
             }
         }
         super.applyPattern(stripCustom.toString());
@@ -332,20 +338,21 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param pos current parse position
      * @return argument index
      */
-    @SuppressWarnings("argument.type.incompatible")/*
-    #1, #2 - pos.getIndex() < pattern.length() (condition for the loop) => pos.Index is a valid index for pattern
-    #3 - pos.getIndex() will be equal to pattern.length() here as it is the value with which it exits from the loop
+    @SuppressWarnings({"argument.type.incompatible","assignment.type.incompatible"})/*
+    #1 - initial parsing position
+    #2 - pos.getIndex() will be equal to pattern.length() here as it is the value with which it exits from the loop
     */
     private int readArgumentIndex(final String pattern, final ParsePosition pos) {
-        final int start = pos.getIndex();
+        final @IndexOrHigh("pattern") int start = pos.getIndex(); // #1
         seekNonWs(pattern, pos);
         final StringBuilder result = new StringBuilder();
         boolean error = false;
-        for (; !error && pos.getIndex() < pattern.length(); next(pos)) {
-            char c = pattern.charAt(pos.getIndex()); // #1
+        int pos_index = pos.getIndex();
+        for (; !error && pos_index < pattern.length(); next(pos), pos_index = pos.getIndex()) {
+            char c = pattern.charAt(pos_index);
             if (Character.isWhitespace(c)) {
                 seekNonWs(pattern, pos);
-                c = pattern.charAt(pos.getIndex()); // #2
+                c = pattern.charAt(pos_index);
                 if (c != START_FMT && c != END_FE) {
                     error = true;
                     continue;
@@ -365,7 +372,7 @@ public class ExtendedMessageFormat extends MessageFormat {
         if (error) {
             throw new IllegalArgumentException(
                     "Invalid format argument index at position " + start + ": "
-                            + pattern.substring(start, pos.getIndex())); // #3
+                            + pattern.substring(start, pos_index)); // #2
         }
         throw new IllegalArgumentException(
                 "Unterminated format element at position " + start);
@@ -378,23 +385,22 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param pos current parse position
      * @return Format description String
      */
-    @SuppressWarnings("argument.type.incompatible")/*
-    #1, #2 - pos.getIndex() < pattern.length() as checked by the condition in the if statement
-    */
+    @SuppressWarnings("argument.type.incompatible") // #1 - pos.getIndex() < pattern.length() => text which was the inital pos.getIndex() is also < pattern.lengt
     private String parseFormatDescription(final String pattern, final ParsePosition pos) {
         final int start = pos.getIndex();
         seekNonWs(pattern, pos);
         final int text = pos.getIndex();
         int depth = 1;
-        for (; pos.getIndex() < pattern.length(); next(pos)) {
-            switch (pattern.charAt(pos.getIndex())) { // #1
+        int pos_index = pos.getIndex();
+        for (; pos_index < pattern.length(); next(pos), pos_index = pos.getIndex()) {
+            switch (pattern.charAt(pos_index)) {
             case START_FE:
                 depth++;
                 break;
             case END_FE:
                 depth--;
                 if (depth == 0) {
-                    return pattern.substring(text, pos.getIndex()); // #2
+                    return pattern.substring(text, pos_index); // #1
                 }
                 break;
             case QUOTE:
@@ -423,9 +429,10 @@ public class ExtendedMessageFormat extends MessageFormat {
         final ParsePosition pos = new ParsePosition(0);
         int fe = -1;
         int depth = 0;
-        while (pos.getIndex() < pattern.length()) {
-            @SuppressWarnings("argument.type.incompatible") // pos.getIndex() < pattern.length() => pos.getIndex() is a valid index for pattern
-            final char c = pattern.charAt(pos.getIndex());
+        int pos_index = pos.getIndex();
+        while (pos_index < pattern.length()) {
+            //@SuppressWarnings("argument.type.incompatible") // pos.getIndex() < pattern.length() => pos.getIndex() is a valid index for pattern
+            final char c = pattern.charAt(pos_index);
             switch (c) {
             case QUOTE:
                 appendQuotedString(pattern, pos, sb);
@@ -433,6 +440,7 @@ public class ExtendedMessageFormat extends MessageFormat {
             case START_FE:
                 depth++;
                 sb.append(START_FE).append(readArgumentIndex(pattern, next(pos)));
+                pos_index = pos.getIndex();
                 // do not look for custom patterns when they are embedded, e.g. in a choice
                 if (depth == 1) {
                     fe++;
@@ -448,6 +456,7 @@ public class ExtendedMessageFormat extends MessageFormat {
             default:
                 sb.append(c);
                 next(pos);
+                pos_index = pos.getIndex();
             }
         }
         return sb.toString();

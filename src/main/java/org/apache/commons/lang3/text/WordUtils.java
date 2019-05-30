@@ -24,6 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import org.checkerframework.checker.index.qual.IndexOrLow;
 import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * <p>Operations on Strings that contain words.</p>
@@ -103,7 +104,7 @@ public class WordUtils {
      * @param wrapLength  the column to wrap the words at, less than 1 is treated as 1
      * @return a line with newlines inserted, <code>null</code> if null input
      */
-    public static String wrap(final String str, final int wrapLength) {
+    public static String wrap(final String str, final @NonNegative int wrapLength) {
         return wrap(str, wrapLength, null, false);
     }
 
@@ -180,7 +181,7 @@ public class WordUtils {
      * @param wrapLongWords  true if long words (such as URLs) should be wrapped
      * @return a line with newlines inserted, <code>null</code> if null input
      */
-    public static String wrap(final String str, final int wrapLength, final String newLineStr, final boolean wrapLongWords) {
+    public static String wrap(final String str, final @NonNegative int wrapLength, final String newLineStr, final boolean wrapLongWords) {
         return wrap(str, wrapLength, newLineStr, wrapLongWords, " ");
     }
 
@@ -279,7 +280,7 @@ public class WordUtils {
     #2, #3 matcher is on the substring of str that starts with offset index, hence (offset + matcher.start())'s max value = offset + str.length() - 1 - offset = str.length() - 1
     #4 matcher is on the substring of str that starts with offset + wrapLength index, hence (offset + wrapLength + matcher.start())'s max value = offset + wrapLength + str.length() - 1 - offset - wrapLength = str.length() - 1
     */
-    public static String wrap(final String str, int wrapLength, String newLineStr, final boolean wrapLongWords, String wrapOn) {
+    public static String wrap(final String str, @NonNegative int wrapLength, String newLineStr, final boolean wrapLongWords, String wrapOn) {
         if (str == null) {
             return null;
         }

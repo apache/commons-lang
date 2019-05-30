@@ -25,6 +25,12 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 
+import org.checkerframework.checker.index.qual.IndexFor;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.LTLengthOf;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.SameLen;
+
 /**
  * Substitutes variables within a string by values.
  * <p>
@@ -739,7 +745,7 @@ public class StrSubstitutor {
      * @param length  the length within the builder to be processed, must be valid
      * @return true if altered
      */
-    protected boolean substitute(final StrBuilder buf, final int offset, final int length) {
+    protected boolean substitute(final StrBuilder buf, final @IndexOrHigh("#1.buffer") int offset, final @NonNegative int length) {
         return substitute(buf, offset, length, null) > 0;
     }
 
@@ -755,7 +761,7 @@ public class StrSubstitutor {
      * @return the length change that occurs, unless priorVariables is null when the int
      *  represents a boolean flag as to whether any change occurred.
      */
-    private int substitute(final StrBuilder buf, final int offset, final int length, List<String> priorVariables) {
+    private int substitute(final StrBuilder buf, final @IndexOrHigh("#1.buffer") int offset, final @NonNegative int length, List<String> priorVariables) {
         final StrMatcher pfxMatcher = getVariablePrefixMatcher();
         final StrMatcher suffMatcher = getVariableSuffixMatcher();
         final char escape = getEscapeChar();
@@ -765,17 +771,17 @@ public class StrSubstitutor {
         final boolean top = priorVariables == null;
         boolean altered = false;
         int lengthChange = 0;
-        char[] chars = buf.buffer;
+        char @SameLen("buf.buffer") [] chars = buf.buffer;
         int bufEnd = offset + length;
-        int pos = offset;
+        @NonNegative int pos = offset;
         while (pos < bufEnd) {
-            final int startMatchLen = pfxMatcher.isMatch(chars, pos, offset,
+            final int startMatchLen = pfxMatcher.isMatch(chars, pos, offset, // pos < bufEnd => pos is @LTLengthOf(chars)
                     bufEnd);
             if (startMatchLen == 0) {
                 pos++;
             } else {
                 // found variable start marker
-                if (pos > offset && chars[pos - 1] == escape) {
+                if (pos > offset && chars[pos - 1] == escape) { // pos < bufEnd => pos is @LTLengthOf(chars)
                     // escaped
                     if (preserveEscapes) {
                         pos++;
@@ -795,14 +801,14 @@ public class StrSubstitutor {
                     while (pos < bufEnd) {
                         if (substitutionInVariablesEnabled
                                 && (endMatchLen = pfxMatcher.isMatch(chars,
-                                        pos, offset, bufEnd)) != 0) {
+                                        pos, offset, bufEnd)) != 0) { // pos < bufEnd => pos is @LTLengthOf(chars)
                             // found a nested variable start
                             nestedVarCount++;
-                            pos += endMatchLen;
+                            pos += endMatchLen; 
                             continue;
                         }
 
-                        endMatchLen = suffMatcher.isMatch(chars, pos, offset,
+                        endMatchLen = suffMatcher.isMatch(chars, pos, offset, // pos < bufEnd because if pos += endMatchLenpos happens, it is followed by continue statement, hence pos < bufEnd is always checked
                                 bufEnd);
                         if (endMatchLen == 0) {
                             pos++;
@@ -810,8 +816,8 @@ public class StrSubstitutor {
                             // found variable end marker
                             if (nestedVarCount == 0) {
                                 String varNameExpr = new String(chars, startPos
-                                        + startMatchLen, pos - startPos
-                                        - startMatchLen);
+                                        + startMatchLen, pos - startPos // startPos + startMatchLen is the initial pos which is checked pos < bufEnd as a condition in this loop
+                                        - startMatchLen); // initial pos = startPos + startMatchLen , and pos is increased only, therefore pos - startPos - startMatchLen is @NonNegative
                                 if (substitutionInVariablesEnabled) {
                                     final StrBuilder bufName = new StrBuilder(varNameExpr);
                                     substitute(bufName, 0, bufName.length());
@@ -834,7 +840,7 @@ public class StrSubstitutor {
                                         }
                                         if ((valueDelimiterMatchLen = valueDelimMatcher.isMatch(varNameExprChars, i)) != 0) {
                                             varName = varNameExpr.substring(0, i);
-                                            varDefaultValue = varNameExpr.substring(i + valueDelimiterMatchLen);
+                                            varDefaultValue = varNameExpr.substring(i + valueDelimiterMatchLen); // valueDelimMatcher is @ LTLengthOf(value = "varNameExpChars", offset = "i - 1"), hence i + valueDelimiterMatchLen <= varNameExp
                                             break;
                                         }
                                     }
@@ -844,7 +850,7 @@ public class StrSubstitutor {
                                 if (priorVariables == null) {
                                     priorVariables = new ArrayList<>();
                                     priorVariables.add(new String(chars,
-                                            offset, length));
+                                            offset, length)); // chars - @SameLen("buf.buffer") => offset is also a valid index for chars
                                 }
 
                                 // handle cyclic substitution
@@ -862,7 +868,7 @@ public class StrSubstitutor {
                                     final int varLen = varValue.length();
                                     buf.replace(startPos, endPos, varValue);
                                     altered = true;
-                                    int change = substitute(buf, startPos,
+                                    int change = substitute(buf, startPos, // startPos = pos and pos < bufEnd is checked
                                             varLen, priorVariables);
                                     change = change
                                             + varLen - (endPos - startPos);

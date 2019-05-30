@@ -83,7 +83,7 @@ public abstract class CharSequenceTranslator {
      */
     @SuppressWarnings("argument.type.incompatible") /*
     #1, #2 - argument to write() need not be @NonNegative
-    #3 - consumed is the number of codepoints used to represent the character, hence, the calue of pos remains a valid index for input throughout the loop
+    #3 - consumed is the number of codepoints used to represent the character, hence, the value of pos remains a valid index for input throughout the loop
     */
     public final void translate(final CharSequence input, final Writer out) throws IOException {
         if (out == null) {

@@ -666,7 +666,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     /**
      * Adds a token to a list, paying attention to the parameters we've set.
      *
-     * @param lisStrTokenizer.javat  the list to add to
+     * @param list  the list to add to
      * @param tok  the token to add
      */
     private void addToken(final List<String> list, String tok) {
@@ -843,7 +843,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * @param quoteLen  the length of the matched quote, 0 if no quoting
      * @return true if a quote is matched
      */
-    @SuppressWarnings({"array.access.unsafe.low","array.access.unsafe.high"}) // #1 If pos + i >= len, srcChars[pos + i] and srcChars[quoteStart + i] does not happen. Also, pos >= quoteStart as is a virtue when it is called. This function is called only in readWithQuotes() which is called only by readNextTokens(), which declares pos and quotestart to either be start + quoteLen and start respectively or start and 0 respectively, where start and quoteLen both are @NonNegative.
+    @SuppressWarnings({"array.access.unsafe.low","array.access.unsafe.high"}) // #1 If pos + i >= len, srcChars[pos + i] and srcChars[quoteStart + i] does not happen. Also, pos >= quoteStart as is checked when it is called. This function is called only in readWithQuotes() which is called only by readNextTokens(), which declares pos and quotestart to either be start + quoteLen and start respectively or start and 0 respectively, where start and quoteLen both are @NonNegative.
     private boolean isQuote(final char[] srcChars, final int pos, final int len, final int quoteStart, final int quoteLen) {
         for (int i = 0; i < quoteLen; i++) {
             if (pos + i >= len || srcChars[pos + i] != srcChars[quoteStart + i]) { // #1
