@@ -267,7 +267,7 @@ abstract class MemberUtils {
         }
 
         if (method.isVarArgs()) {
-            @NonNegative int i;
+            @NonNegative int i; // annotating as @NonNegative or else it is detected as @LowerBoundBottom by the checker
             for (i = 0; i < methodParameterTypes.length - 1 && i < parameterTypes.length; i++) {
                 if (!ClassUtils.isAssignable(parameterTypes[i], methodParameterTypes[i], true)) {
                     return false;

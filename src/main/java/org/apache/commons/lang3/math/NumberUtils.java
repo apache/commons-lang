@@ -951,8 +951,8 @@ public class NumberUtils {
      * @throws NumberFormatException if the value cannot be converted
      */
     @SuppressWarnings("compound.assignment.type.incompatible")/*
-    #4 - str.startsWith("0x")=> @MinLen(2)
-    #5 - str.startsWith("#") => @MinLen(1)
+    #4 - str.startsWith("0x", pos)=> pos + 2 is a valid index of str
+    #5 - str.startsWith("#", pos) => pos + 1 is a valid index of str
     */
     public static BigInteger createBigInteger(final String str) {
         if (str == null) {
