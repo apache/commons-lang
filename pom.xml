@@ -912,7 +912,7 @@
         <arg>-Xbootclasspath/p:${annotatedJdk}</arg>
         <!-- -Awarns turns type-checking warnings into errors. -->
         <!-- <arg>-Awarns</arg> -->
-        <arg>-AonlyDefs=^org\.apache\.commons\.lang3\.math\.</arg>
+        <arg>-AonlyDefs=^org\.apache\.commons\.lang3\.builder\.|^org\.apache\.commons\.lang3\.exception\.|^org\.apache\.commons\.lang3\.reflect\.|^org\.apache\.commons\.lang3\.time\.|^org\.apache\.commons\.lang3\.math\.</arg>
         <arg>-Astubs=/Stubs/</arg>
       </compilerArgs>
     </configuration>

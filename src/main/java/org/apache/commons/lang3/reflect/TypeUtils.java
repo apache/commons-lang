@@ -1188,15 +1188,15 @@ public class TypeUtils {
      * @return a non-empty array containing the upper bounds of the wildcard
      * type.
      */
-    @SuppressWarnings({"assignment.type.incompatible","return.type.incompatible"}) /*
-    #1 Validate.notNull() => wildcardType.getImplicitUpperBounds() returns an array of @MinLen(1)
+    @SuppressWarnings("return.type.incompatible") /*
+    #1 bounds.length != 0 ensures @MinLen(1)
     #2 new Type[] {Object.class} has length 1
     */
     public static Type @MinLen(1) [] getImplicitUpperBounds(final WildcardType wildcardType) {
-        Validate.notNull(wildcardType, "wildcardType is null"); // #1
-        final Type @MinLen(1) [] bounds = wildcardType.getUpperBounds();
+        Validate.notNull(wildcardType, "wildcardType is null");
+        final Type [] bounds = wildcardType.getUpperBounds();
 
-        return bounds.length == 0 ? new Type[] { Object.class } : normalizeUpperBounds(bounds); // #2
+        return bounds.length == 0 ? new Type[] { Object.class } : normalizeUpperBounds(bounds); // #1
     }
 
     /**
@@ -1208,12 +1208,12 @@ public class TypeUtils {
      * @return a non-empty array containing the lower bounds of the wildcard
      * type.
      */
+    @SuppressWarnings("return.type.incompatible") // bounds.length != 0 => bounds is @MinLen(1)
     public static Type @MinLen(1) [] getImplicitLowerBounds(final WildcardType wildcardType) {
         Validate.notNull(wildcardType, "wildcardType is null");
-        @SuppressWarnings("assignment.type.incompatible") // Validate.notNull() => wildcardType.getImplicitLowerBounds() returns an array of @MinLen(1)
-        final Type @MinLen(1) [] bounds = wildcardType.getLowerBounds();
+        final Type[] bounds = wildcardType.getLowerBounds();
 
-        return bounds.length == 0 ? new Type[] { null } : bounds;
+        return bounds.length == 0 ? new Type[] { null } : bounds; // #1
     }
 
     /**

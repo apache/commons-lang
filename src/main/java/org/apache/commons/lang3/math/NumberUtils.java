@@ -1023,7 +1023,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns min
-        @SuppressWarnings("array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
+        //@SuppressWarnings("array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
         long min = array[0];
         for (int i = 1; i < array.length; i++) {
             if (array[i] < min) {
@@ -1073,7 +1073,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns min
-        @SuppressWarnings("array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
+        //@SuppressWarnings("array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
         short min = array[0];
         for (int i = 1; i < array.length; i++) {
             if (array[i] < min) {
