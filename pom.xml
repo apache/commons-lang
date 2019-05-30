@@ -874,7 +874,7 @@
               </execution>
             </executions>
           </plugin>
-           <plugin>
+        <plugin>
     <!-- This plugin will set properties values using dependency information -->
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-dependency-plugin</artifactId>
@@ -912,8 +912,8 @@
         <arg>-Xbootclasspath/p:${annotatedJdk}</arg>
         <!-- -Awarns turns type-checking warnings into errors. -->
         <!-- <arg>-Awarns</arg> -->
-        <arg>-AonlyDefs=^org\.apache\.commons\.lang3\.time\.</arg>
-        <arg>-Astubs=/Stubs/</arg>>
+        <arg>-AonlyDefs=^org\.apache\.commons\.lang3\.math\.</arg>
+        <arg>-Astubs=/Stubs/</arg>
       </compilerArgs>
     </configuration>
   </plugin>

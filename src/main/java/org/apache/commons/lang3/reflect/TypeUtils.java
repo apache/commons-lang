@@ -42,6 +42,7 @@ import org.checkerframework.checker.index.qual.LTEqLengthOf;
 import org.checkerframework.checker.index.qual.IndexOrHigh;
 import org.checkerframework.checker.index.qual.SameLen;
 import org.checkerframework.common.value.qual.MinLen;
+import org.checkerframework.checker.index.qual.LTLengthOf;
 
 /**
  * <p> Utility methods focusing on type inspection, particularly with regard to
@@ -1828,8 +1829,8 @@ public class TypeUtils {
         return buf.toString();
     }
 
-    @SuppressWarnings({"compound.assignment.type.incompatible","array.access.unsafe.high"}) // #1 recursiveTypeIndexes.length <= argumentTypes.indexes => i++ from 0 to recursiveTypeIndexes.length has i @IndexOrHigh("argumentTypes")
-    private static void appendRecursiveTypes(final StringBuilder buf, final int @LTEqLengthOf("#3") [] recursiveTypeIndexes, final Type[] argumentTypes) {
+    @SuppressWarnings({"compound.assignment.type.incompatible","array.access.unsafe.high"}) // #1 recursiveTypeIndexes.length <= argumentTypes.length => i++ from 0 to recursiveTypeIndexes.length has i @IndexOrHigh("argumentTypes")
+    private static void appendRecursiveTypes(final StringBuilder buf, final int @LTLengthOf(value = {"#3"}, offset = {"-1"}) [] recursiveTypeIndexes, final Type[] argumentTypes) {
         for (@IndexOrHigh("argumentTypes") int i = 0; i < recursiveTypeIndexes.length; i++) { // #1
             appendAllTo(buf.append('<'), ", ", argumentTypes[i].toString()).append('>');
         }
@@ -1844,9 +1845,9 @@ public class TypeUtils {
     #3 Array.copyOf(array, n) returns an array of length n 
     #4 Keeps on adding an element every time this statement is carried out, hence no. of elements <= no. of times loop runs, hence @LTEqLengthOf("p.getActualTypeArguments()")
     */
-    private static int @LTEqLengthOf("#1.getActualTypeArguments()") [] findRecursiveTypes(final ParameterizedType p) {
+    private static int @LTLengthOf(value = {"#1.getActualTypeArguments()"}, offset = {"-1"}) [] findRecursiveTypes(final ParameterizedType p) {
         final Type @SameLen("p.getActualTypeArguments()") [] filteredArgumentTypes = Arrays.copyOf(p.getActualTypeArguments(), p.getActualTypeArguments().length); // #3
-        int @LTEqLengthOf("p.getActualTypeArguments()") [] indexesToRemove = {};
+        int @LTLengthOf(value = {"p.getActualTypeArguments()"}, offset = {"-1"}) [] indexesToRemove = {};
         for (int i = 0; i < filteredArgumentTypes.length; i++) {
             if (filteredArgumentTypes[i] instanceof TypeVariable<?>) {
                 if (containsVariableTypeSameParametrizedTypeBound(((TypeVariable<?>) filteredArgumentTypes[i]), p)) {

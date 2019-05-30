@@ -1748,10 +1748,6 @@ public class NumberUtils {
      * @return {@code true} if the string is a parsable number.
      * @since 3.4
      */
-    @SuppressWarnings("argument.type.incompatible")/*
-    #6 - !StringUtils.isEmpty(str) => str.length() != 0 
-    #7 - !StringUtils.isEmpty(str) => str.length() != 0 
-    */
     public static boolean isParsable(final String str) {
         if (StringUtils.isEmpty(str)) {
             return false;

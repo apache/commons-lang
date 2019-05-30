@@ -27,6 +27,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.checkerframework.common.value.qual.EnsuresMinLenIf;
+
 /**
  * <p>Operations on {@link java.lang.String} that are
  * {@code null} safe.</p>
@@ -209,6 +211,7 @@ public class StringUtils {
      * @return {@code true} if the CharSequence is empty or null
      * @since 3.0 Changed signature from isEmpty(String) to isEmpty(CharSequence)
      */
+    @EnsuresMinLenIf(expression = "#1", result = false, targetValue = 1)
     public static boolean isEmpty(final CharSequence cs) {
         return cs == null || cs.length() == 0;
     }
