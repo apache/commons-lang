@@ -53,9 +53,9 @@ public class LookupTranslator extends CharSequenceTranslator {
      *
      * @param lookup CharSequence[][] table of size [*][2]
      */
-    @SuppressWarnings({"enhancedfor.type.incompatible","argument.type.incompatible"}) /*
-    #1 CharSequence is of the type [*][2] (according to the documentation), hence Charsequence has length 2
-    #2 Minimum 1 row ensures seq[0].charAt(0) to be valid
+    @SuppressWarnings({"index:enhancedfor.type.incompatible","index:argument.type.incompatible"}) /*
+    #1: CharSequence is of the type [*][2] (according to the documentation), hence Charsequence has length 2
+    #2: Minimum 1 row ensures seq[0].charAt(0) to be valid
     */
     public LookupTranslator(final CharSequence @MinLen(1) []... lookup) {
         lookupMap = new HashMap<>();
@@ -91,7 +91,7 @@ public class LookupTranslator extends CharSequenceTranslator {
                 max = input.length() - index;
             }
             // implement greedy algorithm by trying maximum match first
-            for (@SuppressWarnings("assignment.type.incompatible") @LTLengthOf(value = {"input"}, offset = {"index-1"}) int i = max; i >= shortest; i--) { // if index + longest > input.length(), max = input.length() - index and i goes from max till shortest. Else max < input.length() - index and the annotation meaning is retained
+            for (@SuppressWarnings("index:assignment.type.incompatible") @LTLengthOf(value = {"input"}, offset = {"index-1"}) int i = max; i >= shortest; i--) { // if index + longest > input.length(), max = input.length() - index and i goes from max till shortest. Else max < input.length() - index and the annotation meaning is retained
                 final CharSequence subSeq = input.subSequence(index, index + i);
                 final String result = lookupMap.get(subSeq.toString());
 

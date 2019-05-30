@@ -102,7 +102,7 @@ public class UnicodeEscaper extends CodePointTranslator {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings("argument.type.incompatible") // argument of out.write() need not to @NonNegative
+    @SuppressWarnings("index:argument.type.incompatible") // argument of out.write() need not to @NonNegative
     @Override
     public boolean translate(final int codepoint, final Writer out) throws IOException {
         if (between) {

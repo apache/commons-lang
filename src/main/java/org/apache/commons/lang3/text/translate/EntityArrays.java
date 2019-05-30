@@ -448,7 +448,7 @@ public class EntityArrays {
      * @param array String[][] to be inverted
      * @return String[][] inverted array
      */
-    @SuppressWarnings("array.access.unsafe.high.constant") // #1, #2 - checker is imprecise for double dimensional array
+    @SuppressWarnings("index:array.access.unsafe.high.constant") // #1, #2: checker is imprecise for double dimensional array
     public static String[][] invert(final String[][] array) {
         final String[] @ArrayLen(2) [] newarray = new String[array.length][2];
         for (int i = 0; i<array.length; i++) {

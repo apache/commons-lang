@@ -82,10 +82,10 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings({"argument.type.incompatible","assignment.type.incompatible"}) /*
-    #1 if end == seqEnd, input.charAt(end) is not executed
-    #2 Character.toChars(x) where x > 0xFFFF returns an array of length at least 2
-    #3 False negative, entityValue does not need to be non negative
+    @SuppressWarnings({"index:argument.type.incompatible","index:assignment.type.incompatible"}) /*
+    #1: if end == seqEnd, input.charAt(end) is not executed
+    #2: Character.toChars(x) where x > 0xFFFF returns an array of length at least 2
+    #3: False negative, entityValue does not need to be non negative
     */
     @Override
     public int translate(final CharSequence input, final @IndexFor("#1") int index, final Writer out) throws IOException {

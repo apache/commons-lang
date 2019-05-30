@@ -40,11 +40,11 @@ public class OctalUnescaper extends CharSequenceTranslator {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings("argument.type.incompatible") /*
-    #1 - remaining > 0 => index + 1 < input.length()
-    #2 - remaining > 1 => index + 2 < input.length()
-    #3 - remaining > 2 => index + 3 < input.length()
-    #4 argument need not be @NonNegative
+    @SuppressWarnings("index:argument.type.incompatible") /*
+    #1: remaining > 0 => index + 1 < input.length()
+    #2: remaining > 1 => index + 2 < input.length()
+    #3: remaining > 2 => index + 3 < input.length()
+    #4: argument need not be @NonNegative
     */
     @Override
     public int translate(final CharSequence input, final @IndexFor("#1") int index, final Writer out) throws IOException {

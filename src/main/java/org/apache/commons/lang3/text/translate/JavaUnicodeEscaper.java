@@ -111,10 +111,10 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
      *            a Unicode code point
      * @return the hex string for the given codepoint
      */
-    @SuppressWarnings("override.param.invalid") // the function it is overriding may take any codepoint value
+    @SuppressWarnings("index:override.param.invalid") // the function it is overriding may take any codepoint value
     @Override
     protected String toUtf16Escape(final @IntRange(from = 65535, to = Integer.MAX_VALUE) int codepoint) {
-        @SuppressWarnings("assignment.type.incompatible") // array has @MinLen(2) if codepoint > 0xffff, which is checked when this function is called
+        @SuppressWarnings("index:assignment.type.incompatible") // array has @MinLen(2) if codepoint > 0xffff, which is checked when this function is called
         final char @MinLen(2) [] surrogatePair = Character.toChars(codepoint);
         return "\\u" + hex(surrogatePair[0]) + "\\u" + hex(surrogatePair[1]);
     }

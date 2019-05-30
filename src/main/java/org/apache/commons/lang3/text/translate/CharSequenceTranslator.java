@@ -81,9 +81,9 @@ public abstract class CharSequenceTranslator {
      * @param out Writer to translate the text to
      * @throws IOException if and only if the Writer produces an IOException
      */
-    @SuppressWarnings("argument.type.incompatible") /*
-    #1, #2 - argument to write() need not be @NonNegative
-    #3 - consumed is the number of codepoints used to represent the character, hence, the value of pos remains a valid index for input throughout the loop
+    @SuppressWarnings("index:argument.type.incompatible") /*
+    #1, #2: argument to write() need not be @NonNegative
+    #3: consumed is the number of codepoints used to represent the character, hence, the value of pos remains a valid index for input throughout the loop
     */
     public final void translate(final CharSequence input, final Writer out) throws IOException {
         if (out == null) {
@@ -127,7 +127,7 @@ public abstract class CharSequenceTranslator {
      * @return CharSequenceTranslator merging this translator with the others
      */
     public final CharSequenceTranslator with(final CharSequenceTranslator... translators) {
-        @SuppressWarnings("assignment.type.incompatible") // translators.length + 1 has minimum value 1
+        @SuppressWarnings("index:assignment.type.incompatible") // translators.length + 1 has minimum value 1
         final CharSequenceTranslator @MinLen(1) [] newArray = new CharSequenceTranslator[translators.length + 1];
         newArray[0] = this;
         System.arraycopy(translators, 0, newArray, 1, translators.length);

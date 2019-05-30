@@ -147,11 +147,11 @@ public class ExtendedMessageFormat extends MessageFormat {
      *
      * @param pattern String
      */
-    @SuppressWarnings({"array.access.unsafe.high","compound.assignment.type.incompatible","array.access.unsafe.high.range"}) /*
-    #1 - readArgumentIndex(pattern, next(pos)) will throw an exception if next(pos) is not a valid index, hence the new pos_index is a valid index as well
-    #2 formatDescription = parseFormatDescription(pattern, next(pos)); will throw an exception if next(pos) is not a valid index, hence the new pos_index is a valid index as well
-    #3 - If the path of #1 and/or #2 is followed, pos_index is valid due to the above argument, else it is valid due to the check pos_index < pattern.length()
-    #5, #6 it.hasNext() ensures i to go only till origFormats.length
+    @SuppressWarnings({"index:array.access.unsafe.high","index:compound.assignment.type.incompatible","index:array.access.unsafe.high.range"}) /*
+    #1: readArgumentIndex(pattern, next(pos)) will throw an exception if next(pos) is not a valid index, hence the new pos_index is a valid index as well
+    #2: formatDescription = parseFormatDescription(pattern, next(pos)); will throw an exception if next(pos) is not a valid index, hence the new pos_index is a valid index as well
+    #3: If the path of #1 and/or #2 is followed, pos_index is valid due to the above argument, else it is valid due to the check pos_index < pattern.length()
+    #5, #6: it.hasNext() ensures i to go only till origFormats.length
     */
     @Override
     public final void applyPattern(final String pattern) {
@@ -338,9 +338,9 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param pos current parse position
      * @return argument index
      */
-    @SuppressWarnings({"argument.type.incompatible","assignment.type.incompatible"})/*
-    #1 - initial parsing position
-    #2 - pos.getIndex() will be equal to pattern.length() here as it is the value with which it exits from the loop
+    @SuppressWarnings({"index:argument.type.incompatible","index:assignment.type.incompatible"})/*
+    #1: initial parsing position
+    #2: pos.getIndex() will be equal to pattern.length() here as it is the value with which it exits from the loop
     */
     private int readArgumentIndex(final String pattern, final ParsePosition pos) {
         final @IndexOrHigh("pattern") int start = pos.getIndex(); // #1
@@ -385,7 +385,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param pos current parse position
      * @return Format description String
      */
-    @SuppressWarnings("argument.type.incompatible") // #1 - pos.getIndex() < pattern.length() => text which was the inital pos.getIndex() is also < pattern.lengt
+    @SuppressWarnings("argument.type.incompatible") // #1: pos.getIndex() < pattern.length() => text which was the inital pos.getIndex() is also < pattern.lengt
     private String parseFormatDescription(final String pattern, final ParsePosition pos) {
         final int start = pos.getIndex();
         seekNonWs(pattern, pos);
@@ -431,7 +431,6 @@ public class ExtendedMessageFormat extends MessageFormat {
         int depth = 0;
         int pos_index = pos.getIndex();
         while (pos_index < pattern.length()) {
-            //@SuppressWarnings("argument.type.incompatible") // pos.getIndex() < pattern.length() => pos.getIndex() is a valid index for pattern
             final char c = pattern.charAt(pos_index);
             switch (c) {
             case QUOTE:
@@ -498,11 +497,11 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param appendTo optional StringBuilder to append
      * @return <code>appendTo</code>
      */
-    @SuppressWarnings({"assignment.type.incompatible","array.access.unsafe.high","argument.type.incompatible"}) /*
-    #1, #2 - pos.getIndex() returns the current parse position which is always @LTEqLengthOf("pattern")
-    #3 - i goes from pos.getIndex() to pattern.length() - 1, and next(pos) in every case => pos goes from current parse position till pattern.length() - 1
-    #4 - lastHold is the initial parse position, hence lastHold <= pos.getIndex()
-    #5 - whenever appendQuotedString() is called, it is checked that pos.getIndex() < pattern.length
+    @SuppressWarnings({"index:assignment.type.incompatible","index:array.access.unsafe.high","index:argument.type.incompatible"}) /*
+    #1, #2 : pos.getIndex() returns the current parse position which is always @LTEqLengthOf("pattern")
+    #3: i goes from pos.getIndex() to pattern.length() - 1, and next(pos) in every case => pos goes from current parse position till pattern.length() - 1
+    #4: lastHold is the initial parse position, hence lastHold <= pos.getIndex()
+    #5: whenever appendQuotedString() is called, it is checked that pos.getIndex() < pattern.length
     */
     private StringBuilder appendQuotedString(final String pattern, final ParsePosition pos,
             final StringBuilder appendTo) {

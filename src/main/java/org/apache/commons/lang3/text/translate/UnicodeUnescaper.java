@@ -37,9 +37,9 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings("argument.type.incompatible") /*
-    #1 index + i + 4 <= input.length() as checked by the if statement
-    #2 False negative, argument to out.write() need not be non negative
+    @SuppressWarnings("index:argument.type.incompatible") /*
+    #1: index + i + 4 <= input.length() as checked by the if statement
+    #2: False negative, argument to out.write() need not be non negative
     */
     @Override
     public int translate(final CharSequence input, final @IndexFor("#1") int index, final Writer out) throws IOException {

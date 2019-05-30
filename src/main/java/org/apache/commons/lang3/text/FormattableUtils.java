@@ -134,7 +134,7 @@ public class FormattableUtils {
      *  empty causes a hard truncation
      * @return the {@code formatter} instance, not null
      */
-    @SuppressWarnings("argument.type.incompatible") // precision >= 0 ensured in #0.2, also, Validate.isTrue in #0.1 ensures either ellipsis = null or ellipsis.length() <= precision, in either case, precision - ellipsis.length() is @NonNegative
+    @SuppressWarnings("index:argument.type.incompatible") //#1: precision >= 0 ensured in #0.2, also, Validate.isTrue in #0.1 ensures either ellipsis = null or ellipsis.length() <= precision, in either case, precision - ellipsis.length() is @NonNegative
     public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width,
             final int precision, final char padChar, final CharSequence ellipsis) {
         Validate.isTrue(ellipsis == null || precision < 0 || ellipsis.length() <= precision, // #0.1
