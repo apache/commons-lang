@@ -73,7 +73,7 @@ import org.apache.commons.lang3.Validate;
  */
 public abstract class TypeLiteral<T> implements Typed<T> {
 
-    @SuppressWarnings({"rawtypes","array.access.unsafe.high.constant"}) // a Type variable is declared, hence getTypeParameters() will not return an array of length 0
+    @SuppressWarnings({"rawtypes","index:array.access.unsafe.high.constant"}) // a Type variable is declared, hence getTypeParameters() will not return an array of length 0
     private static final TypeVariable<Class<TypeLiteral>> T = TypeLiteral.class.getTypeParameters()[0];
 
     /**

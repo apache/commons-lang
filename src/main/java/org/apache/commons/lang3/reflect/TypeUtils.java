@@ -877,7 +877,7 @@ public class TypeUtils {
         // get the subject parameterized type's arguments
         final Type[] typeArgs = parameterizedType.getActualTypeArguments();
         // and get the corresponding type variables from the raw class
-        @SuppressWarnings("assignment.type.incompatible") // each typeArgs' corresponding type variables, hence of same length as typeArgs[]
+        @SuppressWarnings("index:assignment.type.incompatible") // each typeArgs' corresponding type variables, hence of same length as typeArgs[]
         final TypeVariable<?> @SameLen("typeArgs") [] typeParams = cls.getTypeParameters();
 
         // map the arguments to their respective type variables
@@ -1007,8 +1007,8 @@ public class TypeUtils {
      * @param parameterizedType the parameterized type
      * @param typeVarAssigns the map to be filled
      */
-    @SuppressWarnings({"assignment.type.incompatible", "array.access.unsafe.high"}) /*
-    #5 - getRawType(parameterizedType).getTypeParameters() has same length as parameterizedType.getActualTypeArguments()
+    @SuppressWarnings({"index:assignment.type.incompatible", "index:array.access.unsafe.high"}) /*
+    #5: getRawType(parameterizedType).getTypeParameters() has same length as parameterizedType.getActualTypeArguments()
     */
     private static <T> void mapTypeVariablesToArguments(final Class<T> cls,
             final ParameterizedType parameterizedType, final Map<TypeVariable<?>, Type> typeVarAssigns) {
@@ -1188,9 +1188,9 @@ public class TypeUtils {
      * @return a non-empty array containing the upper bounds of the wildcard
      * type.
      */
-    @SuppressWarnings("return.type.incompatible") /*
-    #1 bounds.length != 0 ensures @MinLen(1)
-    #2 new Type[] {Object.class} has length 1
+    @SuppressWarnings("index:return.type.incompatible") /*
+    #1: bounds.length != 0 ensures @MinLen(1)
+    #2: new Type[] {Object.class} has length 1
     */
     public static Type @MinLen(1) [] getImplicitUpperBounds(final WildcardType wildcardType) {
         Validate.notNull(wildcardType, "wildcardType is null");
@@ -1208,7 +1208,7 @@ public class TypeUtils {
      * @return a non-empty array containing the lower bounds of the wildcard
      * type.
      */
-    @SuppressWarnings("return.type.incompatible") // bounds.length != 0 => bounds is @MinLen(1)
+    @SuppressWarnings("index:return.type.incompatible") // bounds.length != 0 => bounds is @MinLen(1)
     public static Type @MinLen(1) [] getImplicitLowerBounds(final WildcardType wildcardType) {
         Validate.notNull(wildcardType, "wildcardType is null");
         final Type[] bounds = wildcardType.getLowerBounds();
@@ -1546,8 +1546,8 @@ public class TypeUtils {
      * @param variables expected map keys
      * @return array of map values corresponding to specified keys
      */
-    @SuppressWarnings({"array.access.unsafe.high","compound.assignment.type.incompatible"})/*
-    #7 - result.length = variables.length, hence result[index++] is valid, also, index++ is a valid assignment for @IndexOrHigh("result") 
+    @SuppressWarnings({"index:array.access.unsafe.high","index:compound.assignment.type.incompatible"})/*
+    #7: result.length = variables.length, hence result[index++] is valid, also, index++ is a valid assignment for @IndexOrHigh("result") 
     */
     private static Type[] extractTypeArgumentsFrom(final Map<TypeVariable<?>, Type> mappings, final TypeVariable<?>[] variables) {
         final Type @SameLen("variables") [] result = new Type[variables.length];
@@ -1829,7 +1829,7 @@ public class TypeUtils {
         return buf.toString();
     }
 
-    @SuppressWarnings({"compound.assignment.type.incompatible","array.access.unsafe.high"}) // #1 recursiveTypeIndexes.length <= argumentTypes.length => i++ from 0 to recursiveTypeIndexes.length has i @IndexOrHigh("argumentTypes")
+    @SuppressWarnings({"index:compound.assignment.type.incompatible","index:array.access.unsafe.high"}) // #1: recursiveTypeIndexes.length <= argumentTypes.length => i++ from 0 to recursiveTypeIndexes.length has i @IndexOrHigh("argumentTypes")
     private static void appendRecursiveTypes(final StringBuilder buf, final int @LTLengthOf(value = {"#3"}, offset = {"-1"}) [] recursiveTypeIndexes, final Type[] argumentTypes) {
         for (@IndexOrHigh("argumentTypes") int i = 0; i < recursiveTypeIndexes.length; i++) { // #1
             appendAllTo(buf.append('<'), ", ", argumentTypes[i].toString()).append('>');
@@ -1841,9 +1841,9 @@ public class TypeUtils {
             appendAllTo(buf.append('<'), ", ", argumentsFiltered).append('>');
         }
     }
-    @SuppressWarnings("assignment.type.incompatible")/*
-    #3 Array.copyOf(array, n) returns an array of length n 
-    #4 Keeps on adding an element every time this statement is carried out, hence no. of elements <= no. of times loop runs, hence @LTEqLengthOf("p.getActualTypeArguments()")
+    @SuppressWarnings("index:assignment.type.incompatible")/*
+    #3: Array.copyOf(array, n) returns an array of length n 
+    #4: Keeps on adding an element every time this statement is carried out, hence no. of elements <= no. of times loop runs, hence @LTEqLengthOf("p.getActualTypeArguments()")
     */
     private static int @LTLengthOf(value = {"#1.getActualTypeArguments()"}, offset = {"-1"}) [] findRecursiveTypes(final ParameterizedType p) {
         final Type @SameLen("p.getActualTypeArguments()") [] filteredArgumentTypes = Arrays.copyOf(p.getActualTypeArguments(), p.getActualTypeArguments().length); // #3

@@ -210,7 +210,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             }
 
             Rule rule;
-            @SuppressWarnings("argument.type.incompatible") // tokenLen != 0 as checked by the previous if statement
+            @SuppressWarnings("index:argument.type.incompatible") // tokenLen != 0 as checked by the previous if statement
             final char c = token.charAt(0);
 
             switch (c) {
@@ -304,7 +304,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 }
                 break;
             case '\'': // literal text
-                @SuppressWarnings("argument.type.incompatible") // token has a minimum length 1
+                @SuppressWarnings("index:argument.type.incompatible") // token has a minimum length 1
                 final String sub = token.substring(1);
                 if (sub.length() == 1) {
                     rule = new CharacterLiteral(sub.charAt(0));
@@ -329,7 +329,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @param indexRef  index references
      * @return parsed token
      */
-    @SuppressWarnings("assignment.type.incompatible") // #1 checker suspects i to be negative due to the i-- inside the loop, but the loop does an i++ after every iteration, hence i cannot be negative in this statement
+    @SuppressWarnings("index:assignment.type.incompatible") // #1: checker suspects i to be negative due to the i-- inside the loop, but the loop does an i++ after every iteration, hence i cannot be negative in this statement
     protected String parseToken(final String pattern, final @NonNegative @LTLengthOf("#1") int @MinLen(1) [] indexRef) { // index references are valid indices for pattern
         final StringBuilder buf = new StringBuilder();
 
@@ -700,9 +700,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @param buffer the buffer to append to.
      * @param value the value to append digits from.
      */
-    @SuppressWarnings({"compound.assignment.type.incompatible","array.access.unsafe.high"}) /*
-    #2 value/10 in every iteration => loop can run a maximum of 10 times because log(Integer.MAX_VALUE) = 9.3, and work.length = 10, hence work[digit++] can have a maximum value of work[9]
-    #3 digit exits the previous loop with a non negative value, hence --digit>=0 => minimum value of digit to be -1
+    @SuppressWarnings({"index:compound.assignment.type.incompatible","index:array.access.unsafe.high"}) /*
+    #2: value/10 in every iteration => loop can run a maximum of 10 times because log(Integer.MAX_VALUE) = 9.3, and work.length = 10, hence work[digit++] can have a maximum value of work[9]
+    #3: digit exits the previous loop with a non negative value, hence --digit>=0 => minimum value of digit to be -1
     */
     private static void appendFullDigits(final Appendable buffer, int value, int minFieldWidth) throws IOException {
         // specialized paths for 1 to 4 digits -> avoid the memory allocation from the temporary work array
@@ -910,7 +910,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         /**
          * {@inheritDoc}
          */
-        @SuppressWarnings("array.access.unsafe.high") // mValues has same number of elements as number of possible elements by calendar.get(mField), calendar.get(mField) starts from 0, hence a valid index 
+        @SuppressWarnings("index:array.access.unsafe.high") // mValues has same number of elements as number of possible elements by calendar.get(mField), calendar.get(mField) starts from 0, hence a valid index 
         @Override
         public void appendTo(final Appendable buffer, final Calendar calendar) throws IOException {
             buffer.append(mValues[calendar.get(mField)]);

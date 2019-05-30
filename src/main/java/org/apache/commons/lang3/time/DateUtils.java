@@ -83,7 +83,7 @@ public class DateUtils {
      */
     public static final int SEMI_MONTH = 1001;
 
-    @SuppressWarnings("assignment.type.incompatible")
+    @SuppressWarnings("index:assignment.type.incompatible")
     private static final @NonNegative int @MinLen(8) [] @MinLen(1) [] fields = { // imprecision in checker for double dimensional array
             {Calendar.MILLISECOND},
             {Calendar.SECOND},

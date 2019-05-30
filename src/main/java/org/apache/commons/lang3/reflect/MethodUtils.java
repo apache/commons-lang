@@ -449,7 +449,7 @@ public class MethodUtils {
         return method.invoke(null, args);
     }
 
-    @SuppressWarnings({"assignment.type.incompatible","argument.type.incompatible"}) // isVarArgs() => args and methodParameterTypes have at lease 1 element
+    @SuppressWarnings({"index:assignment.type.incompatible","index:argument.type.incompatible"}) // isVarArgs() => args and methodParameterTypes have at lease 1 element
     private static Object[] toVarArgs(final Method method, Object[] args) {
         if (method.isVarArgs()) {
             final Class<?> @MinLen(1) [] methodParameterTypes = method.getParameterTypes();
@@ -468,9 +468,9 @@ public class MethodUtils {
      * @return an array of the variadic arguments passed to the method
      * @since 3.5
      */
-    @SuppressWarnings({"assignment.type.incompatible","argument.type.incompatible"})/*
-    #1 - args.length > methodParameterTypes.length
-    #2 - varArgLength -> no. of componenets to be copied, varArgLength <= args.length and varArgsArray.length, hence valid argument
+    @SuppressWarnings({"index:assignment.type.incompatible","index:argument.type.incompatible"})/*
+    #1: args.length > methodParameterTypes.length
+    #2: varArgLength -> no. of componenets to be copied, varArgLength <= args.length and varArgsArray.length, hence valid argument
     */
     static Object[] getVarArgs(final Object @MinLen(1) [] args, final Class<?> @LTEqLengthOf("#1") @MinLen(1) [] methodParameterTypes) {
         if (args.length == methodParameterTypes.length
@@ -776,7 +776,7 @@ public class MethodUtils {
      * @param toClassArray
      * @return the aggregate number of inheritance hops between assignable argument class types.
      */
-    @SuppressWarnings({"compound.assignment.type.incompatible","array.access.unsafe.high"}) // #3 - ClassUtils.isAssignable() => toClassArray.length = classArray.length, hence offset is @IndexOrHigh("toClassArray") as well and offset < classArray.length and toClassArray.length inside the loop
+    @SuppressWarnings({"index:compound.assignment.type.incompatible","index:array.access.unsafe.high"}) // #3: ClassUtils.isAssignable() => toClassArray.length = classArray.length, hence offset is @IndexOrHigh("toClassArray") as well and offset < classArray.length and toClassArray.length inside the loop
     private static int distance(final Class<?>[] classArray, final Class<?>[] toClassArray) {
         int answer = 0;
 
@@ -807,7 +807,7 @@ public class MethodUtils {
      * @throws NullPointerException if the specified method is {@code null}
      * @since 3.2
      */
-    @SuppressWarnings({"compound.assignment.type.incompatible", "array.access.unsafe.high"}) // #4 getGenericParameterTypes() returns an array of Types that represent the formal parameter types of the method object, hence all instances of a class will have the same length of the array returned, hence,  method.getGenericParameterTypes().length =  m.getGenericParameterTypes().length = parameterTypes.length and i < parameterTypes.length inside the loop
+    @SuppressWarnings({"index:compound.assignment.type.incompatible", "index:array.access.unsafe.high"}) // #4: getGenericParameterTypes() returns an array of Types that represent the formal parameter types of the method object, hence all instances of a class will have the same length of the array returned, hence,  method.getGenericParameterTypes().length =  m.getGenericParameterTypes().length = parameterTypes.length and i < parameterTypes.length inside the loop
     public static Set<Method> getOverrideHierarchy(final Method method, final Interfaces interfacesBehavior) {
         Validate.notNull(method);
         final Set<Method> result = new LinkedHashSet<>();

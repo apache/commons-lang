@@ -651,7 +651,7 @@ public class NumberUtils {
      * @return Number created from the string (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
-    @SuppressWarnings("argument.type.incompatible")/*
+    @SuppressWarnings("index:argument.type.incompatible")/*
     #1, #2, #3: !StringUtils.isBlank(str) => str.length != 0
     */
     public static Number createNumber(final String str) {
@@ -950,7 +950,7 @@ public class NumberUtils {
      * @return converted <code>BigInteger</code> (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
-    @SuppressWarnings("compound.assignment.type.incompatible")/*
+    @SuppressWarnings("index:compound.assignment.type.incompatible")/*
     #4: str.startsWith("0x", pos)=> pos + 2 is a valid index of str
     #5: str.startsWith("#", pos) => pos + 1 is a valid index of str
     */
@@ -1023,7 +1023,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns min
-        @SuppressWarnings("array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
+        @SuppressWarnings("index:array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
         long min = array[0];
         for (int i = 1; i < array.length; i++) {
             if (array[i] < min) {
@@ -1048,7 +1048,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns min
-        @SuppressWarnings("array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
+        @SuppressWarnings("index:array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
         int min = array[0];
         for (int j = 1; j < array.length; j++) {
             if (array[j] < min) {
@@ -1073,7 +1073,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns min
-        @SuppressWarnings("array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
+        @SuppressWarnings("index:array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
         short min = array[0];
         for (int i = 1; i < array.length; i++) {
             if (array[i] < min) {
@@ -1098,7 +1098,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns min
-        @SuppressWarnings("array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
+        @SuppressWarnings("index:array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
         byte min = array[0];
         for (int i = 1; i < array.length; i++) {
             if (array[i] < min) {
@@ -1124,7 +1124,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns min
-        @SuppressWarnings("array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
+        @SuppressWarnings("index:array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
         double min = array[0];
         for (int i = 1; i < array.length; i++) {
             if (Double.isNaN(array[i])) {
@@ -1153,7 +1153,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns min
-        @SuppressWarnings("array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
+        @SuppressWarnings("index:array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
         float min = array[0];
         for (int i = 1; i < array.length; i++) {
             if (Float.isNaN(array[i])) {
@@ -1183,7 +1183,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns max
-        @SuppressWarnings("array.access.unsafe.high.constant") // validateArray(array) => array.length != 0 
+        @SuppressWarnings("index:array.access.unsafe.high.constant") // validateArray(array) => array.length != 0 
         long max = array[0];
         for (int j = 1; j < array.length; j++) {
             if (array[j] > max) {
@@ -1208,7 +1208,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns max
-        @SuppressWarnings("array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
+        @SuppressWarnings("index:array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
         int max = array[0];
         for (int j = 1; j < array.length; j++) {
             if (array[j] > max) {
@@ -1233,7 +1233,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns max
-        @SuppressWarnings("array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
+        @SuppressWarnings("index:array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
         short max = array[0];
         for (int i = 1; i < array.length; i++) {
             if (array[i] > max) {
@@ -1258,7 +1258,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns max
-        @SuppressWarnings("array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
+        @SuppressWarnings("index:array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
         byte max = array[0];
         for (int i = 1; i < array.length; i++) {
             if (array[i] > max) {
@@ -1284,7 +1284,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns max
-        @SuppressWarnings("array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
+        @SuppressWarnings("index:array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
         double max = array[0];
         for (int j = 1; j < array.length; j++) {
             if (Double.isNaN(array[j])) {
@@ -1313,7 +1313,7 @@ public class NumberUtils {
         validateArray(array);
 
         // Finds and returns max
-        @SuppressWarnings("array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
+        @SuppressWarnings("index:array.access.unsafe.high.constant") // validateArray(array) => array.length != 0
         float max = array[0];
         for (int j = 1; j < array.length; j++) {
             if (Float.isNaN(array[j])) {
