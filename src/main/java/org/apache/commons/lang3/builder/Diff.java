@@ -55,7 +55,7 @@ public abstract class Diff<T> extends Pair<T, T> {
      * @param fieldName
      *            the name of the field
      */
-    @SuppressWarnings("array.access.unsafe.high.constant") // #1 - a Type variable is declared, hence getTypeParameters() will not return an array of length 0
+    @SuppressWarnings("array.access.unsafe.high.constant") // #1: a Type variable is declared, hence getTypeParameters() will not return an array of length 0
     protected Diff(final String fieldName) {
         this.type = ObjectUtils.defaultIfNull(
                 TypeUtils.getTypeArguments(getClass(), Diff.class).get(
