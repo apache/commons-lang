@@ -53,7 +53,7 @@ public class LookupTranslator extends CharSequenceTranslator {
      *
      * @param lookup CharSequence[][] table of size [*][2]
      */
-    @SuppressWarnings({"index:enhancedfor.type.incompatible","index:argument.type.incompatible"}) /*
+    @SuppressWarnings({"value:enhancedfor.type.incompatible","index:argument.type.incompatible"}) /*
     #1: CharSequence is of the type [*][2] (according to the documentation), hence Charsequence has length 2
     #2: Minimum 1 row ensures seq[0].charAt(0) to be valid
     */

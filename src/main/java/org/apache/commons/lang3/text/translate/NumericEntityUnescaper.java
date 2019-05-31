@@ -82,7 +82,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings({"index:argument.type.incompatible","index:assignment.type.incompatible"}) /*
+    @SuppressWarnings({"index:argument.type.incompatible","value:assignment.type.incompatible","index:assignment.type.incompatible"}) /*
     #1: if end == seqEnd, input.charAt(end) is not executed
     #2: Character.toChars(x) where x > 0xFFFF returns an array of length at least 2
     #3: False negative, entityValue does not need to be non negative

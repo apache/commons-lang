@@ -30,6 +30,8 @@ import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.Builder;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 /**
  * Builds a string from constituent parts providing a more flexible and powerful API
  * than StringBuffer.
@@ -95,7 +97,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     /** Internal data storage. */
     protected char[] buffer; // TODO make private?
     /** Current size of the buffer. */
-    protected int size; // TODO make private?
+    protected @NonNegative int size; // TODO make private?
     /** The new line. */
     private String newLine;
     /** The null text. */
@@ -190,7 +192,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return the length
      */
     @Override
-    public int length() {
+    public @NonNegative int length() {
         return size;
     }
 

@@ -127,7 +127,7 @@ public abstract class CharSequenceTranslator {
      * @return CharSequenceTranslator merging this translator with the others
      */
     public final CharSequenceTranslator with(final CharSequenceTranslator... translators) {
-        @SuppressWarnings("index:assignment.type.incompatible") // translators.length + 1 has minimum value 1
+        @SuppressWarnings("value:assignment.type.incompatible") // translators.length + 1 has minimum value 1
         final CharSequenceTranslator @MinLen(1) [] newArray = new CharSequenceTranslator[translators.length + 1];
         newArray[0] = this;
         System.arraycopy(translators, 0, newArray, 1, translators.length);
