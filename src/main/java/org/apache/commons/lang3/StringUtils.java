@@ -981,7 +981,7 @@ public class StringUtils {
      * equal sequences of characters.</p>
      *
      * <p>{@code null}s are handled without exceptions. Two {@code null}
-     * references are considered to be equal. The comparison is case sensitive.</p>
+     * references are considered to be equal. The comparison is <strong>case sensitive</strong>.</p>
      *
      * <pre>
      * StringUtils.equals(null, null)   = true
@@ -991,11 +991,12 @@ public class StringUtils {
      * StringUtils.equals("abc", "ABC") = false
      * </pre>
      *
-     * @see Object#equals(Object)
      * @param cs1  the first CharSequence, may be {@code null}
      * @param cs2  the second CharSequence, may be {@code null}
      * @return {@code true} if the CharSequences are equal (case-sensitive), or both {@code null}
      * @since 3.0 Changed signature from equals(String, String) to equals(CharSequence, CharSequence)
+     * @see Object#equals(Object)
+     * @see #equalsIgnoreCase(CharSequence, CharSequence)
      */
     public static boolean equals(final CharSequence cs1, final CharSequence cs2) {
         if (cs1 == cs2) {
@@ -1010,7 +1011,14 @@ public class StringUtils {
         if (cs1 instanceof String && cs2 instanceof String) {
             return cs1.equals(cs2);
         }
-        return CharSequenceUtils.regionMatches(cs1, false, 0, cs2, 0, cs1.length());
+        // Step-wise comparison
+        final int length = cs1.length();
+        for (int i = 0; i < length; i++) {
+            if (cs1.charAt(i) != cs2.charAt(i)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -1018,7 +1026,7 @@ public class StringUtils {
      * equal sequences of characters, ignoring case.</p>
      *
      * <p>{@code null}s are handled without exceptions. Two {@code null}
-     * references are considered equal. Comparison is case insensitive.</p>
+     * references are considered equal. The comparison is <strong>case insensitive</strong>.</p>
      *
      * <pre>
      * StringUtils.equalsIgnoreCase(null, null)   = true
@@ -1028,22 +1036,23 @@ public class StringUtils {
      * StringUtils.equalsIgnoreCase("abc", "ABC") = true
      * </pre>
      *
-     * @param str1  the first CharSequence, may be null
-     * @param str2  the second CharSequence, may be null
-     * @return {@code true} if the CharSequence are equal, case insensitive, or
-     *  both {@code null}
+     * @param cs1  the first CharSequence, may be {@code null}
+     * @param cs2  the second CharSequence, may be {@code null}
+     * @return {@code true} if the CharSequences are equal (case-insensitive), or both {@code null}
      * @since 3.0 Changed signature from equalsIgnoreCase(String, String) to equalsIgnoreCase(CharSequence, CharSequence)
+     * @see #equals(CharSequence, CharSequence)
      */
-    public static boolean equalsIgnoreCase(final CharSequence str1, final CharSequence str2) {
-        if (str1 == null || str2 == null) {
-            return str1 == str2;
-        } else if (str1 == str2) {
+    public static boolean equalsIgnoreCase(final CharSequence cs1, final CharSequence cs2) {
+        if (cs1 == cs2) {
             return true;
-        } else if (str1.length() != str2.length()) {
-            return false;
-        } else {
-            return CharSequenceUtils.regionMatches(str1, true, 0, str2, 0, str1.length());
         }
+        if (cs1 == null || cs2 == null) {
+            return false;
+        }
+        if (cs1.length() != cs2.length()) {
+            return false;
+        }
+        return CharSequenceUtils.regionMatches(cs1, true, 0, cs2, 0, cs1.length());
     }
 
     // Compare
@@ -3613,8 +3622,8 @@ public class StringUtils {
      * <pre>
      * StringUtils.splitPreserveAllTokens(null, *, *)            = null
      * StringUtils.splitPreserveAllTokens("", *, *)              = []
-     * StringUtils.splitPreserveAllTokens("ab de fg", null, 0)   = ["ab", "cd", "ef"]
-     * StringUtils.splitPreserveAllTokens("ab   de fg", null, 0) = ["ab", "cd", "ef"]
+     * StringUtils.splitPreserveAllTokens("ab de fg", null, 0)   = ["ab", "de", "fg"]
+     * StringUtils.splitPreserveAllTokens("ab   de fg", null, 0) = ["ab", "", "", "de", "fg"]
      * StringUtils.splitPreserveAllTokens("ab:cd:ef", ":", 0)    = ["ab", "cd", "ef"]
      * StringUtils.splitPreserveAllTokens("ab:cd:ef", ":", 2)    = ["ab", "cd:ef"]
      * StringUtils.splitPreserveAllTokens("ab   de fg", null, 2) = ["ab", "  de fg"]
@@ -4133,7 +4142,7 @@ public class StringUtils {
      * @param array  the array of values to join together, may be null
      * @param separator  the separator character to use
      * @param startIndex the first index to start joining from.  It is
-     * an error to pass in an end index past the end of the array
+     * an error to pass in a start index past the end of the array
      * @param endIndex the index to stop joining from (exclusive). It is
      * an error to pass in an end index past the end of the array
      * @return the joined String, {@code null} if null array input
@@ -4182,7 +4191,7 @@ public class StringUtils {
      * @param separator
      *            the separator character to use
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in an end index past the end of the
+     *            the first index to start joining from. It is an error to pass in a start index past the end of the
      *            array
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
@@ -4231,7 +4240,7 @@ public class StringUtils {
      * @param separator
      *            the separator character to use
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in an end index past the end of the
+     *            the first index to start joining from. It is an error to pass in a start index past the end of the
      *            array
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
@@ -4280,7 +4289,7 @@ public class StringUtils {
      * @param separator
      *            the separator character to use
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in an end index past the end of the
+     *            the first index to start joining from. It is an error to pass in a start index past the end of the
      *            array
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
@@ -4329,7 +4338,7 @@ public class StringUtils {
      * @param separator
      *            the separator character to use
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in an end index past the end of the
+     *            the first index to start joining from. It is an error to pass in a start index past the end of the
      *            array
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
@@ -4378,7 +4387,7 @@ public class StringUtils {
      * @param separator
      *            the separator character to use
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in an end index past the end of the
+     *            the first index to start joining from. It is an error to pass in a start index past the end of the
      *            array
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
@@ -4427,7 +4436,7 @@ public class StringUtils {
      * @param separator
      *            the separator character to use
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in an end index past the end of the
+     *            the first index to start joining from. It is an error to pass in a start index past the end of the
      *            array
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
@@ -4476,7 +4485,7 @@ public class StringUtils {
      * @param separator
      *            the separator character to use
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in an end index past the end of the
+     *            the first index to start joining from. It is an error to pass in a start index past the end of the
      *            array
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
@@ -4748,7 +4757,7 @@ public class StringUtils {
      * @param list  the {@code List} of values to join together, may be null
      * @param separator  the separator character to use
      * @param startIndex the first index to start joining from.  It is
-     * an error to pass in an end index past the end of the list
+     * an error to pass in a start index past the end of the list
      * @param endIndex the index to stop joining from (exclusive). It is
      * an error to pass in an end index past the end of the list
      * @return the joined String, {@code null} if null list input
@@ -4786,7 +4795,7 @@ public class StringUtils {
      * @param list  the {@code List} of values to join together, may be null
      * @param separator  the separator character to use
      * @param startIndex the first index to start joining from.  It is
-     * an error to pass in an end index past the end of the list
+     * an error to pass in a start index past the end of the list
      * @param endIndex the index to stop joining from (exclusive). It is
      * an error to pass in an end index past the end of the list
      * @return the joined String, {@code null} if null list input
@@ -9220,16 +9229,16 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.wrap(null, *)        = null
-     * StringUtils.wrap("", *)          = ""
-     * StringUtils.wrap("ab", '\0')     = "ab"
-     * StringUtils.wrap("ab", 'x')      = "xabx"
-     * StringUtils.wrap("ab", '\'')     = "'ab'"
-     * StringUtils.wrap("\"ab\"", '\"') = "\"ab\""
-     * StringUtils.wrap("/", '/')  = "/"
-     * StringUtils.wrap("a/b/c", '/')  = "/a/b/c/"
-     * StringUtils.wrap("/a/b/c", '/')  = "/a/b/c/"
-     * StringUtils.wrap("a/b/c/", '/')  = "/a/b/c/"
+     * StringUtils.wrapIfMissing(null, *)        = null
+     * StringUtils.wrapIfMissing("", *)          = ""
+     * StringUtils.wrapIfMissing("ab", '\0')     = "ab"
+     * StringUtils.wrapIfMissing("ab", 'x')      = "xabx"
+     * StringUtils.wrapIfMissing("ab", '\'')     = "'ab'"
+     * StringUtils.wrapIfMissing("\"ab\"", '\"') = "\"ab\""
+     * StringUtils.wrapIfMissing("/", '/')  = "/"
+     * StringUtils.wrapIfMissing("a/b/c", '/')  = "/a/b/c/"
+     * StringUtils.wrapIfMissing("/a/b/c", '/')  = "/a/b/c/"
+     * StringUtils.wrapIfMissing("a/b/c/", '/')  = "/a/b/c/"
      * </pre>
      *
      * @param str
@@ -9260,20 +9269,20 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.wrap(null, *)         = null
-     * StringUtils.wrap("", *)           = ""
-     * StringUtils.wrap("ab", null)      = "ab"
-     * StringUtils.wrap("ab", "x")       = "xabx"
-     * StringUtils.wrap("ab", "\"")      = "\"ab\""
-     * StringUtils.wrap("\"ab\"", "\"")  = "\"ab\""
-     * StringUtils.wrap("ab", "'")       = "'ab'"
-     * StringUtils.wrap("'abcd'", "'")   = "'abcd'"
-     * StringUtils.wrap("\"abcd\"", "'") = "'\"abcd\"'"
-     * StringUtils.wrap("'abcd'", "\"")  = "\"'abcd'\""
-     * StringUtils.wrap("/", "/")  = "/"
-     * StringUtils.wrap("a/b/c", "/")  = "/a/b/c/"
-     * StringUtils.wrap("/a/b/c", "/")  = "/a/b/c/"
-     * StringUtils.wrap("a/b/c/", "/")  = "/a/b/c/"
+     * StringUtils.wrapIfMissing(null, *)         = null
+     * StringUtils.wrapIfMissing("", *)           = ""
+     * StringUtils.wrapIfMissing("ab", null)      = "ab"
+     * StringUtils.wrapIfMissing("ab", "x")       = "xabx"
+     * StringUtils.wrapIfMissing("ab", "\"")      = "\"ab\""
+     * StringUtils.wrapIfMissing("\"ab\"", "\"")  = "\"ab\""
+     * StringUtils.wrapIfMissing("ab", "'")       = "'ab'"
+     * StringUtils.wrapIfMissing("'abcd'", "'")   = "'abcd'"
+     * StringUtils.wrapIfMissing("\"abcd\"", "'") = "'\"abcd\"'"
+     * StringUtils.wrapIfMissing("'abcd'", "\"")  = "\"'abcd'\""
+     * StringUtils.wrapIfMissing("/", "/")  = "/"
+     * StringUtils.wrapIfMissing("a/b/c", "/")  = "/a/b/c/"
+     * StringUtils.wrapIfMissing("/a/b/c", "/")  = "/a/b/c/"
+     * StringUtils.wrapIfMissing("a/b/c/", "/")  = "/a/b/c/"
      * </pre>
      *
      * @param str

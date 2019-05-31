@@ -102,6 +102,20 @@ public enum JavaVersion {
     JAVA_11(11.0f, "11"),
 
     /**
+     * Java 12
+     *
+     * @since 3.9
+     */
+    JAVA_12(12.0f, "12"),
+
+    /**
+     * Java 13
+     *
+     * @since 3.9
+     */
+    JAVA_13(13.0f, "13"),
+
+    /**
      * The most recent java version. Mainly introduced to avoid to break when a new version of Java is used.
      */
     JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
@@ -204,6 +218,10 @@ public enum JavaVersion {
             return JAVA_10;
         } else if ("11".equals(nom)) {
             return JAVA_11;
+        } else if ("12".equals(nom)) {
+            return JAVA_12;
+        } else if ("13".equals(nom)) {
+            return JAVA_13;
         }
         if (nom == null) {
             return null;
