@@ -128,10 +128,7 @@ public class ClassUtils {
      * Maps an abbreviation used in array class names to corresponding primitive class name.
      */
     private static final Map<String, String> reverseAbbreviationMap;
-
-    /**
-     * Feed abbreviation maps
-     */
+    // Feed abbreviation maps
     static {
         final Map<String, String> m = new HashMap<>();
         m.put("int", "I");
