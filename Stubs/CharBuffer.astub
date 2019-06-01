@@ -1,0 +1,7 @@
+import org.checkerframework.checker.index.qual.NonNegative;
+
+package java.nio;
+
+class CharBuffer extends Buffer implements Comparable<CharBuffer>, Appendable, CharSequence, Readable 
+    @NonNegative int arrayOffset();
+}
