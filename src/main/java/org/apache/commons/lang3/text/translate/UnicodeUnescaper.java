@@ -39,8 +39,7 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
      */
     @SuppressWarnings("index:argument.type.incompatible") /*
     #1: index + i + 4 <= input.length() as checked by the if statement
-    #2: False negative, argument to out.write() need not be non negative
-    */
+    #2: False positive, argument to out.write() need not be non negative
     @Override
     public int translate(final CharSequence input, final @IndexFor("#1") int index, final Writer out) throws IOException {
         if (input.charAt(index) == '\\' && index + 1 < input.length() && input.charAt(index + 1) == 'u') {

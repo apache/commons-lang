@@ -512,11 +512,11 @@ public class ExceptionUtils {
      * @return an array of stack trace frames, never null
      * @since 2.0
      */
-    @SuppressWarnings({"assignment.type.incompatible","array.access.unsafe.low"})/*
-    #1 getThrowables(throwable) returns an array of minimum length 1 if throwable != null
-    #2 i != 0 => i - 1 >= 0
-    #3 i > 0 inside the loop
-    #4 i > 0 inside the loop
+    @SuppressWarnings({"value:assignment.type.incompatible","index:array.access.unsafe.low"})/*
+    #1: getThrowables(throwable) returns an array of minimum length 1 if throwable != null
+    #2: i != 0 => i - 1 >= 0
+    #3: i > 0 inside the loop
+    #4: i > 0 inside the loop
     */ 
     public static String[] getRootCauseStackTrace(final Throwable throwable) {
         if (throwable == null) {

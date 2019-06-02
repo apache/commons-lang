@@ -235,7 +235,7 @@ public class FastDateParser implements DateParser, Serializable {
             return new StrategyAndWidth(getStrategy(c, width, definingCalendar), width);
         }
 
-        @SuppressWarnings("argument.type.incompatible") // #1 - currentIdx < pattern.length() as checked by the condition inside the while loop
+        @SuppressWarnings("index:argument.type.incompatible") // #1: currentIdx < pattern.length() as checked by the condition inside the while loop
         private StrategyAndWidth literal() {
             boolean activeQuote = false;
 
@@ -433,7 +433,7 @@ public class FastDateParser implements DateParser, Serializable {
     // Support for strategies
     //-----------------------------------------------------------------------
 
-    @SuppressWarnings("argument.type.incompatible") // #2 - sb.append() => sb.length != 0
+    @SuppressWarnings("index:argument.type.incompatible") // #2: sb.append() => sb.length != 0
     private static StringBuilder simpleQuote(final StringBuilder sb, final String value) {
         for (int i = 0; i < value.length(); ++i) {
             final char c = value.charAt(i);
@@ -542,7 +542,7 @@ public class FastDateParser implements DateParser, Serializable {
 
         @Override
         boolean parse(final FastDateParser parser, final Calendar calendar, final String source, final ParsePosition pos, final int maxWidth) {
-            @SuppressWarnings("argument.type.incompatible") // cannot annotate pos.getIndex() as @LTEqLengthOf("source"), but pos.getIndex() return the current parse position, which has to be @LTEqLengthOf("source")
+            @SuppressWarnings("index:argument.type.incompatible") // cannot annotate pos.getIndex() as @LTEqLengthOf("source"), but pos.getIndex() return the current parse position, which has to be @LTEqLengthOf("source")
             final Matcher matcher = pattern.matcher(source.substring(pos.getIndex()));
             if (!matcher.lookingAt()) {
                 pos.setErrorIndex(pos.getIndex());
@@ -679,7 +679,7 @@ public class FastDateParser implements DateParser, Serializable {
         @Override
         boolean parse(final FastDateParser parser, final Calendar calendar, final String source, final ParsePosition pos, final int maxWidth) {
             for (@IndexOrHigh("formatField") int idx = 0; idx < formatField.length(); ++idx) {
-                @SuppressWarnings("assignment.type.incompatible") //when idx + pos.getIndex() reaches source.length() the loop terminates, hence @IndexOrHigh
+                @SuppressWarnings("index:assignment.type.incompatible") //when idx + pos.getIndex() reaches source.length() the loop terminates, hence @IndexOrHigh
                 final @IndexOrHigh("source") int sIdx = idx + pos.getIndex();
                 if (sIdx == source.length()) {
                     pos.setErrorIndex(sIdx);
@@ -709,7 +709,7 @@ public class FastDateParser implements DateParser, Serializable {
          * @param definingCalendar  The Calendar to use
          * @param locale  The Locale to use
          */
-        @SuppressWarnings("argument.type.incompatible") // #1 regex.append("((?iu)") => regex.length() != 0
+        @SuppressWarnings("index:argument.type.incompatible") // #1: regex.append("((?iu)") => regex.length() != 0
         CaseInsensitiveTextStrategy(final @NonNegative int field, final Calendar definingCalendar, final Locale locale) {
             this.field = field;
             this.locale = locale;
@@ -762,7 +762,7 @@ public class FastDateParser implements DateParser, Serializable {
 
         @Override
         boolean parse(final FastDateParser parser, final Calendar calendar, final String source, final ParsePosition pos, final int maxWidth) {
-            @SuppressWarnings("assignment.type.incompatible")
+            @SuppressWarnings("index:assignment.type.incompatible")
             @IndexOrHigh("source") int idx = pos.getIndex(); // cannot annotate pos.getIndex() as @LTEqLengthOf("source"), but pos.getIndex() return the current parse position, which has to be @LTEqLengthOf("source")
             int last = source.length();
 
@@ -794,7 +794,7 @@ public class FastDateParser implements DateParser, Serializable {
                 return false;
             }
 
-            @SuppressWarnings("argument.type.incompatible") // pos.getIndex() is non negative
+            @SuppressWarnings("index:argument.type.incompatible") // pos.getIndex() return the current parse position, which has to be @LTEqLengthOf("source"), also, pos.getIndex() <= idx, as idx is set to pos.getIndex() and then incremented 
             final int value = Integer.parseInt(source.substring(pos.getIndex(), idx));
             pos.setIndex(idx);
 

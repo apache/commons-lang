@@ -24,7 +24,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.Validate;
 
-import org.checkerframework.common.value.qual.*;
+import org.checkerframework.common.value.qual.MinLen;
 
 /**
  * <p> Utility reflection methods focused on constructors, modeled after
@@ -106,7 +106,7 @@ public class ConstructorUtils {
      * @throws InstantiationException if an error occurs on instantiation
      * @see Constructor#newInstance
      */
-    @SuppressWarnings({"argument.type.incompatible","assignment.type.incompatible"}) // #1 isVarArgs => args has at least one element
+    @SuppressWarnings({"argument.type.incompatible","value:assignment.type.incompatible"}) // #1 isVarArgs => args has at least one element
     public static <T> T invokeConstructor(final Class<T> cls, Object[] args, Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
             InstantiationException {

@@ -165,23 +165,23 @@ abstract class MemberUtils {
             // When isVarArgs is true, srcArgs and dstArgs may differ in length.
             // There are two special cases to consider:
             final boolean noVarArgsPassed = srcArgs.length < destArgs.length;
-            @SuppressWarnings("array.access.unsafe.low") // isVarArgs => srcArgs.length != 0
+            @SuppressWarnings("index:array.access.unsafe.low") // isVarArgs => srcArgs.length != 0
             final boolean explicitArrayForVarags = srcArgs.length == destArgs.length && srcArgs[srcArgs.length-1].isArray();
 
             final float varArgsCost = 0.001f;
-            @SuppressWarnings("array.access.unsafe.low") // isVarArgs => destArgs.length != 0
+            @SuppressWarnings("index:array.access.unsafe.low") // isVarArgs => destArgs.length != 0
             final Class<?> destClass = destArgs[destArgs.length-1].getComponentType();
             if (noVarArgsPassed) {
                 // When no varargs passed, the best match is the most generic matching type, not the most specific.
                 totalCost += getObjectTransformationCost(destClass, Object.class) + varArgsCost;
             } else if (explicitArrayForVarags) {
-                @SuppressWarnings("array.access.unsafe.low") // isVarArgs => srcArgs.length != 0
+                @SuppressWarnings("index:array.access.unsafe.low") // isVarArgs => srcArgs.length != 0
                 final Class<?> sourceClass = srcArgs[srcArgs.length-1].getComponentType();
                 totalCost += getObjectTransformationCost(sourceClass, destClass) + varArgsCost;
             } else {
                 // This is typical varargs case.
                 for (int i = destArgs.length-1; i < srcArgs.length; i++) {
-                    @SuppressWarnings("array.access.unsafe.low") // isVarArgs => destArgs.length != 0
+                    @SuppressWarnings("index:array.access.unsafe.low") // isVarArgs => destArgs.length != 0
                     final Class<?> srcClass = srcArgs[i];
                     totalCost += getObjectTransformationCost(srcClass, destClass) + varArgsCost;
                 }
@@ -267,13 +267,13 @@ abstract class MemberUtils {
         }
 
         if (method.isVarArgs()) {
-            @NonNegative int i;
+            @NonNegative int i; // annotating as @NonNegative or else it is detected as @LowerBoundBottom by the checker
             for (i = 0; i < methodParameterTypes.length - 1 && i < parameterTypes.length; i++) {
                 if (!ClassUtils.isAssignable(parameterTypes[i], methodParameterTypes[i], true)) {
                     return false;
                 }
             }
-            @SuppressWarnings("array.access.unsafe.low") // method.isVarArgs() => methodParameterTypes.length != 0s
+            @SuppressWarnings("index:array.access.unsafe.low") // method.isVarArgs() => methodParameterTypes.length != 0
             final Class<?> varArgParameterType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
             for (; i < parameterTypes.length; i++) {
                 if (!ClassUtils.isAssignable(parameterTypes[i], varArgParameterType, true)) {

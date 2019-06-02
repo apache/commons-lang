@@ -561,28 +561,6 @@
       <version>2.8.1</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.checkerframework</groupId>
-      <artifactId>checker-qual</artifactId>
-      <version>2.8.1</version>
-      <scope>system</scope>
-      <systemPath>${env.CHECKERFRAMEWORK}/checker/dist/checker-qual.jar</systemPath>
-    </dependency>
-    <dependency>
-      <groupId>org.checkerframework</groupId>
-      <artifactId>checker</artifactId>
-      <version>2.8.1</version>
-      <scope>system</scope>
-      <systemPath>${env.CHECKERFRAMEWORK}/checker/dist/checker.jar</systemPath>
-    </dependency>
-    <dependency>
-      <groupId>org.checkerframework</groupId>
-      <artifactId>jdk8</artifactId>
-      <version>2.8.1</version>
-      <scope>system</scope>
-      <systemPath>${env.CHECKERFRAMEWORK}/checker/dist/jdk8.jar</systemPath>
-    </dependency>
-
   </dependencies>
 
   <distributionManagement>
@@ -1012,12 +990,6 @@
       <profile>
     <id>checker</id>
     <dependencies>
-      <dependency>
-        <groupId>org.checkerframework</groupId>
-        <artifactId>checker</artifactId>
-        <version>1.9.13</version>
-        <scope>provided</scope>
-      </dependency>
       <dependency>
         <groupId>org.checkerframework</groupId>
         <artifactId>jdk8</artifactId>

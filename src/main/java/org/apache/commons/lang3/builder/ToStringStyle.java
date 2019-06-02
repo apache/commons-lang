@@ -389,7 +389,7 @@ public abstract class ToStringStyle implements Serializable {
      */
     public void appendToString(final StringBuffer buffer, final String toString) {
         if (toString != null) {
-            @SuppressWarnings("assignment.type.incompatible") // maximum value of toString.indexOf(String str) + str.length() can be toString.length()
+            @SuppressWarnings("index:assignment.type.incompatible") // maximum value of toString.indexOf(String str) + str.length() can be toString.length()
             final @LTEqLengthOf("toString") int pos1 = toString.indexOf(contentStart) + contentStart.length();
             final int pos2 = toString.lastIndexOf(contentEnd);
             if (pos1 != pos2 && pos1 >= 0 && pos2 >= 0) {
@@ -440,8 +440,8 @@ public abstract class ToStringStyle implements Serializable {
      * @param buffer  the <code>StringBuffer</code> to populate
      * @since 2.0
      */
-    @SuppressWarnings("index") /* #1 - i < sepLen.length() and len >= sepLen => i < len.length()
-    #2 - i < sepLen && i < len inside the loop, hence len - 1 - i and sepLen - 1 - i are non negative
+    @SuppressWarnings("index") /* #1: i < sepLen.length() and len >= sepLen => i < len.length()
+    #2: i < sepLen && i < len inside the loop, hence len - 1 - i and sepLen - 1 - i are non negative, i.e. len >= sepLen makes this code safe, but SameLen checker cannot handle non-equal array sizes
     */
     protected void removeLastFieldSeparator(final StringBuffer buffer) {
         final int len = buffer.length();
@@ -449,7 +449,7 @@ public abstract class ToStringStyle implements Serializable {
         if (len > 0 && sepLen > 0 && len >= sepLen) {
             boolean match = true;
             for (@NonNegative @LTEqLengthOf({"buffer","fieldSeparator"}) int i = 0; i < sepLen; i++) { // #1
-            if (buffer.charAt(len - 1 - i) != fieldSeparator.charAt(sepLen - 1 - i)) { // #2
+                if (buffer.charAt(len - 1 - i) != fieldSeparator.charAt(sepLen - 1 - i)) { // #2
                     match = false;
                     break;
                 }
