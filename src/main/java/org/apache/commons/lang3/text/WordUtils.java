@@ -277,7 +277,7 @@ public class WordUtils {
      */
     @SuppressWarnings({"index:assignment.type.incompatible","index:compound.assignment.type.incompatible"}) /*
     #1: matcher is on the substring of str that starts with offset index, hence (offset + matcher.end())'s max value = offset + str.length() - 1 - offset = str.length() - 1
-    #2, #3: matcher is on the substring of str that starts with offset index, hence (offset + matcher.start())'s max value = offset + str.length() - 1 - offset = str.length() - 1
+    #2, #3: matcher is on the substring of str that starts with offset index, hence (offset + matcher.start())'s max value = offset + str.length() - 1 - offset = str.length() - 1, spaceToWrapAt's maximum value is str.length() - 1
     #4: matcher is on the substring of str that starts with offset + wrapLength index, hence (offset + wrapLength + matcher.start())'s max value = offset + wrapLength + str.length() - 1 - offset - wrapLength = str.length() - 1
     */
     public static String wrap(final String str, @NonNegative int wrapLength, String newLineStr, final boolean wrapLongWords, String wrapOn) {
