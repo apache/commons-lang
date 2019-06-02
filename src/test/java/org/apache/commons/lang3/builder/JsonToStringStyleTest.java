@@ -233,50 +233,199 @@ public class JsonToStringStyleTest {
 
     @Test
     public void testObjectArray() {
-        Object[] array = new Object[]{null, base, new int[]{3, 6}};
+        final Object[] array = new Object[]{null, base, new int[]{3, 6}};
 
-        assertThrows(UnsupportedOperationException.class, () -> new ToStringBuilder(base).append(array).toString());
+        final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> new ToStringBuilder(base).append((Object) array).toString());
-
-        assertThrows(
-                UnsupportedOperationException.class, () -> new ToStringBuilder(base).append((Object[]) null).toString());
+        assertEquals("{\"objectArray\":[null,5,[3,6]]}", toStringBuilder.append("objectArray", array)
+                .toString());
 
         assertThrows(
-                UnsupportedOperationException.class, () -> new ToStringBuilder(base).append((Object) array).toString());
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object[]) null).toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
     }
 
     @Test
     public void testLongArray() {
-        long[] array = new long[]{1, 2, -3, 4};
+        final long[] array = new long[]{1, 2, -3, 4};
 
-        assertThrows(UnsupportedOperationException.class, () -> new ToStringBuilder(base).append(array).toString());
+        final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> new ToStringBuilder(base).append((Object) array).toString());
-
-        assertThrows(
-                UnsupportedOperationException.class, () -> new ToStringBuilder(base).append((long[]) null).toString());
+        assertEquals("{\"longArray\":[1,2,-3,4]}", toStringBuilder.append("longArray", array)
+                .toString());
 
         assertThrows(
-                UnsupportedOperationException.class, () -> new ToStringBuilder(base).append((Object) array).toString());
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((long[]) null).toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+    }
+
+    @Test
+    public void testIntArray() {
+        final int[] array = new int[]{1, 2, -3, 4};
+
+        final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
+
+        assertEquals("{\"intArray\":[1,2,-3,4]}", toStringBuilder.append("intArray", array)
+                .toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((long[]) null).toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+    }
+
+    @Test
+    public void testByteArray() {
+        final byte[] array = new byte[]{1, 2, -3, 4};
+
+        final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
+
+        assertEquals("{\"byteArray\":[1,2,-3,4]}", toStringBuilder.append("byteArray", array)
+                .toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((long[]) null).toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+    }
+
+    @Test
+    public void testShortArray() {
+        final short[] array = new short[]{1, 2, -3, 4};
+
+        final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
+
+        assertEquals("{\"shortArray\":[1,2,-3,4]}", toStringBuilder.append("shortArray", array)
+                .toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((long[]) null).toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+    }
+
+    @Test
+    public void testDoubleArray() {
+        final double[] array = new double[]{1, 2, -3, 4};
+
+        final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
+
+        assertEquals("{\"doubleArray\":[1.0,2.0,-3.0,4.0]}", toStringBuilder.append("doubleArray", array)
+                .toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((long[]) null).toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+    }
+
+    @Test
+    public void testFloatArray() {
+        final float[] array = new float[]{1, 2, -3, 4};
+
+        final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
+
+        assertEquals("{\"floatArray\":[1.0,2.0,-3.0,4.0]}", toStringBuilder.append("floatArray", array)
+                .toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((long[]) null).toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+    }
+
+    @Test
+    public void testCharArray() {
+        final char[] array = new char[]{'1', '2', '3', '4'};
+
+        final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
+
+        assertEquals("{\"charArray\":[\"1\",\"2\",\"3\",\"4\"]}", toStringBuilder.append("charArray", array)
+                .toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((long[]) null).toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+    }
+
+    @Test
+    public void testBooleanArray() {
+        final boolean[] array = new boolean[]{true, false};
+
+        final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
+
+        assertEquals("{\"booleanArray\":[true,false]}", toStringBuilder.append("booleanArray", array)
+                .toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((long[]) null).toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
     }
 
     @Test
     public void testLongArrayArray() {
-        long[][] array = new long[][]{{1, 2}, null, {5}};
+        final long[][] array = new long[][]{{1, 2}, null, {5}};
 
-        assertThrows(UnsupportedOperationException.class, () -> new ToStringBuilder(base).append(array).toString());
-
-        assertThrows(
-                UnsupportedOperationException.class, () -> new ToStringBuilder(base).append((Object) array).toString());
+        final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
 
         assertThrows(
-                UnsupportedOperationException.class, () -> new ToStringBuilder(base).append((long[][]) null).toString());
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
 
         assertThrows(
-                UnsupportedOperationException.class, () -> new ToStringBuilder(base).append((Object) array).toString());
+                UnsupportedOperationException.class, () -> toStringBuilder.append((long[][]) null).toString());
+
+        assertThrows(
+                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
     }
 
     @Test

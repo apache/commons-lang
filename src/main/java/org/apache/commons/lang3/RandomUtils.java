@@ -21,6 +21,14 @@ import java.util.Random;
 /**
  * <p>Utility library that supplements the standard {@link Random} class.</p>
  *
+ * <p>Caveat: Instances of {@link Random} are not cryptographically secure.</p>
+ *
+ * <p>Please note that the Apache Commons project provides a component
+ * dedicated to pseudo-random number generation, namely
+ * <a href="https://commons.apache.org/rng">Commons RNG</a>, that may be
+ * a better choice for applications with more stringent requirements
+ * (performance and/or correctness).</p>
+ *
  * @since 3.3
  */
 public class RandomUtils {

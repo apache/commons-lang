@@ -18,6 +18,8 @@ package org.apache.commons.lang3.reflect;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import org.apache.commons.lang3.JavaVersion;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.reflect.testbed.Ambig;
 import org.apache.commons.lang3.reflect.testbed.Annotated;
 import org.apache.commons.lang3.reflect.testbed.Foo;
@@ -43,6 +45,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
@@ -993,10 +996,11 @@ public class FieldUtilsTest {
         final Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
-        FieldUtils.removeFinalModifier(field);
-        // The field is no longer final
-        assertFalse(Modifier.isFinal(field.getModifiers()));
-        assertFalse(field.isAccessible());
+        callRemoveFinalModifierCheckForException(field, true);
+        if (SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_11)) {
+            assertFalse(Modifier.isFinal(field.getModifiers()));
+            assertFalse(field.isAccessible());
+        }
     }
 
     @Test
@@ -1004,10 +1008,11 @@ public class FieldUtilsTest {
         final Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
-        FieldUtils.removeFinalModifier(field, true);
-        // The field is no longer final
-        assertFalse(Modifier.isFinal(field.getModifiers()));
-        assertFalse(field.isAccessible());
+        callRemoveFinalModifierCheckForException(field, true);
+        if (SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_11)) {
+            assertFalse(Modifier.isFinal(field.getModifiers()));
+            assertFalse(field.isAccessible());
+        }
     }
 
     @Test
@@ -1015,10 +1020,11 @@ public class FieldUtilsTest {
         final Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
-        FieldUtils.removeFinalModifier(field, false);
-        // The field is STILL final because we did not force access
-        assertTrue(Modifier.isFinal(field.getModifiers()));
-        assertFalse(field.isAccessible());
+        callRemoveFinalModifierCheckForException(field, false);
+        if (SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_11)) {
+            assertTrue(Modifier.isFinal(field.getModifiers()));
+            assertFalse(field.isAccessible());
+        }
     }
 
     @Test
@@ -1026,10 +1032,32 @@ public class FieldUtilsTest {
         final Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PACKAGE");
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
-        FieldUtils.removeFinalModifier(field, false);
-        // The field is no longer final AND we did not need to force access
-        assertTrue(Modifier.isFinal(field.getModifiers()));
-        assertFalse(field.isAccessible());
+        callRemoveFinalModifierCheckForException(field, false);
+        if (SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_11)) {
+            assertTrue(Modifier.isFinal(field.getModifiers()));
+            assertFalse(field.isAccessible());
+        }
+    }
+
+    /**
+     * Read the <code>@deprecated</code> notice on
+     * {@link FieldUtils#removeFinalModifier(Field, boolean)}.
+     *
+     * @param field {@link Field} to be curried into
+     *              {@link FieldUtils#removeFinalModifier(Field, boolean)}.
+     * @param forceAccess {@link Boolean} to be curried into
+     *              {@link FieldUtils#removeFinalModifier(Field, boolean)}.
+     */
+    private void callRemoveFinalModifierCheckForException(Field field, Boolean forceAccess) {
+        try {
+            FieldUtils.removeFinalModifier(field, forceAccess);
+        } catch (UnsupportedOperationException exception) {
+            if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_12)) {
+                assertTrue(exception.getCause() instanceof NoSuchFieldException);
+            } else {
+                fail("No exception should be thrown for java prior to 12.0");
+            }
+        }
     }
 
 }
