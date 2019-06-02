@@ -1,51 +1,18 @@
-                        Apache Commons Lang
-                            Version 3.9
-                           Release Notes
 
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
 
-INTRODUCTION:
+http://www.apache.org/licenses/LICENSE-2.0
 
-This document contains the release notes for the 3.9 version of Apache Commons Lang.
-Commons Lang is a set of utility functions and reusable components that should be of use in any 
-Java environment.
-
-Lang 3.9 and onwards now targets Java 8.0, making use of features that arrived with Java 8.0.
-
-For the advice on upgrading from 2.x to 3.x, see the following page: 
-
-    http://commons.apache.org/lang/article3_0.html
-
-Apache Commons Lang, a package of Java utility classes for the
-classes that are in java.lang's hierarchy, or are considered to be so
-standard as to justify existence in java.lang.
-
-New features and bug fixes. Requires Java 8.0, supports Java 9, 10, 11
-
-Changes in this version include:
-
-New features:
-o LANG-1442: Javadoc pointing to Commons RNG.
-o            Adding the Functions class.
-o LANG-1411: Add isEmpty method to ObjectUtils Thanks to Alexander Tsvetkov.
-o LANG-1422: Add null-safe StringUtils.valueOf(char[]) to delegate to String.valueOf(char[])
-o LANG-1427: Add API org.apache.commons.lang3.SystemUtils.isJavaVersionAtMost(JavaVersion)
-
-
-Changes:
-o LANG-1416: Add more SystemUtils.IS_JAVA_XX variants.
-o LANG-1416: Update to JUnit 5
-o LANG-1417: Add @FunctionalInterface to ThreadPredicate and ThreadGroupPredicate
-o LANG-1415: Update Java Language requirement to 1.8
-o LANG-1436: Consolidate the StringUtils equals and equalsIgnoreCase Javadoc and implementation
-o            (doc) Fix javadoc for 'startIndex' parameter of StringUtils.join() methods. GitHub PR #412. Thanks to Andrei Troie aft90.
-
-
-Historical list of changes: http://commons.apache.org/proper/commons-lang/changes-report.html
-
-For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
-patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
-
-http://commons.apache.org/proper/commons-lang/
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
 =============================================================================
 
@@ -78,6 +45,15 @@ Changes in this version include:
 Fixed Bugs:
 o LANG-1419: Restore BundleSymbolicName for OSGi
 
+
+
+Historical list of changes: http://commons.apache.org/proper/commons-lang/changes-report.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
+
+http://commons.apache.org/proper/commons-lang/
+
 =============================================================================
 
                         Apache Commons Lang
@@ -88,12 +64,12 @@ o LANG-1419: Restore BundleSymbolicName for OSGi
 INTRODUCTION:
 
 This document contains the release notes for the 3.8 version of Apache Commons Lang.
-Commons Lang is a set of utility functions and reusable components that should be of use in any
+Commons Lang is a set of utility functions and reusable components that should be of use in any 
 Java environment.
 
 Lang 3.0 and onwards now targets Java 7.0, making use of features that arrived with Java 7.0.
 
-For the advice on upgrading from 2.x to 3.x, see the following page:
+For the advice on upgrading from 2.x to 3.x, see the following page: 
 
     http://commons.apache.org/lang/article3_0.html
 

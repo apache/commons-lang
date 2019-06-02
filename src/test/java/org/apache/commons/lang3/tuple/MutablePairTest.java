@@ -33,19 +33,6 @@ import org.junit.jupiter.api.Test;
 public class MutablePairTest {
 
     @Test
-    public void testEmptyArrayLength() {
-        @SuppressWarnings("unchecked")
-        final MutablePair<Integer, String>[] empty = (MutablePair<Integer, String>[]) MutablePair.EMPTY_ARRAY;
-        assertEquals(0, empty.length);
-    }
-
-    @Test
-    public void testEmptyArrayGenerics() {
-        final MutablePair<Integer, String>[] empty = MutablePair.emptyArray();
-        assertEquals(0, empty.length);
-    }
-
-    @Test
     public void testBasic() {
         final MutablePair<Integer, String> pair = new MutablePair<>(0, "foo");
         assertEquals(0, pair.getLeft().intValue());
@@ -60,22 +47,6 @@ public class MutablePairTest {
         final MutablePair<Integer, String> pair = new MutablePair<>();
         assertNull(pair.getLeft());
         assertNull(pair.getRight());
-    }
-
-    @Test
-    public void testEquals() {
-        assertEquals(MutablePair.of(null, "foo"), MutablePair.of(null, "foo"));
-        assertNotEquals(MutablePair.of("foo", 0), MutablePair.of("foo", null));
-        assertNotEquals(MutablePair.of("foo", "bar"), MutablePair.of("xyz", "bar"));
-
-        final MutablePair<String, String> p = MutablePair.of("foo", "bar");
-        assertEquals(p, p);
-        assertNotEquals(p, new Object());
-    }
-
-    @Test
-    public void testHashCode() {
-        assertEquals(MutablePair.of(null, "foo").hashCode(), MutablePair.of(null, "foo").hashCode());
     }
 
     @Test
@@ -98,6 +69,30 @@ public class MutablePairTest {
     }
 
     @Test
+    public void testEquals() {
+        assertEquals(MutablePair.of(null, "foo"), MutablePair.of(null, "foo"));
+        assertNotEquals(MutablePair.of("foo", 0), MutablePair.of("foo", null));
+        assertNotEquals(MutablePair.of("foo", "bar"), MutablePair.of("xyz", "bar"));
+
+        final MutablePair<String, String> p = MutablePair.of("foo", "bar");
+        assertEquals(p, p);
+        assertNotEquals(p, new Object());
+    }
+
+    @Test
+    public void testHashCode() {
+        assertEquals(MutablePair.of(null, "foo").hashCode(), MutablePair.of(null, "foo").hashCode());
+    }
+
+    @Test
+    public void testToString() {
+        assertEquals("(null,null)", MutablePair.of(null, null).toString());
+        assertEquals("(null,two)", MutablePair.of(null, "two").toString());
+        assertEquals("(one,null)", MutablePair.of("one", null).toString());
+        assertEquals("(one,two)", MutablePair.of("one", "two").toString());
+    }
+
+    @Test
     @SuppressWarnings("unchecked")
     public void testSerialization() throws Exception {
         final MutablePair<Integer, String> origPair = MutablePair.of(0, "foo");
@@ -108,13 +103,5 @@ public class MutablePairTest {
                 new ByteArrayInputStream(baos.toByteArray())).readObject();
         assertEquals(origPair, deserializedPair);
         assertEquals(origPair.hashCode(), deserializedPair.hashCode());
-    }
-
-    @Test
-    public void testToString() {
-        assertEquals("(null,null)", MutablePair.of(null, null).toString());
-        assertEquals("(null,two)", MutablePair.of(null, "two").toString());
-        assertEquals("(one,null)", MutablePair.of("one", null).toString());
-        assertEquals("(one,two)", MutablePair.of("one", "two").toString());
     }
 }

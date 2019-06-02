@@ -34,16 +34,40 @@ import org.junit.jupiter.api.Test;
 public class PairTest {
 
     @Test
-    public void testEmptyArrayLength() {
-        @SuppressWarnings("unchecked")
-        final Pair<Integer, String>[] empty = (Pair<Integer, String>[]) Pair.EMPTY_ARRAY;
-        assertEquals(0, empty.length);
+    public void testPairOf() {
+        final Pair<Integer, String> pair = Pair.of(0, "foo");
+        assertTrue(pair instanceof ImmutablePair<?, ?>);
+        assertEquals(0, ((ImmutablePair<Integer, String>) pair).left.intValue());
+        assertEquals("foo", ((ImmutablePair<Integer, String>) pair).right);
+        final Pair<Object, String> pair2 = Pair.of(null, "bar");
+        assertTrue(pair2 instanceof ImmutablePair<?, ?>);
+        assertNull(((ImmutablePair<Object, String>) pair2).left);
+        assertEquals("bar", ((ImmutablePair<Object, String>) pair2).right);
     }
 
     @Test
-    public void testEmptyArrayGenerics() {
-        final Pair<Integer, String>[] empty = Pair.emptyArray();
-        assertEquals(0, empty.length);
+    public void testCompatibilityBetweenPairs() {
+        final Pair<Integer, String> pair = ImmutablePair.of(0, "foo");
+        final Pair<Integer, String> pair2 = MutablePair.of(0, "foo");
+        assertEquals(pair, pair2);
+        assertEquals(pair.hashCode(), pair2.hashCode());
+        final HashSet<Pair<Integer, String>> set = new HashSet<>();
+        set.add(pair);
+        assertTrue(set.contains(pair2));
+
+        pair2.setValue("bar");
+        assertNotEquals(pair, pair2);
+        assertNotEquals(pair.hashCode(), pair2.hashCode());
+    }
+
+    @Test
+    public void testMapEntry() {
+        final Pair<Integer, String> pair = ImmutablePair.of(0, "foo");
+        final HashMap<Integer, String> map = new HashMap<>();
+        map.put(0, "foo");
+        final Entry<Integer, String> entry = map.entrySet().iterator().next();
+        assertEquals(pair, entry);
+        assertEquals(pair.hashCode(), entry.hashCode());
     }
 
     @Test
@@ -67,55 +91,6 @@ public class PairTest {
     }
 
     @Test
-    public void testCompatibilityBetweenPairs() {
-        final Pair<Integer, String> pair = ImmutablePair.of(0, "foo");
-        final Pair<Integer, String> pair2 = MutablePair.of(0, "foo");
-        assertEquals(pair, pair2);
-        assertEquals(pair.hashCode(), pair2.hashCode());
-        final HashSet<Pair<Integer, String>> set = new HashSet<>();
-        set.add(pair);
-        assertTrue(set.contains(pair2));
-
-        pair2.setValue("bar");
-        assertNotEquals(pair, pair2);
-        assertNotEquals(pair.hashCode(), pair2.hashCode());
-    }
-
-    @Test
-    public void testFormattable_padded() {
-        final Pair<String, String> pair = Pair.of("Key", "Value");
-        assertEquals("         (Key,Value)", String.format("%1$20s", pair));
-    }
-
-    @Test
-    public void testFormattable_simple() {
-        final Pair<String, String> pair = Pair.of("Key", "Value");
-        assertEquals("(Key,Value)", String.format("%1$s", pair));
-    }
-
-    @Test
-    public void testMapEntry() {
-        final Pair<Integer, String> pair = ImmutablePair.of(0, "foo");
-        final HashMap<Integer, String> map = new HashMap<>();
-        map.put(0, "foo");
-        final Entry<Integer, String> entry = map.entrySet().iterator().next();
-        assertEquals(pair, entry);
-        assertEquals(pair.hashCode(), entry.hashCode());
-    }
-
-    @Test
-    public void testPairOf() {
-        final Pair<Integer, String> pair = Pair.of(0, "foo");
-        assertTrue(pair instanceof ImmutablePair<?, ?>);
-        assertEquals(0, ((ImmutablePair<Integer, String>) pair).left.intValue());
-        assertEquals("foo", ((ImmutablePair<Integer, String>) pair).right);
-        final Pair<Object, String> pair2 = Pair.of(null, "bar");
-        assertTrue(pair2 instanceof ImmutablePair<?, ?>);
-        assertNull(((ImmutablePair<Object, String>) pair2).left);
-        assertEquals("bar", ((ImmutablePair<Object, String>) pair2).right);
-    }
-
-    @Test
     public void testToString() {
         final Pair<String, String> pair = Pair.of("Key", "Value");
         assertEquals("(Key,Value)", pair.toString());
@@ -127,6 +102,18 @@ public class PairTest {
         date.set(2011, Calendar.APRIL, 25);
         final Pair<String, Calendar> pair = Pair.of("DOB", date);
         assertEquals("Test created on " + "04-25-2011", pair.toString("Test created on %2$tm-%2$td-%2$tY"));
+    }
+
+    @Test
+    public void testFormattable_simple() {
+        final Pair<String, String> pair = Pair.of("Key", "Value");
+        assertEquals("(Key,Value)", String.format("%1$s", pair));
+    }
+
+    @Test
+    public void testFormattable_padded() {
+        final Pair<String, String> pair = Pair.of("Key", "Value");
+        assertEquals("         (Key,Value)", String.format("%1$20s", pair));
     }
 
 }

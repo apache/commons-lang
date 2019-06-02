@@ -30,8 +30,6 @@ import static org.apache.commons.lang3.JavaVersion.JAVA_1_8;
 import static org.apache.commons.lang3.JavaVersion.JAVA_9;
 import static org.apache.commons.lang3.JavaVersion.JAVA_10;
 import static org.apache.commons.lang3.JavaVersion.JAVA_11;
-import static org.apache.commons.lang3.JavaVersion.JAVA_12;
-import static org.apache.commons.lang3.JavaVersion.JAVA_13;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -143,8 +141,6 @@ public class SystemUtilsTest {
             assertFalse(SystemUtils.IS_JAVA_9);
             assertFalse(SystemUtils.IS_JAVA_10);
             assertFalse(SystemUtils.IS_JAVA_11);
-            assertFalse(SystemUtils.IS_JAVA_12);
-            assertFalse(SystemUtils.IS_JAVA_13);
         } else if (javaVersion.startsWith("1.8")) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
@@ -158,8 +154,6 @@ public class SystemUtilsTest {
             assertFalse(SystemUtils.IS_JAVA_9);
             assertFalse(SystemUtils.IS_JAVA_10);
             assertFalse(SystemUtils.IS_JAVA_11);
-            assertFalse(SystemUtils.IS_JAVA_12);
-            assertFalse(SystemUtils.IS_JAVA_13);
         } else if (javaVersion.startsWith("9")) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
@@ -173,8 +167,6 @@ public class SystemUtilsTest {
             assertTrue(SystemUtils.IS_JAVA_9);
             assertFalse(SystemUtils.IS_JAVA_10);
             assertFalse(SystemUtils.IS_JAVA_11);
-            assertFalse(SystemUtils.IS_JAVA_12);
-            assertFalse(SystemUtils.IS_JAVA_13);
         } else if (javaVersion.startsWith("10")) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
@@ -188,8 +180,6 @@ public class SystemUtilsTest {
             assertFalse(SystemUtils.IS_JAVA_9);
             assertTrue(SystemUtils.IS_JAVA_10);
             assertFalse(SystemUtils.IS_JAVA_11);
-            assertFalse(SystemUtils.IS_JAVA_12);
-            assertFalse(SystemUtils.IS_JAVA_13);
         } else if (javaVersion.startsWith("11")) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
@@ -203,38 +193,6 @@ public class SystemUtilsTest {
             assertFalse(SystemUtils.IS_JAVA_9);
             assertFalse(SystemUtils.IS_JAVA_10);
             assertTrue(SystemUtils.IS_JAVA_11);
-            assertFalse(SystemUtils.IS_JAVA_12);
-            assertFalse(SystemUtils.IS_JAVA_13);
-        } else if (javaVersion.startsWith("12")) {
-            assertFalse(SystemUtils.IS_JAVA_1_1);
-            assertFalse(SystemUtils.IS_JAVA_1_2);
-            assertFalse(SystemUtils.IS_JAVA_1_3);
-            assertFalse(SystemUtils.IS_JAVA_1_4);
-            assertFalse(SystemUtils.IS_JAVA_1_5);
-            assertFalse(SystemUtils.IS_JAVA_1_6);
-            assertFalse(SystemUtils.IS_JAVA_1_7);
-            assertFalse(SystemUtils.IS_JAVA_1_8);
-            assertFalse(SystemUtils.IS_JAVA_1_9);
-            assertFalse(SystemUtils.IS_JAVA_9);
-            assertFalse(SystemUtils.IS_JAVA_10);
-            assertFalse(SystemUtils.IS_JAVA_11);
-            assertTrue(SystemUtils.IS_JAVA_12);
-            assertFalse(SystemUtils.IS_JAVA_13);
-        } else if (javaVersion.startsWith("13")) {
-            assertFalse(SystemUtils.IS_JAVA_1_1);
-            assertFalse(SystemUtils.IS_JAVA_1_2);
-            assertFalse(SystemUtils.IS_JAVA_1_3);
-            assertFalse(SystemUtils.IS_JAVA_1_4);
-            assertFalse(SystemUtils.IS_JAVA_1_5);
-            assertFalse(SystemUtils.IS_JAVA_1_6);
-            assertFalse(SystemUtils.IS_JAVA_1_7);
-            assertFalse(SystemUtils.IS_JAVA_1_8);
-            assertFalse(SystemUtils.IS_JAVA_1_9);
-            assertFalse(SystemUtils.IS_JAVA_9);
-            assertFalse(SystemUtils.IS_JAVA_10);
-            assertFalse(SystemUtils.IS_JAVA_11);
-            assertFalse(SystemUtils.IS_JAVA_12);
-            assertTrue(SystemUtils.IS_JAVA_13);
         } else {
             System.out.println("Can't test IS_JAVA value: " + javaVersion);
         }
@@ -475,8 +433,6 @@ public class SystemUtilsTest {
             assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_9));
             assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_10));
             assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_11));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_12));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_13));
         } else if (SystemUtils.IS_JAVA_9) {
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_1));
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_2));
@@ -489,8 +445,6 @@ public class SystemUtilsTest {
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_9));
             assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_10));
             assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_11));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_12));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_13));
         } else if (SystemUtils.IS_JAVA_10) {
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_1));
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_2));
@@ -503,8 +457,6 @@ public class SystemUtilsTest {
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_9));
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_10));
             assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_11));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_12));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_13));
         } else if (SystemUtils.IS_JAVA_11) {
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_1));
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_2));
@@ -517,36 +469,6 @@ public class SystemUtilsTest {
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_9));
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_10));
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_11));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_12));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_13));
-        } else if (SystemUtils.IS_JAVA_12) {
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_1));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_2));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_3));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_4));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_5));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_6));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_7));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_8));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_9));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_10));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_11));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_12));
-            assertFalse(SystemUtils.isJavaVersionAtLeast(JAVA_13));
-        } else if (SystemUtils.IS_JAVA_13) {
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_1));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_2));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_3));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_4));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_5));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_6));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_7));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_8));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_9));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_10));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_11));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_12));
-            assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_13));
         }
     }
 
@@ -564,8 +486,6 @@ public class SystemUtilsTest {
             assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_9));
             assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_10));
             assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_11));
-            assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_12));
-            assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_13));
         } else if (SystemUtils.IS_JAVA_9) {
             assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_1));
             assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_2));
@@ -578,8 +498,6 @@ public class SystemUtilsTest {
             assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_9));
             assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_10));
             assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_11));
-            assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_12));
-            assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_13));
         } else if (SystemUtils.IS_JAVA_10) {
             assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_1));
             assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_2));
@@ -592,8 +510,6 @@ public class SystemUtilsTest {
             assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_9));
             assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_10));
             assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_11));
-            assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_12));
-            assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_13));
         } else if (SystemUtils.IS_JAVA_11) {
             assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_1));
             assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_2));
@@ -606,36 +522,6 @@ public class SystemUtilsTest {
             assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_9));
             assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_10));
             assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_11));
-            assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_12));
-            assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_13));
-        } else if (SystemUtils.IS_JAVA_12) {
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_1));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_2));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_3));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_4));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_5));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_6));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_7));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_8));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_9));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_10));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_11));
-            assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_12));
-            assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_13));
-        } else if (SystemUtils.IS_JAVA_13) {
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_1));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_2));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_3));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_4));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_5));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_6));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_7));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_8));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_9));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_10));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_11));
-            assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_12));
-            assertTrue(SystemUtils.isJavaVersionAtMost(JAVA_13));
         }
     }
 
