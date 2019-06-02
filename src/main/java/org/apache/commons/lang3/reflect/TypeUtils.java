@@ -1135,6 +1135,10 @@ public class TypeUtils {
      * @return an array containing the values from {@code bounds} minus the
      * redundant types.
      */
+    /* this method returns a non empty array for a non empty argument, if bounds. length < 2. it returns bounds(which was non empty)
+       If bounds.length > 2, there is a nested loop in which if two types are same, an element is added surely, and because type1 and type2 
+       have to be same at the start of the second loop, an element is to be added for sure 
+    */
     public static Type[] normalizeUpperBounds(final Type[] bounds) {
         Validate.notNull(bounds, "null value specified for bounds array");
         // don't bother if there's only one (or none) type
@@ -1171,7 +1175,11 @@ public class TypeUtils {
      * @param typeVariable the subject type variable, not {@code null}
      * @return a non-empty array containing the bounds of the type variable.
      */
-    public static Type[] getImplicitBounds(final TypeVariable<?> typeVariable) {
+    @SuppressWarnings("value:return.type.incompatible") /*
+    #1: bounds.length != 0 ensures @MinLen(1), go to normalizeUpperBounds function for the reasoning
+    #2: new Type[] {Object.class} has length 1
+    */
+    public static Type @MinLen(1) [] getImplicitBounds(final TypeVariable<?> typeVariable) {
         Validate.notNull(typeVariable, "typeVariable is null");
         final Type[] bounds = typeVariable.getBounds();
 
@@ -1188,13 +1196,13 @@ public class TypeUtils {
      * @return a non-empty array containing the upper bounds of the wildcard
      * type.
      */
-    @SuppressWarnings("index:return.type.incompatible") /*
-    #1: bounds.length != 0 ensures @MinLen(1)
+    @SuppressWarnings("value:return.type.incompatible") /*
+    #1: bounds.length != 0 ensures @MinLen(1), go to normalizeUpperBounds function for the reasoning
     #2: new Type[] {Object.class} has length 1
     */
     public static Type @MinLen(1) [] getImplicitUpperBounds(final WildcardType wildcardType) {
         Validate.notNull(wildcardType, "wildcardType is null");
-        final Type [] bounds = wildcardType.getUpperBounds();
+        final Type[] bounds = wildcardType.getUpperBounds();
 
         return bounds.length == 0 ? new Type[] { Object.class } : normalizeUpperBounds(bounds); // #1
     }

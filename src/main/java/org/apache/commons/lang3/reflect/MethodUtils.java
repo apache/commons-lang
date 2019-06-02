@@ -449,7 +449,7 @@ public class MethodUtils {
         return method.invoke(null, args);
     }
 
-    @SuppressWarnings({"index:assignment.type.incompatible","index:argument.type.incompatible"}) // isVarArgs() => args and methodParameterTypes have at lease 1 element
+    @SuppressWarnings({"value:assignment.type.incompatible","argument.type.incompatible"}) // isVarArgs() => args and methodParameterTypes have at lease 1 element
     private static Object[] toVarArgs(final Method method, Object[] args) {
         if (method.isVarArgs()) {
             final Class<?> @MinLen(1) [] methodParameterTypes = method.getParameterTypes();

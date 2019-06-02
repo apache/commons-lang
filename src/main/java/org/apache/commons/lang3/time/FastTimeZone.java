@@ -48,7 +48,7 @@ public class FastTimeZone {
      * @param pattern The GMT offset
      * @return A TimeZone with offset from GMT or null, if pattern does not match.
      */
-    @SuppressWarnings("index:argument.type.incompatible") // #1: m.matches() => the entire region sequence matches the pattern => m.group(1) will not return null and will return a @MinLen(1) String
+    @SuppressWarnings("value:argument.type.incompatible") // #1: m.matches() => the entire region sequence matches the pattern => m.group(1) will not return null and will return a @MinLen(1) String
     public static TimeZone getGmtTimeZone(final String pattern) {
         if ("Z".equals(pattern) || "UTC".equals(pattern)) {
             return GREENWICH;

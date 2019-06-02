@@ -106,7 +106,7 @@ public class ConstructorUtils {
      * @throws InstantiationException if an error occurs on instantiation
      * @see Constructor#newInstance
      */
-    @SuppressWarnings({"index:argument.type.incompatible","index:assignment.type.incompatible"}) // #1 isVarArgs => args has at least one element
+    @SuppressWarnings({"argument.type.incompatible","value:assignment.type.incompatible"}) // #1 isVarArgs => args has at least one element
     public static <T> T invokeConstructor(final Class<T> cls, Object[] args, Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
             InstantiationException {
