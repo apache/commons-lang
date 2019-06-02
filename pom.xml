@@ -875,9 +875,9 @@
             </executions>
           </plugin>
           <plugin>
-             <!-- This plugin will set properties values using dependency information -->
-             <groupId>org.apache.maven.plugins</groupId>
-             <artifactId>maven-dependency-plugin</artifactId>
+            <!-- This plugin will set properties values using dependency information -->
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
             <executions>
               <execution>
                 <goals>
