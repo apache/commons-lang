@@ -1269,111 +1269,7 @@ public class ArrayUtils {
      * @return {@code true} if length of arrays matches, treating
      *  {@code null} as an empty array
      */
-    public static boolean isSameLength(final Object[] array1, final Object[] array2) {
-        return getLength(array1) == getLength(array2);
-    }
-
-    /**
-     * <p>Checks whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
-     *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
-     */
-    public static boolean isSameLength(final long[] array1, final long[] array2) {
-        return getLength(array1) == getLength(array2);
-    }
-
-    /**
-     * <p>Checks whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
-     *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
-     */
-    public static boolean isSameLength(final int[] array1, final int[] array2) {
-        return getLength(array1) == getLength(array2);
-    }
-
-    /**
-     * <p>Checks whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
-     *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
-     */
-    public static boolean isSameLength(final short[] array1, final short[] array2) {
-        return getLength(array1) == getLength(array2);
-    }
-
-    /**
-     * <p>Checks whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
-     *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
-     */
-    public static boolean isSameLength(final char[] array1, final char[] array2) {
-        return getLength(array1) == getLength(array2);
-    }
-
-    /**
-     * <p>Checks whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
-     *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
-     */
-    public static boolean isSameLength(final byte[] array1, final byte[] array2) {
-        return getLength(array1) == getLength(array2);
-    }
-
-    /**
-     * <p>Checks whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
-     *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
-     */
-    public static boolean isSameLength(final double[] array1, final double[] array2) {
-        return getLength(array1) == getLength(array2);
-    }
-
-    /**
-     * <p>Checks whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
-     *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
-     */
-    public static boolean isSameLength(final float[] array1, final float[] array2) {
-        return getLength(array1) == getLength(array2);
-    }
-
-    /**
-     * <p>Checks whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
-     *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
-     */
-    public static boolean isSameLength(final boolean[] array1, final boolean[] array2) {
+    public static boolean isSameLength(final Object array1, final Object array2) {
         return getLength(array1) == getLength(array2);
     }
 
@@ -4854,204 +4750,27 @@ public class ArrayUtils {
 
     // ----------------------------------------------------------------------
     /**
-     * <p>Checks if an array of Objects is empty or {@code null}.
+     * <p>Checks if an array is empty or {@code null}.
      *
      * @param array  the array to test
      * @return {@code true} if the array is empty or {@code null}
      * @since 2.1
      */
-    public static boolean isEmpty(final Object[] array) {
-        return getLength(array) == 0;
-    }
-
-    /**
-     * <p>Checks if an array of primitive longs is empty or {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
-     * @since 2.1
-     */
-    public static boolean isEmpty(final long[] array) {
-        return getLength(array) == 0;
-    }
-
-    /**
-     * <p>Checks if an array of primitive ints is empty or {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
-     * @since 2.1
-     */
-    public static boolean isEmpty(final int[] array) {
-        return getLength(array) == 0;
-    }
-
-    /**
-     * <p>Checks if an array of primitive shorts is empty or {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
-     * @since 2.1
-     */
-    public static boolean isEmpty(final short[] array) {
-        return getLength(array) == 0;
-    }
-
-    /**
-     * <p>Checks if an array of primitive chars is empty or {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
-     * @since 2.1
-     */
-    public static boolean isEmpty(final char[] array) {
-        return getLength(array) == 0;
-    }
-
-    /**
-     * <p>Checks if an array of primitive bytes is empty or {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
-     * @since 2.1
-     */
-    public static boolean isEmpty(final byte[] array) {
-        return getLength(array) == 0;
-    }
-
-    /**
-     * <p>Checks if an array of primitive doubles is empty or {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
-     * @since 2.1
-     */
-    public static boolean isEmpty(final double[] array) {
-        return getLength(array) == 0;
-    }
-
-    /**
-     * <p>Checks if an array of primitive floats is empty or {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
-     * @since 2.1
-     */
-    public static boolean isEmpty(final float[] array) {
-        return getLength(array) == 0;
-    }
-
-    /**
-     * <p>Checks if an array of primitive booleans is empty or {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
-     * @since 2.1
-     */
-    public static boolean isEmpty(final boolean[] array) {
+    public static boolean isEmpty(final Object array) {
         return getLength(array) == 0;
     }
 
     // ----------------------------------------------------------------------
     /**
-     * <p>Checks if an array of Objects is not empty and not {@code null}.
+     * <p>Checks if an array is not empty and not {@code null}.
      *
-     * @param <T> the component type of the array
      * @param array  the array to test
      * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
-     public static <T> boolean isNotEmpty(final T[] array) {
+     public static boolean isNotEmpty(final Object array) {
          return !isEmpty(array);
      }
-
-    /**
-     * <p>Checks if an array of primitive longs is not empty and not {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is not empty and not {@code null}
-     * @since 2.5
-     */
-    public static boolean isNotEmpty(final long[] array) {
-        return !isEmpty(array);
-    }
-
-    /**
-     * <p>Checks if an array of primitive ints is not empty and not {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is not empty and not {@code null}
-     * @since 2.5
-     */
-    public static boolean isNotEmpty(final int[] array) {
-        return !isEmpty(array);
-    }
-
-    /**
-     * <p>Checks if an array of primitive shorts is not empty and not {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is not empty and not {@code null}
-     * @since 2.5
-     */
-    public static boolean isNotEmpty(final short[] array) {
-        return !isEmpty(array);
-    }
-
-    /**
-     * <p>Checks if an array of primitive chars is not empty and not {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is not empty and not {@code null}
-     * @since 2.5
-     */
-    public static boolean isNotEmpty(final char[] array) {
-        return !isEmpty(array);
-    }
-
-    /**
-     * <p>Checks if an array of primitive bytes is not empty and not {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is not empty and not {@code null}
-     * @since 2.5
-     */
-    public static boolean isNotEmpty(final byte[] array) {
-        return !isEmpty(array);
-    }
-
-    /**
-     * <p>Checks if an array of primitive doubles is not empty and not {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is not empty and not {@code null}
-     * @since 2.5
-     */
-    public static boolean isNotEmpty(final double[] array) {
-        return !isEmpty(array);
-    }
-
-    /**
-     * <p>Checks if an array of primitive floats is not empty and not {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is not empty and not {@code null}
-     * @since 2.5
-     */
-    public static boolean isNotEmpty(final float[] array) {
-        return !isEmpty(array);
-    }
-
-    /**
-     * <p>Checks if an array of primitive booleans is not empty and not {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is not empty and not {@code null}
-     * @since 2.5
-     */
-    public static boolean isNotEmpty(final boolean[] array) {
-        return !isEmpty(array);
-    }
 
     /**
      * <p>Adds all the elements of the given arrays into a new array.
