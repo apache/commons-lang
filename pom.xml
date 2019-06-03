@@ -657,8 +657,6 @@
         <configuration>
           <source>${maven.compiler.source}</source>
           <quiet>true</quiet>
-          <encoding>${project.build.sourceEncoding}</encoding>
-          <docencoding>${project.reporting.outputEncoding}</docencoding>
           <notimestamp>true</notimestamp>
           <links>
             <link>http://docs.oracle.com/javase/7/docs/api/</link>
