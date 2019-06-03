@@ -1951,7 +1951,7 @@ public class StringUtils {
     /**
      * Calls {@link String#getBytes(Charset)} in a null-safe manner.
      *
-     * @param string
+     * @param string input string
      * @param charset The {@link Charset} to encode the {@code String}. If null, then use the default Charset.
      * @return The empty byte[] if {@code string} is null, the result of {@link String#getBytes(Charset)} otherwise.
      * @see String#getBytes(Charset)
@@ -1964,7 +1964,7 @@ public class StringUtils {
     /**
      * Calls {@link String#getBytes(String)} in a null-safe manner.
      *
-     * @param string
+     * @param string input string
      * @param charset The {@link Charset} name to encode the {@code String}. If null, then use the default Charset.
      * @return The empty byte[] if {@code string} is null, the result of {@link String#getBytes(String)} otherwise.
      * @throws UnsupportedEncodingException Thrown when the named charset is not supported.
