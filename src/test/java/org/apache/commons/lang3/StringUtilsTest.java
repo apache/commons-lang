@@ -31,6 +31,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -793,6 +794,22 @@ public class StringUtilsTest {
     public void testEscapeSurrogatePairsLang858() {
         assertEquals("\\uDBFF\\uDFFD", StringEscapeUtils.escapeJava("\uDBFF\uDFFD"));       //fail LANG-858
         assertEquals("\\uDBFF\\uDFFD", StringEscapeUtils.escapeEcmaScript("\uDBFF\uDFFD")); //fail LANG-858
+    }
+
+    @Test
+    public void testGetBytes_Charset() {
+        assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, StringUtils.getBytes(null, (Charset) null));
+        assertArrayEquals(StringUtils.EMPTY.getBytes(), StringUtils.getBytes(StringUtils.EMPTY, (Charset) null));
+        assertArrayEquals(StringUtils.EMPTY.getBytes(StandardCharsets.US_ASCII),
+            StringUtils.getBytes(StringUtils.EMPTY, StandardCharsets.US_ASCII));
+    }
+
+    @Test
+    public void testGetBytes_String() throws UnsupportedEncodingException {
+        assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, StringUtils.getBytes(null, (String) null));
+        assertArrayEquals(StringUtils.EMPTY.getBytes(), StringUtils.getBytes(StringUtils.EMPTY, (String) null));
+        assertArrayEquals(StringUtils.EMPTY.getBytes(StandardCharsets.US_ASCII.name()),
+            StringUtils.getBytes(StringUtils.EMPTY, StandardCharsets.US_ASCII.name()));
     }
 
     @Test
@@ -2790,7 +2807,9 @@ public class StringUtilsTest {
             "public static int org.apache.commons.lang3.StringUtils.compare(java.lang.String,java.lang.String)",
             "public static int org.apache.commons.lang3.StringUtils.compare(java.lang.String,java.lang.String,boolean)",
             "public static int org.apache.commons.lang3.StringUtils.compareIgnoreCase(java.lang.String,java.lang.String)",
-            "public static int org.apache.commons.lang3.StringUtils.compareIgnoreCase(java.lang.String,java.lang.String,boolean)"
+            "public static int org.apache.commons.lang3.StringUtils.compareIgnoreCase(java.lang.String,java.lang.String,boolean)",
+            "public static byte[] org.apache.commons.lang3.StringUtils.getBytes(java.lang.String,java.nio.charset.Charset)",
+            "public static byte[] org.apache.commons.lang3.StringUtils.getBytes(java.lang.String,java.lang.String) throws java.io.UnsupportedEncodingException"
         };
         final Method[] methods = c.getMethods();
 
@@ -3019,6 +3038,8 @@ public class StringUtilsTest {
         assertEquals("", StringUtils.truncate("abcdefghijklmno", Integer.MAX_VALUE, Integer.MAX_VALUE));
     }
 
+    // -----------------------------------------------------------------------
+
     @Test
     public void testUnCapitalize() {
         assertNull(StringUtils.uncapitalize(null));
@@ -3033,8 +3054,6 @@ public class StringUtilsTest {
         assertEquals("cat", StringUtils.uncapitalize("Cat"));
         assertEquals("cAT", StringUtils.uncapitalize("CAT"));
     }
-
-    // -----------------------------------------------------------------------
 
     @Test
     public void testUnescapeSurrogatePairs() {
@@ -3127,7 +3146,7 @@ public class StringUtilsTest {
         assertEquals("'\"abcd\"'", StringUtils.wrap("\"abcd\"", "'"));
         assertEquals("\"'abcd'\"", StringUtils.wrap("'abcd'", "\""));
     }
-
+    
     @Test
     public void testWrapIfMissing_StringChar() {
         assertNull(StringUtils.wrapIfMissing(null, CharUtils.NUL));

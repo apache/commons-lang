@@ -1457,7 +1457,6 @@ public class StringUtils {
         return count;
     }
 
-
     /**
      * <p>Returns either the passed in CharSequence, or if the CharSequence is
      * whitespace, empty ("") or {@code null}, the value of {@code defaultStr}.</p>
@@ -1481,6 +1480,7 @@ public class StringUtils {
     public static <T extends CharSequence> T defaultIfBlank(final T str, final T defaultStr) {
         return isBlank(str) ? defaultStr : str;
     }
+
 
     /**
      * <p>Returns either the passed in CharSequence, or if the CharSequence is
@@ -1946,6 +1946,33 @@ public class StringUtils {
             }
         }
         return null;
+    }
+
+    /**
+     * Calls {@link String#getBytes(Charset)} in a null-safe manner.
+     *
+     * @param string
+     * @param charset The {@link Charset} to encode the {@code String}. If null, then use the default Charset.
+     * @return The empty byte[] if {@code string} is null, the result of {@link String#getBytes(Charset)} otherwise.
+     * @see String#getBytes(Charset)
+     * @since 3.10
+     */
+    public static byte[] getBytes(final String string, final Charset charset) {
+        return string == null ? ArrayUtils.EMPTY_BYTE_ARRAY : string.getBytes(Charsets.toCharset(charset));
+    }
+
+    /**
+     * Calls {@link String#getBytes(String)} in a null-safe manner.
+     *
+     * @param string
+     * @param charset The {@link Charset} name to encode the {@code String}. If null, then use the default Charset.
+     * @return The empty byte[] if {@code string} is null, the result of {@link String#getBytes(String)} otherwise.
+     * @throws UnsupportedEncodingException Thrown when the named charset is not supported.
+     * @see String#getBytes(String)
+     * @since 3.10
+     */
+    public static byte[] getBytes(final String string, final String charset) throws UnsupportedEncodingException {
+        return string == null ? ArrayUtils.EMPTY_BYTE_ARRAY : string.getBytes(Charsets.toCharsetName(charset));
     }
 
     /**
@@ -8863,7 +8890,7 @@ public class StringUtils {
      * @since 3.3 No longer throws {@link UnsupportedEncodingException}.
      */
     public static String toEncodedString(final byte[] bytes, final Charset charset) {
-        return new String(bytes, charset != null ? charset : Charset.defaultCharset());
+        return new String(bytes, Charsets.toCharset(charset));
     }
 
     /**
