@@ -16,8 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import java.nio.charset.Charset;
-
 /**
  * <p>Operations on {@code CharSet} instances.</p>
  *
