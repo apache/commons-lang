@@ -29,7 +29,7 @@ import java.nio.charset.UnsupportedCharsetException;
  * Package private since Apache Commons IO already provides a Charsets because {@link Charset} is in
  * {@code java.nio.charset}.
  * </p>
- * 
+ *
  * @since 3.10
  */
 class Charsets {

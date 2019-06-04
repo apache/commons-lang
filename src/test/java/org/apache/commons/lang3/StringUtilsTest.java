@@ -3146,7 +3146,7 @@ public class StringUtilsTest {
         assertEquals("'\"abcd\"'", StringUtils.wrap("\"abcd\"", "'"));
         assertEquals("\"'abcd'\"", StringUtils.wrap("'abcd'", "\""));
     }
-    
+
     @Test
     public void testWrapIfMissing_StringChar() {
         assertNull(StringUtils.wrapIfMissing(null, CharUtils.NUL));
