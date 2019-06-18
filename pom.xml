@@ -6,7 +6,9 @@
  The ASF licenses this file to You under the Apache License, Version 2.0
  (the "License"); you may not use this file except in compliance with
  the License.  You may obtain a copy of the License at
+ 
       http://www.apache.org/licenses/LICENSE-2.0
+ 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -579,9 +581,12 @@
     <!--
        This is also  used to generate download_xxx file name.
        To override this when generating the download page:
+
        mvn commons:download-page -Dcommons.componentid=lang
+
        The above seems to change the download page name but not any other
        properties that depend on the componentid.
+
        N.B. The componentid is also used by the parent pom as part of the OSGI symbolic name.
     -->
     <commons.componentid>lang</commons.componentid>
@@ -661,6 +666,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${commons.javadoc.version}</version>
         <configuration>
           <source>${maven.compiler.source}</source>
           <quiet>true</quiet>
@@ -962,9 +968,9 @@
     </profile>
 
     <profile>
-      <id>java11</id>
+      <id>java11+</id>
       <activation>
-        <jdk>11</jdk>
+        <jdk>[11,)</jdk>
       </activation>
       <properties>
         <!-- workaround for https://bugs.openjdk.java.net/browse/JDK-8212233
