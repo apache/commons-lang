@@ -39,8 +39,54 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
  */
 public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Serializable {
 
+    private static final class TripleAdapter<L, M, R> extends Triple<L, M, R> {
+
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public L getLeft() {
+            return null;
+        }
+
+        @Override
+        public M getMiddle() {
+            return null;
+        }
+
+        @Override
+        public R getRight() {
+            return null;
+        }
+
+    }
+
     /** Serialization version */
     private static final long serialVersionUID = 1L;
+
+    /**
+     * An empty array.
+     * <p>
+     * Consider using {@link #emptyArray()} to avoid generics warnings.
+     * </p>
+     *
+     * @since 3.10.
+     */
+    public static final Triple<?, ?, ?>[] EMPTY_ARRAY = new TripleAdapter[0];
+
+    /**
+     * Returns the empty array singleton that can be assigned without compiler warning.
+     *
+     * @param <L> the left element type
+     * @param <M> the middle element type
+     * @param <R> the right element type
+     * @return the empty array singleton that can be assigned without compiler warning.
+     *
+     * @since 3.10.
+     */
+    @SuppressWarnings("unchecked")
+    public static <L, M, R> Triple<L, M, R>[] emptyArray() {
+        return (Triple<L, M, R>[]) EMPTY_ARRAY;
+    }
 
     /**
      * <p>Obtains an immutable triple of three objects inferring the generic types.</p>
@@ -59,28 +105,6 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     public static <L, M, R> Triple<L, M, R> of(final L left, final M middle, final R right) {
         return new ImmutableTriple<>(left, middle, right);
     }
-
-    //-----------------------------------------------------------------------
-    /**
-     * <p>Gets the left element from this triple.</p>
-     *
-     * @return the left element, may be null
-     */
-    public abstract L getLeft();
-
-    /**
-     * <p>Gets the middle element from this triple.</p>
-     *
-     * @return the middle element, may be null
-     */
-    public abstract M getMiddle();
-
-    /**
-     * <p>Gets the right element from this triple.</p>
-     *
-     * @return the right element, may be null
-     */
-    public abstract R getRight();
 
     //-----------------------------------------------------------------------
     /**
@@ -117,6 +141,28 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
         }
         return false;
     }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Gets the left element from this triple.</p>
+     *
+     * @return the left element, may be null
+     */
+    public abstract L getLeft();
+
+    /**
+     * <p>Gets the middle element from this triple.</p>
+     *
+     * @return the middle element, may be null
+     */
+    public abstract M getMiddle();
+
+    /**
+     * <p>Gets the right element from this triple.</p>
+     *
+     * @return the right element, may be null
+     */
+    public abstract R getRight();
 
     /**
      * <p>Returns a suitable hash code.</p>
