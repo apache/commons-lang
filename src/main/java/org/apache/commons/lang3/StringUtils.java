@@ -3526,6 +3526,7 @@ public class StringUtils {
      * @return {@code true} if the CharSequence is empty or null
      * @since 3.0 Changed signature from isEmpty(String) to isEmpty(CharSequence)
      */
+    @EnsuresMinLenIf(expression = "#1", result = false, targetValue = 1)
     public static boolean isEmpty(final CharSequence cs) {
         return cs == null || cs.length() == 0;
     }
@@ -4177,7 +4178,7 @@ public class StringUtils {
         if (noOfItems <= 0) {
             return EMPTY;
         }
-         final StringBuilder buf = newStringBuilder(noOfItems);
+        final StringBuilder buf = newStringBuilder(noOfItems);
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
                 buf.append(separator);
@@ -4278,7 +4279,6 @@ public class StringUtils {
      * <p>Joins the elements of the provided {@code Iterator} into
      * a single String containing the provided elements.</p>
      *
-     * <p>
      * <p>No delimiter is added before or after the list.
      * A {@code null} separator is the same as an empty String ("").</p>
      *
@@ -4297,7 +4297,7 @@ public class StringUtils {
         if (!iterator.hasNext()) {
             return EMPTY;
         }
-         final Object first = iterator.next();
+        final Object first = iterator.next();
         if (!iterator.hasNext()) {
             return Objects.toString(first, "");
         }
