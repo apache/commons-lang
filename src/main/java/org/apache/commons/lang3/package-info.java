@@ -35,7 +35,7 @@
  * This may seem an odd thing to do, but it allows tools like Velocity to access the class as if it were a bean.
  * In other words, yes we know about private constructors and have chosen not to use them.</p>
  *
- * <h3>String manipulation - StringUtils, StringEscapeUtils, RandomStringUtils</h3>
+ * <h2>String manipulation - StringUtils, StringEscapeUtils, RandomStringUtils</h2>
  *
  * <p>Lang has a series of String utilities.
  * The first is {@link org.apache.commons.lang3.StringUtils}, oodles and oodles of functions which tweak, transform, squeeze and cuddle {@link java.lang.String java.lang.Strings}.
@@ -47,7 +47,7 @@
  * <p>These are ideal classes to start using if you're looking to get into Lang.
  * StringUtils' {@link org.apache.commons.lang3.StringUtils#capitalize(String)}, {@link org.apache.commons.lang3.StringUtils#substringBetween(String, String)}/{@link org.apache.commons.lang3.StringUtils#substringBefore(String, String) Before}/{@link org.apache.commons.lang3.StringUtils#substringAfter(String, String) After}, {@link org.apache.commons.lang3.StringUtils#split(String)} and {@link org.apache.commons.lang3.StringUtils#join(Object[])} are good methods to begin with.</p>
  *
- * <h3>Character handling - CharSetUtils, CharSet, CharRange, CharUtils</h3>
+ * <h2>Character handling - CharSetUtils, CharSet, CharRange, CharUtils</h2>
  *
  * <p>In addition to dealing with Strings, it's also important to deal with chars and Characters.
  * {@link org.apache.commons.lang3.CharUtils} exists for this purpose, while {@link org.apache.commons.lang3.CharSetUtils} exists for set-manipulation of Strings.
@@ -56,7 +56,7 @@
  *
  * <p>{@link org.apache.commons.lang3.CharRange} and {@link org.apache.commons.lang3.CharSet} are both used internally by CharSetUtils, and will probably rarely be used.</p>
  *
- * <h3>JVM interaction - SystemUtils, CharEncoding</h3>
+ * <h2>JVM interaction - SystemUtils, CharEncoding</h2>
  *
  * <p>SystemUtils is a simple little class which makes it easy to find out information about which platform you are on.
  * For some, this is a necessary evil. It was never something I expected to use myself until I was trying to ensure that Commons Lang itself compiled under JDK 1.2.
@@ -65,7 +65,7 @@
  *
  * <p>The {@link org.apache.commons.lang3.CharEncoding} class is also used to interact with the Java environment and may be used to see which character encodings are supported in a particular environment. </p>
  *
- * <h3>Serialization - SerializationUtils, SerializationException</h3>
+ * <h2>Serialization - SerializationUtils, SerializationException</h2>
  *
  * <p>Serialization doesn't have to be that hard!
  * A simple util class can take away the pain, plus it provides a method to clone an object by unserializing and reserializing, an old Java trick.</p>
@@ -114,7 +114,7 @@
  * <p>Our final util class is {@link org.apache.commons.lang3.BooleanUtils}.
  * It contains various Boolean acting methods, probably of most interest is the {@link org.apache.commons.lang3.BooleanUtils#toBoolean(String)} method which turns various positive/negative Strings into a Boolean object, and not just true/false as with Boolean.valueOf.</p>
  *
- * <h3>Flotsam - BitField, Validate</h3>
+ * <h2>Flotsam - BitField, Validate</h2>
  * <p>On reaching the end of our package, we are left with a couple of classes that haven't fit any of the topics so far. </p>
  * <p>The {@link org.apache.commons.lang3.BitField} class provides a wrapper class around the classic bitmask integer, whilst the {@link org.apache.commons.lang3.Validate} class may be used for assertions (remember, we support Java 1.2). </p>
  *

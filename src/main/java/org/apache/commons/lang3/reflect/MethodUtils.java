@@ -49,8 +49,8 @@ import org.checkerframework.common.value.qual.MinLen;
  * already existed within Lang.
  * </p>
  *
- * <h3>Known Limitations</h3>
- * <h4>Accessing Public Methods In A Default Access Superclass</h4>
+ * <h2>Known Limitations</h2>
+ * <h3>Accessing Public Methods In A Default Access Superclass</h3>
  * <p>There is an issue when invoking {@code public} methods contained in a default access superclass on JREs prior to 1.4.
  * Reflection locates these methods fine and correctly assigns them as {@code public}.
  * However, an {@link IllegalAccessException} is thrown if the method is invoked.</p>

@@ -30,8 +30,9 @@ import org.checkerframework.common.value.qual.MinLen;
  * <p> Utility reflection methods focused on constructors, modeled after
  * {@link MethodUtils}. </p>
  *
- * <h3>Known Limitations</h3> <h4>Accessing Public Constructors In A Default
- * Access Superclass</h4> <p>There is an issue when invoking {@code public} constructors
+ * <h2>Known Limitations</h2>
+ * <h3>Accessing Public Constructors In A Default Access Superclass</h3>
+ * <p>There is an issue when invoking {@code public} constructors
  * contained in a default access superclass. Reflection correctly locates these
  * constructors and assigns them as {@code public}. However, an
  * {@link IllegalAccessException} is thrown if the constructor is
