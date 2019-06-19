@@ -31,8 +31,6 @@ import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
-import org.checkerframework.checker.index.qual.GTENegativeOne;
-import org.checkerframework.checker.index.qual.Positive;
 import org.checkerframework.common.value.qual.MinLen;
 
 /**
@@ -69,31 +67,6 @@ public class ExceptionUtils {
         "getLinkedCause",
         "getThrowable",
     };
-
-    /**
-     * <p>
-     * Public constructor allows an instance of <code>ExceptionUtils</code> to be created, although that is not
-     * normally necessary.
-     * </p>
-     */
-    public ExceptionUtils() {
-        super();
-    }
-
-    //-----------------------------------------------------------------------
-    /**
-     * <p>Returns the default names used when searching for the cause of an exception.</p>
-     *
-     * <p>This may be modified and used in the overloaded getCause(Throwable, String[]) method.</p>
-     *
-     * @return cloned array of the default method names
-     * @since 3.0
-     * @deprecated This feature will be removed in Lang 4.0
-     */
-    @Deprecated
-    public static String[] getDefaultCauseMethodNames() {
-        return ArrayUtils.clone(CAUSE_METHOD_NAMES);
-    }
 
     //-----------------------------------------------------------------------
     /**
@@ -168,6 +141,67 @@ public class ExceptionUtils {
         return null;
     }
 
+        /**
+     * <p>Finds a <code>Throwable</code> by method name.</p>
+     *
+     * @param throwable  the exception to examine
+     * @param methodName  the name of the method to find and invoke
+     * @return the wrapped exception, or <code>null</code> if not found
+     */
+    // TODO: Remove in Lang 4.0
+    private static Throwable getCauseUsingMethodName(final Throwable throwable, final String methodName) {
+        Method method = null;
+        try {
+            method = throwable.getClass().getMethod(methodName);
+        } catch (final NoSuchMethodException | SecurityException ignored) { // NOPMD
+            // exception ignored
+        }
+
+        if (method != null && Throwable.class.isAssignableFrom(method.getReturnType())) {
+            try {
+                return (Throwable) method.invoke(throwable);
+            } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException ignored) { // NOPMD
+                // exception ignored
+            }
+        }
+        return null;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Returns the default names used when searching for the cause of an exception.</p>
+     *
+     * <p>This may be modified and used in the overloaded getCause(Throwable, String[]) method.</p>
+     *
+     * @return cloned array of the default method names
+     * @since 3.0
+     * @deprecated This feature will be removed in Lang 4.0
+     */
+    @Deprecated
+    public static String[] getDefaultCauseMethodNames() {
+        return ArrayUtils.clone(CAUSE_METHOD_NAMES);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Gets a short message summarising the exception.
+     * <p>
+     * The message returned is of the form
+     * {ClassNameWithoutPackage}: {ThrowableMessage}
+     *
+     * @param th  the throwable to get a message for, null returns empty string
+     * @return the message, non-null
+     * @since 2.2
+     */
+    public static String getMessage(final Throwable th) {
+        if (th == null) {
+            return StringUtils.EMPTY;
+        }
+        final String clsName = ClassUtils.getShortClassName(th, null);
+        final String msg = th.getMessage();
+        return clsName + ": " + StringUtils.defaultString(msg);
+    }
+
     /**
      * <p>Introspects the <code>Throwable</code> to obtain the root cause.</p>
      *
@@ -190,14 +224,37 @@ public class ExceptionUtils {
         return list.isEmpty() ? null : list.get(list.size() - 1);
     }
 
+    //-----------------------------------------------------------------------
     /**
-     * <p>Finds a <code>Throwable</code> by method name.</p>
+     * Gets a short message summarising the root cause exception.
+     * <p>
+     * The message returned is of the form
+     * {ClassNameWithoutPackage}: {ThrowableMessage}
      *
-     * @param throwable  the exception to examine
-     * @param methodName  the name of the method to find and invoke
-     * @return the wrapped exception, or <code>null</code> if not found
+     * @param th  the throwable to get a message for, null returns empty string
+     * @return the message, non-null
+     * @since 2.2
      */
-    // TODO: Remove in Lang 4.0
+    public static String getRootCauseMessage(final Throwable th) {
+        Throwable root = getRootCause(th);
+        root = root == null ? th : root;
+        return getMessage(root);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Creates a compact stack trace for the root cause of the supplied
+     * <code>Throwable</code>.</p>
+     *
+     * <p>The output of this method is consistent across JDK versions.
+     * It consists of the root exception followed by each of its wrapping
+     * exceptions separated by '[wrapped]'. Note that this is the opposite
+     * order to the JDK1.4 display.</p>
+     *
+     * @param throwable  the throwable to examine, may be null
+     * @return an array of stack trace frames, never null
+     * @since 2.0
+     */
     private static Throwable getCauseUsingMethodName(final Throwable throwable, final String methodName) {
         Method method = null;
         try {
