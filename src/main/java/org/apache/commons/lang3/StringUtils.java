@@ -1655,8 +1655,6 @@ public class StringUtils {
         return endsWith(str, suffix, false);
     }
 
-    // Delete
-    //-----------------------------------------------------------------------
     /**
      * <p>Check if a CharSequence ends with a specified suffix (optionally case insensitive).</p>
      *
@@ -1712,8 +1710,6 @@ public class StringUtils {
         return false;
     }
 
-    // Difference
-    //-----------------------------------------------------------------------
     /**
      * <p>Case insensitive check if a CharSequence ends with a specified suffix.</p>
      *
@@ -1848,8 +1844,6 @@ public class StringUtils {
         return false;
     }
 
-    // Equals
-    //-----------------------------------------------------------------------
     /**
      * <p>Compares two CharSequences, returning {@code true} if they represent
      * equal sequences of characters, ignoring case.</p>
@@ -2665,10 +2659,9 @@ public class StringUtils {
      * StringUtils.indexOfAny("aba", ['z'])             = -1
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
-     * @param searchSeq  the CharSequence to find, may be null
-     * @return the first index of the search CharSequence,
-     *  -1 if no match or {@code null} string input
+     * @param cs  the CharSequence to check, may be null
+     * @param searchChars  the chars to search for, may be null
+     * @return the index of any of the chars, -1 if no match or null input
      * @since 2.0
      * @since 3.0 Changed signature from indexOfAny(String, char[]) to indexOfAny(CharSequence, char...)
      */
@@ -3439,8 +3432,6 @@ public class StringUtils {
       return false;
     }
 
-    // Character Tests
-    //-----------------------------------------------------------------------
     /**
      * <p>Checks if the CharSequence contains only ASCII printable characters.</p>
      *
@@ -3586,7 +3577,6 @@ public class StringUtils {
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
-     *
      * StringUtils.isNoneBlank((String) null)    = false
      * StringUtils.isNoneBlank((String[]) null)  = true
      * StringUtils.isNoneBlank(null, "foo")      = false
@@ -3655,9 +3645,6 @@ public class StringUtils {
         return !isBlank(cs);
     }
 
-    // Nested extraction
-    //-----------------------------------------------------------------------
-
     /**
      * <p>Checks if a CharSequence is not empty ("") and not null.</p>
      *
@@ -3677,8 +3664,6 @@ public class StringUtils {
         return !isEmpty(cs);
     }
 
-    // Empty checks
-    //-----------------------------------------------------------------------
     /**
      * <p>Checks if the CharSequence contains only Unicode digits.
      * A decimal point is not a Unicode digit and returns false.</p>
