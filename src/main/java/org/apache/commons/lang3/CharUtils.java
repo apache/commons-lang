@@ -174,9 +174,10 @@ public class CharUtils {
      * @return the char value of the first letter of the String
      * @throws IllegalArgumentException if the String is empty
      */
+    @SuppressWarnings("index:argument.type.incompatible") // #1: Validate.isTrue => string is non empty
     public static char toChar(final String str) {
         Validate.isTrue(StringUtils.isNotEmpty(str), "The String must not be empty");
-        return str.charAt(0);
+        return str.charAt(0); // #1
     }
 
     /**
@@ -305,9 +306,10 @@ public class CharUtils {
      * @param ch  the character to convert
      * @return a String containing the one specified character
      */
+    @SuppressWarnings({"index:array.access.unsafe.low"}) // #1: CHAR_STRING_ARRAY has length 128, and ch < 128, also ASCII code is not negative
     public static String toString(final char ch) {
         if (ch < 128) {
-            return CHAR_STRING_ARRAY[ch];
+            return CHAR_STRING_ARRAY[ch]; // #1
         }
         return new String(new char[] {ch});
     }

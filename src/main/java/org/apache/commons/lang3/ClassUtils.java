@@ -128,7 +128,10 @@ public class ClassUtils {
      * Maps an abbreviation used in array class names to corresponding primitive class name.
      */
     private static final Map<String, String> reverseAbbreviationMap;
-    // Feed abbreviation maps
+
+    /**
+     * Feed abbreviation maps
+     */
     static {
         final Map<String, String> m = new HashMap<>();
         m.put("int", "I");
@@ -204,6 +207,10 @@ public class ClassUtils {
      * @param className  the className to get the short name for
      * @return the class name of the class without the package name or an empty string
      */
+    @SuppressWarnings("index:argument.type.incompatible") /*
+    #1: className.startsWith("[") => @MinLen(1)
+    #2: className = className.substring(1) followed by arrayPrefix.append("[]") ensures @MinLen(2)
+    */
     public static String getShortClassName(String className) {
         if (StringUtils.isEmpty(className)) {
             return StringUtils.EMPTY;
@@ -213,13 +220,13 @@ public class ClassUtils {
 
         // Handle array encoding
         if (className.startsWith("[")) {
-            while (className.charAt(0) == '[') {
-                className = className.substring(1);
+            while (className.charAt(0) == '[') { // #1
+                className = className.substring(1); // #1
                 arrayPrefix.append("[]");
             }
             // Strip Object type encoding
-            if (className.charAt(0) == 'L' && className.charAt(className.length() - 1) == ';') {
-                className = className.substring(1, className.length() - 1);
+            if (className.charAt(0) == 'L' && className.charAt(className.length() - 1) == ';') { // #2
+                className = className.substring(1, className.length() - 1); // #2
             }
 
             if (reverseAbbreviationMap.containsKey(className)) {
@@ -375,18 +382,22 @@ public class ClassUtils {
      * @param className  the className to get the package name for, may be {@code null}
      * @return the package name or an empty string
      */
+    @SuppressWarnings("index:argument.type.incompatible") /*
+    #1, #2: !StringUtils.isEmpty(classname) => @MinLen(1), also according to the documentation, the name cannot end with '[', hence the subtring also has @MinLen(1)
+    #3, #4: className after the previous loop has @MinLen(1) as explained in #1, #2
+    */
     public static String getPackageName(String className) {
         if (StringUtils.isEmpty(className)) {
             return StringUtils.EMPTY;
         }
 
         // Strip array encoding
-        while (className.charAt(0) == '[') {
-            className = className.substring(1);
+        while (className.charAt(0) == '[') { // #1
+            className = className.substring(1); // #2
         }
         // Strip Object type encoding
-        if (className.charAt(0) == 'L' && className.charAt(className.length() - 1) == ';') {
-            className = className.substring(1);
+        if (className.charAt(0) == 'L' && className.charAt(className.length() - 1) == ';') { // #3
+            className = className.substring(1); // #4
         }
 
         final int i = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);

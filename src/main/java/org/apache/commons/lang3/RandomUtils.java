@@ -21,14 +21,6 @@ import java.util.Random;
 /**
  * <p>Utility library that supplements the standard {@link Random} class.</p>
  *
- * <p>Caveat: Instances of {@link Random} are not cryptographically secure.</p>
- *
- * <p>Please note that the Apache Commons project provides a component
- * dedicated to pseudo-random number generation, namely
- * <a href="https://commons.apache.org/rng">Commons RNG</a>, that may be
- * a better choice for applications with more stringent requirements
- * (performance and/or correctness).</p>
- *
  * @since 3.3
  */
 public class RandomUtils {
@@ -77,6 +69,7 @@ public class RandomUtils {
      * @return the random byte array
      * @throws IllegalArgumentException if {@code count} is negative
      */
+    @SuppressWarnings("index:array.length.negative") // Validate.isTrue => count >= 0
     public static byte[] nextBytes(final int count) {
         Validate.isTrue(count >= 0, "Count cannot be negative.");
 
@@ -99,6 +92,7 @@ public class RandomUtils {
      *             {@code startInclusive} is negative
      * @return the random integer
      */
+    @SuppressWarnings("index:argument.type.incompatible") // #1: Validate.isTrue ensures endExclusive >= startInclusive and both are non negative as well
     public static int nextInt(final int startInclusive, final int endExclusive) {
         Validate.isTrue(endExclusive >= startInclusive,
                 "Start value must be smaller or equal to end value.");
@@ -108,7 +102,7 @@ public class RandomUtils {
             return startInclusive;
         }
 
-        return startInclusive + RANDOM.nextInt(endExclusive - startInclusive);
+        return startInclusive + RANDOM.nextInt(endExclusive - startInclusive); // #1
     }
 
     /**

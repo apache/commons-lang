@@ -23,6 +23,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+
 /**
  * <p>A set of characters.</p>
  *
@@ -186,30 +188,39 @@ public class CharSet implements Serializable {
      *
      * @param str  set definition string
      */
+    @SuppressWarnings({"index:argument.type.incompatible","index:compound.assignment.type.incompatible"}) /*
+    #1: remanider >= 4 => pos + 3 < str.length
+    #2: remainder >= 4 => pos + 4 <= str.length
+    #3: remanider >= 3 => pos + 2 < str.length
+    #4: remainder >= 3 => pos + 3 <= str.length
+    #5: remanider >= 2 => pos + 1 < str.length
+    #6: remainder >= 2 => pos + 2 <= str.length
+    #7: pos < len as checked in while
+    */
     protected void add(final String str) {
         if (str == null) {
             return;
         }
 
         final int len = str.length();
-        int pos = 0;
+        @IndexOrHigh("str") int pos = 0;
         while (pos < len) {
             final int remainder = len - pos;
-            if (remainder >= 4 && str.charAt(pos) == '^' && str.charAt(pos + 2) == '-') {
+            if (remainder >= 4 && str.charAt(pos) == '^' && str.charAt(pos + 2) == '-') { // #1
                 // negated range
-                set.add(CharRange.isNotIn(str.charAt(pos + 1), str.charAt(pos + 3)));
-                pos += 4;
-            } else if (remainder >= 3 && str.charAt(pos + 1) == '-') {
+                set.add(CharRange.isNotIn(str.charAt(pos + 1), str.charAt(pos + 3))); // #1
+                pos += 4; // #2
+            } else if (remainder >= 3 && str.charAt(pos + 1) == '-') { // #3
                 // range
-                set.add(CharRange.isIn(str.charAt(pos), str.charAt(pos + 2)));
-                pos += 3;
-            } else if (remainder >= 2 && str.charAt(pos) == '^') {
+                set.add(CharRange.isIn(str.charAt(pos), str.charAt(pos + 2))); // #3
+                pos += 3; // #4
+            } else if (remainder >= 2 && str.charAt(pos) == '^') { // #5
                 // negated char
-                set.add(CharRange.isNot(str.charAt(pos + 1)));
-                pos += 2;
+                set.add(CharRange.isNot(str.charAt(pos + 1))); // #5
+                pos += 2; // #6
             } else {
                 // char
-                set.add(CharRange.is(str.charAt(pos)));
+                set.add(CharRange.is(str.charAt(pos))); // #7
                 pos += 1;
             }
         }

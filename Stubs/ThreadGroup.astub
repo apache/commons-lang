@@ -1,0 +1,11 @@
+import org.checkerframework.checker.index.qual.NonNegative;
+package java.lang;
+
+class ThreadGroup implements UncaughtExceptionHandler {
+    @NonNegative int activeCount();
+    @NonNegative int enumerate(Thread[] arg0);
+    @NonNegative int enumerate(Thread[] arg0, boolean arg1);
+    @NonNegative int activeGroupCount();
+    @NonNegative int enumerate(ThreadGroup[] arg0);
+    @NonNegative int enumerate(ThreadGroup[] arg0, boolean arg1);
+}

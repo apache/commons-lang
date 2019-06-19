@@ -18,6 +18,11 @@ package org.apache.commons.lang3;
 
 import java.util.UUID;
 
+import org.checkerframework.checker.index.qual.IndexFor;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.LTLengthOf;
+
 
 /**
  * <p>
@@ -287,6 +292,7 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code src} is empty
      * @throws NullPointerException if {@code src} is {@code null}
      */
+    @SuppressWarnings("index:argument.type.incompatible") // if src.length == 0, it throws an IllegalArgumentException
     public static char binaryToHexDigit(final boolean[] src) {
         return binaryToHexDigit(src, 0);
     }
@@ -306,7 +312,7 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code src} is empty
      * @throws NullPointerException if {@code src} is {@code null}
      */
-    public static char binaryToHexDigit(final boolean[] src, final int srcPos) {
+    public static char binaryToHexDigit(final boolean[] src, final @IndexFor("#1") int srcPos) {
         if (src.length == 0) {
             throw new IllegalArgumentException("Cannot convert an empty array.");
         }
@@ -349,6 +355,7 @@ public class Conversion {
      *             {@code src.length > 8}
      * @throws NullPointerException if {@code src} is {@code null}
      */
+    @SuppressWarnings("index:argument.type.incompatible") // if src.length == 0, it throws an IllegalArgumentException
     public static char binaryToHexDigitMsb0_4bits(final boolean[] src) {
         return binaryToHexDigitMsb0_4bits(src, 0);
     }
@@ -370,7 +377,7 @@ public class Conversion {
      *             {@code src.length - srcPos < 4}
      * @throws NullPointerException if {@code src} is {@code null}
      */
-    public static char binaryToHexDigitMsb0_4bits(final boolean[] src, final int srcPos) {
+    public static char binaryToHexDigitMsb0_4bits(final boolean[] src, final @IndexFor("#1") int srcPos) {
         if (src.length > 8) {
             throw new IllegalArgumentException("src.length>8: src.length=" + src.length);
         }
@@ -416,6 +423,7 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code src} is empty
      * @throws NullPointerException if {@code src} is {@code null}
      */
+    @SuppressWarnings("index:argument.type.incompatible") // If src is empty, IllegalArgumentException is thrown
     public static char binaryBeMsb0ToHexDigit(final boolean[] src) {
         return binaryBeMsb0ToHexDigit(src, 0);
     }
@@ -436,14 +444,20 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code src} is empty
      * @throws NullPointerException if {@code src} is {@code null}
      */
-    public static char binaryBeMsb0ToHexDigit(boolean[] src, int srcPos) {
+    @SuppressWarnings("index:argument.type.incompatible") /*
+    #1: beSrcPos + 1 - srcLen = beSrcPos + 1 - Math.min(4, beSrcPos + 1) which has min value 0
+        4 - srcLen = 4 - Math.min(4, beSrcPos + 1) which has min value 0
+        srcLen is @NonNegative and @LTLengthOf(value = "#1", offset = "#2 - 1"), i.e., srcLen < src.length - beSrcPos - 1 + srcLen + 1 => 0 < src.length - src.length + 1 + srcPos => 0 < 1 + srcPos which is true
+        Also, srcLen is @LTLengthOf(value = "#3", offset = "#4 - 1"), i.e., srcLen < paddedSrc.length - 4 + srclen + 1 => 0 < 4 - 4 + 1 which is true   
+    */
+    public static char binaryBeMsb0ToHexDigit(boolean[] src, @IndexFor("#1") int srcPos) {
         if (src.length == 0) {
             throw new IllegalArgumentException("Cannot convert an empty array.");
         }
         final int beSrcPos = src.length - 1 - srcPos;
         final int srcLen = Math.min(4, beSrcPos + 1);
         final boolean[] paddedSrc = new boolean[4];
-        System.arraycopy(src, beSrcPos + 1 - srcLen, paddedSrc, 4 - srcLen, srcLen);
+        System.arraycopy(src, beSrcPos + 1 - srcLen, paddedSrc, 4 - srcLen, srcLen); // #1
         src = paddedSrc;
         srcPos = 0;
         if (src[srcPos]) {
@@ -570,8 +584,8 @@ public class Conversion {
      * @throws NullPointerException if {@code src} is {@code null}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nInts > src.length}
      */
-    public static long intArrayToLong(final int[] src, final int srcPos, final long dstInit, final int dstPos,
-            final int nInts) {
+    public static long intArrayToLong(final int[] src, final @IndexFor("#1") int srcPos, final long dstInit, final int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#1"}, offset = {"#2 - 1"}) int nInts) {
         if (src.length == 0 && srcPos == 0 || 0 == nInts) {
             return dstInit;
         }
@@ -605,8 +619,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nShorts-1)*16+dstPos >= 64}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nShorts > src.length}
      */
-    public static long shortArrayToLong(final short[] src, final int srcPos, final long dstInit, final int dstPos,
-            final int nShorts) {
+    public static long shortArrayToLong(final short[] src, final @IndexFor("#1") int srcPos, final long dstInit, final int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#1"}, offset = {"#2 - 1"}) int nShorts) {
         if (src.length == 0 && srcPos == 0 || 0 == nShorts) {
             return dstInit;
         }
@@ -640,8 +654,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nShorts-1)*16+dstPos >= 32}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nShorts > src.length}
      */
-    public static int shortArrayToInt(final short[] src, final int srcPos, final int dstInit, final int dstPos,
-            final int nShorts) {
+    public static int shortArrayToInt(final short[] src, final @IndexFor("#1") int srcPos, final int dstInit, final int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#1"}, offset = {"#2 - 1"}) int nShorts) {
         if (src.length == 0 && srcPos == 0 || 0 == nShorts) {
             return dstInit;
         }
@@ -675,8 +689,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nBytes-1)*8+dstPos >= 64}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBytes > src.length}
      */
-    public static long byteArrayToLong(final byte[] src, final int srcPos, final long dstInit, final int dstPos,
-            final int nBytes) {
+    public static long byteArrayToLong(final byte[] src, final @IndexFor("#1") int srcPos, final long dstInit, final int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#1"}, offset = {"#2 - 1"}) int nBytes) {
         if (src.length == 0 && srcPos == 0 || 0 == nBytes) {
             return dstInit;
         }
@@ -710,8 +724,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nBytes-1)*8+dstPos >= 32}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBytes > src.length}
      */
-    public static int byteArrayToInt(final byte[] src, final int srcPos, final int dstInit, final int dstPos,
-            final int nBytes) {
+    public static int byteArrayToInt(final byte[] src, final @IndexFor("#1") int srcPos, final int dstInit, final int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#1"}, offset = {"#2 - 1"}) int nBytes) {
         if (src.length == 0 && srcPos == 0 || 0 == nBytes) {
             return dstInit;
         }
@@ -745,8 +759,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nBytes-1)*8+dstPos >= 16}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBytes > src.length}
      */
-    public static short byteArrayToShort(final byte[] src, final int srcPos, final short dstInit, final int dstPos,
-            final int nBytes) {
+    public static short byteArrayToShort(final byte[] src, final @IndexFor("#1") int srcPos, final short dstInit, final int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#1"}, offset = {"#2 - 1"}) int nBytes) {
         if (src.length == 0 && srcPos == 0 || 0 == nBytes) {
             return dstInit;
         }
@@ -778,8 +792,8 @@ public class Conversion {
      * @return a long containing the selected bits
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 64}
      */
-    public static long hexToLong(final String src, final int srcPos, final long dstInit, final int dstPos,
-            final int nHex) {
+    public static long hexToLong(final String src, final @IndexFor("#1") int srcPos, final long dstInit, final int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#1"}, offset = {"#2 - 1"}) int nHex) {
         if (0 == nHex) {
             return dstInit;
         }
@@ -811,7 +825,7 @@ public class Conversion {
      * @return an int containing the selected bits
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 32}
      */
-    public static int hexToInt(final String src, final int srcPos, final int dstInit, final int dstPos, final int nHex) {
+    public static int hexToInt(final String src, final @IndexFor("#1") int srcPos, final int dstInit, final int dstPos, final @NonNegative @LTLengthOf(value = {"#1"}, offset = {"#2 - 1"}) int nHex) {
         if (0 == nHex) {
             return dstInit;
         }
@@ -843,8 +857,8 @@ public class Conversion {
      * @return a short containing the selected bits
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 16}
      */
-    public static short hexToShort(final String src, final int srcPos, final short dstInit, final int dstPos,
-            final int nHex) {
+    public static short hexToShort(final String src, final @IndexFor("#1") int srcPos, final short dstInit, final int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#1"}, offset = {"#2 - 1"}) int nHex) {
         if (0 == nHex) {
             return dstInit;
         }
@@ -876,8 +890,8 @@ public class Conversion {
      * @return a byte containing the selected bits
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 8}
      */
-    public static byte hexToByte(final String src, final int srcPos, final byte dstInit, final int dstPos,
-            final int nHex) {
+    public static byte hexToByte(final String src, final @IndexFor("#1") int srcPos, final byte dstInit, final int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#1"}, offset = {"#2 - 1"}) int nHex) {
         if (0 == nHex) {
             return dstInit;
         }
@@ -911,8 +925,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nBools-1+dstPos >= 64}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBools > src.length}
      */
-    public static long binaryToLong(final boolean[] src, final int srcPos, final long dstInit, final int dstPos,
-            final int nBools) {
+    public static long binaryToLong(final boolean[] src, final @IndexFor("#1") int srcPos, final long dstInit, final int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#1"}, offset = {"#2 - 1"}) int nBools) {
         if (src.length == 0 && srcPos == 0 || 0 == nBools) {
             return dstInit;
         }
@@ -946,8 +960,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nBools-1+dstPos >= 32}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBools > src.length}
      */
-    public static int binaryToInt(final boolean[] src, final int srcPos, final int dstInit, final int dstPos,
-            final int nBools) {
+    public static int binaryToInt(final boolean[] src, final @IndexFor("#1") int srcPos, final int dstInit, final int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#1"}, offset = {"#2 - 1"}) int nBools) {
         if (src.length == 0 && srcPos == 0 || 0 == nBools) {
             return dstInit;
         }
@@ -981,8 +995,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nBools-1+dstPos >= 16}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBools > src.length}
      */
-    public static short binaryToShort(final boolean[] src, final int srcPos, final short dstInit, final int dstPos,
-            final int nBools) {
+    public static short binaryToShort(final boolean[] src, final @IndexFor("#1") int srcPos, final short dstInit, final int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#1"}, offset = {"#2 - 1"}) int nBools) {
         if (src.length == 0 && srcPos == 0 || 0 == nBools) {
             return dstInit;
         }
@@ -1016,8 +1030,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nBools-1+dstPos >= 8}
      * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBools > src.length}
      */
-    public static byte binaryToByte(final boolean[] src, final int srcPos, final byte dstInit, final int dstPos,
-            final int nBools) {
+    public static byte binaryToByte(final boolean[] src, final @IndexFor("#1") int srcPos, final byte dstInit, final int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#1"}, offset = {"#2 - 1"}) int nBools) {
         if (src.length == 0 && srcPos == 0 || 0 == nBools) {
             return dstInit;
         }
@@ -1051,8 +1065,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nInts-1)*32+srcPos >= 64}
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nInts > dst.length}
      */
-    public static int[] longToIntArray(final long src, final int srcPos, final int[] dst, final int dstPos,
-            final int nInts) {
+    public static int[] longToIntArray(final long src, final int srcPos, final int[] dst, final @IndexFor("#3") int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#3"}, offset = {"#4 - 1"}) int nInts) {
         if (0 == nInts) {
             return dst;
         }
@@ -1083,8 +1097,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nShorts-1)*16+srcPos >= 64}
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nShorts > dst.length}
      */
-    public static short[] longToShortArray(final long src, final int srcPos, final short[] dst, final int dstPos,
-            final int nShorts) {
+    public static short[] longToShortArray(final long src, final int srcPos, final short[] dst, final @IndexFor("#3") int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#3"}, offset = {"#4 - 1"}) int nShorts) {
         if (0 == nShorts) {
             return dst;
         }
@@ -1115,8 +1129,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nShorts-1)*16+srcPos >= 32}
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nShorts > dst.length}
      */
-    public static short[] intToShortArray(final int src, final int srcPos, final short[] dst, final int dstPos,
-            final int nShorts) {
+    public static short[] intToShortArray(final int src, final int srcPos, final short[] dst, final @IndexFor("#3") int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#3"}, offset = {"#4 - 1"}) int nShorts) {
         if (0 == nShorts) {
             return dst;
         }
@@ -1147,8 +1161,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nBytes-1)*8+srcPos >= 64}
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nBytes > dst.length}
      */
-    public static byte[] longToByteArray(final long src, final int srcPos, final byte[] dst, final int dstPos,
-            final int nBytes) {
+    public static byte[] longToByteArray(final long src, final int srcPos, final byte[] dst, final @IndexFor("#3") int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#3"}, offset = {"#4 - 1"}) int nBytes) {
         if (0 == nBytes) {
             return dst;
         }
@@ -1179,8 +1193,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nBytes-1)*8+srcPos >= 32}
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nBytes > dst.length}
      */
-    public static byte[] intToByteArray(final int src, final int srcPos, final byte[] dst, final int dstPos,
-            final int nBytes) {
+    public static byte[] intToByteArray(final int src, final int srcPos, final byte[] dst, final @IndexFor("#3") int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#3"}, offset = {"#4 - 1"}) int nBytes) {
         if (0 == nBytes) {
             return dst;
         }
@@ -1211,8 +1225,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nBytes-1)*8+srcPos >= 16}
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nBytes > dst.length}
      */
-    public static byte[] shortToByteArray(final short src, final int srcPos, final byte[] dst, final int dstPos,
-            final int nBytes) {
+    public static byte[] shortToByteArray(final short src, final int srcPos, final byte[] dst, final @IndexFor("#3") int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#3"}, offset = {"#4 - 1"}) int nBytes) {
         if (0 == nBytes) {
             return dst;
         }
@@ -1242,8 +1256,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 64}
      * @throws StringIndexOutOfBoundsException if {@code dst.init.length() < dstPos}
      */
-    public static String longToHex(final long src, final int srcPos, final String dstInit, final int dstPos,
-            final int nHexs) {
+    public static String longToHex(final long src, final int srcPos, final String dstInit, final @IndexFor("#3") int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#3"}, offset = {"#4 - 1"}) int nHexs) {
         if (0 == nHexs) {
             return dstInit;
         }
@@ -1281,8 +1295,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 32}
      * @throws StringIndexOutOfBoundsException if {@code dst.init.length() < dstPos}
      */
-    public static String intToHex(final int src, final int srcPos, final String dstInit, final int dstPos,
-            final int nHexs) {
+    public static String intToHex(final int src, final int srcPos, final String dstInit, final @IndexFor("#3") int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#3"}, offset = {"#4 - 1"}) int nHexs) {
         if (0 == nHexs) {
             return dstInit;
         }
@@ -1320,8 +1334,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 16}
      * @throws StringIndexOutOfBoundsException if {@code dst.init.length() < dstPos}
      */
-    public static String shortToHex(final short src, final int srcPos, final String dstInit, final int dstPos,
-            final int nHexs) {
+    public static String shortToHex(final short src, final int srcPos, final String dstInit, final @IndexFor("#3") int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#3"}, offset = {"#4 - 1"}) int nHexs) {
         if (0 == nHexs) {
             return dstInit;
         }
@@ -1359,8 +1373,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 8}
      * @throws StringIndexOutOfBoundsException if {@code dst.init.length() < dstPos}
      */
-    public static String byteToHex(final byte src, final int srcPos, final String dstInit, final int dstPos,
-            final int nHexs) {
+    public static String byteToHex(final byte src, final int srcPos, final String dstInit, final @IndexFor("#3") int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#3"}, offset = {"#4 - 1"}) int nHexs) {
         if (0 == nHexs) {
             return dstInit;
         }
@@ -1399,8 +1413,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 64}
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nBools > dst.length}
      */
-    public static boolean[] longToBinary(final long src, final int srcPos, final boolean[] dst, final int dstPos,
-            final int nBools) {
+    public static boolean[] longToBinary(final long src, final int srcPos, final boolean[] dst, final @IndexFor("#3") int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#3"}, offset = {"#4 - 1"}) int nBools) {
         if (0 == nBools) {
             return dst;
         }
@@ -1431,8 +1445,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 32}
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nBools > dst.length}
      */
-    public static boolean[] intToBinary(final int src, final int srcPos, final boolean[] dst, final int dstPos,
-            final int nBools) {
+    public static boolean[] intToBinary(final int src, final int srcPos, final boolean[] dst, final @IndexFor("#3") int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#3"}, offset = {"#4 - 1"}) int nBools) {
         if (0 == nBools) {
             return dst;
         }
@@ -1463,8 +1477,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 16}
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nBools > dst.length}
      */
-    public static boolean[] shortToBinary(final short src, final int srcPos, final boolean[] dst, final int dstPos,
-            final int nBools) {
+    public static boolean[] shortToBinary(final short src, final int srcPos, final boolean[] dst, final @IndexFor("#3") int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#3"}, offset = {"#4 - 1"}) int nBools) {
         if (0 == nBools) {
             return dst;
         }
@@ -1496,8 +1510,8 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 8}
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nBools > dst.length}
      */
-    public static boolean[] byteToBinary(final byte src, final int srcPos, final boolean[] dst, final int dstPos,
-            final int nBools) {
+    public static boolean[] byteToBinary(final byte src, final int srcPos, final boolean[] dst, final @IndexFor("#3") int dstPos,
+            final @NonNegative @LTLengthOf(value = {"#3"}, offset = {"#4 - 1"}) int nBools) {
         if (0 == nBools) {
             return dst;
         }
@@ -1527,16 +1541,22 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nBytes > 16}
      * @throws ArrayIndexOutOfBoundsException if {@code dstPos + nBytes > dst.length}
      */
-    public static byte[] uuidToByteArray(final UUID src, final byte[] dst, final int dstPos, final int nBytes) {
+    @SuppressWarnings("index:argument.type.incompatible") /*
+    #1: If nBytes > 8, 8 is @LTLengthOf(value="dst", offset="dstPos - 1"), as nBytes is @LTLengthOf(value = "dst", offset = "dstPos - 1") and 8 < nBytes
+    #2: The compiler shows found   : @LTLengthOf(value={"dst", "dst"}, offset={"dstPos + 7", "dstPos - 1"}) int 
+        required: @LTLengthOf(value="dst", offset="? - 1") int
+        the '?' is dstPos + 8, hence ? - 1 is dstPos + 7 which is inferred by the compiler, still an error is issued.
+    */
+    public static byte[] uuidToByteArray(final UUID src, final byte[] dst, final @IndexFor("#2") int dstPos, final @NonNegative @LTLengthOf(value = {"#2"}, offset = {"#3 - 1"}) int nBytes) {
         if (0 == nBytes) {
             return dst;
         }
         if (nBytes > 16) {
             throw new IllegalArgumentException("nBytes is greater than 16");
         }
-        longToByteArray(src.getMostSignificantBits(), 0, dst, dstPos, nBytes > 8 ? 8 : nBytes);
+        longToByteArray(src.getMostSignificantBits(), 0, dst, dstPos, nBytes > 8 ? 8 : nBytes); // #1
         if (nBytes >= 8) {
-            longToByteArray(src.getLeastSignificantBits(), 0, dst, dstPos + 8, nBytes - 8);
+            longToByteArray(src.getLeastSignificantBits(), 0, dst, dstPos + 8, nBytes - 8); // #2
         }
         return dst;
     }
@@ -1554,10 +1574,14 @@ public class Conversion {
      * @throws IllegalArgumentException if array does not contain at least 16 bytes beginning
      *             with {@code srcPos}
      */
-    public static UUID byteArrayToUuid(final byte[] src, final int srcPos) {
+    @SuppressWarnings("index:argument.type.incompatible") /*
+    #1: In byteArrayToLong(src, srcPos, 0, 0, 8), 8 is @LTLengthOf(value="src", offset="srcPos - 1") as src.length - srcPos >= 16, hence src.length - srcPos + 1 >= 17 and 8 < 17
+        In byteArrayToLong(src, srcPos + 8, 0, 0, 8), 8 is @LTLengthOf(value="src", offset="srcPos + 8 - 1") as src.length - srcPos >= 16, hence src - srcPos - 8 + 1 >= 16 - 7 = 9, and 8 < 9
+    */
+    public static UUID byteArrayToUuid(final byte[] src, final @IndexFor("#1") int srcPos) {
         if (src.length - srcPos < 16) {
             throw new IllegalArgumentException("Need at least 16 bytes for UUID");
         }
-        return new UUID(byteArrayToLong(src, srcPos, 0, 0, 8), byteArrayToLong(src, srcPos + 8, 0, 0, 8));
+        return new UUID(byteArrayToLong(src, srcPos, 0, 0, 8), byteArrayToLong(src, srcPos + 8, 0, 0, 8)); // #1
     }
 }

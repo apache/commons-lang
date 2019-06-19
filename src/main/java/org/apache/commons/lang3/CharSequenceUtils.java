@@ -16,6 +16,10 @@
  */
 package org.apache.commons.lang3;
 
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.LTEqLengthOf;
+import org.checkerframework.checker.index.qual.NonNegative;
+
 /**
  * <p>Operations on {@link CharSequence} that are
  * {@code null} safe.</p>
@@ -53,7 +57,7 @@ public class CharSequenceUtils {
      * @throws IndexOutOfBoundsException if {@code start} is negative or if
      *  {@code start} is greater than {@code length()}
      */
-    public static CharSequence subSequence(final CharSequence cs, final int start) {
+    public static CharSequence subSequence(final CharSequence cs, final @IndexOrHigh("#1") int start) {
         return cs == null ? null : cs.subSequence(start, cs.length());
     }
 
@@ -96,6 +100,7 @@ public class CharSequenceUtils {
      * @return the index where the search char was found, -1 if not found
      * @since 3.6 updated to behave more like <code>String</code>
      */
+    @SuppressWarnings("index:array.access.unsafe.high.constant") // #1: // this statement is executed iff sz >= 2 as start's minimum value is 0, and sz has to be at least sz + 2 to execute the loop
     static int indexOf(final CharSequence cs, final int searchChar, int start) {
         if (cs instanceof String) {
             return ((String) cs).indexOf(searchChar, start);
@@ -117,7 +122,7 @@ public class CharSequenceUtils {
             for (int i = start; i < sz - 1; i++) {
                 final char high = cs.charAt(i);
                 final char low = cs.charAt(i + 1);
-                if (high == chars[0] && low == chars[1]) {
+                if (high == chars[0] && low == chars[1]) { // #1
                     return i;
                 }
             }
@@ -172,6 +177,10 @@ public class CharSequenceUtils {
      * @return the index where the search char was found, -1 if not found
      * @since 3.6 updated to behave more like <code>String</code>
      */
+    @SuppressWarnings({"index:argument.type.incompatible","index:array.access.unsafe.high.constant"}) /* #1: 0 <= start <= sz - 2 when this loop is reached as ensured by the previous if statements, 
+    hence i + 1 has a max value of cz.length() - 1
+    #2: minimum length of cz is 2 for this loop to be executed as i >= 0 i <= cz.length() - 2
+    */
     static int lastIndexOf(final CharSequence cs, final int searchChar, int start) {
         if (cs instanceof String) {
             return ((String) cs).lastIndexOf(searchChar, start);
@@ -200,8 +209,8 @@ public class CharSequenceUtils {
             }
             for (int i = start; i >= 0; i--) {
                 final char high = cs.charAt(i);
-                final char low = cs.charAt(i + 1);
-                if (chars[0] == high && chars[1] == low) {
+                final char low = cs.charAt(i + 1); // #1
+                if (chars[0] == high && chars[1] == low) { // #2
                     return i;
                 }
             }
@@ -259,10 +268,15 @@ public class CharSequenceUtils {
      * @param length character length of the region
      * @return whether the region matched
      */
+    @SuppressWarnings("index:argument.type.incompatible") /*
+    #1: Made a pull request in the typetools that these parameters need not have any annotations
+    #2: srcLen < length => index1++ is @LTEqLengthOf("cs")
+    #3: otherLen < length => index2++ is @LTEqLengthOf("cs")
+    */
     static boolean regionMatches(final CharSequence cs, final boolean ignoreCase, final int thisStart,
             final CharSequence substring, final int start, final int length)    {
         if (cs instanceof String && substring instanceof String) {
-            return ((String) cs).regionMatches(ignoreCase, thisStart, (String) substring, start, length);
+            return ((String) cs).regionMatches(ignoreCase, thisStart, (String) substring, start, length); // #1
         }
         int index1 = thisStart;
         int index2 = start;
@@ -283,8 +297,8 @@ public class CharSequenceUtils {
         }
 
         while (tmpLen-- > 0) {
-            final char c1 = cs.charAt(index1++);
-            final char c2 = substring.charAt(index2++);
+            final char c1 = cs.charAt(index1++); // #2
+            final char c2 = substring.charAt(index2++); // #3
 
             if (c1 == c2) {
                 continue;

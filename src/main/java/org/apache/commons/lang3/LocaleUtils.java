@@ -87,6 +87,7 @@ public class LocaleUtils {
      * @throws IllegalArgumentException if the string is an invalid format
      * @see Locale#forLanguageTag(String)
      */
+    @SuppressWarnings("index:argument.type.incompatible") // #1: str.length > 3 as checked by #0.1
     public static Locale toLocale(final String str) {
         if (str == null) {
             return null;
@@ -103,24 +104,24 @@ public class LocaleUtils {
         }
         final char ch0 = str.charAt(0);
         if (ch0 == '_') {
-            if (len < 3) {
+            if (len < 3) { // #0.1
                 throw new IllegalArgumentException("Invalid locale format: " + str);
             }
-            final char ch1 = str.charAt(1);
-            final char ch2 = str.charAt(2);
+            final char ch1 = str.charAt(1); // #1
+            final char ch2 = str.charAt(2); // #1
             if (!Character.isUpperCase(ch1) || !Character.isUpperCase(ch2)) {
                 throw new IllegalArgumentException("Invalid locale format: " + str);
             }
             if (len == 3) {
-                return new Locale(StringUtils.EMPTY, str.substring(1, 3));
+                return new Locale(StringUtils.EMPTY, str.substring(1, 3)); // #1
             }
             if (len < 5) {
                 throw new IllegalArgumentException("Invalid locale format: " + str);
             }
-            if (str.charAt(3) != '_') {
+            if (str.charAt(3) != '_') { // #1
                 throw new IllegalArgumentException("Invalid locale format: " + str);
             }
-            return new Locale(StringUtils.EMPTY, str.substring(1, 3), str.substring(4));
+            return new Locale(StringUtils.EMPTY, str.substring(1, 3), str.substring(4)); // #1
         }
 
         return parseLocale(str);
