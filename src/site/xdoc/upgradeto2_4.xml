@@ -110,7 +110,7 @@ BUG FIXES IN 2.4:
     * [LANG-372] - ToStringBuilder: MULTI_LINE_STYLE does not print anything from appendToString methods.
     * [LANG-380] - infinite loop in Fraction.reduce when numerator == 0
     * [LANG-381] - NumberUtils.min(floatArray) returns wrong value if floatArray[0] happens to be Float.NaN
-    * [LANG-385] - http://commons.apache.org/lang/developerguide.html "Building" section is incorrect and incomplete
+    * [LANG-385] - https://commons.apache.org/lang/developerguide.html "Building" section is incorrect and incomplete
     * [LANG-393] - EqualsBuilder don't compare BigDecimals correctly
     * [LANG-399] - Javadoc bugs - cannot find object
     * [LANG-410] - Ambiguous / confusing names in StringUtils replace* methods

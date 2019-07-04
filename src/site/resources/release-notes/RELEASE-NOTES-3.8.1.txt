@@ -31,7 +31,7 @@ Lang 3.0 and onwards now targets Java 7.0, making use of features that arrived w
 
 For the advice on upgrading from 2.x to 3.x, see the following page:
 
-    http://commons.apache.org/lang/article3_0.html
+    https://commons.apache.org/lang/article3_0.html
 
 Apache Commons Lang, a package of Java utility classes for the
 classes that are in java.lang's hierarchy, or are considered to be so
@@ -47,12 +47,12 @@ o LANG-1419: Restore BundleSymbolicName for OSGi
 
 
 
-Historical list of changes: http://commons.apache.org/proper/commons-lang/changes-report.html
+Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
 
 For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
 patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
 
-http://commons.apache.org/proper/commons-lang/
+https://commons.apache.org/proper/commons-lang/
 
 =============================================================================
 
@@ -72,7 +72,7 @@ variable arguments, autoboxing, concurrency and formatted output.
 
 For the advice on upgrading from 2.x to 3.x, see the following page: 
 
-    http://commons.apache.org/lang/article3_0.html
+    https://commons.apache.org/lang/article3_0.html
 
 Apache Commons Lang, a package of Java utility classes for the
 classes that are in java.lang's hierarchy, or are considered to be so
@@ -132,7 +132,7 @@ variable arguments, autoboxing, concurrency and formatted output.
 
 For the advice on upgrading from 2.x to 3.x, see the following page:
 
-    http://commons.apache.org/lang/article3_0.html
+    https://commons.apache.org/lang/article3_0.html
 
 Apache Commons Lang, a package of Java utility classes for the
 classes that are in java.lang's hierarchy, or are considered to be so
@@ -178,7 +178,7 @@ only required Java 1.6.
 
 For the advice on upgrading from 2.x to 3.x, see the following page:
 
-    http://commons.apache.org/lang/article3_0.html
+    https://commons.apache.org/lang/article3_0.html
 
 HIGHLIGHTS
 ==========
@@ -208,7 +208,7 @@ o The methods org.apache.commons.lang3.StringUtils.getJaroWinklerDistance and
 
 For more information see the Commons Text website:
 
-    http://commons.apache.org/text
+    https://commons.apache.org/text
 
 The class org.apache.commons.lang3.CharEncoding has been deprecated in favor of
 java.nio.charset.StandardCharsets.
@@ -1257,13 +1257,13 @@ o LANG-715:  CharSetUtils.squeeze() speedup.
 o LANG-716:  swapCase and *capitalize speedups.
 
 
-Historical list of changes: http://commons.apache.org/lang/changes-report.html
+Historical list of changes: https://commons.apache.org/lang/changes-report.html
 
 For complete information on Commons Lang, including instructions on how to
 submit bug reports, patches, or suggestions for improvement, see the
 Apache Commons Lang website:
 
-http://commons.apache.org/lang/
+https://commons.apache.org/lang/
 
 Have fun!
 -Apache Commons Lang team

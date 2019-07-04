@@ -49,7 +49,7 @@ limitations under the License.
     <section name="Overview">
       <p>
         <a href="index.html">Apache Commons Lang</a> shares mailing lists with all the other
-        <a href="http://commons.apache.org/components.html">Commons Components</a>.
+        <a href="https://commons.apache.org/components.html">Commons Components</a>.
         To make it easier for people to only read messages related to components they are interested in,
         the convention in Commons is to prefix the subject line of messages with the component's name,
         for example:

@@ -63,7 +63,7 @@ The <a href="scm.html">git repository</a> can be
 <section name="Release Information">
 <p>The latest stable release of Lang is 3.9. You may: </p>
 <ul>
-<li>Download <a href="http://commons.apache.org/lang/download_lang.cgi">3.9</a></li>
+<li>Download <a href="https://commons.apache.org/lang/download_lang.cgi">3.9</a></li>
 <li>Read the <a href="release-notes/RELEASE-NOTES-3.9.txt">3.9 release notes</a></li>
 <li>Examine the <a href="article3_0.html">2.x to 3.0 upgrade notes</a></li>
 <li>Compare major versions via the <a href="lang2-lang3-clirr-report.html">Lang2 to Lang3 Clirr report</a></li>
