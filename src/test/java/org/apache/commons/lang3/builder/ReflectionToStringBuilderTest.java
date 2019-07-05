@@ -16,11 +16,12 @@
  */
 package org.apache.commons.lang3.builder;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ReflectionToStringBuilderTest {
+    private final Integer base = Integer.valueOf(5);
 
     @Test
     public void testConstructorWithNullObject() {
@@ -28,4 +29,22 @@ public class ReflectionToStringBuilderTest {
             () -> new ReflectionToStringBuilder(null, ToStringStyle.DEFAULT_STYLE, new StringBuffer()));
     }
 
+
+    public static class TestJsonStyle{
+        private String a;
+        public void setA(String a){
+            this.a = a;
+        }
+        @Override
+        public String toString() {
+            return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
+        }
+    }
+
+    @Test
+    public void testJsonStyle() {
+        TestJsonStyle jsonStyle = new TestJsonStyle();
+        jsonStyle.setA("??");
+        Assertions.assertEquals("{\"a\":\"??\"}",jsonStyle.toString());
+    }
 }
