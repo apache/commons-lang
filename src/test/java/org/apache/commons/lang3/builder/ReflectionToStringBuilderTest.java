@@ -44,7 +44,7 @@ public class ReflectionToStringBuilderTest {
     @Test
     public void testJsonStyle() {
         TestJsonStyle jsonStyle = new TestJsonStyle();
-        jsonStyle.setA("??");
-        Assertions.assertEquals("{\"a\":\"??\"}",jsonStyle.toString());
+        jsonStyle.setA("测试");
+        Assertions.assertEquals("{\"a\":\"测试\"}",jsonStyle.toString());
     }
 }
