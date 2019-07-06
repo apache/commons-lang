@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ReflectionToStringBuilderTest {
-    private final Integer base = Integer.valueOf(5);
 
     @Test
     public void testConstructorWithNullObject() {
@@ -45,6 +44,6 @@ public class ReflectionToStringBuilderTest {
     public void testJsonStyle() {
         TestJsonStyle jsonStyle = new TestJsonStyle();
         jsonStyle.setA("测试");
-        Assertions.assertEquals("{\"a\":\"测试\"}",jsonStyle.toString());
+        Assertions.assertEquals("{\"a\":\"测试\"}", jsonStyle.toString());
     }
 }
