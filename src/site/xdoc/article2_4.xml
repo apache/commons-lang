@@ -29,7 +29,7 @@ issue to see what went on in the year of development between Lang 2.3 and 2.4.</
 <section name="Deprecations">
 <p>First, let us start with a couple of deprecations. As you can see in the release notes, we chose
 to deprecate the <a href="https://commons.apache.org/lang/api-release/org/apache/commons/lang/ObjectUtils.html#appendIdentityToString(java.lang.StringBuffer,%20java.lang.Object)"><code>ObjectUtils.appendIdentityToString(StringBuffer, Object)</code></a> method as its
-null handling did not match its design (see <a href="http://issues.apache.org/jira/browse/LANG-360">LANG-360</a>
+null handling did not match its design (see <a href="https://issues.apache.org/jira/browse/LANG-360">LANG-360</a>
 for more details. Instead users should use <code>ObjectUtils.identityToString(StringBuffer, Object)</code>.</p>
 
 <p>We also deprecated <a href="https://commons.apache.org/lang/api-release/org/apache/commons/lang/time/DateUtils.html#add(java.util.Date,%20int,%20int)"><code>DateUtils.add(java.util.Date, int, int)</code></a>. It should have been <code>private</code>
@@ -47,7 +47,7 @@ class to the <code>org.apache.commons.lang.math</code> package.
 This candidate for ugly name of the month was needed to add <a href="http://en.wikipedia.org/wiki/IEEE_754r#min_and_max">IEEE-754r</a>
 semantics for some of the <code>NumberUtils</code> methods. The relevant part of that
 IEEE specification in this case is the NaN handling for <code>min</code> and <code>max</code> methods, and
-you can read more about it in <a href="http://issues.apache.org/jira/browse/LANG-381">LANG-381</a>.
+you can read more about it in <a href="https://issues.apache.org/jira/browse/LANG-381">LANG-381</a>.
 </p>
 <p>Second and third on our newcomers list are the <a href="https://commons.apache.org/lang/api-release/org/apache/commons/lang/text/ExtendedMessageFormat.html"><code>ExtendedMessageFormat</code></a> class and its peer
 <a href="https://commons.apache.org/lang/api-release/org/apache/commons/lang/text/FormatFactory.html"><code>FormatFactory</code></a>
@@ -177,11 +177,11 @@ and fortunately there are some nice groupings that we can discuss instead:</p>
 <section name="What's fixed in Lang 2.4?">
 <p>In addition to new things, there are the bugfixes. As you can tell from the release notes, there are a good few - 24 in fact according to JIRA. Here are some of the interesting ones: </p>
 <ul>
-<li><a href="http://issues.apache.org/jira/browse/LANG-393">LANG-393</a> - We fixed EqualsBuilder so that it understands that BigDecimals are equal even when they think they're not. It seems very likely that usually you will want "29.0" and "29.00" to be equal, even if BigDecimal disagrees. </li>
-<li><a href="http://issues.apache.org/jira/browse/LANG-380">LANG-380</a> - Chances are you'll know if you met this one. Fraction.reduce has an infinite loop if the numerator is 0. </li>
-<li><a href="http://issues.apache.org/jira/browse/LANG-369">LANG-369</a>, <a href="http://issues.apache.org/jira/browse/LANG-367">LANG-367</a>, <a href="http://issues.apache.org/jira/browse/LANG-334">LANG-334</a> - Threading bugs - we improved how things work in concurrency situations for ExceptionUtils, FastDateFormat and Enum. </li>
-<li><a href="http://issues.apache.org/jira/browse/LANG-346">LANG-346</a> - DateUtils.round was getting things wrong for minutes and seconds. </li>
-<li><a href="http://issues.apache.org/jira/browse/LANG-328">LANG-328</a> - LocaleUtils.toLocale was broken if there was no country code defined. </li>
+<li><a href="https://issues.apache.org/jira/browse/LANG-393">LANG-393</a> - We fixed EqualsBuilder so that it understands that BigDecimals are equal even when they think they're not. It seems very likely that usually you will want "29.0" and "29.00" to be equal, even if BigDecimal disagrees. </li>
+<li><a href="https://issues.apache.org/jira/browse/LANG-380">LANG-380</a> - Chances are you'll know if you met this one. Fraction.reduce has an infinite loop if the numerator is 0. </li>
+<li><a href="https://issues.apache.org/jira/browse/LANG-369">LANG-369</a>, <a href="https://issues.apache.org/jira/browse/LANG-367">LANG-367</a>, <a href="https://issues.apache.org/jira/browse/LANG-334">LANG-334</a> - Threading bugs - we improved how things work in concurrency situations for ExceptionUtils, FastDateFormat and Enum. </li>
+<li><a href="https://issues.apache.org/jira/browse/LANG-346">LANG-346</a> - DateUtils.round was getting things wrong for minutes and seconds. </li>
+<li><a href="https://issues.apache.org/jira/browse/LANG-328">LANG-328</a> - LocaleUtils.toLocale was broken if there was no country code defined. </li>
 </ul>
 </section>
 

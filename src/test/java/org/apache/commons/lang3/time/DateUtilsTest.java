@@ -849,7 +849,7 @@ public class DateUtilsTest {
                 DateUtils.round((Object) calAmPm4, Calendar.AM_PM),
                 "round ampm-4 failed");
 
-        // Fix for http://issues.apache.org/bugzilla/show_bug.cgi?id=25560 / LANG-13
+        // Fix for https://issues.apache.org/bugzilla/show_bug.cgi?id=25560 / LANG-13
         // Test rounding across the beginning of daylight saving time
         try {
             TimeZone.setDefault(zone);
@@ -1116,7 +1116,7 @@ public class DateUtilsTest {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.truncate((Object) null, Calendar.SECOND));
         assertThrows(ClassCastException.class, () -> DateUtils.truncate("", Calendar.SECOND));
 
-        // Fix for http://issues.apache.org/bugzilla/show_bug.cgi?id=25560
+        // Fix for https://issues.apache.org/bugzilla/show_bug.cgi?id=25560
         // Test truncate across beginning of daylight saving time
         try {
             TimeZone.setDefault(zone);
@@ -1154,7 +1154,7 @@ public class DateUtilsTest {
     /**
      * Tests for LANG-59
      *
-     * see http://issues.apache.org/jira/browse/LANG-59
+     * see https://issues.apache.org/jira/browse/LANG-59
      */
     @Test
     public void testTruncateLang59() {
@@ -1227,7 +1227,7 @@ public class DateUtilsTest {
         }
     }
 
-    // http://issues.apache.org/jira/browse/LANG-530
+    // https://issues.apache.org/jira/browse/LANG-530
     @SuppressWarnings("deprecation")
     @Test
     public void testLang530() throws ParseException {
@@ -1395,7 +1395,7 @@ public class DateUtilsTest {
         assertThrows(ClassCastException.class, () -> DateUtils.ceiling("", Calendar.SECOND));
         assertThrows(IllegalArgumentException.class, () -> DateUtils.ceiling(date1, -9999));
 
-        // Fix for http://issues.apache.org/bugzilla/show_bug.cgi?id=25560
+        // Fix for https://issues.apache.org/bugzilla/show_bug.cgi?id=25560
         // Test ceiling across the beginning of daylight saving time
         try {
             TimeZone.setDefault(zone);

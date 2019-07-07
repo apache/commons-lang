@@ -1966,7 +1966,7 @@ public class StringUtilsTest {
         assertEquals("ayya", StringUtils.replaceChars("abcba", "bc", "y"));
         assertEquals("ayzya", StringUtils.replaceChars("abcba", "bc", "yzx"));
 
-        // From http://issues.apache.org/bugzilla/show_bug.cgi?id=25454
+        // From https://issues.apache.org/bugzilla/show_bug.cgi?id=25454
         assertEquals("bcc", StringUtils.replaceChars("abc", "ab", "bc"));
         assertEquals("q651.506bera", StringUtils.replaceChars("d216.102oren",
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789",

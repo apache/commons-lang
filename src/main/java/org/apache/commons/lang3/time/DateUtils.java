@@ -965,7 +965,7 @@ public class DateUtils {
         }
 
         // ----------------- Fix for LANG-59 ---------------------- START ---------------
-        // see http://issues.apache.org/jira/browse/LANG-59
+        // see https://issues.apache.org/jira/browse/LANG-59
         //
         // Manually truncate milliseconds, seconds and minutes, rather than using
         // Calendar methods.

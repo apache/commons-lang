@@ -110,18 +110,18 @@ support finding the Nth indexOf instead of the first time the search term is fou
 <section name="What's fixed in Lang 2.5?">
 <p>Per the <a href="upgradeto2_5.html">release notes</a> there are 32 bugs fixed in Lang 2.5. Some highlights are: </p>
 <ul>
-<li><a href="http://issues.apache.org/jira/browse/LANG-477">LANG-477</a> - fixing an OutOfMemoryError in ExtendedMessageFormat. </li>
-<li><a href="http://issues.apache.org/jira/browse/LANG-76">LANG-76</a> - EnumUtils.getEnum() doesn't work well in 1.5. </li>
-<li><a href="http://issues.apache.org/jira/browse/LANG-204">LANG-204</a> and 
-<a href="http://issues.apache.org/jira/browse/LANG-506">LANG-506</a> - Multithread improvements to the package private Entities 
+<li><a href="https://issues.apache.org/jira/browse/LANG-477">LANG-477</a> - fixing an OutOfMemoryError in ExtendedMessageFormat. </li>
+<li><a href="https://issues.apache.org/jira/browse/LANG-76">LANG-76</a> - EnumUtils.getEnum() doesn't work well in 1.5. </li>
+<li><a href="https://issues.apache.org/jira/browse/LANG-204">LANG-204</a> and 
+<a href="https://issues.apache.org/jira/browse/LANG-506">LANG-506</a> - Multithread improvements to the package private Entities 
 class, used behind the scenes by StringEscapeUtils. </li>
-<li><a href="http://issues.apache.org/jira/browse/LANG-511">LANG-511</a> - Improve performance by deferring LocaleUtils initialization. </li>
-<li><a href="http://issues.apache.org/jira/browse/LANG-523">LANG-523</a> - Two orders of magnitude performance improvement in StrBuilder. </li>
-<li><a href="http://issues.apache.org/jira/browse/LANG-467">LANG-467</a> - Reverted the change to EqualsBuilder in Lang 2.4 to 
+<li><a href="https://issues.apache.org/jira/browse/LANG-511">LANG-511</a> - Improve performance by deferring LocaleUtils initialization. </li>
+<li><a href="https://issues.apache.org/jira/browse/LANG-523">LANG-523</a> - Two orders of magnitude performance improvement in StrBuilder. </li>
+<li><a href="https://issues.apache.org/jira/browse/LANG-467">LANG-467</a> - Reverted the change to EqualsBuilder in Lang 2.4 to 
 specially handle BigDecimal. While useful, it put things out of sync with HashCodeBuilder. </li>
-<li><a href="http://issues.apache.org/jira/browse/LANG-586">LANG-586</a> - Use of a ThreadLocal in HashCodeBuilder and 
+<li><a href="https://issues.apache.org/jira/browse/LANG-586">LANG-586</a> - Use of a ThreadLocal in HashCodeBuilder and 
 ToStringStyle meant that containers could end up with memory leaks. This was rewritten to avoid this. </li>
-<li><a href="http://issues.apache.org/jira/browse/LANG-472">LANG-472</a> - RandomUtils.nextLong() was returning only even numbers. Fans of Java-based roulette wheels can breathe a sigh of relief. </li>
+<li><a href="https://issues.apache.org/jira/browse/LANG-472">LANG-472</a> - RandomUtils.nextLong() was returning only even numbers. Fans of Java-based roulette wheels can breathe a sigh of relief. </li>
 </ul>
 </section>
 

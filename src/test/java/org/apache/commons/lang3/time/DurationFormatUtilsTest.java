@@ -406,7 +406,7 @@ public class DurationFormatUtilsTest {
     }
 
 
-    // http://issues.apache.org/bugzilla/show_bug.cgi?id=38401
+    // https://issues.apache.org/bugzilla/show_bug.cgi?id=38401
     @Test
     public void testBugzilla38401() {
         assertEqualDuration( "0000/00/30 16:00:00 000", new int[] { 2006, 0, 26, 18, 47, 34 },
