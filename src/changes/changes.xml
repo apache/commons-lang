@@ -46,7 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.10" date="YYYY-MM-DD" description="TBD">
-    <action issue="LANG-1450" type="fix" dev="chtompki">Generate javadoc jar on build.</action>
+    <action issue="LANG-1450" type="fix" dev="chtompki">Generate Javadoc jar on build.</action>
     <action issue="LANG-1457" type="add" dev="ggregory">Add ExceptionUtils.throwableOfType(Throwable, Class) and friends.</action>
     <action issue="LANG-1458" type="add" dev="ggregory">Add EMPTY_ARRAY constants to classes in org.apache.commons.lang3.tuple.</action>
     <action                   type="update" dev="ggregory">checkstyle.version 8.18 -> 8.20.</action>
