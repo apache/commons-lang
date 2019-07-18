@@ -9,7 +9,7 @@ This document contains the release notes for the 3.9 version of Apache Commons L
 Commons Lang is a set of utility functions and reusable components that should be of use in any 
 Java environment.
 
-Lang 3.9 and onwards now targets Java 8.0, making use of features that arrived with Java 8.0.
+Lang 3.9 and onwards now targets Java 8, making use of features that arrived with Java 8.
 
 For the advice on upgrading from 2.x to 3.x, see the following page: 
 
@@ -19,7 +19,7 @@ Apache Commons Lang, a package of Java utility classes for the
 classes that are in java.lang's hierarchy, or are considered to be so
 standard as to justify existence in java.lang.
 
-New features and bug fixes. Requires Java 8.0, supports Java 9, 10, 11
+New features and bug fixes. Requires Java 8, supports Java 9, 10, 11
 
 Changes in this version include:
 
