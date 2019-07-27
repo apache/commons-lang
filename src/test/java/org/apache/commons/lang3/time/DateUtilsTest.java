@@ -1651,5 +1651,15 @@ public class DateUtilsTest {
     public void testLANG799() throws ParseException {
         DateUtils.parseDateStrictly("09 abril 2008 23:55:38 GMT", new Locale("es"), "dd MMM yyyy HH:mm:ss zzz");
     }
+    
+    /**
+     * According to LANG-1465 this code breaks with exception.
+     * <a>https://issues.apache.org/jira/projects/LANG/issues/LANG-1465</a>
+     * @throws ParseException - if not able to parse the given format.
+     */
+    @Test
+    public void testLANG1465() throws ParseException {
+    	DateUtils.parseDate("2019-06-11T15:06:11.716-0500", "yyyy-MM-dd'T'HH:mm:ss.SSSZZ");
+    }
 }
 
