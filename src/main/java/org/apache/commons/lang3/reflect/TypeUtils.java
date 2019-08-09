@@ -1447,6 +1447,10 @@ public class TypeUtils {
             return containsTypeVariables(getImplicitLowerBounds(wild)[0])
                 || containsTypeVariables(getImplicitUpperBounds(wild)[0]);
         }
+        if (type instanceof GenericArrayType) {
+            final GenericArrayType arrayType = (GenericArrayType) type;
+            return containsTypeVariables(arrayType.getGenericComponentType());
+        }
         return false;
     }
 
