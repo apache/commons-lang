@@ -363,7 +363,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         if (size == 0) {
             return ArrayUtils.EMPTY_CHAR_ARRAY;
         }
-        final char chars[] = new char[size];
+        final char[] chars = new char[size];
         System.arraycopy(buffer, 0, chars, 0, size);
         return chars;
     }
@@ -384,7 +384,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         if (len == 0) {
             return ArrayUtils.EMPTY_CHAR_ARRAY;
         }
-        final char chars[] = new char[len];
+        final char[] chars = new char[len];
         System.arraycopy(buffer, startIndex, chars, 0, len);
         return chars;
     }
@@ -2772,8 +2772,8 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         if (this.size != other.size) {
             return false;
         }
-        final char thisBuf[] = this.buffer;
-        final char otherBuf[] = other.buffer;
+        final char[] thisBuf = this.buffer;
+        final char[] otherBuf = other.buffer;
         for (int i = size - 1; i >= 0; i--) {
             final char c1 = thisBuf[i];
             final char c2 = otherBuf[i];
@@ -2801,8 +2801,8 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         if (this.size != other.size) {
             return false;
         }
-        final char thisBuf[] = this.buffer;
-        final char otherBuf[] = other.buffer;
+        final char[] thisBuf = this.buffer;
+        final char[] otherBuf = other.buffer;
         for (int i = size - 1; i >= 0; i--) {
             if (thisBuf[i] != otherBuf[i]) {
                 return false;
@@ -2830,7 +2830,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     @Override
     public int hashCode() {
-        final char buf[] = buffer;
+        final char[] buf = buffer;
         int hash = 0;
         for (int i = size - 1; i >= 0; i--) {
             hash = 31 * hash + buf[i];

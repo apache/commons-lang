@@ -58,9 +58,9 @@ public class StrTokenizerTest {
         tok.setQuoteChar('"');
         tok.setIgnoredMatcher(StrMatcher.trimMatcher());
         tok.setIgnoreEmptyTokens(false);
-        final String tokens[] = tok.getTokenArray();
+        final String[] tokens = tok.getTokenArray();
 
-        final String expected[] = new String[]{"a", "b", "c", "d;\"e", "f", "", "", ""};
+        final String[] expected = new String[]{"a", "b", "c", "d;\"e", "f", "", "", ""};
 
         assertEquals(expected.length, tokens.length, ArrayUtils.toString(tokens));
         for (int i = 0; i < expected.length; i++) {
@@ -79,9 +79,9 @@ public class StrTokenizerTest {
         tok.setQuoteChar('"');
         tok.setIgnoredMatcher(StrMatcher.noneMatcher());
         tok.setIgnoreEmptyTokens(false);
-        final String tokens[] = tok.getTokenArray();
+        final String[] tokens = tok.getTokenArray();
 
-        final String expected[] = new String[]{"a", "b", "c ", "d;\"e", "f", " ", " ", ""};
+        final String[] expected = new String[]{"a", "b", "c ", "d;\"e", "f", " ", " ", ""};
 
         assertEquals(expected.length, tokens.length, ArrayUtils.toString(tokens));
         for (int i = 0; i < expected.length; i++) {
@@ -100,9 +100,9 @@ public class StrTokenizerTest {
         tok.setQuoteChar('"');
         tok.setIgnoredMatcher(StrMatcher.noneMatcher());
         tok.setIgnoreEmptyTokens(false);
-        final String tokens[] = tok.getTokenArray();
+        final String[] tokens = tok.getTokenArray();
 
-        final String expected[] = new String[]{"a", "b", " c", "d;\"e", "f", " ", " ", ""};
+        final String[] expected = new String[]{"a", "b", " c", "d;\"e", "f", " ", " ", ""};
 
         assertEquals(expected.length, tokens.length, ArrayUtils.toString(tokens));
         for (int i = 0; i < expected.length; i++) {
@@ -121,9 +121,9 @@ public class StrTokenizerTest {
         tok.setQuoteChar('"');
         tok.setIgnoredMatcher(StrMatcher.trimMatcher());
         tok.setIgnoreEmptyTokens(true);
-        final String tokens[] = tok.getTokenArray();
+        final String[] tokens = tok.getTokenArray();
 
-        final String expected[] = new String[]{"a", "b", "c", "d;\"e", "f"};
+        final String[] expected = new String[]{"a", "b", "c", "d;\"e", "f"};
 
         assertEquals(expected.length, tokens.length, ArrayUtils.toString(tokens));
         for (int i = 0; i < expected.length; i++) {
@@ -143,9 +143,9 @@ public class StrTokenizerTest {
         tok.setIgnoredMatcher(StrMatcher.trimMatcher());
         tok.setIgnoreEmptyTokens(false);
         tok.setEmptyTokenAsNull(true);
-        final String tokens[] = tok.getTokenArray();
+        final String[] tokens = tok.getTokenArray();
 
-        final String expected[] = new String[]{"a", "b", "c", "d;\"e", "f", null, null, null};
+        final String[] expected = new String[]{"a", "b", "c", "d;\"e", "f", null, null, null};
 
         assertEquals(expected.length, tokens.length, ArrayUtils.toString(tokens));
         for (int i = 0; i < expected.length; i++) {
@@ -165,9 +165,9 @@ public class StrTokenizerTest {
         tok.setIgnoredMatcher(StrMatcher.trimMatcher());
         tok.setIgnoreEmptyTokens(false);
         // tok.setTreatingEmptyAsNull(true);
-        final String tokens[] = tok.getTokenArray();
+        final String[] tokens = tok.getTokenArray();
 
-        final String expected[] = new String[]{"a", "b", " c", "d;\"e", "f", null, null, null};
+        final String[] expected = new String[]{"a", "b", " c", "d;\"e", "f", null, null, null};
 
         int nextCount = 0;
         while (tok.hasNext()) {
@@ -198,9 +198,9 @@ public class StrTokenizerTest {
         tok.setQuoteMatcher(StrMatcher.doubleQuoteMatcher());
         tok.setIgnoredMatcher(StrMatcher.noneMatcher());
         tok.setIgnoreEmptyTokens(false);
-        final String tokens[] = tok.getTokenArray();
+        final String[] tokens = tok.getTokenArray();
 
-        final String expected[] = new String[]{"a", "", "", "b", "c", "d e", "f", ""};
+        final String[] expected = new String[]{"a", "", "", "b", "c", "d e", "f", ""};
 
         assertEquals(expected.length, tokens.length, ArrayUtils.toString(tokens));
         for (int i = 0; i < expected.length; i++) {
@@ -219,9 +219,9 @@ public class StrTokenizerTest {
         tok.setQuoteMatcher(StrMatcher.doubleQuoteMatcher());
         tok.setIgnoredMatcher(StrMatcher.noneMatcher());
         tok.setIgnoreEmptyTokens(true);
-        final String tokens[] = tok.getTokenArray();
+        final String[] tokens = tok.getTokenArray();
 
-        final String expected[] = new String[]{"a", "b", "c", "d e", "f"};
+        final String[] expected = new String[]{"a", "b", "c", "d e", "f"};
 
         assertEquals(expected.length, tokens.length, ArrayUtils.toString(tokens));
         for (int i = 0; i < expected.length; i++) {

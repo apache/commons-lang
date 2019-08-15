@@ -110,9 +110,9 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     }
 
     /** The text to work on. */
-    private char chars[];
+    private char[] chars;
     /** The parsed tokens */
-    private String tokens[];
+    private String[] tokens;
     /** The current iteration position */
     private int tokenPos;
 
