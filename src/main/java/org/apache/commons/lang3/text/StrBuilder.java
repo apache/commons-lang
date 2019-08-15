@@ -2979,7 +2979,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         /** {@inheritDoc} */
         @Override
         public int read() {
-            if (ready() == false) {
+            if (!ready()) {
                 return -1;
             }
             return StrBuilder.this.charAt(pos++);
