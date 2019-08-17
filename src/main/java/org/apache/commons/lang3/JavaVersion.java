@@ -194,7 +194,9 @@ public enum JavaVersion {
      * version is unknown
      */
     static JavaVersion get(final String nom) {
-        if ("0.9".equals(nom)) {
+        if (nom == null) {
+            return null;
+        } else if ("0.9".equals(nom)) {
             return JAVA_0_9;
         } else if ("1.1".equals(nom)) {
             return JAVA_1_1;
@@ -222,9 +224,6 @@ public enum JavaVersion {
             return JAVA_12;
         } else if ("13".equals(nom)) {
             return JAVA_13;
-        }
-        if (nom == null) {
-            return null;
         }
         final float v = toFloatVersion(nom);
         if ((v - 1.) < 1.) { // then we need to check decimals > .9
