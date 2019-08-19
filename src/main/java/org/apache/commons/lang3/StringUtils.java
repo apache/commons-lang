@@ -3852,10 +3852,9 @@ public class StringUtils {
             return EMPTY;
         }
         final StringBuilder buf = newStringBuilder(noOfItems);
-        for (int i = startIndex; i < endIndex; i++) {
-            if (i > startIndex) {
-                buf.append(separator);
-            }
+        buf.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
+            buf.append(separator);
             buf.append(array[i]);
         }
         return buf.toString();
@@ -3933,10 +3932,9 @@ public class StringUtils {
             return EMPTY;
         }
         final StringBuilder buf = newStringBuilder(noOfItems);
-        for (int i = startIndex; i < endIndex; i++) {
-            if (i > startIndex) {
-                buf.append(separator);
-            }
+        buf.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
+            buf.append(separator);
             buf.append(array[i]);
         }
         return buf.toString();
@@ -4014,10 +4012,9 @@ public class StringUtils {
             return EMPTY;
         }
         final StringBuilder buf = newStringBuilder(noOfItems);
-        for (int i = startIndex; i < endIndex; i++) {
-            if (i > startIndex) {
-                buf.append(separator);
-            }
+        buf.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
+            buf.append(separator);
             buf.append(array[i]);
         }
         return buf.toString();
@@ -4095,10 +4092,9 @@ public class StringUtils {
             return EMPTY;
         }
         final StringBuilder buf = newStringBuilder(noOfItems);
-        for (int i = startIndex; i < endIndex; i++) {
-            if (i > startIndex) {
-                buf.append(separator);
-            }
+        buf.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
+            buf.append(separator);
             buf.append(array[i]);
         }
         return buf.toString();
@@ -4176,10 +4172,9 @@ public class StringUtils {
             return EMPTY;
         }
         final StringBuilder buf = newStringBuilder(noOfItems);
-        for (int i = startIndex; i < endIndex; i++) {
-            if (i > startIndex) {
-                buf.append(separator);
-            }
+        buf.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
+            buf.append(separator);
             buf.append(array[i]);
         }
         return buf.toString();
@@ -4466,10 +4461,9 @@ public class StringUtils {
             return EMPTY;
         }
         final StringBuilder buf = newStringBuilder(noOfItems);
-        for (int i = startIndex; i < endIndex; i++) {
-            if (i > startIndex) {
-                buf.append(separator);
-            }
+        buf.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
+            buf.append(separator);
             buf.append(array[i]);
         }
         return buf.toString();
@@ -4539,10 +4533,11 @@ public class StringUtils {
             return EMPTY;
         }
         final StringBuilder buf = newStringBuilder(noOfItems);
-        for (int i = startIndex; i < endIndex; i++) {
-            if (i > startIndex) {
-                buf.append(separator);
-            }
+        if (array[startIndex] != null) {
+            buf.append(array[startIndex]);
+        }
+        for (int i = startIndex + 1; i < endIndex; i++) {
+            buf.append(separator);
             if (array[i] != null) {
                 buf.append(array[i]);
             }
@@ -4632,10 +4627,13 @@ public class StringUtils {
 
         final StringBuilder buf = newStringBuilder(noOfItems);
 
-        for (int i = startIndex; i < endIndex; i++) {
-            if (i > startIndex) {
-                buf.append(separator);
-            }
+        if (array[startIndex] != null) {
+            buf.append(array[startIndex]);
+        }
+
+        for (int i = startIndex + 1; i < endIndex; i++) {
+            buf.append(separator);
+
             if (array[i] != null) {
                 buf.append(array[i]);
             }
@@ -4715,10 +4713,9 @@ public class StringUtils {
             return EMPTY;
         }
         final StringBuilder buf = newStringBuilder(noOfItems);
-        for (int i = startIndex; i < endIndex; i++) {
-            if (i > startIndex) {
-                buf.append(separator);
-            }
+        buf.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
+            buf.append(separator);
             buf.append(array[i]);
         }
         return buf.toString();
