@@ -19,6 +19,8 @@
 package org.apache.commons.lang3;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.apache.commons.lang3.JavaVersion.JAVA_0_9;
 import static org.apache.commons.lang3.JavaVersion.JAVA_10;
@@ -60,6 +62,7 @@ public class JavaVersionTest {
         assertEquals(JAVA_9, get("9"), "9 failed");
         assertEquals(JAVA_10, get("10"), "10 failed");
         assertEquals(JAVA_11, get("11"), "11 failed");
+        assertEquals(JAVA_11, get("11.0.2"), "11.0.2 failed");
         assertEquals(JAVA_12, get("12"), "12 failed");
         assertEquals(JAVA_13, get("13"), "13 failed");
         assertEquals(JAVA_RECENT, get("1.10"), "1.10 failed");
@@ -81,6 +84,12 @@ public class JavaVersionTest {
     @Test
     public void testToString() {
         assertEquals("1.2", JAVA_1_2.toString());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"11", "11.0", "11.0.2"})
+    void getJavaVersionResolution(final String currentVersion) {
+        assertEquals(JavaVersion.JAVA_11, JavaVersion.getJavaVersion(currentVersion));
     }
 
 }
