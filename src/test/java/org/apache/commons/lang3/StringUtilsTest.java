@@ -3073,6 +3073,8 @@ public class StringUtilsTest {
         assertNull(StringUtils.unwrap(null, '1'));
 
         assertEquals("abc", StringUtils.unwrap("abc", null));
+        assertEquals("a", StringUtils.unwrap("a", "a"));
+        assertEquals("", StringUtils.unwrap("aa", "a"));
         assertEquals("abc", StringUtils.unwrap("\'abc\'", '\''));
         assertEquals("abc", StringUtils.unwrap("AabcA", 'A'));
         assertEquals("AabcA", StringUtils.unwrap("AAabcAA", 'A'));
@@ -3090,6 +3092,8 @@ public class StringUtilsTest {
 
         assertEquals("abc", StringUtils.unwrap("abc", null));
         assertEquals("abc", StringUtils.unwrap("abc", ""));
+        assertEquals("a", StringUtils.unwrap("a", "a"));
+        assertEquals("", StringUtils.unwrap("aa", "a"));
         assertEquals("abc", StringUtils.unwrap("\'abc\'", "\'"));
         assertEquals("abc", StringUtils.unwrap("\"abc\"", "\""));
         assertEquals("abc\"xyz", StringUtils.unwrap("\"abc\"xyz\"", "\""));
