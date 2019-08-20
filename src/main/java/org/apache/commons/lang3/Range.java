@@ -26,8 +26,8 @@ import java.util.Comparator;
  * or you need to supply a {@code Comparator}. </p>
  *
  * <p>#ThreadSafe# if the objects and comparator are thread-safe</p>
- * 
- * @param <T> The type of range values. 
+ *
+ * @param <T> The type of range values.
  * @since 3.0
  */
 public final class Range<T> implements Serializable {
