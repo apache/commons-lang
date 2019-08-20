@@ -3369,7 +3369,7 @@ public class StringUtils {
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
-     * StringUtils.isAnyBlank((String) null)    = true
+     * StringUtils.isAnyBlank((String) null)    = false
      * StringUtils.isAnyBlank((String[]) null)  = false
      * StringUtils.isAnyBlank(null, "foo")      = true
      * StringUtils.isAnyBlank(null, null)       = true
@@ -3402,7 +3402,7 @@ public class StringUtils {
      * <p>Checks if any of the CharSequences are empty ("") or null.</p>
      *
      * <pre>
-     * StringUtils.isAnyEmpty((String) null)    = true
+     * StringUtils.isAnyEmpty((String) null)    = false
      * StringUtils.isAnyEmpty((String[]) null)  = false
      * StringUtils.isAnyEmpty(null, "foo")      = true
      * StringUtils.isAnyEmpty("", "bar")        = true
@@ -3575,7 +3575,7 @@ public class StringUtils {
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
-     * StringUtils.isNoneBlank((String) null)    = false
+     * StringUtils.isNoneBlank((String) null)    = true
      * StringUtils.isNoneBlank((String[]) null)  = true
      * StringUtils.isNoneBlank(null, "foo")      = false
      * StringUtils.isNoneBlank(null, null)       = false
@@ -3600,7 +3600,7 @@ public class StringUtils {
      * <p>Checks if none of the CharSequences are empty ("") or null.</p>
      *
      * <pre>
-     * StringUtils.isNoneEmpty((String) null)    = false
+     * StringUtils.isNoneEmpty((String) null)    = true
      * StringUtils.isNoneEmpty((String[]) null)  = true
      * StringUtils.isNoneEmpty(null, "foo")      = false
      * StringUtils.isNoneEmpty("", "bar")        = false
