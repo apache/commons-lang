@@ -9159,8 +9159,10 @@ public class StringUtils {
      * StringUtils.unwrap(null, null)         = null
      * StringUtils.unwrap(null, '\0')         = null
      * StringUtils.unwrap(null, '1')          = null
+     * StringUtils.unwrap("a", 'a')           = "a"
+     * StringUtils.unwrap("aa", 'a')           = ""
      * StringUtils.unwrap("\'abc\'", '\'')    = "abc"
-     * StringUtils.unwrap("AABabcBAA", 'A')  = "ABabcBA"
+     * StringUtils.unwrap("AABabcBAA", 'A')   = "ABabcBA"
      * StringUtils.unwrap("A", '#')           = "A"
      * StringUtils.unwrap("#A", '#')          = "#A"
      * StringUtils.unwrap("A#", '#')          = "A#"
@@ -9175,16 +9177,15 @@ public class StringUtils {
      * @since 3.6
      */
     public static String unwrap(final String str, final char wrapChar) {
-        if (isEmpty(str) || wrapChar == CharUtils.NUL) {
+        if (isEmpty(str) || wrapChar == CharUtils.NUL || str.length() == 1) {
             return str;
         }
 
         if (str.charAt(0) == wrapChar && str.charAt(str.length() - 1) == wrapChar) {
             final int startIndex = 0;
             final int endIndex = str.length() - 1;
-            if (endIndex != -1) {
-                return str.substring(startIndex + 1, endIndex);
-            }
+
+            return str.substring(startIndex + 1, endIndex);
         }
 
         return str;
@@ -9199,6 +9200,8 @@ public class StringUtils {
      * StringUtils.unwrap(null, null)         = null
      * StringUtils.unwrap(null, "")           = null
      * StringUtils.unwrap(null, "1")          = null
+     * StringUtils.unwrap("a", "a")           = "a"
+     * StringUtils.unwrap("aa", "a")          = ""
      * StringUtils.unwrap("\'abc\'", "\'")    = "abc"
      * StringUtils.unwrap("\"abc\"", "\"")    = "abc"
      * StringUtils.unwrap("AABabcBAA", "AA")  = "BabcB"
@@ -9216,7 +9219,7 @@ public class StringUtils {
      * @since 3.6
      */
     public static String unwrap(final String str, final String wrapToken) {
-        if (isEmpty(str) || isEmpty(wrapToken)) {
+        if (isEmpty(str) || isEmpty(wrapToken) || str.length() == 1) {
             return str;
         }
 
@@ -9224,6 +9227,7 @@ public class StringUtils {
             final int startIndex = str.indexOf(wrapToken);
             final int endIndex = str.lastIndexOf(wrapToken);
             final int wrapLength = wrapToken.length();
+
             if (startIndex != -1 && endIndex != -1) {
                 return str.substring(startIndex + wrapLength, endIndex);
             }
