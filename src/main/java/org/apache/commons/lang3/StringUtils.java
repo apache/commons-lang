@@ -19,12 +19,7 @@ package org.apache.commons.lang3;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.text.Normalizer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
@@ -7434,7 +7429,7 @@ public class StringUtils {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
         final char[] c = str.toCharArray();
-        final List<String> list = new ArrayList<>();
+        final List<String> list = SPLIT_BUFFER_THREAD_LOCAL.get().getList();
         int tokenStart = 0;
         int currentType = Character.getType(c[tokenStart]);
         for (int pos = tokenStart + 1; pos < c.length; pos++) {
@@ -7455,7 +7450,7 @@ public class StringUtils {
             currentType = type;
         }
         list.add(new String(c, tokenStart, c.length - tokenStart));
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 
     /**
@@ -7639,7 +7634,7 @@ public class StringUtils {
 
         final int separatorLength = separator.length();
 
-        final ArrayList<String> substrings = new ArrayList<>();
+        final ArrayList<String> substrings = SPLIT_BUFFER_THREAD_LOCAL.get().getList();
         int numberOfSubstrings = 0;
         int beg = 0;
         int end = 0;
@@ -7683,7 +7678,7 @@ public class StringUtils {
             }
         }
 
-        return substrings.toArray(new String[substrings.size()]);
+        return substrings.toArray(new String[0]);
     }
 
     // -----------------------------------------------------------------------
@@ -7850,7 +7845,7 @@ public class StringUtils {
         if (len == 0) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
-        final List<String> list = new ArrayList<>();
+        final List<String> list = SPLIT_BUFFER_THREAD_LOCAL.get().getList();
         int i = 0, start = 0;
         boolean match = false;
         boolean lastMatch = false;
@@ -7871,7 +7866,7 @@ public class StringUtils {
         if (match || preserveAllTokens && lastMatch) {
             list.add(str.substring(start, i));
         }
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 
     /**
@@ -7900,7 +7895,7 @@ public class StringUtils {
         if (len == 0) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
-        final List<String> list = new ArrayList<>();
+        final List<String> list = SPLIT_BUFFER_THREAD_LOCAL.get().getList();
         int sizePlus1 = 1;
         int i = 0, start = 0;
         boolean match = false;
@@ -7970,7 +7965,25 @@ public class StringUtils {
         if (match || preserveAllTokens && lastMatch) {
             list.add(str.substring(start, i));
         }
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
+    }
+
+    private static final ThreadLocal<SplitBufferThreadLocalHelper> SPLIT_BUFFER_THREAD_LOCAL
+            = new ThreadLocal<SplitBufferThreadLocalHelper>() {
+        @Override
+        protected SplitBufferThreadLocalHelper initialValue() {
+            return new SplitBufferThreadLocalHelper();
+        }
+    };
+
+    private static final class SplitBufferThreadLocalHelper {
+
+        private final ArrayList<String> list = new ArrayList<>();
+
+        ArrayList<String> getList() {
+            list.clear();
+            return list;
+        }
     }
 
     /**
