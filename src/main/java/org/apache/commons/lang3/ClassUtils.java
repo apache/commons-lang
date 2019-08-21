@@ -464,7 +464,7 @@ public class ClassUtils {
           // ClassName is always complete
           output[level] = part;
         } else {
-          if (availableSpace > 0) {
+          if (availableSpace >= 0) {
             output[level] = part;
           } else {
             // if no space is left still the first char is used
