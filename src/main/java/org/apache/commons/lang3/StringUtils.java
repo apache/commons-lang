@@ -7981,6 +7981,12 @@ public class StringUtils {
         }
     };
 
+    // Private class act as a buffer while splitting.
+    // "SplitBufferThreadLocalHelper" is constructed as a thread local variable so it is
+    // thread safe. The "list" field acts as a buffer to hold the temporary
+    // representation of string split segments. It is shared by all
+    // calls to splitByCharacterType() or splitByWholeSeparatorWorker()
+    // or splitWorker(String) or splitWorker(char) and its variants in that particular thread.
     private static final class SplitBufferThreadLocalHelper {
 
         private final ArrayList<String> list = new ArrayList<>();
