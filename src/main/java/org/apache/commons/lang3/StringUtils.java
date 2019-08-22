@@ -7435,7 +7435,7 @@ public class StringUtils {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
         final char[] c = str.toCharArray();
-        final StringSplitHelperList list = SPLIT_BUFFER_THREAD_LOCAL.get().getList();
+        final SplitBuffer buffer = SPLIT_BUFFER_THREAD_LOCAL.get().getBuffer();
         int tokenStart = 0;
         int currentType = Character.getType(c[tokenStart]);
         for (int pos = tokenStart + 1; pos < c.length; pos++) {
@@ -7446,17 +7446,17 @@ public class StringUtils {
             if (camelCase && type == Character.LOWERCASE_LETTER && currentType == Character.UPPERCASE_LETTER) {
                 final int newTokenStart = pos - 1;
                 if (newTokenStart != tokenStart) {
-                    list.add(new String(c, tokenStart, newTokenStart - tokenStart));
+                    buffer.add(new String(c, tokenStart, newTokenStart - tokenStart));
                     tokenStart = newTokenStart;
                 }
             } else {
-                list.add(new String(c, tokenStart, pos - tokenStart));
+                buffer.add(new String(c, tokenStart, pos - tokenStart));
                 tokenStart = pos;
             }
             currentType = type;
         }
-        list.add(new String(c, tokenStart, c.length - tokenStart));
-        return list.toArray();
+        buffer.add(new String(c, tokenStart, c.length - tokenStart));
+        return buffer.toArray();
     }
 
     /**
@@ -7640,7 +7640,7 @@ public class StringUtils {
 
         final int separatorLength = separator.length();
 
-        final StringSplitHelperList substrings = SPLIT_BUFFER_THREAD_LOCAL.get().getList();
+        final SplitBuffer substrings = SPLIT_BUFFER_THREAD_LOCAL.get().getBuffer();
         int numberOfSubstrings = 0;
         int beg = 0;
         int end = 0;
@@ -7851,14 +7851,14 @@ public class StringUtils {
         if (len == 0) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
-        final StringSplitHelperList list = SPLIT_BUFFER_THREAD_LOCAL.get().getList();
+        final SplitBuffer buffer = SPLIT_BUFFER_THREAD_LOCAL.get().getBuffer();
         int i = 0, start = 0;
         boolean match = false;
         boolean lastMatch = false;
         while (i < len) {
             if (str.charAt(i) == separatorChar) {
                 if (match || preserveAllTokens) {
-                    list.add(str.substring(start, i));
+                    buffer.add(str.substring(start, i));
                     match = false;
                     lastMatch = true;
                 }
@@ -7870,9 +7870,9 @@ public class StringUtils {
             i++;
         }
         if (match || preserveAllTokens && lastMatch) {
-            list.add(str.substring(start, i));
+            buffer.add(str.substring(start, i));
         }
-        return list.toArray();
+        return buffer.toArray();
     }
 
     /**
@@ -7901,7 +7901,7 @@ public class StringUtils {
         if (len == 0) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
-        final StringSplitHelperList list = SPLIT_BUFFER_THREAD_LOCAL.get().getList();
+        final SplitBuffer buffer = SPLIT_BUFFER_THREAD_LOCAL.get().getBuffer();
         int sizePlus1 = 1;
         int i = 0, start = 0;
         boolean match = false;
@@ -7916,7 +7916,7 @@ public class StringUtils {
                             i = len;
                             lastMatch = false;
                         }
-                        list.add(str.substring(start, i));
+                        buffer.add(str.substring(start, i));
                         match = false;
                     }
                     start = ++i;
@@ -7937,7 +7937,7 @@ public class StringUtils {
                             i = len;
                             lastMatch = false;
                         }
-                        list.add(str.substring(start, i));
+                        buffer.add(str.substring(start, i));
                         match = false;
                     }
                     start = ++i;
@@ -7957,7 +7957,7 @@ public class StringUtils {
                             i = len;
                             lastMatch = false;
                         }
-                        list.add(str.substring(start, i));
+                        buffer.add(str.substring(start, i));
                         match = false;
                     }
                     start = ++i;
@@ -7969,9 +7969,9 @@ public class StringUtils {
             }
         }
         if (match || preserveAllTokens && lastMatch) {
-            list.add(str.substring(start, i));
+            buffer.add(str.substring(start, i));
         }
-        return list.toArray();
+        return buffer.toArray();
     }
 
     private static final ThreadLocal<SplitBufferThreadLocalHelper> SPLIT_BUFFER_THREAD_LOCAL
@@ -7990,16 +7990,16 @@ public class StringUtils {
     // or splitWorker(String) or splitWorker(char) and its variants in that particular thread.
     private static final class SplitBufferThreadLocalHelper {
 
-        private final StringSplitHelperList list = new StringSplitHelperList();
+        private final SplitBuffer splitBuffer = new SplitBuffer();
 
-        StringSplitHelperList getList() {
-            list.clear();
-            return list;
+        SplitBuffer getBuffer(){
+            splitBuffer.reset();
+            return splitBuffer;
         }
     }
 
-    //List impl act as a buffer
-    private static final class StringSplitHelperList extends AbstractList<String> implements List<String> {
+    //buffer class
+    private static final class SplitBuffer {
 
         /**
          * Default initial capacity.
@@ -8021,11 +8021,11 @@ public class StringUtils {
          */
         private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
 
-        private String[] elementData = new String[DEFAULT_CAPACITY];
-        private int size;
+        private String[] elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
+        private int size = 0;
 
         private static int hugeCapacity(int minCapacity) {
-            if (minCapacity < 0) { // overflow
+            if (minCapacity < 0) {// overflow
                 throw new OutOfMemoryError();
             }
             return (minCapacity > MAX_ARRAY_SIZE)
@@ -8033,21 +8033,12 @@ public class StringUtils {
                     : MAX_ARRAY_SIZE;
         }
 
-        @Override
-        public String get(int index) {
+        String get(int index) {
             return elementData[index];
         }
 
-        /**
-         * Appends the specified element to the end of this list.
-         *
-         * @param e element to be appended to this list
-         * @return {@code true}
-         */
-        @Override
-        public boolean add(String e) {
+        void add(String e) {
             add(e, elementData, size);
-            return true;
         }
 
         /**
@@ -8070,9 +8061,10 @@ public class StringUtils {
          * @param minCapacity the desired minimum capacity
          * @throws OutOfMemoryError if minCapacity is less than zero
          */
-        private Object[] grow(int minCapacity) {
-            return elementData = Arrays.copyOf(elementData,
-                    newCapacity(minCapacity));
+        private String[] grow(int minCapacity) {
+            String[] newElementData = new String[newCapacity(minCapacity)];
+            System.arraycopy(elementData, 0, newElementData, 0, elementData.length);
+            return elementData = newElementData;
         }
 
         /**
@@ -8092,7 +8084,7 @@ public class StringUtils {
                 if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {
                     return Math.max(DEFAULT_CAPACITY, minCapacity);
                 }
-                if (minCapacity < 0) {// overflow
+                if (minCapacity < 0) { // overflow
                     throw new OutOfMemoryError();
                 }
                 return minCapacity;
@@ -8102,27 +8094,19 @@ public class StringUtils {
                     : hugeCapacity(minCapacity);
         }
 
-        @Override
-        public int size() {
-            return size;
-        }
-
-        @Override
-        /*
-         * set the list size to zero, but do not set elements to null,
-         * this may cause memory leak in some case. However, thread-local
-         * variables are weak-ref, also, the elements are strings which
-         * may cached by string pool.
-         */
-        public void clear() {
+        void reset() {
             size = 0;
         }
 
-        @Override
-        public String[] toArray() {
+        String[] toArray() {
             String[] a = new String[size];
             System.arraycopy(elementData, 0, a, 0, size);
             return a;
+        }
+
+        @Override
+        public String toString() {
+            return Arrays.toString(toArray());
         }
     }
 
