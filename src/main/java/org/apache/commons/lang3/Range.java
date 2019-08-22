@@ -453,6 +453,28 @@ public final class Range<T> implements Serializable {
     }
 
     /**
+     * <p>
+     * Fits the given element into this range by returning the given element or, if out of bounds, the range minimum if
+     * below, or the range maximum if above.
+     * </p>
+     *
+     * @param element the element to check for, not null
+     * @return the minimum, the element, or the maximum depending on the element's location relative to the range
+     * @since 3.10
+     */
+    public T fit(final T element) {
+        // Comparable API says throw NPE on null
+        Validate.notNull(element, "Element is null");
+        if (isAfter(element)) {
+            return minimum;
+        } else if (isBefore(element)) {
+            return maximum;
+        } else {
+            return element;
+        }
+    }
+
+    /**
      * <p>Gets the range as a {@code String}.</p>
      *
      * <p>The format of the String is '[<i>min</i>..<i>max</i>]'.</p>

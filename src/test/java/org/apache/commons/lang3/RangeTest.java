@@ -171,6 +171,22 @@ public class RangeTest {
     }
 
     @Test
+    public void testFit() {
+        assertEquals(intRange.getMinimum(), intRange.fit(Integer.MIN_VALUE));
+        assertEquals(intRange.getMinimum(), intRange.fit(intRange.getMinimum()));
+        assertEquals(intRange.getMaximum(), intRange.fit(Integer.MAX_VALUE));
+        assertEquals(intRange.getMaximum(), intRange.fit(intRange.getMaximum()));
+        assertEquals(15, intRange.fit(15));
+    }
+
+    @Test
+    public void testFitNull() {
+        assertThrows(NullPointerException.class, () -> {
+            intRange.fit(null);
+        });
+    }
+
+    @Test
     public void testGetMaximum() {
         assertEquals(20, (int) intRange.getMaximum());
         assertEquals(20L, (long) longRange.getMaximum());
@@ -367,5 +383,4 @@ public class RangeTest {
         final String str = intRange.toString("From %1$s to %2$s");
         assertEquals("From 10 to 20", str);
     }
-
 }
