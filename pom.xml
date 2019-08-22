@@ -612,7 +612,7 @@
 
     <!-- generate report even if there are binary incompatible changes -->
     <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>false</commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
-    <commons.japicmp.version>0.13.1</commons.japicmp.version>
+    <commons.japicmp.version>0.14.1</commons.japicmp.version>
 
     <!-- Commons Release Plugin -->
     <commons.bc.version>3.9</commons.bc.version>
