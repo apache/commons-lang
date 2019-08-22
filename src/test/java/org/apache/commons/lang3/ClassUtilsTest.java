@@ -180,6 +180,8 @@ public class ClassUtilsTest  {
         assertEquals("", ClassUtils.getAbbreviatedName((String) null, 1));
         assertEquals("WithoutPackage", ClassUtils.getAbbreviatedName("WithoutPackage", 1));
         assertEquals("j.l.String", ClassUtils.getAbbreviatedName("java.lang.String", 1));
+        final String SAMPLE_CLASS =  "java.lang.String";
+        assertEquals(SAMPLE_CLASS, ClassUtils.getAbbreviatedName(SAMPLE_CLASS, SAMPLE_CLASS.length()));
     }
 
     @Test
