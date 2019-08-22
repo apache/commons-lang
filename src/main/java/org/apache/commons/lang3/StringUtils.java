@@ -8783,7 +8783,7 @@ public class StringUtils {
         if (list.isEmpty()) {
             return null;
         }
-        return list.toArray(new String [list.size()]);
+        return list.toArray(new String[list.size()]);
     }
 
     /**
