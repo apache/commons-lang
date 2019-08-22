@@ -597,7 +597,7 @@
     <commons.encoding>utf-8</commons.encoding>
 
     <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
-    <checkstyle.version>8.20</checkstyle.version>
+    <checkstyle.version>8.23</checkstyle.version>
 
     <spotbugs.plugin.version>3.1.11</spotbugs.plugin.version>
     <japicmp.skip>false</japicmp.skip>
