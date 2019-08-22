@@ -581,7 +581,7 @@
     <commons.packageId>lang3</commons.packageId>
     <commons.module.name>org.apache.commons.lang3</commons.module.name>
     <!-- Current 3.x release series -->
-    <commons.release.version>3.9</commons.release.version>
+    <commons.release.version>3.10</commons.release.version>
     <commons.release.desc>(Java 8+)</commons.release.desc>
     <!-- Previous 2.x release series -->
     <commons.release.2.version>2.6</commons.release.2.version>
@@ -615,8 +615,8 @@
     <commons.japicmp.version>0.13.1</commons.japicmp.version>
 
     <!-- Commons Release Plugin -->
-    <commons.bc.version>3.8.1</commons.bc.version>
-    <commons.rc.version>RC2</commons.rc.version>
+    <commons.bc.version>3.9</commons.bc.version>
+    <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>
     <commons.releaseManagerName>Rob Tompkins</commons.releaseManagerName>
