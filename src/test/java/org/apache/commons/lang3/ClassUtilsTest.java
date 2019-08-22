@@ -47,7 +47,7 @@ import org.junit.jupiter.api.Test;
  * Unit tests {@link org.apache.commons.lang3.ClassUtils}.
  */
 @SuppressWarnings("boxing") // JUnit4 does not support primitive equality testing apart from long
-public class ClassUtilsTest  {
+class ClassUtilsTest  {
 
     private static class CX implements IB, IA, IE {
         // empty
@@ -160,6 +160,7 @@ public class ClassUtilsTest  {
         assertEquals("", ClassUtils.getAbbreviatedName((Class<?>) null, 1));
         assertEquals("j.l.String", ClassUtils.getAbbreviatedName(String.class, 1));
         assertEquals("j.l.String", ClassUtils.getAbbreviatedName(String.class, 5));
+        assertEquals("o.a.c.l.ClassUtils", ClassUtils.getAbbreviatedName(ClassUtils.class, 18));
         assertEquals("j.lang.String", ClassUtils.getAbbreviatedName(String.class, 13));
         assertEquals("j.lang.String", ClassUtils.getAbbreviatedName(String.class, 15));
         assertEquals("java.lang.String", ClassUtils.getAbbreviatedName(String.class, 20));
@@ -178,8 +179,15 @@ public class ClassUtilsTest  {
     @Test
     public void test_getAbbreviatedName_String() {
         assertEquals("", ClassUtils.getAbbreviatedName((String) null, 1));
+        assertEquals("", ClassUtils.getAbbreviatedName("", 1));
         assertEquals("WithoutPackage", ClassUtils.getAbbreviatedName("WithoutPackage", 1));
         assertEquals("j.l.String", ClassUtils.getAbbreviatedName("java.lang.String", 1));
+        assertEquals("o.a.c.l.ClassUtils", ClassUtils.getAbbreviatedName("org.apache.commons.lang3.ClassUtils", 18));
+        assertEquals("o.a.c.l.ClassUtils", ClassUtils.getAbbreviatedName("o.a.c.l.ClassUtils", 18));
+        assertEquals("j.lang.String", ClassUtils.getAbbreviatedName("java.lang.String", "j.lang.String".length()));
+        assertEquals("j.l.String", ClassUtils.getAbbreviatedName("java.lang.String", "j.lang.String".length() - 1));
+        assertEquals("j.l.String", ClassUtils.getAbbreviatedName("java.lang.String", "j.l.String".length()));
+        assertEquals("j.l.String", ClassUtils.getAbbreviatedName("java.lang.String", "j.l.String".length() - 1));
     }
 
     @Test
