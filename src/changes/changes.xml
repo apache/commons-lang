@@ -56,6 +56,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1437" type="update" dev="ggregory" due-to="Andrei Troie">Remove redundant if statements in join methods #411.</action>
     <action issue="LANG-1460" type="fix" dev="kinow" due-to="Larry West">Trivial: year of release for 3.9 says 2018, should be 2019</action>
     <action issue="LANG-1476" type="fix" dev="kinow" due-to="emopers">Use synchronise on a set created with Collections.synchronizedSet before iterating</action>
+    <action issue="LANG-1479" type="add" dev="ggregory">Add Range.fit(T) to fit a value into a range.</action>
   </release>
 
   <release version="3.9" date="2019-04-09" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11">
