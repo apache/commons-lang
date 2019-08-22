@@ -505,6 +505,9 @@
     <contributor>
       <name>Mark Dacek</name>
     </contributor>
+    <contributor>
+      <name>Peter Verhas</name>
+    </contributor>
   </contributors>
 
   <!-- Lang should depend on very little -->
