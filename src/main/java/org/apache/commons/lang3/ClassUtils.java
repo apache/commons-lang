@@ -16,19 +16,11 @@
  */
 package org.apache.commons.lang3;
 
+import org.apache.commons.lang3.mutable.MutableObject;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.commons.lang3.mutable.MutableObject;
+import java.util.*;
 
 /**
  * <p>Operates on classes without using reflection.</p>
@@ -467,9 +459,9 @@ public class ClassUtils {
           abbreviated[runAheadTarget++] = abbreviated[source++];
         }
 
-        if (partNeedsAbbreviation(runAheadTarget, source, abbreviated.length, len)) {
-          ++target;
-        } else {
+        ++target;
+        if (useFull(runAheadTarget, source, abbreviated.length, len)
+                || target > runAheadTarget) {
           target = runAheadTarget;
         }
 
@@ -506,15 +498,15 @@ public class ClassUtils {
    *                       which is abbreviated
    * @param desiredLength  the desired length of the abbreviated class
    *                       name
-   * @return {@code true} if the current part has to be abbreviated and
-   *         {@code false} if it can be kept in its original length
+   * @return {@code true} if it can be kept in its original length
+   *         {@code false} if the current part has to be abbreviated and
    */
-  private static boolean partNeedsAbbreviation(final int runAheadTarget,
-                                               final int source,
-                                               final int originalLength,
-                                               final int desiredLength) {
-    return source < originalLength &&
-            runAheadTarget + originalLength - source > desiredLength;
+  private static boolean useFull(final int runAheadTarget,
+                                 final int source,
+                                 final int originalLength,
+                                 final int desiredLength) {
+    return source >= originalLength ||
+            runAheadTarget + originalLength - source <= desiredLength;
   }
 
     // Superclasses/Superinterfaces

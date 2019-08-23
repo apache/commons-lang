@@ -184,6 +184,13 @@ class ClassUtilsTest  {
         assertEquals("j.l.String", ClassUtils.getAbbreviatedName("java.lang.String", 1));
         assertEquals("o.a.c.l.ClassUtils", ClassUtils.getAbbreviatedName("org.apache.commons.lang3.ClassUtils", 18));
         assertEquals("o.a.c.l.ClassUtils", ClassUtils.getAbbreviatedName("o.a.c.l.ClassUtils", 18));
+        assertEquals("o..c.l.ClassUtils", ClassUtils.getAbbreviatedName("o..c.l.ClassUtils", 18));
+        assertEquals(".", ClassUtils.getAbbreviatedName(".", 18));
+        assertEquals(".", ClassUtils.getAbbreviatedName(".", 1));
+        assertEquals("..", ClassUtils.getAbbreviatedName("..", 1));
+        assertEquals("...", ClassUtils.getAbbreviatedName("...", 2));
+        assertEquals("...", ClassUtils.getAbbreviatedName("...", 3));
+        assertEquals("java.lang.String", ClassUtils.getAbbreviatedName("java.lang.String", Integer.MAX_VALUE));
         assertEquals("j.lang.String", ClassUtils.getAbbreviatedName("java.lang.String", "j.lang.String".length()));
         assertEquals("j.l.String", ClassUtils.getAbbreviatedName("java.lang.String", "j.lang.String".length() - 1));
         assertEquals("j.l.String", ClassUtils.getAbbreviatedName("java.lang.String", "j.l.String".length()));
