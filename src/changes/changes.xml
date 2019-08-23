@@ -49,11 +49,18 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1450" type="fix" dev="chtompki">Generate Javadoc jar on build.</action>
     <action issue="LANG-1457" type="add" dev="ggregory">Add ExceptionUtils.throwableOfType(Throwable, Class) and friends.</action>
     <action issue="LANG-1458" type="add" dev="ggregory">Add EMPTY_ARRAY constants to classes in org.apache.commons.lang3.tuple.</action>
-    <action                   type="update" dev="ggregory">checkstyle.version 8.18 -> 8.20.</action>
     <action issue="LANG-1461" type="add" dev="ggregory">Add null-safe StringUtils APIs to wrap String#getBytes([Charset|String]).</action>
     <action issue="LANG-1467" type="add" dev="ggregory">Add zero arg constructor for org.apache.commons.lang3.NotImplementedException.</action>
     <action issue="LANG-1470" type="add" dev="ggregory">Add ArrayUtils.addFirst() methods.</action>
     <action issue="LANG-1437" type="update" dev="ggregory" due-to="Andrei Troie">Remove redundant if statements in join methods #411.</action>
+    <action issue="LANG-1460" type="fix" dev="kinow" due-to="Larry West">Trivial: year of release for 3.9 says 2018, should be 2019</action>
+    <action issue="LANG-1476" type="fix" dev="kinow" due-to="emopers">Use synchronize on a set created with Collections.synchronizedSet before iterating</action>
+    <action issue="LANG-1479" type="add" dev="ggregory">Add Range.fit(T) to fit a value into a range.</action>
+    <action                   type="update" dev="ggregory">com.puppycrawl.tools:checkstyle 8.18 -> 8.23.</action>
+    <action                   type="update" dev="ggregory">commons.japicmp.version 0.13.1 -> 0.14.1.</action>
+    <action                   type="update" dev="ggregory">checkstyle.version 8.18 -> 8.23.</action>
+    <action                   type="update" dev="ggregory">junit-jupiter 5.5.0 -> 5.5.1.</action>
+    <action issue="LANG-1477" type="add" dev="jochen">Added Functions.as*, and tests thereof, as suggested by Peter Verhas</action>
     <action issue="LANG-1475" type="fix" dev="stzx">StringUtils.unwrap incorrect throw StringIndexOutOfBoundsException.</action>
   </release>
 
