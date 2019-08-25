@@ -39,7 +39,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class FunctionsTest {
     public static class SomeException extends Exception {
@@ -168,7 +167,9 @@ class FunctionsTest {
     @Test
     void testAsCallable() {
         FailureOnOddInvocations.invocation = 0;
-        final FailableCallable<FailureOnOddInvocations,SomeException> failableCallable = () -> { return new FailureOnOddInvocations(); };
+        final FailableCallable<FailureOnOddInvocations, SomeException> failableCallable = () -> {
+            return new FailureOnOddInvocations();
+        };
         final Callable<FailureOnOddInvocations> callable = Functions.asCallable(failableCallable);
         UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  callable.call());
         final Throwable cause = e.getCause();
@@ -177,9 +178,9 @@ class FunctionsTest {
         assertEquals("Odd Invocation: 1", cause.getMessage());
         final FailureOnOddInvocations instance;
         try {
-        	instance = callable.call();
+            instance = callable.call();
         } catch (Exception ex) {
-        	throw Functions.rethrow(ex);
+            throw Functions.rethrow(ex);
         }
         assertNotNull(instance);
     }
@@ -211,7 +212,7 @@ class FunctionsTest {
     void testAsConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(ise);
-        final Consumer<Testable> consumer = Functions.asConsumer((t) -> t.test()); 
+        final Consumer<Testable> consumer = Functions.asConsumer((t) -> t.test());
         Throwable e = assertThrows(IllegalStateException.class, () -> consumer.accept(testable));
         assertSame(ise, e);
 
@@ -257,7 +258,9 @@ class FunctionsTest {
     void testAsBiConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(null);
-        final FailableBiConsumer<Testable, Throwable, Throwable> failableBiConsumer = (t, th) -> { t.setThrowable(th); t.test(); }; 
+        final FailableBiConsumer<Testable, Throwable, Throwable> failableBiConsumer = (t, th) -> {
+            t.setThrowable(th); t.test();
+        };
         final BiConsumer<Testable, Throwable> consumer = Functions.asBiConsumer(failableBiConsumer);
         Throwable e = assertThrows(IllegalStateException.class, () -> consumer.accept(testable, ise));
         assertSame(ise, e);
@@ -305,11 +308,11 @@ class FunctionsTest {
     public void testAsFunction() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(ise);
-        final FailableFunction<Throwable,Integer,Throwable> failableFunction = (th) -> {
-        	testable.setThrowable(th);
-        	return Integer.valueOf(testable.testInt());
+        final FailableFunction<Throwable, Integer, Throwable> failableFunction = (th) -> {
+            testable.setThrowable(th);
+            return Integer.valueOf(testable.testInt());
         };
-        final Function<Throwable,Integer> function = Functions.asFunction(failableFunction);
+        final Function<Throwable, Integer> function = Functions.asFunction(failableFunction);
         Throwable e = assertThrows(IllegalStateException.class, () -> function.apply(ise));
         assertSame(ise, e);
 
@@ -354,11 +357,11 @@ class FunctionsTest {
     public void testAsBiFunction() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(ise);
-        final FailableBiFunction<Testable,Throwable,Integer,Throwable> failableBiFunction = (t, th) -> {
-        	t.setThrowable(th);
-        	return Integer.valueOf(t.testInt());
+        final FailableBiFunction<Testable, Throwable, Integer, Throwable> failableBiFunction = (t, th) -> {
+            t.setThrowable(th);
+            return Integer.valueOf(t.testInt());
         };
-        final BiFunction<Testable,Throwable,Integer> biFunction = Functions.asBiFunction(failableBiFunction);
+        final BiFunction<Testable, Throwable, Integer> biFunction = Functions.asBiFunction(failableBiFunction);
         Throwable e = assertThrows(IllegalStateException.class, () -> biFunction.apply(testable, ise));
         assertSame(ise, e);
 
@@ -392,7 +395,9 @@ class FunctionsTest {
     @Test
     public void testAsSupplier() {
         FailureOnOddInvocations.invocation = 0;
-        final FailableSupplier<FailureOnOddInvocations,Throwable> failableSupplier = () -> { return new FailureOnOddInvocations(); };
+        final FailableSupplier<FailureOnOddInvocations, Throwable> failableSupplier = () -> {
+            return new FailureOnOddInvocations();
+        };
         final Supplier<FailureOnOddInvocations> supplier = Functions.asSupplier(failableSupplier);
         UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  supplier.get());
         final Throwable cause = e.getCause();
