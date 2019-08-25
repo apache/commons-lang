@@ -7981,12 +7981,16 @@ public class StringUtils {
         }
     };
 
-    // Private class act as a buffer while splitting.
-    // "SplitBufferThreadLocalHelper" is constructed as a thread local variable so it is
-    // thread safe. The "splitBuffer" field acts as a buffer to hold the temporary
-    // representation of string split segments. It is shared by all
-    // calls to splitByCharacterType() or splitByWholeSeparatorWorker()
-    // or splitWorker(String) or splitWorker(char) and its variants in that particular thread.
+
+
+    /**
+     * Private class act as a buffer while splitting.
+     * "SplitBufferThreadLocalHelper" is constructed as a thread local variable so it is
+     * thread safe. The "splitBuffer" field acts as a buffer to hold the temporary
+     * representation of string split segments. It is shared by all
+     * calls to {@link #splitByCharacterType(String, boolean)} or {@link #splitByWholeSeparatorWorker(String, String, int, boolean)}
+     * or {@link #splitWorker(String, char, boolean)} or {@link #split(String, String, int)} and its variants in that particular thread.
+     */
     private static final class SplitBufferThreadLocalHelper {
 
         private final SplitBuffer splitBuffer = new SplitBuffer();
@@ -7997,7 +8001,18 @@ public class StringUtils {
         }
     }
 
-    //buffer class
+    /**
+     * A buffer class to hold split segments,
+     * this class is hold by the {@link ThreadLocal} so it is thread-safe.<br>
+     * While splitting, the segments will be add to the tail of the array with
+     * {@link SplitBuffer#add(String)} method(If the capacity of the array is not enough, it will enable auto-expanding).<br>
+     * {@link SplitBuffer#toArray()} method will copy current segments to a single String array.<br>
+     * {@link SplitBuffer#reset()} method will set the length of the array to 0, however, the "elementData" array will be reused next time.<br>
+     * This class is designed to replace previous {@link ArrayList}, in previous version, an ArrayList
+     * is created every time the split method is called, It means array allocation every time,if the segments
+     * is large, it may also contains several resizing desiged by ArrayList.<br>
+     * The mainly purpose of this class is to improve performance.
+     */
     private static final class SplitBuffer {
 
         /**
@@ -8073,7 +8088,7 @@ public class StringUtils {
          * the given minimum capacity is greater than MAX_ARRAY_SIZE.
          *
          * @param minCapacity the desired minimum capacity
-         * @throws OutOfMemoryError if minCapacity is less than zero
+         * @throws RuntimeException if minCapacity is less than zero
          */
         private int newCapacity(int minCapacity) {
             // overflow-conscious code
@@ -8084,7 +8099,7 @@ public class StringUtils {
                     return Math.max(DEFAULT_CAPACITY, minCapacity);
                 }
                 if (minCapacity < 0) { // overflow
-                    throw new OutOfMemoryError();
+                    throw new RuntimeException("capacity overflow!");
                 }
                 return minCapacity;
             }
