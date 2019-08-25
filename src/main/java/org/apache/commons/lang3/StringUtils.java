@@ -8010,7 +8010,7 @@ public class StringUtils {
      * {@link SplitBuffer#reset()} method will set the length of the array to 0, however, the "elementData" array will be reused next time.<br>
      * This class is designed to replace previous {@link ArrayList}, in previous version, an ArrayList
      * is created every time the split method is called, It means array allocation every time,if the segments
-     * is large, it may also contains several resizing desiged by ArrayList.<br>
+     * is large, it may also contains several resizing designed by ArrayList.<br>
      * The mainly purpose of this class is to improve performance.
      */
     private static final class SplitBuffer {
@@ -8040,7 +8040,7 @@ public class StringUtils {
 
         private static int hugeCapacity(int minCapacity) {
             if (minCapacity < 0) {// overflow
-                throw new OutOfMemoryError();
+                throw new RuntimeException("capacity overflow!");
             }
             return (minCapacity > MAX_ARRAY_SIZE)
                     ? Integer.MAX_VALUE
