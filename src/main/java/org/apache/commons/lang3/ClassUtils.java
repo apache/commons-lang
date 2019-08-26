@@ -156,7 +156,7 @@ public class ClassUtils {
      * instance to operate.</p>
      */
     public ClassUtils() {
-         super();
+      super();
     }
 
     // Short class name
@@ -581,8 +581,8 @@ public class ClassUtils {
             }
 
             cls = cls.getSuperclass();
-        }
-    }
+         }
+     }
 
     // Convert list
     // ----------------------------------------------------------------------
