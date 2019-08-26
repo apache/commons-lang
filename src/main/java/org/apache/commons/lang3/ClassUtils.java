@@ -1022,7 +1022,7 @@ public class ClassUtils {
      * @throws ClassNotFoundException if the class is not found
      */
     public static Class<?> getClass(
-        final ClassLoader classLoader, final String className, final boolean initialize) throws ClassNotFoundException {
+            final ClassLoader classLoader, final String className, final boolean initialize) throws ClassNotFoundException {
         try {
             Class<?> clazz;
             if (namePrimitiveMap.containsKey(className)) {
@@ -1039,7 +1039,7 @@ public class ClassUtils {
                 try {
                     return getClass(classLoader, className.substring(0, lastDotIndex) +
                             INNER_CLASS_SEPARATOR_CHAR + className.substring(lastDotIndex + 1),
-                        initialize);
+                            initialize);
                 } catch (final ClassNotFoundException ex2) { // NOPMD
                     // ignore exception
                 }
@@ -1122,7 +1122,7 @@ public class ClassUtils {
      *  or if the method doesn't conform with the requirements
      */
     public static Method getPublicMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes)
-        throws NoSuchMethodException {
+           throws NoSuchMethodException {
 
         final Method declaredMethod = cls.getMethod(methodName, parameterTypes);
         if (Modifier.isPublic(declaredMethod.getDeclaringClass().getModifiers())) {
