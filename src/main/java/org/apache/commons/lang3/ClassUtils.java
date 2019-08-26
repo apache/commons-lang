@@ -16,8 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import org.apache.commons.lang3.mutable.MutableObject;
-
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -29,6 +27,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.apache.commons.lang3.mutable.MutableObject;
 
 /**
  * <p>Operates on classes without using reflection.</p>
