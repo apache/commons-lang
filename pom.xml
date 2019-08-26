@@ -505,6 +505,9 @@
     <contributor>
       <name>Mark Dacek</name>
     </contributor>
+    <contributor>
+      <name>Peter Verhas</name>
+    </contributor>
   </contributors>
 
   <!-- Lang should depend on very little -->
@@ -513,7 +516,7 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>5.5.0</version>
+      <version>5.5.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -581,7 +584,7 @@
     <commons.packageId>lang3</commons.packageId>
     <commons.module.name>org.apache.commons.lang3</commons.module.name>
     <!-- Current 3.x release series -->
-    <commons.release.version>3.9</commons.release.version>
+    <commons.release.version>3.10</commons.release.version>
     <commons.release.desc>(Java 8+)</commons.release.desc>
     <!-- Previous 2.x release series -->
     <commons.release.2.version>2.6</commons.release.2.version>
@@ -597,7 +600,7 @@
     <commons.encoding>utf-8</commons.encoding>
 
     <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
-    <checkstyle.version>8.20</checkstyle.version>
+    <checkstyle.version>8.23</checkstyle.version>
 
     <spotbugs.plugin.version>3.1.11</spotbugs.plugin.version>
     <japicmp.skip>false</japicmp.skip>
@@ -612,11 +615,11 @@
 
     <!-- generate report even if there are binary incompatible changes -->
     <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>false</commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
-    <commons.japicmp.version>0.13.1</commons.japicmp.version>
+    <commons.japicmp.version>0.14.1</commons.japicmp.version>
 
     <!-- Commons Release Plugin -->
-    <commons.bc.version>3.8.1</commons.bc.version>
-    <commons.rc.version>RC2</commons.rc.version>
+    <commons.bc.version>3.9</commons.bc.version>
+    <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>
     <commons.releaseManagerName>Rob Tompkins</commons.releaseManagerName>
