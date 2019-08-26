@@ -78,15 +78,15 @@ public class ClassUtils {
      */
     private static final Map<String, Class<?>> namePrimitiveMap = new HashMap<>();
     static {
-        namePrimitiveMap.put("boolean", Boolean.TYPE);
-        namePrimitiveMap.put("byte", Byte.TYPE);
-        namePrimitiveMap.put("char", Character.TYPE);
-        namePrimitiveMap.put("short", Short.TYPE);
-        namePrimitiveMap.put("int", Integer.TYPE);
-        namePrimitiveMap.put("long", Long.TYPE);
-        namePrimitiveMap.put("double", Double.TYPE);
-        namePrimitiveMap.put("float", Float.TYPE);
-        namePrimitiveMap.put("void", Void.TYPE);
+         namePrimitiveMap.put("boolean", Boolean.TYPE);
+         namePrimitiveMap.put("byte", Byte.TYPE);
+         namePrimitiveMap.put("char", Character.TYPE);
+         namePrimitiveMap.put("short", Short.TYPE);
+         namePrimitiveMap.put("int", Integer.TYPE);
+         namePrimitiveMap.put("long", Long.TYPE);
+         namePrimitiveMap.put("double", Double.TYPE);
+         namePrimitiveMap.put("float", Float.TYPE);
+         namePrimitiveMap.put("void", Void.TYPE);
     }
 
     /**
@@ -94,15 +94,15 @@ public class ClassUtils {
      */
     private static final Map<Class<?>, Class<?>> primitiveWrapperMap = new HashMap<>();
     static {
-        primitiveWrapperMap.put(Boolean.TYPE, Boolean.class);
-        primitiveWrapperMap.put(Byte.TYPE, Byte.class);
-        primitiveWrapperMap.put(Character.TYPE, Character.class);
-        primitiveWrapperMap.put(Short.TYPE, Short.class);
-        primitiveWrapperMap.put(Integer.TYPE, Integer.class);
-        primitiveWrapperMap.put(Long.TYPE, Long.class);
-        primitiveWrapperMap.put(Double.TYPE, Double.class);
-        primitiveWrapperMap.put(Float.TYPE, Float.class);
-        primitiveWrapperMap.put(Void.TYPE, Void.TYPE);
+         primitiveWrapperMap.put(Boolean.TYPE, Boolean.class);
+         primitiveWrapperMap.put(Byte.TYPE, Byte.class);
+         primitiveWrapperMap.put(Character.TYPE, Character.class);
+         primitiveWrapperMap.put(Short.TYPE, Short.class);
+         primitiveWrapperMap.put(Integer.TYPE, Integer.class);
+         primitiveWrapperMap.put(Long.TYPE, Long.class);
+         primitiveWrapperMap.put(Double.TYPE, Double.class);
+         primitiveWrapperMap.put(Float.TYPE, Float.class);
+         primitiveWrapperMap.put(Void.TYPE, Void.TYPE);
     }
 
     /**
@@ -156,7 +156,7 @@ public class ClassUtils {
      * instance to operate.</p>
      */
     public ClassUtils() {
-        super();
+         super();
     }
 
     // Short class name
@@ -229,7 +229,7 @@ public class ClassUtils {
 
         final int lastDotIdx = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
         final int innerIdx = className.indexOf(
-            INNER_CLASS_SEPARATOR_CHAR, lastDotIdx == -1 ? 0 : lastDotIdx + 1);
+                INNER_CLASS_SEPARATOR_CHAR, lastDotIdx == -1 ? 0 : lastDotIdx + 1);
         String out = className.substring(lastDotIdx + 1);
         if (innerIdx != -1) {
             out = out.replace(INNER_CLASS_SEPARATOR_CHAR, PACKAGE_SEPARATOR_CHAR);
@@ -409,10 +409,10 @@ public class ClassUtils {
      * @since 3.4
      */
     public static String getAbbreviatedName(final Class<?> cls, final int len) {
-        if (cls == null) {
-            return StringUtils.EMPTY;
-        }
-        return getAbbreviatedName(cls.getName(), len);
+      if (cls == null) {
+        return StringUtils.EMPTY;
+      }
+      return getAbbreviatedName(cls.getName(), len);
     }
 
     /**
