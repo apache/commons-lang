@@ -1122,7 +1122,7 @@ public class ClassUtils {
      *  or if the method doesn't conform with the requirements
      */
     public static Method getPublicMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes)
-           throws NoSuchMethodException {
+            throws NoSuchMethodException {
 
         final Method declaredMethod = cls.getMethod(methodName, parameterTypes);
         if (Modifier.isPublic(declaredMethod.getDeclaringClass().getModifiers())) {
@@ -1149,7 +1149,7 @@ public class ClassUtils {
         }
 
         throw new NoSuchMethodException("Can't find a public method for " +
-            methodName + " " + ArrayUtils.toString(parameterTypes));
+                methodName + " " + ArrayUtils.toString(parameterTypes));
     }
 
     // ----------------------------------------------------------------------
