@@ -62,6 +62,7 @@ public class Functions {
          */
         void run() throws T;
     }
+
     @FunctionalInterface
     public interface FailableCallable<O, T extends Throwable> {
         /**
@@ -71,6 +72,7 @@ public class Functions {
          */
         O call() throws T;
     }
+
     @FunctionalInterface
     public interface FailableConsumer<O, T extends Throwable> {
         /**
@@ -80,6 +82,7 @@ public class Functions {
          */
         void accept(O pObject) throws T;
     }
+
     @FunctionalInterface
     public interface FailableBiConsumer<O1, O2, T extends Throwable> {
         /**
@@ -90,6 +93,7 @@ public class Functions {
          */
         void accept(O1 pObject1, O2 pObject2) throws T;
     }
+
     @FunctionalInterface
     public interface FailableFunction<I, O, T extends Throwable> {
         /**
@@ -100,6 +104,7 @@ public class Functions {
          */
         O apply(I pInput) throws T;
     }
+
     @FunctionalInterface
     public interface FailableBiFunction<I1, I2, O, T extends Throwable> {
         /**
@@ -111,6 +116,7 @@ public class Functions {
          */
         O apply(I1 pInput1, I2 pInput2) throws T;
     }
+
     @FunctionalInterface
     public interface FailablePredicate<O, T extends Throwable> {
         /**
@@ -121,6 +127,7 @@ public class Functions {
          */
         boolean test(O pObject) throws T;
     }
+
     @FunctionalInterface
     public interface FailableBiPredicate<O1, O2, T extends Throwable> {
         /**
@@ -132,6 +139,7 @@ public class Functions {
          */
         boolean test(O1 pObject1, O2 pObject2) throws T;
     }
+
     @FunctionalInterface
     public interface FailableSupplier<O, T extends Throwable> {
         /**
@@ -143,7 +151,10 @@ public class Functions {
     }
 
     /**
-     * Converts the given {@link FailableRunnable} into a standard {@link Runnable}.
+     * <p>Converts the given {@link FailableRunnable} into a standard {@link Runnable}.</p>
+     *
+     * <p>If the execution of the failable argument throws an exception it is enveloped
+     * and rethrown using the {@link #rethrow(Throwable)} method.</p>
      *
      * @param pRunnable a {@code FailableRunnable}
      * @return a standard {@code Runnable}
@@ -154,6 +165,9 @@ public class Functions {
 
     /**
      * Converts the given {@link FailableConsumer} into a standard {@link Consumer}.
+     *
+     * <p>If the execution of the failable argument throws an exception it is enveloped
+     * and rethrown using the {@link #rethrow(Throwable)} method.</p>
      *
      * @param <I> the type used by the consumers
      * @param pConsumer a {@code FailableConsumer}
@@ -166,6 +180,9 @@ public class Functions {
     /**
      * Converts the given {@link FailableCallable} into a standard {@link Callable}.
      *
+     * <p>If the execution of the failable argument throws an exception it is enveloped
+     * and rethrown using the {@link #rethrow(Throwable)} method.</p>
+     *
      * @param <O> the type used by the callables
      * @param pCallable a {@code FailableCallable}
      * @return a standard {@code Callable}
@@ -176,6 +193,9 @@ public class Functions {
 
     /**
      * Converts the given {@link FailableBiConsumer} into a standard {@link BiConsumer}.
+     *
+     * <p>If the execution of the failable argument throws an exception it is enveloped
+     * and rethrown using the {@link #rethrow(Throwable)} method.</p>
      *
      * @param <I1> the type of the first argument of the consumers
      * @param <I2> the type of the second argument of the consumers
@@ -189,6 +209,9 @@ public class Functions {
     /**
      * Converts the given {@link FailableFunction} into a standard {@link Function}.
      *
+     * <p>If the execution of the failable argument throws an exception it is enveloped
+     * and rethrown using the {@link #rethrow(Throwable)} method.</p>
+     *
      * @param <I> the type of the input of the functions
      * @param <O> the type of the output of the functions
      * @param pFunction a {code FailableFunction}
@@ -200,6 +223,9 @@ public class Functions {
 
     /**
      * Converts the given {@link FailableBiFunction} into a standard {@link BiFunction}.
+     *
+     * <p>If the execution of the failable argument throws an exception it is enveloped
+     * and rethrown using the {@link #rethrow(Throwable)} method.</p>
      *
      * @param <I1> the type of the first argument of the input of the functions
      * @param <I2> the type of the second argument of the input of the functions
@@ -214,6 +240,9 @@ public class Functions {
     /**
      * Converts the given {@link FailablePredicate} into a standard {@link Predicate}.
      *
+     * <p>If the execution of the failable argument throws an exception it is enveloped
+     * and rethrown using the {@link #rethrow(Throwable)} method.</p>
+     *
      * @param <I> the type used by the predicates
      * @param pPredicate a {@code FailablePredicate}
      * @return a standard {@code Predicate}
@@ -224,6 +253,9 @@ public class Functions {
 
     /**
      * Converts the given {@link FailableBiPredicate} into a standard {@link BiPredicate}.
+     *
+     * <p>If the execution of the failable argument throws an exception it is enveloped
+     * and rethrown using the {@link #rethrow(Throwable)} method.</p>
      *
      * @param <I1> the type of the first argument used by the predicates
      * @param <I2> the type of the second argument used by the predicates
@@ -237,6 +269,9 @@ public class Functions {
     /**
      * Converts the given {@link FailableSupplier} into a standard {@link Supplier}.
      *
+     * <p>If the execution of the failable argument throws an exception it is enveloped
+     * and rethrown using the {@link #rethrow(Throwable)} method.</p>
+     *
      * @param <O> the type supplied by the suppliers
      * @param pSupplier a {@code FailableSupplier}
      * @return a standard {@code Supplier}
@@ -247,6 +282,10 @@ public class Functions {
 
     /**
      * Runs a runnable and rethrows any exception as a {@link RuntimeException}.
+     *
+     * <p>If the execution of the failable argument throws an exception it is enveloped
+     * and rethrown using the {@link #rethrow(Throwable)} method.</p>
+     *
      * @param pRunnable The runnable to run
      * @param <T> the type of checked exception the runnable may throw
      */
@@ -260,6 +299,10 @@ public class Functions {
 
     /**
      * Calls a callable and rethrows any exception as a {@link RuntimeException}.
+     *
+     * <p>If the execution of the failable argument throws an exception it is enveloped
+     * and rethrown using the {@link #rethrow(Throwable)} method.</p>
+     *
      * @param pCallable the callable to call
      * @param <O> the return type of the callable
      * @param <T> the type of checked exception the callable may throw
@@ -275,6 +318,10 @@ public class Functions {
 
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
+     *
+     * <p>If the execution of the failable argument throws an exception it is enveloped
+     * and rethrown using the {@link #rethrow(Throwable)} method.</p>
+     *
      * @param pConsumer the consumer to consume
      * @param pObject the object to consume by <code>pConsumer</code>
      * @param <O> the type the consumer accepts
@@ -290,6 +337,10 @@ public class Functions {
 
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
+     *
+     * <p>If the execution of the failable argument throws an exception it is enveloped
+     * and rethrown using the {@link #rethrow(Throwable)} method.</p>
+     *
      * @param pConsumer the consumer to consume
      * @param pObject1 the first object to consume by <code>pConsumer</code>
      * @param pObject2 the second object to consume by <code>pConsumer</code>
@@ -307,6 +358,10 @@ public class Functions {
 
     /**
      * Applies a function and rethrows any exception as a {@link RuntimeException}.
+     *
+     * <p>If the execution of the failable argument throws an exception it is enveloped
+     * and rethrown using the {@link #rethrow(Throwable)} method.</p>
+     *
      * @param pFunction the function to apply
      * @param pInput the input to apply <code>pFunction</code> on
      * @param <I> the type of the argument the function accepts
@@ -324,6 +379,10 @@ public class Functions {
 
     /**
      * Applies a function and rethrows any exception as a {@link RuntimeException}.
+     *
+     * <p>If the execution of the failable argument throws an exception it is enveloped
+     * and rethrown using the {@link #rethrow(Throwable)} method.</p>
+     *
      * @param pFunction the function to apply
      * @param pInput1 the first input to apply <code>pFunction</code> on
      * @param pInput2 the second input to apply <code>pFunction</code> on
@@ -343,6 +402,10 @@ public class Functions {
 
     /**
      * Tests a predicate and rethrows any exception as a {@link RuntimeException}.
+     *
+     * <p>If the execution of the failable argument throws an exception it is enveloped
+     * and rethrown using the {@link #rethrow(Throwable)} method.</p>
+     *
      * @param pPredicate the predicate to test
      * @param pObject the input to test by <code>pPredicate</code>
      * @param <O> the type of argument the predicate tests
@@ -359,6 +422,10 @@ public class Functions {
 
     /**
      * Tests a predicate and rethrows any exception as a {@link RuntimeException}.
+     *
+     * <p>If the execution of the failable argument throws an exception it is enveloped
+     * and rethrown using the {@link #rethrow(Throwable)} method.</p>
+     *
      * @param pPredicate the predicate to test
      * @param pObject1 the first input to test by <code>pPredicate</code>
      * @param pObject2 the second input to test by <code>pPredicate</code>
@@ -377,6 +444,10 @@ public class Functions {
 
     /**
      * Invokes the supplier, and returns the result.
+     *
+     * <p>If the execution of the failable argument throws an exception it is enveloped
+     * and rethrown using the {@link #rethrow(Throwable)} method.</p>
+     *
      * @param pSupplier The supplier to invoke.
      * @param <O> The suppliers output type.
      * @param <T> The type of checked exception, which the supplier can throw.
@@ -415,8 +486,8 @@ public class Functions {
      */
     @SafeVarargs
     public static void tryWithResources(FailableRunnable<? extends Throwable> pAction,
-                                            FailableConsumer<Throwable, ? extends Throwable> pErrorHandler,
-                                            FailableRunnable<? extends Throwable>... pResources) {
+                                        FailableConsumer<Throwable, ? extends Throwable> pErrorHandler,
+                                        FailableRunnable<? extends Throwable>... pResources) {
         final FailableConsumer<Throwable, ? extends Throwable> errorHandler;
         if (pErrorHandler == null) {
             errorHandler = Functions::rethrow;
@@ -477,14 +548,32 @@ public class Functions {
      */
     @SafeVarargs
     public static void tryWithResources(FailableRunnable<? extends Throwable> pAction,
-                                            FailableRunnable<? extends Throwable>... pResources) {
+                                        FailableRunnable<? extends Throwable>... pResources) {
         tryWithResources(pAction, null, pResources);
     }
 
     /**
-     * Rethrow a {@link Throwable} as an unchecked exception.
-     * @param pThrowable The throwable to rethrow
-     * @return Never returns anything, this method never terminates normally
+     * <p>Rethrow a {@link Throwable} as an unchecked exception. If the argument is
+     * already unchecked, namely a {@code RuntimeException} or {@code Error} then
+     * the argument will be rethrown without modification. If the exception is
+     * {@code IOException} then it will be enveloped into a {@code UncheckedIOException}.
+     * In every other cases the exception will be enveloped into a {@code
+     * UndeclaredThrowableException}</p>
+     *
+     * <p>Note that there is a declared return type for this method, even though it
+     * never returns. The reason for that is to support the usual pattern:</p>
+     *
+     * <pre>{@code
+     *      throw rethrow(myUncheckedException);
+     * }</pre>
+     *
+     * <p>instead of just calling the method. This pattern helps the Java compiler to
+     * recognize that at that point an exception will be thrown and the code flow
+     * analysis will not demand otherwise mandatory commands that could follow the
+     * method call, like a {@code return} statement from a value returning method.</p>
+     *
+     * @param pThrowable The throwable to rethrow possibly enveloped into an unchecked exception
+     * @return Never returns anything, this method never terminates normally.
      */
     public static RuntimeException rethrow(Throwable pThrowable) {
         if (pThrowable == null) {
@@ -495,10 +584,26 @@ public class Functions {
             } else if (pThrowable instanceof Error) {
                 throw (Error) pThrowable;
             } else if (pThrowable instanceof IOException) {
-                throw new UncheckedIOException((IOException) pThrowable);
+                throw popStackTrace(new UncheckedIOException((IOException) pThrowable));
             } else {
-                throw new UndeclaredThrowableException(pThrowable);
+                throw popStackTrace(new UndeclaredThrowableException(pThrowable));
             }
         }
+    }
+
+    /**
+     * Remove the last element from the stack trace of the throwable. This method is called
+     * from rethrow and the stack trace modification will show the throwable as if it was
+     * thrown from the line where the method {@link #rethrow(Throwable)} was invoked.
+     *
+     * @param t the throwable that is to be modified
+     * @return the original throwable object but with modified stack trace
+     */
+    private static <T  extends Throwable> T popStackTrace(T t) {
+        final StackTraceElement[] oldTrace = t.getStackTrace();
+        final StackTraceElement[] newTrace = new StackTraceElement[oldTrace.length - 1];
+        System.arraycopy(oldTrace, 1, newTrace, 0, newTrace.length);
+        t.setStackTrace(newTrace);
+        return t;
     }
 }
