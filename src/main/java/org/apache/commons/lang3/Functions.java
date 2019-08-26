@@ -309,7 +309,7 @@ public class Functions {
      * @return the value returned from the callable
      */
     public static <O, T extends Throwable> O call(FailableCallable<O, T> pCallable) {
-        get(() -> pCallable.call());
+        return get(() -> pCallable.call());
     }
 
     /**
