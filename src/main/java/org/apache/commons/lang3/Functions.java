@@ -19,6 +19,14 @@ package org.apache.commons.lang3;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.lang.reflect.UndeclaredThrowableException;
+import java.util.concurrent.Callable;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 
 /** This class provides utility functions, and classes for working with the
@@ -123,6 +131,172 @@ public class Functions {
          * @throws T if the predicate fails
          */
         boolean test(O1 pObject1, O2 pObject2) throws T;
+    }
+    @FunctionalInterface
+    public interface FailableSupplier<O, T extends Throwable> {
+        /**
+         * Supplies an object
+         * @return the suppliers result
+         * @throws T if the supplier fails
+         */
+        O get() throws T;
+    }
+
+    /**
+     * Converts the given {@link FailableRunnable} into a standard {@link Runnable}.
+     *
+     * @param pRunnable a {@code FailableRunnable}
+     * @return a standard {@code Runnable}
+     */
+    public static Runnable asRunnable(FailableRunnable<?> pRunnable) {
+        return () -> {
+            try {
+                pRunnable.run();
+            } catch (Throwable t) {
+                throw rethrow(t);
+            }
+        };
+    }
+
+    /**
+     * Converts the given {@link FailableConsumer} into a standard {@link Consumer}.
+     *
+     * @param <I> the type used by the consumers
+     * @param pConsumer a {@code FailableConsumer}
+     * @return a standard {@code Consumer}
+     */
+    public static <I> Consumer<I> asConsumer(FailableConsumer<I, ?> pConsumer) {
+        return (pInput) -> {
+            try {
+                pConsumer.accept(pInput);
+            } catch (Throwable t) {
+                throw rethrow(t);
+            }
+        };
+    }
+
+    /**
+     * Converts the given {@link FailableCallable} into a standard {@link Callable}.
+     *
+     * @param <O> the type used by the callables
+     * @param pCallable a {@code FailableCallable}
+     * @return a standard {@code Callable}
+     */
+    public static <O> Callable<O> asCallable(FailableCallable<O, ?> pCallable) {
+        return () -> {
+            try {
+                return pCallable.call();
+            } catch (Throwable t) {
+                throw rethrow(t);
+            }
+        };
+    }
+
+    /**
+     * Converts the given {@link FailableBiConsumer} into a standard {@link BiConsumer}.
+     *
+     * @param <I1> the type of the first argument of the consumers
+     * @param <I2> the type of the second argument of the consumers
+     * @param pConsumer a failable {@code BiConsumer}
+     * @return a standard {@code BiConsumer}
+     */
+    public static <I1, I2> BiConsumer<I1, I2> asBiConsumer(FailableBiConsumer<I1, I2, ?> pConsumer) {
+        return (pInput1, pInput2) -> {
+            try {
+                pConsumer.accept(pInput1, pInput2);
+            } catch (Throwable t) {
+                throw rethrow(t);
+            }
+        };
+    }
+
+    /**
+     * Converts the given {@link FailableFunction} into a standard {@link Function}.
+     *
+     * @param <I> the type of the input of the functions
+     * @param <O> the type of the output of the functions
+     * @param pFunction a {code FailableFunction}
+     * @return a standard {@code Function}
+     */
+    public static <I, O> Function<I, O> asFunction(FailableFunction<I, O, ?> pFunction) {
+        return (pInput) -> {
+            try {
+                return pFunction.apply(pInput);
+            } catch (Throwable t) {
+                throw rethrow(t);
+            }
+        };
+    }
+
+    /**
+     * Converts the given {@link FailableBiFunction} into a standard {@link BiFunction}.
+     *
+     * @param <I1> the type of the first argument of the input of the functions
+     * @param <I2> the type of the second argument of the input of the functions
+     * @param <O> the type of the output of the functions
+     * @param pFunction a {@code FailableBiFunction}
+     * @return a standard {@code BiFunction}
+     */
+    public static <I1, I2, O> BiFunction<I1, I2, O> asBiFunction(FailableBiFunction<I1, I2, O, ?> pFunction) {
+        return (pInput1, pInput2) -> {
+            try {
+                return pFunction.apply(pInput1, pInput2);
+            } catch (Throwable t) {
+                throw rethrow(t);
+            }
+        };
+    }
+
+    /**
+     * Converts the given {@link FailablePredicate} into a standard {@link Predicate}.
+     *
+     * @param <I> the type used by the predicates
+     * @param pPredicate a {@code FailablePredicate}
+     * @return a standard {@code Predicate}
+     */
+    public static <I> Predicate<I> asPredicate(FailablePredicate<I, ?> pPredicate) {
+        return (pInput) -> {
+            try {
+                return pPredicate.test(pInput);
+            } catch (Throwable t) {
+                throw rethrow(t);
+            }
+        };
+    }
+
+    /**
+     * Converts the given {@link FailableBiPredicate} into a standard {@link BiPredicate}.
+     *
+     * @param <I1> the type of the first argument used by the predicates
+     * @param <I2> the type of the second argument used by the predicates
+     * @param pPredicate a {@code FailableBiPredicate}
+     * @return a standard {@code BiPredicate}
+     */
+    public static <I1, I2> BiPredicate<I1, I2> asBiPredicate(FailableBiPredicate<I1, I2, ?> pPredicate) {
+        return (pInput1, pInput2) -> {
+            try {
+                return pPredicate.test(pInput1, pInput2);
+            } catch (Throwable t) {
+                throw rethrow(t);
+            }
+        };
+    }
+
+    /**
+     * Converts the given {@link FailableSupplier} into a standard {@link Supplier}.
+     *
+     * @param <O> the type supplied by the suppliers
+     * @param pSupplier a {@code FailableSupplier}
+     * @return a standard {@code Supplier}
+     */
+    public static <O> Supplier<O> asSupplier(FailableSupplier<O, ?> pSupplier) {
+        return () -> {
+            try {
+                return pSupplier.get();
+            } catch (Throwable t) {
+                throw rethrow(t);
+            }
+        };
     }
 
     /**
@@ -254,6 +428,22 @@ public class Functions {
             throw rethrow(t);
         }
     }
+
+    /**
+     * Invokes the supplier, and returns the result.
+     * @param pSupplier The supplier to invoke.
+     * @param <O> The suppliers output type.
+     * @param <T> The type of checked exception, which the supplier can throw.
+     * @return The object, which has been created by the supplier
+     */
+    public static <O, T extends Throwable> O get(FailableSupplier<O, T> pSupplier) {
+        try {
+            return pSupplier.get();
+        } catch (Throwable t) {
+            throw rethrow(t);
+        }
+    }
+
 
     /**
      * A simple try-with-resources implementation, that can be used, if your
