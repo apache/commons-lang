@@ -399,10 +399,10 @@ public class Functions {
      * and regardless of success, or failure. If either the original action, or
      * any of the resource action fails, then the <em>first</em> failure (aka
      * {@link Throwable} is rethrown. Example use:
-     * <pre>
+     * <pre>{@code
      *   final FileInputStream fis = new FileInputStream("my.file");
-     *   Functions.tryWithResources(useInputStream(fis), null, () -&gt; fis.close());
-     * </pre>
+     *   Functions.tryWithResources(useInputStream(fis), null, () -> fis.close());
+     * }</pre>
      * @param pAction The action to execute. This object <em>will</em> always
      *   be invoked.
      * @param pErrorHandler An optional error handler, which will be invoked finally,

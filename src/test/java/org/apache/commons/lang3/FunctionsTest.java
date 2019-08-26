@@ -492,4 +492,9 @@ class FunctionsTest {
         Functions.tryWithResources(() -> consumer.accept(null), co::close);
         assertTrue(co.isClosed());
     }
+
+    @Test
+    void testRethrowNull(){
+        assertThrows(NullPointerException.class, () -> Functions.rethrow(null));
+    }
 }
