@@ -54,17 +54,17 @@ public class ClassUtils {
     }
 
     /**
-     * The package separator character: <code>'&#x2e;' == {@value}</code>.
+     * The package separator character: {@code '&#x2e;' == {@value}}.
      */
     public static final char PACKAGE_SEPARATOR_CHAR = '.';
 
     /**
-     * The package separator String: <code>"&#x2e;"</code>.
+     * The package separator String: {@code "&#x2e;"}.
      */
     public static final String PACKAGE_SEPARATOR = String.valueOf(PACKAGE_SEPARATOR_CHAR);
 
     /**
-     * The inner class separator character: <code>'$' == {@value}</code>.
+     * The inner class separator character: {@code '$' == {@value}}.
      */
     public static final char INNER_CLASS_SEPARATOR_CHAR = '$';
 
@@ -162,11 +162,15 @@ public class ClassUtils {
     // Short class name
     // ----------------------------------------------------------------------
     /**
-     * <p>Gets the class name minus the package name for an {@code Object}.</p>
+     * <p>Gets the class name of the {@code object} without the package name or names.</p>
      *
-     * @param object  the class to get the short name for, may be null
-     * @param valueIfNull  the value to return if null
-     * @return the class name of the object without the package name, or the null value
+     * <p>The method looks up the class of the object and then converts the name of the class invoking
+     * {@link #getShortClassName(Class)} (see relevant notes there).</p>
+     *
+     * @param object  the class to get the short name for, may be {@code null}
+     * @param valueIfNull  the value to return if the object is {@code null}
+     * @return the class name of the object without the package name, or {@code valueIfNull}
+     *         if the argument {@code object} is {@code null}
      */
     public static String getShortClassName(final Object object, final String valueIfNull) {
         if (object == null) {
@@ -178,12 +182,13 @@ public class ClassUtils {
     /**
      * <p>Gets the class name minus the package name from a {@code Class}.</p>
      *
-     * <p>Consider using the Java 5 API {@link Class#getSimpleName()} instead.
-     * The one known difference is that this code will return {@code "Map.Entry"} while
-     * the {@code java.lang.Class} variant will simply return {@code "Entry"}. </p>
+     * <p>This method simply gets the name using {@code Class.getName()} and then calls
+     * {@link #getShortClassName(Class)}. See relevant notes there.</p>
      *
      * @param cls  the class to get the short name for.
-     * @return the class name without the package name or an empty string
+     * @return the class name without the package name or an empty string. If the class
+     *         is an inner class then the returned value will contain the outer class
+     *         or classes separated with {@code .} (dot) character.
      */
     public static String getShortClassName(final Class<?> cls) {
         if (cls == null) {
@@ -195,14 +200,27 @@ public class ClassUtils {
     /**
      * <p>Gets the class name minus the package name from a String.</p>
      *
-     * <p>The string passed in is assumed to be a class name - it is not checked.</p>
-
-     * <p>Note that this method differs from Class.getSimpleName() in that this will
-     * return {@code "Map.Entry"} whilst the {@code java.lang.Class} variant will simply
-     * return {@code "Entry"}. </p>
+     * <p>The string passed in is assumed to be a class name - it is not checked. The string has to be formatted the way
+     * as the JDK method {@code Class.getName()} returns it, and not the usual way as we write it, for example in import
+     * statements, or as it is formatted by {@code Class.getCanonicalName()}.</p>
      *
-     * @param className  the className to get the short name for
-     * @return the class name of the class without the package name or an empty string
+     * <p>The difference is is significant only in case of classes that are inner classes of some other
+     * classes. In this case the separator between the outer and inner class (possibly on multiple hierarchy level) has
+     * to be {@code $} (dollar sign) and not {@code .} (dot), as it is returned by {@code Class.getName()}</p>
+     *
+     * <p>Note that this method is called from the {@link #getShortClassName(Class)} method using the string
+     * returned by {@code Class.getName()}.</p>
+     *
+     * <p>Note that this method differs from {@link #getSimpleName(Class)} in that this will
+     * return, for example {@code "Map.Entry"} whilst the {@code java.lang.Class} variant will simply
+     * return {@code "Entry"}. In this example the argument {@code className} is the string
+     * {@code java.util.Map$Entry} (note the {@code $} sign.</p>
+     *
+     * @param className  the className to get the short name for. It has to be formatted as returned by
+     *                   {@code Class.getName()} and not {@code Class.getCanonicalName()}
+     * @return the class name of the class without the package name or an empty string. If the class is
+     *         an inner class then value contains the outer class or classes and the separator is replaced
+     *         to be {@code .} (dot) character.
      */
     public static String getShortClassName(String className) {
         if (StringUtils.isEmpty(className)) {
@@ -238,10 +256,10 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Null-safe version of <code>aClass.getSimpleName()</code></p>
+     * <p>Null-safe version of {@code cls.getSimpleName()}</p>
      *
      * @param cls the class for which to get the simple name; may be null
-     * @return the simple class name.
+     * @return the simple class name or the empty string in case the argument is {@code null}
      * @since 3.0
      * @see Class#getSimpleName()
      */
@@ -250,11 +268,12 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Null-safe version of <code>aClass.getSimpleName()</code></p>
+     * <p>Null-safe version of {@code cls.getSimpleName()}</p>
      *
      * @param cls the class for which to get the simple name; may be null
      * @param valueIfNull  the value to return if null
-     * @return the simple class name or {@code valueIfNull}
+     * @return the simple class name or {@code valueIfNull} if the
+     *         argument {@code cls} is {@code null}
      * @since 3.0
      * @see Class#getSimpleName()
      */
@@ -263,10 +282,16 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Null-safe version of <code>aClass.getSimpleName()</code></p>
+     * <p>Null-safe version of {@code object.getClass().getSimpleName()}</p>
+     *
+     * <p>It is to note that this method is overloaded and in case the argument {@code object} is a
+     * {@code Class} object then the {@link #getSimpleName(Class)} will be invoked. If this is
+     * a significant possibility then the caller should check this case and call {@code
+     * getSimpleName(Class.class)} or just simply use the string literal {@code "Class"}, which
+     * is the result of the method in that case.</p>
      *
      * @param object the object for which to get the simple class name; may be null
-     * @return the simple class name or the empty String
+     * @return the simple class name or the empty string in case the argument is {@code null}
      * @since 3.7
      * @see Class#getSimpleName()
      */
@@ -275,11 +300,12 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Null-safe version of <code>aClass.getSimpleName()</code></p>
+     * <p>Null-safe version of {@code object.getClass().getSimpleName()}</p>
      *
      * @param object the object for which to get the simple class name; may be null
-     * @param valueIfNull the value to return if <code>object</code> is <code>null</code>
-     * @return the simple class name or {@code valueIfNull}
+     * @param valueIfNull the value to return if {@code object} is {@code null}
+     * @return the simple class name or {@code valueIfNull} if the
+     *         argument {@code object} is {@code null}
      * @since 3.0
      * @see Class#getSimpleName()
      */
@@ -288,10 +314,10 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Null-safe version of <code>Class.getName()</code></p>
+     * <p>Null-safe version of {@code cls.getName()}</p>
      *
      * @param cls the class for which to get the class name; may be null
-     * @return the class name or the empty String.
+     * @return the class name or the empty string in case the argument is {@code null}
      * @since 3.7
      * @see Class#getSimpleName()
      */
@@ -300,10 +326,10 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Null-safe version of <code>aClass.getName()</code></p>
+     * <p>Null-safe version of {@code cls.getName()}</p>
      *
      * @param cls the class for which to get the class name; may be null
-     * @param valueIfNull the return value if <code>cls</code> is <code>null</code>
+     * @param valueIfNull the return value if the argument {@code cls} is {@code null}
      * @return the class name or {@code valueIfNull}
      * @since 3.7
      * @see Class#getName()
@@ -313,7 +339,7 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Null-safe version of <code>Class.getName()</code></p>
+     * <p>Null-safe version of {@code object.getClass().getName()}</p>
      *
      * @param object the object for which to get the class name; may be null
      * @return the class name or the empty String
@@ -325,10 +351,10 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Null-safe version of <code>aClass.getSimpleName()</code></p>
+     * <p>Null-safe version of {@code object.getClass().getSimpleName()}</p>
      *
      * @param object the object for which to get the class name; may be null
-     * @param valueIfNull the value to return if <code>object</code> is <code>null</code>
+     * @param valueIfNull the value to return if {@code object} is {@code null}
      * @return the class name or {@code valueIfNull}
      * @since 3.0
      * @see Class#getName()
@@ -1253,7 +1279,41 @@ public class ClassUtils {
     /**
      * <p>Gets the canonical name minus the package name from a String.</p>
      *
-     * <p>The string passed in is assumed to be a canonical name - it is not checked.</p>
+     * <p>The string passed in is assumed to be a class name - it is not checked.</p>
+     *
+     * <p>Note that this method is mainly designed to handle the arrays and primitives properly.
+     * If the class is an inner class then the result value will not contain the outer classes.
+     * This way the behavior of this method is different from {@link #getShortClassName(String)}.
+     * The argument in that case is class name and not canonical name and the return value
+     * retains the outer classes.</p>
+     *
+     * <p>Note that there is no way to reliably identify the part of the string representing the
+     * package hierarchy and the part that is the outer class or classes in case of an inner class.
+     * Trying to find the class would require reflective call and the class itself may not even be
+     * on the class path. Relying on the fact that class names start with capital letter and packages
+     * with lower case is heuristic.</p>
+     *
+     * <p>It is recommended to use {@link #getShortClassName(String)} for cases when the class
+     * is an inner class and use this method for cases it is designed for.</p>
+     *
+     * <table>
+     * <caption>Examples</caption>
+     * <tr><td>return value</td><td>input</td></tr>
+     * <tr><td>{@code ""}</td><td>{@code (String)null}</td></tr>
+     * <tr><td>{@code "Map.Entry"}</td><td>{@code java.util.Map.Entry.class.getName()}</td></tr>
+     * <tr><td>{@code "Entry"}</td><td>{@code java.util.Map.Entry.class.getCanonicalName()}</td></tr>
+     * <tr><td>{@code "ClassUtils"}</td><td>{@code "org.apache.commons.lang3.ClassUtils"}</td></tr>
+     * <tr><td>{@code "ClassUtils[]"}</td><td>{@code "[Lorg.apache.commons.lang3.ClassUtils;"}</td></tr>
+     * <tr><td>{@code "ClassUtils[][]"}</td><td>{@code "[[Lorg.apache.commons.lang3.ClassUtils;"}</td></tr>
+     * <tr><td>{@code "ClassUtils[]"}</td><td>{@code "org.apache.commons.lang3.ClassUtils[]"}</td></tr>
+     * <tr><td>{@code "ClassUtils[][]"}</td><td>{@code "org.apache.commons.lang3.ClassUtils[][]"}</td></tr>
+     * <tr><td>{@code "int[]"}</td><td>{@code "[I"}</td></tr>
+     * <tr><td>{@code "int[]"}</td><td>{@code int[].class.getCanonicalName()}</td></tr>
+     * <tr><td>{@code "int[]"}</td><td>{@code int[].class.getName()}</td></tr>
+     * <tr><td>{@code "int[][]"}</td><td>{@code "[[I"}</td></tr>
+     * <tr><td>{@code "int[]"}</td><td>{@code "int[]"}</td></tr>
+     * <tr><td>{@code "int[][]"}</td><td>{@code "int[][]"}</td></tr>
+     * </table>
      *
      * @param canonicalName  the class name to get the short name for
      * @return the canonical name of the class without the package name or an empty string
@@ -1266,7 +1326,7 @@ public class ClassUtils {
     // Package name
     // ----------------------------------------------------------------------
     /**
-     * <p>Gets the package name from the canonical name of an {@code Object}.</p>
+     * <p>Gets the package name from the class name of an {@code Object}.</p>
      *
      * @param object  the class to get the package name for, may be null
      * @param valueIfNull  the value to return if null
@@ -1295,23 +1355,27 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Gets the package name from the canonical name. </p>
+     * <p>Gets the package name from the class name. </p>
      *
-     * <p>The string passed in is assumed to be a canonical name - it is not checked.</p>
-     * <p>If the class is unpackaged, return an empty string.</p>
+     * <p>The string passed in is assumed to be a class name - it is not checked.</p>
+     * <p>If the class is in the default package, return an empty string.</p>
      *
-     * @param canonicalName  the canonical name to get the package name for, may be {@code null}
+     * @param name  the name to get the package name for, may be {@code null}
      * @return the package name or an empty string
      * @since 2.4
      */
-    public static String getPackageCanonicalName(final String canonicalName) {
-        return getPackageName(getCanonicalName(canonicalName));
+    public static String getPackageCanonicalName(final String name) {
+        return getPackageName(getCanonicalName(name));
     }
 
     /**
      * <p>Converts a given name of class into canonical format.
      * If name of class is not a name of array class it returns
      * unchanged name.</p>
+     *
+     * <p>The method does not change the {@code $} separators in case
+     * the class is inner class.</p>
+     *
      * <p>Example:
      * <ul>
      * <li>{@code getCanonicalName("[I") = "int[]"}</li>
