@@ -538,7 +538,9 @@ public class ClassUtilsTest  {
         assertEquals("[I", int[].class.getName());
 
         // Inner types... the problem is that these are not canonical names, classes with this name do not even have canonical name
+        // WARNING: this is fragile, implementation may change, naming is not guaranteed
         assertEquals("ClassUtilsTest.6", ClassUtils.getShortCanonicalName("org.apache.commons.lang3.ClassUtilsTest$6"));
+      // WARNING: this is fragile, implementation may change, naming is not guaranteed
         assertEquals("ClassUtilsTest.5Named", ClassUtils.getShortCanonicalName("org.apache.commons.lang3.ClassUtilsTest$5Named"));
         assertEquals("ClassUtilsTest.Inner", ClassUtils.getShortCanonicalName("org.apache.commons.lang3.ClassUtilsTest$Inner"));
         // demonstrating what a canonical name is... it is a bigger issue to clean this up
@@ -585,9 +587,11 @@ public class ClassUtilsTest  {
         class Named {
             // empty
         }
-        assertEquals("ClassUtilsTest.10", ClassUtils.getShortClassName(new Object() {
+      // WARNING: this is fragile, implementation may change, naming is not guaranteed
+        assertEquals("ClassUtilsTest.12", ClassUtils.getShortClassName(new Object() {
             // empty
         }.getClass()));
+        // WARNING: this is fragile, implementation may change, naming is not guaranteed
         assertEquals("ClassUtilsTest.10Named", ClassUtils.getShortClassName(Named.class));
         assertEquals("ClassUtilsTest.Inner", ClassUtils.getShortClassName(Inner.class));
     }
@@ -604,9 +608,11 @@ public class ClassUtilsTest  {
         class Named {
             // empty
         }
-        assertEquals("ClassUtilsTest.11", ClassUtils.getShortClassName(new Object() {
+      // WARNING: this is fragile, implementation may change, naming is not guaranteed
+        assertEquals("ClassUtilsTest.13", ClassUtils.getShortClassName(new Object() {
             // empty
         }, "<null>"));
+        // WARNING: this is fragile, implementation may change, naming is not guaranteed
         assertEquals("ClassUtilsTest.11Named", ClassUtils.getShortClassName(new Named(), "<null>"));
         assertEquals("ClassUtilsTest.Inner", ClassUtils.getShortClassName(new Inner(), "<null>"));
     }
