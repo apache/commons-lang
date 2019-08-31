@@ -602,7 +602,7 @@
     <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
     <checkstyle.version>8.23</checkstyle.version>
 
-    <spotbugs.plugin.version>3.1.11</spotbugs.plugin.version>
+    <spotbugs.plugin.version>3.1.12.2</spotbugs.plugin.version>
     <japicmp.skip>false</japicmp.skip>
 
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
@@ -915,8 +915,6 @@
       <properties>
         <!-- jacoco does not work with java 13 yet -->
         <jacoco.skip>true</jacoco.skip>
-        <!-- spotbugs does not work on java 13 yet, "java.lang.IllegalArgumentException: Unsupported class file major version 57" -->
-        <spotbugs.skip>true</spotbugs.skip>
       </properties>
     </profile>
 
