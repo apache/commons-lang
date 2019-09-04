@@ -18,6 +18,8 @@ package org.apache.commons.lang3;
 
 import java.util.UUID;
 
+import org.apache.commons.lang3.exception.IllegalArgumentExceptions;
+
 
 /**
  * <p>
@@ -95,7 +97,7 @@ public class Conversion {
     public static int hexDigitToInt(final char hexDigit) {
         final int digit = Character.digit(hexDigit, 16);
         if (digit < 0) {
-            throw new IllegalArgumentException("Cannot interpret '" + hexDigit + "' as a hexadecimal digit");
+            throw IllegalArgumentExceptions.format("Cannot interpret '%s' as a hexadecimal digit", hexDigit);
         }
         return digit;
     }
@@ -153,7 +155,7 @@ public class Conversion {
         case 'F':
             return 0xF;
         default:
-            throw new IllegalArgumentException("Cannot interpret '" + hexDigit + "' as a hexadecimal digit");
+            throw IllegalArgumentExceptions.format("Cannot interpret '%s' as a hexadecimal digit", hexDigit);
         }
     }
 
@@ -211,7 +213,7 @@ public class Conversion {
         case 'F':
             return TTTT.clone();
         default:
-            throw new IllegalArgumentException("Cannot interpret '" + hexDigit + "' as a hexadecimal digit");
+            throw IllegalArgumentExceptions.format("Cannot interpret '%s' as a hexadecimal digit", hexDigit);
         }
     }
 
@@ -269,7 +271,7 @@ public class Conversion {
         case 'F':
             return TTTT.clone();
         default:
-            throw new IllegalArgumentException("Cannot interpret '" + hexDigit + "' as a hexadecimal digit");
+            throw IllegalArgumentExceptions.format("Cannot interpret '%s' as a hexadecimal digit", hexDigit);
         }
     }
 
@@ -372,10 +374,11 @@ public class Conversion {
      */
     public static char binaryToHexDigitMsb0_4bits(final boolean[] src, final int srcPos) {
         if (src.length > 8) {
-            throw new IllegalArgumentException("src.length>8: src.length=" + src.length);
+            throw IllegalArgumentExceptions.format("src.length>8: src.length=%,d");
         }
         if (src.length - srcPos < 4) {
-            throw new IllegalArgumentException("src.length-srcPos<4: src.length=" + src.length + ", srcPos=" + srcPos);
+            throw IllegalArgumentExceptions.format("src.length-srcPos<4: src.length=%,d, srcPos=%,d", src.length,
+                    srcPos);
         }
         if (src[srcPos + 3]) {
             if (src[srcPos + 2]) {

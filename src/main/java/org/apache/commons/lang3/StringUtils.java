@@ -27,6 +27,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.exception.IllegalArgumentExceptions;
+
 /**
  * <p>Operations on {@link java.lang.String} that are
  * {@code null} safe.</p>
@@ -341,7 +343,7 @@ public class StringUtils {
         final int minAbbrevWidthOffset = abbrevMarkerLength + abbrevMarkerLength + 1;
 
         if (maxWidth < minAbbrevWidth) {
-            throw new IllegalArgumentException(String.format("Minimum abbreviation width is %d", minAbbrevWidth));
+            throw IllegalArgumentExceptions.format("Minimum abbreviation width is %d", minAbbrevWidth);
         }
         if (str.length() <= maxWidth) {
             return str;
@@ -356,7 +358,7 @@ public class StringUtils {
             return str.substring(0, maxWidth - abbrevMarkerLength) + abbrevMarker;
         }
         if (maxWidth < minAbbrevWidthOffset) {
-            throw new IllegalArgumentException(String.format("Minimum abbreviation width with offset is %d", minAbbrevWidthOffset));
+            throw IllegalArgumentExceptions.format("Minimum abbreviation width with offset is %d", minAbbrevWidthOffset);
         }
         if (offset + maxWidth - abbrevMarkerLength < str.length()) {
             return abbrevMarker + abbreviate(str.substring(offset), abbrevMarker, maxWidth - abbrevMarkerLength);
@@ -6654,10 +6656,8 @@ public class StringUtils {
 
         // make sure lengths are ok, these need to be equal
         if (searchLength != replacementLength) {
-            throw new IllegalArgumentException("Search and Replace array lengths don't match: "
-                + searchLength
-                + " vs "
-                + replacementLength);
+            throw IllegalArgumentExceptions.format("Search and Replace array lengths don't match: %s vs %s",
+                    searchLength, replacementLength);
         }
 
         // keep track of which still have matches

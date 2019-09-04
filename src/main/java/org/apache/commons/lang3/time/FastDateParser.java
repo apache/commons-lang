@@ -39,6 +39,8 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.exception.IllegalArgumentExceptions;
+
 /**
  * <p>FastDateParser is a fast and thread-safe version of
  * {@link java.text.SimpleDateFormat}.</p>
@@ -557,7 +559,7 @@ public class FastDateParser implements DateParser, Serializable {
     private Strategy getStrategy(final char f, final int width, final Calendar definingCalendar) {
         switch(f) {
         default:
-            throw new IllegalArgumentException("Format '"+f+"' not supported");
+            throw IllegalArgumentExceptions.format("Format '%s' not supported", f);
         case 'D':
             return DAY_OF_YEAR_STRATEGY;
         case 'E':

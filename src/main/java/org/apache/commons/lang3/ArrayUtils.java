@@ -28,6 +28,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.commons.lang3.exception.IllegalArgumentExceptions;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.mutable.MutableInt;
 
@@ -267,15 +268,13 @@ public class ArrayUtils {
             } else if (object instanceof Object[]) {
                 final Object[] entry = (Object[]) object;
                 if (entry.length < 2) {
-                    throw new IllegalArgumentException("Array element " + i + ", '"
-                        + object
-                        + "', has a length less than 2");
+                    throw IllegalArgumentExceptions.format("Array element %,d, '%s', has a length less than 2", i,
+                            object);
                 }
                 map.put(entry[0], entry[1]);
             } else {
-                throw new IllegalArgumentException("Array element " + i + ", '"
-                        + object
-                        + "', is neither of type Map.Entry nor an Array");
+                throw IllegalArgumentExceptions
+                        .format("Array element %,d, '%s', is neither of type Map.Entry nor an Array", i, object);
             }
         }
         return map;
@@ -5098,8 +5097,8 @@ public class ArrayUtils {
              */
             final Class<?> type2 = array2.getClass().getComponentType();
             if (!type1.isAssignableFrom(type2)) {
-                throw new IllegalArgumentException("Cannot store " + type2.getName() + " in an array of "
-                        + type1.getName(), ase);
+                throw IllegalArgumentExceptions.format(ase, "Cannot store %s in an array of %s", type2.getName(),
+                        type1.getName(), ase);
             }
             throw ase; // No, so rethrow original
         }

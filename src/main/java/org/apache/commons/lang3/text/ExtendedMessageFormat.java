@@ -28,6 +28,7 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.exception.IllegalArgumentExceptions;
 
 /**
  * Extends <code>java.text.MessageFormat</code> to allow pluggable/additional formatting
@@ -184,8 +185,7 @@ public class ExtendedMessageFormat extends MessageFormat {
                 Validate.isTrue(foundFormats.size() == fmtCount);
                 Validate.isTrue(foundDescriptions.size() == fmtCount);
                 if (c[pos.getIndex()] != END_FE) {
-                    throw new IllegalArgumentException(
-                            "Unreadable format element at position " + start);
+                    throw IllegalArgumentExceptions.format("Unreadable format element at position %,d", start);
                 }
                 //$FALL-THROUGH$
             default:
@@ -351,9 +351,8 @@ public class ExtendedMessageFormat extends MessageFormat {
             result.append(c);
         }
         if (error) {
-            throw new IllegalArgumentException(
-                    "Invalid format argument index at position " + start + ": "
-                            + pattern.substring(start, pos.getIndex()));
+            throw IllegalArgumentExceptions.format("Invalid format argument index at position %,d: %s", start,
+                    pattern.substring(start, pos.getIndex()));
         }
         throw new IllegalArgumentException(
                 "Unterminated format element at position " + start);
@@ -389,8 +388,7 @@ public class ExtendedMessageFormat extends MessageFormat {
                 break;
             }
         }
-        throw new IllegalArgumentException(
-                "Unterminated format element at position " + start);
+        throw IllegalArgumentExceptions.format("Unterminated format element at position %,d", start);
     }
 
     /**
@@ -494,8 +492,7 @@ public class ExtendedMessageFormat extends MessageFormat {
             }
             next(pos);
         }
-        throw new IllegalArgumentException(
-                "Unterminated quoted string at position " + start);
+        throw IllegalArgumentExceptions.format("Unterminated quoted string at position %,d", start);
     }
 
     /**

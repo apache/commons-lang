@@ -27,6 +27,7 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.exception.IllegalArgumentExceptions;
 
 /**
  * <p>A suite of utilities surrounding the use of the
@@ -1095,7 +1096,7 @@ public class DateUtils {
                 val.set(aField[0], val.get(aField[0]) - offset);
             }
         }
-        throw new IllegalArgumentException("The field " + field + " is not supported");
+        throw IllegalArgumentExceptions.format("The field %s is not supported", field);
 
     }
 
@@ -1206,7 +1207,7 @@ public class DateUtils {
                 }
                 break;
             default:
-                throw new IllegalArgumentException("The range style " + rangeStyle + " is not valid.");
+                throw IllegalArgumentExceptions.format("The range style %s is not valid.", rangeStyle);
         }
         if (startCutoff < Calendar.SUNDAY) {
             startCutoff += 7;
@@ -1706,7 +1707,7 @@ public class DateUtils {
                 result += unit.convert(calendar.get(Calendar.MILLISECOND), TimeUnit.MILLISECONDS);
                 break;
             case Calendar.MILLISECOND: break; //never useful
-                default: throw new IllegalArgumentException("The fragment " + fragment + " is not supported");
+                default: throw IllegalArgumentExceptions.format("The fragment %s is not supported", fragment);
         }
         return result;
     }

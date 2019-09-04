@@ -19,6 +19,8 @@ package org.apache.commons.lang3;
 import java.io.Serializable;
 import java.util.Comparator;
 
+import org.apache.commons.lang3.exception.IllegalArgumentExceptions;
+
 /**
  * <p>An immutable range of objects from a minimum to maximum point inclusive.</p>
  *
@@ -165,8 +167,8 @@ public final class Range<T> implements Serializable {
     @SuppressWarnings("unchecked")
     private Range(final T element1, final T element2, final Comparator<T> comp) {
         if (element1 == null || element2 == null) {
-            throw new IllegalArgumentException("Elements in a range must not be null: element1=" +
-                                               element1 + ", element2=" + element2);
+            throw IllegalArgumentExceptions.format("Elements in a range must not be null: element1=%s, element2=%s",
+                    element1, element2);
         }
         if (comp == null) {
             this.comparator = ComparableComparator.INSTANCE;
@@ -318,8 +320,8 @@ public final class Range<T> implements Serializable {
      */
     public Range<T> intersectionWith(final Range<T> other) {
         if (!this.isOverlappedBy(other)) {
-            throw new IllegalArgumentException(String.format(
-                "Cannot calculate intersection with non-overlapping range %s", other));
+            throw IllegalArgumentExceptions.format("Cannot calculate intersection with non-overlapping range %s",
+                    other);
         }
         if (this.equals(other)) {
             return this;
