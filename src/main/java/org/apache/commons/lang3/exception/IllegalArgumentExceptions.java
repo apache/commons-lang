@@ -23,7 +23,7 @@ package org.apache.commons.lang3.exception;
  * <p>
  * Originally from Apache Commons Text.
  * </p>
- * 
+ *
  * @since 3.10
  */
 public final class IllegalArgumentExceptions {
