@@ -148,14 +148,14 @@ public class DiffResultTest {
     }
 
     @Test
-    public void testGetLhs() {
-        final SimpleClass lhs = new SimpleClass(true);
-        final SimpleClass rhs = new SimpleClass(false);
+    public void testLeftAndRightGetters() {
+        final SimpleClass left = new SimpleClass(true);
+        final SimpleClass right = new SimpleClass(false);
 
-        final List<Diff<?>> diffs = lhs.diff(rhs).getDiffs();
-        final DiffResult diffResult = new DiffResult(lhs, rhs, diffs, SHORT_STYLE);
+        final List<Diff<?>> diffs = left.diff(right).getDiffs();
+        final DiffResult diffResult = new DiffResult(left, right, diffs, SHORT_STYLE);
 
-        assertEquals(lhs, diffResult.getLhs());
-        assertEquals(rhs, diffResult.getRhs());
+        assertEquals(left, diffResult.getLeft());
+        assertEquals(right, diffResult.getRight());
     }
 }
