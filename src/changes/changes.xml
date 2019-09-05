@@ -63,6 +63,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1477" type="add" dev="jochen">Added Functions.as*, and tests thereof, as suggested by Peter Verhas</action>
     <action issue="LANG-1475" type="fix" dev="kinow" due-to="stzx">StringUtils.unwrap incorrect throw StringIndexOutOfBoundsException.</action>
     <action issue="LANG-1485" type="add" dev="ggregory" due-to="nicolasbd">Add getters for lhs and rhs objects in DiffResult #451.</action>
+    <action issue="LANG-1486" type="add" dev="ggregory" due-to="Gary Gregory">Generify builder classes Diffable, DiffBuilder, and DiffResult #452.</action>
   </release>
 
   <release version="3.9" date="2019-04-09" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11">
