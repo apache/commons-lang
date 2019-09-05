@@ -543,16 +543,15 @@ public class Functions {
     public static RuntimeException rethrow(Throwable pThrowable) {
         if (pThrowable == null) {
             throw new NullPointerException("The Throwable must not be null.");
+        }
+        if (pThrowable instanceof RuntimeException) {
+            throw (RuntimeException) pThrowable;
+        } else if (pThrowable instanceof Error) {
+            throw (Error) pThrowable;
+        } else if (pThrowable instanceof IOException) {
+            throw new UncheckedIOException((IOException) pThrowable);
         } else {
-            if (pThrowable instanceof RuntimeException) {
-                throw (RuntimeException) pThrowable;
-            } else if (pThrowable instanceof Error) {
-                throw (Error) pThrowable;
-            } else if (pThrowable instanceof IOException) {
-                throw new UncheckedIOException((IOException) pThrowable);
-            } else {
-                throw new UndeclaredThrowableException(pThrowable);
-            }
+            throw new UndeclaredThrowableException(pThrowable);
         }
     }
 }
