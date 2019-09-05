@@ -89,6 +89,22 @@ public class DiffResult implements Iterable<Diff<?>> {
     }
 
     /**
+     * <p>Return the object the right object has been compared to</p>
+     * @return the left object of the diff
+     */
+    public Object getLhs() {
+        return this.lhs;
+    }
+
+    /**
+     * <p>Return the object the left object has been compared to</p>
+     * @return the right object of the diff
+     */
+    public Object getRhs() {
+        return this.rhs;
+    }
+
+    /**
      * <p>
      * Returns an unmodifiable list of {@code Diff}s. The list may be empty if
      * there were no differences between the objects.

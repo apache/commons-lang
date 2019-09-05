@@ -146,4 +146,16 @@ public class DiffResultTest {
                 SHORT_STYLE).build();
         assertEquals(DiffResult.OBJECTS_SAME_STRING, diffResult.toString());
     }
+
+    @Test
+    public void testGetLhs() {
+        final SimpleClass lhs = new SimpleClass(true);
+        final SimpleClass rhs = new SimpleClass(false);
+
+        final List<Diff<?>> diffs = lhs.diff(rhs).getDiffs();
+        final DiffResult diffResult = new DiffResult(lhs, rhs, diffs, SHORT_STYLE);
+
+        assertEquals(lhs, diffResult.getLhs());
+        assertEquals(rhs, diffResult.getRhs());
+    }
 }
