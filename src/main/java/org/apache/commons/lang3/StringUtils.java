@@ -6656,7 +6656,7 @@ public class StringUtils {
 
         // make sure lengths are ok, these need to be equal
         if (searchLength != replacementLength) {
-            throw IllegalArgumentExceptions.format("Search and Replace array lengths don't match: %s vs %s",
+            throw IllegalArgumentExceptions.format("Search and Replace array lengths don't match: %,d vs %,d",
                     searchLength, replacementLength);
         }
 
