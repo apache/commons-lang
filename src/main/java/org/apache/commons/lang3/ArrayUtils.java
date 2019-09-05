@@ -5098,7 +5098,7 @@ public class ArrayUtils {
             final Class<?> type2 = array2.getClass().getComponentType();
             if (!type1.isAssignableFrom(type2)) {
                 throw IllegalArgumentExceptions.format(ase, "Cannot store %s in an array of %s", type2.getName(),
-                        type1.getName(), ase);
+                        type1.getName());
             }
             throw ase; // No, so rethrow original
         }
