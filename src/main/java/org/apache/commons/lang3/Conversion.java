@@ -97,7 +97,7 @@ public class Conversion {
     public static int hexDigitToInt(final char hexDigit) {
         final int digit = Character.digit(hexDigit, 16);
         if (digit < 0) {
-            throw IllegalArgumentExceptions.format("Cannot interpret '%s' as a hexadecimal digit", hexDigit);
+            throw IllegalArgumentExceptions.format("Cannot interpret '%d' as a hexadecimal digit", hexDigit);
         }
         return digit;
     }
@@ -155,7 +155,7 @@ public class Conversion {
         case 'F':
             return 0xF;
         default:
-            throw IllegalArgumentExceptions.format("Cannot interpret '%s' as a hexadecimal digit", hexDigit);
+            throw IllegalArgumentExceptions.format("Cannot interpret '%d' as a hexadecimal digit", hexDigit);
         }
     }
 
@@ -213,7 +213,7 @@ public class Conversion {
         case 'F':
             return TTTT.clone();
         default:
-            throw IllegalArgumentExceptions.format("Cannot interpret '%s' as a hexadecimal digit", hexDigit);
+            throw IllegalArgumentExceptions.format("Cannot interpret '%d' as a hexadecimal digit", hexDigit);
         }
     }
 
@@ -271,7 +271,7 @@ public class Conversion {
         case 'F':
             return TTTT.clone();
         default:
-            throw IllegalArgumentExceptions.format("Cannot interpret '%s' as a hexadecimal digit", hexDigit);
+            throw IllegalArgumentExceptions.format("Cannot interpret '%d' as a hexadecimal digit", hexDigit);
         }
     }
 
