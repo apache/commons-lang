@@ -89,18 +89,20 @@ public class DiffResult implements Iterable<Diff<?>> {
     }
 
     /**
-     * <p>Gets the object the right object has been compared to.</p>
-     * @since 3.10
+     * <p>Returns the object the right object has been compared to.</p>
+     *
      * @return the left object of the diff
+     * @since 3.10
      */
     public Object getLeft() {
         return this.lhs;
     }
 
     /**
-     * <p>Gets the object the left object has been compared to.</p>
-     * @ 3.10
+     * <p>Returns the object the left object has been compared to.</p>
+     *
      * @return the right object of the diff
+     * @since 3.10
      */
     public Object getRight() {
         return this.rhs;
