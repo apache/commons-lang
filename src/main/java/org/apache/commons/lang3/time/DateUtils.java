@@ -1837,7 +1837,7 @@ public class DateUtils {
         /**
          * Always throws UnsupportedOperationException.
          *
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException Always thrown.
          * @see java.util.Iterator#remove()
          */
         @Override
