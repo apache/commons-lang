@@ -108,7 +108,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      * @param pair the existing pair.
      * @return a pair formed from the two parameters, not null
      */
-    public static <L, R> ImmutablePair<L, R> of(final Map.Entry<L,R> pair) {
+    public static <L, R> ImmutablePair<L, R> of(final Map.Entry<L, R> pair) {
         return new ImmutablePair<>(pair);
     }
 
