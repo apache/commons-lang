@@ -47,12 +47,28 @@ public class MutablePairTest {
 
     @Test
     public void testBasic() {
-        final MutablePair<Integer, String> pair = new MutablePair<>(0, "foo");
-        assertEquals(0, pair.getLeft().intValue());
-        assertEquals("foo", pair.getRight());
-        final MutablePair<Object, String> pair2 = new MutablePair<>(null, "bar");
-        assertNull(pair2.getLeft());
-        assertEquals("bar", pair2.getRight());
+        MutablePair<Integer, String> oldPair = new MutablePair<>(0, "foo");
+        MutablePair<Integer, String> nowPair;
+        for(int i=0;i<4;i++) {
+            nowPair = MutablePair.of(oldPair);
+            assertEquals(0, nowPair.left.intValue());
+            assertEquals(0, nowPair.getLeft().intValue());
+            assertEquals("foo", nowPair.right);
+            assertEquals("foo", nowPair.getRight());
+            assertEquals(oldPair, nowPair);
+            oldPair = nowPair;
+        }
+
+        MutablePair<Object, String> oldPair2 = new MutablePair<>(null, "bar");
+        MutablePair<Object, String> nowPair2;
+        for(int i=0;i<4;i++) {
+            nowPair2 = MutablePair.of(oldPair2);
+            assertNull(nowPair2.left);
+            assertNull(nowPair2.getLeft());
+            assertEquals("bar", nowPair2.right);
+            assertEquals("bar", nowPair2.getRight());
+            oldPair2 = nowPair2;
+        }
     }
 
     @Test
