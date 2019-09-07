@@ -19,8 +19,11 @@ package org.apache.commons.lang3.builder;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * <p>
@@ -36,7 +39,7 @@ import org.apache.commons.lang3.Validate;
  *
  * @since 3.3
  */
-public class DiffResult<T> implements Iterable<Diff<?>> {
+public class DiffResult<T> extends Pair<T,T> implements Iterable<Diff<?>> {
 
     /**
      * <p>
@@ -49,8 +52,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     private static final String DIFFERS_STRING = "differs from";
 
     private final List<Diff<?>> diffs;
-    private final T lhs;
-    private final T rhs;
+    private final ImmutablePair<T,T> objectPair;
     private final ToStringStyle style;
 
     /**
@@ -79,8 +81,41 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
         Validate.isTrue(diffs != null, "List of differences cannot be null");
 
         this.diffs = diffs;
-        this.lhs = lhs;
-        this.rhs = rhs;
+        this.objectPair = new ImmutablePair<>(lhs,rhs);
+
+        if (style == null) {
+            this.style = ToStringStyle.DEFAULT_STYLE;
+        } else {
+            this.style = style;
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a {@link DiffResult} containing the differences between two
+     * objects.
+     * </p>
+     *
+     * @param objectPair
+     *            the pair that contains the two objects.
+     * @param diffs
+     *            the list of differences, may be empty
+     * @param style
+     *            the style to use for the {@link #toString()} method. May be
+     *            {@code null}, in which case
+     *            {@link ToStringStyle#DEFAULT_STYLE} is used
+     * @throws IllegalArgumentException
+     *             if {@code lhs}, {@code rhs} or {@code diffs} is {@code null}
+     */
+    DiffResult(final Map.Entry<T,T> objectPair, final List<Diff<?>> diffs,
+               final ToStringStyle style) {
+        Validate.isTrue(objectPair != null, "Object Pair cannot be null");
+        Validate.isTrue(objectPair.getKey() != null, "Left hand object cannot be null");
+        Validate.isTrue(objectPair.getValue() != null, "Right hand object cannot be null");
+        Validate.isTrue(diffs != null, "List of differences cannot be null");
+
+        this.diffs = diffs;
+        this.objectPair = ImmutablePair.of(objectPair);
 
         if (style == null) {
             this.style = ToStringStyle.DEFAULT_STYLE;
@@ -95,8 +130,9 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
      * @return the left object of the diff
      * @since 3.10
      */
+    @Override
     public T getLeft() {
-        return this.lhs;
+        return this.objectPair.left;
     }
 
     /**
@@ -105,8 +141,23 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
      * @return the right object of the diff
      * @since 3.10
      */
+    @Override
     public T getRight() {
-        return this.rhs;
+        return this.objectPair.right;
+    }
+
+    /**
+     * <p>Throws {@code UnsupportedOperationException}.</p>
+     *
+     * <p>This pair is immutable, so this operation is not supported.</p>
+     *
+     * @param value  the value to set
+     * @return never
+     * @throws UnsupportedOperationException as this operation is not supported
+     */
+    @Override
+    public T setValue(T value) {
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -195,8 +246,8 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
             return OBJECTS_SAME_STRING;
         }
 
-        final ToStringBuilder lhsBuilder = new ToStringBuilder(lhs, style);
-        final ToStringBuilder rhsBuilder = new ToStringBuilder(rhs, style);
+        final ToStringBuilder lhsBuilder = new ToStringBuilder(this.objectPair.left, style);
+        final ToStringBuilder rhsBuilder = new ToStringBuilder(this.objectPair.right, style);
 
         for (final Diff<?> diff : diffs) {
             lhsBuilder.append(diff.getFieldName(), diff.getLeft());
