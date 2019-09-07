@@ -49,5 +49,5 @@ public interface Diffable<T> {
      * @return a list of differences
      * @throws NullPointerException if the specified object is {@code null}
      */
-    DiffResult diff(T obj);
+    DiffResult<T> diff(T obj);
 }

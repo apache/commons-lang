@@ -137,7 +137,7 @@ public class RandomUtilsTest {
     }
 
     /**
-     * Tests next double range, random result.
+     * Tests next int range, random result.
      */
     @Test
     public void testNextIntRandomResult() {

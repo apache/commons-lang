@@ -1966,7 +1966,7 @@ public class StringUtilsTest {
         assertEquals("ayya", StringUtils.replaceChars("abcba", "bc", "y"));
         assertEquals("ayzya", StringUtils.replaceChars("abcba", "bc", "yzx"));
 
-        // From http://issues.apache.org/bugzilla/show_bug.cgi?id=25454
+        // From https://issues.apache.org/bugzilla/show_bug.cgi?id=25454
         assertEquals("bcc", StringUtils.replaceChars("abc", "ab", "bc"));
         assertEquals("q651.506bera", StringUtils.replaceChars("d216.102oren",
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789",
@@ -3073,6 +3073,8 @@ public class StringUtilsTest {
         assertNull(StringUtils.unwrap(null, '1'));
 
         assertEquals("abc", StringUtils.unwrap("abc", null));
+        assertEquals("a", StringUtils.unwrap("a", "a"));
+        assertEquals("", StringUtils.unwrap("aa", "a"));
         assertEquals("abc", StringUtils.unwrap("\'abc\'", '\''));
         assertEquals("abc", StringUtils.unwrap("AabcA", 'A'));
         assertEquals("AabcA", StringUtils.unwrap("AAabcAA", 'A'));
@@ -3090,6 +3092,8 @@ public class StringUtilsTest {
 
         assertEquals("abc", StringUtils.unwrap("abc", null));
         assertEquals("abc", StringUtils.unwrap("abc", ""));
+        assertEquals("a", StringUtils.unwrap("a", "a"));
+        assertEquals("", StringUtils.unwrap("aa", "a"));
         assertEquals("abc", StringUtils.unwrap("\'abc\'", "\'"));
         assertEquals("abc", StringUtils.unwrap("\"abc\"", "\""));
         assertEquals("abc\"xyz", StringUtils.unwrap("\"abc\"xyz\"", "\""));

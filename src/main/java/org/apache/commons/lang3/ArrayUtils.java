@@ -5384,6 +5384,272 @@ public class ArrayUtils {
     }
 
     /**
+     * Copies the given array and adds the given element at the beginning of the new array.
+     *
+     * <p>
+     * The new array contains the same elements of the input array plus the given element in the first position. The
+     * component type of the new array is the same as that of the input array.
+     * </p>
+     *
+     * <p>
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
+     * element.
+     * </p>
+     *
+     * <pre>
+     * ArrayUtils.add(null, true)          = [true]
+     * ArrayUtils.add([true], false)       = [false, true]
+     * ArrayUtils.add([true, false], true) = [true, true, false]
+     * </pre>
+     *
+     * @param array the array to "add" the element to, may be {@code null}.
+     * @param element the object to add.
+     * @return A new array containing the existing elements plus the new element The returned array type will be that of
+     *         the input array (unless null), in which case it will have the same type as the element.
+     * @since 3.10
+     */
+    public static boolean[] addFirst(final boolean[] array, final boolean element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+    /**
+     * Copies the given array and adds the given element at the beginning of the new array.
+     *
+     * <p>
+     * The new array contains the same elements of the input array plus the given element in the first position. The
+     * component type of the new array is the same as that of the input array.
+     * </p>
+     *
+     * <p>
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
+     * element.
+     * </p>
+     *
+     * <pre>
+     * ArrayUtils.add(null, 1)   = [1]
+     * ArrayUtils.add([1], 0)    = [0, 1]
+     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * </pre>
+     *
+     * @param array the array to "add" the element to, may be {@code null}.
+     * @param element the object to add.
+     * @return A new array containing the existing elements plus the new element The returned array type will be that of
+     *         the input array (unless null), in which case it will have the same type as the element.
+     * @since 3.10
+     */
+    public static byte[] addFirst(final byte[] array, final byte element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+    /**
+     * Copies the given array and adds the given element at the beginning of the new array.
+     *
+     * <p>
+     * The new array contains the same elements of the input array plus the given element in the first position. The
+     * component type of the new array is the same as that of the input array.
+     * </p>
+     *
+     * <p>
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
+     * element.
+     * </p>
+     *
+     * <pre>
+     * ArrayUtils.add(null, '1')       = ['1']
+     * ArrayUtils.add(['1'], '0')      = ['0', '1']
+     * ArrayUtils.add(['1', '0'], '1') = ['1', '1', '0']
+     * </pre>
+     *
+     * @param array the array to "add" the element to, may be {@code null}.
+     * @param element the object to add.
+     * @return A new array containing the existing elements plus the new element The returned array type will be that of
+     *         the input array (unless null), in which case it will have the same type as the element.
+     * @since 3.10
+     */
+    public static char[] addFirst(final char[] array, final char element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+    /**
+     * Copies the given array and adds the given element at the beginning of the new array.
+     *
+     * <p>
+     * The new array contains the same elements of the input array plus the given element in the first position. The
+     * component type of the new array is the same as that of the input array.
+     * </p>
+     *
+     * <p>
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
+     * element.
+     * </p>
+     *
+     * <pre>
+     * ArrayUtils.add(null, 1)   = [1]
+     * ArrayUtils.add([1], 0)    = [0, 1]
+     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * </pre>
+     *
+     * @param array the array to "add" the element to, may be {@code null}.
+     * @param element the object to add.
+     * @return A new array containing the existing elements plus the new element The returned array type will be that of
+     *         the input array (unless null), in which case it will have the same type as the element.
+     * @since 3.10
+     */
+    public static double[] addFirst(final double[] array, final double element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+    /**
+     * Copies the given array and adds the given element at the beginning of the new array.
+     *
+     * <p>
+     * The new array contains the same elements of the input array plus the given element in the first position. The
+     * component type of the new array is the same as that of the input array.
+     * </p>
+     *
+     * <p>
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
+     * element.
+     * </p>
+     *
+     * <pre>
+     * ArrayUtils.add(null, 1)   = [1]
+     * ArrayUtils.add([1], 0)    = [0, 1]
+     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * </pre>
+     *
+     * @param array the array to "add" the element to, may be {@code null}.
+     * @param element the object to add.
+     * @return A new array containing the existing elements plus the new element The returned array type will be that of
+     *         the input array (unless null), in which case it will have the same type as the element.
+     * @since 3.10
+     */
+    public static float[] addFirst(final float[] array, final float element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+    /**
+     * Copies the given array and adds the given element at the beginning of the new array.
+     *
+     * <p>
+     * The new array contains the same elements of the input array plus the given element in the first position. The
+     * component type of the new array is the same as that of the input array.
+     * </p>
+     *
+     * <p>
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
+     * element.
+     * </p>
+     *
+     * <pre>
+     * ArrayUtils.add(null, 1)   = [1]
+     * ArrayUtils.add([1], 0)    = [0, 1]
+     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * </pre>
+     *
+     * @param array the array to "add" the element to, may be {@code null}.
+     * @param element the object to add.
+     * @return A new array containing the existing elements plus the new element The returned array type will be that of
+     *         the input array (unless null), in which case it will have the same type as the element.
+     * @since 3.10
+     */
+    public static int[] addFirst(final int[] array, final int element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+    /**
+     * Copies the given array and adds the given element at the beginning of the new array.
+     *
+     * <p>
+     * The new array contains the same elements of the input array plus the given element in the first position. The
+     * component type of the new array is the same as that of the input array.
+     * </p>
+     *
+     * <p>
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
+     * element.
+     * </p>
+     *
+     * <pre>
+     * ArrayUtils.add(null, 1)   = [1]
+     * ArrayUtils.add([1], 0)    = [0, 1]
+     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * </pre>
+     *
+     * @param array the array to "add" the element to, may be {@code null}.
+     * @param element the object to add.
+     * @return A new array containing the existing elements plus the new element The returned array type will be that of
+     *         the input array (unless null), in which case it will have the same type as the element.
+     * @since 3.10
+     */
+    public static long[] addFirst(final long[] array, final long element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+    /**
+     * Copies the given array and adds the given element at the beginning of the new array.
+     *
+     * <p>
+     * The new array contains the same elements of the input array plus the given element in the first position. The
+     * component type of the new array is the same as that of the input array.
+     * </p>
+     *
+     * <p>
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
+     * element.
+     * </p>
+     *
+     * <pre>
+     * ArrayUtils.add(null, 1)   = [1]
+     * ArrayUtils.add([1], 0)    = [0, 1]
+     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * </pre>
+     *
+     * @param array the array to "add" the element to, may be {@code null}.
+     * @param element the object to add.
+     * @return A new array containing the existing elements plus the new element The returned array type will be that of
+     *         the input array (unless null), in which case it will have the same type as the element.
+     * @since 3.10
+     */
+    public static short[] addFirst(final short[] array, final short element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+    /**
+     * Copies the given array and adds the given element at the beginning of the new array.
+     *
+     * <p>
+     * The new array contains the same elements of the input array plus the given element in the first positioaddFirstaddFirstaddFirstn. The
+     * component type of the new array is the same as that of the input array.
+     * </p>
+     *
+     * <p>
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
+     * element, unless the element itself is null, in which case the return type is Object[]
+     * </p>
+     *
+     * <pre>
+     * ArrayUtils.add(null, null)      = IllegalArgumentException
+     * ArrayUtils.add(null, "a")       = ["a"]
+     * ArrayUtils.add(["a"], null)     = [null, "a"]
+     * ArrayUtils.add(["a"], "b")      = ["b", "a"]
+     * ArrayUtils.add(["a", "b"], "c") = ["c", "a", "b"]
+     * </pre>
+     *
+     * @param <T> the component type of the array
+     * @param array the array to "add" the element to, may be {@code null}
+     * @param element the object to add, may be {@code null}
+     * @return A new array containing the existing elements plus the new element The returned array type will be that of
+     *         the input array (unless null), in which case it will have the same type as the element. If both are null,
+     *         an IllegalArgumentException is thrown
+     * @since 3.10
+     * @throws IllegalArgumentException if both arguments are null
+     */
+    public static <T> T[] addFirst(final T[] array, final T element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+    /**
      * <p>Copies the given array and adds the given element at the end of the new array.
      *
      * <p>The new array contains the same elements of the input

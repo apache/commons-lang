@@ -32,15 +32,180 @@ import org.junit.jupiter.api.Test;
 public class ArrayUtilsAddTest {
 
     @Test
-    public void testJira567() {
-        Number[] n;
-        // Valid array construction
-        n = ArrayUtils.addAll(new Number[]{Integer.valueOf(1)}, new Long[]{Long.valueOf(2)});
-        assertEquals(2, n.length);
-        assertEquals(Number.class, n.getClass().getComponentType());
-        // Invalid - can't store Long in Integer array
-        assertThrows(IllegalArgumentException.class,
-                () -> ArrayUtils.addAll(new Integer[]{Integer.valueOf(1)}, new Long[]{Long.valueOf(2)}));
+    public void testAddFirstBoolean() {
+        boolean[] newArray;
+        newArray = ArrayUtils.addFirst(null, false);
+        assertArrayEquals(new boolean[]{false}, newArray);
+        assertEquals(Boolean.TYPE, newArray.getClass().getComponentType());
+        newArray = ArrayUtils.addFirst(null, true);
+        assertArrayEquals(new boolean[]{true}, newArray);
+        assertEquals(Boolean.TYPE, newArray.getClass().getComponentType());
+        final boolean[] array1 = new boolean[]{true, false, true};
+        newArray = ArrayUtils.addFirst(array1, false);
+        assertArrayEquals(new boolean[]{false, true, false, true}, newArray);
+        assertEquals(Boolean.TYPE, newArray.getClass().getComponentType());
+    }
+
+    @Test
+    public void testAddFirstByte() {
+        byte[] newArray;
+        newArray = ArrayUtils.addFirst((byte[]) null, (byte) 0);
+        assertArrayEquals(new byte[]{0}, newArray);
+        assertEquals(Byte.TYPE, newArray.getClass().getComponentType());
+        newArray = ArrayUtils.addFirst((byte[]) null, (byte) 1);
+        assertArrayEquals(new byte[]{1}, newArray);
+        assertEquals(Byte.TYPE, newArray.getClass().getComponentType());
+        final byte[] array1 = new byte[]{1, 2, 3};
+        newArray = ArrayUtils.addFirst(array1, (byte) 0);
+        assertArrayEquals(new byte[]{0, 1, 2, 3}, newArray);
+        assertEquals(Byte.TYPE, newArray.getClass().getComponentType());
+        newArray = ArrayUtils.addFirst(array1, (byte) 4);
+        assertArrayEquals(new byte[]{4, 1, 2, 3}, newArray);
+        assertEquals(Byte.TYPE, newArray.getClass().getComponentType());
+    }
+
+    @Test
+    public void testAddFirstChar() {
+        char[] newArray;
+        newArray = ArrayUtils.addFirst((char[]) null, (char) 0);
+        assertArrayEquals(new char[]{0}, newArray);
+        assertEquals(Character.TYPE, newArray.getClass().getComponentType());
+        newArray = ArrayUtils.addFirst((char[]) null, (char) 1);
+        assertArrayEquals(new char[]{1}, newArray);
+        assertEquals(Character.TYPE, newArray.getClass().getComponentType());
+        final char[] array1 = new char[]{1, 2, 3};
+        newArray = ArrayUtils.addFirst(array1, (char) 0);
+        assertArrayEquals(new char[]{0, 1, 2, 3}, newArray);
+        assertEquals(Character.TYPE, newArray.getClass().getComponentType());
+        newArray = ArrayUtils.addFirst(array1, (char) 4);
+        assertArrayEquals(new char[]{4, 1, 2, 3}, newArray);
+        assertEquals(Character.TYPE, newArray.getClass().getComponentType());
+    }
+
+    @Test
+    public void testAddFirstDouble() {
+        double[] newArray;
+        newArray = ArrayUtils.addFirst((double[]) null, 0);
+        assertArrayEquals(new double[]{0}, newArray);
+        assertEquals(Double.TYPE, newArray.getClass().getComponentType());
+        newArray = ArrayUtils.addFirst((double[]) null, 1);
+        assertArrayEquals(new double[]{1}, newArray);
+        assertEquals(Double.TYPE, newArray.getClass().getComponentType());
+        final double[] array1 = new double[]{1, 2, 3};
+        newArray = ArrayUtils.addFirst(array1, 0);
+        assertArrayEquals(new double[]{0, 1, 2, 3}, newArray);
+        assertEquals(Double.TYPE, newArray.getClass().getComponentType());
+        newArray = ArrayUtils.addFirst(array1, 4);
+        assertArrayEquals(new double[]{4, 1, 2, 3}, newArray);
+        assertEquals(Double.TYPE, newArray.getClass().getComponentType());
+    }
+
+    @Test
+    public void testAddFirstFloat() {
+        float[] newArray;
+        newArray = ArrayUtils.addFirst((float[]) null, 0);
+        assertArrayEquals(new float[]{0}, newArray);
+        assertEquals(Float.TYPE, newArray.getClass().getComponentType());
+        newArray = ArrayUtils.addFirst((float[]) null, 1);
+        assertArrayEquals(new float[]{1}, newArray);
+        assertEquals(Float.TYPE, newArray.getClass().getComponentType());
+        final float[] array1 = new float[]{1, 2, 3};
+        newArray = ArrayUtils.addFirst(array1, 0);
+        assertArrayEquals(new float[]{0, 1, 2, 3}, newArray);
+        assertEquals(Float.TYPE, newArray.getClass().getComponentType());
+        newArray = ArrayUtils.addFirst(array1, 4);
+        assertArrayEquals(new float[]{4, 1, 2, 3}, newArray);
+        assertEquals(Float.TYPE, newArray.getClass().getComponentType());
+    }
+
+    @Test
+    public void testAddFirstInt() {
+        int[] newArray;
+        newArray = ArrayUtils.addFirst((int[]) null, 0);
+        assertArrayEquals(new int[]{0}, newArray);
+        assertEquals(Integer.TYPE, newArray.getClass().getComponentType());
+        newArray = ArrayUtils.addFirst((int[]) null, 1);
+        assertArrayEquals(new int[]{1}, newArray);
+        assertEquals(Integer.TYPE, newArray.getClass().getComponentType());
+        final int[] array1 = new int[]{1, 2, 3};
+        newArray = ArrayUtils.addFirst(array1, 0);
+        assertArrayEquals(new int[]{0, 1, 2, 3}, newArray);
+        assertEquals(Integer.TYPE, newArray.getClass().getComponentType());
+        newArray = ArrayUtils.addFirst(array1, 4);
+        assertArrayEquals(new int[]{4, 1, 2, 3}, newArray);
+        assertEquals(Integer.TYPE, newArray.getClass().getComponentType());
+    }
+
+    @Test
+    public void testAddFirstLong() {
+        long[] newArray;
+        newArray = ArrayUtils.addFirst((long[]) null, 0);
+        assertArrayEquals(new long[]{0}, newArray);
+        assertEquals(Long.TYPE, newArray.getClass().getComponentType());
+        newArray = ArrayUtils.addFirst((long[]) null, 1);
+        assertArrayEquals(new long[]{1}, newArray);
+        assertEquals(Long.TYPE, newArray.getClass().getComponentType());
+        final long[] array1 = new long[]{1, 2, 3};
+        newArray = ArrayUtils.addFirst(array1, 0);
+        assertArrayEquals(new long[]{0, 1, 2, 3}, newArray);
+        assertEquals(Long.TYPE, newArray.getClass().getComponentType());
+        newArray = ArrayUtils.addFirst(array1, 4);
+        assertArrayEquals(new long[]{4, 1, 2, 3}, newArray);
+        assertEquals(Long.TYPE, newArray.getClass().getComponentType());
+    }
+
+    @Test
+    public void testAddFirstObject() {
+        Object[] newArray;
+
+        //show that not casting is okay
+        newArray = ArrayUtils.add((Object[]) null, "a");
+        assertArrayEquals(new String[]{"a"}, newArray);
+        assertArrayEquals(new Object[]{"a"}, newArray);
+        assertEquals(String.class, newArray.getClass().getComponentType());
+
+        //show that not casting to Object[] is okay and will assume String based on "a"
+        final String[] newStringArray = ArrayUtils.add(null, "a");
+        assertArrayEquals(new String[]{"a"}, newStringArray);
+        assertArrayEquals(new Object[]{"a"}, newStringArray);
+        assertEquals(String.class, newStringArray.getClass().getComponentType());
+
+        final String[] stringArray1 = new String[] { "a", "b", "c" };
+        newArray = ArrayUtils.addFirst(stringArray1, null);
+        assertArrayEquals(new String[] { null, "a", "b", "c" }, newArray);
+        assertEquals(String.class, newArray.getClass().getComponentType());
+
+        newArray = ArrayUtils.addFirst(stringArray1, "d");
+        assertArrayEquals(new String[] { "d", "a", "b", "c" }, newArray);
+        assertEquals(String.class, newArray.getClass().getComponentType());
+
+        Number[] numberArray1 = new Number[] { Integer.valueOf(1), Double.valueOf(2) };
+        newArray = ArrayUtils.addFirst(numberArray1, Float.valueOf(3));
+        assertArrayEquals(new Number[] { Float.valueOf(3), Integer.valueOf(1), Double.valueOf(2) }, newArray);
+        assertEquals(Number.class, newArray.getClass().getComponentType());
+
+        numberArray1 = null;
+        newArray = ArrayUtils.addFirst(numberArray1, Float.valueOf(3));
+        assertArrayEquals(new Float[] { Float.valueOf(3) }, newArray);
+        assertEquals(Float.class, newArray.getClass().getComponentType());
+    }
+
+    @Test
+    public void testAddFirstShort() {
+        short[] newArray;
+        newArray = ArrayUtils.addFirst((short[]) null, (short) 0);
+        assertArrayEquals(new short[]{0}, newArray);
+        assertEquals(Short.TYPE, newArray.getClass().getComponentType());
+        newArray = ArrayUtils.addFirst((short[]) null, (short) 1);
+        assertArrayEquals(new short[]{1}, newArray);
+        assertEquals(Short.TYPE, newArray.getClass().getComponentType());
+        final short[] array1 = new short[]{1, 2, 3};
+        newArray = ArrayUtils.addFirst(array1, (short) 0);
+        assertArrayEquals(new short[]{0, 1, 2, 3}, newArray);
+        assertEquals(Short.TYPE, newArray.getClass().getComponentType());
+        newArray = ArrayUtils.addFirst(array1, (short) 4);
+        assertArrayEquals(new short[]{4, 1, 2, 3}, newArray);
+        assertEquals(Short.TYPE, newArray.getClass().getComponentType());
     }
 
     @Test
@@ -167,24 +332,6 @@ public class ArrayUtilsAddTest {
     }
 
     @Test
-    public void testAddObjectArrayShort() {
-        short[] newArray;
-        newArray = ArrayUtils.add((short[]) null, (short) 0);
-        assertArrayEquals(new short[]{0}, newArray);
-        assertEquals(Short.TYPE, newArray.getClass().getComponentType());
-        newArray = ArrayUtils.add((short[]) null, (short) 1);
-        assertArrayEquals(new short[]{1}, newArray);
-        assertEquals(Short.TYPE, newArray.getClass().getComponentType());
-        final short[] array1 = new short[]{1, 2, 3};
-        newArray = ArrayUtils.add(array1, (short) 0);
-        assertArrayEquals(new short[]{1, 2, 3, 0}, newArray);
-        assertEquals(Short.TYPE, newArray.getClass().getComponentType());
-        newArray = ArrayUtils.add(array1, (short) 4);
-        assertArrayEquals(new short[]{1, 2, 3, 4}, newArray);
-        assertEquals(Short.TYPE, newArray.getClass().getComponentType());
-    }
-
-    @Test
     public void testAddObjectArrayObject() {
         Object[] newArray;
 
@@ -221,12 +368,21 @@ public class ArrayUtilsAddTest {
     }
 
     @Test
-    @SuppressWarnings("deprecation")
-    public void testLANG571() {
-        final String[] stringArray=null;
-        final String aString=null;
-        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.add(stringArray, aString));
-        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.add(stringArray, 0, aString));
+    public void testAddObjectArrayShort() {
+        short[] newArray;
+        newArray = ArrayUtils.add((short[]) null, (short) 0);
+        assertArrayEquals(new short[]{0}, newArray);
+        assertEquals(Short.TYPE, newArray.getClass().getComponentType());
+        newArray = ArrayUtils.add((short[]) null, (short) 1);
+        assertArrayEquals(new short[]{1}, newArray);
+        assertEquals(Short.TYPE, newArray.getClass().getComponentType());
+        final short[] array1 = new short[]{1, 2, 3};
+        newArray = ArrayUtils.add(array1, (short) 0);
+        assertArrayEquals(new short[]{1, 2, 3, 0}, newArray);
+        assertEquals(Short.TYPE, newArray.getClass().getComponentType());
+        newArray = ArrayUtils.add(array1, (short) 4);
+        assertArrayEquals(new short[]{1, 2, 3, 4}, newArray);
+        assertEquals(Short.TYPE, newArray.getClass().getComponentType());
     }
 
     @Test
@@ -493,6 +649,27 @@ public class ArrayUtilsAddTest {
         assertEquals("Index: 4, Length: 2", e.getMessage());
         e = assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.add( new double[] { 2.3, 6.4 }, -1, 10.5));
         assertEquals("Index: -1, Length: 2", e.getMessage());
+    }
+
+    @Test
+    public void testJira567() {
+        Number[] n;
+        // Valid array construction
+        n = ArrayUtils.addAll(new Number[]{Integer.valueOf(1)}, new Long[]{Long.valueOf(2)});
+        assertEquals(2, n.length);
+        assertEquals(Number.class, n.getClass().getComponentType());
+        // Invalid - can't store Long in Integer array
+        assertThrows(IllegalArgumentException.class,
+                () -> ArrayUtils.addAll(new Integer[]{Integer.valueOf(1)}, new Long[]{Long.valueOf(2)}));
+    }
+
+    @Test
+    @SuppressWarnings("deprecation")
+    public void testLANG571() {
+        final String[] stringArray=null;
+        final String aString=null;
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.add(stringArray, aString));
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.add(stringArray, 0, aString));
     }
 
 }

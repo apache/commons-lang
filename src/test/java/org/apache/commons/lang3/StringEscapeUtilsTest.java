@@ -378,7 +378,7 @@ public class StringEscapeUtilsTest {
     }
 
     // Tests issue #38569
-    // http://issues.apache.org/bugzilla/show_bug.cgi?id=38569
+    // https://issues.apache.org/bugzilla/show_bug.cgi?id=38569
     @Test
     public void testStandaloneAmphersand() {
         assertEquals("<P&O>", StringEscapeUtils.unescapeHtml4("&lt;P&O&gt;"));

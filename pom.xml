@@ -36,17 +36,17 @@
   standard as to justify existence in java.lang.
   </description>
 
-  <url>http://commons.apache.org/proper/commons-lang/</url>
+  <url>https://commons.apache.org/proper/commons-lang/</url>
 
   <issueManagement>
     <system>jira</system>
-    <url>http://issues.apache.org/jira/browse/LANG</url>
+    <url>https://issues.apache.org/jira/browse/LANG</url>
   </issueManagement>
 
   <scm>
-    <connection>scm:git:http://git-wip-us.apache.org/repos/asf/commons-lang.git</connection>
-    <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/commons-lang.git</developerConnection>
-    <url>https://git-wip-us.apache.org/repos/asf?p=commons-lang.git</url>
+    <connection>scm:git:http://gitbox.apache.org/repos/asf/commons-lang.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-lang.git</developerConnection>
+    <url>https://gitbox.apache.org/repos/asf?p=commons-lang.git</url>
     <tag>commons-lang-3.9</tag>
   </scm>
 
@@ -505,6 +505,9 @@
     <contributor>
       <name>Mark Dacek</name>
     </contributor>
+    <contributor>
+      <name>Peter Verhas</name>
+    </contributor>
   </contributors>
 
   <!-- Lang should depend on very little -->
@@ -513,7 +516,7 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>5.4.2</version>
+      <version>5.5.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -581,7 +584,7 @@
     <commons.packageId>lang3</commons.packageId>
     <commons.module.name>org.apache.commons.lang3</commons.module.name>
     <!-- Current 3.x release series -->
-    <commons.release.version>3.9</commons.release.version>
+    <commons.release.version>3.10</commons.release.version>
     <commons.release.desc>(Java 8+)</commons.release.desc>
     <!-- Previous 2.x release series -->
     <commons.release.2.version>2.6</commons.release.2.version>
@@ -597,26 +600,26 @@
     <commons.encoding>utf-8</commons.encoding>
 
     <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
-    <checkstyle.version>8.20</checkstyle.version>
+    <checkstyle.version>8.23</checkstyle.version>
 
-    <spotbugs.plugin.version>3.1.11</spotbugs.plugin.version>
+    <spotbugs.plugin.version>3.1.12.2</spotbugs.plugin.version>
     <japicmp.skip>false</japicmp.skip>
 
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
     <jmh.version>1.21</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
 
-    <commons.jacoco.version>0.8.3</commons.jacoco.version>
+    <commons.jacoco.version>0.8.4</commons.jacoco.version>
     <commons.surefire.version>3.0.0-M3</commons.surefire.version>
     <commons.javadoc.version>3.1.0</commons.javadoc.version>
 
     <!-- generate report even if there are binary incompatible changes -->
     <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>false</commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
-    <commons.japicmp.version>0.13.1</commons.japicmp.version>
+    <commons.japicmp.version>0.14.1</commons.japicmp.version>
 
     <!-- Commons Release Plugin -->
-    <commons.bc.version>3.8.1</commons.bc.version>
-    <commons.rc.version>RC2</commons.rc.version>
+    <commons.bc.version>3.9</commons.bc.version>
+    <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>
     <commons.releaseManagerName>Rob Tompkins</commons.releaseManagerName>
@@ -902,6 +905,16 @@
         <argLine>-Xmx512m --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
         <!-- coverall version 4.3.0 does not work with java 9, see https://github.com/trautonen/coveralls-maven-plugin/issues/112 -->
         <coveralls.skip>true</coveralls.skip>
+      </properties>
+    </profile>
+    <profile>
+      <id>java13+</id>
+      <activation>
+        <jdk>[13,)</jdk>
+      </activation>
+      <properties>
+        <!-- jacoco does not work with java 13 yet -->
+        <jacoco.skip>true</jacoco.skip>
       </properties>
     </profile>
 
