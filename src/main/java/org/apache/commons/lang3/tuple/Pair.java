@@ -105,7 +105,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
-     * <p>Obtains an immutable pair of two objects inferring the generic types.</p>
+     * <p>Obtains an immutable pair from an existing pair.</p>
      *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>
