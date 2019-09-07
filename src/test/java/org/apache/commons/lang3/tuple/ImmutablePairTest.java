@@ -144,6 +144,9 @@ public class ImmutablePairTest {
         assertNull(pair2.getLeft());
         assertEquals("bar", pair2.right);
         assertEquals("bar", pair2.getRight());
+        ImmutablePair pair3 = ImmutablePair.of(null, null);
+        assertNull(pair3.left);
+        assertNull(pair3.right);
     }
 
     @Test

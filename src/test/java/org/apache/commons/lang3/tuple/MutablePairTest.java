@@ -111,6 +111,9 @@ public class MutablePairTest {
         final MutablePair<Object, String> pair2 = MutablePair.of(null, "bar");
         assertNull(pair2.getLeft());
         assertEquals("bar", pair2.getRight());
+        MutablePair pair3 = MutablePair.of(null, null);
+        assertNull(pair3.left);
+        assertNull(pair3.right);
     }
 
     @Test
