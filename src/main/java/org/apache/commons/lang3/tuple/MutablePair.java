@@ -120,10 +120,10 @@ public class MutablePair<L, R> extends Pair<L, R> {
      */
     public MutablePair(final Map.Entry<L,R> pair) {
         super();
-        if(pair != null) {
+        if (pair != null) {
             this.left = pair.getKey();
             this.right = pair.getValue();
-        }else{
+        } else {
             this.left = null;
             this.right = null;
         }

@@ -39,7 +39,7 @@ import org.apache.commons.lang3.tuple.Pair;
  *
  * @since 3.3
  */
-public class DiffResult<T> extends Pair<T,T> implements Iterable<Diff<?>> {
+public class DiffResult<T> extends Pair<T, T> implements Iterable<Diff<?>> {
 
     /**
      * <p>
@@ -52,7 +52,7 @@ public class DiffResult<T> extends Pair<T,T> implements Iterable<Diff<?>> {
     private static final String DIFFERS_STRING = "differs from";
 
     private final List<Diff<?>> diffs;
-    private final ImmutablePair<T,T> objectPair;
+    private final ImmutablePair<T, T> objectPair;
     private final ToStringStyle style;
 
     /**
@@ -107,7 +107,7 @@ public class DiffResult<T> extends Pair<T,T> implements Iterable<Diff<?>> {
      * @throws IllegalArgumentException
      *             if {@code lhs}, {@code rhs} or {@code diffs} is {@code null}
      */
-    DiffResult(final Map.Entry<T,T> objectPair, final List<Diff<?>> diffs,
+    DiffResult(final Map.Entry<T, T> objectPair, final List<Diff<?>> diffs,
                final ToStringStyle style) {
         Validate.isTrue(objectPair != null, "Object Pair cannot be null");
         Validate.isTrue(objectPair.getKey() != null, "Left hand object cannot be null");
