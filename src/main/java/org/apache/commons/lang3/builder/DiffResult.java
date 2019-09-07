@@ -81,7 +81,7 @@ public class DiffResult<T> extends Pair<T, T> implements Iterable<Diff<?>> {
         Validate.isTrue(diffs != null, "List of differences cannot be null");
 
         this.diffs = diffs;
-        this.objectPair = new ImmutablePair<>(lhs,rhs);
+        this.objectPair = new ImmutablePair<>(lhs, rhs);
 
         if (style == null) {
             this.style = ToStringStyle.DEFAULT_STYLE;

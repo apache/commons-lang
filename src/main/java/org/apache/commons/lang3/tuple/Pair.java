@@ -115,7 +115,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @param pair the existing pair.
      * @return a pair formed from the two parameters, not null
      */
-    public static <L, R> Pair<L, R> of(final Map.Entry<L,R> pair) {
+    public static <L, R> Pair<L, R> of(final Map.Entry<L, R> pair) {
         return ImmutablePair.of(pair);
     }
 

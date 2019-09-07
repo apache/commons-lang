@@ -135,7 +135,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      *
      * @param pair the existing pair.
      */
-    public ImmutablePair(final Map.Entry<L,R> pair) {
+    public ImmutablePair(final Map.Entry<L, R> pair) {
         super();
         if (pair != null) {
             this.left = pair.getKey();

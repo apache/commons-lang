@@ -84,7 +84,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
      * @param pair the existing pair.
      * @return a pair formed from the two parameters, not null
      */
-    public static <L, R> MutablePair<L, R> of(final Map.Entry<L,R> pair) {
+    public static <L, R> MutablePair<L, R> of(final Map.Entry<L, R> pair) {
         return new MutablePair<>(pair);
     }
 
@@ -118,7 +118,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
      *
      * @param pair the existing pair.
      */
-    public MutablePair(final Map.Entry<L,R> pair) {
+    public MutablePair(final Map.Entry<L, R> pair) {
         super();
         if (pair != null) {
             this.left = pair.getKey();
