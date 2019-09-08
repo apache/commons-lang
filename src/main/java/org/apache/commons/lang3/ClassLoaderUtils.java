@@ -29,7 +29,7 @@ public class ClassLoaderUtils {
 
     /**
      * Converts the given class loader to a String calling {@link #toString(URLClassLoader)}.
-     * 
+     *
      * @param classLoader to URLClassLoader to convert.
      * @return the formated string.
      */
@@ -43,7 +43,7 @@ public class ClassLoaderUtils {
     /**
      * Converts the given URLClassLoader to a String in the format
      * {@code "URLClassLoader.toString() + [URL1, URL2, ...]"}.
-     * 
+     *
      * @param classLoader to URLClassLoader to convert.
      * @return the formated string.
      */
