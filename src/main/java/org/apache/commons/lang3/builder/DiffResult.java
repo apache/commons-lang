@@ -41,6 +41,8 @@ import org.apache.commons.lang3.tuple.Pair;
  */
 public class DiffResult<T> extends Pair<T, T> implements Iterable<Diff<?>> {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * <p>
      * The {@code String} returned when the objects have no differences:
