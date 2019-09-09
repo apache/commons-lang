@@ -1729,9 +1729,6 @@ public class NumberUtils {
         if (StringUtils.isEmpty(str)) {
             return false;
         }
-        if (str.charAt(str.length() - 1) == '.') {
-            return false;
-        }
         if (str.charAt(0) == '-') {
             if (str.length() == 1) {
                 return false;
