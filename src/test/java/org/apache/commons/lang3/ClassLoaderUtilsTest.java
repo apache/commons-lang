@@ -42,7 +42,7 @@ public class ClassLoaderUtilsTest {
     @Test
     public void testToString_URLClassLoader() throws IOException {
         final URL url = new URL("http://localhost");
-        try (final URLClassLoader urlClassLoader = new URLClassLoader(new URL[] { url })) {
+        try (URLClassLoader urlClassLoader = new URLClassLoader(new URL[] { url })) {
             Assertions.assertEquals(String.format("%s[%s]", urlClassLoader, url),
                     ClassLoaderUtils.toString(urlClassLoader));
         }
