@@ -8364,7 +8364,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8406,7 +8406,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8448,7 +8448,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8490,7 +8490,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8532,7 +8532,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8574,7 +8574,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8616,7 +8616,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8658,7 +8658,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8710,7 +8710,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
