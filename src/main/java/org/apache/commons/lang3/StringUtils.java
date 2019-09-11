@@ -8891,6 +8891,28 @@ public class StringUtils {
     }
 
     /**
+     * Converts the given source String as a lower-case using the {@link Locale#ROOT} locale in a null-safe manner.
+     *
+     * @param source A source String or null.
+     * @return the given source String as a lower-case using the {@link Locale#ROOT} locale or null.
+     * @since 3.10
+     */
+    public static String toRootLowerCase(final String source) {
+        return source == null ? null : source.toLowerCase(Locale.ROOT);
+    }
+
+    /**
+     * Converts the given source String as a upper-case using the {@link Locale#ROOT} locale in a null-safe manner.
+     *
+     * @param source A source String or null.
+     * @return the given source String as a upper-case using the {@link Locale#ROOT} locale or null.
+     * @since 3.10
+     */
+    public static String toRootUpperCase(final String source) {
+        return source == null ? null : source.toUpperCase(Locale.ROOT);
+    }
+
+    /**
      * Converts a <code>byte[]</code> to a String using the specified character encoding.
      *
      * @param bytes
