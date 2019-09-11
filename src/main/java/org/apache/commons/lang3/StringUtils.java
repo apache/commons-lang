@@ -6369,7 +6369,7 @@ public class StringUtils {
              searchString = searchString.toLowerCase();
          }
          int start = 0;
-         int end = searchText.indexOf(searchString, start);
+         int end = ignoreCase ? indexOfIgnoreCase(text, searchString, start) : indexOf(text, searchString, start);
          if (end == INDEX_NOT_FOUND) {
              return text;
          }
@@ -6384,7 +6384,7 @@ public class StringUtils {
              if (--max == 0) {
                  break;
              }
-             end = searchText.indexOf(searchString, start);
+             end = ignoreCase ? indexOfIgnoreCase(text, searchString, start) : indexOf(text, searchString, start);
          }
          buf.append(text, start, text.length());
          return buf.toString();
