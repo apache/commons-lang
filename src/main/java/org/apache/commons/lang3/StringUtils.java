@@ -6363,9 +6363,7 @@ public class StringUtils {
          if (isEmpty(text) || isEmpty(searchString) || replacement == null || max == 0) {
              return text;
          }
-         String searchText = text;
          if (ignoreCase) {
-             searchText = text.toLowerCase();
              searchString = searchString.toLowerCase();
          }
          int start = 0;
