@@ -458,7 +458,7 @@ public final class Range<T> implements Serializable {
      * below, or the range maximum if above.
      * </p>
      * <pre>
-     * Range<Integer> range = Range.between(16, 64);
+     * Range&lt;Integer&gt; range = Range.between(16, 64);
      * range.fit(-9) --&gt;  16
      * range.fit(0)  --&gt;  16
      * range.fit(15) --&gt;  16
