@@ -66,7 +66,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1486" type="add" dev="ggregory" due-to="Gary Gregory">Generify builder classes Diffable, DiffBuilder, and DiffResult #452.</action>
     <action issue="LANG-1487" type="add" dev="ggregory" due-to="Gary Gregory">Add ClassLoaderUtils with toString() implementations #453.</action>
     <action issue="LANG-1489" type="add" dev="ggregory" due-to="Gary Gregory">Add null-safe APIs as StringUtils.toRootLowerCase(String) and StringUtils.toRootUpperCase(String) #456.</action>
-    <action issue="LANG-1406" type="add" dev="ggregory" due-to="geratorres">StringIndexOutOfBoundsException in StringUtils.replaceIgnoreCase #423.</action>
+    <action issue="LANG-1406" type="fix" dev="ggregory" due-to="geratorres">StringIndexOutOfBoundsException in StringUtils.replaceIgnoreCase #423.</action>
+    <action issue="LANG-1453" type="fix" dev="ggregory" due-to="geratorres">StringUtils.removeIgnoreCase("İa", "a") throws IndexOutOfBoundsException #423.</action>
     <action                   type="update" dev="ggregory">junit-jupiter 5.5.1 -> 5.5.2.</action>
     <action                   type="update" dev="ggregory">com.puppycrawl.tools:checkstyle 8.23 -> 8.24.</action>    
   </release>

@@ -1687,6 +1687,9 @@ public class StringUtilsTest {
 
         // StringUtils.removeIgnoreCase("\u0130x", "x") = "\u0130"
         assertEquals("\u0130", StringUtils.removeIgnoreCase("\u0130x", "x"));
+        
+        // LANG-1453
+        StringUtils.removeIgnoreCase("İa", "a");
     }
 
     @Test
