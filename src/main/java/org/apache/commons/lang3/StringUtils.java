@@ -426,7 +426,7 @@ public class StringUtils {
         if (str == null || isEmpty(suffix) || endsWith(str, suffix, ignoreCase)) {
             return str;
         }
-        if (suffixes != null && suffixes.length > 0) {
+        if (ArrayUtils.isNotEmpty(suffixes)) {
             for (final CharSequence s : suffixes) {
                 if (endsWith(str, s, ignoreCase)) {
                     return str;
@@ -534,8 +534,8 @@ public class StringUtils {
      * @since 2.0
      */
     public static String capitalize(final String str) {
-        int strLen;
-        if (str == null || (strLen = str.length()) == 0) {
+        int strLen = length(str);
+        if (strLen == 0) {
             return str;
         }
 
@@ -2009,7 +2009,7 @@ public class StringUtils {
      * @since 2.4
      */
     public static String getCommonPrefix(final String... strs) {
-        if (strs == null || strs.length == 0) {
+        if (ArrayUtils.isEmpty(strs)) {
             return EMPTY;
         }
         final int smallestIndexOfDiff = indexOfDifference(strs);
@@ -2905,7 +2905,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from indexOfDifference(String...) to indexOfDifference(CharSequence...)
      */
     public static int indexOfDifference(final CharSequence... css) {
-        if (css == null || css.length <= 1) {
+        if (ArrayUtils.getLength(css) <= 1) {
             return INDEX_NOT_FOUND;
         }
         boolean anyStringNull = false;
@@ -3176,7 +3176,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from isAllLowerCase(String) to isAllLowerCase(CharSequence)
      */
     public static boolean isAllLowerCase(final CharSequence cs) {
-        if (cs == null || isEmpty(cs)) {
+        if (isEmpty(cs)) {
             return false;
         }
         final int sz = cs.length();
@@ -3211,7 +3211,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from isAllUpperCase(String) to isAllUpperCase(CharSequence)
      */
     public static boolean isAllUpperCase(final CharSequence cs) {
-        if (cs == null || isEmpty(cs)) {
+        if (isEmpty(cs)) {
             return false;
         }
         final int sz = cs.length();
@@ -3491,8 +3491,8 @@ public class StringUtils {
      * @since 3.0 Changed signature from isBlank(String) to isBlank(CharSequence)
      */
     public static boolean isBlank(final CharSequence cs) {
-        int strLen;
-        if (cs == null || (strLen = cs.length()) == 0) {
+        int strLen = length(cs);
+        if (strLen == 0) {
             return true;
         }
         for (int i = 0; i < strLen; i++) {
@@ -4388,6 +4388,7 @@ public class StringUtils {
         return join(subList.iterator(), separator);
     }
 
+
     /**
      * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
@@ -4419,7 +4420,6 @@ public class StringUtils {
         }
         return join(array, separator, 0, array.length);
     }
-
 
     /**
      * <p>
@@ -4721,6 +4721,7 @@ public class StringUtils {
         return buf.toString();
     }
 
+
     // Joining
     //-----------------------------------------------------------------------
     /**
@@ -4749,7 +4750,6 @@ public class StringUtils {
     public static <T> String join(final T... elements) {
         return join(elements, null);
     }
-
 
     /**
      * <p>Joins the elements of the provided varargs into a
@@ -5679,7 +5679,7 @@ public class StringUtils {
         if (str == null || isEmpty(prefix) || startsWith(str, prefix, ignoreCase)) {
             return str;
         }
-        if (prefixes != null && prefixes.length > 0) {
+        if (ArrayUtils.isNotEmpty(prefixes)) {
             for (final CharSequence p : prefixes) {
                 if (startsWith(str, p, ignoreCase)) {
                     return str;
@@ -6237,6 +6237,9 @@ public class StringUtils {
         }
     }
 
+    // Conversion
+    //-----------------------------------------------------------------------
+
     /**
      * <p>Repeat a String {@code repeat} times to form a
      * new String, with a String separator injected each time. </p>
@@ -6265,9 +6268,6 @@ public class StringUtils {
         final String result = repeat(str + separator, repeat);
         return removeEnd(result, separator);
     }
-
-    // Conversion
-    //-----------------------------------------------------------------------
 
     /**
      * <p>Replaces all occurrences of a String within another String.</p>
@@ -6636,8 +6636,7 @@ public class StringUtils {
         // mchyzer Performance note: This creates very few new objects (one major goal)
         // let me know if there are performance requests, we can create a harness to measure
 
-        if (text == null || text.isEmpty() || searchList == null ||
-                searchList.length == 0 || replacementList == null || replacementList.length == 0) {
+        if (isEmpty(text) || ArrayUtils.isEmpty(searchList) || ArrayUtils.isEmpty(replacementList)) {
             return text;
         }
 
@@ -8257,8 +8256,8 @@ public class StringUtils {
      * @return the stripped String, {@code null} if null String input
      */
     public static String stripEnd(final String str, final String stripChars) {
-        int end;
-        if (str == null || (end = str.length()) == 0) {
+        int end = length(str);
+        if (end == 0) {
             return str;
         }
 
@@ -8301,8 +8300,8 @@ public class StringUtils {
      * @return the stripped String, {@code null} if null String input
      */
     public static String stripStart(final String str, final String stripChars) {
-        int strLen;
-        if (str == null || (strLen = str.length()) == 0) {
+        int strLen = length(str);
+        if (strLen == 0) {
             return str;
         }
         int start = 0;
@@ -8533,6 +8532,9 @@ public class StringUtils {
         return str.substring(pos + separator.length());
     }
 
+    // startsWith
+    //-----------------------------------------------------------------------
+
     /**
      * <p>Gets the substring after the last occurrence of a separator.
      * The separator is not returned.</p>
@@ -8575,9 +8577,6 @@ public class StringUtils {
         }
         return str.substring(pos + separator.length());
     }
-
-    // startsWith
-    //-----------------------------------------------------------------------
 
     // SubStringAfter/SubStringBefore
     //-----------------------------------------------------------------------
@@ -8687,6 +8686,9 @@ public class StringUtils {
         return substringBetween(str, tag, tag);
     }
 
+    // endsWith
+    //-----------------------------------------------------------------------
+
     /**
      * <p>Gets the String that is nested in between two Strings.
      * Only the first match is returned.</p>
@@ -8727,9 +8729,6 @@ public class StringUtils {
         }
         return null;
     }
-
-    // endsWith
-    //-----------------------------------------------------------------------
 
     /**
      * <p>Searches a String for substrings delimited by a start and end tag,
@@ -9147,8 +9146,8 @@ public class StringUtils {
      * @since 2.0
      */
     public static String uncapitalize(final String str) {
-        int strLen;
-        if (str == null || (strLen = str.length()) == 0) {
+        int strLen = length(str);
+        if (strLen == 0) {
             return str;
         }
 
