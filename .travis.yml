@@ -32,4 +32,4 @@ script:
   - mvn
 
 after_success:
-  - mvn clean test acoco:report coveralls:report -Ptravis-jacoco javadoc:javadoc -Ddoclint=all
+  - mvn clean test jacoco:report coveralls:report -Ptravis-jacoco javadoc:javadoc -Ddoclint=all
