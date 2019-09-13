@@ -39,6 +39,7 @@ package org.apache.commons.lang3.builder;
  * @param <T> the type of objects that this object may be differentiated against
  * @since 3.3
  */
+@FunctionalInterface
 public interface Diffable<T> {
 
     /**
