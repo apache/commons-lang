@@ -93,7 +93,6 @@ public class DiffBuilderTest {
 
     private static final ToStringStyle SHORT_STYLE = ToStringStyle.SHORT_PREFIX_STYLE;
 
-
     @Test
     public void testBoolean() {
         final TypeTestClass class1 = new TypeTestClass();
@@ -120,7 +119,6 @@ public class DiffBuilderTest {
         assertArrayEquals(ArrayUtils.toObject(class2.booleanArrayField),
                 (Object[]) diff.getRight());
     }
-
 
     @Test
     public void testByte() {
@@ -165,7 +163,6 @@ public class DiffBuilderTest {
         assertEquals(0, list.getNumberOfDiffs());
     }
 
-
     @Test
     public void testChar() {
         final TypeTestClass class1 = new TypeTestClass();
@@ -177,7 +174,6 @@ public class DiffBuilderTest {
         assertEquals(Character.valueOf(class1.charField), diff.getLeft());
         assertEquals(Character.valueOf(class2.charField), diff.getRight());
     }
-
 
     @Test
     public void testCharArray() {
@@ -192,7 +188,6 @@ public class DiffBuilderTest {
         assertArrayEquals(ArrayUtils.toObject(class2.charArrayField),
                 (Object[]) diff.getRight());
     }
-
 
     @Test
     public void testDiffResult() {
@@ -219,7 +214,6 @@ public class DiffBuilderTest {
         assertEquals(Double.valueOf(class2.doubleField), diff.getRight());
     }
 
-
     @Test
     public void testDoubleArray() {
         final TypeTestClass class1 = new TypeTestClass();
@@ -234,7 +228,6 @@ public class DiffBuilderTest {
                 (Object[]) diff.getRight());
     }
 
-
     @Test
     public void testFloat() {
         final TypeTestClass class1 = new TypeTestClass();
@@ -246,7 +239,6 @@ public class DiffBuilderTest {
         assertEquals(Float.valueOf(class1.floatField), diff.getLeft());
         assertEquals(Float.valueOf(class2.floatField), diff.getRight());
     }
-
 
     @Test
     public void testFloatArray() {
@@ -274,7 +266,6 @@ public class DiffBuilderTest {
         assertEquals(Integer.valueOf(class2.intField), diff.getRight());
     }
 
-
     @Test
     public void testIntArray() {
         final TypeTestClass class1 = new TypeTestClass();
@@ -300,7 +291,6 @@ public class DiffBuilderTest {
         assertEquals(Long.valueOf(class1.longField), diff.getLeft());
         assertEquals(Long.valueOf(class2.longField), diff.getRight());
     }
-
 
     @Test
     public void testLongArray() {
@@ -418,7 +408,6 @@ public class DiffBuilderTest {
         assertEquals(0, list.getNumberOfDiffs());
     }
 
-
     @Test
     public void testShort() {
         final TypeTestClass class1 = new TypeTestClass();
@@ -454,7 +443,6 @@ public class DiffBuilderTest {
             .build();
         assertEquals(0, list.getNumberOfDiffs());
     }
-
 
     @Test
     public void testStylePassedToDiffResult() {
