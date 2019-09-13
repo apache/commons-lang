@@ -7758,12 +7758,7 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static <T extends Comparable<? super T>> boolean isSorted(final T[] array) {
-        return isSorted(array, new Comparator<T>() {
-            @Override
-            public int compare(final T o1, final T o2) {
-                return o1.compareTo(o2);
-            }
-        });
+        return isSorted(array, (o1, o2) -> o1.compareTo(o2));
     }
 
 
