@@ -9075,8 +9075,8 @@ public class StringUtils {
      * StringUtils.truncate("raspberry peach", 10, 15) = "peach"
      * StringUtils.truncate("abcdefghijklmno", 0, 10) = "abcdefghij"
      * StringUtils.truncate("abcdefghijklmno", -1, 10) = throws an IllegalArgumentException
-     * StringUtils.truncate("abcdefghijklmno", Integer.MIN_VALUE, 10) = "abcdefghij"
-     * StringUtils.truncate("abcdefghijklmno", Integer.MIN_VALUE, Integer.MAX_VALUE) = "abcdefghijklmno"
+     * StringUtils.truncate("abcdefghijklmno", Integer.MIN_VALUE, 10) = throws an IllegalArgumentException
+     * StringUtils.truncate("abcdefghijklmno", Integer.MIN_VALUE, Integer.MAX_VALUE) = throws an IllegalArgumentException
      * StringUtils.truncate("abcdefghijklmno", 0, Integer.MAX_VALUE) = "abcdefghijklmno"
      * StringUtils.truncate("abcdefghijklmno", 1, 10) = "bcdefghijk"
      * StringUtils.truncate("abcdefghijklmno", 2, 10) = "cdefghijkl"
