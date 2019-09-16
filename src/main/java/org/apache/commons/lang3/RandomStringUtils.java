@@ -37,7 +37,7 @@ import java.util.Random;
  * class relies, are <b>not cryptographically secure</b>.
  * Do not use this classes' default implementation of {@link Random} in security sensitive locations,
  * for example password reset key generation, as all future values can be computed as proven by
- * <a href="https://medium.com/@alex91ar/the-java-soothsayer-a-practical-application-for-insecure-randomness-c67b0cd148cd">
+ * <a href="https://medium.com/@alex91ar/the-java-soothsayer-a-practical-application-for-insecure-randomness-c67b0cd148cd?source=friends_link&sk=3db1c41cc81a58f70ed05a7315191385">
  * this proof of concept.</a></p>
  *
  * <p>Please note that the Apache Commons project provides a component
