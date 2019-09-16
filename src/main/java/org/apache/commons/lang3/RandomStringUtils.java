@@ -34,7 +34,11 @@ import java.util.Random;
  * RandomStringGenerator</a> instead.</p>
  *
  * <p>Caveat: Instances of {@link Random}, upon which the implementation of this
- * class relies, are not cryptographically secure.</p>
+ * class relies, are <b>not cryptographically secure</b>.
+ * Do not use this classes' default implementation of {@link Random} in security sensitive locations,
+ * for example password reset key generation, as all future values can be computed as proven by
+ * <a href="https://medium.com/@alex91ar/the-java-soothsayer-a-practical-application-for-insecure-randomness-c67b0cd148cd">
+ * this proof of concept.</a></p>
  *
  * <p>Please note that the Apache Commons project provides a component
  * dedicated to pseudo-random number generation, namely
