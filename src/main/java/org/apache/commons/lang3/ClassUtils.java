@@ -429,8 +429,8 @@ public class ClassUtils {
      * <p>The result will be longer than the desired length only if all the package names
      * shortened to a single character plus the class simple name with the separating dots
      * together are longer than the desired length. In other words, when the class name
-     * cannot be shortened to the desired length without significant loss of meaning.</p>
-     * <p>If the class name can be shortened without significant loss of meaning then
+     * cannot be shortened to the desired length.</p>
+     * <p>If the class name can be shortened then
      * the final length will be at most {@code len} characters.</p>
      *
      * <table>
@@ -446,7 +446,8 @@ public class ClassUtils {
      * @param className the className to get the abbreviated name for, may be {@code null}
      * @param len       the desired length of the abbreviated name
      * @return the abbreviated name or an empty string if the specified
-     * class name is {@code null} or empty string
+     * class name is {@code null} or empty string. The abbreviated name may be
+     * longer than the desired length if it cannot be abbreviated to the desired length.
      * @throws IllegalArgumentException if {@code len <= 0}
      * @since 3.4
      */
