@@ -9039,6 +9039,7 @@ public class StringUtils {
      * @param str  the String to truncate, may be null
      * @param maxWidth  maximum length of result String, must be positive
      * @return truncated String, {@code null} if null String input
+     * @throws IllegalArgumentException If {@code maxWidth} is less than {@code 0}
      * @since 3.5
      */
     public static String truncate(final String str, final int maxWidth) {
@@ -9098,10 +9099,11 @@ public class StringUtils {
      * StringUtils.truncate("abcdefghij", -2, 4) = throws an IllegalArgumentException
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param str  the String to truncate, may be null
      * @param offset  left edge of source String
      * @param maxWidth  maximum length of result String, must be positive
      * @return truncated String, {@code null} if null String input
+     * @throws IllegalArgumentException If {@code offset} or {@code maxWidth} is less than {@code 0}
      * @since 3.5
      */
     public static String truncate(final String str, final int offset, final int maxWidth) {
