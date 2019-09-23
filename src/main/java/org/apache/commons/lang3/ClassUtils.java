@@ -462,7 +462,7 @@ public class ClassUtils {
         if (className == null) {
             return StringUtils.EMPTY;
         }
-        if( className.length() <= lengthHint ){
+        if (className.length() <= lengthHint) {
             return className;
         }
         final char[] abbreviated = className.toCharArray();
@@ -477,7 +477,7 @@ public class ClassUtils {
 
             ++target;
             if (useFull(runAheadTarget, source, abbreviated.length, lengthHint)
-                || target > runAheadTarget) {
+                  || target > runAheadTarget) {
                 target = runAheadTarget;
             }
 
