@@ -41,6 +41,8 @@ import org.apache.commons.lang3.ClassUtils.Interfaces;
 import org.apache.commons.lang3.reflect.testbed.GenericConsumer;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -166,18 +168,33 @@ class ClassUtilsTest  {
         assertEquals("java.lang.String", ClassUtils.getAbbreviatedName(String.class, 20));
     }
 
+    /**
+     * Test that in case the required length is larger than the name and thus there is no need for any shortening
+     * then the returned string object is the same as the one passed as argument. Note, however, that this is
+     * tested as an internal implementation detail, but it is not a guaranteed feature of the implementation.
+     */
     @Test
-    public void test_getAbbreviatedName_Class_NegativeLen() {
+    @DisplayName("When the length hint is longer than the actual length then the same String object is returned")
+    void test_getAbbreviatedName_TooLongHint(){
+        final String className = "java.lang.String";
+        Assertions.assertSame(className, ClassUtils.getAbbreviatedName(className, className.length()+1));
+        Assertions.assertSame(className, ClassUtils.getAbbreviatedName(className, className.length()));
+    }
+
+    @Test
+    @DisplayName("When the desired length is negative then exception is thrown")
+    void test_getAbbreviatedName_Class_NegativeLen() {
         assertThrows(IllegalArgumentException.class, () -> ClassUtils.getAbbreviatedName(String.class, -10));
     }
 
     @Test
-    public void test_getAbbreviatedName_Class_ZeroLen() {
+    @DisplayName("When the desired length is zero then exception is thrown")
+    void test_getAbbreviatedName_Class_ZeroLen() {
         assertThrows(IllegalArgumentException.class, () -> ClassUtils.getAbbreviatedName(String.class, 0));
     }
 
     @Test
-    public void test_getAbbreviatedName_String() {
+    void test_getAbbreviatedName_String() {
         assertEquals("", ClassUtils.getAbbreviatedName((String) null, 1));
         assertEquals("", ClassUtils.getAbbreviatedName("", 1));
         assertEquals("WithoutPackage", ClassUtils.getAbbreviatedName("WithoutPackage", 1));

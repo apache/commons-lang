@@ -402,17 +402,17 @@ public class ClassUtils {
      * <p>Gets the abbreviated name of a {@code Class}.</p>
      *
      * @param cls  the class to get the abbreviated name for, may be {@code null}
-     * @param len  the desired length of the abbreviated name
+     * @param lengthHint  the desired length of the abbreviated name
      * @return the abbreviated name or an empty string
      * @throws IllegalArgumentException if len &lt;= 0
      * @see #getAbbreviatedName(String, int)
      * @since 3.4
      */
-    public static String getAbbreviatedName(final Class<?> cls, final int len) {
+    public static String getAbbreviatedName(final Class<?> cls, final int lengthHint) {
       if (cls == null) {
         return StringUtils.EMPTY;
       }
-      return getAbbreviatedName(cls.getName(), len);
+      return getAbbreviatedName(cls.getName(), lengthHint);
     }
 
     /**
@@ -422,6 +422,7 @@ public class ClassUtils {
      *
      * <p>The abbreviation algorithm will shorten the class name, usually without
      * significant loss of meaning.</p>
+     *
      * <p>The abbreviated class name will always include the complete package hierarchy.
      * If enough space is available, rightmost sub-packages will be displayed in full
      * length. The abbreviated package names will be shortened to a single character.</p>
@@ -431,7 +432,10 @@ public class ClassUtils {
      * together are longer than the desired length. In other words, when the class name
      * cannot be shortened to the desired length.</p>
      * <p>If the class name can be shortened then
-     * the final length will be at most {@code len} characters.</p>
+     * the final length will be at most {@code lengthHint} characters.</p>
+     * <p>If the {@code lengthHint} is zero or negative then the method
+     * throws exception. If you want to achieve the shortest possible version then
+     * use {@code 1} as a {@code lengthHint}.</p>
      *
      * <table>
      * <caption>Examples</caption>
@@ -444,21 +448,23 @@ public class ClassUtils {
      * </table>
      *
      * @param className the className to get the abbreviated name for, may be {@code null}
-     * @param len       the desired length of the abbreviated name
+     * @param lengthHint       the desired length of the abbreviated name
      * @return the abbreviated name or an empty string if the specified
      * class name is {@code null} or empty string. The abbreviated name may be
      * longer than the desired length if it cannot be abbreviated to the desired length.
      * @throws IllegalArgumentException if {@code len <= 0}
      * @since 3.4
      */
-    public static String getAbbreviatedName(final String className, final int len) {
-        if (len <= 0) {
+    public static String getAbbreviatedName(final String className, final int lengthHint) {
+        if (lengthHint <= 0) {
             throw new IllegalArgumentException("len must be > 0");
         }
         if (className == null) {
             return StringUtils.EMPTY;
         }
-
+        if( className.length() <= lengthHint ){
+            return className;
+        }
         final char[] abbreviated = className.toCharArray();
         int target = 0;
         int source = 0;
@@ -470,7 +476,7 @@ public class ClassUtils {
             }
 
             ++target;
-            if (useFull(runAheadTarget, source, abbreviated.length, len)
+            if (useFull(runAheadTarget, source, abbreviated.length, lengthHint)
                 || target > runAheadTarget) {
                 target = runAheadTarget;
             }
