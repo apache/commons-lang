@@ -1715,12 +1715,7 @@ public class TypeUtils {
      * @since 3.2
      */
     public static <T> Typed<T> wrap(final Type type) {
-        return new Typed<T>() {
-            @Override
-            public Type getType() {
-                return type;
-            }
-        };
+        return () -> type;
     }
 
     /**

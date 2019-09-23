@@ -58,18 +58,19 @@ import org.apache.commons.lang3.Validate;
  * calling {@link DiffResult#toString(ToStringStyle)}.
  * </p>
  *
- * @since 3.3
+ * @param <T> type of the left and right object.
  * @see Diffable
  * @see Diff
  * @see DiffResult
  * @see ToStringStyle
+ * @since 3.3
  */
-public class DiffBuilder implements Builder<DiffResult> {
+public class DiffBuilder<T> implements Builder<DiffResult<T>> {
 
     private final List<Diff<?>> diffs;
     private final boolean objectsTriviallyEqual;
-    private final Object left;
-    private final Object right;
+    private final T left;
+    private final T right;
     private final ToStringStyle style;
 
     /**
@@ -100,7 +101,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      *             if {@code lhs} or {@code rhs} is {@code null}
      * @since 3.4
      */
-    public DiffBuilder(final Object lhs, final Object rhs,
+    public DiffBuilder(final T lhs, final T rhs,
             final ToStringStyle style, final boolean testTriviallyEqual) {
 
         Validate.isTrue(lhs != null, "lhs cannot be null");
@@ -141,7 +142,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if {@code lhs} or {@code rhs} is {@code null}
      */
-    public DiffBuilder(final Object lhs, final Object rhs,
+    public DiffBuilder(final T lhs, final T rhs,
             final ToStringStyle style) {
 
             this(lhs, rhs, style, true);
@@ -162,7 +163,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if field name is {@code null}
      */
-    public DiffBuilder append(final String fieldName, final boolean lhs,
+    public DiffBuilder<T> append(final String fieldName, final boolean lhs,
             final boolean rhs) {
         validateFieldNameNotNull(fieldName);
 
@@ -202,7 +203,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if field name is {@code null}
      */
-    public DiffBuilder append(final String fieldName, final boolean[] lhs,
+    public DiffBuilder<T> append(final String fieldName, final boolean[] lhs,
             final boolean[] rhs) {
         validateFieldNameNotNull(fieldName);
         if (objectsTriviallyEqual) {
@@ -241,7 +242,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if field name is {@code null}
      */
-    public DiffBuilder append(final String fieldName, final byte lhs,
+    public DiffBuilder<T> append(final String fieldName, final byte lhs,
             final byte rhs) {
         validateFieldNameNotNull(fieldName);
         if (objectsTriviallyEqual) {
@@ -280,7 +281,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if field name is {@code null}
      */
-    public DiffBuilder append(final String fieldName, final byte[] lhs,
+    public DiffBuilder<T> append(final String fieldName, final byte[] lhs,
             final byte[] rhs) {
         validateFieldNameNotNull(fieldName);
 
@@ -320,7 +321,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if field name is {@code null}
      */
-    public DiffBuilder append(final String fieldName, final char lhs,
+    public DiffBuilder<T> append(final String fieldName, final char lhs,
             final char rhs) {
         validateFieldNameNotNull(fieldName);
 
@@ -360,7 +361,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if field name is {@code null}
      */
-    public DiffBuilder append(final String fieldName, final char[] lhs,
+    public DiffBuilder<T> append(final String fieldName, final char[] lhs,
             final char[] rhs) {
         validateFieldNameNotNull(fieldName);
 
@@ -400,7 +401,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if field name is {@code null}
      */
-    public DiffBuilder append(final String fieldName, final double lhs,
+    public DiffBuilder<T> append(final String fieldName, final double lhs,
             final double rhs) {
         validateFieldNameNotNull(fieldName);
 
@@ -440,7 +441,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if field name is {@code null}
      */
-    public DiffBuilder append(final String fieldName, final double[] lhs,
+    public DiffBuilder<T> append(final String fieldName, final double[] lhs,
             final double[] rhs) {
         validateFieldNameNotNull(fieldName);
 
@@ -480,7 +481,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if field name is {@code null}
      */
-    public DiffBuilder append(final String fieldName, final float lhs,
+    public DiffBuilder<T> append(final String fieldName, final float lhs,
             final float rhs) {
         validateFieldNameNotNull(fieldName);
 
@@ -520,7 +521,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if field name is {@code null}
      */
-    public DiffBuilder append(final String fieldName, final float[] lhs,
+    public DiffBuilder<T> append(final String fieldName, final float[] lhs,
             final float[] rhs) {
         validateFieldNameNotNull(fieldName);
 
@@ -560,7 +561,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if field name is {@code null}
      */
-    public DiffBuilder append(final String fieldName, final int lhs,
+    public DiffBuilder<T> append(final String fieldName, final int lhs,
             final int rhs) {
         validateFieldNameNotNull(fieldName);
 
@@ -600,7 +601,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if field name is {@code null}
      */
-    public DiffBuilder append(final String fieldName, final int[] lhs,
+    public DiffBuilder<T> append(final String fieldName, final int[] lhs,
             final int[] rhs) {
         validateFieldNameNotNull(fieldName);
 
@@ -640,7 +641,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if field name is {@code null}
      */
-    public DiffBuilder append(final String fieldName, final long lhs,
+    public DiffBuilder<T> append(final String fieldName, final long lhs,
             final long rhs) {
         validateFieldNameNotNull(fieldName);
 
@@ -680,7 +681,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if field name is {@code null}
      */
-    public DiffBuilder append(final String fieldName, final long[] lhs,
+    public DiffBuilder<T> append(final String fieldName, final long[] lhs,
             final long[] rhs) {
         validateFieldNameNotNull(fieldName);
 
@@ -720,7 +721,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if field name is {@code null}
      */
-    public DiffBuilder append(final String fieldName, final short lhs,
+    public DiffBuilder<T> append(final String fieldName, final short lhs,
             final short rhs) {
         validateFieldNameNotNull(fieldName);
 
@@ -760,7 +761,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if field name is {@code null}
      */
-    public DiffBuilder append(final String fieldName, final short[] lhs,
+    public DiffBuilder<T> append(final String fieldName, final short[] lhs,
             final short[] rhs) {
         validateFieldNameNotNull(fieldName);
 
@@ -800,7 +801,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if field name is {@code null}
      */
-    public DiffBuilder append(final String fieldName, final Object lhs,
+    public DiffBuilder<T> append(final String fieldName, final Object lhs,
             final Object rhs) {
         validateFieldNameNotNull(fieldName);
         if (objectsTriviallyEqual) {
@@ -884,7 +885,7 @@ public class DiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if field name is {@code null}
      */
-    public DiffBuilder append(final String fieldName, final Object[] lhs,
+    public DiffBuilder<T> append(final String fieldName, final Object[] lhs,
             final Object[] rhs) {
         validateFieldNameNotNull(fieldName);
         if (objectsTriviallyEqual) {
@@ -946,8 +947,8 @@ public class DiffBuilder implements Builder<DiffResult> {
      *             if field name is {@code null}
      * @since 3.5
      */
-    public DiffBuilder append(final String fieldName,
-            final DiffResult diffResult) {
+    public DiffBuilder<T> append(final String fieldName,
+            final DiffResult<T> diffResult) {
         validateFieldNameNotNull(fieldName);
         Validate.isTrue(diffResult != null, "Diff result cannot be null");
         if (objectsTriviallyEqual) {
@@ -972,8 +973,8 @@ public class DiffBuilder implements Builder<DiffResult> {
      *         objects.
      */
     @Override
-    public DiffResult build() {
-        return new DiffResult(left, right, diffs, style);
+    public DiffResult<T> build() {
+        return new DiffResult<>(left, right, diffs, style);
     }
 
     private void validateFieldNameNotNull(final String fieldName) {

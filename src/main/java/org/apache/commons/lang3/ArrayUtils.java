@@ -1872,7 +1872,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final Object[] array, final int offset1, final int offset2) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -1901,7 +1901,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final long[] array, final int offset1, final int offset2) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -1929,7 +1929,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final int[] array, final int offset1, final int offset2) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -1957,7 +1957,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final short[] array, final int offset1, final int offset2) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -1985,7 +1985,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final char[] array, final int offset1, final int offset2) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -2013,7 +2013,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final byte[] array, final int offset1, final int offset2) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -2041,7 +2041,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final double[] array, final int offset1, final int offset2) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -2069,7 +2069,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final float[] array, final int offset1, final int offset2) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -2097,7 +2097,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final boolean[] array, final int offset1, final int offset2) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -2128,7 +2128,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final boolean[] array, int offset1, int offset2, int len) {
-        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
+        if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
         if (offset1 < 0) {
@@ -2170,7 +2170,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final byte[] array, int offset1, int offset2, int len) {
-        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
+        if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
         if (offset1 < 0) {
@@ -2212,7 +2212,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final char[] array, int offset1, int offset2, int len) {
-        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
+        if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
         if (offset1 < 0) {
@@ -2254,7 +2254,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final double[] array,  int offset1, int offset2, int len) {
-        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
+        if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
         if (offset1 < 0) {
@@ -2296,7 +2296,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final float[] array, int offset1, int offset2, int len) {
-        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
+        if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
         if (offset1 < 0) {
@@ -2339,7 +2339,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final int[] array,  int offset1, int offset2, int len) {
-        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
+        if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
         if (offset1 < 0) {
@@ -2381,7 +2381,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final long[] array,  int offset1, int offset2, int len) {
-        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
+        if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
         if (offset1 < 0) {
@@ -2423,7 +2423,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final Object[] array,  int offset1, int offset2, int len) {
-        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
+        if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
         if (offset1 < 0) {
@@ -2465,7 +2465,7 @@ public class ArrayUtils {
     * @since 3.5
     */
     public static void swap(final short[] array,  int offset1, int offset2, int len) {
-        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
+        if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
         if (offset1 < 0) {
@@ -7758,12 +7758,7 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static <T extends Comparable<? super T>> boolean isSorted(final T[] array) {
-        return isSorted(array, new Comparator<T>() {
-            @Override
-            public int compare(final T o1, final T o2) {
-                return o1.compareTo(o2);
-            }
-        });
+        return isSorted(array, (o1, o2) -> o1.compareTo(o2));
     }
 
 
@@ -8364,7 +8359,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8406,7 +8401,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8448,7 +8443,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8490,7 +8485,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8532,7 +8527,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8574,7 +8569,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8616,7 +8611,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8658,7 +8653,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8710,7 +8705,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {

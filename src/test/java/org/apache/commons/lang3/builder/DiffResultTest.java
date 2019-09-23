@@ -146,4 +146,16 @@ public class DiffResultTest {
                 SHORT_STYLE).build();
         assertEquals(DiffResult.OBJECTS_SAME_STRING, diffResult.toString());
     }
+
+    @Test
+    public void testLeftAndRightGetters() {
+        final SimpleClass left = new SimpleClass(true);
+        final SimpleClass right = new SimpleClass(false);
+
+        final List<Diff<?>> diffs = left.diff(right).getDiffs();
+        final DiffResult diffResult = new DiffResult(left, right, diffs, SHORT_STYLE);
+
+        assertEquals(left, diffResult.getLeft());
+        assertEquals(right, diffResult.getRight());
+    }
 }

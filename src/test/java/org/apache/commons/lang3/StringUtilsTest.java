@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -1683,6 +1684,12 @@ public class StringUtilsTest {
 
         // StringUtils.removeIgnoreCase("queued", "zZ") = "queued"
         assertEquals("queued", StringUtils.removeIgnoreCase("queued", "zZ"));
+
+        // StringUtils.removeIgnoreCase("\u0130x", "x") = "\u0130"
+        assertEquals("\u0130", StringUtils.removeIgnoreCase("\u0130x", "x"));
+
+        // LANG-1453
+        StringUtils.removeIgnoreCase("İa", "a");
     }
 
     @Test
@@ -3191,5 +3198,45 @@ public class StringUtilsTest {
         assertEquals("/", StringUtils.wrapIfMissing("/", "/"));
         assertEquals("ab/ab", StringUtils.wrapIfMissing("/", "ab"));
         assertEquals("ab/ab", StringUtils.wrapIfMissing("ab/ab", "ab"));
+    }
+
+    @Test
+    public void testToRootLowerCase() {
+        assertEquals(null, StringUtils.toRootLowerCase(null));
+        assertEquals("a", StringUtils.toRootLowerCase("A"));
+        assertEquals("a", StringUtils.toRootLowerCase("a"));
+        final Locale TURKISH = Locale.forLanguageTag("tr");
+        // Sanity checks:
+        assertNotEquals("title", "TITLE".toLowerCase(TURKISH));
+        assertEquals("title", "TITLE".toLowerCase(Locale.ROOT));
+        assertEquals("title", StringUtils.toRootLowerCase("TITLE"));
+        // Make sure we are not using the default Locale:
+        Locale defaultLocales = Locale.getDefault();
+        try {
+            Locale.setDefault(TURKISH);
+            assertEquals("title", StringUtils.toRootLowerCase("TITLE"));
+        } finally {
+            Locale.setDefault(defaultLocales);
+        }
+    }
+
+    @Test
+    public void testToRootUpperCase() {
+        assertEquals(null, StringUtils.toRootUpperCase(null));
+        assertEquals("A", StringUtils.toRootUpperCase("a"));
+        assertEquals("A", StringUtils.toRootUpperCase("A"));
+        final Locale TURKISH = Locale.forLanguageTag("tr");
+        // Sanity checks:
+        assertNotEquals("TITLE", "title".toUpperCase(TURKISH));
+        assertEquals("TITLE", "title".toUpperCase(Locale.ROOT));
+        assertEquals("TITLE", StringUtils.toRootUpperCase("title"));
+        // Make sure we are not using the default Locale:
+        Locale defaultLocales = Locale.getDefault();
+        try {
+            Locale.setDefault(TURKISH);
+            assertEquals("TITLE", StringUtils.toRootUpperCase("title"));
+        } finally {
+            Locale.setDefault(defaultLocales);
+        }
     }
 }

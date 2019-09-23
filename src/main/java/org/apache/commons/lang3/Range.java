@@ -457,7 +457,18 @@ public final class Range<T> implements Serializable {
      * Fits the given element into this range by returning the given element or, if out of bounds, the range minimum if
      * below, or the range maximum if above.
      * </p>
-     *
+     * <pre>
+     * Range&lt;Integer&gt; range = Range.between(16, 64);
+     * range.fit(-9) --&gt;  16
+     * range.fit(0)  --&gt;  16
+     * range.fit(15) --&gt;  16
+     * range.fit(16) --&gt;  16
+     * range.fit(17) --&gt;  17
+     * ...
+     * range.fit(63) --&gt;  63
+     * range.fit(64) --&gt;  64
+     * range.fit(99) --&gt;  64
+     * </pre>
      * @param element the element to check for, not null
      * @return the minimum, the element, or the maximum depending on the element's location relative to the range
      * @since 3.10

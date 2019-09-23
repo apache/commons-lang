@@ -54,6 +54,7 @@ import java.util.function.Supplier;
  * Lambda expressions is met better than the second version.
  */
 public class Functions {
+
     @FunctionalInterface
     public interface FailableRunnable<T extends Throwable> {
         /**
@@ -62,6 +63,7 @@ public class Functions {
          */
         void run() throws T;
     }
+
     @FunctionalInterface
     public interface FailableCallable<O, T extends Throwable> {
         /**
@@ -71,6 +73,7 @@ public class Functions {
          */
         O call() throws T;
     }
+
     @FunctionalInterface
     public interface FailableConsumer<O, T extends Throwable> {
         /**
@@ -80,6 +83,7 @@ public class Functions {
          */
         void accept(O pObject) throws T;
     }
+
     @FunctionalInterface
     public interface FailableBiConsumer<O1, O2, T extends Throwable> {
         /**
@@ -90,6 +94,7 @@ public class Functions {
          */
         void accept(O1 pObject1, O2 pObject2) throws T;
     }
+
     @FunctionalInterface
     public interface FailableFunction<I, O, T extends Throwable> {
         /**
@@ -100,6 +105,7 @@ public class Functions {
          */
         O apply(I pInput) throws T;
     }
+
     @FunctionalInterface
     public interface FailableBiFunction<I1, I2, O, T extends Throwable> {
         /**
@@ -111,6 +117,7 @@ public class Functions {
          */
         O apply(I1 pInput1, I2 pInput2) throws T;
     }
+
     @FunctionalInterface
     public interface FailablePredicate<O, T extends Throwable> {
         /**
@@ -121,6 +128,7 @@ public class Functions {
          */
         boolean test(O pObject) throws T;
     }
+
     @FunctionalInterface
     public interface FailableBiPredicate<O1, O2, T extends Throwable> {
         /**
@@ -132,6 +140,7 @@ public class Functions {
          */
         boolean test(O1 pObject1, O2 pObject2) throws T;
     }
+
     @FunctionalInterface
     public interface FailableSupplier<O, T extends Throwable> {
         /**
@@ -536,23 +545,21 @@ public class Functions {
     }
 
     /**
-     * Rethrow a {@link Throwable} as an unchecked exception.
+     * Rethrows a {@link Throwable} as an unchecked exception.
      * @param pThrowable The throwable to rethrow
      * @return Never returns anything, this method never terminates normally
      */
     public static RuntimeException rethrow(Throwable pThrowable) {
         if (pThrowable == null) {
             throw new NullPointerException("The Throwable must not be null.");
+        } else if (pThrowable instanceof RuntimeException) {
+            throw (RuntimeException) pThrowable;
+        } else if (pThrowable instanceof Error) {
+            throw (Error) pThrowable;
+        } else if (pThrowable instanceof IOException) {
+            throw new UncheckedIOException((IOException) pThrowable);
         } else {
-            if (pThrowable instanceof RuntimeException) {
-                throw (RuntimeException) pThrowable;
-            } else if (pThrowable instanceof Error) {
-                throw (Error) pThrowable;
-            } else if (pThrowable instanceof IOException) {
-                throw new UncheckedIOException((IOException) pThrowable);
-            } else {
-                throw new UndeclaredThrowableException(pThrowable);
-            }
+            throw new UndeclaredThrowableException(pThrowable);
         }
     }
 }
