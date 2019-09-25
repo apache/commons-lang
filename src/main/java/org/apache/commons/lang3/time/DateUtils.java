@@ -374,10 +374,21 @@ public class DateUtils {
         calendar.setLenient(lenient);
 
         for (final String parsePattern : parsePatterns) {
-            final FastDateParser fdp = new FastDateParser(parsePattern, tz, lcl);
+            
+            String pattern = parsePattern;
+            if (parsePattern.endsWith("ZZ")) {
+                pattern = parsePattern.substring(0, parsePattern.length() - 1);
+            }
+            
+            String str2 = str;
+            if (parsePattern.endsWith("ZZ")) {
+                str2 = str.replaceAll("([-+][0-9][0-9]):([0-9][0-9])$", "$1$2"); 
+            }
+            
+            final FastDateParser fdp = new FastDateParser(pattern, tz, lcl);
             calendar.clear();
             try {
-                if (fdp.parse(str, pos, calendar) && pos.getIndex()==str.length()) {
+                if (fdp.parse(str2, pos, calendar) && pos.getIndex()==str2.length()) {
                     return calendar.getTime();
                 }
             } catch(final IllegalArgumentException ignore) {
