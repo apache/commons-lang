@@ -16,9 +16,15 @@
  */
 package org.apache.commons.lang3;
 
-import org.apache.commons.lang3.mutable.MutableInt;
-import org.apache.commons.lang3.text.WordUtils;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
@@ -27,11 +33,18 @@ import java.lang.reflect.Modifier;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.regex.PatternSyntaxException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.apache.commons.lang3.mutable.MutableInt;
+import org.apache.commons.lang3.text.WordUtils;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for methods of {@link org.apache.commons.lang3.StringUtils}
