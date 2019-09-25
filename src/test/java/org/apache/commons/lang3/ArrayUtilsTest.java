@@ -4394,12 +4394,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testIsSortedComparator() {
-        final Comparator<Integer> c = new Comparator<Integer>() {
-            @Override
-            public int compare(final Integer o1, final Integer o2) {
-                return o2.compareTo(o1);
-            }
-        };
+        final Comparator<Integer> c = (o1, o2) -> o2.compareTo(o1);
 
         Integer[] array = null;
         assertTrue(ArrayUtils.isSorted(array, c));

@@ -32,10 +32,11 @@ import org.apache.commons.lang3.Validate;
  * <p>
  * Use a {@link DiffBuilder} to build a {@code DiffResult} comparing two objects.
  * </p>
+ * @param <T> type of the left and right object.
  *
  * @since 3.3
  */
-public class DiffResult implements Iterable<Diff<?>> {
+public class DiffResult<T> implements Iterable<Diff<?>> {
 
     /**
      * <p>
@@ -48,8 +49,8 @@ public class DiffResult implements Iterable<Diff<?>> {
     private static final String DIFFERS_STRING = "differs from";
 
     private final List<Diff<?>> diffs;
-    private final Object lhs;
-    private final Object rhs;
+    private final T lhs;
+    private final T rhs;
     private final ToStringStyle style;
 
     /**
@@ -71,7 +72,7 @@ public class DiffResult implements Iterable<Diff<?>> {
      * @throws IllegalArgumentException
      *             if {@code lhs}, {@code rhs} or {@code diffs} is {@code null}
      */
-    DiffResult(final Object lhs, final Object rhs, final List<Diff<?>> diffs,
+    DiffResult(final T lhs, final T rhs, final List<Diff<?>> diffs,
             final ToStringStyle style) {
         Validate.isTrue(lhs != null, "Left hand object cannot be null");
         Validate.isTrue(rhs != null, "Right hand object cannot be null");
@@ -86,6 +87,26 @@ public class DiffResult implements Iterable<Diff<?>> {
         } else {
             this.style = style;
         }
+    }
+
+    /**
+     * <p>Returns the object the right object has been compared to.</p>
+     *
+     * @return the left object of the diff
+     * @since 3.10
+     */
+    public T getLeft() {
+        return this.lhs;
+    }
+
+    /**
+     * <p>Returns the object the left object has been compared to.</p>
+     *
+     * @return the right object of the diff
+     * @since 3.10
+     */
+    public T getRight() {
+        return this.rhs;
     }
 
     /**

@@ -29,7 +29,7 @@ at least requires Java 6.0.
 
 For the advice on upgrading from 2.x to 3.x, see the following page: 
 
-    http://commons.apache.org/lang/article3_0.html
+    https://commons.apache.org/lang/article3_0.html
 
 COMPATIBILITY WITH 3.1
 ========================
@@ -392,13 +392,13 @@ o LANG-715:  CharSetUtils.squeeze() speedup.
 o LANG-716:  swapCase and *capitalize speedups.
 
 
-Historical list of changes: http://commons.apache.org/lang/changes-report.html
+Historical list of changes: https://commons.apache.org/lang/changes-report.html
 
 For complete information on Commons Lang, including instructions on how to
 submit bug reports, patches, or suggestions for improvement, see the 
 Apache Commons Lang website:
 
-http://commons.apache.org/lang/
+https://commons.apache.org/lang/
 
 Have fun!
 -Apache Commons Lang team

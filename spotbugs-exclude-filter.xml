@@ -23,6 +23,12 @@
 -->
 <FindBugsFilter>
 
+  <Match>
+    <Class name="org.apache.commons.lang3.ArrayUtils" />
+    <Method name="addFirst" />
+    <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE" />
+  </Match>
+
   <!-- Reason: Optimization to use == -->
   <Match>
     <Class name="org.apache.commons.lang3.BooleanUtils" />

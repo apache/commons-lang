@@ -483,7 +483,7 @@ public class RandomStringUtilsTest {
      * Checks if the string got by {@link RandomStringUtils#random(int)}
      * can be converted to UTF-8 and back without loss.
      *
-     * @see <a href="http://issues.apache.org/jira/browse/LANG-100">LANG-100</a>
+     * @see <a href="https://issues.apache.org/jira/browse/LANG-100">LANG-100</a>
      */
     @Test
     public void testLang100() {

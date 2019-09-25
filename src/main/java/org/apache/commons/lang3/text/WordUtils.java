@@ -83,14 +83,14 @@ public class WordUtils {
      *   <td>"Here is one line of\ntext that is going\nto be wrapped after\n20 columns."</td>
      *  </tr>
      *  <tr>
-     *   <td>"Click here to jump to the commons website - http://commons.apache.org"</td>
+     *   <td>"Click here to jump to the commons website - https://commons.apache.org"</td>
      *   <td>20</td>
-     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttp://commons.apache.org"</td>
+     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttps://commons.apache.org"</td>
      *  </tr>
      *  <tr>
-     *   <td>"Click here, http://commons.apache.org, to jump to the commons website"</td>
+     *   <td>"Click here, https://commons.apache.org, to jump to the commons website"</td>
      *   <td>20</td>
-     *   <td>"Click here,\nhttp://commons.apache.org,\nto jump to the\ncommons website"</td>
+     *   <td>"Click here,\nhttps://commons.apache.org,\nto jump to the\ncommons website"</td>
      *  </tr>
      * </table>
      *
@@ -155,14 +155,14 @@ public class WordUtils {
      *   <td>"Here is one line of" + systemNewLine + "text that is going" + systemNewLine + "to be wrapped after" + systemNewLine + "20 columns."</td>
      *  </tr>
      *  <tr>
-     *   <td>"Click here to jump to the commons website - http://commons.apache.org"</td>
+     *   <td>"Click here to jump to the commons website - https://commons.apache.org"</td>
      *   <td>20</td>
      *   <td>"\n"</td>
      *   <td>false</td>
-     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttp://commons.apache.org"</td>
+     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttps://commons.apache.org"</td>
      *  </tr>
      *  <tr>
-     *   <td>"Click here to jump to the commons website - http://commons.apache.org"</td>
+     *   <td>"Click here to jump to the commons website - https://commons.apache.org"</td>
      *   <td>20</td>
      *   <td>"\n"</td>
      *   <td>true</td>
@@ -238,15 +238,15 @@ public class WordUtils {
      *   <td>"Here is one line of" + systemNewLine + "text that is going" + systemNewLine + "to be wrapped after" + systemNewLine + "20 columns."</td>
      *  </tr>
      *  <tr>
-     *   <td>"Click here to jump to the commons website - http://commons.apache.org"</td>
+     *   <td>"Click here to jump to the commons website - https://commons.apache.org"</td>
      *   <td>20</td>
      *   <td>"\n"</td>
      *   <td>false</td>
      *   <td>" "</td>
-     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttp://commons.apache.org"</td>
+     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttps://commons.apache.org"</td>
      *  </tr>
      *  <tr>
-     *   <td>"Click here to jump to the commons website - http://commons.apache.org"</td>
+     *   <td>"Click here to jump to the commons website - https://commons.apache.org"</td>
      *   <td>20</td>
      *   <td>"\n"</td>
      *   <td>true</td>

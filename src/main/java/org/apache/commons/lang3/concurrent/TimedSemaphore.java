@@ -417,12 +417,7 @@ public class TimedSemaphore {
      * @return a future object representing the task scheduled
      */
     protected ScheduledFuture<?> startTimer() {
-        return getExecutorService().scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                endOfPeriod();
-            }
-        }, getPeriod(), getPeriod(), getUnit());
+        return getExecutorService().scheduleAtFixedRate(() -> endOfPeriod(), getPeriod(), getPeriod(), getUnit());
     }
 
     /**

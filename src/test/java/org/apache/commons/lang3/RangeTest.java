@@ -42,12 +42,11 @@ public class RangeTest {
     private Range<Byte> byteRange2;
     private Range<Byte> byteRange3;
 
+    private Range<Double> doubleRange;
+    private Range<Float> floatRange;
     private Range<Integer> intRange;
     private Range<Long> longRange;
-    private Range<Float> floatRange;
-    private Range<Double> doubleRange;
 
-    @SuppressWarnings("cast") // intRange
     @BeforeEach
     public void setUp() {
         byteRange = Range.between((byte) 0, (byte) 5);
@@ -58,31 +57,6 @@ public class RangeTest {
         longRange = Range.between(10L, 20L);
         floatRange = Range.between((float) 10, (float) 20);
         doubleRange = Range.between((double) 10, (double) 20);
-    }
-
-    // -----------------------------------------------------------------------
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    @Test
-    public void testComparableConstructors() {
-        final Comparable c = other -> 1;
-        final Range r1 = Range.is(c);
-        final Range r2 = Range.between(c, c);
-        assertTrue(r1.isNaturalOrdering());
-        assertTrue(r2.isNaturalOrdering());
-    }
-
-    @Test
-    public void testIsWithCompare() {
-        // all integers are equal
-        final Comparator<Integer> c = (o1, o2) -> 0;
-        Range<Integer> ri = Range.is(10);
-        assertFalse(ri.contains(null), "should not contain null");
-        assertTrue(ri.contains(10), "should contain 10");
-        assertFalse(ri.contains(11), "should not contain 11");
-        ri = Range.is(10, c);
-        assertFalse(ri.contains(null), "should not contain null");
-        assertTrue(ri.contains(10), "should contain 10");
-        assertTrue(ri.contains(11), "should contain 11");
     }
 
     @Test
@@ -117,66 +91,14 @@ public class RangeTest {
     }
 
     // -----------------------------------------------------------------------
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Test
-    public void testRangeOfChars() {
-        final Range<Character> chars = Range.between('a', 'z');
-        assertTrue(chars.contains('b'));
-        assertFalse(chars.contains('B'));
-    }
-
-    // -----------------------------------------------------------------------
-    @Test
-    public void testEqualsObject() {
-        assertEquals(byteRange, byteRange);
-        assertEquals(byteRange, byteRange2);
-        assertEquals(byteRange2, byteRange2);
-        assertEquals(byteRange, byteRange);
-        assertEquals(byteRange2, byteRange2);
-        assertEquals(byteRange3, byteRange3);
-        assertNotEquals(byteRange2, byteRange3);
-        assertNotEquals(null, byteRange2);
-        assertNotEquals("Ni!", byteRange2);
-    }
-
-    @Test
-    public void testHashCode() {
-        assertEquals(byteRange.hashCode(), byteRange2.hashCode());
-        assertNotEquals(byteRange.hashCode(), byteRange3.hashCode());
-
-        assertEquals(intRange.hashCode(), intRange.hashCode());
-        assertTrue(intRange.hashCode() != 0);
-    }
-
-    @Test
-    public void testToString() {
-        assertNotNull(byteRange.toString());
-
-        final String str = intRange.toString();
-        assertEquals("[10..20]", str);
-        assertEquals("[-20..-10]", Range.between(-20, -10).toString());
-    }
-
-    @Test
-    public void testToStringFormat() {
-        final String str = intRange.toString("From %1$s to %2$s");
-        assertEquals("From 10 to 20", str);
-    }
-
-    // -----------------------------------------------------------------------
-    @Test
-    public void testGetMinimum() {
-        assertEquals(10, (int) intRange.getMinimum());
-        assertEquals(10L, (long) longRange.getMinimum());
-        assertEquals(10f, floatRange.getMinimum(), 0.00001f);
-        assertEquals(10d, doubleRange.getMinimum(), 0.00001d);
-    }
-
-    @Test
-    public void testGetMaximum() {
-        assertEquals(20, (int) intRange.getMaximum());
-        assertEquals(20L, (long) longRange.getMaximum());
-        assertEquals(20f, floatRange.getMaximum(), 0.00001f);
-        assertEquals(20d, doubleRange.getMaximum(), 0.00001d);
+    public void testComparableConstructors() {
+        final Comparable c = other -> 1;
+        final Range r1 = Range.is(c);
+        final Range r2 = Range.between(c, c);
+        assertTrue(r1.isNaturalOrdering());
+        assertTrue(r2.isNaturalOrdering());
     }
 
     @Test
@@ -188,61 +110,6 @@ public class RangeTest {
         assertTrue(intRange.contains(15));
         assertTrue(intRange.contains(20));
         assertFalse(intRange.contains(25));
-    }
-
-    @Test
-    public void testIsAfter() {
-        assertFalse(intRange.isAfter(null));
-
-        assertTrue(intRange.isAfter(5));
-        assertFalse(intRange.isAfter(10));
-        assertFalse(intRange.isAfter(15));
-        assertFalse(intRange.isAfter(20));
-        assertFalse(intRange.isAfter(25));
-    }
-
-    @Test
-    public void testIsStartedBy() {
-        assertFalse(intRange.isStartedBy(null));
-
-        assertFalse(intRange.isStartedBy(5));
-        assertTrue(intRange.isStartedBy(10));
-        assertFalse(intRange.isStartedBy(15));
-        assertFalse(intRange.isStartedBy(20));
-        assertFalse(intRange.isStartedBy(25));
-    }
-
-    @Test
-    public void testIsEndedBy() {
-        assertFalse(intRange.isEndedBy(null));
-
-        assertFalse(intRange.isEndedBy(5));
-        assertFalse(intRange.isEndedBy(10));
-        assertFalse(intRange.isEndedBy(15));
-        assertTrue(intRange.isEndedBy(20));
-        assertFalse(intRange.isEndedBy(25));
-    }
-
-    @Test
-    public void testIsBefore() {
-        assertFalse(intRange.isBefore(null));
-
-        assertFalse(intRange.isBefore(5));
-        assertFalse(intRange.isBefore(10));
-        assertFalse(intRange.isBefore(15));
-        assertFalse(intRange.isBefore(20));
-        assertTrue(intRange.isBefore(25));
-    }
-
-    @Test
-    public void testElementCompareTo() {
-        assertThrows(NullPointerException.class, () -> intRange.elementCompareTo(null));
-
-        assertEquals(-1, intRange.elementCompareTo(5));
-        assertEquals(0, intRange.elementCompareTo(10));
-        assertEquals(0, intRange.elementCompareTo(15));
-        assertEquals(0, intRange.elementCompareTo(20));
-        assertEquals(1, intRange.elementCompareTo(25));
     }
 
     // -----------------------------------------------------------------------
@@ -279,6 +146,105 @@ public class RangeTest {
     }
 
     @Test
+    public void testElementCompareTo() {
+        assertThrows(NullPointerException.class, () -> intRange.elementCompareTo(null));
+
+        assertEquals(-1, intRange.elementCompareTo(5));
+        assertEquals(0, intRange.elementCompareTo(10));
+        assertEquals(0, intRange.elementCompareTo(15));
+        assertEquals(0, intRange.elementCompareTo(20));
+        assertEquals(1, intRange.elementCompareTo(25));
+    }
+
+    // -----------------------------------------------------------------------
+    @Test
+    public void testEqualsObject() {
+        assertEquals(byteRange, byteRange);
+        assertEquals(byteRange, byteRange2);
+        assertEquals(byteRange2, byteRange2);
+        assertEquals(byteRange, byteRange);
+        assertEquals(byteRange2, byteRange2);
+        assertEquals(byteRange3, byteRange3);
+        assertNotEquals(byteRange2, byteRange3);
+        assertNotEquals(null, byteRange2);
+        assertNotEquals("Ni!", byteRange2);
+    }
+
+    @Test
+    public void testFit() {
+        assertEquals(intRange.getMinimum(), intRange.fit(Integer.MIN_VALUE));
+        assertEquals(intRange.getMinimum(), intRange.fit(intRange.getMinimum()));
+        assertEquals(intRange.getMaximum(), intRange.fit(Integer.MAX_VALUE));
+        assertEquals(intRange.getMaximum(), intRange.fit(intRange.getMaximum()));
+        assertEquals(15, intRange.fit(15));
+    }
+
+    @Test
+    public void testFitNull() {
+        assertThrows(NullPointerException.class, () -> {
+            intRange.fit(null);
+        });
+    }
+
+    @Test
+    public void testGetMaximum() {
+        assertEquals(20, (int) intRange.getMaximum());
+        assertEquals(20L, (long) longRange.getMaximum());
+        assertEquals(20f, floatRange.getMaximum(), 0.00001f);
+        assertEquals(20d, doubleRange.getMaximum(), 0.00001d);
+    }
+
+    // -----------------------------------------------------------------------
+    @Test
+    public void testGetMinimum() {
+        assertEquals(10, (int) intRange.getMinimum());
+        assertEquals(10L, (long) longRange.getMinimum());
+        assertEquals(10f, floatRange.getMinimum(), 0.00001f);
+        assertEquals(10d, doubleRange.getMinimum(), 0.00001d);
+    }
+
+    @Test
+    public void testHashCode() {
+        assertEquals(byteRange.hashCode(), byteRange2.hashCode());
+        assertNotEquals(byteRange.hashCode(), byteRange3.hashCode());
+
+        assertEquals(intRange.hashCode(), intRange.hashCode());
+        assertTrue(intRange.hashCode() != 0);
+    }
+
+    @Test
+    public void testIntersectionWith() {
+        assertSame(intRange, intRange.intersectionWith(intRange));
+        assertSame(byteRange, byteRange.intersectionWith(byteRange));
+        assertSame(longRange, longRange.intersectionWith(longRange));
+        assertSame(floatRange, floatRange.intersectionWith(floatRange));
+        assertSame(doubleRange, doubleRange.intersectionWith(doubleRange));
+
+        assertEquals(Range.between(10, 15), intRange.intersectionWith(Range.between(5, 15)));
+    }
+
+    @Test
+    public void testIntersectionWithNonOverlapping() {
+        assertThrows(IllegalArgumentException.class, () -> intRange.intersectionWith(Range.between(0, 9)));
+    }
+
+    @Test
+    public void testIntersectionWithNull() {
+        assertThrows(IllegalArgumentException.class, () -> intRange.intersectionWith(null));
+    }
+
+    @Test
+    public void testIsAfter() {
+        assertFalse(intRange.isAfter(null));
+
+        assertTrue(intRange.isAfter(5));
+        assertFalse(intRange.isAfter(10));
+        assertFalse(intRange.isAfter(15));
+        assertFalse(intRange.isAfter(20));
+        assertFalse(intRange.isAfter(25));
+    }
+
+    @Test
     public void testIsAfterRange() {
         assertFalse(intRange.isAfterRange(null));
 
@@ -292,6 +258,44 @@ public class RangeTest {
         assertFalse(intRange.isAfterRange(Range.between(21, 25)));
 
         assertFalse(intRange.isAfterRange(Range.between(10, 20)));
+    }
+
+    @Test
+    public void testIsBefore() {
+        assertFalse(intRange.isBefore(null));
+
+        assertFalse(intRange.isBefore(5));
+        assertFalse(intRange.isBefore(10));
+        assertFalse(intRange.isBefore(15));
+        assertFalse(intRange.isBefore(20));
+        assertTrue(intRange.isBefore(25));
+    }
+
+    @Test
+    public void testIsBeforeRange() {
+        assertFalse(intRange.isBeforeRange(null));
+
+        assertFalse(intRange.isBeforeRange(Range.between(5, 9)));
+
+        assertFalse(intRange.isBeforeRange(Range.between(5, 10)));
+        assertFalse(intRange.isBeforeRange(Range.between(5, 20)));
+        assertFalse(intRange.isBeforeRange(Range.between(5, 25)));
+        assertFalse(intRange.isBeforeRange(Range.between(15, 25)));
+
+        assertTrue(intRange.isBeforeRange(Range.between(21, 25)));
+
+        assertFalse(intRange.isBeforeRange(Range.between(10, 20)));
+    }
+
+    @Test
+    public void testIsEndedBy() {
+        assertFalse(intRange.isEndedBy(null));
+
+        assertFalse(intRange.isEndedBy(5));
+        assertFalse(intRange.isEndedBy(10));
+        assertFalse(intRange.isEndedBy(15));
+        assertTrue(intRange.isEndedBy(20));
+        assertFalse(intRange.isEndedBy(25));
     }
 
     @Test
@@ -327,40 +331,36 @@ public class RangeTest {
     }
 
     @Test
-    public void testIsBeforeRange() {
-        assertFalse(intRange.isBeforeRange(null));
+    public void testIsStartedBy() {
+        assertFalse(intRange.isStartedBy(null));
 
-        assertFalse(intRange.isBeforeRange(Range.between(5, 9)));
-
-        assertFalse(intRange.isBeforeRange(Range.between(5, 10)));
-        assertFalse(intRange.isBeforeRange(Range.between(5, 20)));
-        assertFalse(intRange.isBeforeRange(Range.between(5, 25)));
-        assertFalse(intRange.isBeforeRange(Range.between(15, 25)));
-
-        assertTrue(intRange.isBeforeRange(Range.between(21, 25)));
-
-        assertFalse(intRange.isBeforeRange(Range.between(10, 20)));
+        assertFalse(intRange.isStartedBy(5));
+        assertTrue(intRange.isStartedBy(10));
+        assertFalse(intRange.isStartedBy(15));
+        assertFalse(intRange.isStartedBy(20));
+        assertFalse(intRange.isStartedBy(25));
     }
 
     @Test
-    public void testIntersectionWith() {
-        assertSame(intRange, intRange.intersectionWith(intRange));
-        assertSame(byteRange, byteRange.intersectionWith(byteRange));
-        assertSame(longRange, longRange.intersectionWith(longRange));
-        assertSame(floatRange, floatRange.intersectionWith(floatRange));
-        assertSame(doubleRange, doubleRange.intersectionWith(doubleRange));
-
-        assertEquals(Range.between(10, 15), intRange.intersectionWith(Range.between(5, 15)));
+    public void testIsWithCompare() {
+        // all integers are equal
+        final Comparator<Integer> c = (o1, o2) -> 0;
+        Range<Integer> ri = Range.is(10);
+        assertFalse(ri.contains(null), "should not contain null");
+        assertTrue(ri.contains(10), "should contain 10");
+        assertFalse(ri.contains(11), "should not contain 11");
+        ri = Range.is(10, c);
+        assertFalse(ri.contains(null), "should not contain null");
+        assertTrue(ri.contains(10), "should contain 10");
+        assertTrue(ri.contains(11), "should contain 11");
     }
 
+    // -----------------------------------------------------------------------
     @Test
-    public void testIntersectionWithNull() {
-        assertThrows(IllegalArgumentException.class, () -> intRange.intersectionWith(null));
-    }
-
-    @Test
-    public void testIntersectionWithNonOverlapping() {
-        assertThrows(IllegalArgumentException.class, () -> intRange.intersectionWith(Range.between(0, 9)));
+    public void testRangeOfChars() {
+        final Range<Character> chars = Range.between('a', 'z');
+        assertTrue(chars.contains('b'));
+        assertFalse(chars.contains('B'));
     }
 
     // -----------------------------------------------------------------------
@@ -369,4 +369,18 @@ public class RangeTest {
         SerializationUtils.clone(intRange);
     }
 
+    @Test
+    public void testToString() {
+        assertNotNull(byteRange.toString());
+
+        final String str = intRange.toString();
+        assertEquals("[10..20]", str);
+        assertEquals("[-20..-10]", Range.between(-20, -10).toString());
+    }
+
+    @Test
+    public void testToStringFormat() {
+        final String str = intRange.toString("From %1$s to %2$s");
+        assertEquals("From 10 to 20", str);
+    }
 }
