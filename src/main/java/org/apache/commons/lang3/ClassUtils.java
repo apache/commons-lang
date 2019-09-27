@@ -833,28 +833,26 @@ public class ClassUtils {
                 return Double.TYPE.equals(toClass);
             }
             if (Character.TYPE.equals(cls)) {
-                return Integer.TYPE.equals(toClass)
-                    || Long.TYPE.equals(toClass)
-                    || Float.TYPE.equals(toClass)
-                    || Double.TYPE.equals(toClass);
+                return isSomeNumberType(toClass);
             }
             if (Short.TYPE.equals(cls)) {
-                return Integer.TYPE.equals(toClass)
-                    || Long.TYPE.equals(toClass)
-                    || Float.TYPE.equals(toClass)
-                    || Double.TYPE.equals(toClass);
+                return isSomeNumberType(toClass);
             }
             if (Byte.TYPE.equals(cls)) {
                 return Short.TYPE.equals(toClass)
-                    || Integer.TYPE.equals(toClass)
-                    || Long.TYPE.equals(toClass)
-                    || Float.TYPE.equals(toClass)
-                    || Double.TYPE.equals(toClass);
+                    || isSomeNumberType(toClass);
             }
             // should never get here
             return false;
         }
         return toClass.isAssignableFrom(cls);
+    }
+
+    private static boolean isSomeNumberType(Class<?> toClass) {
+        return Integer.TYPE.equals(toClass)
+            || Long.TYPE.equals(toClass)
+            || Float.TYPE.equals(toClass)
+            || Double.TYPE.equals(toClass);
     }
 
     /**
@@ -1407,7 +1405,7 @@ public class ClassUtils {
             final Iterator<Class<?>> wrapped = classes.iterator();
 
             return new Iterator<Class<?>>() {
-                Iterator<Class<?>> interfaces = Collections.<Class<?>>emptySet().iterator();
+                Iterator<Class<?>> interfaces = Collections.emptyIterator();
 
                 @Override
                 public boolean hasNext() {

@@ -1149,8 +1149,8 @@ public class StrBuilderTest {
         final StrBuilder sb = new StrBuilder ("hello goodbye");
         assertEquals ("goodbye", sb.substring(6));
         assertEquals ("hello goodbye".substring(6), sb.substring(6));
-        assertEquals ("hello goodbye", sb.substring(0));
-        assertEquals ("hello goodbye".substring(0), sb.substring(0));
+        assertEquals ("hello goodbye", sb.toString());
+        assertEquals ("hello goodbye", sb.toString());
         assertThrows(IndexOutOfBoundsException.class, () -> sb.substring(-1));
 
         assertThrows(IndexOutOfBoundsException.class, () -> sb.substring(15));
@@ -1774,20 +1774,20 @@ public class StrBuilderTest {
     @Test
     public void testToStringBuffer() {
         final StrBuilder sb = new StrBuilder();
-        assertEquals(new StringBuffer().toString(), sb.toStringBuffer().toString());
+        assertEquals("", sb.toStringBuffer().toString());
 
         sb.append("junit");
-        assertEquals(new StringBuffer("junit").toString(), sb.toStringBuffer().toString());
+        assertEquals("junit", sb.toStringBuffer().toString());
     }
 
     //-----------------------------------------------------------------------
     @Test
     public void testToStringBuilder() {
         final StrBuilder sb = new StrBuilder();
-        assertEquals(new StringBuilder().toString(), sb.toStringBuilder().toString());
+        assertEquals("", sb.toStringBuilder().toString());
 
         sb.append("junit");
-        assertEquals(new StringBuilder("junit").toString(), sb.toStringBuilder().toString());
+        assertEquals("junit", sb.toStringBuilder().toString());
     }
 
     //-----------------------------------------------------------------------

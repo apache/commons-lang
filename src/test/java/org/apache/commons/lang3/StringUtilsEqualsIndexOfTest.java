@@ -76,7 +76,7 @@ public class StringUtilsEqualsIndexOfTest  {
 
         @Override
         public boolean equals(final Object obj) {
-            if (obj == null || !(obj instanceof CustomCharSequence)) {
+            if (!(obj instanceof CustomCharSequence)) {
                 return false;
             }
             final CustomCharSequence other = (CustomCharSequence) obj;
@@ -96,8 +96,8 @@ public class StringUtilsEqualsIndexOfTest  {
 
     @Test
     public void testCustomCharSequence() {
-        assertThat(new CustomCharSequence(FOO), IsNot.<CharSequence>not(FOO));
-        assertThat(FOO, IsNot.<CharSequence>not(new CustomCharSequence(FOO)));
+        assertThat(new CustomCharSequence(FOO), IsNot.not(FOO));
+        assertThat(FOO, IsNot.not(new CustomCharSequence(FOO)));
         assertEquals(new CustomCharSequence(FOO), new CustomCharSequence(FOO));
     }
 

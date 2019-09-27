@@ -325,7 +325,7 @@ public class BooleanUtilsTest {
         assertFalse(BooleanUtils.toBoolean("false"));
         assertFalse(BooleanUtils.toBoolean("a"));
         assertTrue(BooleanUtils.toBoolean("true")); // interned handled differently
-        assertTrue(BooleanUtils.toBoolean(new StringBuilder("tr").append("ue").toString()));
+        assertTrue(BooleanUtils.toBoolean("tr" + "ue"));
         assertTrue(BooleanUtils.toBoolean("truE"));
         assertTrue(BooleanUtils.toBoolean("trUe"));
         assertTrue(BooleanUtils.toBoolean("trUE"));
@@ -366,12 +366,12 @@ public class BooleanUtilsTest {
         assertTrue(BooleanUtils.toBoolean(null, null, "N"));
         assertFalse(BooleanUtils.toBoolean(null, "Y", null));
         assertTrue(BooleanUtils.toBoolean("Y", "Y", "N"));
-        assertTrue(BooleanUtils.toBoolean("Y", new String("Y"), new String("N")));
+        assertTrue(BooleanUtils.toBoolean("Y", "Y", "N"));
         assertFalse(BooleanUtils.toBoolean("N", "Y", "N"));
-        assertFalse(BooleanUtils.toBoolean("N", new String("Y"), new String("N")));
+        assertFalse(BooleanUtils.toBoolean("N", "Y", "N"));
         assertTrue(BooleanUtils.toBoolean((String) null, null, null));
         assertTrue(BooleanUtils.toBoolean("Y", "Y", "Y"));
-        assertTrue(BooleanUtils.toBoolean("Y", new String("Y"), new String("Y")));
+        assertTrue(BooleanUtils.toBoolean("Y", "Y", "Y"));
     }
 
     @Test

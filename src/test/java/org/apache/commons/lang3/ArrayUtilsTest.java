@@ -203,7 +203,7 @@ public class ArrayUtilsTest {
      */
     @Test
     public void testEmptyArrayCreation() {
-        final String[] array = ArrayUtils.<String>toArray();
+        final String[] array = ArrayUtils.toArray();
         assertEquals(0, array.length);
     }
 
@@ -212,7 +212,7 @@ public class ArrayUtilsTest {
      */
     @Test
     public void testIndirectEmptyArrayCreation() {
-        final String[] array = ArrayUtilsTest.<String>toArrayPropagatingType();
+        final String[] array = ArrayUtilsTest.toArrayPropagatingType();
         assertEquals(0, array.length);
     }
 
@@ -4181,7 +4181,7 @@ public class ArrayUtilsTest {
     @Test
     public void testIsEmptyObject() {
         final Object[] emptyArray = new Object[]{};
-        final Object[] notEmptyArray = new Object[]{new String("Value")};
+        final Object[] notEmptyArray = new Object[]{"Value"};
         assertTrue(ArrayUtils.isEmpty((Object[]) null));
         assertTrue(ArrayUtils.isEmpty(emptyArray));
         assertFalse(ArrayUtils.isEmpty(notEmptyArray));
@@ -4254,7 +4254,7 @@ public class ArrayUtilsTest {
     @Test
     public void testIsNotEmptyObject() {
         final Object[] emptyArray = new Object[]{};
-        final Object[] notEmptyArray = new Object[]{new String("Value")};
+        final Object[] notEmptyArray = new Object[]{"Value"};
         assertFalse(ArrayUtils.isNotEmpty((Object[]) null));
         assertFalse(ArrayUtils.isNotEmpty(emptyArray));
         assertTrue(ArrayUtils.isNotEmpty(notEmptyArray));

@@ -115,8 +115,7 @@ public class ExtendedMessageFormatTest {
         final String extendedPattern = "Name: {0,upper} ";
         final String pattern = extendedPattern + builtinsPattern;
 
-        final HashSet<Locale> testLocales = new HashSet<>();
-        testLocales.addAll(Arrays.asList(DateFormat.getAvailableLocales()));
+        final HashSet<Locale> testLocales = new HashSet<>(Arrays.asList(DateFormat.getAvailableLocales()));
         testLocales.retainAll(Arrays.asList(NumberFormat.getAvailableLocales()));
         testLocales.add(null);
 
@@ -135,15 +134,14 @@ public class ExtendedMessageFormatTest {
                 nf = NumberFormat.getCurrencyInstance(locale);
                 emf = new ExtendedMessageFormat(pattern, locale, registry);
             }
-            final StringBuilder expected = new StringBuilder();
-            expected.append("Name: ");
-            expected.append(args[0].toString().toUpperCase(Locale.ROOT));
-            expected.append(" DOB: ");
-            expected.append(df.format(args[1]));
-            expected.append(" Salary: ");
-            expected.append(nf.format(args[2]));
             assertEquals(expectedPattern, emf.toPattern(), "pattern comparison for locale " + locale);
-            assertEquals(expected.toString(), emf.format(args), String.valueOf(locale));
+            String expected = "Name: " +
+                args[0].toString().toUpperCase(Locale.ROOT) +
+                " DOB: " +
+                df.format(args[1]) +
+                " Salary: " +
+                nf.format(args[2]);
+            assertEquals(expected, emf.format(args), String.valueOf(locale));
         }
     }
 

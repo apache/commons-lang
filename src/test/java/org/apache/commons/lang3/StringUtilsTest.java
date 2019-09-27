@@ -58,29 +58,29 @@ public class StringUtilsTest {
     static final String NON_TRIMMABLE;
 
     static {
-        String ws = "";
-        String nws = "";
+        StringBuilder ws = new StringBuilder();
+        StringBuilder nws = new StringBuilder();
         final String hs = String.valueOf(((char) 160));
-        String tr = "";
-        String ntr = "";
+        StringBuilder tr = new StringBuilder();
+        StringBuilder ntr = new StringBuilder();
         for (int i = 0; i < Character.MAX_VALUE; i++) {
             if (Character.isWhitespace((char) i)) {
-                ws += String.valueOf((char) i);
+                ws.append((char) i);
                 if (i > 32) {
-                    ntr += String.valueOf((char) i);
+                    ntr.append((char) i);
                 }
             } else if (i < 40) {
-                nws += String.valueOf((char) i);
+                nws.append((char) i);
             }
         }
         for (int i = 0; i <= 32; i++) {
-            tr += String.valueOf((char) i);
+            tr.append((char) i);
         }
-        WHITESPACE = ws;
-        NON_WHITESPACE = nws;
+        WHITESPACE = ws.toString();
+        NON_WHITESPACE = nws.toString();
         HARD_SPACE = hs;
-        TRIMMABLE = tr;
-        NON_TRIMMABLE = ntr;
+        TRIMMABLE = tr.toString();
+        NON_TRIMMABLE = ntr.toString();
     }
 
     private static final String[] ARRAY_LIST = {"foo", "bar", "baz"};
@@ -104,7 +104,7 @@ public class StringUtilsTest {
     private static final float[] FLOAT_PRIM_LIST = {1, 2};
     private static final double[] DOUBLE_PRIM_LIST = {1, 2};
     private static final List<String> MIXED_STRING_LIST = Arrays.asList(null, "", "foo");
-    private static final List<Object> MIXED_TYPE_OBJECT_LIST = Arrays.<Object>asList("foo", 2L);
+    private static final List<Object> MIXED_TYPE_OBJECT_LIST = Arrays.asList("foo", 2L);
     private static final List<String> STRING_LIST = Arrays.asList("foo", "bar", "baz");
     private static final List<String> EMPTY_STRING_LIST = Collections.emptyList();
     private static final List<String> NULL_STRING_LIST = Collections.singletonList(null);
@@ -630,10 +630,10 @@ public class StringUtilsTest {
 
     @Test
     public void testDefaultIfBlank_StringBuffers() {
-        assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuffer(""), new StringBuffer("NULL")).toString());
+        assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuffer(), new StringBuffer("NULL")).toString());
         assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuffer(" "), new StringBuffer("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfBlank(new StringBuffer("abc"), new StringBuffer("NULL")).toString());
-        assertNull(StringUtils.defaultIfBlank(new StringBuffer(""), null));
+        assertNull(StringUtils.defaultIfBlank(new StringBuffer(), null));
         // Tests compatibility for the API return type
         final StringBuffer s = StringUtils.defaultIfBlank(new StringBuffer("abc"), new StringBuffer("NULL"));
         assertEquals("abc", s.toString());
@@ -641,10 +641,10 @@ public class StringUtilsTest {
 
     @Test
     public void testDefaultIfBlank_StringBuilders() {
-        assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuilder(""), new StringBuilder("NULL")).toString());
+        assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuilder(), new StringBuilder("NULL")).toString());
         assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuilder(" "), new StringBuilder("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfBlank(new StringBuilder("abc"), new StringBuilder("NULL")).toString());
-        assertNull(StringUtils.defaultIfBlank(new StringBuilder(""), null));
+        assertNull(StringUtils.defaultIfBlank(new StringBuilder(), null));
         // Tests compatibility for the API return type
         final StringBuilder s = StringUtils.defaultIfBlank(new StringBuilder("abc"), new StringBuilder("NULL"));
         assertEquals("abc", s.toString());
@@ -675,9 +675,9 @@ public class StringUtilsTest {
 
     @Test
     public void testDefaultIfEmpty_StringBuffers() {
-        assertEquals("NULL", StringUtils.defaultIfEmpty(new StringBuffer(""), new StringBuffer("NULL")).toString());
+        assertEquals("NULL", StringUtils.defaultIfEmpty(new StringBuffer(), new StringBuffer("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfEmpty(new StringBuffer("abc"), new StringBuffer("NULL")).toString());
-        assertNull(StringUtils.defaultIfEmpty(new StringBuffer(""), null));
+        assertNull(StringUtils.defaultIfEmpty(new StringBuffer(), null));
         // Tests compatibility for the API return type
         final StringBuffer s = StringUtils.defaultIfEmpty(new StringBuffer("abc"), new StringBuffer("NULL"));
         assertEquals("abc", s.toString());
@@ -685,9 +685,9 @@ public class StringUtilsTest {
 
     @Test
     public void testDefaultIfEmpty_StringBuilders() {
-        assertEquals("NULL", StringUtils.defaultIfEmpty(new StringBuilder(""), new StringBuilder("NULL")).toString());
+        assertEquals("NULL", StringUtils.defaultIfEmpty(new StringBuilder(), new StringBuilder("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfEmpty(new StringBuilder("abc"), new StringBuilder("NULL")).toString());
-        assertNull(StringUtils.defaultIfEmpty(new StringBuilder(""), null));
+        assertNull(StringUtils.defaultIfEmpty(new StringBuilder(), null));
         // Tests compatibility for the API return type
         final StringBuilder s = StringUtils.defaultIfEmpty(new StringBuilder("abc"), new StringBuilder("NULL"));
         assertEquals("abc", s.toString());
@@ -1372,7 +1372,7 @@ public class StringUtilsTest {
 
     @Test
     public void testLengthStringBuffer() {
-        assertEquals(0, StringUtils.length(new StringBuffer("")));
+        assertEquals(0, StringUtils.length(new StringBuffer()));
         assertEquals(0, StringUtils.length(new StringBuffer(StringUtils.EMPTY)));
         assertEquals(1, StringUtils.length(new StringBuffer("A")));
         assertEquals(1, StringUtils.length(new StringBuffer(" ")));
@@ -1381,7 +1381,7 @@ public class StringUtilsTest {
 
     @Test
     public void testLengthStringBuilder() {
-        assertEquals(0, StringUtils.length(new StringBuilder("")));
+        assertEquals(0, StringUtils.length(new StringBuilder()));
         assertEquals(0, StringUtils.length(new StringBuilder(StringUtils.EMPTY)));
         assertEquals(1, StringUtils.length(new StringBuilder("A")));
         assertEquals(1, StringUtils.length(new StringBuilder(" ")));

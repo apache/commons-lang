@@ -6373,8 +6373,8 @@ public class StringUtils {
          }
          final int replLength = searchString.length();
          int increase = replacement.length() - replLength;
-         increase = increase < 0 ? 0 : increase;
-         increase *= max < 0 ? 16 : max > 64 ? 64 : max;
+         increase = Math.max(increase, 0);
+         increase *= max < 0 ? 16 : Math.min(max, 64);
          final StringBuilder buf = new StringBuilder(text.length() + increase);
          while (end != INDEX_NOT_FOUND) {
              buf.append(text, start, end).append(replacement);
@@ -7452,7 +7452,7 @@ public class StringUtils {
             currentType = type;
         }
         list.add(new String(c, tokenStart, c.length - tokenStart));
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 
     /**
@@ -7680,7 +7680,7 @@ public class StringUtils {
             }
         }
 
-        return substrings.toArray(new String[substrings.size()]);
+        return substrings.toArray(new String[0]);
     }
 
     // -----------------------------------------------------------------------
@@ -7868,7 +7868,7 @@ public class StringUtils {
         if (match || preserveAllTokens && lastMatch) {
             list.add(str.substring(start, i));
         }
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 
     /**
@@ -7967,7 +7967,7 @@ public class StringUtils {
         if (match || preserveAllTokens && lastMatch) {
             list.add(str.substring(start, i));
         }
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 
     /**
@@ -8780,7 +8780,7 @@ public class StringUtils {
         if (list.isEmpty()) {
             return null;
         }
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 
     /**
@@ -9120,7 +9120,7 @@ public class StringUtils {
             return EMPTY;
         }
         if (str.length() > maxWidth) {
-            final int ix = offset + maxWidth > str.length() ? str.length() : offset + maxWidth;
+            final int ix = Math.min(offset + maxWidth, str.length());
             return str.substring(offset, ix);
         }
         return str.substring(offset);

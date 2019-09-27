@@ -411,13 +411,12 @@ public class ObjectUtils {
         }
         final String name = object.getClass().getName();
         final String hexString = Integer.toHexString(System.identityHashCode(object));
-        final StringBuilder builder = new StringBuilder(name.length() + 1 + hexString.length());
         // @formatter:off
-        builder.append(name)
-              .append(AT_SIGN)
-              .append(hexString);
         // @formatter:off
-        return builder.toString();
+        String builder = name +
+            AT_SIGN +
+            hexString;
+        return builder;
     }
 
     /**

@@ -1534,7 +1534,7 @@ public class Conversion {
         if (nBytes > 16) {
             throw new IllegalArgumentException("nBytes is greater than 16");
         }
-        longToByteArray(src.getMostSignificantBits(), 0, dst, dstPos, nBytes > 8 ? 8 : nBytes);
+        longToByteArray(src.getMostSignificantBits(), 0, dst, dstPos, Math.min(nBytes, 8));
         if (nBytes >= 8) {
             longToByteArray(src.getLeastSignificantBits(), 0, dst, dstPos + 8, nBytes - 8);
         }

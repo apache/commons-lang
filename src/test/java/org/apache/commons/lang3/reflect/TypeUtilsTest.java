@@ -504,7 +504,7 @@ public class TypeUtilsTest<B> {
         assertEquals(Integer.class, typeVarAssigns.get(treeSetTypeVar),
                 "Type argument of Comparable from int: " + typeArg);
 
-        final Collection<Integer> col = Arrays.asList(new Integer[0]);
+        final Collection<Integer> col = Collections.emptyList();
         typeVarAssigns = TypeUtils.getTypeArguments(List.class, Collection.class);
         treeSetTypeVar = Comparable.class.getTypeParameters()[0];
         assertFalse(typeVarAssigns.containsKey(treeSetTypeVar),
@@ -697,7 +697,7 @@ public class TypeUtilsTest<B> {
     public void testParameterizeNarrowerTypeArray() {
         final TypeVariable<?>[] variables = ArrayList.class.getTypeParameters();
         final ParameterizedType parameterizedType = TypeUtils.parameterize(ArrayList.class, variables);
-        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(variables[0], String.class);
+        final Map<TypeVariable<?>, Type> mapping = Collections.singletonMap(variables[0], String.class);
         final Type unrolled = TypeUtils.unrollVariables(mapping, parameterizedType);
         assertEquals(TypeUtils.parameterize(ArrayList.class, String.class), unrolled);
     }

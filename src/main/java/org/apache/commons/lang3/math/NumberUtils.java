@@ -774,7 +774,7 @@ public class NumberUtils {
         //User doesn't have a preference on the return type, so let's start
         //small and go from there...
         if (expPos > -1 && expPos < str.length() - 1) {
-            exp = str.substring(expPos + 1, str.length());
+            exp = str.substring(expPos + 1);
         } else {
             exp = null;
         }

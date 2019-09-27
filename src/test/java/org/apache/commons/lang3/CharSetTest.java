@@ -57,9 +57,9 @@ public class CharSetTest  {
     @Test
     public void testGetInstance_Stringarray() {
         assertNull(CharSet.getInstance((String[]) null));
-        assertEquals("[]", CharSet.getInstance(new String[0]).toString());
+        assertEquals("[]", CharSet.getInstance().toString());
         assertEquals("[]", CharSet.getInstance(new String[] {null}).toString());
-        assertEquals("[a-e]", CharSet.getInstance(new String[] {"a-e"}).toString());
+        assertEquals("[a-e]", CharSet.getInstance("a-e").toString());
     }
 
     //-----------------------------------------------------------------------
