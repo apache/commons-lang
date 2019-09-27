@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests ConstructorUtils
  */
-class ConstructorUtilsTest {
+public class ConstructorUtilsTest {
     public static class TestBean {
         private final String toString;
         final String[] varArgs;
