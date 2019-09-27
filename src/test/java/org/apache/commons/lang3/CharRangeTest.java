@@ -38,7 +38,7 @@ public class CharRangeTest  {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testClass() {
+    void testClass() {
         // class changed to non-public in 3.0
         assertFalse(Modifier.isPublic(CharRange.class.getModifiers()));
         assertTrue(Modifier.isFinal(CharRange.class.getModifiers()));
@@ -46,7 +46,7 @@ public class CharRangeTest  {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testConstructorAccessors_is() {
+    void testConstructorAccessors_is() {
         final CharRange rangea = CharRange.is('a');
         assertEquals('a', rangea.getStart());
         assertEquals('a', rangea.getEnd());
@@ -55,7 +55,7 @@ public class CharRangeTest  {
     }
 
     @Test
-    public void testConstructorAccessors_isNot() {
+    void testConstructorAccessors_isNot() {
         final CharRange rangea = CharRange.isNot('a');
         assertEquals('a', rangea.getStart());
         assertEquals('a', rangea.getEnd());
@@ -64,7 +64,7 @@ public class CharRangeTest  {
     }
 
     @Test
-    public void testConstructorAccessors_isIn_Same() {
+    void testConstructorAccessors_isIn_Same() {
         final CharRange rangea = CharRange.isIn('a', 'a');
         assertEquals('a', rangea.getStart());
         assertEquals('a', rangea.getEnd());
@@ -73,7 +73,7 @@ public class CharRangeTest  {
     }
 
     @Test
-    public void testConstructorAccessors_isIn_Normal() {
+    void testConstructorAccessors_isIn_Normal() {
         final CharRange rangea = CharRange.isIn('a', 'e');
         assertEquals('a', rangea.getStart());
         assertEquals('e', rangea.getEnd());
@@ -82,7 +82,7 @@ public class CharRangeTest  {
     }
 
     @Test
-    public void testConstructorAccessors_isIn_Reversed() {
+    void testConstructorAccessors_isIn_Reversed() {
         final CharRange rangea = CharRange.isIn('e', 'a');
         assertEquals('a', rangea.getStart());
         assertEquals('e', rangea.getEnd());
@@ -91,7 +91,7 @@ public class CharRangeTest  {
     }
 
     @Test
-    public void testConstructorAccessors_isNotIn_Same() {
+    void testConstructorAccessors_isNotIn_Same() {
         final CharRange rangea = CharRange.isNotIn('a', 'a');
         assertEquals('a', rangea.getStart());
         assertEquals('a', rangea.getEnd());
@@ -100,7 +100,7 @@ public class CharRangeTest  {
     }
 
     @Test
-    public void testConstructorAccessors_isNotIn_Normal() {
+    void testConstructorAccessors_isNotIn_Normal() {
         final CharRange rangea = CharRange.isNotIn('a', 'e');
         assertEquals('a', rangea.getStart());
         assertEquals('e', rangea.getEnd());
@@ -109,7 +109,7 @@ public class CharRangeTest  {
     }
 
     @Test
-    public void testConstructorAccessors_isNotIn_Reversed() {
+    void testConstructorAccessors_isNotIn_Reversed() {
         final CharRange rangea = CharRange.isNotIn('e', 'a');
         assertEquals('a', rangea.getStart());
         assertEquals('e', rangea.getEnd());
@@ -119,7 +119,7 @@ public class CharRangeTest  {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testEquals_Object() {
+    void testEquals_Object() {
         final CharRange rangea = CharRange.is('a');
         final CharRange rangeae = CharRange.isIn('a', 'e');
         final CharRange rangenotbf = CharRange.isIn('b', 'f');
@@ -142,7 +142,7 @@ public class CharRangeTest  {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final CharRange rangea = CharRange.is('a');
         final CharRange rangeae = CharRange.isIn('a', 'e');
         final CharRange rangenotbf = CharRange.isIn('b', 'f');
@@ -164,7 +164,7 @@ public class CharRangeTest  {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testContains_Char() {
+    void testContains_Char() {
         CharRange range = CharRange.is('c');
         assertFalse(range.contains('b'));
         assertTrue(range.contains('c'));
@@ -194,7 +194,7 @@ public class CharRangeTest  {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testContains_Charrange() {
+    void testContains_Charrange() {
         final CharRange a = CharRange.is('a');
         final CharRange b = CharRange.is('b');
         final CharRange c = CharRange.is('c');
@@ -309,14 +309,14 @@ public class CharRangeTest  {
     }
 
     @Test
-    public void testContainsNullArg() {
+    void testContainsNullArg() {
         final CharRange range = CharRange.is('a');
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> range.contains(null));
         assertEquals("The Range must not be null", e.getMessage());
     }
 
     @Test
-    public void testIterator() {
+    void testIterator() {
         final CharRange a = CharRange.is('a');
         final CharRange ad = CharRange.isIn('a', 'd');
         final CharRange nota = CharRange.isNot('a');
@@ -369,7 +369,7 @@ public class CharRangeTest  {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testSerialization() {
+    void testSerialization() {
         CharRange range = CharRange.is('a');
         assertEquals(range, SerializationUtils.clone(range));
         range = CharRange.isIn('a', 'e');
@@ -380,7 +380,7 @@ public class CharRangeTest  {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testIteratorRemove() {
+    void testIteratorRemove() {
         final CharRange a = CharRange.is('a');
         final Iterator<Character> aIt = a.iterator();
         assertThrows(UnsupportedOperationException.class, aIt::remove);

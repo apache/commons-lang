@@ -33,20 +33,20 @@ import org.junit.jupiter.api.Test;
 public class MutablePairTest {
 
     @Test
-    public void testEmptyArrayLength() {
+    void testEmptyArrayLength() {
         @SuppressWarnings("unchecked")
         final MutablePair<Integer, String>[] empty = (MutablePair<Integer, String>[]) MutablePair.EMPTY_ARRAY;
         assertEquals(0, empty.length);
     }
 
     @Test
-    public void testEmptyArrayGenerics() {
+    void testEmptyArrayGenerics() {
         final MutablePair<Integer, String>[] empty = MutablePair.emptyArray();
         assertEquals(0, empty.length);
     }
 
     @Test
-    public void testBasic() {
+    void testBasic() {
         final MutablePair<Integer, String> pair = new MutablePair<>(0, "foo");
         assertEquals(0, pair.getLeft().intValue());
         assertEquals("foo", pair.getRight());
@@ -56,14 +56,14 @@ public class MutablePairTest {
     }
 
     @Test
-    public void testDefault() {
+    void testDefault() {
         final MutablePair<Integer, String> pair = new MutablePair<>();
         assertNull(pair.getLeft());
         assertNull(pair.getRight());
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         assertEquals(MutablePair.of(null, "foo"), MutablePair.of(null, "foo"));
         assertNotEquals(MutablePair.of("foo", 0), MutablePair.of("foo", null));
         assertNotEquals(MutablePair.of("foo", "bar"), MutablePair.of("xyz", "bar"));
@@ -74,12 +74,12 @@ public class MutablePairTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         assertEquals(MutablePair.of(null, "foo").hashCode(), MutablePair.of(null, "foo").hashCode());
     }
 
     @Test
-    public void testMutate() {
+    void testMutate() {
         final MutablePair<Integer, String> pair = new MutablePair<>(0, "foo");
         pair.setLeft(42);
         pair.setRight("bar");
@@ -88,7 +88,7 @@ public class MutablePairTest {
     }
 
     @Test
-    public void testPairOf() {
+    void testPairOf() {
         final MutablePair<Integer, String> pair = MutablePair.of(0, "foo");
         assertEquals(0, pair.getLeft().intValue());
         assertEquals("foo", pair.getRight());
@@ -111,7 +111,7 @@ public class MutablePairTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals("(null,null)", MutablePair.of(null, null).toString());
         assertEquals("(null,two)", MutablePair.of(null, "two").toString());
         assertEquals("(one,null)", MutablePair.of("one", null).toString());

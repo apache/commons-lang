@@ -48,31 +48,31 @@ public class ReflectionToStringBuilderExcludeTest {
     private static final String SECRET_VALUE = "secret value";
 
     @Test
-    public void test_toStringExclude() {
+    void test_toStringExclude() {
         final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), SECRET_FIELD);
         this.validateSecretFieldAbsent(toString);
     }
 
     @Test
-    public void test_toStringExcludeArray() {
+    void test_toStringExcludeArray() {
         final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), SECRET_FIELD);
         this.validateSecretFieldAbsent(toString);
     }
 
     @Test
-    public void test_toStringExcludeArrayWithNull() {
+    void test_toStringExcludeArrayWithNull() {
         final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), new String[]{null});
         this.validateSecretFieldPresent(toString);
     }
 
     @Test
-    public void test_toStringExcludeArrayWithNulls() {
+    void test_toStringExcludeArrayWithNulls() {
         final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), null, null);
         this.validateSecretFieldPresent(toString);
     }
 
     @Test
-    public void test_toStringExcludeCollection() {
+    void test_toStringExcludeCollection() {
         final List<String> excludeList = new ArrayList<>();
         excludeList.add(SECRET_FIELD);
         final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), excludeList);
@@ -80,7 +80,7 @@ public class ReflectionToStringBuilderExcludeTest {
     }
 
     @Test
-    public void test_toStringExcludeCollectionWithNull() {
+    void test_toStringExcludeCollectionWithNull() {
         final List<String> excludeList = new ArrayList<>();
         excludeList.add(null);
         final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), excludeList);
@@ -88,7 +88,7 @@ public class ReflectionToStringBuilderExcludeTest {
     }
 
     @Test
-    public void test_toStringExcludeCollectionWithNulls() {
+    void test_toStringExcludeCollectionWithNulls() {
         final List<String> excludeList = new ArrayList<>();
         excludeList.add(null);
         excludeList.add(null);
@@ -97,25 +97,25 @@ public class ReflectionToStringBuilderExcludeTest {
     }
 
     @Test
-    public void test_toStringExcludeEmptyArray() {
+    void test_toStringExcludeEmptyArray() {
         final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), ArrayUtils.EMPTY_STRING_ARRAY);
         this.validateSecretFieldPresent(toString);
     }
 
     @Test
-    public void test_toStringExcludeEmptyCollection() {
+    void test_toStringExcludeEmptyCollection() {
         final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), new ArrayList<>());
         this.validateSecretFieldPresent(toString);
     }
 
     @Test
-    public void test_toStringExcludeNullArray() {
+    void test_toStringExcludeNullArray() {
         final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), (String[]) null);
         this.validateSecretFieldPresent(toString);
     }
 
     @Test
-    public void test_toStringExcludeNullCollection() {
+    void test_toStringExcludeNullCollection() {
         final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), (Collection<String>) null);
         this.validateSecretFieldPresent(toString);
     }

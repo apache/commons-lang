@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class NotImplementedExceptionTest {
 
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         final Throwable nested = new RuntimeException();
         final String message = "Not Implemented";
         final String code = "CODE";

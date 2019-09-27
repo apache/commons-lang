@@ -41,12 +41,12 @@ public class CharEncodingTest  {
      * The class can be instantiated.
      */
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         new CharEncoding();
     }
 
     @Test
-    public void testMustBeSupportedJava1_3_1_and_above() {
+    void testMustBeSupportedJava1_3_1_and_above() {
         this.assertSupportedEncoding(CharEncoding.ISO_8859_1);
         this.assertSupportedEncoding(CharEncoding.US_ASCII);
         this.assertSupportedEncoding(CharEncoding.UTF_16);
@@ -56,14 +56,14 @@ public class CharEncodingTest  {
     }
 
     @Test
-    public void testSupported() {
+    void testSupported() {
         assertTrue(CharEncoding.isSupported("UTF8"));
         assertTrue(CharEncoding.isSupported("UTF-8"));
         assertTrue(CharEncoding.isSupported("ASCII"));
     }
 
     @Test
-    public void testNotSupported() {
+    void testNotSupported() {
         assertFalse(CharEncoding.isSupported(null));
         assertFalse(CharEncoding.isSupported(""));
         assertFalse(CharEncoding.isSupported(" "));
@@ -73,7 +73,7 @@ public class CharEncodingTest  {
     }
 
     @Test
-    public void testStandardCharsetsEquality() {
+    void testStandardCharsetsEquality() {
         assertEquals(StandardCharsets.ISO_8859_1.name(), CharEncoding.ISO_8859_1);
         assertEquals(StandardCharsets.US_ASCII.name(), CharEncoding.US_ASCII);
         assertEquals(StandardCharsets.UTF_8.name(), CharEncoding.UTF_8);

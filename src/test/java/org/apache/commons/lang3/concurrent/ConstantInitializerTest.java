@@ -59,7 +59,7 @@ public class ConstantInitializerTest {
      * Tests whether the correct object is returned.
      */
     @Test
-    public void testGetObject() {
+    void testGetObject() {
         assertEquals(VALUE, init.getObject(), "Wrong object");
     }
 
@@ -69,7 +69,7 @@ public class ConstantInitializerTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testGet() throws ConcurrentException {
+    void testGet() throws ConcurrentException {
         assertEquals(VALUE, init.get(), "Wrong object");
     }
 
@@ -77,7 +77,7 @@ public class ConstantInitializerTest {
      * Tests equals() if the expected result is true.
      */
     @Test
-    public void testEqualsTrue() {
+    void testEqualsTrue() {
         checkEquals(init, true);
         ConstantInitializer<Integer> init2 = new ConstantInitializer<>(
                 Integer.valueOf(VALUE.intValue()));
@@ -91,7 +91,7 @@ public class ConstantInitializerTest {
      * Tests equals() if the expected result is false.
      */
     @Test
-    public void testEqualsFalse() {
+    void testEqualsFalse() {
         ConstantInitializer<Integer> init2 = new ConstantInitializer<>(
                 null);
         checkEquals(init2, false);
@@ -103,7 +103,7 @@ public class ConstantInitializerTest {
      * Tests equals() with objects of other classes.
      */
     @Test
-    public void testEqualsWithOtherObjects() {
+    void testEqualsWithOtherObjects() {
         checkEquals(null, false);
         checkEquals(this, false);
         checkEquals(new ConstantInitializer<>("Test"), false);
@@ -113,7 +113,7 @@ public class ConstantInitializerTest {
      * Tests the string representation.
      */
     @Test
-    public void testToString() {
+    void testToString() {
         final String s = init.toString();
         final Pattern pattern = Pattern
                 .compile("ConstantInitializer@-?\\d+ \\[ object = " + VALUE
@@ -125,7 +125,7 @@ public class ConstantInitializerTest {
      * Tests the string representation if the managed object is null.
      */
     @Test
-    public void testToStringNull() {
+    void testToStringNull() {
         final String s = new ConstantInitializer<>(null).toString();
         assertTrue(s.indexOf("object = null") > 0, "Object not found: " + s);
     }

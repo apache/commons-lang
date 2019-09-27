@@ -280,7 +280,7 @@ class FunctionsTest {
     }
 
     @Test
-    public void testApplyFunction() {
+    void testApplyFunction() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.apply(Testable::testInt, testable));
@@ -305,7 +305,7 @@ class FunctionsTest {
     }
 
     @Test
-    public void testAsFunction() {
+    void testAsFunction() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(ise);
         final FailableFunction<Throwable, Integer, Throwable> failableFunction = (th) -> {
@@ -332,7 +332,7 @@ class FunctionsTest {
     }
 
     @Test
-    public void testApplyBiFunction() {
+    void testApplyBiFunction() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(null);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.apply(Testable::testInt, testable, ise));
@@ -354,7 +354,7 @@ class FunctionsTest {
     }
 
     @Test
-    public void testAsBiFunction() {
+    void testAsBiFunction() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(ise);
         final FailableBiFunction<Testable, Throwable, Integer, Throwable> failableBiFunction = (t, th) -> {
@@ -381,7 +381,7 @@ class FunctionsTest {
     }
 
     @Test
-    public void testGetFromSupplier() {
+    void testGetFromSupplier() {
         FailureOnOddInvocations.invocation = 0;
         UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  Functions.run(FailureOnOddInvocations::new));
         final Throwable cause = e.getCause();
@@ -393,7 +393,7 @@ class FunctionsTest {
     }
 
     @Test
-    public void testAsSupplier() {
+    void testAsSupplier() {
         FailureOnOddInvocations.invocation = 0;
         final FailableSupplier<FailureOnOddInvocations, Throwable> failableSupplier = () -> {
             return new FailureOnOddInvocations();
@@ -409,7 +409,7 @@ class FunctionsTest {
     }
 
     @Test
-    public void testTryWithResources() {
+    void testTryWithResources() {
         final CloseableObject co = new CloseableObject();
         final FailableConsumer<Throwable, ? extends Throwable> consumer = co::run;
         final IllegalStateException ise = new IllegalStateException();

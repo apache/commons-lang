@@ -134,12 +134,12 @@ public class ConstructorUtilsTest {
     }
 
     @Test
-    public void testConstructor() throws Exception {
+    void testConstructor() throws Exception {
         assertNotNull(MethodUtils.class.newInstance());
     }
 
     @Test
-    public void testInvokeConstructor() throws Exception {
+    void testInvokeConstructor() throws Exception {
         assertEquals("()", ConstructorUtils.invokeConstructor(TestBean.class,
                 (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY).toString());
         assertEquals("()", ConstructorUtils.invokeConstructor(TestBean.class,
@@ -170,7 +170,7 @@ public class ConstructorUtilsTest {
     }
 
     @Test
-    public void testInvokeExactConstructor() throws Exception {
+    void testInvokeExactConstructor() throws Exception {
         assertEquals("()", ConstructorUtils.invokeExactConstructor(
                 TestBean.class, (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY).toString());
         assertEquals("()", ConstructorUtils.invokeExactConstructor(
@@ -197,7 +197,7 @@ public class ConstructorUtilsTest {
     }
 
     @Test
-    public void testGetAccessibleConstructor() throws Exception {
+    void testGetAccessibleConstructor() throws Exception {
         assertNotNull(ConstructorUtils.getAccessibleConstructor(Object.class
                 .getConstructor(ArrayUtils.EMPTY_CLASS_ARRAY)));
         assertNull(ConstructorUtils.getAccessibleConstructor(PrivateClass.class
@@ -206,7 +206,7 @@ public class ConstructorUtilsTest {
     }
 
     @Test
-    public void testGetAccessibleConstructorFromDescription() {
+    void testGetAccessibleConstructorFromDescription() {
         assertNotNull(ConstructorUtils.getAccessibleConstructor(Object.class,
                 ArrayUtils.EMPTY_CLASS_ARRAY));
         assertNull(ConstructorUtils.getAccessibleConstructor(
@@ -214,7 +214,7 @@ public class ConstructorUtilsTest {
     }
 
     @Test
-    public void testGetMatchingAccessibleMethod() {
+    void testGetMatchingAccessibleMethod() {
         expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
                 ArrayUtils.EMPTY_CLASS_ARRAY, ArrayUtils.EMPTY_CLASS_ARRAY);
         expectMatchingAccessibleConstructorParameterTypes(TestBean.class, null,
@@ -259,7 +259,7 @@ public class ConstructorUtilsTest {
     }
 
     @Test
-    public void testNullArgument() {
+    void testNullArgument() {
         expectMatchingAccessibleConstructorParameterTypes(MutableObject.class,
                 singletonArray(null), singletonArray(Object.class));
     }
@@ -285,7 +285,7 @@ public class ConstructorUtilsTest {
     }
 
     @Test
-    public void testVarArgsUnboxing() throws Exception {
+    void testVarArgsUnboxing() throws Exception {
         final TestBean testBean = ConstructorUtils.invokeConstructor(
                 TestBean.class, Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3));
 

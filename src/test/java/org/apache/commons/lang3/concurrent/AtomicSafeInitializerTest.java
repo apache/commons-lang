@@ -53,7 +53,7 @@ public class AtomicSafeInitializerTest extends
      * @throws java.lang.InterruptedException because {@link #testGetConcurrent()} may throw it
      */
     @Test
-    public void testNumberOfInitializeInvocations() throws ConcurrentException,
+    void testNumberOfInitializeInvocations() throws ConcurrentException,
             InterruptedException {
         testGetConcurrent();
         assertEquals(1, initializer.initCounter.get(), "Wrong number of invocations");

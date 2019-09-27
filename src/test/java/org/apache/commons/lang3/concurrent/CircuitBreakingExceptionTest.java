@@ -31,35 +31,35 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class CircuitBreakingExceptionTest extends AbstractExceptionTest {
 
     @Test
-    public void testThrowingInformativeException() {
+    void testThrowingInformativeException() {
         assertThrows(CircuitBreakingException.class, () -> {
             throw new CircuitBreakingException(EXCEPTION_MESSAGE, generateCause());
         });
     }
 
     @Test
-    public void testThrowingExceptionWithMessage() {
+    void testThrowingExceptionWithMessage() {
         assertThrows(CircuitBreakingException.class, () -> {
             throw new CircuitBreakingException(EXCEPTION_MESSAGE);
         });
     }
 
     @Test
-    public void testThrowingExceptionWithCause() {
+    void testThrowingExceptionWithCause() {
         assertThrows(CircuitBreakingException.class, () -> {
             throw new CircuitBreakingException(generateCause());
         });
     }
 
     @Test
-    public void testThrowingEmptyException() {
+    void testThrowingEmptyException() {
         assertThrows(CircuitBreakingException.class, () -> {
             throw new CircuitBreakingException();
         });
     }
 
     @Test
-    public void testWithCauseAndMessage() {
+    void testWithCauseAndMessage() {
         final Exception exception = new CircuitBreakingException(EXCEPTION_MESSAGE, generateCause());
         assertNotNull(exception);
         assertEquals(EXCEPTION_MESSAGE, exception.getMessage(), WRONG_EXCEPTION_MESSAGE);
@@ -70,7 +70,7 @@ public class CircuitBreakingExceptionTest extends AbstractExceptionTest {
     }
 
     @Test
-    public void testWithoutCause() {
+    void testWithoutCause() {
         final Exception exception = new CircuitBreakingException(EXCEPTION_MESSAGE);
         assertNotNull(exception);
         assertEquals(EXCEPTION_MESSAGE, exception.getMessage(), WRONG_EXCEPTION_MESSAGE);
@@ -80,7 +80,7 @@ public class CircuitBreakingExceptionTest extends AbstractExceptionTest {
     }
 
     @Test
-    public void testWithoutMessage() {
+    void testWithoutMessage() {
         final Exception exception = new CircuitBreakingException(generateCause());
         assertNotNull(exception);
         assertNotNull(exception.getMessage());

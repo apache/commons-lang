@@ -33,7 +33,7 @@ public class FastDateParser_MoreOrLessTest {
     private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");
 
     @Test
-    public void testInputHasPrecedingCharacters() {
+    void testInputHasPrecedingCharacters() {
         final FastDateParser parser = new FastDateParser("MM/dd", TimeZone.getDefault(), Locale.getDefault());
         final ParsePosition parsePosition = new ParsePosition(0);
         final Date date = parser.parse("A 3/23/61", parsePosition);
@@ -43,7 +43,7 @@ public class FastDateParser_MoreOrLessTest {
     }
 
     @Test
-    public void testInputHasWhitespace() {
+    void testInputHasWhitespace() {
         final FastDateParser parser = new FastDateParser("M/d/y", TimeZone.getDefault(), Locale.getDefault());
         //SimpleDateFormat parser = new SimpleDateFormat("M/d/y");
         final ParsePosition parsePosition = new ParsePosition(0);
@@ -58,7 +58,7 @@ public class FastDateParser_MoreOrLessTest {
     }
 
     @Test
-    public void testInputHasMoreCharacters() {
+    void testInputHasMoreCharacters() {
         final FastDateParser parser = new FastDateParser("MM/dd", TimeZone.getDefault(), Locale.getDefault());
         final ParsePosition parsePosition = new ParsePosition(0);
         final Date date = parser.parse("3/23/61", parsePosition);
@@ -71,7 +71,7 @@ public class FastDateParser_MoreOrLessTest {
     }
 
     @Test
-    public void testInputHasWrongCharacters() {
+    void testInputHasWrongCharacters() {
         final FastDateParser parser = new FastDateParser("MM-dd-yyy", TimeZone.getDefault(), Locale.getDefault());
         final ParsePosition parsePosition = new ParsePosition(0);
         assertNull(parser.parse("03/23/1961", parsePosition));
@@ -79,7 +79,7 @@ public class FastDateParser_MoreOrLessTest {
     }
 
     @Test
-    public void testInputHasLessCharacters() {
+    void testInputHasLessCharacters() {
         final FastDateParser parser = new FastDateParser("MM/dd/yyy", TimeZone.getDefault(), Locale.getDefault());
         final ParsePosition parsePosition = new ParsePosition(0);
         assertNull(parser.parse("03/23", parsePosition));
@@ -87,7 +87,7 @@ public class FastDateParser_MoreOrLessTest {
     }
 
     @Test
-    public void testInputHasWrongTimeZone() {
+    void testInputHasWrongTimeZone() {
         final FastDateParser parser = new FastDateParser("mm:ss z", NEW_YORK, Locale.US);
 
         final String input = "11:23 Pacific Standard Time";
@@ -101,7 +101,7 @@ public class FastDateParser_MoreOrLessTest {
     }
 
     @Test
-    public void testInputHasWrongDay() {
+    void testInputHasWrongDay() {
         final FastDateParser parser = new FastDateParser("EEEE, MM/dd/yyy", NEW_YORK, Locale.US);
         final String input = "Thursday, 03/23/61";
         final ParsePosition parsePosition = new ParsePosition(0);

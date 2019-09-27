@@ -51,25 +51,25 @@ public class ToStringBuilderTest {
     //-----------------------------------------------------------------------
 
     @Test
-    public void testConstructorEx1() {
+    void testConstructorEx1() {
         assertEquals("<null>", new ToStringBuilder(null).toString());
     }
 
     @Test
-    public void testConstructorEx2() {
+    void testConstructorEx2() {
         assertEquals("<null>", new ToStringBuilder(null, null).toString());
         new ToStringBuilder(this.base, null).toString();
     }
 
     @Test
-    public void testConstructorEx3() {
+    void testConstructorEx3() {
         assertEquals("<null>", new ToStringBuilder(null, null, null).toString());
         new ToStringBuilder(this.base, null, null).toString();
         new ToStringBuilder(this.base, ToStringStyle.DEFAULT_STYLE, null).toString();
     }
 
     @Test
-    public void testGetSetDefault() {
+    void testGetSetDefault() {
         try {
             ToStringBuilder.setDefaultStyle(ToStringStyle.NO_FIELD_NAMES_STYLE);
             assertSame(ToStringStyle.NO_FIELD_NAMES_STYLE, ToStringBuilder.getDefaultStyle());
@@ -80,12 +80,12 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testSetDefaultEx() {
+    void testSetDefaultEx() {
         assertThrows(IllegalArgumentException.class, () -> ToStringBuilder.setDefaultStyle(null));
     }
 
     @Test
-    public void testBlank() {
+    void testBlank() {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).toString());
     }
 
@@ -93,7 +93,7 @@ public class ToStringBuilderTest {
      * Test wrapper for int primitive.
      */
     @Test
-    public void testReflectionInteger() {
+    void testReflectionInteger() {
         assertEquals(baseStr + "[value=5]", ToStringBuilder.reflectionToString(base));
     }
 
@@ -101,7 +101,7 @@ public class ToStringBuilderTest {
      * Test wrapper for char primitive.
      */
     @Test
-    public void testReflectionCharacter() {
+    void testReflectionCharacter() {
         final Character c = 'A';
         assertEquals(this.toBaseString(c) + "[value=A]", ToStringBuilder.reflectionToString(c));
     }
@@ -110,7 +110,7 @@ public class ToStringBuilderTest {
      * Test wrapper for char boolean.
      */
     @Test
-    public void testReflectionBoolean() {
+    void testReflectionBoolean() {
         Boolean b;
         b = Boolean.TRUE;
         assertEquals(this.toBaseString(b) + "[value=true]", ToStringBuilder.reflectionToString(b));
@@ -154,7 +154,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionObjectArray() {
+    void testReflectionObjectArray() {
         Object[] array = new Object[] { null, base, new int[] { 3, 6 } };
         final String baseString = this.toBaseString(array);
         assertEquals(baseString + "[{<null>,5,{3,6}}]", ToStringBuilder.reflectionToString(array));
@@ -163,7 +163,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionLongArray() {
+    void testReflectionLongArray() {
         long[] array = new long[] { 1, 2, -3, 4 };
         final String baseString = this.toBaseString(array);
         assertEquals(baseString + "[{1,2,-3,4}]", ToStringBuilder.reflectionToString(array));
@@ -172,7 +172,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionIntArray() {
+    void testReflectionIntArray() {
         int[] array = new int[] { 1, 2, -3, 4 };
         final String baseString = this.toBaseString(array);
         assertEquals(baseString + "[{1,2,-3,4}]", ToStringBuilder.reflectionToString(array));
@@ -181,7 +181,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionShortArray() {
+    void testReflectionShortArray() {
         short[] array = new short[] { 1, 2, -3, 4 };
         final String baseString = this.toBaseString(array);
         assertEquals(baseString + "[{1,2,-3,4}]", ToStringBuilder.reflectionToString(array));
@@ -190,7 +190,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionyteArray() {
+    void testReflectionyteArray() {
         byte[] array = new byte[] { 1, 2, -3, 4 };
         final String baseString = this.toBaseString(array);
         assertEquals(baseString + "[{1,2,-3,4}]", ToStringBuilder.reflectionToString(array));
@@ -199,7 +199,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionCharArray() {
+    void testReflectionCharArray() {
         char[] array = new char[] { 'A', '2', '_', 'D' };
         final String baseString = this.toBaseString(array);
         assertEquals(baseString + "[{A,2,_,D}]", ToStringBuilder.reflectionToString(array));
@@ -208,7 +208,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionDoubleArray() {
+    void testReflectionDoubleArray() {
         double[] array = new double[] { 1.0, 2.9876, -3.00001, 4.3 };
         final String baseString = this.toBaseString(array);
         assertEquals(baseString + "[{1.0,2.9876,-3.00001,4.3}]", ToStringBuilder.reflectionToString(array));
@@ -217,7 +217,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionFloatArray() {
+    void testReflectionFloatArray() {
         float[] array = new float[] { 1.0f, 2.9876f, -3.00001f, 4.3f };
         final String baseString = this.toBaseString(array);
         assertEquals(baseString + "[{1.0,2.9876,-3.00001,4.3}]", ToStringBuilder.reflectionToString(array));
@@ -226,7 +226,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionBooleanArray() {
+    void testReflectionBooleanArray() {
         boolean[] array = new boolean[] { true, false, false };
         final String baseString = this.toBaseString(array);
         assertEquals(baseString + "[{true,false,false}]", ToStringBuilder.reflectionToString(array));
@@ -237,7 +237,7 @@ public class ToStringBuilderTest {
     // Reflection Array Array tests
 
     @Test
-    public void testReflectionFloatArrayArray() {
+    void testReflectionFloatArrayArray() {
         float[][] array = new float[][] { { 1.0f, 2.29686f }, null, { Float.NaN } };
         final String baseString = this.toBaseString(array);
         assertEquals(baseString + "[{{1.0,2.29686},<null>,{NaN}}]", ToStringBuilder.reflectionToString(array));
@@ -247,7 +247,7 @@ public class ToStringBuilderTest {
 
 
     @Test
-    public void testReflectionLongArrayArray() {
+    void testReflectionLongArrayArray() {
         long[][] array = new long[][] { { 1, 2 }, null, { 5 } };
         final String baseString = this.toBaseString(array);
         assertEquals(baseString + "[{{1,2},<null>,{5}}]", ToStringBuilder.reflectionToString(array));
@@ -256,7 +256,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionIntArrayArray() {
+    void testReflectionIntArrayArray() {
         int[][] array = new int[][] { { 1, 2 }, null, { 5 } };
         final String baseString = this.toBaseString(array);
         assertEquals(baseString + "[{{1,2},<null>,{5}}]", ToStringBuilder.reflectionToString(array));
@@ -265,7 +265,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionhortArrayArray() {
+    void testReflectionhortArrayArray() {
         short[][] array = new short[][] { { 1, 2 }, null, { 5 } };
         final String baseString = this.toBaseString(array);
         assertEquals(baseString + "[{{1,2},<null>,{5}}]", ToStringBuilder.reflectionToString(array));
@@ -274,7 +274,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionByteArrayArray() {
+    void testReflectionByteArrayArray() {
         byte[][] array = new byte[][] { { 1, 2 }, null, { 5 } };
         final String baseString = this.toBaseString(array);
         assertEquals(baseString + "[{{1,2},<null>,{5}}]", ToStringBuilder.reflectionToString(array));
@@ -283,7 +283,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionCharArrayArray() {
+    void testReflectionCharArrayArray() {
         char[][] array = new char[][] { { 'A', 'B' }, null, { 'p' } };
         final String baseString = this.toBaseString(array);
         assertEquals(baseString + "[{{A,B},<null>,{p}}]", ToStringBuilder.reflectionToString(array));
@@ -292,7 +292,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionDoubleArrayArray() {
+    void testReflectionDoubleArrayArray() {
         double[][] array = new double[][] { { 1.0, 2.29686 }, null, { Double.NaN } };
         final String baseString = this.toBaseString(array);
         assertEquals(baseString + "[{{1.0,2.29686},<null>,{NaN}}]", ToStringBuilder.reflectionToString(array));
@@ -301,7 +301,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionBooleanArrayArray() {
+    void testReflectionBooleanArrayArray() {
         boolean[][] array = new boolean[][] { { true, false }, null, { false } };
         final String baseString = this.toBaseString(array);
         assertEquals(baseString + "[{{true,false},<null>,{false}}]", ToStringBuilder.reflectionToString(array));
@@ -312,7 +312,7 @@ public class ToStringBuilderTest {
 
     // Reflection hierarchy tests
     @Test
-    public void testReflectionHierarchyArrayList() {
+    void testReflectionHierarchyArrayList() {
         // LANG-1337 without this, the generated string can differ depending on the JVM version/vendor
         final List<Object> list = new ArrayList<>(ARRAYLIST_INITIAL_CAPACITY);
         final String baseString = this.toBaseString(list);
@@ -329,7 +329,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionHierarchy() {
+    void testReflectionHierarchy() {
         final ReflectionTestFixtureA baseA = new ReflectionTestFixtureA();
         String baseString = this.toBaseString(baseA);
         assertEquals(baseString + "[a=a]", ToStringBuilder.reflectionToString(baseA));
@@ -368,7 +368,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testInnerClassReflection() {
+    void testInnerClassReflection() {
         final Outer outer = new Outer();
         assertEquals(toBaseString(outer) + "[inner=" + toBaseString(outer.inner) + "[]]", outer.toString());
     }
@@ -393,7 +393,7 @@ public class ToStringBuilderTest {
      * Test an array element pointing to its container.
      */
     @Test
-    public void testReflectionArrayCycle() {
+    void testReflectionArrayCycle() {
         final Object[] objects = new Object[1];
         objects[0] = objects;
         assertEquals(
@@ -405,7 +405,7 @@ public class ToStringBuilderTest {
      * Test an array element pointing to its container.
      */
     @Test
-    public void testReflectionArrayCycleLevel2() {
+    void testReflectionArrayCycleLevel2() {
         final Object[] objects = new Object[1];
         final Object[] objectsLevel2 = new Object[1];
         objects[0] = objectsLevel2;
@@ -419,7 +419,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionArrayArrayCycle() {
+    void testReflectionArrayArrayCycle() {
         final Object[][] objects = new Object[2][2];
         objects[0][0] = objects;
         objects[0][1] = objects;
@@ -521,7 +521,7 @@ public class ToStringBuilderTest {
      * Test an Object pointing to itself, the simplest test.
      */
     @Test
-    public void testSimpleReflectionObjectCycle() {
+    void testSimpleReflectionObjectCycle() {
         final SimpleReflectionTestFixture simple = new SimpleReflectionTestFixture();
         simple.o = simple;
         assertEquals(this.toBaseString(simple) + "[o=" + this.toBaseString(simple) + "]", simple.toString());
@@ -531,7 +531,7 @@ public class ToStringBuilderTest {
      * Test a class that defines an ivar pointing to itself.
      */
     @Test
-    public void testSelfInstanceVarReflectionObjectCycle() {
+    void testSelfInstanceVarReflectionObjectCycle() {
         final SelfInstanceVarReflectionTestFixture test = new SelfInstanceVarReflectionTestFixture();
         assertEquals(this.toBaseString(test) + "[typeIsSelf=" + this.toBaseString(test) + "]", test.toString());
     }
@@ -541,7 +541,7 @@ public class ToStringBuilderTest {
      * created to show that handling cyclical object resulted in a missing endFieldSeparator call.
      */
     @Test
-    public void testSelfInstanceTwoVarsReflectionObjectCycle() {
+    void testSelfInstanceTwoVarsReflectionObjectCycle() {
         final SelfInstanceTwoVarsReflectionTestFixture test = new SelfInstanceTwoVarsReflectionTestFixture();
         assertEquals(this.toBaseString(test) + "[typeIsSelf=" + this.toBaseString(test) + ",otherType=" + test.getOtherType().toString() + "]", test.toString());
     }
@@ -551,7 +551,7 @@ public class ToStringBuilderTest {
      * Test Objects pointing to each other.
      */
     @Test
-    public void testReflectionObjectCycle() {
+    void testReflectionObjectCycle() {
         final ReflectionTestCycleA a = new ReflectionTestCycleA();
         final ReflectionTestCycleB b = new ReflectionTestCycleB();
         a.b = b;
@@ -566,7 +566,7 @@ public class ToStringBuilderTest {
      * objects[0] -&gt; SimpleReflectionTestFixture[ o -&gt; objects ]
      */
     @Test
-    public void testReflectionArrayAndObjectCycle() {
+    void testReflectionArrayAndObjectCycle() {
         final Object[] objects = new Object[1];
         final SimpleReflectionTestFixture simple = new SimpleReflectionTestFixture(objects);
         objects[0] = simple;
@@ -594,7 +594,7 @@ public class ToStringBuilderTest {
     //  End: Reflection cycle tests
 
     @Test
-    public void testAppendSuper() {
+    void testAppendSuper() {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).appendSuper("Integer@8888[]").toString());
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).appendSuper("Integer@8888[<null>]").toString());
 
@@ -604,7 +604,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendToString() {
+    void testAppendToString() {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).appendToString("Integer@8888[]").toString());
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).appendToString("Integer@8888[<null>]").toString());
 
@@ -614,7 +614,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendAsObjectToString() {
+    void testAppendAsObjectToString() {
         final String objectToAppend1 = "";
         final Boolean objectToAppend2 = Boolean.TRUE;
         final Object objectToAppend3 = new Object();
@@ -628,7 +628,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendBooleanArrayWithFieldName() {
+    void testAppendBooleanArrayWithFieldName() {
         final boolean[] array = new boolean[] { true, false, false };
         assertEquals(baseStr + "[flags={true,false,false}]",
                 new ToStringBuilder(base).append("flags", array).toString());
@@ -639,7 +639,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendBooleanArrayWithFieldNameAndFullDetatil() {
+    void testAppendBooleanArrayWithFieldNameAndFullDetatil() {
         final boolean[] array = new boolean[] { true, false, false };
         assertEquals(baseStr + "[flags={true,false,false}]",
                 new ToStringBuilder(base).append("flags", array, true).toString());
@@ -652,7 +652,7 @@ public class ToStringBuilderTest {
      }
 
     @Test
-    public void testAppendCharArrayWithFieldName() {
+    void testAppendCharArrayWithFieldName() {
         final char[] array = new char[] { 'A', '2', '_', 'D' };
         assertEquals(baseStr + "[chars={A,2,_,D}]", new ToStringBuilder(base).append("chars", array).toString());
         assertEquals(baseStr + "[letters={A,2,_,D}]", new ToStringBuilder(base).append("letters", array).toString());
@@ -663,7 +663,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendCharArrayWithFieldNameAndFullDetatil() {
+    void testAppendCharArrayWithFieldNameAndFullDetatil() {
         final char[] array = new char[] { 'A', '2', '_', 'D' };
         assertEquals(baseStr + "[chars={A,2,_,D}]", new ToStringBuilder(base).append("chars", array, true).toString());
         assertEquals(baseStr + "[letters=<size=4>]",
@@ -675,7 +675,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendDoubleArrayWithFieldName() {
+    void testAppendDoubleArrayWithFieldName() {
         final double[] array = new double[] { 1.0, 2.9876, -3.00001, 4.3 };
         assertEquals(baseStr + "[values={1.0,2.9876,-3.00001,4.3}]",
                 new ToStringBuilder(base).append("values", array).toString());
@@ -686,7 +686,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendDoubleArrayWithFieldNameAndFullDetatil() {
+    void testAppendDoubleArrayWithFieldNameAndFullDetatil() {
         final double[] array = new double[] { 1.0, 2.9876, -3.00001, 4.3 };
         assertEquals(baseStr + "[values={1.0,2.9876,-3.00001,4.3}]",
                 new ToStringBuilder(base).append("values", array, true).toString());
@@ -699,7 +699,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendObjectArrayWithFieldName() {
+    void testAppendObjectArrayWithFieldName() {
         final Object[] array = new Object[] { null, base, new int[] { 3, 6 } };
         assertEquals(baseStr + "[values={<null>,5,{3,6}}]",
                 new ToStringBuilder(base).append("values", array).toString());
@@ -710,7 +710,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendObjectArrayWithFieldNameAndFullDetatil() {
+    void testAppendObjectArrayWithFieldNameAndFullDetatil() {
        final Object[] array = new Object[] { null, base, new int[] { 3, 6 } };
        assertEquals(baseStr + "[values={<null>,5,{3,6}}]",
                new ToStringBuilder(base).append("values", array, true).toString());
@@ -723,7 +723,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendLongArrayWithFieldName() {
+    void testAppendLongArrayWithFieldName() {
        final long[] array = new long[] { 1, 2, -3, 4 };
        assertEquals(baseStr + "[values={1,2,-3,4}]", new ToStringBuilder(base).append("values", array).toString());
        assertEquals(baseStr + "[values=<null>]",
@@ -733,7 +733,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendLongArrayWithFieldNameAndFullDetatil() {
+    void testAppendLongArrayWithFieldNameAndFullDetatil() {
         final long[] array = new long[] { 1, 2, -3, 4 };
         assertEquals(baseStr + "[values={1,2,-3,4}]",
                 new ToStringBuilder(base).append("values", array, true).toString());
@@ -746,7 +746,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendIntArrayWithFieldName() {
+    void testAppendIntArrayWithFieldName() {
         final int[] array = new int[] { 1, 2, -3, 4 };
         assertEquals(baseStr + "[values={1,2,-3,4}]", new ToStringBuilder(base).append("values", array).toString());
         assertEquals(baseStr + "[values=<null>]",
@@ -756,7 +756,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendIntArrayWithFieldNameAndFullDetatil() {
+    void testAppendIntArrayWithFieldNameAndFullDetatil() {
         final int[] array = new int[] { 1, 2, -3, 4 };
         assertEquals(baseStr + "[values={1,2,-3,4}]",
                 new ToStringBuilder(base).append("values", array, true).toString());
@@ -769,7 +769,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendShortArrayWithFieldName() {
+    void testAppendShortArrayWithFieldName() {
         final short[] array = new short[] { 1, 2, -3, 4 };
         assertEquals(baseStr + "[values={1,2,-3,4}]", new ToStringBuilder(base).append("values", array).toString());
         assertEquals(baseStr + "[values=<null>]",
@@ -779,7 +779,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendShortArrayWithFieldNameAndFullDetatil() {
+    void testAppendShortArrayWithFieldNameAndFullDetatil() {
         final short[] array = new short[] { 1, 2, -3, 4 };
         assertEquals(baseStr + "[values={1,2,-3,4}]",
                 new ToStringBuilder(base).append("values", array, true).toString());
@@ -792,7 +792,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendByteArrayWithFieldName() {
+    void testAppendByteArrayWithFieldName() {
         final byte[] array = new byte[] { 1, 2, -3, 4 };
         assertEquals(baseStr + "[values={1,2,-3,4}]", new ToStringBuilder(base).append("values", array).toString());
         assertEquals(baseStr + "[values=<null>]",
@@ -802,7 +802,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendByteArrayWithFieldNameAndFullDetatil() {
+    void testAppendByteArrayWithFieldNameAndFullDetatil() {
         final byte[] array = new byte[] { 1, 2, -3, 4 };
         assertEquals(baseStr + "[values={1,2,-3,4}]",
                 new ToStringBuilder(base).append("values", array, true).toString());
@@ -815,7 +815,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendFloatArrayWithFieldName() {
+    void testAppendFloatArrayWithFieldName() {
         final float[] array = new float[] { 1.0f, 2.9876f, -3.00001f, 4.3f };
         assertEquals(baseStr + "[values={1.0,2.9876,-3.00001,4.3}]",
                 new ToStringBuilder(base).append("values", array).toString());
@@ -826,7 +826,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendFloatArrayWithFieldNameAndFullDetatil() {
+    void testAppendFloatArrayWithFieldNameAndFullDetatil() {
         final float[] array = new float[] { 1.0f, 2.9876f, -3.00001f, 4.3f };
         assertEquals(baseStr + "[values={1.0,2.9876,-3.00001,4.3}]",
                 new ToStringBuilder(base).append("values", array, true).toString());
@@ -839,7 +839,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testConstructToStringBuilder() {
+    void testConstructToStringBuilder() {
         final ToStringBuilder stringBuilder1 = new ToStringBuilder(base, null, null);
         final ToStringBuilder stringBuilder2 = new ToStringBuilder(base, ToStringStyle.DEFAULT_STYLE, new StringBuffer(1024));
         assertEquals(ToStringStyle.DEFAULT_STYLE, stringBuilder1.getStyle());
@@ -852,7 +852,7 @@ public class ToStringBuilderTest {
 
 
     @Test
-    public void testObject() {
+    void testObject() {
         final Integer i3 = Integer.valueOf(3);
         final Integer i4 = Integer.valueOf(4);
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) null).toString());
@@ -870,7 +870,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testObjectBuild() {
+    void testObjectBuild() {
         final Integer i3 = Integer.valueOf(3);
         final Integer i4 = Integer.valueOf(4);
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) null).build());
@@ -888,7 +888,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testLong() {
+    void testLong() {
         assertEquals(baseStr + "[3]", new ToStringBuilder(base).append(3L).toString());
         assertEquals(baseStr + "[a=3]", new ToStringBuilder(base).append("a", 3L).toString());
         assertEquals(baseStr + "[a=3,b=4]", new ToStringBuilder(base).append("a", 3L).append("b", 4L).toString());
@@ -896,28 +896,28 @@ public class ToStringBuilderTest {
 
     @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     @Test
-    public void testInt() {
+    void testInt() {
         assertEquals(baseStr + "[3]", new ToStringBuilder(base).append(3).toString());
         assertEquals(baseStr + "[a=3]", new ToStringBuilder(base).append("a", 3).toString());
         assertEquals(baseStr + "[a=3,b=4]", new ToStringBuilder(base).append("a", 3).append("b", 4).toString());
     }
 
     @Test
-    public void testShort() {
+    void testShort() {
         assertEquals(baseStr + "[3]", new ToStringBuilder(base).append((short) 3).toString());
         assertEquals(baseStr + "[a=3]", new ToStringBuilder(base).append("a", (short) 3).toString());
         assertEquals(baseStr + "[a=3,b=4]", new ToStringBuilder(base).append("a", (short) 3).append("b", (short) 4).toString());
     }
 
     @Test
-    public void testChar() {
+    void testChar() {
         assertEquals(baseStr + "[A]", new ToStringBuilder(base).append((char) 65).toString());
         assertEquals(baseStr + "[a=A]", new ToStringBuilder(base).append("a", (char) 65).toString());
         assertEquals(baseStr + "[a=A,b=B]", new ToStringBuilder(base).append("a", (char) 65).append("b", (char) 66).toString());
     }
 
     @Test
-    public void testByte() {
+    void testByte() {
         assertEquals(baseStr + "[3]", new ToStringBuilder(base).append((byte) 3).toString());
         assertEquals(baseStr + "[a=3]", new ToStringBuilder(base).append("a", (byte) 3).toString());
         assertEquals(baseStr + "[a=3,b=4]", new ToStringBuilder(base).append("a", (byte) 3).append("b", (byte) 4).toString());
@@ -925,21 +925,21 @@ public class ToStringBuilderTest {
 
     @SuppressWarnings("cast")
     @Test
-    public void testDouble() {
+    void testDouble() {
         assertEquals(baseStr + "[3.2]", new ToStringBuilder(base).append(3.2).toString());
         assertEquals(baseStr + "[a=3.2]", new ToStringBuilder(base).append("a", 3.2).toString());
         assertEquals(baseStr + "[a=3.2,b=4.3]", new ToStringBuilder(base).append("a", 3.2).append("b", 4.3).toString());
     }
 
     @Test
-    public void testFloat() {
+    void testFloat() {
         assertEquals(baseStr + "[3.2]", new ToStringBuilder(base).append((float) 3.2).toString());
         assertEquals(baseStr + "[a=3.2]", new ToStringBuilder(base).append("a", (float) 3.2).toString());
         assertEquals(baseStr + "[a=3.2,b=4.3]", new ToStringBuilder(base).append("a", (float) 3.2).append("b", (float) 4.3).toString());
     }
 
     @Test
-    public void testBoolean() {
+    void testBoolean() {
         assertEquals(baseStr + "[true]", new ToStringBuilder(base).append(true).toString());
         assertEquals(baseStr + "[a=true]", new ToStringBuilder(base).append("a", true).toString());
         assertEquals(baseStr + "[a=true,b=false]", new ToStringBuilder(base).append("a", true).append("b", false).toString());
@@ -947,7 +947,7 @@ public class ToStringBuilderTest {
 
 
     @Test
-    public void testObjectArray() {
+    void testObjectArray() {
         Object[] array = new Object[] {null, base, new int[] {3, 6}};
         assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -957,7 +957,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testLongArray() {
+    void testLongArray() {
         long[] array = new long[] {1, 2, -3, 4};
         assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -967,7 +967,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testIntArray() {
+    void testIntArray() {
         int[] array = new int[] {1, 2, -3, 4};
         assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -977,7 +977,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testShortArray() {
+    void testShortArray() {
         short[] array = new short[] {1, 2, -3, 4};
         assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -987,7 +987,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testByteArray() {
+    void testByteArray() {
         byte[] array = new byte[] {1, 2, -3, 4};
         assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -997,7 +997,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testCharArray() {
+    void testCharArray() {
         char[] array = new char[] {'A', '2', '_', 'D'};
         assertEquals(baseStr + "[{A,2,_,D}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{A,2,_,D}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -1007,7 +1007,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testDoubleArray() {
+    void testDoubleArray() {
         double[] array = new double[] {1.0, 2.9876, -3.00001, 4.3};
         assertEquals(baseStr + "[{1.0,2.9876,-3.00001,4.3}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{1.0,2.9876,-3.00001,4.3}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -1017,7 +1017,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testFloatArray() {
+    void testFloatArray() {
         float[] array = new float[] {1.0f, 2.9876f, -3.00001f, 4.3f};
         assertEquals(baseStr + "[{1.0,2.9876,-3.00001,4.3}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{1.0,2.9876,-3.00001,4.3}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -1027,7 +1027,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testBooleanArray() {
+    void testBooleanArray() {
         boolean[] array = new boolean[] {true, false, false};
         assertEquals(baseStr + "[{true,false,false}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{true,false,false}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -1037,7 +1037,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testLongArrayArray() {
+    void testLongArrayArray() {
         long[][] array = new long[][] {{1, 2}, null, {5}};
         assertEquals(baseStr + "[{{1,2},<null>,{5}}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{{1,2},<null>,{5}}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -1047,7 +1047,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testIntArrayArray() {
+    void testIntArrayArray() {
         int[][] array = new int[][] {{1, 2}, null, {5}};
         assertEquals(baseStr + "[{{1,2},<null>,{5}}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{{1,2},<null>,{5}}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -1057,7 +1057,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testShortArrayArray() {
+    void testShortArrayArray() {
         short[][] array = new short[][] {{1, 2}, null, {5}};
         assertEquals(baseStr + "[{{1,2},<null>,{5}}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{{1,2},<null>,{5}}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -1067,7 +1067,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testByteArrayArray() {
+    void testByteArrayArray() {
         byte[][] array = new byte[][] {{1, 2}, null, {5}};
         assertEquals(baseStr + "[{{1,2},<null>,{5}}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{{1,2},<null>,{5}}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -1077,7 +1077,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testCharArrayArray() {
+    void testCharArrayArray() {
         char[][] array = new char[][] {{'A', 'B'}, null, {'p'}};
         assertEquals(baseStr + "[{{A,B},<null>,{p}}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{{A,B},<null>,{p}}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -1087,7 +1087,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testDoubleArrayArray() {
+    void testDoubleArrayArray() {
         double[][] array = new double[][] {{1.0, 2.29686}, null, {Double.NaN}};
         assertEquals(baseStr + "[{{1.0,2.29686},<null>,{NaN}}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{{1.0,2.29686},<null>,{NaN}}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -1097,7 +1097,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testFloatArrayArray() {
+    void testFloatArrayArray() {
         float[][] array = new float[][] {{1.0f, 2.29686f}, null, {Float.NaN}};
         assertEquals(baseStr + "[{{1.0,2.29686},<null>,{NaN}}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{{1.0,2.29686},<null>,{NaN}}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -1107,7 +1107,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testBooleanArrayArray() {
+    void testBooleanArrayArray() {
         boolean[][] array = new boolean[][] {{true, false}, null, {false}};
         assertEquals(baseStr + "[{{true,false},<null>,{false}}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{{true,false},<null>,{false}}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -1117,7 +1117,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testObjectCycle() {
+    void testObjectCycle() {
         final ObjectCycle a = new ObjectCycle();
         final ObjectCycle b = new ObjectCycle();
         a.obj = b;
@@ -1137,7 +1137,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testSimpleReflectionStatics() {
+    void testSimpleReflectionStatics() {
         final SimpleReflectionStaticFieldsFixture instance1 = new SimpleReflectionStaticFieldsFixture();
         assertEquals(
             this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345]",
@@ -1157,7 +1157,7 @@ public class ToStringBuilderTest {
      * Tests ReflectionToStringBuilder.toString() for statics.
      */
     @Test
-    public void testReflectionStatics() {
+    void testReflectionStatics() {
         final ReflectionStaticFieldsFixture instance1 = new ReflectionStaticFieldsFixture();
         assertEquals(
             this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345,instanceString=instanceString,instanceInt=67890]",
@@ -1177,7 +1177,7 @@ public class ToStringBuilderTest {
      * Tests ReflectionToStringBuilder.toString() for statics.
      */
     @Test
-    public void testInheritedReflectionStatics() {
+    void testInheritedReflectionStatics() {
         final InheritedReflectionStaticFieldsFixture instance1 = new InheritedReflectionStaticFieldsFixture();
         assertEquals(
             this.toBaseString(instance1) + "[staticString2=staticString2,staticInt2=67890]",
@@ -1227,7 +1227,7 @@ public class ToStringBuilderTest {
      * Tests ReflectionToStringBuilder setUpToClass().
      */
     @Test
-    public void test_setUpToClass_valid() {
+    void test_setUpToClass_valid() {
         final Integer val = Integer.valueOf(5);
         final ReflectionToStringBuilder test = new ReflectionToStringBuilder(val);
         test.setUpToClass(Number.class);
@@ -1238,7 +1238,7 @@ public class ToStringBuilderTest {
      * Tests ReflectionToStringBuilder setUpToClass().
      */
     @Test
-    public void test_setUpToClass_invalid() {
+    void test_setUpToClass_invalid() {
         final Integer val = Integer.valueOf(5);
         final ReflectionToStringBuilder test = new ReflectionToStringBuilder(val);
         assertThrows(IllegalArgumentException.class, () -> test.setUpToClass(String.class));
@@ -1277,7 +1277,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionNull() {
+    void testReflectionNull() {
         assertThrows(IllegalArgumentException.class, () -> ReflectionToStringBuilder.toString(null));
     }
 
@@ -1294,7 +1294,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testAppendToStringUsingMultiLineStyle() {
+    void testAppendToStringUsingMultiLineStyle() {
         final MultiLineTestObject obj = new MultiLineTestObject();
         final ToStringBuilder testBuilder = new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                                           .appendToString(obj.toString());

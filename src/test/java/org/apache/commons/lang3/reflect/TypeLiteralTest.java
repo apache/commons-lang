@@ -28,14 +28,14 @@ import org.junit.jupiter.api.Test;
 public class TypeLiteralTest {
 
     @Test
-    public void testBasic() {
+    void testBasic() {
         assertTrue(TypeUtils.equals(String.class, new TypeLiteral<String>() {}.value));
         assertTrue(TypeUtils.equals(TypeUtils.parameterize(List.class, String.class),
             new TypeLiteral<List<String>>() {}.value));
     }
 
     @Test
-    public void testTyped() {
+    void testTyped() {
         final Typed<String> stringType = new TypeLiteral<String>() {};
         assertTrue(TypeUtils.equals(String.class, stringType.getType()));
         final Typed<List<String>> listOfStringType = new TypeLiteral<List<String>>() {};
@@ -43,7 +43,7 @@ public class TypeLiteralTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         assertEquals(new TypeLiteral<String>() {}, new TypeLiteral<String>() {});
         assertEquals(new TypeLiteral<List<String>>() {}, new TypeLiteral<List<String>>() {});
         assertNotEquals(new TypeLiteral<String>() {}, new TypeLiteral<List<String>>() {});
@@ -51,7 +51,7 @@ public class TypeLiteralTest {
 
     @SuppressWarnings("rawtypes")
     @Test
-    public void testRaw() {
+    void testRaw() {
         assertThrows(NullPointerException.class, () -> new TypeLiteral() {});
     }
 }

@@ -41,7 +41,7 @@ public abstract class AbstractConcurrentInitializerTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it
      */
     @Test
-    public void testGet() throws ConcurrentException {
+    void testGet() throws ConcurrentException {
         assertNotNull(createInitializer().get(), "No managed object");
     }
 
@@ -52,7 +52,7 @@ public abstract class AbstractConcurrentInitializerTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it
      */
     @Test
-    public void testGetMultipleTimes() throws ConcurrentException {
+    void testGetMultipleTimes() throws ConcurrentException {
         final ConcurrentInitializer<Object> initializer = createInitializer();
         final Object obj = initializer.get();
         for (int i = 0; i < 10; i++) {
@@ -68,7 +68,7 @@ public abstract class AbstractConcurrentInitializerTest {
      * @throws java.lang.InterruptedException because the threading API my throw it
      */
     @Test
-    public void testGetConcurrent() throws ConcurrentException,
+    void testGetConcurrent() throws ConcurrentException,
             InterruptedException {
         final ConcurrentInitializer<Object> initializer = createInitializer();
         final int threadCount = 20;

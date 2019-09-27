@@ -64,7 +64,7 @@ public class LocaleUtilsTest  {
      * Test that constructors are public, and work, etc.
      */
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(new LocaleUtils());
         final Constructor<?>[] cons = LocaleUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
@@ -126,7 +126,7 @@ public class LocaleUtilsTest  {
      * Test toLocale() method.
      */
     @Test
-    public void testToLocale_1Part() {
+    void testToLocale_1Part() {
         assertNull(LocaleUtils.toLocale(null));
 
         assertValidToLocale("us");
@@ -151,7 +151,7 @@ public class LocaleUtilsTest  {
      * Test toLocale() method.
      */
     @Test
-    public void testToLocale_2Part() {
+    void testToLocale_2Part() {
         assertValidToLocale("us_EN", "us", "EN");
         //valid though doesn't exist
         assertValidToLocale("us_ZH", "us", "ZH");
@@ -184,7 +184,7 @@ public class LocaleUtilsTest  {
      * Test toLocale() method.
      */
     @Test
-    public void testToLocale_3Part() {
+    void testToLocale_3Part() {
         assertValidToLocale("us_EN_A", "us", "EN", "A");
         // this isn't pretty, but was caused by a jdk bug it seems
         // http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4210525
@@ -225,7 +225,7 @@ public class LocaleUtilsTest  {
      * Test localeLookupList() method.
      */
     @Test
-    public void testLocaleLookupList_Locale() {
+    void testLocaleLookupList_Locale() {
         assertLocaleLookupList(null, null, new Locale[0]);
         assertLocaleLookupList(LOCALE_QQ, null, new Locale[]{LOCALE_QQ});
         assertLocaleLookupList(LOCALE_EN, null, new Locale[]{LOCALE_EN});
@@ -245,7 +245,7 @@ public class LocaleUtilsTest  {
      * Test localeLookupList() method.
      */
     @Test
-    public void testLocaleLookupList_LocaleLocale() {
+    void testLocaleLookupList_LocaleLocale() {
         assertLocaleLookupList(LOCALE_QQ, LOCALE_QQ,
                 new Locale[]{LOCALE_QQ});
         assertLocaleLookupList(LOCALE_EN, LOCALE_EN,
@@ -300,7 +300,7 @@ public class LocaleUtilsTest  {
      * Test availableLocaleList() method.
      */
     @Test
-    public void testAvailableLocaleList() {
+    void testAvailableLocaleList() {
         final List<Locale> list = LocaleUtils.availableLocaleList();
         final List<Locale> list2 = LocaleUtils.availableLocaleList();
         assertNotNull(list);
@@ -317,7 +317,7 @@ public class LocaleUtilsTest  {
      * Test availableLocaleSet() method.
      */
     @Test
-    public void testAvailableLocaleSet() {
+    void testAvailableLocaleSet() {
         final Set<Locale> set = LocaleUtils.availableLocaleSet();
         final Set<Locale> set2 = LocaleUtils.availableLocaleSet();
         assertNotNull(set);
@@ -336,7 +336,7 @@ public class LocaleUtilsTest  {
      */
     @SuppressWarnings("boxing") // JUnit4 does not support primitive equality testing apart from long
     @Test
-    public void testIsAvailableLocale() {
+    void testIsAvailableLocale() {
         final Set<Locale> set = LocaleUtils.availableLocaleSet();
         assertEquals(set.contains(LOCALE_EN), LocaleUtils.isAvailableLocale(LOCALE_EN));
         assertEquals(set.contains(LOCALE_EN_US), LocaleUtils.isAvailableLocale(LOCALE_EN_US));
@@ -352,7 +352,7 @@ public class LocaleUtilsTest  {
      *
      */
     @Test
-    public void testThreeCharsLocale() {
+    void testThreeCharsLocale() {
         for (final String str : Arrays.asList("udm", "tet")) {
             final Locale locale = LocaleUtils.toLocale(str);
             assertNotNull(locale);
@@ -402,7 +402,7 @@ public class LocaleUtilsTest  {
      * Test languagesByCountry() method.
      */
     @Test
-    public void testLanguagesByCountry() {
+    void testLanguagesByCountry() {
         assertLanguageByCountry(null, new String[0]);
         assertLanguageByCountry("GB", new String[]{"en"});
         assertLanguageByCountry("ZZ", new String[0]);
@@ -450,7 +450,7 @@ public class LocaleUtilsTest  {
      * Test countriesByLanguage() method.
      */
     @Test
-    public void testCountriesByLanguage() {
+    void testCountriesByLanguage() {
         assertCountriesByLanguage(null, new String[0]);
         assertCountriesByLanguage("de", new String[]{"DE", "CH", "AT", "LU"});
         assertCountriesByLanguage("zz", new String[0]);
@@ -468,13 +468,13 @@ public class LocaleUtilsTest  {
      * Tests #LANG-328 - only language+variant
      */
     @Test
-    public void testLang328() {
+    void testLang328() {
         assertValidToLocale("fr__P", "fr", "", "P");
         assertValidToLocale("fr__POSIX", "fr", "", "POSIX");
     }
 
     @Test
-    public void testLanguageAndUNM49Numeric3AreaCodeLang1312() {
+    void testLanguageAndUNM49Numeric3AreaCodeLang1312() {
         assertValidToLocale("en_001", "en", "001");
         assertValidToLocale("en_150", "en", "150");
         assertValidToLocale("ar_001", "ar", "001");
@@ -488,7 +488,7 @@ public class LocaleUtilsTest  {
      * Tests #LANG-865, strings starting with an underscore.
      */
     @Test
-    public void testLang865() {
+    void testLang865() {
         assertValidToLocale("_GB", "", "GB", "");
         assertValidToLocale("_GB_P", "", "GB", "P");
         assertValidToLocale("_GB_POSIX", "", "GB", "POSIX");

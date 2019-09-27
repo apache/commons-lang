@@ -40,20 +40,20 @@ import org.junit.jupiter.api.Test;
 public class ImmutableTripleTest {
 
     @Test
-    public void testEmptyArrayLength() {
+    void testEmptyArrayLength() {
         @SuppressWarnings("unchecked")
         final ImmutableTriple<Integer, String, Boolean>[] empty = (ImmutableTriple<Integer, String, Boolean>[]) ImmutableTriple.EMPTY_ARRAY;
         assertEquals(0, empty.length);
     }
 
     @Test
-    public void testEmptyArrayGenerics() {
+    void testEmptyArrayGenerics() {
         final ImmutableTriple<Integer, String, Boolean>[] empty = ImmutableTriple.emptyArray();
         assertEquals(0, empty.length);
     }
 
     @Test
-    public void testBasic() {
+    void testBasic() {
         final ImmutableTriple<Integer, String, Boolean> triple = new ImmutableTriple<>(0, "foo", Boolean.TRUE);
         assertEquals(0, triple.left.intValue());
         assertEquals(0, triple.getLeft().intValue());
@@ -71,7 +71,7 @@ public class ImmutableTripleTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         assertEquals(ImmutableTriple.of(null, "foo", 42), ImmutableTriple.of(null, "foo", 42));
         assertNotEquals(ImmutableTriple.of("foo", 0, Boolean.TRUE), ImmutableTriple.of("foo", null, null));
         assertNotEquals(ImmutableTriple.of("foo", "bar", "baz"), ImmutableTriple.of("xyz", "bar", "blo"));
@@ -82,37 +82,37 @@ public class ImmutableTripleTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         assertEquals(ImmutableTriple.of(null, "foo", Boolean.TRUE).hashCode(), ImmutableTriple.of(null, "foo", Boolean.TRUE).hashCode());
     }
 
     @Test
-    public void testNullTripleEquals() {
+    void testNullTripleEquals() {
         assertEquals(ImmutableTriple.nullTriple(), ImmutableTriple.nullTriple());
     }
 
     @Test
-    public void testNullTripleLeft() {
+    void testNullTripleLeft() {
         assertNull(ImmutableTriple.nullTriple().getLeft());
     }
 
     @Test
-    public void testNullTripleMiddle() {
+    void testNullTripleMiddle() {
         assertNull(ImmutableTriple.nullTriple().getMiddle());
     }
 
     @Test
-    public void testNullTripleRight() {
+    void testNullTripleRight() {
         assertNull(ImmutableTriple.nullTriple().getRight());
     }
 
     @Test
-    public void testNullTripleSame() {
+    void testNullTripleSame() {
         assertSame(ImmutableTriple.nullTriple(), ImmutableTriple.nullTriple());
     }
 
     @Test
-    public void testNullTripleTyped() {
+    void testNullTripleTyped() {
         // No compiler warnings
         // How do we assert that?
         final ImmutableTriple<String, String, String> triple = ImmutableTriple.nullTriple();
@@ -133,7 +133,7 @@ public class ImmutableTripleTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals("(null,null,null)", ImmutableTriple.of(null, null, null).toString());
         assertEquals("(null,two,null)", ImmutableTriple.of(null, "two", null).toString());
         assertEquals("(one,null,null)", ImmutableTriple.of("one", null, null).toString());
@@ -144,7 +144,7 @@ public class ImmutableTripleTest {
     }
 
     @Test
-    public void testTripleOf() {
+    void testTripleOf() {
         final ImmutableTriple<Integer, String, Boolean> triple = ImmutableTriple.of(0, "foo", Boolean.FALSE);
         assertEquals(0, triple.left.intValue());
         assertEquals(0, triple.getLeft().intValue());
@@ -162,7 +162,7 @@ public class ImmutableTripleTest {
     }
 
     @Test
-    public void testUseAsKeyOfHashMap() {
+    void testUseAsKeyOfHashMap() {
         HashMap<ImmutableTriple<Object, Object, Object>, String> map = new HashMap<>();
         Object o1 = new Object();
         Object o2 = new Object();
@@ -175,7 +175,7 @@ public class ImmutableTripleTest {
     }
 
     @Test
-    public void testUseAsKeyOfTreeMap() {
+    void testUseAsKeyOfTreeMap() {
         TreeMap<ImmutableTriple<Integer, Integer, Integer>, String> map = new TreeMap<>();
         map.put(ImmutableTriple.of(0, 1, 2), "012");
         map.put(ImmutableTriple.of(0, 1, 1), "011");

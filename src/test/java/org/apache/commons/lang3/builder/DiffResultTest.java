@@ -57,7 +57,7 @@ public class DiffResultTest {
     }
 
     @Test
-    public void testListIsNonModifiable() {
+    void testListIsNonModifiable() {
         final SimpleClass lhs = new SimpleClass(true);
         final SimpleClass rhs = new SimpleClass(false);
 
@@ -70,7 +70,7 @@ public class DiffResultTest {
     }
 
     @Test
-    public void testIterator() {
+    void testIterator() {
         final SimpleClass lhs = new SimpleClass(true);
         final SimpleClass rhs = new SimpleClass(false);
 
@@ -87,7 +87,7 @@ public class DiffResultTest {
     }
 
     @Test
-    public void testToStringOutput() {
+    void testToStringOutput() {
         final DiffResult list = new DiffBuilder(new EmptyClass(), new EmptyClass(),
                 ToStringStyle.SHORT_PREFIX_STYLE).append("test", false, true)
                 .build();
@@ -97,7 +97,7 @@ public class DiffResultTest {
     }
 
     @Test
-    public void testToStringSpecifyStyleOutput() {
+    void testToStringSpecifyStyleOutput() {
         final DiffResult list = SIMPLE_FALSE.diff(SIMPLE_TRUE);
         assertEquals(list.getToStringStyle(), SHORT_STYLE);
 
@@ -116,39 +116,39 @@ public class DiffResultTest {
     }
 
     @Test
-    public void testNullLhs() {
+    void testNullLhs() {
         assertThrows(IllegalArgumentException.class,
             () -> new DiffResult(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE));
     }
 
     @Test
-    public void testNullRhs() {
+    void testNullRhs() {
         assertThrows(IllegalArgumentException.class,
             () -> new DiffResult(SIMPLE_TRUE, null, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE));
     }
 
     @Test
-    public void testNullList() {
+    void testNullList() {
         assertThrows(IllegalArgumentException.class,
             () -> new DiffResult(SIMPLE_TRUE, SIMPLE_FALSE, null, SHORT_STYLE));
     }
 
     @Test
-    public void testNullStyle() {
+    void testNullStyle() {
         final DiffResult diffResult = new DiffResult(SIMPLE_TRUE, SIMPLE_FALSE, SIMPLE_TRUE
                 .diff(SIMPLE_FALSE).getDiffs(), null);
         assertEquals(ToStringStyle.DEFAULT_STYLE, diffResult.getToStringStyle());
     }
 
     @Test
-    public void testNoDifferencesString() {
+    void testNoDifferencesString() {
         final DiffResult diffResult = new DiffBuilder(SIMPLE_TRUE, SIMPLE_TRUE,
                 SHORT_STYLE).build();
         assertEquals(DiffResult.OBJECTS_SAME_STRING, diffResult.toString());
     }
 
     @Test
-    public void testLeftAndRightGetters() {
+    void testLeftAndRightGetters() {
         final SimpleClass left = new SimpleClass(true);
         final SimpleClass right = new SimpleClass(false);
 

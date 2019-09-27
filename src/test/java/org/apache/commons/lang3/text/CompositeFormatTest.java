@@ -37,7 +37,7 @@ public class CompositeFormatTest {
      * Ensures that the parse/format separation is correctly maintained.
      */
     @Test
-    public void testCompositeFormat() {
+    void testCompositeFormat() {
 
         final Format parser = new Format() {
             private static final long serialVersionUID = 1L;
@@ -76,7 +76,7 @@ public class CompositeFormatTest {
     }
 
     @Test
-    public void testUsage() throws Exception {
+    void testUsage() throws Exception {
         final Format f1 = new SimpleDateFormat("MMddyyyy", Locale.ENGLISH);
         final Format f2 = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
         final CompositeFormat c = new CompositeFormat(f1, f2);

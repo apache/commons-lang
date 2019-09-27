@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class MutableBooleanTest {
 
     @Test
-    public void testCompareTo() {
+    void testCompareTo() {
         final MutableBoolean mutBool = new MutableBoolean(false);
 
         assertEquals(0, mutBool.compareTo(new MutableBoolean(false)));
@@ -45,14 +45,14 @@ public class MutableBooleanTest {
     }
 
     @Test
-    public void testCompareToNull() {
+    void testCompareToNull() {
         final MutableBoolean mutBool = new MutableBoolean(false);
         assertThrows(NullPointerException.class, () -> mutBool.compareTo(null));
     }
 
     // ----------------------------------------------------------------
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         assertFalse(new MutableBoolean().booleanValue());
 
         assertTrue(new MutableBoolean(true).booleanValue());
@@ -64,12 +64,12 @@ public class MutableBooleanTest {
     }
 
     @Test
-    public void testConstructorNull() {
+    void testConstructorNull() {
         assertThrows(NullPointerException.class, () -> new MutableBoolean(null));
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         final MutableBoolean mutBoolA = new MutableBoolean(false);
         final MutableBoolean mutBoolB = new MutableBoolean(false);
         final MutableBoolean mutBoolC = new MutableBoolean(true);
@@ -87,7 +87,7 @@ public class MutableBooleanTest {
     }
 
     @Test
-    public void testGetSet() {
+    void testGetSet() {
         assertFalse(new MutableBoolean().booleanValue());
         assertEquals(Boolean.FALSE, new MutableBoolean().getValue());
 
@@ -118,13 +118,13 @@ public class MutableBooleanTest {
     }
 
     @Test
-    public void testSetNull() {
+    void testSetNull() {
         final MutableBoolean mutBool = new MutableBoolean(false);
         assertThrows(NullPointerException.class, () -> mutBool.setValue(null));
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final MutableBoolean mutBoolA = new MutableBoolean(false);
         final MutableBoolean mutBoolB = new MutableBoolean(false);
         final MutableBoolean mutBoolC = new MutableBoolean(true);
@@ -137,7 +137,7 @@ public class MutableBooleanTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals(Boolean.FALSE.toString(), new MutableBoolean(false).toString());
         assertEquals(Boolean.TRUE.toString(), new MutableBoolean(true).toString());
     }

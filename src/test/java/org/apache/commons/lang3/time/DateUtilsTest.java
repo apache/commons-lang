@@ -145,7 +145,7 @@ public class DateUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(new DateUtils());
         final Constructor<?>[] cons = DateUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
@@ -156,7 +156,7 @@ public class DateUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testIsSameDay_Date() {
+    void testIsSameDay_Date() {
         Date datea = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
         Date dateb = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
         assertTrue(DateUtils.isSameDay(datea, dateb));
@@ -169,23 +169,23 @@ public class DateUtilsTest {
     }
 
     @Test
-    public void testIsSameDay_DateNullNull() {
+    void testIsSameDay_DateNullNull() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay((Date) null, null));
     }
 
     @Test
-    public void testIsSameDay_DateNullNotNull() {
+    void testIsSameDay_DateNullNotNull() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay(null, new Date()));
     }
 
     @Test
-    public void testIsSameDay_DateNotNullNull() {
+    void testIsSameDay_DateNotNullNull() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay(new Date(), null));
     }
 
     //-----------------------------------------------------------------------
     @Test
-    public void testIsSameDay_Cal() {
+    void testIsSameDay_Cal() {
         final GregorianCalendar cala = new GregorianCalendar(2004, 6, 9, 13, 45);
         final GregorianCalendar calb = new GregorianCalendar(2004, 6, 9, 13, 45);
         assertTrue(DateUtils.isSameDay(cala, calb));
@@ -198,23 +198,23 @@ public class DateUtilsTest {
     }
 
     @Test
-    public void testIsSameDay_CalNullNull() {
+    void testIsSameDay_CalNullNull() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay((Calendar) null, null));
     }
 
     @Test
-    public void testIsSameDay_CalNullNotNull() {
+    void testIsSameDay_CalNullNotNull() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay(null, Calendar.getInstance()));
     }
 
     @Test
-    public void testIsSameDay_CalNotNullNull() {
+    void testIsSameDay_CalNotNullNull() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay(Calendar.getInstance(), null));
     }
 
     //-----------------------------------------------------------------------
     @Test
-    public void testIsSameInstant_Date() {
+    void testIsSameInstant_Date() {
         Date datea = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
         Date dateb = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
         assertTrue(DateUtils.isSameInstant(datea, dateb));
@@ -227,23 +227,23 @@ public class DateUtilsTest {
     }
 
     @Test
-    public void testIsSameInstant_DateNullNull() {
+    void testIsSameInstant_DateNullNull() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant((Date) null, null));
     }
 
     @Test
-    public void testIsSameInstant_DateNullNotNull() {
+    void testIsSameInstant_DateNullNotNull() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant(null, new Date()));
     }
 
     @Test
-    public void testIsSameInstant_DateNotNullNull() {
+    void testIsSameInstant_DateNotNullNull() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant(new Date(), null));
     }
 
     //-----------------------------------------------------------------------
     @Test
-    public void testIsSameInstant_Cal() {
+    void testIsSameInstant_Cal() {
         final GregorianCalendar cala = new GregorianCalendar(TimeZone.getTimeZone("GMT+1"));
         final GregorianCalendar calb = new GregorianCalendar(TimeZone.getTimeZone("GMT-1"));
         cala.set(2004, Calendar.JULY, 9, 13, 45, 0);
@@ -257,23 +257,23 @@ public class DateUtilsTest {
     }
 
     @Test
-    public void testIsSameInstant_CalNullNull() {
+    void testIsSameInstant_CalNullNull() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant((Calendar) null, null));
     }
 
     @Test
-    public void testIsSameInstant_CalNullNotNull() {
+    void testIsSameInstant_CalNullNotNull() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant(null, Calendar.getInstance()));
     }
 
     @Test
-    public void testIsSameInstant_CalNotNullNull() {
+    void testIsSameInstant_CalNotNullNull() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant(Calendar.getInstance(), null));
     }
 
     //-----------------------------------------------------------------------
     @Test
-    public void testIsSameLocalTime_Cal() {
+    void testIsSameLocalTime_Cal() {
         final GregorianCalendar cala = new GregorianCalendar(TimeZone.getTimeZone("GMT+1"));
         final GregorianCalendar calb = new GregorianCalendar(TimeZone.getTimeZone("GMT-1"));
         cala.set(2004, Calendar.JULY, 9, 13, 45, 0);
@@ -295,23 +295,23 @@ public class DateUtilsTest {
     }
 
     @Test
-    public void testIsSameLocalTime_CalNullNull() {
+    void testIsSameLocalTime_CalNullNull() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameLocalTime(null, null));
     }
 
     @Test
-    public void testIsSameLocalTime_CalNullNotNull() {
+    void testIsSameLocalTime_CalNullNotNull() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameLocalTime(null, Calendar.getInstance()));
     }
 
     @Test
-    public void testIsSameLocalTime_CalNotNullNull() {
+    void testIsSameLocalTime_CalNotNullNull() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameLocalTime(Calendar.getInstance(), null));
     }
 
     //-----------------------------------------------------------------------
     @Test
-    public void testParseDate() throws Exception {
+    void testParseDate() throws Exception {
         final GregorianCalendar cal = new GregorianCalendar(1972, 11, 3);
         String dateStr = "1972-12-03";
         final String[] parsers = new String[] {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
@@ -328,36 +328,36 @@ public class DateUtilsTest {
     }
 
     @Test
-    public void testParseDate_NoDateString() {
+    void testParseDate_NoDateString() {
         final String[] parsers = new String[] {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
         assertThrows(ParseException.class, () -> DateUtils.parseDate("PURPLE", parsers));
     }
 
     @Test
-    public void testParseDate_InvalidDateString() {
+    void testParseDate_InvalidDateString() {
         final String[] parsers = new String[] {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
         assertThrows(ParseException.class, () -> DateUtils.parseDate("197212AB", parsers));
     }
 
     @Test
-    public void testParseDate_Null() {
+    void testParseDate_Null() {
         final String[] parsers = new String[] {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
         assertThrows(IllegalArgumentException.class, () -> DateUtils.parseDate(null, parsers));
     }
 
     @Test
-    public void testParse_NullParsers() {
+    void testParse_NullParsers() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.parseDate("19721203", (String[]) null));
     }
 
     @Test
-    public void testParse_EmptyParsers() {
+    void testParse_EmptyParsers() {
         assertThrows(ParseException.class, () -> DateUtils.parseDate("19721203"));
     }
 
     // LANG-486
     @Test
-    public void testParseDateWithLeniency() throws Exception {
+    void testParseDateWithLeniency() throws Exception {
         final GregorianCalendar cal = new GregorianCalendar(1998, 6, 30);
         final String dateStr = "02 942, 1996";
         final String[] parsers = new String[] {"MM DDD, yyyy"};
@@ -370,7 +370,7 @@ public class DateUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testAddYears() throws Exception {
+    void testAddYears() throws Exception {
         Date result = DateUtils.addYears(BASE_DATE, 0);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -389,7 +389,7 @@ public class DateUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testAddMonths() throws Exception {
+    void testAddMonths() throws Exception {
         Date result = DateUtils.addMonths(BASE_DATE, 0);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -408,7 +408,7 @@ public class DateUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testAddWeeks() throws Exception {
+    void testAddWeeks() throws Exception {
         Date result = DateUtils.addWeeks(BASE_DATE, 0);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -427,7 +427,7 @@ public class DateUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testAddDays() throws Exception {
+    void testAddDays() throws Exception {
         Date result = DateUtils.addDays(BASE_DATE, 0);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -446,7 +446,7 @@ public class DateUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testAddHours() throws Exception {
+    void testAddHours() throws Exception {
         Date result = DateUtils.addHours(BASE_DATE, 0);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -465,7 +465,7 @@ public class DateUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testAddMinutes() throws Exception {
+    void testAddMinutes() throws Exception {
         Date result = DateUtils.addMinutes(BASE_DATE, 0);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -484,7 +484,7 @@ public class DateUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testAddSeconds() throws Exception {
+    void testAddSeconds() throws Exception {
         Date result = DateUtils.addSeconds(BASE_DATE, 0);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -503,7 +503,7 @@ public class DateUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testAddMilliseconds() throws Exception {
+    void testAddMilliseconds() throws Exception {
         Date result = DateUtils.addMilliseconds(BASE_DATE, 0);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -522,7 +522,7 @@ public class DateUtilsTest {
 
     // -----------------------------------------------------------------------
     @Test
-    public void testSetYears() throws Exception {
+    void testSetYears() throws Exception {
         Date result = DateUtils.setYears(BASE_DATE, 2000);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -541,7 +541,7 @@ public class DateUtilsTest {
 
     // -----------------------------------------------------------------------
     @Test
-    public void testSetMonths() throws Exception {
+    void testSetMonths() throws Exception {
         Date result = DateUtils.setMonths(BASE_DATE, 5);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -560,7 +560,7 @@ public class DateUtilsTest {
 
     // -----------------------------------------------------------------------
     @Test
-    public void testSetDays() throws Exception {
+    void testSetDays() throws Exception {
         Date result = DateUtils.setDays(BASE_DATE, 1);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -579,7 +579,7 @@ public class DateUtilsTest {
 
     // -----------------------------------------------------------------------
     @Test
-    public void testSetHours() throws Exception {
+    void testSetHours() throws Exception {
         Date result = DateUtils.setHours(BASE_DATE, 0);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -598,7 +598,7 @@ public class DateUtilsTest {
 
     // -----------------------------------------------------------------------
     @Test
-    public void testSetMinutes() throws Exception {
+    void testSetMinutes() throws Exception {
         Date result = DateUtils.setMinutes(BASE_DATE, 0);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -617,7 +617,7 @@ public class DateUtilsTest {
 
     // -----------------------------------------------------------------------
     @Test
-    public void testSetSeconds() throws Exception {
+    void testSetSeconds() throws Exception {
         Date result = DateUtils.setSeconds(BASE_DATE, 0);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -636,7 +636,7 @@ public class DateUtilsTest {
 
     // -----------------------------------------------------------------------
     @Test
-    public void testSetMilliseconds() throws Exception {
+    void testSetMilliseconds() throws Exception {
         Date result = DateUtils.setMilliseconds(BASE_DATE, 0);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
@@ -668,26 +668,26 @@ public class DateUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testToCalendar() {
+    void testToCalendar() {
         assertEquals(date1, DateUtils.toCalendar(date1).getTime(), "Failed to convert to a Calendar and back");
         assertThrows(NullPointerException.class, () -> DateUtils.toCalendar(null));
     }
 
     //-----------------------------------------------------------------------
     @Test
-    public void testToCalendarWithDateNull() {
+    void testToCalendarWithDateNull() {
         assertThrows(NullPointerException.class, () -> DateUtils.toCalendar(null, zone));
     }
 
     //-----------------------------------------------------------------------
     @Test
-    public void testToCalendarWithTimeZoneNull() {
+    void testToCalendarWithTimeZoneNull() {
         assertThrows(NullPointerException.class, () -> DateUtils.toCalendar(date1, null));
     }
 
     //-----------------------------------------------------------------------
     @Test
-    public void testToCalendarWithDateAndTimeZoneNotNull() {
+    void testToCalendarWithDateAndTimeZoneNotNull() {
         final Calendar c = DateUtils.toCalendar(date2, defaultZone);
         assertEquals(date2, c.getTime(), "Convert Date and TimeZone to a Calendar, but failed to get the Date back");
         assertEquals(defaultZone, c.getTimeZone(), "Convert Date and TimeZone to a Calendar, but failed to get the TimeZone back");
@@ -695,7 +695,7 @@ public class DateUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testToCalendarWithDateAndTimeZoneNull() {
+    void testToCalendarWithDateAndTimeZoneNull() {
         assertThrows(NullPointerException.class, () -> DateUtils.toCalendar(null, null));
     }
 
@@ -706,7 +706,7 @@ public class DateUtilsTest {
      * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
-    public void testRound() throws Exception {
+    void testRound() throws Exception {
         // tests for public static Date round(Date date, int field)
         assertEquals(dateParser.parse("January 1, 2002"),
                 DateUtils.round(date1, Calendar.YEAR),
@@ -916,7 +916,7 @@ public class DateUtilsTest {
      * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
-    public void testRoundLang346() throws Exception {
+    void testRoundLang346() throws Exception {
         final Calendar testCalendar = Calendar.getInstance();
         testCalendar.set(2007, Calendar.JULY, 2, 8, 8, 50);
         Date date = testCalendar.getTime();
@@ -978,7 +978,7 @@ public class DateUtilsTest {
      * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
-    public void testTruncate() throws Exception {
+    void testTruncate() throws Exception {
         // tests public static Date truncate(Date date, int field)
         assertEquals(dateParser.parse("January 1, 2002"),
                 DateUtils.truncate(date1, Calendar.YEAR),
@@ -1157,7 +1157,7 @@ public class DateUtilsTest {
      * see https://issues.apache.org/jira/browse/LANG-59
      */
     @Test
-    public void testTruncateLang59() {
+    void testTruncateLang59() {
         try {
             // Set TimeZone to Mountain Time
             final TimeZone denverZone = TimeZone.getTimeZone("America/Denver");
@@ -1230,7 +1230,7 @@ public class DateUtilsTest {
     // https://issues.apache.org/jira/browse/LANG-530
     @SuppressWarnings("deprecation")
     @Test
-    public void testLang530() throws ParseException {
+    void testLang530() throws ParseException {
         final Date d = new Date();
         final String isoDateStr = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(d);
         final Date d2 = DateUtils.parseDate(isoDateStr, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern());
@@ -1244,7 +1244,7 @@ public class DateUtilsTest {
      * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
-    public void testCeil() throws Exception {
+    void testCeil() throws Exception {
         // test javadoc
         assertEquals(dateTimeParser.parse("March 28, 2002 14:00:00.000"),
                 DateUtils.ceiling(
@@ -1472,7 +1472,7 @@ public class DateUtilsTest {
      * Tests the iterator exceptions
      */
     @Test
-    public void testIteratorEx() {
+    void testIteratorEx() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.iterator(Calendar.getInstance(), -9999));
         assertThrows
                 (IllegalArgumentException.class, () -> DateUtils.iterator((Date) null, DateUtils.RANGE_WEEK_CENTER));
@@ -1487,7 +1487,7 @@ public class DateUtilsTest {
      * Tests the calendar iterator for week ranges
      */
     @Test
-    public void testWeekIterator() {
+    void testWeekIterator() {
         final Calendar now = Calendar.getInstance();
         for (int i = 0; i< 7; i++) {
             final Calendar today = DateUtils.truncate(now, Calendar.DATE);
@@ -1531,7 +1531,7 @@ public class DateUtilsTest {
      * @throws java.lang.Exception so we don't have to catch it
      */
     @Test
-    public void testMonthIterator() throws Exception {
+    void testMonthIterator() throws Exception {
         Iterator<?> it = DateUtils.iterator(date1, DateUtils.RANGE_MONTH_SUNDAY);
         assertWeekIterator(it,
                 dateParser.parse("January 27, 2002"),
@@ -1555,7 +1555,7 @@ public class DateUtilsTest {
 
     @DefaultLocale(language = "en")
     @Test
-    public void testLANG799_EN_OK() throws ParseException {
+    void testLANG799_EN_OK() throws ParseException {
         DateUtils.parseDate("Wed, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
         DateUtils.parseDateStrictly("Wed, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
     }
@@ -1563,13 +1563,13 @@ public class DateUtilsTest {
     // Parse German date with English Locale
     @DefaultLocale(language = "en")
     @Test
-    public void testLANG799_EN_FAIL() {
+    void testLANG799_EN_FAIL() {
         assertThrows(ParseException.class, () -> DateUtils.parseDate("Mi, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz"));
     }
 
     @DefaultLocale(language = "de")
     @Test
-    public void testLANG799_DE_OK() throws ParseException {
+    void testLANG799_DE_OK() throws ParseException {
         DateUtils.parseDate("Mi, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
         DateUtils.parseDateStrictly("Mi, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
     }
@@ -1577,14 +1577,14 @@ public class DateUtilsTest {
     // Parse English date with German Locale
     @DefaultLocale(language = "de")
     @Test
-    public void testLANG799_DE_FAIL() {
+    void testLANG799_DE_FAIL() {
         assertThrows(ParseException.class, () -> DateUtils.parseDate("Wed, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz"));
     }
 
     // Parse German date with English Locale, specifying German Locale override
     @DefaultLocale(language = "en")
     @Test
-    public void testLANG799_EN_WITH_DE_LOCALE() throws ParseException {
+    void testLANG799_EN_WITH_DE_LOCALE() throws ParseException {
         DateUtils.parseDate("Mi, 09 Apr 2008 23:55:38 GMT", Locale.GERMAN, "EEE, dd MMM yyyy HH:mm:ss zzz");
     }
 
@@ -1648,7 +1648,7 @@ public class DateUtilsTest {
     }
 
     @Test
-    public void testLANG799() throws ParseException {
+    void testLANG799() throws ParseException {
         DateUtils.parseDateStrictly("09 abril 2008 23:55:38 GMT", new Locale("es"), "dd MMM yyyy HH:mm:ss zzz");
     }
 }

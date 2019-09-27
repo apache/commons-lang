@@ -43,7 +43,7 @@ import org.junit.jupiter.api.Test;
  */
 public class EventUtilsTest {
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(new EventUtils());
         final Constructor<?>[] cons = EventUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
@@ -53,7 +53,7 @@ public class EventUtilsTest {
     }
 
     @Test
-    public void testAddEventListener() {
+    void testAddEventListener() {
         final PropertyChangeSource src = new PropertyChangeSource();
         final EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
         final PropertyChangeListener listener = handler.createListener(PropertyChangeListener.class);
@@ -65,7 +65,7 @@ public class EventUtilsTest {
     }
 
     @Test
-    public void testAddEventListenerWithNoAddMethod() {
+    void testAddEventListenerWithNoAddMethod() {
         final PropertyChangeSource src = new PropertyChangeSource();
         final EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
         final ObjectChangeListener listener = handler.createListener(ObjectChangeListener.class);
@@ -76,7 +76,7 @@ public class EventUtilsTest {
     }
 
     @Test
-    public void testAddEventListenerThrowsException() {
+    void testAddEventListenerThrowsException() {
         final ExceptionEventSource src = new ExceptionEventSource();
         assertThrows(RuntimeException.class, () ->
             EventUtils.addEventListener(src, PropertyChangeListener.class, e -> {
@@ -86,7 +86,7 @@ public class EventUtilsTest {
     }
 
     @Test
-    public void testAddEventListenerWithPrivateAddMethod() {
+    void testAddEventListenerWithPrivateAddMethod() {
         final PropertyChangeSource src = new PropertyChangeSource();
         final EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
         final VetoableChangeListener listener = handler.createListener(VetoableChangeListener.class);
@@ -97,7 +97,7 @@ public class EventUtilsTest {
     }
 
     @Test
-    public void testBindEventsToMethod() {
+    void testBindEventsToMethod() {
         final PropertyChangeSource src = new PropertyChangeSource();
         final EventCounter counter = new EventCounter();
         EventUtils.bindEventsToMethod(counter, "eventOccurred", src, PropertyChangeListener.class);
@@ -108,7 +108,7 @@ public class EventUtilsTest {
 
 
     @Test
-    public void testBindEventsToMethodWithEvent() {
+    void testBindEventsToMethodWithEvent() {
         final PropertyChangeSource src = new PropertyChangeSource();
         final EventCounterWithEvent counter = new EventCounterWithEvent();
         EventUtils.bindEventsToMethod(counter, "eventOccurred", src, PropertyChangeListener.class);
@@ -119,7 +119,7 @@ public class EventUtilsTest {
 
 
     @Test
-    public void testBindFilteredEventsToMethod() {
+    void testBindFilteredEventsToMethod() {
         final MultipleEventSource src = new MultipleEventSource();
         final EventCounter counter = new EventCounter();
         EventUtils.bindEventsToMethod(counter, "eventOccurred", src, MultipleEventListener.class, "event1");

@@ -42,7 +42,7 @@ public class RandomStringUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(new RandomStringUtils());
         final Constructor<?>[] cons = RandomStringUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
@@ -56,7 +56,7 @@ public class RandomStringUtilsTest {
      * Test the implementation
      */
     @Test
-    public void testRandomStringUtils() {
+    void testRandomStringUtils() {
         String r1 = RandomStringUtils.random(50);
         assertEquals(50, r1.length(), "random(50) length");
         String r2 = RandomStringUtils.random(50);
@@ -151,13 +151,13 @@ public class RandomStringUtilsTest {
     }
 
     @Test
-    public void testLANG805() {
+    void testLANG805() {
         final long seed = System.currentTimeMillis();
         assertEquals("aaa", RandomStringUtils.random(3, 0, 0, false, false, new char[]{'a'}, new Random(seed)));
     }
 
     @Test
-    public void testLANG807() {
+    void testLANG807() {
         IllegalArgumentException ex =
                 assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(3, 5, 5, false, false));
         final String msg = ex.getMessage();
@@ -166,7 +166,7 @@ public class RandomStringUtilsTest {
     }
 
     @Test
-    public void testExceptions() {
+    void testExceptions() {
         final char[] DUMMY = new char[]{'a'}; // valid char array
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1));
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, true, true));
@@ -188,7 +188,7 @@ public class RandomStringUtilsTest {
      * This test will fail randomly with probability = 6 * (61/62)**1000 ~ 5.2E-7
      */
     @Test
-    public void testRandomAlphaNumeric() {
+    void testRandomAlphaNumeric() {
         final char[] testChars = {'a', 'z', 'A', 'Z', '0', '9'};
         final boolean[] found = {false, false, false, false, false, false};
         for (int i = 0; i < 100; i++) {
@@ -211,7 +211,7 @@ public class RandomStringUtilsTest {
      * This test will fail randomly with probability = 2 * (9/10)**1000 ~ 3.5E-46
      */
     @Test
-    public void testRandomNumeric() {
+    void testRandomNumeric() {
         final char[] testChars = {'0', '9'};
         final boolean[] found = {false, false};
         for (int i = 0; i < 100; i++) {
@@ -234,7 +234,7 @@ public class RandomStringUtilsTest {
      * This test will fail randomly with probability = 4 * (51/52)**1000 ~ 1.58E-8
      */
     @Test
-    public void testRandomAlphabetic() {
+    void testRandomAlphabetic() {
         final char[] testChars = {'a', 'z', 'A', 'Z'};
         final boolean[] found = {false, false, false, false};
         for (int i = 0; i < 100; i++) {
@@ -257,7 +257,7 @@ public class RandomStringUtilsTest {
      * This test will fail randomly with probability = 2*(95/96)**1000 ~ 5.7E-5
      */
     @Test
-    public void testRandomAscii() {
+    void testRandomAscii() {
         final char[] testChars = {(char) 32, (char) 126};
         final boolean[] found = {false, false};
         for (int i = 0; i < 100; i++) {
@@ -276,7 +276,7 @@ public class RandomStringUtilsTest {
     }
 
     @Test
-    public void testRandomAsciiRange() {
+    void testRandomAsciiRange() {
         final int expectedMinLengthInclusive = 1;
         final int expectedMaxLengthExclusive = 11;
         final String pattern = "^\\p{ASCII}{" + expectedMinLengthInclusive + ',' + expectedMaxLengthExclusive + "}$";
@@ -301,7 +301,7 @@ public class RandomStringUtilsTest {
     }
 
     @Test
-    public void testRandomAlphabeticRange() {
+    void testRandomAlphabeticRange() {
         final int expectedMinLengthInclusive = 1;
         final int expectedMaxLengthExclusive = 11;
         final String pattern = "^\\p{Alpha}{" + expectedMinLengthInclusive + ',' + expectedMaxLengthExclusive + "}$";
@@ -326,7 +326,7 @@ public class RandomStringUtilsTest {
     }
 
     @Test
-    public void testRandomAlphanumericRange() {
+    void testRandomAlphanumericRange() {
         final int expectedMinLengthInclusive = 1;
         final int expectedMaxLengthExclusive = 11;
         final String pattern = "^\\p{Alnum}{" + expectedMinLengthInclusive + ',' + expectedMaxLengthExclusive + "}$";
@@ -351,7 +351,7 @@ public class RandomStringUtilsTest {
     }
 
     @Test
-    public void testRandomGraphRange() {
+    void testRandomGraphRange() {
         final int expectedMinLengthInclusive = 1;
         final int expectedMaxLengthExclusive = 11;
         final String pattern = "^\\p{Graph}{" + expectedMinLengthInclusive + ',' + expectedMaxLengthExclusive + "}$";
@@ -376,7 +376,7 @@ public class RandomStringUtilsTest {
     }
 
     @Test
-    public void testRandomNumericRange() {
+    void testRandomNumericRange() {
         final int expectedMinLengthInclusive = 1;
         final int expectedMaxLengthExclusive = 11;
         final String pattern = "^\\p{Digit}{" + expectedMinLengthInclusive + ',' + expectedMaxLengthExclusive + "}$";
@@ -401,7 +401,7 @@ public class RandomStringUtilsTest {
     }
 
     @Test
-    public void testRandomPrintRange() {
+    void testRandomPrintRange() {
         final int expectedMinLengthInclusive = 1;
         final int expectedMaxLengthExclusive = 11;
         final String pattern = "^\\p{Print}{" + expectedMinLengthInclusive + ',' + expectedMaxLengthExclusive + "}$";
@@ -432,7 +432,7 @@ public class RandomStringUtilsTest {
      * Repeated failures indicate a problem.
      */
     @Test
-    public void testRandomStringUtilsHomog() {
+    void testRandomStringUtilsHomog() {
         final String set = "abc";
         final char[] chars = set.toCharArray();
         String gen = "";
@@ -486,7 +486,7 @@ public class RandomStringUtilsTest {
      * @see <a href="https://issues.apache.org/jira/browse/LANG-100">LANG-100</a>
      */
     @Test
-    public void testLang100() {
+    void testLang100() {
         final int size = 5000;
         final Charset charset = Charset.forName("UTF-8");
         final String orig = RandomStringUtils.random(size);
@@ -514,7 +514,7 @@ public class RandomStringUtilsTest {
      * range.
      */
     @Test
-    public void testCharOverflow() {
+    void testCharOverflow() {
         final int start = Character.MAX_VALUE;
         final int end = Integer.MAX_VALUE;
 

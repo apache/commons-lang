@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ReflectionToStringBuilderTest {
 
     @Test
-    public void testConstructorWithNullObject() {
+    void testConstructorWithNullObject() {
         assertThrows(IllegalArgumentException.class,
             () -> new ReflectionToStringBuilder(null, ToStringStyle.DEFAULT_STYLE, new StringBuffer()));
     }

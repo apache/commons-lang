@@ -47,7 +47,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         final StrBuilder sb0 = new StrBuilder();
         assertEquals(32, sb0.capacity());
         assertEquals(0, sb0.length());
@@ -91,7 +91,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testChaining() {
+    void testChaining() {
         final StrBuilder sb = new StrBuilder();
         assertSame(sb, sb.setNewLineText(null));
         assertSame(sb, sb.setNullText(null));
@@ -106,7 +106,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testReadFromReader() throws Exception {
+    void testReadFromReader() throws Exception {
         String s = "";
         for (int i = 0; i < 100; ++i) {
             final StrBuilder sb = new StrBuilder();
@@ -120,14 +120,14 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testReadFromReaderAppendsToEnd() throws Exception {
+    void testReadFromReaderAppendsToEnd() throws Exception {
         final StrBuilder sb = new StrBuilder("Test");
         sb.readFrom(new StringReader(" 123"));
         assertEquals("Test 123", sb.toString());
     }
 
     @Test
-    public void testReadFromCharBuffer() throws Exception {
+    void testReadFromCharBuffer() throws Exception {
         String s = "";
         for (int i = 0; i < 100; ++i) {
             final StrBuilder sb = new StrBuilder();
@@ -141,14 +141,14 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testReadFromCharBufferAppendsToEnd() throws Exception {
+    void testReadFromCharBufferAppendsToEnd() throws Exception {
         final StrBuilder sb = new StrBuilder("Test");
         sb.readFrom(CharBuffer.wrap(" 123"));
         assertEquals("Test 123", sb.toString());
     }
 
     @Test
-    public void testReadFromReadable() throws Exception {
+    void testReadFromReadable() throws Exception {
         String s = "";
         for (int i = 0; i < 100; ++i) {
             final StrBuilder sb = new StrBuilder();
@@ -162,7 +162,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testReadFromReadableAppendsToEnd() throws Exception {
+    void testReadFromReadableAppendsToEnd() throws Exception {
         final StrBuilder sb = new StrBuilder("Test");
         sb.readFrom(new MockReadable(" 123"));
         assertEquals("Test 123", sb.toString());
@@ -184,7 +184,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testGetSetNewLineText() {
+    void testGetSetNewLineText() {
         final StrBuilder sb = new StrBuilder();
         assertNull(sb.getNewLineText());
 
@@ -200,7 +200,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testGetSetNullText() {
+    void testGetSetNullText() {
         final StrBuilder sb = new StrBuilder();
         assertNull(sb.getNullText());
 
@@ -219,7 +219,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testCapacityAndLength() {
+    void testCapacityAndLength() {
         final StrBuilder sb = new StrBuilder();
         assertEquals(32, sb.capacity());
         assertEquals(0, sb.length());
@@ -302,7 +302,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testLength() {
+    void testLength() {
         final StrBuilder sb = new StrBuilder();
         assertEquals(0, sb.length());
 
@@ -311,7 +311,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testSetLength() {
+    void testSetLength() {
         final StrBuilder sb = new StrBuilder();
         sb.append("Hello");
         sb.setLength(2);  // shorten
@@ -329,7 +329,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testCapacity() {
+    void testCapacity() {
         final StrBuilder sb = new StrBuilder();
         assertEquals(sb.buffer.length, sb.capacity());
 
@@ -338,7 +338,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testEnsureCapacity() {
+    void testEnsureCapacity() {
         final StrBuilder sb = new StrBuilder();
         sb.ensureCapacity(2);
         assertTrue(sb.capacity() >= 2);
@@ -352,7 +352,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testMinimizeCapacity() {
+    void testMinimizeCapacity() {
         final StrBuilder sb = new StrBuilder();
         sb.minimizeCapacity();
         assertEquals(0, sb.capacity());
@@ -364,7 +364,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testSize() {
+    void testSize() {
         final StrBuilder sb = new StrBuilder();
         assertEquals(0, sb.size());
 
@@ -373,7 +373,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testIsEmpty() {
+    void testIsEmpty() {
         final StrBuilder sb = new StrBuilder();
         assertTrue(sb.isEmpty());
 
@@ -385,7 +385,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testClear() {
+    void testClear() {
         final StrBuilder sb = new StrBuilder();
         sb.append("Hello");
         sb.clear();
@@ -395,7 +395,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testCharAt() {
+    void testCharAt() {
         final StrBuilder sb = new StrBuilder();
         assertThrows(
                 IndexOutOfBoundsException.class, () -> sb.charAt(0), "charAt(0) expected IndexOutOfBoundsException");
@@ -413,7 +413,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testSetCharAt() {
+    void testSetCharAt() {
         final StrBuilder sb = new StrBuilder();
         assertThrows(
                 IndexOutOfBoundsException.class,
@@ -436,7 +436,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testDeleteCharAt() {
+    void testDeleteCharAt() {
         final StrBuilder sb = new StrBuilder("abc");
         sb.deleteCharAt(0);
         assertEquals("bc", sb.toString());
@@ -446,7 +446,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testToCharArray() {
+    void testToCharArray() {
         final StrBuilder sb = new StrBuilder();
         assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, sb.toCharArray());
 
@@ -461,7 +461,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testToCharArrayIntInt() {
+    void testToCharArrayIntInt() {
         final StrBuilder sb = new StrBuilder();
         assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, sb.toCharArray(0, 0));
 
@@ -489,7 +489,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testGetChars ( ) {
+    void testGetChars ( ) {
         final StrBuilder sb = new StrBuilder();
 
         char[] input = new char[10];
@@ -517,7 +517,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testGetCharsIntIntCharArrayInt( ) {
+    void testGetCharsIntIntCharArrayInt( ) {
         final StrBuilder sb = new StrBuilder();
 
         sb.append("junit");
@@ -537,7 +537,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testDeleteIntInt() {
+    void testDeleteIntInt() {
         StrBuilder sb = new StrBuilder("abc");
         sb.delete(0, 1);
         assertEquals("bc", sb.toString());
@@ -555,7 +555,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testDeleteAll_char() {
+    void testDeleteAll_char() {
         StrBuilder sb = new StrBuilder("abcbccba");
         sb.deleteAll('X');
         assertEquals("abcbccba", sb.toString());
@@ -572,7 +572,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testDeleteFirst_char() {
+    void testDeleteFirst_char() {
         StrBuilder sb = new StrBuilder("abcba");
         sb.deleteFirst('X');
         assertEquals("abcba", sb.toString());
@@ -590,7 +590,7 @@ public class StrBuilderTest {
 
     // -----------------------------------------------------------------------
     @Test
-    public void testDeleteAll_String() {
+    void testDeleteAll_String() {
         StrBuilder sb = new StrBuilder("abcbccba");
         sb.deleteAll((String) null);
         assertEquals("abcbccba", sb.toString());
@@ -616,7 +616,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testDeleteFirst_String() {
+    void testDeleteFirst_String() {
         StrBuilder sb = new StrBuilder("abcbccba");
         sb.deleteFirst((String) null);
         assertEquals("abcbccba", sb.toString());
@@ -643,7 +643,7 @@ public class StrBuilderTest {
 
     // -----------------------------------------------------------------------
     @Test
-    public void testDeleteAll_StrMatcher() {
+    void testDeleteAll_StrMatcher() {
         StrBuilder sb = new StrBuilder("A0xA1A2yA3");
         sb.deleteAll((StrMatcher) null);
         assertEquals("A0xA1A2yA3", sb.toString());
@@ -660,7 +660,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testDeleteFirst_StrMatcher() {
+    void testDeleteFirst_StrMatcher() {
         StrBuilder sb = new StrBuilder("A0xA1A2yA3");
         sb.deleteFirst((StrMatcher) null);
         assertEquals("A0xA1A2yA3", sb.toString());
@@ -678,7 +678,7 @@ public class StrBuilderTest {
 
     // -----------------------------------------------------------------------
     @Test
-    public void testReplace_int_int_String() {
+    void testReplace_int_int_String() {
         StrBuilder sb = new StrBuilder("abc");
         sb.replace(0, 1, "d");
         assertEquals("dbc", sb.toString());
@@ -705,7 +705,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testReplaceAll_char_char() {
+    void testReplaceAll_char_char() {
         final StrBuilder sb = new StrBuilder("abcbccba");
         sb.replaceAll('x', 'y');
         assertEquals("abcbccba", sb.toString());
@@ -721,7 +721,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testReplaceFirst_char_char() {
+    void testReplaceFirst_char_char() {
         final StrBuilder sb = new StrBuilder("abcbccba");
         sb.replaceFirst('x', 'y');
         assertEquals("abcbccba", sb.toString());
@@ -737,7 +737,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testReplaceAll_String_String() {
+    void testReplaceAll_String_String() {
         StrBuilder sb = new StrBuilder("abcbccba");
         sb.replaceAll((String) null, null);
         assertEquals("abcbccba", sb.toString());
@@ -767,7 +767,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testReplaceFirst_String_String() {
+    void testReplaceFirst_String_String() {
         StrBuilder sb = new StrBuilder("abcbccba");
         sb.replaceFirst((String) null, null);
         assertEquals("abcbccba", sb.toString());
@@ -798,7 +798,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testReplaceAll_StrMatcher_String() {
+    void testReplaceAll_StrMatcher_String() {
         StrBuilder sb = new StrBuilder("abcbccba");
         sb.replaceAll((StrMatcher) null, null);
         assertEquals("abcbccba", sb.toString());
@@ -836,7 +836,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testReplaceFirst_StrMatcher_String() {
+    void testReplaceFirst_StrMatcher_String() {
         StrBuilder sb = new StrBuilder("abcbccba");
         sb.replaceFirst((StrMatcher) null, null);
         assertEquals("abcbccba", sb.toString());
@@ -871,7 +871,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testReplace_StrMatcher_String_int_int_int_VaryMatcher() {
+    void testReplace_StrMatcher_String_int_int_int_VaryMatcher() {
         StrBuilder sb = new StrBuilder("abcbccba");
         sb.replace(null, "x", 0, sb.length(), -1);
         assertEquals("abcbccba", sb.toString());
@@ -892,7 +892,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testReplace_StrMatcher_String_int_int_int_VaryReplace() {
+    void testReplace_StrMatcher_String_int_int_int_VaryReplace() {
         StrBuilder sb = new StrBuilder("abcbccba");
         sb.replace(StrMatcher.stringMatcher("cb"), "cb", 0, sb.length(), -1);
         assertEquals("abcbccba", sb.toString());
@@ -915,7 +915,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testReplace_StrMatcher_String_int_int_int_VaryStartIndex() {
+    void testReplace_StrMatcher_String_int_int_int_VaryStartIndex() {
         StrBuilder sb = new StrBuilder("aaxaaaayaa");
         sb.replace(StrMatcher.stringMatcher("aa"), "-", 0, sb.length(), -1);
         assertEquals("-x--y-", sb.toString());
@@ -974,7 +974,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testReplace_StrMatcher_String_int_int_int_VaryEndIndex() {
+    void testReplace_StrMatcher_String_int_int_int_VaryEndIndex() {
         StrBuilder sb = new StrBuilder("aaxaaaayaa");
         sb.replace(StrMatcher.stringMatcher("aa"), "-", 0, 0, -1);
         assertEquals("aaxaaaayaa", sb.toString());
@@ -1027,7 +1027,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testReplace_StrMatcher_String_int_int_int_VaryCount() {
+    void testReplace_StrMatcher_String_int_int_int_VaryCount() {
         StrBuilder sb = new StrBuilder("aaxaaaayaa");
         sb.replace(StrMatcher.stringMatcher("aa"), "-", 0, 10, -1);
         assertEquals("-x--y-", sb.toString());
@@ -1059,7 +1059,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testReverse() {
+    void testReverse() {
         final StrBuilder sb = new StrBuilder();
         assertEquals("", sb.reverse().toString());
 
@@ -1070,7 +1070,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testTrim() {
+    void testTrim() {
         final StrBuilder sb = new StrBuilder();
         assertEquals("", sb.reverse().toString());
 
@@ -1092,7 +1092,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testStartsWith() {
+    void testStartsWith() {
         final StrBuilder sb = new StrBuilder();
         assertFalse(sb.startsWith("a"));
         assertFalse(sb.startsWith(null));
@@ -1105,7 +1105,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testEndsWith() {
+    void testEndsWith() {
         final StrBuilder sb = new StrBuilder();
         assertFalse(sb.endsWith("a"));
         assertFalse(sb.endsWith("c"));
@@ -1123,7 +1123,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testSubSequenceIntInt() {
+    void testSubSequenceIntInt() {
        final StrBuilder sb = new StrBuilder ("hello goodbye");
        // Start index is negative
         assertThrows(IndexOutOfBoundsException.class, () -> sb.subSequence(-1, 5));
@@ -1145,7 +1145,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testSubstringInt() {
+    void testSubstringInt() {
         final StrBuilder sb = new StrBuilder ("hello goodbye");
         assertEquals ("goodbye", sb.substring(6));
         assertEquals ("hello goodbye".substring(6), sb.substring(6));
@@ -1157,7 +1157,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testSubstringIntInt() {
+    void testSubstringIntInt() {
         final StrBuilder sb = new StrBuilder ("hello goodbye");
         assertEquals ("hello", sb.substring(0, 5));
         assertEquals ("hello goodbye".substring(0, 6), sb.substring(0, 6));
@@ -1173,7 +1173,7 @@ public class StrBuilderTest {
 
     // -----------------------------------------------------------------------
     @Test
-    public void testMidString() {
+    void testMidString() {
         final StrBuilder sb = new StrBuilder("hello goodbye hello");
         assertEquals("goodbye", sb.midString(6, 7));
         assertEquals("hello", sb.midString(0, 5));
@@ -1184,7 +1184,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testRightString() {
+    void testRightString() {
         final StrBuilder sb = new StrBuilder("left right");
         assertEquals("right", sb.rightString(5));
         assertEquals("", sb.rightString(0));
@@ -1193,7 +1193,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testLeftString() {
+    void testLeftString() {
         final StrBuilder sb = new StrBuilder("left right");
         assertEquals("left", sb.leftString(4));
         assertEquals("", sb.leftString(0));
@@ -1203,7 +1203,7 @@ public class StrBuilderTest {
 
     // -----------------------------------------------------------------------
     @Test
-    public void testContains_char() {
+    void testContains_char() {
         final StrBuilder sb = new StrBuilder("abcdefghijklmnopqrstuvwxyz");
         assertTrue(sb.contains('a'));
         assertTrue(sb.contains('o'));
@@ -1212,7 +1212,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testContains_String() {
+    void testContains_String() {
         final StrBuilder sb = new StrBuilder("abcdefghijklmnopqrstuvwxyz");
         assertTrue(sb.contains("a"));
         assertTrue(sb.contains("pq"));
@@ -1222,7 +1222,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testContains_StrMatcher() {
+    void testContains_StrMatcher() {
         StrBuilder sb = new StrBuilder("abcdefghijklmnopqrstuvwxyz");
         assertTrue(sb.contains(StrMatcher.charMatcher('a')));
         assertTrue(sb.contains(StrMatcher.stringMatcher("pq")));
@@ -1238,7 +1238,7 @@ public class StrBuilderTest {
 
     // -----------------------------------------------------------------------
     @Test
-    public void testIndexOf_char() {
+    void testIndexOf_char() {
         final StrBuilder sb = new StrBuilder("abab");
         assertEquals(0, sb.indexOf('a'));
 
@@ -1252,7 +1252,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testIndexOf_char_int() {
+    void testIndexOf_char_int() {
         StrBuilder sb = new StrBuilder("abab");
         assertEquals(0, sb.indexOf('a', -1));
         assertEquals(0, sb.indexOf('a', 0));
@@ -1274,7 +1274,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testLastIndexOf_char() {
+    void testLastIndexOf_char() {
         final StrBuilder sb = new StrBuilder("abab");
 
         assertEquals (2, sb.lastIndexOf('a'));
@@ -1288,7 +1288,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testLastIndexOf_char_int() {
+    void testLastIndexOf_char_int() {
         StrBuilder sb = new StrBuilder("abab");
         assertEquals(-1, sb.lastIndexOf('a', -1));
         assertEquals(0, sb.lastIndexOf('a', 0));
@@ -1309,7 +1309,7 @@ public class StrBuilderTest {
 
     // -----------------------------------------------------------------------
     @Test
-    public void testIndexOf_String() {
+    void testIndexOf_String() {
         final StrBuilder sb = new StrBuilder("abab");
 
         assertEquals(0, sb.indexOf("a"));
@@ -1332,7 +1332,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testIndexOf_String_int() {
+    void testIndexOf_String_int() {
         StrBuilder sb = new StrBuilder("abab");
         assertEquals(0, sb.indexOf("a", -1));
         assertEquals(0, sb.indexOf("a", 0));
@@ -1369,7 +1369,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testLastIndexOf_String() {
+    void testLastIndexOf_String() {
         final StrBuilder sb = new StrBuilder("abab");
 
         assertEquals(2, sb.lastIndexOf("a"));
@@ -1392,7 +1392,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testLastIndexOf_String_int() {
+    void testLastIndexOf_String_int() {
         StrBuilder sb = new StrBuilder("abab");
         assertEquals(-1, sb.lastIndexOf("a", -1));
         assertEquals(0, sb.lastIndexOf("a", 0));
@@ -1430,7 +1430,7 @@ public class StrBuilderTest {
 
     // -----------------------------------------------------------------------
     @Test
-    public void testIndexOf_StrMatcher() {
+    void testIndexOf_StrMatcher() {
         final StrBuilder sb = new StrBuilder();
         assertEquals(-1, sb.indexOf((StrMatcher) null));
         assertEquals(-1, sb.indexOf(StrMatcher.charMatcher('a')));
@@ -1448,7 +1448,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testIndexOf_StrMatcher_int() {
+    void testIndexOf_StrMatcher_int() {
         final StrBuilder sb = new StrBuilder();
         assertEquals(-1, sb.indexOf((StrMatcher) null, 2));
         assertEquals(-1, sb.indexOf(StrMatcher.charMatcher('a'), 2));
@@ -1488,7 +1488,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testLastIndexOf_StrMatcher() {
+    void testLastIndexOf_StrMatcher() {
         final StrBuilder sb = new StrBuilder();
         assertEquals(-1, sb.lastIndexOf((StrMatcher) null));
         assertEquals(-1, sb.lastIndexOf(StrMatcher.charMatcher('a')));
@@ -1506,7 +1506,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testLastIndexOf_StrMatcher_int() {
+    void testLastIndexOf_StrMatcher_int() {
         final StrBuilder sb = new StrBuilder();
         assertEquals(-1, sb.lastIndexOf((StrMatcher) null, 2));
         assertEquals(-1, sb.lastIndexOf(StrMatcher.charMatcher('a'), 2));
@@ -1561,7 +1561,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testAsTokenizer() {
+    void testAsTokenizer() {
         // from Javadoc
         final StrBuilder b = new StrBuilder();
         b.append("a b ");
@@ -1600,7 +1600,7 @@ public class StrBuilderTest {
 
     // -----------------------------------------------------------------------
     @Test
-    public void testAsReader() throws Exception {
+    void testAsReader() throws Exception {
         final StrBuilder sb = new StrBuilder("some text");
         Reader reader = sb.asReader();
         assertTrue(reader.ready());
@@ -1657,7 +1657,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testAsWriter() throws Exception {
+    void testAsWriter() throws Exception {
         final StrBuilder sb = new StrBuilder("base");
         final Writer writer = sb.asWriter();
 
@@ -1692,7 +1692,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testEqualsIgnoreCase() {
+    void testEqualsIgnoreCase() {
         final StrBuilder sb1 = new StrBuilder();
         final StrBuilder sb2 = new StrBuilder();
         assertTrue(sb1.equalsIgnoreCase(sb1));
@@ -1716,7 +1716,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testEquals() {
+    void testEquals() {
         final StrBuilder sb1 = new StrBuilder();
         final StrBuilder sb2 = new StrBuilder();
         assertTrue(sb1.equals(sb2));
@@ -1741,7 +1741,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void test_LANG_1131_EqualsWithNullStrBuilder() {
+    void test_LANG_1131_EqualsWithNullStrBuilder() {
         final StrBuilder sb = new StrBuilder();
         final StrBuilder other = null;
         assertFalse(sb.equals(other));
@@ -1749,7 +1749,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final StrBuilder sb = new StrBuilder();
         final int hc1a = sb.hashCode();
         final int hc1b = sb.hashCode();
@@ -1765,14 +1765,14 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testToString() {
+    void testToString() {
         final StrBuilder sb = new StrBuilder("abc");
         assertEquals("abc", sb.toString());
     }
 
     //-----------------------------------------------------------------------
     @Test
-    public void testToStringBuffer() {
+    void testToStringBuffer() {
         final StrBuilder sb = new StrBuilder();
         assertEquals(new StringBuffer().toString(), sb.toStringBuffer().toString());
 
@@ -1782,7 +1782,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testToStringBuilder() {
+    void testToStringBuilder() {
         final StrBuilder sb = new StrBuilder();
         assertEquals(new StringBuilder().toString(), sb.toStringBuilder().toString());
 
@@ -1792,14 +1792,14 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testLang294() {
+    void testLang294() {
         final StrBuilder sb = new StrBuilder("\n%BLAH%\nDo more stuff\neven more stuff\n%BLAH%\n");
         sb.deleteAll("\n%BLAH%");
         assertEquals("\nDo more stuff\neven more stuff\n", sb.toString());
     }
 
     @Test
-    public void testIndexOfLang294() {
+    void testIndexOfLang294() {
         final StrBuilder sb = new StrBuilder("onetwothree");
         sb.deleteFirst("three");
         assertEquals(-1, sb.indexOf("three"));
@@ -1807,7 +1807,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testLang295() {
+    void testLang295() {
         final StrBuilder sb = new StrBuilder("onetwothree");
         sb.deleteFirst("three");
         assertFalse(sb.contains('h'), "The contains(char) method is looking beyond the end of the string");
@@ -1816,28 +1816,28 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testLang412Right() {
+    void testLang412Right() {
         final StrBuilder sb = new StrBuilder();
         sb.appendFixedWidthPadRight(null, 10, '*');
         assertEquals("**********", sb.toString(), "Failed to invoke appendFixedWidthPadRight correctly");
     }
 
     @Test
-    public void testLang412Left() {
+    void testLang412Left() {
         final StrBuilder sb = new StrBuilder();
         sb.appendFixedWidthPadLeft(null, 10, '*');
         assertEquals("**********", sb.toString(), "Failed to invoke appendFixedWidthPadLeft correctly");
     }
 
     @Test
-    public void testAsBuilder() {
+    void testAsBuilder() {
         final StrBuilder sb = new StrBuilder().appendAll("Lorem", " ", "ipsum", " ", "dolor");
         assertEquals(sb.toString(), sb.build());
     }
 
     //-----------------------------------------------------------------------
     @Test
-    public void testAppendCharBuffer() {
+    void testAppendCharBuffer() {
         final StrBuilder sb1 = new StrBuilder();
         final CharBuffer buf = CharBuffer.allocate(10);
         buf.append("0123456789");
@@ -1852,7 +1852,7 @@ public class StrBuilderTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testAppendToWriter() throws Exception {
+    void testAppendToWriter() throws Exception {
         final StrBuilder sb = new StrBuilder("1234567890");
         final StringWriter writer = new StringWriter();
         writer.append("Test ");
@@ -1863,7 +1863,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testAppendToStringBuilder() throws Exception {
+    void testAppendToStringBuilder() throws Exception {
         final StrBuilder sb = new StrBuilder("1234567890");
         final StringBuilder builder = new StringBuilder("Test ");
 
@@ -1873,7 +1873,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testAppendToStringBuffer() throws Exception {
+    void testAppendToStringBuffer() throws Exception {
         final StrBuilder sb = new StrBuilder("1234567890");
         final StringBuffer buffer = new StringBuffer("Test ");
 
@@ -1883,7 +1883,7 @@ public class StrBuilderTest {
     }
 
     @Test
-    public void testAppendToCharBuffer() throws Exception {
+    void testAppendToCharBuffer() throws Exception {
         final StrBuilder sb = new StrBuilder("1234567890");
         final String text = "Test ";
         final CharBuffer buffer = CharBuffer.allocate(sb.size() + text.length());

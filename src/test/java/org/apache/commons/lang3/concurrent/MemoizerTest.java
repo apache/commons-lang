@@ -35,7 +35,7 @@ public class MemoizerTest {
     }
 
     @Test
-    public void testOnlyCallComputableOnceIfDoesNotThrowException() throws Exception {
+    void testOnlyCallComputableOnceIfDoesNotThrowException() throws Exception {
         final Integer input = 1;
         final Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable);
         expect(computable.compute(input)).andReturn(input);
@@ -46,7 +46,7 @@ public class MemoizerTest {
     }
 
     @Test
-    public void testDefaultBehaviourNotToRecalculateExecutionExceptions() throws Exception {
+    void testDefaultBehaviourNotToRecalculateExecutionExceptions() throws Exception {
         final Integer input = 1;
         final Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable);
         final InterruptedException interruptedException = new InterruptedException();
@@ -58,7 +58,7 @@ public class MemoizerTest {
     }
 
     @Test
-    public void testDoesNotRecalculateWhenSetToFalse() throws Exception {
+    void testDoesNotRecalculateWhenSetToFalse() throws Exception {
         final Integer input = 1;
         final Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable, false);
         final InterruptedException interruptedException = new InterruptedException();
@@ -70,7 +70,7 @@ public class MemoizerTest {
     }
 
     @Test
-    public void testDoesRecalculateWhenSetToTrue() throws Exception {
+    void testDoesRecalculateWhenSetToTrue() throws Exception {
         final Integer input = 1;
         final Integer answer = 3;
         final Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable, true);
@@ -83,7 +83,7 @@ public class MemoizerTest {
     }
 
     @Test
-    public void testWhenComputableThrowsRuntimeException() throws Exception {
+    void testWhenComputableThrowsRuntimeException() throws Exception {
         final Integer input = 1;
         final Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable);
         final RuntimeException runtimeException = new RuntimeException("Some runtime exception");
@@ -94,7 +94,7 @@ public class MemoizerTest {
     }
 
     @Test
-    public void testWhenComputableThrowsError() throws Exception {
+    void testWhenComputableThrowsError() throws Exception {
         final Integer input = 1;
         final Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable);
         final Error error = new Error();

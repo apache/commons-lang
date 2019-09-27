@@ -35,14 +35,14 @@ public class StrLookupTest  {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testNoneLookup() {
+    void testNoneLookup() {
         assertNull(StrLookup.noneLookup().lookup(null));
         assertNull(StrLookup.noneLookup().lookup(""));
         assertNull(StrLookup.noneLookup().lookup("any"));
     }
 
     @Test
-    public void testSystemPropertiesLookup() {
+    void testSystemPropertiesLookup() {
         assertEquals(System.getProperty("os.name"), StrLookup.systemPropertiesLookup().lookup("os.name"));
         assertNull(StrLookup.systemPropertiesLookup().lookup(""));
         assertNull(StrLookup.systemPropertiesLookup().lookup("other"));
@@ -55,7 +55,7 @@ public class StrLookupTest  {
      * LANG-1055.
      */
     @Test
-    public void testSystemPropertiesLookupReplacedProperties() {
+    void testSystemPropertiesLookupReplacedProperties() {
         final Properties oldProperties = System.getProperties();
         final String osName = "os.name";
         final String newOsName = oldProperties.getProperty(osName) + "_changed";
@@ -76,7 +76,7 @@ public class StrLookupTest  {
      * properties. This test is related to LANG-1141.
      */
     @Test
-    public void testSystemPropertiesLookupUpdatedProperty() {
+    void testSystemPropertiesLookupUpdatedProperty() {
         final String osName = "os.name";
         final String oldOs = System.getProperty(osName);
         final String newOsName = oldOs + "_changed";
@@ -91,7 +91,7 @@ public class StrLookupTest  {
     }
 
     @Test
-    public void testMapLookup() {
+    void testMapLookup() {
         final Map<String, Object> map = new HashMap<>();
         map.put("key", "value");
         map.put("number", Integer.valueOf(2));
@@ -103,7 +103,7 @@ public class StrLookupTest  {
     }
 
     @Test
-    public void testMapLookup_nullMap() {
+    void testMapLookup_nullMap() {
         final Map<String, ?> map = null;
         assertNull(StrLookup.mapLookup(map).lookup(null));
         assertNull(StrLookup.mapLookup(map).lookup(""));

@@ -36,22 +36,22 @@ public class HashCodeBuilderAndEqualsBuilderTest {
     }
 
     @Test
-    public void testInteger() {
+    void testInteger() {
         testInteger(false);
     }
 
     @Test
-    public void testIntegerWithTransients() {
+    void testIntegerWithTransients() {
         testInteger(true);
     }
 
     @Test
-    public void testFixture() {
+    void testFixture() {
         testFixture(false);
     }
 
     @Test
-    public void testFixtureWithTransients() {
+    void testFixtureWithTransients() {
         testFixture(true);
     }
 

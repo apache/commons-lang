@@ -32,7 +32,7 @@ public class MutableFloatTest {
 
     // ----------------------------------------------------------------
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         assertEquals(0f, new MutableFloat().floatValue(), 0.0001f);
 
         assertEquals(1f, new MutableFloat(1f).floatValue(), 0.0001f);
@@ -45,12 +45,12 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testConstructorNull() {
+    void testConstructorNull() {
         assertThrows(NullPointerException.class, () -> new MutableFloat((Number) null));
     }
 
     @Test
-    public void testGetSet() {
+    void testGetSet() {
         final MutableFloat mutNum = new MutableFloat(0f);
         assertEquals(0f, new MutableFloat().floatValue(), 0.0001f);
         assertEquals(Float.valueOf(0), new MutableFloat().getValue());
@@ -69,13 +69,13 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testSetNull() {
+    void testSetNull() {
         final MutableFloat mutNum = new MutableFloat(0f);
         assertThrows(NullPointerException.class, () -> mutNum.setValue(null));
     }
 
     @Test
-    public void testNanInfinite() {
+    void testNanInfinite() {
         MutableFloat mutNum = new MutableFloat(Float.NaN);
         assertTrue(mutNum.isNaN());
 
@@ -87,7 +87,7 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         final MutableFloat mutNumA = new MutableFloat(0f);
         final MutableFloat mutNumB = new MutableFloat(0f);
         final MutableFloat mutNumC = new MutableFloat(1f);
@@ -105,7 +105,7 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final MutableFloat mutNumA = new MutableFloat(0f);
         final MutableFloat mutNumB = new MutableFloat(0f);
         final MutableFloat mutNumC = new MutableFloat(1f);
@@ -117,7 +117,7 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testCompareTo() {
+    void testCompareTo() {
         final MutableFloat mutNum = new MutableFloat(0f);
 
         assertEquals(0, mutNum.compareTo(new MutableFloat(0f)));
@@ -126,13 +126,13 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testCompareToNull() {
+    void testCompareToNull() {
         final MutableFloat mutNum = new MutableFloat(0f);
         assertThrows(NullPointerException.class, () -> mutNum.compareTo(null));
     }
 
     @Test
-    public void testPrimitiveValues() {
+    void testPrimitiveValues() {
         final MutableFloat mutNum = new MutableFloat(1.7F);
 
         assertEquals( 1, mutNum.intValue() );
@@ -144,13 +144,13 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testToFloat() {
+    void testToFloat() {
         assertEquals(Float.valueOf(0f), new MutableFloat(0f).toFloat());
         assertEquals(Float.valueOf(12.3f), new MutableFloat(12.3f).toFloat());
     }
 
     @Test
-    public void testIncrement() {
+    void testIncrement() {
         final MutableFloat mutNum = new MutableFloat(1);
         mutNum.increment();
 
@@ -159,7 +159,7 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testIncrementAndGet() {
+    void testIncrementAndGet() {
         final MutableFloat mutNum = new MutableFloat(1f);
         final float result = mutNum.incrementAndGet();
 
@@ -169,7 +169,7 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testGetAndIncrement() {
+    void testGetAndIncrement() {
         final MutableFloat mutNum = new MutableFloat(1f);
         final float result = mutNum.getAndIncrement();
 
@@ -179,7 +179,7 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testDecrement() {
+    void testDecrement() {
         final MutableFloat mutNum = new MutableFloat(1);
         mutNum.decrement();
 
@@ -188,7 +188,7 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testDecrementAndGet() {
+    void testDecrementAndGet() {
         final MutableFloat mutNum = new MutableFloat(1f);
         final float result = mutNum.decrementAndGet();
 
@@ -198,7 +198,7 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testGetAndDecrement() {
+    void testGetAndDecrement() {
         final MutableFloat mutNum = new MutableFloat(1f);
         final float result = mutNum.getAndDecrement();
 
@@ -208,7 +208,7 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testAddValuePrimitive() {
+    void testAddValuePrimitive() {
         final MutableFloat mutNum = new MutableFloat(1);
         mutNum.add(1.1f);
 
@@ -216,7 +216,7 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testAddValueObject() {
+    void testAddValueObject() {
         final MutableFloat mutNum = new MutableFloat(1);
         mutNum.add(Float.valueOf(1.1f));
 
@@ -224,7 +224,7 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testGetAndAddValuePrimitive() {
+    void testGetAndAddValuePrimitive() {
         final MutableFloat mutableFloat = new MutableFloat(1.25f);
         final float result = mutableFloat.getAndAdd(0.75f);
 
@@ -233,7 +233,7 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testGetAndAddValueObject() {
+    void testGetAndAddValueObject() {
         final MutableFloat mutableFloat = new MutableFloat(7.75f);
         final float result = mutableFloat.getAndAdd(Float.valueOf(2.25f));
 
@@ -242,7 +242,7 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testAddAndGetValuePrimitive() {
+    void testAddAndGetValuePrimitive() {
         final MutableFloat mutableFloat = new MutableFloat(0.5f);
         final float result = mutableFloat.addAndGet(1f);
 
@@ -251,7 +251,7 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testAddAndGetValueObject() {
+    void testAddAndGetValueObject() {
         final MutableFloat mutableFloat = new MutableFloat(5f);
         final float result = mutableFloat.addAndGet(Float.valueOf(2.5f));
 
@@ -260,7 +260,7 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testSubtractValuePrimitive() {
+    void testSubtractValuePrimitive() {
         final MutableFloat mutNum = new MutableFloat(1);
         mutNum.subtract(0.9f);
 
@@ -268,7 +268,7 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testSubtractValueObject() {
+    void testSubtractValueObject() {
         final MutableFloat mutNum = new MutableFloat(1);
         mutNum.subtract(Float.valueOf(0.9f));
 
@@ -276,7 +276,7 @@ public class MutableFloatTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals("0.0", new MutableFloat(0f).toString());
         assertEquals("10.0", new MutableFloat(10f).toString());
         assertEquals("-123.0", new MutableFloat(-123f).toString());

@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 public class StringUtilsEmptyBlankTest  {
 
     @Test
-    public void testIsEmpty() {
+    void testIsEmpty() {
         assertTrue(StringUtils.isEmpty(null));
         assertTrue(StringUtils.isEmpty(""));
         assertFalse(StringUtils.isEmpty(" "));
@@ -38,7 +38,7 @@ public class StringUtilsEmptyBlankTest  {
     }
 
     @Test
-    public void testIsNotEmpty() {
+    void testIsNotEmpty() {
         assertFalse(StringUtils.isNotEmpty(null));
         assertFalse(StringUtils.isNotEmpty(""));
         assertTrue(StringUtils.isNotEmpty(" "));
@@ -47,7 +47,7 @@ public class StringUtilsEmptyBlankTest  {
     }
 
     @Test
-    public void testIsAnyEmpty() {
+    void testIsAnyEmpty() {
         assertTrue(StringUtils.isAnyEmpty((String) null));
         assertFalse(StringUtils.isAnyEmpty((String[]) null));
         assertTrue(StringUtils.isAnyEmpty(null, "foo"));
@@ -59,7 +59,7 @@ public class StringUtilsEmptyBlankTest  {
     }
 
     @Test
-    public void testIsNoneEmpty() {
+    void testIsNoneEmpty() {
         assertFalse(StringUtils.isNoneEmpty((String) null));
         assertTrue(StringUtils.isNoneEmpty((String[]) null));
         assertFalse(StringUtils.isNoneEmpty(null, "foo"));
@@ -71,7 +71,7 @@ public class StringUtilsEmptyBlankTest  {
     }
 
     @Test
-    public void testIsAllEmpty() {
+    void testIsAllEmpty() {
         assertTrue(StringUtils.isAllEmpty());
         assertTrue(StringUtils.isAllEmpty(new String[]{}));
         assertTrue(StringUtils.isAllEmpty((String) null));
@@ -86,7 +86,7 @@ public class StringUtilsEmptyBlankTest  {
     }
 
     @Test
-    public void testIsBlank() {
+    void testIsBlank() {
         assertTrue(StringUtils.isBlank(null));
         assertTrue(StringUtils.isBlank(""));
         assertTrue(StringUtils.isBlank(StringUtilsTest.WHITESPACE));
@@ -95,7 +95,7 @@ public class StringUtilsEmptyBlankTest  {
     }
 
     @Test
-    public void testIsNotBlank() {
+    void testIsNotBlank() {
         assertFalse(StringUtils.isNotBlank(null));
         assertFalse(StringUtils.isNotBlank(""));
         assertFalse(StringUtils.isNotBlank(StringUtilsTest.WHITESPACE));
@@ -104,7 +104,7 @@ public class StringUtilsEmptyBlankTest  {
     }
 
     @Test
-    public void testIsAnyBlank() {
+    void testIsAnyBlank() {
         assertTrue(StringUtils.isAnyBlank((String) null));
         assertFalse(StringUtils.isAnyBlank((String[]) null));
         assertTrue(StringUtils.isAnyBlank(null, "foo"));
@@ -117,7 +117,7 @@ public class StringUtilsEmptyBlankTest  {
     }
 
     @Test
-    public void testIsNoneBlank() {
+    void testIsNoneBlank() {
         assertFalse(StringUtils.isNoneBlank((String) null));
         assertTrue(StringUtils.isNoneBlank((String[]) null));
         assertFalse(StringUtils.isNoneBlank(null, "foo"));
@@ -130,7 +130,7 @@ public class StringUtilsEmptyBlankTest  {
     }
 
     @Test
-    public void testIsAllBlank() {
+    void testIsAllBlank() {
         assertTrue(StringUtils.isAllBlank((String) null));
         assertTrue(StringUtils.isAllBlank((String[]) null));
         assertTrue(StringUtils.isAllBlank(null, null));
@@ -144,7 +144,7 @@ public class StringUtilsEmptyBlankTest  {
     }
 
     @Test
-    public void testFirstNonBlank() {
+    void testFirstNonBlank() {
         assertNull(StringUtils.firstNonBlank());
         assertNull(StringUtils.firstNonBlank((String[]) null));
         assertNull(StringUtils.firstNonBlank(null, null, null));
@@ -157,7 +157,7 @@ public class StringUtilsEmptyBlankTest  {
     }
 
     @Test
-    public void testFirstNonEmpty() {
+    void testFirstNonEmpty() {
         assertNull(StringUtils.firstNonEmpty());
         assertNull(StringUtils.firstNonEmpty((String[]) null));
         assertNull(StringUtils.firstNonEmpty(null, null, null));

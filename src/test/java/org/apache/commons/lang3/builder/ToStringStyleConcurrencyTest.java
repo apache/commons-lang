@@ -67,17 +67,17 @@ public class ToStringStyleConcurrencyTest {
     }
 
     @Test
-    public void testLinkedList() throws InterruptedException, ExecutionException {
+    void testLinkedList() throws InterruptedException, ExecutionException {
         this.testConcurrency(new CollectionHolder<>(new LinkedList<>()));
     }
 
     @Test
-    public void testArrayList() throws InterruptedException, ExecutionException {
+    void testArrayList() throws InterruptedException, ExecutionException {
         this.testConcurrency(new CollectionHolder<>(new ArrayList<>()));
     }
 
     @Test
-    public void testCopyOnWriteArrayList() throws InterruptedException, ExecutionException {
+    void testCopyOnWriteArrayList() throws InterruptedException, ExecutionException {
         this.testConcurrency(new CollectionHolder<>(new CopyOnWriteArrayList<>()));
     }
 

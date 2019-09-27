@@ -48,17 +48,17 @@ public class JsonToStringStyleTest {
     // ----------------------------------------------------------------
 
     @Test
-    public void testNull() {
+    void testNull() {
         assertEquals("null", new ToStringBuilder(null).toString());
     }
 
     @Test
-    public void testBlank() {
+    void testBlank() {
         assertEquals("{}", new ToStringBuilder(base).toString());
     }
 
     @Test
-    public void testAppendSuper() {
+    void testAppendSuper() {
         assertEquals(
                 "{}",
                 new ToStringBuilder(base).appendSuper(
@@ -90,7 +90,7 @@ public class JsonToStringStyleTest {
     }
 
     @Test
-    public void testChar() {
+    void testChar() {
         assertThrows(UnsupportedOperationException.class, () -> new ToStringBuilder(base).append('A').toString());
 
         assertEquals("{\"a\":\"A\"}", new ToStringBuilder(base).append("a", 'A')
@@ -100,7 +100,7 @@ public class JsonToStringStyleTest {
     }
 
     @Test
-    public void testDate() {
+    void testDate() {
         final Date now = new Date();
         final Date afterNow = new Date(System.currentTimeMillis() + 1);
 
@@ -113,7 +113,7 @@ public class JsonToStringStyleTest {
     }
 
     @Test
-    public void testObject() {
+    void testObject() {
 
         final Integer i3 = Integer.valueOf(3);
         final Integer i4 = Integer.valueOf(4);
@@ -182,7 +182,7 @@ public class JsonToStringStyleTest {
     }
 
     @Test
-    public void testPerson() {
+    void testPerson() {
         final Person p = new Person();
         p.name = "Jane Doe";
         p.age = 25;
@@ -196,7 +196,7 @@ public class JsonToStringStyleTest {
     }
 
     @Test
-    public void testNestingPerson() {
+    void testNestingPerson() {
         final Person p = new Person() {
             @Override
             public String toString() {
@@ -221,7 +221,7 @@ public class JsonToStringStyleTest {
     }
 
     @Test
-    public void testLong() {
+    void testLong() {
         assertThrows(UnsupportedOperationException.class, () -> new ToStringBuilder(base).append(3L).toString());
 
         assertEquals("{\"a\":3}", new ToStringBuilder(base).append("a", 3L)
@@ -232,7 +232,7 @@ public class JsonToStringStyleTest {
     }
 
     @Test
-    public void testObjectArray() {
+    void testObjectArray() {
         final Object[] array = new Object[]{null, base, new int[]{3, 6}};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
@@ -252,7 +252,7 @@ public class JsonToStringStyleTest {
     }
 
     @Test
-    public void testLongArray() {
+    void testLongArray() {
         final long[] array = new long[]{1, 2, -3, 4};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
@@ -272,7 +272,7 @@ public class JsonToStringStyleTest {
     }
 
     @Test
-    public void testIntArray() {
+    void testIntArray() {
         final int[] array = new int[]{1, 2, -3, 4};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
@@ -292,7 +292,7 @@ public class JsonToStringStyleTest {
     }
 
     @Test
-    public void testByteArray() {
+    void testByteArray() {
         final byte[] array = new byte[]{1, 2, -3, 4};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
@@ -312,7 +312,7 @@ public class JsonToStringStyleTest {
     }
 
     @Test
-    public void testShortArray() {
+    void testShortArray() {
         final short[] array = new short[]{1, 2, -3, 4};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
@@ -332,7 +332,7 @@ public class JsonToStringStyleTest {
     }
 
     @Test
-    public void testDoubleArray() {
+    void testDoubleArray() {
         final double[] array = new double[]{1, 2, -3, 4};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
@@ -352,7 +352,7 @@ public class JsonToStringStyleTest {
     }
 
     @Test
-    public void testFloatArray() {
+    void testFloatArray() {
         final float[] array = new float[]{1, 2, -3, 4};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
@@ -372,7 +372,7 @@ public class JsonToStringStyleTest {
     }
 
     @Test
-    public void testCharArray() {
+    void testCharArray() {
         final char[] array = new char[]{'1', '2', '3', '4'};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
@@ -392,7 +392,7 @@ public class JsonToStringStyleTest {
     }
 
     @Test
-    public void testBooleanArray() {
+    void testBooleanArray() {
         final boolean[] array = new boolean[]{true, false};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
@@ -412,7 +412,7 @@ public class JsonToStringStyleTest {
     }
 
     @Test
-    public void testLongArrayArray() {
+    void testLongArrayArray() {
         final long[][] array = new long[][]{{1, 2}, null, {5}};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
@@ -429,7 +429,7 @@ public class JsonToStringStyleTest {
     }
 
     @Test
-    public void testArray() {
+    void testArray() {
         final Person p = new Person();
         p.name = "Jane Doe";
         p.age = 25;
@@ -449,7 +449,7 @@ public class JsonToStringStyleTest {
     }
 
     @Test
-    public void testLANG1395() {
+    void testLANG1395() {
         assertEquals("{\"name\":\"value\"}", new ToStringBuilder(base).append("name", "value").toString());
         assertEquals("{\"name\":\"\"}", new ToStringBuilder(base).append("name", "").toString());
         assertEquals("{\"name\":\"\\\"\"}", new ToStringBuilder(base).append("name", '"').toString());
@@ -458,7 +458,7 @@ public class JsonToStringStyleTest {
     }
 
     @Test
-    public void testLANG1396() {
+    void testLANG1396() {
         assertEquals("{\"Let's \\\"quote\\\" this\":\"value\"}", new ToStringBuilder(base).append("Let's \"quote\" this", "value").toString());
     }
 

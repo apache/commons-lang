@@ -47,7 +47,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class JavaVersionTest {
 
     @Test
-    public void testGetJavaVersion() {
+    void testGetJavaVersion() {
         assertEquals(JAVA_0_9, get("0.9"), "0.9 failed");
         assertEquals(JAVA_1_1, get("1.1"), "1.1 failed");
         assertEquals(JAVA_1_2, get("1.2"), "1.2 failed");
@@ -69,7 +69,7 @@ public class JavaVersionTest {
     }
 
     @Test
-    public void testAtLeast() {
+    void testAtLeast() {
         assertFalse(JAVA_1_2.atLeast(JAVA_1_5), "1.2 at least 1.5 passed");
         assertTrue(JAVA_1_5.atLeast(JAVA_1_2), "1.5 at least 1.2 failed");
         assertFalse(JAVA_1_6.atLeast(JAVA_1_7), "1.6 at least 1.7 passed");
@@ -79,7 +79,7 @@ public class JavaVersionTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals("1.2", JAVA_1_2.toString());
     }
 

@@ -35,7 +35,7 @@ public class FractionTest  {
 
     //--------------------------------------------------------------------------
     @Test
-    public void testConstants() {
+    void testConstants() {
         assertEquals(0, Fraction.ZERO.getNumerator());
         assertEquals(1, Fraction.ZERO.getDenominator());
 
@@ -74,7 +74,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testFactory_int_int() {
+    void testFactory_int_int() {
         Fraction f = null;
 
         // zero
@@ -128,7 +128,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testFactory_int_int_int() {
+    void testFactory_int_int_int() {
         Fraction f = null;
 
         // zero
@@ -182,7 +182,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testReducedFactory_int_int() {
+    void testReducedFactory_int_int() {
         Fraction f = null;
 
         // zero
@@ -259,7 +259,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testFactory_double() {
+    void testFactory_double() {
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(Double.NaN));
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(Double.POSITIVE_INFINITY));
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(Double.NEGATIVE_INFINITY));
@@ -323,13 +323,13 @@ public class FractionTest  {
     }
 
     @Test
-    public void testFactory_String() {
+    void testFactory_String() {
         assertThrows(IllegalArgumentException.class, () -> Fraction.getFraction(null));
     }
 
 
     @Test
-    public void testFactory_String_double() {
+    void testFactory_String_double() {
         Fraction f = null;
 
         f = Fraction.getFraction("0.0");
@@ -354,7 +354,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testFactory_String_proper() {
+    void testFactory_String_proper() {
         Fraction f = null;
 
         f = Fraction.getFraction("0 0/1");
@@ -390,7 +390,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testFactory_String_improper() {
+    void testFactory_String_improper() {
         Fraction f = null;
 
         f = Fraction.getFraction("0/1");
@@ -424,7 +424,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testGets() {
+    void testGets() {
         Fraction f = null;
 
         f = Fraction.getFraction(3, 5, 6);
@@ -447,7 +447,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testConversions() {
+    void testConversions() {
         Fraction f = null;
 
         f = Fraction.getFraction(3, 7, 8);
@@ -458,7 +458,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testReduce() {
+    void testReduce() {
         Fraction f = null;
 
         f = Fraction.getFraction(50, 75);
@@ -507,7 +507,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testInvert() {
+    void testInvert() {
         Fraction f = null;
 
         f = Fraction.getFraction(50, 75);
@@ -535,7 +535,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testNegate() {
+    void testNegate() {
         Fraction f = null;
 
         f = Fraction.getFraction(50, 75);
@@ -558,7 +558,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testAbs() {
+    void testAbs() {
         Fraction f = null;
 
         f = Fraction.getFraction(50, 75);
@@ -585,7 +585,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testPow() {
+    void testPow() {
         Fraction f = null;
 
         f = Fraction.getFraction(3, 5);
@@ -681,7 +681,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testAdd() {
+    void testAdd() {
         Fraction f = null;
         Fraction f1 = null;
         Fraction f2 = null;
@@ -783,7 +783,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testSubtract() {
+    void testSubtract() {
         Fraction f = null;
         Fraction f1 = null;
         Fraction f2 = null;
@@ -883,7 +883,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testMultiply() {
+    void testMultiply() {
         Fraction f = null;
         Fraction f1 = null;
         Fraction f2 = null;
@@ -944,7 +944,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testDivide() {
+    void testDivide() {
         Fraction f = null;
         Fraction f1 = null;
         Fraction f2 = null;
@@ -989,7 +989,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         Fraction f1 = null;
         Fraction f2 = null;
 
@@ -1012,7 +1012,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final Fraction f1 = Fraction.getFraction(3, 5);
         Fraction f2 = Fraction.getFraction(3, 5);
 
@@ -1026,7 +1026,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testCompareTo() {
+    void testCompareTo() {
         Fraction f1 = null;
         Fraction f2 = null;
 
@@ -1059,7 +1059,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         Fraction f = null;
 
         f = Fraction.getFraction(3, 5);
@@ -1087,7 +1087,7 @@ public class FractionTest  {
     }
 
     @Test
-    public void testToProperString() {
+    void testToProperString() {
         Fraction f = null;
 
         f = Fraction.getFraction(3, 5);

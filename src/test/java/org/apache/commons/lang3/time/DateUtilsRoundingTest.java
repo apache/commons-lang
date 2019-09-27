@@ -85,7 +85,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testRoundYear() throws Exception {
+    void testRoundYear() throws Exception {
         final int calendarField = Calendar.YEAR;
         final Date roundedUpDate = dateTimeParser.parse("January 1, 2008 0:00:00.000");
         final Date roundedDownDate = targetYearDate;
@@ -102,7 +102,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testRoundMonth() throws Exception {
+    void testRoundMonth() throws Exception {
         final int calendarField = Calendar.MONTH;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
         Date minDate, maxDate;
@@ -146,7 +146,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testRoundSemiMonth() throws Exception {
+    void testRoundSemiMonth() throws Exception {
         final int calendarField = DateUtils.SEMI_MONTH;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
         Date minDate, maxDate;
@@ -214,7 +214,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testRoundDate() throws Exception {
+    void testRoundDate() throws Exception {
         final int calendarField = Calendar.DATE;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
         Date minDate, maxDate;
@@ -239,7 +239,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testRoundDayOfMonth() throws Exception {
+    void testRoundDayOfMonth() throws Exception {
         final int calendarField = Calendar.DAY_OF_MONTH;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
         Date minDate, maxDate;
@@ -264,7 +264,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testRoundAmPm() throws Exception {
+    void testRoundAmPm() throws Exception {
         final int calendarField = Calendar.AM_PM;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
         Date minDate, maxDate;
@@ -296,7 +296,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testRoundHourOfDay() throws Exception {
+    void testRoundHourOfDay() throws Exception {
         final int calendarField = Calendar.HOUR_OF_DAY;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
         Date minDate, maxDate;
@@ -321,7 +321,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testRoundHour() throws Exception {
+    void testRoundHour() throws Exception {
         final int calendarField = Calendar.HOUR;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
         Date minDate, maxDate;
@@ -346,7 +346,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testRoundMinute() throws Exception {
+    void testRoundMinute() throws Exception {
         final int calendarField = Calendar.MINUTE;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
         Date minDate, maxDate;
@@ -371,7 +371,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testRoundSecond() throws Exception {
+    void testRoundSecond() throws Exception {
         final int calendarField = Calendar.SECOND;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
         Date minDate, maxDate;
@@ -396,7 +396,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testRoundMilliSecond() throws Exception {
+    void testRoundMilliSecond() throws Exception {
         final int calendarField = Calendar.MILLISECOND;
         Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
         Date minDate, maxDate;
@@ -417,7 +417,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testTruncateYear() throws Exception {
+    void testTruncateYear() throws Exception {
         final int calendarField = Calendar.YEAR;
         final Date lastTruncateDate = dateTimeParser.parse("December 31, 2007 23:59:59.999");
         baseTruncateTest(targetYearDate, lastTruncateDate, calendarField);
@@ -430,7 +430,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testTruncateMonth() throws Exception {
+    void testTruncateMonth() throws Exception {
         final int calendarField = Calendar.MONTH;
         final Date truncatedDate = dateTimeParser.parse("March 1, 2008 0:00:00.000");
         final Date lastTruncateDate = dateTimeParser.parse("March 31, 2008 23:59:59.999");
@@ -445,7 +445,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testTruncateSemiMonth() throws Exception {
+    void testTruncateSemiMonth() throws Exception {
         final int calendarField = DateUtils.SEMI_MONTH;
         Date truncatedDate, lastTruncateDate;
 
@@ -498,7 +498,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testTruncateDate() throws Exception {
+    void testTruncateDate() throws Exception {
         final int calendarField = Calendar.DATE;
         final Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 23:59:59.999");
         baseTruncateTest(targetDateDate, lastTruncateDate, calendarField);
@@ -511,7 +511,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testTruncateDayOfMonth() throws Exception {
+    void testTruncateDayOfMonth() throws Exception {
         final int calendarField = Calendar.DAY_OF_MONTH;
         final Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 23:59:59.999");
         baseTruncateTest(targetDayOfMonthDate, lastTruncateDate, calendarField);
@@ -525,7 +525,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testTruncateAmPm() throws Exception {
+    void testTruncateAmPm() throws Exception {
         final int calendarField = Calendar.AM_PM;
 
         //AM
@@ -544,7 +544,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testTruncateHour() throws Exception {
+    void testTruncateHour() throws Exception {
         final int calendarField = Calendar.HOUR;
         final Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:59:59.999");
         baseTruncateTest(targetHourDate, lastTruncateDate, calendarField);
@@ -557,7 +557,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testTruncateHourOfDay() throws Exception {
+    void testTruncateHourOfDay() throws Exception {
         final int calendarField = Calendar.HOUR_OF_DAY;
         final Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:59:59.999");
         baseTruncateTest(targetHourOfDayDate, lastTruncateDate, calendarField);
@@ -570,7 +570,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testTruncateMinute() throws Exception {
+    void testTruncateMinute() throws Exception {
         final int calendarField = Calendar.MINUTE;
         final Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:15:59.999");
         baseTruncateTest(targetMinuteDate, lastTruncateDate, calendarField);
@@ -583,7 +583,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testTruncateSecond() throws Exception {
+    void testTruncateSecond() throws Exception {
         final int calendarField = Calendar.SECOND;
         final Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:15:14.999");
         baseTruncateTest(targetSecondDate, lastTruncateDate, calendarField);
@@ -596,7 +596,7 @@ public class DateUtilsRoundingTest {
      * @since 3.0
      */
     @Test
-    public void testTruncateMilliSecond() {
+    void testTruncateMilliSecond() {
         final int calendarField = Calendar.MILLISECOND;
         baseTruncateTest(targetMilliSecondDate, targetMilliSecondDate, calendarField);
     }

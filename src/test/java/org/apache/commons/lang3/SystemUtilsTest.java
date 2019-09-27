@@ -53,7 +53,7 @@ import org.junit.jupiter.api.Test;
 public class SystemUtilsTest {
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(new SystemUtils());
         final Constructor<?>[] cons = SystemUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
@@ -63,7 +63,7 @@ public class SystemUtilsTest {
     }
 
     @Test
-    public void testGetEnvironmentVariableAbsent() {
+    void testGetEnvironmentVariableAbsent() {
         final String name = "THIS_ENV_VAR_SHOULD_NOT_EXIST_FOR_THIS_TEST_TO_PASS";
         final String expected = System.getenv(name);
         assertNull(expected);
@@ -72,7 +72,7 @@ public class SystemUtilsTest {
     }
 
     @Test
-    public void testGetEnvironmentVariablePresent() {
+    void testGetEnvironmentVariablePresent() {
         final String name = "PATH";
         final String expected = System.getenv(name);
         final String value = SystemUtils.getEnvironmentVariable(name, null);
@@ -80,7 +80,7 @@ public class SystemUtilsTest {
     }
 
     @Test
-    public void testGetHostName() {
+    void testGetHostName() {
         final String hostName = SystemUtils.getHostName();
         final String expected = SystemUtils.IS_OS_WINDOWS ? System.getenv("COMPUTERNAME") : System.getenv("HOSTNAME");
         assertEquals(expected, hostName);
@@ -90,7 +90,7 @@ public class SystemUtilsTest {
      * Assumes no security manager exists.
      */
     @Test
-    public void testGetJavaHome() {
+    void testGetJavaHome() {
         final File dir = SystemUtils.getJavaHome();
         assertNotNull(dir);
         assertTrue(dir.exists());
@@ -100,7 +100,7 @@ public class SystemUtilsTest {
      * Assumes no security manager exists.
      */
     @Test
-    public void testGetJavaIoTmpDir() {
+    void testGetJavaIoTmpDir() {
         final File dir = SystemUtils.getJavaIoTmpDir();
         assertNotNull(dir);
         assertTrue(dir.exists());
@@ -110,7 +110,7 @@ public class SystemUtilsTest {
      * Assumes no security manager exists.
      */
     @Test
-    public void testGetUserDir() {
+    void testGetUserDir() {
         final File dir = SystemUtils.getUserDir();
         assertNotNull(dir);
         assertTrue(dir.exists());
@@ -120,7 +120,7 @@ public class SystemUtilsTest {
      * Assumes no security manager exists.
      */
     @Test
-    public void testGetUserHome() {
+    void testGetUserHome() {
         final File dir = SystemUtils.getUserHome();
         assertNotNull(dir);
         assertTrue(dir.exists());
@@ -241,7 +241,7 @@ public class SystemUtilsTest {
     }
 
     @Test
-    public void testIS_OS() {
+    void testIS_OS() {
         final String osName = System.getProperty("os.name");
         if (osName == null) {
             assertFalse(SystemUtils.IS_OS_WINDOWS);
@@ -282,7 +282,7 @@ public class SystemUtilsTest {
     }
 
     @Test
-    public void testIS_zOS() {
+    void testIS_zOS() {
         final String osName = System.getProperty("os.name");
         if (osName == null) {
             assertFalse(SystemUtils.IS_OS_ZOS);
@@ -293,7 +293,7 @@ public class SystemUtilsTest {
     }
 
     @Test
-    public void testJavaVersionMatches() {
+    void testJavaVersionMatches() {
         String javaVersion = null;
         assertFalse(SystemUtils.isJavaVersionMatch(javaVersion, "1.0"));
         assertFalse(SystemUtils.isJavaVersionMatch(javaVersion, "1.1"));
@@ -462,7 +462,7 @@ public class SystemUtilsTest {
     }
 
     @Test
-    public void testIsJavaVersionAtLeast() {
+    void testIsJavaVersionAtLeast() {
         if (SystemUtils.IS_JAVA_1_8) {
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_1));
             assertTrue(SystemUtils.isJavaVersionAtLeast(JAVA_1_2));
@@ -551,7 +551,7 @@ public class SystemUtilsTest {
     }
 
     @Test
-    public void testIsJavaVersionAtMost() {
+    void testIsJavaVersionAtMost() {
         if (SystemUtils.IS_JAVA_1_8) {
             assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_1));
             assertFalse(SystemUtils.isJavaVersionAtMost(JAVA_1_2));
@@ -640,7 +640,7 @@ public class SystemUtilsTest {
     }
 
     @Test
-    public void testOSMatchesName() {
+    void testOSMatchesName() {
         String osName = null;
         assertFalse(SystemUtils.isOSNameMatch(osName, "Windows"));
         osName = "";
@@ -654,7 +654,7 @@ public class SystemUtilsTest {
     }
 
     @Test
-    public void testOSMatchesNameAndVersion() {
+    void testOSMatchesNameAndVersion() {
         String osName = null;
         String osVersion = null;
         assertFalse(SystemUtils.isOSMatch(osName, osVersion, "Windows 9", "4.1"));
@@ -679,7 +679,7 @@ public class SystemUtilsTest {
     }
 
     @Test
-    public void testOsVersionMatches() {
+    void testOsVersionMatches() {
         String osVersion = null;
         assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
 
@@ -718,7 +718,7 @@ public class SystemUtilsTest {
     }
 
     @Test
-    public void testJavaAwtHeadless() {
+    void testJavaAwtHeadless() {
         final String expectedStringValue = System.getProperty("java.awt.headless");
         final String expectedStringValueWithDefault = System.getProperty("java.awt.headless", "false");
         assertNotNull(expectedStringValueWithDefault);

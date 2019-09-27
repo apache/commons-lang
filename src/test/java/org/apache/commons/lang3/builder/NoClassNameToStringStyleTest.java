@@ -46,12 +46,12 @@ public class NoClassNameToStringStyleTest {
     //----------------------------------------------------------------
 
     @Test
-    public void testBlank() {
+    void testBlank() {
         assertEquals("[]", new ToStringBuilder(base).toString());
     }
 
     @Test
-    public void testAppendSuper() {
+    void testAppendSuper() {
         assertEquals("[]", new ToStringBuilder(base).appendSuper("Integer@8888[]").toString());
         assertEquals("[<null>]", new ToStringBuilder(base).appendSuper("Integer@8888[<null>]").toString());
 
@@ -61,7 +61,7 @@ public class NoClassNameToStringStyleTest {
     }
 
     @Test
-    public void testObject() {
+    void testObject() {
         final Integer i3 = Integer.valueOf(3);
         final Integer i4 = Integer.valueOf(4);
         assertEquals("[<null>]", new ToStringBuilder(base).append((Object) null).toString());
@@ -79,7 +79,7 @@ public class NoClassNameToStringStyleTest {
     }
 
     @Test
-    public void testPerson() {
+    void testPerson() {
         final Person p = new Person();
         p.name = "John Q. Public";
         p.age = 45;
@@ -88,14 +88,14 @@ public class NoClassNameToStringStyleTest {
     }
 
     @Test
-    public void testLong() {
+    void testLong() {
         assertEquals("[3]", new ToStringBuilder(base).append(3L).toString());
         assertEquals("[a=3]", new ToStringBuilder(base).append("a", 3L).toString());
         assertEquals("[a=3,b=4]", new ToStringBuilder(base).append("a", 3L).append("b", 4L).toString());
     }
 
     @Test
-    public void testObjectArray() {
+    void testObjectArray() {
         Object[] array = new Object[] {null, base, new int[] {3, 6}};
         assertEquals("[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(array).toString());
         assertEquals("[{<null>,5,{3,6}}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -105,7 +105,7 @@ public class NoClassNameToStringStyleTest {
     }
 
     @Test
-    public void testLongArray() {
+    void testLongArray() {
         long[] array = new long[] {1, 2, -3, 4};
         assertEquals("[{1,2,-3,4}]", new ToStringBuilder(base).append(array).toString());
         assertEquals("[{1,2,-3,4}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -115,7 +115,7 @@ public class NoClassNameToStringStyleTest {
     }
 
     @Test
-    public void testLongArrayArray() {
+    void testLongArrayArray() {
         long[][] array = new long[][] {{1, 2}, null, {5}};
         assertEquals("[{{1,2},<null>,{5}}]", new ToStringBuilder(base).append(array).toString());
         assertEquals("[{{1,2},<null>,{5}}]", new ToStringBuilder(base).append((Object) array).toString());

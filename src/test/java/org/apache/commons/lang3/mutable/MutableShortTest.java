@@ -31,7 +31,7 @@ public class MutableShortTest {
 
     // ----------------------------------------------------------------
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         assertEquals((short) 0, new MutableShort().shortValue());
 
         assertEquals((short) 1, new MutableShort((short) 1).shortValue());
@@ -45,7 +45,7 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testGetSet() {
+    void testGetSet() {
         final MutableShort mutNum = new MutableShort((short) 0);
         assertEquals((short) 0, new MutableShort().shortValue());
         assertEquals(Short.valueOf((short) 0), new MutableShort().getValue());
@@ -65,7 +65,7 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         final MutableShort mutNumA = new MutableShort((short) 0);
         final MutableShort mutNumB = new MutableShort((short) 0);
         final MutableShort mutNumC = new MutableShort((short) 1);
@@ -83,7 +83,7 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final MutableShort mutNumA = new MutableShort((short) 0);
         final MutableShort mutNumB = new MutableShort((short) 0);
         final MutableShort mutNumC = new MutableShort((short) 1);
@@ -95,7 +95,7 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testCompareTo() {
+    void testCompareTo() {
         final MutableShort mutNum = new MutableShort((short) 0);
 
         assertEquals((short) 0, mutNum.compareTo(new MutableShort((short) 0)));
@@ -105,7 +105,7 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testPrimitiveValues() {
+    void testPrimitiveValues() {
         final MutableShort mutNum = new MutableShort( (short) 1 );
         assertEquals(1.0F, mutNum.floatValue());
         assertEquals(1.0, mutNum.doubleValue());
@@ -116,13 +116,13 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testToShort() {
+    void testToShort() {
         assertEquals(Short.valueOf((short) 0), new MutableShort((short) 0).toShort());
         assertEquals(Short.valueOf((short) 123), new MutableShort((short) 123).toShort());
     }
 
     @Test
-    public void testIncrement() {
+    void testIncrement() {
         final MutableShort mutNum = new MutableShort((short) 1);
         mutNum.increment();
 
@@ -131,7 +131,7 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testIncrementAndGet() {
+    void testIncrementAndGet() {
         final MutableShort mutNum = new MutableShort((short) 1);
         final short result = mutNum.incrementAndGet();
 
@@ -141,7 +141,7 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testGetAndIncrement() {
+    void testGetAndIncrement() {
         final MutableShort mutNum = new MutableShort((short) 1);
         final short result = mutNum.getAndIncrement();
 
@@ -151,7 +151,7 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testDecrement() {
+    void testDecrement() {
         final MutableShort mutNum = new MutableShort((short) 1);
         mutNum.decrement();
 
@@ -160,7 +160,7 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testDecrementAndGet() {
+    void testDecrementAndGet() {
         final MutableShort mutNum = new MutableShort((short) 1);
         final short result = mutNum.decrementAndGet();
 
@@ -170,7 +170,7 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testGetAndDecrement() {
+    void testGetAndDecrement() {
         final MutableShort mutNum = new MutableShort((short) 1);
         final short result = mutNum.getAndDecrement();
 
@@ -180,7 +180,7 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testAddValuePrimitive() {
+    void testAddValuePrimitive() {
         final MutableShort mutNum = new MutableShort((short) 1);
         mutNum.add((short) 1);
 
@@ -188,7 +188,7 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testAddValueObject() {
+    void testAddValueObject() {
         final MutableShort mutNum = new MutableShort((short) 1);
         mutNum.add(Short.valueOf((short) 1));
 
@@ -196,7 +196,7 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testGetAndAddValuePrimitive() {
+    void testGetAndAddValuePrimitive() {
         final MutableShort mutableShort = new MutableShort((short) 0);
         final short result = mutableShort.getAndAdd((short) 1);
 
@@ -205,7 +205,7 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testGetAndAddValueObject() {
+    void testGetAndAddValueObject() {
         final MutableShort mutableShort = new MutableShort((short) 0);
         final short result = mutableShort.getAndAdd(Short.valueOf((short) 1));
 
@@ -214,7 +214,7 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testAddAndGetValuePrimitive() {
+    void testAddAndGetValuePrimitive() {
         final MutableShort mutableShort = new MutableShort((short) 0);
         final short result = mutableShort.addAndGet((short) 1);
 
@@ -223,7 +223,7 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testAddAndGetValueObject() {
+    void testAddAndGetValueObject() {
         final MutableShort mutableShort = new MutableShort((short) 0);
         final short result = mutableShort.addAndGet(Short.valueOf((short) 1));
 
@@ -232,7 +232,7 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testSubtractValuePrimitive() {
+    void testSubtractValuePrimitive() {
         final MutableShort mutNum = new MutableShort((short) 1);
         mutNum.subtract((short) 1);
 
@@ -240,7 +240,7 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testSubtractValueObject() {
+    void testSubtractValueObject() {
         final MutableShort mutNum = new MutableShort((short) 1);
         mutNum.subtract(Short.valueOf((short) 1));
 
@@ -248,7 +248,7 @@ public class MutableShortTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals("0", new MutableShort((short) 0).toString());
         assertEquals("10", new MutableShort((short) 10).toString());
         assertEquals("-123", new MutableShort((short) -123).toString());

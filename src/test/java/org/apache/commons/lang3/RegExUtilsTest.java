@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 public class RegExUtilsTest {
 
     @Test
-    public void testRemoveAll_StringPattern() {
+    void testRemoveAll_StringPattern() {
         assertNull(RegExUtils.removeAll(null, Pattern.compile("")));
         assertEquals("any", RegExUtils.removeAll("any", (Pattern) null));
 
@@ -51,7 +51,7 @@ public class RegExUtilsTest {
     }
 
     @Test
-    public void testRemoveAll_StringString() {
+    void testRemoveAll_StringString() {
         assertNull(RegExUtils.removeAll(null, ""));
         assertEquals("any", RegExUtils.removeAll("any", (String) null));
 
@@ -71,7 +71,7 @@ public class RegExUtilsTest {
     }
 
     @Test
-    public void testRemoveFirst_StringPattern() {
+    void testRemoveFirst_StringPattern() {
         assertNull(RegExUtils.removeFirst(null, Pattern.compile("")));
         assertEquals("any", RegExUtils.removeFirst("any", (Pattern) null));
 
@@ -87,7 +87,7 @@ public class RegExUtilsTest {
     }
 
     @Test
-    public void testRemoveFirst_StringString() {
+    void testRemoveFirst_StringString() {
         assertNull(RegExUtils.removeFirst(null, ""));
         assertEquals("any", RegExUtils.removeFirst("any", (String) null));
 
@@ -108,7 +108,7 @@ public class RegExUtilsTest {
     }
 
     @Test
-    public void testRemovePattern_StringString() {
+    void testRemovePattern_StringString() {
         assertNull(RegExUtils.removePattern(null, ""));
         assertEquals("any", RegExUtils.removePattern("any", (String) null));
 
@@ -125,7 +125,7 @@ public class RegExUtilsTest {
     }
 
     @Test
-    public void testReplaceAll_StringPatternString() {
+    void testReplaceAll_StringPatternString() {
         assertNull(RegExUtils.replaceAll(null, Pattern.compile(""), ""));
 
         assertEquals("any", RegExUtils.replaceAll("any", (Pattern) null, ""));
@@ -151,7 +151,7 @@ public class RegExUtilsTest {
     }
 
     @Test
-    public void testReplaceAll_StringStringString() {
+    void testReplaceAll_StringStringString() {
         assertNull(RegExUtils.replaceAll(null, "", ""));
 
         assertEquals("any", RegExUtils.replaceAll("any", (String) null, ""));
@@ -177,7 +177,7 @@ public class RegExUtilsTest {
     }
 
     @Test
-    public void testReplaceFirst_StringPatternString() {
+    void testReplaceFirst_StringPatternString() {
         assertNull(RegExUtils.replaceFirst(null, Pattern.compile(""), ""));
 
         assertEquals("any", RegExUtils.replaceFirst("any", (Pattern) null, ""));
@@ -199,7 +199,7 @@ public class RegExUtilsTest {
     }
 
     @Test
-    public void testReplaceFirst_StringStringString() {
+    void testReplaceFirst_StringStringString() {
         assertNull(RegExUtils.replaceFirst(null, "", ""));
 
         assertEquals("any", RegExUtils.replaceFirst("any", (String) null, ""));
@@ -226,7 +226,7 @@ public class RegExUtilsTest {
     }
 
     @Test
-    public void testReplacePattern_StringStringString() {
+    void testReplacePattern_StringStringString() {
         assertNull(RegExUtils.replacePattern(null, "", ""));
         assertEquals("any", RegExUtils.replacePattern("any", (String) null, ""));
         assertEquals("any", RegExUtils.replacePattern("any", "", null));

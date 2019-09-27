@@ -48,7 +48,7 @@ public class TimedSemaphoreTest {
      * Tests creating a new instance.
      */
     @Test
-    public void testInit() {
+    void testInit() {
         final ScheduledExecutorService service = EasyMock
                 .createMock(ScheduledExecutorService.class);
         EasyMock.replay(service);
@@ -69,7 +69,7 @@ public class TimedSemaphoreTest {
      * exception.
      */
     @Test
-    public void testInitInvalidPeriod() {
+    void testInitInvalidPeriod() {
         assertThrows(IllegalArgumentException.class, () -> new TimedSemaphore(0L, UNIT, LIMIT));
     }
 
@@ -78,7 +78,7 @@ public class TimedSemaphoreTest {
      * provided.
      */
     @Test
-    public void testInitDefaultService() {
+    void testInitDefaultService() {
         final TimedSemaphore semaphore = new TimedSemaphore(PERIOD, UNIT, LIMIT);
         final ScheduledThreadPoolExecutor exec = (ScheduledThreadPoolExecutor) semaphore
                 .getExecutorService();
@@ -94,7 +94,7 @@ public class TimedSemaphoreTest {
      * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
-    public void testStartTimer() throws InterruptedException {
+    void testStartTimer() throws InterruptedException {
         final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(PERIOD,
                 UNIT, LIMIT);
         final ScheduledFuture<?> future = semaphore.startTimer();
@@ -114,7 +114,7 @@ public class TimedSemaphoreTest {
      * this case it has to be shut down.
      */
     @Test
-    public void testShutdownOwnExecutor() {
+    void testShutdownOwnExecutor() {
         final TimedSemaphore semaphore = new TimedSemaphore(PERIOD, UNIT, LIMIT);
         semaphore.shutdown();
         assertTrue(semaphore.isShutdown(), "Not shutdown");
@@ -126,7 +126,7 @@ public class TimedSemaphoreTest {
      * was started. This should do pretty much nothing.
      */
     @Test
-    public void testShutdownSharedExecutorNoTask() {
+    void testShutdownSharedExecutorNoTask() {
         final ScheduledExecutorService service = EasyMock
                 .createMock(ScheduledExecutorService.class);
         EasyMock.replay(service);
@@ -157,7 +157,7 @@ public class TimedSemaphoreTest {
      * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
-    public void testShutdownSharedExecutorTask() throws InterruptedException {
+    void testShutdownSharedExecutorTask() throws InterruptedException {
         final ScheduledExecutorService service = EasyMock
                 .createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
@@ -178,7 +178,7 @@ public class TimedSemaphoreTest {
      * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
-    public void testShutdownMultipleTimes() throws InterruptedException {
+    void testShutdownMultipleTimes() throws InterruptedException {
         final ScheduledExecutorService service = EasyMock
                 .createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
@@ -200,7 +200,7 @@ public class TimedSemaphoreTest {
      * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
-    public void testAcquireLimit() throws InterruptedException {
+    void testAcquireLimit() throws InterruptedException {
         final ScheduledExecutorService service = EasyMock
                 .createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
@@ -236,7 +236,7 @@ public class TimedSemaphoreTest {
      * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
-    public void testAcquireMultipleThreads() throws InterruptedException {
+    void testAcquireMultipleThreads() throws InterruptedException {
         final ScheduledExecutorService service = EasyMock
                 .createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
@@ -272,7 +272,7 @@ public class TimedSemaphoreTest {
      * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
-    public void testAcquireNoLimit() throws InterruptedException {
+    void testAcquireNoLimit() throws InterruptedException {
         final ScheduledExecutorService service = EasyMock
                 .createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
@@ -292,7 +292,7 @@ public class TimedSemaphoreTest {
      * Tries to call acquire() after shutdown(). This should cause an exception.
      */
     @Test
-    public void testPassAfterShutdown() {
+    void testPassAfterShutdown() {
         final TimedSemaphore semaphore = new TimedSemaphore(PERIOD, UNIT, LIMIT);
         semaphore.shutdown();
         assertThrows(IllegalStateException.class, semaphore::acquire);
@@ -307,7 +307,7 @@ public class TimedSemaphoreTest {
      * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
-    public void testAcquireMultiplePeriods() throws InterruptedException {
+    void testAcquireMultiplePeriods() throws InterruptedException {
         final int count = 1000;
         final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(
                 PERIOD / 10, TimeUnit.MILLISECONDS, 1);
@@ -326,7 +326,7 @@ public class TimedSemaphoreTest {
      * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
-    public void testGetAverageCallsPerPeriod() throws InterruptedException {
+    void testGetAverageCallsPerPeriod() throws InterruptedException {
         final ScheduledExecutorService service = EasyMock
                 .createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
@@ -350,7 +350,7 @@ public class TimedSemaphoreTest {
      * @throws java.lang.InterruptedException so we don't have to catch it
      */
     @Test
-    public void testGetAvailablePermits() throws InterruptedException {
+    void testGetAvailablePermits() throws InterruptedException {
         final ScheduledExecutorService service = EasyMock
                 .createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
@@ -372,7 +372,7 @@ public class TimedSemaphoreTest {
      * by a bunch of threads the expected number of times and not more.
      */
     @Test
-    public void testTryAcquire() throws InterruptedException {
+    void testTryAcquire() throws InterruptedException {
         final TimedSemaphore semaphore = new TimedSemaphore(PERIOD, TimeUnit.SECONDS,
                 LIMIT);
         final TryAcquireThread[] threads = new TryAcquireThread[3 * LIMIT];
@@ -397,7 +397,7 @@ public class TimedSemaphoreTest {
      * Tries to call tryAcquire() after shutdown(). This should cause an exception.
      */
     @Test
-    public void testTryAcquireAfterShutdown() {
+    void testTryAcquireAfterShutdown() {
         final TimedSemaphore semaphore = new TimedSemaphore(PERIOD, UNIT, LIMIT);
         semaphore.shutdown();
         assertThrows(IllegalStateException.class, semaphore::tryAcquire);

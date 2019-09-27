@@ -117,7 +117,7 @@ public class TypeUtilsTest<B> {
 
     @SuppressWarnings("boxing") // deliberately used here
     @Test
-    public void testIsAssignable() throws SecurityException, NoSuchMethodException,
+    void testIsAssignable() throws SecurityException, NoSuchMethodException,
             NoSuchFieldException {
         List list0 = null;
         List<Object> list1 = null;
@@ -473,7 +473,7 @@ public class TypeUtilsTest<B> {
 
     @SuppressWarnings("boxing") // boxing is deliberate here
     @Test
-    public void testIsInstance() throws SecurityException, NoSuchFieldException {
+    void testIsInstance() throws SecurityException, NoSuchFieldException {
         final Type intComparableType = getClass().getField("intComparable").getGenericType();
         final Type uriComparableType = getClass().getField("uriComparable").getGenericType();
         intComparable = 1;
@@ -483,7 +483,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testGetTypeArguments() {
+    void testGetTypeArguments() {
         Map<TypeVariable<?>, Type> typeVarAssigns;
         TypeVariable<?> treeSetTypeVar;
         Type typeArg;
@@ -532,7 +532,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testTypesSatisfyVariables() throws SecurityException,
+    void testTypesSatisfyVariables() throws SecurityException,
             NoSuchMethodException {
         final Map<TypeVariable<?>, Type> typeVarAssigns = new HashMap<>();
         final Integer max = TypeUtilsTest.<Integer>stub();
@@ -547,7 +547,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testDetermineTypeVariableAssignments() throws SecurityException,
+    void testDetermineTypeVariableAssignments() throws SecurityException,
             NoSuchFieldException {
         final ParameterizedType iterableType = (ParameterizedType) getClass().getField("iterable")
                 .getGenericType();
@@ -560,7 +560,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testGetRawType() throws SecurityException, NoSuchFieldException {
+    void testGetRawType() throws SecurityException, NoSuchFieldException {
         final Type stringParentFieldType = GenericTypeHolder.class.getDeclaredField("stringParent")
                 .getGenericType();
         final Type integerParentFieldType = GenericTypeHolder.class.getDeclaredField("integerParent")
@@ -585,7 +585,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testIsArrayTypeClasses() {
+    void testIsArrayTypeClasses() {
         assertTrue(TypeUtils.isArrayType(boolean[].class));
         assertTrue(TypeUtils.isArrayType(byte[].class));
         assertTrue(TypeUtils.isArrayType(short[].class));
@@ -610,7 +610,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testIsArrayGenericTypes() throws Exception {
+    void testIsArrayGenericTypes() throws Exception {
         final Method method = getClass().getMethod("dummyMethod", List.class, List.class, List.class,
                 List.class, List.class, List.class, List.class, List[].class, List[].class,
                 List[].class, List[].class, List[].class, List[].class, List[].class);
@@ -634,7 +634,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testGetPrimitiveArrayComponentType() {
+    void testGetPrimitiveArrayComponentType() {
         assertEquals(boolean.class, TypeUtils.getArrayComponentType(boolean[].class));
         assertEquals(byte.class, TypeUtils.getArrayComponentType(byte[].class));
         assertEquals(short.class, TypeUtils.getArrayComponentType(short[].class));
@@ -655,7 +655,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testGetArrayComponentType() throws Exception {
+    void testGetArrayComponentType() throws Exception {
         final Method method = getClass().getMethod("dummyMethod", List.class, List.class, List.class,
                 List.class, List.class, List.class, List.class, List[].class, List[].class,
                 List[].class, List[].class, List[].class, List[].class, List[].class);
@@ -679,14 +679,14 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testLang820() {
+    void testLang820() {
         final Type[] typeArray = {String.class, String.class};
         final Type[] expectedArray = {String.class};
         assertArrayEquals(expectedArray, TypeUtils.normalizeUpperBounds(typeArray));
     }
 
     @Test
-    public void testParameterize() throws Exception {
+    void testParameterize() throws Exception {
         final ParameterizedType stringComparableType = TypeUtils.parameterize(Comparable.class, String.class);
         assertTrue(TypeUtils.equals(getClass().getField("stringComparable").getGenericType(),
             stringComparableType));
@@ -694,7 +694,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testParameterizeNarrowerTypeArray() {
+    void testParameterizeNarrowerTypeArray() {
         final TypeVariable<?>[] variables = ArrayList.class.getTypeParameters();
         final ParameterizedType parameterizedType = TypeUtils.parameterize(ArrayList.class, variables);
         final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(variables[0], String.class);
@@ -703,14 +703,14 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testParameterizeWithOwner() throws Exception {
+    void testParameterizeWithOwner() throws Exception {
         final Type owner = TypeUtils.parameterize(TypeUtilsTest.class, String.class);
         final ParameterizedType dat2Type = TypeUtils.parameterizeWithOwner(owner, That.class, String.class, String.class);
         assertTrue(TypeUtils.equals(getClass().getField("dat2").getGenericType(), dat2Type));
     }
 
     @Test
-    public void testWildcardType() throws Exception {
+    void testWildcardType() throws Exception {
         final WildcardType simpleWildcard = TypeUtils.wildcardType().withUpperBounds(String.class).build();
         final Field cClass = AClass.class.getField("cClass");
         assertTrue(TypeUtils.equals(((ParameterizedType) cClass.getGenericType()).getActualTypeArguments()[0],
@@ -720,7 +720,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testUnboundedWildcardType() {
+    void testUnboundedWildcardType() {
         final WildcardType unbounded = TypeUtils.wildcardType().withLowerBounds((Type) null).withUpperBounds().build();
         assertTrue(TypeUtils.equals(TypeUtils.WILDCARD_ALL, unbounded));
         assertArrayEquals(new Type[] { Object.class }, TypeUtils.getImplicitUpperBounds(unbounded));
@@ -730,7 +730,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testLowerBoundedWildcardType() {
+    void testLowerBoundedWildcardType() {
        final WildcardType lowerBounded = TypeUtils.wildcardType().withLowerBounds(java.sql.Date.class).build();
        assertEquals(String.format("? super %s", java.sql.Date.class.getName()), TypeUtils.toString(lowerBounded));
        assertEquals(String.format("? super %s", java.sql.Date.class.getName()), lowerBounded.toString());
@@ -742,7 +742,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testLang1114() throws Exception {
+    void testLang1114() throws Exception {
         final Type nonWildcardType = getClass().getDeclaredField("wildcardComparable").getGenericType();
         final Type wildcardType = ((ParameterizedType) nonWildcardType).getActualTypeArguments()[0];
 
@@ -751,7 +751,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testGenericArrayType() throws Exception {
+    void testGenericArrayType() throws Exception {
         final Type expected = getClass().getField("intWildcardComparable").getGenericType();
         final GenericArrayType actual =
             TypeUtils.genericArrayType(TypeUtils.parameterize(Comparable.class, TypeUtils.wildcardType()
@@ -761,7 +761,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testToStringLang1311() {
+    void testToStringLang1311() {
         assertEquals("int[]", TypeUtils.toString(int[].class));
         assertEquals("java.lang.Integer[]", TypeUtils.toString(Integer[].class));
         final Field stringListField = FieldUtils.getDeclaredField(getClass(), "stringListArray");
@@ -769,12 +769,12 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testToLongString() {
+    void testToLongString() {
         assertEquals(getClass().getName() + ":B", TypeUtils.toLongString(getClass().getTypeParameters()[0]));
     }
 
     @Test
-    public void testWrap() {
+    void testWrap() {
         final Type t = getClass().getTypeParameters()[0];
         assertTrue(TypeUtils.equals(t, TypeUtils.wrap(t).getType()));
 
@@ -790,7 +790,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testLANG1190() throws Exception {
+    void testLANG1190() throws Exception {
         final Type fromType = ClassWithSuperClassWithGenericType.class.getDeclaredMethod("methodWithGenericReturnType").getGenericReturnType();
         final Type failingToType = TypeUtils.wildcardType().withLowerBounds(ClassWithSuperClassWithGenericType.class).build();
 
@@ -798,7 +798,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testLANG1348() throws Exception {
+    void testLANG1348() throws Exception {
         final Method method = Enum.class.getMethod("valueOf", Class.class, String.class);
         assertEquals("T extends java.lang.Enum<T>", TypeUtils.toString(method.getGenericReturnType()));
     }

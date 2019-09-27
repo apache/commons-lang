@@ -78,7 +78,7 @@ public class FastDatePrinterTest {
     @DefaultLocale(language = "en", country = "US")
     @DefaultTimeZone("America/New_York")
     @Test
-    public void testFormat() {
+    void testFormat() {
         final GregorianCalendar cal1 = new GregorianCalendar(2003, 0, 10, 15, 33, 20);
         final GregorianCalendar cal2 = new GregorianCalendar(2003, 6, 10, 9, 0, 0);
         final Date date1 = cal1.getTime();
@@ -127,7 +127,7 @@ public class FastDatePrinterTest {
      * Test case for {@link FastDateParser#FastDateParser(String, TimeZone, Locale)}.
      */
     @Test
-    public void testShortDateStyleWithLocales() {
+    void testShortDateStyleWithLocales() {
         final Locale usLocale = Locale.US;
         final Locale swedishLocale = new Locale("sv", "SE");
         final Calendar cal = Calendar.getInstance();
@@ -144,7 +144,7 @@ public class FastDatePrinterTest {
      * Tests that pre-1000AD years get padded with yyyy
      */
     @Test
-    public void testLowYearPadding() {
+    void testLowYearPadding() {
         final Calendar cal = Calendar.getInstance();
         final DatePrinter format = getInstance(YYYY_MM_DD);
 
@@ -161,7 +161,7 @@ public class FastDatePrinterTest {
      * Show Bug #39410 is solved
      */
     @Test
-    public void testMilleniumBug() {
+    void testMilleniumBug() {
         final Calendar cal = Calendar.getInstance();
         final DatePrinter format = getInstance("dd.MM.yyyy");
 
@@ -174,7 +174,7 @@ public class FastDatePrinterTest {
      * This test confirms it, getting 366 back as a date
      */
     @Test
-    public void testSimpleDate() {
+    void testSimpleDate() {
         final Calendar cal = Calendar.getInstance();
         final DatePrinter format = getInstance(YYYY_MM_DD);
 
@@ -187,7 +187,7 @@ public class FastDatePrinterTest {
     }
 
     @Test
-    public void testLang303() {
+    void testLang303() {
         final Calendar cal = Calendar.getInstance();
         cal.set(2004, Calendar.DECEMBER, 31);
 
@@ -199,7 +199,7 @@ public class FastDatePrinterTest {
     }
 
     @Test
-    public void testLang538() {
+    void testLang538() {
         // more commonly constructed with: cal = new GregorianCalendar(2009, 9, 16, 8, 42, 16)
         // for the unit test to work in any time zone, constructing with GMT-8 rather than default locale time zone
         final GregorianCalendar cal = new GregorianCalendar(TimeZone.getTimeZone("GMT-8"));
@@ -212,7 +212,7 @@ public class FastDatePrinterTest {
     }
 
     @Test
-    public void testLang645() {
+    void testLang645() {
         final Locale locale = new Locale("sv", "SE");
 
         final Calendar cal = Calendar.getInstance();
@@ -225,7 +225,7 @@ public class FastDatePrinterTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         final DatePrinter printer1= getInstance(YYYY_MM_DD);
         final DatePrinter printer2= getInstance(YYYY_MM_DD);
 
@@ -236,32 +236,32 @@ public class FastDatePrinterTest {
     }
 
     @Test
-    public void testToStringContainsName() {
+    void testToStringContainsName() {
         final DatePrinter printer= getInstance(YYYY_MM_DD);
         assertTrue(printer.toString().startsWith("FastDate"));
     }
 
     @Test
-    public void testPatternMatches() {
+    void testPatternMatches() {
         final DatePrinter printer= getInstance(YYYY_MM_DD);
         assertEquals(YYYY_MM_DD, printer.getPattern());
     }
 
     @Test
-    public void testLocaleMatches() {
+    void testLocaleMatches() {
         final DatePrinter printer= getInstance(YYYY_MM_DD, SWEDEN);
         assertEquals(SWEDEN, printer.getLocale());
     }
 
     @Test
-    public void testTimeZoneMatches() {
+    void testTimeZoneMatches() {
         final DatePrinter printer= getInstance(YYYY_MM_DD, NEW_YORK);
         assertEquals(NEW_YORK, printer.getTimeZone());
     }
 
     @DefaultTimeZone("UTC")
     @Test
-    public void testTimeZoneAsZ() {
+    void testTimeZoneAsZ() {
         final Calendar c = Calendar.getInstance(FastTimeZone.getGmtTimeZone());
         final FastDateFormat noColonFormat = FastDateFormat.getInstance("Z");
         assertEquals("+0000", noColonFormat.format(c));
@@ -286,7 +286,7 @@ public class FastDatePrinterTest {
     }
 
     @Test
-    public void test1806Argument() {
+    void test1806Argument() {
         assertThrows(IllegalArgumentException.class, () -> getInstance("XXXX"));
     }
 
@@ -308,7 +308,7 @@ public class FastDatePrinterTest {
     }
 
     @Test
-    public void test1806() {
+    void test1806() {
         for (final Expected1806 trial : Expected1806.values()) {
             final Calendar cal = initializeCalendar(trial.zone);
 
@@ -324,7 +324,7 @@ public class FastDatePrinterTest {
     }
 
     @Test
-    public void testLang1103() {
+    void testLang1103() {
         final Calendar cal = Calendar.getInstance(SWEDEN);
         cal.set(Calendar.DAY_OF_MONTH, 2);
 
@@ -342,7 +342,7 @@ public class FastDatePrinterTest {
      * This method test that the bug is fixed.
      */
     @Test
-    public void testLang916() {
+    void testLang916() {
 
         final Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
         cal.clear();
@@ -364,7 +364,7 @@ public class FastDatePrinterTest {
     }
 
     @Test
-    public void testHourFormats() {
+    void testHourFormats() {
         final Calendar calendar = Calendar.getInstance();
         calendar.clear();
         final DatePrinter printer = getInstance("K k H h");
@@ -381,7 +381,7 @@ public class FastDatePrinterTest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void testStringBufferOptions() {
+    void testStringBufferOptions() {
         final DatePrinter format = getInstance("yyyy-MM-dd HH:mm:ss.SSS Z", TimeZone.getTimeZone("GMT"));
         final Calendar calendar = Calendar.getInstance();
         final StringBuffer sb = new StringBuffer();
@@ -403,7 +403,7 @@ public class FastDatePrinterTest {
     }
 
     @Test
-    public void testAppendableOptions() {
+    void testAppendableOptions() {
         final DatePrinter format = getInstance("yyyy-MM-dd HH:mm:ss.SSS Z", TimeZone.getTimeZone("GMT"));
         final Calendar calendar = Calendar.getInstance();
         final StringBuilder sb = new StringBuilder();
@@ -419,7 +419,7 @@ public class FastDatePrinterTest {
     }
 
     @Test
-    public void testDayNumberOfWeek() {
+    void testDayNumberOfWeek() {
         final DatePrinter printer = getInstance("u");
         final Calendar calendar = Calendar.getInstance();
 

@@ -71,7 +71,7 @@ public class ReflectionDiffBuilderTest {
     }
 
     @Test
-    public void test_no_differences() {
+    void test_no_differences() {
         final TypeTestClass firstObject = new TypeTestClass();
         final TypeTestClass secondObject = new TypeTestClass();
 
@@ -80,7 +80,7 @@ public class ReflectionDiffBuilderTest {
     }
 
     @Test
-    public void test_primitive_difference() {
+    void test_primitive_difference() {
         final TypeTestClass firstObject = new TypeTestClass();
         firstObject.charField = 'c';
         final TypeTestClass secondObject = new TypeTestClass();
@@ -90,7 +90,7 @@ public class ReflectionDiffBuilderTest {
     }
 
     @Test
-    public void test_array_difference() {
+    void test_array_difference() {
         final TypeTestClass firstObject = new TypeTestClass();
         firstObject.charArrayField = new char[] { 'c' };
         final TypeTestClass secondObject = new TypeTestClass();
@@ -100,7 +100,7 @@ public class ReflectionDiffBuilderTest {
     }
 
     @Test
-    public void test_transient_field_difference() {
+    void test_transient_field_difference() {
         final TypeTestClass firstObject = new TypeTestClass();
         firstObject.transientField = "a";
         final TypeTestClass secondObject = new TypeTestClass();
@@ -111,7 +111,7 @@ public class ReflectionDiffBuilderTest {
     }
 
     @Test
-    public void test_no_differences_inheritance() {
+    void test_no_differences_inheritance() {
         final TypeTestChildClass firstObject = new TypeTestChildClass();
         final TypeTestChildClass secondObject = new TypeTestChildClass();
 
@@ -120,7 +120,7 @@ public class ReflectionDiffBuilderTest {
     }
 
     @Test
-    public void test_difference_in_inherited_field() {
+    void test_difference_in_inherited_field() {
         final TypeTestChildClass firstObject = new TypeTestChildClass();
         firstObject.intField = 99;
         final TypeTestChildClass secondObject = new TypeTestChildClass();

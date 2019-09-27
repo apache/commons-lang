@@ -32,7 +32,7 @@ public class DefaultExceptionContextTest extends AbstractExceptionContextTest<De
     }
 
     @Test
-    public void testFormattedExceptionMessageNull() {
+    void testFormattedExceptionMessageNull() {
         exceptionContext = new DefaultExceptionContext();
         exceptionContext.getFormattedExceptionMessage(null);
     }

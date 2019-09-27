@@ -64,7 +64,7 @@ public class StopWatchTest {
 
     // test bad states
     @Test
-    public void testBadStates() {
+    void testBadStates() {
         final StopWatch watch = new StopWatch();
         assertThrows(
                 IllegalStateException.class,
@@ -122,7 +122,7 @@ public class StopWatchTest {
     }
 
     @Test
-    public void testBooleanStates() {
+    void testBooleanStates() {
         final StopWatch watch = new StopWatch();
         assertFalse(watch.isStarted());
         assertFalse(watch.isSuspended());
@@ -145,7 +145,7 @@ public class StopWatchTest {
     }
 
     @Test
-    public void testGetStartTime() {
+    void testGetStartTime() {
         final long beforeStopWatch = System.currentTimeMillis();
         final StopWatch watch = new StopWatch();
         assertThrows(
@@ -165,7 +165,7 @@ public class StopWatchTest {
     }
 
     @Test
-    public void testLang315() {
+    void testLang315() {
         final StopWatch watch = StopWatch.createStarted();
         try {
             Thread.sleep(200);
@@ -185,7 +185,7 @@ public class StopWatchTest {
     }
 
     @Test
-    public void testStopWatchGetWithTimeUnit() {
+    void testStopWatchGetWithTimeUnit() {
         // Create a mock StopWatch with a time of 2:59:01.999
         final StopWatch watch = createMockStopWatch(
                 TimeUnit.HOURS.toNanos(2)
@@ -201,7 +201,7 @@ public class StopWatchTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testStopWatchSimple() {
+    void testStopWatchSimple() {
         final StopWatch watch = StopWatch.createStarted();
         try {
             Thread.sleep(550);
@@ -220,7 +220,7 @@ public class StopWatchTest {
     }
 
     @Test
-    public void testStopWatchSimpleGet() {
+    void testStopWatchSimpleGet() {
         final StopWatch watch = new StopWatch();
         assertEquals(0, watch.getTime());
         assertEquals("00:00:00.000", watch.toString());
@@ -235,7 +235,7 @@ public class StopWatchTest {
     }
 
     @Test
-    public void testStopWatchSplit() {
+    void testStopWatchSplit() {
         final StopWatch watch = StopWatch.createStarted();
         try {
             Thread.sleep(550);
@@ -267,13 +267,13 @@ public class StopWatchTest {
     }
 
     @Test
-    public void testStopWatchStatic() {
+    void testStopWatchStatic() {
         final StopWatch watch = StopWatch.createStarted();
         assertTrue(watch.isStarted());
     }
 
     @Test
-    public void testStopWatchSuspend() {
+    void testStopWatchSuspend() {
         final StopWatch watch = StopWatch.createStarted();
         try {
             Thread.sleep(550);
@@ -303,7 +303,7 @@ public class StopWatchTest {
     }
 
     @Test
-    public void testToSplitString() {
+    void testToSplitString() {
         final StopWatch watch = StopWatch.createStarted();
         try {
             Thread.sleep(550);

@@ -36,7 +36,7 @@ public class CharSequenceUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(new CharSequenceUtils());
         final Constructor<?>[] cons = CharSequenceUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
@@ -47,7 +47,7 @@ public class CharSequenceUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testSubSequence() {
+    void testSubSequence() {
         //
         // null input
         //
@@ -65,12 +65,12 @@ public class CharSequenceUtilsTest {
     }
 
     @Test
-    public void testSubSequenceNegativeStart() {
+    void testSubSequenceNegativeStart() {
         assertThrows(IndexOutOfBoundsException.class, () -> CharSequenceUtils.subSequence(StringUtils.EMPTY, -1));
     }
 
     @Test
-    public void testSubSequenceTooLong() {
+    void testSubSequenceTooLong() {
         assertThrows(IndexOutOfBoundsException.class, () -> CharSequenceUtils.subSequence(StringUtils.EMPTY, 1));
     }
 
@@ -154,7 +154,7 @@ public class CharSequenceUtilsTest {
     }
 
     @Test
-    public void testRegionMatches() {
+    void testRegionMatches() {
         for (final TestData data : TEST_DATA) {
             new RunTest() {
                 @Override
@@ -179,7 +179,7 @@ public class CharSequenceUtilsTest {
 
 
     @Test
-    public void testToCharArray() {
+    void testToCharArray() {
         final StringBuilder builder = new StringBuilder("abcdefg");
         final char[] expected = builder.toString().toCharArray();
         assertArrayEquals(expected, CharSequenceUtils.toCharArray(builder));

@@ -56,7 +56,7 @@ public class ExtendedMessageFormatTest {
      * Test extended formats.
      */
     @Test
-    public void testExtendedFormats() {
+    void testExtendedFormats() {
         final String pattern = "Lower: {0,lower} Upper: {1,upper}";
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
         assertEquals(pattern, emf.toPattern(), "TOPATTERN");
@@ -71,7 +71,7 @@ public class ExtendedMessageFormatTest {
      * Test Bug LANG-477 - out of memory error with escaped quote
      */
     @Test
-    public void testEscapedQuote_LANG_477() {
+    void testEscapedQuote_LANG_477() {
         final String pattern = "it''s a {0,lower} 'test'!";
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
         assertEquals("it's a dummy test!", emf.format(new Object[] {"DUMMY"}));
@@ -81,7 +81,7 @@ public class ExtendedMessageFormatTest {
      * Test Bug LANG-917 - IndexOutOfBoundsException and/or infinite loop when using a choice pattern
      */
     @Test
-    public void testEmbeddedPatternInChoice() {
+    void testEmbeddedPatternInChoice() {
         final String pattern = "Hi {0,lower}, got {1,choice,0#none|1#one|1<{1,number}}, {2,upper}!";
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
         assertEquals(emf.format(new Object[] {"there", 3, "great"}), "Hi there, got 3, GREAT!");
@@ -91,7 +91,7 @@ public class ExtendedMessageFormatTest {
      * Test Bug LANG-948 - Exception while using ExtendedMessageFormat and escaping braces
      */
     @Test
-    public void testEscapedBraces_LANG_948() {
+    void testEscapedBraces_LANG_948() {
         // message without placeholder because braces are escaped by quotes
         final String pattern = "Message without placeholders '{}'";
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
@@ -107,7 +107,7 @@ public class ExtendedMessageFormatTest {
      * Test extended and built in formats.
      */
     @Test
-    public void testExtendedAndBuiltInFormats() {
+    void testExtendedAndBuiltInFormats() {
         final Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23, 18, 33, 5);
         final Object[] args = new Object[] {"John Doe", cal.getTime(), Double.valueOf("12345.67")};
@@ -206,7 +206,7 @@ public class ExtendedMessageFormatTest {
      * Test the built in choice format.
      */
     @Test
-    public void testBuiltInChoiceFormat() {
+    void testBuiltInChoiceFormat() {
         final Object[] values = new Number[] {Integer.valueOf(1), Double.valueOf("2.2"), Double.valueOf("1234.5")};
         String choicePattern = null;
         final Locale[] availableLocales = NumberFormat.getAvailableLocales();
@@ -226,7 +226,7 @@ public class ExtendedMessageFormatTest {
      * Test the built in date/time formats
      */
     @Test
-    public void testBuiltInDateTimeFormat() {
+    void testBuiltInDateTimeFormat() {
         final Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23, 18, 33, 5);
         final Object[] args = new Object[] {cal.getTime()};
@@ -247,7 +247,7 @@ public class ExtendedMessageFormatTest {
     }
 
     @Test
-    public void testOverriddenBuiltinFormat() {
+    void testOverriddenBuiltinFormat() {
         final Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23);
         final Object[] args = new Object[] {cal.getTime()};
@@ -276,7 +276,7 @@ public class ExtendedMessageFormatTest {
      * Test the built in number formats.
      */
     @Test
-    public void testBuiltInNumberFormat() {
+    void testBuiltInNumberFormat() {
         final Object[] args = new Object[] {Double.valueOf("6543.21")};
         final Locale[] availableLocales = NumberFormat.getAvailableLocales();
         checkBuiltInFormat("1: {0,number}",            args, availableLocales);
@@ -290,7 +290,7 @@ public class ExtendedMessageFormatTest {
      * Test equals() and hashcode.
      */
     @Test
-    public void testEqualsHashcode() {
+    void testEqualsHashcode() {
         final Map<String, ? extends FormatFactory> fmtRegistry = Collections.singletonMap("testfmt", new LowerCaseFormatFactory());
         final Map<String, ? extends FormatFactory> otherRegitry = Collections.singletonMap("testfmt", new UpperCaseFormatFactory());
 

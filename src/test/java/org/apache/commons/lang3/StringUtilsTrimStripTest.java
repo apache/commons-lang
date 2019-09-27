@@ -29,7 +29,7 @@ public class StringUtilsTrimStripTest  {
     private static final String FOO = "foo";
 
     @Test
-    public void testTrim() {
+    void testTrim() {
         assertEquals(FOO, StringUtils.trim(FOO + "  "));
         assertEquals(FOO, StringUtils.trim(" " + FOO + "  "));
         assertEquals(FOO, StringUtils.trim(" " + FOO));
@@ -42,7 +42,7 @@ public class StringUtilsTrimStripTest  {
     }
 
     @Test
-    public void testTrimToNull() {
+    void testTrimToNull() {
         assertEquals(FOO, StringUtils.trimToNull(FOO + "  "));
         assertEquals(FOO, StringUtils.trimToNull(" " + FOO + "  "));
         assertEquals(FOO, StringUtils.trimToNull(" " + FOO));
@@ -55,7 +55,7 @@ public class StringUtilsTrimStripTest  {
     }
 
     @Test
-    public void testTrimToEmpty() {
+    void testTrimToEmpty() {
         assertEquals(FOO, StringUtils.trimToEmpty(FOO + "  "));
         assertEquals(FOO, StringUtils.trimToEmpty(" " + FOO + "  "));
         assertEquals(FOO, StringUtils.trimToEmpty(" " + FOO));
@@ -69,7 +69,7 @@ public class StringUtilsTrimStripTest  {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testStrip_String() {
+    void testStrip_String() {
         assertNull(StringUtils.strip(null));
         assertEquals("", StringUtils.strip(""));
         assertEquals("", StringUtils.strip("        "));
@@ -79,7 +79,7 @@ public class StringUtilsTrimStripTest  {
     }
 
     @Test
-    public void testStripToNull_String() {
+    void testStripToNull_String() {
         assertNull(StringUtils.stripToNull(null));
         assertNull(StringUtils.stripToNull(""));
         assertNull(StringUtils.stripToNull("        "));
@@ -90,7 +90,7 @@ public class StringUtilsTrimStripTest  {
     }
 
     @Test
-    public void testStripToEmpty_String() {
+    void testStripToEmpty_String() {
         assertEquals("", StringUtils.stripToEmpty(null));
         assertEquals("", StringUtils.stripToEmpty(""));
         assertEquals("", StringUtils.stripToEmpty("        "));
@@ -101,7 +101,7 @@ public class StringUtilsTrimStripTest  {
     }
 
     @Test
-    public void testStrip_StringString() {
+    void testStrip_StringString() {
         // null strip
         assertNull(StringUtils.strip(null, null));
         assertEquals("", StringUtils.strip("", null));
@@ -133,7 +133,7 @@ public class StringUtilsTrimStripTest  {
     }
 
     @Test
-    public void testStripStart_StringString() {
+    void testStripStart_StringString() {
         // null stripStart
         assertNull(StringUtils.stripStart(null, null));
         assertEquals("", StringUtils.stripStart("", null));
@@ -165,7 +165,7 @@ public class StringUtilsTrimStripTest  {
     }
 
     @Test
-    public void testStripEnd_StringString() {
+    void testStripEnd_StringString() {
         // null stripEnd
         assertNull(StringUtils.stripEnd(null, null));
         assertEquals("", StringUtils.stripEnd("", null));
@@ -197,7 +197,7 @@ public class StringUtilsTrimStripTest  {
     }
 
     @Test
-    public void testStripAll() {
+    void testStripAll() {
         // test stripAll method, merely an array version of the above strip
         final String[] empty = new String[0];
         final String[] fooSpace = new String[] { "  "+FOO+"  ", "  "+FOO, FOO+"  " };
@@ -218,7 +218,7 @@ public class StringUtilsTrimStripTest  {
     }
 
     @Test
-    public void testStripAccents() {
+    void testStripAccents() {
         final String cue = "\u00C7\u00FA\u00EA";
         assertEquals("Cue", StringUtils.stripAccents(cue), "Failed to strip accents from " + cue);
 

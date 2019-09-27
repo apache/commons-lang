@@ -33,7 +33,7 @@ public class MutableObjectTest {
 
     // ----------------------------------------------------------------
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         assertNull(new MutableObject<String>().getValue());
 
         final Integer i = Integer.valueOf(6);
@@ -43,7 +43,7 @@ public class MutableObjectTest {
     }
 
     @Test
-    public void testGetSet() {
+    void testGetSet() {
         final MutableObject<String> mutNum = new MutableObject<>();
         assertNull(new MutableObject<>().getValue());
 
@@ -55,7 +55,7 @@ public class MutableObjectTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         final MutableObject<String> mutNumA = new MutableObject<>("ALPHA");
         final MutableObject<String> mutNumB = new MutableObject<>("ALPHA");
         final MutableObject<String> mutNumC = new MutableObject<>("BETA");
@@ -77,7 +77,7 @@ public class MutableObjectTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final MutableObject<String> mutNumA = new MutableObject<>("ALPHA");
         final MutableObject<String> mutNumB = new MutableObject<>("ALPHA");
         final MutableObject<String> mutNumC = new MutableObject<>("BETA");
@@ -92,7 +92,7 @@ public class MutableObjectTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals("HI", new MutableObject<>("HI").toString());
         assertEquals("10.0", new MutableObject<>(Double.valueOf(10)).toString());
         assertEquals("null", new MutableObject<>(null).toString());

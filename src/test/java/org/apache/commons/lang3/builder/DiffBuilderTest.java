@@ -94,7 +94,7 @@ public class DiffBuilderTest {
     private static final ToStringStyle SHORT_STYLE = ToStringStyle.SHORT_PREFIX_STYLE;
 
     @Test
-    public void testBoolean() {
+    void testBoolean() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.booleanField = false;
@@ -107,7 +107,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testBooleanArray() {
+    void testBooleanArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.booleanArrayField = new boolean[] {false, false};
@@ -121,7 +121,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testByte() {
+    void testByte() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.byteField = 0x01;
@@ -133,7 +133,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testByteArray() {
+    void testByteArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.byteArrayField= new byte[] {0x01, 0x02};
@@ -147,7 +147,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testByteArrayEqualAsObject() {
+    void testByteArrayEqualAsObject() {
         final DiffResult<String> list = new DiffBuilder<>("String1", "String2", SHORT_STYLE)
             .append("foo", new boolean[] {false}, new boolean[] {false})
             .append("foo", new byte[] {0x01}, new byte[] {0x01})
@@ -164,7 +164,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testChar() {
+    void testChar() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.charField = 'z';
@@ -176,7 +176,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testCharArray() {
+    void testCharArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.charArrayField = new char[] {'f', 'o', 'o'};
@@ -190,7 +190,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testDiffResult() {
+    void testDiffResult() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.intField = 2;
@@ -203,7 +203,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testDouble() {
+    void testDouble() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.doubleField = 99.99;
@@ -215,7 +215,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testDoubleArray() {
+    void testDoubleArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.doubleArrayField = new double[] {3.0, 2.9, 2.8};
@@ -229,7 +229,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testFloat() {
+    void testFloat() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.floatField = 99.99F;
@@ -241,7 +241,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testFloatArray() {
+    void testFloatArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.floatArrayField = new float[] {3.0F, 2.9F, 2.8F};
@@ -255,7 +255,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testInt() {
+    void testInt() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.intField = 42;
@@ -267,7 +267,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testIntArray() {
+    void testIntArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.intArrayField = new int[] {3, 2, 1};
@@ -281,7 +281,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testLong() {
+    void testLong() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.longField = 42L;
@@ -293,7 +293,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testLongArray() {
+    void testLongArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.longArrayField = new long[] {3L, 2L, 1L};
@@ -307,17 +307,17 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testNullLhs() {
+    void testNullLhs() {
         assertThrows(IllegalArgumentException.class, () -> new DiffBuilder<>(null, this, ToStringStyle.DEFAULT_STYLE));
     }
 
     @Test
-    public void testNullRhs() {
+    void testNullRhs() {
         assertThrows(IllegalArgumentException.class, () -> new DiffBuilder<>(this, null, ToStringStyle.DEFAULT_STYLE));
     }
 
     @Test
-    public void testObject() {
+    void testObject() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.objectField = "Some string";
@@ -329,7 +329,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testObjectArray() {
+    void testObjectArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.objectArrayField = new Object[] {"string", 1, 2};
@@ -341,7 +341,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testObjectArrayEqual() {
+    void testObjectArrayEqual() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class1.objectArrayField = new Object[] {"string", 1, 2};
@@ -354,7 +354,7 @@ public class DiffBuilderTest {
      * Test that "left" and "right" are the same instance but are equal.
      */
     @Test
-    public void testObjectsNotSameButEqual() {
+    void testObjectsNotSameButEqual() {
         final TypeTestClass left = new TypeTestClass();
         left.objectField = new Integer(1);
         final TypeTestClass right = new TypeTestClass();
@@ -370,7 +370,7 @@ public class DiffBuilderTest {
      * Test that "left" and "right" are not the same instance and are not equal.
      */
     @Test
-    public void testObjectsNotSameNorEqual() {
+    void testObjectsNotSameNorEqual() {
         final TypeTestClass left = new TypeTestClass();
         left.objectField = 4;
         final TypeTestClass right = new TypeTestClass();
@@ -386,7 +386,7 @@ public class DiffBuilderTest {
      * Test that "left" and "right" are the same instance and are equal.
      */
     @Test
-    public void testObjectsSameAndEqual() {
+    void testObjectsSameAndEqual() {
         final Integer sameObject = 1;
         final TypeTestClass left = new TypeTestClass();
         left.objectField = sameObject;
@@ -400,7 +400,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testSameObjectIgnoresAppends() {
+    void testSameObjectIgnoresAppends() {
         final TypeTestClass testClass = new TypeTestClass();
         final DiffResult<TypeTestClass> list = new DiffBuilder<>(testClass, testClass, SHORT_STYLE)
             .append("ignored", false, true)
@@ -409,7 +409,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testShort() {
+    void testShort() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.shortField = 42;
@@ -421,7 +421,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testShortArray() {
+    void testShortArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
         class2.shortArrayField = new short[] {3, 2, 1};
@@ -435,7 +435,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testSimilarObjectIgnoresAppends() {
+    void testSimilarObjectIgnoresAppends() {
         final TypeTestClass testClass1 = new TypeTestClass();
         final TypeTestClass testClass2 = new TypeTestClass();
         final DiffResult<TypeTestClass> list = new DiffBuilder<>(testClass1, testClass2, SHORT_STYLE)
@@ -445,7 +445,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testStylePassedToDiffResult() {
+    void testStylePassedToDiffResult() {
         final TypeTestClass class1 = new TypeTestClass();
         DiffResult<TypeTestClass> list = class1.diff(class1);
         assertEquals(SHORT_STYLE, list.getToStringStyle());
@@ -456,7 +456,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testTriviallyEqualTestDisabled() {
+    void testTriviallyEqualTestDisabled() {
         final Matcher<Integer> equalToOne = equalTo(1);
 
         // Constructor's arguments are not trivially equal, but not testing for that.
@@ -472,7 +472,7 @@ public class DiffBuilderTest {
     }
 
     @Test
-    public void testTriviallyEqualTestEnabled() {
+    void testTriviallyEqualTestEnabled() {
         final Matcher<Integer> equalToZero = equalTo(0);
         final Matcher<Integer> equalToOne = equalTo(1);
 

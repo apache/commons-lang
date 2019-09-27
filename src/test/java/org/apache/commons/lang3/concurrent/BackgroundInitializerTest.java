@@ -50,7 +50,7 @@ public class BackgroundInitializerTest {
      * Tests whether initialize() is invoked.
      */
     @Test
-    public void testInitialize() throws ConcurrentException {
+    void testInitialize() throws ConcurrentException {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
         checkInitialize(init);
@@ -61,7 +61,7 @@ public class BackgroundInitializerTest {
      * initialized yet.
      */
     @Test
-    public void testGetActiveExecutorBeforeStart() {
+    void testGetActiveExecutorBeforeStart() {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         assertNull(init.getActiveExecutor(), "Got an executor");
     }
@@ -70,7 +70,7 @@ public class BackgroundInitializerTest {
      * Tests whether an external executor is correctly detected.
      */
     @Test
-    public void testGetActiveExecutorExternal() throws InterruptedException, ConcurrentException {
+    void testGetActiveExecutorExternal() throws InterruptedException, ConcurrentException {
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         try {
             final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl(
@@ -88,7 +88,7 @@ public class BackgroundInitializerTest {
      * Tests getActiveExecutor() for a temporary executor.
      */
     @Test
-    public void testGetActiveExecutorTemp() throws ConcurrentException {
+    void testGetActiveExecutorTemp() throws ConcurrentException {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
         assertNotNull(init.getActiveExecutor(), "No active executor");
@@ -100,7 +100,7 @@ public class BackgroundInitializerTest {
      * be created.
      */
     @Test
-    public void testInitializeTempExecutor() throws ConcurrentException {
+    void testInitializeTempExecutor() throws ConcurrentException {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         assertTrue(init.start(), "Wrong result of start()");
         checkInitialize(init);
@@ -112,7 +112,7 @@ public class BackgroundInitializerTest {
      * setExternalExecutor() method.
      */
     @Test
-    public void testSetExternalExecutor() throws ConcurrentException {
+    void testSetExternalExecutor() throws ConcurrentException {
         final ExecutorService exec = Executors.newCachedThreadPool();
         try {
             final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
@@ -133,7 +133,7 @@ public class BackgroundInitializerTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the test implementation may throw it
      */
     @Test
-    public void testSetExternalExecutorAfterStart() throws ConcurrentException, InterruptedException {
+    void testSetExternalExecutorAfterStart() throws ConcurrentException, InterruptedException {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
         final ExecutorService exec = Executors.newSingleThreadExecutor();
@@ -151,7 +151,7 @@ public class BackgroundInitializerTest {
      * have an effect.
      */
     @Test
-    public void testStartMultipleTimes() throws ConcurrentException {
+    void testStartMultipleTimes() throws ConcurrentException {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         assertTrue(init.start(), "Wrong result for start()");
         for (int i = 0; i < 10; i++) {
@@ -164,7 +164,7 @@ public class BackgroundInitializerTest {
      * Tests calling get() before start(). This should cause an exception.
      */
     @Test
-    public void testGetBeforeStart() {
+    void testGetBeforeStart() {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         assertThrows(IllegalStateException.class, init::get);
     }
@@ -174,7 +174,7 @@ public class BackgroundInitializerTest {
      * exception.
      */
     @Test
-    public void testGetRuntimeException() {
+    void testGetRuntimeException() {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         final RuntimeException rex = new RuntimeException();
         init.ex = rex;
@@ -188,7 +188,7 @@ public class BackgroundInitializerTest {
      * exception.
      */
     @Test
-    public void testGetCheckedException() {
+    void testGetCheckedException() {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         final Exception ex = new Exception();
         init.ex = ex;
@@ -203,7 +203,7 @@ public class BackgroundInitializerTest {
      * @throws java.lang.InterruptedException because we're making use of Java's concurrent API
      */
     @Test
-    public void testGetInterruptedException() throws InterruptedException {
+    void testGetInterruptedException() throws InterruptedException {
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl(
                 exec);
@@ -238,7 +238,7 @@ public class BackgroundInitializerTest {
      * Tests isStarted() before start() was called.
      */
     @Test
-    public void testIsStartedFalse() {
+    void testIsStartedFalse() {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         assertFalse(init.isStarted(), "Already started");
     }
@@ -247,7 +247,7 @@ public class BackgroundInitializerTest {
      * Tests isStarted() after start().
      */
     @Test
-    public void testIsStartedTrue() {
+    void testIsStartedTrue() {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
         assertTrue(init.isStarted(), "Not started");
@@ -257,7 +257,7 @@ public class BackgroundInitializerTest {
      * Tests isStarted() after the background task has finished.
      */
     @Test
-    public void testIsStartedAfterGet() throws ConcurrentException {
+    void testIsStartedAfterGet() throws ConcurrentException {
         final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
         checkInitialize(init);

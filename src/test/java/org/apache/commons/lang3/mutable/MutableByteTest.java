@@ -31,7 +31,7 @@ public class MutableByteTest {
 
     // ----------------------------------------------------------------
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         assertEquals((byte) 0, new MutableByte().byteValue());
 
         assertEquals((byte) 1, new MutableByte((byte) 1).byteValue());
@@ -44,12 +44,12 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testConstructorNull() {
+    void testConstructorNull() {
         assertThrows(NullPointerException.class, () -> new MutableByte((Number) null));
     }
 
     @Test
-    public void testGetSet() {
+    void testGetSet() {
         final MutableByte mutNum = new MutableByte((byte) 0);
         assertEquals((byte) 0, new MutableByte().byteValue());
         assertEquals(Byte.valueOf((byte) 0), new MutableByte().getValue());
@@ -68,13 +68,13 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testSetNull() {
+    void testSetNull() {
         final MutableByte mutNum = new MutableByte((byte) 0);
         assertThrows(NullPointerException.class, () -> mutNum.setValue(null));
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         final MutableByte mutNumA = new MutableByte((byte) 0);
         final MutableByte mutNumB = new MutableByte((byte) 0);
         final MutableByte mutNumC = new MutableByte((byte) 1);
@@ -92,7 +92,7 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final MutableByte mutNumA = new MutableByte((byte) 0);
         final MutableByte mutNumB = new MutableByte((byte) 0);
         final MutableByte mutNumC = new MutableByte((byte) 1);
@@ -104,7 +104,7 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testCompareTo() {
+    void testCompareTo() {
         final MutableByte mutNum = new MutableByte((byte) 0);
 
         assertEquals((byte) 0, mutNum.compareTo(new MutableByte((byte) 0)));
@@ -113,13 +113,13 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testCompareToNull() {
+    void testCompareToNull() {
         final MutableByte mutNum = new MutableByte((byte) 0);
         assertThrows(NullPointerException.class, () -> mutNum.compareTo(null));
     }
 
     @Test
-    public void testPrimitiveValues() {
+    void testPrimitiveValues() {
         final MutableByte mutNum = new MutableByte( (byte) 1 );
         assertEquals(1.0F, mutNum.floatValue());
         assertEquals(1.0, mutNum.doubleValue());
@@ -130,13 +130,13 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testToByte() {
+    void testToByte() {
         assertEquals(Byte.valueOf((byte) 0), new MutableByte((byte) 0).toByte());
         assertEquals(Byte.valueOf((byte) 123), new MutableByte((byte) 123).toByte());
     }
 
     @Test
-    public void testIncrement() {
+    void testIncrement() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.increment();
 
@@ -145,7 +145,7 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testIncrementAndGet() {
+    void testIncrementAndGet() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         final byte result = mutNum.incrementAndGet();
 
@@ -155,7 +155,7 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testGetAndIncrement() {
+    void testGetAndIncrement() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         final byte result = mutNum.getAndIncrement();
 
@@ -165,7 +165,7 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testDecrement() {
+    void testDecrement() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.decrement();
 
@@ -174,7 +174,7 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testDecrementAndGet() {
+    void testDecrementAndGet() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         final byte result = mutNum.decrementAndGet();
 
@@ -184,7 +184,7 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testGetAndDecrement() {
+    void testGetAndDecrement() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         final byte result = mutNum.getAndDecrement();
 
@@ -194,7 +194,7 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testAddValuePrimitive() {
+    void testAddValuePrimitive() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.add((byte) 1);
 
@@ -202,7 +202,7 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testAddValueObject() {
+    void testAddValueObject() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.add(Integer.valueOf(1));
 
@@ -210,7 +210,7 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testGetAndAddValuePrimitive() {
+    void testGetAndAddValuePrimitive() {
         final MutableByte mutableByte = new MutableByte((byte) 0);
         final byte result = mutableByte.getAndAdd((byte) 1);
 
@@ -219,7 +219,7 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testGetAndAddValueObject() {
+    void testGetAndAddValueObject() {
         final MutableByte mutableByte = new MutableByte((byte) 0);
         final byte result = mutableByte.getAndAdd(Byte.valueOf((byte) 1));
 
@@ -228,7 +228,7 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testAddAndGetValuePrimitive() {
+    void testAddAndGetValuePrimitive() {
         final MutableByte mutableByte = new MutableByte((byte) 0);
         final byte result = mutableByte.addAndGet((byte) 1);
 
@@ -237,7 +237,7 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testAddAndGetValueObject() {
+    void testAddAndGetValueObject() {
         final MutableByte mutableByte = new MutableByte((byte) 0);
         final byte result = mutableByte.addAndGet(Byte.valueOf((byte) 1));
 
@@ -246,7 +246,7 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testSubtractValuePrimitive() {
+    void testSubtractValuePrimitive() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.subtract((byte) 1);
 
@@ -254,7 +254,7 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testSubtractValueObject() {
+    void testSubtractValueObject() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.subtract(Integer.valueOf(1));
 
@@ -262,7 +262,7 @@ public class MutableByteTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals("0", new MutableByte((byte) 0).toString());
         assertEquals("10", new MutableByte((byte) 10).toString());
         assertEquals("-123", new MutableByte((byte) -123).toString());

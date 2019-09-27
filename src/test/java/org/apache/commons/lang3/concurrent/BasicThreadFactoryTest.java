@@ -63,7 +63,7 @@ public class BasicThreadFactoryTest {
      * Tests the default values used by the builder.
      */
     @Test
-    public void testBuildDefaults() {
+    void testBuildDefaults() {
         final BasicThreadFactory factory = builder.build();
         checkFactoryDefaults(factory);
     }
@@ -72,7 +72,7 @@ public class BasicThreadFactoryTest {
      * Tries to set a null naming pattern.
      */
     @Test
-    public void testBuildNamingPatternNull() {
+    void testBuildNamingPatternNull() {
         assertThrows(NullPointerException.class, () -> builder.namingPattern(null));
     }
 
@@ -80,7 +80,7 @@ public class BasicThreadFactoryTest {
      * Tries to set a null wrapped factory.
      */
     @Test
-    public void testBuildWrappedFactoryNull() {
+    void testBuildWrappedFactoryNull() {
         assertThrows(NullPointerException.class, () -> builder.wrappedFactory(null));
     }
 
@@ -88,7 +88,7 @@ public class BasicThreadFactoryTest {
      * Tries to set a null exception handler.
      */
     @Test
-    public void testBuildUncaughtExceptionHandlerNull() {
+    void testBuildUncaughtExceptionHandlerNull() {
         assertThrows(NullPointerException.class, () -> builder.uncaughtExceptionHandler(null));
     }
 
@@ -96,7 +96,7 @@ public class BasicThreadFactoryTest {
      * Tests the reset() method of the builder.
      */
     @Test
-    public void testBuilderReset() {
+    void testBuilderReset() {
         final ThreadFactory wrappedFactory = EasyMock.createMock(ThreadFactory.class);
         final Thread.UncaughtExceptionHandler exHandler = EasyMock
                 .createMock(Thread.UncaughtExceptionHandler.class);
@@ -115,7 +115,7 @@ public class BasicThreadFactoryTest {
      * Tests whether reset() is automatically called after build().
      */
     @Test
-    public void testBuilderResetAfterBuild() {
+    void testBuilderResetAfterBuild() {
         builder.wrappedFactory(EasyMock.createNiceMock(ThreadFactory.class))
                 .namingPattern(PATTERN).daemon(true).build();
         checkFactoryDefaults(builder.build());
@@ -125,7 +125,7 @@ public class BasicThreadFactoryTest {
      * Tests whether the naming pattern is applied to new threads.
      */
     @Test
-    public void testNewThreadNamingPattern() {
+    void testNewThreadNamingPattern() {
         final ThreadFactory wrapped = EasyMock.createMock(ThreadFactory.class);
         final Runnable r = EasyMock.createMock(Runnable.class);
         final int count = 12;
@@ -148,7 +148,7 @@ public class BasicThreadFactoryTest {
      * set.
      */
     @Test
-    public void testNewThreadNoNamingPattern() {
+    void testNewThreadNoNamingPattern() {
         final ThreadFactory wrapped = EasyMock.createMock(ThreadFactory.class);
         final Runnable r = EasyMock.createMock(Runnable.class);
         final String name = "unchangedThreadName";
@@ -183,7 +183,7 @@ public class BasicThreadFactoryTest {
      * Tests whether daemon threads can be created.
      */
     @Test
-    public void testNewThreadDaemonTrue() {
+    void testNewThreadDaemonTrue() {
         checkDaemonFlag(true);
     }
 
@@ -191,7 +191,7 @@ public class BasicThreadFactoryTest {
      * Tests whether the daemon status of new threads can be turned off.
      */
     @Test
-    public void testNewThreadDaemonFalse() {
+    void testNewThreadDaemonFalse() {
         checkDaemonFlag(false);
     }
 
@@ -200,7 +200,7 @@ public class BasicThreadFactoryTest {
      * it is not specified.
      */
     @Test
-    public void testNewThreadNoDaemonFlag() {
+    void testNewThreadNoDaemonFlag() {
         final ThreadFactory wrapped = EasyMock.createMock(ThreadFactory.class);
         final Runnable r1 = EasyMock.createMock(Runnable.class);
         final Runnable r2 = EasyMock.createMock(Runnable.class);
@@ -222,7 +222,7 @@ public class BasicThreadFactoryTest {
      * Tests whether the priority is set on newly created threads.
      */
     @Test
-    public void testNewThreadPriority() {
+    void testNewThreadPriority() {
         final ThreadFactory wrapped = EasyMock.createMock(ThreadFactory.class);
         final Runnable r = EasyMock.createMock(Runnable.class);
         final Thread t = new Thread();
@@ -241,7 +241,7 @@ public class BasicThreadFactoryTest {
      * specified.
      */
     @Test
-    public void testNewThreadNoPriority() {
+    void testNewThreadNoPriority() {
         final ThreadFactory wrapped = EasyMock.createMock(ThreadFactory.class);
         final Runnable r = EasyMock.createMock(Runnable.class);
         final int orgPriority = Thread.NORM_PRIORITY + 1;
@@ -259,7 +259,7 @@ public class BasicThreadFactoryTest {
      * Tests whether the exception handler is set if one is provided.
      */
     @Test
-    public void testNewThreadExHandler() {
+    void testNewThreadExHandler() {
         final ThreadFactory wrapped = EasyMock.createMock(ThreadFactory.class);
         final Runnable r = EasyMock.createMock(Runnable.class);
         final Thread.UncaughtExceptionHandler handler = EasyMock
@@ -279,7 +279,7 @@ public class BasicThreadFactoryTest {
      * specified.
      */
     @Test
-    public void testNewThreadNoExHandler() {
+    void testNewThreadNoExHandler() {
         final ThreadFactory wrapped = EasyMock.createMock(ThreadFactory.class);
         final Runnable r = EasyMock.createMock(Runnable.class);
         final Thread.UncaughtExceptionHandler handler = EasyMock

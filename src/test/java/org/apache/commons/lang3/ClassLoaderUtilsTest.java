@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 public class ClassLoaderUtilsTest {
 
     @Test
-    public void testToString_ClassLoader() throws IOException {
+    void testToString_ClassLoader() throws IOException {
         final URL url = new URL("http://localhost");
         try (URLClassLoader urlClassLoader = new URLClassLoader(new URL[] { url })) {
             @SuppressWarnings("resource")
@@ -40,7 +40,7 @@ public class ClassLoaderUtilsTest {
     }
 
     @Test
-    public void testToString_URLClassLoader() throws IOException {
+    void testToString_URLClassLoader() throws IOException {
         final URL url = new URL("http://localhost");
         try (URLClassLoader urlClassLoader = new URLClassLoader(new URL[] { url })) {
             Assertions.assertEquals(String.format("%s[%s]", urlClassLoader, url),

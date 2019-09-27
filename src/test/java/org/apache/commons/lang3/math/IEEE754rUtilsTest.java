@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 public class IEEE754rUtilsTest  {
 
     @Test
-    public void testLang381() {
+    void testLang381() {
         assertEquals(1.2, IEEE754rUtils.min(1.2, 2.5, Double.NaN), 0.01);
         assertEquals(2.5, IEEE754rUtils.max(1.2, 2.5, Double.NaN), 0.01);
         assertTrue(Double.isNaN(IEEE754rUtils.max(Double.NaN, Double.NaN, Double.NaN)));
@@ -54,7 +54,7 @@ public class IEEE754rUtilsTest  {
     }
 
     @Test
-    public void testEnforceExceptions() {
+    void testEnforceExceptions() {
         assertThrows(
                 IllegalArgumentException.class,
                 () -> IEEE754rUtils.min( (float[]) null),
@@ -97,7 +97,7 @@ public class IEEE754rUtilsTest  {
     }
 
     @Test
-    public void testConstructorExists() {
+    void testConstructorExists() {
         new IEEE754rUtils();
     }
 

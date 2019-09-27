@@ -28,21 +28,21 @@ import org.junit.jupiter.api.Test;
 public class CharsetsTestCase {
 
     @Test
-    public void testToCharset_Charset() {
+    void testToCharset_Charset() {
         Assertions.assertEquals(Charset.defaultCharset(), Charsets.toCharset((Charset) null));
         Assertions.assertEquals(Charset.defaultCharset(), Charsets.toCharset(Charset.defaultCharset()));
         Assertions.assertEquals(Charset.forName("UTF-8"), Charsets.toCharset(Charset.forName("UTF-8")));
     }
 
     @Test
-    public void testToCharset_String() {
+    void testToCharset_String() {
         Assertions.assertEquals(Charset.defaultCharset(), Charsets.toCharset((String) null));
         Assertions.assertEquals(Charset.defaultCharset(), Charsets.toCharset(Charset.defaultCharset().name()));
         Assertions.assertEquals(Charset.forName("UTF-8"), Charsets.toCharset("UTF-8"));
     }
 
     @Test
-    public void testToCharsetName() {
+    void testToCharsetName() {
         Assertions.assertEquals(Charset.defaultCharset().name(), Charsets.toCharsetName((String) null));
         Assertions.assertEquals("UTF-8", Charsets.toCharsetName("UTF-8"));
     }

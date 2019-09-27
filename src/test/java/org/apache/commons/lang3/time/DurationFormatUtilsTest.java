@@ -39,7 +39,7 @@ public class DurationFormatUtilsTest {
 
     // -----------------------------------------------------------------------
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(new DurationFormatUtils());
         final Constructor<?>[] cons = DurationFormatUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
@@ -50,7 +50,7 @@ public class DurationFormatUtilsTest {
 
     // -----------------------------------------------------------------------
     @Test
-    public void testFormatDurationWords() {
+    void testFormatDurationWords() {
         String text = null;
 
         text = DurationFormatUtils.formatDurationWords(50 * 1000, true, false);
@@ -116,7 +116,7 @@ public class DurationFormatUtilsTest {
      * Tests that "1 &lt;unit&gt;s" gets converted to "1 &lt;unit&gt;" but that "11 &lt;unit&gt;s" is left alone.
      */
     @Test
-    public void testFormatDurationPluralWords() {
+    void testFormatDurationPluralWords() {
         final long oneSecond = 1000;
         final long oneMinute = oneSecond * 60;
         final long oneHour = oneMinute * 60;
@@ -159,12 +159,12 @@ public class DurationFormatUtilsTest {
     }
 
     @Test
-    public void testFormatNegativeDurationWords() {
+    void testFormatNegativeDurationWords() {
         assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDurationWords(-5000, true, true));
     }
 
     @Test
-    public void testFormatDurationHMS() {
+    void testFormatDurationHMS() {
         long time = 0;
         assertEquals("00:00:00.000", DurationFormatUtils.formatDurationHMS(time));
 
@@ -194,12 +194,12 @@ public class DurationFormatUtilsTest {
     }
 
     @Test
-    public void testFormatNegativeDurationHMS() {
+    void testFormatNegativeDurationHMS() {
         assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDurationHMS(-5000));
     }
 
     @Test
-    public void testFormatDurationISO() {
+    void testFormatDurationISO() {
         assertEquals("P0Y0M0DT0H0M0.000S", DurationFormatUtils.formatDurationISO(0L));
         assertEquals("P0Y0M0DT0H0M0.001S", DurationFormatUtils.formatDurationISO(1L));
         assertEquals("P0Y0M0DT0H0M0.010S", DurationFormatUtils.formatDurationISO(10L));
@@ -208,12 +208,12 @@ public class DurationFormatUtilsTest {
     }
 
     @Test
-    public void testFormatNegativeDurationISO() {
+    void testFormatNegativeDurationISO() {
         assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDurationISO(-5000));
     }
 
     @Test
-    public void testFormatDuration() {
+    void testFormatDuration() {
         long duration = 0;
         assertEquals("0", DurationFormatUtils.formatDuration(duration, "y"));
         assertEquals("0", DurationFormatUtils.formatDuration(duration, "M"));
@@ -251,13 +251,13 @@ public class DurationFormatUtilsTest {
     }
 
     @Test
-    public void testFormatNegativeDuration() {
+    void testFormatNegativeDuration() {
         assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDuration(-5000, "S", true));
     }
 
     @SuppressWarnings("deprecation")
     @Test
-    public void testFormatPeriodISO() {
+    void testFormatPeriodISO() {
         final TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
         final Calendar base = Calendar.getInstance(timeZone);
         base.set(1970, Calendar.JANUARY, 1, 0, 0, 0);
@@ -285,19 +285,19 @@ public class DurationFormatUtilsTest {
     }
 
     @Test
-    public void testFormatPeriodISOStartGreaterEnd() {
+    void testFormatPeriodISOStartGreaterEnd() {
         assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatPeriodISO(5000, 2000));
     }
 
     @Test
-    public void testFormatPeriodISOMethod() {
+    void testFormatPeriodISOMethod() {
         assertEquals("P0Y0M0DT0H0M0.000S", DurationFormatUtils.formatPeriodISO(0L, 0L));
         assertEquals("P0Y0M0DT0H0M1.000S", DurationFormatUtils.formatPeriodISO(0L, 1000L));
         assertEquals("P0Y0M0DT0H1M1.000S", DurationFormatUtils.formatPeriodISO(0L, 61000L));
     }
 
     @Test
-    public void testFormatPeriod() {
+    void testFormatPeriod() {
         final Calendar cal1970 = Calendar.getInstance();
         cal1970.set(1970, Calendar.JANUARY, 1, 0, 0, 0);
         cal1970.set(Calendar.MILLISECOND, 0);
@@ -351,12 +351,12 @@ public class DurationFormatUtilsTest {
     }
 
     @Test
-    public void testFormatPeriodeStartGreaterEnd() {
+    void testFormatPeriodeStartGreaterEnd() {
         assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatPeriod(5000, 2500, "yy/MM"));
     }
 
     @Test
-    public void testLexx() {
+    void testLexx() {
         // tests each constant
         assertArrayEquals(new DurationFormatUtils.Token[]{
             new DurationFormatUtils.Token(DurationFormatUtils.y, 1),
@@ -408,20 +408,20 @@ public class DurationFormatUtilsTest {
 
     // https://issues.apache.org/bugzilla/show_bug.cgi?id=38401
     @Test
-    public void testBugzilla38401() {
+    void testBugzilla38401() {
         assertEqualDuration( "0000/00/30 16:00:00 000", new int[] { 2006, 0, 26, 18, 47, 34 },
                              new int[] { 2006, 1, 26, 10, 47, 34 }, "yyyy/MM/dd HH:mm:ss SSS");
     }
 
     // https://issues.apache.org/jira/browse/LANG-281
     @Test
-    public void testJiraLang281() {
+    void testJiraLang281() {
         assertEqualDuration( "09", new int[] { 2005, 11, 31, 0, 0, 0 },
                              new int[] { 2006, 9, 6, 0, 0, 0 }, "MM");
     }
 
     @Test
-    public void testLANG815() {
+    void testLANG815() {
         final Calendar calendar = Calendar.getInstance();
         calendar.set(2012, Calendar.JULY, 30, 0, 0, 0);
         final long startMillis = calendar.getTimeInMillis();
@@ -434,7 +434,7 @@ public class DurationFormatUtilsTest {
 
     // Testing the under a day range in DurationFormatUtils.formatPeriod
     @Test
-    public void testLowDurations() {
+    void testLowDurations() {
         for (int hr=0; hr < 24; hr++) {
             for (int min=0; min < 60; min++) {
                 for (int sec=0; sec < 60; sec++) {
@@ -450,7 +450,7 @@ public class DurationFormatUtilsTest {
 
     // Attempting to test edge cases in DurationFormatUtils.formatPeriod
     @Test
-    public void testEdgeDurations() {
+    void testEdgeDurations() {
         // This test case must use a time zone without DST
         TimeZone.setDefault(FastTimeZone.getGmtTimeZone());
         assertEqualDuration( "01", new int[] { 2006, 0, 15, 0, 0, 0 },
@@ -542,7 +542,7 @@ public class DurationFormatUtilsTest {
     }
 
     @Test
-    public void testLANG984() { // Long durations
+    void testLANG984() { // Long durations
         assertEquals("0", DurationFormatUtils.formatDuration(0, "S"));
         assertEquals(Integer.toString(Integer.MAX_VALUE), DurationFormatUtils.formatDuration(Integer.MAX_VALUE, "S"));
         long maxIntPlus=Integer.MAX_VALUE;
@@ -552,7 +552,7 @@ public class DurationFormatUtilsTest {
     }
 
     @Test
-    public void testLANG982() { // More than 3 millisecond digits following a second
+    void testLANG982() { // More than 3 millisecond digits following a second
         assertEquals("61.999", DurationFormatUtils.formatDuration(61999, "s.S"));
         assertEquals("1 1999", DurationFormatUtils.formatDuration(61999, "m S"));
         assertEquals("61.999", DurationFormatUtils.formatDuration(61999, "s.SSS"));
@@ -564,7 +564,7 @@ public class DurationFormatUtilsTest {
     }
 
     @Test
-    public void testDurationsByBruteForce() {
+    void testDurationsByBruteForce() {
         bruteForce(2006, 0, 1, "d", Calendar.DAY_OF_MONTH);
         bruteForce(2006, 0, 2, "d", Calendar.DAY_OF_MONTH);
         bruteForce(2007, 1, 2, "d", Calendar.DAY_OF_MONTH);
@@ -576,7 +576,7 @@ public class DurationFormatUtilsTest {
     }
 
     @Test
-    public void testLANG981() { // unmatched quote char in lexx
+    void testLANG981() { // unmatched quote char in lexx
         assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.lexx("'yMdHms''S"));
     }
 
