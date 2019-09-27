@@ -876,8 +876,8 @@ public class TypeUtils {
         // map the arguments to their respective type variables
         for (int i = 0; i < typeParams.length; i++) {
             final Type typeArg = typeArgs[i];
-            typeVarAssigns.put(typeParams[i], typeVarAssigns.containsKey(typeArg) ? typeVarAssigns
-                    .get(typeArg) : typeArg);
+            typeVarAssigns.put(typeParams[i], typeVarAssigns
+                .getOrDefault(typeArg, typeArg));
         }
 
         if (toClass.equals(cls)) {
@@ -1458,7 +1458,7 @@ public class TypeUtils {
      * @return {@link ParameterizedType}
      * @since 3.2
      */
-    public static final ParameterizedType parameterize(final Class<?> raw, final Type... typeArguments) {
+    public static ParameterizedType parameterize(final Class<?> raw, final Type... typeArguments) {
         return parameterizeWithOwner(null, raw, typeArguments);
     }
 
@@ -1470,8 +1470,8 @@ public class TypeUtils {
      * @return {@link ParameterizedType}
      * @since 3.2
      */
-    public static final ParameterizedType parameterize(final Class<?> raw,
-        final Map<TypeVariable<?>, Type> typeArgMappings) {
+    public static ParameterizedType parameterize(final Class<?> raw,
+                                                 final Map<TypeVariable<?>, Type> typeArgMappings) {
         Validate.notNull(raw, "raw class is null");
         Validate.notNull(typeArgMappings, "typeArgMappings is null");
         return parameterizeWithOwner(null, raw, extractTypeArgumentsFrom(typeArgMappings, raw.getTypeParameters()));
@@ -1487,8 +1487,8 @@ public class TypeUtils {
      * @return {@link ParameterizedType}
      * @since 3.2
      */
-    public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> raw,
-        final Type... typeArguments) {
+    public static ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> raw,
+                                                          final Type... typeArguments) {
         Validate.notNull(raw, "raw class is null");
         final Type useOwner;
         if (raw.getEnclosingClass() == null) {
@@ -1518,8 +1518,8 @@ public class TypeUtils {
      * @return {@link ParameterizedType}
      * @since 3.2
      */
-    public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> raw,
-        final Map<TypeVariable<?>, Type> typeArgMappings) {
+    public static ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> raw,
+                                                          final Map<TypeVariable<?>, Type> typeArgMappings) {
         Validate.notNull(raw, "raw class is null");
         Validate.notNull(typeArgMappings, "typeArgMappings is null");
         return parameterizeWithOwner(owner, raw, extractTypeArgumentsFrom(typeArgMappings, raw.getTypeParameters()));

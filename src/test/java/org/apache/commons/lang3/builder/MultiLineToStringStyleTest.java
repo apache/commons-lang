@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
  */
 public class MultiLineToStringStyleTest {
 
-    private final Integer base = Integer.valueOf(5);
+    private final Integer base = 5;
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
 
     @BeforeEach
@@ -63,8 +63,8 @@ public class MultiLineToStringStyleTest {
 
     @Test
     public void testObject() {
-        final Integer i3 = Integer.valueOf(3);
-        final Integer i4 = Integer.valueOf(4);
+        final Integer i3 = 3;
+        final Integer i4 = 4;
         assertEquals(baseStr + "[" + System.lineSeparator() + "  <null>" + System.lineSeparator() + "]", new ToStringBuilder(base).append((Object) null).toString());
         assertEquals(baseStr + "[" + System.lineSeparator() + "  3" + System.lineSeparator() + "]", new ToStringBuilder(base).append(i3).toString());
         assertEquals(baseStr + "[" + System.lineSeparator() + "  a=<null>" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", (Object) null).toString());

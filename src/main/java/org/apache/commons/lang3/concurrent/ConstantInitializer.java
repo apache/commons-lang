@@ -122,7 +122,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
      */
     @Override
     public String toString() {
-        return String.format(FMT_TO_STRING, Integer.valueOf(System.identityHashCode(this)),
+        return String.format(FMT_TO_STRING, System.identityHashCode(this),
                 String.valueOf(getObject()));
     }
 }

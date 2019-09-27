@@ -1089,7 +1089,7 @@ public class ClassUtilsTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
-        assertNotNull(new ClassUtils());
+        new ClassUtils();
         final Constructor<?>[] cons = ClassUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
@@ -1369,9 +1369,9 @@ public class ClassUtilsTest  {
 
         assertSame(ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.toClass(ArrayUtils.EMPTY_OBJECT_ARRAY));
 
-        assertArrayEquals(new Class[]{String.class, Integer.class, Double.class}, ClassUtils.toClass("Test", Integer.valueOf(1), Double.valueOf(99d)));
+        assertArrayEquals(new Class[]{String.class, Integer.class, Double.class}, ClassUtils.toClass("Test", 1, 99d));
 
-        assertArrayEquals(new Class[]{String.class, null, Double.class}, ClassUtils.toClass("Test", null, Double.valueOf(99d)));
+        assertArrayEquals(new Class[]{String.class, null, Double.class}, ClassUtils.toClass("Test", null, 99d));
     }
 
     @Test

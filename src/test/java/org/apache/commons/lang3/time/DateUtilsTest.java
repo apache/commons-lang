@@ -146,7 +146,7 @@ public class DateUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
-        assertNotNull(new DateUtils());
+        new DateUtils();
         final Constructor<?>[] cons = DateUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));

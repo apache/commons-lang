@@ -294,17 +294,14 @@ public class EventCountCircuitBreakerTest {
         final CountDownLatch latch = new CountDownLatch(1);
         final Thread[] threads = new Thread[threadCount];
         for (int i = 0; i < threadCount; i++) {
-            threads[i] = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        latch.await();
-                    } catch (final InterruptedException iex) {
-                        // ignore
-                    }
-                    breaker.open();
+            threads[i] = new Thread(() -> {
+                try {
+                    latch.await();
+                } catch (final InterruptedException iex) {
+                    // ignore
                 }
-            };
+                breaker.open();
+            });
             threads[i].start();
         }
         latch.countDown();

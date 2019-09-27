@@ -37,7 +37,7 @@ public class CharSequenceUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
-        assertNotNull(new CharSequenceUtils());
+        new CharSequenceUtils();
         final Constructor<?>[] cons = CharSequenceUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));

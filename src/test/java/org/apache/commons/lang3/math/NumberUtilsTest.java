@@ -39,7 +39,7 @@ public class NumberUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
-        assertNotNull(new NumberUtils());
+        new NumberUtils();
         final Constructor<?>[] cons = NumberUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
@@ -273,13 +273,13 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToScaledBigDecimalFloat() {
-        assertEquals(NumberUtils.toScaledBigDecimal(Float.valueOf(123.456f)), BigDecimal.valueOf(123.46), "toScaledBigDecimal(Float) 1 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(123.456f), BigDecimal.valueOf(123.46), "toScaledBigDecimal(Float) 1 failed");
         // Test RoudingMode.HALF_EVEN default rounding.
-        assertEquals(NumberUtils.toScaledBigDecimal(Float.valueOf(23.515f)), BigDecimal.valueOf(23.51), "toScaledBigDecimal(Float) 2 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(23.515f), BigDecimal.valueOf(23.51), "toScaledBigDecimal(Float) 2 failed");
         // Note. NumberUtils.toScaledBigDecimal(Float.valueOf(23.515f)).equals(BigDecimal.valueOf(23.51))
         // because of roundoff error. It is ok.
-        assertEquals(NumberUtils.toScaledBigDecimal(Float.valueOf(23.525f)), BigDecimal.valueOf(23.52), "toScaledBigDecimal(Float) 3 failed");
-        assertEquals("2352.00", NumberUtils.toScaledBigDecimal(Float.valueOf(23.525f))
+        assertEquals(NumberUtils.toScaledBigDecimal(23.525f), BigDecimal.valueOf(23.52), "toScaledBigDecimal(Float) 3 failed");
+        assertEquals("2352.00", NumberUtils.toScaledBigDecimal(23.525f)
                 .multiply(BigDecimal.valueOf(100)).toString(), "toScaledBigDecimal(Float) 4 failed");
         assertEquals(NumberUtils.toScaledBigDecimal((Float) null), BigDecimal.ZERO, "toScaledBigDecimal(Float) 5 failed");
     }
@@ -289,11 +289,11 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToScaledBigDecimalFloatIRM() {
-        assertEquals(NumberUtils.toScaledBigDecimal(Float.valueOf(123.456f), 1, RoundingMode.CEILING), BigDecimal.valueOf(123.5), "toScaledBigDecimal(Float, int, RoudingMode) 1 failed");
-        assertEquals(NumberUtils.toScaledBigDecimal(Float.valueOf(23.5159f), 3, RoundingMode.FLOOR), BigDecimal.valueOf(23.515), "toScaledBigDecimal(Float, int, RoudingMode) 2 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(123.456f, 1, RoundingMode.CEILING), BigDecimal.valueOf(123.5), "toScaledBigDecimal(Float, int, RoudingMode) 1 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(23.5159f, 3, RoundingMode.FLOOR), BigDecimal.valueOf(23.515), "toScaledBigDecimal(Float, int, RoudingMode) 2 failed");
         // The following happens due to roundoff error. We're ok with this.
-        assertEquals(NumberUtils.toScaledBigDecimal(Float.valueOf(23.525f), 2, RoundingMode.HALF_UP), BigDecimal.valueOf(23.52), "toScaledBigDecimal(Float, int, RoudingMode) 3 failed");
-        assertEquals("23521.0000", NumberUtils.toScaledBigDecimal(Float.valueOf(23.521f), 4, RoundingMode.HALF_EVEN)
+        assertEquals(NumberUtils.toScaledBigDecimal(23.525f, 2, RoundingMode.HALF_UP), BigDecimal.valueOf(23.52), "toScaledBigDecimal(Float, int, RoudingMode) 3 failed");
+        assertEquals("23521.0000", NumberUtils.toScaledBigDecimal(23.521f, 4, RoundingMode.HALF_EVEN)
                 .multiply(BigDecimal.valueOf(1000))
                 .toString(), "toScaledBigDecimal(Float, int, RoudingMode) 4 failed");
         assertEquals(NumberUtils.toScaledBigDecimal((Float) null, 2, RoundingMode.HALF_UP), BigDecimal.ZERO, "toScaledBigDecimal(Float, int, RoudingMode) 5 failed");
@@ -304,11 +304,11 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToScaledBigDecimalDouble() {
-        assertEquals(NumberUtils.toScaledBigDecimal(Double.valueOf(123.456d)), BigDecimal.valueOf(123.46), "toScaledBigDecimal(Double) 1 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(123.456d), BigDecimal.valueOf(123.46), "toScaledBigDecimal(Double) 1 failed");
         // Test RoudingMode.HALF_EVEN default rounding.
-        assertEquals(NumberUtils.toScaledBigDecimal(Double.valueOf(23.515d)), BigDecimal.valueOf(23.52), "toScaledBigDecimal(Double) 2 failed");
-        assertEquals(NumberUtils.toScaledBigDecimal(Double.valueOf(23.525d)), BigDecimal.valueOf(23.52), "toScaledBigDecimal(Double) 3 failed");
-        assertEquals("2352.00", NumberUtils.toScaledBigDecimal(Double.valueOf(23.525d))
+        assertEquals(NumberUtils.toScaledBigDecimal(23.515d), BigDecimal.valueOf(23.52), "toScaledBigDecimal(Double) 2 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(23.525d), BigDecimal.valueOf(23.52), "toScaledBigDecimal(Double) 3 failed");
+        assertEquals("2352.00", NumberUtils.toScaledBigDecimal(23.525d)
                 .multiply(BigDecimal.valueOf(100)).toString(), "toScaledBigDecimal(Double) 4 failed");
         assertEquals(NumberUtils.toScaledBigDecimal((Double) null), BigDecimal.ZERO, "toScaledBigDecimal(Double) 5 failed");
     }
@@ -318,10 +318,10 @@ public class NumberUtilsTest {
      */
     @Test
     public void testToScaledBigDecimalDoubleIRM() {
-        assertEquals(NumberUtils.toScaledBigDecimal(Double.valueOf(123.456d), 1, RoundingMode.CEILING), BigDecimal.valueOf(123.5), "toScaledBigDecimal(Double, int, RoudingMode) 1 failed");
-        assertEquals(NumberUtils.toScaledBigDecimal(Double.valueOf(23.5159d), 3, RoundingMode.FLOOR), BigDecimal.valueOf(23.515), "toScaledBigDecimal(Double, int, RoudingMode) 2 failed");
-        assertEquals(NumberUtils.toScaledBigDecimal(Double.valueOf(23.525d), 2, RoundingMode.HALF_UP), BigDecimal.valueOf(23.53), "toScaledBigDecimal(Double, int, RoudingMode) 3 failed");
-        assertEquals("23521.0000", NumberUtils.toScaledBigDecimal(Double.valueOf(23.521d), 4, RoundingMode.HALF_EVEN)
+        assertEquals(NumberUtils.toScaledBigDecimal(123.456d, 1, RoundingMode.CEILING), BigDecimal.valueOf(123.5), "toScaledBigDecimal(Double, int, RoudingMode) 1 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(23.5159d, 3, RoundingMode.FLOOR), BigDecimal.valueOf(23.515), "toScaledBigDecimal(Double, int, RoudingMode) 2 failed");
+        assertEquals(NumberUtils.toScaledBigDecimal(23.525d, 2, RoundingMode.HALF_UP), BigDecimal.valueOf(23.53), "toScaledBigDecimal(Double, int, RoudingMode) 3 failed");
+        assertEquals("23521.0000", NumberUtils.toScaledBigDecimal(23.521d, 4, RoundingMode.HALF_EVEN)
                 .multiply(BigDecimal.valueOf(1000))
                 .toString(), "toScaledBigDecimal(Double, int, RoudingMode) 4 failed");
         assertEquals(NumberUtils.toScaledBigDecimal((Double) null, 2, RoundingMode.HALF_UP), BigDecimal.ZERO, "toScaledBigDecimal(Double, int, RoudingMode) 5 failed");
@@ -364,10 +364,10 @@ public class NumberUtilsTest {
         assertEquals(Double.valueOf("1234.5"), NumberUtils.createNumber("1234.5d"), "createNumber(String) 3 failed");
         assertEquals(Float.valueOf("1234.5"), NumberUtils.createNumber("1234.5F"), "createNumber(String) 4 failed");
         assertEquals(Float.valueOf("1234.5"), NumberUtils.createNumber("1234.5f"), "createNumber(String) 4 failed");
-        assertEquals(Long.valueOf(Integer.MAX_VALUE + 1L), NumberUtils.createNumber(""
+        assertEquals(Integer.MAX_VALUE + 1L, NumberUtils.createNumber(""
                     + (Integer.MAX_VALUE + 1L)), "createNumber(String) 5 failed");
-        assertEquals(Long.valueOf(12345), NumberUtils.createNumber("12345L"), "createNumber(String) 6 failed");
-        assertEquals(Long.valueOf(12345), NumberUtils.createNumber("12345l"), "createNumber(String) 6 failed");
+        assertEquals(12345L, NumberUtils.createNumber("12345L"), "createNumber(String) 6 failed");
+        assertEquals(12345L, NumberUtils.createNumber("12345l"), "createNumber(String) 6 failed");
         assertEquals(Float.valueOf("-1234.5"), NumberUtils.createNumber("-1234.5"), "createNumber(String) 7 failed");
         assertEquals(Integer.valueOf("-12345"), NumberUtils.createNumber("-12345"), "createNumber(String) 8 failed");
         assertEquals(0xFADE, NumberUtils.createNumber("0xFADE").intValue(), "createNumber(String) 9a failed");
@@ -394,7 +394,7 @@ public class NumberUtilsTest {
         assertFalse(checkCreateNumber("1eE"), "createNumber(String) succeeded");
 
         // LANG-693
-        assertEquals(Double.valueOf(Double.MAX_VALUE), NumberUtils.createNumber("" + Double.MAX_VALUE), "createNumber(String) LANG-693 failed");
+        assertEquals(Double.MAX_VALUE, NumberUtils.createNumber("" + Double.MAX_VALUE), "createNumber(String) LANG-693 failed");
 
         // LANG-822
         // ensure that the underlying negative number would create a BigDecimal
@@ -443,36 +443,36 @@ public class NumberUtilsTest {
 
     @Test
     public void TestLang747() {
-        assertEquals(Integer.valueOf(0x8000),      NumberUtils.createNumber("0x8000"));
-        assertEquals(Integer.valueOf(0x80000),     NumberUtils.createNumber("0x80000"));
-        assertEquals(Integer.valueOf(0x800000),    NumberUtils.createNumber("0x800000"));
-        assertEquals(Integer.valueOf(0x8000000),   NumberUtils.createNumber("0x8000000"));
-        assertEquals(Integer.valueOf(0x7FFFFFFF),  NumberUtils.createNumber("0x7FFFFFFF"));
-        assertEquals(Long.valueOf(0x80000000L),    NumberUtils.createNumber("0x80000000"));
-        assertEquals(Long.valueOf(0xFFFFFFFFL),    NumberUtils.createNumber("0xFFFFFFFF"));
+        assertEquals(0x8000,      NumberUtils.createNumber("0x8000"));
+        assertEquals(0x80000,     NumberUtils.createNumber("0x80000"));
+        assertEquals(0x800000,    NumberUtils.createNumber("0x800000"));
+        assertEquals(0x8000000,   NumberUtils.createNumber("0x8000000"));
+        assertEquals(0x7FFFFFFF,  NumberUtils.createNumber("0x7FFFFFFF"));
+        assertEquals(0x80000000L,    NumberUtils.createNumber("0x80000000"));
+        assertEquals(0xFFFFFFFFL,    NumberUtils.createNumber("0xFFFFFFFF"));
 
         // Leading zero tests
-        assertEquals(Integer.valueOf(0x8000000),   NumberUtils.createNumber("0x08000000"));
-        assertEquals(Integer.valueOf(0x7FFFFFFF),  NumberUtils.createNumber("0x007FFFFFFF"));
-        assertEquals(Long.valueOf(0x80000000L),    NumberUtils.createNumber("0x080000000"));
-        assertEquals(Long.valueOf(0xFFFFFFFFL),    NumberUtils.createNumber("0x00FFFFFFFF"));
+        assertEquals(0x8000000,   NumberUtils.createNumber("0x08000000"));
+        assertEquals(0x7FFFFFFF,  NumberUtils.createNumber("0x007FFFFFFF"));
+        assertEquals(0x80000000L,    NumberUtils.createNumber("0x080000000"));
+        assertEquals(0xFFFFFFFFL,    NumberUtils.createNumber("0x00FFFFFFFF"));
 
-        assertEquals(Long.valueOf(0x800000000L),        NumberUtils.createNumber("0x800000000"));
-        assertEquals(Long.valueOf(0x8000000000L),       NumberUtils.createNumber("0x8000000000"));
-        assertEquals(Long.valueOf(0x80000000000L),      NumberUtils.createNumber("0x80000000000"));
-        assertEquals(Long.valueOf(0x800000000000L),     NumberUtils.createNumber("0x800000000000"));
-        assertEquals(Long.valueOf(0x8000000000000L),    NumberUtils.createNumber("0x8000000000000"));
-        assertEquals(Long.valueOf(0x80000000000000L),   NumberUtils.createNumber("0x80000000000000"));
-        assertEquals(Long.valueOf(0x800000000000000L),  NumberUtils.createNumber("0x800000000000000"));
-        assertEquals(Long.valueOf(0x7FFFFFFFFFFFFFFFL), NumberUtils.createNumber("0x7FFFFFFFFFFFFFFF"));
+        assertEquals(0x800000000L,        NumberUtils.createNumber("0x800000000"));
+        assertEquals(0x8000000000L,       NumberUtils.createNumber("0x8000000000"));
+        assertEquals(0x80000000000L,      NumberUtils.createNumber("0x80000000000"));
+        assertEquals(0x800000000000L,     NumberUtils.createNumber("0x800000000000"));
+        assertEquals(0x8000000000000L,    NumberUtils.createNumber("0x8000000000000"));
+        assertEquals(0x80000000000000L,   NumberUtils.createNumber("0x80000000000000"));
+        assertEquals(0x800000000000000L,  NumberUtils.createNumber("0x800000000000000"));
+        assertEquals(0x7FFFFFFFFFFFFFFFL, NumberUtils.createNumber("0x7FFFFFFFFFFFFFFF"));
         // N.B. Cannot use a hex constant such as 0x8000000000000000L here as that is interpreted as a negative long
         assertEquals(new BigInteger("8000000000000000", 16), NumberUtils.createNumber("0x8000000000000000"));
         assertEquals(new BigInteger("FFFFFFFFFFFFFFFF", 16), NumberUtils.createNumber("0xFFFFFFFFFFFFFFFF"));
 
         // Leading zero tests
-        assertEquals(Long.valueOf(0x80000000000000L),   NumberUtils.createNumber("0x00080000000000000"));
-        assertEquals(Long.valueOf(0x800000000000000L),  NumberUtils.createNumber("0x0800000000000000"));
-        assertEquals(Long.valueOf(0x7FFFFFFFFFFFFFFFL), NumberUtils.createNumber("0x07FFFFFFFFFFFFFFF"));
+        assertEquals(0x80000000000000L,   NumberUtils.createNumber("0x00080000000000000"));
+        assertEquals(0x800000000000000L,  NumberUtils.createNumber("0x0800000000000000"));
+        assertEquals(0x7FFFFFFFFFFFFFFFL, NumberUtils.createNumber("0x07FFFFFFFFFFFFFFF"));
         // N.B. Cannot use a hex constant such as 0x8000000000000000L here as that is interpreted as a negative long
         assertEquals(new BigInteger("8000000000000000", 16), NumberUtils.createNumber("0x00008000000000000000"));
         assertEquals(new BigInteger("FFFFFFFFFFFFFFFF", 16), NumberUtils.createNumber("0x0FFFFFFFFFFFFFFFF"));
@@ -531,28 +531,28 @@ public class NumberUtilsTest {
     @Test
     public void testCreateNumberMagnitude() {
         // Test Float.MAX_VALUE, and same with +1 in final digit to check conversion changes to next Number type
-        assertEquals(Float.valueOf(Float.MAX_VALUE),  NumberUtils.createNumber("3.4028235e+38"));
-        assertEquals(Double.valueOf(3.4028236e+38),   NumberUtils.createNumber("3.4028236e+38"));
+        assertEquals(Float.MAX_VALUE,  NumberUtils.createNumber("3.4028235e+38"));
+        assertEquals(3.4028236e+38,   NumberUtils.createNumber("3.4028236e+38"));
 
         // Test Double.MAX_VALUE
-        assertEquals(Double.valueOf(Double.MAX_VALUE),          NumberUtils.createNumber("1.7976931348623157e+308"));
+        assertEquals(Double.MAX_VALUE,          NumberUtils.createNumber("1.7976931348623157e+308"));
         // Test with +2 in final digit (+1 does not cause roll-over to BigDecimal)
         assertEquals(new BigDecimal("1.7976931348623159e+308"), NumberUtils.createNumber("1.7976931348623159e+308"));
 
-        assertEquals(Integer.valueOf(0x12345678), NumberUtils.createNumber("0x12345678"));
-        assertEquals(Long.valueOf(0x123456789L),  NumberUtils.createNumber("0x123456789"));
+        assertEquals(0x12345678, NumberUtils.createNumber("0x12345678"));
+        assertEquals(0x123456789L,  NumberUtils.createNumber("0x123456789"));
 
-        assertEquals(Long.valueOf(0x7fffffffffffffffL),      NumberUtils.createNumber("0x7fffffffffffffff"));
+        assertEquals(0x7fffffffffffffffL,      NumberUtils.createNumber("0x7fffffffffffffff"));
         // Does not appear to be a way to create a literal BigInteger of this magnitude
         assertEquals(new BigInteger("7fffffffffffffff0", 16), NumberUtils.createNumber("0x7fffffffffffffff0"));
 
-        assertEquals(Long.valueOf(0x7fffffffffffffffL),      NumberUtils.createNumber("#7fffffffffffffff"));
+        assertEquals(0x7fffffffffffffffL,      NumberUtils.createNumber("#7fffffffffffffff"));
         assertEquals(new BigInteger("7fffffffffffffff0", 16), NumberUtils.createNumber("#7fffffffffffffff0"));
 
-        assertEquals(Integer.valueOf(017777777777), NumberUtils.createNumber("017777777777")); // 31 bits
-        assertEquals(Long.valueOf(037777777777L),   NumberUtils.createNumber("037777777777")); // 32 bits
+        assertEquals(017777777777, NumberUtils.createNumber("017777777777")); // 31 bits
+        assertEquals(037777777777L,   NumberUtils.createNumber("037777777777")); // 32 bits
 
-        assertEquals(Long.valueOf(0777777777777777777777L),      NumberUtils.createNumber("0777777777777777777777")); // 63 bits
+        assertEquals(0777777777777777777777L,      NumberUtils.createNumber("0777777777777777777777")); // 63 bits
         assertEquals(new BigInteger("1777777777777777777777", 8), NumberUtils.createNumber("01777777777777777777777")); // 64 bits
     }
 

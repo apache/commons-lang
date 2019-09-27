@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
  */
 public class RecursiveToStringStyleTest {
 
-    private final Integer base = Integer.valueOf(5);
+    private final Integer base = 5;
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
 
     @BeforeEach
@@ -62,8 +62,8 @@ public class RecursiveToStringStyleTest {
 
     @Test
     public void testObject() {
-        final Integer i3 = Integer.valueOf(3);
-        final Integer i4 = Integer.valueOf(4);
+        final Integer i3 = 3;
+        final Integer i4 = 4;
         final ArrayList<Object> emptyList = new ArrayList<>();
 
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) null).toString());

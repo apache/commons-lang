@@ -86,7 +86,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      */
     @Override
     public Short getValue() {
-        return Short.valueOf(this.value);
+        return this.value;
     }
 
     /**
@@ -336,7 +336,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @return a Short instance containing the value from this mutable, never null
      */
     public Short toShort() {
-        return Short.valueOf(shortValue());
+        return shortValue();
     }
 
     //-----------------------------------------------------------------------

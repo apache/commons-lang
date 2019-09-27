@@ -36,7 +36,7 @@ public class WordUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
-        assertNotNull(new WordUtils());
+        new WordUtils();
         final Constructor<?>[] cons = WordUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));

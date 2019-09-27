@@ -81,7 +81,7 @@ public class ConstructorUtils {
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
             InstantiationException {
         args = ArrayUtils.nullToEmpty(args);
-        final Class<?> parameterTypes[] = ClassUtils.toClass(args);
+        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
         return invokeConstructor(cls, args, parameterTypes);
     }
 
@@ -145,7 +145,7 @@ public class ConstructorUtils {
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
             InstantiationException {
         args = ArrayUtils.nullToEmpty(args);
-        final Class<?> parameterTypes[] = ClassUtils.toClass(args);
+        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
         return invokeExactConstructor(cls, args, parameterTypes);
     }
 

@@ -33,7 +33,7 @@ public class ClassPathUtilsTest {
 
     @Test
     public void testConstructor() {
-        assertNotNull(new ClassPathUtils());
+        new ClassPathUtils();
         final Constructor<?>[] cons = ClassPathUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));

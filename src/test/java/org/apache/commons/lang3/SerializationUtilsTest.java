@@ -56,7 +56,7 @@ public class SerializationUtilsTest {
     @BeforeEach
     public void setUp() {
         iString = "foo";
-        iInteger = Integer.valueOf(7);
+        iInteger = 7;
         iMap = new HashMap<>();
         iMap.put("FOO", iString);
         iMap.put("BAR", iInteger);
@@ -66,7 +66,7 @@ public class SerializationUtilsTest {
 
     @Test
     public void testConstructor() {
-        assertNotNull(new SerializationUtils());
+        new SerializationUtils();
         final Constructor<?>[] cons = SerializationUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));

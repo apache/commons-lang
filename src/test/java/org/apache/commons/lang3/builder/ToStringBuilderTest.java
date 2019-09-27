@@ -37,7 +37,7 @@ public class ToStringBuilderTest {
 
     // See LANG-1337 for more.
     private static final int ARRAYLIST_INITIAL_CAPACITY = 10;
-    private final Integer base = Integer.valueOf(5);
+    private final Integer base = 5;
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
 
     /*
@@ -374,7 +374,7 @@ public class ToStringBuilderTest {
     }
 
     static class Outer {
-        Inner inner = new Inner();
+        final Inner inner = new Inner();
         class Inner {
             @Override
             public String toString() {
@@ -853,8 +853,8 @@ public class ToStringBuilderTest {
 
     @Test
     public void testObject() {
-        final Integer i3 = Integer.valueOf(3);
-        final Integer i4 = Integer.valueOf(4);
+        final Integer i3 = 3;
+        final Integer i4 = 4;
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) null).toString());
         assertEquals(baseStr + "[3]", new ToStringBuilder(base).append(i3).toString());
         assertEquals(baseStr + "[a=<null>]", new ToStringBuilder(base).append("a", (Object) null).toString());
@@ -871,8 +871,8 @@ public class ToStringBuilderTest {
 
     @Test
     public void testObjectBuild() {
-        final Integer i3 = Integer.valueOf(3);
-        final Integer i4 = Integer.valueOf(4);
+        final Integer i3 = 3;
+        final Integer i4 = 4;
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) null).build());
         assertEquals(baseStr + "[3]", new ToStringBuilder(base).append(i3).build());
         assertEquals(baseStr + "[a=<null>]", new ToStringBuilder(base).append("a", (Object) null).build());
@@ -1228,7 +1228,7 @@ public class ToStringBuilderTest {
      */
     @Test
     public void test_setUpToClass_valid() {
-        final Integer val = Integer.valueOf(5);
+        final Integer val = 5;
         final ReflectionToStringBuilder test = new ReflectionToStringBuilder(val);
         test.setUpToClass(Number.class);
         test.toString();
@@ -1239,7 +1239,7 @@ public class ToStringBuilderTest {
      */
     @Test
     public void test_setUpToClass_invalid() {
-        final Integer val = Integer.valueOf(5);
+        final Integer val = 5;
         final ReflectionToStringBuilder test = new ReflectionToStringBuilder(val);
         assertThrows(IllegalArgumentException.class, () -> test.setUpToClass(String.class));
         test.toString();
@@ -1286,7 +1286,7 @@ public class ToStringBuilderTest {
      * See issue LANG-372.
      */
     class MultiLineTestObject {
-        Integer i = Integer.valueOf(31337);
+        final Integer i = 31337;
         @Override
         public String toString() {
             return new ToStringBuilder(this).append("testInt", i).toString();

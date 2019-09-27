@@ -466,10 +466,10 @@ public class AnnotationUtilsTest {
 
             final InvocationHandler generatedTestInvocationHandler = (proxy, method, args) -> {
                 if ("equals".equals(method.getName()) && method.getParameterTypes().length == 1) {
-                    return Boolean.valueOf(proxy == args[0]);
+                    return proxy == args[0];
                 }
                 if ("hashCode".equals(method.getName()) && method.getParameterTypes().length == 0) {
-                    return Integer.valueOf(System.identityHashCode(proxy));
+                    return System.identityHashCode(proxy);
                 }
                 if ("toString".equals(method.getName()) && method.getParameterTypes().length == 0) {
                     return "Test proxy";

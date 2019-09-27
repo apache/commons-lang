@@ -1736,7 +1736,7 @@ public class StrBuilderTest {
         assertTrue(sb1.equals(sb2));
         assertEquals(sb1, (Object) sb2);
 
-        assertNotEquals(sb1, Integer.valueOf(1));
+        assertNotEquals(sb1, 1);
         assertNotEquals("abc", sb1);
     }
 

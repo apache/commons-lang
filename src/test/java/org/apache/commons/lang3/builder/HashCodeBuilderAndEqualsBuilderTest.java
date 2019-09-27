@@ -30,8 +30,8 @@ public class HashCodeBuilderAndEqualsBuilderTest {
     //-----------------------------------------------------------------------
 
     private void testInteger(final boolean testTransients) {
-        final Integer i1 = Integer.valueOf(12345);
-        final Integer i2 = Integer.valueOf(12345);
+        final Integer i1 = 12345;
+        final Integer i2 = 12345;
         assertEqualsAndHashCodeContract(i1, i2, testTransients);
     }
 
@@ -89,10 +89,10 @@ public class HashCodeBuilderAndEqualsBuilderTest {
     }
 
     static class TestFixture {
-        int i;
-        char c;
-        String string;
-        short s;
+        final int i;
+        final char c;
+        final String string;
+        final short s;
 
         TestFixture(final int i, final char c, final String string, final short s) {
             this.i = i;
@@ -103,7 +103,7 @@ public class HashCodeBuilderAndEqualsBuilderTest {
     }
 
     static class SubTestFixture extends TestFixture {
-        transient String tString;
+        final transient String tString;
 
         SubTestFixture(final int i, final char c, final String string, final short s, final String tString) {
             super(i, c, string, s);
@@ -112,10 +112,10 @@ public class HashCodeBuilderAndEqualsBuilderTest {
     }
 
     static class AllTransientFixture {
-        transient int i;
-        transient char c;
-        transient String string;
-        transient short s;
+        final transient int i;
+        final transient char c;
+        final transient String string;
+        final transient short s;
 
         AllTransientFixture(final int i, final char c, final String string, final short s) {
             this.i = i;
@@ -126,7 +126,7 @@ public class HashCodeBuilderAndEqualsBuilderTest {
     }
 
     static class SubAllTransientFixture extends AllTransientFixture {
-        transient String tString;
+        final transient String tString;
 
         SubAllTransientFixture(final int i, final char c, final String string, final short s, final String tString) {
             super(i, c, string, s);

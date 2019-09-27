@@ -64,7 +64,7 @@ public class ObjectUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
-        assertNotNull(new ObjectUtils());
+        new ObjectUtils();
         final Constructor<?>[] cons = ObjectUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
@@ -170,9 +170,9 @@ public class ObjectUtilsTest {
     @Test
     public void testEquals() {
         assertTrue(ObjectUtils.equals(null, null), "ObjectUtils.equals(null, null) returned false");
-        assertTrue(!ObjectUtils.equals(FOO, null), "ObjectUtils.equals(\"foo\", null) returned true");
-        assertTrue(!ObjectUtils.equals(null, BAR), "ObjectUtils.equals(null, \"bar\") returned true");
-        assertTrue(!ObjectUtils.equals(FOO, BAR), "ObjectUtils.equals(\"foo\", \"bar\") returned true");
+        assertFalse(ObjectUtils.equals(FOO, null), "ObjectUtils.equals(\"foo\", null) returned true");
+        assertFalse(ObjectUtils.equals(null, BAR), "ObjectUtils.equals(null, \"bar\") returned true");
+        assertFalse(ObjectUtils.equals(FOO, BAR), "ObjectUtils.equals(\"foo\", \"bar\") returned true");
         assertTrue(ObjectUtils.equals(FOO, FOO), "ObjectUtils.equals(\"foo\", \"foo\") returned false");
     }
 
@@ -205,10 +205,10 @@ public class ObjectUtilsTest {
 
     @Test
     public void testHashCodeMulti_multiple_likeList() {
-        final List<Object> list0 = new ArrayList<>(Arrays.asList(new Object[0]));
+        final List<Object> list0 = new ArrayList<>(Collections.emptyList());
         assertEquals(list0.hashCode(), ObjectUtils.hashCodeMulti());
 
-        final List<Object> list1 = new ArrayList<>(Arrays.asList("a"));
+        final List<Object> list1 = new ArrayList<>(Collections.singletonList("a"));
         assertEquals(list1.hashCode(), ObjectUtils.hashCodeMulti("a"));
 
         final List<Object> list2 = new ArrayList<>(Arrays.asList("a", "b"));
@@ -220,7 +220,7 @@ public class ObjectUtilsTest {
 
     @Test
     public void testIdentityToStringStringBuffer() {
-        final Integer i = Integer.valueOf(45);
+        final Integer i = 45;
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
 
         final StringBuffer buffer = new StringBuffer();
@@ -238,7 +238,7 @@ public class ObjectUtilsTest {
 
     @Test
     public void testIdentityToStringInteger() {
-        final Integer i = Integer.valueOf(90);
+        final Integer i = 90;
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
 
         assertEquals(expected, ObjectUtils.identityToString(i));
@@ -253,7 +253,7 @@ public class ObjectUtilsTest {
 
     @Test
     public void testIdentityToStringStringBuilder() {
-        final Integer i = Integer.valueOf(90);
+        final Integer i = 90;
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
 
         final StringBuilder builder = new StringBuilder();
@@ -263,7 +263,7 @@ public class ObjectUtilsTest {
 
     @Test
     public void testIdentityToStringStringBuilderInUse() {
-        final Integer i = Integer.valueOf(90);
+        final Integer i = 90;
         final String expected = "ABC = java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
 
         final StringBuilder builder = new StringBuilder("ABC = ");
@@ -283,7 +283,7 @@ public class ObjectUtilsTest {
 
     @Test
     public void testIdentityToStringStrBuilder() {
-        final Integer i = Integer.valueOf(102);
+        final Integer i = 102;
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
 
         final StrBuilder builder = new StrBuilder();
@@ -297,7 +297,7 @@ public class ObjectUtilsTest {
 
     @Test
     public void testIdentityToStringAppendable() throws IOException {
-        final Integer i = Integer.valueOf(121);
+        final Integer i = 121;
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
 
         final Appendable appendable = new StringBuilder();
@@ -389,8 +389,8 @@ public class ObjectUtilsTest {
      */
     @Test
     public void testCompare() {
-        final Integer one = Integer.valueOf(1);
-        final Integer two = Integer.valueOf(2);
+        final Integer one = 1;
+        final Integer two = 2;
         final Integer nullValue = null;
 
         assertEquals(0, ObjectUtils.compare(nullValue, nullValue), "Null Null false");
@@ -414,13 +414,13 @@ public class ObjectUtilsTest {
         assertEquals("baz", ObjectUtils.median("foo", "bar", "baz", "blah"));
         assertEquals("blah", ObjectUtils.median("foo", "bar", "baz", "blah", "wah"));
         assertEquals(Integer.valueOf(5),
-            ObjectUtils.median(Integer.valueOf(1), Integer.valueOf(5), Integer.valueOf(10)));
+            ObjectUtils.median(1, 5, 10));
         assertEquals(
             Integer.valueOf(7),
-            ObjectUtils.median(Integer.valueOf(5), Integer.valueOf(6), Integer.valueOf(7), Integer.valueOf(8),
-                Integer.valueOf(9)));
+            ObjectUtils.median(5, 6, 7, 8,
+                9));
         assertEquals(Integer.valueOf(6),
-            ObjectUtils.median(Integer.valueOf(5), Integer.valueOf(6), Integer.valueOf(7), Integer.valueOf(8)));
+            ObjectUtils.median(5, 6, 7, 8));
     }
 
     @Test
@@ -472,8 +472,8 @@ public class ObjectUtilsTest {
         assertNull(ObjectUtils.mode("foo", "bar", "baz"));
         assertNull(ObjectUtils.mode("foo", "bar", "baz", "foo", "bar"));
         assertEquals("foo", ObjectUtils.mode("foo", "bar", "baz", "foo"));
-        assertEquals(Integer.valueOf(9),
-            ObjectUtils.mode("foo", "bar", "baz", Integer.valueOf(9), Integer.valueOf(10), Integer.valueOf(9)));
+        assertEquals(9,
+            ObjectUtils.mode("foo", "bar", "baz", 9, 10, 9));
     }
 
     /**

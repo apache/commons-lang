@@ -233,7 +233,7 @@ public class MultilineRecursiveToStringStyleTest {
     }
 
     static class Bank {
-        String name;
+        final String name;
 
         Bank(final String name) {
             this.name = name;
@@ -241,7 +241,7 @@ public class MultilineRecursiveToStringStyleTest {
     }
 
     static class Customer {
-        String name;
+        final String name;
         Bank bank;
         List<Account> accounts;
 
@@ -252,7 +252,7 @@ public class MultilineRecursiveToStringStyleTest {
 
     static class Account {
         Customer owner;
-        List<Transaction> transactions = new ArrayList<>();
+        final List<Transaction> transactions = new ArrayList<>();
 
         public double getBalance() {
             double balance = 0;
@@ -264,8 +264,8 @@ public class MultilineRecursiveToStringStyleTest {
     }
 
     static class Transaction {
-        double amount;
-        String date;
+        final double amount;
+        final String date;
 
         Transaction(final String datum, final double betrag) {
             this.date = datum;

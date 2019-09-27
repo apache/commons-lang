@@ -99,7 +99,7 @@ public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<
         .addContextValue("test1", null)
         .addContextValue("test2", "some value")
         .addContextValue("test Date", new Date())
-        .addContextValue("test Nbr", Integer.valueOf(5))
+        .addContextValue("test Nbr", 5)
         .addContextValue("test Poorly written obj", new ObjectWithFaultyToString());
 
         final String message = exceptionContext.getMessage();

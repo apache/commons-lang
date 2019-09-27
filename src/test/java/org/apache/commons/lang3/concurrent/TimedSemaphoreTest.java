@@ -162,7 +162,7 @@ public class TimedSemaphoreTest {
                 .createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
         prepareStartTimer(service, future);
-        EasyMock.expect(Boolean.valueOf(future.cancel(false))).andReturn(Boolean.TRUE);
+        EasyMock.expect(future.cancel(false)).andReturn(Boolean.TRUE);
         EasyMock.replay(service, future);
         final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(service,
                 PERIOD, UNIT, LIMIT);
@@ -183,7 +183,7 @@ public class TimedSemaphoreTest {
                 .createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
         prepareStartTimer(service, future);
-        EasyMock.expect(Boolean.valueOf(future.cancel(false))).andReturn(Boolean.TRUE);
+        EasyMock.expect(future.cancel(false)).andReturn(Boolean.TRUE);
         EasyMock.replay(service, future);
         final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(service,
                 PERIOD, UNIT, LIMIT);

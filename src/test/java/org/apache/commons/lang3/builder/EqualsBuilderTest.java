@@ -125,7 +125,7 @@ public class EqualsBuilderTest {
 
     static class TestTSubObject extends TestObject {
         @SuppressWarnings("unused")
-        private transient int t;
+        private final transient int t;
 
         TestTSubObject(final int a, final int t) {
             super(a);
@@ -135,7 +135,7 @@ public class EqualsBuilderTest {
 
     static class TestTTSubObject extends TestTSubObject {
         @SuppressWarnings("unused")
-        private transient int tt;
+        private final transient int tt;
 
         TestTTSubObject(final int a, final int t, final int tt) {
             super(a, t);
@@ -925,8 +925,8 @@ public class EqualsBuilderTest {
 
     @Test
     public void testRaggedArray() {
-        final long array1[][] = new long[2][];
-        final long array2[][] = new long[2][];
+        final long[][] array1 = new long[2][];
+        final long[][] array2 = new long[2][];
         for (int i = 0; i < array1.length; ++i) {
             array1[i] = new long[2];
             array2[i] = new long[2];
@@ -943,8 +943,8 @@ public class EqualsBuilderTest {
 
     @Test
     public void testMixedArray() {
-        final Object array1[] = new Object[2];
-        final Object array2[] = new Object[2];
+        final Object[] array1 = new Object[2];
+        final Object[] array2 = new Object[2];
         for (int i = 0; i < array1.length; ++i) {
             array1[i] = new long[2];
             array2[i] = new long[2];
@@ -1214,8 +1214,8 @@ public class EqualsBuilderTest {
      */
     @Test
     public void testNpeForNullElement() {
-        final Object[] x1 = new Object[]{Integer.valueOf(1), null, Integer.valueOf(3)};
-        final Object[] x2 = new Object[]{Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3)};
+        final Object[] x1 = new Object[]{1, null, 3};
+        final Object[] x2 = new Object[]{1, 2, 3};
 
         // causes an NPE in 2.0 according to:
         // https://issues.apache.org/bugzilla/show_bug.cgi?id=33067

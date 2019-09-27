@@ -141,8 +141,8 @@ class FunctionsTest {
     @Test
     void testAsRunnable() {
         FailureOnOddInvocations.invocation = 0;
-        Runnable runnable = Functions.asRunnable(() -> new FailureOnOddInvocations());
-        UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  runnable.run());
+        Runnable runnable = Functions.asRunnable(FailureOnOddInvocations::new);
+        UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, runnable::run);
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
@@ -167,11 +167,9 @@ class FunctionsTest {
     @Test
     void testAsCallable() {
         FailureOnOddInvocations.invocation = 0;
-        final FailableCallable<FailureOnOddInvocations, SomeException> failableCallable = () -> {
-            return new FailureOnOddInvocations();
-        };
+        final FailableCallable<FailureOnOddInvocations, SomeException> failableCallable = FailureOnOddInvocations::new;
         final Callable<FailureOnOddInvocations> callable = Functions.asCallable(failableCallable);
-        UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  callable.call());
+        UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, callable::call);
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
@@ -212,7 +210,7 @@ class FunctionsTest {
     void testAsConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(ise);
-        final Consumer<Testable> consumer = Functions.asConsumer((t) -> t.test());
+        final Consumer<Testable> consumer = Functions.asConsumer(Testable::test);
         Throwable e = assertThrows(IllegalStateException.class, () -> consumer.accept(testable));
         assertSame(ise, e);
 
@@ -310,7 +308,7 @@ class FunctionsTest {
         final Testable testable = new Testable(ise);
         final FailableFunction<Throwable, Integer, Throwable> failableFunction = (th) -> {
             testable.setThrowable(th);
-            return Integer.valueOf(testable.testInt());
+            return testable.testInt();
         };
         final Function<Throwable, Integer> function = Functions.asFunction(failableFunction);
         Throwable e = assertThrows(IllegalStateException.class, () -> function.apply(ise));
@@ -359,7 +357,7 @@ class FunctionsTest {
         final Testable testable = new Testable(ise);
         final FailableBiFunction<Testable, Throwable, Integer, Throwable> failableBiFunction = (t, th) -> {
             t.setThrowable(th);
-            return Integer.valueOf(t.testInt());
+            return t.testInt();
         };
         final BiFunction<Testable, Throwable, Integer> biFunction = Functions.asBiFunction(failableBiFunction);
         Throwable e = assertThrows(IllegalStateException.class, () -> biFunction.apply(testable, ise));
@@ -395,11 +393,9 @@ class FunctionsTest {
     @Test
     public void testAsSupplier() {
         FailureOnOddInvocations.invocation = 0;
-        final FailableSupplier<FailureOnOddInvocations, Throwable> failableSupplier = () -> {
-            return new FailureOnOddInvocations();
-        };
+        final FailableSupplier<FailureOnOddInvocations, Throwable> failableSupplier = FailureOnOddInvocations::new;
         final Supplier<FailureOnOddInvocations> supplier = Functions.asSupplier(failableSupplier);
-        UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  supplier.get());
+        UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, supplier::get);
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);

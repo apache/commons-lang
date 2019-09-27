@@ -92,7 +92,7 @@ public class CharUtils {
      */
     @Deprecated
     public static Character toCharacterObject(final char ch) {
-        return Character.valueOf(ch);
+        return ch;
     }
 
     /**
@@ -116,7 +116,7 @@ public class CharUtils {
         if (StringUtils.isEmpty(str)) {
             return null;
         }
-        return Character.valueOf(str.charAt(0));
+        return str.charAt(0);
     }
 
     //-----------------------------------------------------------------------
@@ -135,7 +135,7 @@ public class CharUtils {
      */
     public static char toChar(final Character ch) {
         Validate.isTrue(ch != null, "The Character must not be null");
-        return ch.charValue();
+        return ch;
     }
 
     /**
@@ -155,7 +155,7 @@ public class CharUtils {
         if (ch == null) {
             return defaultValue;
         }
-        return ch.charValue();
+        return ch;
     }
 
     //-----------------------------------------------------------------------

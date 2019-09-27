@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
  */
 public class SimpleToStringStyleTest {
 
-    private final Integer base = Integer.valueOf(5);
+    private final Integer base = 5;
 
     @BeforeEach
     public void setUp() {
@@ -62,8 +62,8 @@ public class SimpleToStringStyleTest {
 
     @Test
     public void testObject() {
-        final Integer i3 = Integer.valueOf(3);
-        final Integer i4 = Integer.valueOf(4);
+        final Integer i3 = 3;
+        final Integer i4 = 4;
         assertEquals("<null>", new ToStringBuilder(base).append((Object) null).toString());
         assertEquals("3", new ToStringBuilder(base).append(i3).toString());
         assertEquals("<null>", new ToStringBuilder(base).append("a", (Object) null).toString());

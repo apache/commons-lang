@@ -340,13 +340,13 @@ final class CharRange implements Iterable<Character>, Serializable {
             }
             final char cur = current;
             prepareNext();
-            return Character.valueOf(cur);
+            return cur;
         }
 
         /**
          * Always throws UnsupportedOperationException.
          *
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException always
          * @see java.util.Iterator#remove()
          */
         @Override

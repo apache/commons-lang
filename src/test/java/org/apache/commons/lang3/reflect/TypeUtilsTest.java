@@ -387,13 +387,13 @@ public class TypeUtilsTest<B> {
         assertTrue(TypeUtils.isAssignable(float.class, double.class));
         lo = in;
         assertTrue(TypeUtils.isAssignable(int.class, long.class));
-        lo = Integer.valueOf(0);
+        lo = 0;
         assertTrue(TypeUtils.isAssignable(Integer.class, long.class));
         // Long lngW = 1;
         assertFalse(TypeUtils.isAssignable(int.class, Long.class));
         // lngW = Integer.valueOf( 0 );
         assertFalse(TypeUtils.isAssignable(Integer.class, Long.class));
-        in = Integer.valueOf(0);
+        in = 0;
         assertTrue(TypeUtils.isAssignable(Integer.class, int.class));
         final Integer inte = in;
         assertTrue(TypeUtils.isAssignable(int.class, Integer.class));
@@ -461,13 +461,13 @@ public class TypeUtilsTest<B> {
         if (expected) {
             assertTrue(isAssignable,
                     "[" + i1 + ", " + i2 + "]: From "
-                                + String.valueOf(type2) + " to "
-                                + String.valueOf(type1));
+                                + type2 + " to "
+                                + type1);
         } else {
             assertFalse(isAssignable,
                     "[" + i1 + ", " + i2 + "]: From "
-                                + String.valueOf(type2) + " to "
-                                + String.valueOf(type1));
+                                + type2 + " to "
+                                + type1);
         }
     }
 

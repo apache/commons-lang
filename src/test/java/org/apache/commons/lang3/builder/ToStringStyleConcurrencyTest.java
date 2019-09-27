@@ -48,7 +48,7 @@ import org.junit.jupiter.api.Test;
 public class ToStringStyleConcurrencyTest {
 
     static class CollectionHolder<T extends Collection<?>> {
-        T collection;
+        final T collection;
 
         CollectionHolder(final T collection) {
             this.collection = collection;
@@ -62,7 +62,7 @@ public class ToStringStyleConcurrencyTest {
     static {
         LIST = new ArrayList<>(LIST_SIZE);
         for (int i = 0; i < LIST_SIZE; i++) {
-            LIST.add(Integer.valueOf(i));
+            LIST.add(i);
         }
     }
 
@@ -94,7 +94,7 @@ public class ToStringStyleConcurrencyTest {
                 // Calls ToStringStyle
                 new ToStringBuilder(holder).append(holder.collection);
             }
-            return Integer.valueOf(REPEAT);
+            return REPEAT;
         };
         final Collection<Callable<Integer>> tasks = new ArrayList<>();
         tasks.add(consumer);

@@ -100,7 +100,7 @@ public class MutableFloatTest {
         assertNotEquals(mutNumB, mutNumC);
         assertEquals(mutNumC, mutNumC);
         assertNotEquals(null, mutNumA);
-        assertNotEquals(mutNumA, Float.valueOf(0f));
+        assertNotEquals(mutNumA, 0f);
         assertNotEquals("0", mutNumA);
     }
 

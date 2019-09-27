@@ -482,7 +482,7 @@ public class Functions {
                                             FailableRunnable<? extends Throwable>... pResources) {
         final FailableConsumer<Throwable, ? extends Throwable> errorHandler;
         if (pErrorHandler == null) {
-            errorHandler = (t) -> rethrow(t);
+            errorHandler = Functions::rethrow;
         } else {
             errorHandler = pErrorHandler;
         }
@@ -500,7 +500,7 @@ public class Functions {
             th = t;
         }
         if (pResources != null) {
-            for (FailableRunnable<? extends Object> runnable : pResources) {
+            for (FailableRunnable<?> runnable : pResources) {
                 try {
                     runnable.run();
                 } catch (Throwable t) {

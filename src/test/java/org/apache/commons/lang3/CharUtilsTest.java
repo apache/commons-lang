@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.jupiter.api.Test;
 
@@ -36,8 +37,8 @@ import org.junit.jupiter.api.Test;
 public class CharUtilsTest {
 
     private static final char CHAR_COPY = '\u00a9';
-    private static final Character CHARACTER_A = new Character('A');
-    private static final Character CHARACTER_B = new Character('B');
+    private static final Character CHARACTER_A = 'A';
+    private static final Character CHARACTER_B = 'B';
 
     @Test
     public void testCompare() {
@@ -48,7 +49,7 @@ public class CharUtilsTest {
 
     @Test
     public void testConstructor() {
-        assertNotNull(new CharUtils());
+        new CharUtils();
         final Constructor<?>[] cons = CharUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));

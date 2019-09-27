@@ -207,7 +207,7 @@ public class ExtendedMessageFormatTest {
      */
     @Test
     public void testBuiltInChoiceFormat() {
-        final Object[] values = new Number[] {Integer.valueOf(1), Double.valueOf("2.2"), Double.valueOf("1234.5")};
+        final Object[] values = new Number[] {1, Double.valueOf("2.2"), Double.valueOf("1234.5")};
         String choicePattern = null;
         final Locale[] availableLocales = NumberFormat.getAvailableLocales();
 

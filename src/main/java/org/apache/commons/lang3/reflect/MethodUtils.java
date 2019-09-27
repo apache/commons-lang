@@ -759,6 +759,7 @@ public class MethodUtils {
     /**
      * <p>Returns the aggregate number of inheritance hops between assignable argument class types.  Returns -1
      * if the arguments aren't assignable.  Fills a specific purpose for getMatchingMethod and is not generalized.</p>
+     *
      * @param classArray
      * @param toClassArray
      * @return the aggregate number of inheritance hops between assignable argument class types.

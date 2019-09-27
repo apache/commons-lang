@@ -45,7 +45,7 @@ public class StringEscapeUtilsTest {
 
     @Test
     public void testConstructor() {
-        assertNotNull(new StringEscapeUtils());
+        new StringEscapeUtils();
         final Constructor<?>[] cons = StringEscapeUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
@@ -89,7 +89,7 @@ public class StringEscapeUtilsTest {
         final String expected = input;
         final String actual = StringEscapeUtils.escapeJava(input);
 
-        /**
+        /*
          * In 2.4 StringEscapeUtils.escapeJava(String) escapes '/' characters, which are not a valid character to escape
          * in a Java string.
          */
@@ -235,11 +235,11 @@ public class StringEscapeUtilsTest {
         assertEquals("\u0080\u009F", StringEscapeUtils.unescapeHtml4("&#X80;&#X9F;"), "hex number unescape");
         // Test all Character values:
         for (char i = Character.MIN_VALUE; i < Character.MAX_VALUE; i++) {
-            final Character c1 = new Character(i);
-            final Character c2 = new Character((char) (i+1));
+            final Character c1 = i;
+            final Character c2 = (char) (i + 1);
             final String expected = c1.toString() + c2.toString();
-            final String escapedC1 = "&#x" + Integer.toHexString((c1.charValue())) + ";";
-            final String escapedC2 = "&#x" + Integer.toHexString((c2.charValue())) + ";";
+            final String escapedC1 = "&#x" + Integer.toHexString((c1)) + ";";
+            final String escapedC2 = "&#x" + Integer.toHexString((c2)) + ";";
             assertEquals(expected, StringEscapeUtils.unescapeHtml4(escapedC1 + escapedC2), "hex number unescape index " + (int) i);
         }
     }
@@ -479,7 +479,7 @@ public class StringEscapeUtilsTest {
         // codepoint: U+1D362
         final byte[] data = new byte[] { (byte) 0xF0, (byte) 0x9D, (byte) 0x8D, (byte) 0xA2 };
 
-        final String original = new String(data, Charset.forName("UTF8"));
+        final String original = new String(data, StandardCharsets.UTF_8);
 
         final String escaped = StringEscapeUtils.escapeHtml4( original );
         assertEquals(original, escaped, "High Unicode should not have been escaped");

@@ -40,7 +40,7 @@ public class RandomUtilsTest {
 
     @Test
     public void testConstructor() {
-        assertNotNull(new RandomUtils());
+        new RandomUtils();
         final Constructor<?>[] cons = RandomUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
@@ -91,15 +91,6 @@ public class RandomUtilsTest {
     @Test
     public void testNextFloatLowerGreaterUpper() {
         assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextFloat(2, 1));
-    }
-
-    /**
-     * Tests next boolean
-     */
-    @Test
-    public void testBoolean() {
-        final boolean result = RandomUtils.nextBoolean();
-        assertTrue(result == true || result == false);
     }
 
     /**

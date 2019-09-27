@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
 import org.junit.jupiter.api.Test;
@@ -43,7 +44,7 @@ public class RandomStringUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
-        assertNotNull(new RandomStringUtils());
+        new RandomStringUtils();
         final Constructor<?>[] cons = RandomStringUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
@@ -61,7 +62,7 @@ public class RandomStringUtilsTest {
         assertEquals(50, r1.length(), "random(50) length");
         String r2 = RandomStringUtils.random(50);
         assertEquals(50, r2.length(), "random(50) length");
-        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
+        assertFalse(r1.equals(r2), "!r1.equals(r2)");
 
         r1 = RandomStringUtils.randomAscii(50);
         assertEquals(50, r1.length(), "randomAscii(50) length");
@@ -69,7 +70,7 @@ public class RandomStringUtilsTest {
             assertTrue(r1.charAt(i) >= 32 && r1.charAt(i) <= 127, "char between 32 and 127");
         }
         r2 = RandomStringUtils.randomAscii(50);
-        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
+        assertFalse(r1.equals(r2), "!r1.equals(r2)");
 
         r1 = RandomStringUtils.randomAlphabetic(50);
         assertEquals(50, r1.length(), "randomAlphabetic(50)");
@@ -77,7 +78,7 @@ public class RandomStringUtilsTest {
             assertTrue(Character.isLetter(r1.charAt(i)) && !Character.isDigit(r1.charAt(i)), "r1 contains alphabetic");
         }
         r2 = RandomStringUtils.randomAlphabetic(50);
-        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
+        assertFalse(r1.equals(r2), "!r1.equals(r2)");
 
         r1 = RandomStringUtils.randomAlphanumeric(50);
         assertEquals(50, r1.length(), "randomAlphanumeric(50)");
@@ -85,7 +86,7 @@ public class RandomStringUtilsTest {
             assertTrue(Character.isLetterOrDigit(r1.charAt(i)), "r1 contains alphanumeric");
         }
         r2 = RandomStringUtils.randomAlphabetic(50);
-        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
+        assertFalse(r1.equals(r2), "!r1.equals(r2)");
 
         r1 = RandomStringUtils.randomGraph(50);
         assertEquals(50, r1.length(), "randomGraph(50) length");
@@ -93,7 +94,7 @@ public class RandomStringUtilsTest {
             assertTrue(r1.charAt(i) >= 33 && r1.charAt(i) <= 126, "char between 33 and 126");
         }
         r2 = RandomStringUtils.randomGraph(50);
-        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
+        assertFalse(r1.equals(r2), "!r1.equals(r2)");
 
         r1 = RandomStringUtils.randomNumeric(50);
         assertEquals(50, r1.length(), "randomNumeric(50)");
@@ -101,7 +102,7 @@ public class RandomStringUtilsTest {
             assertTrue(Character.isDigit(r1.charAt(i)) && !Character.isLetter(r1.charAt(i)), "r1 contains numeric");
         }
         r2 = RandomStringUtils.randomNumeric(50);
-        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
+        assertFalse(r1.equals(r2), "!r1.equals(r2)");
 
         r1 = RandomStringUtils.randomPrint(50);
         assertEquals(50, r1.length(), "randomPrint(50) length");
@@ -109,7 +110,7 @@ public class RandomStringUtilsTest {
             assertTrue(r1.charAt(i) >= 32 && r1.charAt(i) <= 126, "char between 32 and 126");
         }
         r2 = RandomStringUtils.randomPrint(50);
-        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
+        assertFalse(r1.equals(r2), "!r1.equals(r2)");
 
         String set = "abcdefg";
         r1 = RandomStringUtils.random(50, set);
@@ -118,13 +119,13 @@ public class RandomStringUtilsTest {
             assertTrue(set.indexOf(r1.charAt(i)) > -1, "random char in set");
         }
         r2 = RandomStringUtils.random(50, set);
-        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
+        assertFalse(r1.equals(r2), "!r1.equals(r2)");
 
         r1 = RandomStringUtils.random(50, (String) null);
         assertEquals(50, r1.length(), "random(50) length");
         r2 = RandomStringUtils.random(50, (String) null);
         assertEquals(50, r2.length(), "random(50) length");
-        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
+        assertFalse(r1.equals(r2), "!r1.equals(r2)");
 
         set = "stuvwxyz";
         r1 = RandomStringUtils.random(50, set.toCharArray());
@@ -133,13 +134,13 @@ public class RandomStringUtilsTest {
             assertTrue(set.indexOf(r1.charAt(i)) > -1, "random char in set");
         }
         r2 = RandomStringUtils.random(50, set);
-        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
+        assertFalse(r1.equals(r2), "!r1.equals(r2)");
 
         r1 = RandomStringUtils.random(50, (char[]) null);
         assertEquals(50, r1.length(), "random(50) length");
         r2 = RandomStringUtils.random(50, (char[]) null);
         assertEquals(50, r2.length(), "random(50) length");
-        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
+        assertFalse(r1.equals(r2), "!r1.equals(r2)");
 
         final long seed = System.currentTimeMillis();
         r1 = RandomStringUtils.random(50, 0, 0, true, true, null, new Random(seed));
@@ -488,7 +489,7 @@ public class RandomStringUtilsTest {
     @Test
     public void testLang100() {
         final int size = 5000;
-        final Charset charset = Charset.forName("UTF-8");
+        final Charset charset = StandardCharsets.UTF_8;
         final String orig = RandomStringUtils.random(size);
         final byte[] bytes = orig.getBytes(charset);
         final String copy = new String(bytes, charset);

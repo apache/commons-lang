@@ -157,7 +157,7 @@ abstract class FormatCache<F extends Format> {
      */
     // package protected, for access from FastDateFormat; do not make public or protected
     F getDateInstance(final int dateStyle, final TimeZone timeZone, final Locale locale) {
-        return getDateTimeInstance(Integer.valueOf(dateStyle), null, timeZone, locale);
+        return getDateTimeInstance(dateStyle, null, timeZone, locale);
     }
 
     /**
@@ -174,7 +174,7 @@ abstract class FormatCache<F extends Format> {
      */
     // package protected, for access from FastDateFormat; do not make public or protected
     F getTimeInstance(final int timeStyle, final TimeZone timeZone, final Locale locale) {
-        return getDateTimeInstance(null, Integer.valueOf(timeStyle), timeZone, locale);
+        return getDateTimeInstance(null, timeStyle, timeZone, locale);
     }
 
     /**
@@ -195,11 +195,11 @@ abstract class FormatCache<F extends Format> {
             try {
                 DateFormat formatter;
                 if (dateStyle == null) {
-                    formatter = DateFormat.getTimeInstance(timeStyle.intValue(), locale);
+                    formatter = DateFormat.getTimeInstance(timeStyle, locale);
                 } else if (timeStyle == null) {
-                    formatter = DateFormat.getDateInstance(dateStyle.intValue(), locale);
+                    formatter = DateFormat.getDateInstance(dateStyle, locale);
                 } else {
-                    formatter = DateFormat.getDateTimeInstance(dateStyle.intValue(), timeStyle.intValue(), locale);
+                    formatter = DateFormat.getDateTimeInstance(dateStyle, timeStyle, locale);
                 }
                 pattern = ((SimpleDateFormat) formatter).toPattern();
                 final String previous = cDateTimeInstanceCache.putIfAbsent(key, pattern);

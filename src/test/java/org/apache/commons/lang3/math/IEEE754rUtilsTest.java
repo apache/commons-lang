@@ -62,7 +62,7 @@ public class IEEE754rUtilsTest  {
 
         assertThrows(
                 IllegalArgumentException.class,
-                () -> IEEE754rUtils.min(),
+            IEEE754rUtils::min,
                 "IllegalArgumentException expected for empty input");
 
         assertThrows(

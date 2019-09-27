@@ -105,16 +105,16 @@ public class ArrayUtilsRemoveMultipleTest {
 
     @Test
     public void testRemoveAllNumberArray() {
-        final Number[] inarray = { Integer.valueOf(1), Long.valueOf(2L), Byte.valueOf((byte) 3) };
+        final Number[] inarray = {1, 2L, (byte) 3};
         assertEquals(3, inarray.length);
         Number[] outarray;
 
         outarray = ArrayUtils.removeAll(inarray, 1);
-        assertArrayEquals(new Number[] { Integer.valueOf(1), Byte.valueOf((byte) 3) }, outarray);
+        assertArrayEquals(new Number[] {1, (byte) 3}, outarray);
         assertEquals(Number.class, outarray.getClass().getComponentType());
 
         outarray = ArrayUtils.removeAll(outarray, 1);
-        assertArrayEquals(new Number[] { Integer.valueOf(1) }, outarray);
+        assertArrayEquals(new Number[] {1}, outarray);
         assertEquals(Number.class, outarray.getClass().getComponentType());
 
         outarray = ArrayUtils.removeAll(outarray, 0);
@@ -122,15 +122,15 @@ public class ArrayUtilsRemoveMultipleTest {
         assertEquals(Number.class, outarray.getClass().getComponentType());
 
         outarray = ArrayUtils.removeAll(inarray, 0, 1);
-        assertArrayEquals(new Number[] { Byte.valueOf((byte) 3) }, outarray);
+        assertArrayEquals(new Number[] {(byte) 3}, outarray);
         assertEquals(Number.class, outarray.getClass().getComponentType());
 
         outarray = ArrayUtils.removeAll(inarray, 0, 2);
-        assertArrayEquals(new Number[] { Long.valueOf(2L) }, outarray);
+        assertArrayEquals(new Number[] {2L}, outarray);
         assertEquals(Number.class, outarray.getClass().getComponentType());
 
         outarray = ArrayUtils.removeAll(inarray, 1, 2);
-        assertArrayEquals(new Number[] { Integer.valueOf(1) }, outarray);
+        assertArrayEquals(new Number[] {1}, outarray);
         assertEquals(Number.class, outarray.getClass().getComponentType());
     }
 

@@ -276,18 +276,14 @@ public class ConstructorUtilsTest {
     }
 
     private Class<?>[] singletonArray(final Class<?> c) {
-        Class<?>[] result = classCache.get(c);
-        if (result == null) {
-            result = new Class[] { c };
-            classCache.put(c, result);
-        }
+        Class<?>[] result = classCache.computeIfAbsent(c, k -> new Class[]{c});
         return result;
     }
 
     @Test
     public void testVarArgsUnboxing() throws Exception {
         final TestBean testBean = ConstructorUtils.invokeConstructor(
-                TestBean.class, Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3));
+                TestBean.class, 1, 2, 3);
 
         assertArrayEquals(new String[]{"2", "3"}, testBean.varArgs);
     }

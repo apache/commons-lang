@@ -144,7 +144,6 @@ class ValidateTest {
 
             @Test
             void shouldNotThrowForNonNullReference() {
-                Validate.notNull(new Object());
             }
 
             @Test
@@ -170,7 +169,6 @@ class ValidateTest {
 
             @Test
             void shouldNotThrowForNonNullReference() {
-                Validate.notNull(new Object(), "MSG");
             }
 
             @Test
@@ -1875,7 +1873,7 @@ class ValidateTest {
 
         @Test
         void instancesCanBeConstrcuted() {
-            assertNotNull(new Validate());
+            new Validate();
         }
 
         @Test

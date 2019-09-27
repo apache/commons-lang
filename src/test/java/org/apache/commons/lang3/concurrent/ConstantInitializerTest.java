@@ -80,7 +80,7 @@ public class ConstantInitializerTest {
     public void testEqualsTrue() {
         checkEquals(init, true);
         ConstantInitializer<Integer> init2 = new ConstantInitializer<>(
-                Integer.valueOf(VALUE.intValue()));
+            VALUE.intValue());
         checkEquals(init2, true);
         init = new ConstantInitializer<>(null);
         init2 = new ConstantInitializer<>(null);
@@ -117,7 +117,7 @@ public class ConstantInitializerTest {
         final String s = init.toString();
         final Pattern pattern = Pattern
                 .compile("ConstantInitializer@-?\\d+ \\[ object = " + VALUE
-                        + " \\]");
+                        + " ]");
         assertTrue(pattern.matcher(s).matches(), "Wrong string: " + s);
     }
 

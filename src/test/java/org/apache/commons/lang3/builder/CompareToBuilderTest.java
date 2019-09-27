@@ -90,7 +90,7 @@ public class CompareToBuilderTest {
 
     static class TestTransientSubObject extends TestObject {
         @SuppressWarnings("unused")
-        private transient int t;
+        private final transient int t;
         TestTransientSubObject(final int a, final int t) {
             super(a);
             this.t = t;
@@ -282,12 +282,12 @@ public class CompareToBuilderTest {
         assertEquals(Integer.valueOf(0), new CompareToBuilder().append(o1, o1).build());
         assertEquals(Integer.valueOf(0), new CompareToBuilder().append(o1, o2).build());
         o2.setA(5);
-        assertTrue(new CompareToBuilder().append(o1, o2).build().intValue() < 0);
-        assertTrue(new CompareToBuilder().append(o2, o1).build().intValue() > 0);
+        assertTrue(new CompareToBuilder().append(o1, o2).build() < 0);
+        assertTrue(new CompareToBuilder().append(o2, o1).build() > 0);
 
-        assertTrue(new CompareToBuilder().append(o1, null).build().intValue() > 0);
+        assertTrue(new CompareToBuilder().append(o1, null).build() > 0);
         assertEquals(Integer.valueOf(0), new CompareToBuilder().append((Object) null, null).build());
-        assertTrue(new CompareToBuilder().append(null, o1).build().intValue() < 0);
+        assertTrue(new CompareToBuilder().append(null, o1).build() < 0);
     }
 
     @Test
@@ -884,9 +884,9 @@ public class CompareToBuilderTest {
 
     @Test
     public void testRaggedArray() {
-        final long array1[][] = new long[2][];
-        final long array2[][] = new long[2][];
-        final long array3[][] = new long[3][];
+        final long[][] array1 = new long[2][];
+        final long[][] array2 = new long[2][];
+        final long[][] array3 = new long[3][];
         for (int i = 0; i < array1.length; ++i) {
             array1[i] = new long[2];
             array2[i] = new long[2];
@@ -912,9 +912,9 @@ public class CompareToBuilderTest {
 
     @Test
     public void testMixedArray() {
-        final Object array1[] = new Object[2];
-        final Object array2[] = new Object[2];
-        final Object array3[] = new Object[2];
+        final Object[] array1 = new Object[2];
+        final Object[] array2 = new Object[2];
+        final Object[] array3 = new Object[2];
         for (int i = 0; i < array1.length; ++i) {
             array1[i] = new long[2];
             array2[i] = new long[2];

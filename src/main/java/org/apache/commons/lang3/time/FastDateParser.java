@@ -94,7 +94,7 @@ public class FastDateParser implements DateParser, Serializable {
     // comparator used to sort regex alternatives
     // alternatives should be ordered longer first, and shorter last. ('february' before 'feb')
     // all entries must be lowercase by locale.
-    private static final Comparator<String> LONGER_FIRST_LOWERCASE = (left, right) -> right.compareTo(left);
+    private static final Comparator<String> LONGER_FIRST_LOWERCASE = Comparator.reverseOrder();
 
     /**
      * <p>Constructs a new FastDateParser.</p>
@@ -718,7 +718,7 @@ public class FastDateParser implements DateParser, Serializable {
                 // match missing the optional trailing period
                 iVal = lKeyValues.get(lowerCase + '.');
             }
-            cal.set(field, iVal.intValue());
+            cal.set(field, iVal);
         }
     }
 
@@ -818,8 +818,8 @@ public class FastDateParser implements DateParser, Serializable {
         private final Map<String, TzInfo> tzNames= new HashMap<>();
 
         private static class TzInfo {
-            TimeZone zone;
-            int dstOffset;
+            final TimeZone zone;
+            final int dstOffset;
 
             TzInfo(final TimeZone tz, final boolean useDst) {
                 zone = tz;

@@ -94,7 +94,7 @@ public class MutableIntTest {
         assertNotEquals(numB, numC);
         assertEquals(numC, numC);
         assertNotEquals(null, numA);
-        assertNotEquals(numA, Integer.valueOf(0));
+        assertNotEquals(numA, 0);
         assertNotEquals("0", numA);
     }
 

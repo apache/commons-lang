@@ -65,7 +65,7 @@ public class LocaleUtilsTest  {
      */
     @Test
     public void testConstructor() {
-        assertNotNull(new LocaleUtils());
+        new LocaleUtils();
         final Constructor<?>[] cons = LocaleUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
@@ -369,7 +369,7 @@ public class LocaleUtilsTest  {
      * array of languages passed in. It may contain more due to JVM
      * variations.
      *
-     * @param country
+     * @param country the 2 letter country code for which we are seeking the languages
      * @param languages array of languages that should be returned
      */
     private static void assertLanguageByCountry(final String country, final String[] languages) {
@@ -416,8 +416,7 @@ public class LocaleUtilsTest  {
      * array of countries passed in. It may contain more due to JVM
      * variations.
      *
-     *
-     * @param language
+     * @param language the 2 letter language code
      * @param countries array of countries that should be returned
      */
     private static void assertCountriesByLanguage(final String language, final String[] countries) {
