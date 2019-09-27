@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@code BasicThreadFactory}.
  */
-public class BasicThreadFactoryTest {
+class BasicThreadFactoryTest {
     /** Constant for the test naming pattern. */
     private static final String PATTERN = "testThread-%d";
 
@@ -42,7 +42,7 @@ public class BasicThreadFactoryTest {
     private BasicThreadFactory.Builder builder;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         builder = new BasicThreadFactory.Builder();
     }
 

@@ -49,7 +49,7 @@ import org.junit.jupiter.api.Test;
  * which been moved to their own test classes.
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
-public class StringUtilsTest {
+class StringUtilsTest {
 
     static final String WHITESPACE;
     static final String NON_WHITESPACE;

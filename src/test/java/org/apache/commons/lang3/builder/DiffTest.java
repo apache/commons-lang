@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link Diff}.
  */
-public class DiffTest {
+class DiffTest {
 
     private static final String FIELD_NAME = "field";
     private static final Diff<Boolean> booleanDiff = new BooleanDiff(FIELD_NAME);

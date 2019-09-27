@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests ArrayUtils add methods.
  */
-public class ArrayUtilsAddTest {
+class ArrayUtilsAddTest {
 
     @Test
     void testAddFirstBoolean() {
@@ -665,7 +665,7 @@ public class ArrayUtilsAddTest {
 
     @Test
     @SuppressWarnings("deprecation")
-    public void testLANG571() {
+    void testLANG571() {
         final String[] stringArray=null;
         final String aString=null;
         assertThrows(IllegalArgumentException.class, () -> ArrayUtils.add(stringArray, aString));

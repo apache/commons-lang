@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.BooleanUtils}.
  */
-public class BooleanUtilsTest {
+class BooleanUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test

@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests ConstructorUtils
  */
-public class ConstructorUtilsTest {
+class ConstructorUtilsTest {
     public static class TestBean {
         private final String toString;
         final String[] varArgs;
@@ -129,7 +129,7 @@ public class ConstructorUtilsTest {
 
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         classCache.clear();
     }
 

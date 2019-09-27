@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
  *
  * @author Tomschi
  */
-public class ArchUtilsTest {
+class ArchUtilsTest {
 
     private static final String X86 = "x86";
     private static final String X86_64 = "x86_64";

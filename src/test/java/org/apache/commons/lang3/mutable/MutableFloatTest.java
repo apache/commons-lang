@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  *
  * @see MutableFloat
  */
-public class MutableFloatTest {
+class MutableFloatTest {
 
     // ----------------------------------------------------------------
     @Test

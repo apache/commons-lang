@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 /**
  * TestCase for DurationFormatUtils.
  */
-public class DurationFormatUtilsTest {
+class DurationFormatUtilsTest {
 
     // -----------------------------------------------------------------------
     @Test

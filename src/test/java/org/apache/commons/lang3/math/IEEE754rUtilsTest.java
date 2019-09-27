@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.math.IEEE754rUtils}.
  */
-public class IEEE754rUtilsTest  {
+class IEEE754rUtilsTest  {
 
     @Test
     void testLang381() {

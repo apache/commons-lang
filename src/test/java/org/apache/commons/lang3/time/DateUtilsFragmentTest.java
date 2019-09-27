@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DateUtilsFragmentTest {
+class DateUtilsFragmentTest {
 
     private static final int months = 7;   // second final prime before 12
     private static final int days = 23;    // second final prime before 31 (and valid)
@@ -39,7 +39,7 @@ public class DateUtilsFragmentTest {
 
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         aCalendar = Calendar.getInstance();
         aCalendar.set(2005, months, days, hours, minutes, seconds);
         aCalendar.set(Calendar.MILLISECOND, millis);

@@ -40,7 +40,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @since 3.0
  */
-public class EventListenerSupportTest {
+class EventListenerSupportTest {
 
     @Test
     void testAddListenerNoDuplicates() {

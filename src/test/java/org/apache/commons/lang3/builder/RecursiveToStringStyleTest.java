@@ -28,18 +28,18 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.RecursiveToStringStyleTest}.
  */
-public class RecursiveToStringStyleTest {
+class RecursiveToStringStyleTest {
 
     private final Integer base = Integer.valueOf(5);
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         ToStringBuilder.setDefaultStyle(new RecursiveToStringStyle());
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 

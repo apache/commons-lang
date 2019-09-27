@@ -36,7 +36,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Compare FastDateParser with SimpleDateFormat
  */
-public class FastDateParserSDFTest {
+class FastDateParserSDFTest {
 
     public static Stream<Arguments> data() {
         return Stream.of(

@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Equals/IndexOf methods
  */
-public class StringUtilsEqualsIndexOfTest  {
+class StringUtilsEqualsIndexOfTest  {
     private static final String BAR = "bar";
     /**
      * Supplementary character U+20000

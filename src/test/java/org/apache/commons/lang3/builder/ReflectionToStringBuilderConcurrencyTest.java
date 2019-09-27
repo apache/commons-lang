@@ -49,7 +49,7 @@ import org.junit.jupiter.api.Test;
  *      and ToStringBuilder for collections that are not thread safe</a>
  * @since 3.1
  */
-public class ReflectionToStringBuilderConcurrencyTest {
+class ReflectionToStringBuilderConcurrencyTest {
 
     static class CollectionHolder<T extends Collection<?>> {
         T collection;

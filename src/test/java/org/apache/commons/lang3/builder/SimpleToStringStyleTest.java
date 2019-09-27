@@ -29,17 +29,17 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.SimpleToStringStyleTest}.
  */
-public class SimpleToStringStyleTest {
+class SimpleToStringStyleTest {
 
     private final Integer base = Integer.valueOf(5);
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         ToStringBuilder.setDefaultStyle(ToStringStyle.SIMPLE_STYLE);
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 

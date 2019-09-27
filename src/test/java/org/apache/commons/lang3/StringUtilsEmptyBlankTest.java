@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Empty/Blank methods
  */
-public class StringUtilsEmptyBlankTest  {
+class StringUtilsEmptyBlankTest  {
 
     @Test
     void testIsEmpty() {

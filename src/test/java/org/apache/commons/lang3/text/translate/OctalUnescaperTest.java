@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Unit tests for {@link org.apache.commons.lang3.text.translate.OctalUnescaper}.
  */
 @Deprecated
-public class OctalUnescaperTest {
+class OctalUnescaperTest {
 
     @Test
     void testBetween() {

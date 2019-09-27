@@ -32,7 +32,7 @@ import java.util.Iterator;
  * Unit tests for {@link org.apache.commons.lang3.text.StrBuilder}.
  */
 @Deprecated
-public class StrBuilderAppendInsertTest {
+class StrBuilderAppendInsertTest {
 
     /** The system line separator. */
     private static final String SEP = System.lineSeparator();

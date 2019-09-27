@@ -44,12 +44,12 @@ import org.junitpioneer.jupiter.DefaultLocale;
 /**
  * Unit tests {@link org.apache.commons.lang3.time.DateUtils}.
  */
-public class DateUtilsTest {
+class DateUtilsTest {
 
     private static Date BASE_DATE;
 
     @BeforeAll
-    public static void classSetup() {
+    static void classSetup() {
         final GregorianCalendar cal = new GregorianCalendar(2000, 6, 5, 4, 3, 2);
         cal.set(Calendar.MILLISECOND, 1);
         BASE_DATE = cal.getTime();
@@ -86,7 +86,7 @@ public class DateUtilsTest {
     private TimeZone defaultZone = null;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    void setUp() throws Exception {
         dateParser = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
         dateTimeParser = new SimpleDateFormat("MMM dd, yyyy H:mm:ss.SSS", Locale.ENGLISH);
 

@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test cases for the {@link Fraction} class
  */
-public class FractionTest  {
+class FractionTest  {
 
     private static final int SKIP = 500;  //53
 

@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for TimedSemaphore.
  */
-public class TimedSemaphoreTest {
+class TimedSemaphoreTest {
     /** Constant for the time period. */
     private static final long PERIOD = 500;
 

@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
  *
  * @since 3.9
  */
-public class StringUtilsValueOfTest {
+class StringUtilsValueOfTest {
 
     @Test
     void testValueOfChar() {

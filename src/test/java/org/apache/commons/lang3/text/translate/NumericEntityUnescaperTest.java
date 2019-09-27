@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
  * Unit tests for {@link org.apache.commons.lang3.text.translate.NumericEntityUnescaper}.
  */
 @Deprecated
-public class NumericEntityUnescaperTest  {
+class NumericEntityUnescaperTest  {
 
     @Test
     void testSupplementaryUnescaping() {

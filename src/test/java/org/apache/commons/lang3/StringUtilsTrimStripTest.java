@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Trim/Strip methods
  */
-public class StringUtilsTrimStripTest  {
+class StringUtilsTrimStripTest  {
     private static final String FOO = "foo";
 
     @Test

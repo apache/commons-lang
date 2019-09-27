@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test the MutableTriple class.
  */
-public class MutableTripleTest {
+class MutableTripleTest {
 
     @Test
     void testEmptyArrayLength() {

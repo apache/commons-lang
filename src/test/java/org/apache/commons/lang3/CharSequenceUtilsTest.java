@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests CharSequenceUtils
  */
-public class CharSequenceUtilsTest {
+class CharSequenceUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test

@@ -25,7 +25,7 @@ import java.util.TimeZone;
 /**
  * Tests for FastTimeZone
  */
-public class FastTimeZoneTest {
+class FastTimeZoneTest {
 
     private static final int HOURS_23 = 23 * 60 * 60 * 1000;
     private static final int HOURS_2 = 2 * 60 * 60 * 1000;

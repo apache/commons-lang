@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for ToStringExclude annotation
  */
-public class ReflectionToStringBuilderExcludeWithAnnotationTest {
+class ReflectionToStringBuilderExcludeWithAnnotationTest {
 
     class TestFixture {
         @ToStringExclude

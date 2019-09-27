@@ -38,7 +38,7 @@ import org.apache.commons.lang3.tuple.Pair;
 /**
  * Abstract test of an ExceptionContext implementation.
  */
-public abstract class AbstractExceptionContextTest<T extends ExceptionContext & Serializable> {
+abstract class AbstractExceptionContextTest<T extends ExceptionContext & Serializable> {
 
     protected static final String TEST_MESSAGE_2 = "This is monotonous";
     protected static final String TEST_MESSAGE = "Test Message";
@@ -53,7 +53,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
 
 
     @BeforeEach
-    public void setUp() throws Exception {
+    void setUp() throws Exception {
         exceptionContext
             .addContextValue("test1", null)
             .addContextValue("test2", "some value")

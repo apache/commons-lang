@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  *
  * @see MutableLong
  */
-public class MutableLongTest {
+class MutableLongTest {
 
     // ----------------------------------------------------------------
     @Test

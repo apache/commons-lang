@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test the Pair class.
  */
-public class ImmutablePairTest {
+class ImmutablePairTest {
 
     @Test
     void testEmptyArrayLength() {

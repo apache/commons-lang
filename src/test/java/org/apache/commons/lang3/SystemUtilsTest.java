@@ -50,7 +50,7 @@ import org.junit.jupiter.api.Test;
  *
  * Only limited testing can be performed.
  */
-public class SystemUtilsTest {
+class SystemUtilsTest {
 
     @Test
     void testConstructor() {

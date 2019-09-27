@@ -42,12 +42,12 @@ import java.util.Map;
  * @since 2.4
  */
 @Deprecated
-public class ExtendedMessageFormatTest {
+class ExtendedMessageFormatTest {
 
     private final Map<String, FormatFactory> registry = new HashMap<>();
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         registry.put("lower", new LowerCaseFormatFactory());
         registry.put("upper", new UpperCaseFormatFactory());
     }

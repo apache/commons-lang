@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.EqualsBuilder}.
  */
-public class EqualsBuilderTest {
+class EqualsBuilderTest {
 
     //-----------------------------------------------------------------------
 

@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
  *
  * @see MutableShort
  */
-public class MutableObjectTest {
+class MutableObjectTest {
 
     // ----------------------------------------------------------------
     @Test

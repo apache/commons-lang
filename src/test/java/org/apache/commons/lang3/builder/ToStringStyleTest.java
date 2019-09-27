@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test case for ToStringStyle.
  */
-public class ToStringStyleTest {
+class ToStringStyleTest {
 
     private static class ToStringStyleImpl extends ToStringStyle {
         private static final long serialVersionUID = 1L;

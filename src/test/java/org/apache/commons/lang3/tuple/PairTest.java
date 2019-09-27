@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test the Pair class.
  */
-public class PairTest {
+class PairTest {
 
     @Test
     void testEmptyArrayLength() {

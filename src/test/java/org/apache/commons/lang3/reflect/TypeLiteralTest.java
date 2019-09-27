@@ -25,7 +25,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-public class TypeLiteralTest {
+class TypeLiteralTest {
 
     @Test
     void testBasic() {

@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
  * Unit tests for {@link org.apache.commons.lang3.text.translate.LookupTranslator}.
  */
 @Deprecated
-public class LookupTranslatorTest  {
+class LookupTranslatorTest  {
 
     @Test
     void testBasicLookup() throws IOException {

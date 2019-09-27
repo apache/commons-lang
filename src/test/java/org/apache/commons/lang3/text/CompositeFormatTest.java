@@ -31,7 +31,7 @@ import java.util.Locale;
  * Unit tests for {@link org.apache.commons.lang3.text.CompositeFormat}.
  */
 @Deprecated
-public class CompositeFormatTest {
+class CompositeFormatTest {
 
     /**
      * Ensures that the parse/format separation is correctly maintained.

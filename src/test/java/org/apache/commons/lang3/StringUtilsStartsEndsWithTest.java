@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - StartsWith/EndsWith methods
  */
-public class StringUtilsStartsEndsWithTest {
+class StringUtilsStartsEndsWithTest {
     private static final String foo    = "foo";
     private static final String bar    = "bar";
     private static final String foobar = "foobar";

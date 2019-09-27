@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
  * tests are executed.
  * </p>
  */
-public abstract class AbstractConcurrentInitializerTest {
+abstract class AbstractConcurrentInitializerTest {
     /**
      * Tests a simple invocation of the get() method.
      *

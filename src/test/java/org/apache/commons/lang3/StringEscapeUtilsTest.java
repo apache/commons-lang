@@ -40,7 +40,7 @@ import org.junit.jupiter.api.Test;
  * Unit tests for {@link StringEscapeUtils}.
  */
 @Deprecated
-public class StringEscapeUtilsTest {
+class StringEscapeUtilsTest {
     private static final String FOO = "foo";
 
     @Test

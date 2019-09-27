@@ -31,7 +31,7 @@ import java.nio.charset.StandardCharsets;
  * @see CharEncoding
  */
 @SuppressWarnings("deprecation")
-public class CharEncodingTest  {
+class CharEncodingTest  {
 
     private void assertSupportedEncoding(final String name) {
         assertTrue(CharEncoding.isSupported(name), "Encoding should be supported: " + name);

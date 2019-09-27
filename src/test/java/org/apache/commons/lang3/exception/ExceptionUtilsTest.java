@@ -42,7 +42,7 @@ import org.junit.jupiter.api.Test;
  *
  * @since 1.0
  */
-public class ExceptionUtilsTest {
+class ExceptionUtilsTest {
 
     /**
      * Provides a method with a well known chained/nested exception
@@ -152,7 +152,7 @@ public class ExceptionUtilsTest {
     }
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         withoutCause = createExceptionWithoutCause();
         nested = new NestableException(withoutCause);
         withCause = new ExceptionWithCause(nested);
@@ -165,7 +165,7 @@ public class ExceptionUtilsTest {
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         withoutCause = null;
         nested = null;
         withCause = null;

@@ -32,7 +32,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class BackgroundInitializerTest {
+class BackgroundInitializerTest {
     /**
      * Helper method for checking whether the initialize() method was correctly
      * called. start() must already have been invoked.

@@ -51,7 +51,7 @@ import org.junit.jupiter.api.Test;
  */
 @SuppressWarnings({ "unchecked", "unused", "rawtypes" })
 //raw types, where used, are used purposely
-public class TypeUtilsTest<B> {
+class TypeUtilsTest<B> {
 
     public interface This<K, V> {
     }
@@ -71,7 +71,7 @@ public class TypeUtilsTest<B> {
     public class Thing<Q> extends Other<B> {
     }
 
-    public class Tester implements This<String, B> {
+    class Tester implements This<String, B> {
     }
 
     public This<String, String> dis;

@@ -50,7 +50,7 @@ import org.junit.jupiter.api.Test;
  * Unit tests {@link org.apache.commons.lang3.ObjectUtils}.
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
-public class ObjectUtilsTest {
+class ObjectUtilsTest {
     private static final String FOO = "foo";
     private static final String BAR = "bar";
     private static final String[] NON_EMPTY_ARRAY = new String[] { FOO, BAR, };

@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@link MultiBackgroundInitializer}.
  */
-public class MultiBackgroundInitializerTest {
+class MultiBackgroundInitializerTest {
     /** Constant for the names of the child initializers. */
     private static final String CHILD_INIT = "childInitializer";
 
@@ -42,7 +42,7 @@ public class MultiBackgroundInitializerTest {
     private MultiBackgroundInitializer initializer;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         initializer = new MultiBackgroundInitializer();
     }
 

@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@link ConcurrentUtils}.
  */
-public class ConcurrentUtilsTest {
+class ConcurrentUtilsTest {
     /**
      * Tests creating a ConcurrentException with a runtime exception as cause.
      */

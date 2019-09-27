@@ -45,7 +45,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  */
-public class AnnotationUtilsTest {
+class AnnotationUtilsTest {
     @TestAnnotation(
             booleanValue = false,
             booleanValues = { false },
@@ -401,7 +401,7 @@ public class AnnotationUtilsTest {
     private Field field4;
 
     @BeforeEach
-    public void setup() throws Exception {
+    void setup() throws Exception {
         field1 = getClass().getDeclaredField("dummy1");
         field2 = getClass().getDeclaredField("dummy2");
         field3 = getClass().getDeclaredField("dummy3");
@@ -509,7 +509,7 @@ public class AnnotationUtilsTest {
 
     @Test
     @TestMethodAnnotation(timeout = 666000)
-    public void testToString() {
+    void testToString() {
         assertTimeoutPreemptively(Duration.ofSeconds(666L), () -> {
             final TestMethodAnnotation testAnnotation =
                     getClass().getDeclaredMethod("testToString").getAnnotation(TestMethodAnnotation.class);

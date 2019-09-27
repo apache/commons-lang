@@ -37,7 +37,7 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
  * TestCase for DateFormatUtils.
  */
 @SuppressWarnings("deprecation") // tests lots of deprecated items
-public class DateFormatUtilsTest {
+class DateFormatUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     void testConstructor() {

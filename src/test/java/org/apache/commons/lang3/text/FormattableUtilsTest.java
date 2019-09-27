@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
  * Unit tests {@link FormattableUtils}.
  */
 @Deprecated
-public class FormattableUtilsTest {
+class FormattableUtilsTest {
 
     @Test
     void testDefaultAppend() {

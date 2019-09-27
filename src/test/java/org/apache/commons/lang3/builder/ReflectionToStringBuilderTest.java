@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ReflectionToStringBuilderTest {
+class ReflectionToStringBuilderTest {
 
     @Test
     void testConstructorWithNullObject() {

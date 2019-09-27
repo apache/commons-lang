@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * JUnit tests for {@link CloneFailedExceptionTest}.
  */
-public class CloneFailedExceptionTest extends AbstractExceptionTest {
+class CloneFailedExceptionTest extends AbstractExceptionTest {
 
     @Test
     void testThrowingInformativeException() {

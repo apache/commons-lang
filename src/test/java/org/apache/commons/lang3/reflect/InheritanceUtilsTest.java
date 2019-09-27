@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 /**
  * Unit tests InheritanceUtils
  */
-public class InheritanceUtilsTest {
+class InheritanceUtilsTest {
 
     @Test
     void testConstructor() throws Exception {

@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
  * Unit tests for WordUtils class.
  */
 @Deprecated
-public class WordUtilsTest {
+class WordUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test

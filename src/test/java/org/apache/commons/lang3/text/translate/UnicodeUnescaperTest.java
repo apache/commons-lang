@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
  * Unit tests for {@link org.apache.commons.lang3.text.translate.UnicodeEscaper}.
  */
 @Deprecated
-public class UnicodeUnescaperTest {
+class UnicodeUnescaperTest {
 
     // Requested in LANG-507
     @Test

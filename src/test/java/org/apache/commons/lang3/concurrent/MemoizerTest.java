@@ -25,12 +25,12 @@ import static org.easymock.EasyMock.replay;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class MemoizerTest {
+class MemoizerTest {
 
     private Computable<Integer, Integer> computable;
 
     @BeforeEach
-    public void setUpComputableMock() {
+    void setUpComputableMock() {
         computable = EasyMock.mock(Computable.class);
     }
 

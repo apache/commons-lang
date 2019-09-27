@@ -43,7 +43,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Unit tests for {@link LocaleUtils}.
  */
-public class LocaleUtilsTest  {
+class LocaleUtilsTest  {
 
     private static final Locale LOCALE_EN = new Locale("en", "");
     private static final Locale LOCALE_EN_US = new Locale("en", "US");
@@ -54,7 +54,7 @@ public class LocaleUtilsTest  {
     private static final Locale LOCALE_QQ_ZZ = new Locale("qq", "ZZ");
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         // Testing #LANG-304. Must be called before availableLocaleSet is called.
         LocaleUtils.isAvailableLocale(Locale.getDefault());
     }

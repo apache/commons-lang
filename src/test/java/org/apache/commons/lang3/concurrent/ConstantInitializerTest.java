@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@code ConstantInitializer}.
  */
-public class ConstantInitializerTest {
+class ConstantInitializerTest {
     /** Constant for the object managed by the initializer. */
     private static final Integer VALUE = 42;
 
@@ -35,7 +35,7 @@ public class ConstantInitializerTest {
     private ConstantInitializer<Integer> init;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         init = new ConstantInitializer<>(VALUE);
     }
 

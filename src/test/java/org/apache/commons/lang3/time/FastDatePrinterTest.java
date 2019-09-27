@@ -40,7 +40,7 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
  *
  * @since 3.0
  */
-public class FastDatePrinterTest {
+class FastDatePrinterTest {
 
     private static final String YYYY_MM_DD = "yyyy/MM/dd";
     private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");

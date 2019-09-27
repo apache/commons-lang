@@ -22,11 +22,11 @@ import org.junit.jupiter.api.Test;
 /**
  * JUnit tests for DefaultExceptionContext.
  */
-public class DefaultExceptionContextTest extends AbstractExceptionContextTest<DefaultExceptionContext> {
+class DefaultExceptionContextTest extends AbstractExceptionContextTest<DefaultExceptionContext> {
 
     @Override
     @BeforeEach
-    public void setUp() throws Exception {
+    void setUp() throws Exception {
         exceptionContext = new DefaultExceptionContext();
         super.setUp();
     }

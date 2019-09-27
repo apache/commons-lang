@@ -44,7 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Unit tests {@link org.apache.commons.lang3.JavaVersion}.
  */
-public class JavaVersionTest {
+class JavaVersionTest {
 
     @Test
     void testGetJavaVersion() {

@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * JUnit tests for ContextedRuntimeException.
  */
-public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<ContextedRuntimeException> {
+class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<ContextedRuntimeException> {
 
     @BeforeEach
     @Override

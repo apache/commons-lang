@@ -37,7 +37,7 @@ import org.apache.commons.lang3.ArrayUtils;
  * Unit test for Tokenizer.
  */
 @Deprecated
-public class StrTokenizerTest {
+class StrTokenizerTest {
 
     private static final String CSV_SIMPLE_FIXTURE = "A,b,c";
 

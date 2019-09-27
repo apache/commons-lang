@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
  * {@link org.apache.commons.lang3.builder.EqualsBuilderTest} to insure that equal
  * objects must have equal hash codes.
  */
-public class HashCodeBuilderAndEqualsBuilderTest {
+class HashCodeBuilderAndEqualsBuilderTest {
 
     //-----------------------------------------------------------------------
 

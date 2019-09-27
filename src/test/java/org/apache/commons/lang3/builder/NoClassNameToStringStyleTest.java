@@ -29,17 +29,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Unit tests {@link ToStringStyle#NO_CLASS_NAME_STYLE}.
  */
-public class NoClassNameToStringStyleTest {
+class NoClassNameToStringStyleTest {
 
     private final Integer base = Integer.valueOf(5);
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         ToStringBuilder.setDefaultStyle(ToStringStyle.NO_CLASS_NAME_STYLE);
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 

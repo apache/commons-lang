@@ -24,7 +24,7 @@ import java.util.TimeZone;
  *
  * @since 3.2
  */
-public class FastDateFormat_PrinterTest extends FastDatePrinterTest {
+class FastDateFormat_PrinterTest extends FastDatePrinterTest {
 
     @Override
     protected DatePrinter getInstance(final String format, final TimeZone timeZone, final Locale locale) {

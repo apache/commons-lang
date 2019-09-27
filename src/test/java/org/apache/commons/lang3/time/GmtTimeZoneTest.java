@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests for GmtTimeZone
  */
-public class GmtTimeZoneTest {
+class GmtTimeZoneTest {
 
     @Test
 void hoursOutOfRange() {

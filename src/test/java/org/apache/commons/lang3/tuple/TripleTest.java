@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test the Triple class.
  */
-public class TripleTest {
+class TripleTest {
 
     @Test
     void testEmptyArrayLength() {

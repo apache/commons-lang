@@ -19,7 +19,7 @@ package org.apache.commons.lang3.concurrent;
 /**
  * Test class for {@code AtomicInitializer}.
  */
-public class AtomicInitializerTest extends AbstractConcurrentInitializerTest {
+class AtomicInitializerTest extends AbstractConcurrentInitializerTest {
     /**
      * Returns the initializer to be tested.
      *

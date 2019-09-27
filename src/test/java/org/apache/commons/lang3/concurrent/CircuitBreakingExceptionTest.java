@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * JUnit tests for {@link CircuitBreakingException}.
  */
-public class CircuitBreakingExceptionTest extends AbstractExceptionTest {
+class CircuitBreakingExceptionTest extends AbstractExceptionTest {
 
     @Test
     void testThrowingInformativeException() {

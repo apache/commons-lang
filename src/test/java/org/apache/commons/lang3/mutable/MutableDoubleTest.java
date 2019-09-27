@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  *
  * @see MutableDouble
  */
-public class MutableDoubleTest {
+class MutableDoubleTest {
 
     // ----------------------------------------------------------------
     @Test

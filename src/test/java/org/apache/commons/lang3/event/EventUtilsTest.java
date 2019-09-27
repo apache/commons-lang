@@ -41,7 +41,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @since 3.0
  */
-public class EventUtilsTest {
+class EventUtilsTest {
     @Test
     void testConstructor() {
         assertNotNull(new EventUtils());

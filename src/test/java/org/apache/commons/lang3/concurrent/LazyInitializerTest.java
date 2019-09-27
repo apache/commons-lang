@@ -21,12 +21,12 @@ import org.junit.jupiter.api.BeforeEach;
 /**
  * Test class for {@code LazyInitializer}.
  */
-public class LazyInitializerTest extends AbstractConcurrentInitializerTest {
+class LazyInitializerTest extends AbstractConcurrentInitializerTest {
     /** The initializer to be tested. */
     private LazyInitializerTestImpl initializer;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         initializer = new LazyInitializerTestImpl();
     }
 

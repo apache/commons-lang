@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link DiffResult}.
  */
-public class DiffResultTest {
+class DiffResultTest {
 
     private static final SimpleClass SIMPLE_FALSE = new SimpleClass(false);
     private static final SimpleClass SIMPLE_TRUE = new SimpleClass(true);

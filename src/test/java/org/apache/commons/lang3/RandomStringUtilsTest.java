@@ -38,7 +38,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.RandomStringUtils}.
  */
-public class RandomStringUtilsTest {
+class RandomStringUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test

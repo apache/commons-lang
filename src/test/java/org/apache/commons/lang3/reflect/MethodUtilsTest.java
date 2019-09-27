@@ -56,7 +56,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests MethodUtils
  */
-public class MethodUtilsTest {
+class MethodUtilsTest {
 
     private interface PrivateInterface {
     }
@@ -317,7 +317,7 @@ public class MethodUtilsTest {
     private final Map<Class<?>, Class<?>[]> classCache = new HashMap<>();
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         testBean = new TestBean();
         classCache.clear();
     }
@@ -328,7 +328,7 @@ public class MethodUtilsTest {
     }
 
     @Test
-void verifyJavaVarargsOverloadingResolution() {
+    void verifyJavaVarargsOverloadingResolution() {
         // This code is not a test of MethodUtils.
         // Rather it makes explicit the behavior of the Java specification for
         // various cases of overload resolution.

@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests ArrayUtils remove and removeElement methods.
  */
-public class ArrayUtilsRemoveMultipleTest {
+class ArrayUtilsRemoveMultipleTest {
 
     @Test
     void testRemoveAllObjectArray() {
@@ -986,7 +986,7 @@ public class ArrayUtilsRemoveMultipleTest {
 
     @Test
     @SuppressWarnings("cast")
-    public void testRemoveElementDoubleArray() {
+    void testRemoveElementDoubleArray() {
         double[] array;
 
         array = ArrayUtils.removeElements((double[]) null, (double) 1);
@@ -1042,7 +1042,7 @@ public class ArrayUtilsRemoveMultipleTest {
 
     @Test
     @SuppressWarnings("cast")
-    public void testRemoveElementFloatArray() {
+    void testRemoveElementFloatArray() {
         float[] array;
 
         array = ArrayUtils.removeElements((float[]) null, (float) 1);
@@ -1153,7 +1153,7 @@ public class ArrayUtilsRemoveMultipleTest {
 
     @Test
     @SuppressWarnings("cast")
-    public void testRemoveElementLongArray() {
+    void testRemoveElementLongArray() {
         long[] array;
 
         array = ArrayUtils.removeElements((long[]) null, 1L);

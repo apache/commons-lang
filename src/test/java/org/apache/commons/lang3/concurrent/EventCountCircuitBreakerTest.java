@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@code EventCountCircuitBreaker}.
  */
-public class EventCountCircuitBreakerTest {
+class EventCountCircuitBreakerTest {
     /** Constant for the opening threshold. */
     private static final int OPENING_THRESHOLD = 10;
 

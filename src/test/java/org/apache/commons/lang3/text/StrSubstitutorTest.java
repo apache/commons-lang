@@ -37,19 +37,19 @@ import org.junit.jupiter.api.Test;
  * Test class for StrSubstitutor.
  */
 @Deprecated
-public class StrSubstitutorTest {
+class StrSubstitutorTest {
 
     private Map<String, String> values;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         values = new HashMap<>();
         values.put("animal", "quick brown fox");
         values.put("target", "lazy dog");
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         values = null;
     }
 

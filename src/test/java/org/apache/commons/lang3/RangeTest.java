@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
  * </p>
  */
 @SuppressWarnings("boxing")
-public class RangeTest {
+class RangeTest {
 
     private Range<Byte> byteRange;
     private Range<Byte> byteRange2;
@@ -48,7 +48,7 @@ public class RangeTest {
     private Range<Long> longRange;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         byteRange = Range.between((byte) 0, (byte) 5);
         byteRange2 = Range.between((byte) 0, (byte) 5);
         byteRange3 = Range.between((byte) 0, (byte) 10);

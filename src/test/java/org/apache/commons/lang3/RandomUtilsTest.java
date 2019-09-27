@@ -31,7 +31,7 @@ import java.lang.reflect.Modifier;
 /**
  * Tests for {@link RandomUtils}
  */
-public class RandomUtilsTest {
+class RandomUtilsTest {
 
     /**
      * For comparing doubles and floats

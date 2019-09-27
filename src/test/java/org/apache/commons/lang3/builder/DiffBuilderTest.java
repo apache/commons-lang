@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link DiffBuilder}.
  */
-public class DiffBuilderTest {
+class DiffBuilderTest {
 
     private static class TypeTestClass implements Diffable<TypeTestClass> {
         private ToStringStyle style = SHORT_STYLE;

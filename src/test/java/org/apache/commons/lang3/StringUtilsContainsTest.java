@@ -28,7 +28,7 @@ import org.junitpioneer.jupiter.DefaultLocale;
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Contains methods
  */
-public class StringUtilsContainsTest  {
+class StringUtilsContainsTest  {
     /**
      * Supplementary character U+20000
      * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html

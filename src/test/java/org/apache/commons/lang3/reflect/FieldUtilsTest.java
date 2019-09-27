@@ -51,7 +51,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 /**
  * Unit tests FieldUtils
  */
-public class FieldUtilsTest {
+class FieldUtilsTest {
 
     private static final String JACOCO_DATA_FIELD_NAME = "$jacocoData";
     static final Integer I0 = Integer.valueOf(0);
@@ -67,7 +67,7 @@ public class FieldUtilsTest {
     private final Class<? super PublicChild> parentClass = PublicChild.class.getSuperclass();
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         StaticContainer.reset();
         publicChild = new PublicChild();
         publiclyShadowedChild = new PubliclyShadowedChild();

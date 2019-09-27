@@ -28,7 +28,7 @@ import java.util.TimeZone;
 
 import org.junit.jupiter.api.Test;
 
-public class FastDateParser_MoreOrLessTest {
+class FastDateParser_MoreOrLessTest {
 
     private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");
 

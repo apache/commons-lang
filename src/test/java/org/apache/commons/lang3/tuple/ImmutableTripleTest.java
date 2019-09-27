@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test the Triple class.
  */
-public class ImmutableTripleTest {
+class ImmutableTripleTest {
 
     @Test
     void testEmptyArrayLength() {

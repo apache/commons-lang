@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link Conversion}.
  */
-public class ConversionTest {
+class ConversionTest {
 
     /**
      * Tests {@link Conversion#hexDigitToInt(char)}.

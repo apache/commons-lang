@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * TestCase for StopWatch.
  */
-public class StopWatchTest {
+class StopWatchTest {
 
     /**
      * <p>

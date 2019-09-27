@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.ToStringStyle}.
  */
-public class StandardToStringStyleTest {
+class StandardToStringStyleTest {
 
     private final Integer base = Integer.valueOf(5);
     private final String baseStr = "Integer";
@@ -52,12 +52,12 @@ public class StandardToStringStyleTest {
     }
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         ToStringBuilder.setDefaultStyle(STYLE);
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 

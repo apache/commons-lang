@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.CompareToBuilder}.
  */
-public class CompareToBuilderTest {
+class CompareToBuilderTest {
 
     //-----------------------------------------------------------------------
 

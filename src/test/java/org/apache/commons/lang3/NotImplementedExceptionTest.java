@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 /**
  * Unit tests {@link org.apache.commons.lang3.NotImplementedException}.
  */
-public class NotImplementedExceptionTest {
+class NotImplementedExceptionTest {
 
     @Test
     void testConstructors() {

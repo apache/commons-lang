@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests for {@link org.apache.commons.lang3.builder.ToStringBuilder}.
  */
-public class ToStringBuilderTest {
+class ToStringBuilderTest {
 
     // See LANG-1337 for more.
     private static final int ARRAYLIST_INITIAL_CAPACITY = 10;
@@ -44,7 +44,7 @@ public class ToStringBuilderTest {
      * All tests should leave the registry empty.
      */
     @AfterEach
-    public void after() {
+    void after() {
         validateNullToStringStyleRegistry();
     }
 

@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@code CallableBackgroundInitializer}
  */
-public class CallableBackgroundInitializerTest  {
+class CallableBackgroundInitializerTest  {
     /** Constant for the result of the call() invocation. */
     private static final Integer RESULT = Integer.valueOf(42);
 
@@ -37,8 +37,8 @@ public class CallableBackgroundInitializerTest  {
      * Tries to create an instance without a Callable. This should cause an
      * exception.
      */
-    @Test()
-    public void testInitNullCallable() {
+    @Test
+    void testInitNullCallable() {
         assertThrows(IllegalArgumentException.class, () -> new CallableBackgroundInitializer<>(null));
     }
 

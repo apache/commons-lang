@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class FastDatePrinterTimeZonesTest {
+class FastDatePrinterTimeZonesTest {
 
     private static final String PATTERN = "h:mma z";
 

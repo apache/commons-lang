@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
  *      and ToStringBuilder for collections that are not thread safe</a>
  * @since 3.1
  */
-public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
+class ReflectionToStringBuilderMutateInspectConcurrencyTest {
 
     class TestFixture {
         private final LinkedList<Integer> listField = new LinkedList<>();

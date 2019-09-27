@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test the MutablePair class.
  */
-public class MutablePairTest {
+class MutablePairTest {
 
     @Test
     void testEmptyArrayLength() {

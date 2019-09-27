@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.math.NumberUtils}.
  */
-public class NumberUtilsTest {
+class NumberUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test

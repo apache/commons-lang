@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests for methods of {@link org.apache.commons.lang3.RegExUtils} which been moved to their own test classes.
  */
-public class RegExUtilsTest {
+class RegExUtilsTest {
 
     @Test
     void testRemoveAll_StringPattern() {

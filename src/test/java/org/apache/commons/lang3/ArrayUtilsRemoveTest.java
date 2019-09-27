@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests ArrayUtils remove and removeElement methods.
  */
-public class ArrayUtilsRemoveTest {
+class ArrayUtilsRemoveTest {
 
     @Test
     void testRemoveObjectArray() {
@@ -303,7 +303,7 @@ public class ArrayUtilsRemoveTest {
 
     @Test
     @SuppressWarnings("cast")
-    public void testRemoveElementDoubleArray() {
+    void testRemoveElementDoubleArray() {
         double[] array;
         array = ArrayUtils.removeElement(null, (double) 1);
         assertNull(array);
@@ -323,7 +323,7 @@ public class ArrayUtilsRemoveTest {
 
     @Test
     @SuppressWarnings("cast")
-    public void testRemoveElementFloatArray() {
+    void testRemoveElementFloatArray() {
         float[] array;
         array = ArrayUtils.removeElement((float[]) null, (float) 1);
         assertNull(array);
@@ -362,7 +362,7 @@ public class ArrayUtilsRemoveTest {
 
     @Test
     @SuppressWarnings("cast")
-    public void testRemoveElementLongArray() {
+    void testRemoveElementLongArray() {
         long[] array;
         array = ArrayUtils.removeElement((long[]) null, 1L);
         assertNull(array);

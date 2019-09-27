@@ -40,7 +40,7 @@ import java.util.Locale;
  *
  * @since 3.0
  */
-public class DateUtilsRoundingTest {
+class DateUtilsRoundingTest {
 
     DateFormat dateTimeParser;
 
@@ -59,7 +59,7 @@ public class DateUtilsRoundingTest {
 
 
     @BeforeEach
-    public void setUp() throws Exception {
+    void setUp() throws Exception {
 
         dateTimeParser = new SimpleDateFormat("MMM dd, yyyy H:mm:ss.SSS", Locale.ENGLISH);
 

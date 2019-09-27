@@ -41,7 +41,7 @@ import org.junit.jupiter.api.Test;
  * Unit tests {@link org.apache.commons.lang3.ArrayUtils}.
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
-public class ArrayUtilsTest {
+class ArrayUtilsTest {
 
     /** A predefined seed used to initialize {@link Random} in order to get predictable results */
     private static final long SEED = 16111981L;

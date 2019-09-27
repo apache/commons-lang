@@ -38,7 +38,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.ThreadUtils}.
  */
-public class ThreadUtilsTest {
+class ThreadUtilsTest {
 
     @Test
     void testNullThreadName() {

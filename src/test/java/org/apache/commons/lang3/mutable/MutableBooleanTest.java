@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @since 2.2
  * @see MutableBoolean
  */
-public class MutableBooleanTest {
+class MutableBooleanTest {
 
     @Test
     void testCompareTo() {

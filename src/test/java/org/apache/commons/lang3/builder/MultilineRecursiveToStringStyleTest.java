@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  */
-public class MultilineRecursiveToStringStyleTest {
+class MultilineRecursiveToStringStyleTest {
 
     private final String BR = System.lineSeparator();
 

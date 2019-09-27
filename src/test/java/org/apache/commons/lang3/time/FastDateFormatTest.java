@@ -44,7 +44,7 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
  *
  * @since 2.0
  */
-public class FastDateFormatTest {
+class FastDateFormatTest {
     /*
      * Only the cache methods need to be tested here.
      * The print methods are tested by {@link FastDateFormat_PrinterTest}

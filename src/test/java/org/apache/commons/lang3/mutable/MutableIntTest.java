@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  *
  * @see MutableInt
  */
-public class MutableIntTest {
+class MutableIntTest {
 
     // ----------------------------------------------------------------
     @Test

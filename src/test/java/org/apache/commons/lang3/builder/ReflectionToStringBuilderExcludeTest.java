@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  */
-public class ReflectionToStringBuilderExcludeTest {
+class ReflectionToStringBuilderExcludeTest {
 
     class TestFixture {
         @SuppressWarnings("unused")
