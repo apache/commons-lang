@@ -23,7 +23,11 @@ import java.util.List;
 
 /**
  * <p>
- * Helpers for {@code java.lang.Thread} and {@code java.lang.ThreadGroup}.
+ * Helpers for {@code java.lang.Thread} and {@code java.lang.ThreadGroup} classes.
+ * </p>
+ * <p>
+ * ThreadUtils instances should NOT be constructed in standard programming. Instead, the class should be used as
+ * {@code ThreadUtils.getAllThreads()}
  * </p>
  * <p>
  * #ThreadSafe#
@@ -221,19 +225,6 @@ public class ThreadUtils {
     public static Thread findThreadById(final long threadId) {
         final Collection<Thread> result = findThreads(new ThreadIdPredicate(threadId));
         return result.isEmpty() ? null : result.iterator().next();
-    }
-
-    /**
-     * <p>
-     * ThreadUtils instances should NOT be constructed in standard programming. Instead, the class should be used as
-     * {@code ThreadUtils.getAllThreads()}
-     * </p>
-     * <p>
-     * This constructor is public to permit tools that require a JavaBean instance to operate.
-     * </p>
-     */
-    public ThreadUtils() {
-        super();
     }
 
     /**

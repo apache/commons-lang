@@ -1088,12 +1088,7 @@ public class ClassUtilsTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
-        new ClassUtils();
-        final Constructor<?>[] cons = ClassUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(ClassUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(ClassUtils.class.getModifiers()));
+        CodeStructureAssertions.defaultConstructorOnly(ClassUtils.class);
     }
 
     @Test

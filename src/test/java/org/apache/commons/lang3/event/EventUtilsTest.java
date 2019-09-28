@@ -35,6 +35,7 @@ import java.util.TreeMap;
 
 import javax.naming.event.ObjectChangeListener;
 
+import org.apache.commons.lang3.CodeStructureAssertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -43,12 +44,7 @@ import org.junit.jupiter.api.Test;
 public class EventUtilsTest {
     @Test
     public void testConstructor() {
-        new EventUtils();
-        final Constructor<?>[] cons = EventUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(EventUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(EventUtils.class.getModifiers()));
+        CodeStructureAssertions.defaultConstructorOnly(EventUtils.class);
     }
 
     @Test

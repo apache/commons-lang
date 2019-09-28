@@ -29,6 +29,7 @@ import java.lang.reflect.Modifier;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.CodeStructureAssertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -39,12 +40,7 @@ public class DurationFormatUtilsTest {
     // -----------------------------------------------------------------------
     @Test
     public void testConstructor() {
-        new DurationFormatUtils();
-        final Constructor<?>[] cons = DurationFormatUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(DurationFormatUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(DurationFormatUtils.class.getModifiers()));
+        CodeStructureAssertions.defaultConstructorOnly(DurationFormatUtils.class);
     }
 
     // -----------------------------------------------------------------------

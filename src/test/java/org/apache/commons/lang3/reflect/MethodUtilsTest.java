@@ -41,6 +41,7 @@ import java.util.Map;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.ClassUtils.Interfaces;
+import org.apache.commons.lang3.CodeStructureAssertions;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.mutable.Mutable;
 import org.apache.commons.lang3.mutable.MutableObject;
@@ -323,8 +324,8 @@ public class MethodUtilsTest {
     }
 
     @Test
-    public void testConstructor() throws Exception {
-        assertNotNull(MethodUtils.class.newInstance());
+    public void testConstructor() {
+        CodeStructureAssertions.defaultConstructorOnly(MethodUtils.class);
     }
 
     @Test

@@ -32,12 +32,7 @@ public class ClassPathUtilsTest {
 
     @Test
     public void testConstructor() {
-        new ClassPathUtils();
-        final Constructor<?>[] cons = ClassPathUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(ClassPathUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(ClassPathUtils.class.getModifiers()));
+        CodeStructureAssertions.defaultConstructorOnly(ClassPathUtils.class);
     }
 
     @Test

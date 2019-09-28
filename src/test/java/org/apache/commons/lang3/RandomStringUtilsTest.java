@@ -43,12 +43,7 @@ public class RandomStringUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
-        new RandomStringUtils();
-        final Constructor<?>[] cons = RandomStringUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(RandomStringUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(RandomStringUtils.class.getModifiers()));
+        CodeStructureAssertions.defaultConstructorOnly(RandomStringUtils.class);
     }
 
     //-----------------------------------------------------------------------

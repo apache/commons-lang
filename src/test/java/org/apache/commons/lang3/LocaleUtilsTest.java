@@ -65,12 +65,7 @@ public class LocaleUtilsTest  {
      */
     @Test
     public void testConstructor() {
-        new LocaleUtils();
-        final Constructor<?>[] cons = LocaleUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(LocaleUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(LocaleUtils.class.getModifiers()));
+        CodeStructureAssertions.defaultConstructorOnly(LocaleUtils.class);
     }
 
     //-----------------------------------------------------------------------

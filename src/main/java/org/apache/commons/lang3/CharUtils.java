@@ -24,6 +24,9 @@ package org.apache.commons.lang3;
  * Each method documents its behaviour in more detail.</p>
  *
  * <p>#ThreadSafe#</p>
+ *
+ * <p>{@code CharUtils} instances should NOT be constructed in standard programming.
+ * Instead, the class should be used as {@code CharUtils.toString('c');}.</p>
  * @since 2.1
  */
 public class CharUtils {
@@ -61,17 +64,6 @@ public class CharUtils {
         for (char c = 0; c < CHAR_STRING_ARRAY.length; c++) {
             CHAR_STRING_ARRAY[c] = String.valueOf(c);
         }
-    }
-
-    /**
-     * <p>{@code CharUtils} instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as {@code CharUtils.toString('c');}.</p>
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
-     */
-    public CharUtils() {
-      super();
     }
 
     //-----------------------------------------------------------------------

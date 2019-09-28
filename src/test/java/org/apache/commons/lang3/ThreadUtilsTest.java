@@ -279,12 +279,7 @@ public class ThreadUtilsTest {
 
     @Test
     public void testConstructor() {
-        new ThreadUtils();
-        final Constructor<?>[] cons = ThreadUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(ThreadUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(ThreadUtils.class.getModifiers()));
+        CodeStructureAssertions.defaultConstructorOnly(ThreadUtils.class);
     }
 
     @Test

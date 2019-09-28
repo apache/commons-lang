@@ -27,6 +27,9 @@ import org.apache.commons.lang3.Validate;
 /**
  * <p>Provides extra functionality for Java Number classes.</p>
  *
+ * <p><code>NumberUtils</code> instances should NOT be constructed in standard programming.
+ * Instead, the class should be used as <code>NumberUtils.toInt("6");</code>.</p>
+ *
  * @since 2.0
  */
 public class NumberUtils {
@@ -70,17 +73,6 @@ public class NumberUtils {
     /** Reusable Float constant for minus one. */
     public static final Float FLOAT_MINUS_ONE = -1.0f;
 
-
-    /**
-     * <p><code>NumberUtils</code> instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as <code>NumberUtils.toInt("6");</code>.</p>
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
-     */
-    public NumberUtils() {
-        super();
-    }
 
     //-----------------------------------------------------------------------
     /**

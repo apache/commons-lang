@@ -41,22 +41,13 @@ import java.util.Map;
  * <p>This class throws exceptions for invalid {@code null} inputs.
  * Each method documents its behaviour in more detail.</p>
  *
+ * <p>SerializationUtils instances should NOT be constructed in standard programming.
+ * Instead, the class should be used as {@code SerializationUtils.clone(object)}.</p>
+ *
  * <p>#ThreadSafe#</p>
  * @since 1.0
  */
 public class SerializationUtils {
-
-    /**
-     * <p>SerializationUtils instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as {@code SerializationUtils.clone(object)}.</p>
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
-     * @since 2.0
-     */
-    public SerializationUtils() {
-        super();
-    }
 
     // Clone
     //-----------------------------------------------------------------------

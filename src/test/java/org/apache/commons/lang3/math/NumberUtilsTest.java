@@ -29,6 +29,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import java.math.RoundingMode;
+
+import org.apache.commons.lang3.CodeStructureAssertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -39,12 +41,7 @@ public class NumberUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
-        new NumberUtils();
-        final Constructor<?>[] cons = NumberUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(NumberUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(NumberUtils.class.getModifiers()));
+        CodeStructureAssertions.defaultConstructorOnly(NumberUtils.class);
     }
 
     //---------------------------------------------------------------------

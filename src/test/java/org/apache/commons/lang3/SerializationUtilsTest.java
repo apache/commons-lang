@@ -66,12 +66,7 @@ public class SerializationUtilsTest {
 
     @Test
     public void testConstructor() {
-        new SerializationUtils();
-        final Constructor<?>[] cons = SerializationUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(SerializationUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(SerializationUtils.class.getModifiers()));
+        CodeStructureAssertions.defaultConstructorOnly(SerializationUtils.class);
     }
 
     @Test

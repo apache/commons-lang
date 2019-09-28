@@ -54,12 +54,7 @@ public class SystemUtilsTest {
 
     @Test
     public void testConstructor() {
-        new SystemUtils();
-        final Constructor<?>[] cons = SystemUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(SystemUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(SystemUtils.class.getModifiers()));
+        CodeStructureAssertions.defaultConstructorOnly(SystemUtils.class);
     }
 
     @Test

@@ -18,6 +18,7 @@ package org.apache.commons.lang3.reflect;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import org.apache.commons.lang3.CodeStructureAssertions;
 import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.reflect.testbed.Ambig;
@@ -75,12 +76,7 @@ public class FieldUtilsTest {
 
     @Test
     public void testConstructor() {
-        new FieldUtils();
-        final Constructor<?>[] cons = FieldUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(FieldUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(FieldUtils.class.getModifiers()));
+        CodeStructureAssertions.defaultConstructorOnly(FieldUtils.class);
     }
 
     @Test

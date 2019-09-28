@@ -32,6 +32,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.List;
 
+import org.apache.commons.lang3.CodeStructureAssertions;
 import org.apache.commons.lang3.test.NotVisibleExceptionFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -209,12 +210,7 @@ public class ExceptionUtilsTest {
 
     @Test
     public void testConstructor() {
-        new ExceptionUtils();
-        final Constructor<?>[] cons = ExceptionUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(ExceptionUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(ExceptionUtils.class.getModifiers()));
+        CodeStructureAssertions.defaultConstructorOnly(ExceptionUtils.class);
     }
 
     //-----------------------------------------------------------------------

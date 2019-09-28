@@ -23,6 +23,9 @@ package org.apache.commons.lang3;
  * An exception will not be thrown for a {@code null} input.
  * Each method documents its behaviour in more detail.</p>
  *
+ * <p>CharSetUtils instances should NOT be constructed in standard programming.
+ * Instead, the class should be used as {@code CharSetUtils.evaluateSet(null);}.</p>
+ *
  * <p>#ThreadSafe#</p>
  * @see CharSet
  * @since 1.0
@@ -234,16 +237,5 @@ public class CharSetUtils {
             lastChar = ch;
         }
         return buffer.toString();
-    }
-
-    /**
-     * <p>CharSetUtils instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as {@code CharSetUtils.evaluateSet(null);}.</p>
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
-     */
-    public CharSetUtils() {
-      super();
     }
 }

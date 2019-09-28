@@ -33,6 +33,9 @@ import java.util.concurrent.ConcurrentMap;
  * An exception will not be thrown for a {@code null} input.
  * Each method documents its behaviour in more detail.</p>
  *
+ * <p>{@code LocaleUtils} instances should NOT be constructed in standard programming.
+ * Instead, the class should be used as {@code LocaleUtils.toLocale("en_GB");}.</p>
+ *
  * @since 2.2
  */
 public class LocaleUtils {
@@ -44,17 +47,6 @@ public class LocaleUtils {
     /** Concurrent map of country locales by language. */
     private static final ConcurrentMap<String, List<Locale>> cCountriesByLanguage =
         new ConcurrentHashMap<>();
-
-    /**
-     * <p>{@code LocaleUtils} instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as {@code LocaleUtils.toLocale("en_GB");}.</p>
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
-     */
-    public LocaleUtils() {
-      super();
-    }
 
     //-----------------------------------------------------------------------
     /**

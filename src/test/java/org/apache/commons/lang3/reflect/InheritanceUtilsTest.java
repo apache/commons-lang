@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.reflect;
 
+import org.apache.commons.lang3.CodeStructureAssertions;
 import org.apache.commons.lang3.reflect.testbed.AnotherChild;
 import org.apache.commons.lang3.reflect.testbed.AnotherParent;
 import org.apache.commons.lang3.reflect.testbed.Grandchild;
@@ -30,8 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class InheritanceUtilsTest {
 
     @Test
-    public void testConstructor() throws Exception {
-        assertNotNull(InheritanceUtils.class.newInstance());
+    public void testConstructor() {
+        CodeStructureAssertions.defaultConstructorOnly(InheritanceUtils.class);
     }
 
     @Test

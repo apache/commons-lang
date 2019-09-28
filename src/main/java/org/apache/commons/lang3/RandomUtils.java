@@ -29,6 +29,12 @@ import java.util.Random;
  * a better choice for applications with more stringent requirements
  * (performance and/or correctness).</p>
  *
+ * <p>
+ * {@code RandomUtils} instances should NOT be constructed in standard
+ * programming. Instead, the class should be used as
+ * {@code RandomUtils.nextBytes(5);}.
+ * </p>
+ *
  * @since 3.3
  */
 public class RandomUtils {
@@ -38,22 +44,6 @@ public class RandomUtils {
      * random method so as to not return the same value in the same millisecond.
      */
     private static final Random RANDOM = new Random();
-
-    /**
-     * <p>
-     * {@code RandomUtils} instances should NOT be constructed in standard
-     * programming. Instead, the class should be used as
-     * {@code RandomUtils.nextBytes(5);}.
-     * </p>
-     *
-     * <p>
-     * This constructor is public to permit tools that require a JavaBean
-     * instance to operate.
-     * </p>
-     */
-    public RandomUtils() {
-        super();
-    }
 
     /**
      * <p>

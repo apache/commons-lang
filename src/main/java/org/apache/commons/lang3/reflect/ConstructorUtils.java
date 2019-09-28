@@ -42,21 +42,13 @@ import org.apache.commons.lang3.Validate;
  * succeed when the application has sufficient security privileges. If this call
  * fails then a warning will be logged and the method may fail.</p>
  *
+ * <p>ConstructorUtils instances should NOT be constructed in standard
+ * programming. Instead, the class should be used as
+ * {@code ConstructorUtils.invokeConstructor(cls, args)}.</p>
+ *
  * @since 2.5
  */
 public class ConstructorUtils {
-
-    /**
-     * <p>ConstructorUtils instances should NOT be constructed in standard
-     * programming. Instead, the class should be used as
-     * {@code ConstructorUtils.invokeConstructor(cls, args)}.</p>
-     *
-     * <p>This constructor is {@code public} to permit tools that require a JavaBean
-     * instance to operate.</p>
-     */
-    public ConstructorUtils() {
-        super();
-    }
 
     /**
      * <p>Returns a new instance of the specified class inferring the right constructor

@@ -27,6 +27,11 @@ import java.io.File;
  * to {@code null} and a message will be written to {@code System.err}.
  * </p>
  * <p>
+ * SystemUtils instances should NOT be constructed in standard programming. Instead, the class should be used as
+ * {@code SystemUtils.FILE_SEPARATOR}.
+ * </p>
+ *
+ * <p>
  * #ThreadSafe#
  * </p>
  *
@@ -1807,20 +1812,6 @@ public class SystemUtils {
             }
         }
         return true;
-    }
-
-    // -----------------------------------------------------------------------
-    /**
-     * <p>
-     * SystemUtils instances should NOT be constructed in standard programming. Instead, the class should be used as
-     * {@code SystemUtils.FILE_SEPARATOR}.
-     * </p>
-     * <p>
-     * This constructor is public to permit tools that require a JavaBean instance to operate.
-     * </p>
-     */
-    public SystemUtils() {
-        super();
     }
 
 }

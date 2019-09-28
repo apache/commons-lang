@@ -34,12 +34,7 @@ public class CharSetUtilsTest  {
     //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
-        new CharSetUtils();
-        final Constructor<?>[] cons = CharSetUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(CharSetUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(CharSetUtils.class.getModifiers()));
+        CodeStructureAssertions.defaultConstructorOnly(CharSetUtils.class);
     }
 
     //-----------------------------------------------------------------------

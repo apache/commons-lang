@@ -21,21 +21,13 @@ import org.apache.commons.lang3.BooleanUtils;
 /**
  * <p>Utility methods focusing on inheritance.</p>
  *
+ * <p>{@link InheritanceUtils} instances should NOT be constructed in standard programming.
+ * Instead, the class should be used as
+ * {@code MethodUtils.getAccessibleMethod(method)}.</p>
+ *
  * @since 3.2
  */
 public class InheritanceUtils {
-
-    /**
-     * <p>{@link InheritanceUtils} instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as
-     * {@code MethodUtils.getAccessibleMethod(method)}.</p>
-     *
-     * <p>This constructor is {@code public} to permit tools that require a JavaBean
-     * instance to operate.</p>
-     */
-    public InheritanceUtils() {
-        super();
-    }
 
     /**
      * <p>Returns the number of inheritance hops between two classes.</p>

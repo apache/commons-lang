@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3;
 
+import jdk.javadoc.internal.doclets.formats.html.resources.standard;
+
 import java.util.Random;
 
 /**
@@ -42,6 +44,10 @@ import java.util.Random;
  * a better choice for applications with more stringent requirements
  * (performance and/or correctness).</p>
  *
+ * <p>{@code RandomStringUtils} instances should NOT be constructed in
+ * standard programming. Instead, the class should be used as
+ * {@code RandomStringUtils.random(5);}.</p>
+ *
  * <p>#ThreadSafe#</p>
  * @since 1.0
  */
@@ -53,18 +59,6 @@ public class RandomStringUtils {
      * same millisecond.</p>
      */
     private static final Random RANDOM = new Random();
-
-    /**
-     * <p>{@code RandomStringUtils} instances should NOT be constructed in
-     * standard programming. Instead, the class should be used as
-     * {@code RandomStringUtils.random(5);}.</p>
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
-     */
-    public RandomStringUtils() {
-      super();
-    }
 
     // Random
     //-----------------------------------------------------------------------

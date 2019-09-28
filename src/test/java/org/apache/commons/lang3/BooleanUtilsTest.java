@@ -36,12 +36,7 @@ public class BooleanUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
-        new BooleanUtils();
-        final Constructor<?>[] cons = BooleanUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(BooleanUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(BooleanUtils.class.getModifiers()));
+        CodeStructureAssertions.defaultConstructorOnly(BooleanUtils.class);
     }
 
     //-----------------------------------------------------------------------

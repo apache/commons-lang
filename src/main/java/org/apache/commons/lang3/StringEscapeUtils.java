@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import java.io.IOException;
 import java.io.Writer;
 
+import jdk.javadoc.internal.doclets.formats.html.resources.standard;
 import org.apache.commons.lang3.text.translate.AggregateTranslator;
 import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
 import org.apache.commons.lang3.text.translate.EntityArrays;
@@ -33,6 +34,14 @@ import org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover;
 /**
  * <p>Escapes and unescapes {@code String}s for
  * Java, Java Script, HTML and XML.</p>
+ *
+ * <p>{@code StringEscapeUtils} instances should NOT be constructed in
+ * standard programming.</p>
+ *
+ * <p>Instead, the class should be used as:</p>
+ * <pre>{@code
+ * StringEscapeUtils.escapeJava("foo");
+ * }</pre>
  *
  * <p>#ThreadSafe#</p>
  * @since 2.0
@@ -416,20 +425,6 @@ public class StringEscapeUtils {
     }
 
     /* Helper functions */
-
-    /**
-     * <p>{@code StringEscapeUtils} instances should NOT be constructed in
-     * standard programming.</p>
-     *
-     * <p>Instead, the class should be used as:</p>
-     * <pre>StringEscapeUtils.escapeJava("foo");</pre>
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean
-     * instance to operate.</p>
-     */
-    public StringEscapeUtils() {
-      super();
-    }
 
     // Java and JavaScript
     //--------------------------------------------------------------------------

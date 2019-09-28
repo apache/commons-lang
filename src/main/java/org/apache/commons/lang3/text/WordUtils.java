@@ -19,6 +19,7 @@ package org.apache.commons.lang3.text;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jdk.javadoc.internal.doclets.formats.html.resources.standard;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -29,6 +30,10 @@ import org.apache.commons.lang3.StringUtils;
  * An exception will not be thrown for a <code>null</code> input.
  * Each method documents its behaviour in more detail.</p>
  *
+ * <p><code>WordUtils</code> instances should NOT be constructed in
+ * standard programming. Instead, the class should be used as
+ * <code>WordUtils.wrap("foo bar", 20);</code>.</p>
+ *
  * @since 2.0
  * @deprecated as of 3.6, use commons-text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/WordUtils.html">
@@ -36,18 +41,6 @@ import org.apache.commons.lang3.StringUtils;
  */
 @Deprecated
 public class WordUtils {
-
-    /**
-     * <p><code>WordUtils</code> instances should NOT be constructed in
-     * standard programming. Instead, the class should be used as
-     * <code>WordUtils.wrap("foo bar", 20);</code>.</p>
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean
-     * instance to operate.</p>
-     */
-    public WordUtils() {
-      super();
-    }
 
     // Wrapping
     //--------------------------------------------------------------------------

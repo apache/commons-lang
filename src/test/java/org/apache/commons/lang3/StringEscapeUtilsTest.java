@@ -43,12 +43,7 @@ public class StringEscapeUtilsTest {
 
     @Test
     public void testConstructor() {
-        new StringEscapeUtils();
-        final Constructor<?>[] cons = StringEscapeUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(StringEscapeUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(StringEscapeUtils.class.getModifiers()));
+        CodeStructureAssertions.defaultConstructorOnly(StringEscapeUtils.class);
     }
 
     @Test

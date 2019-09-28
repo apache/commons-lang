@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
+import org.apache.commons.lang3.CodeStructureAssertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -35,12 +36,7 @@ public class WordUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
-        new WordUtils();
-        final Constructor<?>[] cons = WordUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(WordUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(WordUtils.class.getModifiers()));
+        CodeStructureAssertions.defaultConstructorOnly(WordUtils.class);
     }
 
     //-----------------------------------------------------------------------

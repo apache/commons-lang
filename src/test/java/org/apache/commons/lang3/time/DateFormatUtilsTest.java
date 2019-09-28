@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.CodeStructureAssertions;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.DefaultTimeZone;
@@ -40,12 +41,7 @@ public class DateFormatUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
-        new DateFormatUtils();
-        final Constructor<?>[] cons = DateFormatUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(DateFormatUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(DateFormatUtils.class.getModifiers()));
+        CodeStructureAssertions.defaultConstructorOnly(DateFormatUtils.class);
     }
 
     //-----------------------------------------------------------------------

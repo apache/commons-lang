@@ -40,6 +40,9 @@ import org.apache.commons.lang3.mutable.MutableInt;
  * array input. However, an Object array that contains a {@code null}
  * element may throw an exception. Each method documents its behaviour.
  *
+ * <p>ArrayUtils instances should NOT be constructed in standard programming.
+ * Instead, the class should be used as <code>ArrayUtils.clone(new int[] {2})</code></p>.
+ *
  * <p>#ThreadSafe#
  * @since 2.0
  */
@@ -146,18 +149,6 @@ public class ArrayUtils {
      * various method from {@link java.util.List}.
      */
     public static final int INDEX_NOT_FOUND = -1;
-
-    /**
-     * <p>ArrayUtils instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as <code>ArrayUtils.clone(new int[] {2})</code>.
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.
-     */
-    public ArrayUtils() {
-      super();
-    }
-
 
     // NOTE: Cannot use {@code} to enclose text which includes {}, but <code></code> is OK
 

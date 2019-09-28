@@ -55,21 +55,13 @@ import org.apache.commons.lang3.Validate;
  * This call will only succeed when the application has sufficient security privileges.
  * If this call fails then the method may fail.</p>
  *
+ * <p>{@link MethodUtils} instances should NOT be constructed in standard programming.
+ * Instead, the class should be used as
+ * {@code MethodUtils.getAccessibleMethod(method)}.</p>
+ *
  * @since 2.5
  */
 public class MethodUtils {
-
-    /**
-     * <p>{@link MethodUtils} instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as
-     * {@code MethodUtils.getAccessibleMethod(method)}.</p>
-     *
-     * <p>This constructor is {@code public} to permit tools that require a JavaBean
-     * instance to operate.</p>
-     */
-    public MethodUtils() {
-        super();
-    }
 
     /**
      * <p>Invokes a named method without parameters.</p>

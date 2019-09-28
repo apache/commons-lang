@@ -49,12 +49,7 @@ public class ArrayUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
-        new ArrayUtils();
-        final Constructor<?>[] cons = ArrayUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(ArrayUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(ArrayUtils.class.getModifiers()));
+        CodeStructureAssertions.defaultConstructorOnly(ArrayUtils.class);
     }
 
     //-----------------------------------------------------------------------

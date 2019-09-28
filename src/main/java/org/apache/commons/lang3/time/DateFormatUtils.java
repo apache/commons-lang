@@ -30,6 +30,8 @@ import java.util.TimeZone;
  * <p>Note that the JDK has a bug wherein calling Calendar.get(int) will
  * override any previously called Calendar.clear() calls. See LANG-755.</p>
  *
+ * <p>DateFormatUtils instances should NOT be constructed in standard programming.</p>
+ *
  * @since 2.0
  */
 public class DateFormatUtils {
@@ -192,17 +194,6 @@ public class DateFormatUtils {
      */
     public static final FastDateFormat SMTP_DATETIME_FORMAT
             = FastDateFormat.getInstance("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
-
-    //-----------------------------------------------------------------------
-    /**
-     * <p>DateFormatUtils instances should NOT be constructed in standard programming.</p>
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
-     */
-    public DateFormatUtils() {
-        super();
-    }
 
     /**
      * <p>Formats a date/time into a specific pattern using the UTC time zone.</p>

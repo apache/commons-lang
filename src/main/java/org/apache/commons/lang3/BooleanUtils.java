@@ -25,21 +25,13 @@ import org.apache.commons.lang3.math.NumberUtils;
  * An exception will not be thrown for a {@code null} input.
  * Each method documents its behaviour in more detail.</p>
  *
+ * <p>{@code BooleanUtils} instances should NOT be constructed in standard programming.
+ * Instead, the class should be used as {@code BooleanUtils.negate(true);}.</p>
+ *
  * <p>#ThreadSafe#</p>
  * @since 2.0
  */
 public class BooleanUtils {
-
-    /**
-     * <p>{@code BooleanUtils} instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as {@code BooleanUtils.negate(true);}.</p>
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
-     */
-    public BooleanUtils() {
-      super();
-    }
 
     // Boolean utilities
     //--------------------------------------------------------------------------

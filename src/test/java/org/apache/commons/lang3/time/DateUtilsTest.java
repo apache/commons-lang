@@ -35,6 +35,7 @@ import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.CodeStructureAssertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -145,12 +146,7 @@ public class DateUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
-        new DateUtils();
-        final Constructor<?>[] cons = DateUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(DateUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(DateUtils.class.getModifiers()));
+        CodeStructureAssertions.defaultConstructorOnly(DateUtils.class);
     }
 
     //-----------------------------------------------------------------------

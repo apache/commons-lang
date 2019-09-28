@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.CodeStructureAssertions;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -134,8 +135,8 @@ public class ConstructorUtilsTest {
     }
 
     @Test
-    public void testConstructor() throws Exception {
-        assertNotNull(MethodUtils.class.newInstance());
+    public void testConstructor() {
+        CodeStructureAssertions.defaultConstructorOnly(ConstructorUtils.class);
     }
 
     @Test

@@ -43,22 +43,15 @@ import org.apache.commons.lang3.Validate;
  *
  * <b>Note: It's not currently possible to include a single-quote in a format.</b>
  * <br>
- * Token values are printed using decimal digits.
+ * <p>Token values are printed using decimal digits.
  * A token character can be repeated to ensure that the field occupies a certain minimum
- * size. Values will be left-padded with 0 unless padding is disabled in the method invocation.
+ * size. Values will be left-padded with 0 unless padding is disabled in the method invocation.</p>
+ *
+ * <p>DurationFormatUtils instances should NOT be constructed in standard programming.</p>
+ *
  * @since 2.1
  */
 public class DurationFormatUtils {
-
-    /**
-     * <p>DurationFormatUtils instances should NOT be constructed in standard programming.</p>
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
-     */
-    public DurationFormatUtils() {
-        super();
-    }
 
     /**
      * <p>Pattern used with <code>FastDateFormat</code> and <code>SimpleDateFormat</code>
