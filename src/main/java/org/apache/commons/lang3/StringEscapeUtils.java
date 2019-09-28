@@ -19,7 +19,6 @@ package org.apache.commons.lang3;
 import java.io.IOException;
 import java.io.Writer;
 
-import jdk.javadoc.internal.doclets.formats.html.resources.standard;
 import org.apache.commons.lang3.text.translate.AggregateTranslator;
 import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
 import org.apache.commons.lang3.text.translate.EntityArrays;

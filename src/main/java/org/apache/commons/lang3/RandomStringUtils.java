@@ -16,8 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import jdk.javadoc.internal.doclets.formats.html.resources.standard;
-
 import java.util.Random;
 
 /**
