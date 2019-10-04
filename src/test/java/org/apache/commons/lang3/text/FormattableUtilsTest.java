@@ -17,11 +17,12 @@
 package org.apache.commons.lang3.text;
 
 import static java.util.FormattableFlags.LEFT_JUSTIFY;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Formatter;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link FormattableUtils}.
@@ -83,9 +84,9 @@ public class FormattableUtilsTest {
         assertEquals("+*   ", FormattableUtils.append("foo", new Formatter(), LEFT_JUSTIFY, 5, 2, "+*").toString());
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testIllegalEllipsis() {
-        FormattableUtils.append("foo", new Formatter(), 0, -1, 1, "xx");
+        assertThrows(IllegalArgumentException.class, () -> FormattableUtils.append("foo", new Formatter(), 0, -1, 1, "xx"));
     }
 
     @Test

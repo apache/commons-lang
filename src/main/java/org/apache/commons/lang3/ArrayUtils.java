@@ -49,74 +49,92 @@ public class ArrayUtils {
      * An empty immutable {@code Object} array.
      */
     public static final Object[] EMPTY_OBJECT_ARRAY = new Object[0];
+
     /**
      * An empty immutable {@code Class} array.
      */
     public static final Class<?>[] EMPTY_CLASS_ARRAY = new Class[0];
+
     /**
      * An empty immutable {@code String} array.
      */
     public static final String[] EMPTY_STRING_ARRAY = new String[0];
+
     /**
      * An empty immutable {@code long} array.
      */
     public static final long[] EMPTY_LONG_ARRAY = new long[0];
+
     /**
      * An empty immutable {@code Long} array.
      */
     public static final Long[] EMPTY_LONG_OBJECT_ARRAY = new Long[0];
+
     /**
      * An empty immutable {@code int} array.
      */
     public static final int[] EMPTY_INT_ARRAY = new int[0];
+
     /**
      * An empty immutable {@code Integer} array.
      */
     public static final Integer[] EMPTY_INTEGER_OBJECT_ARRAY = new Integer[0];
+
     /**
      * An empty immutable {@code short} array.
      */
     public static final short[] EMPTY_SHORT_ARRAY = new short[0];
+
     /**
      * An empty immutable {@code Short} array.
      */
     public static final Short[] EMPTY_SHORT_OBJECT_ARRAY = new Short[0];
+
     /**
      * An empty immutable {@code byte} array.
      */
     public static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
+
     /**
      * An empty immutable {@code Byte} array.
      */
     public static final Byte[] EMPTY_BYTE_OBJECT_ARRAY = new Byte[0];
+
     /**
      * An empty immutable {@code double} array.
      */
     public static final double[] EMPTY_DOUBLE_ARRAY = new double[0];
+
     /**
      * An empty immutable {@code Double} array.
      */
     public static final Double[] EMPTY_DOUBLE_OBJECT_ARRAY = new Double[0];
+
     /**
      * An empty immutable {@code float} array.
      */
     public static final float[] EMPTY_FLOAT_ARRAY = new float[0];
+
     /**
      * An empty immutable {@code Float} array.
      */
     public static final Float[] EMPTY_FLOAT_OBJECT_ARRAY = new Float[0];
+
     /**
      * An empty immutable {@code boolean} array.
      */
     public static final boolean[] EMPTY_BOOLEAN_ARRAY = new boolean[0];
+
     /**
      * An empty immutable {@code Boolean} array.
      */
     public static final Boolean[] EMPTY_BOOLEAN_OBJECT_ARRAY = new Boolean[0];
+
     /**
      * An empty immutable {@code char} array.
      */
     public static final char[] EMPTY_CHAR_ARRAY = new char[0];
+
     /**
      * An empty immutable {@code Character} array.
      */
@@ -244,7 +262,7 @@ public class ArrayUtils {
         for (int i = 0; i < array.length; i++) {
             final Object object = array[i];
             if (object instanceof Map.Entry<?, ?>) {
-                final Map.Entry<?,?> entry = (Map.Entry<?,?>) object;
+                final Map.Entry<?, ?> entry = (Map.Entry<?, ?>) object;
                 map.put(entry.getKey(), entry.getValue());
             } else if (object instanceof Object[]) {
                 final Object[] entry = (Object[]) object;
@@ -275,7 +293,7 @@ public class ArrayUtils {
         return new T[size]; // compiler error here
     }
     public static &lt;T&gt; T[] createAnArray(int size) {
-        return (T[])new Object[size]; // ClassCastException at runtime
+        return (T[]) new Object[size]; // ClassCastException at runtime
     }
      * </pre>
      *
@@ -877,7 +895,7 @@ public class ArrayUtils {
      * {@code Date}, the following usage is envisaged:
      *
      * <pre>
-     * Date[] someDates = (Date[])ArrayUtils.subarray(allDates, 2, 5);
+     * Date[] someDates = (Date[]) ArrayUtils.subarray(allDates, 2, 5);
      * </pre>
      *
      * @param <T> the component type of the array
@@ -1854,7 +1872,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final Object[] array, final int offset1, final int offset2) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -1883,7 +1901,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final long[] array, final int offset1, final int offset2) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -1911,7 +1929,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final int[] array, final int offset1, final int offset2) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -1939,7 +1957,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final short[] array, final int offset1, final int offset2) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -1967,7 +1985,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final char[] array, final int offset1, final int offset2) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -1995,7 +2013,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final byte[] array, final int offset1, final int offset2) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -2023,7 +2041,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final double[] array, final int offset1, final int offset2) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -2051,7 +2069,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final float[] array, final int offset1, final int offset2) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -2079,7 +2097,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final boolean[] array, final int offset1, final int offset2) {
-        if (array == null || array.length == 0) {
+        if (isEmpty(array)) {
             return;
         }
         swap(array, offset1, offset2, 1);
@@ -2110,7 +2128,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final boolean[] array, int offset1, int offset2, int len) {
-        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
+        if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
         if (offset1 < 0) {
@@ -2152,7 +2170,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final byte[] array, int offset1, int offset2, int len) {
-        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
+        if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
         if (offset1 < 0) {
@@ -2194,7 +2212,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final char[] array, int offset1, int offset2, int len) {
-        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
+        if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
         if (offset1 < 0) {
@@ -2236,7 +2254,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final double[] array,  int offset1, int offset2, int len) {
-        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
+        if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
         if (offset1 < 0) {
@@ -2278,7 +2296,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final float[] array, int offset1, int offset2, int len) {
-        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
+        if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
         if (offset1 < 0) {
@@ -2321,7 +2339,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final int[] array,  int offset1, int offset2, int len) {
-        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
+        if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
         if (offset1 < 0) {
@@ -2363,7 +2381,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final long[] array,  int offset1, int offset2, int len) {
-        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
+        if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
         if (offset1 < 0) {
@@ -2405,7 +2423,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final Object[] array,  int offset1, int offset2, int len) {
-        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
+        if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
         if (offset1 < 0) {
@@ -2447,7 +2465,7 @@ public class ArrayUtils {
     * @since 3.5
     */
     public static void swap(final short[] array,  int offset1, int offset2, int len) {
-        if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
+        if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
         if (offset1 < 0) {
@@ -3870,7 +3888,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int indexOf(final double[] array, final double valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -3902,7 +3920,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int indexOf(final double[] array, final double valueToFind, int startIndex, final double tolerance) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -3964,7 +3982,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -3998,7 +4016,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex, final double tolerance) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -4077,7 +4095,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int indexOf(final float[] array, final float valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -4120,7 +4138,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final float[] array, final float valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -4181,7 +4199,7 @@ public class ArrayUtils {
      *  array input
      */
     public static int indexOf(final boolean[] array, final boolean valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -4225,7 +4243,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final boolean[] array, final boolean valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -4748,19 +4766,19 @@ public class ArrayUtils {
         }
         final Class<?> ct = array.getClass().getComponentType();
         final Class<?> pt = ClassUtils.wrapperToPrimitive(ct);
-        if(Integer.TYPE.equals(pt)) {
+        if (Integer.TYPE.equals(pt)) {
             return toPrimitive((Integer[]) array);
         }
-        if(Long.TYPE.equals(pt)) {
+        if (Long.TYPE.equals(pt)) {
             return toPrimitive((Long[]) array);
         }
-        if(Short.TYPE.equals(pt)) {
+        if (Short.TYPE.equals(pt)) {
             return toPrimitive((Short[]) array);
         }
-        if(Double.TYPE.equals(pt)) {
+        if (Double.TYPE.equals(pt)) {
             return toPrimitive((Double[]) array);
         }
-        if(Float.TYPE.equals(pt)) {
+        if (Float.TYPE.equals(pt)) {
             return toPrimitive((Float[]) array);
         }
         return array;
@@ -5366,6 +5384,272 @@ public class ArrayUtils {
     }
 
     /**
+     * Copies the given array and adds the given element at the beginning of the new array.
+     *
+     * <p>
+     * The new array contains the same elements of the input array plus the given element in the first position. The
+     * component type of the new array is the same as that of the input array.
+     * </p>
+     *
+     * <p>
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
+     * element.
+     * </p>
+     *
+     * <pre>
+     * ArrayUtils.add(null, true)          = [true]
+     * ArrayUtils.add([true], false)       = [false, true]
+     * ArrayUtils.add([true, false], true) = [true, true, false]
+     * </pre>
+     *
+     * @param array the array to "add" the element to, may be {@code null}.
+     * @param element the object to add.
+     * @return A new array containing the existing elements plus the new element The returned array type will be that of
+     *         the input array (unless null), in which case it will have the same type as the element.
+     * @since 3.10
+     */
+    public static boolean[] addFirst(final boolean[] array, final boolean element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+    /**
+     * Copies the given array and adds the given element at the beginning of the new array.
+     *
+     * <p>
+     * The new array contains the same elements of the input array plus the given element in the first position. The
+     * component type of the new array is the same as that of the input array.
+     * </p>
+     *
+     * <p>
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
+     * element.
+     * </p>
+     *
+     * <pre>
+     * ArrayUtils.add(null, 1)   = [1]
+     * ArrayUtils.add([1], 0)    = [0, 1]
+     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * </pre>
+     *
+     * @param array the array to "add" the element to, may be {@code null}.
+     * @param element the object to add.
+     * @return A new array containing the existing elements plus the new element The returned array type will be that of
+     *         the input array (unless null), in which case it will have the same type as the element.
+     * @since 3.10
+     */
+    public static byte[] addFirst(final byte[] array, final byte element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+    /**
+     * Copies the given array and adds the given element at the beginning of the new array.
+     *
+     * <p>
+     * The new array contains the same elements of the input array plus the given element in the first position. The
+     * component type of the new array is the same as that of the input array.
+     * </p>
+     *
+     * <p>
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
+     * element.
+     * </p>
+     *
+     * <pre>
+     * ArrayUtils.add(null, '1')       = ['1']
+     * ArrayUtils.add(['1'], '0')      = ['0', '1']
+     * ArrayUtils.add(['1', '0'], '1') = ['1', '1', '0']
+     * </pre>
+     *
+     * @param array the array to "add" the element to, may be {@code null}.
+     * @param element the object to add.
+     * @return A new array containing the existing elements plus the new element The returned array type will be that of
+     *         the input array (unless null), in which case it will have the same type as the element.
+     * @since 3.10
+     */
+    public static char[] addFirst(final char[] array, final char element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+    /**
+     * Copies the given array and adds the given element at the beginning of the new array.
+     *
+     * <p>
+     * The new array contains the same elements of the input array plus the given element in the first position. The
+     * component type of the new array is the same as that of the input array.
+     * </p>
+     *
+     * <p>
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
+     * element.
+     * </p>
+     *
+     * <pre>
+     * ArrayUtils.add(null, 1)   = [1]
+     * ArrayUtils.add([1], 0)    = [0, 1]
+     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * </pre>
+     *
+     * @param array the array to "add" the element to, may be {@code null}.
+     * @param element the object to add.
+     * @return A new array containing the existing elements plus the new element The returned array type will be that of
+     *         the input array (unless null), in which case it will have the same type as the element.
+     * @since 3.10
+     */
+    public static double[] addFirst(final double[] array, final double element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+    /**
+     * Copies the given array and adds the given element at the beginning of the new array.
+     *
+     * <p>
+     * The new array contains the same elements of the input array plus the given element in the first position. The
+     * component type of the new array is the same as that of the input array.
+     * </p>
+     *
+     * <p>
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
+     * element.
+     * </p>
+     *
+     * <pre>
+     * ArrayUtils.add(null, 1)   = [1]
+     * ArrayUtils.add([1], 0)    = [0, 1]
+     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * </pre>
+     *
+     * @param array the array to "add" the element to, may be {@code null}.
+     * @param element the object to add.
+     * @return A new array containing the existing elements plus the new element The returned array type will be that of
+     *         the input array (unless null), in which case it will have the same type as the element.
+     * @since 3.10
+     */
+    public static float[] addFirst(final float[] array, final float element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+    /**
+     * Copies the given array and adds the given element at the beginning of the new array.
+     *
+     * <p>
+     * The new array contains the same elements of the input array plus the given element in the first position. The
+     * component type of the new array is the same as that of the input array.
+     * </p>
+     *
+     * <p>
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
+     * element.
+     * </p>
+     *
+     * <pre>
+     * ArrayUtils.add(null, 1)   = [1]
+     * ArrayUtils.add([1], 0)    = [0, 1]
+     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * </pre>
+     *
+     * @param array the array to "add" the element to, may be {@code null}.
+     * @param element the object to add.
+     * @return A new array containing the existing elements plus the new element The returned array type will be that of
+     *         the input array (unless null), in which case it will have the same type as the element.
+     * @since 3.10
+     */
+    public static int[] addFirst(final int[] array, final int element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+    /**
+     * Copies the given array and adds the given element at the beginning of the new array.
+     *
+     * <p>
+     * The new array contains the same elements of the input array plus the given element in the first position. The
+     * component type of the new array is the same as that of the input array.
+     * </p>
+     *
+     * <p>
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
+     * element.
+     * </p>
+     *
+     * <pre>
+     * ArrayUtils.add(null, 1)   = [1]
+     * ArrayUtils.add([1], 0)    = [0, 1]
+     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * </pre>
+     *
+     * @param array the array to "add" the element to, may be {@code null}.
+     * @param element the object to add.
+     * @return A new array containing the existing elements plus the new element The returned array type will be that of
+     *         the input array (unless null), in which case it will have the same type as the element.
+     * @since 3.10
+     */
+    public static long[] addFirst(final long[] array, final long element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+    /**
+     * Copies the given array and adds the given element at the beginning of the new array.
+     *
+     * <p>
+     * The new array contains the same elements of the input array plus the given element in the first position. The
+     * component type of the new array is the same as that of the input array.
+     * </p>
+     *
+     * <p>
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
+     * element.
+     * </p>
+     *
+     * <pre>
+     * ArrayUtils.add(null, 1)   = [1]
+     * ArrayUtils.add([1], 0)    = [0, 1]
+     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * </pre>
+     *
+     * @param array the array to "add" the element to, may be {@code null}.
+     * @param element the object to add.
+     * @return A new array containing the existing elements plus the new element The returned array type will be that of
+     *         the input array (unless null), in which case it will have the same type as the element.
+     * @since 3.10
+     */
+    public static short[] addFirst(final short[] array, final short element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+    /**
+     * Copies the given array and adds the given element at the beginning of the new array.
+     *
+     * <p>
+     * The new array contains the same elements of the input array plus the given element in the first positioaddFirstaddFirstaddFirstn. The
+     * component type of the new array is the same as that of the input array.
+     * </p>
+     *
+     * <p>
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
+     * element, unless the element itself is null, in which case the return type is Object[]
+     * </p>
+     *
+     * <pre>
+     * ArrayUtils.add(null, null)      = IllegalArgumentException
+     * ArrayUtils.add(null, "a")       = ["a"]
+     * ArrayUtils.add(["a"], null)     = [null, "a"]
+     * ArrayUtils.add(["a"], "b")      = ["b", "a"]
+     * ArrayUtils.add(["a", "b"], "c") = ["c", "a", "b"]
+     * </pre>
+     *
+     * @param <T> the component type of the array
+     * @param array the array to "add" the element to, may be {@code null}
+     * @param element the object to add, may be {@code null}
+     * @return A new array containing the existing elements plus the new element The returned array type will be that of
+     *         the input array (unless null), in which case it will have the same type as the element. If both are null,
+     *         an IllegalArgumentException is thrown
+     * @since 3.10
+     * @throws IllegalArgumentException if both arguments are null
+     */
+    public static <T> T[] addFirst(final T[] array, final T element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+    /**
      * <p>Copies the given array and adds the given element at the end of the new array.
      *
      * <p>The new array contains the same elements of the input
@@ -5387,7 +5671,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean[] add(final boolean[] array, final boolean element) {
-        final boolean[] newArray = (boolean[])copyArrayGrow1(array, Boolean.TYPE);
+        final boolean[] newArray = (boolean[]) copyArrayGrow1(array, Boolean.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -5414,7 +5698,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static byte[] add(final byte[] array, final byte element) {
-        final byte[] newArray = (byte[])copyArrayGrow1(array, Byte.TYPE);
+        final byte[] newArray = (byte[]) copyArrayGrow1(array, Byte.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -5441,7 +5725,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static char[] add(final char[] array, final char element) {
-        final char[] newArray = (char[])copyArrayGrow1(array, Character.TYPE);
+        final char[] newArray = (char[]) copyArrayGrow1(array, Character.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -5468,7 +5752,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static double[] add(final double[] array, final double element) {
-        final double[] newArray = (double[])copyArrayGrow1(array, Double.TYPE);
+        final double[] newArray = (double[]) copyArrayGrow1(array, Double.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -5495,7 +5779,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static float[] add(final float[] array, final float element) {
-        final float[] newArray = (float[])copyArrayGrow1(array, Float.TYPE);
+        final float[] newArray = (float[]) copyArrayGrow1(array, Float.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -5522,7 +5806,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static int[] add(final int[] array, final int element) {
-        final int[] newArray = (int[])copyArrayGrow1(array, Integer.TYPE);
+        final int[] newArray = (int[]) copyArrayGrow1(array, Integer.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -5549,7 +5833,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static long[] add(final long[] array, final long element) {
-        final long[] newArray = (long[])copyArrayGrow1(array, Long.TYPE);
+        final long[] newArray = (long[]) copyArrayGrow1(array, Long.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -7436,7 +7720,7 @@ public class ArrayUtils {
      */
     // package protected for access by unit tests
     static Object removeAll(final Object array, final BitSet indices) {
-        final int srcLength = ArrayUtils.getLength(array);
+        final int srcLength = getLength(array);
         // No need to check maxIndex here, because method only currently called from removeElements()
         // which guarantee to generate on;y valid bit entries.
 //        final int maxIndex = indices.length();
@@ -7474,12 +7758,7 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static <T extends Comparable<? super T>> boolean isSorted(final T[] array) {
-        return isSorted(array, new Comparator<T>() {
-            @Override
-            public int compare(final T o1, final T o2) {
-                return o1.compareTo(o2);
-            }
-        });
+        return isSorted(array, (o1, o2) -> o1.compareTo(o2));
     }
 
 
@@ -8080,7 +8359,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8122,7 +8401,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8164,7 +8443,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8206,7 +8485,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8248,7 +8527,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8290,7 +8569,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8332,7 +8611,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8374,7 +8653,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8426,7 +8705,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (values == null || values.length == 0) {
+        if (ArrayUtils.isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8671,5 +8950,21 @@ public class ArrayUtils {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
+    }
+
+    /**
+     * Returns whether a given array can safely be accessed at the given index.
+     * @param <T> the component type of the array
+     * @param array the array to inspect, may be null
+     * @param index the index of the array to be inspected
+     * @return Whether the given index is safely-accessible in the given array
+     * @since 3.8
+     */
+    public static <T> boolean isArrayIndexValid(T[] array, int index) {
+        if (getLength(array) == 0 || array.length <= index) {
+            return false;
+        }
+
+        return index >= 0;
     }
 }

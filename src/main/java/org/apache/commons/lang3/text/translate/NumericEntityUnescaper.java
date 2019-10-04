@@ -57,7 +57,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
      * @param options to apply to this unescaper
      */
     public NumericEntityUnescaper(final OPTION... options) {
-        if(options.length > 0) {
+        if (options.length > 0) {
             this.options = EnumSet.copyOf(Arrays.asList(options));
         } else {
             this.options = EnumSet.copyOf(Arrays.asList(new OPTION[] { OPTION.semiColonRequired }));
@@ -81,24 +81,24 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
     public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
         final int seqEnd = input.length();
         // Uses -2 to ensure there is something after the &#
-        if(input.charAt(index) == '&' && index < seqEnd - 2 && input.charAt(index + 1) == '#') {
+        if (input.charAt(index) == '&' && index < seqEnd - 2 && input.charAt(index + 1) == '#') {
             int start = index + 2;
             boolean isHex = false;
 
             final char firstChar = input.charAt(start);
-            if(firstChar == 'x' || firstChar == 'X') {
+            if (firstChar == 'x' || firstChar == 'X') {
                 start++;
                 isHex = true;
 
                 // Check there's more than just an x after the &#
-                if(start == seqEnd) {
+                if (start == seqEnd) {
                     return 0;
                 }
             }
 
             int end = start;
             // Note that this supports character codes without a ; on the end
-            while(end < seqEnd && ( input.charAt(end) >= '0' && input.charAt(end) <= '9' ||
+            while (end < seqEnd && ( input.charAt(end) >= '0' && input.charAt(end) <= '9' ||
                                     input.charAt(end) >= 'a' && input.charAt(end) <= 'f' ||
                                     input.charAt(end) >= 'A' && input.charAt(end) <= 'F' ) ) {
                 end++;
@@ -106,18 +106,18 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
 
             final boolean semiNext = end != seqEnd && input.charAt(end) == ';';
 
-            if(!semiNext) {
-                if(isSet(OPTION.semiColonRequired)) {
+            if (!semiNext) {
+                if (isSet(OPTION.semiColonRequired)) {
                     return 0;
                 } else
-                if(isSet(OPTION.errorIfNoSemiColon)) {
+                if (isSet(OPTION.errorIfNoSemiColon)) {
                     throw new IllegalArgumentException("Semi-colon required at end of numeric entity");
                 }
             }
 
             int entityValue;
             try {
-                if(isHex) {
+                if (isHex) {
                     entityValue = Integer.parseInt(input.subSequence(start, end).toString(), 16);
                 } else {
                     entityValue = Integer.parseInt(input.subSequence(start, end).toString(), 10);
@@ -126,7 +126,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
                 return 0;
             }
 
-            if(entityValue > 0xFFFF) {
+            if (entityValue > 0xFFFF) {
                 final char[] chars = Character.toChars(entityValue);
                 out.write(chars[0]);
                 out.write(chars[1]);

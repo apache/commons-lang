@@ -128,10 +128,7 @@ public class ClassUtils {
      * Maps an abbreviation used in array class names to corresponding primitive class name.
      */
     private static final Map<String, String> reverseAbbreviationMap;
-
-    /**
-     * Feed abbreviation maps
-     */
+    // Feed abbreviation maps
     static {
         final Map<String, String> m = new HashMap<>();
         m.put("int", "I");
@@ -429,8 +426,8 @@ public class ClassUtils {
      * If enough space is available, rightmost sub-packages will be displayed in full
      * length.</p>
      *
-     * <p>The following table illustrates the algorithm:</p>
-     * <table summary="abbreviation examples">
+     * <table>
+     * <caption>Examples</caption>
      * <tr><td>className</td><td>len</td><td>return</td></tr>
      * <tr><td>              null</td><td> 1</td><td>""</td></tr>
      * <tr><td>"java.lang.String"</td><td> 5</td><td>"j.l.String"</td></tr>
@@ -641,7 +638,7 @@ public class ClassUtils {
      * @return {@code true} if assignment possible
      */
     public static boolean isAssignable(final Class<?>[] classArray, final Class<?>... toClassArray) {
-        return isAssignable(classArray, toClassArray, SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_5));
+        return isAssignable(classArray, toClassArray, true);
     }
 
     /**
@@ -757,7 +754,7 @@ public class ClassUtils {
      * @return {@code true} if assignment possible
      */
     public static boolean isAssignable(final Class<?> cls, final Class<?> toClass) {
-        return isAssignable(cls, toClass, SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_5));
+        return isAssignable(cls, toClass, true);
     }
 
     /**
@@ -1084,7 +1081,7 @@ public class ClassUtils {
      *  or if the method doesn't conform with the requirements
      */
     public static Method getPublicMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes)
-            throws SecurityException, NoSuchMethodException {
+            throws NoSuchMethodException {
 
         final Method declaredMethod = cls.getMethod(methodName, parameterTypes);
         if (Modifier.isPublic(declaredMethod.getDeclaringClass().getModifiers())) {
@@ -1263,7 +1260,7 @@ public class ClassUtils {
      * @since 2.4
      */
     public static String getShortCanonicalName(final String canonicalName) {
-        return ClassUtils.getShortClassName(getCanonicalName(canonicalName));
+        return getShortClassName(getCanonicalName(canonicalName));
     }
 
     // Package name
@@ -1308,7 +1305,7 @@ public class ClassUtils {
      * @since 2.4
      */
     public static String getPackageCanonicalName(final String canonicalName) {
-        return ClassUtils.getPackageName(getCanonicalName(canonicalName));
+        return getPackageName(getCanonicalName(canonicalName));
     }
 
     /**
@@ -1347,7 +1344,7 @@ public class ClassUtils {
                     ? className.length() - 1
                     : className.length());
         } else {
-            if (className.length() > 0) {
+            if (!className.isEmpty()) {
                 className = reverseAbbreviationMap.get(className.substring(0, 1));
             }
         }
@@ -1379,82 +1376,73 @@ public class ClassUtils {
      * @since 3.2
      */
     public static Iterable<Class<?>> hierarchy(final Class<?> type, final Interfaces interfacesBehavior) {
-        final Iterable<Class<?>> classes = new Iterable<Class<?>>() {
+        final Iterable<Class<?>> classes = () -> {
+            final MutableObject<Class<?>> next = new MutableObject<>(type);
+            return new Iterator<Class<?>>() {
 
-            @Override
-            public Iterator<Class<?>> iterator() {
-                final MutableObject<Class<?>> next = new MutableObject<Class<?>>(type);
-                return new Iterator<Class<?>>() {
+                @Override
+                public boolean hasNext() {
+                    return next.getValue() != null;
+                }
 
-                    @Override
-                    public boolean hasNext() {
-                        return next.getValue() != null;
-                    }
+                @Override
+                public Class<?> next() {
+                    final Class<?> result = next.getValue();
+                    next.setValue(result.getSuperclass());
+                    return result;
+                }
 
-                    @Override
-                    public Class<?> next() {
-                        final Class<?> result = next.getValue();
-                        next.setValue(result.getSuperclass());
-                        return result;
-                    }
+                @Override
+                public void remove() {
+                    throw new UnsupportedOperationException();
+                }
 
-                    @Override
-                    public void remove() {
-                        throw new UnsupportedOperationException();
-                    }
-
-                };
-            }
-
+            };
         };
         if (interfacesBehavior != Interfaces.INCLUDE) {
             return classes;
         }
-        return new Iterable<Class<?>>() {
+        return () -> {
+            final Set<Class<?>> seenInterfaces = new HashSet<>();
+            final Iterator<Class<?>> wrapped = classes.iterator();
 
-            @Override
-            public Iterator<Class<?>> iterator() {
-                final Set<Class<?>> seenInterfaces = new HashSet<>();
-                final Iterator<Class<?>> wrapped = classes.iterator();
+            return new Iterator<Class<?>>() {
+                Iterator<Class<?>> interfaces = Collections.<Class<?>>emptySet().iterator();
 
-                return new Iterator<Class<?>>() {
-                    Iterator<Class<?>> interfaces = Collections.<Class<?>> emptySet().iterator();
+                @Override
+                public boolean hasNext() {
+                    return interfaces.hasNext() || wrapped.hasNext();
+                }
 
-                    @Override
-                    public boolean hasNext() {
-                        return interfaces.hasNext() || wrapped.hasNext();
+                @Override
+                public Class<?> next() {
+                    if (interfaces.hasNext()) {
+                        final Class<?> nextInterface = interfaces.next();
+                        seenInterfaces.add(nextInterface);
+                        return nextInterface;
                     }
+                    final Class<?> nextSuperclass = wrapped.next();
+                    final Set<Class<?>> currentInterfaces = new LinkedHashSet<>();
+                    walkInterfaces(currentInterfaces, nextSuperclass);
+                    interfaces = currentInterfaces.iterator();
+                    return nextSuperclass;
+                }
 
-                    @Override
-                    public Class<?> next() {
-                        if (interfaces.hasNext()) {
-                            final Class<?> nextInterface = interfaces.next();
-                            seenInterfaces.add(nextInterface);
-                            return nextInterface;
+                private void walkInterfaces(final Set<Class<?>> addTo, final Class<?> c) {
+                    for (final Class<?> iface : c.getInterfaces()) {
+                        if (!seenInterfaces.contains(iface)) {
+                            addTo.add(iface);
                         }
-                        final Class<?> nextSuperclass = wrapped.next();
-                        final Set<Class<?>> currentInterfaces = new LinkedHashSet<>();
-                        walkInterfaces(currentInterfaces, nextSuperclass);
-                        interfaces = currentInterfaces.iterator();
-                        return nextSuperclass;
+                        walkInterfaces(addTo, iface);
                     }
+                }
 
-                    private void walkInterfaces(final Set<Class<?>> addTo, final Class<?> c) {
-                        for (final Class<?> iface : c.getInterfaces()) {
-                            if (!seenInterfaces.contains(iface)) {
-                                addTo.add(iface);
-                            }
-                            walkInterfaces(addTo, iface);
-                        }
-                    }
+                @Override
+                public void remove() {
+                    throw new UnsupportedOperationException();
+                }
 
-                    @Override
-                    public void remove() {
-                        throw new UnsupportedOperationException();
-                    }
-
-                };
-            }
+            };
         };
     }
 

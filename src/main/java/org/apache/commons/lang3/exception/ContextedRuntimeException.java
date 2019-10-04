@@ -231,7 +231,7 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
      * @return the message, never null
      */
     @Override
-    public String getMessage(){
+    public String getMessage() {
         return getFormattedExceptionMessage(super.getMessage());
     }
 

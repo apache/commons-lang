@@ -1,4 +1,19 @@
-$Id: RELEASE-NOTES.txt 1144999 2011-07-11 01:02:13Z ggregory $
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+=============================================================================
 
                         Commons Lang Package
                             Version 3.0
@@ -16,7 +31,7 @@ variable arguments, autoboxing, concurrency and formatted output.
 
 For the latest advice on upgrading, see the following page: 
 
-    http://commons.apache.org/lang/article3_0.html
+    https://commons.apache.org/lang/article3_0.html
 
 ADDITIONS IN 3.0
 ================

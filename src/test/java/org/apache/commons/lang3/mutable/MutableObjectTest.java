@@ -16,13 +16,12 @@
  */
 package org.apache.commons.lang3.mutable;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -62,19 +61,19 @@ public class MutableObjectTest {
         final MutableObject<String> mutNumC = new MutableObject<>("BETA");
         final MutableObject<String> mutNumD = new MutableObject<>(null);
 
-        assertTrue(mutNumA.equals(mutNumA));
-        assertTrue(mutNumA.equals(mutNumB));
-        assertTrue(mutNumB.equals(mutNumA));
-        assertTrue(mutNumB.equals(mutNumB));
-        assertFalse(mutNumA.equals(mutNumC));
-        assertFalse(mutNumB.equals(mutNumC));
-        assertTrue(mutNumC.equals(mutNumC));
-        assertFalse(mutNumA.equals(mutNumD));
-        assertTrue(mutNumD.equals(mutNumD));
+        assertEquals(mutNumA, mutNumA);
+        assertEquals(mutNumA, mutNumB);
+        assertEquals(mutNumB, mutNumA);
+        assertEquals(mutNumB, mutNumB);
+        assertNotEquals(mutNumA, mutNumC);
+        assertNotEquals(mutNumB, mutNumC);
+        assertEquals(mutNumC, mutNumC);
+        assertNotEquals(mutNumA, mutNumD);
+        assertEquals(mutNumD, mutNumD);
 
-        assertFalse(mutNumA.equals(null));
-        assertFalse(mutNumA.equals(new Object()));
-        assertFalse(mutNumA.equals("0"));
+        assertNotEquals(null, mutNumA);
+        assertNotEquals(mutNumA, new Object());
+        assertNotEquals("0", mutNumA);
     }
 
     @Test
@@ -84,11 +83,11 @@ public class MutableObjectTest {
         final MutableObject<String> mutNumC = new MutableObject<>("BETA");
         final MutableObject<String> mutNumD = new MutableObject<>(null);
 
-        assertTrue(mutNumA.hashCode() == mutNumA.hashCode());
-        assertTrue(mutNumA.hashCode() == mutNumB.hashCode());
-        assertFalse(mutNumA.hashCode() == mutNumC.hashCode());
-        assertFalse(mutNumA.hashCode() == mutNumD.hashCode());
-        assertTrue(mutNumA.hashCode() == "ALPHA".hashCode());
+        assertEquals(mutNumA.hashCode(), mutNumA.hashCode());
+        assertEquals(mutNumA.hashCode(), mutNumB.hashCode());
+        assertNotEquals(mutNumA.hashCode(), mutNumC.hashCode());
+        assertNotEquals(mutNumA.hashCode(), mutNumD.hashCode());
+        assertEquals(mutNumA.hashCode(), "ALPHA".hashCode());
         assertEquals(0, mutNumD.hashCode());
     }
 

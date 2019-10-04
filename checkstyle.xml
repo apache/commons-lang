@@ -20,7 +20,7 @@ limitations under the License.
     "-//Puppy Crawl//DTD Check Configuration 1.1//EN"
     "http://www.puppycrawl.com/dtds/configuration_1_1.dtd">
 
-<!-- commons lang customization of default Checkstyle behavior -->
+<!-- Apache Commons Lang customization of default Checkstyle behavior -->
 <module name="Checker">
   <property name="localeLanguage" value="en"/>
   <module name="JavadocPackage"/>
@@ -39,7 +39,6 @@ limitations under the License.
     <property name="file" value="checkstyle-suppressions.xml"/>
   </module>
   <module name="TreeWalker">
-    <property name="cacheFile" value="target/cachefile"/>
     <module name="AvoidStarImport"/>
     <module name="IllegalImport"/>
     <module name="RedundantImport"/>
@@ -55,5 +54,8 @@ limitations under the License.
     <module name="LeftCurly"/>
     <module name="NeedBraces"/>
     <module name="RightCurly"/>
+    <module name="GenericWhitespace"/>
+    <module name="WhitespaceAfter"/>
+    <module name="NoWhitespaceBefore"/>
  </module>
 </module>

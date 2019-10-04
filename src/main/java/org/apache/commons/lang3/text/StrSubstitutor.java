@@ -122,8 +122,8 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @since 2.2
  * @deprecated as of 3.6, use commons-text
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StrSubstitutor.html">
- * StrSubstitutor</a> instead
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StringSubstitutor.html">
+ * StringSubstitutor</a> instead
  */
 @Deprecated
 public class StrSubstitutor {
@@ -218,14 +218,14 @@ public class StrSubstitutor {
         if (valueProperties == null) {
             return source.toString();
         }
-        final Map<String,String> valueMap = new HashMap<>();
+        final Map<String, String> valueMap = new HashMap<>();
         final Enumeration<?> propNames = valueProperties.propertyNames();
         while (propNames.hasMoreElements()) {
-            final String propName = (String)propNames.nextElement();
+            final String propName = (String) propNames.nextElement();
             final String propValue = valueProperties.getProperty(propName);
             valueMap.put(propName, propValue);
         }
-        return StrSubstitutor.replace(source, valueMap);
+        return replace(source, valueMap);
     }
 
     /**
@@ -984,7 +984,7 @@ public class StrSubstitutor {
      */
     public StrSubstitutor setVariablePrefixMatcher(final StrMatcher prefixMatcher) {
         if (prefixMatcher == null) {
-            throw new IllegalArgumentException("Variable prefix matcher must not be null!");
+            throw new IllegalArgumentException("Variable prefix matcher must not be null.");
         }
         this.prefixMatcher = prefixMatcher;
         return this;
@@ -1016,7 +1016,7 @@ public class StrSubstitutor {
      */
     public StrSubstitutor setVariablePrefix(final String prefix) {
        if (prefix == null) {
-            throw new IllegalArgumentException("Variable prefix must not be null!");
+            throw new IllegalArgumentException("Variable prefix must not be null.");
         }
         return setVariablePrefixMatcher(StrMatcher.stringMatcher(prefix));
     }
@@ -1049,7 +1049,7 @@ public class StrSubstitutor {
      */
     public StrSubstitutor setVariableSuffixMatcher(final StrMatcher suffixMatcher) {
         if (suffixMatcher == null) {
-            throw new IllegalArgumentException("Variable suffix matcher must not be null!");
+            throw new IllegalArgumentException("Variable suffix matcher must not be null.");
         }
         this.suffixMatcher = suffixMatcher;
         return this;
@@ -1081,7 +1081,7 @@ public class StrSubstitutor {
      */
     public StrSubstitutor setVariableSuffix(final String suffix) {
        if (suffix == null) {
-            throw new IllegalArgumentException("Variable suffix must not be null!");
+            throw new IllegalArgumentException("Variable suffix must not be null.");
         }
         return setVariableSuffixMatcher(StrMatcher.stringMatcher(suffix));
     }

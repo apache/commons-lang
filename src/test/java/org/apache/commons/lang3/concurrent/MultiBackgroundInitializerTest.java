@@ -16,11 +16,11 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -28,8 +28,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link MultiBackgroundInitializer}.
@@ -41,8 +41,8 @@ public class MultiBackgroundInitializerTest {
     /** The initializer to be tested. */
     private MultiBackgroundInitializer initializer;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() {
         initializer = new MultiBackgroundInitializer();
     }
 
@@ -59,11 +59,10 @@ public class MultiBackgroundInitializerTest {
             final ExecutorService expExec) throws ConcurrentException {
         final ChildBackgroundInitializer cinit = (ChildBackgroundInitializer) child;
         final Integer result = cinit.get();
-        assertEquals("Wrong result", 1, result.intValue());
-        assertEquals("Wrong number of executions", 1, cinit.initializeCalls);
+        assertEquals(1, result.intValue(), "Wrong result");
+        assertEquals(1, cinit.initializeCalls, "Wrong number of executions");
         if (expExec != null) {
-            assertEquals("Wrong executor service", expExec,
-                    cinit.currentExecutor);
+            assertEquals(expExec, cinit.currentExecutor, "Wrong executor service");
         }
     }
 
@@ -71,18 +70,18 @@ public class MultiBackgroundInitializerTest {
      * Tests addInitializer() if a null name is passed in. This should cause an
      * exception.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testAddInitializerNullName() {
-        initializer.addInitializer(null, new ChildBackgroundInitializer());
+        assertThrows(IllegalArgumentException.class, () -> initializer.addInitializer(null, new ChildBackgroundInitializer()));
     }
 
     /**
      * Tests addInitializer() if a null initializer is passed in. This should
      * cause an exception.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testAddInitializerNullInit() {
-        initializer.addInitializer(CHILD_INIT, null);
+        assertThrows(IllegalArgumentException.class, () -> initializer.addInitializer(CHILD_INIT, null));
     }
 
     /**
@@ -92,12 +91,11 @@ public class MultiBackgroundInitializerTest {
      */
     @Test
     public void testInitializeNoChildren() throws ConcurrentException {
-        assertTrue("Wrong result of start()", initializer.start());
+        assertTrue(initializer.start(), "Wrong result of start()");
         final MultiBackgroundInitializer.MultiBackgroundInitializerResults res = initializer
                 .get();
-        assertTrue("Got child initializers", res.initializerNames().isEmpty());
-        assertTrue("Executor not shutdown", initializer.getActiveExecutor()
-                .isShutdown());
+        assertTrue(res.initializerNames().isEmpty(), "Got child initializers");
+        assertTrue(initializer.getActiveExecutor().isShutdown(), "Executor not shutdown");
     }
 
     /**
@@ -118,16 +116,13 @@ public class MultiBackgroundInitializerTest {
         initializer.start();
         final MultiBackgroundInitializer.MultiBackgroundInitializerResults res = initializer
                 .get();
-        assertEquals("Wrong number of child initializers", count, res
-                .initializerNames().size());
+        assertEquals(count, res.initializerNames().size(), "Wrong number of child initializers");
         for (int i = 0; i < count; i++) {
             final String key = CHILD_INIT + i;
-            assertTrue("Name not found: " + key, res.initializerNames()
-                    .contains(key));
-            assertEquals("Wrong result object", Integer.valueOf(1), res
-                    .getResultObject(key));
-            assertFalse("Exception flag", res.isException(key));
-            assertNull("Got an exception", res.getException(key));
+            assertTrue(res.initializerNames().contains(key), "Name not found: " + key);
+            assertEquals(Integer.valueOf(1), res.getResultObject(key), "Wrong result object");
+            assertFalse(res.isException(key), "Exception flag");
+            assertNull(res.getException(key), "Got an exception");
             checkChild(res.getInitializer(key), initializer.getActiveExecutor());
         }
         return res;
@@ -141,8 +136,7 @@ public class MultiBackgroundInitializerTest {
     @Test
     public void testInitializeTempExec() throws ConcurrentException {
         checkInitialize();
-        assertTrue("Executor not shutdown", initializer.getActiveExecutor()
-                .isShutdown());
+        assertTrue(initializer.getActiveExecutor().isShutdown(), "Executor not shutdown");
     }
 
     /**
@@ -156,9 +150,8 @@ public class MultiBackgroundInitializerTest {
         try {
             initializer = new MultiBackgroundInitializer(exec);
             checkInitialize();
-            assertEquals("Wrong executor", exec, initializer
-                    .getActiveExecutor());
-            assertFalse("Executor was shutdown", exec.isShutdown());
+            assertEquals(exec, initializer.getActiveExecutor(), "Wrong executor");
+            assertFalse(exec.isShutdown(), "Executor was shutdown");
         } finally {
             exec.shutdown();
             exec.awaitTermination(1, TimeUnit.SECONDS);
@@ -200,13 +193,11 @@ public class MultiBackgroundInitializerTest {
     @Test
     public void testAddInitializerAfterStart() throws ConcurrentException {
         initializer.start();
-        try {
-            initializer.addInitializer(CHILD_INIT,
-                    new ChildBackgroundInitializer());
-            fail("Could add initializer after start()!");
-        } catch (final IllegalStateException istex) {
-            initializer.get();
-        }
+        assertThrows(
+                IllegalStateException.class,
+                () -> initializer.addInitializer(CHILD_INIT, new ChildBackgroundInitializer()),
+                "Could add initializer after start()!");
+        initializer.get();
     }
 
     /**
@@ -215,10 +206,10 @@ public class MultiBackgroundInitializerTest {
      *
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void testResultGetInitializerUnknown() throws ConcurrentException {
         final MultiBackgroundInitializer.MultiBackgroundInitializerResults res = checkInitialize();
-        res.getInitializer("unknown");
+        assertThrows(NoSuchElementException.class, () -> res.getInitializer("unknown"));
     }
 
     /**
@@ -227,10 +218,10 @@ public class MultiBackgroundInitializerTest {
      *
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void testResultGetResultObjectUnknown() throws ConcurrentException {
         final MultiBackgroundInitializer.MultiBackgroundInitializerResults res = checkInitialize();
-        res.getResultObject("unknown");
+        assertThrows(NoSuchElementException.class, () -> res.getResultObject("unknown"));
     }
 
     /**
@@ -239,10 +230,10 @@ public class MultiBackgroundInitializerTest {
      *
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void testResultGetExceptionUnknown() throws ConcurrentException {
         final MultiBackgroundInitializer.MultiBackgroundInitializerResults res = checkInitialize();
-        res.getException("unknown");
+        assertThrows(NoSuchElementException.class, () -> res.getException("unknown"));
     }
 
     /**
@@ -251,10 +242,10 @@ public class MultiBackgroundInitializerTest {
      *
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void testResultIsExceptionUnknown() throws ConcurrentException {
         final MultiBackgroundInitializer.MultiBackgroundInitializerResults res = checkInitialize();
-        res.isException("unknown");
+        assertThrows(NoSuchElementException.class, () -> res.isException("unknown"));
     }
 
     /**
@@ -262,14 +253,14 @@ public class MultiBackgroundInitializerTest {
      *
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testResultInitializerNamesModify() throws ConcurrentException {
         checkInitialize();
         final MultiBackgroundInitializer.MultiBackgroundInitializerResults res = initializer
                 .get();
         final Iterator<String> it = res.initializerNames().iterator();
         it.next();
-        it.remove();
+        assertThrows(UnsupportedOperationException.class, it::remove);
     }
 
     /**
@@ -282,12 +273,8 @@ public class MultiBackgroundInitializerTest {
         child.ex = new RuntimeException();
         initializer.addInitializer(CHILD_INIT, child);
         initializer.start();
-        try {
-            initializer.get();
-            fail("Runtime exception not thrown!");
-        } catch (final Exception ex) {
-            assertEquals("Wrong exception", child.ex, ex);
-        }
+        Exception ex = assertThrows(Exception.class, initializer::get);
+        assertEquals(child.ex, ex, "Wrong exception");
     }
 
     /**
@@ -304,10 +291,10 @@ public class MultiBackgroundInitializerTest {
         initializer.start();
         final MultiBackgroundInitializer.MultiBackgroundInitializerResults res = initializer
                 .get();
-        assertTrue("No exception flag", res.isException(CHILD_INIT));
-        assertNull("Got a results object", res.getResultObject(CHILD_INIT));
+        assertTrue(res.isException(CHILD_INIT), "No exception flag");
+        assertNull(res.getResultObject(CHILD_INIT), "Got a results object");
         final ConcurrentException cex = res.getException(CHILD_INIT);
-        assertEquals("Wrong cause", child.ex, cex.getCause());
+        assertEquals(child.ex, cex.getCause(), "Wrong cause");
     }
 
     /**
@@ -324,7 +311,7 @@ public class MultiBackgroundInitializerTest {
         initializer.start();
         final MultiBackgroundInitializer.MultiBackgroundInitializerResults res = initializer
                 .get();
-        assertTrue("Wrong success flag", res.isSuccessful());
+        assertTrue(res.isSuccessful(), "Wrong success flag");
     }
 
     /**
@@ -342,7 +329,7 @@ public class MultiBackgroundInitializerTest {
         initializer.start();
         final MultiBackgroundInitializer.MultiBackgroundInitializerResults res = initializer
                 .get();
-        assertFalse("Wrong success flag", res.isSuccessful());
+        assertFalse(res.isSuccessful(), "Wrong success flag");
     }
 
     /**
@@ -371,12 +358,11 @@ public class MultiBackgroundInitializerTest {
         checkChild(res.getInitializer(CHILD_INIT), exec);
         final MultiBackgroundInitializer.MultiBackgroundInitializerResults res2 = (MultiBackgroundInitializer.MultiBackgroundInitializerResults) res
                 .getResultObject(nameMulti);
-        assertEquals("Wrong number of initializers", count, res2
-                .initializerNames().size());
+        assertEquals(count, res2.initializerNames().size(), "Wrong number of initializers");
         for (int i = 0; i < count; i++) {
             checkChild(res2.getInitializer(CHILD_INIT + i), exec);
         }
-        assertTrue("Executor not shutdown", exec.isShutdown());
+        assertTrue(exec.isShutdown(), "Executor not shutdown");
     }
 
     /**

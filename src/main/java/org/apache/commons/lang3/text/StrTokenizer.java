@@ -58,11 +58,9 @@ import org.apache.commons.lang3.StringUtils;
  * " a, b , c "    - Three tokens "a","b","c"   (default CSV processing trims whitespace)
  * "a, ", b ,", c" - Three tokens "a, " , " b ", ", c" (quoted text untouched)
  * </pre>
- * <p>
  *
- * This tokenizer has the following properties and options:
- *
- * <table summary="Tokenizer Properties">
+ * <table>
+ *  <caption>StrTokenizer properties and options</caption>
  *  <tr>
  *   <th>Property</th><th>Type</th><th>Default</th>
  *  </tr>
@@ -85,8 +83,8 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @since 2.2
  * @deprecated as of 3.6, use commons-text
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StrTokenizer.html">
- * StrTokenizer</a> instead
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StringTokenizer.html">
+ * StringTokenizer</a> instead
  */
 @Deprecated
 public class StrTokenizer implements ListIterator<String>, Cloneable {

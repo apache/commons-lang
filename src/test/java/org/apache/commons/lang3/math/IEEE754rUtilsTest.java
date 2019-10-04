@@ -16,11 +16,11 @@
  */
 package org.apache.commons.lang3.math;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.math.IEEE754rUtils}.
@@ -55,46 +55,45 @@ public class IEEE754rUtilsTest  {
 
     @Test
     public void testEnforceExceptions() {
-        try {
-            IEEE754rUtils.min( (float[]) null);
-            fail("IllegalArgumentException expected for null input");
-        } catch(final IllegalArgumentException iae) { /* expected */ }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> IEEE754rUtils.min( (float[]) null),
+                "IllegalArgumentException expected for null input");
 
-        try {
-            IEEE754rUtils.min();
-            fail("IllegalArgumentException expected for empty input");
-        } catch(final IllegalArgumentException iae) { /* expected */ }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> IEEE754rUtils.min(),
+                "IllegalArgumentException expected for empty input");
 
-        try {
-            IEEE754rUtils.max( (float[]) null);
-            fail("IllegalArgumentException expected for null input");
-        } catch(final IllegalArgumentException iae) { /* expected */ }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> IEEE754rUtils.max( (float[]) null),
+                "IllegalArgumentException expected for null input");
 
-        try {
-            IEEE754rUtils.max();
-            fail("IllegalArgumentException expected for empty input");
-        } catch(final IllegalArgumentException iae) { /* expected */ }
+        assertThrows(
+                IllegalArgumentException.class,
+                IEEE754rUtils::max,
+                "IllegalArgumentException expected for empty input");
 
-        try {
-            IEEE754rUtils.min( (double[]) null);
-            fail("IllegalArgumentException expected for null input");
-        } catch(final IllegalArgumentException iae) { /* expected */ }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> IEEE754rUtils.min( (double[]) null),
+                "IllegalArgumentException expected for null input");
 
-        try {
-            IEEE754rUtils.min(new double[0]);
-            fail("IllegalArgumentException expected for empty input");
-        } catch(final IllegalArgumentException iae) { /* expected */ }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> IEEE754rUtils.min(new double[0]),
+                "IllegalArgumentException expected for empty input");
 
-        try {
-            IEEE754rUtils.max( (double[]) null);
-            fail("IllegalArgumentException expected for null input");
-        } catch(final IllegalArgumentException iae) { /* expected */ }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> IEEE754rUtils.max( (double[]) null),
+                "IllegalArgumentException expected for null input");
 
-        try {
-            IEEE754rUtils.max(new double[0]);
-            fail("IllegalArgumentException expected for empty input");
-        } catch(final IllegalArgumentException iae) { /* expected */ }
-
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> IEEE754rUtils.max(new double[0]),
+                "IllegalArgumentException expected for empty input");
     }
 
     @Test

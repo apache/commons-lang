@@ -75,7 +75,7 @@ public class CharSet implements Serializable {
      * Subclasses can add more common patterns if desired
      * @since 2.0
      */
-    protected static final Map<String, CharSet> COMMON = Collections.synchronizedMap(new HashMap<String, CharSet>());
+    protected static final Map<String, CharSet> COMMON = Collections.synchronizedMap(new HashMap<>());
 
     static {
         COMMON.put(null, EMPTY);
@@ -88,7 +88,7 @@ public class CharSet implements Serializable {
     }
 
     /** The set of CharRange objects. */
-    private final Set<CharRange> set = Collections.synchronizedSet(new HashSet<CharRange>());
+    private final Set<CharRange> set = Collections.synchronizedSet(new HashSet<>());
 
     //-----------------------------------------------------------------------
     /**
@@ -132,7 +132,7 @@ public class CharSet implements Serializable {
      * <p>There are two ways to add a literal negation character ({@code ^}):</p>
      * <ul>
      *     <li>As the last character in a string, e.g. {@code CharSet.getInstance("a-z^")}</li>
-     *     <li>As a separate element, e.g. {@code CharSet.getInstance("^","a-z")}</li>
+     *     <li>As a separate element, e.g. {@code CharSet.getInstance("^", "a-z")}</li>
      * </ul>
      *
      * <p>Examples using the negation character:</p>
@@ -237,9 +237,11 @@ public class CharSet implements Serializable {
      * @return {@code true} if the set contains the characters
      */
     public boolean contains(final char ch) {
-        for (final CharRange range : set) {
-            if (range.contains(ch)) {
-                return true;
+        synchronized(set) {
+            for (final CharRange range : set) {
+                if (range.contains(ch)) {
+                    return true;
+                }
             }
         }
         return false;

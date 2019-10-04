@@ -16,8 +16,8 @@
  */
 package org.apache.commons.lang3.exception;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * JUnit tests for DefaultExceptionContext.
@@ -25,7 +25,7 @@ import org.junit.Test;
 public class DefaultExceptionContextTest extends AbstractExceptionContextTest<DefaultExceptionContext> {
 
     @Override
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         exceptionContext = new DefaultExceptionContext();
         super.setUp();

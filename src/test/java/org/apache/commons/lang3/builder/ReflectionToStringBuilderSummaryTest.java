@@ -14,27 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.apache.commons.lang3.builder;
 
-package org.apache.commons.lang3.test;
+import org.junit.jupiter.api.Test;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * Annotation used with {@link SystemDefaults} that specifies the
- * system default Locale and TimeZone to be used in a test method.
- */
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface SystemDefaults {
-    /**
-     * The name of the Locale to be used while running a test method
-     */
-    String locale() default "";
-    /**
-     * The name of the TimeZone to be used while running a test method
-     */
-    String timezone() default "";
+public class ReflectionToStringBuilderSummaryTest {
+
+    @SuppressWarnings("unused")
+    private String stringField = "string";
+
+    @ToStringSummary
+    private String summaryString = "summary";
+
+    @Test
+    public void testSummary() {
+        assertEquals("[stringField=string,summaryString=<String>]",
+                new ReflectionToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE).build());
+    }
+
 }

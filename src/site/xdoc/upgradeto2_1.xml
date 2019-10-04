@@ -149,7 +149,7 @@ BUG FIXES:
 31572  o.a.c.lang.enum.ValuedEnum: 'enum'is a keyword in JDK1.5.0
 31933  ToStringStyle setArrayEnd handled null incorrectly
 32133  SystemUtils fails init on HP-UX
-32198  Error in JavaDoc for StringUtils.chomp(String, String)
+32198  Error in Javadoc for StringUtils.chomp(String, String)
 32625  Can't subclass EqualsBuilder because isEquals is private
 33067  EqualsBuilder.append(Object[], Object[]) crashes with a NullPointerException if an element of the first array is null
 33069  EqualsBuilder.append(Object[], Object[]) incorrectly checks that rhs[i] is instance of lhs[i]'s class

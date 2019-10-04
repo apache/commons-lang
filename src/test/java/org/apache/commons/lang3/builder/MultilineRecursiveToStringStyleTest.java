@@ -17,12 +17,12 @@
 
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  */
@@ -203,7 +203,7 @@ public class MultilineRecursiveToStringStyleTest {
 
 
     @Test
-    public void testLANG1319() throws Exception {
+    public void testLANG1319() {
         final String[] stringArray = {"1", "2"};
 
         final String exp = getClassPrefix(stringArray) + "[" + BR

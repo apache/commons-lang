@@ -19,8 +19,10 @@ package org.apache.commons.lang3.builder;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -213,6 +215,7 @@ public class EqualsBuilder implements Builder<Boolean> {
 
     private boolean testTransients = false;
     private boolean testRecursive = false;
+    private List<Class<?>> bypassReflectionClasses;
     private Class<?> reflectUpToClass = null;
     private String[] excludeFields = null;
 
@@ -223,7 +226,9 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @see Object#equals(Object)
      */
     public EqualsBuilder() {
-        // do nothing for now.
+        // set up default classes to bypass reflection for
+        bypassReflectionClasses = new ArrayList<>();
+        bypassReflectionClasses.add(String.class); //hashCode field being lazy but not transient
     }
 
     //-------------------------------------------------------------------------
@@ -247,6 +252,23 @@ public class EqualsBuilder implements Builder<Boolean> {
      */
     public EqualsBuilder setTestRecursive(final boolean testRecursive) {
         this.testRecursive = testRecursive;
+        return this;
+    }
+
+    /**
+     * <p>Set <code>Class</code>es whose instances should be compared by calling their <code>equals</code>
+     * although being in recursive mode. So the fields of theses classes will not be compared recursively by reflection.</p>
+     *
+     * <p>Here you should name classes having non-transient fields which are cache fields being set lazily.<br>
+     * Prominent example being {@link String} class with its hash code cache field. Due to the importance
+     * of the <code>String</code> class, it is included in the default bypasses classes. Usually, if you use
+     * your own set of classes here, remember to include <code>String</code> class, too.</p>
+     * @param bypassReflectionClasses  classes to bypass reflection test
+     * @return EqualsBuilder - used to chain calls.
+     * @since 3.8
+     */
+    public EqualsBuilder setBypassReflectionClasses(List<Class<?>> bypassReflectionClasses) {
+        this.bypassReflectionClasses = bypassReflectionClasses;
         return this;
     }
 
@@ -458,6 +480,10 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * <p>Field names listed in field <code>excludeFields</code> will be ignored.</p>
      *
+     * <p>If either class of the compared objects is contained in
+     * <code>bypassReflectionClasses</code>, both objects are compared by calling
+     * the equals method of the left hand object with the right hand object as an argument.</p>
+     *
      * @param lhs  the left hand object
      * @param rhs  the left hand object
      * @return EqualsBuilder - used to chain calls.
@@ -503,10 +529,16 @@ public class EqualsBuilder implements Builder<Boolean> {
             if (testClass.isArray()) {
                 append(lhs, rhs);
             } else {
-                reflectionAppend(lhs, rhs, testClass);
-                while (testClass.getSuperclass() != null && testClass != reflectUpToClass) {
-                    testClass = testClass.getSuperclass();
+                //If either class is being excluded, call normal object equals method on lhsClass.
+                if (bypassReflectionClasses != null
+                        && (bypassReflectionClasses.contains(lhsClass) || bypassReflectionClasses.contains(rhsClass))) {
+                    isEquals = lhs.equals(rhs);
+                } else {
                     reflectionAppend(lhs, rhs, testClass);
+                    while (testClass.getSuperclass() != null && testClass != reflectUpToClass) {
+                        testClass = testClass.getSuperclass();
+                        reflectionAppend(lhs, rhs, testClass);
+                    }
                 }
             }
         } catch (final IllegalArgumentException e) {
@@ -605,17 +637,17 @@ public class EqualsBuilder implements Builder<Boolean> {
             return this;
         }
         final Class<?> lhsClass = lhs.getClass();
-        if (!lhsClass.isArray()) {
+        if (lhsClass.isArray()) {
+            // factor out array case in order to keep method small enough
+            // to be inlined
+            appendArray(lhs, rhs);
+        } else {
             // The simple case, not an array, just test the element
             if (testRecursive && !ClassUtils.isPrimitiveOrWrapper(lhsClass)) {
                 reflectionAppend(lhs, rhs);
             } else {
                 isEquals = lhs.equals(rhs);
             }
-        } else {
-            // factor out array case in order to keep method small enough
-            // to be inlined
-            appendArray(lhs, rhs);
         }
         return this;
     }
@@ -754,7 +786,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * <p>Test if two <code>float</code>s are equal byt testing that the
+     * <p>Test if two <code>float</code>s are equal by testing that the
      * pattern of bits returned by doubleToLong are equal.</p>
      *
      * <p>This handles NaNs, Infinities, and <code>-0.0</code>.</p>

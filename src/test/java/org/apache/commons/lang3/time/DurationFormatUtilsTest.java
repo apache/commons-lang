@@ -17,18 +17,20 @@
 
 package org.apache.commons.lang3.time;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * TestCase for DurationFormatUtils.
@@ -156,9 +158,9 @@ public class DurationFormatUtilsTest {
         assertEquals("1 day 1 hour 1 minute 1 second", text);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testFormatNegativeDurationWords() throws Exception {
-        DurationFormatUtils.formatDurationWords(-5000, true, true);
+    @Test
+    public void testFormatNegativeDurationWords() {
+        assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDurationWords(-5000, true, true));
     }
 
     @Test
@@ -191,9 +193,9 @@ public class DurationFormatUtilsTest {
         assertEquals("01:02:12.789", DurationFormatUtils.formatDurationHMS(time));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testFormatNegativeDurationHMS() throws Exception {
-        DurationFormatUtils.formatDurationHMS(-5000);
+    @Test
+    public void testFormatNegativeDurationHMS() {
+        assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDurationHMS(-5000));
     }
 
     @Test
@@ -205,9 +207,9 @@ public class DurationFormatUtilsTest {
         assertEquals("P0Y0M0DT0H1M15.321S", DurationFormatUtils.formatDurationISO(75321L));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testFormatNegativeDurationISO() throws Exception {
-        DurationFormatUtils.formatDurationISO(-5000);
+    @Test
+    public void testFormatNegativeDurationISO() {
+        assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDurationISO(-5000));
     }
 
     @Test
@@ -248,9 +250,9 @@ public class DurationFormatUtilsTest {
         assertEquals("0 0 " + days, DurationFormatUtils.formatDuration(duration, "y M d"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testFormatNegativeDuration() throws Exception {
-        DurationFormatUtils.formatDuration(-5000, "S", true);
+    @Test
+    public void testFormatNegativeDuration() {
+        assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDuration(-5000, "S", true));
     }
 
     @SuppressWarnings("deprecation")
@@ -282,9 +284,9 @@ public class DurationFormatUtilsTest {
         // assertEquals("P1Y2M3DT10H30M", text);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testFormatPeriodISOStartGreaterEnd() throws Exception {
-        DurationFormatUtils.formatPeriodISO(5000, 2000);
+    @Test
+    public void testFormatPeriodISOStartGreaterEnd() {
+        assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatPeriodISO(5000, 2000));
     }
 
     @Test
@@ -348,9 +350,9 @@ public class DurationFormatUtilsTest {
         assertEquals("048", DurationFormatUtils.formatPeriod(time1970, time, "MMM"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testFormatPeriodeStartGreaterEnd() throws Exception {
-        DurationFormatUtils.formatPeriod(5000, 2500, "yy/MM");
+    @Test
+    public void testFormatPeriodeStartGreaterEnd() {
+        assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatPeriod(5000, 2500, "yy/MM"));
     }
 
     @Test
@@ -396,17 +398,15 @@ public class DurationFormatUtilsTest {
 
         // test failures in equals
         final DurationFormatUtils.Token token = new DurationFormatUtils.Token(DurationFormatUtils.y, 4);
-        assertFalse("Token equal to non-Token class. ", token.equals(new Object()));
-        assertFalse("Token equal to Token with wrong value class. ", token.equals(new DurationFormatUtils.Token(
-                new Object())));
-        assertFalse("Token equal to Token with different count. ", token.equals(new DurationFormatUtils.Token(
-                DurationFormatUtils.y, 1)));
+        assertNotEquals(token, new Object(), "Token equal to non-Token class. ");
+        assertNotEquals(token, new DurationFormatUtils.Token(new Object()), "Token equal to Token with wrong value class. ");
+        assertNotEquals(token, new DurationFormatUtils.Token(DurationFormatUtils.y, 1), "Token equal to Token with different count. ");
         final DurationFormatUtils.Token numToken = new DurationFormatUtils.Token(Integer.valueOf(1), 4);
-        assertTrue("Token with Number value not equal to itself. ", numToken.equals(numToken));
+        assertEquals(numToken, numToken, "Token with Number value not equal to itself. ");
     }
 
 
-    // http://issues.apache.org/bugzilla/show_bug.cgi?id=38401
+    // https://issues.apache.org/bugzilla/show_bug.cgi?id=38401
     @Test
     public void testBugzilla38401() {
         assertEqualDuration( "0000/00/30 16:00:00 000", new int[] { 2006, 0, 26, 18, 47, 34 },
@@ -435,9 +435,9 @@ public class DurationFormatUtilsTest {
     // Testing the under a day range in DurationFormatUtils.formatPeriod
     @Test
     public void testLowDurations() {
-        for(int hr=0; hr < 24; hr++) {
-            for(int min=0; min < 60; min++) {
-                for(int sec=0; sec < 60; sec++) {
+        for (int hr=0; hr < 24; hr++) {
+            for (int min=0; min < 60; min++) {
+                for (int sec=0; sec < 60; sec++) {
                     assertEqualDuration( hr + ":" + min + ":" + sec,
                                          new int[] { 2000, 0, 1, 0, 0, 0, 0 },
                                          new int[] { 2000, 0, 1, hr, min, sec },
@@ -575,9 +575,9 @@ public class DurationFormatUtilsTest {
         //bruteForce(1996, 1, 29, "M", Calendar.MONTH);  // this will fail
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testLANG981() { // unmatched quote char in lexx
-        DurationFormatUtils.lexx("'yMdHms''S");
+        assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.lexx("'yMdHms''S"));
     }
 
     private static final int FOUR_YEARS = 365 * 3 + 366;
@@ -624,7 +624,7 @@ public class DurationFormatUtilsTest {
         if (message == null) {
             assertEquals(expected, result);
         } else {
-            assertEquals(message, expected, result);
+            assertEquals(expected, result, message);
         }
     }
 

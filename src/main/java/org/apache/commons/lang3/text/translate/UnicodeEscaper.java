@@ -37,7 +37,7 @@ public class UnicodeEscaper extends CodePointTranslator {
     /**
      * <p>Constructs a <code>UnicodeEscaper</code> for all characters. </p>
      */
-    public UnicodeEscaper(){
+    public UnicodeEscaper() {
         this(0, Integer.MAX_VALUE, true);
     }
 

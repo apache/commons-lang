@@ -112,7 +112,7 @@ public class SerializationUtils {
      */
     @SuppressWarnings("unchecked") // OK, because we serialized a type `T`
     public static <T extends Serializable> T roundtrip(final T msg) {
-        return (T) SerializationUtils.deserialize(SerializationUtils.serialize(msg));
+        return (T) deserialize(serialize(msg));
     }
 
     // Serialize
@@ -134,7 +134,7 @@ public class SerializationUtils {
      */
     public static void serialize(final Serializable obj, final OutputStream outputStream) {
         Validate.isTrue(outputStream != null, "The OutputStream must not be null");
-        try (ObjectOutputStream out = new ObjectOutputStream(outputStream)){
+        try (ObjectOutputStream out = new ObjectOutputStream(outputStream)) {
             out.writeObject(obj);
         } catch (final IOException ex) {
             throw new SerializationException(ex);
@@ -220,7 +220,7 @@ public class SerializationUtils {
      */
     public static <T> T deserialize(final byte[] objectData) {
         Validate.isTrue(objectData != null, "The byte[] must not be null");
-        return SerializationUtils.deserialize(new ByteArrayInputStream(objectData));
+        return deserialize(new ByteArrayInputStream(objectData));
     }
 
     /**

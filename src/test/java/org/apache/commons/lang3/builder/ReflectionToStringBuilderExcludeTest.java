@@ -17,15 +17,15 @@
 
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  */
@@ -104,7 +104,7 @@ public class ReflectionToStringBuilderExcludeTest {
 
     @Test
     public void test_toStringExcludeEmptyCollection() {
-        final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), new ArrayList<String>());
+        final String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), new ArrayList<>());
         this.validateSecretFieldPresent(toString);
     }
 

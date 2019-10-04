@@ -71,7 +71,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @throws NumberFormatException if the string cannot be parsed into a float
      * @since 2.5
      */
-    public MutableFloat(final String value) throws NumberFormatException {
+    public MutableFloat(final String value) {
         super();
         this.value = Float.parseFloat(value);
     }
@@ -130,7 +130,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Increments the value.
      *
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void increment() {
         value++;
@@ -164,7 +164,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Decrements the value.
      *
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void decrement() {
         value--;
@@ -200,7 +200,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * Adds a value to the value of this instance.
      *
      * @param operand  the value to add, not null
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void add(final float operand) {
         this.value += operand;
@@ -211,7 +211,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      *
      * @param operand  the value to add, not null
      * @throws NullPointerException if the object is null
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void add(final Number operand) {
         this.value += operand.floatValue();
@@ -221,7 +221,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * Subtracts a value from the value of this instance.
      *
      * @param operand  the value to subtract
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void subtract(final float operand) {
         this.value -= operand;
@@ -232,7 +232,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      *
      * @param operand  the value to subtract, not null
      * @throws NullPointerException if the object is null
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void subtract(final Number operand) {
         this.value -= operand.floatValue();

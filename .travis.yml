@@ -14,15 +14,21 @@
 # limitations under the License.
 
 language: java
-sudo: false
-
 jdk:
-  - openjdk7
-  - oraclejdk8
-  - oraclejdk9
+  - openjdk8
+  - openjdk11
+  - openjdk13
+  - openjdk-ea
+
+matrix:
+  include:
+    - os: linux-ppc64le
+      jdk: openjdk8
+  allow_failures:
+    - jdk: openjdk-ea
 
 script:
   - mvn
 
 after_success:
-  - mvn clean cobertura:cobertura coveralls:report -Ptravis-cobertura
+  - mvn clean test jacoco:report coveralls:report -Ptravis-jacoco javadoc:javadoc -Ddoclint=all

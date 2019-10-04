@@ -150,8 +150,8 @@ public class LocaleUtils {
             final String country = segments[1];
             final String variant = segments[2];
             if (isISO639LanguageCode(language) &&
-                    (country.length() == 0 || isISO3166CountryCode(country) || isNumericAreaCode(country)) &&
-                    variant.length() > 0) {
+                    (country.isEmpty() || isISO3166CountryCode(country) || isNumericAreaCode(country)) &&
+                    !variant.isEmpty()) {
                 return new Locale(language, country, variant);
             }
         }
@@ -194,8 +194,8 @@ public class LocaleUtils {
      * a locale search.</p>
      *
      * <pre>
-     * localeLookupList(Locale("fr","CA","xxx"))
-     *   = [Locale("fr","CA","xxx"), Locale("fr","CA"), Locale("fr")]
+     * localeLookupList(Locale("fr", "CA", "xxx"))
+     *   = [Locale("fr", "CA", "xxx"), Locale("fr", "CA"), Locale("fr")]
      * </pre>
      *
      * @param locale  the locale to start from
@@ -212,7 +212,7 @@ public class LocaleUtils {
      *
      * <pre>
      * localeLookupList(Locale("fr", "CA", "xxx"), Locale("en"))
-     *   = [Locale("fr","CA","xxx"), Locale("fr","CA"), Locale("fr"), Locale("en"]
+     *   = [Locale("fr", "CA", "xxx"), Locale("fr", "CA"), Locale("fr"), Locale("en"]
      * </pre>
      *
      * <p>The result list begins with the most specific locale, then the
@@ -227,10 +227,10 @@ public class LocaleUtils {
         final List<Locale> list = new ArrayList<>(4);
         if (locale != null) {
             list.add(locale);
-            if (locale.getVariant().length() > 0) {
+            if (!locale.getVariant().isEmpty()) {
                 list.add(new Locale(locale.getLanguage(), locale.getCountry()));
             }
-            if (locale.getCountry().length() > 0) {
+            if (!locale.getCountry().isEmpty()) {
                 list.add(new Locale(locale.getLanguage(), StringUtils.EMPTY));
             }
             if (!list.contains(defaultLocale)) {
@@ -330,7 +330,7 @@ public class LocaleUtils {
             final List<Locale> locales = availableLocaleList();
             for (final Locale locale : locales) {
                 if (languageCode.equals(locale.getLanguage()) &&
-                    locale.getCountry().length() != 0 &&
+                        !locale.getCountry().isEmpty() &&
                     locale.getVariant().isEmpty()) {
                     countries.add(locale);
                 }

@@ -24,6 +24,7 @@ import java.util.WeakHashMap;
 
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -62,6 +63,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @since 1.0
  */
+@SuppressWarnings("deprecation") // StringEscapeUtils
 public abstract class ToStringStyle implements Serializable {
 
     /**
@@ -2176,7 +2178,7 @@ public abstract class ToStringStyle implements Serializable {
          * @return the singleton
          */
         private Object readResolve() {
-            return ToStringStyle.DEFAULT_STYLE;
+            return DEFAULT_STYLE;
         }
 
     }
@@ -2210,7 +2212,7 @@ public abstract class ToStringStyle implements Serializable {
          * @return the singleton
          */
         private Object readResolve() {
-            return ToStringStyle.NO_FIELD_NAMES_STYLE;
+            return NO_FIELD_NAMES_STYLE;
         }
 
     }
@@ -2244,7 +2246,7 @@ public abstract class ToStringStyle implements Serializable {
          * @return the singleton
          */
         private Object readResolve() {
-            return ToStringStyle.SHORT_PREFIX_STYLE;
+            return SHORT_PREFIX_STYLE;
         }
 
     }
@@ -2281,7 +2283,7 @@ public abstract class ToStringStyle implements Serializable {
          * @return the singleton
          */
         private Object readResolve() {
-            return ToStringStyle.SIMPLE_STYLE;
+            return SIMPLE_STYLE;
         }
 
     }
@@ -2317,7 +2319,7 @@ public abstract class ToStringStyle implements Serializable {
          * @return the singleton
          */
         private Object readResolve() {
-            return ToStringStyle.MULTI_LINE_STYLE;
+            return MULTI_LINE_STYLE;
         }
 
     }
@@ -2352,7 +2354,7 @@ public abstract class ToStringStyle implements Serializable {
          * @return the singleton
          */
         private Object readResolve() {
-            return ToStringStyle.NO_CLASS_NAME_STYLE;
+            return NO_CLASS_NAME_STYLE;
         }
 
     }
@@ -2419,7 +2421,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }
@@ -2435,7 +2437,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }
@@ -2451,7 +2453,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }
@@ -2467,7 +2469,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }
@@ -2483,7 +2485,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }
@@ -2499,7 +2501,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }
@@ -2515,7 +2517,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }
@@ -2531,7 +2533,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }
@@ -2547,7 +2549,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }
@@ -2563,7 +2565,7 @@ public abstract class ToStringStyle implements Serializable {
                 throw new UnsupportedOperationException(
                         "Field names are mandatory when using JsonToStringStyle");
             }
-            if (!isFullDetail(fullDetail)){
+            if (!isFullDetail(fullDetail)) {
                 throw new UnsupportedOperationException(
                         "FullDetail must be true when using JsonToStringStyle");
             }
@@ -2605,7 +2607,7 @@ public abstract class ToStringStyle implements Serializable {
 
         private boolean isJsonArray(final String valueAsString) {
             return valueAsString.startsWith(getArrayStart())
-                    && valueAsString.startsWith(getArrayEnd());
+                    && valueAsString.endsWith(getArrayEnd());
         }
 
         private boolean isJsonObject(final String valueAsString) {
@@ -2614,13 +2616,13 @@ public abstract class ToStringStyle implements Serializable {
         }
 
         /**
-         * Appends the given String in parenthesis to the given StringBuffer.
+         * Appends the given String enclosed in double-quotes to the given StringBuffer.
          *
          * @param buffer the StringBuffer to append the value to.
          * @param value the value to append.
          */
         private void appendValueAsString(final StringBuffer buffer, final String value) {
-            buffer.append('"').append(value).append('"');
+            buffer.append('"').append(StringEscapeUtils.escapeJson(value)).append('"');
         }
 
         @Override
@@ -2631,7 +2633,7 @@ public abstract class ToStringStyle implements Serializable {
                         "Field names are mandatory when using JsonToStringStyle");
             }
 
-            super.appendFieldStart(buffer, FIELD_NAME_QUOTE + fieldName
+            super.appendFieldStart(buffer, FIELD_NAME_QUOTE + StringEscapeUtils.escapeJson(fieldName)
                     + FIELD_NAME_QUOTE);
         }
 
@@ -2643,7 +2645,7 @@ public abstract class ToStringStyle implements Serializable {
          * @return the singleton
          */
         private Object readResolve() {
-            return ToStringStyle.JSON_STYLE;
+            return JSON_STYLE;
         }
 
     }

@@ -88,7 +88,7 @@ public class DateUtils {
             {Calendar.DATE, Calendar.DAY_OF_MONTH, Calendar.AM_PM
                 /* Calendar.DAY_OF_YEAR, Calendar.DAY_OF_WEEK, Calendar.DAY_OF_WEEK_IN_MONTH */
             },
-            {Calendar.MONTH, DateUtils.SEMI_MONTH},
+            {Calendar.MONTH, SEMI_MONTH},
             {Calendar.YEAR},
             {Calendar.ERA}};
 
@@ -165,7 +165,7 @@ public class DateUtils {
      */
     public static boolean isSameDay(final Date date1, final Date date2) {
         if (date1 == null || date2 == null) {
-            throw new IllegalArgumentException("The date must not be null");
+            throw nullDateIllegalArgumentException();
         }
         final Calendar cal1 = Calendar.getInstance();
         cal1.setTime(date1);
@@ -189,7 +189,7 @@ public class DateUtils {
      */
     public static boolean isSameDay(final Calendar cal1, final Calendar cal2) {
         if (cal1 == null || cal2 == null) {
-            throw new IllegalArgumentException("The date must not be null");
+            throw nullDateIllegalArgumentException();
         }
         return cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA) &&
                 cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
@@ -210,7 +210,7 @@ public class DateUtils {
      */
     public static boolean isSameInstant(final Date date1, final Date date2) {
         if (date1 == null || date2 == null) {
-            throw new IllegalArgumentException("The date must not be null");
+            throw nullDateIllegalArgumentException();
         }
         return date1.getTime() == date2.getTime();
     }
@@ -228,7 +228,7 @@ public class DateUtils {
      */
     public static boolean isSameInstant(final Calendar cal1, final Calendar cal2) {
         if (cal1 == null || cal2 == null) {
-            throw new IllegalArgumentException("The date must not be null");
+            throw nullDateIllegalArgumentException();
         }
         return cal1.getTime().getTime() == cal2.getTime().getTime();
     }
@@ -248,7 +248,7 @@ public class DateUtils {
      */
     public static boolean isSameLocalTime(final Calendar cal1, final Calendar cal2) {
         if (cal1 == null || cal2 == null) {
-            throw new IllegalArgumentException("The date must not be null");
+            throw nullDateIllegalArgumentException();
         }
         return cal1.get(Calendar.MILLISECOND) == cal2.get(Calendar.MILLISECOND) &&
                 cal1.get(Calendar.SECOND) == cal2.get(Calendar.SECOND) &&
@@ -741,11 +741,15 @@ public class DateUtils {
      */
     public static Calendar round(final Calendar date, final int field) {
         if (date == null) {
-            throw new IllegalArgumentException("The date must not be null");
+            throw nullDateIllegalArgumentException();
         }
         final Calendar rounded = (Calendar) date.clone();
         modify(rounded, field, ModifyType.ROUND);
         return rounded;
+    }
+
+    private static IllegalArgumentException nullDateIllegalArgumentException() {
+        return new IllegalArgumentException("The date must not be null");
     }
 
     /**
@@ -778,7 +782,7 @@ public class DateUtils {
      */
     public static Date round(final Object date, final int field) {
         if (date == null) {
-            throw new IllegalArgumentException("The date must not be null");
+            throw nullDateIllegalArgumentException();
         }
         if (date instanceof Date) {
             return round((Date) date, field);
@@ -830,7 +834,7 @@ public class DateUtils {
      */
     public static Calendar truncate(final Calendar date, final int field) {
         if (date == null) {
-            throw new IllegalArgumentException("The date must not be null");
+            throw nullDateIllegalArgumentException();
         }
         final Calendar truncated = (Calendar) date.clone();
         modify(truncated, field, ModifyType.TRUNCATE);
@@ -855,7 +859,7 @@ public class DateUtils {
      */
     public static Date truncate(final Object date, final int field) {
         if (date == null) {
-            throw new IllegalArgumentException("The date must not be null");
+            throw nullDateIllegalArgumentException();
         }
         if (date instanceof Date) {
             return truncate((Date) date, field);
@@ -909,7 +913,7 @@ public class DateUtils {
      */
     public static Calendar ceiling(final Calendar date, final int field) {
         if (date == null) {
-            throw new IllegalArgumentException("The date must not be null");
+            throw nullDateIllegalArgumentException();
         }
         final Calendar ceiled = (Calendar) date.clone();
         modify(ceiled, field, ModifyType.CEILING);
@@ -935,7 +939,7 @@ public class DateUtils {
      */
     public static Date ceiling(final Object date, final int field) {
         if (date == null) {
-            throw new IllegalArgumentException("The date must not be null");
+            throw nullDateIllegalArgumentException();
         }
         if (date instanceof Date) {
             return ceiling((Date) date, field);
@@ -965,7 +969,7 @@ public class DateUtils {
         }
 
         // ----------------- Fix for LANG-59 ---------------------- START ---------------
-        // see http://issues.apache.org/jira/browse/LANG-59
+        // see https://issues.apache.org/jira/browse/LANG-59
         //
         // Manually truncate milliseconds, seconds and minutes, rather than using
         // Calendar methods.
@@ -1011,7 +1015,7 @@ public class DateUtils {
                 if (element == field) {
                     //This is our field... we stop looping
                     if (modType == ModifyType.CEILING || modType == ModifyType.ROUND && roundUp) {
-                        if (field == DateUtils.SEMI_MONTH) {
+                        if (field == SEMI_MONTH) {
                             //This is a special case that's hard to generalize
                             //If the date is 1, we round up to 16, otherwise
                             //  we subtract 15 days and add 1 month
@@ -1047,7 +1051,7 @@ public class DateUtils {
             boolean offsetSet = false;
             //These are special types of fields that require different rounding rules
             switch (field) {
-                case DateUtils.SEMI_MONTH:
+                case SEMI_MONTH:
                     if (aField[0] == Calendar.DATE) {
                         //If we're going to drop the DATE field's value,
                         //  we want to do this our own way.
@@ -1153,7 +1157,7 @@ public class DateUtils {
      */
     public static Iterator<Calendar> iterator(final Calendar focus, final int rangeStyle) {
         if (focus == null) {
-            throw new IllegalArgumentException("The date must not be null");
+            throw nullDateIllegalArgumentException();
         }
         Calendar start = null;
         Calendar end = null;
@@ -1243,7 +1247,7 @@ public class DateUtils {
      */
     public static Iterator<?> iterator(final Object focus, final int rangeStyle) {
         if (focus == null) {
-            throw new IllegalArgumentException("The date must not be null");
+            throw nullDateIllegalArgumentException();
         }
         if (focus instanceof Date) {
             return iterator((Date) focus, rangeStyle);
@@ -1662,8 +1666,8 @@ public class DateUtils {
      * @since 2.4
      */
     private static long getFragment(final Calendar calendar, final int fragment, final TimeUnit unit) {
-        if(calendar == null) {
-            throw  new IllegalArgumentException("The date must not be null");
+        if (calendar == null) {
+            throw  nullDateIllegalArgumentException();
         }
 
         long result = 0;
@@ -1701,7 +1705,7 @@ public class DateUtils {
             case Calendar.SECOND:
                 result += unit.convert(calendar.get(Calendar.MILLISECOND), TimeUnit.MILLISECONDS);
                 break;
-            case Calendar.MILLISECOND: break;//never useful
+            case Calendar.MILLISECOND: break; //never useful
                 default: throw new IllegalArgumentException("The fragment " + fragment + " is not supported");
         }
         return result;
@@ -1833,7 +1837,7 @@ public class DateUtils {
         /**
          * Always throws UnsupportedOperationException.
          *
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException Always thrown.
          * @see java.util.Iterator#remove()
          */
         @Override

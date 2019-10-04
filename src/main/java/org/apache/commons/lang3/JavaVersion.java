@@ -95,6 +95,27 @@ public enum JavaVersion {
     JAVA_10(10.0f, "10"),
 
     /**
+     * Java 11
+     *
+     * @since 3.8
+     */
+    JAVA_11(11.0f, "11"),
+
+    /**
+     * Java 12
+     *
+     * @since 3.9
+     */
+    JAVA_12(12.0f, "12"),
+
+    /**
+     * Java 13
+     *
+     * @since 3.9
+     */
+    JAVA_13(13.0f, "13"),
+
+    /**
      * The most recent java version. Mainly introduced to avoid to break when a new version of Java is used.
      */
     JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
@@ -134,6 +155,21 @@ public enum JavaVersion {
         return this.value >= requiredVersion.value;
     }
 
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Whether this version of Java is at most the version of Java passed in.</p>
+     *
+     * <p>For example:<br>
+     *  {@code myVersion.atMost(JavaVersion.JAVA_1_4)}<p>
+     *
+     * @param requiredVersion  the version to check against, not null
+     * @return true if this version is equal to or greater than the specified version
+     * @since 3.9
+     */
+    public boolean atMost(final JavaVersion requiredVersion) {
+        return this.value <= requiredVersion.value;
+    }
+
     /**
      * Transforms the given string with a Java version number to the
      * corresponding constant of this enumeration class. This method is used
@@ -158,7 +194,9 @@ public enum JavaVersion {
      * version is unknown
      */
     static JavaVersion get(final String nom) {
-        if ("0.9".equals(nom)) {
+        if (nom == null) {
+            return null;
+        } else if ("0.9".equals(nom)) {
             return JAVA_0_9;
         } else if ("1.1".equals(nom)) {
             return JAVA_1_1;
@@ -180,9 +218,12 @@ public enum JavaVersion {
             return JAVA_9;
         } else if ("10".equals(nom)) {
             return JAVA_10;
-        }
-        if (nom == null) {
-            return null;
+        } else if ("11".equals(nom)) {
+            return JAVA_11;
+        } else if ("12".equals(nom)) {
+            return JAVA_12;
+        } else if ("13".equals(nom)) {
+            return JAVA_13;
         }
         final float v = toFloatVersion(nom);
         if ((v - 1.) < 1.) { // then we need to check decimals > .9
@@ -191,6 +232,8 @@ public enum JavaVersion {
             if (Float.parseFloat(nom.substring(firstComma + 1, end)) > .9f) {
                 return JAVA_RECENT;
             }
+        } else if (v > 10) {
+            return JAVA_RECENT;
         }
         return null;
     }

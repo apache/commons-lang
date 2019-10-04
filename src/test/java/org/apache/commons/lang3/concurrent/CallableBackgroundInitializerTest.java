@@ -16,14 +16,15 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@code CallableBackgroundInitializer}
@@ -36,9 +37,9 @@ public class CallableBackgroundInitializerTest  {
      * Tries to create an instance without a Callable. This should cause an
      * exception.
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test()
     public void testInitNullCallable() {
-        new CallableBackgroundInitializer<>(null);
+        assertThrows(IllegalArgumentException.class, () -> new CallableBackgroundInitializer<>(null));
     }
 
     /**
@@ -50,7 +51,7 @@ public class CallableBackgroundInitializerTest  {
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         final CallableBackgroundInitializer<Integer> init = new CallableBackgroundInitializer<>(
                 new TestCallable(), exec);
-        assertEquals("Executor not set", exec, init.getExternalExecutor());
+        assertEquals(exec, init.getExternalExecutor(), "Executor not set");
         exec.shutdown();
         exec.awaitTermination(1, TimeUnit.SECONDS);
     }
@@ -59,11 +60,11 @@ public class CallableBackgroundInitializerTest  {
      * Tries to pass a null Callable to the constructor that takes an executor.
      * This should cause an exception.
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testInitExecutorNullCallable() throws InterruptedException {
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         try {
-            new CallableBackgroundInitializer<Integer>(null, exec);
+            assertThrows(IllegalArgumentException.class, () -> new CallableBackgroundInitializer<Integer>(null, exec));
         } finally {
             exec.shutdown();
             exec.awaitTermination(1, TimeUnit.SECONDS);
@@ -81,8 +82,8 @@ public class CallableBackgroundInitializerTest  {
         final TestCallable call = new TestCallable();
         final CallableBackgroundInitializer<Integer> init = new CallableBackgroundInitializer<>(
                 call);
-        assertEquals("Wrong result", RESULT, init.initialize());
-        assertEquals("Wrong number of invocations", 1, call.callCount);
+        assertEquals(RESULT, init.initialize(), "Wrong result");
+        assertEquals(1, call.callCount, "Wrong number of invocations");
     }
 
     /**
@@ -97,7 +98,7 @@ public class CallableBackgroundInitializerTest  {
          * Records this invocation and returns the test result.
          */
         @Override
-        public Integer call() throws Exception {
+        public Integer call() {
             callCount++;
             return RESULT;
         }

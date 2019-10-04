@@ -16,20 +16,19 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assume.assumeFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.SystemUtils;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.builder.ToStringBuilder}.
@@ -44,8 +43,8 @@ public class ToStringBuilderTest {
     /*
      * All tests should leave the registry empty.
      */
-    @After
-    public void after(){
+    @AfterEach
+    public void after() {
         validateNullToStringStyleRegistry();
     }
 
@@ -80,9 +79,9 @@ public class ToStringBuilderTest {
         }
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testSetDefaultEx() {
-        ToStringBuilder.setDefaultStyle(null);
+        assertThrows(IllegalArgumentException.class, () -> ToStringBuilder.setDefaultStyle(null));
     }
 
     @Test
@@ -103,7 +102,7 @@ public class ToStringBuilderTest {
      */
     @Test
     public void testReflectionCharacter() {
-        final Character c = new Character('A');
+        final Character c = 'A';
         assertEquals(this.toBaseString(c) + "[value=A]", ToStringBuilder.reflectionToString(c));
     }
 
@@ -314,10 +313,6 @@ public class ToStringBuilderTest {
     // Reflection hierarchy tests
     @Test
     public void testReflectionHierarchyArrayList() {
-        // note, the test data depends on the internal representation of the ArrayList, which may differ between JDK versions and vendors
-        // representation different for IBM JDK 1.6.0, LANG-727
-        assumeFalse("IBM Corporation".equals(SystemUtils.JAVA_VENDOR) && "1.6".equals(SystemUtils.JAVA_SPECIFICATION_VERSION));
-        assumeFalse("Oracle Corporation".equals(SystemUtils.JAVA_VENDOR) && "1.6".compareTo(SystemUtils.JAVA_SPECIFICATION_VERSION) < 0);
         // LANG-1337 without this, the generated string can differ depending on the JVM version/vendor
         final List<Object> list = new ArrayList<>(ARRAYLIST_INITIAL_CAPACITY);
         final String baseString = this.toBaseString(list);
@@ -424,7 +419,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionArrayArrayCycle() throws Exception {
+    public void testReflectionArrayArrayCycle() {
         final Object[][] objects = new Object[2][2];
         objects[0][0] = objects;
         objects[0][1] = objects;
@@ -511,7 +506,7 @@ public class ToStringBuilderTest {
             this.typeIsSelf = this;
         }
 
-        public String getOtherType(){
+        public String getOtherType() {
             return this.otherType;
         }
 
@@ -594,7 +589,7 @@ public class ToStringBuilderTest {
 
     void validateNullToStringStyleRegistry() {
         final Map<Object, Object> registry = ToStringStyle.getRegistry();
-        assertNull("Expected null, actual: "+registry, registry);
+        assertNull(registry, "Expected null, actual: " + registry);
     }
     //  End: Reflection cycle tests
 
@@ -844,7 +839,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testConstructToStringBuilder(){
+    public void testConstructToStringBuilder() {
         final ToStringBuilder stringBuilder1 = new ToStringBuilder(base, null, null);
         final ToStringBuilder stringBuilder2 = new ToStringBuilder(base, ToStringStyle.DEFAULT_STYLE, new StringBuffer(1024));
         assertEquals(ToStringStyle.DEFAULT_STYLE, stringBuilder1.getStyle());
@@ -1242,15 +1237,12 @@ public class ToStringBuilderTest {
     /**
      * Tests ReflectionToStringBuilder setUpToClass().
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void test_setUpToClass_invalid() {
         final Integer val = Integer.valueOf(5);
         final ReflectionToStringBuilder test = new ReflectionToStringBuilder(val);
-        try {
-            test.setUpToClass(String.class);
-        } finally {
-            test.toString();
-        }
+        assertThrows(IllegalArgumentException.class, () -> test.setUpToClass(String.class));
+        test.toString();
     }
 
     /**
@@ -1278,14 +1270,15 @@ public class ToStringBuilderTest {
     /**
      * Test fixture for ReflectionToStringBuilder.toString() for statics.
      */
+    @SuppressWarnings("unused")
     class InheritedReflectionStaticFieldsFixture extends SimpleReflectionStaticFieldsFixture {
         static final String staticString2 = "staticString2";
         static final int staticInt2 = 67890;
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testReflectionNull() {
-        assertEquals("<null>", ReflectionToStringBuilder.toString(null));
+        assertThrows(IllegalArgumentException.class, () -> ReflectionToStringBuilder.toString(null));
     }
 
     /**
@@ -1305,7 +1298,7 @@ public class ToStringBuilderTest {
         final MultiLineTestObject obj = new MultiLineTestObject();
         final ToStringBuilder testBuilder = new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                                           .appendToString(obj.toString());
-        assertEquals(testBuilder.toString().indexOf("testInt=31337"), -1);
+        assertEquals(-1, testBuilder.toString().indexOf("testInt=31337"));
     }
 
 }

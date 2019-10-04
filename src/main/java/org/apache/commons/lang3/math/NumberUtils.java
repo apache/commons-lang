@@ -20,8 +20,8 @@ import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import java.math.RoundingMode;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -41,6 +41,8 @@ public class NumberUtils {
     public static final Integer INTEGER_ZERO = Integer.valueOf(0);
     /** Reusable Integer constant for one. */
     public static final Integer INTEGER_ONE = Integer.valueOf(1);
+    /** Reusable Integer constant for two */
+    public static final Integer INTEGER_TWO = Integer.valueOf(2);
     /** Reusable Integer constant for minus one. */
     public static final Integer INTEGER_MINUS_ONE = Integer.valueOf(-1);
     /** Reusable Short constant for zero. */
@@ -67,6 +69,7 @@ public class NumberUtils {
     public static final Float FLOAT_ONE = Float.valueOf(1.0f);
     /** Reusable Float constant for minus one. */
     public static final Float FLOAT_MINUS_ONE = Float.valueOf(-1.0f);
+
 
     /**
      * <p><code>NumberUtils</code> instances should NOT be constructed in standard programming.
@@ -119,7 +122,7 @@ public class NumberUtils {
      * @since 2.1
      */
     public static int toInt(final String str, final int defaultValue) {
-        if(str == null) {
+        if (str == null) {
             return defaultValue;
         }
         try {
@@ -282,6 +285,47 @@ public class NumberUtils {
       }
     }
 
+    /**
+     * <p>Convert a <code>BigDecimal</code> to a <code>double</code>.</p>
+     *
+     * <p>If the <code>BigDecimal</code> <code>value</code> is
+     * <code>null</code>, then the specified default value is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toDouble(null)                     = 0.0d
+     *   NumberUtils.toDouble(BigDecimal.valudOf(8.5d)) = 8.5d
+     * </pre>
+     *
+     * @param value the <code>BigDecimal</code> to convert, may be <code>null</code>.
+     * @return the double represented by the <code>BigDecimal</code> or
+     *  <code>0.0d</code> if the <code>BigDecimal</code> is <code>null</code>.
+     * @since 3.8
+     */
+    public static double toDouble(final BigDecimal value) {
+        return toDouble(value, 0.0d);
+    }
+
+    /**
+     * <p>Convert a <code>BigDecimal</code> to a <code>double</code>.</p>
+     *
+     * <p>If the <code>BigDecimal</code> <code>value</code> is
+     * <code>null</code>, then the specified default value is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toDouble(null, 1.1d)                     = 1.1d
+     *   NumberUtils.toDouble(BigDecimal.valudOf(8.5d), 1.1d) = 8.5d
+     * </pre>
+     *
+     * @param value the <code>BigDecimal</code> to convert, may be <code>null</code>.
+     * @param defaultValue the default value
+     * @return the double represented by the <code>BigDecimal</code> or the
+     *  defaultValue if the <code>BigDecimal</code> is <code>null</code>.
+     * @since 3.8
+     */
+    public static double toDouble(final BigDecimal value, final double defaultValue) {
+        return value == null ? defaultValue : value.doubleValue();
+    }
+
      //-----------------------------------------------------------------------
      /**
      * <p>Convert a <code>String</code> to a <code>byte</code>, returning
@@ -322,7 +366,7 @@ public class NumberUtils {
      * @since 2.5
      */
     public static byte toByte(final String str, final byte defaultValue) {
-        if(str == null) {
+        if (str == null) {
             return defaultValue;
         }
         try {
@@ -371,7 +415,7 @@ public class NumberUtils {
      * @since 2.5
      */
     public static short toShort(final String str, final short defaultValue) {
-        if(str == null) {
+        if (str == null) {
             return defaultValue;
         }
         try {
@@ -381,38 +425,193 @@ public class NumberUtils {
         }
     }
 
+    /**
+     * Convert a <code>BigDecimal</code> to a <code>BigDecimal</code> with a scale of
+     * two that has been rounded using <code>RoundingMode.HALF_EVEN</code>. If the supplied
+     * <code>value</code> is null, then <code>BigDecimal.ZERO</code> is returned.
+     *
+     * <p>Note, the scale of a <code>BigDecimal</code> is the number of digits to the right of the
+     * decimal point.</p>
+     *
+     * @param value the <code>BigDecimal</code> to convert, may be null.
+     * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(final BigDecimal value) {
+        return toScaledBigDecimal(value, INTEGER_TWO, RoundingMode.HALF_EVEN);
+    }
+
+    /**
+     * Convert a <code>BigDecimal</code> to a <code>BigDecimal</code> whose scale is the
+     * specified value with a <code>RoundingMode</code> applied. If the input <code>value</code>
+     * is <code>null</code>, we simply return <code>BigDecimal.ZERO</code>.
+     *
+     * @param value the <code>BigDecimal</code> to convert, may be null.
+     * @param scale the number of digits to the right of the decimal point.
+     * @param roundingMode a rounding behavior for numerical operations capable of
+     *  discarding precision.
+     * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(final BigDecimal value, final int scale, final RoundingMode roundingMode) {
+        if (value == null) {
+            return BigDecimal.ZERO;
+        }
+        return value.setScale(
+            scale,
+            (roundingMode == null) ? RoundingMode.HALF_EVEN : roundingMode
+        );
+    }
+
+    /**
+     * Convert a <code>Float</code> to a <code>BigDecimal</code> with a scale of
+     * two that has been rounded using <code>RoundingMode.HALF_EVEN</code>. If the supplied
+     * <code>value</code> is null, then <code>BigDecimal.ZERO</code> is returned.
+     *
+     * <p>Note, the scale of a <code>BigDecimal</code> is the number of digits to the right of the
+     * decimal point.</p>
+     *
+     * @param value the <code>Float</code> to convert, may be null.
+     * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(final Float value) {
+        return toScaledBigDecimal(value, INTEGER_TWO, RoundingMode.HALF_EVEN);
+    }
+
+    /**
+     * Convert a <code>Float</code> to a <code>BigDecimal</code> whose scale is the
+     * specified value with a <code>RoundingMode</code> applied. If the input <code>value</code>
+     * is <code>null</code>, we simply return <code>BigDecimal.ZERO</code>.
+     *
+     * @param value the <code>Float</code> to convert, may be null.
+     * @param scale the number of digits to the right of the decimal point.
+     * @param roundingMode a rounding behavior for numerical operations capable of
+     *  discarding precision.
+     * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(final Float value, final int scale, final RoundingMode roundingMode) {
+        if (value == null) {
+            return BigDecimal.ZERO;
+        }
+        return toScaledBigDecimal(
+            BigDecimal.valueOf(value),
+            scale,
+            roundingMode
+        );
+    }
+
+    /**
+     * Convert a <code>Double</code> to a <code>BigDecimal</code> with a scale of
+     * two that has been rounded using <code>RoundingMode.HALF_EVEN</code>. If the supplied
+     * <code>value</code> is null, then <code>BigDecimal.ZERO</code> is returned.
+     *
+     * <p>Note, the scale of a <code>BigDecimal</code> is the number of digits to the right of the
+     * decimal point.</p>
+     *
+     * @param value the <code>Double</code> to convert, may be null.
+     * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(final Double value) {
+        return toScaledBigDecimal(value, INTEGER_TWO, RoundingMode.HALF_EVEN);
+    }
+
+    /**
+     * Convert a <code>Double</code> to a <code>BigDecimal</code> whose scale is the
+     * specified value with a <code>RoundingMode</code> applied. If the input <code>value</code>
+     * is <code>null</code>, we simply return <code>BigDecimal.ZERO</code>.
+     *
+     * @param value the <code>Double</code> to convert, may be null.
+     * @param scale the number of digits to the right of the decimal point.
+     * @param roundingMode a rounding behavior for numerical operations capable of
+     *  discarding precision.
+     * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(final Double value, final int scale, final RoundingMode roundingMode) {
+        if (value == null) {
+            return BigDecimal.ZERO;
+        }
+        return toScaledBigDecimal(
+            BigDecimal.valueOf(value),
+            scale,
+            roundingMode
+        );
+    }
+
+    /**
+     * Convert a <code>String</code> to a <code>BigDecimal</code> with a scale of
+     * two that has been rounded using <code>RoundingMode.HALF_EVEN</code>. If the supplied
+     * <code>value</code> is null, then <code>BigDecimal.ZERO</code> is returned.
+     *
+     * <p>Note, the scale of a <code>BigDecimal</code> is the number of digits to the right of the
+     * decimal point.</p>
+     *
+     * @param value the <code>String</code> to convert, may be null.
+     * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(final String value) {
+        return toScaledBigDecimal(value, INTEGER_TWO, RoundingMode.HALF_EVEN);
+    }
+
+    /**
+     * Convert a <code>String</code> to a <code>BigDecimal</code> whose scale is the
+     * specified value with a <code>RoundingMode</code> applied. If the input <code>value</code>
+     * is <code>null</code>, we simply return <code>BigDecimal.ZERO</code>.
+     *
+     * @param value the <code>String</code> to convert, may be null.
+     * @param scale the number of digits to the right of the decimal point.
+     * @param roundingMode a rounding behavior for numerical operations capable of
+     *  discarding precision.
+     * @return the scaled, with appropriate rounding, <code>BigDecimal</code>.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(final String value, final int scale, final RoundingMode roundingMode) {
+        if (value == null) {
+            return BigDecimal.ZERO;
+        }
+        return toScaledBigDecimal(
+            createBigDecimal(value),
+            scale,
+            roundingMode
+        );
+    }
+
     //-----------------------------------------------------------------------
     // must handle Long, Float, Integer, Float, Short,
     //                  BigDecimal, BigInteger and Byte
     // useful methods:
     // Byte.decode(String)
-    // Byte.valueOf(String,int radix)
+    // Byte.valueOf(String, int radix)
     // Byte.valueOf(String)
     // Double.valueOf(String)
     // Float.valueOf(String)
     // Float.valueOf(String)
-    // Integer.valueOf(String,int radix)
+    // Integer.valueOf(String, int radix)
     // Integer.valueOf(String)
     // Integer.decode(String)
     // Integer.getInteger(String)
-    // Integer.getInteger(String,int val)
-    // Integer.getInteger(String,Integer val)
+    // Integer.getInteger(String, int val)
+    // Integer.getInteger(String, Integer val)
     // Integer.valueOf(String)
     // Double.valueOf(String)
     // new Byte(String)
     // Long.valueOf(String)
     // Long.getLong(String)
-    // Long.getLong(String,int)
-    // Long.getLong(String,Integer)
-    // Long.valueOf(String,int)
+    // Long.getLong(String, int)
+    // Long.getLong(String, Integer)
+    // Long.valueOf(String, int)
     // Long.valueOf(String)
     // Short.valueOf(String)
     // Short.decode(String)
-    // Short.valueOf(String,int)
+    // Short.valueOf(String, int)
     // Short.valueOf(String)
     // new BigDecimal(String)
     // new BigInteger(String)
-    // new BigInteger(String,int radix)
+    // new BigInteger(String, int radix)
     // Possible inputs:
     // 45 45.5 45E7 4.5E7 Hex Oct Binary xxxF xxxD xxxf xxxd
     // plus minus everything. Prolly more. A lot are not separable.
@@ -425,7 +624,7 @@ public class NumberUtils {
      * prefix is more than 8 - or BigInteger if there are more than 16 digits.
      * </p>
      * <p>Then, the value is examined for a type qualifier on the end, i.e. one of
-     * <code>'f','F','d','D','l','L'</code>.  If it is found, it starts
+     * <code>'f', 'F', 'd', 'D', 'l', 'L'</code>.  If it is found, it starts
      * trying to create successively larger types from the type specified
      * until one is found that can represent the value.</p>
      *
@@ -448,7 +647,7 @@ public class NumberUtils {
      * @return Number created from the string (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
-    public static Number createNumber(final String str) throws NumberFormatException {
+    public static Number createNumber(final String str) {
         if (str == null) {
             return null;
         }
@@ -458,7 +657,7 @@ public class NumberUtils {
         // Need to deal with all possible hex prefixes here
         final String[] hex_prefixes = {"0x", "0X", "-0x", "-0X", "#", "-#"};
         int pfxLen = 0;
-        for(final String pfx : hex_prefixes) {
+        for (final String pfx : hex_prefixes) {
             if (str.startsWith(pfx)) {
                 pfxLen += pfx.length();
                 break;
@@ -466,7 +665,7 @@ public class NumberUtils {
         }
         if (pfxLen > 0) { // we have a hex number
             char firstSigDigit = 0; // strip leading zeroes
-            for(int i = pfxLen; i < str.length(); i++) {
+            for (int i = pfxLen; i < str.length(); i++) {
                 firstSigDigit = str.charAt(i);
                 if (firstSigDigit == '0') { // count leading zeroes
                     pfxLen++;
@@ -527,7 +726,7 @@ public class NumberUtils {
                 case 'L' :
                     if (dec == null
                         && exp == null
-                        && (numeric.charAt(0) == '-' && isDigits(numeric.substring(1)) || isDigits(numeric))) {
+                        && (!numeric.isEmpty() && numeric.charAt(0) == '-' && isDigits(numeric.substring(1)) || isDigits(numeric))) {
                         try {
                             return createLong(numeric);
                         } catch (final NumberFormatException nfe) { // NOPMD
@@ -540,7 +739,7 @@ public class NumberUtils {
                 case 'f' :
                 case 'F' :
                     try {
-                        final Float f = NumberUtils.createFloat(str);
+                        final Float f = createFloat(str);
                         if (!(f.isInfinite() || f.floatValue() == 0.0F && !allZeros)) {
                             //If it's too big for a float or the float value = 0 and the string
                             //has non-zeros in it, then float does not have the precision we want
@@ -554,7 +753,7 @@ public class NumberUtils {
                 case 'd' :
                 case 'D' :
                     try {
-                        final Double d = NumberUtils.createDouble(str);
+                        final Double d = createDouble(str);
                         if (!(d.isInfinite() || d.floatValue() == 0.0D && !allZeros)) {
                             return d;
                         }
@@ -662,7 +861,7 @@ public class NumberUtils {
                 return false;
             }
         }
-        return str.length() > 0;
+        return !str.isEmpty();
     }
 
     //-----------------------------------------------------------------------
@@ -761,10 +960,10 @@ public class NumberUtils {
             pos += 2;
         } else if (str.startsWith("#", pos)) { // alternative hex (allowed by Long/Integer)
             radix = 16;
-            pos ++;
+            pos++;
         } else if (str.startsWith("0", pos) && str.length() > pos + 1) { // octal; so long as there are additional digits
             radix = 8;
-            pos ++;
+            pos++;
         } // default is to treat as decimal
 
         final BigInteger value = new BigInteger(str.substring(pos), radix);
@@ -1394,7 +1593,7 @@ public class NumberUtils {
      *
      * @param str  the <code>String</code> to check
      * @return <code>true</code> if the string is a correctly formatted number
-     * @since 3.5 the code supports the "+" suffix on numbers except for integers in Java 1.6
+     * @since 3.5
      */
     public static boolean isCreatable(final String str) {
         if (StringUtils.isEmpty(str)) {
@@ -1408,8 +1607,7 @@ public class NumberUtils {
         boolean foundDigit = false;
         // deal with any possible sign up front
         final int start = chars[0] == '-' || chars[0] == '+' ? 1 : 0;
-        final boolean hasLeadingPlusSign = start == 1 && chars[0] == '+';
-        if (sz > start + 1 && chars[start] == '0') { // leading 0
+        if (sz > start + 1 && chars[start] == '0' && !StringUtils.contains(str, '.')) { // leading 0, skip if is a decimal number
             if (chars[start + 1] == 'x' || chars[start + 1] == 'X') { // leading 0x/0X
                 int i = start + 2;
                 if (i == sz) {
@@ -1475,9 +1673,6 @@ public class NumberUtils {
         }
         if (i < chars.length) {
             if (chars[i] >= '0' && chars[i] <= '9') {
-                if (SystemUtils.IS_JAVA_1_6 && hasLeadingPlusSign && !hasDecPoint) {
-                    return false;
-                }
                 // no type qualifier, OK
                 return true;
             }

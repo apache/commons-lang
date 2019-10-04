@@ -60,7 +60,8 @@ public class WordUtils {
      * <p>Leading spaces on a new line are stripped.
      * Trailing spaces are not stripped.</p>
      *
-     * <table border="1" summary="Wrap Results">
+     * <table border="1">
+     *  <caption>Examples</caption>
      *  <tr>
      *   <th>input</th>
      *   <th>wrapLength</th>
@@ -82,14 +83,14 @@ public class WordUtils {
      *   <td>"Here is one line of\ntext that is going\nto be wrapped after\n20 columns."</td>
      *  </tr>
      *  <tr>
-     *   <td>"Click here to jump to the commons website - http://commons.apache.org"</td>
+     *   <td>"Click here to jump to the commons website - https://commons.apache.org"</td>
      *   <td>20</td>
-     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttp://commons.apache.org"</td>
+     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttps://commons.apache.org"</td>
      *  </tr>
      *  <tr>
-     *   <td>"Click here, http://commons.apache.org, to jump to the commons website"</td>
+     *   <td>"Click here, https://commons.apache.org, to jump to the commons website"</td>
      *   <td>20</td>
-     *   <td>"Click here,\nhttp://commons.apache.org,\nto jump to the\ncommons website"</td>
+     *   <td>"Click here,\nhttps://commons.apache.org,\nto jump to the\ncommons website"</td>
      *  </tr>
      * </table>
      *
@@ -109,7 +110,8 @@ public class WordUtils {
      * <p>Leading spaces on a new line are stripped.
      * Trailing spaces are not stripped.</p>
      *
-     * <table border="1" summary="Wrap Results">
+     * <table border="1">
+     *  <caption>Examples</caption>
      *  <tr>
      *   <th>input</th>
      *   <th>wrapLength</th>
@@ -153,14 +155,14 @@ public class WordUtils {
      *   <td>"Here is one line of" + systemNewLine + "text that is going" + systemNewLine + "to be wrapped after" + systemNewLine + "20 columns."</td>
      *  </tr>
      *  <tr>
-     *   <td>"Click here to jump to the commons website - http://commons.apache.org"</td>
+     *   <td>"Click here to jump to the commons website - https://commons.apache.org"</td>
      *   <td>20</td>
      *   <td>"\n"</td>
      *   <td>false</td>
-     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttp://commons.apache.org"</td>
+     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttps://commons.apache.org"</td>
      *  </tr>
      *  <tr>
-     *   <td>"Click here to jump to the commons website - http://commons.apache.org"</td>
+     *   <td>"Click here to jump to the commons website - https://commons.apache.org"</td>
      *   <td>20</td>
      *   <td>"\n"</td>
      *   <td>true</td>
@@ -185,7 +187,8 @@ public class WordUtils {
      * <p>Leading spaces on a new line are stripped.
      * Trailing spaces are not stripped.</p>
      *
-     * <table border="1" summary="Wrap Results">
+     * <table border="1">
+     *  <caption>Examples</caption>
      *  <tr>
      *   <th>input</th>
      *   <th>wrapLength</th>
@@ -235,15 +238,15 @@ public class WordUtils {
      *   <td>"Here is one line of" + systemNewLine + "text that is going" + systemNewLine + "to be wrapped after" + systemNewLine + "20 columns."</td>
      *  </tr>
      *  <tr>
-     *   <td>"Click here to jump to the commons website - http://commons.apache.org"</td>
+     *   <td>"Click here to jump to the commons website - https://commons.apache.org"</td>
      *   <td>20</td>
      *   <td>"\n"</td>
      *   <td>false</td>
      *   <td>" "</td>
-     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttp://commons.apache.org"</td>
+     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttps://commons.apache.org"</td>
      *  </tr>
      *  <tr>
-     *   <td>"Click here to jump to the commons website - http://commons.apache.org"</td>
+     *   <td>"Click here to jump to the commons website - https://commons.apache.org"</td>
      *   <td>20</td>
      *   <td>"\n"</td>
      *   <td>true</td>
@@ -288,7 +291,8 @@ public class WordUtils {
 
         while (offset < inputLineLength) {
             int spaceToWrapAt = -1;
-            Matcher matcher = patternToWrapOn.matcher(str.substring(offset, Math.min(offset + wrapLength + 1, inputLineLength)));
+            Matcher matcher = patternToWrapOn.matcher(
+                str.substring(offset, Math.min((int) Math.min(Integer.MAX_VALUE, offset + wrapLength + 1L), inputLineLength)));
             if (matcher.find()) {
                 if (matcher.start() == 0) {
                     offset += matcher.end();
@@ -298,11 +302,11 @@ public class WordUtils {
             }
 
             // only last line without leading spaces is left
-            if(inputLineLength - offset <= wrapLength) {
+            if (inputLineLength - offset <= wrapLength) {
                 break;
             }
 
-            while(matcher.find()){
+            while (matcher.find()) {
                 spaceToWrapAt = matcher.start() + offset;
             }
 

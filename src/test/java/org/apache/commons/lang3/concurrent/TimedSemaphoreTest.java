@@ -16,11 +16,11 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ScheduledExecutorService;
@@ -29,7 +29,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.easymock.EasyMock;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for TimedSemaphore.
@@ -55,24 +55,22 @@ public class TimedSemaphoreTest {
         final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD, UNIT,
                 LIMIT);
         EasyMock.verify(service);
-        assertEquals("Wrong service", service, semaphore.getExecutorService());
-        assertEquals("Wrong period", PERIOD, semaphore.getPeriod());
-        assertEquals("Wrong unit", UNIT, semaphore.getUnit());
-        assertEquals("Statistic available", 0, semaphore
-                .getLastAcquiresPerPeriod());
-        assertEquals("Average available", 0.0, semaphore
-                .getAverageCallsPerPeriod(), .05);
-        assertFalse("Already shutdown", semaphore.isShutdown());
-        assertEquals("Wrong limit", LIMIT, semaphore.getLimit());
+        assertEquals(service, semaphore.getExecutorService(), "Wrong service");
+        assertEquals(PERIOD, semaphore.getPeriod(), "Wrong period");
+        assertEquals(UNIT, semaphore.getUnit(), "Wrong unit");
+        assertEquals(0, semaphore.getLastAcquiresPerPeriod(), "Statistic available");
+        assertEquals(0.0, semaphore.getAverageCallsPerPeriod(), .05, "Average available");
+        assertFalse(semaphore.isShutdown(), "Already shutdown");
+        assertEquals(LIMIT, semaphore.getLimit(), "Wrong limit");
     }
 
     /**
      * Tries to create an instance with a negative period. This should cause an
      * exception.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testInitInvalidPeriod() {
-        new TimedSemaphore(0L, UNIT, LIMIT);
+        assertThrows(IllegalArgumentException.class, () -> new TimedSemaphore(0L, UNIT, LIMIT));
     }
 
     /**
@@ -84,11 +82,9 @@ public class TimedSemaphoreTest {
         final TimedSemaphore semaphore = new TimedSemaphore(PERIOD, UNIT, LIMIT);
         final ScheduledThreadPoolExecutor exec = (ScheduledThreadPoolExecutor) semaphore
                 .getExecutorService();
-        assertFalse("Wrong periodic task policy", exec
-                .getContinueExistingPeriodicTasksAfterShutdownPolicy());
-        assertFalse("Wrong delayed task policy", exec
-                .getExecuteExistingDelayedTasksAfterShutdownPolicy());
-        assertFalse("Already shutdown", exec.isShutdown());
+        assertFalse(exec.getContinueExistingPeriodicTasksAfterShutdownPolicy(), "Wrong periodic task policy");
+        assertFalse(exec.getExecuteExistingDelayedTasksAfterShutdownPolicy(), "Wrong delayed task policy");
+        assertFalse(exec.isShutdown(), "Already shutdown");
         semaphore.shutdown();
     }
 
@@ -102,15 +98,13 @@ public class TimedSemaphoreTest {
         final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(PERIOD,
                 UNIT, LIMIT);
         final ScheduledFuture<?> future = semaphore.startTimer();
-        assertNotNull("No future returned", future);
+        assertNotNull(future, "No future returned");
         Thread.sleep(PERIOD);
         final int trials = 10;
         int count = 0;
         do {
             Thread.sleep(PERIOD);
-            if (count++ > trials) {
-                fail("endOfPeriod() not called!");
-            }
+            assertFalse(count++ > trials, "endOfPeriod() not called!");
         } while (semaphore.getPeriodEnds() <= 0);
         semaphore.shutdown();
     }
@@ -123,9 +117,8 @@ public class TimedSemaphoreTest {
     public void testShutdownOwnExecutor() {
         final TimedSemaphore semaphore = new TimedSemaphore(PERIOD, UNIT, LIMIT);
         semaphore.shutdown();
-        assertTrue("Not shutdown", semaphore.isShutdown());
-        assertTrue("Executor not shutdown", semaphore.getExecutorService()
-                .isShutdown());
+        assertTrue(semaphore.isShutdown(), "Not shutdown");
+        assertTrue(semaphore.getExecutorService().isShutdown(), "Executor not shutdown");
     }
 
     /**
@@ -140,7 +133,7 @@ public class TimedSemaphoreTest {
         final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD, UNIT,
                 LIMIT);
         semaphore.shutdown();
-        assertTrue("Not shutdown", semaphore.isShutdown());
+        assertTrue(semaphore.isShutdown(), "Not shutdown");
         EasyMock.verify(service);
     }
 
@@ -175,7 +168,7 @@ public class TimedSemaphoreTest {
                 PERIOD, UNIT, LIMIT);
         semaphore.acquire();
         semaphore.shutdown();
-        assertTrue("Not shutdown", semaphore.isShutdown());
+        assertTrue(semaphore.isShutdown(), "Not shutdown");
         EasyMock.verify(service, future);
     }
 
@@ -224,16 +217,13 @@ public class TimedSemaphoreTest {
         t.start();
         latch.await();
         // now the semaphore's limit should be reached and the thread blocked
-        assertEquals("Wrong semaphore count", count - 1, semaphore
-                .getAcquireCount());
+        assertEquals(count - 1, semaphore.getAcquireCount(), "Wrong semaphore count");
 
         // this wakes up the thread, it should call the semaphore once more
         semaphore.endOfPeriod();
         t.join();
-        assertEquals("Wrong semaphore count (2)", 1, semaphore
-                .getAcquireCount());
-        assertEquals("Wrong acquire() count", count - 1, semaphore
-                .getLastAcquiresPerPeriod());
+        assertEquals(1, semaphore.getAcquireCount(), "Wrong semaphore count (2)");
+        assertEquals(count - 1, semaphore.getLastAcquiresPerPeriod(), "Wrong acquire() count");
         EasyMock.verify(service, future);
     }
 
@@ -263,11 +253,10 @@ public class TimedSemaphoreTest {
         }
         for (int i = 0; i < count; i++) {
             semaphore.latch.await();
-            assertEquals("Wrong count", 1, semaphore.getAcquireCount());
+            assertEquals(1, semaphore.getAcquireCount(), "Wrong count");
             semaphore.latch = new CountDownLatch(1);
             semaphore.endOfPeriod();
-            assertEquals("Wrong acquire count", 1, semaphore
-                    .getLastAcquiresPerPeriod());
+            assertEquals(1, semaphore.getLastAcquiresPerPeriod(), "Wrong acquire count");
         }
         for (int i = 0; i < count; i++) {
             threads[i].join();
@@ -301,14 +290,12 @@ public class TimedSemaphoreTest {
 
     /**
      * Tries to call acquire() after shutdown(). This should cause an exception.
-     *
-     * @throws java.lang.InterruptedException so we don't have to catch it
      */
-    @Test(expected = IllegalStateException.class)
-    public void testPassAfterShutdown() throws InterruptedException {
+    @Test
+    public void testPassAfterShutdown() {
         final TimedSemaphore semaphore = new TimedSemaphore(PERIOD, UNIT, LIMIT);
         semaphore.shutdown();
-        semaphore.acquire();
+        assertThrows(IllegalStateException.class, semaphore::acquire);
     }
 
     /**
@@ -330,7 +317,7 @@ public class TimedSemaphoreTest {
         t.start();
         latch.await();
         semaphore.shutdown();
-        assertTrue("End of period not reached", semaphore.getPeriodEnds() > 0);
+        assertTrue(semaphore.getPeriodEnds() > 0, "End of period not reached");
     }
 
     /**
@@ -349,13 +336,11 @@ public class TimedSemaphoreTest {
                 LIMIT);
         semaphore.acquire();
         semaphore.endOfPeriod();
-        assertEquals("Wrong average (1)", 1.0, semaphore
-                .getAverageCallsPerPeriod(), .005);
+        assertEquals(1.0, semaphore.getAverageCallsPerPeriod(), .005, "Wrong average (1)");
         semaphore.acquire();
         semaphore.acquire();
         semaphore.endOfPeriod();
-        assertEquals("Wrong average (2)", 1.5, semaphore
-                .getAverageCallsPerPeriod(), .005);
+        assertEquals(1.5, semaphore.getAverageCallsPerPeriod(), .005, "Wrong average (2)");
         EasyMock.verify(service, future);
     }
 
@@ -374,13 +359,11 @@ public class TimedSemaphoreTest {
         final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD, UNIT,
                 LIMIT);
         for (int i = 0; i < LIMIT; i++) {
-            assertEquals("Wrong available count at " + i, LIMIT - i, semaphore
-                    .getAvailablePermits());
+            assertEquals(LIMIT - i, semaphore.getAvailablePermits(), "Wrong available count at " + i);
             semaphore.acquire();
         }
         semaphore.endOfPeriod();
-        assertEquals("Wrong available count in new period", LIMIT, semaphore
-                .getAvailablePermits());
+        assertEquals(LIMIT, semaphore.getAvailablePermits(), "Wrong available count in new period");
         EasyMock.verify(service, future);
     }
 
@@ -407,17 +390,17 @@ public class TimedSemaphoreTest {
                 permits++;
             }
         }
-        assertEquals("Wrong number of permits granted", LIMIT, permits);
+        assertEquals(LIMIT, permits, "Wrong number of permits granted");
     }
 
     /**
      * Tries to call tryAcquire() after shutdown(). This should cause an exception.
      */
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testTryAcquireAfterShutdown() {
         final TimedSemaphore semaphore = new TimedSemaphore(PERIOD, UNIT, LIMIT);
         semaphore.shutdown();
-        semaphore.tryAcquire();
+        assertThrows(IllegalStateException.class, semaphore::tryAcquire);
     }
 
     /**

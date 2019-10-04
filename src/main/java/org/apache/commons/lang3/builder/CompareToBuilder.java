@@ -414,7 +414,7 @@ public class CompareToBuilder implements Builder<Integer> {
             return this;
         }
         if (rhs == null) {
-            comparison = +1;
+            comparison = 1;
             return this;
         }
         if (lhs.getClass().isArray()) {
@@ -475,7 +475,7 @@ public class CompareToBuilder implements Builder<Integer> {
         if (comparison != 0) {
             return this;
         }
-        comparison = lhs < rhs ? -1 : lhs > rhs ? 1 : 0;
+        comparison = Long.compare(lhs, rhs);
         return this;
     }
 
@@ -491,7 +491,7 @@ public class CompareToBuilder implements Builder<Integer> {
         if (comparison != 0) {
             return this;
         }
-        comparison = lhs < rhs ? -1 : lhs > rhs ? 1 : 0;
+        comparison = Integer.compare(lhs, rhs);
         return this;
     }
 
@@ -507,7 +507,7 @@ public class CompareToBuilder implements Builder<Integer> {
         if (comparison != 0) {
             return this;
         }
-        comparison = lhs < rhs ? -1 : lhs > rhs ? 1 : 0;
+        comparison = Short.compare(lhs, rhs);
         return this;
     }
 
@@ -523,7 +523,7 @@ public class CompareToBuilder implements Builder<Integer> {
         if (comparison != 0) {
             return this;
         }
-        comparison = lhs < rhs ? -1 : lhs > rhs ? 1 : 0;
+        comparison = Character.compare(lhs, rhs);
         return this;
     }
 
@@ -539,7 +539,7 @@ public class CompareToBuilder implements Builder<Integer> {
         if (comparison != 0) {
             return this;
         }
-        comparison = lhs < rhs ? -1 : lhs > rhs ? 1 : 0;
+        comparison = Byte.compare(lhs, rhs);
         return this;
     }
 
@@ -600,10 +600,10 @@ public class CompareToBuilder implements Builder<Integer> {
         if (lhs == rhs) {
             return this;
         }
-        if (!lhs) {
-            comparison = -1;
+        if (lhs) {
+            comparison = 1;
         } else {
-            comparison = +1;
+            comparison = -1;
         }
         return this;
     }
@@ -668,11 +668,11 @@ public class CompareToBuilder implements Builder<Integer> {
             return this;
         }
         if (rhs == null) {
-            comparison = +1;
+            comparison = 1;
             return this;
         }
         if (lhs.length != rhs.length) {
-            comparison = lhs.length < rhs.length ? -1 : +1;
+            comparison = lhs.length < rhs.length ? -1 : 1;
             return this;
         }
         for (int i = 0; i < lhs.length && comparison == 0; i++) {
@@ -708,11 +708,11 @@ public class CompareToBuilder implements Builder<Integer> {
             return this;
         }
         if (rhs == null) {
-            comparison = +1;
+            comparison = 1;
             return this;
         }
         if (lhs.length != rhs.length) {
-            comparison = lhs.length < rhs.length ? -1 : +1;
+            comparison = lhs.length < rhs.length ? -1 : 1;
             return this;
         }
         for (int i = 0; i < lhs.length && comparison == 0; i++) {
@@ -748,11 +748,11 @@ public class CompareToBuilder implements Builder<Integer> {
             return this;
         }
         if (rhs == null) {
-            comparison = +1;
+            comparison = 1;
             return this;
         }
         if (lhs.length != rhs.length) {
-            comparison = lhs.length < rhs.length ? -1 : +1;
+            comparison = lhs.length < rhs.length ? -1 : 1;
             return this;
         }
         for (int i = 0; i < lhs.length && comparison == 0; i++) {
@@ -788,11 +788,11 @@ public class CompareToBuilder implements Builder<Integer> {
             return this;
         }
         if (rhs == null) {
-            comparison = +1;
+            comparison = 1;
             return this;
         }
         if (lhs.length != rhs.length) {
-            comparison = lhs.length < rhs.length ? -1 : +1;
+            comparison = lhs.length < rhs.length ? -1 : 1;
             return this;
         }
         for (int i = 0; i < lhs.length && comparison == 0; i++) {
@@ -828,11 +828,11 @@ public class CompareToBuilder implements Builder<Integer> {
             return this;
         }
         if (rhs == null) {
-            comparison = +1;
+            comparison = 1;
             return this;
         }
         if (lhs.length != rhs.length) {
-            comparison = lhs.length < rhs.length ? -1 : +1;
+            comparison = lhs.length < rhs.length ? -1 : 1;
             return this;
         }
         for (int i = 0; i < lhs.length && comparison == 0; i++) {
@@ -868,11 +868,11 @@ public class CompareToBuilder implements Builder<Integer> {
             return this;
         }
         if (rhs == null) {
-            comparison = +1;
+            comparison = 1;
             return this;
         }
         if (lhs.length != rhs.length) {
-            comparison = lhs.length < rhs.length ? -1 : +1;
+            comparison = lhs.length < rhs.length ? -1 : 1;
             return this;
         }
         for (int i = 0; i < lhs.length && comparison == 0; i++) {
@@ -908,11 +908,11 @@ public class CompareToBuilder implements Builder<Integer> {
             return this;
         }
         if (rhs == null) {
-            comparison = +1;
+            comparison = 1;
             return this;
         }
         if (lhs.length != rhs.length) {
-            comparison = lhs.length < rhs.length ? -1 : +1;
+            comparison = lhs.length < rhs.length ? -1 : 1;
             return this;
         }
         for (int i = 0; i < lhs.length && comparison == 0; i++) {
@@ -948,11 +948,11 @@ public class CompareToBuilder implements Builder<Integer> {
             return this;
         }
         if (rhs == null) {
-            comparison = +1;
+            comparison = 1;
             return this;
         }
         if (lhs.length != rhs.length) {
-            comparison = lhs.length < rhs.length ? -1 : +1;
+            comparison = lhs.length < rhs.length ? -1 : 1;
             return this;
         }
         for (int i = 0; i < lhs.length && comparison == 0; i++) {
@@ -988,11 +988,11 @@ public class CompareToBuilder implements Builder<Integer> {
             return this;
         }
         if (rhs == null) {
-            comparison = +1;
+            comparison = 1;
             return this;
         }
         if (lhs.length != rhs.length) {
-            comparison = lhs.length < rhs.length ? -1 : +1;
+            comparison = lhs.length < rhs.length ? -1 : 1;
             return this;
         }
         for (int i = 0; i < lhs.length && comparison == 0; i++) {

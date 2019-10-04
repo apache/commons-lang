@@ -49,6 +49,15 @@ public class NotImplementedException extends UnsupportedOperationException {
     /**
      * Constructs a NotImplementedException.
      *
+     * @since 3.10
+     */
+    public NotImplementedException() {
+        this.code = null;
+    }
+
+    /**
+     * Constructs a NotImplementedException.
+     *
      * @param message description of the exception
      * @since 3.2
      */

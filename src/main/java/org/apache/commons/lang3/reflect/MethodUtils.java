@@ -43,8 +43,8 @@ import org.apache.commons.lang3.Validate;
  * already existed within Lang.
  * </p>
  *
- * <h3>Known Limitations</h3>
- * <h4>Accessing Public Methods In A Default Access Superclass</h4>
+ * <h2>Known Limitations</h2>
+ * <h3>Accessing Public Methods In A Default Access Superclass</h3>
  * <p>There is an issue when invoking {@code public} methods contained in a default access superclass on JREs prior to 1.4.
  * Reflection locates these methods fine and correctly assigns them as {@code public}.
  * However, an {@link IllegalAccessException} is thrown if the method is invoked.</p>
@@ -77,7 +77,7 @@ public class MethodUtils {
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
      * <p>This is a convenient wrapper for
-     * {@link #invokeMethod(Object object,String methodName, Object[] args, Class[] parameterTypes)}.
+     * {@link #invokeMethod(Object object, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
      * @param object invoke method on this object
@@ -99,7 +99,7 @@ public class MethodUtils {
      * <p>Invokes a named method without parameters.</p>
      *
      * <p>This is a convenient wrapper for
-     * {@link #invokeMethod(Object object,boolean forceAccess,String methodName, Object[] args, Class[] parameterTypes)}.
+     * {@link #invokeMethod(Object object, boolean forceAccess, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
      * @param object invoke method on this object
@@ -128,7 +128,7 @@ public class MethodUtils {
      * would match a {@code boolean} primitive.</p>
      *
      * <p>This is a convenient wrapper for
-     * {@link #invokeMethod(Object object,String methodName, Object[] args, Class[] parameterTypes)}.
+     * {@link #invokeMethod(Object object, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
      * @param object invoke method on this object
@@ -156,7 +156,7 @@ public class MethodUtils {
      * would match a {@code boolean} primitive.</p>
      *
      * <p>This is a convenient wrapper for
-     * {@link #invokeMethod(Object object,boolean forceAccess,String methodName, Object[] args, Class[] parameterTypes)}.
+     * {@link #invokeMethod(Object object, boolean forceAccess, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
      * @param object invoke method on this object
@@ -261,7 +261,7 @@ public class MethodUtils {
      * types.</p>
      *
      * <p>This uses reflection to invoke the method obtained from a call to
-     * {@link #getAccessibleMethod}(Class,String,Class[])}.</p>
+     * {@link #getAccessibleMethod}(Class, String, Class[])}.</p>
      *
      * @param object invoke method on this object
      * @param methodName get method with this name
@@ -284,7 +284,7 @@ public class MethodUtils {
      * <p>Invokes a method with no parameters.</p>
      *
      * <p>This uses reflection to invoke the method obtained from a call to
-     * {@link #getAccessibleMethod}(Class,String,Class[])}.</p>
+     * {@link #getAccessibleMethod}(Class, String, Class[])}.</p>
      *
      * @param object invoke method on this object
      * @param methodName get method with this name
@@ -310,7 +310,7 @@ public class MethodUtils {
      * types given.</p>
      *
      * <p>This uses reflection to invoke the method obtained from a call to
-     * {@link #getAccessibleMethod(Class,String,Class[])}.</p>
+     * {@link #getAccessibleMethod(Class, String, Class[])}.</p>
      *
      * @param object invoke method on this object
      * @param methodName get method with this name
@@ -482,7 +482,7 @@ public class MethodUtils {
         // Copy the variadic arguments into the varargs array.
         System.arraycopy(args, methodParameterTypes.length - 1, varArgsArray, 0, varArgLength);
 
-        if(varArgComponentType.isPrimitive()) {
+        if (varArgComponentType.isPrimitive()) {
             // unbox from wrapper type to primitive type
             varArgsArray = ArrayUtils.toPrimitive(varArgsArray);
         }
@@ -903,7 +903,7 @@ public class MethodUtils {
         Validate.isTrue(cls != null, "The class must not be null");
         Validate.isTrue(annotationCls != null, "The annotation class must not be null");
         final List<Class<?>> classes = (searchSupers ? getAllSuperclassesAndInterfaces(cls)
-                : new ArrayList<Class<?>>());
+                : new ArrayList<>());
         classes.add(0, cls);
         final List<Method> annotatedMethods = new ArrayList<>();
         for (final Class<?> acls : classes) {

@@ -1,4 +1,4 @@
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -39,6 +39,7 @@ package org.apache.commons.lang3.builder;
  * @param <T> the type of objects that this object may be differentiated against
  * @since 3.3
  */
+@FunctionalInterface
 public interface Diffable<T> {
 
     /**
@@ -49,5 +50,5 @@ public interface Diffable<T> {
      * @return a list of differences
      * @throws NullPointerException if the specified object is {@code null}
      */
-    DiffResult diff(T obj);
+    DiffResult<T> diff(T obj);
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -59,17 +59,19 @@ import org.apache.commons.lang3.reflect.FieldUtils;
  * {@code DiffResult.toString()} method. This style choice can be overridden by
  * calling {@link DiffResult#toString(ToStringStyle)}.
  * </p>
+ * @param <T>
+ *            type of the left and right object to diff.
  * @see Diffable
  * @see Diff
  * @see DiffResult
  * @see ToStringStyle
  * @since 3.6
  */
-public class ReflectionDiffBuilder implements Builder<DiffResult> {
+public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
 
     private final Object left;
     private final Object right;
-    private final DiffBuilder diffBuilder;
+    private final DiffBuilder<T> diffBuilder;
 
     /**
      * <p>
@@ -81,8 +83,6 @@ public class ReflectionDiffBuilder implements Builder<DiffResult> {
      * not evaluate any calls to {@code append(...)} and will return an empty
      * {@link DiffResult} when {@link #build()} is executed.
      * </p>
-     * @param <T>
-     *            type of the objects to diff
      * @param lhs
      *            {@code this} object
      * @param rhs
@@ -93,14 +93,14 @@ public class ReflectionDiffBuilder implements Builder<DiffResult> {
      * @throws IllegalArgumentException
      *             if {@code lhs} or {@code rhs} is {@code null}
      */
-    public <T> ReflectionDiffBuilder(final T lhs, final T rhs, final ToStringStyle style) {
+    public ReflectionDiffBuilder(final T lhs, final T rhs, final ToStringStyle style) {
         this.left = lhs;
         this.right = rhs;
-        diffBuilder = new DiffBuilder(lhs, rhs, style);
+        diffBuilder = new DiffBuilder<>(lhs, rhs, style);
     }
 
     @Override
-    public DiffResult build() {
+    public DiffResult<T> build() {
         if (left.equals(right)) {
             return diffBuilder.build();
         }

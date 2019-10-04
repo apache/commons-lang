@@ -16,12 +16,11 @@
  */
 package org.apache.commons.lang3.reflect;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
@@ -31,8 +30,8 @@ import java.util.Map;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.mutable.MutableObject;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests ConstructorUtils
@@ -90,7 +89,7 @@ public class ConstructorUtilsTest {
         public TestBean(final Integer first, final int... args) {
             toString = "(Integer, String...)";
             varArgs = new String[args.length];
-            for(int i = 0; i< args.length; ++i) {
+            for (int i = 0; i< args.length; ++i) {
                 varArgs[i] = Integer.toString(args[i]);
             }
         }
@@ -129,8 +128,8 @@ public class ConstructorUtilsTest {
     }
 
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() {
         classCache.clear();
     }
 
@@ -186,24 +185,15 @@ public class ConstructorUtilsTest {
                 TestBean.class, new Object[] { NumberUtils.DOUBLE_ONE },
                 new Class[] { Double.TYPE }).toString());
 
-        try {
-            ConstructorUtils.invokeExactConstructor(TestBean.class,
-                    NumberUtils.BYTE_ONE);
-            fail("should throw NoSuchMethodException");
-        } catch (final NoSuchMethodException e) {
-        }
-        try {
-            ConstructorUtils.invokeExactConstructor(TestBean.class,
-                    NumberUtils.LONG_ONE);
-            fail("should throw NoSuchMethodException");
-        } catch (final NoSuchMethodException e) {
-        }
-        try {
-            ConstructorUtils.invokeExactConstructor(TestBean.class,
-                    Boolean.TRUE);
-            fail("should throw NoSuchMethodException");
-        } catch (final NoSuchMethodException e) {
-        }
+        assertThrows(
+                NoSuchMethodException.class,
+                () -> ConstructorUtils.invokeExactConstructor(TestBean.class, NumberUtils.BYTE_ONE));
+        assertThrows(
+                NoSuchMethodException.class,
+                () -> ConstructorUtils.invokeExactConstructor(TestBean.class, NumberUtils.LONG_ONE));
+        assertThrows(
+                NoSuchMethodException.class,
+                () -> ConstructorUtils.invokeExactConstructor(TestBean.class, Boolean.TRUE));
     }
 
     @Test
@@ -216,7 +206,7 @@ public class ConstructorUtilsTest {
     }
 
     @Test
-    public void testGetAccessibleConstructorFromDescription() throws Exception {
+    public void testGetAccessibleConstructorFromDescription() {
         assertNotNull(ConstructorUtils.getAccessibleConstructor(Object.class,
                 ArrayUtils.EMPTY_CLASS_ARRAY));
         assertNull(ConstructorUtils.getAccessibleConstructor(
@@ -224,7 +214,7 @@ public class ConstructorUtilsTest {
     }
 
     @Test
-    public void testGetMatchingAccessibleMethod() throws Exception {
+    public void testGetMatchingAccessibleMethod() {
         expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
                 ArrayUtils.EMPTY_CLASS_ARRAY, ArrayUtils.EMPTY_CLASS_ARRAY);
         expectMatchingAccessibleConstructorParameterTypes(TestBean.class, null,
@@ -278,9 +268,7 @@ public class ConstructorUtilsTest {
             final Class<?>[] requestTypes, final Class<?>[] actualTypes) {
         final Constructor<?> c = ConstructorUtils.getMatchingAccessibleConstructor(cls,
                 requestTypes);
-        assertTrue(toString(c.getParameterTypes()) + " not equals "
-                + toString(actualTypes), Arrays.equals(actualTypes, c
-                .getParameterTypes()));
+        assertArrayEquals(actualTypes, c.getParameterTypes(), toString(c.getParameterTypes()) + " not equals " + toString(actualTypes));
     }
 
     private String toString(final Class<?>[] c) {

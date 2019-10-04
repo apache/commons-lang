@@ -16,16 +16,16 @@
  */
 package org.apache.commons.lang3.text;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for WordUtils class.
@@ -61,14 +61,14 @@ public class WordUtilsTest {
         assertEquals(expected, WordUtils.wrap(input, 20));
 
         // long word at end
-        input = "Click here to jump to the commons website - http://commons.apache.org";
+        input = "Click here to jump to the commons website - https://commons.apache.org";
         expected = "Click here to jump" + systemNewLine + "to the commons" + systemNewLine
-            + "website -" + systemNewLine + "http://commons.apache.org";
+            + "website -" + systemNewLine + "https://commons.apache.org";
         assertEquals(expected, WordUtils.wrap(input, 20));
 
         // long word in middle
-        input = "Click here, http://commons.apache.org, to jump to the commons website";
-        expected = "Click here," + systemNewLine + "http://commons.apache.org," + systemNewLine
+        input = "Click here, https://commons.apache.org, to jump to the commons website";
+        expected = "Click here," + systemNewLine + "https://commons.apache.org," + systemNewLine
             + "to jump to the" + systemNewLine + "commons website";
         assertEquals(expected, WordUtils.wrap(input, 20));
 
@@ -142,17 +142,17 @@ public class WordUtilsTest {
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", true));
 
         // difference because of long word
-        input = "Click here to jump to the commons website - http://commons.apache.org";
-        expected = "Click here to jump\nto the commons\nwebsite -\nhttp://commons.apache.org";
+        input = "Click here to jump to the commons website - https://commons.apache.org";
+        expected = "Click here to jump\nto the commons\nwebsite -\nhttps://commons.apache.org";
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", false));
-        expected = "Click here to jump\nto the commons\nwebsite -\nhttp://commons.apach\ne.org";
+        expected = "Click here to jump\nto the commons\nwebsite -\nhttps://commons.apac\nhe.org";
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", true));
 
         // difference because of long word in middle
-        input = "Click here, http://commons.apache.org, to jump to the commons website";
-        expected = "Click here,\nhttp://commons.apache.org,\nto jump to the\ncommons website";
+        input = "Click here, https://commons.apache.org, to jump to the commons website";
+        expected = "Click here,\nhttps://commons.apache.org,\nto jump to the\ncommons website";
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", false));
-        expected = "Click here,\nhttp://commons.apach\ne.org, to jump to\nthe commons website";
+        expected = "Click here,\nhttps://commons.apac\nhe.org, to jump to\nthe commons website";
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", true));
     }
 
@@ -420,11 +420,18 @@ public class WordUtilsTest {
     }
 
     @Test
-    public void testLANG1292() throws Exception {
+    public void testLANG1292() {
         // Prior to fix, this was throwing StringIndexOutOfBoundsException
         WordUtils.wrap("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa "
                 + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa "
-                + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",70);
+                + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 70);
     }
 
+    @Test
+    public void testLANG1397() {
+        // Prior to fix, this was throwing StringIndexOutOfBoundsException
+        WordUtils.wrap("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa "
+            + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa "
+            + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", Integer.MAX_VALUE);
+    }
 }

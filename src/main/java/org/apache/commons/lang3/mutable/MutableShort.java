@@ -73,7 +73,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @throws NumberFormatException if the string cannot be parsed into a short
      * @since 2.5
      */
-    public MutableShort(final String value) throws NumberFormatException {
+    public MutableShort(final String value) {
         super();
         this.value = Short.parseShort(value);
     }
@@ -113,7 +113,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     /**
      * Increments the value.
      *
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void increment() {
         value++;
@@ -147,7 +147,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     /**
      * Decrements the value.
      *
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void decrement() {
         value--;
@@ -183,7 +183,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * Adds a value to the value of this instance.
      *
      * @param operand  the value to add, not null
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void add(final short operand) {
         this.value += operand;
@@ -194,7 +194,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      *
      * @param operand  the value to add, not null
      * @throws NullPointerException if the object is null
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void add(final Number operand) {
         this.value += operand.shortValue();
@@ -204,7 +204,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * Subtracts a value from the value of this instance.
      *
      * @param operand  the value to subtract, not null
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void subtract(final short operand) {
         this.value -= operand;
@@ -215,7 +215,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      *
      * @param operand  the value to subtract, not null
      * @throws NullPointerException if the object is null
-     * @since Commons Lang 2.2
+     * @since 2.2
      */
     public void subtract(final Number operand) {
         this.value -= operand.shortValue();

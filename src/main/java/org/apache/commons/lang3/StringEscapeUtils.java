@@ -255,13 +255,12 @@ public class StringEscapeUtils {
         private static final char CSV_DELIMITER = ',';
         private static final char CSV_QUOTE = '"';
         private static final String CSV_QUOTE_STR = String.valueOf(CSV_QUOTE);
-        private static final char[] CSV_SEARCH_CHARS =
-            new char[] {CSV_DELIMITER, CSV_QUOTE, CharUtils.CR, CharUtils.LF};
+        private static final char[] CSV_SEARCH_CHARS = { CSV_DELIMITER, CSV_QUOTE, CharUtils.CR, CharUtils.LF };
 
         @Override
         public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
 
-            if(index != 0) {
+            if (index != 0) {
                 throw new IllegalStateException("CsvEscaper should never reach the [1] index");
             }
 
@@ -389,13 +388,12 @@ public class StringEscapeUtils {
         private static final char CSV_DELIMITER = ',';
         private static final char CSV_QUOTE = '"';
         private static final String CSV_QUOTE_STR = String.valueOf(CSV_QUOTE);
-        private static final char[] CSV_SEARCH_CHARS =
-            new char[] {CSV_DELIMITER, CSV_QUOTE, CharUtils.CR, CharUtils.LF};
+        private static final char[] CSV_SEARCH_CHARS = {CSV_DELIMITER, CSV_QUOTE, CharUtils.CR, CharUtils.LF};
 
         @Override
         public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
 
-            if(index != 0) {
+            if (index != 0) {
                 throw new IllegalStateException("CsvUnescaper should never reach the [1] index");
             }
 

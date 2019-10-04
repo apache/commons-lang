@@ -16,15 +16,16 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -32,14 +33,18 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Map;
+import java.util.Random;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.ArrayUtils}.
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
 public class ArrayUtilsTest {
+
+    /** A predefined seed used to initialize {@link Random} in order to get predictable results */
+    private static final long SEED = 16111981L;
 
     //-----------------------------------------------------------------------
     @Test
@@ -73,17 +78,17 @@ public class ArrayUtilsTest {
     public void testHashCode() {
         final long[][] array1 = new long[][]{{2, 5}, {4, 5}};
         final long[][] array2 = new long[][]{{2, 5}, {4, 6}};
-        assertTrue(ArrayUtils.hashCode(array1) == ArrayUtils.hashCode(array1));
-        assertFalse(ArrayUtils.hashCode(array1) == ArrayUtils.hashCode(array2));
+        assertEquals(ArrayUtils.hashCode(array1), ArrayUtils.hashCode(array1));
+        assertNotEquals(ArrayUtils.hashCode(array1), ArrayUtils.hashCode(array2));
 
         final Object[] array3 = new Object[]{new String(new char[]{'A', 'B'})};
         final Object[] array4 = new Object[]{"AB"};
-        assertTrue(ArrayUtils.hashCode(array3) == ArrayUtils.hashCode(array3));
-        assertTrue(ArrayUtils.hashCode(array3) == ArrayUtils.hashCode(array4));
+        assertEquals(ArrayUtils.hashCode(array3), ArrayUtils.hashCode(array3));
+        assertEquals(ArrayUtils.hashCode(array3), ArrayUtils.hashCode(array4));
 
         final Object[] arrayA = new Object[]{new boolean[]{true, false}, new int[]{6, 7}};
         final Object[] arrayB = new Object[]{new boolean[]{true, false}, new int[]{6, 7}};
-        assertTrue(ArrayUtils.hashCode(arrayB) == ArrayUtils.hashCode(arrayA));
+        assertEquals(ArrayUtils.hashCode(arrayB), ArrayUtils.hashCode(arrayA));
     }
 
     //-----------------------------------------------------------------------
@@ -225,21 +230,12 @@ public class ArrayUtilsTest {
         assertEquals("world", map.get("hello"));
 
         assertNull(ArrayUtils.toMap(null));
-        try {
-            ArrayUtils.toMap(new String[][]{{"foo", "bar"}, {"short"}});
-            fail("exception expected");
-        } catch (final IllegalArgumentException ex) {
-        }
-        try {
-            ArrayUtils.toMap(new Object[]{new Object[]{"foo", "bar"}, "illegal type"});
-            fail("exception expected");
-        } catch (final IllegalArgumentException ex) {
-        }
-        try {
-            ArrayUtils.toMap(new Object[]{new Object[]{"foo", "bar"}, null});
-            fail("exception expected");
-        } catch (final IllegalArgumentException ex) {
-        }
+        assertThrows(IllegalArgumentException.class, () ->
+                ArrayUtils.toMap(new String[][]{{"foo", "bar"}, {"short"}}));
+        assertThrows(IllegalArgumentException.class, () ->
+                ArrayUtils.toMap(new Object[]{new Object[]{"foo", "bar"}, "illegal type"}));
+        assertThrows(IllegalArgumentException.class, () ->
+                ArrayUtils.toMap(new Object[]{new Object[]{"foo", "bar"}, null}));
 
         map = ArrayUtils.toMap(new Object[]{new Map.Entry<Object, Object>() {
             @Override
@@ -276,14 +272,14 @@ public class ArrayUtilsTest {
         assertArrayEquals(null, ArrayUtils.clone((Object[]) null));
         Object[] original1 = new Object[0];
         Object[] cloned1 = ArrayUtils.clone(original1);
-        assertTrue(Arrays.equals(original1, cloned1));
-        assertTrue(original1 != cloned1);
+        assertArrayEquals(original1, cloned1);
+        assertNotSame(original1, cloned1);
 
         final StringBuilder builder = new StringBuilder("pick");
         original1 = new Object[]{builder, "a", new String[]{"stick"}};
         cloned1 = ArrayUtils.clone(original1);
-        assertTrue(Arrays.equals(original1, cloned1));
-        assertTrue(original1 != cloned1);
+        assertArrayEquals(original1, cloned1);
+        assertNotSame(original1, cloned1);
         assertSame(original1[0], cloned1[0]);
         assertSame(original1[1], cloned1[1]);
         assertSame(original1[2], cloned1[2]);
@@ -294,8 +290,8 @@ public class ArrayUtilsTest {
         assertNull(ArrayUtils.clone((boolean[]) null));
         final boolean[] original = new boolean[]{true, false};
         final boolean[] cloned = ArrayUtils.clone(original);
-        assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertArrayEquals(original, cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -303,8 +299,8 @@ public class ArrayUtilsTest {
         assertNull(ArrayUtils.clone((long[]) null));
         final long[] original = new long[]{0L, 1L};
         final long[] cloned = ArrayUtils.clone(original);
-        assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertArrayEquals(original, cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -312,8 +308,8 @@ public class ArrayUtilsTest {
         assertNull(ArrayUtils.clone((int[]) null));
         final int[] original = new int[]{5, 8};
         final int[] cloned = ArrayUtils.clone(original);
-        assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertArrayEquals(original, cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -321,8 +317,8 @@ public class ArrayUtilsTest {
         assertNull(ArrayUtils.clone((short[]) null));
         final short[] original = new short[]{1, 4};
         final short[] cloned = ArrayUtils.clone(original);
-        assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertArrayEquals(original, cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -330,8 +326,8 @@ public class ArrayUtilsTest {
         assertNull(ArrayUtils.clone((char[]) null));
         final char[] original = new char[]{'a', '4'};
         final char[] cloned = ArrayUtils.clone(original);
-        assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertArrayEquals(original, cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -339,8 +335,8 @@ public class ArrayUtilsTest {
         assertNull(ArrayUtils.clone((byte[]) null));
         final byte[] original = new byte[]{1, 6};
         final byte[] cloned = ArrayUtils.clone(original);
-        assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertArrayEquals(original, cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -348,8 +344,8 @@ public class ArrayUtilsTest {
         assertNull(ArrayUtils.clone((double[]) null));
         final double[] original = new double[]{2.4d, 5.7d};
         final double[] cloned = ArrayUtils.clone(original);
-        assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertArrayEquals(original, cloned);
+        assertNotSame(original, cloned);
     }
 
     @Test
@@ -357,8 +353,8 @@ public class ArrayUtilsTest {
         assertNull(ArrayUtils.clone((float[]) null));
         final float[] original = new float[]{2.6f, 6.4f};
         final float[] cloned = ArrayUtils.clone(original);
-        assertTrue(Arrays.equals(original, cloned));
-        assertTrue(original != cloned);
+        assertArrayEquals(original, cloned);
+        assertNotSame(original, cloned);
     }
 
     //-----------------------------------------------------------------------
@@ -370,8 +366,8 @@ public class ArrayUtilsTest {
     public void testNullToEmptyGenericNull() {
         final TestClass[] output = ArrayUtils.nullToEmpty(null, TestClass[].class);
 
-        assertTrue(output != null);
-        assertTrue(output.length == 0);
+        assertNotNull(output);
+        assertEquals(0, output.length);
     }
 
     @Test
@@ -390,19 +386,19 @@ public class ArrayUtilsTest {
         assertSame(input, output);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNullToEmptyGenericNullType() {
         final TestClass[] input = new TestClass[]{};
-        ArrayUtils.nullToEmpty(input, null);
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.nullToEmpty(input, null));
     }
 
     @Test
-    public void testNullToEmptyBooleanNull() throws Exception {
+    public void testNullToEmptyBooleanNull() {
         assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.nullToEmpty((boolean[]) null));
     }
 
     @Test
-    public void testNullToEmptyBooleanEmptyArray() throws Exception {
+    public void testNullToEmptyBooleanEmptyArray() {
         final boolean[] empty = new boolean[]{};
         final boolean[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, result);
@@ -416,12 +412,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyLongNull() throws Exception {
+    public void testNullToEmptyLongNull() {
         assertEquals(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.nullToEmpty((long[]) null));
     }
 
     @Test
-    public void testNullToEmptyLongEmptyArray() throws Exception {
+    public void testNullToEmptyLongEmptyArray() {
         final long[] empty = new long[]{};
         final long[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_LONG_ARRAY, result);
@@ -435,12 +431,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyIntNull() throws Exception {
+    public void testNullToEmptyIntNull() {
         assertEquals(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.nullToEmpty((int[]) null));
     }
 
     @Test
-    public void testNullToEmptyIntEmptyArray() throws Exception {
+    public void testNullToEmptyIntEmptyArray() {
         final int[] empty = new int[]{};
         final int[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_INT_ARRAY, result);
@@ -454,12 +450,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyShortNull() throws Exception {
+    public void testNullToEmptyShortNull() {
         assertEquals(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.nullToEmpty((short[]) null));
     }
 
     @Test
-    public void testNullToEmptyShortEmptyArray() throws Exception {
+    public void testNullToEmptyShortEmptyArray() {
         final short[] empty = new short[]{};
         final short[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_SHORT_ARRAY, result);
@@ -473,12 +469,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyCharNull() throws Exception {
+    public void testNullToEmptyCharNull() {
         assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.nullToEmpty((char[]) null));
     }
 
     @Test
-    public void testNullToEmptyCharEmptyArray() throws Exception {
+    public void testNullToEmptyCharEmptyArray() {
         final char[] empty = new char[]{};
         final char[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, result);
@@ -492,12 +488,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyByteNull() throws Exception {
+    public void testNullToEmptyByteNull() {
         assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.nullToEmpty((byte[]) null));
     }
 
     @Test
-    public void testNullToEmptyByteEmptyArray() throws Exception {
+    public void testNullToEmptyByteEmptyArray() {
         final byte[] empty = new byte[]{};
         final byte[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, result);
@@ -511,12 +507,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyDoubleNull() throws Exception {
+    public void testNullToEmptyDoubleNull() {
         assertEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.nullToEmpty((double[]) null));
     }
 
     @Test
-    public void testNullToEmptyDoubleEmptyArray() throws Exception {
+    public void testNullToEmptyDoubleEmptyArray() {
         final double[] empty = new double[]{};
         final double[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, result);
@@ -530,12 +526,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyFloatNull() throws Exception {
+    public void testNullToEmptyFloatNull() {
         assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.nullToEmpty((float[]) null));
     }
 
     @Test
-    public void testNullToEmptyFloatEmptyArray() throws Exception {
+    public void testNullToEmptyFloatEmptyArray() {
         final float[] empty = new float[]{};
         final float[] result = ArrayUtils.nullToEmpty(empty);
         assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, result);
@@ -549,12 +545,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyObjectNull() throws Exception {
+    public void testNullToEmptyObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Object[]) null));
     }
 
     @Test
-    public void testNullToEmptyObjectEmptyArray() throws Exception {
+    public void testNullToEmptyObjectEmptyArray() {
         final Object[] empty = new Object[]{};
         final Object[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, result);
@@ -568,12 +564,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyClassNull() throws Exception {
+    public void testNullToEmptyClassNull() {
         assertArrayEquals(ArrayUtils.EMPTY_CLASS_ARRAY, ArrayUtils.nullToEmpty((Class<?>[]) null));
     }
 
     @Test
-    public void testNullToEmptyClassEmptyArray() throws Exception {
+    public void testNullToEmptyClassEmptyArray() {
         final Class<?>[] empty = {};
         final Class<?>[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_CLASS_ARRAY, result);
@@ -587,12 +583,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyStringNull() throws Exception {
+    public void testNullToEmptyStringNull() {
         assertArrayEquals(ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.nullToEmpty((String[]) null));
     }
 
     @Test
-    public void testNullToEmptyStringEmptyArray() throws Exception {
+    public void testNullToEmptyStringEmptyArray() {
         final String[] empty = new String[]{};
         final String[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_STRING_ARRAY, result);
@@ -606,12 +602,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyBooleanObjectNull() throws Exception {
+    public void testNullToEmptyBooleanObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Boolean[]) null));
     }
 
     @Test
-    public void testNullToEmptyBooleanObjectEmptyArray() throws Exception {
+    public void testNullToEmptyBooleanObjectEmptyArray() {
         final Boolean[] empty = new Boolean[]{};
         final Boolean[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, result);
@@ -625,12 +621,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyLongObjectNull() throws Exception {
+    public void testNullToEmptyLongObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_LONG_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Long[]) null));
     }
 
     @Test
-    public void testNullToEmptyLongObjectEmptyArray() throws Exception {
+    public void testNullToEmptyLongObjectEmptyArray() {
         final Long[] empty = new Long[]{};
         final Long[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_LONG_OBJECT_ARRAY, result);
@@ -644,12 +640,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyIntObjectNull() throws Exception {
+    public void testNullToEmptyIntObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_INTEGER_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Integer[]) null));
     }
 
     @Test
-    public void testNullToEmptyIntObjectEmptyArray() throws Exception {
+    public void testNullToEmptyIntObjectEmptyArray() {
         final Integer[] empty = new Integer[]{};
         final Integer[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_INTEGER_OBJECT_ARRAY, result);
@@ -663,12 +659,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyShortObjectNull() throws Exception {
+    public void testNullToEmptyShortObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_SHORT_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Short[]) null));
     }
 
     @Test
-    public void testNullToEmptyShortObjectEmptyArray() throws Exception {
+    public void testNullToEmptyShortObjectEmptyArray() {
         final Short[] empty = new Short[]{};
         final Short[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_SHORT_OBJECT_ARRAY, result);
@@ -682,12 +678,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNUllToEmptyCharObjectNull() throws Exception {
+    public void testNUllToEmptyCharObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_CHARACTER_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Character[]) null));
     }
 
     @Test
-    public void testNullToEmptyCharObjectEmptyArray() throws Exception {
+    public void testNullToEmptyCharObjectEmptyArray() {
         final Character[] empty = new Character[]{};
         final Character[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_CHARACTER_OBJECT_ARRAY, result);
@@ -701,12 +697,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyByteObjectNull() throws Exception {
+    public void testNullToEmptyByteObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_BYTE_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Byte[]) null));
     }
 
     @Test
-    public void testNullToEmptyByteObjectEmptyArray() throws Exception {
+    public void testNullToEmptyByteObjectEmptyArray() {
         final Byte[] empty = new Byte[]{};
         final Byte[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_BYTE_OBJECT_ARRAY, result);
@@ -720,12 +716,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyDoubleObjectNull() throws Exception {
+    public void testNullToEmptyDoubleObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Double[]) null));
     }
 
     @Test
-    public void testNullToEmptyDoubleObjectEmptyArray() throws Exception {
+    public void testNullToEmptyDoubleObjectEmptyArray() {
         final Double[] empty = new Double[]{};
         final Double[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY, result);
@@ -739,12 +735,12 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testNullToEmptyFloatObjectNull() throws Exception {
+    public void testNullToEmptyFloatObjectNull() {
         assertArrayEquals(ArrayUtils.EMPTY_FLOAT_OBJECT_ARRAY, ArrayUtils.nullToEmpty((Float[]) null));
     }
 
     @Test
-    public void testNullToEmptyFloatObjectEmptyArray() throws Exception {
+    public void testNullToEmptyFloatObjectEmptyArray() {
         final Float[] empty = new Float[]{};
         final Float[] result = ArrayUtils.nullToEmpty(empty);
         assertArrayEquals(ArrayUtils.EMPTY_FLOAT_OBJECT_ARRAY, result);
@@ -764,46 +760,35 @@ public class ArrayUtilsTest {
         final Object[] nullArray = null;
         final Object[] objectArray = {"a", "b", "c", "d", "e", "f"};
 
-        assertEquals("0 start, mid end", "abcd",
-                StringUtils.join(ArrayUtils.subarray(objectArray, 0, 4)));
-        assertEquals("0 start, length end", "abcdef",
-                StringUtils.join(ArrayUtils.subarray(objectArray, 0, objectArray.length)));
-        assertEquals("mid start, mid end", "bcd",
-                StringUtils.join(ArrayUtils.subarray(objectArray, 1, 4)));
-        assertEquals("mid start, length end", "bcdef",
-                StringUtils.join(ArrayUtils.subarray(objectArray, 1, objectArray.length)));
+        assertEquals("abcd", StringUtils.join(ArrayUtils.subarray(objectArray, 0, 4)), "0 start, mid end");
+        assertEquals("abcdef", StringUtils.join(ArrayUtils.subarray(objectArray, 0, objectArray.length)),
+                "0 start, length end");
+        assertEquals("bcd", StringUtils.join(ArrayUtils.subarray(objectArray, 1, 4)), "mid start, mid end");
+        assertEquals("bcdef", StringUtils.join(ArrayUtils.subarray(objectArray, 1, objectArray.length)),
+                "mid start, length end");
 
-        assertNull("null input", ArrayUtils.subarray(nullArray, 0, 3));
-        assertEquals("empty array", "",
-                StringUtils.join(ArrayUtils.subarray(ArrayUtils.EMPTY_OBJECT_ARRAY, 1, 2)));
-        assertEquals("start > end", "",
-                StringUtils.join(ArrayUtils.subarray(objectArray, 4, 2)));
-        assertEquals("start == end", "",
-                StringUtils.join(ArrayUtils.subarray(objectArray, 3, 3)));
-        assertEquals("start undershoot, normal end", "abcd",
-                StringUtils.join(ArrayUtils.subarray(objectArray, -2, 4)));
-        assertEquals("start overshoot, any end", "",
-                StringUtils.join(ArrayUtils.subarray(objectArray, 33, 4)));
-        assertEquals("normal start, end overshoot", "cdef",
-                StringUtils.join(ArrayUtils.subarray(objectArray, 2, 33)));
-        assertEquals("start undershoot, end overshoot", "abcdef",
-                StringUtils.join(ArrayUtils.subarray(objectArray, -2, 12)));
+        assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
+        assertEquals("", StringUtils.join(ArrayUtils.subarray(ArrayUtils.EMPTY_OBJECT_ARRAY, 1, 2)), "empty array");
+        assertEquals("", StringUtils.join(ArrayUtils.subarray(objectArray, 4, 2)), "start > end");
+        assertEquals("", StringUtils.join(ArrayUtils.subarray(objectArray, 3, 3)), "start == end");
+        assertEquals("abcd", StringUtils.join(ArrayUtils.subarray(objectArray, -2, 4)), "start undershoot, normal end");
+        assertEquals("", StringUtils.join(ArrayUtils.subarray(objectArray, 33, 4)), "start overshoot, any end");
+        assertEquals("cdef", StringUtils.join(ArrayUtils.subarray(objectArray, 2, 33)), "normal start, end overshoot");
+        assertEquals("abcdef", StringUtils.join(ArrayUtils.subarray(objectArray, -2, 12)),
+                "start undershoot, end overshoot");
 
         // array type tests
         final Date[] dateArray = {new java.sql.Date(new Date().getTime()),
                 new Date(), new Date(), new Date(), new Date()};
 
-        assertSame("Object type", Object.class,
-                ArrayUtils.subarray(objectArray, 2, 4).getClass().getComponentType());
-        assertSame("java.util.Date type", java.util.Date.class,
-                ArrayUtils.subarray(dateArray, 1, 4).getClass().getComponentType());
-        assertNotSame("java.sql.Date type", java.sql.Date.class,
-                ArrayUtils.subarray(dateArray, 1, 4).getClass().getComponentType());
-        try {
-            @SuppressWarnings("unused") final java.sql.Date[] dummy = (java.sql.Date[]) ArrayUtils.subarray(dateArray, 1, 3);
-            fail("Invalid downcast");
-        } catch (final ClassCastException e) {
-        }
+        assertSame(Object.class, ArrayUtils.subarray(objectArray, 2, 4).getClass().getComponentType(), "Object type");
+        assertSame(Date.class, ArrayUtils.subarray(dateArray, 1, 4).getClass().getComponentType(),
+                "java.util.Date type");
+        assertNotSame(java.sql.Date.class, ArrayUtils.subarray(dateArray, 1, 4).getClass().getComponentType(),
+                "java.sql.Date type");
+        assertThrows(ClassCastException.class,
+                () -> java.sql.Date[].class.cast(ArrayUtils.subarray(dateArray, 1, 3)),
+                "Invalid downcast");
     }
 
     @Test
@@ -814,72 +799,49 @@ public class ArrayUtilsTest {
         final long[] midSubarray = {999911, 999912, 999913, 999914};
         final long[] rightSubarray = {999912, 999913, 999914, 999915};
 
-        assertTrue("0 start, mid end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, 0, 4)));
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)), "0 start, mid end");
 
-        assertTrue("0 start, length end",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, 0, array.length)));
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, 0, array.length)), "0 start, length end");
 
-        assertTrue("mid start, mid end",
-                ArrayUtils.isEquals(midSubarray,
-                        ArrayUtils.subarray(array, 1, 5)));
+        assertTrue(ArrayUtils.isEquals(midSubarray, ArrayUtils.subarray(array, 1, 5)), "mid start, mid end");
 
-        assertTrue("mid start, length end",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, array.length)));
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, array.length)),
+                "mid start, length end");
 
+        assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
 
-        assertNull("null input", ArrayUtils.subarray(nullArray, 0, 3));
+        assertEquals(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_LONG_ARRAY, 1, 2),
+                "empty array");
 
-        assertEquals("empty array", ArrayUtils.EMPTY_LONG_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_LONG_ARRAY, 1, 2));
+        assertEquals(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.subarray(array, 4, 2), "start > end");
 
-        assertEquals("start > end", ArrayUtils.EMPTY_LONG_ARRAY,
-                ArrayUtils.subarray(array, 4, 2));
+        assertEquals(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end");
 
-        assertEquals("start == end", ArrayUtils.EMPTY_LONG_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, -2, 4)),
+                "start undershoot, normal end");
 
-        assertTrue("start undershoot, normal end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, -2, 4)));
+        assertEquals(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.subarray(array, 33, 4), "start overshoot, any end");
 
-        assertEquals("start overshoot, any end",
-                ArrayUtils.EMPTY_LONG_ARRAY,
-                ArrayUtils.subarray(array, 33, 4));
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, 33)),
+                "normal start, end overshoot");
 
-        assertTrue("normal start, end overshoot",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, 33)));
-
-        assertTrue("start undershoot, end overshoot",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, -2, 12)));
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, -2, 12)), "start undershoot, end overshoot");
 
         // empty-return tests
 
-        assertSame("empty array, object test",
-                ArrayUtils.EMPTY_LONG_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_LONG_ARRAY, 1, 2));
+        assertSame(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_LONG_ARRAY, 1, 2),
+                "empty array, object test");
 
-        assertSame("start > end, object test",
-                ArrayUtils.EMPTY_LONG_ARRAY,
-                ArrayUtils.subarray(array, 4, 1));
+        assertSame(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.subarray(array, 4, 1), "start > end, object test");
 
-        assertSame("start == end, object test",
-                ArrayUtils.EMPTY_LONG_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
+        assertSame(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end, object test");
 
-        assertSame("start overshoot, any end, object test",
-                ArrayUtils.EMPTY_LONG_ARRAY,
-                ArrayUtils.subarray(array, 8733, 4));
+        assertSame(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.subarray(array, 8733, 4),
+                "start overshoot, any end, object test");
 
         // array type tests
 
-        assertSame("long type", long.class,
-                ArrayUtils.subarray(array, 2, 4).getClass().getComponentType());
+        assertSame(long.class, ArrayUtils.subarray(array, 2, 4).getClass().getComponentType(), "long type");
 
     }
 
@@ -892,73 +854,49 @@ public class ArrayUtilsTest {
         final int[] rightSubarray = {12, 13, 14, 15};
 
 
-        assertTrue("0 start, mid end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, 0, 4)));
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)), "0 start, mid end");
 
-        assertTrue("0 start, length end",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, 0, array.length)));
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, 0, array.length)), "0 start, length end");
 
-        assertTrue("mid start, mid end",
-                ArrayUtils.isEquals(midSubarray,
-                        ArrayUtils.subarray(array, 1, 5)));
+        assertTrue(ArrayUtils.isEquals(midSubarray, ArrayUtils.subarray(array, 1, 5)), "mid start, mid end");
 
-        assertTrue("mid start, length end",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, array.length)));
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, array.length)),
+                "mid start, length end");
 
 
-        assertNull("null input", ArrayUtils.subarray(nullArray, 0, 3));
+        assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
 
-        assertEquals("empty array", ArrayUtils.EMPTY_INT_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_INT_ARRAY, 1, 2));
+        assertEquals(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_INT_ARRAY, 1, 2), "empty array");
 
-        assertEquals("start > end", ArrayUtils.EMPTY_INT_ARRAY,
-                ArrayUtils.subarray(array, 4, 2));
+        assertEquals(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.subarray(array, 4, 2), "start > end");
 
-        assertEquals("start == end", ArrayUtils.EMPTY_INT_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
+        assertEquals(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end");
 
-        assertTrue("start undershoot, normal end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, -2, 4)));
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, -2, 4)),
+                "start undershoot, normal end");
 
-        assertEquals("start overshoot, any end",
-                ArrayUtils.EMPTY_INT_ARRAY,
-                ArrayUtils.subarray(array, 33, 4));
+        assertEquals(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.subarray(array, 33, 4), "start overshoot, any end");
 
-        assertTrue("normal start, end overshoot",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, 33)));
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, 33)),
+                "normal start, end overshoot");
 
-        assertTrue("start undershoot, end overshoot",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, -2, 12)));
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, -2, 12)), "start undershoot, end overshoot");
 
         // empty-return tests
 
-        assertSame("empty array, object test",
-                ArrayUtils.EMPTY_INT_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_INT_ARRAY, 1, 2));
+        assertSame(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_INT_ARRAY, 1, 2),
+                "empty array, object test");
 
-        assertSame("start > end, object test",
-                ArrayUtils.EMPTY_INT_ARRAY,
-                ArrayUtils.subarray(array, 4, 1));
+        assertSame(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.subarray(array, 4, 1), "start > end, object test");
 
-        assertSame("start == end, object test",
-                ArrayUtils.EMPTY_INT_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
+        assertSame(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end, object test");
 
-        assertSame("start overshoot, any end, object test",
-                ArrayUtils.EMPTY_INT_ARRAY,
-                ArrayUtils.subarray(array, 8733, 4));
+        assertSame(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.subarray(array, 8733, 4),
+                "start overshoot, any end, object test");
 
         // array type tests
 
-        assertSame("int type", int.class,
-                ArrayUtils.subarray(array, 2, 4).getClass().getComponentType());
-
+        assertSame(int.class, ArrayUtils.subarray(array, 2, 4).getClass().getComponentType(), "int type");
     }
 
     @Test
@@ -969,152 +907,76 @@ public class ArrayUtilsTest {
         final short[] midSubarray = {11, 12, 13, 14};
         final short[] rightSubarray = {12, 13, 14, 15};
 
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)), "0 start, mid end");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, 0, array.length)), "0 start, length end");
+        assertTrue(ArrayUtils.isEquals(midSubarray, ArrayUtils.subarray(array, 1, 5)), "mid start, mid end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, array.length)),
+                "mid start, length end");
 
-        assertTrue("0 start, mid end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, 0, 4)));
-
-        assertTrue("0 start, length end",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, 0, array.length)));
-
-        assertTrue("mid start, mid end",
-                ArrayUtils.isEquals(midSubarray,
-                        ArrayUtils.subarray(array, 1, 5)));
-
-        assertTrue("mid start, length end",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, array.length)));
-
-
-        assertNull("null input", ArrayUtils.subarray(nullArray, 0, 3));
-
-        assertEquals("empty array", ArrayUtils.EMPTY_SHORT_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_SHORT_ARRAY, 1, 2));
-
-        assertEquals("start > end", ArrayUtils.EMPTY_SHORT_ARRAY,
-                ArrayUtils.subarray(array, 4, 2));
-
-        assertEquals("start == end", ArrayUtils.EMPTY_SHORT_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertTrue("start undershoot, normal end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, -2, 4)));
-
-        assertEquals("start overshoot, any end",
-                ArrayUtils.EMPTY_SHORT_ARRAY,
-                ArrayUtils.subarray(array, 33, 4));
-
-        assertTrue("normal start, end overshoot",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, 33)));
-
-        assertTrue("start undershoot, end overshoot",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, -2, 12)));
+        assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
+        assertEquals(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_SHORT_ARRAY, 1, 2),
+                "empty array");
+        assertEquals(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.subarray(array, 4, 2), "start > end");
+        assertEquals(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end");
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, -2, 4)),
+                "start undershoot, normal end");
+        assertEquals(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.subarray(array, 33, 4), "start overshoot, any end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, 33)),
+                "normal start, end overshoot");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, -2, 12)), "start undershoot, end overshoot");
 
         // empty-return tests
 
-        assertSame("empty array, object test",
-                ArrayUtils.EMPTY_SHORT_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_SHORT_ARRAY, 1, 2));
-
-        assertSame("start > end, object test",
-                ArrayUtils.EMPTY_SHORT_ARRAY,
-                ArrayUtils.subarray(array, 4, 1));
-
-        assertSame("start == end, object test",
-                ArrayUtils.EMPTY_SHORT_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertSame("start overshoot, any end, object test",
-                ArrayUtils.EMPTY_SHORT_ARRAY,
-                ArrayUtils.subarray(array, 8733, 4));
+        assertSame(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_SHORT_ARRAY, 1, 2),
+                "empty array, object test");
+        assertSame(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.subarray(array, 4, 1), "start > end, object test");
+        assertSame(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end, object test");
+        assertSame(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.subarray(array, 8733, 4),
+                "start overshoot, any end, object test");
 
         // array type tests
 
-        assertSame("short type", short.class,
-                ArrayUtils.subarray(array, 2, 4).getClass().getComponentType());
-
+        assertSame(short.class, ArrayUtils.subarray(array, 2, 4).getClass().getComponentType(), "short type");
     }
 
     @Test
     public void testSubarrChar() {
         final char[] nullArray = null;
         final char[] array = {'a', 'b', 'c', 'd', 'e', 'f'};
-        final char[] leftSubarray = {'a', 'b', 'c', 'd',};
-        final char[] midSubarray = {'b', 'c', 'd', 'e',};
-        final char[] rightSubarray = {'c', 'd', 'e', 'f',};
+        final char[] leftSubarray = {'a', 'b', 'c', 'd'};
+        final char[] midSubarray = {'b', 'c', 'd', 'e'};
+        final char[] rightSubarray = {'c', 'd', 'e', 'f'};
 
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)), "0 start, mid end");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, 0, array.length)), "0 start, length end");
+        assertTrue(ArrayUtils.isEquals(midSubarray, ArrayUtils.subarray(array, 1, 5)), "mid start, mid end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, array.length)),
+                "mid start, length end");
 
-        assertTrue("0 start, mid end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, 0, 4)));
-
-        assertTrue("0 start, length end",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, 0, array.length)));
-
-        assertTrue("mid start, mid end",
-                ArrayUtils.isEquals(midSubarray,
-                        ArrayUtils.subarray(array, 1, 5)));
-
-        assertTrue("mid start, length end",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, array.length)));
-
-
-        assertNull("null input", ArrayUtils.subarray(nullArray, 0, 3));
-
-        assertEquals("empty array", ArrayUtils.EMPTY_CHAR_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_CHAR_ARRAY, 1, 2));
-
-        assertEquals("start > end", ArrayUtils.EMPTY_CHAR_ARRAY,
-                ArrayUtils.subarray(array, 4, 2));
-
-        assertEquals("start == end", ArrayUtils.EMPTY_CHAR_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertTrue("start undershoot, normal end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, -2, 4)));
-
-        assertEquals("start overshoot, any end",
-                ArrayUtils.EMPTY_CHAR_ARRAY,
-                ArrayUtils.subarray(array, 33, 4));
-
-        assertTrue("normal start, end overshoot",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, 33)));
-
-        assertTrue("start undershoot, end overshoot",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, -2, 12)));
+        assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
+        assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_CHAR_ARRAY, 1, 2),
+                "empty array");
+        assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.subarray(array, 4, 2), "start > end");
+        assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end");
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, -2, 4)),
+                "start undershoot, normal end");
+        assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.subarray(array, 33, 4), "start overshoot, any end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, 33)),
+                "normal start, end overshoot");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, -2, 12)), "start undershoot, end overshoot");
 
         // empty-return tests
 
-        assertSame("empty array, object test",
-                ArrayUtils.EMPTY_CHAR_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_CHAR_ARRAY, 1, 2));
-
-        assertSame("start > end, object test",
-                ArrayUtils.EMPTY_CHAR_ARRAY,
-                ArrayUtils.subarray(array, 4, 1));
-
-        assertSame("start == end, object test",
-                ArrayUtils.EMPTY_CHAR_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertSame("start overshoot, any end, object test",
-                ArrayUtils.EMPTY_CHAR_ARRAY,
-                ArrayUtils.subarray(array, 8733, 4));
+        assertSame(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_CHAR_ARRAY, 1, 2),
+                "empty array, object test");
+        assertSame(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.subarray(array, 4, 1), "start > end, object test");
+        assertSame(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end, object test");
+        assertSame(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.subarray(array, 8733, 4),
+                "start overshoot, any end, object test");
 
         // array type tests
 
-        assertSame("char type", char.class,
-                ArrayUtils.subarray(array, 2, 4).getClass().getComponentType());
-
+        assertSame(char.class, ArrayUtils.subarray(array, 2, 4).getClass().getComponentType(), "char type");
     }
 
     @Test
@@ -1125,152 +987,76 @@ public class ArrayUtilsTest {
         final byte[] midSubarray = {11, 12, 13, 14};
         final byte[] rightSubarray = {12, 13, 14, 15};
 
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)), "0 start, mid end");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, 0, array.length)), "0 start, length end");
+        assertTrue(ArrayUtils.isEquals(midSubarray, ArrayUtils.subarray(array, 1, 5)), "mid start, mid end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, array.length)),
+                "mid start, length end");
 
-        assertTrue("0 start, mid end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, 0, 4)));
-
-        assertTrue("0 start, length end",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, 0, array.length)));
-
-        assertTrue("mid start, mid end",
-                ArrayUtils.isEquals(midSubarray,
-                        ArrayUtils.subarray(array, 1, 5)));
-
-        assertTrue("mid start, length end",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, array.length)));
-
-
-        assertNull("null input", ArrayUtils.subarray(nullArray, 0, 3));
-
-        assertEquals("empty array", ArrayUtils.EMPTY_BYTE_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_BYTE_ARRAY, 1, 2));
-
-        assertEquals("start > end", ArrayUtils.EMPTY_BYTE_ARRAY,
-                ArrayUtils.subarray(array, 4, 2));
-
-        assertEquals("start == end", ArrayUtils.EMPTY_BYTE_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertTrue("start undershoot, normal end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, -2, 4)));
-
-        assertEquals("start overshoot, any end",
-                ArrayUtils.EMPTY_BYTE_ARRAY,
-                ArrayUtils.subarray(array, 33, 4));
-
-        assertTrue("normal start, end overshoot",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, 33)));
-
-        assertTrue("start undershoot, end overshoot",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, -2, 12)));
+        assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
+        assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_BYTE_ARRAY, 1, 2),
+                "empty array");
+        assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.subarray(array, 4, 2), "start > end");
+        assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end");
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, -2, 4)),
+                "start undershoot, normal end");
+        assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.subarray(array, 33, 4), "start overshoot, any end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, 33)),
+                "normal start, end overshoot");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, -2, 12)), "start undershoot, end overshoot");
 
         // empty-return tests
 
-        assertSame("empty array, object test",
-                ArrayUtils.EMPTY_BYTE_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_BYTE_ARRAY, 1, 2));
-
-        assertSame("start > end, object test",
-                ArrayUtils.EMPTY_BYTE_ARRAY,
-                ArrayUtils.subarray(array, 4, 1));
-
-        assertSame("start == end, object test",
-                ArrayUtils.EMPTY_BYTE_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertSame("start overshoot, any end, object test",
-                ArrayUtils.EMPTY_BYTE_ARRAY,
-                ArrayUtils.subarray(array, 8733, 4));
+        assertSame(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_BYTE_ARRAY, 1, 2),
+                "empty array, object test");
+        assertSame(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.subarray(array, 4, 1), "start > end, object test");
+        assertSame(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end, object test");
+        assertSame(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.subarray(array, 8733, 4),
+                "start overshoot, any end, object test");
 
         // array type tests
 
-        assertSame("byte type", byte.class,
-                ArrayUtils.subarray(array, 2, 4).getClass().getComponentType());
-
+        assertSame(byte.class, ArrayUtils.subarray(array, 2, 4).getClass().getComponentType(), "byte type");
     }
 
     @Test
     public void testSubarrayDouble() {
         final double[] nullArray = null;
         final double[] array = {10.123, 11.234, 12.345, 13.456, 14.567, 15.678};
-        final double[] leftSubarray = {10.123, 11.234, 12.345, 13.456,};
-        final double[] midSubarray = {11.234, 12.345, 13.456, 14.567,};
+        final double[] leftSubarray = {10.123, 11.234, 12.345, 13.456};
+        final double[] midSubarray = {11.234, 12.345, 13.456, 14.567};
         final double[] rightSubarray = {12.345, 13.456, 14.567, 15.678};
 
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)), "0 start, mid end");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, 0, array.length)), "0 start, length end");
+        assertTrue(ArrayUtils.isEquals(midSubarray, ArrayUtils.subarray(array, 1, 5)), "mid start, mid end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, array.length)),
+                "mid start, length end");
 
-        assertTrue("0 start, mid end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, 0, 4)));
-
-        assertTrue("0 start, length end",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, 0, array.length)));
-
-        assertTrue("mid start, mid end",
-                ArrayUtils.isEquals(midSubarray,
-                        ArrayUtils.subarray(array, 1, 5)));
-
-        assertTrue("mid start, length end",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, array.length)));
-
-
-        assertNull("null input", ArrayUtils.subarray(nullArray, 0, 3));
-
-        assertEquals("empty array", ArrayUtils.EMPTY_DOUBLE_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_DOUBLE_ARRAY, 1, 2));
-
-        assertEquals("start > end", ArrayUtils.EMPTY_DOUBLE_ARRAY,
-                ArrayUtils.subarray(array, 4, 2));
-
-        assertEquals("start == end", ArrayUtils.EMPTY_DOUBLE_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertTrue("start undershoot, normal end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, -2, 4)));
-
-        assertEquals("start overshoot, any end",
-                ArrayUtils.EMPTY_DOUBLE_ARRAY,
-                ArrayUtils.subarray(array, 33, 4));
-
-        assertTrue("normal start, end overshoot",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, 33)));
-
-        assertTrue("start undershoot, end overshoot",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, -2, 12)));
+        assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
+        assertEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_DOUBLE_ARRAY, 1, 2),
+                "empty array");
+        assertEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.subarray(array, 4, 2), "start > end");
+        assertEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end");
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, -2, 4)),
+                "start undershoot, normal end");
+        assertEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.subarray(array, 33, 4), "start overshoot, any end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, 33)),
+                "normal start, end overshoot");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, -2, 12)), "start undershoot, end overshoot");
 
         // empty-return tests
 
-        assertSame("empty array, object test",
-                ArrayUtils.EMPTY_DOUBLE_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_DOUBLE_ARRAY, 1, 2));
-
-        assertSame("start > end, object test",
-                ArrayUtils.EMPTY_DOUBLE_ARRAY,
-                ArrayUtils.subarray(array, 4, 1));
-
-        assertSame("start == end, object test",
-                ArrayUtils.EMPTY_DOUBLE_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertSame("start overshoot, any end, object test",
-                ArrayUtils.EMPTY_DOUBLE_ARRAY,
-                ArrayUtils.subarray(array, 8733, 4));
+        assertSame(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_DOUBLE_ARRAY, 1, 2),
+                "empty array, object test");
+        assertSame(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.subarray(array, 4, 1), "start > end, object test");
+        assertSame(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end, object test");
+        assertSame(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.subarray(array, 8733, 4),
+                "start overshoot, any end, object test");
 
         // array type tests
 
-        assertSame("double type", double.class,
-                ArrayUtils.subarray(array, 2, 4).getClass().getComponentType());
-
+        assertSame(double.class, ArrayUtils.subarray(array, 2, 4).getClass().getComponentType(), "double type");
     }
 
     @Test
@@ -1281,74 +1067,36 @@ public class ArrayUtilsTest {
         final float[] midSubarray = {11, 12, 13, 14};
         final float[] rightSubarray = {12, 13, 14, 15};
 
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)), "0 start, mid end");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, 0, array.length)), "0 start, length end");
+        assertTrue(ArrayUtils.isEquals(midSubarray, ArrayUtils.subarray(array, 1, 5)), "mid start, mid end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, array.length)),
+                "mid start, length end");
 
-        assertTrue("0 start, mid end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, 0, 4)));
-
-        assertTrue("0 start, length end",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, 0, array.length)));
-
-        assertTrue("mid start, mid end",
-                ArrayUtils.isEquals(midSubarray,
-                        ArrayUtils.subarray(array, 1, 5)));
-
-        assertTrue("mid start, length end",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, array.length)));
-
-
-        assertNull("null input", ArrayUtils.subarray(nullArray, 0, 3));
-
-        assertEquals("empty array", ArrayUtils.EMPTY_FLOAT_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_FLOAT_ARRAY, 1, 2));
-
-        assertEquals("start > end", ArrayUtils.EMPTY_FLOAT_ARRAY,
-                ArrayUtils.subarray(array, 4, 2));
-
-        assertEquals("start == end", ArrayUtils.EMPTY_FLOAT_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertTrue("start undershoot, normal end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, -2, 4)));
-
-        assertEquals("start overshoot, any end",
-                ArrayUtils.EMPTY_FLOAT_ARRAY,
-                ArrayUtils.subarray(array, 33, 4));
-
-        assertTrue("normal start, end overshoot",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, 33)));
-
-        assertTrue("start undershoot, end overshoot",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, -2, 12)));
+        assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
+        assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_FLOAT_ARRAY, 1, 2),
+                "empty array");
+        assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.subarray(array, 4, 2), "start > end");
+        assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end");
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, -2, 4)),
+                "start undershoot, normal end");
+        assertEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.subarray(array, 33, 4), "start overshoot, any end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, 33)),
+                "normal start, end overshoot");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, -2, 12)), "start undershoot, end overshoot");
 
         // empty-return tests
 
-        assertSame("empty array, object test",
-                ArrayUtils.EMPTY_FLOAT_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_FLOAT_ARRAY, 1, 2));
-
-        assertSame("start > end, object test",
-                ArrayUtils.EMPTY_FLOAT_ARRAY,
-                ArrayUtils.subarray(array, 4, 1));
-
-        assertSame("start == end, object test",
-                ArrayUtils.EMPTY_FLOAT_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertSame("start overshoot, any end, object test",
-                ArrayUtils.EMPTY_FLOAT_ARRAY,
-                ArrayUtils.subarray(array, 8733, 4));
+        assertSame(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_FLOAT_ARRAY, 1, 2),
+                "empty array, object test");
+        assertSame(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.subarray(array, 4, 1), "start > end, object test");
+        assertSame(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end, object test");
+        assertSame(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.subarray(array, 8733, 4),
+                "start overshoot, any end, object test");
 
         // array type tests
 
-        assertSame("float type", float.class,
-                ArrayUtils.subarray(array, 2, 4).getClass().getComponentType());
-
+        assertSame(float.class, ArrayUtils.subarray(array, 2, 4).getClass().getComponentType(), "float type");
     }
 
     @Test
@@ -1359,74 +1107,36 @@ public class ArrayUtilsTest {
         final boolean[] midSubarray = {true, false, true, false};
         final boolean[] rightSubarray = {false, true, false, true};
 
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)), "0 start, mid end");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, 0, array.length)), "0 start, length end");
+        assertTrue(ArrayUtils.isEquals(midSubarray, ArrayUtils.subarray(array, 1, 5)), "mid start, mid end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, array.length)),
+                "mid start, length end");
 
-        assertTrue("0 start, mid end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, 0, 4)));
-
-        assertTrue("0 start, length end",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, 0, array.length)));
-
-        assertTrue("mid start, mid end",
-                ArrayUtils.isEquals(midSubarray,
-                        ArrayUtils.subarray(array, 1, 5)));
-
-        assertTrue("mid start, length end",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, array.length)));
-
-
-        assertNull("null input", ArrayUtils.subarray(nullArray, 0, 3));
-
-        assertEquals("empty array", ArrayUtils.EMPTY_BOOLEAN_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_BOOLEAN_ARRAY, 1, 2));
-
-        assertEquals("start > end", ArrayUtils.EMPTY_BOOLEAN_ARRAY,
-                ArrayUtils.subarray(array, 4, 2));
-
-        assertEquals("start == end", ArrayUtils.EMPTY_BOOLEAN_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertTrue("start undershoot, normal end",
-                ArrayUtils.isEquals(leftSubarray,
-                        ArrayUtils.subarray(array, -2, 4)));
-
-        assertEquals("start overshoot, any end",
-                ArrayUtils.EMPTY_BOOLEAN_ARRAY,
-                ArrayUtils.subarray(array, 33, 4));
-
-        assertTrue("normal start, end overshoot",
-                ArrayUtils.isEquals(rightSubarray,
-                        ArrayUtils.subarray(array, 2, 33)));
-
-        assertTrue("start undershoot, end overshoot",
-                ArrayUtils.isEquals(array,
-                        ArrayUtils.subarray(array, -2, 12)));
+        assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
+        assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_BOOLEAN_ARRAY, 1, 2),
+                "empty array");
+        assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(array, 4, 2), "start > end");
+        assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end");
+        assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, -2, 4)),
+                "start undershoot, normal end");
+        assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(array, 33, 4), "start overshoot, any end");
+        assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, 33)),
+                "normal start, end overshoot");
+        assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, -2, 12)), "start undershoot, end overshoot");
 
         // empty-return tests
 
-        assertSame("empty array, object test",
-                ArrayUtils.EMPTY_BOOLEAN_ARRAY,
-                ArrayUtils.subarray(ArrayUtils.EMPTY_BOOLEAN_ARRAY, 1, 2));
-
-        assertSame("start > end, object test",
-                ArrayUtils.EMPTY_BOOLEAN_ARRAY,
-                ArrayUtils.subarray(array, 4, 1));
-
-        assertSame("start == end, object test",
-                ArrayUtils.EMPTY_BOOLEAN_ARRAY,
-                ArrayUtils.subarray(array, 3, 3));
-
-        assertSame("start overshoot, any end, object test",
-                ArrayUtils.EMPTY_BOOLEAN_ARRAY,
-                ArrayUtils.subarray(array, 8733, 4));
+        assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_BOOLEAN_ARRAY, 1, 2),
+                "empty array, object test");
+        assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(array, 4, 1), "start > end, object test");
+        assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end, object test");
+        assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(array, 8733, 4),
+                "start overshoot, any end, object test");
 
         // array type tests
 
-        assertSame("boolean type", boolean.class,
-                ArrayUtils.subarray(array, 2, 4).getClass().getComponentType());
-
+        assertSame(boolean.class, ArrayUtils.subarray(array, 2, 4).getClass().getComponentType(), "boolean type");
     }
 
     //-----------------------------------------------------------------------
@@ -1685,21 +1395,9 @@ public class ArrayUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testSameType() {
-        try {
-            ArrayUtils.isSameType(null, null);
-            fail();
-        } catch (final IllegalArgumentException ex) {
-        }
-        try {
-            ArrayUtils.isSameType(null, new Object[0]);
-            fail();
-        } catch (final IllegalArgumentException ex) {
-        }
-        try {
-            ArrayUtils.isSameType(new Object[0], null);
-            fail();
-        } catch (final IllegalArgumentException ex) {
-        }
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.isSameType(null, null));
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.isSameType(null, new Object[0]));
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.isSameType(new Object[0], null));
 
         assertTrue(ArrayUtils.isSameType(new Object[0], new Object[0]));
         assertFalse(ArrayUtils.isSameType(new String[0], new Object[0]));
@@ -1803,9 +1501,9 @@ public class ArrayUtilsTest {
     public void testReverseDouble() {
         double[] array = new double[]{0.3d, 0.4d, 0.5d};
         ArrayUtils.reverse(array);
-        assertEquals(array[0], 0.5d, 0.0d);
-        assertEquals(array[1], 0.4d, 0.0d);
-        assertEquals(array[2], 0.3d, 0.0d);
+        assertEquals(0.5d, array[0]);
+        assertEquals(0.4d, array[1]);
+        assertEquals(0.3d, array[2]);
 
         array = null;
         ArrayUtils.reverse(array);
@@ -1816,9 +1514,9 @@ public class ArrayUtilsTest {
     public void testReverseFloat() {
         float[] array = new float[]{0.3f, 0.4f, 0.5f};
         ArrayUtils.reverse(array);
-        assertEquals(array[0], 0.5f, 0.0f);
-        assertEquals(array[1], 0.4f, 0.0f);
-        assertEquals(array[2], 0.3f, 0.0f);
+        assertEquals(0.5f, array[0]);
+        assertEquals(0.4f, array[1]);
+        assertEquals(0.3f, array[2]);
 
         array = null;
         ArrayUtils.reverse(array);
@@ -1939,27 +1637,27 @@ public class ArrayUtilsTest {
         double[] array = new double[]{1, 2, 3};
         // The whole array
         ArrayUtils.reverse(array, 0, 3);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
         // a range
         array = new double[]{1, 2, 3};
         ArrayUtils.reverse(array, 0, 2);
-        assertEquals(2, array[0], 0);
-        assertEquals(1, array[1], 0);
-        assertEquals(3, array[2], 0);
+        assertEquals(2, array[0]);
+        assertEquals(1, array[1]);
+        assertEquals(3, array[2]);
         // a range with a negative start
         array = new double[]{1, 2, 3};
         ArrayUtils.reverse(array, -1, 3);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
         // a range with a large stop index
         array = new double[]{1, 2, 3};
         ArrayUtils.reverse(array, -1, array.length + 1000);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
         // null
         array = null;
         ArrayUtils.reverse(array, 0, 3);
@@ -1971,27 +1669,27 @@ public class ArrayUtilsTest {
         float[] array = new float[]{1, 2, 3};
         // The whole array
         ArrayUtils.reverse(array, 0, 3);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
         // a range
         array = new float[]{1, 2, 3};
         ArrayUtils.reverse(array, 0, 2);
-        assertEquals(2, array[0], 0);
-        assertEquals(1, array[1], 0);
-        assertEquals(3, array[2], 0);
+        assertEquals(2, array[0]);
+        assertEquals(1, array[1]);
+        assertEquals(3, array[2]);
         // a range with a negative start
         array = new float[]{1, 2, 3};
         ArrayUtils.reverse(array, -1, 3);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
         // a range with a large stop index
         array = new float[]{1, 2, 3};
         ArrayUtils.reverse(array, -1, array.length + 1000);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
         // null
         array = null;
         ArrayUtils.reverse(array, 0, 3);
@@ -2249,9 +1947,9 @@ public class ArrayUtilsTest {
     public void testSwapFloat() {
         final float[] array = new float[]{1, 2, 3};
         ArrayUtils.swap(array, 0, 2);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
     }
 
     @Test
@@ -2272,49 +1970,49 @@ public class ArrayUtilsTest {
     public void testSwapFloatRange() {
         float[] array = new float[]{1, 2, 3, 4};
         ArrayUtils.swap(array, 0, 2, 2);
-        assertEquals(3, array[0], 0);
-        assertEquals(4, array[1], 0);
-        assertEquals(1, array[2], 0);
-        assertEquals(2, array[3], 0);
+        assertEquals(3, array[0]);
+        assertEquals(4, array[1]);
+        assertEquals(1, array[2]);
+        assertEquals(2, array[3]);
 
         array = new float[]{1, 2, 3};
         ArrayUtils.swap(array, 0, 3);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
 
         array = new float[]{1, 2, 3};
         ArrayUtils.swap(array, 0, 2, 2);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
 
         array = new float[]{1, 2, 3};
         ArrayUtils.swap(array, -1, 2, 2);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
 
         array = new float[]{1, 2, 3};
         ArrayUtils.swap(array, 0, -1, 2);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
 
         array = new float[]{1, 2, 3};
         ArrayUtils.swap(array, -1, -1, 2);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
     }
 
     @Test
     public void testSwapDouble() {
         final double[] array = new double[]{1, 2, 3};
         ArrayUtils.swap(array, 0, 2);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
     }
 
     @Test
@@ -2335,40 +2033,40 @@ public class ArrayUtilsTest {
     public void testSwapDoubleRange() {
         double[] array = new double[]{1, 2, 3, 4};
         ArrayUtils.swap(array, 0, 2, 2);
-        assertEquals(3, array[0], 0);
-        assertEquals(4, array[1], 0);
-        assertEquals(1, array[2], 0);
-        assertEquals(2, array[3], 0);
+        assertEquals(3, array[0]);
+        assertEquals(4, array[1]);
+        assertEquals(1, array[2]);
+        assertEquals(2, array[3]);
 
         array = new double[]{1, 2, 3};
         ArrayUtils.swap(array, 0, 3);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
 
         array = new double[]{1, 2, 3};
         ArrayUtils.swap(array, 0, 2, 2);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
 
         array = new double[]{1, 2, 3};
         ArrayUtils.swap(array, -1, 2, 2);
-        assertEquals(3, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(1, array[2], 0);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
 
         array = new double[]{1, 2, 3};
         ArrayUtils.swap(array, 0, -1, 2);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
 
         array = new double[]{1, 2, 3};
         ArrayUtils.swap(array, -1, -1, 2);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
     }
 
     @Test
@@ -2718,52 +2416,52 @@ public class ArrayUtilsTest {
     public void testShiftDouble() {
         final double[] array = new double[]{1, 2, 3, 4};
         ArrayUtils.shift(array, 1);
-        assertEquals(4, array[0], 0);
-        assertEquals(1, array[1], 0);
-        assertEquals(2, array[2], 0);
-        assertEquals(3, array[3], 0);
+        assertEquals(4, array[0]);
+        assertEquals(1, array[1]);
+        assertEquals(2, array[2]);
+        assertEquals(3, array[3]);
         ArrayUtils.shift(array, -1);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
-        assertEquals(4, array[3], 0);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        assertEquals(4, array[3]);
         ArrayUtils.shift(array, 5);
-        assertEquals(4, array[0], 0);
-        assertEquals(1, array[1], 0);
-        assertEquals(2, array[2], 0);
-        assertEquals(3, array[3], 0);
+        assertEquals(4, array[0]);
+        assertEquals(1, array[1]);
+        assertEquals(2, array[2]);
+        assertEquals(3, array[3]);
         ArrayUtils.shift(array, -3);
-        assertEquals(3, array[0], 0);
-        assertEquals(4, array[1], 0);
-        assertEquals(1, array[2], 0);
-        assertEquals(2, array[3], 0);
+        assertEquals(3, array[0]);
+        assertEquals(4, array[1]);
+        assertEquals(1, array[2]);
+        assertEquals(2, array[3]);
     }
 
     @Test
     public void testShiftRangeDouble() {
         final double[] array = new double[]{1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
-        assertEquals(1, array[0], 0);
-        assertEquals(3, array[1], 0);
-        assertEquals(2, array[2], 0);
-        assertEquals(4, array[3], 0);
-        assertEquals(5, array[4], 0);
+        assertEquals(1, array[0]);
+        assertEquals(3, array[1]);
+        assertEquals(2, array[2]);
+        assertEquals(4, array[3]);
+        assertEquals(5, array[4]);
         ArrayUtils.shift(array, 1, 4, 2);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(4, array[2], 0);
-        assertEquals(3, array[3], 0);
-        assertEquals(5, array[4], 0);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(4, array[2]);
+        assertEquals(3, array[3]);
+        assertEquals(5, array[4]);
     }
 
     @Test
     public void testShiftRangeNoElemDouble() {
         final double[] array = new double[]{1, 2, 3, 4};
         ArrayUtils.shift(array, 1, 1, 1);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
-        assertEquals(4, array[3], 0);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        assertEquals(4, array[3]);
     }
 
     @Test
@@ -2785,67 +2483,67 @@ public class ArrayUtilsTest {
     public void testShiftAllDouble() {
         final double[] array = new double[]{1, 2, 3, 4};
         ArrayUtils.shift(array, 4);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
-        assertEquals(4, array[3], 0);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        assertEquals(4, array[3]);
         ArrayUtils.shift(array, -4);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
-        assertEquals(4, array[3], 0);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        assertEquals(4, array[3]);
     }
 
     @Test
     public void testShiftFloat() {
         final float[] array = new float[]{1, 2, 3, 4};
         ArrayUtils.shift(array, 1);
-        assertEquals(4, array[0], 0);
-        assertEquals(1, array[1], 0);
-        assertEquals(2, array[2], 0);
-        assertEquals(3, array[3], 0);
+        assertEquals(4, array[0]);
+        assertEquals(1, array[1]);
+        assertEquals(2, array[2]);
+        assertEquals(3, array[3]);
         ArrayUtils.shift(array, -1);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
-        assertEquals(4, array[3], 0);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        assertEquals(4, array[3]);
         ArrayUtils.shift(array, 5);
-        assertEquals(4, array[0], 0);
-        assertEquals(1, array[1], 0);
-        assertEquals(2, array[2], 0);
-        assertEquals(3, array[3], 0);
+        assertEquals(4, array[0]);
+        assertEquals(1, array[1]);
+        assertEquals(2, array[2]);
+        assertEquals(3, array[3]);
         ArrayUtils.shift(array, -3);
-        assertEquals(3, array[0], 0);
-        assertEquals(4, array[1], 0);
-        assertEquals(1, array[2], 0);
-        assertEquals(2, array[3], 0);
+        assertEquals(3, array[0]);
+        assertEquals(4, array[1]);
+        assertEquals(1, array[2]);
+        assertEquals(2, array[3]);
     }
 
     @Test
     public void testShiftRangeFloat() {
         final float[] array = new float[]{1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
-        assertEquals(1, array[0], 0);
-        assertEquals(3, array[1], 0);
-        assertEquals(2, array[2], 0);
-        assertEquals(4, array[3], 0);
-        assertEquals(5, array[4], 0);
+        assertEquals(1, array[0]);
+        assertEquals(3, array[1]);
+        assertEquals(2, array[2]);
+        assertEquals(4, array[3]);
+        assertEquals(5, array[4]);
         ArrayUtils.shift(array, 1, 4, 2);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(4, array[2], 0);
-        assertEquals(3, array[3], 0);
-        assertEquals(5, array[4], 0);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(4, array[2]);
+        assertEquals(3, array[3]);
+        assertEquals(5, array[4]);
     }
 
     @Test
     public void testShiftRangeNoElemFloat() {
         final float[] array = new float[]{1, 2, 3, 4};
         ArrayUtils.shift(array, 1, 1, 1);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
-        assertEquals(4, array[3], 0);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        assertEquals(4, array[3]);
     }
 
     @Test
@@ -2867,15 +2565,15 @@ public class ArrayUtilsTest {
     public void testShiftAllFloat() {
         final float[] array = new float[]{1, 2, 3, 4};
         ArrayUtils.shift(array, 4);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
-        assertEquals(4, array[3], 0);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        assertEquals(4, array[3]);
         ArrayUtils.shift(array, -4);
-        assertEquals(1, array[0], 0);
-        assertEquals(2, array[1], 0);
-        assertEquals(3, array[2], 0);
-        assertEquals(4, array[3], 0);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        assertEquals(4, array[3]);
     }
 
     @Test
@@ -4127,34 +3825,18 @@ public class ArrayUtilsTest {
         final Boolean[] b = null;
         assertNull(ArrayUtils.toPrimitive(b));
         assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.toPrimitive(new Boolean[0]));
-        assertTrue(Arrays.equals(
-                new boolean[]{true, false, true},
-                ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, Boolean.FALSE, Boolean.TRUE}))
-        );
+        assertArrayEquals(new boolean[]{true, false, true}, ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, Boolean.FALSE, Boolean.TRUE}));
 
-        try {
-            ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class, () -> ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, null}));
     }
 
     @Test
     public void testToPrimitive_boolean_boolean() {
         assertNull(ArrayUtils.toPrimitive(null, false));
         assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.toPrimitive(new Boolean[0], false));
-        assertTrue(Arrays.equals(
-                new boolean[]{true, false, true},
-                ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, Boolean.FALSE, Boolean.TRUE}, false))
-        );
-        assertTrue(Arrays.equals(
-                new boolean[]{true, false, false},
-                ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, null, Boolean.FALSE}, false))
-        );
-        assertTrue(Arrays.equals(
-                new boolean[]{true, true, false},
-                ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, null, Boolean.FALSE}, true))
-        );
+        assertArrayEquals(new boolean[]{true, false, true}, ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, Boolean.FALSE, Boolean.TRUE}, false));
+        assertArrayEquals(new boolean[]{true, false, false}, ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, null, Boolean.FALSE}, false));
+        assertArrayEquals(new boolean[]{true, true, false}, ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, null, Boolean.FALSE}, true));
     }
 
     @Test
@@ -4162,10 +3844,7 @@ public class ArrayUtilsTest {
         final boolean[] b = null;
         assertArrayEquals(null, ArrayUtils.toObject(b));
         assertSame(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, ArrayUtils.toObject(new boolean[0]));
-        assertTrue(Arrays.equals(
-                new Boolean[]{Boolean.TRUE, Boolean.FALSE, Boolean.TRUE},
-                ArrayUtils.toObject(new boolean[]{true, false, true}))
-        );
+        assertArrayEquals(new Boolean[]{Boolean.TRUE, Boolean.FALSE, Boolean.TRUE}, ArrayUtils.toObject(new boolean[]{true, false, true}));
     }
 
     // testToPrimitive/Object for byte
@@ -4177,17 +3856,11 @@ public class ArrayUtilsTest {
 
         assertSame(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.toPrimitive(new Character[0]));
 
-        assertTrue(Arrays.equals(
-                new char[]{Character.MIN_VALUE, Character.MAX_VALUE, '0'},
-                ArrayUtils.toPrimitive(new Character[]{new Character(Character.MIN_VALUE),
-                        new Character(Character.MAX_VALUE), new Character('0')}))
-        );
+        assertArrayEquals(new char[]{Character.MIN_VALUE, Character.MAX_VALUE, '0'}, ArrayUtils.toPrimitive(new Character[]{new Character(Character.MIN_VALUE),
+                new Character(Character.MAX_VALUE), new Character('0')}));
 
-        try {
-            ArrayUtils.toPrimitive(new Character[]{new Character(Character.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Character[]{new Character(Character.MIN_VALUE), null}));
     }
 
     @Test
@@ -4198,18 +3871,12 @@ public class ArrayUtilsTest {
         assertSame(ArrayUtils.EMPTY_CHAR_ARRAY,
                 ArrayUtils.toPrimitive(new Character[0], (char) 0));
 
-        assertTrue(Arrays.equals(
-                new char[]{Character.MIN_VALUE, Character.MAX_VALUE, '0'},
-                ArrayUtils.toPrimitive(new Character[]{new Character(Character.MIN_VALUE),
-                                new Character(Character.MAX_VALUE), new Character('0')},
-                        Character.MIN_VALUE))
-        );
+        assertArrayEquals(new char[]{Character.MIN_VALUE, Character.MAX_VALUE, '0'}, ArrayUtils.toPrimitive(new Character[]{new Character(Character.MIN_VALUE),
+                        new Character(Character.MAX_VALUE), new Character('0')},
+                Character.MIN_VALUE));
 
-        assertTrue(Arrays.equals(
-                new char[]{Character.MIN_VALUE, Character.MAX_VALUE, '0'},
-                ArrayUtils.toPrimitive(new Character[]{new Character(Character.MIN_VALUE), null,
-                        new Character('0')}, Character.MAX_VALUE))
-        );
+        assertArrayEquals(new char[]{Character.MIN_VALUE, Character.MAX_VALUE, '0'}, ArrayUtils.toPrimitive(new Character[]{new Character(Character.MIN_VALUE), null,
+                new Character('0')}, Character.MAX_VALUE));
     }
 
     @Test
@@ -4220,12 +3887,9 @@ public class ArrayUtilsTest {
         assertSame(ArrayUtils.EMPTY_CHARACTER_OBJECT_ARRAY,
                 ArrayUtils.toObject(new char[0]));
 
-        assertTrue(Arrays.equals(
-                new Character[]{new Character(Character.MIN_VALUE),
-                        new Character(Character.MAX_VALUE), new Character('0')},
-                ArrayUtils.toObject(new char[]{Character.MIN_VALUE, Character.MAX_VALUE,
-                        '0'}))
-        );
+        assertArrayEquals(new Character[]{new Character(Character.MIN_VALUE),
+                new Character(Character.MAX_VALUE), new Character('0')}, ArrayUtils.toObject(new char[]{Character.MIN_VALUE, Character.MAX_VALUE,
+                '0'}));
     }
 
     // testToPrimitive/Object for byte
@@ -4237,17 +3901,11 @@ public class ArrayUtilsTest {
 
         assertSame(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.toPrimitive(new Byte[0]));
 
-        assertTrue(Arrays.equals(
-                new byte[]{Byte.MIN_VALUE, Byte.MAX_VALUE, (byte) 9999999},
-                ArrayUtils.toPrimitive(new Byte[]{Byte.valueOf(Byte.MIN_VALUE),
-                        Byte.valueOf(Byte.MAX_VALUE), Byte.valueOf((byte) 9999999)}))
-        );
+        assertArrayEquals(new byte[]{Byte.MIN_VALUE, Byte.MAX_VALUE, (byte) 9999999}, ArrayUtils.toPrimitive(new Byte[]{Byte.valueOf(Byte.MIN_VALUE),
+                Byte.valueOf(Byte.MAX_VALUE), Byte.valueOf((byte) 9999999)}));
 
-        try {
-            ArrayUtils.toPrimitive(new Byte[]{Byte.valueOf(Byte.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Byte[]{Byte.valueOf(Byte.MIN_VALUE), null}));
     }
 
     @Test
@@ -4258,18 +3916,12 @@ public class ArrayUtilsTest {
         assertSame(ArrayUtils.EMPTY_BYTE_ARRAY,
                 ArrayUtils.toPrimitive(new Byte[0], (byte) 1));
 
-        assertTrue(Arrays.equals(
-                new byte[]{Byte.MIN_VALUE, Byte.MAX_VALUE, (byte) 9999999},
-                ArrayUtils.toPrimitive(new Byte[]{Byte.valueOf(Byte.MIN_VALUE),
-                                Byte.valueOf(Byte.MAX_VALUE), Byte.valueOf((byte) 9999999)},
-                        Byte.MIN_VALUE))
-        );
+        assertArrayEquals(new byte[]{Byte.MIN_VALUE, Byte.MAX_VALUE, (byte) 9999999}, ArrayUtils.toPrimitive(new Byte[]{Byte.valueOf(Byte.MIN_VALUE),
+                        Byte.valueOf(Byte.MAX_VALUE), Byte.valueOf((byte) 9999999)},
+                Byte.MIN_VALUE));
 
-        assertTrue(Arrays.equals(
-                new byte[]{Byte.MIN_VALUE, Byte.MAX_VALUE, (byte) 9999999},
-                ArrayUtils.toPrimitive(new Byte[]{Byte.valueOf(Byte.MIN_VALUE), null,
-                        Byte.valueOf((byte) 9999999)}, Byte.MAX_VALUE))
-        );
+        assertArrayEquals(new byte[]{Byte.MIN_VALUE, Byte.MAX_VALUE, (byte) 9999999}, ArrayUtils.toPrimitive(new Byte[]{Byte.valueOf(Byte.MIN_VALUE), null,
+                Byte.valueOf((byte) 9999999)}, Byte.MAX_VALUE));
     }
 
     @Test
@@ -4280,12 +3932,9 @@ public class ArrayUtilsTest {
         assertSame(ArrayUtils.EMPTY_BYTE_OBJECT_ARRAY,
                 ArrayUtils.toObject(new byte[0]));
 
-        assertTrue(Arrays.equals(
-                new Byte[]{Byte.valueOf(Byte.MIN_VALUE),
-                        Byte.valueOf(Byte.MAX_VALUE), Byte.valueOf((byte) 9999999)},
-                ArrayUtils.toObject(new byte[]{Byte.MIN_VALUE, Byte.MAX_VALUE,
-                        (byte) 9999999}))
-        );
+        assertArrayEquals(new Byte[]{Byte.valueOf(Byte.MIN_VALUE),
+                Byte.valueOf(Byte.MAX_VALUE), Byte.valueOf((byte) 9999999)}, ArrayUtils.toObject(new byte[]{Byte.MIN_VALUE, Byte.MAX_VALUE,
+                (byte) 9999999}));
     }
 
     // testToPrimitive/Object for short
@@ -4297,17 +3946,11 @@ public class ArrayUtilsTest {
 
         assertSame(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.toPrimitive(new Short[0]));
 
-        assertTrue(Arrays.equals(
-                new short[]{Short.MIN_VALUE, Short.MAX_VALUE, (short) 9999999},
-                ArrayUtils.toPrimitive(new Short[]{Short.valueOf(Short.MIN_VALUE),
-                        Short.valueOf(Short.MAX_VALUE), Short.valueOf((short) 9999999)}))
-        );
+        assertArrayEquals(new short[]{Short.MIN_VALUE, Short.MAX_VALUE, (short) 9999999}, ArrayUtils.toPrimitive(new Short[]{Short.valueOf(Short.MIN_VALUE),
+                Short.valueOf(Short.MAX_VALUE), Short.valueOf((short) 9999999)}));
 
-        try {
-            ArrayUtils.toPrimitive(new Short[]{Short.valueOf(Short.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Short[]{Short.valueOf(Short.MIN_VALUE), null}));
     }
 
     @Test
@@ -4318,17 +3961,11 @@ public class ArrayUtilsTest {
         assertSame(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.toPrimitive(new Short[0],
                 Short.MIN_VALUE));
 
-        assertTrue(Arrays.equals(
-                new short[]{Short.MIN_VALUE, Short.MAX_VALUE, (short) 9999999},
-                ArrayUtils.toPrimitive(new Short[]{Short.valueOf(Short.MIN_VALUE),
-                        Short.valueOf(Short.MAX_VALUE), Short.valueOf((short) 9999999)}, Short.MIN_VALUE))
-        );
+        assertArrayEquals(new short[]{Short.MIN_VALUE, Short.MAX_VALUE, (short) 9999999}, ArrayUtils.toPrimitive(new Short[]{Short.valueOf(Short.MIN_VALUE),
+                Short.valueOf(Short.MAX_VALUE), Short.valueOf((short) 9999999)}, Short.MIN_VALUE));
 
-        assertTrue(Arrays.equals(
-                new short[]{Short.MIN_VALUE, Short.MAX_VALUE, (short) 9999999},
-                ArrayUtils.toPrimitive(new Short[]{Short.valueOf(Short.MIN_VALUE), null,
-                        Short.valueOf((short) 9999999)}, Short.MAX_VALUE))
-        );
+        assertArrayEquals(new short[]{Short.MIN_VALUE, Short.MAX_VALUE, (short) 9999999}, ArrayUtils.toPrimitive(new Short[]{Short.valueOf(Short.MIN_VALUE), null,
+                Short.valueOf((short) 9999999)}, Short.MAX_VALUE));
     }
 
     @Test
@@ -4339,12 +3976,9 @@ public class ArrayUtilsTest {
         assertSame(ArrayUtils.EMPTY_SHORT_OBJECT_ARRAY,
                 ArrayUtils.toObject(new short[0]));
 
-        assertTrue(Arrays.equals(
-                new Short[]{Short.valueOf(Short.MIN_VALUE), Short.valueOf(Short.MAX_VALUE),
-                        Short.valueOf((short) 9999999)},
-                ArrayUtils.toObject(new short[]{Short.MIN_VALUE, Short.MAX_VALUE,
-                        (short) 9999999}))
-        );
+        assertArrayEquals(new Short[]{Short.valueOf(Short.MIN_VALUE), Short.valueOf(Short.MAX_VALUE),
+                Short.valueOf((short) 9999999)}, ArrayUtils.toObject(new short[]{Short.MIN_VALUE, Short.MAX_VALUE,
+                (short) 9999999}));
     }
 
     //  testToPrimitive/Object for int
@@ -4354,17 +3988,11 @@ public class ArrayUtilsTest {
         final Integer[] b = null;
         assertNull(ArrayUtils.toPrimitive(b));
         assertSame(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.toPrimitive(new Integer[0]));
-        assertTrue(Arrays.equals(
-                new int[]{Integer.MIN_VALUE, Integer.MAX_VALUE, 9999999},
-                ArrayUtils.toPrimitive(new Integer[]{Integer.valueOf(Integer.MIN_VALUE),
-                        Integer.valueOf(Integer.MAX_VALUE), Integer.valueOf(9999999)}))
-        );
+        assertArrayEquals(new int[]{Integer.MIN_VALUE, Integer.MAX_VALUE, 9999999}, ArrayUtils.toPrimitive(new Integer[]{Integer.valueOf(Integer.MIN_VALUE),
+                Integer.valueOf(Integer.MAX_VALUE), Integer.valueOf(9999999)}));
 
-        try {
-            ArrayUtils.toPrimitive(new Integer[]{Integer.valueOf(Integer.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Integer[]{Integer.valueOf(Integer.MIN_VALUE), null}));
     }
 
     @Test
@@ -4373,15 +4001,10 @@ public class ArrayUtilsTest {
         assertNull(ArrayUtils.toPrimitive(l, Integer.MIN_VALUE));
         assertSame(ArrayUtils.EMPTY_INT_ARRAY,
                 ArrayUtils.toPrimitive(new Integer[0], 1));
-        assertTrue(Arrays.equals(
-                new int[]{Integer.MIN_VALUE, Integer.MAX_VALUE, 9999999},
-                ArrayUtils.toPrimitive(new Integer[]{Integer.valueOf(Integer.MIN_VALUE),
-                        Integer.valueOf(Integer.MAX_VALUE), Integer.valueOf(9999999)}, 1)));
-        assertTrue(Arrays.equals(
-                new int[]{Integer.MIN_VALUE, Integer.MAX_VALUE, 9999999},
-                ArrayUtils.toPrimitive(new Integer[]{Integer.valueOf(Integer.MIN_VALUE),
-                        null, Integer.valueOf(9999999)}, Integer.MAX_VALUE))
-        );
+        assertArrayEquals(new int[]{Integer.MIN_VALUE, Integer.MAX_VALUE, 9999999}, ArrayUtils.toPrimitive(new Integer[]{Integer.valueOf(Integer.MIN_VALUE),
+                Integer.valueOf(Integer.MAX_VALUE), Integer.valueOf(9999999)}, 1));
+        assertArrayEquals(new int[]{Integer.MIN_VALUE, Integer.MAX_VALUE, 9999999}, ArrayUtils.toPrimitive(new Integer[]{Integer.valueOf(Integer.MIN_VALUE),
+                null, Integer.valueOf(9999999)}, Integer.MAX_VALUE));
     }
 
     @Test
@@ -4399,14 +4022,11 @@ public class ArrayUtilsTest {
                 ArrayUtils.EMPTY_INTEGER_OBJECT_ARRAY,
                 ArrayUtils.toObject(new int[0]));
 
-        assertTrue(
-                Arrays.equals(
-                        new Integer[]{
-                                Integer.valueOf(Integer.MIN_VALUE),
-                                Integer.valueOf(Integer.MAX_VALUE),
-                                Integer.valueOf(9999999)},
-                        ArrayUtils.toObject(
-                                new int[]{Integer.MIN_VALUE, Integer.MAX_VALUE, 9999999})));
+        assertArrayEquals(new Integer[]{
+                Integer.valueOf(Integer.MIN_VALUE),
+                Integer.valueOf(Integer.MAX_VALUE),
+                Integer.valueOf(9999999)}, ArrayUtils.toObject(
+                new int[]{Integer.MIN_VALUE, Integer.MAX_VALUE, 9999999}));
     }
 
     //  testToPrimitive/Object for long
@@ -4419,17 +4039,11 @@ public class ArrayUtilsTest {
         assertSame(ArrayUtils.EMPTY_LONG_ARRAY,
                 ArrayUtils.toPrimitive(new Long[0]));
 
-        assertTrue(Arrays.equals(
-                new long[]{Long.MIN_VALUE, Long.MAX_VALUE, 9999999},
-                ArrayUtils.toPrimitive(new Long[]{Long.valueOf(Long.MIN_VALUE),
-                        Long.valueOf(Long.MAX_VALUE), Long.valueOf(9999999)}))
-        );
+        assertArrayEquals(new long[]{Long.MIN_VALUE, Long.MAX_VALUE, 9999999}, ArrayUtils.toPrimitive(new Long[]{Long.valueOf(Long.MIN_VALUE),
+                Long.valueOf(Long.MAX_VALUE), Long.valueOf(9999999)}));
 
-        try {
-            ArrayUtils.toPrimitive(new Long[]{Long.valueOf(Long.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Long[]{Long.valueOf(Long.MIN_VALUE), null}));
     }
 
     @Test
@@ -4440,16 +4054,11 @@ public class ArrayUtilsTest {
         assertSame(ArrayUtils.EMPTY_LONG_ARRAY,
                 ArrayUtils.toPrimitive(new Long[0], 1));
 
-        assertTrue(Arrays.equals(
-                new long[]{Long.MIN_VALUE, Long.MAX_VALUE, 9999999},
-                ArrayUtils.toPrimitive(new Long[]{Long.valueOf(Long.MIN_VALUE),
-                        Long.valueOf(Long.MAX_VALUE), Long.valueOf(9999999)}, 1)));
+        assertArrayEquals(new long[]{Long.MIN_VALUE, Long.MAX_VALUE, 9999999}, ArrayUtils.toPrimitive(new Long[]{Long.valueOf(Long.MIN_VALUE),
+                Long.valueOf(Long.MAX_VALUE), Long.valueOf(9999999)}, 1));
 
-        assertTrue(Arrays.equals(
-                new long[]{Long.MIN_VALUE, Long.MAX_VALUE, 9999999},
-                ArrayUtils.toPrimitive(new Long[]{Long.valueOf(Long.MIN_VALUE),
-                        null, Long.valueOf(9999999)}, Long.MAX_VALUE))
-        );
+        assertArrayEquals(new long[]{Long.MIN_VALUE, Long.MAX_VALUE, 9999999}, ArrayUtils.toPrimitive(new Long[]{Long.valueOf(Long.MIN_VALUE),
+                null, Long.valueOf(9999999)}, Long.MAX_VALUE));
     }
 
     @Test
@@ -4461,14 +4070,11 @@ public class ArrayUtilsTest {
                 ArrayUtils.EMPTY_LONG_OBJECT_ARRAY,
                 ArrayUtils.toObject(new long[0]));
 
-        assertTrue(
-                Arrays.equals(
-                        new Long[]{
-                                Long.valueOf(Long.MIN_VALUE),
-                                Long.valueOf(Long.MAX_VALUE),
-                                Long.valueOf(9999999)},
-                        ArrayUtils.toObject(
-                                new long[]{Long.MIN_VALUE, Long.MAX_VALUE, 9999999})));
+        assertArrayEquals(new Long[]{
+                Long.valueOf(Long.MIN_VALUE),
+                Long.valueOf(Long.MAX_VALUE),
+                Long.valueOf(9999999)}, ArrayUtils.toObject(
+                new long[]{Long.MIN_VALUE, Long.MAX_VALUE, 9999999}));
     }
 
     //  testToPrimitive/Object for float
@@ -4481,17 +4087,11 @@ public class ArrayUtilsTest {
         assertSame(ArrayUtils.EMPTY_FLOAT_ARRAY,
                 ArrayUtils.toPrimitive(new Float[0]));
 
-        assertTrue(Arrays.equals(
-                new float[]{Float.MIN_VALUE, Float.MAX_VALUE, 9999999},
-                ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE),
-                        Float.valueOf(Float.MAX_VALUE), Float.valueOf(9999999)}))
-        );
+        assertArrayEquals(new float[]{Float.MIN_VALUE, Float.MAX_VALUE, 9999999}, ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE),
+                Float.valueOf(Float.MAX_VALUE), Float.valueOf(9999999)}));
 
-        try {
-            ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE), null}));
     }
 
     @Test
@@ -4502,16 +4102,11 @@ public class ArrayUtilsTest {
         assertSame(ArrayUtils.EMPTY_FLOAT_ARRAY,
                 ArrayUtils.toPrimitive(new Float[0], 1));
 
-        assertTrue(Arrays.equals(
-                new float[]{Float.MIN_VALUE, Float.MAX_VALUE, 9999999},
-                ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE),
-                        Float.valueOf(Float.MAX_VALUE), Float.valueOf(9999999)}, 1)));
+        assertArrayEquals(new float[]{Float.MIN_VALUE, Float.MAX_VALUE, 9999999}, ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE),
+                Float.valueOf(Float.MAX_VALUE), Float.valueOf(9999999)}, 1));
 
-        assertTrue(Arrays.equals(
-                new float[]{Float.MIN_VALUE, Float.MAX_VALUE, 9999999},
-                ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE),
-                        null, Float.valueOf(9999999)}, Float.MAX_VALUE))
-        );
+        assertArrayEquals(new float[]{Float.MIN_VALUE, Float.MAX_VALUE, 9999999}, ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE),
+                null, Float.valueOf(9999999)}, Float.MAX_VALUE));
     }
 
     @Test
@@ -4523,14 +4118,11 @@ public class ArrayUtilsTest {
                 ArrayUtils.EMPTY_FLOAT_OBJECT_ARRAY,
                 ArrayUtils.toObject(new float[0]));
 
-        assertTrue(
-                Arrays.equals(
-                        new Float[]{
-                                Float.valueOf(Float.MIN_VALUE),
-                                Float.valueOf(Float.MAX_VALUE),
-                                Float.valueOf(9999999)},
-                        ArrayUtils.toObject(
-                                new float[]{Float.MIN_VALUE, Float.MAX_VALUE, 9999999})));
+        assertArrayEquals(new Float[]{
+                Float.valueOf(Float.MIN_VALUE),
+                Float.valueOf(Float.MAX_VALUE),
+                Float.valueOf(9999999)}, ArrayUtils.toObject(
+                new float[]{Float.MIN_VALUE, Float.MAX_VALUE, 9999999}));
     }
 
     //  testToPrimitive/Object for double
@@ -4543,17 +4135,11 @@ public class ArrayUtilsTest {
         assertSame(ArrayUtils.EMPTY_DOUBLE_ARRAY,
                 ArrayUtils.toPrimitive(new Double[0]));
 
-        assertTrue(Arrays.equals(
-                new double[]{Double.MIN_VALUE, Double.MAX_VALUE, 9999999},
-                ArrayUtils.toPrimitive(new Double[]{Double.valueOf(Double.MIN_VALUE),
-                        Double.valueOf(Double.MAX_VALUE), Double.valueOf(9999999)}))
-        );
+        assertArrayEquals(new double[]{Double.MIN_VALUE, Double.MAX_VALUE, 9999999}, ArrayUtils.toPrimitive(new Double[]{Double.valueOf(Double.MIN_VALUE),
+                Double.valueOf(Double.MAX_VALUE), Double.valueOf(9999999)}));
 
-        try {
-            ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE), null});
-            fail();
-        } catch (final NullPointerException ex) {
-        }
+        assertThrows(NullPointerException.class,
+                () -> ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE), null}));
     }
 
     @Test
@@ -4564,16 +4150,11 @@ public class ArrayUtilsTest {
         assertSame(ArrayUtils.EMPTY_DOUBLE_ARRAY,
                 ArrayUtils.toPrimitive(new Double[0], 1));
 
-        assertTrue(Arrays.equals(
-                new double[]{Double.MIN_VALUE, Double.MAX_VALUE, 9999999},
-                ArrayUtils.toPrimitive(new Double[]{Double.valueOf(Double.MIN_VALUE),
-                        Double.valueOf(Double.MAX_VALUE), Double.valueOf(9999999)}, 1)));
+        assertArrayEquals(new double[]{Double.MIN_VALUE, Double.MAX_VALUE, 9999999}, ArrayUtils.toPrimitive(new Double[]{Double.valueOf(Double.MIN_VALUE),
+                Double.valueOf(Double.MAX_VALUE), Double.valueOf(9999999)}, 1));
 
-        assertTrue(Arrays.equals(
-                new double[]{Double.MIN_VALUE, Double.MAX_VALUE, 9999999},
-                ArrayUtils.toPrimitive(new Double[]{Double.valueOf(Double.MIN_VALUE),
-                        null, Double.valueOf(9999999)}, Double.MAX_VALUE))
-        );
+        assertArrayEquals(new double[]{Double.MIN_VALUE, Double.MAX_VALUE, 9999999}, ArrayUtils.toPrimitive(new Double[]{Double.valueOf(Double.MIN_VALUE),
+                null, Double.valueOf(9999999)}, Double.MAX_VALUE));
     }
 
     @Test
@@ -4585,14 +4166,11 @@ public class ArrayUtilsTest {
                 ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY,
                 ArrayUtils.toObject(new double[0]));
 
-        assertTrue(
-                Arrays.equals(
-                        new Double[]{
-                                Double.valueOf(Double.MIN_VALUE),
-                                Double.valueOf(Double.MAX_VALUE),
-                                Double.valueOf(9999999)},
-                        ArrayUtils.toObject(
-                                new double[]{Double.MIN_VALUE, Double.MAX_VALUE, 9999999})));
+        assertArrayEquals(new Double[]{
+                Double.valueOf(Double.MIN_VALUE),
+                Double.valueOf(Double.MAX_VALUE),
+                Double.valueOf(9999999)}, ArrayUtils.toObject(
+                new double[]{Double.MIN_VALUE, Double.MAX_VALUE, 9999999}));
     }
 
     //-----------------------------------------------------------------------
@@ -4796,11 +4374,7 @@ public class ArrayUtilsTest {
         assertEquals(0, ArrayUtils.getLength(emptyBooleanArray));
         assertEquals(1, ArrayUtils.getLength(notEmptyBooleanArray));
 
-        try {
-            ArrayUtils.getLength("notAnArray");
-            fail("IllegalArgumentException should have been thrown");
-        } catch (final IllegalArgumentException e) {
-        }
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.getLength("notAnArray"));
     }
 
     @Test
@@ -4820,12 +4394,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testIsSortedComparator() {
-        final Comparator<Integer> c = new Comparator<Integer>() {
-            @Override
-            public int compare(final Integer o1, final Integer o2) {
-                return o2.compareTo(o1);
-            }
-        };
+        final Comparator<Integer> c = (o1, o2) -> o2.compareTo(o1);
 
         Integer[] array = null;
         assertTrue(ArrayUtils.isSorted(array, c));
@@ -4840,9 +4409,9 @@ public class ArrayUtilsTest {
         assertFalse(ArrayUtils.isSorted(array, c));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testIsSortedNullComparator() throws Exception {
-        ArrayUtils.isSorted(null, null);
+    @Test
+    public void testIsSortedNullComparator() {
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.isSorted(null, null));
     }
 
     @Test
@@ -4984,11 +4553,7 @@ public class ArrayUtilsTest {
         final Object[] array = new Object[]{1, 2, 3, "array", "test"};
         assertArrayEquals(new String[]{"1", "2", "3", "array", "test"}, ArrayUtils.toStringArray(array));
 
-        try {
-            ArrayUtils.toStringArray(new Object[]{null});
-            fail("NullPointerException expected!");
-        } catch (final NullPointerException expected) {
-        }
+        assertThrows(NullPointerException.class, () -> ArrayUtils.toStringArray(new Object[]{null}));
     }
 
     @Test
@@ -5007,10 +4572,10 @@ public class ArrayUtilsTest {
         final String[] array1 = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
         final String[] array2 = ArrayUtils.clone(array1);
 
-        ArrayUtils.shuffle(array1);
+        ArrayUtils.shuffle(array1, new Random(SEED));
         assertFalse(Arrays.equals(array1, array2));
         for (final String element : array2) {
-            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
         }
     }
 
@@ -5019,7 +4584,7 @@ public class ArrayUtilsTest {
         final boolean[] array1 = new boolean[]{true, false, true, true, false, false, true, false, false, true};
         final boolean[] array2 = ArrayUtils.clone(array1);
 
-        ArrayUtils.shuffle(array1);
+        ArrayUtils.shuffle(array1, new Random(SEED));
         assertFalse(Arrays.equals(array1, array2));
         assertEquals(5, ArrayUtils.removeAllOccurences(array1, true).length);
     }
@@ -5029,10 +4594,10 @@ public class ArrayUtilsTest {
         final byte[] array1 = new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         final byte[] array2 = ArrayUtils.clone(array1);
 
-        ArrayUtils.shuffle(array1);
+        ArrayUtils.shuffle(array1, new Random(SEED));
         assertFalse(Arrays.equals(array1, array2));
         for (final byte element : array2) {
-            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
         }
     }
 
@@ -5041,10 +4606,10 @@ public class ArrayUtilsTest {
         final char[] array1 = new char[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         final char[] array2 = ArrayUtils.clone(array1);
 
-        ArrayUtils.shuffle(array1);
+        ArrayUtils.shuffle(array1, new Random(SEED));
         assertFalse(Arrays.equals(array1, array2));
         for (final char element : array2) {
-            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
         }
     }
 
@@ -5053,10 +4618,10 @@ public class ArrayUtilsTest {
         final short[] array1 = new short[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         final short[] array2 = ArrayUtils.clone(array1);
 
-        ArrayUtils.shuffle(array1);
+        ArrayUtils.shuffle(array1, new Random(SEED));
         assertFalse(Arrays.equals(array1, array2));
         for (final short element : array2) {
-            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
         }
     }
 
@@ -5065,10 +4630,10 @@ public class ArrayUtilsTest {
         final int[] array1 = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         final int[] array2 = ArrayUtils.clone(array1);
 
-        ArrayUtils.shuffle(array1);
+        ArrayUtils.shuffle(array1, new Random(SEED));
         assertFalse(Arrays.equals(array1, array2));
         for (final int element : array2) {
-            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
         }
     }
 
@@ -5077,10 +4642,10 @@ public class ArrayUtilsTest {
         final long[] array1 = new long[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         final long[] array2 = ArrayUtils.clone(array1);
 
-        ArrayUtils.shuffle(array1);
+        ArrayUtils.shuffle(array1, new Random(SEED));
         assertFalse(Arrays.equals(array1, array2));
         for (final long element : array2) {
-            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
         }
     }
 
@@ -5089,10 +4654,10 @@ public class ArrayUtilsTest {
         final float[] array1 = new float[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         final float[] array2 = ArrayUtils.clone(array1);
 
-        ArrayUtils.shuffle(array1);
+        ArrayUtils.shuffle(array1, new Random(SEED));
         assertFalse(Arrays.equals(array1, array2));
         for (final float element : array2) {
-            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
         }
     }
 
@@ -5101,10 +4666,25 @@ public class ArrayUtilsTest {
         final double[] array1 = new double[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         final double[] array2 = ArrayUtils.clone(array1);
 
-        ArrayUtils.shuffle(array1);
+        ArrayUtils.shuffle(array1, new Random(SEED));
         assertFalse(Arrays.equals(array1, array2));
         for (final double element : array2) {
-            assertTrue("Element " + element + " not found", ArrayUtils.contains(array1, element));
+            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
         }
+    }
+
+    @Test
+    public void testIsArrayIndexValid() {
+        assertFalse(ArrayUtils.isArrayIndexValid(null, 0));
+        String[] array = new String[1];
+
+        //too big
+        assertFalse(ArrayUtils.isArrayIndexValid(array, 1));
+
+        //negative index
+        assertFalse(ArrayUtils.isArrayIndexValid(array, -1));
+
+        //good to go
+        assertTrue(ArrayUtils.isArrayIndexValid(array, 0));
     }
 }

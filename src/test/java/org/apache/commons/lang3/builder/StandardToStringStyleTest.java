@@ -16,15 +16,17 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.ToStringStyle}.
@@ -49,13 +51,13 @@ public class StandardToStringStyleTest {
         STYLE.setSummaryObjectEndText("%");
     }
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() {
         ToStringBuilder.setDefaultStyle(STYLE);
     }
 
-    @After
-    public void tearDown() throws Exception {
+    @AfterEach
+    public void tearDown() {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 
@@ -139,6 +141,26 @@ public class StandardToStringStyleTest {
         array = null;
         assertEquals(baseStr + "[%NULL%]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[%NULL%]", new ToStringBuilder(base).append((Object) array).toString());
+    }
+
+    @Test
+    public void testDefaultValueOfUseClassName() {
+        assertTrue((new StandardToStringStyle()).isUseClassName());
+    }
+
+    @Test
+    public void testDefaultValueOfUseFieldNames() {
+        assertTrue((new StandardToStringStyle()).isUseFieldNames());
+    }
+
+    @Test
+    public void testDefaultValueOfUseShortClassName() {
+        assertFalse((new StandardToStringStyle()).isUseShortClassName());
+    }
+
+    @Test
+    public void testDefaultValueOfUseIdentityHashCode() {
+        assertTrue((new StandardToStringStyle()).isUseIdentityHashCode());
     }
 
 }

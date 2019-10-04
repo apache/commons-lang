@@ -16,19 +16,23 @@
  */
 package org.apache.commons.lang3.tuple;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the Pair class.
@@ -36,7 +40,20 @@ import org.junit.Test;
 public class ImmutablePairTest {
 
     @Test
-    public void testBasic() throws Exception {
+    public void testEmptyArrayLength() {
+        @SuppressWarnings("unchecked")
+        final ImmutablePair<Integer, String>[] empty = (ImmutablePair<Integer, String>[]) ImmutablePair.EMPTY_ARRAY;
+        assertEquals(0, empty.length);
+    }
+
+    @Test
+    public void testEmptyArrayGenerics() {
+        final ImmutablePair<Integer, String>[] empty = ImmutablePair.emptyArray();
+        assertEquals(0, empty.length);
+    }
+
+    @Test
+    public void testBasic() {
         final ImmutablePair<Integer, String> pair = new ImmutablePair<>(0, "foo");
         assertEquals(0, pair.left.intValue());
         assertEquals(0, pair.getLeft().intValue());
@@ -50,7 +67,61 @@ public class ImmutablePairTest {
     }
 
     @Test
-    public void testPairOf() throws Exception {
+    public void testEquals() {
+        assertEquals(ImmutablePair.of(null, "foo"), ImmutablePair.of(null, "foo"));
+        assertNotEquals(ImmutablePair.of("foo", 0), ImmutablePair.of("foo", null));
+        assertNotEquals(ImmutablePair.of("foo", "bar"), ImmutablePair.of("xyz", "bar"));
+
+        final ImmutablePair<String, String> p = ImmutablePair.of("foo", "bar");
+        assertEquals(p, p);
+        assertNotEquals(p, new Object());
+    }
+
+    @Test
+    public void testHashCode() {
+        assertEquals(ImmutablePair.of(null, "foo").hashCode(), ImmutablePair.of(null, "foo").hashCode());
+    }
+
+    @Test
+    public void testNullPairEquals() {
+        assertEquals(ImmutablePair.nullPair(), ImmutablePair.nullPair());
+    }
+
+    @Test
+    public void testNullPairKey() {
+        assertNull(ImmutablePair.nullPair().getKey());
+    }
+
+    @Test
+    public void testNullPairLeft() {
+        assertNull(ImmutablePair.nullPair().getLeft());
+    }
+
+    @Test
+    public void testNullPairRight() {
+        assertNull(ImmutablePair.nullPair().getRight());
+    }
+
+    @Test
+    public void testNullPairSame() {
+        assertSame(ImmutablePair.nullPair(), ImmutablePair.nullPair());
+    }
+
+    @Test
+    public void testNullPairTyped() {
+        // No compiler warnings
+        // How do we assert that?
+        final ImmutablePair<String, String> pair = ImmutablePair.nullPair();
+        assertNotNull(pair);
+    }
+
+    @Test
+    public void testNullPairValue() {
+        assertNull(ImmutablePair.nullPair().getValue());
+    }
+
+    @Test
+    public void testPairOf() {
         final ImmutablePair<Integer, String> pair = ImmutablePair.of(0, "foo");
         assertEquals(0, pair.left.intValue());
         assertEquals(0, pair.getLeft().intValue());
@@ -64,68 +135,6 @@ public class ImmutablePairTest {
     }
 
     @Test
-    public void testEquals() throws Exception {
-        assertEquals(ImmutablePair.of(null, "foo"), ImmutablePair.of(null, "foo"));
-        assertFalse(ImmutablePair.of("foo", 0).equals(ImmutablePair.of("foo", null)));
-        assertFalse(ImmutablePair.of("foo", "bar").equals(ImmutablePair.of("xyz", "bar")));
-
-        final ImmutablePair<String, String> p = ImmutablePair.of("foo", "bar");
-        assertTrue(p.equals(p));
-        assertFalse(p.equals(new Object()));
-    }
-
-    @Test
-    public void testHashCode() throws Exception {
-        assertEquals(ImmutablePair.of(null, "foo").hashCode(), ImmutablePair.of(null, "foo").hashCode());
-    }
-
-    @Test
-    public void testNullPairEquals() {
-        assertEquals(ImmutablePair.nullPair(), ImmutablePair.nullPair());
-    }
-
-    @Test
-    public void testNullPairSame() {
-        assertSame(ImmutablePair.nullPair(), ImmutablePair.nullPair());
-    }
-
-    @Test
-    public void testNullPairLeft() {
-        assertNull(ImmutablePair.nullPair().getLeft());
-    }
-
-    @Test
-    public void testNullPairKey() {
-        assertNull(ImmutablePair.nullPair().getKey());
-    }
-
-    @Test
-    public void testNullPairRight() {
-        assertNull(ImmutablePair.nullPair().getRight());
-    }
-
-    @Test
-    public void testNullPairValue() {
-        assertNull(ImmutablePair.nullPair().getValue());
-    }
-
-    @Test
-    public void testNullPairTyped() {
-        // No compiler warnings
-        // How do we assert that?
-        final ImmutablePair<String, String> pair = ImmutablePair.nullPair();
-        assertNotNull(pair);
-    }
-
-    @Test
-    public void testToString() throws Exception {
-        assertEquals("(null,null)", ImmutablePair.of(null, null).toString());
-        assertEquals("(null,two)", ImmutablePair.of(null, "two").toString());
-        assertEquals("(one,null)", ImmutablePair.of("one", null).toString());
-        assertEquals("(one,two)", ImmutablePair.of("one", "two").toString());
-    }
-
-    @Test
     @SuppressWarnings("unchecked")
     public void testSerialization() throws Exception {
         final ImmutablePair<Integer, String> origPair = ImmutablePair.of(0, "foo");
@@ -136,5 +145,43 @@ public class ImmutablePairTest {
                 new ByteArrayInputStream(baos.toByteArray())).readObject();
         assertEquals(origPair, deserializedPair);
         assertEquals(origPair.hashCode(), deserializedPair.hashCode());
+    }
+
+    @Test
+    public void testToString() {
+        assertEquals("(null,null)", ImmutablePair.of(null, null).toString());
+        assertEquals("(null,two)", ImmutablePair.of(null, "two").toString());
+        assertEquals("(one,null)", ImmutablePair.of("one", null).toString());
+        assertEquals("(one,two)", ImmutablePair.of("one", "two").toString());
+    }
+
+    @Test
+    public void testUseAsKeyOfHashMap() {
+        HashMap<ImmutablePair<Object, Object>, String> map = new HashMap<>();
+        Object o1 = new Object();
+        Object o2 = new Object();
+        ImmutablePair<Object, Object> key1 = ImmutablePair.of(o1, o2);
+        String value1 = "a1";
+        map.put(key1, value1);
+        assertEquals(value1, map.get(key1));
+        assertEquals(value1, map.get(ImmutablePair.of(o1, o2)));
+    }
+
+    @Test
+    public void testUseAsKeyOfTreeMap() {
+        TreeMap<ImmutablePair<Integer, Integer>, String> map = new TreeMap<>();
+        map.put(ImmutablePair.of(1, 2), "12");
+        map.put(ImmutablePair.of(1, 1), "11");
+        map.put(ImmutablePair.of(0, 1), "01");
+        ArrayList<ImmutablePair<Integer, Integer>> expected = new ArrayList<>();
+        expected.add(ImmutablePair.of(0, 1));
+        expected.add(ImmutablePair.of(1, 1));
+        expected.add(ImmutablePair.of(1, 2));
+        Iterator<Entry<ImmutablePair<Integer, Integer>, String>> it = map.entrySet().iterator();
+        for (ImmutablePair<Integer, Integer> item : expected) {
+            Entry<ImmutablePair<Integer, Integer>, String> entry = it.next();
+            assertEquals(item, entry.getKey());
+            assertEquals(item.getLeft() + "" + item.getRight(), entry.getValue());
+        }
     }
 }

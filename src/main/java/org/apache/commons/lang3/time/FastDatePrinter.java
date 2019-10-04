@@ -488,7 +488,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     public StringBuffer format(final long millis, final StringBuffer buf) {
         final Calendar c = newCalendar();
         c.setTimeInMillis(millis);
-        return (StringBuffer) applyRules(c, (Appendable)buf);
+        return (StringBuffer) applyRules(c, (Appendable) buf);
     }
 
     /* (non-Javadoc)
@@ -498,7 +498,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     public StringBuffer format(final Date date, final StringBuffer buf) {
         final Calendar c = newCalendar();
         c.setTime(date);
-        return (StringBuffer) applyRules(c, (Appendable)buf);
+        return (StringBuffer) applyRules(c, (Appendable) buf);
     }
 
     /* (non-Javadoc)
@@ -536,8 +536,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     @Override
     public <B extends Appendable> B format(Calendar calendar, final B buf) {
         // do not pass in calendar directly, this will cause TimeZone of FastDatePrinter to be ignored
-        if(!calendar.getTimeZone().equals(mTimeZone)) {
-            calendar = (Calendar)calendar.clone();
+        if (!calendar.getTimeZone().equals(mTimeZone)) {
+            calendar = (Calendar) calendar.clone();
             calendar.setTimeZone(mTimeZone);
         }
         return applyRules(calendar, buf);
@@ -555,7 +555,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Deprecated
     protected StringBuffer applyRules(final Calendar calendar, final StringBuffer buf) {
-        return (StringBuffer) applyRules(calendar, (Appendable)buf);
+        return (StringBuffer) applyRules(calendar, (Appendable) buf);
     }
 
     /**
@@ -678,8 +678,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @param value the value to append digits from.
      */
     private static void appendDigits(final Appendable buffer, final int value) throws IOException {
-        buffer.append((char)(value / 10 + '0'));
-        buffer.append((char)(value % 10 + '0'));
+        buffer.append((char) (value / 10 + '0'));
+        buffer.append((char) (value % 10 + '0'));
     }
 
     private static final int MAX_DIGITS = 10; // log10(Integer.MAX_VALUE) ~= 9.3
@@ -939,7 +939,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         @Override
         public final void appendTo(final Appendable buffer, final int value) throws IOException {
             if (value < 10) {
-                buffer.append((char)(value + '0'));
+                buffer.append((char) (value + '0'));
             } else if (value < 100) {
                 appendDigits(buffer, value);
             } else {
@@ -984,7 +984,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         @Override
         public final void appendTo(final Appendable buffer, final int value) throws IOException {
             if (value < 10) {
-                buffer.append((char)(value + '0'));
+                buffer.append((char) (value + '0'));
             } else {
                 appendDigits(buffer, value);
             }
@@ -1266,7 +1266,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         @Override
         public void appendTo(final Appendable buffer, final Calendar calendar) throws IOException {
             final int value = calendar.get(Calendar.DAY_OF_WEEK);
-            mRule.appendTo(buffer, value != Calendar.SUNDAY ? value - 1 : 7);
+            mRule.appendTo(buffer, value == Calendar.SUNDAY ? 7 : value - 1);
         }
 
         @Override
@@ -1369,10 +1369,10 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         @Override
         public void appendTo(final Appendable buffer, final Calendar calendar) throws IOException {
             final TimeZone zone = calendar.getTimeZone();
-            if (calendar.get(Calendar.DST_OFFSET) != 0) {
-                buffer.append(getTimeZoneDisplay(zone, true, mStyle, mLocale));
-            } else {
+            if (calendar.get(Calendar.DST_OFFSET) == 0) {
                 buffer.append(getTimeZoneDisplay(zone, false, mStyle, mLocale));
+            } else {
+                buffer.append(getTimeZoneDisplay(zone, true, mStyle, mLocale));
             }
         }
     }
@@ -1454,11 +1454,11 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         static Iso8601_Rule getRule(final int tokenLen) {
             switch(tokenLen) {
             case 1:
-                return Iso8601_Rule.ISO8601_HOURS;
+                return ISO8601_HOURS;
             case 2:
-                return Iso8601_Rule.ISO8601_HOURS_MINUTES;
+                return ISO8601_HOURS_MINUTES;
             case 3:
-                return Iso8601_Rule.ISO8601_HOURS_COLON_MINUTES;
+                return ISO8601_HOURS_COLON_MINUTES;
             default:
                 throw new IllegalArgumentException("invalid number of X");
             }
@@ -1562,7 +1562,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 return true;
             }
             if (obj instanceof TimeZoneDisplayKey) {
-                final TimeZoneDisplayKey other = (TimeZoneDisplayKey)obj;
+                final TimeZoneDisplayKey other = (TimeZoneDisplayKey) obj;
                 return
                     mTimeZone.equals(other.mTimeZone) &&
                     mStyle == other.mStyle &&

@@ -16,12 +16,11 @@
  */
 package org.apache.commons.lang3.text;
 
-import org.junit.Test;
-import org.junit.Before;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.text.DateFormat;
 import java.text.FieldPosition;
@@ -47,8 +46,8 @@ public class ExtendedMessageFormatTest {
 
     private final Map<String, FormatFactory> registry = new HashMap<>();
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() {
         registry.put("lower", new LowerCaseFormatFactory());
         registry.put("upper", new UpperCaseFormatFactory());
     }
@@ -60,12 +59,12 @@ public class ExtendedMessageFormatTest {
     public void testExtendedFormats() {
         final String pattern = "Lower: {0,lower} Upper: {1,upper}";
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
-        assertEquals("TOPATTERN", pattern, emf.toPattern());
-        assertEquals("Lower: foo Upper: BAR", emf.format(new Object[] {"foo", "bar"}));
-        assertEquals("Lower: foo Upper: BAR", emf.format(new Object[] {"Foo", "Bar"}));
-        assertEquals("Lower: foo Upper: BAR", emf.format(new Object[] {"FOO", "BAR"}));
-        assertEquals("Lower: foo Upper: BAR", emf.format(new Object[] {"FOO", "bar"}));
-        assertEquals("Lower: foo Upper: BAR", emf.format(new Object[] {"foo", "BAR"}));
+        assertEquals(pattern, emf.toPattern(), "TOPATTERN");
+        assertEquals(emf.format(new Object[] {"foo", "bar"}), "Lower: foo Upper: BAR");
+        assertEquals(emf.format(new Object[] {"Foo", "Bar"}), "Lower: foo Upper: BAR");
+        assertEquals(emf.format(new Object[] {"FOO", "BAR"}), "Lower: foo Upper: BAR");
+        assertEquals(emf.format(new Object[] {"FOO", "bar"}), "Lower: foo Upper: BAR");
+        assertEquals(emf.format(new Object[] {"foo", "BAR"}), "Lower: foo Upper: BAR");
     }
 
     /**
@@ -143,8 +142,8 @@ public class ExtendedMessageFormatTest {
             expected.append(df.format(args[1]));
             expected.append(" Salary: ");
             expected.append(nf.format(args[2]));
-            assertEquals("pattern comparison for locale " + locale, expectedPattern, emf.toPattern());
-            assertEquals(String.valueOf(locale), expected.toString(), emf.format(args));
+            assertEquals(expectedPattern, emf.toPattern(), "pattern comparison for locale " + locale);
+            assertEquals(expected.toString(), emf.format(args), String.valueOf(locale));
         }
     }
 
@@ -268,8 +267,8 @@ public class ExtendedMessageFormatTest {
             final MessageFormat dateDefault = createMessageFormat("{0,date}", locale);
             final String pattern = "{0,date,short}";
             final ExtendedMessageFormat dateShort = new ExtendedMessageFormat(pattern, locale, dateRegistry);
-            assertEquals("overridden date,short format", dateDefault.format(args), dateShort.format(args));
-            assertEquals("overridden date,short pattern", pattern, dateShort.toPattern());
+            assertEquals(dateDefault.format(args), dateShort.format(args), "overridden date,short format");
+            assertEquals(pattern, dateShort.toPattern(), "overridden date,short pattern");
         }
     }
 
@@ -301,33 +300,33 @@ public class ExtendedMessageFormatTest {
         ExtendedMessageFormat other = null;
 
         // Same object
-        assertTrue("same, equals()",   emf.equals(emf));
-        assertTrue("same, hashcode()", emf.hashCode() == emf.hashCode());
+        assertEquals(emf, emf, "same, equals()");
+        assertEquals(emf.hashCode(), emf.hashCode(), "same, hashcode()");
 
         // Equal Object
         other = new ExtendedMessageFormat(pattern, Locale.US, fmtRegistry);
-        assertTrue("equal, equals()",   emf.equals(other));
-        assertTrue("equal, hashcode()", emf.hashCode() == other.hashCode());
+        assertEquals(emf, other, "equal, equals()");
+        assertEquals(emf.hashCode(), other.hashCode(), "equal, hashcode()");
 
         // Different Class
         other = new OtherExtendedMessageFormat(pattern, Locale.US, fmtRegistry);
-        assertFalse("class, equals()",  emf.equals(other));
-        assertTrue("class, hashcode()", emf.hashCode() == other.hashCode()); // same hashcode
+        assertNotEquals(emf, other, "class, equals()");
+        assertEquals(emf.hashCode(), other.hashCode(), "class, hashcode()"); // same hashcode
 
         // Different pattern
         other = new ExtendedMessageFormat("X" + pattern, Locale.US, fmtRegistry);
-        assertFalse("pattern, equals()",   emf.equals(other));
-        assertFalse("pattern, hashcode()", emf.hashCode() == other.hashCode());
+        assertNotEquals(emf, other, "pattern, equals()");
+        assertNotEquals(emf.hashCode(), other.hashCode(), "pattern, hashcode()");
 
         // Different registry
         other = new ExtendedMessageFormat(pattern, Locale.US, otherRegitry);
-        assertFalse("registry, equals()",   emf.equals(other));
-        assertFalse("registry, hashcode()", emf.hashCode() == other.hashCode());
+        assertNotEquals(emf, other, "registry, equals()");
+        assertNotEquals(emf.hashCode(), other.hashCode(), "registry, hashcode()");
 
         // Different Locale
         other = new ExtendedMessageFormat(pattern, Locale.FRANCE, fmtRegistry);
-        assertFalse("locale, equals()",  emf.equals(other));
-        assertTrue("locale, hashcode()", emf.hashCode() == other.hashCode()); // same hashcode
+        assertNotEquals(emf, other, "locale, equals()");
+        assertEquals(emf.hashCode(), other.hashCode(), "locale, hashcode()"); // same hashcode
     }
 
     /**
@@ -370,15 +369,14 @@ public class ExtendedMessageFormatTest {
         buffer.append(locale);
         buffer.append("]");
         final MessageFormat mf = createMessageFormat(pattern, locale);
-        // System.out.println(buffer + ", result=[" + mf.format(args) +"]");
         ExtendedMessageFormat emf = null;
         if (locale == null) {
             emf = new ExtendedMessageFormat(pattern);
         } else {
             emf = new ExtendedMessageFormat(pattern, locale);
         }
-        assertEquals("format "    + buffer.toString(), mf.format(args), emf.format(args));
-        assertEquals("toPattern " + buffer.toString(), mf.toPattern(), emf.toPattern());
+        assertEquals(mf.format(args), emf.format(args), "format "    + buffer.toString());
+        assertEquals(mf.toPattern(), emf.toPattern(), "toPattern " + buffer.toString());
     }
 
     /**
@@ -406,7 +404,7 @@ public class ExtendedMessageFormatTest {
 
         @Override
         public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
-            return toAppendTo.append(((String)obj).toLowerCase(Locale.ROOT));
+            return toAppendTo.append(((String) obj).toLowerCase(Locale.ROOT));
         }
         @Override
         public Object parseObject(final String source, final ParsePosition pos) {

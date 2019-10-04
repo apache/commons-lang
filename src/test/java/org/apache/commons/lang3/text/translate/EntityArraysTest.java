@@ -17,12 +17,12 @@
 
 package org.apache.commons.lang3.text.translate;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.EntityArrays}.
@@ -37,24 +37,24 @@ public class EntityArraysTest  {
 
     // LANG-659 - check arrays for duplicate entries
     @Test
-    public void testHTML40_EXTENDED_ESCAPE(){
+    public void testHTML40_EXTENDED_ESCAPE() {
         final Set<String> col0 = new HashSet<>();
         final Set<String> col1 = new HashSet<>();
         final String [][] sa = EntityArrays.HTML40_EXTENDED_ESCAPE();
-        for(int i =0; i <sa.length; i++){
-            assertTrue("Already added entry 0: "+i+" "+sa[i][0],col0.add(sa[i][0]));
-            assertTrue("Already added entry 1: "+i+" "+sa[i][1],col1.add(sa[i][1]));
+        for (int i =0; i <sa.length; i++) {
+            assertTrue(col0.add(sa[i][0]), "Already added entry 0: "+i+" "+sa[i][0]);
+            assertTrue(col1.add(sa[i][1]), "Already added entry 1: "+i+" "+sa[i][1]);
         }
     }
 
    // LANG-658 - check arrays for duplicate entries
     @Test
-    public void testISO8859_1_ESCAPE(){
+    public void testISO8859_1_ESCAPE() {
         final Set<String> col0 = new HashSet<>();
         final Set<String> col1 = new HashSet<>();
         final String [][] sa = EntityArrays.ISO8859_1_ESCAPE();
         boolean success = true;
-        for(int i =0; i <sa.length; i++){
+        for (int i =0; i <sa.length; i++) {
             final boolean add0 = col0.add(sa[i][0]);
             final boolean add1 = col1.add(sa[i][1]);
             if (!add0) {
@@ -66,7 +66,7 @@ public class EntityArraysTest  {
                 System.out.println("Already added entry 1: "+i+" "+sa[i][0]+" "+sa[i][1]);
             }
         }
-        assertTrue("One or more errors detected",success);
+        assertTrue(success, "One or more errors detected");
     }
 
 

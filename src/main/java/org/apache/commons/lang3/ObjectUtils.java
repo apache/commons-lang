@@ -21,6 +21,7 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -45,6 +46,8 @@ import org.apache.commons.lang3.text.StrBuilder;
 @SuppressWarnings("deprecation") // deprecated class StrBuilder is imported
 // because it is part of the signature of deprecated methods
 public class ObjectUtils {
+
+    private static final char AT_SIGN = '@';
 
     /**
      * <p>Singleton used as a {@code null} placeholder where
@@ -73,6 +76,81 @@ public class ObjectUtils {
      */
     public ObjectUtils() {
         super();
+    }
+
+    // Empty checks
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Checks if an Object is empty or null.</p>
+     *
+     * The following types are supported:
+     * <ul>
+     * <li>{@link CharSequence}: Considered empty if its length is zero.</li>
+     * <li>{@code Array}: Considered empty if its length is zero.</li>
+     * <li>{@link Collection}: Considered empty if it has zero elements.</li>
+     * <li>{@link Map}: Considered empty if it has zero key-value mappings.</li>
+     * </ul>
+     *
+     * <pre>
+     * ObjectUtils.isEmpty(null)             = true
+     * ObjectUtils.isEmpty("")               = true
+     * ObjectUtils.isEmpty("ab")             = false
+     * ObjectUtils.isEmpty(new int[]{})      = true
+     * ObjectUtils.isEmpty(new int[]{1,2,3}) = false
+     * ObjectUtils.isEmpty(1234)             = false
+     * </pre>
+     *
+     * @param object  the {@code Object} to test, may be {@code null}
+     * @return {@code true} if the object has a supported type and is empty or null,
+     * {@code false} otherwise
+     * @since 3.9
+     */
+    public static boolean isEmpty(final Object object) {
+        if (object == null) {
+            return true;
+        }
+        if (object instanceof CharSequence) {
+            return ((CharSequence) object).length() == 0;
+        }
+        if (object.getClass().isArray()) {
+            return Array.getLength(object) == 0;
+        }
+        if (object instanceof Collection<?>) {
+            return ((Collection<?>) object).isEmpty();
+        }
+        if (object instanceof Map<?, ?>) {
+            return ((Map<?, ?>) object).isEmpty();
+        }
+        return false;
+    }
+
+    /**
+     * <p>Checks if an Object is not empty and not null.</p>
+     *
+     * The following types are supported:
+     * <ul>
+     * <li>{@link CharSequence}: Considered empty if its length is zero.</li>
+     * <li>{@code Array}: Considered empty if its length is zero.</li>
+     * <li>{@link Collection}: Considered empty if it has zero elements.</li>
+     * <li>{@link Map}: Considered empty if it has zero key-value mappings.</li>
+     * </ul>
+     *
+     * <pre>
+     * ObjectUtils.isNotEmpty(null)             = false
+     * ObjectUtils.isNotEmpty("")               = false
+     * ObjectUtils.isNotEmpty("ab")             = true
+     * ObjectUtils.isNotEmpty(new int[]{})      = false
+     * ObjectUtils.isNotEmpty(new int[]{1,2,3}) = true
+     * ObjectUtils.isNotEmpty(1234)             = true
+     * </pre>
+     *
+     * @param object  the {@code Object} to test, may be {@code null}
+     * @return {@code true} if the object has an unsupported type or is not empty
+     * and not null, {@code false} otherwise
+     * @since 3.9
+     */
+    public static boolean isNotEmpty(final Object object) {
+        return !isEmpty(object);
     }
 
     // Defaulting
@@ -251,7 +329,7 @@ public class ObjectUtils {
      * @return {@code false} if the values of both objects are the same
      */
     public static boolean notEqual(final Object object1, final Object object2) {
-        return !ObjectUtils.equals(object1, object2);
+        return !equals(object1, object2);
     }
 
     /**
@@ -302,7 +380,7 @@ public class ObjectUtils {
         int hash = 1;
         if (objects != null) {
             for (final Object object : objects) {
-                final int tmpHash = ObjectUtils.hashCode(object);
+                final int tmpHash = hashCode(object);
                 hash = hash * 31 + tmpHash;
             }
         }
@@ -331,8 +409,14 @@ public class ObjectUtils {
         if (object == null) {
             return null;
         }
-        final StringBuilder builder = new StringBuilder();
-        identityToString(builder, object);
+        final String name = object.getClass().getName();
+        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        final StringBuilder builder = new StringBuilder(name.length() + 1 + hexString.length());
+        // @formatter:off
+        builder.append(name)
+              .append(AT_SIGN)
+              .append(hexString);
+        // @formatter:off
         return builder.toString();
     }
 
@@ -353,9 +437,9 @@ public class ObjectUtils {
      * @since 3.2
      */
     public static void identityToString(final Appendable appendable, final Object object) throws IOException {
-        Validate.notNull(object, "Cannot get the toString of a null identity");
+        Validate.notNull(object, "Cannot get the toString of a null object");
         appendable.append(object.getClass().getName())
-              .append('@')
+              .append(AT_SIGN)
               .append(Integer.toHexString(System.identityHashCode(object)));
     }
 
@@ -378,10 +462,13 @@ public class ObjectUtils {
      */
     @Deprecated
     public static void identityToString(final StrBuilder builder, final Object object) {
-        Validate.notNull(object, "Cannot get the toString of a null identity");
-        builder.append(object.getClass().getName())
-              .append('@')
-              .append(Integer.toHexString(System.identityHashCode(object)));
+        Validate.notNull(object, "Cannot get the toString of a null object");
+        final String name = object.getClass().getName();
+        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        builder.ensureCapacity(builder.length() +  name.length() + 1 + hexString.length());
+        builder.append(name)
+              .append(AT_SIGN)
+              .append(hexString);
     }
 
     /**
@@ -400,10 +487,13 @@ public class ObjectUtils {
      * @since 2.4
      */
     public static void identityToString(final StringBuffer buffer, final Object object) {
-        Validate.notNull(object, "Cannot get the toString of a null identity");
-        buffer.append(object.getClass().getName())
-              .append('@')
-              .append(Integer.toHexString(System.identityHashCode(object)));
+        Validate.notNull(object, "Cannot get the toString of a null object");
+        final String name = object.getClass().getName();
+        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        buffer.ensureCapacity(buffer.length() + name.length() + 1 + hexString.length());
+        buffer.append(name)
+              .append(AT_SIGN)
+              .append(hexString);
     }
 
     /**
@@ -422,10 +512,13 @@ public class ObjectUtils {
      * @since 3.2
      */
     public static void identityToString(final StringBuilder builder, final Object object) {
-        Validate.notNull(object, "Cannot get the toString of a null identity");
-        builder.append(object.getClass().getName())
-              .append('@')
-              .append(Integer.toHexString(System.identityHashCode(object)));
+        Validate.notNull(object, "Cannot get the toString of a null object");
+        final String name = object.getClass().getName();
+        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        builder.ensureCapacity(builder.length() +  name.length() + 1 + hexString.length());
+        builder.append(name)
+              .append(AT_SIGN)
+              .append(hexString);
     }
 
     // ToString
@@ -672,14 +765,14 @@ public class ObjectUtils {
             final Object result;
             if (obj.getClass().isArray()) {
                 final Class<?> componentType = obj.getClass().getComponentType();
-                if (!componentType.isPrimitive()) {
-                    result = ((Object[]) obj).clone();
-                } else {
+                if (componentType.isPrimitive()) {
                     int length = Array.getLength(obj);
                     result = Array.newInstance(componentType, length);
                     while (length-- > 0) {
                         Array.set(result, length, Array.get(obj, length));
                     }
+                } else {
+                    result = ((Object[]) obj).clone();
                 }
             } else {
                 try {
@@ -762,7 +855,7 @@ public class ObjectUtils {
          * @return the singleton value
          */
         private Object readResolve() {
-            return ObjectUtils.NULL;
+            return NULL;
         }
     }
 
@@ -850,7 +943,7 @@ public class ObjectUtils {
      * @return the byte v, unchanged
      * @since 3.2
      */
-    public static byte CONST_BYTE(final int v) throws IllegalArgumentException {
+    public static byte CONST_BYTE(final int v) {
         if (v < Byte.MIN_VALUE || v > Byte.MAX_VALUE) {
             throw new IllegalArgumentException("Supplied value must be a valid byte literal between -128 and 127: [" + v + "]");
         }
@@ -919,7 +1012,7 @@ public class ObjectUtils {
      * @return the byte v, unchanged
      * @since 3.2
      */
-    public static short CONST_SHORT(final int v) throws IllegalArgumentException {
+    public static short CONST_SHORT(final int v) {
         if (v < Short.MIN_VALUE || v > Short.MAX_VALUE) {
             throw new IllegalArgumentException("Supplied value must be a valid byte literal between -32768 and 32767: [" + v + "]");
         }

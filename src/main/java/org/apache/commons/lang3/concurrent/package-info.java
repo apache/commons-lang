@@ -19,8 +19,6 @@
  * This package is intended to be an extension to {@link java.util.concurrent}.
  * These classes are thread-safe.</p>
  *
- * <h3></h3>
- *
  * <p> A group of classes deals with the correct creation and initialization of objects that are accessed by multiple threads.
  * All these classes implement the {@link org.apache.commons.lang3.concurrent.ConcurrentInitializer} interface which provides just a
  * single method:
@@ -236,7 +234,7 @@
  * It is also possible to pass in an <code>ExecutorService</code> when the initializer is constructed.
  * That way client code can configure the <code>ExecutorService</code> according to its specific needs; for instance, the number of threads available could be limited.</p>
  *
- * <h3>Utility Classes</h3>
+ * <h2>Utility Classes</h2>
  *
  * <p>Another group of classes in the new <code>concurrent</code> package offers some generic functionality related to concurrency.
  * There is the {@link org.apache.commons.lang3.concurrent.ConcurrentUtils} class with a bunch of static utility methods.
@@ -334,7 +332,7 @@
  * This factory is then used for creating new threads; after that the specific attributes are applied to the new thread.
  * If no wrapped factory is set, the default factory provided by the JDK is used.</p>
  *
- * <h3>Synchronization objects</h3>
+ * <h2>Synchronization objects</h2>
  *
  * <p>The <code>concurrent</code> package also provides some support for specific synchronization problems with threads.</p>
  *

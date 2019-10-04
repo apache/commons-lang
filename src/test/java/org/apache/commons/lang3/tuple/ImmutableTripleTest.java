@@ -16,19 +16,23 @@
  */
 package org.apache.commons.lang3.tuple;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.TreeMap;
+import java.util.Map.Entry;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the Triple class.
@@ -36,7 +40,20 @@ import org.junit.Test;
 public class ImmutableTripleTest {
 
     @Test
-    public void testBasic() throws Exception {
+    public void testEmptyArrayLength() {
+        @SuppressWarnings("unchecked")
+        final ImmutableTriple<Integer, String, Boolean>[] empty = (ImmutableTriple<Integer, String, Boolean>[]) ImmutableTriple.EMPTY_ARRAY;
+        assertEquals(0, empty.length);
+    }
+
+    @Test
+    public void testEmptyArrayGenerics() {
+        final ImmutableTriple<Integer, String, Boolean>[] empty = ImmutableTriple.emptyArray();
+        assertEquals(0, empty.length);
+    }
+
+    @Test
+    public void testBasic() {
         final ImmutableTriple<Integer, String, Boolean> triple = new ImmutableTriple<>(0, "foo", Boolean.TRUE);
         assertEquals(0, triple.left.intValue());
         assertEquals(0, triple.getLeft().intValue());
@@ -54,47 +71,24 @@ public class ImmutableTripleTest {
     }
 
     @Test
-    public void testTripleOf() throws Exception {
-        final ImmutableTriple<Integer, String, Boolean> triple = ImmutableTriple.of(0, "foo", Boolean.FALSE);
-        assertEquals(0, triple.left.intValue());
-        assertEquals(0, triple.getLeft().intValue());
-        assertEquals("foo", triple.middle);
-        assertEquals("foo", triple.getMiddle());
-        assertEquals(Boolean.FALSE, triple.right);
-        assertEquals(Boolean.FALSE, triple.getRight());
-        final ImmutableTriple<Object, String, Boolean> triple2 = ImmutableTriple.of(null, "bar", Boolean.TRUE);
-        assertNull(triple2.left);
-        assertNull(triple2.getLeft());
-        assertEquals("bar", triple2.middle);
-        assertEquals("bar", triple2.getMiddle());
-        assertEquals(Boolean.TRUE, triple2.right);
-        assertEquals(Boolean.TRUE, triple2.getRight());
-    }
-
-    @Test
-    public void testEquals() throws Exception {
+    public void testEquals() {
         assertEquals(ImmutableTriple.of(null, "foo", 42), ImmutableTriple.of(null, "foo", 42));
-        assertFalse(ImmutableTriple.of("foo", 0, Boolean.TRUE).equals(ImmutableTriple.of("foo", null, null)));
-        assertFalse(ImmutableTriple.of("foo", "bar", "baz").equals(ImmutableTriple.of("xyz", "bar", "blo")));
+        assertNotEquals(ImmutableTriple.of("foo", 0, Boolean.TRUE), ImmutableTriple.of("foo", null, null));
+        assertNotEquals(ImmutableTriple.of("foo", "bar", "baz"), ImmutableTriple.of("xyz", "bar", "blo"));
 
         final ImmutableTriple<String, String, String> p = ImmutableTriple.of("foo", "bar", "baz");
-        assertTrue(p.equals(p));
-        assertFalse(p.equals(new Object()));
+        assertEquals(p, p);
+        assertNotEquals(p, new Object());
     }
 
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         assertEquals(ImmutableTriple.of(null, "foo", Boolean.TRUE).hashCode(), ImmutableTriple.of(null, "foo", Boolean.TRUE).hashCode());
     }
 
     @Test
     public void testNullTripleEquals() {
         assertEquals(ImmutableTriple.nullTriple(), ImmutableTriple.nullTriple());
-    }
-
-    @Test
-    public void testNullTripleSame() {
-        assertSame(ImmutableTriple.nullTriple(), ImmutableTriple.nullTriple());
     }
 
     @Test
@@ -113,22 +107,16 @@ public class ImmutableTripleTest {
     }
 
     @Test
+    public void testNullTripleSame() {
+        assertSame(ImmutableTriple.nullTriple(), ImmutableTriple.nullTriple());
+    }
+
+    @Test
     public void testNullTripleTyped() {
         // No compiler warnings
         // How do we assert that?
         final ImmutableTriple<String, String, String> triple = ImmutableTriple.nullTriple();
         assertNotNull(triple);
-    }
-
-    @Test
-    public void testToString() throws Exception {
-        assertEquals("(null,null,null)", ImmutableTriple.of(null, null, null).toString());
-        assertEquals("(null,two,null)", ImmutableTriple.of(null, "two", null).toString());
-        assertEquals("(one,null,null)", ImmutableTriple.of("one", null, null).toString());
-        assertEquals("(one,two,null)", ImmutableTriple.of("one", "two", null).toString());
-        assertEquals("(null,two,three)", ImmutableTriple.of(null, "two", "three").toString());
-        assertEquals("(one,null,three)", ImmutableTriple.of("one", null, "three").toString());
-        assertEquals("(one,two,three)", MutableTriple.of("one", "two", "three").toString());
     }
 
     @Test
@@ -142,6 +130,66 @@ public class ImmutableTripleTest {
                 new ByteArrayInputStream(baos.toByteArray())).readObject();
         assertEquals(origTriple, deserializedTriple);
         assertEquals(origTriple.hashCode(), deserializedTriple.hashCode());
+    }
+
+    @Test
+    public void testToString() {
+        assertEquals("(null,null,null)", ImmutableTriple.of(null, null, null).toString());
+        assertEquals("(null,two,null)", ImmutableTriple.of(null, "two", null).toString());
+        assertEquals("(one,null,null)", ImmutableTriple.of("one", null, null).toString());
+        assertEquals("(one,two,null)", ImmutableTriple.of("one", "two", null).toString());
+        assertEquals("(null,two,three)", ImmutableTriple.of(null, "two", "three").toString());
+        assertEquals("(one,null,three)", ImmutableTriple.of("one", null, "three").toString());
+        assertEquals("(one,two,three)", MutableTriple.of("one", "two", "three").toString());
+    }
+
+    @Test
+    public void testTripleOf() {
+        final ImmutableTriple<Integer, String, Boolean> triple = ImmutableTriple.of(0, "foo", Boolean.FALSE);
+        assertEquals(0, triple.left.intValue());
+        assertEquals(0, triple.getLeft().intValue());
+        assertEquals("foo", triple.middle);
+        assertEquals("foo", triple.getMiddle());
+        assertEquals(Boolean.FALSE, triple.right);
+        assertEquals(Boolean.FALSE, triple.getRight());
+        final ImmutableTriple<Object, String, Boolean> triple2 = ImmutableTriple.of(null, "bar", Boolean.TRUE);
+        assertNull(triple2.left);
+        assertNull(triple2.getLeft());
+        assertEquals("bar", triple2.middle);
+        assertEquals("bar", triple2.getMiddle());
+        assertEquals(Boolean.TRUE, triple2.right);
+        assertEquals(Boolean.TRUE, triple2.getRight());
+    }
+
+    @Test
+    public void testUseAsKeyOfHashMap() {
+        HashMap<ImmutableTriple<Object, Object, Object>, String> map = new HashMap<>();
+        Object o1 = new Object();
+        Object o2 = new Object();
+        Object o3 = new Object();
+        ImmutableTriple<Object, Object, Object> key1 = ImmutableTriple.of(o1, o2, o3);
+        String value1 = "a1";
+        map.put(key1, value1);
+        assertEquals(value1, map.get(key1));
+        assertEquals(value1, map.get(ImmutableTriple.of(o1, o2, o3)));
+    }
+
+    @Test
+    public void testUseAsKeyOfTreeMap() {
+        TreeMap<ImmutableTriple<Integer, Integer, Integer>, String> map = new TreeMap<>();
+        map.put(ImmutableTriple.of(0, 1, 2), "012");
+        map.put(ImmutableTriple.of(0, 1, 1), "011");
+        map.put(ImmutableTriple.of(0, 0, 1), "001");
+        ArrayList<ImmutableTriple<Integer, Integer, Integer>> expected = new ArrayList<>();
+        expected.add(ImmutableTriple.of(0, 0, 1));
+        expected.add(ImmutableTriple.of(0, 1, 1));
+        expected.add(ImmutableTriple.of(0, 1, 2));
+        Iterator<Entry<ImmutableTriple<Integer, Integer, Integer>, String>> it = map.entrySet().iterator();
+        for (ImmutableTriple<Integer, Integer, Integer> item : expected) {
+            Entry<ImmutableTriple<Integer, Integer, Integer>, String> entry = it.next();
+            assertEquals(item, entry.getKey());
+            assertEquals(item.getLeft() + "" + item.getMiddle() + "" + item.getRight(), entry.getValue());
+        }
     }
 }
 

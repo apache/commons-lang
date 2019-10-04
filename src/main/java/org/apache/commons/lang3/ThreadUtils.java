@@ -52,7 +52,7 @@ public class ThreadUtils {
     public static Thread findThreadById(final long threadId, final ThreadGroup threadGroup) {
         Validate.isTrue(threadGroup != null, "The thread group must not be null");
         final Thread thread = findThreadById(threadId);
-        if(thread != null && threadGroup.equals(thread.getThreadGroup())) {
+        if (thread != null && threadGroup.equals(thread.getThreadGroup())) {
             return thread;
         }
         return null;
@@ -75,7 +75,7 @@ public class ThreadUtils {
     public static Thread findThreadById(final long threadId, final String threadGroupName) {
         Validate.isTrue(threadGroupName != null, "The thread group name must not be null");
         final Thread thread = findThreadById(threadId);
-        if(thread != null && thread.getThreadGroup() != null && thread.getThreadGroup().getName().equals(threadGroupName)) {
+        if (thread != null && thread.getThreadGroup() != null && thread.getThreadGroup().getName().equals(threadGroupName)) {
             return thread;
         }
         return null;
@@ -119,13 +119,13 @@ public class ThreadUtils {
 
         final Collection<ThreadGroup> threadGroups = findThreadGroups(new NamePredicate(threadGroupName));
 
-        if(threadGroups.isEmpty()) {
+        if (threadGroups.isEmpty()) {
             return Collections.emptyList();
         }
 
         final Collection<Thread> result = new ArrayList<>();
         final NamePredicate threadNamePredicate = new NamePredicate(threadName);
-        for(final ThreadGroup group : threadGroups) {
+        for (final ThreadGroup group : threadGroups) {
             result.addAll(findThreads(group, false, threadNamePredicate));
         }
         return Collections.unmodifiableCollection(result);
@@ -170,7 +170,7 @@ public class ThreadUtils {
      */
     public static ThreadGroup getSystemThreadGroup() {
         ThreadGroup threadGroup = Thread.currentThread().getThreadGroup();
-        while(threadGroup.getParent() != null) {
+        while (threadGroup.getParent() != null) {
             threadGroup = threadGroup.getParent();
         }
         return threadGroup;
@@ -239,8 +239,9 @@ public class ThreadUtils {
     /**
      * A predicate for selecting threads.
      */
-    //if java minimal version for lang becomes 1.8 extend this interface from java.util.function.Predicate
-    public interface ThreadPredicate /*extends java.util.function.Predicate<Thread>*/{
+    // When breaking BC, replace this with Predicate<Thread>
+    @FunctionalInterface
+    public interface ThreadPredicate {
 
         /**
          * Evaluates this predicate on the given thread.
@@ -253,8 +254,9 @@ public class ThreadUtils {
     /**
      * A predicate for selecting threadgroups.
      */
-    //if java minimal version for lang becomes 1.8 extend this interface from java.util.function.Predicate
-    public interface ThreadGroupPredicate /*extends java.util.function.Predicate<ThreadGroup>*/{
+    // When breaking BC, replace this with Predicate<ThreadGroup>
+    @FunctionalInterface
+    public interface ThreadGroupPredicate {
 
         /**
          * Evaluates this predicate on the given threadgroup.
@@ -272,7 +274,7 @@ public class ThreadUtils {
     /**
      * A predicate implementation which always returns true.
      */
-    private static final class AlwaysTruePredicate implements ThreadPredicate, ThreadGroupPredicate{
+    private static final class AlwaysTruePredicate implements ThreadPredicate, ThreadGroupPredicate {
 
         private AlwaysTruePredicate() {
         }
@@ -357,7 +359,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Collection<Thread> findThreads(final ThreadPredicate predicate){
+    public static Collection<Thread> findThreads(final ThreadPredicate predicate) {
         return findThreads(getSystemThreadGroup(), true, predicate);
     }
 
@@ -372,7 +374,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroupPredicate predicate){
+    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroupPredicate predicate) {
         return findThreadGroups(getSystemThreadGroup(), true, predicate);
     }
 
@@ -419,7 +421,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroup group, final boolean recurse, final ThreadGroupPredicate predicate){
+    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroup group, final boolean recurse, final ThreadGroupPredicate predicate) {
         Validate.isTrue(group != null, "The group must not be null");
         Validate.isTrue(predicate != null, "The predicate must not be null");
 
@@ -429,11 +431,11 @@ public class ThreadUtils {
             threadGroups = new ThreadGroup[count + (count / 2) + 1]; //slightly grow the array size
             count = group.enumerate(threadGroups, recurse);
             //return value of enumerate() must be strictly less than the array size according to javadoc
-        } while(count >= threadGroups.length);
+        } while (count >= threadGroups.length);
 
         final List<ThreadGroup> result = new ArrayList<>(count);
-        for(int i = 0; i < count; ++i) {
-            if(predicate.test(threadGroups[i])) {
+        for (int i = 0; i < count; ++i) {
+            if (predicate.test(threadGroups[i])) {
                 result.add(threadGroups[i]);
             }
         }

@@ -16,11 +16,11 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Trim/Strip methods
@@ -220,19 +220,19 @@ public class StringUtilsTrimStripTest  {
     @Test
     public void testStripAccents() {
         final String cue = "\u00C7\u00FA\u00EA";
-        assertEquals( "Failed to strip accents from " + cue, "Cue", StringUtils.stripAccents(cue));
+        assertEquals("Cue", StringUtils.stripAccents(cue), "Failed to strip accents from " + cue);
 
         final String lots = "\u00C0\u00C1\u00C2\u00C3\u00C4\u00C5\u00C7\u00C8\u00C9" +
                       "\u00CA\u00CB\u00CC\u00CD\u00CE\u00CF\u00D1\u00D2\u00D3" +
                       "\u00D4\u00D5\u00D6\u00D9\u00DA\u00DB\u00DC\u00DD";
-        assertEquals( "Failed to strip accents from " + lots,
-                      "AAAAAACEEEEIIIINOOOOOUUUUY",
-                      StringUtils.stripAccents(lots));
+        assertEquals("AAAAAACEEEEIIIINOOOOOUUUUY",
+                StringUtils.stripAccents(lots),
+                "Failed to strip accents from " + lots);
 
-        assertNull( "Failed null safety", StringUtils.stripAccents(null) );
-        assertEquals( "Failed empty String", "", StringUtils.stripAccents("") );
-        assertEquals( "Failed to handle non-accented text", "control", StringUtils.stripAccents("control") );
-        assertEquals( "Failed to handle easy example", "eclair", StringUtils.stripAccents("\u00E9clair") );
+        assertNull(StringUtils.stripAccents(null), "Failed null safety");
+        assertEquals("", StringUtils.stripAccents(""), "Failed empty String");
+        assertEquals("control", StringUtils.stripAccents("control"), "Failed to handle non-accented text");
+        assertEquals("eclair", StringUtils.stripAccents("\u00E9clair"), "Failed to handle easy example");
         assertEquals("ALOSZZCN aloszzcn", StringUtils.stripAccents("\u0104\u0141\u00D3\u015A\u017B\u0179\u0106\u0143 "
                 + "\u0105\u0142\u00F3\u015B\u017C\u017A\u0107\u0144"));
     }

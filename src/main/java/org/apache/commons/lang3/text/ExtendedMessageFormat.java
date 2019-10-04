@@ -276,7 +276,7 @@ public class ExtendedMessageFormat extends MessageFormat {
         if (ObjectUtils.notEqual(getClass(), obj.getClass())) {
           return false;
         }
-        final ExtendedMessageFormat rhs = (ExtendedMessageFormat)obj;
+        final ExtendedMessageFormat rhs = (ExtendedMessageFormat) obj;
         if (ObjectUtils.notEqual(toPattern, rhs.toPattern)) {
             return false;
         }
@@ -478,7 +478,7 @@ public class ExtendedMessageFormat extends MessageFormat {
             "Quoted string must start with quote character";
 
         // handle quote character at the beginning of the string
-        if(appendTo != null) {
+        if (appendTo != null) {
             appendTo.append(QUOTE);
         }
         next(pos);
@@ -487,14 +487,12 @@ public class ExtendedMessageFormat extends MessageFormat {
         final char[] c = pattern.toCharArray();
         final int lastHold = start;
         for (int i = pos.getIndex(); i < pattern.length(); i++) {
-            switch (c[pos.getIndex()]) {
-            case QUOTE:
+            if (c[pos.getIndex()] == QUOTE) {
                 next(pos);
                 return appendTo == null ? null : appendTo.append(c, lastHold,
                         pos.getIndex() - lastHold);
-            default:
-                next(pos);
             }
+            next(pos);
         }
         throw new IllegalArgumentException(
                 "Unterminated quoted string at position " + start);

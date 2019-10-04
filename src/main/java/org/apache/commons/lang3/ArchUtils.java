@@ -20,6 +20,7 @@ import org.apache.commons.lang3.arch.Processor;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * An utility class for the os.arch System Property. The class defines methods for
@@ -85,13 +86,11 @@ public class ArchUtils {
      * @param processor The {@link Processor} to add.
      * @throws IllegalStateException If the key already exists.
      */
-    private static void addProcessor(final String key, final Processor processor) throws IllegalStateException {
-        if (!ARCH_TO_PROCESSOR.containsKey(key)) {
-            ARCH_TO_PROCESSOR.put(key, processor);
-        } else {
-            final String msg = "Key " + key + " already exists in processor map";
-            throw new IllegalStateException(msg);
+    private static void addProcessor(final String key, final Processor processor) {
+        if (ARCH_TO_PROCESSOR.containsKey(key)) {
+            throw new IllegalStateException("Key " + key + " already exists in processor map");
         }
+        ARCH_TO_PROCESSOR.put(key, processor);
     }
 
     /**
@@ -101,10 +100,8 @@ public class ArchUtils {
      * @param processor The {@link Processor} to add.
      * @throws IllegalStateException If the key already exists.
      */
-    private static void addProcessors(final Processor processor, final String... keys) throws IllegalStateException {
-        for (final String key : keys) {
-            addProcessor(key, processor);
-        }
+    private static void addProcessors(final Processor processor, final String... keys) {
+        Stream.of(keys).forEach(e -> addProcessor(e, processor));
     }
 
     /**

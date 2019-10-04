@@ -74,8 +74,8 @@ import org.apache.commons.lang3.builder.Builder;
  *
  * @since 2.2
  * @deprecated as of 3.6, use commons-text
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StrBuilder.html">
- * StrBuilder</a> instead
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/TextStringBuilder.html">
+ * TextStringBuilder</a> instead
  */
 @Deprecated
 public class StrBuilder implements CharSequence, Appendable, Serializable, Builder<String> {
@@ -1198,7 +1198,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
          * is fine, because it isn't inherited by subclasses, so each subclass must
          * vouch for itself whether its use of 'array' is safe.
          */
-        if (array != null && array.length > 0) {
+        if (ArrayUtils.isNotEmpty(array)) {
             for (final Object element : array) {
                 append(element);
             }
@@ -1348,11 +1348,11 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * This method is for example useful for constructing queries
      * <pre>
      * StrBuilder whereClause = new StrBuilder();
-     * if(searchCommand.getPriority() != null) {
+     * if (searchCommand.getPriority() != null) {
      *  whereClause.appendSeparator(" and", " where");
      *  whereClause.append(" priority = ?")
      * }
-     * if(searchCommand.getComponent() != null) {
+     * if (searchCommand.getComponent() != null) {
      *  whereClause.appendSeparator(" and", " where");
      *  whereClause.append(" component = ?")
      * }
@@ -2145,7 +2145,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
 
         final int half = size / 2;
         final char[] buf = buffer;
-        for (int leftIdx = 0, rightIdx = size - 1; leftIdx < half; leftIdx++,rightIdx--) {
+        for (int leftIdx = 0, rightIdx = size - 1; leftIdx < half; leftIdx++, rightIdx--) {
             final char swap = buf[leftIdx];
             buf[leftIdx] = buf[rightIdx];
             buf[rightIdx] = swap;
@@ -2230,7 +2230,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             return false;
         }
         int pos = size - len;
-        for (int i = 0; i < len; i++,pos++) {
+        for (int i = 0; i < len; i++, pos++) {
             if (buffer[pos] != str.charAt(i)) {
                 return false;
             }
