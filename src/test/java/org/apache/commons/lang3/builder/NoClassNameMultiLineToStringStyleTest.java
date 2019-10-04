@@ -16,16 +16,17 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.testng.Assert.assertEquals;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.NoClassNameMultiLineToStringStyleTest}.
@@ -34,12 +35,12 @@ public class NoClassNameMultiLineToStringStyleTest {
 
     private final Integer base = Integer.valueOf(5);
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         ToStringBuilder.setDefaultStyle(ToStringStyle.NO_CLASS_NAME_MULTI_LINE_STYLE);
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }

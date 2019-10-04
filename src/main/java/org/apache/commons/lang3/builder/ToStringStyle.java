@@ -2662,8 +2662,8 @@ public abstract class ToStringStyle implements Serializable {
      * <code>StandardToStringStyle</code> to ensure its immutability.
      * </p>
      *
-     * @since 3.7
-     * @see <a href="http://json.org">json.org</a>
+     * @since 3.10
+     *
      */
     private static final class NoClassNameMultiLineToStringStyle extends ToStringStyle {
 
@@ -2690,7 +2690,7 @@ public abstract class ToStringStyle implements Serializable {
          * @return the singleton
          */
         private Object readResolve() {
-            return ToStringStyle.NO_CLASS_NAME_MULTI_LINE_STYLE;
+            return NO_CLASS_NAME_MULTI_LINE_STYLE;
         }
     }
 }
