@@ -169,7 +169,7 @@ public abstract class ToStringStyle implements Serializable {
      * smoker=false
      * </pre>
      *
-     * @since 3.7
+     * @since 3.10
      */
     public static final ToStringStyle NO_CLASS_NAME_MULTI_LINE_STYLE = new NoClassNameMultiLineToStringStyle();
 
