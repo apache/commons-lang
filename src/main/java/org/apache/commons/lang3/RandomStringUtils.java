@@ -20,7 +20,7 @@ import java.util.Random;
 
 /**
  * <p>Generates random {@code String}s.</p>
- * 
+ *
  * <p><b>Caveat: Instances of {@link Random}, upon which the implementation of this
  * class relies, are not cryptographically secure.</b></p>
  *
@@ -28,7 +28,7 @@ import java.util.Random;
  * use cases consider using Apache Commons Text's
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html">
  * RandomStringGenerator</a> instead.</p>
- * 
+ *
  * <p>The Apache Commons project provides
  * <a href="https://commons.apache.org/rng">Commons RNG</a> dedicated to pseudo-random number generation, that may be
  * a better choice for applications with more stringent requirements
