@@ -9039,6 +9039,7 @@ public class StringUtils {
      * @param str  the String to truncate, may be null
      * @param maxWidth  maximum length of result String, must be positive
      * @return truncated String, {@code null} if null String input
+     * @throws IllegalArgumentException If {@code maxWidth} is less than {@code 0}
      * @since 3.5
      */
     public static String truncate(final String str, final int maxWidth) {
@@ -9075,8 +9076,8 @@ public class StringUtils {
      * StringUtils.truncate("raspberry peach", 10, 15) = "peach"
      * StringUtils.truncate("abcdefghijklmno", 0, 10) = "abcdefghij"
      * StringUtils.truncate("abcdefghijklmno", -1, 10) = throws an IllegalArgumentException
-     * StringUtils.truncate("abcdefghijklmno", Integer.MIN_VALUE, 10) = "abcdefghij"
-     * StringUtils.truncate("abcdefghijklmno", Integer.MIN_VALUE, Integer.MAX_VALUE) = "abcdefghijklmno"
+     * StringUtils.truncate("abcdefghijklmno", Integer.MIN_VALUE, 10) = throws an IllegalArgumentException
+     * StringUtils.truncate("abcdefghijklmno", Integer.MIN_VALUE, Integer.MAX_VALUE) = throws an IllegalArgumentException
      * StringUtils.truncate("abcdefghijklmno", 0, Integer.MAX_VALUE) = "abcdefghijklmno"
      * StringUtils.truncate("abcdefghijklmno", 1, 10) = "bcdefghijk"
      * StringUtils.truncate("abcdefghijklmno", 2, 10) = "cdefghijkl"
@@ -9098,10 +9099,11 @@ public class StringUtils {
      * StringUtils.truncate("abcdefghij", -2, 4) = throws an IllegalArgumentException
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param str  the String to truncate, may be null
      * @param offset  left edge of source String
      * @param maxWidth  maximum length of result String, must be positive
      * @return truncated String, {@code null} if null String input
+     * @throws IllegalArgumentException If {@code offset} or {@code maxWidth} is less than {@code 0}
      * @since 3.5
      */
     public static String truncate(final String str, final int offset, final int maxWidth) {
