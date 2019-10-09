@@ -257,28 +257,25 @@ public class FastDateFormatTest {
         final AtomicLongArray totalElapsed= new AtomicLongArray(2);
 
         for (int i= 0; i<NTHREADS; ++i) {
-            pool.submit(new Runnable() {
-                @Override
-                public void run() {
-                    for (int j= 0; j<NROUNDS; ++j) {
-                        try {
-                            final Date date= new Date();
+            pool.submit(() -> {
+                for (int j= 0; j<NROUNDS; ++j) {
+                    try {
+                        final Date date= new Date();
 
-                            final long t0= System.currentTimeMillis();
-                            final String formattedDate= printer.format(date);
-                            totalElapsed.addAndGet(0, System.currentTimeMillis() - t0);
+                        final long t0= System.currentTimeMillis();
+                        final String formattedDate= printer.format(date);
+                        totalElapsed.addAndGet(0, System.currentTimeMillis() - t0);
 
-                            final long t1 = System.currentTimeMillis();
-                            final Object pd= parser.parseObject(formattedDate);
-                            totalElapsed.addAndGet(1, System.currentTimeMillis() - t1);
+                        final long t1 = System.currentTimeMillis();
+                        final Object pd= parser.parseObject(formattedDate);
+                        totalElapsed.addAndGet(1, System.currentTimeMillis() - t1);
 
-                            if (!date.equals(pd)) {
-                                failures.incrementAndGet();
-                            }
-                        } catch (final Exception e) {
+                        if (!date.equals(pd)) {
                             failures.incrementAndGet();
-                            e.printStackTrace();
                         }
+                    } catch (final Exception e) {
+                        failures.incrementAndGet();
+                        e.printStackTrace();
                     }
                 }
             });

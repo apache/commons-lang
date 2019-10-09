@@ -714,7 +714,7 @@ public class FieldUtils {
      *            match {@code public} fields.
      * @throws IllegalArgumentException
      *             if the field is {@code null}
-     * @deprecated As of java 12.0, we can no longer drop the <code>final</code> modifier, thus
+     * @deprecated As of Java 12, we can no longer drop the <code>final</code> modifier, thus
      *             rendering this method obsolete. The JDK discussion about this change can be found
      *             here: http://mail.openjdk.java.net/pipermail/core-libs-dev/2018-November/056486.html
      * @since 3.3

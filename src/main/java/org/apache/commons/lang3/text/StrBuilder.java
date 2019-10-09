@@ -1198,7 +1198,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
          * is fine, because it isn't inherited by subclasses, so each subclass must
          * vouch for itself whether its use of 'array' is safe.
          */
-        if (array != null && array.length > 0) {
+        if (ArrayUtils.isNotEmpty(array)) {
             for (final Object element : array) {
                 append(element);
             }

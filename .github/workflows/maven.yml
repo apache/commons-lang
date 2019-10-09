@@ -5,7 +5,7 @@
 # (the "License"); you may not use this file except in compliance with
 # the License.  You may obtain a copy of the License at
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,22 +13,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-language: java
-jdk:
-  - openjdk8
-  - openjdk11
-  - openjdk13
-  - openjdk-ea
+name: Java CI
 
-matrix:
-  include:
-    - os: linux-ppc64le
-      jdk: openjdk8
-  allow_failures:
-    - jdk: openjdk-ea
+on: [push]
 
-script:
-  - mvn
+jobs:
+  build:
 
-after_success:
-  - mvn clean test jacoco:report coveralls:report -Ptravis-jacoco javadoc:javadoc -Ddoclint=all
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [ '1.8', '11.0.4', '12.0.2' ]
+        
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up JDK ${{ matrix.java }}
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+    - name: Build with Maven
+      run: mvn -V apache-rat:check spotbugs:check javadoc:javadoc -Ddoclint=all package --file pom.xml
