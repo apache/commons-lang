@@ -71,6 +71,10 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory">junit-jupiter 5.5.1 -> 5.5.2.</action>
     <action                   type="update" dev="ggregory">com.puppycrawl.tools:checkstyle 8.23 -> 8.24.</action>
     <action issue="LANG-1426" type="fix" dev="ggregory" due-to="Brower, Mikko Maunu, Suraj Gautam">Corrected usage examples in Javadocs #458.</action>
+    <action                   type="update" dev="ggregory" due-to="Jonathan Leitschuh, Bruno P. Kinoshita, Rob Tompkins, Gary Gregory">Improve Javadoc based on the discussion of the GitHub PR #459.</action>
+    <action                   type="update" dev="ggregory">maven-checkstyle-plugin 3.0.0 -> 3.1.0.</action>
+    <action                   type="update" dev="ggregory">com.puppycrawl.tools:checkstyle 8.24 -> 8.25.</action>
+    <action issue="LANG-696"  type="update" dev="ggregory" due-to="Peter Verhas">Update documentation related to the issue LANG-696 #449.</action>
   </release>
 
   <release version="3.9" date="2019-04-09" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">
