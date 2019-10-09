@@ -2956,15 +2956,15 @@ public class StringUtilsTest {
     public void testTruncate_StringIntInt() {
         assertNull(StringUtils.truncate(null, 0, 12));
         assertThrows(
-                IllegalArgumentException.class, () -> StringUtils.truncate(null, -1, 0), "maxWith cannot be negative");
+                IllegalArgumentException.class, () -> StringUtils.truncate(null, -1, 0), "offset cannot be negative");
         assertThrows(
                 IllegalArgumentException.class,
                 () -> StringUtils.truncate(null, -10, -4),
-                "maxWith cannot be negative");
+                "offset cannot be negative");
         assertThrows(
                 IllegalArgumentException.class,
                 () -> StringUtils.truncate(null, Integer.MIN_VALUE, Integer.MIN_VALUE),
-                "maxWith cannot be negative");
+                "offset cannot be negative");
         assertNull(StringUtils.truncate(null, 10, 12));
         assertEquals("", StringUtils.truncate("", 0, 10));
         assertEquals("", StringUtils.truncate("", 2, 10));
@@ -3018,11 +3018,11 @@ public class StringUtilsTest {
         assertThrows(
                 IllegalArgumentException.class,
                 () -> StringUtils.truncate("abcdefghij", -100, -100),
-                "offset  cannot be negative");
+                "offset cannot be negative");
         assertThrows(
                 IllegalArgumentException.class,
                 () -> StringUtils.truncate("abcdefghij", Integer.MIN_VALUE, Integer.MIN_VALUE),
-                "offset  cannot be negative");
+                "offset cannot be negative");
         final String raspberry = "raspberry peach";
         assertEquals("peach", StringUtils.truncate(raspberry, 10, 15));
         assertEquals("abcdefghij", StringUtils.truncate("abcdefghijklmno", 0, 10));

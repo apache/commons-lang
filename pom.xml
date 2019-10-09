@@ -599,8 +599,8 @@
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.encoding>utf-8</commons.encoding>
 
-    <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
-    <checkstyle.version>8.24</checkstyle.version>
+    <checkstyle.plugin.version>3.1.0</checkstyle.plugin.version>
+    <checkstyle.version>8.25</checkstyle.version>
 
     <spotbugs.plugin.version>3.1.12.2</spotbugs.plugin.version>
     <japicmp.skip>false</japicmp.skip>
