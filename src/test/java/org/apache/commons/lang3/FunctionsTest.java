@@ -404,6 +404,7 @@ class FunctionsTest {
     }
 
     @Test
+    @DisplayName("Test that asPredicate(FailablePredicate) is converted to -> Predicate ")
     public void testAsPredicate() {
         FailureOnOddInvocations.invocation = 0;
         final Functions.FailablePredicate<Object, Throwable> failablePredicate = (t) -> FailureOnOddInvocations.failingBool();
@@ -418,6 +419,7 @@ class FunctionsTest {
     }
 
     @Test
+    @DisplayName("Test that asPredicate(FailableBiPredicate) is converted to -> BiPredicate ")
     public void testAsBiPredicate() {
         FailureOnOddInvocations.invocation = 0;
         final Functions.FailableBiPredicate<Object, Object, Throwable> failableBiPredicate = (t1, t2) -> FailureOnOddInvocations.failingBool();
