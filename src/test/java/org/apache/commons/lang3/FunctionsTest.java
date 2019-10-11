@@ -99,18 +99,18 @@ class FunctionsTest {
     public static class FailureOnOddInvocations {
         private static int invocation;
 
-        static boolean failingBool() throws SomeException {
+        private static void throwOnOdd() throws SomeException {
             final int i = ++invocation;
             if (i % 2 == 1) {
                 throw new SomeException("Odd Invocation: " + i);
             }
+        }
+        static boolean failingBool() throws SomeException {
+            throwOnOdd();
             return true;
         }
         FailureOnOddInvocations() throws SomeException {
-            final int i = ++invocation;
-            if (i % 2 == 1) {
-                throw new SomeException("Odd Invocation: " + i);
-            }
+            throwOnOdd();
         }
     }
 
