@@ -217,7 +217,7 @@ public class Functions {
      * @return a standard {@code BiFunction}
      */
     public static <I1, I2, O> BiFunction<I1, I2, O> asBiFunction(FailableBiFunction<I1, I2, O, ?> pFunction) {
-        return (pInput1, pInput2) -> apply(pFunction,pInput1,pInput2);
+        return (pInput1, pInput2) -> apply(pFunction, pInput1, pInput2);
     }
 
     /**
@@ -228,7 +228,7 @@ public class Functions {
      * @return a standard {@code Predicate}
      */
     public static <I> Predicate<I> asPredicate(FailablePredicate<I, ?> pPredicate) {
-        return (pInput) -> test(pPredicate,pInput);
+        return (pInput) -> test(pPredicate, pInput);
     }
 
     /**
@@ -240,7 +240,7 @@ public class Functions {
      * @return a standard {@code BiPredicate}
      */
     public static <I1, I2> BiPredicate<I1, I2> asBiPredicate(FailableBiPredicate<I1, I2, ?> pPredicate) {
-        return (pInput1, pInput2) -> test(pPredicate,pInput1,pInput2);
+        return (pInput1, pInput2) -> test(pPredicate, pInput1, pInput2);
     }
 
     /**
