@@ -428,17 +428,17 @@ public class ClassUtils {
      * <p>Gets the abbreviated name of a {@code Class}.</p>
      *
      * @param cls  the class to get the abbreviated name for, may be {@code null}
-     * @param len  the desired length of the abbreviated name
+     * @param lengthHint  the desired length of the abbreviated name
      * @return the abbreviated name or an empty string
      * @throws IllegalArgumentException if len &lt;= 0
      * @see #getAbbreviatedName(String, int)
      * @since 3.4
      */
-    public static String getAbbreviatedName(final Class<?> cls, final int len) {
+    public static String getAbbreviatedName(final Class<?> cls, final int lengthHint) {
       if (cls == null) {
         return StringUtils.EMPTY;
       }
-      return getAbbreviatedName(cls.getName(), len);
+      return getAbbreviatedName(cls.getName(), lengthHint);
     }
 
     /**
@@ -448,9 +448,20 @@ public class ClassUtils {
      *
      * <p>The abbreviation algorithm will shorten the class name, usually without
      * significant loss of meaning.</p>
+     *
      * <p>The abbreviated class name will always include the complete package hierarchy.
      * If enough space is available, rightmost sub-packages will be displayed in full
-     * length.</p>
+     * length. The abbreviated package names will be shortened to a single character.</p>
+     * <p>Only package names are shortened, the class simple name remains untouched. (See examples.)</p>
+     * <p>The result will be longer than the desired length only if all the package names
+     * shortened to a single character plus the class simple name with the separating dots
+     * together are longer than the desired length. In other words, when the class name
+     * cannot be shortened to the desired length.</p>
+     * <p>If the class name can be shortened then
+     * the final length will be at most {@code lengthHint} characters.</p>
+     * <p>If the {@code lengthHint} is zero or negative then the method
+     * throws exception. If you want to achieve the shortest possible version then
+     * use {@code 1} as a {@code lengthHint}.</p>
      *
      * <table>
      * <caption>Examples</caption>
@@ -459,48 +470,85 @@ public class ClassUtils {
      * <tr><td>"java.lang.String"</td><td> 5</td><td>"j.l.String"</td></tr>
      * <tr><td>"java.lang.String"</td><td>15</td><td>"j.lang.String"</td></tr>
      * <tr><td>"java.lang.String"</td><td>30</td><td>"java.lang.String"</td></tr>
+     * <tr><td>"org.apache.commons.lang3.ClassUtils"</td><td>18</td><td>"o.a.c.l.ClassUtils"</td></tr>
      * </table>
-     * @param className  the className to get the abbreviated name for, may be {@code null}
-     * @param len  the desired length of the abbreviated name
-     * @return the abbreviated name or an empty string
-     * @throws IllegalArgumentException if len &lt;= 0
+     *
+     * @param className the className to get the abbreviated name for, may be {@code null}
+     * @param lengthHint       the desired length of the abbreviated name
+     * @return the abbreviated name or an empty string if the specified
+     * class name is {@code null} or empty string. The abbreviated name may be
+     * longer than the desired length if it cannot be abbreviated to the desired length.
+     * @throws IllegalArgumentException if {@code len <= 0}
      * @since 3.4
      */
-    public static String getAbbreviatedName(final String className, final int len) {
-      if (len <= 0) {
-        throw new IllegalArgumentException("len must be > 0");
-      }
-      if (className == null) {
-        return StringUtils.EMPTY;
-      }
-
-      int availableSpace = len;
-      final int packageLevels = StringUtils.countMatches(className, '.');
-      final String[] output = new String[packageLevels + 1];
-      int endIndex = className.length() - 1;
-      for (int level = packageLevels; level >= 0; level--) {
-        final int startIndex = className.lastIndexOf('.', endIndex);
-        final String part = className.substring(startIndex + 1, endIndex + 1);
-        availableSpace -= part.length();
-        if (level > 0) {
-          // all elements except top level require an additional char space
-          availableSpace--;
+    public static String getAbbreviatedName(final String className, final int lengthHint) {
+        if (lengthHint <= 0) {
+            throw new IllegalArgumentException("len must be > 0");
         }
-        if (level == packageLevels) {
-          // ClassName is always complete
-          output[level] = part;
-        } else {
-          if (availableSpace > 0) {
-            output[level] = part;
-          } else {
-            // if no space is left still the first char is used
-            output[level] = part.substring(0, 1);
-          }
+        if (className == null) {
+            return StringUtils.EMPTY;
         }
-        endIndex = startIndex - 1;
-      }
+        if (className.length() <= lengthHint) {
+            return className;
+        }
+        final char[] abbreviated = className.toCharArray();
+        int target = 0;
+        int source = 0;
+        while (source < abbreviated.length) {
+            // copy the next part
+            int runAheadTarget = target;
+            while (source < abbreviated.length && abbreviated[source] != '.') {
+                abbreviated[runAheadTarget++] = abbreviated[source++];
+            }
 
-      return StringUtils.join(output, '.');
+            ++target;
+            if (useFull(runAheadTarget, source, abbreviated.length, lengthHint)
+                  || target > runAheadTarget) {
+                target = runAheadTarget;
+            }
+
+            // copy the '.' unless it was the last part
+            if (source < abbreviated.length) {
+                abbreviated[target++] = abbreviated[source++];
+            }
+        }
+        return new String(abbreviated, 0, target);
+    }
+
+    /**
+     * <p>Decides if the part that was just copied to its destination
+     * location in the work array can be kept as it was copied or must be
+     * abbreviated. It must be kept when the part is the last one, which
+     * is the simple name of the class. In this case the {@code source}
+     * index, from where the characters are copied points one position
+     * after the last character, a.k.a. {@code source ==
+     * originalLength}</p>
+     *
+     * <p>If the part is not the last one then it can be kept
+     * unabridged if the number of the characters copied so far plus
+     * the character that are to be copied is less than or equal to the
+     * desired length.</p>
+     *
+     * @param runAheadTarget the target index (where the characters were
+     *                       copied to) pointing after the last character
+     *                       copied when the current part was copied
+     * @param source         the source index (where the characters were
+     *                       copied from) pointing after the last
+     *                       character copied when the current part was
+     *                       copied
+     * @param originalLength the original length of the class full name,
+     *                       which is abbreviated
+     * @param desiredLength  the desired length of the abbreviated class
+     *                       name
+     * @return {@code true} if it can be kept in its original length
+     * {@code false} if the current part has to be abbreviated and
+     */
+    private static boolean useFull(final int runAheadTarget,
+                                   final int source,
+                                   final int originalLength,
+                                   final int desiredLength) {
+        return source >= originalLength ||
+            runAheadTarget + originalLength - source <= desiredLength;
     }
 
     // Superclasses/Superinterfaces
