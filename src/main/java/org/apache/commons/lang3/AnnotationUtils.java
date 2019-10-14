@@ -23,7 +23,6 @@ import java.util.Arrays;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
  * <p>Helper methods for working with {@link Annotation} instances.</p>
