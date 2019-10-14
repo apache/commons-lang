@@ -23,6 +23,7 @@ import java.util.Arrays;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
  * <p>Helper methods for working with {@link Annotation} instances.</p>
@@ -68,19 +69,13 @@ public class AnnotationUtils {
          * {@inheritDoc}
          */
         @Override
-        protected String getShortClassName(final java.lang.Class<?> cls) {
-            Class<? extends Annotation> annotationType = null;
+        protected String getShortClassName(final Class<?> cls) {
             for (final Class<?> iface : ClassUtils.getAllInterfaces(cls)) {
                 if (Annotation.class.isAssignableFrom(iface)) {
-                    @SuppressWarnings("unchecked") // OK because we just checked the assignability
-                    final
-                    Class<? extends Annotation> found = (Class<? extends Annotation>) iface;
-                    annotationType = found;
-                    break;
+                    return "@" + iface.getName();
                 }
             }
-            return new StringBuilder(annotationType == null ? StringUtils.EMPTY : annotationType.getName())
-                    .insert(0, '@').toString();
+            return StringUtils.EMPTY;
         }
 
         /**
@@ -125,15 +120,15 @@ public class AnnotationUtils {
         if (a1 == null || a2 == null) {
             return false;
         }
-        final Class<? extends Annotation> type = a1.annotationType();
+        final Class<? extends Annotation> type1 = a1.annotationType();
         final Class<? extends Annotation> type2 = a2.annotationType();
-        Validate.notNull(type, "Annotation %s with null annotationType()", a1);
+        Validate.notNull(type1, "Annotation %s with null annotationType()", a1);
         Validate.notNull(type2, "Annotation %s with null annotationType()", a2);
-        if (!type.equals(type2)) {
+        if (!type1.equals(type2)) {
             return false;
         }
         try {
-            for (final Method m : type.getDeclaredMethods()) {
+            for (final Method m : type1.getDeclaredMethods()) {
                 if (m.getParameterTypes().length == 0
                         && isValidAnnotationMemberType(m.getReturnType())) {
                     final Object v1 = m.invoke(a1);
