@@ -23,7 +23,12 @@ pipeline {
     agent none
     stages {
         stage('Build JDK8') {
-            agent { docker 'openjdk:8-jdk' }
+            agent {
+                docker {
+                    image 'maven:3-alpine'
+                    args '-v /root/.m2:/root/.m2'
+                }
+            }
             steps {
                 sh 'mvn clean verify -U -fae'
             }
