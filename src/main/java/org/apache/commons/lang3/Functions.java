@@ -545,9 +545,27 @@ public class Functions {
     }
 
     /**
-     * Rethrows a {@link Throwable} as an unchecked exception.
-     * @param pThrowable The throwable to rethrow
-     * @return Never returns anything, this method never terminates normally
+     * <p>Rethrow a {@link Throwable} as an unchecked exception. If the argument is
+     * already unchecked, namely a {@code RuntimeException} or {@code Error} then
+     * the argument will be rethrown without modification. If the exception is
+     * {@code IOException} then it will be enveloped into a {@code UncheckedIOException}.
+     * In every other cases the exception will be enveloped into a {@code
+     * UndeclaredThrowableException}</p>
+     *
+     * <p>Note that there is a declared return type for this method, even though it
+     * never returns. The reason for that is to support the usual pattern:</p>
+     *
+     * <pre>{@code
+     *      throw rethrow(myUncheckedException);
+     * }</pre>
+     *
+     * <p>instead of just calling the method. This pattern helps the Java compiler to
+     * recognize that at that point an exception will be thrown and the code flow
+     * analysis will not demand otherwise mandatory commands that could follow the
+     * method call, like a {@code return} statement from a value returning method.</p>
+     *
+     * @param pThrowable The throwable to rethrow possibly enveloped into an unchecked exception
+     * @return Never returns anything, this method never terminates normally.
      */
     public static RuntimeException rethrow(Throwable pThrowable) {
         if (pThrowable == null) {
