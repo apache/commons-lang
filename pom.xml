@@ -512,6 +512,14 @@
 
   <!-- Lang should depend on very little -->
   <dependencies>
+
+    <dependency>
+      <groupId>com.undefinedlabs.scope</groupId>
+      <artifactId>scope-agent</artifactId>
+      <version>${scope.agent.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
     <!-- testing -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -564,6 +572,8 @@
   </distributionManagement>
 
   <properties>
+    <scope.agent.version>0.2.1-beta.2</scope.agent.version>
+
     <argLine>-Xmx512m</argLine>
     <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -687,7 +697,10 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
+          <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <argLine>-javaagent:${settings.localRepository}/com/undefinedlabs/scope/scope-agent/${scope.agent.version}/scope-agent-${scope.agent.version}.jar</argLine>
+        </configuration>
         <executions>
           <execution>
             <id>plain</id>
