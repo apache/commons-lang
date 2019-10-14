@@ -572,7 +572,7 @@
   </distributionManagement>
 
   <properties>
-    <scope.agent.version>0.2.1-beta.2</scope.agent.version>
+    <scope.agent.version>0.2.1-beta.3</scope.agent.version>
     <scope.agent.path>${settings.localRepository}/com/undefinedlabs/scope/scope-agent/${scope.agent.version}/scope-agent-${scope.agent.version}.jar</scope.agent.path>
 
     <argLine>-Xmx512m</argLine>
