@@ -48,12 +48,13 @@ public class BooleanUtils {
      *
      * <p>If {@code null} is passed in, {@code null} will be returned.</p>
      *
-     * <p>NOTE: This returns null and will throw a NullPointerException if unboxed to a boolean. </p>
+     * <p>NOTE: This returns {@code null} and will throw a {@code NullPointerException}
+     * if unboxed to a boolean. </p>
      *
      * <pre>
-     *   BooleanUtils.negate(Boolean.TRUE)  = Boolean.FALSE;
-     *   BooleanUtils.negate(Boolean.FALSE) = Boolean.TRUE;
-     *   BooleanUtils.negate(null)          = null;
+     *   BooleanUtils.negate(true)  = false;
+     *   BooleanUtils.negate(false) = true;
+     *   BooleanUtils.negate(null)  = null;
      * </pre>
      *
      * @param bool  the Boolean to negate, may be null
@@ -63,7 +64,7 @@ public class BooleanUtils {
         if (bool == null) {
             return null;
         }
-        return bool.booleanValue() ? Boolean.FALSE : Boolean.TRUE;
+        return !bool;
     }
 
     // boolean Boolean methods
@@ -73,17 +74,17 @@ public class BooleanUtils {
      * handling {@code null} by returning {@code false}.</p>
      *
      * <pre>
-     *   BooleanUtils.isTrue(Boolean.TRUE)  = true
-     *   BooleanUtils.isTrue(Boolean.FALSE) = false
-     *   BooleanUtils.isTrue(null)          = false
+     *   BooleanUtils.isTrue(true)  = true
+     *   BooleanUtils.isTrue(false) = false
+     *   BooleanUtils.isTrue(null)  = false
      * </pre>
      *
-     * @param bool  the boolean to check, null returns {@code false}
+     * @param bool the boolean to check, {@code null} returns {@code false}
      * @return {@code true} only if the input is non-null and true
      * @since 2.1
      */
     public static boolean isTrue(final Boolean bool) {
-        return Boolean.TRUE.equals(bool);
+        return true == bool;
     }
 
     /**
