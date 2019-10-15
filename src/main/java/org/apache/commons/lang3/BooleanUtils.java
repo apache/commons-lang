@@ -50,9 +50,9 @@ public class BooleanUtils {
      * if unboxed to a boolean. </p>
      *
      * <pre>
-     *   BooleanUtils.negate(true)  = false;
-     *   BooleanUtils.negate(false) = true;
-     *   BooleanUtils.negate(null)  = null;
+     *   BooleanUtils.negate(Boolean.TRUE)  = Boolean.FALSE;
+     *   BooleanUtils.negate(Boolean.FALSE) = Boolean.TRUE;
+     *   BooleanUtils.negate(null)          = null;
      * </pre>
      *
      * @param bool  the Boolean to negate, may be null
@@ -72,9 +72,9 @@ public class BooleanUtils {
      * handling {@code null} by returning {@code false}.</p>
      *
      * <pre>
-     *   BooleanUtils.isTrue(true)  = true
-     *   BooleanUtils.isTrue(false) = false
-     *   BooleanUtils.isTrue(null)  = false
+     *   BooleanUtils.isTrue(Boolean.TRUE)  = true
+     *   BooleanUtils.isTrue(Boolean.FALSE) = false
+     *   BooleanUtils.isTrue(null)          = false
      * </pre>
      *
      * @param bool the boolean to check, {@code null} returns {@code false}
@@ -108,9 +108,9 @@ public class BooleanUtils {
      * handling {@code null} by returning {@code false}.</p>
      *
      * <pre>
-     *   BooleanUtils.isFalse(true)  = false
-     *   BooleanUtils.isFalse(false) = true
-     *   BooleanUtils.isFalse(null)  = false
+     *   BooleanUtils.isFalse(Boolean.TRUE)  = false
+     *   BooleanUtils.isFalse(Boolean.FALSE) = true
+     *   BooleanUtils.isFalse(null)          = false
      * </pre>
      *
      * @param bool  the boolean to check, null returns {@code false}
@@ -126,9 +126,9 @@ public class BooleanUtils {
      * handling {@code null} by returning {@code true}.</p>
      *
      * <pre>
-     *   BooleanUtils.isNotFalse(true)  = true
-     *   BooleanUtils.isNotFalse(false) = false
-     *   BooleanUtils.isNotFalse(null)  = true
+     *   BooleanUtils.isNotFalse(Boolean.TRUE)  = true
+     *   BooleanUtils.isNotFalse(Boolean.FALSE) = false
+     *   BooleanUtils.isNotFalse(null)          = true
      * </pre>
      *
      * @param bool  the boolean to check, null returns {@code true}
@@ -145,9 +145,9 @@ public class BooleanUtils {
      * by returning {@code false}.</p>
      *
      * <pre>
-     *   BooleanUtils.toBoolean(true)  = true
-     *   BooleanUtils.toBoolean(false) = false
-     *   BooleanUtils.toBoolean(null)  = false
+     *   BooleanUtils.toBoolean(Boolean.TRUE)  = true
+     *   BooleanUtils.toBoolean(Boolean.FALSE) = false
+     *   BooleanUtils.toBoolean(null)          = false
      * </pre>
      *
      * @param bool  the boolean to convert
@@ -690,9 +690,9 @@ public class BooleanUtils {
                 return null;
             }
         } else if (str.equals(trueString)) {
-            return Boolean.TRUE;
+            return true;
         } else if (str.equals(falseString)) {
-            return Boolean.FALSE;
+            return false;
         } else if (str.equals(nullString)) {
             return null;
         }
