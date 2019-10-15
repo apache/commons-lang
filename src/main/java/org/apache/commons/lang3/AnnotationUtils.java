@@ -42,7 +42,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @since 3.0
  */
-public class AnnotationUtils {
+public class  AnnotationUtils {
 
     /**
      * A style that prints annotations as recommended.
