@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 /**
  * <p>Operations on boolean primitives and Boolean objects.</p>
  *
@@ -62,7 +64,7 @@ public class BooleanUtils {
         if (bool == null) {
             return null;
         }
-        return !bool;
+        return bool.booleanValue() ? Boolean.FALSE : Boolean.TRUE;
     }
 
     // boolean Boolean methods
@@ -177,7 +179,7 @@ public class BooleanUtils {
         if (bool == null) {
             return valueIfNull;
         }
-        return bool;
+        return bool.booleanValue();
     }
 
     // Integer to Boolean methods
@@ -215,7 +217,7 @@ public class BooleanUtils {
      *  {@code null} if {@code null}
      */
     public static Boolean toBooleanObject(final int value) {
-        return value != 0;
+        return value == 0 ? Boolean.FALSE : Boolean.TRUE;
     }
 
     /**
@@ -241,7 +243,7 @@ public class BooleanUtils {
         if (value == null) {
             return null;
         }
-        return value != 0;
+        return value.intValue() == 0 ? Boolean.FALSE : Boolean.TRUE;
     }
 
     /**
@@ -335,10 +337,10 @@ public class BooleanUtils {
      */
     public static Boolean toBooleanObject(final int value, final int trueValue, final int falseValue, final int nullValue) {
         if (value == trueValue) {
-            return true;
+            return Boolean.TRUE;
         }
         if (value == falseValue) {
-            return false;
+            return Boolean.FALSE;
         }
         if (value == nullValue) {
             return null;
@@ -374,18 +376,18 @@ public class BooleanUtils {
     public static Boolean toBooleanObject(final Integer value, final Integer trueValue, final Integer falseValue, final Integer nullValue) {
         if (value == null) {
             if (trueValue == null) {
-                return true;
+                return Boolean.TRUE;
             }
             if (falseValue == null) {
-                return false;
+                return Boolean.FALSE;
             }
             if (nullValue == null) {
                 return null;
             }
         } else if (value.equals(trueValue)) {
-            return true;
+            return Boolean.TRUE;
         } else if (value.equals(falseValue)) {
-            return false;
+            return Boolean.FALSE;
         } else if (value.equals(nullValue)) {
             return null;
         }
@@ -423,7 +425,7 @@ public class BooleanUtils {
      * @return one if {@code true}, zero if {@code false}
      */
     public static Integer toIntegerObject(final boolean bool) {
-        return bool ? 1 : 0;
+        return bool ? NumberUtils.INTEGER_ONE : NumberUtils.INTEGER_ZERO;
     }
 
     /**
@@ -444,7 +446,7 @@ public class BooleanUtils {
         if (bool == null) {
             return null;
         }
-        return bool ? 1 : 0;
+        return bool.booleanValue() ? NumberUtils.INTEGER_ONE : NumberUtils.INTEGER_ZERO;
     }
 
     /**
@@ -483,7 +485,7 @@ public class BooleanUtils {
         if (bool == null) {
             return nullValue;
         }
-        return bool ? trueValue : falseValue;
+        return bool.booleanValue() ? trueValue : falseValue;
     }
 
     /**
@@ -522,7 +524,7 @@ public class BooleanUtils {
         if (bool == null) {
             return nullValue;
         }
-        return bool ? trueValue : falseValue;
+        return bool.booleanValue() ? trueValue : falseValue;
     }
 
     // String to Boolean methods
@@ -570,7 +572,7 @@ public class BooleanUtils {
         // Similar performance for null, 'false', and other strings not length 2/3/4.
         // 'true'/'TRUE' match 4 times slower, 'tRUE'/'True' 7 times slower.
         if (str == "true") {
-            return true;
+            return Boolean.TRUE;
         }
         if (str == null) {
             return null;
@@ -580,11 +582,11 @@ public class BooleanUtils {
                 final char ch0 = str.charAt(0);
                 if (ch0 == 'y' || ch0 == 'Y' ||
                     ch0 == 't' || ch0 == 'T') {
-                    return true;
+                    return Boolean.TRUE;
                 }
                 if (ch0 == 'n' || ch0 == 'N' ||
                     ch0 == 'f' || ch0 == 'F') {
-                    return false;
+                    return Boolean.FALSE;
                 }
                 break;
             }
@@ -593,11 +595,11 @@ public class BooleanUtils {
                 final char ch1 = str.charAt(1);
                 if ((ch0 == 'o' || ch0 == 'O') &&
                     (ch1 == 'n' || ch1 == 'N') ) {
-                    return true;
+                    return Boolean.TRUE;
                 }
                 if ((ch0 == 'n' || ch0 == 'N') &&
                     (ch1 == 'o' || ch1 == 'O') ) {
-                    return false;
+                    return Boolean.FALSE;
                 }
                 break;
             }
@@ -608,12 +610,12 @@ public class BooleanUtils {
                 if ((ch0 == 'y' || ch0 == 'Y') &&
                     (ch1 == 'e' || ch1 == 'E') &&
                     (ch2 == 's' || ch2 == 'S') ) {
-                    return true;
+                    return Boolean.TRUE;
                 }
                 if ((ch0 == 'o' || ch0 == 'O') &&
                     (ch1 == 'f' || ch1 == 'F') &&
                     (ch2 == 'f' || ch2 == 'F') ) {
-                    return false;
+                    return Boolean.FALSE;
                 }
                 break;
             }
@@ -626,7 +628,7 @@ public class BooleanUtils {
                     (ch1 == 'r' || ch1 == 'R') &&
                     (ch2 == 'u' || ch2 == 'U') &&
                     (ch3 == 'e' || ch3 == 'E') ) {
-                    return true;
+                    return Boolean.TRUE;
                 }
                 break;
             }
@@ -641,7 +643,7 @@ public class BooleanUtils {
                     (ch2 == 'l' || ch2 == 'L') &&
                     (ch3 == 's' || ch3 == 'S') &&
                     (ch4 == 'e' || ch4 == 'E') ) {
-                    return false;
+                    return Boolean.FALSE;
                 }
                 break;
             }
@@ -690,9 +692,9 @@ public class BooleanUtils {
                 return null;
             }
         } else if (str.equals(trueString)) {
-            return true;
+            return Boolean.TRUE;
         } else if (str.equals(falseString)) {
-            return false;
+            return Boolean.FALSE;
         } else if (str.equals(nullString)) {
             return null;
         }
@@ -836,7 +838,7 @@ public class BooleanUtils {
         if (bool == null) {
             return nullString;
         }
-        return bool ? trueString : falseString;
+        return bool.booleanValue() ? trueString : falseString;
     }
 
     // boolean to String methods
@@ -971,7 +973,7 @@ public class BooleanUtils {
         }
         try {
             final boolean[] primitive = ArrayUtils.toPrimitive(array);
-            return and(primitive);
+            return and(primitive) ? Boolean.TRUE : Boolean.FALSE;
         } catch (final NullPointerException ex) {
             throw new IllegalArgumentException("The array must not contain any null elements");
         }
@@ -1039,7 +1041,7 @@ public class BooleanUtils {
         }
         try {
             final boolean[] primitive = ArrayUtils.toPrimitive(array);
-            return or(primitive);
+            return or(primitive) ? Boolean.TRUE : Boolean.FALSE;
         } catch (final NullPointerException ex) {
             throw new IllegalArgumentException("The array must not contain any null elements");
         }
@@ -1101,7 +1103,7 @@ public class BooleanUtils {
         }
         try {
             final boolean[] primitive = ArrayUtils.toPrimitive(array);
-            return xor(primitive);
+            return xor(primitive) ? Boolean.TRUE : Boolean.FALSE;
         } catch (final NullPointerException ex) {
             throw new IllegalArgumentException("The array must not contain any null elements");
         }
