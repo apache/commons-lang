@@ -491,7 +491,7 @@ public class Functions {
     }
 
     /**
-     * <p>Rethrow a {@link Throwable} as an unchecked exception. If the argument is
+     * <p>Rethrows a {@link Throwable} as an unchecked exception. If the argument is
      * already unchecked, namely a {@code RuntimeException} or {@code Error} then
      * the argument will be rethrown without modification. If the exception is
      * {@code IOException} then it will be wrapped into a {@code UncheckedIOException}.
@@ -501,9 +501,9 @@ public class Functions {
      * <p>Note that there is a declared return type for this method, even though it
      * never returns. The reason for that is to support the usual pattern:</p>
      *
-     * <pre>{@code
+     * <pre>
      *      throw rethrow(myUncheckedException);
-     * }</pre>
+     * </pre>
      *
      * <p>instead of just calling the method. This pattern may help the Java compiler to
      * recognize that at that point an exception will be thrown and the code flow
