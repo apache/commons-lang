@@ -3255,6 +3255,57 @@ public class ArrayUtils {
     }
 
     /**
+     * <p>Finds the indices of the given object in the array.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param objectToFind  the object to find, may be {@code null}
+     * @return a BitSet of all the indices of the object within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     */
+    public static BitSet indexesOf(final Object[] array, final Object objectToFind) {
+        return indexesOf(array, objectToFind, 0);
+    }
+
+    /**
+     * <p>Finds the indices of the given object in the array starting at the given index.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.
+     *
+     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return an empty BitSet.
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param objectToFind  the object to find, may be {@code null}
+     * @param startIndex  the index to start searching at
+     * @return a BitSet of all the indices of the object within the array starting at the index,
+     *  an empty BitSet if not found or {@code null} array input
+     */
+    public static BitSet indexesOf(final Object[] array, final Object objectToFind, int startIndex) {
+        BitSet ret = new BitSet();
+
+        if (array == null) {
+            return ret;
+        }
+
+        while (startIndex < array.length) {
+            startIndex = indexOf(array, objectToFind, startIndex);
+
+            if (startIndex == INDEX_NOT_FOUND) {
+                break;
+            }
+
+            ret.set(startIndex);
+            ++startIndex;
+        }
+
+        return ret;
+    }
+
+
+
+    /**
      * <p>Finds the last index of the given object within the array.
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
@@ -3366,6 +3417,55 @@ public class ArrayUtils {
     }
 
     /**
+     * <p>Finds the indices of the given value in the array.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param valueToFind  the value to find
+     * @return a BitSet of all the indices of the value within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     */
+    public static BitSet indexesOf(final long[] array, final long valueToFind) {
+        return indexesOf(array, valueToFind, 0);
+    }
+
+    /**
+     * <p>Finds the indices of the given value in the array starting at the given index.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.
+     *
+     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return an empty BitSet.
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param valueToFind  the value to find
+     * @param startIndex  the index to start searching at
+     * @return a BitSet of all the indices of the value within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     */
+    public static BitSet indexesOf(final long[] array, final long valueToFind, int startIndex) {
+        BitSet ret = new BitSet();
+
+        if (array == null) {
+            return ret;
+        }
+
+        while (startIndex < array.length) {
+            startIndex = indexOf(array, valueToFind, startIndex);
+
+            if (startIndex == INDEX_NOT_FOUND) {
+                break;
+            }
+
+            ret.set(startIndex);
+            ++startIndex;
+        }
+
+        return ret;
+    }
+
+    /**
      * <p>Finds the last index of the given value within the array.
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
@@ -3469,6 +3569,55 @@ public class ArrayUtils {
     }
 
     /**
+     * <p>Finds the indices of the given value in the array.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param valueToFind  the value to find
+     * @return a BitSet of all the indices of the value within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     */
+    public static BitSet indexesOf(final int[] array, final int valueToFind) {
+        return indexesOf(array, valueToFind, 0);
+    }
+
+    /**
+     * <p>Finds the indices of the given value in the array starting at the given index.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.
+     *
+     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return an empty BitSet.
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param valueToFind  the value to find
+     * @param startIndex  the index to start searching at
+     * @return a BitSet of all the indices of the value within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     */
+    public static BitSet indexesOf(final int[] array, final int valueToFind, int startIndex) {
+        BitSet ret = new BitSet();
+
+        if (array == null) {
+            return ret;
+        }
+
+        while (startIndex < array.length) {
+            startIndex = indexOf(array, valueToFind, startIndex);
+
+            if (startIndex == INDEX_NOT_FOUND) {
+                break;
+            }
+
+            ret.set(startIndex);
+            ++startIndex;
+        }
+
+        return ret;
+    }
+
+    /**
      * <p>Finds the last index of the given value within the array.
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
@@ -3569,6 +3718,55 @@ public class ArrayUtils {
             }
         }
         return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * <p>Finds the indices of the given value in the array.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param valueToFind  the value to find
+     * @return a BitSet of all the indices of the value within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     */
+    public static BitSet indexesOf(final short[] array, final short valueToFind) {
+        return indexesOf(array, valueToFind, 0);
+    }
+
+    /**
+     * <p>Finds the indices of the given value in the array starting at the given index.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.
+     *
+     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return an empty BitSet.
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param valueToFind  the value to find
+     * @param startIndex  the index to start searching at
+     * @return a BitSet of all the indices of the value within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     */
+    public static BitSet indexesOf(final short[] array, final short valueToFind, int startIndex) {
+        BitSet ret = new BitSet();
+
+        if (array == null) {
+            return ret;
+        }
+
+        while (startIndex < array.length) {
+            startIndex = indexOf(array, valueToFind, startIndex);
+
+            if (startIndex == INDEX_NOT_FOUND) {
+                break;
+            }
+
+            ret.set(startIndex);
+            ++startIndex;
+        }
+
+        return ret;
     }
 
     /**
@@ -3677,6 +3875,57 @@ public class ArrayUtils {
     }
 
     /**
+     * <p>Finds the indices of the given value in the array.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param valueToFind  the value to find
+     * @return a BitSet of all the indices of the value within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     * @since 2.1
+     */
+    public static BitSet indexesOf(final char[] array, final char valueToFind) {
+        return indexesOf(array, valueToFind, 0);
+    }
+
+    /**
+     * <p>Finds the indices of the given value in the array starting at the given index.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.
+     *
+     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return an empty BitSet.
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param valueToFind  the value to find
+     * @param startIndex  the index to start searching at
+     * @return a BitSet of all the indices of the value within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     * @since 2.1
+     */
+    public static BitSet indexesOf(final char[] array, final char valueToFind, int startIndex) {
+        BitSet ret = new BitSet();
+
+        if (array == null) {
+            return ret;
+        }
+
+        while (startIndex < array.length) {
+            startIndex = indexOf(array, valueToFind, startIndex);
+
+            if (startIndex == INDEX_NOT_FOUND) {
+                break;
+            }
+
+            ret.set(startIndex);
+            ++startIndex;
+        }
+
+        return ret;
+    }
+
+    /**
      * <p>Finds the last index of the given value within the array.
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
@@ -3780,6 +4029,55 @@ public class ArrayUtils {
             }
         }
         return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * <p>Finds the indices of the given value in the array.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param valueToFind  the value to find
+     * @return a BitSet of all the indices of the value within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     */
+    public static BitSet indexesOf(final byte[] array, final byte valueToFind) {
+        return indexesOf(array, valueToFind, 0);
+    }
+
+    /**
+     * <p>Finds the indices of the given value in the array starting at the given index.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.
+     *
+     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return an empty BitSet.
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param valueToFind  the value to find
+     * @param startIndex  the index to start searching at
+     * @return a BitSet of all the indices of the value within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     */
+    public static BitSet indexesOf(final byte[] array, final byte valueToFind, int startIndex) {
+        BitSet ret = new BitSet();
+
+        if (array == null) {
+            return ret;
+        }
+
+        while (startIndex < array.length) {
+            startIndex = indexOf(array, valueToFind, startIndex);
+
+            if (startIndex == INDEX_NOT_FOUND) {
+                break;
+            }
+
+            ret.set(startIndex);
+            ++startIndex;
+        }
+
+        return ret;
     }
 
     /**
@@ -3934,6 +4232,111 @@ public class ArrayUtils {
             }
         }
         return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * <p>Finds the indices of the given value in the array.
+     *
+     * <p>This method returns empty BitSet for a {@code null} input array.
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param valueToFind  the value to find
+     * @return a BitSet of all the indices of the value within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     */
+    public static BitSet indexesOf(final double[] array, final double valueToFind) {
+        return indexesOf(array, valueToFind, 0);
+    }
+
+    /**
+     * <p>Finds the indices of the given value within a given tolerance in the array.
+     * This method will return all the indices of the value which fall between the region
+     * defined by valueToFind - tolerance and valueToFind + tolerance, each time between the nearest integers.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param valueToFind  the value to find
+     * @param tolerance tolerance of the search
+     * @return a BitSet of all the indices of the value within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     */
+    public static BitSet indexesOf(final double[] array, final double valueToFind, final double tolerance) {
+        return indexesOf(array, valueToFind, 0, tolerance);
+    }
+
+
+    /**
+     * <p>Finds the indices of the given value in the array starting at the given index.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.
+     *
+     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return an empty BitSet.
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param valueToFind  the value to find
+     * @param startIndex  the index to start searching at
+     * @return a BitSet of the indices of the value within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     */
+    public static BitSet indexesOf(final double[] array, final double valueToFind, int startIndex) {
+        BitSet ret = new BitSet();
+
+        if (array == null) {
+            return ret;
+        }
+
+        while (startIndex < array.length) {
+            startIndex = indexOf(array, valueToFind, startIndex);
+
+            if (startIndex == INDEX_NOT_FOUND) {
+                break;
+            }
+
+            ret.set(startIndex);
+            ++startIndex;
+        }
+
+        return ret;
+    }
+
+    /**
+     * <p>Finds the indices of the given value in the array starting at the given index.
+     * This method will return the indices of the values which fall between the region
+     * defined by valueToFind - tolerance and valueToFind + tolerance, between the nearest integers.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.
+     *
+     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return an empty BitSet.
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param valueToFind  the value to find
+     * @param startIndex  the index to start searching at
+     * @param tolerance tolerance of the search
+     * @return a BitSet of the indices of the value within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     */
+    public static BitSet indexesOf(final double[] array, final double valueToFind, int startIndex, final double tolerance) {
+        BitSet ret = new BitSet();
+
+        if (array == null) {
+            return ret;
+        }
+
+        while (startIndex < array.length) {
+            startIndex = indexOf(array, valueToFind, startIndex, tolerance);
+
+            if (startIndex == INDEX_NOT_FOUND) {
+                break;
+            }
+
+            ret.set(startIndex);
+            ++startIndex;
+        }
+
+        return ret;
     }
 
     /**
@@ -4110,6 +4513,55 @@ public class ArrayUtils {
     }
 
     /**
+     * <p>Finds the indices of the given value in the array.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param valueToFind  the value to find
+     * @return a BitSet of all the indices of the value within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     */
+    public static BitSet indexesOf(final float[] array, final float valueToFind) {
+        return indexesOf(array, valueToFind, 0);
+    }
+
+    /**
+     * <p>Finds the indices of the given value in the array starting at the given index.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.
+     *
+     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return empty BitSet.
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param valueToFind  the value to find
+     * @param startIndex  the index to start searching at
+     * @return a BitSet of all the indices of the value within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     */
+    public static BitSet indexesOf(final float[] array, final float valueToFind, int startIndex) {
+        BitSet ret = new BitSet();
+
+        if (array == null) {
+            return ret;
+        }
+
+        while (startIndex < array.length) {
+            startIndex = indexOf(array, valueToFind, startIndex);
+
+            if (startIndex == INDEX_NOT_FOUND) {
+                break;
+            }
+
+            ret.set(startIndex);
+            ++startIndex;
+        }
+
+        return ret;
+    }
+
+    /**
      * <p>Finds the last index of the given value within the array.
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
@@ -4211,6 +4663,56 @@ public class ArrayUtils {
             }
         }
         return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * <p>Finds the indices of the given value in the array.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param valueToFind  the value to find
+     * @return a BitSet of all the the indices of the value within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     */
+    public static BitSet indexesOf(final boolean[] array, final boolean valueToFind) {
+        return indexesOf(array, valueToFind, 0);
+    }
+
+    /**
+     * <p>Finds the indices of the given value in the array starting at the given index.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.
+     *
+     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return an empty BitSet ({@code -1}).
+     *
+     * @param array  the array to search through for the object, may be {@code null}
+     * @param valueToFind  the value to find
+     * @param startIndex  the index to start searching at
+     * @return a BitSet of all the indices of the value within the array,
+     *  an empty BitSet if not found or {@code null}
+     *  array input
+     */
+    public static BitSet indexesOf(final boolean[] array, final boolean valueToFind, int startIndex) {
+        BitSet ret = new BitSet();
+
+        if (array == null) {
+            return ret;
+        }
+
+        while (startIndex < array.length) {
+            startIndex = indexOf(array, valueToFind, startIndex);
+
+            if (startIndex == INDEX_NOT_FOUND) {
+                break;
+            }
+
+            ret.set(startIndex);
+            ++startIndex;
+        }
+
+        return ret;
     }
 
     /**
@@ -7720,6 +8222,10 @@ public class ArrayUtils {
      */
     // package protected for access by unit tests
     static Object removeAll(final Object array, final BitSet indices) {
+        if (array == null) {
+            return null;
+        }
+
         final int srcLength = getLength(array);
         // No need to check maxIndex here, because method only currently called from removeElements()
         // which guarantee to generate on;y valid bit entries.
@@ -8010,20 +8516,8 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static boolean[] removeAllOccurences(final boolean[] array, final boolean element) {
-        int index = indexOf(array, element);
-        if (index == INDEX_NOT_FOUND) {
-            return clone(array);
-        }
-
-        final int[] indices = new int[array.length - index];
-        indices[0] = index;
-        int count = 1;
-
-        while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
-            indices[count++] = index;
-        }
-
-        return removeAll(array, Arrays.copyOf(indices, count));
+        BitSet foundBits = indexesOf(array, element);
+        return (boolean[]) removeAll((Object) array, foundBits);
     }
 
     /**
@@ -8042,20 +8536,8 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static char[] removeAllOccurences(final char[] array, final char element) {
-        int index = indexOf(array, element);
-        if (index == INDEX_NOT_FOUND) {
-            return clone(array);
-        }
-
-        final int[] indices = new int[array.length - index];
-        indices[0] = index;
-        int count = 1;
-
-        while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
-            indices[count++] = index;
-        }
-
-        return removeAll(array, Arrays.copyOf(indices, count));
+        BitSet foundBits = indexesOf(array, element);
+        return (char[]) removeAll((Object) array, foundBits);
     }
 
     /**
@@ -8074,20 +8556,8 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static byte[] removeAllOccurences(final byte[] array, final byte element) {
-        int index = indexOf(array, element);
-        if (index == INDEX_NOT_FOUND) {
-            return clone(array);
-        }
-
-        final int[] indices = new int[array.length - index];
-        indices[0] = index;
-        int count = 1;
-
-        while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
-            indices[count++] = index;
-        }
-
-        return removeAll(array, Arrays.copyOf(indices, count));
+        BitSet foundBits = indexesOf(array, element);
+        return (byte[]) removeAll((Object) array, foundBits);
     }
 
     /**
@@ -8106,20 +8576,8 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static short[] removeAllOccurences(final short[] array, final short element) {
-        int index = indexOf(array, element);
-        if (index == INDEX_NOT_FOUND) {
-            return clone(array);
-        }
-
-        final int[] indices = new int[array.length - index];
-        indices[0] = index;
-        int count = 1;
-
-        while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
-            indices[count++] = index;
-        }
-
-        return removeAll(array, Arrays.copyOf(indices, count));
+        BitSet foundBits = indexesOf(array, element);
+        return (short[]) removeAll((Object) array, foundBits);
     }
 
     /**
@@ -8138,20 +8596,8 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static int[] removeAllOccurences(final int[] array, final int element) {
-        int index = indexOf(array, element);
-        if (index == INDEX_NOT_FOUND) {
-            return clone(array);
-        }
-
-        final int[] indices = new int[array.length - index];
-        indices[0] = index;
-        int count = 1;
-
-        while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
-            indices[count++] = index;
-        }
-
-        return removeAll(array, Arrays.copyOf(indices, count));
+        BitSet foundBits = indexesOf(array, element);
+        return (int[]) removeAll((Object) array, foundBits);
     }
 
     /**
@@ -8170,20 +8616,8 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static long[] removeAllOccurences(final long[] array, final long element) {
-        int index = indexOf(array, element);
-        if (index == INDEX_NOT_FOUND) {
-            return clone(array);
-        }
-
-        final int[] indices = new int[array.length - index];
-        indices[0] = index;
-        int count = 1;
-
-        while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
-            indices[count++] = index;
-        }
-
-        return removeAll(array, Arrays.copyOf(indices, count));
+        BitSet foundBits = indexesOf(array, element);
+        return (long[]) removeAll((Object) array, foundBits);
     }
 
     /**
@@ -8202,20 +8636,8 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static float[] removeAllOccurences(final float[] array, final float element) {
-        int index = indexOf(array, element);
-        if (index == INDEX_NOT_FOUND) {
-            return clone(array);
-        }
-
-        final int[] indices = new int[array.length - index];
-        indices[0] = index;
-        int count = 1;
-
-        while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
-            indices[count++] = index;
-        }
-
-        return removeAll(array, Arrays.copyOf(indices, count));
+        BitSet foundBits = indexesOf(array, element);
+        return (float[]) removeAll((Object) array, foundBits);
     }
 
     /**
@@ -8234,20 +8656,8 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static double[] removeAllOccurences(final double[] array, final double element) {
-        int index = indexOf(array, element);
-        if (index == INDEX_NOT_FOUND) {
-            return clone(array);
-        }
-
-        final int[] indices = new int[array.length - index];
-        indices[0] = index;
-        int count = 1;
-
-        while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
-            indices[count++] = index;
-        }
-
-        return removeAll(array, Arrays.copyOf(indices, count));
+        BitSet foundBits = indexesOf(array, element);
+        return (double[]) removeAll((Object) array, foundBits);
     }
 
     /**
@@ -8267,20 +8677,8 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static <T> T[] removeAllOccurences(final T[] array, final T element) {
-        int index = indexOf(array, element);
-        if (index == INDEX_NOT_FOUND) {
-            return clone(array);
-        }
-
-        final int[] indices = new int[array.length - index];
-        indices[0] = index;
-        int count = 1;
-
-        while ((index = indexOf(array, element, indices[count - 1] + 1)) != INDEX_NOT_FOUND) {
-            indices[count++] = index;
-        }
-
-        return removeAll(array, Arrays.copyOf(indices, count));
+        BitSet foundBits = indexesOf(array, element);
+        return (T[]) removeAll((Object)array, foundBits);
     }
 
     /**
