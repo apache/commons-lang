@@ -8678,7 +8678,7 @@ public class ArrayUtils {
      */
     public static <T> T[] removeAllOccurences(final T[] array, final T element) {
         BitSet foundBits = indexesOf(array, element);
-        return (T[]) removeAll((Object)array, foundBits);
+        return (T[]) removeAll((Object) array, foundBits);
     }
 
     /**
