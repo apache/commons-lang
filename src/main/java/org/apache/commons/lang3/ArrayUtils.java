@@ -3263,6 +3263,7 @@ public class ArrayUtils {
      * @param objectToFind  the object to find, may be {@code null}
      * @return a BitSet of all the indices of the object within the array,
      *  an empty BitSet if not found or {@code null} array input
+     * @since 3.10
      */
     public static BitSet indexesOf(final Object[] array, final Object objectToFind) {
         return indexesOf(array, objectToFind, 0);
@@ -3281,6 +3282,7 @@ public class ArrayUtils {
      * @param startIndex  the index to start searching at
      * @return a BitSet of all the indices of the object within the array starting at the index,
      *  an empty BitSet if not found or {@code null} array input
+     * @since 3.10
      */
     public static BitSet indexesOf(final Object[] array, final Object objectToFind, int startIndex) {
         BitSet ret = new BitSet();
@@ -3425,6 +3427,7 @@ public class ArrayUtils {
      * @param valueToFind  the value to find
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
+     * @since 3.10
      */
     public static BitSet indexesOf(final long[] array, final long valueToFind) {
         return indexesOf(array, valueToFind, 0);
@@ -3443,6 +3446,7 @@ public class ArrayUtils {
      * @param startIndex  the index to start searching at
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
+     * @since 3.10
      */
     public static BitSet indexesOf(final long[] array, final long valueToFind, int startIndex) {
         BitSet ret = new BitSet();
@@ -3577,6 +3581,7 @@ public class ArrayUtils {
      * @param valueToFind  the value to find
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
+     * @since 3.10
      */
     public static BitSet indexesOf(final int[] array, final int valueToFind) {
         return indexesOf(array, valueToFind, 0);
@@ -3595,6 +3600,7 @@ public class ArrayUtils {
      * @param startIndex  the index to start searching at
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
+     * @since 3.10
      */
     public static BitSet indexesOf(final int[] array, final int valueToFind, int startIndex) {
         BitSet ret = new BitSet();
@@ -3729,6 +3735,7 @@ public class ArrayUtils {
      * @param valueToFind  the value to find
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
+     * @since 3.10
      */
     public static BitSet indexesOf(final short[] array, final short valueToFind) {
         return indexesOf(array, valueToFind, 0);
@@ -3747,6 +3754,7 @@ public class ArrayUtils {
      * @param startIndex  the index to start searching at
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
+     * @since 3.10
      */
     public static BitSet indexesOf(final short[] array, final short valueToFind, int startIndex) {
         BitSet ret = new BitSet();
@@ -3883,7 +3891,7 @@ public class ArrayUtils {
      * @param valueToFind  the value to find
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
-     * @since 2.1
+     * @since 3.10
      */
     public static BitSet indexesOf(final char[] array, final char valueToFind) {
         return indexesOf(array, valueToFind, 0);
@@ -3902,7 +3910,7 @@ public class ArrayUtils {
      * @param startIndex  the index to start searching at
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
-     * @since 2.1
+     * @since 3.10
      */
     public static BitSet indexesOf(final char[] array, final char valueToFind, int startIndex) {
         BitSet ret = new BitSet();
@@ -4040,6 +4048,7 @@ public class ArrayUtils {
      * @param valueToFind  the value to find
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
+     * @since 3.10
      */
     public static BitSet indexesOf(final byte[] array, final byte valueToFind) {
         return indexesOf(array, valueToFind, 0);
@@ -4058,6 +4067,7 @@ public class ArrayUtils {
      * @param startIndex  the index to start searching at
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
+     * @since 3.10
      */
     public static BitSet indexesOf(final byte[] array, final byte valueToFind, int startIndex) {
         BitSet ret = new BitSet();
@@ -4243,6 +4253,7 @@ public class ArrayUtils {
      * @param valueToFind  the value to find
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
+     * @since 3.10
      */
     public static BitSet indexesOf(final double[] array, final double valueToFind) {
         return indexesOf(array, valueToFind, 0);
@@ -4260,6 +4271,7 @@ public class ArrayUtils {
      * @param tolerance tolerance of the search
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
+     * @since 3.10
      */
     public static BitSet indexesOf(final double[] array, final double valueToFind, final double tolerance) {
         return indexesOf(array, valueToFind, 0, tolerance);
@@ -4279,6 +4291,7 @@ public class ArrayUtils {
      * @param startIndex  the index to start searching at
      * @return a BitSet of the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
+     * @since 3.10
      */
     public static BitSet indexesOf(final double[] array, final double valueToFind, int startIndex) {
         BitSet ret = new BitSet();
@@ -4317,6 +4330,7 @@ public class ArrayUtils {
      * @param tolerance tolerance of the search
      * @return a BitSet of the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
+     * @since 3.10
      */
     public static BitSet indexesOf(final double[] array, final double valueToFind, int startIndex, final double tolerance) {
         BitSet ret = new BitSet();
@@ -4521,6 +4535,7 @@ public class ArrayUtils {
      * @param valueToFind  the value to find
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
+     * @since 3.10
      */
     public static BitSet indexesOf(final float[] array, final float valueToFind) {
         return indexesOf(array, valueToFind, 0);
@@ -4539,6 +4554,7 @@ public class ArrayUtils {
      * @param startIndex  the index to start searching at
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
+     * @since 3.10
      */
     public static BitSet indexesOf(final float[] array, final float valueToFind, int startIndex) {
         BitSet ret = new BitSet();
@@ -4674,6 +4690,7 @@ public class ArrayUtils {
      * @param valueToFind  the value to find
      * @return a BitSet of all the the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
+     * @since 3.10
      */
     public static BitSet indexesOf(final boolean[] array, final boolean valueToFind) {
         return indexesOf(array, valueToFind, 0);
@@ -4693,6 +4710,7 @@ public class ArrayUtils {
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null}
      *  array input
+     * @since 3.10
      */
     public static BitSet indexesOf(final boolean[] array, final boolean valueToFind, int startIndex) {
         BitSet ret = new BitSet();
