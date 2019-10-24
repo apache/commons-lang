@@ -285,11 +285,11 @@ public class ArrayUtilsTest {
         map = ArrayUtils.toMap(new Object[][] { {"key", "value2"}, {"key", "value1"} });
         assertEquals(new HashMap<Object, Object>() {
 
-			private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
-			{
-        		put("key", "value1");
-        	}
+            {
+                 put("key", "value1");
+            }
         }, map);
     }
 
