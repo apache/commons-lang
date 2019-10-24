@@ -368,6 +368,22 @@ public class ToStringBuilderTest {
     }
 
     @Test
+    public void testExcludeNullValues() {
+        final ReflectionTestFixtureWithNullField base = new ReflectionTestFixtureWithNullField();
+        String baseString = this.toBaseString(base);
+        assertEquals(baseString + "[a=a,nullField=<null>]", ToStringBuilder.reflectionToString(base));
+        assertEquals(baseString + "[a=a,nullField=<null>]", ToStringBuilder.reflectionToString(base, null, false, false, null));
+        assertEquals(baseString + "[a=a]", ToStringBuilder.reflectionToString(base, null, false, true, null));
+    }
+
+    static class ReflectionTestFixtureWithNullField {
+        @SuppressWarnings("unused")
+        private final char a='a';
+        @SuppressWarnings("unused")
+        private final String nullField=null;
+    }
+
+    @Test
     public void testInnerClassReflection() {
         final Outer outer = new Outer();
         assertEquals(toBaseString(outer) + "[inner=" + toBaseString(outer.inner) + "[]]", outer.toString());

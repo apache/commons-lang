@@ -198,6 +198,29 @@ public class ToStringBuilder implements Builder<String> {
         return ReflectionToStringBuilder.toString(object, style, outputTransients, false, reflectUpToClass);
     }
 
+    /**
+     * <p>Uses <code>ReflectionToStringBuilder</code> to generate a
+     * <code>toString</code> for the specified object.</p>
+     *
+     * @param <T> the type of the object
+     * @param object  the Object to be output
+     * @param style  the style of the <code>toString</code> to create, may be <code>null</code>
+     * @param outputTransients  whether to include transient fields
+     * @param excludeNullValues  whether to exclude fields with null values
+     * @param reflectUpToClass  the superclass to reflect up to (inclusive), may be <code>null</code>
+     * @return the String result
+     * @see ReflectionToStringBuilder#toString(Object,ToStringStyle,boolean,boolean,boolean,Class)
+     * @since 2.0
+     */
+    public static <T> String reflectionToString(
+        final T object,
+        final ToStringStyle style,
+        final boolean outputTransients,
+        final boolean excludeNullValues,
+        final Class<? super T> reflectUpToClass) {
+        return ReflectionToStringBuilder.toString(object, style, outputTransients, false, excludeNullValues, reflectUpToClass);
+    }
+
     //----------------------------------------------------------------------------
 
     /**
