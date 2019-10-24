@@ -266,27 +266,27 @@ public class ArrayUtilsTest {
             }
         }});
         assertEquals("bar", map.get("foo"));
-        
+
         // Return empty map when got input array with length = 0
         assertEquals(Collections.emptyMap(), ArrayUtils.toMap(new Object[0]));
-        
+
         // Test all null values
         map = ArrayUtils.toMap(new Object[][] { {null, null}, {null, null} });
         assertEquals(new HashMap<Object, Object>() {
-        	
-			private static final long serialVersionUID = 1L;
 
-			{
-        		put(null, null);
-        	}
+            private static final long serialVersionUID = 1L;
+
+            {
+                put(null, null);
+            }
         }, map);
-        
+
         // Test duplicate keys
         map = ArrayUtils.toMap(new Object[][] { {"key", "value2"}, {"key", "value1"} });
         assertEquals(new HashMap<Object, Object>() {
-        	
+
 			private static final long serialVersionUID = 1L;
-			
+
 			{
         		put("key", "value1");
         	}
