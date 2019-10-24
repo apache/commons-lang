@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3;
 
+import org.apache.commons.lang3.exception.IllegalArgumentExceptions;
+
 /**
  * <p>Operations on char primitives and Character objects.</p>
  *
@@ -219,7 +221,7 @@ public class CharUtils {
      */
     public static int toIntValue(final char ch) {
         if (!isAsciiNumeric(ch)) {
-            throw new IllegalArgumentException("The character " + ch + " is not in the range '0' - '9'");
+            throw IllegalArgumentExceptions.format("The character %s is not in the range '0' - '9'", ch);
         }
         return ch - 48;
     }

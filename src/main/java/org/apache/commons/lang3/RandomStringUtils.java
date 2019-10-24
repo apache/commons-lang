@@ -18,6 +18,8 @@ package org.apache.commons.lang3;
 
 import java.util.Random;
 
+import org.apache.commons.lang3.exception.IllegalArgumentExceptions;
+
 /**
  * <p>Generates random {@code String}s.</p>
  *
@@ -360,7 +362,7 @@ public class RandomStringUtils {
         if (count == 0) {
             return StringUtils.EMPTY;
         } else if (count < 0) {
-            throw new IllegalArgumentException("Requested random string length " + count + " is less than 0.");
+            throw IllegalArgumentExceptions.format("Requested random string length %,d is less than 0.", count);
         }
         if (chars != null && chars.length == 0) {
             throw new IllegalArgumentException("The chars array must not be empty");
