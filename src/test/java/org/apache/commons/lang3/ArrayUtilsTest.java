@@ -30,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Map;
@@ -264,6 +265,17 @@ public class ArrayUtilsTest {
             }
         }});
         assertEquals("bar", map.get("foo"));
+
+        // Return empty map when got input array with length = 0
+        assertEquals(Collections.emptyMap(), ArrayUtils.toMap(new Object[0]));
+
+        // Test all null values
+        map = ArrayUtils.toMap(new Object[][] { {null, null}, {null, null} });
+        assertEquals(Collections.singletonMap(null, null), map);
+
+        // Test duplicate keys
+        map = ArrayUtils.toMap(new Object[][] { {"key", "value2"}, {"key", "value1"} });
+        assertEquals(Collections.singletonMap("key", "value1"), map);
     }
 
     //-----------------------------------------------------------------------
