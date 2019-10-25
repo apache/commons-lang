@@ -20,26 +20,26 @@ import java.util.Arrays;
 
 /**
  * This class is an optimized version of string split methods <br>
- * The behaviours of the following methods are guaranteed to be the <span color="red">SAME</span> as StringUtils:<br>
+ * The behaviours of the following methods are guaranteed to be the <strong>SAME</strong> as StringUtils:<br>
  * <pre>
- * {@link #split(String, char)} <-  {@link StringUtils#split(String, char)}
- * {@link #split(String, String)} <- {@link StringUtils#split(String, char)}
- * {@link #split(String, String, int)} <- {@link StringUtils#split(String, String, int)}
- * {@link #splitByWholeSeparator(String, String)} <- {@link StringUtils#splitByWholeSeparator(String, String)}
- * {@link #splitByWholeSeparator(String, String, int)} <- {@link StringUtils#splitByWholeSeparator(String, String, int)}
- * {@link #splitByCharacterType(String)} <- {@link StringUtils#splitByCharacterType(String)}
- * {@link #splitPreserveAllTokens(String, char)} <- {@link StringUtils#splitPreserveAllTokens(String, char)}
- * {@link #splitPreserveAllTokens(String, String)} <- {@link StringUtils#splitPreserveAllTokens(String, String)}
- * {@link #splitPreserveAllTokens(String, String, int)} <- {@link StringUtils#splitPreserveAllTokens(String, String, int)}
- * {@link #splitByWholeSeparatorPreserveAllTokens(String, String)} <- {@link StringUtils#splitByWholeSeparatorPreserveAllTokens(String, String)}
- * {@link #splitByWholeSeparatorPreserveAllTokens(String, String, int)} <- {@link StringUtils#splitByWholeSeparatorPreserveAllTokens(String, String, int)}
- * {@link #splitByCharacterTypeCamelCase(String)} <- {@link StringUtils#splitByCharacterTypeCamelCase(String)}
+ * {@link #split(String, char)} &lt;-  {@link StringUtils#split(String, char)}
+ * {@link #split(String, String)} &lt;- {@link StringUtils#split(String, char)}
+ * {@link #split(String, String, int)} &lt;- {@link StringUtils#split(String, String, int)}
+ * {@link #splitByWholeSeparator(String, String)} &lt;- {@link StringUtils#splitByWholeSeparator(String, String)}
+ * {@link #splitByWholeSeparator(String, String, int)} &lt;- {@link StringUtils#splitByWholeSeparator(String, String, int)}
+ * {@link #splitByCharacterType(String)} &lt;- {@link StringUtils#splitByCharacterType(String)}
+ * {@link #splitPreserveAllTokens(String, char)} &lt;- {@link StringUtils#splitPreserveAllTokens(String, char)}
+ * {@link #splitPreserveAllTokens(String, String)} &lt;- {@link StringUtils#splitPreserveAllTokens(String, String)}
+ * {@link #splitPreserveAllTokens(String, String, int)} &lt;- {@link StringUtils#splitPreserveAllTokens(String, String, int)}
+ * {@link #splitByWholeSeparatorPreserveAllTokens(String, String)} &lt;- {@link StringUtils#splitByWholeSeparatorPreserveAllTokens(String, String)}
+ * {@link #splitByWholeSeparatorPreserveAllTokens(String, String, int)} &lt;- {@link StringUtils#splitByWholeSeparatorPreserveAllTokens(String, String, int)}
+ * {@link #splitByCharacterTypeCamelCase(String)} &lt;- {@link StringUtils#splitByCharacterTypeCamelCase(String)}
  * </pre>
  * However, the performances of them are supposed to be better.<br>
  * There is a inner buffer {@link SplitBuffer} hold by a {@link ThreadLocal} instance to reduce array allocation.<br>
- * This class is <strong>thread-safe</strong>, but NOT guaranteed to be <strong>fiber-safe</strong>.<br>
+ * This class is <strong>ThreadSafe</strong>, but NOT guaranteed to be <strong>FiberSafe</strong>.<br>
  *
- * @since 3.0
+ * @since 3.10
  **/
 public class FastSplitUtils {
 
@@ -109,7 +109,7 @@ public class FastSplitUtils {
      * @param str           the String to parse, may be null
      * @param separatorChar the character used as the delimiter
      * @return an array of parsed Strings, {@code null} if null String input
-     * @since 2.0
+     * @since 3.10
      */
     public static String[] split(final String str, final char separatorChar) {
         return splitWorker(str, separatorChar, false);
@@ -196,7 +196,7 @@ public class FastSplitUtils {
      *
      * @param str the String to split, may be {@code null}
      * @return an array of parsed Strings, {@code null} if null String input
-     * @since 2.4
+     * @since 3.10
      */
     public static String[] splitByCharacterType(final String str) {
         return splitByCharacterType(str, false);
@@ -215,7 +215,7 @@ public class FastSplitUtils {
      * @param str       the String to split, may be {@code null}
      * @param camelCase whether to use so-called "camel-case" for letter types
      * @return an array of parsed Strings, {@code null} if null String input
-     * @since 2.4
+     * @since 3.10
      */
     private static String[] splitByCharacterType(final String str, final boolean camelCase) {
         if (str == null) {
@@ -272,7 +272,7 @@ public class FastSplitUtils {
      *
      * @param str the String to split, may be {@code null}
      * @return an array of parsed Strings, {@code null} if null String input
-     * @since 2.4
+     * @since 3.10
      */
     public static String[] splitByCharacterTypeCamelCase(final String str) {
         return splitByCharacterType(str, true);
@@ -359,7 +359,7 @@ public class FastSplitUtils {
      * @param separator String containing the String to be used as a delimiter,
      *                  {@code null} splits on whitespace
      * @return an array of parsed Strings, {@code null} if null String was input
-     * @since 2.4
+     * @since 3.10
      */
     public static String[] splitByWholeSeparatorPreserveAllTokens(final String str, final String separator) {
         return splitByWholeSeparatorWorker(str, separator, -1, true);
@@ -392,7 +392,7 @@ public class FastSplitUtils {
      * @param max       the maximum number of elements to include in the returned
      *                  array. A zero or negative value implies no limit.
      * @return an array of parsed Strings, {@code null} if null String was input
-     * @since 2.4
+     * @since 3.10
      */
     public static String[] splitByWholeSeparatorPreserveAllTokens(final String str, final String separator, final int max) {
         return splitByWholeSeparatorWorker(str, separator, max, true);
@@ -412,7 +412,7 @@ public class FastSplitUtils {
      *                          treated as empty token separators; if {@code false}, adjacent
      *                          separators are treated as one separator.
      * @return an array of parsed Strings, {@code null} if null String input
-     * @since 2.4
+     * @since 3.10
      */
     private static String[] splitByWholeSeparatorWorker(
             final String str, final String separator, final int max, final boolean preserveAllTokens) {
@@ -503,7 +503,7 @@ public class FastSplitUtils {
      *
      * @param str the String to parse, may be {@code null}
      * @return an array of parsed Strings, {@code null} if null String input
-     * @since 2.1
+     * @since 3.10
      */
     public static String[] splitPreserveAllTokens(final String str) {
         return splitWorker(str, null, -1, true);
@@ -539,7 +539,7 @@ public class FastSplitUtils {
      * @param separatorChar the character used as the delimiter,
      *                      {@code null} splits on whitespace
      * @return an array of parsed Strings, {@code null} if null String input
-     * @since 2.1
+     * @since 3.10
      */
     public static String[] splitPreserveAllTokens(final String str, final char separatorChar) {
         return splitWorker(str, separatorChar, true);
@@ -576,7 +576,7 @@ public class FastSplitUtils {
      * @param separatorChars the characters used as the delimiters,
      *                       {@code null} splits on whitespace
      * @return an array of parsed Strings, {@code null} if null String input
-     * @since 2.1
+     * @since 3.10
      */
     public static String[] splitPreserveAllTokens(final String str, final String separatorChars) {
         return splitWorker(str, separatorChars, -1, true);
@@ -616,7 +616,7 @@ public class FastSplitUtils {
      * @param max            the maximum number of elements to include in the
      *                       array. A zero or negative value implies no limit
      * @return an array of parsed Strings, {@code null} if null String input
-     * @since 2.1
+     * @since 3.10
      */
     public static String[] splitPreserveAllTokens(final String str, final String separatorChars, final int max) {
         return splitWorker(str, separatorChars, max, true);
