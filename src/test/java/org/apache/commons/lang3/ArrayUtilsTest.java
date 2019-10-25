@@ -272,25 +272,11 @@ public class ArrayUtilsTest {
 
         // Test all null values
         map = ArrayUtils.toMap(new Object[][] { {null, null}, {null, null} });
-        assertEquals(new HashMap<Object, Object>() {
-
-            private static final long serialVersionUID = 1L;
-
-            {
-                put(null, null);
-            }
-        }, map);
+        assertEquals(Collections.singletonMap(null, null), map);
 
         // Test duplicate keys
         map = ArrayUtils.toMap(new Object[][] { {"key", "value2"}, {"key", "value1"} });
-        assertEquals(new HashMap<Object, Object>() {
-
-            private static final long serialVersionUID = 1L;
-
-            {
-                 put("key", "value1");
-            }
-        }, map);
+        assertEquals(Collections.singletonMap("key", "value1"), map);
     }
 
     //-----------------------------------------------------------------------
