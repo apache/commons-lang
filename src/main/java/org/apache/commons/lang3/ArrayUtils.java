@@ -3285,10 +3285,10 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final Object[] array, final Object objectToFind, int startIndex) {
-        BitSet ret = new BitSet();
+        BitSet bitSet = new BitSet();
 
         if (array == null) {
-            return ret;
+            return bitSet;
         }
 
         while (startIndex < array.length) {
@@ -3298,11 +3298,11 @@ public class ArrayUtils {
                 break;
             }
 
-            ret.set(startIndex);
+            bitSet.set(startIndex);
             ++startIndex;
         }
 
-        return ret;
+        return bitSet;
     }
 
 
@@ -3449,10 +3449,10 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final long[] array, final long valueToFind, int startIndex) {
-        BitSet ret = new BitSet();
+        BitSet bitSet = new BitSet();
 
         if (array == null) {
-            return ret;
+            return bitSet;
         }
 
         while (startIndex < array.length) {
@@ -3462,11 +3462,11 @@ public class ArrayUtils {
                 break;
             }
 
-            ret.set(startIndex);
+            bitSet.set(startIndex);
             ++startIndex;
         }
 
-        return ret;
+        return bitSet;
     }
 
     /**
@@ -3603,10 +3603,10 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final int[] array, final int valueToFind, int startIndex) {
-        BitSet ret = new BitSet();
+        BitSet bitSet = new BitSet();
 
         if (array == null) {
-            return ret;
+            return bitSet;
         }
 
         while (startIndex < array.length) {
@@ -3616,11 +3616,11 @@ public class ArrayUtils {
                 break;
             }
 
-            ret.set(startIndex);
+            bitSet.set(startIndex);
             ++startIndex;
         }
 
-        return ret;
+        return bitSet;
     }
 
     /**
@@ -3757,10 +3757,10 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final short[] array, final short valueToFind, int startIndex) {
-        BitSet ret = new BitSet();
+        BitSet bitSet = new BitSet();
 
         if (array == null) {
-            return ret;
+            return bitSet;
         }
 
         while (startIndex < array.length) {
@@ -3770,11 +3770,11 @@ public class ArrayUtils {
                 break;
             }
 
-            ret.set(startIndex);
+            bitSet.set(startIndex);
             ++startIndex;
         }
 
-        return ret;
+        return bitSet;
     }
 
     /**
@@ -3913,10 +3913,10 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final char[] array, final char valueToFind, int startIndex) {
-        BitSet ret = new BitSet();
+        BitSet bitSet = new BitSet();
 
         if (array == null) {
-            return ret;
+            return bitSet;
         }
 
         while (startIndex < array.length) {
@@ -3926,11 +3926,11 @@ public class ArrayUtils {
                 break;
             }
 
-            ret.set(startIndex);
+            bitSet.set(startIndex);
             ++startIndex;
         }
 
-        return ret;
+        return bitSet;
     }
 
     /**
@@ -4070,10 +4070,10 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final byte[] array, final byte valueToFind, int startIndex) {
-        BitSet ret = new BitSet();
+        BitSet bitSet = new BitSet();
 
         if (array == null) {
-            return ret;
+            return bitSet;
         }
 
         while (startIndex < array.length) {
@@ -4083,11 +4083,11 @@ public class ArrayUtils {
                 break;
             }
 
-            ret.set(startIndex);
+            bitSet.set(startIndex);
             ++startIndex;
         }
 
-        return ret;
+        return bitSet;
     }
 
     /**
@@ -4294,10 +4294,10 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final double[] array, final double valueToFind, int startIndex) {
-        BitSet ret = new BitSet();
+        BitSet bitSet = new BitSet();
 
         if (array == null) {
-            return ret;
+            return bitSet;
         }
 
         while (startIndex < array.length) {
@@ -4307,11 +4307,11 @@ public class ArrayUtils {
                 break;
             }
 
-            ret.set(startIndex);
+            bitSet.set(startIndex);
             ++startIndex;
         }
 
-        return ret;
+        return bitSet;
     }
 
     /**
@@ -4333,10 +4333,10 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final double[] array, final double valueToFind, int startIndex, final double tolerance) {
-        BitSet ret = new BitSet();
+        BitSet bitSet = new BitSet();
 
         if (array == null) {
-            return ret;
+            return bitSet;
         }
 
         while (startIndex < array.length) {
@@ -4346,11 +4346,11 @@ public class ArrayUtils {
                 break;
             }
 
-            ret.set(startIndex);
+            bitSet.set(startIndex);
             ++startIndex;
         }
 
-        return ret;
+        return bitSet;
     }
 
     /**
@@ -4557,10 +4557,10 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final float[] array, final float valueToFind, int startIndex) {
-        BitSet ret = new BitSet();
+        BitSet bitSet = new BitSet();
 
         if (array == null) {
-            return ret;
+            return bitSet;
         }
 
         while (startIndex < array.length) {
@@ -4570,11 +4570,11 @@ public class ArrayUtils {
                 break;
             }
 
-            ret.set(startIndex);
+            bitSet.set(startIndex);
             ++startIndex;
         }
 
-        return ret;
+        return bitSet;
     }
 
     /**
@@ -4713,10 +4713,10 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final boolean[] array, final boolean valueToFind, int startIndex) {
-        BitSet ret = new BitSet();
+        BitSet bitSet = new BitSet();
 
         if (array == null) {
-            return ret;
+            return bitSet;
         }
 
         while (startIndex < array.length) {
@@ -4726,11 +4726,11 @@ public class ArrayUtils {
                 break;
             }
 
-            ret.set(startIndex);
+            bitSet.set(startIndex);
             ++startIndex;
         }
 
-        return ret;
+        return bitSet;
     }
 
     /**
@@ -8534,8 +8534,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static boolean[] removeAllOccurences(final boolean[] array, final boolean element) {
-        BitSet foundBits = indexesOf(array, element);
-        return (boolean[]) removeAll((Object) array, foundBits);
+        return (boolean[]) removeAll((Object) array, indexesOf(array, element));
     }
 
     /**
@@ -8554,8 +8553,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static char[] removeAllOccurences(final char[] array, final char element) {
-        BitSet foundBits = indexesOf(array, element);
-        return (char[]) removeAll((Object) array, foundBits);
+        return (char[]) removeAll((Object) array, indexesOf(array, element));
     }
 
     /**
@@ -8574,8 +8572,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static byte[] removeAllOccurences(final byte[] array, final byte element) {
-        BitSet foundBits = indexesOf(array, element);
-        return (byte[]) removeAll((Object) array, foundBits);
+        return (byte[]) removeAll((Object) array, indexesOf(array, element));
     }
 
     /**
@@ -8594,8 +8591,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static short[] removeAllOccurences(final short[] array, final short element) {
-        BitSet foundBits = indexesOf(array, element);
-        return (short[]) removeAll((Object) array, foundBits);
+        return (short[]) removeAll((Object) array, indexesOf(array, element));
     }
 
     /**
@@ -8614,8 +8610,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static int[] removeAllOccurences(final int[] array, final int element) {
-        BitSet foundBits = indexesOf(array, element);
-        return (int[]) removeAll((Object) array, foundBits);
+        return (int[]) removeAll((Object) array, indexesOf(array, element));
     }
 
     /**
@@ -8634,8 +8629,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static long[] removeAllOccurences(final long[] array, final long element) {
-        BitSet foundBits = indexesOf(array, element);
-        return (long[]) removeAll((Object) array, foundBits);
+        return (long[]) removeAll((Object) array, indexesOf(array, element));
     }
 
     /**
@@ -8654,8 +8648,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static float[] removeAllOccurences(final float[] array, final float element) {
-        BitSet foundBits = indexesOf(array, element);
-        return (float[]) removeAll((Object) array, foundBits);
+        return (float[]) removeAll((Object) array, indexesOf(array, element));
     }
 
     /**
@@ -8674,8 +8667,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static double[] removeAllOccurences(final double[] array, final double element) {
-        BitSet foundBits = indexesOf(array, element);
-        return (double[]) removeAll((Object) array, foundBits);
+        return (double[]) removeAll((Object) array, indexesOf(array, element));
     }
 
     /**
@@ -8695,8 +8687,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static <T> T[] removeAllOccurences(final T[] array, final T element) {
-        BitSet foundBits = indexesOf(array, element);
-        return (T[]) removeAll((Object) array, foundBits);
+        return (T[]) removeAll((Object) array, indexesOf(array, element));
     }
 
     /**
