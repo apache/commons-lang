@@ -4319,7 +4319,7 @@ public class ArrayUtils {
 
     /**
      * Finds the indices of the given value in the array starting at the given index.
-     * 
+     *
      * <p>
      * This method will return the indices of the values which fall between the region
      * defined by valueToFind - tolerance and valueToFind + tolerance, between the nearest integers.
