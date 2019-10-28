@@ -320,7 +320,7 @@ public class ArrayUtils {
      * @return the array, not null unless a null array is passed in
      * @since  3.0
      */
-    public static <T> T[] toArray(final T... items) {
+    public static <T> T[] toArray(@SuppressWarnings("unchecked") final T... items) {
         return items;
     }
 
@@ -5077,7 +5077,7 @@ public class ArrayUtils {
      * @since 2.1
      * @throws IllegalArgumentException if the array types are incompatible
      */
-    public static <T> T[] addAll(final T[] array1, final T... array2) {
+    public static <T> T[] addAll(final T[] array1, @SuppressWarnings("unchecked") final T... array2) {
         if (array1 == null) {
             return clone(array2);
         } else if (array2 == null) {
