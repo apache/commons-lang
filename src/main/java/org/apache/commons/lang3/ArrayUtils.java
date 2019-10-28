@@ -3255,9 +3255,9 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Finds the indices of the given object in the array.
+     * Finds the indices of the given object in the array.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param objectToFind  the object to find, may be {@code null}
@@ -3270,12 +3270,12 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Finds the indices of the given object in the array starting at the given index.
+     * Finds the indices of the given object in the array starting at the given index.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return an empty BitSet.
+     * length will return an empty BitSet.</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param objectToFind  the object to find, may be {@code null}
@@ -3419,9 +3419,9 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Finds the indices of the given value in the array.
+     * Finds the indices of the given value in the array.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
@@ -3434,12 +3434,12 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Finds the indices of the given value in the array starting at the given index.
+     * Finds the indices of the given value in the array starting at the given index.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return an empty BitSet.
+     * length will return an empty BitSet.</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
@@ -3573,9 +3573,9 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Finds the indices of the given value in the array.
+     * Finds the indices of the given value in the array.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
@@ -3588,12 +3588,12 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Finds the indices of the given value in the array starting at the given index.
+     * Finds the indices of the given value in the array starting at the given index.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return an empty BitSet.
+     * length will return an empty BitSet.</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
@@ -3727,9 +3727,9 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Finds the indices of the given value in the array.
+     * Finds the indices of the given value in the array.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
@@ -3742,12 +3742,12 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Finds the indices of the given value in the array starting at the given index.
+     * Finds the indices of the given value in the array starting at the given index.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return an empty BitSet.
+     * length will return an empty BitSet.</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
@@ -3883,9 +3883,9 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Finds the indices of the given value in the array.
+     * Finds the indices of the given value in the array.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
@@ -3898,12 +3898,12 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Finds the indices of the given value in the array starting at the given index.
+     * Finds the indices of the given value in the array starting at the given index.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return an empty BitSet.
+     * length will return an empty BitSet.</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
@@ -4040,9 +4040,9 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Finds the indices of the given value in the array.
+     * Finds the indices of the given value in the array.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
@@ -4055,12 +4055,12 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Finds the indices of the given value in the array starting at the given index.
+     * Finds the indices of the given value in the array starting at the given index.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return an empty BitSet.
+     * length will return an empty BitSet.</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
@@ -4245,9 +4245,9 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Finds the indices of the given value in the array.
+     * Finds the indices of the given value in the array.
      *
-     * <p>This method returns empty BitSet for a {@code null} input array.
+     * <p>This method returns empty BitSet for a {@code null} input array.</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
@@ -4260,11 +4260,14 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Finds the indices of the given value within a given tolerance in the array.
+     * Finds the indices of the given value within a given tolerance in the array.
+     * 
+     * <p>
      * This method will return all the indices of the value which fall between the region
      * defined by valueToFind - tolerance and valueToFind + tolerance, each time between the nearest integers.
+     * </p>
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
@@ -4279,12 +4282,12 @@ public class ArrayUtils {
 
 
     /**
-     * <p>Finds the indices of the given value in the array starting at the given index.
+     * Finds the indices of the given value in the array starting at the given index.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return an empty BitSet.
+     * length will return an empty BitSet.</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
@@ -4315,14 +4318,17 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Finds the indices of the given value in the array starting at the given index.
+     * Finds the indices of the given value in the array starting at the given index.
+     * 
+     * <p>
      * This method will return the indices of the values which fall between the region
      * defined by valueToFind - tolerance and valueToFind + tolerance, between the nearest integers.
+     * </p>
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return an empty BitSet.
+     * length will return an empty BitSet.</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
@@ -4527,9 +4533,9 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Finds the indices of the given value in the array.
+     * Finds the indices of the given value in the array.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
@@ -4542,12 +4548,12 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Finds the indices of the given value in the array starting at the given index.
+     * Finds the indices of the given value in the array starting at the given index.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return empty BitSet.
+     * length will return empty BitSet.</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
@@ -4682,9 +4688,9 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Finds the indices of the given value in the array.
+     * Finds the indices of the given value in the array.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
@@ -4697,12 +4703,12 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Finds the indices of the given value in the array starting at the given index.
+     * Finds the indices of the given value in the array starting at the given index.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return an empty BitSet ({@code -1}).
+     * length will return an empty BitSet ({@code -1}).</p>
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
