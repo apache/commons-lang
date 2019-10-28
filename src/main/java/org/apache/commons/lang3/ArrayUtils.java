@@ -4261,7 +4261,7 @@ public class ArrayUtils {
 
     /**
      * Finds the indices of the given value within a given tolerance in the array.
-     * 
+     *
      * <p>
      * This method will return all the indices of the value which fall between the region
      * defined by valueToFind - tolerance and valueToFind + tolerance, each time between the nearest integers.
