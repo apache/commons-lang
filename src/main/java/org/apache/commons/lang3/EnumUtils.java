@@ -119,13 +119,30 @@ public class EnumUtils {
      * @return the enum, null if not found
      */
     public static <E extends Enum<E>> E getEnum(final Class<E> enumClass, final String enumName) {
+        return getEnum(enumClass, enumName, null);
+    }
+
+    /**
+     * <p>Gets the enum for the class, returning {@code defaultEnum} if not found.</p>
+     *
+     * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
+     * for an invalid enum name.</p>
+     *
+     * @param <E> the type of the enumeration
+     * @param enumClass   the class of the enum to query, not null
+     * @param enumName    the enum name, null returns default enum
+     * @param defaultEnum the default enum
+     * @return the enum, default enum if not found
+     * @since 3.10
+     */
+    public static <E extends Enum<E>> E getEnum(final Class<E> enumClass, final String enumName, final E defaultEnum) {
         if (enumName == null) {
-            return null;
+            return defaultEnum;
         }
         try {
             return Enum.valueOf(enumClass, enumName);
         } catch (final IllegalArgumentException ex) {
-            return null;
+            return defaultEnum;
         }
     }
 
@@ -142,15 +159,32 @@ public class EnumUtils {
      * @since 3.8
      */
     public static <E extends Enum<E>> E getEnumIgnoreCase(final Class<E> enumClass, final String enumName) {
+        return getEnumIgnoreCase(enumClass, enumName, null);
+    }
+
+    /**
+     * <p>Gets the enum for the class, returning {@code defaultEnum} if not found.</p>
+     *
+     * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
+     * for an invalid enum name and performs case insensitive matching of the name.</p>
+     *
+     * @param <E>         the type of the enumeration
+     * @param enumClass   the class of the enum to query, not null
+     * @param enumName    the enum name, null returns default enum
+     * @param defaultEnum the default enum
+     * @return the enum, default enum if not found
+     * @since 3.10
+     */
+    public static <E extends Enum<E>> E getEnumIgnoreCase(final Class<E> enumClass, final String enumName, final E defaultEnum) {
         if (enumName == null || !enumClass.isEnum()) {
-            return null;
+            return defaultEnum;
         }
         for (final E each : enumClass.getEnumConstants()) {
             if (each.name().equalsIgnoreCase(enumName)) {
                 return each;
             }
         }
-        return null;
+        return defaultEnum;
     }
 
     /**
