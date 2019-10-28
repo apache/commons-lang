@@ -133,6 +133,7 @@ public class EnumUtils {
      * @param enumName    the enum name, null returns default enum
      * @param defaultEnum the default enum
      * @return the enum, default enum if not found
+     * @since 3.10
      */
     public static <E extends Enum<E>> E getEnum(final Class<E> enumClass, final String enumName, final E defaultEnum) {
         if (enumName == null) {
@@ -172,6 +173,7 @@ public class EnumUtils {
      * @param enumName    the enum name, null returns default enum
      * @param defaultEnum the default enum
      * @return the enum, default enum if not found
+     * @since 3.10
      */
     public static <E extends Enum<E>> E getEnumIgnoreCase(final Class<E> enumClass, final String enumName, final E defaultEnum) {
         if (enumName == null || !enumClass.isEnum()) {
