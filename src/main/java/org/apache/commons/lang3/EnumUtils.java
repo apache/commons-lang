@@ -108,6 +108,21 @@ public class EnumUtils {
     }
 
     /**
+     * <p>Gets the enum for the class, returning {@code null} if not found.</p>
+     *
+     * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
+     * for an invalid enum name.</p>
+     *
+     * @param <E> the type of the enumeration
+     * @param enumClass  the class of the enum to query, not null
+     * @param enumName   the enum name, null returns null
+     * @return the enum, null if not found
+     */
+    public static <E extends Enum<E>> E getEnum(final Class<E> enumClass, final String enumName) {
+        return getEnum(enumClass, enumName, null);
+    }
+
+    /**
      * <p>Gets the enum for the class, returning {@code defaultEnum} if not found.</p>
      *
      * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
@@ -134,15 +149,16 @@ public class EnumUtils {
      * <p>Gets the enum for the class, returning {@code null} if not found.</p>
      *
      * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
-     * for an invalid enum name.</p>
+     * for an invalid enum name and performs case insensitive matching of the name.</p>
      *
-     * @param <E> the type of the enumeration
-     * @param enumClass  the class of the enum to query, not null
-     * @param enumName   the enum name, null returns null
+     * @param <E>         the type of the enumeration
+     * @param enumClass   the class of the enum to query, not null
+     * @param enumName    the enum name, null returns null
      * @return the enum, null if not found
+     * @since 3.8
      */
-    public static <E extends Enum<E>> E getEnum(final Class<E> enumClass, final String enumName) {
-        return getEnum(enumClass, enumName, null);
+    public static <E extends Enum<E>> E getEnumIgnoreCase(final Class<E> enumClass, final String enumName) {
+        return getEnumIgnoreCase(enumClass, enumName, null);
     }
 
     /**
@@ -167,22 +183,6 @@ public class EnumUtils {
             }
         }
         return defaultEnum;
-    }
-
-    /**
-     * <p>Gets the enum for the class, returning {@code null} if not found.</p>
-     *
-     * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
-     * for an invalid enum name and performs case insensitive matching of the name.</p>
-     *
-     * @param <E>         the type of the enumeration
-     * @param enumClass   the class of the enum to query, not null
-     * @param enumName    the enum name, null returns null
-     * @return the enum, null if not found
-     * @since 3.8
-     */
-    public static <E extends Enum<E>> E getEnumIgnoreCase(final Class<E> enumClass, final String enumName) {
-        return getEnumIgnoreCase(enumClass, enumName, null);
     }
 
     /**
