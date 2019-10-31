@@ -182,12 +182,14 @@ public class ObjectUtils {
      * <p>Caller responsible for thread-safety and exception handling of default value supplier</p>
      *
      * <pre>
-     * ObjectUtils.lazyDefaultIfNull(null, () -&gt; null)        = null
-     * ObjectUtils.lazyDefaultIfNull(null, null)                 = null
-     * ObjectUtils.lazyDefaultIfNull(null, () -&gt; "")          = ""
-     * ObjectUtils.lazyDefaultIfNull(null, () -&gt; "zz")        = "zz"
-     * ObjectUtils.lazyDefaultIfNull("abc", *)                   = "abc"
-     * ObjectUtils.lazyDefaultIfNull(Boolean.TRUE, *)            = Boolean.TRUE
+     * {@code
+     * ObjectUtils.getIfNull(null, () -> null)        = null
+     * ObjectUtils.getIfNull(null, null)              = null
+     * ObjectUtils.getIfNull(null, () -> "")          = ""
+     * ObjectUtils.getIfNull(null, () -> "zz")        = "zz"
+     * ObjectUtils.getIfNull("abc", *)                = "abc"
+     * ObjectUtils.getIfNull(Boolean.TRUE, *)         = Boolean.TRUE
+     * }
      * </pre>
      *
      * @param <T> the type of the object
@@ -195,7 +197,7 @@ public class ObjectUtils {
      * @param defaultValueSupplier  the default value to return, may be {@code null}
      * @return {@code object} if it is not {@code null}, defaultValueSupplier otherwise
      */
-    public static <T> T lazyDefaultIfNull(final T object, final Supplier<T> defaultValueSupplier) {
+    public static <T> T getIfNull(final T object, final Supplier<T> defaultValueSupplier) {
         return object != null ? object : defaultValueSupplier == null ? null : defaultValueSupplier.get();
     }
 

@@ -1491,13 +1491,14 @@ public class StringUtils {
      * <p>Caller responsible for thread-safety and exception handling of default value supplier</p>
      *
      * <pre>
-     * StringUtils.defaultIfBlank(null, () -&gt; "NULL")   = "NULL"
-     * StringUtils.defaultIfBlank("", () -&gt; "NULL")     = "NULL"
-     * StringUtils.defaultIfBlank(" ", () -&gt; "NULL")    = "NULL"
-     * StringUtils.defaultIfBlank("bat", () -&gt; "NULL")  = "bat"
-     * StringUtils.defaultIfBlank("", () -&gt; null)       = null
-     * StringUtils.defaultIfBlank("", null)                = null
-     * </pre>
+     * {@code
+     * StringUtils.getIfBlank(null, () -> "NULL")   = "NULL"
+     * StringUtils.getIfBlank("", () -> "NULL")     = "NULL"
+     * StringUtils.getIfBlank(" ", () -> "NULL")    = "NULL"
+     * StringUtils.getIfBlank("bat", () -> "NULL")  = "bat"
+     * StringUtils.getIfBlank("", () -> null)       = null
+     * StringUtils.getIfBlank("", null)             = null
+     * }</pre>
      * @param <T> the specific kind of CharSequence
      * @param str the CharSequence to check, may be null
      * @param defaultStrSupplier the supplier of default CharSequence to return
@@ -1505,7 +1506,7 @@ public class StringUtils {
      * @return the passed in CharSequence, or the default
      * @see StringUtils#defaultString(String, String)
      */
-    public static <T extends CharSequence> T defaultIfBlank(final T str, final Supplier<T> defaultStrSupplier) {
+    public static <T extends CharSequence> T getIfBlank(final T str, final Supplier<T> defaultStrSupplier) {
         return isBlank(str) ? defaultStrSupplier == null ? null : defaultStrSupplier.get() : str;
     }
 
@@ -1538,12 +1539,14 @@ public class StringUtils {
      * <p>Caller responsible for thread-safety and exception handling of default value supplier</p>
      *
      * <pre>
-     * StringUtils.defaultIfEmpty(null, () -&gt; "NULL")    = "NULL"
-     * StringUtils.defaultIfEmpty("", () -&gt; "NULL")      = "NULL"
-     * StringUtils.defaultIfEmpty(" ", () -&gt; "NULL")     = " "
-     * StringUtils.defaultIfEmpty("bat", () -&gt; "NULL")   = "bat"
-     * StringUtils.defaultIfEmpty("", () -&gt; null)        = null
-     * StringUtils.defaultIfEmpty("", null)                 = null
+     * {@code
+     * StringUtils.getIfEmpty(null, () -> "NULL")    = "NULL"
+     * StringUtils.getIfEmpty("", () -> "NULL")      = "NULL"
+     * StringUtils.getIfEmpty(" ", () -> "NULL")     = " "
+     * StringUtils.getIfEmpty("bat", () -> "NULL")   = "bat"
+     * StringUtils.getIfEmpty("", () -> null)        = null
+     * StringUtils.getIfEmpty("", null)              = null
+     * }
      * </pre>
      * @param <T> the specific kind of CharSequence
      * @param str  the CharSequence to check, may be null
@@ -1552,7 +1555,7 @@ public class StringUtils {
      * @return the passed in CharSequence, or the default
      * @see StringUtils#defaultString(String, String)
      */
-    public static <T extends CharSequence> T defaultIfEmpty(final T str, final Supplier<T> defaultStrSupplier) {
+    public static <T extends CharSequence> T getIfEmpty(final T str, final Supplier<T> defaultStrSupplier) {
         return isEmpty(str) ? defaultStrSupplier == null ? null : defaultStrSupplier.get() : str;
 
     }
@@ -1586,11 +1589,13 @@ public class StringUtils {
      * <p>Caller responsible for thread-safety and exception handling of default value supplier</p>
      *
      * <pre>
-     * StringUtils.defaultString(null, () -&gt; "NULL")    = "NULL"
-     * StringUtils.defaultString("", () -&gt; "NULL")      = ""
-     * StringUtils.defaultString("bat", () -&gt; "NULL")   = "bat"
-     * StringUtils.defaultString(null, () -&gt; null)      = null
-     * StringUtils.defaultString(null, null)               = null
+     * {@code
+     * StringUtils.getIfNullString(null, () -> "NULL")    = "NULL"
+     * StringUtils.getIfNullString("", () -> "NULL")      = ""
+     * StringUtils.getIfNullString("bat", () -> "NULL")   = "bat"
+     * StringUtils.getIfNullString(null, () -> null)      = null
+     * StringUtils.getIfNullString(null, null)            = null
+     * }
      * </pre>
      *
      * @see ObjectUtils#toString(Object,String)
@@ -1600,7 +1605,7 @@ public class StringUtils {
      *  if the input is {@code null}, may be null
      * @return the passed in String, or the default if it was {@code null}
      */
-    public static String defaultString(final String str, final Supplier<String> defaultStrSupplier) {
+    public static String getIfNullString(final String str, final Supplier<String> defaultStrSupplier) {
         return str == null ? defaultStrSupplier == null ? null : defaultStrSupplier.get() : str;
     }
 
