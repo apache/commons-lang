@@ -27,6 +27,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeSet;
+import java.util.function.Supplier;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.mutable.MutableInt;
@@ -153,8 +154,30 @@ public class ObjectUtils {
         return !isEmpty(object);
     }
 
-    // Defaulting
-    //-----------------------------------------------------------------------
+    /**
+     * <p>Returns the given {@code object} is it is non-null, otherwise returns the Supplier's get value.</p>
+     *
+     * <p>The caller responsible for thread-safety and exception handling of default value supplier.</p>
+     *
+     * <pre>
+     * ObjectUtils.getIfNull(null, () -> null)        = null
+     * ObjectUtils.getIfNull(null, null)              = null
+     * ObjectUtils.getIfNull(null, () -> "")          = ""
+     * ObjectUtils.getIfNull(null, () -> "zz")        = "zz"
+     * ObjectUtils.getIfNull("abc", *)                = "abc"
+     * ObjectUtils.getIfNull(Boolean.TRUE, *)         = Boolean.TRUE
+     * </pre>
+     *
+     * @param <T> the type of the object
+     * @param object  the {@code Object} to test, may be {@code null}
+     * @param defaultValueSupplier  the default value to return, may be {@code null}
+     * @return {@code object} if it is not {@code null}, {@code defaultValueSupplier.get()} otherwise
+     * @since 3.10
+     */
+    public static <T> T defaultIfNull(final T object, final Supplier<T> defaultValueSupplier) {
+        return object != null ? object : defaultValueSupplier == null ? null : defaultValueSupplier.get();
+    }
+
     /**
      * <p>Returns a default value if the object passed is {@code null}.</p>
      *
