@@ -118,6 +118,8 @@ public class ObjectUtilsTest {
         assertSame(o, ObjectUtils.defaultIfNull(o, dflt), "dflt was returned when o was not null");
         assertSame(dflt, ObjectUtils.defaultIfNull(null, () -> dflt), "dflt was not returned when o was null");
         assertSame(o, ObjectUtils.defaultIfNull(o, () -> dflt), "dflt was returned when o was not null");
+        assertSame(o, ObjectUtils.defaultIfNull(FOO, () -> dflt), "dflt was returned when o was not null");
+        assertSame(o, ObjectUtils.defaultIfNull("foo", () -> dflt), "dflt was returned when o was not null");
         MutableInt callsCounter = new MutableInt(0);
         Supplier<Object> countingDefaultSupplier = () -> {
             callsCounter.increment();
