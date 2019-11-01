@@ -170,12 +170,12 @@ public class ObjectUtils {
      *
      * @param <T> the type of the object
      * @param object  the {@code Object} to test, may be {@code null}
-     * @param defaultValueSupplier  the default value to return, may be {@code null}
+     * @param defaultSupplier  the default value to return, may be {@code null}
      * @return {@code object} if it is not {@code null}, {@code defaultValueSupplier.get()} otherwise
      * @since 3.10
      */
-    public static <T> T defaultIfNull(final T object, final Supplier<T> defaultValueSupplier) {
-        return object != null ? object : defaultValueSupplier == null ? null : defaultValueSupplier.get();
+    public static <T> T defaultIfNull(final T object, final Supplier<T> defaultSupplier) {
+        return object != null ? object : defaultSupplier == null ? null : defaultSupplier.get();
     }
 
     /**
