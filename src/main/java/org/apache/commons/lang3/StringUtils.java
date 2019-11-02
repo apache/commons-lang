@@ -332,7 +332,8 @@ public class StringUtils {
      * @since 3.6
      */
     public static String abbreviate(final String str, final String abbrevMarker, int offset, final int maxWidth) {
-        if (isEmpty(str) || isEmpty(abbrevMarker)) {
+
+        if (isEmpty(str) || abbrevMarker == null ) {
             return str;
         }
 
@@ -362,6 +363,8 @@ public class StringUtils {
             return abbrevMarker + abbreviate(str.substring(offset), abbrevMarker, maxWidth - abbrevMarkerLength);
         }
         return abbrevMarker + str.substring(str.length() - (maxWidth - abbrevMarkerLength));
+
+
     }
 
     /**

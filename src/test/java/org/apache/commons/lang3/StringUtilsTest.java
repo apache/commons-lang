@@ -302,7 +302,7 @@ public class StringUtilsTest {
     public void testAbbreviate_StringStringInt() {
         assertNull(StringUtils.abbreviate(null, null, 10));
         assertNull(StringUtils.abbreviate(null, "...", 10));
-        assertEquals("paranaguacu", StringUtils.abbreviate("paranaguacu", null, 10));
+        assertEquals("paranaguac", StringUtils.abbreviate("paranaguacu", null, 10));
         assertEquals("", StringUtils.abbreviate("", "...", 2));
         assertEquals("wai**", StringUtils.abbreviate("waiheke", "**", 5));
         assertEquals("And af,,,,", StringUtils.abbreviate("And after a long time, he finally met his son.", ",,,,", 10));
@@ -322,6 +322,7 @@ public class StringUtilsTest {
                 () -> StringUtils.abbreviate("abcdefghij", "...", 3),
                 "StringUtils.abbreviate expecting IllegalArgumentException");
     }
+
 
     @Test
     public void testAbbreviate_StringStringIntInt() {
