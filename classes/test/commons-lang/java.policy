@@ -1,0 +1,375 @@
+//
+// Licensed to the Apache Software Foundation (ASF) under one or more
+// contributor license agreements.  See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership.
+// The ASF licenses this file to You under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with
+// the License.  You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+//
+// Allows unit tests to run with a Java Security Manager
+//
+// Tested from Eclipse 3.7 with the CLI:
+//
+// -Djava.security.manager -Djava.security.policy=file:src/test/resources/java.policy
+//
+// Tested from Maven 3.0.3 with the Surfire 2.8.1 configuration:
+//
+// <argLine>-Djava.security.manager -Djava.security.policy=${basedir}/src/test/resources/java.policy</argLine>
+//
+// This policy file documents why each permission is granted by listing exceptions in comments.
+//
+// This policy file grants permission as narrowly as possible.
+//
+ 
+grant { 
+
+// Found using Eclipse 3.7
+// java.security.AccessControlException: access denied (java.io.FilePermission C:\Users\ggregory\AppData\Local\Temp\testNames8413758989552151476.txt read)
+//	at java.security.AccessControlContext.checkPermission(AccessControlContext.java:264)
+//	at java.security.AccessController.checkPermission(AccessController.java:427)
+//	at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+//	at java.lang.SecurityManager.checkRead(SecurityManager.java:871)
+//	at java.io.FileInputStream.<init>(FileInputStream.java:100)
+//	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.readTestNames(RemoteTestRunner.java:336)
+//	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.defaultInit(RemoteTestRunner.java:251)
+//	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.init(RemoteTestRunner.java:212)
+//	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:196)
+
+  permission java.io.FilePermission "${java.io.tmpdir}/-", "read";
+
+
+// Found using Eclipse 3.7
+// java.security.AccessControlException: access denied (java.net.SocketPermission 127.0.0.1:58691 connect,resolve)
+//	at java.security.AccessControlContext.checkPermission(AccessControlContext.java:264)
+//	at java.security.AccessController.checkPermission(AccessController.java:427)
+//	at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+//	at java.lang.SecurityManager.checkConnect(SecurityManager.java:1034)
+//	at java.net.Socket.connect(Socket.java:518)
+//	at java.net.Socket.connect(Socket.java:474)
+//	at java.net.Socket.<init>(Socket.java:371)
+//	at java.net.Socket.<init>(Socket.java:184)
+//	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.connect(RemoteTestRunner.java:570)
+//	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:381)
+//	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+
+  permission java.net.SocketPermission "localhost", "connect,resolve";
+
+
+// All others found using Surefire 2.8.1
+// java.security.AccessControlException: access denied (java.io.FilePermission C:\svn\org\apache\commons\trunks-proper\lang\target\surefire\surefire795889196143891944tmp read)
+//   at java.security.AccessControlContext.checkPermission(AccessControlContext.java:374)
+//   at java.security.AccessController.checkPermission(AccessController.java:546)
+//   at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+//   at java.lang.SecurityManager.checkRead(SecurityManager.java:871)
+//   at java.io.FileInputStream.<init>(FileInputStream.java:100)
+//   at org.apache.maven.surefire.booter.SystemPropertyManager.loadProperties(SystemPropertyManager.java:62)
+//   at org.apache.maven.surefire.booter.SystemPropertyManager.setSystemProperties(SystemPropertyManager.java:69)
+//   at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:56)
+
+  permission java.io.FilePermission "target/surefire/*", "read";
+
+
+// java.security.AccessControlException: access denied (java.util.PropertyPermission user.dir write)
+//   at java.security.AccessControlContext.checkPermission(AccessControlContext.java:374)
+//   at java.security.AccessController.checkPermission(AccessController.java:546)
+//   at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+//   at java.lang.System.setProperty(System.java:725)
+//   at org.apache.maven.surefire.booter.PropertiesWrapper.setAsSystemProperties(PropertiesWrapper.java:60)
+//   at org.apache.maven.surefire.booter.SystemPropertyManager.setSystemProperties(SystemPropertyManager.java:70)
+//   at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:56)
+
+  permission java.util.PropertyPermission "user.dir", "write";
+
+
+// Found using Surefire 2.8.1
+// java.security.AccessControlException: access denied (java.util.PropertyPermission localRepository write)
+//   at java.security.AccessControlContext.checkPermission(AccessControlContext.java:374)
+//   at java.security.AccessController.checkPermission(AccessController.java:546)
+//   at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+//   at java.lang.System.setProperty(System.java:725)
+//   at org.apache.maven.surefire.booter.PropertiesWrapper.setAsSystemProperties(PropertiesWrapper.java:60)
+//   at org.apache.maven.surefire.booter.SystemPropertyManager.setSystemProperties(SystemPropertyManager.java:70)
+//   at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:56)
+
+  permission java.util.PropertyPermission "localRepository", "write";
+
+
+// java.security.AccessControlException: access denied (java.util.PropertyPermission basedir write)
+//   at java.security.AccessControlContext.checkPermission(AccessControlContext.java:374)
+//   at java.security.AccessController.checkPermission(AccessController.java:546)
+//   at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+//   at java.lang.System.setProperty(System.java:725)
+//   at org.apache.maven.surefire.booter.PropertiesWrapper.setAsSystemProperties(PropertiesWrapper.java:60)
+//   at org.apache.maven.surefire.booter.SystemPropertyManager.setSystemProperties(SystemPropertyManager.java:70)
+//   at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:56)
+
+  permission java.util.PropertyPermission "basedir", "write";
+
+
+// java.security.AccessControlException: access denied (java.util.PropertyPermission surefire.test.class.path write)
+//            at java.security.AccessControlContext.checkPermission(AccessControlContext.java:374)
+//            at java.security.AccessController.checkPermission(AccessController.java:546)
+//            at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+//            at java.lang.System.setProperty(System.java:725)
+//            at org.apache.maven.surefire.booter.Classpath.writeToSystemProperty(Classpath.java:112)
+//            at org.apache.maven.surefire.booter.SurefireStarter.writeSurefireTestClasspathProperty(SurefireStarter.java:118)
+//            at org.apache.maven.surefire.booter.SurefireStarter.createInProcessTestClassLoader(SurefireStarter.java:98)
+//            at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:85)
+//            at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)}
+
+// java.lang.reflect.UndeclaredThrowableException
+//    at $Proxy0.invoke(Unknown Source)
+//    at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:150)
+//    at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+//    at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+//Caused by: java.lang.reflect.InvocationTargetException
+//    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+//    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+//    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+//    at java.lang.reflect.Method.invoke(Method.java:597)
+//    at org.apache.maven.surefire.booter.ProviderFactory$ClassLoaderProxy.invoke(ProviderFactory.java:103)
+//    ... 4 more
+//Caused by: java.security.AccessControlException: access denied (java.util.PropertyPermission surefire.junit4.upgradecheck read)
+//    at java.security.AccessControlContext.checkPermission(AccessControlContext.java:374)
+//    at java.security.AccessController.checkPermission(AccessController.java:546)
+//    at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+//    at java.lang.SecurityManager.checkPropertyAccess(SecurityManager.java:1285)
+//    at java.lang.System.getProperty(System.java:650)
+//    at org.apache.maven.surefire.junit4.JUnit4Provider.isJunit4UpgradeCheck(JUnit4Provider.java:193)
+//    at org.apache.maven.surefire.junit4.JUnit4Provider.upgradeCheck(JUnit4Provider.java:174)
+//    at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:91)
+
+  permission java.util.PropertyPermission "*", "write, read";
+
+
+//    java.security.AccessControlException: access denied (java.util.PropertyPermission java.class.path read)
+//            at java.security.AccessControlContext.checkPermission(AccessControlContext.java:374)
+//            at java.security.AccessController.checkPermission(AccessController.java:546)
+//            at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+//            at java.lang.SecurityManager.checkPropertyAccess(SecurityManager.java:1285)
+//            at java.lang.System.getProperty(System.java:650)
+//            at org.apache.maven.surefire.booter.SurefireStarter.createInProcessTestClassLoader(SurefireStarter.java:105)
+//            at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:85)
+//            at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+//
+
+//    java.security.AccessControlException: access denied (java.util.PropertyPermission java.class.path write)
+//            at java.security.AccessControlContext.checkPermission(AccessControlContext.java:374)
+//            at java.security.AccessController.checkPermission(AccessController.java:546)
+//            at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+//            at java.lang.System.setProperty(System.java:725)
+//            at org.apache.maven.surefire.booter.Classpath.writeToSystemProperty(Classpath.java:112)
+//            at org.apache.maven.surefire.booter.SurefireStarter.createInProcessTestClassLoader(SurefireStarter.java:106)
+//            at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:85)
+//            at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+
+  permission java.util.PropertyPermission "java.class.path", "read, write";
+
+
+//    java.security.AccessControlException: access denied (java.io.FilePermission C:\Users\ggregory\.m2\repository\org\apache\maven\surefire\surefire-junit4\2.8.1\surefire-junit4-2.8.1.jar read)
+//            at java.security.AccessControlContext.checkPermission(AccessControlContext.java:374)
+//            at java.security.AccessController.checkPermission(AccessController.java:546)
+//            at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+//            at java.lang.SecurityManager.checkRead(SecurityManager.java:871)
+//            at java.io.File.isDirectory(File.java:752)
+//            at java.io.File.toURL(File.java:623)
+//            at org.apache.maven.surefire.util.UrlUtils.getURL(UrlUtils.java:67)
+//            at org.apache.maven.surefire.booter.Classpath.getAsUrlList(Classpath.java:100)
+//            at org.apache.maven.surefire.booter.ClasspathConfiguration.createClassLoader(ClasspathConfiguration.java:151)
+//            at org.apache.maven.surefire.booter.ClasspathConfiguration.createClassLoaderSEE(ClasspathConfiguration.java:139)
+//            at org.apache.maven.surefire.booter.ClasspathConfiguration.createSurefireClassLoader(ClasspathConfiguration.java:131)
+//            at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:89)
+//            at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+
+  permission java.io.FilePermission "${user.home}/.m2/repository/org/apache/maven/surefire/surefire-junit4/2.8.1/surefire-junit4-2.8.1.jar", "read";
+  permission java.io.FilePermission "${user.home}/.m2/repository/org/apache/maven/surefire/surefire-junit4/2.9/surefire-junit4-2.9.jar", "read";
+
+
+//    java.security.AccessControlException: access denied (java.io.FilePermission C:\Users\ggregory\.m2\repository\org\apache\maven\surefire\surefire-api\2.8.1\surefire-api-2.8.1.jar read)
+//at java.security.AccessControlContext.checkPermission(AccessControlContext.java:374)
+//at java.security.AccessController.checkPermission(AccessController.java:546)
+//at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+//at java.lang.SecurityManager.checkRead(SecurityManager.java:871)
+//at java.io.File.isDirectory(File.java:752)
+//at java.io.File.toURL(File.java:623)
+//at org.apache.maven.surefire.util.UrlUtils.getURL(UrlUtils.java:67)
+//at org.apache.maven.surefire.booter.Classpath.getAsUrlList(Classpath.java:100)
+//at org.apache.maven.surefire.booter.ClasspathConfiguration.createClassLoader(ClasspathConfiguration.java:151)
+//at org.apache.maven.surefire.booter.ClasspathConfiguration.createClassLoaderSEE(ClasspathConfiguration.java:139)
+//at org.apache.maven.surefire.booter.ClasspathConfiguration.createSurefireClassLoader(ClasspathConfiguration.java:131)
+//at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:89)
+//at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+
+  permission java.io.FilePermission "${user.home}/.m2/repository/org/apache/maven/surefire/surefire-api/2.8.1/surefire-api-2.8.1.jar", "read";
+  permission java.io.FilePermission "${user.home}/.m2/repository/org/apache/maven/surefire/surefire-api/2.9/surefire-api-2.9.jar", "read";
+
+
+//    java.security.AccessControlException: access denied (java.lang.RuntimePermission createClassLoader)
+//at java.security.AccessControlContext.checkPermission(AccessControlContext.java:374)
+//at java.security.AccessController.checkPermission(AccessController.java:546)
+//at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+//at java.lang.SecurityManager.checkCreateClassLoader(SecurityManager.java:594)
+//at java.lang.ClassLoader.checkCreateClassLoader(ClassLoader.java:178)
+//at java.lang.ClassLoader.<init>(ClassLoader.java:207)
+//at java.security.SecureClassLoader.<init>(SecureClassLoader.java:70)
+//at java.net.URLClassLoader.<init>(URLClassLoader.java:84)
+//at org.apache.maven.surefire.booter.IsolatedClassLoader.<init>(IsolatedClassLoader.java:43)
+//at org.apache.maven.surefire.booter.ClasspathConfiguration.createClassLoader(ClasspathConfiguration.java:152)
+//at org.apache.maven.surefire.booter.ClasspathConfiguration.createClassLoaderSEE(ClasspathConfiguration.java:139)
+//at org.apache.maven.surefire.booter.ClasspathConfiguration.createSurefireClassLoader(ClasspathConfiguration.java:131)
+//at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:89)
+//at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+
+  permission java.lang.RuntimePermission "createClassLoader";
+
+//    java.security.AccessControlException: access denied (java.lang.RuntimePermission setContextClassLoader)
+//at java.security.AccessControlContext.checkPermission(AccessControlContext.java:374)
+//at java.security.AccessController.checkPermission(AccessController.java:546)
+//at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+//at java.lang.Thread.setContextClassLoader(Thread.java:1394)
+//at org.apache.maven.surefire.booter.ProviderFactory.createProvider(ProviderFactory.java:61)
+//at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:146)
+//at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+//at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+
+  permission java.lang.RuntimePermission "setContextClassLoader";
+  
+//    java.security.AccessControlException: access denied (java.lang.RuntimePermission setIO)
+//            at java.security.AccessControlContext.checkPermission(AccessControlContext.java:374)
+//            at java.security.AccessController.checkPermission(AccessController.java:546)
+//            at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+//            at java.lang.System.checkIO(System.java:225)
+//            at java.lang.System.setOut(System.java:147)
+//            at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:162)
+//            at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+//            at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+  
+  permission java.lang.RuntimePermission "setIO";
+
+  
+//    java.lang.reflect.UndeclaredThrowableException
+//    at $Proxy0.invoke(Unknown Source)
+//    at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:150)
+//    at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+//    at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+//Caused by: java.lang.reflect.InvocationTargetException
+//    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+//    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+//    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+//    at java.lang.reflect.Method.invoke(Method.java:597)
+//    at org.apache.maven.surefire.booter.ProviderFactory$ClassLoaderProxy.invoke(ProviderFactory.java:103)
+//    ... 4 more
+//Caused by: java.security.AccessControlException: access denied (java.io.FilePermission C:\svn\org\apache\commons\trunks-proper\lang\target\test-classes read)
+//    at java.security.AccessControlContext.checkPermission(AccessControlContext.java:374)
+//    at java.security.AccessController.checkPermission(AccessController.java:546)
+//    at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+//    at java.lang.SecurityManager.checkRead(SecurityManager.java:871)
+//    at java.io.File.exists(File.java:731)
+//    at org.apache.maven.surefire.util.DefaultDirectoryScanner.collectTests(DefaultDirectoryScanner.java:118)
+//    at org.apache.maven.surefire.util.DefaultDirectoryScanner.locateTestClasses(DefaultDirectoryScanner.java:71)
+//    at org.apache.maven.surefire.junit4.JUnit4Provider.scanClassPath(JUnit4Provider.java:168)
+//    at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:88)
+//    ... 9 more
+  
+  permission java.io.FilePermission "${user.dir}/target/test-classes", "read";
+  permission java.io.FilePermission "${user.dir}/target/test-classes/-", "read";
+
+
+//    java.lang.reflect.UndeclaredThrowableException
+//    at $Proxy0.invoke(Unknown Source)
+//    at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:150)
+//    at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+//    at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+//Caused by: java.lang.reflect.InvocationTargetException
+//    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+//    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+//    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+//    at java.lang.reflect.Method.invoke(Method.java:597)
+//    at org.apache.maven.surefire.booter.ProviderFactory$ClassLoaderProxy.invoke(ProviderFactory.java:103)
+//    ... 4 more
+//Caused by: java.security.AccessControlException: access denied (java.lang.RuntimePermission accessDeclaredMembers)
+//    at java.security.AccessControlContext.checkPermission(AccessControlContext.java:374)
+//    at java.security.AccessController.checkPermission(AccessController.java:546)
+//    at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+//    at java.lang.SecurityManager.checkMemberAccess(SecurityManager.java:1662)
+//    at java.lang.Class.checkMemberAccess(Class.java:2157)
+//    at java.lang.Class.getDeclaredMethods(Class.java:1790)
+//    at org.apache.maven.surefire.common.junit4.JUnit4TestChecker.checkforTestAnnotatedMethod(JUnit4TestChecker.java:83)
+//    at org.apache.maven.surefire.common.junit4.JUnit4TestChecker.isValidJUnit4Test(JUnit4TestChecker.java:72)
+//    at org.apache.maven.surefire.common.junit4.JUnit4TestChecker.accept(JUnit4TestChecker.java:52)
+//    at org.apache.maven.surefire.util.DefaultDirectoryScanner.locateTestClasses(DefaultDirectoryScanner.java:80)
+//    at org.apache.maven.surefire.junit4.JUnit4Provider.scanClassPath(JUnit4Provider.java:168)
+//    at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:88)
+
+  permission java.lang.RuntimePermission "accessDeclaredMembers";
+
+
+// java.lang.reflect.UndeclaredThrowableException
+//    at $Proxy0.invoke(Unknown Source)
+//Running org.apache.commons.lang3.AnnotationUtilsTest
+//    at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:150)
+//    at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+//    at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+//Caused by: java.lang.reflect.InvocationTargetException
+//    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+//    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+//    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+//    at java.lang.reflect.Method.invoke(Method.java:597)
+//    at org.apache.maven.surefire.booter.ProviderFactory$ClassLoaderProxy.invoke(ProviderFactory.java:103)
+//    ... 4 more
+//Caused by: java.security.AccessControlException: access denied (java.io.FilePermission C:\svn\org\apache\commons\trunks-proper\lang\target\surefire-reports read)
+//    at java.security.AccessControlContext.checkPermission(AccessControlContext.java:374)
+//    at java.security.AccessController.checkPermission(AccessController.java:546)
+//    at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+//    at java.lang.SecurityManager.checkRead(SecurityManager.java:871)
+//    at java.io.File.exists(File.java:731)
+//    at java.io.File.mkdirs(File.java:1181)
+//    at org.apache.maven.surefire.report.AbstractFileReporter.testSetStarting(AbstractFileReporter.java:59)
+//    at org.apache.maven.surefire.report.MulticastingReporter.testSetStarting(MulticastingReporter.java:45)
+//    at org.apache.maven.surefire.report.TestSetRunListener.testSetStarting(TestSetRunListener.java:131)
+//    at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:115)
+//    at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:101)
+
+//    java.lang.reflect.UndeclaredThrowableException
+//    at $Proxy0.invoke(Unknown Source)
+//Running org.apache.commons.lang3.AnnotationUtilsTest
+//    at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:150)
+//    at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+//    at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+//Caused by: java.lang.reflect.InvocationTargetException
+//    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+//    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+//    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+//    at java.lang.reflect.Method.invoke(Method.java:597)
+//    at org.apache.maven.surefire.booter.ProviderFactory$ClassLoaderProxy.invoke(ProviderFactory.java:103)
+//    ... 4 more
+//Caused by: java.security.AccessControlException: access denied (java.io.FilePermission C:\svn\org\apache\commons\trunks-proper\lang\target\surefire-reports write)
+//    at java.security.AccessControlContext.checkPermission(AccessControlContext.java:374)
+//    at java.security.AccessController.checkPermission(AccessController.java:546)
+//    at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+//    at java.lang.SecurityManager.checkWrite(SecurityManager.java:962)
+//    at java.io.File.mkdir(File.java:1155)
+//    at java.io.File.mkdirs(File.java:1184)
+//    at org.apache.maven.surefire.report.AbstractFileReporter.testSetStarting(AbstractFileReporter.java:59)
+//    at org.apache.maven.surefire.report.MulticastingReporter.testSetStarting(MulticastingReporter.java:45)
+//    at org.apache.maven.surefire.report.TestSetRunListener.testSetStarting(TestSetRunListener.java:131)
+//    at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:115)
+//    at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:101)
+//    ... 9 more  
+
+  permission java.io.FilePermission "target/surefire-reports", "read, write";
+  permission java.io.FilePermission "target/surefire-reports/*", "read, write";
+
+};
+
+
