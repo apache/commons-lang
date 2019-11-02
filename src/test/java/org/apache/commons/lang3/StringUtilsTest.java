@@ -238,7 +238,7 @@ public class StringUtilsTest {
     @Test
     public void testAbbreviateMarkerWithEmptyString() {
         String greaterThanMaxTest = "much too long text";
-        assertEquals("much too long",StringUtils.abbreviate(greaterThanMaxTest, "", 13));
+        assertEquals("much too long", StringUtils.abbreviate(greaterThanMaxTest, "", 13));
     }
 
     @Test
