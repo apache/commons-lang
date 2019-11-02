@@ -292,6 +292,7 @@ public class StringUtils {
      */
     public static String abbreviate(final String str, final String abbrevMarker, final int maxWidth) {
         return abbreviate(str, abbrevMarker, 0, maxWidth);
+        // TODO hackathon String Method
     }
 
     /**
@@ -332,9 +333,17 @@ public class StringUtils {
      * @since 3.6
      */
     public static String abbreviate(final String str, final String abbrevMarker, int offset, final int maxWidth) {
-        if (isEmpty(str) || isEmpty(abbrevMarker)) {
+        if (isEmpty(str) && isEmpty(abbrevMarker)) {
             return str;
         }
+        else if (isNotEmpty(str) && "".equals(abbrevMarker) && maxWidth>0) {
+            return str.substring(0, maxWidth);
+        }
+        else if (isEmpty(str) || isEmpty(abbrevMarker)) {
+            return str;
+        }
+
+        //TODO hackathon
 
         final int abbrevMarkerLength = abbrevMarker.length();
         final int minAbbrevWidth = abbrevMarkerLength + 1;
