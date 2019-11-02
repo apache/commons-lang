@@ -337,7 +337,7 @@ public class StringUtils {
         }
 
         if (abbrevMarker == null){
-            return str.substring(0,maxWidth + 1);
+            return str.substring(0, maxWidth + 1);
         }
         if (isEmpty(abbrevMarker)){
             return str.substring(0, maxWidth);
