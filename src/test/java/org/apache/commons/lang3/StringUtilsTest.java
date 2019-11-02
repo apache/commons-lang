@@ -234,6 +234,7 @@ public class StringUtilsTest {
     }
 
     //-----------------------------------------------------------------------
+    //Fixed LANG-1463
     @Test
     public void testAbbreviateMarkerWithEmptyString() {
         String greaterThanMaxTest = "much too long text";

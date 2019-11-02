@@ -292,9 +292,7 @@ public class StringUtils {
      */
     public static String abbreviate(final String str, final String abbrevMarker, final int maxWidth) {
         return abbreviate(str, abbrevMarker, 0, maxWidth);
-        // TODO hackathon String Method
     }
-
     /**
      * <p>Abbreviates a String using a given replacement marker. This will turn
      * "Now is the time for all good men" into "...is the time for..." if "..." was defined
@@ -342,9 +340,6 @@ public class StringUtils {
         else if (isEmpty(str) || isEmpty(abbrevMarker)) {
             return str;
         }
-
-        //TODO hackathon
-
         final int abbrevMarkerLength = abbrevMarker.length();
         final int minAbbrevWidth = abbrevMarkerLength + 1;
         final int minAbbrevWidthOffset = abbrevMarkerLength + abbrevMarkerLength + 1;
