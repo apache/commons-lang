@@ -160,10 +160,10 @@ public class ObjectUtils {
      * <p>The caller responsible for thread-safety and exception handling of default value supplier.</p>
      *
      * <pre>
-     * ObjectUtils.getIfNull(null, () -> null)        = null
+     * ObjectUtils.getIfNull(null, () -&gt; null)        = null
      * ObjectUtils.getIfNull(null, null)              = null
-     * ObjectUtils.getIfNull(null, () -> "")          = ""
-     * ObjectUtils.getIfNull(null, () -> "zz")        = "zz"
+     * ObjectUtils.getIfNull(null, () -&gt; "")          = ""
+     * ObjectUtils.getIfNull(null, () -&gt; "zz")        = "zz"
      * ObjectUtils.getIfNull("abc", *)                = "abc"
      * ObjectUtils.getIfNull(Boolean.TRUE, *)         = Boolean.TRUE
      * </pre>
