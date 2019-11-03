@@ -306,7 +306,7 @@ public class StringUtilsTest {
         assertEquals("", StringUtils.abbreviate("", "...", 2));
         assertEquals("wai**", StringUtils.abbreviate("waiheke", "**", 5));
         assertEquals("And af,,,,", StringUtils.abbreviate("And after a long time, he finally met his son.", ",,,,", 10));
-
+        assertEquals("much too long", StringUtils.abbreviate("much too long text", "", 13));
         final String raspberry = "raspberry peach";
         assertEquals("raspberry pe..", StringUtils.abbreviate(raspberry, "..", 14));
         assertEquals("raspberry peach", StringUtils.abbreviate("raspberry peach", "---*---", 15));
