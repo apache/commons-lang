@@ -333,7 +333,7 @@ public class StringUtils {
     public static String abbreviate(final String str, final String abbrevMarker, int offset, final int maxWidth) {
         if (isEmpty(str) && isEmpty(abbrevMarker)) {
             return str;
-        } else if (isNotEmpty(str) && "".equals(abbrevMarker) && maxWidth>0) {
+        } else if (isNotEmpty(str) && "".equals(abbrevMarker) && maxWidth > 0) {
             return str.substring(0, maxWidth);
         } else if (isEmpty(str) || isEmpty(abbrevMarker)) {
             return str;
