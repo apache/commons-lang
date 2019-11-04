@@ -211,8 +211,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String abbreviate(final String str, final int maxWidth) {
-        final String defaultAbbrevMarker = "...";
-        return abbreviate(str, defaultAbbrevMarker, 0, maxWidth);
+        return abbreviate(str, "...", 0, maxWidth);
     }
 
     /**
@@ -251,8 +250,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String abbreviate(final String str, final int offset, final int maxWidth) {
-        final String defaultAbbrevMarker = "...";
-        return abbreviate(str, defaultAbbrevMarker, offset, maxWidth);
+        return abbreviate(str, "...", offset, maxWidth);
     }
 
     /**
