@@ -158,13 +158,7 @@ public class Functions {
      * @return a standard {@code Runnable}
      */
     public static Runnable asRunnable(FailableRunnable<?> pRunnable) {
-        return () -> {
-            try {
-                pRunnable.run();
-            } catch (Throwable t) {
-                throw rethrow(t);
-            }
-        };
+        return () -> run(pRunnable);
     }
 
     /**
@@ -175,13 +169,7 @@ public class Functions {
      * @return a standard {@code Consumer}
      */
     public static <I> Consumer<I> asConsumer(FailableConsumer<I, ?> pConsumer) {
-        return (pInput) -> {
-            try {
-                pConsumer.accept(pInput);
-            } catch (Throwable t) {
-                throw rethrow(t);
-            }
-        };
+        return (pInput) -> accept(pConsumer, pInput);
     }
 
     /**
@@ -192,13 +180,7 @@ public class Functions {
      * @return a standard {@code Callable}
      */
     public static <O> Callable<O> asCallable(FailableCallable<O, ?> pCallable) {
-        return () -> {
-            try {
-                return pCallable.call();
-            } catch (Throwable t) {
-                throw rethrow(t);
-            }
-        };
+        return () -> call(pCallable);
     }
 
     /**
@@ -210,13 +192,7 @@ public class Functions {
      * @return a standard {@code BiConsumer}
      */
     public static <I1, I2> BiConsumer<I1, I2> asBiConsumer(FailableBiConsumer<I1, I2, ?> pConsumer) {
-        return (pInput1, pInput2) -> {
-            try {
-                pConsumer.accept(pInput1, pInput2);
-            } catch (Throwable t) {
-                throw rethrow(t);
-            }
-        };
+        return (pInput1, pInput2) -> accept(pConsumer, pInput1, pInput2);
     }
 
     /**
@@ -228,13 +204,7 @@ public class Functions {
      * @return a standard {@code Function}
      */
     public static <I, O> Function<I, O> asFunction(FailableFunction<I, O, ?> pFunction) {
-        return (pInput) -> {
-            try {
-                return pFunction.apply(pInput);
-            } catch (Throwable t) {
-                throw rethrow(t);
-            }
-        };
+        return (pInput) -> apply(pFunction, pInput);
     }
 
     /**
@@ -247,13 +217,7 @@ public class Functions {
      * @return a standard {@code BiFunction}
      */
     public static <I1, I2, O> BiFunction<I1, I2, O> asBiFunction(FailableBiFunction<I1, I2, O, ?> pFunction) {
-        return (pInput1, pInput2) -> {
-            try {
-                return pFunction.apply(pInput1, pInput2);
-            } catch (Throwable t) {
-                throw rethrow(t);
-            }
-        };
+        return (pInput1, pInput2) -> apply(pFunction, pInput1, pInput2);
     }
 
     /**
@@ -264,13 +228,7 @@ public class Functions {
      * @return a standard {@code Predicate}
      */
     public static <I> Predicate<I> asPredicate(FailablePredicate<I, ?> pPredicate) {
-        return (pInput) -> {
-            try {
-                return pPredicate.test(pInput);
-            } catch (Throwable t) {
-                throw rethrow(t);
-            }
-        };
+        return (pInput) -> test(pPredicate, pInput);
     }
 
     /**
@@ -282,13 +240,7 @@ public class Functions {
      * @return a standard {@code BiPredicate}
      */
     public static <I1, I2> BiPredicate<I1, I2> asBiPredicate(FailableBiPredicate<I1, I2, ?> pPredicate) {
-        return (pInput1, pInput2) -> {
-            try {
-                return pPredicate.test(pInput1, pInput2);
-            } catch (Throwable t) {
-                throw rethrow(t);
-            }
-        };
+        return (pInput1, pInput2) -> test(pPredicate, pInput1, pInput2);
     }
 
     /**
@@ -299,13 +251,7 @@ public class Functions {
      * @return a standard {@code Supplier}
      */
     public static <O> Supplier<O> asSupplier(FailableSupplier<O, ?> pSupplier) {
-        return () -> {
-            try {
-                return pSupplier.get();
-            } catch (Throwable t) {
-                throw rethrow(t);
-            }
-        };
+        return () -> get(pSupplier);
     }
 
     /**

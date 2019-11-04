@@ -154,8 +154,32 @@ public class ObjectUtils {
         return !isEmpty(object);
     }
 
-    // Defaulting
-    //-----------------------------------------------------------------------
+    /**
+     * <p>Returns the given {@code object} is it is non-null, otherwise returns the Supplier's get value.</p>
+     *
+     * <p>The caller responsible for thread-safety and exception handling of default value supplier.</p>
+     *
+     * <pre>
+     * {@code
+     * ObjectUtils.defaultIfNull(null, () -> null)        = null
+     * ObjectUtils.defaultIfNull(null, null)              = null
+     * ObjectUtils.defaultIfNull(null, () -> "")          = ""
+     * ObjectUtils.defaultIfNull(null, () -> "zz")        = "zz"
+     * ObjectUtils.defaultIfNull("abc", *)                = "abc"
+     * ObjectUtils.defaultIfNull(Boolean.TRUE, *)         = Boolean.TRUE
+     * }
+     * </pre>
+     *
+     * @param <T> the type of the object
+     * @param object  the {@code Object} to test, may be {@code null}
+     * @param defaultSupplier  the default value to return, may be {@code null}
+     * @return {@code object} if it is not {@code null}, {@code defaultValueSupplier.get()} otherwise
+     * @since 3.10
+     */
+    public static <T> T defaultIfNull(final T object, final Supplier<T> defaultSupplier) {
+        return object != null ? object : defaultSupplier == null ? null : defaultSupplier.get();
+    }
+
     /**
      * <p>Returns a default value if the object passed is {@code null}.</p>
      *
@@ -174,31 +198,6 @@ public class ObjectUtils {
      */
     public static <T> T defaultIfNull(final T object, final T defaultValue) {
         return object != null ? object : defaultValue;
-    }
-
-    /**
-     * <p>Returns a default value supplied by supplier if the object passed is {@code null}.</p>
-     *
-     * <p>Caller responsible for thread-safety and exception handling of default value supplier</p>
-     *
-     * <pre>
-     * {@code
-     * ObjectUtils.getIfNull(null, () -> null)        = null
-     * ObjectUtils.getIfNull(null, null)              = null
-     * ObjectUtils.getIfNull(null, () -> "")          = ""
-     * ObjectUtils.getIfNull(null, () -> "zz")        = "zz"
-     * ObjectUtils.getIfNull("abc", *)                = "abc"
-     * ObjectUtils.getIfNull(Boolean.TRUE, *)         = Boolean.TRUE
-     * }
-     * </pre>
-     *
-     * @param <T> the type of the object
-     * @param object  the {@code Object} to test, may be {@code null}
-     * @param defaultValueSupplier  the default value to return, may be {@code null}
-     * @return {@code object} if it is not {@code null}, defaultValueSupplier otherwise
-     */
-    public static <T> T getIfNull(final T object, final Supplier<T> defaultValueSupplier) {
-        return object != null ? object : defaultValueSupplier == null ? null : defaultValueSupplier.get();
     }
 
     /**
