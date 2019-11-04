@@ -39,8 +39,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.function.Supplier;
 import java.util.regex.PatternSyntaxException;
 
+import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.text.WordUtils;
 import org.junit.jupiter.api.Test;
 
@@ -622,7 +624,7 @@ public class StringUtilsTest {
         assertEquals("NULL", StringUtils.defaultIfBlank(CharBuffer.wrap(""), CharBuffer.wrap("NULL")).toString());
         assertEquals("NULL", StringUtils.defaultIfBlank(CharBuffer.wrap(" "), CharBuffer.wrap("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfBlank(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL")).toString());
-        assertNull(StringUtils.defaultIfBlank(CharBuffer.wrap(""), null));
+        assertNull(StringUtils.defaultIfBlank(CharBuffer.wrap(""), (CharBuffer) null));
         // Tests compatibility for the API return type
         final CharBuffer s = StringUtils.defaultIfBlank(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL"));
         assertEquals("abc", s.toString());
@@ -633,7 +635,7 @@ public class StringUtilsTest {
         assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuffer(""), new StringBuffer("NULL")).toString());
         assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuffer(" "), new StringBuffer("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfBlank(new StringBuffer("abc"), new StringBuffer("NULL")).toString());
-        assertNull(StringUtils.defaultIfBlank(new StringBuffer(""), null));
+        assertNull(StringUtils.defaultIfBlank(new StringBuffer(""), (StringBuffer) null));
         // Tests compatibility for the API return type
         final StringBuffer s = StringUtils.defaultIfBlank(new StringBuffer("abc"), new StringBuffer("NULL"));
         assertEquals("abc", s.toString());
@@ -644,7 +646,7 @@ public class StringUtilsTest {
         assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuilder(""), new StringBuilder("NULL")).toString());
         assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuilder(" "), new StringBuilder("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfBlank(new StringBuilder("abc"), new StringBuilder("NULL")).toString());
-        assertNull(StringUtils.defaultIfBlank(new StringBuilder(""), null));
+        assertNull(StringUtils.defaultIfBlank(new StringBuilder(""), (StringBuilder) null));
         // Tests compatibility for the API return type
         final StringBuilder s = StringUtils.defaultIfBlank(new StringBuilder("abc"), new StringBuilder("NULL"));
         assertEquals("abc", s.toString());
@@ -656,17 +658,45 @@ public class StringUtilsTest {
         assertEquals("NULL", StringUtils.defaultIfBlank("", "NULL"));
         assertEquals("NULL", StringUtils.defaultIfBlank(" ", "NULL"));
         assertEquals("abc", StringUtils.defaultIfBlank("abc", "NULL"));
-        assertNull(StringUtils.defaultIfBlank("", null));
+        assertNull(StringUtils.defaultIfBlank("", (String) null));
         // Tests compatibility for the API return type
         final String s = StringUtils.defaultIfBlank("abc", "NULL");
         assertEquals("abc", s);
+    }
+
+
+    @Test
+    public void testGetIfBlank_StringStringSupplier() {
+        assertEquals("NULL", StringUtils.getIfBlank(null, () -> "NULL"));
+        assertEquals("NULL", StringUtils.getIfBlank("",  () -> "NULL"));
+        assertEquals("NULL", StringUtils.getIfBlank(" ", () -> "NULL"));
+        assertEquals("abc", StringUtils.getIfBlank("abc", () -> "NULL"));
+        assertNull(StringUtils.getIfBlank("", () -> null));
+        assertNull(StringUtils.defaultIfBlank("", (String) null));
+        // Tests compatibility for the API return type
+        final String s = StringUtils.getIfBlank("abc", () -> "NULL");
+        assertEquals("abc", s);
+        //Checking that default value supplied only on demand
+        MutableInt numberOfCalls = new MutableInt(0);
+        Supplier<String> countingDefaultSupplier = () -> {
+            numberOfCalls.increment();
+            return "NULL";
+        };
+        StringUtils.getIfBlank("abc", countingDefaultSupplier);
+        assertEquals(0, numberOfCalls.getValue());
+        StringUtils.getIfBlank("", countingDefaultSupplier);
+        assertEquals(1, numberOfCalls.getValue());
+        StringUtils.getIfBlank(" ", countingDefaultSupplier);
+        assertEquals(2, numberOfCalls.getValue());
+        StringUtils.getIfBlank(null, countingDefaultSupplier);
+        assertEquals(3, numberOfCalls.getValue());
     }
 
     @Test
     public void testDefaultIfEmpty_CharBuffers() {
         assertEquals("NULL", StringUtils.defaultIfEmpty(CharBuffer.wrap(""), CharBuffer.wrap("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfEmpty(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL")).toString());
-        assertNull(StringUtils.defaultIfEmpty(CharBuffer.wrap(""), null));
+        assertNull(StringUtils.defaultIfEmpty(CharBuffer.wrap(""), (CharBuffer) null));
         // Tests compatibility for the API return type
         final CharBuffer s = StringUtils.defaultIfEmpty(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL"));
         assertEquals("abc", s.toString());
@@ -677,7 +707,7 @@ public class StringUtilsTest {
     public void testDefaultIfEmpty_StringBuffers() {
         assertEquals("NULL", StringUtils.defaultIfEmpty(new StringBuffer(""), new StringBuffer("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfEmpty(new StringBuffer("abc"), new StringBuffer("NULL")).toString());
-        assertNull(StringUtils.defaultIfEmpty(new StringBuffer(""), null));
+        assertNull(StringUtils.defaultIfEmpty(new StringBuffer(""), (StringBuffer) null));
         // Tests compatibility for the API return type
         final StringBuffer s = StringUtils.defaultIfEmpty(new StringBuffer("abc"), new StringBuffer("NULL"));
         assertEquals("abc", s.toString());
@@ -687,7 +717,7 @@ public class StringUtilsTest {
     public void testDefaultIfEmpty_StringBuilders() {
         assertEquals("NULL", StringUtils.defaultIfEmpty(new StringBuilder(""), new StringBuilder("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfEmpty(new StringBuilder("abc"), new StringBuilder("NULL")).toString());
-        assertNull(StringUtils.defaultIfEmpty(new StringBuilder(""), null));
+        assertNull(StringUtils.defaultIfEmpty(new StringBuilder(""), (StringBuilder) null));
         // Tests compatibility for the API return type
         final StringBuilder s = StringUtils.defaultIfEmpty(new StringBuilder("abc"), new StringBuilder("NULL"));
         assertEquals("abc", s.toString());
@@ -698,11 +728,36 @@ public class StringUtilsTest {
         assertEquals("NULL", StringUtils.defaultIfEmpty(null, "NULL"));
         assertEquals("NULL", StringUtils.defaultIfEmpty("", "NULL"));
         assertEquals("abc", StringUtils.defaultIfEmpty("abc", "NULL"));
-        assertNull(StringUtils.defaultIfEmpty("", null));
+        assertNull(StringUtils.getIfEmpty("", null));
         // Tests compatibility for the API return type
         final String s = StringUtils.defaultIfEmpty("abc", "NULL");
         assertEquals("abc", s);
     }
+
+    @Test
+    public void testGetIfEmpty_StringStringSupplier() {
+        assertEquals("NULL", StringUtils.getIfEmpty((String) null, () -> "NULL"));
+        assertEquals("NULL", StringUtils.getIfEmpty("", () -> "NULL"));
+        assertEquals("abc", StringUtils.getIfEmpty("abc", () -> "NULL"));
+        assertNull(StringUtils.getIfEmpty("", () -> null));
+        assertNull(StringUtils.defaultIfEmpty("", (String) null));
+        // Tests compatibility for the API return type
+        final String s = StringUtils.getIfEmpty("abc", () -> "NULL");
+        assertEquals("abc", s);
+        //Checking that default value supplied only on demand
+        MutableInt numberOfCalls = new MutableInt(0);
+        Supplier<String> countingDefaultSupplier = () -> {
+            numberOfCalls.increment();
+            return "NULL";
+        };
+        StringUtils.getIfEmpty("abc", countingDefaultSupplier);
+        assertEquals(0, numberOfCalls.getValue());
+        StringUtils.getIfEmpty("", countingDefaultSupplier);
+        assertEquals(1, numberOfCalls.getValue());
+        StringUtils.getIfEmpty(null, countingDefaultSupplier);
+        assertEquals(2, numberOfCalls.getValue());
+    }
+
 
     @Test
     public void testDeleteWhitespace_String() {

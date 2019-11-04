@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 /**
@@ -1481,7 +1482,6 @@ public class StringUtils {
         return isBlank(str) ? defaultStr : str;
     }
 
-
     /**
      * <p>Returns either the passed in CharSequence, or if the CharSequence is
      * empty or {@code null}, the value of {@code defaultStr}.</p>
@@ -1504,8 +1504,6 @@ public class StringUtils {
         return isEmpty(str) ? defaultStr : str;
     }
 
-    // Defaults
-    //-----------------------------------------------------------------------
     /**
      * <p>Returns either the passed in String,
      * or if the String is {@code null}, an empty String ("").</p>
@@ -2146,6 +2144,63 @@ public class StringUtils {
         }
 
         return score;
+    }
+
+    /**
+     * <p>Returns either the passed in CharSequence, or if the CharSequence is
+     * whitespace, empty ("") or {@code null}, the value supplied by {@code defaultStrSupplier}.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <p>Caller responsible for thread-safety and exception handling of default value supplier</p>
+     *
+     * <pre>
+     * {@code
+     * StringUtils.getIfBlank(null, () -> "NULL")   = "NULL"
+     * StringUtils.getIfBlank("", () -> "NULL")     = "NULL"
+     * StringUtils.getIfBlank(" ", () -> "NULL")    = "NULL"
+     * StringUtils.getIfBlank("bat", () -> "NULL")  = "bat"
+     * StringUtils.getIfBlank("", () -> null)       = null
+     * StringUtils.getIfBlank("", null)             = null
+     * }</pre>
+     * @param <T> the specific kind of CharSequence
+     * @param str the CharSequence to check, may be null
+     * @param defaultSupplier the supplier of default CharSequence to return
+     *  if the input is whitespace, empty ("") or {@code null}, may be null
+     * @return the passed in CharSequence, or the default
+     * @see StringUtils#defaultString(String, String)
+     * @since 3.10
+     */
+    public static <T extends CharSequence> T getIfBlank(final T str, final Supplier<T> defaultSupplier) {
+        return isBlank(str) ? defaultSupplier == null ? null : defaultSupplier.get() : str;
+    }
+
+    /**
+     * <p>Returns either the passed in CharSequence, or if the CharSequence is
+     * empty or {@code null}, the value supplied by {@code defaultStrSupplier}.</p>
+     *
+     * <p>Caller responsible for thread-safety and exception handling of default value supplier</p>
+     *
+     * <pre>
+     * {@code
+     * StringUtils.getIfEmpty(null, () -> "NULL")    = "NULL"
+     * StringUtils.getIfEmpty("", () -> "NULL")      = "NULL"
+     * StringUtils.getIfEmpty(" ", () -> "NULL")     = " "
+     * StringUtils.getIfEmpty("bat", () -> "NULL")   = "bat"
+     * StringUtils.getIfEmpty("", () -> null)        = null
+     * StringUtils.getIfEmpty("", null)              = null
+     * }
+     * </pre>
+     * @param <T> the specific kind of CharSequence
+     * @param str  the CharSequence to check, may be null
+     * @param defaultSupplier  the supplier of default CharSequence to return
+     *  if the input is empty ("") or {@code null}, may be null
+     * @return the passed in CharSequence, or the default
+     * @see StringUtils#defaultString(String, String)
+     * @since 3.10
+     */
+    public static <T extends CharSequence> T getIfEmpty(final T str, final Supplier<T> defaultSupplier) {
+        return isEmpty(str) ? defaultSupplier == null ? null : defaultSupplier.get() : str;
     }
 
     /**
