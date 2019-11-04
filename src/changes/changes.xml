@@ -80,6 +80,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1495" type="add" dev="ggregory" due-to="Cheong Voon Leong">Add EnumUtils getEnum() methods with default values #475.</action>
     <action issue="LANG-1177" type="add" dev="ggregory" due-to="Liel Fridman">Added indexesOf methods and simplified removeAllOccurences #471.</action>
     <action issue="LANG-1498" type="add" dev="ggregory" due-to="Lysergid, Gary Gregory">Add support of lambda value evaluation for defaulting methods #416.</action>
+    <action issue="LANG-1463" type="fix" dev="ggregory" due-to="bbeckercscc, Gary Gregory">StringUtils abbreviate returns String of length greater than maxWidth #477.</action>
   </release>
 
   <release version="3.9" date="2019-04-09" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">
