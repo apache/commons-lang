@@ -687,7 +687,7 @@ public class StringUtilsTest {
     @Test
     public void testGetIfBlank_StringStringSupplier() {
         assertEquals("NULL", StringUtils.getIfBlank(null, () -> "NULL"));
-        assertEquals("NULL", StringUtils.getIfBlank("",  () -> "NULL"));
+        assertEquals("NULL", StringUtils.getIfBlank("", () -> "NULL"));
         assertEquals("NULL", StringUtils.getIfBlank(" ", () -> "NULL"));
         assertEquals("abc", StringUtils.getIfBlank("abc", () -> "NULL"));
         assertNull(StringUtils.getIfBlank("", () -> null));
