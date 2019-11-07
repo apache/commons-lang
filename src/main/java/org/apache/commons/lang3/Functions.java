@@ -480,7 +480,7 @@ public class Functions {
         } catch (Throwable t) {
             th = t;
         }
-        if (pResources != null) {
+        if (pResources != null) { 
             for (FailableRunnable<?> runnable : pResources) {
                 try {
                     runnable.run();
