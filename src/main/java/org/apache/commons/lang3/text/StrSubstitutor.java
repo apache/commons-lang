@@ -984,7 +984,7 @@ public class StrSubstitutor {
      */
     public StrSubstitutor setVariablePrefixMatcher(final StrMatcher prefixMatcher) {
         if (prefixMatcher == null) {
-            throw new IllegalArgumentException("Variable prefix matcher must not be null!");
+            throw new IllegalArgumentException("Variable prefix matcher must not be null.");
         }
         this.prefixMatcher = prefixMatcher;
         return this;
@@ -1016,7 +1016,7 @@ public class StrSubstitutor {
      */
     public StrSubstitutor setVariablePrefix(final String prefix) {
        if (prefix == null) {
-            throw new IllegalArgumentException("Variable prefix must not be null!");
+            throw new IllegalArgumentException("Variable prefix must not be null.");
         }
         return setVariablePrefixMatcher(StrMatcher.stringMatcher(prefix));
     }
@@ -1049,7 +1049,7 @@ public class StrSubstitutor {
      */
     public StrSubstitutor setVariableSuffixMatcher(final StrMatcher suffixMatcher) {
         if (suffixMatcher == null) {
-            throw new IllegalArgumentException("Variable suffix matcher must not be null!");
+            throw new IllegalArgumentException("Variable suffix matcher must not be null.");
         }
         this.suffixMatcher = suffixMatcher;
         return this;
@@ -1081,7 +1081,7 @@ public class StrSubstitutor {
      */
     public StrSubstitutor setVariableSuffix(final String suffix) {
        if (suffix == null) {
-            throw new IllegalArgumentException("Variable suffix must not be null!");
+            throw new IllegalArgumentException("Variable suffix must not be null.");
         }
         return setVariableSuffixMatcher(StrMatcher.stringMatcher(suffix));
     }

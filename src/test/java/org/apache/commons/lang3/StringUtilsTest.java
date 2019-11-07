@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -38,8 +39,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.function.Supplier;
 import java.util.regex.PatternSyntaxException;
 
+import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.text.WordUtils;
 import org.junit.jupiter.api.Test;
 
@@ -233,6 +236,13 @@ public class StringUtilsTest {
     }
 
     //-----------------------------------------------------------------------
+    //Fixed LANG-1463
+    @Test
+    public void testAbbreviateMarkerWithEmptyString() {
+        String greaterThanMaxTest = "much too long text";
+        assertEquals("much too long", StringUtils.abbreviate(greaterThanMaxTest, "", 13));
+    }
+
     @Test
     public void testAbbreviate_StringInt() {
         assertNull(StringUtils.abbreviate(null, 10));
@@ -621,7 +631,7 @@ public class StringUtilsTest {
         assertEquals("NULL", StringUtils.defaultIfBlank(CharBuffer.wrap(""), CharBuffer.wrap("NULL")).toString());
         assertEquals("NULL", StringUtils.defaultIfBlank(CharBuffer.wrap(" "), CharBuffer.wrap("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfBlank(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL")).toString());
-        assertNull(StringUtils.defaultIfBlank(CharBuffer.wrap(""), null));
+        assertNull(StringUtils.defaultIfBlank(CharBuffer.wrap(""), (CharBuffer) null));
         // Tests compatibility for the API return type
         final CharBuffer s = StringUtils.defaultIfBlank(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL"));
         assertEquals("abc", s.toString());
@@ -632,7 +642,7 @@ public class StringUtilsTest {
         assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuffer(""), new StringBuffer("NULL")).toString());
         assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuffer(" "), new StringBuffer("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfBlank(new StringBuffer("abc"), new StringBuffer("NULL")).toString());
-        assertNull(StringUtils.defaultIfBlank(new StringBuffer(""), null));
+        assertNull(StringUtils.defaultIfBlank(new StringBuffer(""), (StringBuffer) null));
         // Tests compatibility for the API return type
         final StringBuffer s = StringUtils.defaultIfBlank(new StringBuffer("abc"), new StringBuffer("NULL"));
         assertEquals("abc", s.toString());
@@ -643,7 +653,7 @@ public class StringUtilsTest {
         assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuilder(""), new StringBuilder("NULL")).toString());
         assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuilder(" "), new StringBuilder("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfBlank(new StringBuilder("abc"), new StringBuilder("NULL")).toString());
-        assertNull(StringUtils.defaultIfBlank(new StringBuilder(""), null));
+        assertNull(StringUtils.defaultIfBlank(new StringBuilder(""), (StringBuilder) null));
         // Tests compatibility for the API return type
         final StringBuilder s = StringUtils.defaultIfBlank(new StringBuilder("abc"), new StringBuilder("NULL"));
         assertEquals("abc", s.toString());
@@ -655,17 +665,45 @@ public class StringUtilsTest {
         assertEquals("NULL", StringUtils.defaultIfBlank("", "NULL"));
         assertEquals("NULL", StringUtils.defaultIfBlank(" ", "NULL"));
         assertEquals("abc", StringUtils.defaultIfBlank("abc", "NULL"));
-        assertNull(StringUtils.defaultIfBlank("", null));
+        assertNull(StringUtils.defaultIfBlank("", (String) null));
         // Tests compatibility for the API return type
         final String s = StringUtils.defaultIfBlank("abc", "NULL");
         assertEquals("abc", s);
+    }
+
+
+    @Test
+    public void testGetIfBlank_StringStringSupplier() {
+        assertEquals("NULL", StringUtils.getIfBlank(null, () -> "NULL"));
+        assertEquals("NULL", StringUtils.getIfBlank("",  () -> "NULL"));
+        assertEquals("NULL", StringUtils.getIfBlank(" ", () -> "NULL"));
+        assertEquals("abc", StringUtils.getIfBlank("abc", () -> "NULL"));
+        assertNull(StringUtils.getIfBlank("", () -> null));
+        assertNull(StringUtils.defaultIfBlank("", (String) null));
+        // Tests compatibility for the API return type
+        final String s = StringUtils.getIfBlank("abc", () -> "NULL");
+        assertEquals("abc", s);
+        //Checking that default value supplied only on demand
+        MutableInt numberOfCalls = new MutableInt(0);
+        Supplier<String> countingDefaultSupplier = () -> {
+            numberOfCalls.increment();
+            return "NULL";
+        };
+        StringUtils.getIfBlank("abc", countingDefaultSupplier);
+        assertEquals(0, numberOfCalls.getValue());
+        StringUtils.getIfBlank("", countingDefaultSupplier);
+        assertEquals(1, numberOfCalls.getValue());
+        StringUtils.getIfBlank(" ", countingDefaultSupplier);
+        assertEquals(2, numberOfCalls.getValue());
+        StringUtils.getIfBlank(null, countingDefaultSupplier);
+        assertEquals(3, numberOfCalls.getValue());
     }
 
     @Test
     public void testDefaultIfEmpty_CharBuffers() {
         assertEquals("NULL", StringUtils.defaultIfEmpty(CharBuffer.wrap(""), CharBuffer.wrap("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfEmpty(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL")).toString());
-        assertNull(StringUtils.defaultIfEmpty(CharBuffer.wrap(""), null));
+        assertNull(StringUtils.defaultIfEmpty(CharBuffer.wrap(""), (CharBuffer) null));
         // Tests compatibility for the API return type
         final CharBuffer s = StringUtils.defaultIfEmpty(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL"));
         assertEquals("abc", s.toString());
@@ -676,7 +714,7 @@ public class StringUtilsTest {
     public void testDefaultIfEmpty_StringBuffers() {
         assertEquals("NULL", StringUtils.defaultIfEmpty(new StringBuffer(""), new StringBuffer("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfEmpty(new StringBuffer("abc"), new StringBuffer("NULL")).toString());
-        assertNull(StringUtils.defaultIfEmpty(new StringBuffer(""), null));
+        assertNull(StringUtils.defaultIfEmpty(new StringBuffer(""), (StringBuffer) null));
         // Tests compatibility for the API return type
         final StringBuffer s = StringUtils.defaultIfEmpty(new StringBuffer("abc"), new StringBuffer("NULL"));
         assertEquals("abc", s.toString());
@@ -686,7 +724,7 @@ public class StringUtilsTest {
     public void testDefaultIfEmpty_StringBuilders() {
         assertEquals("NULL", StringUtils.defaultIfEmpty(new StringBuilder(""), new StringBuilder("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfEmpty(new StringBuilder("abc"), new StringBuilder("NULL")).toString());
-        assertNull(StringUtils.defaultIfEmpty(new StringBuilder(""), null));
+        assertNull(StringUtils.defaultIfEmpty(new StringBuilder(""), (StringBuilder) null));
         // Tests compatibility for the API return type
         final StringBuilder s = StringUtils.defaultIfEmpty(new StringBuilder("abc"), new StringBuilder("NULL"));
         assertEquals("abc", s.toString());
@@ -697,11 +735,36 @@ public class StringUtilsTest {
         assertEquals("NULL", StringUtils.defaultIfEmpty(null, "NULL"));
         assertEquals("NULL", StringUtils.defaultIfEmpty("", "NULL"));
         assertEquals("abc", StringUtils.defaultIfEmpty("abc", "NULL"));
-        assertNull(StringUtils.defaultIfEmpty("", null));
+        assertNull(StringUtils.getIfEmpty("", null));
         // Tests compatibility for the API return type
         final String s = StringUtils.defaultIfEmpty("abc", "NULL");
         assertEquals("abc", s);
     }
+
+    @Test
+    public void testGetIfEmpty_StringStringSupplier() {
+        assertEquals("NULL", StringUtils.getIfEmpty((String) null, () -> "NULL"));
+        assertEquals("NULL", StringUtils.getIfEmpty("", () -> "NULL"));
+        assertEquals("abc", StringUtils.getIfEmpty("abc", () -> "NULL"));
+        assertNull(StringUtils.getIfEmpty("", () -> null));
+        assertNull(StringUtils.defaultIfEmpty("", (String) null));
+        // Tests compatibility for the API return type
+        final String s = StringUtils.getIfEmpty("abc", () -> "NULL");
+        assertEquals("abc", s);
+        //Checking that default value supplied only on demand
+        MutableInt numberOfCalls = new MutableInt(0);
+        Supplier<String> countingDefaultSupplier = () -> {
+            numberOfCalls.increment();
+            return "NULL";
+        };
+        StringUtils.getIfEmpty("abc", countingDefaultSupplier);
+        assertEquals(0, numberOfCalls.getValue());
+        StringUtils.getIfEmpty("", countingDefaultSupplier);
+        assertEquals(1, numberOfCalls.getValue());
+        StringUtils.getIfEmpty(null, countingDefaultSupplier);
+        assertEquals(2, numberOfCalls.getValue());
+    }
+
 
     @Test
     public void testDeleteWhitespace_String() {
@@ -1683,6 +1746,12 @@ public class StringUtilsTest {
 
         // StringUtils.removeIgnoreCase("queued", "zZ") = "queued"
         assertEquals("queued", StringUtils.removeIgnoreCase("queued", "zZ"));
+
+        // StringUtils.removeIgnoreCase("\u0130x", "x") = "\u0130"
+        assertEquals("\u0130", StringUtils.removeIgnoreCase("\u0130x", "x"));
+
+        // LANG-1453
+        StringUtils.removeIgnoreCase("İa", "a");
     }
 
     @Test
@@ -2949,15 +3018,15 @@ public class StringUtilsTest {
     public void testTruncate_StringIntInt() {
         assertNull(StringUtils.truncate(null, 0, 12));
         assertThrows(
-                IllegalArgumentException.class, () -> StringUtils.truncate(null, -1, 0), "maxWith cannot be negative");
+                IllegalArgumentException.class, () -> StringUtils.truncate(null, -1, 0), "offset cannot be negative");
         assertThrows(
                 IllegalArgumentException.class,
                 () -> StringUtils.truncate(null, -10, -4),
-                "maxWith cannot be negative");
+                "offset cannot be negative");
         assertThrows(
                 IllegalArgumentException.class,
                 () -> StringUtils.truncate(null, Integer.MIN_VALUE, Integer.MIN_VALUE),
-                "maxWith cannot be negative");
+                "offset cannot be negative");
         assertNull(StringUtils.truncate(null, 10, 12));
         assertEquals("", StringUtils.truncate("", 0, 10));
         assertEquals("", StringUtils.truncate("", 2, 10));
@@ -3011,11 +3080,11 @@ public class StringUtilsTest {
         assertThrows(
                 IllegalArgumentException.class,
                 () -> StringUtils.truncate("abcdefghij", -100, -100),
-                "offset  cannot be negative");
+                "offset cannot be negative");
         assertThrows(
                 IllegalArgumentException.class,
                 () -> StringUtils.truncate("abcdefghij", Integer.MIN_VALUE, Integer.MIN_VALUE),
-                "offset  cannot be negative");
+                "offset cannot be negative");
         final String raspberry = "raspberry peach";
         assertEquals("peach", StringUtils.truncate(raspberry, 10, 15));
         assertEquals("abcdefghij", StringUtils.truncate("abcdefghijklmno", 0, 10));
@@ -3191,5 +3260,45 @@ public class StringUtilsTest {
         assertEquals("/", StringUtils.wrapIfMissing("/", "/"));
         assertEquals("ab/ab", StringUtils.wrapIfMissing("/", "ab"));
         assertEquals("ab/ab", StringUtils.wrapIfMissing("ab/ab", "ab"));
+    }
+
+    @Test
+    public void testToRootLowerCase() {
+        assertEquals(null, StringUtils.toRootLowerCase(null));
+        assertEquals("a", StringUtils.toRootLowerCase("A"));
+        assertEquals("a", StringUtils.toRootLowerCase("a"));
+        final Locale TURKISH = Locale.forLanguageTag("tr");
+        // Sanity checks:
+        assertNotEquals("title", "TITLE".toLowerCase(TURKISH));
+        assertEquals("title", "TITLE".toLowerCase(Locale.ROOT));
+        assertEquals("title", StringUtils.toRootLowerCase("TITLE"));
+        // Make sure we are not using the default Locale:
+        Locale defaultLocales = Locale.getDefault();
+        try {
+            Locale.setDefault(TURKISH);
+            assertEquals("title", StringUtils.toRootLowerCase("TITLE"));
+        } finally {
+            Locale.setDefault(defaultLocales);
+        }
+    }
+
+    @Test
+    public void testToRootUpperCase() {
+        assertEquals(null, StringUtils.toRootUpperCase(null));
+        assertEquals("A", StringUtils.toRootUpperCase("a"));
+        assertEquals("A", StringUtils.toRootUpperCase("A"));
+        final Locale TURKISH = Locale.forLanguageTag("tr");
+        // Sanity checks:
+        assertNotEquals("TITLE", "title".toUpperCase(TURKISH));
+        assertEquals("TITLE", "title".toUpperCase(Locale.ROOT));
+        assertEquals("TITLE", StringUtils.toRootUpperCase("title"));
+        // Make sure we are not using the default Locale:
+        Locale defaultLocales = Locale.getDefault();
+        try {
+            Locale.setDefault(TURKISH);
+            assertEquals("TITLE", StringUtils.toRootUpperCase("title"));
+        } finally {
+            Locale.setDefault(defaultLocales);
+        }
     }
 }

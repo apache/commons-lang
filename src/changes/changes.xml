@@ -45,7 +45,7 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.10" date="YYYY-MM-DD" description="TBD">
+  <release version="3.10" date="YYYY-MM-DD" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">
     <action issue="LANG-1450" type="fix" dev="chtompki">Generate Javadoc jar on build.</action>
     <action issue="LANG-1457" type="add" dev="ggregory">Add ExceptionUtils.throwableOfType(Throwable, Class) and friends.</action>
     <action issue="LANG-1458" type="add" dev="ggregory">Add EMPTY_ARRAY constants to classes in org.apache.commons.lang3.tuple.</action>
@@ -62,9 +62,28 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory">junit-jupiter 5.5.0 -> 5.5.1.</action>
     <action issue="LANG-1477" type="add" dev="jochen">Added Functions.as*, and tests thereof, as suggested by Peter Verhas</action>
     <action issue="LANG-1475" type="fix" dev="kinow" due-to="stzx">StringUtils.unwrap incorrect throw StringIndexOutOfBoundsException.</action>
+    <action issue="LANG-1485" type="add" dev="ggregory" due-to="nicolasbd">Add getters for lhs and rhs objects in DiffResult #451.</action>
+    <action issue="LANG-1486" type="add" dev="ggregory" due-to="Gary Gregory">Generify builder classes Diffable, DiffBuilder, and DiffResult #452.</action>
+    <action issue="LANG-1487" type="add" dev="ggregory" due-to="Gary Gregory">Add ClassLoaderUtils with toString() implementations #453.</action>
+    <action issue="LANG-1489" type="add" dev="ggregory" due-to="Gary Gregory">Add null-safe APIs as StringUtils.toRootLowerCase(String) and StringUtils.toRootUpperCase(String) #456.</action>
+    <action issue="LANG-1406" type="fix" dev="ggregory" due-to="geratorres">StringIndexOutOfBoundsException in StringUtils.replaceIgnoreCase #423.</action>
+    <action issue="LANG-1453" type="fix" dev="ggregory" due-to="geratorres">StringUtils.removeIgnoreCase("İa", "a") throws IndexOutOfBoundsException #423.</action>
+    <action                   type="update" dev="ggregory">junit-jupiter 5.5.1 -> 5.5.2.</action>
+    <action                   type="update" dev="ggregory">com.puppycrawl.tools:checkstyle 8.23 -> 8.24.</action>
+    <action issue="LANG-1426" type="fix" dev="ggregory" due-to="Brower, Mikko Maunu, Suraj Gautam">Corrected usage examples in Javadocs #458.</action>
+    <action                   type="update" dev="ggregory" due-to="Jonathan Leitschuh, Bruno P. Kinoshita, Rob Tompkins, Gary Gregory">Improve Javadoc based on the discussion of the GitHub PR #459.</action>
+    <action                   type="update" dev="ggregory">maven-checkstyle-plugin 3.0.0 -> 3.1.0.</action>
+    <action                   type="update" dev="ggregory">com.puppycrawl.tools:checkstyle 8.24 -> 8.25.</action>
+    <action issue="LANG-696"  type="update" dev="ggregory" due-to="Peter Verhas">Update documentation related to the issue LANG-696 #449.</action>
+    <action                   type="update" dev="ggregory" due-to="Peter Verhas">AnnotationUtils little cleanup #467.</action>
+    <action issue="LANG-1494" type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.time.Calendars.</action>
+    <action issue="LANG-1495" type="add" dev="ggregory" due-to="Cheong Voon Leong">Add EnumUtils getEnum() methods with default values #475.</action>
+    <action issue="LANG-1177" type="add" dev="ggregory" due-to="Liel Fridman">Added indexesOf methods and simplified removeAllOccurences #471.</action>
+    <action issue="LANG-1498" type="add" dev="ggregory" due-to="Lysergid, Gary Gregory">Add support of lambda value evaluation for defaulting methods #416.</action>
+    <action issue="LANG-1463" type="fix" dev="ggregory" due-to="bbeckercscc, Gary Gregory">StringUtils abbreviate returns String of length greater than maxWidth #477.</action>
   </release>
 
-  <release version="3.9" date="2019-04-09" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11">
+  <release version="3.9" date="2019-04-09" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">
     <action issue="LANG-1447" type="update" dev="chtompki">FieldUtils.removeFinalModifier(Field, boolean), in java 12
       throw exception because the final modifier is no longer mutable.</action>
     <action issue="LANG-1446" type="add" dev="chtompki">Switch coverage from cobertura to jacoco.</action>

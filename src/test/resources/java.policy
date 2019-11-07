@@ -16,8 +16,6 @@
 //
 
 //
-// $Id$
-//
 // Allows unit tests to run with a Java Security Manager
 //
 // Tested from Eclipse 3.7 with the CLI:

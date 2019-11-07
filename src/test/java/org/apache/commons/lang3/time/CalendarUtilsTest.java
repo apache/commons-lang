@@ -14,24 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang3.reflect;
 
-import java.lang.reflect.Type;
+package org.apache.commons.lang3.time;
 
-/**
- * Generalization of "has a type."
- *
- * @param <T> the type
- * @see TypeLiteral
- * @since 3.2
- */
-@FunctionalInterface
-public interface Typed<T> {
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    /**
-     * Gets the {@link Type} represented by this entity.
-     *
-     * @return Type
-     */
-    Type getType();
+import java.util.Calendar;
+
+import org.junit.jupiter.api.Test;
+
+public class CalendarUtilsTest {
+
+    @Test
+    public void testGetYear() {
+        assertEquals(Calendar.getInstance().get(Calendar.YEAR), CalendarUtils.INSTANCE.getYear());
+    }
+
+    @Test
+    public void testGetMonth() {
+        assertEquals(Calendar.getInstance().get(Calendar.MONTH), CalendarUtils.INSTANCE.getMonth());
+    }
+
+    @Test
+    public void testGetDayOfMonth() {
+        assertEquals(Calendar.getInstance().get(Calendar.DAY_OF_MONTH), CalendarUtils.INSTANCE.getDayOfMonth());
+    }
+
 }

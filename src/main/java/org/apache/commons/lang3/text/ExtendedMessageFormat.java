@@ -491,9 +491,8 @@ public class ExtendedMessageFormat extends MessageFormat {
                 next(pos);
                 return appendTo == null ? null : appendTo.append(c, lastHold,
                         pos.getIndex() - lastHold);
-            } else {
-                next(pos);
             }
+            next(pos);
         }
         throw new IllegalArgumentException(
                 "Unterminated quoted string at position " + start);

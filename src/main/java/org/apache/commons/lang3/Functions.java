@@ -54,6 +54,7 @@ import java.util.function.Supplier;
  * Lambda expressions is met better than the second version.
  */
 public class Functions {
+
     @FunctionalInterface
     public interface FailableRunnable<T extends Throwable> {
         /**
@@ -525,7 +526,7 @@ public class Functions {
     }
 
     /**
-     * <p>Rethrow a {@link Throwable} as an unchecked exception. If the argument is
+     * <p>Rethrows a {@link Throwable} as an unchecked exception. If the argument is
      * already unchecked, namely a {@code RuntimeException} or {@code Error} then
      * the argument will be rethrown without modification. If the exception is
      * {@code IOException} then it will be enveloped into a {@code UncheckedIOException}.
@@ -550,16 +551,14 @@ public class Functions {
     public static RuntimeException rethrow(Throwable pThrowable) {
         if (pThrowable == null) {
             throw new NullPointerException("The Throwable must not be null.");
+        } else if (pThrowable instanceof RuntimeException) {
+            throw (RuntimeException) pThrowable;
+        } else if (pThrowable instanceof Error) {
+            throw (Error) pThrowable;
+        } else if (pThrowable instanceof IOException) {
+            throw popStackTrace(new UncheckedIOException((IOException) pThrowable));
         } else {
-            if (pThrowable instanceof RuntimeException) {
-                throw (RuntimeException) pThrowable;
-            } else if (pThrowable instanceof Error) {
-                throw (Error) pThrowable;
-            } else if (pThrowable instanceof IOException) {
-                throw popStackTrace(new UncheckedIOException((IOException) pThrowable));
-            } else {
-                throw popStackTrace(new UndeclaredThrowableException(pThrowable));
-            }
+            throw popStackTrace(new UndeclaredThrowableException(pThrowable));
         }
     }
 

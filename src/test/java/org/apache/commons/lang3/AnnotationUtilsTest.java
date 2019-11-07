@@ -35,7 +35,6 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.time.Duration;
 import java.util.Collection;
@@ -465,21 +464,17 @@ public class AnnotationUtilsTest {
             final Test real = getClass().getDeclaredMethod(
                     "testGeneratedAnnotationEquivalentToRealAnnotation").getAnnotation(Test.class);
 
-            final InvocationHandler generatedTestInvocationHandler = new InvocationHandler() {
-
-                @Override
-                public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
-                    if ("equals".equals(method.getName()) && method.getParameterTypes().length == 1) {
-                        return Boolean.valueOf(proxy == args[0]);
-                    }
-                    if ("hashCode".equals(method.getName()) && method.getParameterTypes().length == 0) {
-                        return Integer.valueOf(System.identityHashCode(proxy));
-                    }
-                    if ("toString".equals(method.getName()) && method.getParameterTypes().length == 0) {
-                        return "Test proxy";
-                    }
-                    return method.invoke(real, args);
+            final InvocationHandler generatedTestInvocationHandler = (proxy, method, args) -> {
+                if ("equals".equals(method.getName()) && method.getParameterTypes().length == 1) {
+                    return Boolean.valueOf(proxy == args[0]);
                 }
+                if ("hashCode".equals(method.getName()) && method.getParameterTypes().length == 0) {
+                    return Integer.valueOf(System.identityHashCode(proxy));
+                }
+                if ("toString".equals(method.getName()) && method.getParameterTypes().length == 0) {
+                    return "Test proxy";
+                }
+                return method.invoke(real, args);
             };
 
             final Test generated = (Test) Proxy.newProxyInstance(Thread.currentThread()

@@ -79,11 +79,8 @@ public class EventUtilsTest {
     public void testAddEventListenerThrowsException() {
         final ExceptionEventSource src = new ExceptionEventSource();
         assertThrows(RuntimeException.class, () ->
-            EventUtils.addEventListener(src, PropertyChangeListener.class, new PropertyChangeListener() {
-                @Override
-                public void propertyChange(final PropertyChangeEvent e) {
-                    // Do nothing!
-                }
+            EventUtils.addEventListener(src, PropertyChangeListener.class, e -> {
+                // Do nothing!
             })
         );
     }

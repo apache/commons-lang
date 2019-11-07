@@ -40,14 +40,6 @@ import org.apache.commons.lang3.Validate;
 public class ExceptionUtils {
 
     /**
-     * <p>Used when printing stack frames to denote the start of a
-     * wrapped exception.</p>
-     *
-     * <p>Package private for accessibility by test suite.</p>
-     */
-    static final String WRAPPED_MARKER = " [wrapped] ";
-
-    /**
      * <p>The names of methods commonly used to access a wrapped exception.</p>
      */
     // TODO: Remove in Lang 4.0
@@ -65,6 +57,14 @@ public class ExceptionUtils {
         "getLinkedCause",
         "getThrowable",
     };
+
+    /**
+     * <p>Used when printing stack frames to denote the start of a
+     * wrapped exception.</p>
+     *
+     * <p>Package private for accessibility by test suite.</p>
+     */
+    static final String WRAPPED_MARKER = " [wrapped] ";
 
     //-----------------------------------------------------------------------
     /**

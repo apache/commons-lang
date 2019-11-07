@@ -89,15 +89,12 @@ public class ToStringStyleConcurrencyTest {
         // Create a thread pool with two threads to cause the most contention on the underlying resource.
         final ExecutorService threadPool = Executors.newFixedThreadPool(2);
         // Consumes toStrings
-        final Callable<Integer> consumer = new Callable<Integer>() {
-            @Override
-            public Integer call() {
-                for (int i = 0; i < REPEAT; i++) {
-                    // Calls ToStringStyle
-                    new ToStringBuilder(holder).append(holder.collection);
-                }
-                return Integer.valueOf(REPEAT);
+        final Callable<Integer> consumer = () -> {
+            for (int i = 0; i < REPEAT; i++) {
+                // Calls ToStringStyle
+                new ToStringBuilder(holder).append(holder.collection);
             }
+            return Integer.valueOf(REPEAT);
         };
         final Collection<Callable<Integer>> tasks = new ArrayList<>();
         tasks.add(consumer);
