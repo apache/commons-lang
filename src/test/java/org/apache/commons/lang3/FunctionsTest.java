@@ -139,7 +139,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testRunnable() {
+    public void testRunnable() {
         FailureOnOddInvocations.invocation = 0;
         UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  Functions.run(FailureOnOddInvocations::new));
         final Throwable cause = e.getCause();
@@ -152,7 +152,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testAsRunnable() {
+    public void testAsRunnable() {
         FailureOnOddInvocations.invocation = 0;
         Runnable runnable = Functions.asRunnable(() -> new FailureOnOddInvocations());
         UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  runnable.run());
@@ -166,7 +166,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testCallable() {
+    public void testCallable() {
         FailureOnOddInvocations.invocation = 0;
         UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  Functions.run(FailureOnOddInvocations::new));
         final Throwable cause = e.getCause();
@@ -178,7 +178,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testAsCallable() {
+    public void testAsCallable() {
         FailureOnOddInvocations.invocation = 0;
         final FailableCallable<FailureOnOddInvocations, SomeException> failableCallable = () -> {
             return new FailureOnOddInvocations();
@@ -199,7 +199,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testAcceptConsumer() {
+    public void testAcceptConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(Testable::test, testable));
@@ -222,7 +222,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testAsConsumer() {
+    public void testAsConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(ise);
         final Consumer<Testable> consumer = Functions.asConsumer((t) -> t.test());
@@ -246,7 +246,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testAcceptBiConsumer() {
+    public void testAcceptBiConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(null);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(Testable::test, testable, ise));
@@ -268,7 +268,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testAsBiConsumer() {
+    public void testAsBiConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(null);
         final FailableBiConsumer<Testable, Throwable, Throwable> failableBiConsumer = (t, th) -> {
@@ -477,7 +477,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testRethrowNull(){
+    public void testRethrowNull(){
         assertThrows(NullPointerException.class, () -> Functions.rethrow(null));
     }
 }
