@@ -190,6 +190,7 @@ public class HashCodeBuilder implements Builder<Integer> {
         }
         try {
             register(object);
+            // The elements in the returned array are not sorted and are not in any particular order.
             final Field[] fields = clazz.getDeclaredFields();
             Arrays.sort(fields, Comparator.comparing(Field::getName));
             AccessibleObject.setAccessible(fields, true);
