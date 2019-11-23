@@ -543,7 +543,7 @@ public class ToStringBuilderTest {
     @Test
     public void testSelfInstanceTwoVarsReflectionObjectCycle() {
         final SelfInstanceTwoVarsReflectionTestFixture test = new SelfInstanceTwoVarsReflectionTestFixture();
-        assertEquals(this.toBaseString(test) + "[typeIsSelf=" + this.toBaseString(test) + ",otherType=" + test.getOtherType().toString() + "]", test.toString());
+        assertEquals(this.toBaseString(test) + "[otherType=" + test.getOtherType().toString() + ",typeIsSelf=" + this.toBaseString(test)  + "]", test.toString());
     }
 
 
@@ -1140,16 +1140,16 @@ public class ToStringBuilderTest {
     public void testSimpleReflectionStatics() {
         final SimpleReflectionStaticFieldsFixture instance1 = new SimpleReflectionStaticFieldsFixture();
         assertEquals(
-            this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345]",
+            this.toBaseString(instance1) + "[staticInt=12345,staticString=staticString]",
             ReflectionToStringBuilder.toString(instance1, null, false, true, SimpleReflectionStaticFieldsFixture.class));
         assertEquals(
-            this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345]",
+            this.toBaseString(instance1) + "[staticInt=12345,staticString=staticString]",
             ReflectionToStringBuilder.toString(instance1, null, true, true, SimpleReflectionStaticFieldsFixture.class));
         assertEquals(
-            this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345]",
+            this.toBaseString(instance1) + "[staticInt=12345,staticString=staticString]",
             this.toStringWithStatics(instance1, null, SimpleReflectionStaticFieldsFixture.class));
         assertEquals(
-            this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345]",
+            this.toBaseString(instance1) + "[staticInt=12345,staticString=staticString]",
             this.toStringWithStatics(instance1, null, SimpleReflectionStaticFieldsFixture.class));
     }
 
@@ -1160,16 +1160,16 @@ public class ToStringBuilderTest {
     public void testReflectionStatics() {
         final ReflectionStaticFieldsFixture instance1 = new ReflectionStaticFieldsFixture();
         assertEquals(
-            this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345,instanceString=instanceString,instanceInt=67890]",
+            this.toBaseString(instance1) + "[instanceInt=67890,instanceString=instanceString,staticInt=12345,staticString=staticString]",
             ReflectionToStringBuilder.toString(instance1, null, false, true, ReflectionStaticFieldsFixture.class));
         assertEquals(
-            this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345,staticTransientString=staticTransientString,staticTransientInt=54321,instanceString=instanceString,instanceInt=67890,transientString=transientString,transientInt=98765]",
+            this.toBaseString(instance1) + "[instanceInt=67890,instanceString=instanceString,staticInt=12345,staticString=staticString,staticTransientInt=54321,staticTransientString=staticTransientString,transientInt=98765,transientString=transientString]",
             ReflectionToStringBuilder.toString(instance1, null, true, true, ReflectionStaticFieldsFixture.class));
         assertEquals(
-            this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345,instanceString=instanceString,instanceInt=67890]",
+            this.toBaseString(instance1) + "[instanceInt=67890,instanceString=instanceString,staticInt=12345,staticString=staticString]",
             this.toStringWithStatics(instance1, null, ReflectionStaticFieldsFixture.class));
         assertEquals(
-            this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345,instanceString=instanceString,instanceInt=67890]",
+            this.toBaseString(instance1) + "[instanceInt=67890,instanceString=instanceString,staticInt=12345,staticString=staticString]",
             this.toStringWithStatics(instance1, null, ReflectionStaticFieldsFixture.class));
     }
 
@@ -1180,16 +1180,16 @@ public class ToStringBuilderTest {
     public void testInheritedReflectionStatics() {
         final InheritedReflectionStaticFieldsFixture instance1 = new InheritedReflectionStaticFieldsFixture();
         assertEquals(
-            this.toBaseString(instance1) + "[staticString2=staticString2,staticInt2=67890]",
+            this.toBaseString(instance1) + "[staticInt2=67890,staticString2=staticString2]",
             ReflectionToStringBuilder.toString(instance1, null, false, true, InheritedReflectionStaticFieldsFixture.class));
         assertEquals(
-            this.toBaseString(instance1) + "[staticString2=staticString2,staticInt2=67890,staticString=staticString,staticInt=12345]",
+            this.toBaseString(instance1) + "[staticInt2=67890,staticString2=staticString2,staticInt=12345,staticString=staticString]",
             ReflectionToStringBuilder.toString(instance1, null, false, true, SimpleReflectionStaticFieldsFixture.class));
         assertEquals(
-            this.toBaseString(instance1) + "[staticString2=staticString2,staticInt2=67890,staticString=staticString,staticInt=12345]",
+            this.toBaseString(instance1) + "[staticInt2=67890,staticString2=staticString2,staticInt=12345,staticString=staticString]",
             this.toStringWithStatics(instance1, null, SimpleReflectionStaticFieldsFixture.class));
         assertEquals(
-            this.toBaseString(instance1) + "[staticString2=staticString2,staticInt2=67890,staticString=staticString,staticInt=12345]",
+            this.toBaseString(instance1) + "[staticInt2=67890,staticString2=staticString2,staticInt=12345,staticString=staticString]",
             this.toStringWithStatics(instance1, null, SimpleReflectionStaticFieldsFixture.class));
     }
 

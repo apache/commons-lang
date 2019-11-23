@@ -46,12 +46,12 @@ public class MultilineRecursiveToStringStyleTest {
         final Bank bank = new Bank("ASF Bank");
         customer.bank = bank;
         final String exp = getClassPrefix(customer) + "[" + BR
-                   + "  name=Douglas Adams," + BR
+                   + "  accounts=<null>," + BR
                    + "  bank=" + getClassPrefix(bank) + "[" + BR
                    + "    name=ASF Bank" + BR
                    + "  ]," + BR
-                   + "  accounts=<null>" + BR
-                   + "]";
+                   + "  name=Douglas Adams" + BR
+                + "]";
         assertEquals(exp, toString(customer));
     }
 
@@ -84,8 +84,8 @@ public class MultilineRecursiveToStringStyleTest {
         final String exp = getClassPrefix(wa) + "[" + BR
                    + "  boolArray=<null>," + BR
                    + "  charArray=<null>," + BR
-                   + "  intArray=<null>," + BR
                    + "  doubleArray=<null>," + BR
+                   + "  intArray=<null>," + BR
                    + "  longArray=<null>," + BR
                    + "  stringArray=<null>" + BR
                    + "]";
@@ -103,8 +103,8 @@ public class MultilineRecursiveToStringStyleTest {
                    + "    true" + BR
                    + "  }," + BR
                    + "  charArray=<null>," + BR
-                   + "  intArray=<null>," + BR
                    + "  doubleArray=<null>," + BR
+                   + "  intArray=<null>," + BR
                    + "  longArray=<null>," + BR
                    + "  stringArray=<null>" + BR
                    + "]";
@@ -121,8 +121,8 @@ public class MultilineRecursiveToStringStyleTest {
                    + "    a," + BR
                    + "    A" + BR
                    + "  }," + BR
-                   + "  intArray=<null>," + BR
                    + "  doubleArray=<null>," + BR
+                   + "  intArray=<null>," + BR
                    + "  longArray=<null>," + BR
                    + "  stringArray=<null>" + BR
                    + "]";
@@ -136,11 +136,11 @@ public class MultilineRecursiveToStringStyleTest {
         final String exp = getClassPrefix(wa) + "[" + BR
                    + "  boolArray=<null>," + BR
                    + "  charArray=<null>," + BR
+                   + "  doubleArray=<null>," + BR
                    + "  intArray={" + BR
                    + "    1," + BR
                    + "    2" + BR
                    + "  }," + BR
-                   + "  doubleArray=<null>," + BR
                    + "  longArray=<null>," + BR
                    + "  stringArray=<null>" + BR
                    + "]";
@@ -154,11 +154,11 @@ public class MultilineRecursiveToStringStyleTest {
         final String exp = getClassPrefix(wa) + "[" + BR
                    + "  boolArray=<null>," + BR
                    + "  charArray=<null>," + BR
-                   + "  intArray=<null>," + BR
                    + "  doubleArray={" + BR
                    + "    1.0," + BR
                    + "    2.0" + BR
                    + "  }," + BR
+                   + "  intArray=<null>," + BR
                    + "  longArray=<null>," + BR
                    + "  stringArray=<null>" + BR
                    + "]";
@@ -172,8 +172,8 @@ public class MultilineRecursiveToStringStyleTest {
         final String exp = getClassPrefix(wa) + "[" + BR
                    + "  boolArray=<null>," + BR
                    + "  charArray=<null>," + BR
-                   + "  intArray=<null>," + BR
                    + "  doubleArray=<null>," + BR
+                   + "  intArray=<null>," + BR
                    + "  longArray={" + BR
                    + "    1," + BR
                    + "    2" + BR
@@ -190,8 +190,8 @@ public class MultilineRecursiveToStringStyleTest {
         final String exp = getClassPrefix(wa) + "[" + BR
                    + "  boolArray=<null>," + BR
                    + "  charArray=<null>," + BR
-                   + "  intArray=<null>," + BR
                    + "  doubleArray=<null>," + BR
+                   + "  intArray=<null>," + BR
                    + "  longArray=<null>," + BR
                    + "  stringArray={" + BR
                    + "    a," + BR
@@ -226,8 +226,8 @@ public class MultilineRecursiveToStringStyleTest {
     static class WithArrays {
         boolean[] boolArray;
         char[] charArray;
-        int[] intArray;
         double[] doubleArray;
+        int[] intArray;
         long[] longArray;
         String[] stringArray;
     }
