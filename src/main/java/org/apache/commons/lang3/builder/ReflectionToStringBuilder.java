@@ -23,6 +23,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -639,7 +640,9 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             this.reflectionAppendArray(this.getObject());
             return;
         }
+        // The elements in the returned array are not sorted and are not in any particular order.
         final Field[] fields = clazz.getDeclaredFields();
+        Arrays.sort(fields, Comparator.comparing(Field::getName));
         AccessibleObject.setAccessible(fields, true);
         for (final Field field : fields) {
             final String fieldName = field.getName();
