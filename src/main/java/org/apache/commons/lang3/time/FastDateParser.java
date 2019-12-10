@@ -52,9 +52,9 @@ import java.util.regex.Pattern;
  * </code>
  *
  * <p>This class can be used as a direct replacement for
- * <code>SimpleDateFormat</code> in most parsing situations.
+ * {@code SimpleDateFormat} in most parsing situations.
  * This class is especially useful in multi-threaded server environments.
- * <code>SimpleDateFormat</code> is not thread-safe in any JDK version,
+ * {@code SimpleDateFormat} is not thread-safe in any JDK version,
  * nor will it be as Sun has closed the
  * <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4228335">bug</a>/RFE.
  * </p>
@@ -287,7 +287,7 @@ public class FastDateParser implements DateParser, Serializable {
      * <p>Compare another object for equality with this object.</p>
      *
      * @param obj  the object to compare to
-     * @return <code>true</code>if equal to this instance
+     * @return {@code true}if equal to this instance
      */
     @Override
     public boolean equals(final Object obj) {

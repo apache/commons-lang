@@ -74,7 +74,7 @@ public class RegExUtils {
      *
      * <p>Unlike in the {@link #removePattern(String, String)} method, the {@link Pattern#DOTALL} option
      * is NOT automatically added.
-     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>
@@ -155,7 +155,7 @@ public class RegExUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <p>The {@link Pattern#DOTALL} option is NOT automatically added.
-     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>
@@ -276,7 +276,7 @@ public class RegExUtils {
      *
      * <p>Unlike in the {@link #replacePattern(String, String, String)} method, the {@link Pattern#DOTALL} option
      * is NOT automatically added.
-     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>
@@ -372,7 +372,7 @@ public class RegExUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <p>The {@link Pattern#DOTALL} option is NOT automatically added.
-     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>

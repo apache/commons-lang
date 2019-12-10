@@ -652,7 +652,7 @@ public class SystemUtils {
 
     /**
      * <p>
-     * The {@code line.separator} System Property. Line separator (<code>&quot;\n&quot;</code> on UNIX).
+     * The {@code line.separator} System Property. Line separator ({@code &quot;\n&quot;} on UNIX).
      * </p>
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
@@ -726,7 +726,7 @@ public class SystemUtils {
 
     /**
      * <p>
-     * The {@code path.separator} System Property. Path separator (<code>&quot;:&quot;</code> on UNIX).
+     * The {@code path.separator} System Property. Path separator ({@code &quot;:&quot;} on UNIX).
      * </p>
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does

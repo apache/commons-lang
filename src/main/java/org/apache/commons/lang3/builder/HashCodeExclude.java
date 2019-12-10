@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 
 /**
  * Use this annotation to exclude a field from being used by
- * the various <code>reflectionHashcode</code> methods defined on
+ * the various {@code reflectionHashcode} methods defined on
  * {@link HashCodeBuilder}.
  *
  * @since 3.5

@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 
 /**
  * Use this annotation to exclude a field from being used by
- * the various <code>reflectionEquals</code> methods defined on
+ * the various {@code reflectionEquals} methods defined on
  * {@link EqualsBuilder}.
  *
  * @since 3.5

@@ -61,7 +61,7 @@ public class DurationFormatUtils {
     }
 
     /**
-     * <p>Pattern used with <code>FastDateFormat</code> and <code>SimpleDateFormat</code>
+     * <p>Pattern used with {@code FastDateFormat} and {@code SimpleDateFormat}
      * for the ISO 8601 period format used in durations.</p>
      *
      * @see org.apache.commons.lang3.time.FastDateFormat
@@ -578,7 +578,7 @@ public class DurationFormatUtils {
          *
          * @param tokens set to look in
          * @param value to look for
-         * @return boolean <code>true</code> if contained
+         * @return boolean {@code true} if contained
          */
         static boolean containsTokenWithValue(final Token[] tokens, final Object value) {
             for (final Token token : tokens) {
@@ -643,7 +643,7 @@ public class DurationFormatUtils {
          * Supports equality of this Token to another Token.
          *
          * @param obj2 Object to consider equality of
-         * @return boolean <code>true</code> if equal
+         * @return boolean {@code true} if equal
          */
         @Override
         public boolean equals(final Object obj2) {

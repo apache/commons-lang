@@ -59,42 +59,42 @@ public class CharSequenceUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * Returns the index within <code>cs</code> of the first occurrence of the
+     * Returns the index within {@code cs} of the first occurrence of the
      * specified character, starting the search at the specified index.
      * <p>
-     * If a character with value <code>searchChar</code> occurs in the
-     * character sequence represented by the <code>cs</code>
-     * object at an index no smaller than <code>start</code>, then
+     * If a character with value {@code searchChar} occurs in the
+     * character sequence represented by the {@code cs}
+     * object at an index no smaller than {@code start}, then
      * the index of the first such occurrence is returned. For values
-     * of <code>searchChar</code> in the range from 0 to 0xFFFF (inclusive),
+     * of {@code searchChar} in the range from 0 to 0xFFFF (inclusive),
      * this is the smallest value <i>k</i> such that:
      * <blockquote><pre>
      * (this.charAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= start)
      * </pre></blockquote>
-     * is true. For other values of <code>searchChar</code>, it is the
+     * is true. For other values of {@code searchChar}, it is the
      * smallest value <i>k</i> such that:
      * <blockquote><pre>
      * (this.codePointAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= start)
      * </pre></blockquote>
-     * is true. In either case, if no such character occurs inm <code>cs</code>
-     * at or after position <code>start</code>, then
-     * <code>-1</code> is returned.
+     * is true. In either case, if no such character occurs inm {@code cs}
+     * at or after position {@code start}, then
+     * {@code -1} is returned.
      *
      * <p>
-     * There is no restriction on the value of <code>start</code>. If it
+     * There is no restriction on the value of {@code start}. If it
      * is negative, it has the same effect as if it were zero: the entire
-     * <code>CharSequence</code> may be searched. If it is greater than
-     * the length of <code>cs</code>, it has the same effect as if it were
-     * equal to the length of <code>cs</code>: <code>-1</code> is returned.
+     * {@code CharSequence} may be searched. If it is greater than
+     * the length of {@code cs}, it has the same effect as if it were
+     * equal to the length of {@code cs}: {@code -1} is returned.
      *
-     * <p>All indices are specified in <code>char</code> values
+     * <p>All indices are specified in {@code char} values
      * (Unicode code units).
      *
      * @param cs  the {@code CharSequence} to be processed, not null
      * @param searchChar  the char to be searched for
      * @param start  the start index, negative starts at the string start
      * @return the index where the search char was found, -1 if not found
-     * @since 3.6 updated to behave more like <code>String</code>
+     * @since 3.6 updated to behave more like {@code String}
      */
     static int indexOf(final CharSequence cs, final int searchChar, int start) {
         if (cs instanceof String) {
@@ -147,30 +147,30 @@ public class CharSequenceUtils {
     }
 
     /**
-     * Returns the index within <code>cs</code> of the last occurrence of
+     * Returns the index within {@code cs} of the last occurrence of
      * the specified character, searching backward starting at the
-     * specified index. For values of <code>searchChar</code> in the range
+     * specified index. For values of {@code searchChar} in the range
      * from 0 to 0xFFFF (inclusive), the index returned is the largest
      * value <i>k</i> such that:
      * <blockquote><pre>
      * (this.charAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &lt;= start)
      * </pre></blockquote>
-     * is true. For other values of <code>searchChar</code>, it is the
+     * is true. For other values of {@code searchChar}, it is the
      * largest value <i>k</i> such that:
      * <blockquote><pre>
      * (this.codePointAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &lt;= start)
      * </pre></blockquote>
-     * is true. In either case, if no such character occurs in <code>cs</code>
-     * at or before position <code>start</code>, then <code>-1</code> is returned.
+     * is true. In either case, if no such character occurs in {@code cs}
+     * at or before position {@code start}, then {@code -1} is returned.
      *
-     * <p>All indices are specified in <code>char</code> values
+     * <p>All indices are specified in {@code char} values
      * (Unicode code units).
      *
      * @param cs  the {@code CharSequence} to be processed
      * @param searchChar  the char to be searched for
      * @param start  the start index, negative returns -1, beyond length starts at end
      * @return the index where the search char was found, -1 if not found
-     * @since 3.6 updated to behave more like <code>String</code>
+     * @since 3.6 updated to behave more like {@code String}
      */
     static int lastIndexOf(final CharSequence cs, final int searchChar, int start) {
         if (cs instanceof String) {

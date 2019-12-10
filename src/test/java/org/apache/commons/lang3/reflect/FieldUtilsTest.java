@@ -1040,7 +1040,7 @@ public class FieldUtilsTest {
     }
 
     /**
-     * Read the <code>@deprecated</code> notice on
+     * Read the {@code @deprecated} notice on
      * {@link FieldUtils#removeFinalModifier(Field, boolean)}.
      *
      * @param field {@link Field} to be curried into

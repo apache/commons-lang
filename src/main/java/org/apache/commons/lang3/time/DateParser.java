@@ -39,8 +39,8 @@ public interface DateParser {
      * Equivalent to DateFormat.parse(String).
      *
      * See {@link java.text.DateFormat#parse(String)} for more information.
-     * @param source A <code>String</code> whose beginning should be parsed.
-     * @return A <code>Date</code> parsed from the string
+     * @param source A {@code String} whose beginning should be parsed.
+     * @return A {@code Date} parsed from the string
      * @throws ParseException if the beginning of the specified string cannot be parsed.
      */
     Date parse(String source) throws ParseException;
@@ -50,10 +50,10 @@ public interface DateParser {
      *
      * See {@link java.text.DateFormat#parse(String, ParsePosition)} for more information.
      *
-     * @param source A <code>String</code>, part of which should be parsed.
-     * @param pos A <code>ParsePosition</code> object with index and error index information
+     * @param source A {@code String}, part of which should be parsed.
+     * @param pos A {@code ParsePosition} object with index and error index information
      * as described above.
-     * @return A <code>Date</code> parsed from the string. In case of error, returns null.
+     * @return A {@code Date} parsed from the string. In case of error, returns null.
      * @throws NullPointerException if text or pos is null.
      */
     Date parse(String source, ParsePosition pos);
@@ -108,8 +108,8 @@ public interface DateParser {
     /**
      * Parses text from a string to produce a Date.
      *
-     * @param source A <code>String</code> whose beginning should be parsed.
-     * @return a <code>java.util.Date</code> object
+     * @param source A {@code String} whose beginning should be parsed.
+     * @return a {@code java.util.Date} object
      * @throws ParseException if the beginning of the specified string cannot be parsed.
      * @see java.text.DateFormat#parseObject(String)
      */
@@ -118,9 +118,9 @@ public interface DateParser {
     /**
      * Parses a date/time string according to the given parse position.
      *
-     * @param source A <code>String</code> whose beginning should be parsed.
+     * @param source A {@code String} whose beginning should be parsed.
      * @param pos the parse position
-     * @return a <code>java.util.Date</code> object
+     * @return a {@code java.util.Date} object
      * @see java.text.DateFormat#parseObject(String, ParsePosition)
      */
     Object parseObject(String source, ParsePosition pos);

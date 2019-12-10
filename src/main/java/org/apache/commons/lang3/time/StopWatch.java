@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
- * <code>StopWatch</code> provides a convenient API for timings.
+ * {@code StopWatch} provides a convenient API for timings.
  * </p>
  *
  * <p>

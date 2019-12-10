@@ -1195,9 +1195,9 @@ public class ToStringBuilderTest {
 
     /**
      * <p>This method uses reflection to build a suitable
-     * <code>toString</code> value which includes static fields.</p>
+     * {@code toString} value which includes static fields.</p>
      *
-     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
+     * <p>It uses {@code AccessibleObject.setAccessible} to gain access to private
      * fields. This means that it will throw a security exception if run
      * under a security manager, if the permissions are not set up correctly.
      * It is also not as efficient as testing explicitly. </p>
@@ -1205,19 +1205,19 @@ public class ToStringBuilderTest {
      * <p>Transient fields are not output.</p>
      *
      * <p>Superclass fields will be appended up to and including the specified superclass.
-     * A null superclass is treated as <code>java.lang.Object</code>.</p>
+     * A null superclass is treated as {@code java.lang.Object}.</p>
      *
-     * <p>If the style is <code>null</code>, the default
-     * <code>ToStringStyle</code> is used.</p>
+     * <p>If the style is {@code null}, the default
+     * {@code ToStringStyle} is used.</p>
      *
      * @param <T> the type of the output object
      * @param object  the Object to be output
-     * @param style  the style of the <code>toString</code> to create,
-     *  may be <code>null</code>
+     * @param style  the style of the {@code toString} to create,
+     *  may be {@code null}
      * @param reflectUpToClass  the superclass to reflect up to (inclusive),
-     *  may be <code>null</code>
+     *  may be {@code null}
      * @return the String result
-     * @throws IllegalArgumentException if the Object is <code>null</code>
+     * @throws IllegalArgumentException if the Object is {@code null}
      */
     public <T> String toStringWithStatics(final T object, final ToStringStyle style, final Class<? super T> reflectUpToClass) {
         return ReflectionToStringBuilder.toString(object, style, false, true, reflectUpToClass);

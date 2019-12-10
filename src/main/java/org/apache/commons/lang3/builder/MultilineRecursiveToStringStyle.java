@@ -20,7 +20,7 @@ package org.apache.commons.lang3.builder;
 import org.apache.commons.lang3.ClassUtils;
 
 /**
- * <p>Works with {@link ToStringBuilder} to create a "deep" <code>toString</code>.
+ * <p>Works with {@link ToStringBuilder} to create a "deep" {@code toString}.
  * But instead a single line like the {@link RecursiveToStringStyle} this creates a multiline String
  * similar to the {@link ToStringStyle#MULTI_LINE_STYLE}.</p>
  *

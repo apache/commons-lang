@@ -35,9 +35,9 @@ import org.apache.commons.lang3.Validate;
  * </p>
  *
  * <p>
- * This class enables a good <code>hashCode</code> method to be built for any class. It follows the rules laid out in
+ * This class enables a good {@code hashCode} method to be built for any class. It follows the rules laid out in
  * the book <a href="http://www.oracle.com/technetwork/java/effectivejava-136174.html">Effective Java</a> by Joshua Bloch. Writing a
- * good <code>hashCode</code> method is actually quite difficult. This class aims to simplify the process.
+ * good {@code hashCode} method is actually quite difficult. This class aims to simplify the process.
  * </p>
  *
  * <p>
@@ -48,8 +48,8 @@ import org.apache.commons.lang3.Validate;
  * </p>
  *
  * <p>
- * All relevant fields from the object should be included in the <code>hashCode</code> method. Derived fields may be
- * excluded. In general, any field used in the <code>equals</code> method must be used in the <code>hashCode</code>
+ * All relevant fields from the object should be included in the {@code hashCode} method. Derived fields may be
+ * excluded. In general, any field used in the {@code equals} method must be used in the {@code hashCode}
  * method.
  * </p>
  *
@@ -77,12 +77,12 @@ import org.apache.commons.lang3.Validate;
  * </pre>
  *
  * <p>
- * If required, the superclass <code>hashCode()</code> can be added using {@link #appendSuper}.
+ * If required, the superclass {@code hashCode()} can be added using {@link #appendSuper}.
  * </p>
  *
  * <p>
  * Alternatively, there is a method that uses reflection to determine the fields to test. Because these fields are
- * usually private, the method, <code>reflectionHashCode</code>, uses <code>AccessibleObject.setAccessible</code>
+ * usually private, the method, {@code reflectionHashCode}, uses {@code AccessibleObject.setAccessible}
  * to change the visibility of the fields. This will fail under a security manager, unless the appropriate permissions
  * are set up correctly. It is also slower than testing explicitly.
  * </p>
@@ -98,7 +98,7 @@ import org.apache.commons.lang3.Validate;
  * </pre>
  *
  * <p>The {@link HashCodeExclude} annotation can be used to exclude fields from being
- * used by the <code>reflectionHashCode</code> methods.</p>
+ * used by the {@code reflectionHashCode} methods.</p>
  *
  * @since 1.0
  */
@@ -153,13 +153,13 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Returns <code>true</code> if the registry contains the given object. Used by the reflection methods to avoid
+     * Returns {@code true} if the registry contains the given object. Used by the reflection methods to avoid
      * infinite loops.
      * </p>
      *
      * @param value
      *            The object to lookup in the registry.
-     * @return boolean <code>true</code> if the registry contains the given object.
+     * @return boolean {@code true} if the registry contains the given object.
      * @since 2.3
      */
     static boolean isRegistered(final Object value) {
@@ -169,7 +169,7 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Appends the fields and values defined by the given object of the given <code>Class</code>.
+     * Appends the fields and values defined by the given object of the given {@code Class}.
      * </p>
      *
      * @param object
@@ -221,14 +221,14 @@ public class HashCodeBuilder implements Builder<Integer> {
      * </p>
      *
      * <p>
-     * It uses <code>AccessibleObject.setAccessible</code> to gain access to private fields. This means that it will
+     * It uses {@code AccessibleObject.setAccessible} to gain access to private fields. This means that it will
      * throw a security exception if run under a security manager, if the permissions are not set up correctly. It is
      * also not as efficient as testing explicitly.
      * </p>
      *
      * <p>
      * Transient members will be not be used, as they are likely derived fields, and not part of the value of the
-     * <code>Object</code>.
+     * {@code Object}.
      * </p>
      *
      * <p>
@@ -246,10 +246,10 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @param multiplierNonZeroOddNumber
      *            a non-zero, odd number used as the multiplier
      * @param object
-     *            the Object to create a <code>hashCode</code> for
+     *            the Object to create a {@code hashCode} for
      * @return int hash code
      * @throws IllegalArgumentException
-     *             if the Object is <code>null</code>
+     *             if the Object is {@code null}
      * @throws IllegalArgumentException
      *             if the number is zero or even
      *
@@ -265,14 +265,14 @@ public class HashCodeBuilder implements Builder<Integer> {
      * </p>
      *
      * <p>
-     * It uses <code>AccessibleObject.setAccessible</code> to gain access to private fields. This means that it will
+     * It uses {@code AccessibleObject.setAccessible} to gain access to private fields. This means that it will
      * throw a security exception if run under a security manager, if the permissions are not set up correctly. It is
      * also not as efficient as testing explicitly.
      * </p>
      *
      * <p>
-     * If the TestTransients parameter is set to <code>true</code>, transient members will be tested, otherwise they
-     * are ignored, as they are likely derived fields, and not part of the value of the <code>Object</code>.
+     * If the TestTransients parameter is set to {@code true}, transient members will be tested, otherwise they
+     * are ignored, as they are likely derived fields, and not part of the value of the {@code Object}.
      * </p>
      *
      * <p>
@@ -290,12 +290,12 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @param multiplierNonZeroOddNumber
      *            a non-zero, odd number used as the multiplier
      * @param object
-     *            the Object to create a <code>hashCode</code> for
+     *            the Object to create a {@code hashCode} for
      * @param testTransients
      *            whether to include transient fields
      * @return int hash code
      * @throws IllegalArgumentException
-     *             if the Object is <code>null</code>
+     *             if the Object is {@code null}
      * @throws IllegalArgumentException
      *             if the number is zero or even
      *
@@ -312,14 +312,14 @@ public class HashCodeBuilder implements Builder<Integer> {
      * </p>
      *
      * <p>
-     * It uses <code>AccessibleObject.setAccessible</code> to gain access to private fields. This means that it will
+     * It uses {@code AccessibleObject.setAccessible} to gain access to private fields. This means that it will
      * throw a security exception if run under a security manager, if the permissions are not set up correctly. It is
      * also not as efficient as testing explicitly.
      * </p>
      *
      * <p>
-     * If the TestTransients parameter is set to <code>true</code>, transient members will be tested, otherwise they
-     * are ignored, as they are likely derived fields, and not part of the value of the <code>Object</code>.
+     * If the TestTransients parameter is set to {@code true}, transient members will be tested, otherwise they
+     * are ignored, as they are likely derived fields, and not part of the value of the {@code Object}.
      * </p>
      *
      * <p>
@@ -340,16 +340,16 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @param multiplierNonZeroOddNumber
      *            a non-zero, odd number used as the multiplier
      * @param object
-     *            the Object to create a <code>hashCode</code> for
+     *            the Object to create a {@code hashCode} for
      * @param testTransients
      *            whether to include transient fields
      * @param reflectUpToClass
-     *            the superclass to reflect up to (inclusive), may be <code>null</code>
+     *            the superclass to reflect up to (inclusive), may be {@code null}
      * @param excludeFields
      *            array of field names to exclude from use in calculation of hash code
      * @return int hash code
      * @throws IllegalArgumentException
-     *             if the Object is <code>null</code>
+     *             if the Object is {@code null}
      * @throws IllegalArgumentException
      *             if the number is zero or even
      *
@@ -379,14 +379,14 @@ public class HashCodeBuilder implements Builder<Integer> {
      * </p>
      *
      * <p>
-     * It uses <code>AccessibleObject.setAccessible</code> to gain access to private fields. This means that it will
+     * It uses {@code AccessibleObject.setAccessible} to gain access to private fields. This means that it will
      * throw a security exception if run under a security manager, if the permissions are not set up correctly. It is
      * also not as efficient as testing explicitly.
      * </p>
      *
      * <P>
-     * If the TestTransients parameter is set to <code>true</code>, transient members will be tested, otherwise they
-     * are ignored, as they are likely derived fields, and not part of the value of the <code>Object</code>.
+     * If the TestTransients parameter is set to {@code true}, transient members will be tested, otherwise they
+     * are ignored, as they are likely derived fields, and not part of the value of the {@code Object}.
      * </p>
      *
      * <p>
@@ -395,12 +395,12 @@ public class HashCodeBuilder implements Builder<Integer> {
      * </p>
      *
      * @param object
-     *            the Object to create a <code>hashCode</code> for
+     *            the Object to create a {@code hashCode} for
      * @param testTransients
      *            whether to include transient fields
      * @return int hash code
      * @throws IllegalArgumentException
-     *             if the object is <code>null</code>
+     *             if the object is {@code null}
      *
      * @see HashCodeExclude
      */
@@ -419,14 +419,14 @@ public class HashCodeBuilder implements Builder<Integer> {
      * </p>
      *
      * <p>
-     * It uses <code>AccessibleObject.setAccessible</code> to gain access to private fields. This means that it will
+     * It uses {@code AccessibleObject.setAccessible} to gain access to private fields. This means that it will
      * throw a security exception if run under a security manager, if the permissions are not set up correctly. It is
      * also not as efficient as testing explicitly.
      * </p>
      *
      * <p>
      * Transient members will be not be used, as they are likely derived fields, and not part of the value of the
-     * <code>Object</code>.
+     * {@code Object}.
      * </p>
      *
      * <p>
@@ -435,12 +435,12 @@ public class HashCodeBuilder implements Builder<Integer> {
      * </p>
      *
      * @param object
-     *            the Object to create a <code>hashCode</code> for
+     *            the Object to create a {@code hashCode} for
      * @param excludeFields
      *            Collection of String field names to exclude from use in calculation of hash code
      * @return int hash code
      * @throws IllegalArgumentException
-     *             if the object is <code>null</code>
+     *             if the object is {@code null}
      *
      * @see HashCodeExclude
      */
@@ -460,14 +460,14 @@ public class HashCodeBuilder implements Builder<Integer> {
      * </p>
      *
      * <p>
-     * It uses <code>AccessibleObject.setAccessible</code> to gain access to private fields. This means that it will
+     * It uses {@code AccessibleObject.setAccessible} to gain access to private fields. This means that it will
      * throw a security exception if run under a security manager, if the permissions are not set up correctly. It is
      * also not as efficient as testing explicitly.
      * </p>
      *
      * <p>
      * Transient members will be not be used, as they are likely derived fields, and not part of the value of the
-     * <code>Object</code>.
+     * {@code Object}.
      * </p>
      *
      * <p>
@@ -476,12 +476,12 @@ public class HashCodeBuilder implements Builder<Integer> {
      * </p>
      *
      * @param object
-     *            the Object to create a <code>hashCode</code> for
+     *            the Object to create a {@code hashCode} for
      * @param excludeFields
      *            array of field names to exclude from use in calculation of hash code
      * @return int hash code
      * @throws IllegalArgumentException
-     *             if the object is <code>null</code>
+     *             if the object is {@code null}
      *
      * @see HashCodeExclude
      */
@@ -541,7 +541,7 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Uses two hard coded choices for the constants needed to build a <code>hashCode</code>.
+     * Uses two hard coded choices for the constants needed to build a {@code hashCode}.
      * </p>
      */
     public HashCodeBuilder() {
@@ -575,23 +575,23 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a <code>hashCode</code> for a <code>boolean</code>.
+     * Append a {@code hashCode} for a {@code boolean}.
      * </p>
      * <p>
-     * This adds <code>1</code> when true, and <code>0</code> when false to the <code>hashCode</code>.
+     * This adds {@code 1} when true, and {@code 0} when false to the {@code hashCode}.
      * </p>
      * <p>
-     * This is in contrast to the standard <code>java.lang.Boolean.hashCode</code> handling, which computes
-     * a <code>hashCode</code> value of <code>1231</code> for <code>java.lang.Boolean</code> instances
-     * that represent <code>true</code> or <code>1237</code> for <code>java.lang.Boolean</code> instances
-     * that represent <code>false</code>.
+     * This is in contrast to the standard {@code java.lang.Boolean.hashCode} handling, which computes
+     * a {@code hashCode} value of {@code 1231} for {@code java.lang.Boolean} instances
+     * that represent {@code true} or {@code 1237} for {@code java.lang.Boolean} instances
+     * that represent {@code false}.
      * </p>
      * <p>
      * This is in accordance with the <i>Effective Java</i> design.
      * </p>
      *
      * @param value
-     *            the boolean to add to the <code>hashCode</code>
+     *            the boolean to add to the {@code hashCode}
      * @return this
      */
     public HashCodeBuilder append(final boolean value) {
@@ -601,11 +601,11 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a <code>hashCode</code> for a <code>boolean</code> array.
+     * Append a {@code hashCode} for a {@code boolean} array.
      * </p>
      *
      * @param array
-     *            the array to add to the <code>hashCode</code>
+     *            the array to add to the {@code hashCode}
      * @return this
      */
     public HashCodeBuilder append(final boolean[] array) {
@@ -623,11 +623,11 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a <code>hashCode</code> for a <code>byte</code>.
+     * Append a {@code hashCode} for a {@code byte}.
      * </p>
      *
      * @param value
-     *            the byte to add to the <code>hashCode</code>
+     *            the byte to add to the {@code hashCode}
      * @return this
      */
     public HashCodeBuilder append(final byte value) {
@@ -639,11 +639,11 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a <code>hashCode</code> for a <code>byte</code> array.
+     * Append a {@code hashCode} for a {@code byte} array.
      * </p>
      *
      * @param array
-     *            the array to add to the <code>hashCode</code>
+     *            the array to add to the {@code hashCode}
      * @return this
      */
     public HashCodeBuilder append(final byte[] array) {
@@ -659,11 +659,11 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a <code>hashCode</code> for a <code>char</code>.
+     * Append a {@code hashCode} for a {@code char}.
      * </p>
      *
      * @param value
-     *            the char to add to the <code>hashCode</code>
+     *            the char to add to the {@code hashCode}
      * @return this
      */
     public HashCodeBuilder append(final char value) {
@@ -673,11 +673,11 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a <code>hashCode</code> for a <code>char</code> array.
+     * Append a {@code hashCode} for a {@code char} array.
      * </p>
      *
      * @param array
-     *            the array to add to the <code>hashCode</code>
+     *            the array to add to the {@code hashCode}
      * @return this
      */
     public HashCodeBuilder append(final char[] array) {
@@ -693,11 +693,11 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a <code>hashCode</code> for a <code>double</code>.
+     * Append a {@code hashCode} for a {@code double}.
      * </p>
      *
      * @param value
-     *            the double to add to the <code>hashCode</code>
+     *            the double to add to the {@code hashCode}
      * @return this
      */
     public HashCodeBuilder append(final double value) {
@@ -706,11 +706,11 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a <code>hashCode</code> for a <code>double</code> array.
+     * Append a {@code hashCode} for a {@code double} array.
      * </p>
      *
      * @param array
-     *            the array to add to the <code>hashCode</code>
+     *            the array to add to the {@code hashCode}
      * @return this
      */
     public HashCodeBuilder append(final double[] array) {
@@ -726,11 +726,11 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a <code>hashCode</code> for a <code>float</code>.
+     * Append a {@code hashCode} for a {@code float}.
      * </p>
      *
      * @param value
-     *            the float to add to the <code>hashCode</code>
+     *            the float to add to the {@code hashCode}
      * @return this
      */
     public HashCodeBuilder append(final float value) {
@@ -740,11 +740,11 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a <code>hashCode</code> for a <code>float</code> array.
+     * Append a {@code hashCode} for a {@code float} array.
      * </p>
      *
      * @param array
-     *            the array to add to the <code>hashCode</code>
+     *            the array to add to the {@code hashCode}
      * @return this
      */
     public HashCodeBuilder append(final float[] array) {
@@ -760,11 +760,11 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a <code>hashCode</code> for an <code>int</code>.
+     * Append a {@code hashCode} for an {@code int}.
      * </p>
      *
      * @param value
-     *            the int to add to the <code>hashCode</code>
+     *            the int to add to the {@code hashCode}
      * @return this
      */
     public HashCodeBuilder append(final int value) {
@@ -774,11 +774,11 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a <code>hashCode</code> for an <code>int</code> array.
+     * Append a {@code hashCode} for an {@code int} array.
      * </p>
      *
      * @param array
-     *            the array to add to the <code>hashCode</code>
+     *            the array to add to the {@code hashCode}
      * @return this
      */
     public HashCodeBuilder append(final int[] array) {
@@ -794,11 +794,11 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a <code>hashCode</code> for a <code>long</code>.
+     * Append a {@code hashCode} for a {@code long}.
      * </p>
      *
      * @param value
-     *            the long to add to the <code>hashCode</code>
+     *            the long to add to the {@code hashCode}
      * @return this
      */
     // NOTE: This method uses >> and not >>> as Effective Java and
@@ -812,11 +812,11 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a <code>hashCode</code> for a <code>long</code> array.
+     * Append a {@code hashCode} for a {@code long} array.
      * </p>
      *
      * @param array
-     *            the array to add to the <code>hashCode</code>
+     *            the array to add to the {@code hashCode}
      * @return this
      */
     public HashCodeBuilder append(final long[] array) {
@@ -832,11 +832,11 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a <code>hashCode</code> for an <code>Object</code>.
+     * Append a {@code hashCode} for an {@code Object}.
      * </p>
      *
      * @param object
-     *            the Object to add to the <code>hashCode</code>
+     *            the Object to add to the {@code hashCode}
      * @return this
      */
     public HashCodeBuilder append(final Object object) {
@@ -857,11 +857,11 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a <code>hashCode</code> for an array.
+     * Append a {@code hashCode} for an array.
      * </p>
      *
      * @param object
-     *            the array to add to the <code>hashCode</code>
+     *            the array to add to the {@code hashCode}
      */
     private void appendArray(final Object object) {
         // 'Switch' on type of array, to dispatch to the correct handler
@@ -890,11 +890,11 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a <code>hashCode</code> for an <code>Object</code> array.
+     * Append a {@code hashCode} for an {@code Object} array.
      * </p>
      *
      * @param array
-     *            the array to add to the <code>hashCode</code>
+     *            the array to add to the {@code hashCode}
      * @return this
      */
     public HashCodeBuilder append(final Object[] array) {
@@ -910,11 +910,11 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a <code>hashCode</code> for a <code>short</code>.
+     * Append a {@code hashCode} for a {@code short}.
      * </p>
      *
      * @param value
-     *            the short to add to the <code>hashCode</code>
+     *            the short to add to the {@code hashCode}
      * @return this
      */
     public HashCodeBuilder append(final short value) {
@@ -924,11 +924,11 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a <code>hashCode</code> for a <code>short</code> array.
+     * Append a {@code hashCode} for a {@code short} array.
      * </p>
      *
      * @param array
-     *            the array to add to the <code>hashCode</code>
+     *            the array to add to the {@code hashCode}
      * @return this
      */
     public HashCodeBuilder append(final short[] array) {
@@ -948,7 +948,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * </p>
      *
      * @param superHashCode
-     *            the result of calling <code>super.hashCode()</code>
+     *            the result of calling {@code super.hashCode()}
      * @return this HashCodeBuilder, used to chain calls.
      * @since 2.0
      */
@@ -959,19 +959,19 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Return the computed <code>hashCode</code>.
+     * Return the computed {@code hashCode}.
      * </p>
      *
-     * @return <code>hashCode</code> based on the fields appended
+     * @return {@code hashCode} based on the fields appended
      */
     public int toHashCode() {
         return iTotal;
     }
 
     /**
-     * Returns the computed <code>hashCode</code>.
+     * Returns the computed {@code hashCode}.
      *
-     * @return <code>hashCode</code> based on the fields appended
+     * @return {@code hashCode} based on the fields appended
      *
      * @since 3.0
      */
@@ -982,11 +982,11 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * The computed <code>hashCode</code> from toHashCode() is returned due to the likelihood
+     * The computed {@code hashCode} from toHashCode() is returned due to the likelihood
      * of bugs in mis-calling toHashCode() and the unlikeliness of it mattering what the hashCode for
      * HashCodeBuilder itself is.</p>
      *
-     * @return <code>hashCode</code> based on the fields appended
+     * @return {@code hashCode} based on the fields appended
      * @since 2.5
      */
     @Override

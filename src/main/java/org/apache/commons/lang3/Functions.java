@@ -285,7 +285,7 @@ public class Functions {
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      * @param pConsumer the consumer to consume
-     * @param pObject the object to consume by <code>pConsumer</code>
+     * @param pObject the object to consume by {@code pConsumer}
      * @param <O> the type the consumer accepts
      * @param <T> the type of checked exception the consumer may throw
      */
@@ -300,8 +300,8 @@ public class Functions {
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      * @param pConsumer the consumer to consume
-     * @param pObject1 the first object to consume by <code>pConsumer</code>
-     * @param pObject2 the second object to consume by <code>pConsumer</code>
+     * @param pObject1 the first object to consume by {@code pConsumer}
+     * @param pObject2 the second object to consume by {@code pConsumer}
      * @param <O1> the type of the first argument the consumer accepts
      * @param <O2> the type of the second argument the consumer accepts
      * @param <T> the type of checked exception the consumer may throw
@@ -317,7 +317,7 @@ public class Functions {
     /**
      * Applies a function and rethrows any exception as a {@link RuntimeException}.
      * @param pFunction the function to apply
-     * @param pInput the input to apply <code>pFunction</code> on
+     * @param pInput the input to apply {@code pFunction} on
      * @param <I> the type of the argument the function accepts
      * @param <O> the return type of the function
      * @param <T> the type of checked exception the function may throw
@@ -334,8 +334,8 @@ public class Functions {
     /**
      * Applies a function and rethrows any exception as a {@link RuntimeException}.
      * @param pFunction the function to apply
-     * @param pInput1 the first input to apply <code>pFunction</code> on
-     * @param pInput2 the second input to apply <code>pFunction</code> on
+     * @param pInput1 the first input to apply {@code pFunction} on
+     * @param pInput2 the second input to apply {@code pFunction} on
      * @param <I1> the type of the first argument the function accepts
      * @param <I2> the type of the second argument the function accepts
      * @param <O> the return type of the function
@@ -353,7 +353,7 @@ public class Functions {
     /**
      * Tests a predicate and rethrows any exception as a {@link RuntimeException}.
      * @param pPredicate the predicate to test
-     * @param pObject the input to test by <code>pPredicate</code>
+     * @param pObject the input to test by {@code pPredicate}
      * @param <O> the type of argument the predicate tests
      * @param <T> the type of checked exception the predicate may throw
      * @return the boolean value returned by the predicate
@@ -369,8 +369,8 @@ public class Functions {
     /**
      * Tests a predicate and rethrows any exception as a {@link RuntimeException}.
      * @param pPredicate the predicate to test
-     * @param pObject1 the first input to test by <code>pPredicate</code>
-     * @param pObject2 the second input to test by <code>pPredicate</code>
+     * @param pObject1 the first input to test by {@code pPredicate}
+     * @param pObject2 the second input to test by {@code pPredicate}
      * @param <O1> the type of the first argument the predicate tests
      * @param <O2> the type of the second argument the predicate tests
      * @param <T> the type of checked exception the predicate may throw

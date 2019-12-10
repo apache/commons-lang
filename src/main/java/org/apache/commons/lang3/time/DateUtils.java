@@ -160,7 +160,7 @@ public class DateUtils {
      * @param date1  the first date, not altered, not null
      * @param date2  the second date, not altered, not null
      * @return true if they represent the same day
-     * @throws IllegalArgumentException if either date is <code>null</code>
+     * @throws IllegalArgumentException if either date is {@code null}
      * @since 2.1
      */
     public static boolean isSameDay(final Date date1, final Date date2) {
@@ -184,7 +184,7 @@ public class DateUtils {
      * @param cal1  the first calendar, not altered, not null
      * @param cal2  the second calendar, not altered, not null
      * @return true if they represent the same day
-     * @throws IllegalArgumentException if either calendar is <code>null</code>
+     * @throws IllegalArgumentException if either calendar is {@code null}
      * @since 2.1
      */
     public static boolean isSameDay(final Calendar cal1, final Calendar cal2) {
@@ -205,7 +205,7 @@ public class DateUtils {
      * @param date1  the first date, not altered, not null
      * @param date2  the second date, not altered, not null
      * @return true if they represent the same millisecond instant
-     * @throws IllegalArgumentException if either date is <code>null</code>
+     * @throws IllegalArgumentException if either date is {@code null}
      * @since 2.1
      */
     public static boolean isSameInstant(final Date date1, final Date date2) {
@@ -223,7 +223,7 @@ public class DateUtils {
      * @param cal1  the first calendar, not altered, not null
      * @param cal2  the second calendar, not altered, not null
      * @return true if they represent the same millisecond instant
-     * @throws IllegalArgumentException if either date is <code>null</code>
+     * @throws IllegalArgumentException if either date is {@code null}
      * @since 2.1
      */
     public static boolean isSameInstant(final Calendar cal1, final Calendar cal2) {
@@ -243,7 +243,7 @@ public class DateUtils {
      * @param cal1  the first calendar, not altered, not null
      * @param cal2  the second calendar, not altered, not null
      * @return true if they represent the same millisecond instant
-     * @throws IllegalArgumentException if either date is <code>null</code>
+     * @throws IllegalArgumentException if either date is {@code null}
      * @since 2.1
      */
     public static boolean isSameLocalTime(final Calendar cal1, final Calendar cal2) {
@@ -290,7 +290,7 @@ public class DateUtils {
      * The parser will be lenient toward the parsed date.
      *
      * @param str  the date to parse, not null
-     * @param locale the locale whose date format symbols should be used. If <code>null</code>,
+     * @param locale the locale whose date format symbols should be used. If {@code null},
      * the system locale is used (as per {@link #parseDate(String, String...)}).
      * @param parsePatterns  the date format patterns to use, see SimpleDateFormat, not null
      * @return the parsed date
@@ -332,7 +332,7 @@ public class DateUtils {
      * The parser parses strictly - it does not allow for dates such as "February 942, 1996".
      *
      * @param str  the date to parse, not null
-     * @param locale the locale whose date format symbols should be used. If <code>null</code>,
+     * @param locale the locale whose date format symbols should be used. If {@code null},
      * the system locale is used (as per {@link #parseDateStrictly(String, String...)}).
      * @param parsePatterns  the date format patterns to use, see SimpleDateFormat, not null
      * @return the parsed date
@@ -734,9 +734,9 @@ public class DateUtils {
      * </ul>
      *
      * @param date  the date to work with, not null
-     * @param field  the field from {@code Calendar} or <code>SEMI_MONTH</code>
+     * @param field  the field from {@code Calendar} or {@code SEMI_MONTH}
      * @return the different rounded date, not null
-     * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws IllegalArgumentException if the date is {@code null}
      * @throws ArithmeticException if the year is over 280 million
      */
     public static Calendar round(final Calendar date, final int field) {
@@ -774,9 +774,9 @@ public class DateUtils {
      * </ul>
      *
      * @param date  the date to work with, either {@code Date} or {@code Calendar}, not null
-     * @param field  the field from {@code Calendar} or <code>SEMI_MONTH</code>
+     * @param field  the field from {@code Calendar} or {@code SEMI_MONTH}
      * @return the different rounded date, not null
-     * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws IllegalArgumentException if the date is {@code null}
      * @throws ClassCastException if the object type is not a {@code Date} or {@code Calendar}
      * @throws ArithmeticException if the year is over 280 million
      */
@@ -804,9 +804,9 @@ public class DateUtils {
      * return 1 Mar 2002 0:00:00.000.</p>
      *
      * @param date  the date to work with, not null
-     * @param field  the field from {@code Calendar} or <code>SEMI_MONTH</code>
+     * @param field  the field from {@code Calendar} or {@code SEMI_MONTH}
      * @return the different truncated date, not null
-     * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws IllegalArgumentException if the date is {@code null}
      * @throws ArithmeticException if the year is over 280 million
      */
     public static Date truncate(final Date date, final int field) {
@@ -827,9 +827,9 @@ public class DateUtils {
      * return 1 Mar 2002 0:00:00.000.</p>
      *
      * @param date  the date to work with, not null
-     * @param field  the field from {@code Calendar} or <code>SEMI_MONTH</code>
+     * @param field  the field from {@code Calendar} or {@code SEMI_MONTH}
      * @return the different truncated date, not null
-     * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws IllegalArgumentException if the date is {@code null}
      * @throws ArithmeticException if the year is over 280 million
      */
     public static Calendar truncate(final Calendar date, final int field) {
@@ -851,9 +851,9 @@ public class DateUtils {
      * return 1 Mar 2002 0:00:00.000.</p>
      *
      * @param date  the date to work with, either {@code Date} or {@code Calendar}, not null
-     * @param field  the field from {@code Calendar} or <code>SEMI_MONTH</code>
+     * @param field  the field from {@code Calendar} or {@code SEMI_MONTH}
      * @return the different truncated date, not null
-     * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws IllegalArgumentException if the date is {@code null}
      * @throws ClassCastException if the object type is not a {@code Date} or {@code Calendar}
      * @throws ArithmeticException if the year is over 280 million
      */
@@ -881,9 +881,9 @@ public class DateUtils {
      * return 1 Apr 2002 0:00:00.000.</p>
      *
      * @param date  the date to work with, not null
-     * @param field  the field from {@code Calendar} or <code>SEMI_MONTH</code>
+     * @param field  the field from {@code Calendar} or {@code SEMI_MONTH}
      * @return the different ceil date, not null
-     * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws IllegalArgumentException if the date is {@code null}
      * @throws ArithmeticException if the year is over 280 million
      * @since 2.5
      */
@@ -905,9 +905,9 @@ public class DateUtils {
      * return 1 Apr 2002 0:00:00.000.</p>
      *
      * @param date  the date to work with, not null
-     * @param field  the field from {@code Calendar} or <code>SEMI_MONTH</code>
+     * @param field  the field from {@code Calendar} or {@code SEMI_MONTH}
      * @return the different ceil date, not null
-     * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws IllegalArgumentException if the date is {@code null}
      * @throws ArithmeticException if the year is over 280 million
      * @since 2.5
      */
@@ -930,9 +930,9 @@ public class DateUtils {
      * return 1 Apr 2002 0:00:00.000.</p>
      *
      * @param date  the date to work with, either {@code Date} or {@code Calendar}, not null
-     * @param field  the field from {@code Calendar} or <code>SEMI_MONTH</code>
+     * @param field  the field from {@code Calendar} or {@code SEMI_MONTH}
      * @return the different ceil date, not null
-     * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws IllegalArgumentException if the date is {@code null}
      * @throws ClassCastException if the object type is not a {@code Date} or {@code Calendar}
      * @throws ArithmeticException if the year is over 280 million
      * @since 2.5
@@ -1101,11 +1101,11 @@ public class DateUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * <p>Constructs an <code>Iterator</code> over each day in a date
+     * <p>Constructs an {@code Iterator} over each day in a date
      * range defined by a focus date and range style.</p>
      *
      * <p>For instance, passing Thursday, July 4, 2002 and a
-     * <code>RANGE_MONTH_SUNDAY</code> will return an <code>Iterator</code>
+     * {@code RANGE_MONTH_SUNDAY} will return an {@code Iterator}
      * that starts with Sunday, June 30, 2002 and ends with Saturday, August 3,
      * 2002, returning a Calendar instance for each intermediate day.</p>
      *
@@ -1121,7 +1121,7 @@ public class DateUtils {
      * {@link DateUtils#RANGE_WEEK_RELATIVE},
      * {@link DateUtils#RANGE_WEEK_CENTER}
      * @return the date iterator, not null, not null
-     * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws IllegalArgumentException if the date is {@code null}
      * @throws IllegalArgumentException if the rangeStyle is invalid
      */
     public static Iterator<Calendar> iterator(final Date focus, final int rangeStyle) {
@@ -1132,11 +1132,11 @@ public class DateUtils {
     }
 
     /**
-     * <p>Constructs an <code>Iterator</code> over each day in a date
+     * <p>Constructs an {@code Iterator} over each day in a date
      * range defined by a focus date and range style.</p>
      *
      * <p>For instance, passing Thursday, July 4, 2002 and a
-     * <code>RANGE_MONTH_SUNDAY</code> will return an <code>Iterator</code>
+     * {@code RANGE_MONTH_SUNDAY} will return an {@code Iterator}
      * that starts with Sunday, June 30, 2002 and ends with Saturday, August 3,
      * 2002, returning a Calendar instance for each intermediate day.</p>
      *
@@ -1152,7 +1152,7 @@ public class DateUtils {
      * {@link DateUtils#RANGE_WEEK_RELATIVE},
      * {@link DateUtils#RANGE_WEEK_CENTER}
      * @return the date iterator, not null
-     * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws IllegalArgumentException if the date is {@code null}
      * @throws IllegalArgumentException if the rangeStyle is invalid
      */
     public static Iterator<Calendar> iterator(final Calendar focus, final int rangeStyle) {
@@ -1230,11 +1230,11 @@ public class DateUtils {
     }
 
     /**
-     * <p>Constructs an <code>Iterator</code> over each day in a date
+     * <p>Constructs an {@code Iterator} over each day in a date
      * range defined by a focus date and range style.</p>
      *
      * <p>For instance, passing Thursday, July 4, 2002 and a
-     * <code>RANGE_MONTH_SUNDAY</code> will return an <code>Iterator</code>
+     * {@code RANGE_MONTH_SUNDAY} will return an {@code Iterator}
      * that starts with Sunday, June 30, 2002 and ends with Saturday, August 3,
      * 2002, returning a Calendar instance for each intermediate day.</p>
      *
@@ -1242,7 +1242,7 @@ public class DateUtils {
      * @param rangeStyle  the style constant to use. Must be one of the range
      * styles listed for the {@link #iterator(Calendar, int)} method.
      * @return the date iterator, not null
-     * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws IllegalArgumentException if the date is {@code null}
      * @throws ClassCastException if the object type is not a {@code Date} or {@code Calendar}
      */
     public static Iterator<?> iterator(final Object focus, final int rangeStyle) {
@@ -1285,7 +1285,7 @@ public class DateUtils {
      * @param date the date to work with, not null
      * @param fragment the {@code Calendar} field part of date to calculate
      * @return number of milliseconds within the fragment of date
-     * @throws IllegalArgumentException if the date is <code>null</code> or
+     * @throws IllegalArgumentException if the date is {@code null} or
      * fragment is not supported
      * @since 2.4
      */
@@ -1323,7 +1323,7 @@ public class DateUtils {
      * @param date the date to work with, not null
      * @param fragment the {@code Calendar} field part of date to calculate
      * @return number of seconds within the fragment of date
-     * @throws IllegalArgumentException if the date is <code>null</code> or
+     * @throws IllegalArgumentException if the date is {@code null} or
      * fragment is not supported
      * @since 2.4
      */
@@ -1361,7 +1361,7 @@ public class DateUtils {
      * @param date the date to work with, not null
      * @param fragment the {@code Calendar} field part of date to calculate
      * @return number of minutes within the fragment of date
-     * @throws IllegalArgumentException if the date is <code>null</code> or
+     * @throws IllegalArgumentException if the date is {@code null} or
      * fragment is not supported
      * @since 2.4
      */
@@ -1399,7 +1399,7 @@ public class DateUtils {
      * @param date the date to work with, not null
      * @param fragment the {@code Calendar} field part of date to calculate
      * @return number of hours within the fragment of date
-     * @throws IllegalArgumentException if the date is <code>null</code> or
+     * @throws IllegalArgumentException if the date is {@code null} or
      * fragment is not supported
      * @since 2.4
      */
@@ -1437,7 +1437,7 @@ public class DateUtils {
      * @param date the date to work with, not null
      * @param fragment the {@code Calendar} field part of date to calculate
      * @return number of days  within the fragment of date
-     * @throws IllegalArgumentException if the date is <code>null</code> or
+     * @throws IllegalArgumentException if the date is {@code null} or
      * fragment is not supported
      * @since 2.4
      */
@@ -1475,7 +1475,7 @@ public class DateUtils {
      * @param calendar the calendar to work with, not null
      * @param fragment the {@code Calendar} field part of calendar to calculate
      * @return number of milliseconds within the fragment of date
-     * @throws IllegalArgumentException if the date is <code>null</code> or
+     * @throws IllegalArgumentException if the date is {@code null} or
      * fragment is not supported
      * @since 2.4
      */
@@ -1512,7 +1512,7 @@ public class DateUtils {
      * @param calendar the calendar to work with, not null
      * @param fragment the {@code Calendar} field part of calendar to calculate
      * @return number of seconds within the fragment of date
-     * @throws IllegalArgumentException if the date is <code>null</code> or
+     * @throws IllegalArgumentException if the date is {@code null} or
      * fragment is not supported
      * @since 2.4
      */
@@ -1550,7 +1550,7 @@ public class DateUtils {
      * @param calendar the calendar to work with, not null
      * @param fragment the {@code Calendar} field part of calendar to calculate
      * @return number of minutes within the fragment of date
-     * @throws IllegalArgumentException if the date is <code>null</code> or
+     * @throws IllegalArgumentException if the date is {@code null} or
      * fragment is not supported
      * @since 2.4
      */
@@ -1588,7 +1588,7 @@ public class DateUtils {
      * @param calendar the calendar to work with, not null
      * @param fragment the {@code Calendar} field part of calendar to calculate
      * @return number of hours within the fragment of date
-     * @throws IllegalArgumentException if the date is <code>null</code> or
+     * @throws IllegalArgumentException if the date is {@code null} or
      * fragment is not supported
      * @since 2.4
      */
@@ -1628,7 +1628,7 @@ public class DateUtils {
      * @param calendar the calendar to work with, not null
      * @param fragment the {@code Calendar} field part of calendar to calculate
      * @return number of days within the fragment of date
-     * @throws IllegalArgumentException if the date is <code>null</code> or
+     * @throws IllegalArgumentException if the date is {@code null} or
      * fragment is not supported
      * @since 2.4
      */
@@ -1643,7 +1643,7 @@ public class DateUtils {
      * @param fragment the Calendar field part of date to calculate
      * @param unit the time unit
      * @return number of units within the fragment of the date
-     * @throws IllegalArgumentException if the date is <code>null</code> or
+     * @throws IllegalArgumentException if the date is {@code null} or
      * fragment is not supported
      * @since 2.4
      */
@@ -1661,7 +1661,7 @@ public class DateUtils {
      * @param fragment the Calendar field part of calendar to calculate
      * @param unit the time unit
      * @return number of units within the fragment of the calendar
-     * @throws IllegalArgumentException if the date is <code>null</code> or
+     * @throws IllegalArgumentException if the date is {@code null} or
      * fragment is not supported
      * @since 2.4
      */
@@ -1715,11 +1715,11 @@ public class DateUtils {
      * Determines if two calendars are equal up to no more than the specified
      * most significant field.
      *
-     * @param cal1 the first calendar, not <code>null</code>
-     * @param cal2 the second calendar, not <code>null</code>
+     * @param cal1 the first calendar, not {@code null}
+     * @param cal2 the second calendar, not {@code null}
      * @param field the field from {@code Calendar}
-     * @return <code>true</code> if equal; otherwise <code>false</code>
-     * @throws IllegalArgumentException if any argument is <code>null</code>
+     * @return {@code true} if equal; otherwise {@code false}
+     * @throws IllegalArgumentException if any argument is {@code null}
      * @see #truncate(Calendar, int)
      * @see #truncatedEquals(Date, Date, int)
      * @since 3.0
@@ -1732,11 +1732,11 @@ public class DateUtils {
      * Determines if two dates are equal up to no more than the specified
      * most significant field.
      *
-     * @param date1 the first date, not <code>null</code>
-     * @param date2 the second date, not <code>null</code>
+     * @param date1 the first date, not {@code null}
+     * @param date2 the second date, not {@code null}
      * @param field the field from {@code Calendar}
-     * @return <code>true</code> if equal; otherwise <code>false</code>
-     * @throws IllegalArgumentException if any argument is <code>null</code>
+     * @return {@code true} if equal; otherwise {@code false}
+     * @throws IllegalArgumentException if any argument is {@code null}
      * @see #truncate(Date, int)
      * @see #truncatedEquals(Calendar, Calendar, int)
      * @since 3.0
@@ -1749,12 +1749,12 @@ public class DateUtils {
      * Determines how two calendars compare up to no more than the specified
      * most significant field.
      *
-     * @param cal1 the first calendar, not <code>null</code>
-     * @param cal2 the second calendar, not <code>null</code>
+     * @param cal1 the first calendar, not {@code null}
+     * @param cal2 the second calendar, not {@code null}
      * @param field the field from {@code Calendar}
      * @return a negative integer, zero, or a positive integer as the first
      * calendar is less than, equal to, or greater than the second.
-     * @throws IllegalArgumentException if any argument is <code>null</code>
+     * @throws IllegalArgumentException if any argument is {@code null}
      * @see #truncate(Calendar, int)
      * @see #truncatedCompareTo(Date, Date, int)
      * @since 3.0
@@ -1769,12 +1769,12 @@ public class DateUtils {
      * Determines how two dates compare up to no more than the specified
      * most significant field.
      *
-     * @param date1 the first date, not <code>null</code>
-     * @param date2 the second date, not <code>null</code>
-     * @param field the field from <code>Calendar</code>
+     * @param date1 the first date, not {@code null}
+     * @param date2 the second date, not {@code null}
+     * @param field the field from {@code Calendar}
      * @return a negative integer, zero, or a positive integer as the first
      * date is less than, equal to, or greater than the second.
-     * @throws IllegalArgumentException if any argument is <code>null</code>
+     * @throws IllegalArgumentException if any argument is {@code null}
      * @see #truncate(Calendar, int)
      * @see #truncatedCompareTo(Date, Date, int)
      * @since 3.0
@@ -1813,7 +1813,7 @@ public class DateUtils {
         /**
          * Has the iterator not reached the end date yet?
          *
-         * @return <code>true</code> if the iterator has yet to reach the end date
+         * @return {@code true} if the iterator has yet to reach the end date
          */
         @Override
         public boolean hasNext() {

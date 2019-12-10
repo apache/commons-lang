@@ -125,7 +125,7 @@ public class Processor {
     /**
      * Checks if {@link Processor} is 32 bit.
      *
-     * @return <code>true</code>, if {@link Processor} is {@link Arch#BIT_32}, else <code>false</code>.
+     * @return {@code true}, if {@link Processor} is {@link Arch#BIT_32}, else {@code false}.
      */
     public boolean is32Bit() {
         return Arch.BIT_32.equals(arch);
@@ -134,7 +134,7 @@ public class Processor {
     /**
      * Checks if {@link Processor} is 64 bit.
      *
-     * @return <code>true</code>, if {@link Processor} is {@link Arch#BIT_64}, else <code>false</code>.
+     * @return {@code true}, if {@link Processor} is {@link Arch#BIT_64}, else {@code false}.
      */
     public boolean is64Bit() {
         return Arch.BIT_64.equals(arch);
@@ -143,7 +143,7 @@ public class Processor {
     /**
      * Checks if {@link Processor} is type of x86.
      *
-     * @return <code>true</code>, if {@link Processor} is {@link Type#X86}, else <code>false</code>.
+     * @return {@code true}, if {@link Processor} is {@link Type#X86}, else {@code false}.
      */
     public boolean isX86() {
         return Type.X86.equals(type);
@@ -152,7 +152,7 @@ public class Processor {
     /**
      * Checks if {@link Processor} is type of Intel Itanium.
      *
-     * @return <code>true</code>. if {@link Processor} is {@link Type#IA_64}, else <code>false</code>.
+     * @return {@code true}. if {@link Processor} is {@link Type#IA_64}, else {@code false}.
      */
     public boolean isIA64() {
         return Type.IA_64.equals(type);
@@ -161,7 +161,7 @@ public class Processor {
     /**
      * Checks if {@link Processor} is type of Power PC.
      *
-     * @return <code>true</code>. if {@link Processor} is {@link Type#PPC}, else <code>false</code>.
+     * @return {@code true}. if {@link Processor} is {@link Type#PPC}, else {@code false}.
      */
     public boolean isPPC() {
         return Type.PPC.equals(type);

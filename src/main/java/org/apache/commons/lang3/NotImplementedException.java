@@ -18,10 +18,10 @@ package org.apache.commons.lang3;
 
 /**
  * <p>Thrown to indicate that a block of code has not been implemented.
- * This exception supplements <code>UnsupportedOperationException</code>
+ * This exception supplements {@code UnsupportedOperationException}
  * by providing a more semantically rich description of the problem.</p>
  *
- * <p><code>NotImplementedException</code> represents the case where the
+ * <p>{@code NotImplementedException} represents the case where the
  * author has yet to implement the logic at this point in the program.
  * This can act as an exception based TODO tag. </p>
  *

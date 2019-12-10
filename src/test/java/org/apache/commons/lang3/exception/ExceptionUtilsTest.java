@@ -47,7 +47,7 @@ public class ExceptionUtilsTest {
     /**
      * Provides a method with a well known chained/nested exception
      * name which matches the full signature (e.g. has a return value
-     * of <code>Throwable</code>.
+     * of {@code Throwable}.
      */
     private static class ExceptionWithCause extends Exception {
         private static final long serialVersionUID = 1L;
@@ -76,7 +76,7 @@ public class ExceptionUtilsTest {
     /**
      * Provides a method with a well known chained/nested exception
      * name which does not match the full signature (e.g. lacks a
-     * return value of <code>Throwable</code>.
+     * return value of {@code Throwable}.
      */
     private static class ExceptionWithoutCause extends Exception {
         private static final long serialVersionUID = 1L;

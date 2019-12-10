@@ -1781,8 +1781,8 @@ public class StringUtils {
     }
 
     /**
-     * <p>Compares given <code>string</code> to a CharSequences vararg of <code>searchStrings</code>,
-     * returning {@code true} if the <code>string</code> is equal to any of the <code>searchStrings</code>.</p>
+     * <p>Compares given {@code string} to a CharSequences vararg of {@code searchStrings},
+     * returning {@code true} if the {@code string} is equal to any of the {@code searchStrings}.</p>
      *
      * <pre>
      * StringUtils.equalsAny(null, (CharSequence[]) null) = false
@@ -1795,8 +1795,8 @@ public class StringUtils {
      *
      * @param string to compare, may be {@code null}.
      * @param searchStrings a vararg of strings, may be {@code null}.
-     * @return {@code true} if the string is equal (case-sensitive) to any other element of <code>searchStrings</code>;
-     * {@code false} if <code>searchStrings</code> is null or contains no matches.
+     * @return {@code true} if the string is equal (case-sensitive) to any other element of {@code searchStrings};
+     * {@code false} if {@code searchStrings} is null or contains no matches.
      * @since 3.5
      */
     public static boolean equalsAny(final CharSequence string, final CharSequence... searchStrings) {
@@ -1811,8 +1811,8 @@ public class StringUtils {
     }
 
     /**
-     * <p>Compares given <code>string</code> to a CharSequences vararg of <code>searchStrings</code>,
-     * returning {@code true} if the <code>string</code> is equal to any of the <code>searchStrings</code>, ignoring case.</p>
+     * <p>Compares given {@code string} to a CharSequences vararg of {@code searchStrings},
+     * returning {@code true} if the {@code string} is equal to any of the {@code searchStrings}, ignoring case.</p>
      *
      * <pre>
      * StringUtils.equalsAnyIgnoreCase(null, (CharSequence[]) null) = false
@@ -1825,8 +1825,8 @@ public class StringUtils {
      *
      * @param string to compare, may be {@code null}.
      * @param searchStrings a vararg of strings, may be {@code null}.
-     * @return {@code true} if the string is equal (case-insensitive) to any other element of <code>searchStrings</code>;
-     * {@code false} if <code>searchStrings</code> is null or contains no matches.
+     * @return {@code true} if the string is equal (case-insensitive) to any other element of {@code searchStrings};
+     * {@code false} if {@code searchStrings} is null or contains no matches.
      * @since 3.5
      */
     public static boolean equalsAnyIgnoreCase(final CharSequence string, final CharSequence...searchStrings) {
@@ -1978,7 +1978,7 @@ public class StringUtils {
      * characters that is common to all of them.</p>
      *
      * <p>For example,
-     * <code>getCommonPrefix(new String[] {"i am a machine", "i am a robot"}) -&gt; "i am a "</code></p>
+     * {@code getCommonPrefix(new String[] {"i am a machine", "i am a robot"}) -&gt; "i am a "}</p>
      *
      * <pre>
      * StringUtils.getCommonPrefix(null) = ""
@@ -2590,22 +2590,22 @@ public class StringUtils {
     // IndexOf
     //-----------------------------------------------------------------------
     /**
-     * Returns the index within <code>seq</code> of the first occurrence of
+     * Returns the index within {@code seq} of the first occurrence of
      * the specified character. If a character with value
-     * <code>searchChar</code> occurs in the character sequence represented by
-     * <code>seq</code> <code>CharSequence</code> object, then the index (in Unicode
+     * {@code searchChar} occurs in the character sequence represented by
+     * {@code seq} {@code CharSequence} object, then the index (in Unicode
      * code units) of the first such occurrence is returned. For
-     * values of <code>searchChar</code> in the range from 0 to 0xFFFF
+     * values of {@code searchChar} in the range from 0 to 0xFFFF
      * (inclusive), this is the smallest value <i>k</i> such that:
      * <blockquote><pre>
      * this.charAt(<i>k</i>) == searchChar
      * </pre></blockquote>
-     * is true. For other values of <code>searchChar</code>, it is the
+     * is true. For other values of {@code searchChar}, it is the
      * smallest value <i>k</i> such that:
      * <blockquote><pre>
      * this.codePointAt(<i>k</i>) == searchChar
      * </pre></blockquote>
-     * is true. In either case, if no such character occurs in <code>seq</code>,
+     * is true. In either case, if no such character occurs in {@code seq},
      * then {@code INDEX_NOT_FOUND (-1)} is returned.
      *
      * <p>Furthermore, a {@code null} or empty ("") CharSequence will
@@ -2624,7 +2624,7 @@ public class StringUtils {
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, int) to indexOf(CharSequence, int)
-     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like <code>String</code>
+     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like {@code String}
      */
     public static int indexOf(final CharSequence seq, final int searchChar) {
         if (isEmpty(seq)) {
@@ -2635,29 +2635,29 @@ public class StringUtils {
 
     /**
      *
-     * Returns the index within <code>seq</code> of the first occurrence of the
+     * Returns the index within {@code seq} of the first occurrence of the
      * specified character, starting the search at the specified index.
      * <p>
-     * If a character with value <code>searchChar</code> occurs in the
-     * character sequence represented by the <code>seq</code> <code>CharSequence</code>
-     * object at an index no smaller than <code>startPos</code>, then
+     * If a character with value {@code searchChar} occurs in the
+     * character sequence represented by the {@code seq} {@code CharSequence}
+     * object at an index no smaller than {@code startPos}, then
      * the index of the first such occurrence is returned. For values
-     * of <code>searchChar</code> in the range from 0 to 0xFFFF (inclusive),
+     * of {@code searchChar} in the range from 0 to 0xFFFF (inclusive),
      * this is the smallest value <i>k</i> such that:
      * <blockquote><pre>
      * (this.charAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= startPos)
      * </pre></blockquote>
-     * is true. For other values of <code>searchChar</code>, it is the
+     * is true. For other values of {@code searchChar}, it is the
      * smallest value <i>k</i> such that:
      * <blockquote><pre>
      * (this.codePointAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= startPos)
      * </pre></blockquote>
-     * is true. In either case, if no such character occurs in <code>seq</code>
-     * at or after position <code>startPos</code>, then
-     * <code>-1</code> is returned.
+     * is true. In either case, if no such character occurs in {@code seq}
+     * at or after position {@code startPos}, then
+     * {@code -1} is returned.
      *
      * <p>
-     * There is no restriction on the value of <code>startPos</code>. If it
+     * There is no restriction on the value of {@code startPos}. If it
      * is negative, it has the same effect as if it were zero: this entire
      * string may be searched. If it is greater than the length of this
      * string, it has the same effect as if it were equal to the length of
@@ -2665,7 +2665,7 @@ public class StringUtils {
      * {@code null} or empty ("") CharSequence will
      * return {@code (INDEX_NOT_FOUND) -1}.
      *
-     * <p>All indices are specified in <code>char</code> values
+     * <p>All indices are specified in {@code char} values
      * (Unicode code units).
      *
      * <pre>
@@ -2684,7 +2684,7 @@ public class StringUtils {
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, int, int) to indexOf(CharSequence, int, int)
-     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like <code>String</code>
+     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like {@code String}
      */
     public static int indexOf(final CharSequence seq, final int searchChar, final int startPos) {
         if (isEmpty(seq)) {
@@ -4923,22 +4923,22 @@ public class StringUtils {
     // LastIndexOf
     //-----------------------------------------------------------------------
     /**
-     * Returns the index within <code>seq</code> of the last occurrence of
-     * the specified character. For values of <code>searchChar</code> in the
+     * Returns the index within {@code seq} of the last occurrence of
+     * the specified character. For values of {@code searchChar} in the
      * range from 0 to 0xFFFF (inclusive), the index (in Unicode code
      * units) returned is the largest value <i>k</i> such that:
      * <blockquote><pre>
      * this.charAt(<i>k</i>) == searchChar
      * </pre></blockquote>
-     * is true. For other values of <code>searchChar</code>, it is the
+     * is true. For other values of {@code searchChar}, it is the
      * largest value <i>k</i> such that:
      * <blockquote><pre>
      * this.codePointAt(<i>k</i>) == searchChar
      * </pre></blockquote>
      * is true.  In either case, if no such character occurs in this
-     * string, then <code>-1</code> is returned. Furthermore, a {@code null} or empty ("")
-     * <code>CharSequence</code> will return {@code -1}. The
-     * <code>seq</code> <code>CharSequence</code> object is searched backwards
+     * string, then {@code -1} is returned. Furthermore, a {@code null} or empty ("")
+     * {@code CharSequence} will return {@code -1}. The
+     * {@code seq} {@code CharSequence} object is searched backwards
      * starting at the last character.
      *
      * <pre>
@@ -4948,13 +4948,13 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", 'b') = 5
      * </pre>
      *
-     * @param seq  the <code>CharSequence</code> to check, may be null
+     * @param seq  the {@code CharSequence} to check, may be null
      * @param searchChar  the character to find
      * @return the last index of the search character,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from lastIndexOf(String, int) to lastIndexOf(CharSequence, int)
-     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like <code>String</code>
+     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like {@code String}
      */
     public static int lastIndexOf(final CharSequence seq, final int searchChar) {
         if (isEmpty(seq)) {
@@ -4964,28 +4964,28 @@ public class StringUtils {
     }
 
     /**
-     * Returns the index within <code>seq</code> of the last occurrence of
+     * Returns the index within {@code seq} of the last occurrence of
      * the specified character, searching backward starting at the
-     * specified index. For values of <code>searchChar</code> in the range
+     * specified index. For values of {@code searchChar} in the range
      * from 0 to 0xFFFF (inclusive), the index returned is the largest
      * value <i>k</i> such that:
      * <blockquote><pre>
      * (this.charAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &lt;= startPos)
      * </pre></blockquote>
-     * is true. For other values of <code>searchChar</code>, it is the
+     * is true. For other values of {@code searchChar}, it is the
      * largest value <i>k</i> such that:
      * <blockquote><pre>
      * (this.codePointAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &lt;= startPos)
      * </pre></blockquote>
-     * is true. In either case, if no such character occurs in <code>seq</code>
-     * at or before position <code>startPos</code>, then
-     * <code>-1</code> is returned. Furthermore, a {@code null} or empty ("")
-     * <code>CharSequence</code> will return {@code -1}. A start position greater
+     * is true. In either case, if no such character occurs in {@code seq}
+     * at or before position {@code startPos}, then
+     * {@code -1} is returned. Furthermore, a {@code null} or empty ("")
+     * {@code CharSequence} will return {@code -1}. A start position greater
      * than the string length searches the whole string.
-     * The search starts at the <code>startPos</code> and works backwards;
+     * The search starts at the {@code startPos} and works backwards;
      * matches starting after the start position are ignored.
      *
-     * <p>All indices are specified in <code>char</code> values
+     * <p>All indices are specified in {@code char} values
      * (Unicode code units).
      *
      * <pre>
@@ -5500,7 +5500,7 @@ public class StringUtils {
      * </p>
      * <p>
      * The function returns the argument string with whitespace normalized by using
-     * <code>{@link #trim(String)}</code> to remove leading and trailing whitespace
+     * {@code {@link #trim(String)}} to remove leading and trailing whitespace
      * and then replacing sequences of whitespace characters by a single space.
      * </p>
      * In XML Whitespace characters are the same as those allowed by the <a
@@ -5520,7 +5520,7 @@ public class StringUtils {
      *
      * <p>
      * The difference is that Java's whitespace includes vertical tab and form feed, which this functional will also
-     * normalize. Additionally <code>{@link #trim(String)}</code> removes control characters (char &lt;= 32) from both
+     * normalize. Additionally {@code {@link #trim(String)}} removes control characters (char &lt;= 32) from both
      * ends of this String.
      * </p>
      *
@@ -5896,7 +5896,7 @@ public class StringUtils {
      *
      * <p>Unlike in the {@link #removePattern(String, String)} method, the {@link Pattern#DOTALL} option
      * is NOT automatically added.
-     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>
@@ -6015,7 +6015,7 @@ public class StringUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <p>The {@link Pattern#DOTALL} option is NOT automatically added.
-     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>
@@ -6457,7 +6457,7 @@ public class StringUtils {
      *
      * <p>Unlike in the {@link #replacePattern(String, String, String)} method, the {@link Pattern#DOTALL} option
      * is NOT automatically added.
-     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>
@@ -6532,7 +6532,7 @@ public class StringUtils {
      * This method can also be used to delete characters.</p>
      *
      * <p>For example:<br>
-     * <code>replaceChars(&quot;hello&quot;, &quot;ho&quot;, &quot;jy&quot;) = jelly</code>.</p>
+     * {@code replaceChars(&quot;hello&quot;, &quot;ho&quot;, &quot;jy&quot;) = jelly}.</p>
      *
      * <p>A {@code null} string input returns {@code null}.
      * An empty ("") string input returns an empty string.
@@ -6874,7 +6874,7 @@ public class StringUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <p>The {@link Pattern#DOTALL} option is NOT automatically added.
-     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>
@@ -8926,7 +8926,7 @@ public class StringUtils {
     }
 
     /**
-     * Converts a <code>byte[]</code> to a String using the specified character encoding.
+     * Converts a {@code byte[]} to a String using the specified character encoding.
      *
      * @param bytes
      *            the byte array to read from
@@ -8965,7 +8965,7 @@ public class StringUtils {
     }
 
     /**
-     * Converts a <code>byte[]</code> to a String using the specified character encoding.
+     * Converts a {@code byte[]} to a String using the specified character encoding.
      *
      * @param bytes
      *            the byte array to read from

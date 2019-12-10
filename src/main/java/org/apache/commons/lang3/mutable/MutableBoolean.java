@@ -22,7 +22,7 @@ import java.io.Serializable;
 import org.apache.commons.lang3.BooleanUtils;
 
 /**
- * A mutable <code>boolean</code> wrapper.
+ * A mutable {@code boolean} wrapper.
  * <p>
  * Note that as MutableBoolean does not extend Boolean, it is not treated by String.format as a Boolean parameter.
  *
@@ -120,9 +120,9 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
 
     //-----------------------------------------------------------------------
     /**
-     * Checks if the current value is <code>true</code>.
+     * Checks if the current value is {@code true}.
      *
-     * @return <code>true</code> if the current value is <code>true</code>
+     * @return {@code true} if the current value is {@code true}
      * @since 2.5
      */
     public boolean isTrue() {
@@ -130,9 +130,9 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     }
 
     /**
-     * Checks if the current value is <code>false</code>.
+     * Checks if the current value is {@code false}.
      *
-     * @return <code>true</code> if the current value is <code>false</code>
+     * @return {@code true} if the current value is {@code false}
      * @since 2.5
      */
     public boolean isFalse() {
@@ -162,12 +162,12 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
 
     //-----------------------------------------------------------------------
     /**
-     * Compares this object to the specified object. The result is <code>true</code> if and only if the argument is
-     * not <code>null</code> and is an <code>MutableBoolean</code> object that contains the same
-     * <code>boolean</code> value as this object.
+     * Compares this object to the specified object. The result is {@code true} if and only if the argument is
+     * not {@code null} and is an {@code MutableBoolean} object that contains the same
+     * {@code boolean} value as this object.
      *
      * @param obj  the object to compare with, null returns false
-     * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
+     * @return {@code true} if the objects are the same; {@code false} otherwise.
      */
     @Override
     public boolean equals(final Object obj) {
@@ -180,7 +180,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     /**
      * Returns a suitable hash code for this mutable.
      *
-     * @return the hash code returned by <code>Boolean.TRUE</code> or <code>Boolean.FALSE</code>
+     * @return the hash code returned by {@code Boolean.TRUE} or {@code Boolean.FALSE}
      */
     @Override
     public int hashCode() {

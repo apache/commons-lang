@@ -242,7 +242,7 @@ public enum JavaVersion {
     /**
      * <p>The string value is overridden to return the standard name.</p>
      *
-     * <p>For example, <code>"1.5"</code>.</p>
+     * <p>For example, {@code "1.5"}.</p>
      *
      * @return the name, not null
      */

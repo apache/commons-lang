@@ -233,7 +233,7 @@ public class CompareToBuilderTest {
 
     /**
      * Returns the signum of the result of comparing x and y with
-     * <code>CompareToBuilder.reflectionCompare</code>
+     * {@code CompareToBuilder.reflectionCompare}
      *
      * @param lhs The "left-hand-side" of the comparison.
      * @param rhs The "right-hand-side" of the comparison.

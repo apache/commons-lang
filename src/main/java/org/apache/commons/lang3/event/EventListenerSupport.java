@@ -100,9 +100,9 @@ public class EventListenerSupport<L> implements Serializable {
      * @return an EventListenerSupport object which supports the specified
      *         listener type.
      *
-     * @throws NullPointerException if <code>listenerInterface</code> is
-     *         <code>null</code>.
-     * @throws IllegalArgumentException if <code>listenerInterface</code> is
+     * @throws NullPointerException if {@code listenerInterface} is
+     *         {@code null}.
+     * @throws IllegalArgumentException if {@code listenerInterface} is
      *         not an interface.
      */
     public static <T> EventListenerSupport<T> create(final Class<T> listenerInterface) {
@@ -116,9 +116,9 @@ public class EventListenerSupport<L> implements Serializable {
      * @param listenerInterface the type of listener interface that will receive
      *        events posted using this class.
      *
-     * @throws NullPointerException if <code>listenerInterface</code> is
-     *         <code>null</code>.
-     * @throws IllegalArgumentException if <code>listenerInterface</code> is
+     * @throws NullPointerException if {@code listenerInterface} is
+     *         {@code null}.
+     * @throws IllegalArgumentException if {@code listenerInterface} is
      *         not an interface.
      */
     public EventListenerSupport(final Class<L> listenerInterface) {
@@ -133,9 +133,9 @@ public class EventListenerSupport<L> implements Serializable {
      * @param listenerInterface the listener interface.
      * @param classLoader       the class loader.
      *
-     * @throws NullPointerException if <code>listenerInterface</code> or
-     *         <code>classLoader</code> is <code>null</code>.
-     * @throws IllegalArgumentException if <code>listenerInterface</code> is
+     * @throws NullPointerException if {@code listenerInterface} or
+     *         {@code classLoader} is {@code null}.
+     * @throws IllegalArgumentException if {@code listenerInterface} is
      *         not an interface.
      */
     public EventListenerSupport(final Class<L> listenerInterface, final ClassLoader classLoader) {
@@ -173,10 +173,10 @@ public class EventListenerSupport<L> implements Serializable {
     /**
      * Registers an event listener.
      *
-     * @param listener the event listener (may not be <code>null</code>).
+     * @param listener the event listener (may not be {@code null}).
      *
-     * @throws NullPointerException if <code>listener</code> is
-     *         <code>null</code>.
+     * @throws NullPointerException if {@code listener} is
+     *         {@code null}.
      */
     public void addListener(final L listener) {
         addListener(listener, true);
@@ -184,13 +184,13 @@ public class EventListenerSupport<L> implements Serializable {
 
     /**
      * Registers an event listener.  Will not add a pre-existing listener
-     * object to the list if <code>allowDuplicate</code> is false.
+     * object to the list if {@code allowDuplicate} is false.
      *
-     * @param listener the event listener (may not be <code>null</code>).
+     * @param listener the event listener (may not be {@code null}).
      * @param allowDuplicate the flag for determining if duplicate listener
      * objects are allowed to be registered.
      *
-     * @throws NullPointerException if <code>listener</code> is <code>null</code>.
+     * @throws NullPointerException if {@code listener} is {@code null}.
      * @since 3.5
      */
     public void addListener(final L listener, final boolean allowDuplicate) {
@@ -214,10 +214,10 @@ public class EventListenerSupport<L> implements Serializable {
     /**
      * Unregisters an event listener.
      *
-     * @param listener the event listener (may not be <code>null</code>).
+     * @param listener the event listener (may not be {@code null}).
      *
-     * @throws NullPointerException if <code>listener</code> is
-     *         <code>null</code>.
+     * @throws NullPointerException if {@code listener} is
+     *         {@code null}.
      */
     public void removeListener(final L listener) {
         Validate.notNull(listener, "Listener object cannot be null.");

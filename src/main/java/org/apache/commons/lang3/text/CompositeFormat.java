@@ -62,7 +62,7 @@ public class CompositeFormat extends Format {
      * @param obj the object to format
      * @param toAppendTo the {@link StringBuffer} to append to
      * @param pos the FieldPosition to use (or ignore).
-     * @return <code>toAppendTo</code>
+     * @return {@code toAppendTo}
      * @see Format#format(Object, StringBuffer, FieldPosition)
      */
     @Override // Therefore has to use StringBuffer

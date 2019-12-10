@@ -330,7 +330,7 @@ public class ExtendedMessageFormatTest {
     }
 
     /**
-     * Test a built in format for the specified Locales, plus <code>null</code> Locale.
+     * Test a built in format for the specified Locales, plus {@code null} Locale.
      * @param pattern MessageFormat pattern
      * @param args MessageFormat arguments
      * @param locales to test
@@ -340,7 +340,7 @@ public class ExtendedMessageFormatTest {
     }
 
     /**
-     * Test a built in format for the specified Locales, plus <code>null</code> Locale.
+     * Test a built in format for the specified Locales, plus {@code null} Locale.
      * @param pattern MessageFormat pattern
      * @param fmtRegistry FormatFactory registry to use
      * @param args MessageFormat arguments

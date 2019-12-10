@@ -66,7 +66,7 @@ abstract class FormatCache<F extends Format> {
      * @param locale  the locale, null means use the default Locale
      * @return a pattern based date/time formatter
      * @throws IllegalArgumentException if pattern is invalid
-     *  or <code>null</code>
+     *  or {@code null}
      */
     public F getInstance(final String pattern, TimeZone timeZone, Locale locale) {
         Validate.notNull(pattern, "pattern must not be null");
@@ -99,7 +99,7 @@ abstract class FormatCache<F extends Format> {
      * @param locale  locale, this will not be null.
      * @return a pattern based date/time formatter
      * @throws IllegalArgumentException if pattern is invalid
-     *  or <code>null</code>
+     *  or {@code null}
      */
     protected abstract F createInstance(String pattern, TimeZone timeZone, Locale locale);
 
@@ -225,7 +225,7 @@ abstract class FormatCache<F extends Format> {
         private int hashCode;
 
         /**
-         * Constructs an instance of <code>MultipartKey</code> to hold the specified objects.
+         * Constructs an instance of {@code MultipartKey} to hold the specified objects.
          * @param keys the set of objects that make up the key.  Each key may be null.
          */
         MultipartKey(final Object... keys) {

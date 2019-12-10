@@ -30,38 +30,38 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
- * Extends <code>java.text.MessageFormat</code> to allow pluggable/additional formatting
+ * Extends {@code java.text.MessageFormat} to allow pluggable/additional formatting
  * options for embedded format elements.  Client code should specify a registry
- * of <code>FormatFactory</code> instances associated with <code>String</code>
+ * of {@code FormatFactory} instances associated with {@code String}
  * format names.  This registry will be consulted when the format elements are
  * parsed from the message pattern.  In this way custom patterns can be specified,
- * and the formats supported by <code>java.text.MessageFormat</code> can be overridden
+ * and the formats supported by {@code java.text.MessageFormat} can be overridden
  * at the format and/or format style level (see MessageFormat).  A "format element"
  * embedded in the message pattern is specified (<b>()?</b> signifies optionality):<br>
- * <code>{</code><i>argument-number</i><b>(</b><code>,</code><i>format-name</i><b>
- * (</b><code>,</code><i>format-style</i><b>)?)?</b><code>}</code>
+ * {@code {}<i>argument-number</i><b>(</b>{@code ,}<i>format-name</i><b>
+ * (</b>{@code ,}<i>format-style</i><b>)?)?</b>{@code }}
  *
  * <p>
  * <i>format-name</i> and <i>format-style</i> values are trimmed of surrounding whitespace
- * in the manner of <code>java.text.MessageFormat</code>.  If <i>format-name</i> denotes
- * <code>FormatFactory formatFactoryInstance</code> in <code>registry</code>, a <code>Format</code>
+ * in the manner of {@code java.text.MessageFormat}.  If <i>format-name</i> denotes
+ * {@code FormatFactory formatFactoryInstance} in {@code registry}, a {@code Format}
  * matching <i>format-name</i> and <i>format-style</i> is requested from
- * <code>formatFactoryInstance</code>.  If this is successful, the <code>Format</code>
+ * {@code formatFactoryInstance}.  If this is successful, the {@code Format}
  * found is used for this format element.
  * </p>
  *
  * <p><b>NOTICE:</b> The various subformat mutator methods are considered unnecessary; they exist on the parent
  * class to allow the type of customization which it is the job of this class to provide in
  * a configurable fashion.  These methods have thus been disabled and will throw
- * <code>UnsupportedOperationException</code> if called.
+ * {@code UnsupportedOperationException} if called.
  * </p>
  *
- * <p>Limitations inherited from <code>java.text.MessageFormat</code>:</p>
+ * <p>Limitations inherited from {@code java.text.MessageFormat}:</p>
  * <ul>
  * <li>When using "choice" subformats, support for nested formatting instructions is limited
  *     to that provided by the base class.</li>
- * <li>Thread-safety of <code>Format</code>s, including <code>MessageFormat</code> and thus
- *     <code>ExtendedMessageFormat</code>, is not guaranteed.</li>
+ * <li>Thread-safety of {@code Format}s, including {@code MessageFormat} and thus
+ *     {@code ExtendedMessageFormat}, is not guaranteed.</li>
  * </ul>
  *
  * @since 2.4
@@ -456,7 +456,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * Convenience method to advance parse position by 1
      *
      * @param pos ParsePosition
-     * @return <code>pos</code>
+     * @return {@code pos}
      */
     private ParsePosition next(final ParsePosition pos) {
         pos.setIndex(pos.getIndex() + 1);
@@ -464,13 +464,13 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * Consume a quoted string, adding it to <code>appendTo</code> if
+     * Consume a quoted string, adding it to {@code appendTo} if
      * specified.
      *
      * @param pattern pattern to parse
      * @param pos current parse position
      * @param appendTo optional StringBuilder to append
-     * @return <code>appendTo</code>
+     * @return {@code appendTo}
      */
     private StringBuilder appendQuotedString(final String pattern, final ParsePosition pos,
             final StringBuilder appendTo) {
@@ -511,7 +511,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Learn whether the specified Collection contains non-null elements.
      * @param coll to check
-     * @return <code>true</code> if some Object was found, <code>false</code> otherwise.
+     * @return {@code true} if some Object was found, {@code false} otherwise.
      */
     private boolean containsElements(final Collection<?> coll) {
         if (coll == null || coll.isEmpty()) {

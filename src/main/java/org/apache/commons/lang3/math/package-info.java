@@ -25,7 +25,7 @@
  *
  * <p>There are two aspects of this package that should be highlighted.
  * The first is {@link org.apache.commons.lang3.math.NumberUtils#createNumber(String)}, a method which does its best to convert a String into a {@link java.lang.Number} object.
- * You have no idea what type of Number it will return, so you should call the relevant <code>xxxValue</code> method when you reach the point of needing a number.
+ * You have no idea what type of Number it will return, so you should call the relevant {@code xxxValue} method when you reach the point of needing a number.
  * NumberUtils also has a related {@link org.apache.commons.lang3.math.NumberUtils#isCreatable(String)} method.</p>
  *
  * @since 2.0
