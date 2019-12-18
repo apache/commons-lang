@@ -60,7 +60,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
         if (options.length > 0) {
             this.options = EnumSet.copyOf(Arrays.asList(options));
         } else {
-            this.options = EnumSet.copyOf(Arrays.asList(new OPTION[] { OPTION.semiColonRequired }));
+            this.options = EnumSet.copyOf(Arrays.asList(OPTION.semiColonRequired));
         }
     }
 

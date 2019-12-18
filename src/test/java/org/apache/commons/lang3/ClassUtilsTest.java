@@ -1260,7 +1260,7 @@ public class ClassUtilsTest  {
 
         // Tests with a public Class
         final Method toStringMethod = ClassUtils.getPublicMethod(Object.class, "toString");
-        assertEquals(Object.class.getMethod("toString", new Class[0]), toStringMethod);
+        assertEquals(Object.class.getMethod("toString"), toStringMethod);
     }
 
     @Test

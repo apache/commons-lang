@@ -73,7 +73,7 @@ public class StringUtilsEmptyBlankTest  {
     @Test
     public void testIsAllEmpty() {
         assertTrue(StringUtils.isAllEmpty());
-        assertTrue(StringUtils.isAllEmpty(new String[]{}));
+        assertTrue(StringUtils.isAllEmpty());
         assertTrue(StringUtils.isAllEmpty((String) null));
         assertTrue(StringUtils.isAllEmpty((String[]) null));
         assertFalse(StringUtils.isAllEmpty(null, "foo"));

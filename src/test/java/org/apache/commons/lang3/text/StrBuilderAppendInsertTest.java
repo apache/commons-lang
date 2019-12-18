@@ -1030,7 +1030,7 @@ public class StrBuilderAppendInsertTest {
         assertEquals("", sb.toString());
 
         sb.clear();
-        sb.appendAll(Arrays.asList(new Object[]{"foo", "bar", "baz"}));
+        sb.appendAll(Arrays.asList("foo", "bar", "baz"));
         assertEquals("foobarbaz", sb.toString());
     }
 
@@ -1046,7 +1046,7 @@ public class StrBuilderAppendInsertTest {
         assertEquals("", sb.toString());
 
         sb.clear();
-        sb.appendAll(Arrays.asList(new Object[]{"foo", "bar", "baz"}).iterator());
+        sb.appendAll(Arrays.asList("foo", "bar", "baz").iterator());
         assertEquals("foobarbaz", sb.toString());
     }
 
@@ -1086,15 +1086,15 @@ public class StrBuilderAppendInsertTest {
         assertEquals("", sb.toString());
 
         sb.clear();
-        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", "bar", "baz"}), ",");
+        sb.appendWithSeparators(Arrays.asList("foo", "bar", "baz"), ",");
         assertEquals("foo,bar,baz", sb.toString());
 
         sb.clear();
-        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", "bar", "baz"}), null);
+        sb.appendWithSeparators(Arrays.asList("foo", "bar", "baz"), null);
         assertEquals("foobarbaz", sb.toString());
 
         sb.clear();
-        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", null, "baz"}), ",");
+        sb.appendWithSeparators(Arrays.asList("foo", null, "baz"), ",");
         assertEquals("foo,,baz", sb.toString());
     }
 
@@ -1110,15 +1110,15 @@ public class StrBuilderAppendInsertTest {
         assertEquals("", sb.toString());
 
         sb.clear();
-        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", "bar", "baz"}).iterator(), ",");
+        sb.appendWithSeparators(Arrays.asList("foo", "bar", "baz").iterator(), ",");
         assertEquals("foo,bar,baz", sb.toString());
 
         sb.clear();
-        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", "bar", "baz"}).iterator(), null);
+        sb.appendWithSeparators(Arrays.asList("foo", "bar", "baz").iterator(), null);
         assertEquals("foobarbaz", sb.toString());
 
         sb.clear();
-        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", null, "baz"}).iterator(), ",");
+        sb.appendWithSeparators(Arrays.asList("foo", null, "baz").iterator(), ",");
         assertEquals("foo,,baz", sb.toString());
     }
 
@@ -1131,7 +1131,7 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foo,null,baz", sb.toString());
 
         sb.clear();
-        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", null, "baz"}), ",");
+        sb.appendWithSeparators(Arrays.asList("foo", null, "baz"), ",");
         assertEquals("foo,null,baz", sb.toString());
     }
 

@@ -200,8 +200,8 @@ public class WordUtilsTest {
     @Test
     public void testCapitalizeWithDelimiters_String() {
         assertNull(WordUtils.capitalize(null, null));
-        assertEquals("", WordUtils.capitalize("", new char[0]));
-        assertEquals("  ", WordUtils.capitalize("  ", new char[0]));
+        assertEquals("", WordUtils.capitalize(""));
+        assertEquals("  ", WordUtils.capitalize("  "));
 
         char[] chars = new char[] { '-', '+', ' ', '@' };
         assertEquals("I", WordUtils.capitalize("I", chars) );
@@ -232,8 +232,8 @@ public class WordUtilsTest {
     @Test
     public void testCapitalizeFullyWithDelimiters_String() {
         assertNull(WordUtils.capitalizeFully(null, null));
-        assertEquals("", WordUtils.capitalizeFully("", new char[0]));
-        assertEquals("  ", WordUtils.capitalizeFully("  ", new char[0]));
+        assertEquals("", WordUtils.capitalizeFully(""));
+        assertEquals("  ", WordUtils.capitalizeFully("  "));
 
         char[] chars = new char[] { '-', '+', ' ', '@' };
         assertEquals("I", WordUtils.capitalizeFully("I", chars) );
@@ -284,8 +284,8 @@ public class WordUtilsTest {
     @Test
     public void testUncapitalizeWithDelimiters_String() {
         assertNull(WordUtils.uncapitalize(null, null));
-        assertEquals("", WordUtils.uncapitalize("", new char[0]));
-        assertEquals("  ", WordUtils.uncapitalize("  ", new char[0]));
+        assertEquals("", WordUtils.uncapitalize(""));
+        assertEquals("  ", WordUtils.uncapitalize("  "));
 
         char[] chars = new char[] { '-', '+', ' ', '@' };
         assertEquals("i", WordUtils.uncapitalize("I", chars) );
