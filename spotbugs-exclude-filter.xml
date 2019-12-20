@@ -100,21 +100,11 @@
     <Bug pattern="CN_IDIOM_NO_SUPER_CALL" />
   </Match>
 
-  <!-- Reason: Testing shows that new Integer(...) etc is quicker than Integer.valueOf -->
-  <Match>
-    <Bug pattern="DM_NUMBER_CTOR" />
-  </Match>
-
   <!-- Reason: FindBugs 2.0.2 used in maven-findbugs-plugin 2.5.2 seems to have problems with detection of default cases
    in switch statements. All the excluded methods have switch statements that conatin a default case. -->
   <Match>
     <Class name="org.apache.commons.lang3.math.NumberUtils"/>
     <Method name="createNumber" />
-    <Bug pattern="SF_SWITCH_NO_DEFAULT" />
-  </Match>
-  <Match>
-    <Class name="org.apache.commons.lang3.text.ExtendedMessageFormat"/>
-    <Method name="insertFormats" />
     <Bug pattern="SF_SWITCH_NO_DEFAULT" />
   </Match>
   <!-- Reason: FindBugs does not correctly recognize default branches in switch statements without break statements.
