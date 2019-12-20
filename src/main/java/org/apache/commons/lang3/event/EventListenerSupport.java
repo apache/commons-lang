@@ -142,7 +142,7 @@ public class EventListenerSupport<L> implements Serializable {
         this();
         Validate.notNull(listenerInterface, "Listener interface cannot be null.");
         Validate.notNull(classLoader, "ClassLoader cannot be null.");
-        Validate.isTrue(listenerInterface.isInterface(), "Class {0} is not an interface",
+        Validate.isTrue(listenerInterface.isInterface(), "Class %s is not an interface",
                 listenerInterface.getName());
         initializeTransientFields(listenerInterface, classLoader);
     }
