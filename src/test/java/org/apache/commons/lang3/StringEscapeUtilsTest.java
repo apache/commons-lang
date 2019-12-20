@@ -235,8 +235,8 @@ public class StringEscapeUtilsTest {
         assertEquals("\u0080\u009F", StringEscapeUtils.unescapeHtml4("&#X80;&#X9F;"), "hex number unescape");
         // Test all Character values:
         for (char i = Character.MIN_VALUE; i < Character.MAX_VALUE; i++) {
-            final Character c1 = new Character(i);
-            final Character c2 = new Character((char) (i+1));
+            final Character c1 = Character.valueOf(i);
+            final Character c2 = Character.valueOf((char) (i+1));
             final String expected = c1.toString() + c2.toString();
             final String escapedC1 = "&#x" + Integer.toHexString((c1.charValue())) + ";";
             final String escapedC2 = "&#x" + Integer.toHexString((c2.charValue())) + ";";

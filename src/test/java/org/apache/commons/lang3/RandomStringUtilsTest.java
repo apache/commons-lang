@@ -498,8 +498,8 @@ public class RandomStringUtilsTest {
             final char o = orig.charAt(i);
             final char c = copy.charAt(i);
             assertEquals(o, c,
-                    "differs at " + i + "(" + Integer.toHexString(new Character(o).hashCode()) + "," +
-                            Integer.toHexString(new Character(c).hashCode()) + ")");
+                    "differs at " + i + "(" + Integer.toHexString(Character.valueOf(o).hashCode()) + "," +
+                            Integer.toHexString(Character.valueOf(c).hashCode()) + ")");
         }
         // compare length also
         assertEquals(orig.length(), copy.length());

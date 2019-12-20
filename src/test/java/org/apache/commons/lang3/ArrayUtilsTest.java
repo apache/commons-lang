@@ -4340,11 +4340,11 @@ public class ArrayUtilsTest {
 
         assertSame(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.toPrimitive(new Character[0]));
 
-        assertArrayEquals(new char[]{Character.MIN_VALUE, Character.MAX_VALUE, '0'}, ArrayUtils.toPrimitive(new Character[]{new Character(Character.MIN_VALUE),
-                new Character(Character.MAX_VALUE), new Character('0')}));
+        assertArrayEquals(new char[]{Character.MIN_VALUE, Character.MAX_VALUE, '0'}, ArrayUtils.toPrimitive(new Character[]{Character.valueOf(Character.MIN_VALUE),
+                Character.valueOf(Character.MAX_VALUE), Character.valueOf('0')}));
 
         assertThrows(NullPointerException.class,
-                () -> ArrayUtils.toPrimitive(new Character[]{new Character(Character.MIN_VALUE), null}));
+                () -> ArrayUtils.toPrimitive(new Character[]{Character.valueOf(Character.MIN_VALUE), null}));
     }
 
     @Test
@@ -4355,12 +4355,12 @@ public class ArrayUtilsTest {
         assertSame(ArrayUtils.EMPTY_CHAR_ARRAY,
                 ArrayUtils.toPrimitive(new Character[0], (char) 0));
 
-        assertArrayEquals(new char[]{Character.MIN_VALUE, Character.MAX_VALUE, '0'}, ArrayUtils.toPrimitive(new Character[]{new Character(Character.MIN_VALUE),
-                        new Character(Character.MAX_VALUE), new Character('0')},
+        assertArrayEquals(new char[]{Character.MIN_VALUE, Character.MAX_VALUE, '0'}, ArrayUtils.toPrimitive(new Character[]{Character.valueOf(Character.MIN_VALUE),
+                        Character.valueOf(Character.MAX_VALUE), Character.valueOf('0')},
                 Character.MIN_VALUE));
 
-        assertArrayEquals(new char[]{Character.MIN_VALUE, Character.MAX_VALUE, '0'}, ArrayUtils.toPrimitive(new Character[]{new Character(Character.MIN_VALUE), null,
-                new Character('0')}, Character.MAX_VALUE));
+        assertArrayEquals(new char[]{Character.MIN_VALUE, Character.MAX_VALUE, '0'}, ArrayUtils.toPrimitive(new Character[]{Character.valueOf(Character.MIN_VALUE), null,
+                Character.valueOf('0')}, Character.MAX_VALUE));
     }
 
     @Test
@@ -4371,8 +4371,8 @@ public class ArrayUtilsTest {
         assertSame(ArrayUtils.EMPTY_CHARACTER_OBJECT_ARRAY,
                 ArrayUtils.toObject(new char[0]));
 
-        assertArrayEquals(new Character[]{new Character(Character.MIN_VALUE),
-                new Character(Character.MAX_VALUE), new Character('0')}, ArrayUtils.toObject(new char[]{Character.MIN_VALUE, Character.MAX_VALUE,
+        assertArrayEquals(new Character[]{Character.valueOf(Character.MIN_VALUE),
+                Character.valueOf(Character.MAX_VALUE), Character.valueOf('0')}, ArrayUtils.toObject(new char[]{Character.MIN_VALUE, Character.MAX_VALUE,
                 '0'}));
     }
 
