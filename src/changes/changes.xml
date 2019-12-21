@@ -83,6 +83,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Update test dependency: org.junit-pioneer:junit-pioneer 0.3.0 -> 0.4.2.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Update build dependency: com.puppycrawl.tools:checkstyle 8.18 -> 8.27.</action>
     <action issue="LANG-1501" type="fix" dev="ggregory" due-to="contextshuffling">Sort fields in ReflectionToStringBuilder for deterministic order #481.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Update POM parent: org.apache.commons:commons-parent 48 -> 50.</action>
   </release>
 
   <release version="3.9" date="2019-04-09" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">
