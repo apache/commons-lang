@@ -56,9 +56,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1460" type="fix" dev="kinow" due-to="Larry West">Trivial: year of release for 3.9 says 2018, should be 2019</action>
     <action issue="LANG-1476" type="fix" dev="kinow" due-to="emopers">Use synchronize on a set created with Collections.synchronizedSet before iterating</action>
     <action issue="LANG-1479" type="add" dev="ggregory">Add Range.fit(T) to fit a value into a range.</action>
-    <action                   type="update" dev="ggregory">com.puppycrawl.tools:checkstyle 8.18 -> 8.23.</action>
     <action                   type="update" dev="ggregory">commons.japicmp.version 0.13.1 -> 0.14.1.</action>
-    <action                   type="update" dev="ggregory">checkstyle.version 8.18 -> 8.23.</action>
     <action                   type="update" dev="ggregory">junit-jupiter 5.5.0 -> 5.5.1.</action>
     <action issue="LANG-1477" type="add" dev="jochen">Added Functions.as*, and tests thereof, as suggested by Peter Verhas</action>
     <action issue="LANG-1475" type="fix" dev="kinow" due-to="stzx">StringUtils.unwrap incorrect throw StringIndexOutOfBoundsException.</action>
@@ -69,11 +67,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1406" type="fix" dev="ggregory" due-to="geratorres">StringIndexOutOfBoundsException in StringUtils.replaceIgnoreCase #423.</action>
     <action issue="LANG-1453" type="fix" dev="ggregory" due-to="geratorres">StringUtils.removeIgnoreCase("İa", "a") throws IndexOutOfBoundsException #423.</action>
     <action                   type="update" dev="ggregory">junit-jupiter 5.5.1 -> 5.5.2.</action>
-    <action                   type="update" dev="ggregory">com.puppycrawl.tools:checkstyle 8.23 -> 8.24.</action>
     <action issue="LANG-1426" type="fix" dev="ggregory" due-to="Brower, Mikko Maunu, Suraj Gautam">Corrected usage examples in Javadocs #458.</action>
     <action                   type="update" dev="ggregory" due-to="Jonathan Leitschuh, Bruno P. Kinoshita, Rob Tompkins, Gary Gregory">Improve Javadoc based on the discussion of the GitHub PR #459.</action>
     <action                   type="update" dev="ggregory">maven-checkstyle-plugin 3.0.0 -> 3.1.0.</action>
-    <action                   type="update" dev="ggregory">com.puppycrawl.tools:checkstyle 8.24 -> 8.25.</action>
     <action issue="LANG-696"  type="update" dev="ggregory" due-to="Peter Verhas">Update documentation related to the issue LANG-696 #449.</action>
     <action                   type="update" dev="ggregory" due-to="Peter Verhas">AnnotationUtils little cleanup #467.</action>
     <action issue="LANG-1494" type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.time.Calendars.</action>
@@ -85,7 +81,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Update test dependency: org.easymock:easymock 4.0.2 -> 4.1.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Update test dependency: org.hamcrest:hamcrest 2.1 -> 2.2.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Update test dependency: org.junit-pioneer:junit-pioneer 0.3.0 -> 0.4.2.</action>
-    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Update build dependency: com.puppycrawl.tools:checkstyle 8.25 -> 8.26.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Update build dependency: com.puppycrawl.tools:checkstyle 8.18 -> 8.27.</action>
     <action issue="LANG-1501" type="fix" dev="ggregory" due-to="contextshuffling">Sort fields in ReflectionToStringBuilder for deterministic order #481.</action>
   </release>
 
