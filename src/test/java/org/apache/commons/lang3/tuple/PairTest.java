@@ -104,7 +104,17 @@ public class PairTest {
     }
 
     @Test
-    public void testPairOf() {
+    public void testPairOfMapEntry() {
+        final HashMap<Integer, String> map = new HashMap<>();
+        map.put(0, "foo");
+        final Entry<Integer, String> entry = map.entrySet().iterator().next();
+        final Pair<Integer, String> pair = Pair.of(entry);
+        assertEquals(entry.getKey(), pair.getLeft());
+        assertEquals(entry.getValue(), pair.getRight());
+    }
+
+    @Test
+    public void testPairOfObjects() {
         final Pair<Integer, String> pair = Pair.of(0, "foo");
         assertTrue(pair instanceof ImmutablePair<?, ?>);
         assertEquals(0, ((ImmutablePair<Integer, String>) pair).left.intValue());
@@ -113,6 +123,9 @@ public class PairTest {
         assertTrue(pair2 instanceof ImmutablePair<?, ?>);
         assertNull(((ImmutablePair<Object, String>) pair2).left);
         assertEquals("bar", ((ImmutablePair<Object, String>) pair2).right);
+        Pair pair3 = Pair.of(null, null);
+        assertNull(pair3.getLeft());
+        assertNull(pair3.getRight());
     }
 
     @Test

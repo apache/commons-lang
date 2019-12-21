@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.tuple;
 
+import java.util.Map;
+
 /**
  * <p>A mutable pair consisting of two {@code Object} elements.</p>
  *
@@ -56,7 +58,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
-     * <p>Obtains a mutable pair of two objects inferring the generic types.</p>
+     * <p>Creates a mutable pair of two objects inferring the generic types.</p>
      *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>
@@ -70,6 +72,31 @@ public class MutablePair<L, R> extends Pair<L, R> {
     public static <L, R> MutablePair<L, R> of(final L left, final R right) {
         return new MutablePair<>(left, right);
     }
+
+    /**
+     * <p>Creates a mutable pair from an existing pair.</p>
+     *
+     * <p>This factory allows the pair to be created using inference to
+     * obtain the generic types.</p>
+     *
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @param pair the existing pair.
+     * @return a pair formed from the two parameters, not null
+     */
+    public static <L, R> MutablePair<L, R> of(final Map.Entry<L, R> pair) {
+        final L left;
+        final R right;
+        if (pair != null) {
+            left = pair.getKey();
+            right = pair.getValue();
+        } else {
+            left = null;
+            right = null;
+        }
+        return new MutablePair<>(left, right);
+    }
+
     /** Left object */
     public L left;
 

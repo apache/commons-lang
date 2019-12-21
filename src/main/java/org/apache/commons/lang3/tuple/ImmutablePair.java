@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.tuple;
 
+import java.util.Map;
+
 /**
  * <p>An immutable pair consisting of two {@code Object} elements.</p>
  *
@@ -80,7 +82,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
-     * <p>Obtains an immutable pair of two objects inferring the generic types.</p>
+     * <p>Creates an immutable pair of two objects inferring the generic types.</p>
      *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>
@@ -94,6 +96,32 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
     public static <L, R> ImmutablePair<L, R> of(final L left, final R right) {
         return new ImmutablePair<>(left, right);
     }
+
+    /**
+     * <p>Creates an immutable pair from an existing pair.</p>
+     *
+     * <p>This factory allows the pair to be created using inference to
+     * obtain the generic types.</p>
+     *
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @param pair the existing pair.
+     * @return a pair formed from the two parameters, not null
+     * @since 3.10
+     */
+    public static <L, R> ImmutablePair<L, R> of(final Map.Entry<L, R> pair) {
+        final L left;
+        final R right;
+        if (pair != null) {
+            left = pair.getKey();
+            right = pair.getValue();
+        } else {
+            left = null;
+            right = null;
+        }
+        return new ImmutablePair<>(left, right);
+    }
+
     /** Left object */
     public final L left;
 
@@ -112,7 +140,6 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
         this.right = right;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * {@inheritDoc}
      */
