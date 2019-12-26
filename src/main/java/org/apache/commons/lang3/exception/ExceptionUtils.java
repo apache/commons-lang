@@ -274,7 +274,7 @@ public class ExceptionUtils {
             }
             frames.addAll(trace);
         }
-        return frames.toArray(new String[0]);
+        return frames.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
     }
 
     /**
@@ -325,7 +325,7 @@ public class ExceptionUtils {
         while (frames.hasMoreTokens()) {
             list.add(frames.nextToken());
         }
-        return list.toArray(new String[0]);
+        return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
     }
 
     /**

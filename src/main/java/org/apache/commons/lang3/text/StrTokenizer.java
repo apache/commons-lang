@@ -604,10 +604,10 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
             if (chars == null) {
                 // still call tokenize as subclass may do some work
                 final List<String> split = tokenize(null, 0, 0);
-                tokens = split.toArray(new String[0]);
+                tokens = split.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
             } else {
                 final List<String> split = tokenize(chars, 0, chars.length);
-                tokens = split.toArray(new String[0]);
+                tokens = split.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
             }
         }
     }
