@@ -407,7 +407,7 @@ public class EventCountCircuitBreakerTest {
          */
         public void verify(final Boolean... values) {
             assertArrayEquals(values,
-                    changedValues.toArray(new Boolean[changedValues.size()]));
+                    changedValues.toArray(new Boolean[0]));
         }
     }
 }

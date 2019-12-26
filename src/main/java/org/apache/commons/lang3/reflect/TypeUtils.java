@@ -1149,7 +1149,7 @@ public class TypeUtils {
             }
         }
 
-        return types.toArray(new Type[types.size()]);
+        return types.toArray(new Type[0]);
     }
 
     /**

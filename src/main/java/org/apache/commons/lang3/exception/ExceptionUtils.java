@@ -274,7 +274,7 @@ public class ExceptionUtils {
             }
             frames.addAll(trace);
         }
-        return frames.toArray(new String[frames.size()]);
+        return frames.toArray(new String[0]);
     }
 
     /**
@@ -325,7 +325,7 @@ public class ExceptionUtils {
         while (frames.hasMoreTokens()) {
             list.add(frames.nextToken());
         }
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 
     /**
@@ -438,7 +438,7 @@ public class ExceptionUtils {
      */
     public static Throwable[] getThrowables(final Throwable throwable) {
         final List<Throwable> list = getThrowableList(throwable);
-        return list.toArray(new Throwable[list.size()]);
+        return list.toArray(new Throwable[0]);
     }
 
     /**

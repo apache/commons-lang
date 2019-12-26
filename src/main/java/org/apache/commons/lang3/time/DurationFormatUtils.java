@@ -564,7 +564,7 @@ public class DurationFormatUtils {
         if (inLiteral) { // i.e. we have not found the end of the literal
             throw new IllegalArgumentException("Unmatched quote in format: " + format);
         }
-        return list.toArray(new Token[list.size()]);
+        return list.toArray(new Token[0]);
     }
 
     //-----------------------------------------------------------------------
