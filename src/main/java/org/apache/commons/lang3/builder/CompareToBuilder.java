@@ -285,7 +285,7 @@ public class CompareToBuilder implements Builder<Integer> {
         }
         Objects.requireNonNull(lhs, "lhs");
         Objects.requireNonNull(rhs, "rhs");
-        
+
         Class<?> lhsClazz = lhs.getClass();
         if (!lhsClazz.isInstance(rhs)) {
             throw new ClassCastException();
