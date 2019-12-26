@@ -21,6 +21,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Objects;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -282,9 +283,9 @@ public class CompareToBuilder implements Builder<Integer> {
         if (lhs == rhs) {
             return 0;
         }
-        if (lhs == null || rhs == null) {
-            throw new NullPointerException();
-        }
+        Objects.requireNonNull(lhs, "lhs");
+        Objects.requireNonNull(rhs, "rhs");
+        
         Class<?> lhsClazz = lhs.getClass();
         if (!lhsClazz.isInstance(rhs)) {
             throw new ClassCastException();

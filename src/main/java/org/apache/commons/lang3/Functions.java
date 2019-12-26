@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.lang.reflect.UndeclaredThrowableException;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
@@ -433,10 +434,8 @@ public class Functions {
             errorHandler = pErrorHandler;
         }
         if (pResources != null) {
-            for (FailableRunnable<? extends Throwable> runnable : pResources) {
-                if (runnable == null) {
-                    throw new NullPointerException("A resource action must not be null.");
-                }
+            for (FailableRunnable<? extends Throwable> failableRunnable : pResources) {
+                Objects.requireNonNull(failableRunnable, "runnable");
             }
         }
         Throwable th = null;
@@ -514,9 +513,8 @@ public class Functions {
      * @return Never returns anything, this method never terminates normally.
      */
     public static RuntimeException rethrow(Throwable pThrowable) {
-        if (pThrowable == null) {
-            throw new NullPointerException("The Throwable must not be null.");
-        } else if (pThrowable instanceof RuntimeException) {
+        Objects.requireNonNull(pThrowable, "pThrowable");
+        if (pThrowable instanceof RuntimeException) {
             throw (RuntimeException) pThrowable;
         } else if (pThrowable instanceof Error) {
             throw (Error) pThrowable;
