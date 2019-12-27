@@ -878,7 +878,7 @@ public class MethodUtils {
                                                     final boolean searchSupers, final boolean ignoreAccess) {
         final List<Method> annotatedMethodsList = getMethodsListWithAnnotation(cls, annotationCls, searchSupers,
                 ignoreAccess);
-        return annotatedMethodsList.toArray(new Method[0]);
+        return annotatedMethodsList.toArray(ArrayUtils.EMPTY_METHOD_ARRAY);
     }
 
     /**

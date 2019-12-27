@@ -220,8 +220,6 @@ public class TypeUtils {
      * @since 3.2
      */
     private static final class WildcardTypeImpl implements WildcardType {
-        private static final Type[] EMPTY_BOUNDS = new Type[0];
-
         private final Type[] upperBounds;
         private final Type[] lowerBounds;
 
@@ -231,8 +229,8 @@ public class TypeUtils {
          * @param lowerBounds of this type
          */
         private WildcardTypeImpl(final Type[] upperBounds, final Type[] lowerBounds) {
-            this.upperBounds = ObjectUtils.defaultIfNull(upperBounds, EMPTY_BOUNDS);
-            this.lowerBounds = ObjectUtils.defaultIfNull(lowerBounds, EMPTY_BOUNDS);
+            this.upperBounds = ObjectUtils.defaultIfNull(upperBounds, ArrayUtils.EMPTY_TYPE_ARRAY);
+            this.lowerBounds = ObjectUtils.defaultIfNull(lowerBounds, ArrayUtils.EMPTY_TYPE_ARRAY);
         }
 
         /**
@@ -1149,7 +1147,7 @@ public class TypeUtils {
             }
         }
 
-        return types.toArray(new Type[0]);
+        return types.toArray(ArrayUtils.EMPTY_TYPE_ARRAY);
     }
 
     /**

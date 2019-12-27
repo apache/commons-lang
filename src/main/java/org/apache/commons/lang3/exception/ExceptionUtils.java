@@ -438,7 +438,7 @@ public class ExceptionUtils {
      */
     public static Throwable[] getThrowables(final Throwable throwable) {
         final List<Throwable> list = getThrowableList(throwable);
-        return list.toArray(new Throwable[0]);
+        return list.toArray(ArrayUtils.EMPTY_THROWABLE_ARRAY);
     }
 
     /**

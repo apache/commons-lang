@@ -16,18 +16,19 @@
  */
 package org.apache.commons.lang3.reflect;
 
-import org.apache.commons.lang3.ClassUtils;
-import org.apache.commons.lang3.JavaVersion;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.SystemUtils;
-import org.apache.commons.lang3.Validate;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.JavaVersion;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Utilities for working with {@link Field}s by reflection. Adapted and refactored from the dormant [reflect] Commons
@@ -199,7 +200,7 @@ public class FieldUtils {
      */
     public static Field[] getAllFields(final Class<?> cls) {
         final List<Field> allFieldsList = getAllFieldsList(cls);
-        return allFieldsList.toArray(new Field[0]);
+        return allFieldsList.toArray(ArrayUtils.EMPTY_FIELD_ARRAY);
     }
 
     /**
@@ -237,7 +238,7 @@ public class FieldUtils {
      */
     public static Field[] getFieldsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
         final List<Field> annotatedFieldsList = getFieldsListWithAnnotation(cls, annotationCls);
-        return annotatedFieldsList.toArray(new Field[0]);
+        return annotatedFieldsList.toArray(ArrayUtils.EMPTY_FIELD_ARRAY);
     }
 
     /**
