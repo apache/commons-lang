@@ -17,6 +17,8 @@
 
 package org.apache.commons.lang3.time;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -205,12 +207,18 @@ public class StopWatch {
     private long stopTime;
 
     /**
+     * The list of steps
+     */
+    private List<Step> steps = new ArrayList<>();
+
+    /**
      * <p>
      * Constructor.
      * </p>
      */
     public StopWatch() {
         super();
+        step(0);
     }
 
     /**
@@ -545,6 +553,134 @@ public class StopWatch {
             throw new IllegalStateException("Stopwatch has not been split. ");
         }
         this.splitState = SplitState.UNSPLIT;
+    }
+
+    /**
+     * Adds a new step to track time elapsed between two consecutive steps
+     * @param label label for this step, to be used on steps report
+     */
+    public void step(int label) {
+        step(String.valueOf(label));
+    }
+
+    /**
+     * Adds a new step to track time elapsed between two consecutive steps
+     * @param label label for this step
+     */
+    public void step(String label) {
+        addStep(label);
+    }
+
+    /**
+     * Adds a new step
+     * @param label label for this step
+     */
+    private void addStep(String label) {
+        steps.add(new Step(label));
+    }
+
+    /**
+     * Returns the list of steps with elapsed time on each step
+     * @return List<Step> steps
+     */
+    public List<Step> getSteps() {
+        fillTimeTook();
+        return steps;
+    }
+
+    /**
+     * Fill elapsed time (time took) on each step
+     */
+    private void fillTimeTook() {
+        // we need at least 2 steps to calculate the elapsed time
+        if (steps.size() < 2) {
+            return;
+        }
+        for (int i=1; i < steps.size(); i++) {
+            steps.get(i).setTimeTook(steps.get(i).getStartTime() - steps.get(i-1).getStartTime());
+        }
+    }
+
+    /**
+     * Returns a string containing the steps report.
+     * This report contains the elapsed time (on ms) between each step
+     */
+    public String getStepsReport() {
+        fillTimeTook();
+        StringBuilder report = new StringBuilder();
+        for (Step step : steps) {
+            report.append(System.lineSeparator());
+            report.append("[").append(step.getLabel()).append("] ").append(step.getTimeTook()).append("ms");
+        }
+        ;
+        return report.toString();
+    }
+
+    /**
+     * Class to store details of each step
+     */
+    public static class Step {
+
+        /**
+         * The start time of this step
+         */
+        private long startTime = System.currentTimeMillis();
+
+        /**
+         * The time took on this step
+         * This field is filled when user calls getSteps() or tries to print the steps report
+         */
+        private long timeTook;
+
+        /*
+         * The label for this step
+         */
+        private String label;
+
+        /**
+         * @param label Label for this step
+         */
+        public Step(String label) {
+            this.label = label;
+        }
+
+        /**
+         * <p>
+         * Get the timestamp when this step was created
+         * </p>
+         *
+         * @return the time
+         */
+        public long getStartTime() {
+            return startTime;
+        }
+
+        /**
+         * <p>
+         * Get the label of this step
+         * </p>
+         *
+         * @return the label
+         */
+        public String getLabel() {
+            return label;
+        }
+
+        /**
+         * Time took on this step
+         * @return long time on mns
+         */
+        public long getTimeTook() {
+            return timeTook;
+        }
+
+        /**
+         * Set the timetook on this step
+         * @param timeTook time on ms
+         */
+        private void setTimeTook(long timeTook) {
+            this.timeTook = timeTook;
+        }
     }
 
 }

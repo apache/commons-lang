@@ -314,4 +314,34 @@ public class StopWatchTest {
         final String splitStr = watch.toSplitString();
         assertEquals(splitStr.length(), 12, "Formatted split string not the correct length");
     }
+
+    @Test
+    public void testStep() throws InterruptedException {
+        final StopWatch watch = new StopWatch();
+        watch.step(1);
+        Thread.sleep(200);
+        watch.step(2);
+        Thread.sleep(300);
+        watch.step("final");
+        Thread.sleep(500);
+        watch.getSteps();
+
+        // check sizes
+        assertEquals(watch.getSteps().size(), 4);
+
+        // check labels
+        assertEquals(watch.getSteps().get(0).getLabel(), "0");
+        assertEquals(watch.getSteps().get(1).getLabel(), "1");
+        assertEquals(watch.getSteps().get(2).getLabel(), "2");
+        assertEquals(watch.getSteps().get(3).getLabel(), "final");
+
+        // check time took
+        assertTrue(watch.getSteps().get(0).getTimeTook() == 0);
+        assertTrue(watch.getSteps().get(1).getTimeTook() >= 0 && watch.getSteps().get(1).getTimeTook() < 150);
+        assertTrue(watch.getSteps().get(2).getTimeTook() >= 200 && watch.getSteps().get(2).getTimeTook() < 300);
+        assertTrue(watch.getSteps().get(3).getTimeTook() >= 300 && watch.getSteps().get(2).getTimeTook() < 400);
+
+        // check report
+        assertTrue(watch.getStepsReport().contains("ms") && watch.getStepsReport().contains("[0]"));
+    }
 }
