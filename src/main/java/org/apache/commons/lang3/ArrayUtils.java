@@ -159,14 +159,14 @@ public class ArrayUtils {
 
     /**
      * An empty immutable {@code Throwable} array.
-     * 
+     *
      * @since 3.10
      */
     public static final Throwable[] EMPTY_THROWABLE_ARRAY = new Throwable[0];
 
     /**
      * An empty immutable {@code Type} array.
-     * 
+     *
      * @since 3.10
      */
     public static final Type[] EMPTY_TYPE_ARRAY = new Type[0];
