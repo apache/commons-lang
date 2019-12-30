@@ -66,26 +66,11 @@ public class StopWatch {
         UNSPLIT
     }
 
-
     /**
      * Enumeration type which indicates the status of stopwatch.
      */
     private enum State {
 
-        UNSTARTED {
-            @Override
-            boolean isStarted() {
-                return false;
-            }
-            @Override
-            boolean isStopped() {
-                return true;
-            }
-            @Override
-            boolean isSuspended() {
-                return false;
-            }
-        },
         RUNNING {
             @Override
             boolean isStarted() {
@@ -126,6 +111,20 @@ public class StopWatch {
             @Override
             boolean isSuspended() {
                 return true;
+            }
+        },
+        UNSTARTED {
+            @Override
+            boolean isStarted() {
+                return false;
+            }
+            @Override
+            boolean isStopped() {
+                return true;
+            }
+            @Override
+            boolean isSuspended() {
+                return false;
             }
         };
 
