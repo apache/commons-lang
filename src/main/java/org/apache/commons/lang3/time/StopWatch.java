@@ -131,30 +131,26 @@ public class StopWatch {
 
         /**
          * <p>
-         * The method is used to find out if the StopWatch is started. A suspended
-         * StopWatch is also started watch.
+         * Returns whether the StopWatch is started. A suspended StopWatch is also started watch.
          * </p>
-
-         * @return boolean
-         *             If the StopWatch is started.
+         *
+         * @return boolean If the StopWatch is started.
          */
         abstract boolean isStarted();
 
         /**
          * <p>
-         * This method is used to find out whether the StopWatch is stopped. The
-         * stopwatch which's not yet started and explicitly stopped stopwatch is
+         * Returns whether the StopWatch is stopped. The stopwatch which's not yet started and explicitly stopped stopwatch is
          * considered as stopped.
          * </p>
          *
-         * @return boolean
-         *             If the StopWatch is stopped.
+         * @return boolean If the StopWatch is stopped.
          */
         abstract boolean isStopped();
 
         /**
          * <p>
-         * This method is used to find out whether the StopWatch is suspended.
+         * Returns whether the StopWatch is suspended.
          * </p>
          *
          * @return boolean
@@ -166,7 +162,7 @@ public class StopWatch {
     private static final long NANO_2_MILLIS = 1000000L;
 
     /**
-     * Provides a started stopwatch for convenience.
+     * Creates a started stopwatch for convenience.
      *
      * @return StopWatch a stopwatch that's already been started.
      *
@@ -177,6 +173,7 @@ public class StopWatch {
         sw.start();
         return sw;
     }
+
     /**
      * The current running state of the StopWatch.
      */
@@ -215,7 +212,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * Get the time on the stopwatch in nanoseconds.
+     * Gets the time on the stopwatch in nanoseconds.
      * </p>
      *
      * <p>
@@ -240,7 +237,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * Get the split time on the stopwatch in nanoseconds.
+     * Gets the split time on the stopwatch in nanoseconds.
      * </p>
      *
      * <p>
@@ -262,7 +259,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * Get the split time on the stopwatch.
+     * Gets the split time on the stopwatch.
      * </p>
      *
      * <p>
@@ -280,7 +277,7 @@ public class StopWatch {
     }
 
     /**
-     * Returns the time this stopwatch was started.
+     * Gets the time this stopwatch was started.
      *
      * @return the time this stopwatch was started
      * @throws IllegalStateException
@@ -297,7 +294,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * Get the time on the stopwatch.
+     * Gets the time on the stopwatch.
      * </p>
      *
      * <p>
@@ -313,7 +310,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * Get the time on the stopwatch in the specified TimeUnit.
+     * Gets the time on the stopwatch in the specified TimeUnit.
      * </p>
      *
      * <p>
@@ -333,12 +330,10 @@ public class StopWatch {
 
     /**
      * <p>
-     * The method is used to find out if the StopWatch is started. A suspended
-     * StopWatch is also started watch.
+     * Returns whether the StopWatch is started. A suspended StopWatch is also started watch.
      * </p>
      *
-     * @return boolean
-     *             If the StopWatch is started.
+     * @return boolean If the StopWatch is started.
      * @since 3.2
      */
     public boolean isStarted() {
@@ -347,13 +342,11 @@ public class StopWatch {
 
     /**
      * <p>
-     * This method is used to find out whether the StopWatch is stopped. The
-     * stopwatch which's not yet started and explicitly stopped stopwatch is
-     * considered as stopped.
+     * Returns whether StopWatch is stopped. The stopwatch which's not yet started and explicitly stopped stopwatch is considered
+     * as stopped.
      * </p>
      *
-     * @return boolean
-     *             If the StopWatch is stopped.
+     * @return boolean If the StopWatch is stopped.
      * @since 3.2
      */
     public boolean isStopped() {
@@ -362,7 +355,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * This method is used to find out whether the StopWatch is suspended.
+     * Returns whether the StopWatch is suspended.
      * </p>
      *
      * @return boolean
@@ -389,7 +382,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * Resume the stopwatch after a suspend.
+     * Resumes the stopwatch after a suspend.
      * </p>
      *
      * <p>
@@ -409,7 +402,7 @@ public class StopWatch {
     }
     /**
      * <p>
-     * Split the time.
+     * Splits the time.
      * </p>
      *
      * <p>
@@ -430,7 +423,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * Start the stopwatch.
+     * Starts the stopwatch.
      * </p>
      *
      * <p>
@@ -454,7 +447,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * Stop the stopwatch.
+     * Stops the stopwatch.
      * </p>
      *
      * <p>
@@ -476,7 +469,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * Suspend the stopwatch for later resumption.
+     * Suspends the stopwatch for later resumption.
      * </p>
      *
      * <p>
@@ -529,7 +522,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * Remove a split.
+     * Removes a split.
      * </p>
      *
      * <p>
