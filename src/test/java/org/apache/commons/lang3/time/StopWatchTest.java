@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.time;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -142,6 +143,20 @@ public class StopWatchTest {
         assertFalse(watch.isStarted());
         assertFalse(watch.isSuspended());
         assertTrue(watch.isStopped());
+    }
+
+    @Test
+    public void testFormatSplitTime() throws InterruptedException {
+        final StopWatch watch = StopWatch.createStarted();
+        Thread.sleep(20);
+        watch.split();
+        assertNotEquals("00:00:00.000", watch.formatSplitTime());
+    }
+
+    @Test
+    public void testFormatTime() {
+        final StopWatch watch = StopWatch.create();
+        assertEquals("00:00:00.000", watch.formatTime());
     }
 
     @Test

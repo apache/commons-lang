@@ -161,6 +161,17 @@ public class StopWatch {
     private static final long NANO_2_MILLIS = 1000000L;
 
     /**
+     * Creates a stopwatch for convenience.
+     *
+     * @return StopWatch a stopwatch.
+     *
+     * @since 3.10
+     */
+    public static StopWatch create() {
+        return new StopWatch();
+    }
+
+    /**
      * Creates a started stopwatch for convenience.
      *
      * @return StopWatch a stopwatch that's already been started.
@@ -207,6 +218,26 @@ public class StopWatch {
      */
     public StopWatch() {
         super();
+    }
+
+    /**
+     * Returns the time formatted by {@link DurationFormatUtils#formatDurationHMS}.
+     *
+     * @return the time formatted by {@link DurationFormatUtils#formatDurationHMS}.
+     * @since 3.10
+     */
+    public String formatSplitTime() {
+        return DurationFormatUtils.formatDurationHMS(getSplitTime());
+    }
+
+    /**
+     * Returns the split time formatted by {@link DurationFormatUtils#formatDurationHMS}.
+     *
+     * @return the split time formatted by {@link DurationFormatUtils#formatDurationHMS}.
+     * @since 3.10
+     */
+    public String formatTime() {
+        return DurationFormatUtils.formatDurationHMS(getTime());
     }
 
     /**
