@@ -205,10 +205,6 @@ public class ArrayUtils {
         return newArray;
     }
 
-
-    // NOTE: Cannot use {@code} to enclose text which includes {}, but <code></code> is OK
-
-
     /**
      * <p>Inserts the specified element at the specified position in the array.
      * Shifts the element currently at that position (if any) and any subsequent
