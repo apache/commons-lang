@@ -17,7 +17,10 @@
 
 package org.apache.commons.lang3.time;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * <p>
@@ -185,6 +188,13 @@ public class StopWatch {
     }
 
     /**
+     * A message for string presentation.
+     *
+     * @since 3.10
+     */
+    private final String message;
+
+    /**
      * The current running state of the StopWatch.
      */
     private State runningState = State.UNSTARTED;
@@ -217,7 +227,18 @@ public class StopWatch {
      * </p>
      */
     public StopWatch() {
-        super();
+        this(null);
+    }
+
+    /**
+     * <p>
+     * Constructor.
+     * </p>
+     * @param message A message for string presentation.
+     * @since 3.10
+     */
+    public StopWatch(final String message) {
+        this.message = message;
     }
 
     /**
@@ -238,6 +259,16 @@ public class StopWatch {
      */
     public String formatTime() {
         return DurationFormatUtils.formatDurationHMS(getTime());
+    }
+
+    /**
+     * Gets the message for string presentation.
+     *
+     * @return the message for string presentation.
+     * @since 3.10
+     */
+    public String getMessage() {
+        return message;
     }
 
     /**
@@ -263,7 +294,6 @@ public class StopWatch {
         }
         throw new RuntimeException("Illegal running state has occurred.");
     }
-
 
     /**
      * <p>
@@ -409,7 +439,6 @@ public class StopWatch {
         this.runningState = State.UNSTARTED;
         this.splitState = SplitState.UNSPLIT;
     }
-
     /**
      * <p>
      * Resumes the stopwatch after a suspend.
@@ -430,6 +459,7 @@ public class StopWatch {
         this.startTime += System.nanoTime() - this.stopTime;
         this.runningState = State.RUNNING;
     }
+
     /**
      * <p>
      * Splits the time.
@@ -524,14 +554,17 @@ public class StopWatch {
      * </p>
      *
      * <p>
-     * The format used is ISO 8601-like, <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
+     * The format used is ISO 8601-like, [<i>message</i> ]<i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
      * </p>
      *
      * @return the split time as a String
      * @since 2.1
+     * @since 3.10 Returns the prefix {@code "message "} if the message is set.
      */
     public String toSplitString() {
-        return DurationFormatUtils.formatDurationHMS(getSplitTime());
+        final String msgStr = Objects.toString(message, StringUtils.EMPTY);
+        final String formattedTime = formatSplitTime();
+        return msgStr.isEmpty() ? formattedTime : msgStr + StringUtils.SPACE + formattedTime;
     }
 
     /**
@@ -540,14 +573,17 @@ public class StopWatch {
      * </p>
      *
      * <p>
-     * The format used is ISO 8601-like, <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
+     * The format used is ISO 8601-like, [<i>message</i> ]<i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
      * </p>
      *
      * @return the time as a String
+     * @since 3.10 Returns the prefix {@code "message "} if the message is set.
      */
     @Override
     public String toString() {
-        return DurationFormatUtils.formatDurationHMS(getTime());
+        final String msgStr = Objects.toString(message, StringUtils.EMPTY);
+        final String formattedTime = formatTime();
+        return msgStr.isEmpty() ? formattedTime : msgStr + StringUtils.SPACE + formattedTime;
     }
 
     /**
