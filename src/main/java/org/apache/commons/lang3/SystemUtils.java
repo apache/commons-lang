@@ -1711,7 +1711,7 @@ public class SystemUtils {
      * <p>
      * Gets the user name.
      * </p>
-     * 
+     *
      * @param defaultValue A default value.
      * @return a name
      * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow
