@@ -49,6 +49,11 @@ public class SystemUtils {
     private static final String USER_HOME_KEY = "user.home";
 
     /**
+     * The System property key for the user name.
+     */
+    private static final String USER_NAME_KEY = "user.name";
+
+    /**
      * The System property key for the user directory.
      */
     private static final String USER_DIR_KEY = "user.dir";
@@ -837,7 +842,7 @@ public class SystemUtils {
      *
      * @since Java 1.1
      */
-    public static final String USER_NAME = getSystemProperty("user.name");
+    public static final String USER_NAME = getSystemProperty(USER_NAME_KEY);
 
     /**
      * <p>
@@ -1685,6 +1690,37 @@ public class SystemUtils {
      */
     public static File getUserHome() {
         return new File(System.getProperty(USER_HOME_KEY));
+    }
+
+    /**
+     * <p>
+     * Gets the user name.
+     * </p>
+     *
+     * @return a name
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow
+     * access to the specified system property.
+     * @see System#getProperty(String)
+     * @since 3.10
+     */
+    public static String getUserName() {
+        return System.getProperty(USER_NAME_KEY);
+    }
+
+    /**
+     * <p>
+     * Gets the user name.
+     * </p>
+     * 
+     * @param defaultValue A default value.
+     * @return a name
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow
+     * access to the specified system property.
+     * @see System#getProperty(String)
+     * @since 3.10
+     */
+    public static String getUserName(final String defaultValue) {
+        return System.getProperty(USER_NAME_KEY, defaultValue);
     }
 
     /**

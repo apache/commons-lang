@@ -126,6 +126,16 @@ public class SystemUtilsTest {
         assertTrue(dir.exists());
     }
 
+    /**
+     * Assumes no security manager exists.
+     */
+    @Test
+    public void testGetUserName() {
+        assertEquals(System.getProperty("user.name"), SystemUtils.getUserName());
+        // Don't overwrite the system property in this test in case something goes awfully wrong.
+        assertEquals(System.getProperty("user.name", "foo"), SystemUtils.getUserName("foo"));
+    }
+
     @Test
     @SuppressWarnings("deprecation")
     public void testIS_JAVA() {
