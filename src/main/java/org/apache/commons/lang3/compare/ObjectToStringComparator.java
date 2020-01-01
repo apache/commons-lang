@@ -52,6 +52,17 @@ public final class ObjectToStringComparator implements Comparator<Object>, Seria
         if (o2 == null) {
             return -1;
         }
-        return o1.toString().compareTo(o2.toString());
+        final String string1 = o1.toString();
+        final String string2 = o2.toString();
+        if (string1 == null && string2 == null) {
+            return 0;
+        }
+        if (string1 == null) {
+            return 1;
+        }
+        if (string2 == null) {
+            return -1;
+        }
+        return string1.compareTo(string2);
     }
 }

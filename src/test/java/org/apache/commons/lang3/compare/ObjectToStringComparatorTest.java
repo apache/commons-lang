@@ -53,4 +53,22 @@ public class ObjectToStringComparatorTest {
         assertEquals("y", things.get(1).string);
         assertEquals("z", things.get(2).string);
     }
+
+    @Test
+    public void testNullToString() {
+        final List<Thing> things = Arrays.asList(new Thing(null), new Thing("y"), new Thing(null));
+        Collections.sort(things, ObjectToStringComparator.INSTANCE);
+        assertEquals("y", things.get(0).string);
+        assertEquals(null, things.get(1).string);
+        assertEquals(null, things.get(2).string);
+    }
+
+    @Test
+    public void testNull() {
+        final List<Thing> things = Arrays.asList(null, new Thing("y"), null);
+        Collections.sort(things, ObjectToStringComparator.INSTANCE);
+        assertEquals("y", things.get(0).string);
+        assertEquals(null, things.get(1));
+        assertEquals(null, things.get(2));
+    }
 }
