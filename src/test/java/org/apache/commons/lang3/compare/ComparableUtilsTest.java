@@ -16,17 +16,17 @@
  */
 package org.apache.commons.lang3.compare;
 
+import static org.apache.commons.lang3.compare.ComparableUtils.is;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.math.BigDecimal;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import java.math.BigDecimal;
-
-import static org.apache.commons.lang3.compare.ComparableUtils.is;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class ComparableUtilsTest {
@@ -34,144 +34,15 @@ public class ComparableUtilsTest {
     @Nested
     class A_is_1 {
 
-        BigDecimal a = BigDecimal.ONE;
-
-        @DisplayName("B is 1 (B = A)")
+        @DisplayName("B is 0 (B < A)")
         @Nested
-        class B_is_1 {
+        class B_is_0 {
 
-            BigDecimal b = BigDecimal.ONE;
-
-            @Test
-            void equalTo_returns_true() {
-                assertTrue(is(a).equalTo(b));
-            }
-
-            @Test
-            void lessThan_returns_false() {
-                assertFalse(is(a).lessThan(b));
-            }
-
-            @Test
-            void lessThanOrEqualTo_returns_true() {
-                assertTrue(is(a).lessThanOrEqualTo(b));
-            }
-
-            @Test
-            void greaterThan_returns_false() {
-                assertFalse(is(a).greaterThan(b));
-            }
-
-            @Test
-            void greaterThanOrEqualTo_returns_true() {
-                assertTrue(is(a).greaterThanOrEqualTo(b));
-            }
-
-            @DisplayName("C is 1 (B = A = C)")
-            @Nested
-            class C_is_1 {
-
-                BigDecimal c = BigDecimal.ONE;
-
-                @Test
-                void between_returns_true() {
-                    assertTrue(is(a).between(b, c));
-                }
-
-                @Test
-                void betweenExclusive_returns_false() {
-                    assertFalse(is(a).betweenExclusive(b, c));
-                }
-            }
-
-            @DisplayName("C is 10 (B = A < C)")
-            @Nested
-            class C_is_10 {
-
-                BigDecimal c = BigDecimal.TEN;
-
-                @Test
-                void between_returns_true() {
-                    assertTrue(is(a).between(b, c));
-                }
-
-                @Test
-                void betweenExclusive_returns_false() {
-                    assertFalse(is(a).betweenExclusive(b, c));
-                }
-            }
-
-            @DisplayName("C is 0 (B = A > C)")
+            @DisplayName("C is 0 ([B=C] < A)")
             @Nested
             class C_is_0 {
 
                 BigDecimal c = BigDecimal.ZERO;
-
-                @Test
-                void between_returns_true() {
-                    assertTrue(is(a).between(b, c));
-                }
-
-                @Test
-                void betweenExclusive_returns_false() {
-                    assertFalse(is(a).betweenExclusive(b, c));
-                }
-            }
-        }
-
-        @DisplayName("B is 10 (B > A)")
-        @Nested
-        class B_is_10 {
-
-            BigDecimal b = BigDecimal.TEN;
-
-            @Test
-            void equalTo_returns_false() {
-                assertFalse(is(a).equalTo(b));
-            }
-
-            @Test
-            void lessThan_returns_true() {
-                assertTrue(is(a).lessThan(b));
-            }
-
-            @Test
-            void lessThanOrEqualTo_returns_true() {
-                assertTrue(is(a).lessThanOrEqualTo(b));
-            }
-
-            @Test
-            void greaterThan_returns_false() {
-                assertFalse(is(a).greaterThan(b));
-            }
-
-            @Test
-            void greaterThanOrEqualTo_returns_false() {
-                assertFalse(is(a).greaterThanOrEqualTo(b));
-            }
-
-            @DisplayName("C is 1 (B > A = C)")
-            @Nested
-            class C_is_1 {
-
-                BigDecimal c = BigDecimal.ONE;
-
-                @Test
-                void between_returns_true() {
-                    assertTrue(is(a).between(b, c));
-                }
-
-                @Test
-                void betweenExclusive_returns_false() {
-                    assertFalse(is(a).betweenExclusive(b, c));
-                }
-            }
-
-            @DisplayName("C is 10 ([B,C] > A)")
-            @Nested
-            class C_is_10 {
-
-                BigDecimal c = BigDecimal.TEN;
 
                 @Test
                 void between_returns_false() {
@@ -182,55 +53,6 @@ public class ComparableUtilsTest {
                 void betweenExclusive_returns_false() {
                     assertFalse(is(a).betweenExclusive(b, c));
                 }
-            }
-
-            @DisplayName("C is 0 (B > A > C)")
-            @Nested
-            class C_is_0 {
-
-                BigDecimal c = BigDecimal.ZERO;
-
-                @Test
-                void between_returns_true() {
-                    assertTrue(is(a).between(b, c));
-                }
-
-                @Test
-                void betweenExclusive_returns_true() {
-                    assertTrue(is(a).betweenExclusive(b, c));
-                }
-            }
-        }
-
-        @DisplayName("B is 0 (B < A)")
-        @Nested
-        class B_is_0 {
-
-            BigDecimal b = BigDecimal.ZERO;
-
-            @Test
-            void equalTo_returns_false() {
-                assertFalse(is(a).equalTo(b));
-            }
-
-            @Test
-            void lessThan_returns_false() {
-                assertFalse(is(a).lessThan(b));
-            }
-
-            @Test
-            void lessThanOrEqualTo_returns_false() {
-                assertFalse(is(a).lessThanOrEqualTo(b));
-            }
-
-            @Test
-            void greaterThan_returns_true() {
-                assertTrue(is(a).greaterThan(b));
-            }
-
-            @Test
-            void greaterThanOrEqualTo_returns_true() {
-                assertTrue(is(a).greaterThanOrEqualTo(b));
             }
 
             @DisplayName("C is 1 (B < A = C)")
@@ -267,11 +89,160 @@ public class ComparableUtilsTest {
                 }
             }
 
-            @DisplayName("C is 0 ([B=C] < A)")
+            BigDecimal b = BigDecimal.ZERO;
+
+            @Test
+            void equalTo_returns_false() {
+                assertFalse(is(a).equalTo(b));
+            }
+
+            @Test
+            void greaterThan_returns_true() {
+                assertTrue(is(a).greaterThan(b));
+            }
+
+            @Test
+            void greaterThanOrEqualTo_returns_true() {
+                assertTrue(is(a).greaterThanOrEqualTo(b));
+            }
+
+            @Test
+            void lessThan_returns_false() {
+                assertFalse(is(a).lessThan(b));
+            }
+
+            @Test
+            void lessThanOrEqualTo_returns_false() {
+                assertFalse(is(a).lessThanOrEqualTo(b));
+            }
+        }
+
+        @DisplayName("B is 1 (B = A)")
+        @Nested
+        class B_is_1 {
+
+            @DisplayName("C is 0 (B = A > C)")
             @Nested
             class C_is_0 {
 
                 BigDecimal c = BigDecimal.ZERO;
+
+                @Test
+                void between_returns_true() {
+                    assertTrue(is(a).between(b, c));
+                }
+
+                @Test
+                void betweenExclusive_returns_false() {
+                    assertFalse(is(a).betweenExclusive(b, c));
+                }
+            }
+
+            @DisplayName("C is 1 (B = A = C)")
+            @Nested
+            class C_is_1 {
+
+                BigDecimal c = BigDecimal.ONE;
+
+                @Test
+                void between_returns_true() {
+                    assertTrue(is(a).between(b, c));
+                }
+
+                @Test
+                void betweenExclusive_returns_false() {
+                    assertFalse(is(a).betweenExclusive(b, c));
+                }
+            }
+
+            @DisplayName("C is 10 (B = A < C)")
+            @Nested
+            class C_is_10 {
+
+                BigDecimal c = BigDecimal.TEN;
+
+                @Test
+                void between_returns_true() {
+                    assertTrue(is(a).between(b, c));
+                }
+
+                @Test
+                void betweenExclusive_returns_false() {
+                    assertFalse(is(a).betweenExclusive(b, c));
+                }
+            }
+
+            BigDecimal b = BigDecimal.ONE;
+
+            @Test
+            void equalTo_returns_true() {
+                assertTrue(is(a).equalTo(b));
+            }
+
+            @Test
+            void greaterThan_returns_false() {
+                assertFalse(is(a).greaterThan(b));
+            }
+
+            @Test
+            void greaterThanOrEqualTo_returns_true() {
+                assertTrue(is(a).greaterThanOrEqualTo(b));
+            }
+
+            @Test
+            void lessThan_returns_false() {
+                assertFalse(is(a).lessThan(b));
+            }
+
+            @Test
+            void lessThanOrEqualTo_returns_true() {
+                assertTrue(is(a).lessThanOrEqualTo(b));
+            }
+        }
+
+        @DisplayName("B is 10 (B > A)")
+        @Nested
+        class B_is_10 {
+
+            @DisplayName("C is 0 (B > A > C)")
+            @Nested
+            class C_is_0 {
+
+                BigDecimal c = BigDecimal.ZERO;
+
+                @Test
+                void between_returns_true() {
+                    assertTrue(is(a).between(b, c));
+                }
+
+                @Test
+                void betweenExclusive_returns_true() {
+                    assertTrue(is(a).betweenExclusive(b, c));
+                }
+            }
+
+            @DisplayName("C is 1 (B > A = C)")
+            @Nested
+            class C_is_1 {
+
+                BigDecimal c = BigDecimal.ONE;
+
+                @Test
+                void between_returns_true() {
+                    assertTrue(is(a).between(b, c));
+                }
+
+                @Test
+                void betweenExclusive_returns_false() {
+                    assertFalse(is(a).betweenExclusive(b, c));
+                }
+            }
+
+            @DisplayName("C is 10 ([B,C] > A)")
+            @Nested
+            class C_is_10 {
+
+                BigDecimal c = BigDecimal.TEN;
 
                 @Test
                 void between_returns_false() {
@@ -283,6 +254,35 @@ public class ComparableUtilsTest {
                     assertFalse(is(a).betweenExclusive(b, c));
                 }
             }
+
+            BigDecimal b = BigDecimal.TEN;
+
+            @Test
+            void equalTo_returns_false() {
+                assertFalse(is(a).equalTo(b));
+            }
+
+            @Test
+            void greaterThan_returns_false() {
+                assertFalse(is(a).greaterThan(b));
+            }
+
+            @Test
+            void greaterThanOrEqualTo_returns_false() {
+                assertFalse(is(a).greaterThanOrEqualTo(b));
+            }
+
+            @Test
+            void lessThan_returns_true() {
+                assertTrue(is(a).lessThan(b));
+            }
+
+            @Test
+            void lessThanOrEqualTo_returns_true() {
+                assertTrue(is(a).lessThanOrEqualTo(b));
+            }
         }
+
+        BigDecimal a = BigDecimal.ONE;
     }
 }
