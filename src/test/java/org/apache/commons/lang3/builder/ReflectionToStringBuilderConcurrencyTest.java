@@ -81,7 +81,7 @@ public class ReflectionToStringBuilderConcurrencyTest {
     }
 
     private void testConcurrency(final CollectionHolder<List<Integer>> holder) throws InterruptedException,
-            ExecutionException {
+        ExecutionException {
         final List<Integer> list = holder.collection;
         // make a big array that takes a long time to toString()
         for (int i = 0; i < DATA_SIZE; i++) {
@@ -89,29 +89,32 @@ public class ReflectionToStringBuilderConcurrencyTest {
         }
         // Create a thread pool with two threads to cause the most contention on the underlying resource.
         final ExecutorService threadPool = Executors.newFixedThreadPool(2);
-        // Consumes toStrings
-        final Callable<Integer> consumer = () -> {
-            for (int i = 0; i < REPEAT; i++) {
-                final String s = ReflectionToStringBuilder.toString(holder);
-                assertNotNull(s);
+        try {
+            // Consumes toStrings
+            final Callable<Integer> consumer = () -> {
+                for (int i = 0; i < REPEAT; i++) {
+                    final String s = ReflectionToStringBuilder.toString(holder);
+                    assertNotNull(s);
+                }
+                return Integer.valueOf(REPEAT);
+            };
+            // Produces changes in the list
+            final Callable<Integer> producer = () -> {
+                for (int i = 0; i < DATA_SIZE; i++) {
+                    list.remove(list.get(0));
+                }
+                return Integer.valueOf(REPEAT);
+            };
+            final Collection<Callable<Integer>> tasks = new ArrayList<>();
+            tasks.add(consumer);
+            tasks.add(producer);
+            final List<Future<Integer>> futures = threadPool.invokeAll(tasks);
+            for (final Future<Integer> future : futures) {
+                assertEquals(REPEAT, future.get().intValue());
             }
-            return Integer.valueOf(REPEAT);
-        };
-        // Produces changes in the list
-        final Callable<Integer> producer = () -> {
-            for (int i = 0; i < DATA_SIZE; i++) {
-                list.remove(list.get(0));
-            }
-            return Integer.valueOf(REPEAT);
-        };
-        final Collection<Callable<Integer>> tasks = new ArrayList<>();
-        tasks.add(consumer);
-        tasks.add(producer);
-        final List<Future<Integer>> futures = threadPool.invokeAll(tasks);
-        for (final Future<Integer> future : futures) {
-            assertEquals(REPEAT, future.get().intValue());
+        } finally {
+            threadPool.shutdown();
+            threadPool.awaitTermination(1, TimeUnit.SECONDS);
         }
-        threadPool.shutdown();
-        threadPool.awaitTermination(1, TimeUnit.SECONDS);
     }
 }
