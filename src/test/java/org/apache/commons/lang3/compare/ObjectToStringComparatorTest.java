@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.commons.lang3;
+package org.apache.commons.lang3.compare;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.compare.ObjectToStringComparator;
 import org.junit.jupiter.api.Test;
 
 /**
