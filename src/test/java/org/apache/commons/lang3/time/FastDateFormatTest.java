@@ -244,49 +244,51 @@ public class FastDateFormatTest {
         final Format fdf = FastDateFormat.getInstance(pattern);
         final AtomicLongArray fdfTime= measureTime(fdf, fdf);
 
-        System.out.println(">>FastDateFormatTest: FastDatePrinter:"+fdfTime.get(0)+"  SimpleDateFormat:"+sdfTime.get(0));
-        System.out.println(">>FastDateFormatTest: FastDateParser:"+fdfTime.get(1)+"  SimpleDateFormat:"+sdfTime.get(1));
+        //System.out.println(">>FastDateFormatTest: FastDatePrinter:"+fdfTime.get(0)+"  SimpleDateFormat:"+sdfTime.get(0));
+        //System.out.println(">>FastDateFormatTest: FastDateParser:"+fdfTime.get(1)+"  SimpleDateFormat:"+sdfTime.get(1));
     }
 
-    private static final int NTHREADS= 10;
-    private static final int NROUNDS= 10000;
+    private static final int NTHREADS = 10;
+    private static final int NROUNDS = 10000;
 
     private AtomicLongArray measureTime(final Format printer, final Format parser) throws InterruptedException {
         final ExecutorService pool = Executors.newFixedThreadPool(NTHREADS);
-        final AtomicInteger failures= new AtomicInteger(0);
-        final AtomicLongArray totalElapsed= new AtomicLongArray(2);
+        final AtomicInteger failures = new AtomicInteger(0);
+        final AtomicLongArray totalElapsed = new AtomicLongArray(2);
+        try {
+            for (int i = 0; i < NTHREADS; ++i) {
+                pool.submit(() -> {
+                    for (int j = 0; j < NROUNDS; ++j) {
+                        try {
+                            final Date date = new Date();
 
-        for (int i= 0; i<NTHREADS; ++i) {
-            pool.submit(() -> {
-                for (int j= 0; j<NROUNDS; ++j) {
-                    try {
-                        final Date date= new Date();
+                            final long t0 = System.currentTimeMillis();
+                            final String formattedDate = printer.format(date);
+                            totalElapsed.addAndGet(0, System.currentTimeMillis() - t0);
 
-                        final long t0= System.currentTimeMillis();
-                        final String formattedDate= printer.format(date);
-                        totalElapsed.addAndGet(0, System.currentTimeMillis() - t0);
+                            final long t1 = System.currentTimeMillis();
+                            final Object pd = parser.parseObject(formattedDate);
+                            totalElapsed.addAndGet(1, System.currentTimeMillis() - t1);
 
-                        final long t1 = System.currentTimeMillis();
-                        final Object pd= parser.parseObject(formattedDate);
-                        totalElapsed.addAndGet(1, System.currentTimeMillis() - t1);
-
-                        if (!date.equals(pd)) {
+                            if (!date.equals(pd)) {
+                                failures.incrementAndGet();
+                            }
+                        } catch (final Exception e) {
                             failures.incrementAndGet();
+                            e.printStackTrace();
                         }
-                    } catch (final Exception e) {
-                        failures.incrementAndGet();
-                        e.printStackTrace();
                     }
-                }
-            });
-        }
-        pool.shutdown();
-        // depending on the performance of the machine used to run the parsing,
-        // the tests can run for a while. It should however complete within
-        // 30 seconds. Might need increase on very slow machines.
-        if (!pool.awaitTermination(30, TimeUnit.SECONDS)) {
-            pool.shutdownNow();
-            fail("did not complete tasks");
+                });
+            }
+        } finally {
+            pool.shutdown();
+            // depending on the performance of the machine used to run the parsing,
+            // the tests can run for a while. It should however complete within
+            // 30 seconds. Might need increase on very slow machines.
+            if (!pool.awaitTermination(30, TimeUnit.SECONDS)) {
+                pool.shutdownNow();
+                fail("did not complete tasks");
+            }
         }
         assertEquals(0, failures.get());
         return totalElapsed;
