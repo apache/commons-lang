@@ -59,7 +59,7 @@ public class Processor {
          */
         private final String label;
 
-        private Arch(final String label) {
+        Arch(final String label) {
             this.label = label;
         }
 
