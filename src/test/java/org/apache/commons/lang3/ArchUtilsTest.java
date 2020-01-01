@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import org.apache.commons.lang3.arch.Processor;
+import org.apache.commons.lang3.arch.Processor.Arch;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -93,6 +94,14 @@ public class ArchUtilsTest {
         processor = ArchUtils.getProcessor(PPC64);
         assertEqualsTypeNotNull(Processor.Type.PPC, processor);
         assertTrue(processor.isPPC());
+    }
+
+    @Test
+    public void testArchLabels() {
+        for (Arch arch : Arch.values()) {
+            // Only test label presence.
+            assertFalse(arch.getLabel().isEmpty());
+        }
     }
 
     @Test

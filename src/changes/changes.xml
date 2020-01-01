@@ -91,6 +91,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1506" type="add" dev="ggregory" due-to="Gary Gregory">Allow a StopWatch to carry an optional message.</action>
     <action issue="LANG-1507" type="add" dev="ggregory" due-to="Sam Kruglov, Mark Dacek, Marc Magon, Pascal Schumacher, Rob Tompkins, Bruno P. Kinoshita, Amey Jadiye, Gary Gregory">Add ComparableUtils #398.</action>
     <action issue="LANG-1508" type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.SystemUtils.getUserName().</action>
+    <action issue="LANG-1510" type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.arch.Processor.Arch.getLabel().</action>
   </release>
 
   <release version="3.9" date="2019-04-09" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">
