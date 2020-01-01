@@ -760,6 +760,13 @@
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
         <version>${spotbugs.plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs</artifactId>
+            <version>4.0.0-beta4</version>
+         </dependency>
+        </dependencies>        
         <configuration>
           <excludeFilterFile>${basedir}/spotbugs-exclude-filter.xml</excludeFilterFile>
         </configuration>
