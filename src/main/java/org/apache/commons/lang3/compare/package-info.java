@@ -17,7 +17,7 @@
 
 /**
  * Provides classes to work with the {@link java.lang.Comparable} and {@link java.util.Comparator} interfaces.
- * 
+ *
  * @since 3.10
  */
 package org.apache.commons.lang3.compare;
