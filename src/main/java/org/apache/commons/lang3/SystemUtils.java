@@ -1026,6 +1026,30 @@ public class SystemUtils {
      */
     public static final boolean IS_JAVA_13 = getJavaVersionMatches("13");
 
+    /**
+     * <p>
+     * Is {@code true} if this is Java version 14 (also 14.x versions).
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     *
+     * @since 3.10
+     */
+    public static final boolean IS_JAVA_14 = getJavaVersionMatches("14");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Java version 15 (also 15.x versions).
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     *
+     * @since 3.10
+     */
+    public static final boolean IS_JAVA_15 = getJavaVersionMatches("15");
+
     // Operating system checks
     // -----------------------------------------------------------------------
     // These MUST be declared after those above as they depend on the
