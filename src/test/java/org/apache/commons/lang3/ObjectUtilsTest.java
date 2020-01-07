@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -147,6 +148,28 @@ public class ObjectUtilsTest {
 
         assertNull(ObjectUtils.firstNonNull((Object) null));
         assertNull(ObjectUtils.firstNonNull((Object[]) null));
+    }
+
+    @Test
+    public void testFirstNonNullLazy() {
+        // first non null
+        assertEquals("", ObjectUtils.firstNonNullLazy(() -> null, () -> ""));
+        // first encountered value is used
+        assertEquals("1", ObjectUtils.firstNonNullLazy(() -> null, () -> "1", () -> "2", () -> null));
+        assertEquals("123", ObjectUtils.firstNonNullLazy(() -> "123", () -> null, () -> "456"));
+        // don't evaluate suppliers after first value is found
+        assertEquals("123", ObjectUtils.firstNonNullLazy(() -> null, () -> "123", () -> fail("Supplier after first non-null value should not be evaluated")));
+        // supplier returning null and null supplier both result in null
+        assertNull(ObjectUtils.firstNonNullLazy(null, () -> null));
+        // Explicitly pass in an empty array of Object type to ensure compiler doesn't complain of unchecked generic array creation
+        assertNull(ObjectUtils.firstNonNullLazy());
+        // supplier is null
+        assertNull(ObjectUtils.firstNonNullLazy((Supplier<Object>) null));
+        // varargs array itself is null
+        assertNull(ObjectUtils.firstNonNullLazy((Supplier<Object>[]) null));
+        // test different types
+        assertEquals(1, ObjectUtils.firstNonNullLazy(() -> null, () -> 1));
+        assertEquals(Boolean.TRUE, ObjectUtils.firstNonNullLazy(() -> null, () -> Boolean.TRUE));
     }
 
     /**
