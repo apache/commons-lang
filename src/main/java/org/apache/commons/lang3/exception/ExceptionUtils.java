@@ -475,7 +475,7 @@ public class ExceptionUtils {
      * using references
      * @return index of the {@code type} within throwables nested within the specified {@code throwable}
      */
-    private static int indexOf(final Throwable throwable, final Class<?> type, int fromIndex, final boolean subclass) {
+    private static int indexOf(final Throwable throwable, final Class<? extends Throwable> type, int fromIndex, final boolean subclass) {
         if (throwable == null || type == null) {
             return NOT_FOUND;
         }
@@ -516,7 +516,7 @@ public class ExceptionUtils {
      * @param clazz  the class to search for, subclasses do not match, null returns -1
      * @return the index into the throwable chain, -1 if no match or null input
      */
-    public static int indexOfThrowable(final Throwable throwable, final Class<?> clazz) {
+    public static int indexOfThrowable(final Throwable throwable, final Class<? extends Throwable> clazz) {
         return indexOf(throwable, clazz, 0, false);
     }
 
@@ -539,7 +539,7 @@ public class ExceptionUtils {
      *  negative treated as zero, larger than chain size returns -1
      * @return the index into the throwable chain, -1 if no match or null input
      */
-    public static int indexOfThrowable(final Throwable throwable, final Class<?> clazz, final int fromIndex) {
+    public static int indexOfThrowable(final Throwable throwable, final Class<? extends Throwable> clazz, final int fromIndex) {
         return indexOf(throwable, clazz, fromIndex, false);
     }
 
@@ -558,7 +558,7 @@ public class ExceptionUtils {
      * @return the index into the throwable chain, -1 if no match or null input
      * @since 2.1
      */
-    public static int indexOfType(final Throwable throwable, final Class<?> type) {
+    public static int indexOfType(final Throwable throwable, final Class<? extends Throwable> type) {
         return indexOf(throwable, type, 0, true);
     }
 
@@ -582,7 +582,7 @@ public class ExceptionUtils {
      * @return the index into the throwable chain, -1 if no match or null input
      * @since 2.1
      */
-    public static int indexOfType(final Throwable throwable, final Class<?> type, final int fromIndex) {
+    public static int indexOfType(final Throwable throwable, final Class<? extends Throwable> type, final int fromIndex) {
         return indexOf(throwable, type, fromIndex, true);
     }
 
