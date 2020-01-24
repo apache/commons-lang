@@ -39,6 +39,8 @@ import org.apache.commons.lang3.Validate;
  */
 public class ExceptionUtils {
 
+    private static final int NOT_FOUND = -1;
+
     /**
      * <p>The names of methods commonly used to access a wrapped exception.</p>
      */
@@ -299,7 +301,7 @@ public class ExceptionUtils {
             final String token = frames.nextToken();
             // Determine if the line starts with <whitespace>at
             final int at = token.indexOf("at");
-            if (at != -1 && token.substring(0, at).trim().isEmpty()) {
+            if (at != NOT_FOUND && token.substring(0, at).trim().isEmpty()) {
                 traceStarted = true;
                 list.add(token);
             } else if (traceStarted) {
@@ -475,14 +477,14 @@ public class ExceptionUtils {
      */
     private static int indexOf(final Throwable throwable, final Class<?> type, int fromIndex, final boolean subclass) {
         if (throwable == null || type == null) {
-            return -1;
+            return NOT_FOUND;
         }
         if (fromIndex < 0) {
             fromIndex = 0;
         }
         final Throwable[] throwables = getThrowables(throwable);
         if (fromIndex >= throwables.length) {
-            return -1;
+            return NOT_FOUND;
         }
         if (subclass) {
             for (int i = fromIndex; i < throwables.length; i++) {
@@ -497,7 +499,7 @@ public class ExceptionUtils {
                 }
             }
         }
-        return -1;
+        return NOT_FOUND;
     }
 
     /**
