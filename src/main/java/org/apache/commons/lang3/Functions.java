@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.lang.reflect.UndeclaredThrowableException;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.function.BiConsumer;
@@ -28,6 +29,9 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
+
+import org.apache.commons.lang3.Streams.FailableStream;
 
 
 /** This class provides utility functions, and classes for working with the
@@ -398,6 +402,39 @@ public class Functions {
         } catch (Throwable t) {
             throw rethrow(t);
         }
+    }
+
+    /**
+     * Converts the given stream into a {@link FailableStream}. The
+     * {@link FailableStream} consists of the same elements, than the
+     * input stream. However, failable lambdas, like
+     * {@link FailablePredicate}, {@link FailableFunction}, and
+     * {@link FailableConsumer} may be applied, rather than
+     * {@link Predicate}, {@link Function}, {@link Consumer}, etc.
+     * @param pStream The stream, which is being converted into a
+     *   {@link FailableStream}.
+     * @param <O> The streams element type.
+     * @return The created {@link FailableStream}.
+     */
+    public static <O> FailableStream<O> stream(Stream<O> pStream) {
+        return new FailableStream<O>(pStream);
+    }
+
+    /**
+     * Converts the given collection into a {@link FailableStream}.
+     * The {@link FailableStream} consists of the collections
+     * elements. Shortcut for
+     * <pre>
+     *   Functions.stream(pCollection.stream());
+     * </pre>
+     * @param pCollection The collection, which is being converted into a
+     *   {@link FailableStream}.
+     * @param <O> The collections element type. (In turn, the result
+     *   streams element type.)
+     * @return The created {@link FailableStream}.
+     */
+    public static <O> FailableStream<O> stream(Collection<O> pCollection) {
+        return new FailableStream<O>(pCollection.stream());
     }
 
 
