@@ -40,21 +40,21 @@ import org.apache.commons.lang3.Streams.FailableStream;
  * More specifically, it attempts to address the fact that lambdas are supposed
  * not to throw Exceptions, at least not checked Exceptions, aka instances of
  * {@link Exception}. This enforces the use of constructs like
- * <pre>
- *   Consumer&lt;java.lang.reflect.Method&gt; consumer = (m) -&gt; {
+ * <pre>{@code
+ *   Consumer<java.lang.reflect.Method> consumer = (m) -> {
  *       try {
  *           m.invoke(o, args);
  *       } catch (Throwable t) {
  *           throw Functions.rethrow(t);
  *       }
  *   };
- * </pre>
+ * }</pre>
  * By replacing a {@link java.util.function.Consumer Consumer&lt;O&gt;} with a
  * {@link FailableConsumer FailableConsumer&lt;O,? extends Throwable&gt;}, this can be
  * written like follows:
- * <pre>
- *   Functions.accept((m) -&gt; m.invoke(o,args));
- * </pre>
+ * <pre>{@code
+ *   Functions.accept((m) -> m.invoke(o,args));
+ * }</pre>
  * Obviously, the second version is much more concise and the spirit of
  * Lambda expressions is met better than the second version.
  */
@@ -446,10 +446,10 @@ public class Functions {
      * and regardless of success, or failure. If either the original action, or
      * any of the resource action fails, then the <em>first</em> failure (aka
      * {@link Throwable} is rethrown. Example use:
-     * <pre>
+     * <pre>{@code
      *   final FileInputStream fis = new FileInputStream("my.file");
-     *   Functions.tryWithResources(useInputStream(fis), null, () -&gt; fis.close());
-     * </pre>
+     *   Functions.tryWithResources(useInputStream(fis), null, () -> fis.close());
+     * }</pre>
      * @param pAction The action to execute. This object <em>will</em> always
      *   be invoked.
      * @param pErrorHandler An optional error handler, which will be invoked finally,
@@ -509,10 +509,10 @@ public class Functions {
      * and regardless of success, or failure. If either the original action, or
      * any of the resource action fails, then the <em>first</em> failure (aka
      * {@link Throwable} is rethrown. Example use:
-     * <pre>
+     * <pre>{@code
      *   final FileInputStream fis = new FileInputStream("my.file");
-     *   Functions.tryWithResources(useInputStream(fis), () -&gt; fis.close());
-     * </pre>
+     *   Functions.tryWithResources(useInputStream(fis), () -> fis.close());
+     * }</pre>
      * @param pAction The action to execute. This object <em>will</em> always
      *   be invoked.
      * @param pResources The resource actions to execute. <em>All</em> resource
