@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.exception;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -34,7 +35,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.test.NotVisibleExceptionFactory;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -705,7 +705,7 @@ public class ExceptionUtilsTest {
     @DisplayName("getStackFrames returns the string array of the stack frames when there is a real exception")
     public void testgetStackFramesNullArg() {
         final String[] actual = ExceptionUtils.getStackFrames((Throwable) null);
-        Assertions.assertEquals(0, actual.length);
+        assertEquals(0, actual.length);
     }
 
     @Test
@@ -722,7 +722,7 @@ public class ExceptionUtilsTest {
             }
         });
 
-        Assertions.assertArrayEquals(new String[]{
+        assertArrayEquals(new String[]{
             "org.apache.commons.lang3.exception.ExceptionUtilsTest$1",
             "\tat org.apache.commons.lang3.exception.ExceptionUtilsTest.testgetStackFramesGappyPath(ExceptionUtilsTest.java:706)",
             "\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)",
