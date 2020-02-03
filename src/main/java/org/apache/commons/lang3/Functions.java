@@ -174,7 +174,7 @@ public class Functions {
      * @return a standard {@code Consumer}
      */
     public static <I> Consumer<I> asConsumer(FailableConsumer<I, ?> pConsumer) {
-        return (pInput) -> accept(pConsumer, pInput);
+        return pInput -> accept(pConsumer, pInput);
     }
 
     /**
@@ -209,7 +209,7 @@ public class Functions {
      * @return a standard {@code Function}
      */
     public static <I, O> Function<I, O> asFunction(FailableFunction<I, O, ?> pFunction) {
-        return (pInput) -> apply(pFunction, pInput);
+        return pInput -> apply(pFunction, pInput);
     }
 
     /**
@@ -233,7 +233,7 @@ public class Functions {
      * @return a standard {@code Predicate}
      */
     public static <I> Predicate<I> asPredicate(FailablePredicate<I, ?> pPredicate) {
-        return (pInput) -> test(pPredicate, pInput);
+        return pInput -> test(pPredicate, pInput);
     }
 
     /**
