@@ -33,8 +33,15 @@ import java.util.Map;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.CURLY;
+import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.LARRY;
+import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.MOE;
+import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.SHEMP;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  */

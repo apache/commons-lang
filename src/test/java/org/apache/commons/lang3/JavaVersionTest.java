@@ -20,8 +20,26 @@ package org.apache.commons.lang3;
 
 import org.junit.jupiter.api.Test;
 
-import static org.apache.commons.lang3.JavaVersion.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.apache.commons.lang3.JavaVersion.JAVA_0_9;
+import static org.apache.commons.lang3.JavaVersion.JAVA_10;
+import static org.apache.commons.lang3.JavaVersion.JAVA_11;
+import static org.apache.commons.lang3.JavaVersion.JAVA_12;
+import static org.apache.commons.lang3.JavaVersion.JAVA_13;
+import static org.apache.commons.lang3.JavaVersion.JAVA_1_1;
+import static org.apache.commons.lang3.JavaVersion.JAVA_1_2;
+import static org.apache.commons.lang3.JavaVersion.JAVA_1_3;
+import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
+import static org.apache.commons.lang3.JavaVersion.JAVA_1_5;
+import static org.apache.commons.lang3.JavaVersion.JAVA_1_6;
+import static org.apache.commons.lang3.JavaVersion.JAVA_1_7;
+import static org.apache.commons.lang3.JavaVersion.JAVA_1_8;
+import static org.apache.commons.lang3.JavaVersion.JAVA_9;
+import static org.apache.commons.lang3.JavaVersion.JAVA_RECENT;
+import static org.apache.commons.lang3.JavaVersion.get;
+import static org.apache.commons.lang3.JavaVersion.getJavaVersion;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.JavaVersion}.

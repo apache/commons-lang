@@ -21,7 +21,9 @@ import org.junit.jupiter.api.Test;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit tests for methods of {@link org.apache.commons.lang3.RegExUtils} which been moved to their own test classes.
