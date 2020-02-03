@@ -701,6 +701,7 @@ public class ExceptionUtilsTest {
         Throwable t = assertThrows(Throwable.class, () -> ExceptionUtils.wrapAndThrow(new TestThrowable()));
         assertTrue(ExceptionUtils.hasCause(t, TestThrowable.class));
     }
+
     @Test
     @DisplayName("getStackFrames returns the string array of the stack frames when there is a real exception")
     public void testgetStackFramesNullArg() {
@@ -729,4 +730,5 @@ public class ExceptionUtilsTest {
             "\tat com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:230)",
             "\tat com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58)"
         }, actual);
-    }}
+    }
+}
