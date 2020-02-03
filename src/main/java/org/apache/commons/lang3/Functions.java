@@ -174,7 +174,7 @@ public class Functions {
      * @return a standard {@code Consumer}
      */
     public static <I> Consumer<I> asConsumer(FailableConsumer<I, ?> pConsumer) {
-        return (pInput) -> accept(pConsumer, pInput);
+        return pInput -> accept(pConsumer, pInput);
     }
 
     /**
