@@ -16,11 +16,11 @@
  */
 package org.apache.commons.lang3.builder;
 
-import java.lang.reflect.Type;
-
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.reflect.TypeUtils;
 import org.apache.commons.lang3.tuple.Pair;
+
+import java.lang.reflect.Type;
 
 /**
  * <p>

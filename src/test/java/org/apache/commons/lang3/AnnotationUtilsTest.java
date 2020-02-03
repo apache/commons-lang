@@ -16,17 +16,8 @@
  */
 package org.apache.commons.lang3;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.CURLY;
-import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.LARRY;
-import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.MOE;
-import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.SHEMP;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -40,8 +31,10 @@ import java.time.Duration;
 import java.util.Collection;
 import java.util.Map;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  */

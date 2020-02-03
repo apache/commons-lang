@@ -17,12 +17,12 @@
 
 package org.apache.commons.lang3.text.translate;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.EntityArrays}.

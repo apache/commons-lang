@@ -17,11 +17,11 @@
 
 package org.apache.commons.lang3.builder;
 
-import java.util.LinkedList;
-import java.util.Random;
-
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.util.LinkedList;
+import java.util.Random;
 
 /**
  * Tests concurrent access for {@link ReflectionToStringBuilder}.

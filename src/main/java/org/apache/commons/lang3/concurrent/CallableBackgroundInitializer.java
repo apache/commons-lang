@@ -16,10 +16,10 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import org.apache.commons.lang3.Validate;
+
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
-
-import org.apache.commons.lang3.Validate;
 
 /**
  * <p>

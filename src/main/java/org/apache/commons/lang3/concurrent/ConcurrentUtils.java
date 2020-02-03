@@ -16,12 +16,12 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import org.apache.commons.lang3.Validate;
+
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-
-import org.apache.commons.lang3.Validate;
 
 /**
  * <p>

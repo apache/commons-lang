@@ -16,13 +16,9 @@
  */
 package org.apache.commons.lang3.reflect;
 
-import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Member;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-
 import org.apache.commons.lang3.ClassUtils;
+
+import java.lang.reflect.*;
 
 /**
  * Contains common code for working with {@link java.lang.reflect.Method Methods}/{@link java.lang.reflect.Constructor Constructors},

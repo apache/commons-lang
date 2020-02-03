@@ -16,15 +16,10 @@
  */
 package org.apache.commons.lang3.text;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.NoSuchElementException;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.*;
 
 /**
  * Tokenizes a string based on delimiters (separators)

@@ -16,9 +16,9 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests {@link org.apache.commons.lang3.builder.HashCodeBuilder} and

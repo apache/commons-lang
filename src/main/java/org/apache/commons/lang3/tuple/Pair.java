@@ -16,11 +16,11 @@
  */
 package org.apache.commons.lang3.tuple;
 
+import org.apache.commons.lang3.builder.CompareToBuilder;
+
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Objects;
-
-import org.apache.commons.lang3.builder.CompareToBuilder;
 
 /**
  * <p>A pair consisting of two elements.</p>

@@ -18,6 +18,7 @@
 package org.apache.commons.lang3.text.translate;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**

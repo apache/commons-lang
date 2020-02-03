@@ -17,10 +17,10 @@
 
 package org.apache.commons.lang3.time;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * <p>

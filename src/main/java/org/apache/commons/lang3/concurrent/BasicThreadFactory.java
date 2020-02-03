@@ -16,11 +16,11 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import org.apache.commons.lang3.Validate;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicLong;
-
-import org.apache.commons.lang3.Validate;
 
 /**
  * <p>

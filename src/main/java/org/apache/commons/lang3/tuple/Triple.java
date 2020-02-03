@@ -16,10 +16,10 @@
  */
 package org.apache.commons.lang3.tuple;
 
+import org.apache.commons.lang3.builder.CompareToBuilder;
+
 import java.io.Serializable;
 import java.util.Objects;
-
-import org.apache.commons.lang3.builder.CompareToBuilder;
 
 /**
  * <p>A triple consisting of three elements.</p>

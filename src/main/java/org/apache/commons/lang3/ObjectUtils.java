@@ -16,22 +16,17 @@
  */
 package org.apache.commons.lang3;
 
+import org.apache.commons.lang3.exception.CloneFailedException;
+import org.apache.commons.lang3.mutable.MutableInt;
+import org.apache.commons.lang3.text.StrBuilder;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.function.Supplier;
-
-import org.apache.commons.lang3.exception.CloneFailedException;
-import org.apache.commons.lang3.mutable.MutableInt;
-import org.apache.commons.lang3.text.StrBuilder;
 
 /**
  * <p>Operations on {@code Object}.</p>

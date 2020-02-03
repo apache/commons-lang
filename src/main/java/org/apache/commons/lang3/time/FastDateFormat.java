@@ -16,11 +16,7 @@
  */
 package org.apache.commons.lang3.time;
 
-import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.Format;
-import java.text.ParseException;
-import java.text.ParsePosition;
+import java.text.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;

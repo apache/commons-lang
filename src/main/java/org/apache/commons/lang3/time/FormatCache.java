@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.time;
 
+import org.apache.commons.lang3.Validate;
+
 import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -24,8 +26,6 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-
-import org.apache.commons.lang3.Validate;
 
 /**
  * <p>FormatCache is a cache and factory for {@link Format}s.</p>

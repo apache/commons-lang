@@ -16,14 +16,14 @@
  */
 package org.apache.commons.lang3.builder;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Objects;
-
-import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * Assists in implementing {@link java.lang.Comparable#compareTo(Object)} methods.

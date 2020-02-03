@@ -16,19 +16,14 @@
  */
 package org.apache.commons.lang3;
 
-import java.util.function.BiConsumer;
-import java.util.function.BinaryOperator;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import org.apache.commons.lang3.Functions.FailableConsumer;
 import org.apache.commons.lang3.Functions.FailableFunction;
 import org.apache.commons.lang3.Functions.FailablePredicate;
+
+import java.util.function.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This class provides utility functions, and classes for working with the

@@ -16,19 +16,10 @@
  */
 package org.apache.commons.lang3;
 
+import org.apache.commons.lang3.text.translate.*;
+
 import java.io.IOException;
 import java.io.Writer;
-
-import org.apache.commons.lang3.text.translate.AggregateTranslator;
-import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
-import org.apache.commons.lang3.text.translate.EntityArrays;
-import org.apache.commons.lang3.text.translate.JavaUnicodeEscaper;
-import org.apache.commons.lang3.text.translate.LookupTranslator;
-import org.apache.commons.lang3.text.translate.NumericEntityEscaper;
-import org.apache.commons.lang3.text.translate.NumericEntityUnescaper;
-import org.apache.commons.lang3.text.translate.OctalUnescaper;
-import org.apache.commons.lang3.text.translate.UnicodeUnescaper;
-import org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover;
 
 /**
  * <p>Escapes and unescapes {@code String}s for

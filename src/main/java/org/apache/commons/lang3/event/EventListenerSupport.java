@@ -17,11 +17,9 @@
 
 package org.apache.commons.lang3.event;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import org.apache.commons.lang3.Validate;
+
+import java.io.*;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -29,8 +27,6 @@ import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import org.apache.commons.lang3.Validate;
 
 /**
  * <p>An EventListenerSupport object can be used to manage a list of event

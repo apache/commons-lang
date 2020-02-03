@@ -16,13 +16,13 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.apache.commons.lang3.reflect.FieldUtils.readField;
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-import org.apache.commons.lang3.ClassUtils;
-import org.apache.commons.lang3.reflect.FieldUtils;
+import static org.apache.commons.lang3.reflect.FieldUtils.readField;
 
 /**
  * <p>

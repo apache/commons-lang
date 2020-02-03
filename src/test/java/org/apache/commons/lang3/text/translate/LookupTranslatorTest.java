@@ -17,12 +17,12 @@
 
 package org.apache.commons.lang3.text.translate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.StringWriter;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.LookupTranslator}.

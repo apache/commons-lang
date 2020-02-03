@@ -16,7 +16,10 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.apache.commons.lang3.Functions.FailableConsumer;
+import org.apache.commons.lang3.Functions.FailablePredicate;
+import org.junit.jupiter.api.Test;
+import org.xml.sax.SAXException;
 
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
@@ -24,10 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.Functions.FailableConsumer;
-import org.apache.commons.lang3.Functions.FailablePredicate;
-import org.junit.jupiter.api.Test;
-import org.xml.sax.SAXException;
+import static org.junit.jupiter.api.Assertions.*;
 
 class StreamsTest {
     @Test

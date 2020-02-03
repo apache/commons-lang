@@ -16,9 +16,9 @@
  */
 package org.apache.commons.lang3.builder;
 
-import java.util.Collection;
-
 import org.apache.commons.lang3.ClassUtils;
+
+import java.util.Collection;
 
 /**
  * <p>Works with {@link ToStringBuilder} to create a "deep" {@code toString}.</p>

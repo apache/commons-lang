@@ -17,10 +17,10 @@
 
 package org.apache.commons.lang3;
 
-import java.nio.charset.Charset;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.nio.charset.Charset;
 
 /**
  * Tests {@link Charsets}.

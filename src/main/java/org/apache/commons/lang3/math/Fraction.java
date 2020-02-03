@@ -16,9 +16,9 @@
  */
 package org.apache.commons.lang3.math;
 
-import java.math.BigInteger;
-
 import org.apache.commons.lang3.Validate;
+
+import java.math.BigInteger;
 
 /**
  * <p>{@code Fraction} is a {@code Number} implementation that

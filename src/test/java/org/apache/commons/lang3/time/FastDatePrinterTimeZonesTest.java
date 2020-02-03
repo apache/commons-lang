@@ -16,7 +16,8 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -24,8 +25,7 @@ import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.stream.Stream;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FastDatePrinterTimeZonesTest {
 

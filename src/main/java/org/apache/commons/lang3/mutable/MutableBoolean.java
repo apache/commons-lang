@@ -17,9 +17,9 @@
 
 package org.apache.commons.lang3.mutable;
 
-import java.io.Serializable;
-
 import org.apache.commons.lang3.BooleanUtils;
+
+import java.io.Serializable;
 
 /**
  * A mutable {@code boolean} wrapper.

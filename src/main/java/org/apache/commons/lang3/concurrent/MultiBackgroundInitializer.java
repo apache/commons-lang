@@ -16,14 +16,10 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Set;
-import java.util.concurrent.ExecutorService;
-
 import org.apache.commons.lang3.Validate;
+
+import java.util.*;
+import java.util.concurrent.ExecutorService;
 
 /**
  * <p>

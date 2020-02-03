@@ -16,10 +16,10 @@
  */
 package org.apache.commons.lang3.exception;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import java.util.List;
 import java.util.Set;
-
-import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * <p>

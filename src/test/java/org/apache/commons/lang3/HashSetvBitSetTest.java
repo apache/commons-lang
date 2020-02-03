@@ -16,16 +16,11 @@
  */
 package org.apache.commons.lang3;
 
+import org.openjdk.jmh.annotations.*;
+
 import java.util.BitSet;
 import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
-
-import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.BenchmarkMode;
-import org.openjdk.jmh.annotations.Mode;
-import org.openjdk.jmh.annotations.OutputTimeUnit;
-import org.openjdk.jmh.annotations.Scope;
-import org.openjdk.jmh.annotations.State;
 
 /**
  * Test to show whether using BitSet for removeAll() methods is faster than using HashSet.

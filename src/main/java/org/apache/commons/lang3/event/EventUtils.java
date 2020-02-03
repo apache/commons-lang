@@ -17,6 +17,8 @@
 
 package org.apache.commons.lang3.event;
 
+import org.apache.commons.lang3.reflect.MethodUtils;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -24,8 +26,6 @@ import java.lang.reflect.Proxy;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.apache.commons.lang3.reflect.MethodUtils;
 
 /**
  * Provides some useful event-based utility methods.

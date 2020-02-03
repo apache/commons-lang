@@ -16,6 +16,11 @@
  */
 package org.apache.commons.lang3.text;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.CharUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.Builder;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Serializable;
@@ -24,11 +29,6 @@ import java.nio.CharBuffer;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
-
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.CharUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.Builder;
 
 /**
  * Builds a string from constituent parts providing a more flexible and powerful API

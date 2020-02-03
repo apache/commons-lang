@@ -16,25 +16,14 @@
  */
 package org.apache.commons.lang3.text;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.text.*;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
-import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.Format;
-import java.text.MessageFormat;
-import java.text.NumberFormat;
-import java.text.ParsePosition;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Map;
 
 /**
  * Test case for {@link ExtendedMessageFormat}.

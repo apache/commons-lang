@@ -16,13 +16,13 @@
  */
 package org.apache.commons.lang3.text;
 
-import static java.util.FormattableFlags.LEFT_JUSTIFY;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
 
 import java.util.Formatter;
 
-import org.junit.jupiter.api.Test;
+import static java.util.FormattableFlags.LEFT_JUSTIFY;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit tests {@link FormattableUtils}.

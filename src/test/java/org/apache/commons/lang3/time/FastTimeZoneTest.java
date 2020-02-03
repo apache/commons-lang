@@ -18,9 +18,9 @@ package org.apache.commons.lang3.time;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.TimeZone;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests for FastTimeZone

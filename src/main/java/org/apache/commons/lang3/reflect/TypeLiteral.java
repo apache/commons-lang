@@ -16,10 +16,10 @@
  */
 package org.apache.commons.lang3.reflect;
 
+import org.apache.commons.lang3.Validate;
+
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
-
-import org.apache.commons.lang3.Validate;
 
 /**
  * <p>Type literal comparable to {@code javax.enterprise.util.TypeLiteral},

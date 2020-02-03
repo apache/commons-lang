@@ -16,11 +16,11 @@
  */
 package org.apache.commons.lang3.builder;
 
+import org.apache.commons.lang3.Validate;
+
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import org.apache.commons.lang3.Validate;
 
 /**
  * <p>

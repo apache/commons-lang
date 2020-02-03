@@ -16,14 +16,14 @@
  */
 package org.apache.commons.lang3.text;
 
-import static java.util.FormattableFlags.LEFT_JUSTIFY;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 
 import java.util.Formattable;
 import java.util.Formatter;
 
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
+import static java.util.FormattableFlags.LEFT_JUSTIFY;
 
 /**
  * <p>Provides utilities for working with the {@code Formattable} interface.</p>
