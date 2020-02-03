@@ -19,7 +19,11 @@ package org.apache.commons.lang3.time;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 /**
  * <p>Duration formatting utilities and constants. The following table describes the tokens

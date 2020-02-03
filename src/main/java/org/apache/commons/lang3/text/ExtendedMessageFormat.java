@@ -22,7 +22,12 @@ import org.apache.commons.lang3.Validate;
 import java.text.Format;
 import java.text.MessageFormat;
 import java.text.ParsePosition;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Extends {@code java.text.MessageFormat} to allow pluggable/additional formatting

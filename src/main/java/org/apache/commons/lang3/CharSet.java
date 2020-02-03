@@ -17,7 +17,11 @@
 package org.apache.commons.lang3;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>A set of characters.</p>
