@@ -75,7 +75,6 @@ public class ExceptionUtilsTest {
             this.cause = cause;
         }
     }
-
     /**
      * Provides a method with a well known chained/nested exception
      * name which does not match the full signature (e.g. lacks a
@@ -89,7 +88,6 @@ public class ExceptionUtilsTest {
             // noop
         }
     }
-
     // Temporary classes to allow the nested exception code to be removed
     // prior to a rewrite of this test class.
     private static class NestableException extends Exception {
@@ -104,15 +102,12 @@ public class ExceptionUtilsTest {
             super(t);
         }
     }
-
     public static class TestThrowable extends Throwable {
         private static final long serialVersionUID = 1L;
     }
-
     private static int redeclareCheckedException() {
         return throwsCheckedException();
     }
-
     private static int throwsCheckedException() {
         try {
             throw new IOException();
@@ -526,8 +521,8 @@ public class ExceptionUtilsTest {
 
         out = new ByteArrayOutputStream(1024);
         assertThrows(
-            IllegalArgumentException.class,
-            () -> ExceptionUtils.printRootCauseStackTrace(withCause, (PrintStream) null));
+                IllegalArgumentException.class,
+                () -> ExceptionUtils.printRootCauseStackTrace(withCause, (PrintStream) null));
 
         out = new ByteArrayOutputStream(1024);
         final Throwable cause = createExceptionWithCause();
@@ -550,8 +545,8 @@ public class ExceptionUtilsTest {
 
         writer = new StringWriter(1024);
         assertThrows(
-            IllegalArgumentException.class,
-            () -> ExceptionUtils.printRootCauseStackTrace(withCause, (PrintWriter) null));
+                IllegalArgumentException.class,
+                () -> ExceptionUtils.printRootCauseStackTrace(withCause, (PrintWriter) null));
 
         writer = new StringWriter(1024);
         final Throwable cause = createExceptionWithCause();
@@ -706,7 +701,6 @@ public class ExceptionUtilsTest {
         Throwable t = assertThrows(Throwable.class, () -> ExceptionUtils.wrapAndThrow(new TestThrowable()));
         assertTrue(ExceptionUtils.hasCause(t, TestThrowable.class));
     }
-
     @Test
     @DisplayName("getStackFrames returns the string array of the stack frames when there is a real exception")
     public void testgetStackFramesNullArg() {
@@ -735,5 +729,4 @@ public class ExceptionUtilsTest {
             "\tat com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:230)",
             "\tat com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58)"
         }, actual);
-    }
-}
+    }}
