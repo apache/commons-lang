@@ -16,7 +16,9 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
@@ -62,7 +64,7 @@ class StreamsTest {
         }
     }
 
-    protected <T extends Throwable> FailableConsumer<String,T> asIntConsumer(T pThrowable) {
+    protected <T extends Throwable> FailableConsumer<String, T> asIntConsumer(T pThrowable) {
         return (s) -> {
             final Integer i = Integer.valueOf(s);
             if (i.intValue() == 4) {
@@ -105,7 +107,9 @@ class StreamsTest {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Functions.stream(input)
                 .map((s) -> Integer.valueOf(s))
-                .filter((i) -> { return i.intValue() %2 == 0;})
+                .filter((i) -> {
+                    return i.intValue() %2 == 0;
+                })
                 .collect(Collectors.toList());
         assertEvenNumbers(output);
     }
@@ -117,7 +121,7 @@ class StreamsTest {
         }
     }
 
-    protected <T extends Throwable> FailablePredicate<Integer,T> asIntPredicate(T pThrowable) {
+    protected <T extends Throwable> FailablePredicate<Integer, T> asIntPredicate(T pThrowable) {
         return (i) -> {
             if (i.intValue() == 5) {
                 if (pThrowable != null) {
