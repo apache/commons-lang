@@ -403,189 +403,189 @@ public class ArrayUtilsRemoveTest {
     @Test
     public void testRemoveAllBooleanOccurences() {
         boolean[] a = null;
-        assertNull(ArrayUtils.removeAllOccurences(a, true));
+        assertNull(ArrayUtils.removeAllOccurrences(a, true));
 
         a = new boolean[0];
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.removeAllOccurences(a, true));
+        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.removeAllOccurrences(a, true));
 
         a = new boolean[] { true };
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.removeAllOccurences(a, true));
+        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.removeAllOccurrences(a, true));
 
         a = new boolean[] { true, true };
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.removeAllOccurences(a, true));
+        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.removeAllOccurrences(a, true));
 
         a = new boolean[] { false, true, true, false, true };
-        assertArrayEquals(new boolean[]{false, false}, ArrayUtils.removeAllOccurences(a, true));
+        assertArrayEquals(new boolean[]{false, false}, ArrayUtils.removeAllOccurrences(a, true));
 
         a = new boolean[] { false, true, true, false, true };
-        assertArrayEquals(new boolean[]{true, true, true}, ArrayUtils.removeAllOccurences(a, false));
+        assertArrayEquals(new boolean[]{true, true, true}, ArrayUtils.removeAllOccurrences(a, false));
     }
 
     @Test
     public void testRemoveAllCharOccurences() {
         char[] a = null;
-        assertNull(ArrayUtils.removeAllOccurences(a, '2'));
+        assertNull(ArrayUtils.removeAllOccurrences(a, '2'));
 
         a = new char[0];
-        assertArrayEquals(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.removeAllOccurences(a, '2'));
+        assertArrayEquals(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.removeAllOccurrences(a, '2'));
 
         a = new char[] { '2' };
-        assertArrayEquals(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.removeAllOccurences(a, '2'));
+        assertArrayEquals(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.removeAllOccurrences(a, '2'));
 
         a = new char[] { '2', '2' };
-        assertArrayEquals(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.removeAllOccurences(a, '2'));
+        assertArrayEquals(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.removeAllOccurrences(a, '2'));
 
         a = new char[] { '1', '2', '2', '3', '2' };
-        assertArrayEquals(new char[]{'1', '3'}, ArrayUtils.removeAllOccurences(a, '2'));
+        assertArrayEquals(new char[]{'1', '3'}, ArrayUtils.removeAllOccurrences(a, '2'));
 
         a = new char[] { '1', '2', '2', '3', '2' };
-        assertArrayEquals(new char[]{'1', '2', '2', '3', '2'}, ArrayUtils.removeAllOccurences(a, '4'));
+        assertArrayEquals(new char[]{'1', '2', '2', '3', '2'}, ArrayUtils.removeAllOccurrences(a, '4'));
     }
 
     @Test
     public void testRemoveAllByteOccurences() {
         byte[] a = null;
-        assertNull(ArrayUtils.removeAllOccurences(a, (byte) 2));
+        assertNull(ArrayUtils.removeAllOccurrences(a, (byte) 2));
 
         a = new byte[0];
-        assertArrayEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.removeAllOccurences(a, (byte) 2));
+        assertArrayEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.removeAllOccurrences(a, (byte) 2));
 
         a = new byte[] { 2 };
-        assertArrayEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.removeAllOccurences(a, (byte) 2));
+        assertArrayEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.removeAllOccurrences(a, (byte) 2));
 
         a = new byte[] { 2, 2 };
-        assertArrayEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.removeAllOccurences(a, (byte) 2));
+        assertArrayEquals(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.removeAllOccurrences(a, (byte) 2));
 
         a = new byte[] { 1, 2, 2, 3, 2 };
-        assertArrayEquals(new byte[]{1, 3}, ArrayUtils.removeAllOccurences(a, (byte) 2));
+        assertArrayEquals(new byte[]{1, 3}, ArrayUtils.removeAllOccurrences(a, (byte) 2));
 
         a = new byte[] { 1, 2, 2, 3, 2 };
-        assertArrayEquals(new byte[]{1, 2, 2, 3, 2}, ArrayUtils.removeAllOccurences(a, (byte) 4));
+        assertArrayEquals(new byte[]{1, 2, 2, 3, 2}, ArrayUtils.removeAllOccurrences(a, (byte) 4));
     }
 
     @Test
     public void testRemoveAllShortOccurences() {
         short[] a = null;
-        assertNull(ArrayUtils.removeAllOccurences(a, (short) 2));
+        assertNull(ArrayUtils.removeAllOccurrences(a, (short) 2));
 
         a = new short[0];
-        assertArrayEquals(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.removeAllOccurences(a, (short) 2));
+        assertArrayEquals(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.removeAllOccurrences(a, (short) 2));
 
         a = new short[] { 2 };
-        assertArrayEquals(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.removeAllOccurences(a, (short) 2));
+        assertArrayEquals(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.removeAllOccurrences(a, (short) 2));
 
         a = new short[] { 2, 2 };
-        assertArrayEquals(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.removeAllOccurences(a, (short) 2));
+        assertArrayEquals(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.removeAllOccurrences(a, (short) 2));
 
         a = new short[] { 1, 2, 2, 3, 2 };
-        assertArrayEquals(new short[]{1, 3}, ArrayUtils.removeAllOccurences(a, (short) 2));
+        assertArrayEquals(new short[]{1, 3}, ArrayUtils.removeAllOccurrences(a, (short) 2));
 
         a = new short[] { 1, 2, 2, 3, 2 };
-        assertArrayEquals(new short[]{1, 2, 2, 3, 2}, ArrayUtils.removeAllOccurences(a, (short) 4));
+        assertArrayEquals(new short[]{1, 2, 2, 3, 2}, ArrayUtils.removeAllOccurrences(a, (short) 4));
     }
 
     @Test
     public void testRemoveAllIntOccurences() {
         int[] a = null;
-        assertNull(ArrayUtils.removeAllOccurences(a, 2));
+        assertNull(ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new int[0];
-        assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.removeAllOccurences(a, 2));
+        assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new int[] { 2 };
-        assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.removeAllOccurences(a, 2));
+        assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new int[] { 2, 2 };
-        assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.removeAllOccurences(a, 2));
+        assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new int[] { 1, 2, 2, 3, 2 };
-        assertArrayEquals(new int[]{1, 3}, ArrayUtils.removeAllOccurences(a, 2));
+        assertArrayEquals(new int[]{1, 3}, ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new int[] { 1, 2, 2, 3, 2 };
-        assertArrayEquals(new int[]{1, 2, 2, 3, 2}, ArrayUtils.removeAllOccurences(a, 4));
+        assertArrayEquals(new int[]{1, 2, 2, 3, 2}, ArrayUtils.removeAllOccurrences(a, 4));
     }
 
     @Test
     public void testRemoveAllLongOccurences() {
         long[] a = null;
-        assertNull(ArrayUtils.removeAllOccurences(a, 2));
+        assertNull(ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new long[0];
-        assertArrayEquals(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.removeAllOccurences(a, 2));
+        assertArrayEquals(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new long[] { 2 };
-        assertArrayEquals(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.removeAllOccurences(a, 2));
+        assertArrayEquals(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new long[] { 2, 2 };
-        assertArrayEquals(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.removeAllOccurences(a, 2));
+        assertArrayEquals(ArrayUtils.EMPTY_LONG_ARRAY, ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new long[] { 1, 2, 2, 3, 2 };
-        assertArrayEquals(new long[]{1, 3}, ArrayUtils.removeAllOccurences(a, 2));
+        assertArrayEquals(new long[]{1, 3}, ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new long[] { 1, 2, 2, 3, 2 };
-        assertArrayEquals(new long[]{1, 2, 2, 3, 2}, ArrayUtils.removeAllOccurences(a, 4));
+        assertArrayEquals(new long[]{1, 2, 2, 3, 2}, ArrayUtils.removeAllOccurrences(a, 4));
     }
 
     @Test
     public void testRemoveAllFloatOccurences() {
         float[] a = null;
-        assertNull(ArrayUtils.removeAllOccurences(a, 2));
+        assertNull(ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new float[0];
-        assertArrayEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.removeAllOccurences(a, 2));
+        assertArrayEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new float[] { 2 };
-        assertArrayEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.removeAllOccurences(a, 2));
+        assertArrayEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new float[] { 2, 2 };
-        assertArrayEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.removeAllOccurences(a, 2));
+        assertArrayEquals(ArrayUtils.EMPTY_FLOAT_ARRAY, ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new float[] { 1, 2, 2, 3, 2 };
-        assertArrayEquals(new float[]{1, 3}, ArrayUtils.removeAllOccurences(a, 2));
+        assertArrayEquals(new float[]{1, 3}, ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new float[] { 1, 2, 2, 3, 2 };
-        assertArrayEquals(new float[]{1, 2, 2, 3, 2}, ArrayUtils.removeAllOccurences(a, 4));
+        assertArrayEquals(new float[]{1, 2, 2, 3, 2}, ArrayUtils.removeAllOccurrences(a, 4));
     }
 
     @Test
     public void testRemoveAllDoubleOccurences() {
         double[] a = null;
-        assertNull(ArrayUtils.removeAllOccurences(a, 2));
+        assertNull(ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new double[0];
-        assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.removeAllOccurences(a, 2));
+        assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new double[] { 2 };
-        assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.removeAllOccurences(a, 2));
+        assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new double[] { 2, 2 };
-        assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.removeAllOccurences(a, 2));
+        assertArrayEquals(ArrayUtils.EMPTY_DOUBLE_ARRAY, ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new double[] { 1, 2, 2, 3, 2 };
-        assertArrayEquals(new double[]{1, 3}, ArrayUtils.removeAllOccurences(a, 2));
+        assertArrayEquals(new double[]{1, 3}, ArrayUtils.removeAllOccurrences(a, 2));
 
         a = new double[] { 1, 2, 2, 3, 2 };
-        assertArrayEquals(new double[]{1, 2, 2, 3, 2}, ArrayUtils.removeAllOccurences(a, 4));
+        assertArrayEquals(new double[]{1, 2, 2, 3, 2}, ArrayUtils.removeAllOccurrences(a, 4));
     }
 
     @Test
     public void testRemoveAllObjectOccurences() {
         String[] a = null;
-        assertNull(ArrayUtils.removeAllOccurences(a, "2"));
+        assertNull(ArrayUtils.removeAllOccurrences(a, "2"));
 
         a = new String[0];
-        assertArrayEquals(ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.removeAllOccurences(a, "2"));
+        assertArrayEquals(ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.removeAllOccurrences(a, "2"));
 
         a = new String[] { "2" };
-        assertArrayEquals(ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.removeAllOccurences(a, "2"));
+        assertArrayEquals(ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.removeAllOccurrences(a, "2"));
 
         a = new String[] { "2", "2" };
-        assertArrayEquals(ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.removeAllOccurences(a, "2"));
+        assertArrayEquals(ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.removeAllOccurrences(a, "2"));
 
         a = new String[] { "1", "2", "2", "3", "2" };
-        assertArrayEquals(new String[]{"1", "3"}, ArrayUtils.removeAllOccurences(a, "2"));
+        assertArrayEquals(new String[]{"1", "3"}, ArrayUtils.removeAllOccurrences(a, "2"));
 
         a = new String[] { "1", "2", "2", "3", "2" };
-        assertArrayEquals(new String[]{"1", "2", "2", "3", "2"}, ArrayUtils.removeAllOccurences(a, "4"));
+        assertArrayEquals(new String[]{"1", "2", "2", "3", "2"}, ArrayUtils.removeAllOccurrences(a, "4"));
     }
 }

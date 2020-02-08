@@ -802,8 +802,8 @@ public class ArrayUtils {
 
     /**
      * <p>Adds all the elements of the given arrays into a new array.
-     * <p>The new array contains all of the element of {@code array1} followed
-     * by all of the elements {@code array2}. When an array is returned, it is always
+     * <p>The new array contains all the element of {@code array1} followed
+     * by all the elements {@code array2}. When an array is returned, it is always
      * a new array.
      *
      * <pre>
@@ -831,8 +831,8 @@ public class ArrayUtils {
 
     /**
      * <p>Adds all the elements of the given arrays into a new array.
-     * <p>The new array contains all of the element of {@code array1} followed
-     * by all of the elements {@code array2}. When an array is returned, it is always
+     * <p>The new array contains all the element of {@code array1} followed
+     * by all the elements {@code array2}. When an array is returned, it is always
      * a new array.
      *
      * <pre>
@@ -860,8 +860,8 @@ public class ArrayUtils {
 
     /**
      * <p>Adds all the elements of the given arrays into a new array.
-     * <p>The new array contains all of the element of {@code array1} followed
-     * by all of the elements {@code array2}. When an array is returned, it is always
+     * <p>The new array contains all the element of {@code array1} followed
+     * by all the elements {@code array2}. When an array is returned, it is always
      * a new array.
      *
      * <pre>
@@ -889,8 +889,8 @@ public class ArrayUtils {
 
     /**
      * <p>Adds all the elements of the given arrays into a new array.
-     * <p>The new array contains all of the element of {@code array1} followed
-     * by all of the elements {@code array2}. When an array is returned, it is always
+     * <p>The new array contains all the element of {@code array1} followed
+     * by all the elements {@code array2}. When an array is returned, it is always
      * a new array.
      *
      * <pre>
@@ -918,8 +918,8 @@ public class ArrayUtils {
 
     /**
      * <p>Adds all the elements of the given arrays into a new array.
-     * <p>The new array contains all of the element of {@code array1} followed
-     * by all of the elements {@code array2}. When an array is returned, it is always
+     * <p>The new array contains all the element of {@code array1} followed
+     * by all the elements {@code array2}. When an array is returned, it is always
      * a new array.
      *
      * <pre>
@@ -947,8 +947,8 @@ public class ArrayUtils {
 
     /**
      * <p>Adds all the elements of the given arrays into a new array.
-     * <p>The new array contains all of the element of {@code array1} followed
-     * by all of the elements {@code array2}. When an array is returned, it is always
+     * <p>The new array contains all the element of {@code array1} followed
+     * by all the elements {@code array2}. When an array is returned, it is always
      * a new array.
      *
      * <pre>
@@ -976,8 +976,8 @@ public class ArrayUtils {
 
     /**
      * <p>Adds all the elements of the given arrays into a new array.
-     * <p>The new array contains all of the element of {@code array1} followed
-     * by all of the elements {@code array2}. When an array is returned, it is always
+     * <p>The new array contains all the element of {@code array1} followed
+     * by all the elements {@code array2}. When an array is returned, it is always
      * a new array.
      *
      * <pre>
@@ -1005,8 +1005,8 @@ public class ArrayUtils {
 
     /**
      * <p>Adds all the elements of the given arrays into a new array.
-     * <p>The new array contains all of the element of {@code array1} followed
-     * by all of the elements {@code array2}. When an array is returned, it is always
+     * <p>The new array contains all the element of {@code array1} followed
+     * by all the elements {@code array2}. When an array is returned, it is always
      * a new array.
      *
      * <pre>
@@ -1034,8 +1034,8 @@ public class ArrayUtils {
 
     /**
      * <p>Adds all the elements of the given arrays into a new array.
-     * <p>The new array contains all of the element of {@code array1} followed
-     * by all of the elements {@code array2}. When an array is returned, it is always
+     * <p>The new array contains all the element of {@code array1} followed
+     * by all the elements {@code array2}. When an array is returned, it is always
      * a new array.
      *
      * <pre>
@@ -5293,7 +5293,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      *
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5303,7 +5303,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
-    public static boolean[] removeAllOccurences(final boolean[] array, final boolean element) {
+    public static boolean[] removeAllOccurrences(final boolean[] array, final boolean element) {
         return (boolean[]) removeAll((Object) array, indexesOf(array, element));
     }
 
@@ -5312,7 +5312,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      *
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5322,7 +5322,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
-    public static byte[] removeAllOccurences(final byte[] array, final byte element) {
+    public static byte[] removeAllOccurrences(final byte[] array, final byte element) {
         return (byte[]) removeAll((Object) array, indexesOf(array, element));
     }
 
@@ -5331,7 +5331,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      *
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5341,7 +5341,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
-    public static char[] removeAllOccurences(final char[] array, final char element) {
+    public static char[] removeAllOccurrences(final char[] array, final char element) {
         return (char[]) removeAll((Object) array, indexesOf(array, element));
     }
 
@@ -5350,7 +5350,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      *
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5360,7 +5360,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
-    public static double[] removeAllOccurences(final double[] array, final double element) {
+    public static double[] removeAllOccurrences(final double[] array, final double element) {
         return (double[]) removeAll((Object) array, indexesOf(array, element));
     }
 
@@ -5369,7 +5369,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      *
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5379,7 +5379,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
-    public static float[] removeAllOccurences(final float[] array, final float element) {
+    public static float[] removeAllOccurrences(final float[] array, final float element) {
         return (float[]) removeAll((Object) array, indexesOf(array, element));
     }
 
@@ -5388,7 +5388,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      *
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5398,7 +5398,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
-    public static int[] removeAllOccurences(final int[] array, final int element) {
+    public static int[] removeAllOccurrences(final int[] array, final int element) {
         return (int[]) removeAll((Object) array, indexesOf(array, element));
     }
 
@@ -5407,7 +5407,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      *
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5417,7 +5417,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
-    public static long[] removeAllOccurences(final long[] array, final long element) {
+    public static long[] removeAllOccurrences(final long[] array, final long element) {
         return (long[]) removeAll((Object) array, indexesOf(array, element));
     }
 
@@ -5426,7 +5426,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      *
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5436,7 +5436,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
-    public static short[] removeAllOccurences(final short[] array, final short element) {
+    public static short[] removeAllOccurrences(final short[] array, final short element) {
         return (short[]) removeAll((Object) array, indexesOf(array, element));
     }
 
@@ -5445,7 +5445,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      *
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5456,14 +5456,14 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      */
-    public static <T> T[] removeAllOccurences(final T[] array, final T element) {
+    public static <T> T[] removeAllOccurrences(final T[] array, final T element) {
         return (T[]) removeAll((Object) array, indexesOf(array, element));
     }
 
     /**
      * <p>Removes the first occurrence of the specified element from the
      * specified array. All subsequent elements are shifted to the left
-     * (subtracts one from their indices). If the array doesn't contains
+     * (subtracts one from their indices). If the array doesn't contain
      * such an element, no elements are removed from the array.
      *
      * <p>This method returns a new array with the same elements of the input
@@ -5496,7 +5496,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
     /**
      * <p>Removes the first occurrence of the specified element from the
      * specified array. All subsequent elements are shifted to the left
-     * (subtracts one from their indices). If the array doesn't contains
+     * (subtracts one from their indices). If the array doesn't contain
      * such an element, no elements are removed from the array.
      *
      * <p>This method returns a new array with the same elements of the input
@@ -5529,7 +5529,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
     /**
      * <p>Removes the first occurrence of the specified element from the
      * specified array. All subsequent elements are shifted to the left
-     * (subtracts one from their indices). If the array doesn't contains
+     * (subtracts one from their indices). If the array doesn't contain
      * such an element, no elements are removed from the array.
      *
      * <p>This method returns a new array with the same elements of the input
@@ -5562,7 +5562,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
     /**
      * <p>Removes the first occurrence of the specified element from the
      * specified array. All subsequent elements are shifted to the left
-     * (subtracts one from their indices). If the array doesn't contains
+     * (subtracts one from their indices). If the array doesn't contain
      * such an element, no elements are removed from the array.
      *
      * <p>This method returns a new array with the same elements of the input
@@ -5595,7 +5595,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
     /**
      * <p>Removes the first occurrence of the specified element from the
      * specified array. All subsequent elements are shifted to the left
-     * (subtracts one from their indices). If the array doesn't contains
+     * (subtracts one from their indices). If the array doesn't contain
      * such an element, no elements are removed from the array.
      *
      * <p>This method returns a new array with the same elements of the input
@@ -5628,7 +5628,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
     /**
      * <p>Removes the first occurrence of the specified element from the
      * specified array. All subsequent elements are shifted to the left
-     * (subtracts one from their indices). If the array doesn't contains
+     * (subtracts one from their indices). If the array doesn't contain
      * such an element, no elements are removed from the array.
      *
      * <p>This method returns a new array with the same elements of the input
@@ -5661,7 +5661,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
     /**
      * <p>Removes the first occurrence of the specified element from the
      * specified array. All subsequent elements are shifted to the left
-     * (subtracts one from their indices). If the array doesn't contains
+     * (subtracts one from their indices). If the array doesn't contain
      * such an element, no elements are removed from the array.
      *
      * <p>This method returns a new array with the same elements of the input
@@ -5694,7 +5694,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
     /**
      * <p>Removes the first occurrence of the specified element from the
      * specified array. All subsequent elements are shifted to the left
-     * (subtracts one from their indices). If the array doesn't contains
+     * (subtracts one from their indices). If the array doesn't contain
      * such an element, no elements are removed from the array.
      *
      * <p>This method returns a new array with the same elements of the input
@@ -5727,7 +5727,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
     /**
      * <p>Removes the first occurrence of the specified element from the
      * specified array. All subsequent elements are shifted to the left
-     * (subtracts one from their indices). If the array doesn't contains
+     * (subtracts one from their indices). If the array doesn't contain
      * such an element, no elements are removed from the array.
      *
      * <p>This method returns a new array with the same elements of the input
