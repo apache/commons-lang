@@ -566,7 +566,7 @@ public class ExceptionUtilsTest {
     @Test
     public void testThrow() {
         final Exception expected = new InterruptedException();
-        Exception actual = assertThrows(Exception.class, () -> ExceptionUtils.rethrow(expected));
+        final Exception actual = assertThrows(Exception.class, () -> ExceptionUtils.rethrow(expected));
         assertSame(expected, actual);
     }
 
@@ -678,25 +678,25 @@ public class ExceptionUtilsTest {
 
     @Test
     public void testWrapAndUnwrapCheckedException() {
-        Throwable t = assertThrows(Throwable.class, () -> ExceptionUtils.wrapAndThrow(new IOException()));
+        final Throwable t = assertThrows(Throwable.class, () -> ExceptionUtils.wrapAndThrow(new IOException()));
         assertTrue(ExceptionUtils.hasCause(t, IOException.class));
     }
 
     @Test
     public void testWrapAndUnwrapError() {
-        Throwable t = assertThrows(Throwable.class, () -> ExceptionUtils.wrapAndThrow(new OutOfMemoryError()));
+        final Throwable t = assertThrows(Throwable.class, () -> ExceptionUtils.wrapAndThrow(new OutOfMemoryError()));
         assertTrue(ExceptionUtils.hasCause(t, Error.class));
     }
 
     @Test
     public void testWrapAndUnwrapRuntimeException() {
-        Throwable t = assertThrows(Throwable.class, () -> ExceptionUtils.wrapAndThrow(new IllegalArgumentException()));
+        final Throwable t = assertThrows(Throwable.class, () -> ExceptionUtils.wrapAndThrow(new IllegalArgumentException()));
         assertTrue(ExceptionUtils.hasCause(t, RuntimeException.class));
     }
 
     @Test
     public void testWrapAndUnwrapThrowable() {
-        Throwable t = assertThrows(Throwable.class, () -> ExceptionUtils.wrapAndThrow(new TestThrowable()));
+        final Throwable t = assertThrows(Throwable.class, () -> ExceptionUtils.wrapAndThrow(new TestThrowable()));
         assertTrue(ExceptionUtils.hasCause(t, TestThrowable.class));
     }
 }

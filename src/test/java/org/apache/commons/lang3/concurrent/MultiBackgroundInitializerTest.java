@@ -273,7 +273,7 @@ public class MultiBackgroundInitializerTest {
         child.ex = new RuntimeException();
         initializer.addInitializer(CHILD_INIT, child);
         initializer.start();
-        Exception ex = assertThrows(Exception.class, initializer::get);
+        final Exception ex = assertThrows(Exception.class, initializer::get);
         assertEquals(child.ex, ex, "Wrong exception");
     }
 

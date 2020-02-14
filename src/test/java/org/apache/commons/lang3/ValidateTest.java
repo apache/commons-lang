@@ -712,7 +712,7 @@ class ValidateTest {
 
                 @Test
                 void shouldReturnSameInstance() {
-                    Set<String> col = Collections.singleton("a");
+                    final Set<String> col = Collections.singleton("a");
                     final Set<String> result = Validate.noNullElements(col);
 
                     assertSame(col, result);
@@ -747,7 +747,7 @@ class ValidateTest {
 
                 @Test
                 void shouldReturnSameInstance() {
-                    Set<String> col = Collections.singleton("a");
+                    final Set<String> col = Collections.singleton("a");
                     final Set<String> result = Validate.noNullElements(col, "MSG");
 
                     assertSame(col, result);

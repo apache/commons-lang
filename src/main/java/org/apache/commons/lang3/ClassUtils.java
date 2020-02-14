@@ -282,7 +282,7 @@ public class ClassUtils {
      * @since 3.0
      * @see Class#getSimpleName()
      */
-    public static String getSimpleName(final Class<?> cls, String valueIfNull) {
+    public static String getSimpleName(final Class<?> cls, final String valueIfNull) {
         return cls == null ? valueIfNull : cls.getSimpleName();
     }
 

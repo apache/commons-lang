@@ -65,7 +65,7 @@ public class Streams {
         private Stream<O> stream;
         private boolean terminated;
 
-        public FailableStream(Stream<O> pStream) {
+        public FailableStream(final Stream<O> pStream) {
             stream = pStream;
         }
 
@@ -90,7 +90,7 @@ public class Streams {
          * element to determine if it should be included.
          * @return the new stream
          */
-        public FailableStream<O> filter(FailablePredicate<O, ?> pPredicate){
+        public FailableStream<O> filter(final FailablePredicate<O, ?> pPredicate){
             assertNotTerminated();
             stream = stream.filter(Functions.asPredicate(pPredicate));
             return this;
@@ -111,7 +111,7 @@ public class Streams {
          *
          * @param pAction a non-interfering action to perform on the elements
          */
-        public void forEach(FailableConsumer<O, ?> pAction) {
+        public void forEach(final FailableConsumer<O, ?> pAction) {
             makeTerminated();
             stream().forEach(Functions.asConsumer(pAction));
         }
@@ -164,7 +164,7 @@ public class Streams {
          * @see #collect(Supplier, BiConsumer, BiConsumer)
          * @see Collectors
          */
-        public <A, R> R collect(Collector<? super O, A, R> pCollector) {
+        public <A, R> R collect(final Collector<? super O, A, R> pCollector) {
             makeTerminated();
             return stream().collect(pCollector);
         }
@@ -214,7 +214,7 @@ public class Streams {
          *   accumulator function
          * @return The result of the reduction
          */
-        public <A, R> R collect(Supplier<R> pSupplier, BiConsumer<R, ? super O> pAccumulator, BiConsumer<R, R> pCombiner) {
+        public <A, R> R collect(final Supplier<R> pSupplier, final BiConsumer<R, ? super O> pAccumulator, final BiConsumer<R, R> pCombiner) {
             makeTerminated();
             return stream().collect(pSupplier, pAccumulator, pCombiner);
         }
@@ -262,7 +262,7 @@ public class Streams {
          *                    function for combining two values
          * @return the result of the reduction
          */
-        public O reduce(O pIdentity, BinaryOperator<O> pAccumulator) {
+        public O reduce(final O pIdentity, final BinaryOperator<O> pAccumulator) {
             makeTerminated();
             return stream().reduce(pIdentity, pAccumulator);
         }
@@ -277,7 +277,7 @@ public class Streams {
          * @param pMapper A non-interfering, stateless function to apply to each element
          * @return the new stream
          */
-        public <R> FailableStream<R> map(FailableFunction<O, R, ?> pMapper) {
+        public <R> FailableStream<R> map(final FailableFunction<O, R, ?> pMapper) {
             assertNotTerminated();
             return new FailableStream<R>(stream.map(Functions.asFunction(pMapper)));
         }
@@ -309,7 +309,7 @@ public class Streams {
          * @return {@code true} If either all elements of the stream match the
          * provided predicate or the stream is empty, otherwise {@code false}.
          */
-        public boolean allMatch(FailablePredicate<O, ?> pPredicate) {
+        public boolean allMatch(final FailablePredicate<O, ?> pPredicate) {
             assertNotTerminated();
             return stream().allMatch(Functions.asPredicate(pPredicate));
         }
@@ -331,7 +331,7 @@ public class Streams {
          * @return {@code true} if any elements of the stream match the provided
          * predicate, otherwise {@code false}
          */
-        public boolean anyMatch(FailablePredicate<O, ?> pPredicate) {
+        public boolean anyMatch(final FailablePredicate<O, ?> pPredicate) {
             assertNotTerminated();
             return stream().anyMatch(Functions.asPredicate(pPredicate));
         }
@@ -375,7 +375,7 @@ public class Streams {
      * @return The {@link FailableStream}, which has been created by
      *   converting the stream.
      */
-    public static <O> FailableStream<O> stream(Stream<O> pStream) {
+    public static <O> FailableStream<O> stream(final Stream<O> pStream) {
         return new FailableStream<O>(pStream);
     }
 
@@ -417,7 +417,7 @@ public class Streams {
      * @return The {@link FailableStream}, which has been created by
      *   converting the stream.
      */
-    public static <O> FailableStream<O> stream(Collection<O> pStream) {
+    public static <O> FailableStream<O> stream(final Collection<O> pStream) {
         return stream(pStream.stream());
     }
 }

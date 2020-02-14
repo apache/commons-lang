@@ -162,7 +162,7 @@ public class Functions {
      * @param pRunnable a {@code FailableRunnable}
      * @return a standard {@code Runnable}
      */
-    public static Runnable asRunnable(FailableRunnable<?> pRunnable) {
+    public static Runnable asRunnable(final FailableRunnable<?> pRunnable) {
         return () -> run(pRunnable);
     }
 
@@ -173,7 +173,7 @@ public class Functions {
      * @param pConsumer a {@code FailableConsumer}
      * @return a standard {@code Consumer}
      */
-    public static <I> Consumer<I> asConsumer(FailableConsumer<I, ?> pConsumer) {
+    public static <I> Consumer<I> asConsumer(final FailableConsumer<I, ?> pConsumer) {
         return (pInput) -> accept(pConsumer, pInput);
     }
 
@@ -184,7 +184,7 @@ public class Functions {
      * @param pCallable a {@code FailableCallable}
      * @return a standard {@code Callable}
      */
-    public static <O> Callable<O> asCallable(FailableCallable<O, ?> pCallable) {
+    public static <O> Callable<O> asCallable(final FailableCallable<O, ?> pCallable) {
         return () -> call(pCallable);
     }
 
@@ -196,7 +196,7 @@ public class Functions {
      * @param pConsumer a failable {@code BiConsumer}
      * @return a standard {@code BiConsumer}
      */
-    public static <I1, I2> BiConsumer<I1, I2> asBiConsumer(FailableBiConsumer<I1, I2, ?> pConsumer) {
+    public static <I1, I2> BiConsumer<I1, I2> asBiConsumer(final FailableBiConsumer<I1, I2, ?> pConsumer) {
         return (pInput1, pInput2) -> accept(pConsumer, pInput1, pInput2);
     }
 
@@ -208,7 +208,7 @@ public class Functions {
      * @param pFunction a {code FailableFunction}
      * @return a standard {@code Function}
      */
-    public static <I, O> Function<I, O> asFunction(FailableFunction<I, O, ?> pFunction) {
+    public static <I, O> Function<I, O> asFunction(final FailableFunction<I, O, ?> pFunction) {
         return (pInput) -> apply(pFunction, pInput);
     }
 
@@ -221,7 +221,7 @@ public class Functions {
      * @param pFunction a {@code FailableBiFunction}
      * @return a standard {@code BiFunction}
      */
-    public static <I1, I2, O> BiFunction<I1, I2, O> asBiFunction(FailableBiFunction<I1, I2, O, ?> pFunction) {
+    public static <I1, I2, O> BiFunction<I1, I2, O> asBiFunction(final FailableBiFunction<I1, I2, O, ?> pFunction) {
         return (pInput1, pInput2) -> apply(pFunction, pInput1, pInput2);
     }
 
@@ -232,7 +232,7 @@ public class Functions {
      * @param pPredicate a {@code FailablePredicate}
      * @return a standard {@code Predicate}
      */
-    public static <I> Predicate<I> asPredicate(FailablePredicate<I, ?> pPredicate) {
+    public static <I> Predicate<I> asPredicate(final FailablePredicate<I, ?> pPredicate) {
         return (pInput) -> test(pPredicate, pInput);
     }
 
@@ -244,7 +244,7 @@ public class Functions {
      * @param pPredicate a {@code FailableBiPredicate}
      * @return a standard {@code BiPredicate}
      */
-    public static <I1, I2> BiPredicate<I1, I2> asBiPredicate(FailableBiPredicate<I1, I2, ?> pPredicate) {
+    public static <I1, I2> BiPredicate<I1, I2> asBiPredicate(final FailableBiPredicate<I1, I2, ?> pPredicate) {
         return (pInput1, pInput2) -> test(pPredicate, pInput1, pInput2);
     }
 
@@ -255,7 +255,7 @@ public class Functions {
      * @param pSupplier a {@code FailableSupplier}
      * @return a standard {@code Supplier}
      */
-    public static <O> Supplier<O> asSupplier(FailableSupplier<O, ?> pSupplier) {
+    public static <O> Supplier<O> asSupplier(final FailableSupplier<O, ?> pSupplier) {
         return () -> get(pSupplier);
     }
 
@@ -264,10 +264,10 @@ public class Functions {
      * @param pRunnable The runnable to run
      * @param <T> the type of checked exception the runnable may throw
      */
-    public static <T extends Throwable> void run(FailableRunnable<T> pRunnable) {
+    public static <T extends Throwable> void run(final FailableRunnable<T> pRunnable) {
         try {
             pRunnable.run();
-        } catch (Throwable t) {
+        } catch (final Throwable t) {
             throw rethrow(t);
         }
     }
@@ -279,10 +279,10 @@ public class Functions {
      * @param <T> the type of checked exception the callable may throw
      * @return the value returned from the callable
      */
-    public static <O, T extends Throwable> O call(FailableCallable<O, T> pCallable) {
+    public static <O, T extends Throwable> O call(final FailableCallable<O, T> pCallable) {
         try {
             return pCallable.call();
-        } catch (Throwable t) {
+        } catch (final Throwable t) {
             throw rethrow(t);
         }
     }
@@ -294,10 +294,10 @@ public class Functions {
      * @param <O> the type the consumer accepts
      * @param <T> the type of checked exception the consumer may throw
      */
-    public static <O, T extends Throwable> void accept(FailableConsumer<O, T> pConsumer, O pObject) {
+    public static <O, T extends Throwable> void accept(final FailableConsumer<O, T> pConsumer, final O pObject) {
         try {
             pConsumer.accept(pObject);
-        } catch (Throwable t) {
+        } catch (final Throwable t) {
             throw rethrow(t);
         }
     }
@@ -311,10 +311,10 @@ public class Functions {
      * @param <O2> the type of the second argument the consumer accepts
      * @param <T> the type of checked exception the consumer may throw
      */
-    public static <O1, O2, T extends Throwable> void accept(FailableBiConsumer<O1, O2, T> pConsumer, O1 pObject1, O2 pObject2) {
+    public static <O1, O2, T extends Throwable> void accept(final FailableBiConsumer<O1, O2, T> pConsumer, final O1 pObject1, final O2 pObject2) {
         try {
             pConsumer.accept(pObject1, pObject2);
-        } catch (Throwable t) {
+        } catch (final Throwable t) {
             throw rethrow(t);
         }
     }
@@ -328,10 +328,10 @@ public class Functions {
      * @param <T> the type of checked exception the function may throw
      * @return the value returned from the function
      */
-    public static <I, O, T extends Throwable> O apply(FailableFunction<I, O, T> pFunction, I pInput) {
+    public static <I, O, T extends Throwable> O apply(final FailableFunction<I, O, T> pFunction, final I pInput) {
         try {
             return pFunction.apply(pInput);
-        } catch (Throwable t) {
+        } catch (final Throwable t) {
             throw rethrow(t);
         }
     }
@@ -347,10 +347,10 @@ public class Functions {
      * @param <T> the type of checked exception the function may throw
      * @return the value returned from the function
      */
-    public static <I1, I2, O, T extends Throwable> O apply(FailableBiFunction<I1, I2, O, T> pFunction, I1 pInput1, I2 pInput2) {
+    public static <I1, I2, O, T extends Throwable> O apply(final FailableBiFunction<I1, I2, O, T> pFunction, final I1 pInput1, final I2 pInput2) {
         try {
             return pFunction.apply(pInput1, pInput2);
-        } catch (Throwable t) {
+        } catch (final Throwable t) {
             throw rethrow(t);
         }
     }
@@ -363,10 +363,10 @@ public class Functions {
      * @param <T> the type of checked exception the predicate may throw
      * @return the boolean value returned by the predicate
      */
-    public static <O, T extends Throwable> boolean test(FailablePredicate<O, T> pPredicate, O pObject) {
+    public static <O, T extends Throwable> boolean test(final FailablePredicate<O, T> pPredicate, final O pObject) {
         try {
             return pPredicate.test(pObject);
-        } catch (Throwable t) {
+        } catch (final Throwable t) {
             throw rethrow(t);
         }
     }
@@ -381,10 +381,10 @@ public class Functions {
      * @param <T> the type of checked exception the predicate may throw
      * @return the boolean value returned by the predicate
      */
-    public static <O1, O2, T extends Throwable> boolean test(FailableBiPredicate<O1, O2, T> pPredicate, O1 pObject1, O2 pObject2) {
+    public static <O1, O2, T extends Throwable> boolean test(final FailableBiPredicate<O1, O2, T> pPredicate, final O1 pObject1, final O2 pObject2) {
         try {
             return pPredicate.test(pObject1, pObject2);
-        } catch (Throwable t) {
+        } catch (final Throwable t) {
             throw rethrow(t);
         }
     }
@@ -396,10 +396,10 @@ public class Functions {
      * @param <T> The type of checked exception, which the supplier can throw.
      * @return The object, which has been created by the supplier
      */
-    public static <O, T extends Throwable> O get(FailableSupplier<O, T> pSupplier) {
+    public static <O, T extends Throwable> O get(final FailableSupplier<O, T> pSupplier) {
         try {
             return pSupplier.get();
-        } catch (Throwable t) {
+        } catch (final Throwable t) {
             throw rethrow(t);
         }
     }
@@ -416,7 +416,7 @@ public class Functions {
      * @param <O> The streams element type.
      * @return The created {@link FailableStream}.
      */
-    public static <O> FailableStream<O> stream(Stream<O> pStream) {
+    public static <O> FailableStream<O> stream(final Stream<O> pStream) {
         return new FailableStream<O>(pStream);
     }
 
@@ -433,7 +433,7 @@ public class Functions {
      *   streams element type.)
      * @return The created {@link FailableStream}.
      */
-    public static <O> FailableStream<O> stream(Collection<O> pCollection) {
+    public static <O> FailableStream<O> stream(final Collection<O> pCollection) {
         return new FailableStream<O>(pCollection.stream());
     }
 
@@ -461,9 +461,9 @@ public class Functions {
      * @see #tryWithResources(FailableRunnable, FailableRunnable...)
      */
     @SafeVarargs
-    public static void tryWithResources(FailableRunnable<? extends Throwable> pAction,
-                                            FailableConsumer<Throwable, ? extends Throwable> pErrorHandler,
-                                            FailableRunnable<? extends Throwable>... pResources) {
+    public static void tryWithResources(final FailableRunnable<? extends Throwable> pAction,
+                                            final FailableConsumer<Throwable, ? extends Throwable> pErrorHandler,
+                                            final FailableRunnable<? extends Throwable>... pResources) {
         final FailableConsumer<Throwable, ? extends Throwable> errorHandler;
         if (pErrorHandler == null) {
             errorHandler = (t) -> rethrow(t);
@@ -471,21 +471,21 @@ public class Functions {
             errorHandler = pErrorHandler;
         }
         if (pResources != null) {
-            for (FailableRunnable<? extends Throwable> failableRunnable : pResources) {
+            for (final FailableRunnable<? extends Throwable> failableRunnable : pResources) {
                 Objects.requireNonNull(failableRunnable, "runnable");
             }
         }
         Throwable th = null;
         try {
             pAction.run();
-        } catch (Throwable t) {
+        } catch (final Throwable t) {
             th = t;
         }
         if (pResources != null) {
-            for (FailableRunnable<? extends Object> runnable : pResources) {
+            for (final FailableRunnable<? extends Object> runnable : pResources) {
                 try {
                     runnable.run();
-                } catch (Throwable t) {
+                } catch (final Throwable t) {
                     if (th == null) {
                         th = t;
                     }
@@ -495,7 +495,7 @@ public class Functions {
         if (th != null) {
             try {
                 errorHandler.accept(th);
-            } catch (Throwable t) {
+            } catch (final Throwable t) {
                 throw rethrow(t);
             }
         }
@@ -521,8 +521,8 @@ public class Functions {
      * @see #tryWithResources(FailableRunnable, FailableConsumer, FailableRunnable...)
      */
     @SafeVarargs
-    public static void tryWithResources(FailableRunnable<? extends Throwable> pAction,
-                                            FailableRunnable<? extends Throwable>... pResources) {
+    public static void tryWithResources(final FailableRunnable<? extends Throwable> pAction,
+                                            final FailableRunnable<? extends Throwable>... pResources) {
         tryWithResources(pAction, null, pResources);
     }
 
@@ -549,7 +549,7 @@ public class Functions {
      * @param pThrowable The throwable to rethrow possibly wrapped into an unchecked exception
      * @return Never returns anything, this method never terminates normally.
      */
-    public static RuntimeException rethrow(Throwable pThrowable) {
+    public static RuntimeException rethrow(final Throwable pThrowable) {
         Objects.requireNonNull(pThrowable, "pThrowable");
         if (pThrowable instanceof RuntimeException) {
             throw (RuntimeException) pThrowable;

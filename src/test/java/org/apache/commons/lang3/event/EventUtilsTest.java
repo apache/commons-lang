@@ -69,7 +69,7 @@ public class EventUtilsTest {
         final PropertyChangeSource src = new PropertyChangeSource();
         final EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
         final ObjectChangeListener listener = handler.createListener(ObjectChangeListener.class);
-        IllegalArgumentException e =
+        final IllegalArgumentException e =
                 assertThrows(IllegalArgumentException.class, () -> EventUtils.addEventListener(src, ObjectChangeListener.class, listener));
         assertEquals("Class " + src.getClass().getName() + " does not have a public add" + ObjectChangeListener.class.getSimpleName() + " method which takes a parameter of type " + ObjectChangeListener.class.getName() + ".",
                 e.getMessage());
@@ -90,7 +90,7 @@ public class EventUtilsTest {
         final PropertyChangeSource src = new PropertyChangeSource();
         final EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
         final VetoableChangeListener listener = handler.createListener(VetoableChangeListener.class);
-        IllegalArgumentException e =
+        final IllegalArgumentException e =
                 assertThrows(IllegalArgumentException.class, () -> EventUtils.addEventListener(src, VetoableChangeListener.class, listener));
         assertEquals("Class " + src.getClass().getName() + " does not have a public add" + VetoableChangeListener.class.getSimpleName() + " method which takes a parameter of type " + VetoableChangeListener.class.getName() + ".",
                 e.getMessage());

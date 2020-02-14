@@ -123,7 +123,7 @@ public class PairTest {
         assertTrue(pair2 instanceof ImmutablePair<?, ?>);
         assertNull(((ImmutablePair<Object, String>) pair2).left);
         assertEquals("bar", ((ImmutablePair<Object, String>) pair2).right);
-        Pair pair3 = Pair.of(null, null);
+        final Pair pair3 = Pair.of(null, null);
         assertNull(pair3.getLeft());
         assertNull(pair3.getRight());
     }

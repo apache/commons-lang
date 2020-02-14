@@ -54,7 +54,7 @@ public class WeekYearTest {
 
     @ParameterizedTest
     @MethodSource("data")
-    public void testParser(Calendar vulgar, String isoForm) {
+    public void testParser(final Calendar vulgar, final String isoForm) {
         final DateParser parser = new FastDateParser("YYYY-'W'ww-u", TimeZone.getDefault(), Locale.getDefault());
 
         final Calendar cal = Calendar.getInstance();
@@ -68,7 +68,7 @@ public class WeekYearTest {
 
     @ParameterizedTest
     @MethodSource("data")
-    public void testPrinter(Calendar vulgar, String isoForm) {
+    public void testPrinter(final Calendar vulgar, final String isoForm) {
         final FastDatePrinter printer = new FastDatePrinter("YYYY-'W'ww-u", TimeZone.getDefault(), Locale.getDefault());
 
         vulgar.setMinimalDaysInFirstWeek(4);

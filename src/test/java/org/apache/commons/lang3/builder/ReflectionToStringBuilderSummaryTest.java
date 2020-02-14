@@ -23,10 +23,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ReflectionToStringBuilderSummaryTest {
 
     @SuppressWarnings("unused")
-    private String stringField = "string";
+    private final String stringField = "string";
 
     @ToStringSummary
-    private String summaryString = "summary";
+    private final String summaryString = "summary";
 
     @Test
     public void testSummary() {

@@ -173,7 +173,7 @@ public class FieldUtilsTest {
         final Field[] allFields = FieldUtils.getAllFields(PublicChild.class);
         // Under Jacoco,0.8.1 and Java 10, the field count is 7.
         int expected = 5;
-        for (Field field : allFields) {
+        for (final Field field : allFields) {
             if (field.getName().equals(JACOCO_DATA_FIELD_NAME)) {
                 expected++;
             }
@@ -193,7 +193,7 @@ public class FieldUtilsTest {
         final List<Field> allFields = FieldUtils.getAllFieldsList(PublicChild.class);
         // Under Jacoco,0.8.1 and Java 10, the field count is 7.
         int expected = 5;
-        for (Field field : allFields) {
+        for (final Field field : allFields) {
             if (field.getName().equals(JACOCO_DATA_FIELD_NAME)) {
                 expected++;
             }
@@ -672,7 +672,7 @@ public class FieldUtilsTest {
 
     @Test
     public void testWriteStaticField() throws Exception {
-        Field field = StaticContainer.class.getDeclaredField("mutablePublic");
+        final Field field = StaticContainer.class.getDeclaredField("mutablePublic");
         FieldUtils.writeStaticField(field, "new");
         assertEquals("new", StaticContainer.mutablePublic);
         assertThrows(
@@ -830,7 +830,7 @@ public class FieldUtilsTest {
 
     @Test
     public void testWriteField() throws Exception {
-        Field field = parentClass.getDeclaredField("s");
+        final Field field = parentClass.getDeclaredField("s");
         FieldUtils.writeField(field, publicChild, "S");
         assertEquals("S", field.get(publicChild));
         assertThrows(
@@ -1049,10 +1049,10 @@ public class FieldUtilsTest {
      * @param forceAccess {@link Boolean} to be curried into
      *              {@link FieldUtils#removeFinalModifier(Field, boolean)}.
      */
-    private void callRemoveFinalModifierCheckForException(Field field, Boolean forceAccess) {
+    private void callRemoveFinalModifierCheckForException(final Field field, final Boolean forceAccess) {
         try {
             FieldUtils.removeFinalModifier(field, forceAccess);
-        } catch (UnsupportedOperationException exception) {
+        } catch (final UnsupportedOperationException exception) {
             if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_12)) {
                 assertTrue(exception.getCause() instanceof NoSuchFieldException);
             } else {

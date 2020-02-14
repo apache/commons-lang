@@ -55,7 +55,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
         }
 
         @Override
-        public R setValue(R value) {
+        public R setValue(final R value) {
             return null;
         }
 
