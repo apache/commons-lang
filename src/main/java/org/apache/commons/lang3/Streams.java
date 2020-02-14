@@ -60,7 +60,7 @@ import org.apache.commons.lang3.Functions.FailablePredicate;
  */
 public class Streams {
 
-   /** 
+   /**
     * A reduced, and simplified version of a {@link Stream} with
     * failable method signatures.
     * @param <O> The streams element type.
