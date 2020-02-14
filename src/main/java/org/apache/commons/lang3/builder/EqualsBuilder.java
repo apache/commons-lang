@@ -267,7 +267,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return EqualsBuilder - used to chain calls.
      * @since 3.8
      */
-    public EqualsBuilder setBypassReflectionClasses(List<Class<?>> bypassReflectionClasses) {
+    public EqualsBuilder setBypassReflectionClasses(final List<Class<?>> bypassReflectionClasses) {
         this.bypassReflectionClasses = bypassReflectionClasses;
         return this;
     }

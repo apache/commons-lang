@@ -535,7 +535,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String capitalize(final String str) {
-        int strLen = length(str);
+        final int strLen = length(str);
         if (strLen == 0) {
             return str;
         }
@@ -3546,7 +3546,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from isBlank(String) to isBlank(CharSequence)
      */
     public static boolean isBlank(final CharSequence cs) {
-        int strLen = length(cs);
+        final int strLen = length(cs);
         if (strLen == 0) {
             return true;
         }
@@ -8355,7 +8355,7 @@ public class StringUtils {
      * @return the stripped String, {@code null} if null String input
      */
     public static String stripStart(final String str, final String stripChars) {
-        int strLen = length(str);
+        final int strLen = length(str);
         if (strLen == 0) {
             return str;
         }
@@ -9203,7 +9203,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String uncapitalize(final String str) {
-        int strLen = length(str);
+        final int strLen = length(str);
         if (strLen == 0) {
             return str;
         }

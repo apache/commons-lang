@@ -1727,7 +1727,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final boolean[] array, final boolean valueToFind, int startIndex) {
-        BitSet bitSet = new BitSet();
+        final BitSet bitSet = new BitSet();
 
         if (array == null) {
             return bitSet;
@@ -1778,7 +1778,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final byte[] array, final byte valueToFind, int startIndex) {
-        BitSet bitSet = new BitSet();
+        final BitSet bitSet = new BitSet();
 
         if (array == null) {
             return bitSet;
@@ -1829,7 +1829,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final char[] array, final char valueToFind, int startIndex) {
-        BitSet bitSet = new BitSet();
+        final BitSet bitSet = new BitSet();
 
         if (array == null) {
             return bitSet;
@@ -1901,7 +1901,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final double[] array, final double valueToFind, int startIndex) {
-        BitSet bitSet = new BitSet();
+        final BitSet bitSet = new BitSet();
 
         if (array == null) {
             return bitSet;
@@ -1943,7 +1943,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final double[] array, final double valueToFind, int startIndex, final double tolerance) {
-        BitSet bitSet = new BitSet();
+        final BitSet bitSet = new BitSet();
 
         if (array == null) {
             return bitSet;
@@ -1994,7 +1994,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final float[] array, final float valueToFind, int startIndex) {
-        BitSet bitSet = new BitSet();
+        final BitSet bitSet = new BitSet();
 
         if (array == null) {
             return bitSet;
@@ -2045,7 +2045,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final int[] array, final int valueToFind, int startIndex) {
-        BitSet bitSet = new BitSet();
+        final BitSet bitSet = new BitSet();
 
         if (array == null) {
             return bitSet;
@@ -2096,7 +2096,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final long[] array, final long valueToFind, int startIndex) {
-        BitSet bitSet = new BitSet();
+        final BitSet bitSet = new BitSet();
 
         if (array == null) {
             return bitSet;
@@ -2147,7 +2147,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final Object[] array, final Object objectToFind, int startIndex) {
-        BitSet bitSet = new BitSet();
+        final BitSet bitSet = new BitSet();
 
         if (array == null) {
             return bitSet;
@@ -2198,7 +2198,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static BitSet indexesOf(final short[] array, final short valueToFind, int startIndex) {
-        BitSet bitSet = new BitSet();
+        final BitSet bitSet = new BitSet();
 
         if (array == null) {
             return bitSet;
@@ -3084,7 +3084,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @return Whether the given index is safely-accessible in the given array
      * @since 3.8
      */
-    public static <T> boolean isArrayIndexValid(T[] array, int index) {
+    public static <T> boolean isArrayIndexValid(final T[] array, final int index) {
         if (getLength(array) == 0 || array.length <= index) {
             return false;
         }

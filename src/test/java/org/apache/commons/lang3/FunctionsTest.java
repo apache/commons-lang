@@ -49,11 +49,11 @@ class FunctionsTest {
 
         private Throwable t;
 
-        SomeException(String pMsg) {
+        SomeException(final String pMsg) {
             super(pMsg);
         }
 
-        public void setThrowable(Throwable pThrowable) {
+        public void setThrowable(final Throwable pThrowable) {
             t = pThrowable;
         }
 
@@ -66,11 +66,11 @@ class FunctionsTest {
     public static class Testable {
         private Throwable t;
 
-        Testable(Throwable pTh) {
+        Testable(final Throwable pTh) {
             t = pTh;
         }
 
-        public void setThrowable(Throwable pThrowable) {
+        public void setThrowable(final Throwable pThrowable) {
             t = pThrowable;
         }
 
@@ -78,7 +78,7 @@ class FunctionsTest {
             test(t);
         }
 
-        public void test(Throwable pThrowable) throws Throwable {
+        public void test(final Throwable pThrowable) throws Throwable {
             if (pThrowable != null) {
                 throw pThrowable;
             }
@@ -88,7 +88,7 @@ class FunctionsTest {
             return testInt(t);
         }
 
-        public Integer testInt(Throwable pThrowable) throws Throwable {
+        public Integer testInt(final Throwable pThrowable) throws Throwable {
             if (pThrowable != null) {
                 throw pThrowable;
             }
@@ -117,7 +117,7 @@ class FunctionsTest {
     public static class CloseableObject {
         private boolean closed;
 
-        public void run(Throwable pTh) throws Throwable {
+        public void run(final Throwable pTh) throws Throwable {
             if (pTh != null) {
                 throw pTh;
             }
@@ -139,7 +139,7 @@ class FunctionsTest {
     @Test
     void testRunnable() {
         FailureOnOddInvocations.invocation = 0;
-        UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  Functions.run(FailureOnOddInvocations::new));
+        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  Functions.run(FailureOnOddInvocations::new));
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
@@ -152,8 +152,8 @@ class FunctionsTest {
     @Test
     void testAsRunnable() {
         FailureOnOddInvocations.invocation = 0;
-        Runnable runnable = Functions.asRunnable(() -> new FailureOnOddInvocations());
-        UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  runnable.run());
+        final Runnable runnable = Functions.asRunnable(() -> new FailureOnOddInvocations());
+        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  runnable.run());
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
@@ -166,7 +166,7 @@ class FunctionsTest {
     @Test
     void testCallable() {
         FailureOnOddInvocations.invocation = 0;
-        UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  Functions.run(FailureOnOddInvocations::new));
+        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  Functions.run(FailureOnOddInvocations::new));
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
@@ -182,7 +182,7 @@ class FunctionsTest {
             return new FailureOnOddInvocations();
         };
         final Callable<FailureOnOddInvocations> callable = Functions.asCallable(failableCallable);
-        UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  callable.call());
+        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  callable.call());
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
@@ -190,7 +190,7 @@ class FunctionsTest {
         final FailureOnOddInvocations instance;
         try {
             instance = callable.call();
-        } catch (Exception ex) {
+        } catch (final Exception ex) {
             throw Functions.rethrow(ex);
         }
         assertNotNull(instance);
@@ -394,7 +394,7 @@ class FunctionsTest {
     @Test
     public void testGetFromSupplier() {
         FailureOnOddInvocations.invocation = 0;
-        UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  Functions.run(FailureOnOddInvocations::new));
+        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  Functions.run(FailureOnOddInvocations::new));
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
@@ -409,7 +409,7 @@ class FunctionsTest {
         FailureOnOddInvocations.invocation = 0;
         final Functions.FailablePredicate<Object, Throwable> failablePredicate = (t) -> FailureOnOddInvocations.failingBool();
         final Predicate<?> predicate = Functions.asPredicate(failablePredicate);
-        UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () -> predicate.test(null));
+        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () -> predicate.test(null));
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
@@ -424,7 +424,7 @@ class FunctionsTest {
         FailureOnOddInvocations.invocation = 0;
         final Functions.FailableBiPredicate<Object, Object, Throwable> failableBiPredicate = (t1, t2) -> FailureOnOddInvocations.failingBool();
         final BiPredicate<?, ?> predicate = Functions.asBiPredicate(failableBiPredicate);
-        UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () -> predicate.test(null, null));
+        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () -> predicate.test(null, null));
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
@@ -438,7 +438,7 @@ class FunctionsTest {
         FailureOnOddInvocations.invocation = 0;
         final FailableSupplier<FailureOnOddInvocations, Throwable> failableSupplier = () -> new FailureOnOddInvocations();
         final Supplier<FailureOnOddInvocations> supplier = Functions.asSupplier(failableSupplier);
-        UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  supplier.get());
+        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  supplier.get());
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
@@ -464,7 +464,7 @@ class FunctionsTest {
         assertTrue(co.isClosed());
         co.reset();
         final IOException ioe = new IOException("Unknown I/O error");
-        UncheckedIOException uioe = assertThrows(UncheckedIOException.class, () ->  Functions.tryWithResources(() -> consumer.accept(ioe), co::close));
+        final UncheckedIOException uioe = assertThrows(UncheckedIOException.class, () ->  Functions.tryWithResources(() -> consumer.accept(ioe), co::close));
         final IOException cause = uioe.getCause();
         assertSame(ioe, cause);
 

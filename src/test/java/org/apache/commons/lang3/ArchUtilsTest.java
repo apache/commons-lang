@@ -98,7 +98,7 @@ public class ArchUtilsTest {
 
     @Test
     public void testArchLabels() {
-        for (Arch arch : Arch.values()) {
+        for (final Arch arch : Arch.values()) {
             // Only test label presence.
             assertFalse(arch.getLabel().isEmpty());
         }

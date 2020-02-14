@@ -785,7 +785,7 @@ public class MethodUtils {
     }
 
     /**
-     * Get the hierarchy of overridden methods down to {@code result} respecting generics.
+     * Gets the hierarchy of overridden methods down to {@code result} respecting generics.
      * @param method lowest to consider
      * @param interfacesBehavior whether to search interfaces, {@code null} {@code implies} false
      * @return Set&lt;Method&gt; in ascending order from sub- to superclass

@@ -161,8 +161,8 @@ public class EventCountCircuitBreakerTest {
         final long timeIncrement = NANO_FACTOR / OPENING_THRESHOLD - 1;
         final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 1,
             TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
-        long startTime = timeIncrement * (OPENING_THRESHOLD + 1);
-        boolean open = !breaker.at(startTime).incrementAndCheckState(OPENING_THRESHOLD + 1);
+        final long startTime = timeIncrement * (OPENING_THRESHOLD + 1);
+        final boolean open = !breaker.at(startTime).incrementAndCheckState(OPENING_THRESHOLD + 1);
         assertTrue(open, "Not open");
         assertFalse(breaker.isClosed(), "Closed");
     }

@@ -121,8 +121,8 @@ public class ObjectUtilsTest {
         assertSame(o, ObjectUtils.getIfNull(o, () -> dflt), "dflt was returned when o was not null");
         assertSame(o, ObjectUtils.getIfNull(FOO, () -> dflt), "dflt was returned when o was not null");
         assertSame(o, ObjectUtils.getIfNull("foo", () -> dflt), "dflt was returned when o was not null");
-        MutableInt callsCounter = new MutableInt(0);
-        Supplier<Object> countingDefaultSupplier = () -> {
+        final MutableInt callsCounter = new MutableInt(0);
+        final Supplier<Object> countingDefaultSupplier = () -> {
             callsCounter.increment();
             return dflt;
         };
@@ -539,7 +539,7 @@ public class ObjectUtilsTest {
     @Test
     public void testCloneOfUncloneable() {
         final UncloneableString string = new UncloneableString("apache");
-        CloneFailedException e = assertThrows(CloneFailedException.class, () -> ObjectUtils.clone(string));
+        final CloneFailedException e = assertThrows(CloneFailedException.class, () -> ObjectUtils.clone(string));
         assertEquals(NoSuchMethodException.class, e.getCause().getClass());
     }
 
@@ -585,7 +585,7 @@ public class ObjectUtilsTest {
     @Test
     public void testPossibleCloneOfUncloneable() {
         final UncloneableString string = new UncloneableString("apache");
-        CloneFailedException e = assertThrows(CloneFailedException.class, () -> ObjectUtils.cloneIfPossible(string));
+        final CloneFailedException e = assertThrows(CloneFailedException.class, () -> ObjectUtils.cloneIfPossible(string));
         assertEquals(NoSuchMethodException.class, e.getCause().getClass());
     }
 

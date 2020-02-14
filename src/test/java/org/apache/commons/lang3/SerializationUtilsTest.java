@@ -159,7 +159,7 @@ public class SerializationUtilsTest {
                 throw new IOException(SERIALIZE_IO_EXCEPTION_MESSAGE);
             }
         };
-        SerializationException e =
+        final SerializationException e =
                 assertThrows(SerializationException.class, () -> SerializationUtils.serialize(iMap, streamTest));
         assertEquals("java.io.IOException: " + SERIALIZE_IO_EXCEPTION_MESSAGE, e.getMessage());
     }
@@ -232,7 +232,7 @@ public class SerializationUtilsTest {
         oos.close();
 
         final ByteArrayInputStream inTest = new ByteArrayInputStream(streamReal.toByteArray());
-        SerializationException se =
+        final SerializationException se =
                 assertThrows(SerializationException.class, () -> SerializationUtils.deserialize(inTest));
         assertEquals("java.lang.ClassNotFoundException: " + CLASS_NOT_FOUND_MESSAGE, se.getMessage());
     }

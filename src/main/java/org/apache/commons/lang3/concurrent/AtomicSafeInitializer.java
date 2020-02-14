@@ -62,7 +62,7 @@ public abstract class AtomicSafeInitializer<T> implements
     private final AtomicReference<T> reference = new AtomicReference<>();
 
     /**
-     * Get (and initialize, if not initialized yet) the required object
+     * Gets (and initialize, if not initialized yet) the required object
      *
      * @return lazily initialized object
      * @throws ConcurrentException if the initialization of the object causes an
