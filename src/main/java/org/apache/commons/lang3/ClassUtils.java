@@ -53,7 +53,7 @@ public class ClassUtils {
 
         /** Includes interfaces. */
         INCLUDE,
-        
+
         /** Excludes interfaces. */
         EXCLUDE
     }

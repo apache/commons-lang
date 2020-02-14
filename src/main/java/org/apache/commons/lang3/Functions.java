@@ -417,7 +417,7 @@ public class Functions {
      * @return The created {@link FailableStream}.
      */
     public static <O> FailableStream<O> stream(final Stream<O> pStream) {
-        return new FailableStream<O>(pStream);
+        return new FailableStream<>(pStream);
     }
 
     /**
@@ -434,7 +434,7 @@ public class Functions {
      * @return The created {@link FailableStream}.
      */
     public static <O> FailableStream<O> stream(final Collection<O> pCollection) {
-        return new FailableStream<O>(pCollection.stream());
+        return new FailableStream<>(pCollection.stream());
     }
 
 

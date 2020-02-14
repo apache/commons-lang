@@ -279,7 +279,7 @@ public class Streams {
          */
         public <R> FailableStream<R> map(final FailableFunction<O, R, ?> pMapper) {
             assertNotTerminated();
-            return new FailableStream<R>(stream.map(Functions.asFunction(pMapper)));
+            return new FailableStream<>(stream.map(Functions.asFunction(pMapper)));
         }
 
         /**
@@ -376,7 +376,7 @@ public class Streams {
      *   converting the stream.
      */
     public static <O> FailableStream<O> stream(final Stream<O> pStream) {
-        return new FailableStream<O>(pStream);
+        return new FailableStream<>(pStream);
     }
 
     /**
