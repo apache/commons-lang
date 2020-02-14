@@ -439,8 +439,8 @@ public class Streams {
         private static final Set<Characteristics> characteristics = Collections.emptySet();
         private final Class<O> elementType;
 
-        public ArrayCollector(final Class<O> pElementType) {
-            elementType = pElementType;
+        public ArrayCollector(final Class<O> elementType) {
+            this.elementType = elementType;
         }
 
         @Override
