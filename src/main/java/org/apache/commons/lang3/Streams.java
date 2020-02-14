@@ -439,13 +439,13 @@ public class Streams {
         private static final Set<Characteristics> characteristics = Collections.emptySet();
         private final Class<O> elementType;
 
-        public ArrayCollector(Class<O> pElementType) {
+        public ArrayCollector(final Class<O> pElementType) {
             elementType = pElementType;
         }
 
         @Override
         public Supplier<List<O>> supplier() {
-            return () -> new ArrayList<O>();
+            return () -> new ArrayList<>();
         }
 
         @Override
@@ -487,7 +487,7 @@ public class Streams {
      * @return a {@code Collector} which collects all the input elements into an
      * array, in encounter order
      */
-    public static <O extends Object> Collector<O, ?, O[]> toArray(Class<O> pElementType) {
-        return new ArrayCollector<O>(pElementType);
+    public static <O extends Object> Collector<O, ?, O[]> toArray(final Class<O> pElementType) {
+        return new ArrayCollector<>(pElementType);
     }
 }
