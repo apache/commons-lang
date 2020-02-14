@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -62,6 +63,16 @@ class StreamsTest {
         for (int i = 0;  i < 6;  i++) {
             assertEquals(i+1, output.get(i).intValue());
         }
+    }
+
+    @Test
+    void testToArray() {
+        final String[] array = Arrays.asList("2", "3", "1").stream().collect(Streams.toArray(String.class));
+        assertNotNull(array);
+        assertEquals(3, array.length);
+        assertEquals("2", array[0]);
+        assertEquals("3", array[1]);
+        assertEquals("1", array[2]);
     }
 
     protected <T extends Throwable> FailableConsumer<String, T> asIntConsumer(T pThrowable) {

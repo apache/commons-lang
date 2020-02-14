@@ -16,7 +16,12 @@
  */
 package org.apache.commons.lang3;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
@@ -419,5 +424,61 @@ public class Streams {
      */
     public static <O> FailableStream<O> stream(Collection<O> pStream) {
         return stream(pStream.stream());
+    }
+
+    public static class ArrayCollector<O> implements Collector<O, List<O>, O[]> {
+        private static final Set<Characteristics> characteristics = Collections.emptySet();
+        private final Class<O> elementType;
+
+        public ArrayCollector(Class<O> pElementType) {
+            elementType = pElementType;
+        }
+
+        @Override
+        public Supplier<List<O>> supplier() {
+            return () -> new ArrayList<O>();
+        }
+
+        @Override
+        public BiConsumer<List<O>, O> accumulator() {
+            return (list, o) -> {
+                list.add(o);
+            };
+        }
+
+        @Override
+        public BinaryOperator<List<O>> combiner() {
+            return (left, right) -> {
+                left.addAll(right);
+                return left;
+            };
+        }
+
+        @Override
+        public Function<List<O>, O[]> finisher() {
+            return (list) -> {
+                @SuppressWarnings("unchecked")
+                final O[] array = (O[]) Array.newInstance(elementType, list.size());
+                return list.toArray(array);
+            };
+        }
+
+        @Override
+        public Set<Characteristics> characteristics() {
+            return characteristics;
+        }
+    }
+
+    /**
+     * Returns a {@code Collector} that accumulates the input elements into a
+     * new array.
+     *
+     * @param pElementType Type of an element in the array.
+     * @param <O> the type of the input elements
+     * @return a {@code Collector} which collects all the input elements into an
+     * array, in encounter order
+     */
+    public static <O extends Object> Collector<O, ?, O[]> toArray(Class<O> pElementType) {
+        return new ArrayCollector<O>(pElementType);
     }
 }
