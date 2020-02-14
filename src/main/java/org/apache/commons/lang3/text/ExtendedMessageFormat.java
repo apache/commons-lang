@@ -295,7 +295,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * Get a custom format from a format description.
+     * Gets a custom format from a format description.
      *
      * @param desc String
      * @return Format

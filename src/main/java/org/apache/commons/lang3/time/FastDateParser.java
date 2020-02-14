@@ -451,7 +451,7 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     /**
-     * Get the short and long values displayed for a field
+     * Gets the short and long values displayed for a field
      * @param cal The calendar to obtain the short and long values
      * @param locale The locale of display names
      * @param field The field of interest
@@ -606,7 +606,7 @@ public class FastDateParser implements DateParser, Serializable {
     private static final ConcurrentMap<Locale, Strategy>[] caches = new ConcurrentMap[Calendar.FIELD_COUNT];
 
     /**
-     * Get a cache of Strategies for a particular field
+     * Gets a cache of Strategies for a particular field
      * @param field The Calendar field
      * @return a cache of Locale to Strategy
      */
@@ -620,7 +620,7 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     /**
-     * Construct a Strategy that parses a Text field
+     * Constructs a Strategy that parses a Text field
      * @param field The Calendar field
      * @param definingCalendar The calendar to obtain the short and long values
      * @return a TextStrategy for the field and Locale
@@ -648,7 +648,7 @@ public class FastDateParser implements DateParser, Serializable {
         private final String formatField;
 
         /**
-         * Construct a Strategy that ensures the formatField has literal text
+         * Constructs a Strategy that ensures the formatField has literal text
          * @param formatField The literal text to match
          */
         CopyQuotedStrategy(final String formatField) {
@@ -690,7 +690,7 @@ public class FastDateParser implements DateParser, Serializable {
         private final Map<String, Integer> lKeyValues;
 
         /**
-         * Construct a Strategy that parses a Text field
+         * Constructs a Strategy that parses a Text field
          * @param field  The Calendar field
          * @param definingCalendar  The Calendar to use
          * @param locale  The Locale to use
@@ -730,7 +730,7 @@ public class FastDateParser implements DateParser, Serializable {
         private final int field;
 
         /**
-         * Construct a Strategy that parses a Number field
+         * Constructs a Strategy that parses a Number field
          * @param field The Calendar field
          */
         NumberStrategy(final int field) {
@@ -833,7 +833,7 @@ public class FastDateParser implements DateParser, Serializable {
         private static final int ID = 0;
 
         /**
-         * Construct a Strategy that parses a TimeZone
+         * Constructs a Strategy that parses a TimeZone
          * @param locale The Locale
          */
         TimeZoneStrategy(final Locale locale) {
@@ -912,7 +912,7 @@ public class FastDateParser implements DateParser, Serializable {
         // Z, +hh, -hh, +hhmm, -hhmm, +hh:mm or -hh:mm
 
         /**
-         * Construct a Strategy that parses a TimeZone
+         * Constructs a Strategy that parses a TimeZone
          * @param pattern The Pattern
          */
         ISO8601TimeZoneStrategy(final String pattern) {
