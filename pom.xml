@@ -601,6 +601,7 @@
 
     <checkstyle.plugin.version>3.1.0</checkstyle.plugin.version>
     <checkstyle.version>8.29</checkstyle.version>
+    <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
 
     <spotbugs.plugin.version>3.1.12.2</spotbugs.plugin.version>
     <japicmp.skip>false</japicmp.skip>
@@ -744,7 +745,7 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${checkstyle.plugin.version}</version>
         <configuration>
-          <configLocation>${basedir}/checkstyle.xml</configLocation>
+          <configLocation>${checkstyle.configdir}/checkstyle.xml</configLocation>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
           <enableRulesSummary>false</enableRulesSummary>
         </configuration>
@@ -781,7 +782,7 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${checkstyle.plugin.version}</version>
         <configuration>
-          <configLocation>${basedir}/checkstyle.xml</configLocation>
+          <configLocation>${checkstyle.configdir}/checkstyle.xml</configLocation>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
           <enableRulesSummary>false</enableRulesSummary>
         </configuration>
