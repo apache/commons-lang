@@ -599,7 +599,7 @@
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.encoding>utf-8</commons.encoding>
 
-    <checkstyle.plugin.version>3.1.0</checkstyle.plugin.version>
+    <checkstyle.plugin.version>3.1.1</checkstyle.plugin.version>
     <checkstyle.version>8.29</checkstyle.version>
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
 
@@ -610,13 +610,13 @@
     <jmh.version>1.21</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
 
-    <commons.jacoco.version>0.8.4</commons.jacoco.version>
-    <commons.surefire.version>3.0.0-M3</commons.surefire.version>
-    <commons.javadoc.version>3.1.0</commons.javadoc.version>
+    <commons.jacoco.version>0.8.5</commons.jacoco.version>
+    <commons.surefire.version>3.0.0-M4</commons.surefire.version>
+    <commons.javadoc.version>3.1.1</commons.javadoc.version>
 
     <!-- generate report even if there are binary incompatible changes -->
     <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>false</commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
-    <commons.japicmp.version>0.14.1</commons.japicmp.version>
+    <commons.japicmp.version>0.14.3</commons.japicmp.version>
 
     <!-- Commons Release Plugin -->
     <commons.bc.version>3.9</commons.bc.version>
@@ -665,7 +665,7 @@
           <docEncoding>utf-8</docEncoding>
           <notimestamp>true</notimestamp>
           <links>
-            <link>http://docs.oracle.com/javase/7/docs/api/</link>
+            <link>https://docs.oracle.com/javase/8/docs/api/</link>
             <link>http://docs.oracle.com/javaee/6/api/</link>
           </links>
           <archive>
@@ -805,7 +805,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.12.0</version>
+        <version>3.13.0</version>
         <configuration>
           <targetJdk>${maven.compiler.target}</targetJdk>
         </configuration>
