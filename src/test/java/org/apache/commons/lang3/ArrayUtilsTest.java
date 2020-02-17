@@ -3146,8 +3146,8 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexesOf() {
         final Object[] array = new Object[]{"0", "1", "2", "3", null, "0"};
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf((Object[]) null, null));
         assertEquals(emptySet, ArrayUtils.indexesOf(new Object[0], "0"));
         testSet.set(5);
@@ -3168,8 +3168,8 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexesOfWithStartIndex() {
         final Object[] array = new Object[]{"0", "1", "2", "3", "2", "3", "1", null, "0"};
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf(null, null, 2));
         assertEquals(emptySet, ArrayUtils.indexesOf(new Object[0], "0", 0));
         assertEquals(emptySet, ArrayUtils.indexesOf(null, "0", 2));
@@ -3288,8 +3288,8 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexesOfLong() {
         final long[] array = new long[]{0, 1, 2, 3};
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf((long[]) null, 0));
         assertEquals(emptySet, ArrayUtils.indexesOf(array, 4));
         testSet.set(0);
@@ -3308,8 +3308,8 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexesOfLongWithStartIndex() {
         final long[] array = new long[]{0, 1, 2, 3, 2, 1, 0, 1};
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf((long[]) null, 0, 0));
         assertEquals(emptySet, ArrayUtils.indexesOf(array, 4, 0));
         testSet.set(6);
@@ -3399,8 +3399,8 @@ public class ArrayUtilsTest {
     @Test
     public void textIndexesOfInt() {
         int[] array = null;
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf(array, 0));
         array = new int[]{0, 1, 2, 3, 0};
         testSet.set(0);
@@ -3421,8 +3421,8 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexesOfIntWithStartIndex() {
         int[] array = null;
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf(array, 0, 2));
         array = new int[]{0, 1, 2, 3, 0};
         testSet.set(4);
@@ -3510,8 +3510,8 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexesOfShort() {
         short[] array = null;
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf(array, (short) 0));
         array = new short[]{0, 1, 2, 3, 0};
         testSet.set(0);
@@ -3532,8 +3532,8 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexesOfShortWithStartIndex() {
         short[] array = null;
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf(array, (short) 0, 2));
         array = new short[]{0, 1, 2, 3, 0};
         testSet.set(4);
@@ -3621,8 +3621,8 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexesOfChar() {
         char[] array = null;
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf(array, 'a'));
         array = new char[]{'a', 'b', 'c', 'd', 'a'};
         testSet.set(0);
@@ -3643,8 +3643,8 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexesOfCharWithStartIndex() {
         char[] array = null;
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf(array, 'a', 0));
         array = new char[]{'a', 'b', 'c', 'd', 'a'};
         testSet.set(4);
@@ -3733,8 +3733,8 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexesOfByte() {
         byte[] array = null;
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf(array, (byte) 0));
         array = new byte[]{0, 1, 2, 3, 0};
         testSet.set(0);
@@ -3755,8 +3755,8 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexesOfByteWithStartIndex() {
         byte[] array = null;
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf(array, (byte) 0, 2));
         array = new byte[]{0, 1, 2, 3, 0};
         testSet.set(4);
@@ -3883,8 +3883,8 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexesOfDouble() {
         double[] array = null;
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf(array, 0));
         array = new double[]{0, 1, 2, 3, 0};
         testSet.set(0);
@@ -3906,8 +3906,8 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexesOfDoubleWithStartIndex() {
         double[] array = null;
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf(array, 0, 2));
         array = new double[]{0, 1, 2, 3, 0};
         testSet.set(4);
@@ -3931,8 +3931,8 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexesOfDoubleTolerance() {
         double[] array = null;
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf(array, (double) 0, (double) 0));
         array = new double[0];
         assertEquals(emptySet, ArrayUtils.indexesOf(array, (double) 0, (double) 0));
@@ -3952,8 +3952,8 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexesOfDoubleWithStartIndexTolerance() {
         double[] array = null;
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf(array, (double) 0, 0, (double) 0));
         array = new double[0];
         assertEquals(emptySet, ArrayUtils.indexesOf(array, (double) 0, 0, (double) 0));
@@ -4102,8 +4102,8 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexesOfFloat() {
         float[] array = null;
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf(array, 0));
         array = new float[]{0, 1, 2, 3, 0};
         testSet.set(0);
@@ -4125,8 +4125,8 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexesOfFloatWithStartIndex() {
         float[] array = null;
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf(array, 0, 2));
         array = new float[]{0, 1, 2, 3, 0};
         testSet.set(4);
@@ -4224,8 +4224,8 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexesOfBoolean() {
         boolean[] array = null;
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf(array, true));
         array = new boolean[0];
         assertEquals(emptySet, ArrayUtils.indexesOf(array, true));
@@ -4243,8 +4243,8 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexesOfBooleanWithStartIndex() {
         boolean[] array = null;
-        BitSet emptySet = new BitSet();
-        BitSet testSet = new BitSet();
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
         assertEquals(emptySet, ArrayUtils.indexesOf(array, true, 0));
         array = new boolean[0];
         assertEquals(emptySet, ArrayUtils.indexesOf(array, true, 0));
@@ -5160,7 +5160,7 @@ public class ArrayUtilsTest {
     @Test
     public void testIsArrayIndexValid() {
         assertFalse(ArrayUtils.isArrayIndexValid(null, 0));
-        String[] array = new String[1];
+        final String[] array = new String[1];
 
         //too big
         assertFalse(ArrayUtils.isArrayIndexValid(array, 1));

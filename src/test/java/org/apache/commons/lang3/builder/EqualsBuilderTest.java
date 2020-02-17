@@ -447,7 +447,7 @@ public class EqualsBuilderTest {
     @Test
     public void testObjectRecursiveGenericString() {
         // Note: Do not use literals, because string literals are always mapped by same object (internal() of String))!
-        String s1_a = String.valueOf(1);
+        final String s1_a = String.valueOf(1);
         final TestRecursiveGenericObject<String> o1_a = new TestRecursiveGenericObject<>(s1_a);
         final TestRecursiveGenericObject<String> o1_b = new TestRecursiveGenericObject<>(String.valueOf(1));
         final TestRecursiveGenericObject<String> o2 = new TestRecursiveGenericObject<>(String.valueOf(2));

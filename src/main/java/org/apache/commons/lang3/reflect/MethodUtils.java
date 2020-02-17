@@ -25,6 +25,8 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -58,6 +60,13 @@ import org.apache.commons.lang3.Validate;
  * @since 2.5
  */
 public class MethodUtils {
+
+  private static final Comparator<Method> METHOD_BY_SIGNATURE = new Comparator<Method>() {
+    @Override
+    public int compare(final Method m1, final Method m2) {
+        return m1.toString ().compareTo (m2.toString ());
+    }
+  };
 
     /**
      * <p>{@link MethodUtils} instances should NOT be constructed in standard programming.
@@ -462,8 +471,8 @@ public class MethodUtils {
      * @since 3.5
      */
     static Object[] getVarArgs(final Object[] args, final Class<?>[] methodParameterTypes) {
-        if (args.length == methodParameterTypes.length
-                && args[args.length - 1].getClass().equals(methodParameterTypes[methodParameterTypes.length - 1])) {
+        if (args.length == methodParameterTypes.length && (args[args.length - 1] == null ||
+                args[args.length - 1].getClass().equals(methodParameterTypes[methodParameterTypes.length - 1]))) {
             // The args array is already in the canonical form for the method.
             return args;
         }
@@ -679,20 +688,28 @@ public class MethodUtils {
         } catch (final NoSuchMethodException e) { // NOPMD - Swallow the exception
         }
         // search through all methods
-        Method bestMatch = null;
         final Method[] methods = cls.getMethods();
+        final List<Method> matchingMethods = new ArrayList<>();
         for (final Method method : methods) {
             // compare name and parameters
             if (method.getName().equals(methodName) &&
                     MemberUtils.isMatchingMethod(method, parameterTypes)) {
-                // get accessible version of method
-                final Method accessibleMethod = getAccessibleMethod(method);
-                if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareMethodFit(
-                            accessibleMethod,
-                            bestMatch,
-                            parameterTypes) < 0)) {
-                    bestMatch = accessibleMethod;
-                }
+                matchingMethods.add (method);
+            }
+        }
+
+        // Sort methods by signature to force deterministic result
+        Collections.sort (matchingMethods, METHOD_BY_SIGNATURE);
+
+        Method bestMatch = null;
+        for (final Method method : matchingMethods) {
+            // get accessible version of method
+            final Method accessibleMethod = getAccessibleMethod(method);
+            if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareMethodFit(
+                        accessibleMethod,
+                        bestMatch,
+                        parameterTypes) < 0)) {
+                bestMatch = accessibleMethod;
             }
         }
         if (bestMatch != null) {
@@ -703,10 +720,12 @@ public class MethodUtils {
             final Class<?>[] methodParameterTypes = bestMatch.getParameterTypes();
             final Class<?> methodParameterComponentType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
             final String methodParameterComponentTypeName = ClassUtils.primitiveToWrapper(methodParameterComponentType).getName();
-            final String parameterTypeName = parameterTypes[parameterTypes.length - 1].getName();
-            final String parameterTypeSuperClassName = parameterTypes[parameterTypes.length - 1].getSuperclass().getName();
 
-            if (!methodParameterComponentTypeName.equals(parameterTypeName)
+            final Class<?> lastParameterType = parameterTypes[parameterTypes.length - 1];
+            final String parameterTypeName = (lastParameterType==null) ? null : lastParameterType.getName();
+            final String parameterTypeSuperClassName = (lastParameterType==null) ? null : lastParameterType.getSuperclass().getName();
+
+            if (parameterTypeName!= null && parameterTypeSuperClassName != null && !methodParameterComponentTypeName.equals(parameterTypeName)
                     && !methodParameterComponentTypeName.equals(parameterTypeSuperClassName)) {
                 return null;
             }
@@ -785,7 +804,7 @@ public class MethodUtils {
     }
 
     /**
-     * Get the hierarchy of overridden methods down to {@code result} respecting generics.
+     * Gets the hierarchy of overridden methods down to {@code result} respecting generics.
      * @param method lowest to consider
      * @param interfacesBehavior whether to search interfaces, {@code null} {@code implies} false
      * @return Set&lt;Method&gt; in ascending order from sub- to superclass

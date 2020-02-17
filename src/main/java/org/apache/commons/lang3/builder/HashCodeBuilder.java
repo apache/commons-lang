@@ -959,7 +959,7 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Return the computed {@code hashCode}.
+     * Returns the computed {@code hashCode}.
      * </p>
      *
      * @return {@code hashCode} based on the fields appended

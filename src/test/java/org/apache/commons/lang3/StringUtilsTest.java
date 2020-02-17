@@ -239,7 +239,7 @@ public class StringUtilsTest {
     //Fixed LANG-1463
     @Test
     public void testAbbreviateMarkerWithEmptyString() {
-        String greaterThanMaxTest = "much too long text";
+        final String greaterThanMaxTest = "much too long text";
         assertEquals("much too long", StringUtils.abbreviate(greaterThanMaxTest, "", 13));
     }
 
@@ -684,8 +684,8 @@ public class StringUtilsTest {
         final String s = StringUtils.getIfBlank("abc", () -> "NULL");
         assertEquals("abc", s);
         //Checking that default value supplied only on demand
-        MutableInt numberOfCalls = new MutableInt(0);
-        Supplier<String> countingDefaultSupplier = () -> {
+        final MutableInt numberOfCalls = new MutableInt(0);
+        final Supplier<String> countingDefaultSupplier = () -> {
             numberOfCalls.increment();
             return "NULL";
         };
@@ -752,8 +752,8 @@ public class StringUtilsTest {
         final String s = StringUtils.getIfEmpty("abc", () -> "NULL");
         assertEquals("abc", s);
         //Checking that default value supplied only on demand
-        MutableInt numberOfCalls = new MutableInt(0);
-        Supplier<String> countingDefaultSupplier = () -> {
+        final MutableInt numberOfCalls = new MutableInt(0);
+        final Supplier<String> countingDefaultSupplier = () -> {
             numberOfCalls.increment();
             return "NULL";
         };
@@ -3273,7 +3273,7 @@ public class StringUtilsTest {
         assertEquals("title", "TITLE".toLowerCase(Locale.ROOT));
         assertEquals("title", StringUtils.toRootLowerCase("TITLE"));
         // Make sure we are not using the default Locale:
-        Locale defaultLocales = Locale.getDefault();
+        final Locale defaultLocales = Locale.getDefault();
         try {
             Locale.setDefault(TURKISH);
             assertEquals("title", StringUtils.toRootLowerCase("TITLE"));
@@ -3293,7 +3293,7 @@ public class StringUtilsTest {
         assertEquals("TITLE", "title".toUpperCase(Locale.ROOT));
         assertEquals("TITLE", StringUtils.toRootUpperCase("title"));
         // Make sure we are not using the default Locale:
-        Locale defaultLocales = Locale.getDefault();
+        final Locale defaultLocales = Locale.getDefault();
         try {
             Locale.setDefault(TURKISH);
             assertEquals("TITLE", StringUtils.toRootUpperCase("title"));

@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -48,7 +49,7 @@ class StreamsTest {
         try {
             Functions.stream(input).map((s) -> Integer.valueOf(s)).collect(Collectors.toList());
             fail("Expected Exception");
-        } catch (NumberFormatException nfe) {
+        } catch (final NumberFormatException nfe) {
             assertEquals("For input string: \"4 \"", nfe.getMessage());
         }
     }
@@ -64,7 +65,17 @@ class StreamsTest {
         }
     }
 
-    protected <T extends Throwable> FailableConsumer<String, T> asIntConsumer(T pThrowable) {
+    @Test
+    void testToArray() {
+        final String[] array = Arrays.asList("2", "3", "1").stream().collect(Streams.toArray(String.class));
+        assertNotNull(array);
+        assertEquals(3, array.length);
+        assertEquals("2", array[0]);
+        assertEquals("3", array[1]);
+        assertEquals("1", array[2]);
+    }
+
+    protected <T extends Throwable> FailableConsumer<String, T> asIntConsumer(final T pThrowable) {
         return (s) -> {
             final Integer i = Integer.valueOf(s);
             if (i.intValue() == 4) {
@@ -81,7 +92,7 @@ class StreamsTest {
         try {
             Functions.stream(input).forEach(asIntConsumer(ise));
             fail("Expected Exception");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertSame(ise, e);
         }
         output.clear();
@@ -89,7 +100,7 @@ class StreamsTest {
         try {
             Functions.stream(input).forEach(asIntConsumer(oome));
             fail("Expected Exception");
-        } catch (Throwable t) {
+        } catch (final Throwable t) {
             assertSame(oome, t);
         }
         output.clear();
@@ -97,7 +108,7 @@ class StreamsTest {
         try {
             Functions.stream(input).forEach(asIntConsumer(se));
             fail("Expected Exception");
-        } catch (UndeclaredThrowableException ute) {
+        } catch (final UndeclaredThrowableException ute) {
             assertSame(se, ute.getCause());
         }
     }
@@ -121,7 +132,7 @@ class StreamsTest {
         }
     }
 
-    protected <T extends Throwable> FailablePredicate<Integer, T> asIntPredicate(T pThrowable) {
+    protected <T extends Throwable> FailablePredicate<Integer, T> asIntPredicate(final T pThrowable) {
         return (i) -> {
             if (i.intValue() == 5) {
                 if (pThrowable != null) {
@@ -149,7 +160,7 @@ class StreamsTest {
                     .filter(asIntPredicate(iae))
                     .collect(Collectors.toList());
             fail("Expected Exception");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertSame(iae, e);
         }
 
@@ -161,7 +172,7 @@ class StreamsTest {
                     .filter(asIntPredicate(oome))
                     .collect(Collectors.toList());
             fail("Expected Exception");
-        } catch (Throwable t) {
+        } catch (final Throwable t) {
             assertSame(oome, t);
         }
 
@@ -173,7 +184,7 @@ class StreamsTest {
                     .filter(asIntPredicate(se))
                     .collect(Collectors.toList());
             fail("Expected Exception");
-        } catch (UndeclaredThrowableException t) {
+        } catch (final UndeclaredThrowableException t) {
             assertSame(se, t.getCause());
         }
     }

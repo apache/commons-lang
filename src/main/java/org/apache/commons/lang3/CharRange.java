@@ -271,7 +271,7 @@ final class CharRange implements Iterable<Character>, Serializable {
         private boolean hasNext;
 
         /**
-         * Construct a new iterator for the character range.
+         * Constructs a new iterator for the character range.
          *
          * @param r The character range
          */
@@ -296,7 +296,7 @@ final class CharRange implements Iterable<Character>, Serializable {
         }
 
         /**
-         * Prepare the next character in the range.
+         * Prepares the next character in the range.
          */
         private void prepareNext() {
             if (range.negated) {
@@ -329,7 +329,7 @@ final class CharRange implements Iterable<Character>, Serializable {
         }
 
         /**
-         * Return the next character in the iteration
+         * Returns the next character in the iteration
          *
          * @return {@code Character} for the next character
          */
@@ -346,7 +346,7 @@ final class CharRange implements Iterable<Character>, Serializable {
         /**
          * Always throws UnsupportedOperationException.
          *
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException Always thrown.
          * @see java.util.Iterator#remove()
          */
         @Override

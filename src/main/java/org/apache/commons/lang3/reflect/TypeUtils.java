@@ -1338,7 +1338,7 @@ public class TypeUtils {
     }
 
     /**
-     * Get the array component type of {@code type}.
+     * Gets the array component type of {@code type}.
      * @param type the type to be checked
      * @return component type or null if type is not an array type
      */
@@ -1354,7 +1354,7 @@ public class TypeUtils {
     }
 
     /**
-     * Get a type representing {@code type} with variable assignments "unrolled."
+     * Gets a type representing {@code type} with variable assignments "unrolled."
      *
      * @param typeArguments as from {@link TypeUtils#getTypeArguments(Type, Class)}
      * @param type the type to unroll variable assignments for
@@ -1540,7 +1540,7 @@ public class TypeUtils {
     }
 
     /**
-     * Get a {@link WildcardTypeBuilder}.
+     * Gets a {@link WildcardTypeBuilder}.
      * @return {@link WildcardTypeBuilder}
      * @since 3.2
      */

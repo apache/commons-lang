@@ -59,7 +59,7 @@ public class FormattableUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * Get the default formatted representation of the specified
+     * Gets the default formatted representation of the specified
      * {@code Formattable}.
      *
      * @param formattable  the instance to convert to a string, not null

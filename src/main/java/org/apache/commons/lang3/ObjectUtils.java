@@ -238,7 +238,7 @@ public class ObjectUtils {
         if (suppliers != null) {
             for (final Supplier<T> supplier : suppliers) {
                 if (supplier != null) {
-                    T value = supplier.get();
+                    final T value = supplier.get();
                     if (value != null) {
                         return value;
                     }

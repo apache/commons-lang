@@ -1514,10 +1514,10 @@ public class DateUtilsTest {
 
             it = DateUtils.iterator((Object) now, DateUtils.RANGE_WEEK_CENTER);
             assertWeekIterator(it, centered);
-            Iterator<?> it2 = DateUtils.iterator((Object) now.getTime(), DateUtils.RANGE_WEEK_CENTER);
+            final Iterator<?> it2 = DateUtils.iterator((Object) now.getTime(), DateUtils.RANGE_WEEK_CENTER);
             assertWeekIterator(it2, centered);
             assertThrows(NoSuchElementException.class, it2::next);
-            Iterator<?> it3 = DateUtils.iterator(now, DateUtils.RANGE_WEEK_CENTER);
+            final Iterator<?> it3 = DateUtils.iterator(now, DateUtils.RANGE_WEEK_CENTER);
             it3.next();
             assertThrows(UnsupportedOperationException.class, it3::remove);
 

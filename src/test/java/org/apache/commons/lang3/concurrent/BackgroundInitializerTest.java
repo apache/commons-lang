@@ -179,7 +179,7 @@ public class BackgroundInitializerTest {
         final RuntimeException rex = new RuntimeException();
         init.ex = rex;
         init.start();
-        Exception ex = assertThrows(Exception.class, init::get);
+        final Exception ex = assertThrows(Exception.class, init::get);
         assertEquals(rex, ex, "Runtime exception not thrown");
     }
 
@@ -193,7 +193,7 @@ public class BackgroundInitializerTest {
         final Exception ex = new Exception();
         init.ex = ex;
         init.start();
-        ConcurrentException cex = assertThrows(ConcurrentException.class, init::get);
+        final ConcurrentException cex = assertThrows(ConcurrentException.class, init::get);
         assertEquals(ex, cex.getCause(), "Exception not thrown");
     }
 

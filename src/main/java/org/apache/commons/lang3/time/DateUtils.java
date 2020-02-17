@@ -1821,7 +1821,7 @@ public class DateUtils {
         }
 
         /**
-         * Return the next calendar in the iteration
+         * Returns the next calendar in the iteration
          *
          * @return Object calendar for the next date
          */

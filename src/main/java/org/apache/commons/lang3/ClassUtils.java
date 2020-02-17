@@ -50,7 +50,12 @@ public class ClassUtils {
      * @since 3.2
      */
     public enum Interfaces {
-        INCLUDE, EXCLUDE
+
+        /** Includes interfaces. */
+        INCLUDE,
+
+        /** Excludes interfaces. */
+        EXCLUDE
     }
 
     /**
@@ -277,7 +282,7 @@ public class ClassUtils {
      * @since 3.0
      * @see Class#getSimpleName()
      */
-    public static String getSimpleName(final Class<?> cls, String valueIfNull) {
+    public static String getSimpleName(final Class<?> cls, final String valueIfNull) {
         return cls == null ? valueIfNull : cls.getSimpleName();
     }
 
@@ -598,7 +603,7 @@ public class ClassUtils {
     }
 
     /**
-     * Get the interfaces for the specified class.
+     * Gets the interfaces for the specified class.
      *
      * @param cls  the class to look up, may be {@code null}
      * @param interfacesFound the {@code Set} of interfaces for the class
@@ -1468,7 +1473,7 @@ public class ClassUtils {
     }
 
     /**
-     * Get an {@link Iterable} that can iterate over a class hierarchy in ascending (subclass to superclass) order,
+     * Gets an {@link Iterable} that can iterate over a class hierarchy in ascending (subclass to superclass) order,
      * excluding interfaces.
      *
      * @param type the type to get the class hierarchy from
@@ -1480,7 +1485,7 @@ public class ClassUtils {
     }
 
     /**
-     * Get an {@link Iterable} that can iterate over a class hierarchy in ascending (subclass to superclass) order.
+     * Gets an {@link Iterable} that can iterate over a class hierarchy in ascending (subclass to superclass) order.
      *
      * @param type the type to get the class hierarchy from
      * @param interfacesBehavior switch indicating whether to include or exclude interfaces

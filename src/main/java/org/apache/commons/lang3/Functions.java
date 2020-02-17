@@ -40,21 +40,21 @@ import org.apache.commons.lang3.Streams.FailableStream;
  * More specifically, it attempts to address the fact that lambdas are supposed
  * not to throw Exceptions, at least not checked Exceptions, aka instances of
  * {@link Exception}. This enforces the use of constructs like
- * <pre>
- *   Consumer&lt;java.lang.reflect.Method&gt; consumer = (m) -&gt; {
+ * <pre>{@code
+ *   Consumer<java.lang.reflect.Method> consumer = (m) -> {
  *       try {
  *           m.invoke(o, args);
  *       } catch (Throwable t) {
  *           throw Functions.rethrow(t);
  *       }
  *   };
- * </pre>
+ * }</pre>
  * By replacing a {@link java.util.function.Consumer Consumer&lt;O&gt;} with a
  * {@link FailableConsumer FailableConsumer&lt;O,? extends Throwable&gt;}, this can be
  * written like follows:
- * <pre>
- *   Functions.accept((m) -&gt; m.invoke(o,args));
- * </pre>
+ * <pre>{@code
+ *   Functions.accept((m) -> m.invoke(o,args));
+ * }</pre>
  * Obviously, the second version is much more concise and the spirit of
  * Lambda expressions is met better than the second version.
  */
@@ -83,67 +83,67 @@ public class Functions {
     public interface FailableConsumer<O, T extends Throwable> {
         /**
          * Accepts the consumer.
-         * @param pObject the parameter for the consumable to accept
+         * @param object the parameter for the consumable to accept
          * @throws T if the consumer fails
          */
-        void accept(O pObject) throws T;
+        void accept(O object) throws T;
     }
 
     @FunctionalInterface
     public interface FailableBiConsumer<O1, O2, T extends Throwable> {
         /**
          * Accepts the consumer.
-         * @param pObject1 the first parameter for the consumable to accept
-         * @param pObject2 the second parameter for the consumable to accept
+         * @param object1 the first parameter for the consumable to accept
+         * @param object2 the second parameter for the consumable to accept
          * @throws T if the consumer fails
          */
-        void accept(O1 pObject1, O2 pObject2) throws T;
+        void accept(O1 object1, O2 object2) throws T;
     }
 
     @FunctionalInterface
     public interface FailableFunction<I, O, T extends Throwable> {
         /**
          * Apply the function.
-         * @param pInput the input for the function
+         * @param input the input for the function
          * @return the result of the function
          * @throws T if the function fails
          */
-        O apply(I pInput) throws T;
+        O apply(I input) throws T;
     }
 
     @FunctionalInterface
     public interface FailableBiFunction<I1, I2, O, T extends Throwable> {
         /**
          * Apply the function.
-         * @param pInput1 the first input for the function
-         * @param pInput2 the second input for the function
+         * @param input1 the first input for the function
+         * @param input2 the second input for the function
          * @return the result of the function
          * @throws T if the function fails
          */
-        O apply(I1 pInput1, I2 pInput2) throws T;
+        O apply(I1 input1, I2 input2) throws T;
     }
 
     @FunctionalInterface
     public interface FailablePredicate<O, T extends Throwable> {
         /**
          * Test the predicate.
-         * @param pObject the object to test the predicate on
+         * @param object the object to test the predicate on
          * @return the predicate's evaluation
          * @throws T if the predicate fails
          */
-        boolean test(O pObject) throws T;
+        boolean test(O object) throws T;
     }
 
     @FunctionalInterface
     public interface FailableBiPredicate<O1, O2, T extends Throwable> {
         /**
          * Test the predicate.
-         * @param pObject1 the first object to test the predicate on
-         * @param pObject2 the second object to test the predicate on
+         * @param object1 the first object to test the predicate on
+         * @param object2 the second object to test the predicate on
          * @return the predicate's evaluation
          * @throws T if the predicate fails
          */
-        boolean test(O1 pObject1, O2 pObject2) throws T;
+        boolean test(O1 object1, O2 object2) throws T;
     }
 
     @FunctionalInterface
@@ -159,33 +159,33 @@ public class Functions {
     /**
      * Converts the given {@link FailableRunnable} into a standard {@link Runnable}.
      *
-     * @param pRunnable a {@code FailableRunnable}
+     * @param runnable a {@code FailableRunnable}
      * @return a standard {@code Runnable}
      */
-    public static Runnable asRunnable(FailableRunnable<?> pRunnable) {
-        return () -> run(pRunnable);
+    public static Runnable asRunnable(final FailableRunnable<?> runnable) {
+        return () -> run(runnable);
     }
 
     /**
      * Converts the given {@link FailableConsumer} into a standard {@link Consumer}.
      *
      * @param <I> the type used by the consumers
-     * @param pConsumer a {@code FailableConsumer}
+     * @param consumer a {@code FailableConsumer}
      * @return a standard {@code Consumer}
      */
-    public static <I> Consumer<I> asConsumer(FailableConsumer<I, ?> pConsumer) {
-        return (pInput) -> accept(pConsumer, pInput);
+    public static <I> Consumer<I> asConsumer(final FailableConsumer<I, ?> consumer) {
+        return input -> accept(consumer, input);
     }
 
     /**
      * Converts the given {@link FailableCallable} into a standard {@link Callable}.
      *
      * @param <O> the type used by the callables
-     * @param pCallable a {@code FailableCallable}
+     * @param callable a {@code FailableCallable}
      * @return a standard {@code Callable}
      */
-    public static <O> Callable<O> asCallable(FailableCallable<O, ?> pCallable) {
-        return () -> call(pCallable);
+    public static <O> Callable<O> asCallable(final FailableCallable<O, ?> callable) {
+        return () -> call(callable);
     }
 
     /**
@@ -193,11 +193,11 @@ public class Functions {
      *
      * @param <I1> the type of the first argument of the consumers
      * @param <I2> the type of the second argument of the consumers
-     * @param pConsumer a failable {@code BiConsumer}
+     * @param consumer a failable {@code BiConsumer}
      * @return a standard {@code BiConsumer}
      */
-    public static <I1, I2> BiConsumer<I1, I2> asBiConsumer(FailableBiConsumer<I1, I2, ?> pConsumer) {
-        return (pInput1, pInput2) -> accept(pConsumer, pInput1, pInput2);
+    public static <I1, I2> BiConsumer<I1, I2> asBiConsumer(final FailableBiConsumer<I1, I2, ?> consumer) {
+        return (input1, input2) -> accept(consumer, input1, input2);
     }
 
     /**
@@ -205,11 +205,11 @@ public class Functions {
      *
      * @param <I> the type of the input of the functions
      * @param <O> the type of the output of the functions
-     * @param pFunction a {code FailableFunction}
+     * @param function a {code FailableFunction}
      * @return a standard {@code Function}
      */
-    public static <I, O> Function<I, O> asFunction(FailableFunction<I, O, ?> pFunction) {
-        return (pInput) -> apply(pFunction, pInput);
+    public static <I, O> Function<I, O> asFunction(final FailableFunction<I, O, ?> function) {
+        return input -> apply(function, input);
     }
 
     /**
@@ -218,22 +218,22 @@ public class Functions {
      * @param <I1> the type of the first argument of the input of the functions
      * @param <I2> the type of the second argument of the input of the functions
      * @param <O> the type of the output of the functions
-     * @param pFunction a {@code FailableBiFunction}
+     * @param function a {@code FailableBiFunction}
      * @return a standard {@code BiFunction}
      */
-    public static <I1, I2, O> BiFunction<I1, I2, O> asBiFunction(FailableBiFunction<I1, I2, O, ?> pFunction) {
-        return (pInput1, pInput2) -> apply(pFunction, pInput1, pInput2);
+    public static <I1, I2, O> BiFunction<I1, I2, O> asBiFunction(final FailableBiFunction<I1, I2, O, ?> function) {
+        return (input1, input2) -> apply(function, input1, input2);
     }
 
     /**
      * Converts the given {@link FailablePredicate} into a standard {@link Predicate}.
      *
      * @param <I> the type used by the predicates
-     * @param pPredicate a {@code FailablePredicate}
+     * @param predicate a {@code FailablePredicate}
      * @return a standard {@code Predicate}
      */
-    public static <I> Predicate<I> asPredicate(FailablePredicate<I, ?> pPredicate) {
-        return (pInput) -> test(pPredicate, pInput);
+    public static <I> Predicate<I> asPredicate(final FailablePredicate<I, ?> predicate) {
+        return input -> test(predicate, input);
     }
 
     /**
@@ -241,137 +241,137 @@ public class Functions {
      *
      * @param <I1> the type of the first argument used by the predicates
      * @param <I2> the type of the second argument used by the predicates
-     * @param pPredicate a {@code FailableBiPredicate}
+     * @param predicate a {@code FailableBiPredicate}
      * @return a standard {@code BiPredicate}
      */
-    public static <I1, I2> BiPredicate<I1, I2> asBiPredicate(FailableBiPredicate<I1, I2, ?> pPredicate) {
-        return (pInput1, pInput2) -> test(pPredicate, pInput1, pInput2);
+    public static <I1, I2> BiPredicate<I1, I2> asBiPredicate(final FailableBiPredicate<I1, I2, ?> predicate) {
+        return (input1, input2) -> test(predicate, input1, input2);
     }
 
     /**
      * Converts the given {@link FailableSupplier} into a standard {@link Supplier}.
      *
      * @param <O> the type supplied by the suppliers
-     * @param pSupplier a {@code FailableSupplier}
+     * @param supplier a {@code FailableSupplier}
      * @return a standard {@code Supplier}
      */
-    public static <O> Supplier<O> asSupplier(FailableSupplier<O, ?> pSupplier) {
-        return () -> get(pSupplier);
+    public static <O> Supplier<O> asSupplier(final FailableSupplier<O, ?> supplier) {
+        return () -> get(supplier);
     }
 
     /**
      * Runs a runnable and rethrows any exception as a {@link RuntimeException}.
-     * @param pRunnable The runnable to run
+     * @param runnable The runnable to run
      * @param <T> the type of checked exception the runnable may throw
      */
-    public static <T extends Throwable> void run(FailableRunnable<T> pRunnable) {
+    public static <T extends Throwable> void run(final FailableRunnable<T> runnable) {
         try {
-            pRunnable.run();
-        } catch (Throwable t) {
+            runnable.run();
+        } catch (final Throwable t) {
             throw rethrow(t);
         }
     }
 
     /**
      * Calls a callable and rethrows any exception as a {@link RuntimeException}.
-     * @param pCallable the callable to call
+     * @param callable the callable to call
      * @param <O> the return type of the callable
      * @param <T> the type of checked exception the callable may throw
      * @return the value returned from the callable
      */
-    public static <O, T extends Throwable> O call(FailableCallable<O, T> pCallable) {
-        return get(pCallable::call);
+    public static <O, T extends Throwable> O call(final FailableCallable<O, T> callable) {
+        return get(callable::call);
     }
 
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
-     * @param pConsumer the consumer to consume
-     * @param pObject the object to consume by {@code pConsumer}
+     * @param consumer the consumer to consume
+     * @param object the object to consume by {@code consumer}
      * @param <O> the type the consumer accepts
      * @param <T> the type of checked exception the consumer may throw
      */
-    public static <O, T extends Throwable> void accept(FailableConsumer<O, T> pConsumer, O pObject) {
-        run(() -> pConsumer.accept(pObject));
+    public static <O, T extends Throwable> void accept(final FailableConsumer<O, T> consumer, final O object) {
+        run(() -> consumer.accept(object));
     }
 
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
-     * @param pConsumer the consumer to consume
-     * @param pObject1 the first object to consume by {@code pConsumer}
-     * @param pObject2 the second object to consume by {@code pConsumer}
+     * @param consumer the consumer to consume
+     * @param object1 the first object to consume by {@code consumer}
+     * @param object2 the second object to consume by {@code consumer}
      * @param <O1> the type of the first argument the consumer accepts
      * @param <O2> the type of the second argument the consumer accepts
      * @param <T> the type of checked exception the consumer may throw
      */
-    public static <O1, O2, T extends Throwable> void accept(FailableBiConsumer<O1, O2, T> pConsumer, O1 pObject1, O2 pObject2) {
-        run(() -> pConsumer.accept(pObject1, pObject2));
+    public static <O1, O2, T extends Throwable> void accept(final FailableBiConsumer<O1, O2, T> consumer, final O1 object1, final O2 object2) {
+        run(() -> consumer.accept(object1, object2));
     }
 
     /**
      * Applies a function and rethrows any exception as a {@link RuntimeException}.
-     * @param pFunction the function to apply
-     * @param pInput the input to apply {@code pFunction} on
+     * @param function the function to apply
+     * @param input the input to apply {@code function} on
      * @param <I> the type of the argument the function accepts
      * @param <O> the return type of the function
      * @param <T> the type of checked exception the function may throw
      * @return the value returned from the function
      */
-    public static <I, O, T extends Throwable> O apply(FailableFunction<I, O, T> pFunction, I pInput) {
-        return get(() -> pFunction.apply(pInput));
+    public static <I, O, T extends Throwable> O apply(final FailableFunction<I, O, T> function, final I input) {
+        return get(() -> function.apply(input));
     }
 
     /**
      * Applies a function and rethrows any exception as a {@link RuntimeException}.
-     * @param pFunction the function to apply
-     * @param pInput1 the first input to apply {@code pFunction} on
-     * @param pInput2 the second input to apply {@code pFunction} on
+     * @param function the function to apply
+     * @param input1 the first input to apply {@code function} on
+     * @param input2 the second input to apply {@code function} on
      * @param <I1> the type of the first argument the function accepts
      * @param <I2> the type of the second argument the function accepts
      * @param <O> the return type of the function
      * @param <T> the type of checked exception the function may throw
      * @return the value returned from the function
      */
-    public static <I1, I2, O, T extends Throwable> O apply(FailableBiFunction<I1, I2, O, T> pFunction, I1 pInput1, I2 pInput2) {
-        return get(() -> pFunction.apply(pInput1, pInput2));
+    public static <I1, I2, O, T extends Throwable> O apply(final FailableBiFunction<I1, I2, O, T> function, final I1 input1, final I2 input2) {
+        return get(() -> function.apply(input1, input2));
     }
 
     /**
      * Tests a predicate and rethrows any exception as a {@link RuntimeException}.
-     * @param pPredicate the predicate to test
-     * @param pObject the input to test by {@code pPredicate}
+     * @param predicate the predicate to test
+     * @param object the input to test by {@code predicate}
      * @param <O> the type of argument the predicate tests
      * @param <T> the type of checked exception the predicate may throw
      * @return the boolean value returned by the predicate
      */
-    public static <O, T extends Throwable> boolean test(FailablePredicate<O, T> pPredicate, O pObject) {
-        return get(() -> pPredicate.test(pObject));
+    public static <O, T extends Throwable> boolean test(final FailablePredicate<O, T> predicate, final O object) {
+        return get(() -> predicate.test(object));
     }
 
     /**
      * Tests a predicate and rethrows any exception as a {@link RuntimeException}.
-     * @param pPredicate the predicate to test
-     * @param pObject1 the first input to test by {@code pPredicate}
-     * @param pObject2 the second input to test by {@code pPredicate}
+     * @param predicate the predicate to test
+     * @param object1 the first input to test by {@code predicate}
+     * @param object2 the second input to test by {@code predicate}
      * @param <O1> the type of the first argument the predicate tests
      * @param <O2> the type of the second argument the predicate tests
      * @param <T> the type of checked exception the predicate may throw
      * @return the boolean value returned by the predicate
      */
-    public static <O1, O2, T extends Throwable> boolean test(FailableBiPredicate<O1, O2, T> pPredicate, O1 pObject1, O2 pObject2) {
-        return get(() -> pPredicate.test(pObject1, pObject2));
+    public static <O1, O2, T extends Throwable> boolean test(final FailableBiPredicate<O1, O2, T> predicate, final O1 object1, final O2 object2) {
+        return get(() -> predicate.test(object1, object2));
     }
 
     /**
      * Invokes the supplier, and returns the result.
-     * @param pSupplier The supplier to invoke.
+     * @param supplier The supplier to invoke.
      * @param <O> The suppliers output type.
      * @param <T> The type of checked exception, which the supplier can throw.
      * @return The object, which has been created by the supplier
      */
-    public static <O, T extends Throwable> O get(FailableSupplier<O, T> pSupplier) {
+    public static <O, T extends Throwable> O get(final FailableSupplier<O, T> supplier) {
         try {
-            return pSupplier.get();
-        } catch (Throwable t) {
+            return supplier.get();
+        } catch (final Throwable t) {
             throw rethrow(t);
         }
     }
@@ -383,13 +383,13 @@ public class Functions {
      * {@link FailablePredicate}, {@link FailableFunction}, and
      * {@link FailableConsumer} may be applied, rather than
      * {@link Predicate}, {@link Function}, {@link Consumer}, etc.
-     * @param pStream The stream, which is being converted into a
+     * @param stream The stream, which is being converted into a
      *   {@link FailableStream}.
      * @param <O> The streams element type.
      * @return The created {@link FailableStream}.
      */
-    public static <O> FailableStream<O> stream(Stream<O> pStream) {
-        return new FailableStream<O>(pStream);
+    public static <O> FailableStream<O> stream(final Stream<O> stream) {
+        return new FailableStream<>(stream);
     }
 
     /**
@@ -397,67 +397,67 @@ public class Functions {
      * The {@link FailableStream} consists of the collections
      * elements. Shortcut for
      * <pre>
-     *   Functions.stream(pCollection.stream());
+     *   Functions.stream(collection.stream());
      * </pre>
-     * @param pCollection The collection, which is being converted into a
+     * @param collection The collection, which is being converted into a
      *   {@link FailableStream}.
      * @param <O> The collections element type. (In turn, the result
      *   streams element type.)
      * @return The created {@link FailableStream}.
      */
-    public static <O> FailableStream<O> stream(Collection<O> pCollection) {
-        return new FailableStream<O>(pCollection.stream());
+    public static <O> FailableStream<O> stream(final Collection<O> collection) {
+        return new FailableStream<>(collection.stream());
     }
 
 
     /**
      * A simple try-with-resources implementation, that can be used, if your
      * objects do not implement the {@link AutoCloseable} interface. The method
-     * executes the {@code pAction}. The method guarantees, that <em>all</em>
-     * the {@code pResources} are being executed, in the given order, afterwards,
+     * executes the {@code action}. The method guarantees, that <em>all</em>
+     * the {@code resources} are being executed, in the given order, afterwards,
      * and regardless of success, or failure. If either the original action, or
      * any of the resource action fails, then the <em>first</em> failure (aka
      * {@link Throwable} is rethrown. Example use:
-     * <pre>
+     * <pre>{@code
      *   final FileInputStream fis = new FileInputStream("my.file");
-     *   Functions.tryWithResources(useInputStream(fis), null, () -&gt; fis.close());
-     * </pre>
-     * @param pAction The action to execute. This object <em>will</em> always
+     *   Functions.tryWithResources(useInputStream(fis), null, () -> fis.close());
+     * }</pre>
+     * @param action The action to execute. This object <em>will</em> always
      *   be invoked.
-     * @param pErrorHandler An optional error handler, which will be invoked finally,
+     * @param errorHandler An optional error handler, which will be invoked finally,
      *   if any error occurred. The error handler will receive the first
      *   error, aka {@link Throwable}.
-     * @param pResources The resource actions to execute. <em>All</em> resource
+     * @param resources The resource actions to execute. <em>All</em> resource
      *   actions will be invoked, in the given order. A resource action is an
      *   instance of {@link FailableRunnable}, which will be executed.
      * @see #tryWithResources(FailableRunnable, FailableRunnable...)
      */
     @SafeVarargs
-    public static void tryWithResources(FailableRunnable<? extends Throwable> pAction,
-                                            FailableConsumer<Throwable, ? extends Throwable> pErrorHandler,
-                                            FailableRunnable<? extends Throwable>... pResources) {
-        final FailableConsumer<Throwable, ? extends Throwable> errorHandler;
-        if (pErrorHandler == null) {
-            errorHandler = Functions::rethrow;
+    public static void tryWithResources(final FailableRunnable<? extends Throwable> action,
+                                            final FailableConsumer<Throwable, ? extends Throwable> errorHandler,
+                                            final FailableRunnable<? extends Throwable>... resources) {
+        final FailableConsumer<Throwable, ? extends Throwable> actualErrorHandler;
+        if (errorHandler == null) {
+            actualErrorHandler = Functions::rethrow;
         } else {
-            errorHandler = pErrorHandler;
+            actualErrorHandler = errorHandler;
         }
-        if (pResources != null) {
-            for (FailableRunnable<? extends Throwable> failableRunnable : pResources) {
+        if (resources != null) {
+            for (final FailableRunnable<? extends Throwable> failableRunnable : resources) {
                 Objects.requireNonNull(failableRunnable, "runnable");
             }
         }
         Throwable th = null;
         try {
-            pAction.run();
-        } catch (Throwable t) {
+            action.run();
+        } catch (final Throwable t) {
             th = t;
         }
-        if (pResources != null) {
-            for (FailableRunnable<?> runnable : pResources) {
+        if (resources != null) {
+            for (final FailableRunnable<?> runnable : resources) {
                 try {
                     runnable.run();
-                } catch (Throwable t) {
+                } catch (final Throwable t) {
                     if (th == null) {
                         th = t;
                     }
@@ -466,8 +466,8 @@ public class Functions {
         }
         if (th != null) {
             try {
-                errorHandler.accept(th);
-            } catch (Throwable t) {
+                actualErrorHandler.accept(th);
+            } catch (final Throwable t) {
                 throw rethrow(t);
             }
         }
@@ -476,26 +476,26 @@ public class Functions {
     /**
      * A simple try-with-resources implementation, that can be used, if your
      * objects do not implement the {@link AutoCloseable} interface. The method
-     * executes the {@code pAction}. The method guarantees, that <em>all</em>
-     * the {@code pResources} are being executed, in the given order, afterwards,
+     * executes the {@code action}. The method guarantees, that <em>all</em>
+     * the {@code resources} are being executed, in the given order, afterwards,
      * and regardless of success, or failure. If either the original action, or
      * any of the resource action fails, then the <em>first</em> failure (aka
      * {@link Throwable} is rethrown. Example use:
-     * <pre>
+     * <pre>{@code
      *   final FileInputStream fis = new FileInputStream("my.file");
-     *   Functions.tryWithResources(useInputStream(fis), () -&gt; fis.close());
-     * </pre>
-     * @param pAction The action to execute. This object <em>will</em> always
+     *   Functions.tryWithResources(useInputStream(fis), () -> fis.close());
+     * }</pre>
+     * @param action The action to execute. This object <em>will</em> always
      *   be invoked.
-     * @param pResources The resource actions to execute. <em>All</em> resource
+     * @param resources The resource actions to execute. <em>All</em> resource
      *   actions will be invoked, in the given order. A resource action is an
      *   instance of {@link FailableRunnable}, which will be executed.
      * @see #tryWithResources(FailableRunnable, FailableConsumer, FailableRunnable...)
      */
     @SafeVarargs
-    public static void tryWithResources(FailableRunnable<? extends Throwable> pAction,
-                                            FailableRunnable<? extends Throwable>... pResources) {
-        tryWithResources(pAction, null, pResources);
+    public static void tryWithResources(final FailableRunnable<? extends Throwable> action,
+                                            final FailableRunnable<? extends Throwable>... resources) {
+        tryWithResources(action, null, resources);
     }
 
     /**
@@ -518,19 +518,19 @@ public class Functions {
      * analysis will not demand otherwise mandatory commands that could follow the
      * method call, like a {@code return} statement from a value returning method.</p>
      *
-     * @param pThrowable The throwable to rethrow possibly wrapped into an unchecked exception
+     * @param throwable The throwable to rethrow ossibly wrapped into an unchecked exception
      * @return Never returns anything, this method never terminates normally.
      */
-    public static RuntimeException rethrow(Throwable pThrowable) {
-        Objects.requireNonNull(pThrowable, "pThrowable");
-        if (pThrowable instanceof RuntimeException) {
-            throw (RuntimeException) pThrowable;
-        } else if (pThrowable instanceof Error) {
-            throw (Error) pThrowable;
-        } else if (pThrowable instanceof IOException) {
-            throw new UncheckedIOException((IOException) pThrowable);
+    public static RuntimeException rethrow(final Throwable throwable) {
+        Objects.requireNonNull(throwable, "throwable");
+        if (throwable instanceof RuntimeException) {
+            throw (RuntimeException) throwable;
+        } else if (throwable instanceof Error) {
+            throw (Error) throwable;
+        } else if (throwable instanceof IOException) {
+            throw new UncheckedIOException((IOException) throwable);
         } else {
-            throw new UndeclaredThrowableException(pThrowable);
+            throw new UndeclaredThrowableException(throwable);
         }
     }
 }

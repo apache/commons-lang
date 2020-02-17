@@ -158,7 +158,7 @@ public class RandomStringUtilsTest {
 
     @Test
     public void testLANG807() {
-        IllegalArgumentException ex =
+        final IllegalArgumentException ex =
                 assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(3, 5, 5, false, false));
         final String msg = ex.getMessage();
         assertTrue(msg.contains("start"), "Message (" + msg + ") must contain 'start'");

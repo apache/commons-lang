@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.10" date="YYYY-MM-DD" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">
+    <action issue="LANG-1514" type="fix" dev="kinow" due-to="contextshuffling">Make test more stable by wrapping assertions in hashset.</action>
     <action issue="LANG-1450" type="fix" dev="chtompki">Generate Javadoc jar on build.</action>
     <action issue="LANG-1457" type="add" dev="ggregory">Add ExceptionUtils.throwableOfType(Throwable, Class) and friends.</action>
     <action issue="LANG-1458" type="add" dev="ggregory">Add EMPTY_ARRAY constants to classes in org.apache.commons.lang3.tuple.</action>
@@ -96,6 +97,12 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1512" type="add" dev="ggregory" due-to="Gary Gregory">Add IS_JAVA_14 and IS_JAVA_15 to org.apache.commons.lang3.SystemUtils.</action>
     <action issue="LANG-1513" type="add" dev="ggregory" due-to="Bernhard Bonigl, Gary Gregory">ObjectUtils: Get first non-null supplier value.</action>
     <action                   type="add" dev="jochen">Added the Streams class, and Functions.stream() as an accessor thereof.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">org.easymock:easymock 4.1 -> 4.2.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">org.junit-pioneer:junit-pioneer 0.4.2 -> 0.5.3.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">org.junit.jupiter:junit-jupiter 5.5.2 -> 5.6.0.</action>
+    <action                   type="update" dev="ggregory" due-to="Peter Verhas">Use Javadoc {@code} instead of pre tags. #490.</action>
+    <action                   type="update" dev="ggregory" due-to="Peter Verhas">ExceptionUtilsTest to 100% #486.</action>
+    <action issue="LANG-1433" type="fix" dev="ggregory" due-to="Christian Franzen">MethodUtils will throw a NPE if invokeMethod() is called for a var-args method #407.</action>
   </release>
 
   <release version="3.9" date="2019-04-09" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">
