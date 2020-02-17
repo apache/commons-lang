@@ -600,7 +600,7 @@
     <commons.encoding>utf-8</commons.encoding>
 
     <checkstyle.plugin.version>3.1.0</checkstyle.plugin.version>
-    <checkstyle.version>8.27</checkstyle.version>
+    <checkstyle.version>8.29</checkstyle.version>
 
     <spotbugs.plugin.version>3.1.12.2</spotbugs.plugin.version>
     <japicmp.skip>false</japicmp.skip>
