@@ -280,11 +280,7 @@ public class Functions {
      * @return the value returned from the callable
      */
     public static <O, T extends Throwable> O call(final FailableCallable<O, T> callable) {
-        try {
-            return callable.call();
-        } catch (final Throwable t) {
-            throw rethrow(t);
-        }
+        return get(callable::call);
     }
 
     /**
@@ -295,11 +291,7 @@ public class Functions {
      * @param <T> the type of checked exception the consumer may throw
      */
     public static <O, T extends Throwable> void accept(final FailableConsumer<O, T> consumer, final O object) {
-        try {
-            consumer.accept(object);
-        } catch (final Throwable t) {
-            throw rethrow(t);
-        }
+        run(() -> consumer.accept(object));
     }
 
     /**
@@ -312,11 +304,7 @@ public class Functions {
      * @param <T> the type of checked exception the consumer may throw
      */
     public static <O1, O2, T extends Throwable> void accept(final FailableBiConsumer<O1, O2, T> consumer, final O1 object1, final O2 object2) {
-        try {
-            consumer.accept(object1, object2);
-        } catch (final Throwable t) {
-            throw rethrow(t);
-        }
+        run(() -> consumer.accept(object1, object2));
     }
 
     /**
@@ -329,11 +317,7 @@ public class Functions {
      * @return the value returned from the function
      */
     public static <I, O, T extends Throwable> O apply(final FailableFunction<I, O, T> function, final I input) {
-        try {
-            return function.apply(input);
-        } catch (final Throwable t) {
-            throw rethrow(t);
-        }
+        return get(() -> function.apply(input));
     }
 
     /**
@@ -348,11 +332,7 @@ public class Functions {
      * @return the value returned from the function
      */
     public static <I1, I2, O, T extends Throwable> O apply(final FailableBiFunction<I1, I2, O, T> function, final I1 input1, final I2 input2) {
-        try {
-            return function.apply(input1, input2);
-        } catch (final Throwable t) {
-            throw rethrow(t);
-        }
+        return get(() -> function.apply(input1, input2));
     }
 
     /**
@@ -364,11 +344,7 @@ public class Functions {
      * @return the boolean value returned by the predicate
      */
     public static <O, T extends Throwable> boolean test(final FailablePredicate<O, T> predicate, final O object) {
-        try {
-            return predicate.test(object);
-        } catch (final Throwable t) {
-            throw rethrow(t);
-        }
+        return get(() -> predicate.test(object));
     }
 
     /**
@@ -382,11 +358,7 @@ public class Functions {
      * @return the boolean value returned by the predicate
      */
     public static <O1, O2, T extends Throwable> boolean test(final FailableBiPredicate<O1, O2, T> predicate, final O1 object1, final O2 object2) {
-        try {
-            return predicate.test(object1, object2);
-        } catch (final Throwable t) {
-            throw rethrow(t);
-        }
+        return get(() -> predicate.test(object1, object2));
     }
 
     /**
@@ -466,7 +438,7 @@ public class Functions {
                                             final FailableRunnable<? extends Throwable>... resources) {
         final FailableConsumer<Throwable, ? extends Throwable> actualErrorHandler;
         if (errorHandler == null) {
-            actualErrorHandler = (t) -> rethrow(t);
+            actualErrorHandler = Functions::rethrow;
         } else {
             actualErrorHandler = errorHandler;
         }
@@ -482,7 +454,7 @@ public class Functions {
             th = t;
         }
         if (resources != null) {
-            for (final FailableRunnable<? extends Object> runnable : resources) {
+            for (final FailableRunnable<?> runnable : resources) {
                 try {
                     runnable.run();
                 } catch (final Throwable t) {
@@ -542,7 +514,7 @@ public class Functions {
      * </pre>
      *
      * <p>instead of just calling the method. This pattern may help the Java compiler to
-     * recognize that at that oint an exception will be thrown and the code flow
+     * recognize that at that point an exception will be thrown and the code flow
      * analysis will not demand otherwise mandatory commands that could follow the
      * method call, like a {@code return} statement from a value returning method.</p>
      *
