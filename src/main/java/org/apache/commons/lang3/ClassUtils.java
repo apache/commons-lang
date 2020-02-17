@@ -46,16 +46,17 @@ import org.apache.commons.lang3.mutable.MutableObject;
 public class ClassUtils {
 
     /**
-     * Inclusivity literals for {@link #hierarchy(Class, Interfaces)}.
-     * @since 3.2
+     * <p>Null-safe version of {@code cls.getSimpleName()}</p>
+     *
+     * @param cls the class for which to get the simple name; may be null
+     * @param valueIfNull  the value to return if null
+     * @return the simple class name or {@code valueIfNull} if the
+     *         argument {@code cls} is {@code null}
+     * @since 3.0
+     * @see Class#getSimpleName()
      */
-    public enum Interfaces {
-
-        /** Includes interfaces. */
-        INCLUDE,
-
-        /** Excludes interfaces. */
-        EXCLUDE
+    public static String getSimpleName(final Class<?> cls, final String valueIfNull) {
+        return cls == null ? valueIfNull : cls.getSimpleName();
     }
 
     /**
@@ -273,18 +274,24 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Null-safe version of {@code cls.getSimpleName()}</p>
+     * Gets the interfaces for the specified class.
      *
-     * @param cls the class for which to get the simple name; may be null
-     * @param valueIfNull  the value to return if null
-     * @return the simple class name or {@code valueIfNull} if the
-     *         argument {@code cls} is {@code null}
-     * @since 3.0
-     * @see Class#getSimpleName()
+     * @param cls  the class to look up, may be {@code null}
+     * @param interfacesFound the {@code Set} of interfaces for the class
      */
-    public static String getSimpleName(final Class<?> cls, final String valueIfNull) {
-        return cls == null ? valueIfNull : cls.getSimpleName();
-    }
+    private static void getAllInterfaces(Class<?> cls, final HashSet<Class<?>> interfacesFound) {
+        while (cls != null) {
+            final Class<?>[] interfaces = cls.getInterfaces();
+
+            for (final Class<?> i : interfaces) {
+                if (interfacesFound.add(i)) {
+                    getAllInterfaces(i, interfacesFound);
+                }
+            }
+
+            cls = cls.getSuperclass();
+         }
+     }
 
     /**
      * <p>Null-safe version of {@code object.getClass().getSimpleName()}</p>
@@ -603,24 +610,16 @@ public class ClassUtils {
     }
 
     /**
-     * Gets the interfaces for the specified class.
+     * Gets an {@link Iterable} that can iterate over a class hierarchy in ascending (subclass to superclass) order,
+     * excluding interfaces.
      *
-     * @param cls  the class to look up, may be {@code null}
-     * @param interfacesFound the {@code Set} of interfaces for the class
+     * @param type the type to get the class hierarchy from
+     * @return Iterable an Iterable over the class hierarchy of the given class
+     * @since 3.2
      */
-    private static void getAllInterfaces(Class<?> cls, final HashSet<Class<?>> interfacesFound) {
-        while (cls != null) {
-            final Class<?>[] interfaces = cls.getInterfaces();
-
-            for (final Class<?> i : interfaces) {
-                if (interfacesFound.add(i)) {
-                    getAllInterfaces(i, interfacesFound);
-                }
-            }
-
-            cls = cls.getSuperclass();
-         }
-     }
+    public static Iterable<Class<?>> hierarchy(final Class<?> type) {
+        return hierarchy(type, Interfaces.EXCLUDE);
+    }
 
     // Convert list
     // ----------------------------------------------------------------------
@@ -1473,18 +1472,6 @@ public class ClassUtils {
     }
 
     /**
-     * Gets an {@link Iterable} that can iterate over a class hierarchy in ascending (subclass to superclass) order,
-     * excluding interfaces.
-     *
-     * @param type the type to get the class hierarchy from
-     * @return Iterable an Iterable over the class hierarchy of the given class
-     * @since 3.2
-     */
-    public static Iterable<Class<?>> hierarchy(final Class<?> type) {
-        return hierarchy(type, Interfaces.EXCLUDE);
-    }
-
-    /**
      * Gets an {@link Iterable} that can iterate over a class hierarchy in ascending (subclass to superclass) order.
      *
      * @param type the type to get the class hierarchy from
@@ -1561,6 +1548,19 @@ public class ClassUtils {
 
             };
         };
+    }
+
+    /**
+     * Inclusivity literals for {@link #hierarchy(Class, Interfaces)}.
+     * @since 3.2
+     */
+    public enum Interfaces {
+
+        /** Includes interfaces. */
+        INCLUDE,
+
+        /** Excludes interfaces. */
+        EXCLUDE
     }
 
 }

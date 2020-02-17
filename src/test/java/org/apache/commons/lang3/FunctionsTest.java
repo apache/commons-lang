@@ -44,98 +44,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FunctionsTest {
-    public static class SomeException extends Exception {
-        private static final long serialVersionUID = -4965704778119283411L;
-
-        private Throwable t;
-
-        SomeException(final String pMsg) {
-            super(pMsg);
-        }
-
-        public void setThrowable(final Throwable pThrowable) {
-            t = pThrowable;
-        }
-
-        public void test() throws Throwable {
-            if (t != null) {
-                throw t;
-            }
-        }
-    }
-    public static class Testable {
-        private Throwable t;
-
-        Testable(final Throwable pTh) {
-            t = pTh;
-        }
-
-        public void setThrowable(final Throwable pThrowable) {
-            t = pThrowable;
-        }
-
-        public void test() throws Throwable {
-            test(t);
-        }
-
-        public void test(final Throwable pThrowable) throws Throwable {
-            if (pThrowable != null) {
-                throw pThrowable;
-            }
-        }
-
-        public Integer testInt() throws Throwable {
-            return testInt(t);
-        }
-
-        public Integer testInt(final Throwable pThrowable) throws Throwable {
-            if (pThrowable != null) {
-                throw pThrowable;
-            }
-            return 0;
-        }
-    }
-
-    public static class FailureOnOddInvocations {
-        private static int invocation;
-
-        private static void throwOnOdd() throws SomeException {
-            final int i = ++invocation;
-            if (i % 2 == 1) {
-                throw new SomeException("Odd Invocation: " + i);
-            }
-        }
-        static boolean failingBool() throws SomeException {
-            throwOnOdd();
-            return true;
-        }
-        FailureOnOddInvocations() throws SomeException {
-            throwOnOdd();
-        }
-    }
-
-    public static class CloseableObject {
-        private boolean closed;
-
-        public void run(final Throwable pTh) throws Throwable {
-            if (pTh != null) {
-                throw pTh;
-            }
-        }
-
-        public void reset() {
-            closed = false;
-        }
-
-        public void close() {
-            closed = true;
-        }
-
-        public boolean isClosed() {
-            return closed;
-        }
-    }
-
     @Test
     void testRunnable() {
         FailureOnOddInvocations.invocation = 0;
@@ -161,6 +69,24 @@ class FunctionsTest {
 
         // Even invocation, should not throw an exception
         runnable.run();
+    }
+
+    public static class FailureOnOddInvocations {
+        private static int invocation;
+
+        private static void throwOnOdd() throws SomeException {
+            final int i = ++invocation;
+            if (i % 2 == 1) {
+                throw new SomeException("Odd Invocation: " + i);
+            }
+        }
+        static boolean failingBool() throws SomeException {
+            throwOnOdd();
+            return true;
+        }
+        FailureOnOddInvocations() throws SomeException {
+            throwOnOdd();
+        }
     }
 
     @Test
@@ -193,6 +119,48 @@ class FunctionsTest {
         } catch (final Exception ex) {
             throw Functions.rethrow(ex);
         }
+        assertNotNull(instance);
+    }
+
+    @Test
+    public void testGetFromSupplier() {
+        FailureOnOddInvocations.invocation = 0;
+        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  Functions.run(FailureOnOddInvocations::new));
+        final Throwable cause = e.getCause();
+        assertNotNull(cause);
+        assertTrue(cause instanceof SomeException);
+        assertEquals("Odd Invocation: 1", cause.getMessage());
+        final FailureOnOddInvocations instance = Functions.call(FailureOnOddInvocations::new);
+        assertNotNull(instance);
+    }
+
+    @Test
+    @DisplayName("Test that asPredicate(FailablePredicate) is converted to -> Predicate ")
+    public void testAsPredicate() {
+        FailureOnOddInvocations.invocation = 0;
+        final Functions.FailablePredicate<Object, Throwable> failablePredicate = (t) -> FailureOnOddInvocations.failingBool();
+        final Predicate<?> predicate = Functions.asPredicate(failablePredicate);
+        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () -> predicate.test(null));
+        final Throwable cause = e.getCause();
+        assertNotNull(cause);
+        assertTrue(cause instanceof SomeException);
+        assertEquals("Odd Invocation: 1", cause.getMessage());
+        final boolean instance = predicate.test(null);
+        assertNotNull(instance);
+    }
+
+    @Test
+    @DisplayName("Test that asPredicate(FailableBiPredicate) is converted to -> BiPredicate ")
+    public void testAsBiPredicate() {
+        FailureOnOddInvocations.invocation = 0;
+        final Functions.FailableBiPredicate<Object, Object, Throwable> failableBiPredicate = (t1, t2) -> FailureOnOddInvocations.failingBool();
+        final BiPredicate<?, ?> predicate = Functions.asBiPredicate(failableBiPredicate);
+        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () -> predicate.test(null, null));
+        final Throwable cause = e.getCause();
+        assertNotNull(cause);
+        assertTrue(cause instanceof SomeException);
+        assertEquals("Odd Invocation: 1", cause.getMessage());
+        final boolean instance = predicate.test(null, null);
         assertNotNull(instance);
     }
 
@@ -392,48 +360,6 @@ class FunctionsTest {
     }
 
     @Test
-    public void testGetFromSupplier() {
-        FailureOnOddInvocations.invocation = 0;
-        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  Functions.run(FailureOnOddInvocations::new));
-        final Throwable cause = e.getCause();
-        assertNotNull(cause);
-        assertTrue(cause instanceof SomeException);
-        assertEquals("Odd Invocation: 1", cause.getMessage());
-        final FailureOnOddInvocations instance = Functions.call(FailureOnOddInvocations::new);
-        assertNotNull(instance);
-    }
-
-    @Test
-    @DisplayName("Test that asPredicate(FailablePredicate) is converted to -> Predicate ")
-    public void testAsPredicate() {
-        FailureOnOddInvocations.invocation = 0;
-        final Functions.FailablePredicate<Object, Throwable> failablePredicate = (t) -> FailureOnOddInvocations.failingBool();
-        final Predicate<?> predicate = Functions.asPredicate(failablePredicate);
-        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () -> predicate.test(null));
-        final Throwable cause = e.getCause();
-        assertNotNull(cause);
-        assertTrue(cause instanceof SomeException);
-        assertEquals("Odd Invocation: 1", cause.getMessage());
-        final boolean instance = predicate.test(null);
-        assertNotNull(instance);
-    }
-
-    @Test
-    @DisplayName("Test that asPredicate(FailableBiPredicate) is converted to -> BiPredicate ")
-    public void testAsBiPredicate() {
-        FailureOnOddInvocations.invocation = 0;
-        final Functions.FailableBiPredicate<Object, Object, Throwable> failableBiPredicate = (t1, t2) -> FailureOnOddInvocations.failingBool();
-        final BiPredicate<?, ?> predicate = Functions.asBiPredicate(failableBiPredicate);
-        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () -> predicate.test(null, null));
-        final Throwable cause = e.getCause();
-        assertNotNull(cause);
-        assertTrue(cause instanceof SomeException);
-        assertEquals("Odd Invocation: 1", cause.getMessage());
-        final boolean instance = predicate.test(null, null);
-        assertNotNull(instance);
-    }
-
-    @Test
     public void testAsSupplier() {
         FailureOnOddInvocations.invocation = 0;
         final FailableSupplier<FailureOnOddInvocations, Throwable> failableSupplier = () -> new FailureOnOddInvocations();
@@ -472,5 +398,80 @@ class FunctionsTest {
         co.reset();
         Functions.tryWithResources(() -> consumer.accept(null), co::close);
         assertTrue(co.isClosed());
+    }
+
+    public static class SomeException extends Exception {
+        private static final long serialVersionUID = -4965704778119283411L;
+
+        private Throwable t;
+
+        SomeException(final String pMsg) {
+            super(pMsg);
+        }
+
+        public void setThrowable(final Throwable pThrowable) {
+            t = pThrowable;
+        }
+
+        public void test() throws Throwable {
+            if (t != null) {
+                throw t;
+            }
+        }
+    }
+
+    public static class Testable {
+        private Throwable t;
+
+        Testable(final Throwable pTh) {
+            t = pTh;
+        }
+
+        public void setThrowable(final Throwable pThrowable) {
+            t = pThrowable;
+        }
+
+        public void test() throws Throwable {
+            test(t);
+        }
+
+        public void test(final Throwable pThrowable) throws Throwable {
+            if (pThrowable != null) {
+                throw pThrowable;
+            }
+        }
+
+        public Integer testInt() throws Throwable {
+            return testInt(t);
+        }
+
+        public Integer testInt(final Throwable pThrowable) throws Throwable {
+            if (pThrowable != null) {
+                throw pThrowable;
+            }
+            return 0;
+        }
+    }
+
+    public static class CloseableObject {
+        private boolean closed;
+
+        public void run(final Throwable pTh) throws Throwable {
+            if (pTh != null) {
+                throw pTh;
+            }
+        }
+
+        public void reset() {
+            closed = false;
+        }
+
+        public void close() {
+            closed = true;
+        }
+
+        public boolean isClosed() {
+            return closed;
+        }
     }
 }
