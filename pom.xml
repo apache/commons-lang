@@ -764,7 +764,7 @@
           <dependency>
             <groupId>com.github.spotbugs</groupId>
             <artifactId>spotbugs</artifactId>
-            <version>4.0.0-RC3</version>
+            <version>4.0.0</version>
          </dependency>
         </dependencies>        
         <configuration>
