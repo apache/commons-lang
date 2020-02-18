@@ -3174,7 +3174,6 @@ public static int indexOf(final int[] array, final int valueToFind) {
         return getLength(array) == 0;
     }
 
-    // ----------------------------------------------------------------------
     /**
      * <p>Checks if an array of Objects is empty or {@code null}.
      *
@@ -3197,6 +3196,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         return getLength(array) == 0;
     }
 
+    // ----------------------------------------------------------------------
     /**
      * <p>Compares two arrays, using equals(), handling multi-dimensional arrays
      * correctly.
@@ -3302,7 +3302,6 @@ public static int indexOf(final int[] array, final int valueToFind) {
         return !isEmpty(array);
     }
 
-    // ----------------------------------------------------------------------
     /**
      * <p>Checks if an array of Objects is not empty and not {@code null}.
      *
@@ -3311,100 +3310,11 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @return {@code true} if the array is not empty and not {@code null}
      * @since 2.5
      */
-     public static <T> boolean isNotEmpty(final T[] array) {
-         return !isEmpty(array);
-     }
-
-    /**
-     * <p>Checks whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
-     *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
-     */
-    public static boolean isSameLength(final boolean[] array1, final boolean[] array2) {
-        return getLength(array1) == getLength(array2);
+    public static <T> boolean isNotEmpty(final T[] array) {
+        return !isEmpty(array);
     }
 
-    /**
-     * <p>Checks whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
-     *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
-     */
-    public static boolean isSameLength(final byte[] array1, final byte[] array2) {
-        return getLength(array1) == getLength(array2);
-    }
-
-    /**
-     * <p>Checks whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
-     *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
-     */
-    public static boolean isSameLength(final char[] array1, final char[] array2) {
-        return getLength(array1) == getLength(array2);
-    }
-
-    /**
-     * <p>Checks whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
-     *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
-     */
-    public static boolean isSameLength(final double[] array1, final double[] array2) {
-        return getLength(array1) == getLength(array2);
-    }
-
-    /**
-     * <p>Checks whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
-     *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
-     */
-    public static boolean isSameLength(final float[] array1, final float[] array2) {
-        return getLength(array1) == getLength(array2);
-    }
-
-    /**
-     * <p>Checks whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
-     *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
-     */
-    public static boolean isSameLength(final int[] array1, final int[] array2) {
-        return getLength(array1) == getLength(array2);
-    }
-
-    /**
-     * <p>Checks whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
-     *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
-     */
-    public static boolean isSameLength(final long[] array1, final long[] array2) {
-        return getLength(array1) == getLength(array2);
-    }
+    // ----------------------------------------------------------------------
 
     // Is same length
     //-----------------------------------------------------------------------
@@ -3427,6 +3337,443 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * <p>Checks whether two arrays are the same length, treating
      * {@code null} arrays as length {@code 0}.
      *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final Object[] array1, final long[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final Object[] array1, final int[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final Object[] array1, final short[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final Object[] array1, final char[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final Object[] array1, final byte[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final Object[] array1, final double[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final Object[] array1, final float[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final Object[] array1, final boolean[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final long[] array1, final Object[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final long[] array1, final long[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final long[] array1, final int[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final long[] array1, final short[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final long[] array1, final char[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final long[] array1, final byte[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final long[] array1, final double[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final long[] array1, final float[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final long[] array1, final boolean[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final int[] array1, final Object[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final int[] array1, final long[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final int[] array1, final int[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final int[] array1, final short[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final int[] array1, final char[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final int[] array1, final byte[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final int[] array1, final double[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final int[] array1, final float[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final int[] array1, final boolean[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final short[] array1, final Object[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final short[] array1, final long[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final short[] array1, final int[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
      * @param array1 the first array, may be {@code null}
      * @param array2 the second array, may be {@code null}
      * @return {@code true} if length of arrays matches, treating
@@ -3435,6 +3782,758 @@ public static int indexOf(final int[] array, final int valueToFind) {
     public static boolean isSameLength(final short[] array1, final short[] array2) {
         return getLength(array1) == getLength(array2);
     }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final short[] array1, final char[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final short[] array1, final byte[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final short[] array1, final double[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final short[] array1, final float[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final short[] array1, final boolean[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final char[] array1, final Object[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final char[] array1, final long[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final char[] array1, final int[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final char[] array1, final short[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final char[] array1, final char[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final char[] array1, final byte[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final char[] array1, final double[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final char[] array1, final float[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final char[] array1, final boolean[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final byte[] array1, final Object[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final byte[] array1, final long[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final byte[] array1, final int[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final byte[] array1, final short[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final byte[] array1, final char[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final byte[] array1, final byte[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final byte[] array1, final double[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final byte[] array1, final float[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final byte[] array1, final boolean[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final double[] array1, final Object[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final double[] array1, final long[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final double[] array1, final int[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final double[] array1, final short[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final double[] array1, final char[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final double[] array1, final byte[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final double[] array1, final double[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final double[] array1, final float[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final double[] array1, final boolean[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final float[] array1, final Object[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final float[] array1, final long[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final float[] array1, final int[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final float[] array1, final short[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final float[] array1, final char[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final float[] array1, final byte[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final float[] array1, final double[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final float[] array1, final float[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final float[] array1, final boolean[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final boolean[] array1, final Object[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final boolean[] array1, final long[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final boolean[] array1, final int[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final boolean[] array1, final short[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final boolean[] array1, final char[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final boolean[] array1, final byte[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final boolean[] array1, final double[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final boolean[] array1, final float[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     */
+    public static boolean isSameLength(final boolean[] array1, final boolean[] array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
+    //-----------------------------------------------------------------------
 
     /**
      * <p>Checks whether two arrays are the same type taking into account
