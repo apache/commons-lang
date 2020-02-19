@@ -974,17 +974,13 @@ public class MethodUtils {
             final Class<?> mcls = method.getDeclaringClass();
             final List<Class<?>> classes = getAllSuperclassesAndInterfaces(mcls);
             for (final Class<?> acls : classes) {
-                Method equivalentMethod;
-                try {
-                    equivalentMethod = (ignoreAccess ? acls.getDeclaredMethod(method.getName(), method.getParameterTypes())
-                            : acls.getMethod(method.getName(), method.getParameterTypes()));
-                } catch (final NoSuchMethodException e) {
-                    // if not found, just keep searching
-                    continue;
-                }
-                annotation = equivalentMethod.getAnnotation(annotationCls);
-                if (annotation != null) {
-                    break;
+                Method equivalentMethod = (ignoreAccess ? MethodUtils.getMatchingMethod(acls, method.getName(), method.getParameterTypes())
+                    : MethodUtils.getMatchingAccessibleMethod(acls, method.getName(), method.getParameterTypes()));
+                if(equivalentMethod != null) {
+                    annotation = equivalentMethod.getAnnotation(annotationCls);
+                    if (annotation != null) {
+                        break;
+                    }
                 }
             }
         }
