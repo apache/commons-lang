@@ -56,7 +56,7 @@ public class IntegerUtilsTest {
     @Test
     public void test_isNotPositive_int_Integer() {
         int zero = 0;
-        asserTrue(IntegerUtils.isNotPositive(null));
+        assertTrue(IntegerUtils.isNotPositive(null));
         assertFalse(IntegerUtils.isNotPositive(10));
         assertTrue(IntegerUtils.isNotPositive(-10));
         assertTrue(IntegerUtils.isNotPositive(zero));
@@ -76,7 +76,7 @@ public class IntegerUtilsTest {
     @Test
     public void test_isNotNegative_int_Integer() {
         int zero = 0;
-        asserTrue(IntegerUtils.isNotNegative(null));
+        assertTrue(IntegerUtils.isNotNegative(null));
         assertFalse(IntegerUtils.isNotNegative(-10));
         assertTrue(IntegerUtils.isNotNegative(10));
         assertTrue(IntegerUtils.isNotNegative(zero));
