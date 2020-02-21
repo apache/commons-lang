@@ -25,7 +25,7 @@ package org.apache.commons.lang3;
  * <p>
  * <p>#ThreadSafe#</p>
  *
- * @since 2.0
+ * @since 3.9
  */
 public class IntegerUtils {
 
