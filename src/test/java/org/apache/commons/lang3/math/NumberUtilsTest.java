@@ -1610,7 +1610,7 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isZero(Double.MIN_VALUE));
         assertTrue(NumberUtils.isZero(zeroDouble));
 
-        assertFalse(NumberUtils.isZero(NUMBER_OBJ));
+        assertFalse(NumberUtils.isZero(numberObj));
     }
 
     @Test
@@ -1647,7 +1647,7 @@ public class NumberUtilsTest {
         assertTrue(NumberUtils.isNotZero(Double.MAX_VALUE));
         assertTrue(NumberUtils.isNotZero(nZeroDouble));
 
-        assertTrue(NumberUtils.isNotZero(NUMBER_OBJ));
+        assertTrue(NumberUtils.isNotZero(numberObj));
     }
 
     @Test
@@ -1684,7 +1684,7 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isPositive(-10.1000d));
         assertTrue(NumberUtils.isPositive(positiveDouble));
 
-        assertFalse(NumberUtils.isPositive(NUMBER_OBJ));
+        assertFalse(NumberUtils.isPositive(numberObj));
     }
 
     @Test
@@ -1721,7 +1721,7 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isNotPositive(10.1000d));
         assertTrue(NumberUtils.isNotPositive(nPositiveDouble));
 
-        assertTrue(NumberUtils.isNotPositive(NUMBER_OBJ));
+        assertTrue(NumberUtils.isNotPositive(numberObj));
     }
 
     @Test
@@ -1758,7 +1758,7 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isNegative(10.1000d));
         assertTrue(NumberUtils.isNegative(negativeDouble));
 
-        assertFalse(NumberUtils.isNegative(NUMBER_OBJ));
+        assertFalse(NumberUtils.isNegative(numberObj));
     }
 
     @Test
@@ -1795,11 +1795,11 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isNotNegative(-10.1000d));
         assertTrue(NumberUtils.isNotNegative(nNegativeDouble));
 
-        assertTrue(NumberUtils.isNotNegative(NUMBER_OBJ));
+        assertTrue(NumberUtils.isNotNegative(numberObj));
     }
 
     // reusable random {@code Number} object for above tests
-    private final static Number NUMBER_OBJ = new Number() {
+    private final Number numberObj = new Number() {
         @Override
         public int intValue() {
             return 0;
