@@ -29,6 +29,7 @@ public class StringParameterizedChild extends GenericParent<String> {
     public void parentProtectedAnnotatedMethod(final String t) {
     }
 
+    @Override
     public void parentNotAnnotatedMethod(final String t) {
     }
 

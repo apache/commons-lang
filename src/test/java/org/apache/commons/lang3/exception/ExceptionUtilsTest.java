@@ -714,6 +714,7 @@ public class ExceptionUtilsTest {
     public void testgetStackFramesHappyPath() {
         final String[] actual = ExceptionUtils.getStackFrames(new Throwable() {
             // provide static stack trace to make test stable
+            @Override
             public void printStackTrace(final PrintWriter s) {
                 s.write("org.apache.commons.lang3.exception.ExceptionUtilsTest$1\n" +
                     "\tat org.apache.commons.lang3.exception.ExceptionUtilsTest.testgetStackFramesGappyPath(ExceptionUtilsTest.java:706)\n" +
