@@ -98,7 +98,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1513" type="add" dev="ggregory" due-to="Bernhard Bonigl, Gary Gregory">ObjectUtils: Get first non-null supplier value.</action>
     <action                   type="add" dev="jochen">Added the Streams class, and Functions.stream() as an accessor thereof.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">org.easymock:easymock 4.1 -> 4.2.</action>
-    <action                   type="update" dev="ggregory" due-to="Gary Gregory">org.junit-pioneer:junit-pioneer 0.4.2 -> 0.5.3.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">org.junit-pioneer:junit-pioneer 0.4.2 -> 0.5.4.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">org.junit.jupiter:junit-jupiter 5.5.2 -> 5.6.0.</action>
     <action                   type="update" dev="ggregory" due-to="Peter Verhas">Use Javadoc {@code} instead of pre tags. #490.</action>
     <action                   type="update" dev="ggregory" due-to="Peter Verhas">ExceptionUtilsTest to 100% #486.</action>
