@@ -33,7 +33,7 @@ public class CharUtils {
     private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
     /**
-     * {@code \u000a} linefeed LF ('\n').
+     * Linefeed character LF ({@code '\n'}, Unicode 000a).
      *
      * @see <a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.10.6">JLF: Escape Sequences
      *      for Character and String Literals</a>
@@ -42,7 +42,7 @@ public class CharUtils {
     public static final char LF = '\n';
 
     /**
-     * {@code \u000d} carriage return CR ('\r').
+     * Carriage return characterf CR ('\r', Unicode 000d).
      *
      * @see <a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.10.6">JLF: Escape Sequences
      *      for Character and String Literals</a>

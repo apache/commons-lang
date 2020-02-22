@@ -61,12 +61,7 @@ import org.apache.commons.lang3.Validate;
  */
 public class MethodUtils {
 
-  private static final Comparator<Method> METHOD_BY_SIGNATURE = new Comparator<Method>() {
-    @Override
-    public int compare(final Method m1, final Method m2) {
-        return m1.toString ().compareTo (m2.toString ());
-    }
-  };
+    private static final Comparator<Method> METHOD_BY_SIGNATURE = (m1, m2) -> m1.toString().compareTo(m2.toString());
 
     /**
      * <p>{@link MethodUtils} instances should NOT be constructed in standard programming.
@@ -699,7 +694,7 @@ public class MethodUtils {
         }
 
         // Sort methods by signature to force deterministic result
-        Collections.sort (matchingMethods, METHOD_BY_SIGNATURE);
+        Collections.sort(matchingMethods, METHOD_BY_SIGNATURE);
 
         Method bestMatch = null;
         for (final Method method : matchingMethods) {
@@ -974,17 +969,13 @@ public class MethodUtils {
             final Class<?> mcls = method.getDeclaringClass();
             final List<Class<?>> classes = getAllSuperclassesAndInterfaces(mcls);
             for (final Class<?> acls : classes) {
-                Method equivalentMethod;
-                try {
-                    equivalentMethod = (ignoreAccess ? acls.getDeclaredMethod(method.getName(), method.getParameterTypes())
-                            : acls.getMethod(method.getName(), method.getParameterTypes()));
-                } catch (final NoSuchMethodException e) {
-                    // if not found, just keep searching
-                    continue;
-                }
-                annotation = equivalentMethod.getAnnotation(annotationCls);
-                if (annotation != null) {
-                    break;
+                final Method equivalentMethod = (ignoreAccess ? MethodUtils.getMatchingMethod(acls, method.getName(), method.getParameterTypes())
+                    : MethodUtils.getMatchingAccessibleMethod(acls, method.getName(), method.getParameterTypes()));
+                if (equivalentMethod != null) {
+                    annotation = equivalentMethod.getAnnotation(annotationCls);
+                    if (annotation != null) {
+                        break;
+                    }
                 }
             }
         }
