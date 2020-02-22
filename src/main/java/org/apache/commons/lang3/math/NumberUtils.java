@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import java.math.RoundingMode;
+import java.util.Objects;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
@@ -1821,5 +1823,119 @@ public class NumberUtils {
      */
     public static int compare(final byte x, final byte y) {
         return x - y;
+    }
+
+    /**
+     * <p>Checks if a {@code Number} value is zero,
+     * handling {@code null} by returning {@code false}.</p>
+     *
+     * @param number the integer to check, {@code null} returns {@code false}
+     * @return {@code true} only if the input is non-null and equals zero
+     */
+    public static boolean isZero(final Number number) {
+        if (Objects.isNull(number)) {
+            return false;
+        } else if (number instanceof Integer) {
+            return number.intValue() == INTEGER_ZERO;
+        } else if (number instanceof Long) {
+            return number.longValue() == LONG_ZERO;
+        } else if (number instanceof Byte) {
+            return number.byteValue() == BYTE_ZERO;
+        } else if (number instanceof Short) {
+            return number.shortValue() == SHORT_ZERO;
+        } else if (number instanceof Float) {
+            return number.floatValue() == FLOAT_ZERO;
+        } else if (number instanceof Double) {
+            return number.doubleValue() == DOUBLE_ZERO;
+        }
+
+        return false;
+    }
+
+    /**
+     * <p>Checks if a {@code Number} value is not zero,
+     * handling {@code null} by returning {@code true}.</p>
+     *
+     * @param number the number to check, {@code null} returns {@code true}
+     * @return {@code true} if the input is null or not equals zero
+     */
+    public static boolean isNotZero(final Number number) {
+        return !isZero(number);
+    }
+
+    /**
+     * <p>Checks if a {@code Number} value is positive,
+     * handling {@code null} by returning {@code false}.</p>
+     *
+     * @param number the integer to check, {@code null} returns {@code false}
+     * @return {@code true} only if the input is non-null and greater than zero
+     */
+    public static boolean isPositive(final Number number) {
+        if (Objects.isNull(number)) {
+            return false;
+        } else if (number instanceof Integer) {
+            return number.intValue() > INTEGER_ZERO;
+        } else if (number instanceof Long) {
+            return number.longValue() > LONG_ZERO;
+        } else if (number instanceof Byte) {
+            return number.byteValue() > BYTE_ZERO;
+        } else if (number instanceof Short) {
+            return number.shortValue() > SHORT_ZERO;
+        } else if (number instanceof Float) {
+            return number.floatValue() > FLOAT_ZERO;
+        } else if (number instanceof Double) {
+            return number.doubleValue() > DOUBLE_ZERO;
+        }
+
+        return false;
+    }
+
+    /**
+     * <p>Checks if a {@code Number} value is not positive,
+     * handling {@code null} by returning {@code true}.</p>
+     *
+     * @param number the integer to check, {@code null} returns {@code true}
+     * @return {@code true} if the input is non-null or lesser than zero
+     */
+    public static boolean isNotPositive(final Number number) {
+        return !isPositive(number);
+    }
+
+    /**
+     * <p>Checks if a {@code Number} value is negative,
+     * handling {@code null} by returning {@code false}.</p>
+     *
+     * @param number the integer to check, {@code null} returns {@code false}
+     * @return {@code true} only if the input is non-null and lesser than zero
+     */
+    public static boolean isNegative(final Number number) {
+        if (Objects.isNull(number)) {
+            return false;
+        } else if (number instanceof Integer) {
+            return number.intValue() < INTEGER_ZERO;
+        } else if (number instanceof Long) {
+            return number.longValue() < LONG_ZERO;
+        } else if (number instanceof Byte) {
+            return number.byteValue() < BYTE_ZERO;
+        } else if (number instanceof Short) {
+            return number.shortValue() < SHORT_ZERO;
+        } else if (number instanceof Float) {
+            return number.floatValue() < FLOAT_ZERO;
+        } else if (number instanceof Double) {
+            return number.doubleValue() < DOUBLE_ZERO;
+        }
+
+        return false;
+    }
+
+    /**
+     * <p>Checks if a {@code Number} value is not negative,
+     * handling {@code null} by returning {@code true}.</p>
+     *
+     * @param number the integer to check, {@code null} returns {@code true}
+     * @return {@code true} if the input is non-null or greater than zero
+     */
+    public static boolean isNotNegative(final Number number) {
+        return !isNegative(number);
     }
 }

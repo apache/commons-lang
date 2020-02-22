@@ -1575,4 +1575,250 @@ public class NumberUtilsTest {
         assertEquals(0, NumberUtils.compare((byte) 113, (byte) 113));
         assertTrue(NumberUtils.compare((byte) 123, (byte) 32) > 0);
     }
+
+    @Test
+    public void testIsZero() {
+        assertFalse(NumberUtils.isZero(null));
+
+        final int zeroInt = 0;
+        assertTrue(NumberUtils.isZero(0));
+        assertFalse(NumberUtils.isZero(Integer.MAX_VALUE));
+        assertTrue(NumberUtils.isZero(zeroInt));
+
+        final long zeroLong = 0L;
+        assertTrue(NumberUtils.isZero(0L));
+        assertFalse(NumberUtils.isZero(Long.MIN_VALUE));
+        assertTrue(NumberUtils.isZero(zeroLong));
+
+        final byte zeroByte = (byte) 0;
+        assertTrue(NumberUtils.isZero((byte) 0));
+        assertFalse(NumberUtils.isZero(Byte.MAX_VALUE));
+        assertTrue(NumberUtils.isZero(zeroByte));
+
+        final short zeroShort = (short) 0;
+        assertTrue(NumberUtils.isZero((short) 0));
+        assertFalse(NumberUtils.isZero(Short.MIN_VALUE));
+        assertTrue(NumberUtils.isZero(zeroShort));
+
+        final float zeroFloat = -0.0f;
+        assertTrue(NumberUtils.isZero(0.0f));
+        assertFalse(NumberUtils.isZero(Float.MAX_VALUE));
+        assertTrue(NumberUtils.isZero(zeroFloat));
+
+        final double zeroDouble = +0.0d;
+        assertTrue(NumberUtils.isZero(0.0d));
+        assertFalse(NumberUtils.isZero(Double.MIN_VALUE));
+        assertTrue(NumberUtils.isZero(zeroDouble));
+
+        assertFalse(NumberUtils.isZero(NUMBER_OBJ));
+    }
+
+    @Test
+    public void testIsNotZero() {
+        assertTrue(NumberUtils.isNotZero(null));
+
+        final int nZeroInt = Integer.MAX_VALUE;
+        assertFalse(NumberUtils.isNotZero(0));
+        assertTrue(NumberUtils.isNotZero(Integer.MIN_VALUE));
+        assertTrue(NumberUtils.isNotZero(nZeroInt));
+
+        final long nZeroLong = Long.MIN_VALUE;
+        assertFalse(NumberUtils.isNotZero(0L));
+        assertTrue(NumberUtils.isNotZero(Long.MAX_VALUE));
+        assertTrue(NumberUtils.isNotZero(nZeroLong));
+
+        final byte nZeroByte = Byte.MAX_VALUE;
+        assertFalse(NumberUtils.isNotZero((byte) 0));
+        assertTrue(NumberUtils.isNotZero(Long.MIN_VALUE));
+        assertTrue(NumberUtils.isNotZero(nZeroByte));
+
+        final short nZeroShort = Short.MIN_VALUE;
+        assertFalse(NumberUtils.isNotZero((short) 0));
+        assertTrue(NumberUtils.isNotZero(Long.MAX_VALUE));
+        assertTrue(NumberUtils.isNotZero(nZeroShort));
+
+        final float nZeroFloat = Float.MAX_VALUE;
+        assertFalse(NumberUtils.isNotZero(+0.0f));
+        assertTrue(NumberUtils.isNotZero(Long.MIN_VALUE));
+        assertTrue(NumberUtils.isNotZero(nZeroFloat));
+
+        final double nZeroDouble = Double.MIN_VALUE;
+        assertFalse(NumberUtils.isNotZero(-0.0d));
+        assertTrue(NumberUtils.isNotZero(Double.MAX_VALUE));
+        assertTrue(NumberUtils.isNotZero(nZeroDouble));
+
+        assertTrue(NumberUtils.isNotZero(NUMBER_OBJ));
+    }
+
+    @Test
+    public void testIsPositive() {
+        assertFalse(NumberUtils.isPositive(null));
+
+        final int positiveInt = Integer.MAX_VALUE;
+        assertTrue(NumberUtils.isPositive(100));
+        assertFalse(NumberUtils.isPositive(-100));
+        assertTrue(NumberUtils.isPositive(positiveInt));
+
+        final long positiveLong = Long.MAX_VALUE;
+        assertTrue(NumberUtils.isPositive(1000L));
+        assertFalse(NumberUtils.isPositive(-1000L));
+        assertTrue(NumberUtils.isPositive(positiveLong));
+
+        final byte positiveByte = Byte.MAX_VALUE;
+        assertTrue(NumberUtils.isPositive((byte) 1));
+        assertFalse(NumberUtils.isPositive((byte) -1));
+        assertTrue(NumberUtils.isPositive(positiveByte));
+
+        final short positiveShort = Short.MAX_VALUE;
+        assertTrue(NumberUtils.isPositive((short) 10));
+        assertFalse(NumberUtils.isPositive((short) -10));
+        assertTrue(NumberUtils.isPositive(positiveShort));
+
+        final float positiveFloat = Float.MAX_VALUE;
+        assertTrue(NumberUtils.isPositive(0.100f));
+        assertFalse(NumberUtils.isPositive(-0.100f));
+        assertTrue(NumberUtils.isPositive(positiveFloat));
+
+        final double positiveDouble = Double.MAX_VALUE;
+        assertTrue(NumberUtils.isPositive(10.1000d));
+        assertFalse(NumberUtils.isPositive(-10.1000d));
+        assertTrue(NumberUtils.isPositive(positiveDouble));
+
+        assertFalse(NumberUtils.isPositive(NUMBER_OBJ));
+    }
+
+    @Test
+    public void testIsNotPositive() {
+        assertTrue(NumberUtils.isNotPositive(null));
+
+        final int nPositiveInt = Integer.MIN_VALUE;
+        assertTrue(NumberUtils.isNotPositive(-100));
+        assertFalse(NumberUtils.isNotPositive(100));
+        assertTrue(NumberUtils.isNotPositive(nPositiveInt));
+
+        final long nPositiveLong = Long.MIN_VALUE;
+        assertTrue(NumberUtils.isNotPositive(-1000L));
+        assertFalse(NumberUtils.isNotPositive(1000L));
+        assertTrue(NumberUtils.isNotPositive(nPositiveLong));
+
+        final byte nPositiveByte = Byte.MIN_VALUE;
+        assertTrue(NumberUtils.isNotPositive((byte) -1));
+        assertFalse(NumberUtils.isNotPositive((byte) 1));
+        assertTrue(NumberUtils.isNotPositive(nPositiveByte));
+
+        final short nPositiveShort = Short.MIN_VALUE;
+        assertTrue(NumberUtils.isNotPositive((short) -10));
+        assertFalse(NumberUtils.isNotPositive((short) 10));
+        assertTrue(NumberUtils.isNotPositive(nPositiveShort));
+
+        final float nPositiveFloat = +0.0f;
+        assertTrue(NumberUtils.isNotPositive(-0.100f));
+        assertFalse(NumberUtils.isNotPositive(0.100f));
+        assertTrue(NumberUtils.isNotPositive(nPositiveFloat));
+
+        final double nPositiveDouble = +0.0d;
+        assertTrue(NumberUtils.isNotPositive(-10.1000d));
+        assertFalse(NumberUtils.isNotPositive(10.1000d));
+        assertTrue(NumberUtils.isNotPositive(nPositiveDouble));
+
+        assertTrue(NumberUtils.isNotPositive(NUMBER_OBJ));
+    }
+
+    @Test
+    public void testIsNegative() {
+        assertFalse(NumberUtils.isNegative(null));
+
+        final int negativeInt = Integer.MIN_VALUE;
+        assertTrue(NumberUtils.isNegative(-100));
+        assertFalse(NumberUtils.isNegative(100));
+        assertTrue(NumberUtils.isNegative(negativeInt));
+
+        final long negativeLong = Long.MIN_VALUE;
+        assertTrue(NumberUtils.isNegative(-1000L));
+        assertFalse(NumberUtils.isNegative(1000L));
+        assertTrue(NumberUtils.isNegative(negativeLong));
+
+        final byte negativeByte = Byte.MIN_VALUE;
+        assertTrue(NumberUtils.isNegative((byte) -1));
+        assertFalse(NumberUtils.isNegative((byte) 1));
+        assertTrue(NumberUtils.isNegative(negativeByte));
+
+        final short negativeShort = Short.MIN_VALUE;
+        assertTrue(NumberUtils.isNegative((short) -10));
+        assertFalse(NumberUtils.isNegative((short) 10));
+        assertTrue(NumberUtils.isNegative(negativeShort));
+
+        final float negativeFloat = -4444.4444f;
+        assertTrue(NumberUtils.isNegative(-0.100f));
+        assertFalse(NumberUtils.isNegative(0.100f));
+        assertTrue(NumberUtils.isNegative(negativeFloat));
+
+        final double negativeDouble = -999999999.999999999d;
+        assertTrue(NumberUtils.isNegative(-10.1000d));
+        assertFalse(NumberUtils.isNegative(10.1000d));
+        assertTrue(NumberUtils.isNegative(negativeDouble));
+
+        assertFalse(NumberUtils.isNegative(NUMBER_OBJ));
+    }
+
+    @Test
+    public void testIsNotNegative() {
+        assertTrue(NumberUtils.isNotNegative(null));
+
+        final int nNegativeInt = Integer.MAX_VALUE;
+        assertTrue(NumberUtils.isNotNegative(100));
+        assertFalse(NumberUtils.isNotNegative(-100));
+        assertTrue(NumberUtils.isNotNegative(nNegativeInt));
+
+        final long nNegativeLong = Long.MAX_VALUE;
+        assertTrue(NumberUtils.isNotNegative(1000L));
+        assertFalse(NumberUtils.isNotNegative(-1000L));
+        assertTrue(NumberUtils.isNotNegative(nNegativeLong));
+
+        final byte nNegativeByte = Byte.MAX_VALUE;
+        assertTrue(NumberUtils.isNotNegative((byte) 1));
+        assertFalse(NumberUtils.isNotNegative((byte) -1));
+        assertTrue(NumberUtils.isNotNegative(nNegativeByte));
+
+        final short nNegativeShort = Short.MAX_VALUE;
+        assertTrue(NumberUtils.isNotNegative((short) 10));
+        assertFalse(NumberUtils.isNotNegative((short) -10));
+        assertTrue(NumberUtils.isNotNegative(nNegativeShort));
+
+        final float nNegativeFloat = -0.0f;
+        assertTrue(NumberUtils.isNotNegative(0.100f));
+        assertFalse(NumberUtils.isNotNegative(-0.100f));
+        assertTrue(NumberUtils.isNotNegative(nNegativeFloat));
+
+        final double nNegativeDouble = -0.0d;
+        assertTrue(NumberUtils.isNotNegative(10.1000d));
+        assertFalse(NumberUtils.isNotNegative(-10.1000d));
+        assertTrue(NumberUtils.isNotNegative(nNegativeDouble));
+
+        assertTrue(NumberUtils.isNotNegative(NUMBER_OBJ));
+    }
+
+    // reusable random {@code Number} object for above tests
+    private final static Number NUMBER_OBJ = new Number() {
+        @Override
+        public int intValue() {
+            return 0;
+        }
+
+        @Override
+        public long longValue() {
+            return 0;
+        }
+
+        @Override
+        public float floatValue() {
+            return 0;
+        }
+
+        @Override
+        public double doubleValue() {
+            return 0;
+        }
+    };
+
 }
