@@ -475,7 +475,7 @@ public final class Range<T> implements Serializable {
      */
     public T fit(final T element) {
         // Comparable API says throw NPE on null
-        Validate.notNull(element, "Element is null");
+        Validate.notNull(element, "element");
         if (isAfter(element)) {
             return minimum;
         } else if (isBefore(element)) {
