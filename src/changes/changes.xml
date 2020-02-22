@@ -104,6 +104,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Peter Verhas">ExceptionUtilsTest to 100% #486.</action>
     <action issue="LANG-1433" type="fix" dev="ggregory" due-to="Christian Franzen">MethodUtils will throw a NPE if invokeMethod() is called for a var-args method #407.</action>
     <action                   type="update" dev="ggregory" due-to="Peter Verhas">Reuse own code in Functions.java #493.</action>
+    <action issue="LANG-1518" type="fix" dev="ggregory" due-to="Michele Preti, Bruno P. Kinoshita, Gary Gregory">MethodUtils.getAnnotation() with searchSupers = true does not work if super is generic #494.</action>
   </release>
 
   <release version="3.9" date="2019-04-09" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">
