@@ -1829,8 +1829,9 @@ public class NumberUtils {
      * <p>Checks if a {@code Number} value is zero,
      * handling {@code null} by returning {@code false}.</p>
      *
-     * @param number the number to check, {@code null} returns {@code false}
+     * @param number the {@code number} to check, {@code null} returns {@code false}
      * @return {@code true} only if the input is non-null and equals zero
+     * @since 3.10
      */
     public static boolean isZero(final Number number) {
         if (Objects.isNull(number)) {
@@ -1856,8 +1857,9 @@ public class NumberUtils {
      * <p>Checks if a {@code Number} value is not zero,
      * handling {@code null} by returning {@code true}.</p>
      *
-     * @param number the number to check, {@code null} returns {@code true}
+     * @param number the {@code number} to check, {@code null} returns {@code true}
      * @return {@code true} if the input is null or not equals zero
+     * @since 3.10
      */
     public static boolean isNotZero(final Number number) {
         return !isZero(number);
@@ -1867,8 +1869,9 @@ public class NumberUtils {
      * <p>Checks if a {@code Number} value is positive,
      * handling {@code null} by returning {@code false}.</p>
      *
-     * @param number the number to check, {@code null} returns {@code false}
+     * @param number the {@code number} to check, {@code null} returns {@code false}
      * @return {@code true} only if the input is non-null and greater than zero
+     * @since 3.10
      */
     public static boolean isPositive(final Number number) {
         if (Objects.isNull(number)) {
@@ -1894,8 +1897,9 @@ public class NumberUtils {
      * <p>Checks if a {@code Number} value is not positive,
      * handling {@code null} by returning {@code true}.</p>
      *
-     * @param number the number to check, {@code null} returns {@code true}
+     * @param number the {@code number} to check, {@code null} returns {@code true}
      * @return {@code true} if the input is non-null or lesser than zero
+     * @since 3.10
      */
     public static boolean isNotPositive(final Number number) {
         return !isPositive(number);
@@ -1905,8 +1909,9 @@ public class NumberUtils {
      * <p>Checks if a {@code Number} value is negative,
      * handling {@code null} by returning {@code false}.</p>
      *
-     * @param number the number to check, {@code null} returns {@code false}
+     * @param number the {@code number} to check, {@code null} returns {@code false}
      * @return {@code true} only if the input is non-null and lesser than zero
+     * @since 3.10
      */
     public static boolean isNegative(final Number number) {
         if (Objects.isNull(number)) {
@@ -1932,8 +1937,9 @@ public class NumberUtils {
      * <p>Checks if a {@code Number} value is not negative,
      * handling {@code null} by returning {@code true}.</p>
      *
-     * @param number the number to check, {@code null} returns {@code true}
+     * @param number the {@code number} to check, {@code null} returns {@code true}
      * @return {@code true} if the input is non-null or greater than zero
+     * @since 3.10
      */
     public static boolean isNotNegative(final Number number) {
         return !isNegative(number);
