@@ -1848,9 +1848,11 @@ public class NumberUtils {
             return number.floatValue() == FLOAT_ZERO;
         } else if (number instanceof Double) {
             return number.doubleValue() == DOUBLE_ZERO;
+        } else {
+            return number.intValue() == INTEGER_ZERO && number.longValue() == LONG_ZERO &&
+                    number.byteValue() == BYTE_ZERO && number.shortValue() == SHORT_ZERO &&
+                    number.floatValue() == FLOAT_ZERO && number.doubleValue() == DOUBLE_ZERO;
         }
-
-        return false;
     }
 
     /**
@@ -1888,9 +1890,11 @@ public class NumberUtils {
             return number.floatValue() > FLOAT_ZERO;
         } else if (number instanceof Double) {
             return number.doubleValue() > DOUBLE_ZERO;
+        } else {
+            return number.intValue() > INTEGER_ZERO && number.longValue() > LONG_ZERO &&
+                    number.byteValue() > BYTE_ZERO && number.shortValue() > SHORT_ZERO &&
+                    number.floatValue() > FLOAT_ZERO && number.doubleValue() > DOUBLE_ZERO;
         }
-
-        return false;
     }
 
     /**
@@ -1928,9 +1932,11 @@ public class NumberUtils {
             return number.floatValue() < FLOAT_ZERO;
         } else if (number instanceof Double) {
             return number.doubleValue() < DOUBLE_ZERO;
+        } else {
+            return number.intValue() < INTEGER_ZERO && number.longValue() < LONG_ZERO &&
+                    number.byteValue() < BYTE_ZERO && number.shortValue() < SHORT_ZERO &&
+                    number.floatValue() < FLOAT_ZERO && number.doubleValue() < DOUBLE_ZERO;
         }
-
-        return false;
     }
 
     /**

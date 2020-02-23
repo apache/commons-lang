@@ -1610,7 +1610,76 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isZero(Double.MIN_VALUE));
         assertTrue(NumberUtils.isZero(zeroDouble));
 
-        assertFalse(NumberUtils.isZero(numberObj));
+        assertTrue(NumberUtils.isZero(new Number() {
+            @Override
+            public int intValue() {
+                return 0;
+            }
+            @Override
+            public long longValue() {
+                return 0;
+            }
+            @Override
+            public float floatValue() {
+                return 0;
+            }
+            @Override
+            public double doubleValue() {
+                return 0;
+            }
+        }));
+        assertTrue(NumberUtils.isZero(new Number() {
+            @Override
+            public int intValue() {
+                return 0;
+            }
+            @Override
+            public long longValue() {
+                return 0L;
+            }
+            @Override
+            public byte byteValue() {
+                return (byte) 0;
+            }
+            @Override
+            public short shortValue() {
+                return (short) 0;
+            }
+            @Override
+            public float floatValue() {
+                return 0.0f;
+            }
+            @Override
+            public double doubleValue() {
+                return 0.0d;
+            }
+        }));
+        assertFalse(NumberUtils.isZero(new Number() {
+            @Override
+            public int intValue() {
+                return -1;
+            }
+            @Override
+            public long longValue() {
+                return -1L;
+            }
+            @Override
+            public byte byteValue() {
+                return (byte) -1;
+            }
+            @Override
+            public short shortValue() {
+                return (short) -1;
+            }
+            @Override
+            public float floatValue() {
+                return -1.0f;
+            }
+            @Override
+            public double doubleValue() {
+                return -1.0d;
+            }
+        }));
     }
 
     @Test
@@ -1647,7 +1716,50 @@ public class NumberUtilsTest {
         assertTrue(NumberUtils.isNotZero(Double.MAX_VALUE));
         assertTrue(NumberUtils.isNotZero(nZeroDouble));
 
-        assertTrue(NumberUtils.isNotZero(numberObj));
+        assertFalse(NumberUtils.isNotZero(new Number() {
+            @Override
+            public int intValue() {
+                return 0;
+            }
+            @Override
+            public long longValue() {
+                return 0;
+            }
+            @Override
+            public float floatValue() {
+                return 0;
+            }
+            @Override
+            public double doubleValue() {
+                return 0;
+            }
+        }));
+        assertTrue(NumberUtils.isNotZero(new Number() {
+            @Override
+            public int intValue() {
+                return +1;
+            }
+            @Override
+            public long longValue() {
+                return +1L;
+            }
+            @Override
+            public byte byteValue() {
+                return (byte) +1;
+            }
+            @Override
+            public short shortValue() {
+                return (short) +1;
+            }
+            @Override
+            public float floatValue() {
+                return +1.0f;
+            }
+            @Override
+            public double doubleValue() {
+                return +1.0d;
+            }
+        }));
     }
 
     @Test
@@ -1684,7 +1796,50 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isPositive(-10.1000d));
         assertTrue(NumberUtils.isPositive(positiveDouble));
 
-        assertFalse(NumberUtils.isPositive(numberObj));
+        assertFalse(NumberUtils.isPositive(new Number() {
+            @Override
+            public int intValue() {
+                return 0;
+            }
+            @Override
+            public long longValue() {
+                return 0;
+            }
+            @Override
+            public float floatValue() {
+                return 0;
+            }
+            @Override
+            public double doubleValue() {
+                return 0;
+            }
+        }));
+        assertTrue(NumberUtils.isPositive(new Number() {
+            @Override
+            public int intValue() {
+                return +1;
+            }
+            @Override
+            public long longValue() {
+                return +1L;
+            }
+            @Override
+            public byte byteValue() {
+                return (byte) +1;
+            }
+            @Override
+            public short shortValue() {
+                return (short) +1;
+            }
+            @Override
+            public float floatValue() {
+                return +1.0f;
+            }
+            @Override
+            public double doubleValue() {
+                return +1.0d;
+            }
+        }));
     }
 
     @Test
@@ -1721,7 +1876,76 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isNotPositive(10.1000d));
         assertTrue(NumberUtils.isNotPositive(nPositiveDouble));
 
-        assertTrue(NumberUtils.isNotPositive(numberObj));
+        assertTrue(NumberUtils.isNotPositive(new Number() {
+            @Override
+            public int intValue() {
+                return -1;
+            }
+            @Override
+            public long longValue() {
+                return -1L;
+            }
+            @Override
+            public byte byteValue() {
+                return (byte) -1;
+            }
+            @Override
+            public short shortValue() {
+                return (short) -1;
+            }
+            @Override
+            public float floatValue() {
+                return -1.0f;
+            }
+            @Override
+            public double doubleValue() {
+                return -1.0d;
+            }
+        }));
+        assertFalse(NumberUtils.isNotPositive(new Number() {
+            @Override
+            public int intValue() {
+                return +1;
+            }
+            @Override
+            public long longValue() {
+                return +1L;
+            }
+            @Override
+            public byte byteValue() {
+                return (byte) +1;
+            }
+            @Override
+            public short shortValue() {
+                return (short) +1;
+            }
+            @Override
+            public float floatValue() {
+                return +1.0f;
+            }
+            @Override
+            public double doubleValue() {
+                return +1.0d;
+            }
+        }));
+        assertTrue(NumberUtils.isNotPositive(new Number() {
+            @Override
+            public int intValue() {
+                return 0;
+            }
+            @Override
+            public long longValue() {
+                return 0;
+            }
+            @Override
+            public float floatValue() {
+                return 0;
+            }
+            @Override
+            public double doubleValue() {
+                return 0;
+            }
+        }));
     }
 
     @Test
@@ -1758,7 +1982,76 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isNegative(10.1000d));
         assertTrue(NumberUtils.isNegative(negativeDouble));
 
-        assertFalse(NumberUtils.isNegative(numberObj));
+        assertFalse(NumberUtils.isNegative(new Number() {
+            @Override
+            public int intValue() {
+                return 0;
+            }
+            @Override
+            public long longValue() {
+                return 0;
+            }
+            @Override
+            public float floatValue() {
+                return 0;
+            }
+            @Override
+            public double doubleValue() {
+                return 0;
+            }
+        }));
+        assertFalse(NumberUtils.isNegative(new Number() {
+            @Override
+            public int intValue() {
+                return +1;
+            }
+            @Override
+            public long longValue() {
+                return +1L;
+            }
+            @Override
+            public byte byteValue() {
+                return (byte) +1;
+            }
+            @Override
+            public short shortValue() {
+                return (short) +1;
+            }
+            @Override
+            public float floatValue() {
+                return +1.0f;
+            }
+            @Override
+            public double doubleValue() {
+                return +1.0d;
+            }
+        }));
+        assertTrue(NumberUtils.isNegative(new Number() {
+            @Override
+            public int intValue() {
+                return -1;
+            }
+            @Override
+            public long longValue() {
+                return -1L;
+            }
+            @Override
+            public byte byteValue() {
+                return (byte) -1;
+            }
+            @Override
+            public short shortValue() {
+                return (short) -1;
+            }
+            @Override
+            public float floatValue() {
+                return -1.0f;
+            }
+            @Override
+            public double doubleValue() {
+                return -1.0d;
+            }
+        }));
     }
 
     @Test
@@ -1795,30 +2088,50 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isNotNegative(-10.1000d));
         assertTrue(NumberUtils.isNotNegative(nNegativeDouble));
 
-        assertTrue(NumberUtils.isNotNegative(numberObj));
+        assertTrue(NumberUtils.isNotNegative(new Number() {
+            @Override
+            public int intValue() {
+                return 0;
+            }
+            @Override
+            public long longValue() {
+                return 0;
+            }
+            @Override
+            public float floatValue() {
+                return 0;
+            }
+            @Override
+            public double doubleValue() {
+                return 0;
+            }
+        }));
+        assertFalse(NumberUtils.isNotNegative(new Number() {
+            @Override
+            public int intValue() {
+                return -1;
+            }
+            @Override
+            public long longValue() {
+                return -1L;
+            }
+            @Override
+            public byte byteValue() {
+                return (byte) -1;
+            }
+            @Override
+            public short shortValue() {
+                return (short) -1;
+            }
+            @Override
+            public float floatValue() {
+                return -1.0f;
+            }
+            @Override
+            public double doubleValue() {
+                return -1.0d;
+            }
+        }));
     }
-
-    // reusable random {@code Number} object for above tests
-    private final Number numberObj = new Number() {
-        @Override
-        public int intValue() {
-            return 0;
-        }
-
-        @Override
-        public long longValue() {
-            return 0;
-        }
-
-        @Override
-        public float floatValue() {
-            return 0;
-        }
-
-        @Override
-        public double doubleValue() {
-            return 0;
-        }
-    };
 
 }
