@@ -224,9 +224,9 @@ public class StopWatch {
     private long stopTime;
 
     /**
-     * The list of steps
+     * The list of splits
      */
-    private List<Step> steps = new ArrayList<>();
+    private List<Split> splits = new ArrayList<>();
 
     /**
      * <p>
@@ -235,7 +235,6 @@ public class StopWatch {
      */
     public StopWatch() {
         this(null);
-        step(0);
     }
 
     /**
@@ -491,6 +490,61 @@ public class StopWatch {
 
     /**
      * <p>
+     * Splits the time to track the elapsed time between two consecutive {@code split()} calls.
+     * The label specified is used to identify each split
+     * </p>
+     *
+     * <p>
+     * After calling {@link #stop()}, we can call {@link #getSplitsReport()} to have a report with all time between each {@code split()} call, example:
+     * </p>
+     *
+     * <pre>
+     * 1 00:14:00.000
+     * 2 00:02:00.000
+     * 3 00:04:00.000
+     * </pre>
+     *
+     * @param label A number to identify this split
+     *
+     * @throws IllegalStateException
+     *             if the StopWatch is not running.
+     * @since 3.10
+     */
+    public void split(int label) {
+        split(String.valueOf(label));
+    }
+
+    /**
+     * <p>
+     * Splits the time to track the elapsed time between two consecutive {@code split()} calls.
+     * The label specified is used to identify each split
+     * </p>
+     *
+     * <p>
+     * After calling {@link #stop()}, we can call {@link #getSplitsReport()} to have a report with all time between each {@code split()} call, example:
+     * </p>
+     *
+     * <pre>
+     * Baking cookies  00:14:00.000
+     * Serving         00:02:00.000
+     * Eating          00:04:00.000
+     * </pre>
+     *
+     * @param label A message for string presentation.
+     *
+     * @throws IllegalStateException
+     *             if the StopWatch is not running.
+     * @since 3.10
+     */
+    public void split(String label) {
+        if (this.runningState != State.RUNNING) {
+            throw new IllegalStateException("Stopwatch is not running. ");
+        }
+        splits.add(new Split(label));
+    }
+
+    /**
+     * <p>
      * Starts the stopwatch.
      * </p>
      *
@@ -511,6 +565,7 @@ public class StopWatch {
         this.startTime = System.nanoTime();
         this.startTimeMillis = System.currentTimeMillis();
         this.runningState = State.RUNNING;
+        this.splits = new ArrayList<>();
     }
 
     /**
@@ -531,8 +586,15 @@ public class StopWatch {
         }
         if (this.runningState == State.RUNNING) {
             this.stopTime = System.nanoTime();
+            split("");
         }
         this.runningState = State.STOPPED;
+    }
+
+    private void stopIfNecessary() {
+        if (this.runningState == State.RUNNING || this.runningState == State.SUSPENDED) {
+            stop();
+        }
     }
 
     /**
@@ -615,97 +677,81 @@ public class StopWatch {
     }
 
     /**
-     * Adds a new step to track time elapsed between two consecutive steps
-     * @param label label for this step, to be used on steps report
+     * Stops the watch and returns the list of splits with elapsed time on each split
+     * @return list of splits
      */
-    public void step(int label) {
-        step(String.valueOf(label));
-    }
-
-    /**
-     * Adds a new step to track time elapsed between two consecutive steps
-     * @param label label for this step
-     */
-    public void step(String label) {
-        addStep(label);
-    }
-
-    /**
-     * Adds a new step
-     * @param label label for this step
-     */
-    private void addStep(String label) {
-        steps.add(new Step(label));
-    }
-
-    /**
-     * Returns the list of steps with elapsed time on each step
-     * @return List<Step> steps
-     */
-    public List<Step> getSteps() {
+    public List<Split> getSplits() {
+        stopIfNecessary();
         fillTimeTook();
-        return steps;
+        List<Split> result = new ArrayList<>(splits);
+
+        // we remove the last split because its an internal and automatic split
+        result.remove(result.size() - 1);
+
+        return result;
     }
 
     /**
-     * Fill elapsed time (time took) on each step
+     * Fill elapsed time (time took) on each split
      */
     private void fillTimeTook() {
-        // we need at least 2 steps to calculate the elapsed time
-        if (steps.size() < 2) {
+        // we need at least 2 splits to calculate the elapsed time
+        if (splits.size() < 2) {
             return;
         }
-        for (int i=1; i < steps.size(); i++) {
-            steps.get(i).setTimeTook(steps.get(i).getStartTime() - steps.get(i-1).getStartTime());
+
+        for (int i = 0; i < splits.size() - 1; i++) {
+            splits.get(i).setTimeTook(splits.get(i+1).getStartTime() - splits.get(i).getStartTime());
         }
     }
 
     /**
-     * Returns a string containing the steps report.
-     * This report contains the elapsed time (on ms) between each step
+     * <p>
+     * Stops the watch and returns the splits report.
+     * This report contains the elapsed time (on ms) between each split
+     * </p>
      */
-    public String getStepsReport() {
-        fillTimeTook();
+    public String getSplitsReport() {
         StringBuilder report = new StringBuilder();
-        for (Step step : steps) {
+        for (Split split : getSplits()) {
             report.append(System.lineSeparator());
-            report.append("[").append(step.getLabel()).append("] ").append(step.getTimeTook()).append("ms");
+            report.append(split.getLabel()).append(" ").append(DurationFormatUtils.formatDurationHMS(split.getTimeTook()));
         }
         ;
         return report.toString();
     }
 
     /**
-     * Class to store details of each step
+     * Class to store details of each split
      */
-    public static class Step {
+    public static class Split {
 
         /**
-         * The start time of this step
+         * The start time of this split
          */
         private long startTime = System.currentTimeMillis();
 
         /**
-         * The time took on this step
-         * This field is filled when user calls getSteps() or tries to print the steps report
+         * The time took on this split
+         * This field is filled when user calls getSplits() or tries to print the splits report
          */
         private long timeTook;
 
         /*
-         * The label for this step
+         * The label for this split
          */
         private String label;
 
         /**
-         * @param label Label for this step
+         * @param label Label for this split
          */
-        public Step(String label) {
+        public Split(String label) {
             this.label = label;
         }
 
         /**
          * <p>
-         * Get the timestamp when this step was created
+         * Get the timestamp when this split was created
          * </p>
          *
          * @return the time
@@ -716,7 +762,7 @@ public class StopWatch {
 
         /**
          * <p>
-         * Get the label of this step
+         * Get the label of this split
          * </p>
          *
          * @return the label
@@ -726,7 +772,7 @@ public class StopWatch {
         }
 
         /**
-         * Time took on this step
+         * Time took on this split
          * @return long time on mns
          */
         public long getTimeTook() {
@@ -734,7 +780,7 @@ public class StopWatch {
         }
 
         /**
-         * Set the timetook on this step
+         * Set the time took on this split
          * @param timeTook time on ms
          */
         private void setTimeTook(long timeTook) {

@@ -16,17 +16,18 @@
  */
 package org.apache.commons.lang3.time;
 
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.concurrent.TimeUnit;
-
-import org.apache.commons.lang3.reflect.FieldUtils;
-import org.junit.jupiter.api.Test;
 
 /**
  * TestCase for StopWatch.
@@ -415,31 +416,44 @@ public class StopWatchTest {
     @Test
     public void testStep() throws InterruptedException {
         final StopWatch watch = new StopWatch();
-        watch.step(1);
+
+        watch.start();
+        Thread.sleep(50);
+
+        watch.split("zero");
+        Thread.sleep(400);
+
+        watch.split("one");
         Thread.sleep(200);
-        watch.step(2);
-        Thread.sleep(300);
-        watch.step("final");
-        Thread.sleep(500);
-        watch.getSteps();
+
+        watch.split("two");
+        Thread.sleep(100);
+
+        List<StopWatch.Split> splits = watch.getSplits();
 
         // check sizes
-        assertEquals(watch.getSteps().size(), 4);
+        assertEquals(splits.size(), 3);
 
         // check labels
-        assertEquals(watch.getSteps().get(0).getLabel(), "0");
-        assertEquals(watch.getSteps().get(1).getLabel(), "1");
-        assertEquals(watch.getSteps().get(2).getLabel(), "2");
-        assertEquals(watch.getSteps().get(3).getLabel(), "final");
+        assertEquals(splits.get(0).getLabel(), "zero");
+        assertEquals(splits.get(1).getLabel(), "one");
+        assertEquals(splits.get(2).getLabel(), "two");
 
         // check time took
-        assertTrue(watch.getSteps().get(0).getTimeTook() == 0);
-        assertTrue(watch.getSteps().get(1).getTimeTook() >= 0 && watch.getSteps().get(1).getTimeTook() < 150);
-        assertTrue(watch.getSteps().get(2).getTimeTook() >= 200 && watch.getSteps().get(2).getTimeTook() < 300);
-        assertTrue(watch.getSteps().get(3).getTimeTook() >= 300 && watch.getSteps().get(2).getTimeTook() < 400);
+        final int margin = 20;
+        assertTrue(splits.get(0).getTimeTook() >= 400 && splits.get(0).getTimeTook() < 400 + margin);
+        assertTrue(splits.get(1).getTimeTook() >= 200 && splits.get(1).getTimeTook() < 200 + margin);
+        assertTrue(splits.get(2).getTimeTook() >= 100 && splits.get(2).getTimeTook() < 100 + margin);
 
         // check report
-        assertTrue(watch.getStepsReport().contains("ms") && watch.getStepsReport().contains("[0]"));
+        String report = watch.getSplitsReport();
+        String updatedReport = report.replaceAll("4\\d\\d", "4**").replaceAll("2\\d\\d", "2**").replaceAll("1\\d\\d", "1**");
+
+        assertEquals(updatedReport,
+            "\nzero 00:00:00.4**" +
+            "\none 00:00:00.2**" +
+            "\ntwo 00:00:00.1**"
+        );
     }
 
 }
