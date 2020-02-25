@@ -159,14 +159,14 @@ public class ArrayUtils {
 
     /**
      * An empty immutable {@code Throwable} array.
-     * 
+     *
      * @since 3.10
      */
     public static final Throwable[] EMPTY_THROWABLE_ARRAY = new Throwable[0];
 
     /**
      * An empty immutable {@code Type} array.
-     * 
+     *
      * @since 3.10
      */
     public static final Type[] EMPTY_TYPE_ARRAY = new Type[0];
@@ -204,10 +204,6 @@ public class ArrayUtils {
         newArray[newArray.length - 1] = element;
         return newArray;
     }
-
-
-    // NOTE: Cannot use {@code} to enclose text which includes {}, but <code></code> is OK
-
 
     /**
      * <p>Inserts the specified element at the specified position in the array.

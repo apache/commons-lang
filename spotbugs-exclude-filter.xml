@@ -146,4 +146,11 @@
     <Method name="equals" />
     <Bug pattern="NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT" />
   </Match>
+  
+  <!-- Reason: toString() can return null! -->
+  <Match>
+    <Class name="org.apache.commons.lang3.compare.ObjectToStringComparator" />
+    <Method name="compare" />
+    <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" />
+  </Match>
 </FindBugsFilter>

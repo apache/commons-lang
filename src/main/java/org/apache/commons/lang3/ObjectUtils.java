@@ -210,6 +210,45 @@ public class ObjectUtils {
     }
 
     /**
+     * <p>Executes the given suppliers in order and returns the first return
+     * value where a value other than {@code null} is returned.
+     * Once a non-{@code null} value is obtained, all following suppliers are
+     * not executed anymore.
+     * If all the return values are {@code null} or no suppliers are provided
+     * then {@code null} is returned.</p>
+     *
+     * <pre>
+     * ObjectUtils.firstNonNullLazy(null, () -&gt; null) = null
+     * ObjectUtils.firstNonNullLazy(() -&gt; null, () -&gt; "") = ""
+     * ObjectUtils.firstNonNullLazy(() -&gt; "", () -&gt; throw new IllegalStateException()) = ""
+     * ObjectUtils.firstNonNullLazy(() -&gt; null, () -&gt; "zz) = "zz"
+     * ObjectUtils.firstNonNullLazy() = null
+     * </pre>
+     *
+     * @param <T> the type of the return values
+     * @param suppliers  the suppliers returning the values to test.
+     *                   {@code null} values are ignored.
+     *                   Suppliers may return {@code null} or a value of type @{code T}
+     * @return the first return value from {@code suppliers} which is not {@code null},
+     *  or {@code null} if there are no non-null values
+     * @since 3.10
+     */
+    @SafeVarargs
+    public static <T> T getFirstNonNull(final Supplier<T>... suppliers) {
+        if (suppliers != null) {
+            for (final Supplier<T> supplier : suppliers) {
+                if (supplier != null) {
+                    T value = supplier.get();
+                    if (value != null) {
+                        return value;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * <p>
      * Returns the given {@code object} is it is non-null, otherwise returns the Supplier's {@link Supplier#get()}
      * value.
