@@ -1604,11 +1604,13 @@ public class NumberUtilsTest {
         assertTrue(NumberUtils.isZero(0.0f));
         assertFalse(NumberUtils.isZero(Float.MAX_VALUE));
         assertTrue(NumberUtils.isZero(zeroFloat));
+        assertFalse(NumberUtils.isZero(Float.NaN));
 
         final double zeroDouble = +0.0d;
         assertTrue(NumberUtils.isZero(0.0d));
         assertFalse(NumberUtils.isZero(Double.MIN_VALUE));
         assertTrue(NumberUtils.isZero(zeroDouble));
+        assertFalse(NumberUtils.isZero(Double.NaN));
 
         assertTrue(NumberUtils.isZero(new Number() {
             @Override
@@ -1710,11 +1712,13 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isNotZero(+0.0f));
         assertTrue(NumberUtils.isNotZero(Long.MIN_VALUE));
         assertTrue(NumberUtils.isNotZero(nZeroFloat));
+        assertTrue(NumberUtils.isNotZero(Float.NaN));
 
         final double nZeroDouble = Double.MIN_VALUE;
         assertFalse(NumberUtils.isNotZero(-0.0d));
         assertTrue(NumberUtils.isNotZero(Double.MAX_VALUE));
         assertTrue(NumberUtils.isNotZero(nZeroDouble));
+        assertTrue(NumberUtils.isNotZero(Double.NaN));
 
         assertFalse(NumberUtils.isNotZero(new Number() {
             @Override
@@ -1790,11 +1794,13 @@ public class NumberUtilsTest {
         assertTrue(NumberUtils.isPositive(0.100f));
         assertFalse(NumberUtils.isPositive(-0.100f));
         assertTrue(NumberUtils.isPositive(positiveFloat));
+        assertFalse(NumberUtils.isPositive(Float.NaN));
 
         final double positiveDouble = Double.MAX_VALUE;
         assertTrue(NumberUtils.isPositive(10.1000d));
         assertFalse(NumberUtils.isPositive(-10.1000d));
         assertTrue(NumberUtils.isPositive(positiveDouble));
+        assertFalse(NumberUtils.isPositive(Double.NaN));
 
         assertFalse(NumberUtils.isPositive(new Number() {
             @Override
@@ -1870,11 +1876,13 @@ public class NumberUtilsTest {
         assertTrue(NumberUtils.isNotPositive(-0.100f));
         assertFalse(NumberUtils.isNotPositive(0.100f));
         assertTrue(NumberUtils.isNotPositive(nPositiveFloat));
+        assertTrue(NumberUtils.isNotPositive(Float.NaN));
 
         final double nPositiveDouble = +0.0d;
         assertTrue(NumberUtils.isNotPositive(-10.1000d));
         assertFalse(NumberUtils.isNotPositive(10.1000d));
         assertTrue(NumberUtils.isNotPositive(nPositiveDouble));
+        assertTrue(NumberUtils.isNotPositive(Double.NaN));
 
         assertTrue(NumberUtils.isNotPositive(new Number() {
             @Override
@@ -1971,6 +1979,7 @@ public class NumberUtilsTest {
         assertTrue(NumberUtils.isNegative((short) -10));
         assertFalse(NumberUtils.isNegative((short) 10));
         assertTrue(NumberUtils.isNegative(negativeShort));
+        assertFalse(NumberUtils.isNegative(Float.NaN));
 
         final float negativeFloat = -4444.4444f;
         assertTrue(NumberUtils.isNegative(-0.100f));
@@ -1981,6 +1990,7 @@ public class NumberUtilsTest {
         assertTrue(NumberUtils.isNegative(-10.1000d));
         assertFalse(NumberUtils.isNegative(10.1000d));
         assertTrue(NumberUtils.isNegative(negativeDouble));
+        assertFalse(NumberUtils.isNegative(Double.NaN));
 
         assertFalse(NumberUtils.isNegative(new Number() {
             @Override
@@ -2082,11 +2092,13 @@ public class NumberUtilsTest {
         assertTrue(NumberUtils.isNotNegative(0.100f));
         assertFalse(NumberUtils.isNotNegative(-0.100f));
         assertTrue(NumberUtils.isNotNegative(nNegativeFloat));
+        assertTrue(NumberUtils.isNotNegative(Float.NaN));
 
         final double nNegativeDouble = -0.0d;
         assertTrue(NumberUtils.isNotNegative(10.1000d));
         assertFalse(NumberUtils.isNotNegative(-10.1000d));
         assertTrue(NumberUtils.isNotNegative(nNegativeDouble));
+        assertTrue(NumberUtils.isNotNegative(Double.NaN));
 
         assertTrue(NumberUtils.isNotNegative(new Number() {
             @Override
