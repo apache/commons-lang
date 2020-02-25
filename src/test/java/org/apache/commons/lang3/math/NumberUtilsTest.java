@@ -1577,7 +1577,7 @@ public class NumberUtilsTest {
     }
 
     @Test
-    public void testIsZero() {
+    void testIsZero() {
         assertFalse(NumberUtils.isZero(null));
 
         final int zeroInt = 0;
@@ -1685,7 +1685,7 @@ public class NumberUtilsTest {
     }
 
     @Test
-    public void testIsNotZero() {
+    void testIsNotZero() {
         assertTrue(NumberUtils.isNotZero(null));
 
         final int nZeroInt = Integer.MAX_VALUE;
@@ -1767,7 +1767,7 @@ public class NumberUtilsTest {
     }
 
     @Test
-    public void testIsPositive() {
+    void testIsPositive() {
         assertFalse(NumberUtils.isPositive(null));
 
         final int positiveInt = Integer.MAX_VALUE;
@@ -1849,7 +1849,7 @@ public class NumberUtilsTest {
     }
 
     @Test
-    public void testIsNotPositive() {
+    void testIsNotPositive() {
         assertTrue(NumberUtils.isNotPositive(null));
 
         final int nPositiveInt = Integer.MIN_VALUE;
@@ -1957,7 +1957,7 @@ public class NumberUtilsTest {
     }
 
     @Test
-    public void testIsNegative() {
+    void testIsNegative() {
         assertFalse(NumberUtils.isNegative(null));
 
         final int negativeInt = Integer.MIN_VALUE;
@@ -2065,7 +2065,7 @@ public class NumberUtilsTest {
     }
 
     @Test
-    public void testIsNotNegative() {
+    void testIsNotNegative() {
         assertTrue(NumberUtils.isNotNegative(null));
 
         final int nNegativeInt = Integer.MAX_VALUE;
