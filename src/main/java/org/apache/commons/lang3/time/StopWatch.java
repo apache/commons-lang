@@ -729,7 +729,7 @@ public class StopWatch {
             final Duration duration = Duration.between(splits.get(i).getStartTime(), splits.get(i+1).getStartTime());
             splits.get(i).setDuration(useNanos ? duration.toNanos() : duration.toMillis());
         }
-        
+
     }
 
     /**
