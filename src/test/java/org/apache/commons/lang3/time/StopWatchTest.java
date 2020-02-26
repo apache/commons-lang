@@ -414,7 +414,7 @@ public class StopWatchTest {
     }
 
     @Test
-    public void testStep() throws InterruptedException {
+    public void testSplitsWithLabel() throws InterruptedException {
         final StopWatch watch = new StopWatch();
 
         watch.start();
@@ -429,7 +429,7 @@ public class StopWatchTest {
         watch.split("two");
         Thread.sleep(100);
 
-        List<StopWatch.Split> splits = watch.getSplits();
+        List<StopWatch.Split> splits = watch.getProcessedSplits();
 
         // check sizes
         assertEquals(splits.size(), 3);
@@ -439,20 +439,53 @@ public class StopWatchTest {
         assertEquals(splits.get(1).getLabel(), "one");
         assertEquals(splits.get(2).getLabel(), "two");
 
-        // check time took
+        // check duration
         final int margin = 20;
-        assertTrue(splits.get(0).getTimeTook() >= 400 && splits.get(0).getTimeTook() < 400 + margin);
-        assertTrue(splits.get(1).getTimeTook() >= 200 && splits.get(1).getTimeTook() < 200 + margin);
-        assertTrue(splits.get(2).getTimeTook() >= 100 && splits.get(2).getTimeTook() < 100 + margin);
+        assertTrue(splits.get(0).getDuration() >= 400 && splits.get(0).getDuration() < 400 + margin);
+        assertTrue(splits.get(1).getDuration() >= 200 && splits.get(1).getDuration() < 200 + margin);
+        assertTrue(splits.get(2).getDuration() >= 100 && splits.get(2).getDuration() < 100 + margin);
 
         // check report
-        String report = watch.getSplitsReport();
+        String report = watch.getReport();
         String updatedReport = report.replaceAll("4\\d\\d", "4**").replaceAll("2\\d\\d", "2**").replaceAll("1\\d\\d", "1**");
 
-        assertEquals(updatedReport,
+        assertEquals(
             "\nzero 00:00:00.4**" +
             "\none 00:00:00.2**" +
-            "\ntwo 00:00:00.1**"
+            "\ntwo 00:00:00.1**",
+            updatedReport
+        );
+    }
+
+    @Test
+    public void testNanoSplitsWithLabel() throws InterruptedException {
+        final StopWatch watch = StopWatch.createStarted();
+
+        watch.split("coding");
+        Thread.sleep(100);
+
+        watch.split("eating");
+        Thread.sleep(200);
+
+        List<StopWatch.Split> splits = watch.getNanoProcessedSplits();
+
+        // check sizes
+        assertEquals(splits.size(), 2);
+
+        // check duration
+        final int margin = 20000000;
+        assertTrue(splits.get(0).getDuration() >= 100000000 && splits.get(0).getDuration() < 100000000 + margin);
+        assertTrue(splits.get(1).getDuration() >= 200000000 && splits.get(1).getDuration() < 200000000 + margin);
+
+        // check report
+        String report = watch.getNanoReport();
+        System.out.println(report);
+        String updatedReport = report.replaceAll(" 10\\d+", " 10*******").replaceAll(" 20\\d+", " 20*******");
+
+        assertEquals(
+            "\ncoding 10*******" +
+            "\neating 20*******",
+            updatedReport
         );
     }
 
