@@ -19,7 +19,9 @@ package org.apache.commons.lang3.math;
 import java.math.BigInteger;
 
 import org.apache.commons.lang3.Validate;
-
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.signedness.qual.Unsigned;
+import org.checkerframework.checker.signedness.qual.SignedPositive;
 /**
  * <p>{@code Fraction} is a {@code Number} implementation that
  * stores fractions accurately.</p>
@@ -108,11 +110,11 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     /**
      * Cached output toString (class is immutable).
      */
-    private transient String toString = null;
+    private transient @Nullable String toString = null; //This string is used in comparision with null value so could take null value
     /**
      * Cached output toProperString (class is immutable).
      */
-    private transient String toProperString = null;
+    private transient @Nullable String toProperString = null; //This string is used in comparision with null value so could take null value
 
     /**
      * <p>Constructs a {@code Fraction} instance with the 2 parts
@@ -820,7 +822,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @return {@code true} if this object is equal
      */
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(final @Nullable Object obj) { //The object obj could take null values
         if (obj == this) {
             return true;
         }
