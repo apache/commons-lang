@@ -3237,7 +3237,9 @@ public class StringUtilsTest {
         assertEquals("/x/y/z/", StringUtils.wrapIfMissing("x/y/z", '/'));
         assertEquals("/x/y/z/", StringUtils.wrapIfMissing("/x/y/z", '/'));
         assertEquals("/x/y/z/", StringUtils.wrapIfMissing("x/y/z/", '/'));
-        assertEquals("/", StringUtils.wrapIfMissing("/", '/'));
+
+        assertSame("/", StringUtils.wrapIfMissing("/", '/'));
+        assertSame("/x/", StringUtils.wrapIfMissing("/x/", '/'));
     }
 
     @Test
@@ -3259,7 +3261,9 @@ public class StringUtilsTest {
         assertEquals("/x/y/z/", StringUtils.wrapIfMissing("x/y/z/", "/"));
         assertEquals("/", StringUtils.wrapIfMissing("/", "/"));
         assertEquals("ab/ab", StringUtils.wrapIfMissing("/", "ab"));
-        assertEquals("ab/ab", StringUtils.wrapIfMissing("ab/ab", "ab"));
+
+        assertSame("ab/ab", StringUtils.wrapIfMissing("ab/ab", "ab"));
+        assertSame("//x//", StringUtils.wrapIfMissing("//x//", "//"));
     }
 
     @Test

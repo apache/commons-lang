@@ -9448,6 +9448,8 @@ public class StringUtils {
      * Wraps a string with a char if that char is missing from the start or end of the given string.
      * </p>
      *
+     * <p>A new {@code String} will not be created if {@code str} is already wrapped.</p>
+     *
      * <pre>
      * StringUtils.wrapIfMissing(null, *)        = null
      * StringUtils.wrapIfMissing("", *)          = ""
@@ -9472,12 +9474,18 @@ public class StringUtils {
         if (isEmpty(str) || wrapWith == CharUtils.NUL) {
             return str;
         }
+        final boolean wrapStart = str.charAt(0) != wrapWith;
+        final boolean wrapEnd = str.charAt(str.length() - 1) != wrapWith;
+        if (!wrapStart && !wrapEnd) {
+            return str;
+        }
+
         final StringBuilder builder = new StringBuilder(str.length() + 2);
-        if (str.charAt(0) != wrapWith) {
+        if (wrapStart) {
             builder.append(wrapWith);
         }
         builder.append(str);
-        if (str.charAt(str.length() - 1) != wrapWith) {
+        if (wrapEnd) {
             builder.append(wrapWith);
         }
         return builder.toString();
@@ -9487,6 +9495,8 @@ public class StringUtils {
      * <p>
      * Wraps a string with a string if that string is missing from the start or end of the given string.
      * </p>
+     *
+     * <p>A new {@code String} will not be created if {@code str} is already wrapped.</p>
      *
      * <pre>
      * StringUtils.wrapIfMissing(null, *)         = null
@@ -9508,7 +9518,7 @@ public class StringUtils {
      * @param str
      *            the string to be wrapped, may be {@code null}
      * @param wrapWith
-     *            the char that will wrap {@code str}
+     *            the string that will wrap {@code str}
      * @return the wrapped string, or {@code null} if {@code str==null}
      * @since 3.5
      */
@@ -9516,12 +9526,19 @@ public class StringUtils {
         if (isEmpty(str) || isEmpty(wrapWith)) {
             return str;
         }
+
+        final boolean wrapStart = !str.startsWith(wrapWith);
+        final boolean wrapEnd = !str.endsWith(wrapWith);
+        if (!wrapStart && !wrapEnd) {
+            return str;
+        }
+
         final StringBuilder builder = new StringBuilder(str.length() + wrapWith.length() + wrapWith.length());
-        if (!str.startsWith(wrapWith)) {
+        if (wrapStart) {
             builder.append(wrapWith);
         }
         builder.append(str);
-        if (!str.endsWith(wrapWith)) {
+        if (wrapEnd) {
             builder.append(wrapWith);
         }
         return builder.toString();
