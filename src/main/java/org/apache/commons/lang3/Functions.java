@@ -22,16 +22,13 @@ import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.concurrent.Callable;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
-import java.util.function.BiPredicate;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.function.*;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.Streams.FailableStream;
+import org.apache.commons.lang3.function.FailableToDoubleFunction;
+import org.apache.commons.lang3.function.FailableToIntFunction;
+import org.apache.commons.lang3.function.FailableToLongFunction;
 
 
 /** This class provides utility functions, and classes for working with the
@@ -213,6 +210,39 @@ public class Functions {
     }
 
     /**
+     * Converts the given {@link FailableToIntFunction} into a standard {@link ToIntFunction}.
+     *
+     * @param <I> the type of the input of the functions
+     * @param function a {code FailableToIntFunction}
+     * @return a standard {@code ToIntFunction}
+     */
+    public static <I> ToIntFunction<I> asToIntFunction(FailableToIntFunction<I, ?> function) {
+        return input -> applyToIntFunction(function, input);
+    }
+
+    /**
+     * Converts the given {@link FailableToLongFunction} into a standard {@link ToLongFunction}.
+     *
+     * @param <I> the type of the input of the functions
+     * @param function a {code FailableToLongFunction}
+     * @return a standard {@code ToLongFunction}
+     */
+    public static <I> ToLongFunction<I> asToLongFunction(FailableToLongFunction<I, ?> function) {
+        return input -> applyToLongFunction(function, input);
+    }
+
+    /**
+     * Converts the given {@link FailableToDoubleFunction} into a standard {@link ToDoubleFunction}.
+     *
+     * @param <I> the type of the input of the functions
+     * @param function a {code FailableToDoubleFunction}
+     * @return a standard {@code ToDoubleFunction}
+     */
+    public static <I> ToDoubleFunction<I> asToDoubleFunction(FailableToDoubleFunction<I, ?> function) {
+        return input -> applyToDoubleFunction(function, input);
+    }
+
+    /**
      * Converts the given {@link FailableBiFunction} into a standard {@link BiFunction}.
      *
      * @param <I1> the type of the first argument of the input of the functions
@@ -318,6 +348,42 @@ public class Functions {
      */
     public static <I, O, T extends Throwable> O apply(final FailableFunction<I, O, T> function, final I input) {
         return get(() -> function.apply(input));
+    }
+
+    /**
+     * Applies a function and rethrows any exception as a {@link RuntimeException}.
+     * @param function the function to apply
+     * @param input the input to apply {@code function} on
+     * @param <I> the type of the argument the function accepts
+     * @param <T> the type of checked exception the function may throw
+     * @return the value returned from the function
+     */
+    public static <I, T extends Throwable> int applyToIntFunction(final FailableToIntFunction<I, T> function, final I input) {
+        return get(() -> function.applyAsInt(input));
+    }
+
+    /**
+     * Applies a function and rethrows any exception as a {@link RuntimeException}.
+     * @param function the function to apply
+     * @param input the input to apply {@code function} on
+     * @param <I> the type of the argument the function accepts
+     * @param <T> the type of checked exception the function may throw
+     * @return the value returned from the function
+     */
+    public static <I, T extends Throwable> long applyToLongFunction(final FailableToLongFunction<I, T> function, final I input) {
+        return get(() -> function.applyAsLong(input));
+    }
+
+    /**
+     * Applies a function and rethrows any exception as a {@link RuntimeException}.
+     * @param function the function to apply
+     * @param input the input to apply {@code function} on
+     * @param <I> the type of the argument the function accepts
+     * @param <T> the type of checked exception the function may throw
+     * @return the value returned from the function
+     */
+    public static <I, T extends Throwable> double applyToDoubleFunction(final FailableToDoubleFunction<I, T> function, final I input) {
+        return get(() -> function.applyAsDouble(input));
     }
 
     /**

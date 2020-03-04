@@ -28,14 +28,17 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import java.util.stream.BaseStream;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 import org.apache.commons.lang3.Functions.FailableConsumer;
 import org.apache.commons.lang3.Functions.FailableFunction;
 import org.apache.commons.lang3.Functions.FailablePredicate;
+import org.apache.commons.lang3.function.FailableToDoubleFunction;
+import org.apache.commons.lang3.function.FailableToIntFunction;
+import org.apache.commons.lang3.function.FailableToLongFunction;
+import org.apache.commons.lang3.stream.FailableDoubleStream;
+import org.apache.commons.lang3.stream.FailableIntStream;
+import org.apache.commons.lang3.stream.FailableLongStream;
 
 /**
  * Provides utility functions, and classes for working with the
@@ -297,6 +300,48 @@ public class Streams {
         }
 
        /**
+        * Returns a {@code FailableIntStream} consisting of the results of applying the
+        * given function to the elements of this stream.
+        *
+        * <p>This is an intermediate operation.
+        *
+        * @param mapper a non-interfering, stateless function to apply to each element
+        * @return the new stream
+        */
+        public FailableIntStream mapToInt(final FailableToIntFunction<O, ?> mapper) {
+            assertNotTerminated();
+            return new FailableIntStream(stream.mapToInt(Functions.asToIntFunction(mapper)));
+        }
+
+       /**
+        * Returns a {@code FailableLongStream} consisting of the results of applying the
+        * given function to the elements of this stream.
+        *
+        * <p>This is an intermediate operation.
+        *
+        * @param mapper a non-interfering, stateless function to apply to each element
+        * @return the new stream
+        */
+        public FailableLongStream mapToLong(final FailableToLongFunction<O, ?> mapper) {
+            assertNotTerminated();
+            return new FailableLongStream(stream.mapToLong(Functions.asToLongFunction(mapper)));
+        }
+
+       /**
+        * Returns a {@code FailableDoubleStream} consisting of the results of applying the
+        * given function to the elements of this stream.
+        *
+        * <p>This is an intermediate operation.
+        *
+        * @param mapper a non-interfering, stateless function to apply to each element
+        * @return the new stream
+        */
+        public FailableDoubleStream mapToDouble(final FailableToDoubleFunction<O, ?> mapper) {
+            assertNotTerminated();
+            return new FailableDoubleStream(stream.mapToDouble(Functions.asToDoubleFunction(mapper)));
+        }
+
+       /**
         * Returns a stream consisting of the results of replacing each element of
         * this stream with the contents of a mapped stream produced by applying
         * the provided mapping function to each element.  Each mapped stream is
@@ -316,6 +361,60 @@ public class Streams {
         public <R> FailableStream<R> flatMap(FailableFunction<? super O, ? extends Stream<? extends R>, ?> mapper) {
             assertNotTerminated();
             return new FailableStream<>(stream.flatMap(Functions.asFunction(mapper)));
+        }
+
+       /**
+        * Returns a {@code FailableIntStream} consisting of the results of replacing each
+        * element of this stream with the contents of a mapped stream produced by
+        * applying the provided mapping function to each element.  Each mapped
+        * stream is closed after its contents have been placed into this stream.
+        * (If a mapped stream is {@code null} an empty stream is used, instead.)
+        *
+        * <p>This is an intermediate operation.
+        *
+        * @param mapper a non-interfering, stateless function to apply to each element
+        *               which produces a stream of new values
+        * @return the new stream
+        */
+        public FailableIntStream flatMapToInt(FailableFunction<? super O, IntStream, ?> mapper) {
+            assertNotTerminated();
+            return new FailableIntStream(stream.flatMapToInt(Functions.asFunction(mapper)));
+        }
+
+       /**
+        * Returns a {@code FailableLongStream} consisting of the results of replacing each
+        * element of this stream with the contents of a mapped stream produced by
+        * applying the provided mapping function to each element.  Each mapped
+        * stream is closed after its contents have been placed into this stream.
+        * (If a mapped stream is {@code null} an empty stream is used, instead.)
+        *
+        * <p>This is an intermediate operation.
+        *
+        * @param mapper a non-interfering, stateless function to apply to each element
+        *               which produces a stream of new values
+        * @return the new stream
+        */
+        public FailableLongStream flatMapToLong(FailableFunction<? super O, LongStream, ?> mapper) {
+            assertNotTerminated();
+            return new FailableLongStream(stream.flatMapToLong(Functions.asFunction(mapper)));
+        }
+
+       /**
+        * Returns a {@code FailableDoubleStream} consisting of the results of replacing each
+        * element of this stream with the contents of a mapped stream produced by
+        * applying the provided mapping function to each element.  Each mapped
+        * stream is closed after its contents have been placed into this stream.
+        * (If a mapped stream is {@code null} an empty stream is used, instead.)
+        *
+        * <p>This is an intermediate operation.
+        *
+        * @param mapper a non-interfering, stateless function to apply to each element
+        *               which produces a stream of new values
+        * @return the new stream
+        */
+        public FailableDoubleStream flatMapToDouble(FailableFunction<? super O, DoubleStream, ?> mapper) {
+            assertNotTerminated();
+            return new FailableDoubleStream(stream.flatMapToDouble(Functions.asFunction(mapper)));
         }
 
         /**

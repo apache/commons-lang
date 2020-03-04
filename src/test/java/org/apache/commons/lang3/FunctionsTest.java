@@ -22,6 +22,9 @@ import org.apache.commons.lang3.Functions.FailableCallable;
 import org.apache.commons.lang3.Functions.FailableConsumer;
 import org.apache.commons.lang3.Functions.FailableFunction;
 import org.apache.commons.lang3.Functions.FailableSupplier;
+import org.apache.commons.lang3.function.FailableToDoubleFunction;
+import org.apache.commons.lang3.function.FailableToIntFunction;
+import org.apache.commons.lang3.function.FailableToLongFunction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -29,13 +32,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.concurrent.Callable;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
-import java.util.function.BiPredicate;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -93,6 +90,28 @@ class FunctionsTest {
                 throw pThrowable;
             }
             return 0;
+        }
+
+        public Long testLong() throws Throwable {
+            return testLong(t);
+        }
+
+        public Long testLong(final Throwable pThrowable) throws Throwable {
+            if (pThrowable != null) {
+                throw pThrowable;
+            }
+            return 0L;
+        }
+
+        public Double testDouble() throws Throwable {
+            return testDouble(t);
+        }
+
+        public Double testDouble(final Throwable pThrowable) throws Throwable {
+            if (pThrowable != null) {
+                throw pThrowable;
+            }
+            return 0.0;
         }
     }
 
@@ -445,6 +464,87 @@ class FunctionsTest {
         assertEquals("Odd Invocation: 1", cause.getMessage());
         final FailureOnOddInvocations instance = supplier.get();
         assertNotNull(instance);
+    }
+
+    @Test
+    public void testAsToIntFunction() {
+        final IllegalStateException ise = new IllegalStateException();
+        final Testable testable = new Testable(ise);
+        final FailableToIntFunction<Throwable, Throwable> failableToIntFunction = (th) -> {
+            testable.setThrowable(th);
+            return testable.testInt();
+        };
+        final ToIntFunction<Throwable> toIntFunction = Functions.asToIntFunction(failableToIntFunction);
+        Throwable e = assertThrows(IllegalStateException.class, () -> toIntFunction.applyAsInt(ise));
+        assertSame(ise, e);
+
+        final Error error = new OutOfMemoryError();
+        testable.setThrowable(error);
+        e = assertThrows(OutOfMemoryError.class, () -> toIntFunction.applyAsInt(error));
+        assertSame(error, e);
+
+        final IOException ioe = new IOException("Unknown I/O error");
+        testable.setThrowable(ioe);
+        e = assertThrows(UncheckedIOException.class, () -> toIntFunction.applyAsInt(ioe));
+        final Throwable t = e.getCause();
+        assertNotNull(t);
+        assertSame(ioe, t);
+
+        assertEquals(0, toIntFunction.applyAsInt(null));
+    }
+
+    @Test
+    public void testAsToLongFunction() {
+        final IllegalStateException ise = new IllegalStateException();
+        final Testable testable = new Testable(ise);
+        final FailableToLongFunction<Throwable, Throwable> failableToLongFunction = (th) -> {
+            testable.setThrowable(th);
+            return testable.testLong();
+        };
+        final ToLongFunction<Throwable> toLongFunction = Functions.asToLongFunction(failableToLongFunction);
+        Throwable e = assertThrows(IllegalStateException.class, () -> toLongFunction.applyAsLong(ise));
+        assertSame(ise, e);
+
+        final Error error = new OutOfMemoryError();
+        testable.setThrowable(error);
+        e = assertThrows(OutOfMemoryError.class, () -> toLongFunction.applyAsLong(error));
+        assertSame(error, e);
+
+        final IOException ioe = new IOException("Unknown I/O error");
+        testable.setThrowable(ioe);
+        e = assertThrows(UncheckedIOException.class, () -> toLongFunction.applyAsLong(ioe));
+        final Throwable t = e.getCause();
+        assertNotNull(t);
+        assertSame(ioe, t);
+
+        assertEquals(0L, toLongFunction.applyAsLong(null));
+    }
+
+    @Test
+    public void testAsToDoubleFunction() {
+        final IllegalStateException ise = new IllegalStateException();
+        final Testable testable = new Testable(ise);
+        final FailableToDoubleFunction<Throwable, Throwable> failableToDoubleFunction = (th) -> {
+            testable.setThrowable(th);
+            return testable.testDouble();
+        };
+        final ToDoubleFunction<Throwable> toDoubleFunction = Functions.asToDoubleFunction(failableToDoubleFunction);
+        Throwable e = assertThrows(IllegalStateException.class, () -> toDoubleFunction.applyAsDouble(ise));
+        assertSame(ise, e);
+
+        final Error error = new OutOfMemoryError();
+        testable.setThrowable(error);
+        e = assertThrows(OutOfMemoryError.class, () -> toDoubleFunction.applyAsDouble(error));
+        assertSame(error, e);
+
+        final IOException ioe = new IOException("Unknown I/O error");
+        testable.setThrowable(ioe);
+        e = assertThrows(UncheckedIOException.class, () -> toDoubleFunction.applyAsDouble(ioe));
+        final Throwable t = e.getCause();
+        assertNotNull(t);
+        assertSame(ioe, t);
+
+        assertEquals(0, toDoubleFunction.applyAsDouble(null));
     }
 
     @Test
