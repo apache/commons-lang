@@ -22,9 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.UndeclaredThrowableException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.Functions.FailableConsumer;
@@ -48,6 +46,28 @@ class StreamsTest {
         final List<String> input = Arrays.asList("1", "2", "3", "4 ", "5", "6");
         try {
             Functions.stream(input).map((s) -> Integer.valueOf(s)).collect(Collectors.toList());
+            fail("Expected Exception");
+        } catch (final NumberFormatException nfe) {
+            assertEquals("For input string: \"4 \"", nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testSimpleStreamFlatMap() {
+        final List<List<String>> input = Collections.singletonList(Arrays.asList("1", "2", "3", "4", "5", "6"));
+        final List<Integer> output = Functions.stream(input).flatMap(Collection::stream).map(Integer::valueOf)
+                .collect(Collectors.toList());
+        assertEquals(6, output.size());
+        for (int i = 0;  i < 6;  i++) {
+            assertEquals(i+1, output.get(i).intValue());
+        }
+    }
+
+    @Test
+    void testSimpleStreamFlatMapFailing() {
+        final List<List<String>> input = Collections.singletonList(Arrays.asList("1", "2", "3", "4 ", "5", "6"));
+        try {
+            Functions.stream(input).flatMap(Collection::stream).map(Integer::valueOf).collect(Collectors.toList());
             fail("Expected Exception");
         } catch (final NumberFormatException nfe) {
             assertEquals("For input string: \"4 \"", nfe.getMessage());

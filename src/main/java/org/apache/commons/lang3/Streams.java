@@ -28,6 +28,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.BaseStream;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -293,6 +294,28 @@ public class Streams {
         public <R> FailableStream<R> map(final FailableFunction<O, R, ?> mapper) {
             assertNotTerminated();
             return new FailableStream<>(stream.map(Functions.asFunction(mapper)));
+        }
+
+       /**
+        * Returns a stream consisting of the results of replacing each element of
+        * this stream with the contents of a mapped stream produced by applying
+        * the provided mapping function to each element.  Each mapped stream is
+        * {@link BaseStream#close() closed} after its contents
+        * have been placed into this stream.  (If a mapped stream is {@code null}
+        * an empty stream is used, instead.)
+        *
+        * <p>This is an intermediate operation.
+        *
+        * @param <R>    The element type of the new stream
+        * @param mapper a non-interfering, stateless function to apply to each element which produces a stream of new values
+        * @return the new stream
+        * @apiNote The {@code flatMap()} operation has the effect of applying a one-to-many
+        * transformation to the elements of the stream, and then flattening the
+        * resulting elements into a new stream.
+        */
+        public <R> FailableStream<R> flatMap(FailableFunction<? super O, ? extends Stream<? extends R>, ?> mapper) {
+            assertNotTerminated();
+            return new FailableStream<>(stream.flatMap(Functions.asFunction(mapper)));
         }
 
         /**
