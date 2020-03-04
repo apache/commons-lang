@@ -22,15 +22,28 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.Functions.FailableConsumer;
 import org.apache.commons.lang3.Functions.FailablePredicate;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class StreamsTest {
+    private List<String> input;
+    private List<String> failingInput;
+    private List<List<String>> flatMapInput;
+    private List<List<String>> failingFlatMapInput;
+
+    @BeforeEach
+    void beforeEach() {
+        input = Arrays.asList("1", "2", "3", "4", "5", "6");
+        failingInput = Arrays.asList("1", "2", "3", "4 ", "5", "6");
+        flatMapInput = Arrays.asList(input, Arrays.asList("7", "8"));
+        failingFlatMapInput = Arrays.asList(failingInput, Arrays.asList("7", "8"));
+    }
+
     @Test
     void testSimpleStreamMap() {
-        final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Functions.stream(input).map((s) -> Integer.valueOf(s)).collect(Collectors.toList());
         assertEquals(6, output.size());
         for (int i = 0;  i < 6;  i++) {
@@ -40,9 +53,8 @@ class StreamsTest {
 
     @Test
     void testSimpleStreamMapFailing() {
-        final List<String> input = Arrays.asList("1", "2", "3", "4 ", "5", "6");
         try {
-            Functions.stream(input).map((s) -> Integer.valueOf(s)).collect(Collectors.toList());
+            Functions.stream(failingInput).map((s) -> Integer.valueOf(s)).collect(Collectors.toList());
             fail("Expected Exception");
         } catch (final NumberFormatException nfe) {
             assertEquals("For input string: \"4 \"", nfe.getMessage());
@@ -51,17 +63,13 @@ class StreamsTest {
 
     @Test
     void testSimpleStreamMapToInt() {
-        final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
-
         assertEquals(21, Functions.stream(input).mapToInt(Integer::valueOf).sum());
     }
 
     @Test
     void testSimpleStreamMapToIntFailing() {
-        final List<String> input = Arrays.asList("1", "2", "3", "4 ", "5", "6");
-
         try {
-            Functions.stream(input).mapToInt(Integer::valueOf).sum();
+            Functions.stream(failingInput).mapToInt(Integer::valueOf).sum();
             fail("Expected Exception");
         } catch (final NumberFormatException nfe) {
             assertEquals("For input string: \"4 \"", nfe.getMessage());
@@ -70,17 +78,17 @@ class StreamsTest {
 
     @Test
     void testSimpleStreamMapToLong() {
-        final List<String> input = Arrays.asList("1000000000", "2000000000", "3000000000", "4000000000", "5000000000", "6000000000");
+        input = Arrays.asList("1000000000", "2000000000", "3000000000", "4000000000", "5000000000", "6000000000");
 
         assertEquals(21000000000L, Functions.stream(input).mapToLong(Long::valueOf).sum());
     }
 
     @Test
     void testSimpleStreamMapToLongFailing() {
-        final List<String> input = Arrays.asList("1000000000", "2000000000", "3000000000", "4000000000 ", "5000000000", "6000000000");
+        failingInput = Arrays.asList("1000000000", "2000000000", "3000000000", "4000000000 ", "5000000000", "6000000000");
 
         try {
-            Functions.stream(input).mapToLong(Long::valueOf).sum();
+            Functions.stream(failingInput).mapToLong(Long::valueOf).sum();
             fail("Expected Exception");
         } catch (final NumberFormatException nfe) {
             assertEquals("For input string: \"4000000000 \"", nfe.getMessage());
@@ -89,17 +97,17 @@ class StreamsTest {
 
     @Test
     void testSimpleStreamMapToDouble() {
-        final List<String> input = Arrays.asList("1.5", "2.5", "3.5", "4.5", "5.5", "6.5");
+        input = Arrays.asList("1.5", "2.5", "3.5", "4.5", "5.5", "6.5");
 
         assertEquals(24, Functions.stream(input).mapToDouble(Double::valueOf).sum());
     }
 
     @Test
     void testSimpleStreamMapToDoubleFailing() {
-        final List<String> input = Arrays.asList("1.5", "2.5", "3.5", "4.5x", "5.5", "6.5");
+        failingInput = Arrays.asList("1.5", "2.5", "3.5", "4.5x", "5.5", "6.5");
 
         try {
-            Functions.stream(input).mapToDouble(Double::valueOf).sum();
+            Functions.stream(failingInput).mapToDouble(Double::valueOf).sum();
             fail("Expected Exception");
         } catch (final NumberFormatException nfe) {
             assertEquals("For input string: \"4.5x\"", nfe.getMessage());
@@ -108,20 +116,18 @@ class StreamsTest {
 
     @Test
     void testSimpleStreamFlatMap() {
-        final List<List<String>> input = Collections.singletonList(Arrays.asList("1", "2", "3", "4", "5", "6"));
-        final List<Integer> output = Functions.stream(input).flatMap(Collection::stream).map(Integer::valueOf)
+        final List<Integer> output = Functions.stream(flatMapInput).flatMap(Collection::stream).map(Integer::valueOf)
                 .collect(Collectors.toList());
-        assertEquals(6, output.size());
-        for (int i = 0;  i < 6;  i++) {
+        assertEquals(8, output.size());
+        for (int i = 0;  i < 8;  i++) {
             assertEquals(i+1, output.get(i).intValue());
         }
     }
 
     @Test
     void testSimpleStreamFlatMapFailing() {
-        final List<List<String>> input = Collections.singletonList(Arrays.asList("1", "2", "3", "4 ", "5", "6"));
         try {
-            Functions.stream(input).flatMap(Collection::stream).map(Integer::valueOf).collect(Collectors.toList());
+            Functions.stream(failingFlatMapInput).flatMap(Collection::stream).map(Integer::valueOf).collect(Collectors.toList());
             fail("Expected Exception");
         } catch (final NumberFormatException nfe) {
             assertEquals("For input string: \"4 \"", nfe.getMessage());
@@ -130,17 +136,13 @@ class StreamsTest {
 
     @Test
     void testSimpleStreamFlatMapToInt() {
-        final List<List<String>> input = Arrays.asList(Arrays.asList("1", "2", "3", "4", "5", "6"), Arrays.asList("7", "8"));
-
-        assertEquals(36, Functions.stream(input).flatMapToInt(list -> list.stream().mapToInt(Integer::valueOf)).sum());
+        assertEquals(36, Functions.stream(flatMapInput).flatMapToInt(list -> list.stream().mapToInt(Integer::valueOf)).sum());
     }
 
     @Test
     void testSimpleStreamFlatMapToIntFailing() {
-        final List<List<String>> input = Arrays.asList(Arrays.asList("1", "2", "3", "4 ", "5", "6"), Arrays.asList("7", "8"));
-
         try {
-            Functions.stream(input).flatMapToInt(list -> list.stream().mapToInt(Integer::valueOf)).sum();
+            Functions.stream(failingFlatMapInput).flatMapToInt(list -> list.stream().mapToInt(Integer::valueOf)).sum();
             fail("Expected Exception");
         } catch (final NumberFormatException nfe) {
             assertEquals("For input string: \"4 \"", nfe.getMessage());
@@ -149,21 +151,21 @@ class StreamsTest {
 
     @Test
     void testSimpleStreamFlatMapToLong() {
-        final List<List<String>> input =
+        flatMapInput =
                 Arrays.asList(Arrays.asList("1000000000", "2000000000", "3000000000", "4000000000", "5000000000", "6000000000"),
                         Arrays.asList("7000000000", "8000000000"));
 
-        assertEquals(36000000000L, Functions.stream(input).flatMapToLong(list -> list.stream().mapToLong(Long::valueOf)).sum());
+        assertEquals(36000000000L, Functions.stream(flatMapInput).flatMapToLong(list -> list.stream().mapToLong(Long::valueOf)).sum());
     }
 
     @Test
     void testSimpleStreamFlatMapToLongFailing() {
-        final List<List<String>> input =
+        failingFlatMapInput =
                 Arrays.asList(Arrays.asList("1000000000", "2000000000", "3000000000", "4000000000 ", "5000000000", "6000000000"),
                         Arrays.asList("7000000000", "8000000000"));
 
         try {
-            Functions.stream(input).flatMapToLong(list -> list.stream().mapToLong(Long::valueOf)).sum();
+            Functions.stream(failingFlatMapInput).flatMapToLong(list -> list.stream().mapToLong(Long::valueOf)).sum();
             fail("Expected Exception");
         } catch (final NumberFormatException nfe) {
             assertEquals("For input string: \"4000000000 \"", nfe.getMessage());
@@ -172,20 +174,20 @@ class StreamsTest {
 
     @Test
     void testSimpleStreamFlatMapToDouble() {
-        final List<List<String>> input = Arrays.asList(Arrays.asList("1.5", "2.5", "3.5", "4.5", "5.5", "6.5"),
+        flatMapInput = Arrays.asList(Arrays.asList("1.5", "2.5", "3.5", "4.5", "5.5", "6.5"),
                 Arrays.asList("7.5", "8.5"));
 
-        assertEquals(40, Functions.stream(input).flatMapToDouble(list -> list.stream().mapToDouble(Double::valueOf))
-                .sum());
+        assertEquals(40, Functions.stream(flatMapInput)
+                .flatMapToDouble(list -> list.stream().mapToDouble(Double::valueOf)).sum());
     }
 
     @Test
     void testSimpleStreamFlatMapToDoubleFailing() {
-        final List<List<String>> input = Arrays.asList(Arrays.asList("1.5", "2.5", "3.5", "4.5x", "5.5", "6.5"),
+        failingFlatMapInput = Arrays.asList(Arrays.asList("1.5", "2.5", "3.5", "4.5x", "5.5", "6.5"),
                 Arrays.asList("7.5", "8.5"));
 
         try {
-            Functions.stream(input).flatMapToDouble(list -> list.stream().mapToDouble(Double::valueOf)).sum();
+            Functions.stream(failingFlatMapInput).flatMapToDouble(list -> list.stream().mapToDouble(Double::valueOf)).sum();
             fail("Expected Exception");
         } catch (final NumberFormatException nfe) {
             assertEquals("For input string: \"4.5x\"", nfe.getMessage());
@@ -194,7 +196,6 @@ class StreamsTest {
 
     @Test
     void testSimpleStreamForEach() {
-        final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = new ArrayList<>();
         Functions.stream(input).forEach((s) -> output.add(Integer.valueOf(s)));
         assertEquals(6, output.size());
@@ -224,7 +225,6 @@ class StreamsTest {
 
     @Test
     void testSimpleStreamForEachFailing() {
-        final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = new ArrayList<>();
         final IllegalArgumentException ise = new IllegalArgumentException("Invalid argument: 4");
         try {
@@ -253,7 +253,6 @@ class StreamsTest {
 
     @Test
     void testSimpleStreamFilter() {
-        final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Functions.stream(input)
                 .map((s) -> Integer.valueOf(s))
                 .filter((i) -> {
@@ -283,7 +282,6 @@ class StreamsTest {
 
     @Test
     void testSimpleStreamFilterFailing() {
-        final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Functions.stream(input)
                 .map((s) -> Integer.valueOf(s))
                 .filter(asIntPredicate(null))
