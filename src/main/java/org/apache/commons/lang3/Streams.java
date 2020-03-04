@@ -217,8 +217,7 @@ public class Streams {
          * }</pre>
          *
          * @param <R> type of the result
-         * @param <A> Type of the accumulator.
-         * @param pupplier a function that creates a new result container. For a
+         * @param supplier a function that creates a new result container. For a
          *                 parallel execution, this function may be called
          *                 multiple times and must return a fresh value each time.
          * @param accumulator An associative, non-interfering, stateless function for
@@ -228,9 +227,9 @@ public class Streams {
          *   accumulator function
          * @return The result of the reduction
          */
-        public <A, R> R collect(final Supplier<R> pupplier, final BiConsumer<R, ? super O> accumulator, final BiConsumer<R, R> combiner) {
+        public <R> R collect(final Supplier<R> supplier, final BiConsumer<R, ? super O> accumulator, final BiConsumer<R, R> combiner) {
             makeTerminated();
-            return stream().collect(pupplier, accumulator, combiner);
+            return stream().collect(supplier, accumulator, combiner);
         }
 
         /**
