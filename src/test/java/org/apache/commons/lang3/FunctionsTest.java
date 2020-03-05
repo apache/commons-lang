@@ -16,15 +16,9 @@
  */
 package org.apache.commons.lang3;
 
-import org.apache.commons.lang3.Functions.FailableBiConsumer;
-import org.apache.commons.lang3.Functions.FailableBiFunction;
+import org.apache.commons.lang3.function.*;
 import org.apache.commons.lang3.Functions.FailableCallable;
-import org.apache.commons.lang3.Functions.FailableConsumer;
-import org.apache.commons.lang3.Functions.FailableFunction;
-import org.apache.commons.lang3.Functions.FailableSupplier;
-import org.apache.commons.lang3.function.FailableToDoubleFunction;
-import org.apache.commons.lang3.function.FailableToIntFunction;
-import org.apache.commons.lang3.function.FailableToLongFunction;
+import org.apache.commons.lang3.function.FailableSupplier;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -426,7 +420,7 @@ class FunctionsTest {
     @DisplayName("Test that asPredicate(FailablePredicate) is converted to -> Predicate ")
     public void testAsPredicate() {
         FailureOnOddInvocations.invocation = 0;
-        final Functions.FailablePredicate<Object, Throwable> failablePredicate = (t) -> FailureOnOddInvocations.failingBool();
+        final FailablePredicate<Object, Throwable> failablePredicate = (t) -> FailureOnOddInvocations.failingBool();
         final Predicate<?> predicate = Functions.asPredicate(failablePredicate);
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () -> predicate.test(null));
         final Throwable cause = e.getCause();
@@ -441,7 +435,7 @@ class FunctionsTest {
     @DisplayName("Test that asPredicate(FailableBiPredicate) is converted to -> BiPredicate ")
     public void testAsBiPredicate() {
         FailureOnOddInvocations.invocation = 0;
-        final Functions.FailableBiPredicate<Object, Object, Throwable> failableBiPredicate = (t1, t2) -> FailureOnOddInvocations.failingBool();
+        final FailableBiPredicate<Object, Object, Throwable> failableBiPredicate = (t1, t2) -> FailureOnOddInvocations.failingBool();
         final BiPredicate<?, ?> predicate = Functions.asBiPredicate(failableBiPredicate);
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () -> predicate.test(null, null));
         final Throwable cause = e.getCause();

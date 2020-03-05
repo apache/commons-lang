@@ -30,9 +30,9 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.*;
 
-import org.apache.commons.lang3.Functions.FailableConsumer;
-import org.apache.commons.lang3.Functions.FailableFunction;
-import org.apache.commons.lang3.Functions.FailablePredicate;
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableFunction;
+import org.apache.commons.lang3.function.FailablePredicate;
 import org.apache.commons.lang3.stream.FailableStream;
 
 /**

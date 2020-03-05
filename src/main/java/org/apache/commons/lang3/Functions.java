@@ -25,9 +25,7 @@ import java.util.concurrent.Callable;
 import java.util.function.*;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.function.FailableToDoubleFunction;
-import org.apache.commons.lang3.function.FailableToIntFunction;
-import org.apache.commons.lang3.function.FailableToLongFunction;
+import org.apache.commons.lang3.function.*;
 import org.apache.commons.lang3.stream.FailableStream;
 
 
@@ -74,83 +72,6 @@ public class Functions {
          * @throws T if the callable fails
          */
         O call() throws T;
-    }
-
-    @FunctionalInterface
-    public interface FailableConsumer<O, T extends Throwable> {
-        /**
-         * Accepts the consumer.
-         * @param object the parameter for the consumable to accept
-         * @throws T if the consumer fails
-         */
-        void accept(O object) throws T;
-    }
-
-    @FunctionalInterface
-    public interface FailableBiConsumer<O1, O2, T extends Throwable> {
-        /**
-         * Accepts the consumer.
-         * @param object1 the first parameter for the consumable to accept
-         * @param object2 the second parameter for the consumable to accept
-         * @throws T if the consumer fails
-         */
-        void accept(O1 object1, O2 object2) throws T;
-    }
-
-    @FunctionalInterface
-    public interface FailableFunction<I, O, T extends Throwable> {
-        /**
-         * Apply the function.
-         * @param input the input for the function
-         * @return the result of the function
-         * @throws T if the function fails
-         */
-        O apply(I input) throws T;
-    }
-
-    @FunctionalInterface
-    public interface FailableBiFunction<I1, I2, O, T extends Throwable> {
-        /**
-         * Apply the function.
-         * @param input1 the first input for the function
-         * @param input2 the second input for the function
-         * @return the result of the function
-         * @throws T if the function fails
-         */
-        O apply(I1 input1, I2 input2) throws T;
-    }
-
-    @FunctionalInterface
-    public interface FailablePredicate<O, T extends Throwable> {
-        /**
-         * Test the predicate.
-         * @param object the object to test the predicate on
-         * @return the predicate's evaluation
-         * @throws T if the predicate fails
-         */
-        boolean test(O object) throws T;
-    }
-
-    @FunctionalInterface
-    public interface FailableBiPredicate<O1, O2, T extends Throwable> {
-        /**
-         * Test the predicate.
-         * @param object1 the first object to test the predicate on
-         * @param object2 the second object to test the predicate on
-         * @return the predicate's evaluation
-         * @throws T if the predicate fails
-         */
-        boolean test(O1 object1, O2 object2) throws T;
-    }
-
-    @FunctionalInterface
-    public interface FailableSupplier<O, T extends Throwable> {
-        /**
-         * Supplies an object
-         * @return the suppliers result
-         * @throws T if the supplier fails
-         */
-        O get() throws T;
     }
 
     /**

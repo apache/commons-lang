@@ -17,9 +17,7 @@
 package org.apache.commons.lang3.stream;
 
 import org.apache.commons.lang3.Functions;
-import org.apache.commons.lang3.function.FailableToDoubleFunction;
-import org.apache.commons.lang3.function.FailableToIntFunction;
-import org.apache.commons.lang3.function.FailableToLongFunction;
+import org.apache.commons.lang3.function.*;
 
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
@@ -55,7 +53,7 @@ import java.util.stream.*;
       * element to determine if it should be included.
       * @return the new stream
       */
-     public FailableStream<O> filter(final Functions.FailablePredicate<O, ?> predicate){
+     public FailableStream<O> filter(final FailablePredicate<O, ?> predicate){
          assertNotTerminated();
          stream = stream.filter(Functions.asPredicate(predicate));
          return this;
@@ -76,7 +74,7 @@ import java.util.stream.*;
       *
       * @param action a non-interfering action to perform on the elements
       */
-     public void forEach(final Functions.FailableConsumer<O, ?> action) {
+     public void forEach(final FailableConsumer<O, ?> action) {
          makeTerminated();
          stream().forEach(Functions.asConsumer(action));
      }
@@ -241,7 +239,7 @@ import java.util.stream.*;
       * @param mapper A non-interfering, stateless function to apply to each element
       * @return the new stream
       */
-     public <R> FailableStream<R> map(final Functions.FailableFunction<O, R, ?> mapper) {
+     public <R> FailableStream<R> map(final FailableFunction<O, R, ?> mapper) {
          assertNotTerminated();
          return new FailableStream<>(stream.map(Functions.asFunction(mapper)));
      }
@@ -305,7 +303,7 @@ import java.util.stream.*;
      * transformation to the elements of the stream, and then flattening the
      * resulting elements into a new stream.
      */
-     public <R> FailableStream<R> flatMap(Functions.FailableFunction<? super O, ? extends Stream<? extends R>, ?> mapper) {
+     public <R> FailableStream<R> flatMap(FailableFunction<? super O, ? extends Stream<? extends R>, ?> mapper) {
          assertNotTerminated();
          return new FailableStream<>(stream.flatMap(Functions.asFunction(mapper)));
      }
@@ -323,7 +321,7 @@ import java.util.stream.*;
      *               which produces a stream of new values
      * @return the new stream
      */
-     public FailableIntStream flatMapToInt(Functions.FailableFunction<? super O, IntStream, ?> mapper) {
+     public FailableIntStream flatMapToInt(FailableFunction<? super O, IntStream, ?> mapper) {
          assertNotTerminated();
          return new FailableIntStream(stream.flatMapToInt(Functions.asFunction(mapper)));
      }
@@ -341,7 +339,7 @@ import java.util.stream.*;
      *               which produces a stream of new values
      * @return the new stream
      */
-     public FailableLongStream flatMapToLong(Functions.FailableFunction<? super O, LongStream, ?> mapper) {
+     public FailableLongStream flatMapToLong(FailableFunction<? super O, LongStream, ?> mapper) {
          assertNotTerminated();
          return new FailableLongStream(stream.flatMapToLong(Functions.asFunction(mapper)));
      }
@@ -359,7 +357,7 @@ import java.util.stream.*;
      *               which produces a stream of new values
      * @return the new stream
      */
-     public FailableDoubleStream flatMapToDouble(Functions.FailableFunction<? super O, DoubleStream, ?> mapper) {
+     public FailableDoubleStream flatMapToDouble(FailableFunction<? super O, DoubleStream, ?> mapper) {
          assertNotTerminated();
          return new FailableDoubleStream(stream.flatMapToDouble(Functions.asFunction(mapper)));
      }
@@ -391,7 +389,7 @@ import java.util.stream.*;
       * @return {@code true} If either all elements of the stream match the
       * provided predicate or the stream is empty, otherwise {@code false}.
       */
-     public boolean allMatch(final Functions.FailablePredicate<O, ?> predicate) {
+     public boolean allMatch(final FailablePredicate<O, ?> predicate) {
          assertNotTerminated();
          return stream().allMatch(Functions.asPredicate(predicate));
      }
@@ -413,7 +411,7 @@ import java.util.stream.*;
       * @return {@code true} if any elements of the stream match the provided
       * predicate, otherwise {@code false}
       */
-     public boolean anyMatch(final Functions.FailablePredicate<O, ?> predicate) {
+     public boolean anyMatch(final FailablePredicate<O, ?> predicate) {
          assertNotTerminated();
          return stream().anyMatch(Functions.asPredicate(predicate));
      }

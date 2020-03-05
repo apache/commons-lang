@@ -17,26 +17,27 @@
 package org.apache.commons.lang3.function;
 
 /**
- * Represents a function that produces a long-valued result.  This is the
- * {@code double}-producing primitive specialization for {@link FailableFunction}.
+ * Represents a supplier of results.
  *
- * <p>This is a functional interface whose functional method is {@link #applyAsDouble(Object)} (Object)}.
+ * <p>There is no requirement that a new or distinct result be returned each
+ * time the supplier is invoked.
  *
- * <p>An exception is thrown if an error occurs.
+ * <p>This is a functional interface whose functional method is {@link #get()}.
  *
- * @param <I> the type of the input to the function
+ * <p>An exception will be thrown if an error occurs.
+ *
+ * @param <R> the type of results produced by this supplier
  * @param <T> the type of exception to be thrown
  *
- * @see java.util.function.ToDoubleFunction
+ * @see java.util.function.Supplier
  * @since 3.10
  */
 @FunctionalInterface
-public interface FailableToDoubleFunction<I, T extends Throwable> {
+public interface FailableSupplier<R, T extends Throwable> {
     /**
-     * Apply the function.
-     * @param input the input for the function
-     * @return the result of the function
-     * @throws T if the function fails
+     * Supplies an object
+     * @return the suppliers result
+     * @throws T if the supplier fails
      */
-    double applyAsDouble(I input) throws T;
+    R get() throws T;
 }

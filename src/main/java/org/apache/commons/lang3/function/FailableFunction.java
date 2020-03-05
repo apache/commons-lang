@@ -17,26 +17,26 @@
 package org.apache.commons.lang3.function;
 
 /**
- * Represents a function that produces a long-valued result.  This is the
- * {@code double}-producing primitive specialization for {@link FailableFunction}.
+ * Represents a function that accepts one argument and produces a result.
  *
- * <p>This is a functional interface whose functional method is {@link #applyAsDouble(Object)} (Object)}.
+ * <p>This is a functional interface whose functional method is {@link #apply(Object)}.
  *
- * <p>An exception is thrown if an error occurs.
+ * <p>An exception will be thrown if an error occurs.
  *
- * @param <I> the type of the input to the function
- * @param <T> the type of exception to be thrown
+ * @param <I>   the type of the input to the function
+ * @param <O>   the type of the output of the function
+ * @param <T>   the type of exception to be thrown
  *
- * @see java.util.function.ToDoubleFunction
+ * @see java.util.function.Function
  * @since 3.10
  */
 @FunctionalInterface
-public interface FailableToDoubleFunction<I, T extends Throwable> {
+public interface FailableFunction<I, O, T extends Throwable> {
     /**
      * Apply the function.
      * @param input the input for the function
      * @return the result of the function
      * @throws T if the function fails
      */
-    double applyAsDouble(I input) throws T;
+    O apply(I input) throws T;
 }
