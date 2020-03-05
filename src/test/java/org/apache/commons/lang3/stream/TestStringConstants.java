@@ -16,22 +16,8 @@
  */
 package org.apache.commons.lang3.stream;
 
-/**
- * A class with methods common to all failable streams.
- *
- * @since 3.10
- */
-public class FailableBaseStream {
-    protected boolean terminated;
+public class TestStringConstants {
+    private TestStringConstants() {}
 
-    protected void assertNotTerminated() {
-        if (terminated) {
-            throw new IllegalStateException("This stream is already terminated.");
-        }
-    }
-
-    protected void makeTerminated() {
-        assertNotTerminated();
-        terminated = true;
-    }
+    public static final String EXPECTED_EXCEPTION = "Expected Exception";
 }

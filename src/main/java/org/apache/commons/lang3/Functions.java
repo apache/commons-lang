@@ -25,10 +25,10 @@ import java.util.concurrent.Callable;
 import java.util.function.*;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.Streams.FailableStream;
 import org.apache.commons.lang3.function.FailableToDoubleFunction;
 import org.apache.commons.lang3.function.FailableToIntFunction;
 import org.apache.commons.lang3.function.FailableToLongFunction;
+import org.apache.commons.lang3.stream.FailableStream;
 
 
 /** This class provides utility functions, and classes for working with the
