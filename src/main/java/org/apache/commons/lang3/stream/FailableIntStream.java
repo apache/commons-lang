@@ -37,7 +37,7 @@ public class FailableIntStream extends FailableBaseStream {
      *
      * This is a special case of a reduction and is equivalent to:
      * <pre>{@code
-     *     return reduce(0, Long::sum);
+     *     return reduce(0, Integer::sum);
      * }</pre>
      *
      * <p>This is a terminal operation.
