@@ -27,13 +27,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.apache.commons.lang3.stream.TestStringConstants.EXPECTED_EXCEPTION;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class FailableStreamTest {
+    private static final String EXPECTED_NFE_MESSAGE = "For input string: \"4 \"";
+
     private List<String> input;
     private List<String> failingInput;
     private List<List<String>> flatMapInput;
@@ -62,7 +69,7 @@ public class FailableStreamTest {
             Functions.stream(failingInput).map(Integer::valueOf).collect(Collectors.toList());
             fail(EXPECTED_EXCEPTION);
         } catch (final NumberFormatException nfe) {
-            assertEquals("For input string: \"4 \"", nfe.getMessage());
+            assertEquals(EXPECTED_NFE_MESSAGE, nfe.getMessage());
         }
     }
 
@@ -82,7 +89,7 @@ public class FailableStreamTest {
             Functions.stream(failingFlatMapInput).flatMap(Collection::stream).map(Integer::valueOf).collect(Collectors.toList());
             fail(EXPECTED_EXCEPTION);
         } catch (final NumberFormatException nfe) {
-            assertEquals("For input string: \"4 \"", nfe.getMessage());
+            assertEquals(EXPECTED_NFE_MESSAGE, nfe.getMessage());
         }
     }
 
@@ -209,6 +216,34 @@ public class FailableStreamTest {
             fail(EXPECTED_EXCEPTION);
         } catch (final UndeclaredThrowableException t) {
             assertSame(se, t.getCause());
+        }
+    }
+
+    @Test
+    void testSimpleStreamAllMatch() {
+        assertTrue(Functions.stream(input).map(Integer::valueOf).allMatch(Objects::nonNull));
+    }
+
+    @Test
+    void testSimpleStreamAllMatchFailing() {
+        try {
+            Functions.stream(failingInput).map(Integer::valueOf).allMatch(Objects::nonNull);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testSimpleStreamAnyMatch() {
+        assertTrue(Functions.stream(input).map(Integer::valueOf).anyMatch(i -> i % 2 == 0));
+    }
+
+    @Test
+    void testSimpleStreamAnyMatchFailing() {
+        try {
+            Functions.stream(failingInput).map(Integer::valueOf).anyMatch(i -> i % 2 == 0);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE, nfe.getMessage());
         }
     }
 }
