@@ -20,6 +20,7 @@ import org.apache.commons.lang3.Functions.FailableCallable;
 import org.apache.commons.lang3.function.FailableToDoubleFunction;
 import org.apache.commons.lang3.function.FailableToIntFunction;
 import org.apache.commons.lang3.function.FailableToLongFunction;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -45,9 +46,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FunctionsTest {
+    private static final String ODD_INVOCATION_1 = "Odd Invocation: 1";
+    private static final String UNKNOWN_IO_ERROR = "Unknown I/O error";
+
     public static class SomeException extends Exception {
         private static final long serialVersionUID = -4965704778119283411L;
 
+        @SuppressWarnings("java:S1165")
         private Throwable t;
 
         SomeException(final String pMsg) {
@@ -58,12 +63,15 @@ class FunctionsTest {
             t = pThrowable;
         }
 
+        @SuppressWarnings("java:S112")
         public void test() throws Throwable {
             if (t != null) {
                 throw t;
             }
         }
     }
+
+    @SuppressWarnings("java:S112")
     public static class Testable {
         private Throwable t;
 
@@ -140,6 +148,7 @@ class FunctionsTest {
     public static class CloseableObject {
         private boolean closed;
 
+        @SuppressWarnings("java:S112")
         public void run(final Throwable pTh) throws Throwable {
             if (pTh != null) {
                 throw pTh;
@@ -159,14 +168,19 @@ class FunctionsTest {
         }
     }
 
+    @SuppressWarnings("java:S2696")
+    @BeforeEach
+    void beforeEach() {
+        FailureOnOddInvocations.invocation = 0;
+    }
+
     @Test
     void testRunnable() {
-        FailureOnOddInvocations.invocation = 0;
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  Functions.run(FailureOnOddInvocations::new));
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
-        assertEquals("Odd Invocation: 1", cause.getMessage());
+        assertEquals(ODD_INVOCATION_1, cause.getMessage());
 
         // Even invocation, should not throw an exception
         Functions.run(FailureOnOddInvocations::new);
@@ -174,13 +188,12 @@ class FunctionsTest {
 
     @Test
     void testAsRunnable() {
-        FailureOnOddInvocations.invocation = 0;
-        final Runnable runnable = Functions.asRunnable(() -> new FailureOnOddInvocations());
-        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  runnable.run());
+        final Runnable runnable = Functions.asRunnable(FailureOnOddInvocations::new);
+        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, runnable::run);
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
-        assertEquals("Odd Invocation: 1", cause.getMessage());
+        assertEquals(ODD_INVOCATION_1, cause.getMessage());
 
         // Even invocation, should not throw an exception
         runnable.run();
@@ -188,28 +201,24 @@ class FunctionsTest {
 
     @Test
     void testCallable() {
-        FailureOnOddInvocations.invocation = 0;
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  Functions.run(FailureOnOddInvocations::new));
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
-        assertEquals("Odd Invocation: 1", cause.getMessage());
+        assertEquals(ODD_INVOCATION_1, cause.getMessage());
         final FailureOnOddInvocations instance = Functions.call(FailureOnOddInvocations::new);
         assertNotNull(instance);
     }
 
     @Test
     void testAsCallable() {
-        FailureOnOddInvocations.invocation = 0;
-        final FailableCallable<FailureOnOddInvocations, SomeException> failableCallable = () -> {
-            return new FailureOnOddInvocations();
-        };
+        final FailableCallable<FailureOnOddInvocations, SomeException> failableCallable = FailureOnOddInvocations::new;
         final Callable<FailureOnOddInvocations> callable = Functions.asCallable(failableCallable);
-        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  callable.call());
+        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, callable::call);
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
-        assertEquals("Odd Invocation: 1", cause.getMessage());
+        assertEquals(ODD_INVOCATION_1, cause.getMessage());
         final FailureOnOddInvocations instance;
         try {
             instance = callable.call();
@@ -231,7 +240,7 @@ class FunctionsTest {
         e = assertThrows(OutOfMemoryError.class, () -> Functions.accept(Testable::test, testable));
         assertSame(error, e);
 
-        final IOException ioe = new IOException("Unknown I/O error");
+        final IOException ioe = new IOException(UNKNOWN_IO_ERROR);
         testable.setThrowable(ioe);
         e = assertThrows(UncheckedIOException.class, () -> Functions.accept(Testable::test, testable));
         final Throwable t = e.getCause();
@@ -246,7 +255,7 @@ class FunctionsTest {
     void testAsConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(ise);
-        final Consumer<Testable> consumer = Functions.asConsumer((t) -> t.test());
+        final Consumer<Testable> consumer = Functions.asConsumer(Testable::test);
         Throwable e = assertThrows(IllegalStateException.class, () -> consumer.accept(testable));
         assertSame(ise, e);
 
@@ -255,7 +264,7 @@ class FunctionsTest {
         e = assertThrows(OutOfMemoryError.class, () -> consumer.accept(testable));
         assertSame(error, e);
 
-        final IOException ioe = new IOException("Unknown I/O error");
+        final IOException ioe = new IOException(UNKNOWN_IO_ERROR);
         testable.setThrowable(ioe);
         e = assertThrows(UncheckedIOException.class, () -> consumer.accept(testable));
         final Throwable t = e.getCause();
@@ -277,7 +286,7 @@ class FunctionsTest {
         e = assertThrows(OutOfMemoryError.class, () -> Functions.accept(Testable::test, testable, error));
         assertSame(error, e);
 
-        final IOException ioe = new IOException("Unknown I/O error");
+        final IOException ioe = new IOException(UNKNOWN_IO_ERROR);
         testable.setThrowable(ioe);
         e = assertThrows(UncheckedIOException.class, () -> Functions.accept(Testable::test, testable, ioe));
         final Throwable t = e.getCause();
@@ -303,7 +312,7 @@ class FunctionsTest {
         e = assertThrows(OutOfMemoryError.class, () -> consumer.accept(testable, error));
         assertSame(error, e);
 
-        final IOException ioe = new IOException("Unknown I/O error");
+        final IOException ioe = new IOException(UNKNOWN_IO_ERROR);
         testable.setThrowable(ioe);
         e = assertThrows(UncheckedIOException.class, () -> consumer.accept(testable,  ioe));
         final Throwable t = e.getCause();
@@ -325,7 +334,7 @@ class FunctionsTest {
         e = assertThrows(OutOfMemoryError.class, () -> Functions.apply(Testable::testInt, testable));
         assertSame(error, e);
 
-        final IOException ioe = new IOException("Unknown I/O error");
+        final IOException ioe = new IOException(UNKNOWN_IO_ERROR);
         testable.setThrowable(ioe);
         e = assertThrows(UncheckedIOException.class, () -> Functions.apply(Testable::testInt, testable));
         final Throwable t = e.getCause();
@@ -338,6 +347,7 @@ class FunctionsTest {
         assertEquals(0, i.intValue());
     }
 
+    @SuppressWarnings("java:S4276")
     @Test
     public void testAsFunction() {
         final IllegalStateException ise = new IllegalStateException();
@@ -355,7 +365,7 @@ class FunctionsTest {
         e = assertThrows(OutOfMemoryError.class, () -> function.apply(error));
         assertSame(error, e);
 
-        final IOException ioe = new IOException("Unknown I/O error");
+        final IOException ioe = new IOException(UNKNOWN_IO_ERROR);
         testable.setThrowable(ioe);
         e = assertThrows(UncheckedIOException.class, () -> function.apply(ioe));
         final Throwable t = e.getCause();
@@ -376,7 +386,7 @@ class FunctionsTest {
         e = assertThrows(OutOfMemoryError.class, () -> Functions.apply(Testable::testInt, testable, error));
         assertSame(error, e);
 
-        final IOException ioe = new IOException("Unknown I/O error");
+        final IOException ioe = new IOException(UNKNOWN_IO_ERROR);
         e = assertThrows(UncheckedIOException.class, () -> Functions.apply(Testable::testInt, testable, ioe));
         final Throwable t = e.getCause();
         assertNotNull(t);
@@ -393,7 +403,7 @@ class FunctionsTest {
         final Testable testable = new Testable(ise);
         final Functions.FailableBiFunction<Testable, Throwable, Integer, Throwable> failableBiFunction = (t, th) -> {
             t.setThrowable(th);
-            return Integer.valueOf(t.testInt());
+            return t.testInt();
         };
         final BiFunction<Testable, Throwable, Integer> biFunction = Functions.asBiFunction(failableBiFunction);
         Throwable e = assertThrows(IllegalStateException.class, () -> biFunction.apply(testable, ise));
@@ -404,7 +414,7 @@ class FunctionsTest {
         e = assertThrows(OutOfMemoryError.class, () -> biFunction.apply(testable, error));
         assertSame(error, e);
 
-        final IOException ioe = new IOException("Unknown I/O error");
+        final IOException ioe = new IOException(UNKNOWN_IO_ERROR);
         testable.setThrowable(ioe);
         e = assertThrows(UncheckedIOException.class, () -> biFunction.apply(testable, ioe));
         final Throwable t = e.getCause();
@@ -414,14 +424,14 @@ class FunctionsTest {
         assertEquals(0, biFunction.apply(testable, null).intValue());
     }
 
+    @SuppressWarnings("java:S4144")
     @Test
     public void testGetFromSupplier() {
-        FailureOnOddInvocations.invocation = 0;
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  Functions.run(FailureOnOddInvocations::new));
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
-        assertEquals("Odd Invocation: 1", cause.getMessage());
+        assertEquals(ODD_INVOCATION_1, cause.getMessage());
         final FailureOnOddInvocations instance = Functions.call(FailureOnOddInvocations::new);
         assertNotNull(instance);
     }
@@ -429,43 +439,40 @@ class FunctionsTest {
     @Test
     @DisplayName("Test that asPredicate(FailablePredicate) is converted to -> Predicate ")
     public void testAsPredicate() {
-        FailureOnOddInvocations.invocation = 0;
-        final Functions.FailablePredicate<Object, Throwable> failablePredicate = (t) -> FailureOnOddInvocations.failingBool();
+        final Functions.FailablePredicate<Object, Throwable> failablePredicate = t -> FailureOnOddInvocations.failingBool();
         final Predicate<?> predicate = Functions.asPredicate(failablePredicate);
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () -> predicate.test(null));
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
-        assertEquals("Odd Invocation: 1", cause.getMessage());
+        assertEquals(ODD_INVOCATION_1, cause.getMessage());
         final boolean instance = predicate.test(null);
-        assertNotNull(instance);
+        assertTrue(instance);
     }
 
     @Test
     @DisplayName("Test that asPredicate(FailableBiPredicate) is converted to -> BiPredicate ")
     public void testAsBiPredicate() {
-        FailureOnOddInvocations.invocation = 0;
         final Functions.FailableBiPredicate<Object, Object, Throwable> failableBiPredicate = (t1, t2) -> FailureOnOddInvocations.failingBool();
         final BiPredicate<?, ?> predicate = Functions.asBiPredicate(failableBiPredicate);
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () -> predicate.test(null, null));
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
-        assertEquals("Odd Invocation: 1", cause.getMessage());
+        assertEquals(ODD_INVOCATION_1, cause.getMessage());
         final boolean instance = predicate.test(null, null);
-        assertNotNull(instance);
+        assertTrue(instance);
     }
 
     @Test
     public void testAsSupplier() {
-        FailureOnOddInvocations.invocation = 0;
-        final Functions.FailableSupplier<FailureOnOddInvocations, Throwable> failableSupplier = () -> new FailureOnOddInvocations();
+        final Functions.FailableSupplier<FailureOnOddInvocations, Throwable> failableSupplier = FailureOnOddInvocations::new;
         final Supplier<FailureOnOddInvocations> supplier = Functions.asSupplier(failableSupplier);
-        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  supplier.get());
+        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, supplier::get);
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
-        assertEquals("Odd Invocation: 1", cause.getMessage());
+        assertEquals(ODD_INVOCATION_1, cause.getMessage());
         final FailureOnOddInvocations instance = supplier.get();
         assertNotNull(instance);
     }
@@ -474,7 +481,7 @@ class FunctionsTest {
     public void testAsToIntFunction() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(ise);
-        final FailableToIntFunction<Throwable, Throwable> failableToIntFunction = (th) -> {
+        final FailableToIntFunction<Throwable, Throwable> failableToIntFunction = th -> {
             testable.setThrowable(th);
             return testable.testInt();
         };
@@ -487,7 +494,7 @@ class FunctionsTest {
         e = assertThrows(OutOfMemoryError.class, () -> toIntFunction.applyAsInt(error));
         assertSame(error, e);
 
-        final IOException ioe = new IOException("Unknown I/O error");
+        final IOException ioe = new IOException(UNKNOWN_IO_ERROR);
         testable.setThrowable(ioe);
         e = assertThrows(UncheckedIOException.class, () -> toIntFunction.applyAsInt(ioe));
         final Throwable t = e.getCause();
@@ -501,7 +508,7 @@ class FunctionsTest {
     public void testAsToLongFunction() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(ise);
-        final FailableToLongFunction<Throwable, Throwable> failableToLongFunction = (th) -> {
+        final FailableToLongFunction<Throwable, Throwable> failableToLongFunction = th -> {
             testable.setThrowable(th);
             return testable.testLong();
         };
@@ -514,7 +521,7 @@ class FunctionsTest {
         e = assertThrows(OutOfMemoryError.class, () -> toLongFunction.applyAsLong(error));
         assertSame(error, e);
 
-        final IOException ioe = new IOException("Unknown I/O error");
+        final IOException ioe = new IOException(UNKNOWN_IO_ERROR);
         testable.setThrowable(ioe);
         e = assertThrows(UncheckedIOException.class, () -> toLongFunction.applyAsLong(ioe));
         final Throwable t = e.getCause();
@@ -528,7 +535,7 @@ class FunctionsTest {
     public void testAsToDoubleFunction() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(ise);
-        final FailableToDoubleFunction<Throwable, Throwable> failableToDoubleFunction = (th) -> {
+        final FailableToDoubleFunction<Throwable, Throwable> failableToDoubleFunction = th -> {
             testable.setThrowable(th);
             return testable.testDouble();
         };
@@ -541,7 +548,7 @@ class FunctionsTest {
         e = assertThrows(OutOfMemoryError.class, () -> toDoubleFunction.applyAsDouble(error));
         assertSame(error, e);
 
-        final IOException ioe = new IOException("Unknown I/O error");
+        final IOException ioe = new IOException(UNKNOWN_IO_ERROR);
         testable.setThrowable(ioe);
         e = assertThrows(UncheckedIOException.class, () -> toDoubleFunction.applyAsDouble(ioe));
         final Throwable t = e.getCause();
@@ -567,7 +574,7 @@ class FunctionsTest {
 
         assertTrue(co.isClosed());
         co.reset();
-        final IOException ioe = new IOException("Unknown I/O error");
+        final IOException ioe = new IOException(UNKNOWN_IO_ERROR);
         final UncheckedIOException uioe = assertThrows(UncheckedIOException.class, () ->  Functions.tryWithResources(() -> consumer.accept(ioe), co::close));
         final IOException cause = uioe.getCause();
         assertSame(ioe, cause);

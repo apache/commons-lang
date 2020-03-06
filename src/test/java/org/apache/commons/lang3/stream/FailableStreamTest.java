@@ -115,6 +115,7 @@ public class FailableStreamTest {
         };
     }
 
+    @SuppressWarnings("java:S1181")
     @Test
     void testSimpleStreamForEachFailing() {
         final IllegalArgumentException ise = new IllegalArgumentException("Invalid argument: 4");
@@ -165,6 +166,7 @@ public class FailableStreamTest {
         };
     }
 
+    @SuppressWarnings("java:S1181")
     @Test
     void testSimpleStreamFilterFailing() {
         final List<Integer> output = Functions.stream(input)
