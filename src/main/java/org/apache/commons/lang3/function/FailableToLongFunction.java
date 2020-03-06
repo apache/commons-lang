@@ -16,9 +16,11 @@
  */
 package org.apache.commons.lang3.function;
 
+import org.apache.commons.lang3.Functions;
+
 /**
  * Represents a function that produces a long-valued result.  This is the
- * {@code long}-producing primitive specialization for {@link FailableFunction}.
+ * {@code long}-producing primitive specialization for {@link Functions.FailableFunction}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAsLong(Object)}.
  *
