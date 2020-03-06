@@ -18,8 +18,6 @@ package org.apache.commons.lang3.stream;
 
 import org.apache.commons.lang3.Functions;
 import org.apache.commons.lang3.Streams;
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailablePredicate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
@@ -108,7 +106,7 @@ public class FailableStreamTest {
         assertEquals("1", array[2]);
     }
 
-    protected <T extends Throwable> FailableConsumer<String, T> asIntConsumer(final T pThrowable) {
+    protected <T extends Throwable> Functions.FailableConsumer<String, T> asIntConsumer(final T pThrowable) {
         return s -> {
             final int i = Integer.parseInt(s);
             if (i == 4) {
@@ -158,7 +156,7 @@ public class FailableStreamTest {
         }
     }
 
-    protected <T extends Throwable> FailablePredicate<Integer, T> asIntPredicate(final T pThrowable) {
+    protected <T extends Throwable> Functions.FailablePredicate<Integer, T> asIntPredicate(final T pThrowable) {
         return i -> {
             if (i == 5 && pThrowable != null) {
                 throw pThrowable;

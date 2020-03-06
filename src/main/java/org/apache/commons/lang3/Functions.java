@@ -25,7 +25,9 @@ import java.util.concurrent.Callable;
 import java.util.function.*;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.function.*;
+import org.apache.commons.lang3.function.FailableToDoubleFunction;
+import org.apache.commons.lang3.function.FailableToIntFunction;
+import org.apache.commons.lang3.function.FailableToLongFunction;
 import org.apache.commons.lang3.stream.FailableStream;
 
 
@@ -72,6 +74,190 @@ public class Functions {
          * @throws T if the callable fails
          */
         O call() throws T;
+    }
+
+    /**
+     * Represents an operation that accepts two input arguments and returns no
+     * result.
+     *
+     * <p>This is a functional interface whose functional method is
+     * {@link #accept(Object, Object)}.
+     *
+     * <p>An exception will be thrown if an error occurs.
+     *
+     * @param <O1> the type of the first argument to the operation
+     * @param <O2> the type of the second argument to the operation
+     * @param <T>  the type of exception to be thrown
+     *
+     * @see BiConsumer
+     * @since 3.10
+     */
+    @FunctionalInterface
+    public static interface FailableBiConsumer<O1, O2, T extends Throwable> {
+        /**
+         * Accepts the consumer.
+         *
+         * @param object1 the first parameter for the consumable to accept
+         * @param object2 the second parameter for the consumable to accept
+         * @throws T if the consumer fails
+         */
+        void accept(O1 object1, O2 object2) throws T;
+    }
+
+    /**
+     * Represents a function that accepts two arguments and produces a result.
+     *
+     * <p>This is a functional interface whose functional method is {@link #apply(Object, Object)}.
+     *
+     * <p>An exception will be thrown if an error occurs.
+     *
+     * @param <I1> the type of the first argument to the operation
+     * @param <I2> the type of the second argument to the operation
+     * @param <O>  the type of the returned value
+     * @param <T>  the type of exception to be thrown
+     *
+     * @see java.util.function.BiFunction
+     * @since 3.10
+     */
+    @FunctionalInterface
+    public interface FailableBiFunction<I1, I2, O, T extends Throwable> {
+        /**
+         * Apply the function.
+         *
+         * @param input1 the first input for the function
+         * @param input2 the second input for the function
+         * @return the result of the function
+         * @throws T if the function fails
+         */
+        O apply(I1 input1, I2 input2) throws T;
+    }
+
+    /**
+     * Represents a predicate (boolean-valued function) of two arguments.
+     *
+     * <p>This is a functional interface whose functional method is {@link #test(Object, Object)}.
+     *
+     * <p>An exception will be thrown if an error occurs.
+     *
+     * @param <O1> the type of the first argument to the operation
+     * @param <O2> the type of the second argument to the operation
+     * @param <T>  the type of exception to be thrown
+     *
+     * @see java.util.function.BiPredicate
+     * @since 3.10
+     */
+    @FunctionalInterface
+    public interface FailableBiPredicate<O1, O2, T extends Throwable> {
+        /**
+         * Test the predicate.
+         *
+         * @param object1 the first object to test the predicate on
+         * @param object2 the second object to test the predicate on
+         * @return the predicate's evaluation
+         * @throws T if the predicate fails
+         */
+        boolean test(O1 object1, O2 object2) throws T;
+    }
+
+    /**
+     * Represents an operation that accepts a single input argument and returns no
+     * result.
+     *
+     * <p>This is a functional interface whose functional method is {@link #accept(Object)}.
+     *
+     * <p>An exception will be thrown if an error occurs.
+     *
+     * @param <O> the type of the argument to the operation
+     * @param <T> the type of exception to be thrown
+     *
+     * @see java.util.function.Consumer
+     * @since 3.10
+     */
+    @FunctionalInterface
+    public interface FailableConsumer<O, T extends Throwable> {
+        /**
+         * Accepts the consumer.
+         *
+         * @param object the parameter for the consumable to accept
+         * @throws T if the consumer fails
+         */
+        void accept(O object) throws T;
+    }
+
+    /**
+     * Represents a function that accepts one argument and produces a result.
+     *
+     * <p>This is a functional interface whose functional method is {@link #apply(Object)}.
+     *
+     * <p>An exception will be thrown if an error occurs.
+     *
+     * @param <I>   the type of the input to the function
+     * @param <O>   the type of the output of the function
+     * @param <T>   the type of exception to be thrown
+     *
+     * @see java.util.function.Function
+     * @since 3.10
+     */
+    @FunctionalInterface
+    public interface FailableFunction<I, O, T extends Throwable> {
+        /**
+         * Apply the function.
+         * @param input the input for the function
+         * @return the result of the function
+         * @throws T if the function fails
+         */
+        O apply(I input) throws T;
+    }
+
+    /**
+     * Represents a predicate (boolean-valued function) of one argument.
+     *
+     * <p>This is a functional interface whose functional method is {@link #test(Object)}.
+     *
+     * <p>An exception will be thrown if an error occurs.
+     *
+     * @param <I> the type of the input to the function
+     * @param <T> the type of exception to be thrown
+     *
+     * @see java.util.function.Predicate
+     * @since 3.10
+     */
+    @FunctionalInterface
+    public interface FailablePredicate<I, T extends Throwable> {
+        /**
+         * Test the predicate.
+         *
+         * @param object the object to test the predicate on
+         * @return the predicate's evaluation
+         * @throws T if the predicate fails
+         */
+        boolean test(I object) throws T;
+    }
+
+    /**
+     * Represents a supplier of results.
+     *
+     * <p>There is no requirement that a new or distinct result be returned each
+     * time the supplier is invoked.
+     *
+     * <p>This is a functional interface whose functional method is {@link #get()}.
+     *
+     * <p>An exception will be thrown if an error occurs.
+     *
+     * @param <R> the type of results produced by this supplier
+     * @param <T> the type of exception to be thrown
+     *
+     * @see java.util.function.Supplier
+     * @since 3.10
+     */
+    @FunctionalInterface
+    public interface FailableSupplier<R, T extends Throwable> {
+        /**
+         * Supplies an object
+         * @return the suppliers result
+         * @throws T if the supplier fails
+         */
+        R get() throws T;
     }
 
     /**

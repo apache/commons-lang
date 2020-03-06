@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3;
 
+import org.apache.commons.lang3.stream.FailableStream;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,12 +30,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import java.util.stream.*;
-
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableFunction;
-import org.apache.commons.lang3.function.FailablePredicate;
-import org.apache.commons.lang3.stream.FailableStream;
+import java.util.stream.Collector;
+import java.util.stream.Stream;
 
 /**
  * Provides utility functions, and classes for working with the
@@ -67,8 +65,8 @@ public class Streams {
      * Converts the given {@link Stream stream} into a {@link FailableStream}.
      * This is basically a simplified, reduced version of the {@link Stream}
      * class, with the same underlying element stream, except that failable
-     * objects, like {@link FailablePredicate}, {@link FailableFunction}, or
-     * {@link FailableConsumer} may be applied, instead of
+     * objects, like {@link Functions.FailablePredicate}, {@link Functions.FailableFunction},
+     * or {@link Functions.FailableConsumer} may be applied, instead of
      * {@link Predicate}, {@link Function}, or {@link Consumer}. The idea is
      * to rewrite a code snippet like this:
      * <pre>
@@ -109,8 +107,8 @@ public class Streams {
      * Converts the given {@link Collection} into a {@link FailableStream}.
      * This is basically a simplified, reduced version of the {@link Stream}
      * class, with the same underlying element stream, except that failable
-     * objects, like {@link FailablePredicate}, {@link FailableFunction}, or
-     * {@link FailableConsumer} may be applied, instead of
+     * objects, like {@link Functions.FailablePredicate}, {@link Functions.FailableFunction},
+     * or {@link Functions.FailableConsumer} may be applied, instead of
      * {@link Predicate}, {@link Function}, or {@link Consumer}. The idea is
      * to rewrite a code snippet like this:
      * <pre>
