@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.stream;
 
+import java.util.OptionalDouble;
 import java.util.stream.IntStream;
 
 /**
@@ -30,6 +31,27 @@ public class FailableIntStream extends FailableBaseStream {
 
     public FailableIntStream(IntStream intStream) {
         this.intStream = intStream;
+    }
+
+    /**
+     * Returns the average of elements in this stream.
+     *
+     * <p>This is a terminal operation.
+     *
+     * @return the average of elements in this stream
+     */
+    public OptionalDouble average() {
+        makeTerminated();
+        return intStream.average();
+    }
+
+    /**
+     * Returns a {@code FailableStream} consisting of the elements of this stream, each boxed to an Integer.
+     *
+     * @return a FailableStream consisting of the elements of this stream, each boxed to an Integer
+     */
+    public FailableStream<Integer> boxed() {
+        return new FailableStream<>(intStream.boxed());
     }
 
     /**

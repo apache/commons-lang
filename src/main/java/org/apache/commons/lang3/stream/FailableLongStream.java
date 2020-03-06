@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.stream;
 
+import java.util.OptionalDouble;
 import java.util.stream.LongStream;
 
 /**
@@ -30,6 +31,27 @@ public class FailableLongStream extends FailableBaseStream {
 
     public FailableLongStream(LongStream longStream) {
         this.longStream = longStream;
+    }
+
+    /**
+     * Returns the average of elements in this stream.
+     *
+     * <p>This is a terminal operation.
+     *
+     * @return the average of elements in this stream
+     */
+    public OptionalDouble average() {
+        makeTerminated();
+        return longStream.average();
+    }
+
+    /**
+     * Returns a {@code FailableStream} consisting of the elements of this stream, each boxed to a Long.
+     *
+     * @return a FailableStream consisting of the elements of this stream, each boxed to a Long
+     */
+    public FailableStream<Long> boxed() {
+        return new FailableStream<>(longStream.boxed());
     }
 
     /**

@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.stream;
 
+import java.util.OptionalDouble;
 import java.util.stream.DoubleStream;
 
 /**
@@ -30,6 +31,27 @@ public class FailableDoubleStream extends FailableBaseStream {
 
     public FailableDoubleStream(DoubleStream doubleStream) {
         this.doubleStream = doubleStream;
+    }
+
+    /**
+     * Returns the average of elements in this stream.
+     *
+     * <p>This is a terminal operation.
+     *
+     * @return the average of elements in this stream
+     */
+    public OptionalDouble average() {
+        makeTerminated();
+        return doubleStream.average();
+    }
+
+    /**
+     * Returns a {@code FailableStream} consisting of the elements of this stream, each boxed to a Double.
+     *
+     * @return a FailableStream consisting of the elements of this stream, each boxed to a Double
+     */
+    public FailableStream<Double> boxed() {
+        return new FailableStream<>(doubleStream.boxed());
     }
 
     /**
