@@ -200,7 +200,7 @@ public class CharUtilsTest {
     public void testToChar_Character() {
         assertEquals('A', CharUtils.toChar(CHARACTER_A));
         assertEquals('B', CharUtils.toChar(CHARACTER_B));
-        assertThrows(IllegalArgumentException.class, () -> CharUtils.toChar((Character) null));
+        assertThrows(NullPointerException.class, () -> CharUtils.toChar((Character) null));
     }
 
     @Test
@@ -214,7 +214,7 @@ public class CharUtilsTest {
     public void testToChar_String() {
         assertEquals('A', CharUtils.toChar("A"));
         assertEquals('B', CharUtils.toChar("BA"));
-        assertThrows(IllegalArgumentException.class, () -> CharUtils.toChar((String) null));
+        assertThrows(NullPointerException.class, () -> CharUtils.toChar((String) null));
         assertThrows(IllegalArgumentException.class, () -> CharUtils.toChar(""));
     }
 
@@ -284,7 +284,7 @@ public class CharUtilsTest {
     public void testToIntValue_Character() {
         assertEquals(0, CharUtils.toIntValue(Character.valueOf('0')));
         assertEquals(3, CharUtils.toIntValue(Character.valueOf('3')));
-        assertThrows(IllegalArgumentException.class, () -> CharUtils.toIntValue(null));
+        assertThrows(NullPointerException.class, () -> CharUtils.toIntValue(null));
         assertThrows(IllegalArgumentException.class, () -> CharUtils.toIntValue(CHARACTER_A));
     }
 

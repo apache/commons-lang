@@ -74,9 +74,9 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
      */
     DiffResult(final T lhs, final T rhs, final List<Diff<?>> diffs,
             final ToStringStyle style) {
-        Validate.isTrue(lhs != null, "Left hand object cannot be null");
-        Validate.isTrue(rhs != null, "Right hand object cannot be null");
-        Validate.isTrue(diffs != null, "List of differences cannot be null");
+        Validate.notNull(lhs, "Left hand object cannot be null");
+        Validate.notNull(rhs, "Right hand object cannot be null");
+        Validate.notNull(diffs, "List of differences cannot be null");
 
         this.diffs = diffs;
         this.lhs = lhs;

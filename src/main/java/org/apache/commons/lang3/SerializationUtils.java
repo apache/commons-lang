@@ -133,7 +133,7 @@ public class SerializationUtils {
      * @throws SerializationException (runtime) if the serialization fails
      */
     public static void serialize(final Serializable obj, final OutputStream outputStream) {
-        Validate.isTrue(outputStream != null, "The OutputStream must not be null");
+        Validate.notNull(outputStream, "The OutputStream must not be null");
         try (ObjectOutputStream out = new ObjectOutputStream(outputStream)) {
             out.writeObject(obj);
         } catch (final IOException ex) {
@@ -188,7 +188,7 @@ public class SerializationUtils {
      *             (runtime) if the serialization fails
      */
     public static <T> T deserialize(final InputStream inputStream) {
-        Validate.isTrue(inputStream != null, "The InputStream must not be null");
+        Validate.notNull(inputStream, "The InputStream must not be null");
         try (ObjectInputStream in = new ObjectInputStream(inputStream)) {
             @SuppressWarnings("unchecked")
             final T obj = (T) in.readObject();
@@ -219,7 +219,7 @@ public class SerializationUtils {
      *             (runtime) if the serialization fails
      */
     public static <T> T deserialize(final byte[] objectData) {
-        Validate.isTrue(objectData != null, "The byte[] must not be null");
+        Validate.notNull(objectData, "The byte[] must not be null");
         return deserialize(new ByteArrayInputStream(objectData));
     }
 

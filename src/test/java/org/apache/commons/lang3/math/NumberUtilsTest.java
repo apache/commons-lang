@@ -686,7 +686,7 @@ public class NumberUtilsTest {
     // ----------------------------------------------------------------------
     @Test
     public void testMinLong_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min((long[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.min((long[]) null));
     }
 
     @Test
@@ -705,7 +705,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinInt_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min((int[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.min((int[]) null));
     }
 
     @Test
@@ -724,7 +724,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinShort_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min((short[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.min((short[]) null));
     }
 
     @Test
@@ -743,7 +743,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinByte_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min((byte[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.min((byte[]) null));
     }
 
     @Test
@@ -762,7 +762,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinDouble_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min((double[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.min((double[]) null));
     }
 
     @Test
@@ -781,7 +781,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinFloat_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min((float[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.min((float[]) null));
     }
 
     @Test
@@ -800,7 +800,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaxLong_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max((long[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.max((long[]) null));
     }
 
     @Test
@@ -819,7 +819,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaxInt_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max((int[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.max((int[]) null));
     }
 
     @Test
@@ -838,7 +838,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaxShort_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max((short[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.max((short[]) null));
     }
 
     @Test
@@ -857,7 +857,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaxByte_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max((byte[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.max((byte[]) null));
     }
 
     @Test
@@ -876,7 +876,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaxDouble_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max((double[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.max((double[]) null));
     }
 
     @Test
@@ -888,7 +888,7 @@ public class NumberUtilsTest {
     public void testMaxDouble() {
         final double[] d = null;
         assertThrows(
-                IllegalArgumentException.class, () -> NumberUtils.max(d), "No exception was thrown for null input.");
+            NullPointerException.class, () -> NumberUtils.max(d), "No exception was thrown for null input.");
 
         assertThrows(
                 IllegalArgumentException.class,
@@ -904,7 +904,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaxFloat_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max((float[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.max((float[]) null));
     }
 
     @Test

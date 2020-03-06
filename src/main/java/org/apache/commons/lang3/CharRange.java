@@ -179,7 +179,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * @throws IllegalArgumentException if {@code null} input
      */
     public boolean contains(final CharRange range) {
-        Validate.isTrue(range != null, "The Range must not be null");
+        Validate.notNull(range, "The Range must not be null");
         if (negated) {
             if (range.negated) {
                 return start >= range.start && end <= range.end;

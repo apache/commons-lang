@@ -308,12 +308,12 @@ public class DiffBuilderTest {
 
     @Test
     public void testNullLhs() {
-        assertThrows(IllegalArgumentException.class, () -> new DiffBuilder<>(null, this, ToStringStyle.DEFAULT_STYLE));
+        assertThrows(NullPointerException.class, () -> new DiffBuilder<>(null, this, ToStringStyle.DEFAULT_STYLE));
     }
 
     @Test
     public void testNullRhs() {
-        assertThrows(IllegalArgumentException.class, () -> new DiffBuilder<>(this, null, ToStringStyle.DEFAULT_STYLE));
+        assertThrows(NullPointerException.class, () -> new DiffBuilder<>(this, null, ToStringStyle.DEFAULT_STYLE));
     }
 
     @Test

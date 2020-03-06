@@ -324,7 +324,7 @@ public class FractionTest  {
 
     @Test
     public void testFactory_String() {
-        assertThrows(IllegalArgumentException.class, () -> Fraction.getFraction(null));
+        assertThrows(NullPointerException.class, () -> Fraction.getFraction(null));
     }
 
 
@@ -741,7 +741,7 @@ public class FractionTest  {
         assertEquals(13*13*17*2*2, fr.getDenominator());
         assertEquals(-17 - 2*13*2, fr.getNumerator());
 
-        assertThrows(IllegalArgumentException.class, () -> fr.add(null));
+        assertThrows(NullPointerException.class, () -> fr.add(null));
 
         // if this fraction is added naively, it will overflow.
         // check that it doesn't.
@@ -836,7 +836,7 @@ public class FractionTest  {
         assertSame(f2, f);
 
         final Fraction fr = f;
-        assertThrows(IllegalArgumentException.class, () -> fr.subtract(null));
+        assertThrows(NullPointerException.class, () -> fr.subtract(null));
 
         // if this fraction is subtracted naively, it will overflow.
         // check that it doesn't.
@@ -934,7 +934,7 @@ public class FractionTest  {
         assertEquals(1, f.getDenominator());
 
         final Fraction fr = f;
-        assertThrows(IllegalArgumentException.class, () -> fr.multiplyBy(null));
+        assertThrows(NullPointerException.class, () -> fr.multiplyBy(null));
 
         final Fraction fr1 = Fraction.getFraction(1, Integer.MAX_VALUE);
         assertThrows(ArithmeticException.class, () -> fr1.multiplyBy(fr1));
@@ -979,7 +979,7 @@ public class FractionTest  {
         assertEquals(Integer.MIN_VALUE, fr.getNumerator());
         assertEquals(1, fr.getDenominator());
 
-        assertThrows(IllegalArgumentException.class, () -> fr.divideBy(null));
+        assertThrows(NullPointerException.class, () -> fr.divideBy(null));
 
         final Fraction smallest = Fraction.getFraction(1, Integer.MAX_VALUE);
         assertThrows(ArithmeticException.class, () -> smallest.divideBy(smallest.invert())); // Should overflow

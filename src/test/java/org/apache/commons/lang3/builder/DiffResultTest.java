@@ -117,19 +117,19 @@ public class DiffResultTest {
 
     @Test
     public void testNullLhs() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
             () -> new DiffResult(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE));
     }
 
     @Test
     public void testNullRhs() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
             () -> new DiffResult(SIMPLE_TRUE, null, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE));
     }
 
     @Test
     public void testNullList() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
             () -> new DiffResult(SIMPLE_TRUE, SIMPLE_FALSE, null, SHORT_STYLE));
     }
 
