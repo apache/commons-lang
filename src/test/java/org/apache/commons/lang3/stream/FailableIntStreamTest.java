@@ -21,7 +21,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -30,8 +29,16 @@ import java.util.OptionalInt;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.apache.commons.lang3.stream.TestStringConstants.EXPECTED_EXCEPTION;
-import static org.apache.commons.lang3.stream.TestStringConstants.EXPECTED_NFE_MESSAGE_INT;
+import static org.apache.commons.lang3.stream.TestConstants.EXPECTED_EXCEPTION;
+import static org.apache.commons.lang3.stream.TestConstants.EXPECTED_NFE_MESSAGE_INT;
+import static org.apache.commons.lang3.stream.TestConstants.FAILING_FLAT_MAP_INPUT_INT;
+import static org.apache.commons.lang3.stream.TestConstants.FAILING_INPUT_INT;
+import static org.apache.commons.lang3.stream.TestConstants.FLAT_MAP_INPUT_DOUBLE;
+import static org.apache.commons.lang3.stream.TestConstants.FLAT_MAP_INPUT_INT;
+import static org.apache.commons.lang3.stream.TestConstants.FLAT_MAP_INPUT_LONG;
+import static org.apache.commons.lang3.stream.TestConstants.INPUT_DOUBLE;
+import static org.apache.commons.lang3.stream.TestConstants.INPUT_INT;
+import static org.apache.commons.lang3.stream.TestConstants.INPUT_LONG;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -40,12 +47,6 @@ public class FailableIntStreamTest {
     private static final Functions.FailableFunction<List<String>, IntStream, ?> LIST_TO_INT_STREAM =
             list -> list.stream().mapToInt(Integer::valueOf);
 
-    private final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
-    private final List<String> failingInput = Arrays.asList("1", "2", "3", "4 ", "5", "6");
-    private final List<List<String>> flatMapInput = Arrays.asList(input, Arrays.asList("7", "8"));
-    private final List<List<String>> failingFlatMapInput = Arrays.asList(failingInput,
-            Arrays.asList("7", "8"));
-
     private FailableIntStream inputStream;
     private FailableIntStream failingInputStream;
     private FailableIntStream flatMapInputStream;
@@ -53,10 +54,11 @@ public class FailableIntStreamTest {
 
     @BeforeEach
     void beforeEach() {
-        inputStream = Functions.stream(input).mapToInt(Integer::valueOf);
-        failingInputStream = Functions.stream(failingInput).mapToInt(Integer::valueOf);
-        flatMapInputStream = Functions.stream(flatMapInput).flatMapToInt(LIST_TO_INT_STREAM);
-        failingFlatMapInputStream = Functions.stream(failingFlatMapInput).flatMapToInt(LIST_TO_INT_STREAM);
+        inputStream = Functions.stream(INPUT_INT).mapToInt(Integer::valueOf);
+        failingInputStream = Functions.stream(FAILING_INPUT_INT).mapToInt(Integer::valueOf);
+        flatMapInputStream = Functions.stream(FLAT_MAP_INPUT_INT).flatMapToInt(LIST_TO_INT_STREAM);
+        failingFlatMapInputStream = Functions.stream(FAILING_FLAT_MAP_INPUT_INT)
+                .flatMapToInt(LIST_TO_INT_STREAM);
     }
 
     @Test
@@ -152,7 +154,8 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromMapBoxed() {
-        assertEquals(input, inputStream.boxed().map(Object::toString).collect(Collectors.toList()));
+        assertEquals(INPUT_INT, inputStream.boxed().map(Object::toString)
+                .collect(Collectors.toList()));
     }
 
     @Test
@@ -167,7 +170,7 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromFlatMapBoxed() {
-        final List<String> flatMap = flatMapInput.stream().flatMap(Collection::stream)
+        final List<String> flatMap = FLAT_MAP_INPUT_INT.stream().flatMap(Collection::stream)
                 .collect(Collectors.toList());
 
         assertEquals(flatMap, flatMapInputStream.boxed().map(Object::toString)
@@ -178,40 +181,6 @@ public class FailableIntStreamTest {
     void testIntStreamFromFlatMapBoxedFailing() {
         try {
             failingFlatMapInputStream.boxed().collect(Collectors.toList());
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
-    }
-
-    @Test
-    void testIntStreamFromMap_MapToObj() {
-        assertEquals(input, inputStream.mapToObj(Objects::toString).collect(Collectors.toList()));
-    }
-
-    @Test
-    void testIntStreamFromMap_MapToObjFailing() {
-        try {
-            failingInputStream.mapToObj(Objects::toString).collect(Collectors.toList());
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
-    }
-
-    @Test
-    void testIntStreamFromFlatMap_MapToObj() {
-        final List<String> flatMap = flatMapInput.stream().flatMap(Collection::stream)
-                .collect(Collectors.toList());
-
-        assertEquals(flatMap, flatMapInputStream.mapToObj(Objects::toString)
-                .collect(Collectors.toList()));
-    }
-
-    @Test
-    void testIntStreamFromFlatMap_MapToObjFailing() {
-        try {
-            failingFlatMapInputStream.mapToObj(Objects::toString).collect(Collectors.toList());
             fail(EXPECTED_EXCEPTION);
         } catch (final NumberFormatException nfe) {
             assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
@@ -343,13 +312,13 @@ public class FailableIntStreamTest {
         final OptionalInt first = inputStream.parallel().findAny();
 
         assertTrue(first.isPresent());
-        assertTrue(input.contains(Integer.toString(first.getAsInt())));
+        assertTrue(INPUT_INT.contains(Integer.toString(first.getAsInt())));
     }
 
     @Test
     void testParallelIntStreamFromFlatMapFindAny() {
         final OptionalInt any = flatMapInputStream.parallel().findAny();
-        final List<String> flatMap = flatMapInput.stream().flatMap(Collection::stream)
+        final List<String> flatMap = FLAT_MAP_INPUT_INT.stream().flatMap(Collection::stream)
                 .collect(Collectors.toList());
 
         assertTrue(any.isPresent());
@@ -361,7 +330,7 @@ public class FailableIntStreamTest {
         final List<String> mapList = new ArrayList<>();
         inputStream.forEach(value -> mapList.add(Integer.toString(value)));
 
-        assertEquals(input, mapList);
+        assertEquals(INPUT_INT, mapList);
     }
 
     @Test
@@ -377,7 +346,7 @@ public class FailableIntStreamTest {
     @Test
     void testIntStreamFromFlatMapForEach() {
         final List<String> flatMapList = new ArrayList<>();
-        final List<String> flatMap = flatMapInput.stream().flatMap(Collection::stream)
+        final List<String> flatMap = FLAT_MAP_INPUT_INT.stream().flatMap(Collection::stream)
                 .collect(Collectors.toList());
 
         flatMapInputStream.forEach(value -> flatMapList.add(Integer.toString(value)));
@@ -389,6 +358,117 @@ public class FailableIntStreamTest {
     void testIntStreamFromFlatMapForEachFailing() {
         try {
             failingFlatMapInputStream.forEach(value -> {});
+            fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testIntStreamFromMap_MapToObj() {
+        assertEquals(INPUT_INT, inputStream.mapToObj(Objects::toString)
+                .collect(Collectors.toList()));
+    }
+
+    @Test
+    void testIntStreamFromMap_MapToObjFailing() {
+        try {
+            failingInputStream.mapToObj(Objects::toString).collect(Collectors.toList());
+            fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testIntStreamFromFlatMap_MapToObj() {
+        final List<String> flatMap = FLAT_MAP_INPUT_INT.stream().flatMap(Collection::stream)
+                .collect(Collectors.toList());
+
+        assertEquals(flatMap, flatMapInputStream.mapToObj(Objects::toString)
+                .collect(Collectors.toList()));
+    }
+
+    @Test
+    void testIntStreamFromFlatMap_MapToObjFailing() {
+        try {
+            failingFlatMapInputStream.mapToObj(Objects::toString).collect(Collectors.toList());
+            fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testIntStreamFromMap_MapToDouble() {
+        List<String> convertedDoubles = inputStream.mapToDouble(value -> value + 0.5)
+                .boxed().map(Object::toString).collect(Collectors.toList());
+
+        assertEquals(INPUT_DOUBLE, convertedDoubles);
+    }
+
+    @Test
+    void testIntStreamFromMap_MapToDoubleFailing() {
+        try {
+            failingInputStream.mapToDouble(value -> value).forEach(value -> {});
+            fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testIntStreamFromFlatMap_MapToDouble() {
+        List<String> convertedDoubles = flatMapInputStream.mapToDouble(value -> value + 0.5)
+                .boxed().map(Object::toString).collect(Collectors.toList());
+        List<String> longFlatMap = FLAT_MAP_INPUT_DOUBLE.stream().flatMap(Collection::stream)
+                .collect(Collectors.toList());
+
+        assertEquals(longFlatMap, convertedDoubles);
+    }
+
+    @Test
+    void testIntStreamFromFlatMap_MapToDoubleFailing() {
+        try {
+            failingFlatMapInputStream.mapToDouble(value -> value).forEach(value -> {});
+            fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testIntStreamFromMap_MapToLong() {
+        List<String> convertedDoubles = inputStream.mapToLong(value -> (long) (value * 1E9))
+                .boxed().map(Object::toString).collect(Collectors.toList());
+
+        assertEquals(INPUT_LONG, convertedDoubles);
+    }
+
+    @Test
+    void testIntStreamFromMap_MapToLongFailing() {
+        try {
+            failingInputStream.mapToLong(value -> value).forEach(value -> {});
+            fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testIntStreamFromFlatMap_MapToLong() {
+        List<String> convertedDoubles = flatMapInputStream.mapToLong(value -> (long) (value * 1E9))
+                .boxed().map(Object::toString).collect(Collectors.toList());
+        List<String> longFlatMap = FLAT_MAP_INPUT_LONG.stream().flatMap(Collection::stream)
+                .collect(Collectors.toList());
+
+        assertEquals(longFlatMap, convertedDoubles);
+    }
+
+    @Test
+    void testIntStreamFromFlatMap_MapToLongFailing() {
+        try {
+            failingFlatMapInputStream.mapToLong(value -> value).forEach(value -> {});
             fail(EXPECTED_EXCEPTION);
         } catch (final NumberFormatException nfe) {
             assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());

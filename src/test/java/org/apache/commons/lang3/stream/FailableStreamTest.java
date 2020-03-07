@@ -24,14 +24,13 @@ import org.xml.sax.SAXException;
 
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.apache.commons.lang3.stream.TestStringConstants.EXPECTED_EXCEPTION;
-import static org.apache.commons.lang3.stream.TestStringConstants.EXPECTED_NFE_MESSAGE_INT;
+import static org.apache.commons.lang3.stream.TestConstants.EXPECTED_EXCEPTION;
+import static org.apache.commons.lang3.stream.TestConstants.EXPECTED_NFE_MESSAGE_INT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -42,12 +41,6 @@ public class FailableStreamTest {
     private static final Functions.FailableFunction<List<String>, Stream<Integer>, ?> LIST_TO_STREAM =
             list -> list.stream().map(Integer::valueOf);
 
-    private final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
-    private final List<String> failingInput = Arrays.asList("1", "2", "3", "4 ", "5", "6");
-    private final List<List<String>> flatMapInput = Arrays.asList(input, Arrays.asList("7", "8"));
-    private final List<List<String>> failingFlatMapInput = Arrays.asList(failingInput,
-            Arrays.asList("7", "8"));
-
     private FailableStream<Integer> inputStream;
     private FailableStream<Integer> failingInputStream;
     private FailableStream<Integer> flatMapInputStream;
@@ -55,10 +48,12 @@ public class FailableStreamTest {
 
     @BeforeEach
     void beforeEach() {
-        inputStream = Functions.stream(input).map(Integer::valueOf);
-        failingInputStream = Functions.stream(failingInput).map(Integer::valueOf);
-        flatMapInputStream = Functions.stream(flatMapInput).flatMap(LIST_TO_STREAM);
-        failingFlatMapInputStream = Functions.stream(failingFlatMapInput).flatMap(LIST_TO_STREAM);
+        inputStream = Functions.stream(TestConstants.INPUT_INT).map(Integer::valueOf);
+        failingInputStream = Functions.stream(TestConstants.FAILING_INPUT_INT).map(Integer::valueOf);
+        flatMapInputStream = Functions.stream(TestConstants.FLAT_MAP_INPUT_INT)
+                .flatMap(LIST_TO_STREAM);
+        failingFlatMapInputStream = Functions.stream(TestConstants.FAILING_FLAT_MAP_INPUT_INT)
+                .flatMap(LIST_TO_STREAM);
     }
 
     @Test
@@ -101,7 +96,7 @@ public class FailableStreamTest {
             failingInputStream.collect(Collectors.toList());
             fail(EXPECTED_EXCEPTION);
         } catch (final NumberFormatException nfe) {
-            assertEquals(TestStringConstants.EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+            assertEquals(TestConstants.EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
         }
     }
 
@@ -120,14 +115,14 @@ public class FailableStreamTest {
             failingFlatMapInputStream.collect(Collectors.toList());
             fail(EXPECTED_EXCEPTION);
         } catch (final NumberFormatException nfe) {
-            assertEquals(TestStringConstants.EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+            assertEquals(TestConstants.EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
         }
     }
 
     @Test
     void testSimpleStreamForEach() {
         final List<Integer> output = new ArrayList<>();
-        Functions.stream(input).forEach(s -> output.add(Integer.valueOf(s)));
+        Functions.stream(TestConstants.INPUT_INT).forEach(s -> output.add(Integer.valueOf(s)));
         assertEquals(6, output.size());
         for (int i = 0;  i < 6;  i++) {
             assertEquals(i+1, output.get(i).intValue());
@@ -158,21 +153,21 @@ public class FailableStreamTest {
     void testSimpleStreamForEachFailing() {
         final IllegalArgumentException ise = new IllegalArgumentException("Invalid argument: 4");
         try {
-            Functions.stream(input).forEach(asIntConsumer(ise));
+            Functions.stream(TestConstants.INPUT_INT).forEach(asIntConsumer(ise));
             fail(EXPECTED_EXCEPTION);
         } catch (final IllegalArgumentException e) {
             assertSame(ise, e);
         }
         final OutOfMemoryError oome = new OutOfMemoryError();
         try {
-            Functions.stream(input).forEach(asIntConsumer(oome));
+            Functions.stream(TestConstants.INPUT_INT).forEach(asIntConsumer(oome));
             fail(EXPECTED_EXCEPTION);
         } catch (final Throwable t) {
             assertSame(oome, t);
         }
         final SAXException se = new SAXException();
         try {
-            Functions.stream(input).forEach(asIntConsumer(se));
+            Functions.stream(TestConstants.INPUT_INT).forEach(asIntConsumer(se));
             fail(EXPECTED_EXCEPTION);
         } catch (final UndeclaredThrowableException ute) {
             assertSame(se, ute.getCause());
@@ -213,7 +208,7 @@ public class FailableStreamTest {
 
         output.clear();
 
-        inputStream = Functions.stream(input).map(Integer::valueOf);
+        inputStream = Functions.stream(TestConstants.INPUT_INT).map(Integer::valueOf);
         final IllegalArgumentException iae = new IllegalArgumentException("Invalid argument: " + 5);
         try {
             inputStream.filter(asIntPredicate(iae)).collect(Collectors.toList());
@@ -224,7 +219,7 @@ public class FailableStreamTest {
 
         output.clear();
 
-        inputStream = Functions.stream(input).map(Integer::valueOf);
+        inputStream = Functions.stream(TestConstants.INPUT_INT).map(Integer::valueOf);
         final OutOfMemoryError oome = new OutOfMemoryError();
         try {
             inputStream.filter(asIntPredicate(oome)).collect(Collectors.toList());
@@ -235,7 +230,7 @@ public class FailableStreamTest {
 
         output.clear();
 
-        inputStream = Functions.stream(input).map(Integer::valueOf);
+        inputStream = Functions.stream(TestConstants.INPUT_INT).map(Integer::valueOf);
         final SAXException se = new SAXException();
         try {
             inputStream.filter(asIntPredicate(se)).collect(Collectors.toList());
@@ -255,13 +250,13 @@ public class FailableStreamTest {
         try {
             failingInputStream.allMatch(Objects::nonNull);
         } catch (final NumberFormatException nfe) {
-            assertEquals(TestStringConstants.EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+            assertEquals(TestConstants.EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
         }
     }
 
     @Test
     void testSimpleStreamAnyMatch() {
-        assertTrue(Functions.stream(input).map(Integer::valueOf).anyMatch(i -> i % 2 == 0));
+        assertTrue(Functions.stream(TestConstants.INPUT_INT).map(Integer::valueOf).anyMatch(i -> i % 2 == 0));
     }
 
     @Test
@@ -269,7 +264,7 @@ public class FailableStreamTest {
         try {
             failingInputStream.anyMatch(i -> i % 2 == 0);
         } catch (final NumberFormatException nfe) {
-            assertEquals(TestStringConstants.EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+            assertEquals(TestConstants.EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
         }
     }
 }
