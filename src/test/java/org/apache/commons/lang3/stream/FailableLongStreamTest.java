@@ -22,34 +22,47 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.LongStream;
 
 import static org.apache.commons.lang3.stream.TestStringConstants.EXPECTED_EXCEPTION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class FailableLongStreamTest {
-    private List<String> input;
-    private List<String> failingInput;
-    private List<List<String>> flatMapInput;
-    private List<List<String>> failingFlatMapInput;
+    private static final Functions.FailableFunction<List<String>, LongStream, ?> LIST_TO_LONG_STREAM =
+            list -> list.stream().mapToLong(Long::valueOf);
+
+    private final List<String> input = Arrays.asList("1000000000", "2000000000", "3000000000",
+            "4000000000", "5000000000", "6000000000");
+    private final List<String> failingInput = Arrays.asList("1000000000", "2000000000", "3000000000",
+            "4000000000 ", "5000000000", "6000000000");
+    private final List<List<String>> flatMapInput = Arrays.asList(input,
+            Arrays.asList("7000000000", "8000000000"));
+    private final List<List<String>> failingFlatMapInput = Arrays.asList(failingInput,
+            Arrays.asList("7000000000", "8000000000"));
+
+    private FailableLongStream inputStream;
+    private FailableLongStream failingInputStream;
+    private FailableLongStream flatMapInputStream;
+    private FailableLongStream failingFlatMapInputStream;
 
     @BeforeEach
     void beforeEach() {
-        input = Arrays.asList("1000000000", "2000000000", "3000000000", "4000000000", "5000000000", "6000000000");
-        failingInput = Arrays.asList("1000000000", "2000000000", "3000000000", "4000000000 ", "5000000000", "6000000000");
-        flatMapInput = Arrays.asList(input, Arrays.asList("7000000000", "8000000000"));
-        failingFlatMapInput = Arrays.asList(failingInput, Arrays.asList("7000000000", "8000000000"));
+        inputStream = Functions.stream(input).mapToLong(Long::valueOf);
+        failingInputStream = Functions.stream(failingInput).mapToLong(Long::valueOf);
+        flatMapInputStream = Functions.stream(flatMapInput).flatMapToLong(LIST_TO_LONG_STREAM);
+        failingFlatMapInputStream = Functions.stream(failingFlatMapInput).flatMapToLong(LIST_TO_LONG_STREAM);
     }
 
     @Test
     void testLongStreamFromMapSum() {
-        assertEquals(21000000000L, Functions.stream(input).mapToLong(Long::valueOf).sum());
+        assertEquals(21000000000L, inputStream.sum());
     }
 
     @Test
     void testLongStreamFromMapSumFailing() {
         try {
-            Functions.stream(failingInput).mapToLong(Long::valueOf).sum();
+            failingInputStream.sum();
             fail(EXPECTED_EXCEPTION);
         } catch (final NumberFormatException nfe) {
             assertEquals("For input string: \"4000000000 \"", nfe.getMessage());
@@ -58,13 +71,13 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromFlatMapSum() {
-        assertEquals(36000000000L, Functions.stream(flatMapInput).flatMapToLong(list -> list.stream().mapToLong(Long::valueOf)).sum());
+        assertEquals(36000000000L, flatMapInputStream.sum());
     }
 
     @Test
     void testLongStreamFromFlatMapSumFailing() {
         try {
-            Functions.stream(failingFlatMapInput).flatMapToLong(list -> list.stream().mapToLong(Long::valueOf)).sum();
+            failingFlatMapInputStream.sum();
             fail(EXPECTED_EXCEPTION);
         } catch (final NumberFormatException nfe) {
             assertEquals("For input string: \"4000000000 \"", nfe.getMessage());

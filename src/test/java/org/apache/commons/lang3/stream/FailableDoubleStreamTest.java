@@ -22,34 +22,43 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.DoubleStream;
 
 import static org.apache.commons.lang3.stream.TestStringConstants.EXPECTED_EXCEPTION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class FailableDoubleStreamTest {
-    private List<String> input;
-    private List<String> failingInput;
-    private List<List<String>> flatMapInput;
-    private List<List<String>> failingFlatMapInput;
+    private static final Functions.FailableFunction<List<String>, DoubleStream, ?> LIST_TO_DOUBLE_STREAM =
+            list -> list.stream().mapToDouble(Double::valueOf);
+
+    private final List<String> input = Arrays.asList("1.5", "2.5", "3.5", "4.5", "5.5", "6.5");
+    private final List<String> failingInput = Arrays.asList("1.5", "2.5", "3.5", "4.5x", "5.5", "6.5");
+    private final List<List<String>> flatMapInput = Arrays.asList(input, Arrays.asList("7.5", "8.5"));
+    private final List<List<String>> failingFlatMapInput = Arrays.asList(failingInput, Arrays.asList("7.5", "8.5"));
+
+    private FailableDoubleStream inputStream;
+    private FailableDoubleStream failingInputStream;
+    private FailableDoubleStream flatMapInputStream;
+    private FailableDoubleStream failingFlatMapInputStream;
 
     @BeforeEach
     void beforeEach() {
-        input = Arrays.asList("1.5", "2.5", "3.5", "4.5", "5.5", "6.5");
-        failingInput = Arrays.asList("1.5", "2.5", "3.5", "4.5x", "5.5", "6.5");
-        flatMapInput = Arrays.asList(input, Arrays.asList("7.5", "8.5"));
-        failingFlatMapInput = Arrays.asList(failingInput, Arrays.asList("7.5", "8.5"));
+        inputStream = Functions.stream(input).mapToDouble(Double::valueOf);
+        failingInputStream = Functions.stream(failingInput).mapToDouble(Double::valueOf);
+        flatMapInputStream = Functions.stream(flatMapInput).flatMapToDouble(LIST_TO_DOUBLE_STREAM);
+        failingFlatMapInputStream = Functions.stream(failingFlatMapInput).flatMapToDouble(LIST_TO_DOUBLE_STREAM);
     }
 
     @Test
     void testDoubleStreamFromMapSum() {
-        assertEquals(24, Functions.stream(input).mapToDouble(Double::valueOf).sum());
+        assertEquals(24, inputStream.sum());
     }
 
     @Test
     void testDoubleStreamFromMapSumFailing() {
         try {
-            Functions.stream(failingInput).mapToDouble(Double::valueOf).sum();
+            failingInputStream.sum();
             fail(EXPECTED_EXCEPTION);
         } catch (final NumberFormatException nfe) {
             assertEquals("For input string: \"4.5x\"", nfe.getMessage());
@@ -58,14 +67,13 @@ public class FailableDoubleStreamTest {
 
     @Test
     void testDoubleStreamFromFlatMapSum() {
-        assertEquals(40, Functions.stream(flatMapInput)
-                .flatMapToDouble(list -> list.stream().mapToDouble(Double::valueOf)).sum());
+        assertEquals(40, flatMapInputStream.sum());
     }
 
     @Test
     void testDoubleStreamFromFlatMapSumFailing() {
         try {
-            Functions.stream(failingFlatMapInput).flatMapToDouble(list -> list.stream().mapToDouble(Double::valueOf)).sum();
+            failingFlatMapInputStream.sum();
             fail(EXPECTED_EXCEPTION);
         } catch (final NumberFormatException nfe) {
             assertEquals("For input string: \"4.5x\"", nfe.getMessage());

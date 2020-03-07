@@ -22,52 +22,63 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static org.apache.commons.lang3.stream.TestStringConstants.EXPECTED_EXCEPTION;
+import static org.apache.commons.lang3.stream.TestStringConstants.EXPECTED_NFE_MESSAGE_INT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class FailableIntStreamTest {
-    private List<String> input;
-    private List<String> failingInput;
-    private List<List<String>> flatMapInput;
-    private List<List<String>> failingFlatMapInput;
+    private static final Functions.FailableFunction<List<String>, IntStream, ?> LIST_TO_INT_STREAM =
+            list -> list.stream().mapToInt(Integer::valueOf);
+
+    private final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
+    private final List<String> failingInput = Arrays.asList("1", "2", "3", "4 ", "5", "6");
+    private final List<List<String>> flatMapInput = Arrays.asList(input, Arrays.asList("7", "8"));
+    private final List<List<String>> failingFlatMapInput = Arrays.asList(failingInput,
+            Arrays.asList("7", "8"));
+
+    private FailableIntStream inputStream;
+    private FailableIntStream failingInputStream;
+    private FailableIntStream flatMapInputStream;
+    private FailableIntStream failingFlatMapInputStream;
 
     @BeforeEach
     void beforeEach() {
-        input = Arrays.asList("1", "2", "3", "4", "5", "6");
-        failingInput = Arrays.asList("1", "2", "3", "4 ", "5", "6");
-        flatMapInput = Arrays.asList(input, Arrays.asList("7", "8"));
-        failingFlatMapInput = Arrays.asList(failingInput, Arrays.asList("7", "8"));
+        inputStream = Functions.stream(input).mapToInt(Integer::valueOf);
+        failingInputStream = Functions.stream(failingInput).mapToInt(Integer::valueOf);
+        flatMapInputStream = Functions.stream(flatMapInput).flatMapToInt(LIST_TO_INT_STREAM);
+        failingFlatMapInputStream = Functions.stream(failingFlatMapInput).flatMapToInt(LIST_TO_INT_STREAM);
     }
 
     @Test
     void testIntStreamFromMapSum() {
-        assertEquals(21, Functions.stream(input).mapToInt(Integer::valueOf).sum());
+        assertEquals(21, inputStream.sum());
     }
 
     @Test
     void testIntStreamFromMapSumFailing() {
         try {
-            Functions.stream(failingInput).mapToInt(Integer::valueOf).sum();
+            failingInputStream.sum();
             fail(EXPECTED_EXCEPTION);
         } catch (final NumberFormatException nfe) {
-            assertEquals("For input string: \"4 \"", nfe.getMessage());
+            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
         }
     }
 
     @Test
     void testIntStreamFromFlatMapSum() {
-        assertEquals(36, Functions.stream(flatMapInput).flatMapToInt(list -> list.stream().mapToInt(Integer::valueOf)).sum());
+        assertEquals(36, flatMapInputStream.sum());
     }
 
     @Test
     void testIntStreamFromFlatMapSumFailing() {
         try {
-            Functions.stream(failingFlatMapInput).flatMapToInt(list -> list.stream().mapToInt(Integer::valueOf)).sum();
+            failingFlatMapInputStream.sum();
             fail(EXPECTED_EXCEPTION);
         } catch (final NumberFormatException nfe) {
-            assertEquals("For input string: \"4 \"", nfe.getMessage());
+            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
         }
     }
 }

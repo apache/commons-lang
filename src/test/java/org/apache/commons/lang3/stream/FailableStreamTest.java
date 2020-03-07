@@ -25,7 +25,6 @@ import org.xml.sax.SAXException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -39,24 +38,31 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class FailableStreamTest {
-    private static final String EXPECTED_NFE_MESSAGE = "For input string: \"4 \"";
+    private static final Functions.FailableFunction<List<String>, Stream<Integer>, ?> LIST_TO_STREAM =
+            list -> list.stream().map(Integer::valueOf);
 
-    private List<String> input;
-    private List<String> failingInput;
-    private List<List<String>> flatMapInput;
-    private List<List<String>> failingFlatMapInput;
+    private final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
+    private final List<String> failingInput = Arrays.asList("1", "2", "3", "4 ", "5", "6");
+    private final List<List<String>> flatMapInput = Arrays.asList(input, Arrays.asList("7", "8"));
+    private final List<List<String>> failingFlatMapInput = Arrays.asList(failingInput,
+            Arrays.asList("7", "8"));
+
+    private FailableStream<Integer> inputStream;
+    private FailableStream<Integer> failingInputStream;
+    private FailableStream<Integer> flatMapInputStream;
+    private FailableStream<Integer> failingFlatMapInputStream;
 
     @BeforeEach
     void beforeEach() {
-        input = Arrays.asList("1", "2", "3", "4", "5", "6");
-        failingInput = Arrays.asList("1", "2", "3", "4 ", "5", "6");
-        flatMapInput = Arrays.asList(input, Arrays.asList("7", "8"));
-        failingFlatMapInput = Arrays.asList(failingInput, Arrays.asList("7", "8"));
+        inputStream = Functions.stream(input).map(Integer::valueOf);
+        failingInputStream = Functions.stream(failingInput).map(Integer::valueOf);
+        flatMapInputStream = Functions.stream(flatMapInput).flatMap(LIST_TO_STREAM);
+        failingFlatMapInputStream = Functions.stream(failingFlatMapInput).flatMap(LIST_TO_STREAM);
     }
 
     @Test
     void testSimpleStreamMap() {
-        final List<Integer> output = Functions.stream(input).map(Integer::valueOf).collect(Collectors.toList());
+        final List<Integer> output = inputStream.collect(Collectors.toList());
         assertEquals(6, output.size());
         for (int i = 0;  i < 6;  i++) {
             assertEquals(i+1, output.get(i).intValue());
@@ -66,17 +72,16 @@ public class FailableStreamTest {
     @Test
     void testSimpleStreamMapFailing() {
         try {
-            Functions.stream(failingInput).map(Integer::valueOf).collect(Collectors.toList());
+            failingInputStream.collect(Collectors.toList());
             fail(EXPECTED_EXCEPTION);
         } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE, nfe.getMessage());
+            assertEquals(TestStringConstants.EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
         }
     }
 
     @Test
     void testSimpleStreamFlatMap() {
-        final List<Integer> output = Functions.stream(flatMapInput).flatMap(Collection::stream).map(Integer::valueOf)
-                .collect(Collectors.toList());
+        final List<Integer> output = flatMapInputStream.collect(Collectors.toList());
         assertEquals(8, output.size());
         for (int i = 0;  i < 8;  i++) {
             assertEquals(i+1, output.get(i).intValue());
@@ -86,10 +91,10 @@ public class FailableStreamTest {
     @Test
     void testSimpleStreamFlatMapFailing() {
         try {
-            Functions.stream(failingFlatMapInput).flatMap(Collection::stream).map(Integer::valueOf).collect(Collectors.toList());
+            failingFlatMapInputStream.collect(Collectors.toList());
             fail(EXPECTED_EXCEPTION);
         } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE, nfe.getMessage());
+            assertEquals(TestStringConstants.EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
         }
     }
 
@@ -150,8 +155,7 @@ public class FailableStreamTest {
 
     @Test
     void testSimpleStreamFilter() {
-        final List<Integer> output = Functions.stream(input)
-                .map(Integer::valueOf)
+        final List<Integer> output = inputStream
                 .filter(i -> i % 2 == 0)
                 .collect(Collectors.toList());
         assertEvenNumbers(output);
@@ -169,50 +173,46 @@ public class FailableStreamTest {
             if (i == 5 && pThrowable != null) {
                 throw pThrowable;
             }
-            return i%2==0;
+            return i % 2==0;
         };
     }
 
     @SuppressWarnings("java:S1181")
     @Test
     void testSimpleStreamFilterFailing() {
-        final List<Integer> output = Functions.stream(input)
-                .map(Integer::valueOf)
+        final List<Integer> output = inputStream
                 .filter(asIntPredicate(null))
                 .collect(Collectors.toList());
         assertEvenNumbers(output);
 
         output.clear();
+
+        inputStream = Functions.stream(input).map(Integer::valueOf);
         final IllegalArgumentException iae = new IllegalArgumentException("Invalid argument: " + 5);
         try {
-            Functions.stream(input)
-                    .map(Integer::valueOf)
-                    .filter(asIntPredicate(iae))
-                    .collect(Collectors.toList());
+            inputStream.filter(asIntPredicate(iae)).collect(Collectors.toList());
             fail(EXPECTED_EXCEPTION);
         } catch (final IllegalArgumentException e) {
             assertSame(iae, e);
         }
 
         output.clear();
+
+        inputStream = Functions.stream(input).map(Integer::valueOf);
         final OutOfMemoryError oome = new OutOfMemoryError();
         try {
-            Functions.stream(input)
-                    .map(Integer::valueOf)
-                    .filter(asIntPredicate(oome))
-                    .collect(Collectors.toList());
+            inputStream.filter(asIntPredicate(oome)).collect(Collectors.toList());
             fail(EXPECTED_EXCEPTION);
         } catch (final Throwable t) {
             assertSame(oome, t);
         }
 
         output.clear();
+
+        inputStream = Functions.stream(input).map(Integer::valueOf);
         final SAXException se = new SAXException();
         try {
-            Functions.stream(input)
-                    .map(Integer::valueOf)
-                    .filter(asIntPredicate(se))
-                    .collect(Collectors.toList());
+            inputStream.filter(asIntPredicate(se)).collect(Collectors.toList());
             fail(EXPECTED_EXCEPTION);
         } catch (final UndeclaredThrowableException t) {
             assertSame(se, t.getCause());
@@ -221,15 +221,15 @@ public class FailableStreamTest {
 
     @Test
     void testSimpleStreamAllMatch() {
-        assertTrue(Functions.stream(input).map(Integer::valueOf).allMatch(Objects::nonNull));
+        assertTrue(inputStream.allMatch(Objects::nonNull));
     }
 
     @Test
     void testSimpleStreamAllMatchFailing() {
         try {
-            Functions.stream(failingInput).map(Integer::valueOf).allMatch(Objects::nonNull);
+            failingInputStream.allMatch(Objects::nonNull);
         } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE, nfe.getMessage());
+            assertEquals(TestStringConstants.EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
         }
     }
 
@@ -241,9 +241,9 @@ public class FailableStreamTest {
     @Test
     void testSimpleStreamAnyMatchFailing() {
         try {
-            Functions.stream(failingInput).map(Integer::valueOf).anyMatch(i -> i % 2 == 0);
+            failingInputStream.anyMatch(i -> i % 2 == 0);
         } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE, nfe.getMessage());
+            assertEquals(TestStringConstants.EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
         }
     }
 }

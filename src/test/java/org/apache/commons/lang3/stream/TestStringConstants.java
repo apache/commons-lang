@@ -17,7 +17,8 @@
 package org.apache.commons.lang3.stream;
 
 public class TestStringConstants {
-    private TestStringConstants() {}
+    static final String EXPECTED_NFE_MESSAGE_INT = "For input string: \"4 \"";
+    static final String EXPECTED_EXCEPTION = "Expected Exception";
 
-    public static final String EXPECTED_EXCEPTION = "Expected Exception";
+    private TestStringConstants() {}
 }
