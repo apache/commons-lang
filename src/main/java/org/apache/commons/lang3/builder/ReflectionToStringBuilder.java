@@ -434,8 +434,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     private static Object checkNotNull(final Object obj) {
-        Validate.isTrue(obj != null, "The Object passed in should not be null.");
-        return obj;
+        return Validate.notNull(obj, "The Object passed in should not be null.");
     }
 
     /**

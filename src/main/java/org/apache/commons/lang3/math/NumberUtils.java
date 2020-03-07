@@ -1312,7 +1312,7 @@ public class NumberUtils {
      * @throws IllegalArgumentException if {@code array} is either {@code null} or empty
      */
     private static void validateArray(final Object array) {
-        Validate.isTrue(array != null, "The Array must not be null");
+        Validate.notNull(array, "The Array must not be null");
         Validate.isTrue(Array.getLength(array) != 0, "Array cannot be empty.");
     }
 

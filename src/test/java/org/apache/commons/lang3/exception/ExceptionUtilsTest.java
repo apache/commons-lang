@@ -521,7 +521,7 @@ public class ExceptionUtilsTest {
 
         out = new ByteArrayOutputStream(1024);
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> ExceptionUtils.printRootCauseStackTrace(withCause, (PrintStream) null));
 
         out = new ByteArrayOutputStream(1024);
@@ -545,7 +545,7 @@ public class ExceptionUtilsTest {
 
         writer = new StringWriter(1024);
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> ExceptionUtils.printRootCauseStackTrace(withCause, (PrintWriter) null));
 
         writer = new StringWriter(1024);

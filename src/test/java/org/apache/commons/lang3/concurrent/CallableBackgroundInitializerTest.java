@@ -39,7 +39,7 @@ public class CallableBackgroundInitializerTest  {
      */
     @Test()
     public void testInitNullCallable() {
-        assertThrows(IllegalArgumentException.class, () -> new CallableBackgroundInitializer<>(null));
+        assertThrows(NullPointerException.class, () -> new CallableBackgroundInitializer<>(null));
     }
 
     /**
@@ -64,7 +64,7 @@ public class CallableBackgroundInitializerTest  {
     public void testInitExecutorNullCallable() throws InterruptedException {
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         try {
-            assertThrows(IllegalArgumentException.class, () -> new CallableBackgroundInitializer<Integer>(null, exec));
+            assertThrows(NullPointerException.class, () -> new CallableBackgroundInitializer<Integer>(null, exec));
         } finally {
             exec.shutdown();
             exec.awaitTermination(1, TimeUnit.SECONDS);

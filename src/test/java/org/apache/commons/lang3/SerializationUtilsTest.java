@@ -141,12 +141,12 @@ public class SerializationUtilsTest {
 
     @Test
     public void testSerializeStreamObjNull() {
-        assertThrows(IllegalArgumentException.class, () -> SerializationUtils.serialize(iMap, null));
+        assertThrows(NullPointerException.class, () -> SerializationUtils.serialize(iMap, null));
     }
 
     @Test
     public void testSerializeStreamNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> SerializationUtils.serialize(null, null));
+        assertThrows(NullPointerException.class, () -> SerializationUtils.serialize(null, null));
     }
 
     @Test
@@ -214,7 +214,7 @@ public class SerializationUtilsTest {
 
     @Test
     public void testDeserializeStreamNull() {
-        assertThrows(IllegalArgumentException.class, () -> SerializationUtils.deserialize((InputStream) null));
+        assertThrows(NullPointerException.class, () -> SerializationUtils.deserialize((InputStream) null));
     }
 
     @Test
@@ -317,7 +317,7 @@ public class SerializationUtilsTest {
 
     @Test
     public void testDeserializeBytesNull() {
-        assertThrows(IllegalArgumentException.class, () -> SerializationUtils.deserialize((byte[]) null));
+        assertThrows(NullPointerException.class, () -> SerializationUtils.deserialize((byte[]) null));
     }
 
     @Test

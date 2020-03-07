@@ -632,7 +632,7 @@ public class ExceptionUtils {
         if (throwable == null) {
             return;
         }
-        Validate.isTrue(stream != null, "The PrintStream must not be null");
+        Validate.notNull(stream, "The PrintStream must not be null");
         final String trace[] = getRootCauseStackTrace(throwable);
         for (final String element : trace) {
             stream.println(element);
@@ -663,7 +663,7 @@ public class ExceptionUtils {
         if (throwable == null) {
             return;
         }
-        Validate.isTrue(writer != null, "The PrintWriter must not be null");
+        Validate.notNull(writer, "The PrintWriter must not be null");
         final String trace[] = getRootCauseStackTrace(throwable);
         for (final String element : trace) {
             writer.println(element);

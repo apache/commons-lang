@@ -280,10 +280,12 @@ public class BooleanUtilsTest {
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject("Y"));
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject("t")); // true
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject("T"));
+        assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject("1"));
         assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject("f")); // false
         assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject("F"));
         assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject("n")); // No
         assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject("N"));
+        assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject("0"));
         assertNull(BooleanUtils.toBooleanObject("z"));
 
         assertNull(BooleanUtils.toBooleanObject("ab"));
@@ -353,7 +355,9 @@ public class BooleanUtilsTest {
         assertTrue(BooleanUtils.toBoolean("YeS"));
         assertTrue(BooleanUtils.toBoolean("YEs"));
         assertTrue(BooleanUtils.toBoolean("YES"));
+        assertTrue(BooleanUtils.toBoolean("1"));
         assertFalse(BooleanUtils.toBoolean("yes?"));
+        assertFalse(BooleanUtils.toBoolean("0"));
         assertFalse(BooleanUtils.toBoolean("tru"));
 
         assertFalse(BooleanUtils.toBoolean("no"));
