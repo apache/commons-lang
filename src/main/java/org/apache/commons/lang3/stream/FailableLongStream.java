@@ -16,7 +16,9 @@
  */
 package org.apache.commons.lang3.stream;
 
+import java.util.Iterator;
 import java.util.OptionalDouble;
+import java.util.Spliterator;
 import java.util.stream.LongStream;
 
 /**
@@ -26,7 +28,7 @@ import java.util.stream.LongStream;
  * @see LongStream
  * @since 3.10
  */
-public class FailableLongStream extends FailableBaseStream {
+public class FailableLongStream extends FailableBaseStream<Long, FailableLongStream> {
     private LongStream longStream;
 
     public FailableLongStream(LongStream longStream) {
@@ -69,5 +71,35 @@ public class FailableLongStream extends FailableBaseStream {
     public long sum() {
         makeTerminated();
         return longStream.sum();
+    }
+
+    @Override
+    public long count() {
+        return 0;
+    }
+
+    @Override
+    public Iterator<Long> iterator() {
+        return null;
+    }
+
+    @Override
+    public Spliterator<Long> spliterator() {
+        return null;
+    }
+
+    @Override
+    public FailableLongStream distinct() {
+        return null;
+    }
+
+    @Override
+    public FailableLongStream sequential() {
+        return null;
+    }
+
+    @Override
+    public FailableLongStream parallel() {
+        return null;
     }
 }

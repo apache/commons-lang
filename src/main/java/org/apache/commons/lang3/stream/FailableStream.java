@@ -21,6 +21,8 @@ import org.apache.commons.lang3.function.FailableToDoubleFunction;
 import org.apache.commons.lang3.function.FailableToIntFunction;
 import org.apache.commons.lang3.function.FailableToLongFunction;
 
+import java.util.Iterator;
+import java.util.Spliterator;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
 import java.util.function.Supplier;
@@ -40,7 +42,7 @@ import java.util.stream.Stream;
  * @see Stream
  * @since 3.10
  */
- public class FailableStream<O> extends FailableBaseStream {
+ public class FailableStream<O> extends FailableBaseStream<O, FailableStream<O>> {
      private Stream<O> stream;
 
      /**
@@ -423,4 +425,34 @@ import java.util.stream.Stream;
          assertNotTerminated();
          return stream().anyMatch(Functions.asPredicate(predicate));
      }
- }
+
+    @Override
+    public long count() {
+        return 0;
+    }
+
+    @Override
+    public Iterator<O> iterator() {
+        return null;
+    }
+
+    @Override
+    public Spliterator<O> spliterator() {
+        return null;
+    }
+
+    @Override
+    public FailableStream<O> distinct() {
+        return null;
+    }
+
+    @Override
+    public FailableStream<O> sequential() {
+        return null;
+    }
+
+    @Override
+    public FailableStream<O> parallel() {
+        return null;
+    }
+}

@@ -16,7 +16,9 @@
  */
 package org.apache.commons.lang3.stream;
 
+import java.util.Iterator;
 import java.util.OptionalDouble;
+import java.util.Spliterator;
 import java.util.stream.DoubleStream;
 
 /**
@@ -26,7 +28,7 @@ import java.util.stream.DoubleStream;
  * @see DoubleStream
  * @since 3.10
  */
-public class FailableDoubleStream extends FailableBaseStream {
+public class FailableDoubleStream extends FailableBaseStream<Double, FailableDoubleStream> {
     private DoubleStream doubleStream;
 
     public FailableDoubleStream(DoubleStream doubleStream) {
@@ -129,5 +131,35 @@ public class FailableDoubleStream extends FailableBaseStream {
     public double sum() {
         makeTerminated();
         return doubleStream.sum();
+    }
+
+    @Override
+    public long count() {
+        return 0;
+    }
+
+    @Override
+    public Iterator<Double> iterator() {
+        return null;
+    }
+
+    @Override
+    public Spliterator<Double> spliterator() {
+        return null;
+    }
+
+    @Override
+    public FailableDoubleStream distinct() {
+        return null;
+    }
+
+    @Override
+    public FailableDoubleStream sequential() {
+        return null;
+    }
+
+    @Override
+    public FailableDoubleStream parallel() {
+        return null;
     }
 }
