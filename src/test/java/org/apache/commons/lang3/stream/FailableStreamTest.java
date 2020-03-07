@@ -31,6 +31,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.apache.commons.lang3.stream.TestStringConstants.EXPECTED_EXCEPTION;
+import static org.apache.commons.lang3.stream.TestStringConstants.EXPECTED_NFE_MESSAGE_INT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -58,6 +59,31 @@ public class FailableStreamTest {
         failingInputStream = Functions.stream(failingInput).map(Integer::valueOf);
         flatMapInputStream = Functions.stream(flatMapInput).flatMap(LIST_TO_STREAM);
         failingFlatMapInputStream = Functions.stream(failingFlatMapInput).flatMap(LIST_TO_STREAM);
+    }
+
+    @Test
+    void testSimpleStreamFromMapCount() {
+        assertEquals(6L, inputStream.count());
+    }
+
+    @Test
+    void testSimpleStreamFromMapCountFailing() {
+        assertEquals(6L, failingInputStream.count());
+    }
+
+    @Test
+    void testSimpleStreamFromFlatMapCount() {
+        assertEquals(8L, flatMapInputStream.count());
+    }
+
+    @Test
+    void testSimpleStreamFromFlatMapCountFailing() {
+        try {
+            failingFlatMapInputStream.count();
+            fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+        }
     }
 
     @Test
