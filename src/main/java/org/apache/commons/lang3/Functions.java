@@ -16,6 +16,11 @@
  */
 package org.apache.commons.lang3;
 
+import org.apache.commons.lang3.function.FailableDoubleConsumer;
+import org.apache.commons.lang3.function.FailableDoubleFunction;
+import org.apache.commons.lang3.function.FailableDoublePredicate;
+import org.apache.commons.lang3.function.FailableDoubleToIntFunction;
+import org.apache.commons.lang3.function.FailableDoubleToLongFunction;
 import org.apache.commons.lang3.function.FailableToDoubleFunction;
 import org.apache.commons.lang3.function.FailableToIntFunction;
 import org.apache.commons.lang3.function.FailableToLongFunction;
@@ -31,6 +36,11 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
+import java.util.function.DoubleConsumer;
+import java.util.function.DoubleFunction;
+import java.util.function.DoublePredicate;
+import java.util.function.DoubleToIntFunction;
+import java.util.function.DoubleToLongFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -55,7 +65,7 @@ import java.util.stream.Stream;
  *       }
  *   };
  * }</pre>
- * By replacing a {@link java.util.function.Consumer Consumer&lt;O&gt;} with a
+ * By replacing a {@link Consumer Consumer&lt;O&gt;} with a
  * {@link FailableConsumer FailableConsumer&lt;O,? extends Throwable&gt;}, this can be
  * written like follows:
  * <pre>{@code
@@ -125,7 +135,7 @@ public class Functions {
      * @param <O>  the type of the returned value
      * @param <T>  the type of exception to be thrown
      *
-     * @see java.util.function.BiFunction
+     * @see BiFunction
      * @since 3.10
      */
     @FunctionalInterface
@@ -152,7 +162,7 @@ public class Functions {
      * @param <O2> the type of the second argument to the operation
      * @param <T>  the type of exception to be thrown
      *
-     * @see java.util.function.BiPredicate
+     * @see BiPredicate
      * @since 3.10
      */
     @FunctionalInterface
@@ -179,7 +189,7 @@ public class Functions {
      * @param <O> the type of the argument to the operation
      * @param <T> the type of exception to be thrown
      *
-     * @see java.util.function.Consumer
+     * @see Consumer
      * @since 3.10
      */
     @FunctionalInterface
@@ -204,7 +214,7 @@ public class Functions {
      * @param <O>   the type of the output of the function
      * @param <T>   the type of exception to be thrown
      *
-     * @see java.util.function.Function
+     * @see Function
      * @since 3.10
      */
     @FunctionalInterface
@@ -228,7 +238,7 @@ public class Functions {
      * @param <I> the type of the input to the function
      * @param <T> the type of exception to be thrown
      *
-     * @see java.util.function.Predicate
+     * @see Predicate
      * @since 3.10
      */
     @FunctionalInterface
@@ -256,7 +266,7 @@ public class Functions {
      * @param <R> the type of results produced by this supplier
      * @param <T> the type of exception to be thrown
      *
-     * @see java.util.function.Supplier
+     * @see Supplier
      * @since 3.10
      */
     @FunctionalInterface
@@ -288,6 +298,16 @@ public class Functions {
      */
     public static <I> Consumer<I> asConsumer(final FailableConsumer<I, ?> consumer) {
         return input -> accept(consumer, input);
+    }
+
+    /**
+     * Converts the given {@link FailableDoubleConsumer} into a standard {@link DoubleConsumer}.
+     *
+     * @param consumer a {@code FailableDoubleConsumer}
+     * @return a standard {@code DoubleConsumer}
+     */
+    public static DoubleConsumer asDoubleConsumer(final FailableDoubleConsumer<?> consumer) {
+        return input -> acceptDouble(consumer, input);
     }
 
     /**
@@ -323,6 +343,37 @@ public class Functions {
      */
     public static <I, O> Function<I, O> asFunction(final FailableFunction<I, O, ?> function) {
         return input -> apply(function, input);
+    }
+
+    /**
+     * Converts the given {@link FailableDoubleFunction} into a standard {@link DoubleFunction}.
+     *
+     * @param <O> the type of the output of the functions
+     * @param function a {code FailableDoubleFunction}
+     * @return a standard {@code DoubleFunction}
+     */
+    public static <O> DoubleFunction<O> asDoubleFunction(final FailableDoubleFunction<O, ?> function) {
+        return input -> applyDoubleFunction(function, input);
+    }
+
+    /**
+     * Converts the given {@link FailableDoubleToIntFunction} into a standard {@link DoubleToIntFunction}.
+     *
+     * @param function a {code FailableDoubleToIntFunction}
+     * @return a standard {@code DoubleToIntFunction}
+     */
+    public static DoubleToIntFunction asDoubleToIntFunction(final FailableDoubleToIntFunction<?> function) {
+        return input -> applyDoubleToIntFunction(function, input);
+    }
+
+    /**
+     * Converts the given {@link FailableDoubleToLongFunction} into a standard {@link DoubleToLongFunction}.
+     *
+     * @param function a {code FailableDoubleToLongFunction}
+     * @return a standard {@code DoubleToLongFunction}
+     */
+    public static DoubleToLongFunction asDoubleToLongFunction(final FailableDoubleToLongFunction<?> function) {
+        return input -> applyDoubleToLongFunction(function, input);
     }
 
     /**
@@ -383,6 +434,16 @@ public class Functions {
     }
 
     /**
+     * Converts the given {@link FailableDoublePredicate} into a standard {@link DoublePredicate}.
+     *
+     * @param predicate a {@code FailableDoublePredicate}
+     * @return a standard {@code DoublePredicate}
+     */
+    public static DoublePredicate asDoublePredicate(final FailableDoublePredicate<?> predicate) {
+        return input -> testDouble(predicate, input);
+    }
+
+    /**
      * Converts the given {@link FailableBiPredicate} into a standard {@link BiPredicate}.
      *
      * @param <I1> the type of the first argument used by the predicates
@@ -432,12 +493,22 @@ public class Functions {
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      * @param consumer the consumer to consume
-     * @param object the object to consume by {@code consumer}
+     * @param object the object to be consumed by {@code consumer}
      * @param <O> the type the consumer accepts
      * @param <T> the type of checked exception the consumer may throw
      */
     public static <O, T extends Throwable> void accept(final FailableConsumer<O, T> consumer, final O object) {
         run(() -> consumer.accept(object));
+    }
+
+    /**
+     * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
+     * @param consumer the consumer to consume
+     * @param value the value to be consumed by {@code consumer}
+     * @param <T> the type of checked exception the consumer may throw
+     */
+    public static <T extends Throwable> void acceptDouble(final FailableDoubleConsumer<T> consumer, final double value) {
+        run(() -> consumer.accept(value));
     }
 
     /**
@@ -464,6 +535,40 @@ public class Functions {
      */
     public static <I, O, T extends Throwable> O apply(final FailableFunction<I, O, T> function, final I input) {
         return get(() -> function.apply(input));
+    }
+
+    /**
+     * Applies a function and rethrows any exception as a {@link RuntimeException}.
+     * @param function the function to apply
+     * @param input the input to apply {@code function} on
+     * @param <O> the return type of the function
+     * @param <T> the type of checked exception the function may throw
+     * @return the value returned from the function
+     */
+    public static <O, T extends Throwable> O applyDoubleFunction(final FailableDoubleFunction<O, T> function, final double input) {
+        return get(() -> function.apply(input));
+    }
+
+    /**
+     * Applies a function and rethrows any exception as a {@link RuntimeException}.
+     * @param function the function to apply
+     * @param input the input to apply {@code function} on
+     * @param <T> the type of checked exception the function may throw
+     * @return the value returned from the function
+     */
+    public static <T extends Throwable> int applyDoubleToIntFunction(final FailableDoubleToIntFunction<T> function, final double input) {
+        return get(() -> function.applyAsInt(input));
+    }
+
+    /**
+     * Applies a function and rethrows any exception as a {@link RuntimeException}.
+     * @param function the function to apply
+     * @param input the input to apply {@code function} on
+     * @param <T> the type of checked exception the function may throw
+     * @return the value returned from the function
+     */
+    public static <T extends Throwable> long applyDoubleToLongFunction(final FailableDoubleToLongFunction<T> function, final double input) {
+        return get(() -> function.applyAsLong(input));
     }
 
     /**
@@ -520,13 +625,24 @@ public class Functions {
     /**
      * Tests a predicate and rethrows any exception as a {@link RuntimeException}.
      * @param predicate the predicate to test
-     * @param object the input to test by {@code predicate}
+     * @param object the input to be tested by {@code predicate}
      * @param <O> the type of argument the predicate tests
      * @param <T> the type of checked exception the predicate may throw
      * @return the boolean value returned by the predicate
      */
     public static <O, T extends Throwable> boolean test(final FailablePredicate<O, T> predicate, final O object) {
         return get(() -> predicate.test(object));
+    }
+
+    /**
+     * Tests a predicate and rethrows any exception as a {@link RuntimeException}.
+     * @param predicate the predicate to test
+     * @param value the input to be tested by {@code predicate}
+     * @param <T> the type of checked exception the predicate may throw
+     * @return the boolean value returned by the predicate
+     */
+    public static <T extends Throwable> boolean testDouble(final FailableDoublePredicate<T> predicate, final double value) {
+        return get(() -> predicate.test(value));
     }
 
     /**

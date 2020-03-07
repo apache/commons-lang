@@ -18,6 +18,8 @@ package org.apache.commons.lang3.stream;
 
 public class TestStringConstants {
     static final String EXPECTED_NFE_MESSAGE_INT = "For input string: \"4 \"";
+    static final String EXPECTED_NFE_MESSAGE_DOUBLE = "For input string: \"4.5x\"";
+
     static final String EXPECTED_EXCEPTION = "Expected Exception";
 
     private TestStringConstants() {}

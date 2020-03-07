@@ -16,9 +16,21 @@
  */
 package org.apache.commons.lang3.stream;
 
+import org.apache.commons.lang3.Functions;
+import org.apache.commons.lang3.function.FailableDoubleConsumer;
+import org.apache.commons.lang3.function.FailableDoubleFunction;
+import org.apache.commons.lang3.function.FailableDoublePredicate;
+import org.apache.commons.lang3.function.FailableDoubleToIntFunction;
+import org.apache.commons.lang3.function.FailableDoubleToLongFunction;
+
 import java.util.Iterator;
 import java.util.OptionalDouble;
 import java.util.Spliterator;
+import java.util.function.DoubleConsumer;
+import java.util.function.DoubleFunction;
+import java.util.function.DoublePredicate;
+import java.util.function.DoubleToIntFunction;
+import java.util.function.DoubleToLongFunction;
 import java.util.stream.DoubleStream;
 
 /**
@@ -41,6 +53,8 @@ public class FailableDoubleStream extends FailableBaseStream<Double, FailableDou
      * <p>This is a terminal operation.
      *
      * @return the average of elements in this stream
+     *
+     * @see DoubleStream#average()
      */
     public OptionalDouble average() {
         makeTerminated();
@@ -48,12 +62,201 @@ public class FailableDoubleStream extends FailableBaseStream<Double, FailableDou
     }
 
     /**
-     * Returns a {@code FailableStream} consisting of the elements of this stream, each boxed to a Double.
+     * Returns a {@code FailableStream} consisting of the elements of this stream,
+     * each boxed to a Double.
      *
-     * @return a FailableStream consisting of the elements of this stream, each boxed to a Double
+     * <p>This is an intermediate operation.
+     *
+     * @return a FailableStream consisting of the elements of this stream,
+     * each boxed to a Double
+     *
+     * @see DoubleStream#boxed()
      */
     public FailableStream<Double> boxed() {
+        assertNotTerminated();
         return new FailableStream<>(doubleStream.boxed());
+    }
+
+    /**
+     * Returns a stream consisting of the elements of this stream that match
+     * the given predicate.
+     *
+     * <p>This is an intermediate operation.
+     *
+     * @param predicate a non-interfering, stateless predicate to
+     *                  apply to each element to determine if it
+     *                  should be included
+     * @return the new stream
+     *
+     * @see DoubleStream#filter(DoublePredicate)
+     */
+    public FailableDoubleStream filter(final FailableDoublePredicate<?> predicate) {
+        assertNotTerminated();
+        doubleStream = doubleStream.filter(Functions.asDoublePredicate(predicate));
+        return this;
+    }
+
+    /**
+     * Returns an {@link OptionalDouble} describing some element of the stream,
+     * or an empty {@code OptionalDouble} if the stream is empty.
+     *
+     * <p>This is a short-circuiting terminal operation.
+     *
+     * <p>The behavior of this operation is explicitly nondeterministic; it is
+     * free to select any value in the stream.  This is to allow for maximal
+     * performance in parallel operations; the cost is that multiple invocations
+     * on the same source may not return the same result. (If a stable result
+     * is desired, use {@link #findFirst()} instead.)
+     *
+     * @return an {@code OptionalDouble} describing some value of this stream,
+     * or an empty {@code OptionalDouble} if the stream is empty
+     *
+     * @see DoubleStream#findAny()
+     * @see #findFirst()
+     */
+    public OptionalDouble findAny() {
+        makeTerminated();
+        return doubleStream.findAny();
+    }
+
+    /**
+     * Returns an {@link OptionalDouble} describing the first value of this
+     * stream, or an empty {@code OptionalDouble} if the stream is empty. If
+     * the stream has no encounter order, then any value may be returned.
+     *
+     * <p>This is a short-circuiting terminal operation.
+     *
+     * @return an {@code OptionalDouble} describing the first value of this
+     * stream, or an empty optional if the stream is empty
+     *
+     * @see DoubleStream#findFirst()
+     */
+    public OptionalDouble findFirst() {
+        makeTerminated();
+        return doubleStream.findFirst();
+    }
+
+    /**
+     * Performs an action for each element of this stream.
+     *
+     * <p>This is a terminal operation.
+     *
+     * <p>The behavior of this operation is explicitly nondeterministic.
+     * For parallel stream pipelines, this operation does <em>not</em>
+     * guarantee to respect the encounter order of the stream, as doing so
+     * would sacrifice the benefit of parallelism.  For any given element, the
+     * action may be performed at whatever time and in whatever thread the
+     * library chooses.  If the action accesses shared state, it is
+     * responsible for providing the required synchronization.
+     *
+     * @param action a non-interfering action to perform on the elements
+     *
+     * @see DoubleStream#forEach(DoubleConsumer)
+     */
+    public void forEach(final FailableDoubleConsumer<?> action) {
+        makeTerminated();
+        doubleStream.forEach(Functions.asDoubleConsumer(action));
+    }
+
+    /**
+     * Returns an object-valued {@code FailableStream} consisting of the results of
+     * applying the given function to the elements of this stream.
+     *
+     * <p>This is an intermediate operation.
+     *
+     * @param mapper a non-interfering, stateless function to apply to each element
+     * @param <O> the type of the object to be produced
+     * @return the new stream
+     *
+     * @see DoubleStream#mapToObj(DoubleFunction)
+     */
+    public <O> FailableStream<O> mapToObj(final FailableDoubleFunction<O, ?> mapper) {
+        assertNotTerminated();
+        return new FailableStream<>(doubleStream.mapToObj(Functions.asDoubleFunction(mapper)));
+    }
+
+    /**
+     * Returns a {@code FailableIntStream} consisting of the results of applying the
+     * given function to the elements of this stream.
+     *
+     * <p>This is an intermediate operation.
+     *
+     * @param mapper a non-interfering, stateless function to apply to each element
+     * @return the new stream
+     *
+     * @see DoubleStream#mapToInt(DoubleToIntFunction)
+     */
+    public FailableIntStream mapToInt(final FailableDoubleToIntFunction<?> mapper) {
+        assertNotTerminated();
+        return new FailableIntStream(doubleStream.mapToInt(Functions.asDoubleToIntFunction(mapper)));
+    }
+
+    /**
+     * Returns a {@code FailableLongStream} consisting of the results of applying the
+     * given function to the elements of this stream.
+     *
+     * <p>This is an intermediate operation.
+     *
+     * @param mapper a non-interfering, stateless function to apply to each element
+     * @return the new stream
+     *
+     * @see DoubleStream#mapToLong(DoubleToLongFunction)
+     */
+    public FailableLongStream mapToLong(final FailableDoubleToLongFunction<?> mapper) {
+        assertNotTerminated();
+        return new FailableLongStream(doubleStream.mapToLong(Functions.asDoubleToLongFunction(mapper)));
+    }
+
+    /**
+     * Returns an {@code OptionalDouble} describing the maximum value of this
+     * stream, or an empty OptionalDouble if this stream is empty. The maximum
+     * value will be {@code Double.NaN} if any stream value was NaN. Unlike
+     * the numerical comparison operators, this method considers negative zero
+     * to be strictly smaller than positive zero. This is a special case of a
+     * reduction and is equivalent to:
+     * <pre>{@code
+     *     return reduce(Double::max);
+     * }</pre>
+     *
+     * <p>This is a terminal operation.
+     *
+     * @return an {@code OptionalDouble} containing the maximum value of this
+     * stream, or an empty optional if the stream is empty
+     */
+    public OptionalDouble max() {
+        makeTerminated();
+        return doubleStream.max();
+    }
+
+    /**
+     * Returns an {@code OptionalDouble} describing the minimum value of this
+     * stream, or an empty OptionalDouble if this stream is empty. The minimum
+     * value will be {@code Double.NaN} if any stream value was NaN. Unlike
+     * the numerical comparison operators, this method considers negative zero
+     * to be strictly smaller than positive zero. This is a special case of a
+     * reduction and is equivalent to:
+     * <pre>{@code
+     *     return reduce(Double::min);
+     * }</pre>
+     *
+     * <p>This is a terminal operation.
+     *
+     * @return an {@code OptionalDouble} containing the minimum value of this stream,
+     * or an empty optional if the stream is empty
+     *
+     * @see DoubleStream#min()
+     */
+    public OptionalDouble min() {
+        makeTerminated();
+        return doubleStream.min();
+    }
+
+    /**
+     * Returns the {@link DoubleStream} which this stream wraps around.
+     * @return the {@code DoubleStream} used by this stream
+     */
+    public DoubleStream stream() {
+        return doubleStream;
     }
 
     /**
@@ -127,6 +330,8 @@ public class FailableDoubleStream extends FailableBaseStream<Double, FailableDou
      * @return the sum of elements in this stream
      * @apiNote Elements sorted by increasing absolute magnitude tend
      * to yield more accurate results.
+     *
+     * @see DoubleStream#sum()
      */
     public double sum() {
         makeTerminated();
@@ -135,31 +340,40 @@ public class FailableDoubleStream extends FailableBaseStream<Double, FailableDou
 
     @Override
     public long count() {
-        return 0;
+        makeTerminated();
+        return doubleStream.count();
     }
 
     @Override
     public Iterator<Double> iterator() {
-        return null;
+        makeTerminated();
+        return doubleStream.iterator();
     }
 
     @Override
     public Spliterator<Double> spliterator() {
-        return null;
+        makeTerminated();
+        return doubleStream.spliterator();
     }
 
     @Override
     public FailableDoubleStream distinct() {
-        return null;
+        assertNotTerminated();
+        doubleStream = doubleStream.distinct();
+        return this;
     }
 
     @Override
     public FailableDoubleStream sequential() {
-        return null;
+        assertNotTerminated();
+        doubleStream = doubleStream.sequential();
+        return this;
     }
 
     @Override
     public FailableDoubleStream parallel() {
-        return null;
+        assertNotTerminated();
+        doubleStream = doubleStream.parallel();
+        return this;
     }
 }
