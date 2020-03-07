@@ -532,10 +532,10 @@ public class BooleanUtils {
     /**
      * <p>Converts a String to a Boolean.</p>
      *
-     * <p>{@code 'true'}, {@code 'on'}, {@code 'y'}, {@code 't'} or {@code 'yes'}
-     * (case insensitive) will return {@code true}.
-     * {@code 'false'}, {@code 'off'}, {@code 'n'}, {@code 'f'} or {@code 'no'}
-     * (case insensitive) will return {@code false}.
+     * <p>{@code 'true'}, {@code 'on'}, {@code 'y'}, {@code 't'}, {@code 'yes'}
+     * or {@code '1'} (case insensitive) will return {@code true}.
+     * {@code 'false'}, {@code 'off'}, {@code 'n'}, {@code 'f'}, {@code 'no'}
+     * or {@code '0'} (case insensitive) will return {@code false}.
      * Otherwise, {@code null} is returned.</p>
      *
      * <p>NOTE: This method may return {@code null} and may throw a {@code NullPointerException}
@@ -556,6 +556,8 @@ public class BooleanUtils {
      *   BooleanUtils.toBooleanObject("oFf")   = Boolean.FALSE
      *   BooleanUtils.toBooleanObject("yes")   = Boolean.TRUE
      *   BooleanUtils.toBooleanObject("Y")     = Boolean.TRUE // i.e. Y[ES]
+     *   BooleanUtils.toBooleanObject("1")     = Boolean.TRUE
+     *   BooleanUtils.toBooleanObject("0")     = Boolean.FALSE
      *   BooleanUtils.toBooleanObject("blue")  = null
      *   BooleanUtils.toBooleanObject("true ") = null // trailing space (too long)
      *   BooleanUtils.toBooleanObject("ono")   = null // does not match on or no
