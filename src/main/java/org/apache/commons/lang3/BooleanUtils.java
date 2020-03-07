@@ -581,11 +581,13 @@ public class BooleanUtils {
             case 1: {
                 final char ch0 = str.charAt(0);
                 if (ch0 == 'y' || ch0 == 'Y' ||
-                    ch0 == 't' || ch0 == 'T') {
+                    ch0 == 't' || ch0 == 'T' ||
+                    ch0 == '1') {
                     return Boolean.TRUE;
                 }
                 if (ch0 == 'n' || ch0 == 'N' ||
-                    ch0 == 'f' || ch0 == 'F') {
+                    ch0 == 'f' || ch0 == 'F' ||
+                    ch0 == '0') {
                     return Boolean.FALSE;
                 }
                 break;
