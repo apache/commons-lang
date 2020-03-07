@@ -14,14 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang3.stream;
+package org.apache.commons.lang3.function;
 
-public class TestStringConstants {
-    static final String EXPECTED_NFE_MESSAGE_INT = "For input string: \"4 \"";
-    static final String EXPECTED_NFE_MESSAGE_DOUBLE = "For input string: \"4.5x\"";
-    static final String EXPECTED_NFE_MESSAGE_LONG = "For input string: \"4000000000 \"";
-
-    static final String EXPECTED_EXCEPTION = "Expected Exception";
-
-    private TestStringConstants() {}
+/**
+ *
+ * @param <T> the type of exception to be thrown
+ *
+ * @see java.util.function.LongPredicate
+ * @since 3.10
+ */
+@FunctionalInterface
+public interface FailableLongPredicate<T extends Throwable> {
+    /**
+     * Evaluates this predicate on the given argument.
+     *
+     * @param value the input argument
+     * @return {@code true} if the input argument matches the predicate,
+     * otherwise {@code false}
+     * @throws T if the function fails
+     */
+    boolean test(long value) throws T;
 }

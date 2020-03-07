@@ -14,14 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang3.stream;
+package org.apache.commons.lang3.function;
 
-public class TestStringConstants {
-    static final String EXPECTED_NFE_MESSAGE_INT = "For input string: \"4 \"";
-    static final String EXPECTED_NFE_MESSAGE_DOUBLE = "For input string: \"4.5x\"";
-    static final String EXPECTED_NFE_MESSAGE_LONG = "For input string: \"4000000000 \"";
-
-    static final String EXPECTED_EXCEPTION = "Expected Exception";
-
-    private TestStringConstants() {}
+/**
+ *
+ * @param <O> the type of the output produced by the function
+ * @param <T> the type of exception to be thrown
+ *
+ * @see java.util.function.LongFunction
+ * @since 3.10
+ */
+@FunctionalInterface
+public interface FailableLongFunction<O, T extends Throwable> {
+    /**
+     * Applies this function to the given argument.
+     *
+     * @param value the function argument
+     * @return the function result
+     * @throws T if the function fails
+     */
+    O apply(long value) throws T;
 }
