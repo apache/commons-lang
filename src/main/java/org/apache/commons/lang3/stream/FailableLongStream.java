@@ -75,7 +75,8 @@ public class FailableLongStream extends FailableBaseStream<Long, FailableLongStr
 
     @Override
     public long count() {
-        return 0;
+        makeTerminated();
+        return longStream.count();
     }
 
     @Override
