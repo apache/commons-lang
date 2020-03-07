@@ -67,23 +67,8 @@ public class FailableIntStreamTest {
     }
 
     @Test
-    void testIntStreamFromMapCountFailing() {
-        assertEquals(6L, failingInputStream.count());
-    }
-
-    @Test
     void testIntStreamFromFlatMapCount() {
         assertEquals(8L, flatMapInputStream.count());
-    }
-
-    @Test
-    void testIntStreamFromFlatMapCountFailing() {
-        try {
-            failingFlatMapInputStream.count();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
     }
 
     @Test

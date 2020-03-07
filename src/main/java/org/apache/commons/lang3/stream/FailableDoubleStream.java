@@ -328,7 +328,7 @@ public class FailableDoubleStream extends FailableBaseStream<Double, FailableDou
      * operation.
      *
      * @return the sum of elements in this stream
-     * @apiNote Elements sorted by increasing absolute magnitude tend
+     * \@apiNote Elements sorted by increasing absolute magnitude tend
      * to yield more accurate results.
      *
      * @see DoubleStream#sum()

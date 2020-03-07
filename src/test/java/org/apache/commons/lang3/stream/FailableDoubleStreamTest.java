@@ -31,8 +31,10 @@ import java.util.stream.DoubleStream;
 
 import static org.apache.commons.lang3.stream.TestConstants.EXPECTED_EXCEPTION;
 import static org.apache.commons.lang3.stream.TestConstants.EXPECTED_NFE_MESSAGE_DOUBLE;
+import static org.apache.commons.lang3.stream.TestConstants.FLAT_MAP_INPUT_DOUBLE;
 import static org.apache.commons.lang3.stream.TestConstants.FLAT_MAP_INPUT_INT;
 import static org.apache.commons.lang3.stream.TestConstants.FLAT_MAP_INPUT_LONG;
+import static org.apache.commons.lang3.stream.TestConstants.INPUT_DOUBLE;
 import static org.apache.commons.lang3.stream.TestConstants.INPUT_INT;
 import static org.apache.commons.lang3.stream.TestConstants.INPUT_LONG;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -54,9 +56,9 @@ public class FailableDoubleStreamTest {
 
     @BeforeEach
     void beforeEach() {
-        inputStream = Functions.stream(TestConstants.INPUT_DOUBLE).mapToDouble(Double::valueOf);
+        inputStream = Functions.stream(INPUT_DOUBLE).mapToDouble(Double::valueOf);
         failingInputStream = Functions.stream(failingInput).mapToDouble(Double::valueOf);
-        flatMapInputStream = Functions.stream(TestConstants.FLAT_MAP_INPUT_DOUBLE)
+        flatMapInputStream = Functions.stream(FLAT_MAP_INPUT_DOUBLE)
                 .flatMapToDouble(LIST_TO_DOUBLE_STREAM);
         failingFlatMapInputStream = Functions.stream(failingFlatMapInput)
                 .flatMapToDouble(LIST_TO_DOUBLE_STREAM);
@@ -68,23 +70,8 @@ public class FailableDoubleStreamTest {
     }
 
     @Test
-    void testDoubleStreamFromMapCountFailing() {
-        assertEquals(6L, failingInputStream.count());
-    }
-
-    @Test
     void testDoubleStreamFromFlatMapCount() {
         assertEquals(8L, flatMapInputStream.count());
-    }
-
-    @Test
-    void testDoubleStreamFromFlatMapCountFailing() {
-        try {
-            failingFlatMapInputStream.count();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_DOUBLE, nfe.getMessage());
-        }
     }
 
     @Test
@@ -155,7 +142,7 @@ public class FailableDoubleStreamTest {
 
     @Test
     void testDoubleStreamFromMapBoxed() {
-        assertEquals(TestConstants.INPUT_DOUBLE, inputStream.boxed().map(Object::toString)
+        assertEquals(INPUT_DOUBLE, inputStream.boxed().map(Object::toString)
                 .collect(Collectors.toList()));
     }
 
@@ -171,7 +158,7 @@ public class FailableDoubleStreamTest {
 
     @Test
     void testDoubleStreamFromFlatMapBoxed() {
-        final List<String> flatMap = TestConstants.FLAT_MAP_INPUT_DOUBLE.stream()
+        final List<String> flatMap = FLAT_MAP_INPUT_DOUBLE.stream()
                 .flatMap(Collection::stream).collect(Collectors.toList());
 
         assertEquals(flatMap, flatMapInputStream.boxed().map(Object::toString)
@@ -313,13 +300,13 @@ public class FailableDoubleStreamTest {
         final OptionalDouble first = inputStream.parallel().findAny();
 
         assertTrue(first.isPresent());
-        assertTrue(TestConstants.INPUT_DOUBLE.contains(Double.toString(first.getAsDouble())));
+        assertTrue(INPUT_DOUBLE.contains(Double.toString(first.getAsDouble())));
     }
 
     @Test
     void testParallelDoubleStreamFromFlatMapFindAny() {
         final OptionalDouble any = flatMapInputStream.parallel().findAny();
-        final List<String> flatMap = TestConstants.FLAT_MAP_INPUT_DOUBLE.stream().flatMap(Collection::stream)
+        final List<String> flatMap = FLAT_MAP_INPUT_DOUBLE.stream().flatMap(Collection::stream)
                 .collect(Collectors.toList());
 
         assertTrue(any.isPresent());
@@ -331,7 +318,7 @@ public class FailableDoubleStreamTest {
         final List<String> mapList = new ArrayList<>();
         inputStream.forEach(value -> mapList.add(Double.toString(value)));
 
-        assertEquals(TestConstants.INPUT_DOUBLE, mapList);
+        assertEquals(INPUT_DOUBLE, mapList);
     }
 
     @Test
@@ -347,7 +334,7 @@ public class FailableDoubleStreamTest {
     @Test
     void testDoubleStreamFromFlatMapForEach() {
         final List<String> flatMapList = new ArrayList<>();
-        final List<String> flatMap = TestConstants.FLAT_MAP_INPUT_DOUBLE.stream().flatMap(Collection::stream)
+        final List<String> flatMap = FLAT_MAP_INPUT_DOUBLE.stream().flatMap(Collection::stream)
                 .collect(Collectors.toList());
 
         flatMapInputStream.forEach(value -> flatMapList.add(Double.toString(value)));
@@ -367,7 +354,7 @@ public class FailableDoubleStreamTest {
 
     @Test
     void testDoubleStreamFromMap_MapToObj() {
-        assertEquals(TestConstants.INPUT_DOUBLE, inputStream.mapToObj(Objects::toString)
+        assertEquals(INPUT_DOUBLE, inputStream.mapToObj(Objects::toString)
                 .collect(Collectors.toList()));
     }
 
@@ -383,7 +370,7 @@ public class FailableDoubleStreamTest {
 
     @Test
     void testDoubleStreamFromFlatMap_MapToObj() {
-        final List<String> flatMap = TestConstants.FLAT_MAP_INPUT_DOUBLE.stream()
+        final List<String> flatMap = FLAT_MAP_INPUT_DOUBLE.stream()
                 .flatMap(Collection::stream).collect(Collectors.toList());
 
         assertEquals(flatMap, flatMapInputStream.mapToObj(Objects::toString)

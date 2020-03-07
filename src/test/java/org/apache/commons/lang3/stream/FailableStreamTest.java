@@ -62,23 +62,8 @@ public class FailableStreamTest {
     }
 
     @Test
-    void testSimpleStreamFromMapCountFailing() {
-        assertEquals(6L, failingInputStream.count());
-    }
-
-    @Test
     void testSimpleStreamFromFlatMapCount() {
         assertEquals(8L, flatMapInputStream.count());
-    }
-
-    @Test
-    void testSimpleStreamFromFlatMapCountFailing() {
-        try {
-            failingFlatMapInputStream.count();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
     }
 
     @Test
@@ -96,7 +81,7 @@ public class FailableStreamTest {
             failingInputStream.collect(Collectors.toList());
             fail(EXPECTED_EXCEPTION);
         } catch (final NumberFormatException nfe) {
-            assertEquals(TestConstants.EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
         }
     }
 
@@ -115,7 +100,7 @@ public class FailableStreamTest {
             failingFlatMapInputStream.collect(Collectors.toList());
             fail(EXPECTED_EXCEPTION);
         } catch (final NumberFormatException nfe) {
-            assertEquals(TestConstants.EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
         }
     }
 
@@ -250,7 +235,7 @@ public class FailableStreamTest {
         try {
             failingInputStream.allMatch(Objects::nonNull);
         } catch (final NumberFormatException nfe) {
-            assertEquals(TestConstants.EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
         }
     }
 
@@ -264,7 +249,7 @@ public class FailableStreamTest {
         try {
             failingInputStream.anyMatch(i -> i % 2 == 0);
         } catch (final NumberFormatException nfe) {
-            assertEquals(TestConstants.EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
         }
     }
 }

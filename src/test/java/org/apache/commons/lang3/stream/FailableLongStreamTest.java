@@ -34,8 +34,10 @@ import static org.apache.commons.lang3.stream.TestConstants.EXPECTED_EXCEPTION;
 import static org.apache.commons.lang3.stream.TestConstants.EXPECTED_NFE_MESSAGE_LONG;
 import static org.apache.commons.lang3.stream.TestConstants.FLAT_MAP_INPUT_DOUBLE;
 import static org.apache.commons.lang3.stream.TestConstants.FLAT_MAP_INPUT_INT;
+import static org.apache.commons.lang3.stream.TestConstants.FLAT_MAP_INPUT_LONG;
 import static org.apache.commons.lang3.stream.TestConstants.INPUT_DOUBLE;
 import static org.apache.commons.lang3.stream.TestConstants.INPUT_INT;
+import static org.apache.commons.lang3.stream.TestConstants.INPUT_LONG;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -56,9 +58,9 @@ public class FailableLongStreamTest {
 
     @BeforeEach
     void beforeEach() {
-        inputStream = Functions.stream(TestConstants.INPUT_LONG).mapToLong(Long::valueOf);
+        inputStream = Functions.stream(INPUT_LONG).mapToLong(Long::valueOf);
         failingInputStream = Functions.stream(failingInput).mapToLong(Long::valueOf);
-        flatMapInputStream = Functions.stream(TestConstants.FLAT_MAP_INPUT_LONG)
+        flatMapInputStream = Functions.stream(FLAT_MAP_INPUT_LONG)
                 .flatMapToLong(LIST_TO_LONG_STREAM);
         failingFlatMapInputStream = Functions.stream(failingFlatMapInput)
                 .flatMapToLong(LIST_TO_LONG_STREAM);
@@ -70,23 +72,8 @@ public class FailableLongStreamTest {
     }
 
     @Test
-    void testLongStreamFromMapCountFailing() {
-        assertEquals(6L, failingInputStream.count());
-    }
-
-    @Test
     void testLongStreamFromFlatMapCount() {
         assertEquals(8L, flatMapInputStream.count());
-    }
-
-    @Test
-    void testLongStreamFromFlatMapCountFailing() {
-        try {
-            failingFlatMapInputStream.count();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
     }
 
     @Test
@@ -157,7 +144,7 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromMapBoxed() {
-        assertEquals(TestConstants.INPUT_LONG, inputStream.boxed().map(Object::toString)
+        assertEquals(INPUT_LONG, inputStream.boxed().map(Object::toString)
                 .collect(Collectors.toList()));
     }
 
@@ -173,7 +160,7 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromFlatMapBoxed() {
-        final List<String> flatMap = TestConstants.FLAT_MAP_INPUT_LONG.stream()
+        final List<String> flatMap = FLAT_MAP_INPUT_LONG.stream()
                 .flatMap(Collection::stream).collect(Collectors.toList());
 
         assertEquals(flatMap, flatMapInputStream.boxed().map(Object::toString)
@@ -315,13 +302,13 @@ public class FailableLongStreamTest {
         final OptionalLong first = inputStream.parallel().findAny();
 
         assertTrue(first.isPresent());
-        assertTrue(TestConstants.INPUT_LONG.contains(Long.toString(first.getAsLong())));
+        assertTrue(INPUT_LONG.contains(Long.toString(first.getAsLong())));
     }
 
     @Test
     void testParallelLongStreamFromFlatMapFindAny() {
         final OptionalLong any = flatMapInputStream.parallel().findAny();
-        final List<String> flatMap = TestConstants.FLAT_MAP_INPUT_LONG.stream()
+        final List<String> flatMap = FLAT_MAP_INPUT_LONG.stream()
                 .flatMap(Collection::stream).collect(Collectors.toList());
 
         assertTrue(any.isPresent());
@@ -333,7 +320,7 @@ public class FailableLongStreamTest {
         final List<String> mapList = new ArrayList<>();
         inputStream.forEach(value -> mapList.add(Long.toString(value)));
 
-        assertEquals(TestConstants.INPUT_LONG, mapList);
+        assertEquals(INPUT_LONG, mapList);
     }
 
     @Test
@@ -349,7 +336,7 @@ public class FailableLongStreamTest {
     @Test
     void testLongStreamFromFlatMapForEach() {
         final List<String> flatMapList = new ArrayList<>();
-        final List<String> flatMap = TestConstants.FLAT_MAP_INPUT_LONG.stream()
+        final List<String> flatMap = FLAT_MAP_INPUT_LONG.stream()
                 .flatMap(Collection::stream).collect(Collectors.toList());
 
         flatMapInputStream.forEach(value -> flatMapList.add(Long.toString(value)));
@@ -369,7 +356,7 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromMap_MapToObj() {
-        assertEquals(TestConstants.INPUT_LONG, inputStream.mapToObj(Objects::toString)
+        assertEquals(INPUT_LONG, inputStream.mapToObj(Objects::toString)
                 .collect(Collectors.toList()));
     }
 
@@ -385,7 +372,7 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromFlatMap_MapToObj() {
-        final List<String> flatMap = TestConstants.FLAT_MAP_INPUT_LONG.stream()
+        final List<String> flatMap = FLAT_MAP_INPUT_LONG.stream()
                 .flatMap(Collection::stream).collect(Collectors.toList());
 
         assertEquals(flatMap, flatMapInputStream.mapToObj(Objects::toString)
