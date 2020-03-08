@@ -9417,6 +9417,9 @@ public class StringUtils {
         if (isEmpty(str) || wrapWith == CharUtils.NUL) {
             return str;
         }
+        if(str.charAt(0) == wrapWith && str.charAt(str.length()-1) == wrapWith){
+            return str;
+        }
         final StringBuilder builder = new StringBuilder(str.length() + 2);
         if (str.charAt(0) != wrapWith) {
             builder.append(wrapWith);

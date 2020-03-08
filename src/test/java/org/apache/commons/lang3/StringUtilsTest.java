@@ -3176,6 +3176,7 @@ public class StringUtilsTest {
         assertEquals("/x/y/z/", StringUtils.wrapIfMissing("/x/y/z", '/'));
         assertEquals("/x/y/z/", StringUtils.wrapIfMissing("x/y/z/", '/'));
         assertEquals("/", StringUtils.wrapIfMissing("/", '/'));
+        assertEquals("xabx", StringUtils.wrapIfMissing("xabx", 'x'));
     }
 
     @Test
