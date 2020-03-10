@@ -18,6 +18,8 @@ package org.apache.commons.lang3.function;
 
 import org.apache.commons.lang3.Functions;
 
+import java.util.function.ToIntFunction;
+
 /**
  * Represents a function that produces a long-valued result.  This is the
  * {@code int}-producing primitive specialization for {@link Functions.FailableFunction}.
@@ -29,7 +31,8 @@ import org.apache.commons.lang3.Functions;
  * @param <I> the type of the input to the function
  * @param <T> the type of exception to be thrown
  *
- * @see java.util.function.ToIntFunction
+ * @see ToIntFunction
+ * @see Functions.FailableFunction
  * @since 3.10
  */
 @FunctionalInterface

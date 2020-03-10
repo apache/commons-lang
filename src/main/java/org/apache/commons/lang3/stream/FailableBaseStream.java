@@ -37,6 +37,7 @@ import java.util.stream.Stream;
  * @see FailableIntStream
  * @see FailableLongStream
  * @see FailableDoubleStream
+ * @see FailableStream
  * @since 3.10
  */
 public abstract class FailableBaseStream<T, S extends FailableBaseStream<T, S>> {
@@ -63,10 +64,7 @@ public abstract class FailableBaseStream<T, S extends FailableBaseStream<T, S>> 
 
     /**
      * Returns the count of elements in this stream.  This is a special case of
-     * a reduction and is equivalent to:
-     * <pre>{@code
-     *     return mapToLong(e -> 1L).sum();
-     * }</pre>
+     * a reduction.
      *
      * <p>This is a terminal operation.
      *

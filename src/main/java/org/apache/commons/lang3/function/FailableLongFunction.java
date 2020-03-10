@@ -16,12 +16,22 @@
  */
 package org.apache.commons.lang3.function;
 
+import org.apache.commons.lang3.Functions;
+
+import java.util.function.LongFunction;
+
 /**
+ * Represents a function that accepts a long-valued argument and produces a
+ * result. This is the {@code long}-consuming primitive specialization for
+ * {@link Functions.FailableFunction}.
+ *
+ * <p>This is a functional interface whose functional method is {@link #apply(long)}.
  *
  * @param <O> the type of the output produced by the function
  * @param <T> the type of exception to be thrown
  *
- * @see java.util.function.LongFunction
+ * @see LongFunction
+ * @see Functions.FailableFunction
  * @since 3.10
  */
 @FunctionalInterface

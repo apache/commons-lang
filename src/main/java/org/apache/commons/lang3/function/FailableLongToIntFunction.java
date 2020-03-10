@@ -16,16 +16,21 @@
  */
 package org.apache.commons.lang3.function;
 
+import org.apache.commons.lang3.Functions;
+
+import java.util.function.LongToIntFunction;
+
 /**
  * Represents a function that accepts a long-valued argument and produces an
  * int-valued result.  This is the {@code long}-to-{@code double} primitive
- * specialization for {@link org.apache.commons.lang3.Functions.FailableFunction}.
+ * specialization for {@link Functions.FailableFunction}.
  *
  * <p>This is a functional interface whose functional method is {@link #applyAsInt(long)}.
  *
  * @param <T> the type of exception to be thrown
  *
- * @see java.util.function.LongToIntFunction
+ * @see LongToIntFunction
+ * @see Functions.FailableFunction
  * @since 3.10
  */
 @FunctionalInterface
