@@ -16,6 +16,9 @@
  */
 package org.apache.commons.lang3;
 
+import org.apache.commons.lang3.stream.FailableDoubleStream;
+import org.apache.commons.lang3.stream.FailableIntStream;
+import org.apache.commons.lang3.stream.FailableLongStream;
 import org.apache.commons.lang3.stream.FailableStream;
 
 import java.lang.reflect.Array;
@@ -29,6 +32,9 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 /**
@@ -74,7 +80,7 @@ public class Streams {
     /**
      * Converts the given {@link Stream stream} into a {@link FailableStream}.
      *
-     * @param <O> The stream element type.
+     * @param <O>    The stream element type.
      * @param stream The stream which is being converted.
      * @return The {@link FailableStream} which has been created by converting the stream.
      */
@@ -85,13 +91,43 @@ public class Streams {
     /**
      * Converts the given {@link Collection} into a {@link FailableStream}.
      *
-     * @param <O> The collection element type.
+     * @param <O>        The collection element type.
      * @param collection The collection from which the stream is to be obtained.
      * @return The {@link FailableStream} which has been created by converting
      * the stream obtained from the collection.
      */
     public static <O> FailableStream<O> failableStream(final Collection<O> collection) {
         return failableStream(collection.stream());
+    }
+
+    /**
+     * Converts the given {@link DoubleStream} into a {@link FailableDoubleStream}.
+     *
+     * @param doubleStream The double stream which is being converted.
+     * @return The {@link FailableDoubleStream} which has been created by converting the stream.
+     */
+    public static FailableDoubleStream failableDoubleStream(final DoubleStream doubleStream) {
+        return new FailableDoubleStream(doubleStream);
+    }
+
+    /**
+     * Converts the given {@link IntStream} into a {@link FailableIntStream}.
+     *
+     * @param intStream The int stream which is being converted.
+     * @return The {@link FailableIntStream} which has been created by converting the stream.
+     */
+    public static FailableIntStream failableIntStream(final IntStream intStream) {
+        return new FailableIntStream(intStream);
+    }
+
+    /**
+     * Converts the given {@link LongStream} into a {@link FailableLongStream}.
+     *
+     * @param longStream The long stream which is being converted.
+     * @return The {@link FailableLongStream} which has been created by converting the stream.
+     */
+    public static FailableLongStream failableLongStream(final LongStream longStream) {
+        return new FailableLongStream(longStream);
     }
 
     public static class ArrayCollector<O> implements Collector<O, List<O>, O[]> {
@@ -123,8 +159,7 @@ public class Streams {
         @Override
         public Function<List<O>, O[]> finisher() {
             return list -> {
-                @SuppressWarnings("unchecked")
-                final O[] array = (O[]) Array.newInstance(elementType, list.size());
+                @SuppressWarnings("unchecked") final O[] array = (O[]) Array.newInstance(elementType, list.size());
                 return list.toArray(array);
             };
         }
@@ -140,7 +175,7 @@ public class Streams {
      * new array.
      *
      * @param pElementType Type of an element in the array.
-     * @param <O> the type of the input elements
+     * @param <O>          the type of the input elements
      * @return a {@code Collector} which collects all the input elements into an
      * array, in encounter order
      */

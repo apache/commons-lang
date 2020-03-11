@@ -58,11 +58,11 @@ public class FailableLongStreamTest {
 
     @BeforeEach
     void beforeEach() {
-        inputStream = Functions.stream(INPUT_LONG).mapToLong(Long::valueOf);
-        failingInputStream = Functions.stream(failingInput).mapToLong(Long::valueOf);
-        flatMapInputStream = Functions.stream(FLAT_MAP_INPUT_LONG)
+        inputStream = Functions.failableLongStream(INPUT_LONG, Long::valueOf);
+        failingInputStream = Functions.failableLongStream(failingInput, Long::valueOf);
+        flatMapInputStream = Functions.failableStream(FLAT_MAP_INPUT_LONG)
                 .flatMapToLong(LIST_TO_LONG_STREAM);
-        failingFlatMapInputStream = Functions.stream(failingFlatMapInput)
+        failingFlatMapInputStream = Functions.failableStream(failingFlatMapInput)
                 .flatMapToLong(LIST_TO_LONG_STREAM);
     }
 

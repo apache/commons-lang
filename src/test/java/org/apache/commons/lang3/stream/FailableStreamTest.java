@@ -48,11 +48,11 @@ public class FailableStreamTest {
 
     @BeforeEach
     void beforeEach() {
-        inputStream = Functions.stream(TestConstants.INPUT_INT).map(Integer::valueOf);
-        failingInputStream = Functions.stream(TestConstants.FAILING_INPUT_INT).map(Integer::valueOf);
-        flatMapInputStream = Functions.stream(TestConstants.FLAT_MAP_INPUT_INT)
+        inputStream = Functions.failableStream(TestConstants.INPUT_INT).map(Integer::valueOf);
+        failingInputStream = Functions.failableStream(TestConstants.FAILING_INPUT_INT).map(Integer::valueOf);
+        flatMapInputStream = Functions.failableStream(TestConstants.FLAT_MAP_INPUT_INT)
                 .flatMap(LIST_TO_STREAM);
-        failingFlatMapInputStream = Functions.stream(TestConstants.FAILING_FLAT_MAP_INPUT_INT)
+        failingFlatMapInputStream = Functions.failableStream(TestConstants.FAILING_FLAT_MAP_INPUT_INT)
                 .flatMap(LIST_TO_STREAM);
     }
 
@@ -107,7 +107,7 @@ public class FailableStreamTest {
     @Test
     void testSimpleStreamForEach() {
         final List<Integer> output = new ArrayList<>();
-        Functions.stream(TestConstants.INPUT_INT).forEach(s -> output.add(Integer.valueOf(s)));
+        Functions.failableStream(TestConstants.INPUT_INT).forEach(s -> output.add(Integer.valueOf(s)));
         assertEquals(6, output.size());
         for (int i = 0;  i < 6;  i++) {
             assertEquals(i+1, output.get(i).intValue());
@@ -138,21 +138,21 @@ public class FailableStreamTest {
     void testSimpleStreamForEachFailing() {
         final IllegalArgumentException ise = new IllegalArgumentException("Invalid argument: 4");
         try {
-            Functions.stream(TestConstants.INPUT_INT).forEach(asIntConsumer(ise));
+            Functions.failableStream(TestConstants.INPUT_INT).forEach(asIntConsumer(ise));
             fail(EXPECTED_EXCEPTION);
         } catch (final IllegalArgumentException e) {
             assertSame(ise, e);
         }
         final OutOfMemoryError oome = new OutOfMemoryError();
         try {
-            Functions.stream(TestConstants.INPUT_INT).forEach(asIntConsumer(oome));
+            Functions.failableStream(TestConstants.INPUT_INT).forEach(asIntConsumer(oome));
             fail(EXPECTED_EXCEPTION);
         } catch (final Throwable t) {
             assertSame(oome, t);
         }
         final SAXException se = new SAXException();
         try {
-            Functions.stream(TestConstants.INPUT_INT).forEach(asIntConsumer(se));
+            Functions.failableStream(TestConstants.INPUT_INT).forEach(asIntConsumer(se));
             fail(EXPECTED_EXCEPTION);
         } catch (final UndeclaredThrowableException ute) {
             assertSame(se, ute.getCause());
@@ -193,7 +193,7 @@ public class FailableStreamTest {
 
         output.clear();
 
-        inputStream = Functions.stream(TestConstants.INPUT_INT).map(Integer::valueOf);
+        inputStream = Functions.failableStream(TestConstants.INPUT_INT).map(Integer::valueOf);
         final IllegalArgumentException iae = new IllegalArgumentException("Invalid argument: " + 5);
         try {
             inputStream.filter(asIntPredicate(iae)).collect(Collectors.toList());
@@ -204,7 +204,7 @@ public class FailableStreamTest {
 
         output.clear();
 
-        inputStream = Functions.stream(TestConstants.INPUT_INT).map(Integer::valueOf);
+        inputStream = Functions.failableStream(TestConstants.INPUT_INT).map(Integer::valueOf);
         final OutOfMemoryError oome = new OutOfMemoryError();
         try {
             inputStream.filter(asIntPredicate(oome)).collect(Collectors.toList());
@@ -215,7 +215,7 @@ public class FailableStreamTest {
 
         output.clear();
 
-        inputStream = Functions.stream(TestConstants.INPUT_INT).map(Integer::valueOf);
+        inputStream = Functions.failableStream(TestConstants.INPUT_INT).map(Integer::valueOf);
         final SAXException se = new SAXException();
         try {
             inputStream.filter(asIntPredicate(se)).collect(Collectors.toList());
@@ -241,7 +241,7 @@ public class FailableStreamTest {
 
     @Test
     void testSimpleStreamAnyMatch() {
-        assertTrue(Functions.stream(TestConstants.INPUT_INT).map(Integer::valueOf).anyMatch(i -> i % 2 == 0));
+        assertTrue(Functions.failableStream(TestConstants.INPUT_INT).map(Integer::valueOf).anyMatch(i -> i % 2 == 0));
     }
 
     @Test

@@ -38,6 +38,9 @@ import org.apache.commons.lang3.function.FailableToDoubleFunction;
 import org.apache.commons.lang3.function.FailableToIntFunction;
 import org.apache.commons.lang3.function.FailableToLongFunction;
 import org.apache.commons.lang3.function.FailableUnaryOperator;
+import org.apache.commons.lang3.stream.FailableDoubleStream;
+import org.apache.commons.lang3.stream.FailableIntStream;
+import org.apache.commons.lang3.stream.FailableLongStream;
 import org.apache.commons.lang3.stream.FailableStream;
 
 import java.io.IOException;
@@ -75,6 +78,9 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 import java.util.function.UnaryOperator;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 
@@ -992,35 +998,101 @@ public class Functions {
 
     /**
      * Converts the given stream into a {@link FailableStream}. The
-     * {@link FailableStream} consists of the same elements, than the
-     * input stream. However, failable lambdas, like
+     * {@link FailableStream} consists of the same elements that are in
+     * the input stream. However, failable lambdas, like
      * {@link FailablePredicate}, {@link FailableFunction}, and
      * {@link FailableConsumer} may be applied, rather than
      * {@link Predicate}, {@link Function}, {@link Consumer}, etc.
-     * @param stream The stream, which is being converted into a
+     * @param stream The stream which is being converted into a
      *   {@link FailableStream}.
-     * @param <O> The streams element type.
+     * @param <O> The stream's element type.
      * @return The created {@link FailableStream}.
      */
-    public static <O> FailableStream<O> stream(final Stream<O> stream) {
+    public static <O> FailableStream<O> failableStream(final Stream<O> stream) {
         return new FailableStream<>(stream);
     }
 
     /**
      * Converts the given collection into a {@link FailableStream}.
-     * The {@link FailableStream} consists of the collections
+     * The {@link FailableStream} consists of the collection's
      * elements. Shortcut for
      * <pre>
-     *   Functions.stream(collection.stream());
+     *   Functions.failableStream(collection.stream());
      * </pre>
-     * @param collection The collection, which is being converted into a
+     * @param collection The collection which is being converted into a
      *   {@link FailableStream}.
-     * @param <O> The collections element type. (In turn, the result
-     *   streams element type.)
+     * @param <O> The collection's element type. (In turn, the resulting
+     *   stream's element type.)
      * @return The created {@link FailableStream}.
      */
-    public static <O> FailableStream<O> stream(final Collection<O> collection) {
+    public static <O> FailableStream<O> failableStream(final Collection<O> collection) {
         return new FailableStream<>(collection.stream());
+    }
+
+    /**
+     * Converts the given {@link IntStream} into a {@link FailableIntStream}.
+     * @param intStream The {@code IntStream} to be converted
+     * @return The created {@code FailableIntStream}
+     */
+    public static FailableIntStream failableIntStream(final IntStream intStream) {
+        return new FailableIntStream(intStream);
+    }
+
+    /**
+     * Converts a given collection into a {@link FailableIntStream} by applying
+     * the given function.
+     *
+     * @param collection The collection that provides the {@code FailableIntStream}
+     * @param function   The function used to create the {@code FailableIntStream}
+     * @param <O>        The type of elements in the collection.
+     * @return           The resulting {@code FailableIntStream}
+     */
+    public static <O> FailableIntStream failableIntStream(final Collection<O> collection, final FailableToIntFunction<O, ?> function) {
+        return new FailableIntStream(collection.stream().mapToInt(asToIntFunction(function)));
+    }
+
+    /**
+     * Converts the given {@link LongStream} into a {@link FailableLongStream}.
+     * @param longStream The {@code LongStream} to be converted
+     * @return The created {@code FailableLongStream}
+     */
+    public static FailableLongStream failableLongStream(final LongStream longStream) {
+        return new FailableLongStream(longStream);
+    }
+
+    /**
+     * Converts a given collection into a {@link FailableLongStream} by applying
+     * the given function.
+     *
+     * @param collection The collection that provides the {@code FailableLongStream}
+     * @param function   The function used to create the {@code FailableLongStream}
+     * @param <O>        The type of elements in the collection.
+     * @return           The resulting {@code FailableLongStream}
+     */
+    public static <O> FailableLongStream failableLongStream(final Collection<O> collection, final FailableToLongFunction<O, ?> function) {
+        return new FailableLongStream(collection.stream().mapToLong(asToLongFunction(function)));
+    }
+
+    /**
+     * Converts the given {@link DoubleStream} into a {@link FailableDoubleStream}.
+     * @param doubleStream The {@code DoubleStream} to be converted
+     * @return The created {@code FailableDoubleStream}
+     */
+    public static FailableDoubleStream failableDoubleStream(final DoubleStream doubleStream) {
+        return new FailableDoubleStream(doubleStream);
+    }
+
+    /**
+     * Converts a given collection into a {@link FailableLongStream} by applying
+     * the given function.
+     *
+     * @param collection The collection that provides the {@code FailableLongStream}
+     * @param function   The function used to create the {@code FailableLongStream}
+     * @param <O>        The type of elements in the collection.
+     * @return           The resulting {@code FailableLongStream}
+     */
+    public static <O> FailableDoubleStream failableDoubleStream(final Collection<O> collection, final FailableToDoubleFunction<O, ?> function) {
+        return new FailableDoubleStream(collection.stream().mapToDouble(asToDoubleFunction(function)));
     }
 
     /**

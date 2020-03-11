@@ -56,11 +56,11 @@ public class FailableDoubleStreamTest {
 
     @BeforeEach
     void beforeEach() {
-        inputStream = Functions.stream(INPUT_DOUBLE).mapToDouble(Double::valueOf);
-        failingInputStream = Functions.stream(failingInput).mapToDouble(Double::valueOf);
-        flatMapInputStream = Functions.stream(FLAT_MAP_INPUT_DOUBLE)
+        inputStream = Functions.failableDoubleStream(INPUT_DOUBLE, Double::valueOf);
+        failingInputStream = Functions.failableDoubleStream(failingInput, Double::valueOf);
+        flatMapInputStream = Functions.failableStream(FLAT_MAP_INPUT_DOUBLE)
                 .flatMapToDouble(LIST_TO_DOUBLE_STREAM);
-        failingFlatMapInputStream = Functions.stream(failingFlatMapInput)
+        failingFlatMapInputStream = Functions.failableStream(failingFlatMapInput)
                 .flatMapToDouble(LIST_TO_DOUBLE_STREAM);
     }
 

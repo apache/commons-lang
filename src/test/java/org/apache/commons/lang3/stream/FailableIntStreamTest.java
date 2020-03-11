@@ -55,10 +55,10 @@ public class FailableIntStreamTest {
 
     @BeforeEach
     void beforeEach() {
-        inputStream = Functions.stream(INPUT_INT).mapToInt(Integer::valueOf);
-        failingInputStream = Functions.stream(FAILING_INPUT_INT).mapToInt(Integer::valueOf);
-        flatMapInputStream = Functions.stream(FLAT_MAP_INPUT_INT).flatMapToInt(LIST_TO_INT_STREAM);
-        failingFlatMapInputStream = Functions.stream(FAILING_FLAT_MAP_INPUT_INT)
+        inputStream = Functions.failableIntStream(INPUT_INT, Integer::valueOf);
+        failingInputStream = Functions.failableIntStream(FAILING_INPUT_INT, Integer::valueOf);
+        flatMapInputStream = Functions.failableStream(FLAT_MAP_INPUT_INT).flatMapToInt(LIST_TO_INT_STREAM);
+        failingFlatMapInputStream = Functions.failableStream(FAILING_FLAT_MAP_INPUT_INT)
                 .flatMapToInt(LIST_TO_INT_STREAM);
     }
 
