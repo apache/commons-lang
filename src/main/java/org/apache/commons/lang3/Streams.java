@@ -60,13 +60,25 @@ import java.util.stream.Stream;
  */
 public class Streams {
     /**
+     * <p>Streams instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as {@code Streams.failableStream(stream)}.</p>
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean instance
+     * to operate.</p>
+     */
+    @SuppressWarnings("java:S1118")
+    public Streams() {
+        super();
+    }
+
+    /**
      * Converts the given {@link Stream stream} into a {@link FailableStream}.
      *
      * @param <O> The stream element type.
      * @param stream The stream which is being converted.
      * @return The {@link FailableStream} which has been created by converting the stream.
      */
-    public static <O> FailableStream<O> stream(final Stream<O> stream) {
+    public static <O> FailableStream<O> failableStream(final Stream<O> stream) {
         return new FailableStream<>(stream);
     }
 
@@ -78,8 +90,8 @@ public class Streams {
      * @return The {@link FailableStream} which has been created by converting
      * the stream obtained from the collection.
      */
-    public static <O> FailableStream<O> stream(final Collection<O> collection) {
-        return stream(collection.stream());
+    public static <O> FailableStream<O> failableStream(final Collection<O> collection) {
+        return failableStream(collection.stream());
     }
 
     public static class ArrayCollector<O> implements Collector<O, List<O>, O[]> {
@@ -92,14 +104,12 @@ public class Streams {
 
         @Override
         public Supplier<List<O>> supplier() {
-            return () -> new ArrayList<>();
+            return ArrayList::new;
         }
 
         @Override
         public BiConsumer<List<O>, O> accumulator() {
-            return (list, o) -> {
-                list.add(o);
-            };
+            return List::add;
         }
 
         @Override
@@ -112,7 +122,7 @@ public class Streams {
 
         @Override
         public Function<List<O>, O[]> finisher() {
-            return (list) -> {
+            return list -> {
                 @SuppressWarnings("unchecked")
                 final O[] array = (O[]) Array.newInstance(elementType, list.size());
                 return list.toArray(array);
@@ -134,7 +144,7 @@ public class Streams {
      * @return a {@code Collector} which collects all the input elements into an
      * array, in encounter order
      */
-    public static <O extends Object> Collector<O, ?, O[]> toArray(final Class<O> pElementType) {
+    public static <O> Collector<O, List<O>, O[]> toArray(final Class<O> pElementType) {
         return new ArrayCollector<>(pElementType);
     }
 }
