@@ -25,6 +25,9 @@ import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.BaseStream;
 import java.util.stream.Collector;
@@ -35,8 +38,37 @@ import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 /**
- * A reduced and simplified version of a {@link Stream} with
- * failable method signatures.
+ * This is basically a simplified, reduced version of the {@link Stream}
+ * class, with the same underlying element stream, except that failable
+ * objects, like {@link Functions.FailablePredicate}, {@link Functions.FailableFunction},
+ * or {@link Functions.FailableConsumer} may be applied, instead of
+ * {@link Predicate}, {@link Function}, or {@link Consumer}. The idea is
+ * to rewrite a code snippet like this:
+ * <pre>
+ *     final List&lt;O&gt; list;
+ *     final Method m;
+ *     final Function&lt;O,String&gt; mapper = (o) -&gt; {
+ *         try {
+ *             return (String) m.invoke(o);
+ *         } catch (Throwable t) {
+ *             throw Functions.rethrow(t);
+ *         }
+ *     };
+ *     final List&lt;String&gt; strList = list.stream()
+ *         .map(mapper).collect(Collectors.toList());
+ *  </pre>
+ *  as follows:
+ *  <pre>
+ *     final List&lt;O&gt; list;
+ *     final Method m;
+ *     final List&lt;String&gt; strList = Functions.stream(list.stream())
+ *         .map((o) -&gt; (String) m.invoke(o)).collect(Collectors.toList());
+ *  </pre>
+ *  While the second version may not be <em>quite</em> as
+ *  efficient (because it depends on the creation of additional,
+ *  intermediate objects, of type FailableStream), it is much more
+ *  concise, and readable, and meets the spirit of Lambdas better
+ *  than the first version.
  *
  * @param <O> The stream element type.
  *

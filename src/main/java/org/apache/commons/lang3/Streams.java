@@ -26,9 +26,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
-import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Stream;
@@ -63,41 +61,10 @@ import java.util.stream.Stream;
 public class Streams {
     /**
      * Converts the given {@link Stream stream} into a {@link FailableStream}.
-     * This is basically a simplified, reduced version of the {@link Stream}
-     * class, with the same underlying element stream, except that failable
-     * objects, like {@link Functions.FailablePredicate}, {@link Functions.FailableFunction},
-     * or {@link Functions.FailableConsumer} may be applied, instead of
-     * {@link Predicate}, {@link Function}, or {@link Consumer}. The idea is
-     * to rewrite a code snippet like this:
-     * <pre>
-     *     final List&lt;O&gt; list;
-     *     final Method m;
-     *     final Function&lt;O,String&gt; mapper = (o) -&gt; {
-     *         try {
-     *             return (String) m.invoke(o);
-     *         } catch (Throwable t) {
-     *             throw Functions.rethrow(t);
-     *         }
-     *     };
-     *     final List&lt;String&gt; strList = list.stream()
-     *         .map(mapper).collect(Collectors.toList());
-     *  </pre>
-     *  as follows:
-     *  <pre>
-     *     final List&lt;O&gt; list;
-     *     final Method m;
-     *     final List&lt;String&gt; strList = Functions.stream(list.stream())
-     *         .map((o) -&gt; (String) m.invoke(o)).collect(Collectors.toList());
-     *  </pre>
-     *  While the second version may not be <em>quite</em> as
-     *  efficient (because it depends on the creation of additional,
-     *  intermediate objects, of type FailableStream), it is much more
-     *  concise, and readable, and meets the spirit of Lambdas better
-     *  than the first version.
-     * @param <O> The streams element type.
-     * @param stream The stream, which is being converted.
-     * @return The {@link FailableStream}, which has been created by
-     *   converting the stream.
+     *
+     * @param <O> The stream element type.
+     * @param stream The stream which is being converted.
+     * @return The {@link FailableStream} which has been created by converting the stream.
      */
     public static <O> FailableStream<O> stream(final Stream<O> stream) {
         return new FailableStream<>(stream);
@@ -105,44 +72,14 @@ public class Streams {
 
     /**
      * Converts the given {@link Collection} into a {@link FailableStream}.
-     * This is basically a simplified, reduced version of the {@link Stream}
-     * class, with the same underlying element stream, except that failable
-     * objects, like {@link Functions.FailablePredicate}, {@link Functions.FailableFunction},
-     * or {@link Functions.FailableConsumer} may be applied, instead of
-     * {@link Predicate}, {@link Function}, or {@link Consumer}. The idea is
-     * to rewrite a code snippet like this:
-     * <pre>
-     *     final List&lt;O&gt; list;
-     *     final Method m;
-     *     final Function&lt;O,String&gt; mapper = (o) -&gt; {
-     *         try {
-     *             return (String) m.invoke(o);
-     *         } catch (Throwable t) {
-     *             throw Functions.rethrow(t);
-     *         }
-     *     };
-     *     final List&lt;String&gt; strList = list.stream()
-     *         .map(mapper).collect(Collectors.toList());
-     *  </pre>
-     *  as follows:
-     *  <pre>
-     *     final List&lt;O&gt; list;
-     *     final Method m;
-     *     final List&lt;String&gt; strList = Functions.stream(list.stream())
-     *         .map((o) -&gt; (String) m.invoke(o)).collect(Collectors.toList());
-     *  </pre>
-     *  While the second version may not be <em>quite</em> as
-     *  efficient (because it depends on the creation of additional,
-     *  intermediate objects, of type FailableStream), it is much more
-     *  concise, and readable, and meets the spirit of Lambdas better
-     *  than the first version.
-     * @param <O> The streams element type.
-     * @param stream The stream, which is being converted.
-     * @return The {@link FailableStream}, which has been created by
-     *   converting the stream.
+     *
+     * @param <O> The collection element type.
+     * @param collection The collection from which the stream is to be obtained.
+     * @return The {@link FailableStream} which has been created by converting
+     * the stream obtained from the collection.
      */
-    public static <O> FailableStream<O> stream(final Collection<O> stream) {
-        return stream(stream.stream());
+    public static <O> FailableStream<O> stream(final Collection<O> collection) {
+        return stream(collection.stream());
     }
 
     public static class ArrayCollector<O> implements Collector<O, List<O>, O[]> {
