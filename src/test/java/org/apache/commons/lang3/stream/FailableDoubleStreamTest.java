@@ -353,6 +353,45 @@ public class FailableDoubleStreamTest {
     }
 
     @Test
+    void testDoubleStreamFromMap_Map() {
+        final List<String> expectedResults = Arrays.asList("2.5", "3.5", "4.5", "5.5", "6.5", "7.5");
+        final List<String> actualResults = inputStream.map(input -> input + 1)
+                .mapToObj(Objects::toString).collect(Collectors.toList());
+
+        assertEquals(expectedResults, actualResults);
+    }
+
+    @Test
+    void testDoubleStreamFromMap_MapFailing() {
+        try {
+            failingInputStream.map(input -> input + 1).mapToObj(Objects::toString)
+                    .collect(Collectors.toList());
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_DOUBLE, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testDoubleStreamFromFlatMap_Map() {
+        final List<String> expectedResults = Arrays.asList("2.5", "3.5", "4.5", "5.5", "6.5",
+                "7.5", "8.5", "9.5");
+        final List<String> actualResults = flatMapInputStream.map(input -> input + 1)
+                .mapToObj(Objects::toString).collect(Collectors.toList());
+
+        assertEquals(expectedResults, actualResults);
+    }
+
+    @Test
+    void testDoubleStreamFromFlatMap_MapFailing() {
+        try {
+            failingFlatMapInputStream.map(input -> input + 1).mapToObj(Objects::toString)
+                    .collect(Collectors.toList());
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_DOUBLE, nfe.getMessage());
+        }
+    }
+
+    @Test
     void testDoubleStreamFromMap_MapToObj() {
         assertEquals(INPUT_DOUBLE, inputStream.mapToObj(Objects::toString)
                 .collect(Collectors.toList()));

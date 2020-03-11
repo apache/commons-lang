@@ -21,19 +21,23 @@ import org.apache.commons.lang3.function.FailableDoubleFunction;
 import org.apache.commons.lang3.function.FailableDoublePredicate;
 import org.apache.commons.lang3.function.FailableDoubleToIntFunction;
 import org.apache.commons.lang3.function.FailableDoubleToLongFunction;
+import org.apache.commons.lang3.function.FailableDoubleUnaryOperator;
 import org.apache.commons.lang3.function.FailableIntConsumer;
 import org.apache.commons.lang3.function.FailableIntFunction;
 import org.apache.commons.lang3.function.FailableIntPredicate;
 import org.apache.commons.lang3.function.FailableIntToDoubleFunction;
 import org.apache.commons.lang3.function.FailableIntToLongFunction;
+import org.apache.commons.lang3.function.FailableIntUnaryOperator;
 import org.apache.commons.lang3.function.FailableLongConsumer;
 import org.apache.commons.lang3.function.FailableLongFunction;
 import org.apache.commons.lang3.function.FailableLongPredicate;
 import org.apache.commons.lang3.function.FailableLongToDoubleFunction;
 import org.apache.commons.lang3.function.FailableLongToIntFunction;
+import org.apache.commons.lang3.function.FailableLongUnaryOperator;
 import org.apache.commons.lang3.function.FailableToDoubleFunction;
 import org.apache.commons.lang3.function.FailableToIntFunction;
 import org.apache.commons.lang3.function.FailableToLongFunction;
+import org.apache.commons.lang3.function.FailableUnaryOperator;
 import org.apache.commons.lang3.stream.FailableStream;
 
 import java.io.IOException;
@@ -51,22 +55,26 @@ import java.util.function.DoubleFunction;
 import java.util.function.DoublePredicate;
 import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleToLongFunction;
+import java.util.function.DoubleUnaryOperator;
 import java.util.function.Function;
 import java.util.function.IntConsumer;
 import java.util.function.IntFunction;
 import java.util.function.IntPredicate;
 import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
+import java.util.function.IntUnaryOperator;
 import java.util.function.LongConsumer;
 import java.util.function.LongFunction;
 import java.util.function.LongPredicate;
 import java.util.function.LongToDoubleFunction;
 import java.util.function.LongToIntFunction;
+import java.util.function.LongUnaryOperator;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
+import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 
@@ -93,6 +101,8 @@ import java.util.stream.Stream;
  * }</pre>
  * Obviously, the second version is much more concise and the spirit of
  * Lambda expressions is met better than the second version.
+ *
+ * @see org.apache.commons.lang3.function
  */
 public class Functions {
 
@@ -589,6 +599,47 @@ public class Functions {
     }
 
     /**
+     * Converts the given {@link FailableUnaryOperator} into a standard {@link UnaryOperator}.
+     *
+     * @param unaryOperator a {@code FailableUnaryOperator}
+     * @param <I> the type of the input of the functions
+     * @return a standard {@code UnaryOperator}
+     */
+    public static <I> UnaryOperator<I> asUnaryOperator(final FailableUnaryOperator<I, ?> unaryOperator) {
+        return input -> apply(unaryOperator, input);
+    }
+
+    /**
+     * Converts the given {@link FailableDoubleUnaryOperator} into a standard {@link DoubleUnaryOperator}.
+     *
+     * @param doubleUnaryOperator a {@code FailableDoubleUnaryOperator}
+     * @return a standard {@code DoubleUnaryOperator}
+     */
+    public static DoubleUnaryOperator asDoubleUnaryOperator(final FailableDoubleUnaryOperator<?> doubleUnaryOperator) {
+        return input -> applyDoubleUnaryOperator(doubleUnaryOperator, input);
+    }
+
+    /**
+     * Converts the given {@link FailableIntUnaryOperator} into a standard {@link IntUnaryOperator}.
+     *
+     * @param intUnaryOperator a {@code FailableIntUnaryOperator}
+     * @return a standard {@code IntUnaryOperator}
+     */
+    public static IntUnaryOperator asIntUnaryOperator(final FailableIntUnaryOperator<?> intUnaryOperator) {
+        return input -> applyIntUnaryOperator(intUnaryOperator, input);
+    }
+
+    /**
+     * Converts the given {@link FailableLongUnaryOperator} into a standard {@link LongUnaryOperator}.
+     *
+     * @param longUnaryOperator a {@code FailableLongUnaryOperator}
+     * @return a standard {@code LongUnaryOperator}
+     */
+    public static LongUnaryOperator asLongUnaryOperator(final FailableLongUnaryOperator<?> longUnaryOperator) {
+        return input -> applyLongUnaryOperator(longUnaryOperator, input);
+    }
+
+    /**
      * Runs a runnable and rethrows any exception as a {@link RuntimeException}.
      * @param runnable The runnable to run
      * @param <T> the type of checked exception the runnable may throw
@@ -819,6 +870,39 @@ public class Functions {
 
     /**
      * Applies a function and rethrows any exception as a {@link RuntimeException}.
+     *
+     * @param doubleUnaryOperator the function to apply
+     * @param input the input to apply the function on
+     * @return the value returned from the function
+     */
+    public static double applyDoubleUnaryOperator(final FailableDoubleUnaryOperator<?> doubleUnaryOperator, double input) {
+        return get(() -> doubleUnaryOperator.applyAsDouble(input));
+    }
+
+    /**
+     * Applies a function and rethrows any exception as a {@link RuntimeException}.
+     *
+     * @param intUnaryOperator the function to apply
+     * @param input the input to apply the function on
+     * @return the value returned from the function
+     */
+    public static int applyIntUnaryOperator(final FailableIntUnaryOperator<?> intUnaryOperator, int input) {
+        return get(() -> intUnaryOperator.applyAsInt(input));
+    }
+
+    /**
+     * Applies a function and rethrows any exception as a {@link RuntimeException}.
+     *
+     * @param longUnaryOperator the function to apply
+     * @param input the input to apply the function on
+     * @return the value returned from the function
+     */
+    public static long applyLongUnaryOperator(final FailableLongUnaryOperator<?> longUnaryOperator, long input) {
+        return get(() -> longUnaryOperator.applyAsLong(input));
+    }
+
+    /**
+     * Applies a function and rethrows any exception as a {@link RuntimeException}.
      * @param function the function to apply
      * @param input1 the first input to apply {@code function} on
      * @param input2 the second input to apply {@code function} on
@@ -938,7 +1022,6 @@ public class Functions {
     public static <O> FailableStream<O> stream(final Collection<O> collection) {
         return new FailableStream<>(collection.stream());
     }
-
 
     /**
      * A simple try-with-resources implementation, that can be used, if your

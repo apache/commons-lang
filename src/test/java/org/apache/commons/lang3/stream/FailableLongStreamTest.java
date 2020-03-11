@@ -355,6 +355,46 @@ public class FailableLongStreamTest {
     }
 
     @Test
+    void testLongStreamFromMap_Map() {
+        final List<String> expectedResults = Arrays.asList("1000000001", "2000000001", "3000000001",
+                "4000000001", "5000000001", "6000000001");
+        final List<String> actualResults = inputStream.map(input -> input + 1)
+                .mapToObj(Objects::toString).collect(Collectors.toList());
+
+        assertEquals(expectedResults, actualResults);
+    }
+
+    @Test
+    void testLongStreamFromMap_MapFailing() {
+        try {
+            failingInputStream.map(input -> input + 1).mapToObj(Objects::toString)
+                    .collect(Collectors.toList());
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testLongStreamFromFlatMap_Map() {
+        final List<String> expectedResults = Arrays.asList("1000000001", "2000000001", "3000000001",
+                "4000000001", "5000000001", "6000000001", "7000000001", "8000000001");
+        final List<String> actualResults = flatMapInputStream.map(input -> input + 1)
+                .mapToObj(Objects::toString).collect(Collectors.toList());
+
+        assertEquals(expectedResults, actualResults);
+    }
+
+    @Test
+    void testLongStreamFromFlatMap_MapFailing() {
+        try {
+            failingFlatMapInputStream.map(input -> input + 1).mapToObj(Objects::toString)
+                    .collect(Collectors.toList());
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
+        }
+    }
+
+    @Test
     void testLongStreamFromMap_MapToObj() {
         assertEquals(INPUT_LONG, inputStream.mapToObj(Objects::toString)
                 .collect(Collectors.toList()));

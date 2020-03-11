@@ -22,6 +22,7 @@ import org.apache.commons.lang3.function.FailableLongFunction;
 import org.apache.commons.lang3.function.FailableLongPredicate;
 import org.apache.commons.lang3.function.FailableLongToDoubleFunction;
 import org.apache.commons.lang3.function.FailableLongToIntFunction;
+import org.apache.commons.lang3.function.FailableLongUnaryOperator;
 
 import java.util.Iterator;
 import java.util.OptionalDouble;
@@ -32,6 +33,7 @@ import java.util.function.LongFunction;
 import java.util.function.LongPredicate;
 import java.util.function.LongToDoubleFunction;
 import java.util.function.LongToIntFunction;
+import java.util.function.LongUnaryOperator;
 import java.util.stream.LongStream;
 
 /**
@@ -148,6 +150,23 @@ public class FailableLongStream extends FailableBaseStream<Long, FailableLongStr
     public void forEach(final FailableLongConsumer<?> action) {
         makeTerminated();
         longStream.forEach(Functions.asLongConsumer(action));
+    }
+
+    /**
+     * Returns a stream consisting of the results of applying the given
+     * function to the elements of this stream.
+     *
+     * <p>This is an intermediate operation.
+     *
+     * @param mapper a non-interfering, stateless function to apply to each element
+     * @return the new stream
+     *
+     * @see LongStream#map(LongUnaryOperator)
+     */
+    public FailableLongStream map(final FailableLongUnaryOperator<?> mapper) {
+        assertNotTerminated();
+        longStream = longStream.map(Functions.asLongUnaryOperator(mapper));
+        return this;
     }
 
     /**

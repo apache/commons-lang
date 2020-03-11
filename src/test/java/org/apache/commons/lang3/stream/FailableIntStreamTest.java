@@ -21,6 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -344,6 +345,44 @@ public class FailableIntStreamTest {
         try {
             failingFlatMapInputStream.forEach(value -> {});
             fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testIntStreamFromMap_Map() {
+        final List<String> expectedResults = Arrays.asList("2", "3", "4", "5", "6", "7");
+        final List<String> actualResults = inputStream.map(input -> input + 1)
+                .mapToObj(Objects::toString).collect(Collectors.toList());
+
+        assertEquals(expectedResults, actualResults);
+    }
+
+    @Test
+    void testIntStreamFromMap_MapFailing() {
+        try {
+            failingInputStream.map(input -> input + 1).mapToObj(Objects::toString)
+                    .collect(Collectors.toList());
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testIntStreamFromFlatMap_Map() {
+        final List<String> expectedResults = Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9");
+        final List<String> actualResults = flatMapInputStream.map(input -> input + 1)
+                .mapToObj(Objects::toString).collect(Collectors.toList());
+
+        assertEquals(expectedResults, actualResults);
+    }
+
+    @Test
+    void testIntStreamFromFlatMap_MapFailing() {
+        try {
+            failingFlatMapInputStream.map(input -> input + 1).mapToObj(Objects::toString)
+                    .collect(Collectors.toList());
         } catch (final NumberFormatException nfe) {
             assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
         }

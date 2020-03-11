@@ -22,6 +22,7 @@ import org.apache.commons.lang3.function.FailableIntFunction;
 import org.apache.commons.lang3.function.FailableIntPredicate;
 import org.apache.commons.lang3.function.FailableIntToDoubleFunction;
 import org.apache.commons.lang3.function.FailableIntToLongFunction;
+import org.apache.commons.lang3.function.FailableIntUnaryOperator;
 
 import java.util.Iterator;
 import java.util.OptionalDouble;
@@ -32,6 +33,7 @@ import java.util.function.IntFunction;
 import java.util.function.IntPredicate;
 import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
+import java.util.function.IntUnaryOperator;
 import java.util.stream.IntStream;
 
 /**
@@ -148,6 +150,23 @@ public class FailableIntStream extends FailableBaseStream<Integer, FailableIntSt
     public void forEach(final FailableIntConsumer<?> action) {
         makeTerminated();
         intStream.forEach(Functions.asIntConsumer(action));
+    }
+
+    /**
+     * Returns a stream consisting of the results of applying the given
+     * function to the elements of this stream.
+     *
+     * <p>This is an intermediate operation.
+     *
+     * @param mapper a non-interfering, stateless function to apply to each element
+     * @return the new stream
+     *
+     * @see IntStream#map(IntUnaryOperator)
+     */
+    public FailableIntStream map(FailableIntUnaryOperator<?> mapper) {
+        assertNotTerminated();
+        intStream = intStream.map(Functions.asIntUnaryOperator(mapper));
+        return this;
     }
 
     /**

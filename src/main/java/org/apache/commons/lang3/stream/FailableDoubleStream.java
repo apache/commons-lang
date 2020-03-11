@@ -22,6 +22,7 @@ import org.apache.commons.lang3.function.FailableDoubleFunction;
 import org.apache.commons.lang3.function.FailableDoublePredicate;
 import org.apache.commons.lang3.function.FailableDoubleToIntFunction;
 import org.apache.commons.lang3.function.FailableDoubleToLongFunction;
+import org.apache.commons.lang3.function.FailableDoubleUnaryOperator;
 
 import java.util.Iterator;
 import java.util.OptionalDouble;
@@ -31,6 +32,7 @@ import java.util.function.DoubleFunction;
 import java.util.function.DoublePredicate;
 import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleToLongFunction;
+import java.util.function.DoubleUnaryOperator;
 import java.util.stream.DoubleStream;
 
 /**
@@ -156,6 +158,23 @@ public class FailableDoubleStream extends FailableBaseStream<Double, FailableDou
     public void forEach(final FailableDoubleConsumer<?> action) {
         makeTerminated();
         doubleStream.forEach(Functions.asDoubleConsumer(action));
+    }
+
+    /**
+     * Returns a stream consisting of the results of applying the given
+     * function to the elements of this stream.
+     *
+     * <p>This is an intermediate operation.
+     *
+     * @param mapper a non-interfering, stateless function to apply to each element
+     * @return the new stream
+     *
+     * @see DoubleStream#map(DoubleUnaryOperator)
+     */
+    public FailableDoubleStream map(final FailableDoubleUnaryOperator<?> mapper) {
+        assertNotTerminated();
+        doubleStream = doubleStream.map(Functions.asDoubleUnaryOperator(mapper));
+        return this;
     }
 
     /**
