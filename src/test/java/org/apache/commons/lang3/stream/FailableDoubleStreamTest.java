@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.stream;
 
 import org.apache.commons.lang3.Functions;
+import org.apache.commons.lang3.Streams;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -72,6 +73,133 @@ public class FailableDoubleStreamTest {
     @Test
     void testDoubleStreamFromFlatMapCount() {
         assertEquals(8L, flatMapInputStream.count());
+    }
+
+    @Test
+    void testDoubleStreamFromMapDistinct() {
+        final List<Double> input = inputStream.boxed().collect(Collectors.toList());
+        input.add(1.5);
+
+        final List<String> actualResult = Streams.failableStream(input)
+                .mapToDouble(Double::valueOf).distinct().boxed()
+                .map(Objects::toString).collect(Collectors.toList());
+
+        assertEquals(INPUT_DOUBLE, actualResult);
+    }
+
+    @Test
+    void testDoubleStreamFromMapDistinctFailing() {
+        final List<String> input = new ArrayList<>(failingInput);
+        input.add("1.5");
+
+        try {
+            Streams.failableStream(input)
+                    .mapToDouble(Double::valueOf).distinct().boxed()
+                    .map(Objects::toString).collect(Collectors.toList());
+            fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_DOUBLE, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testDoubleStreamFromFlatMapDistinct() {
+        final List<Double> input = flatMapInputStream.boxed().collect(Collectors.toList());
+        input.add(1.5);
+
+        final List<String> expectedResult = FLAT_MAP_INPUT_DOUBLE.stream()
+                .flatMap(Collection::stream).collect(Collectors.toList());
+        final List<String> actualResult = Streams.failableStream(input)
+                .mapToDouble(Double::valueOf).distinct().boxed()
+                .map(Objects::toString).collect(Collectors.toList());
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void testDoubleStreamFromFlatMapDistinctFailing() {
+        final List<String> input = failingFlatMapInput.stream().flatMap(Collection::stream)
+                .collect(Collectors.toList());
+        input.add("1.5");
+
+        try {
+            Streams.failableStream(input)
+                    .mapToDouble(Double::valueOf).distinct().boxed()
+                    .map(Objects::toString).collect(Collectors.toList());
+            fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_DOUBLE, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testDoubleStreamFromMapLimit() {
+        assertEquals(4L, inputStream.limit(4).count());
+    }
+
+    @Test
+    void testDoubleStreamFromMapLimit_IncludeInvalidElement() {
+        try {
+            failingInputStream.limit(4).count();
+            fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_DOUBLE, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testDoubleStreamFromMapLimit_ExcludeInvalidElement() {
+        assertEquals(3L, failingInputStream.limit(3).count());
+    }
+
+    @Test
+    void testDoubleStreamFromFlatMapLimit() {
+        assertEquals(4L, flatMapInputStream.limit(4).count());
+    }
+
+    @Test
+    void testDoubleStreamFromFlatMapLimit_IncludeInvalidElement() {
+        try {
+            failingFlatMapInputStream.limit(4).count();
+            fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_DOUBLE, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testDoubleStreamFromFlatMapLimit_ExcludeInvalidElement() {
+        assertEquals(3L, failingFlatMapInputStream.limit(3).count());
+    }
+
+    @Test
+    void testDoubleStreamFromMapSkip() {
+        assertEquals(4L, inputStream.skip(2).count());
+    }
+
+    @Test
+    void testDoubleStreamFromMapSkipFailing() {
+        try {
+            failingInputStream.skip(2).count();
+            fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_DOUBLE, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testDoubleStreamFromFlatMapSkip() {
+        assertEquals(6L, flatMapInputStream.skip(2).count());
+    }
+
+    @Test
+    void testDoubleStreamFromFlatMapSkipFailing() {
+        try {
+            failingFlatMapInputStream.skip(2).count();
+            fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_DOUBLE, nfe.getMessage());
+        }
     }
 
     @Test

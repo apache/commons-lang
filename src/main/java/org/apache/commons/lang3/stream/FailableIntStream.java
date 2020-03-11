@@ -321,4 +321,32 @@ public class FailableIntStream extends FailableBaseStream<Integer, FailableIntSt
         intStream = intStream.parallel();
         return this;
     }
+
+    @Override
+    public FailableIntStream sorted() {
+        assertNotTerminated();
+        intStream = intStream.sorted();
+        return this;
+    }
+
+    @Override
+    public FailableIntStream unordered() {
+        assertNotTerminated();
+        intStream = intStream.unordered();
+        return this;
+    }
+
+    @Override
+    public FailableIntStream limit(long maxSize) {
+        assertNotTerminated();
+        intStream = intStream.limit(maxSize);
+        return this;
+    }
+
+    @Override
+    public FailableIntStream skip(long n) {
+        assertNotTerminated();
+        intStream = intStream.skip(n);
+        return this;
+    }
 }

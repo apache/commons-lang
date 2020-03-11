@@ -67,6 +67,16 @@ public class FailableStreamTest {
     }
 
     @Test
+    void testSimpleStreamFromMapLimit() {
+        assertEquals(3L, inputStream.limit(3).count());
+    }
+
+    @Test
+    void testSimpleStreamFromFlatMapLimit() {
+        assertEquals(3L, flatMapInputStream.limit(3).count());
+    }
+
+    @Test
     void testSimpleStreamMap() {
         final List<Integer> output = inputStream.collect(Collectors.toList());
         assertEquals(6, output.size());

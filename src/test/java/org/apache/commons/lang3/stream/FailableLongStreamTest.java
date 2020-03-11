@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.stream;
 
 import org.apache.commons.lang3.Functions;
+import org.apache.commons.lang3.Streams;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -74,6 +75,133 @@ public class FailableLongStreamTest {
     @Test
     void testLongStreamFromFlatMapCount() {
         assertEquals(8L, flatMapInputStream.count());
+    }
+
+    @Test
+    void testLongStreamFromMapDistinct() {
+        final List<Long> input = inputStream.boxed().collect(Collectors.toList());
+        input.add((long) 1E9);
+
+        final List<String> actualResult = Streams.failableStream(input)
+                .mapToLong(Long::valueOf).distinct().boxed()
+                .map(Objects::toString).collect(Collectors.toList());
+
+        assertEquals(INPUT_LONG, actualResult);
+    }
+
+    @Test
+    void testLongStreamFromMapDistinctFailing() {
+        final List<String> input = new ArrayList<>(failingInput);
+        input.add("1000000000");
+
+        try {
+            Streams.failableStream(input)
+                    .mapToLong(Long::valueOf).distinct().boxed()
+                    .map(Objects::toString).collect(Collectors.toList());
+            fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testLongStreamFromFlatMapDistinct() {
+        final List<Long> input = flatMapInputStream.boxed().collect(Collectors.toList());
+        input.add((long) 1E9);
+
+        final List<String> expectedResult = FLAT_MAP_INPUT_LONG.stream()
+                .flatMap(Collection::stream).collect(Collectors.toList());
+        final List<String> actualResult = Streams.failableStream(input)
+                .mapToLong(Long::valueOf).distinct().boxed()
+                .map(Objects::toString).collect(Collectors.toList());
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void testLongStreamFromFlatMapDistinctFailing() {
+        final List<String> input = failingFlatMapInput.stream().flatMap(Collection::stream)
+                .collect(Collectors.toList());
+        input.add("1000000000");
+
+        try {
+            Streams.failableStream(input)
+                    .mapToLong(Long::valueOf).distinct().boxed()
+                    .map(Objects::toString).collect(Collectors.toList());
+            fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testLongStreamFromMapLimit() {
+        assertEquals(4L, inputStream.limit(4).count());
+    }
+
+    @Test
+    void testLongStreamFromMapLimitFailing() {
+        try {
+            failingInputStream.limit(4).count();
+            fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testLongStreamFromMapLimit_ExcludeInvalidElement() {
+        assertEquals(3L, failingInputStream.limit(3).count());
+    }
+
+    @Test
+    void testLongStreamFromFlatMapLimit() {
+        assertEquals(4L, flatMapInputStream.limit(4).count());
+    }
+
+    @Test
+    void testLongStreamFromFlatMapLimitFailing() {
+        try {
+            failingFlatMapInputStream.limit(4).count();
+            fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testLongStreamFromFlatMapLimit_ExcludeInvalidElement() {
+        assertEquals(3L, failingFlatMapInputStream.limit(3).count());
+    }
+
+    @Test
+    void testLongStreamFromMapSkip() {
+        assertEquals(4L, inputStream.skip(2).count());
+    }
+
+    @Test
+    void testLongStreamFromMapSkipFailing() {
+        try {
+            failingInputStream.skip(2).count();
+            fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testLongStreamFromFlatMapSkip() {
+        assertEquals(6L, flatMapInputStream.skip(2).count());
+    }
+
+    @Test
+    void testLongStreamFromFlatMapSkipFailing() {
+        try {
+            failingFlatMapInputStream.skip(2).count();
+            fail(EXPECTED_EXCEPTION);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
+        }
     }
 
     @Test

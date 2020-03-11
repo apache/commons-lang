@@ -321,4 +321,32 @@ public class FailableLongStream extends FailableBaseStream<Long, FailableLongStr
         longStream = longStream.parallel();
         return this;
     }
+
+    @Override
+    public FailableLongStream sorted() {
+        assertNotTerminated();
+        longStream = longStream.sorted();
+        return this;
+    }
+
+    @Override
+    public FailableLongStream unordered() {
+        assertNotTerminated();
+        longStream = longStream.unordered();
+        return this;
+    }
+
+    @Override
+    public FailableLongStream limit(long maxSize) {
+        assertNotTerminated();
+        longStream = longStream.limit(maxSize);
+        return this;
+    }
+
+    @Override
+    public FailableLongStream skip(long n) {
+        assertNotTerminated();
+        longStream = longStream.skip(n);
+        return this;
+    }
 }

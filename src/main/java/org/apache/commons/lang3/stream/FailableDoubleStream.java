@@ -395,4 +395,32 @@ public class FailableDoubleStream extends FailableBaseStream<Double, FailableDou
         doubleStream = doubleStream.parallel();
         return this;
     }
+
+    @Override
+    public FailableDoubleStream sorted() {
+        assertNotTerminated();
+        doubleStream = doubleStream.sorted();
+        return this;
+    }
+
+    @Override
+    public FailableDoubleStream unordered() {
+        assertNotTerminated();
+        doubleStream = doubleStream.unordered();
+        return this;
+    }
+
+    @Override
+    public FailableDoubleStream limit(long maxSize) {
+        assertNotTerminated();
+        doubleStream = doubleStream.limit(maxSize);
+        return this;
+    }
+
+    @Override
+    public FailableDoubleStream skip(long n) {
+        assertNotTerminated();
+        doubleStream = doubleStream.skip(n);
+        return this;
+    }
 }

@@ -21,6 +21,7 @@ import org.apache.commons.lang3.function.FailableToDoubleFunction;
 import org.apache.commons.lang3.function.FailableToIntFunction;
 import org.apache.commons.lang3.function.FailableToLongFunction;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.function.BiConsumer;
@@ -461,6 +462,27 @@ public class FailableStream<O> extends FailableBaseStream<O, FailableStream<O>> 
         return stream().anyMatch(Functions.asPredicate(predicate));
     }
 
+    /**
+     * Returns a stream consisting of the elements of this stream, sorted
+     * according to the provided {@code Comparator}.
+     *
+     * <p>For ordered streams, the sort is stable.  For unordered streams, no
+     * stability guarantees are made.
+     *
+     * <p>This is a stateful intermediate operation.
+     *
+     * @param comparator a non-interfering, stateless {@code Comparator}
+     *                   to be used to compare stream elements
+     * @return the new stream
+     *
+     * @see Stream#sorted(Comparator)
+     */
+    public FailableStream<O> sorted(Comparator<? super O> comparator) {
+        assertNotTerminated();
+        stream = stream.sorted(comparator);
+        return this;
+    }
+
     @Override
     public long count() {
         makeTerminated();
@@ -497,6 +519,34 @@ public class FailableStream<O> extends FailableBaseStream<O, FailableStream<O>> 
     public FailableStream<O> parallel() {
         assertNotTerminated();
         stream = stream.parallel();
+        return this;
+    }
+
+    @Override
+    public FailableStream<O> sorted() {
+        assertNotTerminated();
+        stream = stream.sorted();
+        return this;
+    }
+
+    @Override
+    public FailableStream<O> unordered() {
+        assertNotTerminated();
+        stream = stream.unordered();
+        return this;
+    }
+
+    @Override
+    public FailableStream<O> limit(long maxSize) {
+        assertNotTerminated();
+        stream = stream.limit(maxSize);
+        return this;
+    }
+
+    @Override
+    public FailableStream<O> skip(long n) {
+        assertNotTerminated();
+        stream = stream.skip(n);
         return this;
     }
 }
