@@ -156,18 +156,13 @@ public class FailableIntStreamTest {
     }
 
     @Test
-    void testIntStreamFromFlatMapLimit_IncludeInvalidElement() {
+    void testIntStreamFromFlatMapLimitFailing() {
         try {
             failingFlatMapInputStream.limit(4).count();
             fail(EXPECTED_EXCEPTION);
         } catch (final NumberFormatException nfe) {
             assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
         }
-    }
-
-    @Test
-    void testIntStreamFromFlatMapLimit_ExcludeInvalidElement() {
-        assertEquals(3L, failingFlatMapInputStream.limit(3).count());
     }
 
     @Test

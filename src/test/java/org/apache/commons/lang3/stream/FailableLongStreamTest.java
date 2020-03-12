@@ -170,11 +170,6 @@ public class FailableLongStreamTest {
     }
 
     @Test
-    void testLongStreamFromFlatMapLimit_ExcludeInvalidElement() {
-        assertEquals(3L, failingFlatMapInputStream.limit(3).count());
-    }
-
-    @Test
     void testLongStreamFromMapSkip() {
         assertEquals(4L, inputStream.skip(2).count());
     }

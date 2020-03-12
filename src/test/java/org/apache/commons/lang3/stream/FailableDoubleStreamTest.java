@@ -158,18 +158,13 @@ public class FailableDoubleStreamTest {
     }
 
     @Test
-    void testDoubleStreamFromFlatMapLimit_IncludeInvalidElement() {
+    void testDoubleStreamFromFlatMapLimitFailing() {
         try {
             failingFlatMapInputStream.limit(4).count();
             fail(EXPECTED_EXCEPTION);
         } catch (final NumberFormatException nfe) {
             assertEquals(EXPECTED_NFE_MESSAGE_DOUBLE, nfe.getMessage());
         }
-    }
-
-    @Test
-    void testDoubleStreamFromFlatMapLimit_ExcludeInvalidElement() {
-        assertEquals(3L, failingFlatMapInputStream.limit(3).count());
     }
 
     @Test
