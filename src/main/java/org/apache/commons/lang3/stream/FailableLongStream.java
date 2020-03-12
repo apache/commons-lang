@@ -283,6 +283,60 @@ public class FailableLongStream extends FailableBaseStream<Long, FailableLongStr
         return longStream.sum();
     }
 
+    /**
+     * Returns whether all elements of this stream match the provided predicate.
+     * May not evaluate the predicate on all elements if not necessary for
+     * determining the result.  If the stream is empty then {@code true} is
+     * returned and the predicate is not evaluated.
+     *
+     * <p>This is a short-circuiting terminal operation.
+     *
+     * @param predicate a non-interfering, stateless predicate to apply
+     *                  to elements of this stream
+     * @return {@code true} if either all elements of the stream match the
+     * provided predicate or the stream is empty, otherwise {@code false}
+     */
+    public boolean allMatch(final FailableLongPredicate<?> predicate) {
+        makeTerminated();
+        return longStream.allMatch(Functions.asLongPredicate(predicate));
+    }
+
+    /**
+     * Returns whether any elements of this stream match the provided
+     * predicate.  May not evaluate the predicate on all elements if not
+     * necessary for determining the result.  If the stream is empty then
+     * {@code false} is returned and the predicate is not evaluated.
+     *
+     * <p>This is a short-circuiting terminal operation.
+     *
+     * @param predicate a non-interfering, stateless predicate to apply
+     *                  to elements of this stream
+     * @return {@code true} if any elements of the stream match the provided
+     * predicate, otherwise {@code false}
+     */
+    public boolean anyMatch(final FailableLongPredicate<?> predicate) {
+        makeTerminated();
+        return longStream.anyMatch(Functions.asLongPredicate(predicate));
+    }
+
+    /**
+     * Returns whether no elements of this stream match the provided predicate.
+     * May not evaluate the predicate on all elements if not necessary for
+     * determining the result.  If the stream is empty then {@code true} is
+     * returned and the predicate is not evaluated.
+     *
+     * <p>This is a short-circuiting terminal operation.
+     *
+     * @param predicate a non-interfering, stateless predicate to apply to
+     *                  elements of this stream
+     * @return {@code true} if either no elements of the stream match the
+     * provided predicate or the stream is empty, otherwise {@code false}
+     */
+    public boolean noneMatch(final FailableLongPredicate<?> predicate) {
+        makeTerminated();
+        return longStream.noneMatch(Functions.asLongPredicate(predicate));
+    }
+
     @Override
     public long count() {
         makeTerminated();

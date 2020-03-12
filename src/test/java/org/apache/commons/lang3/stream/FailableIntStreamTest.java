@@ -626,4 +626,46 @@ public class FailableIntStreamTest {
             assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
         }
     }
+
+    @Test
+    void testIntStreamFromMapAllMatch() {
+        assertTrue(inputStream.allMatch(Objects::nonNull));
+    }
+
+    @Test
+    void testIntStreamFromMapAllMatchFailing() {
+        try {
+            failingInputStream.allMatch(Objects::nonNull);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testIntStreamFromMapAnyMatch() {
+        assertTrue(inputStream.anyMatch(i -> i % 2 == 0));
+    }
+
+    @Test
+    void testIntStreamFromMapAnyMatchFailing() {
+        try {
+            failingInputStream.anyMatch(i -> i % 2 == 0);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testIntStreamFromMapNoneMatch() {
+        assertTrue(inputStream.noneMatch(Objects::isNull));
+    }
+
+    @Test
+    void testIntStreamFromMapNoneMatchFailing() {
+        try {
+            failingInputStream.noneMatch(Objects::isNull);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+        }
+    }
 }

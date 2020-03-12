@@ -633,4 +633,46 @@ public class FailableLongStreamTest {
             assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
         }
     }
+
+    @Test
+    void testLongStreamFromMapAllMatch() {
+        assertTrue(inputStream.allMatch(Objects::nonNull));
+    }
+
+    @Test
+    void testLongStreamFromMapAllMatchFailing() {
+        try {
+            failingInputStream.allMatch(Objects::nonNull);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testLongStreamFromMapAnyMatch() {
+        assertTrue(inputStream.anyMatch(i -> i % 2 == 0));
+    }
+
+    @Test
+    void testLongStreamFromMapAnyMatchFailing() {
+        try {
+            failingInputStream.anyMatch(i -> i % 2 == 0);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testLongStreamFromMapNoneMatch() {
+        assertTrue(inputStream.noneMatch(Objects::isNull));
+    }
+
+    @Test
+    void testLongStreamFromMapNoneMatchFailing() {
+        try {
+            failingInputStream.noneMatch(Objects::isNull);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
+        }
+    }
 }

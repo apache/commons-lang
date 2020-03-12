@@ -463,6 +463,24 @@ public class FailableStream<O> extends FailableBaseStream<O, FailableStream<O>> 
     }
 
     /**
+     * Returns whether no elements of this stream match the provided predicate.
+     * May not evaluate the predicate on all elements if not necessary for
+     * determining the result.  If the stream is empty then {@code true} is
+     * returned and the predicate is not evaluated.
+     *
+     * <p>This is a short-circuiting terminal operation.
+     *
+     * @param predicate a non-interfering, stateless predicate to apply to
+     *                  elements of this stream
+     * @return {@code true} if either no elements of the stream match the
+     * provided predicate or the stream is empty, otherwise {@code false}
+     */
+    public boolean noneMatch(final Functions.FailablePredicate<? super O, ?> predicate) {
+        assertNotTerminated();
+        return stream.noneMatch(Functions.asPredicate(predicate));
+    }
+
+    /**
      * Returns a stream consisting of the elements of this stream, sorted
      * according to the provided {@code Comparator}.
      *

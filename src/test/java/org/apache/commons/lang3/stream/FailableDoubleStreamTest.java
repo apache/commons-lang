@@ -629,4 +629,46 @@ public class FailableDoubleStreamTest {
             assertEquals(EXPECTED_NFE_MESSAGE_DOUBLE, nfe.getMessage());
         }
     }
+
+    @Test
+    void testDoubleStreamFromMapAllMatch() {
+        assertTrue(inputStream.allMatch(Objects::nonNull));
+    }
+
+    @Test
+    void testDoubleStreamFromMapAllMatchFailing() {
+        try {
+            failingInputStream.allMatch(Objects::nonNull);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_DOUBLE, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testDoubleStreamFromMapAnyMatch() {
+        assertTrue(inputStream.anyMatch(i -> i % 2 != 0));
+    }
+
+    @Test
+    void testDoubleStreamFromMapAnyMatchFailing() {
+        try {
+            failingInputStream.anyMatch(i -> i % 2 != 0);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_DOUBLE, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testDoubleStreamFromMapNoneMatch() {
+        assertTrue(inputStream.noneMatch(Objects::isNull));
+    }
+
+    @Test
+    void testDoubleStreamFromMapNoneMatchFailing() {
+        try {
+            failingInputStream.noneMatch(Objects::isNull);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_DOUBLE, nfe.getMessage());
+        }
+    }
 }

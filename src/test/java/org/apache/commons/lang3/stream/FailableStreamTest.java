@@ -251,13 +251,27 @@ public class FailableStreamTest {
 
     @Test
     void testSimpleStreamAnyMatch() {
-        assertTrue(Functions.failableStream(TestConstants.INPUT_INT).map(Integer::valueOf).anyMatch(i -> i % 2 == 0));
+        assertTrue(inputStream.map(Integer::valueOf).anyMatch(i -> i % 2 == 0));
     }
 
     @Test
     void testSimpleStreamAnyMatchFailing() {
         try {
             failingInputStream.anyMatch(i -> i % 2 == 0);
+        } catch (final NumberFormatException nfe) {
+            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
+        }
+    }
+
+    @Test
+    void testSimpleStreamNoneMatch() {
+        assertTrue(inputStream.map(Integer::valueOf).noneMatch(Objects::isNull));
+    }
+
+    @Test
+    void testSimpleStreamNoneMatchFailing() {
+        try {
+            failingInputStream.noneMatch(Objects::isNull);
         } catch (final NumberFormatException nfe) {
             assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
         }
