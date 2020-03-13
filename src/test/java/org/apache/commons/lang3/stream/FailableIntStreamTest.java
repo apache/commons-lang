@@ -17,9 +17,9 @@
 package org.apache.commons.lang3.stream;
 
 import org.apache.commons.lang3.Functions;
-import org.apache.commons.lang3.Streams;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +31,6 @@ import java.util.OptionalInt;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.apache.commons.lang3.stream.TestConstants.EXPECTED_EXCEPTION;
 import static org.apache.commons.lang3.stream.TestConstants.EXPECTED_NFE_MESSAGE_INT;
 import static org.apache.commons.lang3.stream.TestConstants.FAILING_FLAT_MAP_INPUT_INT;
 import static org.apache.commons.lang3.stream.TestConstants.FAILING_INPUT_INT;
@@ -42,8 +41,8 @@ import static org.apache.commons.lang3.stream.TestConstants.INPUT_DOUBLE;
 import static org.apache.commons.lang3.stream.TestConstants.INPUT_INT;
 import static org.apache.commons.lang3.stream.TestConstants.INPUT_LONG;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class FailableIntStreamTest {
     private static final Functions.FailableFunction<List<String>, IntStream, ?> LIST_TO_INT_STREAM =
@@ -78,9 +77,8 @@ public class FailableIntStreamTest {
         final List<Integer> input = inputStream.boxed().collect(Collectors.toList());
         input.add(1);
 
-        final List<String> actualResult = Streams.failableStream(input)
-                .mapToInt(Integer::valueOf).distinct().boxed()
-                .map(Objects::toString).collect(Collectors.toList());
+        final List<String> actualResult = Functions.failableIntStream(input, Integer::valueOf)
+                .distinct().boxed().map(Objects::toString).collect(Collectors.toList());
 
         assertEquals(INPUT_INT, actualResult);
     }
@@ -90,14 +88,10 @@ public class FailableIntStreamTest {
         final List<String> input = new ArrayList<>(FAILING_INPUT_INT);
         input.add("1");
 
-        try {
-            Streams.failableStream(input)
-                    .mapToInt(Integer::valueOf).distinct().boxed()
-                    .map(Objects::toString).collect(Collectors.toList());
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        final Executable executable = () -> Functions.failableIntStream(input, Integer::valueOf)
+                .distinct().boxed().map(Objects::toString).collect(Collectors.toList());
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -107,9 +101,8 @@ public class FailableIntStreamTest {
 
         final List<String> expectedResult = FLAT_MAP_INPUT_INT.stream()
                 .flatMap(Collection::stream).collect(Collectors.toList());
-        final List<String> actualResult = Streams.failableStream(input)
-                .mapToInt(Integer::valueOf).distinct().boxed()
-                .map(Objects::toString).collect(Collectors.toList());
+        final List<String> actualResult = Functions.failableIntStream(input, Integer::valueOf)
+                .distinct().boxed().map(Objects::toString).collect(Collectors.toList());
 
         assertEquals(expectedResult, actualResult);
     }
@@ -120,14 +113,10 @@ public class FailableIntStreamTest {
                 .collect(Collectors.toList());
         input.add("1");
 
-        try {
-            Streams.failableStream(input)
-                    .mapToInt(Integer::valueOf).distinct().boxed()
-                    .map(Objects::toString).collect(Collectors.toList());
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        final Executable executable = () -> Functions.failableIntStream(input, Integer::valueOf)
+                .distinct().boxed().map(Objects::toString).collect(Collectors.toList());
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -137,12 +126,8 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromMapLimit_IncludeInvalidElement() {
-        try {
-            failingInputStream.limit(4).count();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class, () -> failingInputStream.limit(4).count(),
+                EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -157,12 +142,8 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromFlatMapLimitFailing() {
-        try {
-            failingFlatMapInputStream.limit(4).count();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class, () -> failingFlatMapInputStream.limit(4).count(),
+                EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -172,12 +153,8 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromMapSkipFailing() {
-        try {
-            failingInputStream.skip(2).count();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class, () -> failingInputStream.skip(2).count(),
+                EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -187,12 +164,8 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromFlatMapSkipFailing() {
-        try {
-            failingFlatMapInputStream.skip(2).count();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class, () -> failingFlatMapInputStream.skip(2).count(),
+                EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -202,12 +175,8 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromMapSumFailing() {
-        try {
-            failingInputStream.sum();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class, () -> failingInputStream.sum(),
+                EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -217,12 +186,8 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromFlatMapSumFailing() {
-        try {
-            failingFlatMapInputStream.sum();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class, () -> failingFlatMapInputStream.sum(),
+                EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -235,12 +200,8 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromMapAverageFailing() {
-        try {
-            failingInputStream.average();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class, () -> failingInputStream.average(),
+                EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -253,12 +214,8 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromFlatMapAverageFailing() {
-        try {
-            failingFlatMapInputStream.average();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class, () -> failingFlatMapInputStream.average(),
+                EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -269,12 +226,9 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromMapBoxedFailing() {
-        try {
-            failingInputStream.boxed().collect(Collectors.toList());
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingInputStream.boxed().collect(Collectors.toList()),
+                EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -288,12 +242,9 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromFlatMapBoxedFailing() {
-        try {
-            failingFlatMapInputStream.boxed().collect(Collectors.toList());
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingFlatMapInputStream.boxed().collect(Collectors.toList()),
+                EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -306,12 +257,8 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromMapMaxFailing() {
-        try {
-            failingInputStream.max();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class, () -> failingInputStream.max(),
+                EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -324,12 +271,8 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromFlatMapMaxFailing() {
-        try {
-            failingFlatMapInputStream.max();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class, () -> failingFlatMapInputStream.max(),
+                EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -342,12 +285,8 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromMapMinFailing() {
-        try {
-            failingInputStream.min();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class, () -> failingInputStream.min(),
+                EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -360,12 +299,8 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromFlatMapMinFailing() {
-        try {
-            failingFlatMapInputStream.min();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class, () -> failingFlatMapInputStream.min(),
+                EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -444,12 +379,9 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromMapForEachFailing() {
-        try {
-            failingInputStream.forEach(value -> {});
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingInputStream.forEach(value -> {}),
+                EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -465,12 +397,9 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromFlatMapForEachFailing() {
-        try {
-            failingFlatMapInputStream.forEach(value -> {});
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingFlatMapInputStream.forEach(value -> {}),
+                EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -484,12 +413,10 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromMap_MapFailing() {
-        try {
-            failingInputStream.map(input -> input + 1).mapToObj(Objects::toString)
-                    .collect(Collectors.toList());
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        final Executable executable = () -> failingInputStream.map(input -> input + 1)
+                .mapToObj(Objects::toString).collect(Collectors.toList());
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -503,12 +430,10 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromFlatMap_MapFailing() {
-        try {
-            failingFlatMapInputStream.map(input -> input + 1).mapToObj(Objects::toString)
-                    .collect(Collectors.toList());
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        final Executable executable = () -> failingFlatMapInputStream.map(input -> input + 1)
+                .mapToObj(Objects::toString).collect(Collectors.toList());
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -519,12 +444,10 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromMap_MapToObjFailing() {
-        try {
-            failingInputStream.mapToObj(Objects::toString).collect(Collectors.toList());
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        final Executable executable = () -> failingInputStream.mapToObj(Objects::toString)
+                .collect(Collectors.toList());
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -538,12 +461,10 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromFlatMap_MapToObjFailing() {
-        try {
-            failingFlatMapInputStream.mapToObj(Objects::toString).collect(Collectors.toList());
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        final Executable executable = () -> failingFlatMapInputStream
+                .mapToObj(Objects::toString).collect(Collectors.toList());
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -556,12 +477,10 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromMap_MapToDoubleFailing() {
-        try {
-            failingInputStream.mapToDouble(value -> value).forEach(value -> {});
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        final Executable executable = () -> failingInputStream.mapToDouble(value -> value)
+                .forEach(value -> {});
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -576,12 +495,10 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromFlatMap_MapToDoubleFailing() {
-        try {
-            failingFlatMapInputStream.mapToDouble(value -> value).forEach(value -> {});
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        final Executable executable = () -> failingFlatMapInputStream
+                .mapToDouble(value -> value).forEach(value -> {});
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -594,12 +511,10 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromMap_MapToLongFailing() {
-        try {
-            failingInputStream.mapToLong(value -> value).forEach(value -> {});
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        final Executable executable = () -> failingInputStream.mapToLong(value -> value)
+                .forEach(value -> {});
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -614,12 +529,10 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromFlatMap_MapToLongFailing() {
-        try {
-            failingFlatMapInputStream.mapToLong(value -> value).forEach(value -> {});
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        final Executable executable = () -> failingFlatMapInputStream
+                .mapToLong(value -> value).forEach(value -> {});
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -629,11 +542,9 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromMapAllMatchFailing() {
-        try {
-            failingInputStream.allMatch(Objects::nonNull);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingInputStream.allMatch(Objects::nonNull),
+                EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -643,11 +554,9 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromMapAnyMatchFailing() {
-        try {
-            failingInputStream.anyMatch(i -> i % 2 == 0);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingInputStream.anyMatch(i -> i == 4),
+                EXPECTED_NFE_MESSAGE_INT);
     }
 
     @Test
@@ -657,10 +566,8 @@ public class FailableIntStreamTest {
 
     @Test
     void testIntStreamFromMapNoneMatchFailing() {
-        try {
-            failingInputStream.noneMatch(Objects::isNull);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_INT, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingInputStream.noneMatch(Objects::isNull),
+                EXPECTED_NFE_MESSAGE_INT);
     }
 }

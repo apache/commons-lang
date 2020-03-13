@@ -28,8 +28,6 @@ public class TestConstants {
     static final String EXPECTED_NFE_MESSAGE_DOUBLE = "For input string: \"4.5x\"";
     static final String EXPECTED_NFE_MESSAGE_LONG = "For input string: \"4000000000 \"";
 
-    static final String EXPECTED_EXCEPTION = "Expected Exception";
-
     private static final List<String> EXTRA_INTS = Arrays.asList("7", "8");
     static final List<String> INPUT_INT = Arrays.asList("1", "2", "3", "4", "5", "6");
     static final List<String> FAILING_INPUT_INT = Arrays.asList("1", "2", "3", "4 ", "5", "6");

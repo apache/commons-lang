@@ -17,9 +17,9 @@
 package org.apache.commons.lang3.stream;
 
 import org.apache.commons.lang3.Functions;
-import org.apache.commons.lang3.Streams;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +31,6 @@ import java.util.OptionalLong;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
-import static org.apache.commons.lang3.stream.TestConstants.EXPECTED_EXCEPTION;
 import static org.apache.commons.lang3.stream.TestConstants.EXPECTED_NFE_MESSAGE_LONG;
 import static org.apache.commons.lang3.stream.TestConstants.FLAT_MAP_INPUT_DOUBLE;
 import static org.apache.commons.lang3.stream.TestConstants.FLAT_MAP_INPUT_INT;
@@ -40,8 +39,8 @@ import static org.apache.commons.lang3.stream.TestConstants.INPUT_DOUBLE;
 import static org.apache.commons.lang3.stream.TestConstants.INPUT_INT;
 import static org.apache.commons.lang3.stream.TestConstants.INPUT_LONG;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class FailableLongStreamTest {
     private static final Functions.FailableFunction<List<String>, LongStream, ?> LIST_TO_LONG_STREAM =
@@ -82,9 +81,8 @@ public class FailableLongStreamTest {
         final List<Long> input = inputStream.boxed().collect(Collectors.toList());
         input.add((long) 1E9);
 
-        final List<String> actualResult = Streams.failableStream(input)
-                .mapToLong(Long::valueOf).distinct().boxed()
-                .map(Objects::toString).collect(Collectors.toList());
+        final List<String> actualResult = Functions.failableLongStream(input, Long::valueOf)
+                .distinct().boxed().map(Objects::toString).collect(Collectors.toList());
 
         assertEquals(INPUT_LONG, actualResult);
     }
@@ -94,14 +92,10 @@ public class FailableLongStreamTest {
         final List<String> input = new ArrayList<>(failingInput);
         input.add("1000000000");
 
-        try {
-            Streams.failableStream(input)
-                    .mapToLong(Long::valueOf).distinct().boxed()
-                    .map(Objects::toString).collect(Collectors.toList());
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        final Executable executable = () -> Functions.failableLongStream(input, Long::valueOf)
+                .distinct().boxed().map(Objects::toString).collect(Collectors.toList());
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -111,9 +105,8 @@ public class FailableLongStreamTest {
 
         final List<String> expectedResult = FLAT_MAP_INPUT_LONG.stream()
                 .flatMap(Collection::stream).collect(Collectors.toList());
-        final List<String> actualResult = Streams.failableStream(input)
-                .mapToLong(Long::valueOf).distinct().boxed()
-                .map(Objects::toString).collect(Collectors.toList());
+        final List<String> actualResult = Functions.failableLongStream(input, Long::valueOf)
+                .distinct().boxed().map(Objects::toString).collect(Collectors.toList());
 
         assertEquals(expectedResult, actualResult);
     }
@@ -124,14 +117,10 @@ public class FailableLongStreamTest {
                 .collect(Collectors.toList());
         input.add("1000000000");
 
-        try {
-            Streams.failableStream(input)
-                    .mapToLong(Long::valueOf).distinct().boxed()
-                    .map(Objects::toString).collect(Collectors.toList());
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        final Executable executable = () -> Functions.failableLongStream(input, Long::valueOf)
+                .distinct().boxed().map(Objects::toString).collect(Collectors.toList());
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -141,12 +130,8 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromMapLimitFailing() {
-        try {
-            failingInputStream.limit(4).count();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingInputStream.limit(4).count(), EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -161,12 +146,8 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromFlatMapLimitFailing() {
-        try {
-            failingFlatMapInputStream.limit(4).count();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingFlatMapInputStream.limit(4).count(), EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -176,12 +157,8 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromMapSkipFailing() {
-        try {
-            failingInputStream.skip(2).count();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingInputStream.skip(2).count(), EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -191,12 +168,8 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromFlatMapSkipFailing() {
-        try {
-            failingFlatMapInputStream.skip(2).count();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingFlatMapInputStream.skip(2).count(), EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -206,12 +179,8 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromMapSumFailing() {
-        try {
-            failingInputStream.sum();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingInputStream.sum(), EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -221,12 +190,8 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromFlatMapSumFailing() {
-        try {
-            failingFlatMapInputStream.sum();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingFlatMapInputStream.sum(), EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -239,12 +204,8 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromMapAverageFailing() {
-        try {
-            failingInputStream.average();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingInputStream.average(), EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -257,12 +218,8 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromFlatMapAverageFailing() {
-        try {
-            failingFlatMapInputStream.average();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingFlatMapInputStream.average(), EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -273,12 +230,9 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromMapBoxedFailing() {
-        try {
-            failingInputStream.boxed().collect(Collectors.toList());
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingInputStream.boxed().collect(Collectors.toList()),
+                EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -292,12 +246,9 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromFlatMapBoxedFailing() {
-        try {
-            failingFlatMapInputStream.boxed().collect(Collectors.toList());
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingFlatMapInputStream.boxed().collect(Collectors.toList()),
+                EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -310,12 +261,8 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromMapMaxFailing() {
-        try {
-            failingInputStream.max();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class, () -> failingInputStream.max(),
+                EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -328,12 +275,8 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromFlatMapMaxFailing() {
-        try {
-            failingFlatMapInputStream.max();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class, () -> failingFlatMapInputStream.max(),
+                EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -346,12 +289,8 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromMapMinFailing() {
-        try {
-            failingInputStream.min();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class, () -> failingInputStream.min(),
+                EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -364,12 +303,8 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromFlatMapMinFailing() {
-        try {
-            failingFlatMapInputStream.min();
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingFlatMapInputStream.min(), EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -448,12 +383,8 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromMapForEachFailing() {
-        try {
-            failingInputStream.forEach(value -> {});
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingInputStream.forEach(value -> {}), EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -469,12 +400,8 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromFlatMapForEachFailing() {
-        try {
-            failingFlatMapInputStream.forEach(value -> {});
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingFlatMapInputStream.forEach(value -> {}), EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -489,12 +416,10 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromMap_MapFailing() {
-        try {
-            failingInputStream.map(input -> input + 1).mapToObj(Objects::toString)
-                    .collect(Collectors.toList());
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        final Executable executable = () -> failingInputStream.map(input -> input + 1)
+                .mapToObj(Objects::toString).collect(Collectors.toList());
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -509,12 +434,10 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromFlatMap_MapFailing() {
-        try {
-            failingFlatMapInputStream.map(input -> input + 1).mapToObj(Objects::toString)
-                    .collect(Collectors.toList());
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        final Executable executable = () -> failingFlatMapInputStream.map(input -> input + 1)
+                .mapToObj(Objects::toString).collect(Collectors.toList());
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -525,12 +448,10 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromMap_MapToObjFailing() {
-        try {
-            failingInputStream.mapToObj(Objects::toString).collect(Collectors.toList());
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        final Executable executable = () -> failingInputStream.mapToObj(Objects::toString)
+                .collect(Collectors.toList());
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -544,12 +465,10 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromFlatMap_MapToObjFailing() {
-        try {
-            failingFlatMapInputStream.mapToObj(Objects::toString).collect(Collectors.toList());
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        final Executable executable = () -> failingFlatMapInputStream
+                .mapToObj(Objects::toString).collect(Collectors.toList());
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -562,12 +481,10 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromMap_MapToDoubleFailing() {
-        try {
-            failingInputStream.mapToDouble(value -> value).forEach(value -> {});
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        final Executable executable = () -> failingInputStream.mapToDouble(value -> value)
+                .forEach(value -> {});
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -582,12 +499,10 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromFlatMap_MapToDoubleFailing() {
-        try {
-            failingFlatMapInputStream.mapToDouble(value -> value).forEach(value -> {});
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        final Executable executable = () -> failingFlatMapInputStream
+                .mapToDouble(value -> value).forEach(value -> {});
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -600,12 +515,10 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromMap_MapToIntFailing() {
-        try {
-            failingInputStream.mapToInt(value -> (int) (value / 1E9)).forEach(value -> {});
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        final Executable executable = () -> failingInputStream
+                .mapToInt(value -> (int) (value / 1E9)).forEach(value -> {});
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -620,13 +533,10 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromFlatMap_MapToIntFailing() {
-        try {
-            failingFlatMapInputStream.mapToInt(value -> (int) (value / 1E9))
-                    .forEach(value -> {});
-            fail(EXPECTED_EXCEPTION);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        final Executable executable = () -> failingFlatMapInputStream
+                .mapToInt(value -> (int) (value / 1E9)).forEach(value -> {});
+
+        assertThrows(NumberFormatException.class, executable, EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -636,11 +546,8 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromMapAllMatchFailing() {
-        try {
-            failingInputStream.allMatch(Objects::nonNull);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingInputStream.allMatch(Objects::nonNull), EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -650,11 +557,9 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromMapAnyMatchFailing() {
-        try {
-            failingInputStream.anyMatch(i -> i % 2 == 0);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingInputStream.anyMatch(i -> i == 4000000000L),
+                EXPECTED_NFE_MESSAGE_LONG);
     }
 
     @Test
@@ -664,10 +569,7 @@ public class FailableLongStreamTest {
 
     @Test
     void testLongStreamFromMapNoneMatchFailing() {
-        try {
-            failingInputStream.noneMatch(Objects::isNull);
-        } catch (final NumberFormatException nfe) {
-            assertEquals(EXPECTED_NFE_MESSAGE_LONG, nfe.getMessage());
-        }
+        assertThrows(NumberFormatException.class,
+                () -> failingInputStream.noneMatch(Objects::isNull), EXPECTED_NFE_MESSAGE_LONG);
     }
 }
