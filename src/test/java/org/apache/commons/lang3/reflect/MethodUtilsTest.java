@@ -868,12 +868,12 @@ public class MethodUtilsTest {
 
     @Test
     public void testGetMethodsWithAnnotationIllegalArgumentException2() {
-        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getMethodsWithAnnotation(null, Annotated.class));
+        assertThrows(NullPointerException.class, () -> MethodUtils.getMethodsWithAnnotation(null, Annotated.class));
     }
 
     @Test
     public void testGetMethodsWithAnnotationIllegalArgumentException3() {
-        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getMethodsWithAnnotation(null, null));
+        assertThrows(NullPointerException.class, () -> MethodUtils.getMethodsWithAnnotation(null, null));
     }
 
     @Test
@@ -896,12 +896,12 @@ public class MethodUtilsTest {
 
     @Test
     public void testGetMethodsListWithAnnotationIllegalArgumentException2() {
-        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getMethodsListWithAnnotation(null, Annotated.class));
+        assertThrows(NullPointerException.class, () -> MethodUtils.getMethodsListWithAnnotation(null, Annotated.class));
     }
 
     @Test
     public void testGetMethodsListWithAnnotationIllegalArgumentException3() {
-        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getMethodsListWithAnnotation(null, null));
+        assertThrows(NullPointerException.class, () -> MethodUtils.getMethodsListWithAnnotation(null, null));
     }
 
     @Test
@@ -912,12 +912,12 @@ public class MethodUtilsTest {
 
     @Test
     public void testGetAnnotationIllegalArgumentException2() {
-        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getAnnotation(null, Annotated.class, true, true));
+        assertThrows(NullPointerException.class, () -> MethodUtils.getAnnotation(null, Annotated.class, true, true));
     }
 
     @Test
     public void testGetAnnotationIllegalArgumentException3() {
-        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getAnnotation(null, null, true, true));
+        assertThrows(NullPointerException.class, () -> MethodUtils.getAnnotation(null, null, true, true));
     }
 
     private void expectMatchingAccessibleMethodParameterTypes(final Class<?> cls,

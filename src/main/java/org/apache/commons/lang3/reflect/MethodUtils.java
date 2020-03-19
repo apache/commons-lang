@@ -914,7 +914,7 @@ public class MethodUtils {
                                                             final Class<? extends Annotation> annotationCls,
                                                             final boolean searchSupers, final boolean ignoreAccess) {
 
-        Validate.isTrue(cls != null, "The class must not be null");
+        Validate.notNull(cls, "The class must not be null");
         Validate.isTrue(annotationCls != null, "The annotation class must not be null");
         final List<Class<?>> classes = (searchSupers ? getAllSuperclassesAndInterfaces(cls)
                 : new ArrayList<>());
@@ -957,7 +957,7 @@ public class MethodUtils {
     public static <A extends Annotation> A getAnnotation(final Method method, final Class<A> annotationCls,
                                                          final boolean searchSupers, final boolean ignoreAccess) {
 
-        Validate.isTrue(method != null, "The method must not be null");
+        Validate.notNull(method, "The method must not be null");
         Validate.isTrue(annotationCls != null, "The annotation class must not be null");
         if (!ignoreAccess && !MemberUtils.isAccessible(method)) {
             return null;

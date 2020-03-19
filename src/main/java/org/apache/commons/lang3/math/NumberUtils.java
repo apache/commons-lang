@@ -991,13 +991,6 @@ public class NumberUtils {
         if (StringUtils.isBlank(str)) {
             throw new NumberFormatException("A blank string is not a valid number");
         }
-        if (str.trim().startsWith("--")) {
-            // this is protection for poorness in java.lang.BigDecimal.
-            // it accepts this as a legal value, but it does not appear
-            // to be in specification of class. OS X Java parses it to
-            // a wrong value.
-            throw new NumberFormatException(str + " is not a valid number.");
-        }
         return new BigDecimal(str);
     }
 
@@ -1316,7 +1309,7 @@ public class NumberUtils {
      * @throws IllegalArgumentException if {@code array} is either {@code null} or empty
      */
     private static void validateArray(final Object array) {
-        Validate.isTrue(array != null, "The Array must not be null");
+        Validate.notNull(array, "The Array must not be null");
         Validate.isTrue(Array.getLength(array) != 0, "Array cannot be empty.");
     }
 

@@ -311,7 +311,7 @@ public class CharRangeTest  {
     @Test
     public void testContainsNullArg() {
         final CharRange range = CharRange.is('a');
-        final IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> range.contains(null));
+        final NullPointerException e = assertThrows(NullPointerException.class, () -> range.contains(null));
         assertEquals("The Range must not be null", e.getMessage());
     }
 

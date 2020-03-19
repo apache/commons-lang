@@ -24,7 +24,7 @@ public class ReflectionToStringBuilderTest {
 
     @Test
     public void testConstructorWithNullObject() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
             () -> new ReflectionToStringBuilder(null, ToStringStyle.DEFAULT_STYLE, new StringBuffer()));
     }
 

@@ -42,42 +42,42 @@ public class ThreadUtilsTest {
 
     @Test
     public void testNullThreadName() {
-        assertThrows(IllegalArgumentException.class, () -> ThreadUtils.findThreadsByName(null));
+        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadsByName(null));
     }
 
     @Test
     public void testNullThreadGroupName() {
-        assertThrows(IllegalArgumentException.class, () -> ThreadUtils.findThreadGroupsByName(null));
+        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadGroupsByName(null));
     }
 
     @Test
     public void testNullThreadThreadGroupName1() {
-        assertThrows(IllegalArgumentException.class, () -> ThreadUtils.findThreadsByName(null, "tgname"));
+        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadsByName(null, "tgname"));
     }
 
     @Test
     public void testNullThreadThreadGroupName2() {
-        assertThrows(IllegalArgumentException.class, () -> ThreadUtils.findThreadsByName("tname", (String) null));
+        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadsByName("tname", (String) null));
     }
 
     @Test
     public void testNullThreadThreadGroupName3() {
-        assertThrows(IllegalArgumentException.class, () -> ThreadUtils.findThreadsByName(null, (String) null));
+        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadsByName(null, (String) null));
     }
 
     @Test
     public void testNullThreadThreadGroup1() {
-        assertThrows(IllegalArgumentException.class, () -> ThreadUtils.findThreadsByName("tname", (ThreadGroup) null));
+        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadsByName("tname", (ThreadGroup) null));
     }
 
     @Test
     public void testNullThreadThreadGroup2() {
-        assertThrows(IllegalArgumentException.class, () -> ThreadUtils.findThreadById(1L, (ThreadGroup) null));
+        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadById(1L, (ThreadGroup) null));
     }
 
     @Test
     public void testNullThreadThreadGroup3() {
-        assertThrows(IllegalArgumentException.class, () -> ThreadUtils.findThreadsByName(null, (ThreadGroup) null));
+        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadsByName(null, (ThreadGroup) null));
     }
 
     @Test
@@ -87,24 +87,24 @@ public class ThreadUtilsTest {
 
     @Test
     public void testThreadGroupsByIdFail() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
                 () -> ThreadUtils.findThreadById(Thread.currentThread().getId(), (String) null));
     }
 
     @Test
     public void testThreadgroupsNullParent() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
                 () -> ThreadUtils.findThreadGroups(null, true, ThreadUtils.ALWAYS_TRUE_PREDICATE));
     }
 
     @Test
     public void testThreadgroupsNullPredicate() {
-        assertThrows(IllegalArgumentException.class, () -> ThreadUtils.findThreadGroups(null));
+        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadGroups(null));
     }
 
     @Test
     public void testThreadsNullPredicate() {
-        assertThrows(IllegalArgumentException.class, () -> ThreadUtils.findThreads(null));
+        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreads(null));
     }
 
     @Test

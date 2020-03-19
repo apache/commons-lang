@@ -133,8 +133,8 @@ public class MultiBackgroundInitializer
      * @throws IllegalStateException if {@code start()} has already been called
      */
     public void addInitializer(final String name, final BackgroundInitializer<?> init) {
-        Validate.isTrue(name != null, "Name of child initializer must not be null!");
-        Validate.isTrue(init != null, "Child initializer must not be null!");
+        Validate.notNull(name, "Name of child initializer must not be null!");
+        Validate.notNull(init, "Child initializer must not be null!");
 
         synchronized (this) {
             if (isStarted()) {

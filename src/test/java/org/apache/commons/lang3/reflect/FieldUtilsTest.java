@@ -106,7 +106,7 @@ public class FieldUtilsTest {
 
     @Test
     public void testGetFieldIllegalArgumentException1() {
-        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getField(null, "none"));
+        assertThrows(NullPointerException.class, () -> FieldUtils.getField(null, "none"));
     }
 
     @Test
@@ -145,7 +145,7 @@ public class FieldUtilsTest {
 
     @Test
     public void testGetFieldForceAccessIllegalArgumentException1() {
-        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getField(null, "none", true));
+        assertThrows(NullPointerException.class, () -> FieldUtils.getField(null, "none", true));
     }
 
     @Test
@@ -214,17 +214,17 @@ public class FieldUtilsTest {
 
     @Test
     public void testGetFieldsWithAnnotationIllegalArgumentException1() {
-        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getFieldsWithAnnotation(FieldUtilsTest.class, null));
+        assertThrows(NullPointerException.class, () -> FieldUtils.getFieldsWithAnnotation(FieldUtilsTest.class, null));
     }
 
     @Test
     public void testGetFieldsWithAnnotationIllegalArgumentException2() {
-        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getFieldsWithAnnotation(null, Annotated.class));
+        assertThrows(NullPointerException.class, () -> FieldUtils.getFieldsWithAnnotation(null, Annotated.class));
     }
 
     @Test
     public void testGetFieldsWithAnnotationIllegalArgumentException3() {
-        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getFieldsWithAnnotation(null, null));
+        assertThrows(NullPointerException.class, () -> FieldUtils.getFieldsWithAnnotation(null, null));
     }
 
     @Test
@@ -242,17 +242,17 @@ public class FieldUtilsTest {
 
     @Test
     public void testGetFieldsListWithAnnotationIllegalArgumentException1() {
-        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getFieldsListWithAnnotation(FieldUtilsTest.class, null));
+        assertThrows(NullPointerException.class, () -> FieldUtils.getFieldsListWithAnnotation(FieldUtilsTest.class, null));
     }
 
     @Test
     public void testGetFieldsListWithAnnotationIllegalArgumentException2() {
-        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getFieldsListWithAnnotation(null, Annotated.class));
+        assertThrows(NullPointerException.class, () -> FieldUtils.getFieldsListWithAnnotation(null, Annotated.class));
     }
 
     @Test
     public void testGetFieldsListWithAnnotationIllegalArgumentException3() {
-        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getFieldsListWithAnnotation(null, null));
+        assertThrows(NullPointerException.class, () -> FieldUtils.getFieldsListWithAnnotation(null, null));
     }
 
     @Test
@@ -276,7 +276,7 @@ public class FieldUtilsTest {
 
     @Test
     public void testGetDeclaredFieldAccessIllegalArgumentException1() {
-        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getDeclaredField(null, "none"));
+        assertThrows(NullPointerException.class, () -> FieldUtils.getDeclaredField(null, "none"));
     }
 
     @Test
@@ -315,7 +315,7 @@ public class FieldUtilsTest {
 
     @Test
     public void testGetDeclaredFieldForceAccessIllegalArgumentException1() {
-        assertThrows(IllegalArgumentException.class, () -> FieldUtils.getDeclaredField(null, "none", true));
+        assertThrows(NullPointerException.class, () -> FieldUtils.getDeclaredField(null, "none", true));
     }
 
     @Test
@@ -340,7 +340,7 @@ public class FieldUtilsTest {
 
     @Test
     public void testReadStaticFieldIllegalArgumentException1() {
-        assertThrows(IllegalArgumentException.class, () -> FieldUtils.readStaticField(null));
+        assertThrows(NullPointerException.class, () -> FieldUtils.readStaticField(null));
     }
 
     @Test
@@ -359,7 +359,7 @@ public class FieldUtilsTest {
 
     @Test
     public void testReadStaticFieldForceAccessIllegalArgumentException1() {
-        assertThrows(IllegalArgumentException.class, () -> FieldUtils.readStaticField(null, true));
+        assertThrows(NullPointerException.class, () -> FieldUtils.readStaticField(null, true));
     }
 
     @Test
@@ -377,7 +377,7 @@ public class FieldUtilsTest {
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(PublicChild.class, "VALUE"));
 
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.readStaticField(null, "none"),
                 "null class should cause an IllegalArgumentException");
 
@@ -397,7 +397,7 @@ public class FieldUtilsTest {
                 "blank field name should cause an IllegalArgumentException");
 
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.readStaticField(Foo.class, "does_not_exist"),
                 "a field that doesn't exist should cause an IllegalArgumentException");
 
@@ -415,7 +415,7 @@ public class FieldUtilsTest {
         assertEquals("child", FieldUtils.readStaticField(PublicChild.class, "VALUE", true));
 
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.readStaticField(null, "none", true),
                 "null class should cause an IllegalArgumentException");
 
@@ -435,7 +435,7 @@ public class FieldUtilsTest {
                 "blank field name should cause an IllegalArgumentException");
 
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.readStaticField(Foo.class, "does_not_exist", true),
                 "a field that doesn't exist should cause an IllegalArgumentException");
 
@@ -449,12 +449,12 @@ public class FieldUtilsTest {
     public void testReadDeclaredNamedStaticField() throws Exception {
         assertEquals(Foo.VALUE, FieldUtils.readDeclaredStaticField(Foo.class, "VALUE"));
         assertThrows(
-                IllegalArgumentException.class, () -> FieldUtils.readDeclaredStaticField(PublicChild.class, "VALUE"));
+                NullPointerException.class, () -> FieldUtils.readDeclaredStaticField(PublicChild.class, "VALUE"));
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.readDeclaredStaticField(PubliclyShadowedChild.class, "VALUE"));
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.readDeclaredStaticField(PrivatelyShadowedChild.class, "VALUE"));
     }
 
@@ -463,10 +463,10 @@ public class FieldUtilsTest {
         assertEquals(Foo.VALUE, FieldUtils.readDeclaredStaticField(Foo.class, "VALUE", true));
         assertEquals("child", FieldUtils.readDeclaredStaticField(PublicChild.class, "VALUE", true));
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.readDeclaredStaticField(PubliclyShadowedChild.class, "VALUE", true));
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.readDeclaredStaticField(PrivatelyShadowedChild.class, "VALUE", true));
     }
 
@@ -490,7 +490,7 @@ public class FieldUtilsTest {
         assertEquals(D0, FieldUtils.readField(parentD, privatelyShadowedChild));
 
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.readField(null, publicChild),
                 "a null field should cause an IllegalArgumentException");
     }
@@ -519,7 +519,7 @@ public class FieldUtilsTest {
         assertEquals(D0, FieldUtils.readField(parentD, privatelyShadowedChild, true));
 
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.readField(null, publicChild, true),
                 "a null field should cause an IllegalArgumentException");
     }
@@ -546,7 +546,7 @@ public class FieldUtilsTest {
                 "a blank field name should cause an IllegalArgumentException");
 
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.readField((Object) null, "none"),
                 "a null target should cause an IllegalArgumentException");
 
@@ -593,7 +593,7 @@ public class FieldUtilsTest {
                 "a blank field name should cause an IllegalArgumentException");
 
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.readField((Object) null, "none", true),
                 "a null target should cause an IllegalArgumentException");
     }
@@ -616,7 +616,7 @@ public class FieldUtilsTest {
                 "a blank field name should cause an IllegalArgumentException");
 
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.readDeclaredField(null, "none"),
                 "a null target should cause an IllegalArgumentException");
 
@@ -652,7 +652,7 @@ public class FieldUtilsTest {
                 "a blank field name should cause an IllegalArgumentException");
 
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.readDeclaredField(null, "none", true),
                 "a null target should cause an IllegalArgumentException");
 
@@ -731,25 +731,25 @@ public class FieldUtilsTest {
         FieldUtils.writeStaticField(StaticContainerChild.class, "mutablePublic", "new");
         assertEquals("new", StaticContainer.mutablePublic);
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.writeStaticField(StaticContainerChild.class, "mutableProtected", "new"));
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.writeStaticField(StaticContainerChild.class, "mutablePackage", "new"));
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.writeStaticField(StaticContainerChild.class, "mutablePrivate", "new"));
         assertThrows(
                 IllegalAccessException.class,
                 () -> FieldUtils.writeStaticField(StaticContainerChild.class, "IMMUTABLE_PUBLIC", "new"));
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.writeStaticField(StaticContainerChild.class, "IMMUTABLE_PROTECTED", "new"));
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.writeStaticField(StaticContainerChild.class, "IMMUTABLE_PACKAGE", "new"));
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.writeStaticField(StaticContainerChild.class, "IMMUTABLE_PRIVATE", "new"));
     }
 
@@ -782,25 +782,25 @@ public class FieldUtilsTest {
         FieldUtils.writeStaticField(StaticContainer.class, "mutablePublic", "new");
         assertEquals("new", StaticContainer.mutablePublic);
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.writeDeclaredStaticField(StaticContainer.class, "mutableProtected", "new"));
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.writeDeclaredStaticField(StaticContainer.class, "mutablePackage", "new"));
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.writeDeclaredStaticField(StaticContainer.class, "mutablePrivate", "new"));
         assertThrows(
                 IllegalAccessException.class,
                 () -> FieldUtils.writeDeclaredStaticField(StaticContainer.class, "IMMUTABLE_PUBLIC", "new"));
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.writeDeclaredStaticField(StaticContainer.class, "IMMUTABLE_PROTECTED", "new"));
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.writeDeclaredStaticField(StaticContainer.class, "IMMUTABLE_PACKAGE", "new"));
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> FieldUtils.writeDeclaredStaticField(StaticContainer.class, "IMMUTABLE_PRIVATE", "new"));
     }
 

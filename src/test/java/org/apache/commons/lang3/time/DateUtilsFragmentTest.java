@@ -49,23 +49,23 @@ public class DateUtilsFragmentTest {
     @Test
     public void testNullDate() {
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> DateUtils.getFragmentInMilliseconds((Date) null, Calendar.MILLISECOND));
 
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> DateUtils.getFragmentInSeconds((Date) null, Calendar.MILLISECOND));
 
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> DateUtils.getFragmentInMinutes((Date) null, Calendar.MILLISECOND));
 
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> DateUtils.getFragmentInHours((Date) null, Calendar.MILLISECOND));
 
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> DateUtils.getFragmentInDays((Date) null, Calendar.MILLISECOND));
     }
 

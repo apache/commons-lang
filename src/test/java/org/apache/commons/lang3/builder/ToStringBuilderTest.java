@@ -81,7 +81,7 @@ public class ToStringBuilderTest {
 
     @Test
     public void testSetDefaultEx() {
-        assertThrows(IllegalArgumentException.class, () -> ToStringBuilder.setDefaultStyle(null));
+        assertThrows(NullPointerException.class, () -> ToStringBuilder.setDefaultStyle(null));
     }
 
     @Test
@@ -1278,7 +1278,7 @@ public class ToStringBuilderTest {
 
     @Test
     public void testReflectionNull() {
-        assertThrows(IllegalArgumentException.class, () -> ReflectionToStringBuilder.toString(null));
+        assertThrows(NullPointerException.class, () -> ReflectionToStringBuilder.toString(null));
     }
 
     /**

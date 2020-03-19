@@ -830,7 +830,7 @@ public class DateUtilsTest {
                 DateUtils.round((Object) dateAmPm4, Calendar.AM_PM),
                 "round ampm-4 failed");
 
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.round((Date) null, Calendar.SECOND));
+        assertThrows(NullPointerException.class, () -> DateUtils.round((Date) null, Calendar.SECOND));
         assertThrows(IllegalArgumentException.class, () -> DateUtils.round((Calendar) null, Calendar.SECOND));
         assertThrows(IllegalArgumentException.class, () -> DateUtils.round((Object) null, Calendar.SECOND));
         assertThrows(ClassCastException.class, () -> DateUtils.round("", Calendar.SECOND));
@@ -1111,7 +1111,7 @@ public class DateUtilsTest {
                 DateUtils.truncate((Object) calAmPm4, Calendar.AM_PM),
                 "truncate ampm-4 failed");
 
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.truncate((Date) null, Calendar.SECOND));
+        assertThrows(NullPointerException.class, () -> DateUtils.truncate((Date) null, Calendar.SECOND));
         assertThrows(IllegalArgumentException.class, () -> DateUtils.truncate((Calendar) null, Calendar.SECOND));
         assertThrows(IllegalArgumentException.class, () -> DateUtils.truncate((Object) null, Calendar.SECOND));
         assertThrows(ClassCastException.class, () -> DateUtils.truncate("", Calendar.SECOND));
@@ -1389,7 +1389,7 @@ public class DateUtilsTest {
                 DateUtils.ceiling((Object) calAmPm4, Calendar.AM_PM),
                 "ceiling ampm-4 failed");
 
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.ceiling((Date) null, Calendar.SECOND));
+        assertThrows(NullPointerException.class, () -> DateUtils.ceiling((Date) null, Calendar.SECOND));
         assertThrows(IllegalArgumentException.class, () -> DateUtils.ceiling((Calendar) null, Calendar.SECOND));
         assertThrows(IllegalArgumentException.class, () -> DateUtils.ceiling((Object) null, Calendar.SECOND));
         assertThrows(ClassCastException.class, () -> DateUtils.ceiling("", Calendar.SECOND));
@@ -1475,7 +1475,7 @@ public class DateUtilsTest {
     public void testIteratorEx() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.iterator(Calendar.getInstance(), -9999));
         assertThrows
-                (IllegalArgumentException.class, () -> DateUtils.iterator((Date) null, DateUtils.RANGE_WEEK_CENTER));
+                (NullPointerException.class, () -> DateUtils.iterator((Date) null, DateUtils.RANGE_WEEK_CENTER));
         assertThrows
                 (IllegalArgumentException.class, () -> DateUtils.iterator((Calendar) null, DateUtils.RANGE_WEEK_CENTER));
         assertThrows

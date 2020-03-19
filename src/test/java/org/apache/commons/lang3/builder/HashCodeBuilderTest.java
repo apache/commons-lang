@@ -180,7 +180,7 @@ public class HashCodeBuilderTest {
 
     @Test
     public void testReflectionHashCodeEx3() {
-        assertThrows(IllegalArgumentException.class, () -> HashCodeBuilder.reflectionHashCode(13, 19, null, true));
+        assertThrows(NullPointerException.class, () -> HashCodeBuilder.reflectionHashCode(13, 19, null, true));
     }
 
     @Test

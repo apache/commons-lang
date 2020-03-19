@@ -116,7 +116,7 @@ public class EnumUtils {
         Validate.notNull(values);
         long total = 0;
         for (final E constant : values) {
-            Validate.isTrue(constant != null, NULL_ELEMENTS_NOT_PERMITTED);
+            Validate.notNull(constant, NULL_ELEMENTS_NOT_PERMITTED);
             total |= 1L << constant.ordinal();
         }
         return total;
@@ -173,7 +173,7 @@ public class EnumUtils {
         Validate.notNull(values);
         final EnumSet<E> condensed = EnumSet.noneOf(enumClass);
         for (final E constant : values) {
-            Validate.isTrue(constant != null, NULL_ELEMENTS_NOT_PERMITTED);
+            Validate.notNull(constant, NULL_ELEMENTS_NOT_PERMITTED);
             condensed.add(constant);
         }
         final long[] result = new long[(enumClass.getEnumConstants().length - 1) / Long.SIZE + 1];
