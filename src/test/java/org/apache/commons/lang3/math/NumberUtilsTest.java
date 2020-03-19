@@ -1859,7 +1859,6 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isPositive(new AtomicLong(-100L)));
         assertTrue(NumberUtils.isPositive(positiveAtomicLong));
 
-
         assertFalse(NumberUtils.isPositive(new Number() {
             @Override
             public int intValue() {
