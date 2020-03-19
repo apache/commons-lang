@@ -24,6 +24,10 @@ import java.math.RoundingMode;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.DoubleAccumulator;
+import java.util.concurrent.atomic.DoubleAdder;
+import java.util.concurrent.atomic.LongAccumulator;
+import java.util.concurrent.atomic.LongAdder;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -1833,7 +1837,7 @@ public class NumberUtils {
             return false;
         } else if (number instanceof Integer) {
             return number.intValue() == INTEGER_ZERO;
-        } else if (number instanceof Long) {
+        } else if (number instanceof Long || number instanceof LongAccumulator || number instanceof LongAdder) {
             return number.longValue() == LONG_ZERO;
         } else if (number instanceof Byte) {
             return number.byteValue() == BYTE_ZERO;
@@ -1841,7 +1845,7 @@ public class NumberUtils {
             return number.shortValue() == SHORT_ZERO;
         } else if (number instanceof Float) {
             return number.floatValue() == FLOAT_ZERO;
-        } else if (number instanceof Double) {
+        } else if (number instanceof Double || number instanceof DoubleAccumulator || number instanceof DoubleAdder) {
             return number.doubleValue() == DOUBLE_ZERO;
         } else if (number instanceof BigInteger) {
             return ((BigInteger) number).signum() == INTEGER_ZERO;
@@ -1883,7 +1887,7 @@ public class NumberUtils {
             return false;
         } else if (number instanceof Integer) {
             return number.intValue() > INTEGER_ZERO;
-        } else if (number instanceof Long) {
+        } else if (number instanceof Long || number instanceof LongAccumulator || number instanceof LongAdder) {
             return number.longValue() > LONG_ZERO;
         } else if (number instanceof Byte) {
             return number.byteValue() > BYTE_ZERO;
@@ -1891,7 +1895,7 @@ public class NumberUtils {
             return number.shortValue() > SHORT_ZERO;
         } else if (number instanceof Float) {
             return number.floatValue() > FLOAT_ZERO;
-        } else if (number instanceof Double) {
+        } else if (number instanceof Double || number instanceof DoubleAccumulator || number instanceof DoubleAdder) {
             return number.doubleValue() > DOUBLE_ZERO;
         } else if (number instanceof BigInteger) {
             return ((BigInteger) number).signum() == INTEGER_ONE;
@@ -1933,7 +1937,7 @@ public class NumberUtils {
             return false;
         } else if (number instanceof Integer) {
             return number.intValue() < INTEGER_ZERO;
-        } else if (number instanceof Long) {
+        } else if (number instanceof Long || number instanceof LongAccumulator || number instanceof LongAdder) {
             return number.longValue() < LONG_ZERO;
         } else if (number instanceof Byte) {
             return number.byteValue() < BYTE_ZERO;
@@ -1941,7 +1945,7 @@ public class NumberUtils {
             return number.shortValue() < SHORT_ZERO;
         } else if (number instanceof Float) {
             return number.floatValue() < FLOAT_ZERO;
-        } else if (number instanceof Double) {
+        } else if (number instanceof Double || number instanceof DoubleAccumulator || number instanceof DoubleAdder) {
             return number.doubleValue() < DOUBLE_ZERO;
         } else if (number instanceof BigInteger) {
             return ((BigInteger) number).signum() == INTEGER_MINUS_ONE;

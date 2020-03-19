@@ -31,6 +31,10 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.DoubleAccumulator;
+import java.util.concurrent.atomic.DoubleAdder;
+import java.util.concurrent.atomic.LongAccumulator;
+import java.util.concurrent.atomic.LongAdder;
 
 import org.junit.jupiter.api.Test;
 
@@ -1593,6 +1597,20 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isZero(Long.MIN_VALUE));
         assertTrue(NumberUtils.isZero(zeroLong));
 
+        final LongAccumulator zeroLongAccumulator = new LongAccumulator(Long::sum, 0L);
+        zeroLongAccumulator.accumulate(000L);
+        assertTrue(NumberUtils.isZero(zeroLongAccumulator));
+        zeroLongAccumulator.accumulate(10L);
+        assertFalse(NumberUtils.isZero(zeroLongAccumulator));
+        assertTrue(NumberUtils.isZero(new LongAccumulator(Long::sum, 0L)));
+
+        final LongAdder zeroLongAdder = new LongAdder();
+        zeroLongAdder.add(000L);
+        assertTrue(NumberUtils.isZero(zeroLongAdder));
+        zeroLongAdder.add(10L);
+        assertFalse(NumberUtils.isZero(zeroLongAdder));
+        assertTrue(NumberUtils.isZero(new LongAdder()));
+
         final byte zeroByte = (byte) 0;
         assertTrue(NumberUtils.isZero((byte) 0));
         assertFalse(NumberUtils.isZero(Byte.MAX_VALUE));
@@ -1614,6 +1632,20 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isZero(Double.MIN_VALUE));
         assertTrue(NumberUtils.isZero(zeroDouble));
         assertFalse(NumberUtils.isZero(Double.NaN));
+
+        final DoubleAccumulator zeroDoubleAccumulator = new DoubleAccumulator(Double::sum, 0.0d);
+        zeroDoubleAccumulator.accumulate(000.000d);
+        assertTrue(NumberUtils.isZero(zeroDoubleAccumulator));
+        zeroDoubleAccumulator.accumulate(10.10d);
+        assertFalse(NumberUtils.isZero(zeroDoubleAccumulator));
+        assertTrue(NumberUtils.isZero(new DoubleAccumulator(Double::sum, 0.0d)));
+
+        final DoubleAdder zeroDoubleAdder = new DoubleAdder();
+        zeroDoubleAdder.add(000.000d);
+        assertTrue(NumberUtils.isZero(zeroDoubleAdder));
+        zeroDoubleAdder.add(10.10d);
+        assertFalse(NumberUtils.isZero(zeroDoubleAdder));
+        assertTrue(NumberUtils.isZero(new DoubleAdder()));
 
         final BigInteger zeroBigInteger = BigInteger.ZERO;
         assertTrue(NumberUtils.isZero(BigInteger.valueOf(000)));
@@ -1719,6 +1751,20 @@ public class NumberUtilsTest {
         assertTrue(NumberUtils.isNotZero(Long.MAX_VALUE));
         assertTrue(NumberUtils.isNotZero(nZeroLong));
 
+        final LongAccumulator nZeroLongAccumulator = new LongAccumulator(Long::sum, 0L);
+        nZeroLongAccumulator.accumulate(10L);
+        assertTrue(NumberUtils.isNotZero(nZeroLongAccumulator));
+        nZeroLongAccumulator.reset();
+        assertFalse(NumberUtils.isNotZero(nZeroLongAccumulator));
+        assertFalse(NumberUtils.isNotZero(new LongAccumulator(Long::sum, 0L)));
+
+        final LongAdder nZeroLongAdder = new LongAdder();
+        nZeroLongAdder.add(10L);
+        assertTrue(NumberUtils.isNotZero(nZeroLongAdder));
+        nZeroLongAdder.reset();
+        assertFalse(NumberUtils.isNotZero(nZeroLongAdder));
+        assertFalse(NumberUtils.isNotZero(new LongAdder()));
+
         final byte nZeroByte = Byte.MAX_VALUE;
         assertFalse(NumberUtils.isNotZero((byte) 0));
         assertTrue(NumberUtils.isNotZero(Long.MIN_VALUE));
@@ -1740,6 +1786,20 @@ public class NumberUtilsTest {
         assertTrue(NumberUtils.isNotZero(Double.MAX_VALUE));
         assertTrue(NumberUtils.isNotZero(nZeroDouble));
         assertTrue(NumberUtils.isNotZero(Double.NaN));
+
+        final DoubleAccumulator nZeroDoubleAccumulator = new DoubleAccumulator(Double::sum, 0.0d);
+        nZeroDoubleAccumulator.accumulate(-100.001d);
+        assertTrue(NumberUtils.isNotZero(nZeroDoubleAccumulator));
+        nZeroDoubleAccumulator.reset();
+        assertFalse(NumberUtils.isNotZero(nZeroDoubleAccumulator));
+        assertFalse(NumberUtils.isNotZero(new DoubleAccumulator(Double::sum, 0.0d)));
+
+        final DoubleAdder nZeroDoubleAdder = new DoubleAdder();
+        nZeroDoubleAdder.add(-100.001d);
+        assertTrue(NumberUtils.isNotZero(nZeroDoubleAdder));
+        nZeroDoubleAdder.reset();
+        assertFalse(NumberUtils.isNotZero(nZeroDoubleAdder));
+        assertFalse(NumberUtils.isNotZero(new DoubleAdder()));
 
         final BigInteger nZeroBigInteger = BigInteger.ONE;
         assertTrue(NumberUtils.isNotZero(BigInteger.valueOf(-100)));
@@ -1819,6 +1879,22 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isPositive(-1000L));
         assertTrue(NumberUtils.isPositive(positiveLong));
 
+        final LongAccumulator positiveLongAccumulator = new LongAccumulator(Long::sum, 0L);
+        positiveLongAccumulator.accumulate(1000L);
+        assertTrue(NumberUtils.isPositive(positiveLongAccumulator));
+        positiveLongAccumulator.reset();
+        assertFalse(NumberUtils.isPositive(positiveLongAccumulator));
+        positiveLongAccumulator.accumulate(-1000L);
+        assertFalse(NumberUtils.isPositive(positiveLongAccumulator));
+
+        final LongAdder positiveLongAdder = new LongAdder();
+        positiveLongAdder.add(1000L);
+        assertTrue(NumberUtils.isPositive(positiveLongAdder));
+        positiveLongAdder.reset();
+        assertFalse(NumberUtils.isPositive(positiveLongAdder));
+        positiveLongAdder.add(-1000L);
+        assertFalse(NumberUtils.isPositive(positiveLongAdder));
+
         final byte positiveByte = Byte.MAX_VALUE;
         assertTrue(NumberUtils.isPositive((byte) 1));
         assertFalse(NumberUtils.isPositive((byte) -1));
@@ -1840,6 +1916,22 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isPositive(-10.1000d));
         assertTrue(NumberUtils.isPositive(positiveDouble));
         assertFalse(NumberUtils.isPositive(Double.NaN));
+
+        final DoubleAccumulator positiveDoubleAccumulator = new DoubleAccumulator(Double::sum, 0.0d);
+        positiveDoubleAccumulator.accumulate(10.1000d);
+        assertTrue(NumberUtils.isPositive(positiveDoubleAccumulator));
+        positiveDoubleAccumulator.reset();
+        assertFalse(NumberUtils.isPositive(positiveDoubleAccumulator));
+        positiveDoubleAccumulator.accumulate(-10.1000d);
+        assertFalse(NumberUtils.isPositive(positiveDoubleAccumulator));
+
+        final DoubleAdder positiveDoubleAdder = new DoubleAdder();
+        positiveDoubleAdder.add(10.1000d);
+        assertTrue(NumberUtils.isPositive(positiveDoubleAdder));
+        positiveDoubleAdder.reset();
+        assertFalse(NumberUtils.isPositive(positiveDoubleAdder));
+        positiveDoubleAdder.add(-10.1000d);
+        assertFalse(NumberUtils.isPositive(positiveDoubleAdder));
 
         final BigInteger positiveBigInteger = BigInteger.TEN;
         assertTrue(NumberUtils.isPositive(BigInteger.valueOf(100)));
@@ -1919,6 +2011,22 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isNotPositive(1000L));
         assertTrue(NumberUtils.isNotPositive(nPositiveLong));
 
+        final LongAccumulator nPositiveLongAccumulator = new LongAccumulator(Long::sum, 0L);
+        nPositiveLongAccumulator.accumulate(-1000L);
+        assertTrue(NumberUtils.isNotPositive(nPositiveLongAccumulator));
+        nPositiveLongAccumulator.reset();
+        assertTrue(NumberUtils.isNotPositive(nPositiveLongAccumulator));
+        nPositiveLongAccumulator.accumulate(1000L);
+        assertFalse(NumberUtils.isNotPositive(nPositiveLongAccumulator));
+
+        final LongAdder nPositiveLongAdder = new LongAdder();
+        nPositiveLongAdder.add(-1000L);
+        assertTrue(NumberUtils.isNotPositive(nPositiveLongAdder));
+        nPositiveLongAdder.reset();
+        assertTrue(NumberUtils.isNotPositive(nPositiveLongAdder));
+        nPositiveLongAdder.add(1000L);
+        assertFalse(NumberUtils.isNotPositive(nPositiveLongAdder));
+
         final byte nPositiveByte = Byte.MIN_VALUE;
         assertTrue(NumberUtils.isNotPositive((byte) -1));
         assertFalse(NumberUtils.isNotPositive((byte) 1));
@@ -1940,6 +2048,22 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isNotPositive(10.1000d));
         assertTrue(NumberUtils.isNotPositive(nPositiveDouble));
         assertTrue(NumberUtils.isNotPositive(Double.NaN));
+
+        final DoubleAccumulator nPositiveDoubleAccumulator = new DoubleAccumulator(Double::sum, 0.0d);
+        nPositiveDoubleAccumulator.accumulate(-10.1000d);
+        assertTrue(NumberUtils.isNotPositive(nPositiveDoubleAccumulator));
+        nPositiveDoubleAccumulator.reset();
+        assertTrue(NumberUtils.isNotPositive(nPositiveDoubleAccumulator));
+        nPositiveDoubleAccumulator.accumulate(+10.1000d);
+        assertFalse(NumberUtils.isNotPositive(nPositiveDoubleAccumulator));
+
+        final DoubleAdder nPositiveDoubleAdder = new DoubleAdder();
+        nPositiveDoubleAdder.add(-10.1000d);
+        assertTrue(NumberUtils.isNotPositive(nPositiveDoubleAdder));
+        nPositiveDoubleAdder.reset();
+        assertTrue(NumberUtils.isNotPositive(nPositiveDoubleAdder));
+        nPositiveDoubleAdder.add(+10.1000d);
+        assertFalse(NumberUtils.isNotPositive(nPositiveDoubleAdder));
 
         final BigInteger nPositiveBigInteger = BigInteger.ZERO;
         assertTrue(NumberUtils.isNotPositive(BigInteger.valueOf(-100)));
@@ -2045,6 +2169,22 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isNegative(1000L));
         assertTrue(NumberUtils.isNegative(negativeLong));
 
+        final LongAccumulator negativeLongAccumulator = new LongAccumulator(Long::sum, 0L);
+        negativeLongAccumulator.accumulate(-1000L);
+        assertTrue(NumberUtils.isNegative(negativeLongAccumulator));
+        negativeLongAccumulator.reset();
+        assertFalse(NumberUtils.isNegative(negativeLongAccumulator));
+        negativeLongAccumulator.accumulate(1000L);
+        assertFalse(NumberUtils.isNegative(negativeLongAccumulator));
+
+        final LongAdder negativeLongAdder = new LongAdder();
+        negativeLongAdder.add(-1000L);
+        assertTrue(NumberUtils.isNegative(negativeLongAdder));
+        negativeLongAdder.reset();
+        assertFalse(NumberUtils.isNegative(negativeLongAdder));
+        negativeLongAdder.add(1000L);
+        assertFalse(NumberUtils.isNegative(negativeLongAdder));
+
         final byte negativeByte = Byte.MIN_VALUE;
         assertTrue(NumberUtils.isNegative((byte) -1));
         assertFalse(NumberUtils.isNegative((byte) 1));
@@ -2066,6 +2206,22 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isNegative(10.1000d));
         assertTrue(NumberUtils.isNegative(negativeDouble));
         assertFalse(NumberUtils.isNegative(Double.NaN));
+
+        final DoubleAccumulator negativeDoubleAccumulator = new DoubleAccumulator(Double::sum, 0.0d);
+        negativeDoubleAccumulator.accumulate(-10.1000d);
+        assertTrue(NumberUtils.isNegative(negativeDoubleAccumulator));
+        negativeDoubleAccumulator.reset();
+        assertFalse(NumberUtils.isNegative(negativeDoubleAccumulator));
+        negativeDoubleAccumulator.accumulate(+10.1000d);
+        assertFalse(NumberUtils.isNegative(negativeDoubleAccumulator));
+
+        final DoubleAdder negativeDoubleAdder = new DoubleAdder();
+        negativeDoubleAdder.add(-10.1000d);
+        assertTrue(NumberUtils.isNegative(negativeDoubleAdder));
+        negativeDoubleAdder.reset();
+        assertFalse(NumberUtils.isNegative(negativeDoubleAdder));
+        negativeDoubleAdder.add(+10.1000d);
+        assertFalse(NumberUtils.isNegative(negativeDoubleAdder));
 
         final BigInteger negativeBigInteger = BigInteger.valueOf(-100);
         assertTrue(NumberUtils.isNegative(new BigInteger("-100")));
@@ -2171,6 +2327,22 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isNotNegative(-1000L));
         assertTrue(NumberUtils.isNotNegative(nNegativeLong));
 
+        final LongAccumulator nNegativeLongAccumulator = new LongAccumulator(Long::sum, 0L);
+        nNegativeLongAccumulator.accumulate(1000L);
+        assertTrue(NumberUtils.isNotNegative(nNegativeLongAccumulator));
+        nNegativeLongAccumulator.reset();
+        assertTrue(NumberUtils.isNotNegative(nNegativeLongAccumulator));
+        nNegativeLongAccumulator.accumulate(-1000L);
+        assertFalse(NumberUtils.isNotNegative(nNegativeLongAccumulator));
+
+        final LongAdder nNegativeLongAdder = new LongAdder();
+        nNegativeLongAdder.add(1000L);
+        assertTrue(NumberUtils.isNotNegative(nNegativeLongAdder));
+        nNegativeLongAdder.reset();
+        assertTrue(NumberUtils.isNotNegative(nNegativeLongAdder));
+        nNegativeLongAdder.add(-1000L);
+        assertFalse(NumberUtils.isNotNegative(nNegativeLongAdder));
+
         final byte nNegativeByte = Byte.MAX_VALUE;
         assertTrue(NumberUtils.isNotNegative((byte) 1));
         assertFalse(NumberUtils.isNotNegative((byte) -1));
@@ -2192,6 +2364,22 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isNotNegative(-10.1000d));
         assertTrue(NumberUtils.isNotNegative(nNegativeDouble));
         assertTrue(NumberUtils.isNotNegative(Double.NaN));
+
+        final DoubleAccumulator nNegativeDoubleAccumulator = new DoubleAccumulator(Double::sum, 0.0d);
+        nNegativeDoubleAccumulator.accumulate(10.1000d);
+        assertTrue(NumberUtils.isNotNegative(nNegativeDoubleAccumulator));
+        nNegativeDoubleAccumulator.reset();
+        assertTrue(NumberUtils.isNotNegative(nNegativeDoubleAccumulator));
+        nNegativeDoubleAccumulator.accumulate(-10.1000d);
+        assertFalse(NumberUtils.isNotNegative(nNegativeDoubleAccumulator));
+
+        final DoubleAdder nNegativeDoubleAdder = new DoubleAdder();
+        nNegativeDoubleAdder.add(10.1000d);
+        assertTrue(NumberUtils.isNotNegative(nNegativeDoubleAdder));
+        nNegativeDoubleAdder.reset();
+        assertTrue(NumberUtils.isNotNegative(nNegativeDoubleAdder));
+        nNegativeDoubleAdder.add(-10.1000d);
+        assertFalse(NumberUtils.isNotNegative(nNegativeDoubleAdder));
 
         final BigInteger nNegativeBigInteger = BigInteger.TEN;
         assertTrue(NumberUtils.isNotNegative(BigInteger.valueOf(0)));
