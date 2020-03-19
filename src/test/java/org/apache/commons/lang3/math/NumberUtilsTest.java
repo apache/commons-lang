@@ -29,6 +29,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import java.math.RoundingMode;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -1612,6 +1615,24 @@ public class NumberUtilsTest {
         assertTrue(NumberUtils.isZero(zeroDouble));
         assertFalse(NumberUtils.isZero(Double.NaN));
 
+        final BigInteger zeroBigInteger = BigInteger.ZERO;
+        assertTrue(NumberUtils.isZero(BigInteger.valueOf(000)));
+        assertFalse(NumberUtils.isZero(BigInteger.valueOf(100)));
+        assertTrue(NumberUtils.isZero(zeroBigInteger));
+
+        final BigDecimal zeroBigDecimal = BigDecimal.ZERO;
+        assertTrue(NumberUtils.isZero(BigDecimal.valueOf(000.000)));
+        assertFalse(NumberUtils.isZero(BigDecimal.valueOf(22.22)));
+        assertTrue(NumberUtils.isZero(zeroBigDecimal));
+
+        final AtomicInteger zeroAtomicInteger = new AtomicInteger(000);
+        assertFalse(NumberUtils.isZero(new AtomicInteger(100)));
+        assertTrue(NumberUtils.isZero(zeroAtomicInteger));
+
+        final AtomicLong zeroAtomicLong = new AtomicLong(000L);
+        assertFalse(NumberUtils.isZero(new AtomicLong(100L)));
+        assertTrue(NumberUtils.isZero(zeroAtomicLong));
+
         assertTrue(NumberUtils.isZero(new Number() {
             @Override
             public int intValue() {
@@ -1720,6 +1741,24 @@ public class NumberUtilsTest {
         assertTrue(NumberUtils.isNotZero(nZeroDouble));
         assertTrue(NumberUtils.isNotZero(Double.NaN));
 
+        final BigInteger nZeroBigInteger = BigInteger.ONE;
+        assertTrue(NumberUtils.isNotZero(BigInteger.valueOf(-100)));
+        assertFalse(NumberUtils.isNotZero(BigInteger.valueOf(0)));
+        assertTrue(NumberUtils.isNotZero(nZeroBigInteger));
+
+        final BigDecimal nZeroBigDecimal = BigDecimal.ONE;
+        assertTrue(NumberUtils.isNotZero(BigDecimal.valueOf(-100.001)));
+        assertFalse(NumberUtils.isNotZero(BigDecimal.valueOf(0.0)));
+        assertTrue(NumberUtils.isNotZero(nZeroBigDecimal));
+
+        final AtomicInteger nZeroAtomicInteger = new AtomicInteger(1);
+        assertFalse(NumberUtils.isNotZero(new AtomicInteger(0)));
+        assertTrue(NumberUtils.isNotZero(nZeroAtomicInteger));
+
+        final AtomicLong nZeroAtomicLong = new AtomicLong(1L);
+        assertFalse(NumberUtils.isNotZero(new AtomicLong(0L)));
+        assertTrue(NumberUtils.isNotZero(nZeroAtomicLong));
+
         assertFalse(NumberUtils.isNotZero(new Number() {
             @Override
             public int intValue() {
@@ -1802,6 +1841,25 @@ public class NumberUtilsTest {
         assertTrue(NumberUtils.isPositive(positiveDouble));
         assertFalse(NumberUtils.isPositive(Double.NaN));
 
+        final BigInteger positiveBigInteger = BigInteger.TEN;
+        assertTrue(NumberUtils.isPositive(BigInteger.valueOf(100)));
+        assertFalse(NumberUtils.isPositive(BigInteger.valueOf(-100)));
+        assertTrue(NumberUtils.isPositive(positiveBigInteger));
+
+        final BigDecimal positiveBigDecimal = BigDecimal.TEN;
+        assertTrue(NumberUtils.isPositive(BigDecimal.valueOf(100.001)));
+        assertFalse(NumberUtils.isPositive(BigDecimal.valueOf(-100.001)));
+        assertTrue(NumberUtils.isPositive(positiveBigDecimal));
+
+        final AtomicInteger positiveAtomicInteger = new AtomicInteger(100);
+        assertFalse(NumberUtils.isPositive(new AtomicInteger(-100)));
+        assertTrue(NumberUtils.isPositive(positiveAtomicInteger));
+
+        final AtomicLong positiveAtomicLong = new AtomicLong(100L);
+        assertFalse(NumberUtils.isPositive(new AtomicLong(-100L)));
+        assertTrue(NumberUtils.isPositive(positiveAtomicLong));
+
+
         assertFalse(NumberUtils.isPositive(new Number() {
             @Override
             public int intValue() {
@@ -1883,6 +1941,24 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isNotPositive(10.1000d));
         assertTrue(NumberUtils.isNotPositive(nPositiveDouble));
         assertTrue(NumberUtils.isNotPositive(Double.NaN));
+
+        final BigInteger nPositiveBigInteger = BigInteger.ZERO;
+        assertTrue(NumberUtils.isNotPositive(BigInteger.valueOf(-100)));
+        assertFalse(NumberUtils.isNotPositive(BigInteger.valueOf(100)));
+        assertTrue(NumberUtils.isNotPositive(nPositiveBigInteger));
+
+        final BigDecimal nPositiveBigDecimal = BigDecimal.ZERO;
+        assertTrue(NumberUtils.isNotPositive(BigDecimal.valueOf(-100.001)));
+        assertFalse(NumberUtils.isNotPositive(BigDecimal.valueOf(100.001)));
+        assertTrue(NumberUtils.isNotPositive(nPositiveBigDecimal));
+
+        final AtomicInteger nPositiveAtomicInteger = new AtomicInteger(-100);
+        assertFalse(NumberUtils.isNotPositive(new AtomicInteger(100)));
+        assertTrue(NumberUtils.isNotPositive(nPositiveAtomicInteger));
+
+        final AtomicLong nPositiveAtomicLong = new AtomicLong(-100L);
+        assertFalse(NumberUtils.isNotPositive(new AtomicLong(100L)));
+        assertTrue(NumberUtils.isNotPositive(nPositiveAtomicLong));
 
         assertTrue(NumberUtils.isNotPositive(new Number() {
             @Override
@@ -1992,6 +2068,24 @@ public class NumberUtilsTest {
         assertTrue(NumberUtils.isNegative(negativeDouble));
         assertFalse(NumberUtils.isNegative(Double.NaN));
 
+        final BigInteger negativeBigInteger = BigInteger.valueOf(-100);
+        assertTrue(NumberUtils.isNegative(new BigInteger("-100")));
+        assertFalse(NumberUtils.isNegative(BigInteger.valueOf(100)));
+        assertTrue(NumberUtils.isNegative(negativeBigInteger));
+
+        final BigDecimal negativeBigDecimal = BigDecimal.valueOf(-100.001);
+        assertTrue(NumberUtils.isNegative(new BigDecimal("-100.001")));
+        assertFalse(NumberUtils.isNegative(BigDecimal.valueOf(100.001)));
+        assertTrue(NumberUtils.isNegative(negativeBigDecimal));
+
+        final AtomicInteger negativeAtomicInteger = new AtomicInteger(-100);
+        assertFalse(NumberUtils.isNegative(new AtomicInteger(100)));
+        assertTrue(NumberUtils.isNegative(negativeAtomicInteger));
+
+        final AtomicLong negativeAtomicLong = new AtomicLong(-100L);
+        assertFalse(NumberUtils.isNegative(new AtomicLong(100L)));
+        assertTrue(NumberUtils.isNegative(negativeAtomicLong));
+
         assertFalse(NumberUtils.isNegative(new Number() {
             @Override
             public int intValue() {
@@ -2099,6 +2193,24 @@ public class NumberUtilsTest {
         assertFalse(NumberUtils.isNotNegative(-10.1000d));
         assertTrue(NumberUtils.isNotNegative(nNegativeDouble));
         assertTrue(NumberUtils.isNotNegative(Double.NaN));
+
+        final BigInteger nNegativeBigInteger = BigInteger.TEN;
+        assertTrue(NumberUtils.isNotNegative(BigInteger.valueOf(0)));
+        assertFalse(NumberUtils.isNotNegative(BigInteger.valueOf(-100)));
+        assertTrue(NumberUtils.isNotNegative(nNegativeBigInteger));
+
+        final BigDecimal nNegativeBigDecimal = BigDecimal.TEN;
+        assertTrue(NumberUtils.isNotNegative(BigDecimal.valueOf(0.0)));
+        assertFalse(NumberUtils.isNotNegative(BigDecimal.valueOf(-100.001)));
+        assertTrue(NumberUtils.isNotNegative(nNegativeBigDecimal));
+
+        final AtomicInteger nNegativeAtomicInteger = new AtomicInteger(0);
+        assertFalse(NumberUtils.isNotNegative(new AtomicInteger(-100)));
+        assertTrue(NumberUtils.isNotNegative(nNegativeAtomicInteger));
+
+        final AtomicLong nNegativeAtomicLong = new AtomicLong(0L);
+        assertFalse(NumberUtils.isNotNegative(new AtomicLong(-100L)));
+        assertTrue(NumberUtils.isNotNegative(nNegativeAtomicLong));
 
         assertTrue(NumberUtils.isNotNegative(new Number() {
             @Override

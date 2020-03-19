@@ -22,6 +22,8 @@ import java.math.BigInteger;
 
 import java.math.RoundingMode;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -1848,6 +1850,14 @@ public class NumberUtils {
             return number.floatValue() == FLOAT_ZERO;
         } else if (number instanceof Double) {
             return number.doubleValue() == DOUBLE_ZERO;
+        } else if (number instanceof BigInteger) {
+            return ((BigInteger) number).signum() == INTEGER_ZERO;
+        } else if (number instanceof BigDecimal) {
+            return ((BigDecimal) number).compareTo(BigDecimal.ZERO) == INTEGER_ZERO;
+        } else if (number instanceof AtomicInteger) {
+            return ((AtomicInteger) number).get() == INTEGER_ZERO;
+        } else if (number instanceof AtomicLong) {
+            return ((AtomicLong) number).get() == LONG_ZERO;
         } else {
             return number.intValue() == INTEGER_ZERO && number.longValue() == LONG_ZERO &&
                     number.byteValue() == BYTE_ZERO && number.shortValue() == SHORT_ZERO &&
@@ -1890,6 +1900,14 @@ public class NumberUtils {
             return number.floatValue() > FLOAT_ZERO;
         } else if (number instanceof Double) {
             return number.doubleValue() > DOUBLE_ZERO;
+        } else if (number instanceof BigInteger) {
+            return ((BigInteger) number).signum() == INTEGER_ONE;
+        } else if (number instanceof BigDecimal) {
+            return ((BigDecimal) number).compareTo(BigDecimal.ZERO) == INTEGER_ONE;
+        } else if (number instanceof AtomicInteger) {
+            return ((AtomicInteger) number).get() > INTEGER_ZERO;
+        } else if (number instanceof AtomicLong) {
+            return ((AtomicLong) number).get() > LONG_ZERO;
         } else {
             return number.intValue() > INTEGER_ZERO && number.longValue() > LONG_ZERO &&
                     number.byteValue() > BYTE_ZERO && number.shortValue() > SHORT_ZERO &&
@@ -1932,6 +1950,14 @@ public class NumberUtils {
             return number.floatValue() < FLOAT_ZERO;
         } else if (number instanceof Double) {
             return number.doubleValue() < DOUBLE_ZERO;
+        } else if (number instanceof BigInteger) {
+            return ((BigInteger) number).signum() == INTEGER_MINUS_ONE;
+        } else if (number instanceof BigDecimal) {
+            return ((BigDecimal) number).compareTo(BigDecimal.ZERO) == INTEGER_MINUS_ONE;
+        } else if (number instanceof AtomicInteger) {
+            return ((AtomicInteger) number).get() < INTEGER_ZERO;
+        } else if (number instanceof AtomicLong) {
+            return ((AtomicLong) number).get() < LONG_ZERO;
         } else {
             return number.intValue() < INTEGER_ZERO && number.longValue() < LONG_ZERO &&
                     number.byteValue() < BYTE_ZERO && number.shortValue() < SHORT_ZERO &&
