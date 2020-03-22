@@ -5070,7 +5070,7 @@ public class ArrayUtilsTest {
 
         ArrayUtils.shuffle(array1, new Random(SEED));
         assertFalse(Arrays.equals(array1, array2));
-        assertEquals(5, ArrayUtils.removeAllOccurences(array1, true).length);
+        assertEquals(5, ArrayUtils.removeAllOccurrences(array1, true).length);
     }
 
     @Test
