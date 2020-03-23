@@ -35,7 +35,9 @@ import java.util.EnumSet;
 @Deprecated
 public class NumericEntityUnescaper extends CharSequenceTranslator {
 
-    public enum OPTION { semiColonRequired, semiColonOptional, errorIfNoSemiColon }
+    public enum OPTION {
+        semiColonRequired, semiColonOptional, errorIfNoSemiColon
+    }
 
     // TODO?: Create an OptionsSet class to hide some of the conditional logic below
     private final EnumSet<OPTION> options;
