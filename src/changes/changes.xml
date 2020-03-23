@@ -45,7 +45,7 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.10" date="YYYY-MM-DD" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">
+  <release version="3.10" date="2020-03-22" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">
     <action issue="LANG-1514" type="fix" dev="kinow" due-to="contextshuffling">Make test more stable by wrapping assertions in hashset.</action>
     <action issue="LANG-1450" type="fix" dev="chtompki">Generate Javadoc jar on build.</action>
     <action issue="LANG-1457" type="add" dev="ggregory">Add ExceptionUtils.throwableOfType(Throwable, Class) and friends.</action>

@@ -32,6 +32,9 @@ limitations under the License.
           <th>Version</th><th>Release date</th><th>Required Java Version</th><th>Javadoc</th><th>Release notes</th>
         </tr>
         <tr>
+          <td>3.10</td><td>2020-03-22</td><td>8</td><td><a href="javadocs/api-3.10/">api-3.10</a></td><td><a href="release-notes/RELEASE-NOTES-3.10.txt">release notes for 3.10</a></td>
+        </tr>
+        <tr>
           <td>3.9</td><td>2019-04-09</td><td>8</td><td><a href="javadocs/api-3.9/">api-3.9</a></td><td><a href="release-notes/RELEASE-NOTES-3.9.txt">release notes for 3.9</a></td>
         </tr>
         <tr>
