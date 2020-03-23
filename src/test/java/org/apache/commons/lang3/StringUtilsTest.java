@@ -1894,16 +1894,17 @@ public class StringUtilsTest {
     public void testReplace_StringStringArrayStringArrayBoolean() {
         //JAVADOC TESTS START
         assertNull(StringUtils.replaceEachRepeatedly(null, new String[]{"a"}, new String[]{"b"}));
-        assertEquals(StringUtils.replaceEachRepeatedly("", new String[]{"a"}, new String[]{"b"}), "");
-        assertEquals(StringUtils.replaceEachRepeatedly("aba", null, null), "aba");
-        assertEquals(StringUtils.replaceEachRepeatedly("aba", new String[0], null), "aba");
-        assertEquals(StringUtils.replaceEachRepeatedly("aba", null, new String[0]), "aba");
-        assertEquals(StringUtils.replaceEachRepeatedly("aba", new String[0], null), "aba");
+        assertEquals("", StringUtils.replaceEachRepeatedly("", new String[]{"a"}, new String[]{"b"}));
+        assertEquals("aba", StringUtils.replaceEachRepeatedly("aba", null, null));
+        assertEquals("aba", StringUtils.replaceEachRepeatedly("aba", new String[0], null));
+        assertEquals("aba", StringUtils.replaceEachRepeatedly("aba", null, new String[0]));
+        assertEquals("aba", StringUtils.replaceEachRepeatedly("aba", new String[0], null));
 
-        assertEquals(StringUtils.replaceEachRepeatedly("aba", new String[]{"a"}, new String[]{""}), "b");
-        assertEquals(StringUtils.replaceEachRepeatedly("aba", new String[]{null}, new String[]{"a"}), "aba");
-        assertEquals(StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"}), "wcte");
-        assertEquals(StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}), "tcte");
+        assertEquals("b", StringUtils.replaceEachRepeatedly("aba", new String[]{"a"}, new String[]{""}));
+        assertEquals("aba", StringUtils.replaceEachRepeatedly("aba", new String[]{null}, new String[]{"a"}));
+        assertEquals("wcte", StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"}));
+        assertEquals("tcte", StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}));
+        assertEquals("blaan", StringUtils.replaceEachRepeatedly("blllaan", new String[]{"llaan"}, new String[]{"laan"}) );
 
         assertThrows(
                 IllegalStateException.class,
