@@ -19,7 +19,14 @@ package org.apache.commons.lang3;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.text.Normalizer;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
@@ -6691,7 +6698,7 @@ public class StringUtils {
             Set<String> searchSet = new HashSet<>(Arrays.asList(searchList));
             Set<String> replacementSet = new HashSet<>(Arrays.asList(replacementList));
             searchSet.retainAll(replacementSet);
-            if(searchSet.size() > 0){
+            if (searchSet.size() > 0) {
                 throw new IllegalStateException("Aborting to protect against StackOverflowError - " +
                         "output of one loop is the input of another");
             }
