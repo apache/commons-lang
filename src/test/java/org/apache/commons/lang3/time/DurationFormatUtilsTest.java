@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.time.Duration;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -578,6 +579,62 @@ public class DurationFormatUtilsTest {
     @Test
     public void testLANG981() { // unmatched quote char in lexx
         assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.lexx("'yMdHms''S"));
+    }
+
+    @Test
+    public void formatDurationWordsRemovedLeadingAndTrailingZeros() {
+        String formattedDuration = DurationFormatUtils.formatDurationWords(Duration.ofHours(1)
+                                                                                   .plusMinutes(3)
+                                                                                   .plusMillis(157)
+                                                                                   .toMillis(),
+                                                                           true,
+                                                                           true);
+        assertEquals("1 hour 3 minutes", formattedDuration);
+    }
+
+    @Test
+    public void formatWordsWithMsRemovedLeadingZeros() {
+        String formattedDuration = DurationFormatUtils.formatDurationWordsWithMs(Duration.ofHours(1)
+                                                                     .plusMinutes(33)
+                                                                     .plusSeconds(12)
+                                                                     .plusMillis(157)
+                                                                     .toMillis());
+        assertEquals("1 hour 33 minutes 12 seconds 157 milliseconds", formattedDuration);
+
+        formattedDuration = DurationFormatUtils.formatDurationWordsWithMs(Duration.ofHours(1)
+                                                                                         .plusMinutes(33)
+                                                                                         .toMillis());
+        assertEquals("1 hour 33 minutes 0 seconds 0 milliseconds", formattedDuration);
+    }
+
+
+    @Test
+    public void formatWordsWithMsWithoutRemovedLeadingAndTrailingZeros() {
+        String formattedDuration = DurationFormatUtils.formatDurationWordsWithMs(Duration.ofHours(1)
+                                                                     .plusMinutes(33)
+                                                                     .plusSeconds(12)
+                                                                     .plusMillis(157)
+                                                                     .toMillis(),
+                                                             false,
+                                                             false);
+        assertEquals("0 days 1 hour 33 minutes 12 seconds 157 milliseconds", formattedDuration);
+
+        formattedDuration = DurationFormatUtils.formatDurationWordsWithMs(Duration.ofHours(1)
+                                                                                         .plusMinutes(33)
+                                                                                         .plusSeconds(12)
+                                                                                         .toMillis(),
+                                                                                 false,
+                                                                                 false);
+        assertEquals("0 days 1 hour 33 minutes 12 seconds 0 milliseconds", formattedDuration);
+
+        formattedDuration = DurationFormatUtils.formatDurationWordsWithMs(Duration.ofHours(1)
+                                                                                         .plusMinutes(33)
+                                                                                         .plusSeconds(12)
+                                                                                         .plusMillis(1)
+                                                                                         .toMillis(),
+                                                                                 false,
+                                                                                 false);
+        assertEquals("0 days 1 hour 33 minutes 12 seconds 1 millisecond", formattedDuration);
     }
 
     private static final int FOUR_YEARS = 365 * 3 + 366;
