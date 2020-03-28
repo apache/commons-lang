@@ -16,13 +16,13 @@ limitations under the License.
 
 
                         Apache Commons Lang
-                        Version 3.10-SNAPSHOT
+                        Version 3.10
                         Release Notes
 
 
 INTRODUCTION:
 
-This document contains the release notes for the 3.10-SNAPSHOT version of Apache Commons Lang.
+This document contains the release notes for the 3.10 version of Apache Commons Lang.
 Commons Lang is a set of utility functions and reusable components that should be of use in any 
 Java environment.
 
@@ -117,3 +117,5 @@ For complete information on Apache Commons Lang, including instructions on how t
 patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
 
 https://commons.apache.org/proper/commons-lang/
+
+Download page: https://commons.apache.org/proper/commons-lang/download_lang.cgi
