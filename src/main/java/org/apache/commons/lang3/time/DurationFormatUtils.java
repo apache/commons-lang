@@ -163,7 +163,7 @@ public class DurationFormatUtils {
 
     /**
      * <p>Formats an elapsed time into a pluralization correct string.</p>
-     * <p>Returns duration in format '0 days 0hours 0 minutes 0 seconds'</p>
+     * <p>Returns duration in format '0 days 0 hours 0 minutes 0 seconds'</p>
      *
      * <p>This method formats durations using the days and lower fields of the
      * format pattern. Months and larger are not used.</p>
@@ -184,8 +184,8 @@ public class DurationFormatUtils {
 
     /**
      * <p>Formats an elapsed time into a pluralization correct string.</p>
-     * <p>Returns duration in format '0 days 0 hours 0 minutes 0 seconds 0 milliseconds'</p>
-     * It removes all leading time units with 0 value.
+     * <p>Returns duration in format '0 days 0 hours 0 minutes 0 seconds 0 milliseconds'
+     * It removes all leading time units with 0 value.</p>
      *
      * <p>This method formats durations using the days and lower fields of the
      * format pattern. Months and larger are not used.</p>
@@ -201,7 +201,7 @@ public class DurationFormatUtils {
 
     /**
      * <p>Formats an elapsed time into a pluralization correct string.</p>
-     * <p>Returns duration in format '0 days 0 hours 0 minutes 0 seconds 0 milliseconds' </p>
+     * <p>Returns duration in format '0 days 0 hours 0 minutes 0 seconds 0 milliseconds'</p>
      *
      * <p>This method formats durations using the days and lower fields of the
      * format pattern. Months and larger are not used.</p>
