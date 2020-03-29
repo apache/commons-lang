@@ -62,7 +62,7 @@ public class IEEE754rUtilsTest  {
 
         assertThrows(
                 IllegalArgumentException.class,
-                () -> IEEE754rUtils.min(),
+                IEEE754rUtils::min,
                 "IllegalArgumentException expected for empty input");
 
         assertThrows(
@@ -82,7 +82,7 @@ public class IEEE754rUtilsTest  {
 
         assertThrows(
                 IllegalArgumentException.class,
-                () -> IEEE754rUtils.min(),
+                IEEE754rUtils::min,
                 "IllegalArgumentException expected for empty input");
 
         assertThrows(
@@ -92,7 +92,7 @@ public class IEEE754rUtilsTest  {
 
         assertThrows(
                 IllegalArgumentException.class,
-                () -> IEEE754rUtils.max(),
+                IEEE754rUtils::max,
                 "IllegalArgumentException expected for empty input");
     }
 

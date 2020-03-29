@@ -36,7 +36,7 @@ class StreamsTest {
     @Test
     void testSimpleStreamMap() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
-        final List<Integer> output = Functions.stream(input).map((s) -> Integer.valueOf(s)).collect(Collectors.toList());
+        final List<Integer> output = Functions.stream(input).map(s -> Integer.valueOf(s)).collect(Collectors.toList());
         assertEquals(6, output.size());
         for (int i = 0;  i < 6;  i++) {
             assertEquals(i+1, output.get(i).intValue());
@@ -47,7 +47,7 @@ class StreamsTest {
     void testSimpleStreamMapFailing() {
         final List<String> input = Arrays.asList("1", "2", "3", "4 ", "5", "6");
         try {
-            Functions.stream(input).map((s) -> Integer.valueOf(s)).collect(Collectors.toList());
+            Functions.stream(input).map(s -> Integer.valueOf(s)).collect(Collectors.toList());
             fail("Expected Exception");
         } catch (final NumberFormatException nfe) {
             assertEquals("For input string: \"4 \"", nfe.getMessage());
@@ -58,7 +58,7 @@ class StreamsTest {
     void testSimpleStreamForEach() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = new ArrayList<>();
-        Functions.stream(input).forEach((s) -> output.add(Integer.valueOf(s)));
+        Functions.stream(input).forEach(s -> output.add(Integer.valueOf(s)));
         assertEquals(6, output.size());
         for (int i = 0;  i < 6;  i++) {
             assertEquals(i+1, output.get(i).intValue());
@@ -76,7 +76,7 @@ class StreamsTest {
     }
 
     protected <T extends Throwable> FailableConsumer<String, T> asIntConsumer(final T pThrowable) {
-        return (s) -> {
+        return s -> {
             final Integer i = Integer.valueOf(s);
             if (i.intValue() == 4) {
                 throw pThrowable;
@@ -117,8 +117,8 @@ class StreamsTest {
     void testSimpleStreamFilter() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Functions.stream(input)
-                .map((s) -> Integer.valueOf(s))
-                .filter((i) -> {
+                .map(s -> Integer.valueOf(s))
+                .filter(i -> {
                     return i.intValue() %2 == 0;
                 })
                 .collect(Collectors.toList());
@@ -133,7 +133,7 @@ class StreamsTest {
     }
 
     protected <T extends Throwable> FailablePredicate<Integer, T> asIntPredicate(final T pThrowable) {
-        return (i) -> {
+        return i -> {
             if (i.intValue() == 5) {
                 if (pThrowable != null) {
                     throw pThrowable;
@@ -147,7 +147,7 @@ class StreamsTest {
     void testSimpleStreamFilterFailing() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Functions.stream(input)
-                .map((s) -> Integer.valueOf(s))
+                .map(s -> Integer.valueOf(s))
                 .filter(asIntPredicate(null))
                 .collect(Collectors.toList());
         assertEvenNumbers(output);
@@ -156,7 +156,7 @@ class StreamsTest {
         final IllegalArgumentException iae = new IllegalArgumentException("Invalid argument: " + 5);
         try {
             Functions.stream(input)
-                    .map((s) -> Integer.valueOf(s))
+                    .map(s -> Integer.valueOf(s))
                     .filter(asIntPredicate(iae))
                     .collect(Collectors.toList());
             fail("Expected Exception");
@@ -168,7 +168,7 @@ class StreamsTest {
         final OutOfMemoryError oome = new OutOfMemoryError();
         try {
             Functions.stream(input)
-                    .map((s) -> Integer.valueOf(s))
+                    .map(s -> Integer.valueOf(s))
                     .filter(asIntPredicate(oome))
                     .collect(Collectors.toList());
             fail("Expected Exception");
@@ -180,7 +180,7 @@ class StreamsTest {
         final SAXException se = new SAXException();
         try {
             Functions.stream(input)
-                    .map((s) -> Integer.valueOf(s))
+                    .map(s -> Integer.valueOf(s))
                     .filter(asIntPredicate(se))
                     .collect(Collectors.toList());
             fail("Expected Exception");

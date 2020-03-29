@@ -3663,7 +3663,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @since 3.4
      */
     public static <T extends Comparable<? super T>> boolean isSorted(final T[] array) {
-        return isSorted(array, (o1, o2) -> o1.compareTo(o2));
+        return isSorted(array, Comparable::compareTo);
     }
 
     /**

@@ -445,7 +445,7 @@ public class Streams {
 
         @Override
         public Supplier<List<O>> supplier() {
-            return () -> new ArrayList<>();
+            return ArrayList::new;
         }
 
         @Override
@@ -465,7 +465,7 @@ public class Streams {
 
         @Override
         public Function<List<O>, O[]> finisher() {
-            return (list) -> {
+            return list -> {
                 @SuppressWarnings("unchecked")
                 final O[] array = (O[]) Array.newInstance(elementType, list.size());
                 return list.toArray(array);

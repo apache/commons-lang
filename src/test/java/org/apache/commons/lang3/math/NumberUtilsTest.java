@@ -691,7 +691,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinLong_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min());
+        assertThrows(IllegalArgumentException.class, NumberUtils::min);
     }
 
     @Test
@@ -710,7 +710,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinInt_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min());
+        assertThrows(IllegalArgumentException.class, NumberUtils::min);
     }
 
     @Test
@@ -729,7 +729,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinShort_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min());
+        assertThrows(IllegalArgumentException.class, NumberUtils::min);
     }
 
     @Test
@@ -767,7 +767,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinDouble_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min());
+        assertThrows(IllegalArgumentException.class, NumberUtils::min);
     }
 
     @Test
@@ -786,7 +786,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinFloat_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min());
+        assertThrows(IllegalArgumentException.class, NumberUtils::min);
     }
 
     @Test
@@ -805,7 +805,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaxLong_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max());
+        assertThrows(IllegalArgumentException.class, NumberUtils::max);
     }
 
     @Test
@@ -824,7 +824,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaxInt_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max());
+        assertThrows(IllegalArgumentException.class, NumberUtils::max);
     }
 
     @Test
@@ -843,7 +843,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaxShort_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max());
+        assertThrows(IllegalArgumentException.class, NumberUtils::max);
     }
 
     @Test
@@ -881,7 +881,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaxDouble_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max());
+        assertThrows(IllegalArgumentException.class, NumberUtils::max);
     }
 
     @Test
@@ -892,7 +892,7 @@ public class NumberUtilsTest {
 
         assertThrows(
                 IllegalArgumentException.class,
-                () -> NumberUtils.max(),
+                NumberUtils::max,
                 "No exception was thrown for empty input.");
 
         assertEquals(5.1f, NumberUtils.max(5.1f), "max(double[]) failed for array length 1");
@@ -909,7 +909,7 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaxFloat_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max());
+        assertThrows(IllegalArgumentException.class, NumberUtils::max);
     }
 
     @Test
