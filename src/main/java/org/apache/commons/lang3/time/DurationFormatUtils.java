@@ -163,7 +163,7 @@ public class DurationFormatUtils {
 
     /**
      * <p>Formats an elapsed time into a pluralization correct string.</p>
-     * Returns duration in format '0 days 0hours 0 minutes 0 seconds' </p>
+     * <p>Returns duration in format '0 days 0hours 0 minutes 0 seconds'</p>
      *
      * <p>This method formats durations using the days and lower fields of the
      * format pattern. Months and larger are not used.</p>
@@ -184,7 +184,7 @@ public class DurationFormatUtils {
 
     /**
      * <p>Formats an elapsed time into a pluralization correct string.</p>
-     * Returns duration in format '0 days 0 hours 0 minutes 0 seconds 0 milliseconds' </p>
+     * <p>Returns duration in format '0 days 0 hours 0 minutes 0 seconds 0 milliseconds'</p>
      * It removes all leading time units with 0 value.
      *
      * <p>This method formats durations using the days and lower fields of the
@@ -201,7 +201,7 @@ public class DurationFormatUtils {
 
     /**
      * <p>Formats an elapsed time into a pluralization correct string.</p>
-     * Returns duration in format '0 days 0 hours 0 minutes 0 seconds 0 milliseconds' </p>
+     * <p>Returns duration in format '0 days 0 hours 0 minutes 0 seconds 0 milliseconds' </p>
      *
      * <p>This method formats durations using the days and lower fields of the
      * format pattern. Months and larger are not used.</p>
@@ -222,7 +222,7 @@ public class DurationFormatUtils {
 
     /**
      * <p>Formats an elapsed time into a pluralization correct string.</p>
-     * Returns duration in format '0 days 0 hours 0 minutes 0 seconds 0 milliseconds' </p>
+     * <p>Returns duration in format '0 days 0 hours 0 minutes 0 seconds 0 milliseconds' </p>
      *
      * <p>This method formats durations using the days and lower fields of the
      * format pattern. Months and larger are not used.</p>
@@ -264,7 +264,7 @@ public class DurationFormatUtils {
                 timeUnitPart = timeUnitParts.get(getLastIndex(timeUnitParts));
             }
         }
-        return handlePlurals(timeUnitParts, timeUnits);
+        return handlePlurals(timeUnitParts);
     }
 
     //-----------------------------------------------------------------------
@@ -518,18 +518,18 @@ public class DurationFormatUtils {
         private String timeUnit;
         private int value;
 
-        public TimeUnitPart(String timeUnit, int value) {
+        private TimeUnitPart(String timeUnit, int value) {
             this.timeUnit = timeUnit;
             this.value = value;
         }
     }
 
-    private static String handlePlurals(List<TimeUnitPart> timeUnitParts, List<String> timeUnits) {
+    private static String handlePlurals(List<TimeUnitPart> timeUnitParts) {
         String duration = StringUtils.SPACE + timeUnitParts.stream()
                                                            .map(part -> part.value + StringUtils.SPACE + part.timeUnit)
                                                            .collect(Collectors.joining(StringUtils.SPACE));
-        for (String timeUnit : timeUnits) {
-            duration = makePlural(duration, timeUnit);
+        for (TimeUnitPart timeUnitPart : timeUnitParts) {
+            duration = makePlural(duration, timeUnitPart.timeUnit);
         }
         return duration.trim();
     }

@@ -710,7 +710,7 @@ public class DurationFormatUtilsTest {
         private String expectedFormat;
         private Duration duration;
 
-        public DurationFormatTestCase(String expectedFormat, Duration duration) {
+        private DurationFormatTestCase(String expectedFormat, Duration duration) {
             this.expectedFormat = expectedFormat;
             this.duration = duration;
         }
