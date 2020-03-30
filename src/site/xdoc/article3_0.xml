@@ -184,7 +184,7 @@ available in the <a href="userguide.html#lang.concurrent.">user guide</a>.</p>
 <ul>
 <li>StringUtils.isAlpha, isNumeric and isAlphanumeric now all return false when passed an empty String. Previously they returned true. </li>
 <li>SystemUtils.isJavaVersionAtLeast now relies on the <code>java.specification.version</code> and not the <code>java.version</code> System property. </li>
-<li>StringEscapeUtils.escapeXml and escapeHtml no longer escape high value Unicode characters by default. The text.translate package is available to recreate the old behaviour. </li>
+<li>StringEscapeUtils.escapeXml and escapeHtml no longer escape high value Unicode characters by default. The text.translate package is available to recreate the old behavior. </li>
 <li>Validate utility methods have been changed and genericized to return the
 validated argument where possible, to allow for inline use. </li>
 <li>Validate utility methods handle validity violations arising from

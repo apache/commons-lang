@@ -41,7 +41,7 @@ import org.apache.commons.lang3.mutable.MutableInt;
  * <p>This class tries to handle {@code null} input gracefully.
  * An exception will not be thrown for a {@code null}
  * array input. However, an Object array that contains a {@code null}
- * element may throw an exception. Each method documents its behaviour.
+ * element may throw an exception. Each method documents its behavior.
  *
  * <p>#ThreadSafe#
  * @since 2.0

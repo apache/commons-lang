@@ -34,7 +34,7 @@ import org.apache.commons.lang3.mutable.MutableObject;
  * <p>Operates on classes without using reflection.</p>
  *
  * <p>This class handles invalid {@code null} inputs as best it can.
- * Each method documents its behaviour in more detail.</p>
+ * Each method documents its behavior in more detail.</p>
  *
  * <p>The notion of a {@code canonical name} includes the human
  * readable name for the type, for example {@code int[]}. The

@@ -501,11 +501,11 @@ public class StringEscapeUtilsTest {
         final String original = "\u304B\u304C\u3068";
         final String escaped = StringEscapeUtils.escapeHtml4(original);
         assertEquals(original, escaped,
-                "Hiragana character Unicode behaviour should not be being escaped by escapeHtml4");
+                "Hiragana character Unicode behavior should not be being escaped by escapeHtml4");
 
         final String unescaped = StringEscapeUtils.unescapeHtml4( escaped );
 
-        assertEquals(escaped, unescaped, "Hiragana character Unicode behaviour has changed - expected no unescaping");
+        assertEquals(escaped, unescaped, "Hiragana character Unicode behavior has changed - expected no unescaping");
     }
 
     /**

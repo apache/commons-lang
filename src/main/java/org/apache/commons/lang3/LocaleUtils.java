@@ -31,7 +31,7 @@ import java.util.concurrent.ConcurrentMap;
  *
  * <p>This class tries to handle {@code null} input gracefully.
  * An exception will not be thrown for a {@code null} input.
- * Each method documents its behaviour in more detail.</p>
+ * Each method documents its behavior in more detail.</p>
  *
  * @since 2.2
  */
@@ -71,7 +71,7 @@ public class LocaleUtils {
      *   LocaleUtils.toLocale("en_GB_xxx")  = new Locale("en", "GB", "xxx")   (#)
      * </pre>
      *
-     * <p>(#) The behaviour of the JDK variant constructor changed between JDK1.3 and JDK1.4.
+     * <p>(#) The behavior of the JDK variant constructor changed between JDK1.3 and JDK1.4.
      * In JDK1.3, the constructor upper cases the variant, in JDK1.4, it doesn't.
      * Thus, the result from getVariant() may vary depending on your JDK.</p>
      *

@@ -27,7 +27,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * <p>This class tries to handle {@code null} input gracefully.
  * An exception will not be thrown for a {@code null} input.
- * Each method documents its behaviour in more detail.</p>
+ * Each method documents its behavior in more detail.</p>
  *
  * @since 2.0
  * @deprecated as of 3.6, use commons-text

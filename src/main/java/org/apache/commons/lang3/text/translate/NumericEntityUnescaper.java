@@ -54,7 +54,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
      * and to throw an IllegalArgumentException when they're missing:
      *    new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.errorIfNoSemiColon)
      *
-     * Note that the default behaviour is to ignore them.
+     * Note that the default behavior is to ignore them.
      *
      * @param options to apply to this unescaper
      */
