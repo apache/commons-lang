@@ -494,7 +494,7 @@ public class StringUtils {
      * StringUtils.appendIfMissingIgnoreCase("", "xyz", null) = "xyz"
      * StringUtils.appendIfMissingIgnoreCase("abc", "xyz", new CharSequence[]{null}) = "abcxyz"
      * StringUtils.appendIfMissingIgnoreCase("abc", "xyz", "") = "abc"
-     * StringUtils.appendIfMissingIgnoreCase("abc", "xyz", "mno") = "axyz"
+     * StringUtils.appendIfMissingIgnoreCase("abc", "xyz", "mno") = "abcxyz"
      * StringUtils.appendIfMissingIgnoreCase("abcxyz", "xyz", "mno") = "abcxyz"
      * StringUtils.appendIfMissingIgnoreCase("abcmno", "xyz", "mno") = "abcmno"
      * StringUtils.appendIfMissingIgnoreCase("abcXYZ", "xyz", "mno") = "abcXYZ"

@@ -135,7 +135,7 @@ o LANG-831:  FastDateParser does not handle white-space properly.
 o LANG-830:  FastDateParser could use \Q \E to quote regexes.
 o LANG-828:  FastDateParser does not handle non-Gregorian calendars properly.
 o LANG-826:  FastDateParser does not handle non-ASCII digits correctly.
-o LANG-822:  NumberUtils#createNumber - bad behaviour for leading "--".
+o LANG-822:  NumberUtils#createNumber - bad behavior for leading "--".
 o LANG-818:  FastDateFormat's "z" pattern does not respect timezone of Calendar
              instances passed to format().
 o LANG-817:  Add org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS_8.

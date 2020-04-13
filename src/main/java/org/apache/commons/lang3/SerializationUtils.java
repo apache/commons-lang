@@ -39,7 +39,7 @@ import java.util.Map;
  * </ul>
  *
  * <p>This class throws exceptions for invalid {@code null} inputs.
- * Each method documents its behaviour in more detail.</p>
+ * Each method documents its behavior in more detail.</p>
  *
  * <p>#ThreadSafe#</p>
  * @since 1.0

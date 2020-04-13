@@ -39,7 +39,7 @@ INCOMPATIBLE CHANGES:
 - The Nestable interface defines the method indexOfThrowable(Class).
 Previously the implementations checked only for a specific Class.
 Now they check for subclasses of that Class as well.
-For most situations this will be the expected behaviour (ie. its a bug fix).
+For most situations this will be the expected behavior (ie. its a bug fix).
 If it causes problems, please use the ExceptionUtils.indexOfThrowable(Class) method instead.
 Note that the ExceptionUtils method is available in v1.0 and v2.0 of commons-lang and has not been changed.
 (An alternative to this is to change the public static matchSubclasses flag on NestableDelegate.
@@ -105,7 +105,7 @@ indexOfThrowable method untouched (see incompatible changes section)
            -- method to parse a date string using multiple patterns
 - FastDateFormat - extra formatting methods that take in a millisecond long value
                 -- additional static factory methods
-- StopWatch - new methods for split behaviour
+- StopWatch - new methods for split behavior
 
 
 BUG FIXES:

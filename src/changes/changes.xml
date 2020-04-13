@@ -45,7 +45,13 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.10" date="YYYY-MM-DD" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">
+  <release version="3.10.1" date="2020-MM-DD" description="New features and bug fixes..">
+    <action                   type="fix" dev="kinow" due-to="contextshuffling">Fix Javdoc for StringUtils.appendIfMissingIgnoreCase() #507.</action>
+    <action                   type="update" dev="ggregory">org.junit-pioneer:junit-pioneer 0.5.4 -> 0.5.6.</action>
+    <action                   type="update" dev="ggregory">org.junit.jupiter:junit-jupiter 5.6.0 -> 5.6.1.</action>
+  </release>
+
+  <release version="3.10" date="2020-03-22" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">
     <action issue="LANG-1514" type="fix" dev="kinow" due-to="contextshuffling">Make test more stable by wrapping assertions in hashset.</action>
     <action issue="LANG-1450" type="fix" dev="chtompki">Generate Javadoc jar on build.</action>
     <action issue="LANG-1457" type="add" dev="ggregory">Add ExceptionUtils.throwableOfType(Throwable, Class) and friends.</action>
@@ -189,7 +195,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1256" type="add" dev="pschumacher" due-to="C0rWin">Add JMH maven dependencies</action>
     <action issue="LANG-1167" type="add" dev="chtompki" due-to="Mark Dacek">Add null filter to ReflectionToStringBuilder</action>
     <action issue="LANG-1320" type="fix" dev="britter">LocaleUtils#toLocale does not support language followed by UN M.49 numeric-3 area code followed by variant</action>
-    <action issue="LANG-1300" type="fix" dev="chtompki" due-to="Mark Dacek">Clarify or improve behaviour of int-based indexOf methods in StringUtils</action>
+    <action issue="LANG-1300" type="fix" dev="chtompki" due-to="Mark Dacek">Clarify or improve behavior of int-based indexOf methods in StringUtils</action>
     <action issue="LANG-1299" type="add" dev="djones">Add method for converting string to an array of code points</action>
     <action issue="LANG-1286" type="fix" dev="djones">RandomStringUtils random method can overflow and return characters outside of specified range</action>
     <action issue="LANG-660" type="add" dev="djones">Add methods to insert arrays into arrays at an index</action>
@@ -523,7 +529,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-828" type="fix">FastDateParser does not handle non-Gregorian calendars properly</action>
     <action issue="LANG-826" type="fix">FastDateParser does not handle non-ASCII digits correctly</action>
     <action issue="LANG-825" type="add">Create StrBuilder APIs similar to String.format(String, Object...)</action>
-    <action issue="LANG-822" type="fix">NumberUtils#createNumber - bad behaviour for leading "--"</action>
+    <action issue="LANG-822" type="fix">NumberUtils#createNumber - bad behavior for leading "--"</action>
     <action issue="LANG-818" type="fix">FastDateFormat's "z" pattern does not respect timezone of Calendar instances passed to format()</action>
     <action issue="LANG-817" type="fix">Add org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS_8</action>
     <action issue="LANG-813" type="fix">StringUtils.equalsIgnoreCase doesn't check string reference equality</action>

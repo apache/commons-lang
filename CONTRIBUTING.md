@@ -25,7 +25,7 @@
  | commons-build-plugin/trunk/src/main/resources/commons-xdoc-templates |
  +======================================================================+
  |                                                                      |
- | 1) Re-generate using: mvn commons:contributing-md                    |
+ | 1) Re-generate using: mvn commons-build:contributing-md              |
  |                                                                      |
  | 2) Set the following properties in the component's pom:              |
  |    - commons.jira.id  (required, alphabetic, upper case)             |

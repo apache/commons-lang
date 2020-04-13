@@ -16,11 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import org.apache.commons.lang3.stream.FailableDoubleStream;
-import org.apache.commons.lang3.stream.FailableIntStream;
-import org.apache.commons.lang3.stream.FailableLongStream;
-import org.apache.commons.lang3.stream.FailableStream;
-
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,6 +31,11 @@ import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
+
+import org.apache.commons.lang3.stream.FailableDoubleStream;
+import org.apache.commons.lang3.stream.FailableIntStream;
+import org.apache.commons.lang3.stream.FailableLongStream;
+import org.apache.commons.lang3.stream.FailableStream;
 
 /**
  * Provides utility functions, and classes for working with the
@@ -159,7 +159,8 @@ public class Streams {
         @Override
         public Function<List<O>, O[]> finisher() {
             return list -> {
-                @SuppressWarnings("unchecked") final O[] array = (O[]) Array.newInstance(elementType, list.size());
+                @SuppressWarnings("unchecked")
+                final O[] array = (O[]) Array.newInstance(elementType, list.size());
                 return list.toArray(array);
             };
         }

@@ -41,7 +41,7 @@ import org.apache.commons.lang3.mutable.MutableInt;
  * <p>This class tries to handle {@code null} input gracefully.
  * An exception will not be thrown for a {@code null}
  * array input. However, an Object array that contains a {@code null}
- * element may throw an exception. Each method documents its behaviour.
+ * element may throw an exception. Each method documents its behavior.
  *
  * <p>#ThreadSafe#
  * @since 2.0
@@ -3663,7 +3663,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @since 3.4
      */
     public static <T extends Comparable<? super T>> boolean isSorted(final T[] array) {
-        return isSorted(array, (o1, o2) -> o1.compareTo(o2));
+        return isSorted(array, Comparable::compareTo);
     }
 
     /**

@@ -38,7 +38,7 @@ import org.apache.commons.lang3.text.StrBuilder;
  *
  * <p>This class tries to handle {@code null} input gracefully.
  * An exception will generally not be thrown for a {@code null} input.
- * Each method documents its behaviour in more detail.</p>
+ * Each method documents its behavior in more detail.</p>
  *
  * <p>#ThreadSafe#</p>
  * @since 1.0
