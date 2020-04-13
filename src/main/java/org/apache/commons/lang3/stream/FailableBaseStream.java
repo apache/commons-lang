@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.stream;
 
+import org.apache.commons.lang3.Streams;
+
 import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.stream.BaseStream;
@@ -37,7 +39,7 @@ import java.util.stream.Stream;
  * @see FailableIntStream
  * @see FailableLongStream
  * @see FailableDoubleStream
- * @see FailableStream
+ * @see Streams.FailableStream
  * @since 3.10
  */
 public abstract class FailableBaseStream<T, S extends FailableBaseStream<T, S>> {

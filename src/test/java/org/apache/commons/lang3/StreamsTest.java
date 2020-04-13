@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang3.stream;
+package org.apache.commons.lang3;
 
 import org.apache.commons.lang3.Functions;
 import org.apache.commons.lang3.Streams;
@@ -41,15 +41,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class FailableStreamTest {
+public class StreamsTest {
     private static final String EXPECTED_EXCEPTION = "Expected Exception";
     private static final Functions.FailableFunction<List<String>, Stream<Integer>, ?> LIST_TO_STREAM =
             list -> list.stream().map(Integer::valueOf);
 
-    private FailableStream<Integer> inputStream;
-    private FailableStream<Integer> failingInputStream;
-    private FailableStream<Integer> flatMapInputStream;
-    private FailableStream<Integer> failingFlatMapInputStream;
+    private Streams.FailableStream<Integer> inputStream;
+    private Streams.FailableStream<Integer> failingInputStream;
+    private Streams.FailableStream<Integer> flatMapInputStream;
+    private Streams.FailableStream<Integer> failingFlatMapInputStream;
 
     @BeforeEach
     void beforeEach() {

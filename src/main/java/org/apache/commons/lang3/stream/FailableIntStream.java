@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.stream;
 
 import org.apache.commons.lang3.Functions;
+import org.apache.commons.lang3.Streams;
 import org.apache.commons.lang3.function.FailableIntConsumer;
 import org.apache.commons.lang3.function.FailableIntFunction;
 import org.apache.commons.lang3.function.FailableIntPredicate;
@@ -67,8 +68,8 @@ public class FailableIntStream extends FailableBaseStream<Integer, FailableIntSt
      *
      * @return a FailableStream consisting of the elements of this stream, each boxed to an Integer
      */
-    public FailableStream<Integer> boxed() {
-        return new FailableStream<>(intStream.boxed());
+    public Streams.FailableStream<Integer> boxed() {
+        return new Streams.FailableStream<>(intStream.boxed());
     }
 
     /**
@@ -181,9 +182,9 @@ public class FailableIntStream extends FailableBaseStream<Integer, FailableIntSt
      *
      * @see IntStream#mapToObj(IntFunction)
      */
-    public <O> FailableStream<O> mapToObj(final FailableIntFunction<O, ?> mapper) {
+    public <O> Streams.FailableStream<O> mapToObj(final FailableIntFunction<O, ?> mapper) {
         assertNotTerminated();
-        return new FailableStream<>(intStream.mapToObj(Functions.asIntFunction(mapper)));
+        return new Streams.FailableStream<>(intStream.mapToObj(Functions.asIntFunction(mapper)));
     }
 
     /**

@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.stream;
 
 import org.apache.commons.lang3.Functions;
+import org.apache.commons.lang3.Streams;
 import org.apache.commons.lang3.function.FailableLongConsumer;
 import org.apache.commons.lang3.function.FailableLongFunction;
 import org.apache.commons.lang3.function.FailableLongPredicate;
@@ -67,8 +68,8 @@ public class FailableLongStream extends FailableBaseStream<Long, FailableLongStr
      *
      * @return a FailableStream consisting of the elements of this stream, each boxed to a Long
      */
-    public FailableStream<Long> boxed() {
-        return new FailableStream<>(longStream.boxed());
+    public Streams.FailableStream<Long> boxed() {
+        return new Streams.FailableStream<>(longStream.boxed());
     }
 
     /**
@@ -181,9 +182,9 @@ public class FailableLongStream extends FailableBaseStream<Long, FailableLongStr
      *
      * @see LongStream#mapToObj(LongFunction)
      */
-    public <O> FailableStream<O> mapToObj(final FailableLongFunction<O, ?> mapper) {
+    public <O> Streams.FailableStream<O> mapToObj(final FailableLongFunction<O, ?> mapper) {
         assertNotTerminated();
-        return new FailableStream<>(longStream.mapToObj(Functions.asLongFunction(mapper)));
+        return new Streams.FailableStream<>(longStream.mapToObj(Functions.asLongFunction(mapper)));
     }
 
     /**

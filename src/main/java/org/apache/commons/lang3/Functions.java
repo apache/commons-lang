@@ -41,7 +41,6 @@ import org.apache.commons.lang3.function.FailableUnaryOperator;
 import org.apache.commons.lang3.stream.FailableDoubleStream;
 import org.apache.commons.lang3.stream.FailableIntStream;
 import org.apache.commons.lang3.stream.FailableLongStream;
-import org.apache.commons.lang3.stream.FailableStream;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -997,36 +996,36 @@ public class Functions {
     }
 
     /**
-     * Converts the given stream into a {@link FailableStream}. The
-     * {@link FailableStream} consists of the same elements that are in
+     * Converts the given stream into a {@link Streams.FailableStream}. The
+     * {@link Streams.FailableStream} consists of the same elements that are in
      * the input stream. However, failable lambdas, like
      * {@link FailablePredicate}, {@link FailableFunction}, and
      * {@link FailableConsumer} may be applied, rather than
      * {@link Predicate}, {@link Function}, {@link Consumer}, etc.
      * @param stream The stream which is being converted into a
-     *   {@link FailableStream}.
+     *   {@link Streams.FailableStream}.
      * @param <O> The stream's element type.
-     * @return The created {@link FailableStream}.
+     * @return The created {@link Streams.FailableStream}.
      */
-    public static <O> FailableStream<O> failableStream(final Stream<O> stream) {
-        return new FailableStream<>(stream);
+    public static <O> Streams.FailableStream<O> failableStream(final Stream<O> stream) {
+        return new Streams.FailableStream<>(stream);
     }
 
     /**
-     * Converts the given collection into a {@link FailableStream}.
-     * The {@link FailableStream} consists of the collection's
+     * Converts the given collection into a {@link Streams.FailableStream}.
+     * The {@link Streams.FailableStream} consists of the collection's
      * elements. Shortcut for
      * <pre>
      *   Functions.failableStream(collection.stream());
      * </pre>
      * @param collection The collection which is being converted into a
-     *   {@link FailableStream}.
+     *   {@link Streams.FailableStream}.
      * @param <O> The collection's element type. (In turn, the resulting
      *   stream's element type.)
-     * @return The created {@link FailableStream}.
+     * @return The created {@link Streams.FailableStream}.
      */
-    public static <O> FailableStream<O> failableStream(final Collection<O> collection) {
-        return new FailableStream<>(collection.stream());
+    public static <O> Streams.FailableStream<O> failableStream(final Collection<O> collection) {
+        return new Streams.FailableStream<>(collection.stream());
     }
 
     /**

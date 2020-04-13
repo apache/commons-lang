@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.stream;
 
 import org.apache.commons.lang3.Functions;
+import org.apache.commons.lang3.Streams;
 import org.apache.commons.lang3.function.FailableDoubleConsumer;
 import org.apache.commons.lang3.function.FailableDoubleFunction;
 import org.apache.commons.lang3.function.FailableDoublePredicate;
@@ -74,9 +75,9 @@ public class FailableDoubleStream extends FailableBaseStream<Double, FailableDou
      *
      * @see DoubleStream#boxed()
      */
-    public FailableStream<Double> boxed() {
+    public Streams.FailableStream<Double> boxed() {
         assertNotTerminated();
-        return new FailableStream<>(doubleStream.boxed());
+        return new Streams.FailableStream<>(doubleStream.boxed());
     }
 
     /**
@@ -189,9 +190,9 @@ public class FailableDoubleStream extends FailableBaseStream<Double, FailableDou
      *
      * @see DoubleStream#mapToObj(DoubleFunction)
      */
-    public <O> FailableStream<O> mapToObj(final FailableDoubleFunction<O, ?> mapper) {
+    public <O> Streams.FailableStream<O> mapToObj(final FailableDoubleFunction<O, ?> mapper) {
         assertNotTerminated();
-        return new FailableStream<>(doubleStream.mapToObj(Functions.asDoubleFunction(mapper)));
+        return new Streams.FailableStream<>(doubleStream.mapToObj(Functions.asDoubleFunction(mapper)));
     }
 
     /**
