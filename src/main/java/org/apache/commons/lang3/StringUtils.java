@@ -7442,6 +7442,47 @@ public class StringUtils {
     }
 
     /**
+     * <p>Splits the provided text array into an array, separator specified.</p>
+     *
+     * <p>The separator is not included in the returned String array.
+     * Adjacent separators are treated as one separator.
+     * For more control over the split use the StrTokenizer class.</p>
+     *
+     * <p>A {@code null} input String returns {@code null}.</p>
+     *
+     * <pre>
+     * StringUtils.split(null, *)                = null
+     * StringUtils.split([""], *)                = []
+     * StringUtils.split(["",  ""], *)           = []
+     * StringUtils.split(["a.b.c"], '.')         = ["a", "b", "c"]
+     * StringUtils.split(["a.b","c"], '.')       = ["a", "b", "c"]
+     * StringUtils.split(["a","b","c"], '.')     = ["a", "b", "c"]
+     * StringUtils.split(["a..b.c"], '.')        = ["a", "b", "c"]
+     * StringUtils.split(["a:b:c"], '.')         = ["a:b:c"]
+     * StringUtils.split(["a b c"], ' ')         = ["a", "b", "c"]
+     * </pre>
+     *
+     * @param array         the String[] to parse, may be null
+     * @param separatorChar the character used as the delimiter,
+     *                      {@code null} splits on whitespace
+     * @return an array of parsed Strings, {@code null} if null String[] input
+     */
+    public static String[] split(final String[] array, final String separatorChar) {
+        if (array == null) {
+            return null;
+        }
+        String[] resultArray = ArrayUtils.EMPTY_STRING_ARRAY;
+        for (String str : array) {
+            String[] splitArray = StringUtils.split(str, separatorChar);
+            // Since, the spit method might return null case ["a",null,"b"]
+            if (ArrayUtils.isNotEmpty(splitArray)) {
+                resultArray = ArrayUtils.addAll(resultArray, splitArray);
+            }
+        }
+        return resultArray;
+    }
+
+    /**
      * <p>Splits a String by Character type as returned by
      * {@code java.lang.Character.getType(char)}. Groups of contiguous
      * characters of the same type are returned as complete tokens.

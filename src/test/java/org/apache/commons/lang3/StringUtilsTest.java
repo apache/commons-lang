@@ -2318,7 +2318,8 @@ public class StringUtilsTest {
 
     @Test
     public void testSplit_StringString_StringStringInt() {
-        assertNull(StringUtils.split(null, "."));
+        String nullString=null;
+        assertNull(StringUtils.split(nullString, "."));
         assertNull(StringUtils.split(null, ".", 3));
 
         assertEquals(0, StringUtils.split("", ".").length);
@@ -2348,6 +2349,54 @@ public class StringUtilsTest {
         for (int i = 0; i < expectedResults2.length; i++) {
             assertEquals(expectedResults2[i], results[i]);
         }
+    }
+
+    @Test
+    public void testSplit_StringArrayChar() {
+        String[] nullArray = null;
+        assertNull(StringUtils.split(nullArray, "."));
+
+        String[] strArray = new String[]{""};
+        assertEquals(0, StringUtils.split(strArray, ".").length);
+
+        strArray = new String[]{"", ""};
+        assertEquals(0, StringUtils.split(strArray, ".").length);
+
+        strArray = new String[]{"a.b", null, "c", "d.e"};
+        String[] expectedResult = new String[]{"a", "b", "c", "d", "e"};
+        assertEquals(true, Arrays.equals(expectedResult, StringUtils.split(strArray, ".")));
+
+        strArray = new String[]{"a b"};
+        expectedResult = new String[]{"a", "b"};
+        assertEquals(true, Arrays.equals(expectedResult, StringUtils.split(strArray, null))); // Null separator means use whitespace
+
+        strArray = new String[]{"a.b.c"};
+        expectedResult = new String[]{"a", "b", "c"};
+        assertEquals(true, Arrays.equals(expectedResult, StringUtils.split(strArray, ".")));
+
+        strArray = new String[]{"a.b", "c"};
+        expectedResult = new String[]{"a", "b", "c"};
+        assertEquals(true, Arrays.equals(expectedResult, StringUtils.split(strArray, ".")));
+
+        strArray = new String[]{"a", "b", "c"};
+        expectedResult = new String[]{"a", "b", "c"};
+        assertEquals(true, Arrays.equals(expectedResult, StringUtils.split(strArray, ".")));
+
+        strArray = new String[]{"a..b.c"};
+        expectedResult = new String[]{"a", "b", "c"};
+        assertEquals(true, Arrays.equals(expectedResult, StringUtils.split(strArray, ".")));
+
+        strArray = new String[]{"a b c", "d e"};
+        expectedResult = new String[]{"a", "b", "c", "d", "e"};
+        assertEquals(true, Arrays.equals(expectedResult, StringUtils.split(strArray, " ")));
+
+        strArray = new String[]{"a b c", "d:e"};
+        expectedResult = new String[]{"a", "b", "c", "d:e"};
+        assertEquals(true, Arrays.equals(expectedResult, StringUtils.split(strArray, " ")));
+
+        strArray = new String[]{"a:b:c"};
+        expectedResult = new String[]{"a:b:c"};
+        assertEquals(true, Arrays.equals(expectedResult, StringUtils.split(strArray, ".")));
     }
 
     @Test
