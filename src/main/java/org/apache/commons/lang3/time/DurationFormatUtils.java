@@ -178,8 +178,14 @@ public class DurationFormatUtils {
         // This method is generally replaceable by the format method, but
         // there are a series of tweaks and special cases that require
         // trickery to replicate.
+        
         String duration = formatDuration(durationMillis, "d' days 'H' hours 'm' minutes 's' seconds'");
         if (suppressLeadingZeroElements) {
+            // Avoid returning "0 seconds" unless duration is actually 0
+            if (durationMillis > 0 && durationMillis < 1000) {
+                return "less than 1 second";
+            }        
+
             // this is a temporary marker on the front. Like ^ in regexp.
             duration = " " + duration;
             String tmp = StringUtils.replaceOnce(duration, " 0 days", StringUtils.EMPTY);
