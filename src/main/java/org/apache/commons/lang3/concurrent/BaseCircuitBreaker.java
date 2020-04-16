@@ -16,35 +16,32 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
+
 
 /**
  * Base class for circuit breakers.
  *
  * @param <T> the type of the value monitored by this circuit breaker
- * @since 3.5
- * @deprecated use new {@link BaseCircuitBreaker}
+ * @since 3.11
  */
-public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
-    /**
-     * The name of the <em>open</em> property as it is passed to registered
-     * change listeners.
-     */
-    public static final String PROPERTY_NAME = "open";
+public abstract class BaseCircuitBreaker<T> implements CircuitBreaker<T> {
 
     /** The current state of this circuit breaker. */
     protected final AtomicReference<State> state = new AtomicReference<>(State.CLOSED);
 
-    /** An object for managing change listeners registered at this instance. */
-    private final PropertyChangeSupport changeSupport;
+    /**
+     * Consumer called every time the circuit breaker state changes if not {@code null}.
+     */
+    private final Consumer<State> consumer;
 
     /**
      * Creates an {@code AbstractCircuitBreaker}. It also creates an internal {@code PropertyChangeSupport}.
+     * @param consumer a consumer called every time the circuit breaker state changes
      */
-    public AbstractCircuitBreaker() {
-        changeSupport = new PropertyChangeSupport(this);
+    public BaseCircuitBreaker(Consumer<State> consumer) {
+        this.consumer = consumer;
     }
 
     /**
@@ -103,34 +100,17 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
 
     /**
      * Changes the internal state of this circuit breaker. If there is actually a change
-     * of the state value, all registered change listeners are notified.
+     * of the state value, the consumer of this circuit breaker will be called with the
+     * value of the new state.
      *
      * @param newState the new state to be set
      */
     protected void changeState(final State newState) {
         if (state.compareAndSet(newState.oppositeState(), newState)) {
-            changeSupport.firePropertyChange(PROPERTY_NAME, !isOpen(newState), isOpen(newState));
+            if (this.consumer != null) {
+                this.consumer.accept(newState);
+            }
         }
-    }
-
-    /**
-     * Adds a change listener to this circuit breaker. This listener is notified whenever
-     * the state of this circuit breaker changes. If the listener is
-     * <strong>null</strong>, it is silently ignored.
-     *
-     * @param listener the listener to be added
-     */
-    public void addChangeListener(final PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
-    }
-
-    /**
-     * Removes the specified change listener from this circuit breaker.
-     *
-     * @param listener the listener to be removed
-     */
-    public void removeChangeListener(final PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(listener);
     }
 
     /**

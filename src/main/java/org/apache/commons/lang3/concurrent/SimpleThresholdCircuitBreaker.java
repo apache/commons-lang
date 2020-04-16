@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.concurrent;
 
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Consumer;
 
 /**
  * <p>
@@ -49,10 +50,9 @@ import java.util.concurrent.atomic.AtomicLong;
  * </pre>
  *
  * <p>#Thread safe#</p>
- * @since 3.5
- * @deprecated use new {@code SimpleThresholdCircuitBreaker}
+ * @since 3.11
  */
-public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
+public class SimpleThresholdCircuitBreaker extends BaseCircuitBreaker<Long> {
     /**
      * The initial value of the internal counter.
      */
@@ -71,12 +71,22 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
     /**
      * <p>Creates a new instance of {@code ThresholdCircuitBreaker} and initializes the threshold.</p>
      *
+     * @param consumer a consumer called every time the circuit breaker state changes
      * @param threshold the threshold.
      */
-    public ThresholdCircuitBreaker(final long threshold) {
-        super();
+    public SimpleThresholdCircuitBreaker(Consumer<State> consumer, final long threshold) {
+        super(consumer);
         this.used = new AtomicLong(INITIAL_COUNT);
         this.threshold = threshold;
+    }
+
+    /**
+     * <p>Creates a new instance of {@code ThresholdCircuitBreaker} and initializes the threshold.</p>
+     *
+     * @param threshold the threshold.
+     */
+    public SimpleThresholdCircuitBreaker(final long threshold) {
+        this(null, threshold);
     }
 
     /**

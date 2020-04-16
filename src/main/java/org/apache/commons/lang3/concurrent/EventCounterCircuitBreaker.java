@@ -20,6 +20,7 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
 
 /**
  * <p>
@@ -29,7 +30,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * </p>
  * <p>
  * A <em>circuit breaker</em> can be used to protect an application against unreliable
- * services or unexpected load. A newly created {@code EventCountCircuitBreaker} object is
+ * services or unexpected load. A newly created {@code EventCounterCircuitBreaker} object is
  * initially in state <em>closed</em> meaning that no problem has been detected. When the
  * application encounters specific events (like errors or service timeouts), it tells the
  * circuit breaker to increment an internal counter. If the number of events reported in a
@@ -40,7 +41,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * certain time frame if the number of events received goes below a threshold.
  * </p>
  * <p>
- * When a {@code EventCountCircuitBreaker} object is constructed the following parameters
+ * When a {@code EventCounterCircuitBreaker} object is constructed the following parameters
  * can be provided:
  * </p>
  * <ul>
@@ -66,16 +67,16 @@ import java.util.concurrent.atomic.AtomicReference;
  * Imagine you have a server which can handle a certain number of requests per minute.
  * Suddenly, the number of requests increases significantly - maybe because a connected
  * partner system is going mad or due to a denial of service attack. A
- * {@code EventCountCircuitBreaker} can be configured to stop the application from
+ * {@code EventCounterCircuitBreaker} can be configured to stop the application from
  * processing requests when a sudden peak load is detected and to start request processing
  * again when things calm down. The following code fragment shows a typical example of
- * such a scenario. Here the {@code EventCountCircuitBreaker} allows up to 1000 requests
+ * such a scenario. Here the {@code EventCounterCircuitBreaker} allows up to 1000 requests
  * per minute before it interferes. When the load goes down again to 800 requests per
  * second it switches back to state <em>closed</em>:
  * </p>
  *
  * <pre>
- * EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(1000, 1, TimeUnit.MINUTE, 800);
+ * EventCounterCircuitBreaker breaker = new EventCounterCircuitBreaker(1000, 1, TimeUnit.MINUTE, 800);
  * ...
  * public void handleRequest(Request request) {
  *     if (breaker.incrementAndCheckState()) {
@@ -97,7 +98,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * </p>
  *
  * <pre>
- * EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(5, 2, TimeUnit.MINUTE, 5, 10, TimeUnit.MINUTE);
+ * EventCounterCircuitBreaker breaker = new EventCounterCircuitBreaker(5, 2, TimeUnit.MINUTE, 5, 10, TimeUnit.MINUTE);
  * ...
  * public void handleRequest(Request request) {
  *     if (breaker.checkState()) {
@@ -114,7 +115,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * <p>
  * In addition to automatic state transitions, the state of a circuit breaker can be
  * changed manually using the methods {@link #open()} and {@link #close()}. It is also
- * possible to register {@code PropertyChangeListener} objects that get notified whenever
+ * possible to pass a {@code Consumer} into the constructor that gets called whenever
  * a state transition occurs. This is useful, for instance to directly react on a freshly
  * detected error condition.
  * </p>
@@ -133,10 +134,9 @@ import java.util.concurrent.atomic.AtomicReference;
  * guarantee that the circuit breaker is triggered at a specific point in time; there may
  * be some delay (less than a check interval).</li>
  * </ul>
- * @since 3.5
- * @deprecated use new {@link EventCounterCircuitBreaker}
+ * @since 3.11
  */
-public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
+public class EventCounterCircuitBreaker extends BaseCircuitBreaker<Integer> {
 
     /** A map for accessing the strategy objects for the different states. */
     private static final Map<State, StateStrategy> STRATEGY_MAP = createStrategyMap();
@@ -157,7 +157,35 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     private final long closingInterval;
 
     /**
-     * Creates a new instance of {@code EventCountCircuitBreaker} and initializes all properties for
+     * Creates a new instance of {@code EventCounterCircuitBreaker} and initializes all properties for
+     * opening and closing it based on threshold values for events occurring in specific
+     * intervals.
+     *
+     * @param consumer a consumer called every time the circuit breaker state changes
+     * @param openingThreshold the threshold for opening the circuit breaker; if this
+     * number of events is received in the time span determined by the opening interval,
+     * the circuit breaker is opened
+     * @param openingInterval the interval for opening the circuit breaker
+     * @param openingUnit the {@code TimeUnit} defining the opening interval
+     * @param closingThreshold the threshold for closing the circuit breaker; if the
+     * number of events received in the time span determined by the closing interval goes
+     * below this threshold, the circuit breaker is closed again
+     * @param closingInterval the interval for closing the circuit breaker
+     * @param closingUnit the {@code TimeUnit} defining the closing interval
+     */
+    public EventCounterCircuitBreaker(Consumer<State> consumer, final int openingThreshold, final long openingInterval,
+                                    final TimeUnit openingUnit, final int closingThreshold, final long closingInterval,
+                                    final TimeUnit closingUnit) {
+        super(consumer);
+        checkIntervalData = new AtomicReference<>(new CheckIntervalData(0, 0));
+        this.openingThreshold = openingThreshold;
+        this.openingInterval = openingUnit.toNanos(openingInterval);
+        this.closingThreshold = closingThreshold;
+        this.closingInterval = closingUnit.toNanos(closingInterval);
+    }
+
+    /**
+     * Creates a new instance of {@code EventCounterCircuitBreaker} and initializes all properties for
      * opening and closing it based on threshold values for events occurring in specific
      * intervals.
      *
@@ -172,19 +200,33 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * @param closingInterval the interval for closing the circuit breaker
      * @param closingUnit the {@code TimeUnit} defining the closing interval
      */
-    public EventCountCircuitBreaker(final int openingThreshold, final long openingInterval,
-                                    final TimeUnit openingUnit, final int closingThreshold, final long closingInterval,
-                                    final TimeUnit closingUnit) {
-        super();
-        checkIntervalData = new AtomicReference<>(new CheckIntervalData(0, 0));
-        this.openingThreshold = openingThreshold;
-        this.openingInterval = openingUnit.toNanos(openingInterval);
-        this.closingThreshold = closingThreshold;
-        this.closingInterval = closingUnit.toNanos(closingInterval);
+    public EventCounterCircuitBreaker(final int openingThreshold, final long openingInterval,
+                                    final TimeUnit openingUnit, final int closingThreshold,
+                                    final long closingInterval, final TimeUnit closingUnit) {
+        this(null, openingThreshold, openingInterval, openingUnit, closingThreshold, closingInterval, closingUnit);
     }
 
     /**
-     * Creates a new instance of {@code EventCountCircuitBreaker} with the same interval for opening
+     * Creates a new instance of {@code EventCounterCircuitBreaker} with the same interval for opening
+     * and closing checks.
+     *
+     * @param consumer a consumer called every time the circuit breaker state changes
+     * @param openingThreshold the threshold for opening the circuit breaker; if this
+     * number of events is received in the time span determined by the check interval, the
+     * circuit breaker is opened
+     * @param checkInterval the check interval for opening or closing the circuit breaker
+     * @param checkUnit the {@code TimeUnit} defining the check interval
+     * @param closingThreshold the threshold for closing the circuit breaker; if the
+     * number of events received in the time span determined by the check interval goes
+     * below this threshold, the circuit breaker is closed again
+     */
+    public EventCounterCircuitBreaker(Consumer<State> consumer, final int openingThreshold, final long checkInterval,
+            final TimeUnit checkUnit, final int closingThreshold) {
+        this(consumer, openingThreshold, checkInterval, checkUnit, closingThreshold, checkInterval, checkUnit);
+    }
+
+    /**
+     * Creates a new instance of {@code EventCounterCircuitBreaker} with the same interval for opening
      * and closing checks.
      *
      * @param openingThreshold the threshold for opening the circuit breaker; if this
@@ -196,14 +238,29 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * number of events received in the time span determined by the check interval goes
      * below this threshold, the circuit breaker is closed again
      */
-    public EventCountCircuitBreaker(final int openingThreshold, final long checkInterval, final TimeUnit checkUnit,
-                                    final int closingThreshold) {
-        this(openingThreshold, checkInterval, checkUnit, closingThreshold, checkInterval,
-                checkUnit);
+    public EventCounterCircuitBreaker(final int openingThreshold, final long checkInterval,
+            final TimeUnit checkUnit, final int closingThreshold) {
+        this(null, openingThreshold, checkInterval, checkUnit, closingThreshold);
     }
 
     /**
-     * Creates a new instance of {@code EventCountCircuitBreaker} which uses the same parameters for
+     * Creates a new instance of {@code EventCounterCircuitBreaker} which uses the same parameters for
+     * opening and closing checks.
+     *
+     * @param consumer a consumer called every time the circuit breaker state changes
+     * @param threshold the threshold for changing the status of the circuit breaker; if
+     * the number of events received in a check interval is greater than this value, the
+     * circuit breaker is opened; if it is lower than this value, it is closed again
+     * @param checkInterval the check interval for opening or closing the circuit breaker
+     * @param checkUnit the {@code TimeUnit} defining the check interval
+     */
+    public EventCounterCircuitBreaker(Consumer<State> consumer, final int threshold, final long checkInterval,
+            final TimeUnit checkUnit) {
+        this(consumer, threshold, checkInterval, checkUnit, threshold);
+    }
+
+    /**
+     * Creates a new instance of {@code EventCounterCircuitBreaker} which uses the same parameters for
      * opening and closing checks.
      *
      * @param threshold the threshold for changing the status of the circuit breaker; if
@@ -212,8 +269,8 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * @param checkInterval the check interval for opening or closing the circuit breaker
      * @param checkUnit the {@code TimeUnit} defining the check interval
      */
-    public EventCountCircuitBreaker(final int threshold, final long checkInterval, final TimeUnit checkUnit) {
-        this(threshold, checkInterval, checkUnit, threshold);
+    public EventCounterCircuitBreaker(final int threshold, final long checkInterval, final TimeUnit checkUnit) {
+        this(null, threshold, checkInterval, checkUnit, threshold);
     }
 
     /**
@@ -489,7 +546,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * @param now the current time
          * @return a flag whether the end of the current check interval is reached
          */
-        public boolean isCheckIntervalFinished(final EventCountCircuitBreaker breaker,
+        public boolean isCheckIntervalFinished(final EventCounterCircuitBreaker breaker,
                 final CheckIntervalData currentData, final long now) {
             return now - currentData.getCheckIntervalStart() > fetchCheckInterval(breaker);
         }
@@ -504,7 +561,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * @param nextData the updated {@code CheckIntervalData} object
          * @return a flag whether a state transition should be performed
          */
-        public abstract boolean isStateTransition(EventCountCircuitBreaker breaker,
+        public abstract boolean isStateTransition(EventCounterCircuitBreaker breaker,
                 CheckIntervalData currentData, CheckIntervalData nextData);
 
         /**
@@ -514,7 +571,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * @param breaker the {@code CircuitBreaker}
          * @return the check interval to be applied
          */
-        protected abstract long fetchCheckInterval(EventCountCircuitBreaker breaker);
+        protected abstract long fetchCheckInterval(EventCounterCircuitBreaker breaker);
     }
 
     /**
@@ -526,7 +583,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * {@inheritDoc}
          */
         @Override
-        public boolean isStateTransition(final EventCountCircuitBreaker breaker,
+        public boolean isStateTransition(final EventCounterCircuitBreaker breaker,
                 final CheckIntervalData currentData, final CheckIntervalData nextData) {
             return nextData.getEventCount() > breaker.getOpeningThreshold();
         }
@@ -535,7 +592,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * {@inheritDoc}
          */
         @Override
-        protected long fetchCheckInterval(final EventCountCircuitBreaker breaker) {
+        protected long fetchCheckInterval(final EventCounterCircuitBreaker breaker) {
             return breaker.getOpeningInterval();
         }
     }
@@ -548,7 +605,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * {@inheritDoc}
          */
         @Override
-        public boolean isStateTransition(final EventCountCircuitBreaker breaker,
+        public boolean isStateTransition(final EventCounterCircuitBreaker breaker,
                 final CheckIntervalData currentData, final CheckIntervalData nextData) {
             return nextData.getCheckIntervalStart() != currentData
                     .getCheckIntervalStart()
@@ -559,7 +616,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * {@inheritDoc}
          */
         @Override
-        protected long fetchCheckInterval(final EventCountCircuitBreaker breaker) {
+        protected long fetchCheckInterval(final EventCounterCircuitBreaker breaker) {
             return breaker.getClosingInterval();
         }
     }
