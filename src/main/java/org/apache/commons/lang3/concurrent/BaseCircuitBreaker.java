@@ -37,7 +37,7 @@ public abstract class BaseCircuitBreaker<T> implements CircuitBreaker<T> {
     private final Consumer<State> consumer;
 
     /**
-     * Creates an {@code AbstractCircuitBreaker}. It also creates an internal {@code PropertyChangeSupport}.
+     * Creates an {@code AbstractCircuitBreaker}.
      * @param consumer a consumer called every time the circuit breaker state changes
      */
     public BaseCircuitBreaker(Consumer<State> consumer) {
