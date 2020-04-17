@@ -38,17 +38,17 @@ import java.util.regex.Pattern;
  *  <li><b>Trim/Strip</b>
  *      - removes leading and trailing whitespace</li>
  *  <li><b>Equals/Compare</b>
- *      - compares two strings null-safe</li>
+ *      - compares two strings in a null-safe manner</li>
  *  <li><b>startsWith</b>
- *      - check if a String starts with a prefix null-safe</li>
+ *      - check if a String starts with a prefix in a null-safe manner</li>
  *  <li><b>endsWith</b>
- *      - check if a String ends with a suffix null-safe</li>
+ *      - check if a String ends with a suffix in a null-safe manner</li>
  *  <li><b>IndexOf/LastIndexOf/Contains</b>
  *      - null-safe index-of checks
  *  <li><b>IndexOfAny/LastIndexOfAny/IndexOfAnyBut/LastIndexOfAnyBut</b>
  *      - index-of any of a set of Strings</li>
  *  <li><b>ContainsOnly/ContainsNone/ContainsAny</b>
- *      - does String contains only/none/any of these characters</li>
+ *      - checks if String contains only/none/any of these characters</li>
  *  <li><b>Substring/Left/Right/Mid</b>
  *      - null-safe substring extractions</li>
  *  <li><b>SubstringBefore/SubstringAfter/SubstringBetween</b>
@@ -80,7 +80,7 @@ import java.util.regex.Pattern;
  *  <li><b>Reverse/ReverseDelimited</b>
  *      - reverses a String</li>
  *  <li><b>Abbreviate</b>
- *      - abbreviates a string using ellipsis or another given String</li>
+ *      - abbreviates a string using ellipses or another given String</li>
  *  <li><b>Difference</b>
  *      - compares Strings and reports on their differences</li>
  *  <li><b>LevenshteinDistance</b>
@@ -107,7 +107,7 @@ import java.util.regex.Pattern;
  * {@code NullPointerException} should be considered a bug in
  * {@code StringUtils}.</p>
  *
- * <p>Methods in this class give sample code to explain their operation.
+ * <p>Methods in this class include sample code in their Javadoc comments to explain their operation.
  * The symbol {@code *} is used to indicate any input including {@code null}.</p>
  *
  * <p>#ThreadSafe#</p>
@@ -564,7 +564,7 @@ public class StringUtils {
      * <p>Centers a String in a larger String of size {@code size}
      * using the space character (' ').</p>
      *
-     * <p>If the size is less than the String length, the String is returned.
+     * <p>If the size is less than the String length, the original String is returned.
      * A {@code null} String returns {@code null}.
      * A negative size is treated as zero.</p>
      *
@@ -5015,7 +5015,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Find the latest index of any of a set of potential substrings.</p>
+     * <p>Find the latest index of any substring in a set of potential substrings.</p>
      *
      * <p>A {@code null} CharSequence will return {@code -1}.
      * A {@code null} search array will return {@code -1}.
@@ -6386,7 +6386,7 @@ public class StringUtils {
     /**
      * <p>Replaces a String with another String inside a larger String,
      * for the first {@code max} values of the search String,
-     * case sensitively/insensisitively based on {@code ignoreCase} value.</p>
+     * case sensitively/insensitively based on {@code ignoreCase} value.</p>
      *
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
