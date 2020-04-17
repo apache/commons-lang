@@ -6427,9 +6427,8 @@ public class StringUtils {
              return text;
          }
          final int replLength = searchString.length();
-         int increase = replacement.length() - replLength;
-         increase = increase < 0 ? 0 : increase;
-         increase *= max < 0 ? 16 : max > 64 ? 64 : max;
+         int increase = Math.max(replacement.length() - replLength, 0);
+         increase *= max < 0 ? 16 : Math.min(max, 64);
          final StringBuilder buf = new StringBuilder(text.length() + increase);
          while (end != INDEX_NOT_FOUND) {
              buf.append(text, start, end).append(replacement);
@@ -9175,7 +9174,7 @@ public class StringUtils {
             return EMPTY;
         }
         if (str.length() > maxWidth) {
-            final int ix = offset + maxWidth > str.length() ? str.length() : offset + maxWidth;
+            final int ix = Math.min(offset + maxWidth, str.length());
             return str.substring(offset, ix);
         }
         return str.substring(offset);
