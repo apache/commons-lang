@@ -6723,8 +6723,7 @@ public class StringUtils {
         // index of replace array that will replace the search string found
         // NOTE: logic duplicated below START
         for (int i = 0; i < searchLength; i++) {
-            if (noMoreMatchesForReplIndex[i] || searchList[i] == null ||
-                    searchList[i].isEmpty() || replacementList[i] == null) {
+            if (noMoreMatchesForReplIndex[i] || isEmpty(searchList[i]) || replacementList[i] == null) {
                 continue;
             }
             tempIndex = text.indexOf(searchList[i]);
