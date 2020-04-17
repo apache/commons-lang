@@ -73,6 +73,7 @@ public final class Range<T> implements Serializable {
     public static <T extends Comparable<T>> Range<T> between(final T fromInclusive, final T toInclusive) {
         return between(fromInclusive, toInclusive, null);
     }
+
     /**
      * <p>Obtains a range with the specified minimum and maximum values (both inclusive).</p>
      *
@@ -93,6 +94,7 @@ public final class Range<T> implements Serializable {
     public static <T> Range<T> between(final T fromInclusive, final T toInclusive, final Comparator<T> comparator) {
         return new Range<>(fromInclusive, toInclusive, comparator);
     }
+
     /**
      * <p>Obtains a range using the specified element as both the minimum
      * and maximum in this range.</p>
@@ -109,6 +111,7 @@ public final class Range<T> implements Serializable {
     public static <T extends Comparable<T>> Range<T> is(final T element) {
         return between(element, element, null);
     }
+
     /**
      * <p>Obtains a range using the specified element as both the minimum
      * and maximum in this range.</p>
