@@ -1201,6 +1201,44 @@ public class StringUtils {
         return false;
     }
 
+    /**
+     * <p>Checks if the CharSequence contains any of the CharSequences in the given array, ignoring case.</p>
+     *
+     * <p>
+     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero
+     * length search array will return {@code false}.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.containsAnyIgnoreCase(null, *)            = false
+     * StringUtils.containsAnyIgnoreCase("", *)              = false
+     * StringUtils.containsAnyIgnoreCase(*, null)            = false
+     * StringUtils.containsAnyIgnoreCase(*, [])              = false
+     * StringUtils.containsAnyIgnoreCase("abcd", "AB", null) = true
+     * StringUtils.containsAnyIgnoreCase("abcd", "ab", "CD") = true
+     * StringUtils.containsAnyIgnoreCase("abc", "D", "abc")  = true
+     * StringUtils.containsAnyIgnoreCase("abc", "d", "efg") = false
+     * </pre>
+     *
+     *
+     * @param cs The CharSequence to check, may be null
+     * @param searchCharSequences The array of CharSequences to search for, may be null.
+     * Individual CharSequences may be null as well.
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
+     * @since 3.11
+     */
+    public static boolean containsAnyIgnoreCase(final CharSequence cs, final CharSequence... searchCharSequences) {
+        if (isEmpty(cs) || ArrayUtils.isEmpty(searchCharSequences)) {
+            return false;
+        }
+        for (final CharSequence searchCharSequence : searchCharSequences) {
+            if (containsIgnoreCase(cs, searchCharSequence)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // ContainsNone
     //-----------------------------------------------------------------------
     /**
