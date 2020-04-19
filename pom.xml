@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--
  Licensed to the Apache Software Foundation (ASF) under one or more
  contributor license agreements.  See the NOTICE file distributed with
  this work for additional information regarding copyright ownership.
@@ -15,10 +14,8 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<project
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
@@ -74,7 +71,7 @@
       <name>Henri Yandell</name>
       <id>bayard</id>
       <email>bayard@apache.org</email>
-      <organization />
+      <organization/>
       <roles>
         <role>Java Developer</role>
       </roles>
@@ -83,7 +80,7 @@
       <name>Steven Caswell</name>
       <id>scaswell</id>
       <email>stevencaswell@apache.org</email>
-      <organization />
+      <organization/>
       <roles>
         <role>Java Developer</role>
       </roles>
@@ -93,7 +90,7 @@
       <name>Robert Burrell Donkin</name>
       <id>rdonkin</id>
       <email>rdonkin@apache.org</email>
-      <organization />
+      <organization/>
       <roles>
         <role>Java Developer</role>
       </roles>
@@ -110,8 +107,8 @@
     <developer>
       <name>Fredrik Westermarck</name>
       <id>fredrik</id>
-      <email />
-      <organization />
+      <email/>
+      <organization/>
       <roles>
         <role>Java Developer</role>
       </roles>
@@ -553,6 +550,12 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- Kotlin -->
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib-jdk8</artifactId>
+      <version>${kotlin.version}</version>
+    </dependency>
   </dependencies>
 
   <distributionManagement>
@@ -614,8 +617,13 @@
     <commons.surefire.version>3.0.0-M4</commons.surefire.version>
     <commons.javadoc.version>3.1.1</commons.javadoc.version>
 
+    <!-- Kotlin -->
+    <kotlin.version>1.3.72</kotlin.version>
+    <dokka.version>0.10.1</dokka.version>
+
     <!-- generate report even if there are binary incompatible changes -->
-    <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>false</commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
+    <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>false
+    </commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
     <commons.japicmp.version>0.14.3</commons.japicmp.version>
 
     <!-- Commons Release Plugin -->
@@ -656,36 +664,6 @@
       </plugins>
     </pluginManagement>
     <plugins>
-      <plugin>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <source>${maven.compiler.source}</source>
-          <quiet>true</quiet>
-          <encoding>utf-8</encoding>
-          <docEncoding>utf-8</docEncoding>
-          <notimestamp>true</notimestamp>
-          <links>
-            <link>https://docs.oracle.com/javase/8/docs/api/</link>
-            <link>http://docs.oracle.com/javaee/6/api/</link>
-          </links>
-          <archive>
-            <manifest>
-              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-            </manifest>
-          </archive>
-        </configuration>
-        <executions>
-          <execution>
-            <id>create-javadoc-jar</id>
-            <goals>
-              <goal>javadoc</goal>
-              <goal>jar</goal>
-            </goals>
-            <phase>package</phase>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -772,9 +750,80 @@
           <excludeFilterFile>${basedir}/spotbugs-exclude-filter.xml</excludeFilterFile>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <version>${kotlin.version}</version>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>test-compile</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>test-compile</goal>
+            </goals>
+            <configuration>
+              <sourceDirs>
+                <source>src/test/java</source>
+              </sourceDirs>
+            </configuration>
+          </execution>
+        </executions>
+        <configuration>
+          <jvmTarget>1.8</jvmTarget>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>testCompile</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jetbrains.dokka</groupId>
+        <artifactId>dokka-maven-plugin</artifactId>
+        <version>${dokka.version}</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>dokka</goal>
+              <goal>javadoc</goal>
+              <goal>javadocJar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
-
   </build>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>jcenter</id>
+      <name>JCenter</name>
+      <url>https://jcenter.bintray.com/</url>
+    </pluginRepository>
+  </pluginRepositories>
 
   <reporting>
     <plugins>
@@ -881,18 +930,18 @@
                 <configuration>
                   <tasks>
                     <exec executable="svn">
-                      <arg line="checkout --depth immediates ${commons.scmPubUrl} ${commons.scmPubCheckoutDirectory}" />
+                      <arg line="checkout --depth immediates ${commons.scmPubUrl} ${commons.scmPubCheckoutDirectory}"/>
                     </exec>
 
                     <exec executable="svn">
-                      <arg line="update --set-depth exclude ${commons.scmPubCheckoutDirectory}/javadocs" />
+                      <arg line="update --set-depth exclude ${commons.scmPubCheckoutDirectory}/javadocs"/>
                     </exec>
 
                     <pathconvert pathsep=" " property="dirs">
-                      <dirset dir="${commons.scmPubCheckoutDirectory}" includes="*" />
+                      <dirset dir="${commons.scmPubCheckoutDirectory}" includes="*"/>
                     </pathconvert>
                     <exec executable="svn">
-                      <arg line="update --set-depth infinity ${dirs}" />
+                      <arg line="update --set-depth infinity ${dirs}"/>
                     </exec>
                   </tasks>
                 </configuration>
