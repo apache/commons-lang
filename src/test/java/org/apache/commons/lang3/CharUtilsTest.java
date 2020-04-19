@@ -52,8 +52,8 @@ public class CharUtilsTest {
         final Constructor<?>[] cons = CharUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(BooleanUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(BooleanUtils.class.getModifiers()));
+        assertTrue(Modifier.isPublic(CharUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(CharUtils.class.getModifiers()));
     }
 
     @Test
