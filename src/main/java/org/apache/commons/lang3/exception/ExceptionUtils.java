@@ -810,7 +810,7 @@ public class ExceptionUtils {
      * @param <T> the type of Throwable you are searching.
      * @param throwable  the throwable to inspect, may be null
      * @param clazz  the class to search for, subclasses do not match, null returns null
-     * @return the index into the throwable chain, null if no match or null input
+     * @return the first matching throwable from the throwable chain, null if no match or null input
      * @since 3.10
      */
     public static <T extends Throwable> T throwableOfThrowable(final Throwable throwable, final Class<T> clazz) {
@@ -835,7 +835,7 @@ public class ExceptionUtils {
      * @param clazz  the class to search for, subclasses do not match, null returns null
      * @param fromIndex  the (zero-based) index of the starting position,
      *  negative treated as zero, larger than chain size returns null
-     * @return the index into the throwable chain, null if no match or null input
+     * @return the first matching throwable from the throwable chain, null if no match or null input
      * @since 3.10
      */
     public static <T extends Throwable> T throwableOfThrowable(final Throwable throwable, final Class<T> clazz, final int fromIndex) {
@@ -855,7 +855,7 @@ public class ExceptionUtils {
      * @param <T> the type of Throwable you are searching.
      * @param throwable  the throwable to inspect, may be null
      * @param type  the type to search for, subclasses match, null returns null
-     * @return the index into the throwable chain, null if no match or null input
+     * @return the first matching throwable from the throwable chain, null if no match or null input
      * @since 3.10
      */
     public static <T extends Throwable> T throwableOfType(final Throwable throwable, final Class<T> type) {
@@ -880,7 +880,7 @@ public class ExceptionUtils {
      * @param type  the type to search for, subclasses match, null returns null
      * @param fromIndex  the (zero-based) index of the starting position,
      *  negative treated as zero, larger than chain size returns null
-     * @return the index into the throwable chain, null if no match or null input
+     * @return the first matching throwable from the throwable chain, null if no match or null input
      * @since 3.10
      */
     public static <T extends Throwable> T throwableOfType(final Throwable throwable, final Class<T> type, final int fromIndex) {
