@@ -393,11 +393,7 @@ public class StringUtils {
      * @since 2.5
      */
     public static String abbreviateMiddle(final String str, final String middle, final int length) {
-        if (isEmpty(str) || isEmpty(middle)) {
-            return str;
-        }
-
-        if (length >= str.length() || length < middle.length()+2) {
+        if (isAnyEmpty(str, middle) || length >= str.length() || length < middle.length()+2) {
             return str;
         }
 
