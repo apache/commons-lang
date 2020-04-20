@@ -8766,7 +8766,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String substringBetween(final String str, final String open, final String close) {
-        if (str == null || open == null || close == null) {
+        if (!ObjectUtils.allNotNull(str, open, close)) {
             return null;
         }
         final int start = str.indexOf(open);
