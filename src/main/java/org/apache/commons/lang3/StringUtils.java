@@ -8268,8 +8268,8 @@ public class StringUtils {
      * @return the stripped Strings, {@code null} if null array input
      */
     public static String[] stripAll(final String[] strs, final String stripChars) {
-        int strsLen;
-        if (strs == null || (strsLen = strs.length) == 0) {
+        int strsLen = ArrayUtils.getLength(strs);
+        if (strsLen == 0) {
             return strs;
         }
         final String[] newArr = new String[strsLen];
