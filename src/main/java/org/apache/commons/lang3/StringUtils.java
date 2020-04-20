@@ -330,11 +330,9 @@ public class StringUtils {
      * @since 3.6
      */
     public static String abbreviate(final String str, final String abbrevMarker, int offset, final int maxWidth) {
-        if (isEmpty(str) && isEmpty(abbrevMarker)) {
-            return str;
-        } else if (isNotEmpty(str) && EMPTY.equals(abbrevMarker) && maxWidth > 0) {
-            return str.substring(0, maxWidth);
-        } else if (isEmpty(str) || isEmpty(abbrevMarker)) {
+        if (isNotEmpty(str) && EMPTY.equals(abbrevMarker) && maxWidth > 0) {
+            return substring(str, 0, maxWidth);
+        } else if (isAnyEmpty(str, abbrevMarker)) {
             return str;
         }
         final int abbrevMarkerLength = abbrevMarker.length();
