@@ -51,6 +51,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory">org.junit.jupiter:junit-jupiter 5.6.0 -> 5.6.1.</action>
     <action                   type="update" dev="ggregory" due-to="Isira Seneviratne">Simplify null checks in Pair.hashCode() using Objects.hashCode(). #517.</action>
     <action                   type="update" dev="ggregory" due-to="Isira Seneviratne">Simplify null checks in Triple.hashCode() using Objects.hashCode(). #516.</action>
+    <action                   type="update" dev="ggregory" due-to="Isira Seneviratne">Simplify some if statements in StringUtils. #521.</action>
   </release>
 
   <release version="3.10" date="2020-03-22" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">
