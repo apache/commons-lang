@@ -173,6 +173,22 @@ public class ObjectUtilsTest {
     }
 
     /**
+     * Tests {@link ObjectUtils#anyNull(Object...)}.
+     */
+    @Test
+    public void testAnyNull() {
+        assertTrue(ObjectUtils.anyNull((Object) null));
+        assertTrue(ObjectUtils.anyNull(null, null, null));
+        assertTrue(ObjectUtils.anyNull(null, FOO, BAR));
+        assertTrue(ObjectUtils.anyNull(FOO, BAR, null));
+        assertTrue(ObjectUtils.anyNull(FOO, BAR, null, FOO, BAR));
+
+        assertFalse(ObjectUtils.anyNull());
+        assertFalse(ObjectUtils.anyNull(FOO));
+        assertFalse(ObjectUtils.anyNull(FOO, BAR, 1, Boolean.TRUE, new Object(), new Object[]{}));
+    }
+
+    /**
      * Tests {@link ObjectUtils#anyNotNull(Object...)}.
      */
     @Test
@@ -185,6 +201,21 @@ public class ObjectUtilsTest {
         assertTrue(ObjectUtils.anyNotNull(FOO));
         assertTrue(ObjectUtils.anyNotNull(null, FOO, null));
         assertTrue(ObjectUtils.anyNotNull(null, null, null, null, FOO, BAR));
+    }
+
+    /**
+     * Tests {@link ObjectUtils#allNull(Object...)}.
+     */
+    @Test
+    public void testAllNull() {
+        assertTrue(ObjectUtils.allNull());
+        assertTrue(ObjectUtils.allNull((Object) null));
+        assertTrue(ObjectUtils.allNull((Object[]) null));
+        assertTrue(ObjectUtils.allNull(null, null, null));
+
+        assertFalse(ObjectUtils.allNull(FOO));
+        assertFalse(ObjectUtils.allNull(null, FOO, null));
+        assertFalse(ObjectUtils.allNull(null, null, null, null, FOO, BAR));
     }
 
     /**
