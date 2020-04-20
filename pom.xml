@@ -600,10 +600,10 @@
     <commons.encoding>utf-8</commons.encoding>
 
     <checkstyle.plugin.version>3.1.1</checkstyle.plugin.version>
-    <checkstyle.version>8.29</checkstyle.version>
+    <checkstyle.version>8.31</checkstyle.version>
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
 
-    <spotbugs.plugin.version>4.0.2</spotbugs.plugin.version>
+    <spotbugs.plugin.version>4.0.0</spotbugs.plugin.version>
     <japicmp.skip>false</japicmp.skip>
 
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
@@ -765,7 +765,7 @@
           <dependency>
             <groupId>com.github.spotbugs</groupId>
             <artifactId>spotbugs</artifactId>
-            <version>4.0.0</version>
+            <version>4.0.2</version>
          </dependency>
         </dependencies>        
         <configuration>
