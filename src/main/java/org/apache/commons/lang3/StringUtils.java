@@ -330,11 +330,9 @@ public class StringUtils {
      * @since 3.6
      */
     public static String abbreviate(final String str, final String abbrevMarker, int offset, final int maxWidth) {
-        if (isEmpty(str) && isEmpty(abbrevMarker)) {
-            return str;
-        } else if (isNotEmpty(str) && EMPTY.equals(abbrevMarker) && maxWidth > 0) {
-            return str.substring(0, maxWidth);
-        } else if (isEmpty(str) || isEmpty(abbrevMarker)) {
+        if (isNotEmpty(str) && EMPTY.equals(abbrevMarker) && maxWidth > 0) {
+            return substring(str, 0, maxWidth);
+        } else if (isAnyEmpty(str, abbrevMarker)) {
             return str;
         }
         final int abbrevMarkerLength = abbrevMarker.length();
@@ -395,11 +393,7 @@ public class StringUtils {
      * @since 2.5
      */
     public static String abbreviateMiddle(final String str, final String middle, final int length) {
-        if (isEmpty(str) || isEmpty(middle)) {
-            return str;
-        }
-
-        if (length >= str.length() || length < middle.length()+2) {
+        if (isAnyEmpty(str, middle) || length >= str.length() || length < middle.length()+2) {
             return str;
         }
 
@@ -8274,8 +8268,8 @@ public class StringUtils {
      * @return the stripped Strings, {@code null} if null array input
      */
     public static String[] stripAll(final String[] strs, final String stripChars) {
-        int strsLen;
-        if (strs == null || (strsLen = strs.length) == 0) {
+        int strsLen = ArrayUtils.getLength(strs);
+        if (strsLen == 0) {
             return strs;
         }
         final String[] newArr = new String[strsLen];
@@ -8772,7 +8766,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String substringBetween(final String str, final String open, final String close) {
-        if (str == null || open == null || close == null) {
+        if (!ObjectUtils.allNotNull(str, open, close)) {
             return null;
         }
         final int start = str.indexOf(open);
