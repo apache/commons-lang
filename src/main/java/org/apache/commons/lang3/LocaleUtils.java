@@ -25,6 +25,8 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * <p>Operations to assist when working with a {@link Locale}.</p>
@@ -295,14 +297,13 @@ public class LocaleUtils {
         }
         List<Locale> langs = cLanguagesByCountry.get(countryCode);
         if (langs == null) {
-            langs = new ArrayList<>();
-            final List<Locale> locales = availableLocaleList();
-            for (final Locale locale : locales) {
-                if (countryCode.equals(locale.getCountry()) &&
-                    locale.getVariant().isEmpty()) {
-                    langs.add(locale);
-                }
-            }
+            // Allows Locales to be processed using multiple threads.
+            langs = availableLocaleList().parallelStream()
+                    .filter(locale -> countryCode.equals(locale.getCountry()))
+                    .filter(locale -> locale.getVariant().isEmpty())
+                    .collect(Collectors.toList());
+            // Collectors.toUnmodifiableList() is an alternative, but it is only
+            // available starting with Java 10.
             langs = Collections.unmodifiableList(langs);
             cLanguagesByCountry.putIfAbsent(countryCode, langs);
             langs = cLanguagesByCountry.get(countryCode);
@@ -326,15 +327,11 @@ public class LocaleUtils {
         }
         List<Locale> countries = cCountriesByLanguage.get(languageCode);
         if (countries == null) {
-            countries = new ArrayList<>();
-            final List<Locale> locales = availableLocaleList();
-            for (final Locale locale : locales) {
-                if (languageCode.equals(locale.getLanguage()) &&
-                        !locale.getCountry().isEmpty() &&
-                    locale.getVariant().isEmpty()) {
-                    countries.add(locale);
-                }
-            }
+            countries = availableLocaleList().parallelStream()
+                    .filter(locale -> languageCode.equals(locale.getLanguage()))
+                    .filter(locale -> !locale.getCountry().isEmpty())
+                    .filter(locale -> locale.getVariant().isEmpty())
+                    .collect(Collectors.toList());
             countries = Collections.unmodifiableList(countries);
             cCountriesByLanguage.putIfAbsent(languageCode, countries);
             countries = cCountriesByLanguage.get(languageCode);
