@@ -9414,11 +9414,11 @@ public class StringUtils {
      * @since 3.6
      */
     public static String unwrap(final String str, final String wrapToken) {
-        if (isAnyEmpty(str, wrapToken) || str.length() == 1) {
+        if (isEmpty(str) || isEmpty(wrapToken) || str.length() == 1) {
             return str;
         }
 
-        if (startsWith(str, wrapToken) && endsWith(str, wrapToken)) {
+        if (startsAndEndsWith(str, wrapToken)) {
             final int startIndex = str.indexOf(wrapToken);
             final int endIndex = str.lastIndexOf(wrapToken);
             final int wrapLength = wrapToken.length();
