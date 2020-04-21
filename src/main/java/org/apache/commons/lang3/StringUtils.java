@@ -9414,7 +9414,7 @@ public class StringUtils {
      * @since 3.6
      */
     public static String unwrap(final String str, final String wrapToken) {
-        if (isEmpty(str) || isEmpty(wrapToken) || str.length() == 1) {
+        if (isAnyEmpty(str, wrapToken) || str.length() == 1) {
             return str;
         }
 
@@ -9642,22 +9642,16 @@ public class StringUtils {
      * @since 3.5
      */
     public static String wrapIfMissing(final String str, final String wrapWith) {
-        if (isEmpty(str) || isEmpty(wrapWith)) {
-            return str;
-        }
-
-        final boolean wrapStart = !str.startsWith(wrapWith);
-        final boolean wrapEnd = !str.endsWith(wrapWith);
-        if (!wrapStart && !wrapEnd) {
+        if (isEmpty(str) || isEmpty(wrapWith) || startsAndEndsWith(str, wrapWith)) {
             return str;
         }
 
         final StringBuilder builder = new StringBuilder(str.length() + wrapWith.length() + wrapWith.length());
-        if (wrapStart) {
+        if (!str.startsWith(wrapWith)) {
             builder.append(wrapWith);
         }
         builder.append(str);
-        if (wrapEnd) {
+        if (!str.endsWith(wrapWith)) {
             builder.append(wrapWith);
         }
         return builder.toString();
