@@ -65,8 +65,8 @@ abstract class FormatCache<F extends Format> {
      * @param timeZone  the time zone, null means use the default TimeZone
      * @param locale  the locale, null means use the default Locale
      * @return a pattern based date/time formatter
+     * @throws NullPointerException if pattern is {@code null}
      * @throws IllegalArgumentException if pattern is invalid
-     *  or {@code null}
      */
     public F getInstance(final String pattern, TimeZone timeZone, Locale locale) {
         Validate.notNull(pattern, "pattern must not be null");

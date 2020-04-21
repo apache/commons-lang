@@ -69,8 +69,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
      *            the style to use for the {@link #toString()} method. May be
      *            {@code null}, in which case
      *            {@link ToStringStyle#DEFAULT_STYLE} is used
-     * @throws IllegalArgumentException
-     *             if {@code lhs}, {@code rhs} or {@code diffs} is {@code null}
+     * @throws NullPointerException if {@code lhs}, {@code rhs} or {@code diffs} is {@code null}
      */
     DiffResult(final T lhs, final T rhs, final List<Diff<?>> diffs,
             final ToStringStyle style) {

@@ -32,7 +32,7 @@ public class IEEE754rUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
       * @since 3.4 Changed signature from min(double[]) to min(double...)
      */
@@ -54,7 +54,7 @@ public class IEEE754rUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
      * @since 3.4 Changed signature from min(float[]) to min(float...)
      */
@@ -144,7 +144,7 @@ public class IEEE754rUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
      * @since 3.4 Changed signature from max(double[]) to max(double...)
      */
@@ -166,7 +166,7 @@ public class IEEE754rUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
      * @since 3.4 Changed signature from max(float[]) to max(float...)
      */

@@ -847,8 +847,7 @@ public class MethodUtils {
      * @param annotationCls
      *            the {@link java.lang.annotation.Annotation} that must be present on a method to be matched
      * @return an array of Methods (possibly empty).
-     * @throws IllegalArgumentException
-     *            if the class or annotation are {@code null}
+     * @throws NullPointerException if the class or annotation are {@code null}
      * @since 3.4
      */
     public static Method[] getMethodsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
@@ -881,8 +880,7 @@ public class MethodUtils {
      * @param ignoreAccess
      *            determines if non public methods should be considered
      * @return an array of Methods (possibly empty).
-     * @throws IllegalArgumentException
-     *            if the class or annotation are {@code null}
+     * @throws NullPointerException if the class or annotation are {@code null}
      * @since 3.6
      */
     public static Method[] getMethodsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls,
@@ -903,8 +901,7 @@ public class MethodUtils {
      * @param ignoreAccess
      *            determines if non public methods should be considered
      * @return a list of Methods (possibly empty).
-     * @throws IllegalArgumentException
-     *            if the class or annotation are {@code null}
+     * @throws NullPointerException if either the class or annotation class is {@code null}
      * @since 3.6
      */
     public static List<Method> getMethodsListWithAnnotation(final Class<?> cls,
@@ -947,8 +944,7 @@ public class MethodUtils {
      * @param ignoreAccess
      *            determines if underlying method has to be accessible
      * @return the first matching annotation, or {@code null} if not found
-     * @throws IllegalArgumentException
-     *            if the method or annotation are {@code null}
+     * @throws NullPointerException if either the method or annotation class is {@code null}
      * @since 3.6
      */
     public static <A extends Annotation> A getAnnotation(final Method method, final Class<A> annotationCls,
