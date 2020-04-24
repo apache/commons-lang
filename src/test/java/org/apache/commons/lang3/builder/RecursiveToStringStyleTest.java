@@ -16,14 +16,14 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.RecursiveToStringStyleTest}.
@@ -33,13 +33,13 @@ public class RecursiveToStringStyleTest {
     private final Integer base = Integer.valueOf(5);
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() {
         ToStringBuilder.setDefaultStyle(new RecursiveToStringStyle());
     }
 
-    @After
-    public void tearDown() throws Exception {
+    @AfterEach
+    public void tearDown() {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 
@@ -91,7 +91,7 @@ public class RecursiveToStringStyleTest {
         p.job.title = "Manager";
         final String pBaseStr = p.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p));
         final String pJobStr  = p.job.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p.job));
-        assertEquals(pBaseStr + "[name=John Doe,age=33,smoker=false,job=" + pJobStr + "[title=Manager]]",
+        assertEquals(pBaseStr + "[age=33,job=" + pJobStr + "[title=Manager],name=John Doe,smoker=false]",
                      new ReflectionToStringBuilder(p, new RecursiveToStringStyle()).toString());
     }
 

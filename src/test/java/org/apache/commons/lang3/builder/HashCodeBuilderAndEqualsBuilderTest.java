@@ -16,9 +16,9 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link org.apache.commons.lang3.builder.HashCodeBuilder} and
@@ -72,7 +72,7 @@ public class HashCodeBuilderAndEqualsBuilderTest {
     }
 
     /**
-     * Asserts that if <code>lhs</code> equals <code>rhs</code>
+     * Asserts that if {@code lhs} equals {@code rhs}
      * then their hash codes MUST be identical.
      *
      * @param lhs The Left-Hand-Side of the equals test

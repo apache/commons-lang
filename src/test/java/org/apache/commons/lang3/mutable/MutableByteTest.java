@@ -16,11 +16,11 @@
  */
 package org.apache.commons.lang3.mutable;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * JUnit tests.
@@ -43,9 +43,9 @@ public class MutableByteTest {
 
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test
     public void testConstructorNull() {
-        new MutableByte((Number)null);
+        assertThrows(NullPointerException.class, () -> new MutableByte((Number) null));
     }
 
     @Test
@@ -67,10 +67,10 @@ public class MutableByteTest {
         assertEquals(Byte.valueOf((byte) 3), mutNum.getValue());
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test
     public void testSetNull() {
         final MutableByte mutNum = new MutableByte((byte) 0);
-        mutNum.setValue(null);
+        assertThrows(NullPointerException.class, () -> mutNum.setValue(null));
     }
 
     @Test
@@ -79,16 +79,16 @@ public class MutableByteTest {
         final MutableByte mutNumB = new MutableByte((byte) 0);
         final MutableByte mutNumC = new MutableByte((byte) 1);
 
-        assertTrue(mutNumA.equals(mutNumA));
-        assertTrue(mutNumA.equals(mutNumB));
-        assertTrue(mutNumB.equals(mutNumA));
-        assertTrue(mutNumB.equals(mutNumB));
-        assertFalse(mutNumA.equals(mutNumC));
-        assertFalse(mutNumB.equals(mutNumC));
-        assertTrue(mutNumC.equals(mutNumC));
-        assertFalse(mutNumA.equals(null));
-        assertFalse(mutNumA.equals(Byte.valueOf((byte) 0)));
-        assertFalse(mutNumA.equals("0"));
+        assertEquals(mutNumA, mutNumA);
+        assertEquals(mutNumA, mutNumB);
+        assertEquals(mutNumB, mutNumA);
+        assertEquals(mutNumB, mutNumB);
+        assertNotEquals(mutNumA, mutNumC);
+        assertNotEquals(mutNumB, mutNumC);
+        assertEquals(mutNumC, mutNumC);
+        assertNotEquals(null, mutNumA);
+        assertNotEquals(mutNumA, Byte.valueOf((byte) 0));
+        assertNotEquals("0", mutNumA);
     }
 
     @Test
@@ -97,10 +97,10 @@ public class MutableByteTest {
         final MutableByte mutNumB = new MutableByte((byte) 0);
         final MutableByte mutNumC = new MutableByte((byte) 1);
 
-        assertTrue(mutNumA.hashCode() == mutNumA.hashCode());
-        assertTrue(mutNumA.hashCode() == mutNumB.hashCode());
-        assertFalse(mutNumA.hashCode() == mutNumC.hashCode());
-        assertTrue(mutNumA.hashCode() == Byte.valueOf((byte) 0).hashCode());
+        assertEquals(mutNumA.hashCode(), mutNumA.hashCode());
+        assertEquals(mutNumA.hashCode(), mutNumB.hashCode());
+        assertNotEquals(mutNumA.hashCode(), mutNumC.hashCode());
+        assertEquals(mutNumA.hashCode(), Byte.valueOf((byte) 0).hashCode());
     }
 
     @Test
@@ -112,18 +112,17 @@ public class MutableByteTest {
         assertEquals((byte) -1, mutNum.compareTo(new MutableByte((byte) 1)));
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test
     public void testCompareToNull() {
         final MutableByte mutNum = new MutableByte((byte) 0);
-        mutNum.compareTo(null);
+        assertThrows(NullPointerException.class, () -> mutNum.compareTo(null));
     }
 
     @Test
     public void testPrimitiveValues() {
         final MutableByte mutNum = new MutableByte( (byte) 1 );
-
-        assertEquals( 1.0F, mutNum.floatValue(), 0 );
-        assertEquals( 1.0, mutNum.doubleValue(), 0 );
+        assertEquals(1.0F, mutNum.floatValue());
+        assertEquals(1.0, mutNum.doubleValue());
         assertEquals( (byte) 1, mutNum.byteValue() );
         assertEquals( (short) 1, mutNum.shortValue() );
         assertEquals( 1, mutNum.intValue() );
@@ -197,7 +196,7 @@ public class MutableByteTest {
     @Test
     public void testAddValuePrimitive() {
         final MutableByte mutNum = new MutableByte((byte) 1);
-        mutNum.add((byte)1);
+        mutNum.add((byte) 1);
 
         assertEquals((byte) 2, mutNum.byteValue());
     }
@@ -212,7 +211,7 @@ public class MutableByteTest {
 
     @Test
     public void testGetAndAddValuePrimitive() {
-        final MutableByte mutableByte = new MutableByte((byte)0);
+        final MutableByte mutableByte = new MutableByte((byte) 0);
         final byte result = mutableByte.getAndAdd((byte) 1);
 
         assertEquals((byte) 0, result);
@@ -221,7 +220,7 @@ public class MutableByteTest {
 
     @Test
     public void testGetAndAddValueObject() {
-        final MutableByte mutableByte = new MutableByte((byte)0);
+        final MutableByte mutableByte = new MutableByte((byte) 0);
         final byte result = mutableByte.getAndAdd(Byte.valueOf((byte) 1));
 
         assertEquals((byte) 0, result);
@@ -230,7 +229,7 @@ public class MutableByteTest {
 
     @Test
     public void testAddAndGetValuePrimitive() {
-        final MutableByte mutableByte = new MutableByte((byte)0);
+        final MutableByte mutableByte = new MutableByte((byte) 0);
         final byte result = mutableByte.addAndGet((byte) 1);
 
         assertEquals((byte) 1, result);
@@ -239,7 +238,7 @@ public class MutableByteTest {
 
     @Test
     public void testAddAndGetValueObject() {
-        final MutableByte mutableByte = new MutableByte((byte)0);
+        final MutableByte mutableByte = new MutableByte((byte) 0);
         final byte result = mutableByte.addAndGet(Byte.valueOf((byte) 1));
 
         assertEquals((byte) 1, result);

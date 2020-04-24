@@ -16,11 +16,11 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Substring methods
@@ -70,7 +70,7 @@ public class StringUtilsSubstringTest  {
         assertEquals("o", StringUtils.substring(SENTENCE, -9, -8));
         assertEquals(SENTENCE, StringUtils.substring(SENTENCE, 0, 80));
         assertEquals("", StringUtils.substring(SENTENCE, 2, 2));
-        assertEquals("b",StringUtils.substring("abc", -2, -1));
+        assertEquals("b", StringUtils.substring("abc", -2, -1));
     }
 
     @Test

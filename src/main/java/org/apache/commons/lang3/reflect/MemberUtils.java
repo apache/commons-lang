@@ -80,7 +80,7 @@ abstract class MemberUtils {
     /**
      * Returns whether a {@link Member} is accessible.
      * @param m Member to check
-     * @return {@code true} if <code>m</code> is accessible
+     * @return {@code true} if {@code m} is accessible
      */
     static boolean isAccessible(final Member m) {
         return m != null && Modifier.isPublic(m.getModifiers()) && !m.isSynthetic();
@@ -162,7 +162,7 @@ abstract class MemberUtils {
             // When isVarArgs is true, srcArgs and dstArgs may differ in length.
             // There are two special cases to consider:
             final boolean noVarArgsPassed = srcArgs.length < destArgs.length;
-            final boolean explicitArrayForVarags = srcArgs.length == destArgs.length && srcArgs[srcArgs.length-1].isArray();
+            final boolean explicitArrayForVarags = srcArgs.length == destArgs.length && srcArgs[srcArgs.length-1] != null && srcArgs[srcArgs.length-1].isArray();
 
             final float varArgsCost = 0.001f;
             final Class<?> destClass = destArgs[destArgs.length-1].getComponentType();
@@ -227,6 +227,9 @@ abstract class MemberUtils {
      * @return The cost of promoting the primitive
      */
     private static float getPrimitivePromotionCost(final Class<?> srcClass, final Class<?> destClass) {
+        if (srcClass == null) {
+            return 1.5f;
+        }
         float cost = 0.0f;
         Class<?> cls = srcClass;
         if (!cls.isPrimitive()) {

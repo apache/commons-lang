@@ -231,7 +231,7 @@ public class ContextedException extends Exception implements ExceptionContext {
      * @return the message, never null
      */
     @Override
-    public String getMessage(){
+    public String getMessage() {
         return getFormattedExceptionMessage(super.getMessage());
     }
 

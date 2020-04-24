@@ -308,7 +308,7 @@ public class ConcurrentUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>
-     * Gets an implementation of <code>Future</code> that is immediately done
+     * Gets an implementation of {@code Future} that is immediately done
      * and returns the specified constant value.
      * </p>
      * <p>

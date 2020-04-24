@@ -16,15 +16,16 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  */
@@ -40,72 +41,78 @@ public class ClassPathUtilsTest {
         assertFalse(Modifier.isFinal(ClassPathUtils.class.getModifiers()));
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testToFullyQualifiedNameNullClassString() throws Exception {
-        ClassPathUtils.toFullyQualifiedName((Class<?>) null, "Test.properties");
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testToFullyQualifiedNameClassNull() throws Exception {
-        ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class, null);
+    @Test
+    public void testToFullyQualifiedNameNullClassString() {
+        assertThrows(NullPointerException.class,
+                () -> ClassPathUtils.toFullyQualifiedName((Class<?>) null, "Test.properties"));
     }
 
     @Test
-    public void testToFullyQualifiedNameClassString() throws Exception {
+    public void testToFullyQualifiedNameClassNull() {
+        assertThrows(NullPointerException.class, () -> ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class, null));
+    }
+
+    @Test
+    public void testToFullyQualifiedNameClassString() {
         final String expected = "org.apache.commons.lang3.Test.properties";
         final String actual = ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class, "Test.properties");
 
         assertEquals(expected, actual);
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testToFullyQualifiedNameNullPackageString() throws Exception {
-        ClassPathUtils.toFullyQualifiedName((Package) null, "Test.properties");
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testToFullyQualifiedNamePackageNull() throws Exception {
-        ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class.getPackage(), null);
+    @Test
+    public void testToFullyQualifiedNameNullPackageString() {
+        assertThrows(NullPointerException.class,
+                () -> ClassPathUtils.toFullyQualifiedName((Package) null, "Test.properties"));
     }
 
     @Test
-    public void testToFullyQualifiedNamePackageString() throws Exception {
+    public void testToFullyQualifiedNamePackageNull() {
+        assertThrows(NullPointerException.class,
+                () -> ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class.getPackage(), null));
+    }
+
+    @Test
+    public void testToFullyQualifiedNamePackageString() {
         final String expected = "org.apache.commons.lang3.Test.properties";
         final String actual = ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class.getPackage(), "Test.properties");
 
         assertEquals(expected, actual);
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testToFullyQualifiedPathClassNullString() throws Exception {
-        ClassPathUtils.toFullyQualifiedPath((Class<?>) null, "Test.properties");
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testToFullyQualifiedPathClassNull() throws Exception {
-        ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class, null);
+    @Test
+    public void testToFullyQualifiedPathClassNullString() {
+        assertThrows(NullPointerException.class,
+                () -> ClassPathUtils.toFullyQualifiedPath((Class<?>) null, "Test.properties"));
     }
 
     @Test
-    public void testToFullyQualifiedPathClass() throws Exception {
+    public void testToFullyQualifiedPathClassNull() {
+        assertThrows(NullPointerException.class, () -> ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class, null));
+    }
+
+    @Test
+    public void testToFullyQualifiedPathClass() {
         final String expected = "org/apache/commons/lang3/Test.properties";
         final String actual = ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class, "Test.properties");
 
         assertEquals(expected, actual);
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testToFullyQualifiedPathPackageNullString() throws Exception {
-        ClassPathUtils.toFullyQualifiedPath((Package) null, "Test.properties");
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testToFullyQualifiedPathPackageNull() throws Exception {
-        ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class.getPackage(), null);
+    @Test
+    public void testToFullyQualifiedPathPackageNullString() {
+        assertThrows(NullPointerException.class,
+                () -> ClassPathUtils.toFullyQualifiedPath((Package) null, "Test.properties"));
     }
 
     @Test
-    public void testToFullyQualifiedPathPackage() throws Exception {
+    public void testToFullyQualifiedPathPackageNull() {
+        assertThrows(NullPointerException.class,
+                () -> ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class.getPackage(), null));
+    }
+
+    @Test
+    public void testToFullyQualifiedPathPackage() {
         final String expected = "org/apache/commons/lang3/Test.properties";
         final String actual = ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class.getPackage(), "Test.properties");
 

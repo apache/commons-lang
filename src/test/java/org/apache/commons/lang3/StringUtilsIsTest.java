@@ -16,10 +16,10 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - IsX methods
@@ -57,19 +57,18 @@ public class StringUtilsIsTest  {
     }
 
     @Test
-    public void testIsWhitespace() {
-        assertFalse(StringUtils.isWhitespace(null));
-        assertTrue(StringUtils.isWhitespace(""));
-        assertTrue(StringUtils.isWhitespace(" "));
-        assertTrue(StringUtils.isWhitespace("\t \n \t"));
-        assertFalse(StringUtils.isWhitespace("\t aa\n \t"));
-        assertTrue(StringUtils.isWhitespace(" "));
-        assertFalse(StringUtils.isWhitespace(" a "));
-        assertFalse(StringUtils.isWhitespace("a  "));
-        assertFalse(StringUtils.isWhitespace("  a"));
-        assertFalse(StringUtils.isWhitespace("aba"));
-        assertTrue(StringUtils.isWhitespace(StringUtilsTest.WHITESPACE));
-        assertFalse(StringUtils.isWhitespace(StringUtilsTest.NON_WHITESPACE));
+    public void testIsAlphanumericSpace() {
+        assertFalse(StringUtils.isAlphanumericSpace(null));
+        assertTrue(StringUtils.isAlphanumericSpace(""));
+        assertTrue(StringUtils.isAlphanumericSpace(" "));
+        assertTrue(StringUtils.isAlphanumericSpace("a"));
+        assertTrue(StringUtils.isAlphanumericSpace("A"));
+        assertTrue(StringUtils.isAlphanumericSpace("kgKgKgKgkgkGkjkjlJlOKLgHdGdHgl"));
+        assertTrue(StringUtils.isAlphanumericSpace("ham kso"));
+        assertTrue(StringUtils.isAlphanumericSpace("1"));
+        assertTrue(StringUtils.isAlphanumericSpace("hkHKHik6iUGHKJgU7tUJgKJGI87GIkug"));
+        assertFalse(StringUtils.isAlphanumericSpace("_"));
+        assertFalse(StringUtils.isAlphanumericSpace("hkHKHik*khbkuh"));
     }
 
     @Test
@@ -85,21 +84,6 @@ public class StringUtilsIsTest  {
         assertFalse(StringUtils.isAlphaSpace("hkHKHik6iUGHKJgU7tUJgKJGI87GIkug"));
         assertFalse(StringUtils.isAlphaSpace("_"));
         assertFalse(StringUtils.isAlphaSpace("hkHKHik*khbkuh"));
-    }
-
-    @Test
-    public void testIsAlphanumericSpace() {
-        assertFalse(StringUtils.isAlphanumericSpace(null));
-        assertTrue(StringUtils.isAlphanumericSpace(""));
-        assertTrue(StringUtils.isAlphanumericSpace(" "));
-        assertTrue(StringUtils.isAlphanumericSpace("a"));
-        assertTrue(StringUtils.isAlphanumericSpace("A"));
-        assertTrue(StringUtils.isAlphanumericSpace("kgKgKgKgkgkGkjkjlJlOKLgHdGdHgl"));
-        assertTrue(StringUtils.isAlphanumericSpace("ham kso"));
-        assertTrue(StringUtils.isAlphanumericSpace("1"));
-        assertTrue(StringUtils.isAlphanumericSpace("hkHKHik6iUGHKJgU7tUJgKJGI87GIkug"));
-        assertFalse(StringUtils.isAlphanumericSpace("_"));
-        assertFalse(StringUtils.isAlphanumericSpace("hkHKHik*khbkuh"));
     }
 
     @Test
@@ -168,6 +152,22 @@ public class StringUtilsIsTest  {
         assertFalse(StringUtils.isNumericSpace("hkHKHik6iUGHKJgU7tUJgKJGI87GIkug"));
         assertFalse(StringUtils.isNumericSpace("_"));
         assertFalse(StringUtils.isNumericSpace("hkHKHik*khbkuh"));
+    }
+
+    @Test
+    public void testIsWhitespace() {
+        assertFalse(StringUtils.isWhitespace(null));
+        assertTrue(StringUtils.isWhitespace(""));
+        assertTrue(StringUtils.isWhitespace(" "));
+        assertTrue(StringUtils.isWhitespace("\t \n \t"));
+        assertFalse(StringUtils.isWhitespace("\t aa\n \t"));
+        assertTrue(StringUtils.isWhitespace(" "));
+        assertFalse(StringUtils.isWhitespace(" a "));
+        assertFalse(StringUtils.isWhitespace("a  "));
+        assertFalse(StringUtils.isWhitespace("  a"));
+        assertFalse(StringUtils.isWhitespace("aba"));
+        assertTrue(StringUtils.isWhitespace(StringUtilsTest.WHITESPACE));
+        assertFalse(StringUtils.isWhitespace(StringUtilsTest.NON_WHITESPACE));
     }
 
 }

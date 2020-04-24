@@ -28,8 +28,9 @@ import org.apache.commons.lang3.Validate;
  * <p> Utility reflection methods focused on constructors, modeled after
  * {@link MethodUtils}. </p>
  *
- * <h3>Known Limitations</h3> <h4>Accessing Public Constructors In A Default
- * Access Superclass</h4> <p>There is an issue when invoking {@code public} constructors
+ * <h2>Known Limitations</h2>
+ * <h3>Accessing Public Constructors In A Default Access Superclass</h3>
+ * <p>There is an issue when invoking {@code public} constructors
  * contained in a default access superclass. Reflection correctly locates these
  * constructors and assigns them as {@code public}. However, an
  * {@link IllegalAccessException} is thrown if the constructor is
@@ -159,7 +160,7 @@ public class ConstructorUtils {
      * @param cls the class to be constructed, not {@code null}
      * @param args the array of arguments, {@code null} treated as empty
      * @param parameterTypes  the array of parameter types, {@code null} treated as empty
-     * @return new instance of <code>cls</code>, not {@code null}
+     * @return new instance of {@code cls}, not {@code null}
      *
      * @throws NullPointerException if {@code cls} is {@code null}
      * @throws NoSuchMethodException if a matching constructor cannot be found
@@ -271,7 +272,7 @@ public class ConstructorUtils {
                         // temporary variable for annotation, see comment above (1)
                         @SuppressWarnings("unchecked")
                         final
-                        Constructor<T> constructor = (Constructor<T>)ctor;
+                        Constructor<T> constructor = (Constructor<T>) ctor;
                         result = constructor;
                     }
                 }

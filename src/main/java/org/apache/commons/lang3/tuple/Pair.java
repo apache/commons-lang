@@ -40,11 +40,56 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
  */
 public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, R>>, Serializable {
 
+    private static final class PairAdapter<L, R> extends Pair<L, R> {
+
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public L getLeft() {
+            return null;
+        }
+
+        @Override
+        public R getRight() {
+            return null;
+        }
+
+        @Override
+        public R setValue(final R value) {
+            return null;
+        }
+
+    }
+
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
 
     /**
-     * <p>Obtains an immutable pair of two objects inferring the generic types.</p>
+     * An empty array.
+     * <p>
+     * Consider using {@link #emptyArray()} to avoid generics warnings.
+     * </p>
+     *
+     * @since 3.10.
+     */
+    public static final Pair<?, ?>[] EMPTY_ARRAY = new PairAdapter[0];
+
+    /**
+     * Returns the empty array singleton that can be assigned without compiler warning.
+     *
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @return the empty array singleton that can be assigned without compiler warning.
+     *
+     * @since 3.10.
+     */
+    @SuppressWarnings("unchecked")
+    public static <L, R> Pair<L, R>[] emptyArray() {
+        return (Pair<L, R>[]) EMPTY_ARRAY;
+    }
+
+    /**
+     * <p>Creates an immutable pair of two objects inferring the generic types.</p>
      *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>
@@ -56,52 +101,23 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @return a pair formed from the two parameters, not null
      */
     public static <L, R> Pair<L, R> of(final L left, final R right) {
-        return new ImmutablePair<>(left, right);
-    }
-
-    //-----------------------------------------------------------------------
-    /**
-     * <p>Gets the left element from this pair.</p>
-     *
-     * <p>When treated as a key-value pair, this is the key.</p>
-     *
-     * @return the left element, may be null
-     */
-    public abstract L getLeft();
-
-    /**
-     * <p>Gets the right element from this pair.</p>
-     *
-     * <p>When treated as a key-value pair, this is the value.</p>
-     *
-     * @return the right element, may be null
-     */
-    public abstract R getRight();
-
-    /**
-     * <p>Gets the key from this pair.</p>
-     *
-     * <p>This method implements the {@code Map.Entry} interface returning the
-     * left element as the key.</p>
-     *
-     * @return the left element as the key, may be null
-     */
-    @Override
-    public final L getKey() {
-        return getLeft();
+        return ImmutablePair.of(left, right);
     }
 
     /**
-     * <p>Gets the value from this pair.</p>
+     * <p>Creates an immutable pair from an existing pair.</p>
      *
-     * <p>This method implements the {@code Map.Entry} interface returning the
-     * right element as the value.</p>
+     * <p>This factory allows the pair to be created using inference to
+     * obtain the generic types.</p>
      *
-     * @return the right element as the value, may be null
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @param pair the existing pair.
+     * @return a pair formed from the two parameters, not null
+     * @since 3.10
      */
-    @Override
-    public R getValue() {
-        return getRight();
+    public static <L, R> Pair<L, R> of(final Map.Entry<L, R> pair) {
+        return ImmutablePair.of(pair);
     }
 
     //-----------------------------------------------------------------------
@@ -138,6 +154,51 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
+     * <p>Gets the key from this pair.</p>
+     *
+     * <p>This method implements the {@code Map.Entry} interface returning the
+     * left element as the key.</p>
+     *
+     * @return the left element as the key, may be null
+     */
+    @Override
+    public final L getKey() {
+        return getLeft();
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Gets the left element from this pair.</p>
+     *
+     * <p>When treated as a key-value pair, this is the key.</p>
+     *
+     * @return the left element, may be null
+     */
+    public abstract L getLeft();
+
+    /**
+     * <p>Gets the right element from this pair.</p>
+     *
+     * <p>When treated as a key-value pair, this is the value.</p>
+     *
+     * @return the right element, may be null
+     */
+    public abstract R getRight();
+
+    /**
+     * <p>Gets the value from this pair.</p>
+     *
+     * <p>This method implements the {@code Map.Entry} interface returning the
+     * right element as the value.</p>
+     *
+     * @return the right element as the value, may be null
+     */
+    @Override
+    public R getValue() {
+        return getRight();
+    }
+
+    /**
      * <p>Returns a suitable hash code.
      * The hash code follows the definition in {@code Map.Entry}.</p>
      *
@@ -146,8 +207,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     @Override
     public int hashCode() {
         // see Map.Entry API specification
-        return (getKey() == null ? 0 : getKey().hashCode()) ^
-                (getValue() == null ? 0 : getValue().hashCode());
+        return Objects.hashCode(getKey()) ^ Objects.hashCode(getValue());
     }
 
     /**

@@ -1,18 +1,158 @@
+                        Apache Commons Lang
+                        Version 3.10
+                        Release Notes
 
-Licensed to the Apache Software Foundation (ASF) under one or more
-contributor license agreements.  See the NOTICE file distributed with
-this work for additional information regarding copyright ownership.
-The ASF licenses this file to You under the Apache License, Version 2.0
-(the "License"); you may not use this file except in compliance with
-the License.  You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+INTRODUCTION:
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+This document contains the release notes for the 3.10 version of Apache Commons Lang.
+Commons Lang is a set of utility functions and reusable components that should be of use in any 
+Java environment.
+
+Lang 3.9 and onwards now targets Java 8, making use of features that arrived with Java 8.
+
+For the advice on upgrading from 2.x to 3.x, see the following page: 
+
+    https://commons.apache.org/lang/article3_0.html
+
+Apache Commons Lang, a package of Java utility classes for the
+classes that are in java.lang's hierarchy, or are considered to be so
+standard as to justify existence in java.lang.
+
+New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.
+
+Changes in this version include:
+
+New features:
+o LANG-1457: Add ExceptionUtils.throwableOfType(Throwable, Class) and friends.
+o LANG-1458: Add EMPTY_ARRAY constants to classes in org.apache.commons.lang3.tuple.
+o LANG-1461: Add null-safe StringUtils APIs to wrap String#getBytes([Charset|String]).
+o LANG-1467: Add zero arg constructor for org.apache.commons.lang3.NotImplementedException.
+o LANG-1470: Add ArrayUtils.addFirst() methods.
+o LANG-1479: Add Range.fit(T) to fit a value into a range.
+o LANG-1477: Added Functions.as*, and tests thereof, as suggested by Peter Verhas
+o LANG-1485: Add getters for lhs and rhs objects in DiffResult #451. Thanks to nicolasbd.
+o LANG-1486: Generify builder classes Diffable, DiffBuilder, and DiffResult #452. Thanks to Gary Gregory.
+o LANG-1487: Add ClassLoaderUtils with toString() implementations #453. Thanks to Gary Gregory.
+o LANG-1489: Add null-safe APIs as StringUtils.toRootLowerCase(String) and StringUtils.toRootUpperCase(String) #456. Thanks to Gary Gregory.
+o LANG-1494: Add org.apache.commons.lang3.time.Calendars. Thanks to Gary Gregory.
+o LANG-1495: Add EnumUtils getEnum() methods with default values #475. Thanks to Cheong Voon Leong.
+o LANG-1177: Added indexesOf methods and simplified removeAllOccurences #471. Thanks to Liel Fridman.
+o LANG-1498: Add support of lambda value evaluation for defaulting methods #416. Thanks to Lysergid, Gary Gregory.
+o LANG-1503: Add factory methods to Pair classes with Map.Entry input. #454. Thanks to XenoAmess, Gary Gregory.
+o LANG-1505: Add StopWatch convenience APIs to format times and create a simple instance. Thanks to Gary Gregory.
+o LANG-1506: Allow a StopWatch to carry an optional message. Thanks to Gary Gregory.
+o LANG-1507: Add ComparableUtils #398. Thanks to Sam Kruglov, Mark Dacek, Marc Magon, Pascal Schumacher, Rob Tompkins, Bruno P. Kinoshita, Amey Jadiye, Gary Gregory.
+o LANG-1508: Add org.apache.commons.lang3.SystemUtils.getUserName(). Thanks to Gary Gregory.
+o LANG-1509: Add ObjectToStringComparator. #483. Thanks to Gary Gregory.
+o LANG-1510: Add org.apache.commons.lang3.arch.Processor.Arch.getLabel(). Thanks to Gary Gregory.
+o LANG-1512: Add IS_JAVA_14 and IS_JAVA_15 to org.apache.commons.lang3.SystemUtils. Thanks to Gary Gregory.
+o LANG-1513: ObjectUtils: Get first non-null supplier value. Thanks to Bernhard Bonigl, Gary Gregory.
+o            Added the Streams class, and Functions.stream() as an accessor thereof.
+
+Fixed Bugs:
+o LANG-1514: Make test more stable by wrapping assertions in hashset. Thanks to contextshuffling.
+o LANG-1450: Generate Javadoc jar on build.
+o LANG-1460: Trivial: year of release for 3.9 says 2018, should be 2019 Thanks to Larry West.
+o LANG-1476: Use synchronize on a set created with Collections.synchronizedSet before iterating Thanks to emopers.
+o LANG-1475: StringUtils.unwrap incorrect throw StringIndexOutOfBoundsException. Thanks to stzx.
+o LANG-1406: StringIndexOutOfBoundsException in StringUtils.replaceIgnoreCase #423. Thanks to geratorres.
+o LANG-1453: StringUtils.removeIgnoreCase("?a", "a") throws IndexOutOfBoundsException #423. Thanks to geratorres.
+o LANG-1426: Corrected usage examples in Javadocs #458. Thanks to Brower, Mikko Maunu, Suraj Gautam.
+o LANG-1463: StringUtils abbreviate returns String of length greater than maxWidth #477. Thanks to bbeckercscc, Gary Gregory.
+o LANG-1500: Test may fail due to a different order of fields returned by reflection api #480. Thanks to contextshuffling.
+o LANG-1501: Sort fields in ReflectionToStringBuilder for deterministic order #481. Thanks to contextshuffling.
+o LANG-1433: MethodUtils will throw a NPE if invokeMethod() is called for a var-args method #407. Thanks to Christian Franzen.
+o LANG-1518: MethodUtils.getAnnotation() with searchSupers = true does not work if super is generic #494. Thanks to Michele Preti, Bruno P. Kinoshita, Gary Gregory.
+
+Changes:
+o LANG-1437: Remove redundant if statements in join methods #411. Thanks to Andrei Troie.
+o            commons.japicmp.version 0.13.1 -> 0.14.1.
+o            junit-jupiter 5.5.0 -> 5.5.1.
+o            junit-jupiter 5.5.1 -> 5.5.2.
+o            Improve Javadoc based on the discussion of the GitHub PR #459. Thanks to Jonathan Leitschuh, Bruno P. Kinoshita, Rob Tompkins, Gary Gregory.
+o            maven-checkstyle-plugin 3.0.0 -> 3.1.0.
+o LANG-696:  Update documentation related to the issue LANG-696 #449. Thanks to Peter Verhas.
+o            AnnotationUtils little cleanup #467. Thanks to Peter Verhas.
+o            Update test dependency: org.easymock:easymock 4.0.2 -> 4.1. Thanks to Gary Gregory.
+o            Update test dependency: org.hamcrest:hamcrest 2.1 -> 2.2. Thanks to Gary Gregory.
+o            Update test dependency: org.junit-pioneer:junit-pioneer 0.3.0 -> 0.4.2. Thanks to Gary Gregory.
+o            Update build dependency: com.puppycrawl.tools:checkstyle 8.18 -> 8.27. Thanks to Gary Gregory.
+o            Update POM parent: org.apache.commons:commons-parent 48 -> 50. Thanks to Gary Gregory.
+o            BooleanUtils Javadoc #469. Thanks to Peter Verhas.
+o            Functions Javadoc #466. Thanks to Peter Verhas.
+o            org.easymock:easymock 4.1 -> 4.2. Thanks to Gary Gregory.
+o            org.junit-pioneer:junit-pioneer 0.4.2 -> 0.5.4. Thanks to Gary Gregory.
+o            org.junit.jupiter:junit-jupiter 5.5.2 -> 5.6.0. Thanks to Gary Gregory.
+o            Use Javadoc {@code} instead of pre tags. #490. Thanks to Peter Verhas.
+o            ExceptionUtilsTest to 100% #486. Thanks to Peter Verhas.
+o            Reuse own code in Functions.java #493. Thanks to Peter Verhas.
+o LANG-1523: Avoid unnecessary allocation in StringUtils.wrapIfMissing. #496. Thanks to Edgar Asatryan, Bruno P. Kinoshita, Gary Gregory.
+o LANG-1525: Internally use Validate.notNull(foo, ...) instead of Validate.isTrue(foo != null, ...). Thanks to Edgar Asatryan, Bruno P. Kinoshita, Gary Gregory.
+o LANG-1526: Add 1 and 0 in toBooleanObject(final String str) #502. Thanks to Dominik Schramm.
+o LANG-1527: Remove an redundant argument check in NumberUtils #504. Thanks to Pengyu Nie.
+o LANG-1529: Deprecate org.apache.commons.lang3.ArrayUtils.removeAllOccurences(*) for org.apache.commons.lang3.ArrayUtils.removeAllOccurrences(*). Thanks to Gary Gregory, BillCindy, Bruno P. Kinoshita.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
+
+https://commons.apache.org/proper/commons-lang/
+
+Download page: https://commons.apache.org/proper/commons-lang/download_lang.cgi
+
+=============================================================================
+
+                        Apache Commons Lang
+                            Version 3.9
+                           Release Notes
+
+
+INTRODUCTION:
+
+This document contains the release notes for the 3.9 version of Apache Commons Lang.
+Commons Lang is a set of utility functions and reusable components that should be of use in any 
+Java environment.
+
+Lang 3.9 and onwards now targets Java 8, making use of features that arrived with Java 8.
+
+For the advice on upgrading from 2.x to 3.x, see the following page: 
+
+    https://commons.apache.org/lang/article3_0.html
+
+Apache Commons Lang, a package of Java utility classes for the
+classes that are in java.lang's hierarchy, or are considered to be so
+standard as to justify existence in java.lang.
+
+New features and bug fixes. Requires Java 8, supports Java 9, 10, 11
+
+Changes in this version include:
+
+New features:
+o LANG-1442: Javadoc pointing to Commons RNG.
+o            Adding the Functions class.
+o LANG-1411: Add isEmpty method to ObjectUtils Thanks to Alexander Tsvetkov.
+o LANG-1422: Add null-safe StringUtils.valueOf(char[]) to delegate to String.valueOf(char[])
+o LANG-1427: Add API org.apache.commons.lang3.SystemUtils.isJavaVersionAtMost(JavaVersion)
+
+
+Changes:
+o LANG-1416: Add more SystemUtils.IS_JAVA_XX variants.
+o LANG-1416: Update to JUnit 5
+o LANG-1417: Add @FunctionalInterface to ThreadPredicate and ThreadGroupPredicate
+o LANG-1415: Update Java Language requirement to 1.8
+o LANG-1436: Consolidate the StringUtils equals and equalsIgnoreCase Javadoc and implementation
+o            (doc) Fix javadoc for 'startIndex' parameter of StringUtils.join() methods. GitHub PR #412. Thanks to Andrei Troie aft90.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
+
+https://commons.apache.org/proper/commons-lang/
 
 =============================================================================
 
@@ -31,7 +171,7 @@ Lang 3.0 and onwards now targets Java 7.0, making use of features that arrived w
 
 For the advice on upgrading from 2.x to 3.x, see the following page:
 
-    http://commons.apache.org/lang/article3_0.html
+    https://commons.apache.org/lang/article3_0.html
 
 Apache Commons Lang, a package of Java utility classes for the
 classes that are in java.lang's hierarchy, or are considered to be so
@@ -45,15 +185,6 @@ Changes in this version include:
 Fixed Bugs:
 o LANG-1419: Restore BundleSymbolicName for OSGi
 
-
-
-Historical list of changes: http://commons.apache.org/proper/commons-lang/changes-report.html
-
-For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
-patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
-
-http://commons.apache.org/proper/commons-lang/
-
 =============================================================================
 
                         Apache Commons Lang
@@ -64,14 +195,14 @@ http://commons.apache.org/proper/commons-lang/
 INTRODUCTION:
 
 This document contains the release notes for the 3.8 version of Apache Commons Lang.
-Commons Lang is a set of utility functions and reusable components that should be of use in any 
+Commons Lang is a set of utility functions and reusable components that should be of use in any
 Java environment.
 
 Lang 3.0 and onwards now targets Java 7.0, making use of features that arrived with Java 7.0.
 
-For the advice on upgrading from 2.x to 3.x, see the following page: 
+For the advice on upgrading from 2.x to 3.x, see the following page:
 
-    http://commons.apache.org/lang/article3_0.html
+    https://commons.apache.org/lang/article3_0.html
 
 Apache Commons Lang, a package of Java utility classes for the
 classes that are in java.lang's hierarchy, or are considered to be so
@@ -131,7 +262,7 @@ variable arguments, autoboxing, concurrency and formatted output.
 
 For the advice on upgrading from 2.x to 3.x, see the following page:
 
-    http://commons.apache.org/lang/article3_0.html
+    https://commons.apache.org/lang/article3_0.html
 
 Apache Commons Lang, a package of Java utility classes for the
 classes that are in java.lang's hierarchy, or are considered to be so
@@ -177,7 +308,7 @@ only required Java 1.6.
 
 For the advice on upgrading from 2.x to 3.x, see the following page:
 
-    http://commons.apache.org/lang/article3_0.html
+    https://commons.apache.org/lang/article3_0.html
 
 HIGHLIGHTS
 ==========
@@ -207,7 +338,7 @@ o The methods org.apache.commons.lang3.StringUtils.getJaroWinklerDistance and
 
 For more information see the Commons Text website:
 
-    http://commons.apache.org/text
+    https://commons.apache.org/text
 
 The class org.apache.commons.lang3.CharEncoding has been deprecated in favor of
 java.nio.charset.StandardCharsets.
@@ -287,7 +418,7 @@ o LANG-1319: MultilineRecursiveToStringStyle StackOverflowError when object is
              an array.
 o LANG-1320: LocaleUtils#toLocale does not support language followed by UN M.49
              numeric-3 area code followed by variant.
-o LANG-1300: Clarify or improve behaviour of int-based indexOf methods in
+o LANG-1300: Clarify or improve behavior of int-based indexOf methods in
              StringUtils. Thanks to Mark Dacek.
 o LANG-1286: RandomStringUtils random method can overflow and return characters
              outside of specified range.
@@ -997,7 +1128,7 @@ o LANG-831:  FastDateParser does not handle white-space properly.
 o LANG-830:  FastDateParser could use \Q \E to quote regexes.
 o LANG-828:  FastDateParser does not handle non-Gregorian calendars properly.
 o LANG-826:  FastDateParser does not handle non-ASCII digits correctly.
-o LANG-822:  NumberUtils#createNumber - bad behaviour for leading "--".
+o LANG-822:  NumberUtils#createNumber - bad behavior for leading "--".
 o LANG-818:  FastDateFormat's "z" pattern does not respect timezone of Calendar
              instances passed to format().
 o LANG-817:  Add org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS_8.
@@ -1256,13 +1387,13 @@ o LANG-715:  CharSetUtils.squeeze() speedup.
 o LANG-716:  swapCase and *capitalize speedups.
 
 
-Historical list of changes: http://commons.apache.org/lang/changes-report.html
+Historical list of changes: https://commons.apache.org/lang/changes-report.html
 
 For complete information on Commons Lang, including instructions on how to
 submit bug reports, patches, or suggestions for improvement, see the
 Apache Commons Lang website:
 
-http://commons.apache.org/lang/
+https://commons.apache.org/lang/
 
 Have fun!
 -Apache Commons Lang team

@@ -24,8 +24,7 @@ limitations under the License.
  </properties>
 
  <body>
-  <!-- $Id$ -->
-
+  
   <section name='User guide for Commons "Lang"'>
     Looking for the User Guide? It has been moved to the package <a href="javadocs/api-release/index.html">Javadoc</a>
   </section>

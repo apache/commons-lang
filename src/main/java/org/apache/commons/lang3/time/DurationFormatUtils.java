@@ -61,7 +61,7 @@ public class DurationFormatUtils {
     }
 
     /**
-     * <p>Pattern used with <code>FastDateFormat</code> and <code>SimpleDateFormat</code>
+     * <p>Pattern used with {@code FastDateFormat} and {@code SimpleDateFormat}
      * for the ISO 8601 period format used in durations.</p>
      *
      * @see org.apache.commons.lang3.time.FastDateFormat
@@ -344,7 +344,7 @@ public class DurationFormatUtils {
         } else {
             // there are no M's in the format string
 
-            if( !Token.containsTokenWithValue(tokens, y) ) {
+            if ( !Token.containsTokenWithValue(tokens, y) ) {
                 int target = end.get(Calendar.YEAR);
                 if (months < 0) {
                     // target is end-year -1
@@ -369,7 +369,7 @@ public class DurationFormatUtils {
                 years = 0;
             }
 
-            while( start.get(Calendar.MONTH) != end.get(Calendar.MONTH) ) {
+            while ( start.get(Calendar.MONTH) != end.get(Calendar.MONTH) ) {
                 days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
                 start.add(Calendar.MONTH, 1);
             }
@@ -564,7 +564,7 @@ public class DurationFormatUtils {
         if (inLiteral) { // i.e. we have not found the end of the literal
             throw new IllegalArgumentException("Unmatched quote in format: " + format);
         }
-        return list.toArray(new Token[list.size()]);
+        return list.toArray(new Token[0]);
     }
 
     //-----------------------------------------------------------------------
@@ -578,7 +578,7 @@ public class DurationFormatUtils {
          *
          * @param tokens set to look in
          * @param value to look for
-         * @return boolean <code>true</code> if contained
+         * @return boolean {@code true} if contained
          */
         static boolean containsTokenWithValue(final Token[] tokens, final Object value) {
             for (final Token token : tokens) {
@@ -643,7 +643,7 @@ public class DurationFormatUtils {
          * Supports equality of this Token to another Token.
          *
          * @param obj2 Object to consider equality of
-         * @return boolean <code>true</code> if equal
+         * @return boolean {@code true} if equal
          */
         @Override
         public boolean equals(final Object obj2) {

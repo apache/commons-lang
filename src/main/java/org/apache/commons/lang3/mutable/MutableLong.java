@@ -19,7 +19,7 @@ package org.apache.commons.lang3.mutable;
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
- * A mutable <code>long</code> wrapper.
+ * A mutable {@code long} wrapper.
  * <p>
  * Note that as MutableLong does not extend Long, it is not treated by String.format as a Long parameter.
  *
@@ -331,12 +331,12 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
 
     //-----------------------------------------------------------------------
     /**
-     * Compares this object to the specified object. The result is <code>true</code> if and only if the argument
-     * is not <code>null</code> and is a <code>MutableLong</code> object that contains the same <code>long</code>
+     * Compares this object to the specified object. The result is {@code true} if and only if the argument
+     * is not {@code null} and is a {@code MutableLong} object that contains the same {@code long}
      * value as this object.
      *
      * @param obj  the object to compare with, null returns false
-     * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
+     * @return {@code true} if the objects are the same; {@code false} otherwise.
      */
     @Override
     public boolean equals(final Object obj) {

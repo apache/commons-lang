@@ -15,26 +15,29 @@
  * limitations under the License.
  */
 
-package org.apache.commons.lang3.test;
+package org.apache.commons.lang3.time;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * Annotation used with {@link SystemDefaults} that specifies the
- * system default Locale and TimeZone to be used in a test method.
- */
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface SystemDefaults {
-    /**
-     * The name of the Locale to be used while running a test method
-     */
-    String locale() default "";
-    /**
-     * The name of the TimeZone to be used while running a test method
-     */
-    String timezone() default "";
+import java.util.Calendar;
+
+import org.junit.jupiter.api.Test;
+
+public class CalendarUtilsTest {
+
+    @Test
+    public void testGetYear() {
+        assertEquals(Calendar.getInstance().get(Calendar.YEAR), CalendarUtils.INSTANCE.getYear());
+    }
+
+    @Test
+    public void testGetMonth() {
+        assertEquals(Calendar.getInstance().get(Calendar.MONTH), CalendarUtils.INSTANCE.getMonth());
+    }
+
+    @Test
+    public void testGetDayOfMonth() {
+        assertEquals(Calendar.getInstance().get(Calendar.DAY_OF_MONTH), CalendarUtils.INSTANCE.getDayOfMonth());
+    }
+
 }

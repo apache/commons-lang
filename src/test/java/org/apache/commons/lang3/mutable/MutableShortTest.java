@@ -16,12 +16,11 @@
  */
 package org.apache.commons.lang3.mutable;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * JUnit tests.
@@ -42,10 +41,7 @@ public class MutableShortTest {
 
         assertEquals((short) 2, new MutableShort("2").shortValue());
 
-        try {
-            new MutableShort((Number)null);
-            fail();
-        } catch (final NullPointerException ex) {}
+        assertThrows(NullPointerException.class, () -> new MutableShort((Number) null));
     }
 
     @Test
@@ -65,10 +61,7 @@ public class MutableShortTest {
         mutNum.setValue(new MutableShort((short) 3));
         assertEquals((short) 3, mutNum.shortValue());
         assertEquals(Short.valueOf((short) 3), mutNum.getValue());
-        try {
-            mutNum.setValue(null);
-            fail();
-        } catch (final NullPointerException ex) {}
+        assertThrows(NullPointerException.class, () -> mutNum.setValue(null));
     }
 
     @Test
@@ -77,16 +70,16 @@ public class MutableShortTest {
         final MutableShort mutNumB = new MutableShort((short) 0);
         final MutableShort mutNumC = new MutableShort((short) 1);
 
-        assertTrue(mutNumA.equals(mutNumA));
-        assertTrue(mutNumA.equals(mutNumB));
-        assertTrue(mutNumB.equals(mutNumA));
-        assertTrue(mutNumB.equals(mutNumB));
-        assertFalse(mutNumA.equals(mutNumC));
-        assertFalse(mutNumB.equals(mutNumC));
-        assertTrue(mutNumC.equals(mutNumC));
-        assertFalse(mutNumA.equals(null));
-        assertFalse(mutNumA.equals(Short.valueOf((short) 0)));
-        assertFalse(mutNumA.equals("0"));
+        assertEquals(mutNumA, mutNumA);
+        assertEquals(mutNumA, mutNumB);
+        assertEquals(mutNumB, mutNumA);
+        assertEquals(mutNumB, mutNumB);
+        assertNotEquals(mutNumA, mutNumC);
+        assertNotEquals(mutNumB, mutNumC);
+        assertEquals(mutNumC, mutNumC);
+        assertNotEquals(null, mutNumA);
+        assertNotEquals(mutNumA, Short.valueOf((short) 0));
+        assertNotEquals("0", mutNumA);
     }
 
     @Test
@@ -95,10 +88,10 @@ public class MutableShortTest {
         final MutableShort mutNumB = new MutableShort((short) 0);
         final MutableShort mutNumC = new MutableShort((short) 1);
 
-        assertTrue(mutNumA.hashCode() == mutNumA.hashCode());
-        assertTrue(mutNumA.hashCode() == mutNumB.hashCode());
-        assertFalse(mutNumA.hashCode() == mutNumC.hashCode());
-        assertTrue(mutNumA.hashCode() == Short.valueOf((short) 0).hashCode());
+        assertEquals(mutNumA.hashCode(), mutNumA.hashCode());
+        assertEquals(mutNumA.hashCode(), mutNumB.hashCode());
+        assertNotEquals(mutNumA.hashCode(), mutNumC.hashCode());
+        assertEquals(mutNumA.hashCode(), Short.valueOf((short) 0).hashCode());
     }
 
     @Test
@@ -108,18 +101,14 @@ public class MutableShortTest {
         assertEquals((short) 0, mutNum.compareTo(new MutableShort((short) 0)));
         assertEquals((short) +1, mutNum.compareTo(new MutableShort((short) -1)));
         assertEquals((short) -1, mutNum.compareTo(new MutableShort((short) 1)));
-        try {
-            mutNum.compareTo(null);
-            fail();
-        } catch (final NullPointerException ex) {}
+        assertThrows(NullPointerException.class, () -> mutNum.compareTo(null));
     }
 
     @Test
     public void testPrimitiveValues() {
         final MutableShort mutNum = new MutableShort( (short) 1 );
-
-        assertEquals( 1.0F, mutNum.floatValue(), 0 );
-        assertEquals( 1.0, mutNum.doubleValue(), 0 );
+        assertEquals(1.0F, mutNum.floatValue());
+        assertEquals(1.0, mutNum.doubleValue());
         assertEquals( (byte) 1, mutNum.byteValue() );
         assertEquals( (short) 1, mutNum.shortValue() );
         assertEquals( 1, mutNum.intValue() );
@@ -208,7 +197,7 @@ public class MutableShortTest {
 
     @Test
     public void testGetAndAddValuePrimitive() {
-        final MutableShort mutableShort = new MutableShort((short)0);
+        final MutableShort mutableShort = new MutableShort((short) 0);
         final short result = mutableShort.getAndAdd((short) 1);
 
         assertEquals((short) 0, result);
@@ -217,7 +206,7 @@ public class MutableShortTest {
 
     @Test
     public void testGetAndAddValueObject() {
-        final MutableShort mutableShort = new MutableShort((short)0);
+        final MutableShort mutableShort = new MutableShort((short) 0);
         final short result = mutableShort.getAndAdd(Short.valueOf((short) 1));
 
         assertEquals((short) 0, result);

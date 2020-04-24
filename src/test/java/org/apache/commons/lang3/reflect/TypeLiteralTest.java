@@ -16,13 +16,14 @@
  */
 package org.apache.commons.lang3.reflect;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TypeLiteralTest {
 
@@ -49,8 +50,8 @@ public class TypeLiteralTest {
     }
 
     @SuppressWarnings("rawtypes")
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testRaw() {
-        new TypeLiteral() {};
+        assertThrows(NullPointerException.class, () -> new TypeLiteral() {});
     }
 }

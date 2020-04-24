@@ -16,20 +16,21 @@
  */
 package org.apache.commons.lang3.builder;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ReflectionToStringBuilderSummaryTest {
 
     @SuppressWarnings("unused")
-    private String stringField = "string";
+    private final String stringField = "string";
 
     @ToStringSummary
-    private String summaryString = "summary";
+    private final String summaryString = "summary";
 
     @Test
     public void testSummary() {
-        Assert.assertEquals("[stringField=string,summaryString=<String>]",
+        assertEquals("[stringField=string,summaryString=<String>]",
                 new ReflectionToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE).build());
     }
 

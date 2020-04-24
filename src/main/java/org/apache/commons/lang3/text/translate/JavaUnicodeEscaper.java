@@ -29,7 +29,7 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
 
     /**
      * <p>
-     * Constructs a <code>JavaUnicodeEscaper</code> above the specified value (exclusive).
+     * Constructs a {@code JavaUnicodeEscaper} above the specified value (exclusive).
      * </p>
      *
      * @param codepoint
@@ -42,7 +42,7 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
 
     /**
      * <p>
-     * Constructs a <code>JavaUnicodeEscaper</code> below the specified value (exclusive).
+     * Constructs a {@code JavaUnicodeEscaper} below the specified value (exclusive).
      * </p>
      *
      * @param codepoint
@@ -55,7 +55,7 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
 
     /**
      * <p>
-     * Constructs a <code>JavaUnicodeEscaper</code> between the specified values (inclusive).
+     * Constructs a {@code JavaUnicodeEscaper} between the specified values (inclusive).
      * </p>
      *
      * @param codepointLow
@@ -70,7 +70,7 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
 
     /**
      * <p>
-     * Constructs a <code>JavaUnicodeEscaper</code> outside of the specified values (exclusive).
+     * Constructs a {@code JavaUnicodeEscaper} outside of the specified values (exclusive).
      * </p>
      *
      * @param codepointLow
@@ -85,9 +85,9 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
 
     /**
      * <p>
-     * Constructs a <code>JavaUnicodeEscaper</code> for the specified range. This is the underlying method for the
-     * other constructors/builders. The <code>below</code> and <code>above</code> boundaries are inclusive when
-     * <code>between</code> is <code>true</code> and exclusive when it is <code>false</code>.
+     * Constructs a {@code JavaUnicodeEscaper} for the specified range. This is the underlying method for the
+     * other constructors/builders. The {@code below} and {@code above} boundaries are inclusive when
+     * {@code between} is {@code true} and exclusive when it is {@code false}.
      * </p>
      *
      * @param below

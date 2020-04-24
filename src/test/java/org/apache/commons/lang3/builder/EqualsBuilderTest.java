@@ -16,16 +16,17 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
 
 import org.apache.commons.lang3.reflect.MethodUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.EqualsBuilder}.
@@ -446,7 +447,7 @@ public class EqualsBuilderTest {
     @Test
     public void testObjectRecursiveGenericString() {
         // Note: Do not use literals, because string literals are always mapped by same object (internal() of String))!
-        String s1_a = String.valueOf(1);
+        final String s1_a = String.valueOf(1);
         final TestRecursiveGenericObject<String> o1_a = new TestRecursiveGenericObject<>(s1_a);
         final TestRecursiveGenericObject<String> o1_b = new TestRecursiveGenericObject<>(String.valueOf(1));
         final TestRecursiveGenericObject<String> o2 = new TestRecursiveGenericObject<>(String.valueOf(2));
@@ -1185,7 +1186,7 @@ public class EqualsBuilderTest {
     /**
      * Tests two instances of classes that can be equal and that are not "related". The two classes are not subclasses
      * of each other and do not share a parent aside from Object.
-     * See http://issues.apache.org/bugzilla/show_bug.cgi?id=33069
+     * See https://issues.apache.org/bugzilla/show_bug.cgi?id=33069
      */
     @Test
     public void testUnrelatedClasses() {
@@ -1193,15 +1194,15 @@ public class EqualsBuilderTest {
         final Object[] y = new Object[]{new TestBCanEqualA(1)};
 
         // sanity checks:
-        assertTrue(Arrays.equals(x, x));
-        assertTrue(Arrays.equals(y, y));
-        assertTrue(Arrays.equals(x, y));
-        assertTrue(Arrays.equals(y, x));
+        assertArrayEquals(x, x);
+        assertArrayEquals(y, y);
+        assertArrayEquals(x, y);
+        assertArrayEquals(y, x);
         // real tests:
-        assertTrue(x[0].equals(x[0]));
-        assertTrue(y[0].equals(y[0]));
-        assertTrue(x[0].equals(y[0]));
-        assertTrue(y[0].equals(x[0]));
+        assertEquals(x[0], x[0]);
+        assertEquals(y[0], y[0]);
+        assertEquals(x[0], y[0]);
+        assertEquals(y[0], x[0]);
         assertTrue(new EqualsBuilder().append(x, x).isEquals());
         assertTrue(new EqualsBuilder().append(y, y).isEquals());
         assertTrue(new EqualsBuilder().append(x, y).isEquals());
@@ -1209,7 +1210,7 @@ public class EqualsBuilderTest {
     }
 
     /**
-     * Test from http://issues.apache.org/bugzilla/show_bug.cgi?id=33067
+     * Test from https://issues.apache.org/bugzilla/show_bug.cgi?id=33067
      */
     @Test
     public void testNpeForNullElement() {
@@ -1217,12 +1218,12 @@ public class EqualsBuilderTest {
         final Object[] x2 = new Object[]{Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3)};
 
         // causes an NPE in 2.0 according to:
-        // http://issues.apache.org/bugzilla/show_bug.cgi?id=33067
+        // https://issues.apache.org/bugzilla/show_bug.cgi?id=33067
         new EqualsBuilder().append(x1, x2);
     }
 
     @Test
-    public void testReflectionEqualsExcludeFields() throws Exception {
+    public void testReflectionEqualsExcludeFields() {
         final TestObjectWithMultipleFields x1 = new TestObjectWithMultipleFields(1, 2, 3);
         final TestObjectWithMultipleFields x2 = new TestObjectWithMultipleFields(1, 3, 4);
 
@@ -1282,11 +1283,11 @@ public class EqualsBuilderTest {
         x3.setObjectReference(refX3);
         refX3.setObjectReference(x3);
 
-        assertTrue(x1.equals(x2));
+        assertEquals(x1, x2);
         assertNull(EqualsBuilder.getRegistry());
-        assertFalse(x1.equals(x3));
+        assertNotEquals(x1, x3);
         assertNull(EqualsBuilder.getRegistry());
-        assertFalse(x2.equals(x3));
+        assertNotEquals(x2, x3);
         assertNull(EqualsBuilder.getRegistry());
     }
 
@@ -1311,7 +1312,7 @@ public class EqualsBuilderTest {
     }
 
     @Test
-    public void testReflectionArrays() throws Exception {
+    public void testReflectionArrays() {
 
         final TestObject one = new TestObject(1);
         final TestObject two = new TestObject(2);

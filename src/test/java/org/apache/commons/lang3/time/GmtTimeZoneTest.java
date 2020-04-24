@@ -16,19 +16,20 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for GmtTimeZone
  */
 public class GmtTimeZoneTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void hoursOutOfRange() {
-        new GmtTimeZone(false, 24, 0);
+        assertThrows(IllegalArgumentException.class, () -> new GmtTimeZone(false, 24, 0));
     }
 
     @Test
@@ -36,9 +37,9 @@ public class GmtTimeZoneTest {
         assertEquals(23 * 60 * 60 * 1000, new GmtTimeZone(false, 23, 0).getRawOffset());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void minutesOutOfRange() {
-        new GmtTimeZone(false, 0, 60);
+        assertThrows(IllegalArgumentException.class, () -> new GmtTimeZone(false, 0, 60));
     }
 
     @Test
@@ -51,9 +52,9 @@ public class GmtTimeZoneTest {
         assertEquals(0, new GmtTimeZone(false, 0, 0).getOffset(234304));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void setRawOffset() {
-        new GmtTimeZone(false, 0, 0).setRawOffset(0);
+        assertThrows(UnsupportedOperationException.class, () -> new GmtTimeZone(false, 0, 0).setRawOffset(0));
     }
 
     @Test

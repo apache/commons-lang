@@ -31,7 +31,7 @@ variable arguments, autoboxing, concurrency and formatted output.
 
 For the advice on upgrading from 2.x to 3.x, see the following page: 
 
-    http://commons.apache.org/lang/article3_0.html
+    https://commons.apache.org/lang/article3_0.html
 
 CHANGES IN 3.1
 ================

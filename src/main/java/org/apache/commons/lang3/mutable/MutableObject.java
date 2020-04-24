@@ -20,7 +20,7 @@ package org.apache.commons.lang3.mutable;
 import java.io.Serializable;
 
 /**
- * A mutable <code>Object</code> wrapper.
+ * A mutable {@code Object} wrapper.
  *
  * @param <T> the type to set and get
  * @since 2.1
@@ -38,7 +38,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     private T value;
 
     /**
-     * Constructs a new MutableObject with the default value of <code>null</code>.
+     * Constructs a new MutableObject with the default value of {@code null}.
      */
     public MutableObject() {
         super();
@@ -78,15 +78,15 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     //-----------------------------------------------------------------------
     /**
      * <p>
-     * Compares this object against the specified object. The result is <code>true</code> if and only if the argument
-     * is not <code>null</code> and is a <code>MutableObject</code> object that contains the same <code>T</code>
+     * Compares this object against the specified object. The result is {@code true} if and only if the argument
+     * is not {@code null} and is a {@code MutableObject} object that contains the same {@code T}
      * value as this object.
      * </p>
      *
-     * @param obj  the object to compare with, <code>null</code> returns <code>false</code>
-     * @return  <code>true</code> if the objects are the same;
-     *          <code>true</code> if the objects have equivalent <code>value</code> fields;
-     *          <code>false</code> otherwise.
+     * @param obj  the object to compare with, {@code null} returns {@code false}
+     * @return  {@code true} if the objects are the same;
+     *          {@code true} if the objects have equivalent {@code value} fields;
+     *          {@code false} otherwise.
      */
     @Override
     public boolean equals(final Object obj) {
@@ -104,9 +104,9 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     }
 
     /**
-     * Returns the value's hash code or <code>0</code> if the value is <code>null</code>.
+     * Returns the value's hash code or {@code 0} if the value is {@code null}.
      *
-     * @return the value's hash code or <code>0</code> if the value is <code>null</code>.
+     * @return the value's hash code or {@code 0} if the value is {@code null}.
      */
     @Override
     public int hashCode() {

@@ -260,7 +260,7 @@ public class StringEscapeUtils {
         @Override
         public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
 
-            if(index != 0) {
+            if (index != 0) {
                 throw new IllegalStateException("CsvEscaper should never reach the [1] index");
             }
 
@@ -393,7 +393,7 @@ public class StringEscapeUtils {
         @Override
         public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
 
-            if(index != 0) {
+            if (index != 0) {
                 throw new IllegalStateException("CsvUnescaper should never reach the [1] index");
             }
 
@@ -568,10 +568,10 @@ public class StringEscapeUtils {
      * <p>
      * For example:
      * </p>
-     * <p><code>"bread" &amp; "butter"</code></p>
+     * <p>{@code "bread" &amp; "butter"}</p>
      * becomes:
      * <p>
-     * <code>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</code>.
+     * {@code &amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;}.
      * </p>
      *
      * <p>Supports all known HTML 4.0 entities, including funky accents.

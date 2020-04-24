@@ -16,10 +16,10 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -29,20 +29,15 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import org.apache.commons.lang3.test.SystemDefaultsSwitch;
-import org.apache.commons.lang3.test.SystemDefaults;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.DefaultLocale;
+import org.junitpioneer.jupiter.DefaultTimeZone;
 
 /**
  * TestCase for DateFormatUtils.
  */
 @SuppressWarnings("deprecation") // tests lots of deprecated items
 public class DateFormatUtilsTest {
-
-    @Rule
-    public SystemDefaultsSwitch defaults = new SystemDefaultsSwitch();
-
     //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
@@ -144,7 +139,7 @@ public class DateFormatUtilsTest {
     }
 
     @Test
-    public void testDateTimeISO() throws Exception {
+    public void testDateTimeISO() {
         testGmtMinus3("2002-02-23T09:11:12", DateFormatUtils.ISO_DATETIME_FORMAT.getPattern());
         testGmtMinus3("2002-02-23T09:11:12-03:00", DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern());
         testUTC("2002-02-23T09:11:12Z", DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern());
@@ -171,7 +166,7 @@ public class DateFormatUtilsTest {
         testUTC("09:11:12Z", DateFormatUtils.ISO_TIME_NO_T_TIME_ZONE_FORMAT.getPattern());
     }
 
-    @SystemDefaults(locale="en")
+    @DefaultLocale(language = "en")
     @Test
     public void testSMTP() {
         TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
@@ -192,14 +187,14 @@ public class DateFormatUtilsTest {
         DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.parse(date);
     }
 
-    @SystemDefaults(timezone="UTC")
+    @DefaultTimeZone("UTC")
     @Test
     public void testLang530() throws ParseException {
         final Date d = new Date();
         final String isoDateStr = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(d);
         final Date d2 = DateUtils.parseDate(isoDateStr, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern());
         // the format loses milliseconds so have to reintroduce them
-        assertEquals("Date not equal to itself ISO formatted and parsed", d.getTime(), d2.getTime() + d.getTime() % 1000);
+        assertEquals(d.getTime(), d2.getTime() + d.getTime() % 1000, "Date not equal to itself ISO formatted and parsed");
     }
 
     /**
@@ -209,7 +204,7 @@ public class DateFormatUtilsTest {
      * This method test that the bug is fixed.
      */
     @Test
-    public void testLang916() throws Exception {
+    public void testLang916() {
 
         final Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
         cal.clear();
@@ -218,29 +213,29 @@ public class DateFormatUtilsTest {
         // Long.
         {
             final String value = DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Europe/Paris"));
-            assertEquals("long", "2009-10-16T08:42:16+02:00", value);
+            assertEquals("2009-10-16T08:42:16+02:00", value, "long");
         }
         {
             final String value = DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Asia/Kolkata"));
-            assertEquals("long", "2009-10-16T12:12:16+05:30", value);
+            assertEquals("2009-10-16T12:12:16+05:30", value, "long");
         }
         {
             final String value = DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Europe/London"));
-            assertEquals("long", "2009-10-16T07:42:16+01:00", value);
+            assertEquals("2009-10-16T07:42:16+01:00", value, "long");
         }
 
         // Calendar.
         {
             final String value = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Europe/Paris"));
-            assertEquals("calendar", "2009-10-16T08:42:16+02:00", value);
+            assertEquals("2009-10-16T08:42:16+02:00", value, "calendar");
         }
         {
             final String value = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Asia/Kolkata"));
-            assertEquals("calendar", "2009-10-16T12:12:16+05:30", value);
+            assertEquals("2009-10-16T12:12:16+05:30", value, "calendar");
         }
         {
             final String value = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Europe/London"));
-            assertEquals("calendar", "2009-10-16T07:42:16+01:00", value);
+            assertEquals("2009-10-16T07:42:16+01:00", value, "calendar");
         }
     }
 }

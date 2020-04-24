@@ -69,6 +69,7 @@ import org.apache.commons.lang3.Validate;
  *   &lt;T&gt; T obtain(Typed&lt;T&gt; typed, ...);
  * </pre>
  *
+ * @param <T> the type
  * @since 3.2
  */
 public abstract class TypeLiteral<T> implements Typed<T> {

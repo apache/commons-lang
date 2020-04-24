@@ -18,10 +18,10 @@ package org.apache.commons.lang3;
 
 /**
  * <p>Thrown to indicate that a block of code has not been implemented.
- * This exception supplements <code>UnsupportedOperationException</code>
+ * This exception supplements {@code UnsupportedOperationException}
  * by providing a more semantically rich description of the problem.</p>
  *
- * <p><code>NotImplementedException</code> represents the case where the
+ * <p>{@code NotImplementedException} represents the case where the
  * author has yet to implement the logic at this point in the program.
  * This can act as an exception based TODO tag. </p>
  *
@@ -45,6 +45,15 @@ public class NotImplementedException extends UnsupportedOperationException {
     private static final long serialVersionUID = 20131021L;
 
     private final String code;
+
+    /**
+     * Constructs a NotImplementedException.
+     *
+     * @since 3.10
+     */
+    public NotImplementedException() {
+        this.code = null;
+    }
 
     /**
      * Constructs a NotImplementedException.

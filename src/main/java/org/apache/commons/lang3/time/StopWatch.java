@@ -17,11 +17,14 @@
 
 package org.apache.commons.lang3.time;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * <p>
- * <code>StopWatch</code> provides a convenient API for timings.
+ * {@code StopWatch} provides a convenient API for timings.
  * </p>
  *
  * <p>
@@ -58,20 +61,12 @@ import java.util.concurrent.TimeUnit;
  */
 public class StopWatch {
 
-    private static final long NANO_2_MILLIS = 1000000L;
-
-
     /**
-     * Provides a started stopwatch for convenience.
-     *
-     * @return StopWatch a stopwatch that's already been started.
-     *
-     * @since 3.5
+     * Enumeration type which indicates the split status of stopwatch.
      */
-    public static StopWatch createStarted() {
-        final StopWatch sw = new StopWatch();
-        sw.start();
-        return sw;
+    private enum SplitState {
+        SPLIT,
+        UNSPLIT
     }
 
     /**
@@ -79,20 +74,6 @@ public class StopWatch {
      */
     private enum State {
 
-        UNSTARTED {
-            @Override
-            boolean isStarted() {
-                return false;
-            }
-            @Override
-            boolean isStopped() {
-                return true;
-            }
-            @Override
-            boolean isSuspended() {
-                return false;
-            }
-        },
         RUNNING {
             @Override
             boolean isStarted() {
@@ -134,34 +115,44 @@ public class StopWatch {
             boolean isSuspended() {
                 return true;
             }
+        },
+        UNSTARTED {
+            @Override
+            boolean isStarted() {
+                return false;
+            }
+            @Override
+            boolean isStopped() {
+                return true;
+            }
+            @Override
+            boolean isSuspended() {
+                return false;
+            }
         };
 
         /**
          * <p>
-         * The method is used to find out if the StopWatch is started. A suspended
-         * StopWatch is also started watch.
+         * Returns whether the StopWatch is started. A suspended StopWatch is also started watch.
          * </p>
-
-         * @return boolean
-         *             If the StopWatch is started.
+         *
+         * @return boolean If the StopWatch is started.
          */
         abstract boolean isStarted();
 
         /**
          * <p>
-         * This method is used to find out whether the StopWatch is stopped. The
-         * stopwatch which's not yet started and explicitly stopped stopwatch is
+         * Returns whether the StopWatch is stopped. The stopwatch which's not yet started and explicitly stopped stopwatch is
          * considered as stopped.
          * </p>
          *
-         * @return boolean
-         *             If the StopWatch is stopped.
+         * @return boolean If the StopWatch is stopped.
          */
         abstract boolean isStopped();
 
         /**
          * <p>
-         * This method is used to find out whether the StopWatch is suspended.
+         * Returns whether the StopWatch is suspended.
          * </p>
          *
          * @return boolean
@@ -170,13 +161,39 @@ public class StopWatch {
         abstract boolean isSuspended();
     }
 
+    private static final long NANO_2_MILLIS = 1000000L;
+
     /**
-     * Enumeration type which indicates the split status of stopwatch.
+     * Creates a stopwatch for convenience.
+     *
+     * @return StopWatch a stopwatch.
+     *
+     * @since 3.10
      */
-    private enum SplitState {
-        SPLIT,
-        UNSPLIT
+    public static StopWatch create() {
+        return new StopWatch();
     }
+
+    /**
+     * Creates a started stopwatch for convenience.
+     *
+     * @return StopWatch a stopwatch that's already been started.
+     *
+     * @since 3.5
+     */
+    public static StopWatch createStarted() {
+        final StopWatch sw = new StopWatch();
+        sw.start();
+        return sw;
+    }
+
+    /**
+     * A message for string presentation.
+     *
+     * @since 3.10
+     */
+    private final String message;
+
     /**
      * The current running state of the StopWatch.
      */
@@ -210,192 +227,53 @@ public class StopWatch {
      * </p>
      */
     public StopWatch() {
-        super();
+        this(null);
     }
 
     /**
      * <p>
-     * Start the stopwatch.
+     * Constructor.
      * </p>
-     *
-     * <p>
-     * This method starts a new timing session, clearing any previous values.
-     * </p>
-     *
-     * @throws IllegalStateException
-     *             if the StopWatch is already running.
+     * @param message A message for string presentation.
+     * @since 3.10
      */
-    public void start() {
-        if (this.runningState == State.STOPPED) {
-            throw new IllegalStateException("Stopwatch must be reset before being restarted. ");
-        }
-        if (this.runningState != State.UNSTARTED) {
-            throw new IllegalStateException("Stopwatch already started. ");
-        }
-        this.startTime = System.nanoTime();
-        this.startTimeMillis = System.currentTimeMillis();
-        this.runningState = State.RUNNING;
+    public StopWatch(final String message) {
+        this.message = message;
     }
 
-
     /**
-     * <p>
-     * Stop the stopwatch.
-     * </p>
+     * Returns the time formatted by {@link DurationFormatUtils#formatDurationHMS}.
      *
-     * <p>
-     * This method ends a new timing session, allowing the time to be retrieved.
-     * </p>
-     *
-     * @throws IllegalStateException
-     *             if the StopWatch is not running.
+     * @return the time formatted by {@link DurationFormatUtils#formatDurationHMS}.
+     * @since 3.10
      */
-    public void stop() {
-        if (this.runningState != State.RUNNING && this.runningState != State.SUSPENDED) {
-            throw new IllegalStateException("Stopwatch is not running. ");
-        }
-        if (this.runningState == State.RUNNING) {
-            this.stopTime = System.nanoTime();
-        }
-        this.runningState = State.STOPPED;
+    public String formatSplitTime() {
+        return DurationFormatUtils.formatDurationHMS(getSplitTime());
     }
 
     /**
-     * <p>
-     * Resets the stopwatch. Stops it if need be.
-     * </p>
+     * Returns the split time formatted by {@link DurationFormatUtils#formatDurationHMS}.
      *
-     * <p>
-     * This method clears the internal values to allow the object to be reused.
-     * </p>
+     * @return the split time formatted by {@link DurationFormatUtils#formatDurationHMS}.
+     * @since 3.10
      */
-    public void reset() {
-        this.runningState = State.UNSTARTED;
-        this.splitState = SplitState.UNSPLIT;
+    public String formatTime() {
+        return DurationFormatUtils.formatDurationHMS(getTime());
     }
 
     /**
-     * <p>
-     * Split the time.
-     * </p>
+     * Gets the message for string presentation.
      *
-     * <p>
-     * This method sets the stop time of the watch to allow a time to be extracted. The start time is unaffected,
-     * enabling {@link #unsplit()} to continue the timing from the original start point.
-     * </p>
-     *
-     * @throws IllegalStateException
-     *             if the StopWatch is not running.
+     * @return the message for string presentation.
+     * @since 3.10
      */
-    public void split() {
-        if (this.runningState != State.RUNNING) {
-            throw new IllegalStateException("Stopwatch is not running. ");
-        }
-        this.stopTime = System.nanoTime();
-        this.splitState = SplitState.SPLIT;
+    public String getMessage() {
+        return message;
     }
 
     /**
      * <p>
-     * Remove a split.
-     * </p>
-     *
-     * <p>
-     * This method clears the stop time. The start time is unaffected, enabling timing from the original start point to
-     * continue.
-     * </p>
-     *
-     * @throws IllegalStateException
-     *             if the StopWatch has not been split.
-     */
-    public void unsplit() {
-        if (this.splitState != SplitState.SPLIT) {
-            throw new IllegalStateException("Stopwatch has not been split. ");
-        }
-        this.splitState = SplitState.UNSPLIT;
-    }
-
-    /**
-     * <p>
-     * Suspend the stopwatch for later resumption.
-     * </p>
-     *
-     * <p>
-     * This method suspends the watch until it is resumed. The watch will not include time between the suspend and
-     * resume calls in the total time.
-     * </p>
-     *
-     * @throws IllegalStateException
-     *             if the StopWatch is not currently running.
-     */
-    public void suspend() {
-        if (this.runningState != State.RUNNING) {
-            throw new IllegalStateException("Stopwatch must be running to suspend. ");
-        }
-        this.stopTime = System.nanoTime();
-        this.runningState = State.SUSPENDED;
-    }
-
-    /**
-     * <p>
-     * Resume the stopwatch after a suspend.
-     * </p>
-     *
-     * <p>
-     * This method resumes the watch after it was suspended. The watch will not include time between the suspend and
-     * resume calls in the total time.
-     * </p>
-     *
-     * @throws IllegalStateException
-     *             if the StopWatch has not been suspended.
-     */
-    public void resume() {
-        if (this.runningState != State.SUSPENDED) {
-            throw new IllegalStateException("Stopwatch must be suspended to resume. ");
-        }
-        this.startTime += System.nanoTime() - this.stopTime;
-        this.runningState = State.RUNNING;
-    }
-
-    /**
-     * <p>
-     * Get the time on the stopwatch.
-     * </p>
-     *
-     * <p>
-     * This is either the time between the start and the moment this method is called, or the amount of time between
-     * start and stop.
-     * </p>
-     *
-     * @return the time in milliseconds
-     */
-    public long getTime() {
-        return getNanoTime() / NANO_2_MILLIS;
-    }
-
-    /**
-     * <p>
-     * Get the time on the stopwatch in the specified TimeUnit.
-     * </p>
-     *
-     * <p>
-     * This is either the time between the start and the moment this method is called, or the amount of time between
-     * start and stop. The resulting time will be expressed in the desired TimeUnit with any remainder rounded down.
-     * For example, if the specified unit is {@code TimeUnit.HOURS} and the stopwatch time is 59 minutes, then the
-     * result returned will be {@code 0}.
-     * </p>
-     *
-     * @param timeUnit the unit of time, not null
-     * @return the time in the specified TimeUnit, rounded down
-     * @since 3.5
-     */
-    public long getTime(final TimeUnit timeUnit) {
-        return timeUnit.convert(getNanoTime(), TimeUnit.NANOSECONDS);
-    }
-
-    /**
-     * <p>
-     * Get the time on the stopwatch in nanoseconds.
+     * Gets the time on the stopwatch in nanoseconds.
      * </p>
      *
      * <p>
@@ -419,25 +297,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * Get the split time on the stopwatch.
-     * </p>
-     *
-     * <p>
-     * This is the time between start and latest split.
-     * </p>
-     *
-     * @return the split time in milliseconds
-     *
-     * @throws IllegalStateException
-     *             if the StopWatch has not yet been split.
-     * @since 2.1
-     */
-    public long getSplitTime() {
-        return getSplitNanoTime() / NANO_2_MILLIS;
-    }
-    /**
-     * <p>
-     * Get the split time on the stopwatch in nanoseconds.
+     * Gets the split time on the stopwatch in nanoseconds.
      * </p>
      *
      * <p>
@@ -458,7 +318,26 @@ public class StopWatch {
     }
 
     /**
-     * Returns the time this stopwatch was started.
+     * <p>
+     * Gets the split time on the stopwatch.
+     * </p>
+     *
+     * <p>
+     * This is the time between start and latest split.
+     * </p>
+     *
+     * @return the split time in milliseconds
+     *
+     * @throws IllegalStateException
+     *             if the StopWatch has not yet been split.
+     * @since 2.1
+     */
+    public long getSplitTime() {
+        return getSplitNanoTime() / NANO_2_MILLIS;
+    }
+
+    /**
+     * Gets the time this stopwatch was started.
      *
      * @return the time this stopwatch was started
      * @throws IllegalStateException
@@ -475,44 +354,46 @@ public class StopWatch {
 
     /**
      * <p>
-     * Gets a summary of the time that the stopwatch recorded as a string.
+     * Gets the time on the stopwatch.
      * </p>
      *
      * <p>
-     * The format used is ISO 8601-like, <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
+     * This is either the time between the start and the moment this method is called, or the amount of time between
+     * start and stop.
      * </p>
      *
-     * @return the time as a String
+     * @return the time in milliseconds
      */
-    @Override
-    public String toString() {
-        return DurationFormatUtils.formatDurationHMS(getTime());
+    public long getTime() {
+        return getNanoTime() / NANO_2_MILLIS;
     }
 
     /**
      * <p>
-     * Gets a summary of the split time that the stopwatch recorded as a string.
+     * Gets the time on the stopwatch in the specified TimeUnit.
      * </p>
      *
      * <p>
-     * The format used is ISO 8601-like, <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
+     * This is either the time between the start and the moment this method is called, or the amount of time between
+     * start and stop. The resulting time will be expressed in the desired TimeUnit with any remainder rounded down.
+     * For example, if the specified unit is {@code TimeUnit.HOURS} and the stopwatch time is 59 minutes, then the
+     * result returned will be {@code 0}.
      * </p>
      *
-     * @return the split time as a String
-     * @since 2.1
+     * @param timeUnit the unit of time, not null
+     * @return the time in the specified TimeUnit, rounded down
+     * @since 3.5
      */
-    public String toSplitString() {
-        return DurationFormatUtils.formatDurationHMS(getSplitTime());
+    public long getTime(final TimeUnit timeUnit) {
+        return timeUnit.convert(getNanoTime(), TimeUnit.NANOSECONDS);
     }
 
     /**
      * <p>
-     * The method is used to find out if the StopWatch is started. A suspended
-     * StopWatch is also started watch.
+     * Returns whether the StopWatch is started. A suspended StopWatch is also started watch.
      * </p>
      *
-     * @return boolean
-     *             If the StopWatch is started.
+     * @return boolean If the StopWatch is started.
      * @since 3.2
      */
     public boolean isStarted() {
@@ -521,7 +402,20 @@ public class StopWatch {
 
     /**
      * <p>
-     * This method is used to find out whether the StopWatch is suspended.
+     * Returns whether StopWatch is stopped. The stopwatch which's not yet started and explicitly stopped stopwatch is considered
+     * as stopped.
+     * </p>
+     *
+     * @return boolean If the StopWatch is stopped.
+     * @since 3.2
+     */
+    public boolean isStopped() {
+        return runningState.isStopped();
+    }
+
+    /**
+     * <p>
+     * Returns whether the StopWatch is suspended.
      * </p>
      *
      * @return boolean
@@ -534,17 +428,182 @@ public class StopWatch {
 
     /**
      * <p>
-     * This method is used to find out whether the StopWatch is stopped. The
-     * stopwatch which's not yet started and explicitly stopped stopwatch is
-     * considered as stopped.
+     * Resets the stopwatch. Stops it if need be.
      * </p>
      *
-     * @return boolean
-     *             If the StopWatch is stopped.
-     * @since 3.2
+     * <p>
+     * This method clears the internal values to allow the object to be reused.
+     * </p>
      */
-    public boolean isStopped() {
-        return runningState.isStopped();
+    public void reset() {
+        this.runningState = State.UNSTARTED;
+        this.splitState = SplitState.UNSPLIT;
+    }
+    /**
+     * <p>
+     * Resumes the stopwatch after a suspend.
+     * </p>
+     *
+     * <p>
+     * This method resumes the watch after it was suspended. The watch will not include time between the suspend and
+     * resume calls in the total time.
+     * </p>
+     *
+     * @throws IllegalStateException
+     *             if the StopWatch has not been suspended.
+     */
+    public void resume() {
+        if (this.runningState != State.SUSPENDED) {
+            throw new IllegalStateException("Stopwatch must be suspended to resume. ");
+        }
+        this.startTime += System.nanoTime() - this.stopTime;
+        this.runningState = State.RUNNING;
+    }
+
+    /**
+     * <p>
+     * Splits the time.
+     * </p>
+     *
+     * <p>
+     * This method sets the stop time of the watch to allow a time to be extracted. The start time is unaffected,
+     * enabling {@link #unsplit()} to continue the timing from the original start point.
+     * </p>
+     *
+     * @throws IllegalStateException
+     *             if the StopWatch is not running.
+     */
+    public void split() {
+        if (this.runningState != State.RUNNING) {
+            throw new IllegalStateException("Stopwatch is not running. ");
+        }
+        this.stopTime = System.nanoTime();
+        this.splitState = SplitState.SPLIT;
+    }
+
+    /**
+     * <p>
+     * Starts the stopwatch.
+     * </p>
+     *
+     * <p>
+     * This method starts a new timing session, clearing any previous values.
+     * </p>
+     *
+     * @throws IllegalStateException
+     *             if the StopWatch is already running.
+     */
+    public void start() {
+        if (this.runningState == State.STOPPED) {
+            throw new IllegalStateException("Stopwatch must be reset before being restarted. ");
+        }
+        if (this.runningState != State.UNSTARTED) {
+            throw new IllegalStateException("Stopwatch already started. ");
+        }
+        this.startTime = System.nanoTime();
+        this.startTimeMillis = System.currentTimeMillis();
+        this.runningState = State.RUNNING;
+    }
+
+    /**
+     * <p>
+     * Stops the stopwatch.
+     * </p>
+     *
+     * <p>
+     * This method ends a new timing session, allowing the time to be retrieved.
+     * </p>
+     *
+     * @throws IllegalStateException
+     *             if the StopWatch is not running.
+     */
+    public void stop() {
+        if (this.runningState != State.RUNNING && this.runningState != State.SUSPENDED) {
+            throw new IllegalStateException("Stopwatch is not running. ");
+        }
+        if (this.runningState == State.RUNNING) {
+            this.stopTime = System.nanoTime();
+        }
+        this.runningState = State.STOPPED;
+    }
+
+    /**
+     * <p>
+     * Suspends the stopwatch for later resumption.
+     * </p>
+     *
+     * <p>
+     * This method suspends the watch until it is resumed. The watch will not include time between the suspend and
+     * resume calls in the total time.
+     * </p>
+     *
+     * @throws IllegalStateException
+     *             if the StopWatch is not currently running.
+     */
+    public void suspend() {
+        if (this.runningState != State.RUNNING) {
+            throw new IllegalStateException("Stopwatch must be running to suspend. ");
+        }
+        this.stopTime = System.nanoTime();
+        this.runningState = State.SUSPENDED;
+    }
+
+    /**
+     * <p>
+     * Gets a summary of the split time that the stopwatch recorded as a string.
+     * </p>
+     *
+     * <p>
+     * The format used is ISO 8601-like, [<i>message</i> ]<i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
+     * </p>
+     *
+     * @return the split time as a String
+     * @since 2.1
+     * @since 3.10 Returns the prefix {@code "message "} if the message is set.
+     */
+    public String toSplitString() {
+        final String msgStr = Objects.toString(message, StringUtils.EMPTY);
+        final String formattedTime = formatSplitTime();
+        return msgStr.isEmpty() ? formattedTime : msgStr + StringUtils.SPACE + formattedTime;
+    }
+
+    /**
+     * <p>
+     * Gets a summary of the time that the stopwatch recorded as a string.
+     * </p>
+     *
+     * <p>
+     * The format used is ISO 8601-like, [<i>message</i> ]<i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
+     * </p>
+     *
+     * @return the time as a String
+     * @since 3.10 Returns the prefix {@code "message "} if the message is set.
+     */
+    @Override
+    public String toString() {
+        final String msgStr = Objects.toString(message, StringUtils.EMPTY);
+        final String formattedTime = formatTime();
+        return msgStr.isEmpty() ? formattedTime : msgStr + StringUtils.SPACE + formattedTime;
+    }
+
+    /**
+     * <p>
+     * Removes a split.
+     * </p>
+     *
+     * <p>
+     * This method clears the stop time. The start time is unaffected, enabling timing from the original start point to
+     * continue.
+     * </p>
+     *
+     * @throws IllegalStateException
+     *             if the StopWatch has not been split.
+     */
+    public void unsplit() {
+        if (this.splitState != SplitState.SPLIT) {
+            throw new IllegalStateException("Stopwatch has not been split. ");
+        }
+        this.splitState = SplitState.UNSPLIT;
     }
 
 }

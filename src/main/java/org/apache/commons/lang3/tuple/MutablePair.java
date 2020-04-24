@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.tuple;
 
+import java.util.Map;
+
 /**
  * <p>A mutable pair consisting of two {@code Object} elements.</p>
  *
@@ -28,16 +30,35 @@ package org.apache.commons.lang3.tuple;
  */
 public class MutablePair<L, R> extends Pair<L, R> {
 
+    /**
+     * An empty array.
+     * <p>
+     * Consider using {@link #emptyArray()} to avoid generics warnings.
+     * </p>
+     *
+     * @since 3.10.
+     */
+    public static final MutablePair<?, ?>[] EMPTY_ARRAY = new MutablePair[0];
+
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
 
-    /** Left object */
-    public L left;
-    /** Right object */
-    public R right;
+    /**
+     * Returns the empty array singleton that can be assigned without compiler warning.
+     *
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @return the empty array singleton that can be assigned without compiler warning.
+     *
+     * @since 3.10.
+     */
+    @SuppressWarnings("unchecked")
+    public static <L, R> MutablePair<L, R>[] emptyArray() {
+        return (MutablePair<L, R>[]) EMPTY_ARRAY;
+    }
 
     /**
-     * <p>Obtains a mutable pair of two objects inferring the generic types.</p>
+     * <p>Creates a mutable pair of two objects inferring the generic types.</p>
      *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>
@@ -51,6 +72,36 @@ public class MutablePair<L, R> extends Pair<L, R> {
     public static <L, R> MutablePair<L, R> of(final L left, final R right) {
         return new MutablePair<>(left, right);
     }
+
+    /**
+     * <p>Creates a mutable pair from an existing pair.</p>
+     *
+     * <p>This factory allows the pair to be created using inference to
+     * obtain the generic types.</p>
+     *
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @param pair the existing pair.
+     * @return a pair formed from the two parameters, not null
+     */
+    public static <L, R> MutablePair<L, R> of(final Map.Entry<L, R> pair) {
+        final L left;
+        final R right;
+        if (pair != null) {
+            left = pair.getKey();
+            right = pair.getValue();
+        } else {
+            left = null;
+            right = null;
+        }
+        return new MutablePair<>(left, right);
+    }
+
+    /** Left object */
+    public L left;
+
+    /** Right object */
+    public R right;
 
     /**
      * Create a new pair instance of two nulls.
@@ -81,20 +132,20 @@ public class MutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public R getRight() {
+        return right;
+    }
+
+    /**
      * Sets the left element of the pair.
      *
      * @param left  the new value of the left element, may be null
      */
     public void setLeft(final L left) {
         this.left = left;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public R getRight() {
-        return right;
     }
 
     /**

@@ -16,12 +16,12 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.concurrent.CountDownLatch;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * <p>
@@ -42,7 +42,7 @@ public abstract class AbstractConcurrentInitializerTest {
      */
     @Test
     public void testGet() throws ConcurrentException {
-        assertNotNull("No managed object", createInitializer().get());
+        assertNotNull(createInitializer().get(), "No managed object");
     }
 
     /**
@@ -56,7 +56,7 @@ public abstract class AbstractConcurrentInitializerTest {
         final ConcurrentInitializer<Object> initializer = createInitializer();
         final Object obj = initializer.get();
         for (int i = 0; i < 10; i++) {
-            assertEquals("Got different object at " + i, obj, initializer.get());
+            assertEquals(obj, initializer.get(), "Got different object at " + i);
         }
     }
 
@@ -106,7 +106,7 @@ public abstract class AbstractConcurrentInitializerTest {
         // check results
         final Object managedObject = initializer.get();
         for (final GetThread t : threads) {
-            assertEquals("Wrong object", managedObject, t.object);
+            assertEquals(managedObject, t.object, "Wrong object");
         }
     }
 

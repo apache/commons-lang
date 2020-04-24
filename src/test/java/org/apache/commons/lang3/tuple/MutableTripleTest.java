@@ -16,17 +16,16 @@
  */
 package org.apache.commons.lang3.tuple;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the MutableTriple class.
@@ -34,7 +33,20 @@ import org.junit.Test;
 public class MutableTripleTest {
 
     @Test
-    public void testBasic() throws Exception {
+    public void testEmptyArrayLength() {
+        @SuppressWarnings("unchecked")
+        final MutableTriple<Integer, String, Boolean>[] empty = (MutableTriple<Integer, String, Boolean>[]) MutableTriple.EMPTY_ARRAY;
+        assertEquals(0, empty.length);
+    }
+
+    @Test
+    public void testEmptyArrayGenerics() {
+        final MutableTriple<Integer, String, Boolean>[] empty = MutableTriple.emptyArray();
+        assertEquals(0, empty.length);
+    }
+
+    @Test
+    public void testBasic() {
         final MutableTriple<Integer, String, Boolean> triple = new MutableTriple<>(0, "foo", Boolean.FALSE);
         assertEquals(0, triple.getLeft().intValue());
         assertEquals("foo", triple.getMiddle());
@@ -46,7 +58,7 @@ public class MutableTripleTest {
     }
 
     @Test
-    public void testDefault() throws Exception {
+    public void testDefault() {
         final MutableTriple<Integer, String, Boolean> triple = new MutableTriple<>();
         assertNull(triple.getLeft());
         assertNull(triple.getMiddle());
@@ -54,7 +66,24 @@ public class MutableTripleTest {
     }
 
     @Test
-    public void testMutate() throws Exception {
+    public void testEquals() {
+        assertEquals(MutableTriple.of(null, "foo", "baz"), MutableTriple.of(null, "foo", "baz"));
+        assertNotEquals(MutableTriple.of("foo", 0, Boolean.TRUE), MutableTriple.of("foo", null, Boolean.TRUE));
+        assertNotEquals(MutableTriple.of("foo", "bar", "baz"), MutableTriple.of("xyz", "bar", "baz"));
+        assertNotEquals(MutableTriple.of("foo", "bar", "baz"), MutableTriple.of("foo", "bar", "blo"));
+
+        final MutableTriple<String, String, String> p = MutableTriple.of("foo", "bar", "baz");
+        assertEquals(p, p);
+        assertNotEquals(p, new Object());
+    }
+
+    @Test
+    public void testHashCode() {
+        assertEquals(MutableTriple.of(null, "foo", "baz").hashCode(), MutableTriple.of(null, "foo", "baz").hashCode());
+    }
+
+    @Test
+    public void testMutate() {
         final MutableTriple<Integer, String, Boolean> triple = new MutableTriple<>(0, "foo", Boolean.TRUE);
         triple.setLeft(42);
         triple.setMiddle("bar");
@@ -62,46 +91,6 @@ public class MutableTripleTest {
         assertEquals(42, triple.getLeft().intValue());
         assertEquals("bar", triple.getMiddle());
         assertEquals(Boolean.FALSE, triple.getRight());
-    }
-
-    @Test
-    public void testTripleOf() throws Exception {
-        final MutableTriple<Integer, String, Boolean> triple = MutableTriple.of(0, "foo", Boolean.TRUE);
-        assertEquals(0, triple.getLeft().intValue());
-        assertEquals("foo", triple.getMiddle());
-        assertEquals(Boolean.TRUE, triple.getRight());
-        final MutableTriple<Object, String, String> triple2 = MutableTriple.of(null, "bar", "hello");
-        assertNull(triple2.getLeft());
-        assertEquals("bar", triple2.getMiddle());
-        assertEquals("hello", triple2.getRight());
-    }
-
-    @Test
-    public void testEquals() throws Exception {
-        assertEquals(MutableTriple.of(null, "foo", "baz"), MutableTriple.of(null, "foo", "baz"));
-        assertFalse(MutableTriple.of("foo", 0, Boolean.TRUE).equals(MutableTriple.of("foo", null, Boolean.TRUE)));
-        assertFalse(MutableTriple.of("foo", "bar", "baz").equals(MutableTriple.of("xyz", "bar", "baz")));
-        assertFalse(MutableTriple.of("foo", "bar", "baz").equals(MutableTriple.of("foo", "bar", "blo")));
-
-        final MutableTriple<String, String, String> p = MutableTriple.of("foo", "bar", "baz");
-        assertTrue(p.equals(p));
-        assertFalse(p.equals(new Object()));
-    }
-
-    @Test
-    public void testHashCode() throws Exception {
-        assertEquals(MutableTriple.of(null, "foo", "baz").hashCode(), MutableTriple.of(null, "foo", "baz").hashCode());
-    }
-
-    @Test
-    public void testToString() throws Exception {
-        assertEquals("(null,null,null)", MutableTriple.of(null, null, null).toString());
-        assertEquals("(null,two,null)", MutableTriple.of(null, "two", null).toString());
-        assertEquals("(one,null,null)", MutableTriple.of("one", null, null).toString());
-        assertEquals("(one,two,null)", MutableTriple.of("one", "two", null).toString());
-        assertEquals("(null,two,three)", MutableTriple.of(null, "two", "three").toString());
-        assertEquals("(one,null,three)", MutableTriple.of("one", null, "three").toString());
-        assertEquals("(one,two,three)", MutableTriple.of("one", "two", "three").toString());
     }
 
     @Test
@@ -115,6 +104,29 @@ public class MutableTripleTest {
                 new ByteArrayInputStream(baos.toByteArray())).readObject();
         assertEquals(origTriple, deserializedTriple);
         assertEquals(origTriple.hashCode(), deserializedTriple.hashCode());
+    }
+
+    @Test
+    public void testToString() {
+        assertEquals("(null,null,null)", MutableTriple.of(null, null, null).toString());
+        assertEquals("(null,two,null)", MutableTriple.of(null, "two", null).toString());
+        assertEquals("(one,null,null)", MutableTriple.of("one", null, null).toString());
+        assertEquals("(one,two,null)", MutableTriple.of("one", "two", null).toString());
+        assertEquals("(null,two,three)", MutableTriple.of(null, "two", "three").toString());
+        assertEquals("(one,null,three)", MutableTriple.of("one", null, "three").toString());
+        assertEquals("(one,two,three)", MutableTriple.of("one", "two", "three").toString());
+    }
+
+    @Test
+    public void testTripleOf() {
+        final MutableTriple<Integer, String, Boolean> triple = MutableTriple.of(0, "foo", Boolean.TRUE);
+        assertEquals(0, triple.getLeft().intValue());
+        assertEquals("foo", triple.getMiddle());
+        assertEquals(Boolean.TRUE, triple.getRight());
+        final MutableTriple<Object, String, String> triple2 = MutableTriple.of(null, "bar", "hello");
+        assertNull(triple2.getLeft());
+        assertEquals("bar", triple2.getMiddle());
+        assertEquals("hello", triple2.getRight());
     }
 }
 

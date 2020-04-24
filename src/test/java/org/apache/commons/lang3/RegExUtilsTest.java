@@ -16,14 +16,14 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for methods of {@link org.apache.commons.lang3.RegExUtils} which been moved to their own test classes.
@@ -64,12 +64,10 @@ public class RegExUtilsTest {
         assertEquals("AB", RegExUtils.removeAll("A<__>\n<__>B", "(?s)<.*>"));
         assertEquals("ABC123", RegExUtils.removeAll("ABCabc123abc", "[a-z]"));
 
-        try {
-            RegExUtils.removeAll("any", "{badRegexSyntax}");
-            fail("RegExUtils.removeAll expecting PatternSyntaxException");
-        } catch (final PatternSyntaxException ex) {
-            // empty
-        }
+        assertThrows(
+                PatternSyntaxException.class,
+                () -> RegExUtils.removeAll("any", "{badRegexSyntax}"),
+                "RegExUtils.removeAll expecting PatternSyntaxException");
     }
 
     @Test
@@ -103,12 +101,10 @@ public class RegExUtilsTest {
         assertEquals("ABCbc123", RegExUtils.removeFirst("ABCabc123", "[a-z]"));
         assertEquals("ABC123abc", RegExUtils.removeFirst("ABCabc123abc", "[a-z]+"));
 
-        try {
-            RegExUtils.removeFirst("any", "{badRegexSyntax}");
-            fail("RegExUtils.removeFirst expecting PatternSyntaxException");
-        } catch (final PatternSyntaxException ex) {
-            // empty
-        }
+        assertThrows(
+                PatternSyntaxException.class,
+                () -> RegExUtils.removeFirst("any", "{badRegexSyntax}"),
+                "RegExUtils.removeFirst expecting PatternSyntaxException");
     }
 
     @Test
@@ -174,12 +170,10 @@ public class RegExUtilsTest {
         assertEquals("ABC123", RegExUtils.replaceAll("ABCabc123", "[^A-Z0-9]+", ""));
         assertEquals("Lorem_ipsum_dolor_sit", RegExUtils.replaceAll("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
 
-        try {
-            RegExUtils.replaceAll("any", "{badRegexSyntax}", "");
-            fail("RegExUtils.replaceAll expecting PatternSyntaxException");
-        } catch (final PatternSyntaxException ex) {
-            // empty
-        }
+        assertThrows(
+                PatternSyntaxException.class,
+                () -> RegExUtils.replaceAll("any", "{badRegexSyntax}", ""),
+                "RegExUtils.replaceAll expecting PatternSyntaxException");
     }
 
     @Test
@@ -225,12 +219,10 @@ public class RegExUtilsTest {
         assertEquals("Lorem_ipsum  dolor   sit",
                 RegExUtils.replaceFirst("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
 
-        try {
-            RegExUtils.replaceFirst("any", "{badRegexSyntax}", "");
-            fail("RegExUtils.replaceFirst expecting PatternSyntaxException");
-        } catch (final PatternSyntaxException ex) {
-            // empty
-        }
+        assertThrows(
+                PatternSyntaxException.class,
+                () -> RegExUtils.replaceFirst("any", "{badRegexSyntax}", ""),
+                "RegExUtils.replaceFirst expecting PatternSyntaxException");
     }
 
     @Test
