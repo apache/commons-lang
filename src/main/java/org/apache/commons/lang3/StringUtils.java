@@ -9012,39 +9012,37 @@ public class StringUtils {
     }
 
     /**
-     * <p>Returns either the passed in String with the specified suffix attached,
-     * or if the String is empty ("")/{@code null}, an empty string.</p>
-     *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * Appends the suffix to the end of the string if the string is not
+     * empty ("") or {@code null}.
      *
      * <pre>
-     * StringUtils.appendIfNotBlank(null, " ")      = ""
-     * StringUtils.appendIfNotBlank(null, "-post")  = ""
-     * StringUtils.appendIfNotBlank("", "-post")    = ""
-     * StringUtils.appendIfNotBlank(" ", " ")       = "  "
-     * StringUtils.appendIfNotBlank(" ", "-post")   = " -post"
-     * StringUtils.appendIfNotBlank("abc", null)    = "abc"
-     * StringUtils.appendIfNotBlank("abc", "")      = "abc"
-     * StringUtils.appendIfNotBlank("abc", " ")     = "abc "
-     * StringUtils.appendIfNotBlank("abc", "-post") = "abc-post"
+     * StringUtils.appendIfNotEmpty(null, " ")      = null
+     * StringUtils.appendIfNotEmpty(null, "-post")  = null
+     * StringUtils.appendIfNotEmpty("", "-post")    = ""
+     * StringUtils.appendIfNotEmpty(" ", " ")       = "  "
+     * StringUtils.appendIfNotEmpty(" ", "-post")   = " -post"
+     * StringUtils.appendIfNotEmpty("abc", null)    = "abc"
+     * StringUtils.appendIfNotEmpty("abc", "")      = "abc"
+     * StringUtils.appendIfNotEmpty("abc", " ")     = "abc "
+     * StringUtils.appendIfNotEmpty("abc", "-post") = "abc-post"
      * </pre>
      * @param str the String to check, may be null
      * @param suffix  the string to append if 'str' is not empty. Null will be converted to empty string.
      * @return the passed in String with suffix added, or empty string
      */
     public static String appendIfNotEmpty(final String str, final String suffix) {
-        return isEmpty(str) ? EMPTY : str + defaultString(suffix);
+        return isEmpty(str) ? str : str + defaultString(suffix);
     }
 
     /**
-     * <p>Returns either the passed in String with the specified suffix attached,
-     * or if the String is whitespace/empty ("")/{@code null}, an empty string.</p>
+     * Appends the suffix to the end of the string if the string is not
+     * empty (""), {@code null}, or whitespace only.
      *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
-     * StringUtils.appendIfNotBlank(null, " ")      = ""
-     * StringUtils.appendIfNotBlank(null, "-post")  = ""
+     * StringUtils.appendIfNotBlank(null, " ")      = null
+     * StringUtils.appendIfNotBlank(null, "-post")  = null
      * StringUtils.appendIfNotBlank("", "-post")    = ""
      * StringUtils.appendIfNotBlank(" ", " ")       = ""
      * StringUtils.appendIfNotBlank(" ", "-post")   = ""
@@ -9058,7 +9056,7 @@ public class StringUtils {
      * @return the passed in String with suffix added, or empty string
      */
     public static String appendIfNotBlank(final String str, final String suffix) {
-        return isBlank(str) ? EMPTY : str + defaultString(suffix);
+        return isBlank(str) ? str : str + defaultString(suffix);
     }
 
     /**
@@ -9163,14 +9161,12 @@ public class StringUtils {
     }
 
     /**
-     * <p>Returns either the passed in String with the specified prefix attached,
-     * or if the String is whitespace/empty ("")/{@code null}, an empty string.</p>
-     *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * Prepends the prefix to the start of the string if the string is not
+     * empty ("") or {@code null}.
      *
      * <pre>
-     * StringUtils.prependIfNotEmpty(null, " ")     = ""
-     * StringUtils.prependIfNotEmpty(null, "pre-")  = ""
+     * StringUtils.prependIfNotEmpty(null, " ")     = null
+     * StringUtils.prependIfNotEmpty(null, "pre-")  = null
      * StringUtils.prependIfNotEmpty("", "pre-")    = ""
      * StringUtils.prependIfNotEmpty(" ", " ")      = "  "
      * StringUtils.prependIfNotEmpty(" ", "pre-")   = "pre- "
@@ -9184,18 +9180,18 @@ public class StringUtils {
      * @return the passed in String with prefix added, or empty string
      */
     public static String prependIfNotEmpty(final String str, final String prefix) {
-        return isEmpty(str) ? EMPTY : defaultString(prefix) + str;
+        return isEmpty(str) ? str : defaultString(prefix) + str;
     }
 
     /**
-     * <p>Returns either the passed in String with the specified prefix attached,
-     * or if the String is whitespace/empty ("")/{@code null}, an empty string.</p>
+     * Prepends the prefix to the start of the string if the string is not
+     * empty (""), {@code null}, or whitespace only.
      *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
-     * StringUtils.prependIfNotBlank(null, " ")     = ""
-     * StringUtils.prependIfNotBlank(null, "pre-")  = ""
+     * StringUtils.prependIfNotBlank(null, " ")     = null
+     * StringUtils.prependIfNotBlank(null, "pre-")  = null
      * StringUtils.prependIfNotBlank("", "pre-")    = ""
      * StringUtils.prependIfNotBlank(" ", " ")      = ""
      * StringUtils.prependIfNotBlank(" ", "pre-")   = ""
@@ -9209,7 +9205,7 @@ public class StringUtils {
      * @return the passed in String with prefix added, or empty string
      */
     public static String prependIfNotBlank(final String str, final String prefix) {
-        return isBlank(str) ? EMPTY : defaultString(prefix) + str;
+        return isBlank(str) ? str : defaultString(prefix) + str;
     }
 
     /**

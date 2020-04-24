@@ -1995,8 +1995,8 @@ public class StringUtilsTest {
     //-----------------------------------------------------------------------
     @Test
     public void testAppendIfNotEmpty() {
-        assertEquals("", StringUtils.appendIfNotEmpty(null, " "));
-        assertEquals("", StringUtils.appendIfNotEmpty(null, "-suffix"));
+        assertNull(StringUtils.appendIfNotEmpty(null, " "));
+        assertNull(StringUtils.appendIfNotEmpty(null, "-suffix"));
         assertEquals("", StringUtils.appendIfNotEmpty("", "-suffix"));
         assertEquals("  ", StringUtils.appendIfNotEmpty(" ", " "));
         assertEquals(" -suffix", StringUtils.appendIfNotEmpty(" ", "-suffix"));
@@ -2008,11 +2008,11 @@ public class StringUtilsTest {
 
     @Test
     public void testAppendIfNotBlank() {
-        assertEquals("", StringUtils.appendIfNotBlank(null, "-suffix"));
-        assertEquals("", StringUtils.appendIfNotBlank(null, " "));
+        assertNull(StringUtils.appendIfNotBlank(null, "-suffix"));
+        assertNull(StringUtils.appendIfNotBlank(null, " "));
         assertEquals("", StringUtils.appendIfNotBlank("", "-suffix"));
-        assertEquals("", StringUtils.appendIfNotBlank(" ", " "));
-        assertEquals("", StringUtils.appendIfNotBlank(" ", "-suffix"));
+        assertEquals(" ", StringUtils.appendIfNotBlank(" ", " "));
+        assertEquals(" ", StringUtils.appendIfNotBlank(" ", "-suffix"));
         assertEquals("string", StringUtils.appendIfNotBlank("string", null));
         assertEquals("string", StringUtils.appendIfNotBlank("string", ""));
         assertEquals("string ", StringUtils.appendIfNotBlank("string", " "));
@@ -2021,8 +2021,8 @@ public class StringUtilsTest {
 
     @Test
     public void testPrependIfNotEmpty() {
-        assertEquals("", StringUtils.prependIfNotEmpty(null, " "));
-        assertEquals("", StringUtils.prependIfNotEmpty(null, "prefix-"));
+        assertNull(StringUtils.prependIfNotEmpty(null, " "));
+        assertNull(StringUtils.prependIfNotEmpty(null, "prefix-"));
         assertEquals("", StringUtils.prependIfNotEmpty("", "prefix-"));
         assertEquals("  ", StringUtils.prependIfNotEmpty(" ", " "));
         assertEquals("prefix- ", StringUtils.prependIfNotEmpty(" ", "prefix-"));
@@ -2034,11 +2034,11 @@ public class StringUtilsTest {
 
     @Test
     public void testPrependIfNotBlank() {
-        assertEquals("", StringUtils.prependIfNotBlank(null, "prefix-"));
-        assertEquals("", StringUtils.prependIfNotBlank(null, " "));
+        assertNull(StringUtils.prependIfNotBlank(null, "prefix-"));
+        assertNull(StringUtils.prependIfNotBlank(null, " "));
         assertEquals("", StringUtils.prependIfNotBlank("", "prefix-"));
-        assertEquals("", StringUtils.prependIfNotBlank(" ", " "));
-        assertEquals("", StringUtils.prependIfNotBlank(" ", "prefix-"));
+        assertEquals(" ", StringUtils.prependIfNotBlank(" ", " "));
+        assertEquals(" ", StringUtils.prependIfNotBlank(" ", "prefix-"));
         assertEquals("string", StringUtils.prependIfNotBlank("string", null));
         assertEquals("string", StringUtils.prependIfNotBlank("string", ""));
         assertEquals(" string", StringUtils.prependIfNotBlank("string", " "));
