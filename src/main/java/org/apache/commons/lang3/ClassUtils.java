@@ -902,22 +902,13 @@ public class ClassUtils {
                 return Float.TYPE.equals(toClass)
                     || Double.TYPE.equals(toClass);
             }
-            if (Boolean.TYPE.equals(cls)) {
-                return false;
-            }
-            if (Double.TYPE.equals(cls)) {
+            if (Boolean.TYPE.equals(cls) || Double.TYPE.equals(cls)) {
                 return false;
             }
             if (Float.TYPE.equals(cls)) {
                 return Double.TYPE.equals(toClass);
             }
-            if (Character.TYPE.equals(cls)) {
-                return Integer.TYPE.equals(toClass)
-                    || Long.TYPE.equals(toClass)
-                    || Float.TYPE.equals(toClass)
-                    || Double.TYPE.equals(toClass);
-            }
-            if (Short.TYPE.equals(cls)) {
+            if (Character.TYPE.equals(cls) || Short.TYPE.equals(cls)) {
                 return Integer.TYPE.equals(toClass)
                     || Long.TYPE.equals(toClass)
                     || Float.TYPE.equals(toClass)
