@@ -3302,34 +3302,20 @@ public class StringUtilsTest {
         }
     }
 
-    /**
-     //ignore the full test because it is correct but far too slow.
-     //suggest only run it once important times.
-     private void testGeorgianFully() {
-     for (char i = 0; i < Character.MAX_VALUE; i++) {
-     for (char j = 0; j < Character.MAX_VALUE; j++) {
-     String si = "" + i;
-     String sj = "" + j;
-     boolean res1 = si.equalsIgnoreCase(sj);
-     CharSequence ci = new StringBuilder(si);
-     CharSequence cj = new StringBuilder(sj);
-     boolean res2 = StringUtils.startsWithIgnoreCase(ci, cj);
-     assertEquals(res1, res2, "si : " + si + " sj : " + sj + " ci : " + ci + " cj : " + cj);
-     }
-     }
-     }
-     */
     @Test
     public void testGeorgianSample() {
-        for (char i = (char) (0); i < 1000; i++) {
-            for (char j = (char) (0); j < 1000; j++) {
+        char[] arrayI = new char[]{(char) 305, (char) 1012};
+        char[] arrayJ = new char[]{(char) 304, (char) 977};
+
+        for (char i : arrayI) {
+            for (char j : arrayJ) {
                 String si = "" + i;
                 String sj = "" + j;
                 boolean res1 = si.equalsIgnoreCase(sj);
                 CharSequence ci = new StringBuilder(si);
                 CharSequence cj = new StringBuilder(sj);
                 boolean res2 = StringUtils.startsWithIgnoreCase(ci, cj);
-                assertEquals(res1, res2, "si : " + si + " sj : " + sj + " ci : " + ci + " cj : " + cj);
+                assertEquals(res1, res2, "si : " + si + " sj : " + sj);
             }
         }
     }
