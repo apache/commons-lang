@@ -522,9 +522,9 @@ public class StringUtils {
      * StringUtils.appendIfNotEmpty("abc", " ")     = "abc "
      * StringUtils.appendIfNotEmpty("abc", "-post") = "abc-post"
      * </pre>
-     * @param str the String to check, may be null
-     * @param suffix  the string to append if 'str' is not empty. Null will be converted to empty string.
-     * @return the passed in String with suffix added, or empty string
+     * @param str The string.
+     * @param suffix The suffix to append if 'str' is not empty. May be null.
+     * @return If 'str' is empty, then 'str', otherwise 'str' with suffix added.
      */
     public static String appendIfNotEmpty(final String str, final String suffix) {
         return isEmpty(str) ? str : str + defaultString(suffix);
@@ -540,16 +540,16 @@ public class StringUtils {
      * StringUtils.appendIfNotBlank(null, " ")      = null
      * StringUtils.appendIfNotBlank(null, "-post")  = null
      * StringUtils.appendIfNotBlank("", "-post")    = ""
-     * StringUtils.appendIfNotBlank(" ", " ")       = ""
-     * StringUtils.appendIfNotBlank(" ", "-post")   = ""
+     * StringUtils.appendIfNotBlank(" ", " ")       = " "
+     * StringUtils.appendIfNotBlank(" ", "-post")   = " "
      * StringUtils.appendIfNotBlank("abc", null)    = "abc"
      * StringUtils.appendIfNotBlank("abc", "")      = "abc"
      * StringUtils.appendIfNotBlank("abc", " ")     = "abc"
      * StringUtils.appendIfNotBlank("abc", "-post") = "abc-post"
      * </pre>
-     * @param str the String to check, may be null
-     * @param suffix  the string to append if 'str' is not blank. Null will be converted to empty string.
-     * @return the passed in String with suffix added, or empty string
+     * @param str The string.
+     * @param suffix The suffix to append if 'str' is not blank. May be null.
+     * @return If 'str' is blank, then 'str', otherwise 'str' with suffix added.
      */
     public static String appendIfNotBlank(final String str, final String suffix) {
         return isBlank(str) ? str : str + defaultString(suffix);
@@ -5877,9 +5877,9 @@ public class StringUtils {
      * StringUtils.prependIfNotEmpty("abc", " ")    = " abc"
      * StringUtils.prependIfNotEmpty("abc", "pre-") = "pre-abc"
      * </pre>
-     * @param str the String to check, may be null
-     * @param prefix  the string to prepend if 'str' is not blank. Null will be converted to empty string.
-     * @return the passed in String with prefix added, or empty string
+     * @param str The string.
+     * @param prefix The prefix to prepend if 'str' is not empty. May be null.
+     * @return If 'str' is empty, then 'str', otherwise 'str' with prefix added.
      */
     public static String prependIfNotEmpty(final String str, final String prefix) {
         return isEmpty(str) ? str : defaultString(prefix) + str;
@@ -5895,16 +5895,16 @@ public class StringUtils {
      * StringUtils.prependIfNotBlank(null, " ")     = null
      * StringUtils.prependIfNotBlank(null, "pre-")  = null
      * StringUtils.prependIfNotBlank("", "pre-")    = ""
-     * StringUtils.prependIfNotBlank(" ", " ")      = ""
-     * StringUtils.prependIfNotBlank(" ", "pre-")   = ""
+     * StringUtils.prependIfNotBlank(" ", " ")      = " "
+     * StringUtils.prependIfNotBlank(" ", "pre-")   = " "
      * StringUtils.prependIfNotBlank("abc", null)   = "abc"
      * StringUtils.prependIfNotBlank("abc", "")     = "abc"
      * StringUtils.prependIfNotBlank("abc", " ")    = "abc"
      * StringUtils.prependIfNotBlank("abc", "pre-") = "pre-abc"
      * </pre>
-     * @param str the String to check, may be null
-     * @param prefix  the string to prepend if 'str' is not blank. Null will be converted to empty string.
-     * @return the passed in String with prefix added, or empty string
+     * @param str The string.
+     * @param prefix The prefix to prepend if 'str' is not blank. May be null.
+     * @return If 'str' is blank, then 'str', otherwise 'str' with prefix added.
      */
     public static String prependIfNotBlank(final String str, final String prefix) {
         return isBlank(str) ? str : defaultString(prefix) + str;
