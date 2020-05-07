@@ -527,7 +527,10 @@ public class StringUtils {
      * @return If 'str' is empty, then 'str', otherwise 'str' with suffix added.
      */
     public static String appendIfNotEmpty(final String str, final String suffix) {
-        return isEmpty(str) ? str : str + defaultString(suffix);
+        if (isEmpty(suffix) || isEmpty(str)) {
+            return str;
+        }
+        return str + suffix;
     }
 
     /**
@@ -552,7 +555,10 @@ public class StringUtils {
      * @return If 'str' is blank, then 'str', otherwise 'str' with suffix added.
      */
     public static String appendIfNotBlank(final String str, final String suffix) {
-        return isBlank(str) ? str : str + defaultString(suffix);
+        if (isEmpty(suffix) || isBlank(str)) {
+            return str;
+        }
+        return str + suffix;
     }
 
     /**
@@ -5882,7 +5888,10 @@ public class StringUtils {
      * @return If 'str' is empty, then 'str', otherwise 'str' with prefix added.
      */
     public static String prependIfNotEmpty(final String str, final String prefix) {
-        return isEmpty(str) ? str : defaultString(prefix) + str;
+        if (isEmpty(prefix) || isEmpty(str)) {
+            return str;
+        }
+        return prefix + str;
     }
 
     /**
@@ -5907,7 +5916,10 @@ public class StringUtils {
      * @return If 'str' is blank, then 'str', otherwise 'str' with prefix added.
      */
     public static String prependIfNotBlank(final String str, final String prefix) {
-        return isBlank(str) ? str : defaultString(prefix) + str;
+        if (isEmpty(prefix) || isBlank(str)) {
+            return str;
+        }
+        return prefix + str;
     }
 
     /**
