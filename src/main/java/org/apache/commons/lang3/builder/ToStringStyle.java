@@ -16,16 +16,16 @@
  */
 package org.apache.commons.lang3.builder;
 
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Map;
 import java.util.WeakHashMap;
-
-import org.apache.commons.lang3.ClassUtils;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * <p>Controls {@code String} formatting for {@link ToStringBuilder}.
@@ -635,6 +635,14 @@ public abstract class ToStringStyle implements Serializable {
      *  {@code toString}, not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final Collection<?> coll) {
+        if (coll != null && !coll.isEmpty()) {
+            coll.stream().findFirst()
+                    .map(Object::getClass)
+                    .filter(Class::isEnum)
+                    .ifPresent((clazz) -> appendDetail(buffer, fieldName, coll.toArray()));
+
+            return;
+        }
         buffer.append(coll);
     }
 

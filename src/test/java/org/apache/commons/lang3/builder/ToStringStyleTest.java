@@ -16,9 +16,11 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test case for ToStringStyle.
@@ -134,5 +136,45 @@ public class ToStringStyleTest {
          * Test boolean field.
          */
         boolean smoker;
+    }
+
+    enum Hobby {
+        SPORT,
+        BOOK,
+        MUSIC
+    }
+
+    static class Student {
+        List<Hobby> hobbies;
+
+        public List<Hobby> getHobbies() {
+            return hobbies;
+        }
+
+        public void setHobbies(List<Hobby> hobbies) {
+            this.hobbies = hobbies;
+        }
+
+        @Override
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this);
+        }
+    }
+
+    static class Teacher {
+        Hobby[] hobbies;
+
+        public Hobby[] getHobbies() {
+            return hobbies;
+        }
+
+        public void setHobbies(Hobby[] hobbies) {
+            this.hobbies = hobbies;
+        }
+
+        @Override
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this);
+        }
     }
 }

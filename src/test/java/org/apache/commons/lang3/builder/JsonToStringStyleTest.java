@@ -16,17 +16,20 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.apache.commons.lang3.builder.ToStringStyleTest.Hobby;
+import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
+import org.apache.commons.lang3.builder.ToStringStyleTest.Student;
+import org.apache.commons.lang3.builder.ToStringStyleTest.Teacher;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.JsonToStringStyleTest}.
@@ -179,6 +182,35 @@ public class JsonToStringStyleTest {
                 new ToStringBuilder(base).append("a",
                         (Object) new String[]{"v", "x", "y", "z"}, true)
                         .toString());
+    }
+
+    @Test
+    public void testList() {
+        Student student = new Student();
+        ArrayList<Hobby> objects = new ArrayList<>();
+
+        objects.add(Hobby.BOOK);
+        objects.add(Hobby.SPORT);
+        objects.add(Hobby.MUSIC);
+
+        student.setHobbies(objects);
+
+        assertEquals(student.toString(), "{\"hobbies\":[\"BOOK\",\"SPORT\",\"MUSIC\"]}");
+
+    }
+
+    @Test
+    public void testArrayEnum() {
+        Teacher teacher = new Teacher();
+        Hobby[] hobbies = new Hobby[3];
+        hobbies[0] = Hobby.BOOK;
+        hobbies[1] = Hobby.SPORT;
+        hobbies[2] = Hobby.MUSIC;
+
+        teacher.setHobbies(hobbies);
+
+        assertEquals(teacher.toString(), "{\"hobbies\":[\"BOOK\",\"SPORT\",\"MUSIC\"]}");
+
     }
 
     @Test
