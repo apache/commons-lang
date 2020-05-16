@@ -636,13 +636,11 @@ public abstract class ToStringStyle implements Serializable {
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final Collection<?> coll) {
         if (coll != null && !coll.isEmpty()) {
-            coll.stream().findFirst()
-                    .map(Object::getClass)
-                    .filter(Class::isEnum)
-                    .ifPresent((clazz) -> appendDetail(buffer, fieldName, coll.toArray()));
+            appendDetail(buffer, fieldName, coll.toArray());
 
             return;
         }
+
         buffer.append(coll);
     }
 
