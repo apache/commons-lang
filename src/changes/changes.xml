@@ -45,7 +45,7 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.10.1" date="2020-MM-DD" description="New features and bug fixes..">
+  <release version="3.11" date="2020-MM-DD" description="New features and bug fixes..">
     <action                   type="fix" dev="kinow" due-to="contextshuffling">Fix Javdoc for StringUtils.appendIfMissingIgnoreCase() #507.</action>
     <action                   type="update" dev="ggregory">org.junit-pioneer:junit-pioneer 0.5.4 -> 0.5.6.</action>
     <action                   type="update" dev="ggregory">org.junit.jupiter:junit-jupiter 5.6.0 -> 5.6.1.</action>
@@ -57,6 +57,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1537" type="update" dev="ggregory" due-to="Isira Seneviratne, Bruno P. Kinoshita">Simplify a null check in the private replaceEach() method of StringUtils. #514.</action>
     <action issue="LANG-1534" type="update" dev="ggregory" due-to="Isira Seneviratne, Bruno P. Kinoshita">Replace some usages of the ternary operator with calls to Math.max() and Math.min() #512.</action>
     <action                   type="update" dev="ggregory" due-to="Arend v. Reinersdorff, Bruno P. Kinoshita">(Javadoc) Fix return tag for throwableOf*() methods #518.</action>
+    <action                   type="add" dev="ggregory" due-to="XenoAmess, Gary Gregory">Add ArrayUtils.isSameLength() to compare more array types #430.</action>
   </release>
 
   <release version="3.10" date="2020-03-22" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">
