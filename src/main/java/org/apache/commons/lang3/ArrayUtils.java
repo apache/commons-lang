@@ -3406,8 +3406,23 @@ public static int indexOf(final int[] array, final int valueToFind) {
         return getLength(array1) == getLength(array2);
     }
 
-    // Is same length
-    //-----------------------------------------------------------------------
+
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * {@code null} arrays as length {@code 0}.
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.
+     *
+     * @param array1 the first array, may be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return {@code true} if length of arrays matches, treating
+     *  {@code null} as an empty array
+     * @since 3.11
+     */
+    public static boolean isSameLength(final Object array1, final Object array2) {
+        return getLength(array1) == getLength(array2);
+    }
+
     /**
      * <p>Checks whether two arrays are the same length, treating
      * {@code null} arrays as length {@code 0}.
