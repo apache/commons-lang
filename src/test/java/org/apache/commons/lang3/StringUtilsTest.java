@@ -3305,18 +3305,16 @@ public class StringUtilsTest {
     @Test
     public void testGeorgianSample() {
         char[] arrayI = new char[]{
-                //ı
-                (char) 0x131,
-
-                //ϴ
-                (char) 0x3f4
+                //Latin Small Letter dotless I
+                (char) 0x0131,
+                //Greek Capital Letter Theta
+                (char) 0x03F4
         };
         char[] arrayJ = new char[]{
-                //İ
-                (char) 0x130,
-
-                //ϑ
-                (char) 0x3d1
+                //Latin Capital Letter I with dot above
+                (char) 0x0130,
+                //Greek Theta Symbol
+                (char) 0x03D1
         };
         for (char i : arrayI) {
             for (char j : arrayJ) {
