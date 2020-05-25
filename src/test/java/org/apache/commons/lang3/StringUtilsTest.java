@@ -3304,9 +3304,20 @@ public class StringUtilsTest {
 
     @Test
     public void testGeorgianSample() {
-        char[] arrayI = new char[]{(char) 305, (char) 1012};
-        char[] arrayJ = new char[]{(char) 304, (char) 977};
+        char[] arrayI = new char[]{
+                //ı
+                (char) 0x131,
 
+                //ϴ
+                (char) 0x3f4
+        };
+        char[] arrayJ = new char[]{
+                //İ
+                (char) 0x130,
+
+                //ϑ
+                (char) 0x3d1
+        };
         for (char i : arrayI) {
             for (char j : arrayJ) {
                 String si = "" + i;
