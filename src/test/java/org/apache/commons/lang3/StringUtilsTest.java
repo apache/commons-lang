@@ -3322,12 +3322,20 @@ public class StringUtilsTest {
         };
         for (char i : arrayI) {
             for (char j : arrayJ) {
-                String si = "" + i;
-                String sj = "" + j;
+                String si = String.valueOf(i);
+                String sj = String.valueOf(j);
                 boolean res1 = si.equalsIgnoreCase(sj);
                 CharSequence ci = new StringBuilder(si);
                 CharSequence cj = new StringBuilder(sj);
                 boolean res2 = StringUtils.startsWithIgnoreCase(ci, cj);
+                assertEquals(res1, res2, "si : " + si + " sj : " + sj);
+                res2 = StringUtils.endsWithIgnoreCase(ci, cj);
+                assertEquals(res1, res2, "si : " + si + " sj : " + sj);
+                res2 = StringUtils.compareIgnoreCase(ci.toString(), cj.toString()) == 0;
+                assertEquals(res1, res2, "si : " + si + " sj : " + sj);
+                res2 = StringUtils.indexOfIgnoreCase(ci.toString(), cj.toString()) == 0;
+                assertEquals(res1, res2, "si : " + si + " sj : " + sj);
+                res2 = StringUtils.lastIndexOfIgnoreCase(ci.toString(), cj.toString()) == 0;
                 assertEquals(res1, res2, "si : " + si + " sj : " + sj);
             }
         }

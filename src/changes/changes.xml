@@ -58,6 +58,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1534" type="update" dev="ggregory" due-to="Isira Seneviratne, Bruno P. Kinoshita">Replace some usages of the ternary operator with calls to Math.max() and Math.min() #512.</action>
     <action                   type="update" dev="ggregory" due-to="Arend v. Reinersdorff, Bruno P. Kinoshita">(Javadoc) Fix return tag for throwableOf*() methods #518.</action>
     <action                   type="add" dev="ggregory" due-to="XenoAmess, Gary Gregory">Add ArrayUtils.isSameLength() to compare more array types #430.</action>
+    <action issue="LANG-1545" type="update" dev="ggregory" due-to="XenoAmess, Gary Gregory">CharSequenceUtils.regionMatches is wrong dealing with Georgian.</action>
   </release>
 
   <release version="3.10" date="2020-03-22" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">
