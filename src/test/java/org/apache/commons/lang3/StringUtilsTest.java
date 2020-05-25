@@ -3305,4 +3305,31 @@ public class StringUtilsTest {
             Locale.setDefault(defaultLocales);
         }
     }
+
+    @Test
+    public void testGeorgianSample() {
+        char[] arrayI = new char[]{
+                //Latin Small Letter dotless I
+                (char) 0x0131,
+                //Greek Capital Letter Theta
+                (char) 0x03F4
+        };
+        char[] arrayJ = new char[]{
+                //Latin Capital Letter I with dot above
+                (char) 0x0130,
+                //Greek Theta Symbol
+                (char) 0x03D1
+        };
+        for (char i : arrayI) {
+            for (char j : arrayJ) {
+                String si = "" + i;
+                String sj = "" + j;
+                boolean res1 = si.equalsIgnoreCase(sj);
+                CharSequence ci = new StringBuilder(si);
+                CharSequence cj = new StringBuilder(sj);
+                boolean res2 = StringUtils.startsWithIgnoreCase(ci, cj);
+                assertEquals(res1, res2, "si : " + si + " sj : " + sj);
+            }
+        }
+    }
 }
