@@ -100,7 +100,7 @@ public class MutableDoubleTest {
         assertNotEquals(mutNumB, mutNumC);
         assertEquals(mutNumC, mutNumC);
         assertNotEquals(null, mutNumA);
-        assertNotEquals(mutNumA, Double.valueOf(0d));
+        assertNotEquals(mutNumA, 0d);
         assertNotEquals("0", mutNumA);
     }
 

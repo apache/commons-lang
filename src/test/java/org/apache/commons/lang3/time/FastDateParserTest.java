@@ -66,7 +66,7 @@ public class FastDateParserTest {
     }
 
     private DateParser getDateInstance(final int dateStyle, final Locale locale) {
-        return getInstance(FormatCache.getPatternForStyle(Integer.valueOf(dateStyle), null, locale), TimeZone.getDefault(), Locale.getDefault());
+        return getInstance(FormatCache.getPatternForStyle(dateStyle, null, locale), TimeZone.getDefault(), Locale.getDefault());
     }
 
     private DateParser getInstance(final String format, final Locale locale) {
@@ -105,7 +105,7 @@ public class FastDateParserTest {
         final Map<DateParser, Integer> map= new HashMap<>();
         int i= 0;
         for (final DateParser parser:parsers) {
-            map.put(parser, Integer.valueOf(i++));
+            map.put(parser, i++);
         }
 
         i= 0;

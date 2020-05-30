@@ -44,13 +44,13 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest {
         TestFixture() {
             synchronized (this) {
                 for (int i = 0; i < N; i++) {
-                    listField.add(Integer.valueOf(i));
+                    listField.add(i);
                 }
             }
         }
 
         public synchronized void add() {
-            listField.add(Integer.valueOf(random.nextInt(N)));
+            listField.add(random.nextInt(N));
         }
 
         public synchronized void delete() {

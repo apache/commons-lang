@@ -85,7 +85,7 @@ public class ReflectionToStringBuilderConcurrencyTest {
         final List<Integer> list = holder.collection;
         // make a big array that takes a long time to toString()
         for (int i = 0; i < DATA_SIZE; i++) {
-            list.add(Integer.valueOf(i));
+            list.add(i);
         }
         // Create a thread pool with two threads to cause the most contention on the underlying resource.
         final ExecutorService threadPool = Executors.newFixedThreadPool(2);
@@ -96,14 +96,14 @@ public class ReflectionToStringBuilderConcurrencyTest {
                     final String s = ReflectionToStringBuilder.toString(holder);
                     assertNotNull(s);
                 }
-                return Integer.valueOf(REPEAT);
+                return REPEAT;
             };
             // Produces changes in the list
             final Callable<Integer> producer = () -> {
                 for (int i = 0; i < DATA_SIZE; i++) {
                     list.remove(list.get(0));
                 }
-                return Integer.valueOf(REPEAT);
+                return REPEAT;
             };
             final Collection<Callable<Integer>> tasks = new ArrayList<>();
             tasks.add(consumer);

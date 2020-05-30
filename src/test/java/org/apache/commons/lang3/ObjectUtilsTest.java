@@ -258,7 +258,7 @@ public class ObjectUtilsTest {
 
     @Test
     public void testIdentityToStringStringBuffer() {
-        final Integer i = Integer.valueOf(45);
+        final Integer i = 45;
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
 
         final StringBuffer buffer = new StringBuffer();
@@ -276,7 +276,7 @@ public class ObjectUtilsTest {
 
     @Test
     public void testIdentityToStringInteger() {
-        final Integer i = Integer.valueOf(90);
+        final Integer i = 90;
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
 
         assertEquals(expected, ObjectUtils.identityToString(i));
@@ -291,7 +291,7 @@ public class ObjectUtilsTest {
 
     @Test
     public void testIdentityToStringStringBuilder() {
-        final Integer i = Integer.valueOf(90);
+        final Integer i = 90;
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
 
         final StringBuilder builder = new StringBuilder();
@@ -301,7 +301,7 @@ public class ObjectUtilsTest {
 
     @Test
     public void testIdentityToStringStringBuilderInUse() {
-        final Integer i = Integer.valueOf(90);
+        final Integer i = 90;
         final String expected = "ABC = java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
 
         final StringBuilder builder = new StringBuilder("ABC = ");
@@ -321,7 +321,7 @@ public class ObjectUtilsTest {
 
     @Test
     public void testIdentityToStringStrBuilder() {
-        final Integer i = Integer.valueOf(102);
+        final Integer i = 102;
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
 
         final StrBuilder builder = new StrBuilder();
@@ -335,7 +335,7 @@ public class ObjectUtilsTest {
 
     @Test
     public void testIdentityToStringAppendable() throws IOException {
-        final Integer i = Integer.valueOf(121);
+        final Integer i = 121;
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
 
         final Appendable appendable = new StringBuilder();
@@ -427,8 +427,8 @@ public class ObjectUtilsTest {
      */
     @Test
     public void testCompare() {
-        final Integer one = Integer.valueOf(1);
-        final Integer two = Integer.valueOf(2);
+        final Integer one = 1;
+        final Integer two = 2;
         final Integer nullValue = null;
 
         assertEquals(0, ObjectUtils.compare(nullValue, nullValue), "Null Null false");
@@ -452,13 +452,13 @@ public class ObjectUtilsTest {
         assertEquals("baz", ObjectUtils.median("foo", "bar", "baz", "blah"));
         assertEquals("blah", ObjectUtils.median("foo", "bar", "baz", "blah", "wah"));
         assertEquals(Integer.valueOf(5),
-            ObjectUtils.median(Integer.valueOf(1), Integer.valueOf(5), Integer.valueOf(10)));
+            ObjectUtils.median(1, 5, 10));
         assertEquals(
             Integer.valueOf(7),
-            ObjectUtils.median(Integer.valueOf(5), Integer.valueOf(6), Integer.valueOf(7), Integer.valueOf(8),
-                Integer.valueOf(9)));
+            ObjectUtils.median(5, 6, 7, 8,
+                    9));
         assertEquals(Integer.valueOf(6),
-            ObjectUtils.median(Integer.valueOf(5), Integer.valueOf(6), Integer.valueOf(7), Integer.valueOf(8)));
+            ObjectUtils.median(5, 6, 7, 8));
     }
 
     @Test
@@ -510,8 +510,8 @@ public class ObjectUtilsTest {
         assertNull(ObjectUtils.mode("foo", "bar", "baz"));
         assertNull(ObjectUtils.mode("foo", "bar", "baz", "foo", "bar"));
         assertEquals("foo", ObjectUtils.mode("foo", "bar", "baz", "foo"));
-        assertEquals(Integer.valueOf(9),
-            ObjectUtils.mode("foo", "bar", "baz", Integer.valueOf(9), Integer.valueOf(10), Integer.valueOf(9)));
+        assertEquals(9,
+            ObjectUtils.mode("foo", "bar", "baz", 9, 10, 9));
     }
 
     /**

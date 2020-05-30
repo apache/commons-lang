@@ -554,7 +554,7 @@ public class ToStringBuilder implements Builder<String> {
      * @return this
      */
     public ToStringBuilder append(final String fieldName, final boolean[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
+        style.append(buffer, fieldName, array, fullDetail);
         return this;
     }
 
@@ -599,7 +599,7 @@ public class ToStringBuilder implements Builder<String> {
      * @return this
      */
     public ToStringBuilder append(final String fieldName, final byte[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
+        style.append(buffer, fieldName, array, fullDetail);
         return this;
     }
 
@@ -645,7 +645,7 @@ public class ToStringBuilder implements Builder<String> {
      * @return this
      */
     public ToStringBuilder append(final String fieldName, final char[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
+        style.append(buffer, fieldName, array, fullDetail);
         return this;
     }
 
@@ -691,7 +691,7 @@ public class ToStringBuilder implements Builder<String> {
      * @return this
      */
     public ToStringBuilder append(final String fieldName, final double[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
+        style.append(buffer, fieldName, array, fullDetail);
         return this;
     }
 
@@ -737,7 +737,7 @@ public class ToStringBuilder implements Builder<String> {
      * @return this
      */
     public ToStringBuilder append(final String fieldName, final float[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
+        style.append(buffer, fieldName, array, fullDetail);
         return this;
     }
 
@@ -783,7 +783,7 @@ public class ToStringBuilder implements Builder<String> {
      * @return this
      */
     public ToStringBuilder append(final String fieldName, final int[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
+        style.append(buffer, fieldName, array, fullDetail);
         return this;
     }
 
@@ -829,7 +829,7 @@ public class ToStringBuilder implements Builder<String> {
      * @return this
      */
     public ToStringBuilder append(final String fieldName, final long[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
+        style.append(buffer, fieldName, array, fullDetail);
         return this;
     }
 
@@ -857,7 +857,7 @@ public class ToStringBuilder implements Builder<String> {
      * @return this
      */
     public ToStringBuilder append(final String fieldName, final Object obj, final boolean fullDetail) {
-        style.append(buffer, fieldName, obj, Boolean.valueOf(fullDetail));
+        style.append(buffer, fieldName, obj, fullDetail);
         return this;
     }
 
@@ -890,7 +890,7 @@ public class ToStringBuilder implements Builder<String> {
      * @return this
      */
     public ToStringBuilder append(final String fieldName, final Object[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
+        style.append(buffer, fieldName, array, fullDetail);
         return this;
     }
 
@@ -936,7 +936,7 @@ public class ToStringBuilder implements Builder<String> {
      * @return this
      */
     public ToStringBuilder append(final String fieldName, final short[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
+        style.append(buffer, fieldName, array, fullDetail);
         return this;
     }
 

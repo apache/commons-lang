@@ -86,7 +86,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      */
     @Override
     public Byte getValue() {
-        return Byte.valueOf(this.value);
+        return this.value;
     }
 
     /**
@@ -336,7 +336,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @return a Byte instance containing the value from this mutable
      */
     public Byte toByte() {
-        return Byte.valueOf(byteValue());
+        return byteValue();
     }
 
     //-----------------------------------------------------------------------

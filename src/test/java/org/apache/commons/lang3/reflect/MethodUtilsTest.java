@@ -989,7 +989,7 @@ public class MethodUtilsTest {
     @Test
     public void testVarArgsUnboxing() throws Exception {
         final TestBean testBean = new TestBean();
-        final int[] actual = (int[]) MethodUtils.invokeMethod(testBean, "unboxing", Integer.valueOf(1), Integer.valueOf(2));
+        final int[] actual = (int[]) MethodUtils.invokeMethod(testBean, "unboxing", 1, 2);
         assertArrayEquals(new int[]{1, 2}, actual);
     }
 

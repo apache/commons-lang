@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
  */
 public class NoFieldNamesToStringStyleTest {
 
-    private final Integer base = Integer.valueOf(5);
+    private final Integer base = 5;
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
 
     @BeforeEach
@@ -63,8 +63,8 @@ public class NoFieldNamesToStringStyleTest {
 
     @Test
     public void testObject() {
-        final Integer i3 = Integer.valueOf(3);
-        final Integer i4 = Integer.valueOf(4);
+        final Integer i3 = 3;
+        final Integer i4 = 4;
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) null).toString());
         assertEquals(baseStr + "[3]", new ToStringBuilder(base).append(i3).toString());
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append("a", (Object) null).toString());

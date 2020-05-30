@@ -78,7 +78,7 @@ public class MutableShortTest {
         assertNotEquals(mutNumB, mutNumC);
         assertEquals(mutNumC, mutNumC);
         assertNotEquals(null, mutNumA);
-        assertNotEquals(mutNumA, Short.valueOf((short) 0));
+        assertNotEquals(mutNumA, (short) 0);
         assertNotEquals("0", mutNumA);
     }
 
