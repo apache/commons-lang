@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
 import org.junit.jupiter.api.Test;
@@ -488,7 +489,7 @@ public class RandomStringUtilsTest {
     @Test
     public void testLang100() {
         final int size = 5000;
-        final Charset charset = Charset.forName("UTF-8");
+        final Charset charset = StandardCharsets.UTF_8;
         final String orig = RandomStringUtils.random(size);
         final byte[] bytes = orig.getBytes(charset);
         final String copy = new String(bytes, charset);
