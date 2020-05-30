@@ -243,10 +243,10 @@ public class ObjectUtilsTest {
 
     @Test
     public void testHashCodeMulti_multiple_likeList() {
-        final List<Object> list0 = new ArrayList<>(Arrays.asList());
+        final List<Object> list0 = new ArrayList<>(Collections.emptyList());
         assertEquals(list0.hashCode(), ObjectUtils.hashCodeMulti());
 
-        final List<Object> list1 = new ArrayList<>(Arrays.asList("a"));
+        final List<Object> list1 = new ArrayList<>(Collections.singletonList("a"));
         assertEquals(list1.hashCode(), ObjectUtils.hashCodeMulti("a"));
 
         final List<Object> list2 = new ArrayList<>(Arrays.asList("a", "b"));
