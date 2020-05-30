@@ -62,7 +62,7 @@ public class ToStringStyleConcurrencyTest {
     static {
         LIST = new ArrayList<>(LIST_SIZE);
         for (int i = 0; i < LIST_SIZE; i++) {
-            LIST.add(i);
+            LIST.add(Integer.valueOf(i));
         }
     }
 
@@ -95,7 +95,7 @@ public class ToStringStyleConcurrencyTest {
                     // Calls ToStringStyle
                     new ToStringBuilder(holder).append(holder.collection);
                 }
-                return REPEAT;
+                return Integer.valueOf(REPEAT);
             };
             final Collection<Callable<Integer>> tasks = new ArrayList<>();
             tasks.add(consumer);

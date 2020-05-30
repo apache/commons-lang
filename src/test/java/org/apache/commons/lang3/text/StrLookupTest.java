@@ -94,7 +94,7 @@ public class StrLookupTest  {
     public void testMapLookup() {
         final Map<String, Object> map = new HashMap<>();
         map.put("key", "value");
-        map.put("number", 2);
+        map.put("number", Integer.valueOf(2));
         assertEquals("value", StrLookup.mapLookup(map).lookup("key"));
         assertEquals("2", StrLookup.mapLookup(map).lookup("number"));
         assertNull(StrLookup.mapLookup(map).lookup(null));

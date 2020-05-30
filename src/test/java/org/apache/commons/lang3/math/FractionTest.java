@@ -996,7 +996,7 @@ public class FractionTest  {
         f1 = Fraction.getFraction(3, 5);
         assertNotEquals(null, f1);
         assertNotEquals(f1, new Object());
-        assertNotEquals(f1, 6);
+        assertNotEquals(f1, Integer.valueOf(6));
 
         f1 = Fraction.getFraction(3, 5);
         f2 = Fraction.getFraction(2, 5);

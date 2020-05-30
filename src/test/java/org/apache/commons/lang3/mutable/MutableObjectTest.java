@@ -36,7 +36,7 @@ public class MutableObjectTest {
     public void testConstructors() {
         assertNull(new MutableObject<String>().getValue());
 
-        final Integer i = 6;
+        final Integer i = Integer.valueOf(6);
         assertSame(i, new MutableObject<>(i).getValue());
         assertSame("HI", new MutableObject<>("HI").getValue());
         assertSame(null, new MutableObject<>(null).getValue());
@@ -94,7 +94,7 @@ public class MutableObjectTest {
     @Test
     public void testToString() {
         assertEquals("HI", new MutableObject<>("HI").toString());
-        assertEquals("10.0", new MutableObject<>(10d).toString());
+        assertEquals("10.0", new MutableObject<>(Double.valueOf(10)).toString());
         assertEquals("null", new MutableObject<>(null).toString());
     }
 

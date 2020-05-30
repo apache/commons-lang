@@ -87,7 +87,7 @@ public class MutableLongTest {
         assertNotEquals(mutNumB, mutNumC);
         assertEquals(mutNumC, mutNumC);
         assertNotEquals(null, mutNumA);
-        assertNotEquals(mutNumA, 0L);
+        assertNotEquals(mutNumA, Long.valueOf(0));
         assertNotEquals("0", mutNumA);
     }
 

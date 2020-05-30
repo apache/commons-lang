@@ -86,7 +86,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      */
     @Override
     public Integer getValue() {
-        return this.value;
+        return Integer.valueOf(this.value);
     }
 
     /**
@@ -326,7 +326,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * @return a Integer instance containing the value from this mutable, never null
      */
     public Integer toInteger() {
-        return intValue();
+        return Integer.valueOf(intValue());
     }
 
     //-----------------------------------------------------------------------

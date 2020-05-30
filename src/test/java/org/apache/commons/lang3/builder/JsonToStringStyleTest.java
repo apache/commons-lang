@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
  */
 public class JsonToStringStyleTest {
 
-    private final Integer base = 5;
+    private final Integer base = Integer.valueOf(5);
 
     @BeforeEach
     public void setUp() {
@@ -115,8 +115,8 @@ public class JsonToStringStyleTest {
     @Test
     public void testObject() {
 
-        final Integer i3 = 3;
-        final Integer i4 = 4;
+        final Integer i3 = Integer.valueOf(3);
+        final Integer i4 = Integer.valueOf(4);
 
         assertThrows(
                 UnsupportedOperationException.class, () -> new ToStringBuilder(base).append((Object) null).toString());

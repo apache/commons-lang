@@ -56,7 +56,7 @@ public class SerializationUtilsTest {
     @BeforeEach
     public void setUp() {
         iString = "foo";
-        iInteger = 7;
+        iInteger = Integer.valueOf(7);
         iMap = new HashMap<>();
         iMap.put("FOO", iString);
         iMap.put("BAR", iInteger);

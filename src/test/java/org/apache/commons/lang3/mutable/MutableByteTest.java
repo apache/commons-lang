@@ -87,7 +87,7 @@ public class MutableByteTest {
         assertNotEquals(mutNumB, mutNumC);
         assertEquals(mutNumC, mutNumC);
         assertNotEquals(null, mutNumA);
-        assertNotEquals(mutNumA, (byte) 0);
+        assertNotEquals(mutNumA, Byte.valueOf((byte) 0));
         assertNotEquals("0", mutNumA);
     }
 
@@ -204,7 +204,7 @@ public class MutableByteTest {
     @Test
     public void testAddValueObject() {
         final MutableByte mutNum = new MutableByte((byte) 1);
-        mutNum.add(1);
+        mutNum.add(Integer.valueOf(1));
 
         assertEquals((byte) 2, mutNum.byteValue());
     }
@@ -256,7 +256,7 @@ public class MutableByteTest {
     @Test
     public void testSubtractValueObject() {
         final MutableByte mutNum = new MutableByte((byte) 1);
-        mutNum.subtract(1);
+        mutNum.subtract(Integer.valueOf(1));
 
         assertEquals((byte) 0, mutNum.byteValue());
     }

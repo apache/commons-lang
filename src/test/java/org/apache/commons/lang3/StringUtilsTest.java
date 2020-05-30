@@ -97,7 +97,7 @@ public class StringUtilsTest {
             }
     };
     private static final String[] MIXED_ARRAY_LIST = {null, "", "foo"};
-    private static final Object[] MIXED_TYPE_LIST = {"foo", 2L};
+    private static final Object[] MIXED_TYPE_LIST = {"foo", Long.valueOf(2L)};
     private static final long[] LONG_PRIM_LIST = {1, 2};
     private static final int[] INT_PRIM_LIST = {1, 2};
     private static final byte[] BYTE_PRIM_LIST = {1, 2};
@@ -106,7 +106,7 @@ public class StringUtilsTest {
     private static final float[] FLOAT_PRIM_LIST = {1, 2};
     private static final double[] DOUBLE_PRIM_LIST = {1, 2};
     private static final List<String> MIXED_STRING_LIST = Arrays.asList(null, "", "foo");
-    private static final List<Object> MIXED_TYPE_OBJECT_LIST = Arrays.<Object>asList("foo", 2L);
+    private static final List<Object> MIXED_TYPE_OBJECT_LIST = Arrays.<Object>asList("foo", Long.valueOf(2L));
     private static final List<String> STRING_LIST = Arrays.asList("foo", "bar", "baz");
     private static final List<String> EMPTY_STRING_LIST = Collections.emptyList();
     private static final List<String> NULL_STRING_LIST = Collections.singletonList(null);

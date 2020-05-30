@@ -120,7 +120,7 @@ public class MultiBackgroundInitializerTest {
         for (int i = 0; i < count; i++) {
             final String key = CHILD_INIT + i;
             assertTrue(res.initializerNames().contains(key), "Name not found: " + key);
-            assertEquals(1, res.getResultObject(key), "Wrong result object");
+            assertEquals(Integer.valueOf(1), res.getResultObject(key), "Wrong result object");
             assertFalse(res.isException(key), "Exception flag");
             assertNull(res.getException(key), "Got an exception");
             checkChild(res.getInitializer(key), initializer.getActiveExecutor());
@@ -392,7 +392,7 @@ public class MultiBackgroundInitializerTest {
                 throw ex;
             }
 
-            return initializeCalls;
+            return Integer.valueOf(initializeCalls);
         }
     }
 }

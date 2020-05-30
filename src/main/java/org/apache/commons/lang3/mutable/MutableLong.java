@@ -86,7 +86,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      */
     @Override
     public Long getValue() {
-        return this.value;
+        return Long.valueOf(this.value);
     }
 
     /**
@@ -326,7 +326,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @return a Long instance containing the value from this mutable, never null
      */
     public Long toLong() {
-        return longValue();
+        return Long.valueOf(longValue());
     }
 
     //-----------------------------------------------------------------------
