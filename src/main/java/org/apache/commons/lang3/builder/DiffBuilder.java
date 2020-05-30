@@ -176,12 +176,12 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
 
                 @Override
                 public Boolean getLeft() {
-                    return lhs;
+                    return Boolean.valueOf(lhs);
                 }
 
                 @Override
                 public Boolean getRight() {
-                    return rhs;
+                    return Boolean.valueOf(rhs);
                 }
             });
         }
@@ -254,12 +254,12 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
 
                 @Override
                 public Byte getLeft() {
-                    return lhs;
+                    return Byte.valueOf(lhs);
                 }
 
                 @Override
                 public Byte getRight() {
-                    return rhs;
+                    return Byte.valueOf(rhs);
                 }
             });
         }
@@ -334,12 +334,12 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
 
                 @Override
                 public Character getLeft() {
-                    return lhs;
+                    return Character.valueOf(lhs);
                 }
 
                 @Override
                 public Character getRight() {
-                    return rhs;
+                    return Character.valueOf(rhs);
                 }
             });
         }
@@ -414,12 +414,12 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
 
                 @Override
                 public Double getLeft() {
-                    return lhs;
+                    return Double.valueOf(lhs);
                 }
 
                 @Override
                 public Double getRight() {
-                    return rhs;
+                    return Double.valueOf(rhs);
                 }
             });
         }
@@ -494,12 +494,12 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
 
                 @Override
                 public Float getLeft() {
-                    return lhs;
+                    return Float.valueOf(lhs);
                 }
 
                 @Override
                 public Float getRight() {
-                    return rhs;
+                    return Float.valueOf(rhs);
                 }
             });
         }
@@ -574,12 +574,12 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
 
                 @Override
                 public Integer getLeft() {
-                    return lhs;
+                    return Integer.valueOf(lhs);
                 }
 
                 @Override
                 public Integer getRight() {
-                    return rhs;
+                    return Integer.valueOf(rhs);
                 }
             });
         }
@@ -654,12 +654,12 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
 
                 @Override
                 public Long getLeft() {
-                    return lhs;
+                    return Long.valueOf(lhs);
                 }
 
                 @Override
                 public Long getRight() {
-                    return rhs;
+                    return Long.valueOf(rhs);
                 }
             });
         }
@@ -734,12 +734,12 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
 
                 @Override
                 public Short getLeft() {
-                    return lhs;
+                    return Short.valueOf(lhs);
                 }
 
                 @Override
                 public Short getRight() {
-                    return rhs;
+                    return Short.valueOf(rhs);
                 }
             });
         }

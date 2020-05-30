@@ -128,8 +128,8 @@ public class DiffBuilderTest {
         final DiffResult<TypeTestClass> list = class1.diff(class2);
         assertEquals(1, list.getNumberOfDiffs());
         final Diff<?> diff = list.getDiffs().get(0);
-        assertEquals(class1.byteField, diff.getLeft());
-        assertEquals(class2.byteField, diff.getRight());
+        assertEquals(Byte.valueOf(class1.byteField), diff.getLeft());
+        assertEquals(Byte.valueOf(class2.byteField), diff.getRight());
     }
 
     @Test
@@ -171,8 +171,8 @@ public class DiffBuilderTest {
         final DiffResult<TypeTestClass> list = class1.diff(class2);
         assertEquals(1, list.getNumberOfDiffs());
         final Diff<?> diff = list.getDiffs().get(0);
-        assertEquals(class1.charField, diff.getLeft());
-        assertEquals(class2.charField, diff.getRight());
+        assertEquals(Character.valueOf(class1.charField), diff.getLeft());
+        assertEquals(Character.valueOf(class2.charField), diff.getRight());
     }
 
     @Test
@@ -210,8 +210,8 @@ public class DiffBuilderTest {
         final DiffResult<TypeTestClass> list = class1.diff(class2);
         assertEquals(1, list.getNumberOfDiffs());
         final Diff<?> diff = list.getDiffs().get(0);
-        assertEquals(class1.doubleField, diff.getLeft());
-        assertEquals(class2.doubleField, diff.getRight());
+        assertEquals(Double.valueOf(class1.doubleField), diff.getLeft());
+        assertEquals(Double.valueOf(class2.doubleField), diff.getRight());
     }
 
     @Test
@@ -236,8 +236,8 @@ public class DiffBuilderTest {
         final DiffResult<TypeTestClass> list = class1.diff(class2);
         assertEquals(1, list.getNumberOfDiffs());
         final Diff<?> diff = list.getDiffs().get(0);
-        assertEquals(class1.floatField, diff.getLeft());
-        assertEquals(class2.floatField, diff.getRight());
+        assertEquals(Float.valueOf(class1.floatField), diff.getLeft());
+        assertEquals(Float.valueOf(class2.floatField), diff.getRight());
     }
 
     @Test
@@ -262,8 +262,8 @@ public class DiffBuilderTest {
         final DiffResult<TypeTestClass> list = class1.diff(class2);
         assertEquals(1, list.getNumberOfDiffs());
         final Diff<?> diff = list.getDiffs().get(0);
-        assertEquals(class1.intField, diff.getLeft());
-        assertEquals(class2.intField, diff.getRight());
+        assertEquals(Integer.valueOf(class1.intField), diff.getLeft());
+        assertEquals(Integer.valueOf(class2.intField), diff.getRight());
     }
 
     @Test
@@ -288,8 +288,8 @@ public class DiffBuilderTest {
         final DiffResult<TypeTestClass> list = class1.diff(class2);
         assertEquals(1, list.getNumberOfDiffs());
         final Diff<?> diff = list.getDiffs().get(0);
-        assertEquals(class1.longField, diff.getLeft());
-        assertEquals(class2.longField, diff.getRight());
+        assertEquals(Long.valueOf(class1.longField), diff.getLeft());
+        assertEquals(Long.valueOf(class2.longField), diff.getRight());
     }
 
     @Test
@@ -416,8 +416,8 @@ public class DiffBuilderTest {
         final DiffResult<TypeTestClass> list = class1.diff(class2);
         assertEquals(1, list.getNumberOfDiffs());
         final Diff<?> diff = list.getDiffs().get(0);
-        assertEquals(class1.shortField, diff.getLeft());
-        assertEquals(class2.shortField, diff.getRight());
+        assertEquals(Short.valueOf(class1.shortField), diff.getLeft());
+        assertEquals(Short.valueOf(class2.shortField), diff.getRight());
     }
 
     @Test

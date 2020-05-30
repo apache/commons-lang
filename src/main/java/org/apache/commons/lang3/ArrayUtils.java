@@ -236,7 +236,7 @@ public class ArrayUtils {
      */
     @Deprecated
     public static boolean[] add(final boolean[] array, final int index, final boolean element) {
-        return (boolean[]) add(array, index, element, Boolean.TYPE);
+        return (boolean[]) add(array, index, Boolean.valueOf(element), Boolean.TYPE);
     }
 
     /**
@@ -298,7 +298,7 @@ public class ArrayUtils {
      */
     @Deprecated
     public static byte[] add(final byte[] array, final int index, final byte element) {
-        return (byte[]) add(array, index, element, Byte.TYPE);
+        return (byte[]) add(array, index, Byte.valueOf(element), Byte.TYPE);
     }
 
     /**
@@ -361,7 +361,7 @@ public class ArrayUtils {
      */
     @Deprecated
     public static char[] add(final char[] array, final int index, final char element) {
-        return (char[]) add(array, index, element, Character.TYPE);
+        return (char[]) add(array, index, Character.valueOf(element), Character.TYPE);
     }
 
     /**
@@ -423,7 +423,7 @@ public class ArrayUtils {
      */
     @Deprecated
     public static double[] add(final double[] array, final int index, final double element) {
-        return (double[]) add(array, index, element, Double.TYPE);
+        return (double[]) add(array, index, Double.valueOf(element), Double.TYPE);
     }
 
     /**
@@ -485,7 +485,7 @@ public class ArrayUtils {
      */
     @Deprecated
     public static float[] add(final float[] array, final int index, final float element) {
-        return (float[]) add(array, index, element, Float.TYPE);
+        return (float[]) add(array, index, Float.valueOf(element), Float.TYPE);
     }
 
     /**
@@ -547,7 +547,7 @@ public class ArrayUtils {
      */
     @Deprecated
     public static int[] add(final int[] array, final int index, final int element) {
-        return (int[]) add(array, index, element, Integer.TYPE);
+        return (int[]) add(array, index, Integer.valueOf(element), Integer.TYPE);
     }
 
     /**
@@ -582,7 +582,7 @@ public class ArrayUtils {
      */
     @Deprecated
     public static long[] add(final long[] array, final int index, final long element) {
-        return (long[]) add(array, index, element, Long.TYPE);
+        return (long[]) add(array, index, Long.valueOf(element), Long.TYPE);
     }
 
     /**
@@ -677,7 +677,7 @@ public class ArrayUtils {
      */
     @Deprecated
     public static short[] add(final short[] array, final int index, final short element) {
-        return (short[]) add(array, index, element, Short.TYPE);
+        return (short[]) add(array, index, Short.valueOf(element), Short.TYPE);
     }
 
     /**
@@ -5987,7 +5987,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final HashMap<Boolean, MutableInt> occurrences = new HashMap<>(2); // only two possible values here
         for (final boolean v : values) {
-            final Boolean boxed = v;
+            final Boolean boxed = Boolean.valueOf(v);
             final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
@@ -6042,7 +6042,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final Map<Byte, MutableInt> occurrences = new HashMap<>(values.length);
         for (final byte v : values) {
-            final Byte boxed = v;
+            final Byte boxed = Byte.valueOf(v);
             final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
@@ -6097,7 +6097,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final HashMap<Character, MutableInt> occurrences = new HashMap<>(values.length);
         for (final char v : values) {
-            final Character boxed = v;
+            final Character boxed = Character.valueOf(v);
             final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
@@ -6152,7 +6152,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final HashMap<Double, MutableInt> occurrences = new HashMap<>(values.length);
         for (final double v : values) {
-            final Double boxed = v;
+            final Double boxed = Double.valueOf(v);
             final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
@@ -6207,7 +6207,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final HashMap<Float, MutableInt> occurrences = new HashMap<>(values.length);
         for (final float v : values) {
-            final Float boxed = v;
+            final Float boxed = Float.valueOf(v);
             final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
@@ -6262,7 +6262,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final HashMap<Integer, MutableInt> occurrences = new HashMap<>(values.length);
         for (final int v : values) {
-            final Integer boxed = v;
+            final Integer boxed = Integer.valueOf(v);
             final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
@@ -6317,7 +6317,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final HashMap<Long, MutableInt> occurrences = new HashMap<>(values.length);
         for (final long v : values) {
-            final Long boxed = v;
+            final Long boxed = Long.valueOf(v);
             final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
@@ -6372,7 +6372,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final HashMap<Short, MutableInt> occurrences = new HashMap<>(values.length);
         for (final short v : values) {
-            final Short boxed = v;
+            final Short boxed = Short.valueOf(v);
             final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
@@ -8964,7 +8964,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final Byte[] result = new Byte[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i];
+            result[i] = Byte.valueOf(array[i]);
         }
         return result;
     }
@@ -8985,7 +8985,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final Character[] result = new Character[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i];
+            result[i] = Character.valueOf(array[i]);
         }
         return result;
      }
@@ -9006,7 +9006,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final Double[] result = new Double[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i];
+            result[i] = Double.valueOf(array[i]);
         }
         return result;
     }
@@ -9027,7 +9027,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final Float[] result = new Float[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i];
+            result[i] = Float.valueOf(array[i]);
         }
         return result;
     }
@@ -9048,7 +9048,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final Integer[] result = new Integer[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i];
+            result[i] = Integer.valueOf(array[i]);
         }
         return result;
     }
@@ -9069,7 +9069,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final Long[] result = new Long[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i];
+            result[i] = Long.valueOf(array[i]);
         }
         return result;
     }
@@ -9090,7 +9090,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final Short[] result = new Short[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i];
+            result[i] = Short.valueOf(array[i]);
         }
         return result;
     }

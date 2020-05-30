@@ -137,7 +137,7 @@ public class BasicThreadFactoryTest {
                 .namingPattern(PATTERN).build();
         for (int i = 0; i < count; i++) {
             final Thread t = factory.newThread(r);
-            assertEquals(String.format(PATTERN, (long) (i + 1)), t.getName(), "Wrong thread name");
+            assertEquals(String.format(PATTERN, Long.valueOf(i + 1)), t.getName(), "Wrong thread name");
             assertEquals(i + 1, factory.getThreadCount(), "Wrong thread count");
         }
         EasyMock.verify(wrapped, r);

@@ -1427,9 +1427,9 @@ public class ClassUtilsTest  {
 
         assertSame(ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.toClass(ArrayUtils.EMPTY_OBJECT_ARRAY));
 
-        assertArrayEquals(new Class[]{String.class, Integer.class, Double.class}, ClassUtils.toClass("Test", 1, 99d));
+        assertArrayEquals(new Class[]{String.class, Integer.class, Double.class}, ClassUtils.toClass("Test", Integer.valueOf(1), Double.valueOf(99d)));
 
-        assertArrayEquals(new Class[]{String.class, null, Double.class}, ClassUtils.toClass("Test", null, 99d));
+        assertArrayEquals(new Class[]{String.class, null, Double.class}, ClassUtils.toClass("Test", null, Double.valueOf(99d)));
     }
 
     @Test
