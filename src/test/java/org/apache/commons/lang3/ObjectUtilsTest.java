@@ -208,9 +208,9 @@ public class ObjectUtilsTest {
     @Test
     public void testEquals() {
         assertTrue(ObjectUtils.equals(null, null), "ObjectUtils.equals(null, null) returned false");
-        assertFalse(ObjectUtils.equals(FOO, null), "ObjectUtils.equals(\"foo\", null) returned true");
-        assertFalse(ObjectUtils.equals(null, BAR), "ObjectUtils.equals(null, \"bar\") returned true");
-        assertFalse(ObjectUtils.equals(FOO, BAR), "ObjectUtils.equals(\"foo\", \"bar\") returned true");
+        assertTrue(!ObjectUtils.equals(FOO, null), "ObjectUtils.equals(\"foo\", null) returned true");
+        assertTrue(!ObjectUtils.equals(null, BAR), "ObjectUtils.equals(null, \"bar\") returned true");
+        assertTrue(!ObjectUtils.equals(FOO, BAR), "ObjectUtils.equals(\"foo\", \"bar\") returned true");
         assertTrue(ObjectUtils.equals(FOO, FOO), "ObjectUtils.equals(\"foo\", \"foo\") returned false");
     }
 

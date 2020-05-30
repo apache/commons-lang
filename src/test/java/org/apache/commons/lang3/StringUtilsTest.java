@@ -2890,8 +2890,8 @@ public class StringUtilsTest {
                 // don't actively test for that.
                 final Class<?>[] params = m.getParameterTypes();
                 if (params.length > 0 && (params[0] == CharSequence.class || params[0] == CharSequence[].class)) {
-                    assertFalse(ArrayUtils.contains(excludeMethods, methodStr), "The method \"" + methodStr + "\" " +
-                            "appears to be mutable in spirit and therefore must not accept a CharSequence");
+                    assertTrue(!ArrayUtils.contains(excludeMethods, methodStr),
+                            "The method \"" + methodStr + "\" appears to be mutable in spirit and therefore must not accept a CharSequence");
                 }
             } else {
                 // Assume this is immutable in spirit and ensure the first parameter is not String.
@@ -3268,7 +3268,7 @@ public class StringUtilsTest {
 
     @Test
     public void testToRootLowerCase() {
-        assertNull(StringUtils.toRootLowerCase(null));
+        assertEquals(null, StringUtils.toRootLowerCase(null));
         assertEquals("a", StringUtils.toRootLowerCase("A"));
         assertEquals("a", StringUtils.toRootLowerCase("a"));
         final Locale TURKISH = Locale.forLanguageTag("tr");
@@ -3288,7 +3288,7 @@ public class StringUtilsTest {
 
     @Test
     public void testToRootUpperCase() {
-        assertNull(StringUtils.toRootUpperCase(null));
+        assertEquals(null, StringUtils.toRootUpperCase(null));
         assertEquals("A", StringUtils.toRootUpperCase("a"));
         assertEquals("A", StringUtils.toRootUpperCase("A"));
         final Locale TURKISH = Locale.forLanguageTag("tr");
