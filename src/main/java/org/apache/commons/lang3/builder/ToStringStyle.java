@@ -437,7 +437,7 @@ public abstract class ToStringStyle implements Serializable {
      * @since 2.0
      */
     protected void removeLastFieldSeparator(final StringBuffer buffer) {
-        if (StringUtils.endsWith(buffer,fieldSeparator)) {
+        if (StringUtils.endsWith(buffer, fieldSeparator)) {
             buffer.setLength(buffer.length() - fieldSeparator.length());
         }
     }

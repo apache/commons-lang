@@ -292,7 +292,7 @@ public class EnumUtilsTest {
         assertEquals(6L, EnumUtils.generateBitVector(Traffic.class, EnumSet.of(Traffic.AMBER, Traffic.GREEN)));
         assertEquals(7L, EnumUtils.generateBitVector(Traffic.class, EnumSet.of(Traffic.RED, Traffic.AMBER, Traffic.GREEN)));
 
-        // 64 values Enum (to test whether no int<->long jdk convertion issue exists)
+        // 64 values Enum (to test whether no int<->long jdk conversion issue exists)
         assertEquals((1L << 31), EnumUtils.generateBitVector(Enum64.class, EnumSet.of(Enum64.A31)));
         assertEquals((1L << 32), EnumUtils.generateBitVector(Enum64.class, EnumSet.of(Enum64.A32)));
         assertEquals((1L << 63), EnumUtils.generateBitVector(Enum64.class, EnumSet.of(Enum64.A63)));
@@ -310,7 +310,7 @@ public class EnumUtilsTest {
         assertArrayEquals(EnumUtils.generateBitVectors(Traffic.class, EnumSet.of(Traffic.AMBER, Traffic.GREEN)), 6L);
         assertArrayEquals(EnumUtils.generateBitVectors(Traffic.class, EnumSet.of(Traffic.RED, Traffic.AMBER, Traffic.GREEN)), 7L);
 
-        // 64 values Enum (to test whether no int<->long jdk convertion issue exists)
+        // 64 values Enum (to test whether no int<->long jdk conversion issue exists)
         assertArrayEquals(EnumUtils.generateBitVectors(Enum64.class, EnumSet.of(Enum64.A31)), (1L << 31));
         assertArrayEquals(EnumUtils.generateBitVectors(Enum64.class, EnumSet.of(Enum64.A32)), (1L << 32));
         assertArrayEquals(EnumUtils.generateBitVectors(Enum64.class, EnumSet.of(Enum64.A63)), (1L << 63));
@@ -334,7 +334,7 @@ public class EnumUtilsTest {
         //gracefully handles duplicates:
         assertEquals(7L, EnumUtils.generateBitVector(Traffic.class, Traffic.RED, Traffic.AMBER, Traffic.GREEN, Traffic.GREEN));
 
-        // 64 values Enum (to test whether no int<->long jdk convertion issue exists)
+        // 64 values Enum (to test whether no int<->long jdk conversion issue exists)
         assertEquals((1L << 31), EnumUtils.generateBitVector(Enum64.class, Enum64.A31));
         assertEquals((1L << 32), EnumUtils.generateBitVector(Enum64.class, Enum64.A32));
         assertEquals((1L << 63), EnumUtils.generateBitVector(Enum64.class, Enum64.A63));
@@ -354,7 +354,7 @@ public class EnumUtilsTest {
         //gracefully handles duplicates:
         assertArrayEquals(EnumUtils.generateBitVectors(Traffic.class, Traffic.RED, Traffic.AMBER, Traffic.GREEN, Traffic.GREEN), 7L);
 
-        // 64 values Enum (to test whether no int<->long jdk convertion issue exists)
+        // 64 values Enum (to test whether no int<->long jdk conversion issue exists)
         assertArrayEquals(EnumUtils.generateBitVectors(Enum64.class, Enum64.A31), (1L << 31));
         assertArrayEquals(EnumUtils.generateBitVectors(Enum64.class, Enum64.A32), (1L << 32));
         assertArrayEquals(EnumUtils.generateBitVectors(Enum64.class, Enum64.A63), (1L << 63));
@@ -393,7 +393,7 @@ public class EnumUtilsTest {
         assertEquals(EnumSet.of(Traffic.AMBER, Traffic.GREEN), EnumUtils.processBitVector(Traffic.class, 6L));
         assertEquals(EnumSet.of(Traffic.RED, Traffic.AMBER, Traffic.GREEN), EnumUtils.processBitVector(Traffic.class, 7L));
 
-        // 64 values Enum (to test whether no int<->long jdk convertion issue exists)
+        // 64 values Enum (to test whether no int<->long jdk conversion issue exists)
         assertEquals(EnumSet.of(Enum64.A31), EnumUtils.processBitVector(Enum64.class, (1L << 31)));
         assertEquals(EnumSet.of(Enum64.A32), EnumUtils.processBitVector(Enum64.class, (1L << 32)));
         assertEquals(EnumSet.of(Enum64.A63), EnumUtils.processBitVector(Enum64.class, (1L << 63)));
@@ -430,7 +430,7 @@ public class EnumUtilsTest {
         assertEquals(EnumSet.of(Traffic.AMBER, Traffic.GREEN), EnumUtils.processBitVectors(Traffic.class, 666L, 6L));
         assertEquals(EnumSet.of(Traffic.RED, Traffic.AMBER, Traffic.GREEN), EnumUtils.processBitVectors(Traffic.class, 666L, 7L));
 
-        // 64 values Enum (to test whether no int<->long jdk convertion issue exists)
+        // 64 values Enum (to test whether no int<->long jdk conversion issue exists)
         assertEquals(EnumSet.of(Enum64.A31), EnumUtils.processBitVectors(Enum64.class, (1L << 31)));
         assertEquals(EnumSet.of(Enum64.A32), EnumUtils.processBitVectors(Enum64.class, (1L << 32)));
         assertEquals(EnumSet.of(Enum64.A63), EnumUtils.processBitVectors(Enum64.class, (1L << 63)));
