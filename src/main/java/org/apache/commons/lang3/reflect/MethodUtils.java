@@ -694,7 +694,7 @@ public class MethodUtils {
         }
 
         // Sort methods by signature to force deterministic result
-        Collections.sort(matchingMethods, METHOD_BY_SIGNATURE);
+        matchingMethods.sort(METHOD_BY_SIGNATURE);
 
         Method bestMatch = null;
         for (final Method method : matchingMethods) {
