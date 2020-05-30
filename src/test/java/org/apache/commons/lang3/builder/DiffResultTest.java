@@ -78,11 +78,10 @@ public class DiffResultTest {
         final Iterator<Diff<?>> expectedIterator = diffs.iterator();
 
         final DiffResult list = new DiffResult(lhs, rhs, diffs, SHORT_STYLE);
-        final Iterator<Diff<?>> iterator = list.iterator();
 
-        while (iterator.hasNext()) {
+        for (Diff<?> diff : (Iterable<Diff<?>>) list) {
             assertTrue(expectedIterator.hasNext());
-            assertEquals(expectedIterator.next(), iterator.next());
+            assertEquals(expectedIterator.next(), diff);
         }
     }
 
