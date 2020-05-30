@@ -1190,9 +1190,9 @@ public class StrBuilderAppendInsertTest {
         sb.appendSeparator(standardSeparator, startSeparator);  // no effect
         assertEquals(String.valueOf(startSeparator), sb.toString());
         sb.append(foo);
-        assertEquals(startSeparator + foo, sb.toString());
+        assertEquals(String.valueOf(startSeparator) + foo, sb.toString());
         sb.appendSeparator(standardSeparator, startSeparator);
-        assertEquals(startSeparator + foo + standardSeparator, sb.toString());
+        assertEquals(String.valueOf(startSeparator) + foo + standardSeparator, sb.toString());
     }
 
     //-----------------------------------------------------------------------
