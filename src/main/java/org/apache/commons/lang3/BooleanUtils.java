@@ -64,7 +64,7 @@ public class BooleanUtils {
         if (bool == null) {
             return null;
         }
-        return bool ? Boolean.FALSE : Boolean.TRUE;
+        return bool.booleanValue() ? Boolean.FALSE : Boolean.TRUE;
     }
 
     // boolean Boolean methods
@@ -156,7 +156,7 @@ public class BooleanUtils {
      * @return {@code true} or {@code false}, {@code null} returns {@code false}
      */
     public static boolean toBoolean(final Boolean bool) {
-        return bool != null && bool;
+        return bool != null && bool.booleanValue();
     }
 
     /**
@@ -179,7 +179,7 @@ public class BooleanUtils {
         if (bool == null) {
             return valueIfNull;
         }
-        return bool;
+        return bool.booleanValue();
     }
 
     // Integer to Boolean methods
@@ -243,7 +243,7 @@ public class BooleanUtils {
         if (value == null) {
             return null;
         }
-        return value == 0 ? Boolean.FALSE : Boolean.TRUE;
+        return value.intValue() == 0 ? Boolean.FALSE : Boolean.TRUE;
     }
 
     /**
@@ -446,7 +446,7 @@ public class BooleanUtils {
         if (bool == null) {
             return null;
         }
-        return bool ? NumberUtils.INTEGER_ONE : NumberUtils.INTEGER_ZERO;
+        return bool.booleanValue() ? NumberUtils.INTEGER_ONE : NumberUtils.INTEGER_ZERO;
     }
 
     /**
@@ -485,7 +485,7 @@ public class BooleanUtils {
         if (bool == null) {
             return nullValue;
         }
-        return bool ? trueValue : falseValue;
+        return bool.booleanValue() ? trueValue : falseValue;
     }
 
     /**
@@ -524,7 +524,7 @@ public class BooleanUtils {
         if (bool == null) {
             return nullValue;
         }
-        return bool ? trueValue : falseValue;
+        return bool.booleanValue() ? trueValue : falseValue;
     }
 
     // String to Boolean methods
@@ -842,7 +842,7 @@ public class BooleanUtils {
         if (bool == null) {
             return nullString;
         }
-        return bool ? trueString : falseString;
+        return bool.booleanValue() ? trueString : falseString;
     }
 
     // boolean to String methods

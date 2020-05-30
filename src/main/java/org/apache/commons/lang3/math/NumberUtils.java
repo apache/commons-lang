@@ -740,7 +740,7 @@ public class NumberUtils {
                 case 'F' :
                     try {
                         final Float f = createFloat(str);
-                        if (!(f.isInfinite() || f == 0.0F && !allZeros)) {
+                        if (!(f.isInfinite() || f.floatValue() == 0.0F && !allZeros)) {
                             //If it's too big for a float or the float value = 0 and the string
                             //has non-zeros in it, then float does not have the precision we want
                             return f;
@@ -799,13 +799,13 @@ public class NumberUtils {
             final Float f = createFloat(str);
             final Double d = createDouble(str);
             if (!f.isInfinite()
-                    && !(f == 0.0F && !allZeros)
+                    && !(f.floatValue() == 0.0F && !allZeros)
                     && f.toString().equals(d.toString())) {
                 return f;
             }
-            if (!d.isInfinite() && !(d == 0.0D && !allZeros)) {
+            if (!d.isInfinite() && !(d.doubleValue() == 0.0D && !allZeros)) {
                 final BigDecimal b = createBigDecimal(str);
-                if (b.compareTo(BigDecimal.valueOf(d)) == 0) {
+                if (b.compareTo(BigDecimal.valueOf(d.doubleValue())) == 0) {
                     return d;
                 }
                 return b;

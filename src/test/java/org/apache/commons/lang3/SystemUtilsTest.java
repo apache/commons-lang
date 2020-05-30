@@ -778,7 +778,7 @@ public class SystemUtilsTest {
         final String expectedStringValue = System.getProperty("java.awt.headless");
         final String expectedStringValueWithDefault = System.getProperty("java.awt.headless", "false");
         assertNotNull(expectedStringValueWithDefault);
-        final boolean expectedValue = Boolean.valueOf(expectedStringValue);
+        final boolean expectedValue = Boolean.valueOf(expectedStringValue).booleanValue();
         if (expectedStringValue != null) {
             assertEquals(expectedStringValue, SystemUtils.JAVA_AWT_HEADLESS);
         }

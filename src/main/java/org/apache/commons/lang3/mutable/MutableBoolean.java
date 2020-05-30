@@ -66,7 +66,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      */
     public MutableBoolean(final Boolean value) {
         super();
-        this.value = value;
+        this.value = value.booleanValue();
     }
 
     //-----------------------------------------------------------------------
@@ -115,7 +115,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      */
     @Override
     public void setValue(final Boolean value) {
-        this.value = value;
+        this.value = value.booleanValue();
     }
 
     //-----------------------------------------------------------------------

@@ -282,12 +282,12 @@ public class CompareToBuilderTest {
         assertEquals(Integer.valueOf(0), new CompareToBuilder().append(o1, o1).build());
         assertEquals(Integer.valueOf(0), new CompareToBuilder().append(o1, o2).build());
         o2.setA(5);
-        assertTrue(new CompareToBuilder().append(o1, o2).build() < 0);
-        assertTrue(new CompareToBuilder().append(o2, o1).build() > 0);
+        assertTrue(new CompareToBuilder().append(o1, o2).build().intValue() < 0);
+        assertTrue(new CompareToBuilder().append(o2, o1).build().intValue() > 0);
 
-        assertTrue(new CompareToBuilder().append(o1, null).build() > 0);
+        assertTrue(new CompareToBuilder().append(o1, null).build().intValue() > 0);
         assertEquals(Integer.valueOf(0), new CompareToBuilder().append((Object) null, null).build());
-        assertTrue(new CompareToBuilder().append(null, o1).build() < 0);
+        assertTrue(new CompareToBuilder().append(null, o1).build().intValue() < 0);
     }
 
     @Test
