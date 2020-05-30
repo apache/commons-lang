@@ -18,6 +18,7 @@
 package org.apache.commons.lang3.compare;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -49,8 +50,8 @@ public class ObjectToStringComparatorTest {
         final List<Thing> things = Arrays.asList(null, new Thing("y"), null);
         Collections.sort(things, ObjectToStringComparator.INSTANCE);
         assertEquals("y", things.get(0).string);
-        assertEquals(null, things.get(1));
-        assertEquals(null, things.get(2));
+        assertNull(things.get(1));
+        assertNull(things.get(2));
     }
 
     @Test
@@ -58,8 +59,8 @@ public class ObjectToStringComparatorTest {
         final List<Thing> things = Arrays.asList(new Thing(null), new Thing("y"), new Thing(null));
         Collections.sort(things, ObjectToStringComparator.INSTANCE);
         assertEquals("y", things.get(0).string);
-        assertEquals(null, things.get(1).string);
-        assertEquals(null, things.get(2).string);
+        assertNull(things.get(1).string);
+        assertNull(things.get(2).string);
     }
 
     @Test

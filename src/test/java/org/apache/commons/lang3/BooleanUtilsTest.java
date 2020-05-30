@@ -662,52 +662,32 @@ public class BooleanUtilsTest {
                 BooleanUtils.and(new boolean[] { true, true }),
                 "False result for (true, true)");
 
-        assertTrue(
-                ! BooleanUtils.and(new boolean[] { false, false }),
-                "True result for (false, false)");
+        assertFalse(BooleanUtils.and(new boolean[]{false, false}), "True result for (false, false)");
 
-        assertTrue(
-                ! BooleanUtils.and(new boolean[] { true, false }),
-                "True result for (true, false)");
+        assertFalse(BooleanUtils.and(new boolean[]{true, false}), "True result for (true, false)");
 
-        assertTrue(
-                ! BooleanUtils.and(new boolean[] { false, true }),
-                "True result for (false, true)");
+        assertFalse(BooleanUtils.and(new boolean[]{false, true}), "True result for (false, true)");
     }
 
     @Test
     public void testAnd_primitive_validInput_3items() {
-        assertTrue(
-                ! BooleanUtils.and(new boolean[] { false, false, true }),
-                "True result for (false, false, true)");
+        assertFalse(BooleanUtils.and(new boolean[]{false, false, true}), "True result for (false, false, true)");
 
-        assertTrue(
-                ! BooleanUtils.and(new boolean[] { false, true, false }),
-                "True result for (false, true, false)");
+        assertFalse(BooleanUtils.and(new boolean[]{false, true, false}), "True result for (false, true, false)");
 
-        assertTrue(
-                ! BooleanUtils.and(new boolean[] { true, false, false }),
-                "True result for (true, false, false)");
+        assertFalse(BooleanUtils.and(new boolean[]{true, false, false}), "True result for (true, false, false)");
 
         assertTrue(
                 BooleanUtils.and(new boolean[] { true, true, true }),
                 "False result for (true, true, true)");
 
-        assertTrue(
-                ! BooleanUtils.and(new boolean[] { false, false, false }),
-                "True result for (false, false)");
+        assertFalse(BooleanUtils.and(new boolean[]{false, false, false}), "True result for (false, false)");
 
-        assertTrue(
-                ! BooleanUtils.and(new boolean[] { true, true, false }),
-                "True result for (true, true, false)");
+        assertFalse(BooleanUtils.and(new boolean[]{true, true, false}), "True result for (true, true, false)");
 
-        assertTrue(
-                ! BooleanUtils.and(new boolean[] { true, false, true }),
-                "True result for (true, false, true)");
+        assertFalse(BooleanUtils.and(new boolean[]{true, false, true}), "True result for (true, false, true)");
 
-        assertTrue(
-                ! BooleanUtils.and(new boolean[] { false, true, true }),
-                "True result for (false, true, true)");
+        assertFalse(BooleanUtils.and(new boolean[]{false, true, true}), "True result for (false, true, true)");
     }
 
     @Test
@@ -733,56 +713,44 @@ public class BooleanUtilsTest {
                     .booleanValue(),
                 "False result for (true, true)");
 
-        assertTrue(
-                ! BooleanUtils
-                    .and(new Boolean[] { Boolean.FALSE, Boolean.FALSE })
-                    .booleanValue(),
-                "True result for (false, false)");
+        assertFalse(BooleanUtils
+                .and(new Boolean[]{Boolean.FALSE, Boolean.FALSE})
+                .booleanValue(), "True result for (false, false)");
 
-        assertTrue(
-                ! BooleanUtils
-                    .and(new Boolean[] { Boolean.TRUE, Boolean.FALSE })
-                    .booleanValue(),
-                "True result for (true, false)");
+        assertFalse(BooleanUtils
+                .and(new Boolean[]{Boolean.TRUE, Boolean.FALSE})
+                .booleanValue(), "True result for (true, false)");
 
-        assertTrue(
-                ! BooleanUtils
-                    .and(new Boolean[] { Boolean.FALSE, Boolean.TRUE })
-                    .booleanValue(),
-                "True result for (false, true)");
+        assertFalse(BooleanUtils
+                .and(new Boolean[]{Boolean.FALSE, Boolean.TRUE})
+                .booleanValue(), "True result for (false, true)");
     }
 
     @Test
     public void testAnd_object_validInput_3items() {
-        assertTrue(
-                ! BooleanUtils
-                    .and(
-                        new Boolean[] {
-                            Boolean.FALSE,
-                            Boolean.FALSE,
-                            Boolean.TRUE })
-                            .booleanValue(),
-                "True result for (false, false, true)");
+        assertFalse(BooleanUtils
+                .and(
+                        new Boolean[]{
+                                Boolean.FALSE,
+                                Boolean.FALSE,
+                                Boolean.TRUE})
+                .booleanValue(), "True result for (false, false, true)");
 
-        assertTrue(
-                ! BooleanUtils
-                    .and(
-                        new Boolean[] {
-                            Boolean.FALSE,
-                            Boolean.TRUE,
-                            Boolean.FALSE })
-                            .booleanValue(),
-                "True result for (false, true, false)");
+        assertFalse(BooleanUtils
+                .and(
+                        new Boolean[]{
+                                Boolean.FALSE,
+                                Boolean.TRUE,
+                                Boolean.FALSE})
+                .booleanValue(), "True result for (false, true, false)");
 
-        assertTrue(
-                ! BooleanUtils
-                    .and(
-                        new Boolean[] {
-                            Boolean.TRUE,
-                            Boolean.FALSE,
-                            Boolean.FALSE })
-                            .booleanValue(),
-                "True result for (true, false, false)");
+        assertFalse(BooleanUtils
+                .and(
+                        new Boolean[]{
+                                Boolean.TRUE,
+                                Boolean.FALSE,
+                                Boolean.FALSE})
+                .booleanValue(), "True result for (true, false, false)");
 
         assertTrue(
                 BooleanUtils
@@ -790,41 +758,33 @@ public class BooleanUtilsTest {
                     .booleanValue(),
                 "False result for (true, true, true)");
 
-        assertTrue(
-                ! BooleanUtils.and(
-                        new Boolean[] {
-                            Boolean.FALSE,
-                            Boolean.FALSE,
-                            Boolean.FALSE })
-                            .booleanValue(),
-                "True result for (false, false)");
+        assertFalse(BooleanUtils.and(
+                new Boolean[]{
+                        Boolean.FALSE,
+                        Boolean.FALSE,
+                        Boolean.FALSE})
+                .booleanValue(), "True result for (false, false)");
 
-        assertTrue(
-                ! BooleanUtils.and(
-                        new Boolean[] {
-                            Boolean.TRUE,
-                            Boolean.TRUE,
-                            Boolean.FALSE })
-                            .booleanValue(),
-                "True result for (true, true, false)");
+        assertFalse(BooleanUtils.and(
+                new Boolean[]{
+                        Boolean.TRUE,
+                        Boolean.TRUE,
+                        Boolean.FALSE})
+                .booleanValue(), "True result for (true, true, false)");
 
-        assertTrue(
-                ! BooleanUtils.and(
-                        new Boolean[] {
-                            Boolean.TRUE,
-                            Boolean.FALSE,
-                            Boolean.TRUE })
-                            .booleanValue(),
-                "True result for (true, false, true)");
+        assertFalse(BooleanUtils.and(
+                new Boolean[]{
+                        Boolean.TRUE,
+                        Boolean.FALSE,
+                        Boolean.TRUE})
+                .booleanValue(), "True result for (true, false, true)");
 
-        assertTrue(
-                ! BooleanUtils.and(
-                        new Boolean[] {
-                            Boolean.FALSE,
-                            Boolean.TRUE,
-                            Boolean.TRUE })
-                            .booleanValue(),
-                "True result for (false, true, true)");
+        assertFalse(BooleanUtils.and(
+                new Boolean[]{
+                        Boolean.FALSE,
+                        Boolean.TRUE,
+                        Boolean.TRUE})
+                .booleanValue(), "True result for (false, true, true)");
     }
 
     //  testOr
@@ -845,9 +805,7 @@ public class BooleanUtilsTest {
                 BooleanUtils.or(new boolean[] { true, true }),
                 "False result for (true, true)");
 
-        assertTrue(
-                ! BooleanUtils.or(new boolean[] { false, false }),
-                "True result for (false, false)");
+        assertFalse(BooleanUtils.or(new boolean[]{false, false}), "True result for (false, false)");
 
         assertTrue(
                 BooleanUtils.or(new boolean[] { true, false }),
@@ -876,9 +834,7 @@ public class BooleanUtilsTest {
                 BooleanUtils.or(new boolean[] { true, true, true }),
                 "False result for (true, true, true)");
 
-        assertTrue(
-                ! BooleanUtils.or(new boolean[] { false, false, false }),
-                "True result for (false, false)");
+        assertFalse(BooleanUtils.or(new boolean[]{false, false, false}), "True result for (false, false)");
 
         assertTrue(
                 BooleanUtils.or(new boolean[] { true, true, false }),
@@ -916,11 +872,9 @@ public class BooleanUtilsTest {
                     .booleanValue(),
                 "False result for (true, true)");
 
-        assertTrue(
-                ! BooleanUtils
-                    .or(new Boolean[] { Boolean.FALSE, Boolean.FALSE })
-                    .booleanValue(),
-                "True result for (false, false)");
+        assertFalse(BooleanUtils
+                .or(new Boolean[]{Boolean.FALSE, Boolean.FALSE})
+                .booleanValue(), "True result for (false, false)");
 
         assertTrue(
                 BooleanUtils
@@ -973,14 +927,12 @@ public class BooleanUtilsTest {
                     .booleanValue(),
                 "False result for (true, true, true)");
 
-        assertTrue(
-                ! BooleanUtils.or(
-                        new Boolean[] {
-                            Boolean.FALSE,
-                            Boolean.FALSE,
-                            Boolean.FALSE })
-                            .booleanValue(),
-                "True result for (false, false)");
+        assertFalse(BooleanUtils.or(
+                new Boolean[]{
+                        Boolean.FALSE,
+                        Boolean.FALSE,
+                        Boolean.FALSE})
+                .booleanValue(), "True result for (false, false)");
 
         assertTrue(
                 BooleanUtils.or(
