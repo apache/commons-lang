@@ -47,8 +47,8 @@ class LocksTest {
 			Thread.sleep(100);
 		}
 		final long endTime = System.currentTimeMillis();
-		for (int i = 0;  i < booleanValues.length;  i++) {
-			assertTrue(booleanValues[i]);
+		for (boolean booleanValue : booleanValues) {
+			assertTrue(booleanValue);
 		}
 		// If our threads would be running in exclusive mode, then we'd need
 		// at least DELAY milliseconds for each.
@@ -62,8 +62,8 @@ class LocksTest {
 	}
 	protected boolean someValueIsTrue(boolean[] booleanArray) {
 		synchronized(booleanArray) {
-			for (int i = 0;  i < booleanArray.length;  i++) {
-				if (booleanArray[i]) {
+			for (boolean b : booleanArray) {
+				if (b) {
 					return true;
 				}
 			}
