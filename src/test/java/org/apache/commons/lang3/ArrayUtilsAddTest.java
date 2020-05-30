@@ -179,14 +179,14 @@ public class ArrayUtilsAddTest {
         assertArrayEquals(new String[] { "d", "a", "b", "c" }, newArray);
         assertEquals(String.class, newArray.getClass().getComponentType());
 
-        Number[] numberArray1 = new Number[] { Integer.valueOf(1), Double.valueOf(2) };
-        newArray = ArrayUtils.addFirst(numberArray1, Float.valueOf(3));
-        assertArrayEquals(new Number[] { Float.valueOf(3), Integer.valueOf(1), Double.valueOf(2) }, newArray);
+        Number[] numberArray1 = new Number[] {1, 2d};
+        newArray = ArrayUtils.addFirst(numberArray1, 3f);
+        assertArrayEquals(new Number[] {3f, 1, 2d}, newArray);
         assertEquals(Number.class, newArray.getClass().getComponentType());
 
         numberArray1 = null;
-        newArray = ArrayUtils.addFirst(numberArray1, Float.valueOf(3));
-        assertArrayEquals(new Float[] { Float.valueOf(3) }, newArray);
+        newArray = ArrayUtils.addFirst(numberArray1, 3f);
+        assertArrayEquals(new Float[] {3f}, newArray);
         assertEquals(Float.class, newArray.getClass().getComponentType());
     }
 
@@ -356,14 +356,14 @@ public class ArrayUtilsAddTest {
         assertArrayEquals(new String[]{"a", "b", "c", "d"}, newArray);
         assertEquals(String.class, newArray.getClass().getComponentType());
 
-        Number[] numberArray1 = new Number[]{Integer.valueOf(1), Double.valueOf(2)};
-        newArray = ArrayUtils.add(numberArray1, Float.valueOf(3));
-        assertArrayEquals(new Number[]{Integer.valueOf(1), Double.valueOf(2), Float.valueOf(3)}, newArray);
+        Number[] numberArray1 = new Number[]{1, 2d};
+        newArray = ArrayUtils.add(numberArray1, 3f);
+        assertArrayEquals(new Number[]{1, 2d, 3f}, newArray);
         assertEquals(Number.class, newArray.getClass().getComponentType());
 
         numberArray1 = null;
-        newArray = ArrayUtils.add(numberArray1, Float.valueOf(3));
-        assertArrayEquals(new Float[]{Float.valueOf(3)}, newArray);
+        newArray = ArrayUtils.add(numberArray1, 3f);
+        assertArrayEquals(new Float[]{3f}, newArray);
         assertEquals(Float.class, newArray.getClass().getComponentType());
     }
 
@@ -655,12 +655,12 @@ public class ArrayUtilsAddTest {
     public void testJira567() {
         Number[] n;
         // Valid array construction
-        n = ArrayUtils.addAll(new Number[]{Integer.valueOf(1)}, new Long[]{Long.valueOf(2)});
+        n = ArrayUtils.addAll(new Number[]{1}, new Long[]{2L});
         assertEquals(2, n.length);
         assertEquals(Number.class, n.getClass().getComponentType());
         // Invalid - can't store Long in Integer array
         assertThrows(IllegalArgumentException.class,
-                () -> ArrayUtils.addAll(new Integer[]{Integer.valueOf(1)}, new Long[]{Long.valueOf(2)}));
+                () -> ArrayUtils.addAll(new Integer[]{1}, new Long[]{2L}));
     }
 
     @Test

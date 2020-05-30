@@ -80,7 +80,7 @@ public class ConstantInitializerTest {
     public void testEqualsTrue() {
         checkEquals(init, true);
         ConstantInitializer<Integer> init2 = new ConstantInitializer<>(
-                Integer.valueOf(VALUE.intValue()));
+                VALUE.intValue());
         checkEquals(init2, true);
         init = new ConstantInitializer<>(null);
         init2 = new ConstantInitializer<>(null);

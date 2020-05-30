@@ -220,7 +220,7 @@ public class BasicThreadFactory implements ThreadFactory {
     private void initializeThread(final Thread thread) {
 
         if (getNamingPattern() != null) {
-            final Long count = Long.valueOf(threadCounter.incrementAndGet());
+            final Long count = threadCounter.incrementAndGet();
             thread.setName(String.format(getNamingPattern(), count));
         }
 
@@ -310,7 +310,7 @@ public class BasicThreadFactory implements ThreadFactory {
          * @return a reference to this {@code Builder}
          */
         public Builder daemon(final boolean daemon) {
-            this.daemon = Boolean.valueOf(daemon);
+            this.daemon = daemon;
             return this;
         }
 
@@ -322,7 +322,7 @@ public class BasicThreadFactory implements ThreadFactory {
          * @return a reference to this {@code Builder}
          */
         public Builder priority(final int priority) {
-            this.priority = Integer.valueOf(priority);
+            this.priority = priority;
             return this;
         }
 

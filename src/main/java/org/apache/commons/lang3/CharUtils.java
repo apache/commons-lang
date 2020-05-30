@@ -92,7 +92,7 @@ public class CharUtils {
      */
     @Deprecated
     public static Character toCharacterObject(final char ch) {
-        return Character.valueOf(ch);
+        return ch;
     }
 
     /**
@@ -116,7 +116,7 @@ public class CharUtils {
         if (StringUtils.isEmpty(str)) {
             return null;
         }
-        return Character.valueOf(str.charAt(0));
+        return str.charAt(0);
     }
 
     //-----------------------------------------------------------------------

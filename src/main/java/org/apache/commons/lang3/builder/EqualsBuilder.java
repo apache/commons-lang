@@ -1123,7 +1123,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      */
     @Override
     public Boolean build() {
-        return Boolean.valueOf(isEquals());
+        return isEquals();
     }
 
     /**

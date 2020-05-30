@@ -124,9 +124,9 @@ public class EventUtilsTest {
         final EventCounter counter = new EventCounter();
         EventUtils.bindEventsToMethod(counter, "eventOccurred", src, MultipleEventListener.class, "event1");
         assertEquals(0, counter.getCount());
-        src.listeners.fire().event1(new PropertyChangeEvent(new Date(), "Day", Integer.valueOf(0), Integer.valueOf(1)));
+        src.listeners.fire().event1(new PropertyChangeEvent(new Date(), "Day", 0, 1));
         assertEquals(1, counter.getCount());
-        src.listeners.fire().event2(new PropertyChangeEvent(new Date(), "Day", Integer.valueOf(1), Integer.valueOf(2)));
+        src.listeners.fire().event2(new PropertyChangeEvent(new Date(), "Day", 1, 2));
         assertEquals(1, counter.getCount());
     }
 
@@ -179,9 +179,9 @@ public class EventUtilsTest {
         public Object invoke(final Object proxy, final Method method, final Object[] args) {
             final Integer count = eventCounts.get(method.getName());
             if (count == null) {
-                eventCounts.put(method.getName(), Integer.valueOf(1));
+                eventCounts.put(method.getName(), 1);
             } else {
-                eventCounts.put(method.getName(), Integer.valueOf(count.intValue() + 1));
+                eventCounts.put(method.getName(), count.intValue() + 1);
             }
             return null;
         }

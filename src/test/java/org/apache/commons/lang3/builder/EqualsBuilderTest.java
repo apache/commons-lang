@@ -1214,8 +1214,8 @@ public class EqualsBuilderTest {
      */
     @Test
     public void testNpeForNullElement() {
-        final Object[] x1 = new Object[]{Integer.valueOf(1), null, Integer.valueOf(3)};
-        final Object[] x2 = new Object[]{Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3)};
+        final Object[] x1 = new Object[]{1, null, 3};
+        final Object[] x2 = new Object[]{1, 2, 3};
 
         // causes an NPE in 2.0 according to:
         // https://issues.apache.org/bugzilla/show_bug.cgi?id=33067

@@ -1028,7 +1028,7 @@ public class CompareToBuilder implements Builder<Integer> {
      */
     @Override
     public Integer build() {
-        return Integer.valueOf(toComparison());
+        return toComparison();
     }
 }
 

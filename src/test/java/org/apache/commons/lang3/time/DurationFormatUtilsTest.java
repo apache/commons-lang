@@ -401,7 +401,7 @@ public class DurationFormatUtilsTest {
         assertNotEquals(token, new Object(), "Token equal to non-Token class. ");
         assertNotEquals(token, new DurationFormatUtils.Token(new Object()), "Token equal to Token with wrong value class. ");
         assertNotEquals(token, new DurationFormatUtils.Token(DurationFormatUtils.y, 1), "Token equal to Token with different count. ");
-        final DurationFormatUtils.Token numToken = new DurationFormatUtils.Token(Integer.valueOf(1), 4);
+        final DurationFormatUtils.Token numToken = new DurationFormatUtils.Token(1, 4);
         assertEquals(numToken, numToken, "Token with Number value not equal to itself. ");
     }
 

@@ -36,8 +36,8 @@ import org.junit.jupiter.api.Test;
 public class CharUtilsTest {
 
     private static final char CHAR_COPY = '\u00a9';
-    private static final Character CHARACTER_A = Character.valueOf('A');
-    private static final Character CHARACTER_B = Character.valueOf('B');
+    private static final Character CHARACTER_A = 'A';
+    private static final Character CHARACTER_B = 'B';
 
     @Test
     public void testCompare() {

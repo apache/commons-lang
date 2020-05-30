@@ -139,8 +139,8 @@ public class BooleanUtilsTest {
 
     @Test
     public void test_toBoolean_Integer_Integer_Integer() {
-        final Integer six = Integer.valueOf(6);
-        final Integer seven = Integer.valueOf(7);
+        final Integer six = 6;
+        final Integer seven = 7;
 
         assertTrue(BooleanUtils.toBoolean(null, null, seven));
         assertFalse(BooleanUtils.toBoolean(null, six, null));
@@ -152,7 +152,7 @@ public class BooleanUtilsTest {
     @Test
     public void test_toBoolean_Integer_Integer_Integer_nullValue() {
         assertThrows(IllegalArgumentException.class,
-                () -> BooleanUtils.toBoolean(null, Integer.valueOf(6), Integer.valueOf(7)));
+                () -> BooleanUtils.toBoolean(null, 6, 7));
     }
 
     @Test
@@ -176,9 +176,9 @@ public class BooleanUtilsTest {
 
     @Test
     public void test_toBooleanObject_Integer_Integer_Integer_Integer() {
-        final Integer six = Integer.valueOf(6);
-        final Integer seven = Integer.valueOf(7);
-        final Integer eight = Integer.valueOf(8);
+        final Integer six = 6;
+        final Integer seven = 7;
+        final Integer eight = 8;
 
         assertSame(Boolean.TRUE, BooleanUtils.toBooleanObject(null, null, seven, eight));
         assertSame(Boolean.FALSE, BooleanUtils.toBooleanObject(null, six, null, eight));
@@ -192,7 +192,7 @@ public class BooleanUtilsTest {
     @Test
     public void test_toBooleanObject_Integer_Integer_Integer_Integer_nullValue() {
         assertThrows(IllegalArgumentException.class,
-                () -> BooleanUtils.toBooleanObject(null, Integer.valueOf(6), Integer.valueOf(7), Integer.valueOf(8)));
+                () -> BooleanUtils.toBooleanObject(null, 6, 7, 8));
     }
 
     @Test
@@ -237,17 +237,17 @@ public class BooleanUtilsTest {
 
     @Test
     public void test_toIntegerObject_boolean_Integer_Integer() {
-        final Integer six = Integer.valueOf(6);
-        final Integer seven = Integer.valueOf(7);
+        final Integer six = 6;
+        final Integer seven = 7;
         assertEquals(six, BooleanUtils.toIntegerObject(true, six, seven));
         assertEquals(seven, BooleanUtils.toIntegerObject(false, six, seven));
     }
 
     @Test
     public void test_toIntegerObject_Boolean_Integer_Integer_Integer() {
-        final Integer six = Integer.valueOf(6);
-        final Integer seven = Integer.valueOf(7);
-        final Integer eight = Integer.valueOf(8);
+        final Integer six = 6;
+        final Integer seven = 7;
+        final Integer eight = 8;
         assertEquals(six, BooleanUtils.toIntegerObject(Boolean.TRUE, six, seven, eight));
         assertEquals(seven, BooleanUtils.toIntegerObject(Boolean.FALSE, six, seven, eight));
         assertEquals(eight, BooleanUtils.toIntegerObject(null, six, seven, eight));
