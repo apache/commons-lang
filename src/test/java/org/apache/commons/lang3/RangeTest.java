@@ -181,9 +181,7 @@ public class RangeTest {
 
     @Test
     public void testFitNull() {
-        assertThrows(NullPointerException.class, () -> {
-            intRange.fit(null);
-        });
+        assertThrows(NullPointerException.class, () -> intRange.fit(null));
     }
 
     @Test

@@ -177,12 +177,7 @@ public class EventUtilsTest {
 
         @Override
         public Object invoke(final Object proxy, final Method method, final Object[] args) {
-            final Integer count = eventCounts.get(method.getName());
-            if (count == null) {
-                eventCounts.put(method.getName(), 1);
-            } else {
-                eventCounts.put(method.getName(), count.intValue() + 1);
-            }
+            eventCounts.merge(method.getName(), 1, (a, b) -> a.intValue() + b);
             return null;
         }
     }
