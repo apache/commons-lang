@@ -79,7 +79,7 @@ public class HashSetvBitSetTest {
         final int[] result = new int[coll.size()];
         int i = 0;
         for (final Integer index : coll) {
-            result[i++] = index.intValue();
+            result[i++] = index;
         }
         return result;
     }

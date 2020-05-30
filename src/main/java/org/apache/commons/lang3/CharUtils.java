@@ -135,7 +135,7 @@ public class CharUtils {
      */
     public static char toChar(final Character ch) {
         Validate.notNull(ch, "The Character must not be null");
-        return ch.charValue();
+        return ch;
     }
 
     /**
@@ -155,7 +155,7 @@ public class CharUtils {
         if (ch == null) {
             return defaultValue;
         }
-        return ch.charValue();
+        return ch;
     }
 
     //-----------------------------------------------------------------------

@@ -9114,7 +9114,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final boolean[] result = new boolean[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].booleanValue();
+            result[i] = array[i];
         }
         return result;
     }
@@ -9137,7 +9137,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         final boolean[] result = new boolean[array.length];
         for (int i = 0; i < array.length; i++) {
             final Boolean b = array[i];
-            result[i] = (b == null ? valueForNull : b.booleanValue());
+            result[i] = (b == null ? valueForNull : b);
         }
         return result;
     }
@@ -9161,7 +9161,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final byte[] result = new byte[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].byteValue();
+            result[i] = array[i];
         }
         return result;
     }
@@ -9184,7 +9184,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         final byte[] result = new byte[array.length];
         for (int i = 0; i < array.length; i++) {
             final Byte b = array[i];
-            result[i] = (b == null ? valueForNull : b.byteValue());
+            result[i] = (b == null ? valueForNull : b);
         }
         return result;
     }
@@ -9208,7 +9208,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final char[] result = new char[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].charValue();
+            result[i] = array[i];
         }
         return result;
     }
@@ -9231,7 +9231,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         final char[] result = new char[array.length];
         for (int i = 0; i < array.length; i++) {
             final Character b = array[i];
-            result[i] = (b == null ? valueForNull : b.charValue());
+            result[i] = (b == null ? valueForNull : b);
         }
         return result;
     }
@@ -9255,7 +9255,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final double[] result = new double[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].doubleValue();
+            result[i] = array[i];
         }
         return result;
     }
@@ -9278,7 +9278,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         final double[] result = new double[array.length];
         for (int i = 0; i < array.length; i++) {
             final Double b = array[i];
-            result[i] = (b == null ? valueForNull : b.doubleValue());
+            result[i] = (b == null ? valueForNull : b);
         }
         return result;
     }
@@ -9302,7 +9302,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final float[] result = new float[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].floatValue();
+            result[i] = array[i];
         }
         return result;
     }
@@ -9325,7 +9325,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         final float[] result = new float[array.length];
         for (int i = 0; i < array.length; i++) {
             final Float b = array[i];
-            result[i] = (b == null ? valueForNull : b.floatValue());
+            result[i] = (b == null ? valueForNull : b);
         }
         return result;
     }
@@ -9349,7 +9349,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final int[] result = new int[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].intValue();
+            result[i] = array[i];
         }
         return result;
     }
@@ -9372,7 +9372,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         final int[] result = new int[array.length];
         for (int i = 0; i < array.length; i++) {
             final Integer b = array[i];
-            result[i] = (b == null ? valueForNull : b.intValue());
+            result[i] = (b == null ? valueForNull : b);
         }
         return result;
     }
@@ -9396,7 +9396,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final long[] result = new long[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].longValue();
+            result[i] = array[i];
         }
         return result;
     }
@@ -9419,7 +9419,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         final long[] result = new long[array.length];
         for (int i = 0; i < array.length; i++) {
             final Long b = array[i];
-            result[i] = (b == null ? valueForNull : b.longValue());
+            result[i] = (b == null ? valueForNull : b);
         }
         return result;
     }
@@ -9476,7 +9476,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final short[] result = new short[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].shortValue();
+            result[i] = array[i];
         }
         return result;
     }
@@ -9499,7 +9499,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         final short[] result = new short[array.length];
         for (int i = 0; i < array.length; i++) {
             final Short b = array[i];
-            result[i] = (b == null ? valueForNull : b.shortValue());
+            result[i] = (b == null ? valueForNull : b);
         }
         return result;
     }

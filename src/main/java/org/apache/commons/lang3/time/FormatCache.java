@@ -195,11 +195,11 @@ abstract class FormatCache<F extends Format> {
             try {
                 DateFormat formatter;
                 if (dateStyle == null) {
-                    formatter = DateFormat.getTimeInstance(timeStyle.intValue(), locale);
+                    formatter = DateFormat.getTimeInstance(timeStyle, locale);
                 } else if (timeStyle == null) {
-                    formatter = DateFormat.getDateInstance(dateStyle.intValue(), locale);
+                    formatter = DateFormat.getDateInstance(dateStyle, locale);
                 } else {
-                    formatter = DateFormat.getDateTimeInstance(dateStyle.intValue(), timeStyle.intValue(), locale);
+                    formatter = DateFormat.getDateTimeInstance(dateStyle, timeStyle, locale);
                 }
                 pattern = ((SimpleDateFormat) formatter).toPattern();
                 final String previous = cDateTimeInstanceCache.putIfAbsent(key, pattern);

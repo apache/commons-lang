@@ -718,7 +718,7 @@ public class FastDateParser implements DateParser, Serializable {
                 // match missing the optional trailing period
                 iVal = lKeyValues.get(lowerCase + '.');
             }
-            cal.set(field, iVal.intValue());
+            cal.set(field, iVal);
         }
     }
 

@@ -1605,7 +1605,7 @@ public abstract class ToStringStyle implements Serializable {
         if (fullDetailRequest == null) {
             return defaultFullDetail;
         }
-        return fullDetailRequest.booleanValue();
+        return fullDetailRequest;
     }
 
     /**

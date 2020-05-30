@@ -229,11 +229,11 @@ public class BasicThreadFactory implements ThreadFactory {
         }
 
         if (getPriority() != null) {
-            thread.setPriority(getPriority().intValue());
+            thread.setPriority(getPriority());
         }
 
         if (getDaemonFlag() != null) {
-            thread.setDaemon(getDaemonFlag().booleanValue());
+            thread.setDaemon(getDaemonFlag());
         }
     }
 

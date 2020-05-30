@@ -78,7 +78,7 @@ class StreamsTest {
     protected <T extends Throwable> FailableConsumer<String, T> asIntConsumer(final T pThrowable) {
         return s -> {
             final Integer i = Integer.valueOf(s);
-            if (i.intValue() == 4) {
+            if (i == 4) {
                 throw pThrowable;
             }
         };
@@ -119,7 +119,7 @@ class StreamsTest {
         final List<Integer> output = Functions.stream(input)
                 .map(s -> Integer.valueOf(s))
                 .filter(i -> {
-                    return i.intValue() %2 == 0;
+                    return i %2 == 0;
                 })
                 .collect(Collectors.toList());
         assertEvenNumbers(output);
@@ -134,7 +134,7 @@ class StreamsTest {
 
     protected <T extends Throwable> FailablePredicate<Integer, T> asIntPredicate(final T pThrowable) {
         return i -> {
-            if (i.intValue() == 5) {
+            if (i == 5) {
                 if (pThrowable != null) {
                     throw pThrowable;
                 }

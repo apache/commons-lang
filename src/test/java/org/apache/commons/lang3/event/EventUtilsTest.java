@@ -172,7 +172,7 @@ public class EventUtilsTest {
 
         public int getEventCount(final String eventName) {
             final Integer count = eventCounts.get(eventName);
-            return count == null ? 0 : count.intValue();
+            return count == null ? 0 : count;
         }
 
         @Override
