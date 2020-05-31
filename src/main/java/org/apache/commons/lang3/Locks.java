@@ -25,11 +25,11 @@ import org.apache.commons.lang3.Functions.FailableFunction;
 
 /** Utility class for working with {@link java.util.concurrent.locks.Lock locked objects}. Locked objects are an
  * alternative to synchronization.
- * 
+ *
  * Locking is preferable, if there is a distinction between read access (multiple threads may have read
  * access concurrently), and write access (only one thread may have write access at any given time.
  * In comparison, synchronization doesn't support read access, because synchronized access is exclusive.
- * 
+ *
  * Using this class is fairly straightforward:
  * <ol>
  *   <li>While still in single thread mode, create an instance of {@link Locks.Lock} by calling
@@ -54,7 +54,7 @@ import org.apache.commons.lang3.Functions.FailableFunction;
  *         PrintStream ps = new PrintStream(out);
  *         lock = Locks.lock(ps);
  *     }
- * 
+ *
  *     public void log(String message) {
  *         lock.runWriteLocked((ps) -&gt; ps.println(message));
  *     }
@@ -62,55 +62,55 @@ import org.apache.commons.lang3.Functions.FailableFunction;
  *     public void log(byte[] buffer) {
  *         lock.runWriteLocked((ps) -&gt; { ps.write(buffer); ps.println(); });
  *     }
- * </pre> 
+ * </pre>
  */
 public class Locks {
-	public static class Lock<O extends Object> {
-		private final O lockedObject;
-		private final StampedLock lock = new StampedLock();
+    public static class Lock<O extends Object> {
+        private final O lockedObject;
+        private final StampedLock lock = new StampedLock();
 
-		public Lock(O lockedObject) {
-			this.lockedObject = Objects.requireNonNull(lockedObject, "Locked Object");
-		}
+        public Lock(O lockedObject) {
+            this.lockedObject = Objects.requireNonNull(lockedObject, "Locked Object");
+        }
 
-		public void runReadLocked(FailableConsumer<O,?> consumer) {
-			runLocked(lock.readLock(), consumer);
-		}
+        public void runReadLocked(FailableConsumer<O, ?> consumer) {
+            runLocked(lock.readLock(), consumer);
+        }
 
-		public void runWriteLocked(FailableConsumer<O,?> consumer) {
-			runLocked(lock.writeLock(), consumer);
-		}
+        public void runWriteLocked(FailableConsumer<O, ?> consumer) {
+            runLocked(lock.writeLock(), consumer);
+        }
 
-		public <T> T callReadLocked(FailableFunction<O,T,?> function) {
-			return callLocked(lock.readLock(), function);
-		}
+        public <T> T callReadLocked(FailableFunction<O, T, ?> function) {
+            return callLocked(lock.readLock(), function);
+        }
 
-		public <T> T callWriteLocked(FailableFunction<O,T,?> function) {
-			return callLocked(lock.writeLock(), function);
-		}
+        public <T> T callWriteLocked(FailableFunction<O, T, ?> function) {
+            return callLocked(lock.writeLock(), function);
+        }
 
-		protected void runLocked(long stamp, FailableConsumer<O,?> consumer) {
-			try {
-				consumer.accept(lockedObject);
-			} catch (Throwable t) {
-				throw Functions.rethrow(t);
-			} finally {
-				lock.unlock(stamp);
-			}
-		}
+        protected void runLocked(long stamp, FailableConsumer<O, ?> consumer) {
+            try {
+                consumer.accept(lockedObject);
+            } catch (Throwable t) {
+                throw Functions.rethrow(t);
+            } finally {
+                lock.unlock(stamp);
+            }
+        }
 
-		protected <T> T callLocked(long stamp, FailableFunction<O,T,?> function) {
-			try {
-				return function.apply(lockedObject);
-			} catch (Throwable t) {
-				throw Functions.rethrow(t);
-			} finally {
-				lock.unlock(stamp);
-			}
-		}
-	}
+        protected <T> T callLocked(long stamp, FailableFunction<O, T, ?> function) {
+            try {
+                return function.apply(lockedObject);
+            } catch (Throwable t) {
+                throw Functions.rethrow(t);
+            } finally {
+                lock.unlock(stamp);
+            }
+        }
+    }
 
-	public static <O extends Object> Locks.Lock<O> lock(O object) {
-		return new Locks.Lock<O>(object);
-	}
+    public static <O extends Object> Locks.Lock<O> lock(O object) {
+        return new Locks.Lock<O>(object);
+    }
 }
