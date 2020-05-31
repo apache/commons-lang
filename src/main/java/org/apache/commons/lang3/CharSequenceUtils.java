@@ -328,17 +328,58 @@ public class CharSequenceUtils {
      * Green implementation of regionMatches.
      *
      * @param cs the {@code CharSequence} to be processed
-     * @param ignoreCase whether or not to be case insensitive
      * @param thisStart the index to start on the {@code cs} CharSequence
      * @param substring the {@code CharSequence} to be looked for
      * @param start the index to start on the {@code substring} CharSequence
      * @param length character length of the region
      * @return whether the region matched
      */
-    static boolean regionMatches(final CharSequence cs, final boolean ignoreCase, final int thisStart,
-            final CharSequence substring, final int start, final int length)    {
+    static boolean regionMatches(final CharSequence cs, final int thisStart,
+                                 final CharSequence substring, final int start, final int length)    {
         if (cs instanceof String && substring instanceof String) {
-            return ((String) cs).regionMatches(ignoreCase, thisStart, (String) substring, start, length);
+            return ((String) cs).regionMatches(thisStart, (String) substring, start, length);
+        }
+        int index1 = thisStart;
+        int index2 = start;
+        int tmpLen = length;
+
+        // Extract these first so we detect NPEs the same as the java.lang.String version
+        final int srcLen = cs.length() - thisStart;
+        final int otherLen = substring.length() - start;
+
+        // Check for invalid parameters
+        if (thisStart < 0 || start < 0 || length < 0) {
+            return false;
+        }
+
+        // Check that the regions are long enough
+        if (srcLen < length || otherLen < length) {
+            return false;
+        }
+
+        while (tmpLen-- > 0) {
+            if (cs.charAt(index1++) != substring.charAt(index2++)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Green implementation of regionMatches.
+     *
+     * @param cs the {@code CharSequence} to be processed
+     * @param thisStart the index to start on the {@code cs} CharSequence
+     * @param substring the {@code CharSequence} to be looked for
+     * @param start the index to start on the {@code substring} CharSequence
+     * @param length character length of the region
+     * @return whether the region matched
+     */
+    static boolean regionMatchesIgnoreCase(final CharSequence cs, final int thisStart,
+                                 final CharSequence substring, final int start, final int length)    {
+        if (cs instanceof String && substring instanceof String) {
+            return ((String) cs).regionMatches(true, thisStart, (String) substring, start, length);
         }
         int index1 = thisStart;
         int index2 = start;
@@ -366,10 +407,6 @@ public class CharSequenceUtils {
                 continue;
             }
 
-            if (!ignoreCase) {
-                return false;
-            }
-
             // The real same check as in String.regionMatches():
             final char u1 = Character.toUpperCase(c1);
             final char u2 = Character.toUpperCase(c2);
@@ -379,5 +416,25 @@ public class CharSequenceUtils {
         }
 
         return true;
+    }
+
+    /**
+     * Green implementation of regionMatches.
+     *
+     * @param cs the {@code CharSequence} to be processed
+     * @param ignoreCase whether or not to be case insensitive
+     * @param thisStart the index to start on the {@code cs} CharSequence
+     * @param substring the {@code CharSequence} to be looked for
+     * @param start the index to start on the {@code substring} CharSequence
+     * @param length character length of the region
+     * @return whether the region matched
+     */
+    static boolean regionMatches(final CharSequence cs, final boolean ignoreCase, final int thisStart,
+            final CharSequence substring, final int start, final int length)    {
+        if (!ignoreCase) {
+            return regionMatches(cs, thisStart, substring, start, length);
+        } else {
+            return regionMatchesIgnoreCase(cs, thisStart, substring, start, length);
+        }
     }
 }

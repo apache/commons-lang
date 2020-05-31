@@ -1241,7 +1241,7 @@ public class StringUtils {
         final int len = searchStr.length();
         final int max = str.length() - len;
         for (int i = 0; i <= max; i++) {
-            if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, len)) {
+            if (CharSequenceUtils.regionMatchesIgnoreCase(str, i, searchStr, 0, len)) {
                 return true;
             }
         }
@@ -1909,7 +1909,7 @@ public class StringUtils {
         if (cs1.length() != cs2.length()) {
             return false;
         }
-        return CharSequenceUtils.regionMatches(cs1, true, 0, cs2, 0, cs1.length());
+        return CharSequenceUtils.regionMatchesIgnoreCase(cs1, 0, cs2, 0, cs1.length());
     }
 
     /**
@@ -3165,7 +3165,7 @@ public class StringUtils {
             return startPos;
         }
         for (int i = startPos; i < endLimit; i++) {
-            if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, searchStr.length())) {
+            if (CharSequenceUtils.regionMatchesIgnoreCase(str, i, searchStr, 0, searchStr.length())) {
                 return i;
             }
         }
@@ -5168,7 +5168,7 @@ public class StringUtils {
         }
 
         for (int i = startPos; i >= 0; i--) {
-            if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, searchStrLength)) {
+            if (CharSequenceUtils.regionMatchesIgnoreCase(str, i, searchStr, 0, searchStrLength)) {
                 return i;
             }
         }
