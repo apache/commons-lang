@@ -266,22 +266,33 @@ public class CharSequenceUtils {
             start = len1 - len2;
         }
 
-        if (check(cs, searchChar, len2, start)) {
-            return start;
-        }
+        char char0 = searchChar.charAt(0);
 
-        for (int i = start - 1; i >= 0; i--) {
-            if (check(cs, searchChar, len2, i)) {
+        int i = start;
+        while (true) {
+            while (cs.charAt(i) != char0) {
+                i--;
+                if (i < 0) {
+                    return -1;
+                }
+            }
+            if (checkLaterThan1(cs, searchChar, len2, i)) {
                 return i;
+            } else {
+                i--;
+                if (i < 0) {
+                    return -1;
+                }
             }
         }
-
-        return -1;
     }
 
-    private static boolean check(final CharSequence cs, final CharSequence searchChar, int len2, int start1) {
-        for (int i = 0; i < len2; i++) {
-            if (cs.charAt(start1 + i) != searchChar.charAt(i)) {
+    private static boolean checkLaterThan1(final CharSequence cs, final CharSequence searchChar, int len2, int start1) {
+        for (int i = 1, j = len2 - 1; i <= j; i++, j--) {
+            if (cs.charAt(start1 + i) != searchChar.charAt(i)
+                    ||
+                    cs.charAt(start1 + j) != searchChar.charAt(j)
+            ) {
                 return false;
             }
         }

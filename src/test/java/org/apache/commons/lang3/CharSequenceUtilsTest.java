@@ -16,23 +16,14 @@
  */
 package org.apache.commons.lang3;
 
-import static java.nio.CharBuffer.wrap;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
-import java.nio.CharBuffer;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-import org.apache.commons.lang3.text.StrBuilder;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests CharSequenceUtils
@@ -258,7 +249,7 @@ public class CharSequenceUtilsTest {
 
     private void testNewLastIndexOfSingle(CharSequence a, CharSequence b) {
         int maxa = Math.max(a.length(), b.length());
-        for (int i = -maxa-10; i <= maxa+10; i++) {
+        for (int i = -maxa - 10; i <= maxa + 10; i++) {
             testNewLastIndexOfSingle(a, b, i);
         }
     }
@@ -269,14 +260,8 @@ public class CharSequenceUtilsTest {
     }
 
     private void testNewLastIndexOfSingleSingle(CharSequence a, CharSequence b, int start) {
-        int expected = a.toString().lastIndexOf(b.toString(), start);
-//        assertEquals(
-//                expected,
-//                lastIndexOf(new WrapperString(a), b, start),
-//                "testNewLastIndexOf fails! original : " + a + " seg : " + b + " start : " + start
-//        );
         assertEquals(
-                expected,
+                a.toString().lastIndexOf(b.toString(), start),
                 CharSequenceUtils.lastIndexOf(new WrapperString(a.toString()), b.toString(), start),
                 "testNewLastIndexOf fails! original : " + a + " seg : " + b + " start : " + start
         );
