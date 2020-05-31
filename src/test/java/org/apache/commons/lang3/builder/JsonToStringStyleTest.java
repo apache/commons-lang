@@ -16,17 +16,17 @@
  */
 package org.apache.commons.lang3.builder;
 
-import org.apache.commons.lang3.builder.ToStringStyleTest.Hobby;
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
-import org.apache.commons.lang3.builder.ToStringStyleTest.Student;
-import org.apache.commons.lang3.builder.ToStringStyleTest.Teacher;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -211,6 +211,38 @@ public class JsonToStringStyleTest {
 
         assertEquals(teacher.toString(), "{\"hobbies\":[\"BOOK\",\"SPORT\",\"MUSIC\"]}");
 
+    }
+
+    @Test
+    public void testCombineListAndEnum() {
+        Teacher teacher = new Teacher();
+
+        Hobby[] teacherHobbies = new Hobby[3];
+        teacherHobbies[0] = Hobby.BOOK;
+        teacherHobbies[1] = Hobby.SPORT;
+        teacherHobbies[2] = Hobby.MUSIC;
+
+        teacher.setHobbies(teacherHobbies);
+
+        Student john = new Student();
+        john.setHobbies(Arrays.asList(Hobby.BOOK, Hobby.MUSIC));
+
+        Student alice = new Student();
+        alice.setHobbies(new ArrayList<>());
+
+        Student bob = new Student();
+        bob.setHobbies(Collections.singletonList(Hobby.BOOK));
+
+        ArrayList<Student> students = new ArrayList<>();
+        students.add(john);
+        students.add(alice);
+        students.add(bob);
+
+        AcademyClass academyClass = new AcademyClass();
+        academyClass.setStudents(students);
+        academyClass.setTeacher(teacher);
+
+        assertEquals(academyClass.toString(), "{\"students\":[{\"hobbies\":[\"BOOK\",\"MUSIC\"]},{\"hobbies\":[]},{\"hobbies\":[\"BOOK\"]}],\"teacher\":{\"hobbies\":[\"BOOK\",\"SPORT\",\"MUSIC\"]}}");
     }
 
     @Test
@@ -508,5 +540,71 @@ public class JsonToStringStyleTest {
          * Test nested object field.
          */
         Person person;
+    }
+
+    enum Hobby {
+        SPORT,
+        BOOK,
+        MUSIC
+    }
+
+    static class Student {
+        List<Hobby> hobbies;
+
+        public List<Hobby> getHobbies() {
+            return hobbies;
+        }
+
+        public void setHobbies(List<Hobby> hobbies) {
+            this.hobbies = hobbies;
+        }
+
+        @Override
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this);
+        }
+    }
+
+    static class Teacher {
+        Hobby[] hobbies;
+
+        public Hobby[] getHobbies() {
+            return hobbies;
+        }
+
+        public void setHobbies(Hobby[] hobbies) {
+            this.hobbies = hobbies;
+        }
+
+        @Override
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this);
+        }
+    }
+
+    static class AcademyClass {
+        Teacher teacher;
+        List<Student> students;
+
+        public void setTeacher(Teacher teacher) {
+            this.teacher = teacher;
+        }
+
+        public void setStudents(List<Student> students) {
+            this.students = students;
+        }
+
+        public Teacher getTeacher() {
+            return teacher;
+        }
+
+        public List<Student> getStudents() {
+            return students;
+        }
+
+        @Override
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this);
+        }
     }
 }
