@@ -251,7 +251,15 @@ public class CharSequenceUtils {
      * @return the resulting char array
      */
     static char[] toCharArray(final CharSequence cs) {
-        return cs.toString().toCharArray();
+        if (cs instanceof String) {
+            return ((String) cs).toCharArray();
+        }
+        final int sz = cs.length();
+        final char[] array = new char[cs.length()];
+        for (int i = 0; i < sz; i++) {
+            array[i] = cs.charAt(i);
+        }
+        return array;
     }
 
     /**
