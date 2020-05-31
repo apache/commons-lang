@@ -216,6 +216,8 @@ public class CharSequenceUtils {
         return NOT_FOUND;
     }
 
+    static final int TO_STRING_LIMIT = 16;
+
     /**
      * Used by the lastIndexOf(CharSequence methods) as a green implementation of lastIndexOf
      *
@@ -224,24 +226,66 @@ public class CharSequenceUtils {
      * @param start the start index
      * @return the index where the search sequence was found
      */
-    static int lastIndexOf(final CharSequence cs, final CharSequence searchChar, final int start) {
-        if (cs instanceof String) {
-            return ((String) cs).lastIndexOf((String) searchChar, start);
-        } else if (cs instanceof StringBuilder) {
-            return ((StringBuilder) cs).lastIndexOf((String) searchChar, start);
-        } else if (cs instanceof StringBuffer) {
-            return ((StringBuffer) cs).lastIndexOf((String) searchChar, start);
+    static int lastIndexOf(final CharSequence cs, final CharSequence searchChar, int start) {
+        if (searchChar instanceof String) {
+            if (cs instanceof String) {
+                return ((String) cs).lastIndexOf((String) searchChar, start);
+            } else if (cs instanceof StringBuilder) {
+                return ((StringBuilder) cs).lastIndexOf((String) searchChar, start);
+            } else if (cs instanceof StringBuffer) {
+                return ((StringBuffer) cs).lastIndexOf((String) searchChar, start);
+            }
         }
-        return cs.toString().lastIndexOf(searchChar.toString(), start);
-//        if (cs instanceof String && searchChar instanceof String) {
-//            // TODO: Do we assume searchChar is usually relatively small;
-//            //       If so then calling toString() on it is better than reverting to
-//            //       the green implementation in the else block
-//            return ((String) cs).lastIndexOf((String) searchChar, start);
-//        } else {
-//            // TODO: Implement rather than convert to String
-//            return cs.toString().lastIndexOf(searchChar.toString(), start);
-//        }
+
+        int len1 = cs.length();
+        int len2 = searchChar.length();
+
+        if (start > len1) {
+            start = len1;
+        }
+
+        if (start < 0 || len2 < 0 || len2 > len1) {
+            return -1;
+        }
+
+        if (len2 == 0) {
+            return start;
+        }
+
+        if (len2 <= TO_STRING_LIMIT) {
+            if (cs instanceof String) {
+                return ((String) cs).lastIndexOf(searchChar.toString(), start);
+            } else if (cs instanceof StringBuilder) {
+                return ((StringBuilder) cs).lastIndexOf(searchChar.toString(), start);
+            } else if (cs instanceof StringBuffer) {
+                return ((StringBuffer) cs).lastIndexOf(searchChar.toString(), start);
+            }
+        }
+
+        if (start + len2 > len1) {
+            start = len1 - len2;
+        }
+
+        if (check(cs, searchChar, len2, start)) {
+            return start;
+        }
+
+        for (int i = start - 1; i >= 0; i--) {
+            if (check(cs, searchChar, len2, i)) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    private static boolean check(final CharSequence cs, final CharSequence searchChar, int len2, int start1) {
+        for (int i = 0; i < len2; i++) {
+            if (cs.charAt(start1 + i) != searchChar.charAt(i)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

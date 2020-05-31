@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import static java.nio.CharBuffer.wrap;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -26,7 +27,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.nio.CharBuffer;
+import java.util.Random;
+import java.util.stream.IntStream;
 
+import org.apache.commons.lang3.text.StrBuilder;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -186,4 +191,94 @@ public class CharSequenceUtilsTest {
         assertArrayEquals(expected, CharSequenceUtils.toCharArray(builder.toString()));
     }
 
+    static class WrapperString implements CharSequence {
+        CharSequence inner;
+
+        public WrapperString(CharSequence inner) {
+            this.inner = inner;
+        }
+
+        @Override
+        public int length() {
+            return inner.length();
+        }
+
+        @Override
+        public char charAt(int index) {
+            return inner.charAt(index);
+        }
+
+        @Override
+        public CharSequence subSequence(int start, int end) {
+            return inner.subSequence(start, end);
+        }
+
+        @Override
+        public String toString() {
+            return inner.toString();
+        }
+
+        @Override
+        public IntStream chars() {
+            return inner.chars();
+        }
+
+        @Override
+        public IntStream codePoints() {
+            return inner.codePoints();
+        }
+    }
+
+    @Test
+    public void testNewLastIndexOf() {
+        testNewLastIndexOfSingle("808087847-1321060740-635567660180086727-925755305", "-1321060740-635567660", 21);
+        testNewLastIndexOfSingle("", "");
+        testNewLastIndexOfSingle("1", "");
+        testNewLastIndexOfSingle("", "1");
+        testNewLastIndexOfSingle("1", "1");
+        testNewLastIndexOfSingle("11", "1");
+        testNewLastIndexOfSingle("1", "11");
+
+        Random random = new Random();
+        StringBuilder seg = new StringBuilder();
+        while (seg.length() <= CharSequenceUtils.TO_STRING_LIMIT) {
+            seg.append(random.nextInt());
+        }
+        StringBuilder original = new StringBuilder(seg);
+        testNewLastIndexOfSingle(original, seg);
+        for (int i = 0; i < 100; i++) {
+            if (random.nextDouble() < 0.5) {
+                original.append(random.nextInt() % 10);
+            } else {
+                original = new StringBuilder().append(String.valueOf(random.nextInt() % 100)).append(original);
+            }
+            testNewLastIndexOfSingle(original, seg);
+        }
+    }
+
+    private void testNewLastIndexOfSingle(CharSequence a, CharSequence b) {
+        int maxa = Math.max(a.length(), b.length());
+        for (int i = -maxa-10; i <= maxa+10; i++) {
+            testNewLastIndexOfSingle(a, b, i);
+        }
+    }
+
+    private void testNewLastIndexOfSingle(CharSequence a, CharSequence b, int start) {
+        testNewLastIndexOfSingleSingle(a, b, start);
+        testNewLastIndexOfSingleSingle(b, a, start);
+    }
+
+    private void testNewLastIndexOfSingleSingle(CharSequence a, CharSequence b, int start) {
+        int expected = a.toString().lastIndexOf(b.toString(), start);
+//        assertEquals(
+//                expected,
+//                lastIndexOf(new WrapperString(a), b, start),
+//                "testNewLastIndexOf fails! original : " + a + " seg : " + b + " start : " + start
+//        );
+        assertEquals(
+                expected,
+                CharSequenceUtils.lastIndexOf(new WrapperString(a.toString()), b.toString(), start),
+                "testNewLastIndexOf fails! original : " + a + " seg : " + b + " start : " + start
+        );
+    }
 }
