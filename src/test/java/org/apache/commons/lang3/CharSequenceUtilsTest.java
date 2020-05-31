@@ -191,7 +191,7 @@ public class CharSequenceUtilsTest {
     static class WrapperString implements CharSequence {
         private CharSequence inner;
 
-        public WrapperString(CharSequence inner) {
+        WrapperString(CharSequence inner) {
             this.inner = inner;
         }
 
