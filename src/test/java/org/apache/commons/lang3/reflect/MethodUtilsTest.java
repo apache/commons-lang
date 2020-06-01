@@ -934,7 +934,12 @@ public class MethodUtilsTest {
     }
 
     private Class<?>[] singletonArray(final Class<?> c) {
-        return classCache.computeIfAbsent(c, k -> new Class[]{c});
+        Class<?>[] result = classCache.get(c);
+        if (result == null) {
+            result = new Class[]{c};
+            classCache.put(c, result);
+        }
+        return result;
     }
 
     public static class InheritanceBean {
