@@ -16,20 +16,14 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests CharSequenceUtils
@@ -236,6 +230,13 @@ public class CharSequenceUtilsTest {
         testNewLastIndexOfSingle("11", "1");
         testNewLastIndexOfSingle("1", "11");
 
+        testNewLastIndexOfSingle("apache", "a");
+        testNewLastIndexOfSingle("apache", "p");
+        testNewLastIndexOfSingle("apache", "e");
+        testNewLastIndexOfSingle("apache", "x");
+        testNewLastIndexOfSingle("oraoraoraora", "r");
+        testNewLastIndexOfSingle("mudamudamudamuda", "d");
+
         Random random = new Random();
         StringBuilder seg = new StringBuilder();
         while (seg.length() <= CharSequenceUtils.TO_STRING_LIMIT) {
@@ -258,6 +259,8 @@ public class CharSequenceUtilsTest {
         for (int i = -maxa - 10; i <= maxa + 10; i++) {
             testNewLastIndexOfSingle(a, b, i);
         }
+        testNewLastIndexOfSingle(a, b, Integer.MIN_VALUE);
+        testNewLastIndexOfSingle(a, b, Integer.MAX_VALUE);
     }
 
     private void testNewLastIndexOfSingle(CharSequence a, CharSequence b, int start) {
