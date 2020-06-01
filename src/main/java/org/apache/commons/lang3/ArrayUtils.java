@@ -6487,7 +6487,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         if (array == null) {
             return;
         }
-        int i = startIndexInclusive < 0 ? 0 : startIndexInclusive;
+        int i = Math.max(startIndexInclusive, 0);
         int j = Math.min(array.length, endIndexExclusive) - 1;
         boolean tmp;
         while (j > i) {
@@ -6534,7 +6534,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         if (array == null) {
             return;
         }
-        int i = startIndexInclusive < 0 ? 0 : startIndexInclusive;
+        int i = Math.max(startIndexInclusive, 0);
         int j = Math.min(array.length, endIndexExclusive) - 1;
         byte tmp;
         while (j > i) {
@@ -6581,7 +6581,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         if (array == null) {
             return;
         }
-        int i = startIndexInclusive < 0 ? 0 : startIndexInclusive;
+        int i = Math.max(startIndexInclusive, 0);
         int j = Math.min(array.length, endIndexExclusive) - 1;
         char tmp;
         while (j > i) {
@@ -6628,7 +6628,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         if (array == null) {
             return;
         }
-        int i = startIndexInclusive < 0 ? 0 : startIndexInclusive;
+        int i = Math.max(startIndexInclusive, 0);
         int j = Math.min(array.length, endIndexExclusive) - 1;
         double tmp;
         while (j > i) {
@@ -6675,7 +6675,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         if (array == null) {
             return;
         }
-        int i = startIndexInclusive < 0 ? 0 : startIndexInclusive;
+        int i = Math.max(startIndexInclusive, 0);
         int j = Math.min(array.length, endIndexExclusive) - 1;
         float tmp;
         while (j > i) {
@@ -6722,7 +6722,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         if (array == null) {
             return;
         }
-        int i = startIndexInclusive < 0 ? 0 : startIndexInclusive;
+        int i = Math.max(startIndexInclusive, 0);
         int j = Math.min(array.length, endIndexExclusive) - 1;
         int tmp;
         while (j > i) {
@@ -6769,7 +6769,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         if (array == null) {
             return;
         }
-        int i = startIndexInclusive < 0 ? 0 : startIndexInclusive;
+        int i = Math.max(startIndexInclusive, 0);
         int j = Math.min(array.length, endIndexExclusive) - 1;
         long tmp;
         while (j > i) {
@@ -6820,7 +6820,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         if (array == null) {
             return;
         }
-        int i = startIndexInclusive < 0 ? 0 : startIndexInclusive;
+        int i = Math.max(startIndexInclusive, 0);
         int j = Math.min(array.length, endIndexExclusive) - 1;
         Object tmp;
         while (j > i) {
@@ -6867,7 +6867,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         if (array == null) {
             return;
         }
-        int i = startIndexInclusive < 0 ? 0 : startIndexInclusive;
+        int i = Math.max(startIndexInclusive, 0);
         int j = Math.min(array.length, endIndexExclusive) - 1;
         short tmp;
         while (j > i) {
