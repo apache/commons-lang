@@ -504,7 +504,6 @@ public class TypeUtilsTest<B> {
         assertEquals(Integer.class, typeVarAssigns.get(treeSetTypeVar),
                 "Type argument of Comparable from int: " + typeArg);
 
-        final Collection<Integer> col = Arrays.asList();
         typeVarAssigns = TypeUtils.getTypeArguments(List.class, Collection.class);
         treeSetTypeVar = Comparable.class.getTypeParameters()[0];
         assertFalse(typeVarAssigns.containsKey(treeSetTypeVar),
