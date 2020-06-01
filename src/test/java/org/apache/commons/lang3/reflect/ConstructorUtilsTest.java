@@ -276,12 +276,7 @@ public class ConstructorUtilsTest {
     }
 
     private Class<?>[] singletonArray(final Class<?> c) {
-        Class<?>[] result = classCache.get(c);
-        if (result == null) {
-            result = new Class[] { c };
-            classCache.put(c, result);
-        }
-        return result;
+        return classCache.computeIfAbsent(c, k -> new Class[]{c});
     }
 
     @Test
