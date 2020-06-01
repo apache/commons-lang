@@ -352,7 +352,7 @@ public class DateUtils {
      * If no parse patterns match, a ParseException is thrown.</p>
      *
      * @param str  the date to parse, not null
-     * @param locale the locale to use when interpretting the pattern, can be null in which
+     * @param locale the locale to use when interpreting the pattern, can be null in which
      * case the default system locale is used
      * @param parsePatterns  the date format patterns to use, see SimpleDateFormat, not null
      * @param lenient Specify whether or not date/time parsing is to be lenient.
@@ -1055,7 +1055,7 @@ public class DateUtils {
                     if (aField[0] == Calendar.DATE) {
                         //If we're going to drop the DATE field's value,
                         //  we want to do this our own way.
-                        //We need to subtrace 1 since the date has a minimum of 1
+                        //We need to subtract 1 since the date has a minimum of 1
                         offset = val.get(Calendar.DATE) - 1;
                         //If we're above 15 days adjustment, that means we're in the
                         //  bottom half of the month and should stay accordingly.

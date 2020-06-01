@@ -55,7 +55,7 @@ public class EventUtilsTest {
     @Test
     public void testAddEventListener() {
         final PropertyChangeSource src = new PropertyChangeSource();
-        final EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
+        final EventCountingInvocationHandler handler = new EventCountingInvocationHandler();
         final PropertyChangeListener listener = handler.createListener(PropertyChangeListener.class);
         assertEquals(0, handler.getEventCount("propertyChange"));
         EventUtils.addEventListener(src, PropertyChangeListener.class, listener);
@@ -67,7 +67,7 @@ public class EventUtilsTest {
     @Test
     public void testAddEventListenerWithNoAddMethod() {
         final PropertyChangeSource src = new PropertyChangeSource();
-        final EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
+        final EventCountingInvocationHandler handler = new EventCountingInvocationHandler();
         final ObjectChangeListener listener = handler.createListener(ObjectChangeListener.class);
         final IllegalArgumentException e =
                 assertThrows(IllegalArgumentException.class, () -> EventUtils.addEventListener(src, ObjectChangeListener.class, listener));
@@ -88,7 +88,7 @@ public class EventUtilsTest {
     @Test
     public void testAddEventListenerWithPrivateAddMethod() {
         final PropertyChangeSource src = new PropertyChangeSource();
-        final EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
+        final EventCountingInvocationHandler handler = new EventCountingInvocationHandler();
         final VetoableChangeListener listener = handler.createListener(VetoableChangeListener.class);
         final IllegalArgumentException e =
                 assertThrows(IllegalArgumentException.class, () -> EventUtils.addEventListener(src, VetoableChangeListener.class, listener));
@@ -161,7 +161,7 @@ public class EventUtilsTest {
     }
 
 
-    private static class EventCountingInvociationHandler implements InvocationHandler {
+    private static class EventCountingInvocationHandler implements InvocationHandler {
         private final Map<String, Integer> eventCounts = new TreeMap<>();
 
         public <L> L createListener(final Class<L> listenerType) {
