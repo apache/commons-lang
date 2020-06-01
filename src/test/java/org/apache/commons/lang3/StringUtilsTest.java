@@ -60,29 +60,29 @@ public class StringUtilsTest {
     static final String NON_TRIMMABLE;
 
     static {
-        String ws = "";
-        String nws = "";
+        StringBuilder ws = new StringBuilder();
+        StringBuilder nws = new StringBuilder();
         final String hs = String.valueOf(((char) 160));
-        String tr = "";
-        String ntr = "";
+        StringBuilder tr = new StringBuilder();
+        StringBuilder ntr = new StringBuilder();
         for (int i = 0; i < Character.MAX_VALUE; i++) {
             if (Character.isWhitespace((char) i)) {
-                ws += String.valueOf((char) i);
+                ws.append(String.valueOf((char) i));
                 if (i > 32) {
-                    ntr += String.valueOf((char) i);
+                    ntr.append(String.valueOf((char) i));
                 }
             } else if (i < 40) {
-                nws += String.valueOf((char) i);
+                nws.append(String.valueOf((char) i));
             }
         }
         for (int i = 0; i <= 32; i++) {
-            tr += String.valueOf((char) i);
+            tr.append(String.valueOf((char) i));
         }
-        WHITESPACE = ws;
-        NON_WHITESPACE = nws;
+        WHITESPACE = ws.toString();
+        NON_WHITESPACE = nws.toString();
         HARD_SPACE = hs;
-        TRIMMABLE = tr;
-        NON_TRIMMABLE = ntr;
+        TRIMMABLE = tr.toString();
+        NON_TRIMMABLE = ntr.toString();
     }
 
     private static final String[] ARRAY_LIST = {"foo", "bar", "baz"};
