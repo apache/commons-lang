@@ -76,7 +76,7 @@ public class StringUtilsEqualsIndexOfTest  {
 
         @Override
         public boolean equals(final Object obj) {
-            if (obj == null || !(obj instanceof CustomCharSequence)) {
+            if (!(obj instanceof CustomCharSequence)) {
                 return false;
             }
             final CustomCharSequence other = (CustomCharSequence) obj;
