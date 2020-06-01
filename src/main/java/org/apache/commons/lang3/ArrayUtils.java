@@ -3110,7 +3110,14 @@ public static int indexOf(final int[] array, final int valueToFind) {
     }
 
     /**
-     * Returns whether a given array can safely be accessed at the given index.
+     * <p>Returns whether a given array can safely be accessed at the given index.
+     *
+     * <pre>
+     * ArrayUtils.isArrayIndexValid(null, 0)       = false
+     * ArrayUtils.isArrayIndexValid([], 0)         = false
+     * ArrayUtils.isArrayIndexValid(["a"], 0)      = true
+     * </pre>
+     *
      * @param <T> the component type of the array
      * @param array the array to inspect, may be null
      * @param index the index of the array to be inspected
@@ -3118,11 +3125,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @since 3.8
      */
     public static <T> boolean isArrayIndexValid(final T[] array, final int index) {
-        if (getLength(array) == 0 || array.length <= index) {
-            return false;
-        }
-
-        return index >= 0;
+        return index >= 0 && getLength(array) > index;
     }
 
     /**
