@@ -984,8 +984,8 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Gets a combination of {@link ClassUtils#getAllSuperclasses}(Class)} and
-     * {@link ClassUtils#getAllInterfaces}(Class)}, one from superclasses, one
+     * <p>Gets a combination of {@link ClassUtils#getAllSuperclasses(Class)} and
+     * {@link ClassUtils#getAllInterfaces(Class)}, one from superclasses, one
      * from interfaces, and so on in a breadth first way.</p>
      *
      * @param cls  the class to look up, may be {@code null}

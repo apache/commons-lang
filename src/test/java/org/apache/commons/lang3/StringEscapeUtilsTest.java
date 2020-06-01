@@ -89,7 +89,7 @@ public class StringEscapeUtilsTest {
         final String expected = input;
         final String actual = StringEscapeUtils.escapeJava(input);
 
-        /**
+        /*
          * In 2.4 StringEscapeUtils.escapeJava(String) escapes '/' characters, which are not a valid character to escape
          * in a Java string.
          */
