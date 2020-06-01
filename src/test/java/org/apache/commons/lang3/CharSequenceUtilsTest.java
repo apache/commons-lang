@@ -271,7 +271,7 @@ public class CharSequenceUtilsTest {
     private void testNewLastIndexOfSingleSingle(CharSequence a, CharSequence b, int start) {
         assertEquals(
                 a.toString().lastIndexOf(b.toString(), start),
-                CharSequenceUtils.lastIndexOf(new WrapperString(a.toString()), b.toString(), start),
+                CharSequenceUtils.lastIndexOf(new WrapperString(a.toString()), new WrapperString(b.toString()), start),
                 "testNewLastIndexOf fails! original : " + a + " seg : " + b + " start : " + start
         );
     }
