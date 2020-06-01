@@ -284,7 +284,7 @@ public abstract class StrMatcher {
          *
          * @param chars  the characters to match, must not be null
          */
-        CharSetMatcher(final char chars[]) {
+        CharSetMatcher(final char[] chars) {
             super();
             this.chars = chars.clone();
             Arrays.sort(this.chars);
