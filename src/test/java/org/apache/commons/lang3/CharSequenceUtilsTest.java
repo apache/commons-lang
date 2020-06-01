@@ -31,8 +31,6 @@ import java.lang.reflect.Modifier;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * Tests CharSequenceUtils
  */
