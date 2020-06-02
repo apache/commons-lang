@@ -16,8 +16,8 @@
  */
 package org.apache.commons.lang3.builder;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ReflectionToStringBuilderTest {
@@ -28,4 +28,22 @@ public class ReflectionToStringBuilderTest {
             () -> new ReflectionToStringBuilder(null, ToStringStyle.DEFAULT_STYLE, new StringBuffer()));
     }
 
+
+    public static class TestJsonStyle{
+        private String a;
+        public void setA(String a){
+            this.a = a;
+        }
+        @Override
+        public String toString() {
+            return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
+        }
+    }
+
+    @Test
+    public void testJsonStyle() {
+        TestJsonStyle jsonStyle = new TestJsonStyle();
+        jsonStyle.setA("测试");
+        Assertions.assertEquals("{\"a\":\"测试\"}", jsonStyle.toString());
+    }
 }
