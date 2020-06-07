@@ -16,16 +16,16 @@
  */
 package org.apache.commons.lang3.builder;
 
-import org.apache.commons.lang3.ClassUtils;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.commons.lang3.StringUtils;
-
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Map;
 import java.util.WeakHashMap;
+
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * <p>Controls {@code String} formatting for {@link ToStringBuilder}.
