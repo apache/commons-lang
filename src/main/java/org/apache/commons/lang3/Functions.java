@@ -103,7 +103,7 @@ public class Functions {
     @FunctionalInterface
     public interface FailableFunction<I, O, T extends Throwable> {
         /**
-         * Apply the function.
+         * Applies this function.
          * @param input the input for the function
          * @return the result of the function
          * @throws T if the function fails
@@ -114,7 +114,7 @@ public class Functions {
     @FunctionalInterface
     public interface FailableBiFunction<I1, I2, O, T extends Throwable> {
         /**
-         * Apply the function.
+         * Applies this function.
          * @param input1 the first input for the function
          * @param input2 the second input for the function
          * @return the result of the function
