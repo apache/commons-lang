@@ -178,7 +178,7 @@ class FunctionsTest {
     @Test
     void testAsCallable() {
         FailureOnOddInvocations.invocation = 0;
-        final FailableCallable<FailureOnOddInvocations, SomeException> failableCallable = () -> new FailureOnOddInvocations();
+        final FailableCallable<FailureOnOddInvocations, SomeException> failableCallable = FailureOnOddInvocations::new;
         final Callable<FailureOnOddInvocations> callable = Functions.asCallable(failableCallable);
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, () ->  callable.call());
         final Throwable cause = e.getCause();
@@ -221,7 +221,7 @@ class FunctionsTest {
     void testAsConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable testable = new Testable(ise);
-        final Consumer<Testable> consumer = Functions.asConsumer(t -> t.test());
+        final Consumer<Testable> consumer = Functions.asConsumer(Testable::test);
         Throwable e = assertThrows(IllegalStateException.class, () -> consumer.accept(testable));
         assertSame(ise, e);
 

@@ -40,8 +40,7 @@ import org.apache.commons.lang3.Streams.FailableStream;
  * constructs like:
  *
  * <pre>
- * {
- *     &#64;code
+ * {@code
  *     Consumer<java.lang.reflect.Method> consumer = (m) -> {
  *         try {
  *             m.invoke(o, args);
@@ -504,8 +503,7 @@ public class Functions {
      * {@link Throwable} is rethrown. Example use:
      *
      * <pre>
-     * {
-     *     &#64;code
+     * {@code
      *     final FileInputStream fis = new FileInputStream("my.file");
      *     Functions.tryWithResources(useInputStream(fis), null, () -> fis.close());
      * }</pre>
@@ -566,8 +564,7 @@ public class Functions {
      * {@link Throwable} is rethrown. Example use:
      *
      * <pre>
-     * {
-     *     &#64;code
+     * {@code
      *     final FileInputStream fis = new FileInputStream("my.file");
      *     Functions.tryWithResources(useInputStream(fis), () -> fis.close());
      * }</pre>
