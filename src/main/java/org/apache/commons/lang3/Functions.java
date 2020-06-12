@@ -325,7 +325,7 @@ public class Functions {
 
     /**
      * A functional interface like {@link ObjDoubleConsumer} that declares a Throwable.
-     * 
+     *
      * @param <O> the type of the object argument to the operation.
      * @param <T> Thrown exception.
      * @since 3.11
