@@ -619,7 +619,7 @@
     <commons.japicmp.version>0.14.3</commons.japicmp.version>
 
     <!-- Commons Release Plugin -->
-    <commons.bc.version>3.9</commons.bc.version>
+    <commons.bc.version>3.10</commons.bc.version>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>
