@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -114,19 +115,29 @@ class FunctionsTest {
         }
     }
 
-    public static class Testable {
-        private Throwable t;
+    public static class Testable<T, P> {
+        private Throwable throwable;
+        private P acceptedPrimitiveObject;
+        private T acceptedObject;
 
-        Testable(final Throwable pTh) {
-            t = pTh;
+        Testable(final Throwable throwable) {
+            this.throwable = throwable;
+        }
+
+        public T getAcceptedObject() {
+            return acceptedObject;
+        }
+
+        public P getAcceptedPrimitiveObject() {
+            return acceptedPrimitiveObject;
         }
 
         public void setThrowable(final Throwable throwable) {
-            t = throwable;
+            this.throwable = throwable;
         }
 
         public void test() throws Throwable {
-            test(t);
+            test(throwable);
         }
 
         public void test(final Throwable throwable) throws Throwable {
@@ -136,7 +147,7 @@ class FunctionsTest {
         }
 
         public boolean testBooleanPrimitive() throws Throwable {
-            return testBooleanPrimitive(t);
+            return testBooleanPrimitive(throwable);
         }
 
         public boolean testBooleanPrimitive(final Throwable throwable) throws Throwable {
@@ -146,8 +157,13 @@ class FunctionsTest {
             return false;
         }
 
+        public void testDouble(double i) throws Throwable {
+            test(throwable);
+            acceptedPrimitiveObject = (P) ((Double) i);
+        }
+
         public double testDoublePrimitive() throws Throwable {
-            return testDoublePrimitive(t);
+            return testDoublePrimitive(throwable);
         }
 
         public double testDoublePrimitive(final Throwable throwable) throws Throwable {
@@ -157,8 +173,13 @@ class FunctionsTest {
             return 0;
         }
 
+        public void testInt(int i) throws Throwable {
+            test(throwable);
+            acceptedPrimitiveObject = (P) ((Integer) i);
+        }
+
         public Integer testInteger() throws Throwable {
-            return testInteger(t);
+            return testInteger(throwable);
         }
 
         public Integer testInteger(final Throwable throwable) throws Throwable {
@@ -169,7 +190,7 @@ class FunctionsTest {
         }
 
         public int testIntPrimitive() throws Throwable {
-            return testIntPrimitive(t);
+            return testIntPrimitive(throwable);
         }
 
         public int testIntPrimitive(final Throwable throwable) throws Throwable {
@@ -179,8 +200,13 @@ class FunctionsTest {
             return 0;
         }
 
+        public void testLong(long i) throws Throwable {
+            test(throwable);
+            acceptedPrimitiveObject = (P) ((Long) i);
+        }
+
         public long testLongPrimitive() throws Throwable {
-            return testLongPrimitive(t);
+            return testLongPrimitive(throwable);
         }
 
         public long testLongPrimitive(final Throwable throwable) throws Throwable {
@@ -189,12 +215,30 @@ class FunctionsTest {
             }
             return 0;
         }
+
+        public void testObjDouble(T object, double i) throws Throwable {
+            test(throwable);
+            acceptedObject = object;
+            acceptedPrimitiveObject = (P) ((Double) i);
+        }
+
+        public void testObjInt(T object, int i) throws Throwable {
+            test(throwable);
+            acceptedObject = object;
+            acceptedPrimitiveObject = (P) ((Integer) i);
+        }
+
+        public void testObjLong(T object, long i) throws Throwable {
+            test(throwable);
+            acceptedObject = object;
+            acceptedPrimitiveObject = (P) ((Long) i);
+        }
     }
 
     @Test
     void testAcceptBiConsumer() {
         final IllegalStateException ise = new IllegalStateException();
-        final Testable testable = new Testable(null);
+        final Testable<?, ?> testable = new Testable(null);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(Testable::test, testable, ise));
         assertSame(ise, e);
 
@@ -216,7 +260,7 @@ class FunctionsTest {
     @Test
     void testAcceptConsumer() {
         final IllegalStateException ise = new IllegalStateException();
-        final Testable testable = new Testable(ise);
+        final Testable<?, ?> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(Testable::test, testable));
         assertSame(ise, e);
 
@@ -237,9 +281,183 @@ class FunctionsTest {
     }
 
     @Test
+    void testAcceptDoubleConsumer() {
+        final IllegalStateException ise = new IllegalStateException();
+        final Testable<?, Double> testable = new Testable<>(ise);
+        Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testDouble, 1d));
+        assertSame(ise, e);
+        assertNull(testable.getAcceptedPrimitiveObject());
+
+        final Error error = new OutOfMemoryError();
+        testable.setThrowable(error);
+        e = assertThrows(OutOfMemoryError.class, () -> Functions.accept(testable::testDouble, 1d));
+        assertSame(error, e);
+        assertNull(testable.getAcceptedPrimitiveObject());
+
+        final IOException ioe = new IOException("Unknown I/O error");
+        testable.setThrowable(ioe);
+        e = assertThrows(UncheckedIOException.class, () -> Functions.accept(testable::testDouble, 1d));
+        final Throwable t = e.getCause();
+        assertNotNull(t);
+        assertSame(ioe, t);
+        assertNull(testable.getAcceptedPrimitiveObject());
+
+        testable.setThrowable(null);
+        Functions.accept(testable::testDouble, 1d);
+        assertEquals(1, testable.getAcceptedPrimitiveObject());
+    }
+
+    @Test
+    void testAcceptIntConsumer() {
+        final IllegalStateException ise = new IllegalStateException();
+        final Testable<?, Integer> testable = new Testable<>(ise);
+        Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testInt, 1));
+        assertSame(ise, e);
+        assertNull(testable.getAcceptedPrimitiveObject());
+
+        final Error error = new OutOfMemoryError();
+        testable.setThrowable(error);
+        e = assertThrows(OutOfMemoryError.class, () -> Functions.accept(testable::testInt, 1));
+        assertSame(error, e);
+        assertNull(testable.getAcceptedPrimitiveObject());
+
+        final IOException ioe = new IOException("Unknown I/O error");
+        testable.setThrowable(ioe);
+        e = assertThrows(UncheckedIOException.class, () -> Functions.accept(testable::testInt, 1));
+        final Throwable t = e.getCause();
+        assertNotNull(t);
+        assertSame(ioe, t);
+        assertNull(testable.getAcceptedPrimitiveObject());
+
+        testable.setThrowable(null);
+        Functions.accept(testable::testInt, 1);
+        assertEquals(1, testable.getAcceptedPrimitiveObject());
+    }
+
+    @Test
+    void testAcceptLongConsumer() {
+        final IllegalStateException ise = new IllegalStateException();
+        final Testable<?, Long> testable = new Testable<>(ise);
+        Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testLong, 1L));
+        assertSame(ise, e);
+        assertNull(testable.getAcceptedPrimitiveObject());
+
+        final Error error = new OutOfMemoryError();
+        testable.setThrowable(error);
+        e = assertThrows(OutOfMemoryError.class, () -> Functions.accept(testable::testLong, 1L));
+        assertSame(error, e);
+        assertNull(testable.getAcceptedPrimitiveObject());
+
+        final IOException ioe = new IOException("Unknown I/O error");
+        testable.setThrowable(ioe);
+        e = assertThrows(UncheckedIOException.class, () -> Functions.accept(testable::testLong, 1L));
+        final Throwable t = e.getCause();
+        assertNotNull(t);
+        assertSame(ioe, t);
+        assertNull(testable.getAcceptedPrimitiveObject());
+
+        testable.setThrowable(null);
+        Functions.accept(testable::testLong, 1L);
+        assertEquals(1, testable.getAcceptedPrimitiveObject());
+    }
+
+    @Test
+    void testAcceptObjDoubleConsumer() {
+        final IllegalStateException ise = new IllegalStateException();
+        final Testable<String, Double> testable = new Testable<>(ise);
+        Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testObjDouble, "X", 1d));
+        assertSame(ise, e);
+        assertNull(testable.getAcceptedObject());
+        assertNull(testable.getAcceptedPrimitiveObject());
+
+        final Error error = new OutOfMemoryError();
+        testable.setThrowable(error);
+        e = assertThrows(OutOfMemoryError.class, () -> Functions.accept(testable::testObjDouble, "X", 1d));
+        assertSame(error, e);
+        assertNull(testable.getAcceptedObject());
+        assertNull(testable.getAcceptedPrimitiveObject());
+
+        final IOException ioe = new IOException("Unknown I/O error");
+        testable.setThrowable(ioe);
+        e = assertThrows(UncheckedIOException.class, () -> Functions.accept(testable::testObjDouble, "X", 1d));
+        final Throwable t = e.getCause();
+        assertNotNull(t);
+        assertSame(ioe, t);
+        assertNull(testable.getAcceptedObject());
+        assertNull(testable.getAcceptedPrimitiveObject());
+
+        testable.setThrowable(null);
+        Functions.accept(testable::testObjDouble, "X", 1d);
+        assertEquals("X", testable.getAcceptedObject());
+        assertEquals(1d, testable.getAcceptedPrimitiveObject());
+    }
+
+    @Test
+    void testAcceptObjIntConsumer() {
+        final IllegalStateException ise = new IllegalStateException();
+        final Testable<String, Integer> testable = new Testable<>(ise);
+        Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testObjInt, "X", 1));
+        assertSame(ise, e);
+        assertNull(testable.getAcceptedObject());
+        assertNull(testable.getAcceptedPrimitiveObject());
+
+        final Error error = new OutOfMemoryError();
+        testable.setThrowable(error);
+        e = assertThrows(OutOfMemoryError.class, () -> Functions.accept(testable::testObjInt, "X", 1));
+        assertSame(error, e);
+        assertNull(testable.getAcceptedObject());
+        assertNull(testable.getAcceptedPrimitiveObject());
+
+        final IOException ioe = new IOException("Unknown I/O error");
+        testable.setThrowable(ioe);
+        e = assertThrows(UncheckedIOException.class, () -> Functions.accept(testable::testObjInt, "X", 1));
+        final Throwable t = e.getCause();
+        assertNotNull(t);
+        assertSame(ioe, t);
+        assertNull(testable.getAcceptedObject());
+        assertNull(testable.getAcceptedPrimitiveObject());
+
+        testable.setThrowable(null);
+        Functions.accept(testable::testObjInt, "X", 1);
+        assertEquals("X", testable.getAcceptedObject());
+        assertEquals(1, testable.getAcceptedPrimitiveObject());
+    }
+
+    @Test
+    void testAcceptObjLongConsumer() {
+        final IllegalStateException ise = new IllegalStateException();
+        final Testable<String, Long> testable = new Testable<>(ise);
+        Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testObjLong, "X", 1L));
+        assertSame(ise, e);
+        assertNull(testable.getAcceptedObject());
+        assertNull(testable.getAcceptedPrimitiveObject());
+
+        final Error error = new OutOfMemoryError();
+        testable.setThrowable(error);
+        e = assertThrows(OutOfMemoryError.class, () -> Functions.accept(testable::testObjLong, "X", 1L));
+        assertSame(error, e);
+        assertNull(testable.getAcceptedObject());
+        assertNull(testable.getAcceptedPrimitiveObject());
+
+        final IOException ioe = new IOException("Unknown I/O error");
+        testable.setThrowable(ioe);
+        e = assertThrows(UncheckedIOException.class, () -> Functions.accept(testable::testObjLong, "X", 1L));
+        final Throwable t = e.getCause();
+        assertNotNull(t);
+        assertSame(ioe, t);
+        assertNull(testable.getAcceptedObject());
+        assertNull(testable.getAcceptedPrimitiveObject());
+
+        testable.setThrowable(null);
+        Functions.accept(testable::testObjLong, "X", 1L);
+        assertEquals("X", testable.getAcceptedObject());
+        assertEquals(1L, testable.getAcceptedPrimitiveObject());
+    }
+
+    @Test
     public void testApplyBiFunction() {
         final IllegalStateException ise = new IllegalStateException();
-        final Testable testable = new Testable(null);
+        final Testable<?, ?> testable = new Testable(null);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.apply(Testable::testInteger, testable, ise));
         assertSame(ise, e);
 
@@ -261,7 +479,7 @@ class FunctionsTest {
     @Test
     public void testApplyFunction() {
         final IllegalStateException ise = new IllegalStateException();
-        final Testable testable = new Testable(ise);
+        final Testable<?, ?> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.apply(Testable::testInteger, testable));
         assertSame(ise, e);
 
@@ -286,7 +504,7 @@ class FunctionsTest {
     @Test
     void testAsBiConsumer() {
         final IllegalStateException ise = new IllegalStateException();
-        final Testable testable = new Testable(null);
+        final Testable<?, ?> testable = new Testable(null);
         final FailableBiConsumer<Testable, Throwable, Throwable> failableBiConsumer = (t, th) -> {
             t.setThrowable(th); t.test();
         };
@@ -311,7 +529,7 @@ class FunctionsTest {
     @Test
     public void testAsBiFunction() {
         final IllegalStateException ise = new IllegalStateException();
-        final Testable testable = new Testable(ise);
+        final Testable<?, ?> testable = new Testable<>(ise);
         final FailableBiFunction<Testable, Throwable, Integer, Throwable> failableBiFunction = (t, th) -> {
             t.setThrowable(th);
             return Integer.valueOf(t.testInteger());
@@ -372,7 +590,7 @@ class FunctionsTest {
     @Test
     void testAsConsumer() {
         final IllegalStateException ise = new IllegalStateException();
-        final Testable testable = new Testable(ise);
+        final Testable<?, ?> testable = new Testable<>(ise);
         final Consumer<Testable> consumer = Functions.asConsumer(Testable::test);
         Throwable e = assertThrows(IllegalStateException.class, () -> consumer.accept(testable));
         assertSame(ise, e);
@@ -396,7 +614,7 @@ class FunctionsTest {
     @Test
     public void testAsFunction() {
         final IllegalStateException ise = new IllegalStateException();
-        final Testable testable = new Testable(ise);
+        final Testable<?, ?> testable = new Testable<>(ise);
         final FailableFunction<Throwable, Integer, Throwable> failableFunction = th -> {
             testable.setThrowable(th);
             return Integer.valueOf(testable.testInteger());
@@ -477,7 +695,7 @@ class FunctionsTest {
     @Test
     public void testGetAsBooleanSupplier() {
         final IllegalStateException ise = new IllegalStateException();
-        final Testable testable = new Testable(ise);
+        final Testable<?, ?> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.getAsBoolean(testable::testBooleanPrimitive));
         assertSame(ise, e);
 
@@ -500,7 +718,7 @@ class FunctionsTest {
     @Test
     public void testGetAsDoubleSupplier() {
         final IllegalStateException ise = new IllegalStateException();
-        final Testable testable = new Testable(ise);
+        final Testable<?, ?> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.getAsDouble(testable::testDoublePrimitive));
         assertSame(ise, e);
 
@@ -523,7 +741,7 @@ class FunctionsTest {
     @Test
     public void testGetAsIntSupplier() {
         final IllegalStateException ise = new IllegalStateException();
-        final Testable testable = new Testable(ise);
+        final Testable<?, ?> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.getAsInt(testable::testIntPrimitive));
         assertSame(ise, e);
 
@@ -547,7 +765,7 @@ class FunctionsTest {
     @Test
     public void testGetAsLongSupplier() {
         final IllegalStateException ise = new IllegalStateException();
-        final Testable testable = new Testable(ise);
+        final Testable<?, ?> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.getAsLong(testable::testLongPrimitive));
         assertSame(ise, e);
 
@@ -583,7 +801,7 @@ class FunctionsTest {
     @Test
     public void testGetSupplier() {
         final IllegalStateException ise = new IllegalStateException();
-        final Testable testable = new Testable(ise);
+        final Testable<?, ?> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.get(testable::testInteger));
         assertSame(ise, e);
 

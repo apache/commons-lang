@@ -27,10 +27,16 @@ import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
+import java.util.function.DoubleConsumer;
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
+import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
+import java.util.function.LongConsumer;
 import java.util.function.LongSupplier;
+import java.util.function.ObjDoubleConsumer;
+import java.util.function.ObjIntConsumer;
+import java.util.function.ObjLongConsumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -180,7 +186,6 @@ public class Functions {
     @FunctionalInterface
     public interface FailableConsumer<O, T extends Throwable> {
 
-
         /**
          * Accepts the consumer.
          *
@@ -188,6 +193,24 @@ public class Functions {
          * @throws T if the consumer fails
          */
         void accept(O object) throws T;
+    }
+
+    /**
+     * A functional interface like {@link DoubleConsumer} that declares a Throwable.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableDoubleConsumer<T extends Throwable> {
+
+        /**
+         * Accepts the consumer.
+         *
+         * @param value the parameter for the consumable to accept
+         * @throws T if the consumer fails
+         */
+        void accept(double value) throws T;
     }
 
     /**
@@ -229,6 +252,24 @@ public class Functions {
     }
 
     /**
+     * A functional interface like {@link IntConsumer} that declares a Throwable.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableIntConsumer<T extends Throwable> {
+
+        /**
+         * Accepts the consumer.
+         *
+         * @param value the parameter for the consumable to accept
+         * @throws T if the consumer fails
+         */
+        void accept(int value) throws T;
+    }
+
+    /**
      * A functional interface like {@link IntSupplier} that declares a Throwable.
      *
      * @param <T> Thrown exception.
@@ -247,6 +288,24 @@ public class Functions {
     }
 
     /**
+     * A functional interface like {@link LongConsumer} that declares a Throwable.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableLongConsumer<T extends Throwable> {
+
+        /**
+         * Accepts the consumer.
+         *
+         * @param object the parameter for the consumable to accept
+         * @throws T if the consumer fails
+         */
+        void accept(long object) throws T;
+    }
+
+    /**
      * A functional interface like {@link LongSupplier} that declares a Throwable.
      *
      * @param <T> Thrown exception.
@@ -262,6 +321,66 @@ public class Functions {
          * @throws T if the supplier fails
          */
         long getAsLong() throws T;
+    }
+
+    /**
+     * A functional interface like {@link ObjDoubleConsumer} that declares a Throwable.
+     * 
+     * @param <O> the type of the object argument to the operation.
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableObjDoubleConsumer<O, T extends Throwable> {
+
+        /**
+         * Accepts the consumer.
+         *
+         * @param object the object parameter for the consumable to accept.
+         * @param value  the double parameter for the consumable to accept.
+         * @throws T if the consumer fails
+         */
+        void accept(O object, double value) throws T;
+    }
+
+    /**
+     * A functional interface like {@link ObjIntConsumer} that declares a Throwable.
+     *
+     * @param <O> the type of the object argument to the operation.
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableObjIntConsumer<O, T extends Throwable> {
+
+        /**
+         * Accepts the consumer.
+         *
+         * @param object the object parameter for the consumable to accept.
+         * @param value  the int parameter for the consumable to accept.
+         * @throws T if the consumer fails
+         */
+        void accept(O object, int value) throws T;
+    }
+
+    /**
+     * A functional interface like {@link ObjLongConsumer} that declares a Throwable.
+     *
+     * @param <O> the type of the object argument to the operation.
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableObjLongConsumer<O, T extends Throwable> {
+
+        /**
+         * Accepts the consumer.
+         *
+         * @param object the object parameter for the consumable to accept.
+         * @param value  the long parameter for the consumable to accept.
+         * @throws T if the consumer fails
+         */
+        void accept(O object, long value) throws T;
     }
 
     /**
@@ -342,6 +461,42 @@ public class Functions {
      */
     public static <O, T extends Throwable> void accept(final FailableConsumer<O, T> consumer, final O object) {
         run(() -> consumer.accept(object));
+    }
+
+    /**
+     * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
+     *
+     * @param consumer the consumer to consume
+     * @param value the value to consume by {@code consumer}
+     * @param <T> the type of checked exception the consumer may throw
+     * @since 3.11
+     */
+    public static <T extends Throwable> void accept(final FailableDoubleConsumer<T> consumer, final double value) {
+        run(() -> consumer.accept(value));
+    }
+
+    /**
+     * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
+     *
+     * @param consumer the consumer to consume
+     * @param value the value to consume by {@code consumer}
+     * @param <T> the type of checked exception the consumer may throw
+     * @since 3.11
+     */
+    public static <T extends Throwable> void accept(final FailableIntConsumer<T> consumer, final int value) {
+        run(() -> consumer.accept(value));
+    }
+
+    /**
+     * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
+     *
+     * @param consumer the consumer to consume
+     * @param value the value to consume by {@code consumer}
+     * @param <T> the type of checked exception the consumer may throw
+     * @since 3.11
+     */
+    public static <T extends Throwable> void accept(final FailableLongConsumer<T> consumer, final long value) {
+        run(() -> consumer.accept(value));
     }
 
     /**
