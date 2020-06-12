@@ -136,6 +136,24 @@ public class Functions {
     }
 
     /**
+     * A functional interface like {@link BooleanSupplier} that declares a Throwable.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableBooleanSupplier<T extends Throwable> {
+
+        /**
+         * Supplies a boolean.
+         *
+         * @return a result
+         * @throws T if the supplier fails
+         */
+        boolean getAsBoolean() throws T;
+    }
+
+    /**
      * A functional interface like {@link java.util.concurrent.Callable} that declares a Throwable.
      *
      * @param <R> Return type.
@@ -173,6 +191,24 @@ public class Functions {
     }
 
     /**
+     * A functional interface like {@link DoubleSupplier} that declares a Throwable.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableDoubleSupplier<T extends Throwable> {
+
+        /**
+         * Supplies a double.
+         *
+         * @return a result
+         * @throws T if the supplier fails
+         */
+        double getAsDouble() throws T;
+    }
+
+    /**
      * A functional interface like {@link Function} that declares a Throwable.
      *
      * @param <I> Input type 1.
@@ -190,6 +226,42 @@ public class Functions {
          * @throws T if the function fails
          */
         R apply(I input) throws T;
+    }
+
+    /**
+     * A functional interface like {@link IntSupplier} that declares a Throwable.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableIntSupplier<T extends Throwable> {
+
+        /**
+         * Supplies an int.
+         *
+         * @return a result
+         * @throws T if the supplier fails
+         */
+        int getAsInt() throws T;
+    }
+
+    /**
+     * A functional interface like {@link LongSupplier} that declares a Throwable.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableLongSupplier<T extends Throwable> {
+
+        /**
+         * Supplies a long.
+         *
+         * @return a result
+         * @throws T if the supplier fails
+         */
+        long getAsLong() throws T;
     }
 
     /**
@@ -243,78 +315,6 @@ public class Functions {
          * @throws T if the supplier fails
          */
         R get() throws T;
-    }
-
-    /**
-     * A functional interface like {@link BooleanSupplier} that declares a Throwable.
-     *
-     * @param <T> Thrown exception.
-     * @since 3.11
-     */
-    @FunctionalInterface
-    public interface FailableBooleanSupplier<T extends Throwable> {
-
-        /**
-         * Supplies a boolean.
-         *
-         * @return a result
-         * @throws T if the supplier fails
-         */
-        boolean getAsBoolean() throws T;
-    }
-
-    /**
-     * A functional interface like {@link DoubleSupplier} that declares a Throwable.
-     *
-     * @param <T> Thrown exception.
-     * @since 3.11
-     */
-    @FunctionalInterface
-    public interface FailableDoubleSupplier<T extends Throwable> {
-
-        /**
-         * Supplies a double.
-         *
-         * @return a result
-         * @throws T if the supplier fails
-         */
-        double getAsDouble() throws T;
-    }
-
-    /**
-     * A functional interface like {@link IntSupplier} that declares a Throwable.
-     *
-     * @param <T> Thrown exception.
-     * @since 3.11
-     */
-    @FunctionalInterface
-    public interface FailableIntSupplier<T extends Throwable> {
-
-        /**
-         * Supplies an int.
-         *
-         * @return a result
-         * @throws T if the supplier fails
-         */
-        int getAsInt() throws T;
-    }
-
-    /**
-     * A functional interface like {@link LongSupplier} that declares a Throwable.
-     *
-     * @param <T> Thrown exception.
-     * @since 3.11
-     */
-    @FunctionalInterface
-    public interface FailableLongSupplier<T extends Throwable> {
-
-        /**
-         * Supplies a long.
-         *
-         * @return a result
-         * @throws T if the supplier fails
-         */
-        long getAsLong() throws T;
     }
 
     /**
