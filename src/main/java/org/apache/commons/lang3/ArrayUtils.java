@@ -101,13 +101,6 @@ public class ArrayUtils {
     public static final Field[] EMPTY_FIELD_ARRAY = new Field[0];
 
     /**
-     * An empty immutable {@code Method} array.
-     *
-     * @since 3.10
-     */
-    public static final Method[] EMPTY_METHOD_ARRAY = new Method[0];
-
-    /**
      * An empty immutable {@code float} array.
      */
     public static final float[] EMPTY_FLOAT_ARRAY = new float[0];
@@ -136,6 +129,13 @@ public class ArrayUtils {
      * An empty immutable {@code Long} array.
      */
     public static final Long[] EMPTY_LONG_OBJECT_ARRAY = new Long[0];
+
+    /**
+     * An empty immutable {@code Method} array.
+     *
+     * @since 3.10
+     */
+    public static final Method[] EMPTY_METHOD_ARRAY = new Method[0];
 
     /**
      * An empty immutable {@code Object} array.
