@@ -1678,7 +1678,7 @@ public class ArrayUtils {
      * @return the nTh element of an array or a default value if the index is out of bounds.
      * @since 3.11
      */
-    public static <T> T get(final T[] array, final int index, T defaultValue) {
+    public static <T> T get(final T[] array, final int index, final T defaultValue) {
         if (array == null) {
             return defaultValue;
         }
