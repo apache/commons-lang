@@ -68,6 +68,13 @@ import org.apache.commons.lang3.Streams.FailableStream;
  */
 public class Functions {
 
+    /**
+     * A functional interface like {@link BiConsumer} that declares a Throwable.
+     *
+     * @param <O1> Consumed type 1.
+     * @param <O2> Consumed type 2.
+     * @param <T> Thrown exception.
+     */
     @FunctionalInterface
     public interface FailableBiConsumer<O1, O2, T extends Throwable> {
 
@@ -81,8 +88,16 @@ public class Functions {
         void accept(O1 object1, O2 object2) throws T;
     }
 
+    /**
+     * A functional interface like {@link BiFunction} that declares a Throwable.
+     *
+     * @param <I1> Input type 1.
+     * @param <I2> Input type 2.
+     * @param <R> Return type.
+     * @param <T> Thrown exception.
+     */
     @FunctionalInterface
-    public interface FailableBiFunction<I1, I2, O, T extends Throwable> {
+    public interface FailableBiFunction<I1, I2, R, T extends Throwable> {
 
         /**
          * Applies this function.
@@ -92,25 +107,38 @@ public class Functions {
          * @return the result of the function
          * @throws T if the function fails
          */
-        O apply(I1 input1, I2 input2) throws T;
+        R apply(I1 input1, I2 input2) throws T;
     }
 
+    /**
+     * A functional interface like {@link BiPredicate} that declares a Throwable.
+     *
+     * @param <I1> Predicate type 1.
+     * @param <I2> Predicate type 2.
+     * @param <T> Thrown exception.
+     */
     @FunctionalInterface
-    public interface FailableBiPredicate<O1, O2, T extends Throwable> {
+    public interface FailableBiPredicate<I1, I2, T extends Throwable> {
 
         /**
-         * Test the predicate.
+         * Tests the predicate.
          *
          * @param object1 the first object to test the predicate on
          * @param object2 the second object to test the predicate on
          * @return the predicate's evaluation
          * @throws T if the predicate fails
          */
-        boolean test(O1 object1, O2 object2) throws T;
+        boolean test(I1 object1, I2 object2) throws T;
     }
 
+    /**
+     * A functional interface like {@link java.util.concurrent.Callable} that declares a Throwable.
+     *
+     * @param <R> Return type.
+     * @param <T> Thrown exception.
+     */
     @FunctionalInterface
-    public interface FailableCallable<O, T extends Throwable> {
+    public interface FailableCallable<R, T extends Throwable> {
 
         /**
          * Calls the callable.
@@ -118,9 +146,15 @@ public class Functions {
          * @return The value returned from the callable
          * @throws T if the callable fails
          */
-        O call() throws T;
+        R call() throws T;
     }
 
+    /**
+     * A functional interface like {@link Consumer} that declares a Throwable.
+     *
+     * @param <O> Consumed type 1.
+     * @param <T> Thrown exception.
+     */
     @FunctionalInterface
     public interface FailableConsumer<O, T extends Throwable> {
 
@@ -134,8 +168,15 @@ public class Functions {
         void accept(O object) throws T;
     }
 
+    /**
+     * A functional interface like {@link Function} that declares a Throwable.
+     *
+     * @param <I> Input type 1.
+     * @param <R> Return type.
+     * @param <T> Thrown exception.
+     */
     @FunctionalInterface
-    public interface FailableFunction<I, O, T extends Throwable> {
+    public interface FailableFunction<I, R, T extends Throwable> {
 
         /**
          * Applies this function.
@@ -144,22 +185,33 @@ public class Functions {
          * @return the result of the function
          * @throws T if the function fails
          */
-        O apply(I input) throws T;
+        R apply(I input) throws T;
     }
 
+    /**
+     * A functional interface like {@link Predicate} that declares a Throwable.
+     *
+     * @param <I> Predicate type 1.
+     * @param <T> Thrown exception.
+     */
     @FunctionalInterface
-    public interface FailablePredicate<O, T extends Throwable> {
+    public interface FailablePredicate<I, T extends Throwable> {
 
         /**
-         * Test the predicate.
+         * Tests the predicate.
          *
          * @param object the object to test the predicate on
          * @return the predicate's evaluation
          * @throws T if the predicate fails
          */
-        boolean test(O object) throws T;
+        boolean test(I object) throws T;
     }
 
+    /**
+     * A functional interface like {@link Runnable} that declares a Throwable.
+     *
+     * @param <T> Thrown exception.
+     */
     @FunctionalInterface
     public interface FailableRunnable<T extends Throwable> {
 
@@ -171,8 +223,14 @@ public class Functions {
         void run() throws T;
     }
 
+    /**
+     * A functional interface like {@link Supplier} that declares a Throwable.
+     *
+     * @param <R> Return type.
+     * @param <T> Thrown exception.
+     */
     @FunctionalInterface
-    public interface FailableSupplier<O, T extends Throwable> {
+    public interface FailableSupplier<R, T extends Throwable> {
 
         /**
          * Supplies an object
@@ -180,7 +238,7 @@ public class Functions {
          * @return the suppliers result
          * @throws T if the supplier fails
          */
-        O get() throws T;
+        R get() throws T;
     }
 
     /**
