@@ -61,6 +61,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1545" type="update" dev="ggregory" due-to="XenoAmess, Gary Gregory">CharSequenceUtils.regionMatches is wrong dealing with Georgian.</action>
     <action                   type="add" dev="jochen">Added the Locks class as a convenient possibility to deal with locked objects.</action>
     <action issue="LANG-1568" type="add" dev="ggregory">Add to Functions: FailableBooleanSupplier, FailableIntSupplier, FailableLongSupplier, FailableDoubleSupplier, and so on.</action>
+    <action issue="LANG-1569" type="add" dev="ggregory">Add ArrayUtils.get(T[], index, T) to provide an out-of-bounds default value.</action>
   </release>
 
   <release version="3.10" date="2020-03-22" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">

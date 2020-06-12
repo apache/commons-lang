@@ -1655,6 +1655,39 @@ public class ArrayUtils {
         return Array.newInstance(newArrayComponentType, 1);
     }
 
+    /**
+     * Gets the nTh element of an array or null if the index is out of bounds or the array is null.
+     * 
+     * @param <T> The type of array elements.
+     * @param array The array to index.
+     * @param index The index
+     * @return the nTh element of an array or null if the index is out of bounds or the array is null.
+     * @since 3.11
+     */
+    public static <T> T get(final T[] array, final int index) {
+        return get(array, index, null);
+    }
+
+    /**
+     * Gets the nTh element of an array or a default value if the index is out of bounds.
+     * 
+     * @param <T> The type of array elements.
+     * @param array The array to index.
+     * @param index The index
+     * @param defaultValue The return value of the given index is out of bounds.
+     * @return the nTh element of an array or a default value if the index is out of bounds.
+     * @since 3.11
+     */
+    public static <T> T get(final T[] array, final int index, T defaultValue) {
+        if (array == null) {
+            return defaultValue;
+        }
+        if (index >= 0 && index < array.length) {
+            return array[index];
+        }
+        return defaultValue;
+    }
+
     //-----------------------------------------------------------------------
     /**
      * <p>Returns the length of the specified array.
