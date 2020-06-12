@@ -31,110 +31,6 @@ import org.junit.jupiter.api.Test;
 public class ArrayUtilsRemoveMultipleTest {
 
     @Test
-    public void testRemoveAllObjectArray() {
-        Object[] array;
-
-        array = ArrayUtils.removeAll(new Object[] { "a" }, 0);
-        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeAll(new Object[] { "a", "b" }, 0, 1);
-        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeAll(new Object[] { "a", "b", "c" }, 1, 2);
-        assertArrayEquals(new Object[] { "a" }, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeAll(new Object[] { "a", "b", "c", "d" }, 1, 2);
-        assertArrayEquals(new Object[] { "a", "d" }, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeAll(new Object[] { "a", "b", "c", "d" }, 0, 3);
-        assertArrayEquals(new Object[] { "b", "c" }, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeAll(new Object[] { "a", "b", "c", "d" }, 0, 1, 3);
-        assertArrayEquals(new Object[] { "c" }, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeAll(new Object[] { "a", "b", "c", "d", "e" }, 0, 1, 3);
-        assertArrayEquals(new Object[] { "c", "e" }, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeAll(new Object[] { "a", "b", "c", "d", "e" }, 0, 2, 4);
-        assertArrayEquals(new Object[] { "b", "d" }, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeAll(new Object[] { "a", "b", "c", "d" }, 0, 1, 3, 0, 1, 3);
-        assertArrayEquals(new Object[] { "c" }, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeAll(new Object[] { "a", "b", "c", "d" }, 2, 1, 0, 3);
-        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeAll(new Object[] { "a", "b", "c", "d" }, 2, 0, 1, 3, 0, 2, 1, 3);
-        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-    }
-
-    @Test
-    public void testRemoveAllObjectArrayRemoveNone() {
-        final Object[] array1 = new Object[] { "foo", "bar", "baz" };
-        final Object[] array2 = ArrayUtils.removeAll(array1);
-        assertNotSame(array1, array2);
-        assertArrayEquals(array1, array2);
-        assertEquals(Object.class, array2.getClass().getComponentType());
-    }
-
-    @Test
-    public void testRemoveAllObjectArrayNegativeIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new Object[] { "a", "b" }, -1));
-    }
-
-    @Test
-    public void testRemoveAllObjectArrayOutOfBoundsIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new Object[] { "a", "b" }, 2));
-    }
-
-    @Test
-    public void testRemoveAllNullObjectArray() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove((Object[]) null, 0));
-    }
-
-    @Test
-    public void testRemoveAllNumberArray() {
-        final Number[] inarray = { Integer.valueOf(1), Long.valueOf(2L), Byte.valueOf((byte) 3) };
-        assertEquals(3, inarray.length);
-        Number[] outarray;
-
-        outarray = ArrayUtils.removeAll(inarray, 1);
-        assertArrayEquals(new Number[] { Integer.valueOf(1), Byte.valueOf((byte) 3) }, outarray);
-        assertEquals(Number.class, outarray.getClass().getComponentType());
-
-        outarray = ArrayUtils.removeAll(outarray, 1);
-        assertArrayEquals(new Number[] { Integer.valueOf(1) }, outarray);
-        assertEquals(Number.class, outarray.getClass().getComponentType());
-
-        outarray = ArrayUtils.removeAll(outarray, 0);
-        assertEquals(0, outarray.length);
-        assertEquals(Number.class, outarray.getClass().getComponentType());
-
-        outarray = ArrayUtils.removeAll(inarray, 0, 1);
-        assertArrayEquals(new Number[] { Byte.valueOf((byte) 3) }, outarray);
-        assertEquals(Number.class, outarray.getClass().getComponentType());
-
-        outarray = ArrayUtils.removeAll(inarray, 0, 2);
-        assertArrayEquals(new Number[] { Long.valueOf(2L) }, outarray);
-        assertEquals(Number.class, outarray.getClass().getComponentType());
-
-        outarray = ArrayUtils.removeAll(inarray, 1, 2);
-        assertArrayEquals(new Number[] { Integer.valueOf(1) }, outarray);
-        assertEquals(Number.class, outarray.getClass().getComponentType());
-    }
-
-    @Test
     public void testRemoveAllBooleanArray() {
         boolean[] array;
 
@@ -196,15 +92,6 @@ public class ArrayUtilsRemoveMultipleTest {
     }
 
     @Test
-    public void testRemoveAllBooleanArrayRemoveNone() {
-        final boolean[] array1 = new boolean[] { true, false };
-        final boolean[] array2 = ArrayUtils.removeAll(array1);
-        assertNotSame(array1, array2);
-        assertArrayEquals(array1, array2);
-        assertEquals(boolean.class, array2.getClass().getComponentType());
-    }
-
-    @Test
     public void testRemoveAllBooleanArrayNegativeIndex() {
         assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new boolean[] { true, false }, -1));
     }
@@ -215,8 +102,12 @@ public class ArrayUtilsRemoveMultipleTest {
     }
 
     @Test
-    public void testRemoveAllNullBooleanArray() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((boolean[]) null, 0));
+    public void testRemoveAllBooleanArrayRemoveNone() {
+        final boolean[] array1 = new boolean[] { true, false };
+        final boolean[] array2 = ArrayUtils.removeAll(array1);
+        assertNotSame(array1, array2);
+        assertArrayEquals(array1, array2);
+        assertEquals(boolean.class, array2.getClass().getComponentType());
     }
 
     @Test
@@ -273,15 +164,6 @@ public class ArrayUtilsRemoveMultipleTest {
     }
 
     @Test
-    public void testRemoveAllByteArrayRemoveNone() {
-        final byte[] array1 = new byte[] { 1, 2 };
-        final byte[] array2 = ArrayUtils.removeAll(array1);
-        assertNotSame(array1, array2);
-        assertArrayEquals(array1, array2);
-        assertEquals(byte.class, array2.getClass().getComponentType());
-    }
-
-    @Test
     public void testRemoveAllByteArrayNegativeIndex() {
         assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new byte[] { 1, 2 }, -1));
     }
@@ -292,8 +174,12 @@ public class ArrayUtilsRemoveMultipleTest {
     }
 
     @Test
-    public void testRemoveAllNullByteArray() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((byte[]) null, 0));
+    public void testRemoveAllByteArrayRemoveNone() {
+        final byte[] array1 = new byte[] { 1, 2 };
+        final byte[] array2 = ArrayUtils.removeAll(array1);
+        assertNotSame(array1, array2);
+        assertArrayEquals(array1, array2);
+        assertEquals(byte.class, array2.getClass().getComponentType());
     }
 
     @Test
@@ -350,15 +236,6 @@ public class ArrayUtilsRemoveMultipleTest {
     }
 
     @Test
-    public void testRemoveAllCharArrayRemoveNone() {
-        final char[] array1 = new char[] { 'a', 'b' };
-        final char[] array2 = ArrayUtils.removeAll(array1);
-        assertNotSame(array1, array2);
-        assertArrayEquals(array1, array2);
-        assertEquals(char.class, array2.getClass().getComponentType());
-    }
-
-    @Test
     public void testRemoveAllCharArrayNegativeIndex() {
         assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new char[] { 'a', 'b' }, -1));
     }
@@ -369,8 +246,12 @@ public class ArrayUtilsRemoveMultipleTest {
     }
 
     @Test
-    public void testRemoveAllNullCharArray() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((char[]) null, 0));
+    public void testRemoveAllCharArrayRemoveNone() {
+        final char[] array1 = new char[] { 'a', 'b' };
+        final char[] array2 = ArrayUtils.removeAll(array1);
+        assertNotSame(array1, array2);
+        assertArrayEquals(array1, array2);
+        assertEquals(char.class, array2.getClass().getComponentType());
     }
 
     @Test
@@ -427,15 +308,6 @@ public class ArrayUtilsRemoveMultipleTest {
     }
 
     @Test
-    public void testRemoveAllDoubleArrayRemoveNone() {
-        final double[] array1 = new double[] { 1, 2 };
-        final double[] array2 = ArrayUtils.removeAll(array1);
-        assertNotSame(array1, array2);
-        assertArrayEquals(array1, array2);
-        assertEquals(double.class, array2.getClass().getComponentType());
-    }
-
-    @Test
     public void testRemoveAllDoubleArrayNegativeIndex() {
         assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new double[] { 1, 2 }, -1));
     }
@@ -446,8 +318,12 @@ public class ArrayUtilsRemoveMultipleTest {
     }
 
     @Test
-    public void testRemoveAllNullDoubleArray() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((double[]) null, 0));
+    public void testRemoveAllDoubleArrayRemoveNone() {
+        final double[] array1 = new double[] { 1, 2 };
+        final double[] array2 = ArrayUtils.removeAll(array1);
+        assertNotSame(array1, array2);
+        assertArrayEquals(array1, array2);
+        assertEquals(double.class, array2.getClass().getComponentType());
     }
 
     @Test
@@ -504,15 +380,6 @@ public class ArrayUtilsRemoveMultipleTest {
     }
 
     @Test
-    public void testRemoveAllFloatArrayRemoveNone() {
-        final float[] array1 = new float[] { 1, 2 };
-        final float[] array2 = ArrayUtils.removeAll(array1);
-        assertNotSame(array1, array2);
-        assertArrayEquals(array1, array2);
-        assertEquals(float.class, array2.getClass().getComponentType());
-    }
-
-    @Test
     public void testRemoveAllFloatArrayNegativeIndex() {
         assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new float[] { 1, 2 }, -1));
     }
@@ -523,8 +390,12 @@ public class ArrayUtilsRemoveMultipleTest {
     }
 
     @Test
-    public void testRemoveAllNullFloatArray() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((float[]) null, 0));
+    public void testRemoveAllFloatArrayRemoveNone() {
+        final float[] array1 = new float[] { 1, 2 };
+        final float[] array2 = ArrayUtils.removeAll(array1);
+        assertNotSame(array1, array2);
+        assertArrayEquals(array1, array2);
+        assertEquals(float.class, array2.getClass().getComponentType());
     }
 
     @Test
@@ -587,15 +458,6 @@ public class ArrayUtilsRemoveMultipleTest {
     }
 
     @Test
-    public void testRemoveAllIntArrayRemoveNone() {
-        final int[] array1 = new int[] { 1, 2 };
-        final int[] array2 = ArrayUtils.removeAll(array1);
-        assertNotSame(array1, array2);
-        assertArrayEquals(array1, array2);
-        assertEquals(int.class, array2.getClass().getComponentType());
-    }
-
-    @Test
     public void testRemoveAllIntArrayNegativeIndex() {
         assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new int[] { 1, 2 }, -1));
     }
@@ -606,8 +468,12 @@ public class ArrayUtilsRemoveMultipleTest {
     }
 
     @Test
-    public void testRemoveAllNullIntArray() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((int[]) null, 0));
+    public void testRemoveAllIntArrayRemoveNone() {
+        final int[] array1 = new int[] { 1, 2 };
+        final int[] array2 = ArrayUtils.removeAll(array1);
+        assertNotSame(array1, array2);
+        assertArrayEquals(array1, array2);
+        assertEquals(int.class, array2.getClass().getComponentType());
     }
 
     @Test
@@ -664,15 +530,6 @@ public class ArrayUtilsRemoveMultipleTest {
     }
 
     @Test
-    public void testRemoveAllLongArrayRemoveNone() {
-        final long[] array1 = new long[] { 1, 2 };
-        final long[] array2 = ArrayUtils.removeAll(array1);
-        assertNotSame(array1, array2);
-        assertArrayEquals(array1, array2);
-        assertEquals(long.class, array2.getClass().getComponentType());
-    }
-
-    @Test
     public void testRemoveAllLongArrayNegativeIndex() {
         assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new long[] { 1, 2 }, -1));
     }
@@ -683,8 +540,156 @@ public class ArrayUtilsRemoveMultipleTest {
     }
 
     @Test
+    public void testRemoveAllLongArrayRemoveNone() {
+        final long[] array1 = new long[] { 1, 2 };
+        final long[] array2 = ArrayUtils.removeAll(array1);
+        assertNotSame(array1, array2);
+        assertArrayEquals(array1, array2);
+        assertEquals(long.class, array2.getClass().getComponentType());
+    }
+
+    @Test
+    public void testRemoveAllNullBooleanArray() {
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((boolean[]) null, 0));
+    }
+
+    @Test
+    public void testRemoveAllNullByteArray() {
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((byte[]) null, 0));
+    }
+
+    @Test
+    public void testRemoveAllNullCharArray() {
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((char[]) null, 0));
+    }
+
+    @Test
+    public void testRemoveAllNullDoubleArray() {
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((double[]) null, 0));
+    }
+
+    @Test
+    public void testRemoveAllNullFloatArray() {
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((float[]) null, 0));
+    }
+
+    @Test
+    public void testRemoveAllNullIntArray() {
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((int[]) null, 0));
+    }
+
+    @Test
     public void testRemoveAllNullLongArray() {
         assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((long[]) null, 0));
+    }
+
+    @Test
+    public void testRemoveAllNullObjectArray() {
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.remove((Object[]) null, 0));
+    }
+
+    @Test
+    public void testRemoveAllNullShortArray() {
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((short[]) null, 0));
+    }
+
+    @Test
+    public void testRemoveAllNumberArray() {
+        final Number[] inarray = { Integer.valueOf(1), Long.valueOf(2L), Byte.valueOf((byte) 3) };
+        assertEquals(3, inarray.length);
+        Number[] outarray;
+
+        outarray = ArrayUtils.removeAll(inarray, 1);
+        assertArrayEquals(new Number[] { Integer.valueOf(1), Byte.valueOf((byte) 3) }, outarray);
+        assertEquals(Number.class, outarray.getClass().getComponentType());
+
+        outarray = ArrayUtils.removeAll(outarray, 1);
+        assertArrayEquals(new Number[] { Integer.valueOf(1) }, outarray);
+        assertEquals(Number.class, outarray.getClass().getComponentType());
+
+        outarray = ArrayUtils.removeAll(outarray, 0);
+        assertEquals(0, outarray.length);
+        assertEquals(Number.class, outarray.getClass().getComponentType());
+
+        outarray = ArrayUtils.removeAll(inarray, 0, 1);
+        assertArrayEquals(new Number[] { Byte.valueOf((byte) 3) }, outarray);
+        assertEquals(Number.class, outarray.getClass().getComponentType());
+
+        outarray = ArrayUtils.removeAll(inarray, 0, 2);
+        assertArrayEquals(new Number[] { Long.valueOf(2L) }, outarray);
+        assertEquals(Number.class, outarray.getClass().getComponentType());
+
+        outarray = ArrayUtils.removeAll(inarray, 1, 2);
+        assertArrayEquals(new Number[] { Integer.valueOf(1) }, outarray);
+        assertEquals(Number.class, outarray.getClass().getComponentType());
+    }
+
+    @Test
+    public void testRemoveAllObjectArray() {
+        Object[] array;
+
+        array = ArrayUtils.removeAll(new Object[] { "a" }, 0);
+        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeAll(new Object[] { "a", "b" }, 0, 1);
+        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeAll(new Object[] { "a", "b", "c" }, 1, 2);
+        assertArrayEquals(new Object[] { "a" }, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeAll(new Object[] { "a", "b", "c", "d" }, 1, 2);
+        assertArrayEquals(new Object[] { "a", "d" }, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeAll(new Object[] { "a", "b", "c", "d" }, 0, 3);
+        assertArrayEquals(new Object[] { "b", "c" }, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeAll(new Object[] { "a", "b", "c", "d" }, 0, 1, 3);
+        assertArrayEquals(new Object[] { "c" }, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeAll(new Object[] { "a", "b", "c", "d", "e" }, 0, 1, 3);
+        assertArrayEquals(new Object[] { "c", "e" }, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeAll(new Object[] { "a", "b", "c", "d", "e" }, 0, 2, 4);
+        assertArrayEquals(new Object[] { "b", "d" }, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeAll(new Object[] { "a", "b", "c", "d" }, 0, 1, 3, 0, 1, 3);
+        assertArrayEquals(new Object[] { "c" }, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeAll(new Object[] { "a", "b", "c", "d" }, 2, 1, 0, 3);
+        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeAll(new Object[] { "a", "b", "c", "d" }, 2, 0, 1, 3, 0, 2, 1, 3);
+        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+    }
+
+    @Test
+    public void testRemoveAllObjectArrayNegativeIndex() {
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new Object[] { "a", "b" }, -1));
+    }
+
+    @Test
+    public void testRemoveAllObjectArrayOutOfBoundsIndex() {
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new Object[] { "a", "b" }, 2));
+    }
+
+    @Test
+    public void testRemoveAllObjectArrayRemoveNone() {
+        final Object[] array1 = new Object[] { "foo", "bar", "baz" };
+        final Object[] array2 = ArrayUtils.removeAll(array1);
+        assertNotSame(array1, array2);
+        assertArrayEquals(array1, array2);
+        assertEquals(Object.class, array2.getClass().getComponentType());
     }
 
     @Test
@@ -741,15 +746,6 @@ public class ArrayUtilsRemoveMultipleTest {
     }
 
     @Test
-    public void testRemoveAllShortArrayRemoveNone() {
-        final short[] array1 = new short[] { 1, 2 };
-        final short[] array2 = ArrayUtils.removeAll(array1);
-        assertNotSame(array1, array2);
-        assertArrayEquals(array1, array2);
-        assertEquals(short.class, array2.getClass().getComponentType());
-    }
-
-    @Test
     public void testRemoveAllShortArrayNegativeIndex() {
         assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new short[] { 1, 2 }, -1, 0));
     }
@@ -760,63 +756,12 @@ public class ArrayUtilsRemoveMultipleTest {
     }
 
     @Test
-    public void testRemoveAllNullShortArray() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll((short[]) null, 0));
-    }
-
-    @Test
-    public void testRemoveElementsObjectArray() {
-        Object[] array;
-
-        array = ArrayUtils.removeElements((Object[]) null, "a");
-        assertNull(array);
-
-        array = ArrayUtils.removeElements(ArrayUtils.EMPTY_OBJECT_ARRAY, "a");
-        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeElements(new Object[] { "a" }, "a");
-        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeElements(new Object[] { "a", "b" }, "a");
-        assertArrayEquals(new Object[]{"b"}, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeElements(new Object[] { "a", "b", "a" }, "a");
-        assertArrayEquals(new Object[]{"b", "a"}, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeElements((Object[]) null, "a", "b");
-        assertNull(array);
-
-        array = ArrayUtils.removeElements(ArrayUtils.EMPTY_OBJECT_ARRAY, "a", "b");
-        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeElements(new Object[] { "a" }, "a", "b");
-        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeElements(new Object[] { "a", "b" }, "a", "c");
-        assertArrayEquals(new Object[]{"b"}, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeElements(new Object[] { "a", "b", "a" }, "a");
-        assertArrayEquals(new Object[]{"b", "a"}, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeElements(new Object[] { "a", "b", "a" }, "a", "b");
-        assertArrayEquals(new Object[]{"a"}, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeElements(new Object[] { "a", "b", "a" }, "a", "a");
-        assertArrayEquals(new Object[]{"b"}, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
-
-        array = ArrayUtils.removeElements(new Object[] { "a", "b", "a" }, "a", "a", "a", "a");
-        assertArrayEquals(new Object[]{"b"}, array);
-        assertEquals(Object.class, array.getClass().getComponentType());
+    public void testRemoveAllShortArrayRemoveNone() {
+        final short[] array1 = new short[] { 1, 2 };
+        final short[] array2 = ArrayUtils.removeAll(array1);
+        assertNotSame(array1, array2);
+        assertArrayEquals(array1, array2);
+        assertEquals(short.class, array2.getClass().getComponentType());
     }
 
     @Test
@@ -1260,6 +1205,61 @@ public class ArrayUtilsRemoveMultipleTest {
         array = ArrayUtils.removeElements(new short[] { 1, 2, 1 }, (short) 1, (short) 1, (short) 1, (short) 1);
         assertArrayEquals(new short[]{2}, array);
         assertEquals(Short.TYPE, array.getClass().getComponentType());
+    }
+
+    @Test
+    public void testRemoveElementsObjectArray() {
+        Object[] array;
+
+        array = ArrayUtils.removeElements((Object[]) null, "a");
+        assertNull(array);
+
+        array = ArrayUtils.removeElements(ArrayUtils.EMPTY_OBJECT_ARRAY, "a");
+        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeElements(new Object[] { "a" }, "a");
+        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeElements(new Object[] { "a", "b" }, "a");
+        assertArrayEquals(new Object[]{"b"}, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeElements(new Object[] { "a", "b", "a" }, "a");
+        assertArrayEquals(new Object[]{"b", "a"}, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeElements((Object[]) null, "a", "b");
+        assertNull(array);
+
+        array = ArrayUtils.removeElements(ArrayUtils.EMPTY_OBJECT_ARRAY, "a", "b");
+        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeElements(new Object[] { "a" }, "a", "b");
+        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeElements(new Object[] { "a", "b" }, "a", "c");
+        assertArrayEquals(new Object[]{"b"}, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeElements(new Object[] { "a", "b", "a" }, "a");
+        assertArrayEquals(new Object[]{"b", "a"}, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeElements(new Object[] { "a", "b", "a" }, "a", "b");
+        assertArrayEquals(new Object[]{"a"}, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeElements(new Object[] { "a", "b", "a" }, "a", "a");
+        assertArrayEquals(new Object[]{"b"}, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
+
+        array = ArrayUtils.removeElements(new Object[] { "a", "b", "a" }, "a", "a", "a", "a");
+        assertArrayEquals(new Object[]{"b"}, array);
+        assertEquals(Object.class, array.getClass().getComponentType());
     }
 
 }
