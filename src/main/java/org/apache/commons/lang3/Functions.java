@@ -25,8 +25,12 @@ import java.util.concurrent.Callable;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
+import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
+import java.util.function.DoubleSupplier;
 import java.util.function.Function;
+import java.util.function.IntSupplier;
+import java.util.function.LongSupplier;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -235,10 +239,82 @@ public class Functions {
         /**
          * Supplies an object
          *
-         * @return the suppliers result
+         * @return a result
          * @throws T if the supplier fails
          */
         R get() throws T;
+    }
+
+    /**
+     * A functional interface like {@link BooleanSupplier} that declares a Throwable.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableBooleanSupplier<T extends Throwable> {
+
+        /**
+         * Supplies a boolean.
+         *
+         * @return a result
+         * @throws T if the supplier fails
+         */
+        boolean getAsBoolean() throws T;
+    }
+
+    /**
+     * A functional interface like {@link DoubleSupplier} that declares a Throwable.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableDoubleSupplier<T extends Throwable> {
+
+        /**
+         * Supplies a double.
+         *
+         * @return a result
+         * @throws T if the supplier fails
+         */
+        double getAsDouble() throws T;
+    }
+
+    /**
+     * A functional interface like {@link IntSupplier} that declares a Throwable.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableIntSupplier<T extends Throwable> {
+
+        /**
+         * Supplies an int.
+         *
+         * @return a result
+         * @throws T if the supplier fails
+         */
+        int getAsInt() throws T;
+    }
+
+    /**
+     * A functional interface like {@link LongSupplier} that declares a Throwable.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableLongSupplier<T extends Throwable> {
+
+        /**
+         * Supplies a long.
+         *
+         * @return a result
+         * @throws T if the supplier fails
+         */
+        long getAsLong() throws T;
     }
 
     /**
@@ -424,7 +500,7 @@ public class Functions {
     }
 
     /**
-     * Invokes the supplier, and returns the result.
+     * Invokes a supplier, and returns the result.
      *
      * @param supplier The supplier to invoke.
      * @param <O> The suppliers output type.
@@ -435,6 +511,70 @@ public class Functions {
     public static <O, T extends Throwable> O get(final FailableSupplier<O, T> supplier) {
         try {
             return supplier.get();
+        } catch (final Throwable t) {
+            throw rethrow(t);
+        }
+    }
+
+    /**
+     * Invokes a boolean supplier, and returns the result.
+     *
+     * @param supplier The boolean supplier to invoke.
+     * @param <T> The type of checked exception, which the supplier can throw.
+     * @return The boolean, which has been created by the supplier
+     * @since 3.11
+     */
+    public static <T extends Throwable> boolean getAsBoolean(final FailableBooleanSupplier<T> supplier) {
+        try {
+            return supplier.getAsBoolean();
+        } catch (final Throwable t) {
+            throw rethrow(t);
+        }
+    }
+
+    /**
+     * Invokes a double supplier, and returns the result.
+     *
+     * @param supplier The double supplier to invoke.
+     * @param <T> The type of checked exception, which the supplier can throw.
+     * @return The boolean, which has been created by the supplier
+     * @since 3.11
+     */
+    public static <T extends Throwable> double getAsDouble(final FailableDoubleSupplier<T> supplier) {
+        try {
+            return supplier.getAsDouble();
+        } catch (final Throwable t) {
+            throw rethrow(t);
+        }
+    }
+
+    /**
+     * Invokes an int supplier, and returns the result.
+     *
+     * @param supplier The int supplier to invoke.
+     * @param <T> The type of checked exception, which the supplier can throw.
+     * @return The boolean, which has been created by the supplier
+     * @since 3.11
+     */
+    public static <T extends Throwable> int getAsInt(final FailableIntSupplier<T> supplier) {
+        try {
+            return supplier.getAsInt();
+        } catch (final Throwable t) {
+            throw rethrow(t);
+        }
+    }
+
+    /**
+     * Invokes a long supplier, and returns the result.
+     *
+     * @param supplier The long supplier to invoke.
+     * @param <T> The type of checked exception, which the supplier can throw.
+     * @return The boolean, which has been created by the supplier
+     * @since 3.11
+     */
+    public static <T extends Throwable> long getAsLong(final FailableLongSupplier<T> supplier) {
+        try {
+            return supplier.getAsLong();
         } catch (final Throwable t) {
             throw rethrow(t);
         }
