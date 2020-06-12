@@ -600,7 +600,7 @@
     <commons.encoding>utf-8</commons.encoding>
 
     <checkstyle.plugin.version>3.1.1</checkstyle.plugin.version>
-    <checkstyle.version>8.32</checkstyle.version>
+    <checkstyle.version>8.33</checkstyle.version>
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
 
     <spotbugs.plugin.version>4.0.0</spotbugs.plugin.version>
@@ -765,7 +765,7 @@
           <dependency>
             <groupId>com.github.spotbugs</groupId>
             <artifactId>spotbugs</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.4</version>
          </dependency>
         </dependencies>        
         <configuration>
