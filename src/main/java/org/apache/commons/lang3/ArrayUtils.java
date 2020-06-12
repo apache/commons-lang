@@ -1657,7 +1657,7 @@ public class ArrayUtils {
 
     /**
      * Gets the nTh element of an array or null if the index is out of bounds or the array is null.
-     * 
+     *
      * @param <T> The type of array elements.
      * @param array The array to index.
      * @param index The index
@@ -1670,7 +1670,7 @@ public class ArrayUtils {
 
     /**
      * Gets the nTh element of an array or a default value if the index is out of bounds.
-     * 
+     *
      * @param <T> The type of array elements.
      * @param array The array to index.
      * @param index The index

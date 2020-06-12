@@ -47,10 +47,10 @@ public class ArrayUtilsTest {
 
     private class TestClass {
     }
-    
+
     /** A predefined seed used to initialize {@link Random} in order to get predictable results */
     private static final long SEED = 16111981L;
-    
+
     @SafeVarargs
     private static <T> T[] toArrayPropagatingType(final T... items) {
         return ArrayUtils.toArray(items);
