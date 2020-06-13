@@ -1679,13 +1679,7 @@ public class ArrayUtils {
      * @since 3.11
      */
     public static <T> T get(final T[] array, final int index, final T defaultValue) {
-        if (array == null) {
-            return defaultValue;
-        }
-        if (index >= 0 && index < array.length) {
-            return array[index];
-        }
-        return defaultValue;
+        return isArrayIndexValid(array, index) ? array[index] : defaultValue;
     }
 
     //-----------------------------------------------------------------------
