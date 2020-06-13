@@ -1499,7 +1499,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testIsSortedComparator() {
-        final Comparator<Integer> c = (o1, o2) -> o2.compareTo(o1);
+        final Comparator<Integer> c = Comparator.reverseOrder();
 
         Integer[] array = null;
         assertTrue(ArrayUtils.isSorted(array, c));
