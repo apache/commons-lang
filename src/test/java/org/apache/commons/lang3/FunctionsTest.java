@@ -116,9 +116,9 @@ class FunctionsTest {
     }
 
     public static class Testable<T, P> {
-        private Throwable throwable;
-        private P acceptedPrimitiveObject;
         private T acceptedObject;
+        private P acceptedPrimitiveObject;
+        private Throwable throwable;
 
         Testable(final Throwable throwable) {
             this.throwable = throwable;
