@@ -240,7 +240,7 @@ class FunctionsTest {
         // We allow this, which must be an omission to make the ctor private.
         new Functions();
     }
-    
+
     @Test
     void testAcceptBiConsumer() {
         final IllegalStateException ise = new IllegalStateException();
