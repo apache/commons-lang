@@ -177,6 +177,16 @@ public class StringUtils {
      */
     private static final int PAD_LIMIT = 8192;
 
+    /**
+     * Pattern instance used in function {@link #stripAccents(String)}.
+     * We make it a constant variable to avoid compile everytime when use.
+     *
+     * @see Pattern#compile(String)
+     * @see #stripAccents(String)
+     * @since 3.11
+     */
+    private static final Pattern STRIP_ACCENTS_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+"); //$NON-NLS-1$
+
     // Abbreviating
     //-----------------------------------------------------------------------
     /**
@@ -8185,8 +8195,6 @@ public class StringUtils {
         str = stripStart(str, stripChars);
         return stripEnd(str, stripChars);
     }
-
-    private static final Pattern STRIP_ACCENTS_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+"); //$NON-NLS-1$
 
     /**
      * <p>Removes diacritics (~= accents) from a string. The case will not be altered.</p>
