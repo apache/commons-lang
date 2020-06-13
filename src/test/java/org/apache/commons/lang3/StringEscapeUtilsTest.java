@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -479,7 +478,7 @@ public class StringEscapeUtilsTest {
         // codepoint: U+1D362
         final byte[] data = new byte[] { (byte) 0xF0, (byte) 0x9D, (byte) 0x8D, (byte) 0xA2 };
 
-        final String original = new String(data, Charset.forName("UTF8"));
+        final String original = new String(data, StandardCharsets.UTF_8);
 
         final String escaped = StringEscapeUtils.escapeHtml4( original );
         assertEquals(original, escaped, "High Unicode should not have been escaped");

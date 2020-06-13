@@ -18,6 +18,7 @@
 package org.apache.commons.lang3;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -31,14 +32,14 @@ public class CharsetsTestCase {
     public void testToCharset_Charset() {
         Assertions.assertEquals(Charset.defaultCharset(), Charsets.toCharset((Charset) null));
         Assertions.assertEquals(Charset.defaultCharset(), Charsets.toCharset(Charset.defaultCharset()));
-        Assertions.assertEquals(Charset.forName("UTF-8"), Charsets.toCharset(Charset.forName("UTF-8")));
+        Assertions.assertEquals(StandardCharsets.UTF_8, Charsets.toCharset(StandardCharsets.UTF_8));
     }
 
     @Test
     public void testToCharset_String() {
         Assertions.assertEquals(Charset.defaultCharset(), Charsets.toCharset((String) null));
         Assertions.assertEquals(Charset.defaultCharset(), Charsets.toCharset(Charset.defaultCharset().name()));
-        Assertions.assertEquals(Charset.forName("UTF-8"), Charsets.toCharset("UTF-8"));
+        Assertions.assertEquals(StandardCharsets.UTF_8, Charsets.toCharset("UTF-8"));
     }
 
     @Test
