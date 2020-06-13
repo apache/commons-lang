@@ -62,17 +62,17 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="jochen">Added the Locks class as a convenient possibility to deal with locked objects.</action>
     <action issue="LANG-1568" type="add" dev="ggregory">Add to Functions: FailableBooleanSupplier, FailableIntSupplier, FailableLongSupplier, FailableDoubleSupplier, and so on.</action>
     <action issue="LANG-1569" type="add" dev="ggregory">Add ArrayUtils.get(T[], index, T) to provide an out-of-bounds default value.</action>
-    <action issue="LANG-1550" type="add" dev="ggregory" due-to="Edgar Asatryan">Optimize ArrayUtils::isArrayIndexValid method. #551.</action>
-    <action issue="LANG-1561" type="add" dev="ggregory" due-to="XenoAmess">Use List.sort instead of Collection.sort #546.</action>
-    <action issue="LANG-1563" type="add" dev="ggregory" due-to="XenoAmess">Use StandardCharsets.UTF_8 #548.</action>
-    <action issue="LANG-1564" type="add" dev="ggregory" due-to="XenoAmess">Use Collections.singletonList insteadof Arrays.asList when there be only one element. #549.</action>
-    <action issue="LANG-1560" type="add" dev="ggregory" due-to="XenoAmess">Refine Javadoc #545.</action>
-    <action issue="LANG-1553" type="add" dev="ggregory" due-to="XenoAmess">Change array style from `int a[]` to `int[] a` #537.</action>
-    <action issue="LANG-1552" type="add" dev="ggregory" due-to="XenoAmess">Change from addAll to constructors for some List #536.</action>
-    <action issue="LANG-1554" type="add" dev="ggregory" due-to="XenoAmess">Fix typos #539.</action>
-    <action issue="LANG-1555" type="add" dev="ggregory" due-to="XenoAmess">Ignored exception `ignored`, should not be called so #540.</action>
-    <action issue="LANG-1558" type="add" dev="ggregory" due-to="XenoAmess">Simplify if as some conditions are covered by others #543.</action>
-    <action issue="LANG-1559" type="add" dev="ggregory" due-to="XenoAmess">Convert Sting to StringBuilder in some test code. #544.</action>
+    <action issue="LANG-1550" type="update" dev="ggregory" due-to="Edgar Asatryan">Optimize ArrayUtils::isArrayIndexValid method. #551.</action>
+    <action issue="LANG-1561" type="update" dev="ggregory" due-to="XenoAmess">Use List.sort instead of Collection.sort #546.</action>
+    <action issue="LANG-1563" type="update" dev="ggregory" due-to="XenoAmess">Use StandardCharsets.UTF_8 #548.</action>
+    <action issue="LANG-1564" type="update" dev="ggregory" due-to="XenoAmess">Use Collections.singletonList insteadof Arrays.asList when there be only one element. #549.</action>
+    <action issue="LANG-1560" type="fix" dev="ggregory" due-to="XenoAmess">Refine Javadoc #545.</action>
+    <action issue="LANG-1553" type="update" dev="ggregory" due-to="XenoAmess">Change array style from `int a[]` to `int[] a` #537.</action>
+    <action issue="LANG-1552" type="update" dev="ggregory" due-to="XenoAmess">Change from addAll to constructors for some List #536.</action>
+    <action issue="LANG-1554" type="fix" dev="ggregory" due-to="XenoAmess">Fix typos #539.</action>
+    <action issue="LANG-1555" type="fix" dev="ggregory" due-to="XenoAmess">Ignored exception `ignored`, should not be called so #540.</action>
+    <action issue="LANG-1558" type="update" dev="ggregory" due-to="XenoAmess">Simplify if as some conditions are covered by others #543.</action>
+    <action issue="LANG-1528" type="fix" dev="ggregory" due-to="Edwin Delgado H">StringUtils.replaceEachRepeatedly gives IllegalStateException #505.</action>
   </release>
 
   <release version="3.10" date="2020-03-22" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">
