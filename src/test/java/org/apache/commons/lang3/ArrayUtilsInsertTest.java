@@ -153,6 +153,31 @@ public class ArrayUtilsInsertTest {
     }
 
     @Test
+    public void testInsertGenericArray() {
+        final String[] array = {"a", "b", "c"};
+        final String[] values = {"d", "e", "f"};
+
+        final String[] result = ArrayUtils.insert(42, array, (String[]) null);
+        assertArrayEquals(array, result);
+        assertNotSame(array, result);
+
+        assertNull(ArrayUtils.insert(42, null, array));
+        assertArrayEquals(new String[0], ArrayUtils.insert(0, new String[0], (String[]) null));
+        assertNull(ArrayUtils.insert(42, null, (String[]) null));
+
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(-1, array, array));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(array.length + 1, array, array));
+
+        assertArrayEquals(new String[]{"z", "a", "b", "c"}, ArrayUtils.insert(0, array, "z"));
+        assertArrayEquals(new String[]{"a", "z", "b", "c"}, ArrayUtils.insert(1, array, "z"));
+        assertArrayEquals(new String[]{"a", "b", "c", "z"}, ArrayUtils.insert(array.length, array, "z"));
+        assertArrayEquals(new String[]{"d", "e", "f", "a", "b", "c"}, ArrayUtils.insert(0, array, values));
+        assertArrayEquals(new String[]{"a", "d", "e", "f", "b", "c"}, ArrayUtils.insert(1, array, values));
+        assertArrayEquals(new String[]{"a", "b", "c", "d", "e", "f"}, ArrayUtils.insert(array.length, array, values));
+    }
+
+
+    @Test
     public void testInsertInts() {
         final int[] array = {1, 2, 3};
         final int[] values = {4, 5, 6};
@@ -224,30 +249,5 @@ public class ArrayUtilsInsertTest {
         assertArrayEquals(new short[]{4, 5, 6, 1, 2, 3}, ArrayUtils.insert(0, array, values));
         assertArrayEquals(new short[]{1, 4, 5, 6, 2, 3}, ArrayUtils.insert(1, array, values));
         assertArrayEquals(new short[]{1, 2, 3, 4, 5, 6}, ArrayUtils.insert(array.length, array, values));
-    }
-
-
-    @Test
-    public void testInsertGenericArray() {
-        final String[] array = {"a", "b", "c"};
-        final String[] values = {"d", "e", "f"};
-
-        final String[] result = ArrayUtils.insert(42, array, (String[]) null);
-        assertArrayEquals(array, result);
-        assertNotSame(array, result);
-
-        assertNull(ArrayUtils.insert(42, null, array));
-        assertArrayEquals(new String[0], ArrayUtils.insert(0, new String[0], (String[]) null));
-        assertNull(ArrayUtils.insert(42, null, (String[]) null));
-
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(-1, array, array));
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(array.length + 1, array, array));
-
-        assertArrayEquals(new String[]{"z", "a", "b", "c"}, ArrayUtils.insert(0, array, "z"));
-        assertArrayEquals(new String[]{"a", "z", "b", "c"}, ArrayUtils.insert(1, array, "z"));
-        assertArrayEquals(new String[]{"a", "b", "c", "z"}, ArrayUtils.insert(array.length, array, "z"));
-        assertArrayEquals(new String[]{"d", "e", "f", "a", "b", "c"}, ArrayUtils.insert(0, array, values));
-        assertArrayEquals(new String[]{"a", "d", "e", "f", "b", "c"}, ArrayUtils.insert(1, array, values));
-        assertArrayEquals(new String[]{"a", "b", "c", "d", "e", "f"}, ArrayUtils.insert(array.length, array, values));
     }
 }

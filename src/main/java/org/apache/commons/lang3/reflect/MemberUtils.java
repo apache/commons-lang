@@ -162,14 +162,14 @@ abstract class MemberUtils {
             // When isVarArgs is true, srcArgs and dstArgs may differ in length.
             // There are two special cases to consider:
             final boolean noVarArgsPassed = srcArgs.length < destArgs.length;
-            final boolean explicitArrayForVarags = srcArgs.length == destArgs.length && srcArgs[srcArgs.length-1] != null && srcArgs[srcArgs.length-1].isArray();
+            final boolean explicitArrayForVarargs = srcArgs.length == destArgs.length && srcArgs[srcArgs.length-1] != null && srcArgs[srcArgs.length-1].isArray();
 
             final float varArgsCost = 0.001f;
             final Class<?> destClass = destArgs[destArgs.length-1].getComponentType();
             if (noVarArgsPassed) {
                 // When no varargs passed, the best match is the most generic matching type, not the most specific.
                 totalCost += getObjectTransformationCost(destClass, Object.class) + varArgsCost;
-            } else if (explicitArrayForVarags) {
+            } else if (explicitArrayForVarargs) {
                 final Class<?> sourceClass = srcArgs[srcArgs.length-1].getComponentType();
                 totalCost += getObjectTransformationCost(sourceClass, destClass) + varArgsCost;
             } else {
