@@ -115,8 +115,7 @@ public class ExtendedMessageFormatTest {
         final String extendedPattern = "Name: {0,upper} ";
         final String pattern = extendedPattern + builtinsPattern;
 
-        final HashSet<Locale> testLocales = new HashSet<>();
-        testLocales.addAll(Arrays.asList(DateFormat.getAvailableLocales()));
+        final HashSet<Locale> testLocales = new HashSet<>(Arrays.asList(DateFormat.getAvailableLocales()));
         testLocales.retainAll(Arrays.asList(NumberFormat.getAvailableLocales()));
         testLocales.add(null);
 
