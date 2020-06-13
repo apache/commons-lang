@@ -25,6 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
@@ -6684,14 +6686,19 @@ public class StringUtils {
         // mchyzer Performance note: This creates very few new objects (one major goal)
         // let me know if there are performance requests, we can create a harness to measure
 
-        if (isEmpty(text) || ArrayUtils.isEmpty(searchList) || ArrayUtils.isEmpty(replacementList)) {
-            return text;
-        }
-
         // if recursing, this shouldn't be less than 0
         if (timeToLive < 0) {
-            throw new IllegalStateException("Aborting to protect against StackOverflowError - " +
-                                            "output of one loop is the input of another");
+            Set<String> searchSet = new HashSet<>(Arrays.asList(searchList));
+            Set<String> replacementSet = new HashSet<>(Arrays.asList(replacementList));
+            searchSet.retainAll(replacementSet);
+            if (searchSet.size() > 0) {
+                throw new IllegalStateException("Aborting to protect against StackOverflowError - " +
+                        "output of one loop is the input of another");
+            }
+        }
+
+        if (isEmpty(text) || ArrayUtils.isEmpty(searchList) || ArrayUtils.isEmpty(replacementList) || (ArrayUtils.isNotEmpty(searchList) && timeToLive == -1)) {
+            return text;
         }
 
         final int searchLength = searchList.length;
