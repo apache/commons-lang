@@ -60,7 +60,7 @@ import org.apache.commons.lang3.Validate;
  */
 public class MethodUtils {
 
-    private static final Comparator<Method> METHOD_BY_SIGNATURE = (m1, m2) -> m1.toString().compareTo(m2.toString());
+    private static final Comparator<Method> METHOD_BY_SIGNATURE = Comparator.comparing(Method::toString);
 
     /**
      * <p>{@link MethodUtils} instances should NOT be constructed in standard programming.
