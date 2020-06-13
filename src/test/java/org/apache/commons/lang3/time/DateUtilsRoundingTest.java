@@ -592,7 +592,6 @@ public class DateUtilsRoundingTest {
     /**
      * Test DateUtils.truncate()-method with Calendar.SECOND
      *
-     * @throws Exception so we don't have to catch it
      * @since 3.0
      */
     @Test
