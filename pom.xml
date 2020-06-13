@@ -605,6 +605,7 @@
 
     <spotbugs.plugin.version>4.0.0</spotbugs.plugin.version>
     <japicmp.skip>false</japicmp.skip>
+    <clirr.skip>true</clirr.skip>
 
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
     <jmh.version>1.21</jmh.version>
