@@ -3110,7 +3110,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
     }
 
     /**
-     * <p>Returns whether a given array can safely be accessed at the given index.
+     * Returns whether a given array can safely be accessed at the given index.
      *
      * <pre>
      * ArrayUtils.isArrayIndexValid(null, 0)       = false
