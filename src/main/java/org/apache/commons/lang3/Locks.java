@@ -37,7 +37,7 @@ import org.apache.commons.lang3.Functions.FailableFunction;
  *     references to the locked object. Instead, use references to the lock.</li>
  *   <li>If you want to access the locked object, create a {@link FailableConsumer}. The consumer
  *     will receive the locked object as a parameter. For convenience, the consumer may be
- *     implemented as a Lamba. Then invoke {@link Locks.Lock#runReadLocked(FailableConsumer)},
+ *     implemented as a Lambda. Then invoke {@link Locks.Lock#runReadLocked(FailableConsumer)},
  *     or {@link Locks.Lock#runWriteLocked(FailableConsumer)}, passing the consumer.</li>
  *   <li>As an alternative, if you need to produce a result object, you may use a
  *     {@link FailableFunction}. This function may also be implemented as a Lambda. To
@@ -51,7 +51,7 @@ import org.apache.commons.lang3.Functions.FailableFunction;
  *     private final Lock&lt;PrintStream&gt; lock;
  *
  *     public SimpleLogger(OutputStream out) {
- *         PrintStream ps = new Printstream(out);
+ *         PrintStream ps = new PrintStream(out);
  *         lock = Locks.lock(ps);
  *     }
  *
