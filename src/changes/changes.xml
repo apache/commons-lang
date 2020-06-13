@@ -65,7 +65,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1550" type="add" dev="ggregory" due-to="Edgar Asatryan">Optimize ArrayUtils::isArrayIndexValid method. #551.</action>
     <action issue="LANG-1561" type="add" dev="ggregory" due-to="XenoAmess">Use List.sort instead of Collection.sort #546.</action>
     <action issue="LANG-1563" type="add" dev="ggregory" due-to="XenoAmess">Use StandardCharsets.UTF_8 #548.</action>
-    <action issue="LANG-1562" type="add" dev="ggregory" due-to="XenoAmess">Use Math.max and min #547.</action>
+    <action issue="LANG-1564" type="add" dev="ggregory" due-to="XenoAmess">[LANG-1564] use Collections.singletonList insteadof Arrays.asList when there be only one element. #549.</action>
   </release>
 
   <release version="3.10" date="2020-03-22" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">
