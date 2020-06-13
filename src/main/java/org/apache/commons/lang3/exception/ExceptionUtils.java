@@ -259,7 +259,7 @@ public class ExceptionUtils {
         if (throwable == null) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
-        final Throwable throwables[] = getThrowables(throwable);
+        final Throwable[] throwables = getThrowables(throwable);
         final int count = throwables.length;
         final List<String> frames = new ArrayList<>();
         List<String> nextTrace = getStackFrameList(throwables[count - 1]);
@@ -633,7 +633,7 @@ public class ExceptionUtils {
             return;
         }
         Validate.notNull(stream, "The PrintStream must not be null");
-        final String trace[] = getRootCauseStackTrace(throwable);
+        final String[] trace = getRootCauseStackTrace(throwable);
         for (final String element : trace) {
             stream.println(element);
         }
@@ -664,7 +664,7 @@ public class ExceptionUtils {
             return;
         }
         Validate.notNull(writer, "The PrintWriter must not be null");
-        final String trace[] = getRootCauseStackTrace(throwable);
+        final String[] trace = getRootCauseStackTrace(throwable);
         for (final String element : trace) {
             writer.println(element);
         }
