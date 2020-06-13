@@ -19,6 +19,7 @@ package org.apache.commons.lang3.text.translate;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.EnumSet;
 
 /**
@@ -62,7 +63,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
         if (options.length > 0) {
             this.options = EnumSet.copyOf(Arrays.asList(options));
         } else {
-            this.options = EnumSet.copyOf(Arrays.asList(OPTION.semiColonRequired));
+            this.options = EnumSet.copyOf(Collections.singletonList(OPTION.semiColonRequired));
         }
     }
 
