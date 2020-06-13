@@ -25,7 +25,6 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -694,7 +693,7 @@ public class MethodUtils {
         }
 
         // Sort methods by signature to force deterministic result
-        Collections.sort(matchingMethods, METHOD_BY_SIGNATURE);
+        matchingMethods.sort(METHOD_BY_SIGNATURE);
 
         Method bestMatch = null;
         for (final Method method : matchingMethods) {
