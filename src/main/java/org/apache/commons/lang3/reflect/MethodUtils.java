@@ -25,7 +25,6 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -61,7 +60,7 @@ import org.apache.commons.lang3.Validate;
  */
 public class MethodUtils {
 
-    private static final Comparator<Method> METHOD_BY_SIGNATURE = (m1, m2) -> m1.toString().compareTo(m2.toString());
+    private static final Comparator<Method> METHOD_BY_SIGNATURE = Comparator.comparing(Method::toString);
 
     /**
      * <p>{@link MethodUtils} instances should NOT be constructed in standard programming.
@@ -694,7 +693,7 @@ public class MethodUtils {
         }
 
         // Sort methods by signature to force deterministic result
-        Collections.sort(matchingMethods, METHOD_BY_SIGNATURE);
+        matchingMethods.sort(METHOD_BY_SIGNATURE);
 
         Method bestMatch = null;
         for (final Method method : matchingMethods) {
@@ -984,8 +983,8 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Gets a combination of {@link ClassUtils#getAllSuperclasses}(Class)} and
-     * {@link ClassUtils#getAllInterfaces}(Class)}, one from superclasses, one
+     * <p>Gets a combination of {@link ClassUtils#getAllSuperclasses(Class)} and
+     * {@link ClassUtils#getAllInterfaces(Class)}, one from superclasses, one
      * from interfaces, and so on in a breadth first way.</p>
      *
      * @param cls  the class to look up, may be {@code null}

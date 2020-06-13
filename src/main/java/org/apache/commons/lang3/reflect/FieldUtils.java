@@ -740,11 +740,11 @@ public class FieldUtils {
                     }
                 }
             }
-        } catch (final NoSuchFieldException | IllegalAccessException ignored) {
+        } catch (final NoSuchFieldException | IllegalAccessException e) {
             if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_12)) {
               throw new UnsupportedOperationException(
                   "In java 12+ final cannot be removed.",
-                  ignored
+                  e
               );
             }
             // else no exception is thrown because we can modify final.

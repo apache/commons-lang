@@ -875,8 +875,10 @@ public class TypeUtils {
         // map the arguments to their respective type variables
         for (int i = 0; i < typeParams.length; i++) {
             final Type typeArg = typeArgs[i];
-            typeVarAssigns.put(typeParams[i], typeVarAssigns.containsKey(typeArg) ? typeVarAssigns
-                    .get(typeArg) : typeArg);
+            typeVarAssigns.put(
+                    typeParams[i],
+                    typeVarAssigns.getOrDefault(typeArg, typeArg)
+            );
         }
 
         if (toClass.equals(cls)) {

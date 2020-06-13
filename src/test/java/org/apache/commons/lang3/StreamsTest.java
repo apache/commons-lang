@@ -16,27 +16,37 @@
  */
 package org.apache.commons.lang3;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.core.IsNull.nullValue;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.Functions.FailableConsumer;
 import org.apache.commons.lang3.Functions.FailablePredicate;
+import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestFactory;
+import org.junit.jupiter.api.function.Executable;
 import org.xml.sax.SAXException;
 
 class StreamsTest {
+
     @Test
     void testSimpleStreamMap() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
-        final List<Integer> output = Functions.stream(input).map(s -> Integer.valueOf(s)).collect(Collectors.toList());
+        final List<Integer> output = Functions.stream(input).map(Integer::valueOf).collect(Collectors.toList());
         assertEquals(6, output.size());
         for (int i = 0;  i < 6;  i++) {
             assertEquals(i+1, output.get(i).intValue());
@@ -46,12 +56,9 @@ class StreamsTest {
     @Test
     void testSimpleStreamMapFailing() {
         final List<String> input = Arrays.asList("1", "2", "3", "4 ", "5", "6");
-        try {
-            Functions.stream(input).map(s -> Integer.valueOf(s)).collect(Collectors.toList());
-            fail("Expected Exception");
-        } catch (final NumberFormatException nfe) {
-            assertEquals("For input string: \"4 \"", nfe.getMessage());
-        }
+        final Executable testMethod = () -> Functions.stream(input).map(Integer::valueOf).collect(Collectors.toList());
+        final NumberFormatException thrown = assertThrows(NumberFormatException.class, testMethod);
+        assertEquals("For input string: \"4 \"", thrown.getMessage());
     }
 
     @Test
@@ -84,43 +91,47 @@ class StreamsTest {
         };
     }
 
-    @Test
-    void testSimpleStreamForEachFailing() {
+    @TestFactory
+    Stream<DynamicTest> simpleStreamForEachFailing() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
-        final List<Integer> output = new ArrayList<>();
-        final IllegalArgumentException ise = new IllegalArgumentException("Invalid argument: 4");
-        try {
-            Functions.stream(input).forEach(asIntConsumer(ise));
-            fail("Expected Exception");
-        } catch (final IllegalArgumentException e) {
-            assertSame(ise, e);
-        }
-        output.clear();
-        final OutOfMemoryError oome = new OutOfMemoryError();
-        try {
-            Functions.stream(input).forEach(asIntConsumer(oome));
-            fail("Expected Exception");
-        } catch (final Throwable t) {
-            assertSame(oome, t);
-        }
-        output.clear();
-        final SAXException se = new SAXException();
-        try {
-            Functions.stream(input).forEach(asIntConsumer(se));
-            fail("Expected Exception");
-        } catch (final UndeclaredThrowableException ute) {
-            assertSame(se, ute.getCause());
-        }
+
+        return Stream.of(
+
+                dynamicTest("IllegalArgumentException", () -> {
+                    final IllegalArgumentException ise = new IllegalArgumentException();
+                    final Executable testMethod = () -> Functions.stream(input)
+                            .forEach(asIntConsumer(ise));
+                    final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, testMethod);
+                    assertThat(thrown.getMessage(), is(nullValue()));
+                }),
+
+                dynamicTest("OutOfMemoryError", () -> {
+                    final OutOfMemoryError oome = new OutOfMemoryError();
+                    final Executable oomeTestMethod = () -> Functions.stream(input)
+                            .forEach(asIntConsumer(oome));
+                    final OutOfMemoryError oomeThrown = assertThrows(OutOfMemoryError.class, oomeTestMethod);
+                    assertThat(oomeThrown.getMessage(), is(nullValue()));
+                }),
+
+                dynamicTest("SAXException", () -> {
+                    final SAXException se = new SAXException();
+                    final Executable seTestMethod = () -> Functions.stream(input)
+                            .forEach(asIntConsumer(se));
+                    final UndeclaredThrowableException seThrown = assertThrows(UndeclaredThrowableException.class, seTestMethod);
+                    assertAll(
+                            () -> assertThat(seThrown.getMessage(), is(nullValue())),
+                            () -> assertThat(seThrown.getCause(), is(equalTo(se)))
+                    );
+                })
+        );
     }
 
     @Test
     void testSimpleStreamFilter() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Functions.stream(input)
-                .map(s -> Integer.valueOf(s))
-                .filter(i -> {
-                    return i.intValue() %2 == 0;
-                })
+                .map(Integer::valueOf)
+                .filter(i -> (i.intValue() %2 == 0))
                 .collect(Collectors.toList());
         assertEvenNumbers(output);
     }
@@ -143,49 +154,50 @@ class StreamsTest {
         };
     }
 
-    @Test
-    void testSimpleStreamFilterFailing() {
+    @TestFactory
+    Stream<DynamicTest> simpleStreamFilterFailing() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Functions.stream(input)
-                .map(s -> Integer.valueOf(s))
+                .map(Integer::valueOf)
                 .filter(asIntPredicate(null))
                 .collect(Collectors.toList());
         assertEvenNumbers(output);
 
-        output.clear();
-        final IllegalArgumentException iae = new IllegalArgumentException("Invalid argument: " + 5);
-        try {
-            Functions.stream(input)
-                    .map(s -> Integer.valueOf(s))
-                    .filter(asIntPredicate(iae))
-                    .collect(Collectors.toList());
-            fail("Expected Exception");
-        } catch (final IllegalArgumentException e) {
-            assertSame(iae, e);
-        }
+        return Stream.of(
 
-        output.clear();
-        final OutOfMemoryError oome = new OutOfMemoryError();
-        try {
-            Functions.stream(input)
-                    .map(s -> Integer.valueOf(s))
-                    .filter(asIntPredicate(oome))
-                    .collect(Collectors.toList());
-            fail("Expected Exception");
-        } catch (final Throwable t) {
-            assertSame(oome, t);
-        }
+                dynamicTest("IllegalArgumentException", () -> {
+                    final IllegalArgumentException iae = new IllegalArgumentException("Invalid argument: " + 5);
+                    final Executable testMethod = () -> Functions.stream(input)
+                            .map(Integer::valueOf)
+                            .filter(asIntPredicate(iae))
+                            .collect(Collectors.toList());
+                    final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, testMethod);
+                    assertThat(thrown.getMessage(), is(equalTo("Invalid argument: " + 5)));
+                }),
 
-        output.clear();
-        final SAXException se = new SAXException();
-        try {
-            Functions.stream(input)
-                    .map(s -> Integer.valueOf(s))
-                    .filter(asIntPredicate(se))
-                    .collect(Collectors.toList());
-            fail("Expected Exception");
-        } catch (final UndeclaredThrowableException t) {
-            assertSame(se, t.getCause());
-        }
+                dynamicTest("OutOfMemoryError", () -> {
+                    final OutOfMemoryError oome = new OutOfMemoryError();
+                    final Executable testMethod = () -> Functions.stream(input)
+                            .map(Integer::valueOf)
+                            .filter(asIntPredicate(oome))
+                            .collect(Collectors.toList());
+                    final OutOfMemoryError thrown = assertThrows(OutOfMemoryError.class, testMethod);
+                    assertThat(thrown.getMessage(), is(nullValue()));
+                }),
+
+                dynamicTest("SAXException", () -> {
+                    final SAXException se = new SAXException();
+                    final Executable testMethod = () -> Functions.stream(input)
+                            .map(Integer::valueOf)
+                            .filter(asIntPredicate(se))
+                            .collect(Collectors.toList());
+                    final UndeclaredThrowableException thrown = assertThrows(UndeclaredThrowableException.class, testMethod);
+                    assertAll(
+                            () -> assertThat(thrown.getMessage(), is(nullValue())),
+                            () -> assertThat(thrown.getCause(), is(equalTo(se)))
+                    );
+                })
+        );
     }
+
 }

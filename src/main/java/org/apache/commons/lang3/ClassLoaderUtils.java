@@ -31,7 +31,7 @@ public class ClassLoaderUtils {
      * Converts the given class loader to a String calling {@link #toString(URLClassLoader)}.
      *
      * @param classLoader to URLClassLoader to convert.
-     * @return the formated string.
+     * @return the formatted string.
      */
     public static String toString(final ClassLoader classLoader) {
         if (classLoader instanceof URLClassLoader) {
@@ -45,7 +45,7 @@ public class ClassLoaderUtils {
      * {@code "URLClassLoader.toString() + [URL1, URL2, ...]"}.
      *
      * @param classLoader to URLClassLoader to convert.
-     * @return the formated string.
+     * @return the formatted string.
      */
     public static String toString(final URLClassLoader classLoader) {
         return classLoader + Arrays.toString(classLoader.getURLs());
