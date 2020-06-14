@@ -27,18 +27,36 @@ import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
+import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoubleConsumer;
+import java.util.function.DoubleFunction;
 import java.util.function.DoubleSupplier;
+import java.util.function.DoubleToIntFunction;
+import java.util.function.DoubleToLongFunction;
 import java.util.function.Function;
+import java.util.function.IntBinaryOperator;
 import java.util.function.IntConsumer;
+import java.util.function.IntFunction;
 import java.util.function.IntSupplier;
+import java.util.function.IntToDoubleFunction;
+import java.util.function.IntToLongFunction;
+import java.util.function.LongBinaryOperator;
 import java.util.function.LongConsumer;
+import java.util.function.LongFunction;
 import java.util.function.LongSupplier;
+import java.util.function.LongToDoubleFunction;
+import java.util.function.LongToIntFunction;
 import java.util.function.ObjDoubleConsumer;
 import java.util.function.ObjIntConsumer;
 import java.util.function.ObjLongConsumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.function.ToDoubleBiFunction;
+import java.util.function.ToDoubleFunction;
+import java.util.function.ToIntBiFunction;
+import java.util.function.ToIntFunction;
+import java.util.function.ToLongBiFunction;
+import java.util.function.ToLongFunction;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.Streams.FailableStream;
@@ -79,7 +97,7 @@ import org.apache.commons.lang3.Streams.FailableStream;
 public class Functions {
 
     /**
-     * A functional interface like {@link BiConsumer} that declares a Throwable.
+     * A functional interface like {@link BiConsumer} that declares a {@code Throwable}.
      *
      * @param <O1> Consumed type 1.
      * @param <O2> Consumed type 2.
@@ -99,15 +117,15 @@ public class Functions {
     }
 
     /**
-     * A functional interface like {@link BiFunction} that declares a Throwable.
+     * A functional interface like {@link BiFunction} that declares a {@code Throwable}.
      *
-     * @param <I1> Input type 1.
-     * @param <I2> Input type 2.
+     * @param <O1> Input type 1.
+     * @param <O2> Input type 2.
      * @param <R> Return type.
      * @param <T> Thrown exception.
      */
     @FunctionalInterface
-    public interface FailableBiFunction<I1, I2, R, T extends Throwable> {
+    public interface FailableBiFunction<O1, O2, R, T extends Throwable> {
 
         /**
          * Applies this function.
@@ -115,20 +133,20 @@ public class Functions {
          * @param input1 the first input for the function
          * @param input2 the second input for the function
          * @return the result of the function
-         * @throws T if the function fails
+         * @throws T Thrown when the function fails.
          */
-        R apply(I1 input1, I2 input2) throws T;
+        R apply(O1 input1, O2 input2) throws T;
     }
 
     /**
-     * A functional interface like {@link BiPredicate} that declares a Throwable.
+     * A functional interface like {@link BiPredicate} that declares a {@code Throwable}.
      *
-     * @param <I1> Predicate type 1.
-     * @param <I2> Predicate type 2.
+     * @param <O1> Predicate type 1.
+     * @param <O2> Predicate type 2.
      * @param <T> Thrown exception.
      */
     @FunctionalInterface
-    public interface FailableBiPredicate<I1, I2, T extends Throwable> {
+    public interface FailableBiPredicate<O1, O2, T extends Throwable> {
 
         /**
          * Tests the predicate.
@@ -138,11 +156,11 @@ public class Functions {
          * @return the predicate's evaluation
          * @throws T if the predicate fails
          */
-        boolean test(I1 object1, I2 object2) throws T;
+        boolean test(O1 object1, O2 object2) throws T;
     }
 
     /**
-     * A functional interface like {@link BooleanSupplier} that declares a Throwable.
+     * A functional interface like {@link BooleanSupplier} that declares a {@code Throwable}.
      *
      * @param <T> Thrown exception.
      * @since 3.11
@@ -160,7 +178,7 @@ public class Functions {
     }
 
     /**
-     * A functional interface like {@link java.util.concurrent.Callable} that declares a Throwable.
+     * A functional interface like {@link java.util.concurrent.Callable} that declares a {@code Throwable}.
      *
      * @param <R> Return type.
      * @param <T> Thrown exception.
@@ -178,7 +196,7 @@ public class Functions {
     }
 
     /**
-     * A functional interface like {@link Consumer} that declares a Throwable.
+     * A functional interface like {@link Consumer} that declares a {@code Throwable}.
      *
      * @param <O> Consumed type 1.
      * @param <T> Thrown exception.
@@ -196,7 +214,27 @@ public class Functions {
     }
 
     /**
-     * A functional interface like {@link DoubleConsumer} that declares a Throwable.
+     * A functional interface like {@link DoubleBinaryOperator} that declares a {@code Throwable}.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableDoubleBinaryOperator<T extends Throwable> {
+
+        /**
+         * Applies this operator to the given operands.
+         *
+         * @param left the first operand
+         * @param right the second operand
+         * @return the operator result
+         * @throws T if the operation fails
+         */
+        double applyAsDouble(double left, double right) throws T;
+    }
+
+    /**
+     * A functional interface like {@link DoubleConsumer} that declares a {@code Throwable}.
      *
      * @param <T> Thrown exception.
      * @since 3.11
@@ -214,7 +252,26 @@ public class Functions {
     }
 
     /**
-     * A functional interface like {@link DoubleSupplier} that declares a Throwable.
+     * A functional interface like {@link DoubleFunction} that declares a {@code Throwable}.
+     *
+     * @param <R> Return type.
+     * @param <T> Thrown exception.
+     */
+    @FunctionalInterface
+    public interface FailableDoubleFunction<R, T extends Throwable> {
+
+        /**
+         * Applies this function.
+         *
+         * @param input the input for the function
+         * @return the result of the function
+         * @throws T Thrown when the function fails.
+         */
+        R apply(double input) throws T;
+    }
+
+    /**
+     * A functional interface like {@link DoubleSupplier} that declares a {@code Throwable}.
      *
      * @param <T> Thrown exception.
      * @since 3.11
@@ -232,7 +289,45 @@ public class Functions {
     }
 
     /**
-     * A functional interface like {@link Function} that declares a Throwable.
+     * A functional interface like {@link DoubleToIntFunction} that declares a {@code Throwable}.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableDoubleToIntFunction<T extends Throwable> {
+
+        /**
+         * Applies this function to the given argument.
+         *
+         * @param value the function argument
+         * @return the function result
+         * @throws T Thrown when the function fails.
+         */
+        int applyAsInt(double value) throws T;
+    }
+
+    /**
+     * A functional interface like {@link DoubleToLongFunction} that declares a {@code Throwable}.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableDoubleToLongFunction<T extends Throwable> {
+
+        /**
+         * Applies this function to the given argument.
+         *
+         * @param value the function argument
+         * @return the function result
+         * @throws T if the operation fails
+         */
+        int applyAsLong(double value) throws T;
+    }
+
+    /**
+     * A functional interface like {@link Function} that declares a {@code Throwable}.
      *
      * @param <I> Input type 1.
      * @param <R> Return type.
@@ -246,13 +341,33 @@ public class Functions {
          *
          * @param input the input for the function
          * @return the result of the function
-         * @throws T if the function fails
+         * @throws T Thrown when the function fails.
          */
         R apply(I input) throws T;
     }
 
     /**
-     * A functional interface like {@link IntConsumer} that declares a Throwable.
+     * A functional interface like {@link IntBinaryOperator} that declares a {@code Throwable}.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableIntBinaryOperator<T extends Throwable> {
+
+        /**
+         * Applies this operator to the given operands.
+         *
+         * @param left the first operand
+         * @param right the second operand
+         * @return the operator result
+         * @throws T if the operation fails
+         */
+        int applyAsInt(int left, int right) throws T;
+    }
+
+    /**
+     * A functional interface like {@link IntConsumer} that declares a {@code Throwable}.
      *
      * @param <T> Thrown exception.
      * @since 3.11
@@ -270,7 +385,26 @@ public class Functions {
     }
 
     /**
-     * A functional interface like {@link IntSupplier} that declares a Throwable.
+     * A functional interface like {@link IntFunction} that declares a {@code Throwable}.
+     *
+     * @param <R> Return type.
+     * @param <T> Thrown exception.
+     */
+    @FunctionalInterface
+    public interface FailableIntFunction<R, T extends Throwable> {
+
+        /**
+         * Applies this function.
+         *
+         * @param input the input for the function
+         * @return the result of the function
+         * @throws T Thrown when the function fails.
+         */
+        R apply(int input) throws T;
+    }
+
+    /**
+     * A functional interface like {@link IntSupplier} that declares a {@code Throwable}.
      *
      * @param <T> Thrown exception.
      * @since 3.11
@@ -288,7 +422,65 @@ public class Functions {
     }
 
     /**
-     * A functional interface like {@link LongConsumer} that declares a Throwable.
+     * A functional interface like {@link IntToDoubleFunction} that declares a {@code Throwable}.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableIntToDoubleFunction<T extends Throwable> {
+
+        /**
+         * Applies this function to the given argument.
+         *
+         * @param value the function argument
+         * @return the function result
+         * @throws T Thrown when the function fails.
+         */
+        double applyAsDouble(int value) throws T;
+    }
+
+    /**
+     * A functional interface like {@link IntToLongFunction} that declares a {@code Throwable}.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableIntToLongFunction<T extends Throwable> {
+
+        /**
+         * Applies this function to the given argument.
+         *
+         * @param value the function argument
+         * @return the function result
+         * @throws T Thrown when the function fails.
+         */
+        long applyAsLong(int value) throws T;
+    }
+
+    /**
+     * A functional interface like {@link LongBinaryOperator} that declares a {@code Throwable}.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableLongBinaryOperator<T extends Throwable> {
+
+        /**
+         * Applies this operator to the given operands.
+         *
+         * @param left the first operand
+         * @param right the second operand
+         * @return the operator result
+         * @throws T if the operation fails
+         */
+        long applyAsLong(long left, long right) throws T;
+    }
+
+    /**
+     * A functional interface like {@link LongConsumer} that declares a {@code Throwable}.
      *
      * @param <T> Thrown exception.
      * @since 3.11
@@ -306,7 +498,26 @@ public class Functions {
     }
 
     /**
-     * A functional interface like {@link LongSupplier} that declares a Throwable.
+     * A functional interface like {@link LongFunction} that declares a {@code Throwable}.
+     *
+     * @param <R> Return type.
+     * @param <T> Thrown exception.
+     */
+    @FunctionalInterface
+    public interface FailableLongFunction<R, T extends Throwable> {
+
+        /**
+         * Applies this function.
+         *
+         * @param input the input for the function
+         * @return the result of the function
+         * @throws T Thrown when the function fails.
+         */
+        R apply(long input) throws T;
+    }
+
+    /**
+     * A functional interface like {@link LongSupplier} that declares a {@code Throwable}.
      *
      * @param <T> Thrown exception.
      * @since 3.11
@@ -324,7 +535,45 @@ public class Functions {
     }
 
     /**
-     * A functional interface like {@link ObjDoubleConsumer} that declares a Throwable.
+     * A functional interface like {@link LongToDoubleFunction} that declares a {@code Throwable}.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableLongToDoubleFunction<T extends Throwable> {
+
+        /**
+         * Applies this function to the given argument.
+         *
+         * @param value the function argument
+         * @return the function result
+         * @throws T Thrown when the function fails.
+         */
+        double applyAsDouble(long value) throws T;
+    }
+
+    /**
+     * A functional interface like {@link LongToIntFunction} that declares a {@code Throwable}.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableLongToIntFunction<T extends Throwable> {
+
+        /**
+         * Applies this function to the given argument.
+         *
+         * @param value the function argument
+         * @return the function result
+         * @throws T Thrown when the function fails.
+         */
+        int applyAsInt(long value) throws T;
+    }
+
+    /**
+     * A functional interface like {@link ObjDoubleConsumer} that declares a {@code Throwable}.
      *
      * @param <O> the type of the object argument to the operation.
      * @param <T> Thrown exception.
@@ -344,7 +593,7 @@ public class Functions {
     }
 
     /**
-     * A functional interface like {@link ObjIntConsumer} that declares a Throwable.
+     * A functional interface like {@link ObjIntConsumer} that declares a {@code Throwable}.
      *
      * @param <O> the type of the object argument to the operation.
      * @param <T> Thrown exception.
@@ -364,7 +613,7 @@ public class Functions {
     }
 
     /**
-     * A functional interface like {@link ObjLongConsumer} that declares a Throwable.
+     * A functional interface like {@link ObjLongConsumer} that declares a {@code Throwable}.
      *
      * @param <O> the type of the object argument to the operation.
      * @param <T> Thrown exception.
@@ -384,7 +633,7 @@ public class Functions {
     }
 
     /**
-     * A functional interface like {@link Predicate} that declares a Throwable.
+     * A functional interface like {@link Predicate} that declares a {@code Throwable}.
      *
      * @param <I> Predicate type 1.
      * @param <T> Thrown exception.
@@ -403,7 +652,7 @@ public class Functions {
     }
 
     /**
-     * A functional interface like {@link Runnable} that declares a Throwable.
+     * A functional interface like {@link Runnable} that declares a {@code Throwable}.
      *
      * @param <T> Thrown exception.
      */
@@ -413,13 +662,13 @@ public class Functions {
         /**
          * Runs the function.
          *
-         * @throws T if the function fails
+         * @throws T Thrown when the function fails.
          */
         void run() throws T;
     }
 
     /**
-     * A functional interface like {@link Supplier} that declares a Throwable.
+     * A functional interface like {@link Supplier} that declares a {@code Throwable}.
      *
      * @param <R> Return type.
      * @param <T> Thrown exception.
@@ -434,6 +683,132 @@ public class Functions {
          * @throws T if the supplier fails
          */
         R get() throws T;
+    }
+
+    /**
+     * A functional interface like {@link ToDoubleBiFunction} that declares a {@code Throwable}.
+     *
+     * @param <O1> the type of the first argument to the function
+     * @param <O2> the type of the second argument to the function
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableToDoubleBiFunction<O1, O2, T extends Throwable> {
+
+        /**
+         * Applies this function to the given arguments.
+         *
+         * @param t the first function argument
+         * @param u the second function argument
+         * @return the function result
+         * @throws T Thrown when the function fails.
+         */
+        double applyAsDouble(O1 t, O2 u) throws T;
+    }
+
+    /**
+     * A functional interface like {@link ToDoubleFunction} that declares a {@code Throwable}.
+     *
+     * @param <I> the type of the first argument to the function
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableToDoubleFunction<I, T extends Throwable> {
+
+        /**
+         * Applies this function to the given arguments.
+         *
+         * @param t the first function argument
+         * @return the function result
+         * @throws T Thrown when the function fails.
+         */
+        double applyAsDouble(I t) throws T;
+    }
+
+    /**
+     * A functional interface like {@link ToIntBiFunction} that declares a {@code Throwable}.
+     *
+     * @param <O1> the type of the first argument to the function
+     * @param <O2> the type of the second argument to the function
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableToIntBiFunction<O1, O2, T extends Throwable> {
+
+        /**
+         * Applies this function to the given arguments.
+         *
+         * @param t the first function argument
+         * @param u the second function argument
+         * @return the function result
+         * @throws T Thrown when the function fails.
+         */
+        int applyAsInt(O1 t, O2 u) throws T;
+    }
+
+    /**
+     * A functional interface like {@link ToIntFunction} that declares a {@code Throwable}.
+     *
+     * @param <I> the type of the first argument to the function
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableToIntFunction<I, T extends Throwable> {
+
+        /**
+         * Applies this function to the given arguments.
+         *
+         * @param t the first function argument
+         * @return the function result
+         * @throws T Thrown when the function fails.
+         */
+        int applyAsInt(I t) throws T;
+    }
+
+    /**
+     * A functional interface like {@link ToLongBiFunction} that declares a {@code Throwable}.
+     *
+     * @param <O1> the type of the first argument to the function
+     * @param <O2> the type of the second argument to the function
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableToLongBiFunction<O1, O2, T extends Throwable> {
+
+        /**
+         * Applies this function to the given arguments.
+         *
+         * @param t the first function argument
+         * @param u the second function argument
+         * @return the function result
+         * @throws T Thrown when the function fails.
+         */
+        long applyAsLong(O1 t, O2 u) throws T;
+    }
+
+    /**
+     * A functional interface like {@link ToLongFunction} that declares a {@code Throwable}.
+     *
+     * @param <I> the type of the first argument to the function
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableToLongFunction<I, T extends Throwable> {
+
+        /**
+         * Applies this function to the given arguments.
+         *
+         * @param t the first function argument
+         * @return the function result
+         * @throws T Thrown when the function fails.
+         */
+        long applyAsLong(I t) throws T;
     }
 
     /**
@@ -505,14 +880,14 @@ public class Functions {
      * @param function the function to apply
      * @param input1 the first input to apply {@code function} on
      * @param input2 the second input to apply {@code function} on
-     * @param <I1> the type of the first argument the function accepts
-     * @param <I2> the type of the second argument the function accepts
+     * @param <O1> the type of the first argument the function accepts
+     * @param <O2> the type of the second argument the function accepts
      * @param <O> the return type of the function
      * @param <T> the type of checked exception the function may throw
      * @return the value returned from the function
      */
-    public static <I1, I2, O, T extends Throwable> O apply(final FailableBiFunction<I1, I2, O, T> function,
-        final I1 input1, final I2 input2) {
+    public static <O1, O2, O, T extends Throwable> O apply(final FailableBiFunction<O1, O2, O, T> function,
+        final O1 input1, final O2 input2) {
         return get(() -> function.apply(input1, input2));
     }
 
@@ -531,42 +906,57 @@ public class Functions {
     }
 
     /**
+     * Applies a function and rethrows any exception as a {@link RuntimeException}.
+     *
+     * @param function the function to apply
+     * @param left the first input to apply {@code function} on
+     * @param right the second input to apply {@code function} on
+     * @param <T> the type of checked exception the function may throw
+     * @return the value returned from the function
+     * @since 3.11
+     */
+    public static <T extends Throwable> double applyAsDouble(final FailableDoubleBinaryOperator<T> function,
+        final double left, final double right) {
+        return getAsDouble(() -> function.applyAsDouble(left, right));
+    }
+
+    /**
      * Converts the given {@link FailableBiConsumer} into a standard {@link BiConsumer}.
      *
-     * @param <I1> the type of the first argument of the consumers
-     * @param <I2> the type of the second argument of the consumers
+     * @param <O1> the type of the first argument of the consumers
+     * @param <O2> the type of the second argument of the consumers
      * @param consumer a failable {@code BiConsumer}
      * @return a standard {@code BiConsumer}
      * @since 3.10
      */
-    public static <I1, I2> BiConsumer<I1, I2> asBiConsumer(final FailableBiConsumer<I1, I2, ?> consumer) {
+    public static <O1, O2> BiConsumer<O1, O2> asBiConsumer(final FailableBiConsumer<O1, O2, ?> consumer) {
         return (input1, input2) -> accept(consumer, input1, input2);
     }
 
     /**
      * Converts the given {@link FailableBiFunction} into a standard {@link BiFunction}.
      *
-     * @param <I1> the type of the first argument of the input of the functions
-     * @param <I2> the type of the second argument of the input of the functions
+     * @param <O1> the type of the first argument of the input of the functions
+     * @param <O2> the type of the second argument of the input of the functions
      * @param <O> the type of the output of the functions
      * @param function a {@code FailableBiFunction}
      * @return a standard {@code BiFunction}
      * @since 3.10
      */
-    public static <I1, I2, O> BiFunction<I1, I2, O> asBiFunction(final FailableBiFunction<I1, I2, O, ?> function) {
+    public static <O1, O2, O> BiFunction<O1, O2, O> asBiFunction(final FailableBiFunction<O1, O2, O, ?> function) {
         return (input1, input2) -> apply(function, input1, input2);
     }
 
     /**
      * Converts the given {@link FailableBiPredicate} into a standard {@link BiPredicate}.
      *
-     * @param <I1> the type of the first argument used by the predicates
-     * @param <I2> the type of the second argument used by the predicates
+     * @param <O1> the type of the first argument used by the predicates
+     * @param <O2> the type of the second argument used by the predicates
      * @param predicate a {@code FailableBiPredicate}
      * @return a standard {@code BiPredicate}
      * @since 3.10
      */
-    public static <I1, I2> BiPredicate<I1, I2> asBiPredicate(final FailableBiPredicate<I1, I2, ?> predicate) {
+    public static <O1, O2> BiPredicate<O1, O2> asBiPredicate(final FailableBiPredicate<O1, O2, ?> predicate) {
         return (input1, input2) -> test(predicate, input1, input2);
     }
 
