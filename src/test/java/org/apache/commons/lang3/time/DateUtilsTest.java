@@ -1651,5 +1651,10 @@ public class DateUtilsTest {
     public void testLANG799() throws ParseException {
         DateUtils.parseDateStrictly("09 abril 2008 23:55:38 GMT", new Locale("es"), "dd MMM yyyy HH:mm:ss zzz");
     }
+    
+    @Test
+    public void testLANG1465() throws ParseException {
+        DateUtils.parseDate("2019-06-11T15:06:11.716-0500", "yyyy-MM-dd'T'HH:mm:ss.SSSZZ");
+    }
 }
 
