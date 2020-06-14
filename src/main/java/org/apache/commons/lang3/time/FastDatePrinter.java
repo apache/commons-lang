@@ -214,7 +214,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 if (tokenLen == 2) {
                     rule = TwoDigitYearField.INSTANCE;
                 } else {
-                    rule = selectNumberRule(Calendar.YEAR, tokenLen < 4 ? 4 : tokenLen);
+                    rule = selectNumberRule(Calendar.YEAR, Math.max(tokenLen, 4));
                 }
                 if (c == 'Y') {
                     rule = new WeekYear((NumberRule) rule);

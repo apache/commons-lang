@@ -600,11 +600,12 @@
     <commons.encoding>utf-8</commons.encoding>
 
     <checkstyle.plugin.version>3.1.1</checkstyle.plugin.version>
-    <checkstyle.version>8.32</checkstyle.version>
+    <checkstyle.version>8.33</checkstyle.version>
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
 
     <spotbugs.plugin.version>4.0.0</spotbugs.plugin.version>
     <japicmp.skip>false</japicmp.skip>
+    <clirr.skip>true</clirr.skip>
 
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
     <jmh.version>1.21</jmh.version>
@@ -619,7 +620,7 @@
     <commons.japicmp.version>0.14.3</commons.japicmp.version>
 
     <!-- Commons Release Plugin -->
-    <commons.bc.version>3.9</commons.bc.version>
+    <commons.bc.version>3.10</commons.bc.version>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>
@@ -765,15 +766,25 @@
           <dependency>
             <groupId>com.github.spotbugs</groupId>
             <artifactId>spotbugs</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.4</version>
          </dependency>
         </dependencies>        
         <configuration>
           <excludeFilterFile>${basedir}/spotbugs-exclude-filter.xml</excludeFilterFile>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>biz.aQute.bnd</groupId>
+            <artifactId>biz.aQute.bndlib</artifactId>
+            <version>5.1.0</version>
+          </dependency>
+        </dependencies>
+      </plugin>
     </plugins>
-
   </build>
 
   <reporting>
