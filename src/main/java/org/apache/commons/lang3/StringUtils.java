@@ -25,6 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
@@ -551,7 +553,7 @@ public class StringUtils {
             return str;
         }
 
-        final int newCodePoints[] = new int[strLen]; // cannot be longer than the char array
+        final int[] newCodePoints = new int[strLen]; // cannot be longer than the char array
         int outOffset = 0;
         newCodePoints[outOffset++] = newCodePoint; // copy the first codepoint
         for (int inOffset = Character.charCount(firstCodepoint); inOffset < strLen; ) {
@@ -2321,7 +2323,7 @@ public class StringUtils {
             m = t.length();
         }
 
-        final int p[] = new int[n + 1];
+        final int[] p = new int[n + 1];
         // indexes into strings s and t
         int i; // iterates through s
         int j; // iterates through t
@@ -2462,9 +2464,9 @@ public class StringUtils {
             m = t.length();
         }
 
-        int p[] = new int[n + 1]; // 'previous' cost array, horizontally
-        int d[] = new int[n + 1]; // cost array, horizontally
-        int _d[]; // placeholder to assist in swapping p and d
+        int[] p = new int[n + 1]; // 'previous' cost array, horizontally
+        int[] d = new int[n + 1]; // cost array, horizontally
+        int[] _d; // placeholder to assist in swapping p and d
 
         // fill in starting table values
         final int boundary = Math.min(n, threshold) + 1;
@@ -6694,14 +6696,19 @@ public class StringUtils {
         // mchyzer Performance note: This creates very few new objects (one major goal)
         // let me know if there are performance requests, we can create a harness to measure
 
-        if (isEmpty(text) || ArrayUtils.isEmpty(searchList) || ArrayUtils.isEmpty(replacementList)) {
-            return text;
-        }
-
         // if recursing, this shouldn't be less than 0
         if (timeToLive < 0) {
-            throw new IllegalStateException("Aborting to protect against StackOverflowError - " +
-                                            "output of one loop is the input of another");
+            Set<String> searchSet = new HashSet<>(Arrays.asList(searchList));
+            Set<String> replacementSet = new HashSet<>(Arrays.asList(replacementList));
+            searchSet.retainAll(replacementSet);
+            if (searchSet.size() > 0) {
+                throw new IllegalStateException("Aborting to protect against StackOverflowError - " +
+                        "output of one loop is the input of another");
+            }
+        }
+
+        if (isEmpty(text) || ArrayUtils.isEmpty(searchList) || ArrayUtils.isEmpty(replacementList) || (ArrayUtils.isNotEmpty(searchList) && timeToLive == -1)) {
+            return text;
         }
 
         final int searchLength = searchList.length;
@@ -8872,7 +8879,7 @@ public class StringUtils {
         }
 
         final int strLen = str.length();
-        final int newCodePoints[] = new int[strLen]; // cannot be longer than the char array
+        final int[] newCodePoints = new int[strLen]; // cannot be longer than the char array
         int outOffset = 0;
         for (int i = 0; i < strLen; ) {
             final int oldCodepoint = str.codePointAt(i);
@@ -9216,7 +9223,7 @@ public class StringUtils {
             return str;
         }
 
-        final int newCodePoints[] = new int[strLen]; // cannot be longer than the char array
+        final int[] newCodePoints = new int[strLen]; // cannot be longer than the char array
         int outOffset = 0;
         newCodePoints[outOffset++] = newCodePoint; // copy the first codepoint
         for (int inOffset = Character.charCount(firstCodepoint); inOffset < strLen; ) {

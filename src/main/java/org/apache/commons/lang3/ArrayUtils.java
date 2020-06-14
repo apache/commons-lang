@@ -101,13 +101,6 @@ public class ArrayUtils {
     public static final Field[] EMPTY_FIELD_ARRAY = new Field[0];
 
     /**
-     * An empty immutable {@code Method} array.
-     *
-     * @since 3.10
-     */
-    public static final Method[] EMPTY_METHOD_ARRAY = new Method[0];
-
-    /**
      * An empty immutable {@code float} array.
      */
     public static final float[] EMPTY_FLOAT_ARRAY = new float[0];
@@ -136,6 +129,13 @@ public class ArrayUtils {
      * An empty immutable {@code Long} array.
      */
     public static final Long[] EMPTY_LONG_OBJECT_ARRAY = new Long[0];
+
+    /**
+     * An empty immutable {@code Method} array.
+     *
+     * @since 3.10
+     */
+    public static final Method[] EMPTY_METHOD_ARRAY = new Method[0];
 
     /**
      * An empty immutable {@code Object} array.
@@ -1655,6 +1655,33 @@ public class ArrayUtils {
         return Array.newInstance(newArrayComponentType, 1);
     }
 
+    /**
+     * Gets the nTh element of an array or null if the index is out of bounds or the array is null.
+     *
+     * @param <T> The type of array elements.
+     * @param array The array to index.
+     * @param index The index
+     * @return the nTh element of an array or null if the index is out of bounds or the array is null.
+     * @since 3.11
+     */
+    public static <T> T get(final T[] array, final int index) {
+        return get(array, index, null);
+    }
+
+    /**
+     * Gets the nTh element of an array or a default value if the index is out of bounds.
+     *
+     * @param <T> The type of array elements.
+     * @param array The array to index.
+     * @param index The index
+     * @param defaultValue The return value of the given index is out of bounds.
+     * @return the nTh element of an array or a default value if the index is out of bounds.
+     * @since 3.11
+     */
+    public static <T> T get(final T[] array, final int index, final T defaultValue) {
+        return isArrayIndexValid(array, index) ? array[index] : defaultValue;
+    }
+
     //-----------------------------------------------------------------------
     /**
      * <p>Returns the length of the specified array.
@@ -3078,6 +3105,13 @@ public static int indexOf(final int[] array, final int valueToFind) {
 
     /**
      * Returns whether a given array can safely be accessed at the given index.
+     *
+     * <pre>
+     * ArrayUtils.isArrayIndexValid(null, 0)       = false
+     * ArrayUtils.isArrayIndexValid([], 0)         = false
+     * ArrayUtils.isArrayIndexValid(["a"], 0)      = true
+     * </pre>
+     *
      * @param <T> the component type of the array
      * @param array the array to inspect, may be null
      * @param index the index of the array to be inspected
@@ -3085,11 +3119,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @since 3.8
      */
     public static <T> boolean isArrayIndexValid(final T[] array, final int index) {
-        if (getLength(array) == 0 || array.length <= index) {
-            return false;
-        }
-
-        return index >= 0;
+        return index >= 0 && getLength(array) > index;
     }
 
     /**
@@ -6487,7 +6517,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         if (array == null) {
             return;
         }
-        int i = startIndexInclusive < 0 ? 0 : startIndexInclusive;
+        int i = Math.max(startIndexInclusive, 0);
         int j = Math.min(array.length, endIndexExclusive) - 1;
         boolean tmp;
         while (j > i) {
@@ -6534,7 +6564,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         if (array == null) {
             return;
         }
-        int i = startIndexInclusive < 0 ? 0 : startIndexInclusive;
+        int i = Math.max(startIndexInclusive, 0);
         int j = Math.min(array.length, endIndexExclusive) - 1;
         byte tmp;
         while (j > i) {
@@ -6581,7 +6611,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         if (array == null) {
             return;
         }
-        int i = startIndexInclusive < 0 ? 0 : startIndexInclusive;
+        int i = Math.max(startIndexInclusive, 0);
         int j = Math.min(array.length, endIndexExclusive) - 1;
         char tmp;
         while (j > i) {
@@ -6628,7 +6658,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         if (array == null) {
             return;
         }
-        int i = startIndexInclusive < 0 ? 0 : startIndexInclusive;
+        int i = Math.max(startIndexInclusive, 0);
         int j = Math.min(array.length, endIndexExclusive) - 1;
         double tmp;
         while (j > i) {
@@ -6675,7 +6705,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         if (array == null) {
             return;
         }
-        int i = startIndexInclusive < 0 ? 0 : startIndexInclusive;
+        int i = Math.max(startIndexInclusive, 0);
         int j = Math.min(array.length, endIndexExclusive) - 1;
         float tmp;
         while (j > i) {
@@ -6722,7 +6752,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         if (array == null) {
             return;
         }
-        int i = startIndexInclusive < 0 ? 0 : startIndexInclusive;
+        int i = Math.max(startIndexInclusive, 0);
         int j = Math.min(array.length, endIndexExclusive) - 1;
         int tmp;
         while (j > i) {
@@ -6769,7 +6799,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         if (array == null) {
             return;
         }
-        int i = startIndexInclusive < 0 ? 0 : startIndexInclusive;
+        int i = Math.max(startIndexInclusive, 0);
         int j = Math.min(array.length, endIndexExclusive) - 1;
         long tmp;
         while (j > i) {
@@ -6820,7 +6850,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         if (array == null) {
             return;
         }
-        int i = startIndexInclusive < 0 ? 0 : startIndexInclusive;
+        int i = Math.max(startIndexInclusive, 0);
         int j = Math.min(array.length, endIndexExclusive) - 1;
         Object tmp;
         while (j > i) {
@@ -6867,7 +6897,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
         if (array == null) {
             return;
         }
-        int i = startIndexInclusive < 0 ? 0 : startIndexInclusive;
+        int i = Math.max(startIndexInclusive, 0);
         int j = Math.min(array.length, endIndexExclusive) - 1;
         short tmp;
         while (j > i) {

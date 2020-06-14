@@ -33,7 +33,7 @@ class LocksTest {
         /** If our threads are running concurrently, then we expect to be faster
          * than running one after the other.
          */
-        runTest(DELAY, false, (l) -> assertTrue(l < NUMBER_OF_THREADS*DELAY));
+        runTest(DELAY, false, l -> assertTrue(l < NUMBER_OF_THREADS*DELAY));
     }
 
     void testWriteLock() throws Exception {
@@ -41,7 +41,7 @@ class LocksTest {
         /** If our threads are running concurrently, then we expect to be no faster
          * than running one after the other.
          */
-        runTest(DELAY, true, (l) -> assertTrue(l >= NUMBER_OF_THREADS*DELAY));
+        runTest(DELAY, true, l -> assertTrue(l >= NUMBER_OF_THREADS*DELAY));
     }
 
     private void runTest(long delay, boolean exclusiveLock, LongConsumer runTimeCheck) throws InterruptedException {
@@ -52,7 +52,7 @@ class LocksTest {
         final long startTime = System.currentTimeMillis();
         for (int i = 0;  i < booleanValues.length;  i++) {
             final int index = i;
-            final FailableConsumer<boolean[], ?> consumer = (b) -> {
+            final FailableConsumer<boolean[], ?> consumer = b -> {
                 b[index] = false;
                 Thread.sleep(delay);
                 b[index] = true;

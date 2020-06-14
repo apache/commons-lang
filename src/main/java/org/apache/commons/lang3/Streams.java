@@ -450,9 +450,7 @@ public class Streams {
 
         @Override
         public BiConsumer<List<O>, O> accumulator() {
-            return (list, o) -> {
-                list.add(o);
-            };
+            return List::add;
         }
 
         @Override

@@ -32,7 +32,6 @@ import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -504,7 +503,7 @@ public class TypeUtilsTest<B> {
         assertEquals(Integer.class, typeVarAssigns.get(treeSetTypeVar),
                 "Type argument of Comparable from int: " + typeArg);
 
-        final Collection<Integer> col = Arrays.asList();
+        final Collection<Integer> col = Collections.emptyList();
         typeVarAssigns = TypeUtils.getTypeArguments(List.class, Collection.class);
         treeSetTypeVar = Comparable.class.getTypeParameters()[0];
         assertFalse(typeVarAssigns.containsKey(treeSetTypeVar),
