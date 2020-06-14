@@ -180,12 +180,7 @@ public class StringUtils {
     private static final int PAD_LIMIT = 8192;
 
     /**
-     * Pattern instance used in function {@link #stripAccents(String)}.
-     * We make it a constant variable to avoid compile everytime when use.
-     *
-     * @see Pattern#compile(String)
-     * @see #stripAccents(String)
-     * @since 3.11
+     * Pattern used in {@link #stripAccents(String)}.
      */
     private static final Pattern STRIP_ACCENTS_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+"); //$NON-NLS-1$
 
