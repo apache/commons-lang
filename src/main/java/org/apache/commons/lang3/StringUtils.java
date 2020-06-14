@@ -179,6 +179,11 @@ public class StringUtils {
      */
     private static final int PAD_LIMIT = 8192;
 
+    /**
+     * Pattern used in {@link #stripAccents(String)}.
+     */
+    private static final Pattern STRIP_ACCENTS_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+"); //$NON-NLS-1$
+
     // Abbreviating
     //-----------------------------------------------------------------------
     /**
@@ -8215,11 +8220,10 @@ public class StringUtils {
         if (input == null) {
             return null;
         }
-        final Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+"); //$NON-NLS-1$
         final StringBuilder decomposed = new StringBuilder(Normalizer.normalize(input, Normalizer.Form.NFD));
         convertRemainingAccentCharacters(decomposed);
         // Note that this doesn't correctly remove ligatures...
-        return pattern.matcher(decomposed).replaceAll(EMPTY);
+        return STRIP_ACCENTS_PATTERN.matcher(decomposed).replaceAll(EMPTY);
     }
 
     // StripAll
