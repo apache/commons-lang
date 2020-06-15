@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
 import org.junit.jupiter.api.Test;
@@ -158,7 +159,7 @@ public class RandomStringUtilsTest {
 
     @Test
     public void testLANG807() {
-        IllegalArgumentException ex =
+        final IllegalArgumentException ex =
                 assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(3, 5, 5, false, false));
         final String msg = ex.getMessage();
         assertTrue(msg.contains("start"), "Message (" + msg + ") must contain 'start'");
@@ -483,12 +484,12 @@ public class RandomStringUtilsTest {
      * Checks if the string got by {@link RandomStringUtils#random(int)}
      * can be converted to UTF-8 and back without loss.
      *
-     * @see <a href="http://issues.apache.org/jira/browse/LANG-100">LANG-100</a>
+     * @see <a href="https://issues.apache.org/jira/browse/LANG-100">LANG-100</a>
      */
     @Test
     public void testLang100() {
         final int size = 5000;
-        final Charset charset = Charset.forName("UTF-8");
+        final Charset charset = StandardCharsets.UTF_8;
         final String orig = RandomStringUtils.random(size);
         final byte[] bytes = orig.getBytes(charset);
         final String copy = new String(bytes, charset);
@@ -498,8 +499,8 @@ public class RandomStringUtilsTest {
             final char o = orig.charAt(i);
             final char c = copy.charAt(i);
             assertEquals(o, c,
-                    "differs at " + i + "(" + Integer.toHexString(new Character(o).hashCode()) + "," +
-                            Integer.toHexString(new Character(c).hashCode()) + ")");
+                    "differs at " + i + "(" + Integer.toHexString(Character.valueOf(o).hashCode()) + "," +
+                            Integer.toHexString(Character.valueOf(c).hashCode()) + ")");
         }
         // compare length also
         assertEquals(orig.length(), copy.length());

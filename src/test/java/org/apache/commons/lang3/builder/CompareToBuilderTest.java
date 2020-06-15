@@ -233,7 +233,7 @@ public class CompareToBuilderTest {
 
     /**
      * Returns the signum of the result of comparing x and y with
-     * <code>CompareToBuilder.reflectionCompare</code>
+     * {@code CompareToBuilder.reflectionCompare}
      *
      * @param lhs The "left-hand-side" of the comparison.
      * @param rhs The "right-hand-side" of the comparison.
@@ -884,9 +884,9 @@ public class CompareToBuilderTest {
 
     @Test
     public void testRaggedArray() {
-        final long array1[][] = new long[2][];
-        final long array2[][] = new long[2][];
-        final long array3[][] = new long[3][];
+        final long[][] array1 = new long[2][];
+        final long[][] array2 = new long[2][];
+        final long[][] array3 = new long[3][];
         for (int i = 0; i < array1.length; ++i) {
             array1[i] = new long[2];
             array2[i] = new long[2];
@@ -912,9 +912,9 @@ public class CompareToBuilderTest {
 
     @Test
     public void testMixedArray() {
-        final Object array1[] = new Object[2];
-        final Object array2[] = new Object[2];
-        final Object array3[] = new Object[2];
+        final Object[] array1 = new Object[2];
+        final Object[] array2 = new Object[2];
+        final Object[] array3 = new Object[2];
         for (int i = 0; i < array1.length; ++i) {
             array1[i] = new long[2];
             array2[i] = new long[2];

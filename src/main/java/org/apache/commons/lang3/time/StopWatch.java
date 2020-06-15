@@ -17,11 +17,14 @@
 
 package org.apache.commons.lang3.time;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * <p>
- * <code>StopWatch</code> provides a convenient API for timings.
+ * {@code StopWatch} provides a convenient API for timings.
  * </p>
  *
  * <p>
@@ -66,26 +69,11 @@ public class StopWatch {
         UNSPLIT
     }
 
-
     /**
      * Enumeration type which indicates the status of stopwatch.
      */
     private enum State {
 
-        UNSTARTED {
-            @Override
-            boolean isStarted() {
-                return false;
-            }
-            @Override
-            boolean isStopped() {
-                return true;
-            }
-            @Override
-            boolean isSuspended() {
-                return false;
-            }
-        },
         RUNNING {
             @Override
             boolean isStarted() {
@@ -127,34 +115,44 @@ public class StopWatch {
             boolean isSuspended() {
                 return true;
             }
+        },
+        UNSTARTED {
+            @Override
+            boolean isStarted() {
+                return false;
+            }
+            @Override
+            boolean isStopped() {
+                return true;
+            }
+            @Override
+            boolean isSuspended() {
+                return false;
+            }
         };
 
         /**
          * <p>
-         * The method is used to find out if the StopWatch is started. A suspended
-         * StopWatch is also started watch.
+         * Returns whether the StopWatch is started. A suspended StopWatch is also started watch.
          * </p>
-
-         * @return boolean
-         *             If the StopWatch is started.
+         *
+         * @return boolean If the StopWatch is started.
          */
         abstract boolean isStarted();
 
         /**
          * <p>
-         * This method is used to find out whether the StopWatch is stopped. The
-         * stopwatch which's not yet started and explicitly stopped stopwatch is
+         * Returns whether the StopWatch is stopped. The stopwatch which's not yet started and explicitly stopped stopwatch is
          * considered as stopped.
          * </p>
          *
-         * @return boolean
-         *             If the StopWatch is stopped.
+         * @return boolean If the StopWatch is stopped.
          */
         abstract boolean isStopped();
 
         /**
          * <p>
-         * This method is used to find out whether the StopWatch is suspended.
+         * Returns whether the StopWatch is suspended.
          * </p>
          *
          * @return boolean
@@ -166,7 +164,18 @@ public class StopWatch {
     private static final long NANO_2_MILLIS = 1000000L;
 
     /**
-     * Provides a started stopwatch for convenience.
+     * Creates a stopwatch for convenience.
+     *
+     * @return StopWatch a stopwatch.
+     *
+     * @since 3.10
+     */
+    public static StopWatch create() {
+        return new StopWatch();
+    }
+
+    /**
+     * Creates a started stopwatch for convenience.
      *
      * @return StopWatch a stopwatch that's already been started.
      *
@@ -177,6 +186,14 @@ public class StopWatch {
         sw.start();
         return sw;
     }
+
+    /**
+     * A message for string presentation.
+     *
+     * @since 3.10
+     */
+    private final String message;
+
     /**
      * The current running state of the StopWatch.
      */
@@ -210,12 +227,53 @@ public class StopWatch {
      * </p>
      */
     public StopWatch() {
-        super();
+        this(null);
     }
 
     /**
      * <p>
-     * Get the time on the stopwatch in nanoseconds.
+     * Constructor.
+     * </p>
+     * @param message A message for string presentation.
+     * @since 3.10
+     */
+    public StopWatch(final String message) {
+        this.message = message;
+    }
+
+    /**
+     * Returns the time formatted by {@link DurationFormatUtils#formatDurationHMS}.
+     *
+     * @return the time formatted by {@link DurationFormatUtils#formatDurationHMS}.
+     * @since 3.10
+     */
+    public String formatSplitTime() {
+        return DurationFormatUtils.formatDurationHMS(getSplitTime());
+    }
+
+    /**
+     * Returns the split time formatted by {@link DurationFormatUtils#formatDurationHMS}.
+     *
+     * @return the split time formatted by {@link DurationFormatUtils#formatDurationHMS}.
+     * @since 3.10
+     */
+    public String formatTime() {
+        return DurationFormatUtils.formatDurationHMS(getTime());
+    }
+
+    /**
+     * Gets the message for string presentation.
+     *
+     * @return the message for string presentation.
+     * @since 3.10
+     */
+    public String getMessage() {
+        return message;
+    }
+
+    /**
+     * <p>
+     * Gets the time on the stopwatch in nanoseconds.
      * </p>
      *
      * <p>
@@ -237,10 +295,9 @@ public class StopWatch {
         throw new RuntimeException("Illegal running state has occurred.");
     }
 
-
     /**
      * <p>
-     * Get the split time on the stopwatch in nanoseconds.
+     * Gets the split time on the stopwatch in nanoseconds.
      * </p>
      *
      * <p>
@@ -262,7 +319,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * Get the split time on the stopwatch.
+     * Gets the split time on the stopwatch.
      * </p>
      *
      * <p>
@@ -280,7 +337,7 @@ public class StopWatch {
     }
 
     /**
-     * Returns the time this stopwatch was started.
+     * Gets the time this stopwatch was started.
      *
      * @return the time this stopwatch was started
      * @throws IllegalStateException
@@ -297,7 +354,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * Get the time on the stopwatch.
+     * Gets the time on the stopwatch.
      * </p>
      *
      * <p>
@@ -313,7 +370,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * Get the time on the stopwatch in the specified TimeUnit.
+     * Gets the time on the stopwatch in the specified TimeUnit.
      * </p>
      *
      * <p>
@@ -333,12 +390,10 @@ public class StopWatch {
 
     /**
      * <p>
-     * The method is used to find out if the StopWatch is started. A suspended
-     * StopWatch is also started watch.
+     * Returns whether the StopWatch is started. A suspended StopWatch is also started watch.
      * </p>
      *
-     * @return boolean
-     *             If the StopWatch is started.
+     * @return boolean If the StopWatch is started.
      * @since 3.2
      */
     public boolean isStarted() {
@@ -347,13 +402,11 @@ public class StopWatch {
 
     /**
      * <p>
-     * This method is used to find out whether the StopWatch is stopped. The
-     * stopwatch which's not yet started and explicitly stopped stopwatch is
-     * considered as stopped.
+     * Returns whether StopWatch is stopped. The stopwatch which's not yet started and explicitly stopped stopwatch is considered
+     * as stopped.
      * </p>
      *
-     * @return boolean
-     *             If the StopWatch is stopped.
+     * @return boolean If the StopWatch is stopped.
      * @since 3.2
      */
     public boolean isStopped() {
@@ -362,7 +415,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * This method is used to find out whether the StopWatch is suspended.
+     * Returns whether the StopWatch is suspended.
      * </p>
      *
      * @return boolean
@@ -386,10 +439,9 @@ public class StopWatch {
         this.runningState = State.UNSTARTED;
         this.splitState = SplitState.UNSPLIT;
     }
-
     /**
      * <p>
-     * Resume the stopwatch after a suspend.
+     * Resumes the stopwatch after a suspend.
      * </p>
      *
      * <p>
@@ -407,9 +459,10 @@ public class StopWatch {
         this.startTime += System.nanoTime() - this.stopTime;
         this.runningState = State.RUNNING;
     }
+
     /**
      * <p>
-     * Split the time.
+     * Splits the time.
      * </p>
      *
      * <p>
@@ -430,7 +483,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * Start the stopwatch.
+     * Starts the stopwatch.
      * </p>
      *
      * <p>
@@ -454,7 +507,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * Stop the stopwatch.
+     * Stops the stopwatch.
      * </p>
      *
      * <p>
@@ -476,7 +529,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * Suspend the stopwatch for later resumption.
+     * Suspends the stopwatch for later resumption.
      * </p>
      *
      * <p>
@@ -501,14 +554,17 @@ public class StopWatch {
      * </p>
      *
      * <p>
-     * The format used is ISO 8601-like, <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
+     * The format used is ISO 8601-like, [<i>message</i> ]<i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
      * </p>
      *
      * @return the split time as a String
      * @since 2.1
+     * @since 3.10 Returns the prefix {@code "message "} if the message is set.
      */
     public String toSplitString() {
-        return DurationFormatUtils.formatDurationHMS(getSplitTime());
+        final String msgStr = Objects.toString(message, StringUtils.EMPTY);
+        final String formattedTime = formatSplitTime();
+        return msgStr.isEmpty() ? formattedTime : msgStr + StringUtils.SPACE + formattedTime;
     }
 
     /**
@@ -517,19 +573,22 @@ public class StopWatch {
      * </p>
      *
      * <p>
-     * The format used is ISO 8601-like, <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
+     * The format used is ISO 8601-like, [<i>message</i> ]<i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
      * </p>
      *
      * @return the time as a String
+     * @since 3.10 Returns the prefix {@code "message "} if the message is set.
      */
     @Override
     public String toString() {
-        return DurationFormatUtils.formatDurationHMS(getTime());
+        final String msgStr = Objects.toString(message, StringUtils.EMPTY);
+        final String formattedTime = formatTime();
+        return msgStr.isEmpty() ? formattedTime : msgStr + StringUtils.SPACE + formattedTime;
     }
 
     /**
      * <p>
-     * Remove a split.
+     * Removes a split.
      * </p>
      *
      * <p>

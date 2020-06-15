@@ -39,7 +39,7 @@ import java.util.Map;
  * </ul>
  *
  * <p>This class throws exceptions for invalid {@code null} inputs.
- * Each method documents its behaviour in more detail.</p>
+ * Each method documents its behavior in more detail.</p>
  *
  * <p>#ThreadSafe#</p>
  * @since 1.0
@@ -133,7 +133,7 @@ public class SerializationUtils {
      * @throws SerializationException (runtime) if the serialization fails
      */
     public static void serialize(final Serializable obj, final OutputStream outputStream) {
-        Validate.isTrue(outputStream != null, "The OutputStream must not be null");
+        Validate.notNull(outputStream, "The OutputStream must not be null");
         try (ObjectOutputStream out = new ObjectOutputStream(outputStream)) {
             out.writeObject(obj);
         } catch (final IOException ex) {
@@ -188,7 +188,7 @@ public class SerializationUtils {
      *             (runtime) if the serialization fails
      */
     public static <T> T deserialize(final InputStream inputStream) {
-        Validate.isTrue(inputStream != null, "The InputStream must not be null");
+        Validate.notNull(inputStream, "The InputStream must not be null");
         try (ObjectInputStream in = new ObjectInputStream(inputStream)) {
             @SuppressWarnings("unchecked")
             final T obj = (T) in.readObject();
@@ -219,18 +219,18 @@ public class SerializationUtils {
      *             (runtime) if the serialization fails
      */
     public static <T> T deserialize(final byte[] objectData) {
-        Validate.isTrue(objectData != null, "The byte[] must not be null");
+        Validate.notNull(objectData, "The byte[] must not be null");
         return deserialize(new ByteArrayInputStream(objectData));
     }
 
     /**
      * <p>Custom specialization of the standard JDK {@link java.io.ObjectInputStream}
-     * that uses a custom  <code>ClassLoader</code> to resolve a class.
-     * If the specified <code>ClassLoader</code> is not able to resolve the class,
+     * that uses a custom  {@code ClassLoader} to resolve a class.
+     * If the specified {@code ClassLoader} is not able to resolve the class,
      * the context classloader of the current thread will be used.
      * This way, the standard deserialization work also in web-application
      * containers and application servers, no matter in which of the
-     * <code>ClassLoader</code> the particular class that encapsulates
+     * {@code ClassLoader} the particular class that encapsulates
      * serialization/deserialization lives. </p>
      *
      * <p>For more in-depth information about the problem for which this
@@ -256,7 +256,7 @@ public class SerializationUtils {
 
         /**
          * Constructor.
-         * @param in The <code>InputStream</code>.
+         * @param in The {@code InputStream}.
          * @param classLoader classloader to use
          * @throws IOException if an I/O error occurs while reading stream header.
          * @see java.io.ObjectInputStream
@@ -267,10 +267,10 @@ public class SerializationUtils {
         }
 
         /**
-         * Overridden version that uses the parameterized <code>ClassLoader</code> or the <code>ClassLoader</code>
-         * of the current <code>Thread</code> to resolve the class.
-         * @param desc An instance of class <code>ObjectStreamClass</code>.
-         * @return A <code>Class</code> object corresponding to <code>desc</code>.
+         * Overridden version that uses the parameterized {@code ClassLoader} or the {@code ClassLoader}
+         * of the current {@code Thread} to resolve the class.
+         * @param desc An instance of class {@code ObjectStreamClass}.
+         * @return A {@code Class} object corresponding to {@code desc}.
          * @throws IOException Any of the usual Input/Output exceptions.
          * @throws ClassNotFoundException If class of a serialized object cannot be found.
          */

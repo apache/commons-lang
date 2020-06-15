@@ -140,7 +140,7 @@ public class FastDateParserSDFTest {
         checkParsePosition(input.toLowerCase(locale), format, locale, valid);
     }
 
-    private void checkParse(final String formattedDate, String format, Locale locale, boolean valid) {
+    private void checkParse(final String formattedDate, final String format, final Locale locale, final boolean valid) {
         final SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
         sdf.setTimeZone(timeZone);
         final DateParser fdf = new FastDateParser(format, timeZone, locale);
@@ -176,7 +176,7 @@ public class FastDateParserSDFTest {
             assertEquals(sdfE, fdfE, locale.toString()+" "+formattedDate + " expected same Exception ");
         }
     }
-    private void checkParsePosition(final String formattedDate, String format, Locale locale, boolean valid) {
+    private void checkParsePosition(final String formattedDate, final String format, final Locale locale, final boolean valid) {
         final SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
         sdf.setTimeZone(timeZone);
         final DateParser fdf = new FastDateParser(format, timeZone, locale);

@@ -120,6 +120,6 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
      * @throws IllegalArgumentException if the {@code Callable} is <b>null</b>
      */
     private void checkCallable(final Callable<T> call) {
-        Validate.isTrue(call != null, "Callable must not be null!");
+        Validate.notNull(call, "Callable must not be null!");
     }
 }

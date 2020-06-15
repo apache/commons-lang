@@ -19,7 +19,7 @@ package org.apache.commons.lang3.mutable;
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
- * A mutable <code>short</code> wrapper.
+ * A mutable {@code short} wrapper.
  * <p>
  * Note that as MutableShort does not extend Short, it is not treated by String.format as a Short parameter.
  *
@@ -341,12 +341,12 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
 
     //-----------------------------------------------------------------------
     /**
-     * Compares this object to the specified object. The result is <code>true</code> if and only if the argument
-     * is not <code>null</code> and is a <code>MutableShort</code> object that contains the same <code>short</code>
+     * Compares this object to the specified object. The result is {@code true} if and only if the argument
+     * is not {@code null} and is a {@code MutableShort} object that contains the same {@code short}
      * value as this object.
      *
      * @param obj  the object to compare with, null returns false
-     * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
+     * @return {@code true} if the objects are the same; {@code false} otherwise.
      */
     @Override
     public boolean equals(final Object obj) {

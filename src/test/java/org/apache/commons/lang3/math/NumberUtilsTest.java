@@ -686,31 +686,31 @@ public class NumberUtilsTest {
     // ----------------------------------------------------------------------
     @Test
     public void testMinLong_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min((long[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.min((long[]) null));
     }
 
     @Test
     public void testMinLong_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min(new long[0]));
+        assertThrows(IllegalArgumentException.class, NumberUtils::min);
     }
 
     @Test
     public void testMinLong() {
-        assertEquals(5, NumberUtils.min(new long[] { 5 }), "min(long[]) failed for array length 1");
-        assertEquals(6, NumberUtils.min(new long[] { 6, 9 }), "min(long[]) failed for array length 2");
+        assertEquals(5, NumberUtils.min(5), "min(long[]) failed for array length 1");
+        assertEquals(6, NumberUtils.min(6, 9), "min(long[]) failed for array length 2");
 
-        assertEquals(-10, NumberUtils.min(new long[] { -10, -5, 0, 5, 10 }));
-        assertEquals(-10, NumberUtils.min(new long[] { -5, 0, -10, 5, 10 }));
+        assertEquals(-10, NumberUtils.min(-10, -5, 0, 5, 10));
+        assertEquals(-10, NumberUtils.min(-5, 0, -10, 5, 10));
     }
 
     @Test
     public void testMinInt_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min((int[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.min((int[]) null));
     }
 
     @Test
     public void testMinInt_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min(new int[0]));
+        assertThrows(IllegalArgumentException.class, NumberUtils::min);
     }
 
     @Test
@@ -724,26 +724,26 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinShort_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min((short[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.min((short[]) null));
     }
 
     @Test
     public void testMinShort_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min(new short[0]));
+        assertThrows(IllegalArgumentException.class, NumberUtils::min);
     }
 
     @Test
     public void testMinShort() {
-        assertEquals(5, NumberUtils.min(new short[] { 5 }), "min(short[]) failed for array length 1");
-        assertEquals(6, NumberUtils.min(new short[] { 6, 9 }), "min(short[]) failed for array length 2");
+        assertEquals(5, NumberUtils.min(5), "min(short[]) failed for array length 1");
+        assertEquals(6, NumberUtils.min(6, 9), "min(short[]) failed for array length 2");
 
-        assertEquals(-10, NumberUtils.min(new short[] { -10, -5, 0, 5, 10 }));
-        assertEquals(-10, NumberUtils.min(new short[] { -5, 0, -10, 5, 10 }));
+        assertEquals(-10, NumberUtils.min(-10, -5, 0, 5, 10));
+        assertEquals(-10, NumberUtils.min(-5, 0, -10, 5, 10));
     }
 
     @Test
     public void testMinByte_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min((byte[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.min((byte[]) null));
     }
 
     @Test
@@ -753,21 +753,21 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinByte() {
-        assertEquals(5, NumberUtils.min(new byte[] { 5 }), "min(byte[]) failed for array length 1");
-        assertEquals(6, NumberUtils.min(new byte[] { 6, 9 }), "min(byte[]) failed for array length 2");
+        assertEquals(5, NumberUtils.min(5), "min(byte[]) failed for array length 1");
+        assertEquals(6, NumberUtils.min(6, 9), "min(byte[]) failed for array length 2");
 
-        assertEquals(-10, NumberUtils.min(new byte[] { -10, -5, 0, 5, 10 }));
-        assertEquals(-10, NumberUtils.min(new byte[] { -5, 0, -10, 5, 10 }));
+        assertEquals(-10, NumberUtils.min(-10, -5, 0, 5, 10));
+        assertEquals(-10, NumberUtils.min(-5, 0, -10, 5, 10));
     }
 
     @Test
     public void testMinDouble_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min((double[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.min((double[]) null));
     }
 
     @Test
     public void testMinDouble_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min(new double[0]));
+        assertThrows(IllegalArgumentException.class, NumberUtils::min);
     }
 
     @Test
@@ -775,18 +775,18 @@ public class NumberUtilsTest {
         assertEquals(5.12, NumberUtils.min(5.12), "min(double[]) failed for array length 1");
         assertEquals(6.23, NumberUtils.min(6.23, 9.34), "min(double[]) failed for array length 2");
         assertEquals(-10.45, NumberUtils.min(-10.45, -5.56, 0, 5.67, 10.78), "min(double[]) failed for array length 5");
-        assertEquals(-10, NumberUtils.min(new double[] { -10, -5, 0, 5, 10 }), 0.0001);
-        assertEquals(-10, NumberUtils.min(new double[] { -5, 0, -10, 5, 10 }), 0.0001);
+        assertEquals(-10, NumberUtils.min(-10, -5, 0, 5, 10), 0.0001);
+        assertEquals(-10, NumberUtils.min(-5, 0, -10, 5, 10), 0.0001);
     }
 
     @Test
     public void testMinFloat_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min((float[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.min((float[]) null));
     }
 
     @Test
     public void testMinFloat_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min(new float[0]));
+        assertThrows(IllegalArgumentException.class, NumberUtils::min);
     }
 
     @Test
@@ -794,37 +794,37 @@ public class NumberUtilsTest {
         assertEquals(5.9f, NumberUtils.min(5.9f), "min(float[]) failed for array length 1");
         assertEquals(6.8f, NumberUtils.min(6.8f, 9.7f), "min(float[]) failed for array length 2");
         assertEquals(-10.6f, NumberUtils.min(-10.6f, -5.5f, 0, 5.4f, 10.3f), "min(float[]) failed for array length 5");
-        assertEquals(-10, NumberUtils.min(new float[] { -10, -5, 0, 5, 10 }), 0.0001f);
-        assertEquals(-10, NumberUtils.min(new float[] { -5, 0, -10, 5, 10 }), 0.0001f);
+        assertEquals(-10, NumberUtils.min(-10, -5, 0, 5, 10), 0.0001f);
+        assertEquals(-10, NumberUtils.min(-5, 0, -10, 5, 10), 0.0001f);
     }
 
     @Test
     public void testMaxLong_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max((long[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.max((long[]) null));
     }
 
     @Test
     public void testMaxLong_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max(new long[0]));
+        assertThrows(IllegalArgumentException.class, NumberUtils::max);
     }
 
     @Test
     public void testMaxLong() {
-        assertEquals(5, NumberUtils.max(new long[] { 5 }), "max(long[]) failed for array length 1");
-        assertEquals(9, NumberUtils.max(new long[] { 6, 9 }), "max(long[]) failed for array length 2");
-        assertEquals(10, NumberUtils.max(new long[] { -10, -5, 0, 5, 10 }), "max(long[]) failed for array length 5");
-        assertEquals(10, NumberUtils.max(new long[] { -10, -5, 0, 5, 10 }));
-        assertEquals(10, NumberUtils.max(new long[] { -5, 0, 10, 5, -10 }));
+        assertEquals(5, NumberUtils.max(5), "max(long[]) failed for array length 1");
+        assertEquals(9, NumberUtils.max(6, 9), "max(long[]) failed for array length 2");
+        assertEquals(10, NumberUtils.max(-10, -5, 0, 5, 10), "max(long[]) failed for array length 5");
+        assertEquals(10, NumberUtils.max(-10, -5, 0, 5, 10));
+        assertEquals(10, NumberUtils.max(-5, 0, 10, 5, -10));
     }
 
     @Test
     public void testMaxInt_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max((int[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.max((int[]) null));
     }
 
     @Test
     public void testMaxInt_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max(new int[0]));
+        assertThrows(IllegalArgumentException.class, NumberUtils::max);
     }
 
     @Test
@@ -838,26 +838,26 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaxShort_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max((short[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.max((short[]) null));
     }
 
     @Test
     public void testMaxShort_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max(new short[0]));
+        assertThrows(IllegalArgumentException.class, NumberUtils::max);
     }
 
     @Test
     public void testMaxShort() {
-        assertEquals(5, NumberUtils.max(new short[] { 5 }), "max(short[]) failed for array length 1");
-        assertEquals(9, NumberUtils.max(new short[] { 6, 9 }), "max(short[]) failed for array length 2");
-        assertEquals(10, NumberUtils.max(new short[] { -10, -5, 0, 5, 10 }), "max(short[]) failed for array length 5");
-        assertEquals(10, NumberUtils.max(new short[] { -10, -5, 0, 5, 10 }));
-        assertEquals(10, NumberUtils.max(new short[] { -5, 0, 10, 5, -10 }));
+        assertEquals(5, NumberUtils.max(5), "max(short[]) failed for array length 1");
+        assertEquals(9, NumberUtils.max(6, 9), "max(short[]) failed for array length 2");
+        assertEquals(10, NumberUtils.max(-10, -5, 0, 5, 10), "max(short[]) failed for array length 5");
+        assertEquals(10, NumberUtils.max(-10, -5, 0, 5, 10));
+        assertEquals(10, NumberUtils.max(-5, 0, 10, 5, -10));
     }
 
     @Test
     public void testMaxByte_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max((byte[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.max((byte[]) null));
     }
 
     @Test
@@ -867,49 +867,49 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaxByte() {
-        assertEquals(5, NumberUtils.max(new byte[] { 5 }), "max(byte[]) failed for array length 1");
-        assertEquals(9, NumberUtils.max(new byte[] { 6, 9 }), "max(byte[]) failed for array length 2");
-        assertEquals(10, NumberUtils.max(new byte[] { -10, -5, 0, 5, 10 }), "max(byte[]) failed for array length 5");
-        assertEquals(10, NumberUtils.max(new byte[] { -10, -5, 0, 5, 10 }));
-        assertEquals(10, NumberUtils.max(new byte[] { -5, 0, 10, 5, -10 }));
+        assertEquals(5, NumberUtils.max(5), "max(byte[]) failed for array length 1");
+        assertEquals(9, NumberUtils.max(6, 9), "max(byte[]) failed for array length 2");
+        assertEquals(10, NumberUtils.max(-10, -5, 0, 5, 10), "max(byte[]) failed for array length 5");
+        assertEquals(10, NumberUtils.max(-10, -5, 0, 5, 10));
+        assertEquals(10, NumberUtils.max(-5, 0, 10, 5, -10));
     }
 
     @Test
     public void testMaxDouble_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max((double[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.max((double[]) null));
     }
 
     @Test
     public void testMaxDouble_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max(new double[0]));
+        assertThrows(IllegalArgumentException.class, NumberUtils::max);
     }
 
     @Test
     public void testMaxDouble() {
         final double[] d = null;
         assertThrows(
-                IllegalArgumentException.class, () -> NumberUtils.max(d), "No exception was thrown for null input.");
+            NullPointerException.class, () -> NumberUtils.max(d), "No exception was thrown for null input.");
 
         assertThrows(
                 IllegalArgumentException.class,
-                () -> NumberUtils.max(new double[0]),
+                NumberUtils::max,
                 "No exception was thrown for empty input.");
 
-        assertEquals(5.1f, NumberUtils.max(new double[]{5.1f}), "max(double[]) failed for array length 1");
-        assertEquals(9.2f, NumberUtils.max(new double[]{6.3f, 9.2f}), "max(double[]) failed for array length 2");
-        assertEquals(10.4f, NumberUtils.max(new double[]{-10.5f, -5.6f, 0, 5.7f, 10.4f}), "max(double[]) failed for float length 5");
-        assertEquals(10, NumberUtils.max(new double[] { -10, -5, 0, 5, 10 }), 0.0001);
-        assertEquals(10, NumberUtils.max(new double[] { -5, 0, 10, 5, -10 }), 0.0001);
+        assertEquals(5.1f, NumberUtils.max(5.1f), "max(double[]) failed for array length 1");
+        assertEquals(9.2f, NumberUtils.max(6.3f, 9.2f), "max(double[]) failed for array length 2");
+        assertEquals(10.4f, NumberUtils.max(-10.5f, -5.6f, 0, 5.7f, 10.4f), "max(double[]) failed for float length 5");
+        assertEquals(10, NumberUtils.max(-10, -5, 0, 5, 10), 0.0001);
+        assertEquals(10, NumberUtils.max(-5, 0, 10, 5, -10), 0.0001);
     }
 
     @Test
     public void testMaxFloat_nullArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max((float[]) null));
+        assertThrows(NullPointerException.class, () -> NumberUtils.max((float[]) null));
     }
 
     @Test
     public void testMaxFloat_emptyArray() {
-        assertThrows(IllegalArgumentException.class, () -> NumberUtils.max(new float[0]));
+        assertThrows(IllegalArgumentException.class, NumberUtils::max);
     }
 
     @Test
@@ -917,8 +917,8 @@ public class NumberUtilsTest {
         assertEquals(5.1f, NumberUtils.max(5.1f), "max(float[]) failed for array length 1");
         assertEquals(9.2f, NumberUtils.max(6.3f, 9.2f), "max(float[]) failed for array length 2");
         assertEquals(10.4f, NumberUtils.max(-10.5f, -5.6f, 0, 5.7f, 10.4f), "max(float[]) failed for float length 5");
-        assertEquals(10, NumberUtils.max(new float[] { -10, -5, 0, 5, 10 }), 0.0001f);
-        assertEquals(10, NumberUtils.max(new float[] { -5, 0, 10, 5, -10 }), 0.0001f);
+        assertEquals(10, NumberUtils.max(-10, -5, 0, 5, 10), 0.0001f);
+        assertEquals(10, NumberUtils.max(-5, 0, 10, 5, -10), 0.0001f);
     }
 
     @Test
@@ -1447,25 +1447,25 @@ public class NumberUtilsTest {
 
     @Test
     public void testIsParsable() {
-        assertFalse( NumberUtils.isParsable(null) );
-        assertFalse( NumberUtils.isParsable("") );
-        assertFalse( NumberUtils.isParsable("0xC1AB") );
-        assertFalse( NumberUtils.isParsable("65CBA2") );
-        assertFalse( NumberUtils.isParsable("pendro") );
-        assertFalse( NumberUtils.isParsable("64, 2") );
-        assertFalse( NumberUtils.isParsable("64.2.2") );
-        assertFalse( NumberUtils.isParsable("64.") );
-        assertFalse( NumberUtils.isParsable("64L") );
-        assertFalse( NumberUtils.isParsable("-") );
-        assertFalse( NumberUtils.isParsable("--2") );
-        assertTrue( NumberUtils.isParsable("64.2") );
-        assertTrue( NumberUtils.isParsable("64") );
-        assertTrue( NumberUtils.isParsable("018") );
-        assertTrue( NumberUtils.isParsable(".18") );
-        assertTrue( NumberUtils.isParsable("-65") );
-        assertTrue( NumberUtils.isParsable("-018") );
-        assertTrue( NumberUtils.isParsable("-018.2") );
-        assertTrue( NumberUtils.isParsable("-.236") );
+        assertFalse(NumberUtils.isParsable(null));
+        assertFalse(NumberUtils.isParsable(""));
+        assertFalse(NumberUtils.isParsable("0xC1AB"));
+        assertFalse(NumberUtils.isParsable("65CBA2"));
+        assertFalse(NumberUtils.isParsable("pendro"));
+        assertFalse(NumberUtils.isParsable("64, 2"));
+        assertFalse(NumberUtils.isParsable("64.2.2"));
+        assertFalse(NumberUtils.isParsable("64."));
+        assertFalse(NumberUtils.isParsable("64L"));
+        assertFalse(NumberUtils.isParsable("-"));
+        assertFalse(NumberUtils.isParsable("--2"));
+        assertTrue(NumberUtils.isParsable("64.2"));
+        assertTrue(NumberUtils.isParsable("64"));
+        assertTrue(NumberUtils.isParsable("018"));
+        assertTrue(NumberUtils.isParsable(".18"));
+        assertTrue(NumberUtils.isParsable("-65"));
+        assertTrue(NumberUtils.isParsable("-018"));
+        assertTrue(NumberUtils.isParsable("-018.2"));
+        assertTrue(NumberUtils.isParsable("-.236"));
     }
 
     private boolean checkCreateNumber(final String val) {

@@ -35,17 +35,17 @@ public class UnicodeEscaper extends CodePointTranslator {
     private final boolean between;
 
     /**
-     * <p>Constructs a <code>UnicodeEscaper</code> for all characters. </p>
+     * <p>Constructs a {@code UnicodeEscaper} for all characters. </p>
      */
     public UnicodeEscaper() {
         this(0, Integer.MAX_VALUE, true);
     }
 
     /**
-     * <p>Constructs a <code>UnicodeEscaper</code> for the specified range. This is
-     * the underlying method for the other constructors/builders. The <code>below</code>
-     * and <code>above</code> boundaries are inclusive when <code>between</code> is
-     * <code>true</code> and exclusive when it is <code>false</code>. </p>
+     * <p>Constructs a {@code UnicodeEscaper} for the specified range. This is
+     * the underlying method for the other constructors/builders. The {@code below}
+     * and {@code above} boundaries are inclusive when {@code between} is
+     * {@code true} and exclusive when it is {@code false}. </p>
      *
      * @param below int value representing the lowest codepoint boundary
      * @param above int value representing the highest codepoint boundary
@@ -58,7 +58,7 @@ public class UnicodeEscaper extends CodePointTranslator {
     }
 
     /**
-     * <p>Constructs a <code>UnicodeEscaper</code> below the specified value (exclusive). </p>
+     * <p>Constructs a {@code UnicodeEscaper} below the specified value (exclusive). </p>
      *
      * @param codepoint below which to escape
      * @return the newly created {@code UnicodeEscaper} instance
@@ -68,7 +68,7 @@ public class UnicodeEscaper extends CodePointTranslator {
     }
 
     /**
-     * <p>Constructs a <code>UnicodeEscaper</code> above the specified value (exclusive). </p>
+     * <p>Constructs a {@code UnicodeEscaper} above the specified value (exclusive). </p>
      *
      * @param codepoint above which to escape
      * @return the newly created {@code UnicodeEscaper} instance
@@ -78,7 +78,7 @@ public class UnicodeEscaper extends CodePointTranslator {
     }
 
     /**
-     * <p>Constructs a <code>UnicodeEscaper</code> outside of the specified values (exclusive). </p>
+     * <p>Constructs a {@code UnicodeEscaper} outside of the specified values (exclusive). </p>
      *
      * @param codepointLow below which to escape
      * @param codepointHigh above which to escape
@@ -89,7 +89,7 @@ public class UnicodeEscaper extends CodePointTranslator {
     }
 
     /**
-     * <p>Constructs a <code>UnicodeEscaper</code> between the specified values (inclusive). </p>
+     * <p>Constructs a {@code UnicodeEscaper} between the specified values (inclusive). </p>
      *
      * @param codepointLow above which to escape
      * @param codepointHigh below which to escape

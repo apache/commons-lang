@@ -116,6 +116,20 @@ public class EnumUtilsTest {
     }
 
     @Test
+    public void test_getEnum_defaultEnum() {
+        assertEquals(Traffic.RED, EnumUtils.getEnum(Traffic.class, "RED", Traffic.AMBER));
+        assertEquals(Traffic.AMBER, EnumUtils.getEnum(Traffic.class, "AMBER", Traffic.GREEN));
+        assertEquals(Traffic.GREEN, EnumUtils.getEnum(Traffic.class, "GREEN", Traffic.RED));
+        assertEquals(Traffic.AMBER, EnumUtils.getEnum(Traffic.class, "PURPLE", Traffic.AMBER));
+        assertEquals(Traffic.GREEN, EnumUtils.getEnum(Traffic.class, "PURPLE", Traffic.GREEN));
+        assertEquals(Traffic.RED, EnumUtils.getEnum(Traffic.class, "PURPLE", Traffic.RED));
+        assertEquals(Traffic.AMBER, EnumUtils.getEnum(Traffic.class, null, Traffic.AMBER));
+        assertEquals(Traffic.GREEN, EnumUtils.getEnum(Traffic.class, null, Traffic.GREEN));
+        assertEquals(Traffic.RED, EnumUtils.getEnum(Traffic.class, null, Traffic.RED));
+        assertNull(EnumUtils.getEnum(Traffic.class, "PURPLE", null));
+    }
+
+    @Test
     public void test_getEnumIgnoreCase() {
         assertEquals(Traffic.RED, EnumUtils.getEnumIgnoreCase(Traffic.class, "red"));
         assertEquals(Traffic.AMBER, EnumUtils.getEnumIgnoreCase(Traffic.class, "Amber"));
@@ -133,6 +147,20 @@ public class EnumUtilsTest {
     @Test
     public void test_getEnumIgnoreCase_nullClass() {
         assertThrows(NullPointerException.class, () -> EnumUtils.getEnumIgnoreCase((Class<Traffic>) null, "PURPLE"));
+    }
+
+    @Test
+    public void test_getEnumIgnoreCase_defaultEnum() {
+        assertEquals(Traffic.RED, EnumUtils.getEnumIgnoreCase(Traffic.class, "red", Traffic.AMBER));
+        assertEquals(Traffic.AMBER, EnumUtils.getEnumIgnoreCase(Traffic.class, "Amber", Traffic.GREEN));
+        assertEquals(Traffic.GREEN, EnumUtils.getEnumIgnoreCase(Traffic.class, "grEEn", Traffic.RED));
+        assertEquals(Traffic.AMBER, EnumUtils.getEnumIgnoreCase(Traffic.class, "PURPLE", Traffic.AMBER));
+        assertEquals(Traffic.GREEN, EnumUtils.getEnumIgnoreCase(Traffic.class, "purple", Traffic.GREEN));
+        assertEquals(Traffic.RED, EnumUtils.getEnumIgnoreCase(Traffic.class, "pUrPlE", Traffic.RED));
+        assertEquals(Traffic.AMBER, EnumUtils.getEnumIgnoreCase(Traffic.class, null, Traffic.AMBER));
+        assertEquals(Traffic.GREEN, EnumUtils.getEnumIgnoreCase(Traffic.class, null, Traffic.GREEN));
+        assertEquals(Traffic.RED, EnumUtils.getEnumIgnoreCase(Traffic.class, null, Traffic.RED));
+        assertNull(EnumUtils.getEnumIgnoreCase(Traffic.class, "PURPLE", null));
     }
 
     @Test
@@ -158,13 +186,13 @@ public class EnumUtilsTest {
 
     @Test
     public void test_generateBitVector_nullElement() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
                 () -> EnumUtils.generateBitVector(Traffic.class, Arrays.asList(Traffic.RED, null)));
     }
 
     @Test
     public void test_generateBitVectors_nullElement() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
                 () -> EnumUtils.generateBitVectors(Traffic.class, Arrays.asList(Traffic.RED, null)));
     }
 
@@ -264,7 +292,7 @@ public class EnumUtilsTest {
         assertEquals(6L, EnumUtils.generateBitVector(Traffic.class, EnumSet.of(Traffic.AMBER, Traffic.GREEN)));
         assertEquals(7L, EnumUtils.generateBitVector(Traffic.class, EnumSet.of(Traffic.RED, Traffic.AMBER, Traffic.GREEN)));
 
-        // 64 values Enum (to test whether no int<->long jdk convertion issue exists)
+        // 64 values Enum (to test whether no int<->long jdk conversion issue exists)
         assertEquals((1L << 31), EnumUtils.generateBitVector(Enum64.class, EnumSet.of(Enum64.A31)));
         assertEquals((1L << 32), EnumUtils.generateBitVector(Enum64.class, EnumSet.of(Enum64.A32)));
         assertEquals((1L << 63), EnumUtils.generateBitVector(Enum64.class, EnumSet.of(Enum64.A63)));
@@ -282,7 +310,7 @@ public class EnumUtilsTest {
         assertArrayEquals(EnumUtils.generateBitVectors(Traffic.class, EnumSet.of(Traffic.AMBER, Traffic.GREEN)), 6L);
         assertArrayEquals(EnumUtils.generateBitVectors(Traffic.class, EnumSet.of(Traffic.RED, Traffic.AMBER, Traffic.GREEN)), 7L);
 
-        // 64 values Enum (to test whether no int<->long jdk convertion issue exists)
+        // 64 values Enum (to test whether no int<->long jdk conversion issue exists)
         assertArrayEquals(EnumUtils.generateBitVectors(Enum64.class, EnumSet.of(Enum64.A31)), (1L << 31));
         assertArrayEquals(EnumUtils.generateBitVectors(Enum64.class, EnumSet.of(Enum64.A32)), (1L << 32));
         assertArrayEquals(EnumUtils.generateBitVectors(Enum64.class, EnumSet.of(Enum64.A63)), (1L << 63));
@@ -306,7 +334,7 @@ public class EnumUtilsTest {
         //gracefully handles duplicates:
         assertEquals(7L, EnumUtils.generateBitVector(Traffic.class, Traffic.RED, Traffic.AMBER, Traffic.GREEN, Traffic.GREEN));
 
-        // 64 values Enum (to test whether no int<->long jdk convertion issue exists)
+        // 64 values Enum (to test whether no int<->long jdk conversion issue exists)
         assertEquals((1L << 31), EnumUtils.generateBitVector(Enum64.class, Enum64.A31));
         assertEquals((1L << 32), EnumUtils.generateBitVector(Enum64.class, Enum64.A32));
         assertEquals((1L << 63), EnumUtils.generateBitVector(Enum64.class, Enum64.A63));
@@ -326,7 +354,7 @@ public class EnumUtilsTest {
         //gracefully handles duplicates:
         assertArrayEquals(EnumUtils.generateBitVectors(Traffic.class, Traffic.RED, Traffic.AMBER, Traffic.GREEN, Traffic.GREEN), 7L);
 
-        // 64 values Enum (to test whether no int<->long jdk convertion issue exists)
+        // 64 values Enum (to test whether no int<->long jdk conversion issue exists)
         assertArrayEquals(EnumUtils.generateBitVectors(Enum64.class, Enum64.A31), (1L << 31));
         assertArrayEquals(EnumUtils.generateBitVectors(Enum64.class, Enum64.A32), (1L << 32));
         assertArrayEquals(EnumUtils.generateBitVectors(Enum64.class, Enum64.A63), (1L << 63));
@@ -365,7 +393,7 @@ public class EnumUtilsTest {
         assertEquals(EnumSet.of(Traffic.AMBER, Traffic.GREEN), EnumUtils.processBitVector(Traffic.class, 6L));
         assertEquals(EnumSet.of(Traffic.RED, Traffic.AMBER, Traffic.GREEN), EnumUtils.processBitVector(Traffic.class, 7L));
 
-        // 64 values Enum (to test whether no int<->long jdk convertion issue exists)
+        // 64 values Enum (to test whether no int<->long jdk conversion issue exists)
         assertEquals(EnumSet.of(Enum64.A31), EnumUtils.processBitVector(Enum64.class, (1L << 31)));
         assertEquals(EnumSet.of(Enum64.A32), EnumUtils.processBitVector(Enum64.class, (1L << 32)));
         assertEquals(EnumSet.of(Enum64.A63), EnumUtils.processBitVector(Enum64.class, (1L << 63)));
@@ -402,7 +430,7 @@ public class EnumUtilsTest {
         assertEquals(EnumSet.of(Traffic.AMBER, Traffic.GREEN), EnumUtils.processBitVectors(Traffic.class, 666L, 6L));
         assertEquals(EnumSet.of(Traffic.RED, Traffic.AMBER, Traffic.GREEN), EnumUtils.processBitVectors(Traffic.class, 666L, 7L));
 
-        // 64 values Enum (to test whether no int<->long jdk convertion issue exists)
+        // 64 values Enum (to test whether no int<->long jdk conversion issue exists)
         assertEquals(EnumSet.of(Enum64.A31), EnumUtils.processBitVectors(Enum64.class, (1L << 31)));
         assertEquals(EnumSet.of(Enum64.A32), EnumUtils.processBitVectors(Enum64.class, (1L << 32)));
         assertEquals(EnumSet.of(Enum64.A63), EnumUtils.processBitVectors(Enum64.class, (1L << 63)));

@@ -19,8 +19,22 @@ package org.apache.commons.lang3;
 import java.util.Random;
 
 /**
- * <p>Operations for random {@code String}s.</p>
- * <p>Currently <em>private high surrogate</em> characters are ignored.
+ * <p>Generates random {@code String}s.</p>
+ *
+ * <p><b>Caveat: Instances of {@link Random}, upon which the implementation of this
+ * class relies, are not cryptographically secure.</b></p>
+ *
+ * <p>RandomStringUtils is intended for simple use cases. For more advanced
+ * use cases consider using Apache Commons Text's
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html">
+ * RandomStringGenerator</a> instead.</p>
+ *
+ * <p>The Apache Commons project provides
+ * <a href="https://commons.apache.org/rng">Commons RNG</a> dedicated to pseudo-random number generation, that may be
+ * a better choice for applications with more stringent requirements
+ * (performance and/or correctness).</p>
+ *
+ * <p>Note that <em>private high surrogate</em> characters are ignored.
  * These are Unicode characters that fall between the values 56192 (db80)
  * and 56319 (dbff) as we don't know how to handle them.
  * High and low surrogates are correctly dealt with - that is if a
@@ -28,19 +42,6 @@ import java.util.Random;
  * then it is followed by a low surrogate. If a low surrogate is chosen,
  * 56320 (dc00) to 57343 (dfff) then it is placed after a randomly
  * chosen high surrogate.</p>
- * <p>RandomStringUtils is intended for simple use cases. For more advanced
- * use cases consider using commons-text
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html">
- * RandomStringGenerator</a> instead.</p>
- *
- * <p>Caveat: Instances of {@link Random}, upon which the implementation of this
- * class relies, are not cryptographically secure.</p>
- *
- * <p>Please note that the Apache Commons project provides a component
- * dedicated to pseudo-random number generation, namely
- * <a href="https://commons.apache.org/rng">Commons RNG</a>, that may be
- * a better choice for applications with more stringent requirements
- * (performance and/or correctness).</p>
  *
  * <p>#ThreadSafe#</p>
  * @since 1.0

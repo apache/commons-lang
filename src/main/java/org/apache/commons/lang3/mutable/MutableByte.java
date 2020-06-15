@@ -19,7 +19,7 @@ package org.apache.commons.lang3.mutable;
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
- * A mutable <code>byte</code> wrapper.
+ * A mutable {@code byte} wrapper.
  * <p>
  * Note that as MutableByte does not extend Byte, it is not treated by String.format as a Byte parameter.
  *
@@ -341,12 +341,12 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
 
     //-----------------------------------------------------------------------
     /**
-     * Compares this object to the specified object. The result is <code>true</code> if and only if the argument is
-     * not <code>null</code> and is a <code>MutableByte</code> object that contains the same <code>byte</code> value
+     * Compares this object to the specified object. The result is {@code true} if and only if the argument is
+     * not {@code null} and is a {@code MutableByte} object that contains the same {@code byte} value
      * as this object.
      *
      * @param obj  the object to compare with, null returns false
-     * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
+     * @return {@code true} if the objects are the same; {@code false} otherwise.
      */
     @Override
     public boolean equals(final Object obj) {

@@ -17,7 +17,9 @@
 package org.apache.commons.lang3.time;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -30,6 +32,11 @@ import org.junit.jupiter.api.Test;
  * TestCase for StopWatch.
  */
 public class StopWatchTest {
+
+    private static final String MESSAGE = "Baking cookies";
+    private static final int MIN_SLEEP_MILLISECONDS = 20;
+    private static final String ZERO_HOURS_PREFIX = "00:";
+    private static final String ZERO_TIME_ELAPSED = "00:00:00.000";
 
     /**
      * <p>
@@ -145,6 +152,42 @@ public class StopWatchTest {
     }
 
     @Test
+    public void testFormatSplitTime() throws InterruptedException {
+        final StopWatch watch = StopWatch.createStarted();
+        Thread.sleep(MIN_SLEEP_MILLISECONDS);
+        watch.split();
+        final String formatSplitTime = watch.formatSplitTime();
+        assertNotEquals(ZERO_TIME_ELAPSED, formatSplitTime);
+        assertTrue(formatSplitTime.startsWith(ZERO_HOURS_PREFIX));
+    }
+
+    @Test
+    public void testFormatSplitTimeWithMessage() throws InterruptedException {
+        final StopWatch watch = new StopWatch(MESSAGE);
+        watch.start();
+        Thread.sleep(MIN_SLEEP_MILLISECONDS);
+        watch.split();
+        final String formatSplitTime = watch.formatSplitTime();
+        assertFalse(formatSplitTime.startsWith(MESSAGE), formatSplitTime);
+        assertTrue(formatSplitTime.startsWith(ZERO_HOURS_PREFIX));
+    }
+
+    @Test
+    public void testFormatTime() {
+        final StopWatch watch = StopWatch.create();
+        final String formatTime = watch.formatTime();
+        assertEquals(ZERO_TIME_ELAPSED, formatTime);
+        assertTrue(formatTime.startsWith(ZERO_HOURS_PREFIX));
+    }
+
+    @Test
+    public void testFormatTimeWithMessage() {
+        final StopWatch watch = new StopWatch(MESSAGE);
+        final String formatTime = watch.formatTime();
+        assertFalse(formatTime.startsWith(MESSAGE), formatTime);
+    }
+
+    @Test
     public void testGetStartTime() {
         final long beforeStopWatch = System.currentTimeMillis();
         final StopWatch watch = new StopWatch();
@@ -185,6 +228,17 @@ public class StopWatchTest {
     }
 
     @Test
+    public void testMessage() {
+        assertNull(StopWatch.create().getMessage());
+        final StopWatch stopWatch = new StopWatch(MESSAGE);
+        assertEquals(MESSAGE, stopWatch.getMessage());
+        assertTrue(stopWatch.toString().startsWith(MESSAGE));
+        stopWatch.start();
+        stopWatch.split();
+        assertTrue(stopWatch.toSplitString().startsWith(MESSAGE));
+    }
+
+    @Test
     public void testStopWatchGetWithTimeUnit() {
         // Create a mock StopWatch with a time of 2:59:01.999
         final StopWatch watch = createMockStopWatch(
@@ -199,7 +253,6 @@ public class StopWatchTest {
         assertEquals(10741999L, watch.getTime(TimeUnit.MILLISECONDS));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testStopWatchSimple() {
         final StopWatch watch = StopWatch.createStarted();
@@ -223,7 +276,7 @@ public class StopWatchTest {
     public void testStopWatchSimpleGet() {
         final StopWatch watch = new StopWatch();
         assertEquals(0, watch.getTime());
-        assertEquals("00:00:00.000", watch.toString());
+        assertEquals(ZERO_TIME_ELAPSED, watch.toString());
 
         watch.start();
         try {
@@ -313,5 +366,49 @@ public class StopWatchTest {
         watch.split();
         final String splitStr = watch.toSplitString();
         assertEquals(splitStr.length(), 12, "Formatted split string not the correct length");
+    }
+
+    @Test
+    public void testToSplitStringWithMessage() {
+        final StopWatch watch = new StopWatch(MESSAGE);
+        watch.start();
+        try {
+            Thread.sleep(550);
+        } catch (final InterruptedException ex) {
+            // ignore
+        }
+        watch.split();
+        final String splitStr = watch.toSplitString();
+        assertEquals(splitStr.length(), 12 + MESSAGE.length() + 1, "Formatted split string not the correct length");
+    }
+
+    @Test
+    public void testToString() {
+        //
+        final StopWatch watch = StopWatch.createStarted();
+        try {
+            Thread.sleep(550);
+        } catch (final InterruptedException ex) {
+            // ignore
+        }
+        watch.split();
+        final String splitStr = watch.toString();
+        assertEquals(splitStr.length(), 12, "Formatted split string not the correct length");
+    }
+
+    @Test
+    public void testToStringWithMessage() {
+        assertTrue(new StopWatch(MESSAGE).toString().startsWith(MESSAGE));
+        //
+        final StopWatch watch = new StopWatch(MESSAGE);
+        watch.start();
+        try {
+            Thread.sleep(550);
+        } catch (final InterruptedException ex) {
+            // ignore
+        }
+        watch.split();
+        final String splitStr = watch.toString();
+        assertEquals(splitStr.length(), 12 + MESSAGE.length() + 1, "Formatted split string not the correct length");
     }
 }

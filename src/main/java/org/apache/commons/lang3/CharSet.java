@@ -225,7 +225,7 @@ public class CharSet implements Serializable {
 // NOTE: This is no longer public as CharRange is no longer a public class.
 //       It may be replaced when CharSet moves to Range.
     /*public*/ CharRange[] getCharRanges() {
-        return set.toArray(new CharRange[set.size()]);
+        return set.toArray(new CharRange[0]);
     }
 
     //-----------------------------------------------------------------------
@@ -237,9 +237,11 @@ public class CharSet implements Serializable {
      * @return {@code true} if the set contains the characters
      */
     public boolean contains(final char ch) {
-        for (final CharRange range : set) {
-            if (range.contains(ch)) {
-                return true;
+        synchronized(set) {
+            for (final CharRange range : set) {
+                if (range.contains(ch)) {
+                    return true;
+                }
             }
         }
         return false;

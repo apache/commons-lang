@@ -55,7 +55,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
         }
 
         @Override
-        public R setValue(R value) {
+        public R setValue(final R value) {
             return null;
         }
 
@@ -89,7 +89,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
-     * <p>Obtains an immutable pair of two objects inferring the generic types.</p>
+     * <p>Creates an immutable pair of two objects inferring the generic types.</p>
      *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>
@@ -101,7 +101,23 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @return a pair formed from the two parameters, not null
      */
     public static <L, R> Pair<L, R> of(final L left, final R right) {
-        return new ImmutablePair<>(left, right);
+        return ImmutablePair.of(left, right);
+    }
+
+    /**
+     * <p>Creates an immutable pair from an existing pair.</p>
+     *
+     * <p>This factory allows the pair to be created using inference to
+     * obtain the generic types.</p>
+     *
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @param pair the existing pair.
+     * @return a pair formed from the two parameters, not null
+     * @since 3.10
+     */
+    public static <L, R> Pair<L, R> of(final Map.Entry<L, R> pair) {
+        return ImmutablePair.of(pair);
     }
 
     //-----------------------------------------------------------------------
@@ -191,8 +207,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     @Override
     public int hashCode() {
         // see Map.Entry API specification
-        return (getKey() == null ? 0 : getKey().hashCode()) ^
-                (getValue() == null ? 0 : getValue().hashCode());
+        return Objects.hashCode(getKey()) ^ Objects.hashCode(getValue());
     }
 
     /**

@@ -36,7 +36,7 @@ limitations under the License.
     <property name="message" value="Line has trailing spaces."/>
   </module>
   <module name="SuppressionFilter">
-    <property name="file" value="checkstyle-suppressions.xml"/>
+    <property name="file" value="src/site/resources/checkstyle/checkstyle-suppressions.xml"/>
   </module>
   <module name="TreeWalker">
     <module name="AvoidStarImport"/>
@@ -45,7 +45,6 @@ limitations under the License.
     <module name="UnusedImports"/>
     <module name="NeedBraces"/>
     <module name="JavadocMethod">
-      <property name="allowUndeclaredRTE" value="true"/>
       <property name="scope" value="public" />
     </module>
     <module name="ModifierOrder"/>

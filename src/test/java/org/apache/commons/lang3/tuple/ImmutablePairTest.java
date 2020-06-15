@@ -54,16 +54,28 @@ public class ImmutablePairTest {
 
     @Test
     public void testBasic() {
-        final ImmutablePair<Integer, String> pair = new ImmutablePair<>(0, "foo");
-        assertEquals(0, pair.left.intValue());
-        assertEquals(0, pair.getLeft().intValue());
-        assertEquals("foo", pair.right);
-        assertEquals("foo", pair.getRight());
-        final ImmutablePair<Object, String> pair2 = new ImmutablePair<>(null, "bar");
-        assertNull(pair2.left);
-        assertNull(pair2.getLeft());
-        assertEquals("bar", pair2.right);
-        assertEquals("bar", pair2.getRight());
+        ImmutablePair<Integer, String> oldPair = new ImmutablePair<>(0, "foo");
+        ImmutablePair<Integer, String> nowPair;
+        for (int i=0; i<4; i++) {
+            nowPair = ImmutablePair.of(oldPair);
+            assertEquals(0, nowPair.left.intValue());
+            assertEquals(0, nowPair.getLeft().intValue());
+            assertEquals("foo", nowPair.right);
+            assertEquals("foo", nowPair.getRight());
+            assertEquals(oldPair, nowPair);
+            oldPair = nowPair;
+        }
+
+        ImmutablePair<Object, String> oldPair2 = new ImmutablePair<>(null, "bar");
+        ImmutablePair<Object, String> nowPair2;
+        for (int i=0; i<4; i++) {
+            nowPair2 = ImmutablePair.of(oldPair2);
+            assertNull(nowPair2.left);
+            assertNull(nowPair2.getLeft());
+            assertEquals("bar", nowPair2.right);
+            assertEquals("bar", nowPair2.getRight());
+            oldPair2 = nowPair2;
+        }
     }
 
     @Test
@@ -121,7 +133,17 @@ public class ImmutablePairTest {
     }
 
     @Test
-    public void testPairOf() {
+    public void testPairOfMapEntry() {
+        final HashMap<Integer, String> map = new HashMap<>();
+        map.put(0, "foo");
+        final Entry<Integer, String> entry = map.entrySet().iterator().next();
+        final Pair<Integer, String> pair = ImmutablePair.of(entry);
+        assertEquals(entry.getKey(), pair.getLeft());
+        assertEquals(entry.getValue(), pair.getRight());
+    }
+
+    @Test
+    public void testPairOfObjects() {
         final ImmutablePair<Integer, String> pair = ImmutablePair.of(0, "foo");
         assertEquals(0, pair.left.intValue());
         assertEquals(0, pair.getLeft().intValue());
@@ -132,6 +154,9 @@ public class ImmutablePairTest {
         assertNull(pair2.getLeft());
         assertEquals("bar", pair2.right);
         assertEquals("bar", pair2.getRight());
+        final ImmutablePair pair3 = ImmutablePair.of(null, null);
+        assertNull(pair3.left);
+        assertNull(pair3.right);
     }
 
     @Test
@@ -157,11 +182,11 @@ public class ImmutablePairTest {
 
     @Test
     public void testUseAsKeyOfHashMap() {
-        HashMap<ImmutablePair<Object, Object>, String> map = new HashMap<>();
-        Object o1 = new Object();
-        Object o2 = new Object();
-        ImmutablePair<Object, Object> key1 = ImmutablePair.of(o1, o2);
-        String value1 = "a1";
+        final HashMap<ImmutablePair<Object, Object>, String> map = new HashMap<>();
+        final Object o1 = new Object();
+        final Object o2 = new Object();
+        final ImmutablePair<Object, Object> key1 = ImmutablePair.of(o1, o2);
+        final String value1 = "a1";
         map.put(key1, value1);
         assertEquals(value1, map.get(key1));
         assertEquals(value1, map.get(ImmutablePair.of(o1, o2)));
@@ -169,17 +194,17 @@ public class ImmutablePairTest {
 
     @Test
     public void testUseAsKeyOfTreeMap() {
-        TreeMap<ImmutablePair<Integer, Integer>, String> map = new TreeMap<>();
+        final TreeMap<ImmutablePair<Integer, Integer>, String> map = new TreeMap<>();
         map.put(ImmutablePair.of(1, 2), "12");
         map.put(ImmutablePair.of(1, 1), "11");
         map.put(ImmutablePair.of(0, 1), "01");
-        ArrayList<ImmutablePair<Integer, Integer>> expected = new ArrayList<>();
+        final ArrayList<ImmutablePair<Integer, Integer>> expected = new ArrayList<>();
         expected.add(ImmutablePair.of(0, 1));
         expected.add(ImmutablePair.of(1, 1));
         expected.add(ImmutablePair.of(1, 2));
-        Iterator<Entry<ImmutablePair<Integer, Integer>, String>> it = map.entrySet().iterator();
-        for (ImmutablePair<Integer, Integer> item : expected) {
-            Entry<ImmutablePair<Integer, Integer>, String> entry = it.next();
+        final Iterator<Entry<ImmutablePair<Integer, Integer>, String>> it = map.entrySet().iterator();
+        for (final ImmutablePair<Integer, Integer> item : expected) {
+            final Entry<ImmutablePair<Integer, Integer>, String> entry = it.next();
             assertEquals(item, entry.getKey());
             assertEquals(item.getLeft() + "" + item.getRight(), entry.getValue());
         }

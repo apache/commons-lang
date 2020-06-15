@@ -160,7 +160,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     private void init() {
         final List<Rule> rulesList = parsePattern();
-        mRules = rulesList.toArray(new Rule[rulesList.size()]);
+        mRules = rulesList.toArray(new Rule[0]);
 
         int len = 0;
         for (int i=mRules.length; --i >= 0; ) {
@@ -214,7 +214,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 if (tokenLen == 2) {
                     rule = TwoDigitYearField.INSTANCE;
                 } else {
-                    rule = selectNumberRule(Calendar.YEAR, tokenLen < 4 ? 4 : tokenLen);
+                    rule = selectNumberRule(Calendar.YEAR, Math.max(tokenLen, 4));
                 }
                 if (c == 'Y') {
                     rule = new WeekYear((NumberRule) rule);

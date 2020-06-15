@@ -447,6 +447,22 @@ public class MethodUtilsTest {
     }
 
     @Test
+    public void testInvokeMethod_VarArgsWithNullValues() throws Exception {
+        assertEquals("String...", MethodUtils.invokeMethod(testBean, "varOverload",
+                "a", null, "c"));
+        assertEquals("String...", MethodUtils.invokeMethod(testBean, "varOverload",
+                                                                "a", "b", null));
+    }
+
+    @Test
+    public void testInvokeMethod_VarArgsNotUniqueResolvable() throws Exception {
+      assertEquals("Boolean...", MethodUtils.invokeMethod(testBean, "varOverload",
+                                                         new Object[] {null}));
+      assertEquals("Object...", MethodUtils.invokeMethod(testBean, "varOverload",
+                                                         (Object[]) null));
+    }
+
+    @Test
     public void testInvokeExactMethod() throws Exception {
         assertEquals("foo()", MethodUtils.invokeExactMethod(testBean, "foo",
                 (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY));
@@ -783,6 +799,15 @@ public class MethodUtilsTest {
                 Annotated.class, true, true));
         assertNotNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("publicAnnotatedMethod"),
                 Annotated.class, true, true));
+
+        assertNull(MethodUtils.getAnnotation(StringParameterizedChild.class.getMethod("parentNotAnnotatedMethod", String.class),
+                Annotated.class, true, true));
+        assertNotNull(MethodUtils.getAnnotation(StringParameterizedChild.class.getMethod("parentProtectedAnnotatedMethod", String.class),
+                Annotated.class, true, true));
+        assertNotNull(MethodUtils.getAnnotation(StringParameterizedChild.class.getDeclaredMethod("privateAnnotatedMethod", String.class),
+                Annotated.class, true, true));
+        assertNotNull(MethodUtils.getAnnotation(StringParameterizedChild.class.getMethod("publicAnnotatedMethod", String.class),
+                Annotated.class, true, true));
     }
 
     @Test
@@ -811,6 +836,15 @@ public class MethodUtilsTest {
                 Annotated.class, true, false));
         assertNotNull(MethodUtils.getAnnotation(PublicChild.class.getMethod("publicAnnotatedMethod"),
                 Annotated.class, true, false));
+
+        assertNull(MethodUtils.getAnnotation(StringParameterizedChild.class.getMethod("parentNotAnnotatedMethod", String.class),
+                Annotated.class, true, false));
+        assertNull(MethodUtils.getAnnotation(StringParameterizedChild.class.getMethod("parentProtectedAnnotatedMethod", String.class),
+                Annotated.class, true, false));
+        assertNull(MethodUtils.getAnnotation(StringParameterizedChild.class.getDeclaredMethod("privateAnnotatedMethod", String.class),
+                Annotated.class, true, false));
+        assertNotNull(MethodUtils.getAnnotation(StringParameterizedChild.class.getMethod("publicAnnotatedMethod", String.class),
+                Annotated.class, true, false));
     }
 
     @Test
@@ -834,12 +868,12 @@ public class MethodUtilsTest {
 
     @Test
     public void testGetMethodsWithAnnotationIllegalArgumentException2() {
-        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getMethodsWithAnnotation(null, Annotated.class));
+        assertThrows(NullPointerException.class, () -> MethodUtils.getMethodsWithAnnotation(null, Annotated.class));
     }
 
     @Test
     public void testGetMethodsWithAnnotationIllegalArgumentException3() {
-        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getMethodsWithAnnotation(null, null));
+        assertThrows(NullPointerException.class, () -> MethodUtils.getMethodsWithAnnotation(null, null));
     }
 
     @Test
@@ -862,12 +896,12 @@ public class MethodUtilsTest {
 
     @Test
     public void testGetMethodsListWithAnnotationIllegalArgumentException2() {
-        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getMethodsListWithAnnotation(null, Annotated.class));
+        assertThrows(NullPointerException.class, () -> MethodUtils.getMethodsListWithAnnotation(null, Annotated.class));
     }
 
     @Test
     public void testGetMethodsListWithAnnotationIllegalArgumentException3() {
-        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getMethodsListWithAnnotation(null, null));
+        assertThrows(NullPointerException.class, () -> MethodUtils.getMethodsListWithAnnotation(null, null));
     }
 
     @Test
@@ -878,12 +912,12 @@ public class MethodUtilsTest {
 
     @Test
     public void testGetAnnotationIllegalArgumentException2() {
-        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getAnnotation(null, Annotated.class, true, true));
+        assertThrows(NullPointerException.class, () -> MethodUtils.getAnnotation(null, Annotated.class, true, true));
     }
 
     @Test
     public void testGetAnnotationIllegalArgumentException3() {
-        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getAnnotation(null, null, true, true));
+        assertThrows(NullPointerException.class, () -> MethodUtils.getAnnotation(null, null, true, true));
     }
 
     private void expectMatchingAccessibleMethodParameterTypes(final Class<?> cls,

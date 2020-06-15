@@ -136,11 +136,7 @@ public class EventListenerSupportTest {
     @Test
     public void testSerialization() throws IOException, ClassNotFoundException, PropertyVetoException {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
-        listenerSupport.addListener(new VetoableChangeListener() {
-
-            @Override
-            public void vetoableChange(final PropertyChangeEvent e) {
-            }
+        listenerSupport.addListener(e -> {
         });
         listenerSupport.addListener(EasyMock.createNiceMock(VetoableChangeListener.class));
 

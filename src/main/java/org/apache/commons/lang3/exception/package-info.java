@@ -18,7 +18,7 @@
  * <p>Provides functionality for Exceptions.</p>
  * <p>Contains the concept of an exception with context i.e. such an exception will contain a map with keys and values.
  * This provides an easy way to pass valuable state information at exception time in useful form to a calling process.</p>
- * <p>Lastly, {@link org.apache.commons.lang3.exception.ExceptionUtils} also contains <code>Throwable</code> manipulation
+ * <p>Lastly, {@link org.apache.commons.lang3.exception.ExceptionUtils} also contains {@code Throwable} manipulation
  * and examination routines.</p>
  *
  * @since 1.0

@@ -39,10 +39,242 @@ public class EnumUtils {
     private static final String ENUM_CLASS_MUST_BE_DEFINED = "EnumClass must be defined.";
 
     /**
-     * This constructor is public to permit tools that require a JavaBean
-     * instance to operate.
+     * Validate {@code enumClass}.
+     * @param <E> the type of the enumeration
+     * @param enumClass to check
+     * @return {@code enumClass}
+     * @throws NullPointerException if {@code enumClass} is {@code null}
+     * @throws IllegalArgumentException if {@code enumClass} is not an enum class
+     * @since 3.2
      */
-    public EnumUtils() {
+    private static <E extends Enum<E>> Class<E> asEnum(final Class<E> enumClass) {
+        Validate.notNull(enumClass, ENUM_CLASS_MUST_BE_DEFINED);
+        Validate.isTrue(enumClass.isEnum(), S_DOES_NOT_SEEM_TO_BE_AN_ENUM_TYPE, enumClass);
+        return enumClass;
+    }
+
+    /**
+     * Validate that {@code enumClass} is compatible with representation in a {@code long}.
+     * @param <E> the type of the enumeration
+     * @param enumClass to check
+     * @return {@code enumClass}
+     * @throws NullPointerException if {@code enumClass} is {@code null}
+     * @throws IllegalArgumentException if {@code enumClass} is not an enum class or has more than 64 values
+     * @since 3.0.1
+     */
+    private static <E extends Enum<E>> Class<E> checkBitVectorable(final Class<E> enumClass) {
+        final E[] constants = asEnum(enumClass).getEnumConstants();
+        Validate.isTrue(constants.length <= Long.SIZE, CANNOT_STORE_S_S_VALUES_IN_S_BITS,
+            Integer.valueOf(constants.length), enumClass.getSimpleName(), Integer.valueOf(Long.SIZE));
+
+        return enumClass;
+    }
+
+    /**
+     * <p>Creates a long bit vector representation of the given array of Enum values.</p>
+     *
+     * <p>This generates a value that is usable by {@link EnumUtils#processBitVector}.</p>
+     *
+     * <p>Do not use this method if you have more than 64 values in your Enum, as this
+     * would create a value greater than a long can hold.</p>
+     *
+     * @param enumClass the class of the enum we are working with, not {@code null}
+     * @param values    the values we want to convert, not {@code null}
+     * @param <E>       the type of the enumeration
+     * @return a long whose value provides a binary representation of the given set of enum values.
+     * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}
+     * @throws IllegalArgumentException if {@code enumClass} is not an enum class or has more than 64 values
+     * @since 3.0.1
+     * @see #generateBitVectors(Class, Iterable)
+     */
+    @SafeVarargs
+    public static <E extends Enum<E>> long generateBitVector(final Class<E> enumClass, final E... values) {
+        Validate.noNullElements(values);
+        return generateBitVector(enumClass, Arrays.asList(values));
+    }
+
+    /**
+     * <p>Creates a long bit vector representation of the given subset of an Enum.</p>
+     *
+     * <p>This generates a value that is usable by {@link EnumUtils#processBitVector}.</p>
+     *
+     * <p>Do not use this method if you have more than 64 values in your Enum, as this
+     * would create a value greater than a long can hold.</p>
+     *
+     * @param enumClass the class of the enum we are working with, not {@code null}
+     * @param values    the values we want to convert, not {@code null}, neither containing {@code null}
+     * @param <E>       the type of the enumeration
+     * @return a long whose value provides a binary representation of the given set of enum values.
+     * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}
+     * @throws IllegalArgumentException if {@code enumClass} is not an enum class or has more than 64 values,
+     *                                  or if any {@code values} {@code null}
+     * @since 3.0.1
+     * @see #generateBitVectors(Class, Iterable)
+     */
+    public static <E extends Enum<E>> long generateBitVector(final Class<E> enumClass, final Iterable<? extends E> values) {
+        checkBitVectorable(enumClass);
+        Validate.notNull(values);
+        long total = 0;
+        for (final E constant : values) {
+            Validate.notNull(constant, NULL_ELEMENTS_NOT_PERMITTED);
+            total |= 1L << constant.ordinal();
+        }
+        return total;
+    }
+
+    /**
+     * <p>Creates a bit vector representation of the given subset of an Enum using as many {@code long}s as needed.</p>
+     *
+     * <p>This generates a value that is usable by {@link EnumUtils#processBitVectors}.</p>
+     *
+     * <p>Use this method if you have more than 64 values in your Enum.</p>
+     *
+     * @param enumClass the class of the enum we are working with, not {@code null}
+     * @param values    the values we want to convert, not {@code null}, neither containing {@code null}
+     * @param <E>       the type of the enumeration
+     * @return a long[] whose values provide a binary representation of the given set of enum values
+     *         with least significant digits rightmost.
+     * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}
+     * @throws IllegalArgumentException if {@code enumClass} is not an enum class, or if any {@code values} {@code null}
+     * @since 3.2
+     */
+    @SafeVarargs
+    public static <E extends Enum<E>> long[] generateBitVectors(final Class<E> enumClass, final E... values) {
+        asEnum(enumClass);
+        Validate.noNullElements(values);
+        final EnumSet<E> condensed = EnumSet.noneOf(enumClass);
+        Collections.addAll(condensed, values);
+        final long[] result = new long[(enumClass.getEnumConstants().length - 1) / Long.SIZE + 1];
+        for (final E value : condensed) {
+            result[value.ordinal() / Long.SIZE] |= 1L << (value.ordinal() % Long.SIZE);
+        }
+        ArrayUtils.reverse(result);
+        return result;
+    }
+
+    /**
+     * <p>Creates a bit vector representation of the given subset of an Enum using as many {@code long}s as needed.</p>
+     *
+     * <p>This generates a value that is usable by {@link EnumUtils#processBitVectors}.</p>
+     *
+     * <p>Use this method if you have more than 64 values in your Enum.</p>
+     *
+     * @param enumClass the class of the enum we are working with, not {@code null}
+     * @param values    the values we want to convert, not {@code null}, neither containing {@code null}
+     * @param <E>       the type of the enumeration
+     * @return a long[] whose values provide a binary representation of the given set of enum values
+     *         with least significant digits rightmost.
+     * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}
+     * @throws IllegalArgumentException if {@code enumClass} is not an enum class, or if any {@code values} {@code null}
+     * @since 3.2
+     */
+    public static <E extends Enum<E>> long[] generateBitVectors(final Class<E> enumClass, final Iterable<? extends E> values) {
+        asEnum(enumClass);
+        Validate.notNull(values);
+        final EnumSet<E> condensed = EnumSet.noneOf(enumClass);
+        for (final E constant : values) {
+            Validate.notNull(constant, NULL_ELEMENTS_NOT_PERMITTED);
+            condensed.add(constant);
+        }
+        final long[] result = new long[(enumClass.getEnumConstants().length - 1) / Long.SIZE + 1];
+        for (final E value : condensed) {
+            result[value.ordinal() / Long.SIZE] |= 1L << (value.ordinal() % Long.SIZE);
+        }
+        ArrayUtils.reverse(result);
+        return result;
+    }
+
+    /**
+     * <p>Gets the enum for the class, returning {@code null} if not found.</p>
+     *
+     * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
+     * for an invalid enum name.</p>
+     *
+     * @param <E> the type of the enumeration
+     * @param enumClass  the class of the enum to query, not null
+     * @param enumName   the enum name, null returns null
+     * @return the enum, null if not found
+     */
+    public static <E extends Enum<E>> E getEnum(final Class<E> enumClass, final String enumName) {
+        return getEnum(enumClass, enumName, null);
+    }
+
+    /**
+     * <p>Gets the enum for the class, returning {@code defaultEnum} if not found.</p>
+     *
+     * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
+     * for an invalid enum name.</p>
+     *
+     * @param <E> the type of the enumeration
+     * @param enumClass   the class of the enum to query, not null
+     * @param enumName    the enum name, null returns default enum
+     * @param defaultEnum the default enum
+     * @return the enum, default enum if not found
+     * @since 3.10
+     */
+    public static <E extends Enum<E>> E getEnum(final Class<E> enumClass, final String enumName, final E defaultEnum) {
+        if (enumName == null) {
+            return defaultEnum;
+        }
+        try {
+            return Enum.valueOf(enumClass, enumName);
+        } catch (final IllegalArgumentException ex) {
+            return defaultEnum;
+        }
+    }
+
+    /**
+     * <p>Gets the enum for the class, returning {@code null} if not found.</p>
+     *
+     * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
+     * for an invalid enum name and performs case insensitive matching of the name.</p>
+     *
+     * @param <E>         the type of the enumeration
+     * @param enumClass   the class of the enum to query, not null
+     * @param enumName    the enum name, null returns null
+     * @return the enum, null if not found
+     * @since 3.8
+     */
+    public static <E extends Enum<E>> E getEnumIgnoreCase(final Class<E> enumClass, final String enumName) {
+        return getEnumIgnoreCase(enumClass, enumName, null);
+    }
+
+    /**
+     * <p>Gets the enum for the class, returning {@code defaultEnum} if not found.</p>
+     *
+     * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
+     * for an invalid enum name and performs case insensitive matching of the name.</p>
+     *
+     * @param <E>         the type of the enumeration
+     * @param enumClass   the class of the enum to query, not null
+     * @param enumName    the enum name, null returns default enum
+     * @param defaultEnum the default enum
+     * @return the enum, default enum if not found
+     * @since 3.10
+     */
+    public static <E extends Enum<E>> E getEnumIgnoreCase(final Class<E> enumClass, final String enumName, final E defaultEnum) {
+        if (enumName == null || !enumClass.isEnum()) {
+            return defaultEnum;
+        }
+        for (final E each : enumClass.getEnumConstants()) {
+            if (each.name().equalsIgnoreCase(enumName)) {
+                return each;
+            }
+        }
+        return defaultEnum;
+    }
+
+    /**
+     * <p>Gets the {@code List} of enums.</p>
+     *
+     * <p>This method is useful when you need a list of enums rather than an array.</p>
+     *
+     * @param <E> the type of the enumeration
+     * @param enumClass  the class of the enum to query, not null
+     * @return the modifiable list of enums, never null
+     */
+    public static <E extends Enum<E>> List<E> getEnumList(final Class<E> enumClass) {
+        return new ArrayList<>(Arrays.asList(enumClass.getEnumConstants()));
     }
 
     /**
@@ -60,19 +292,6 @@ public class EnumUtils {
             map.put(e.name(), e);
         }
         return map;
-    }
-
-    /**
-     * <p>Gets the {@code List} of enums.</p>
-     *
-     * <p>This method is useful when you need a list of enums rather than an array.</p>
-     *
-     * @param <E> the type of the enumeration
-     * @param enumClass  the class of the enum to query, not null
-     * @return the modifiable list of enums, never null
-     */
-    public static <E extends Enum<E>> List<E> getEnumList(final Class<E> enumClass) {
-        return new ArrayList<>(Arrays.asList(enumClass.getEnumConstants()));
     }
 
     /**
@@ -105,166 +324,6 @@ public class EnumUtils {
      */
     public static <E extends Enum<E>> boolean isValidEnumIgnoreCase(final Class<E> enumClass, final String enumName) {
         return getEnumIgnoreCase(enumClass, enumName) != null;
-    }
-
-    /**
-     * <p>Gets the enum for the class, returning {@code null} if not found.</p>
-     *
-     * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
-     * for an invalid enum name.</p>
-     *
-     * @param <E> the type of the enumeration
-     * @param enumClass  the class of the enum to query, not null
-     * @param enumName   the enum name, null returns null
-     * @return the enum, null if not found
-     */
-    public static <E extends Enum<E>> E getEnum(final Class<E> enumClass, final String enumName) {
-        if (enumName == null) {
-            return null;
-        }
-        try {
-            return Enum.valueOf(enumClass, enumName);
-        } catch (final IllegalArgumentException ex) {
-            return null;
-        }
-    }
-
-    /**
-     * <p>Gets the enum for the class, returning {@code null} if not found.</p>
-     *
-     * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
-     * for an invalid enum name and performs case insensitive matching of the name.</p>
-     *
-     * @param <E>         the type of the enumeration
-     * @param enumClass   the class of the enum to query, not null
-     * @param enumName    the enum name, null returns null
-     * @return the enum, null if not found
-     * @since 3.8
-     */
-    public static <E extends Enum<E>> E getEnumIgnoreCase(final Class<E> enumClass, final String enumName) {
-        if (enumName == null || !enumClass.isEnum()) {
-            return null;
-        }
-        for (final E each : enumClass.getEnumConstants()) {
-            if (each.name().equalsIgnoreCase(enumName)) {
-                return each;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * <p>Creates a long bit vector representation of the given subset of an Enum.</p>
-     *
-     * <p>This generates a value that is usable by {@link EnumUtils#processBitVector}.</p>
-     *
-     * <p>Do not use this method if you have more than 64 values in your Enum, as this
-     * would create a value greater than a long can hold.</p>
-     *
-     * @param enumClass the class of the enum we are working with, not {@code null}
-     * @param values    the values we want to convert, not {@code null}, neither containing {@code null}
-     * @param <E>       the type of the enumeration
-     * @return a long whose value provides a binary representation of the given set of enum values.
-     * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}
-     * @throws IllegalArgumentException if {@code enumClass} is not an enum class or has more than 64 values,
-     *                                  or if any {@code values} {@code null}
-     * @since 3.0.1
-     * @see #generateBitVectors(Class, Iterable)
-     */
-    public static <E extends Enum<E>> long generateBitVector(final Class<E> enumClass, final Iterable<? extends E> values) {
-        checkBitVectorable(enumClass);
-        Validate.notNull(values);
-        long total = 0;
-        for (final E constant : values) {
-            Validate.isTrue(constant != null, NULL_ELEMENTS_NOT_PERMITTED);
-            total |= 1L << constant.ordinal();
-        }
-        return total;
-    }
-
-    /**
-     * <p>Creates a bit vector representation of the given subset of an Enum using as many {@code long}s as needed.</p>
-     *
-     * <p>This generates a value that is usable by {@link EnumUtils#processBitVectors}.</p>
-     *
-     * <p>Use this method if you have more than 64 values in your Enum.</p>
-     *
-     * @param enumClass the class of the enum we are working with, not {@code null}
-     * @param values    the values we want to convert, not {@code null}, neither containing {@code null}
-     * @param <E>       the type of the enumeration
-     * @return a long[] whose values provide a binary representation of the given set of enum values
-     *         with least significant digits rightmost.
-     * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}
-     * @throws IllegalArgumentException if {@code enumClass} is not an enum class, or if any {@code values} {@code null}
-     * @since 3.2
-     */
-    public static <E extends Enum<E>> long[] generateBitVectors(final Class<E> enumClass, final Iterable<? extends E> values) {
-        asEnum(enumClass);
-        Validate.notNull(values);
-        final EnumSet<E> condensed = EnumSet.noneOf(enumClass);
-        for (final E constant : values) {
-            Validate.isTrue(constant != null, NULL_ELEMENTS_NOT_PERMITTED);
-            condensed.add(constant);
-        }
-        final long[] result = new long[(enumClass.getEnumConstants().length - 1) / Long.SIZE + 1];
-        for (final E value : condensed) {
-            result[value.ordinal() / Long.SIZE] |= 1L << (value.ordinal() % Long.SIZE);
-        }
-        ArrayUtils.reverse(result);
-        return result;
-    }
-
-    /**
-     * <p>Creates a long bit vector representation of the given array of Enum values.</p>
-     *
-     * <p>This generates a value that is usable by {@link EnumUtils#processBitVector}.</p>
-     *
-     * <p>Do not use this method if you have more than 64 values in your Enum, as this
-     * would create a value greater than a long can hold.</p>
-     *
-     * @param enumClass the class of the enum we are working with, not {@code null}
-     * @param values    the values we want to convert, not {@code null}
-     * @param <E>       the type of the enumeration
-     * @return a long whose value provides a binary representation of the given set of enum values.
-     * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}
-     * @throws IllegalArgumentException if {@code enumClass} is not an enum class or has more than 64 values
-     * @since 3.0.1
-     * @see #generateBitVectors(Class, Iterable)
-     */
-    @SafeVarargs
-    public static <E extends Enum<E>> long generateBitVector(final Class<E> enumClass, final E... values) {
-        Validate.noNullElements(values);
-        return generateBitVector(enumClass, Arrays.asList(values));
-    }
-
-    /**
-     * <p>Creates a bit vector representation of the given subset of an Enum using as many {@code long}s as needed.</p>
-     *
-     * <p>This generates a value that is usable by {@link EnumUtils#processBitVectors}.</p>
-     *
-     * <p>Use this method if you have more than 64 values in your Enum.</p>
-     *
-     * @param enumClass the class of the enum we are working with, not {@code null}
-     * @param values    the values we want to convert, not {@code null}, neither containing {@code null}
-     * @param <E>       the type of the enumeration
-     * @return a long[] whose values provide a binary representation of the given set of enum values
-     *         with least significant digits rightmost.
-     * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}
-     * @throws IllegalArgumentException if {@code enumClass} is not an enum class, or if any {@code values} {@code null}
-     * @since 3.2
-     */
-    @SafeVarargs
-    public static <E extends Enum<E>> long[] generateBitVectors(final Class<E> enumClass, final E... values) {
-        asEnum(enumClass);
-        Validate.noNullElements(values);
-        final EnumSet<E> condensed = EnumSet.noneOf(enumClass);
-        Collections.addAll(condensed, values);
-        final long[] result = new long[(enumClass.getEnumConstants().length - 1) / Long.SIZE + 1];
-        for (final E value : condensed) {
-            result[value.ordinal() / Long.SIZE] |= 1L << (value.ordinal() % Long.SIZE);
-        }
-        ArrayUtils.reverse(result);
-        return result;
     }
 
     /**
@@ -312,34 +371,9 @@ public class EnumUtils {
     }
 
     /**
-     * Validate that {@code enumClass} is compatible with representation in a {@code long}.
-     * @param <E> the type of the enumeration
-     * @param enumClass to check
-     * @return {@code enumClass}
-     * @throws NullPointerException if {@code enumClass} is {@code null}
-     * @throws IllegalArgumentException if {@code enumClass} is not an enum class or has more than 64 values
-     * @since 3.0.1
+     * This constructor is public to permit tools that require a JavaBean
+     * instance to operate.
      */
-    private static <E extends Enum<E>> Class<E> checkBitVectorable(final Class<E> enumClass) {
-        final E[] constants = asEnum(enumClass).getEnumConstants();
-        Validate.isTrue(constants.length <= Long.SIZE, CANNOT_STORE_S_S_VALUES_IN_S_BITS,
-            Integer.valueOf(constants.length), enumClass.getSimpleName(), Integer.valueOf(Long.SIZE));
-
-        return enumClass;
-    }
-
-    /**
-     * Validate {@code enumClass}.
-     * @param <E> the type of the enumeration
-     * @param enumClass to check
-     * @return {@code enumClass}
-     * @throws NullPointerException if {@code enumClass} is {@code null}
-     * @throws IllegalArgumentException if {@code enumClass} is not an enum class
-     * @since 3.2
-     */
-    private static <E extends Enum<E>> Class<E> asEnum(final Class<E> enumClass) {
-        Validate.notNull(enumClass, ENUM_CLASS_MUST_BE_DEFINED);
-        Validate.isTrue(enumClass.isEnum(), S_DOES_NOT_SEEM_TO_BE_AN_ENUM_TYPE, enumClass);
-        return enumClass;
+    public EnumUtils() {
     }
 }

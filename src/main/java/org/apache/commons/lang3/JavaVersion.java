@@ -116,6 +116,20 @@ public enum JavaVersion {
     JAVA_13(13.0f, "13"),
 
     /**
+     * Java 14
+     *
+     * @since 3.11
+     */
+    JAVA_14(14.0f, "14"),
+
+    /**
+     * Java 15
+     *
+     * @since 3.11
+     */
+    JAVA_15(15.0f, "15"),
+
+    /**
      * The most recent java version. Mainly introduced to avoid to break when a new version of Java is used.
      */
     JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
@@ -194,7 +208,9 @@ public enum JavaVersion {
      * version is unknown
      */
     static JavaVersion get(final String nom) {
-        if ("0.9".equals(nom)) {
+        if (nom == null) {
+            return null;
+        } else if ("0.9".equals(nom)) {
             return JAVA_0_9;
         } else if ("1.1".equals(nom)) {
             return JAVA_1_1;
@@ -222,9 +238,10 @@ public enum JavaVersion {
             return JAVA_12;
         } else if ("13".equals(nom)) {
             return JAVA_13;
-        }
-        if (nom == null) {
-            return null;
+        } else if ("14".equals(nom)) {
+            return JAVA_14;
+        } else if ("15".equals(nom)) {
+            return JAVA_15;
         }
         final float v = toFloatVersion(nom);
         if ((v - 1.) < 1.) { // then we need to check decimals > .9
@@ -243,7 +260,7 @@ public enum JavaVersion {
     /**
      * <p>The string value is overridden to return the standard name.</p>
      *
-     * <p>For example, <code>"1.5"</code>.</p>
+     * <p>For example, {@code "1.5"}.</p>
      *
      * @return the name, not null
      */

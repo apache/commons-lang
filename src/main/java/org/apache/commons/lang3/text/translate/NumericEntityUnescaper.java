@@ -19,6 +19,7 @@ package org.apache.commons.lang3.text.translate;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.EnumSet;
 
 /**
@@ -35,7 +36,9 @@ import java.util.EnumSet;
 @Deprecated
 public class NumericEntityUnescaper extends CharSequenceTranslator {
 
-    public enum OPTION { semiColonRequired, semiColonOptional, errorIfNoSemiColon }
+    public enum OPTION {
+        semiColonRequired, semiColonOptional, errorIfNoSemiColon
+    }
 
     // TODO?: Create an OptionsSet class to hide some of the conditional logic below
     private final EnumSet<OPTION> options;
@@ -52,7 +55,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
      * and to throw an IllegalArgumentException when they're missing:
      *    new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.errorIfNoSemiColon)
      *
-     * Note that the default behaviour is to ignore them.
+     * Note that the default behavior is to ignore them.
      *
      * @param options to apply to this unescaper
      */
@@ -60,7 +63,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
         if (options.length > 0) {
             this.options = EnumSet.copyOf(Arrays.asList(options));
         } else {
-            this.options = EnumSet.copyOf(Arrays.asList(new OPTION[] { OPTION.semiColonRequired }));
+            this.options = EnumSet.copyOf(Collections.singletonList(OPTION.semiColonRequired));
         }
     }
 

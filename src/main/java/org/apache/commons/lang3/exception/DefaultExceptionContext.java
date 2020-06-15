@@ -19,7 +19,6 @@ package org.apache.commons.lang3.exception;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -60,12 +59,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
      */
     @Override
     public DefaultExceptionContext setContextValue(final String label, final Object value) {
-        for (final Iterator<Pair<String, Object>> iter = contextValues.iterator(); iter.hasNext();) {
-            final Pair<String, Object> p = iter.next();
-            if (StringUtils.equals(label, p.getKey())) {
-                iter.remove();
-            }
-        }
+        contextValues.removeIf(p -> StringUtils.equals(label, p.getKey()));
         addContextValue(label, value);
         return this;
     }

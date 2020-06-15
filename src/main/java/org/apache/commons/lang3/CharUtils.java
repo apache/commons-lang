@@ -21,7 +21,7 @@ package org.apache.commons.lang3;
  *
  * <p>This class tries to handle {@code null} input gracefully.
  * An exception will not be thrown for a {@code null} input.
- * Each method documents its behaviour in more detail.</p>
+ * Each method documents its behavior in more detail.</p>
  *
  * <p>#ThreadSafe#</p>
  * @since 2.1
@@ -33,7 +33,7 @@ public class CharUtils {
     private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
     /**
-     * {@code \u000a} linefeed LF ('\n').
+     * Linefeed character LF ({@code '\n'}, Unicode 000a).
      *
      * @see <a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.10.6">JLF: Escape Sequences
      *      for Character and String Literals</a>
@@ -42,7 +42,7 @@ public class CharUtils {
     public static final char LF = '\n';
 
     /**
-     * {@code \u000d} carriage return CR ('\r').
+     * Carriage return characterf CR ('\r', Unicode 000d).
      *
      * @see <a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.10.6">JLF: Escape Sequences
      *      for Character and String Literals</a>
@@ -134,7 +134,7 @@ public class CharUtils {
      * @throws IllegalArgumentException if the Character is null
      */
     public static char toChar(final Character ch) {
-        Validate.isTrue(ch != null, "The Character must not be null");
+        Validate.notNull(ch, "The Character must not be null");
         return ch.charValue();
     }
 
@@ -175,7 +175,7 @@ public class CharUtils {
      * @throws IllegalArgumentException if the String is empty
      */
     public static char toChar(final String str) {
-        Validate.isTrue(StringUtils.isNotEmpty(str), "The String must not be empty");
+        Validate.notEmpty(str, "The String must not be empty");
         return str.charAt(0);
     }
 
@@ -263,7 +263,7 @@ public class CharUtils {
      * @throws IllegalArgumentException if the Character is not ASCII numeric or is null
      */
     public static int toIntValue(final Character ch) {
-        Validate.isTrue(ch != null, "The character must not be null");
+        Validate.notNull(ch, "The character must not be null");
         return toIntValue(ch.charValue());
     }
 

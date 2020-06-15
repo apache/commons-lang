@@ -27,6 +27,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeSet;
+import java.util.function.Supplier;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.mutable.MutableInt;
@@ -37,7 +38,7 @@ import org.apache.commons.lang3.text.StrBuilder;
  *
  * <p>This class tries to handle {@code null} input gracefully.
  * An exception will generally not be thrown for a {@code null} input.
- * Each method documents its behaviour in more detail.</p>
+ * Each method documents its behavior in more detail.</p>
  *
  * <p>#ThreadSafe#</p>
  * @since 1.0
@@ -153,8 +154,6 @@ public class ObjectUtils {
         return !isEmpty(object);
     }
 
-    // Defaulting
-    //-----------------------------------------------------------------------
     /**
      * <p>Returns a default value if the object passed is {@code null}.</p>
      *
@@ -170,6 +169,7 @@ public class ObjectUtils {
      * @param object  the {@code Object} to test, may be {@code null}
      * @param defaultValue  the default value to return, may be {@code null}
      * @return {@code object} if it is not {@code null}, defaultValue otherwise
+     * TODO Rename to getIfNull in 4.0
      */
     public static <T> T defaultIfNull(final T object, final T defaultValue) {
         return object != null ? object : defaultValue;
@@ -207,6 +207,74 @@ public class ObjectUtils {
             }
         }
         return null;
+    }
+
+    /**
+     * <p>Executes the given suppliers in order and returns the first return
+     * value where a value other than {@code null} is returned.
+     * Once a non-{@code null} value is obtained, all following suppliers are
+     * not executed anymore.
+     * If all the return values are {@code null} or no suppliers are provided
+     * then {@code null} is returned.</p>
+     *
+     * <pre>
+     * ObjectUtils.firstNonNullLazy(null, () -&gt; null) = null
+     * ObjectUtils.firstNonNullLazy(() -&gt; null, () -&gt; "") = ""
+     * ObjectUtils.firstNonNullLazy(() -&gt; "", () -&gt; throw new IllegalStateException()) = ""
+     * ObjectUtils.firstNonNullLazy(() -&gt; null, () -&gt; "zz) = "zz"
+     * ObjectUtils.firstNonNullLazy() = null
+     * </pre>
+     *
+     * @param <T> the type of the return values
+     * @param suppliers  the suppliers returning the values to test.
+     *                   {@code null} values are ignored.
+     *                   Suppliers may return {@code null} or a value of type @{code T}
+     * @return the first return value from {@code suppliers} which is not {@code null},
+     *  or {@code null} if there are no non-null values
+     * @since 3.10
+     */
+    @SafeVarargs
+    public static <T> T getFirstNonNull(final Supplier<T>... suppliers) {
+        if (suppliers != null) {
+            for (final Supplier<T> supplier : suppliers) {
+                if (supplier != null) {
+                    final T value = supplier.get();
+                    if (value != null) {
+                        return value;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * <p>
+     * Returns the given {@code object} is it is non-null, otherwise returns the Supplier's {@link Supplier#get()}
+     * value.
+     * </p>
+     *
+     * <p>
+     * The caller responsible for thread-safety and exception handling of default value supplier.
+     * </p>
+     *
+     * <pre>
+     * ObjectUtils.getIfNull(null, () -&gt; null)     = null
+     * ObjectUtils.getIfNull(null, null)              = null
+     * ObjectUtils.getIfNull(null, () -&gt; "")       = ""
+     * ObjectUtils.getIfNull(null, () -&gt; "zz")     = "zz"
+     * ObjectUtils.getIfNull("abc", *)                = "abc"
+     * ObjectUtils.getIfNull(Boolean.TRUE, *)         = Boolean.TRUE
+     * </pre>
+     *
+     * @param <T> the type of the object
+     * @param object the {@code Object} to test, may be {@code null}
+     * @param defaultSupplier the default value to return, may be {@code null}
+     * @return {@code object} if it is not {@code null}, {@code defaultValueSupplier.get()} otherwise
+     * @since 3.10
+     */
+    public static <T> T getIfNull(final T object, final Supplier<T> defaultSupplier) {
+        return object != null ? object : defaultSupplier == null ? null : defaultSupplier.get();
     }
 
     /**

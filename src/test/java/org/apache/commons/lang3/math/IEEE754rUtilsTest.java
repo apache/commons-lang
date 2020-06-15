@@ -56,17 +56,17 @@ public class IEEE754rUtilsTest  {
     @Test
     public void testEnforceExceptions() {
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> IEEE754rUtils.min( (float[]) null),
                 "IllegalArgumentException expected for null input");
 
         assertThrows(
                 IllegalArgumentException.class,
-                () -> IEEE754rUtils.min(),
+                IEEE754rUtils::min,
                 "IllegalArgumentException expected for empty input");
 
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> IEEE754rUtils.max( (float[]) null),
                 "IllegalArgumentException expected for null input");
 
@@ -76,23 +76,23 @@ public class IEEE754rUtilsTest  {
                 "IllegalArgumentException expected for empty input");
 
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> IEEE754rUtils.min( (double[]) null),
                 "IllegalArgumentException expected for null input");
 
         assertThrows(
                 IllegalArgumentException.class,
-                () -> IEEE754rUtils.min(new double[0]),
+                IEEE754rUtils::min,
                 "IllegalArgumentException expected for empty input");
 
         assertThrows(
-                IllegalArgumentException.class,
+                NullPointerException.class,
                 () -> IEEE754rUtils.max( (double[]) null),
                 "IllegalArgumentException expected for null input");
 
         assertThrows(
                 IllegalArgumentException.class,
-                () -> IEEE754rUtils.max(new double[0]),
+                IEEE754rUtils::max,
                 "IllegalArgumentException expected for empty input");
     }
 

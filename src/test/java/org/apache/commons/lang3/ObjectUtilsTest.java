@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -40,8 +41,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Supplier;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
+import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.apache.commons.lang3.text.StrBuilder;
 import org.junit.jupiter.api.Test;
@@ -109,11 +112,24 @@ public class ObjectUtilsTest {
 
     //-----------------------------------------------------------------------
     @Test
-    public void testIsNull() {
+    public void testDefaultIfNull() {
         final Object o = FOO;
         final Object dflt = BAR;
         assertSame(dflt, ObjectUtils.defaultIfNull(null, dflt), "dflt was not returned when o was null");
         assertSame(o, ObjectUtils.defaultIfNull(o, dflt), "dflt was returned when o was not null");
+        assertSame(dflt, ObjectUtils.getIfNull(null, () -> dflt), "dflt was not returned when o was null");
+        assertSame(o, ObjectUtils.getIfNull(o, () -> dflt), "dflt was returned when o was not null");
+        assertSame(o, ObjectUtils.getIfNull(FOO, () -> dflt), "dflt was returned when o was not null");
+        assertSame(o, ObjectUtils.getIfNull("foo", () -> dflt), "dflt was returned when o was not null");
+        final MutableInt callsCounter = new MutableInt(0);
+        final Supplier<Object> countingDefaultSupplier = () -> {
+            callsCounter.increment();
+            return dflt;
+        };
+        ObjectUtils.getIfNull(o, countingDefaultSupplier);
+        assertEquals(0, callsCounter.getValue());
+        ObjectUtils.getIfNull(null, countingDefaultSupplier);
+        assertEquals(1, callsCounter.getValue());
     }
 
     @Test
@@ -132,6 +148,28 @@ public class ObjectUtilsTest {
 
         assertNull(ObjectUtils.firstNonNull((Object) null));
         assertNull(ObjectUtils.firstNonNull((Object[]) null));
+    }
+
+    @Test
+    public void testGetFirstNonNull() {
+        // first non null
+        assertEquals("", ObjectUtils.getFirstNonNull(() -> null, () -> ""));
+        // first encountered value is used
+        assertEquals("1", ObjectUtils.getFirstNonNull(() -> null, () -> "1", () -> "2", () -> null));
+        assertEquals("123", ObjectUtils.getFirstNonNull(() -> "123", () -> null, () -> "456"));
+        // don't evaluate suppliers after first value is found
+        assertEquals("123", ObjectUtils.getFirstNonNull(() -> null, () -> "123", () -> fail("Supplier after first non-null value should not be evaluated")));
+        // supplier returning null and null supplier both result in null
+        assertNull(ObjectUtils.getFirstNonNull(null, () -> null));
+        // Explicitly pass in an empty array of Object type to ensure compiler doesn't complain of unchecked generic array creation
+        assertNull(ObjectUtils.getFirstNonNull());
+        // supplier is null
+        assertNull(ObjectUtils.getFirstNonNull((Supplier<Object>) null));
+        // varargs array itself is null
+        assertNull(ObjectUtils.getFirstNonNull((Supplier<Object>[]) null));
+        // test different types
+        assertEquals(1, ObjectUtils.getFirstNonNull(() -> null, () -> 1));
+        assertEquals(Boolean.TRUE, ObjectUtils.getFirstNonNull(() -> null, () -> Boolean.TRUE));
     }
 
     /**
@@ -205,10 +243,10 @@ public class ObjectUtilsTest {
 
     @Test
     public void testHashCodeMulti_multiple_likeList() {
-        final List<Object> list0 = new ArrayList<>(Arrays.asList(new Object[0]));
+        final List<Object> list0 = new ArrayList<>(Collections.emptyList());
         assertEquals(list0.hashCode(), ObjectUtils.hashCodeMulti());
 
-        final List<Object> list1 = new ArrayList<>(Arrays.asList("a"));
+        final List<Object> list1 = new ArrayList<>(Collections.singletonList("a"));
         assertEquals(list1.hashCode(), ObjectUtils.hashCodeMulti("a"));
 
         final List<Object> list2 = new ArrayList<>(Arrays.asList("a", "b"));
@@ -501,7 +539,7 @@ public class ObjectUtilsTest {
     @Test
     public void testCloneOfUncloneable() {
         final UncloneableString string = new UncloneableString("apache");
-        CloneFailedException e = assertThrows(CloneFailedException.class, () -> ObjectUtils.clone(string));
+        final CloneFailedException e = assertThrows(CloneFailedException.class, () -> ObjectUtils.clone(string));
         assertEquals(NoSuchMethodException.class, e.getCause().getClass());
     }
 
@@ -547,7 +585,7 @@ public class ObjectUtilsTest {
     @Test
     public void testPossibleCloneOfUncloneable() {
         final UncloneableString string = new UncloneableString("apache");
-        CloneFailedException e = assertThrows(CloneFailedException.class, () -> ObjectUtils.cloneIfPossible(string));
+        final CloneFailedException e = assertThrows(CloneFailedException.class, () -> ObjectUtils.cloneIfPossible(string));
         assertEquals(NoSuchMethodException.class, e.getCause().getClass());
     }
 

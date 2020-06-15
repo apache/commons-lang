@@ -447,7 +447,7 @@ public class EqualsBuilderTest {
     @Test
     public void testObjectRecursiveGenericString() {
         // Note: Do not use literals, because string literals are always mapped by same object (internal() of String))!
-        String s1_a = String.valueOf(1);
+        final String s1_a = String.valueOf(1);
         final TestRecursiveGenericObject<String> o1_a = new TestRecursiveGenericObject<>(s1_a);
         final TestRecursiveGenericObject<String> o1_b = new TestRecursiveGenericObject<>(String.valueOf(1));
         final TestRecursiveGenericObject<String> o2 = new TestRecursiveGenericObject<>(String.valueOf(2));
@@ -925,8 +925,8 @@ public class EqualsBuilderTest {
 
     @Test
     public void testRaggedArray() {
-        final long array1[][] = new long[2][];
-        final long array2[][] = new long[2][];
+        final long[][] array1 = new long[2][];
+        final long[][] array2 = new long[2][];
         for (int i = 0; i < array1.length; ++i) {
             array1[i] = new long[2];
             array2[i] = new long[2];
@@ -943,8 +943,8 @@ public class EqualsBuilderTest {
 
     @Test
     public void testMixedArray() {
-        final Object array1[] = new Object[2];
-        final Object array2[] = new Object[2];
+        final Object[] array1 = new Object[2];
+        final Object[] array2 = new Object[2];
         for (int i = 0; i < array1.length; ++i) {
             array1[i] = new long[2];
             array2[i] = new long[2];
@@ -1186,7 +1186,7 @@ public class EqualsBuilderTest {
     /**
      * Tests two instances of classes that can be equal and that are not "related". The two classes are not subclasses
      * of each other and do not share a parent aside from Object.
-     * See http://issues.apache.org/bugzilla/show_bug.cgi?id=33069
+     * See https://issues.apache.org/bugzilla/show_bug.cgi?id=33069
      */
     @Test
     public void testUnrelatedClasses() {
@@ -1210,7 +1210,7 @@ public class EqualsBuilderTest {
     }
 
     /**
-     * Test from http://issues.apache.org/bugzilla/show_bug.cgi?id=33067
+     * Test from https://issues.apache.org/bugzilla/show_bug.cgi?id=33067
      */
     @Test
     public void testNpeForNullElement() {
@@ -1218,7 +1218,7 @@ public class EqualsBuilderTest {
         final Object[] x2 = new Object[]{Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3)};
 
         // causes an NPE in 2.0 according to:
-        // http://issues.apache.org/bugzilla/show_bug.cgi?id=33067
+        // https://issues.apache.org/bugzilla/show_bug.cgi?id=33067
         new EqualsBuilder().append(x1, x2);
     }
 

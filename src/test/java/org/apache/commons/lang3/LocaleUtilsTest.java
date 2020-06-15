@@ -524,7 +524,7 @@ public class LocaleUtilsTest  {
 
     @ParameterizedTest
     @MethodSource("java.util.Locale#getAvailableLocales")
-    public void testParseAllLocales(Locale l) {
+    public void testParseAllLocales(final Locale l) {
         // Check if it's possible to recreate the Locale using just the standard constructor
         final Locale locale = new Locale(l.getLanguage(), l.getCountry(), l.getVariant());
         if (l.equals(locale)) { // it is possible for LocaleUtils.toLocale to handle these Locales

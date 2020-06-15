@@ -61,14 +61,14 @@ public class WordUtilsTest {
         assertEquals(expected, WordUtils.wrap(input, 20));
 
         // long word at end
-        input = "Click here to jump to the commons website - http://commons.apache.org";
+        input = "Click here to jump to the commons website - https://commons.apache.org";
         expected = "Click here to jump" + systemNewLine + "to the commons" + systemNewLine
-            + "website -" + systemNewLine + "http://commons.apache.org";
+            + "website -" + systemNewLine + "https://commons.apache.org";
         assertEquals(expected, WordUtils.wrap(input, 20));
 
         // long word in middle
-        input = "Click here, http://commons.apache.org, to jump to the commons website";
-        expected = "Click here," + systemNewLine + "http://commons.apache.org," + systemNewLine
+        input = "Click here, https://commons.apache.org, to jump to the commons website";
+        expected = "Click here," + systemNewLine + "https://commons.apache.org," + systemNewLine
             + "to jump to the" + systemNewLine + "commons website";
         assertEquals(expected, WordUtils.wrap(input, 20));
 
@@ -142,17 +142,17 @@ public class WordUtilsTest {
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", true));
 
         // difference because of long word
-        input = "Click here to jump to the commons website - http://commons.apache.org";
-        expected = "Click here to jump\nto the commons\nwebsite -\nhttp://commons.apache.org";
+        input = "Click here to jump to the commons website - https://commons.apache.org";
+        expected = "Click here to jump\nto the commons\nwebsite -\nhttps://commons.apache.org";
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", false));
-        expected = "Click here to jump\nto the commons\nwebsite -\nhttp://commons.apach\ne.org";
+        expected = "Click here to jump\nto the commons\nwebsite -\nhttps://commons.apac\nhe.org";
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", true));
 
         // difference because of long word in middle
-        input = "Click here, http://commons.apache.org, to jump to the commons website";
-        expected = "Click here,\nhttp://commons.apache.org,\nto jump to the\ncommons website";
+        input = "Click here, https://commons.apache.org, to jump to the commons website";
+        expected = "Click here,\nhttps://commons.apache.org,\nto jump to the\ncommons website";
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", false));
-        expected = "Click here,\nhttp://commons.apach\ne.org, to jump to\nthe commons website";
+        expected = "Click here,\nhttps://commons.apac\nhe.org, to jump to\nthe commons website";
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", true));
     }
 
@@ -200,8 +200,8 @@ public class WordUtilsTest {
     @Test
     public void testCapitalizeWithDelimiters_String() {
         assertNull(WordUtils.capitalize(null, null));
-        assertEquals("", WordUtils.capitalize("", new char[0]));
-        assertEquals("  ", WordUtils.capitalize("  ", new char[0]));
+        assertEquals("", WordUtils.capitalize(""));
+        assertEquals("  ", WordUtils.capitalize("  "));
 
         char[] chars = new char[] { '-', '+', ' ', '@' };
         assertEquals("I", WordUtils.capitalize("I", chars) );
@@ -232,8 +232,8 @@ public class WordUtilsTest {
     @Test
     public void testCapitalizeFullyWithDelimiters_String() {
         assertNull(WordUtils.capitalizeFully(null, null));
-        assertEquals("", WordUtils.capitalizeFully("", new char[0]));
-        assertEquals("  ", WordUtils.capitalizeFully("  ", new char[0]));
+        assertEquals("", WordUtils.capitalizeFully(""));
+        assertEquals("  ", WordUtils.capitalizeFully("  "));
 
         char[] chars = new char[] { '-', '+', ' ', '@' };
         assertEquals("I", WordUtils.capitalizeFully("I", chars) );
@@ -284,8 +284,8 @@ public class WordUtilsTest {
     @Test
     public void testUncapitalizeWithDelimiters_String() {
         assertNull(WordUtils.uncapitalize(null, null));
-        assertEquals("", WordUtils.uncapitalize("", new char[0]));
-        assertEquals("  ", WordUtils.uncapitalize("  ", new char[0]));
+        assertEquals("", WordUtils.uncapitalize(""));
+        assertEquals("  ", WordUtils.uncapitalize("  "));
 
         char[] chars = new char[] { '-', '+', ' ', '@' };
         assertEquals("i", WordUtils.uncapitalize("I", chars) );
