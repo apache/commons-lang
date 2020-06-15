@@ -1357,6 +1357,7 @@ public class StringUtilsTest {
 
         assertEquals("a,b,c", StringUtils.joinWith(",", "a", "b", "c"));
         assertEquals(",a,", StringUtils.joinWith(",", null, "a", ""));
+        assertEquals(",a,", StringUtils.joinWith(",", "", "a", ""));
 
         assertEquals("ab", StringUtils.joinWith(null, "a", "b"));
     }
