@@ -615,8 +615,8 @@
     <commons.surefire.version>3.0.0-M4</commons.surefire.version>
     <commons.javadoc.version>3.1.1</commons.javadoc.version>
 
-    <!-- generate report even if there are binary incompatible changes -->
-    <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>false</commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
+    <!-- never generate report if there are binary incompatible changes -->
+    <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>true</commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
     <commons.japicmp.version>0.14.3</commons.japicmp.version>
 
     <!-- Commons Release Plugin -->
@@ -630,7 +630,7 @@
 
 
   <build>
-   <defaultGoal>clean verify apache-rat:check clirr:check checkstyle:check spotbugs:check javadoc:javadoc</defaultGoal>
+   <defaultGoal>clean verify apache-rat:check checkstyle:check japicmp:cmp spotbugs:check javadoc:javadoc</defaultGoal>
    <pluginManagement>
       <plugins>
         <plugin>
