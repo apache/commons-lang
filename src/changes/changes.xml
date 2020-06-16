@@ -46,7 +46,8 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.11" date="2020-MM-DD" description="New features and bug fixes..">
-    <action                   type="fix" dev="kinow" due-to="contextshuffling">Fix Javadoc for StringUtils.appendIfMissingIgnoreCase() #507.</action>
+    <action                   type="update" dev="kinow" due-to="XenoAmess">remove encoding and docEncoding and use inherited values from commons-parent</action>
+    <action                   type="fix"    dev="kinow" due-to="contextshuffling">Fix Javadoc for StringUtils.appendIfMissingIgnoreCase() #507.</action>
     <action                   type="update" dev="ggregory">org.junit-pioneer:junit-pioneer 0.5.4 -> 0.6.0.</action>
     <action                   type="update" dev="ggregory">org.junit.jupiter:junit-jupiter 5.6.0 -> 5.6.1.</action>
     <action                   type="update" dev="ggregory">com.github.spotbugs:spotbugs 4.0.0 -> 4.0.4.</action>
