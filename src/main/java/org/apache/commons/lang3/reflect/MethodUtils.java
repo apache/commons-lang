@@ -757,10 +757,8 @@ public class MethodUtils {
                 return method;
             } else if (methodName.equals(method.getName()) &&
                     ClassUtils.isAssignable(parameterTypes, method.getParameterTypes(), true)) {
-                if (inexactMatch == null) {
-                    inexactMatch = method;
-                } else if (distance(parameterTypes, method.getParameterTypes())
-                        < distance(parameterTypes, inexactMatch.getParameterTypes())) {
+                if ((inexactMatch == null) || (distance(parameterTypes, method.getParameterTypes())
+                        < distance(parameterTypes, inexactMatch.getParameterTypes()))) {
                     inexactMatch = method;
                 }
             }
@@ -1007,14 +1005,10 @@ public class MethodUtils {
             Class<?> acls;
             if (interfaceIndex >= allInterfaces.size()) {
                 acls = allSuperclasses.get(superClassIndex++);
-            } else if (superClassIndex >= allSuperclasses.size()) {
+            } else if ((superClassIndex >= allSuperclasses.size()) || (interfaceIndex < superClassIndex) || !(superClassIndex < interfaceIndex)) {
                 acls = allInterfaces.get(interfaceIndex++);
-            } else if (interfaceIndex < superClassIndex) {
-                acls = allInterfaces.get(interfaceIndex++);
-            } else if (superClassIndex < interfaceIndex) {
-                acls = allSuperclasses.get(superClassIndex++);
             } else {
-                acls = allInterfaces.get(interfaceIndex++);
+                acls = allSuperclasses.get(superClassIndex++);
             }
             allSuperClassesAndInterfaces.add(acls);
         }

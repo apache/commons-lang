@@ -8879,9 +8879,7 @@ public class StringUtils {
         for (int i = 0; i < strLen; ) {
             final int oldCodepoint = str.codePointAt(i);
             final int newCodePoint;
-            if (Character.isUpperCase(oldCodepoint)) {
-                newCodePoint = Character.toLowerCase(oldCodepoint);
-            } else if (Character.isTitleCase(oldCodepoint)) {
+            if (Character.isUpperCase(oldCodepoint) || Character.isTitleCase(oldCodepoint)) {
                 newCodePoint = Character.toLowerCase(oldCodepoint);
             } else if (Character.isLowerCase(oldCodepoint)) {
                 newCodePoint = Character.toUpperCase(oldCodepoint);

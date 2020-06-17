@@ -582,10 +582,7 @@ public class WordUtils {
 
         for (int i = 0; i < buffer.length; i++) {
             final char ch = buffer[i];
-            if (Character.isUpperCase(ch)) {
-                buffer[i] = Character.toLowerCase(ch);
-                whitespace = false;
-            } else if (Character.isTitleCase(ch)) {
+            if (Character.isUpperCase(ch) || Character.isTitleCase(ch)) {
                 buffer[i] = Character.toLowerCase(ch);
                 whitespace = false;
             } else if (Character.isLowerCase(ch)) {
