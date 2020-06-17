@@ -77,6 +77,21 @@ class FunctionsTest {
             return true;
         }
 
+        static boolean testDouble(double value) throws SomeException {
+            throwOnOdd();
+            return true;
+        }
+
+        static boolean testInt(int value) throws SomeException {
+            throwOnOdd();
+            return true;
+        }
+
+        static boolean testLong(long value) throws SomeException {
+            throwOnOdd();
+            return true;
+        }
+
         private static void throwOnOdd() throws SomeException {
             final int i = ++invocations;
             if (i % 2 == 1) {
@@ -689,8 +704,18 @@ class FunctionsTest {
 
     @Test
     public void testConstructor() {
-        // We allow this, which must be an omission to make the ctor private.
+        // We allow this, which must have been an omission to make the ctor private.
+        // We could make the ctor private in 4.0.
         new Functions();
+    }
+
+    @Test
+    public void testDoublePredicate() throws Throwable {
+        FailureOnOddInvocations.invocations = 0;
+        final Functions.FailableDoublePredicate<Throwable> failablePredicate = t1 -> FailureOnOddInvocations
+            .testDouble(t1);
+        assertThrows(SomeException.class, () -> failablePredicate.test(1d));
+        failablePredicate.test(1d);
     }
 
     @Test
@@ -853,6 +878,24 @@ class FunctionsTest {
         final Integer i = Functions.apply(Testable::testAsInteger, testable);
         assertNotNull(i);
         assertEquals(0, i.intValue());
+    }
+
+    @Test
+    public void testIntPredicate() throws Throwable {
+        FailureOnOddInvocations.invocations = 0;
+        final Functions.FailableIntPredicate<Throwable> failablePredicate = t1 -> FailureOnOddInvocations
+            .testInt(t1);
+        assertThrows(SomeException.class, () -> failablePredicate.test(1));
+        failablePredicate.test(1);
+    }
+
+    @Test
+    public void testLongPredicate() throws Throwable {
+        FailureOnOddInvocations.invocations = 0;
+        final Functions.FailableLongPredicate<Throwable> failablePredicate = t1 -> FailureOnOddInvocations
+            .testLong(t1);
+        assertThrows(SomeException.class, () -> failablePredicate.test(1l));
+        failablePredicate.test(1l);
     }
 
     @Test

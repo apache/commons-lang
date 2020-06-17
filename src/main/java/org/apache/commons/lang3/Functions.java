@@ -30,6 +30,7 @@ import java.util.function.Consumer;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoubleConsumer;
 import java.util.function.DoubleFunction;
+import java.util.function.DoublePredicate;
 import java.util.function.DoubleSupplier;
 import java.util.function.DoubleToIntFunction;
 import java.util.function.DoubleToLongFunction;
@@ -37,12 +38,14 @@ import java.util.function.Function;
 import java.util.function.IntBinaryOperator;
 import java.util.function.IntConsumer;
 import java.util.function.IntFunction;
+import java.util.function.IntPredicate;
 import java.util.function.IntSupplier;
 import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.LongBinaryOperator;
 import java.util.function.LongConsumer;
 import java.util.function.LongFunction;
+import java.util.function.LongPredicate;
 import java.util.function.LongSupplier;
 import java.util.function.LongToDoubleFunction;
 import java.util.function.LongToIntFunction;
@@ -111,7 +114,7 @@ public class Functions {
          *
          * @param object1 the first parameter for the consumable to accept
          * @param object2 the second parameter for the consumable to accept
-         * @throws T if the consumer fails
+         * @throws T Thrown when the consumer fails.
          */
         void accept(O1 object1, O2 object2) throws T;
     }
@@ -208,7 +211,7 @@ public class Functions {
          * Accepts the consumer.
          *
          * @param object the parameter for the consumable to accept
-         * @throws T if the consumer fails
+         * @throws T Thrown when the consumer fails.
          */
         void accept(O object) throws T;
     }
@@ -246,7 +249,7 @@ public class Functions {
          * Accepts the consumer.
          *
          * @param value the parameter for the consumable to accept
-         * @throws T if the consumer fails
+         * @throws T Thrown when the consumer fails.
          */
         void accept(double value) throws T;
     }
@@ -268,6 +271,25 @@ public class Functions {
          * @throws T Thrown when the function fails.
          */
         R apply(double input) throws T;
+    }
+
+    /**
+     * A functional interface like {@link DoublePredicate} that declares a {@code Throwable}.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableDoublePredicate<T extends Throwable> {
+
+        /**
+         * Tests the predicate.
+         *
+         * @param value the parameter for the predicate to accept.
+         * @return {@code true} if the input argument matches the predicate, {@code false} otherwise.
+         * @throws T Thrown when the consumer fails.
+         */
+        boolean test(double value) throws T;
     }
 
     /**
@@ -379,7 +401,7 @@ public class Functions {
          * Accepts the consumer.
          *
          * @param value the parameter for the consumable to accept
-         * @throws T if the consumer fails
+         * @throws T Thrown when the consumer fails.
          */
         void accept(int value) throws T;
     }
@@ -401,6 +423,25 @@ public class Functions {
          * @throws T Thrown when the function fails.
          */
         R apply(int input) throws T;
+    }
+
+    /**
+     * A functional interface like {@link IntPredicate} that declares a {@code Throwable}.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableIntPredicate<T extends Throwable> {
+
+        /**
+         * Tests the predicate.
+         *
+         * @param value the parameter for the predicate to accept.
+         * @return {@code true} if the input argument matches the predicate, {@code false} otherwise.
+         * @throws T Thrown when the consumer fails.
+         */
+        boolean test(int value) throws T;
     }
 
     /**
@@ -492,7 +533,7 @@ public class Functions {
          * Accepts the consumer.
          *
          * @param object the parameter for the consumable to accept
-         * @throws T if the consumer fails
+         * @throws T Thrown when the consumer fails.
          */
         void accept(long object) throws T;
     }
@@ -514,6 +555,25 @@ public class Functions {
          * @throws T Thrown when the function fails.
          */
         R apply(long input) throws T;
+    }
+
+    /**
+     * A functional interface like {@link LongPredicate} that declares a {@code Throwable}.
+     *
+     * @param <T> Thrown exception.
+     * @since 3.11
+     */
+    @FunctionalInterface
+    public interface FailableLongPredicate<T extends Throwable> {
+
+        /**
+         * Tests the predicate.
+         *
+         * @param value the parameter for the predicate to accept.
+         * @return {@code true} if the input argument matches the predicate, {@code false} otherwise.
+         * @throws T Thrown when the consumer fails.
+         */
+        boolean test(long value) throws T;
     }
 
     /**
@@ -587,7 +647,7 @@ public class Functions {
          *
          * @param object the object parameter for the consumable to accept.
          * @param value  the double parameter for the consumable to accept.
-         * @throws T if the consumer fails
+         * @throws T Thrown when the consumer fails.
          */
         void accept(O object, double value) throws T;
     }
@@ -607,7 +667,7 @@ public class Functions {
          *
          * @param object the object parameter for the consumable to accept.
          * @param value  the int parameter for the consumable to accept.
-         * @throws T if the consumer fails
+         * @throws T Thrown when the consumer fails.
          */
         void accept(O object, int value) throws T;
     }
@@ -627,7 +687,7 @@ public class Functions {
          *
          * @param object the object parameter for the consumable to accept.
          * @param value  the long parameter for the consumable to accept.
-         * @throws T if the consumer fails
+         * @throws T Thrown when the consumer fails.
          */
         void accept(O object, long value) throws T;
     }
