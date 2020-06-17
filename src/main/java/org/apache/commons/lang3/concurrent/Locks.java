@@ -24,7 +24,7 @@ import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableFunction;
 
 
-/** 
+/**
  * Utility class for working with {@link java.util.concurrent.locks.Lock locked objects}. Locked objects are an
  * alternative to synchronization.
  *

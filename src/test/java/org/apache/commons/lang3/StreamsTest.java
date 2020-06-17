@@ -41,10 +41,10 @@ import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.function.Executable;
 import org.xml.sax.SAXException;
 
-class StreamsTest {
+public class StreamsTest {
 
     @Test
-    void testSimpleStreamMap() {
+    public void testSimpleStreamMap() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Functions.stream(input).map(Integer::valueOf).collect(Collectors.toList());
         assertEquals(6, output.size());
@@ -54,7 +54,7 @@ class StreamsTest {
     }
 
     @Test
-    void testSimpleStreamMapFailing() {
+    public void testSimpleStreamMapFailing() {
         final List<String> input = Arrays.asList("1", "2", "3", "4 ", "5", "6");
         final Executable testMethod = () -> Functions.stream(input).map(Integer::valueOf).collect(Collectors.toList());
         final NumberFormatException thrown = assertThrows(NumberFormatException.class, testMethod);
@@ -62,7 +62,7 @@ class StreamsTest {
     }
 
     @Test
-    void testSimpleStreamForEach() {
+    public void testSimpleStreamForEach() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = new ArrayList<>();
         Functions.stream(input).forEach(s -> output.add(Integer.valueOf(s)));
@@ -73,7 +73,7 @@ class StreamsTest {
     }
 
     @Test
-    void testToArray() {
+    public void testToArray() {
         final String[] array = Arrays.asList("2", "3", "1").stream().collect(Streams.toArray(String.class));
         assertNotNull(array);
         assertEquals(3, array.length);
@@ -92,7 +92,7 @@ class StreamsTest {
     }
 
     @TestFactory
-    Stream<DynamicTest> simpleStreamForEachFailing() {
+    public Stream<DynamicTest> simpleStreamForEachFailing() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
 
         return Stream.of(
@@ -127,7 +127,7 @@ class StreamsTest {
     }
 
     @Test
-    void testSimpleStreamFilter() {
+    public void testSimpleStreamFilter() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Functions.stream(input)
                 .map(Integer::valueOf)
@@ -155,7 +155,7 @@ class StreamsTest {
     }
 
     @TestFactory
-    Stream<DynamicTest> simpleStreamFilterFailing() {
+    public Stream<DynamicTest> simpleStreamFilterFailing() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Functions.stream(input)
                 .map(Integer::valueOf)

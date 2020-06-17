@@ -62,14 +62,18 @@ import org.apache.commons.lang3.Functions.FailablePredicate;
  * @see Stream
  * @see Functions
  * @since 3.10
+ * @deprecated Use {@link org.apache.commons.lang3.stream.Streams}.
  */
+@Deprecated
 public class Streams {
 
    /**
     * A reduced, and simplified version of a {@link Stream} with
     * failable method signatures.
     * @param <O> The streams element type.
+    * @deprecated Use {@link org.apache.commons.lang3.stream.Streams.FailableStream}.
     */
+    @Deprecated
     public static class FailableStream<O extends Object> {
 
         private Stream<O> stream;
@@ -435,6 +439,10 @@ public class Streams {
         return stream(stream.stream());
     }
 
+    /**
+     * @deprecated Use {@link org.apache.commons.lang3.stream.Streams.ArrayCollector}.
+     */
+    @Deprecated
     public static class ArrayCollector<O> implements Collector<O, List<O>, O[]> {
         private static final Set<Characteristics> characteristics = Collections.emptySet();
         private final Class<O> elementType;

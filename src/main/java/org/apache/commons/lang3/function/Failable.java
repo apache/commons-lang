@@ -32,7 +32,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.Streams.FailableStream;
+import org.apache.commons.lang3.stream.Streams.FailableStream;
 
 /**
  * This class provides utility functions, and classes for working with the {@code java.util.function} package, or more

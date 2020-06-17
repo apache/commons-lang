@@ -31,6 +31,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.Streams.FailableStream;
 import org.apache.commons.lang3.function.FailableBooleanSupplier;
 import org.apache.commons.lang3.function.FailableDoubleBinaryOperator;
 import org.apache.commons.lang3.function.FailableDoubleConsumer;
@@ -39,7 +40,6 @@ import org.apache.commons.lang3.function.FailableIntConsumer;
 import org.apache.commons.lang3.function.FailableIntSupplier;
 import org.apache.commons.lang3.function.FailableLongConsumer;
 import org.apache.commons.lang3.function.FailableLongSupplier;
-import org.apache.commons.lang3.stream.Streams.FailableStream;
 
 /**
  * This class provides utility functions, and classes for working with the {@code java.util.function} package, or more
