@@ -31,8 +31,6 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.Streams.FailableStream;
-import org.apache.commons.lang3.function.Failable;
 import org.apache.commons.lang3.function.FailableBooleanSupplier;
 import org.apache.commons.lang3.function.FailableDoubleBinaryOperator;
 import org.apache.commons.lang3.function.FailableDoubleConsumer;
@@ -41,6 +39,7 @@ import org.apache.commons.lang3.function.FailableIntConsumer;
 import org.apache.commons.lang3.function.FailableIntSupplier;
 import org.apache.commons.lang3.function.FailableLongConsumer;
 import org.apache.commons.lang3.function.FailableLongSupplier;
+import org.apache.commons.lang3.stream.Streams.FailableStream;
 
 /**
  * This class provides utility functions, and classes for working with the {@code java.util.function} package, or more
@@ -87,7 +86,9 @@ public class Functions {
      * @param <O1> Consumed type 1.
      * @param <O2> Consumed type 2.
      * @param <T> Thrown exception.
+     * @deprecated Use {@link org.apache.commons.lang3.function.FailableBiConsumer}.
      */
+    @Deprecated
     @FunctionalInterface
     public interface FailableBiConsumer<O1, O2, T extends Throwable> {
 
@@ -110,7 +111,9 @@ public class Functions {
      * @param <O2> Input type 2.
      * @param <R> Return type.
      * @param <T> Thrown exception.
+     * @deprecated Use {@link org.apache.commons.lang3.function.FailableBiFunction}.
      */
+    @Deprecated
     @FunctionalInterface
     public interface FailableBiFunction<O1, O2, R, T extends Throwable> {
 
@@ -133,7 +136,9 @@ public class Functions {
      * @param <O1> Predicate type 1.
      * @param <O2> Predicate type 2.
      * @param <T> Thrown exception.
+     * @deprecated Use {@link org.apache.commons.lang3.function.FailableBiPredicate}.
      */
+    @Deprecated
     @FunctionalInterface
     public interface FailableBiPredicate<O1, O2, T extends Throwable> {
 
@@ -155,7 +160,9 @@ public class Functions {
      *
      * @param <R> Return type.
      * @param <T> Thrown exception.
+     * @deprecated Use {@link org.apache.commons.lang3.function.FailableCallable}.
      */
+    @Deprecated
     @FunctionalInterface
     public interface FailableCallable<R, T extends Throwable> {
 
@@ -175,7 +182,9 @@ public class Functions {
      *
      * @param <O> Consumed type 1.
      * @param <T> Thrown exception.
+     * @deprecated Use {@link org.apache.commons.lang3.function.FailableConsumer}.
      */
+    @Deprecated
     @FunctionalInterface
     public interface FailableConsumer<O, T extends Throwable> {
 
@@ -196,7 +205,9 @@ public class Functions {
      * @param <I> Input type 1.
      * @param <R> Return type.
      * @param <T> Thrown exception.
+     * @deprecated Use {@link org.apache.commons.lang3.function.FailableFunction}.
      */
+    @Deprecated
     @FunctionalInterface
     public interface FailableFunction<I, R, T extends Throwable> {
 
@@ -217,7 +228,9 @@ public class Functions {
      *
      * @param <I> Predicate type 1.
      * @param <T> Thrown exception.
+     * @deprecated Use {@link org.apache.commons.lang3.function.FailablePredicate}.
      */
+    @Deprecated
     @FunctionalInterface
     public interface FailablePredicate<I, T extends Throwable> {
 
@@ -237,7 +250,9 @@ public class Functions {
      * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
      *
      * @param <T> Thrown exception.
+     * @deprecated Use {@link org.apache.commons.lang3.function.FailableRunnable}.
      */
+    @Deprecated
     @FunctionalInterface
     public interface FailableRunnable<T extends Throwable> {
 
@@ -256,7 +271,9 @@ public class Functions {
      *
      * @param <R> Return type.
      * @param <T> Thrown exception.
+     * @deprecated Use {@link org.apache.commons.lang3.function.FailableSupplier}.
      */
+    @Deprecated
     @FunctionalInterface
     public interface FailableSupplier<R, T extends Throwable> {
 
