@@ -19,8 +19,9 @@ package org.apache.commons.lang3;
 import java.util.Objects;
 import java.util.concurrent.locks.StampedLock;
 
-import org.apache.commons.lang3.Functions.FailableConsumer;
-import org.apache.commons.lang3.Functions.FailableFunction;
+import org.apache.commons.lang3.function.Failable;
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableFunction;
 
 
 /** Utility class for working with {@link java.util.concurrent.locks.Lock locked objects}. Locked objects are an
@@ -93,7 +94,7 @@ public class Locks {
             try {
                 consumer.accept(lockedObject);
             } catch (Throwable t) {
-                throw Functions.rethrow(t);
+                throw Failable.rethrow(t);
             } finally {
                 lock.unlock(stamp);
             }
@@ -103,7 +104,7 @@ public class Locks {
             try {
                 return function.apply(lockedObject);
             } catch (Throwable t) {
-                throw Functions.rethrow(t);
+                throw Failable.rethrow(t);
             } finally {
                 lock.unlock(stamp);
             }

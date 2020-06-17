@@ -20,8 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.function.LongConsumer;
 
-import org.apache.commons.lang3.Functions.FailableConsumer;
 import org.apache.commons.lang3.Locks.Lock;
+import org.apache.commons.lang3.function.FailableConsumer;
 import org.junit.jupiter.api.Test;
 
 class LocksTest {

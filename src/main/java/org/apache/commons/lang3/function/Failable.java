@@ -14,7 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang3;
+
+package org.apache.commons.lang3.function;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -32,15 +33,6 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.Streams.FailableStream;
-import org.apache.commons.lang3.function.Failable;
-import org.apache.commons.lang3.function.FailableBooleanSupplier;
-import org.apache.commons.lang3.function.FailableDoubleBinaryOperator;
-import org.apache.commons.lang3.function.FailableDoubleConsumer;
-import org.apache.commons.lang3.function.FailableDoubleSupplier;
-import org.apache.commons.lang3.function.FailableIntConsumer;
-import org.apache.commons.lang3.function.FailableIntSupplier;
-import org.apache.commons.lang3.function.FailableLongConsumer;
-import org.apache.commons.lang3.function.FailableLongSupplier;
 
 /**
  * This class provides utility functions, and classes for working with the {@code java.util.function} package, or more
@@ -73,201 +65,10 @@ import org.apache.commons.lang3.function.FailableLongSupplier;
  * Obviously, the second version is much more concise and the spirit of Lambda expressions is met better than the second
  * version.
  * </p>
- * @since 3.9
- * @deprecated Use {@link org.apache.commons.lang3.function.Failable}.
+ *
+ * @since 3.11
  */
-@Deprecated
-public class Functions {
-
-    /**
-     * A functional interface like {@link BiConsumer} that declares a {@code Throwable}.
-     *
-     * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
-     *
-     * @param <O1> Consumed type 1.
-     * @param <O2> Consumed type 2.
-     * @param <T> Thrown exception.
-     */
-    @FunctionalInterface
-    public interface FailableBiConsumer<O1, O2, T extends Throwable> {
-
-        /**
-         * Accepts the consumer.
-         *
-         * @param object1 the first parameter for the consumable to accept
-         * @param object2 the second parameter for the consumable to accept
-         * @throws T Thrown when the consumer fails.
-         */
-        void accept(O1 object1, O2 object2) throws T;
-    }
-
-    /**
-     * A functional interface like {@link BiFunction} that declares a {@code Throwable}.
-     *
-     * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
-     *
-     * @param <O1> Input type 1.
-     * @param <O2> Input type 2.
-     * @param <R> Return type.
-     * @param <T> Thrown exception.
-     */
-    @FunctionalInterface
-    public interface FailableBiFunction<O1, O2, R, T extends Throwable> {
-
-        /**
-         * Applies this function.
-         *
-         * @param input1 the first input for the function
-         * @param input2 the second input for the function
-         * @return the result of the function
-         * @throws T Thrown when the function fails.
-         */
-        R apply(O1 input1, O2 input2) throws T;
-    }
-
-    /**
-     * A functional interface like {@link BiPredicate} that declares a {@code Throwable}.
-     *
-     * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
-     *
-     * @param <O1> Predicate type 1.
-     * @param <O2> Predicate type 2.
-     * @param <T> Thrown exception.
-     */
-    @FunctionalInterface
-    public interface FailableBiPredicate<O1, O2, T extends Throwable> {
-
-        /**
-         * Tests the predicate.
-         *
-         * @param object1 the first object to test the predicate on
-         * @param object2 the second object to test the predicate on
-         * @return the predicate's evaluation
-         * @throws T if the predicate fails
-         */
-        boolean test(O1 object1, O2 object2) throws T;
-    }
-
-    /**
-     * A functional interface like {@link java.util.concurrent.Callable} that declares a {@code Throwable}.
-     *
-     * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
-     *
-     * @param <R> Return type.
-     * @param <T> Thrown exception.
-     */
-    @FunctionalInterface
-    public interface FailableCallable<R, T extends Throwable> {
-
-        /**
-         * Calls the callable.
-         *
-         * @return The value returned from the callable
-         * @throws T if the callable fails
-         */
-        R call() throws T;
-    }
-
-    /**
-     * A functional interface like {@link Consumer} that declares a {@code Throwable}.
-     *
-     * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
-     *
-     * @param <O> Consumed type 1.
-     * @param <T> Thrown exception.
-     */
-    @FunctionalInterface
-    public interface FailableConsumer<O, T extends Throwable> {
-
-        /**
-         * Accepts the consumer.
-         *
-         * @param object the parameter for the consumable to accept
-         * @throws T Thrown when the consumer fails.
-         */
-        void accept(O object) throws T;
-    }
-
-    /**
-     * A functional interface like {@link Function} that declares a {@code Throwable}.
-     *
-     * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
-     *
-     * @param <I> Input type 1.
-     * @param <R> Return type.
-     * @param <T> Thrown exception.
-     */
-    @FunctionalInterface
-    public interface FailableFunction<I, R, T extends Throwable> {
-
-        /**
-         * Applies this function.
-         *
-         * @param input the input for the function
-         * @return the result of the function
-         * @throws T Thrown when the function fails.
-         */
-        R apply(I input) throws T;
-    }
-
-    /**
-     * A functional interface like {@link Predicate} that declares a {@code Throwable}.
-     *
-     * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
-     *
-     * @param <I> Predicate type 1.
-     * @param <T> Thrown exception.
-     */
-    @FunctionalInterface
-    public interface FailablePredicate<I, T extends Throwable> {
-
-        /**
-         * Tests the predicate.
-         *
-         * @param object the object to test the predicate on
-         * @return the predicate's evaluation
-         * @throws T if the predicate fails
-         */
-        boolean test(I object) throws T;
-    }
-
-    /**
-     * A functional interface like {@link Runnable} that declares a {@code Throwable}.
-     *
-     * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
-     *
-     * @param <T> Thrown exception.
-     */
-    @FunctionalInterface
-    public interface FailableRunnable<T extends Throwable> {
-
-        /**
-         * Runs the function.
-         *
-         * @throws T Thrown when the function fails.
-         */
-        void run() throws T;
-    }
-
-    /**
-     * A functional interface like {@link Supplier} that declares a {@code Throwable}.
-     *
-     * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
-     *
-     * @param <R> Return type.
-     * @param <T> Thrown exception.
-     */
-    @FunctionalInterface
-    public interface FailableSupplier<R, T extends Throwable> {
-
-        /**
-         * Supplies an object
-         *
-         * @return a result
-         * @throws T if the supplier fails
-         */
-        R get() throws T;
-    }
+public class Failable {
 
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
@@ -302,7 +103,6 @@ public class Functions {
      * @param consumer the consumer to consume
      * @param value the value to consume by {@code consumer}
      * @param <T> the type of checked exception the consumer may throw
-     * @since 3.11
      */
     public static <T extends Throwable> void accept(final FailableDoubleConsumer<T> consumer, final double value) {
         run(() -> consumer.accept(value));
@@ -314,7 +114,6 @@ public class Functions {
      * @param consumer the consumer to consume
      * @param value the value to consume by {@code consumer}
      * @param <T> the type of checked exception the consumer may throw
-     * @since 3.11
      */
     public static <T extends Throwable> void accept(final FailableIntConsumer<T> consumer, final int value) {
         run(() -> consumer.accept(value));
@@ -326,7 +125,6 @@ public class Functions {
      * @param consumer the consumer to consume
      * @param value the value to consume by {@code consumer}
      * @param <T> the type of checked exception the consumer may throw
-     * @since 3.11
      */
     public static <T extends Throwable> void accept(final FailableLongConsumer<T> consumer, final long value) {
         run(() -> consumer.accept(value));
@@ -371,7 +169,6 @@ public class Functions {
      * @param right the second input to apply {@code function} on
      * @param <T> the type of checked exception the function may throw
      * @return the value returned from the function
-     * @since 3.11
      */
     public static <T extends Throwable> double applyAsDouble(final FailableDoubleBinaryOperator<T> function,
         final double left, final double right) {
@@ -385,7 +182,6 @@ public class Functions {
      * @param <O2> the type of the second argument of the consumers
      * @param consumer a failable {@code BiConsumer}
      * @return a standard {@code BiConsumer}
-     * @since 3.10
      */
     public static <O1, O2> BiConsumer<O1, O2> asBiConsumer(final FailableBiConsumer<O1, O2, ?> consumer) {
         return (input1, input2) -> accept(consumer, input1, input2);
@@ -399,7 +195,6 @@ public class Functions {
      * @param <O> the type of the output of the functions
      * @param function a {@code FailableBiFunction}
      * @return a standard {@code BiFunction}
-     * @since 3.10
      */
     public static <O1, O2, O> BiFunction<O1, O2, O> asBiFunction(final FailableBiFunction<O1, O2, O, ?> function) {
         return (input1, input2) -> apply(function, input1, input2);
@@ -412,7 +207,6 @@ public class Functions {
      * @param <O2> the type of the second argument used by the predicates
      * @param predicate a {@code FailableBiPredicate}
      * @return a standard {@code BiPredicate}
-     * @since 3.10
      */
     public static <O1, O2> BiPredicate<O1, O2> asBiPredicate(final FailableBiPredicate<O1, O2, ?> predicate) {
         return (input1, input2) -> test(predicate, input1, input2);
@@ -424,7 +218,6 @@ public class Functions {
      * @param <O> the type used by the callables
      * @param callable a {@code FailableCallable}
      * @return a standard {@code Callable}
-     * @since 3.10
      */
     public static <O> Callable<O> asCallable(final FailableCallable<O, ?> callable) {
         return () -> call(callable);
@@ -436,7 +229,6 @@ public class Functions {
      * @param <I> the type used by the consumers
      * @param consumer a {@code FailableConsumer}
      * @return a standard {@code Consumer}
-     * @since 3.10
      */
     public static <I> Consumer<I> asConsumer(final FailableConsumer<I, ?> consumer) {
         return input -> accept(consumer, input);
@@ -449,7 +241,6 @@ public class Functions {
      * @param <O> the type of the output of the functions
      * @param function a {code FailableFunction}
      * @return a standard {@code Function}
-     * @since 3.10
      */
     public static <I, O> Function<I, O> asFunction(final FailableFunction<I, O, ?> function) {
         return input -> apply(function, input);
@@ -461,7 +252,6 @@ public class Functions {
      * @param <I> the type used by the predicates
      * @param predicate a {@code FailablePredicate}
      * @return a standard {@code Predicate}
-     * @since 3.10
      */
     public static <I> Predicate<I> asPredicate(final FailablePredicate<I, ?> predicate) {
         return input -> test(predicate, input);
@@ -472,7 +262,6 @@ public class Functions {
      *
      * @param runnable a {@code FailableRunnable}
      * @return a standard {@code Runnable}
-     * @since 3.10
      */
     public static Runnable asRunnable(final FailableRunnable<?> runnable) {
         return () -> run(runnable);
@@ -484,7 +273,6 @@ public class Functions {
      * @param <O> the type supplied by the suppliers
      * @param supplier a {@code FailableSupplier}
      * @return a standard {@code Supplier}
-     * @since 3.10
      */
     public static <O> Supplier<O> asSupplier(final FailableSupplier<O, ?> supplier) {
         return () -> get(supplier);
@@ -509,7 +297,6 @@ public class Functions {
      * @param <O> The suppliers output type.
      * @param <T> The type of checked exception, which the supplier can throw.
      * @return The object, which has been created by the supplier
-     * @since 3.10
      */
     public static <O, T extends Throwable> O get(final FailableSupplier<O, T> supplier) {
         try {
@@ -525,7 +312,6 @@ public class Functions {
      * @param supplier The boolean supplier to invoke.
      * @param <T> The type of checked exception, which the supplier can throw.
      * @return The boolean, which has been created by the supplier
-     * @since 3.11
      */
     public static <T extends Throwable> boolean getAsBoolean(final FailableBooleanSupplier<T> supplier) {
         try {
@@ -541,7 +327,6 @@ public class Functions {
      * @param supplier The double supplier to invoke.
      * @param <T> The type of checked exception, which the supplier can throw.
      * @return The boolean, which has been created by the supplier
-     * @since 3.11
      */
     public static <T extends Throwable> double getAsDouble(final FailableDoubleSupplier<T> supplier) {
         try {
@@ -557,7 +342,6 @@ public class Functions {
      * @param supplier The int supplier to invoke.
      * @param <T> The type of checked exception, which the supplier can throw.
      * @return The boolean, which has been created by the supplier
-     * @since 3.11
      */
     public static <T extends Throwable> int getAsInt(final FailableIntSupplier<T> supplier) {
         try {
@@ -573,7 +357,6 @@ public class Functions {
      * @param supplier The long supplier to invoke.
      * @param <T> The type of checked exception, which the supplier can throw.
      * @return The boolean, which has been created by the supplier
-     * @since 3.11
      */
     public static <T extends Throwable> long getAsLong(final FailableLongSupplier<T> supplier) {
         try {
@@ -598,7 +381,8 @@ public class Functions {
      * </p>
      *
      * <pre>
-     * throw rethrow(myUncheckedException);</pre>
+     * throw rethrow(myUncheckedException);
+     * </pre>
      *
      * <p>
      * instead of just calling the method. This pattern may help the Java compiler to recognize that at that point an
@@ -641,12 +425,12 @@ public class Functions {
      * collections elements. Shortcut for
      *
      * <pre>
-     * Functions.stream(collection.stream());</pre>
+     * Functions.stream(collection.stream());
+     * </pre>
      *
      * @param collection The collection, which is being converted into a {@link FailableStream}.
      * @param <O> The collections element type. (In turn, the result streams element type.)
      * @return The created {@link FailableStream}.
-     * @since 3.10
      */
     public static <O> FailableStream<O> stream(final Collection<O> collection) {
         return new FailableStream<>(collection.stream());
@@ -661,7 +445,6 @@ public class Functions {
      * @param stream The stream, which is being converted into a {@link FailableStream}.
      * @param <O> The streams element type.
      * @return The created {@link FailableStream}.
-     * @since 3.10
      */
     public static <O> FailableStream<O> stream(final Stream<O> stream) {
         return new FailableStream<>(stream);
@@ -704,10 +487,11 @@ public class Functions {
      * {@link Throwable} is rethrown. Example use:
      *
      * <pre>
-     * {@code
+     *     {@code
      *     final FileInputStream fis = new FileInputStream("my.file");
      *     Functions.tryWithResources(useInputStream(fis), null, () -> fis.close());
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param action The action to execute. This object <em>will</em> always be invoked.
      * @param errorHandler An optional error handler, which will be invoked finally, if any error occurred. The error
@@ -722,7 +506,7 @@ public class Functions {
         final FailableRunnable<? extends Throwable>... resources) {
         final FailableConsumer<Throwable, ? extends Throwable> actualErrorHandler;
         if (errorHandler == null) {
-            actualErrorHandler = Functions::rethrow;
+            actualErrorHandler = Failable::rethrow;
         } else {
             actualErrorHandler = errorHandler;
         }
@@ -765,10 +549,11 @@ public class Functions {
      * {@link Throwable} is rethrown. Example use:
      *
      * <pre>
-     * {@code
+     *     {@code
      *     final FileInputStream fis = new FileInputStream("my.file");
      *     Functions.tryWithResources(useInputStream(fis), () -> fis.close());
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param action The action to execute. This object <em>will</em> always be invoked.
      * @param resources The resource actions to execute. <em>All</em> resource actions will be invoked, in the given
@@ -780,4 +565,9 @@ public class Functions {
         final FailableRunnable<? extends Throwable>... resources) {
         tryWithResources(action, null, resources);
     }
+
+    private Failable() {
+        // empty
+    }
+
 }
