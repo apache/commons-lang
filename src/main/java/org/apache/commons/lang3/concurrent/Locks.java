@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang3;
+package org.apache.commons.lang3.concurrent;
 
 import java.util.Objects;
 import java.util.concurrent.locks.StampedLock;
@@ -24,7 +24,8 @@ import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableFunction;
 
 
-/** Utility class for working with {@link java.util.concurrent.locks.Lock locked objects}. Locked objects are an
+/** 
+ * Utility class for working with {@link java.util.concurrent.locks.Lock locked objects}. Locked objects are an
  * alternative to synchronization.
  *
  * Locking is preferable, if there is a distinction between read access (multiple threads may have read
@@ -64,8 +65,10 @@ import org.apache.commons.lang3.function.FailableFunction;
  *         lock.runWriteLocked((ps) -&gt; { ps.write(buffer); ps.println(); });
  *     }
  * </pre>
+ * @since 3.11
  */
 public class Locks {
+
     public static class Lock<O extends Object> {
         private final O lockedObject;
         private final StampedLock lock = new StampedLock();

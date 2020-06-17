@@ -14,13 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang3;
+package org.apache.commons.lang3.concurrent;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.function.LongConsumer;
 
-import org.apache.commons.lang3.Locks.Lock;
+import org.apache.commons.lang3.concurrent.Locks;
+import org.apache.commons.lang3.concurrent.Locks.Lock;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.junit.jupiter.api.Test;
 
