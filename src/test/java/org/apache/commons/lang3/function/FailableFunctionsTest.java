@@ -27,8 +27,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.lang.reflect.UndeclaredThrowableException;
+import java.util.concurrent.Callable;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import org.apache.commons.lang3.Functions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -66,17 +75,17 @@ public class FailableFunctionsTest {
             return true;
         }
 
-        static boolean testDouble(double value) throws SomeException {
+        static boolean testDouble(final double value) throws SomeException {
             throwOnOdd();
             return true;
         }
 
-        static boolean testInt(int value) throws SomeException {
+        static boolean testInt(final int value) throws SomeException {
             throwOnOdd();
             return true;
         }
 
-        static boolean testLong(long value) throws SomeException {
+        static boolean testLong(final long value) throws SomeException {
             throwOnOdd();
             return true;
         }
@@ -149,7 +158,7 @@ public class FailableFunctionsTest {
             test(throwable);
         }
 
-        public Object test(Object input1, Object input2) throws Throwable {
+        public Object test(final Object input1, final Object input2) throws Throwable {
             test(throwable);
             return acceptedObject;
         }
@@ -215,41 +224,41 @@ public class FailableFunctionsTest {
             return 0;
         }
 
-        public void testDouble(double i) throws Throwable {
+        public void testDouble(final double i) throws Throwable {
             test(throwable);
             acceptedPrimitiveObject1 = (P) ((Double) i);
         }
 
-        public double testDoubleDouble(double i, double j) throws Throwable {
+        public double testDoubleDouble(final double i, final double j) throws Throwable {
             test(throwable);
             acceptedPrimitiveObject1 = (P) ((Double) i);
             acceptedPrimitiveObject2 = (P) ((Double) j);
             return 3d;
         }
 
-        public void testInt(int i) throws Throwable {
+        public void testInt(final int i) throws Throwable {
             test(throwable);
             acceptedPrimitiveObject1 = (P) ((Integer) i);
         }
 
-        public void testLong(long i) throws Throwable {
+        public void testLong(final long i) throws Throwable {
             test(throwable);
             acceptedPrimitiveObject1 = (P) ((Long) i);
         }
 
-        public void testObjDouble(T object, double i) throws Throwable {
+        public void testObjDouble(final T object, final double i) throws Throwable {
             test(throwable);
             acceptedObject = object;
             acceptedPrimitiveObject1 = (P) ((Double) i);
         }
 
-        public void testObjInt(T object, int i) throws Throwable {
+        public void testObjInt(final T object, final int i) throws Throwable {
             test(throwable);
             acceptedObject = object;
             acceptedPrimitiveObject1 = (P) ((Integer) i);
         }
 
-        public void testObjLong(T object, long i) throws Throwable {
+        public void testObjLong(final T object, final long i) throws Throwable {
             test(throwable);
             acceptedObject = object;
             acceptedPrimitiveObject1 = (P) ((Long) i);
@@ -257,106 +266,151 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    public void testAcceptDoubleConsumer() {
+    void testAcceptBiConsumer() {
+        final IllegalStateException ise = new IllegalStateException();
+        final Testable<?, ?> testable = new Testable<>(null);
+        Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(Testable::test, testable, ise));
+        assertSame(ise, e);
+
+        final Error error = new OutOfMemoryError();
+        e = assertThrows(OutOfMemoryError.class, () -> Failable.accept(Testable::test, testable, error));
+        assertSame(error, e);
+
+        final IOException ioe = new IOException("Unknown I/O error");
+        testable.setThrowable(ioe);
+        e = assertThrows(UncheckedIOException.class, () -> Failable.accept(Testable::test, testable, ioe));
+        final Throwable t = e.getCause();
+        assertNotNull(t);
+        assertSame(ioe, t);
+
+        testable.setThrowable(null);
+        Failable.accept(Testable::test, testable, (Throwable) null);
+    }
+
+    @Test
+    void testAcceptConsumer() {
+        final IllegalStateException ise = new IllegalStateException();
+        final Testable<?, ?> testable = new Testable<>(ise);
+        Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(Testable::test, testable));
+        assertSame(ise, e);
+
+        final Error error = new OutOfMemoryError();
+        testable.setThrowable(error);
+        e = assertThrows(OutOfMemoryError.class, () -> Failable.accept(Testable::test, testable));
+        assertSame(error, e);
+
+        final IOException ioe = new IOException("Unknown I/O error");
+        testable.setThrowable(ioe);
+        e = assertThrows(UncheckedIOException.class, () -> Failable.accept(Testable::test, testable));
+        final Throwable t = e.getCause();
+        assertNotNull(t);
+        assertSame(ioe, t);
+
+        testable.setThrowable(null);
+        Failable.accept(Testable::test, testable);
+    }
+
+    @Test
+    void testAcceptDoubleConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, Double> testable = new Testable<>(ise);
-        Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testDouble, 1d));
+        Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(testable::testDouble, 1d));
         assertSame(ise, e);
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         final Error error = new OutOfMemoryError();
         testable.setThrowable(error);
-        e = assertThrows(OutOfMemoryError.class, () -> Functions.accept(testable::testDouble, 1d));
+        e = assertThrows(OutOfMemoryError.class, () -> Failable.accept(testable::testDouble, 1d));
         assertSame(error, e);
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
-        e = assertThrows(UncheckedIOException.class, () -> Functions.accept(testable::testDouble, 1d));
+        e = assertThrows(UncheckedIOException.class, () -> Failable.accept(testable::testDouble, 1d));
         final Throwable t = e.getCause();
         assertNotNull(t);
         assertSame(ioe, t);
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         testable.setThrowable(null);
-        Functions.accept(testable::testDouble, 1d);
+        Failable.accept(testable::testDouble, 1d);
         assertEquals(1, testable.getAcceptedPrimitiveObject1());
     }
 
     @Test
-    public void testAcceptIntConsumer() {
+    void testAcceptIntConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, Integer> testable = new Testable<>(ise);
-        Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testInt, 1));
+        Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(testable::testInt, 1));
         assertSame(ise, e);
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         final Error error = new OutOfMemoryError();
         testable.setThrowable(error);
-        e = assertThrows(OutOfMemoryError.class, () -> Functions.accept(testable::testInt, 1));
+        e = assertThrows(OutOfMemoryError.class, () -> Failable.accept(testable::testInt, 1));
         assertSame(error, e);
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
-        e = assertThrows(UncheckedIOException.class, () -> Functions.accept(testable::testInt, 1));
+        e = assertThrows(UncheckedIOException.class, () -> Failable.accept(testable::testInt, 1));
         final Throwable t = e.getCause();
         assertNotNull(t);
         assertSame(ioe, t);
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         testable.setThrowable(null);
-        Functions.accept(testable::testInt, 1);
+        Failable.accept(testable::testInt, 1);
         assertEquals(1, testable.getAcceptedPrimitiveObject1());
     }
 
     @Test
-    public void testAcceptLongConsumer() {
+    void testAcceptLongConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, Long> testable = new Testable<>(ise);
-        Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testLong, 1L));
+        Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(testable::testLong, 1L));
         assertSame(ise, e);
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         final Error error = new OutOfMemoryError();
         testable.setThrowable(error);
-        e = assertThrows(OutOfMemoryError.class, () -> Functions.accept(testable::testLong, 1L));
+        e = assertThrows(OutOfMemoryError.class, () -> Failable.accept(testable::testLong, 1L));
         assertSame(error, e);
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
-        e = assertThrows(UncheckedIOException.class, () -> Functions.accept(testable::testLong, 1L));
+        e = assertThrows(UncheckedIOException.class, () -> Failable.accept(testable::testLong, 1L));
         final Throwable t = e.getCause();
         assertNotNull(t);
         assertSame(ioe, t);
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         testable.setThrowable(null);
-        Functions.accept(testable::testLong, 1L);
+        Failable.accept(testable::testLong, 1L);
         assertEquals(1, testable.getAcceptedPrimitiveObject1());
     }
 
     @Test
-    public void testAcceptObjDoubleConsumer() {
+    void testAcceptObjDoubleConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<String, Double> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class,
-            () -> Functions.accept(testable::testObjDouble, "X", 1d));
+            () -> Failable.accept(testable::testObjDouble, "X", 1d));
         assertSame(ise, e);
         assertNull(testable.getAcceptedObject());
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         final Error error = new OutOfMemoryError();
         testable.setThrowable(error);
-        e = assertThrows(OutOfMemoryError.class, () -> Functions.accept(testable::testObjDouble, "X", 1d));
+        e = assertThrows(OutOfMemoryError.class, () -> Failable.accept(testable::testObjDouble, "X", 1d));
         assertSame(error, e);
         assertNull(testable.getAcceptedObject());
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
-        e = assertThrows(UncheckedIOException.class, () -> Functions.accept(testable::testObjDouble, "X", 1d));
+        e = assertThrows(UncheckedIOException.class, () -> Failable.accept(testable::testObjDouble, "X", 1d));
         final Throwable t = e.getCause();
         assertNotNull(t);
         assertSame(ioe, t);
@@ -364,30 +418,30 @@ public class FailableFunctionsTest {
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         testable.setThrowable(null);
-        Functions.accept(testable::testObjDouble, "X", 1d);
+        Failable.accept(testable::testObjDouble, "X", 1d);
         assertEquals("X", testable.getAcceptedObject());
         assertEquals(1d, testable.getAcceptedPrimitiveObject1());
     }
 
     @Test
-    public void testAcceptObjIntConsumer() {
+    void testAcceptObjIntConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<String, Integer> testable = new Testable<>(ise);
-        Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testObjInt, "X", 1));
+        Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(testable::testObjInt, "X", 1));
         assertSame(ise, e);
         assertNull(testable.getAcceptedObject());
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         final Error error = new OutOfMemoryError();
         testable.setThrowable(error);
-        e = assertThrows(OutOfMemoryError.class, () -> Functions.accept(testable::testObjInt, "X", 1));
+        e = assertThrows(OutOfMemoryError.class, () -> Failable.accept(testable::testObjInt, "X", 1));
         assertSame(error, e);
         assertNull(testable.getAcceptedObject());
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
-        e = assertThrows(UncheckedIOException.class, () -> Functions.accept(testable::testObjInt, "X", 1));
+        e = assertThrows(UncheckedIOException.class, () -> Failable.accept(testable::testObjInt, "X", 1));
         final Throwable t = e.getCause();
         assertNotNull(t);
         assertSame(ioe, t);
@@ -395,30 +449,30 @@ public class FailableFunctionsTest {
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         testable.setThrowable(null);
-        Functions.accept(testable::testObjInt, "X", 1);
+        Failable.accept(testable::testObjInt, "X", 1);
         assertEquals("X", testable.getAcceptedObject());
         assertEquals(1, testable.getAcceptedPrimitiveObject1());
     }
 
     @Test
-    public void testAcceptObjLongConsumer() {
+    void testAcceptObjLongConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<String, Long> testable = new Testable<>(ise);
-        Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testObjLong, "X", 1L));
+        Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(testable::testObjLong, "X", 1L));
         assertSame(ise, e);
         assertNull(testable.getAcceptedObject());
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         final Error error = new OutOfMemoryError();
         testable.setThrowable(error);
-        e = assertThrows(OutOfMemoryError.class, () -> Functions.accept(testable::testObjLong, "X", 1L));
+        e = assertThrows(OutOfMemoryError.class, () -> Failable.accept(testable::testObjLong, "X", 1L));
         assertSame(error, e);
         assertNull(testable.getAcceptedObject());
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
-        e = assertThrows(UncheckedIOException.class, () -> Functions.accept(testable::testObjLong, "X", 1L));
+        e = assertThrows(UncheckedIOException.class, () -> Failable.accept(testable::testObjLong, "X", 1L));
         final Throwable t = e.getCause();
         assertNotNull(t);
         assertSame(ioe, t);
@@ -426,7 +480,7 @@ public class FailableFunctionsTest {
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         testable.setThrowable(null);
-        Functions.accept(testable::testObjLong, "X", 1L);
+        Failable.accept(testable::testObjLong, "X", 1L);
         assertEquals("X", testable.getAcceptedObject());
         assertEquals(1L, testable.getAcceptedPrimitiveObject1());
     }
@@ -436,20 +490,20 @@ public class FailableFunctionsTest {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(null);
         Throwable e = assertThrows(IllegalStateException.class,
-            () -> Functions.apply(Testable::testAsInteger, testable, ise));
+            () -> Failable.apply(Testable::testAsInteger, testable, ise));
         assertSame(ise, e);
 
         final Error error = new OutOfMemoryError();
-        e = assertThrows(OutOfMemoryError.class, () -> Functions.apply(Testable::testAsInteger, testable, error));
+        e = assertThrows(OutOfMemoryError.class, () -> Failable.apply(Testable::testAsInteger, testable, error));
         assertSame(error, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
-        e = assertThrows(UncheckedIOException.class, () -> Functions.apply(Testable::testAsInteger, testable, ioe));
+        e = assertThrows(UncheckedIOException.class, () -> Failable.apply(Testable::testAsInteger, testable, ioe));
         final Throwable t = e.getCause();
         assertNotNull(t);
         assertSame(ioe, t);
 
-        final Integer i = Functions.apply(Testable::testAsInteger, testable, (Throwable) null);
+        final Integer i = Failable.apply(Testable::testAsInteger, testable, (Throwable) null);
         assertNotNull(i);
         assertEquals(0, i.intValue());
     }
@@ -458,12 +512,12 @@ public class FailableFunctionsTest {
     public void testApplyDoubleBinaryOperator() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, Double> testable = new Testable<>(ise);
-        Throwable e = assertThrows(IllegalStateException.class,
-            () -> Functions.applyAsDouble(testable::testDoubleDouble, 1d, 2d));
+        final Throwable e = assertThrows(IllegalStateException.class,
+            () -> Failable.applyAsDouble(testable::testDoubleDouble, 1d, 2d));
         assertSame(ise, e);
 
         final Testable<?, Double> testable2 = new Testable<>(null);
-        final double i = Functions.applyAsDouble(testable2::testDoubleDouble, 1d, 2d);
+        final double i = Failable.applyAsDouble(testable2::testDoubleDouble, 1d, 2d);
         assertEquals(3d, i);
     }
 
@@ -472,31 +526,74 @@ public class FailableFunctionsTest {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class,
-            () -> Functions.apply(Testable::testAsInteger, testable));
+            () -> Failable.apply(Testable::testAsInteger, testable));
         assertSame(ise, e);
 
         final Error error = new OutOfMemoryError();
         testable.setThrowable(error);
-        e = assertThrows(OutOfMemoryError.class, () -> Functions.apply(Testable::testAsInteger, testable));
+        e = assertThrows(OutOfMemoryError.class, () -> Failable.apply(Testable::testAsInteger, testable));
         assertSame(error, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
-        e = assertThrows(UncheckedIOException.class, () -> Functions.apply(Testable::testAsInteger, testable));
+        e = assertThrows(UncheckedIOException.class, () -> Failable.apply(Testable::testAsInteger, testable));
         final Throwable t = e.getCause();
         assertNotNull(t);
         assertSame(ioe, t);
 
         testable.setThrowable(null);
-        final Integer i = Functions.apply(Testable::testAsInteger, testable);
+        final Integer i = Failable.apply(Testable::testAsInteger, testable);
         assertNotNull(i);
         assertEquals(0, i.intValue());
     }
 
     @Test
-    public void testAsRunnable() {
+    void testAsCallable() {
         FailureOnOddInvocations.invocations = 0;
-        final Runnable runnable = Functions.asRunnable(FailureOnOddInvocations::new);
+        final FailableCallable<FailureOnOddInvocations, SomeException> failableCallable = FailureOnOddInvocations::new;
+        final Callable<FailureOnOddInvocations> callable = Failable.asCallable(failableCallable);
+        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, callable::call);
+        final Throwable cause = e.getCause();
+        assertNotNull(cause);
+        assertTrue(cause instanceof SomeException);
+        assertEquals("Odd Invocation: 1", cause.getMessage());
+        final FailureOnOddInvocations instance;
+        try {
+            instance = callable.call();
+        } catch (final Exception ex) {
+            throw Failable.rethrow(ex);
+        }
+        assertNotNull(instance);
+    }
+
+    @Test
+    void testAsConsumer() {
+        final IllegalStateException ise = new IllegalStateException();
+        final Testable<?, ?> testable = new Testable<>(ise);
+        final Consumer<Testable<?, ?>> consumer = Failable.asConsumer(Testable::test);
+        Throwable e = assertThrows(IllegalStateException.class, () -> consumer.accept(testable));
+        assertSame(ise, e);
+
+        final Error error = new OutOfMemoryError();
+        testable.setThrowable(error);
+        e = assertThrows(OutOfMemoryError.class, () -> consumer.accept(testable));
+        assertSame(error, e);
+
+        final IOException ioe = new IOException("Unknown I/O error");
+        testable.setThrowable(ioe);
+        e = assertThrows(UncheckedIOException.class, () -> consumer.accept(testable));
+        final Throwable t = e.getCause();
+        assertNotNull(t);
+        assertSame(ioe, t);
+
+        testable.setThrowable(null);
+        Failable.accept(Testable::test, testable);
+    }
+
+    @Test
+    void testAsRunnable() {
+        FailureOnOddInvocations.invocations = 0;
+        final Runnable runnable = Failable.asRunnable(FailureOnOddInvocations::new);
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, runnable::run);
         final Throwable cause = e.getCause();
         assertNotNull(cause);
@@ -508,6 +605,109 @@ public class FailableFunctionsTest {
     }
 
     @Test
+    public void testAsSupplier() {
+        FailureOnOddInvocations.invocations = 0;
+        final FailableSupplier<FailureOnOddInvocations, Throwable> failableSupplier = FailureOnOddInvocations::new;
+        final Supplier<FailureOnOddInvocations> supplier = Failable.asSupplier(failableSupplier);
+        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, supplier::get);
+        final Throwable cause = e.getCause();
+        assertNotNull(cause);
+        assertTrue(cause instanceof SomeException);
+        assertEquals("Odd Invocation: 1", cause.getMessage());
+        assertNotNull(supplier.get());
+    }
+
+    @Test
+    void testBiConsumer() {
+        final IllegalStateException ise = new IllegalStateException();
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableBiConsumer<Testable<?, ?>, Throwable, Throwable> failableBiConsumer = (t, th) -> {
+            t.setThrowable(th);
+            t.test();
+        };
+        final BiConsumer<Testable<?, ?>, Throwable> consumer = Failable.asBiConsumer(failableBiConsumer);
+        Throwable e = assertThrows(IllegalStateException.class, () -> consumer.accept(testable, ise));
+        assertSame(ise, e);
+
+        final Error error = new OutOfMemoryError();
+        e = assertThrows(OutOfMemoryError.class, () -> consumer.accept(testable, error));
+        assertSame(error, e);
+
+        final IOException ioe = new IOException("Unknown I/O error");
+        testable.setThrowable(ioe);
+        e = assertThrows(UncheckedIOException.class, () -> consumer.accept(testable, ioe));
+        final Throwable t = e.getCause();
+        assertNotNull(t);
+        assertSame(ioe, t);
+
+        consumer.accept(testable, null);
+    }
+
+    @Test
+    public void testBiFunction() {
+        final IllegalStateException ise = new IllegalStateException();
+        final Testable<?, ?> testable = new Testable<>(ise);
+        final FailableBiFunction<Testable<?, ?>, Throwable, Integer, Throwable> failableBiFunction = (t, th) -> {
+            t.setThrowable(th);
+            return Integer.valueOf(t.testAsInteger());
+        };
+        final BiFunction<Testable<?, ?>, Throwable, Integer> biFunction = Failable.asBiFunction(failableBiFunction);
+        Throwable e = assertThrows(IllegalStateException.class, () -> biFunction.apply(testable, ise));
+        assertSame(ise, e);
+
+        final Error error = new OutOfMemoryError();
+        testable.setThrowable(error);
+        e = assertThrows(OutOfMemoryError.class, () -> biFunction.apply(testable, error));
+        assertSame(error, e);
+
+        final IOException ioe = new IOException("Unknown I/O error");
+        testable.setThrowable(ioe);
+        e = assertThrows(UncheckedIOException.class, () -> biFunction.apply(testable, ioe));
+        final Throwable t = e.getCause();
+        assertNotNull(t);
+        assertSame(ioe, t);
+
+        assertEquals(0, biFunction.apply(testable, null).intValue());
+    }
+
+    @Test
+    @DisplayName("Test that asPredicate(FailableBiPredicate) is converted to -> BiPredicate ")
+    public void testBiPredicate() {
+        FailureOnOddInvocations.invocations = 0;
+        final FailableBiPredicate<Object, Object, Throwable> failableBiPredicate = (t1,
+            t2) -> FailureOnOddInvocations.failingBool();
+        final BiPredicate<?, ?> predicate = Failable.asBiPredicate(failableBiPredicate);
+        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class,
+            () -> predicate.test(null, null));
+        final Throwable cause = e.getCause();
+        assertNotNull(cause);
+        assertTrue(cause instanceof SomeException);
+        assertEquals("Odd Invocation: 1", cause.getMessage());
+        final boolean instance = predicate.test(null, null);
+        assertNotNull(instance);
+    }
+
+    @Test
+    void testCallable() {
+        FailureOnOddInvocations.invocations = 0;
+        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class,
+            () -> Failable.run(FailureOnOddInvocations::new));
+        final Throwable cause = e.getCause();
+        assertNotNull(cause);
+        assertTrue(cause instanceof SomeException);
+        assertEquals("Odd Invocation: 1", cause.getMessage());
+        final FailureOnOddInvocations instance = Failable.call(FailureOnOddInvocations::new);
+        assertNotNull(instance);
+    }
+
+    @Test
+    public void testConstructor() {
+        // We allow this, which must have been an omission to make the ctor private.
+        // We could make the ctor private in 4.0.
+        new Functions();
+    }
+
+    @Test
     public void testDoublePredicate() throws Throwable {
         FailureOnOddInvocations.invocations = 0;
         final FailableDoublePredicate<Throwable> failablePredicate = t1 -> FailureOnOddInvocations.testDouble(t1);
@@ -516,27 +716,54 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    public void testGetAsBooleanSupplier() {
+    public void testFunction() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(ise);
-        Throwable e = assertThrows(IllegalStateException.class,
-            () -> Functions.getAsBoolean(testable::testAsBooleanPrimitive));
+        final FailableFunction<Throwable, Integer, Throwable> failableFunction = th -> {
+            testable.setThrowable(th);
+            return Integer.valueOf(testable.testAsInteger());
+        };
+        final Function<Throwable, Integer> function = Failable.asFunction(failableFunction);
+        Throwable e = assertThrows(IllegalStateException.class, () -> function.apply(ise));
         assertSame(ise, e);
 
         final Error error = new OutOfMemoryError();
         testable.setThrowable(error);
-        e = assertThrows(OutOfMemoryError.class, () -> Functions.getAsBoolean(testable::testAsBooleanPrimitive));
+        e = assertThrows(OutOfMemoryError.class, () -> function.apply(error));
         assertSame(error, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
-        e = assertThrows(UncheckedIOException.class, () -> Functions.getAsBoolean(testable::testAsBooleanPrimitive));
+        e = assertThrows(UncheckedIOException.class, () -> function.apply(ioe));
+        final Throwable t = e.getCause();
+        assertNotNull(t);
+        assertSame(ioe, t);
+
+        assertEquals(0, function.apply(null).intValue());
+    }
+
+    @Test
+    public void testGetAsBooleanSupplier() {
+        final IllegalStateException ise = new IllegalStateException();
+        final Testable<?, ?> testable = new Testable<>(ise);
+        Throwable e = assertThrows(IllegalStateException.class,
+            () -> Failable.getAsBoolean(testable::testAsBooleanPrimitive));
+        assertSame(ise, e);
+
+        final Error error = new OutOfMemoryError();
+        testable.setThrowable(error);
+        e = assertThrows(OutOfMemoryError.class, () -> Failable.getAsBoolean(testable::testAsBooleanPrimitive));
+        assertSame(error, e);
+
+        final IOException ioe = new IOException("Unknown I/O error");
+        testable.setThrowable(ioe);
+        e = assertThrows(UncheckedIOException.class, () -> Failable.getAsBoolean(testable::testAsBooleanPrimitive));
         final Throwable t = e.getCause();
         assertNotNull(t);
         assertSame(ioe, t);
 
         testable.setThrowable(null);
-        assertFalse(Functions.getAsBoolean(testable::testAsBooleanPrimitive));
+        assertFalse(Failable.getAsBoolean(testable::testAsBooleanPrimitive));
     }
 
     @Test
@@ -544,46 +771,46 @@ public class FailableFunctionsTest {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class,
-            () -> Functions.getAsDouble(testable::testAsDoublePrimitive));
+            () -> Failable.getAsDouble(testable::testAsDoublePrimitive));
         assertSame(ise, e);
 
         final Error error = new OutOfMemoryError();
         testable.setThrowable(error);
-        e = assertThrows(OutOfMemoryError.class, () -> Functions.getAsDouble(testable::testAsDoublePrimitive));
+        e = assertThrows(OutOfMemoryError.class, () -> Failable.getAsDouble(testable::testAsDoublePrimitive));
         assertSame(error, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
-        e = assertThrows(UncheckedIOException.class, () -> Functions.getAsDouble(testable::testAsDoublePrimitive));
+        e = assertThrows(UncheckedIOException.class, () -> Failable.getAsDouble(testable::testAsDoublePrimitive));
         final Throwable t = e.getCause();
         assertNotNull(t);
         assertSame(ioe, t);
 
         testable.setThrowable(null);
-        assertEquals(0, Functions.getAsDouble(testable::testAsDoublePrimitive));
+        assertEquals(0, Failable.getAsDouble(testable::testAsDoublePrimitive));
     }
 
     @Test
     public void testGetAsIntSupplier() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(ise);
-        Throwable e = assertThrows(IllegalStateException.class, () -> Functions.getAsInt(testable::testAsIntPrimitive));
+        Throwable e = assertThrows(IllegalStateException.class, () -> Failable.getAsInt(testable::testAsIntPrimitive));
         assertSame(ise, e);
 
         final Error error = new OutOfMemoryError();
         testable.setThrowable(error);
-        e = assertThrows(OutOfMemoryError.class, () -> Functions.getAsInt(testable::testAsIntPrimitive));
+        e = assertThrows(OutOfMemoryError.class, () -> Failable.getAsInt(testable::testAsIntPrimitive));
         assertSame(error, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
-        e = assertThrows(UncheckedIOException.class, () -> Functions.getAsInt(testable::testAsIntPrimitive));
+        e = assertThrows(UncheckedIOException.class, () -> Failable.getAsInt(testable::testAsIntPrimitive));
         final Throwable t = e.getCause();
         assertNotNull(t);
         assertSame(ioe, t);
 
         testable.setThrowable(null);
-        final int i = Functions.getAsInt(testable::testAsInteger);
+        final int i = Failable.getAsInt(testable::testAsInteger);
         assertEquals(0, i);
     }
 
@@ -592,23 +819,23 @@ public class FailableFunctionsTest {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class,
-            () -> Functions.getAsLong(testable::testAsLongPrimitive));
+            () -> Failable.getAsLong(testable::testAsLongPrimitive));
         assertSame(ise, e);
 
         final Error error = new OutOfMemoryError();
         testable.setThrowable(error);
-        e = assertThrows(OutOfMemoryError.class, () -> Functions.getAsLong(testable::testAsLongPrimitive));
+        e = assertThrows(OutOfMemoryError.class, () -> Failable.getAsLong(testable::testAsLongPrimitive));
         assertSame(error, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
-        e = assertThrows(UncheckedIOException.class, () -> Functions.getAsLong(testable::testAsLongPrimitive));
+        e = assertThrows(UncheckedIOException.class, () -> Failable.getAsLong(testable::testAsLongPrimitive));
         final Throwable t = e.getCause();
         assertNotNull(t);
         assertSame(ioe, t);
 
         testable.setThrowable(null);
-        final long i = Functions.getAsLong(testable::testAsLongPrimitive);
+        final long i = Failable.getAsLong(testable::testAsLongPrimitive);
         assertEquals(0, i);
     }
 
@@ -616,12 +843,12 @@ public class FailableFunctionsTest {
     public void testGetFromSupplier() {
         FailureOnOddInvocations.invocations = 0;
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class,
-            () -> Functions.run(FailureOnOddInvocations::new));
+            () -> Failable.run(FailureOnOddInvocations::new));
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
         assertEquals("Odd Invocation: 1", cause.getMessage());
-        final FailureOnOddInvocations instance = Functions.call(FailureOnOddInvocations::new);
+        final FailureOnOddInvocations instance = Failable.call(FailureOnOddInvocations::new);
         assertNotNull(instance);
     }
 
@@ -629,23 +856,23 @@ public class FailableFunctionsTest {
     public void testGetSupplier() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(ise);
-        Throwable e = assertThrows(IllegalStateException.class, () -> Functions.get(testable::testAsInteger));
+        Throwable e = assertThrows(IllegalStateException.class, () -> Failable.get(testable::testAsInteger));
         assertSame(ise, e);
 
         final Error error = new OutOfMemoryError();
         testable.setThrowable(error);
-        e = assertThrows(OutOfMemoryError.class, () -> Functions.get(testable::testAsInteger));
+        e = assertThrows(OutOfMemoryError.class, () -> Failable.get(testable::testAsInteger));
         assertSame(error, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
-        e = assertThrows(UncheckedIOException.class, () -> Functions.get(testable::testAsInteger));
+        e = assertThrows(UncheckedIOException.class, () -> Failable.get(testable::testAsInteger));
         final Throwable t = e.getCause();
         assertNotNull(t);
         assertSame(ioe, t);
 
         testable.setThrowable(null);
-        final Integer i = Functions.apply(Testable::testAsInteger, testable);
+        final Integer i = Failable.apply(Testable::testAsInteger, testable);
         assertNotNull(i);
         assertEquals(0, i.intValue());
     }
@@ -667,17 +894,34 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    public void testRunnable() {
+    @DisplayName("Test that asPredicate(FailablePredicate) is converted to -> Predicate ")
+    public void testPredicate() {
+        FailureOnOddInvocations.invocations = 0;
+        final FailablePredicate<Object, Throwable> failablePredicate = t -> FailureOnOddInvocations
+            .failingBool();
+        final Predicate<?> predicate = Failable.asPredicate(failablePredicate);
+        final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class,
+            () -> predicate.test(null));
+        final Throwable cause = e.getCause();
+        assertNotNull(cause);
+        assertTrue(cause instanceof SomeException);
+        assertEquals("Odd Invocation: 1", cause.getMessage());
+        final boolean instance = predicate.test(null);
+        assertNotNull(instance);
+    }
+
+    @Test
+    void testRunnable() {
         FailureOnOddInvocations.invocations = 0;
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class,
-            () -> Functions.run(FailureOnOddInvocations::new));
+            () -> Failable.run(FailureOnOddInvocations::new));
         final Throwable cause = e.getCause();
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
         assertEquals("Odd Invocation: 1", cause.getMessage());
 
         // Even invocations, should not throw an exception
-        Functions.run(FailureOnOddInvocations::new);
+        Failable.run(FailureOnOddInvocations::new);
     }
 
     /**
@@ -685,11 +929,11 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableBiConsumer_Object_Throwable() {
-        new Functions.FailableBiConsumer<Object, Object, Throwable>() {
+    void testThrows_FailableBiConsumer_Object_Throwable() {
+        new FailableBiConsumer<Object, Object, Throwable>() {
 
             @Override
-            public void accept(Object object1, Object object2) throws Throwable {
+            public void accept(final Object object1, final Object object2) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -700,11 +944,11 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableBiConsumer_String_IOException() {
-        new Functions.FailableBiConsumer<String, String, IOException>() {
+    void testThrows_FailableBiConsumer_String_IOException() {
+        new FailableBiConsumer<String, String, IOException>() {
 
             @Override
-            public void accept(String object1, String object2) throws IOException {
+            public void accept(final String object1, final String object2) throws IOException {
                 throw new IOException("test");
 
             }
@@ -716,11 +960,11 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableBiFunction_Object_Throwable() {
-        new Functions.FailableBiFunction<Object, Object, Object, Throwable>() {
+    void testThrows_FailableBiFunction_Object_Throwable() {
+        new FailableBiFunction<Object, Object, Object, Throwable>() {
 
             @Override
-            public Object apply(Object input1, Object input2) throws Throwable {
+            public Object apply(final Object input1, final Object input2) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -731,11 +975,11 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableBiFunction_String_IOException() {
-        new Functions.FailableBiFunction<String, String, String, IOException>() {
+    void testThrows_FailableBiFunction_String_IOException() {
+        new FailableBiFunction<String, String, String, IOException>() {
 
             @Override
-            public String apply(String input1, String input2) throws IOException {
+            public String apply(final String input1, final String input2) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -746,11 +990,11 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableBiPredicate_Object_Throwable() {
-        new Functions.FailableBiPredicate<Object, Object, Throwable>() {
+    void testThrows_FailableBiPredicate_Object_Throwable() {
+        new FailableBiPredicate<Object, Object, Throwable>() {
 
             @Override
-            public boolean test(Object object1, Object object2) throws Throwable {
+            public boolean test(final Object object1, final Object object2) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -761,11 +1005,11 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableBiPredicate_String_IOException() {
-        new Functions.FailableBiPredicate<String, String, IOException>() {
+    void testThrows_FailableBiPredicate_String_IOException() {
+        new FailableBiPredicate<String, String, IOException>() {
 
             @Override
-            public boolean test(String object1, String object2) throws IOException {
+            public boolean test(final String object1, final String object2) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -801,13 +1045,16 @@ public class FailableFunctionsTest {
         };
     }
 
+    ///////////////////////////////////////////////
+
+
     /**
      * Tests that our failable interface is properly defined to throw any exception. using the top level generic types
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableCallable_Object_Throwable() {
-        new Functions.FailableCallable<Object, Throwable>() {
+    void testThrows_FailableCallable_Object_Throwable() {
+        new FailableCallable<Object, Throwable>() {
 
             @Override
             public Object call() throws Throwable {
@@ -821,8 +1068,8 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableCallable_String_IOException() {
-        new Functions.FailableCallable<String, IOException>() {
+    void testThrows_FailableCallable_String_IOException() {
+        new FailableCallable<String, IOException>() {
 
             @Override
             public String call() throws IOException {
@@ -836,11 +1083,11 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableConsumer_Object_Throwable() {
-        new Functions.FailableConsumer<Object, Throwable>() {
+    void testThrows_FailableConsumer_Object_Throwable() {
+        new FailableConsumer<Object, Throwable>() {
 
             @Override
-            public void accept(Object object) throws Throwable {
+            public void accept(final Object object) throws Throwable {
                 throw new IOException("test");
 
             }
@@ -852,11 +1099,11 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableConsumer_String_IOException() {
-        new Functions.FailableConsumer<String, IOException>() {
+    void testThrows_FailableConsumer_String_IOException() {
+        new FailableConsumer<String, IOException>() {
 
             @Override
-            public void accept(String object) throws IOException {
+            public void accept(final String object) throws IOException {
                 throw new IOException("test");
 
             }
@@ -872,7 +1119,7 @@ public class FailableFunctionsTest {
         new FailableDoubleBinaryOperator<Throwable>() {
 
             @Override
-            public double applyAsDouble(double left, double right) throws Throwable {
+            public double applyAsDouble(final double left, final double right) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -887,7 +1134,7 @@ public class FailableFunctionsTest {
         new FailableDoubleBinaryOperator<IOException>() {
 
             @Override
-            public double applyAsDouble(double left, double right) throws IOException {
+            public double applyAsDouble(final double left, final double right) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -902,7 +1149,7 @@ public class FailableFunctionsTest {
         new FailableDoubleConsumer<Throwable>() {
 
             @Override
-            public void accept(double value) throws Throwable {
+            public void accept(final double value) throws Throwable {
                 throw new IOException("test");
 
             }
@@ -918,7 +1165,7 @@ public class FailableFunctionsTest {
         new FailableDoubleConsumer<IOException>() {
 
             @Override
-            public void accept(double value) throws IOException {
+            public void accept(final double value) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -933,7 +1180,7 @@ public class FailableFunctionsTest {
         new FailableDoubleFunction<Object, Throwable>() {
 
             @Override
-            public Object apply(double input) throws Throwable {
+            public Object apply(final double input) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -948,7 +1195,7 @@ public class FailableFunctionsTest {
         new FailableDoubleFunction<String, IOException>() {
 
             @Override
-            public String apply(double input) throws IOException {
+            public String apply(final double input) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -993,7 +1240,7 @@ public class FailableFunctionsTest {
         new FailableDoubleToIntFunction<Throwable>() {
 
             @Override
-            public int applyAsInt(double value) throws Throwable {
+            public int applyAsInt(final double value) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -1008,7 +1255,7 @@ public class FailableFunctionsTest {
         new FailableDoubleToIntFunction<IOException>() {
 
             @Override
-            public int applyAsInt(double value) throws IOException {
+            public int applyAsInt(final double value) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1023,7 +1270,7 @@ public class FailableFunctionsTest {
         new FailableDoubleToLongFunction<Throwable>() {
 
             @Override
-            public int applyAsLong(double value) throws Throwable {
+            public int applyAsLong(final double value) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -1038,7 +1285,7 @@ public class FailableFunctionsTest {
         new FailableDoubleToLongFunction<IOException>() {
 
             @Override
-            public int applyAsLong(double value) throws IOException {
+            public int applyAsLong(final double value) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1050,10 +1297,10 @@ public class FailableFunctionsTest {
      */
     @Test
     public void testThrows_FailableFunction_Object_Throwable() {
-        new Functions.FailableFunction<Object, Object, Throwable>() {
+        new FailableFunction<Object, Object, Throwable>() {
 
             @Override
-            public Object apply(Object input) throws Throwable {
+            public Object apply(final Object input) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -1065,10 +1312,10 @@ public class FailableFunctionsTest {
      */
     @Test
     public void testThrows_FailableFunction_String_IOException() {
-        new Functions.FailableFunction<String, String, IOException>() {
+        new FailableFunction<String, String, IOException>() {
 
             @Override
-            public String apply(String input) throws IOException {
+            public String apply(final String input) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1083,7 +1330,7 @@ public class FailableFunctionsTest {
         new FailableIntBinaryOperator<Throwable>() {
 
             @Override
-            public int applyAsInt(int left, int right) throws Throwable {
+            public int applyAsInt(final int left, final int right) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -1098,7 +1345,7 @@ public class FailableFunctionsTest {
         new FailableIntBinaryOperator<IOException>() {
 
             @Override
-            public int applyAsInt(int left, int right) throws IOException {
+            public int applyAsInt(final int left, final int right) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1113,7 +1360,7 @@ public class FailableFunctionsTest {
         new FailableIntConsumer<Throwable>() {
 
             @Override
-            public void accept(int value) throws Throwable {
+            public void accept(final int value) throws Throwable {
                 throw new IOException("test");
 
             }
@@ -1129,7 +1376,7 @@ public class FailableFunctionsTest {
         new FailableIntConsumer<IOException>() {
 
             @Override
-            public void accept(int value) throws IOException {
+            public void accept(final int value) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1144,7 +1391,7 @@ public class FailableFunctionsTest {
         new FailableIntFunction<Object, Throwable>() {
 
             @Override
-            public Object apply(int input) throws Throwable {
+            public Object apply(final int input) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -1159,7 +1406,7 @@ public class FailableFunctionsTest {
         new FailableIntFunction<String, IOException>() {
 
             @Override
-            public String apply(int input) throws IOException {
+            public String apply(final int input) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1204,7 +1451,7 @@ public class FailableFunctionsTest {
         new FailableIntToDoubleFunction<Throwable>() {
 
             @Override
-            public double applyAsDouble(int value) throws Throwable {
+            public double applyAsDouble(final int value) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -1219,7 +1466,7 @@ public class FailableFunctionsTest {
         new FailableIntToDoubleFunction<IOException>() {
 
             @Override
-            public double applyAsDouble(int value) throws IOException {
+            public double applyAsDouble(final int value) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1234,7 +1481,7 @@ public class FailableFunctionsTest {
         new FailableIntToLongFunction<Throwable>() {
 
             @Override
-            public long applyAsLong(int value) throws Throwable {
+            public long applyAsLong(final int value) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -1249,7 +1496,7 @@ public class FailableFunctionsTest {
         new FailableIntToLongFunction<IOException>() {
 
             @Override
-            public long applyAsLong(int value) throws IOException {
+            public long applyAsLong(final int value) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1264,7 +1511,7 @@ public class FailableFunctionsTest {
         new FailableLongBinaryOperator<Throwable>() {
 
             @Override
-            public long applyAsLong(long left, long right) throws Throwable {
+            public long applyAsLong(final long left, final long right) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -1279,7 +1526,7 @@ public class FailableFunctionsTest {
         new FailableLongBinaryOperator<IOException>() {
 
             @Override
-            public long applyAsLong(long left, long right) throws IOException {
+            public long applyAsLong(final long left, final long right) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1294,7 +1541,7 @@ public class FailableFunctionsTest {
         new FailableLongConsumer<Throwable>() {
 
             @Override
-            public void accept(long object) throws Throwable {
+            public void accept(final long object) throws Throwable {
                 throw new IOException("test");
 
             }
@@ -1310,7 +1557,7 @@ public class FailableFunctionsTest {
         new FailableLongConsumer<IOException>() {
 
             @Override
-            public void accept(long object) throws IOException {
+            public void accept(final long object) throws IOException {
                 throw new IOException("test");
 
             }
@@ -1326,7 +1573,7 @@ public class FailableFunctionsTest {
         new FailableLongFunction<Object, Throwable>() {
 
             @Override
-            public Object apply(long input) throws Throwable {
+            public Object apply(final long input) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -1341,7 +1588,7 @@ public class FailableFunctionsTest {
         new FailableLongFunction<String, IOException>() {
 
             @Override
-            public String apply(long input) throws IOException {
+            public String apply(final long input) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1386,7 +1633,7 @@ public class FailableFunctionsTest {
         new FailableLongToDoubleFunction<Throwable>() {
 
             @Override
-            public double applyAsDouble(long value) throws Throwable {
+            public double applyAsDouble(final long value) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -1401,7 +1648,7 @@ public class FailableFunctionsTest {
         new FailableLongToDoubleFunction<IOException>() {
 
             @Override
-            public double applyAsDouble(long value) throws IOException {
+            public double applyAsDouble(final long value) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1416,7 +1663,7 @@ public class FailableFunctionsTest {
         new FailableLongToIntFunction<Throwable>() {
 
             @Override
-            public int applyAsInt(long value) throws Throwable {
+            public int applyAsInt(final long value) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -1431,7 +1678,7 @@ public class FailableFunctionsTest {
         new FailableLongToIntFunction<IOException>() {
 
             @Override
-            public int applyAsInt(long value) throws IOException {
+            public int applyAsInt(final long value) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1446,7 +1693,7 @@ public class FailableFunctionsTest {
         new FailableObjDoubleConsumer<Object, Throwable>() {
 
             @Override
-            public void accept(Object object, double value) throws Throwable {
+            public void accept(final Object object, final double value) throws Throwable {
                 throw new IOException("test");
 
             }
@@ -1462,7 +1709,7 @@ public class FailableFunctionsTest {
         new FailableObjDoubleConsumer<String, IOException>() {
 
             @Override
-            public void accept(String object, double value) throws IOException {
+            public void accept(final String object, final double value) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1477,7 +1724,7 @@ public class FailableFunctionsTest {
         new FailableObjIntConsumer<Object, Throwable>() {
 
             @Override
-            public void accept(Object object, int value) throws Throwable {
+            public void accept(final Object object, final int value) throws Throwable {
                 throw new IOException("test");
 
             }
@@ -1493,7 +1740,7 @@ public class FailableFunctionsTest {
         new FailableObjIntConsumer<String, IOException>() {
 
             @Override
-            public void accept(String object, int value) throws IOException {
+            public void accept(final String object, final int value) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1508,7 +1755,7 @@ public class FailableFunctionsTest {
         new FailableObjLongConsumer<Object, Throwable>() {
 
             @Override
-            public void accept(Object object, long value) throws Throwable {
+            public void accept(final Object object, final long value) throws Throwable {
                 throw new IOException("test");
 
             }
@@ -1524,7 +1771,7 @@ public class FailableFunctionsTest {
         new FailableObjLongConsumer<String, IOException>() {
 
             @Override
-            public void accept(String object, long value) throws IOException {
+            public void accept(final String object, final long value) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1536,10 +1783,10 @@ public class FailableFunctionsTest {
      */
     @Test
     public void testThrows_FailablePredicate_Object_Throwable() {
-        new Functions.FailablePredicate<Object, Throwable>() {
+        new FailablePredicate<Object, Throwable>() {
 
             @Override
-            public boolean test(Object object) throws Throwable {
+            public boolean test(final Object object) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -1551,10 +1798,10 @@ public class FailableFunctionsTest {
      */
     @Test
     public void testThrows_FailablePredicate_String_IOException() {
-        new Functions.FailablePredicate<String, IOException>() {
+        new FailablePredicate<String, IOException>() {
 
             @Override
-            public boolean test(String object) throws IOException {
+            public boolean test(final String object) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1566,7 +1813,7 @@ public class FailableFunctionsTest {
      */
     @Test
     public void testThrows_FailableRunnable_Object_Throwable() {
-        new Functions.FailableRunnable<Throwable>() {
+        new FailableRunnable<Throwable>() {
 
             @Override
             public void run() throws Throwable {
@@ -1582,7 +1829,7 @@ public class FailableFunctionsTest {
      */
     @Test
     public void testThrows_FailableRunnable_String_IOException() {
-        new Functions.FailableRunnable<IOException>() {
+        new FailableRunnable<IOException>() {
 
             @Override
             public void run() throws IOException {
@@ -1597,7 +1844,7 @@ public class FailableFunctionsTest {
      */
     @Test
     public void testThrows_FailableSupplier_Object_Throwable() {
-        new Functions.FailableSupplier<Object, Throwable>() {
+        new FailableSupplier<Object, Throwable>() {
 
             @Override
             public Object get() throws Throwable {
@@ -1612,7 +1859,7 @@ public class FailableFunctionsTest {
      */
     @Test
     public void testThrows_FailableSupplier_String_IOException() {
-        new Functions.FailableSupplier<String, IOException>() {
+        new FailableSupplier<String, IOException>() {
 
             @Override
             public String get() throws IOException {
@@ -1630,7 +1877,7 @@ public class FailableFunctionsTest {
         new FailableToDoubleBiFunction<Object, Object, Throwable>() {
 
             @Override
-            public double applyAsDouble(Object t, Object u) throws Throwable {
+            public double applyAsDouble(final Object t, final Object u) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -1645,7 +1892,7 @@ public class FailableFunctionsTest {
         new FailableToDoubleBiFunction<String, String, IOException>() {
 
             @Override
-            public double applyAsDouble(String t, String u) throws IOException {
+            public double applyAsDouble(final String t, final String u) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1660,7 +1907,7 @@ public class FailableFunctionsTest {
         new FailableToDoubleFunction<Object, Throwable>() {
 
             @Override
-            public double applyAsDouble(Object t) throws Throwable {
+            public double applyAsDouble(final Object t) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -1675,7 +1922,7 @@ public class FailableFunctionsTest {
         new FailableToDoubleFunction<String, IOException>() {
 
             @Override
-            public double applyAsDouble(String t) throws IOException {
+            public double applyAsDouble(final String t) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1690,7 +1937,7 @@ public class FailableFunctionsTest {
         new FailableToIntBiFunction<Object, Object, Throwable>() {
 
             @Override
-            public int applyAsInt(Object t, Object u) throws Throwable {
+            public int applyAsInt(final Object t, final Object u) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -1705,7 +1952,7 @@ public class FailableFunctionsTest {
         new FailableToIntBiFunction<String, String, IOException>() {
 
             @Override
-            public int applyAsInt(String t, String u) throws IOException {
+            public int applyAsInt(final String t, final String u) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1720,7 +1967,7 @@ public class FailableFunctionsTest {
         new FailableToIntFunction<Object, Throwable>() {
 
             @Override
-            public int applyAsInt(Object t) throws Throwable {
+            public int applyAsInt(final Object t) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -1735,7 +1982,7 @@ public class FailableFunctionsTest {
         new FailableToIntFunction<String, IOException>() {
 
             @Override
-            public int applyAsInt(String t) throws IOException {
+            public int applyAsInt(final String t) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1750,7 +1997,7 @@ public class FailableFunctionsTest {
         new FailableToLongBiFunction<Object, Object, Throwable>() {
 
             @Override
-            public long applyAsLong(Object t, Object u) throws Throwable {
+            public long applyAsLong(final Object t, final Object u) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -1765,7 +2012,7 @@ public class FailableFunctionsTest {
         new FailableToLongBiFunction<String, String, IOException>() {
 
             @Override
-            public long applyAsLong(String t, String u) throws IOException {
+            public long applyAsLong(final String t, final String u) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -1780,7 +2027,7 @@ public class FailableFunctionsTest {
         new FailableToLongFunction<Object, Throwable>() {
 
             @Override
-            public long applyAsLong(Object t) throws Throwable {
+            public long applyAsLong(final Object t) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -1795,10 +2042,40 @@ public class FailableFunctionsTest {
         new FailableToLongFunction<String, IOException>() {
 
             @Override
-            public long applyAsLong(String t) throws IOException {
+            public long applyAsLong(final String t) throws IOException {
                 throw new IOException("test");
             }
         };
+    }
+
+    @Test
+    public void testTryWithResources() {
+        final CloseableObject co = new CloseableObject();
+        final FailableConsumer<Throwable, ? extends Throwable> consumer = co::run;
+        final IllegalStateException ise = new IllegalStateException();
+        Throwable e = assertThrows(IllegalStateException.class,
+            () -> Failable.tryWithResources(() -> consumer.accept(ise), co::close));
+        assertSame(ise, e);
+
+        assertTrue(co.isClosed());
+        co.reset();
+        final Error error = new OutOfMemoryError();
+        e = assertThrows(OutOfMemoryError.class,
+            () -> Failable.tryWithResources(() -> consumer.accept(error), co::close));
+        assertSame(error, e);
+
+        assertTrue(co.isClosed());
+        co.reset();
+        final IOException ioe = new IOException("Unknown I/O error");
+        final UncheckedIOException uioe = assertThrows(UncheckedIOException.class,
+            () -> Failable.tryWithResources(() -> consumer.accept(ioe), co::close));
+        final IOException cause = uioe.getCause();
+        assertSame(ioe, cause);
+
+        assertTrue(co.isClosed());
+        co.reset();
+        Failable.tryWithResources(() -> consumer.accept(null), co::close);
+        assertTrue(co.isClosed());
     }
 
 }
