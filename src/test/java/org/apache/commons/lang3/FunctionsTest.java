@@ -45,7 +45,7 @@ import org.apache.commons.lang3.Functions.FailableSupplier;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class FunctionsTest {
+public class FunctionsTest {
 
     public static class CloseableObject {
         private boolean closed;
@@ -268,7 +268,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testAcceptBiConsumer() {
+    public void testAcceptBiConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(null);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(Testable::test, testable, ise));
@@ -290,7 +290,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testAcceptConsumer() {
+    public void testAcceptConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(Testable::test, testable));
@@ -313,7 +313,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testAcceptDoubleConsumer() {
+    public void testAcceptDoubleConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, Double> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testDouble, 1d));
@@ -340,7 +340,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testAcceptIntConsumer() {
+    public void testAcceptIntConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, Integer> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testInt, 1));
@@ -367,7 +367,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testAcceptLongConsumer() {
+    public void testAcceptLongConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, Long> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testLong, 1L));
@@ -394,7 +394,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testAcceptObjDoubleConsumer() {
+    public void testAcceptObjDoubleConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<String, Double> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class,
@@ -426,7 +426,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testAcceptObjIntConsumer() {
+    public void testAcceptObjIntConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<String, Integer> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testObjInt, "X", 1));
@@ -457,7 +457,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testAcceptObjLongConsumer() {
+    public void testAcceptObjLongConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<String, Long> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testObjLong, "X", 1L));
@@ -550,7 +550,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testAsCallable() {
+    public void testAsCallable() {
         FailureOnOddInvocations.invocations = 0;
         final FailableCallable<FailureOnOddInvocations, SomeException> failableCallable = FailureOnOddInvocations::new;
         final Callable<FailureOnOddInvocations> callable = Functions.asCallable(failableCallable);
@@ -569,7 +569,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testAsConsumer() {
+    public void testAsConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(ise);
         final Consumer<Testable<?, ?>> consumer = Functions.asConsumer(Testable::test);
@@ -593,7 +593,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testAsRunnable() {
+    public void testAsRunnable() {
         FailureOnOddInvocations.invocations = 0;
         final Runnable runnable = Functions.asRunnable(FailureOnOddInvocations::new);
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, runnable::run);
@@ -620,7 +620,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testBiConsumer() {
+    public void testBiConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(null);
         final FailableBiConsumer<Testable<?, ?>, Throwable, Throwable> failableBiConsumer = (t, th) -> {
@@ -690,7 +690,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testCallable() {
+    public void testCallable() {
         FailureOnOddInvocations.invocations = 0;
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class,
             () -> Functions.run(FailureOnOddInvocations::new));
@@ -889,7 +889,7 @@ class FunctionsTest {
     }
 
     @Test
-    void testRunnable() {
+    public void testRunnable() {
         FailureOnOddInvocations.invocations = 0;
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class,
             () -> Functions.run(FailureOnOddInvocations::new));
@@ -907,7 +907,7 @@ class FunctionsTest {
      * Object and Throwable.
      */
     @Test
-    void testThrows_FailableBiConsumer_Object_Throwable() {
+    public void testThrows_FailableBiConsumer_Object_Throwable() {
         new Functions.FailableBiConsumer<Object, Object, Throwable>() {
 
             @Override
@@ -922,7 +922,7 @@ class FunctionsTest {
      * generic test types.
      */
     @Test
-    void testThrows_FailableBiConsumer_String_IOException() {
+    public void testThrows_FailableBiConsumer_String_IOException() {
         new Functions.FailableBiConsumer<String, String, IOException>() {
 
             @Override
@@ -938,7 +938,7 @@ class FunctionsTest {
      * Object and Throwable.
      */
     @Test
-    void testThrows_FailableBiFunction_Object_Throwable() {
+    public void testThrows_FailableBiFunction_Object_Throwable() {
         new Functions.FailableBiFunction<Object, Object, Object, Throwable>() {
 
             @Override
@@ -953,7 +953,7 @@ class FunctionsTest {
      * generic test types.
      */
     @Test
-    void testThrows_FailableBiFunction_String_IOException() {
+    public void testThrows_FailableBiFunction_String_IOException() {
         new Functions.FailableBiFunction<String, String, String, IOException>() {
 
             @Override
@@ -968,7 +968,7 @@ class FunctionsTest {
      * Object and Throwable.
      */
     @Test
-    void testThrows_FailableBiPredicate_Object_Throwable() {
+    public void testThrows_FailableBiPredicate_Object_Throwable() {
         new Functions.FailableBiPredicate<Object, Object, Throwable>() {
 
             @Override
@@ -983,7 +983,7 @@ class FunctionsTest {
      * generic test types.
      */
     @Test
-    void testThrows_FailableBiPredicate_String_IOException() {
+    public void testThrows_FailableBiPredicate_String_IOException() {
         new Functions.FailableBiPredicate<String, String, IOException>() {
 
             @Override
@@ -998,7 +998,7 @@ class FunctionsTest {
      * Object and Throwable.
      */
     @Test
-    void testThrows_FailableCallable_Object_Throwable() {
+    public void testThrows_FailableCallable_Object_Throwable() {
         new Functions.FailableCallable<Object, Throwable>() {
 
             @Override
@@ -1013,7 +1013,7 @@ class FunctionsTest {
      * generic test types.
      */
     @Test
-    void testThrows_FailableCallable_String_IOException() {
+    public void testThrows_FailableCallable_String_IOException() {
         new Functions.FailableCallable<String, IOException>() {
 
             @Override
@@ -1028,7 +1028,7 @@ class FunctionsTest {
      * Object and Throwable.
      */
     @Test
-    void testThrows_FailableConsumer_Object_Throwable() {
+    public void testThrows_FailableConsumer_Object_Throwable() {
         new Functions.FailableConsumer<Object, Throwable>() {
 
             @Override
@@ -1044,7 +1044,7 @@ class FunctionsTest {
      * generic test types.
      */
     @Test
-    void testThrows_FailableConsumer_String_IOException() {
+    public void testThrows_FailableConsumer_String_IOException() {
         new Functions.FailableConsumer<String, IOException>() {
 
             @Override
@@ -1060,7 +1060,7 @@ class FunctionsTest {
      * Object and Throwable.
      */
     @Test
-    void testThrows_FailableFunction_Object_Throwable() {
+    public void testThrows_FailableFunction_Object_Throwable() {
         new Functions.FailableFunction<Object, Object, Throwable>() {
 
             @Override
@@ -1075,7 +1075,7 @@ class FunctionsTest {
      * generic test types.
      */
     @Test
-    void testThrows_FailableFunction_String_IOException() {
+    public void testThrows_FailableFunction_String_IOException() {
         new Functions.FailableFunction<String, String, IOException>() {
 
             @Override
@@ -1090,7 +1090,7 @@ class FunctionsTest {
      * Object and Throwable.
      */
     @Test
-    void testThrows_FailablePredicate_Object_Throwable() {
+    public void testThrows_FailablePredicate_Object_Throwable() {
         new Functions.FailablePredicate<Object, Throwable>() {
 
             @Override
@@ -1105,7 +1105,7 @@ class FunctionsTest {
      * generic test types.
      */
     @Test
-    void testThrows_FailablePredicate_String_IOException() {
+    public void testThrows_FailablePredicate_String_IOException() {
         new Functions.FailablePredicate<String, IOException>() {
 
             @Override
@@ -1120,7 +1120,7 @@ class FunctionsTest {
      * Object and Throwable.
      */
     @Test
-    void testThrows_FailableRunnable_Object_Throwable() {
+    public void testThrows_FailableRunnable_Object_Throwable() {
         new Functions.FailableRunnable<Throwable>() {
 
             @Override
@@ -1136,7 +1136,7 @@ class FunctionsTest {
      * generic test types.
      */
     @Test
-    void testThrows_FailableRunnable_String_IOException() {
+    public void testThrows_FailableRunnable_String_IOException() {
         new Functions.FailableRunnable<IOException>() {
 
             @Override
@@ -1151,7 +1151,7 @@ class FunctionsTest {
      * Object and Throwable.
      */
     @Test
-    void testThrows_FailableSupplier_Object_Throwable() {
+    public void testThrows_FailableSupplier_Object_Throwable() {
         new Functions.FailableSupplier<Object, Throwable>() {
 
             @Override
@@ -1166,7 +1166,7 @@ class FunctionsTest {
      * generic test types.
      */
     @Test
-    void testThrows_FailableSupplier_String_IOException() {
+    public void testThrows_FailableSupplier_String_IOException() {
         new Functions.FailableSupplier<String, IOException>() {
 
             @Override
