@@ -5349,6 +5349,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(boolean[], boolean)}
      */
+    @Deprecated
     public static boolean[] removeAllOccurences(final boolean[] array, final boolean element) {
         return (boolean[]) removeAll((Object) array, indexesOf(array, element));
     }
@@ -5369,6 +5370,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(byte[], byte)}
      */
+    @Deprecated
     public static byte[] removeAllOccurences(final byte[] array, final byte element) {
         return (byte[]) removeAll((Object) array, indexesOf(array, element));
     }
@@ -5389,6 +5391,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(char[], char)}
      */
+    @Deprecated
     public static char[] removeAllOccurences(final char[] array, final char element) {
         return (char[]) removeAll((Object) array, indexesOf(array, element));
     }
@@ -5409,6 +5412,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(double[], double)}
      */
+    @Deprecated
     public static double[] removeAllOccurences(final double[] array, final double element) {
         return (double[]) removeAll((Object) array, indexesOf(array, element));
     }
@@ -5429,6 +5433,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(float[], float)}
      */
+    @Deprecated
     public static float[] removeAllOccurences(final float[] array, final float element) {
         return (float[]) removeAll((Object) array, indexesOf(array, element));
     }
@@ -5449,6 +5454,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(int[], int)}
      */
+    @Deprecated
     public static int[] removeAllOccurences(final int[] array, final int element) {
         return (int[]) removeAll((Object) array, indexesOf(array, element));
     }
@@ -5469,6 +5475,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(long[], long)}
      */
+    @Deprecated
     public static long[] removeAllOccurences(final long[] array, final long element) {
         return (long[]) removeAll((Object) array, indexesOf(array, element));
     }
@@ -5489,6 +5496,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(short[], short)}
      */
+    @Deprecated
     public static short[] removeAllOccurences(final short[] array, final short element) {
         return (short[]) removeAll((Object) array, indexesOf(array, element));
     }
@@ -5510,6 +5518,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(Object[], Object)}
      */
+    @Deprecated
     public static <T> T[] removeAllOccurences(final T[] array, final T element) {
         return (T[]) removeAll((Object) array, indexesOf(array, element));
     }
