@@ -62,7 +62,7 @@ import org.apache.commons.lang3.function.FailablePredicate;
  *
  * @see Stream
  * @see Failable
- * @since 3.10
+ * @since 3.11
  */
 public class Streams {
 
