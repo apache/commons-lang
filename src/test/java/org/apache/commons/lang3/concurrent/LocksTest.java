@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.function.LongConsumer;
 
-import org.apache.commons.lang3.concurrent.Locks;
 import org.apache.commons.lang3.concurrent.Locks.Lock;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.junit.jupiter.api.Test;
