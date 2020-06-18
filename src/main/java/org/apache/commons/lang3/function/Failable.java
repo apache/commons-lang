@@ -46,7 +46,7 @@ import org.apache.commons.lang3.stream.Streams.FailableStream;
  *         try {
  *             m.invoke(o, args);
  *         } catch (Throwable t) {
- *             throw Functions.rethrow(t);
+ *             throw Failable.rethrow(t);
  *         }
  *     };
  * }</pre>
