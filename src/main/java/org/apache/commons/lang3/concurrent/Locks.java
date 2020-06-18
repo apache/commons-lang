@@ -78,22 +78,22 @@ public class Locks {
         }
 
         public void runReadLocked(FailableConsumer<O, ?> consumer) {
-            runLocked(lock.readLock(), consumer);
+            acceptLocked(lock.readLock(), consumer);
         }
 
         public void runWriteLocked(FailableConsumer<O, ?> consumer) {
-            runLocked(lock.writeLock(), consumer);
+            acceptLocked(lock.writeLock(), consumer);
         }
 
         public <T> T callReadLocked(FailableFunction<O, T, ?> function) {
-            return callLocked(lock.readLock(), function);
+            return applyLocked(lock.readLock(), function);
         }
 
         public <T> T callWriteLocked(FailableFunction<O, T, ?> function) {
-            return callLocked(lock.writeLock(), function);
+            return applyLocked(lock.writeLock(), function);
         }
 
-        protected void runLocked(long stamp, FailableConsumer<O, ?> consumer) {
+        protected void acceptLocked(long stamp, FailableConsumer<O, ?> consumer) {
             try {
                 consumer.accept(lockedObject);
             } catch (Throwable t) {
@@ -103,7 +103,7 @@ public class Locks {
             }
         }
 
-        protected <T> T callLocked(long stamp, FailableFunction<O, T, ?> function) {
+        protected <T> T applyLocked(long stamp, FailableFunction<O, T, ?> function) {
             try {
                 return function.apply(lockedObject);
             } catch (Throwable t) {
