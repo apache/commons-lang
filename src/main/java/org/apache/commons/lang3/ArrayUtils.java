@@ -5190,7 +5190,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
 
         final int srcLength = getLength(array);
         // No need to check maxIndex here, because method only currently called from removeElements()
-        // which guarantee to generate on;y valid bit entries.
+        // which guarantee to generate only valid bit entries.
 //        final int maxIndex = indices.length();
 //        if (maxIndex > srcLength) {
 //            throw new IndexOutOfBoundsException("Index: " + (maxIndex-1) + ", Length: " + srcLength);
@@ -5258,7 +5258,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
                     final int cp = end - index - 1;
                     dest -= cp;
                     System.arraycopy(array, index + 1, result, dest, cp);
-                    // Afer this copy, we still have room for dest items.
+                    // After this copy, we still have room for dest items.
                 }
                 end = index;
             }
