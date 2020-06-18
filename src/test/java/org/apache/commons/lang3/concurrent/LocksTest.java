@@ -24,11 +24,11 @@ import org.apache.commons.lang3.concurrent.Locks.Lock;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.junit.jupiter.api.Test;
 
-class LocksTest {
+public class LocksTest {
     private static final int NUMBER_OF_THREADS = 10;
 
     @Test
-    void testReadLock() throws Exception {
+    public void testReadLock() throws Exception {
         final long DELAY=3000;
         /** If our threads are running concurrently, then we expect to be faster
          * than running one after the other.
@@ -36,7 +36,7 @@ class LocksTest {
         runTest(DELAY, false, l -> assertTrue(l < NUMBER_OF_THREADS*DELAY));
     }
 
-    void testWriteLock() throws Exception {
+    public void testWriteLock() throws Exception {
         final long DELAY = 100;
         /** If our threads are running concurrently, then we expect to be no faster
          * than running one after the other.
@@ -83,6 +83,7 @@ class LocksTest {
             booleanArray[offset] = value;
         }
     }
+
     protected boolean someValueIsTrue(boolean[] booleanArray) {
         synchronized(booleanArray) {
             for (int i = 0;  i < booleanArray.length;  i++) {
