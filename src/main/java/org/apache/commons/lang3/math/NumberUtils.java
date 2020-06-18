@@ -21,6 +21,14 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import java.math.RoundingMode;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.DoubleAccumulator;
+import java.util.concurrent.atomic.DoubleAdder;
+import java.util.concurrent.atomic.LongAccumulator;
+import java.util.concurrent.atomic.LongAdder;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
@@ -1815,4 +1823,155 @@ public class NumberUtils {
     public static int compare(final byte x, final byte y) {
         return x - y;
     }
+
+    /**
+     * <p>Checks if a {@code Number} value is zero,
+     * handling {@code null} by returning {@code false}.</p>
+     *
+     * @param number the {@code number} to check, {@code null} returns {@code false}
+     * @return {@code true} only if the input is non-null and equals zero
+     * @since 3.10
+     */
+    public static boolean isZero(final Number number) {
+        if (Objects.isNull(number)) {
+            return false;
+        } else if (number instanceof Integer) {
+            return number.intValue() == INTEGER_ZERO;
+        } else if (number instanceof Long || number instanceof LongAccumulator || number instanceof LongAdder) {
+            return number.longValue() == LONG_ZERO;
+        } else if (number instanceof Byte) {
+            return number.byteValue() == BYTE_ZERO;
+        } else if (number instanceof Short) {
+            return number.shortValue() == SHORT_ZERO;
+        } else if (number instanceof Float) {
+            return number.floatValue() == FLOAT_ZERO;
+        } else if (number instanceof Double || number instanceof DoubleAccumulator || number instanceof DoubleAdder) {
+            return number.doubleValue() == DOUBLE_ZERO;
+        } else if (number instanceof BigInteger) {
+            return ((BigInteger) number).signum() == INTEGER_ZERO;
+        } else if (number instanceof BigDecimal) {
+            return ((BigDecimal) number).compareTo(BigDecimal.ZERO) == INTEGER_ZERO;
+        } else if (number instanceof AtomicInteger) {
+            return ((AtomicInteger) number).get() == INTEGER_ZERO;
+        } else if (number instanceof AtomicLong) {
+            return ((AtomicLong) number).get() == LONG_ZERO;
+        } else {
+            return number.intValue() == INTEGER_ZERO && number.longValue() == LONG_ZERO &&
+                    number.byteValue() == BYTE_ZERO && number.shortValue() == SHORT_ZERO &&
+                    number.floatValue() == FLOAT_ZERO && number.doubleValue() == DOUBLE_ZERO;
+        }
+    }
+
+    /**
+     * <p>Checks if a {@code Number} value is not zero,
+     * handling {@code null} by returning {@code true}.</p>
+     *
+     * @param number the {@code number} to check, {@code null} returns {@code true}
+     * @return {@code true} if the input is null or not equals zero
+     * @since 3.10
+     */
+    public static boolean isNotZero(final Number number) {
+        return !isZero(number);
+    }
+
+    /**
+     * <p>Checks if a {@code Number} value is positive,
+     * handling {@code null} by returning {@code false}.</p>
+     *
+     * @param number the {@code number} to check, {@code null} returns {@code false}
+     * @return {@code true} only if the input is non-null and greater than zero
+     * @since 3.10
+     */
+    public static boolean isPositive(final Number number) {
+        if (Objects.isNull(number)) {
+            return false;
+        } else if (number instanceof Integer) {
+            return number.intValue() > INTEGER_ZERO;
+        } else if (number instanceof Long || number instanceof LongAccumulator || number instanceof LongAdder) {
+            return number.longValue() > LONG_ZERO;
+        } else if (number instanceof Byte) {
+            return number.byteValue() > BYTE_ZERO;
+        } else if (number instanceof Short) {
+            return number.shortValue() > SHORT_ZERO;
+        } else if (number instanceof Float) {
+            return number.floatValue() > FLOAT_ZERO;
+        } else if (number instanceof Double || number instanceof DoubleAccumulator || number instanceof DoubleAdder) {
+            return number.doubleValue() > DOUBLE_ZERO;
+        } else if (number instanceof BigInteger) {
+            return ((BigInteger) number).signum() == INTEGER_ONE;
+        } else if (number instanceof BigDecimal) {
+            return ((BigDecimal) number).compareTo(BigDecimal.ZERO) == INTEGER_ONE;
+        } else if (number instanceof AtomicInteger) {
+            return ((AtomicInteger) number).get() > INTEGER_ZERO;
+        } else if (number instanceof AtomicLong) {
+            return ((AtomicLong) number).get() > LONG_ZERO;
+        } else {
+            return number.intValue() > INTEGER_ZERO && number.longValue() > LONG_ZERO &&
+                    number.byteValue() > BYTE_ZERO && number.shortValue() > SHORT_ZERO &&
+                    number.floatValue() > FLOAT_ZERO && number.doubleValue() > DOUBLE_ZERO;
+        }
+    }
+
+    /**
+     * <p>Checks if a {@code Number} value is not positive,
+     * handling {@code null} by returning {@code true}.</p>
+     *
+     * @param number the {@code number} to check, {@code null} returns {@code true}
+     * @return {@code true} if the input is non-null or lesser than zero
+     * @since 3.10
+     */
+    public static boolean isNotPositive(final Number number) {
+        return !isPositive(number);
+    }
+
+    /**
+     * <p>Checks if a {@code Number} value is negative,
+     * handling {@code null} by returning {@code false}.</p>
+     *
+     * @param number the {@code number} to check, {@code null} returns {@code false}
+     * @return {@code true} only if the input is non-null and lesser than zero
+     * @since 3.10
+     */
+    public static boolean isNegative(final Number number) {
+        if (Objects.isNull(number)) {
+            return false;
+        } else if (number instanceof Integer) {
+            return number.intValue() < INTEGER_ZERO;
+        } else if (number instanceof Long || number instanceof LongAccumulator || number instanceof LongAdder) {
+            return number.longValue() < LONG_ZERO;
+        } else if (number instanceof Byte) {
+            return number.byteValue() < BYTE_ZERO;
+        } else if (number instanceof Short) {
+            return number.shortValue() < SHORT_ZERO;
+        } else if (number instanceof Float) {
+            return number.floatValue() < FLOAT_ZERO;
+        } else if (number instanceof Double || number instanceof DoubleAccumulator || number instanceof DoubleAdder) {
+            return number.doubleValue() < DOUBLE_ZERO;
+        } else if (number instanceof BigInteger) {
+            return ((BigInteger) number).signum() == INTEGER_MINUS_ONE;
+        } else if (number instanceof BigDecimal) {
+            return ((BigDecimal) number).compareTo(BigDecimal.ZERO) == INTEGER_MINUS_ONE;
+        } else if (number instanceof AtomicInteger) {
+            return ((AtomicInteger) number).get() < INTEGER_ZERO;
+        } else if (number instanceof AtomicLong) {
+            return ((AtomicLong) number).get() < LONG_ZERO;
+        } else {
+            return number.intValue() < INTEGER_ZERO && number.longValue() < LONG_ZERO &&
+                    number.byteValue() < BYTE_ZERO && number.shortValue() < SHORT_ZERO &&
+                    number.floatValue() < FLOAT_ZERO && number.doubleValue() < DOUBLE_ZERO;
+        }
+    }
+
+    /**
+     * <p>Checks if a {@code Number} value is not negative,
+     * handling {@code null} by returning {@code true}.</p>
+     *
+     * @param number the {@code number} to check, {@code null} returns {@code true}
+     * @return {@code true} if the input is non-null or greater than zero
+     * @since 3.10
+     */
+    public static boolean isNotNegative(final Number number) {
+        return !isNegative(number);
+    }
+
 }

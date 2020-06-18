@@ -29,6 +29,13 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import java.math.RoundingMode;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.DoubleAccumulator;
+import java.util.concurrent.atomic.DoubleAdder;
+import java.util.concurrent.atomic.LongAccumulator;
+import java.util.concurrent.atomic.LongAdder;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -1575,4 +1582,867 @@ public class NumberUtilsTest {
         assertEquals(0, NumberUtils.compare((byte) 113, (byte) 113));
         assertTrue(NumberUtils.compare((byte) 123, (byte) 32) > 0);
     }
+
+    @Test
+    void testIsZero() {
+        assertFalse(NumberUtils.isZero(null));
+
+        final int zeroInt = 0;
+        assertTrue(NumberUtils.isZero(0));
+        assertFalse(NumberUtils.isZero(Integer.MAX_VALUE));
+        assertTrue(NumberUtils.isZero(zeroInt));
+
+        final long zeroLong = 0L;
+        assertTrue(NumberUtils.isZero(0L));
+        assertFalse(NumberUtils.isZero(Long.MIN_VALUE));
+        assertTrue(NumberUtils.isZero(zeroLong));
+
+        final LongAccumulator zeroLongAccumulator = new LongAccumulator(Long::sum, 0L);
+        zeroLongAccumulator.accumulate(000L);
+        assertTrue(NumberUtils.isZero(zeroLongAccumulator));
+        zeroLongAccumulator.accumulate(10L);
+        assertFalse(NumberUtils.isZero(zeroLongAccumulator));
+        assertTrue(NumberUtils.isZero(new LongAccumulator(Long::sum, 0L)));
+
+        final LongAdder zeroLongAdder = new LongAdder();
+        zeroLongAdder.add(000L);
+        assertTrue(NumberUtils.isZero(zeroLongAdder));
+        zeroLongAdder.add(10L);
+        assertFalse(NumberUtils.isZero(zeroLongAdder));
+        assertTrue(NumberUtils.isZero(new LongAdder()));
+
+        final byte zeroByte = (byte) 0;
+        assertTrue(NumberUtils.isZero((byte) 0));
+        assertFalse(NumberUtils.isZero(Byte.MAX_VALUE));
+        assertTrue(NumberUtils.isZero(zeroByte));
+
+        final short zeroShort = (short) 0;
+        assertTrue(NumberUtils.isZero((short) 0));
+        assertFalse(NumberUtils.isZero(Short.MIN_VALUE));
+        assertTrue(NumberUtils.isZero(zeroShort));
+
+        final float zeroFloat = -0.0f;
+        assertTrue(NumberUtils.isZero(0.0f));
+        assertFalse(NumberUtils.isZero(Float.MAX_VALUE));
+        assertTrue(NumberUtils.isZero(zeroFloat));
+        assertFalse(NumberUtils.isZero(Float.NaN));
+
+        final double zeroDouble = +0.0d;
+        assertTrue(NumberUtils.isZero(0.0d));
+        assertFalse(NumberUtils.isZero(Double.MIN_VALUE));
+        assertTrue(NumberUtils.isZero(zeroDouble));
+        assertFalse(NumberUtils.isZero(Double.NaN));
+
+        final DoubleAccumulator zeroDoubleAccumulator = new DoubleAccumulator(Double::sum, 0.0d);
+        zeroDoubleAccumulator.accumulate(000.000d);
+        assertTrue(NumberUtils.isZero(zeroDoubleAccumulator));
+        zeroDoubleAccumulator.accumulate(10.10d);
+        assertFalse(NumberUtils.isZero(zeroDoubleAccumulator));
+        assertTrue(NumberUtils.isZero(new DoubleAccumulator(Double::sum, 0.0d)));
+
+        final DoubleAdder zeroDoubleAdder = new DoubleAdder();
+        zeroDoubleAdder.add(000.000d);
+        assertTrue(NumberUtils.isZero(zeroDoubleAdder));
+        zeroDoubleAdder.add(10.10d);
+        assertFalse(NumberUtils.isZero(zeroDoubleAdder));
+        assertTrue(NumberUtils.isZero(new DoubleAdder()));
+
+        final BigInteger zeroBigInteger = BigInteger.ZERO;
+        assertTrue(NumberUtils.isZero(BigInteger.valueOf(000)));
+        assertFalse(NumberUtils.isZero(BigInteger.valueOf(100)));
+        assertTrue(NumberUtils.isZero(zeroBigInteger));
+
+        final BigDecimal zeroBigDecimal = BigDecimal.ZERO;
+        assertTrue(NumberUtils.isZero(BigDecimal.valueOf(000.000)));
+        assertFalse(NumberUtils.isZero(BigDecimal.valueOf(22.22)));
+        assertTrue(NumberUtils.isZero(zeroBigDecimal));
+
+        final AtomicInteger zeroAtomicInteger = new AtomicInteger(000);
+        assertFalse(NumberUtils.isZero(new AtomicInteger(100)));
+        assertTrue(NumberUtils.isZero(zeroAtomicInteger));
+
+        final AtomicLong zeroAtomicLong = new AtomicLong(000L);
+        assertFalse(NumberUtils.isZero(new AtomicLong(100L)));
+        assertTrue(NumberUtils.isZero(zeroAtomicLong));
+
+        assertTrue(NumberUtils.isZero(new Number() {
+            @Override
+            public int intValue() {
+                return 0;
+            }
+            @Override
+            public long longValue() {
+                return 0;
+            }
+            @Override
+            public float floatValue() {
+                return 0;
+            }
+            @Override
+            public double doubleValue() {
+                return 0;
+            }
+        }));
+        assertTrue(NumberUtils.isZero(new Number() {
+            @Override
+            public int intValue() {
+                return 0;
+            }
+            @Override
+            public long longValue() {
+                return 0L;
+            }
+            @Override
+            public byte byteValue() {
+                return (byte) 0;
+            }
+            @Override
+            public short shortValue() {
+                return (short) 0;
+            }
+            @Override
+            public float floatValue() {
+                return 0.0f;
+            }
+            @Override
+            public double doubleValue() {
+                return 0.0d;
+            }
+        }));
+        assertFalse(NumberUtils.isZero(new Number() {
+            @Override
+            public int intValue() {
+                return -1;
+            }
+            @Override
+            public long longValue() {
+                return -1L;
+            }
+            @Override
+            public byte byteValue() {
+                return (byte) -1;
+            }
+            @Override
+            public short shortValue() {
+                return (short) -1;
+            }
+            @Override
+            public float floatValue() {
+                return -1.0f;
+            }
+            @Override
+            public double doubleValue() {
+                return -1.0d;
+            }
+        }));
+    }
+
+    @Test
+    void testIsNotZero() {
+        assertTrue(NumberUtils.isNotZero(null));
+
+        final int nZeroInt = Integer.MAX_VALUE;
+        assertFalse(NumberUtils.isNotZero(0));
+        assertTrue(NumberUtils.isNotZero(Integer.MIN_VALUE));
+        assertTrue(NumberUtils.isNotZero(nZeroInt));
+
+        final long nZeroLong = Long.MIN_VALUE;
+        assertFalse(NumberUtils.isNotZero(0L));
+        assertTrue(NumberUtils.isNotZero(Long.MAX_VALUE));
+        assertTrue(NumberUtils.isNotZero(nZeroLong));
+
+        final LongAccumulator nZeroLongAccumulator = new LongAccumulator(Long::sum, 0L);
+        nZeroLongAccumulator.accumulate(10L);
+        assertTrue(NumberUtils.isNotZero(nZeroLongAccumulator));
+        nZeroLongAccumulator.reset();
+        assertFalse(NumberUtils.isNotZero(nZeroLongAccumulator));
+        assertFalse(NumberUtils.isNotZero(new LongAccumulator(Long::sum, 0L)));
+
+        final LongAdder nZeroLongAdder = new LongAdder();
+        nZeroLongAdder.add(10L);
+        assertTrue(NumberUtils.isNotZero(nZeroLongAdder));
+        nZeroLongAdder.reset();
+        assertFalse(NumberUtils.isNotZero(nZeroLongAdder));
+        assertFalse(NumberUtils.isNotZero(new LongAdder()));
+
+        final byte nZeroByte = Byte.MAX_VALUE;
+        assertFalse(NumberUtils.isNotZero((byte) 0));
+        assertTrue(NumberUtils.isNotZero(Long.MIN_VALUE));
+        assertTrue(NumberUtils.isNotZero(nZeroByte));
+
+        final short nZeroShort = Short.MIN_VALUE;
+        assertFalse(NumberUtils.isNotZero((short) 0));
+        assertTrue(NumberUtils.isNotZero(Long.MAX_VALUE));
+        assertTrue(NumberUtils.isNotZero(nZeroShort));
+
+        final float nZeroFloat = Float.MAX_VALUE;
+        assertFalse(NumberUtils.isNotZero(+0.0f));
+        assertTrue(NumberUtils.isNotZero(Long.MIN_VALUE));
+        assertTrue(NumberUtils.isNotZero(nZeroFloat));
+        assertTrue(NumberUtils.isNotZero(Float.NaN));
+
+        final double nZeroDouble = Double.MIN_VALUE;
+        assertFalse(NumberUtils.isNotZero(-0.0d));
+        assertTrue(NumberUtils.isNotZero(Double.MAX_VALUE));
+        assertTrue(NumberUtils.isNotZero(nZeroDouble));
+        assertTrue(NumberUtils.isNotZero(Double.NaN));
+
+        final DoubleAccumulator nZeroDoubleAccumulator = new DoubleAccumulator(Double::sum, 0.0d);
+        nZeroDoubleAccumulator.accumulate(-100.001d);
+        assertTrue(NumberUtils.isNotZero(nZeroDoubleAccumulator));
+        nZeroDoubleAccumulator.reset();
+        assertFalse(NumberUtils.isNotZero(nZeroDoubleAccumulator));
+        assertFalse(NumberUtils.isNotZero(new DoubleAccumulator(Double::sum, 0.0d)));
+
+        final DoubleAdder nZeroDoubleAdder = new DoubleAdder();
+        nZeroDoubleAdder.add(-100.001d);
+        assertTrue(NumberUtils.isNotZero(nZeroDoubleAdder));
+        nZeroDoubleAdder.reset();
+        assertFalse(NumberUtils.isNotZero(nZeroDoubleAdder));
+        assertFalse(NumberUtils.isNotZero(new DoubleAdder()));
+
+        final BigInteger nZeroBigInteger = BigInteger.ONE;
+        assertTrue(NumberUtils.isNotZero(BigInteger.valueOf(-100)));
+        assertFalse(NumberUtils.isNotZero(BigInteger.valueOf(0)));
+        assertTrue(NumberUtils.isNotZero(nZeroBigInteger));
+
+        final BigDecimal nZeroBigDecimal = BigDecimal.ONE;
+        assertTrue(NumberUtils.isNotZero(BigDecimal.valueOf(-100.001)));
+        assertFalse(NumberUtils.isNotZero(BigDecimal.valueOf(0.0)));
+        assertTrue(NumberUtils.isNotZero(nZeroBigDecimal));
+
+        final AtomicInteger nZeroAtomicInteger = new AtomicInteger(1);
+        assertFalse(NumberUtils.isNotZero(new AtomicInteger(0)));
+        assertTrue(NumberUtils.isNotZero(nZeroAtomicInteger));
+
+        final AtomicLong nZeroAtomicLong = new AtomicLong(1L);
+        assertFalse(NumberUtils.isNotZero(new AtomicLong(0L)));
+        assertTrue(NumberUtils.isNotZero(nZeroAtomicLong));
+
+        assertFalse(NumberUtils.isNotZero(new Number() {
+            @Override
+            public int intValue() {
+                return 0;
+            }
+            @Override
+            public long longValue() {
+                return 0;
+            }
+            @Override
+            public float floatValue() {
+                return 0;
+            }
+            @Override
+            public double doubleValue() {
+                return 0;
+            }
+        }));
+        assertTrue(NumberUtils.isNotZero(new Number() {
+            @Override
+            public int intValue() {
+                return +1;
+            }
+            @Override
+            public long longValue() {
+                return +1L;
+            }
+            @Override
+            public byte byteValue() {
+                return (byte) +1;
+            }
+            @Override
+            public short shortValue() {
+                return (short) +1;
+            }
+            @Override
+            public float floatValue() {
+                return +1.0f;
+            }
+            @Override
+            public double doubleValue() {
+                return +1.0d;
+            }
+        }));
+    }
+
+    @Test
+    void testIsPositive() {
+        assertFalse(NumberUtils.isPositive(null));
+
+        final int positiveInt = Integer.MAX_VALUE;
+        assertTrue(NumberUtils.isPositive(100));
+        assertFalse(NumberUtils.isPositive(-100));
+        assertTrue(NumberUtils.isPositive(positiveInt));
+
+        final long positiveLong = Long.MAX_VALUE;
+        assertTrue(NumberUtils.isPositive(1000L));
+        assertFalse(NumberUtils.isPositive(-1000L));
+        assertTrue(NumberUtils.isPositive(positiveLong));
+
+        final LongAccumulator positiveLongAccumulator = new LongAccumulator(Long::sum, 0L);
+        positiveLongAccumulator.accumulate(1000L);
+        assertTrue(NumberUtils.isPositive(positiveLongAccumulator));
+        positiveLongAccumulator.reset();
+        assertFalse(NumberUtils.isPositive(positiveLongAccumulator));
+        positiveLongAccumulator.accumulate(-1000L);
+        assertFalse(NumberUtils.isPositive(positiveLongAccumulator));
+
+        final LongAdder positiveLongAdder = new LongAdder();
+        positiveLongAdder.add(1000L);
+        assertTrue(NumberUtils.isPositive(positiveLongAdder));
+        positiveLongAdder.reset();
+        assertFalse(NumberUtils.isPositive(positiveLongAdder));
+        positiveLongAdder.add(-1000L);
+        assertFalse(NumberUtils.isPositive(positiveLongAdder));
+
+        final byte positiveByte = Byte.MAX_VALUE;
+        assertTrue(NumberUtils.isPositive((byte) 1));
+        assertFalse(NumberUtils.isPositive((byte) -1));
+        assertTrue(NumberUtils.isPositive(positiveByte));
+
+        final short positiveShort = Short.MAX_VALUE;
+        assertTrue(NumberUtils.isPositive((short) 10));
+        assertFalse(NumberUtils.isPositive((short) -10));
+        assertTrue(NumberUtils.isPositive(positiveShort));
+
+        final float positiveFloat = Float.MAX_VALUE;
+        assertTrue(NumberUtils.isPositive(0.100f));
+        assertFalse(NumberUtils.isPositive(-0.100f));
+        assertTrue(NumberUtils.isPositive(positiveFloat));
+        assertFalse(NumberUtils.isPositive(Float.NaN));
+
+        final double positiveDouble = Double.MAX_VALUE;
+        assertTrue(NumberUtils.isPositive(10.1000d));
+        assertFalse(NumberUtils.isPositive(-10.1000d));
+        assertTrue(NumberUtils.isPositive(positiveDouble));
+        assertFalse(NumberUtils.isPositive(Double.NaN));
+
+        final DoubleAccumulator positiveDoubleAccumulator = new DoubleAccumulator(Double::sum, 0.0d);
+        positiveDoubleAccumulator.accumulate(10.1000d);
+        assertTrue(NumberUtils.isPositive(positiveDoubleAccumulator));
+        positiveDoubleAccumulator.reset();
+        assertFalse(NumberUtils.isPositive(positiveDoubleAccumulator));
+        positiveDoubleAccumulator.accumulate(-10.1000d);
+        assertFalse(NumberUtils.isPositive(positiveDoubleAccumulator));
+
+        final DoubleAdder positiveDoubleAdder = new DoubleAdder();
+        positiveDoubleAdder.add(10.1000d);
+        assertTrue(NumberUtils.isPositive(positiveDoubleAdder));
+        positiveDoubleAdder.reset();
+        assertFalse(NumberUtils.isPositive(positiveDoubleAdder));
+        positiveDoubleAdder.add(-10.1000d);
+        assertFalse(NumberUtils.isPositive(positiveDoubleAdder));
+
+        final BigInteger positiveBigInteger = BigInteger.TEN;
+        assertTrue(NumberUtils.isPositive(BigInteger.valueOf(100)));
+        assertFalse(NumberUtils.isPositive(BigInteger.valueOf(-100)));
+        assertTrue(NumberUtils.isPositive(positiveBigInteger));
+
+        final BigDecimal positiveBigDecimal = BigDecimal.TEN;
+        assertTrue(NumberUtils.isPositive(BigDecimal.valueOf(100.001)));
+        assertFalse(NumberUtils.isPositive(BigDecimal.valueOf(-100.001)));
+        assertTrue(NumberUtils.isPositive(positiveBigDecimal));
+
+        final AtomicInteger positiveAtomicInteger = new AtomicInteger(100);
+        assertFalse(NumberUtils.isPositive(new AtomicInteger(-100)));
+        assertTrue(NumberUtils.isPositive(positiveAtomicInteger));
+
+        final AtomicLong positiveAtomicLong = new AtomicLong(100L);
+        assertFalse(NumberUtils.isPositive(new AtomicLong(-100L)));
+        assertTrue(NumberUtils.isPositive(positiveAtomicLong));
+
+        assertFalse(NumberUtils.isPositive(new Number() {
+            @Override
+            public int intValue() {
+                return 0;
+            }
+            @Override
+            public long longValue() {
+                return 0;
+            }
+            @Override
+            public float floatValue() {
+                return 0;
+            }
+            @Override
+            public double doubleValue() {
+                return 0;
+            }
+        }));
+        assertTrue(NumberUtils.isPositive(new Number() {
+            @Override
+            public int intValue() {
+                return +1;
+            }
+            @Override
+            public long longValue() {
+                return +1L;
+            }
+            @Override
+            public byte byteValue() {
+                return (byte) +1;
+            }
+            @Override
+            public short shortValue() {
+                return (short) +1;
+            }
+            @Override
+            public float floatValue() {
+                return +1.0f;
+            }
+            @Override
+            public double doubleValue() {
+                return +1.0d;
+            }
+        }));
+    }
+
+    @Test
+    void testIsNotPositive() {
+        assertTrue(NumberUtils.isNotPositive(null));
+
+        final int nPositiveInt = Integer.MIN_VALUE;
+        assertTrue(NumberUtils.isNotPositive(-100));
+        assertFalse(NumberUtils.isNotPositive(100));
+        assertTrue(NumberUtils.isNotPositive(nPositiveInt));
+
+        final long nPositiveLong = Long.MIN_VALUE;
+        assertTrue(NumberUtils.isNotPositive(-1000L));
+        assertFalse(NumberUtils.isNotPositive(1000L));
+        assertTrue(NumberUtils.isNotPositive(nPositiveLong));
+
+        final LongAccumulator nPositiveLongAccumulator = new LongAccumulator(Long::sum, 0L);
+        nPositiveLongAccumulator.accumulate(-1000L);
+        assertTrue(NumberUtils.isNotPositive(nPositiveLongAccumulator));
+        nPositiveLongAccumulator.reset();
+        assertTrue(NumberUtils.isNotPositive(nPositiveLongAccumulator));
+        nPositiveLongAccumulator.accumulate(1000L);
+        assertFalse(NumberUtils.isNotPositive(nPositiveLongAccumulator));
+
+        final LongAdder nPositiveLongAdder = new LongAdder();
+        nPositiveLongAdder.add(-1000L);
+        assertTrue(NumberUtils.isNotPositive(nPositiveLongAdder));
+        nPositiveLongAdder.reset();
+        assertTrue(NumberUtils.isNotPositive(nPositiveLongAdder));
+        nPositiveLongAdder.add(1000L);
+        assertFalse(NumberUtils.isNotPositive(nPositiveLongAdder));
+
+        final byte nPositiveByte = Byte.MIN_VALUE;
+        assertTrue(NumberUtils.isNotPositive((byte) -1));
+        assertFalse(NumberUtils.isNotPositive((byte) 1));
+        assertTrue(NumberUtils.isNotPositive(nPositiveByte));
+
+        final short nPositiveShort = Short.MIN_VALUE;
+        assertTrue(NumberUtils.isNotPositive((short) -10));
+        assertFalse(NumberUtils.isNotPositive((short) 10));
+        assertTrue(NumberUtils.isNotPositive(nPositiveShort));
+
+        final float nPositiveFloat = +0.0f;
+        assertTrue(NumberUtils.isNotPositive(-0.100f));
+        assertFalse(NumberUtils.isNotPositive(0.100f));
+        assertTrue(NumberUtils.isNotPositive(nPositiveFloat));
+        assertTrue(NumberUtils.isNotPositive(Float.NaN));
+
+        final double nPositiveDouble = +0.0d;
+        assertTrue(NumberUtils.isNotPositive(-10.1000d));
+        assertFalse(NumberUtils.isNotPositive(10.1000d));
+        assertTrue(NumberUtils.isNotPositive(nPositiveDouble));
+        assertTrue(NumberUtils.isNotPositive(Double.NaN));
+
+        final DoubleAccumulator nPositiveDoubleAccumulator = new DoubleAccumulator(Double::sum, 0.0d);
+        nPositiveDoubleAccumulator.accumulate(-10.1000d);
+        assertTrue(NumberUtils.isNotPositive(nPositiveDoubleAccumulator));
+        nPositiveDoubleAccumulator.reset();
+        assertTrue(NumberUtils.isNotPositive(nPositiveDoubleAccumulator));
+        nPositiveDoubleAccumulator.accumulate(+10.1000d);
+        assertFalse(NumberUtils.isNotPositive(nPositiveDoubleAccumulator));
+
+        final DoubleAdder nPositiveDoubleAdder = new DoubleAdder();
+        nPositiveDoubleAdder.add(-10.1000d);
+        assertTrue(NumberUtils.isNotPositive(nPositiveDoubleAdder));
+        nPositiveDoubleAdder.reset();
+        assertTrue(NumberUtils.isNotPositive(nPositiveDoubleAdder));
+        nPositiveDoubleAdder.add(+10.1000d);
+        assertFalse(NumberUtils.isNotPositive(nPositiveDoubleAdder));
+
+        final BigInteger nPositiveBigInteger = BigInteger.ZERO;
+        assertTrue(NumberUtils.isNotPositive(BigInteger.valueOf(-100)));
+        assertFalse(NumberUtils.isNotPositive(BigInteger.valueOf(100)));
+        assertTrue(NumberUtils.isNotPositive(nPositiveBigInteger));
+
+        final BigDecimal nPositiveBigDecimal = BigDecimal.ZERO;
+        assertTrue(NumberUtils.isNotPositive(BigDecimal.valueOf(-100.001)));
+        assertFalse(NumberUtils.isNotPositive(BigDecimal.valueOf(100.001)));
+        assertTrue(NumberUtils.isNotPositive(nPositiveBigDecimal));
+
+        final AtomicInteger nPositiveAtomicInteger = new AtomicInteger(-100);
+        assertFalse(NumberUtils.isNotPositive(new AtomicInteger(100)));
+        assertTrue(NumberUtils.isNotPositive(nPositiveAtomicInteger));
+
+        final AtomicLong nPositiveAtomicLong = new AtomicLong(-100L);
+        assertFalse(NumberUtils.isNotPositive(new AtomicLong(100L)));
+        assertTrue(NumberUtils.isNotPositive(nPositiveAtomicLong));
+
+        assertTrue(NumberUtils.isNotPositive(new Number() {
+            @Override
+            public int intValue() {
+                return -1;
+            }
+            @Override
+            public long longValue() {
+                return -1L;
+            }
+            @Override
+            public byte byteValue() {
+                return (byte) -1;
+            }
+            @Override
+            public short shortValue() {
+                return (short) -1;
+            }
+            @Override
+            public float floatValue() {
+                return -1.0f;
+            }
+            @Override
+            public double doubleValue() {
+                return -1.0d;
+            }
+        }));
+        assertFalse(NumberUtils.isNotPositive(new Number() {
+            @Override
+            public int intValue() {
+                return +1;
+            }
+            @Override
+            public long longValue() {
+                return +1L;
+            }
+            @Override
+            public byte byteValue() {
+                return (byte) +1;
+            }
+            @Override
+            public short shortValue() {
+                return (short) +1;
+            }
+            @Override
+            public float floatValue() {
+                return +1.0f;
+            }
+            @Override
+            public double doubleValue() {
+                return +1.0d;
+            }
+        }));
+        assertTrue(NumberUtils.isNotPositive(new Number() {
+            @Override
+            public int intValue() {
+                return 0;
+            }
+            @Override
+            public long longValue() {
+                return 0;
+            }
+            @Override
+            public float floatValue() {
+                return 0;
+            }
+            @Override
+            public double doubleValue() {
+                return 0;
+            }
+        }));
+    }
+
+    @Test
+    void testIsNegative() {
+        assertFalse(NumberUtils.isNegative(null));
+
+        final int negativeInt = Integer.MIN_VALUE;
+        assertTrue(NumberUtils.isNegative(-100));
+        assertFalse(NumberUtils.isNegative(100));
+        assertTrue(NumberUtils.isNegative(negativeInt));
+
+        final long negativeLong = Long.MIN_VALUE;
+        assertTrue(NumberUtils.isNegative(-1000L));
+        assertFalse(NumberUtils.isNegative(1000L));
+        assertTrue(NumberUtils.isNegative(negativeLong));
+
+        final LongAccumulator negativeLongAccumulator = new LongAccumulator(Long::sum, 0L);
+        negativeLongAccumulator.accumulate(-1000L);
+        assertTrue(NumberUtils.isNegative(negativeLongAccumulator));
+        negativeLongAccumulator.reset();
+        assertFalse(NumberUtils.isNegative(negativeLongAccumulator));
+        negativeLongAccumulator.accumulate(1000L);
+        assertFalse(NumberUtils.isNegative(negativeLongAccumulator));
+
+        final LongAdder negativeLongAdder = new LongAdder();
+        negativeLongAdder.add(-1000L);
+        assertTrue(NumberUtils.isNegative(negativeLongAdder));
+        negativeLongAdder.reset();
+        assertFalse(NumberUtils.isNegative(negativeLongAdder));
+        negativeLongAdder.add(1000L);
+        assertFalse(NumberUtils.isNegative(negativeLongAdder));
+
+        final byte negativeByte = Byte.MIN_VALUE;
+        assertTrue(NumberUtils.isNegative((byte) -1));
+        assertFalse(NumberUtils.isNegative((byte) 1));
+        assertTrue(NumberUtils.isNegative(negativeByte));
+
+        final short negativeShort = Short.MIN_VALUE;
+        assertTrue(NumberUtils.isNegative((short) -10));
+        assertFalse(NumberUtils.isNegative((short) 10));
+        assertTrue(NumberUtils.isNegative(negativeShort));
+        assertFalse(NumberUtils.isNegative(Float.NaN));
+
+        final float negativeFloat = -4444.4444f;
+        assertTrue(NumberUtils.isNegative(-0.100f));
+        assertFalse(NumberUtils.isNegative(0.100f));
+        assertTrue(NumberUtils.isNegative(negativeFloat));
+
+        final double negativeDouble = -999999999.999999999d;
+        assertTrue(NumberUtils.isNegative(-10.1000d));
+        assertFalse(NumberUtils.isNegative(10.1000d));
+        assertTrue(NumberUtils.isNegative(negativeDouble));
+        assertFalse(NumberUtils.isNegative(Double.NaN));
+
+        final DoubleAccumulator negativeDoubleAccumulator = new DoubleAccumulator(Double::sum, 0.0d);
+        negativeDoubleAccumulator.accumulate(-10.1000d);
+        assertTrue(NumberUtils.isNegative(negativeDoubleAccumulator));
+        negativeDoubleAccumulator.reset();
+        assertFalse(NumberUtils.isNegative(negativeDoubleAccumulator));
+        negativeDoubleAccumulator.accumulate(+10.1000d);
+        assertFalse(NumberUtils.isNegative(negativeDoubleAccumulator));
+
+        final DoubleAdder negativeDoubleAdder = new DoubleAdder();
+        negativeDoubleAdder.add(-10.1000d);
+        assertTrue(NumberUtils.isNegative(negativeDoubleAdder));
+        negativeDoubleAdder.reset();
+        assertFalse(NumberUtils.isNegative(negativeDoubleAdder));
+        negativeDoubleAdder.add(+10.1000d);
+        assertFalse(NumberUtils.isNegative(negativeDoubleAdder));
+
+        final BigInteger negativeBigInteger = BigInteger.valueOf(-100);
+        assertTrue(NumberUtils.isNegative(new BigInteger("-100")));
+        assertFalse(NumberUtils.isNegative(BigInteger.valueOf(100)));
+        assertTrue(NumberUtils.isNegative(negativeBigInteger));
+
+        final BigDecimal negativeBigDecimal = BigDecimal.valueOf(-100.001);
+        assertTrue(NumberUtils.isNegative(new BigDecimal("-100.001")));
+        assertFalse(NumberUtils.isNegative(BigDecimal.valueOf(100.001)));
+        assertTrue(NumberUtils.isNegative(negativeBigDecimal));
+
+        final AtomicInteger negativeAtomicInteger = new AtomicInteger(-100);
+        assertFalse(NumberUtils.isNegative(new AtomicInteger(100)));
+        assertTrue(NumberUtils.isNegative(negativeAtomicInteger));
+
+        final AtomicLong negativeAtomicLong = new AtomicLong(-100L);
+        assertFalse(NumberUtils.isNegative(new AtomicLong(100L)));
+        assertTrue(NumberUtils.isNegative(negativeAtomicLong));
+
+        assertFalse(NumberUtils.isNegative(new Number() {
+            @Override
+            public int intValue() {
+                return 0;
+            }
+            @Override
+            public long longValue() {
+                return 0;
+            }
+            @Override
+            public float floatValue() {
+                return 0;
+            }
+            @Override
+            public double doubleValue() {
+                return 0;
+            }
+        }));
+        assertFalse(NumberUtils.isNegative(new Number() {
+            @Override
+            public int intValue() {
+                return +1;
+            }
+            @Override
+            public long longValue() {
+                return +1L;
+            }
+            @Override
+            public byte byteValue() {
+                return (byte) +1;
+            }
+            @Override
+            public short shortValue() {
+                return (short) +1;
+            }
+            @Override
+            public float floatValue() {
+                return +1.0f;
+            }
+            @Override
+            public double doubleValue() {
+                return +1.0d;
+            }
+        }));
+        assertTrue(NumberUtils.isNegative(new Number() {
+            @Override
+            public int intValue() {
+                return -1;
+            }
+            @Override
+            public long longValue() {
+                return -1L;
+            }
+            @Override
+            public byte byteValue() {
+                return (byte) -1;
+            }
+            @Override
+            public short shortValue() {
+                return (short) -1;
+            }
+            @Override
+            public float floatValue() {
+                return -1.0f;
+            }
+            @Override
+            public double doubleValue() {
+                return -1.0d;
+            }
+        }));
+    }
+
+    @Test
+    void testIsNotNegative() {
+        assertTrue(NumberUtils.isNotNegative(null));
+
+        final int nNegativeInt = Integer.MAX_VALUE;
+        assertTrue(NumberUtils.isNotNegative(100));
+        assertFalse(NumberUtils.isNotNegative(-100));
+        assertTrue(NumberUtils.isNotNegative(nNegativeInt));
+
+        final long nNegativeLong = Long.MAX_VALUE;
+        assertTrue(NumberUtils.isNotNegative(1000L));
+        assertFalse(NumberUtils.isNotNegative(-1000L));
+        assertTrue(NumberUtils.isNotNegative(nNegativeLong));
+
+        final LongAccumulator nNegativeLongAccumulator = new LongAccumulator(Long::sum, 0L);
+        nNegativeLongAccumulator.accumulate(1000L);
+        assertTrue(NumberUtils.isNotNegative(nNegativeLongAccumulator));
+        nNegativeLongAccumulator.reset();
+        assertTrue(NumberUtils.isNotNegative(nNegativeLongAccumulator));
+        nNegativeLongAccumulator.accumulate(-1000L);
+        assertFalse(NumberUtils.isNotNegative(nNegativeLongAccumulator));
+
+        final LongAdder nNegativeLongAdder = new LongAdder();
+        nNegativeLongAdder.add(1000L);
+        assertTrue(NumberUtils.isNotNegative(nNegativeLongAdder));
+        nNegativeLongAdder.reset();
+        assertTrue(NumberUtils.isNotNegative(nNegativeLongAdder));
+        nNegativeLongAdder.add(-1000L);
+        assertFalse(NumberUtils.isNotNegative(nNegativeLongAdder));
+
+        final byte nNegativeByte = Byte.MAX_VALUE;
+        assertTrue(NumberUtils.isNotNegative((byte) 1));
+        assertFalse(NumberUtils.isNotNegative((byte) -1));
+        assertTrue(NumberUtils.isNotNegative(nNegativeByte));
+
+        final short nNegativeShort = Short.MAX_VALUE;
+        assertTrue(NumberUtils.isNotNegative((short) 10));
+        assertFalse(NumberUtils.isNotNegative((short) -10));
+        assertTrue(NumberUtils.isNotNegative(nNegativeShort));
+
+        final float nNegativeFloat = -0.0f;
+        assertTrue(NumberUtils.isNotNegative(0.100f));
+        assertFalse(NumberUtils.isNotNegative(-0.100f));
+        assertTrue(NumberUtils.isNotNegative(nNegativeFloat));
+        assertTrue(NumberUtils.isNotNegative(Float.NaN));
+
+        final double nNegativeDouble = -0.0d;
+        assertTrue(NumberUtils.isNotNegative(10.1000d));
+        assertFalse(NumberUtils.isNotNegative(-10.1000d));
+        assertTrue(NumberUtils.isNotNegative(nNegativeDouble));
+        assertTrue(NumberUtils.isNotNegative(Double.NaN));
+
+        final DoubleAccumulator nNegativeDoubleAccumulator = new DoubleAccumulator(Double::sum, 0.0d);
+        nNegativeDoubleAccumulator.accumulate(10.1000d);
+        assertTrue(NumberUtils.isNotNegative(nNegativeDoubleAccumulator));
+        nNegativeDoubleAccumulator.reset();
+        assertTrue(NumberUtils.isNotNegative(nNegativeDoubleAccumulator));
+        nNegativeDoubleAccumulator.accumulate(-10.1000d);
+        assertFalse(NumberUtils.isNotNegative(nNegativeDoubleAccumulator));
+
+        final DoubleAdder nNegativeDoubleAdder = new DoubleAdder();
+        nNegativeDoubleAdder.add(10.1000d);
+        assertTrue(NumberUtils.isNotNegative(nNegativeDoubleAdder));
+        nNegativeDoubleAdder.reset();
+        assertTrue(NumberUtils.isNotNegative(nNegativeDoubleAdder));
+        nNegativeDoubleAdder.add(-10.1000d);
+        assertFalse(NumberUtils.isNotNegative(nNegativeDoubleAdder));
+
+        final BigInteger nNegativeBigInteger = BigInteger.TEN;
+        assertTrue(NumberUtils.isNotNegative(BigInteger.valueOf(0)));
+        assertFalse(NumberUtils.isNotNegative(BigInteger.valueOf(-100)));
+        assertTrue(NumberUtils.isNotNegative(nNegativeBigInteger));
+
+        final BigDecimal nNegativeBigDecimal = BigDecimal.TEN;
+        assertTrue(NumberUtils.isNotNegative(BigDecimal.valueOf(0.0)));
+        assertFalse(NumberUtils.isNotNegative(BigDecimal.valueOf(-100.001)));
+        assertTrue(NumberUtils.isNotNegative(nNegativeBigDecimal));
+
+        final AtomicInteger nNegativeAtomicInteger = new AtomicInteger(0);
+        assertFalse(NumberUtils.isNotNegative(new AtomicInteger(-100)));
+        assertTrue(NumberUtils.isNotNegative(nNegativeAtomicInteger));
+
+        final AtomicLong nNegativeAtomicLong = new AtomicLong(0L);
+        assertFalse(NumberUtils.isNotNegative(new AtomicLong(-100L)));
+        assertTrue(NumberUtils.isNotNegative(nNegativeAtomicLong));
+
+        assertTrue(NumberUtils.isNotNegative(new Number() {
+            @Override
+            public int intValue() {
+                return 0;
+            }
+            @Override
+            public long longValue() {
+                return 0;
+            }
+            @Override
+            public float floatValue() {
+                return 0;
+            }
+            @Override
+            public double doubleValue() {
+                return 0;
+            }
+        }));
+        assertFalse(NumberUtils.isNotNegative(new Number() {
+            @Override
+            public int intValue() {
+                return -1;
+            }
+            @Override
+            public long longValue() {
+                return -1L;
+            }
+            @Override
+            public byte byteValue() {
+                return (byte) -1;
+            }
+            @Override
+            public short shortValue() {
+                return (short) -1;
+            }
+            @Override
+            public float floatValue() {
+                return -1.0f;
+            }
+            @Override
+            public double doubleValue() {
+                return -1.0d;
+            }
+        }));
+    }
+
 }
