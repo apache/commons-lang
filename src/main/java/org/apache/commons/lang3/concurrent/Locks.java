@@ -115,6 +115,6 @@ public class Locks {
     }
 
     public static <O extends Object> Locks.Lock<O> lock(O object) {
-        return new Locks.Lock<O>(object);
+        return new Locks.Lock<>(object);
     }
 }
