@@ -889,8 +889,8 @@ public class FailableFunctionsTest {
     public void testLongPredicate() throws Throwable {
         FailureOnOddInvocations.invocations = 0;
         final FailableLongPredicate<Throwable> failablePredicate = t1 -> FailureOnOddInvocations.testLong(t1);
-        assertThrows(SomeException.class, () -> failablePredicate.test(1l));
-        failablePredicate.test(1l);
+        assertThrows(SomeException.class, () -> failablePredicate.test(1L));
+        failablePredicate.test(1L);
     }
 
     @Test

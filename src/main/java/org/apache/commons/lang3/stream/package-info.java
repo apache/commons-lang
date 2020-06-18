@@ -14,28 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.apache.commons.lang3.function;
-
-import java.util.function.Function;
-
 /**
- * A functional interface like {@link Function} that declares a {@code Throwable}.
+ * <p>Provides utility functions, and classes for working with the</p>
+ * <p>{@code java.util.stream} package, or more generally, with Java 8 lambdas.</p>
  *
- * @param <I> Input type 1.
- * @param <R> Return type.
- * @param <T> Thrown exception.
  * @since 3.11
  */
-@FunctionalInterface
-public interface FailableFunction<I, R, T extends Throwable> {
-
-    /**
-     * Applies this function.
-     *
-     * @param input the input for the function
-     * @return the result of the function
-     * @throws T Thrown when the function fails.
-     */
-    R apply(I input) throws T;
-}
+package org.apache.commons.lang3.stream;
