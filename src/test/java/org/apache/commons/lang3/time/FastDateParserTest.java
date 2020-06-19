@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -366,9 +367,13 @@ public class FastDateParserTest {
     }
 
     private void checkParse(final Locale locale, final SimpleDateFormat sdf, final DateParser fdf, final String formattedDate) throws ParseException {
-        final Date expectedTime = sdf.parse(formattedDate);
-        final Date actualTime = fdf.parse(formattedDate);
-        assertEquals(expectedTime, actualTime, locale.toString()+" "+formattedDate +"\n");
+        try {
+            final Date expectedTime = sdf.parse(formattedDate);
+            final Date actualTime = fdf.parse(formattedDate);
+            assertEquals(expectedTime, actualTime, "locale : " + locale + " formattedDate : " + formattedDate + "\n");
+        } catch (Exception e) {
+            fail("locale : " + locale + " formattedDate : " + formattedDate + " error : " + e + "\n", e);
+        }
     }
 
     @Test
