@@ -707,4 +707,30 @@ public class FastDateParserTest {
         assertEquals(expected.getTime(), fdp.parse("14 avr. 2014"));
         assertEquals(expected.getTime(), fdp.parse("14 avr 2014"));
     }
+
+    @Test
+    public void java15BuggyLocaleTest() throws ParseException {
+        final String buggyLocaleName = "ff_LR_#Adlm";
+        Locale buggyLocale = null;
+
+        for (final Locale locale : Locale.getAvailableLocales()) {
+            if (buggyLocaleName.equals(locale.toString())) {
+                buggyLocale = locale;
+                break;
+            }
+        }
+
+        if (buggyLocale == null) {
+            return;
+        }
+
+        final Calendar cal = Calendar.getInstance(GMT);
+        cal.clear();
+        cal.set(2003, Calendar.FEBRUARY, 10);
+        final SimpleDateFormat sdf = new SimpleDateFormat(LONG_FORMAT, buggyLocale);
+        final String formattedDate = sdf.format(cal.getTime());
+        sdf.parse(formattedDate);
+        sdf.parse(formattedDate.toUpperCase(buggyLocale));
+        sdf.parse(formattedDate.toLowerCase(buggyLocale));
+    }
 }
