@@ -60,9 +60,9 @@ public class LocksTest {
             };
             final Thread t = new Thread(() -> {
                 if (exclusiveLock) {
-                    lock.runWriteLocked(consumer);
+                    lock.acceptWriteLocked(consumer);
                 } else {
-                    lock.runReadLocked(consumer);
+                    lock.acceptReadLocked(consumer);
                 }
             });
             modify(runningValues, i, true);
