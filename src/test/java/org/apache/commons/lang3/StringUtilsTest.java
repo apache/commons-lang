@@ -3279,12 +3279,12 @@ public class StringUtilsTest {
         assertEquals("title", "TITLE".toLowerCase(Locale.ROOT));
         assertEquals("title", StringUtils.toRootLowerCase("TITLE"));
         // Make sure we are not using the default Locale:
-        final Locale defaultLocales = Locale.getDefault();
+        final Locale defaultLocale = Locale.getDefault();
         try {
             Locale.setDefault(TURKISH);
             assertEquals("title", StringUtils.toRootLowerCase("TITLE"));
         } finally {
-            Locale.setDefault(defaultLocales);
+            Locale.setDefault(defaultLocale);
         }
     }
 
@@ -3299,12 +3299,12 @@ public class StringUtilsTest {
         assertEquals("TITLE", "title".toUpperCase(Locale.ROOT));
         assertEquals("TITLE", StringUtils.toRootUpperCase("title"));
         // Make sure we are not using the default Locale:
-        final Locale defaultLocales = Locale.getDefault();
+        final Locale defaultLocale = Locale.getDefault();
         try {
             Locale.setDefault(TURKISH);
             assertEquals("TITLE", StringUtils.toRootUpperCase("title"));
         } finally {
-            Locale.setDefault(defaultLocales);
+            Locale.setDefault(defaultLocale);
         }
     }
 
