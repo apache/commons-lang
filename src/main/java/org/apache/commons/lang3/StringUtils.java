@@ -547,7 +547,7 @@ public class StringUtils {
      * StringUtils.appendIfNotBlank(" ", "-post")   = " "
      * StringUtils.appendIfNotBlank("abc", null)    = "abc"
      * StringUtils.appendIfNotBlank("abc", "")      = "abc"
-     * StringUtils.appendIfNotBlank("abc", " ")     = "abc"
+     * StringUtils.appendIfNotBlank("abc", " ")     = "abc "
      * StringUtils.appendIfNotBlank("abc", "-post") = "abc-post"
      * </pre>
      * @param str The string.
