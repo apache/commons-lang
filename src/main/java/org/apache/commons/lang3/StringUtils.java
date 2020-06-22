@@ -526,11 +526,11 @@ public class StringUtils {
      * @param suffix The suffix to append if 'str' is not empty. May be null.
      * @return If 'str' is empty, then 'str', otherwise 'str' with suffix added.
      */
-    public static String appendIfNotEmpty(final String str, final String suffix) {
+    public static String appendIfNotEmpty(final String str, final CharSequence suffix) {
         if (isEmpty(suffix) || isEmpty(str)) {
             return str;
         }
-        return str + suffix;
+        return str + suffix.toString();
     }
 
     /**
@@ -554,7 +554,7 @@ public class StringUtils {
      * @param suffix The suffix to append if 'str' is not blank. May be null.
      * @return If 'str' is blank, then 'str', otherwise 'str' with suffix added.
      */
-    public static String appendIfNotBlank(final String str, final String suffix) {
+    public static String appendIfNotBlank(final String str, final CharSequence suffix) {
         if (isEmpty(suffix) || isBlank(str)) {
             return str;
         }
@@ -5887,11 +5887,11 @@ public class StringUtils {
      * @param prefix The prefix to prepend if 'str' is not empty. May be null.
      * @return If 'str' is empty, then 'str', otherwise 'str' with prefix added.
      */
-    public static String prependIfNotEmpty(final String str, final String prefix) {
+    public static String prependIfNotEmpty(final String str, final CharSequence prefix) {
         if (isEmpty(prefix) || isEmpty(str)) {
             return str;
         }
-        return prefix + str;
+        return prefix.toString() + str;
     }
 
     /**
@@ -5915,11 +5915,11 @@ public class StringUtils {
      * @param prefix The prefix to prepend if 'str' is not blank. May be null.
      * @return If 'str' is blank, then 'str', otherwise 'str' with prefix added.
      */
-    public static String prependIfNotBlank(final String str, final String prefix) {
+    public static String prependIfNotBlank(final String str, final CharSequence prefix) {
         if (isEmpty(prefix) || isBlank(str)) {
             return str;
         }
-        return prefix + str;
+        return prefix.toString() + str;
     }
 
     /**

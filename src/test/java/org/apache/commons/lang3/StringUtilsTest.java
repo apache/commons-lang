@@ -472,8 +472,10 @@ public class StringUtilsTest {
         assertEquals(" -suffix", StringUtils.appendIfNotEmpty(" ", "-suffix"));
         assertEquals("string", StringUtils.appendIfNotEmpty("string", null));
         assertEquals("string", StringUtils.appendIfNotEmpty("string", ""));
+        assertEquals("string", StringUtils.appendIfNotEmpty("string", new StringBuilder()));
         assertEquals("string ", StringUtils.appendIfNotEmpty("string", " "));
         assertEquals("string-suffix", StringUtils.appendIfNotEmpty("string", "-suffix"));
+        assertEquals("string-suffix", StringUtils.appendIfNotEmpty("string", new StringBuilder("-suffix")));
     }
 
     @Test
@@ -485,8 +487,10 @@ public class StringUtilsTest {
         assertEquals(" ", StringUtils.appendIfNotBlank(" ", "-suffix"));
         assertEquals("string", StringUtils.appendIfNotBlank("string", null));
         assertEquals("string", StringUtils.appendIfNotBlank("string", ""));
+        assertEquals("string", StringUtils.appendIfNotBlank("string", new StringBuilder()));
         assertEquals("string ", StringUtils.appendIfNotBlank("string", " "));
         assertEquals("string-suffix", StringUtils.appendIfNotBlank("string", "-suffix"));
+        assertEquals("string-suffix", StringUtils.appendIfNotBlank("string", new StringBuilder("-suffix")));
     }
 
     @Test
@@ -1599,8 +1603,10 @@ public class StringUtilsTest {
         assertEquals("prefix- ", StringUtils.prependIfNotEmpty(" ", "prefix-"));
         assertEquals("string", StringUtils.prependIfNotEmpty("string", null));
         assertEquals("string", StringUtils.prependIfNotEmpty("string", ""));
+        assertEquals("string", StringUtils.prependIfNotEmpty("string", new StringBuilder()));
         assertEquals(" string", StringUtils.prependIfNotEmpty("string", " "));
         assertEquals("prefix-string", StringUtils.prependIfNotEmpty("string", "prefix-"));
+        assertEquals("prefix-string", StringUtils.prependIfNotEmpty("string", new StringBuilder("prefix-")));
     }
 
     @Test
@@ -1612,8 +1618,10 @@ public class StringUtilsTest {
         assertEquals(" ", StringUtils.prependIfNotBlank(" ", "prefix-"));
         assertEquals("string", StringUtils.prependIfNotBlank("string", null));
         assertEquals("string", StringUtils.prependIfNotBlank("string", ""));
+        assertEquals("string", StringUtils.prependIfNotBlank("string", new StringBuilder()));
         assertEquals(" string", StringUtils.prependIfNotBlank("string", " "));
         assertEquals("prefix-string", StringUtils.prependIfNotBlank("string", "prefix-"));
+        assertEquals("prefix-string", StringUtils.prependIfNotBlank("string", new StringBuilder("prefix-")));
     }
 
     @Test
