@@ -232,33 +232,21 @@ public class StringUtilsContainsTest  {
     public void testContainsIgnoreCase_LocaleIndependence() {
         final Locale[] locales = { Locale.ENGLISH, new Locale("tr"), Locale.getDefault() };
 
-        final String[][] tdata = {
-            { "i", "I" },
-            { "I", "i" },
-            { "\u03C2", "\u03C3" },
-            { "\u03A3", "\u03C2" },
-            { "\u03A3", "\u03C3" },
-        };
+        final String[][] tdata = { { "i", "I" }, { "I", "i" }, { "\u03C2", "\u03C3" }, { "\u03A3", "\u03C2" },
+            { "\u03A3", "\u03C3" }, };
 
-        final String[][] fdata = {
-            { "\u00DF", "SS" },
-        };
+        final String[][] fdata = { { "\u00DF", "SS" }, };
 
-        final Locale defaultLocale = Locale.getDefault();
-        try {
-            for (final Locale testLocale : locales) {
-                Locale.setDefault(testLocale);
-                for (int j = 0; j < tdata.length; j++) {
-                    assertTrue(StringUtils.containsIgnoreCase(tdata[j][0], tdata[j][1]),
-                        Locale.getDefault() + ": " + j + " " + tdata[j][0] + " " + tdata[j][1]);
-                }
-                for (int j = 0; j < fdata.length; j++) {
-                    assertFalse(StringUtils.containsIgnoreCase(fdata[j][0], fdata[j][1]),
-                        Locale.getDefault() + ": " + j + " " + fdata[j][0] + " " + fdata[j][1]);
-                }
+        for (final Locale testLocale : locales) {
+            Locale.setDefault(testLocale);
+            for (int j = 0; j < tdata.length; j++) {
+                assertTrue(StringUtils.containsIgnoreCase(tdata[j][0], tdata[j][1]),
+                    Locale.getDefault() + ": " + j + " " + tdata[j][0] + " " + tdata[j][1]);
             }
-        } finally {
-            Locale.setDefault(defaultLocale);
+            for (int j = 0; j < fdata.length; j++) {
+                assertFalse(StringUtils.containsIgnoreCase(fdata[j][0], fdata[j][1]),
+                    Locale.getDefault() + ": " + j + " " + fdata[j][0] + " " + fdata[j][1]);
+            }
         }
     }
 
