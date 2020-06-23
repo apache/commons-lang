@@ -789,7 +789,7 @@ public class ObjectUtils {
         builder.append(name)
               .append(AT_SIGN)
               .append(hexString);
-        // @formatter:off
+        // @formatter:on
         return builder.toString();
     }
 
@@ -1180,6 +1180,30 @@ public class ObjectUtils {
     @Deprecated
     public static String toString(final Object obj, final String nullStr) {
         return obj == null ? nullStr : obj.toString();
+    }
+
+    /**
+     * <p>Gets the {@code toString} of an {@code Object} returning
+     * a specified text if {@code null} input.</p>
+     *
+     * <pre>
+     * ObjectUtils.toString(obj, () -&gt; expensive())
+     * </pre>
+     * <pre>
+     * ObjectUtils.toString(null, () -&gt; expensive())         = result of expensive()
+     * ObjectUtils.toString(null, () -&gt; expensive())         = result of expensive()
+     * ObjectUtils.toString("", () -&gt; expensive())           = ""
+     * ObjectUtils.toString("bat", () -&gt; expensive())        = "bat"
+     * ObjectUtils.toString(Boolean.TRUE, () -&gt; expensive()) = "true"
+     * </pre>
+     *
+     * @param obj  the Object to {@code toString}, may be null
+     * @param supplier  the Supplier of String used on {@code null} input, may be null
+     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input
+     * @since 3.11
+     */
+    public static String toString(final Object obj, final Supplier<String> supplier) {
+        return obj == null ? supplier == null ? null : supplier.get() : obj.toString();
     }
 
     /**
