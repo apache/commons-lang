@@ -70,6 +70,21 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
+     * <p>Creates an immutable pair of two objects inferring the generic types.</p>
+     *
+     * <p>This factory allows the pair to be created using inference to
+     * obtain the generic types.</p>
+     *
+     * @param <L> the left element type
+     * @param left  the left element, may be null
+     * @return a pair formed from the two parameters, not null
+     * @since 3.11
+     */
+    public static <L, R> Pair<L, R> left(final L left) {
+        return ImmutablePair.of(left, null);
+    }
+
+    /**
      * Returns an immutable pair of nulls.
      *
      * @param <L> the left element of this pair. Value is {@code null}.
@@ -120,6 +135,21 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
             right = null;
         }
         return new ImmutablePair<>(left, right);
+    }
+
+    /**
+     * <p>Creates an immutable pair of two objects inferring the generic types.</p>
+     *
+     * <p>This factory allows the pair to be created using inference to
+     * obtain the generic types.</p>
+     *
+     * @param <R> the right element type
+     * @param right  the right element, may be null
+     * @return a pair formed from the two parameters, not null
+     * @since 3.11
+     */
+    public static <L, R> Pair<L, R> right(final R right) {
+        return ImmutablePair.of(null, right);
     }
 
     /** Left object */
