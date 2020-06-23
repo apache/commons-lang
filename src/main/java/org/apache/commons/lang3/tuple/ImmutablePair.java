@@ -76,6 +76,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      * obtain the generic types.</p>
      *
      * @param <L> the left element type
+     * @param <R> the right element type
      * @param left  the left element, may be null
      * @return a pair formed from the two parameters, not null
      * @since 3.11
@@ -143,6 +144,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>
      *
+     * @param <L> the left element type
      * @param <R> the right element type
      * @param right  the right element, may be null
      * @return a pair formed from the two parameters, not null
