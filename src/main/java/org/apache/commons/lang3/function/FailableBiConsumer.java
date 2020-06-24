@@ -57,10 +57,10 @@ public interface FailableBiConsumer<T, U, E extends Throwable> {
     void accept(T t, U u) throws E;
 
     /**
-     * Returns a composed {@code FailableBiConsumer} that performs like {@link BiConsumer#andThen(BiConsumer)}.
+     * Returns a composed {@code FailableBiConsumer} that like {@link BiConsumer#andThen(BiConsumer)}.
      *
      * @param after the operation to perform after this one.
-     * @return a composed {@code FailableBiConsumer} that performs like {@link BiConsumer#andThen(BiConsumer)}.
+     * @return a composed {@code FailableBiConsumer} that like {@link BiConsumer#andThen(BiConsumer)}.
      * @throws E Thrown when a consumer fails.
      * @throws NullPointerException if {@code after} is null
      */
