@@ -245,9 +245,12 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * Set whether to include transient fields when reflectively comparing objects.
-     * @param testRecursive  whether to do a recursive test
+     * Set whether to test fields recursively, instead of using their equals method, when reflectively comparing objects.
+     * String objects, which cache a hash value, are automatically excluded from recursive testing.
+     * You may specify other exceptions by calling {@link #setBypassReflectionClasses(List)}.
+     * @param testRecursive whether to do a recursive test
      * @return EqualsBuilder - used to chain calls.
+     * @see #setBypassReflectionClasses(List)
      * @since 3.6
      */
     public EqualsBuilder setTestRecursive(final boolean testRecursive) {
@@ -265,6 +268,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * your own set of classes here, remember to include {@code String} class, too.</p>
      * @param bypassReflectionClasses  classes to bypass reflection test
      * @return EqualsBuilder - used to chain calls.
+     * @see #setTestRecursive(boolean)
      * @since 3.8
      */
     public EqualsBuilder setBypassReflectionClasses(final List<Class<?>> bypassReflectionClasses) {
