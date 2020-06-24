@@ -612,7 +612,7 @@
     <uberjar.name>benchmarks</uberjar.name>
 
     <commons.jacoco.version>0.8.5</commons.jacoco.version>
-    <commons.surefire.version>3.0.0-M4</commons.surefire.version>
+    <commons.surefire.version>3.0.0-M5</commons.surefire.version>
     <commons.javadoc.version>3.2.0</commons.javadoc.version>
 
     <!-- never generate report if there are binary incompatible changes -->
@@ -764,7 +764,7 @@
           <dependency>
             <groupId>com.github.spotbugs</groupId>
             <artifactId>spotbugs</artifactId>
-            <version>4.0.5</version>
+            <version>4.0.6</version>
          </dependency>
         </dependencies>        
         <configuration>
