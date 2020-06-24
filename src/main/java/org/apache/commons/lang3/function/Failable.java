@@ -463,7 +463,7 @@ public class Failable {
      */
     public static <O1, O2, T extends Throwable> boolean test(final FailableBiPredicate<O1, O2, T> predicate,
         final O1 object1, final O2 object2) {
-        return get(() -> predicate.test(object1, object2));
+        return getAsBoolean(() -> predicate.test(object1, object2));
     }
 
     /**
@@ -476,7 +476,7 @@ public class Failable {
      * @return the boolean value returned by the predicate
      */
     public static <O, T extends Throwable> boolean test(final FailablePredicate<O, T> predicate, final O object) {
-        return get(() -> predicate.test(object));
+        return getAsBoolean(() -> predicate.test(object));
     }
 
     /**
