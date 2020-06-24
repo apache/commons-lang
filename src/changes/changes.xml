@@ -76,6 +76,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1558" type="update" dev="ggregory" due-to="XenoAmess">Simplify if as some conditions are covered by others #543.</action>
     <action issue="LANG-1528" type="fix" dev="ggregory" due-to="Edwin Delgado H">StringUtils.replaceEachRepeatedly gives IllegalStateException #505.</action>
     <action issue="LANG-1570" type="add" dev="ggregory" due-to="Edgar Asatryan">Add JavaVersion enum constants for Java 14 and 15. #553.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion enum constants for Java 16.</action>
     <action issue="LANG-1556" type="add" dev="ggregory" due-to="XenoAmess">Use Java 8 lambdas and Map operations.</action>
     <action issue="LANG-1565" type="add" dev="ggregory" due-to="XenoAmess">Change removeLastFieldSeparator to use endsWith #550.</action>
     <action issue="LANG-1557" type="add" dev="ggregory" due-to="XenoAmess, Gary Gregory">Change a Pattern to a static final field, for not letting it compile each time the function invoked. #542.</action>
