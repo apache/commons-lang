@@ -22,17 +22,17 @@ import java.util.function.DoubleSupplier;
 /**
  * A functional interface like {@link DoubleSupplier} that declares a {@code Throwable}.
  *
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableDoubleSupplier<T extends Throwable> {
+public interface FailableDoubleSupplier<E extends Throwable> {
 
     /**
      * Supplies a double.
      *
      * @return a result
-     * @throws T if the supplier fails
+     * @throws E if the supplier fails
      */
-    double getAsDouble() throws T;
+    double getAsDouble() throws E;
 }

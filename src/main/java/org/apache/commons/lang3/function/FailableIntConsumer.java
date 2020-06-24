@@ -22,17 +22,17 @@ import java.util.function.IntConsumer;
 /**
  * A functional interface like {@link IntConsumer} that declares a {@code Throwable}.
  *
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableIntConsumer<T extends Throwable> {
+public interface FailableIntConsumer<E extends Throwable> {
 
     /**
      * Accepts the consumer.
      *
      * @param value the parameter for the consumable to accept
-     * @throws T Thrown when the consumer fails.
+     * @throws E Thrown when the consumer fails.
      */
-    void accept(int value) throws T;
+    void accept(int value) throws E;
 }

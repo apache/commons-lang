@@ -22,20 +22,21 @@ import java.util.function.BiConsumer;
 /**
  * A functional interface like {@link BiConsumer} that declares a {@code Throwable}.
  *
- * @param <O1> Consumed type 1.
- * @param <O2> Consumed type 2.
- * @param <T> Thrown exception.
+ * @param <T> Consumed type 1.
+ * @param <U> Consumed type 2.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableBiConsumer<O1, O2, T extends Throwable> {
+public interface FailableBiConsumer<T, U, E extends Throwable> {
 
     /**
      * Accepts the consumer.
      *
      * @param object1 the first parameter for the consumable to accept
      * @param object2 the second parameter for the consumable to accept
-     * @throws T Thrown when the consumer fails.
+     * @throws E Thrown when the consumer fails.
      */
-    void accept(O1 object1, O2 object2) throws T;
+    void accept(T object1, U object2) throws E;
+
 }

@@ -22,19 +22,19 @@ import java.util.function.ToIntFunction;
 /**
  * A functional interface like {@link ToIntFunction} that declares a {@code Throwable}.
  *
- * @param <I> the type of the first argument to the function
- * @param <T> Thrown exception.
+ * @param <T> the type of the first argument to the function
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableToIntFunction<I, T extends Throwable> {
+public interface FailableToIntFunction<T, E extends Throwable> {
 
     /**
      * Applies this function to the given arguments.
      *
      * @param t the first function argument
      * @return the function result
-     * @throws T Thrown when the function fails.
+     * @throws E Thrown when the function fails.
      */
-    int applyAsInt(I t) throws T;
+    int applyAsInt(T t) throws E;
 }

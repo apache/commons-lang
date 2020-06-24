@@ -22,18 +22,18 @@ import java.util.function.LongPredicate;
 /**
  * A functional interface like {@link LongPredicate} that declares a {@code Throwable}.
  *
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableLongPredicate<T extends Throwable> {
+public interface FailableLongPredicate<E extends Throwable> {
 
     /**
      * Tests the predicate.
      *
      * @param value the parameter for the predicate to accept.
      * @return {@code true} if the input argument matches the predicate, {@code false} otherwise.
-     * @throws T Thrown when the consumer fails.
+     * @throws E Thrown when the consumer fails.
      */
-    boolean test(long value) throws T;
+    boolean test(long value) throws E;
 }

@@ -22,13 +22,13 @@ import java.util.function.ToLongBiFunction;
 /**
  * A functional interface like {@link ToLongBiFunction} that declares a {@code Throwable}.
  *
- * @param <O1> the type of the first argument to the function
- * @param <O2> the type of the second argument to the function
- * @param <T> Thrown exception.
+ * @param <T> the type of the first argument to the function
+ * @param <U> the type of the second argument to the function
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableToLongBiFunction<O1, O2, T extends Throwable> {
+public interface FailableToLongBiFunction<T, U, E extends Throwable> {
 
     /**
      * Applies this function to the given arguments.
@@ -36,7 +36,7 @@ public interface FailableToLongBiFunction<O1, O2, T extends Throwable> {
      * @param t the first function argument
      * @param u the second function argument
      * @return the function result
-     * @throws T Thrown when the function fails.
+     * @throws E Thrown when the function fails.
      */
-    long applyAsLong(O1 t, O2 u) throws T;
+    long applyAsLong(T t, U u) throws E;
 }

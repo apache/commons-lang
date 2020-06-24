@@ -22,11 +22,11 @@ import java.util.function.LongBinaryOperator;
 /**
  * A functional interface like {@link LongBinaryOperator} that declares a {@code Throwable}.
  *
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableLongBinaryOperator<T extends Throwable> {
+public interface FailableLongBinaryOperator<E extends Throwable> {
 
     /**
      * Applies this operator to the given operands.
@@ -34,7 +34,7 @@ public interface FailableLongBinaryOperator<T extends Throwable> {
      * @param left the first operand
      * @param right the second operand
      * @return the operator result
-     * @throws T if the operation fails
+     * @throws E if the operation fails
      */
-    long applyAsLong(long left, long right) throws T;
+    long applyAsLong(long left, long right) throws E;
 }

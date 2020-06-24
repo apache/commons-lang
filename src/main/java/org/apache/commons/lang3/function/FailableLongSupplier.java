@@ -22,17 +22,17 @@ import java.util.function.LongSupplier;
 /**
  * A functional interface like {@link LongSupplier} that declares a {@code Throwable}.
  *
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableLongSupplier<T extends Throwable> {
+public interface FailableLongSupplier<E extends Throwable> {
 
     /**
      * Supplies a long.
      *
      * @return a result
-     * @throws T if the supplier fails
+     * @throws E if the supplier fails
      */
-    long getAsLong() throws T;
+    long getAsLong() throws E;
 }

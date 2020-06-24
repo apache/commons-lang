@@ -22,18 +22,18 @@ import java.util.function.DoubleToLongFunction;
 /**
  * A functional interface like {@link DoubleToLongFunction} that declares a {@code Throwable}.
  *
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableDoubleToLongFunction<T extends Throwable> {
+public interface FailableDoubleToLongFunction<E extends Throwable> {
 
     /**
      * Applies this function to the given argument.
      *
      * @param value the function argument
      * @return the function result
-     * @throws T if the operation fails
+     * @throws E if the operation fails
      */
-    int applyAsLong(double value) throws T;
+    int applyAsLong(double value) throws E;
 }

@@ -22,13 +22,13 @@ import java.util.function.BiPredicate;
 /**
  * A functional interface like {@link BiPredicate} that declares a {@code Throwable}.
  *
- * @param <O1> Predicate type 1.
- * @param <O2> Predicate type 2.
- * @param <T> Thrown exception.
+ * @param <T> Predicate type 1.
+ * @param <U> Predicate type 2.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableBiPredicate<O1, O2, T extends Throwable> {
+public interface FailableBiPredicate<T, U, E extends Throwable> {
 
     /**
      * Tests the predicate.
@@ -36,7 +36,7 @@ public interface FailableBiPredicate<O1, O2, T extends Throwable> {
      * @param object1 the first object to test the predicate on
      * @param object2 the second object to test the predicate on
      * @return the predicate's evaluation
-     * @throws T if the predicate fails
+     * @throws E if the predicate fails
      */
-    boolean test(O1 object1, O2 object2) throws T;
+    boolean test(T object1, U object2) throws E;
 }

@@ -22,19 +22,19 @@ import java.util.function.ToLongFunction;
 /**
  * A functional interface like {@link ToLongFunction} that declares a {@code Throwable}.
  *
- * @param <I> the type of the first argument to the function
- * @param <T> Thrown exception.
+ * @param <T> the type of the first argument to the function
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableToLongFunction<I, T extends Throwable> {
+public interface FailableToLongFunction<T, E extends Throwable> {
 
     /**
      * Applies this function to the given arguments.
      *
      * @param t the first function argument
      * @return the function result
-     * @throws T Thrown when the function fails.
+     * @throws E Thrown when the function fails.
      */
-    long applyAsLong(I t) throws T;
+    long applyAsLong(T t) throws E;
 }

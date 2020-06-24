@@ -23,17 +23,17 @@ import java.util.function.Consumer;
  * A functional interface like {@link Consumer} that declares a {@code Throwable}.
  *
  * @param <O> Consumed type 1.
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableConsumer<O, T extends Throwable> {
+public interface FailableConsumer<O, E extends Throwable> {
 
     /**
      * Accepts the consumer.
      *
      * @param object the parameter for the consumable to accept
-     * @throws T Thrown when the consumer fails.
+     * @throws E Thrown when the consumer fails.
      */
-    void accept(O object) throws T;
+    void accept(O object) throws E;
 }

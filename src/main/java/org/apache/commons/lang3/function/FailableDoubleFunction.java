@@ -23,18 +23,18 @@ import java.util.function.DoubleFunction;
  * A functional interface like {@link DoubleFunction} that declares a {@code Throwable}.
  *
  * @param <R> Return type.
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableDoubleFunction<R, T extends Throwable> {
+public interface FailableDoubleFunction<R, E extends Throwable> {
 
     /**
      * Applies this function.
      *
      * @param input the input for the function
      * @return the result of the function
-     * @throws T Thrown when the function fails.
+     * @throws E Thrown when the function fails.
      */
-    R apply(double input) throws T;
+    R apply(double input) throws E;
 }

@@ -22,20 +22,20 @@ import java.util.function.Function;
 /**
  * A functional interface like {@link Function} that declares a {@code Throwable}.
  *
- * @param <I> Input type 1.
+ * @param <T> Input type 1.
  * @param <R> Return type.
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableFunction<I, R, T extends Throwable> {
+public interface FailableFunction<T, R, E extends Throwable> {
 
     /**
      * Applies this function.
      *
      * @param input the input for the function
      * @return the result of the function
-     * @throws T Thrown when the function fails.
+     * @throws E Thrown when the function fails.
      */
-    R apply(I input) throws T;
+    R apply(T input) throws E;
 }

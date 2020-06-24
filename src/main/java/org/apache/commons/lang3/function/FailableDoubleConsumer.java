@@ -22,17 +22,17 @@ import java.util.function.DoubleConsumer;
 /**
  * A functional interface like {@link DoubleConsumer} that declares a {@code Throwable}.
  *
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableDoubleConsumer<T extends Throwable> {
+public interface FailableDoubleConsumer<E extends Throwable> {
 
     /**
      * Accepts the consumer.
      *
      * @param value the parameter for the consumable to accept
-     * @throws T Thrown when the consumer fails.
+     * @throws E Thrown when the consumer fails.
      */
-    void accept(double value) throws T;
+    void accept(double value) throws E;
 }

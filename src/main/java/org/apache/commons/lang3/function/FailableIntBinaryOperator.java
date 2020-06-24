@@ -22,11 +22,11 @@ import java.util.function.IntBinaryOperator;
 /**
  * A functional interface like {@link IntBinaryOperator} that declares a {@code Throwable}.
  *
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableIntBinaryOperator<T extends Throwable> {
+public interface FailableIntBinaryOperator<E extends Throwable> {
 
     /**
      * Applies this operator to the given operands.
@@ -34,7 +34,7 @@ public interface FailableIntBinaryOperator<T extends Throwable> {
      * @param left the first operand
      * @param right the second operand
      * @return the operator result
-     * @throws T if the operation fails
+     * @throws E if the operation fails
      */
-    int applyAsInt(int left, int right) throws T;
+    int applyAsInt(int left, int right) throws E;
 }

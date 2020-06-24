@@ -22,18 +22,18 @@ import java.util.function.LongToIntFunction;
 /**
  * A functional interface like {@link LongToIntFunction} that declares a {@code Throwable}.
  *
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableLongToIntFunction<T extends Throwable> {
+public interface FailableLongToIntFunction<E extends Throwable> {
 
     /**
      * Applies this function to the given argument.
      *
      * @param value the function argument
      * @return the function result
-     * @throws T Thrown when the function fails.
+     * @throws E Thrown when the function fails.
      */
-    int applyAsInt(long value) throws T;
+    int applyAsInt(long value) throws E;
 }

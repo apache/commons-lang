@@ -22,14 +22,14 @@ import java.util.function.BiFunction;
 /**
  * A functional interface like {@link BiFunction} that declares a {@code Throwable}.
  *
- * @param <O1> Input type 1.
- * @param <O2> Input type 2.
+ * @param <T> Input type 1.
+ * @param <U> Input type 2.
  * @param <R> Return type.
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableBiFunction<O1, O2, R, T extends Throwable> {
+public interface FailableBiFunction<T, U, R, E extends Throwable> {
 
     /**
      * Applies this function.
@@ -37,7 +37,7 @@ public interface FailableBiFunction<O1, O2, R, T extends Throwable> {
      * @param input1 the first input for the function
      * @param input2 the second input for the function
      * @return the result of the function
-     * @throws T Thrown when the function fails.
+     * @throws E Thrown when the function fails.
      */
-    R apply(O1 input1, O2 input2) throws T;
+    R apply(T input1, U input2) throws E;
 }

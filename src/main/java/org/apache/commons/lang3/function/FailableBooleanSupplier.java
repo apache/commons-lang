@@ -22,17 +22,17 @@ import java.util.function.BooleanSupplier;
 /**
  * A functional interface like {@link BooleanSupplier} that declares a {@code Throwable}.
  *
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableBooleanSupplier<T extends Throwable> {
+public interface FailableBooleanSupplier<E extends Throwable> {
 
     /**
      * Supplies a boolean.
      *
      * @return a result
-     * @throws T if the supplier fails
+     * @throws E if the supplier fails
      */
-    boolean getAsBoolean() throws T;
+    boolean getAsBoolean() throws E;
 }

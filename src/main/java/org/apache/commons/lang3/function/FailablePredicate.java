@@ -22,19 +22,19 @@ import java.util.function.Predicate;
 /**
  * A functional interface like {@link Predicate} that declares a {@code Throwable}.
  *
- * @param <I> Predicate type 1.
- * @param <T> Thrown exception.
+ * @param <T> Predicate type 1.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailablePredicate<I, T extends Throwable> {
+public interface FailablePredicate<T, E extends Throwable> {
 
     /**
      * Tests the predicate.
      *
      * @param object the object to test the predicate on
      * @return the predicate's evaluation
-     * @throws T if the predicate fails
+     * @throws E if the predicate fails
      */
-    boolean test(I object) throws T;
+    boolean test(T object) throws E;
 }

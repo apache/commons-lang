@@ -22,18 +22,18 @@ import java.util.function.IntPredicate;
 /**
  * A functional interface like {@link IntPredicate} that declares a {@code Throwable}.
  *
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableIntPredicate<T extends Throwable> {
+public interface FailableIntPredicate<E extends Throwable> {
 
     /**
      * Tests the predicate.
      *
      * @param value the parameter for the predicate to accept.
      * @return {@code true} if the input argument matches the predicate, {@code false} otherwise.
-     * @throws T Thrown when the consumer fails.
+     * @throws E Thrown when the consumer fails.
      */
-    boolean test(int value) throws T;
+    boolean test(int value) throws E;
 }
