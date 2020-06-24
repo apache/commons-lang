@@ -314,42 +314,6 @@ public class Functions {
     }
 
     /**
-     * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
-     *
-     * @param consumer the consumer to consume
-     * @param value the value to consume by {@code consumer}
-     * @param <T> the type of checked exception the consumer may throw
-     * @since 3.11
-     */
-    public static <T extends Throwable> void accept(final FailableDoubleConsumer<T> consumer, final double value) {
-        run(() -> consumer.accept(value));
-    }
-
-    /**
-     * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
-     *
-     * @param consumer the consumer to consume
-     * @param value the value to consume by {@code consumer}
-     * @param <T> the type of checked exception the consumer may throw
-     * @since 3.11
-     */
-    public static <T extends Throwable> void accept(final FailableIntConsumer<T> consumer, final int value) {
-        run(() -> consumer.accept(value));
-    }
-
-    /**
-     * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
-     *
-     * @param consumer the consumer to consume
-     * @param value the value to consume by {@code consumer}
-     * @param <T> the type of checked exception the consumer may throw
-     * @since 3.11
-     */
-    public static <T extends Throwable> void accept(final FailableLongConsumer<T> consumer, final long value) {
-        run(() -> consumer.accept(value));
-    }
-
-    /**
      * Applies a function and rethrows any exception as a {@link RuntimeException}.
      *
      * @param function the function to apply
@@ -378,21 +342,6 @@ public class Functions {
      */
     public static <I, O, T extends Throwable> O apply(final FailableFunction<I, O, T> function, final I input) {
         return get(() -> function.apply(input));
-    }
-
-    /**
-     * Applies a function and rethrows any exception as a {@link RuntimeException}.
-     *
-     * @param function the function to apply
-     * @param left the first input to apply {@code function} on
-     * @param right the second input to apply {@code function} on
-     * @param <T> the type of checked exception the function may throw
-     * @return the value returned from the function
-     * @since 3.11
-     */
-    public static <T extends Throwable> double applyAsDouble(final FailableDoubleBinaryOperator<T> function,
-        final double left, final double right) {
-        return getAsDouble(() -> function.applyAsDouble(left, right));
     }
 
     /**
@@ -531,70 +480,6 @@ public class Functions {
     public static <O, T extends Throwable> O get(final FailableSupplier<O, T> supplier) {
         try {
             return supplier.get();
-        } catch (final Throwable t) {
-            throw rethrow(t);
-        }
-    }
-
-    /**
-     * Invokes a boolean supplier, and returns the result.
-     *
-     * @param supplier The boolean supplier to invoke.
-     * @param <T> The type of checked exception, which the supplier can throw.
-     * @return The boolean, which has been created by the supplier
-     * @since 3.11
-     */
-    public static <T extends Throwable> boolean getAsBoolean(final FailableBooleanSupplier<T> supplier) {
-        try {
-            return supplier.getAsBoolean();
-        } catch (final Throwable t) {
-            throw rethrow(t);
-        }
-    }
-
-    /**
-     * Invokes a double supplier, and returns the result.
-     *
-     * @param supplier The double supplier to invoke.
-     * @param <T> The type of checked exception, which the supplier can throw.
-     * @return The boolean, which has been created by the supplier
-     * @since 3.11
-     */
-    public static <T extends Throwable> double getAsDouble(final FailableDoubleSupplier<T> supplier) {
-        try {
-            return supplier.getAsDouble();
-        } catch (final Throwable t) {
-            throw rethrow(t);
-        }
-    }
-
-    /**
-     * Invokes an int supplier, and returns the result.
-     *
-     * @param supplier The int supplier to invoke.
-     * @param <T> The type of checked exception, which the supplier can throw.
-     * @return The boolean, which has been created by the supplier
-     * @since 3.11
-     */
-    public static <T extends Throwable> int getAsInt(final FailableIntSupplier<T> supplier) {
-        try {
-            return supplier.getAsInt();
-        } catch (final Throwable t) {
-            throw rethrow(t);
-        }
-    }
-
-    /**
-     * Invokes a long supplier, and returns the result.
-     *
-     * @param supplier The long supplier to invoke.
-     * @param <T> The type of checked exception, which the supplier can throw.
-     * @return The boolean, which has been created by the supplier
-     * @since 3.11
-     */
-    public static <T extends Throwable> long getAsLong(final FailableLongSupplier<T> supplier) {
-        try {
-            return supplier.getAsLong();
         } catch (final Throwable t) {
             throw rethrow(t);
         }

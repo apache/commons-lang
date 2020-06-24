@@ -511,19 +511,6 @@ public class FunctionsTest {
     }
 
     @Test
-    public void testApplyDoubleBinaryOperator() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, Double> testable = new Testable<>(ise);
-        Throwable e = assertThrows(IllegalStateException.class,
-            () -> Functions.applyAsDouble(testable::testDoubleDouble, 1d, 2d));
-        assertSame(ise, e);
-
-        final Testable<?, Double> testable2 = new Testable<>(null);
-        final double i = Functions.applyAsDouble(testable2::testDoubleDouble, 1d, 2d);
-        assertEquals(3d, i);
-    }
-
-    @Test
     public void testApplyFunction() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(ise);
@@ -734,103 +721,6 @@ public class FunctionsTest {
         assertSame(ioe, t);
 
         assertEquals(0, function.apply(null).intValue());
-    }
-
-    @Test
-    public void testGetAsBooleanSupplier() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, ?> testable = new Testable<>(ise);
-        Throwable e = assertThrows(IllegalStateException.class,
-            () -> Functions.getAsBoolean(testable::testAsBooleanPrimitive));
-        assertSame(ise, e);
-
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
-        e = assertThrows(OutOfMemoryError.class, () -> Functions.getAsBoolean(testable::testAsBooleanPrimitive));
-        assertSame(error, e);
-
-        final IOException ioe = new IOException("Unknown I/O error");
-        testable.setThrowable(ioe);
-        e = assertThrows(UncheckedIOException.class, () -> Functions.getAsBoolean(testable::testAsBooleanPrimitive));
-        final Throwable t = e.getCause();
-        assertNotNull(t);
-        assertSame(ioe, t);
-
-        testable.setThrowable(null);
-        assertFalse(Functions.getAsBoolean(testable::testAsBooleanPrimitive));
-    }
-
-    @Test
-    public void testGetAsDoubleSupplier() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, ?> testable = new Testable<>(ise);
-        Throwable e = assertThrows(IllegalStateException.class,
-            () -> Functions.getAsDouble(testable::testAsDoublePrimitive));
-        assertSame(ise, e);
-
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
-        e = assertThrows(OutOfMemoryError.class, () -> Functions.getAsDouble(testable::testAsDoublePrimitive));
-        assertSame(error, e);
-
-        final IOException ioe = new IOException("Unknown I/O error");
-        testable.setThrowable(ioe);
-        e = assertThrows(UncheckedIOException.class, () -> Functions.getAsDouble(testable::testAsDoublePrimitive));
-        final Throwable t = e.getCause();
-        assertNotNull(t);
-        assertSame(ioe, t);
-
-        testable.setThrowable(null);
-        assertEquals(0, Functions.getAsDouble(testable::testAsDoublePrimitive));
-    }
-
-    @Test
-    public void testGetAsIntSupplier() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, ?> testable = new Testable<>(ise);
-        Throwable e = assertThrows(IllegalStateException.class, () -> Functions.getAsInt(testable::testAsIntPrimitive));
-        assertSame(ise, e);
-
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
-        e = assertThrows(OutOfMemoryError.class, () -> Functions.getAsInt(testable::testAsIntPrimitive));
-        assertSame(error, e);
-
-        final IOException ioe = new IOException("Unknown I/O error");
-        testable.setThrowable(ioe);
-        e = assertThrows(UncheckedIOException.class, () -> Functions.getAsInt(testable::testAsIntPrimitive));
-        final Throwable t = e.getCause();
-        assertNotNull(t);
-        assertSame(ioe, t);
-
-        testable.setThrowable(null);
-        final int i = Functions.getAsInt(testable::testAsInteger);
-        assertEquals(0, i);
-    }
-
-    @Test
-    public void testGetAsLongSupplier() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, ?> testable = new Testable<>(ise);
-        Throwable e = assertThrows(IllegalStateException.class,
-            () -> Functions.getAsLong(testable::testAsLongPrimitive));
-        assertSame(ise, e);
-
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
-        e = assertThrows(OutOfMemoryError.class, () -> Functions.getAsLong(testable::testAsLongPrimitive));
-        assertSame(error, e);
-
-        final IOException ioe = new IOException("Unknown I/O error");
-        testable.setThrowable(ioe);
-        e = assertThrows(UncheckedIOException.class, () -> Functions.getAsLong(testable::testAsLongPrimitive));
-        final Throwable t = e.getCause();
-        assertNotNull(t);
-        assertSame(ioe, t);
-
-        testable.setThrowable(null);
-        final long i = Functions.getAsLong(testable::testAsLongPrimitive);
-        assertEquals(0, i);
     }
 
     @Test
