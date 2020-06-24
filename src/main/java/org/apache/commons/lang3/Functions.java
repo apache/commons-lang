@@ -94,7 +94,7 @@ public class Functions {
          */
         void accept(O1 object1, O2 object2) throws T;
     }
-    
+
     /**
      * A functional interface like {@link BiFunction} that declares a {@code Throwable}.
      *
