@@ -17,7 +17,9 @@
 
 package org.apache.commons.lang3.function;
 
+import java.util.Objects;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  * A functional interface like {@link BiFunction} that declares a {@code Throwable}.
@@ -30,6 +32,37 @@ import java.util.function.BiFunction;
  */
 @FunctionalInterface
 public interface FailableBiFunction<T, U, R, E extends Throwable> {
+
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    final FailableBiFunction NOP = (t, u) -> null;
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <T> Consumed type 1.
+     * @param <U> Consumed type 2.
+     * @param <R> Return type.
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <T, U, R, E extends Throwable> FailableBiFunction<T, U, R, E> nop() {
+        return NOP;
+    }
+
+    /**
+     * Returns a composed {@code FailableBiFunction} that like {@link BiFunction#andThen(Function)}.
+     *
+     * @param <V> the type of output of the {@code after} function, and of the composed function
+     * @param after the operation to perform after this one.
+     * @return a composed {@code FailableBiFunction} that like {@link BiFunction#andThen(Function)}.
+     * @throws E Thrown when a consumer fails.
+     * @throws NullPointerException if after is null.
+     */
+    default <V> FailableBiFunction<T, U, V, E> andThen(final FailableFunction<? super R, ? extends V, E> after) throws E {
+        Objects.requireNonNull(after);
+        return (final T t, final U u) -> after.apply(apply(t, u));
+    }
 
     /**
      * Applies this function.

@@ -37,7 +37,7 @@ public interface FailableBiConsumer<T, U, E extends Throwable> {
 
     /**
      * Returns The NOP singleton.
-     * 
+     *
      * @param <T> Consumed type 1.
      * @param <U> Consumed type 2.
      * @param <E> Thrown exception.
@@ -62,9 +62,9 @@ public interface FailableBiConsumer<T, U, E extends Throwable> {
      * @param after the operation to perform after this one.
      * @return a composed {@code FailableBiConsumer} like {@link BiConsumer#andThen(BiConsumer)}.
      * @throws E Thrown when a consumer fails.
-     * @throws NullPointerException if {@code after} is null
+     * @throws NullPointerException if {@code after} is null.
      */
-    default FailableBiConsumer<T, U, E> andThen(FailableBiConsumer<? super T, ? super U, E> after) throws E {
+    default FailableBiConsumer<T, U, E> andThen(final FailableBiConsumer<? super T, ? super U, E> after) throws E {
         Objects.requireNonNull(after);
 
         return (t, u) -> {

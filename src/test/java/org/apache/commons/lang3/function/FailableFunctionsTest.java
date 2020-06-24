@@ -45,9 +45,6 @@ import org.junit.jupiter.api.Test;
  */
 public class FailableFunctionsTest {
 
-    private static final IllegalStateException ILLEGAL_STATE_EXCEPTION = new IllegalStateException();
-    private static final OutOfMemoryError ERROR = new OutOfMemoryError();
-
     public static class CloseableObject {
         private boolean closed;
 
@@ -69,7 +66,6 @@ public class FailableFunctionsTest {
             }
         }
     }
-
     public static class FailureOnOddInvocations {
         private static int invocations;
 
@@ -268,10 +264,15 @@ public class FailableFunctionsTest {
         }
     }
 
+    private static final OutOfMemoryError ERROR = new OutOfMemoryError();
+
+    private static final IllegalStateException ILLEGAL_STATE_EXCEPTION = new IllegalStateException();
+
     @Test
     void testAcceptBiConsumer() {
         final Testable<?, ?> testable = new Testable<>(null);
-        Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(Testable::test, testable, ILLEGAL_STATE_EXCEPTION));
+        Throwable e = assertThrows(IllegalStateException.class,
+            () -> Failable.accept(Testable::test, testable, ILLEGAL_STATE_EXCEPTION));
         assertSame(ILLEGAL_STATE_EXCEPTION, e);
 
         e = assertThrows(OutOfMemoryError.class, () -> Failable.accept(Testable::test, testable, ERROR));
@@ -632,28 +633,27 @@ public class FailableFunctionsTest {
             t.setThrowable(th);
             t.test();
         };
-        Throwable e;
         final FailableBiConsumer<Testable<?, ?>, Throwable, Throwable> nop = FailableBiConsumer.nop();
-        e = assertThrows(OutOfMemoryError.class, () -> nop.andThen(failableBiConsumer).accept(testable, ERROR));
+        final Throwable e = assertThrows(OutOfMemoryError.class,
+            () -> nop.andThen(failableBiConsumer).accept(testable, ERROR));
         assertSame(ERROR, e);
         // Does not throw
         nop.andThen(nop);
         // Documented in Javadoc edge-case.
         assertThrows(NullPointerException.class, () -> failableBiConsumer.andThen(null));
-
     }
 
     @Test
     public void testBiFunction() {
-        final IllegalStateException ise = ILLEGAL_STATE_EXCEPTION;
-        final Testable<?, ?> testable = new Testable<>(ise);
+        final Testable<?, ?> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         final FailableBiFunction<Testable<?, ?>, Throwable, Integer, Throwable> failableBiFunction = (t, th) -> {
             t.setThrowable(th);
-            return Integer.valueOf(t.testAsInteger());
+            return t.testAsInteger();
         };
         final BiFunction<Testable<?, ?>, Throwable, Integer> biFunction = Failable.asBiFunction(failableBiFunction);
-        Throwable e = assertThrows(IllegalStateException.class, () -> biFunction.apply(testable, ise));
-        assertSame(ise, e);
+        Throwable e = assertThrows(IllegalStateException.class,
+            () -> biFunction.apply(testable, ILLEGAL_STATE_EXCEPTION));
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
 
         testable.setThrowable(ERROR);
         e = assertThrows(OutOfMemoryError.class, () -> biFunction.apply(testable, ERROR));
@@ -667,6 +667,29 @@ public class FailableFunctionsTest {
         assertSame(ioe, t);
 
         assertEquals(0, biFunction.apply(testable, null).intValue());
+    }
+
+    @Test
+    public void testBiFunctionAndThen() throws IOException {
+        // Unchecked usage pattern in JRE
+        final BiFunction<Object, Integer, Integer> nopBiFunction = (t, u) -> null;
+        final Function<Object, Integer> nopFunction = (t) -> null;
+        nopBiFunction.andThen(nopFunction);
+        // Checked usage pattern
+        final FailableBiFunction<Object, Integer, Integer, IOException> failingBiFunctionTest = (t, u) -> {
+            throw new IOException();
+        };
+        final FailableFunction<Object, Integer, IOException> failingFunction = (t) -> { throw new IOException(); };
+        final FailableBiFunction<Object, Integer, Integer, IOException> nopFailableBiFunction = FailableBiFunction.nop();
+        final FailableFunction<Object, Integer, IOException> nopFailableFunction = FailableFunction.nop();
+        //
+        assertThrows(IOException.class, () -> failingBiFunctionTest.andThen(failingFunction).apply(null, null));
+        assertThrows(IOException.class, () -> failingBiFunctionTest.andThen(nopFailableFunction).apply(null, null));
+        //
+        assertThrows(IOException.class, () -> nopFailableBiFunction.andThen(failingFunction).apply(null, null));
+        nopFailableBiFunction.andThen(nopFailableFunction).apply(null, null);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failingBiFunctionTest.andThen(null));
     }
 
     @Test
