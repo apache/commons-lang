@@ -16,11 +16,11 @@
  */
 package org.apache.commons.lang3;
 
-import org.apache.commons.lang3.arch.Processor;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
+
+import org.apache.commons.lang3.arch.Processor;
 
 /**
  * An utility class for the os.arch System Property. The class defines methods for

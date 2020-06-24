@@ -18,8 +18,6 @@
  */
 package org.apache.commons.lang3;
 
-import org.junit.jupiter.api.Test;
-
 import static org.apache.commons.lang3.JavaVersion.JAVA_0_9;
 import static org.apache.commons.lang3.JavaVersion.JAVA_10;
 import static org.apache.commons.lang3.JavaVersion.JAVA_11;
@@ -42,6 +40,8 @@ import static org.apache.commons.lang3.JavaVersion.getJavaVersion;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.JavaVersion}.
