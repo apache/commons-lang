@@ -32,6 +32,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.Streams.FailableStream;
+import org.apache.commons.lang3.function.FailableBooleanSupplier;
 
 /**
  * This class provides utility functions, and classes for working with the {@code java.util.function} package, or more
@@ -93,7 +94,7 @@ public class Functions {
          */
         void accept(O1 object1, O2 object2) throws T;
     }
-
+    
     /**
      * A functional interface like {@link BiFunction} that declares a {@code Throwable}.
      *
@@ -478,6 +479,21 @@ public class Functions {
     }
 
     /**
+     * Invokes a boolean supplier, and returns the result.
+     *
+     * @param supplier The boolean supplier to invoke.
+     * @param <T> The type of checked exception, which the supplier can throw.
+     * @return The boolean, which has been created by the supplier
+     */
+    private static <T extends Throwable> boolean getAsBoolean(final FailableBooleanSupplier<T> supplier) {
+        try {
+            return supplier.getAsBoolean();
+        } catch (final Throwable t) {
+            throw rethrow(t);
+        }
+    }
+
+    /**
      * <p>
      * Rethrows a {@link Throwable} as an unchecked exception. If the argument is already unchecked, namely a
      * {@code RuntimeException} or {@code Error} then the argument will be rethrown without modification. If the
@@ -574,7 +590,7 @@ public class Functions {
      */
     public static <O1, O2, T extends Throwable> boolean test(final FailableBiPredicate<O1, O2, T> predicate,
         final O1 object1, final O2 object2) {
-        return get(() -> predicate.test(object1, object2));
+        return getAsBoolean(() -> predicate.test(object1, object2));
     }
 
     /**
@@ -587,7 +603,7 @@ public class Functions {
      * @return the boolean value returned by the predicate
      */
     public static <O, T extends Throwable> boolean test(final FailablePredicate<O, T> predicate, final O object) {
-        return get(() -> predicate.test(object));
+        return getAsBoolean(() -> predicate.test(object));
     }
 
     /**
