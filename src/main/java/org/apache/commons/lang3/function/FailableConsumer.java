@@ -17,17 +17,33 @@
 
 package org.apache.commons.lang3.function;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
  * A functional interface like {@link Consumer} that declares a {@code Throwable}.
  *
- * @param <O> Consumed type 1.
+ * @param <T> Consumed type 1.
  * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableConsumer<O, E extends Throwable> {
+public interface FailableConsumer<T, E extends Throwable> {
+
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    final FailableConsumer NOP = t -> {/* NOP */};
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <T> Consumed type 1.
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <T, E extends Throwable> FailableConsumer<T, E> nop() {
+        return NOP;
+    }
 
     /**
      * Accepts the consumer.
@@ -35,5 +51,21 @@ public interface FailableConsumer<O, E extends Throwable> {
      * @param object the parameter for the consumable to accept
      * @throws E Thrown when the consumer fails.
      */
-    void accept(O object) throws E;
+    void accept(T object) throws E;
+
+    /**
+     * Returns a composed {@code Consumer} like {@link Consumer#andThen(Consumer)}.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code Consumer} like {@link Consumer#andThen(Consumer)}.
+     * @throws E Thrown when a consumer fails.
+     * @throws NullPointerException if {@code after} is null
+     */
+    default FailableConsumer<T, E> andThen(final FailableConsumer<? super T, E> after) throws E {
+        Objects.requireNonNull(after);
+        return (final T t) -> {
+            accept(t);
+            after.accept(t);
+        };
+    }
 }

@@ -269,7 +269,7 @@ public class FailableFunctionsTest {
     private static final IllegalStateException ILLEGAL_STATE_EXCEPTION = new IllegalStateException();
 
     @Test
-    void testAcceptBiConsumer() {
+    public void testAcceptBiConsumer() {
         final Testable<?, ?> testable = new Testable<>(null);
         Throwable e = assertThrows(IllegalStateException.class,
             () -> Failable.accept(Testable::test, testable, ILLEGAL_STATE_EXCEPTION));
@@ -290,7 +290,7 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAcceptConsumer() {
+    public void testAcceptConsumer() {
         final Testable<?, ?> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(Testable::test, testable));
         assertSame(ILLEGAL_STATE_EXCEPTION, e);
@@ -311,7 +311,7 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAcceptDoubleConsumer() {
+    public void testAcceptDoubleConsumer() {
         final Testable<?, Double> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(testable::testDouble, 1d));
         assertSame(ILLEGAL_STATE_EXCEPTION, e);
@@ -336,7 +336,7 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAcceptIntConsumer() {
+    public void testAcceptIntConsumer() {
         final Testable<?, Integer> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(testable::testInt, 1));
         assertSame(ILLEGAL_STATE_EXCEPTION, e);
@@ -361,7 +361,7 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAcceptLongConsumer() {
+    public void testAcceptLongConsumer() {
         final Testable<?, Long> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(testable::testLong, 1L));
         assertSame(ILLEGAL_STATE_EXCEPTION, e);
@@ -386,7 +386,7 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAcceptObjDoubleConsumer() {
+    public void testAcceptObjDoubleConsumer() {
         final Testable<String, Double> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class,
             () -> Failable.accept(testable::testObjDouble, "X", 1d));
@@ -416,7 +416,7 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAcceptObjIntConsumer() {
+    public void testAcceptObjIntConsumer() {
         final Testable<String, Integer> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(testable::testObjInt, "X", 1));
         assertSame(ILLEGAL_STATE_EXCEPTION, e);
@@ -445,7 +445,7 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAcceptObjLongConsumer() {
+    public void testAcceptObjLongConsumer() {
         final Testable<String, Long> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(testable::testObjLong, "X", 1L));
         assertSame(ILLEGAL_STATE_EXCEPTION, e);
@@ -531,7 +531,7 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAsCallable() {
+    public void testAsCallable() {
         FailureOnOddInvocations.invocations = 0;
         final FailableCallable<FailureOnOddInvocations, SomeException> failableCallable = FailureOnOddInvocations::new;
         final Callable<FailureOnOddInvocations> callable = Failable.asCallable(failableCallable);
@@ -550,7 +550,7 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAsConsumer() {
+    public void testAsConsumer() {
         final Testable<?, ?> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         final Consumer<Testable<?, ?>> consumer = Failable.asConsumer(Testable::test);
         Throwable e = assertThrows(IllegalStateException.class, () -> consumer.accept(testable));
@@ -572,7 +572,7 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAsRunnable() {
+    public void testAsRunnable() {
         FailureOnOddInvocations.invocations = 0;
         final Runnable runnable = Failable.asRunnable(FailureOnOddInvocations::new);
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, runnable::run);
@@ -599,7 +599,7 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testBiConsumer() throws Throwable {
+    public void testBiConsumer() throws Throwable {
         final Testable<?, ?> testable = new Testable<>(null);
         final FailableBiConsumer<Testable<?, ?>, Throwable, Throwable> failableBiConsumer = (t, th) -> {
             t.setThrowable(th);
@@ -627,7 +627,7 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testBiConsumerAndThen() throws Throwable {
+    public void testBiConsumerAndThen() throws Throwable {
         final Testable<?, ?> testable = new Testable<>(null);
         final FailableBiConsumer<Testable<?, ?>, Throwable, Throwable> failableBiConsumer = (t, th) -> {
             t.setThrowable(th);
@@ -710,7 +710,7 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testCallable() {
+    public void testCallable() {
         FailureOnOddInvocations.invocations = 0;
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class,
             () -> Failable.run(FailureOnOddInvocations::new));
@@ -727,6 +727,23 @@ public class FailableFunctionsTest {
         // We allow this, which must have been an omission to make the ctor private.
         // We could make the ctor private in 4.0.
         new Functions();
+    }
+
+    @Test
+    public void testConsumerAndThen() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableConsumer<Throwable, Throwable> failableConsumer = (th) -> {
+            testable.setThrowable(th);
+            testable.test();
+        };
+        final FailableConsumer<Throwable, Throwable> nop = FailableConsumer.nop();
+        final Throwable e = assertThrows(OutOfMemoryError.class,
+            () -> nop.andThen(failableConsumer).accept(ERROR));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.andThen(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failableConsumer.andThen(null));
     }
 
     @Test
@@ -920,7 +937,7 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testRunnable() {
+    public void testRunnable() {
         FailureOnOddInvocations.invocations = 0;
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class,
             () -> Failable.run(FailureOnOddInvocations::new));
@@ -938,7 +955,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    void testThrows_FailableBiConsumer_Object_Throwable() {
+    public void testThrows_FailableBiConsumer_Object_Throwable() {
         new FailableBiConsumer<Object, Object, Throwable>() {
 
             @Override
@@ -953,7 +970,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    void testThrows_FailableBiConsumer_String_IOException() {
+    public void testThrows_FailableBiConsumer_String_IOException() {
         new FailableBiConsumer<String, String, IOException>() {
 
             @Override
@@ -969,7 +986,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    void testThrows_FailableBiFunction_Object_Throwable() {
+    public void testThrows_FailableBiFunction_Object_Throwable() {
         new FailableBiFunction<Object, Object, Object, Throwable>() {
 
             @Override
@@ -984,7 +1001,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    void testThrows_FailableBiFunction_String_IOException() {
+    public void testThrows_FailableBiFunction_String_IOException() {
         new FailableBiFunction<String, String, String, IOException>() {
 
             @Override
@@ -999,7 +1016,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    void testThrows_FailableBiPredicate_Object_Throwable() {
+    public void testThrows_FailableBiPredicate_Object_Throwable() {
         new FailableBiPredicate<Object, Object, Throwable>() {
 
             @Override
@@ -1014,7 +1031,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    void testThrows_FailableBiPredicate_String_IOException() {
+    public void testThrows_FailableBiPredicate_String_IOException() {
         new FailableBiPredicate<String, String, IOException>() {
 
             @Override
@@ -1061,7 +1078,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    void testThrows_FailableCallable_Object_Throwable() {
+    public void testThrows_FailableCallable_Object_Throwable() {
         new FailableCallable<Object, Throwable>() {
 
             @Override
@@ -1076,7 +1093,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    void testThrows_FailableCallable_String_IOException() {
+    public void testThrows_FailableCallable_String_IOException() {
         new FailableCallable<String, IOException>() {
 
             @Override
@@ -1091,7 +1108,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    void testThrows_FailableConsumer_Object_Throwable() {
+    public void testThrows_FailableConsumer_Object_Throwable() {
         new FailableConsumer<Object, Throwable>() {
 
             @Override
@@ -1107,7 +1124,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    void testThrows_FailableConsumer_String_IOException() {
+    public void testThrows_FailableConsumer_String_IOException() {
         new FailableConsumer<String, IOException>() {
 
             @Override
