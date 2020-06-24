@@ -186,8 +186,8 @@ public class JsonToStringStyleTest {
 
     @Test
     public void testList() {
-        Student student = new Student();
-        ArrayList<Hobby> objects = new ArrayList<>();
+        final Student student = new Student();
+        final ArrayList<Hobby> objects = new ArrayList<>();
 
         objects.add(Hobby.BOOK);
         objects.add(Hobby.SPORT);
@@ -204,8 +204,8 @@ public class JsonToStringStyleTest {
 
     @Test
     public void testArrayEnum() {
-        Teacher teacher = new Teacher();
-        Hobby[] hobbies = new Hobby[3];
+        final Teacher teacher = new Teacher();
+        final Hobby[] hobbies = new Hobby[3];
         hobbies[0] = Hobby.BOOK;
         hobbies[1] = Hobby.SPORT;
         hobbies[2] = Hobby.MUSIC;
@@ -221,30 +221,30 @@ public class JsonToStringStyleTest {
 
     @Test
     public void testCombineListAndEnum() {
-        Teacher teacher = new Teacher();
+        final Teacher teacher = new Teacher();
 
-        Hobby[] teacherHobbies = new Hobby[3];
+        final Hobby[] teacherHobbies = new Hobby[3];
         teacherHobbies[0] = Hobby.BOOK;
         teacherHobbies[1] = Hobby.SPORT;
         teacherHobbies[2] = Hobby.MUSIC;
 
         teacher.setHobbies(teacherHobbies);
 
-        Student john = new Student();
+        final Student john = new Student();
         john.setHobbies(Arrays.asList(Hobby.BOOK, Hobby.MUSIC));
 
-        Student alice = new Student();
+        final Student alice = new Student();
         alice.setHobbies(new ArrayList<>());
 
-        Student bob = new Student();
+        final Student bob = new Student();
         bob.setHobbies(Collections.singletonList(Hobby.BOOK));
 
-        ArrayList<Student> students = new ArrayList<>();
+        final ArrayList<Student> students = new ArrayList<>();
         students.add(john);
         students.add(alice);
         students.add(bob);
 
-        AcademyClass academyClass = new AcademyClass();
+        final AcademyClass academyClass = new AcademyClass();
         academyClass.setStudents(students);
         academyClass.setTeacher(teacher);
 
@@ -564,7 +564,7 @@ public class JsonToStringStyleTest {
             return hobbies;
         }
 
-        public void setHobbies(List<Hobby> hobbies) {
+        public void setHobbies(final List<Hobby> hobbies) {
             this.hobbies = hobbies;
         }
 
@@ -581,7 +581,7 @@ public class JsonToStringStyleTest {
             return hobbies;
         }
 
-        public void setHobbies(Hobby[] hobbies) {
+        public void setHobbies(final Hobby[] hobbies) {
             this.hobbies = hobbies;
         }
 
@@ -595,11 +595,11 @@ public class JsonToStringStyleTest {
         Teacher teacher;
         List<Student> students;
 
-        public void setTeacher(Teacher teacher) {
+        public void setTeacher(final Teacher teacher) {
             this.teacher = teacher;
         }
 
-        public void setStudents(List<Student> students) {
+        public void setStudents(final List<Student> students) {
             this.students = students;
         }
 

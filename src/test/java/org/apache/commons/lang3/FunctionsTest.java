@@ -76,17 +76,17 @@ public class FunctionsTest {
             return true;
         }
 
-        static boolean testDouble(double value) throws SomeException {
+        static boolean testDouble(final double value) throws SomeException {
             throwOnOdd();
             return true;
         }
 
-        static boolean testInt(int value) throws SomeException {
+        static boolean testInt(final int value) throws SomeException {
             throwOnOdd();
             return true;
         }
 
-        static boolean testLong(long value) throws SomeException {
+        static boolean testLong(final long value) throws SomeException {
             throwOnOdd();
             return true;
         }
@@ -159,7 +159,7 @@ public class FunctionsTest {
             test(throwable);
         }
 
-        public Object test(Object input1, Object input2) throws Throwable {
+        public Object test(final Object input1, final Object input2) throws Throwable {
             test(throwable);
             return acceptedObject;
         }
@@ -225,41 +225,41 @@ public class FunctionsTest {
             return 0;
         }
 
-        public void testDouble(double i) throws Throwable {
+        public void testDouble(final double i) throws Throwable {
             test(throwable);
             acceptedPrimitiveObject1 = (P) ((Double) i);
         }
 
-        public double testDoubleDouble(double i, double j) throws Throwable {
+        public double testDoubleDouble(final double i, final double j) throws Throwable {
             test(throwable);
             acceptedPrimitiveObject1 = (P) ((Double) i);
             acceptedPrimitiveObject2 = (P) ((Double) j);
             return 3d;
         }
 
-        public void testInt(int i) throws Throwable {
+        public void testInt(final int i) throws Throwable {
             test(throwable);
             acceptedPrimitiveObject1 = (P) ((Integer) i);
         }
 
-        public void testLong(long i) throws Throwable {
+        public void testLong(final long i) throws Throwable {
             test(throwable);
             acceptedPrimitiveObject1 = (P) ((Long) i);
         }
 
-        public void testObjDouble(T object, double i) throws Throwable {
+        public void testObjDouble(final T object, final double i) throws Throwable {
             test(throwable);
             acceptedObject = object;
             acceptedPrimitiveObject1 = (P) ((Double) i);
         }
 
-        public void testObjInt(T object, int i) throws Throwable {
+        public void testObjInt(final T object, final int i) throws Throwable {
             test(throwable);
             acceptedObject = object;
             acceptedPrimitiveObject1 = (P) ((Integer) i);
         }
 
-        public void testObjLong(T object, long i) throws Throwable {
+        public void testObjLong(final T object, final long i) throws Throwable {
             test(throwable);
             acceptedObject = object;
             acceptedPrimitiveObject1 = (P) ((Long) i);
@@ -800,7 +800,7 @@ public class FunctionsTest {
         new Functions.FailableBiConsumer<Object, Object, Throwable>() {
 
             @Override
-            public void accept(Object object1, Object object2) throws Throwable {
+            public void accept(final Object object1, final Object object2) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -815,7 +815,7 @@ public class FunctionsTest {
         new Functions.FailableBiConsumer<String, String, IOException>() {
 
             @Override
-            public void accept(String object1, String object2) throws IOException {
+            public void accept(final String object1, final String object2) throws IOException {
                 throw new IOException("test");
 
             }
@@ -831,7 +831,7 @@ public class FunctionsTest {
         new Functions.FailableBiFunction<Object, Object, Object, Throwable>() {
 
             @Override
-            public Object apply(Object input1, Object input2) throws Throwable {
+            public Object apply(final Object input1, final Object input2) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -846,7 +846,7 @@ public class FunctionsTest {
         new Functions.FailableBiFunction<String, String, String, IOException>() {
 
             @Override
-            public String apply(String input1, String input2) throws IOException {
+            public String apply(final String input1, final String input2) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -861,7 +861,7 @@ public class FunctionsTest {
         new Functions.FailableBiPredicate<Object, Object, Throwable>() {
 
             @Override
-            public boolean test(Object object1, Object object2) throws Throwable {
+            public boolean test(final Object object1, final Object object2) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -876,7 +876,7 @@ public class FunctionsTest {
         new Functions.FailableBiPredicate<String, String, IOException>() {
 
             @Override
-            public boolean test(String object1, String object2) throws IOException {
+            public boolean test(final String object1, final String object2) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -921,7 +921,7 @@ public class FunctionsTest {
         new Functions.FailableConsumer<Object, Throwable>() {
 
             @Override
-            public void accept(Object object) throws Throwable {
+            public void accept(final Object object) throws Throwable {
                 throw new IOException("test");
 
             }
@@ -937,7 +937,7 @@ public class FunctionsTest {
         new Functions.FailableConsumer<String, IOException>() {
 
             @Override
-            public void accept(String object) throws IOException {
+            public void accept(final String object) throws IOException {
                 throw new IOException("test");
 
             }
@@ -953,7 +953,7 @@ public class FunctionsTest {
         new Functions.FailableFunction<Object, Object, Throwable>() {
 
             @Override
-            public Object apply(Object input) throws Throwable {
+            public Object apply(final Object input) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -968,7 +968,7 @@ public class FunctionsTest {
         new Functions.FailableFunction<String, String, IOException>() {
 
             @Override
-            public String apply(String input) throws IOException {
+            public String apply(final String input) throws IOException {
                 throw new IOException("test");
             }
         };
@@ -983,7 +983,7 @@ public class FunctionsTest {
         new Functions.FailablePredicate<Object, Throwable>() {
 
             @Override
-            public boolean test(Object object) throws Throwable {
+            public boolean test(final Object object) throws Throwable {
                 throw new IOException("test");
             }
         };
@@ -998,7 +998,7 @@ public class FunctionsTest {
         new Functions.FailablePredicate<String, IOException>() {
 
             @Override
-            public boolean test(String object) throws IOException {
+            public boolean test(final String object) throws IOException {
                 throw new IOException("test");
             }
         };

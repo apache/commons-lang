@@ -627,7 +627,7 @@ public abstract class ToStringStyle implements Serializable {
         if (coll != null && !coll.isEmpty()) {
             buffer.append(arrayStart);
             int i = 0;
-            for (Object item : coll) {
+            for (final Object item : coll) {
                 appendDetail(buffer, fieldName, i++, item);
             }
             buffer.append(arrayEnd);
@@ -944,7 +944,7 @@ public abstract class ToStringStyle implements Serializable {
      * @param item the array item to add
      * @since 3.11
      */
-    protected void appendDetail(final StringBuffer buffer, final String fieldName, int i, final Object item) {
+    protected void appendDetail(final StringBuffer buffer, final String fieldName, final int i, final Object item) {
         if (i > 0) {
             buffer.append(arraySeparator);
         }

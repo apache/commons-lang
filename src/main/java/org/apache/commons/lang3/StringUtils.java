@@ -6693,8 +6693,8 @@ public class StringUtils {
 
         // if recursing, this shouldn't be less than 0
         if (timeToLive < 0) {
-            Set<String> searchSet = new HashSet<>(Arrays.asList(searchList));
-            Set<String> replacementSet = new HashSet<>(Arrays.asList(replacementList));
+            final Set<String> searchSet = new HashSet<>(Arrays.asList(searchList));
+            final Set<String> replacementSet = new HashSet<>(Arrays.asList(replacementList));
             searchSet.retainAll(replacementSet);
             if (searchSet.size() > 0) {
                 throw new IllegalStateException("Aborting to protect against StackOverflowError - " +
@@ -8277,7 +8277,7 @@ public class StringUtils {
      * @return the stripped Strings, {@code null} if null array input
      */
     public static String[] stripAll(final String[] strs, final String stripChars) {
-        int strsLen = ArrayUtils.getLength(strs);
+        final int strsLen = ArrayUtils.getLength(strs);
         if (strsLen == 0) {
             return strs;
         }

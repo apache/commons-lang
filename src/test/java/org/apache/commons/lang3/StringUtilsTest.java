@@ -60,11 +60,11 @@ public class StringUtilsTest {
     static final String NON_TRIMMABLE;
 
     static {
-        StringBuilder ws = new StringBuilder();
-        StringBuilder nws = new StringBuilder();
+        final StringBuilder ws = new StringBuilder();
+        final StringBuilder nws = new StringBuilder();
         final String hs = String.valueOf(((char) 160));
-        StringBuilder tr = new StringBuilder();
-        StringBuilder ntr = new StringBuilder();
+        final StringBuilder tr = new StringBuilder();
+        final StringBuilder ntr = new StringBuilder();
         for (int i = 0; i < Character.MAX_VALUE; i++) {
             if (Character.isWhitespace((char) i)) {
                 ws.append(String.valueOf((char) i));
@@ -3310,25 +3310,25 @@ public class StringUtilsTest {
 
     @Test
     public void testGeorgianSample() {
-        char[] arrayI = new char[]{
+        final char[] arrayI = new char[]{
                 //Latin Small Letter dotless I
                 (char) 0x0131,
                 //Greek Capital Letter Theta
                 (char) 0x03F4
         };
-        char[] arrayJ = new char[]{
+        final char[] arrayJ = new char[]{
                 //Latin Capital Letter I with dot above
                 (char) 0x0130,
                 //Greek Theta Symbol
                 (char) 0x03D1
         };
-        for (char i : arrayI) {
-            for (char j : arrayJ) {
-                String si = String.valueOf(i);
-                String sj = String.valueOf(j);
-                boolean res1 = si.equalsIgnoreCase(sj);
-                CharSequence ci = new StringBuilder(si);
-                CharSequence cj = new StringBuilder(sj);
+        for (final char i : arrayI) {
+            for (final char j : arrayJ) {
+                final String si = String.valueOf(i);
+                final String sj = String.valueOf(j);
+                final boolean res1 = si.equalsIgnoreCase(sj);
+                final CharSequence ci = new StringBuilder(si);
+                final CharSequence cj = new StringBuilder(sj);
                 boolean res2 = StringUtils.startsWithIgnoreCase(ci, cj);
                 assertEquals(res1, res2, "si : " + si + " sj : " + sj);
                 res2 = StringUtils.endsWithIgnoreCase(ci, cj);
