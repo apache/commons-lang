@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.function;
 
+import java.util.Objects;
 import java.util.function.BiConsumer;
 
 /**
@@ -30,13 +31,45 @@ import java.util.function.BiConsumer;
 @FunctionalInterface
 public interface FailableBiConsumer<T, U, E extends Throwable> {
 
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    final FailableBiConsumer NOP = (t, u) -> {/* NOP */};
+
+    /**
+     * Returns The NOP singleton.
+     * 
+     * @param <T> Consumed type 1.
+     * @param <U> Consumed type 2.
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <T, U, E extends Throwable> FailableBiConsumer<T, U, E> nop() {
+        return NOP;
+    }
+
     /**
      * Accepts the consumer.
      *
-     * @param object1 the first parameter for the consumable to accept
-     * @param object2 the second parameter for the consumable to accept
+     * @param t the first parameter for the consumable to accept
+     * @param u the second parameter for the consumable to accept
      * @throws E Thrown when the consumer fails.
      */
-    void accept(T object1, U object2) throws E;
+    void accept(T t, U u) throws E;
 
+    /**
+     * Returns a composed {@code FailableBiConsumer} that performs like {@link BiConsumer#andThen(BiConsumer)}.
+     *
+     * @param after the operation to perform after this one.
+     * @return a composed {@code FailableBiConsumer} that performs like {@link BiConsumer#andThen(BiConsumer)}.
+     * @throws E Thrown when a consumer fails.
+     * @throws NullPointerException if {@code after} is null
+     */
+    default FailableBiConsumer<T, U, E> andThen(FailableBiConsumer<? super T, ? super U, E> after) throws E {
+        Objects.requireNonNull(after);
+
+        return (t, u) -> {
+            accept(t, u);
+            after.accept(t, u);
+        };
+    }
 }

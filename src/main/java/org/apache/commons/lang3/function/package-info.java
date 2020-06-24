@@ -19,7 +19,7 @@
  * for working with Java 8 lambdas.
  *
  * <p>Contains failable functional interfaces that address the fact that lambdas are supposed not to
- * throw Exceptions, at least not checked Exceptions, AKA instances of {@link java.lang.Exception}.
+ * throw Exceptions, at least not checked Exceptions, A.K.A. instances of {@link java.lang.Exception}.
  * A failable functional interface declares a type of Exception that may be raised if the function
  * fails.
  *
