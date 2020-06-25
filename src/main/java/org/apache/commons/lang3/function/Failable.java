@@ -41,16 +41,13 @@ import org.apache.commons.lang3.stream.Streams.FailableStream;
  * constructs like:
  *
  * <pre>
- * {
- *     &#64;code
- *     Consumer<java.lang.reflect.Method> consumer = (m) -> {
- *         try {
- *             m.invoke(o, args);
- *         } catch (Throwable t) {
- *             throw Failable.rethrow(t);
- *         }
- *     };
- * }
+ * Consumer&lt;java.lang.reflect.Method-&gt; consumer = (m) -&gt; {
+ *     try {
+ *         m.invoke(o, args);
+ *     } catch (Throwable t) {
+ *         throw Failable.rethrow(t);
+ *     }
+ * };
  * </pre>
  *
  * <p>
@@ -59,9 +56,7 @@ import org.apache.commons.lang3.stream.Streams.FailableStream;
  * </p>
  *
  * <pre>
- * {@code
- *   Functions.accept((m) -> m.invoke(o,args));
- * }
+ * Functions.accept((m) -&gt; m.invoke(o, args));
  * </pre>
  *
  * <p>
@@ -490,11 +485,8 @@ public class Failable {
      * {@link Throwable} is rethrown. Example use:
      *
      * <pre>
-     * {
-     *     &#64;code
-     *     final FileInputStream fis = new FileInputStream("my.file");
-     *     Functions.tryWithResources(useInputStream(fis), null, () -> fis.close());
-     * }
+     * final FileInputStream fis = new FileInputStream("my.file");
+     * Functions.tryWithResources(useInputStream(fis), null, () -&gt; fis.close());
      * </pre>
      *
      * @param action The action to execute. This object <em>will</em> always be invoked.
@@ -553,11 +545,8 @@ public class Failable {
      * {@link Throwable} is rethrown. Example use:
      *
      * <pre>
-     * {
-     *     &#64;code
-     *     final FileInputStream fis = new FileInputStream("my.file");
-     *     Functions.tryWithResources(useInputStream(fis), () -> fis.close());
-     * }
+     * final FileInputStream fis = new FileInputStream("my.file");
+     * Functions.tryWithResources(useInputStream(fis), () -&gt; fis.close());
      * </pre>
      *
      * @param action The action to execute. This object <em>will</em> always be invoked.
