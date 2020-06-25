@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.function;
 
+import java.util.Objects;
 import java.util.function.IntConsumer;
 
 /**
@@ -28,6 +29,20 @@ import java.util.function.IntConsumer;
 @FunctionalInterface
 public interface FailableIntConsumer<E extends Throwable> {
 
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    final FailableIntConsumer NOP = t -> {/* NOP */};
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableIntConsumer<E> nop() {
+        return NOP;
+    }
+
     /**
      * Accepts the consumer.
      *
@@ -35,4 +50,21 @@ public interface FailableIntConsumer<E extends Throwable> {
      * @throws E Thrown when the consumer fails.
      */
     void accept(int value) throws E;
+
+    /**
+     * Returns a composed {@code FailableIntConsumer} like {@link IntConsumer#andThen(IntConsumer)}.
+     *
+     * @param after the operation to perform after this one.
+     * @return a composed {@code FailableLongConsumer} like {@link IntConsumer#andThen(IntConsumer)}.
+     * @throws NullPointerException if {@code after} is null
+     * @throws E Thrown when a consumer fails.
+     */
+    default FailableIntConsumer<E> andThen(final FailableIntConsumer<E> after) throws E {
+        Objects.requireNonNull(after);
+        return (final int t) -> {
+            accept(t);
+            after.accept(t);
+        };
+    }
+
 }

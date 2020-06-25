@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.function;
 
+import java.util.Objects;
 import java.util.function.LongConsumer;
 
 /**
@@ -28,6 +29,20 @@ import java.util.function.LongConsumer;
 @FunctionalInterface
 public interface FailableLongConsumer<E extends Throwable> {
 
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    final FailableLongConsumer NOP = t -> {/* NOP */};
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableLongConsumer<E> nop() {
+        return NOP;
+    }
+
     /**
      * Accepts the consumer.
      *
@@ -35,4 +50,20 @@ public interface FailableLongConsumer<E extends Throwable> {
      * @throws E Thrown when the consumer fails.
      */
     void accept(long object) throws E;
+
+    /**
+     * Returns a composed {@code FailableLongConsumer} like {@link LongConsumer#andThen(LongConsumer)}.
+     *
+     * @param after the operation to perform after this one.
+     * @return a composed {@code FailableLongConsumer} like {@link LongConsumer#andThen(LongConsumer)}.
+     * @throws NullPointerException if {@code after} is null
+     * @throws E Thrown when a consumer fails.
+     */
+    default FailableLongConsumer<E> andThen(final FailableLongConsumer<E> after) throws E {
+        Objects.requireNonNull(after);
+        return (final long t) -> {
+            accept(t);
+            after.accept(t);
+        };
+    }
 }

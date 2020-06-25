@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.function;
 
+import java.util.Objects;
 import java.util.function.Function;
 
 /**
@@ -47,6 +48,20 @@ public interface FailableFunction<T, R, E extends Throwable> {
     }
 
     /**
+     * Returns a composed {@code FailableFunction} like {@link Function#andThen(Function)}.
+     *
+     * @param <V> the output type of the {@code after} function, and of the composed function.
+     * @return a composed {@code FailableFunction} like {@link Function#andThen(Function)}.
+     * @param after the operation to perform after this one.
+     * @throws NullPointerException when {@code after} is null.
+     * @throws E Thrown when a consumer fails.
+     */
+    default <V> FailableFunction<T, V, E> andThen(final FailableFunction<? super R, ? extends V, E> after) throws E {
+        Objects.requireNonNull(after);
+        return (final T t) -> after.apply(apply(t));
+    }
+
+    /**
      * Applies this function.
      *
      * @param input the input for the function
@@ -54,4 +69,5 @@ public interface FailableFunction<T, R, E extends Throwable> {
      * @throws E Thrown when the function fails.
      */
     R apply(T input) throws E;
+
 }

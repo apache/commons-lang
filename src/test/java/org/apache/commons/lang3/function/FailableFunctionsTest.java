@@ -66,6 +66,7 @@ public class FailableFunctionsTest {
             }
         }
     }
+
     public static class FailureOnOddInvocations {
         private static int invocations;
 
@@ -629,18 +630,19 @@ public class FailableFunctionsTest {
     @Test
     public void testBiConsumerAndThen() throws Throwable {
         final Testable<?, ?> testable = new Testable<>(null);
-        final FailableBiConsumer<Testable<?, ?>, Throwable, Throwable> failableBiConsumer = (t, th) -> {
+        final FailableBiConsumer<Testable<?, ?>, Throwable, Throwable> failing = (t, th) -> {
             t.setThrowable(th);
             t.test();
         };
         final FailableBiConsumer<Testable<?, ?>, Throwable, Throwable> nop = FailableBiConsumer.nop();
-        final Throwable e = assertThrows(OutOfMemoryError.class,
-            () -> nop.andThen(failableBiConsumer).accept(testable, ERROR));
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.andThen(failing).accept(testable, ERROR));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.andThen(nop).accept(testable, ERROR));
         assertSame(ERROR, e);
         // Does not throw
         nop.andThen(nop);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> failableBiConsumer.andThen(null));
+        assertThrows(NullPointerException.class, () -> failing.andThen(null));
     }
 
     @Test
@@ -680,7 +682,8 @@ public class FailableFunctionsTest {
             throw new IOException();
         };
         final FailableFunction<Object, Integer, IOException> failingFunction = (t) -> { throw new IOException(); };
-        final FailableBiFunction<Object, Integer, Integer, IOException> nopFailableBiFunction = FailableBiFunction.nop();
+        final FailableBiFunction<Object, Integer, Integer, IOException> nopFailableBiFunction = FailableBiFunction
+            .nop();
         final FailableFunction<Object, Integer, IOException> nopFailableFunction = FailableFunction.nop();
         //
         assertThrows(IOException.class, () -> failingBiFunctionTest.andThen(failingFunction).apply(null, null));
@@ -737,13 +740,30 @@ public class FailableFunctionsTest {
             testable.test();
         };
         final FailableConsumer<Throwable, Throwable> nop = FailableConsumer.nop();
-        final Throwable e = assertThrows(OutOfMemoryError.class,
-            () -> nop.andThen(failableConsumer).accept(ERROR));
+        final Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.andThen(failableConsumer).accept(ERROR));
         assertSame(ERROR, e);
         // Does not throw
         nop.andThen(nop);
         // Documented in Javadoc edge-case.
         assertThrows(NullPointerException.class, () -> failableConsumer.andThen(null));
+    }
+
+    @Test
+    public void testDoubleConsumerAndThen() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableDoubleConsumer<Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+        };
+        final FailableDoubleConsumer<Throwable> nop = FailableDoubleConsumer.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.andThen(failing).accept(0d));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.andThen(nop).accept(0d));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.andThen(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.andThen(null));
     }
 
     @Test
@@ -777,6 +797,24 @@ public class FailableFunctionsTest {
         assertSame(ioe, t);
 
         assertEquals(0, function.apply(null).intValue());
+    }
+
+    @Test
+    public void testFunctionAndThen() throws IOException {
+        // Unchecked usage pattern in JRE
+        final Function<Object, Integer> nopFunction = (t) -> null;
+        nopFunction.andThen(nopFunction);
+        // Checked usage pattern
+        final FailableFunction<Object, Integer, IOException> failingFunction = (t) -> { throw new IOException(); };
+        final FailableFunction<Object, Integer, IOException> nopFailableFunction = FailableFunction.nop();
+        //
+        assertThrows(IOException.class, () -> failingFunction.andThen(failingFunction).apply(null));
+        assertThrows(IOException.class, () -> failingFunction.andThen(nopFailableFunction).apply(null));
+        //
+        assertThrows(IOException.class, () -> nopFailableFunction.andThen(failingFunction).apply(null));
+        nopFailableFunction.andThen(nopFailableFunction).apply(null);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failingFunction.andThen(null));
     }
 
     @Test
@@ -905,11 +943,47 @@ public class FailableFunctionsTest {
     }
 
     @Test
+    public void testIntConsumerAndThen() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableIntConsumer<Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+        };
+        final FailableIntConsumer<Throwable> nop = FailableIntConsumer.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.andThen(failing).accept(0));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.andThen(nop).accept(0));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.andThen(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.andThen(null));
+    }
+
+    @Test
     public void testIntPredicate() throws Throwable {
         FailureOnOddInvocations.invocations = 0;
         final FailableIntPredicate<Throwable> failablePredicate = t1 -> FailureOnOddInvocations.testInt(t1);
         assertThrows(SomeException.class, () -> failablePredicate.test(1));
         failablePredicate.test(1);
+    }
+
+    @Test
+    public void testLongConsumerAndThen() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableLongConsumer<Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+        };
+        final FailableLongConsumer<Throwable> nop = FailableLongConsumer.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.andThen(failing).accept(0L));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.andThen(nop).accept(0L));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.andThen(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.andThen(null));
     }
 
     @Test

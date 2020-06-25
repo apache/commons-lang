@@ -28,6 +28,20 @@ import java.util.function.IntToLongFunction;
 @FunctionalInterface
 public interface FailableIntToLongFunction<E extends Throwable> {
 
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    final FailableIntToLongFunction NOP = t -> 0L;
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableIntToLongFunction<E> nop() {
+        return NOP;
+    }
+
     /**
      * Applies this function to the given argument.
      *

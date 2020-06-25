@@ -29,11 +29,25 @@ import java.util.function.ObjDoubleConsumer;
 @FunctionalInterface
 public interface FailableObjDoubleConsumer<T, E extends Throwable> {
 
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    final FailableObjDoubleConsumer NOP = (t, u) -> {/* NOP */};
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <T, E extends Throwable> FailableObjDoubleConsumer<T, E> nop() {
+        return NOP;
+    }
+
     /**
      * Accepts the consumer.
      *
      * @param object the object parameter for the consumable to accept.
-     * @param value  the double parameter for the consumable to accept.
+     * @param value the double parameter for the consumable to accept.
      * @throws E Thrown when the consumer fails.
      */
     void accept(T object, double value) throws E;

@@ -29,6 +29,21 @@ import java.util.function.IntFunction;
 @FunctionalInterface
 public interface FailableIntFunction<R, E extends Throwable> {
 
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    final FailableIntFunction NOP = t -> null;
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <R> Return type.
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <R, E extends Throwable> FailableIntFunction<R, E> nop() {
+        return NOP;
+    }
+
     /**
      * Applies this function.
      *

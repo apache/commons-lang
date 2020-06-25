@@ -29,6 +29,21 @@ import java.util.function.ToLongFunction;
 @FunctionalInterface
 public interface FailableToLongFunction<T, E extends Throwable> {
 
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    final FailableToLongFunction NOP = t -> 0L;
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <T> the type of the argument to the function
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <T, E extends Throwable> FailableToLongFunction<T, E> nop() {
+        return NOP;
+    }
+
     /**
      * Applies this function to the given arguments.
      *

@@ -29,6 +29,20 @@ import java.util.function.ObjLongConsumer;
 @FunctionalInterface
 public interface FailableObjLongConsumer<T, E extends Throwable> {
 
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    final FailableObjLongConsumer NOP = (t, u) -> {/* NOP */};
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <T, E extends Throwable> FailableObjLongConsumer<T, E> nop() {
+        return NOP;
+    }
+
     /**
      * Accepts the consumer.
      *

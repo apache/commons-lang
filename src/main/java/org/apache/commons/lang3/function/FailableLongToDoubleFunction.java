@@ -28,6 +28,20 @@ import java.util.function.LongToDoubleFunction;
 @FunctionalInterface
 public interface FailableLongToDoubleFunction<E extends Throwable> {
 
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    final FailableLongToDoubleFunction NOP = t -> 0d;
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableLongToDoubleFunction<E> nop() {
+        return NOP;
+    }
+
     /**
      * Applies this function to the given argument.
      *
