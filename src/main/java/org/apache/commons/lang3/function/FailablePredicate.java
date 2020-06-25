@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.function;
 
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -57,6 +58,18 @@ public interface FailablePredicate<T, E extends Throwable> {
      */
     static <T, E extends Throwable> FailablePredicate<T, E> truePredicate() {
         return TRUE;
+    }
+
+    /**
+     * Returns a composed {@code FailablePredicate} like {@link Predicate#and(Predicate)}.
+     *
+     * @param other a predicate that will be logically-ANDed with this predicate.
+     * @return a composed {@code FailablePredicate} like {@link Predicate#and(Predicate)}.
+     * @throws NullPointerException if other is null
+     */
+    default FailablePredicate<T, E> and(final FailablePredicate<? super T, E> other) {
+        Objects.requireNonNull(other);
+        return t -> test(t) && other.test(t);
     }
 
     /**

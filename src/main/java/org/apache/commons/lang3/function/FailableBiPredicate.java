@@ -70,9 +70,9 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
      * @return a composed {@code FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
      * @throws NullPointerException if other is null
      */
-    default FailableBiPredicate<T, U, E> and(FailableBiPredicate<? super T, ? super U, E> other) {
+    default FailableBiPredicate<T, U, E> and(final FailableBiPredicate<? super T, ? super U, E> other) {
         Objects.requireNonNull(other);
-        return (T t, U u) -> test(t, u) && other.test(t, u);
+        return (final T t, final U u) -> test(t, u) && other.test(t, u);
     }
 
     /**

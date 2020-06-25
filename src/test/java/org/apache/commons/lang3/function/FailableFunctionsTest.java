@@ -712,6 +712,18 @@ public class FailableFunctionsTest {
         assertTrue(predicate.test(null, null));
     }
 
+    @Test
+    public void testBiPredicateAnd() throws Throwable {
+        assertTrue(FailableBiPredicate.TRUE.and(FailableBiPredicate.TRUE).test(null, null));
+        assertFalse(FailableBiPredicate.TRUE.and(FailableBiPredicate.FALSE).test(null, null));
+        assertFalse(FailableBiPredicate.FALSE.and(FailableBiPredicate.TRUE).test(null, null));
+        assertFalse(FailableBiPredicate.FALSE.and(FailableBiPredicate.FALSE).test(null, null));
+        // null tests
+        assertThrows(NullPointerException.class, () -> assertFalse(FailableBiPredicate.FALSE.and(null).test(null, null)));
+        assertThrows(NullPointerException.class, () -> assertTrue(FailableBiPredicate.TRUE.and(null).test(null, null)));
+    }
+
+    @Test
     public void testBiPredicateNegate() throws Throwable {
         assertFalse(FailableBiPredicate.TRUE.negate().test(null, null));
         assertFalse(FailableBiPredicate.truePredicate().negate().test(null, null));
@@ -774,6 +786,18 @@ public class FailableFunctionsTest {
         failablePredicate.test(1d);
     }
 
+    @Test
+    public void testDoublePredicateAnd() throws Throwable {
+        assertTrue(FailableDoublePredicate.TRUE.and(FailableDoublePredicate.TRUE).test(0));
+        assertFalse(FailableDoublePredicate.TRUE.and(FailableDoublePredicate.FALSE).test(0));
+        assertFalse(FailableDoublePredicate.FALSE.and(FailableDoublePredicate.TRUE).test(0));
+        assertFalse(FailableDoublePredicate.FALSE.and(FailableDoublePredicate.FALSE).test(0));
+        // null tests
+        assertThrows(NullPointerException.class, () -> assertFalse(FailableDoublePredicate.FALSE.and(null).test(0)));
+        assertThrows(NullPointerException.class, () -> assertTrue(FailableDoublePredicate.TRUE.and(null).test(0)));
+    }
+
+    @Test
     public void testDoublePredicateNegate() throws Throwable {
         assertFalse(FailableDoublePredicate.TRUE.negate().test(0d));
         assertFalse(FailableDoublePredicate.truePredicate().negate().test(0d));
@@ -1052,6 +1076,18 @@ public class FailableFunctionsTest {
         failablePredicate.test(1);
     }
 
+    @Test
+    public void testIntPredicateAnd() throws Throwable {
+        assertTrue(FailableIntPredicate.TRUE.and(FailableIntPredicate.TRUE).test(0));
+        assertFalse(FailableIntPredicate.TRUE.and(FailableIntPredicate.FALSE).test(0));
+        assertFalse(FailableIntPredicate.FALSE.and(FailableIntPredicate.TRUE).test(0));
+        assertFalse(FailableIntPredicate.FALSE.and(FailableIntPredicate.FALSE).test(0));
+        // null tests
+        assertThrows(NullPointerException.class, () -> assertFalse(FailableIntPredicate.FALSE.and(null).test(0)));
+        assertThrows(NullPointerException.class, () -> assertTrue(FailableIntPredicate.TRUE.and(null).test(0)));
+    }
+
+    @Test
     public void testIntPredicateNegate() throws Throwable {
         assertFalse(FailableIntPredicate.TRUE.negate().test(0));
         assertFalse(FailableIntPredicate.truePredicate().negate().test(0));
@@ -1132,6 +1168,18 @@ public class FailableFunctionsTest {
         failablePredicate.test(1L);
     }
 
+    @Test
+    public void testLongPredicateAnd() throws Throwable {
+        assertTrue(FailableLongPredicate.TRUE.and(FailableLongPredicate.TRUE).test(0));
+        assertFalse(FailableLongPredicate.TRUE.and(FailableLongPredicate.FALSE).test(0));
+        assertFalse(FailableLongPredicate.FALSE.and(FailableLongPredicate.TRUE).test(0));
+        assertFalse(FailableLongPredicate.FALSE.and(FailableLongPredicate.FALSE).test(0));
+        // null tests
+        assertThrows(NullPointerException.class, () -> assertFalse(FailableLongPredicate.FALSE.and(null).test(0)));
+        assertThrows(NullPointerException.class, () -> assertTrue(FailableLongPredicate.TRUE.and(null).test(0)));
+    }
+
+    @Test
     public void testLongPredicateNegate() throws Throwable {
         assertFalse(FailableLongPredicate.TRUE.negate().test(0L));
         assertFalse(FailableLongPredicate.truePredicate().negate().test(0L));
@@ -1202,6 +1250,18 @@ public class FailableFunctionsTest {
         assertNotNull(instance);
     }
 
+    @Test
+    public void testPredicateAnd() throws Throwable {
+        assertTrue(FailablePredicate.TRUE.and(FailablePredicate.TRUE).test(null));
+        assertFalse(FailablePredicate.TRUE.and(FailablePredicate.FALSE).test(null));
+        assertFalse(FailablePredicate.FALSE.and(FailablePredicate.TRUE).test(null));
+        assertFalse(FailablePredicate.FALSE.and(FailablePredicate.FALSE).test(null));
+        // null tests
+        assertThrows(NullPointerException.class, () -> assertFalse(FailablePredicate.FALSE.and(null).test(null)));
+        assertThrows(NullPointerException.class, () -> assertTrue(FailablePredicate.TRUE.and(null).test(null)));
+    }
+
+    @Test
     public void testPredicateNegate() throws Throwable {
         assertFalse(FailablePredicate.TRUE.negate().test(null));
         assertFalse(FailablePredicate.truePredicate().negate().test(null));

@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.function;
 
+import java.util.Objects;
 import java.util.function.IntPredicate;
 
 /**
@@ -54,6 +55,18 @@ public interface FailableIntPredicate<E extends Throwable> {
      */
     static <E extends Throwable> FailableIntPredicate<E> truePredicate() {
         return TRUE;
+    }
+
+    /**
+     * Returns a composed {@code FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}.
+     *
+     * @param other a predicate that will be logically-ANDed with this predicate.
+     * @return a composed {@code FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}.
+     * @throws NullPointerException if other is null
+     */
+    default FailableIntPredicate<E> and(final FailableIntPredicate<E> other) {
+        Objects.requireNonNull(other);
+        return t -> test(t) && other.test(t);
     }
 
     /**

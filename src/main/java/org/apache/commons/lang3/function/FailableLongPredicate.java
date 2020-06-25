@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.function;
 
+import java.util.Objects;
 import java.util.function.LongPredicate;
 
 /**
@@ -54,6 +55,18 @@ public interface FailableLongPredicate<E extends Throwable> {
      */
     static <E extends Throwable> FailableLongPredicate<E> truePredicate() {
         return TRUE;
+    }
+
+    /**
+     * Returns a composed {@code FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
+     *
+     * @param other a predicate that will be logically-ANDed with this predicate.
+     * @return a composed {@code FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
+     * @throws NullPointerException if other is null
+     */
+    default FailableLongPredicate<E> and(final FailableLongPredicate<E> other) {
+        Objects.requireNonNull(other);
+        return t -> test(t) && other.test(t);
     }
 
     /**
