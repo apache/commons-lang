@@ -36,6 +36,7 @@ public interface FailableObjLongConsumer<T, E extends Throwable> {
     /**
      * Returns The NOP singleton.
      *
+     * @param <T> the type of the object argument to the operation.
      * @param <E> Thrown exception.
      * @return The NOP singleton.
      */

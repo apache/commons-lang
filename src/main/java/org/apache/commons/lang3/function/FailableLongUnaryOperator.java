@@ -35,6 +35,7 @@ public interface FailableLongUnaryOperator<E extends Throwable> {
     /**
      * Returns a unary operator that always returns its input argument.
      *
+     * @param <E> Thrown exception.
      * @return a unary operator that always returns its input argument
      */
     static <E extends Throwable> FailableLongUnaryOperator<E> identity() {
