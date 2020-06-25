@@ -82,6 +82,18 @@ public interface FailablePredicate<T, E extends Throwable> {
     }
 
     /**
+     * Returns a composed {@code FailablePredicate} like {@link Predicate#and(Predicate)}.
+     *
+     * @param other a predicate that will be logically-ORed with this predicate.
+     * @return a composed {@code FailablePredicate} like {@link Predicate#and(Predicate)}.
+     * @throws NullPointerException if other is null
+     */
+    default FailablePredicate<T, E> or(final FailablePredicate<? super T, E> other) {
+        Objects.requireNonNull(other);
+        return t -> test(t) || other.test(t);
+    }
+
+    /**
      * Tests the predicate.
      *
      * @param object the object to test the predicate on

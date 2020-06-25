@@ -85,6 +85,18 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
     }
 
     /**
+     * Returns a composed {@code FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
+     *
+     * @param other a predicate that will be logically-ORed with this predicate.
+     * @return a composed {@code FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
+     * @throws NullPointerException if other is null
+     */
+    default FailableBiPredicate<T, U, E> or(final FailableBiPredicate<? super T, ? super U, E> other) {
+        Objects.requireNonNull(other);
+        return (final T t, final U u) -> test(t, u) || other.test(t, u);
+    }
+
+    /**
      * Tests the predicate.
      *
      * @param object1 the first object to test the predicate on

@@ -79,6 +79,18 @@ public interface FailableIntPredicate<E extends Throwable> {
     }
 
     /**
+     * Returns a composed {@code FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}.
+     *
+     * @param other a predicate that will be logically-ORed with this predicate.
+     * @return a composed {@code FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}.
+     * @throws NullPointerException if other is null
+     */
+    default FailableIntPredicate<E> or(final FailableIntPredicate<E> other) {
+        Objects.requireNonNull(other);
+        return t -> test(t) || other.test(t);
+    }
+
+    /**
      * Tests the predicate.
      *
      * @param value the parameter for the predicate to accept.
