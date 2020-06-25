@@ -680,7 +680,9 @@ public class FailableFunctionsTest {
         final FailableBiFunction<Object, Integer, Integer, IOException> failingBiFunctionTest = (t, u) -> {
             throw new IOException();
         };
-        final FailableFunction<Object, Integer, IOException> failingFunction = t -> { throw new IOException(); };
+        final FailableFunction<Object, Integer, IOException> failingFunction = t -> {
+            throw new IOException();
+        };
         final FailableBiFunction<Object, Integer, Integer, IOException> nopFailableBiFunction = FailableBiFunction
             .nop();
         final FailableFunction<Object, Integer, IOException> nopFailableFunction = FailableFunction.nop();
@@ -843,7 +845,9 @@ public class FailableFunctionsTest {
         final Function<Object, Integer> nopFunction = t -> null;
         nopFunction.andThen(nopFunction);
         // Checked usage pattern
-        final FailableFunction<Object, Integer, IOException> failingFunction = t -> { throw new IOException(); };
+        final FailableFunction<Object, Integer, IOException> failingFunction = t -> {
+            throw new IOException();
+        };
         final FailableFunction<Object, Integer, IOException> nopFailableFunction = FailableFunction.nop();
         //
         assertThrows(IOException.class, () -> failingFunction.andThen(failingFunction).apply(null));
