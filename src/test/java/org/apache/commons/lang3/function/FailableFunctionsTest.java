@@ -36,7 +36,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import org.apache.commons.lang3.Functions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -708,8 +707,7 @@ public class FailableFunctionsTest {
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
         assertEquals("Odd Invocation: 1", cause.getMessage());
-        final boolean instance = predicate.test(null, null);
-        assertNotNull(instance);
+        assertTrue(predicate.test(null, null));
     }
 
     @Test
@@ -723,13 +721,6 @@ public class FailableFunctionsTest {
         assertEquals("Odd Invocation: 1", cause.getMessage());
         final FailureOnOddInvocations instance = Failable.call(FailureOnOddInvocations::new);
         assertNotNull(instance);
-    }
-
-    @Test
-    public void testConstructor() {
-        // We allow this, which must have been an omission to make the ctor private.
-        // We could make the ctor private in 4.0.
-        new Functions();
     }
 
     @Test
@@ -775,11 +766,58 @@ public class FailableFunctionsTest {
     }
 
     @Test
+    public void testDoubleUnaryOperatorAndThen() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableDoubleUnaryOperator<Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+            return 0d;
+        };
+        final FailableDoubleUnaryOperator<Throwable> nop = FailableDoubleUnaryOperator.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.andThen(failing).applyAsDouble(0d));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.andThen(nop).applyAsDouble(0d));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.andThen(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.andThen(null));
+    }
+
+    @Test
+    public void testDoubleUnaryOperatorCompose() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableDoubleUnaryOperator<Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+            return 0d;
+        };
+        final FailableDoubleUnaryOperator<Throwable> nop = FailableDoubleUnaryOperator.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.compose(failing).applyAsDouble(0d));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.compose(nop).applyAsDouble(0d));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.compose(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.compose(null));
+    }
+
+    @Test
+    public void testDoubleUnaryOperatorIdentity() throws Throwable {
+        final FailableDoubleUnaryOperator<Throwable> nop = FailableDoubleUnaryOperator.identity();
+        // Does not throw
+        nop.compose(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> nop.compose(null));
+    }
+
+    @Test
     public void testFunction() {
         final Testable<?, ?> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         final FailableFunction<Throwable, Integer, Throwable> failableFunction = th -> {
             testable.setThrowable(th);
-            return Integer.valueOf(testable.testAsInteger());
+            return testable.testAsInteger();
         };
         final Function<Throwable, Integer> function = Failable.asFunction(failableFunction);
         Throwable e = assertThrows(IllegalStateException.class, () -> function.apply(ILLEGAL_STATE_EXCEPTION));
@@ -969,6 +1007,53 @@ public class FailableFunctionsTest {
     }
 
     @Test
+    public void testIntUnaryOperatorAndThen() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableIntUnaryOperator<Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+            return 0;
+        };
+        final FailableIntUnaryOperator<Throwable> nop = FailableIntUnaryOperator.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.andThen(failing).applyAsInt(0));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.andThen(nop).applyAsInt(0));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.andThen(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.andThen(null));
+    }
+
+    @Test
+    public void testIntUnaryOperatorCompose() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableIntUnaryOperator<Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+            return 0;
+        };
+        final FailableIntUnaryOperator<Throwable> nop = FailableIntUnaryOperator.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.compose(failing).applyAsInt(0));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.compose(nop).applyAsInt(0));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.compose(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.compose(null));
+    }
+
+    @Test
+    public void testIntUnaryOperatorIdentity() throws Throwable {
+        final FailableIntUnaryOperator<Throwable> nop = FailableIntUnaryOperator.identity();
+        // Does not throw
+        nop.compose(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> nop.compose(null));
+    }
+
+    @Test
     public void testLongConsumerAndThen() throws Throwable {
         final Testable<?, ?> testable = new Testable<>(null);
         final FailableLongConsumer<Throwable> failing = t -> {
@@ -992,6 +1077,53 @@ public class FailableFunctionsTest {
         final FailableLongPredicate<Throwable> failablePredicate = FailureOnOddInvocations::testLong;
         assertThrows(SomeException.class, () -> failablePredicate.test(1L));
         failablePredicate.test(1L);
+    }
+
+    @Test
+    public void testLongUnaryOperatorAndThen() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableLongUnaryOperator<Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+            return 0L;
+        };
+        final FailableLongUnaryOperator<Throwable> nop = FailableLongUnaryOperator.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.andThen(failing).applyAsLong(0L));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.andThen(nop).applyAsLong(0L));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.andThen(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.andThen(null));
+    }
+
+    @Test
+    public void testLongUnaryOperatorCompose() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableLongUnaryOperator<Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+            return 0L;
+        };
+        final FailableLongUnaryOperator<Throwable> nop = FailableLongUnaryOperator.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.compose(failing).applyAsLong(0L));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.compose(nop).applyAsLong(0L));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.compose(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.compose(null));
+    }
+
+    @Test
+    public void testLongUnaryOperatorIdentity() throws Throwable {
+        final FailableLongUnaryOperator<Throwable> nop = FailableLongUnaryOperator.identity();
+        // Does not throw
+        nop.compose(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> nop.compose(null));
     }
 
     @Test
