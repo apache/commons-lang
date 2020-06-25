@@ -712,6 +712,13 @@ public class FailableFunctionsTest {
         assertTrue(predicate.test(null, null));
     }
 
+    public void testBiPredicateNegate() throws Throwable {
+        assertFalse(FailableBiPredicate.TRUE.negate().test(null, null));
+        assertFalse(FailableBiPredicate.truePredicate().negate().test(null, null));
+        assertTrue(FailableBiPredicate.FALSE.negate().test(null, null));
+        assertTrue(FailableBiPredicate.falsePredicate().negate().test(null, null));
+    }
+
     @Test
     public void testCallable() {
         FailureOnOddInvocations.invocations = 0;
@@ -765,6 +772,13 @@ public class FailableFunctionsTest {
         final FailableDoublePredicate<Throwable> failablePredicate = FailureOnOddInvocations::testDouble;
         assertThrows(SomeException.class, () -> failablePredicate.test(1d));
         failablePredicate.test(1d);
+    }
+
+    public void testDoublePredicateNegate() throws Throwable {
+        assertFalse(FailableDoublePredicate.TRUE.negate().test(0d));
+        assertFalse(FailableDoublePredicate.truePredicate().negate().test(0d));
+        assertTrue(FailableDoublePredicate.FALSE.negate().test(0d));
+        assertTrue(FailableDoublePredicate.falsePredicate().negate().test(0d));
     }
 
     @Test
@@ -1038,6 +1052,13 @@ public class FailableFunctionsTest {
         failablePredicate.test(1);
     }
 
+    public void testIntPredicateNegate() throws Throwable {
+        assertFalse(FailableIntPredicate.TRUE.negate().test(0));
+        assertFalse(FailableIntPredicate.truePredicate().negate().test(0));
+        assertTrue(FailableIntPredicate.FALSE.negate().test(0));
+        assertTrue(FailableIntPredicate.falsePredicate().negate().test(0));
+    }
+
     @Test
     public void testIntUnaryOperatorAndThen() throws Throwable {
         final Testable<?, ?> testable = new Testable<>(null);
@@ -1111,6 +1132,13 @@ public class FailableFunctionsTest {
         failablePredicate.test(1L);
     }
 
+    public void testLongPredicateNegate() throws Throwable {
+        assertFalse(FailableLongPredicate.TRUE.negate().test(0L));
+        assertFalse(FailableLongPredicate.truePredicate().negate().test(0L));
+        assertTrue(FailableLongPredicate.FALSE.negate().test(0L));
+        assertTrue(FailableLongPredicate.falsePredicate().negate().test(0L));
+    }
+
     @Test
     public void testLongUnaryOperatorAndThen() throws Throwable {
         final Testable<?, ?> testable = new Testable<>(null);
@@ -1172,6 +1200,13 @@ public class FailableFunctionsTest {
         assertEquals("Odd Invocation: 1", cause.getMessage());
         final boolean instance = predicate.test(null);
         assertNotNull(instance);
+    }
+
+    public void testPredicateNegate() throws Throwable {
+        assertFalse(FailablePredicate.TRUE.negate().test(null));
+        assertFalse(FailablePredicate.truePredicate().negate().test(null));
+        assertTrue(FailablePredicate.FALSE.negate().test(null));
+        assertTrue(FailablePredicate.falsePredicate().negate().test(null));
     }
 
     @Test

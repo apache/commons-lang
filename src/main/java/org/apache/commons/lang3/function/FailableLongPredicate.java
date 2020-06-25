@@ -28,6 +28,44 @@ import java.util.function.LongPredicate;
 @FunctionalInterface
 public interface FailableLongPredicate<E extends Throwable> {
 
+    /** FALSE singleton */
+    @SuppressWarnings("rawtypes")
+    FailableLongPredicate FALSE = t -> false;
+
+    /** TRUE singleton */
+    @SuppressWarnings("rawtypes")
+    FailableLongPredicate TRUE = t -> true;
+
+    /**
+     * Returns The FALSE singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableLongPredicate<E> falsePredicate() {
+        return FALSE;
+    }
+
+    /**
+     * Returns The FALSE TRUE.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableLongPredicate<E> truePredicate() {
+        return TRUE;
+    }
+
+    /**
+     * Returns a predicate that negates this predicate.
+     *
+     * @return a predicate that negates this predicate.
+     * @throws E Thrown when this predicate fails.
+     */
+    default FailableLongPredicate<E> negate() throws E {
+        return t -> !test(t);
+    }
+
     /**
      * Tests the predicate.
      *

@@ -63,9 +63,9 @@ public interface FailableDoubleUnaryOperator<E extends Throwable> {
      * @throws E Thrown when a consumer fails.
      * @see #compose(FailableDoubleUnaryOperator)
      */
-    default FailableDoubleUnaryOperator<E> andThen(FailableDoubleUnaryOperator<E> after) throws E {
+    default FailableDoubleUnaryOperator<E> andThen(final FailableDoubleUnaryOperator<E> after) throws E {
         Objects.requireNonNull(after);
-        return (double t) -> after.applyAsDouble(applyAsDouble(t));
+        return (final double t) -> after.applyAsDouble(applyAsDouble(t));
     }
 
     /**
@@ -88,8 +88,8 @@ public interface FailableDoubleUnaryOperator<E extends Throwable> {
      * @throws E Thrown when a consumer fails.
      * @see #andThen(FailableDoubleUnaryOperator)
      */
-    default FailableDoubleUnaryOperator<E> compose(FailableDoubleUnaryOperator<E> before) throws E {
+    default FailableDoubleUnaryOperator<E> compose(final FailableDoubleUnaryOperator<E> before) throws E {
         Objects.requireNonNull(before);
-        return (double v) -> applyAsDouble(before.applyAsDouble(v));
+        return (final double v) -> applyAsDouble(before.applyAsDouble(v));
     }
 }

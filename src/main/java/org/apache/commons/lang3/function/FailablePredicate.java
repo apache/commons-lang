@@ -22,12 +22,52 @@ import java.util.function.Predicate;
 /**
  * A functional interface like {@link Predicate} that declares a {@code Throwable}.
  *
- * @param <T> Predicate type 1.
+ * @param <T> Predicate type.
  * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
 public interface FailablePredicate<T, E extends Throwable> {
+
+    /** FALSE singleton */
+    @SuppressWarnings("rawtypes")
+    FailablePredicate FALSE = t -> false;
+
+    /** TRUE singleton */
+    @SuppressWarnings("rawtypes")
+    FailablePredicate TRUE = t -> true;
+
+    /**
+     * Returns The FALSE singleton.
+     *
+     * @param <T> Predicate type.
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <T, E extends Throwable> FailablePredicate<T, E> falsePredicate() {
+        return FALSE;
+    }
+
+    /**
+     * Returns The FALSE TRUE.
+     *
+     * @param <T> Predicate type.
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <T, E extends Throwable> FailablePredicate<T, E> truePredicate() {
+        return TRUE;
+    }
+
+    /**
+     * Returns a predicate that negates this predicate.
+     *
+     * @return a predicate that negates this predicate.
+     * @throws E Thrown when this predicate fails.
+     */
+    default FailablePredicate<T, E> negate() throws E {
+        return t -> !test(t);
+    }
 
     /**
      * Tests the predicate.

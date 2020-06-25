@@ -48,7 +48,7 @@ public interface FailableObjLongConsumer<T, E extends Throwable> {
      * Accepts the consumer.
      *
      * @param object the object parameter for the consumable to accept.
-     * @param value  the long parameter for the consumable to accept.
+     * @param value the long parameter for the consumable to accept.
      * @throws E Thrown when the consumer fails.
      */
     void accept(T object, long value) throws E;

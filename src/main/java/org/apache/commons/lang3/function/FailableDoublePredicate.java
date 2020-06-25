@@ -28,6 +28,44 @@ import java.util.function.DoublePredicate;
 @FunctionalInterface
 public interface FailableDoublePredicate<E extends Throwable> {
 
+    /** FALSE singleton */
+    @SuppressWarnings("rawtypes")
+    FailableDoublePredicate FALSE = t -> false;
+
+    /** TRUE singleton */
+    @SuppressWarnings("rawtypes")
+    FailableDoublePredicate TRUE = t -> true;
+
+    /**
+     * Returns The FALSE singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableDoublePredicate<E> falsePredicate() {
+        return FALSE;
+    }
+
+    /**
+     * Returns The FALSE TRUE.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableDoublePredicate<E> truePredicate() {
+        return TRUE;
+    }
+
+    /**
+     * Returns a predicate that negates this predicate.
+     *
+     * @return a predicate that negates this predicate.
+     * @throws E Thrown when this predicate fails.
+     */
+    default FailableDoublePredicate<E> negate() throws E {
+        return t -> !test(t);
+    }
+
     /**
      * Tests the predicate.
      *

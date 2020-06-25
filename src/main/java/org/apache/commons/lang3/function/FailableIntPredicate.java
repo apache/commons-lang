@@ -28,6 +28,44 @@ import java.util.function.IntPredicate;
 @FunctionalInterface
 public interface FailableIntPredicate<E extends Throwable> {
 
+    /** FALSE singleton */
+    @SuppressWarnings("rawtypes")
+    FailableIntPredicate FALSE = t -> false;
+
+    /** TRUE singleton */
+    @SuppressWarnings("rawtypes")
+    FailableIntPredicate TRUE = t -> true;
+
+    /**
+     * Returns The FALSE singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableIntPredicate<E> falsePredicate() {
+        return FALSE;
+    }
+
+    /**
+     * Returns The FALSE TRUE.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableIntPredicate<E> truePredicate() {
+        return TRUE;
+    }
+
+    /**
+     * Returns a predicate that negates this predicate.
+     *
+     * @return a predicate that negates this predicate.
+     * @throws E Thrown when this predicate fails.
+     */
+    default FailableIntPredicate<E> negate() throws E {
+        return t -> !test(t);
+    }
+
     /**
      * Tests the predicate.
      *

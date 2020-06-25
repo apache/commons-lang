@@ -41,7 +41,8 @@ import org.apache.commons.lang3.stream.Streams.FailableStream;
  * constructs like:
  *
  * <pre>
- * {@code
+ * {
+ *     &#64;code
  *     Consumer<java.lang.reflect.Method> consumer = (m) -> {
  *         try {
  *             m.invoke(o, args);
@@ -49,7 +50,8 @@ import org.apache.commons.lang3.stream.Streams.FailableStream;
  *             throw Failable.rethrow(t);
  *         }
  *     };
- * }</pre>
+ * }
+ * </pre>
  *
  * <p>
  * By replacing a {@link java.util.function.Consumer Consumer&lt;O&gt;} with a {@link FailableConsumer
@@ -59,7 +61,8 @@ import org.apache.commons.lang3.stream.Streams.FailableStream;
  * <pre>
  * {@code
  *   Functions.accept((m) -> m.invoke(o,args));
- * }</pre>
+ * }
+ * </pre>
  *
  * <p>
  * Obviously, the second version is much more concise and the spirit of Lambda expressions is met better than the second
@@ -80,8 +83,8 @@ public class Failable {
      * @param <U> the type of the second argument the consumer accepts
      * @param <E> the type of checked exception the consumer may throw
      */
-    public static <T, U, E extends Throwable> void accept(final FailableBiConsumer<T, U, E> consumer,
-        final T object1, final U object2) {
+    public static <T, U, E extends Throwable> void accept(final FailableBiConsumer<T, U, E> consumer, final T object1,
+        final U object2) {
         run(() -> consumer.accept(object1, object2));
     }
 
@@ -142,8 +145,8 @@ public class Failable {
      * @param <E> the type of checked exception the function may throw
      * @return the value returned from the function
      */
-    public static <T, U, R, E extends Throwable> R apply(final FailableBiFunction<T, U, R, E> function,
-        final T input1, final U input2) {
+    public static <T, U, R, E extends Throwable> R apply(final FailableBiFunction<T, U, R, E> function, final T input1,
+        final U input2) {
         return get(() -> function.apply(input1, input2));
     }
 
@@ -487,7 +490,8 @@ public class Failable {
      * {@link Throwable} is rethrown. Example use:
      *
      * <pre>
-     *     {@code
+     * {
+     *     &#64;code
      *     final FileInputStream fis = new FileInputStream("my.file");
      *     Functions.tryWithResources(useInputStream(fis), null, () -> fis.close());
      * }
@@ -549,7 +553,8 @@ public class Failable {
      * {@link Throwable} is rethrown. Example use:
      *
      * <pre>
-     *     {@code
+     * {
+     *     &#64;code
      *     final FileInputStream fis = new FileInputStream("my.file");
      *     Functions.tryWithResources(useInputStream(fis), () -> fis.close());
      * }
