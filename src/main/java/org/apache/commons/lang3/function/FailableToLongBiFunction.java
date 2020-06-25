@@ -32,7 +32,7 @@ public interface FailableToLongBiFunction<T, U, E extends Throwable> {
 
     /** NOP singleton */
     @SuppressWarnings("rawtypes")
-    final FailableToLongBiFunction NOP = (t, u) -> 0;
+    FailableToLongBiFunction NOP = (t, u) -> 0;
 
     /**
      * Returns The NOP singleton.

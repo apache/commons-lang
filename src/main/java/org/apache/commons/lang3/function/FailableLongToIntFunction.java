@@ -30,7 +30,7 @@ public interface FailableLongToIntFunction<E extends Throwable> {
 
     /** NOP singleton */
     @SuppressWarnings("rawtypes")
-    final FailableLongToIntFunction NOP = t -> 0;
+    FailableLongToIntFunction NOP = t -> 0;
 
     /**
      * Returns The NOP singleton.

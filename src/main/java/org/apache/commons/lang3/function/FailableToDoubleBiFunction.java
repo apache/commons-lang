@@ -32,7 +32,7 @@ public interface FailableToDoubleBiFunction<T, U, E extends Throwable> {
 
     /** NOP singleton */
     @SuppressWarnings("rawtypes")
-    final FailableToDoubleBiFunction NOP = (t, u) -> 0d;
+    FailableToDoubleBiFunction NOP = (t, u) -> 0d;
 
     /**
      * Returns The NOP singleton.

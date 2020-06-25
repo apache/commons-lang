@@ -35,7 +35,7 @@ public interface FailableBiFunction<T, U, R, E extends Throwable> {
 
     /** NOP singleton */
     @SuppressWarnings("rawtypes")
-    final FailableBiFunction NOP = (t, u) -> null;
+    FailableBiFunction NOP = (t, u) -> null;
 
     /**
      * Returns The NOP singleton.

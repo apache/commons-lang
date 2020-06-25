@@ -31,7 +31,7 @@ public interface FailableLongConsumer<E extends Throwable> {
 
     /** NOP singleton */
     @SuppressWarnings("rawtypes")
-    final FailableLongConsumer NOP = t -> {/* NOP */};
+    FailableLongConsumer NOP = t -> {/* NOP */};
 
     /**
      * Returns The NOP singleton.

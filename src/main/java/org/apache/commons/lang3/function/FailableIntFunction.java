@@ -31,7 +31,7 @@ public interface FailableIntFunction<R, E extends Throwable> {
 
     /** NOP singleton */
     @SuppressWarnings("rawtypes")
-    final FailableIntFunction NOP = t -> null;
+    FailableIntFunction NOP = t -> null;
 
     /**
      * Returns The NOP singleton.

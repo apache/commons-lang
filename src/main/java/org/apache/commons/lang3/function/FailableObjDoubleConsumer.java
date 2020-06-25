@@ -31,7 +31,7 @@ public interface FailableObjDoubleConsumer<T, E extends Throwable> {
 
     /** NOP singleton */
     @SuppressWarnings("rawtypes")
-    final FailableObjDoubleConsumer NOP = (t, u) -> {/* NOP */};
+    FailableObjDoubleConsumer NOP = (t, u) -> {/* NOP */};
 
     /**
      * Returns The NOP singleton.

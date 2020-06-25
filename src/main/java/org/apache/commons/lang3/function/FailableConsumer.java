@@ -32,7 +32,7 @@ public interface FailableConsumer<T, E extends Throwable> {
 
     /** NOP singleton */
     @SuppressWarnings("rawtypes")
-    final FailableConsumer NOP = t -> {/* NOP */};
+    FailableConsumer NOP = t -> {/* NOP */};
 
     /**
      * Returns The NOP singleton.
