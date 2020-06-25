@@ -675,13 +675,13 @@ public class FailableFunctionsTest {
     public void testBiFunctionAndThen() throws IOException {
         // Unchecked usage pattern in JRE
         final BiFunction<Object, Integer, Integer> nopBiFunction = (t, u) -> null;
-        final Function<Object, Integer> nopFunction = (t) -> null;
+        final Function<Object, Integer> nopFunction = t -> null;
         nopBiFunction.andThen(nopFunction);
         // Checked usage pattern
         final FailableBiFunction<Object, Integer, Integer, IOException> failingBiFunctionTest = (t, u) -> {
             throw new IOException();
         };
-        final FailableFunction<Object, Integer, IOException> failingFunction = (t) -> { throw new IOException(); };
+        final FailableFunction<Object, Integer, IOException> failingFunction = t -> { throw new IOException(); };
         final FailableBiFunction<Object, Integer, Integer, IOException> nopFailableBiFunction = FailableBiFunction
             .nop();
         final FailableFunction<Object, Integer, IOException> nopFailableFunction = FailableFunction.nop();
@@ -735,7 +735,7 @@ public class FailableFunctionsTest {
     @Test
     public void testConsumerAndThen() throws Throwable {
         final Testable<?, ?> testable = new Testable<>(null);
-        final FailableConsumer<Throwable, Throwable> failableConsumer = (th) -> {
+        final FailableConsumer<Throwable, Throwable> failableConsumer = th -> {
             testable.setThrowable(th);
             testable.test();
         };
@@ -769,7 +769,7 @@ public class FailableFunctionsTest {
     @Test
     public void testDoublePredicate() throws Throwable {
         FailureOnOddInvocations.invocations = 0;
-        final FailableDoublePredicate<Throwable> failablePredicate = t1 -> FailureOnOddInvocations.testDouble(t1);
+        final FailableDoublePredicate<Throwable> failablePredicate = FailureOnOddInvocations::testDouble;
         assertThrows(SomeException.class, () -> failablePredicate.test(1d));
         failablePredicate.test(1d);
     }
@@ -802,10 +802,10 @@ public class FailableFunctionsTest {
     @Test
     public void testFunctionAndThen() throws IOException {
         // Unchecked usage pattern in JRE
-        final Function<Object, Integer> nopFunction = (t) -> null;
+        final Function<Object, Integer> nopFunction = t -> null;
         nopFunction.andThen(nopFunction);
         // Checked usage pattern
-        final FailableFunction<Object, Integer, IOException> failingFunction = (t) -> { throw new IOException(); };
+        final FailableFunction<Object, Integer, IOException> failingFunction = t -> { throw new IOException(); };
         final FailableFunction<Object, Integer, IOException> nopFailableFunction = FailableFunction.nop();
         //
         assertThrows(IOException.class, () -> failingFunction.andThen(failingFunction).apply(null));
@@ -963,7 +963,7 @@ public class FailableFunctionsTest {
     @Test
     public void testIntPredicate() throws Throwable {
         FailureOnOddInvocations.invocations = 0;
-        final FailableIntPredicate<Throwable> failablePredicate = t1 -> FailureOnOddInvocations.testInt(t1);
+        final FailableIntPredicate<Throwable> failablePredicate = FailureOnOddInvocations::testInt;
         assertThrows(SomeException.class, () -> failablePredicate.test(1));
         failablePredicate.test(1);
     }
@@ -989,7 +989,7 @@ public class FailableFunctionsTest {
     @Test
     public void testLongPredicate() throws Throwable {
         FailureOnOddInvocations.invocations = 0;
-        final FailableLongPredicate<Throwable> failablePredicate = t1 -> FailureOnOddInvocations.testLong(t1);
+        final FailableLongPredicate<Throwable> failablePredicate = FailureOnOddInvocations::testLong;
         assertThrows(SomeException.class, () -> failablePredicate.test(1L));
         failablePredicate.test(1L);
     }
