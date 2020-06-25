@@ -860,6 +860,34 @@ public class FailableFunctionsTest {
     }
 
     @Test
+    public void testFunctionCompose() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableFunction<Object, Integer, Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+            return 0;
+        };
+        final FailableFunction<Object, Integer, Throwable> nop = FailableFunction.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.compose(failing).apply(0));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.compose(nop).apply(0));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.compose(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.compose(null));
+    }
+
+    @Test
+    public void testFunctionIdentity() throws Throwable {
+        final FailableFunction<Integer, Integer, Throwable> nop = FailableFunction.identity();
+        // Does not throw
+        nop.compose(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> nop.compose(null));
+    }
+
+    @Test
     public void testGetAsBooleanSupplier() {
         final Testable<?, ?> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class,

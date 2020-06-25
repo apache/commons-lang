@@ -36,6 +36,17 @@ public interface FailableFunction<T, R, E extends Throwable> {
     FailableFunction NOP = t -> null;
 
     /**
+     * Returns a function that always returns its input argument.
+     *
+     * @param <T> the type of the input and output objects to the function
+     * @param <E> Thrown exception.
+     * @return a function that always returns its input argument
+     */
+    static <T, E extends Throwable> FailableFunction<T, T, E> identity() {
+        return t -> t;
+    }
+
+    /**
      * Returns The NOP singleton.
      *
      * @param <T> Consumed type 1.
@@ -70,4 +81,18 @@ public interface FailableFunction<T, R, E extends Throwable> {
      */
     R apply(T input) throws E;
 
+    /**
+     * Returns a composed {@code FailableFunction} like {@link Function#compose(Function)}.
+     *
+     * @param <V> the input type to the {@code before} function, and to the composed function.
+     * @param before the operator to apply before this one.
+     * @return a a composed {@code FailableFunction} like {@link Function#compose(Function)}.
+     * @throws NullPointerException if before is null.
+     * @throws E Thrown when a consumer fails.
+     * @see #andThen(FailableFunction)
+     */
+    default <V> FailableFunction<V, R, E> compose(final FailableFunction<? super V, ? extends T, E> before) throws E {
+        Objects.requireNonNull(before);
+        return (final V v) -> apply(before.apply(v));
+    }
 }
