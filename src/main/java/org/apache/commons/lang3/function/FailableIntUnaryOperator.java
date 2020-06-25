@@ -58,10 +58,9 @@ public interface FailableIntUnaryOperator<E extends Throwable> {
      * @param after the operator to apply after this one.
      * @return a composed {@code FailableIntUnaryOperator} like {@link IntUnaryOperator#andThen(IntUnaryOperator)}.
      * @throws NullPointerException if after is null.
-     * @throws E Thrown when a consumer fails.
      * @see #compose(FailableIntUnaryOperator)
      */
-    default FailableIntUnaryOperator<E> andThen(final FailableIntUnaryOperator<E> after) throws E {
+    default FailableIntUnaryOperator<E> andThen(final FailableIntUnaryOperator<E> after) {
         Objects.requireNonNull(after);
         return (final int t) -> after.applyAsInt(applyAsInt(t));
     }
@@ -81,10 +80,9 @@ public interface FailableIntUnaryOperator<E extends Throwable> {
      * @param before the operator to apply before this one.
      * @return a composed {@code FailableIntUnaryOperator} like {@link IntUnaryOperator#compose(IntUnaryOperator)}.
      * @throws NullPointerException if before is null.
-     * @throws E Thrown when a consumer fails.
      * @see #andThen(FailableIntUnaryOperator)
      */
-    default FailableIntUnaryOperator<E> compose(final FailableIntUnaryOperator<E> before) throws E {
+    default FailableIntUnaryOperator<E> compose(final FailableIntUnaryOperator<E> before) {
         Objects.requireNonNull(before);
         return (final int v) -> applyAsInt(before.applyAsInt(v));
     }

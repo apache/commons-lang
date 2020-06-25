@@ -57,10 +57,8 @@ public interface FailableBiFunction<T, U, R, E extends Throwable> {
      * @param after the operation to perform after this one.
      * @return a composed {@code FailableBiFunction} that like {@link BiFunction#andThen(Function)}.
      * @throws NullPointerException when {@code after} is null.
-     * @throws E Thrown when a consumer fails.
      */
-    default <V> FailableBiFunction<T, U, V, E> andThen(final FailableFunction<? super R, ? extends V, E> after)
-        throws E {
+    default <V> FailableBiFunction<T, U, V, E> andThen(final FailableFunction<? super R, ? extends V, E> after) {
         Objects.requireNonNull(after);
         return (final T t, final U u) -> after.apply(apply(t, u));
     }

@@ -60,10 +60,9 @@ public interface FailableDoubleUnaryOperator<E extends Throwable> {
      * @return a composed {@code FailableDoubleUnaryOperator} like
      *         {@link DoubleUnaryOperator#andThen(DoubleUnaryOperator)}.
      * @throws NullPointerException if after is null.
-     * @throws E Thrown when a consumer fails.
      * @see #compose(FailableDoubleUnaryOperator)
      */
-    default FailableDoubleUnaryOperator<E> andThen(final FailableDoubleUnaryOperator<E> after) throws E {
+    default FailableDoubleUnaryOperator<E> andThen(final FailableDoubleUnaryOperator<E> after) {
         Objects.requireNonNull(after);
         return (final double t) -> after.applyAsDouble(applyAsDouble(t));
     }
@@ -85,10 +84,9 @@ public interface FailableDoubleUnaryOperator<E extends Throwable> {
      * @return a composed {@code FailableDoubleUnaryOperator} like
      *         {@link DoubleUnaryOperator#compose(DoubleUnaryOperator)}.
      * @throws NullPointerException if before is null.
-     * @throws E Thrown when a consumer fails.
      * @see #andThen(FailableDoubleUnaryOperator)
      */
-    default FailableDoubleUnaryOperator<E> compose(final FailableDoubleUnaryOperator<E> before) throws E {
+    default FailableDoubleUnaryOperator<E> compose(final FailableDoubleUnaryOperator<E> before) {
         Objects.requireNonNull(before);
         return (final double v) -> applyAsDouble(before.applyAsDouble(v));
     }

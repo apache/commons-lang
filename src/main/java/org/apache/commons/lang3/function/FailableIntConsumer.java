@@ -57,9 +57,8 @@ public interface FailableIntConsumer<E extends Throwable> {
      * @param after the operation to perform after this one.
      * @return a composed {@code FailableLongConsumer} like {@link IntConsumer#andThen(IntConsumer)}.
      * @throws NullPointerException if {@code after} is null
-     * @throws E Thrown when a consumer fails.
      */
-    default FailableIntConsumer<E> andThen(final FailableIntConsumer<E> after) throws E {
+    default FailableIntConsumer<E> andThen(final FailableIntConsumer<E> after) {
         Objects.requireNonNull(after);
         return (final int t) -> {
             accept(t);

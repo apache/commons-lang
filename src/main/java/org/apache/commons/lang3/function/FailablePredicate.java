@@ -63,9 +63,8 @@ public interface FailablePredicate<T, E extends Throwable> {
      * Returns a predicate that negates this predicate.
      *
      * @return a predicate that negates this predicate.
-     * @throws E Thrown when this predicate fails.
      */
-    default FailablePredicate<T, E> negate() throws E {
+    default FailablePredicate<T, E> negate() {
         return t -> !test(t);
     }
 

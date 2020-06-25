@@ -17,6 +17,8 @@
 
 package org.apache.commons.lang3.function;
 
+import java.util.Objects;
+import java.util.function.BiPredicate;
 import java.util.function.DoublePredicate;
 
 /**
@@ -27,6 +29,18 @@ import java.util.function.DoublePredicate;
  */
 @FunctionalInterface
 public interface FailableDoublePredicate<E extends Throwable> {
+
+    /**
+     * Returns a composed {@code FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
+     *
+     * @param other a predicate that will be logically-ANDed with this predicate.
+     * @return a composed {@code FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
+     * @throws NullPointerException if other is null
+     */
+    default FailableDoublePredicate<E> and(FailableDoublePredicate<E> other) {
+        Objects.requireNonNull(other);
+        return t -> test(t) && other.test(t);
+    }
 
     /** FALSE singleton */
     @SuppressWarnings("rawtypes")
@@ -60,9 +74,8 @@ public interface FailableDoublePredicate<E extends Throwable> {
      * Returns a predicate that negates this predicate.
      *
      * @return a predicate that negates this predicate.
-     * @throws E Thrown when this predicate fails.
      */
-    default FailableDoublePredicate<E> negate() throws E {
+    default FailableDoublePredicate<E> negate() {
         return t -> !test(t);
     }
 

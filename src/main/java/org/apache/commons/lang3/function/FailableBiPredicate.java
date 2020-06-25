@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.function;
 
+import java.util.Objects;
 import java.util.function.BiPredicate;
 
 /**
@@ -63,12 +64,23 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
     }
 
     /**
+     * Returns a composed {@code FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
+     *
+     * @param other a predicate that will be logically-ANDed with this predicate.
+     * @return a composed {@code FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
+     * @throws NullPointerException if other is null
+     */
+    default FailableBiPredicate<T, U, E> and(FailableBiPredicate<? super T, ? super U, E> other) {
+        Objects.requireNonNull(other);
+        return (T t, U u) -> test(t, u) && other.test(t, u);
+    }
+
+    /**
      * Returns a predicate that negates this predicate.
      *
      * @return a predicate that negates this predicate.
-     * @throws E Thrown when this predicate fails.
      */
-    default FailableBiPredicate<T, U, E> negate() throws E {
+    default FailableBiPredicate<T, U, E> negate() {
         return (final T t, final U u) -> !test(t, u);
     }
 

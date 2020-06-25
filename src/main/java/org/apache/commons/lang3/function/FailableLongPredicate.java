@@ -60,9 +60,8 @@ public interface FailableLongPredicate<E extends Throwable> {
      * Returns a predicate that negates this predicate.
      *
      * @return a predicate that negates this predicate.
-     * @throws E Thrown when this predicate fails.
      */
-    default FailableLongPredicate<E> negate() throws E {
+    default FailableLongPredicate<E> negate() {
         return t -> !test(t);
     }
 
