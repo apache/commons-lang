@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -367,9 +368,13 @@ public class FastDateParserTest {
     }
 
     private void checkParse(final Locale locale, final SimpleDateFormat sdf, final DateParser fdf, final String formattedDate) throws ParseException {
-        final Date expectedTime = sdf.parse(formattedDate);
-        final Date actualTime = fdf.parse(formattedDate);
-        assertEquals(expectedTime, actualTime, locale.toString()+" "+formattedDate +"\n");
+        try {
+            final Date expectedTime = sdf.parse(formattedDate);
+            final Date actualTime = fdf.parse(formattedDate);
+            assertEquals(expectedTime, actualTime, "locale : " + locale + " formattedDate : " + formattedDate + "\n");
+        } catch (Exception e) {
+            fail("locale : " + locale + " formattedDate : " + formattedDate + " error : " + e + "\n", e);
+        }
     }
 
     @Test
@@ -702,5 +707,39 @@ public class FastDateParserTest {
         assertEquals(expected.getTime(), fdp.parse("14 avril 2014"));
         assertEquals(expected.getTime(), fdp.parse("14 avr. 2014"));
         assertEquals(expected.getTime(), fdp.parse("14 avr 2014"));
+    }
+
+    @Test
+    public void java15BuggyLocaleTestAll() throws ParseException {
+        for (final Locale locale : Locale.getAvailableLocales()) {
+            testSingleLocale(locale);
+        }
+    }
+
+    @Test
+    public void java15BuggyLocaleTest() throws ParseException {
+        final String buggyLocaleName = "ff_LR_#Adlm";
+        Locale buggyLocale = null;
+        for (final Locale locale : Locale.getAvailableLocales()) {
+            if (buggyLocaleName.equals(locale.toString())) {
+                buggyLocale = locale;
+                break;
+            }
+        }
+        if (buggyLocale == null) {
+            return;
+        }
+        testSingleLocale(buggyLocale);
+    }
+
+    private void testSingleLocale(Locale locale) throws ParseException {
+        final Calendar cal = Calendar.getInstance(GMT);
+        cal.clear();
+        cal.set(2003, Calendar.FEBRUARY, 10);
+        final SimpleDateFormat sdf = new SimpleDateFormat(LONG_FORMAT, locale);
+        final String formattedDate = sdf.format(cal.getTime());
+        sdf.parse(formattedDate);
+        sdf.parse(formattedDate.toUpperCase(locale));
+        sdf.parse(formattedDate.toLowerCase(locale));
     }
 }
