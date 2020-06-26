@@ -278,11 +278,10 @@ public class CharSequenceUtils {
             }
             if (checkLaterThan1(cs, searchChar, len2, i)) {
                 return i;
-            } else {
-                i--;
-                if (i < 0) {
-                    return -1;
-                }
+            }
+            i--;
+            if (i < 0) {
+                return -1;
             }
         }
     }
