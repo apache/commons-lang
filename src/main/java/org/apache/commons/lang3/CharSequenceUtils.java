@@ -303,8 +303,9 @@ public class CharSequenceUtils {
      *
      * @param cs the {@code CharSequence} to be processed
      * @return the resulting char array
+     * @since 3.11
      */
-    static char[] toCharArray(final CharSequence cs) {
+    public static char[] toCharArray(final CharSequence cs) {
         if (cs instanceof String) {
             return ((String) cs).toCharArray();
         }
