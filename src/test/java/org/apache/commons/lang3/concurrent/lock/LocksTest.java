@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.function.LongConsumer;
 
-import org.apache.commons.lang3.concurrent.lock.Locks;
 import org.apache.commons.lang3.concurrent.lock.Locks.Lock;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.junit.jupiter.api.Test;
