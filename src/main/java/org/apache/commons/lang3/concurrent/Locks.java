@@ -70,31 +70,174 @@ import org.apache.commons.lang3.function.FailableFunction;
  */
 public class Locks {
 
+    /**
+     * This class implements a wrapper for a locked (hidden) object, and
+     * provides the means to access it. The basic idea, is that the user
+     * code forsakes all references to the locked object, using only the
+     * wrapper object, and the accessor methods
+     * {@link #acceptReadLocked(FailableConsumer)},
+     * {@link #acceptWriteLocked(FailableConsumer)},
+     * {@link #applyReadLocked(FailableFunction)}, and
+     * {@link #applyWriteLocked(FailableFunction)}. By doing so, the
+     * necessary protections are guaranteed.
+     * @param <O> The locked (hidden) objects type.
+     *
+     * @since 3.11
+     */
     public static class Lock<O extends Object> {
-
         private final StampedLock lock = new StampedLock();
         private final O lockedObject;
 
+        /**
+         * Creates a new instance with the given locked object. This
+         * constructor is supposed to be used for subclassing only.
+         * In general, it is suggested to use {@link Locks#lock(Object)}
+         * instead.
+         * @param lockedObject The locked (hidden) object. The caller is
+         * supposed to drop all references to the locked object.
+         */
         public Lock(final O lockedObject) {
             this.lockedObject = Objects.requireNonNull(lockedObject, "Locked Object");
         }
 
+        /**
+         * Provides read (shared, non-exclusive) access to the locked (hidden) object.
+         * More precisely, what the method will do (in the given order):
+         * <ol>
+         *   <li>Obtain a read (shared) lock on the locked (hidden) object.
+         *     The current thread may block, until such a lock is granted.
+         *   </li>
+         *   <li>Invokes the given {@link FailableConsumer consumer}, passing the
+         *   locked object as the parameter.</li>
+         *   <li>Release the lock, as soon as the consumers invocation is done.
+         *     If the invocation results in an error, the lock will be released
+         *     anyways.
+         *   </li>
+         * </ol>
+         * @param consumer The consumer, which is being invoked to use the
+         *   hidden object, which will be passed as the consumers parameter.
+         * @see #acceptWriteLocked(FailableConsumer)
+         * @see #applyReadLocked(FailableFunction)
+         */
         public void acceptReadLocked(final FailableConsumer<O, ?> consumer) {
             lockAcceptUnlock(() -> lock.readLock(), consumer);
         }
 
+        /**
+         * Provides write (exclusive) access to the locked (hidden) object.
+         * More precisely, what the method will do (in the given order):
+         * <ol>
+         *   <li>Obtain a write (shared) lock on the locked (hidden) object.
+         *     The current thread may block, until such a lock is granted.
+         *   </li>
+         *   <li>Invokes the given {@link FailableConsumer consumer}, passing the
+         *   locked object as the parameter.</li>
+         *   <li>Release the lock, as soon as the consumers invocation is done.
+         *     If the invocation results in an error, the lock will be released
+         *     anyways.
+         *   </li>
+         * </ol>
+         * @param consumer The consumer, which is being invoked to use the
+         *   hidden object, which will be passed as the consumers parameter.
+         * @see #acceptReadLocked(FailableConsumer)
+         * @see #applyWriteLocked(FailableFunction)
+         */
         public void acceptWriteLocked(final FailableConsumer<O, ?> consumer) {
             lockAcceptUnlock(() -> lock.writeLock(), consumer);
         }
 
+        /**
+         * Provides read (shared, non-exclusive) access to the locked (hidden)
+         * object for the purpose of computing a result object.
+         * More precisely, what the method will do (in the given order):
+         * <ol>
+         *   <li>Obtain a read (shared) lock on the locked (hidden) object.
+         *     The current thread may block, until such a lock is granted.
+         *   </li>
+         *   <li>Invokes the given {@link FailableFunction function}, passing the
+         *   locked object as the parameter, receiving the functions result.</li>
+         *   <li>Release the lock, as soon as the consumers invocation is done.
+         *     If the invocation results in an error, the lock will be released
+         *     anyways.
+         *   </li>
+         *   <li>
+         *     Return the result object, that has been received from the
+         *     functions invocation.</li>
+         * </ol>
+         *
+         * <em>Example:</em> Suggest, that the hidden object is a list, and we
+         * wish to know the current size of the list. This might be achieved
+         * with the following:
+         *
+         * <pre>
+         *   private Lock&lt;List&lt;Object&gt;&gt; listLock;
+         *
+         *   public int getCurrentListSize() {
+         *       final Integer sizeInteger
+         *           = listLock.applyReadLocked((list) -&gt; Integer.valueOf(list.size));
+         *       return sizeInteger.intValue();
+         *   }
+         * </pre>
+         * @param <T> The result type (both the functions, and this method's.)
+         * @param function The function, which is being invoked to compute the
+         *   result. The function will receive the hidden object.
+         * @return The result object, which has been returned by the
+         *   functions invocation.
+         * @throws IllegalStateException The result object would be, in fact,
+         *   the hidden object. This would extend access to the hidden object
+         *   beyond this methods lifetime and will therefore be prevented.
+         * @see #acceptReadLocked(FailableConsumer)
+         * @see #applyWriteLocked(FailableFunction)
+         */
         public <T> T applyReadLocked(final FailableFunction<O, T, ?> function) {
             return lockApplyUnlock(() -> lock.readLock(), function);
         }
 
+        /**
+         * Provides write (exclusive) access to the locked (hidden)
+         * object for the purpose of computing a result object.
+         * More precisely, what the method will do (in the given order):
+         * <ol>
+         *   <li>Obtain a read (shared) lock on the locked (hidden) object.
+         *     The current thread may block, until such a lock is granted.
+         *   </li>
+         *   <li>Invokes the given {@link FailableFunction function}, passing the
+         *   locked object as the parameter, receiving the functions result.</li>
+         *   <li>Release the lock, as soon as the consumers invocation is done.
+         *     If the invocation results in an error, the lock will be released
+         *     anyways.
+         *   </li>
+         *   <li>
+         *     Return the result object, that has been received from the
+         *     functions invocation.</li>
+         * </ol>
+         * @param <T> The result type (both the functions, and this method's.)
+         * @param function The function, which is being invoked to compute the
+         *   result. The function will receive the hidden object.
+         * @return The result object, which has been returned by the
+         *   functions invocation.
+         * @throws IllegalStateException The result object would be, in fact,
+         *   the hidden object. This would extend access to the hidden object
+         *   beyond this methods lifetime and will therefore be prevented.
+         * @see #acceptReadLocked(FailableConsumer)
+         * @see #applyWriteLocked(FailableFunction)
+         */
         public <T> T applyWriteLocked(final FailableFunction<O, T, ?> function) {
             return lockApplyUnlock(() -> lock.writeLock(), function);
         }
 
+        /**
+         * This method provides the actual implementation for
+         * {@link #acceptReadLocked(FailableConsumer)}, and
+         * {@link #acceptWriteLocked(FailableConsumer)}.
+         * @param stampSupplier A supplier for the lock. (This provides, in
+         *   fact, a long, because a {@link StampedLock} is used internally.)
+         * @param consumer The consumer, which is to be given access to the
+         *   locked (hidden) object, which will be passed as a parameter.
+         * @see #acceptReadLocked(FailableConsumer)
+         * @see #acceptWriteLocked(FailableConsumer)
+         * @see #lockApplyUnlock(LongSupplier, FailableFunction)
+         */
         protected void lockAcceptUnlock(final LongSupplier stampSupplier, final FailableConsumer<O, ?> consumer) {
             final long stamp = stampSupplier.getAsLong();
             try {
@@ -106,10 +249,33 @@ public class Locks {
             }
         }
 
+        /**
+         * This method provides the actual implementation for
+         * {@link #applyReadLocked(FailableFunction)}, and
+         * {@link #applyWriteLocked(FailableFunction)}.
+         * @param <T> The result type (both the functions, and this method's.)
+         * @param stampSupplier A supplier for the lock. (This provides, in
+         *   fact, a long, because a {@link StampedLock} is used internally.)
+         * @param function The function, which is being invoked to compute
+         *   the result object. This function will receive the locked (hidden)
+         *   object as a parameter.
+         * @return The result object, which has been returned by the
+         *   functions invocation.
+         * @throws IllegalStateException The result object would be, in fact,
+         *   the hidden object. This would extend access to the hidden object
+         *   beyond this methods lifetime and will therefore be prevented.
+         * @see #applyReadLocked(FailableFunction)
+         * @see #applyWriteLocked(FailableFunction)
+         * @see #lockAcceptUnlock(LongSupplier, FailableConsumer)
+         */
         protected <T> T lockApplyUnlock(final LongSupplier stampSupplier, final FailableFunction<O, T, ?> function) {
             final long stamp = stampSupplier.getAsLong();
             try {
-                return function.apply(lockedObject);
+                final T t = function.apply(lockedObject);
+                if (t == lockedObject) {
+                    throw new IllegalStateException("The returned object is, in fact, the hidden object.");
+                }
+                return t;
             } catch (final Throwable t) {
                 throw Failable.rethrow(t);
             } finally {
@@ -118,6 +284,14 @@ public class Locks {
         }
     }
 
+    /**
+     * Creates a new instance of {@link Lock} with the given locked
+     * (hidden) object.
+     * @param <O> The locked objects type.
+     * @param object The locked (hidden) object.
+     * @return The created instance, a {@link Lock lock} for the
+     * given object.
+     */
     public static <O extends Object> Locks.Lock<O> lock(final O object) {
         return new Locks.Lock<>(object);
     }

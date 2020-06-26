@@ -16,7 +16,11 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.function.LongConsumer;
 
@@ -36,12 +40,45 @@ public class LocksTest {
         runTest(DELAY, false, l -> assertTrue(l < NUMBER_OF_THREADS*DELAY));
     }
 
+    @Test
     public void testWriteLock() throws Exception {
         final long DELAY = 100;
         /** If our threads are running concurrently, then we expect to be no faster
          * than running one after the other.
          */
         runTest(DELAY, true, l -> assertTrue(l >= NUMBER_OF_THREADS*DELAY));
+    }
+
+    @Test
+    public void testResultValidation() {
+        final Object hidden = new Object();
+        final Lock<Object> lock = Locks.lock(hidden);
+        final Object o1 = lock.applyReadLocked((h) -> {
+            return new Object();
+        });
+        assertNotNull(o1);
+        assertNotSame(hidden, o1);
+        final Object o2 = lock.applyWriteLocked((h) -> {
+            return new Object();
+        });
+        assertNotNull(o2);
+        assertNotSame(hidden, o2);
+        try {
+            lock.applyReadLocked((h) -> {
+                return hidden;
+            });
+            fail("Expected Exception");
+        } catch (IllegalStateException e) {
+            assertEquals("The returned object is, in fact, the hidden object.", e.getMessage());
+        }
+        try {
+            lock.applyReadLocked((h) -> {
+                return hidden;
+            });
+            fail("Expected Exception");
+        } catch (IllegalStateException e) {
+            assertEquals("The returned object is, in fact, the hidden object.", e.getMessage());
+        }
     }
 
     private void runTest(final long delay, final boolean exclusiveLock, final LongConsumer runTimeCheck) throws InterruptedException {
