@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang3.concurrent.lock;
+package org.apache.commons.lang3.concurrent.locks;
 
 import java.util.Objects;
 import java.util.concurrent.locks.StampedLock;

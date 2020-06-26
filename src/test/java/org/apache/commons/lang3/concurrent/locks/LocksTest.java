@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang3.concurrent.lock;
+package org.apache.commons.lang3.concurrent.locks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.function.LongConsumer;
 
-import org.apache.commons.lang3.concurrent.lock.Locks.Lock;
+import org.apache.commons.lang3.concurrent.locks.Locks.Lock;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.junit.jupiter.api.Test;
 
