@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.11" date="2020-MM-DD" description="New features and bug fixes..">
+    <action type="update" dev="chtompki" due-to="Jin Xu">Refine test output for FastDateParserTest</action>
     <action issue="LANG-1549" type="update" dev="chtompki" due-to="Jin Xu">CharSequenceUtils.lastIndexOf : remake it</action>
     <action                   type="update" dev="kinow" due-to="XenoAmess">remove encoding and docEncoding and use inherited values from commons-parent</action>
     <action                   type="fix"    dev="kinow" due-to="contextshuffling">Fix Javadoc for StringUtils.appendIfMissingIgnoreCase() #507.</action>
