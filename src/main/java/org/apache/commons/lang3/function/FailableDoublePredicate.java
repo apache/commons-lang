@@ -17,23 +17,85 @@
 
 package org.apache.commons.lang3.function;
 
+import java.util.Objects;
 import java.util.function.DoublePredicate;
 
 /**
  * A functional interface like {@link DoublePredicate} that declares a {@code Throwable}.
  *
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableDoublePredicate<T extends Throwable> {
+public interface FailableDoublePredicate<E extends Throwable> {
+
+    /** FALSE singleton */
+    @SuppressWarnings("rawtypes")
+    FailableDoublePredicate FALSE = t -> false;
+
+    /** TRUE singleton */
+    @SuppressWarnings("rawtypes")
+    FailableDoublePredicate TRUE = t -> true;
+
+    /**
+     * Returns The FALSE singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableDoublePredicate<E> falsePredicate() {
+        return FALSE;
+    }
+
+    /**
+     * Returns The FALSE TRUE.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableDoublePredicate<E> truePredicate() {
+        return TRUE;
+    }
+
+    /**
+     * Returns a composed {@code FailableDoublePredicate} like {@link DoublePredicate#and(DoublePredicate)}.
+     *
+     * @param other a predicate that will be logically-ANDed with this predicate.
+     * @return a composed {@code FailableDoublePredicate} like {@link DoublePredicate#and(DoublePredicate)}.
+     * @throws NullPointerException if other is null
+     */
+    default FailableDoublePredicate<E> and(final FailableDoublePredicate<E> other) {
+        Objects.requireNonNull(other);
+        return t -> test(t) && other.test(t);
+    }
+
+    /**
+     * Returns a predicate that negates this predicate.
+     *
+     * @return a predicate that negates this predicate.
+     */
+    default FailableDoublePredicate<E> negate() {
+        return t -> !test(t);
+    }
+
+    /**
+     * Returns a composed {@code FailableDoublePredicate} like {@link DoublePredicate#and(DoublePredicate)}.
+     *
+     * @param other a predicate that will be logically-ORed with this predicate.
+     * @return a composed {@code FailableDoublePredicate} like {@link DoublePredicate#and(DoublePredicate)}.
+     * @throws NullPointerException if other is null
+     */
+    default FailableDoublePredicate<E> or(final FailableDoublePredicate<E> other) {
+        Objects.requireNonNull(other);
+        return t -> test(t) || other.test(t);
+    }
 
     /**
      * Tests the predicate.
      *
      * @param value the parameter for the predicate to accept.
      * @return {@code true} if the input argument matches the predicate, {@code false} otherwise.
-     * @throws T Thrown when the consumer fails.
+     * @throws E Thrown when the consumer fails.
      */
-    boolean test(double value) throws T;
+    boolean test(double value) throws E;
 }

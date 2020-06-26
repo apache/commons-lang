@@ -20,8 +20,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 import org.junit.jupiter.api.AfterEach;
@@ -179,6 +182,73 @@ public class JsonToStringStyleTest {
                 new ToStringBuilder(base).append("a",
                         (Object) new String[]{"v", "x", "y", "z"}, true)
                         .toString());
+    }
+
+    @Test
+    public void testList() {
+        final Student student = new Student();
+        final ArrayList<Hobby> objects = new ArrayList<>();
+
+        objects.add(Hobby.BOOK);
+        objects.add(Hobby.SPORT);
+        objects.add(Hobby.MUSIC);
+
+        student.setHobbies(objects);
+
+        assertEquals(student.toString(), "{\"hobbies\":[\"BOOK\",\"SPORT\",\"MUSIC\"]}");
+        student.setHobbies(new ArrayList<>());
+        assertEquals(student.toString(), "{\"hobbies\":[]}");
+        student.setHobbies(null);
+        assertEquals(student.toString(), "{\"hobbies\":null}");
+    }
+
+    @Test
+    public void testArrayEnum() {
+        final Teacher teacher = new Teacher();
+        final Hobby[] hobbies = new Hobby[3];
+        hobbies[0] = Hobby.BOOK;
+        hobbies[1] = Hobby.SPORT;
+        hobbies[2] = Hobby.MUSIC;
+
+        teacher.setHobbies(hobbies);
+
+        assertEquals(teacher.toString(), "{\"hobbies\":[\"BOOK\",\"SPORT\",\"MUSIC\"]}");
+        teacher.setHobbies(new Hobby[0]);
+        assertEquals(teacher.toString(), "{\"hobbies\":[]}");
+        teacher.setHobbies(null);
+        assertEquals(teacher.toString(), "{\"hobbies\":null}");
+    }
+
+    @Test
+    public void testCombineListAndEnum() {
+        final Teacher teacher = new Teacher();
+
+        final Hobby[] teacherHobbies = new Hobby[3];
+        teacherHobbies[0] = Hobby.BOOK;
+        teacherHobbies[1] = Hobby.SPORT;
+        teacherHobbies[2] = Hobby.MUSIC;
+
+        teacher.setHobbies(teacherHobbies);
+
+        final Student john = new Student();
+        john.setHobbies(Arrays.asList(Hobby.BOOK, Hobby.MUSIC));
+
+        final Student alice = new Student();
+        alice.setHobbies(new ArrayList<>());
+
+        final Student bob = new Student();
+        bob.setHobbies(Collections.singletonList(Hobby.BOOK));
+
+        final ArrayList<Student> students = new ArrayList<>();
+        students.add(john);
+        students.add(alice);
+        students.add(bob);
+
+        final AcademyClass academyClass = new AcademyClass();
+        academyClass.setStudents(students);
+        academyClass.setTeacher(teacher);
+
+        assertEquals(academyClass.toString(), "{\"students\":[{\"hobbies\":[\"BOOK\",\"MUSIC\"]},{\"hobbies\":[]},{\"hobbies\":[\"BOOK\"]}],\"teacher\":{\"hobbies\":[\"BOOK\",\"SPORT\",\"MUSIC\"]}}");
     }
 
     @Test
@@ -476,5 +546,74 @@ public class JsonToStringStyleTest {
          * Test nested object field.
          */
         Person person;
+    }
+
+    enum Hobby {
+        SPORT,
+        BOOK,
+        MUSIC
+    }
+
+    enum EmptyEnum {
+    }
+
+    static class Student {
+        List<Hobby> hobbies;
+
+        public List<Hobby> getHobbies() {
+            return hobbies;
+        }
+
+        public void setHobbies(final List<Hobby> hobbies) {
+            this.hobbies = hobbies;
+        }
+
+        @Override
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this);
+        }
+    }
+
+    static class Teacher {
+        Hobby[] hobbies;
+
+        public Hobby[] getHobbies() {
+            return hobbies;
+        }
+
+        public void setHobbies(final Hobby[] hobbies) {
+            this.hobbies = hobbies;
+        }
+
+        @Override
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this);
+        }
+    }
+
+    static class AcademyClass {
+        Teacher teacher;
+        List<Student> students;
+
+        public void setTeacher(final Teacher teacher) {
+            this.teacher = teacher;
+        }
+
+        public void setStudents(final List<Student> students) {
+            this.students = students;
+        }
+
+        public Teacher getTeacher() {
+            return teacher;
+        }
+
+        public List<Student> getStudents() {
+            return students;
+        }
+
+        @Override
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this);
+        }
     }
 }

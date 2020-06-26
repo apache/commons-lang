@@ -23,18 +23,33 @@ import java.util.function.IntFunction;
  * A functional interface like {@link IntFunction} that declares a {@code Throwable}.
  *
  * @param <R> Return type.
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableIntFunction<R, T extends Throwable> {
+public interface FailableIntFunction<R, E extends Throwable> {
+
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableIntFunction NOP = t -> null;
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <R> Return type.
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <R, E extends Throwable> FailableIntFunction<R, E> nop() {
+        return NOP;
+    }
 
     /**
      * Applies this function.
      *
      * @param input the input for the function
      * @return the result of the function
-     * @throws T Thrown when the function fails.
+     * @throws E Thrown when the function fails.
      */
-    R apply(int input) throws T;
+    R apply(int input) throws E;
 }

@@ -16,12 +16,12 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import org.apache.commons.lang3.Validate;
-
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang3.Validate;
 
 /**
  * <p>

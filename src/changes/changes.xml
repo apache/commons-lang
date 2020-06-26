@@ -48,10 +48,6 @@ The <action> type attribute can be add,update,fix,remove.
   <release version="3.11" date="2020-MM-DD" description="New features and bug fixes..">
     <action                   type="update" dev="kinow" due-to="XenoAmess">remove encoding and docEncoding and use inherited values from commons-parent</action>
     <action                   type="fix"    dev="kinow" due-to="contextshuffling">Fix Javadoc for StringUtils.appendIfMissingIgnoreCase() #507.</action>
-    <action                   type="update" dev="ggregory">org.junit-pioneer:junit-pioneer 0.5.4 -> 0.6.0.</action>
-    <action                   type="update" dev="ggregory">org.junit.jupiter:junit-jupiter 5.6.0 -> 5.6.1.</action>
-    <action                   type="update" dev="ggregory">com.github.spotbugs:spotbugs 4.0.0 -> 4.0.4.</action>
-    <action                   type="update" dev="ggregory">com.puppycrawl.tools:checkstyle 8.29 -> 8.33.</action>
     <action                   type="update" dev="ggregory" due-to="Isira Seneviratne, Bruno P. Kinoshita">Simplify null checks in Pair.hashCode() using Objects.hashCode(). #517.</action>
     <action                   type="update" dev="ggregory" due-to="Isira Seneviratne, Bruno P. Kinoshita">Simplify null checks in Triple.hashCode() using Objects.hashCode(). #516.</action>
     <action                   type="update" dev="ggregory" due-to="Isira Seneviratne, Bruno P. Kinoshita">Simplify some if statements in StringUtils. #521.</action>
@@ -75,9 +71,20 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1558" type="update" dev="ggregory" due-to="XenoAmess">Simplify if as some conditions are covered by others #543.</action>
     <action issue="LANG-1528" type="fix" dev="ggregory" due-to="Edwin Delgado H">StringUtils.replaceEachRepeatedly gives IllegalStateException #505.</action>
     <action issue="LANG-1570" type="add" dev="ggregory" due-to="Edgar Asatryan">Add JavaVersion enum constants for Java 14 and 15. #553.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion enum constants for Java 16.</action>
     <action issue="LANG-1556" type="add" dev="ggregory" due-to="XenoAmess">Use Java 8 lambdas and Map operations.</action>
     <action issue="LANG-1565" type="add" dev="ggregory" due-to="XenoAmess">Change removeLastFieldSeparator to use endsWith #550.</action>
     <action issue="LANG-1557" type="add" dev="ggregory" due-to="XenoAmess, Gary Gregory">Change a Pattern to a static final field, for not letting it compile each time the function invoked. #542.</action>
+    <action                   type="add" dev="ggregory">Add ImmutablePair factory methods left() and right().</action>
+    <action                   type="add" dev="ggregory">Add ObjectUtils.toString(Object, Supplier&lt;String&gt;).</action>
+    <action issue="LANG-1567" type="update" dev="ggregory" due-to="Miguel Muñoz, Bruno P. Kinoshita, Gary Gregory">Fixed Javadocs for setTestRecursive() #556.</action>
+    <action issue="LANG-1542" type="update" dev="ggregory" due-to=" Trần Ngọc Khoa, Gary Gregory">ToStringBuilder.reflectionToString - Wrong JSON format when object has a List of Enum.</action>
+    <action                   type="update" dev="ggregory">org.apache.commons:commons-parent 50 -> 51.</action>
+    <action                   type="update" dev="ggregory">org.junit-pioneer:junit-pioneer 0.5.4 -> 0.6.0.</action>
+    <action                   type="update" dev="ggregory">org.junit.jupiter:junit-jupiter 5.6.0 -> 5.6.1.</action>
+    <action                   type="update" dev="ggregory">com.github.spotbugs:spotbugs 4.0.0 -> 4.0.6.</action>
+    <action                   type="update" dev="ggregory">com.puppycrawl.tools:checkstyle 8.29 -> 8.33.</action>
+    <action                   type="update" dev="ggregory">commons.surefire.version 3.0.0-M4 -> 3.0.0-M5..</action>
   </release>
 
   <release version="3.10" date="2020-03-22" description="New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.">

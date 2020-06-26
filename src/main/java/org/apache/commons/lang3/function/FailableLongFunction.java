@@ -23,18 +23,33 @@ import java.util.function.LongFunction;
  * A functional interface like {@link LongFunction} that declares a {@code Throwable}.
  *
  * @param <R> Return type.
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableLongFunction<R, T extends Throwable> {
+public interface FailableLongFunction<R, E extends Throwable> {
+
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableLongFunction NOP = t -> null;
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <R> Return type.
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <R, E extends Throwable> FailableLongFunction<R, E> nop() {
+        return NOP;
+    }
 
     /**
      * Applies this function.
      *
      * @param input the input for the function
      * @return the result of the function
-     * @throws T Thrown when the function fails.
+     * @throws E Thrown when the function fails.
      */
-    R apply(long input) throws T;
+    R apply(long input) throws E;
 }

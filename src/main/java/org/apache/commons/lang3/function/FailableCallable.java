@@ -21,17 +21,17 @@ package org.apache.commons.lang3.function;
  * A functional interface like {@link java.util.concurrent.Callable} that declares a {@code Throwable}.
  *
  * @param <R> Return type.
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableCallable<R, T extends Throwable> {
+public interface FailableCallable<R, E extends Throwable> {
 
     /**
      * Calls the callable.
      *
      * @return The value returned from the callable
-     * @throws T if the callable fails
+     * @throws E if the callable fails
      */
-    R call() throws T;
+    R call() throws E;
 }

@@ -44,7 +44,7 @@ public class LocksTest {
         runTest(DELAY, true, l -> assertTrue(l >= NUMBER_OF_THREADS*DELAY));
     }
 
-    private void runTest(long delay, boolean exclusiveLock, LongConsumer runTimeCheck) throws InterruptedException {
+    private void runTest(final long delay, final boolean exclusiveLock, final LongConsumer runTimeCheck) throws InterruptedException {
         final boolean[] booleanValues = new boolean[10];
         final Lock<boolean[]> lock = Locks.lock(booleanValues);
         final boolean[] runningValues = new boolean[10];
@@ -60,9 +60,9 @@ public class LocksTest {
             };
             final Thread t = new Thread(() -> {
                 if (exclusiveLock) {
-                    lock.runWriteLocked(consumer);
+                    lock.acceptWriteLocked(consumer);
                 } else {
-                    lock.runReadLocked(consumer);
+                    lock.acceptReadLocked(consumer);
                 }
             });
             modify(runningValues, i, true);
@@ -78,13 +78,13 @@ public class LocksTest {
         runTimeCheck.accept(endTime-startTime);
     }
 
-    protected void modify(boolean[] booleanArray, int offset, boolean value) {
+    protected void modify(final boolean[] booleanArray, final int offset, final boolean value) {
         synchronized(booleanArray) {
             booleanArray[offset] = value;
         }
     }
 
-    protected boolean someValueIsTrue(boolean[] booleanArray) {
+    protected boolean someValueIsTrue(final boolean[] booleanArray) {
         synchronized(booleanArray) {
             for (int i = 0;  i < booleanArray.length;  i++) {
                 if (booleanArray[i]) {

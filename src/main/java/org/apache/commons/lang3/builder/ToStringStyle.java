@@ -624,6 +624,16 @@ public abstract class ToStringStyle implements Serializable {
      *  {@code toString}, not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final Collection<?> coll) {
+        if (coll != null && !coll.isEmpty()) {
+            buffer.append(arrayStart);
+            int i = 0;
+            for (final Object item : coll) {
+                appendDetail(buffer, fieldName, i++, item);
+            }
+            buffer.append(arrayEnd);
+            return;
+        }
+
         buffer.append(coll);
     }
 
@@ -919,17 +929,30 @@ public abstract class ToStringStyle implements Serializable {
         buffer.append(arrayStart);
         for (int i = 0; i < array.length; i++) {
             final Object item = array[i];
-            if (i > 0) {
-                buffer.append(arraySeparator);
-            }
-            if (item == null) {
-                appendNullText(buffer, fieldName);
-
-            } else {
-                appendInternal(buffer, fieldName, item, arrayContentDetail);
-            }
+            appendDetail(buffer, fieldName, i, item);
         }
         buffer.append(arrayEnd);
+    }
+
+    /**
+     * <p>Append to the {@code toString} the detail of an
+     * {@code Object} array item.</p>
+     *
+     * @param buffer  the {@code StringBuffer} to populate
+     * @param fieldName  the field name, typically not used as already appended
+     * @param i the array item index to add
+     * @param item the array item to add
+     * @since 3.11
+     */
+    protected void appendDetail(final StringBuffer buffer, final String fieldName, final int i, final Object item) {
+        if (i > 0) {
+            buffer.append(arraySeparator);
+        }
+        if (item == null) {
+            appendNullText(buffer, fieldName);
+        } else {
+            appendInternal(buffer, fieldName, item, arrayContentDetail);
+        }
     }
 
     /**
@@ -946,15 +969,7 @@ public abstract class ToStringStyle implements Serializable {
         final int length = Array.getLength(array);
         for (int i = 0; i < length; i++) {
             final Object item = Array.get(array, i);
-            if (i > 0) {
-                buffer.append(arraySeparator);
-            }
-            if (item == null) {
-                appendNullText(buffer, fieldName);
-
-            } else {
-                appendInternal(buffer, fieldName, item, arrayContentDetail);
-            }
+            appendDetail(buffer, fieldName, i, item);
         }
         buffer.append(arrayEnd);
     }

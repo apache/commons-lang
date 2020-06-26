@@ -24,12 +24,12 @@ import java.lang.reflect.Method;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.StringTokenizer;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
 
 /**
  * <p>Provides utilities for manipulating and examining
@@ -624,20 +624,21 @@ public class ExceptionUtils {
      * that don't have nested causes.</p>
      *
      * @param throwable  the throwable to output, may be null
-     * @param stream  the stream to output to, may not be null
-     * @throws IllegalArgumentException if the stream is {@code null}
+     * @param printStream  the stream to output to, may not be null
+     * @throws NullPointerException if the printStream is {@code null}
      * @since 2.0
      */
-    public static void printRootCauseStackTrace(final Throwable throwable, final PrintStream stream) {
+    @SuppressWarnings("resource")
+    public static void printRootCauseStackTrace(final Throwable throwable, final PrintStream printStream) {
         if (throwable == null) {
             return;
         }
-        Validate.notNull(stream, "The PrintStream must not be null");
+        Objects.requireNonNull(printStream, "printStream");
         final String[] trace = getRootCauseStackTrace(throwable);
         for (final String element : trace) {
-            stream.println(element);
+            printStream.println(element);
         }
-        stream.flush();
+        printStream.flush();
     }
 
     /**
@@ -655,20 +656,21 @@ public class ExceptionUtils {
      * that don't have nested causes.</p>
      *
      * @param throwable  the throwable to output, may be null
-     * @param writer  the writer to output to, may not be null
-     * @throws IllegalArgumentException if the writer is {@code null}
+     * @param printWriter  the writer to output to, may not be null
+     * @throws NullPointerException if the printWriter is {@code null}
      * @since 2.0
      */
-    public static void printRootCauseStackTrace(final Throwable throwable, final PrintWriter writer) {
+    @SuppressWarnings("resource")
+    public static void printRootCauseStackTrace(final Throwable throwable, final PrintWriter printWriter) {
         if (throwable == null) {
             return;
         }
-        Validate.notNull(writer, "The PrintWriter must not be null");
+        Objects.requireNonNull(printWriter, "printWriter");
         final String[] trace = getRootCauseStackTrace(throwable);
         for (final String element : trace) {
-            writer.println(element);
+            printWriter.println(element);
         }
-        writer.flush();
+        printWriter.flush();
     }
 
     /**

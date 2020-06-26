@@ -22,18 +22,32 @@ import java.util.function.DoubleToLongFunction;
 /**
  * A functional interface like {@link DoubleToLongFunction} that declares a {@code Throwable}.
  *
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableDoubleToLongFunction<T extends Throwable> {
+public interface FailableDoubleToLongFunction<E extends Throwable> {
+
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableDoubleToLongFunction NOP = t -> 0;
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableDoubleToLongFunction<E> nop() {
+        return NOP;
+    }
 
     /**
      * Applies this function to the given argument.
      *
      * @param value the function argument
      * @return the function result
-     * @throws T if the operation fails
+     * @throws E if the operation fails
      */
-    int applyAsLong(double value) throws T;
+    int applyAsLong(double value) throws E;
 }

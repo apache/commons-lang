@@ -39,30 +39,30 @@ import org.apache.commons.lang3.function.FailableFunction;
  * the lock.</li>
  * <li>If you want to access the locked object, create a {@link FailableConsumer}. The consumer will receive the locked
  * object as a parameter. For convenience, the consumer may be implemented as a Lambda. Then invoke
- * {@link Locks.Lock#runReadLocked(FailableConsumer)}, or {@link Locks.Lock#runWriteLocked(FailableConsumer)}, passing
+ * {@link Locks.Lock#acceptReadLocked(FailableConsumer)}, or {@link Locks.Lock#acceptWriteLocked(FailableConsumer)}, passing
  * the consumer.</li>
  * <li>As an alternative, if you need to produce a result object, you may use a {@link FailableFunction}. This function
  * may also be implemented as a Lambda. To have the function executed, invoke
- * {@link Locks.Lock#callReadLocked(FailableFunction)}, or {@link Locks.Lock#callWriteLocked(FailableFunction)}.</li>
+ * {@link Locks.Lock#applyReadLocked(FailableFunction)}, or {@link Locks.Lock#applyWriteLocked(FailableFunction)}.</li>
  * </ol>
  *
  * Example: A thread safe logger class.
  *
  * <pre>
  *   public class SimpleLogger {
+ *
  *     private final Lock&lt;PrintStream&gt; lock;
  *
  *     public SimpleLogger(OutputStream out) {
- *         PrintStream ps = new PrintStream(out);
- *         lock = Locks.lock(ps);
+ *         lock = Locks.lock(new PrintStream(out));
  *     }
  *
  *     public void log(String message) {
- *         lock.runWriteLocked((ps) -&gt; ps.println(message));
+ *         lock.acceptWriteLocked((ps) -&gt; ps.println(message));
  *     }
  *
  *     public void log(byte[] buffer) {
- *         lock.runWriteLocked((ps) -&gt; { ps.write(buffer); ps.println(); });
+ *         lock.acceptWriteLocked((ps) -&gt; { ps.write(buffer); ps.println(); });
  *     }
  * </pre>
  *
@@ -71,30 +71,31 @@ import org.apache.commons.lang3.function.FailableFunction;
 public class Locks {
 
     public static class Lock<O extends Object> {
-        private final O lockedObject;
+
         private final StampedLock lock = new StampedLock();
+        private final O lockedObject;
 
         public Lock(final O lockedObject) {
             this.lockedObject = Objects.requireNonNull(lockedObject, "Locked Object");
         }
 
-        public void runReadLocked(final FailableConsumer<O, ?> consumer) {
-            acceptLocked(() -> lock.readLock(), consumer);
+        public void acceptReadLocked(final FailableConsumer<O, ?> consumer) {
+            lockAcceptUnlock(() -> lock.readLock(), consumer);
         }
 
-        public void runWriteLocked(final FailableConsumer<O, ?> consumer) {
-            acceptLocked(() -> lock.writeLock(), consumer);
+        public void acceptWriteLocked(final FailableConsumer<O, ?> consumer) {
+            lockAcceptUnlock(() -> lock.writeLock(), consumer);
         }
 
-        public <T> T callReadLocked(final FailableFunction<O, T, ?> function) {
-            return applyLocked(() -> lock.readLock(), function);
+        public <T> T applyReadLocked(final FailableFunction<O, T, ?> function) {
+            return lockApplyUnlock(() -> lock.readLock(), function);
         }
 
-        public <T> T callWriteLocked(final FailableFunction<O, T, ?> function) {
-            return applyLocked(() -> lock.writeLock(), function);
+        public <T> T applyWriteLocked(final FailableFunction<O, T, ?> function) {
+            return lockApplyUnlock(() -> lock.writeLock(), function);
         }
 
-        protected void acceptLocked(final LongSupplier stampSupplier, final FailableConsumer<O, ?> consumer) {
+        protected void lockAcceptUnlock(final LongSupplier stampSupplier, final FailableConsumer<O, ?> consumer) {
             final long stamp = stampSupplier.getAsLong();
             try {
                 consumer.accept(lockedObject);
@@ -105,7 +106,7 @@ public class Locks {
             }
         }
 
-        protected <T> T applyLocked(final LongSupplier stampSupplier, final FailableFunction<O, T, ?> function) {
+        protected <T> T lockApplyUnlock(final LongSupplier stampSupplier, final FailableFunction<O, T, ?> function) {
             final long stamp = stampSupplier.getAsLong();
             try {
                 return function.apply(lockedObject);

@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -208,5 +209,41 @@ public class ImmutablePairTest {
             assertEquals(item, entry.getKey());
             assertEquals(item.getLeft() + "" + item.getRight(), entry.getValue());
         }
+    }
+
+    @Test
+    public void testComparableLeftOnly() {
+        final Pair<String, String> pair1 = ImmutablePair.left("A");
+        final Pair<String, String> pair2 = ImmutablePair.left("B");
+        assertEquals("A", pair1.getLeft());
+        assertEquals("B", pair2.getLeft());
+        assertEquals(0, pair1.compareTo(pair1));
+        assertTrue(pair1.compareTo(pair2) < 0);
+        assertEquals(0, pair2.compareTo(pair2));
+        assertTrue(pair2.compareTo(pair1) > 0);
+    }
+
+    @Test
+    public void testComparableRightOnly() {
+        final Pair<String, String> pair1 = ImmutablePair.right("A");
+        final Pair<String, String> pair2 = ImmutablePair.right("B");
+        assertEquals("A", pair1.getRight());
+        assertEquals("B", pair2.getRight());
+        assertEquals(0, pair1.compareTo(pair1));
+        assertTrue(pair1.compareTo(pair2) < 0);
+        assertEquals(0, pair2.compareTo(pair2));
+        assertTrue(pair2.compareTo(pair1) > 0);
+    }
+
+    @Test
+    public void testToStringLeft() {
+        final Pair<String, String> pair = ImmutablePair.left("Key");
+        assertEquals("(Key,null)", pair.toString());
+    }
+
+    @Test
+    public void testToStringRight() {
+        final Pair<String, String> pair = ImmutablePair.right("Value");
+        assertEquals("(null,Value)", pair.toString());
     }
 }

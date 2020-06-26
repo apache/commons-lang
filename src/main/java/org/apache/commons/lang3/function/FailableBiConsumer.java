@@ -17,25 +17,57 @@
 
 package org.apache.commons.lang3.function;
 
+import java.util.Objects;
 import java.util.function.BiConsumer;
 
 /**
  * A functional interface like {@link BiConsumer} that declares a {@code Throwable}.
  *
- * @param <O1> Consumed type 1.
- * @param <O2> Consumed type 2.
- * @param <T> Thrown exception.
+ * @param <T> Consumed type 1.
+ * @param <U> Consumed type 2.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableBiConsumer<O1, O2, T extends Throwable> {
+public interface FailableBiConsumer<T, U, E extends Throwable> {
+
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableBiConsumer NOP = (t, u) -> {/* NOP */};
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <T> Consumed type 1.
+     * @param <U> Consumed type 2.
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <T, U, E extends Throwable> FailableBiConsumer<T, U, E> nop() {
+        return NOP;
+    }
 
     /**
      * Accepts the consumer.
      *
-     * @param object1 the first parameter for the consumable to accept
-     * @param object2 the second parameter for the consumable to accept
-     * @throws T Thrown when the consumer fails.
+     * @param t the first parameter for the consumable to accept
+     * @param u the second parameter for the consumable to accept
+     * @throws E Thrown when the consumer fails.
      */
-    void accept(O1 object1, O2 object2) throws T;
+    void accept(T t, U u) throws E;
+
+    /**
+     * Returns a composed {@code FailableBiConsumer} like {@link BiConsumer#andThen(BiConsumer)}.
+     *
+     * @param after the operation to perform after this one.
+     * @return a composed {@code FailableBiConsumer} like {@link BiConsumer#andThen(BiConsumer)}.
+     * @throws NullPointerException when {@code after} is null.
+     */
+    default FailableBiConsumer<T, U, E> andThen(final FailableBiConsumer<? super T, ? super U, E> after) {
+        Objects.requireNonNull(after);
+        return (t, u) -> {
+            accept(t, u);
+            after.accept(t, u);
+        };
+    }
 }

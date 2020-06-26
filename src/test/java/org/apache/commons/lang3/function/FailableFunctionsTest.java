@@ -36,7 +36,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import org.apache.commons.lang3.Functions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -265,16 +264,19 @@ public class FailableFunctionsTest {
         }
     }
 
-    @Test
-    void testAcceptBiConsumer() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, ?> testable = new Testable<>(null);
-        Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(Testable::test, testable, ise));
-        assertSame(ise, e);
+    private static final OutOfMemoryError ERROR = new OutOfMemoryError();
 
-        final Error error = new OutOfMemoryError();
-        e = assertThrows(OutOfMemoryError.class, () -> Failable.accept(Testable::test, testable, error));
-        assertSame(error, e);
+    private static final IllegalStateException ILLEGAL_STATE_EXCEPTION = new IllegalStateException();
+
+    @Test
+    public void testAcceptBiConsumer() {
+        final Testable<?, ?> testable = new Testable<>(null);
+        Throwable e = assertThrows(IllegalStateException.class,
+            () -> Failable.accept(Testable::test, testable, ILLEGAL_STATE_EXCEPTION));
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
+
+        e = assertThrows(OutOfMemoryError.class, () -> Failable.accept(Testable::test, testable, ERROR));
+        assertSame(ERROR, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
@@ -288,16 +290,14 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAcceptConsumer() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, ?> testable = new Testable<>(ise);
+    public void testAcceptConsumer() {
+        final Testable<?, ?> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(Testable::test, testable));
-        assertSame(ise, e);
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
 
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
+        testable.setThrowable(ERROR);
         e = assertThrows(OutOfMemoryError.class, () -> Failable.accept(Testable::test, testable));
-        assertSame(error, e);
+        assertSame(ERROR, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
@@ -311,17 +311,15 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAcceptDoubleConsumer() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, Double> testable = new Testable<>(ise);
+    public void testAcceptDoubleConsumer() {
+        final Testable<?, Double> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(testable::testDouble, 1d));
-        assertSame(ise, e);
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
         assertNull(testable.getAcceptedPrimitiveObject1());
 
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
+        testable.setThrowable(ERROR);
         e = assertThrows(OutOfMemoryError.class, () -> Failable.accept(testable::testDouble, 1d));
-        assertSame(error, e);
+        assertSame(ERROR, e);
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         final IOException ioe = new IOException("Unknown I/O error");
@@ -338,17 +336,15 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAcceptIntConsumer() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, Integer> testable = new Testable<>(ise);
+    public void testAcceptIntConsumer() {
+        final Testable<?, Integer> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(testable::testInt, 1));
-        assertSame(ise, e);
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
         assertNull(testable.getAcceptedPrimitiveObject1());
 
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
+        testable.setThrowable(ERROR);
         e = assertThrows(OutOfMemoryError.class, () -> Failable.accept(testable::testInt, 1));
-        assertSame(error, e);
+        assertSame(ERROR, e);
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         final IOException ioe = new IOException("Unknown I/O error");
@@ -365,17 +361,15 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAcceptLongConsumer() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, Long> testable = new Testable<>(ise);
+    public void testAcceptLongConsumer() {
+        final Testable<?, Long> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(testable::testLong, 1L));
-        assertSame(ise, e);
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
         assertNull(testable.getAcceptedPrimitiveObject1());
 
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
+        testable.setThrowable(ERROR);
         e = assertThrows(OutOfMemoryError.class, () -> Failable.accept(testable::testLong, 1L));
-        assertSame(error, e);
+        assertSame(ERROR, e);
         assertNull(testable.getAcceptedPrimitiveObject1());
 
         final IOException ioe = new IOException("Unknown I/O error");
@@ -392,19 +386,17 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAcceptObjDoubleConsumer() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<String, Double> testable = new Testable<>(ise);
+    public void testAcceptObjDoubleConsumer() {
+        final Testable<String, Double> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class,
             () -> Failable.accept(testable::testObjDouble, "X", 1d));
-        assertSame(ise, e);
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
         assertNull(testable.getAcceptedObject());
         assertNull(testable.getAcceptedPrimitiveObject1());
 
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
+        testable.setThrowable(ERROR);
         e = assertThrows(OutOfMemoryError.class, () -> Failable.accept(testable::testObjDouble, "X", 1d));
-        assertSame(error, e);
+        assertSame(ERROR, e);
         assertNull(testable.getAcceptedObject());
         assertNull(testable.getAcceptedPrimitiveObject1());
 
@@ -424,18 +416,16 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAcceptObjIntConsumer() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<String, Integer> testable = new Testable<>(ise);
+    public void testAcceptObjIntConsumer() {
+        final Testable<String, Integer> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(testable::testObjInt, "X", 1));
-        assertSame(ise, e);
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
         assertNull(testable.getAcceptedObject());
         assertNull(testable.getAcceptedPrimitiveObject1());
 
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
+        testable.setThrowable(ERROR);
         e = assertThrows(OutOfMemoryError.class, () -> Failable.accept(testable::testObjInt, "X", 1));
-        assertSame(error, e);
+        assertSame(ERROR, e);
         assertNull(testable.getAcceptedObject());
         assertNull(testable.getAcceptedPrimitiveObject1());
 
@@ -455,18 +445,16 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAcceptObjLongConsumer() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<String, Long> testable = new Testable<>(ise);
+    public void testAcceptObjLongConsumer() {
+        final Testable<String, Long> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class, () -> Failable.accept(testable::testObjLong, "X", 1L));
-        assertSame(ise, e);
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
         assertNull(testable.getAcceptedObject());
         assertNull(testable.getAcceptedPrimitiveObject1());
 
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
+        testable.setThrowable(ERROR);
         e = assertThrows(OutOfMemoryError.class, () -> Failable.accept(testable::testObjLong, "X", 1L));
-        assertSame(error, e);
+        assertSame(ERROR, e);
         assertNull(testable.getAcceptedObject());
         assertNull(testable.getAcceptedPrimitiveObject1());
 
@@ -487,15 +475,13 @@ public class FailableFunctionsTest {
 
     @Test
     public void testApplyBiFunction() {
-        final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(null);
         Throwable e = assertThrows(IllegalStateException.class,
-            () -> Failable.apply(Testable::testAsInteger, testable, ise));
-        assertSame(ise, e);
+            () -> Failable.apply(Testable::testAsInteger, testable, ILLEGAL_STATE_EXCEPTION));
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
 
-        final Error error = new OutOfMemoryError();
-        e = assertThrows(OutOfMemoryError.class, () -> Failable.apply(Testable::testAsInteger, testable, error));
-        assertSame(error, e);
+        e = assertThrows(OutOfMemoryError.class, () -> Failable.apply(Testable::testAsInteger, testable, ERROR));
+        assertSame(ERROR, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
         e = assertThrows(UncheckedIOException.class, () -> Failable.apply(Testable::testAsInteger, testable, ioe));
@@ -510,11 +496,10 @@ public class FailableFunctionsTest {
 
     @Test
     public void testApplyDoubleBinaryOperator() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, Double> testable = new Testable<>(ise);
+        final Testable<?, Double> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         final Throwable e = assertThrows(IllegalStateException.class,
             () -> Failable.applyAsDouble(testable::testDoubleDouble, 1d, 2d));
-        assertSame(ise, e);
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
 
         final Testable<?, Double> testable2 = new Testable<>(null);
         final double i = Failable.applyAsDouble(testable2::testDoubleDouble, 1d, 2d);
@@ -523,16 +508,14 @@ public class FailableFunctionsTest {
 
     @Test
     public void testApplyFunction() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, ?> testable = new Testable<>(ise);
+        final Testable<?, ?> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class,
             () -> Failable.apply(Testable::testAsInteger, testable));
-        assertSame(ise, e);
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
 
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
+        testable.setThrowable(ERROR);
         e = assertThrows(OutOfMemoryError.class, () -> Failable.apply(Testable::testAsInteger, testable));
-        assertSame(error, e);
+        assertSame(ERROR, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
@@ -548,7 +531,7 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAsCallable() {
+    public void testAsCallable() {
         FailureOnOddInvocations.invocations = 0;
         final FailableCallable<FailureOnOddInvocations, SomeException> failableCallable = FailureOnOddInvocations::new;
         final Callable<FailureOnOddInvocations> callable = Failable.asCallable(failableCallable);
@@ -567,17 +550,15 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAsConsumer() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, ?> testable = new Testable<>(ise);
+    public void testAsConsumer() {
+        final Testable<?, ?> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         final Consumer<Testable<?, ?>> consumer = Failable.asConsumer(Testable::test);
         Throwable e = assertThrows(IllegalStateException.class, () -> consumer.accept(testable));
-        assertSame(ise, e);
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
 
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
+        testable.setThrowable(ERROR);
         e = assertThrows(OutOfMemoryError.class, () -> consumer.accept(testable));
-        assertSame(error, e);
+        assertSame(ERROR, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
@@ -591,7 +572,7 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testAsRunnable() {
+    public void testAsRunnable() {
         FailureOnOddInvocations.invocations = 0;
         final Runnable runnable = Failable.asRunnable(FailureOnOddInvocations::new);
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, runnable::run);
@@ -618,20 +599,22 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testBiConsumer() {
-        final IllegalStateException ise = new IllegalStateException();
+    public void testBiConsumer() throws Throwable {
         final Testable<?, ?> testable = new Testable<>(null);
         final FailableBiConsumer<Testable<?, ?>, Throwable, Throwable> failableBiConsumer = (t, th) -> {
             t.setThrowable(th);
             t.test();
         };
         final BiConsumer<Testable<?, ?>, Throwable> consumer = Failable.asBiConsumer(failableBiConsumer);
-        Throwable e = assertThrows(IllegalStateException.class, () -> consumer.accept(testable, ise));
-        assertSame(ise, e);
+        Throwable e = assertThrows(IllegalStateException.class,
+            () -> consumer.accept(testable, ILLEGAL_STATE_EXCEPTION));
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
 
-        final Error error = new OutOfMemoryError();
-        e = assertThrows(OutOfMemoryError.class, () -> consumer.accept(testable, error));
-        assertSame(error, e);
+        e = assertThrows(OutOfMemoryError.class, () -> consumer.accept(testable, ERROR));
+        assertSame(ERROR, e);
+
+        e = assertThrows(OutOfMemoryError.class, () -> failableBiConsumer.accept(testable, ERROR));
+        assertSame(ERROR, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
@@ -644,21 +627,38 @@ public class FailableFunctionsTest {
     }
 
     @Test
+    public void testBiConsumerAndThen() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableBiConsumer<Testable<?, ?>, Throwable, Throwable> failing = (t, th) -> {
+            t.setThrowable(th);
+            t.test();
+        };
+        final FailableBiConsumer<Testable<?, ?>, Throwable, Throwable> nop = FailableBiConsumer.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.andThen(failing).accept(testable, ERROR));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.andThen(nop).accept(testable, ERROR));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.andThen(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.andThen(null));
+    }
+
+    @Test
     public void testBiFunction() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, ?> testable = new Testable<>(ise);
+        final Testable<?, ?> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         final FailableBiFunction<Testable<?, ?>, Throwable, Integer, Throwable> failableBiFunction = (t, th) -> {
             t.setThrowable(th);
-            return Integer.valueOf(t.testAsInteger());
+            return t.testAsInteger();
         };
         final BiFunction<Testable<?, ?>, Throwable, Integer> biFunction = Failable.asBiFunction(failableBiFunction);
-        Throwable e = assertThrows(IllegalStateException.class, () -> biFunction.apply(testable, ise));
-        assertSame(ise, e);
+        Throwable e = assertThrows(IllegalStateException.class,
+            () -> biFunction.apply(testable, ILLEGAL_STATE_EXCEPTION));
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
 
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
-        e = assertThrows(OutOfMemoryError.class, () -> biFunction.apply(testable, error));
-        assertSame(error, e);
+        testable.setThrowable(ERROR);
+        e = assertThrows(OutOfMemoryError.class, () -> biFunction.apply(testable, ERROR));
+        assertSame(ERROR, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
@@ -671,11 +671,37 @@ public class FailableFunctionsTest {
     }
 
     @Test
+    public void testBiFunctionAndThen() throws IOException {
+        // Unchecked usage pattern in JRE
+        final BiFunction<Object, Integer, Integer> nopBiFunction = (t, u) -> null;
+        final Function<Object, Integer> nopFunction = t -> null;
+        nopBiFunction.andThen(nopFunction);
+        // Checked usage pattern
+        final FailableBiFunction<Object, Integer, Integer, IOException> failingBiFunctionTest = (t, u) -> {
+            throw new IOException();
+        };
+        final FailableFunction<Object, Integer, IOException> failingFunction = t -> {
+            throw new IOException();
+        };
+        final FailableBiFunction<Object, Integer, Integer, IOException> nopFailableBiFunction = FailableBiFunction
+            .nop();
+        final FailableFunction<Object, Integer, IOException> nopFailableFunction = FailableFunction.nop();
+        //
+        assertThrows(IOException.class, () -> failingBiFunctionTest.andThen(failingFunction).apply(null, null));
+        assertThrows(IOException.class, () -> failingBiFunctionTest.andThen(nopFailableFunction).apply(null, null));
+        //
+        assertThrows(IOException.class, () -> nopFailableBiFunction.andThen(failingFunction).apply(null, null));
+        nopFailableBiFunction.andThen(nopFailableFunction).apply(null, null);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failingBiFunctionTest.andThen(null));
+    }
+
+    @Test
     @DisplayName("Test that asPredicate(FailableBiPredicate) is converted to -> BiPredicate ")
     public void testBiPredicate() {
         FailureOnOddInvocations.invocations = 0;
-        final FailableBiPredicate<Object, Object, Throwable> failableBiPredicate = (t1,
-            t2) -> FailureOnOddInvocations.failingBool();
+        final FailableBiPredicate<Object, Object, Throwable> failableBiPredicate = (t1, t2) -> FailureOnOddInvocations
+            .failingBool();
         final BiPredicate<?, ?> predicate = Failable.asBiPredicate(failableBiPredicate);
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class,
             () -> predicate.test(null, null));
@@ -683,12 +709,45 @@ public class FailableFunctionsTest {
         assertNotNull(cause);
         assertTrue(cause instanceof SomeException);
         assertEquals("Odd Invocation: 1", cause.getMessage());
-        final boolean instance = predicate.test(null, null);
-        assertNotNull(instance);
+        assertTrue(predicate.test(null, null));
     }
 
     @Test
-    void testCallable() {
+    public void testBiPredicateAnd() throws Throwable {
+        assertTrue(FailableBiPredicate.TRUE.and(FailableBiPredicate.TRUE).test(null, null));
+        assertFalse(FailableBiPredicate.TRUE.and(FailableBiPredicate.FALSE).test(null, null));
+        assertFalse(FailableBiPredicate.FALSE.and(FailableBiPredicate.TRUE).test(null, null));
+        assertFalse(FailableBiPredicate.FALSE.and(FailableBiPredicate.FALSE).test(null, null));
+        // null tests
+        assertThrows(NullPointerException.class,
+            () -> assertFalse(FailableBiPredicate.falsePredicate().and(null).test(null, null)));
+        assertThrows(NullPointerException.class,
+            () -> assertTrue(FailableBiPredicate.truePredicate().and(null).test(null, null)));
+    }
+
+    @Test
+    public void testBiPredicateNegate() throws Throwable {
+        assertFalse(FailableBiPredicate.TRUE.negate().test(null, null));
+        assertFalse(FailableBiPredicate.truePredicate().negate().test(null, null));
+        assertTrue(FailableBiPredicate.FALSE.negate().test(null, null));
+        assertTrue(FailableBiPredicate.falsePredicate().negate().test(null, null));
+    }
+
+    @Test
+    public void testBiPredicateOr() throws Throwable {
+        assertTrue(FailableBiPredicate.TRUE.or(FailableBiPredicate.TRUE).test(null, null));
+        assertTrue(FailableBiPredicate.TRUE.or(FailableBiPredicate.FALSE).test(null, null));
+        assertTrue(FailableBiPredicate.FALSE.or(FailableBiPredicate.TRUE).test(null, null));
+        assertFalse(FailableBiPredicate.FALSE.or(FailableBiPredicate.FALSE).test(null, null));
+        // null tests
+        assertThrows(NullPointerException.class,
+            () -> assertFalse(FailableBiPredicate.falsePredicate().or(null).test(null, null)));
+        assertThrows(NullPointerException.class,
+            () -> assertTrue(FailableBiPredicate.truePredicate().or(null).test(null, null)));
+    }
+
+    @Test
+    public void testCallable() {
         FailureOnOddInvocations.invocations = 0;
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class,
             () -> Failable.run(FailureOnOddInvocations::new));
@@ -701,36 +760,142 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    public void testConstructor() {
-        // We allow this, which must have been an omission to make the ctor private.
-        // We could make the ctor private in 4.0.
-        new Functions();
+    public void testConsumerAndThen() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableConsumer<Throwable, Throwable> failableConsumer = th -> {
+            testable.setThrowable(th);
+            testable.test();
+        };
+        final FailableConsumer<Throwable, Throwable> nop = FailableConsumer.nop();
+        final Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.andThen(failableConsumer).accept(ERROR));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.andThen(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failableConsumer.andThen(null));
+    }
+
+    @Test
+    public void testDoubleConsumerAndThen() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableDoubleConsumer<Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+        };
+        final FailableDoubleConsumer<Throwable> nop = FailableDoubleConsumer.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.andThen(failing).accept(0d));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.andThen(nop).accept(0d));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.andThen(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.andThen(null));
     }
 
     @Test
     public void testDoublePredicate() throws Throwable {
         FailureOnOddInvocations.invocations = 0;
-        final FailableDoublePredicate<Throwable> failablePredicate = t1 -> FailureOnOddInvocations.testDouble(t1);
+        final FailableDoublePredicate<Throwable> failablePredicate = FailureOnOddInvocations::testDouble;
         assertThrows(SomeException.class, () -> failablePredicate.test(1d));
         failablePredicate.test(1d);
     }
 
     @Test
+    public void testDoublePredicateAnd() throws Throwable {
+        assertTrue(FailableDoublePredicate.TRUE.and(FailableDoublePredicate.TRUE).test(0));
+        assertFalse(FailableDoublePredicate.TRUE.and(FailableDoublePredicate.FALSE).test(0));
+        assertFalse(FailableDoublePredicate.FALSE.and(FailableDoublePredicate.TRUE).test(0));
+        assertFalse(FailableDoublePredicate.FALSE.and(FailableDoublePredicate.FALSE).test(0));
+        // null tests
+        assertThrows(NullPointerException.class,
+            () -> assertFalse(FailableDoublePredicate.falsePredicate().and(null).test(0)));
+        assertThrows(NullPointerException.class,
+            () -> assertTrue(FailableDoublePredicate.truePredicate().and(null).test(0)));
+    }
+
+    @Test
+    public void testDoublePredicateNegate() throws Throwable {
+        assertFalse(FailableDoublePredicate.TRUE.negate().test(0d));
+        assertFalse(FailableDoublePredicate.truePredicate().negate().test(0d));
+        assertTrue(FailableDoublePredicate.FALSE.negate().test(0d));
+        assertTrue(FailableDoublePredicate.falsePredicate().negate().test(0d));
+    }
+
+    @Test
+    public void testDoublePredicateOr() throws Throwable {
+        assertTrue(FailableDoublePredicate.TRUE.or(FailableDoublePredicate.TRUE).test(0));
+        assertTrue(FailableDoublePredicate.TRUE.or(FailableDoublePredicate.FALSE).test(0));
+        assertTrue(FailableDoublePredicate.FALSE.or(FailableDoublePredicate.TRUE).test(0));
+        assertFalse(FailableDoublePredicate.FALSE.or(FailableDoublePredicate.FALSE).test(0));
+        // null tests
+        assertThrows(NullPointerException.class,
+            () -> assertFalse(FailableDoublePredicate.falsePredicate().or(null).test(0)));
+        assertThrows(NullPointerException.class,
+            () -> assertTrue(FailableDoublePredicate.truePredicate().or(null).test(0)));
+    }
+
+    @Test
+    public void testDoubleUnaryOperatorAndThen() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableDoubleUnaryOperator<Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+            return 0d;
+        };
+        final FailableDoubleUnaryOperator<Throwable> nop = FailableDoubleUnaryOperator.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.andThen(failing).applyAsDouble(0d));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.andThen(nop).applyAsDouble(0d));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.andThen(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.andThen(null));
+    }
+
+    @Test
+    public void testDoubleUnaryOperatorCompose() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableDoubleUnaryOperator<Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+            return 0d;
+        };
+        final FailableDoubleUnaryOperator<Throwable> nop = FailableDoubleUnaryOperator.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.compose(failing).applyAsDouble(0d));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.compose(nop).applyAsDouble(0d));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.compose(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.compose(null));
+    }
+
+    @Test
+    public void testDoubleUnaryOperatorIdentity() throws Throwable {
+        final FailableDoubleUnaryOperator<Throwable> nop = FailableDoubleUnaryOperator.identity();
+        // Does not throw
+        nop.compose(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> nop.compose(null));
+    }
+
+    @Test
     public void testFunction() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, ?> testable = new Testable<>(ise);
+        final Testable<?, ?> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         final FailableFunction<Throwable, Integer, Throwable> failableFunction = th -> {
             testable.setThrowable(th);
-            return Integer.valueOf(testable.testAsInteger());
+            return testable.testAsInteger();
         };
         final Function<Throwable, Integer> function = Failable.asFunction(failableFunction);
-        Throwable e = assertThrows(IllegalStateException.class, () -> function.apply(ise));
-        assertSame(ise, e);
+        Throwable e = assertThrows(IllegalStateException.class, () -> function.apply(ILLEGAL_STATE_EXCEPTION));
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
 
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
-        e = assertThrows(OutOfMemoryError.class, () -> function.apply(error));
-        assertSame(error, e);
+        testable.setThrowable(ERROR);
+        e = assertThrows(OutOfMemoryError.class, () -> function.apply(ERROR));
+        assertSame(ERROR, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
@@ -743,17 +908,63 @@ public class FailableFunctionsTest {
     }
 
     @Test
+    public void testFunctionAndThen() throws IOException {
+        // Unchecked usage pattern in JRE
+        final Function<Object, Integer> nopFunction = t -> null;
+        nopFunction.andThen(nopFunction);
+        // Checked usage pattern
+        final FailableFunction<Object, Integer, IOException> failingFunction = t -> {
+            throw new IOException();
+        };
+        final FailableFunction<Object, Integer, IOException> nopFailableFunction = FailableFunction.nop();
+        //
+        assertThrows(IOException.class, () -> failingFunction.andThen(failingFunction).apply(null));
+        assertThrows(IOException.class, () -> failingFunction.andThen(nopFailableFunction).apply(null));
+        //
+        assertThrows(IOException.class, () -> nopFailableFunction.andThen(failingFunction).apply(null));
+        nopFailableFunction.andThen(nopFailableFunction).apply(null);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failingFunction.andThen(null));
+    }
+
+    @Test
+    public void testFunctionCompose() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableFunction<Object, Integer, Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+            return 0;
+        };
+        final FailableFunction<Object, Integer, Throwable> nop = FailableFunction.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.compose(failing).apply(0));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.compose(nop).apply(0));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.compose(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.compose(null));
+    }
+
+    @Test
+    public void testFunctionIdentity() throws Throwable {
+        final FailableFunction<Integer, Integer, Throwable> nop = FailableFunction.identity();
+        // Does not throw
+        nop.compose(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> nop.compose(null));
+    }
+
+    @Test
     public void testGetAsBooleanSupplier() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, ?> testable = new Testable<>(ise);
+        final Testable<?, ?> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class,
             () -> Failable.getAsBoolean(testable::testAsBooleanPrimitive));
-        assertSame(ise, e);
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
 
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
+        testable.setThrowable(ERROR);
         e = assertThrows(OutOfMemoryError.class, () -> Failable.getAsBoolean(testable::testAsBooleanPrimitive));
-        assertSame(error, e);
+        assertSame(ERROR, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
@@ -768,16 +979,14 @@ public class FailableFunctionsTest {
 
     @Test
     public void testGetAsDoubleSupplier() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, ?> testable = new Testable<>(ise);
+        final Testable<?, ?> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class,
             () -> Failable.getAsDouble(testable::testAsDoublePrimitive));
-        assertSame(ise, e);
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
 
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
+        testable.setThrowable(ERROR);
         e = assertThrows(OutOfMemoryError.class, () -> Failable.getAsDouble(testable::testAsDoublePrimitive));
-        assertSame(error, e);
+        assertSame(ERROR, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
@@ -792,15 +1001,13 @@ public class FailableFunctionsTest {
 
     @Test
     public void testGetAsIntSupplier() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, ?> testable = new Testable<>(ise);
+        final Testable<?, ?> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class, () -> Failable.getAsInt(testable::testAsIntPrimitive));
-        assertSame(ise, e);
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
 
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
+        testable.setThrowable(ERROR);
         e = assertThrows(OutOfMemoryError.class, () -> Failable.getAsInt(testable::testAsIntPrimitive));
-        assertSame(error, e);
+        assertSame(ERROR, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
@@ -816,16 +1023,14 @@ public class FailableFunctionsTest {
 
     @Test
     public void testGetAsLongSupplier() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, ?> testable = new Testable<>(ise);
+        final Testable<?, ?> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class,
             () -> Failable.getAsLong(testable::testAsLongPrimitive));
-        assertSame(ise, e);
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
 
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
+        testable.setThrowable(ERROR);
         e = assertThrows(OutOfMemoryError.class, () -> Failable.getAsLong(testable::testAsLongPrimitive));
-        assertSame(error, e);
+        assertSame(ERROR, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
@@ -854,15 +1059,13 @@ public class FailableFunctionsTest {
 
     @Test
     public void testGetSupplier() {
-        final IllegalStateException ise = new IllegalStateException();
-        final Testable<?, ?> testable = new Testable<>(ise);
+        final Testable<?, ?> testable = new Testable<>(ILLEGAL_STATE_EXCEPTION);
         Throwable e = assertThrows(IllegalStateException.class, () -> Failable.get(testable::testAsInteger));
-        assertSame(ise, e);
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
 
-        final Error error = new OutOfMemoryError();
-        testable.setThrowable(error);
+        testable.setThrowable(ERROR);
         e = assertThrows(OutOfMemoryError.class, () -> Failable.get(testable::testAsInteger));
-        assertSame(error, e);
+        assertSame(ERROR, e);
 
         final IOException ioe = new IOException("Unknown I/O error");
         testable.setThrowable(ioe);
@@ -878,27 +1081,220 @@ public class FailableFunctionsTest {
     }
 
     @Test
+    public void testIntConsumerAndThen() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableIntConsumer<Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+        };
+        final FailableIntConsumer<Throwable> nop = FailableIntConsumer.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.andThen(failing).accept(0));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.andThen(nop).accept(0));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.andThen(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.andThen(null));
+    }
+
+    @Test
     public void testIntPredicate() throws Throwable {
         FailureOnOddInvocations.invocations = 0;
-        final FailableIntPredicate<Throwable> failablePredicate = t1 -> FailureOnOddInvocations.testInt(t1);
+        final FailableIntPredicate<Throwable> failablePredicate = FailureOnOddInvocations::testInt;
         assertThrows(SomeException.class, () -> failablePredicate.test(1));
         failablePredicate.test(1);
     }
 
     @Test
+    public void testIntPredicateAnd() throws Throwable {
+        assertTrue(FailableIntPredicate.TRUE.and(FailableIntPredicate.TRUE).test(0));
+        assertFalse(FailableIntPredicate.TRUE.and(FailableIntPredicate.FALSE).test(0));
+        assertFalse(FailableIntPredicate.FALSE.and(FailableIntPredicate.TRUE).test(0));
+        assertFalse(FailableIntPredicate.FALSE.and(FailableIntPredicate.FALSE).test(0));
+        // null tests
+        assertThrows(NullPointerException.class,
+            () -> assertFalse(FailableIntPredicate.falsePredicate().and(null).test(0)));
+        assertThrows(NullPointerException.class,
+            () -> assertTrue(FailableIntPredicate.truePredicate().and(null).test(0)));
+    }
+
+    @Test
+    public void testIntPredicateNegate() throws Throwable {
+        assertFalse(FailableIntPredicate.TRUE.negate().test(0));
+        assertFalse(FailableIntPredicate.truePredicate().negate().test(0));
+        assertTrue(FailableIntPredicate.FALSE.negate().test(0));
+        assertTrue(FailableIntPredicate.falsePredicate().negate().test(0));
+    }
+
+    @Test
+    public void testIntPredicateOr() throws Throwable {
+        assertTrue(FailableIntPredicate.TRUE.or(FailableIntPredicate.TRUE).test(0));
+        assertTrue(FailableIntPredicate.TRUE.or(FailableIntPredicate.FALSE).test(0));
+        assertTrue(FailableIntPredicate.FALSE.or(FailableIntPredicate.TRUE).test(0));
+        assertFalse(FailableIntPredicate.FALSE.or(FailableIntPredicate.FALSE).test(0));
+        // null tests
+        assertThrows(NullPointerException.class,
+            () -> assertFalse(FailableIntPredicate.falsePredicate().or(null).test(0)));
+        assertThrows(NullPointerException.class,
+            () -> assertTrue(FailableIntPredicate.truePredicate().or(null).test(0)));
+    }
+
+    @Test
+    public void testIntUnaryOperatorAndThen() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableIntUnaryOperator<Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+            return 0;
+        };
+        final FailableIntUnaryOperator<Throwable> nop = FailableIntUnaryOperator.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.andThen(failing).applyAsInt(0));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.andThen(nop).applyAsInt(0));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.andThen(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.andThen(null));
+    }
+
+    @Test
+    public void testIntUnaryOperatorCompose() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableIntUnaryOperator<Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+            return 0;
+        };
+        final FailableIntUnaryOperator<Throwable> nop = FailableIntUnaryOperator.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.compose(failing).applyAsInt(0));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.compose(nop).applyAsInt(0));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.compose(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.compose(null));
+    }
+
+    @Test
+    public void testIntUnaryOperatorIdentity() throws Throwable {
+        final FailableIntUnaryOperator<Throwable> nop = FailableIntUnaryOperator.identity();
+        // Does not throw
+        nop.compose(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> nop.compose(null));
+    }
+
+    @Test
+    public void testLongConsumerAndThen() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableLongConsumer<Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+        };
+        final FailableLongConsumer<Throwable> nop = FailableLongConsumer.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.andThen(failing).accept(0L));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.andThen(nop).accept(0L));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.andThen(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.andThen(null));
+    }
+
+    @Test
     public void testLongPredicate() throws Throwable {
         FailureOnOddInvocations.invocations = 0;
-        final FailableLongPredicate<Throwable> failablePredicate = t1 -> FailureOnOddInvocations.testLong(t1);
+        final FailableLongPredicate<Throwable> failablePredicate = FailureOnOddInvocations::testLong;
         assertThrows(SomeException.class, () -> failablePredicate.test(1L));
         failablePredicate.test(1L);
+    }
+
+    @Test
+    public void testLongPredicateAnd() throws Throwable {
+        assertTrue(FailableLongPredicate.TRUE.and(FailableLongPredicate.TRUE).test(0));
+        assertFalse(FailableLongPredicate.TRUE.and(FailableLongPredicate.FALSE).test(0));
+        assertFalse(FailableLongPredicate.FALSE.and(FailableLongPredicate.TRUE).test(0));
+        assertFalse(FailableLongPredicate.FALSE.and(FailableLongPredicate.FALSE).test(0));
+        // null tests
+        assertThrows(NullPointerException.class, () -> assertFalse(FailableLongPredicate.falsePredicate().and(null).test(0)));
+        assertThrows(NullPointerException.class, () -> assertTrue(FailableLongPredicate.truePredicate().and(null).test(0)));
+    }
+
+    @Test
+    public void testLongPredicateNegate() throws Throwable {
+        assertFalse(FailableLongPredicate.TRUE.negate().test(0L));
+        assertFalse(FailableLongPredicate.truePredicate().negate().test(0L));
+        assertTrue(FailableLongPredicate.FALSE.negate().test(0L));
+        assertTrue(FailableLongPredicate.falsePredicate().negate().test(0L));
+    }
+
+    @Test
+    public void testLongPredicateOr() throws Throwable {
+        assertTrue(FailableLongPredicate.TRUE.or(FailableLongPredicate.TRUE).test(0));
+        assertTrue(FailableLongPredicate.TRUE.or(FailableLongPredicate.FALSE).test(0));
+        assertTrue(FailableLongPredicate.FALSE.or(FailableLongPredicate.TRUE).test(0));
+        assertFalse(FailableLongPredicate.FALSE.or(FailableLongPredicate.FALSE).test(0));
+        // null tests
+        assertThrows(NullPointerException.class, () -> assertFalse(FailableLongPredicate.falsePredicate().or(null).test(0)));
+        assertThrows(NullPointerException.class, () -> assertTrue(FailableLongPredicate.truePredicate().or(null).test(0)));
+    }
+
+    @Test
+    public void testLongUnaryOperatorAndThen() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableLongUnaryOperator<Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+            return 0L;
+        };
+        final FailableLongUnaryOperator<Throwable> nop = FailableLongUnaryOperator.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.andThen(failing).applyAsLong(0L));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.andThen(nop).applyAsLong(0L));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.andThen(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.andThen(null));
+    }
+
+    @Test
+    public void testLongUnaryOperatorCompose() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableLongUnaryOperator<Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+            return 0L;
+        };
+        final FailableLongUnaryOperator<Throwable> nop = FailableLongUnaryOperator.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.compose(failing).applyAsLong(0L));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.compose(nop).applyAsLong(0L));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.compose(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> failing.compose(null));
+    }
+
+    @Test
+    public void testLongUnaryOperatorIdentity() throws Throwable {
+        final FailableLongUnaryOperator<Throwable> nop = FailableLongUnaryOperator.identity();
+        // Does not throw
+        nop.compose(nop);
+        // Documented in Javadoc edge-case.
+        assertThrows(NullPointerException.class, () -> nop.compose(null));
     }
 
     @Test
     @DisplayName("Test that asPredicate(FailablePredicate) is converted to -> Predicate ")
     public void testPredicate() {
         FailureOnOddInvocations.invocations = 0;
-        final FailablePredicate<Object, Throwable> failablePredicate = t -> FailureOnOddInvocations
-            .failingBool();
+        final FailablePredicate<Object, Throwable> failablePredicate = t -> FailureOnOddInvocations.failingBool();
         final Predicate<?> predicate = Failable.asPredicate(failablePredicate);
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class,
             () -> predicate.test(null));
@@ -911,7 +1307,26 @@ public class FailableFunctionsTest {
     }
 
     @Test
-    void testRunnable() {
+    public void testPredicateAnd() throws Throwable {
+        assertTrue(FailablePredicate.TRUE.and(FailablePredicate.TRUE).test(null));
+        assertFalse(FailablePredicate.TRUE.and(FailablePredicate.FALSE).test(null));
+        assertFalse(FailablePredicate.FALSE.and(FailablePredicate.TRUE).test(null));
+        assertFalse(FailablePredicate.FALSE.and(FailablePredicate.FALSE).test(null));
+        // null tests
+        assertThrows(NullPointerException.class, () -> assertFalse(FailablePredicate.FALSE.and(null).test(null)));
+        assertThrows(NullPointerException.class, () -> assertTrue(FailablePredicate.TRUE.and(null).test(null)));
+    }
+
+    @Test
+    public void testPredicateNegate() throws Throwable {
+        assertFalse(FailablePredicate.TRUE.negate().test(null));
+        assertFalse(FailablePredicate.truePredicate().negate().test(null));
+        assertTrue(FailablePredicate.FALSE.negate().test(null));
+        assertTrue(FailablePredicate.falsePredicate().negate().test(null));
+    }
+
+    @Test
+    public void testRunnable() {
         FailureOnOddInvocations.invocations = 0;
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class,
             () -> Failable.run(FailureOnOddInvocations::new));
@@ -929,7 +1344,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    void testThrows_FailableBiConsumer_Object_Throwable() {
+    public void testThrows_FailableBiConsumer_Object_Throwable() {
         new FailableBiConsumer<Object, Object, Throwable>() {
 
             @Override
@@ -944,7 +1359,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    void testThrows_FailableBiConsumer_String_IOException() {
+    public void testThrows_FailableBiConsumer_String_IOException() {
         new FailableBiConsumer<String, String, IOException>() {
 
             @Override
@@ -960,7 +1375,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    void testThrows_FailableBiFunction_Object_Throwable() {
+    public void testThrows_FailableBiFunction_Object_Throwable() {
         new FailableBiFunction<Object, Object, Object, Throwable>() {
 
             @Override
@@ -975,7 +1390,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    void testThrows_FailableBiFunction_String_IOException() {
+    public void testThrows_FailableBiFunction_String_IOException() {
         new FailableBiFunction<String, String, String, IOException>() {
 
             @Override
@@ -990,7 +1405,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    void testThrows_FailableBiPredicate_Object_Throwable() {
+    public void testThrows_FailableBiPredicate_Object_Throwable() {
         new FailableBiPredicate<Object, Object, Throwable>() {
 
             @Override
@@ -1005,7 +1420,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    void testThrows_FailableBiPredicate_String_IOException() {
+    public void testThrows_FailableBiPredicate_String_IOException() {
         new FailableBiPredicate<String, String, IOException>() {
 
             @Override
@@ -1047,13 +1462,12 @@ public class FailableFunctionsTest {
 
     ///////////////////////////////////////////////
 
-
     /**
      * Tests that our failable interface is properly defined to throw any exception. using the top level generic types
      * Object and Throwable.
      */
     @Test
-    void testThrows_FailableCallable_Object_Throwable() {
+    public void testThrows_FailableCallable_Object_Throwable() {
         new FailableCallable<Object, Throwable>() {
 
             @Override
@@ -1068,7 +1482,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    void testThrows_FailableCallable_String_IOException() {
+    public void testThrows_FailableCallable_String_IOException() {
         new FailableCallable<String, IOException>() {
 
             @Override
@@ -1083,7 +1497,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    void testThrows_FailableConsumer_Object_Throwable() {
+    public void testThrows_FailableConsumer_Object_Throwable() {
         new FailableConsumer<Object, Throwable>() {
 
             @Override
@@ -1099,7 +1513,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    void testThrows_FailableConsumer_String_IOException() {
+    public void testThrows_FailableConsumer_String_IOException() {
         new FailableConsumer<String, IOException>() {
 
             @Override
@@ -2050,32 +2464,30 @@ public class FailableFunctionsTest {
 
     @Test
     public void testTryWithResources() {
-        final CloseableObject co = new CloseableObject();
-        final FailableConsumer<Throwable, ? extends Throwable> consumer = co::run;
-        final IllegalStateException ise = new IllegalStateException();
+        final CloseableObject closeable = new CloseableObject();
+        final FailableConsumer<Throwable, ? extends Throwable> consumer = closeable::run;
         Throwable e = assertThrows(IllegalStateException.class,
-            () -> Failable.tryWithResources(() -> consumer.accept(ise), co::close));
-        assertSame(ise, e);
+            () -> Failable.tryWithResources(() -> consumer.accept(ILLEGAL_STATE_EXCEPTION), closeable::close));
+        assertSame(ILLEGAL_STATE_EXCEPTION, e);
 
-        assertTrue(co.isClosed());
-        co.reset();
-        final Error error = new OutOfMemoryError();
+        assertTrue(closeable.isClosed());
+        closeable.reset();
         e = assertThrows(OutOfMemoryError.class,
-            () -> Failable.tryWithResources(() -> consumer.accept(error), co::close));
-        assertSame(error, e);
+            () -> Failable.tryWithResources(() -> consumer.accept(ERROR), closeable::close));
+        assertSame(ERROR, e);
 
-        assertTrue(co.isClosed());
-        co.reset();
+        assertTrue(closeable.isClosed());
+        closeable.reset();
         final IOException ioe = new IOException("Unknown I/O error");
         final UncheckedIOException uioe = assertThrows(UncheckedIOException.class,
-            () -> Failable.tryWithResources(() -> consumer.accept(ioe), co::close));
+            () -> Failable.tryWithResources(() -> consumer.accept(ioe), closeable::close));
         final IOException cause = uioe.getCause();
         assertSame(ioe, cause);
 
-        assertTrue(co.isClosed());
-        co.reset();
-        Failable.tryWithResources(() -> consumer.accept(null), co::close);
-        assertTrue(co.isClosed());
+        assertTrue(closeable.isClosed());
+        closeable.reset();
+        Failable.tryWithResources(() -> consumer.accept(null), closeable::close);
+        assertTrue(closeable.isClosed());
     }
 
 }

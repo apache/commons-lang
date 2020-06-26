@@ -22,19 +22,34 @@ import java.util.function.ToDoubleFunction;
 /**
  * A functional interface like {@link ToDoubleFunction} that declares a {@code Throwable}.
  *
- * @param <I> the type of the first argument to the function
- * @param <T> Thrown exception.
+ * @param <T> the type of the argument to the function
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableToDoubleFunction<I, T extends Throwable> {
+public interface FailableToDoubleFunction<T, E extends Throwable> {
+
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableToDoubleFunction NOP = t -> 0d;
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <T> the type of the argument to the function
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <T, E extends Throwable> FailableToDoubleFunction<T, E> nop() {
+        return NOP;
+    }
 
     /**
      * Applies this function to the given arguments.
      *
      * @param t the first function argument
      * @return the function result
-     * @throws T Thrown when the function fails.
+     * @throws E Thrown when the function fails.
      */
-    double applyAsDouble(I t) throws T;
+    double applyAsDouble(T t) throws E;
 }

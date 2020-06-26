@@ -323,7 +323,7 @@ public class ThreadUtilsTest {
             assertEquals(1, ThreadUtils.findThreadsByName(t4.getName(), threadGroup3.getName()).size());
             assertEquals(0, ThreadUtils.findThreadsByName(t4.getName(), threadGroup2.getName()).size());
             assertEquals(2, ThreadUtils.findThreadsByName(t11.getName(), threadGroup7.getName()).size());
-        }finally {
+        } finally {
             for (final Thread thread : threads) {
                 thread.interrupt();
                 thread.join();

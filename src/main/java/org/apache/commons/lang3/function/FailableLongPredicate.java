@@ -17,23 +17,85 @@
 
 package org.apache.commons.lang3.function;
 
+import java.util.Objects;
 import java.util.function.LongPredicate;
 
 /**
  * A functional interface like {@link LongPredicate} that declares a {@code Throwable}.
  *
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableLongPredicate<T extends Throwable> {
+public interface FailableLongPredicate<E extends Throwable> {
+
+    /** FALSE singleton */
+    @SuppressWarnings("rawtypes")
+    FailableLongPredicate FALSE = t -> false;
+
+    /** TRUE singleton */
+    @SuppressWarnings("rawtypes")
+    FailableLongPredicate TRUE = t -> true;
+
+    /**
+     * Returns The FALSE singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableLongPredicate<E> falsePredicate() {
+        return FALSE;
+    }
+
+    /**
+     * Returns The FALSE TRUE.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableLongPredicate<E> truePredicate() {
+        return TRUE;
+    }
+
+    /**
+     * Returns a composed {@code FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
+     *
+     * @param other a predicate that will be logically-ANDed with this predicate.
+     * @return a composed {@code FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
+     * @throws NullPointerException if other is null
+     */
+    default FailableLongPredicate<E> and(final FailableLongPredicate<E> other) {
+        Objects.requireNonNull(other);
+        return t -> test(t) && other.test(t);
+    }
+
+    /**
+     * Returns a predicate that negates this predicate.
+     *
+     * @return a predicate that negates this predicate.
+     */
+    default FailableLongPredicate<E> negate() {
+        return t -> !test(t);
+    }
+
+    /**
+     * Returns a composed {@code FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
+     *
+     * @param other a predicate that will be logically-ORed with this predicate.
+     * @return a composed {@code FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
+     * @throws NullPointerException if other is null
+     */
+    default FailableLongPredicate<E> or(final FailableLongPredicate<E> other) {
+        Objects.requireNonNull(other);
+        return t -> test(t) || other.test(t);
+    }
 
     /**
      * Tests the predicate.
      *
      * @param value the parameter for the predicate to accept.
      * @return {@code true} if the input argument matches the predicate, {@code false} otherwise.
-     * @throws T Thrown when the consumer fails.
+     * @throws E Thrown when the consumer fails.
      */
-    boolean test(long value) throws T;
+    boolean test(long value) throws E;
 }

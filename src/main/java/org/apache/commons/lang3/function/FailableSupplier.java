@@ -23,17 +23,17 @@ import java.util.function.Supplier;
  * A functional interface like {@link Supplier} that declares a {@code Throwable}.
  *
  * @param <R> Return type.
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableSupplier<R, T extends Throwable> {
+public interface FailableSupplier<R, E extends Throwable> {
 
     /**
      * Supplies an object
      *
      * @return a result
-     * @throws T if the supplier fails
+     * @throws E if the supplier fails
      */
-    R get() throws T;
+    R get() throws E;
 }

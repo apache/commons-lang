@@ -22,19 +22,34 @@ import java.util.function.ObjLongConsumer;
 /**
  * A functional interface like {@link ObjLongConsumer} that declares a {@code Throwable}.
  *
- * @param <O> the type of the object argument to the operation.
- * @param <T> Thrown exception.
+ * @param <T> the type of the object argument to the operation.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableObjLongConsumer<O, T extends Throwable> {
+public interface FailableObjLongConsumer<T, E extends Throwable> {
+
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableObjLongConsumer NOP = (t, u) -> {/* NOP */};
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <T> the type of the object argument to the operation.
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <T, E extends Throwable> FailableObjLongConsumer<T, E> nop() {
+        return NOP;
+    }
 
     /**
      * Accepts the consumer.
      *
      * @param object the object parameter for the consumable to accept.
-     * @param value  the long parameter for the consumable to accept.
-     * @throws T Thrown when the consumer fails.
+     * @param value the long parameter for the consumable to accept.
+     * @throws E Thrown when the consumer fails.
      */
-    void accept(O object, long value) throws T;
+    void accept(T object, long value) throws E;
 }

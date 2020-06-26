@@ -361,6 +361,15 @@ public class ObjectUtilsTest {
         assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE, BAR) );
     }
 
+    @Test
+    public void testToString_SupplierString() {
+        assertEquals(null, ObjectUtils.toString(null, (Supplier<String>) null));
+        assertEquals(null, ObjectUtils.toString(null, () -> null));
+        // Pretend computing BAR is expensive.
+        assertEquals(BAR, ObjectUtils.toString(null, () -> BAR));
+        assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE, () -> BAR));
+    }
+
     @SuppressWarnings("cast") // 1 OK, because we are checking for code change
     @Test
     public void testNull() {

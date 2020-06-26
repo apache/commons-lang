@@ -17,22 +17,52 @@
 
 package org.apache.commons.lang3.function;
 
+import java.util.Objects;
 import java.util.function.LongConsumer;
 
 /**
  * A functional interface like {@link LongConsumer} that declares a {@code Throwable}.
  *
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableLongConsumer<T extends Throwable> {
+public interface FailableLongConsumer<E extends Throwable> {
+
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableLongConsumer NOP = t -> {/* NOP */};
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableLongConsumer<E> nop() {
+        return NOP;
+    }
 
     /**
      * Accepts the consumer.
      *
      * @param object the parameter for the consumable to accept
-     * @throws T Thrown when the consumer fails.
+     * @throws E Thrown when the consumer fails.
      */
-    void accept(long object) throws T;
+    void accept(long object) throws E;
+
+    /**
+     * Returns a composed {@code FailableLongConsumer} like {@link LongConsumer#andThen(LongConsumer)}.
+     *
+     * @param after the operation to perform after this one.
+     * @return a composed {@code FailableLongConsumer} like {@link LongConsumer#andThen(LongConsumer)}.
+     * @throws NullPointerException if {@code after} is null
+     */
+    default FailableLongConsumer<E> andThen(final FailableLongConsumer<E> after) {
+        Objects.requireNonNull(after);
+        return (final long t) -> {
+            accept(t);
+            after.accept(t);
+        };
+    }
 }

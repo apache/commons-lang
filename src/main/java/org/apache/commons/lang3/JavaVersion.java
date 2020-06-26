@@ -130,6 +130,13 @@ public enum JavaVersion {
     JAVA_15(15.0f, "15"),
 
     /**
+     * Java 16
+     *
+     * @since 3.11
+     */
+    JAVA_16(16.0f, "16"),
+
+    /**
      * The most recent java version. Mainly introduced to avoid to break when a new version of Java is used.
      */
     JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
@@ -242,6 +249,8 @@ public enum JavaVersion {
             return JAVA_14;
         } else if ("15".equals(nom)) {
             return JAVA_15;
+        } else if ("16".equals(nom)) {
+            return JAVA_16;
         }
         final float v = toFloatVersion(nom);
         if ((v - 1.) < 1.) { // then we need to check decimals > .9

@@ -22,18 +22,32 @@ import java.util.function.IntToLongFunction;
 /**
  * A functional interface like {@link IntToLongFunction} that declares a {@code Throwable}.
  *
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableIntToLongFunction<T extends Throwable> {
+public interface FailableIntToLongFunction<E extends Throwable> {
+
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableIntToLongFunction NOP = t -> 0L;
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <E extends Throwable> FailableIntToLongFunction<E> nop() {
+        return NOP;
+    }
 
     /**
      * Applies this function to the given argument.
      *
      * @param value the function argument
      * @return the function result
-     * @throws T Thrown when the function fails.
+     * @throws E Thrown when the function fails.
      */
-    long applyAsLong(int value) throws T;
+    long applyAsLong(int value) throws E;
 }

@@ -22,17 +22,17 @@ import java.util.function.IntSupplier;
 /**
  * A functional interface like {@link IntSupplier} that declares a {@code Throwable}.
  *
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableIntSupplier<T extends Throwable> {
+public interface FailableIntSupplier<E extends Throwable> {
 
     /**
      * Supplies an int.
      *
      * @return a result
-     * @throws T if the supplier fails
+     * @throws E if the supplier fails
      */
-    int getAsInt() throws T;
+    int getAsInt() throws E;
 }

@@ -17,19 +17,51 @@
 
 package org.apache.commons.lang3.function;
 
+import java.util.Objects;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  * A functional interface like {@link BiFunction} that declares a {@code Throwable}.
  *
- * @param <O1> Input type 1.
- * @param <O2> Input type 2.
+ * @param <T> Input type 1.
+ * @param <U> Input type 2.
  * @param <R> Return type.
- * @param <T> Thrown exception.
+ * @param <E> Thrown exception.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableBiFunction<O1, O2, R, T extends Throwable> {
+public interface FailableBiFunction<T, U, R, E extends Throwable> {
+
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    FailableBiFunction NOP = (t, u) -> null;
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @param <T> Consumed type 1.
+     * @param <U> Consumed type 2.
+     * @param <R> Return type.
+     * @param <E> Thrown exception.
+     * @return The NOP singleton.
+     */
+    static <T, U, R, E extends Throwable> FailableBiFunction<T, U, R, E> nop() {
+        return NOP;
+    }
+
+    /**
+     * Returns a composed {@code FailableBiFunction} that like {@link BiFunction#andThen(Function)}.
+     *
+     * @param <V> the output type of the {@code after} function, and of the composed function.
+     * @param after the operation to perform after this one.
+     * @return a composed {@code FailableBiFunction} that like {@link BiFunction#andThen(Function)}.
+     * @throws NullPointerException when {@code after} is null.
+     */
+    default <V> FailableBiFunction<T, U, V, E> andThen(final FailableFunction<? super R, ? extends V, E> after) {
+        Objects.requireNonNull(after);
+        return (final T t, final U u) -> after.apply(apply(t, u));
+    }
 
     /**
      * Applies this function.
@@ -37,7 +69,7 @@ public interface FailableBiFunction<O1, O2, R, T extends Throwable> {
      * @param input1 the first input for the function
      * @param input2 the second input for the function
      * @return the result of the function
-     * @throws T Thrown when the function fails.
+     * @throws E Thrown when the function fails.
      */
-    R apply(O1 input1, O2 input2) throws T;
+    R apply(T input1, U input2) throws E;
 }

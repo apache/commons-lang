@@ -295,8 +295,8 @@ public class CharSequenceUtils {
             }
 
             // The real same check as in String.regionMatches():
-            char u1 = Character.toUpperCase(c1);
-            char u2 = Character.toUpperCase(c2);
+            final char u1 = Character.toUpperCase(c1);
+            final char u2 = Character.toUpperCase(c2);
             if (u1 != u2 && Character.toLowerCase(u1) != Character.toLowerCase(u2)) {
                 return false;
             }
