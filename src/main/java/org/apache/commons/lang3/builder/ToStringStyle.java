@@ -19,6 +19,7 @@ package org.apache.commons.lang3.builder;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -2593,6 +2594,39 @@ public abstract class ToStringStyle implements Serializable {
             }
 
             appendDetail(buffer, fieldName, valueAsString);
+        }
+
+        @Override
+        protected void appendDetail(final StringBuffer buffer, final String fieldName, final Map<?, ?> map) {
+            if (map != null && !map.isEmpty()) {
+                buffer.append(getContentStart());
+
+                final Iterator<? extends Map.Entry<?, ?>> it = map.entrySet().iterator();
+                boolean firstItem = true;
+                while (it.hasNext()) {
+                    final Map.Entry<?, ?> item = it.next();
+                    if (item.getKey() == null) {
+                        continue;
+                    }
+
+                    final String keyStr = item.getKey().toString();
+                    if (firstItem) {
+                        firstItem = false;
+                    } else {
+                        appendFieldEnd(buffer, keyStr);
+                    }
+                    appendFieldStart(buffer, keyStr);
+                    if (item.getValue() == null) {
+                        appendNullText(buffer, keyStr);
+                    } else {
+                        appendInternal(buffer, keyStr, item.getValue(), true);
+                    }
+                }
+                buffer.append(getContentEnd());
+                return;
+            }
+
+            buffer.append(map);
         }
 
         private boolean isJsonArray(final String valueAsString) {
