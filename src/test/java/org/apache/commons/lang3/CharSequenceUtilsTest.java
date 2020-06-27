@@ -189,9 +189,9 @@ public class CharSequenceUtilsTest {
     }
 
     static class WrapperString implements CharSequence {
-        private CharSequence inner;
+        private final CharSequence inner;
 
-        WrapperString(CharSequence inner) {
+        WrapperString(final CharSequence inner) {
             this.inner = inner;
         }
 
@@ -201,12 +201,12 @@ public class CharSequenceUtilsTest {
         }
 
         @Override
-        public char charAt(int index) {
+        public char charAt(final int index) {
             return inner.charAt(index);
         }
 
         @Override
-        public CharSequence subSequence(int start, int end) {
+        public CharSequence subSequence(final int start, final int end) {
             return inner.subSequence(start, end);
         }
 
@@ -243,8 +243,8 @@ public class CharSequenceUtilsTest {
         testNewLastIndexOfSingle("oraoraoraora", "r");
         testNewLastIndexOfSingle("mudamudamudamuda", "d");
 
-        Random random = new Random();
-        StringBuilder seg = new StringBuilder();
+        final Random random = new Random();
+        final StringBuilder seg = new StringBuilder();
         while (seg.length() <= CharSequenceUtils.TO_STRING_LIMIT) {
             seg.append(random.nextInt());
         }
@@ -260,8 +260,8 @@ public class CharSequenceUtilsTest {
         }
     }
 
-    private void testNewLastIndexOfSingle(CharSequence a, CharSequence b) {
-        int maxa = Math.max(a.length(), b.length());
+    private void testNewLastIndexOfSingle(final CharSequence a, final CharSequence b) {
+        final int maxa = Math.max(a.length(), b.length());
         for (int i = -maxa - 10; i <= maxa + 10; i++) {
             testNewLastIndexOfSingle(a, b, i);
         }
@@ -269,12 +269,12 @@ public class CharSequenceUtilsTest {
         testNewLastIndexOfSingle(a, b, Integer.MAX_VALUE);
     }
 
-    private void testNewLastIndexOfSingle(CharSequence a, CharSequence b, int start) {
+    private void testNewLastIndexOfSingle(final CharSequence a, final CharSequence b, final int start) {
         testNewLastIndexOfSingleSingle(a, b, start);
         testNewLastIndexOfSingleSingle(b, a, start);
     }
 
-    private void testNewLastIndexOfSingleSingle(CharSequence a, CharSequence b, int start) {
+    private void testNewLastIndexOfSingleSingle(final CharSequence a, final CharSequence b, final int start) {
         assertEquals(
                 a.toString().lastIndexOf(b.toString(), start),
                 CharSequenceUtils.lastIndexOf(new WrapperString(a.toString()), new WrapperString(b.toString()), start),

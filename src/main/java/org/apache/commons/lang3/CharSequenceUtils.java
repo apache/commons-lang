@@ -237,8 +237,8 @@ public class CharSequenceUtils {
             }
         }
 
-        int len1 = cs.length();
-        int len2 = searchChar.length();
+        final int len1 = cs.length();
+        final int len2 = searchChar.length();
 
         if (start > len1) {
             start = len1;
@@ -266,7 +266,7 @@ public class CharSequenceUtils {
             start = len1 - len2;
         }
 
-        char char0 = searchChar.charAt(0);
+        final char char0 = searchChar.charAt(0);
 
         int i = start;
         while (true) {
@@ -286,7 +286,7 @@ public class CharSequenceUtils {
         }
     }
 
-    private static boolean checkLaterThan1(final CharSequence cs, final CharSequence searchChar, int len2, int start1) {
+    private static boolean checkLaterThan1(final CharSequence cs, final CharSequence searchChar, final int len2, final int start1) {
         for (int i = 1, j = len2 - 1; i <= j; i++, j--) {
             if (cs.charAt(start1 + i) != searchChar.charAt(i)
                     ||

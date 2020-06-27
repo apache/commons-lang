@@ -732,7 +732,7 @@ public class FastDateParserTest {
         testSingleLocale(buggyLocale);
     }
 
-    private void testSingleLocale(Locale locale) throws ParseException {
+    private void testSingleLocale(final Locale locale) throws ParseException {
         final Calendar cal = Calendar.getInstance(GMT);
         cal.clear();
         cal.set(2003, Calendar.FEBRUARY, 10);
