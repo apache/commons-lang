@@ -8554,6 +8554,42 @@ public class StringUtils {
      *
      * <p>A {@code null} string input will return {@code null}.
      * An empty ("") string input will return the empty string.
+     *
+     * <p>If nothing is found, the empty string is returned.</p>
+     *
+     * <pre>
+     * StringUtils.substringAfter(null, *)      = null
+     * StringUtils.substringAfter("", *)        = ""
+     * StringUtils.substringAfter("abc", 'a')   = "bc"
+     * StringUtils.substringAfter("abcba", 'b') = "cba"
+     * StringUtils.substringAfter("abc", 'c')   = ""
+     * StringUtils.substringAfter("abc", 'd')   = ""
+     * StringUtils.substringAfter(" abc", 32)   = "abc"
+     * </pre>
+     *
+     * @param str  the String to get a substring from, may be null
+     * @param separator  the character to search.
+     * @return the substring after the first occurrence of the separator,
+     *  {@code null} if null String input
+     * @since 3.11
+     */
+    public static String substringAfter(final String str, final int separator) {
+        if (isEmpty(str)) {
+            return str;
+        }
+        final int pos = str.indexOf(separator);
+        if (pos == INDEX_NOT_FOUND) {
+            return EMPTY;
+        }
+        return str.substring(pos + 1);
+    }
+
+    /**
+     * <p>Gets the substring after the first occurrence of a separator.
+     * The separator is not returned.</p>
+     *
+     * <p>A {@code null} string input will return {@code null}.
+     * An empty ("") string input will return the empty string.
      * A {@code null} separator will return the empty string if the
      * input string is not {@code null}.</p>
      *

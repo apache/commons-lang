@@ -169,6 +169,21 @@ public class StringUtilsSubstringTest  {
     }
 
     @Test
+    public void testSubstringAfter_StringInt() {
+        assertNull(StringUtils.substringAfter(null, 0));
+        assertNull(StringUtils.substringAfter(null, 'X'));
+        assertEquals("", StringUtils.substringAfter("", 0));
+        assertEquals("", StringUtils.substringAfter("", 'X'));
+
+        assertEquals("", StringUtils.substringAfter("foo", 0));
+        assertEquals("ot", StringUtils.substringAfter("foot", 'o'));
+        assertEquals("bc", StringUtils.substringAfter("abc", 'a'));
+        assertEquals("cba", StringUtils.substringAfter("abcba", 'b'));
+        assertEquals("", StringUtils.substringAfter("abc", 'c'));
+        assertEquals("", StringUtils.substringAfter("abc", 'd'));
+    }
+
+    @Test
     public void testSubstringBeforeLast_StringString() {
         assertEquals("fooXXbar", StringUtils.substringBeforeLast("fooXXbarXXbaz", "XX"));
 
