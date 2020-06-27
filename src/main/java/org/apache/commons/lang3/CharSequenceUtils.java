@@ -317,7 +317,10 @@ public class CharSequenceUtils {
         if (source instanceof String) {
             return ((String) source).toCharArray();
         }
-        final char[] array = new char[len];
+        if (len > 32) {
+            return source.toString().toCharArray();
+        }
+        final char[] array = new char[source.length()];
         for (int i = 0; i < len; i++) {
             array[i] = source.charAt(i);
         }

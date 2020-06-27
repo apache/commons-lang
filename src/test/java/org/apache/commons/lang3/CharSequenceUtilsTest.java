@@ -187,7 +187,13 @@ public class CharSequenceUtilsTest {
 
     @Test
     public void testToCharArray() {
-        final StringBuilder builder = new StringBuilder("abcdefg");
+        testToCharArraySingle("");
+        testToCharArraySingle("abcdefg");
+        testToCharArraySingle("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz");
+    }
+
+    void testToCharArraySingle(String original) {
+        final StringBuilder builder = new StringBuilder(original);
         final char[] expected = builder.toString().toCharArray();
         assertArrayEquals(expected, CharSequenceUtils.toCharArray(builder));
         assertArrayEquals(expected, CharSequenceUtils.toCharArray(builder.toString()));
