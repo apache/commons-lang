@@ -228,6 +228,22 @@ public class StringUtilsSubstringTest  {
         assertEquals("", StringUtils.substringAfterLast("abc", ""));
     }
 
+    @Test
+    public void testSubstringAfterLast_StringInt() {
+        assertNull(StringUtils.substringAfterLast(null, 0));
+        assertNull(StringUtils.substringAfterLast(null, 'X'));
+        assertEquals("", StringUtils.substringAfterLast("", 0));
+        assertEquals("", StringUtils.substringAfterLast("", 'a'));
+
+        assertEquals("", StringUtils.substringAfterLast("foo", 0));
+        assertEquals("", StringUtils.substringAfterLast("foo", 'b'));
+        assertEquals("t", StringUtils.substringAfterLast("foot", 'o'));
+        assertEquals("bc", StringUtils.substringAfterLast("abc", 'a'));
+        assertEquals("a", StringUtils.substringAfterLast("abcba", 'b'));
+        assertEquals("", StringUtils.substringAfterLast("abc", 'c'));
+        assertEquals("", StringUtils.substringAfterLast("", 'd'));
+    }
+
     //-----------------------------------------------------------------------
     @Test
     public void testSubstringBetween_StringString() {

@@ -8672,6 +8672,43 @@ public class StringUtils {
         return str.substring(pos + separator.length());
     }
 
+    /**
+     * <p>Gets the substring after the last occurrence of a separator.
+     * The separator is not returned.</p>
+     *
+     * <p>A {@code null} string input will return {@code null}.
+     * An empty ("") string input will return the empty string.
+     *
+     * <p>If nothing is found, the empty string is returned.</p>
+     *
+     * <pre>
+     * StringUtils.substringAfterLast(null, *)      = null
+     * StringUtils.substringAfterLast("", *)        = ""
+     * StringUtils.substringAfterLast("abc", 'a')   = "bc"
+     * StringUtils.substringAfterLast(" bc", 32)    = "bc"
+     * StringUtils.substringAfterLast("abcba", 'b') = "a"
+     * StringUtils.substringAfterLast("abc", 'c')   = ""
+     * StringUtils.substringAfterLast("a", 'a')     = ""
+     * StringUtils.substringAfterLast("a", 'z')     = ""
+     * </pre>
+     *
+     * @param str  the String to get a substring from, may be null
+     * @param separator  the String to search for, may be null
+     * @return the substring after the last occurrence of the separator,
+     *  {@code null} if null String input
+     * @since 3.11
+     */
+    public static String substringAfterLast(final String str, final int separator) {
+        if (isEmpty(str)) {
+            return str;
+        }
+        final int pos = str.lastIndexOf(separator);
+        if (pos == INDEX_NOT_FOUND || pos == str.length() - 1) {
+            return EMPTY;
+        }
+        return str.substring(pos + 1);
+    }
+
     // SubStringAfter/SubStringBefore
     //-----------------------------------------------------------------------
     /**
