@@ -19,10 +19,9 @@ package org.apache.commons.lang3.builder;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.WeakHashMap;
 
 import org.apache.commons.lang3.ClassUtils;
