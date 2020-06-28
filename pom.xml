@@ -607,6 +607,7 @@
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
 
     <spotbugs.plugin.version>4.0.0</spotbugs.plugin.version>
+    <spotbugs.impl.version>4.0.6</spotbugs.impl.version>
     <japicmp.skip>false</japicmp.skip>
     <clirr.skip>true</clirr.skip>
 
@@ -767,7 +768,7 @@
           <dependency>
             <groupId>com.github.spotbugs</groupId>
             <artifactId>spotbugs</artifactId>
-            <version>4.0.6</version>
+            <version>${spotbugs.impl.version}</version>
          </dependency>
         </dependencies>        
         <configuration>
