@@ -26,6 +26,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -532,6 +534,70 @@ public class JsonToStringStyleTest {
         assertEquals("{\"Let's \\\"quote\\\" this\":\"value\"}", new ToStringBuilder(base).append("Let's \"quote\" this", "value").toString());
     }
 
+    @Test
+    public void testRootMap() {
+        final Map<String, Object> map = new LinkedHashMap<>();
+        map.put("k1", "v1");
+        map.put("k2", 2);
+
+        assertEquals("{\"map\":{\"k1\":\"v1\",\"k2\":2}}",
+                new ToStringBuilder(base).append("map", map).toString());
+    }
+
+    @Test
+    public void testObjectWithInnerMap() {
+        final Map<String, Object> map = new LinkedHashMap<>();
+        map.put("k1", "value1");
+        map.put("k2", 2);
+
+        final InnerMapObject object = new InnerMapObject(){
+            @Override
+            public String toString() {
+                return new ToStringBuilder(this).append("pid", this.pid)
+                        .append("map", this.map).toString();
+            }
+        };
+        object.pid = "dummy-text";
+        object.map = map;
+
+        assertEquals("{\"object\":{\"pid\":\"dummy-text\",\"map\":{\"k1\":\"value1\",\"k2\":2}}}",
+                new ToStringBuilder(base).append("object", object).toString());
+    }
+
+    @Test
+    public void testNestedMaps() {
+        final Map<String, Object> innerMap = new LinkedHashMap<>();
+        innerMap.put("k2.1", "v2.1");
+        innerMap.put("k2.2", "v2.2");
+        final Map<String, Object> baseMap = new LinkedHashMap<>();
+        baseMap.put("k1", "v1");
+        baseMap.put("k2", innerMap);
+
+        final InnerMapObject object = new InnerMapObject(){
+            @Override
+            public String toString() {
+                return new ToStringBuilder(this).append("pid", this.pid)
+                        .append("map", this.map).toString();
+            }
+        };
+        object.pid = "dummy-text";
+        object.map = baseMap;
+
+        assertEquals("{\"object\":{\"pid\":\"dummy-text\",\"map\":{\"k1\":\"v1\"," +
+                        "\"k2\":{\"k2.1\":\"v2.1\",\"k2.2\":\"v2.2\"}}}}",
+                new ToStringBuilder(base).append("object", object).toString());
+    }
+
+    @Test
+    public void testMapSkipNullKey() {
+        final Map<String, Object> map = new LinkedHashMap<>();
+        map.put("k1", "v1");
+        map.put(null, "v2");
+
+        assertEquals("{\"map\":{\"k1\":\"v1\"}}",
+                new ToStringBuilder(base).append("map", map).toString());
+    }
+
     /**
      * An object with nested object structures used to test {@link ToStringStyle.JsonToStringStyle}.
      *
@@ -615,5 +681,21 @@ public class JsonToStringStyleTest {
         public String toString() {
             return ToStringBuilder.reflectionToString(this);
         }
+    }
+
+    /**
+     * An object with a Map field used to test {@link ToStringStyle.JsonToStringStyle}.
+     *
+     */
+    static class InnerMapObject {
+        /**
+         * Test String field.
+         */
+        String pid;
+
+        /**
+         * Test inner map field.
+         */
+        Map<String, Object> map;
     }
 }

@@ -81,6 +81,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory">Add ObjectUtils.toString(Object, Supplier&lt;String&gt;).</action>
     <action issue="LANG-1567" type="update" dev="ggregory" due-to="Miguel Muñoz, Bruno P. Kinoshita, Gary Gregory">Fixed Javadocs for setTestRecursive() #556.</action>
     <action issue="LANG-1542" type="update" dev="ggregory" due-to=" Trần Ngọc Khoa, Gary Gregory">ToStringBuilder.reflectionToString - Wrong JSON format when object has a List of Enum.</action>
+    <action issue="LANG-1543" type="fix" dev="ggregory" due-to="Swaraj Pal, Gary Gregory">[JSON string for maps] ToStringBuilder.reflectionToString doesnt render nested maps correctly.</action>
     <action                   type="update" dev="ggregory">Make org.apache.commons.lang3.CharSequenceUtils.toCharArray(CharSequence) public.</action>
     <action                   type="add" dev="ggregory">Add org.apache.commons.lang3.StringUtils.substringAfter(String, int).</action>
     <action                   type="add" dev="ggregory">Add org.apache.commons.lang3.StringUtils.substringAfterLast(String, int).</action>
