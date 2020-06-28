@@ -551,6 +551,43 @@ public class StringUtils {
         }
     }
 
+    /**
+     * <p>Uncapitalizes a String, changing the first character to lower case as
+     * per {@link Character#toLowerCase(int)}. No other characters are changed.</p>
+     *
+     * <p>For a word based algorithm, see {@link org.apache.commons.lang3.text.WordUtils#uncapitalize(String)}.
+     * A {@code null} input String returns {@code null}.</p>
+     *
+     * <pre>
+     * StringUtils.uncapitalize(null)  = null
+     * StringUtils.uncapitalize("")    = ""
+     * StringUtils.uncapitalize("cat") = "cat"
+     * StringUtils.uncapitalize("Cat") = "cat"
+     * StringUtils.uncapitalize("CAT") = "cAT"
+     * </pre>
+     *
+     * @param str the String to uncapitalize, may be null
+     * @return the uncapitalized String, {@code null} if null String input
+     * @see org.apache.commons.lang3.text.WordUtils#uncapitalize(String)
+     * @see #capitalize(String)
+     * @since 2.0
+     */
+    public static String uncapitalize(final String str) {
+        final int strLen = length(str);
+        if (strLen == 0) {
+            return str;
+        }
+        char[] chars = str.toCharArray();
+        final char chars0 = chars[0];
+        final char chars0l = Character.toLowerCase(chars0);
+        if (chars0 == chars0l) {
+            return str;
+        } else {
+            chars[0] = chars0l;
+            return new String(chars);
+        }
+    }
+
     // Centering
     //-----------------------------------------------------------------------
     /**
@@ -9245,43 +9282,6 @@ public class StringUtils {
             return str.substring(offset, ix);
         }
         return str.substring(offset);
-    }
-
-    /**
-     * <p>Uncapitalizes a String, changing the first character to lower case as
-     * per {@link Character#toLowerCase(int)}. No other characters are changed.</p>
-     *
-     * <p>For a word based algorithm, see {@link org.apache.commons.lang3.text.WordUtils#uncapitalize(String)}.
-     * A {@code null} input String returns {@code null}.</p>
-     *
-     * <pre>
-     * StringUtils.uncapitalize(null)  = null
-     * StringUtils.uncapitalize("")    = ""
-     * StringUtils.uncapitalize("cat") = "cat"
-     * StringUtils.uncapitalize("Cat") = "cat"
-     * StringUtils.uncapitalize("CAT") = "cAT"
-     * </pre>
-     *
-     * @param str the String to uncapitalize, may be null
-     * @return the uncapitalized String, {@code null} if null String input
-     * @see org.apache.commons.lang3.text.WordUtils#uncapitalize(String)
-     * @see #capitalize(String)
-     * @since 2.0
-     */
-    public static String uncapitalize(final String str) {
-        final int strLen = length(str);
-        if (strLen == 0) {
-            return str;
-        }
-        char[] chars = str.toCharArray();
-        final char chars0 = chars[0];
-        final char chars0l = Character.toLowerCase(chars0);
-        if (chars0 == chars0l) {
-            return str;
-        } else {
-            chars[0] = chars0l;
-            return new String(chars);
-        }
     }
 
     /**
