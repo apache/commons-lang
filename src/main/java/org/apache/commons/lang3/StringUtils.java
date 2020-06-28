@@ -540,23 +540,15 @@ public class StringUtils {
         if (strLen == 0) {
             return str;
         }
-
-        final int firstCodepoint = str.codePointAt(0);
-        final int newCodePoint = Character.toTitleCase(firstCodepoint);
-        if (firstCodepoint == newCodePoint) {
-            // already capitalized
+        char[] chars = str.toCharArray();
+        final char chars0 = chars[0];
+        final char chars0u = Character.toTitleCase(chars0);
+        if (chars0 == chars0u) {
             return str;
+        } else {
+            chars[0] = chars0u;
+            return new String(chars);
         }
-
-        final int[] newCodePoints = new int[strLen]; // cannot be longer than the char array
-        int outOffset = 0;
-        newCodePoints[outOffset++] = newCodePoint; // copy the first codepoint
-        for (int inOffset = Character.charCount(firstCodepoint); inOffset < strLen; ) {
-            final int codepoint = str.codePointAt(inOffset);
-            newCodePoints[outOffset++] = codepoint; // copy the remaining ones
-            inOffset += Character.charCount(codepoint);
-         }
-        return new String(newCodePoints, 0, outOffset);
     }
 
     // Centering
