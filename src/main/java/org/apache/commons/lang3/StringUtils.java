@@ -621,9 +621,11 @@ public class StringUtils {
         if (pads <= 0) {
             return str;
         }
-        str = leftPad(str, strLen + pads / 2, padChar);
-        str = rightPad(str, size, padChar);
-        return str;
+        StringBuilder stringBuilder = new StringBuilder(size);
+        repeat(stringBuilder, padChar, pads / 2);
+        stringBuilder.append(str);
+        repeat(stringBuilder, padChar, size - (strLen + pads / 2));
+        return stringBuilder.toString();
     }
 
     /**
@@ -6251,6 +6253,23 @@ public class StringUtils {
         final char[] buf = new char[repeat];
         Arrays.fill(buf, ch);
         return new String(buf);
+    }
+
+    /**
+     * <p>Make the padding using the specified delimiter repeated
+     * to a given length, and fill the result to a StringBuilder</p>
+     *
+     * This function works like {@code stringBuilder.append(repeat(ch,repeat))}, but runs faster.
+     *
+     * @param stringBuilder  stringBuilder to fill
+     * @param ch  character to repeat
+     * @param repeat  number of times to repeat char, negative treated as zero
+     * @see #repeat(char, int)
+     */
+    static void repeat(StringBuilder stringBuilder, final char ch, final int repeat) {
+        for (int i = repeat - 1; i >= 0; i--) {
+            stringBuilder.append(ch);
+        }
     }
 
     /**
