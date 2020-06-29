@@ -3794,7 +3794,8 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (!Character.isDigit(cs.charAt(i)) && cs.charAt(i) != ' ') {
+            final char nowChar = cs.charAt(i);
+            if (nowChar != ' ' && !Character.isDigit(nowChar)) {
                 return false;
             }
         }
