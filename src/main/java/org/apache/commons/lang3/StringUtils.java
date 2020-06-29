@@ -2105,8 +2105,8 @@ public class StringUtils {
         // case right from the start. Turning characters to lower case
         // via Character.toLowerCase(char) is unfortunately insufficient
         // as it does not accept a locale.
-        final String termLowerCase = term.toString().toLowerCase(locale);
-        final String queryLowerCase = query.toString().toLowerCase(locale);
+        final char[] termLowerCase = term.toString().toLowerCase(locale).toCharArray();
+        final char[] queryLowerCase = query.toString().toLowerCase(locale).toCharArray();
 
         // the resulting score
         int score = 0;
@@ -2118,12 +2118,12 @@ public class StringUtils {
         // index of the previously matched character in the term
         int previousMatchingCharacterIndex = Integer.MIN_VALUE;
 
-        for (int queryIndex = 0; queryIndex < queryLowerCase.length(); queryIndex++) {
-            final char queryChar = queryLowerCase.charAt(queryIndex);
+        for (int queryIndex = 0; queryIndex < queryLowerCase.length; queryIndex++) {
+            final char queryChar = queryLowerCase[queryIndex];
 
             boolean termCharacterMatchFound = false;
-            for (; termIndex < termLowerCase.length() && !termCharacterMatchFound; termIndex++) {
-                final char termChar = termLowerCase.charAt(termIndex);
+            for (; termIndex < termLowerCase.length && !termCharacterMatchFound; termIndex++) {
+                final char termChar = termLowerCase[termIndex];
 
                 if (queryChar == termChar) {
                     // simple character matches result in one point
