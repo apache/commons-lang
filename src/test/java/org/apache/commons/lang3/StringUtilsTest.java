@@ -2906,8 +2906,12 @@ public class StringUtilsTest {
         final String[] excludeMethods = {
             "public static int org.apache.commons.lang3.StringUtils.compare(java.lang.String,java.lang.String)",
             "public static int org.apache.commons.lang3.StringUtils.compare(java.lang.String,java.lang.String,boolean)",
+            "public static int org.apache.commons.lang3.StringUtils.compareNullIsLess(java.lang.String,java.lang.String)",
+            "public static int org.apache.commons.lang3.StringUtils.compareNullIsGreater(java.lang.String,java.lang.String)",
             "public static int org.apache.commons.lang3.StringUtils.compareIgnoreCase(java.lang.String,java.lang.String)",
             "public static int org.apache.commons.lang3.StringUtils.compareIgnoreCase(java.lang.String,java.lang.String,boolean)",
+            "public static int org.apache.commons.lang3.StringUtils.compareIgnoreCaseNullIsLess(java.lang.String,java.lang.String)",
+            "public static int org.apache.commons.lang3.StringUtils.compareIgnoreCaseNullIsGreater(java.lang.String,java.lang.String)",
             "public static byte[] org.apache.commons.lang3.StringUtils.getBytes(java.lang.String,java.nio.charset.Charset)",
             "public static byte[] org.apache.commons.lang3.StringUtils.getBytes(java.lang.String,java.lang.String) throws java.io.UnsupportedEncodingException"
         };
