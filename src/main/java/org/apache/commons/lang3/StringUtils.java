@@ -1577,6 +1577,9 @@ public class StringUtils {
         if (count == sz) {
             return str;
         }
+        if (count == 0) {
+            return EMPTY;
+        }
         return new String(chs, 0, count);
     }
 
