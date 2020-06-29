@@ -3377,7 +3377,8 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (!Character.isLetterOrDigit(cs.charAt(i)) && cs.charAt(i) != ' ') {
+            final char nowChar = cs.charAt(i);
+            if (nowChar != ' ' && !Character.isLetterOrDigit(nowChar) ) {
                 return false;
             }
         }
@@ -3412,7 +3413,8 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (!Character.isLetter(cs.charAt(i)) && cs.charAt(i) != ' ') {
+            final char nowChar = cs.charAt(i);
+            if (nowChar != ' ' && !Character.isLetter(nowChar)) {
                 return false;
             }
         }
