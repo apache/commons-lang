@@ -3629,22 +3629,39 @@ public class StringUtils {
      * @since 3.5
      */
     public static boolean isMixedCase(final CharSequence cs) {
-        if (isEmpty(cs) || cs.length() == 1) {
+        final int sz = length(cs);
+        if (sz <= 1) {
             return false;
         }
         boolean containsUppercase = false;
-        boolean containsLowercase = false;
-        final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
-            if (containsUppercase && containsLowercase) {
-                return true;
-            } else if (Character.isUpperCase(cs.charAt(i))) {
+        int i = 0;
+        while (i < sz) {
+            final char nowChar = cs.charAt(i);
+            ++i;
+            if (Character.isUpperCase(nowChar)) {
                 containsUppercase = true;
-            } else if (Character.isLowerCase(cs.charAt(i))) {
-                containsLowercase = true;
+                break;
+            } else if (Character.isLowerCase(nowChar)) {
+                break;
             }
         }
-        return containsUppercase && containsLowercase;
+        if (i == sz) {
+            return false;
+        }
+        if (containsUppercase) {
+            for (; i < sz; ++i) {
+                if (Character.isLowerCase(cs.charAt(i))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        for (; i < sz; ++i) {
+            if (Character.isUpperCase(cs.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
