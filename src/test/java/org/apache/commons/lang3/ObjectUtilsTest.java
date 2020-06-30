@@ -118,6 +118,12 @@ public class ObjectUtilsTest {
         assertSame(dflt, ObjectUtils.defaultIfNull(null, dflt), "dflt was not returned when o was null");
         assertSame(o, ObjectUtils.defaultIfNull(o, dflt), "dflt was returned when o was not null");
         assertSame(dflt, ObjectUtils.getIfNull(null, () -> dflt), "dflt was not returned when o was null");
+        assertSame(dflt, ObjectUtils.getIfNull(null, () -> null, () -> dflt), "dflt was not returned when o was null");
+        assertSame(dflt, ObjectUtils.getIfNull(null, () -> dflt, null), "dflt was not returned when o was null");
+        assertSame(dflt, ObjectUtils.getIfNull(null, () -> dflt, () -> null), "dflt was not returned when o was null");
+        assertSame(dflt, ObjectUtils.getIfNull(null, null, () -> dflt), "dflt was not returned when o was null");
+        assertSame(StringUtils.EMPTY, ObjectUtils.getIfNull(null, () -> StringUtils.EMPTY, () -> dflt), "empty string was not returned when o was null");
+        assertNull(ObjectUtils.getIfNull(null, null, null), "null was not returned when supplier is null");
         assertSame(o, ObjectUtils.getIfNull(o, () -> dflt), "dflt was returned when o was not null");
         assertSame(o, ObjectUtils.getIfNull(FOO, () -> dflt), "dflt was returned when o was not null");
         assertSame(o, ObjectUtils.getIfNull("foo", () -> dflt), "dflt was returned when o was not null");
@@ -128,8 +134,15 @@ public class ObjectUtilsTest {
         };
         ObjectUtils.getIfNull(o, countingDefaultSupplier);
         assertEquals(0, callsCounter.getValue());
+        ObjectUtils.getIfNull(o, countingDefaultSupplier, countingDefaultSupplier);
+        assertEquals(0, callsCounter.getValue());
         ObjectUtils.getIfNull(null, countingDefaultSupplier);
         assertEquals(1, callsCounter.getValue());
+        ObjectUtils.getIfNull(null, () -> null, countingDefaultSupplier);
+        assertEquals(2, callsCounter.getValue());
+        ObjectUtils.getIfNull(null, () -> dflt, countingDefaultSupplier);
+        assertEquals(2, callsCounter.getValue());
+
     }
 
     @Test

@@ -683,6 +683,46 @@ public class ObjectUtils {
     }
 
     /**
+     * <p>
+     * Returns the given {@code object} if it is non-null, otherwise executes the given suppliers
+     * in order and returns the first return value where a value other than {@code null}.
+     * </p>
+     *
+     * <p>
+     * The caller responsible for thread-safety and exception handling of default value supplier.
+     * </p>
+     *
+     * <pre>
+     * ObjectUtils.getIfNull(null, () -&gt; null)                     = null
+     * ObjectUtils.getIfNull(null, null, null)                        = null
+     * ObjectUtils.getIfNull(null, () -&gt; "")                       = ""
+     * ObjectUtils.getIfNull(null, () -&gt; "", () -&gt; "abc")       = ""
+     * ObjectUtils.getIfNull(null, () -&gt; null, () -&gt; "abc")     = "abc"
+     * ObjectUtils.getIfNull(null, null, () -&gt; "abc")              = "abc"
+     * ObjectUtils.getIfNull(null, () -&gt; "abc", null)              = "abc"
+     * ObjectUtils.getIfNull("abc", *)                                = "abc"
+     * ObjectUtils.getIfNull(Boolean.TRUE, *)                         = Boolean.TRUE
+     * </pre>
+     *
+     * @param <T> the type of the object
+     * @param object the {@code Object} to test, may be {@code null}
+     * @param suppliers the suppliers returning the values to test.
+     *                   {@code null} values are ignored.
+     *                   Suppliers may return {@code null} or a value of type @{code T}
+     * @return {@code object} if it is not {@code null}, otherwise the first return value
+     *                   from {@code suppliers} which is not {@code null}
+     *                   or {@code null} if there are no non-null values
+     * @since 3.11
+     */
+    @SafeVarargs
+    public static <T> T getIfNull(final T object, final Supplier<T>... suppliers) {
+        if (object != null) {
+            return object;
+        }
+        return getFirstNonNull(suppliers);
+    }
+
+    /**
      * <p>Gets the hash code of an object returning zero when the
      * object is {@code null}.</p>
      *
