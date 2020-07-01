@@ -299,20 +299,23 @@ public class CharSequenceUtils {
     }
 
     /**
-     * Green implementation of toCharArray.
+     * Converts the given CharSequence to a char[].
      *
-     * @param cs the {@code CharSequence} to be processed
-     * @return the resulting char array
+     * @param source the {@code CharSequence} to be processed.
+     * @return the resulting char array, never null.
      * @since 3.11
      */
-    public static char[] toCharArray(final CharSequence cs) {
-        if (cs instanceof String) {
-            return ((String) cs).toCharArray();
+    public static char[] toCharArray(final CharSequence source) {
+        final int len = StringUtils.length(source);
+        if (len == 0) {
+            return ArrayUtils.EMPTY_CHAR_ARRAY;
         }
-        final int sz = cs.length();
-        final char[] array = new char[cs.length()];
-        for (int i = 0; i < sz; i++) {
-            array[i] = cs.charAt(i);
+        if (source instanceof String) {
+            return ((String) source).toCharArray();
+        }
+        final char[] array = new char[len];
+        for (int i = 0; i < len; i++) {
+            array[i] = source.charAt(i);
         }
         return array;
     }

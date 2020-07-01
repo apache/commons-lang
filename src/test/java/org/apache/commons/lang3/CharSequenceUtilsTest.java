@@ -186,6 +186,7 @@ public class CharSequenceUtilsTest {
         final char[] expected = builder.toString().toCharArray();
         assertArrayEquals(expected, CharSequenceUtils.toCharArray(builder));
         assertArrayEquals(expected, CharSequenceUtils.toCharArray(builder.toString()));
+        assertArrayEquals(ArrayUtils.EMPTY_CHAR_ARRAY, CharSequenceUtils.toCharArray(null));
     }
 
     static class WrapperString implements CharSequence {
