@@ -87,7 +87,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory">Add org.apache.commons.lang3.StringUtils.substringAfterLast(String, int).</action>
     <action                   type="update" dev="ggregory">org.apache.commons:commons-parent 50 -> 51.</action>
     <action                   type="update" dev="ggregory">org.junit-pioneer:junit-pioneer 0.5.4 -> 0.6.0.</action>
-    <action                   type="update" dev="ggregory">org.junit.jupiter:junit-jupiter 5.6.0 -> 5.6.1.</action>
+    <action                   type="update" dev="ggregory">org.junit.jupiter:junit-jupiter 5.6.0 -> 5.6.2.</action>
     <action                   type="update" dev="ggregory">com.github.spotbugs:spotbugs 4.0.0 -> 4.0.6.</action>
     <action                   type="update" dev="ggregory">com.puppycrawl.tools:checkstyle 8.29 -> 8.34.</action>
     <action                   type="update" dev="ggregory">commons.surefire.version 3.0.0-M4 -> 3.0.0-M5..</action>
