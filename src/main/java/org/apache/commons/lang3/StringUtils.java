@@ -869,7 +869,7 @@ public class StringUtils {
      * @since 3.5
      */
     public static int compare(final String str1, final String str2, final boolean nullIsLess) {
-        if (str1 == str2) {
+        if (str1.equals(str2)) {
             return 0;
         }
         if (str1 == null) {
@@ -8815,6 +8815,32 @@ public class StringUtils {
      */
     public static String substringBetween(final String str, final String tag) {
         return substringBetween(str, tag, tag);
+    }
+
+    // startsWith
+    //-----------------------------------------------------------------------
+
+    /**
+     * <p>
+     * Tests if the specified string starts with the provided prefix.
+     * This Method is case insensitive.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.startWithIgnoreCase("", "")                      = true
+     * StringUtils.startWithIgnoreCase("lower_case", "LOWER")       = true
+     * StringUtils.startWithIgnoreCase("lower_case", "lower")       = true
+     * StringUtils.startWithIgnoreCase("lower_case", "CASE")        = false
+     * StringUtils.startWithIgnoreCase("lower_case", "case")        = false
+     * StringUtils.startWithIgnoreCase("lower_case", "_")           = false
+     * </pre>
+     *
+     * @param string  the string
+     * @param prefix  the prefix the string seems to start with
+     * @return {@code true} if string starts with prefix. {@code false} otherwise
+     */
+    public static boolean startsWithIgnoreCase(String string, String prefix) {
+        return string.regionMatches(true, 0, prefix, 0, prefix.length());
     }
 
     // endsWith
