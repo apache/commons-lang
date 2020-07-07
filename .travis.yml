@@ -34,7 +34,4 @@ matrix:
 install: skip
 
 script:
-  - mvn
-
-after_success:
-  - mvn clean test jacoco:report coveralls:report -Ptravis-jacoco javadoc:javadoc -Ddoclint=all
+  - mvn clean verify apache-rat:check checkstyle:check japicmp:cmp spotbugs:check jacoco:report coveralls:report -Ptravis-jacoco javadoc:javadoc -Ddoclint=all
