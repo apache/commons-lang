@@ -785,6 +785,11 @@
             <version>5.1.1</version>
           </dependency>
         </dependencies>
+        <configuration>
+          <instructions>
+            <_removeheaders>Bnd-LastModified,Include-Resource</_removeheaders>
+          </instructions>
+        </configuration>
       </plugin>
     </plugins>
   </build>
