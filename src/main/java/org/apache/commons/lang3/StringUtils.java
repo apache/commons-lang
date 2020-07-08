@@ -869,7 +869,7 @@ public class StringUtils {
      * @since 3.5
      */
     public static int compare(final String str1, final String str2, final boolean nullIsLess) {
-        if (str1.equals(str2)) {
+        if (str1 == str2) {
             return 0;
         }
         if (str1 == null) {
