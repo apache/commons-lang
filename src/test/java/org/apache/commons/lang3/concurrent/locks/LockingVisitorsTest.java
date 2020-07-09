@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang3.concurrent.lock;
+package org.apache.commons.lang3.concurrent.locks;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -22,8 +22,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.function.LongConsumer;
 
-import org.apache.commons.lang3.concurrent.lock.LockingVisitors.AbstractLockVisitor;
-import org.apache.commons.lang3.concurrent.lock.LockingVisitors.StampedLockVisitor;
+import org.apache.commons.lang3.concurrent.locks.LockingVisitors.AbstractLockVisitor;
+import org.apache.commons.lang3.concurrent.locks.LockingVisitors.StampedLockVisitor;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.junit.jupiter.api.Test;
 
@@ -80,10 +80,12 @@ public class LockingVisitorsTest {
     public void testResultValidation() {
         final Object hidden = new Object();
         final StampedLockVisitor<Object> lock = LockingVisitors.stampedLockVisitor(hidden);
-        final Object o1 = lock.applyReadLocked((h) -> { return new Object(); });
+        final Object o1 = lock.applyReadLocked((h) -> {
+            return new Object(); });
         assertNotNull(o1);
         assertNotSame(hidden, o1);
-        final Object o2 = lock.applyWriteLocked((h) -> { return new Object(); });
+        final Object o2 = lock.applyWriteLocked((h) -> {
+            return new Object(); });
         assertNotNull(o2);
         assertNotSame(hidden, o2);
     }
