@@ -29,72 +29,66 @@ import org.junit.jupiter.api.Test;
 
 public class LockingVisitorsTest {
     private static final int NUMBER_OF_THREADS = 10;
+    final long DELAY = 3000;
 
     @Test
     public void testStampedLockNotExclusive() throws Exception {
-        final long DELAY = 3000;
 
         /*
-         * If our threads are running concurrently, then we expect to be faster
-         * than running one after the other.
+         * If our threads are running concurrently, then we expect to be faster than running one after the other.
          */
         boolean[] booleanValues = new boolean[10];
-        runTest(DELAY, false, l -> assertTrue(l < NUMBER_OF_THREADS * DELAY), booleanValues, LockingVisitors.stampedLockVisitor(booleanValues));
+        runTest(DELAY, false, l -> assertTrue(l < NUMBER_OF_THREADS * DELAY), booleanValues,
+            LockingVisitors.stampedLockVisitor(booleanValues));
     }
 
     @Test
     public void testReentrantReadWriteLockNotExclusive() throws Exception {
-        final long DELAY = 3000;
 
         /*
-         * If our threads are running concurrently, then we expect to be faster
-         * than running one after the other.
+         * If our threads are running concurrently, then we expect to be faster than running one after the other.
          */
         boolean[] booleanValues = new boolean[10];
-        runTest(DELAY, false, l -> assertTrue(l < NUMBER_OF_THREADS * DELAY), booleanValues, LockingVisitors.reentrantReadWriteLockVisitor(booleanValues));
+        runTest(DELAY, false, l -> assertTrue(l < NUMBER_OF_THREADS * DELAY), booleanValues,
+            LockingVisitors.reentrantReadWriteLockVisitor(booleanValues));
     }
 
     @Test
     public void testStampedLockExclusive() throws Exception {
-        final long DELAY = 100;
 
         /*
-         * If our threads are running concurrently, then we expect to be no faster
-         * than running one after the other.
+         * If our threads are running concurrently, then we expect to be no faster than running one after the other.
          */
         boolean[] booleanValues = new boolean[10];
-        runTest(DELAY, true, l -> assertTrue(l >= NUMBER_OF_THREADS * DELAY), booleanValues, LockingVisitors.stampedLockVisitor(booleanValues));
+        runTest(DELAY, true, l -> assertTrue(l >= NUMBER_OF_THREADS * DELAY), booleanValues,
+            LockingVisitors.stampedLockVisitor(booleanValues));
     }
 
     @Test
     public void testReentrantReadWriteLockExclusive() throws Exception {
-        final long DELAY = 100;
 
         /*
-         * If our threads are running concurrently, then we expect to be no faster
-         * than running one after the other.
+         * If our threads are running concurrently, then we expect to be no faster than running one after the other.
          */
         boolean[] booleanValues = new boolean[10];
-        runTest(DELAY, true, l -> assertTrue(l >= NUMBER_OF_THREADS * DELAY), booleanValues, LockingVisitors.reentrantReadWriteLockVisitor(booleanValues));
+        runTest(DELAY, true, l -> assertTrue(l >= NUMBER_OF_THREADS * DELAY), booleanValues,
+            LockingVisitors.reentrantReadWriteLockVisitor(booleanValues));
     }
 
     @Test
     public void testResultValidation() {
         final Object hidden = new Object();
         final StampedLockVisitor<Object> lock = LockingVisitors.stampedLockVisitor(hidden);
-        final Object o1 = lock.applyReadLocked((h) -> {
-            return new Object();
-        });
+        final Object o1 = lock.applyReadLocked((h) -> { return new Object(); });
         assertNotNull(o1);
         assertNotSame(hidden, o1);
-        final Object o2 = lock.applyWriteLocked((h) -> {
-            return new Object();
-        });
+        final Object o2 = lock.applyWriteLocked((h) -> { return new Object(); });
         assertNotNull(o2);
         assertNotSame(hidden, o2);
     }
 
-    private void runTest(final long delay, final boolean exclusiveLock, final LongConsumer runTimeCheck, boolean[] booleanValues, AbstractLockVisitor<boolean[]> visitor) throws InterruptedException {
+    private void runTest(final long delay, final boolean exclusiveLock, final LongConsumer runTimeCheck,
+        boolean[] booleanValues, AbstractLockVisitor<boolean[]> visitor) throws InterruptedException {
         final boolean[] runningValues = new boolean[10];
 
         final long startTime = System.currentTimeMillis();
