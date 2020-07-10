@@ -109,7 +109,7 @@ public class Streams {
 
     /**
      * A reduced, and simplified version of a {@link Stream} with failable method signatures.
-     * 
+     *
      * @param <O> The streams element type.
      */
     public static class FailableStream<O extends Object> {
@@ -119,7 +119,7 @@ public class Streams {
 
         /**
          * Constructs a new instance with the given {@code stream}.
-         * 
+         *
          * @param stream The stream.
          */
         public FailableStream(final Stream<O> stream) {
@@ -193,7 +193,7 @@ public class Streams {
          * reduction.
          *
          * \@apiNote The following will accumulate strings into an ArrayList:
-         * 
+         *
          * <pre>
          * {
          *     &#64;code
@@ -203,7 +203,7 @@ public class Streams {
          *
          * <p>
          * The following will classify {@code Person} objects by city:
-         * 
+         *
          * <pre>
          * {
          *     &#64;code
@@ -214,7 +214,7 @@ public class Streams {
          * <p>
          * The following will classify {@code Person} objects by state and city, cascading two {@code Collector}s
          * together:
-         * 
+         *
          * <pre>
          * {
          *     &#64;code
@@ -240,7 +240,7 @@ public class Streams {
          * which the reduced value is a mutable result container, such as an {@code ArrayList}, and elements are
          * incorporated by updating the state of the result rather than by replacing the result. This produces a result
          * equivalent to:
-         * 
+         *
          * <pre>
          * {@code
          *     R result = supplier.get();
@@ -260,7 +260,7 @@ public class Streams {
          * \@apiNote There are many existing classes in the JDK whose signatures are well-suited for use with method
          * references as arguments to {@code collect()}. For example, the following will accumulate strings into an
          * {@code ArrayList}:
-         * 
+         *
          * <pre>
          * {
          *     &#64;code
@@ -270,7 +270,7 @@ public class Streams {
          *
          * <p>
          * The following will take a stream of strings and concatenates them into a single string:
-         * 
+         *
          * <pre>
          * {
          *     &#64;code
@@ -354,7 +354,7 @@ public class Streams {
         /**
          * Performs a reduction on the elements of this stream, using the provided identity value and an associative
          * accumulation function, and returns the reduced value. This is equivalent to:
-         * 
+         *
          * <pre>
          * {@code
          *     T result = identity;
@@ -409,7 +409,7 @@ public class Streams {
 
         /**
          * Converts the FailableStream into an equivalent stream.
-         * 
+         *
          * @return A stream, which will return the same elements, which this FailableStream would return.
          */
         public Stream<O> stream() {
@@ -422,7 +422,7 @@ public class Streams {
      * version of the {@link Stream} class, with the same underlying element stream, except that failable objects, like
      * {@link FailablePredicate}, {@link FailableFunction}, or {@link FailableConsumer} may be applied, instead of
      * {@link Predicate}, {@link Function}, or {@link Consumer}. The idea is to rewrite a code snippet like this:
-     * 
+     *
      * <pre>
      * final List&lt;O&gt; list;
      * final Method m;
@@ -435,20 +435,20 @@ public class Streams {
      * };
      * final List&lt;String&gt; strList = list.stream().map(mapper).collect(Collectors.toList());
      * </pre>
-     * 
+     *
      * as follows:
-     * 
+     *
      * <pre>
      * final List&lt;O&gt; list;
      * final Method m;
      * final List&lt;String&gt; strList = Failable.stream(list.stream()).map((o) -&gt; (String) m.invoke(o))
      *     .collect(Collectors.toList());
      * </pre>
-     * 
+     *
      * While the second version may not be <em>quite</em> as efficient (because it depends on the creation of
      * additional, intermediate objects, of type FailableStream), it is much more concise, and readable, and meets the
      * spirit of Lambdas better than the first version.
-     * 
+     *
      * @param <O> The streams element type.
      * @param stream The stream, which is being converted.
      * @return The {@link FailableStream}, which has been created by converting the stream.
@@ -462,7 +462,7 @@ public class Streams {
      * version of the {@link Stream} class, with the same underlying element stream, except that failable objects, like
      * {@link FailablePredicate}, {@link FailableFunction}, or {@link FailableConsumer} may be applied, instead of
      * {@link Predicate}, {@link Function}, or {@link Consumer}. The idea is to rewrite a code snippet like this:
-     * 
+     *
      * <pre>
      * final List&lt;O&gt; list;
      * final Method m;
@@ -475,20 +475,20 @@ public class Streams {
      * };
      * final List&lt;String&gt; strList = list.stream().map(mapper).collect(Collectors.toList());
      * </pre>
-     * 
+     *
      * as follows:
-     * 
+     *
      * <pre>
      * final List&lt;O&gt; list;
      * final Method m;
      * final List&lt;String&gt; strList = Failable.stream(list.stream()).map((o) -&gt; (String) m.invoke(o))
      *     .collect(Collectors.toList());
      * </pre>
-     * 
+     *
      * While the second version may not be <em>quite</em> as efficient (because it depends on the creation of
      * additional, intermediate objects, of type FailableStream), it is much more concise, and readable, and meets the
      * spirit of Lambdas better than the first version.
-     * 
+     *
      * @param <O> The streams element type.
      * @param stream The stream, which is being converted.
      * @return The {@link FailableStream}, which has been created by converting the stream.
