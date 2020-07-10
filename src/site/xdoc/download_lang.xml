@@ -113,32 +113,32 @@ limitations under the License.
       </p>
     </subsection>
     </section>
-    <section name="Apache Commons Lang 3.10 (Java 8+)">
+    <section name="Apache Commons Lang 3.11 (Java 8+)">
       <subsection name="Binaries">
         <table>
           <tr>
-              <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.10-bin.tar.gz">commons-lang3-3.10-bin.tar.gz</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.10-bin.tar.gz.sha512">sha512</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.10-bin.tar.gz.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.11-bin.tar.gz">commons-lang3-3.11-bin.tar.gz</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.11-bin.tar.gz.sha512">sha512</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.11-bin.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
-              <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.10-bin.zip">commons-lang3-3.10-bin.zip</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.10-bin.zip.sha512">sha512</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.10-bin.zip.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.11-bin.zip">commons-lang3-3.11-bin.zip</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.11-bin.zip.sha512">sha512</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.11-bin.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
       <subsection name="Source">
         <table>
           <tr>
-              <td><a href="[preferred]/commons/lang/source/commons-lang3-3.10-src.tar.gz">commons-lang3-3.10-src.tar.gz</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.10-src.tar.gz.sha512">sha512</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.10-src.tar.gz.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang/source/commons-lang3-3.11-src.tar.gz">commons-lang3-3.11-src.tar.gz</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.11-src.tar.gz.sha512">sha512</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.11-src.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
-              <td><a href="[preferred]/commons/lang/source/commons-lang3-3.10-src.zip">commons-lang3-3.10-src.zip</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.10-src.zip.sha512">sha512</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.10-src.zip.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang/source/commons-lang3-3.11-src.zip">commons-lang3-3.11-src.zip</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.11-src.zip.sha512">sha512</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.11-src.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>

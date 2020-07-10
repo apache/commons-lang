@@ -1,4 +1,97 @@
                         Apache Commons Lang
+                        Version 3.11
+                        Release Notes
+
+
+INTRODUCTION:
+
+This document contains the release notes for the 3.11 version of Apache Commons Lang.
+Commons Lang is a set of utility functions and reusable components that should be of use in any 
+Java environment.
+
+Lang 3.9 and onwards now targets Java 8, making use of features that arrived with Java 8.
+
+For the advice on upgrading from 2.x to 3.x, see the following page: 
+
+    https://commons.apache.org/lang/article3_0.html
+
+Apache Commons Lang, a package of Java utility classes for the
+classes that are in java.lang's hierarchy, or are considered to be so
+standard as to justify existence in java.lang.
+
+New features and bug fixes.
+
+Changes in this version include:
+
+New features:
+o            Add ArrayUtils.isSameLength() to compare more array types #430. Thanks to XenoAmess, Gary Gregory.
+o            Added the Locks class as a convenient possibility to deal with locked objects.
+o LANG-1568: Add to Functions: FailableBooleanSupplier, FailableIntSupplier, FailableLongSupplier, FailableDoubleSupplier, and so on.
+o LANG-1569: Add ArrayUtils.get(T[], index, T) to provide an out-of-bounds default value.
+o LANG-1570: Add JavaVersion enum constants for Java 14 and 15. #553. Thanks to Edgar Asatryan.
+o            Add JavaVersion enum constants for Java 16. Thanks to Gary Gregory.
+o LANG-1556: Use Java 8 lambdas and Map operations. Thanks to XenoAmess.
+o LANG-1565: Change removeLastFieldSeparator to use endsWith #550. Thanks to XenoAmess.
+o LANG-1557: Change a Pattern to a static final field, for not letting it compile each time the function invoked. #542. Thanks to XenoAmess, Gary Gregory.
+o            Add ImmutablePair factory methods left() and right().
+o            Add ObjectUtils.toString(Object, Supplier<String>).
+o            Add org.apache.commons.lang3.StringUtils.substringAfter(String, int).
+o            Add org.apache.commons.lang3.StringUtils.substringAfterLast(String, int).
+
+Fixed Bugs:
+o            Fix Javadoc for StringUtils.appendIfMissingIgnoreCase() #507. Thanks to contextshuffling.
+o LANG-1560: Refine Javadoc #545. Thanks to XenoAmess.
+o LANG-1554: Fix typos #539. Thanks to XenoAmess.
+o LANG-1555: Ignored exception `ignored`, should not be called so #540. Thanks to XenoAmess.
+o LANG-1528: StringUtils.replaceEachRepeatedly gives IllegalStateException #505. Thanks to Edwin Delgado H.
+o LANG-1543: [JSON string for maps] ToStringBuilder.reflectionToString doesnt render nested maps correctly. Thanks to Swaraj Pal, Wander Costa, Gary Gregory.
+o            Correct Javadocs of methods that use Validate.notNull() and replace some uses of Validate.isTrue() with Validate.notNull(). #525. Thanks to Isira Seneviratne.
+o LANG-1539: Add allNull() and anyNull() methods to ObjectUtils. #522. Thanks to Isira Seneviratne.
+
+Changes:
+o            Refine test output for FastDateParserTest Thanks to Jin Xu.
+o LANG-1549: CharSequenceUtils.lastIndexOf : remake it Thanks to Jin Xu.
+o            remove encoding and docEncoding and use inherited values from commons-parent Thanks to XenoAmess.
+o            Simplify null checks in Pair.hashCode() using Objects.hashCode(). #517. Thanks to Isira Seneviratne, Bruno P. Kinoshita.
+o            Simplify null checks in Triple.hashCode() using Objects.hashCode(). #516. Thanks to Isira Seneviratne, Bruno P. Kinoshita.
+o            Simplify some if statements in StringUtils. #521. Thanks to Isira Seneviratne, Bruno P. Kinoshita.
+o LANG-1537: Simplify a null check in the private replaceEach() method of StringUtils. #514. Thanks to Isira Seneviratne, Bruno P. Kinoshita.
+o LANG-1534: Replace some usages of the ternary operator with calls to Math.max() and Math.min() #512. Thanks to Isira Seneviratne, Bruno P. Kinoshita.
+o            (Javadoc) Fix return tag for throwableOf*() methods #518. Thanks to Arend v. Reinersdorff, Bruno P. Kinoshita.
+o LANG-1545: CharSequenceUtils.regionMatches is wrong dealing with Georgian. Thanks to XenoAmess, Gary Gregory.
+o LANG-1550: Optimize ArrayUtils::isArrayIndexValid method. #551. Thanks to Edgar Asatryan.
+o LANG-1561: Use List.sort instead of Collection.sort #546. Thanks to XenoAmess.
+o LANG-1563: Use StandardCharsets.UTF_8 #548. Thanks to XenoAmess.
+o LANG-1564: Use Collections.singletonList insteadof Arrays.asList when there be only one element. #549. Thanks to XenoAmess.
+o LANG-1553: Change array style from `int a[]` to `int[] a` #537. Thanks to XenoAmess.
+o LANG-1552: Change from addAll to constructors for some List #536. Thanks to XenoAmess.
+o LANG-1558: Simplify if as some conditions are covered by others #543. Thanks to XenoAmess.
+o LANG-1567: Fixed Javadocs for setTestRecursive() #556. Thanks to Miguel Muñoz, Bruno P. Kinoshita, Gary Gregory.
+o LANG-1542: ToStringBuilder.reflectionToString - Wrong JSON format when object has a List of Enum. Thanks to Tr?n Ng?c Khoa, Gary Gregory.
+o            Make org.apache.commons.lang3.CharSequenceUtils.toCharArray(CharSequence) public.
+o            org.apache.commons:commons-parent 50 -> 51.
+o            org.junit-pioneer:junit-pioneer 0.5.4 -> 0.6.0.
+o            org.junit.jupiter:junit-jupiter 5.6.0 -> 5.6.2.
+o            com.github.spotbugs:spotbugs 4.0.0 -> 4.0.6.
+o            com.puppycrawl.tools:checkstyle 8.29 -> 8.34.
+o            commons.surefire.version 3.0.0-M4 -> 3.0.0-M5..
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
+
+https://commons.apache.org/proper/commons-lang/
+
+Download page: https://commons.apache.org/proper/commons-lang/download_csv.cgi
+
+Have fun!
+-Apache Commons Team
+
+=============================================================================
+
+                        Apache Commons Lang
                         Version 3.10
                         Release Notes
 
