@@ -155,7 +155,7 @@ public class Streams {
          * with non-thread-safe data structures (such as {@code ArrayList}), no
          * additional synchronization is needed for a parallel reduction.
          *
-         * \@apiNote
+         * Note
          * The following will accumulate strings into an ArrayList:
          * <pre>{@code
          *     List<String> asList = stringStream.collect(Collectors.toList());
@@ -204,7 +204,7 @@ public class Streams {
          *
          * <p>This is a terminal operation.
          *
-         * \@apiNote There are many existing classes in the JDK whose signatures are
+         * Note There are many existing classes in the JDK whose signatures are
          * well-suited for use with method references as arguments to {@code collect()}.
          * For example, the following will accumulate strings into an {@code ArrayList}:
          * <pre>{@code
@@ -257,7 +257,7 @@ public class Streams {
          *
          * <p>This is a terminal operation.
          *
-         * \@apiNote Sum, min, max, average, and string concatenation are all special
+         * Note Sum, min, max, average, and string concatenation are all special
          * cases of reduction. Summing a stream of numbers can be expressed as:
          *
          * <pre>{@code
@@ -316,7 +316,7 @@ public class Streams {
          *
          * <p>This is a short-circuiting terminal operation.
          *
-         * \@apiNote
+         * Note
          * This method evaluates the <em>universal quantification</em> of the
          * predicate over the elements of the stream (for all x P(x)).  If the
          * stream is empty, the quantification is said to be <em>vacuously
@@ -340,7 +340,7 @@ public class Streams {
          *
          * <p>This is a short-circuiting terminal operation.
          *
-         * \@apiNote
+         * Note
          * This method evaluates the <em>existential quantification</em> of the
          * predicate over the elements of the stream (for some x P(x)).
          *

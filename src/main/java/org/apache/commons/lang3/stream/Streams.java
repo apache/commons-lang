@@ -134,7 +134,7 @@ public class Streams {
          * <p>
          * This is a short-circuiting terminal operation.
          *
-         * \@apiNote This method evaluates the <em>universal quantification</em> of the predicate over the elements of
+         * Note This method evaluates the <em>universal quantification</em> of the predicate over the elements of
          * the stream (for all x P(x)). If the stream is empty, the quantification is said to be <em>vacuously
          * satisfied</em> and is always {@code true} (regardless of P(x)).
          *
@@ -155,7 +155,7 @@ public class Streams {
          * <p>
          * This is a short-circuiting terminal operation.
          *
-         * \@apiNote This method evaluates the <em>existential quantification</em> of the predicate over the elements of
+         * Note This method evaluates the <em>existential quantification</em> of the predicate over the elements of
          * the stream (for some x P(x)).
          *
          * @param predicate A non-interfering, stateless predicate to apply to elements of this stream
@@ -192,11 +192,10 @@ public class Streams {
          * data structures (such as {@code ArrayList}), no additional synchronization is needed for a parallel
          * reduction.
          *
-         * \@apiNote The following will accumulate strings into an ArrayList:
+         * Note The following will accumulate strings into an ArrayList:
          *
          * <pre>
-         * {
-         *     &#64;code
+         *     {@code
          *     List<String> asList = stringStream.collect(Collectors.toList());
          * }
          * </pre>
@@ -205,8 +204,7 @@ public class Streams {
          * The following will classify {@code Person} objects by city:
          *
          * <pre>
-         * {
-         *     &#64;code
+         *     {@code
          *     Map<String, List<Person>> peopleByCity = personStream.collect(Collectors.groupingBy(Person::getCity));
          * }
          * </pre>
@@ -216,8 +214,7 @@ public class Streams {
          * together:
          *
          * <pre>
-         * {
-         *     &#64;code
+         *     {@code
          *     Map<String, Map<String, List<Person>>> peopleByStateAndCity = personStream
          *         .collect(Collectors.groupingBy(Person::getState, Collectors.groupingBy(Person::getCity)));
          * }
@@ -257,13 +254,12 @@ public class Streams {
          * <p>
          * This is a terminal operation.
          *
-         * \@apiNote There are many existing classes in the JDK whose signatures are well-suited for use with method
+         * Note There are many existing classes in the JDK whose signatures are well-suited for use with method
          * references as arguments to {@code collect()}. For example, the following will accumulate strings into an
          * {@code ArrayList}:
          *
          * <pre>
-         * {
-         *     &#64;code
+         *     {@code
          *     List<String> asList = stringStream.collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
          * }
          * </pre>
@@ -272,8 +268,7 @@ public class Streams {
          * The following will take a stream of strings and concatenates them into a single string:
          *
          * <pre>
-         * {
-         *     &#64;code
+         *     {@code
          *     String concat = stringStream.collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
          *         .toString();
          * }
@@ -374,12 +369,11 @@ public class Streams {
          * <p>
          * This is a terminal operation.
          *
-         * \@apiNote Sum, min, max, average, and string concatenation are all special cases of reduction. Summing a
+         * Note Sum, min, max, average, and string concatenation are all special cases of reduction. Summing a
          * stream of numbers can be expressed as:
          *
          * <pre>
-         * {
-         *     &#64;code
+         *     {@code
          *     Integer sum = integers.reduce(0, (a, b) -> a + b);
          * }
          * </pre>
@@ -387,8 +381,7 @@ public class Streams {
          * or:
          *
          * <pre>
-         * {
-         *     &#64;code
+         *     {@code
          *     Integer sum = integers.reduce(0, Integer::sum);
          * }
          * </pre>
