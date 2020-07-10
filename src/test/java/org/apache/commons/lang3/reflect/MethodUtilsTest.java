@@ -863,7 +863,7 @@ public class MethodUtilsTest {
 
     @Test
     public void testGetMethodsWithAnnotationIllegalArgumentException1() {
-        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getMethodsWithAnnotation(FieldUtilsTest.class, null));
+        assertThrows(NullPointerException.class, () -> MethodUtils.getMethodsWithAnnotation(FieldUtilsTest.class, null));
     }
 
     @Test
@@ -891,7 +891,7 @@ public class MethodUtilsTest {
 
     @Test
     public void testGetMethodsListWithAnnotationIllegalArgumentException1() {
-        assertThrows(IllegalArgumentException.class, () -> MethodUtils.getMethodsListWithAnnotation(FieldUtilsTest.class, null));
+        assertThrows(NullPointerException.class, () -> MethodUtils.getMethodsListWithAnnotation(FieldUtilsTest.class, null));
     }
 
     @Test
@@ -906,7 +906,7 @@ public class MethodUtilsTest {
 
     @Test
     public void testGetAnnotationIllegalArgumentException1() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
                 () -> MethodUtils.getAnnotation(FieldUtilsTest.class.getDeclaredMethods()[0], null, true, true));
     }
 

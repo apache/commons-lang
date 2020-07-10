@@ -129,7 +129,7 @@ public class SerializationUtils {
      *
      * @param obj  the object to serialize to bytes, may be null
      * @param outputStream  the stream to write to, must not be null
-     * @throws IllegalArgumentException if {@code outputStream} is {@code null}
+     * @throws NullPointerException if {@code outputStream} is {@code null}
      * @throws SerializationException (runtime) if the serialization fails
      */
     public static void serialize(final Serializable obj, final OutputStream outputStream) {
@@ -182,10 +182,8 @@ public class SerializationUtils {
      * @param inputStream
      *            the serialized object input stream, must not be null
      * @return the deserialized object
-     * @throws IllegalArgumentException
-     *             if {@code inputStream} is {@code null}
-     * @throws SerializationException
-     *             (runtime) if the serialization fails
+     * @throws NullPointerException if {@code inputStream} is {@code null}
+     * @throws SerializationException (runtime) if the serialization fails
      */
     public static <T> T deserialize(final InputStream inputStream) {
         Validate.notNull(inputStream, "The InputStream must not be null");
@@ -213,10 +211,8 @@ public class SerializationUtils {
      * @param objectData
      *            the serialized object, must not be null
      * @return the deserialized object
-     * @throws IllegalArgumentException
-     *             if {@code objectData} is {@code null}
-     * @throws SerializationException
-     *             (runtime) if the serialization fails
+     * @throws NullPointerException if {@code objectData} is {@code null}
+     * @throws SerializationException (runtime) if the serialization fails
      */
     public static <T> T deserialize(final byte[] objectData) {
         Validate.notNull(objectData, "The byte[] must not be null");

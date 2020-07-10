@@ -308,7 +308,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *
      * @param str  the string to parse, must not be {@code null}
      * @return the new {@code Fraction} instance
-     * @throws IllegalArgumentException if the string is {@code null}
+     * @throws NullPointerException if the string is {@code null}
      * @throws NumberFormatException if the number format is invalid
      */
     public static Fraction getFraction(String str) {
@@ -773,7 +773,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *
      * @param fraction  the fraction to multiply by, must not be {@code null}
      * @return a {@code Fraction} instance with the resulting values
-     * @throws IllegalArgumentException if the fraction is {@code null}
+     * @throws NullPointerException if the fraction is {@code null}
      * @throws ArithmeticException if the resulting numerator or denominator exceeds
      *  {@code Integer.MAX_VALUE}
      */
@@ -795,7 +795,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *
      * @param fraction  the fraction to divide by, must not be {@code null}
      * @return a {@code Fraction} instance with the resulting values
-     * @throws IllegalArgumentException if the fraction is {@code null}
+     * @throws NullPointerException if the fraction is {@code null}
      * @throws ArithmeticException if the fraction to divide by is zero
      * @throws ArithmeticException if the resulting numerator or denominator exceeds
      *  {@code Integer.MAX_VALUE}

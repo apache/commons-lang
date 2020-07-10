@@ -131,7 +131,7 @@ public class CharUtils {
      *
      * @param ch  the character to convert
      * @return the char value of the Character
-     * @throws IllegalArgumentException if the Character is null
+     * @throws NullPointerException if the Character is null
      */
     public static char toChar(final Character ch) {
         Validate.notNull(ch, "The Character must not be null");
@@ -172,6 +172,7 @@ public class CharUtils {
      *
      * @param str  the character to convert
      * @return the char value of the first letter of the String
+     * @throws NullPointerException if the string is null
      * @throws IllegalArgumentException if the String is empty
      */
     public static char toChar(final String str) {
@@ -260,7 +261,8 @@ public class CharUtils {
      *
      * @param ch  the character to convert, not null
      * @return the int value of the character
-     * @throws IllegalArgumentException if the Character is not ASCII numeric or is null
+     * @throws NullPointerException if the Character is null
+     * @throws IllegalArgumentException if the Character is not ASCII numeric
      */
     public static int toIntValue(final Character ch) {
         Validate.notNull(ch, "The character must not be null");
