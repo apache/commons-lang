@@ -509,7 +509,7 @@ public class DateUtils {
      * @param calendarField  the calendar field to add to
      * @param amount  the amount to add, may be negative
      * @return the new {@code Date} with the amount added
-     * @throws IllegalArgumentException if the date is null
+     * @throws NullPointerException if the date is null
      */
     private static Date add(final Date date, final int calendarField, final int amount) {
         validateDateNotNull(date);
@@ -736,7 +736,7 @@ public class DateUtils {
      * @param date  the date to work with, not null
      * @param field  the field from {@code Calendar} or {@code SEMI_MONTH}
      * @return the different rounded date, not null
-     * @throws IllegalArgumentException if the date is {@code null}
+     * @throws NullPointerException if the date is {@code null}
      * @throws ArithmeticException if the year is over 280 million
      */
     public static Calendar round(final Calendar date, final int field) {
@@ -776,7 +776,7 @@ public class DateUtils {
      * @param date  the date to work with, either {@code Date} or {@code Calendar}, not null
      * @param field  the field from {@code Calendar} or {@code SEMI_MONTH}
      * @return the different rounded date, not null
-     * @throws IllegalArgumentException if the date is {@code null}
+     * @throws NullPointerException if the date is {@code null}
      * @throws ClassCastException if the object type is not a {@code Date} or {@code Calendar}
      * @throws ArithmeticException if the year is over 280 million
      */
@@ -806,7 +806,7 @@ public class DateUtils {
      * @param date  the date to work with, not null
      * @param field  the field from {@code Calendar} or {@code SEMI_MONTH}
      * @return the different truncated date, not null
-     * @throws IllegalArgumentException if the date is {@code null}
+     * @throws NullPointerException if the date is {@code null}
      * @throws ArithmeticException if the year is over 280 million
      */
     public static Date truncate(final Date date, final int field) {
@@ -829,7 +829,7 @@ public class DateUtils {
      * @param date  the date to work with, not null
      * @param field  the field from {@code Calendar} or {@code SEMI_MONTH}
      * @return the different truncated date, not null
-     * @throws IllegalArgumentException if the date is {@code null}
+     * @throws NullPointerException if the date is {@code null}
      * @throws ArithmeticException if the year is over 280 million
      */
     public static Calendar truncate(final Calendar date, final int field) {
@@ -853,7 +853,7 @@ public class DateUtils {
      * @param date  the date to work with, either {@code Date} or {@code Calendar}, not null
      * @param field  the field from {@code Calendar} or {@code SEMI_MONTH}
      * @return the different truncated date, not null
-     * @throws IllegalArgumentException if the date is {@code null}
+     * @throws NullPointerException if the date is {@code null}
      * @throws ClassCastException if the object type is not a {@code Date} or {@code Calendar}
      * @throws ArithmeticException if the year is over 280 million
      */
@@ -883,7 +883,7 @@ public class DateUtils {
      * @param date  the date to work with, not null
      * @param field  the field from {@code Calendar} or {@code SEMI_MONTH}
      * @return the different ceil date, not null
-     * @throws IllegalArgumentException if the date is {@code null}
+     * @throws NullPointerException if the date is {@code null}
      * @throws ArithmeticException if the year is over 280 million
      * @since 2.5
      */
@@ -907,7 +907,7 @@ public class DateUtils {
      * @param date  the date to work with, not null
      * @param field  the field from {@code Calendar} or {@code SEMI_MONTH}
      * @return the different ceil date, not null
-     * @throws IllegalArgumentException if the date is {@code null}
+     * @throws NullPointerException if the date is {@code null}
      * @throws ArithmeticException if the year is over 280 million
      * @since 2.5
      */
@@ -932,7 +932,7 @@ public class DateUtils {
      * @param date  the date to work with, either {@code Date} or {@code Calendar}, not null
      * @param field  the field from {@code Calendar} or {@code SEMI_MONTH}
      * @return the different ceil date, not null
-     * @throws IllegalArgumentException if the date is {@code null}
+     * @throws NullPointerException if the date is {@code null}
      * @throws ClassCastException if the object type is not a {@code Date} or {@code Calendar}
      * @throws ArithmeticException if the year is over 280 million
      * @since 2.5
@@ -1121,7 +1121,7 @@ public class DateUtils {
      * {@link DateUtils#RANGE_WEEK_RELATIVE},
      * {@link DateUtils#RANGE_WEEK_CENTER}
      * @return the date iterator, not null, not null
-     * @throws IllegalArgumentException if the date is {@code null}
+     * @throws NullPointerException if the date is {@code null}
      * @throws IllegalArgumentException if the rangeStyle is invalid
      */
     public static Iterator<Calendar> iterator(final Date focus, final int rangeStyle) {
@@ -1643,8 +1643,8 @@ public class DateUtils {
      * @param fragment the Calendar field part of date to calculate
      * @param unit the time unit
      * @return number of units within the fragment of the date
-     * @throws IllegalArgumentException if the date is {@code null} or
-     * fragment is not supported
+     * @throws NullPointerException if the date is {@code null}
+     * @throws IllegalArgumentException if fragment is not supported
      * @since 2.4
      */
     private static long getFragment(final Date date, final int fragment, final TimeUnit unit) {
