@@ -85,6 +85,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory">Make org.apache.commons.lang3.CharSequenceUtils.toCharArray(CharSequence) public.</action>
     <action                   type="add" dev="ggregory">Add org.apache.commons.lang3.StringUtils.substringAfter(String, int).</action>
     <action                   type="add" dev="ggregory">Add org.apache.commons.lang3.StringUtils.substringAfterLast(String, int).</action>
+    <action                   type="fix" dev="ggregory" due-to="Isira Seneviratne">Correct Javadocs of methods that use Validate.notNull() and replace some uses of Validate.isTrue() with Validate.notNull(). #525.</action>
     <action                   type="update" dev="ggregory">org.apache.commons:commons-parent 50 -> 51.</action>
     <action                   type="update" dev="ggregory">org.junit-pioneer:junit-pioneer 0.5.4 -> 0.6.0.</action>
     <action                   type="update" dev="ggregory">org.junit.jupiter:junit-jupiter 5.6.0 -> 5.6.2.</action>
