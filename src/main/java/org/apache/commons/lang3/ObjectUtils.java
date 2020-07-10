@@ -108,6 +108,32 @@ public class ObjectUtils {
     public static final Null NULL = new Null();
 
     /**
+     * Checks if all values in the given array are {@code null}.
+     *
+     * <p>
+     * If all the values are {@code null} or the array is {@code null}
+     * or empty, then {@code true} is returned, otherwise {@code false} is returned.
+     * </p>
+     *
+     * <pre>
+     * ObjectUtils.allNull(*)                = false
+     * ObjectUtils.allNull(*, null)          = false
+     * ObjectUtils.allNull(null, *)          = false
+     * ObjectUtils.allNull(null, null, *, *) = false
+     * ObjectUtils.allNull(null)             = true
+     * ObjectUtils.allNull(null, null)       = true
+     * </pre>
+     *
+     * @param values  the values to test, may be {@code null} or empty
+     * @return {@code true} if all values in the array are {@code null}s,
+     * {@code false} if there is at least one non-null value in the array.
+     * @since 3.11
+     */
+    public static boolean allNull(final Object... values) {
+        return !anyNotNull(values);
+    }
+
+    /**
      * Checks if all values in the array are not {@code nulls}.
      *
      * <p>
@@ -144,6 +170,34 @@ public class ObjectUtils {
         }
 
         return true;
+    }
+
+    /**
+     * Checks if any value in the given array is {@code null}.
+     *
+     * <p>
+     * If any of the values are {@code null} or the array is {@code null},
+     * then {@code true} is returned, otherwise {@code false} is returned.
+     * </p>
+     *
+     * <pre>
+     * ObjectUtils.anyNull(*)             = false
+     * ObjectUtils.anyNull(*, *)          = false
+     * ObjectUtils.anyNull(null)          = true
+     * ObjectUtils.anyNull(null, null)    = true
+     * ObjectUtils.anyNull(null, *)       = true
+     * ObjectUtils.anyNull(*, null)       = true
+     * ObjectUtils.anyNull(*, *, null, *) = true
+     * </pre>
+     *
+     * @param values  the values to test, may be {@code null} or empty
+     * @return {@code true} if there is at least one {@code null} value in the array,
+     * {@code false} if all the values are non-null.
+     * If the array is {@code null} or empty, {@code true} is also returned.
+     * @since 3.11
+     */
+    public static boolean anyNull(final Object... values) {
+        return !allNotNull(values);
     }
 
     /**
