@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.function.LongConsumer;
 
-import org.apache.commons.lang3.concurrent.locks.LockingVisitors.AbstractLockVisitor;
+import org.apache.commons.lang3.concurrent.locks.LockingVisitors.LockVisitor;
 import org.apache.commons.lang3.concurrent.locks.LockingVisitors.StampedLockVisitor;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.junit.jupiter.api.Test;
@@ -91,7 +91,7 @@ public class LockingVisitorsTest {
     }
 
     private void runTest(final long delayMillis, final boolean exclusiveLock, final LongConsumer runTimeCheck,
-        boolean[] booleanValues, AbstractLockVisitor<boolean[]> visitor) throws InterruptedException {
+        boolean[] booleanValues, LockVisitor<boolean[], ?> visitor) throws InterruptedException {
         final boolean[] runningValues = new boolean[10];
 
         final long startTime = System.currentTimeMillis();
