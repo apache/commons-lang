@@ -87,6 +87,7 @@ public class LockingVisitors {
         private final O object;
         private final Supplier<Lock> readLockSupplier;
         private final Supplier<Lock> writeLockSupplier;
+
         protected LockVisitor(final O object, L lock, Supplier<Lock> readLockSupplier, Supplier<Lock> writeLockSupplier) {
             super();
             this.object = Objects.requireNonNull(object, "object");
