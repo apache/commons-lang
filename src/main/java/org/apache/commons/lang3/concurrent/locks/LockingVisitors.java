@@ -32,7 +32,7 @@ import org.apache.commons.lang3.function.FailableFunction;
  * objects are an alternative to synchronization.
  *
  * Locking is preferable, if there is a distinction between read access (multiple threads may have read access
- * concurrently), and write access (only one thread may have write access at any given time. In comparison,
+ * concurrently), and write access (only one thread may have write access at any given time). In comparison,
  * synchronization doesn't support read access, because synchronized access is exclusive.
  *
  * Using this class is fairly straightforward:
