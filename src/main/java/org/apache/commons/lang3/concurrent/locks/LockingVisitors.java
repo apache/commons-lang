@@ -87,12 +87,12 @@ public class LockingVisitors {
          * Java 8.
          */
         private final L lock;
-        
+
         /**
          * The guarded object.
          */
         private final O object;
-        
+
         /**
          * Supplies the read lock, usually from the lock object.
          */

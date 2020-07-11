@@ -80,11 +80,11 @@ public class LockingVisitorsTest {
     public void testResultValidation() {
         final Object hidden = new Object();
         final StampedLockVisitor<Object> lock = LockingVisitors.stampedLockVisitor(hidden);
-        final Object o1 = lock.applyReadLocked((h) -> {
+        final Object o1 = lock.applyReadLocked(h -> {
             return new Object(); });
         assertNotNull(o1);
         assertNotSame(hidden, o1);
-        final Object o2 = lock.applyWriteLocked((h) -> {
+        final Object o2 = lock.applyWriteLocked(h -> {
             return new Object(); });
         assertNotNull(o2);
         assertNotSame(hidden, o2);
