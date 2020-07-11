@@ -82,12 +82,35 @@ public class LockingVisitors {
      */
     public static class LockVisitor<O, L> {
 
+        /**
+         * The lock object, untyped, since, for example {@link StampedLock} does not implement a locking interface in
+         * Java 8.
+         */
         private final L lock;
-
+        
+        /**
+         * The guarded object.
+         */
         private final O object;
+        
+        /**
+         * Supplies the read lock, usually from the lock object.
+         */
         private final Supplier<Lock> readLockSupplier;
+
+        /**
+         * Supplies the write lock, usually from the lock object.
+         */
         private final Supplier<Lock> writeLockSupplier;
 
+        /**
+         * Constructs an instance.
+         *
+         * @param object The object to guard.
+         * @param lock The locking object.
+         * @param readLockSupplier Supplies the read lock, usually from the lock object.
+         * @param writeLockSupplier Supplies the write lock, usually from the lock object.
+         */
         protected LockVisitor(final O object, L lock, Supplier<Lock> readLockSupplier, Supplier<Lock> writeLockSupplier) {
             super();
             this.object = Objects.requireNonNull(object, "object");
@@ -210,7 +233,7 @@ public class LockingVisitors {
         }
 
         /**
-         * Gets the object.
+         * Gets the guarded object.
          *
          * @return the object.
          */
