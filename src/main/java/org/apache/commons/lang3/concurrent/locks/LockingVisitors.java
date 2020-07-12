@@ -127,8 +127,10 @@ public class LockingVisitors {
         }
 
         /**
+         * <p>
          * Provides read (shared, non-exclusive) access to the locked (hidden) object. More precisely, what the method
          * will do (in the given order):
+         * </p>
          * <ol>
          * <li>Obtain a read (shared) lock on the locked (hidden) object. The current thread may block, until such a
          * lock is granted.</li>
@@ -147,8 +149,10 @@ public class LockingVisitors {
         }
 
         /**
+         * <p>
          * Provides write (exclusive) access to the locked (hidden) object. More precisely, what the method will do (in
          * the given order):
+         * </p>
          * <ol>
          * <li>Obtain a write (shared) lock on the locked (hidden) object. The current thread may block, until such a
          * lock is granted.</li>
@@ -167,8 +171,10 @@ public class LockingVisitors {
         }
 
         /**
+         * <p>
          * Provides read (shared, non-exclusive) access to the locked (hidden) object for the purpose of computing a
          * result object. More precisely, what the method will do (in the given order):
+         * </p>
          * <ol>
          * <li>Obtain a read (shared) lock on the locked (hidden) object. The current thread may block, until such a
          * lock is granted.</li>
@@ -178,10 +184,10 @@ public class LockingVisitors {
          * lock will be released anyways.</li>
          * <li>Return the result object, that has been received from the functions invocation.</li>
          * </ol>
-         *
-         * <em>Example:</em> Suggest, that the hidden object is a list, and we wish to know the current size of the
+         * <p>
+         * <em>Example:</em> Consider that the hidden object is a list, and we wish to know the current size of the
          * list. This might be achieved with the following:
-         *
+         * </p>
          * <pre>
          * private Lock&lt;List&lt;Object&gt;&gt; listLock;
          *
@@ -205,8 +211,10 @@ public class LockingVisitors {
         }
 
         /**
+         * <p>
          * Provides write (exclusive) access to the locked (hidden) object for the purpose of computing a result object.
          * More precisely, what the method will do (in the given order):
+         * </p>
          * <ol>
          * <li>Obtain a read (shared) lock on the locked (hidden) object. The current thread may block, until such a
          * lock is granted.</li>
@@ -325,7 +333,7 @@ public class LockingVisitors {
 
     /**
      * This class implements a wrapper for a locked (hidden) object, and provides the means to access it. The basic
-     * idea, is that the user code forsakes all references to the locked object, using only the wrapper object, and the
+     * idea is that the user code forsakes all references to the locked object, using only the wrapper object, and the
      * accessor methods {@link #acceptReadLocked(FailableConsumer)}, {@link #acceptWriteLocked(FailableConsumer)},
      * {@link #applyReadLocked(FailableFunction)}, and {@link #applyWriteLocked(FailableFunction)}. By doing so, the
      * necessary protections are guaranteed.
