@@ -28,17 +28,23 @@ import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableFunction;
 
 /**
+ * <p>
  * Combines the monitor and visitor pattern to work with {@link java.util.concurrent.locks.Lock locked objects}. Locked
- * objects are an alternative to synchronization.
- *
+ * objects are an alternative to synchronization. This, on Wikipedia, is known as the Visitor pattern
+ * (https://en.wikipedia.org/wiki/Visitor_pattern), and from the "Gang of Four" "Design Patterns" book's Visitor pattern
+ * [Gamma, E., Helm, R., &amp; Johnson, R. (1998). Visitor. In Design patterns elements of reusable object oriented software (pp. 331-344). Reading: Addison Wesley.].
+ * </p>
+ * <p>
  * Locking is preferable, if there is a distinction between read access (multiple threads may have read access
  * concurrently), and write access (only one thread may have write access at any given time). In comparison,
  * synchronization doesn't support read access, because synchronized access is exclusive.
- *
+ * </p>
+ * <p>
  * Using this class is fairly straightforward:
+ * </p>
  * <ol>
  * <li>While still in single thread mode, create an instance of {@link LockingVisitors.StampedLockVisitor} by calling
- * {@link #stampedLockVisitor(Object)}, passing the object, which needs to be locked. Discard all references to the
+ * {@link #stampedLockVisitor(Object)}, passing the object which needs to be locked. Discard all references to the
  * locked object. Instead, use references to the lock.</li>
  * <li>If you want to access the locked object, create a {@link FailableConsumer}. The consumer will receive the locked
  * object as a parameter. For convenience, the consumer may be implemented as a Lambda. Then invoke
@@ -49,8 +55,9 @@ import org.apache.commons.lang3.function.FailableFunction;
  * {@link LockingVisitors.StampedLockVisitor#applyReadLocked(FailableFunction)}, or
  * {@link LockingVisitors.StampedLockVisitor#applyWriteLocked(FailableFunction)}.</li>
  * </ol>
- *
+ * <p>
  * Example: A thread safe logger class.
+ * </p>
  *
  * <pre>
  *   public class SimpleLogger {
