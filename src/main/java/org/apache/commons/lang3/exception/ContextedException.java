@@ -45,7 +45,7 @@ import org.apache.commons.lang3.tuple.Pair;
  *     throw new ContextedException("Error posting account transaction", e)
  *          .addContextValue("Account Number", accountNumber)
  *          .addContextValue("Amount Posted", amountPosted)
- *          .addContextValue("Previous Balance", previousBalance)
+ *          .addContextValue("Previous Balance", previousBalance);
  *   }
  * }
  * </pre>
