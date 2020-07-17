@@ -82,7 +82,6 @@ public class ClassUtils {
      * Maps names of primitives to their corresponding primitive {@code Class}es.
      */
     private static final Map<String, Class<?>> namePrimitiveMap = new HashMap<>();
-
     static {
          namePrimitiveMap.put("boolean", Boolean.TYPE);
          namePrimitiveMap.put("byte", Byte.TYPE);
@@ -99,7 +98,6 @@ public class ClassUtils {
      * Maps primitive {@code Class}es to their corresponding wrapper {@code Class}.
      */
     private static final Map<Class<?>, Class<?>> primitiveWrapperMap = new HashMap<>();
-
     static {
          primitiveWrapperMap.put(Boolean.TYPE, Boolean.class);
          primitiveWrapperMap.put(Byte.TYPE, Byte.class);
@@ -116,7 +114,6 @@ public class ClassUtils {
      * Maps wrapper {@code Class}es to their corresponding primitive types.
      */
     private static final Map<Class<?>, Class<?>> wrapperPrimitiveMap = new HashMap<>();
-
     static {
         for (final Map.Entry<Class<?>, Class<?>> entry : primitiveWrapperMap.entrySet()) {
             final Class<?> primitiveClass = entry.getKey();
@@ -136,7 +133,6 @@ public class ClassUtils {
      * Maps an abbreviation used in array class names to corresponding primitive class name.
      */
     private static final Map<String, String> reverseAbbreviationMap;
-
     // Feed abbreviation maps
     static {
         final Map<String, String> m = new HashMap<>();
