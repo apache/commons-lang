@@ -1015,6 +1015,8 @@ public class MethodUtilsTest {
         assertEquals(0, distanceMethod.invoke(null, new Class[]{Date.class}, new Class[]{Date.class}));
         assertEquals(1, distanceMethod.invoke(null, new Class[]{Integer.class}, new Class[]{ClassUtils.wrapperToPrimitive(Integer.class)}));
         assertEquals(2, distanceMethod.invoke(null, new Class[]{Integer.class}, new Class[]{Object.class}));
+        assertEquals(-1, distanceMethod.invoke(null, new Class[]{Integer.class, null}, new Class[]{Object.class}));
+        assertEquals(2, distanceMethod.invoke(null, new Class[]{Integer.class, null}, new Class[]{Object.class, Object.class}));
 
         distanceMethod.setAccessible(false);
     }

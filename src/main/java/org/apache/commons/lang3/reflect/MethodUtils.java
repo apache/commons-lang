@@ -782,7 +782,7 @@ public class MethodUtils {
         }
         for (int offset = 0; offset < classArray.length; offset++) {
             // Note InheritanceUtils.distance() uses different scoring system.
-            if (classArray[offset].equals(toClassArray[offset])) {
+            if (null == classArray[offset] || classArray[offset].equals(toClassArray[offset])) {
                 continue;
             } else if (ClassUtils.isAssignable(classArray[offset], toClassArray[offset], true)
                     && !ClassUtils.isAssignable(classArray[offset], toClassArray[offset], false)) {
