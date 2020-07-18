@@ -45,6 +45,9 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
+  <release version="3.12" date="2020-MM-DD" description="New features and bug fixes.">
+    
+  </release>
   <release version="3.11" date="2020-07-12" description="New features and bug fixes.">
     <action                   type="update" dev="chtompki" due-to="Jin Xu">Refine test output for FastDateParserTest</action>
     <action issue="LANG-1549" type="update" dev="chtompki" due-to="Jin Xu">CharSequenceUtils.lastIndexOf : remake it</action>
