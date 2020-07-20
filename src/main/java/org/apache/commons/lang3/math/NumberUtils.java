@@ -656,6 +656,7 @@ public class NumberUtils {
         }
         // Need to deal with all possible hex prefixes here
         final String[] hex_prefixes = {"0x", "0X", "-0x", "-0X", "#", "-#"};
+        final int length = str.length();
         int pfxLen = 0;
         for (final String pfx : hex_prefixes) {
             if (str.startsWith(pfx)) {
@@ -665,7 +666,7 @@ public class NumberUtils {
         }
         if (pfxLen > 0) { // we have a hex number
             char firstSigDigit = 0; // strip leading zeroes
-            for (int i = pfxLen; i < str.length(); i++) {
+            for (int i = pfxLen; i < length; i++) {
                 firstSigDigit = str.charAt(i);
                 if (firstSigDigit == '0') { // count leading zeroes
                     pfxLen++;
@@ -673,7 +674,7 @@ public class NumberUtils {
                     break;
                 }
             }
-            final int hexDigits = str.length() - pfxLen;
+            final int hexDigits = length - pfxLen;
             if (hexDigits > 16 || hexDigits == 16 && firstSigDigit > '7') { // too many for Long
                 return createBigInteger(str);
             }
@@ -682,7 +683,7 @@ public class NumberUtils {
             }
             return createInteger(str);
         }
-        final char lastChar = str.charAt(str.length() - 1);
+        final char lastChar = str.charAt(length - 1);
         String mant;
         String dec;
         String exp;
@@ -693,7 +694,7 @@ public class NumberUtils {
 
         if (decPos > -1) { // there is a decimal point
             if (expPos > -1) { // there is an exponent
-                if (expPos < decPos || expPos > str.length()) { // prevents double exponent causing IOOBE
+                if (expPos < decPos || expPos > length) { // prevents double exponent causing IOOBE
                     throw new NumberFormatException(str + " is not a valid number.");
                 }
                 dec = str.substring(decPos + 1, expPos);
@@ -703,7 +704,7 @@ public class NumberUtils {
             mant = getMantissa(str, decPos);
         } else {
             if (expPos > -1) {
-                if (expPos > str.length()) { // prevents double exponent causing IOOBE
+                if (expPos > length) { // prevents double exponent causing IOOBE
                     throw new NumberFormatException(str + " is not a valid number.");
                 }
                 mant = getMantissa(str, expPos);
@@ -713,13 +714,13 @@ public class NumberUtils {
             dec = null;
         }
         if (!Character.isDigit(lastChar) && lastChar != '.') {
-            if (expPos > -1 && expPos < str.length() - 1) {
-                exp = str.substring(expPos + 1, str.length() - 1);
+            if (expPos > -1 && expPos < length - 1) {
+                exp = str.substring(expPos + 1, length - 1);
             } else {
                 exp = null;
             }
             //Requesting a specific type..
-            final String numeric = str.substring(0, str.length() - 1);
+            final String numeric = str.substring(0, length - 1);
             final boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
             switch (lastChar) {
                 case 'l' :
@@ -773,8 +774,8 @@ public class NumberUtils {
         }
         //User doesn't have a preference on the return type, so let's start
         //small and go from there...
-        if (expPos > -1 && expPos < str.length() - 1) {
-            exp = str.substring(expPos + 1, str.length());
+        if (expPos > -1 && expPos < length - 1) {
+            exp = str.substring(expPos + 1);
         } else {
             exp = null;
         }
