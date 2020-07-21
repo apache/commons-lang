@@ -48,6 +48,7 @@ The <action> type attribute can be add,update,fix,remove.
   <release version="3.12" date="2020-MM-DD" description="New features and bug fixes.">
     <action issue="LANG-1591" type="update" dev="kinow" due-to="bhawna94">Remove redundant argument from substring call.</action>
     <action                   type="update" dev="ggregory" due-to="Enable Dependabot #587">Enable Dependabot #587.</action>
+    <action issue="LANG-1592" type="fix" dev="aherbert" due-to="Huang Pingcai, Alex Herbert">Correct implementation of RandomUtils.nextLong(long, long)</action>
   </release>
   <release version="3.11" date="2020-07-12" description="New features and bug fixes.">
     <action                   type="update" dev="chtompki" due-to="Jin Xu">Refine test output for FastDateParserTest</action>
