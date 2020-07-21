@@ -81,7 +81,6 @@ final class CharRange implements Iterable<Character>, Serializable {
      *
      * @param ch  only character in this range
      * @return the new CharRange object
-     * @see CharRange#CharRange(char, char, boolean)
      * @since 2.5
      */
     public static CharRange is(final char ch) {
@@ -91,9 +90,11 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * <p>Constructs a negated {@code CharRange} over a single character.</p>
      *
+     * <p>A negated range includes everything except that defined by the
+     * single character.</p>
+     *
      * @param ch  only character in this range
      * @return the new CharRange object
-     * @see CharRange#CharRange(char, char, boolean)
      * @since 2.5
      */
     public static CharRange isNot(final char ch) {
@@ -103,10 +104,12 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * <p>Constructs a {@code CharRange} over a set of characters.</p>
      *
+     * <p>If start and end are in the wrong order, they are reversed.
+     * Thus {@code a-e} is the same as {@code e-a}.</p>
+     *
      * @param start  first character, inclusive, in this range
      * @param end  last character, inclusive, in this range
      * @return the new CharRange object
-     * @see CharRange#CharRange(char, char, boolean)
      * @since 2.5
      */
     public static CharRange isIn(final char start, final char end) {
@@ -116,10 +119,15 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * <p>Constructs a negated {@code CharRange} over a set of characters.</p>
      *
+     * <p>A negated range includes everything except that defined by the
+     * start and end characters.</p>
+     *
+     * <p>If start and end are in the wrong order, they are reversed.
+     * Thus {@code a-e} is the same as {@code e-a}.</p>
+     *
      * @param start  first character, inclusive, in this range
      * @param end  last character, inclusive, in this range
      * @return the new CharRange object
-     * @see CharRange#CharRange(char, char, boolean)
      * @since 2.5
      */
     public static CharRange isNotIn(final char start, final char end) {
