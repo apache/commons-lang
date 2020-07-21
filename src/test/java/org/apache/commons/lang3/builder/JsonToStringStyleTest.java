@@ -599,8 +599,7 @@ public class JsonToStringStyleTest {
     }
 
     /**
-     * An object with nested object structures used to test {@link ToStringStyle.JsonToStringStyle}.
-     *
+     * An object with nested object structures used to test {@code ToStringStyle.JsonToStringStyle}.
      */
     static class NestingPerson {
         /**
@@ -684,8 +683,7 @@ public class JsonToStringStyleTest {
     }
 
     /**
-     * An object with a Map field used to test {@link ToStringStyle.JsonToStringStyle}.
-     *
+     * An object with a Map field used to test {@code ToStringStyle.JsonToStringStyle}.
      */
     static class InnerMapObject {
         /**

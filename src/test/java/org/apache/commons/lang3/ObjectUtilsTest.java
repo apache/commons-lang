@@ -727,7 +727,7 @@ public class ObjectUtilsTest {
         /**
          * Create a new NonComparableCharSequence instance.
          *
-         * @param value
+         * @param value the CharSequence value
          */
         NonComparableCharSequence(final String value) {
             super();
