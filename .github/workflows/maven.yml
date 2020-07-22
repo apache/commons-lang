@@ -21,9 +21,16 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
         java: [ 8, 11, 14, 15-ea, 16-ea ]
+        experimental: [false]
+        include:
+          - node: 15-ea
+            experimental: true        
+          - node: 16-ea
+            experimental: true        
         
     steps:
     - uses: actions/checkout@v1
