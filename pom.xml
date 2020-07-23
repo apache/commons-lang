@@ -606,7 +606,7 @@
     <checkstyle.version>8.34</checkstyle.version>
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
 
-    <spotbugs.plugin.version>4.0.0</spotbugs.plugin.version>
+    <spotbugs.plugin.version>4.0.4</spotbugs.plugin.version>
     <spotbugs.impl.version>4.0.6</spotbugs.impl.version>
     <japicmp.skip>false</japicmp.skip>
     <clirr.skip>true</clirr.skip>
