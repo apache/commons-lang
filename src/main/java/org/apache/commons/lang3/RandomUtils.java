@@ -145,7 +145,7 @@ public class RandomUtils {
             return startInclusive;
         }
 
-        return (long) nextDouble(startInclusive, endExclusive);
+        return startInclusive + nextLong(endExclusive - startInclusive);
     }
 
     /**
@@ -156,7 +156,27 @@ public class RandomUtils {
      * @since 3.5
      */
     public static long nextLong() {
-        return nextLong(0, Long.MAX_VALUE);
+        return nextLong(Long.MAX_VALUE);
+    }
+
+    /**
+     * Generates a {@code long} value between 0 (inclusive) and the specified
+     * value (exclusive).
+     *
+     * @param n Bound on the random number to be returned.  Must be positive.
+     * @return a random {@code long} value between 0 (inclusive) and {@code n}
+     * (exclusive).
+     */
+    private static long nextLong(long n) {
+        // Extracted from o.a.c.rng.core.BaseProvider.nextLong(long)
+        long bits;
+        long val;
+        do {
+            bits = RANDOM.nextLong() >>> 1;
+            val  = bits % n;
+        } while (bits - val + (n - 1) < 0);
+
+        return val;
     }
 
     /**
