@@ -28,7 +28,8 @@ import org.apache.commons.lang3.function.FailableConsumer;
 import org.junit.jupiter.api.Test;
 
 public class LockingVisitorsTest {
-    private static final long DELAY_MILLIS = 3000;
+
+    private static final long DELAY_MILLIS = 1500;
     private static final int NUMBER_OF_THREADS = 10;
     private static final long TOTAL_DELAY_MILLIS = NUMBER_OF_THREADS * DELAY_MILLIS;
 
