@@ -29,7 +29,6 @@ jobs:
         include:
           - java: 15-ea
             experimental: true        
-        include:
           - java: 16-ea
             experimental: true        
         
