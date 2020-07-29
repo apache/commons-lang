@@ -1382,11 +1382,9 @@ public class StringUtils {
     private static void convertRemainingAccentCharacters(final StringBuilder decomposed) {
         for (int i = 0; i < decomposed.length(); i++) {
             if (decomposed.charAt(i) == '\u0141') {
-                decomposed.deleteCharAt(i);
-                decomposed.insert(i, 'L');
+                decomposed.setCharAt(i, 'L');
             } else if (decomposed.charAt(i) == '\u0142') {
-                decomposed.deleteCharAt(i);
-                decomposed.insert(i, 'l');
+                decomposed.setCharAt(i, 'l');
             }
         }
     }
