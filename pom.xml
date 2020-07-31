@@ -634,7 +634,7 @@
 
 
   <build>
-   <defaultGoal>clean verify apache-rat:check checkstyle:check japicmp:cmp spotbugs:check javadoc:javadoc</defaultGoal>
+   <defaultGoal>clean package apache-rat:check checkstyle:check japicmp:cmp spotbugs:check javadoc:javadoc</defaultGoal>
    <pluginManagement>
       <plugins>
         <plugin>

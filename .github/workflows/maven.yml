@@ -39,4 +39,4 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
     - name: Build with Maven
-      run: mvn -V apache-rat:check spotbugs:check javadoc:javadoc -Ddoclint=all package --file pom.xml
+      run: mvn -V -Ddoclint=all --file pom.xml
