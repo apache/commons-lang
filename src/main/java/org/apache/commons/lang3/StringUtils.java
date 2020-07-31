@@ -180,6 +180,11 @@ public class StringUtils {
     private static final int PAD_LIMIT = 8192;
 
     /**
+     * <p>Finds numbers 0 through 9. </p>
+     */
+    private static final String REGEX_FIND_NUMBERS = "[0-9]";
+    
+    /**
      * Pattern used in {@link #stripAccents(String)}.
      */
     private static final Pattern STRIP_ACCENTS_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+"); //$NON-NLS-1$
@@ -221,6 +226,27 @@ public class StringUtils {
         return abbreviate(str, "...", 0, maxWidth);
     }
 
+    /**
+     * <p>Removes any number contained in a String using Regex.</p>
+     *
+     * <pre>
+     * StringUtils.removeAllNumbers(null)        = ""
+     * StringUtils.removeAllNumbers("")          = ""
+     * StringUtils.removeAllNumbers(" ")         = ""
+     * StringUtils.removeAllNumbers("123abc")    = "abc"
+     * StringUtils.removeAllNumbers("123a b c")  = "a b c"
+     * StringUtils.removeAllNumbers("abc123")    = "abc"
+     * StringUtils.removeAllNumbers("123abc123") = "abc"
+     * StringUtils.removeAllNumbers("a1b2c3")    = "abc"
+     * </pre>
+     * 
+     * @param str String to check, may be null
+     * @return The String without the numbers
+     */
+    public static String removeAllNumbers(String str) {
+      return !isBlank(str) ? str.replaceAll(REGEX_FIND_NUMBERS, EMPTY) : EMPTY;
+    }
+    
     /**
      * <p>Abbreviates a String using ellipses. This will turn
      * "Now is the time for all good men" into "...is the time for..."</p>
