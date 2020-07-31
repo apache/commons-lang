@@ -180,11 +180,6 @@ public class StringUtils {
     private static final int PAD_LIMIT = 8192;
 
     /**
-     * <p>Finds numbers 0 through 9. </p>
-     */
-    private static final String REGEX_FIND_NUMBERS = "[0-9]";
-    
-    /**
      * Pattern used in {@link #stripAccents(String)}.
      */
     private static final Pattern STRIP_ACCENTS_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+"); //$NON-NLS-1$
@@ -230,9 +225,9 @@ public class StringUtils {
      * <p>Removes any number contained in a String using Regex.</p>
      *
      * <pre>
-     * StringUtils.removeAllNumbers(null)        = ""
+     * StringUtils.removeAllNumbers(null)        = null
      * StringUtils.removeAllNumbers("")          = ""
-     * StringUtils.removeAllNumbers(" ")         = ""
+     * StringUtils.removeAllNumbers(" ")         = " "
      * StringUtils.removeAllNumbers("123abc")    = "abc"
      * StringUtils.removeAllNumbers("123a b c")  = "a b c"
      * StringUtils.removeAllNumbers("abc123")    = "abc"
@@ -244,7 +239,17 @@ public class StringUtils {
      * @return The String without the numbers
      */
     public static String removeAllNumbers(String str) {
-      return !isBlank(str) ? str.replaceAll(REGEX_FIND_NUMBERS, EMPTY) : EMPTY;
+        String result = "";
+        if(!isEmpty(str)) {
+            char[] array = str.toCharArray();
+            for(int i = 0 ; i < array.length; i++) {
+                if(!Character.isDigit(array[i])) {
+                result += array[i];
+            }
+        }
+            return result;
+        }
+        return str;
     }
     
     /**

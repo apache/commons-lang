@@ -269,7 +269,8 @@ public class StringUtilsTest {
     @Test
     public void testRemoveAllNumbers() {
          assertEquals("", StringUtils.removeAllNumbers(""));
-         assertEquals("", StringUtils.removeAllNumbers(null));
+         assertEquals(" ", StringUtils.removeAllNumbers(" "));
+         assertEquals(null, StringUtils.removeAllNumbers(null));
          assertEquals("abc", StringUtils.removeAllNumbers("123abc"));
          assertEquals("a b c", StringUtils.removeAllNumbers("123a b c"));
          assertEquals("abc", StringUtils.removeAllNumbers("abc123"));
