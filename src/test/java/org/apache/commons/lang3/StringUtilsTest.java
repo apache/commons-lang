@@ -267,6 +267,17 @@ public class StringUtilsTest {
     }
 
     @Test
+    public void testRemoveAllNumbers() {
+         assertEquals("", StringUtils.removeAllNumbers(""));
+         assertEquals("", StringUtils.removeAllNumbers(null));
+         assertEquals("abc", StringUtils.removeAllNumbers("123abc"));
+         assertEquals("a b c", StringUtils.removeAllNumbers("123a b c"));
+         assertEquals("abc", StringUtils.removeAllNumbers("abc123"));
+         assertEquals("abc", StringUtils.removeAllNumbers("123abc123"));
+         assertEquals("abc", StringUtils.removeAllNumbers("a1b2c3"));
+    }
+  
+    @Test
     public void testAbbreviate_StringIntInt() {
         assertNull(StringUtils.abbreviate(null, 10, 12));
         assertEquals("", StringUtils.abbreviate("", 0, 10));
