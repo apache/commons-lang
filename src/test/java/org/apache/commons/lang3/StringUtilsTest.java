@@ -45,6 +45,7 @@ import java.util.regex.PatternSyntaxException;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.text.WordUtils;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 
 /**
  * Unit tests for methods of {@link org.apache.commons.lang3.StringUtils}
@@ -1339,6 +1340,15 @@ public class StringUtilsTest {
         assertEquals("a", StringUtils.join(null, "a", ""));
         assertEquals("foo", StringUtils.join(MIXED_ARRAY_LIST));
         assertEquals("foo2", StringUtils.join(MIXED_TYPE_LIST));
+    }
+
+    @Disabled
+    @Test
+    public void testLang1593() {
+        final int[] arr = new int[] {1, 2, 3, 4, 5, 6, 7};
+        final String expected = StringUtils.join(arr, '-');
+        final String actual = StringUtils.join(arr, "-");
+        assertEquals(expected, actual);
     }
 
     //-----------------------------------------------------------------------
