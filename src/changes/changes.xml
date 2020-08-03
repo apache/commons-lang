@@ -52,7 +52,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Enable Dependabot #587.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Update spotbugs-maven-plugin from 4.0.0 to 4.1.1, #593, #596.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Update biz.aQute.bndlib from 5.1.1 to 5.1.2 #592.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Update junit-pioneer from 0.6.0 to 0.7.0 #589.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Update junit-pioneer from 0.6.0 to 0.8.0, #589, #597.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Update checkstyle from 8.34 to 8.35 #594.</action>
   </release>
   <release version="3.11" date="2020-07-12" description="New features and bug fixes.">
