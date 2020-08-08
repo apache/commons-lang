@@ -14,21 +14,23 @@
 # limitations under the License.
 
 language: java
+
 cache:
   directories:
     - $HOME/.m2
+
 jdk:
   - openjdk8
   - openjdk11
   - openjdk14
   - openjdk-ea
+
 matrix:
-  include:
-    - os: linux-ppc64le
-      jdk: openjdk8
   allow_failures:
     - jdk: openjdk-ea
+
 script:
-  - mvn -V --no-transfer-progress 
+  - mvn -V --no-transfer-progress
+ 
 after_success:
   - mvn -V --no-transfer-progress clean test jacoco:report coveralls:report -Ptravis-jacoco javadoc:javadoc -Ddoclint=all
