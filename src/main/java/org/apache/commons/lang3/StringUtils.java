@@ -7084,7 +7084,7 @@ public class StringUtils {
     // Reversing
     //-----------------------------------------------------------------------
     /**
-     * <p>Reverses a String as per {@link StringBuilder#reverse()}.</p>
+     * <p>Reverses a String</p>
      *
      * <p>A {@code null} String returns {@code null}.</p>
      *
