@@ -54,6 +54,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Dependabot">Update biz.aQute.bndlib from 5.1.1 to 5.1.2 #592.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Update junit-pioneer from 0.6.0 to 0.8.0, #589, #597.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Update checkstyle from 8.34 to 8.35 #594.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Update actions/checkout from v2.3.1 to v2.3.2 #601.</action>
   </release>
   <release version="3.11" date="2020-07-12" description="New features and bug fixes.">
     <action                   type="update" dev="chtompki" due-to="Jin Xu">Refine test output for FastDateParserTest</action>
