@@ -1639,6 +1639,21 @@ public class ArrayUtils {
     }
 
     /**
+     * <p>Checks if a value matching the given predicate is in the given array.
+     *
+     * <p>The method returns {@code false} if a {@code null} array is passed in.
+     *
+     * @param <T>       the type of the array
+     * @param array     the array to search through
+     * @param predicate the predicate to use, must not be {@code null}
+     * @return {@code true} if the array contains the object
+     * @since 3.12
+     */
+    public static <T> boolean contains(final T[] array, final Predicate<T> predicate) {
+        return indexOf(array, predicate) != INDEX_NOT_FOUND;
+    }
+
+    /**
      * Returns a copy of the given array of size 1 greater than the argument.
      * The last value of the array is left to the default value.
      *

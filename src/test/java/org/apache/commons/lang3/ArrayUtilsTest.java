@@ -204,13 +204,13 @@ public class ArrayUtilsTest {
     @Test
     public void testContains() {
         final Object[] array = new Object[]{"0", "1", "2", "3", null, "0"};
-        assertFalse(ArrayUtils.contains(null, null));
+        assertFalse(ArrayUtils.contains(null, (Object) null));
         assertFalse(ArrayUtils.contains(null, "1"));
         assertTrue(ArrayUtils.contains(array, "0"));
         assertTrue(ArrayUtils.contains(array, "1"));
         assertTrue(ArrayUtils.contains(array, "2"));
         assertTrue(ArrayUtils.contains(array, "3"));
-        assertTrue(ArrayUtils.contains(array, null));
+        assertTrue(ArrayUtils.contains(array, (Object) null));
         assertFalse(ArrayUtils.contains(array, "notInArray"));
     }
 
@@ -338,6 +338,15 @@ public class ArrayUtilsTest {
         assertTrue(ArrayUtils.contains(array, (short) 2));
         assertTrue(ArrayUtils.contains(array, (short) 3));
         assertFalse(ArrayUtils.contains(array, (short) 99));
+    }
+
+    @Test
+    void testContainsPredicate() {
+        assertFalse(ArrayUtils.contains((Integer[]) null, num -> num % 2 == 0));
+        Integer[] array = new Integer[]{0, 1, 2, 3, 0};
+        assertTrue(ArrayUtils.contains(array, num -> num % 2 == 0));
+        assertTrue(ArrayUtils.contains(array, num -> num % 3 == 0));
+        assertFalse(ArrayUtils.contains(array, num -> num == 99));
     }
 
     @Test
