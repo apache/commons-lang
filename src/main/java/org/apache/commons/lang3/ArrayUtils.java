@@ -25,7 +25,9 @@ import java.util.BitSet;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
+import java.util.function.Predicate;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -2662,6 +2664,54 @@ public static int indexOf(final int[] array, final int valueToFind) {
                 if (objectToFind.equals(array[i])) {
                     return i;
                 }
+            }
+        }
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * <p>Finds the index of the first element in the array to match the predicate.
+     *
+     * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
+     *
+     * @param <T>       the type of the array
+     * @param array     the array to search through for the object, may be {@code null}
+     * @param predicate the predicate to be used, must not be {@code null}
+     * @return the index of the object within the array, {@link #INDEX_NOT_FOUND} ({@code -1})
+     * if not found or {@code null} array input
+     * @since 3.12
+     */
+    public static <T> int indexOf(final T[] array, final Predicate<T> predicate) {
+        return indexOf(array, predicate, 0);
+    }
+
+    /**
+     * <p>Finds the index of the first element in the array to match the predicate starting at the given index.
+     *
+     * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
+     *
+     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
+     *
+     * @param <T>        the type of the array
+     * @param array      the array to search through for the object, may be {@code null}
+     * @param predicate  the predicate to be used, must not be {@code null}
+     * @param startIndex the index to start searching at
+     * @return the index of the object within the array starting at the index, {@link #INDEX_NOT_FOUND}
+     * ({@code -1}) if not found or {@code null} array input
+     * @since 3.12
+     */
+    public static <T> int indexOf(final T[] array, final Predicate<T> predicate, int startIndex) {
+        Objects.requireNonNull(predicate, "predicate");
+        if (array == null) {
+            return INDEX_NOT_FOUND;
+        }
+        if (startIndex < 0) {
+            startIndex = 0;
+        }
+        for (int i = startIndex; i < array.length; i++) {
+            if (predicate.test(array[i])) {
+                return i;
             }
         }
         return INDEX_NOT_FOUND;
