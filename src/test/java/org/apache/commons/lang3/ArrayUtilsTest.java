@@ -1627,13 +1627,13 @@ public class ArrayUtilsTest {
     @Test
     public void testLastIndexOf() {
         final Object[] array = new Object[]{"0", "1", "2", "3", null, "0"};
-        assertEquals(-1, ArrayUtils.lastIndexOf(null, null));
+        assertEquals(-1, ArrayUtils.lastIndexOf(null, (Object) null));
         assertEquals(-1, ArrayUtils.lastIndexOf(null, "0"));
         assertEquals(5, ArrayUtils.lastIndexOf(array, "0"));
         assertEquals(1, ArrayUtils.lastIndexOf(array, "1"));
         assertEquals(2, ArrayUtils.lastIndexOf(array, "2"));
         assertEquals(3, ArrayUtils.lastIndexOf(array, "3"));
-        assertEquals(4, ArrayUtils.lastIndexOf(array, null));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, (Object) null));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, "notInArray"));
     }
 
@@ -1895,19 +1895,29 @@ public class ArrayUtilsTest {
     @Test
     public void testLastIndexOfWithStartIndex() {
         final Object[] array = new Object[]{"0", "1", "2", "3", null, "0"};
-        assertEquals(-1, ArrayUtils.lastIndexOf(null, null, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(null, (Object) null, 2));
         assertEquals(-1, ArrayUtils.lastIndexOf(null, "0", 2));
         assertEquals(0, ArrayUtils.lastIndexOf(array, "0", 2));
         assertEquals(1, ArrayUtils.lastIndexOf(array, "1", 2));
         assertEquals(2, ArrayUtils.lastIndexOf(array, "2", 2));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, "3", 2));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, "3", -1));
-        assertEquals(4, ArrayUtils.lastIndexOf(array, null, 5));
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, null, 2));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, (Object) null, 5));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (Object) null, 2));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, "notInArray", 5));
 
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, null, -1));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (Object) null, -1));
         assertEquals(5, ArrayUtils.lastIndexOf(array, "0", 88));
+    }
+
+    @Test
+    void testLastIndexOfPredicateWithStartIndex() {
+        assertEquals(-1, ArrayUtils.lastIndexOf(null, string -> string.equals("0"), 2));
+        final String[] array = new String[]{"0", "1", "2", "3", null, "0"};
+        assertEquals(0, ArrayUtils.lastIndexOf(array, string -> string.equals("0"), 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, string -> string.equals("4"), 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, Objects::isNull, -1));
+        assertEquals(5, ArrayUtils.lastIndexOf(array, string -> string.equals("0"), 88));
     }
 
     @Test

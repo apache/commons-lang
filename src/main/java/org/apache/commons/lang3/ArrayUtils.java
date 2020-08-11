@@ -4278,6 +4278,57 @@ public static int indexOf(final int[] array, final int valueToFind) {
     }
 
     /**
+     * <p>Finds the last index of a value that matches the given predicate within the array.
+     *
+     * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
+     *
+     * @param <T>       the type of the array
+     * @param array     the array to traverse backwards looking for the object, may be {@code null}
+     * @param predicate the predicate to use, must not be {@code null}
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1})
+     * if not found or {@code null} array input
+     * @since 3.12
+     */
+    public static <T> int lastIndexOf(final T[] array, final Predicate<T> predicate) {
+        return lastIndexOf(array, predicate, 0);
+    }
+
+    /**
+     * <p>Finds the last index of a value that matches the given predicate in the array starting at
+     * the given index.
+     *
+     * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
+     *
+     * <p>A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the
+     * array length will search from the end of the array.
+     *
+     * @param <T>        the type of the array
+     * @param array      the array to traverse for looking for the object, may be {@code null}
+     * @param predicate  the predicate to use, must not be {@code null}
+     * @param startIndex the start index to traverse backwards from
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1})
+     * if not found or {@code null} array input
+     * @since 3.12
+     */
+    public static <T> int lastIndexOf(final T[] array, final Predicate<T> predicate, int startIndex) {
+        Objects.requireNonNull(predicate, "predicate");
+        if (array == null) {
+            return INDEX_NOT_FOUND;
+        }
+        if (startIndex < 0) {
+            return INDEX_NOT_FOUND;
+        } else if (startIndex >= array.length) {
+            startIndex = array.length - 1;
+        }
+        for (int i = startIndex; i >= 0; i--) {
+            if (predicate.test(array[i])) {
+                return i;
+            }
+        }
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
      * <p>Defensive programming technique to change a {@code null}
      * reference to an empty one.
      *
