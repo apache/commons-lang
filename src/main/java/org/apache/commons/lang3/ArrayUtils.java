@@ -2212,6 +2212,59 @@ public class ArrayUtils {
     }
 
     /**
+     * Finds the indices of values matching the given predicate in the array.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     *
+     * @param <T>       the type of the array
+     * @param array     the array to search through for the object, may be {@code null}
+     * @param predicate the predicate to use, must not be {@code null}
+     * @return a BitSet of all the indices of matching values within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     * @since 3.12
+     */
+    public static <T> BitSet indexesOf(final T[] array, final Predicate<T> predicate) {
+        return indexesOf(array, predicate, 0);
+    }
+
+    /**
+     * Finds the indices of values matching the given predicate in the array starting at the given index.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     *
+     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return an empty BitSet.</p>
+     *
+     * @param <T>        the type of the array
+     * @param array      the array to search through for the object, may be {@code null}
+     * @param predicate  the predicate to use, must not be {@code null}
+     * @param startIndex the index to start searching at
+     * @return a BitSet of all the indices of matching values within the array starting at the index,
+     *  an empty BitSet if not found or {@code null} array input
+     * @since 3.12
+     */
+    public static <T> BitSet indexesOf(final T[] array, final Predicate<T> predicate, int startIndex) {
+        final BitSet bitSet = new BitSet();
+
+        if (array == null) {
+            return bitSet;
+        }
+
+        while (startIndex < array.length) {
+            startIndex = indexOf(array, predicate, startIndex);
+
+            if (startIndex == INDEX_NOT_FOUND) {
+                break;
+            }
+
+            bitSet.set(startIndex);
+            ++startIndex;
+        }
+
+        return bitSet;
+    }
+
+    /**
      * Finds the indices of the given value in the array.
      *
      * <p>This method returns an empty BitSet for a {@code null} input array.</p>

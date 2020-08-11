@@ -486,7 +486,7 @@ public class ArrayUtilsTest {
         final Object[] array = new Object[]{"0", "1", "2", "3", null, "0"};
         final BitSet emptySet = new BitSet();
         final BitSet testSet = new BitSet();
-        assertEquals(emptySet, ArrayUtils.indexesOf((Object[]) null, null));
+        assertEquals(emptySet, ArrayUtils.indexesOf(null, (Object) null));
         assertEquals(emptySet, ArrayUtils.indexesOf(new Object[0], "0"));
         testSet.set(5);
         testSet.set(0);
@@ -499,8 +499,19 @@ public class ArrayUtilsTest {
         assertEquals(testSet, ArrayUtils.indexesOf(array, "3"));
         testSet.clear();
         testSet.set(4);
-        assertEquals(testSet, ArrayUtils.indexesOf(array, null));
+        assertEquals(testSet, ArrayUtils.indexesOf(array, (Object) null));
         assertEquals(emptySet, ArrayUtils.indexesOf(array, "notInArray"));
+    }
+
+    @Test
+    void testIndexesOfPredicate() {
+        final String[] array = new String[]{"0", "1", "2", "3", null, "0"};
+        final BitSet testSet = new BitSet();
+        testSet.set(0);
+        testSet.set(2);
+        testSet.set(4);
+        testSet.set(5);
+        assertEquals(testSet, ArrayUtils.indexesOf(array, string -> NumberUtils.toInt(string) % 2 == 0));
     }
 
     @Test
@@ -902,7 +913,7 @@ public class ArrayUtilsTest {
         final Object[] array = new Object[]{"0", "1", "2", "3", "2", "3", "1", null, "0"};
         final BitSet emptySet = new BitSet();
         final BitSet testSet = new BitSet();
-        assertEquals(emptySet, ArrayUtils.indexesOf(null, null, 2));
+        assertEquals(emptySet, ArrayUtils.indexesOf(null, (Object) null, 2));
         assertEquals(emptySet, ArrayUtils.indexesOf(new Object[0], "0", 0));
         assertEquals(emptySet, ArrayUtils.indexesOf(null, "0", 2));
         testSet.set(8);
@@ -925,8 +936,7 @@ public class ArrayUtilsTest {
         assertEquals(testSet, ArrayUtils.indexesOf(array, "3", 0));
         testSet.clear();
         testSet.set(7);
-        assertEquals(testSet, ArrayUtils.indexesOf(array, null, 0));
-
+        assertEquals(testSet, ArrayUtils.indexesOf(array, (Object) null, 0));
     }
 
     @Test
