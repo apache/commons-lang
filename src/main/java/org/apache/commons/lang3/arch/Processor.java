@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.arch;
 
+import javax.annotation.Nonnull;
+
 /**
  * The {@link Processor} represents a microprocessor and defines
  * some properties like architecture and type of the microprocessor.
@@ -57,9 +59,9 @@ public class Processor {
          *
          * @since 3.10
          */
-        private final String label;
+        private final @Nonnull String label;
 
-        Arch(final String label) {
+        Arch(final @Nonnull String label) {
             this.label = label;
         }
 
@@ -68,7 +70,7 @@ public class Processor {
          *
          * @return the label.
          */
-        public String getLabel() {
+        public @Nonnull String getLabel() {
             return label;
         }
     }
@@ -106,8 +108,8 @@ public class Processor {
         UNKNOWN
     }
 
-    private final Arch arch;
-    private final Type type;
+    private final @Nonnull Arch arch;
+    private final @Nonnull Type type;
 
     /**
      * Constructs a {@link Processor} object with the given
@@ -116,7 +118,7 @@ public class Processor {
      * @param arch The processor architecture.
      * @param type The processor type.
      */
-    public Processor(final Arch arch, final Type type) {
+    public Processor(final @Nonnull Arch arch, final @Nonnull Type type) {
         this.arch = arch;
         this.type = type;
     }
@@ -128,7 +130,7 @@ public class Processor {
      *
      * @return A {@link Arch} enum.
      */
-    public Arch getArch() {
+    public @Nonnull Arch getArch() {
         return arch;
     }
 
@@ -139,7 +141,7 @@ public class Processor {
      *
      * @return A {@link Type} enum.
      */
-    public Type getType() {
+    public @Nonnull Type getType() {
         return type;
     }
 
