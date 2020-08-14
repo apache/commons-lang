@@ -21,6 +21,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * <p>
  * Helpers for {@code java.lang.Thread} and {@code java.lang.ThreadGroup}.
@@ -34,7 +38,7 @@ import java.util.List;
  * @since 3.5
  */
 public class ThreadUtils {
-
+	
     /**
      * Finds the active thread with the specified id if it belongs to the specified thread group.
      *
@@ -49,7 +53,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Thread findThreadById(final long threadId, final ThreadGroup threadGroup) {
+    public static @Nullable Thread findThreadById(final long threadId, final @Nonnull ThreadGroup threadGroup) {
         Validate.notNull(threadGroup, "The thread group must not be null");
         final Thread thread = findThreadById(threadId);
         if (thread != null && threadGroup.equals(thread.getThreadGroup())) {
@@ -72,7 +76,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Thread findThreadById(final long threadId, final String threadGroupName) {
+    public static @Nullable Thread findThreadById(final long threadId, final @Nonnull String threadGroupName) {
         Validate.notNull(threadGroupName, "The thread group name must not be null");
         final Thread thread = findThreadById(threadId);
         if (thread != null && thread.getThreadGroup() != null && thread.getThreadGroup().getName().equals(threadGroupName)) {
@@ -95,7 +99,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Collection<Thread> findThreadsByName(final String threadName, final ThreadGroup threadGroup) {
+    public static @Nonnull Collection<Thread> findThreadsByName(final @Nonnull String threadName, final @Nonnull ThreadGroup threadGroup) {
         return findThreads(threadGroup, false, new NamePredicate(threadName));
     }
 
@@ -113,7 +117,8 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Collection<Thread> findThreadsByName(final String threadName, final String threadGroupName) {
+    @SuppressWarnings("null")
+	public static @Nonnull Collection<Thread> findThreadsByName(final @Nonnull String threadName, final @Nonnull String threadGroupName) {
         Validate.notNull(threadName, "The thread name must not be null");
         Validate.notNull(threadGroupName, "The thread group name must not be null");
 
@@ -143,7 +148,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Collection<ThreadGroup> findThreadGroupsByName(final String threadGroupName) {
+    public static @Nonnull Collection<ThreadGroup> findThreadGroupsByName(final @Nonnull String threadGroupName) {
         return findThreadGroups(new NamePredicate(threadGroupName));
     }
 
@@ -157,7 +162,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Collection<ThreadGroup> getAllThreadGroups() {
+    public static @Nonnull Collection<ThreadGroup> getAllThreadGroups() {
         return findThreadGroups(ALWAYS_TRUE_PREDICATE);
     }
 
@@ -168,7 +173,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static ThreadGroup getSystemThreadGroup() {
+    public static @Nonnull ThreadGroup getSystemThreadGroup() {
         ThreadGroup threadGroup = Thread.currentThread().getThreadGroup();
         while (threadGroup.getParent() != null) {
             threadGroup = threadGroup.getParent();
@@ -186,7 +191,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Collection<Thread> getAllThreads() {
+    public static @Nonnull Collection<Thread> getAllThreads() {
         return findThreads(ALWAYS_TRUE_PREDICATE);
     }
 
@@ -202,7 +207,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Collection<Thread> findThreadsByName(final String threadName) {
+    public static @Nonnull Collection<Thread> findThreadsByName(final @Nonnull String threadName) {
         return findThreads(new NamePredicate(threadName));
     }
 
@@ -218,7 +223,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Thread findThreadById(final long threadId) {
+    public static @Nullable Thread findThreadById(final long threadId) {
         final Collection<Thread> result = findThreads(new ThreadIdPredicate(threadId));
         return result.isEmpty() ? null : result.iterator().next();
     }
@@ -269,7 +274,7 @@ public class ThreadUtils {
     /**
      * Predicate which always returns true.
      */
-    public static final AlwaysTruePredicate ALWAYS_TRUE_PREDICATE = new AlwaysTruePredicate();
+    public static final @Nonnull AlwaysTruePredicate ALWAYS_TRUE_PREDICATE = new AlwaysTruePredicate();
 
     /**
      * A predicate implementation which always returns true.
@@ -280,12 +285,12 @@ public class ThreadUtils {
         }
 
         @Override
-        public boolean test(final ThreadGroup threadGroup) {
+        public boolean test(final @Nullable ThreadGroup threadGroup) {
             return true;
         }
 
         @Override
-        public boolean test(final Thread thread) {
+        public boolean test(final @Nullable Thread thread) {
             return true;
         }
     }
@@ -295,7 +300,7 @@ public class ThreadUtils {
      */
     public static class NamePredicate implements ThreadPredicate, ThreadGroupPredicate {
 
-        private final String name;
+        private final @Nonnull String name;
 
         /**
          * Predicate constructor
@@ -303,19 +308,19 @@ public class ThreadUtils {
          * @param name thread or threadgroup name
          * @throws IllegalArgumentException if the name is {@code null}
          */
-        public NamePredicate(final String name) {
+        public NamePredicate(final @Nonnull String name) {
             super();
             Validate.notNull(name, "The name must not be null");
             this.name = name;
         }
 
         @Override
-        public boolean test(final ThreadGroup threadGroup) {
+        public boolean test(final @Nullable ThreadGroup threadGroup) {
             return threadGroup != null && threadGroup.getName().equals(name);
         }
 
         @Override
-        public boolean test(final Thread thread) {
+        public boolean test(final @Nullable Thread thread) {
             return thread != null && thread.getName().equals(name);
         }
     }
@@ -333,7 +338,7 @@ public class ThreadUtils {
          * @param threadId the threadId to match
          * @throws IllegalArgumentException if the threadId is zero or negative
          */
-        public ThreadIdPredicate(final long threadId) {
+        public ThreadIdPredicate(final @Nonnegative long threadId) {
             super();
             if (threadId <= 0) {
                 throw new IllegalArgumentException("The thread id must be greater than zero");
@@ -342,7 +347,7 @@ public class ThreadUtils {
         }
 
         @Override
-        public boolean test(final Thread thread) {
+        public boolean test(final @Nullable Thread thread) {
             return thread != null && thread.getId() == threadId;
         }
     }
@@ -359,7 +364,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Collection<Thread> findThreads(final ThreadPredicate predicate) {
+    public static @Nonnull Collection<Thread> findThreads(final @Nonnull ThreadPredicate predicate) {
         return findThreads(getSystemThreadGroup(), true, predicate);
     }
 
@@ -374,7 +379,7 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroupPredicate predicate) {
+    public static @Nonnull Collection<ThreadGroup> findThreadGroups(final @Nonnull ThreadGroupPredicate predicate) {
         return findThreadGroups(getSystemThreadGroup(), true, predicate);
     }
 
@@ -389,14 +394,18 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Collection<Thread> findThreads(final ThreadGroup group, final boolean recurse, final ThreadPredicate predicate) {
+	@SuppressWarnings("null")
+	public static @Nonnull Collection<Thread> findThreads(
+    		final @Nonnull ThreadGroup group,
+    		final boolean recurse,
+    		final @Nonnull ThreadPredicate predicate) {
         Validate.notNull(group, "The group must not be null");
         Validate.notNull(predicate, "The predicate must not be null");
 
         int count = group.activeCount();
         Thread[] threads;
         do {
-            threads = new Thread[count + (count / 2) + 1]; //slightly grow the array size
+            threads = new Thread[count + count / 2 + 1]; //slightly grow the array size
             count = group.enumerate(threads, recurse);
             //return value of enumerate() must be strictly less than the array size according to javadoc
         } while (count >= threads.length);
@@ -421,14 +430,18 @@ public class ThreadUtils {
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
-    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroup group, final boolean recurse, final ThreadGroupPredicate predicate) {
+    @SuppressWarnings("null")
+	public static @Nonnull Collection<ThreadGroup> findThreadGroups(
+    		final @Nonnull ThreadGroup group,
+    		final boolean recurse,
+    		final @Nonnull ThreadGroupPredicate predicate) {
         Validate.notNull(group, "The group must not be null");
         Validate.notNull(predicate, "The predicate must not be null");
 
         int count = group.activeGroupCount();
         ThreadGroup[] threadGroups;
         do {
-            threadGroups = new ThreadGroup[count + (count / 2) + 1]; //slightly grow the array size
+            threadGroups = new ThreadGroup[count + count / 2 + 1]; //slightly grow the array size
             count = group.enumerate(threadGroups, recurse);
             //return value of enumerate() must be strictly less than the array size according to javadoc
         } while (count >= threadGroups.length);
