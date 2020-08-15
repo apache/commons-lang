@@ -26,7 +26,7 @@ limitations under the License.
  | commons-build-plugin/trunk/src/main/resources/commons-xdoc-templates |
  +======================================================================+
  |                                                                      |
- | 1) Re-generate using: mvn commons-build:mail-page                    |
+ | 1) Re-generate using: ./mvnw commons-build:mail-page                 |
  |                                                                      |
  | 2) Set the following properties in the component's pom:              |
  |    - commons.componentid (required, alphabetic, lower case)          |

@@ -142,7 +142,7 @@ The currently targeted version of Java is 1.6.
 To build Lang:
 <table>
 <tr><th></th><th>Tested JAR</th><th>Distribution</th><th>Site</th></tr>
-<tr><td>Maven 2.x</td><td><code>mvn package</code></td><td>mvn assembly:assembly</td><td>mvn site</td></tr>
+<tr><td>Maven 2.x</td><td><code>./mvnw package</code></td><td>./mvnw assembly:assembly</td><td>./mvnw site</td></tr>
 </table>
 </p>
 </section>

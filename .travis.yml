@@ -30,7 +30,7 @@ matrix:
     - jdk: openjdk-ea
 
 script:
-  - mvn -V --no-transfer-progress
+  - ./mvnw -V --no-transfer-progress
  
 after_success:
-  - mvn -V --no-transfer-progress clean test jacoco:report coveralls:report -Ptravis-jacoco javadoc:javadoc -Ddoclint=all
+  - ./mvnw -V --no-transfer-progress clean test jacoco:report coveralls:report -Ptravis-jacoco javadoc:javadoc -Ddoclint=all

@@ -644,7 +644,7 @@ causes an number of locale-sensitive test in Commons Lang to fail. In order
 to build Commons Lang 3.5 on Java 9, the locale provider has to be set to
 'JRE':
 
-    mvn -Djava.locale.providers=JRE clean install
+    ./mvnw -Djava.locale.providers=JRE clean install
 
 We are currently investigating ways to support building on Java 9 without
 further configuration. For more information see:

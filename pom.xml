@@ -576,7 +576,7 @@
        This is also  used to generate download_xxx file name.
        To override this when generating the download page:
 
-       mvn commons:download-page -Dcommons.componentid=lang
+       ./mvnw commons:download-page -Dcommons.componentid=lang
 
        The above seems to change the download page name but not any other
        properties that depend on the componentid.

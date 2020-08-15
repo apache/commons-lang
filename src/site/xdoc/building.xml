@@ -44,11 +44,11 @@ limitations under the License.
 <!-- ================================================== -->
 <section name="Maven Goals">
   <p>
-    To build a jar file, change into the root directory of Lang and run "mvn package".
+    To build a jar file, change into the root directory of Lang and run "./mvnw package".
     The result will be in the "target" subdirectory.
   </p>
   <p>
-    To build the full website, run "mvn site".
+    To build the full website, run "./mvnw site".
     The result will be in "target/site".
     You must be online to successfully complete this target.
   </p>
