@@ -49,6 +49,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1592" type="fix" dev="aherbert" due-to="Huang Pingcai, Alex Herbert">Correct implementation of RandomUtils.nextLong(long, long)</action>
     <action issue="LANG-1591" type="update" dev="kinow" due-to="bhawna94">Remove redundant argument from substring call.</action>
     <action issue="LANG-1579" type="update" dev="aherbert" due-to="XenoAmess">Improve StringUtils.stripAccents conversion of remaining accents.</action>
+    <action issue="LANG-1596" type="update" dev="aherbert" due-to="Richard Eckart de Castilho">ArrayUtils.toPrimitive(Object) does not support boolean and other types #607.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Enable Dependabot #587.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Update spotbugs-maven-plugin from 4.0.0 to 4.1.1, #593, #596.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Update biz.aQute.bndlib from 5.1.1 to 5.1.2 #592.</action>
