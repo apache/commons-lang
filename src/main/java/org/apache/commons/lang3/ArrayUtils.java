@@ -9478,6 +9478,15 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         final Class<?> ct = array.getClass().getComponentType();
         final Class<?> pt = ClassUtils.wrapperToPrimitive(ct);
+        if (Boolean.TYPE.equals(pt)) {
+            return toPrimitive((Boolean[]) array);
+        }
+        if (Character.TYPE.equals(pt)) {
+            return toPrimitive((Character[]) array);
+        }
+        if (Byte.TYPE.equals(pt)) {
+            return toPrimitive((Byte[]) array);
+        }
         if (Integer.TYPE.equals(pt)) {
             return toPrimitive((Integer[]) array);
         }
