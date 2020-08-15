@@ -642,6 +642,7 @@
           <artifactId>apache-rat-plugin</artifactId>
           <configuration>
             <excludes>
+              <exclude>.mvn/wrapper/maven-wrapper.properties</exclude>
               <exclude>site-content/**</exclude>
               <exclude>src/site/resources/.htaccess</exclude>
               <exclude>src/site/resources/download_lang.cgi</exclude>
