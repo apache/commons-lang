@@ -650,14 +650,6 @@
             </excludes>
           </configuration>
         </plugin>
-        <!-- override skip property of parent pom -->
-        <plugin>
-          <groupId>com.github.siom79.japicmp</groupId>
-          <artifactId>japicmp-maven-plugin</artifactId>
-          <configuration>
-            <skip>false</skip>
-          </configuration>
-        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
