@@ -32,7 +32,6 @@ import java.util.Comparator;
  */
 public final class Range<T> implements Serializable {
 
-    //-----------------------------------------------------------------------
     @SuppressWarnings({"rawtypes", "unchecked"})
     private enum ComparableComparator implements Comparator {
         INSTANCE;
@@ -154,9 +153,6 @@ public final class Range<T> implements Serializable {
      * Cached output toString (class is immutable).
      */
     private transient String toString;
-
-    // Accessors
-    //--------------------------------------------------------------------
 
     /**
      * Creates an instance.
@@ -332,9 +328,6 @@ public final class Range<T> implements Serializable {
         return between(min, max, getComparator());
     }
 
-    // Range tests
-    //--------------------------------------------------------------------
-
     /**
      * <p>Checks whether this range is after the specified element.</p>
      *
@@ -405,9 +398,6 @@ public final class Range<T> implements Serializable {
         }
         return comparator.compare(element, maximum) == 0;
     }
-
-    // Basics
-    //--------------------------------------------------------------------
 
     /**
      * <p>Whether or not the Range is using the natural ordering of the elements.</p>
