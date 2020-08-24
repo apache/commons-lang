@@ -536,21 +536,57 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     public Fraction pow(final int power) {
         if (power == 1) {
             return this;
-        } else if (power == 0) {
-            return ONE;
-        } else if (power < 0) {
-            if (power == Integer.MIN_VALUE) { // MIN_VALUE can't be negated.
-                return this.invert().pow(2).pow(-(power / 2));
-            }
-            return this.invert().pow(-power);
-        } else {
-            final Fraction f = this.multiplyBy(this);
-            if (power % 2 == 0) { // if even...
-                return f.pow(power / 2);
-            }
-            return f.pow(power / 2).multiplyBy(this);
         }
+        if (power == 0) {
+            return ONE;
+        }
+        if (power == -1) {
+            return this.invert();
+        }
+        Fraction result = ONE;
+        Fraction base;
+        int nowPower;
+        if (power > 0) {
+            base = this;
+            nowPower = power;
+        } else if (power == Integer.MIN_VALUE) { // MIN_VALUE can't be negated.
+            base = this.invert().pow(2);
+            nowPower = -(power / 2);
+        } else {
+            base = this.invert();
+            nowPower = -power;
+        }
+        while (true) {
+            if ((nowPower & 1) != 0) {
+                result = result.multiplyBy(base);
+            }
+            nowPower >>>= 1;
+            if (nowPower == 0) {
+                break;
+            }
+            base = base.multiplyBy(base);
+        }
+        return result;
     }
+
+//    public Fraction pow(final int power) {
+//        if (power == 1) {
+//            return this;
+//        } else if (power == 0) {
+//            return ONE;
+//        } else if (power < 0) {
+//            if (power == Integer.MIN_VALUE) { // MIN_VALUE can't be negated.
+//                return this.invert().pow(2).pow(-(power / 2));
+//            }
+//            return this.invert().pow(-power);
+//        } else {
+//            final Fraction f = this.multiplyBy(this);
+//            if (power % 2 == 0) { // if even...
+//                return f.pow(power / 2);
+//            }
+//            return f.pow(power / 2).multiplyBy(this);
+//        }
+//    }
 
     /**
      * <p>Gets the greatest common divisor of the absolute value of
