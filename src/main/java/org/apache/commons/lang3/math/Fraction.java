@@ -546,14 +546,14 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         final Fraction base = this.reduce();
         if (base.denominator == 0) {
             if (power > 0) {
-                throw new ArithmeticException("denominator MUST not be 0!");
+                throw new ArithmeticException("The denominator must not be zero");
             } else {
                 return ZERO;
             }
         }
         if (base.numerator == 0) {
             if (power < 0) {
-                throw new ArithmeticException("denominator MUST not be 0!");
+                throw new ArithmeticException("The denominator must not be zero");
             } else {
                 return ZERO;
             }
