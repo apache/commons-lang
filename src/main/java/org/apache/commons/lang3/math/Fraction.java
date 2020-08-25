@@ -543,30 +543,38 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         if (power == -1) {
             return this.invert();
         }
-        Fraction result = ONE;
-        Fraction base;
-        int nowPower;
+        final Fraction base = this.reduce();
+        if (base.denominator == 0) {
+            if (power > 0) {
+                throw new ArithmeticException("denominator MUST not be 0!");
+            } else {
+                return ZERO;
+            }
+        }
+        if (base.numerator == 0) {
+            if (power < 0) {
+                throw new ArithmeticException("denominator MUST not be 0!");
+            } else {
+                return ZERO;
+            }
+        }
         if (power > 0) {
-            base = this;
-            nowPower = power;
-        } else if (power == Integer.MIN_VALUE) { // MIN_VALUE can't be negated.
-            base = this.invert().pow(2);
-            nowPower = -(power / 2);
-        } else {
-            base = this.invert();
-            nowPower = -power;
+            return new Fraction(
+                    pow(base.numerator, power),
+                    pow(base.denominator, power)
+            );
         }
-        while (true) {
-            if ((nowPower & 1) != 0) {
-                result = result.multiplyBy(base);
-            }
-            nowPower >>>= 1;
-            if (nowPower == 0) {
-                break;
-            }
-            base = base.multiplyBy(base);
+        if (power == Integer.MIN_VALUE) {
+            final int tmp = -(power / 2);
+            return new Fraction(
+                    pow(pow(this.denominator, 2), tmp),
+                    pow(pow(this.numerator, 2), tmp)
+            );
         }
-        return result;
+        return new Fraction(
+                pow(base.denominator, -power),
+                pow(base.numerator, -power)
+        );
     }
 
     public Fraction powOld(final int power) {
@@ -586,6 +594,36 @@ public final class Fraction extends Number implements Comparable<Fraction> {
             }
             return f.pow(power / 2).multiplyBy(this);
         }
+    }
+
+    /**
+     * Raise an int to an int power.
+     * Notice that this function is copied and modified directly from class ArithmeticUtils in commons-numbers-core.
+     *
+     * @param k Number to raise.
+     * @param e Exponent (must be positive or zero).
+     * @return \( k^e \)
+     * @throws ArithmeticException if the result would overflow.
+     */
+    private static int pow(final int k,
+                           final int e) {
+        int exp = e;
+        int result = 1;
+        int k2p    = k;
+        while (true) {
+            if ((exp & 0x1) != 0) {
+                result = Math.multiplyExact(result, k2p);
+            }
+
+            exp >>= 1;
+            if (exp == 0) {
+                break;
+            }
+
+            k2p = Math.multiplyExact(k2p, k2p);
+        }
+
+        return result;
     }
 
     /**
