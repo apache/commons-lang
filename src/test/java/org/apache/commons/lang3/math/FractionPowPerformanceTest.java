@@ -18,6 +18,8 @@ package org.apache.commons.lang3.math;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
@@ -53,7 +55,7 @@ public class FractionPowPerformanceTest {
         final int length = a.length;
         Fraction[] res = new Fraction[length];
         for (int i = 0; i < length; i++) {
-            res[i] = Fraction.getFraction(a[i], b[i]+1).pow(c[i]);
+            res[i] = Fraction.getFraction(a[i], b[i] + 1).pow(c[i]);
         }
         return res;
     }
@@ -63,8 +65,19 @@ public class FractionPowPerformanceTest {
         final int length = a.length;
         Fraction[] res = new Fraction[length];
         for (int i = 0; i < length; i++) {
-            res[i] = Fraction.getFraction(a[i], b[i]+1).powOld(c[i]);
+            res[i] = Fraction.getFraction(a[i], b[i] + 1).powOld(c[i]);
         }
         return res;
+    }
+
+    @Test
+    public void testEquals() {
+        final int length = a.length;
+        for (int i = 0; i < length; i++) {
+            Assertions.assertEquals(
+                    Fraction.getFraction(a[i], b[i] + 1).powOld(c[i]),
+                    Fraction.getFraction(a[i], b[i] + 1).pow(c[i])
+            );
+        }
     }
 }
