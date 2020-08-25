@@ -565,10 +565,9 @@ public final class Fraction extends Number implements Comparable<Fraction> {
             );
         }
         if (power == Integer.MIN_VALUE) {
-            final int tmp = -(power / 2);
             return new Fraction(
-                    pow(pow(this.denominator, 2), tmp),
-                    pow(pow(this.numerator, 2), tmp)
+                    pow(this.denominator, Integer.MAX_VALUE) * this.denominator,
+                    pow(this.numerator, Integer.MAX_VALUE) * this.numerator
             );
         }
         return new Fraction(
