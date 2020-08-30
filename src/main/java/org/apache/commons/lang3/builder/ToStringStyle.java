@@ -626,16 +626,6 @@ public abstract class ToStringStyle implements Serializable {
      *  {@code toString}, not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final Collection<?> coll) {
-        if (coll != null && !coll.isEmpty()) {
-            buffer.append(arrayStart);
-            int i = 0;
-            for (final Object item : coll) {
-                appendDetail(buffer, fieldName, i++, item);
-            }
-            buffer.append(arrayEnd);
-            return;
-        }
-
         buffer.append(coll);
     }
 
@@ -2595,6 +2585,21 @@ public abstract class ToStringStyle implements Serializable {
             }
 
             appendDetail(buffer, fieldName, valueAsString);
+        }
+
+        @Override
+        protected void appendDetail(final StringBuffer buffer, final String fieldName, final Collection<?> coll) {
+            if (coll != null && !coll.isEmpty()) {
+                buffer.append(getArrayStart());
+                int i = 0;
+                for (final Object item : coll) {
+                    appendDetail(buffer, fieldName, i++, item);
+                }
+                buffer.append(getArrayEnd());
+                return;
+            }
+
+            buffer.append(coll);
         }
 
         @Override

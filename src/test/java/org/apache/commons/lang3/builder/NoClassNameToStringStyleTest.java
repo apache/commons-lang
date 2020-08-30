@@ -18,8 +18,8 @@ package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.Collections;
 
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 import org.junit.jupiter.api.AfterEach;
@@ -70,12 +70,38 @@ public class NoClassNameToStringStyleTest {
         assertEquals("[a=3]", new ToStringBuilder(base).append("a", i3).toString());
         assertEquals("[a=3,b=4]", new ToStringBuilder(base).append("a", i3).append("b", i4).toString());
         assertEquals("[a=<Integer>]", new ToStringBuilder(base).append("a", i3, false).toString());
-        assertEquals("[a=<size=0>]", new ToStringBuilder(base).append("a", new ArrayList<>(), false).toString());
-        assertEquals("[a=[]]", new ToStringBuilder(base).append("a", new ArrayList<>(), true).toString());
-        assertEquals("[a=<size=0>]", new ToStringBuilder(base).append("a", new HashMap<>(), false).toString());
-        assertEquals("[a={}]", new ToStringBuilder(base).append("a", new HashMap<>(), true).toString());
-        assertEquals("[a=<size=0>]", new ToStringBuilder(base).append("a", (Object) new String[0], false).toString());
-        assertEquals("[a={}]", new ToStringBuilder(base).append("a", (Object) new String[0], true).toString());
+    }
+
+    @Test
+    public void testCollection() {
+        final Integer i3 = Integer.valueOf(3);
+        final Integer i4 = Integer.valueOf(4);
+        assertEquals("[a=<size=0>]", new ToStringBuilder(base).append("a", Collections.emptyList(), false).toString());
+        assertEquals("[a=[]]", new ToStringBuilder(base).append("a", Collections.emptyList(), true).toString());
+        assertEquals("[a=<size=1>]", new ToStringBuilder(base).append("a", Collections.singletonList(i3), false).toString());
+        assertEquals("[a=[3]]", new ToStringBuilder(base).append("a", Collections.singletonList(i3), true).toString());
+        assertEquals("[a=<size=2>]", new ToStringBuilder(base).append("a", Arrays.asList(i3, i4), false).toString());
+        assertEquals("[a=[3, 4]]", new ToStringBuilder(base).append("a", Arrays.asList(i3, i4), true).toString());
+    }
+
+    @Test
+    public void testMap() {
+        assertEquals("[a=<size=0>]", new ToStringBuilder(base).append("a", Collections.emptyMap(), false).toString());
+        assertEquals("[a={}]", new ToStringBuilder(base).append("a", Collections.emptyMap(), true).toString());
+        assertEquals("[a=<size=1>]", new ToStringBuilder(base).append("a", Collections.singletonMap("k", "v"), false).toString());
+        assertEquals("[a={k=v}]", new ToStringBuilder(base).append("a", Collections.singletonMap("k", "v"), true).toString());
+    }
+
+    @Test
+    public void testArray() {
+        final Integer i3 = Integer.valueOf(3);
+        final Integer i4 = Integer.valueOf(4);
+        assertEquals("[a=<size=0>]", new ToStringBuilder(base).append("a", (Object) new Integer[0], false).toString());
+        assertEquals("[a={}]", new ToStringBuilder(base).append("a", (Object) new Integer[0], true).toString());
+        assertEquals("[a=<size=1>]", new ToStringBuilder(base).append("a", (Object) new Integer[] {i3}, false).toString());
+        assertEquals("[a={3}]", new ToStringBuilder(base).append("a", (Object) new Integer[] {i3}, true).toString());
+        assertEquals("[a=<size=2>]", new ToStringBuilder(base).append("a", (Object) new Integer[] {i3, i4}, false).toString());
+        assertEquals("[a={3,4}]", new ToStringBuilder(base).append("a", (Object) new Integer[] {i3, i4}, true).toString());
     }
 
     @Test
