@@ -347,8 +347,10 @@ public class StringUtilsSubstringTest  {
              StringUtils.countMatches("one long someone sentence of one", "one"));
         assertEquals(0,
              StringUtils.countMatches("one long someone sentence of one", "two"));
-        assertEquals(4,
+        assertEquals(10,
              StringUtils.countMatches("oooooooooooo", "ooo"));
+        assertEquals(4,
+                StringUtils.countMatches("abaabaababaab", "aba"));
     }
 
     @Test
@@ -356,7 +358,7 @@ public class StringUtilsSubstringTest  {
         assertEquals(0, StringUtils.countMatches(null, 'D'));
         assertEquals(5, StringUtils.countMatches("one long someone sentence of one", ' '));
         assertEquals(6, StringUtils.countMatches("one long someone sentence of one", 'o'));
-        assertEquals(4, StringUtils.countMatches("oooooooooooo", "ooo"));
+        assertEquals(10, StringUtils.countMatches("oooooooooooo", "ooo"));
     }
 
 }

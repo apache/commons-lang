@@ -1452,7 +1452,7 @@ public class StringUtils {
         int idx = 0;
         while ((idx = CharSequenceUtils.indexOf(str, sub, idx)) != INDEX_NOT_FOUND) {
             count++;
-            idx += sub.length();
+            idx++;
         }
         return count;
     }
