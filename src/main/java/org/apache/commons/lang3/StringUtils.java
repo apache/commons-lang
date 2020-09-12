@@ -869,7 +869,7 @@ public class StringUtils {
      * @since 3.5
      */
     public static int compare(final String str1, final String str2, final boolean nullIsLess) {
-        if (str1 == str2) {
+        if (str1 == str2) { // NOSONARLINT this intentionally uses == to allow for both null
             return 0;
         }
         if (str1 == null) {
@@ -962,7 +962,7 @@ public class StringUtils {
      * @since 3.5
      */
     public static int compareIgnoreCase(final String str1, final String str2, final boolean nullIsLess) {
-        if (str1 == str2) {
+        if (str1 == str2) { // NOSONARLINT this intentionally uses == to allow for both null
             return 0;
         }
         if (str1 == null) {
