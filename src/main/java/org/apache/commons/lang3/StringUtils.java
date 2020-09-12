@@ -6781,7 +6781,6 @@ public class StringUtils {
 
             textIndex = -1;
             replaceIndex = -1;
-            tempIndex = -1;
             // find the next earliest match
             // NOTE: logic mostly duplicated above START
             for (int i = 0; i < searchLength; i++) {
