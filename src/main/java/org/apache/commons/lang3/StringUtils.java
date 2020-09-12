@@ -7907,7 +7907,8 @@ public class StringUtils {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
         final List<String> list = new ArrayList<>();
-        int i = 0, start = 0;
+        int i = 0;
+        int start = 0;
         boolean match = false;
         boolean lastMatch = false;
         while (i < len) {
@@ -7958,7 +7959,8 @@ public class StringUtils {
         }
         final List<String> list = new ArrayList<>();
         int sizePlus1 = 1;
-        int i = 0, start = 0;
+        int i = 0;
+        int start = 0;
         boolean match = false;
         boolean lastMatch = false;
         if (separatorChars == null) {
