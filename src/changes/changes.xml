@@ -51,6 +51,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1600" type="fix" dev="ggregory" due-to="Michael F">Restore handling of collections for non-JSON ToStringStyle #610.</action>
     <action                   type="fix" dev="ggregory" due-to="iamchao1129">ContextedException Javadoc add missing semicolon #581.</action>
     <!--  UPDATES -->
+    <action issue="LANG-1606" type="update" dev="sebb" due-to="Rustem Galiev">StringUtils.countMatches - clarify Javadoc.</action>
     <action issue="LANG-1591" type="update" dev="kinow" due-to="bhawna94">Remove redundant argument from substring call.</action>
     <action issue="LANG-1579" type="update" dev="aherbert" due-to="XenoAmess">Improve StringUtils.stripAccents conversion of remaining accents.</action>
     <action issue="LANG-1596" type="update" dev="aherbert" due-to="Richard Eckart de Castilho">ArrayUtils.toPrimitive(Object) does not support boolean and other types #607.</action>

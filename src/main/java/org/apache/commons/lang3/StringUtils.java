@@ -1425,7 +1425,8 @@ public class StringUtils {
     // Count matches
     //-----------------------------------------------------------------------
     /**
-     * <p>Counts how many times the substring appears in the larger string.</p>
+     * <p>Counts how many times the substring appears in the larger string.
+     * Note that the code only counts non-overlapping matches.</p>
      *
      * <p>A {@code null} or empty ("") String input returns {@code 0}.</p>
      *
@@ -1437,6 +1438,7 @@ public class StringUtils {
      * StringUtils.countMatches("abba", "a")   = 2
      * StringUtils.countMatches("abba", "ab")  = 1
      * StringUtils.countMatches("abba", "xxx") = 0
+     * StringUtils.countMatches("ababa", "aba") = 1
      * </pre>
      *
      * @param str  the CharSequence to check, may be null
