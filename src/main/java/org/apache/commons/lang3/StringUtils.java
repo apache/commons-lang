@@ -5393,7 +5393,8 @@ public class StringUtils {
     }
 
     private static int[] matches(final CharSequence first, final CharSequence second) {
-        CharSequence max, min;
+        CharSequence max;
+        CharSequence min;
         if (first.length() > second.length()) {
             max = first;
             min = second;
@@ -8430,7 +8431,7 @@ public class StringUtils {
             return null;
         }
         str = strip(str, null);
-        return str.isEmpty() ? null : str;
+        return str.isEmpty() ? null : str; // NOSONARLINT str cannot be null here
     }
 
     // Substring
