@@ -2252,7 +2252,7 @@ public class StringUtils {
         if (m == 0) {
             return 0D;
         }
-        final double j = ((m / first.length() + m / second.length() + (m - mtp[1]) / m)) / 3;
+        final double j = (m / first.length() + m / second.length() + (m - mtp[1]) / m) / 3;
         final double jw = j < 0.7D ? j : j + Math.min(DEFAULT_SCALING_FACTOR, 1D / mtp[3]) * mtp[2] * (1D - j);
         return Math.round(jw * 100.0D) / 100.0D;
     }
