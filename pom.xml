@@ -615,7 +615,7 @@
     <jmh.version>1.21</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
 
-    <commons.jacoco.version>0.8.5</commons.jacoco.version>
+    <commons.jacoco.version>0.8.6</commons.jacoco.version>
     <commons.surefire.version>3.0.0-M5</commons.surefire.version>
     <commons.javadoc.version>3.2.0</commons.javadoc.version>
 
