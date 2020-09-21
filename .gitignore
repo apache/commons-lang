@@ -18,3 +18,5 @@ site-content
 .project
 .externalToolBuilders
 .checkstyle
+/.apt_generated/
+/.apt_generated_tests/
