@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -26,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
@@ -33,6 +35,13 @@ import org.junit.jupiter.api.Test;
  * Unit tests {@link org.apache.commons.lang3.BooleanUtils}.
  */
 public class BooleanUtilsTest {
+
+    @Test
+    public void test_booleanValues() {
+        final Boolean[] expected = new Boolean[] {false, true};
+        Arrays.sort(expected);
+        assertArrayEquals(expected, BooleanUtils.booleanValues());
+    }
 
     @Test
     public void test_isFalse_Boolean() {
@@ -67,6 +76,11 @@ public class BooleanUtilsTest {
         assertSame(null, BooleanUtils.negate(null));
         assertSame(Boolean.TRUE, BooleanUtils.negate(Boolean.FALSE));
         assertSame(Boolean.FALSE, BooleanUtils.negate(Boolean.TRUE));
+    }
+
+    @Test
+    public void test_primitiveValues() {
+        assertArrayEquals(new boolean[] {false, true}, BooleanUtils.primitiveValues());
     }
 
     @Test

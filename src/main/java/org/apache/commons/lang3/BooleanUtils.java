@@ -100,6 +100,15 @@ public class BooleanUtils {
     }
 
     /**
+     * Returns a new array of possible values (like an enum would).
+     * @return a new array of possible values (like an enum would).
+     * @since 3.12.0
+     */
+    public static Boolean[] booleanValues() {
+        return new Boolean[] {Boolean.FALSE, Boolean.TRUE};
+    }
+
+    /**
      * <p>Compares two {@code boolean} values. This is the same functionality as provided in Java 7.</p>
      *
      * @param x the first {@code boolean} to compare
@@ -278,6 +287,15 @@ public class BooleanUtils {
         } catch (final NullPointerException ex) {
             throw new IllegalArgumentException("The array must not contain any null elements");
         }
+    }
+
+    /**
+     * Returns a new array of possible values (like an enum would).
+     * @return a new array of possible values (like an enum would).
+     * @since 3.12.0
+     */
+    public static boolean[] primitiveValues() {
+        return new boolean[] {false, true};
     }
 
     /**

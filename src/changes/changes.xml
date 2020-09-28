@@ -45,11 +45,14 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.12" date="2020-MM-DD" description="New features and bug fixes.">
+  <release version="3.12.0" date="2020-MM-DD" description="New features and bug fixes.">
     <!--  FIXES -->
     <action issue="LANG-1592" type="fix" dev="aherbert" due-to="Huang Pingcai, Alex Herbert">Correct implementation of RandomUtils.nextLong(long, long)</action>
     <action issue="LANG-1600" type="fix" dev="ggregory" due-to="Michael F">Restore handling of collections for non-JSON ToStringStyle #610.</action>
     <action                   type="fix" dev="ggregory" due-to="iamchao1129">ContextedException Javadoc add missing semicolon #581.</action>
+    <!--  ADDS -->
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.booleanValues().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.primitiveValues().</action>
     <!--  UPDATES -->
     <action issue="LANG-1606" type="update" dev="sebb" due-to="Rustem Galiev">StringUtils.countMatches - clarify Javadoc.</action>
     <action issue="LANG-1591" type="update" dev="kinow" due-to="bhawna94">Remove redundant argument from substring call.</action>
