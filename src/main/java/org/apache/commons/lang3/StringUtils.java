@@ -1696,15 +1696,45 @@ public class StringUtils {
      * @since 3.0
      */
     public static boolean endsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
+        return endsWithAny(sequence, searchStrings, false);
+    }
+
+    private static boolean endsWithAny(final CharSequence sequence, final CharSequence[] searchStrings,
+                                      boolean ignoreCase) {
         if (isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
             return false;
         }
         for (final CharSequence searchString : searchStrings) {
-            if (endsWith(sequence, searchString)) {
+            if (endsWith(sequence, searchString, ignoreCase)) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * <p>Check if a CharSequence ends with any of the provided case-insensitive suffixes.</p>
+     *
+     * <pre>
+     * StringUtils.endsWithAnyIgnoreCase(null, null)      = false
+     * StringUtils.endsWithAnyIgnoreCase(null, new String[] {"abc"})  = false
+     * StringUtils.endsWithAnyIgnoreCase("abcxyz", null)     = false
+     * StringUtils.endsWithAnyIgnoreCase("abcxyz", new String[] {""}) = true
+     * StringUtils.endsWithAnyIgnoreCase("abcxyz", new String[] {"xyz"}) = true
+     * StringUtils.endsWithAnyIgnoreCase("abcxyz", new String[] {null, "xyz", "abc"}) = true
+     * StringUtils.endsWithAnyIgnoreCase("abcXYZ", "def", "XYZ") = true
+     * StringUtils.endsWithAnyIgnoreCase("abcXYZ", "def", "xyz") = true
+     * </pre>
+     *
+     * @param sequence  the CharSequence to check, may be null
+     * @param searchStrings the case-insensitive CharSequences to find, may be empty or contain {@code null}
+     * @see StringUtils#endsWith(CharSequence, CharSequence)
+     * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or
+     *   the input {@code sequence} ends in any of the provided case-insensitive {@code searchStrings}.
+     * @since 3.12
+     */
+    public static boolean endsWithAnyIgnoreCase(final CharSequence sequence, final CharSequence... searchStrings) {
+        return endsWithAny(sequence, searchStrings, true);
     }
 
     /**
@@ -8101,15 +8131,45 @@ public class StringUtils {
      * @since 3.0 Changed signature from startsWithAny(String, String[]) to startsWithAny(CharSequence, CharSequence...)
      */
     public static boolean startsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
+        return startsWithAny(sequence, searchStrings, false);
+    }
+
+    private static boolean startsWithAny(final CharSequence sequence, final CharSequence[] searchStrings,
+                                         boolean ignoreCase) {
         if (isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
             return false;
         }
-        for (final CharSequence searchString : searchStrings) {
-            if (startsWith(sequence, searchString)) {
+        for (CharSequence searchString : searchStrings) {
+            if (startsWith(sequence, searchString, ignoreCase)) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * <p>Check if a CharSequence starts with any of the provided case-insensitive prefixes.</p>
+     *
+     * <pre>
+     * StringUtils.startsWithAnyIgnoreCase(null, null)      = false
+     * StringUtils.startsWithAnyIgnoreCase(null, new String[] {"abc"})  = false
+     * StringUtils.startsWithAnyIgnoreCase("abcxyz", null)     = false
+     * StringUtils.startsWithAnyIgnoreCase("abcxyz", new String[] {""}) = true
+     * StringUtils.startsWithAnyIgnoreCase("abcxyz", new String[] {"abc"}) = true
+     * StringUtils.startsWithAnyIgnoreCase("abcxyz", new String[] {null, "xyz", "abc"}) = true
+     * StringUtils.startsWithAnyIgnoreCase("abcxyz", null, "xyz", "ABCX") = true
+     * StringUtils.startsWithAnyIgnoreCase("ABCXYZ", null, "xyz", "abc") = true
+     * </pre>
+     *
+     * @param sequence the CharSequence to check, may be null
+     * @param searchStrings the case-insensitive CharSequence prefixes, may be empty or contain {@code null}
+     * @see StringUtils#startsWithIgnoreCase(CharSequence, CharSequence)
+     * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or
+     *   the input {@code sequence} begins with any of the provided case-insensitive {@code searchStrings}.
+     * @since 3.12
+     */
+    public static boolean startsWithAnyIgnoreCase(final CharSequence sequence, final CharSequence... searchStrings) {
+        return startsWithAny(sequence, searchStrings, true);
     }
 
     /**

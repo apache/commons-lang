@@ -101,6 +101,20 @@ public class StringUtilsStartsEndsWithTest {
     }
 
 
+    @Test
+    void testStartsWithAnyIgnoreCase() {
+        assertFalse(StringUtils.startsWithAnyIgnoreCase(null, (CharSequence[]) null));
+        assertFalse(StringUtils.startsWithAnyIgnoreCase(null, "a", "b"));
+        assertFalse(StringUtils.startsWithAnyIgnoreCase("abc", (CharSequence[]) null));
+        assertFalse(StringUtils.startsWithAnyIgnoreCase("abc", new String[]{}));
+
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("ABC", "aBc"));
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("ABC", "xyz", "abc"));
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("ABC", "xyz", "ABC"));
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("abc", "xyz", "ABC"));
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("abc", "xyz", ""));
+    }
+
     /**
      * Test StringUtils.endsWith()
      */
@@ -197,5 +211,18 @@ public class StringUtilsStartsEndsWithTest {
         assertTrue(StringUtils.endsWithAny(new StringBuffer("abcxyz"), new StringBuilder("abc"), new StringBuffer("xyz")), "StringUtils.endsWithAny(StringBuffer(abcxyz), StringBuilder(abc), StringBuffer(xyz))");
     }
 
+    @Test
+    void testEndsWithAnyIgnoreCase() {
+        assertFalse(StringUtils.endsWithAnyIgnoreCase(null, (CharSequence[]) null));
+        assertFalse(StringUtils.endsWithAnyIgnoreCase(null, "a", "b"));
+        assertFalse(StringUtils.endsWithAnyIgnoreCase("abc", (CharSequence[]) null));
+        assertFalse(StringUtils.endsWithAnyIgnoreCase("abc", new String[]{}));
 
+        assertTrue(StringUtils.endsWithAnyIgnoreCase("ABC", "aBc"));
+        assertTrue(StringUtils.endsWithAnyIgnoreCase("ABC", "xyz", "c"));
+        assertTrue(StringUtils.endsWithAnyIgnoreCase("ABC", "xyz", "bc"));
+        assertTrue(StringUtils.endsWithAnyIgnoreCase("abc", "C"));
+        assertTrue(StringUtils.endsWithAnyIgnoreCase("abc", "xyz", "BC"));
+        assertTrue(StringUtils.endsWithAnyIgnoreCase("abc", "xyz", ""));
+    }
 }
