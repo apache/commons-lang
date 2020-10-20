@@ -140,7 +140,7 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
      * {@code CircuitBreaker}.
      */
     protected enum State {
-        
+
         /** The closed state. */
         CLOSED {
             /**
