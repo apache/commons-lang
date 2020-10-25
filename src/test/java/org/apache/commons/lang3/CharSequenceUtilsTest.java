@@ -23,13 +23,18 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Random;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Tests CharSequenceUtils
@@ -259,6 +264,25 @@ public class CharSequenceUtilsTest {
             }
             testNewLastIndexOfSingle(original, seg);
         }
+    }
+
+    @ParameterizedTest
+    @MethodSource("lastIndexWithStandardCharSequence")
+    public void testLastIndexOfWithDifferentCharSequences(CharSequence cs, CharSequence search, int start,
+                                                          int expected) {
+        assertEquals(expected, CharSequenceUtils.lastIndexOf(cs, search, start));
+    }
+
+    static Stream<Arguments> lastIndexWithStandardCharSequence() {
+        return Stream.of(
+            arguments("abc", "b", 2, 1),
+            arguments(new StringBuilder("abc"), "b", 2, 1),
+            arguments(new StringBuffer("abc"), "b", 2, 1),
+            arguments("abc", new StringBuilder("b"), 2, 1),
+            arguments(new StringBuilder("abc"), new StringBuilder("b"), 2, 1),
+            arguments(new StringBuffer("abc"), new StringBuffer("b"), 2, 1),
+            arguments(new StringBuilder("abc"), new StringBuffer("b"), 2, 1)
+        );
     }
 
     private void testNewLastIndexOfSingle(final CharSequence a, final CharSequence b) {
