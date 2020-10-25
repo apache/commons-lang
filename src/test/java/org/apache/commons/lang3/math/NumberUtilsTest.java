@@ -16,12 +16,7 @@
  */
 package org.apache.commons.lang3.math;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -29,7 +24,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.math.NumberUtils}.
@@ -734,11 +729,11 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinShort() {
-        assertEquals((short)5, NumberUtils.min((short)5), "min(short[]) failed for array length 1");
-        assertEquals((short)6, NumberUtils.min((short)6, (short)9), "min(short[]) failed for array length 2");
+        assertEquals((short) 5, NumberUtils.min((short) 5), "min(short[]) failed for array length 1");
+        assertEquals((short) 6, NumberUtils.min((short) 6, (short) 9), "min(short[]) failed for array length 2");
 
-        assertEquals((short)-10, NumberUtils.min((short)-10, (short)-5, (short)0, (short)5, (short)10));
-        assertEquals((short)-10, NumberUtils.min((short)-5, (short)0, (short)-10, (short)5, (short)10));
+        assertEquals((short) -10, NumberUtils.min((short) -10, (short) -5, (short) 0, (short) 5, (short) 10));
+        assertEquals((short) -10, NumberUtils.min((short) -5, (short) 0, (short) -10, (short) 5, (short) 10));
     }
 
     @Test
@@ -753,11 +748,11 @@ public class NumberUtilsTest {
 
     @Test
     public void testMinByte() {
-        assertEquals((byte)5, NumberUtils.min((byte)5), "min(byte[]) failed for array length 1");
-        assertEquals((byte)6, NumberUtils.min((byte)6, (byte)9), "min(byte[]) failed for array length 2");
+        assertEquals((byte) 5, NumberUtils.min((byte) 5), "min(byte[]) failed for array length 1");
+        assertEquals((byte) 6, NumberUtils.min((byte) 6, (byte) 9), "min(byte[]) failed for array length 2");
 
-        assertEquals((byte)-10, NumberUtils.min((byte)-10, (byte)-5, (byte)0, (byte)5, (byte)10));
-        assertEquals((byte)-10, NumberUtils.min((byte)-5, (byte)0, (byte)-10, (byte)5, (byte)10));
+        assertEquals((byte) -10, NumberUtils.min((byte) -10, (byte) -5, (byte) 0, (byte) 5, (byte) 10));
+        assertEquals((byte) -10, NumberUtils.min((byte) -5, (byte) 0, (byte) -10, (byte) 5, (byte) 10));
     }
 
     @Test
@@ -848,11 +843,11 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaxShort() {
-        assertEquals((short)5, NumberUtils.max((short)5), "max(short[]) failed for array length 1");
-        assertEquals((short)9, NumberUtils.max((short)6, (short)9), "max(short[]) failed for array length 2");
-        assertEquals((short)10, NumberUtils.max((short)-10, (short)-5, (short)0, (short)5, (short)10), "max(short[]) failed for array length 5");
-        assertEquals((short)10, NumberUtils.max((short)-10, (short)-5,(short) 0,(short) 5, (short)10));
-        assertEquals((short)10, NumberUtils.max((short)-5,(short) 0,(short) 10, (short)5,(short) -10));
+        assertEquals((short) 5, NumberUtils.max((short) 5), "max(short[]) failed for array length 1");
+        assertEquals((short) 9, NumberUtils.max((short) 6, (short) 9), "max(short[]) failed for array length 2");
+        assertEquals((short) 10, NumberUtils.max((short) -10, (short) -5, (short) 0, (short) 5, (short) 10), "max(short[]) failed for array length 5");
+        assertEquals((short) 10, NumberUtils.max((short) -10, (short) -5, (short) 0, (short) 5, (short) 10));
+        assertEquals((short) 10, NumberUtils.max((short) -5, (short) 0, (short) 10, (short) 5, (short) -10));
     }
 
     @Test
@@ -867,11 +862,11 @@ public class NumberUtilsTest {
 
     @Test
     public void testMaxByte() {
-        assertEquals((byte)5, NumberUtils.max((byte)5), "max(byte[]) failed for array length 1");
-        assertEquals((byte)9, NumberUtils.max((byte)6, (byte)9), "max(byte[]) failed for array length 2");
-        assertEquals((byte)10, NumberUtils.max((byte)-10, (byte)-5, (byte)0, (byte)5, (byte)10), "max(byte[]) failed for array length 5");
-        assertEquals((byte)10, NumberUtils.max((byte)-10, (byte)-5, (byte)0, (byte)5, (byte)10));
-        assertEquals((byte)10, NumberUtils.max((byte)-5, (byte)0, (byte)10, (byte)5, (byte)-10));
+        assertEquals((byte) 5, NumberUtils.max((byte) 5), "max(byte[]) failed for array length 1");
+        assertEquals((byte) 9, NumberUtils.max((byte) 6, (byte) 9), "max(byte[]) failed for array length 2");
+        assertEquals((byte) 10, NumberUtils.max((byte) -10, (byte) -5, (byte) 0, (byte) 5, (byte) 10), "max(byte[]) failed for array length 5");
+        assertEquals((byte) 10, NumberUtils.max((byte) -10, (byte) -5, (byte) 0, (byte) 5, (byte) 10));
+        assertEquals((byte) 10, NumberUtils.max((byte) -5, (byte) 0, (byte) 10, (byte) 5, (byte) -10));
     }
 
     @Test
