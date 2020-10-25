@@ -47,179 +47,6 @@ import java.util.Map;
 public class SerializationUtils {
 
     /**
-     * <p>SerializationUtils instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as {@code SerializationUtils.clone(object)}.</p>
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
-     * @since 2.0
-     */
-    public SerializationUtils() {
-        super();
-    }
-
-    // Clone
-    //-----------------------------------------------------------------------
-    /**
-     * <p>Deep clone an {@code Object} using serialization.</p>
-     *
-     * <p>This is many times slower than writing clone methods by hand
-     * on all objects in your object graph. However, for complex object
-     * graphs, or for those that don't support deep cloning this can
-     * be a simple alternative implementation. Of course all the objects
-     * must be {@code Serializable}.</p>
-     *
-     * @param <T> the type of the object involved
-     * @param object  the {@code Serializable} object to clone
-     * @return the cloned object
-     * @throws SerializationException (runtime) if the serialization fails
-     */
-    public static <T extends Serializable> T clone(final T object) {
-        if (object == null) {
-            return null;
-        }
-        final byte[] objectData = serialize(object);
-        final ByteArrayInputStream bais = new ByteArrayInputStream(objectData);
-
-        try (ClassLoaderAwareObjectInputStream in = new ClassLoaderAwareObjectInputStream(bais,
-                object.getClass().getClassLoader())) {
-            /*
-             * when we serialize and deserialize an object,
-             * it is reasonable to assume the deserialized object
-             * is of the same type as the original serialized object
-             */
-            @SuppressWarnings("unchecked") // see above
-            final T readObject = (T) in.readObject();
-            return readObject;
-
-        } catch (final ClassNotFoundException ex) {
-            throw new SerializationException("ClassNotFoundException while reading cloned object data", ex);
-        } catch (final IOException ex) {
-            throw new SerializationException("IOException while reading or closing cloned object data", ex);
-        }
-    }
-
-    /**
-     * Performs a serialization roundtrip. Serializes and deserializes the given object, great for testing objects that
-     * implement {@link Serializable}.
-     *
-     * @param <T>
-     *           the type of the object involved
-     * @param msg
-     *            the object to roundtrip
-     * @return the serialized and deserialized object
-     * @since 3.3
-     */
-    @SuppressWarnings("unchecked") // OK, because we serialized a type `T`
-    public static <T extends Serializable> T roundtrip(final T msg) {
-        return (T) deserialize(serialize(msg));
-    }
-
-    // Serialize
-    //-----------------------------------------------------------------------
-    /**
-     * <p>Serializes an {@code Object} to the specified stream.</p>
-     *
-     * <p>The stream will be closed once the object is written.
-     * This avoids the need for a finally clause, and maybe also exception
-     * handling, in the application code.</p>
-     *
-     * <p>The stream passed in is not buffered internally within this method.
-     * This is the responsibility of your application if desired.</p>
-     *
-     * @param obj  the object to serialize to bytes, may be null
-     * @param outputStream  the stream to write to, must not be null
-     * @throws NullPointerException if {@code outputStream} is {@code null}
-     * @throws SerializationException (runtime) if the serialization fails
-     */
-    public static void serialize(final Serializable obj, final OutputStream outputStream) {
-        Validate.notNull(outputStream, "The OutputStream must not be null");
-        try (ObjectOutputStream out = new ObjectOutputStream(outputStream)) {
-            out.writeObject(obj);
-        } catch (final IOException ex) {
-            throw new SerializationException(ex);
-        }
-    }
-
-    /**
-     * <p>Serializes an {@code Object} to a byte array for
-     * storage/serialization.</p>
-     *
-     * @param obj  the object to serialize to bytes
-     * @return a byte[] with the converted Serializable
-     * @throws SerializationException (runtime) if the serialization fails
-     */
-    public static byte[] serialize(final Serializable obj) {
-        final ByteArrayOutputStream baos = new ByteArrayOutputStream(512);
-        serialize(obj, baos);
-        return baos.toByteArray();
-    }
-
-    // Deserialize
-    //-----------------------------------------------------------------------
-    /**
-     * <p>
-     * Deserializes an {@code Object} from the specified stream.
-     * </p>
-     *
-     * <p>
-     * The stream will be closed once the object is written. This avoids the need for a finally clause, and maybe also
-     * exception handling, in the application code.
-     * </p>
-     *
-     * <p>
-     * The stream passed in is not buffered internally within this method. This is the responsibility of your
-     * application if desired.
-     * </p>
-     *
-     * <p>
-     * If the call site incorrectly types the return value, a {@link ClassCastException} is thrown from the call site.
-     * Without Generics in this declaration, the call site must type cast and can cause the same ClassCastException.
-     * Note that in both cases, the ClassCastException is in the call site, not in this method.
-     * </p>
-     *
-     * @param <T>  the object type to be deserialized
-     * @param inputStream
-     *            the serialized object input stream, must not be null
-     * @return the deserialized object
-     * @throws NullPointerException if {@code inputStream} is {@code null}
-     * @throws SerializationException (runtime) if the serialization fails
-     */
-    public static <T> T deserialize(final InputStream inputStream) {
-        Validate.notNull(inputStream, "The InputStream must not be null");
-        try (ObjectInputStream in = new ObjectInputStream(inputStream)) {
-            @SuppressWarnings("unchecked")
-            final T obj = (T) in.readObject();
-            return obj;
-        } catch (final ClassNotFoundException | IOException ex) {
-            throw new SerializationException(ex);
-        }
-    }
-
-    /**
-     * <p>
-     * Deserializes a single {@code Object} from an array of bytes.
-     * </p>
-     *
-     * <p>
-     * If the call site incorrectly types the return value, a {@link ClassCastException} is thrown from the call site.
-     * Without Generics in this declaration, the call site must type cast and can cause the same ClassCastException.
-     * Note that in both cases, the ClassCastException is in the call site, not in this method.
-     * </p>
-     *
-     * @param <T>  the object type to be deserialized
-     * @param objectData
-     *            the serialized object, must not be null
-     * @return the deserialized object
-     * @throws NullPointerException if {@code objectData} is {@code null}
-     * @throws SerializationException (runtime) if the serialization fails
-     */
-    public static <T> T deserialize(final byte[] objectData) {
-        Validate.notNull(objectData, "The byte[] must not be null");
-        return deserialize(new ByteArrayInputStream(objectData));
-    }
-
-    /**
      * <p>Custom specialization of the standard JDK {@link java.io.ObjectInputStream}
      * that uses a custom  {@code ClassLoader} to resolve a class.
      * If the specified {@code ClassLoader} is not able to resolve the class,
@@ -288,6 +115,173 @@ public class SerializationUtils {
             }
         }
 
+    }
+
+    /**
+     * <p>Deep clone an {@code Object} using serialization.</p>
+     *
+     * <p>This is many times slower than writing clone methods by hand
+     * on all objects in your object graph. However, for complex object
+     * graphs, or for those that don't support deep cloning this can
+     * be a simple alternative implementation. Of course all the objects
+     * must be {@code Serializable}.</p>
+     *
+     * @param <T> the type of the object involved
+     * @param object  the {@code Serializable} object to clone
+     * @return the cloned object
+     * @throws SerializationException (runtime) if the serialization fails
+     */
+    public static <T extends Serializable> T clone(final T object) {
+        if (object == null) {
+            return null;
+        }
+        final byte[] objectData = serialize(object);
+        final ByteArrayInputStream bais = new ByteArrayInputStream(objectData);
+
+        try (ClassLoaderAwareObjectInputStream in = new ClassLoaderAwareObjectInputStream(bais,
+                object.getClass().getClassLoader())) {
+            /*
+             * when we serialize and deserialize an object,
+             * it is reasonable to assume the deserialized object
+             * is of the same type as the original serialized object
+             */
+            @SuppressWarnings("unchecked") // see above
+            final T readObject = (T) in.readObject();
+            return readObject;
+
+        } catch (final ClassNotFoundException ex) {
+            throw new SerializationException("ClassNotFoundException while reading cloned object data", ex);
+        } catch (final IOException ex) {
+            throw new SerializationException("IOException while reading or closing cloned object data", ex);
+        }
+    }
+
+    /**
+     * <p>
+     * Deserializes a single {@code Object} from an array of bytes.
+     * </p>
+     *
+     * <p>
+     * If the call site incorrectly types the return value, a {@link ClassCastException} is thrown from the call site.
+     * Without Generics in this declaration, the call site must type cast and can cause the same ClassCastException.
+     * Note that in both cases, the ClassCastException is in the call site, not in this method.
+     * </p>
+     *
+     * @param <T>  the object type to be deserialized
+     * @param objectData
+     *            the serialized object, must not be null
+     * @return the deserialized object
+     * @throws NullPointerException if {@code objectData} is {@code null}
+     * @throws SerializationException (runtime) if the serialization fails
+     */
+    public static <T> T deserialize(final byte[] objectData) {
+        Validate.notNull(objectData, "The byte[] must not be null");
+        return deserialize(new ByteArrayInputStream(objectData));
+    }
+
+    /**
+     * <p>
+     * Deserializes an {@code Object} from the specified stream.
+     * </p>
+     *
+     * <p>
+     * The stream will be closed once the object is written. This avoids the need for a finally clause, and maybe also
+     * exception handling, in the application code.
+     * </p>
+     *
+     * <p>
+     * The stream passed in is not buffered internally within this method. This is the responsibility of your
+     * application if desired.
+     * </p>
+     *
+     * <p>
+     * If the call site incorrectly types the return value, a {@link ClassCastException} is thrown from the call site.
+     * Without Generics in this declaration, the call site must type cast and can cause the same ClassCastException.
+     * Note that in both cases, the ClassCastException is in the call site, not in this method.
+     * </p>
+     *
+     * @param <T>  the object type to be deserialized
+     * @param inputStream
+     *            the serialized object input stream, must not be null
+     * @return the deserialized object
+     * @throws NullPointerException if {@code inputStream} is {@code null}
+     * @throws SerializationException (runtime) if the serialization fails
+     */
+    public static <T> T deserialize(final InputStream inputStream) {
+        Validate.notNull(inputStream, "The InputStream must not be null");
+        try (ObjectInputStream in = new ObjectInputStream(inputStream)) {
+            @SuppressWarnings("unchecked")
+            final T obj = (T) in.readObject();
+            return obj;
+        } catch (final ClassNotFoundException | IOException ex) {
+            throw new SerializationException(ex);
+        }
+    }
+
+    /**
+     * Performs a serialization roundtrip. Serializes and deserializes the given object, great for testing objects that
+     * implement {@link Serializable}.
+     *
+     * @param <T>
+     *           the type of the object involved
+     * @param msg
+     *            the object to roundtrip
+     * @return the serialized and deserialized object
+     * @since 3.3
+     */
+    @SuppressWarnings("unchecked") // OK, because we serialized a type `T`
+    public static <T extends Serializable> T roundtrip(final T msg) {
+        return (T) deserialize(serialize(msg));
+    }
+
+    /**
+     * <p>Serializes an {@code Object} to a byte array for
+     * storage/serialization.</p>
+     *
+     * @param obj  the object to serialize to bytes
+     * @return a byte[] with the converted Serializable
+     * @throws SerializationException (runtime) if the serialization fails
+     */
+    public static byte[] serialize(final Serializable obj) {
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream(512);
+        serialize(obj, baos);
+        return baos.toByteArray();
+    }
+
+    /**
+     * <p>Serializes an {@code Object} to the specified stream.</p>
+     *
+     * <p>The stream will be closed once the object is written.
+     * This avoids the need for a finally clause, and maybe also exception
+     * handling, in the application code.</p>
+     *
+     * <p>The stream passed in is not buffered internally within this method.
+     * This is the responsibility of your application if desired.</p>
+     *
+     * @param obj  the object to serialize to bytes, may be null
+     * @param outputStream  the stream to write to, must not be null
+     * @throws NullPointerException if {@code outputStream} is {@code null}
+     * @throws SerializationException (runtime) if the serialization fails
+     */
+    public static void serialize(final Serializable obj, final OutputStream outputStream) {
+        Validate.notNull(outputStream, "The OutputStream must not be null");
+        try (ObjectOutputStream out = new ObjectOutputStream(outputStream)) {
+            out.writeObject(obj);
+        } catch (final IOException ex) {
+            throw new SerializationException(ex);
+        }
+    }
+
+    /**
+     * <p>SerializationUtils instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as {@code SerializationUtils.clone(object)}.</p>
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean instance
+     * to operate.</p>
+     * @since 2.0
+     */
+    public SerializationUtils() {
+        super();
     }
 
 }
