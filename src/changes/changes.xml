@@ -51,6 +51,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1600" type="fix" dev="ggregory" due-to="Michael F">Restore handling of collections for non-JSON ToStringStyle #610.</action>
     <action                   type="fix" dev="ggregory" due-to="iamchao1129">ContextedException Javadoc add missing semicolon #581.</action>
     <action issue="LANG-1608" type="fix" dev="aherbert" due-to="Edgar Asatryan">Resolve JUnit pioneer transitive dependencies using JUnit BOM.</action>
+    <action                   type="fix" dev="aherbert" due-to="HubertWo, Gary Gregory">NumberUtilsTest - incorrect types in min/max tests #634.</action>
     <!--  ADDS -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.booleanValues().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.primitiveValues().</action>
