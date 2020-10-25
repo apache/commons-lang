@@ -225,14 +225,14 @@ public class SerializationUtils {
      *
      * @param <T>
      *           the type of the object involved
-     * @param msg
+     * @param obj
      *            the object to roundtrip
      * @return the serialized and deserialized object
      * @since 3.3
      */
     @SuppressWarnings("unchecked") // OK, because we serialized a type `T`
-    public static <T extends Serializable> T roundtrip(final T msg) {
-        return (T) deserialize(serialize(msg));
+    public static <T extends Serializable> T roundtrip(final T obj) {
+        return (T) deserialize(serialize(obj));
     }
 
     /**
