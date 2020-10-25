@@ -207,8 +207,9 @@ public class SerializationUtils {
      * @throws NullPointerException if {@code inputStream} is {@code null}
      * @throws SerializationException (runtime) if the serialization fails
      */
+    @SuppressWarnings("resource") // inputStream is managed by the caller
     public static <T> T deserialize(final InputStream inputStream) {
-        Validate.notNull(inputStream, "The InputStream must not be null");
+        Validate.notNull(inputStream, "inputStream");
         try (ObjectInputStream in = new ObjectInputStream(inputStream)) {
             @SuppressWarnings("unchecked")
             final T obj = (T) in.readObject();
@@ -263,8 +264,9 @@ public class SerializationUtils {
      * @throws NullPointerException if {@code outputStream} is {@code null}
      * @throws SerializationException (runtime) if the serialization fails
      */
+    @SuppressWarnings("resource") // outputStream is managed by the caller
     public static void serialize(final Serializable obj, final OutputStream outputStream) {
-        Validate.notNull(outputStream, "The OutputStream must not be null");
+        Validate.notNull(outputStream, "outputStream");
         try (ObjectOutputStream out = new ObjectOutputStream(outputStream)) {
             out.writeObject(obj);
         } catch (final IOException ex) {
