@@ -1159,6 +1159,8 @@ public class StringUtilsTest {
         assertNull(StringUtils.join((byte[]) null, SEPARATOR_CHAR, 0, 1));
         assertEquals(StringUtils.EMPTY, StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
         assertEquals(StringUtils.EMPTY, StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
+
+        assertEquals("1,2", StringUtils.join(BYTE_PRIM_LIST, SEPARATOR));
     }
 
 
@@ -1182,6 +1184,8 @@ public class StringUtilsTest {
         assertNull(StringUtils.join((char[]) null, SEPARATOR_CHAR, 0, 1));
         assertEquals(StringUtils.EMPTY, StringUtils.join(CHAR_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
         assertEquals(StringUtils.EMPTY, StringUtils.join(CHAR_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
+
+        assertEquals("1,2", StringUtils.join(CHAR_PRIM_LIST, SEPARATOR));
     }
 
     @Test
@@ -1192,6 +1196,8 @@ public class StringUtilsTest {
         assertNull(StringUtils.join((double[]) null, SEPARATOR_CHAR, 0, 1));
         assertEquals(StringUtils.EMPTY, StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
         assertEquals(StringUtils.EMPTY, StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
+
+        assertEquals("1,2", StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR));
     }
 
     @Test
@@ -1202,6 +1208,8 @@ public class StringUtilsTest {
         assertNull(StringUtils.join((float[]) null, SEPARATOR_CHAR, 0, 1));
         assertEquals(StringUtils.EMPTY, StringUtils.join(FLOAT_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
         assertEquals(StringUtils.EMPTY, StringUtils.join(FLOAT_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
+
+        assertEquals("1,2", StringUtils.join(FLOAT_PRIM_LIST, SEPARATOR));
     }
 
     @Test
@@ -1224,6 +1232,8 @@ public class StringUtilsTest {
         assertNull(StringUtils.join((long[]) null, SEPARATOR_CHAR, 0, 1));
         assertEquals(StringUtils.EMPTY, StringUtils.join(LONG_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
         assertEquals(StringUtils.EMPTY, StringUtils.join(LONG_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
+
+        assertEquals("1,2", StringUtils.join(LONG_PRIM_LIST, SEPARATOR));
     }
 
     @Test
@@ -1234,6 +1244,8 @@ public class StringUtilsTest {
         assertNull(StringUtils.join((short[]) null, SEPARATOR_CHAR, 0, 1));
         assertEquals(StringUtils.EMPTY, StringUtils.join(SHORT_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
         assertEquals(StringUtils.EMPTY, StringUtils.join(SHORT_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
+
+        assertEquals("1,2", StringUtils.join(SHORT_PRIM_LIST, SEPARATOR));
     }
 
     @Test
