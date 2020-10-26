@@ -1213,7 +1213,7 @@ public class StringUtilsTest {
         assertEquals(StringUtils.EMPTY, StringUtils.join(INT_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
         assertEquals(StringUtils.EMPTY, StringUtils.join(INT_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
 
-        assertEquals("1-2", StringUtils.join(INT_PRIM_LIST, SEPARATOR));
+        assertEquals("1,2", StringUtils.join(INT_PRIM_LIST, SEPARATOR));
     }
 
     @Test
