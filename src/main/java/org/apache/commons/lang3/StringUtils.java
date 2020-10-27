@@ -4822,6 +4822,11 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final short[] array, final char delimiter, final int startIndex, final int endIndex) {
+        return join(array, Character.toString(separator), startIndex, endIndex);
+    }
+
+    // TODO: JavaDoc
+    public static String join(final short[] array, final String separator, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
@@ -4864,6 +4869,11 @@ public class StringUtils {
 
     // TODO: JavaDoc
     public static String join(final int[] array, final String separator) {
+        return join(array, separator, 0, array.length);
+    }
+
+    // TODO: JavaDoc
+    public static String join(final short[] array, final String separator) {
         return join(array, separator, 0, array.length);
     }
 
