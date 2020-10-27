@@ -1197,7 +1197,12 @@ public class StringUtilsTest {
         assertEquals(StringUtils.EMPTY, StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
         assertEquals(StringUtils.EMPTY, StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
 
-        assertEquals("1,2", StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR));
+        assertNull(StringUtils.join((double[]) null, ','));
+        assertEquals("1.0,2.0", StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR));
+        assertEquals("2.0", StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR, 1, 2));
+        assertNull(StringUtils.join((double[]) null, SEPARATOR, 0, 1));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR, 0, 0));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR, 1, 0));
     }
 
     @Test
