@@ -1190,7 +1190,12 @@ public class StringUtilsTest {
         assertEquals(StringUtils.EMPTY, StringUtils.join(CHAR_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
         assertEquals(StringUtils.EMPTY, StringUtils.join(CHAR_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
 
+        assertNull(StringUtils.join((char[]) null, ','));
         assertEquals("1,2", StringUtils.join(CHAR_PRIM_LIST, SEPARATOR));
+        assertEquals("2", StringUtils.join(CHAR_PRIM_LIST, SEPARATOR, 1, 2));
+        assertNull(StringUtils.join((char[]) null, SEPARATOR, 0, 1));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(CHAR_PRIM_LIST, SEPARATOR, 0, 0));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(CHAR_PRIM_LIST, SEPARATOR, 1, 0));
     }
 
     @Test
