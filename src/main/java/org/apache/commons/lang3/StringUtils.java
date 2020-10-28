@@ -5102,36 +5102,191 @@ public class StringUtils {
         return join(elements, null);
     }
 
-    // TODO: JavaDoc
+    /**
+     * <p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
+     * </p>
+     *
+     * <p>
+     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
+     * by empty strings.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.join(null, *)               = null
+     * StringUtils.join([], *)                 = ""
+     * StringUtils.join([null], *)             = ""
+     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
+     * StringUtils.join([1, 2, 3], null) = "123"
+     * </pre>
+     *
+     * @param array the array of values to join together, may be null
+     * @param separator the separator String to use
+     * @return the joined String, {@code null} if null array input
+     * @since 3.2
+     */
     public static String join(final char[] array, final String separator) {
         return join(array, separator, 0, array.length);
     }
 
-    // TODO: JavaDoc
+    /**
+     * <p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
+     * </p>
+     *
+     * <p>
+     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
+     * by empty strings.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.join(null, *)               = null
+     * StringUtils.join([], *)                 = ""
+     * StringUtils.join([null], *)             = ""
+     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
+     * StringUtils.join([1, 2, 3], null) = "123"
+     * </pre>
+     *
+     * @param array the array of values to join together, may be null
+     * @param separator the separator String to use
+     * @return the joined String, {@code null} if null array input
+     * @since 3.2
+     */
     public static String join(final float[] array, final String separator) {
         return join(array, separator, 0, array.length);
     }
 
+    /**
+     * <p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
+     * </p>
+     *
+     * <p>
+     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
+     * by empty strings.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.join(null, *)               = null
+     * StringUtils.join([], *)                 = ""
+     * StringUtils.join([null], *)             = ""
+     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
+     * StringUtils.join([1, 2, 3], null) = "123"
+     * </pre>
+     *
+     * @param array the array of values to join together, may be null
+     * @param separator the separator String to use
+     * @return the joined String, {@code null} if null array input
+     * @since 3.2
+     */
     public static String join(final long[] array, final String separator) {
         return join(array, separator, 0, array.length);
     }
 
-    // TODO: JavaDoc
+    /**
+     * <p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
+     * </p>
+     *
+     * <p>
+     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
+     * by empty strings.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.join(null, *)               = null
+     * StringUtils.join([], *)                 = ""
+     * StringUtils.join([null], *)             = ""
+     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
+     * StringUtils.join([1, 2, 3], null) = "123"
+     * </pre>
+     *
+     * @param array the array of values to join together, may be null
+     * @param separator the separator String to use
+     * @return the joined String, {@code null} if null array input
+     * @since 3.2
+     */
     public static String join(final int[] array, final String separator) {
         return join(array, separator, 0, array.length);
     }
 
-    // TODO: JavaDoc
+    /**
+     * <p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
+     * </p>
+     *
+     * <p>
+     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
+     * by empty strings.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.join(null, *)               = null
+     * StringUtils.join([], *)                 = ""
+     * StringUtils.join([null], *)             = ""
+     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
+     * StringUtils.join([1, 2, 3], null) = "123"
+     * </pre>
+     *
+     * @param array the array of values to join together, may be null
+     * @param separator the separator String to use
+     * @return the joined String, {@code null} if null array input
+     * @since 3.2
+     */
     public static String join(final short[] array, final String separator) {
         return join(array, separator, 0, array.length);
     }
 
-    // TODO: JavaDoc
+    /**
+     * <p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
+     * </p>
+     *
+     * <p>
+     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
+     * by empty strings.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.join(null, *)               = null
+     * StringUtils.join([], *)                 = ""
+     * StringUtils.join([null], *)             = ""
+     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
+     * StringUtils.join([1, 2, 3], null) = "123"
+     * </pre>
+     *
+     * @param array the array of values to join together, may be null
+     * @param separator the separator String to use
+     * @return the joined String, {@code null} if null array input
+     * @since 3.2
+     */
     public static String join(final double[] array, final String separator) {
         return join(array, separator, 0, array.length);
     }
 
-    // TODO: JavaDoc
+    /**
+     * <p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
+     * </p>
+     *
+     * <p>
+     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
+     * by empty strings.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.join(null, *)               = null
+     * StringUtils.join([], *)                 = ""
+     * StringUtils.join([null], *)             = ""
+     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
+     * StringUtils.join([1, 2, 3], null) = "123"
+     * </pre>
+     *
+     * @param array the array of values to join together, may be null
+     * @param separator the separator String to use
+     * @return the joined String, {@code null} if null array input
+     * @since 3.2
+     */
     public static String join(final byte[] array, final String separator) {
         return join(array, separator, 0, array.length);
     }
