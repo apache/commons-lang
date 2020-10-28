@@ -3998,7 +3998,7 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final byte[] array, final char delimiter, final int startIndex, final int endIndex) {
-        return join(array,Character.toString(separator), startIndex, endIndex);
+        return join(array, Character.toString(separator), startIndex, endIndex);
     }
 
     /**
