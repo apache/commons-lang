@@ -3948,7 +3948,7 @@ public class StringUtils {
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
      * StringUtils.join([null], *)             = ""
-     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
+     * StringUtils.join([1, 2, 3], ';') = "1;2;3"
      * StringUtils.join([1, 2, 3], null) = "123"
      * </pre>
      *
