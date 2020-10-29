@@ -4030,7 +4030,7 @@ public class StringUtils {
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array
      * @return the joined String, {@code null} if null array input
-     * @since 3.2
+     * @since 3.12
      */
     public static String join(final byte[] array, final String separator, final int startIndex, final int endIndex) {
         if (array == null) {
@@ -4142,7 +4142,7 @@ public class StringUtils {
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array
      * @return the joined String, {@code null} if null array input
-     * @since 3.2
+     * @since 3.12
      */
     public static String join(final char[] array, final String separator, final int startIndex, final int endIndex) {
         if (array == null) {
@@ -4254,7 +4254,7 @@ public class StringUtils {
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array
      * @return the joined String, {@code null} if null array input
-     * @since 3.2
+     * @since 3.12
      */
     public static String join(final double[] array, final String separator, final int startIndex, final int endIndex) {
         if (array == null) {
@@ -4366,7 +4366,7 @@ public class StringUtils {
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array
      * @return the joined String, {@code null} if null array input
-     * @since 3.2
+     * @since 3.12
      */
     public static String join(final float[] array, final String separator, final int startIndex, final int endIndex) {
         if (array == null) {
@@ -4478,7 +4478,7 @@ public class StringUtils {
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array
      * @return the joined String, {@code null} if null array input
-     * @since 3.2
+     * @since 3.12
      */
     public static String join(final int[] array, final String separator, final int startIndex, final int endIndex) {
         if (array == null) {
@@ -4799,7 +4799,7 @@ public class StringUtils {
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array
      * @return the joined String, {@code null} if null array input
-     * @since 3.2
+     * @since 3.12
      */
     public static String join(final long[] array, final String separator, final int startIndex, final int endIndex) {
         if (array == null) {
@@ -5059,7 +5059,7 @@ public class StringUtils {
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array
      * @return the joined String, {@code null} if null array input
-     * @since 3.2
+     * @since 3.12
      */
     public static String join(final short[] array, final String separator, final int startIndex, final int endIndex) {
         if (array == null) {
@@ -5123,7 +5123,7 @@ public class StringUtils {
      * @param array the array of values to join together, may be null
      * @param separator the separator String to use
      * @return the joined String, {@code null} if null array input
-     * @since 3.2
+     * @since 3.12
      */
     public static String join(final char[] array, final String separator) {
         return join(array, separator, 0, array.length);
@@ -5150,7 +5150,7 @@ public class StringUtils {
      * @param array the array of values to join together, may be null
      * @param separator the separator String to use
      * @return the joined String, {@code null} if null array input
-     * @since 3.2
+     * @since 3.12
      */
     public static String join(final float[] array, final String separator) {
         return join(array, separator, 0, array.length);
@@ -5177,7 +5177,7 @@ public class StringUtils {
      * @param array the array of values to join together, may be null
      * @param separator the separator String to use
      * @return the joined String, {@code null} if null array input
-     * @since 3.2
+     * @since 3.12
      */
     public static String join(final long[] array, final String separator) {
         return join(array, separator, 0, array.length);
@@ -5204,7 +5204,7 @@ public class StringUtils {
      * @param array the array of values to join together, may be null
      * @param separator the separator String to use
      * @return the joined String, {@code null} if null array input
-     * @since 3.2
+     * @since 3.12
      */
     public static String join(final int[] array, final String separator) {
         return join(array, separator, 0, array.length);
@@ -5231,7 +5231,7 @@ public class StringUtils {
      * @param array the array of values to join together, may be null
      * @param separator the separator String to use
      * @return the joined String, {@code null} if null array input
-     * @since 3.2
+     * @since 3.12
      */
     public static String join(final short[] array, final String separator) {
         return join(array, separator, 0, array.length);
@@ -5258,7 +5258,7 @@ public class StringUtils {
      * @param array the array of values to join together, may be null
      * @param separator the separator String to use
      * @return the joined String, {@code null} if null array input
-     * @since 3.2
+     * @since 3.12
      */
     public static String join(final double[] array, final String separator) {
         return join(array, separator, 0, array.length);
@@ -5285,7 +5285,7 @@ public class StringUtils {
      * @param array the array of values to join together, may be null
      * @param separator the separator String to use
      * @return the joined String, {@code null} if null array input
-     * @since 3.2
+     * @since 3.12
      */
     public static String join(final byte[] array, final String separator) {
         return join(array, separator, 0, array.length);
