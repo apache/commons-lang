@@ -8135,7 +8135,7 @@ public class StringUtils {
     }
 
     private static boolean startsWithAny(final CharSequence sequence, final CharSequence[] searchStrings,
-                                         boolean ignoreCase) {
+                                         final boolean ignoreCase) {
         if (isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
             return false;
         }
