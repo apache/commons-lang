@@ -14,4 +14,4 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-Apache Commons security page is [https://commons.apache.org/security.html](https://commons.apache.org/security.html).
+The Apache Commons security page is [https://commons.apache.org/security.html](https://commons.apache.org/security.html).
