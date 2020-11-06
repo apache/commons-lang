@@ -59,7 +59,7 @@ The <action> type attribute can be add,update,fix,remove.
     <!--  UPDATES -->
     <action                   type="update" dev="chtompki">Bump junit-jupiter from 5.6.2 to 5.7.0.</action>
     <action                   type="update" dev="chtompki" due-to="chtompki, Dependabot">Bump spotbugs from 4.1.2 to 4.1.4, #627.</action>
-    <action                   type="update" dev="chtompki">Bump checkstyle from 8.36 to 8.36.2</action>
+    <action                   type="update" dev="chtompki" due-to="chtompki, Dependabot">Bump checkstyle from 8.36 to 8.37, #637.</action>
     <action issue="LANG-1606" type="update" dev="sebb" due-to="Rustem Galiev">StringUtils.countMatches - clarify Javadoc.</action>
     <action issue="LANG-1591" type="update" dev="kinow" due-to="bhawna94">Remove redundant argument from substring call.</action>
     <action issue="LANG-1579" type="update" dev="aherbert" due-to="XenoAmess">Improve StringUtils.stripAccents conversion of remaining accents.</action>
