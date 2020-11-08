@@ -207,11 +207,11 @@ public class FieldUtilsTest {
     @Test
     public void testGetFieldsWithAnnotation() throws NoSuchFieldException {
         assertArrayEquals(new Field[0], FieldUtils.getFieldsWithAnnotation(Object.class, Annotated.class));
-        final Field[] annotatedFields = new Field[]{
-                FieldUtilsTest.class.getDeclaredField("publicChild"),
-                FieldUtilsTest.class.getDeclaredField("privatelyShadowedChild")
-        };
-        assertArrayEquals(annotatedFields, FieldUtils.getFieldsWithAnnotation(FieldUtilsTest.class, Annotated.class));
+        final List<Field> fieldsWithAnnotation = Arrays.asList(FieldUtils.getFieldsWithAnnotation(FieldUtilsTest.class, Annotated.class));
+        assertTrue(fieldsWithAnnotation.size() == 2 &&
+                fieldsWithAnnotation.contains(FieldUtilsTest.class.getDeclaredField("publicChild")) &&
+                fieldsWithAnnotation.contains(FieldUtilsTest.class.getDeclaredField("privatelyShadowedChild"))
+        );
     }
 
     @Test
