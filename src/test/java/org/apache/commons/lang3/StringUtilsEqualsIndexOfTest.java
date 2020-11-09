@@ -375,6 +375,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(-1, StringUtils.indexOfAny("ab", 'z'));
         assertEquals(1, StringUtils.indexOfAny("aba", 1, "a"));
         assertEquals(-1, StringUtils.indexOfAny("aba", -1, "a"));
+        assertEquals(9, StringUtils.indexOfAny("abbbbbbbbbaba", 1, "a"));
 
     }
 
