@@ -424,6 +424,11 @@ public class TypeUtils {
             return true;
         }
 
+        //the component type should not be assignable to the array type
+        if (type instanceof GenericArrayType) {
+            return false;
+        }
+
         // only a null type can be assigned to null type which
         // would have cause the previous to return true
         if (toParameterizedType == null) {

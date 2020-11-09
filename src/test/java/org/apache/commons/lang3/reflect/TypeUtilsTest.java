@@ -470,6 +470,23 @@ public class TypeUtilsTest<B> {
         }
     }
 
+    @Test
+    public void isAssignableGenericArrayType(){
+
+        ParameterizedType componentType = TypeUtils.parameterize(java.lang.reflect.Constructor.class, java.awt.Insets.class);
+        Class c = componentType.getClass();
+
+        // class object associated with BaseClass
+        Class subClass = GenericArrayType.class;
+
+        // checks whether BaseClass is assignable from ClassDemo
+        assertFalse(subClass.isAssignableFrom(c));
+
+        GenericArrayType arrayType = TypeUtils.genericArrayType(componentType);
+        assertFalse(TypeUtils.isAssignable(arrayType, componentType));
+
+    }
+
     @SuppressWarnings("boxing") // boxing is deliberate here
     @Test
     public void testIsInstance() throws SecurityException, NoSuchFieldException {
@@ -480,6 +497,7 @@ public class TypeUtilsTest<B> {
         // uriComparable = 1;
         assertFalse(TypeUtils.isInstance(1, uriComparableType));
     }
+
 
     @Test
     public void testGetTypeArguments() {
