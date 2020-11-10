@@ -8038,10 +8038,10 @@ public class StringUtils {
      */
     public static String[] splitEvery( final String str, final int length ) {
         int interval = length;
-        if(str == null) {
+        if (str == null) {
             return null;
         }
-        if(interval < 1) {
+        if (interval < 1) {
             interval = str.length();
         }
         final int arrayLength = (int)Math.ceil( str.length() / (double)interval );
@@ -8049,7 +8049,7 @@ public class StringUtils {
 
         int j = 0;
         final int lastIndex = result.length - 1;
-        if(lastIndex >= 0) {
+        if (lastIndex >= 0) {
             for(int i = 0; i < lastIndex; i++) {
                 result[ i ] = str.substring( j, j + interval );
                 j += interval;
