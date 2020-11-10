@@ -8020,6 +8020,48 @@ public class StringUtils {
         return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
     }
 
+     /**
+     * Split a {@link String} into a {@code String []} of fixed-length elements.
+     *
+     * <pre>
+     * StringUtils.splitEvery("test1",10)             = ["test1"]
+     * StringUtils.splitEvery("test2", 4)             = ["test","2"]
+     * StringUtils.splitEvery("testAbgTestsABG", -2)  = ["testAbgTestsABG"]
+     * StringUtils.splitEvery("",10)                  = [""]
+     * StringUtils.splitEvery(null,4)                 = {@code null}
+     * StringUtils.splitEvery("testAbgTestsABG",2)    = ["te","st","Ab","gT","es","ts","AB","G"]
+     * </pre>
+     *
+     * @param str {@link String} to split into fixed length elements.
+     * @param length length of the elements into which the String will be divided.
+     * @return a {@code String []} of fixed-length elements.
+     */
+    public static String[] splitEvery( final String str, final int length ) {
+        int interval = length;
+        if( str == null ) {
+            return null;
+        }
+        if( interval < 1 ) {
+            interval = str.length();
+        }
+        final int arrayLength = ( int )Math.ceil( str.length() / ( double )interval );
+        String[] result = new String[ arrayLength ];
+
+        int j = 0;
+        final int lastIndex = result.length - 1;
+        if( lastIndex >= 0 ) {
+            for( int i = 0; i < lastIndex; i++ ) {
+                result[ i ] = str.substring( j, j + interval );
+                j += interval;
+            }
+            result[ lastIndex ] = str.substring( j );
+        } else {
+            result = new String[] { EMPTY };
+        }
+
+        return result;
+    }
+
     /**
      * <p>Check if a CharSequence starts with a specified prefix.</p>
      *
