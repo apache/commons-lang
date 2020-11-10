@@ -8044,13 +8044,13 @@ public class StringUtils {
         if (interval < 1) {
             interval = str.length();
         }
-        final int arrayLength = (int)Math.ceil( str.length() / (double)interval );
+        final int arrayLength = (int) Math.ceil( str.length() / (double) interval );
         String[] result = new String[ arrayLength ];
 
         int j = 0;
         final int lastIndex = result.length - 1;
         if (lastIndex >= 0) {
-            for(int i = 0; i < lastIndex; i++) {
+            for (int i = 0; i < lastIndex; i++) {
                 result[ i ] = str.substring( j, j + interval );
                 j += interval;
             }
