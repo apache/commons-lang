@@ -16,17 +16,18 @@
  */
 package org.apache.commons.lang3.time;
 
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.concurrent.TimeUnit;
-
-import org.apache.commons.lang3.reflect.FieldUtils;
-import org.junit.jupiter.api.Test;
 
 /**
  * TestCase for StopWatch.
@@ -411,4 +412,81 @@ public class StopWatchTest {
         final String splitStr = watch.toString();
         assertEquals(splitStr.length(), 12 + MESSAGE.length() + 1, "Formatted split string not the correct length");
     }
+
+    @Test
+    public void testSplitsWithLabel() throws InterruptedException {
+        final StopWatch watch = new StopWatch();
+
+        watch.start();
+        Thread.sleep(50);
+
+        watch.split("zero");
+        Thread.sleep(400);
+
+        watch.split("one");
+        Thread.sleep(200);
+
+        watch.split("two");
+        Thread.sleep(100);
+
+        List<StopWatch.Split> splits = watch.getProcessedSplits();
+
+        // check sizes
+        assertEquals(splits.size(), 3);
+
+        // check labels
+        assertEquals(splits.get(0).getLabel(), "zero");
+        assertEquals(splits.get(1).getLabel(), "one");
+        assertEquals(splits.get(2).getLabel(), "two");
+
+        // check duration
+        final int margin = 20;
+        assertTrue(splits.get(0).getDuration() >= 400 && splits.get(0).getDuration() < 400 + margin);
+        assertTrue(splits.get(1).getDuration() >= 200 && splits.get(1).getDuration() < 200 + margin);
+        assertTrue(splits.get(2).getDuration() >= 100 && splits.get(2).getDuration() < 100 + margin);
+
+        // check report
+        String report = watch.getReport();
+        String updatedReport = report.replaceAll("4\\d\\d", "4**").replaceAll("2\\d\\d", "2**").replaceAll("1\\d\\d", "1**");
+
+        assertEquals(
+            "\nzero 00:00:00.4**" +
+            "\none 00:00:00.2**" +
+            "\ntwo 00:00:00.1**",
+            updatedReport
+        );
+    }
+
+    @Test
+    public void testNanoSplitsWithLabel() throws InterruptedException {
+        final StopWatch watch = StopWatch.createStarted();
+
+        watch.split("coding");
+        Thread.sleep(100);
+
+        watch.split("eating");
+        Thread.sleep(200);
+
+        List<StopWatch.Split> splits = watch.getNanoProcessedSplits();
+
+        // check sizes
+        assertEquals(splits.size(), 2);
+
+        // check duration
+        final int margin = 20000000;
+        assertTrue(splits.get(0).getDuration() >= 100000000 && splits.get(0).getDuration() < 100000000 + margin);
+        assertTrue(splits.get(1).getDuration() >= 200000000 && splits.get(1).getDuration() < 200000000 + margin);
+
+        // check report
+        String report = watch.getNanoReport();
+        System.out.println(report);
+        String updatedReport = report.replaceAll(" 10\\d+", " 10*******").replaceAll(" 20\\d+", " 20*******");
+
+        assertEquals(
+            "\ncoding 10*******" +
+            "\neating 20*******",
+            updatedReport
+        );
+    }
+
 }

@@ -17,7 +17,11 @@
 
 package org.apache.commons.lang3.time;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
@@ -220,6 +224,11 @@ public class StopWatch {
      * The stop time.
      */
     private long stopTime;
+
+    /**
+     * The list of splits
+     */
+    private List<Split> splits = new ArrayList<>();
 
     /**
      * <p>
@@ -475,10 +484,65 @@ public class StopWatch {
      */
     public void split() {
         if (this.runningState != State.RUNNING) {
-            throw new IllegalStateException("Stopwatch is not running. ");
+            throw new IllegalStateException("Stopwatch is not running.");
         }
         this.stopTime = System.nanoTime();
         this.splitState = SplitState.SPLIT;
+    }
+
+    /**
+     * <p>
+     * Splits the time to track the elapsed time between two consecutive {@code split()} calls.
+     * The label specified is used to identify each split
+     * </p>
+     *
+     * <p>
+     * After calling {@link #stop()}, we can call {@link #getReport()} to have a report with all time between each {@code split()} call, example:
+     * </p>
+     *
+     * <pre>
+     * 1 00:14:00.000
+     * 2 00:02:00.000
+     * 3 00:04:00.000
+     * </pre>
+     *
+     * @param label A number to identify this split
+     *
+     * @throws IllegalStateException
+     *             if the StopWatch is not running.
+     * @since 3.10
+     */
+    public void split(int label) {
+        split(String.valueOf(label));
+    }
+
+    /**
+     * <p>
+     * Splits the time to track the elapsed time between two consecutive {@code split()} calls.
+     * The label specified is used to identify each split
+     * </p>
+     *
+     * <p>
+     * After calling {@link #stop()}, we can call {@link #getReport()} to have a report with all time between each {@code split()} call, example:
+     * </p>
+     *
+     * <pre>
+     * Baking cookies  00:14:00.000
+     * Serving         00:02:00.000
+     * Eating          00:04:00.000
+     * </pre>
+     *
+     * @param label A message for string presentation.
+     *
+     * @throws IllegalStateException
+     *             if the StopWatch is not running.
+     * @since 3.10
+     */
+    public void split(String label) {
+        if (this.runningState != State.RUNNING) {
+            throw new IllegalStateException("Stopwatch is not running.");
+        }
+        splits.add(new Split(label));
     }
 
     /**
@@ -503,6 +567,7 @@ public class StopWatch {
         this.startTime = System.nanoTime();
         this.startTimeMillis = System.currentTimeMillis();
         this.runningState = State.RUNNING;
+        this.splits = new ArrayList<>();
     }
 
     /**
@@ -519,12 +584,22 @@ public class StopWatch {
      */
     public void stop() {
         if (this.runningState != State.RUNNING && this.runningState != State.SUSPENDED) {
-            throw new IllegalStateException("Stopwatch is not running. ");
+            throw new IllegalStateException("Stopwatch is not running.");
         }
         if (this.runningState == State.RUNNING) {
             this.stopTime = System.nanoTime();
+            split(StringUtils.EMPTY);
         }
         this.runningState = State.STOPPED;
+    }
+
+    /**
+     * Stops the watch if necessary
+     */
+    private void stopIfNecessary() {
+        if (this.runningState == State.RUNNING || this.runningState == State.SUSPENDED) {
+            stop();
+        }
     }
 
     /**
@@ -604,6 +679,180 @@ public class StopWatch {
             throw new IllegalStateException("Stopwatch has not been split. ");
         }
         this.splitState = SplitState.UNSPLIT;
+    }
+
+    /**
+     * Stops the watch and returns the list of splits with duration on each split (using milliseconds)
+     * @return list of splits
+     */
+    public List<Split> getProcessedSplits() {
+        return getProcessedSplits(TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Stops the watch and returns the list of splits with duration on each split (using nanoseconds)
+     * @return list of splits
+     */
+    public List<Split> getNanoProcessedSplits() {
+        return getProcessedSplits(TimeUnit.NANOSECONDS);
+    }
+
+    /**
+     * Stops the watch and returns the list of splits with duration on each split
+     *
+     * @param timeUnit the unit of time, not null. Any value will calculate with milliseconds precision unless
+     * {@code TimeUnit.NANOSECONDS} is specified.
+     * @return list of splits
+     */
+    public List<Split> getProcessedSplits(TimeUnit timeUnit) {
+        stopIfNecessary();
+        processSplits(timeUnit);
+        final List<Split> result = new ArrayList<>(splits);
+
+        // we remove the last split because its an internal and automatic split
+        result.remove(result.size() - 1);
+
+        return result;
+    }
+
+    /**
+     * Fill durations (time took) on each split
+     *
+     * @param timeUnit the unit of time, not null. Any value will calculate with milliseconds precision unless
+     * {@code TimeUnit.NANOSECONDS} is specified.
+     */
+    private void processSplits(TimeUnit timeUnit) {
+        // we need at least 2 splits to calculate the elapsed time
+        if (splits.size() < 2) {
+            return;
+        }
+
+        for (int i = 0; i < splits.size() - 1; i++) {
+            final Duration duration = Duration.between(splits.get(i).getStartTime(), splits.get(i+1).getStartTime());
+            splits.get(i).setDuration(timeUnit == TimeUnit.NANOSECONDS ? duration.toNanos() : duration.toMillis());
+        }
+
+    }
+
+    /**
+     * <p>
+     * Stops the watch and returns the splits report.
+     * This report contains the elapsed time (on milliseconds) between each split
+     * </p>
+     *
+     * @return the splits report
+     */
+    public String getReport() {
+        return getReport(TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * <p>
+     * Stops the watch and returns the splits report.
+     * This report contains the elapsed time (on nanoseconds) between each split
+     * </p>
+     *
+     * @return the splits report
+     */
+    public String getNanoReport() {
+        return getReport(TimeUnit.NANOSECONDS);
+    }
+
+    /**
+     * <p>
+     * Stops the watch and returns the splits report.
+     * This report contains the elapsed time between each split
+     * </p>
+     *
+     * @param timeUnit the unit of time, not null. Any value will calculate with milliseconds precision unless
+     * {@code TimeUnit.NANOSECONDS} is specified.
+     * @return the splits report
+     */
+    private String getReport(TimeUnit timeUnit) {
+        final StringBuilder report = new StringBuilder();
+
+        String duration;
+        for (final Split split : getProcessedSplits(timeUnit)) {
+            report.append(System.lineSeparator());
+            report.append(split.getLabel()).append(StringUtils.SPACE);
+
+            if (timeUnit == TimeUnit.NANOSECONDS) {
+                duration = String.valueOf(split.getDuration());
+            } else {
+                duration = DurationFormatUtils.formatDurationHMS(split.getDuration());
+            }
+
+            report.append(duration);
+        }
+
+        return report.toString();
+    }
+
+    /**
+     * Class to store details of each split
+     */
+    public static class Split {
+
+        /**
+         * The start time of this split
+         */
+        private Instant startTime = Instant.now();
+
+        /**
+         * The duration (time took) on this split
+         * This field is filled when user calls getSplits() or tries to print the splits report
+         */
+        private long duration;
+
+        /*
+         * The label for this split
+         */
+        private String label;
+
+        /**
+         * @param label Label for this split
+         */
+        public Split(String label) {
+            this.label = label;
+        }
+
+        /**
+         * <p>
+         * Get the timestamp when this split was created
+         * </p>
+         *
+         * @return startTime
+         */
+        public Instant getStartTime() {
+            return startTime;
+        }
+
+        /**
+         * <p>
+         * Get the label of this split
+         * </p>
+         *
+         * @return label
+         */
+        public String getLabel() {
+            return label;
+        }
+
+        /**
+         * Duration of this split
+         * @return duration (time on ms or nano)
+         */
+        public long getDuration() {
+            return duration;
+        }
+
+        /**
+         * Set the duration of this split
+         * @param duration time (on ms or nano)
+         */
+        private void setDuration(long duration) {
+            this.duration = duration;
+        }
     }
 
 }
