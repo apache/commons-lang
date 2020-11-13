@@ -30,6 +30,8 @@ import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.function.ToBooleanBiFunction;
+
 /**
  * <p>Operations on {@link java.lang.String} that are
  * {@code null} safe.</p>
@@ -184,8 +186,6 @@ public class StringUtils {
      */
     private static final Pattern STRIP_ACCENTS_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+"); //$NON-NLS-1$
 
-    // Abbreviating
-    //-----------------------------------------------------------------------
     /**
      * <p>Abbreviates a String using ellipses. This will turn
      * "Now is the time for all good men" into "Now is the time for..."</p>
@@ -559,8 +559,6 @@ public class StringUtils {
         return new String(newCodePoints, 0, outOffset);
     }
 
-    // Centering
-    //-----------------------------------------------------------------------
     /**
      * <p>Centers a String in a larger String of size {@code size}
      * using the space character (' ').</p>
@@ -669,8 +667,6 @@ public class StringUtils {
         return str;
     }
 
-    // Chomping
-    //-----------------------------------------------------------------------
     /**
      * <p>Removes one newline from end of a String if it's there,
      * otherwise leave it alone.  A newline is &quot;{@code \n}&quot;,
@@ -754,8 +750,6 @@ public class StringUtils {
         return removeEnd(str, separator);
     }
 
-    // Chopping
-    //-----------------------------------------------------------------------
     /**
      * <p>Remove the last character from a String.</p>
      *
@@ -796,8 +790,6 @@ public class StringUtils {
         return ret;
     }
 
-    // Compare
-    //-----------------------------------------------------------------------
     /**
      * <p>Compare two Strings lexicographically, as per {@link String#compareTo(String)}, returning :</p>
      * <ul>
@@ -1003,8 +995,6 @@ public class StringUtils {
         return CharSequenceUtils.indexOf(seq, searchSeq, 0) >= 0;
     }
 
-    // Contains
-    //-----------------------------------------------------------------------
     /**
      * <p>Checks if CharSequence contains a search character, handling {@code null}.
      * This method uses {@link String#indexOf(int)} if possible.</p>
@@ -1032,8 +1022,6 @@ public class StringUtils {
         return CharSequenceUtils.indexOf(seq, searchChar, 0) >= 0;
     }
 
-    // ContainsAny
-    //-----------------------------------------------------------------------
     /**
      * <p>Checks if the CharSequence contains any character in the given
      * set of characters.</p>
@@ -1128,11 +1116,13 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if the CharSequence contains any of the CharSequences in the given array.</p>
+     * <p>
+     * Checks if the CharSequence contains any of the CharSequences in the given array.
+     * </p>
      *
      * <p>
-     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero
-     * length search array will return {@code false}.
+     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
+     * return {@code false}.
      * </p>
      *
      * <pre>
@@ -1147,17 +1137,71 @@ public class StringUtils {
      *
      *
      * @param cs The CharSequence to check, may be null
-     * @param searchCharSequences The array of CharSequences to search for, may be null.
-     * Individual CharSequences may be null as well.
+     * @param searchCharSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
+     *        null as well.
      * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
      * @since 3.4
      */
     public static boolean containsAny(final CharSequence cs, final CharSequence... searchCharSequences) {
+        return containsAny(StringUtils::contains, cs, searchCharSequences);
+    }
+
+    /**
+     * <p>
+     * Checks if the CharSequence contains any of the CharSequences in the given array, ignoring case.
+     * </p>
+     *
+     * <p>
+     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
+     * return {@code false}.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.containsAny(null, *)            = false
+     * StringUtils.containsAny("", *)              = false
+     * StringUtils.containsAny(*, null)            = false
+     * StringUtils.containsAny(*, [])              = false
+     * StringUtils.containsAny("abcd", "ab", null) = true
+     * StringUtils.containsAny("abcd", "ab", "cd") = true
+     * StringUtils.containsAny("abc", "d", "abc")  = true
+     * StringUtils.containsAny("abc", "D", "ABC")  = true
+     * StringUtils.containsAny("ABC", "d", "abc")  = true
+     * </pre>
+     *
+     *
+     * @param cs The CharSequence to check, may be null
+     * @param searchCharSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
+     *        null as well.
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
+     * @since 3.12
+     */
+    public static boolean containsAnyIgnoreCase(final CharSequence cs, final CharSequence... searchCharSequences) {
+        return containsAny(StringUtils::containsIgnoreCase, cs, searchCharSequences);
+    }
+
+    /**
+     * <p>
+     * Checks if the CharSequence contains any of the CharSequences in the given array.
+     * </p>
+     *
+     * <p>
+     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
+     * return {@code false}.
+     * </p>
+     *
+     * @param cs The CharSequence to check, may be null
+     * @param searchCharSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
+     *        null as well.
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
+     * @since 3.12
+     */
+    private static boolean containsAny(final ToBooleanBiFunction<CharSequence, CharSequence> test,
+        final CharSequence cs, final CharSequence... searchCharSequences) {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchCharSequences)) {
             return false;
         }
         for (final CharSequence searchCharSequence : searchCharSequences) {
-            if (contains(cs, searchCharSequence)) {
+            if (test.applyAsBoolean(cs, searchCharSequence)) {
                 return true;
             }
         }
@@ -1202,8 +1246,6 @@ public class StringUtils {
         return false;
     }
 
-    // ContainsNone
-    //-----------------------------------------------------------------------
     /**
      * <p>Checks that the CharSequence does not contain certain characters.</p>
      *
@@ -1287,8 +1329,6 @@ public class StringUtils {
         return containsNone(cs, invalidChars.toCharArray());
     }
 
-    // ContainsOnly
-    //-----------------------------------------------------------------------
     /**
      * <p>Checks if the CharSequence contains only certain characters.</p>
      *
@@ -1422,8 +1462,6 @@ public class StringUtils {
         return count;
     }
 
-    // Count matches
-    //-----------------------------------------------------------------------
     /**
      * <p>Counts how many times the substring appears in the larger string.
      * Note that the code only counts non-overlapping matches.</p>
@@ -1546,8 +1584,6 @@ public class StringUtils {
         return str == null ? defaultStr : str;
     }
 
-    // Delete
-    //-----------------------------------------------------------------------
     /**
      * <p>Deletes all whitespaces from a String as defined by
      * {@link Character#isWhitespace(char)}.</p>
@@ -1580,8 +1616,6 @@ public class StringUtils {
         return new String(chs, 0, count);
     }
 
-    // Difference
-    //-----------------------------------------------------------------------
     /**
      * <p>Compares two Strings, and returns the portion where they differ.
      * More precisely, return the remainder of the second String,
@@ -1734,8 +1768,6 @@ public class StringUtils {
         return endsWith(str, suffix, true);
     }
 
-    // Equals
-    //-----------------------------------------------------------------------
     /**
      * <p>Compares two CharSequences, returning {@code true} if they represent
      * equal sequences of characters.</p>
@@ -2257,8 +2289,6 @@ public class StringUtils {
         return Math.round(jw * 100.0D) / 100.0D;
     }
 
-    // Misc
-    //-----------------------------------------------------------------------
     /**
      * <p>Find the Levenshtein distance between two Strings.</p>
      *
@@ -2588,8 +2618,6 @@ public class StringUtils {
         return CharSequenceUtils.indexOf(seq, searchSeq, startPos);
     }
 
-    // IndexOf
-    //-----------------------------------------------------------------------
     /**
      * Returns the index within {@code seq} of the first occurrence of
      * the specified character. If a character with value
@@ -2694,8 +2722,6 @@ public class StringUtils {
         return CharSequenceUtils.indexOf(seq, searchChar, startPos);
     }
 
-    // IndexOfAny chars
-    //-----------------------------------------------------------------------
     /**
      * <p>Search a CharSequence to find the first index of any
      * character in the given set of characters.</p>
@@ -2745,8 +2771,6 @@ public class StringUtils {
         return INDEX_NOT_FOUND;
     }
 
-    // IndexOfAny strings
-    //-----------------------------------------------------------------------
     /**
      * <p>Find the first index of any of a set of potential substrings.</p>
      *
@@ -2830,41 +2854,6 @@ public class StringUtils {
         return indexOfAny(cs, searchChars.toCharArray());
     }
 
-    /**
-     * <p>Search a CharSequence to find the first index of any
-     * character in the given set of characters starting with
-     * a given index.</p>
-     *
-     * <p>A {@code null} String will return {@code -1}.
-     * A {@code null} search string will return {@code -1}.</p>
-     *
-     * <pre>
-     * StringUtils.indexOfAny(null, 0, *)            = -1
-     * StringUtils.indexOfAny("", 0, *)              = -1
-     * StringUtils.indexOfAny(*, 0, null)            = -1
-     * StringUtils.indexOfAny(*, 0, "")              = -1
-     * StringUtils.indexOfAny("zzabyycdxx", 0, "za") = 0
-     * StringUtils.indexOfAny("zzabyycdxx", 0, "by") = 3
-     * StringUtils.indexOfAny("aba", 0, "z")         = -1
-     * StringUtils.indexOfAny("aba", 1, "a")         = 1
-     * StringUtils.indexOfAny("aba", -1, "a")        = -1
-     * </pre>
-     *
-     * @param cs  the CharSequence to check, may be null
-     * @param beginIndex  the start position to search
-     * @param searchChars  the chars to search for, may be null
-     * @return the index of any of the chars, -1 if no match,null input or  the beginIndex smaller than 0
-     * @since 3.2
-     */
-    public static int indexOfAny(final CharSequence cs, int beginIndex, final String searchChars) {
-        if (isEmpty(cs) || isEmpty(searchChars) || beginIndex < 0) {
-            return INDEX_NOT_FOUND;
-        }
-        return indexOfAny(cs.toString().substring(beginIndex), searchChars.toCharArray());
-    }
-
-    // IndexOfAnyBut chars
-    //-----------------------------------------------------------------------
     /**
      * <p>Searches a CharSequence to find the first index of any
      * character not in the given set of characters.</p>
@@ -3312,8 +3301,6 @@ public class StringUtils {
         return true;
     }
 
-    // Character Tests
-    //-----------------------------------------------------------------------
     /**
      * <p>Checks if the CharSequence contains only Unicode letters.</p>
      *
@@ -3558,9 +3545,6 @@ public class StringUtils {
         return true;
     }
 
-    // Nested extraction
-    //-----------------------------------------------------------------------
-
     /**
      * <p>Checks if a CharSequence is empty (""), null or whitespace only.</p>
      *
@@ -3592,8 +3576,6 @@ public class StringUtils {
         return true;
     }
 
-    // Empty checks
-    //-----------------------------------------------------------------------
     /**
      * <p>Checks if a CharSequence is empty ("") or null.</p>
      *
@@ -4810,9 +4792,6 @@ public class StringUtils {
         return buf.toString();
     }
 
-
-    // Joining
-    //-----------------------------------------------------------------------
     /**
      * <p>Joins the elements of the provided array into a single String
      * containing the provided list of elements.</p>
@@ -4954,8 +4933,6 @@ public class StringUtils {
         return CharSequenceUtils.lastIndexOf(seq, searchSeq, startPos);
     }
 
-    // LastIndexOf
-    //-----------------------------------------------------------------------
     /**
      * Returns the index within {@code seq} of the last occurrence of
      * the specified character. For values of {@code searchChar} in the
@@ -5214,8 +5191,6 @@ public class StringUtils {
         return ordinalIndexOf(str, searchStr, ordinal, true);
     }
 
-    // Left/Right/Mid
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets the leftmost {@code len} characters of a String.</p>
      *
@@ -5693,8 +5668,6 @@ public class StringUtils {
         return index;
     }
 
-    // Overlay
-    //-----------------------------------------------------------------------
     /**
      * <p>Overlays part of a String with another String.</p>
      *
@@ -6164,8 +6137,6 @@ public class StringUtils {
         return RegExUtils.removePattern(source, regex);
     }
 
-    // Remove
-    //-----------------------------------------------------------------------
     /**
      * <p>Removes a substring only if it is at the beginning of a source string,
      * otherwise returns the source string.</p>
@@ -6268,8 +6239,6 @@ public class StringUtils {
         return new String(buf);
     }
 
-    // Padding
-    //-----------------------------------------------------------------------
     /**
      * <p>Repeat a String {@code repeat} times to form a
      * new String.</p>
@@ -6326,9 +6295,6 @@ public class StringUtils {
                 return buf.toString();
         }
     }
-
-    // Conversion
-    //-----------------------------------------------------------------------
 
     /**
      * <p>Repeat a String {@code repeat} times to form a
@@ -6532,8 +6498,6 @@ public class StringUtils {
         return RegExUtils.replaceAll(text, regex, replacement);
     }
 
-    // Replace, character based
-    //-----------------------------------------------------------------------
     /**
      * <p>Replaces all occurrences of a character in a String with another.
      * This is a null-safe version of {@link String#replace(char, char)}.</p>
@@ -7012,8 +6976,6 @@ public class StringUtils {
         return replace(text, searchString, replacement, max, true);
     }
 
-    // Replacing
-    //-----------------------------------------------------------------------
     /**
      * <p>Replaces a String with another String inside a larger String, once.</p>
      *
@@ -7116,8 +7078,6 @@ public class StringUtils {
         return RegExUtils.replacePattern(source, regex, replacement);
     }
 
-    // Reversing
-    //-----------------------------------------------------------------------
     /**
      * <p>Reverses a String as per {@link StringBuilder#reverse()}.</p>
      *
@@ -7314,8 +7274,6 @@ public class StringUtils {
         }
     }
 
-    // Rotating (circular shift)
-    //-----------------------------------------------------------------------
     /**
      * <p>Rotate (circular shift) a String of {@code shift} characters.</p>
      * <ul>
@@ -7359,8 +7317,6 @@ public class StringUtils {
         return builder.toString();
     }
 
-    // Splitting
-    //-----------------------------------------------------------------------
     /**
      * <p>Splits the provided text into an array, using whitespace as the
      * separator.
@@ -8171,8 +8127,6 @@ public class StringUtils {
         return startsWith(str, prefix, true);
     }
 
-    // Stripping
-    //-----------------------------------------------------------------------
     /**
      * <p>Strips whitespace from the start and end of a String.</p>
      *
@@ -8261,8 +8215,6 @@ public class StringUtils {
         return STRIP_ACCENTS_PATTERN.matcher(decomposed).replaceAll(EMPTY);
     }
 
-    // StripAll
-    //-----------------------------------------------------------------------
     /**
      * <p>Strips whitespace from the start and end of every String in an array.
      * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
@@ -8469,8 +8421,6 @@ public class StringUtils {
         return str.isEmpty() ? null : str; // NOSONARLINT str cannot be null here
     }
 
-    // Substring
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets a substring from the specified String avoiding exceptions.</p>
      *
@@ -8661,9 +8611,6 @@ public class StringUtils {
         return str.substring(pos + separator.length());
     }
 
-    // startsWith
-    //-----------------------------------------------------------------------
-
     /**
      * <p>Gets the substring after the last occurrence of a separator.
      * The separator is not returned.</p>
@@ -8744,8 +8691,6 @@ public class StringUtils {
         return str.substring(pos + separator.length());
     }
 
-    // SubStringAfter/SubStringBefore
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets the substring before the first occurrence of a separator.
      * The separator is not returned.</p>
@@ -8825,8 +8770,6 @@ public class StringUtils {
         return str.substring(0, pos);
     }
 
-    // Substring between
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets the String that is nested in between two instances of the
      * same String.</p>
@@ -8851,9 +8794,6 @@ public class StringUtils {
     public static String substringBetween(final String str, final String tag) {
         return substringBetween(str, tag, tag);
     }
-
-    // endsWith
-    //-----------------------------------------------------------------------
 
     /**
      * <p>Gets the String that is nested in between two Strings.
@@ -9093,8 +9033,6 @@ public class StringUtils {
         return charsetName != null ? new String(bytes, charsetName) : new String(bytes, Charset.defaultCharset());
     }
 
-    // Trim
-    //-----------------------------------------------------------------------
     /**
      * <p>Removes control characters (char &lt;= 32) from both
      * ends of this String, handling {@code null} by returning
@@ -9421,8 +9359,6 @@ public class StringUtils {
         return str;
     }
 
-    // Case conversion
-    //-----------------------------------------------------------------------
     /**
      * <p>Converts a String to upper case as per {@link String#toUpperCase()}.</p>
      *
