@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,10 +20,10 @@ package org.apache.commons.lang3.builder;
 import org.apache.commons.lang3.ClassUtils;
 
 /**
- * <p>Works with {@link ToStringBuilder} to create a "deep" <code>toString</code>.
- * But instead a single line like the {@link RecursiveToStringStyle} this creates a multiline String 
+ * <p>Works with {@link ToStringBuilder} to create a "deep" {@code toString}.
+ * But instead a single line like the {@link RecursiveToStringStyle} this creates a multiline String
  * similar to the {@link ToStringStyle#MULTI_LINE_STYLE}.</p>
- * 
+ *
  * <p>To use this class write code as follows:</p>
  *
  * <pre>
@@ -31,15 +31,15 @@ import org.apache.commons.lang3.ClassUtils;
  *   String title;
  *   ...
  * }
- * 
+ *
  * public class Person {
  *   String name;
  *   int age;
  *   boolean smoker;
  *   Job job;
- * 
+ *
  *   ...
- * 
+ *
  *   public String toString() {
  *     return new ReflectionToStringBuilder(this, new MultilineRecursiveToStringStyle()).toString();
  *   }
@@ -58,7 +58,7 @@ import org.apache.commons.lang3.ClassUtils;
  * ]
  * </code>
  * </p>
- * 
+ *
  * @since 3.4
  */
 public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
@@ -84,7 +84,7 @@ public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
     }
 
     /**
-     * Resets the fields responsible for the line breaks and indenting. 
+     * Resets the fields responsible for the line breaks and indenting.
      * Must be invoked after changing the {@link #spaces} value.
      */
     private void resetIndent() {
@@ -99,7 +99,7 @@ public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
 
     /**
      * Creates a StringBuilder responsible for the indenting.
-     * 
+     *
      * @param spaces how far to indent
      * @return a StringBuilder with {spaces} leading space characters.
      */
@@ -138,7 +138,7 @@ public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
     protected void reflectionAppendArrayDetail(final StringBuffer buffer, final String fieldName, final Object array) {
         spaces += INDENT;
         resetIndent();
-        super.appendDetail(buffer, fieldName, array);
+        super.reflectionAppendArrayDetail(buffer, fieldName, array);
         spaces -= INDENT;
         resetIndent();
     }

@@ -1,4 +1,19 @@
-$Id: RELEASE-NOTES.txt 137634 2003-08-19 02:39:59Z bayard $
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+=============================================================================
 
                         Commons Lang Package
                             Version 2.0
@@ -132,7 +147,7 @@ ID Sev Pri Plt Owner State Result Summary
 16284  MethodUtils: Removed unused code/unused local vars.  
 16341  No Javadoc for NestableDelegate  
 16622  Removed compile warning in FastDateFormat  
-16669  JavaDoc Errata  
+16669  Javadoc Errata  
 16676  StackOverflow due to ToStringBuilder  
 16689  ExceptionUtils new methods.  
 16690  Specify initial size for Enum's HashMap.  

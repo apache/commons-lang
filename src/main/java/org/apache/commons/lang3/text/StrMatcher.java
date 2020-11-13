@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,8 +29,8 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @since 2.2
  * @deprecated as of 3.6, use commons-text
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StrMatcher.html">
- * StrMatcher</a> instead
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StringMatcherFactory.html">
+ * StringMatcherFactory</a> instead
  */
 @Deprecated
 public abstract class StrMatcher {
@@ -224,16 +224,16 @@ public abstract class StrMatcher {
      * Returns the number of matching characters, zero for no match.
      * <p>
      * This method is called to check for a match.
-     * The parameter <code>pos</code> represents the current position to be
-     * checked in the string <code>buffer</code> (a character array which must
+     * The parameter {@code pos} represents the current position to be
+     * checked in the string {@code buffer} (a character array which must
      * not be changed).
-     * The API guarantees that <code>pos</code> is a valid index for <code>buffer</code>.
+     * The API guarantees that {@code pos} is a valid index for {@code buffer}.
      * <p>
      * The character array may be larger than the active area to be matched.
      * Only values in the buffer between the specified indices may be accessed.
      * <p>
      * The matching code may check one character or many.
-     * It may check characters preceding <code>pos</code> as well as those
+     * It may check characters preceding {@code pos} as well as those
      * after, so long as no checks exceed the bounds specified.
      * <p>
      * It must return zero for no match, or a positive number if a match was found.
@@ -251,13 +251,13 @@ public abstract class StrMatcher {
      * Returns the number of matching characters, zero for no match.
      * <p>
      * This method is called to check for a match.
-     * The parameter <code>pos</code> represents the current position to be
-     * checked in the string <code>buffer</code> (a character array which must
+     * The parameter {@code pos} represents the current position to be
+     * checked in the string {@code buffer} (a character array which must
      * not be changed).
-     * The API guarantees that <code>pos</code> is a valid index for <code>buffer</code>.
+     * The API guarantees that {@code pos} is a valid index for {@code buffer}.
      * <p>
      * The matching code may check one character or many.
-     * It may check characters preceding <code>pos</code> as well as those after.
+     * It may check characters preceding {@code pos} as well as those after.
      * <p>
      * It must return zero for no match, or a positive number if a match was found.
      * The number indicates the number of characters that matched.
@@ -284,7 +284,7 @@ public abstract class StrMatcher {
          *
          * @param chars  the characters to match, must not be null
          */
-        CharSetMatcher(final char chars[]) {
+        CharSetMatcher(final char[] chars) {
             super();
             this.chars = chars.clone();
             Arrays.sort(this.chars);
@@ -378,7 +378,7 @@ public abstract class StrMatcher {
             }
             return len;
         }
-        
+
         @Override
         public String toString() {
             return super.toString() + ' ' + Arrays.toString(chars);
@@ -393,14 +393,14 @@ public abstract class StrMatcher {
     static final class NoMatcher extends StrMatcher {
 
         /**
-         * Constructs a new instance of <code>NoMatcher</code>.
+         * Constructs a new instance of {@code NoMatcher}.
          */
         NoMatcher() {
             super();
         }
 
         /**
-         * Always returns <code>false</code>.
+         * Always returns {@code false}.
          *
          * @param buffer  the text content to match against, do not change
          * @param pos  the starting position for the match, valid for buffer
@@ -421,7 +421,7 @@ public abstract class StrMatcher {
     static final class TrimMatcher extends StrMatcher {
 
         /**
-         * Constructs a new instance of <code>TrimMatcher</code>.
+         * Constructs a new instance of {@code TrimMatcher}.
          */
         TrimMatcher() {
             super();

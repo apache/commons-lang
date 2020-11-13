@@ -25,4 +25,10 @@ public class GenericParent<T> implements GenericConsumer<T> {
     public void consume(final T t) {
     }
 
+    @Annotated
+    protected void parentProtectedAnnotatedMethod(final T t) {
+    }
+
+    public void parentNotAnnotatedMethod(final T t) {
+    }
 }

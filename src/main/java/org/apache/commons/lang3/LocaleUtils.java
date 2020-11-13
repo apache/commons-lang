@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,18 +31,18 @@ import java.util.concurrent.ConcurrentMap;
  *
  * <p>This class tries to handle {@code null} input gracefully.
  * An exception will not be thrown for a {@code null} input.
- * Each method documents its behaviour in more detail.</p>
+ * Each method documents its behavior in more detail.</p>
  *
  * @since 2.2
  */
 public class LocaleUtils {
 
     /** Concurrent map of language locales by country. */
-    private static final ConcurrentMap<String, List<Locale>> cLanguagesByCountry = 
+    private static final ConcurrentMap<String, List<Locale>> cLanguagesByCountry =
         new ConcurrentHashMap<>();
 
     /** Concurrent map of country locales by language. */
-    private static final ConcurrentMap<String, List<Locale>> cCountriesByLanguage = 
+    private static final ConcurrentMap<String, List<Locale>> cCountriesByLanguage =
         new ConcurrentHashMap<>();
 
     /**
@@ -71,7 +71,7 @@ public class LocaleUtils {
      *   LocaleUtils.toLocale("en_GB_xxx")  = new Locale("en", "GB", "xxx")   (#)
      * </pre>
      *
-     * <p>(#) The behaviour of the JDK variant constructor changed between JDK1.3 and JDK1.4.
+     * <p>(#) The behavior of the JDK variant constructor changed between JDK1.3 and JDK1.4.
      * In JDK1.3, the constructor upper cases the variant, in JDK1.4, it doesn't.
      * Thus, the result from getVariant() may vary depending on your JDK.</p>
      *
@@ -150,8 +150,8 @@ public class LocaleUtils {
             final String country = segments[1];
             final String variant = segments[2];
             if (isISO639LanguageCode(language) &&
-                    (country.length() == 0 || isISO3166CountryCode(country) || isNumericAreaCode(country)) &&
-                    variant.length() > 0) {
+                    (country.isEmpty() || isISO3166CountryCode(country) || isNumericAreaCode(country)) &&
+                    !variant.isEmpty()) {
                 return new Locale(language, country, variant);
             }
         }
@@ -194,8 +194,8 @@ public class LocaleUtils {
      * a locale search.</p>
      *
      * <pre>
-     * localeLookupList(Locale("fr","CA","xxx"))
-     *   = [Locale("fr","CA","xxx"), Locale("fr","CA"), Locale("fr")]
+     * localeLookupList(Locale("fr", "CA", "xxx"))
+     *   = [Locale("fr", "CA", "xxx"), Locale("fr", "CA"), Locale("fr")]
      * </pre>
      *
      * @param locale  the locale to start from
@@ -212,7 +212,7 @@ public class LocaleUtils {
      *
      * <pre>
      * localeLookupList(Locale("fr", "CA", "xxx"), Locale("en"))
-     *   = [Locale("fr","CA","xxx"), Locale("fr","CA"), Locale("fr"), Locale("en"]
+     *   = [Locale("fr", "CA", "xxx"), Locale("fr", "CA"), Locale("fr"), Locale("en"]
      * </pre>
      *
      * <p>The result list begins with the most specific locale, then the
@@ -227,13 +227,13 @@ public class LocaleUtils {
         final List<Locale> list = new ArrayList<>(4);
         if (locale != null) {
             list.add(locale);
-            if (locale.getVariant().length() > 0) {
+            if (!locale.getVariant().isEmpty()) {
                 list.add(new Locale(locale.getLanguage(), locale.getCountry()));
             }
-            if (locale.getCountry().length() > 0) {
+            if (!locale.getCountry().isEmpty()) {
                 list.add(new Locale(locale.getLanguage(), StringUtils.EMPTY));
             }
-            if (list.contains(defaultLocale) == false) {
+            if (!list.contains(defaultLocale)) {
                 list.add(defaultLocale);
             }
         }
@@ -243,7 +243,7 @@ public class LocaleUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Obtains an unmodifiable list of installed locales.</p>
-     * 
+     *
      * <p>This method is a wrapper around {@link Locale#getAvailableLocales()}.
      * It is more efficient, as the JDK method must create a new array each
      * time it is called.</p>
@@ -257,7 +257,7 @@ public class LocaleUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Obtains an unmodifiable set of installed locales.</p>
-     * 
+     *
      * <p>This method is a wrapper around {@link Locale#getAvailableLocales()}.
      * It is more efficient, as the JDK method must create a new array each
      * time it is called.</p>
@@ -297,10 +297,9 @@ public class LocaleUtils {
         if (langs == null) {
             langs = new ArrayList<>();
             final List<Locale> locales = availableLocaleList();
-            for (int i = 0; i < locales.size(); i++) {
-                final Locale locale = locales.get(i);
+            for (final Locale locale : locales) {
                 if (countryCode.equals(locale.getCountry()) &&
-                        locale.getVariant().isEmpty()) {
+                    locale.getVariant().isEmpty()) {
                     langs.add(locale);
                 }
             }
@@ -314,7 +313,7 @@ public class LocaleUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Obtains the list of countries supported for a given language.</p>
-     * 
+     *
      * <p>This method takes a language code and searches to find the
      * countries available for that language. Variant locales are removed.</p>
      *
@@ -329,11 +328,10 @@ public class LocaleUtils {
         if (countries == null) {
             countries = new ArrayList<>();
             final List<Locale> locales = availableLocaleList();
-            for (int i = 0; i < locales.size(); i++) {
-                final Locale locale = locales.get(i);
+            for (final Locale locale : locales) {
                 if (languageCode.equals(locale.getLanguage()) &&
-                        locale.getCountry().length() != 0 &&
-                        locale.getVariant().isEmpty()) {
+                        !locale.getCountry().isEmpty() &&
+                    locale.getVariant().isEmpty()) {
                     countries.add(locale);
                 }
             }
@@ -351,7 +349,7 @@ public class LocaleUtils {
         private static final List<Locale> AVAILABLE_LOCALE_LIST;
         /** Unmodifiable set of available locales. */
         private static final Set<Locale> AVAILABLE_LOCALE_SET;
-        
+
         static {
             final List<Locale> list = new ArrayList<>(Arrays.asList(Locale.getAvailableLocales()));  // extra safe
             AVAILABLE_LOCALE_LIST = Collections.unmodifiableList(list);

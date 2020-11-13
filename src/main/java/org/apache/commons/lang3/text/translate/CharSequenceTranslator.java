@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,10 +22,10 @@ import java.io.Writer;
 import java.util.Locale;
 
 /**
- * An API for translating text. 
- * Its core use is to escape and unescape text. Because escaping and unescaping 
+ * An API for translating text.
+ * Its core use is to escape and unescape text. Because escaping and unescaping
  * is completely contextual, the API does not present two separate signatures.
- * 
+ *
  * @since 3.0
  * @deprecated as of 3.6, use commons-text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/CharSequenceTranslator.html">
@@ -34,13 +34,13 @@ import java.util.Locale;
 @Deprecated
 public abstract class CharSequenceTranslator {
 
-    static final char[] HEX_DIGITS = new char[] {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+    static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     /**
-     * Translate a set of codepoints, represented by an int index into a CharSequence, 
-     * into another set of codepoints. The number of codepoints consumed must be returned, 
-     * and the only IOExceptions thrown must be from interacting with the Writer so that 
-     * the top level API may reliably ignore StringWriter IOExceptions. 
+     * Translate a set of codepoints, represented by an int index into a CharSequence,
+     * into another set of codepoints. The number of codepoints consumed must be returned,
+     * and the only IOExceptions thrown must be from interacting with the Writer so that
+     * the top level API may reliably ignore StringWriter IOExceptions.
      *
      * @param input CharSequence that is being translated
      * @param index int representing the current point of translation
@@ -51,7 +51,7 @@ public abstract class CharSequenceTranslator {
     public abstract int translate(CharSequence input, int index, Writer out) throws IOException;
 
     /**
-     * Helper for non-Writer usage. 
+     * Helper for non-Writer usage.
      * @param input CharSequence to be translated
      * @return String output of translation
      */
@@ -70,8 +70,8 @@ public abstract class CharSequenceTranslator {
     }
 
     /**
-     * Translate an input onto a Writer. This is intentionally final as its algorithm is 
-     * tightly coupled with the abstract method of this class. 
+     * Translate an input onto a Writer. This is intentionally final as its algorithm is
+     * tightly coupled with the abstract method of this class.
      *
      * @param input CharSequence that is being translated
      * @param out Writer to translate the text to
@@ -112,7 +112,7 @@ public abstract class CharSequenceTranslator {
     }
 
     /**
-     * Helper method to create a merger of this translator with another set of 
+     * Helper method to create a merger of this translator with another set of
      * translators. Useful in customizing the standard functionality.
      *
      * @param translators CharSequenceTranslator array of translators to merge with this one
@@ -126,11 +126,11 @@ public abstract class CharSequenceTranslator {
     }
 
     /**
-     * <p>Returns an upper case hexadecimal <code>String</code> for the given
+     * <p>Returns an upper case hexadecimal {@code String} for the given
      * character.</p>
      *
      * @param codepoint The codepoint to convert.
-     * @return An upper case hexadecimal <code>String</code>
+     * @return An upper case hexadecimal {@code String}
      */
     public static String hex(final int codepoint) {
         return Integer.toHexString(codepoint).toUpperCase(Locale.ENGLISH);

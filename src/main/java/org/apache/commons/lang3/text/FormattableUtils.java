@@ -27,12 +27,12 @@ import org.apache.commons.lang3.Validate;
 
 /**
  * <p>Provides utilities for working with the {@code Formattable} interface.</p>
- * 
+ *
  * <p>The {@link Formattable} interface provides basic control over formatting
  * when using a {@code Formatter}. It is primarily concerned with numeric precision
  * and padding, and is not designed to allow generalised alternate formats.</p>
- * 
- * @since Lang 3.0
+ *
+ * @since 3.0
  * @deprecated as of 3.6, use commons-text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/FormattableUtils.html">
  * FormattableUtils</a> instead
@@ -49,7 +49,7 @@ public class FormattableUtils {
      * <p>{@code FormattableUtils} instances should NOT be constructed in
      * standard programming. Instead, the methods of the class should be invoked
      * statically.</p>
-     * 
+     *
      * <p>This constructor is public to permit tools that require a JavaBean
      * instance to operate.</p>
      */
@@ -59,9 +59,9 @@ public class FormattableUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * Get the default formatted representation of the specified
+     * Gets the default formatted representation of the specified
      * {@code Formattable}.
-     * 
+     *
      * @param formattable  the instance to convert to a string, not null
      * @return the resulting string, not null
      */
@@ -73,7 +73,7 @@ public class FormattableUtils {
      * Handles the common {@code Formattable} operations of truncate-pad-append,
      * with no ellipsis on precision overflow, and padding width underflow with
      * spaces.
-     * 
+     *
      * @param seq  the string to handle, not null
      * @param formatter  the destination formatter, not null
      * @param flags  the flags for formatting, see {@code Formattable}
@@ -89,7 +89,7 @@ public class FormattableUtils {
     /**
      * Handles the common {@link Formattable} operations of truncate-pad-append,
      * with no ellipsis on precision overflow.
-     * 
+     *
      * @param seq  the string to handle, not null
      * @param formatter  the destination formatter, not null
      * @param flags  the flags for formatting, see {@code Formattable}
@@ -106,7 +106,7 @@ public class FormattableUtils {
     /**
      * Handles the common {@link Formattable} operations of truncate-pad-append,
      * padding width underflow with spaces.
-     * 
+     *
      * @param seq  the string to handle, not null
      * @param formatter  the destination formatter, not null
      * @param flags  the flags for formatting, see {@code Formattable}
@@ -123,7 +123,7 @@ public class FormattableUtils {
 
     /**
      * Handles the common {@link Formattable} operations of truncate-pad-append.
-     * 
+     *
      * @param seq  the string to handle, not null
      * @param formatter  the destination formatter, not null
      * @param flags  the flags for formatting, see {@code Formattable}

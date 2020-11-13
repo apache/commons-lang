@@ -1,3 +1,20 @@
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+=============================================================================
+
                            Apache Commons Lang
                                Version 3.3.1
                               Release Notes
@@ -12,7 +29,7 @@ at least requires Java 6.0.
 
 For the advice on upgrading from 2.x to 3.x, see the following page: 
 
-    http://commons.apache.org/lang/article3_0.html
+    https://commons.apache.org/lang/article3_0.html
 
 FIXED BUGS
 ============
@@ -85,7 +102,7 @@ o LANG-961:  org.apache.commons.lang3.reflect.FieldUtils.removeFinalModifier(Fie
              does not clean up after itself
 o LANG-958:  FastDateParser javadoc incorrectly states that SimpleDateFormat
              is used internally
-o LANG-956:  Improve JavaDoc of WordUtils.wrap methods
+o LANG-956:  Improve Javadoc of WordUtils.wrap methods
 o LANG-939:  Move Documentation from user guide to package-info files
 o LANG-953:  Convert package.html files to package-info.java files
 o LANG-940:  Fix deprecation warnings
@@ -209,7 +226,7 @@ o LANG-831:  FastDateParser does not handle white-space properly.
 o LANG-830:  FastDateParser could use \Q \E to quote regexes.
 o LANG-828:  FastDateParser does not handle non-Gregorian calendars properly.
 o LANG-826:  FastDateParser does not handle non-ASCII digits correctly.
-o LANG-822:  NumberUtils#createNumber - bad behaviour for leading "--".
+o LANG-822:  NumberUtils#createNumber - bad behavior for leading "--".
 o LANG-818:  FastDateFormat's "z" pattern does not respect timezone of Calendar
              instances passed to format().
 o LANG-817:  Add org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS_8.
@@ -466,13 +483,13 @@ o LANG-715:  CharSetUtils.squeeze() speedup.
 o LANG-716:  swapCase and *capitalize speedups.
 
 
-Historical list of changes: http://commons.apache.org/lang/changes-report.html
+Historical list of changes: https://commons.apache.org/lang/changes-report.html
 
 For complete information on Commons Lang, including instructions on how to
 submit bug reports, patches, or suggestions for improvement, see the 
 Apache Commons Lang website:
 
-http://commons.apache.org/lang/
+https://commons.apache.org/lang/
 
 Have fun!
 -Apache Commons Lang team

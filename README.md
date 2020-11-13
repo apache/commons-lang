@@ -25,7 +25,7 @@
  | commons-build-plugin/trunk/src/main/resources/commons-xdoc-templates |
  +======================================================================+
  |                                                                      |
- | 1) Re-generate using: mvn commons:readme-md                          |
+ | 1) Re-generate using: mvn commons-build:readme-md                    |
  |                                                                      |
  | 2) Set the following properties in the component's pom:              |
  |    - commons.componentid (required, alphabetic, lower case)          |
@@ -43,9 +43,10 @@
 Apache Commons Lang
 ===================
 
-[![Build Status](https://travis-ci.org/apache/commons-lang.svg?branch=master)](https://travis-ci.org/apache/commons-lang)
-[![Coverage Status](https://coveralls.io/repos/apache/commons-lang/badge.svg?branch=master)](https://coveralls.io/r/apache/commons-lang)
+[![Build Status](https://travis-ci.org/apache/commons-lang.svg)](https://travis-ci.org/apache/commons-lang)
+[![Coverage Status](https://coveralls.io/repos/apache/commons-lang/badge.svg)](https://coveralls.io/r/apache/commons-lang)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-lang3/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-lang3/)
+[![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-lang3/3.11.svg)](https://javadoc.io/doc/org.apache.commons/commons-lang3/3.11)
 
 Apache Commons Lang, a package of Java utility classes for the
   classes that are in java.lang's hierarchy, or are considered to be so
@@ -54,8 +55,8 @@ Apache Commons Lang, a package of Java utility classes for the
 Documentation
 -------------
 
-More information can be found on the [homepage](https://commons.apache.org/proper/commons-lang).
-The [JavaDoc](https://commons.apache.org/proper/commons-lang/javadocs/api-release) can be browsed.
+More information can be found on the [Apache Commons Lang homepage](https://commons.apache.org/proper/commons-lang).
+The [Javadoc](https://commons.apache.org/proper/commons-lang/apidocs) can be browsed.
 Questions related to the usage of Apache Commons Lang should be posted to the [user mailing list][ml].
 
 Where can I get the latest release?
@@ -68,14 +69,14 @@ Alternatively you can pull it from the central Maven repositories:
 <dependency>
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-lang3</artifactId>
-  <version>3.5</version>
+  <version>3.11</version>
 </dependency>
 ```
 
 Contributing
 ------------
 
-We accept PRs via github. The [developer mailing list][ml] is the main channel of communication for contributors.
+We accept Pull Requests via GitHub. The [developer mailing list][ml] is the main channel of communication for contributors.
 There are some guidelines which will make applying PRs easier for us:
 + No tabs! Please use spaces for indentation.
 + Respect the code style.
@@ -87,7 +88,9 @@ You can learn more about contributing via GitHub in our [contribution guidelines
 
 License
 -------
-Code is under the [Apache Licence v2](https://www.apache.org/licenses/LICENSE-2.0.txt).
+This code is under the [Apache Licence v2](https://www.apache.org/licenses/LICENSE-2.0).
+
+See the `NOTICE.txt` file for required notices and attributions.
 
 Donations
 ---------
@@ -96,10 +99,9 @@ You like Apache Commons Lang? Then [donate back to the ASF](https://www.apache.o
 Additional Resources
 --------------------
 
-+ [Apache Commons Lang Homepage](https://commons.apache.org/proper/commons-lang)
-+ [Apache Commons Lang Bugtracker (JIRA)](https://issues.apache.org/jira/browse/LANG)
++ [Apache Commons Homepage](https://commons.apache.org/)
++ [Apache Issue Tracker (JIRA)](https://issues.apache.org/jira/browse/LANG)
 + [Apache Commons Twitter Account](https://twitter.com/ApacheCommons)
-+ #apachecommons IRC channel on freenode.org
++ `#apache-commons` IRC channel on `irc.freenode.org`
 
 [ml]:https://commons.apache.org/mail-lists.html
-

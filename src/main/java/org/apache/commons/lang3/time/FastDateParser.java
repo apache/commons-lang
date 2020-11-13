@@ -43,18 +43,18 @@ import java.util.regex.Pattern;
  * <p>FastDateParser is a fast and thread-safe version of
  * {@link java.text.SimpleDateFormat}.</p>
  *
- * <p>To obtain a proxy to a FastDateParser, use {@link FastDateFormat#getInstance(String, TimeZone, Locale)} 
+ * <p>To obtain a proxy to a FastDateParser, use {@link FastDateFormat#getInstance(String, TimeZone, Locale)}
  * or another variation of the factory methods of {@link FastDateFormat}.</p>
- * 
+ *
  * <p>Since FastDateParser is thread safe, you can use a static member instance:</p>
  * <code>
  *     private static final DateParser DATE_PARSER = FastDateFormat.getInstance("yyyy-MM-dd");
  * </code>
- * 
+ *
  * <p>This class can be used as a direct replacement for
- * <code>SimpleDateFormat</code> in most parsing situations.
+ * {@code SimpleDateFormat} in most parsing situations.
  * This class is especially useful in multi-threaded server environments.
- * <code>SimpleDateFormat</code> is not thread-safe in any JDK version,
+ * {@code SimpleDateFormat} is not thread-safe in any JDK version,
  * nor will it be as Sun has closed the
  * <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4228335">bug</a>/RFE.
  * </p>
@@ -79,7 +79,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
     private static final long serialVersionUID = 3L;
 
-    static final Locale JAPANESE_IMPERIAL = new Locale("ja","JP","JP");
+    static final Locale JAPANESE_IMPERIAL = new Locale("ja", "JP", "JP");
 
     // defining fields
     private final String pattern;
@@ -94,17 +94,12 @@ public class FastDateParser implements DateParser, Serializable {
     // comparator used to sort regex alternatives
     // alternatives should be ordered longer first, and shorter last. ('february' before 'feb')
     // all entries must be lowercase by locale.
-    private static final Comparator<String> LONGER_FIRST_LOWERCASE = new Comparator<String>() {
-        @Override
-        public int compare(final String left, final String right) {
-            return right.compareTo(left);
-        }
-    };
+    private static final Comparator<String> LONGER_FIRST_LOWERCASE = Comparator.reverseOrder();
 
     /**
      * <p>Constructs a new FastDateParser.</p>
-     * 
-     * Use {@link FastDateFormat#getInstance(String, TimeZone, Locale)} or another variation of the 
+     *
+     * Use {@link FastDateFormat#getInstance(String, TimeZone, Locale)} or another variation of the
      * factory methods of {@link FastDateFormat} to get a cached FastDateParser instance.
      *
      * @param pattern non-null {@link java.text.SimpleDateFormat} compatible
@@ -135,14 +130,12 @@ public class FastDateParser implements DateParser, Serializable {
         final Calendar definingCalendar = Calendar.getInstance(timeZone, locale);
 
         int centuryStartYear;
-        if(centuryStart!=null) {
+        if (centuryStart!=null) {
             definingCalendar.setTime(centuryStart);
             centuryStartYear= definingCalendar.get(Calendar.YEAR);
-        }
-        else if(locale.equals(JAPANESE_IMPERIAL)) {
+        } else if (locale.equals(JAPANESE_IMPERIAL)) {
             centuryStartYear= 0;
-        }
-        else {
+        } else {
             // from 80 years ago to 20 years from now
             definingCalendar.setTime(new Date());
             centuryStartYear= definingCalendar.get(Calendar.YEAR)-80;
@@ -163,9 +156,9 @@ public class FastDateParser implements DateParser, Serializable {
         patterns = new ArrayList<>();
 
         final StrategyParser fm = new StrategyParser(definingCalendar);
-        for(;;) {
+        for (;;) {
             final StrategyAndWidth field = fm.getNextStrategy();
-            if(field==null) {
+            if (field==null) {
                 break;
             }
             patterns.add(field);
@@ -188,7 +181,7 @@ public class FastDateParser implements DateParser, Serializable {
         }
 
         int getMaxWidth(final ListIterator<StrategyAndWidth> lt) {
-            if(!strategy.isNumber() || !lt.hasNext()) {
+            if (!strategy.isNumber() || !lt.hasNext()) {
                 return 0;
             }
             final Strategy nextStrategy = lt.next().strategy;
@@ -201,7 +194,7 @@ public class FastDateParser implements DateParser, Serializable {
      * Parse format into Strategies
      */
     private class StrategyParser {
-        final private Calendar definingCalendar;
+        private final Calendar definingCalendar;
         private int currentIdx;
 
         StrategyParser(final Calendar definingCalendar) {
@@ -294,7 +287,7 @@ public class FastDateParser implements DateParser, Serializable {
      * <p>Compare another object for equality with this object.</p>
      *
      * @param obj  the object to compare to
-     * @return <code>true</code>if equal to this instance
+     * @return {@code true}if equal to this instance
      */
     @Override
     public boolean equals(final Object obj) {
@@ -381,8 +374,8 @@ public class FastDateParser implements DateParser, Serializable {
 
     /**
      * This implementation updates the ParsePosition if the parse succeeds.
-     * However, it sets the error index to the position before the failed field unlike 
-     * the method {@link java.text.SimpleDateFormat#parse(String, ParsePosition)} which sets 
+     * However, it sets the error index to the position before the failed field unlike
+     * the method {@link java.text.SimpleDateFormat#parse(String, ParsePosition)} which sets
      * the error index to after the failed field.
      * <p>
      * To determine if the parse has succeeded, the caller must check if the current parse position
@@ -405,7 +398,7 @@ public class FastDateParser implements DateParser, Serializable {
      * Upon success, the ParsePosition index is updated to indicate how much of the source text was consumed.
      * Not all source text needs to be consumed.  Upon parse failure, ParsePosition error index is updated to
      * the offset of the source text which does not match the supplied format.
-     * 
+     *
      * @param source The text to parse.
      * @param pos On input, the position in the source to start parsing, on output, updated position.
      * @param calendar The calendar into which to set parsed fields.
@@ -450,11 +443,15 @@ public class FastDateParser implements DateParser, Serializable {
                 sb.append(c);
             }
         }
+        if (sb.charAt(sb.length() - 1) == '.') {
+            // trailing '.' is optional
+            sb.append('?');
+        }
         return sb;
     }
 
     /**
-     * Get the short and long values displayed for a field
+     * Gets the short and long values displayed for a field
      * @param cal The calendar to obtain the short and long values
      * @param locale The locale of display names
      * @param field The field of interest
@@ -491,7 +488,7 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * A strategy to parse a single field from the parsing pattern
      */
-    private static abstract class Strategy {
+    private abstract static class Strategy {
         /**
          * Is this field a number?
          * The default implementation returns false.
@@ -508,7 +505,7 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * A strategy to parse a single field from the parsing pattern
      */
-    private static abstract class PatternStrategy extends Strategy {
+    private abstract static class PatternStrategy extends Strategy {
 
         private Pattern pattern;
 
@@ -566,7 +563,7 @@ public class FastDateParser implements DateParser, Serializable {
             return getLocaleSpecificStrategy(Calendar.ERA, definingCalendar);
         case 'H':  // Hour in day (0-23)
             return HOUR_OF_DAY_STRATEGY;
-        case 'K':  // Hour in am/pm (0-11) 
+        case 'K':  // Hour in am/pm (0-11)
             return HOUR_STRATEGY;
         case 'M':
             return width>=3 ?getLocaleSpecificStrategy(Calendar.MONTH, definingCalendar) :NUMBER_MONTH_STRATEGY;
@@ -609,7 +606,7 @@ public class FastDateParser implements DateParser, Serializable {
     private static final ConcurrentMap<Locale, Strategy>[] caches = new ConcurrentMap[Calendar.FIELD_COUNT];
 
     /**
-     * Get a cache of Strategies for a particular field
+     * Gets a cache of Strategies for a particular field
      * @param field The Calendar field
      * @return a cache of Locale to Strategy
      */
@@ -623,7 +620,7 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     /**
-     * Construct a Strategy that parses a Text field
+     * Constructs a Strategy that parses a Text field
      * @param field The Calendar field
      * @param definingCalendar The calendar to obtain the short and long values
      * @return a TextStrategy for the field and Locale
@@ -632,7 +629,7 @@ public class FastDateParser implements DateParser, Serializable {
         final ConcurrentMap<Locale, Strategy> cache = getCache(field);
         Strategy strategy = cache.get(locale);
         if (strategy == null) {
-            strategy = field == Calendar.ZONE_OFFSET 
+            strategy = field == Calendar.ZONE_OFFSET
                     ? new TimeZoneStrategy(locale)
                     : new CaseInsensitiveTextStrategy(field, definingCalendar, locale);
             final Strategy inCache = cache.putIfAbsent(locale, strategy);
@@ -648,10 +645,10 @@ public class FastDateParser implements DateParser, Serializable {
      */
     private static class CopyQuotedStrategy extends Strategy {
 
-        final private String formatField;
+        private final String formatField;
 
         /**
-         * Construct a Strategy that ensures the formatField has literal text
+         * Constructs a Strategy that ensures the formatField has literal text
          * @param formatField The literal text to match
          */
         CopyQuotedStrategy(final String formatField) {
@@ -693,7 +690,7 @@ public class FastDateParser implements DateParser, Serializable {
         private final Map<String, Integer> lKeyValues;
 
         /**
-         * Construct a Strategy that parses a Text field
+         * Constructs a Strategy that parses a Text field
          * @param field  The Calendar field
          * @param definingCalendar  The Calendar to use
          * @param locale  The Locale to use
@@ -701,7 +698,7 @@ public class FastDateParser implements DateParser, Serializable {
         CaseInsensitiveTextStrategy(final int field, final Calendar definingCalendar, final Locale locale) {
             this.field = field;
             this.locale = locale;
-            
+
             final StringBuilder regex = new StringBuilder();
             regex.append("((?iu)");
             lKeyValues = appendDisplayNames(definingCalendar, locale, field, regex);
@@ -715,7 +712,12 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         void setCalendar(final FastDateParser parser, final Calendar cal, final String value) {
-            final Integer iVal = lKeyValues.get(value.toLowerCase(locale));
+            final String lowerCase = value.toLowerCase(locale);
+            Integer iVal = lKeyValues.get(lowerCase);
+            if (iVal == null) {
+                // match missing the optional trailing period
+                iVal = lKeyValues.get(lowerCase + '.');
+            }
             cal.set(field, iVal.intValue());
         }
     }
@@ -728,7 +730,7 @@ public class FastDateParser implements DateParser, Serializable {
         private final int field;
 
         /**
-         * Construct a Strategy that parses a Number field
+         * Constructs a Strategy that parses a Number field
          * @param field The Calendar field
          */
         NumberStrategy(final int field) {
@@ -810,7 +812,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
     static class TimeZoneStrategy extends PatternStrategy {
         private static final String RFC_822_TIME_ZONE = "[+-]\\d{4}";
-        private static final String GMT_OPTION= "GMT[+-]\\d{1,2}:\\d{2}";
+        private static final String GMT_OPTION = TimeZones.GMT_ID + "[+-]\\d{1,2}:\\d{2}";
 
         private final Locale locale;
         private final Map<String, TzInfo> tzNames= new HashMap<>();
@@ -831,7 +833,7 @@ public class FastDateParser implements DateParser, Serializable {
         private static final int ID = 0;
 
         /**
-         * Construct a Strategy that parses a TimeZone
+         * Constructs a Strategy that parses a TimeZone
          * @param locale The Locale
          */
         TimeZoneStrategy(final Locale locale) {
@@ -846,7 +848,7 @@ public class FastDateParser implements DateParser, Serializable {
             for (final String[] zoneNames : zones) {
                 // offset 0 is the time zone ID and is not localized
                 final String tzId = zoneNames[ID];
-                if (tzId.equalsIgnoreCase("GMT")) {
+                if (tzId.equalsIgnoreCase(TimeZones.GMT_ID)) {
                     continue;
                 }
                 final TimeZone tz = TimeZone.getTimeZone(tzId);
@@ -889,51 +891,49 @@ public class FastDateParser implements DateParser, Serializable {
          * {@inheritDoc}
          */
         @Override
-        void setCalendar(final FastDateParser parser, final Calendar cal, final String value) {
-            if (value.charAt(0) == '+' || value.charAt(0) == '-') {
-                final TimeZone tz = TimeZone.getTimeZone("GMT" + value);
-                cal.setTimeZone(tz);
-            } else if (value.regionMatches(true, 0, "GMT", 0, 3)) {
-                final TimeZone tz = TimeZone.getTimeZone(value.toUpperCase());
+        void setCalendar(final FastDateParser parser, final Calendar cal, final String timeZone) {
+            final TimeZone tz = FastTimeZone.getGmtTimeZone(timeZone);
+            if (tz != null) {
                 cal.setTimeZone(tz);
             } else {
-                final TzInfo tzInfo = tzNames.get(value.toLowerCase(locale));
+                final String lowerCase = timeZone.toLowerCase(locale);
+                TzInfo tzInfo = tzNames.get(lowerCase);
+                if (tzInfo == null) {
+                    // match missing the optional trailing period
+                    tzInfo = tzNames.get(lowerCase + '.');
+                }
                 cal.set(Calendar.DST_OFFSET, tzInfo.dstOffset);
                 cal.set(Calendar.ZONE_OFFSET, tzInfo.zone.getRawOffset());
             }
         }
     }
-    
+
     private static class ISO8601TimeZoneStrategy extends PatternStrategy {
-        // Z, +hh, -hh, +hhmm, -hhmm, +hh:mm or -hh:mm 
+        // Z, +hh, -hh, +hhmm, -hhmm, +hh:mm or -hh:mm
 
         /**
-         * Construct a Strategy that parses a TimeZone
+         * Constructs a Strategy that parses a TimeZone
          * @param pattern The Pattern
          */
         ISO8601TimeZoneStrategy(final String pattern) {
             createPattern(pattern);
         }
-        
+
         /**
          * {@inheritDoc}
          */
         @Override
         void setCalendar(final FastDateParser parser, final Calendar cal, final String value) {
-            if (value.equals("Z")) {
-                cal.setTimeZone(TimeZone.getTimeZone("UTC"));
-            } else {
-                cal.setTimeZone(TimeZone.getTimeZone("GMT" + value));
-            }
+            cal.setTimeZone(FastTimeZone.getGmtTimeZone(value));
         }
-        
+
         private static final Strategy ISO_8601_1_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-]\\d{2}))");
         private static final Strategy ISO_8601_2_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-]\\d{2}\\d{2}))");
         private static final Strategy ISO_8601_3_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-]\\d{2}(?::)\\d{2}))");
 
         /**
          * Factory method for ISO8601TimeZoneStrategies.
-         * 
+         *
          * @param tokenLen a token indicating the length of the TimeZone String to be formatted.
          * @return a ISO8601TimeZoneStrategy that can format TimeZone String of length {@code tokenLen}. If no such
          *          strategy exists, an IllegalArgumentException will be thrown.
@@ -958,6 +958,7 @@ public class FastDateParser implements DateParser, Serializable {
             return iValue-1;
         }
     };
+
     private static final Strategy LITERAL_YEAR_STRATEGY = new NumberStrategy(Calendar.YEAR);
     private static final Strategy WEEK_OF_YEAR_STRATEGY = new NumberStrategy(Calendar.WEEK_OF_YEAR);
     private static final Strategy WEEK_OF_MONTH_STRATEGY = new NumberStrategy(Calendar.WEEK_OF_MONTH);
@@ -966,9 +967,10 @@ public class FastDateParser implements DateParser, Serializable {
     private static final Strategy DAY_OF_WEEK_STRATEGY = new NumberStrategy(Calendar.DAY_OF_WEEK) {
         @Override
         int modify(final FastDateParser parser, final int iValue) {
-            return iValue != 7 ? iValue + 1 : Calendar.SUNDAY;
+            return iValue == 7 ? Calendar.SUNDAY : iValue + 1;
         }
     };
+
     private static final Strategy DAY_OF_WEEK_IN_MONTH_STRATEGY = new NumberStrategy(Calendar.DAY_OF_WEEK_IN_MONTH);
     private static final Strategy HOUR_OF_DAY_STRATEGY = new NumberStrategy(Calendar.HOUR_OF_DAY);
     private static final Strategy HOUR24_OF_DAY_STRATEGY = new NumberStrategy(Calendar.HOUR_OF_DAY) {
@@ -977,12 +979,14 @@ public class FastDateParser implements DateParser, Serializable {
             return iValue == 24 ? 0 : iValue;
         }
     };
+
     private static final Strategy HOUR12_STRATEGY = new NumberStrategy(Calendar.HOUR) {
         @Override
         int modify(final FastDateParser parser, final int iValue) {
             return iValue == 12 ? 0 : iValue;
         }
     };
+
     private static final Strategy HOUR_STRATEGY = new NumberStrategy(Calendar.HOUR);
     private static final Strategy MINUTE_STRATEGY = new NumberStrategy(Calendar.MINUTE);
     private static final Strategy SECOND_STRATEGY = new NumberStrategy(Calendar.SECOND);

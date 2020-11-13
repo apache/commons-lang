@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,28 +17,28 @@
 package org.apache.commons.lang3;
 
 /**
- * <p>Supports operations on bit-mapped fields. Instances of this class can be 
- * used to store a flag or data within an {@code int}, {@code short} or 
+ * <p>Supports operations on bit-mapped fields. Instances of this class can be
+ * used to store a flag or data within an {@code int}, {@code short} or
  * {@code byte}.</p>
- * 
+ *
  * <p>Each {@code BitField} is constructed with a mask value, which indicates
- * the bits that will be used to store and retrieve the data for that field. 
- * For instance, the mask {@code 0xFF} indicates the least-significant byte 
+ * the bits that will be used to store and retrieve the data for that field.
+ * For instance, the mask {@code 0xFF} indicates the least-significant byte
  * should be used to store the data.</p>
- * 
+ *
  * <p>As an example, consider a car painting machine that accepts
  * paint instructions as integers. Bit fields can be used to encode this:</p>
  *
  *<pre>
- *    // blue, green and red are 1 byte values (0-255) stored in the three least 
+ *    // blue, green and red are 1 byte values (0-255) stored in the three least
  *    // significant bytes
  *    BitField blue = new BitField(0xFF);
  *    BitField green = new BitField(0xFF00);
  *    BitField red = new BitField(0xFF0000);
- * 
+ *
  *    // anyColor is a flag triggered if any color is used
  *    BitField anyColor = new BitField(0xFFFFFF);
- * 
+ *
  *    // isMetallic is a single bit flag
  *    BitField isMetallic = new BitField(0x1000000);
  *</pre>
@@ -54,24 +54,24 @@ package org.apache.commons.lang3;
  *</pre>
  *
  * <p>Flags and data can be retrieved from the integer:</p>
- * 
+ *
  *<pre>
  *    // Prints true if red, green or blue is non-zero
  *    System.out.println(anyColor.isSet(paintInstruction));   // prints true
- *   
+ *
  *    // Prints value of red, green and blue
  *    System.out.println(red.getValue(paintInstruction));     // prints 35
  *    System.out.println(green.getValue(paintInstruction));   // prints 100
  *    System.out.println(blue.getValue(paintInstruction));    // prints 255
- *   
- *    // Prints true if isMetallic was set 
+ *
+ *    // Prints true if isMetallic was set
  *    System.out.println(isMetallic.isSet(paintInstruction)); // prints false
  *</pre>
  *
  * @since 2.0
  */
 public class BitField {
-    
+
     private final int _mask;
     private final int _shift_count;
 
@@ -84,7 +84,7 @@ public class BitField {
      */
     public BitField(final int mask) {
         _mask = mask;
-        _shift_count = mask != 0 ? Integer.numberOfTrailingZeros(mask) : 0;
+        _shift_count = mask == 0 ? 0 : Integer.numberOfTrailingZeros(mask);
     }
 
     /**

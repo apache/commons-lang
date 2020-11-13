@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,17 +16,17 @@
  */
 package org.apache.commons.lang3.mutable;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
 /**
  * JUnit tests.
- * 
+ *
  * @see MutableShort
  */
 public class MutableObjectTest {
@@ -34,8 +34,8 @@ public class MutableObjectTest {
     // ----------------------------------------------------------------
     @Test
     public void testConstructors() {
-        assertEquals(null, new MutableObject<String>().getValue());
-        
+        assertNull(new MutableObject<String>().getValue());
+
         final Integer i = Integer.valueOf(6);
         assertSame(i, new MutableObject<>(i).getValue());
         assertSame("HI", new MutableObject<>("HI").getValue());
@@ -45,11 +45,11 @@ public class MutableObjectTest {
     @Test
     public void testGetSet() {
         final MutableObject<String> mutNum = new MutableObject<>();
-        assertEquals(null, new MutableObject<>().getValue());
-        
+        assertNull(new MutableObject<>().getValue());
+
         mutNum.setValue("HELLO");
         assertSame("HELLO", mutNum.getValue());
-        
+
         mutNum.setValue(null);
         assertSame(null, mutNum.getValue());
     }
@@ -61,19 +61,19 @@ public class MutableObjectTest {
         final MutableObject<String> mutNumC = new MutableObject<>("BETA");
         final MutableObject<String> mutNumD = new MutableObject<>(null);
 
-        assertTrue(mutNumA.equals(mutNumA));
-        assertTrue(mutNumA.equals(mutNumB));
-        assertTrue(mutNumB.equals(mutNumA));
-        assertTrue(mutNumB.equals(mutNumB));
-        assertFalse(mutNumA.equals(mutNumC));
-        assertFalse(mutNumB.equals(mutNumC));
-        assertTrue(mutNumC.equals(mutNumC));
-        assertFalse(mutNumA.equals(mutNumD));
-        assertTrue(mutNumD.equals(mutNumD));
-        
-        assertFalse(mutNumA.equals(null));
-        assertFalse(mutNumA.equals(new Object()));
-        assertFalse(mutNumA.equals("0"));
+        assertEquals(mutNumA, mutNumA);
+        assertEquals(mutNumA, mutNumB);
+        assertEquals(mutNumB, mutNumA);
+        assertEquals(mutNumB, mutNumB);
+        assertNotEquals(mutNumA, mutNumC);
+        assertNotEquals(mutNumB, mutNumC);
+        assertEquals(mutNumC, mutNumC);
+        assertNotEquals(mutNumA, mutNumD);
+        assertEquals(mutNumD, mutNumD);
+
+        assertNotEquals(null, mutNumA);
+        assertNotEquals(mutNumA, new Object());
+        assertNotEquals("0", mutNumA);
     }
 
     @Test
@@ -83,11 +83,11 @@ public class MutableObjectTest {
         final MutableObject<String> mutNumC = new MutableObject<>("BETA");
         final MutableObject<String> mutNumD = new MutableObject<>(null);
 
-        assertTrue(mutNumA.hashCode() == mutNumA.hashCode());
-        assertTrue(mutNumA.hashCode() == mutNumB.hashCode());
-        assertFalse(mutNumA.hashCode() == mutNumC.hashCode());
-        assertFalse(mutNumA.hashCode() == mutNumD.hashCode());
-        assertTrue(mutNumA.hashCode() == "ALPHA".hashCode());
+        assertEquals(mutNumA.hashCode(), mutNumA.hashCode());
+        assertEquals(mutNumA.hashCode(), mutNumB.hashCode());
+        assertNotEquals(mutNumA.hashCode(), mutNumC.hashCode());
+        assertNotEquals(mutNumA.hashCode(), mutNumD.hashCode());
+        assertEquals(mutNumA.hashCode(), "ALPHA".hashCode());
         assertEquals(0, mutNumD.hashCode());
     }
 

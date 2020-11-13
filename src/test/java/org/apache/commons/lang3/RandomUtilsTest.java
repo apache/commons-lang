@@ -16,16 +16,18 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link RandomUtils}
@@ -47,49 +49,49 @@ public class RandomUtilsTest {
         assertFalse(Modifier.isFinal(RandomUtils.class.getModifiers()));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextBytesNegative() throws Exception {
-        RandomUtils.nextBytes(-1);
+    @Test
+    public void testNextBytesNegative() {
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextBytes(-1));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextIntNegative() throws Exception {
-        RandomUtils.nextInt(-1, 1);
+    @Test
+    public void testNextIntNegative() {
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextInt(-1, 1));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextLongNegative() throws Exception {
-        RandomUtils.nextLong(-1, 1);
+    @Test
+    public void testNextLongNegative() {
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextLong(-1, 1));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextDoubleNegative() throws Exception {
-        RandomUtils.nextDouble(-1, 1);
+    @Test
+    public void testNextDoubleNegative() {
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextDouble(-1, 1));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextFloatNegative() throws Exception {
-        RandomUtils.nextFloat(-1, 1);
+    @Test
+    public void testNextFloatNegative() {
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextFloat(-1, 1));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextIntLowerGreaterUpper() throws Exception {
-        RandomUtils.nextInt(2, 1);
+    @Test
+    public void testNextIntLowerGreaterUpper() {
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextInt(2, 1));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextLongLowerGreaterUpper() throws Exception {
-        RandomUtils.nextLong(2, 1);
+    @Test
+    public void testNextLongLowerGreaterUpper() {
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextLong(2, 1));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextDoubleLowerGreaterUpper() throws Exception {
-        RandomUtils.nextDouble(2, 1);
+    @Test
+    public void testNextDoubleLowerGreaterUpper() {
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextDouble(2, 1));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextFloatLowerGreaterUpper() throws Exception {
-        RandomUtils.nextFloat(2, 1);
+    @Test
+    public void testNextFloatLowerGreaterUpper() {
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextFloat(2, 1));
     }
 
     /**
@@ -97,7 +99,7 @@ public class RandomUtilsTest {
      */
     @Test
     public void testBoolean() {
-        boolean result = RandomUtils.nextBoolean();
+        final boolean result = RandomUtils.nextBoolean();
         assertTrue(result == true || result == false);
     }
 
@@ -125,7 +127,7 @@ public class RandomUtilsTest {
     public void testNextIntMinimalRange() {
         assertEquals(42, RandomUtils.nextInt(42, 42));
     }
-    
+
     /**
      * Tests next int range.
      */
@@ -136,7 +138,7 @@ public class RandomUtilsTest {
     }
 
     /**
-     * Tests next double range, random result.
+     * Tests next int range, random result.
      */
     @Test
     public void testNextIntRandomResult() {
@@ -144,23 +146,23 @@ public class RandomUtilsTest {
         assertTrue(randomResult > 0);
         assertTrue(randomResult < Integer.MAX_VALUE);
     }
-    
+
     /**
      * Test next double range with minimal range.
      */
     @Test
     public void testNextDoubleMinimalRange() {
         assertEquals(42.1, RandomUtils.nextDouble(42.1, 42.1), DELTA);
-    }    
-    
+    }
+
     /**
      * Test next float range with minimal range.
      */
     @Test
     public void testNextFloatMinimalRange() {
         assertEquals(42.1f, RandomUtils.nextFloat(42.1f, 42.1f), DELTA);
-    }     
-    
+    }
+
     /**
      * Tests next double range.
      */
@@ -179,7 +181,7 @@ public class RandomUtilsTest {
         assertTrue(randomResult > 0);
         assertTrue(randomResult < Double.MAX_VALUE);
     }
-    
+
     /**
      * Tests next float range.
      */
@@ -206,7 +208,7 @@ public class RandomUtilsTest {
     public void testNextLongMinimalRange() {
         assertEquals(42L, RandomUtils.nextLong(42L, 42L));
     }
-    
+
     /**
      * Tests next long range.
      */
@@ -225,7 +227,7 @@ public class RandomUtilsTest {
         assertTrue(randomResult > 0);
         assertTrue(randomResult < Long.MAX_VALUE);
     }
-    
+
     /**
      * Tests extreme range.
      */
@@ -234,7 +236,7 @@ public class RandomUtilsTest {
         final int result = RandomUtils.nextInt(0, Integer.MAX_VALUE);
         assertTrue(result >= 0 && result < Integer.MAX_VALUE);
     }
-    
+
     /**
      * Tests extreme range.
      */
@@ -242,8 +244,8 @@ public class RandomUtilsTest {
     public void testExtremeRangeLong() {
         final long result = RandomUtils.nextLong(0, Long.MAX_VALUE);
         assertTrue(result >= 0 && result < Long.MAX_VALUE);
-    }    
-    
+    }
+
     /**
      * Tests extreme range.
      */
@@ -251,8 +253,8 @@ public class RandomUtilsTest {
     public void testExtremeRangeFloat() {
         final float result = RandomUtils.nextFloat(0, Float.MAX_VALUE);
         assertTrue(result >= 0f && result <= Float.MAX_VALUE);
-    }    
-    
+    }
+
     /**
      * Tests extreme range.
      */
@@ -260,5 +262,29 @@ public class RandomUtilsTest {
     public void testExtremeRangeDouble() {
         final double result = RandomUtils.nextDouble(0, Double.MAX_VALUE);
         assertTrue(result >= 0 && result <= Double.MAX_VALUE);
-    }    
+    }
+
+    /**
+     * Test a large value for long. A previous implementation using
+     * {@link RandomUtils#nextDouble(double, double)} could generate a value equal
+     * to the upper limit.
+     *
+     * <pre>
+     * return (long) nextDouble(startInclusive, endExclusive);
+     * </pre>
+     *
+     * <p>See LANG-1592.</p>
+     */
+    @Test
+    public void testLargeValueRangeLong() {
+        final long startInclusive = 12900000000001L;
+        final long endExclusive = 12900000000016L;
+        // Note: The method using 'return (long) nextDouble(startInclusive, endExclusive)'
+        // takes thousands of calls to generate an error. This size loop fails most
+        // of the time with the previous method.
+        final int n = (int) (endExclusive - startInclusive) * 1000;
+        for (int i = 0; i < n; i++) {
+            assertNotEquals(endExclusive, RandomUtils.nextLong(startInclusive, endExclusive));
+        }
+    }
 }

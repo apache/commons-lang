@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,7 +22,7 @@ import java.util.Calendar;
 
 /**
  * Tests the difference in performance between CharUtils and CharSet.
- * 
+ *
  * Sample runs:
 
 Now: Thu Mar 18 14:29:48 PST 2004
@@ -56,13 +56,14 @@ run_inlined_CharUtils_isAsciiNumeric: 84,420 milliseconds.
 
  */
 public class CharUtilsPerfRun {
-    final static String VERSION = "$Id$";
+    private static final String VERSION = "$Id$";
 
-    final static int WARM_UP = 100;
+    private static final int WARM_UP = 100;
 
-    final static int COUNT = 5000;
+    private static final int COUNT = 5000;
 
-    final static char[] CHAR_SAMPLES;
+    private static final char[] CHAR_SAMPLES;
+
     static {
         CHAR_SAMPLES = new char[Character.MAX_VALUE];
         for (char i = Character.MIN_VALUE; i < Character.MAX_VALUE; i++) {
@@ -101,21 +102,15 @@ public class CharUtilsPerfRun {
         long start;
         start = System.currentTimeMillis();
         this.printlnTotal("Do nothing", start);
-        //System.out.println("Warming up...");
         run_CharUtils_isAsciiNumeric(WARM_UP);
-        //System.out.println("Measuring...");
         start = System.currentTimeMillis();
         run_CharUtils_isAsciiNumeric(COUNT);
         this.printlnTotal("run_CharUtils_isAsciiNumeric", start);
-        //System.out.println("Warming up...");
         run_inlined_CharUtils_isAsciiNumeric(WARM_UP);
-        //System.out.println("Measuring...");
         start = System.currentTimeMillis();
         run_inlined_CharUtils_isAsciiNumeric(COUNT);
         this.printlnTotal("run_inlined_CharUtils_isAsciiNumeric", start);
-        //System.out.println("Warming up...");
         run_CharSet(WARM_UP);
-        //System.out.println("Measuring...");
         start = System.currentTimeMillis();
         run_CharSet(COUNT);
         this.printlnTotal("run_CharSet", start);

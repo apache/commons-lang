@@ -49,6 +49,11 @@ public class SystemUtils {
     private static final String USER_HOME_KEY = "user.home";
 
     /**
+     * The System property key for the user name.
+     */
+    private static final String USER_NAME_KEY = "user.name";
+
+    /**
      * The System property key for the user directory.
      */
     private static final String USER_DIR_KEY = "user.dir";
@@ -652,7 +657,7 @@ public class SystemUtils {
 
     /**
      * <p>
-     * The {@code line.separator} System Property. Line separator (<code>&quot;\n&quot;</code> on UNIX).
+     * The {@code line.separator} System Property. Line separator ({@code &quot;\n&quot;} on UNIX).
      * </p>
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
@@ -664,7 +669,7 @@ public class SystemUtils {
      * sync with that System property.
      * </p>
      *
-     * @deprecated Use {@link System#lineSeparator} instead, since it does not require a privilege check.
+     * @deprecated Use {@link System#lineSeparator()} instead, since it does not require a privilege check.
      * @since Java 1.1
      */
     @Deprecated
@@ -726,7 +731,7 @@ public class SystemUtils {
 
     /**
      * <p>
-     * The {@code path.separator} System Property. Path separator (<code>&quot;:&quot;</code> on UNIX).
+     * The {@code path.separator} System Property. Path separator ({@code &quot;:&quot;} on UNIX).
      * </p>
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
@@ -837,7 +842,7 @@ public class SystemUtils {
      *
      * @since Java 1.1
      */
-    public static final String USER_NAME = getSystemProperty("user.name");
+    public static final String USER_NAME = getSystemProperty(USER_NAME_KEY);
 
     /**
      * <p>
@@ -955,7 +960,7 @@ public class SystemUtils {
      * </p>
      *
      * @since 3.4
-     * 
+     *
      * @deprecated As of release 3.5, replaced by {@link #IS_JAVA_9}
      */
     @Deprecated
@@ -972,6 +977,78 @@ public class SystemUtils {
      * @since 3.5
      */
     public static final boolean IS_JAVA_9 = getJavaVersionMatches("9");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Java version 10 (also 10.x versions).
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     *
+     * @since 3.7
+     */
+    public static final boolean IS_JAVA_10 = getJavaVersionMatches("10");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Java version 11 (also 11.x versions).
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     *
+     * @since 3.8
+     */
+    public static final boolean IS_JAVA_11 = getJavaVersionMatches("11");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Java version 12 (also 12.x versions).
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     *
+     * @since 3.9
+     */
+    public static final boolean IS_JAVA_12 = getJavaVersionMatches("12");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Java version 13 (also 13.x versions).
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     *
+     * @since 3.9
+     */
+    public static final boolean IS_JAVA_13 = getJavaVersionMatches("13");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Java version 14 (also 14.x versions).
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     *
+     * @since 3.10
+     */
+    public static final boolean IS_JAVA_14 = getJavaVersionMatches("14");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Java version 15 (also 15.x versions).
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     *
+     * @since 3.10
+     */
+    public static final boolean IS_JAVA_15 = getJavaVersionMatches("15");
 
     // Operating system checks
     // -----------------------------------------------------------------------
@@ -991,7 +1068,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_AIX = getOSMatchesName("AIX");
+    public static final boolean IS_OS_AIX = getOsMatchesName("AIX");
 
     /**
      * <p>
@@ -1003,7 +1080,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_HP_UX = getOSMatchesName("HP-UX");
+    public static final boolean IS_OS_HP_UX = getOsMatchesName("HP-UX");
 
     /**
      * <p>
@@ -1015,7 +1092,7 @@ public class SystemUtils {
      *
      * @since 3.3
      */
-    public static final boolean IS_OS_400 = getOSMatchesName("OS/400");
+    public static final boolean IS_OS_400 = getOsMatchesName("OS/400");
 
     /**
      * <p>
@@ -1027,7 +1104,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_IRIX = getOSMatchesName("Irix");
+    public static final boolean IS_OS_IRIX = getOsMatchesName("Irix");
 
     /**
      * <p>
@@ -1039,7 +1116,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_LINUX = getOSMatchesName("Linux") || getOSMatchesName("LINUX");
+    public static final boolean IS_OS_LINUX = getOsMatchesName("Linux") || getOsMatchesName("LINUX");
 
     /**
      * <p>
@@ -1051,7 +1128,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_MAC = getOSMatchesName("Mac");
+    public static final boolean IS_OS_MAC = getOsMatchesName("Mac");
 
     /**
      * <p>
@@ -1063,7 +1140,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_MAC_OSX = getOSMatchesName("Mac OS X");
+    public static final boolean IS_OS_MAC_OSX = getOsMatchesName("Mac OS X");
 
     /**
      * <p>
@@ -1075,7 +1152,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_CHEETAH = getOSMatches("Mac OS X", "10.0");
+    public static final boolean IS_OS_MAC_OSX_CHEETAH = getOsMatches("Mac OS X", "10.0");
 
     /**
      * <p>
@@ -1087,7 +1164,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_PUMA = getOSMatches("Mac OS X", "10.1");
+    public static final boolean IS_OS_MAC_OSX_PUMA = getOsMatches("Mac OS X", "10.1");
 
     /**
      * <p>
@@ -1099,7 +1176,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_JAGUAR = getOSMatches("Mac OS X", "10.2");
+    public static final boolean IS_OS_MAC_OSX_JAGUAR = getOsMatches("Mac OS X", "10.2");
 
     /**
      * <p>
@@ -1111,7 +1188,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_PANTHER = getOSMatches("Mac OS X", "10.3");
+    public static final boolean IS_OS_MAC_OSX_PANTHER = getOsMatches("Mac OS X", "10.3");
 
     /**
      * <p>
@@ -1123,7 +1200,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_TIGER = getOSMatches("Mac OS X", "10.4");
+    public static final boolean IS_OS_MAC_OSX_TIGER = getOsMatches("Mac OS X", "10.4");
 
     /**
      * <p>
@@ -1135,7 +1212,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_LEOPARD = getOSMatches("Mac OS X", "10.5");
+    public static final boolean IS_OS_MAC_OSX_LEOPARD = getOsMatches("Mac OS X", "10.5");
 
     /**
      * <p>
@@ -1147,7 +1224,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_SNOW_LEOPARD = getOSMatches("Mac OS X", "10.6");
+    public static final boolean IS_OS_MAC_OSX_SNOW_LEOPARD = getOsMatches("Mac OS X", "10.6");
 
     /**
      * <p>
@@ -1159,7 +1236,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_LION = getOSMatches("Mac OS X", "10.7");
+    public static final boolean IS_OS_MAC_OSX_LION = getOsMatches("Mac OS X", "10.7");
 
     /**
      * <p>
@@ -1171,7 +1248,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_MOUNTAIN_LION = getOSMatches("Mac OS X", "10.8");
+    public static final boolean IS_OS_MAC_OSX_MOUNTAIN_LION = getOsMatches("Mac OS X", "10.8");
 
     /**
      * <p>
@@ -1183,7 +1260,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_MAVERICKS = getOSMatches("Mac OS X", "10.9");
+    public static final boolean IS_OS_MAC_OSX_MAVERICKS = getOsMatches("Mac OS X", "10.9");
 
     /**
      * <p>
@@ -1195,7 +1272,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_MAC_OSX_YOSEMITE = getOSMatches("Mac OS X", "10.10");
+    public static final boolean IS_OS_MAC_OSX_YOSEMITE = getOsMatches("Mac OS X", "10.10");
 
     /**
      * <p>
@@ -1207,7 +1284,7 @@ public class SystemUtils {
      *
      * @since 3.5
      */
-    public static final boolean IS_OS_MAC_OSX_EL_CAPITAN = getOSMatches("Mac OS X", "10.11");
+    public static final boolean IS_OS_MAC_OSX_EL_CAPITAN = getOsMatches("Mac OS X", "10.11");
 
     /**
      * <p>
@@ -1219,7 +1296,7 @@ public class SystemUtils {
      *
      * @since 3.1
      */
-    public static final boolean IS_OS_FREE_BSD = getOSMatchesName("FreeBSD");
+    public static final boolean IS_OS_FREE_BSD = getOsMatchesName("FreeBSD");
 
     /**
      * <p>
@@ -1231,7 +1308,7 @@ public class SystemUtils {
      *
      * @since 3.1
      */
-    public static final boolean IS_OS_OPEN_BSD = getOSMatchesName("OpenBSD");
+    public static final boolean IS_OS_OPEN_BSD = getOsMatchesName("OpenBSD");
 
     /**
      * <p>
@@ -1243,7 +1320,7 @@ public class SystemUtils {
      *
      * @since 3.1
      */
-    public static final boolean IS_OS_NET_BSD = getOSMatchesName("NetBSD");
+    public static final boolean IS_OS_NET_BSD = getOsMatchesName("NetBSD");
 
     /**
      * <p>
@@ -1255,7 +1332,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_OS2 = getOSMatchesName("OS/2");
+    public static final boolean IS_OS_OS2 = getOsMatchesName("OS/2");
 
     /**
      * <p>
@@ -1267,7 +1344,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_SOLARIS = getOSMatchesName("Solaris");
+    public static final boolean IS_OS_SOLARIS = getOsMatchesName("Solaris");
 
     /**
      * <p>
@@ -1279,7 +1356,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_SUN_OS = getOSMatchesName("SunOS");
+    public static final boolean IS_OS_SUN_OS = getOsMatchesName("SunOS");
 
     /**
      * <p>
@@ -1304,7 +1381,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS = getOSMatchesName(OS_NAME_WINDOWS_PREFIX);
+    public static final boolean IS_OS_WINDOWS = getOsMatchesName(OS_NAME_WINDOWS_PREFIX);
 
     /**
      * <p>
@@ -1316,7 +1393,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_2000 = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " 2000");
+    public static final boolean IS_OS_WINDOWS_2000 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 2000");
 
     /**
      * <p>
@@ -1328,7 +1405,7 @@ public class SystemUtils {
      *
      * @since 3.1
      */
-    public static final boolean IS_OS_WINDOWS_2003 = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " 2003");
+    public static final boolean IS_OS_WINDOWS_2003 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 2003");
 
     /**
      * <p>
@@ -1340,7 +1417,7 @@ public class SystemUtils {
      *
      * @since 3.1
      */
-    public static final boolean IS_OS_WINDOWS_2008 = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " Server 2008");
+    public static final boolean IS_OS_WINDOWS_2008 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " Server 2008");
 
     /**
      * <p>
@@ -1352,7 +1429,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_WINDOWS_2012 = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " Server 2012");
+    public static final boolean IS_OS_WINDOWS_2012 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " Server 2012");
 
     /**
      * <p>
@@ -1364,7 +1441,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_95 = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " 95");
+    public static final boolean IS_OS_WINDOWS_95 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 95");
 
     /**
      * <p>
@@ -1376,7 +1453,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_98 = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " 98");
+    public static final boolean IS_OS_WINDOWS_98 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 98");
 
     /**
      * <p>
@@ -1388,7 +1465,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_ME = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " Me");
+    public static final boolean IS_OS_WINDOWS_ME = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " Me");
 
     /**
      * <p>
@@ -1400,7 +1477,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_NT = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " NT");
+    public static final boolean IS_OS_WINDOWS_NT = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " NT");
 
     /**
      * <p>
@@ -1412,7 +1489,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_XP = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " XP");
+    public static final boolean IS_OS_WINDOWS_XP = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " XP");
 
     // -----------------------------------------------------------------------
     /**
@@ -1425,7 +1502,7 @@ public class SystemUtils {
      *
      * @since 2.4
      */
-    public static final boolean IS_OS_WINDOWS_VISTA = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " Vista");
+    public static final boolean IS_OS_WINDOWS_VISTA = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " Vista");
 
     /**
      * <p>
@@ -1437,7 +1514,7 @@ public class SystemUtils {
      *
      * @since 3.0
      */
-    public static final boolean IS_OS_WINDOWS_7 = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " 7");
+    public static final boolean IS_OS_WINDOWS_7 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 7");
 
     /**
      * <p>
@@ -1449,7 +1526,7 @@ public class SystemUtils {
      *
      * @since 3.2
      */
-    public static final boolean IS_OS_WINDOWS_8 = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " 8");
+    public static final boolean IS_OS_WINDOWS_8 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 8");
 
     /**
      * <p>
@@ -1461,7 +1538,7 @@ public class SystemUtils {
      *
      * @since 3.5
      */
-    public static final boolean IS_OS_WINDOWS_10 = getOSMatchesName(OS_NAME_WINDOWS_PREFIX + " 10");
+    public static final boolean IS_OS_WINDOWS_10 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 10");
 
     /**
      * <p>
@@ -1478,7 +1555,7 @@ public class SystemUtils {
     // os.encoding = ISO8859_1
     // os.name = z/OS
     // os.version = 02.02.00
-    public static final boolean IS_OS_ZOS = getOSMatchesName("z/OS");
+    public static final boolean IS_OS_ZOS = getOsMatchesName("z/OS");
 
     /**
      * <p>
@@ -1496,17 +1573,18 @@ public class SystemUtils {
     }
 
     /**
-     * Gets the host name from an environment variable.
-     * 
+     * Gets the host name from an environment variable
+     * (COMPUTERNAME on Windows, HOSTNAME elsewhere).
+     *
      * <p>
      * If you want to know what the network stack says is the host name, you should use {@code InetAddress.getLocalHost().getHostName()}.
      * </p>
-     * 
-     * @return the host name.
+     *
+     * @return the host name. Will be {@code null} if the environment variable is not defined.
      * @since 3.6
      */
     public static String getHostName() {
-        return SystemUtils.IS_OS_WINDOWS ? System.getenv("COMPUTERNAME") : System.getenv("HOSTNAME");
+        return IS_OS_WINDOWS ? System.getenv("COMPUTERNAME") : System.getenv("HOSTNAME");
     }
 
     /**
@@ -1539,21 +1617,21 @@ public class SystemUtils {
     /**
      * Decides if the operating system matches.
      *
-     * @param osNamePrefix the prefix for the os name
+     * @param osNamePrefix the prefix for the OS name
      * @param osVersionPrefix the prefix for the version
      * @return true if matches, or false if not or can't determine
      */
-    private static boolean getOSMatches(final String osNamePrefix, final String osVersionPrefix) {
+    private static boolean getOsMatches(final String osNamePrefix, final String osVersionPrefix) {
         return isOSMatch(OS_NAME, OS_VERSION, osNamePrefix, osVersionPrefix);
     }
 
     /**
      * Decides if the operating system matches.
      *
-     * @param osNamePrefix the prefix for the os name
+     * @param osNamePrefix the prefix for the OS name
      * @return true if matches, or false if not or can't determine
      */
-    private static boolean getOSMatchesName(final String osNamePrefix) {
+    private static boolean getOsMatchesName(final String osNamePrefix) {
         return isOSNameMatch(OS_NAME, osNamePrefix);
     }
 
@@ -1575,9 +1653,36 @@ public class SystemUtils {
             return System.getProperty(property);
         } catch (final SecurityException ex) {
             // we are not allowed to look at this property
-            System.err.println("Caught a SecurityException reading the system property '" + property
-                    + "'; the SystemUtils property value will default to null.");
+            // System.err.println("Caught a SecurityException reading the system property '" + property
+            // + "'; the SystemUtils property value will default to null.");
             return null;
+        }
+    }
+
+    /**
+     * <p>
+     * Gets an environment variable, defaulting to {@code defaultValue} if the variable cannot be read.
+     * </p>
+     * <p>
+     * If a {@code SecurityException} is caught, the return value is {@code defaultValue} and a message is written to
+     * {@code System.err}.
+     * </p>
+     *
+     * @param name
+     *            the environment variable name
+     * @param defaultValue
+     *            the default value
+     * @return the environment variable value or {@code defaultValue} if a security problem occurs
+     * @since 3.8
+     */
+    public static String getEnvironmentVariable(final String name, final String defaultValue) {
+        try {
+            final String value = System.getenv(name);
+            return value == null ? defaultValue : value;
+        } catch (final SecurityException ex) {
+            // we are not allowed to look at this property
+            // System.err.println("Caught a SecurityException reading the environment variable '" + name + "'.");
+            return defaultValue;
         }
     }
 
@@ -1612,6 +1717,37 @@ public class SystemUtils {
     }
 
     /**
+     * <p>
+     * Gets the user name.
+     * </p>
+     *
+     * @return a name
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow
+     * access to the specified system property.
+     * @see System#getProperty(String)
+     * @since 3.10
+     */
+    public static String getUserName() {
+        return System.getProperty(USER_NAME_KEY);
+    }
+
+    /**
+     * <p>
+     * Gets the user name.
+     * </p>
+     *
+     * @param defaultValue A default value.
+     * @return a name
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow
+     * access to the specified system property.
+     * @see System#getProperty(String)
+     * @since 3.10
+     */
+    public static String getUserName(final String defaultValue) {
+        return System.getProperty(USER_NAME_KEY, defaultValue);
+    }
+
+    /**
      * Returns whether the {@link #JAVA_AWT_HEADLESS} value is {@code true}.
      *
      * @return {@code true} if {@code JAVA_AWT_HEADLESS} is {@code "true"}, {@code false} otherwise.
@@ -1628,18 +1764,28 @@ public class SystemUtils {
      * Is the Java version at least the requested version.
      * </p>
      * <p>
-     * Example input:
-     * </p>
-     * <ul>
-     * <li>{@code 1.2f} to test for Java 1.2</li>
-     * <li>{@code 1.31f} to test for Java 1.3.1</li>
-     * </ul>
      *
      * @param requiredVersion the required version, for example 1.31f
      * @return {@code true} if the actual version is equal or greater than the required version
      */
     public static boolean isJavaVersionAtLeast(final JavaVersion requiredVersion) {
         return JAVA_SPECIFICATION_VERSION_AS_ENUM.atLeast(requiredVersion);
+    }
+
+    /**
+     * <p>
+     * Is the Java version at most the requested version.
+     * </p>
+     * <p>
+     * Example input:
+     * </p>
+     *
+     * @param requiredVersion the required version, for example 1.31f
+     * @return {@code true} if the actual version is equal or greater than the required version
+     * @since 3.9
+     */
+    public static boolean isJavaVersionAtMost(final JavaVersion requiredVersion) {
+        return JAVA_SPECIFICATION_VERSION_AS_ENUM.atMost(requiredVersion);
     }
 
     /**

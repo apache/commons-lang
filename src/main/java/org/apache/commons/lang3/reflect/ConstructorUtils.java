@@ -28,8 +28,9 @@ import org.apache.commons.lang3.Validate;
  * <p> Utility reflection methods focused on constructors, modeled after
  * {@link MethodUtils}. </p>
  *
- * <h3>Known Limitations</h3> <h4>Accessing Public Constructors In A Default
- * Access Superclass</h4> <p>There is an issue when invoking {@code public} constructors
+ * <h2>Known Limitations</h2>
+ * <h3>Accessing Public Constructors In A Default Access Superclass</h3>
+ * <p>There is an issue when invoking {@code public} constructors
  * contained in a default access superclass. Reflection correctly locates these
  * constructors and assigns them as {@code public}. However, an
  * {@link IllegalAccessException} is thrown if the constructor is
@@ -60,7 +61,7 @@ public class ConstructorUtils {
     /**
      * <p>Returns a new instance of the specified class inferring the right constructor
      * from the types of the arguments.</p>
-     * 
+     *
      * <p>This locates and calls a constructor.
      * The constructor signature must match the argument types by assignment compatibility.</p>
      *
@@ -80,14 +81,14 @@ public class ConstructorUtils {
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
             InstantiationException {
         args = ArrayUtils.nullToEmpty(args);
-        final Class<?> parameterTypes[] = ClassUtils.toClass(args);
+        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
         return invokeConstructor(cls, args, parameterTypes);
     }
 
     /**
      * <p>Returns a new instance of the specified class choosing the right constructor
      * from the list of parameter types.</p>
-     * 
+     *
      * <p>This locates and calls a constructor.
      * The constructor signature must match the parameter types by assignment compatibility.</p>
      *
@@ -144,7 +145,7 @@ public class ConstructorUtils {
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
             InstantiationException {
         args = ArrayUtils.nullToEmpty(args);
-        final Class<?> parameterTypes[] = ClassUtils.toClass(args);
+        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
         return invokeExactConstructor(cls, args, parameterTypes);
     }
 
@@ -159,7 +160,7 @@ public class ConstructorUtils {
      * @param cls the class to be constructed, not {@code null}
      * @param args the array of arguments, {@code null} treated as empty
      * @param parameterTypes  the array of parameter types, {@code null} treated as empty
-     * @return new instance of <code>cls</code>, not {@code null}
+     * @return new instance of {@code cls}, not {@code null}
      *
      * @throws NullPointerException if {@code cls} is {@code null}
      * @throws NoSuchMethodException if a matching constructor cannot be found
@@ -184,7 +185,7 @@ public class ConstructorUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Finds a constructor given a class and signature, checking accessibility.</p>
-     * 
+     *
      * <p>This finds the constructor and ensures that it is accessible.
      * The constructor signature must match the parameter types exactly.</p>
      *
@@ -208,7 +209,7 @@ public class ConstructorUtils {
 
     /**
      * <p>Checks if the specified constructor is accessible.</p>
-     * 
+     *
      * <p>This simply ensures that the constructor is accessible.</p>
      *
      * @param <T> the constructor type
@@ -225,7 +226,7 @@ public class ConstructorUtils {
 
     /**
      * <p>Finds an accessible constructor with compatible parameters.</p>
-     * 
+     *
      * <p>This checks all the constructor and finds one with compatible parameters
      * This requires that every parameter is assignable from the given parameter types.
      * This is a more flexible search than the normal exact matching algorithm.</p>
@@ -271,7 +272,7 @@ public class ConstructorUtils {
                         // temporary variable for annotation, see comment above (1)
                         @SuppressWarnings("unchecked")
                         final
-                        Constructor<T> constructor = (Constructor<T>)ctor;
+                        Constructor<T> constructor = (Constructor<T>) ctor;
                         result = constructor;
                     }
                 }

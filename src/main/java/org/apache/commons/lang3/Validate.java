@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 /**
@@ -105,7 +106,7 @@ public class Validate {
      * @see #isTrue(boolean, String, Object...)
      */
     public static void isTrue(final boolean expression, final String message, final long value) {
-        if (expression == false) {
+        if (!expression) {
             throw new IllegalArgumentException(String.format(message, Long.valueOf(value)));
         }
     }
@@ -130,7 +131,7 @@ public class Validate {
      * @see #isTrue(boolean, String, Object...)
      */
     public static void isTrue(final boolean expression, final String message, final double value) {
-        if (expression == false) {
+        if (!expression) {
             throw new IllegalArgumentException(String.format(message, Double.valueOf(value)));
         }
     }
@@ -154,7 +155,7 @@ public class Validate {
      * @see #isTrue(boolean, String, double)
      */
     public static void isTrue(final boolean expression, final String message, final Object... values) {
-        if (expression == false) {
+        if (!expression) {
             throw new IllegalArgumentException(String.format(message, values));
         }
     }
@@ -179,7 +180,7 @@ public class Validate {
      * @see #isTrue(boolean, String, Object...)
      */
     public static void isTrue(final boolean expression) {
-        if (expression == false) {
+        if (!expression) {
             throw new IllegalArgumentException(DEFAULT_IS_TRUE_EX_MESSAGE);
         }
     }
@@ -221,10 +222,7 @@ public class Validate {
      * @see #notNull(Object)
      */
     public static <T> T notNull(final T object, final String message, final Object... values) {
-        if (object == null) {
-            throw new NullPointerException(String.format(message, values));
-        }
-        return object;
+        return Objects.requireNonNull(object, () -> String.format(message, values));
     }
 
     // notEmpty array
@@ -247,9 +245,7 @@ public class Validate {
      * @see #notEmpty(Object[])
      */
     public static <T> T[] notEmpty(final T[] array, final String message, final Object... values) {
-        if (array == null) {
-            throw new NullPointerException(String.format(message, values));
-        }
+        Objects.requireNonNull(array, () -> String.format(message, values));
         if (array.length == 0) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -296,9 +292,7 @@ public class Validate {
      * @see #notEmpty(Object[])
      */
     public static <T extends Collection<?>> T notEmpty(final T collection, final String message, final Object... values) {
-        if (collection == null) {
-            throw new NullPointerException(String.format(message, values));
-        }
+        Objects.requireNonNull(collection, () -> String.format(message, values));
         if (collection.isEmpty()) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -345,9 +339,7 @@ public class Validate {
      * @see #notEmpty(Object[])
      */
     public static <T extends Map<?, ?>> T notEmpty(final T map, final String message, final Object... values) {
-        if (map == null) {
-            throw new NullPointerException(String.format(message, values));
-        }
+        Objects.requireNonNull(map, () -> String.format(message, values));
         if (map.isEmpty()) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -394,9 +386,7 @@ public class Validate {
      * @see #notEmpty(CharSequence)
      */
     public static <T extends CharSequence> T notEmpty(final T chars, final String message, final Object... values) {
-        if (chars == null) {
-            throw new NullPointerException(String.format(message, values));
-        }
+        Objects.requireNonNull(chars, () -> String.format(message, values));
         if (chars.length() == 0) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -447,9 +437,7 @@ public class Validate {
      * @since 3.0
      */
     public static <T extends CharSequence> T notBlank(final T chars, final String message, final Object... values) {
-        if (chars == null) {
-            throw new NullPointerException(String.format(message, values));
-        }
+        Objects.requireNonNull(chars, () -> String.format(message, values));
         if (StringUtils.isBlank(chars)) {
             throw new IllegalArgumentException(String.format(message, values));
         }
@@ -506,7 +494,7 @@ public class Validate {
      * @see #noNullElements(Object[])
      */
     public static <T> T[] noNullElements(final T[] array, final String message, final Object... values) {
-        Validate.notNull(array);
+        notNull(array);
         for (int i = 0; i < array.length; i++) {
             if (array[i] == null) {
                 final Object[] values2 = ArrayUtils.add(values, Integer.valueOf(i));
@@ -568,7 +556,7 @@ public class Validate {
      * @see #noNullElements(Iterable)
      */
     public static <T extends Iterable<?>> T noNullElements(final T iterable, final String message, final Object... values) {
-        Validate.notNull(iterable);
+        notNull(iterable);
         int i = 0;
         for (final Iterator<?> it = iterable.iterator(); it.hasNext(); i++) {
             if (it.next() == null) {
@@ -629,7 +617,7 @@ public class Validate {
      * @since 3.0
      */
     public static <T> T[] validIndex(final T[] array, final int index, final String message, final Object... values) {
-        Validate.notNull(array);
+        notNull(array);
         if (index < 0 || index >= array.length) {
             throw new IndexOutOfBoundsException(String.format(message, values));
         }
@@ -688,7 +676,7 @@ public class Validate {
      * @since 3.0
      */
     public static <T extends Collection<?>> T validIndex(final T collection, final int index, final String message, final Object... values) {
-        Validate.notNull(collection);
+        notNull(collection);
         if (index < 0 || index >= collection.size()) {
             throw new IndexOutOfBoundsException(String.format(message, values));
         }
@@ -745,7 +733,7 @@ public class Validate {
      * @since 3.0
      */
     public static <T extends CharSequence> T validIndex(final T chars, final int index, final String message, final Object... values) {
-        Validate.notNull(chars);
+        notNull(chars);
         if (index < 0 || index >= chars.length()) {
             throw new IndexOutOfBoundsException(String.format(message, values));
         }
@@ -803,7 +791,7 @@ public class Validate {
      * @since 3.0
      */
     public static void validState(final boolean expression) {
-        if (expression == false) {
+        if (!expression) {
             throw new IllegalStateException(DEFAULT_VALID_STATE_EX_MESSAGE);
         }
     }
@@ -825,7 +813,7 @@ public class Validate {
      * @since 3.0
      */
     public static void validState(final boolean expression, final String message, final Object... values) {
-        if (expression == false) {
+        if (!expression) {
             throw new IllegalStateException(String.format(message, values));
         }
     }
@@ -850,7 +838,7 @@ public class Validate {
      */
     public static void matchesPattern(final CharSequence input, final String pattern) {
         // TODO when breaking BC, consider returning input
-        if (Pattern.matches(pattern, input) == false) {
+        if (!Pattern.matches(pattern, input)) {
             throw new IllegalArgumentException(String.format(DEFAULT_MATCHES_PATTERN_EX, input, pattern));
         }
     }
@@ -874,7 +862,7 @@ public class Validate {
      */
     public static void matchesPattern(final CharSequence input, final String pattern, final String message, final Object... values) {
         // TODO when breaking BC, consider returning input
-        if (Pattern.matches(pattern, input) == false) {
+        if (!Pattern.matches(pattern, input)) {
             throw new IllegalArgumentException(String.format(message, values));
         }
     }
@@ -1259,7 +1247,7 @@ public class Validate {
      */
     public static void isInstanceOf(final Class<?> type, final Object obj) {
         // TODO when breaking BC, consider returning obj
-        if (type.isInstance(obj) == false) {
+        if (!type.isInstance(obj)) {
             throw new IllegalArgumentException(String.format(DEFAULT_IS_INSTANCE_OF_EX_MESSAGE, type.getName(),
                     obj == null ? "null" : obj.getClass().getName()));
         }
@@ -1284,7 +1272,7 @@ public class Validate {
      */
     public static void isInstanceOf(final Class<?> type, final Object obj, final String message, final Object... values) {
         // TODO when breaking BC, consider returning obj
-        if (type.isInstance(obj) == false) {
+        if (!type.isInstance(obj)) {
             throw new IllegalArgumentException(String.format(message, values));
         }
     }
@@ -1310,7 +1298,7 @@ public class Validate {
      */
     public static void isAssignableFrom(final Class<?> superType, final Class<?> type) {
         // TODO when breaking BC, consider returning type
-        if (superType.isAssignableFrom(type) == false) {
+        if (!superType.isAssignableFrom(type)) {
             throw new IllegalArgumentException(String.format(DEFAULT_IS_ASSIGNABLE_EX_MESSAGE, type == null ? "null" : type.getName(),
                     superType.getName()));
         }
@@ -1335,7 +1323,7 @@ public class Validate {
      */
     public static void isAssignableFrom(final Class<?> superType, final Class<?> type, final String message, final Object... values) {
         // TODO when breaking BC, consider returning type
-        if (superType.isAssignableFrom(type) == false) {
+        if (!superType.isAssignableFrom(type)) {
             throw new IllegalArgumentException(String.format(message, values));
         }
     }

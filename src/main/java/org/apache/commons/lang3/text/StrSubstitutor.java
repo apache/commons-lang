@@ -29,7 +29,7 @@ import org.apache.commons.lang3.StringUtils;
  * Substitutes variables within a string by values.
  * <p>
  * This class takes a piece of text and substitutes all the variables within it.
- * The default definition of a variable is <code>${variableName}</code>.
+ * The default definition of a variable is {@code ${variableName}}.
  * The prefix and suffix can be changed via constructors and set methods.
  * <p>
  * Variable values are typically resolved from a map, but could also be resolved
@@ -44,7 +44,7 @@ import org.apache.commons.lang3.StringUtils;
  * Typical usage of this class follows the following pattern: First an instance is created
  * and initialized with the map that contains the values for the available variables.
  * If a prefix and/or suffix for variables should be used other than the default ones,
- * the appropriate settings can be performed. After that the <code>replace()</code>
+ * the appropriate settings can be performed. After that the {@code replace()}
  * method can be called passing in the source text for interpolation. In the returned
  * text all variable references (as long as their values are known) will be resolved.
  * The following example demonstrates this:
@@ -96,7 +96,7 @@ import org.apache.commons.lang3.StringUtils;
  *   The variable ${${name}} must be used.
  * </pre>
  * Here only the variable's name referred to in the text should be replaced resulting
- * in the text (assuming that the value of the <code>name</code> variable is <code>x</code>):
+ * in the text (assuming that the value of the {@code name} variable is {@code x}):
  * <pre>
  *   The variable ${x} must be used.
  * </pre>
@@ -114,7 +114,7 @@ import org.apache.commons.lang3.StringUtils;
  * <pre>
  * ${jre-${java.specification.version}}
  * </pre>
- * <code>StrSubstitutor</code> supports this recursive substitution in variable
+ * {@code StrSubstitutor} supports this recursive substitution in variable
  * names, but it has to be enabled explicitly by setting the
  * {@link #setEnableSubstitutionInVariables(boolean) enableSubstitutionInVariables}
  * property to <b>true</b>.
@@ -122,8 +122,8 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @since 2.2
  * @deprecated as of 3.6, use commons-text
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StrSubstitutor.html">
- * StrSubstitutor</a> instead
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StringSubstitutor.html">
+ * StringSubstitutor</a> instead
  */
 @Deprecated
 public class StrSubstitutor {
@@ -218,14 +218,14 @@ public class StrSubstitutor {
         if (valueProperties == null) {
             return source.toString();
         }
-        final Map<String,String> valueMap = new HashMap<>();
+        final Map<String, String> valueMap = new HashMap<>();
         final Enumeration<?> propNames = valueProperties.propertyNames();
         while (propNames.hasMoreElements()) {
-            final String propName = (String)propNames.nextElement();
+            final String propName = (String) propNames.nextElement();
             final String propValue = valueProperties.getProperty(propName);
             valueMap.put(propName, propValue);
         }
-        return StrSubstitutor.replace(source, valueMap);
+        return replace(source, valueMap);
     }
 
     /**
@@ -592,7 +592,7 @@ public class StrSubstitutor {
     /**
      * Replaces all the occurrences of variables in the given source object with
      * their matching values from the resolver. The input source object is
-     * converted to a string using <code>toString</code> and is not altered.
+     * converted to a string using {@code toString} and is not altered.
      *
      * @param source  the source to replace in, null returns null
      * @return the result of the replace operation
@@ -984,7 +984,7 @@ public class StrSubstitutor {
      */
     public StrSubstitutor setVariablePrefixMatcher(final StrMatcher prefixMatcher) {
         if (prefixMatcher == null) {
-            throw new IllegalArgumentException("Variable prefix matcher must not be null!");
+            throw new IllegalArgumentException("Variable prefix matcher must not be null.");
         }
         this.prefixMatcher = prefixMatcher;
         return this;
@@ -1016,7 +1016,7 @@ public class StrSubstitutor {
      */
     public StrSubstitutor setVariablePrefix(final String prefix) {
        if (prefix == null) {
-            throw new IllegalArgumentException("Variable prefix must not be null!");
+            throw new IllegalArgumentException("Variable prefix must not be null.");
         }
         return setVariablePrefixMatcher(StrMatcher.stringMatcher(prefix));
     }
@@ -1049,7 +1049,7 @@ public class StrSubstitutor {
      */
     public StrSubstitutor setVariableSuffixMatcher(final StrMatcher suffixMatcher) {
         if (suffixMatcher == null) {
-            throw new IllegalArgumentException("Variable suffix matcher must not be null!");
+            throw new IllegalArgumentException("Variable suffix matcher must not be null.");
         }
         this.suffixMatcher = suffixMatcher;
         return this;
@@ -1081,7 +1081,7 @@ public class StrSubstitutor {
      */
     public StrSubstitutor setVariableSuffix(final String suffix) {
        if (suffix == null) {
-            throw new IllegalArgumentException("Variable suffix must not be null!");
+            throw new IllegalArgumentException("Variable suffix must not be null.");
         }
         return setVariableSuffixMatcher(StrMatcher.stringMatcher(suffix));
     }
@@ -1111,7 +1111,7 @@ public class StrSubstitutor {
      * variable name and the variable default value. This delimiter is expressed in terms of a matcher
      * allowing advanced variable default value delimiter matches.
      * <p>
-     * If the <code>valueDelimiterMatcher</code> is null, then the variable default value resolution
+     * If the {@code valueDelimiterMatcher} is null, then the variable default value resolution
      * becomes disabled.
      *
      * @param valueDelimiterMatcher  variable default value delimiter matcher to use, may be null
@@ -1145,7 +1145,7 @@ public class StrSubstitutor {
      * variable name and the variable default value. This method allows a string
      * variable default value delimiter to be easily set.
      * <p>
-     * If the <code>valueDelimiter</code> is null or empty string, then the variable default
+     * If the {@code valueDelimiter} is null or empty string, then the variable default
      * value resolution becomes disabled.
      *
      * @param valueDelimiter  the variable default value delimiter string to use, may be null or empty
@@ -1196,7 +1196,7 @@ public class StrSubstitutor {
      * Sets a flag whether substitution is done in variable names. If set to
      * <b>true</b>, the names of variables can contain other variables which are
      * processed first before the original variable is evaluated, e.g.
-     * <code>${jre-${java.version}}</code>. The default value is <b>false</b>.
+     * {@code ${jre-${java.version}}}. The default value is <b>false</b>.
      *
      * @param enableSubstitutionInVariables the new value of the flag
      * @since 3.0
@@ -1209,7 +1209,7 @@ public class StrSubstitutor {
     /**
      * Returns the flag controlling whether escapes are preserved during
      * substitution.
-     * 
+     *
      * @return the preserve escape flag
      * @since 3.5
      */
@@ -1220,12 +1220,12 @@ public class StrSubstitutor {
     /**
      * Sets a flag controlling whether escapes are preserved during
      * substitution.  If set to <b>true</b>, the escape character is retained
-     * during substitution (e.g. <code>$${this-is-escaped}</code> remains
-     * <code>$${this-is-escaped}</code>).  If set to <b>false</b>, the escape
+     * during substitution (e.g. {@code $${this-is-escaped}} remains
+     * {@code $${this-is-escaped}}).  If set to <b>false</b>, the escape
      * character is removed during substitution (e.g.
-     * <code>$${this-is-escaped}</code> becomes
-     * <code>${this-is-escaped}</code>).  The default value is <b>false</b>
-     * 
+     * {@code $${this-is-escaped}} becomes
+     * {@code ${this-is-escaped}}).  The default value is <b>false</b>
+     *
      * @param preserveEscapes true if escapes are to be preserved
      * @since 3.5
      */

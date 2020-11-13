@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,11 +16,14 @@
  */
 package org.apache.commons.lang3.text.translate;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.CharArrayWriter;
 import java.io.IOException;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover}.
@@ -29,18 +32,18 @@ import org.junit.Test;
 public class UnicodeUnpairedSurrogateRemoverTest {
     final UnicodeUnpairedSurrogateRemover subject = new UnicodeUnpairedSurrogateRemover();
     final CharArrayWriter writer = new CharArrayWriter(); // nothing is ever written to it
-    
+
     @Test
     public void testValidCharacters() throws IOException {
-        assertEquals(false, subject.translate(0xd7ff, writer));
-        assertEquals(false, subject.translate(0xe000, writer));
+        assertFalse(subject.translate(0xd7ff, writer));
+        assertFalse(subject.translate(0xe000, writer));
         assertEquals(0, writer.size());
     }
-    
+
     @Test
     public void testInvalidCharacters() throws IOException {
-        assertEquals(true, subject.translate(0xd800, writer));
-        assertEquals(true, subject.translate(0xdfff, writer));
+        assertTrue(subject.translate(0xd800, writer));
+        assertTrue(subject.translate(0xdfff, writer));
         assertEquals(0, writer.size());
     }
 }

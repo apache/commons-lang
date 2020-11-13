@@ -20,14 +20,17 @@ import java.lang.reflect.Type;
 
 /**
  * Generalization of "has a type."
+ *
+ * @param <T> the type
  * @see TypeLiteral
  * @since 3.2
  */
+@FunctionalInterface
 public interface Typed<T> {
 
     /**
-     * Get the {@link Type} represented by this entity.
-     * 
+     * Gets the {@link Type} represented by this entity.
+     *
      * @return Type
      */
     Type getType();

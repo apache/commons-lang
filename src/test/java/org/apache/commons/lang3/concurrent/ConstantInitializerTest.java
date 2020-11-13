@@ -16,13 +16,13 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.regex.Pattern;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@code ConstantInitializer}.
@@ -34,8 +34,8 @@ public class ConstantInitializerTest {
     /** The initializer to be tested. */
     private ConstantInitializer<Integer> init;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() {
         init = new ConstantInitializer<>(VALUE);
     }
 
@@ -46,12 +46,11 @@ public class ConstantInitializerTest {
      * @param expected the expected result
      */
     private void checkEquals(final Object obj, final boolean expected) {
-        assertTrue("Wrong result of equals", expected == init.equals(obj));
+        assertEquals(expected, init.equals(obj), "Wrong result of equals");
         if (obj != null) {
-            assertTrue("Not symmetric", expected == obj.equals(init));
+            assertEquals(expected, obj.equals(init), "Not symmetric");
             if (expected) {
-                assertEquals("Different hash codes", init.hashCode(),
-                        obj.hashCode());
+                assertEquals(init.hashCode(), obj.hashCode(), "Different hash codes");
             }
         }
     }
@@ -61,7 +60,7 @@ public class ConstantInitializerTest {
      */
     @Test
     public void testGetObject() {
-        assertEquals("Wrong object", VALUE, init.getObject());
+        assertEquals(VALUE, init.getObject(), "Wrong object");
     }
 
     /**
@@ -71,7 +70,7 @@ public class ConstantInitializerTest {
      */
     @Test
     public void testGet() throws ConcurrentException {
-        assertEquals("Wrong object", VALUE, init.get());
+        assertEquals(VALUE, init.get(), "Wrong object");
     }
 
     /**
@@ -119,7 +118,7 @@ public class ConstantInitializerTest {
         final Pattern pattern = Pattern
                 .compile("ConstantInitializer@-?\\d+ \\[ object = " + VALUE
                         + " \\]");
-        assertTrue("Wrong string: " + s, pattern.matcher(s).matches());
+        assertTrue(pattern.matcher(s).matches(), "Wrong string: " + s);
     }
 
     /**
@@ -128,6 +127,6 @@ public class ConstantInitializerTest {
     @Test
     public void testToStringNull() {
         final String s = new ConstantInitializer<>(null).toString();
-        assertTrue("Object not found: " + s, s.indexOf("object = null") > 0);
+        assertTrue(s.indexOf("object = null") > 0, "Object not found: " + s);
     }
 }

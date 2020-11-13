@@ -26,22 +26,24 @@ limitations under the License.
  | commons-build-plugin/trunk/src/main/resources/commons-xdoc-templates |
  +======================================================================+
  |                                                                      |
- | 1) Re-generate using: mvn commons:download-page                      |
+ | 1) Re-generate using: mvn commons-build:download-page                |
  |                                                                      |
  | 2) Set the following properties in the component's pom:              |
- |    - commons.componentid (required, alphabetic, lower case)          |
+ |    - commons.componentid     (required, alphabetic, lower case)      |
  |    - commons.release.version (required)                              |
  |    - commons.release.name    (required)                              |
  |    - commons.binary.suffix   (optional)                              |
  |      (defaults to "-bin", set to "" for pre-maven2 releases)         |
  |    - commons.release.desc    (optional)                              |
  |    - commons.release.subdir  (optional)                              |
+ |    - commons.release.hash    (optional, lowercase, default sha512)   |
  |                                                                      |
- |    - commons.release.2/3.version       (conditional)                 |
- |    - commons.release.2/3.name          (conditional)                 |
- |    - commons.release.2/3.binary.suffix (optional)                    |
- |    - commons.release.2/3.desc          (optional)                    |
- |    - commons.release.2/3.subdir        (optional)                    |
+ |    - commons.release.[234].version       (conditional)               |
+ |    - commons.release.[234].name          (conditional)               |
+ |    - commons.release.[234].binary.suffix (optional)                  |
+ |    - commons.release.[234].desc          (optional)                  |
+ |    - commons.release.[234].subdir        (optional)                  |
+ |    - commons.release.[234].hash       (optional, lowercase, [sha512])|
  |                                                                      |
  | 3) Example Properties                                                |
  |    (commons.release.name inherited by parent:                        |
@@ -64,7 +66,7 @@ limitations under the License.
     <subsection name="Using a Mirror">
       <p>
         We recommend you use a mirror to download our release
-        builds, but you <strong>must</strong> <a href="http://www.apache.org/info/verification.html">verify the integrity</a> of
+        builds, but you <strong>must</strong> <a href="https://www.apache.org/info/verification.html">verify the integrity</a> of
         the downloaded files using signatures downloaded from our main
         distribution directories. Recent releases (48 hours) may not yet
         be available from all the mirrors.
@@ -102,7 +104,7 @@ limitations under the License.
         It is essential that you
         <a href="https://www.apache.org/info/verification.html">verify the integrity</a>
         of downloaded files, preferably using the <code>PGP</code> signature (<code>*.asc</code> files);
-        failing that using the <code>MD5</code> hash (<code>*.md5</code> checksum files).
+        failing that using the <code>SHA512</code> hash (<code>*.sha512</code> checksum files).
       </p>
       <p>
         The <a href="https://www.apache.org/dist/commons/KEYS">KEYS</a>
@@ -111,32 +113,32 @@ limitations under the License.
       </p>
     </subsection>
     </section>
-    <section name="Apache Commons Lang 3.5 (Java 6.0+)">
+    <section name="Apache Commons Lang 3.11 (Java 8+)">
       <subsection name="Binaries">
         <table>
           <tr>
-              <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.5-bin.tar.gz">commons-lang3-3.5-bin.tar.gz</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.5-bin.tar.gz.md5">md5</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.5-bin.tar.gz.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.11-bin.tar.gz">commons-lang3-3.11-bin.tar.gz</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.11-bin.tar.gz.sha512">sha512</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.11-bin.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
-              <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.5-bin.zip">commons-lang3-3.5-bin.zip</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.5-bin.zip.md5">md5</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.5-bin.zip.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.11-bin.zip">commons-lang3-3.11-bin.zip</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.11-bin.zip.sha512">sha512</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.11-bin.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
       <subsection name="Source">
         <table>
           <tr>
-              <td><a href="[preferred]/commons/lang/source/commons-lang3-3.5-src.tar.gz">commons-lang3-3.5-src.tar.gz</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.5-src.tar.gz.md5">md5</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.5-src.tar.gz.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang/source/commons-lang3-3.11-src.tar.gz">commons-lang3-3.11-src.tar.gz</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.11-src.tar.gz.sha512">sha512</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.11-src.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
-              <td><a href="[preferred]/commons/lang/source/commons-lang3-3.5-src.zip">commons-lang3-3.5-src.zip</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.5-src.zip.md5">md5</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.5-src.zip.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang/source/commons-lang3-3.11-src.zip">commons-lang3-3.11-src.zip</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.11-src.zip.sha512">sha512</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.11-src.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
@@ -146,12 +148,12 @@ limitations under the License.
         <table>
           <tr>
               <td><a href="[preferred]/commons/lang/binaries/commons-lang-2.6-bin.tar.gz">commons-lang-2.6-bin.tar.gz</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.tar.gz.md5">md5</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.tar.gz.sha512">sha512</a></td>
               <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
               <td><a href="[preferred]/commons/lang/binaries/commons-lang-2.6-bin.zip">commons-lang-2.6-bin.zip</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.zip.md5">md5</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.zip.sha512">sha512</a></td>
               <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.zip.asc">pgp</a></td>
           </tr>
         </table>
@@ -160,12 +162,12 @@ limitations under the License.
         <table>
           <tr>
               <td><a href="[preferred]/commons/lang/source/commons-lang-2.6-src.tar.gz">commons-lang-2.6-src.tar.gz</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.tar.gz.md5">md5</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.tar.gz.sha512">sha512</a></td>
               <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
               <td><a href="[preferred]/commons/lang/source/commons-lang-2.6-src.zip">commons-lang-2.6-src.zip</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.zip.md5">md5</a></td>
+              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.zip.sha512">sha512</a></td>
               <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.zip.asc">pgp</a></td>
           </tr>
         </table>

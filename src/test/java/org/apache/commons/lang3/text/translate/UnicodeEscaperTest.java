@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,9 +17,9 @@
 
 package org.apache.commons.lang3.text.translate;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.UnicodeEscaper}.
@@ -33,7 +33,7 @@ public class UnicodeEscaperTest  {
 
         final String input = "ADFGZ";
         final String result = ue.translate(input);
-        assertEquals("Failed to escape Unicode characters via the below method", "\\u0041\\u0044FGZ", result);
+        assertEquals("\\u0041\\u0044FGZ", result, "Failed to escape Unicode characters via the below method");
     }
 
     @Test
@@ -42,7 +42,7 @@ public class UnicodeEscaperTest  {
 
         final String input = "ADFGZ";
         final String result = ue.translate(input);
-        assertEquals("Failed to escape Unicode characters via the between method", "AD\\u0046\\u0047Z", result);
+        assertEquals("AD\\u0046\\u0047Z", result, "Failed to escape Unicode characters via the between method");
     }
 
     @Test
@@ -51,6 +51,6 @@ public class UnicodeEscaperTest  {
 
         final String input = "ADFGZ";
         final String result = ue.translate(input);
-        assertEquals("Failed to escape Unicode characters via the above method", "ADF\\u0047\\u005A", result);
+        assertEquals("ADF\\u0047\\u005A", result, "Failed to escape Unicode characters via the above method");
     }
 }

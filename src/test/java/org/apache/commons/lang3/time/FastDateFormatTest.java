@@ -16,12 +16,11 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.text.FieldPosition;
 import java.text.Format;
@@ -36,11 +35,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLongArray;
 
-import org.apache.commons.lang3.test.SystemDefaults;
-import org.apache.commons.lang3.test.SystemDefaultsSwitch;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.DefaultLocale;
+import org.junitpioneer.jupiter.DefaultTimeZone;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.time.FastDateFormat}.
@@ -48,10 +45,6 @@ import org.junit.Test;
  * @since 2.0
  */
 public class FastDateFormatTest {
-
-    @Rule
-    public SystemDefaultsSwitch defaults = new SystemDefaultsSwitch();
-
     /*
      * Only the cache methods need to be tested here.
      * The print methods are tested by {@link FastDateFormat_PrinterTest}
@@ -70,14 +63,15 @@ public class FastDateFormatTest {
         final FastDateFormat format2 = FastDateFormat.getInstance("MM-DD-yyyy");
         final FastDateFormat format3 = FastDateFormat.getInstance("MM-DD-yyyy");
 
-        assertTrue(format1 != format2); // -- junit 3.8 version -- assertFalse(format1 == format2);
+        assertNotSame(format1, format2);
         assertSame(format2, format3);
         assertEquals("MM/DD/yyyy", format1.getPattern());
         assertEquals(TimeZone.getDefault(), format1.getTimeZone());
         assertEquals(TimeZone.getDefault(), format2.getTimeZone());
     }
 
-    @SystemDefaults(timezone="America/New_York", locale="en_US")
+    @DefaultLocale(language = "en", country = "US")
+    @DefaultTimeZone("America/New_York")
     @Test
     public void test_getInstance_String_TimeZone() {
 
@@ -97,7 +91,7 @@ public class FastDateFormatTest {
         assertNotSame(format4, format6);
     }
 
-    @SystemDefaults(locale="en_US")
+    @DefaultLocale(language = "en", country = "US")
     @Test
     public void test_getInstance_String_Locale() {
         final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
@@ -109,7 +103,7 @@ public class FastDateFormatTest {
         assertEquals(Locale.GERMANY, format1.getLocale());
     }
 
-    @SystemDefaults(locale="en_US")
+    @DefaultLocale(language = "en", country = "US")
     @Test
     public void test_changeDefault_Locale_DateInstance() {
         final FastDateFormat format1 = FastDateFormat.getDateInstance(FastDateFormat.FULL, Locale.GERMANY);
@@ -124,7 +118,7 @@ public class FastDateFormatTest {
         assertNotSame(format2, format3);
     }
 
-    @SystemDefaults(locale="en_US")
+    @DefaultLocale(language = "en", country = "US")
     @Test
     public void test_changeDefault_Locale_DateTimeInstance() {
         final FastDateFormat format1 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL, Locale.GERMANY);
@@ -139,7 +133,8 @@ public class FastDateFormatTest {
         assertNotSame(format2, format3);
     }
 
-    @SystemDefaults(locale="en_US", timezone="America/New_York")
+    @DefaultLocale(language = "en", country = "US")
+    @DefaultTimeZone("America/New_York")
     @Test
     public void test_getInstance_String_TimeZone_Locale() {
         final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy",
@@ -162,10 +157,10 @@ public class FastDateFormatTest {
         final FastDateFormat format = FastDateFormat.getInstance();
         final FastDateFormat medium = FastDateFormat.getDateTimeInstance(FastDateFormat.SHORT, FastDateFormat.SHORT);
         assertEquals(medium, format);
-        
+
         final SimpleDateFormat sdf = new SimpleDateFormat();
         assertEquals(sdf.toPattern(), format.getPattern());
-        
+
         assertEquals(Locale.getDefault(), format.getLocale());
         assertEquals(TimeZone.getDefault(), format.getTimeZone());
     }
@@ -176,24 +171,24 @@ public class FastDateFormatTest {
         final FastDateFormat shortLong = FastDateFormat.getDateTimeInstance(FastDateFormat.SHORT, FastDateFormat.LONG, Locale.US);
         final FastDateFormat longShort = FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.SHORT, Locale.US);
         final FastDateFormat longLong = FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.LONG, Locale.US);
-        
-        assertFalse(shortShort.equals(shortLong));
-        assertFalse(shortShort.equals(longShort));
-        assertFalse(shortShort.equals(longLong));
-        assertFalse(shortLong.equals(longShort));
-        assertFalse(shortLong.equals(longLong));
-        assertFalse(longShort.equals(longLong));
+
+        assertNotEquals(shortShort, shortLong);
+        assertNotEquals(shortShort, longShort);
+        assertNotEquals(shortShort, longLong);
+        assertNotEquals(shortLong, longShort);
+        assertNotEquals(shortLong, longLong);
+        assertNotEquals(longShort, longLong);
     }
 
     @Test
     public void testDateDefaults() {
-        assertEquals(FastDateFormat.getDateInstance(FastDateFormat.LONG, Locale.CANADA), 
+        assertEquals(FastDateFormat.getDateInstance(FastDateFormat.LONG, Locale.CANADA),
                 FastDateFormat.getDateInstance(FastDateFormat.LONG, TimeZone.getDefault(), Locale.CANADA));
-        
-        assertEquals(FastDateFormat.getDateInstance(FastDateFormat.LONG, TimeZone.getTimeZone("America/New_York")), 
+
+        assertEquals(FastDateFormat.getDateInstance(FastDateFormat.LONG, TimeZone.getTimeZone("America/New_York")),
                 FastDateFormat.getDateInstance(FastDateFormat.LONG, TimeZone.getTimeZone("America/New_York"), Locale.getDefault()));
 
-        assertEquals(FastDateFormat.getDateInstance(FastDateFormat.LONG), 
+        assertEquals(FastDateFormat.getDateInstance(FastDateFormat.LONG),
                 FastDateFormat.getDateInstance(FastDateFormat.LONG, TimeZone.getDefault(), Locale.getDefault()));
     }
 
@@ -249,35 +244,33 @@ public class FastDateFormatTest {
         final Format fdf = FastDateFormat.getInstance(pattern);
         final AtomicLongArray fdfTime= measureTime(fdf, fdf);
 
-        System.out.println(">>FastDateFormatTest: FastDatePrinter:"+fdfTime.get(0)+"  SimpleDateFormat:"+sdfTime.get(0));
-        System.out.println(">>FastDateFormatTest: FastDateParser:"+fdfTime.get(1)+"  SimpleDateFormat:"+sdfTime.get(1));
+        //System.out.println(">>FastDateFormatTest: FastDatePrinter:"+fdfTime.get(0)+"  SimpleDateFormat:"+sdfTime.get(0));
+        //System.out.println(">>FastDateFormatTest: FastDateParser:"+fdfTime.get(1)+"  SimpleDateFormat:"+sdfTime.get(1));
     }
 
-    final static private int NTHREADS= 10;
-    final static private int NROUNDS= 10000;
-    
+    private static final int NTHREADS = 10;
+    private static final int NROUNDS = 10000;
+
     private AtomicLongArray measureTime(final Format printer, final Format parser) throws InterruptedException {
         final ExecutorService pool = Executors.newFixedThreadPool(NTHREADS);
-        final AtomicInteger failures= new AtomicInteger(0);
-        final AtomicLongArray totalElapsed= new AtomicLongArray(2);
-
-        for(int i= 0; i<NTHREADS; ++i) {
-            pool.submit(new Runnable() {
-                @Override
-                public void run() {
-                    for(int j= 0; j<NROUNDS; ++j) {
+        final AtomicInteger failures = new AtomicInteger(0);
+        final AtomicLongArray totalElapsed = new AtomicLongArray(2);
+        try {
+            for (int i = 0; i < NTHREADS; ++i) {
+                pool.submit(() -> {
+                    for (int j = 0; j < NROUNDS; ++j) {
                         try {
-                            final Date date= new Date();
+                            final Date date = new Date();
 
-                            final long t0= System.currentTimeMillis();
-                            final String formattedDate= printer.format(date);
+                            final long t0 = System.currentTimeMillis();
+                            final String formattedDate = printer.format(date);
                             totalElapsed.addAndGet(0, System.currentTimeMillis() - t0);
 
                             final long t1 = System.currentTimeMillis();
-                            final Object pd= parser.parseObject(formattedDate);
+                            final Object pd = parser.parseObject(formattedDate);
                             totalElapsed.addAndGet(1, System.currentTimeMillis() - t1);
 
-                            if(!date.equals(pd)) {
+                            if (!date.equals(pd)) {
                                 failures.incrementAndGet();
                             }
                         } catch (final Exception e) {
@@ -285,16 +278,17 @@ public class FastDateFormatTest {
                             e.printStackTrace();
                         }
                     }
-                }
-            });
-        }
-        pool.shutdown();
-        // depending on the performance of the machine used to run the parsing,
-        // the tests can run for a while. It should however complete within
-        // 30 seconds. Might need increase on very slow machines.
-        if(!pool.awaitTermination(30, TimeUnit.SECONDS)) {
-            pool.shutdownNow();
-            fail("did not complete tasks");
+                });
+            }
+        } finally {
+            pool.shutdown();
+            // depending on the performance of the machine used to run the parsing,
+            // the tests can run for a while. It should however complete within
+            // 30 seconds. Might need increase on very slow machines.
+            if (!pool.awaitTermination(30, TimeUnit.SECONDS)) {
+                pool.shutdownNow();
+                fail("did not complete tasks");
+            }
         }
         assertEquals(0, failures.get());
         return totalElapsed;
@@ -311,18 +305,18 @@ public class FastDateFormatTest {
 
     @Test
     public void testLANG_1152() {
-        final TimeZone utc = TimeZone.getTimeZone("UTC");
+        final TimeZone utc = FastTimeZone.getGmtTimeZone();
         final Date date = new Date(Long.MAX_VALUE);
 
         String dateAsString = FastDateFormat.getInstance("yyyy-MM-dd", utc, Locale.US).format(date);
-        Assert.assertEquals("292278994-08-17", dateAsString);
+        assertEquals("292278994-08-17", dateAsString);
 
         dateAsString = FastDateFormat.getInstance("dd/MM/yyyy", utc, Locale.US).format(date);
-        Assert.assertEquals("17/08/292278994", dateAsString);
+        assertEquals("17/08/292278994", dateAsString);
     }
 
     @Test
-    public void testLANG_1267() throws Exception {
+    public void testLANG_1267() {
         FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
     }
 }

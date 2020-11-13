@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,15 +17,15 @@
 
 package org.apache.commons.lang3.text;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.CompositeFormat}.
@@ -34,7 +34,7 @@ import java.util.Locale;
 public class CompositeFormatTest {
 
     /**
-     * Ensures that the parse/format separation is correctly maintained. 
+     * Ensures that the parse/format separation is correctly maintained.
      */
     @Test
     public void testCompositeFormat() {
@@ -71,8 +71,8 @@ public class CompositeFormatTest {
 
         composite.parseObject("", null);
         composite.format(new Object(), new StringBuffer(), null);
-        assertEquals( "Parser get method incorrectly implemented", parser, composite.getParser() );
-        assertEquals( "Formatter get method incorrectly implemented", formatter, composite.getFormatter() );
+        assertEquals(parser, composite.getParser(), "Parser get method incorrectly implemented");
+        assertEquals(formatter, composite.getFormatter(), "Formatter get method incorrectly implemented");
     }
 
     @Test

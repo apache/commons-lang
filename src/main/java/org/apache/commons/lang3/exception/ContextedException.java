@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,7 +45,7 @@ import org.apache.commons.lang3.tuple.Pair;
  *     throw new ContextedException("Error posting account transaction", e)
  *          .addContextValue("Account Number", accountNumber)
  *          .addContextValue("Amount Posted", amountPosted)
- *          .addContextValue("Previous Balance", previousBalance)
+ *          .addContextValue("Previous Balance", previousBalance);
  *   }
  * }
  * </pre>
@@ -80,7 +80,7 @@ import org.apache.commons.lang3.tuple.Pair;
  *  at org.apache.commons.lang3.exception.ContextedExceptionTest.testAddValue(ContextedExceptionTest.java:88)
  *  ..... (rest of trace)
  * </pre>
- * 
+ *
  * @see ContextedRuntimeException
  * @since 3.0
  */
@@ -105,7 +105,7 @@ public class ContextedException extends Exception implements ExceptionContext {
      * Instantiates ContextedException with message, but without cause.
      * <p>
      * The context information is stored using a default implementation.
-     * 
+     *
      * @param message  the exception message, may be null
      */
     public ContextedException(final String message) {
@@ -117,7 +117,7 @@ public class ContextedException extends Exception implements ExceptionContext {
      * Instantiates ContextedException with cause, but without message.
      * <p>
      * The context information is stored using a default implementation.
-     * 
+     *
      * @param cause  the underlying cause of the exception, may be null
      */
     public ContextedException(final Throwable cause) {
@@ -129,7 +129,7 @@ public class ContextedException extends Exception implements ExceptionContext {
      * Instantiates ContextedException with cause and message.
      * <p>
      * The context information is stored using a default implementation.
-     * 
+     *
      * @param message  the exception message, may be null
      * @param cause  the underlying cause of the exception, may be null
      */
@@ -140,7 +140,7 @@ public class ContextedException extends Exception implements ExceptionContext {
 
     /**
      * Instantiates ContextedException with cause, message, and ExceptionContext.
-     * 
+     *
      * @param message  the exception message, may be null
      * @param cause  the underlying cause of the exception, may be null
      * @param context  the context used to store the additional information, null uses default implementation
@@ -162,13 +162,13 @@ public class ContextedException extends Exception implements ExceptionContext {
      * <p>
      * Note: This exception is only serializable if the object added is serializable.
      * </p>
-     * 
+     *
      * @param label  a textual label associated with information, {@code null} not recommended
      * @param value  information needed to understand exception, may be {@code null}
      * @return {@code this}, for method chaining, not {@code null}
      */
     @Override
-    public ContextedException addContextValue(final String label, final Object value) {        
+    public ContextedException addContextValue(final String label, final Object value) {
         exceptionContext.addContextValue(label, value);
         return this;
     }
@@ -181,13 +181,13 @@ public class ContextedException extends Exception implements ExceptionContext {
      * <p>
      * Note: This exception is only serializable if the object added as value is serializable.
      * </p>
-     * 
+     *
      * @param label  a textual label associated with information, {@code null} not recommended
      * @param value  information needed to understand exception, may be {@code null}
      * @return {@code this}, for method chaining, not {@code null}
      */
     @Override
-    public ContextedException setContextValue(final String label, final Object value) {        
+    public ContextedException setContextValue(final String label, final Object value) {
         exceptionContext.setContextValue(label, value);
         return this;
     }
@@ -226,18 +226,18 @@ public class ContextedException extends Exception implements ExceptionContext {
 
     /**
      * Provides the message explaining the exception, including the contextual data.
-     * 
+     *
      * @see java.lang.Throwable#getMessage()
      * @return the message, never null
      */
     @Override
-    public String getMessage(){
+    public String getMessage() {
         return getFormattedExceptionMessage(super.getMessage());
     }
 
     /**
      * Provides the message explaining the exception without the contextual data.
-     * 
+     *
      * @see java.lang.Throwable#getMessage()
      * @return the message
      * @since 3.0.1

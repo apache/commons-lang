@@ -26,12 +26,12 @@ import org.apache.commons.lang3.math.NumberUtils;
  * @since 3.0
  */
 public enum JavaVersion {
-    
+
     /**
      * The Java version reported by Android. This is not an official Java version number.
      */
     JAVA_0_9(1.5f, "0.9"),
-    
+
     /**
      * Java 1.1.
      */
@@ -74,7 +74,7 @@ public enum JavaVersion {
 
     /**
      * Java 1.9.
-     * 
+     *
      * @deprecated As of release 3.5, replaced by {@link #JAVA_9}
      */
     @Deprecated
@@ -82,8 +82,59 @@ public enum JavaVersion {
 
     /**
      * Java 9
+     *
+     * @since 3.5
      */
     JAVA_9(9.0f, "9"),
+
+    /**
+     * Java 10
+     *
+     * @since 3.7
+     */
+    JAVA_10(10.0f, "10"),
+
+    /**
+     * Java 11
+     *
+     * @since 3.8
+     */
+    JAVA_11(11.0f, "11"),
+
+    /**
+     * Java 12
+     *
+     * @since 3.9
+     */
+    JAVA_12(12.0f, "12"),
+
+    /**
+     * Java 13
+     *
+     * @since 3.9
+     */
+    JAVA_13(13.0f, "13"),
+
+    /**
+     * Java 14
+     *
+     * @since 3.11
+     */
+    JAVA_14(14.0f, "14"),
+
+    /**
+     * Java 15
+     *
+     * @since 3.11
+     */
+    JAVA_15(15.0f, "15"),
+
+    /**
+     * Java 16
+     *
+     * @since 3.11
+     */
+    JAVA_16(16.0f, "16"),
 
     /**
      * The most recent java version. Mainly introduced to avoid to break when a new version of Java is used.
@@ -94,6 +145,7 @@ public enum JavaVersion {
      * The float value.
      */
     private final float value;
+
     /**
      * The standard name.
      */
@@ -124,6 +176,21 @@ public enum JavaVersion {
         return this.value >= requiredVersion.value;
     }
 
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Whether this version of Java is at most the version of Java passed in.</p>
+     *
+     * <p>For example:<br>
+     *  {@code myVersion.atMost(JavaVersion.JAVA_1_4)}<p>
+     *
+     * @param requiredVersion  the version to check against, not null
+     * @return true if this version is equal to or greater than the specified version
+     * @since 3.9
+     */
+    public boolean atMost(final JavaVersion requiredVersion) {
+        return this.value <= requiredVersion.value;
+    }
+
     /**
      * Transforms the given string with a Java version number to the
      * corresponding constant of this enumeration class. This method is used
@@ -148,7 +215,9 @@ public enum JavaVersion {
      * version is unknown
      */
     static JavaVersion get(final String nom) {
-        if ("0.9".equals(nom)) {
+        if (nom == null) {
+            return null;
+        } else if ("0.9".equals(nom)) {
             return JAVA_0_9;
         } else if ("1.1".equals(nom)) {
             return JAVA_1_1;
@@ -168,9 +237,20 @@ public enum JavaVersion {
             return JAVA_1_8;
         } else if ("9".equals(nom)) {
             return JAVA_9;
-        }
-        if (nom == null) {
-            return null;
+        } else if ("10".equals(nom)) {
+            return JAVA_10;
+        } else if ("11".equals(nom)) {
+            return JAVA_11;
+        } else if ("12".equals(nom)) {
+            return JAVA_12;
+        } else if ("13".equals(nom)) {
+            return JAVA_13;
+        } else if ("14".equals(nom)) {
+            return JAVA_14;
+        } else if ("15".equals(nom)) {
+            return JAVA_15;
+        } else if ("16".equals(nom)) {
+            return JAVA_16;
         }
         final float v = toFloatVersion(nom);
         if ((v - 1.) < 1.) { // then we need to check decimals > .9
@@ -179,6 +259,8 @@ public enum JavaVersion {
             if (Float.parseFloat(nom.substring(firstComma + 1, end)) > .9f) {
                 return JAVA_RECENT;
             }
+        } else if (v > 10) {
+            return JAVA_RECENT;
         }
         return null;
     }
@@ -187,7 +269,7 @@ public enum JavaVersion {
     /**
      * <p>The string value is overridden to return the standard name.</p>
      *
-     * <p>For example, <code>"1.5"</code>.</p>
+     * <p>For example, {@code "1.5"}.</p>
      *
      * @return the name, not null
      */
@@ -198,7 +280,7 @@ public enum JavaVersion {
 
     /**
      * Gets the Java Version from the system or 99.0 if the {@code java.specification.version} system property is not set.
-     * 
+     *
      * @return the value of {@code java.specification.version} system property or 99.0 if it is not set.
      */
     private static float maxVersion() {
@@ -211,7 +293,7 @@ public enum JavaVersion {
 
     /**
      * Parses a float value from a String.
-     * 
+     *
      * @param value the String to parse.
      * @return the float value represented by the string or -1 if the given String can not be parsed.
      */

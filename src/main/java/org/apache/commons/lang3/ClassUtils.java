@@ -34,7 +34,7 @@ import org.apache.commons.lang3.mutable.MutableObject;
  * <p>Operates on classes without using reflection.</p>
  *
  * <p>This class handles invalid {@code null} inputs as best it can.
- * Each method documents its behaviour in more detail.</p>
+ * Each method documents its behavior in more detail.</p>
  *
  * <p>The notion of a {@code canonical name} includes the human
  * readable name for the type, for example {@code int[]}. The
@@ -44,26 +44,32 @@ import org.apache.commons.lang3.mutable.MutableObject;
  * @since 2.0
  */
 public class ClassUtils {
+
     /**
      * Inclusivity literals for {@link #hierarchy(Class, Interfaces)}.
      * @since 3.2
      */
     public enum Interfaces {
-        INCLUDE, EXCLUDE
+
+        /** Includes interfaces. */
+        INCLUDE,
+
+        /** Excludes interfaces. */
+        EXCLUDE
     }
 
     /**
-     * The package separator character: <code>'&#x2e;' == {@value}</code>.
+     * The package separator character: {@code '&#x2e;' == {@value}}.
      */
     public static final char PACKAGE_SEPARATOR_CHAR = '.';
 
     /**
-     * The package separator String: <code>"&#x2e;"</code>.
+     * The package separator String: {@code "&#x2e;"}.
      */
     public static final String PACKAGE_SEPARATOR = String.valueOf(PACKAGE_SEPARATOR_CHAR);
 
     /**
-     * The inner class separator character: <code>'$' == {@value}</code>.
+     * The inner class separator character: {@code '$' == {@value}}.
      */
     public static final char INNER_CLASS_SEPARATOR_CHAR = '$';
 
@@ -127,10 +133,7 @@ public class ClassUtils {
      * Maps an abbreviation used in array class names to corresponding primitive class name.
      */
     private static final Map<String, String> reverseAbbreviationMap;
-
-    /**
-     * Feed abbreviation maps
-     */
+    // Feed abbreviation maps
     static {
         final Map<String, String> m = new HashMap<>();
         m.put("int", "I");
@@ -164,11 +167,15 @@ public class ClassUtils {
     // Short class name
     // ----------------------------------------------------------------------
     /**
-     * <p>Gets the class name minus the package name for an {@code Object}.</p>
+     * <p>Gets the class name of the {@code object} without the package name or names.</p>
      *
-     * @param object  the class to get the short name for, may be null
-     * @param valueIfNull  the value to return if null
-     * @return the class name of the object without the package name, or the null value
+     * <p>The method looks up the class of the object and then converts the name of the class invoking
+     * {@link #getShortClassName(Class)} (see relevant notes there).</p>
+     *
+     * @param object  the class to get the short name for, may be {@code null}
+     * @param valueIfNull  the value to return if the object is {@code null}
+     * @return the class name of the object without the package name, or {@code valueIfNull}
+     *         if the argument {@code object} is {@code null}
      */
     public static String getShortClassName(final Object object, final String valueIfNull) {
         if (object == null) {
@@ -180,12 +187,13 @@ public class ClassUtils {
     /**
      * <p>Gets the class name minus the package name from a {@code Class}.</p>
      *
-     * <p>Consider using the Java 5 API {@link Class#getSimpleName()} instead.
-     * The one known difference is that this code will return {@code "Map.Entry"} while
-     * the {@code java.lang.Class} variant will simply return {@code "Entry"}. </p>
+     * <p>This method simply gets the name using {@code Class.getName()} and then calls
+     * {@link #getShortClassName(Class)}. See relevant notes there.</p>
      *
      * @param cls  the class to get the short name for.
-     * @return the class name without the package name or an empty string
+     * @return the class name without the package name or an empty string. If the class
+     *         is an inner class then the returned value will contain the outer class
+     *         or classes separated with {@code .} (dot) character.
      */
     public static String getShortClassName(final Class<?> cls) {
         if (cls == null) {
@@ -197,14 +205,27 @@ public class ClassUtils {
     /**
      * <p>Gets the class name minus the package name from a String.</p>
      *
-     * <p>The string passed in is assumed to be a class name - it is not checked.</p>
-
-     * <p>Note that this method differs from Class.getSimpleName() in that this will
-     * return {@code "Map.Entry"} whilst the {@code java.lang.Class} variant will simply
-     * return {@code "Entry"}. </p>
+     * <p>The string passed in is assumed to be a class name - it is not checked. The string has to be formatted the way
+     * as the JDK method {@code Class.getName()} returns it, and not the usual way as we write it, for example in import
+     * statements, or as it is formatted by {@code Class.getCanonicalName()}.</p>
      *
-     * @param className  the className to get the short name for
-     * @return the class name of the class without the package name or an empty string
+     * <p>The difference is is significant only in case of classes that are inner classes of some other
+     * classes. In this case the separator between the outer and inner class (possibly on multiple hierarchy level) has
+     * to be {@code $} (dollar sign) and not {@code .} (dot), as it is returned by {@code Class.getName()}</p>
+     *
+     * <p>Note that this method is called from the {@link #getShortClassName(Class)} method using the string
+     * returned by {@code Class.getName()}.</p>
+     *
+     * <p>Note that this method differs from {@link #getSimpleName(Class)} in that this will
+     * return, for example {@code "Map.Entry"} whilst the {@code java.lang.Class} variant will simply
+     * return {@code "Entry"}. In this example the argument {@code className} is the string
+     * {@code java.util.Map$Entry} (note the {@code $} sign.</p>
+     *
+     * @param className  the className to get the short name for. It has to be formatted as returned by
+     *                   {@code Class.getName()} and not {@code Class.getCanonicalName()}
+     * @return the class name of the class without the package name or an empty string. If the class is
+     *         an inner class then value contains the outer class or classes and the separator is replaced
+     *         to be {@code .} (dot) character.
      */
     public static String getShortClassName(String className) {
         if (StringUtils.isEmpty(className)) {
@@ -240,34 +261,111 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Null-safe version of <code>aClass.getSimpleName()</code></p>
+     * <p>Null-safe version of {@code cls.getSimpleName()}</p>
      *
-     * @param cls the class for which to get the simple name.
-     * @return the simple class name.
+     * @param cls the class for which to get the simple name; may be null
+     * @return the simple class name or the empty string in case the argument is {@code null}
      * @since 3.0
      * @see Class#getSimpleName()
      */
     public static String getSimpleName(final Class<?> cls) {
-        if (cls == null) {
-            return StringUtils.EMPTY;
-        }
-        return cls.getSimpleName();
+        return getSimpleName(cls, StringUtils.EMPTY);
     }
 
     /**
-     * <p>Null-safe version of <code>aClass.getSimpleName()</code></p>
+     * <p>Null-safe version of {@code cls.getSimpleName()}</p>
      *
-     * @param object the object for which to get the simple class name.
-     * @param valueIfNull the value to return if <code>object</code> is <code>null</code>
-     * @return the simple class name.
+     * @param cls the class for which to get the simple name; may be null
+     * @param valueIfNull  the value to return if null
+     * @return the simple class name or {@code valueIfNull} if the
+     *         argument {@code cls} is {@code null}
+     * @since 3.0
+     * @see Class#getSimpleName()
+     */
+    public static String getSimpleName(final Class<?> cls, final String valueIfNull) {
+        return cls == null ? valueIfNull : cls.getSimpleName();
+    }
+
+    /**
+     * <p>Null-safe version of {@code object.getClass().getSimpleName()}</p>
+     *
+     * <p>It is to note that this method is overloaded and in case the argument {@code object} is a
+     * {@code Class} object then the {@link #getSimpleName(Class)} will be invoked. If this is
+     * a significant possibility then the caller should check this case and call {@code
+     * getSimpleName(Class.class)} or just simply use the string literal {@code "Class"}, which
+     * is the result of the method in that case.</p>
+     *
+     * @param object the object for which to get the simple class name; may be null
+     * @return the simple class name or the empty string in case the argument is {@code null}
+     * @since 3.7
+     * @see Class#getSimpleName()
+     */
+    public static String getSimpleName(final Object object) {
+        return getSimpleName(object, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Null-safe version of {@code object.getClass().getSimpleName()}</p>
+     *
+     * @param object the object for which to get the simple class name; may be null
+     * @param valueIfNull the value to return if {@code object} is {@code null}
+     * @return the simple class name or {@code valueIfNull} if the
+     *         argument {@code object} is {@code null}
      * @since 3.0
      * @see Class#getSimpleName()
      */
     public static String getSimpleName(final Object object, final String valueIfNull) {
-        if (object == null) {
-            return valueIfNull;
-        }
-        return getSimpleName(object.getClass());
+        return object == null ? valueIfNull : object.getClass().getSimpleName();
+    }
+
+    /**
+     * <p>Null-safe version of {@code cls.getName()}</p>
+     *
+     * @param cls the class for which to get the class name; may be null
+     * @return the class name or the empty string in case the argument is {@code null}
+     * @since 3.7
+     * @see Class#getSimpleName()
+     */
+    public static String getName(final Class<?> cls) {
+        return getName(cls, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Null-safe version of {@code cls.getName()}</p>
+     *
+     * @param cls the class for which to get the class name; may be null
+     * @param valueIfNull the return value if the argument {@code cls} is {@code null}
+     * @return the class name or {@code valueIfNull}
+     * @since 3.7
+     * @see Class#getName()
+     */
+    public static String getName(final Class<?> cls, final String valueIfNull) {
+        return cls == null ? valueIfNull : cls.getName();
+    }
+
+    /**
+     * <p>Null-safe version of {@code object.getClass().getName()}</p>
+     *
+     * @param object the object for which to get the class name; may be null
+     * @return the class name or the empty String
+     * @since 3.7
+     * @see Class#getSimpleName()
+     */
+    public static String getName(final Object object) {
+        return getName(object, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Null-safe version of {@code object.getClass().getSimpleName()}</p>
+     *
+     * @param object the object for which to get the class name; may be null
+     * @param valueIfNull the value to return if {@code object} is {@code null}
+     * @return the class name or {@code valueIfNull}
+     * @since 3.0
+     * @see Class#getName()
+     */
+    public static String getName(final Object object, final String valueIfNull) {
+        return object == null ? valueIfNull : object.getClass().getName();
     }
 
     // Package name
@@ -335,17 +433,17 @@ public class ClassUtils {
      * <p>Gets the abbreviated name of a {@code Class}.</p>
      *
      * @param cls  the class to get the abbreviated name for, may be {@code null}
-     * @param len  the desired length of the abbreviated name
+     * @param lengthHint  the desired length of the abbreviated name
      * @return the abbreviated name or an empty string
      * @throws IllegalArgumentException if len &lt;= 0
      * @see #getAbbreviatedName(String, int)
      * @since 3.4
      */
-    public static String getAbbreviatedName(final Class<?> cls, final int len) {
+    public static String getAbbreviatedName(final Class<?> cls, final int lengthHint) {
       if (cls == null) {
         return StringUtils.EMPTY;
       }
-      return getAbbreviatedName(cls.getName(), len);
+      return getAbbreviatedName(cls.getName(), lengthHint);
     }
 
     /**
@@ -355,59 +453,107 @@ public class ClassUtils {
      *
      * <p>The abbreviation algorithm will shorten the class name, usually without
      * significant loss of meaning.</p>
+     *
      * <p>The abbreviated class name will always include the complete package hierarchy.
      * If enough space is available, rightmost sub-packages will be displayed in full
-     * length.</p>
+     * length. The abbreviated package names will be shortened to a single character.</p>
+     * <p>Only package names are shortened, the class simple name remains untouched. (See examples.)</p>
+     * <p>The result will be longer than the desired length only if all the package names
+     * shortened to a single character plus the class simple name with the separating dots
+     * together are longer than the desired length. In other words, when the class name
+     * cannot be shortened to the desired length.</p>
+     * <p>If the class name can be shortened then
+     * the final length will be at most {@code lengthHint} characters.</p>
+     * <p>If the {@code lengthHint} is zero or negative then the method
+     * throws exception. If you want to achieve the shortest possible version then
+     * use {@code 1} as a {@code lengthHint}.</p>
      *
-     * <p>The following table illustrates the algorithm:</p>
-     * <table summary="abbreviation examples">
+     * <table>
+     * <caption>Examples</caption>
      * <tr><td>className</td><td>len</td><td>return</td></tr>
      * <tr><td>              null</td><td> 1</td><td>""</td></tr>
      * <tr><td>"java.lang.String"</td><td> 5</td><td>"j.l.String"</td></tr>
      * <tr><td>"java.lang.String"</td><td>15</td><td>"j.lang.String"</td></tr>
      * <tr><td>"java.lang.String"</td><td>30</td><td>"java.lang.String"</td></tr>
+     * <tr><td>"org.apache.commons.lang3.ClassUtils"</td><td>18</td><td>"o.a.c.l.ClassUtils"</td></tr>
      * </table>
-     * @param className  the className to get the abbreviated name for, may be {@code null}
-     * @param len  the desired length of the abbreviated name
-     * @return the abbreviated name or an empty string
-     * @throws IllegalArgumentException if len &lt;= 0
+     *
+     * @param className the className to get the abbreviated name for, may be {@code null}
+     * @param lengthHint       the desired length of the abbreviated name
+     * @return the abbreviated name or an empty string if the specified
+     * class name is {@code null} or empty string. The abbreviated name may be
+     * longer than the desired length if it cannot be abbreviated to the desired length.
+     * @throws IllegalArgumentException if {@code len <= 0}
      * @since 3.4
      */
-    public static String getAbbreviatedName(final String className, final int len) {
-      if (len <= 0) {
-        throw new IllegalArgumentException("len must be > 0");
-      }
-      if (className == null) {
-        return StringUtils.EMPTY;
-      }
-
-      int availableSpace = len;
-      final int packageLevels = StringUtils.countMatches(className, '.');
-      final String[] output = new String[packageLevels + 1];
-      int endIndex = className.length() - 1;
-      for (int level = packageLevels; level >= 0; level--) {
-        final int startIndex = className.lastIndexOf('.', endIndex);
-        final String part = className.substring(startIndex + 1, endIndex + 1);
-        availableSpace -= part.length();
-        if (level > 0) {
-          // all elements except top level require an additional char space
-          availableSpace--;
+    public static String getAbbreviatedName(final String className, final int lengthHint) {
+        if (lengthHint <= 0) {
+            throw new IllegalArgumentException("len must be > 0");
         }
-        if (level == packageLevels) {
-          // ClassName is always complete
-          output[level] = part;
-        } else {
-          if (availableSpace > 0) {
-            output[level] = part;
-          } else {
-            // if no space is left still the first char is used
-            output[level] = part.substring(0, 1);
-          }
+        if (className == null) {
+            return StringUtils.EMPTY;
         }
-        endIndex = startIndex - 1;
-      }
+        if (className.length() <= lengthHint) {
+            return className;
+        }
+        final char[] abbreviated = className.toCharArray();
+        int target = 0;
+        int source = 0;
+        while (source < abbreviated.length) {
+            // copy the next part
+            int runAheadTarget = target;
+            while (source < abbreviated.length && abbreviated[source] != '.') {
+                abbreviated[runAheadTarget++] = abbreviated[source++];
+            }
 
-      return StringUtils.join(output, '.');
+            ++target;
+            if (useFull(runAheadTarget, source, abbreviated.length, lengthHint)
+                  || target > runAheadTarget) {
+                target = runAheadTarget;
+            }
+
+            // copy the '.' unless it was the last part
+            if (source < abbreviated.length) {
+                abbreviated[target++] = abbreviated[source++];
+            }
+        }
+        return new String(abbreviated, 0, target);
+    }
+
+    /**
+     * <p>Decides if the part that was just copied to its destination
+     * location in the work array can be kept as it was copied or must be
+     * abbreviated. It must be kept when the part is the last one, which
+     * is the simple name of the class. In this case the {@code source}
+     * index, from where the characters are copied points one position
+     * after the last character, a.k.a. {@code source ==
+     * originalLength}</p>
+     *
+     * <p>If the part is not the last one then it can be kept
+     * unabridged if the number of the characters copied so far plus
+     * the character that are to be copied is less than or equal to the
+     * desired length.</p>
+     *
+     * @param runAheadTarget the target index (where the characters were
+     *                       copied to) pointing after the last character
+     *                       copied when the current part was copied
+     * @param source         the source index (where the characters were
+     *                       copied from) pointing after the last
+     *                       character copied when the current part was
+     *                       copied
+     * @param originalLength the original length of the class full name,
+     *                       which is abbreviated
+     * @param desiredLength  the desired length of the abbreviated class
+     *                       name
+     * @return {@code true} if it can be kept in its original length
+     * {@code false} if the current part has to be abbreviated and
+     */
+    private static boolean useFull(final int runAheadTarget,
+                                   final int source,
+                                   final int originalLength,
+                                   final int desiredLength) {
+        return source >= originalLength ||
+            runAheadTarget + originalLength - source <= desiredLength;
     }
 
     // Superclasses/Superinterfaces
@@ -457,7 +603,7 @@ public class ClassUtils {
     }
 
     /**
-     * Get the interfaces for the specified class.
+     * Gets the interfaces for the specified class.
      *
      * @param cls  the class to look up, may be {@code null}
      * @param interfacesFound the {@code Set} of interfaces for the class
@@ -571,7 +717,7 @@ public class ClassUtils {
      * @return {@code true} if assignment possible
      */
     public static boolean isAssignable(final Class<?>[] classArray, final Class<?>... toClassArray) {
-        return isAssignable(classArray, toClassArray, SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_5));
+        return isAssignable(classArray, toClassArray, true);
     }
 
     /**
@@ -607,7 +753,7 @@ public class ClassUtils {
      * @return {@code true} if assignment possible
      */
     public static boolean isAssignable(Class<?>[] classArray, Class<?>[] toClassArray, final boolean autoboxing) {
-        if (ArrayUtils.isSameLength(classArray, toClassArray) == false) {
+        if (!ArrayUtils.isSameLength(classArray, toClassArray)) {
             return false;
         }
         if (classArray == null) {
@@ -617,7 +763,7 @@ public class ClassUtils {
             toClassArray = ArrayUtils.EMPTY_CLASS_ARRAY;
         }
         for (int i = 0; i < classArray.length; i++) {
-            if (isAssignable(classArray[i], toClassArray[i], autoboxing) == false) {
+            if (!isAssignable(classArray[i], toClassArray[i], autoboxing)) {
                 return false;
             }
         }
@@ -687,7 +833,7 @@ public class ClassUtils {
      * @return {@code true} if assignment possible
      */
     public static boolean isAssignable(final Class<?> cls, final Class<?> toClass) {
-        return isAssignable(cls, toClass, SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_5));
+        return isAssignable(cls, toClass, true);
     }
 
     /**
@@ -744,7 +890,7 @@ public class ClassUtils {
             return true;
         }
         if (cls.isPrimitive()) {
-            if (toClass.isPrimitive() == false) {
+            if (!toClass.isPrimitive()) {
                 return false;
             }
             if (Integer.TYPE.equals(cls)) {
@@ -1014,7 +1160,7 @@ public class ClassUtils {
      *  or if the method doesn't conform with the requirements
      */
     public static Method getPublicMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes)
-            throws SecurityException, NoSuchMethodException {
+            throws NoSuchMethodException {
 
         final Method declaredMethod = cls.getMethod(methodName, parameterTypes);
         if (Modifier.isPublic(declaredMethod.getDeclaringClass().getModifiers())) {
@@ -1112,9 +1258,67 @@ public class ClassUtils {
     }
 
     /**
+     * <p>Gets the canonical class name for a {@code Class}.</p>
+     *
+     * @param cls the class for which to get the canonical class name; may be null
+     * @return the canonical name of the class, or the empty String
+     * @since 3.7
+     * @see Class#getCanonicalName()
+     */
+    public static String getCanonicalName(final Class<?> cls) {
+        return getCanonicalName(cls, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Gets the canonical name for a {@code Class}.</p>
+     *
+     * @param cls the class for which to get the canonical class name; may be null
+     * @param valueIfNull  the return value if null
+     * @return the canonical name of the class, or {@code valueIfNull}
+     * @since 3.7
+     * @see Class#getCanonicalName()
+     */
+    public static String getCanonicalName(final Class<?> cls, final String valueIfNull) {
+        if (cls == null) {
+            return valueIfNull;
+        }
+        final String canonicalName = cls.getCanonicalName();
+        return canonicalName == null ? valueIfNull : canonicalName;
+    }
+
+    /**
+     * <p>Gets the canonical name for an {@code Object}.</p>
+     *
+     * @param object the object for which to get the canonical class name; may be null
+     * @return the canonical name of the object, or the empty String
+     * @since 3.7
+     * @see Class#getCanonicalName()
+     */
+    public static String getCanonicalName(final Object object) {
+        return getCanonicalName(object, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Gets the canonical name for an {@code Object}.</p>
+     *
+     * @param object the object for which to get the canonical class name; may be null
+     * @param valueIfNull  the return value if null
+     * @return the canonical name of the object or {@code valueIfNull}
+     * @since 3.7
+     * @see Class#getCanonicalName()
+     */
+    public static String getCanonicalName(final Object object, final String valueIfNull) {
+        if (object == null) {
+            return valueIfNull;
+        }
+        final String canonicalName = object.getClass().getCanonicalName();
+        return canonicalName == null ? valueIfNull : canonicalName;
+    }
+
+    /**
      * <p>Gets the canonical name minus the package name from a {@code Class}.</p>
      *
-     * @param cls  the class to get the short name for.
+     * @param cls the class for which to get the short canonical class name; may be null
      * @return the canonical name without the package name or an empty string
      * @since 2.4
      */
@@ -1128,20 +1332,54 @@ public class ClassUtils {
     /**
      * <p>Gets the canonical name minus the package name from a String.</p>
      *
-     * <p>The string passed in is assumed to be a canonical name - it is not checked.</p>
+     * <p>The string passed in is assumed to be a class name - it is not checked.</p>
+     *
+     * <p>Note that this method is mainly designed to handle the arrays and primitives properly.
+     * If the class is an inner class then the result value will not contain the outer classes.
+     * This way the behavior of this method is different from {@link #getShortClassName(String)}.
+     * The argument in that case is class name and not canonical name and the return value
+     * retains the outer classes.</p>
+     *
+     * <p>Note that there is no way to reliably identify the part of the string representing the
+     * package hierarchy and the part that is the outer class or classes in case of an inner class.
+     * Trying to find the class would require reflective call and the class itself may not even be
+     * on the class path. Relying on the fact that class names start with capital letter and packages
+     * with lower case is heuristic.</p>
+     *
+     * <p>It is recommended to use {@link #getShortClassName(String)} for cases when the class
+     * is an inner class and use this method for cases it is designed for.</p>
+     *
+     * <table>
+     * <caption>Examples</caption>
+     * <tr><td>return value</td><td>input</td></tr>
+     * <tr><td>{@code ""}</td><td>{@code (String)null}</td></tr>
+     * <tr><td>{@code "Map.Entry"}</td><td>{@code java.util.Map.Entry.class.getName()}</td></tr>
+     * <tr><td>{@code "Entry"}</td><td>{@code java.util.Map.Entry.class.getCanonicalName()}</td></tr>
+     * <tr><td>{@code "ClassUtils"}</td><td>{@code "org.apache.commons.lang3.ClassUtils"}</td></tr>
+     * <tr><td>{@code "ClassUtils[]"}</td><td>{@code "[Lorg.apache.commons.lang3.ClassUtils;"}</td></tr>
+     * <tr><td>{@code "ClassUtils[][]"}</td><td>{@code "[[Lorg.apache.commons.lang3.ClassUtils;"}</td></tr>
+     * <tr><td>{@code "ClassUtils[]"}</td><td>{@code "org.apache.commons.lang3.ClassUtils[]"}</td></tr>
+     * <tr><td>{@code "ClassUtils[][]"}</td><td>{@code "org.apache.commons.lang3.ClassUtils[][]"}</td></tr>
+     * <tr><td>{@code "int[]"}</td><td>{@code "[I"}</td></tr>
+     * <tr><td>{@code "int[]"}</td><td>{@code int[].class.getCanonicalName()}</td></tr>
+     * <tr><td>{@code "int[]"}</td><td>{@code int[].class.getName()}</td></tr>
+     * <tr><td>{@code "int[][]"}</td><td>{@code "[[I"}</td></tr>
+     * <tr><td>{@code "int[]"}</td><td>{@code "int[]"}</td></tr>
+     * <tr><td>{@code "int[][]"}</td><td>{@code "int[][]"}</td></tr>
+     * </table>
      *
      * @param canonicalName  the class name to get the short name for
      * @return the canonical name of the class without the package name or an empty string
      * @since 2.4
      */
     public static String getShortCanonicalName(final String canonicalName) {
-        return ClassUtils.getShortClassName(getCanonicalName(canonicalName));
+        return getShortClassName(getCanonicalName(canonicalName));
     }
 
     // Package name
     // ----------------------------------------------------------------------
     /**
-     * <p>Gets the package name from the canonical name of an {@code Object}.</p>
+     * <p>Gets the package name from the class name of an {@code Object}.</p>
      *
      * @param object  the class to get the package name for, may be null
      * @param valueIfNull  the value to return if null
@@ -1170,23 +1408,27 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Gets the package name from the canonical name. </p>
+     * <p>Gets the package name from the class name. </p>
      *
-     * <p>The string passed in is assumed to be a canonical name - it is not checked.</p>
-     * <p>If the class is unpackaged, return an empty string.</p>
+     * <p>The string passed in is assumed to be a class name - it is not checked.</p>
+     * <p>If the class is in the default package, return an empty string.</p>
      *
-     * @param canonicalName  the canonical name to get the package name for, may be {@code null}
+     * @param name  the name to get the package name for, may be {@code null}
      * @return the package name or an empty string
      * @since 2.4
      */
-    public static String getPackageCanonicalName(final String canonicalName) {
-        return ClassUtils.getPackageName(getCanonicalName(canonicalName));
+    public static String getPackageCanonicalName(final String name) {
+        return getPackageName(getCanonicalName(name));
     }
 
     /**
      * <p>Converts a given name of class into canonical format.
      * If name of class is not a name of array class it returns
      * unchanged name.</p>
+     *
+     * <p>The method does not change the {@code $} separators in case
+     * the class is inner class.</p>
+     *
      * <p>Example:
      * <ul>
      * <li>{@code getCanonicalName("[I") = "int[]"}</li>
@@ -1219,7 +1461,7 @@ public class ClassUtils {
                     ? className.length() - 1
                     : className.length());
         } else {
-            if (className.length() > 0) {
+            if (!className.isEmpty()) {
                 className = reverseAbbreviationMap.get(className.substring(0, 1));
             }
         }
@@ -1231,7 +1473,7 @@ public class ClassUtils {
     }
 
     /**
-     * Get an {@link Iterable} that can iterate over a class hierarchy in ascending (subclass to superclass) order,
+     * Gets an {@link Iterable} that can iterate over a class hierarchy in ascending (subclass to superclass) order,
      * excluding interfaces.
      *
      * @param type the type to get the class hierarchy from
@@ -1243,7 +1485,7 @@ public class ClassUtils {
     }
 
     /**
-     * Get an {@link Iterable} that can iterate over a class hierarchy in ascending (subclass to superclass) order.
+     * Gets an {@link Iterable} that can iterate over a class hierarchy in ascending (subclass to superclass) order.
      *
      * @param type the type to get the class hierarchy from
      * @param interfacesBehavior switch indicating whether to include or exclude interfaces
@@ -1251,82 +1493,73 @@ public class ClassUtils {
      * @since 3.2
      */
     public static Iterable<Class<?>> hierarchy(final Class<?> type, final Interfaces interfacesBehavior) {
-        final Iterable<Class<?>> classes = new Iterable<Class<?>>() {
-    
-            @Override
-            public Iterator<Class<?>> iterator() {
-                final MutableObject<Class<?>> next = new MutableObject<Class<?>>(type);
-                return new Iterator<Class<?>>() {
-    
-                    @Override
-                    public boolean hasNext() {
-                        return next.getValue() != null;
-                    }
-    
-                    @Override
-                    public Class<?> next() {
-                        final Class<?> result = next.getValue();
-                        next.setValue(result.getSuperclass());
-                        return result;
-                    }
-    
-                    @Override
-                    public void remove() {
-                        throw new UnsupportedOperationException();
-                    }
-    
-                };
-            }
-    
+        final Iterable<Class<?>> classes = () -> {
+            final MutableObject<Class<?>> next = new MutableObject<>(type);
+            return new Iterator<Class<?>>() {
+
+                @Override
+                public boolean hasNext() {
+                    return next.getValue() != null;
+                }
+
+                @Override
+                public Class<?> next() {
+                    final Class<?> result = next.getValue();
+                    next.setValue(result.getSuperclass());
+                    return result;
+                }
+
+                @Override
+                public void remove() {
+                    throw new UnsupportedOperationException();
+                }
+
+            };
         };
         if (interfacesBehavior != Interfaces.INCLUDE) {
             return classes;
         }
-        return new Iterable<Class<?>>() {
-    
-            @Override
-            public Iterator<Class<?>> iterator() {
-                final Set<Class<?>> seenInterfaces = new HashSet<>();
-                final Iterator<Class<?>> wrapped = classes.iterator();
-    
-                return new Iterator<Class<?>>() {
-                    Iterator<Class<?>> interfaces = Collections.<Class<?>> emptySet().iterator();
-    
-                    @Override
-                    public boolean hasNext() {
-                        return interfaces.hasNext() || wrapped.hasNext();
+        return () -> {
+            final Set<Class<?>> seenInterfaces = new HashSet<>();
+            final Iterator<Class<?>> wrapped = classes.iterator();
+
+            return new Iterator<Class<?>>() {
+                Iterator<Class<?>> interfaces = Collections.<Class<?>>emptySet().iterator();
+
+                @Override
+                public boolean hasNext() {
+                    return interfaces.hasNext() || wrapped.hasNext();
+                }
+
+                @Override
+                public Class<?> next() {
+                    if (interfaces.hasNext()) {
+                        final Class<?> nextInterface = interfaces.next();
+                        seenInterfaces.add(nextInterface);
+                        return nextInterface;
                     }
-    
-                    @Override
-                    public Class<?> next() {
-                        if (interfaces.hasNext()) {
-                            final Class<?> nextInterface = interfaces.next();
-                            seenInterfaces.add(nextInterface);
-                            return nextInterface;
+                    final Class<?> nextSuperclass = wrapped.next();
+                    final Set<Class<?>> currentInterfaces = new LinkedHashSet<>();
+                    walkInterfaces(currentInterfaces, nextSuperclass);
+                    interfaces = currentInterfaces.iterator();
+                    return nextSuperclass;
+                }
+
+                private void walkInterfaces(final Set<Class<?>> addTo, final Class<?> c) {
+                    for (final Class<?> iface : c.getInterfaces()) {
+                        if (!seenInterfaces.contains(iface)) {
+                            addTo.add(iface);
                         }
-                        final Class<?> nextSuperclass = wrapped.next();
-                        final Set<Class<?>> currentInterfaces = new LinkedHashSet<>();
-                        walkInterfaces(currentInterfaces, nextSuperclass);
-                        interfaces = currentInterfaces.iterator();
-                        return nextSuperclass;
+                        walkInterfaces(addTo, iface);
                     }
-    
-                    private void walkInterfaces(final Set<Class<?>> addTo, final Class<?> c) {
-                        for (final Class<?> iface : c.getInterfaces()) {
-                            if (!seenInterfaces.contains(iface)) {
-                                addTo.add(iface);
-                            }
-                            walkInterfaces(addTo, iface);
-                        }
-                    }
-    
-                    @Override
-                    public void remove() {
-                        throw new UnsupportedOperationException();
-                    }
-    
-                };
-            }
+                }
+
+                @Override
+                public void remove() {
+                    throw new UnsupportedOperationException();
+                }
+
+            };
         };
     }
 

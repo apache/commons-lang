@@ -16,15 +16,19 @@
  */
 package org.apache.commons.lang3.reflect;
 
-import org.apache.commons.lang3.ClassUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.JavaVersion;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Utilities for working with {@link Field}s by reflection. Adapted and refactored from the dormant [reflect] Commons
@@ -32,7 +36,7 @@ import java.util.List;
  * <p>
  * The ability is provided to break the scoping restrictions coded by the programmer. This can allow fields to be
  * changed that shouldn't be. This facility should be used with care.
- * 
+ *
  * @since 2.5
  */
 public class FieldUtils {
@@ -49,7 +53,7 @@ public class FieldUtils {
 
     /**
      * Gets an accessible {@link Field} by name respecting scope. Superclasses/interfaces will be considered.
-     * 
+     *
      * @param cls
      *            the {@link Class} to reflect, must not be {@code null}
      * @param fieldName
@@ -67,7 +71,7 @@ public class FieldUtils {
     /**
      * Gets an accessible {@link Field} by name, breaking scope if requested. Superclasses/interfaces will be
      * considered.
-     * 
+     *
      * @param cls
      *            the {@link Class} to reflect, must not be {@code null}
      * @param fieldName
@@ -77,12 +81,12 @@ public class FieldUtils {
      *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @return the Field object
-     * @throws IllegalArgumentException
-     *             if the class is {@code null}, or the field name is blank or empty or is matched at multiple places
-     *             in the inheritance hierarchy
+     * @throws NullPointerException if the class is {@code null}
+     * @throws IllegalArgumentException if the field name is blank or empty or is matched at multiple places
+     * in the inheritance hierarchy
      */
     public static Field getField(final Class<?> cls, final String fieldName, final boolean forceAccess) {
-        Validate.isTrue(cls != null, "The class must not be null");
+        Validate.notNull(cls, "The class must not be null");
         Validate.isTrue(StringUtils.isNotBlank(fieldName), "The field name must not be blank/empty");
         // FIXME is this workaround still needed? lang requires Java 6
         // Sun Java 1.3 has a bugged implementation of getField hence we write the
@@ -135,7 +139,7 @@ public class FieldUtils {
 
     /**
      * Gets an accessible {@link Field} by name respecting scope. Only the specified class will be considered.
-     * 
+     *
      * @param cls
      *            the {@link Class} to reflect, must not be {@code null}
      * @param fieldName
@@ -151,7 +155,7 @@ public class FieldUtils {
     /**
      * Gets an accessible {@link Field} by name, breaking scope if requested. Only the specified class will be
      * considered.
-     * 
+     *
      * @param cls
      *            the {@link Class} to reflect, must not be {@code null}
      * @param fieldName
@@ -165,7 +169,7 @@ public class FieldUtils {
      *             if the class is {@code null}, or the field name is blank or empty
      */
     public static Field getDeclaredField(final Class<?> cls, final String fieldName, final boolean forceAccess) {
-        Validate.isTrue(cls != null, "The class must not be null");
+        Validate.notNull(cls, "The class must not be null");
         Validate.isTrue(StringUtils.isNotBlank(fieldName), "The field name must not be blank/empty");
         try {
             // only consider the specified class by using getDeclaredField()
@@ -186,7 +190,7 @@ public class FieldUtils {
 
     /**
      * Gets all fields of the given class and its parents (if any).
-     * 
+     *
      * @param cls
      *            the {@link Class} to query
      * @return an array of Fields (possibly empty).
@@ -196,12 +200,12 @@ public class FieldUtils {
      */
     public static Field[] getAllFields(final Class<?> cls) {
         final List<Field> allFieldsList = getAllFieldsList(cls);
-        return allFieldsList.toArray(new Field[allFieldsList.size()]);
+        return allFieldsList.toArray(ArrayUtils.EMPTY_FIELD_ARRAY);
     }
 
     /**
      * Gets all fields of the given class and its parents (if any).
-     * 
+     *
      * @param cls
      *            the {@link Class} to query
      * @return an array of Fields (possibly empty).
@@ -210,14 +214,12 @@ public class FieldUtils {
      * @since 3.2
      */
     public static List<Field> getAllFieldsList(final Class<?> cls) {
-        Validate.isTrue(cls != null, "The class must not be null");
+        Validate.notNull(cls, "The class must not be null");
         final List<Field> allFields = new ArrayList<>();
         Class<?> currentClass = cls;
         while (currentClass != null) {
             final Field[] declaredFields = currentClass.getDeclaredFields();
-            for (final Field field : declaredFields) {
-                allFields.add(field);
-            }
+            Collections.addAll(allFields, declaredFields);
             currentClass = currentClass.getSuperclass();
         }
         return allFields;
@@ -236,7 +238,7 @@ public class FieldUtils {
      */
     public static Field[] getFieldsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
         final List<Field> annotatedFieldsList = getFieldsListWithAnnotation(cls, annotationCls);
-        return annotatedFieldsList.toArray(new Field[annotatedFieldsList.size()]);
+        return annotatedFieldsList.toArray(ArrayUtils.EMPTY_FIELD_ARRAY);
     }
 
     /**
@@ -251,7 +253,7 @@ public class FieldUtils {
      * @since 3.4
      */
     public static List<Field> getFieldsListWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
-        Validate.isTrue(annotationCls != null, "The annotation class must not be null");
+        Validate.notNull(annotationCls, "The annotation class must not be null");
         final List<Field> allFields = getAllFieldsList(cls);
         final List<Field> annotatedFields = new ArrayList<>();
         for (final Field field : allFields) {
@@ -264,7 +266,7 @@ public class FieldUtils {
 
     /**
      * Reads an accessible {@code static} {@link Field}.
-     * 
+     *
      * @param field
      *            to read
      * @return the field value
@@ -279,7 +281,7 @@ public class FieldUtils {
 
     /**
      * Reads a static {@link Field}.
-     * 
+     *
      * @param field
      *            to read
      * @param forceAccess
@@ -292,14 +294,14 @@ public class FieldUtils {
      *             if the field is not made accessible
      */
     public static Object readStaticField(final Field field, final boolean forceAccess) throws IllegalAccessException {
-        Validate.isTrue(field != null, "The field must not be null");
+        Validate.notNull(field, "The field must not be null");
         Validate.isTrue(Modifier.isStatic(field.getModifiers()), "The field '%s' is not static", field.getName());
         return readField(field, (Object) null, forceAccess);
     }
 
     /**
      * Reads the named {@code public static} {@link Field}. Superclasses will be considered.
-     * 
+     *
      * @param cls
      *            the {@link Class} to reflect, must not be {@code null}
      * @param fieldName
@@ -317,7 +319,7 @@ public class FieldUtils {
 
     /**
      * Reads the named {@code static} {@link Field}. Superclasses will be considered.
-     * 
+     *
      * @param cls
      *            the {@link Class} to reflect, must not be {@code null}
      * @param fieldName
@@ -335,7 +337,7 @@ public class FieldUtils {
      */
     public static Object readStaticField(final Class<?> cls, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
         final Field field = getField(cls, fieldName, forceAccess);
-        Validate.isTrue(field != null, "Cannot locate field '%s' on %s", fieldName, cls);
+        Validate.notNull(field, "Cannot locate field '%s' on %s", fieldName, cls);
         // already forced access above, don't repeat it here:
         return readStaticField(field, false);
     }
@@ -343,7 +345,7 @@ public class FieldUtils {
     /**
      * Gets the value of a {@code static} {@link Field} by name. The field must be {@code public}. Only the specified
      * class will be considered.
-     * 
+     *
      * @param cls
      *            the {@link Class} to reflect, must not be {@code null}
      * @param fieldName
@@ -361,7 +363,7 @@ public class FieldUtils {
 
     /**
      * Gets the value of a {@code static} {@link Field} by name. Only the specified class will be considered.
-     * 
+     *
      * @param cls
      *            the {@link Class} to reflect, must not be {@code null}
      * @param fieldName
@@ -379,14 +381,14 @@ public class FieldUtils {
      */
     public static Object readDeclaredStaticField(final Class<?> cls, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
         final Field field = getDeclaredField(cls, fieldName, forceAccess);
-        Validate.isTrue(field != null, "Cannot locate declared field %s.%s", cls.getName(), fieldName);
+        Validate.notNull(field, "Cannot locate declared field %s.%s", cls.getName(), fieldName);
         // already forced access above, don't repeat it here:
         return readStaticField(field, false);
     }
 
     /**
      * Reads an accessible {@link Field}.
-     * 
+     *
      * @param field
      *            the field to use
      * @param target
@@ -403,7 +405,7 @@ public class FieldUtils {
 
     /**
      * Reads a {@link Field}.
-     * 
+     *
      * @param field
      *            the field to use
      * @param target
@@ -418,7 +420,7 @@ public class FieldUtils {
      *             if the field is not made accessible
      */
     public static Object readField(final Field field, final Object target, final boolean forceAccess) throws IllegalAccessException {
-        Validate.isTrue(field != null, "The field must not be null");
+        Validate.notNull(field, "The field must not be null");
         if (forceAccess && !field.isAccessible()) {
             field.setAccessible(true);
         } else {
@@ -429,7 +431,7 @@ public class FieldUtils {
 
     /**
      * Reads the named {@code public} {@link Field}. Superclasses will be considered.
-     * 
+     *
      * @param target
      *            the object to reflect, must not be {@code null}
      * @param fieldName
@@ -446,7 +448,7 @@ public class FieldUtils {
 
     /**
      * Reads the named {@link Field}. Superclasses will be considered.
-     * 
+     *
      * @param target
      *            the object to reflect, must not be {@code null}
      * @param fieldName
@@ -462,7 +464,7 @@ public class FieldUtils {
      *             if the named field is not made accessible
      */
     public static Object readField(final Object target, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
-        Validate.isTrue(target != null, "target object must not be null");
+        Validate.notNull(target, "target object must not be null");
         final Class<?> cls = target.getClass();
         final Field field = getField(cls, fieldName, forceAccess);
         Validate.isTrue(field != null, "Cannot locate field %s on %s", fieldName, cls);
@@ -472,7 +474,7 @@ public class FieldUtils {
 
     /**
      * Reads the named {@code public} {@link Field}. Only the class of the specified object will be considered.
-     * 
+     *
      * @param target
      *            the object to reflect, must not be {@code null}
      * @param fieldName
@@ -489,7 +491,7 @@ public class FieldUtils {
 
     /**
      * Gets a {@link Field} value by name. Only the class of the specified object will be considered.
-     * 
+     *
      * @param target
      *            the object to reflect, must not be {@code null}
      * @param fieldName
@@ -505,7 +507,7 @@ public class FieldUtils {
      *             if the field is not made accessible
      */
     public static Object readDeclaredField(final Object target, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
-        Validate.isTrue(target != null, "target object must not be null");
+        Validate.notNull(target, "target object must not be null");
         final Class<?> cls = target.getClass();
         final Field field = getDeclaredField(cls, fieldName, forceAccess);
         Validate.isTrue(field != null, "Cannot locate declared field %s.%s", cls, fieldName);
@@ -515,7 +517,7 @@ public class FieldUtils {
 
     /**
      * Writes a {@code public static} {@link Field}.
-     * 
+     *
      * @param field
      *            to write
      * @param value
@@ -531,7 +533,7 @@ public class FieldUtils {
 
     /**
      * Writes a static {@link Field}.
-     * 
+     *
      * @param field
      *            to write
      * @param value
@@ -546,7 +548,7 @@ public class FieldUtils {
      *             if the field is not made accessible or is {@code final}
      */
     public static void writeStaticField(final Field field, final Object value, final boolean forceAccess) throws IllegalAccessException {
-        Validate.isTrue(field != null, "The field must not be null");
+        Validate.notNull(field, "The field must not be null");
         Validate.isTrue(Modifier.isStatic(field.getModifiers()), "The field %s.%s is not static", field.getDeclaringClass().getName(),
                 field.getName());
         writeField(field, (Object) null, value, forceAccess);
@@ -554,7 +556,7 @@ public class FieldUtils {
 
     /**
      * Writes a named {@code public static} {@link Field}. Superclasses will be considered.
-     * 
+     *
      * @param cls
      *            {@link Class} on which the field is to be found
      * @param fieldName
@@ -573,7 +575,7 @@ public class FieldUtils {
 
     /**
      * Writes a named {@code static} {@link Field}. Superclasses will be considered.
-     * 
+     *
      * @param cls
      *            {@link Class} on which the field is to be found
      * @param fieldName
@@ -593,14 +595,14 @@ public class FieldUtils {
     public static void writeStaticField(final Class<?> cls, final String fieldName, final Object value, final boolean forceAccess)
             throws IllegalAccessException {
         final Field field = getField(cls, fieldName, forceAccess);
-        Validate.isTrue(field != null, "Cannot locate field %s on %s", fieldName, cls);
+        Validate.notNull(field, "Cannot locate field %s on %s", fieldName, cls);
         // already forced access above, don't repeat it here:
         writeStaticField(field, value, false);
     }
 
     /**
      * Writes a named {@code public static} {@link Field}. Only the specified class will be considered.
-     * 
+     *
      * @param cls
      *            {@link Class} on which the field is to be found
      * @param fieldName
@@ -619,7 +621,7 @@ public class FieldUtils {
 
     /**
      * Writes a named {@code static} {@link Field}. Only the specified class will be considered.
-     * 
+     *
      * @param cls
      *            {@link Class} on which the field is to be found
      * @param fieldName
@@ -638,14 +640,14 @@ public class FieldUtils {
     public static void writeDeclaredStaticField(final Class<?> cls, final String fieldName, final Object value, final boolean forceAccess)
             throws IllegalAccessException {
         final Field field = getDeclaredField(cls, fieldName, forceAccess);
-        Validate.isTrue(field != null, "Cannot locate declared field %s.%s", cls.getName(), fieldName);
+        Validate.notNull(field, "Cannot locate declared field %s.%s", cls.getName(), fieldName);
         // already forced access above, don't repeat it here:
         writeField(field, (Object) null, value, false);
     }
 
     /**
      * Writes an accessible {@link Field}.
-     * 
+     *
      * @param field
      *            to write
      * @param target
@@ -662,7 +664,7 @@ public class FieldUtils {
 
     /**
      * Writes a {@link Field}.
-     * 
+     *
      * @param field
      *            to write
      * @param target
@@ -680,7 +682,7 @@ public class FieldUtils {
      */
     public static void writeField(final Field field, final Object target, final Object value, final boolean forceAccess)
             throws IllegalAccessException {
-        Validate.isTrue(field != null, "The field must not be null");
+        Validate.notNull(field, "The field must not be null");
         if (forceAccess && !field.isAccessible()) {
             field.setAccessible(true);
         } else {
@@ -691,7 +693,7 @@ public class FieldUtils {
 
     /**
      * Removes the final modifier from a {@link Field}.
-     * 
+     *
      * @param field
      *            to remove the final modifier
      * @throws IllegalArgumentException
@@ -704,7 +706,7 @@ public class FieldUtils {
 
     /**
      * Removes the final modifier from a {@link Field}.
-     * 
+     *
      * @param field
      *            to remove the final modifier
      * @param forceAccess
@@ -713,10 +715,14 @@ public class FieldUtils {
      *            match {@code public} fields.
      * @throws IllegalArgumentException
      *             if the field is {@code null}
+     * @deprecated As of Java 12, we can no longer drop the {@code final} modifier, thus
+     *             rendering this method obsolete. The JDK discussion about this change can be found
+     *             here: http://mail.openjdk.java.net/pipermail/core-libs-dev/2018-November/056486.html
      * @since 3.3
      */
+    @Deprecated
     public static void removeFinalModifier(final Field field, final boolean forceAccess) {
-        Validate.isTrue(field != null, "The field must not be null");
+        Validate.notNull(field, "The field must not be null");
 
         try {
             if (Modifier.isFinal(field.getModifiers())) {
@@ -734,16 +740,20 @@ public class FieldUtils {
                     }
                 }
             }
-        } catch (final NoSuchFieldException ignored) {
-            // The field class contains always a modifiers field
-        } catch (final IllegalAccessException ignored) {
-            // The modifiers field is made accessible
+        } catch (final NoSuchFieldException | IllegalAccessException e) {
+            if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_12)) {
+              throw new UnsupportedOperationException(
+                  "In java 12+ final cannot be removed.",
+                  e
+              );
+            }
+            // else no exception is thrown because we can modify final.
         }
     }
 
     /**
      * Writes a {@code public} {@link Field}. Superclasses will be considered.
-     * 
+     *
      * @param target
      *            the object to reflect, must not be {@code null}
      * @param fieldName
@@ -762,7 +772,7 @@ public class FieldUtils {
 
     /**
      * Writes a {@link Field}. Superclasses will be considered.
-     * 
+     *
      * @param target
      *            the object to reflect, must not be {@code null}
      * @param fieldName
@@ -781,7 +791,7 @@ public class FieldUtils {
      */
     public static void writeField(final Object target, final String fieldName, final Object value, final boolean forceAccess)
             throws IllegalAccessException {
-        Validate.isTrue(target != null, "target object must not be null");
+        Validate.notNull(target, "target object must not be null");
         final Class<?> cls = target.getClass();
         final Field field = getField(cls, fieldName, forceAccess);
         Validate.isTrue(field != null, "Cannot locate declared field %s.%s", cls.getName(), fieldName);
@@ -791,7 +801,7 @@ public class FieldUtils {
 
     /**
      * Writes a {@code public} {@link Field}. Only the specified class will be considered.
-     * 
+     *
      * @param target
      *            the object to reflect, must not be {@code null}
      * @param fieldName
@@ -810,7 +820,7 @@ public class FieldUtils {
 
     /**
      * Writes a {@code public} {@link Field}. Only the specified class will be considered.
-     * 
+     *
      * @param target
      *            the object to reflect, must not be {@code null}
      * @param fieldName
@@ -829,7 +839,7 @@ public class FieldUtils {
      */
     public static void writeDeclaredField(final Object target, final String fieldName, final Object value, final boolean forceAccess)
             throws IllegalAccessException {
-        Validate.isTrue(target != null, "target object must not be null");
+        Validate.notNull(target, "target object must not be null");
         final Class<?> cls = target.getClass();
         final Field field = getDeclaredField(cls, fieldName, forceAccess);
         Validate.isTrue(field != null, "Cannot locate declared field %s.%s", cls.getName(), fieldName);

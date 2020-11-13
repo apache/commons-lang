@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,9 +17,11 @@
 
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.HashCodeBuilder}.
@@ -52,30 +54,30 @@ public class HashCodeBuilderTest {
 
     // -----------------------------------------------------------------------
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testConstructorExZero() {
-        new HashCodeBuilder(0, 0);
+        assertThrows(IllegalArgumentException.class, () -> new HashCodeBuilder(0, 0));
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testConstructorExEvenFirst() {
-        new HashCodeBuilder(2, 3);
-    }
-    
-    @Test(expected=IllegalArgumentException.class)
-    public void testConstructorExEvenSecond() {
-        new HashCodeBuilder(3, 2);
+        assertThrows(IllegalArgumentException.class, () -> new HashCodeBuilder(2, 3));
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
+    public void testConstructorExEvenSecond() {
+        assertThrows(IllegalArgumentException.class, () -> new HashCodeBuilder(3, 2));
+    }
+
+    @Test
     public void testConstructorExEvenNegative() {
-        new HashCodeBuilder(-2, -2);
+        assertThrows(IllegalArgumentException.class, () -> new HashCodeBuilder(-2, -2));
     }
 
     static class TestObject {
         private int a;
 
-        public TestObject(final int a) {
+        TestObject(final int a) {
             this.a = a;
         }
 
@@ -109,13 +111,13 @@ public class HashCodeBuilderTest {
         private int b;
 
         @SuppressWarnings("unused")
-        transient private int t;
+        private transient int t;
 
-        public TestSubObject() {
+        TestSubObject() {
             super(0);
         }
 
-        public TestSubObject(final int a, final int b, final int t) {
+        TestSubObject(final int a, final int b, final int t) {
             super(a);
             this.b = b;
             this.t = t;
@@ -156,29 +158,29 @@ public class HashCodeBuilderTest {
                 123456, 7890, 0), true));
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testReflectionHierarchyHashCodeEx1() {
-        HashCodeBuilder.reflectionHashCode(0, 0, new TestSubObject(0, 0, 0), true);
+        assertThrows(IllegalArgumentException.class, () -> HashCodeBuilder.reflectionHashCode(0, 0, new TestSubObject(0, 0, 0), true));
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testReflectionHierarchyHashCodeEx2() {
-        HashCodeBuilder.reflectionHashCode(2, 2, new TestSubObject(0, 0, 0), true);
+        assertThrows(IllegalArgumentException.class, () -> HashCodeBuilder.reflectionHashCode(2, 2, new TestSubObject(0, 0, 0), true));
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testReflectionHashCodeEx1() {
-        HashCodeBuilder.reflectionHashCode(0, 0, new TestObject(0), true);
+        assertThrows(IllegalArgumentException.class, () -> HashCodeBuilder.reflectionHashCode(0, 0, new TestObject(0), true));
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testReflectionHashCodeEx2() {
-        HashCodeBuilder.reflectionHashCode(2, 2, new TestObject(0), true);
+        assertThrows(IllegalArgumentException.class, () -> HashCodeBuilder.reflectionHashCode(2, 2, new TestObject(0), true));
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testReflectionHashCodeEx3() {
-        HashCodeBuilder.reflectionHashCode(13, 19, null, true);
+        assertThrows(NullPointerException.class, () -> HashCodeBuilder.reflectionHashCode(13, 19, null, true));
     }
 
     @Test
@@ -195,7 +197,7 @@ public class HashCodeBuilderTest {
         obj = new Object();
         assertEquals(17 * 37 + obj.hashCode(), new HashCodeBuilder(17, 37).append(obj).toHashCode());
     }
-    
+
     @Test
     public void testObjectBuild() {
         Object obj = null;
@@ -485,22 +487,22 @@ public class HashCodeBuilderTest {
     }
 
     @Test
-    public void testReflectionHashCodeExcludeFields() throws Exception {
+    public void testReflectionHashCodeExcludeFields() {
         final TestObjectWithMultipleFields x = new TestObjectWithMultipleFields(1, 2, 3);
 
-        assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x));
+        assertEquals(((17 * 37 + 1) * 37 + 3) * 37 + 2, HashCodeBuilder.reflectionHashCode(x));
 
-        assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, (String[]) null));
-        assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, new String[]{}));
-        assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, new String[]{"xxx"}));
+        assertEquals(((17 * 37 + 1) * 37 + 3) * 37 + 2, HashCodeBuilder.reflectionHashCode(x, (String[]) null));
+        assertEquals(((17 * 37 + 1) * 37 + 3) * 37 + 2, HashCodeBuilder.reflectionHashCode(x));
+        assertEquals(((17 * 37 + 1) * 37 + 3) * 37 + 2, HashCodeBuilder.reflectionHashCode(x, "xxx"));
 
-        assertEquals((17 * 37 + 1) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, new String[]{"two"}));
-        assertEquals((17 * 37 + 1) * 37 + 2, HashCodeBuilder.reflectionHashCode(x, new String[]{"three"}));
+        assertEquals((17 * 37 + 1) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, "two"));
+        assertEquals((17 * 37 + 1) * 37 + 2, HashCodeBuilder.reflectionHashCode(x, "three"));
 
-        assertEquals(17 * 37 + 1, HashCodeBuilder.reflectionHashCode(x, new String[]{"two", "three"}));
+        assertEquals(17 * 37 + 1, HashCodeBuilder.reflectionHashCode(x, "two", "three"));
 
-        assertEquals(17, HashCodeBuilder.reflectionHashCode(x, new String[]{"one", "two", "three"}));
-        assertEquals(17, HashCodeBuilder.reflectionHashCode(x, new String[]{"one", "two", "three", "xxx"}));
+        assertEquals(17, HashCodeBuilder.reflectionHashCode(x, "one", "two", "three"));
+        assertEquals(17, HashCodeBuilder.reflectionHashCode(x, "one", "two", "three", "xxx"));
     }
 
     static class TestObjectWithMultipleFields {
@@ -513,7 +515,7 @@ public class HashCodeBuilderTest {
         @SuppressWarnings("unused")
         private int three = 0;
 
-        public TestObjectWithMultipleFields(final int one, final int two, final int three) {
+        TestObjectWithMultipleFields(final int one, final int two, final int three) {
             this.one = one;
             this.two = two;
             this.three = three;
@@ -529,7 +531,7 @@ public class HashCodeBuilderTest {
         final ReflectionTestCycleB b = new ReflectionTestCycleB();
         a.b = b;
         b.a = a;
-        
+
         // Used to caused:
         // java.lang.StackOverflowError
         // at java.lang.ClassLoader.getCallerClassLoader(Native Method)
@@ -559,8 +561,8 @@ public class HashCodeBuilderTest {
     @Test
     public void testToHashCodeEqualsHashCode() {
         final HashCodeBuilder hcb = new HashCodeBuilder(17, 37).append(new Object()).append('a');
-        assertEquals("hashCode() is no longer returning the same value as toHashCode() - see LANG-520", 
-                     hcb.toHashCode(), hcb.hashCode());
+        assertEquals(hcb.toHashCode(), hcb.hashCode(),
+            "hashCode() is no longer returning the same value as toHashCode() - see LANG-520");
     }
 
     static class TestObjectHashCodeExclude {
@@ -568,7 +570,7 @@ public class HashCodeBuilderTest {
         private final int a;
         private final int b;
 
-        public TestObjectHashCodeExclude(final int a, final int b) {
+        TestObjectHashCodeExclude(final int a, final int b) {
             this.a = a;
             this.b = b;
         }
@@ -588,7 +590,7 @@ public class HashCodeBuilderTest {
         @HashCodeExclude
         private final int b;
 
-        public TestObjectHashCodeExclude2(final int a, final int b) {
+        TestObjectHashCodeExclude2(final int a, final int b) {
             this.a = a;
             this.b = b;
         }

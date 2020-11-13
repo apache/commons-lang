@@ -16,13 +16,13 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.Serializable;
 import java.text.FieldPosition;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,10 +31,9 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.SerializationUtils;
-import org.apache.commons.lang3.test.SystemDefaults;
-import org.apache.commons.lang3.test.SystemDefaultsSwitch;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.DefaultLocale;
+import org.junitpioneer.jupiter.DefaultTimeZone;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.time.FastDatePrinter}.
@@ -42,7 +41,7 @@ import org.junit.Test;
  * @since 3.0
  */
 public class FastDatePrinterTest {
-    
+
     private static final String YYYY_MM_DD = "yyyy/MM/dd";
     private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");
     private static final TimeZone GMT = TimeZone.getTimeZone("GMT");
@@ -76,10 +75,8 @@ public class FastDatePrinterTest {
         return new FastDatePrinter(format, timeZone, locale);
     }
 
-    @Rule
-    public SystemDefaultsSwitch defaults = new SystemDefaultsSwitch();
-
-    @SystemDefaults(timezone="America/New_York", locale="en_US")
+    @DefaultLocale(language = "en", country = "US")
+    @DefaultTimeZone("America/New_York")
     @Test
     public void testFormat() {
         final GregorianCalendar cal1 = new GregorianCalendar(2003, 0, 10, 15, 33, 20);
@@ -210,8 +207,8 @@ public class FastDatePrinterTest {
         cal.set(2009, Calendar.OCTOBER, 16, 8, 42, 16);
 
         final DatePrinter format = getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", TimeZone.getTimeZone("GMT"));
-        assertEquals("dateTime", "2009-10-16T16:42:16.000Z", format.format(cal.getTime()));
-        assertEquals("dateTime", "2009-10-16T16:42:16.000Z", format.format(cal));
+        assertEquals("2009-10-16T16:42:16.000Z", format.format(cal.getTime()), "dateTime");
+        assertEquals("2009-10-16T16:42:16.000Z", format.format(cal), "dateTime");
     }
 
     @Test
@@ -226,52 +223,52 @@ public class FastDatePrinterTest {
 
         assertEquals("fredag, week 53", fdf.format(d));
     }
-    
+
     @Test
     public void testEquals() {
         final DatePrinter printer1= getInstance(YYYY_MM_DD);
         final DatePrinter printer2= getInstance(YYYY_MM_DD);
 
         assertEquals(printer1, printer2);
-        assertEquals(printer1.hashCode(), printer2.hashCode());        
+        assertEquals(printer1.hashCode(), printer2.hashCode());
 
-        assertFalse(printer1.equals(new Object()));
+        assertNotEquals(printer1, new Object());
     }
-    
+
     @Test
     public void testToStringContainsName() {
         final DatePrinter printer= getInstance(YYYY_MM_DD);
         assertTrue(printer.toString().startsWith("FastDate"));
     }
-    
+
     @Test
     public void testPatternMatches() {
         final DatePrinter printer= getInstance(YYYY_MM_DD);
         assertEquals(YYYY_MM_DD, printer.getPattern());
     }
-    
+
     @Test
     public void testLocaleMatches() {
         final DatePrinter printer= getInstance(YYYY_MM_DD, SWEDEN);
         assertEquals(SWEDEN, printer.getLocale());
     }
-    
+
     @Test
     public void testTimeZoneMatches() {
         final DatePrinter printer= getInstance(YYYY_MM_DD, NEW_YORK);
         assertEquals(NEW_YORK, printer.getTimeZone());
     }
 
-    @SystemDefaults(timezone="UTC")
+    @DefaultTimeZone("UTC")
     @Test
-    public void testTimeZoneAsZ() throws Exception {
-        final Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+    public void testTimeZoneAsZ() {
+        final Calendar c = Calendar.getInstance(FastTimeZone.getGmtTimeZone());
         final FastDateFormat noColonFormat = FastDateFormat.getInstance("Z");
         assertEquals("+0000", noColonFormat.format(c));
-        
+
         final FastDateFormat isoFormat = FastDateFormat.getInstance("ZZ");
         assertEquals("Z", isoFormat.format(c));
-        
+
         final FastDateFormat colonFormat = FastDateFormat.getInstance("ZZZ");
         assertEquals("+00:00", colonFormat.format(c));
     }
@@ -288,16 +285,16 @@ public class FastDatePrinterTest {
         return cal;
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test1806Argument() {
-        getInstance("XXXX");
+        assertThrows(IllegalArgumentException.class, () -> getInstance("XXXX"));
     }
 
-    private static enum Expected1806 {
+    private enum Expected1806 {
         India(INDIA, "+05", "+0530", "+05:30"), Greenwich(GMT, "Z", "Z", "Z"), NewYork(
                 NEW_YORK, "-05", "-0500", "-05:00");
 
-        private Expected1806(final TimeZone zone, final String one, final String two, final String three) {
+        Expected1806(final TimeZone zone, final String one, final String two, final String three) {
             this.zone = zone;
             this.one = one;
             this.two = two;
@@ -311,7 +308,7 @@ public class FastDatePrinterTest {
     }
 
     @Test
-    public void test1806() throws ParseException {
+    public void test1806() {
         for (final Expected1806 trial : Expected1806.values()) {
             final Calendar cal = initializeCalendar(trial.zone);
 
@@ -325,9 +322,9 @@ public class FastDatePrinterTest {
             assertEquals(trial.three, printer.format(cal));
         }
     }
-    
+
     @Test
-    public void testLang1103() throws ParseException {
+    public void testLang1103() {
         final Calendar cal = Calendar.getInstance(SWEDEN);
         cal.set(Calendar.DAY_OF_MONTH, 2);
 
@@ -345,7 +342,7 @@ public class FastDatePrinterTest {
      * This method test that the bug is fixed.
      */
     @Test
-    public void testLang916() throws Exception {
+    public void testLang916() {
 
         final Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
         cal.clear();
@@ -354,15 +351,15 @@ public class FastDatePrinterTest {
         // calendar fast.
         {
             final String value = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss Z", TimeZone.getTimeZone("Europe/Paris")).format(cal);
-            assertEquals("calendar", "2009-10-16T08:42:16 +0200", value);
+            assertEquals("2009-10-16T08:42:16 +0200", value, "calendar");
         }
         {
             final String value = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss Z", TimeZone.getTimeZone("Asia/Kolkata")).format(cal);
-            assertEquals("calendar", "2009-10-16T12:12:16 +0530", value);
+            assertEquals("2009-10-16T12:12:16 +0530", value, "calendar");
         }
         {
             final String value = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss Z", TimeZone.getTimeZone("Europe/London")).format(cal);
-            assertEquals("calendar", "2009-10-16T07:42:16 +0100", value);
+            assertEquals("2009-10-16T07:42:16 +0100", value, "calendar");
         }
     }
 

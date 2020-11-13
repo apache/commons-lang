@@ -16,25 +16,19 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Locale;
 
-import org.apache.commons.lang3.test.SystemDefaultsSwitch;
-import org.apache.commons.lang3.test.SystemDefaults;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.DefaultLocale;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Contains methods
  */
 public class StringUtilsContainsTest  {
-
-    @Rule
-    public SystemDefaultsSwitch defaults = new SystemDefaultsSwitch();
-
     /**
      * Supplementary character U+20000
      * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
@@ -211,7 +205,7 @@ public class StringUtilsContainsTest  {
         assertFalse(StringUtils.containsAny(CharU20000, CharU20001));
         assertFalse(StringUtils.containsAny(CharU20001, CharU20000));
     }
-    
+
     @Test
     public void testContainsAny_StringStringArray() {
         assertFalse(StringUtils.containsAny(null, (String[]) null));
@@ -233,32 +227,25 @@ public class StringUtilsContainsTest  {
         assertTrue(StringUtils.containsAny("abc", "d", "abc"));
     }
 
-    @SystemDefaults(locale="de_DE")
+    @DefaultLocale(language = "de", country = "DE")
     @Test
     public void testContainsIgnoreCase_LocaleIndependence() {
         final Locale[] locales = { Locale.ENGLISH, new Locale("tr"), Locale.getDefault() };
 
-        final String[][] tdata = {
-            { "i", "I" },
-            { "I", "i" },
-            { "\u03C2", "\u03C3" },
-            { "\u03A3", "\u03C2" },
-            { "\u03A3", "\u03C3" },
-        };
+        final String[][] tdata = { { "i", "I" }, { "I", "i" }, { "\u03C2", "\u03C3" }, { "\u03A3", "\u03C2" },
+            { "\u03A3", "\u03C3" }, };
 
-        final String[][] fdata = {
-            { "\u00DF", "SS" },
-        };
+        final String[][] fdata = { { "\u00DF", "SS" }, };
 
         for (final Locale testLocale : locales) {
             Locale.setDefault(testLocale);
             for (int j = 0; j < tdata.length; j++) {
-                assertTrue(Locale.getDefault() + ": " + j + " " + tdata[j][0] + " " + tdata[j][1], StringUtils
-                        .containsIgnoreCase(tdata[j][0], tdata[j][1]));
+                assertTrue(StringUtils.containsIgnoreCase(tdata[j][0], tdata[j][1]),
+                    Locale.getDefault() + ": " + j + " " + tdata[j][0] + " " + tdata[j][1]);
             }
             for (int j = 0; j < fdata.length; j++) {
-                assertFalse(Locale.getDefault() + ": " + j + " " + fdata[j][0] + " " + fdata[j][1], StringUtils
-                        .containsIgnoreCase(fdata[j][0], fdata[j][1]));
+                assertFalse(StringUtils.containsIgnoreCase(fdata[j][0], fdata[j][1]),
+                    Locale.getDefault() + ": " + j + " " + fdata[j][0] + " " + fdata[j][1]);
             }
         }
     }

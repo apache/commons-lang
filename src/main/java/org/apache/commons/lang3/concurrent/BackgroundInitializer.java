@@ -244,7 +244,7 @@ public abstract class BackgroundInitializer<T> implements
      *
      * @return the {@code ExecutorService} for executing the background task
      */
-    protected synchronized final ExecutorService getActiveExecutor() {
+    protected final synchronized ExecutorService getActiveExecutor() {
         return executor;
     }
 
@@ -310,7 +310,7 @@ public abstract class BackgroundInitializer<T> implements
          *
          * @param exec the {@code ExecutorService}
          */
-        public InitializationTask(final ExecutorService exec) {
+        InitializationTask(final ExecutorService exec) {
             execFinally = exec;
         }
 

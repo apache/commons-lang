@@ -80,7 +80,7 @@ abstract class MemberUtils {
     /**
      * Returns whether a {@link Member} is accessible.
      * @param m Member to check
-     * @return {@code true} if <code>m</code> is accessible
+     * @return {@code true} if {@code m} is accessible
      */
     static boolean isAccessible(final Member m) {
         return m != null && Modifier.isPublic(m.getModifiers()) && !m.isSynthetic();
@@ -135,7 +135,7 @@ abstract class MemberUtils {
     private static int compareParameterTypes(final Executable left, final Executable right, final Class<?>[] actual) {
         final float leftCost = getTotalTransformationCost(actual, left);
         final float rightCost = getTotalTransformationCost(actual, right);
-        return leftCost < rightCost ? -1 : rightCost < leftCost ? 1 : 0;
+        return Float.compare(leftCost, rightCost);
     }
 
     /**
@@ -162,19 +162,17 @@ abstract class MemberUtils {
             // When isVarArgs is true, srcArgs and dstArgs may differ in length.
             // There are two special cases to consider:
             final boolean noVarArgsPassed = srcArgs.length < destArgs.length;
-            final boolean explicitArrayForVarags = srcArgs.length == destArgs.length && srcArgs[srcArgs.length-1].isArray();
+            final boolean explicitArrayForVarargs = srcArgs.length == destArgs.length && srcArgs[srcArgs.length-1] != null && srcArgs[srcArgs.length-1].isArray();
 
             final float varArgsCost = 0.001f;
             final Class<?> destClass = destArgs[destArgs.length-1].getComponentType();
             if (noVarArgsPassed) {
                 // When no varargs passed, the best match is the most generic matching type, not the most specific.
                 totalCost += getObjectTransformationCost(destClass, Object.class) + varArgsCost;
-            }
-            else if (explicitArrayForVarags) {
+            } else if (explicitArrayForVarargs) {
                 final Class<?> sourceClass = srcArgs[srcArgs.length-1].getComponentType();
                 totalCost += getObjectTransformationCost(sourceClass, destClass) + varArgsCost;
-            }
-            else {
+            } else {
                 // This is typical varargs case.
                 for (int i = destArgs.length-1; i < srcArgs.length; i++) {
                     final Class<?> srcClass = srcArgs[i];
@@ -229,6 +227,9 @@ abstract class MemberUtils {
      * @return The cost of promoting the primitive
      */
     private static float getPrimitivePromotionCost(final Class<?> srcClass, final Class<?> destClass) {
+        if (srcClass == null) {
+            return 1.5f;
+        }
         float cost = 0.0f;
         Class<?> cls = srcClass;
         if (!cls.isPrimitive()) {
@@ -248,15 +249,19 @@ abstract class MemberUtils {
     }
 
     static boolean isMatchingMethod(final Method method, final Class<?>[] parameterTypes) {
-      return MemberUtils.isMatchingExecutable(Executable.of(method), parameterTypes);
+      return isMatchingExecutable(Executable.of(method), parameterTypes);
     }
 
     static boolean isMatchingConstructor(final Constructor<?> method, final Class<?>[] parameterTypes) {
-      return MemberUtils.isMatchingExecutable(Executable.of(method), parameterTypes);
+      return isMatchingExecutable(Executable.of(method), parameterTypes);
     }
 
     private static boolean isMatchingExecutable(final Executable method, final Class<?>[] parameterTypes) {
         final Class<?>[] methodParameterTypes = method.getParameterTypes();
+        if (ClassUtils.isAssignable(parameterTypes, methodParameterTypes, true)) {
+            return true;
+        }
+
         if (method.isVarArgs()) {
             int i;
             for (i = 0; i < methodParameterTypes.length - 1 && i < parameterTypes.length; i++) {
@@ -272,7 +277,8 @@ abstract class MemberUtils {
             }
             return true;
         }
-        return ClassUtils.isAssignable(parameterTypes, methodParameterTypes, true);
+
+        return false;
     }
 
     /**
@@ -283,8 +289,13 @@ abstract class MemberUtils {
       private final Class<?>[] parameterTypes;
       private final boolean  isVarArgs;
 
-      private static Executable of(final Method method) { return new Executable(method); }
-      private static Executable of(final Constructor<?> constructor) { return new Executable(constructor); }
+      private static Executable of(final Method method) {
+          return new Executable(method);
+      }
+
+      private static Executable of(final Constructor<?> constructor) {
+          return new Executable(constructor);
+      }
 
       private Executable(final Method method) {
         parameterTypes = method.getParameterTypes();
@@ -296,9 +307,13 @@ abstract class MemberUtils {
         isVarArgs = constructor.isVarArgs();
       }
 
-      public Class<?>[] getParameterTypes() { return parameterTypes; }
+      public Class<?>[] getParameterTypes() {
+          return parameterTypes;
+      }
 
-      public boolean isVarArgs() { return isVarArgs; }
+      public boolean isVarArgs() {
+          return isVarArgs;
+      }
     }
 
 }

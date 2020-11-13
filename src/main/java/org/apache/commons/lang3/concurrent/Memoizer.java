@@ -48,7 +48,7 @@ import java.util.concurrent.FutureTask;
  *            the type of the input to the calculation
  * @param <O>
  *            the type of the output of the calculation
- * 
+ *
  * @since 3.6
  */
 public class Memoizer<I, O> implements Computable<I, O> {
@@ -115,13 +115,7 @@ public class Memoizer<I, O> implements Computable<I, O> {
         while (true) {
             Future<O> future = cache.get(arg);
             if (future == null) {
-                final Callable<O> eval = new Callable<O>() {
-
-                    @Override
-                    public O call() throws InterruptedException {
-                        return computable.compute(arg);
-                    }
-                };
+                final Callable<O> eval = () -> computable.compute(arg);
                 final FutureTask<O> futureTask = new FutureTask<>(eval);
                 future = cache.putIfAbsent(arg, futureTask);
                 if (future == null) {

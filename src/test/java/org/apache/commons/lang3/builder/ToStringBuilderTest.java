@@ -16,33 +16,35 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assume.assumeFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.SystemUtils;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.builder.ToStringBuilder}.
  */
 public class ToStringBuilderTest {
 
+    // See LANG-1337 for more.
+    private static final int ARRAYLIST_INITIAL_CAPACITY = 10;
     private final Integer base = Integer.valueOf(5);
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
 
     /*
-     * All tests should leave the registry empty. 
+     * All tests should leave the registry empty.
      */
-    @After
-    public void after(){
+    @AfterEach
+    public void after() {
         validateNullToStringStyleRegistry();
     }
 
@@ -77,9 +79,9 @@ public class ToStringBuilderTest {
         }
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testSetDefaultEx() {
-        ToStringBuilder.setDefaultStyle(null);
+        assertThrows(NullPointerException.class, () -> ToStringBuilder.setDefaultStyle(null));
     }
 
     @Test
@@ -100,7 +102,7 @@ public class ToStringBuilderTest {
      */
     @Test
     public void testReflectionCharacter() {
-        final Character c = new Character('A');
+        final Character c = 'A';
         assertEquals(this.toBaseString(c) + "[value=A]", ToStringBuilder.reflectionToString(c));
     }
 
@@ -311,11 +313,8 @@ public class ToStringBuilderTest {
     // Reflection hierarchy tests
     @Test
     public void testReflectionHierarchyArrayList() {
-        // note, the test data depends on the internal representation of the ArrayList, which may differ between JDK versions and vendors
-        // representation different for IBM JDK 1.6.0, LANG-727
-        assumeFalse("IBM Corporation".equals(SystemUtils.JAVA_VENDOR) && "1.6".equals(SystemUtils.JAVA_SPECIFICATION_VERSION));
-        assumeFalse("Oracle Corporation".equals(SystemUtils.JAVA_VENDOR) && "1.6".compareTo(SystemUtils.JAVA_SPECIFICATION_VERSION) < 0);
-        final List<Object> list = new ArrayList<>();
+        // LANG-1337 without this, the generated string can differ depending on the JVM version/vendor
+        final List<Object> list = new ArrayList<>(ARRAYLIST_INITIAL_CAPACITY);
         final String baseString = this.toBaseString(list);
         final String expectedWithTransients = baseString + "[elementData={<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>},size=0,modCount=0]";
         final String toStringWithTransients = ToStringBuilder.reflectionToString(list, null, true);
@@ -420,7 +419,7 @@ public class ToStringBuilderTest {
     }
 
     @Test
-    public void testReflectionArrayArrayCycle() throws Exception {
+    public void testReflectionArrayArrayCycle() {
         final Object[][] objects = new Object[2][2];
         objects[0][0] = objects;
         objects[0][1] = objects;
@@ -471,10 +470,10 @@ public class ToStringBuilderTest {
     static class SimpleReflectionTestFixture {
         Object o;
 
-        public SimpleReflectionTestFixture() {
+        SimpleReflectionTestFixture() {
         }
 
-        public SimpleReflectionTestFixture(final Object o) {
+        SimpleReflectionTestFixture(final Object o) {
             this.o = o;
         }
 
@@ -488,7 +487,7 @@ public class ToStringBuilderTest {
         @SuppressWarnings("unused")
         private final SelfInstanceVarReflectionTestFixture typeIsSelf;
 
-        public SelfInstanceVarReflectionTestFixture() {
+        SelfInstanceVarReflectionTestFixture() {
             this.typeIsSelf = this;
         }
 
@@ -503,11 +502,11 @@ public class ToStringBuilderTest {
         private final SelfInstanceTwoVarsReflectionTestFixture typeIsSelf;
         private final String otherType = "The Other Type";
 
-        public SelfInstanceTwoVarsReflectionTestFixture() {
+        SelfInstanceTwoVarsReflectionTestFixture() {
             this.typeIsSelf = this;
         }
 
-        public String getOtherType(){
+        public String getOtherType() {
             return this.otherType;
         }
 
@@ -544,7 +543,7 @@ public class ToStringBuilderTest {
     @Test
     public void testSelfInstanceTwoVarsReflectionObjectCycle() {
         final SelfInstanceTwoVarsReflectionTestFixture test = new SelfInstanceTwoVarsReflectionTestFixture();
-        assertEquals(this.toBaseString(test) + "[typeIsSelf=" + this.toBaseString(test) + ",otherType=" + test.getOtherType().toString() + "]", test.toString());
+        assertEquals(this.toBaseString(test) + "[otherType=" + test.getOtherType().toString() + ",typeIsSelf=" + this.toBaseString(test)  + "]", test.toString());
     }
 
 
@@ -590,7 +589,7 @@ public class ToStringBuilderTest {
 
     void validateNullToStringStyleRegistry() {
         final Map<Object, Object> registry = ToStringStyle.getRegistry();
-        assertNull("Expected null, actual: "+registry, registry);
+        assertNull(registry, "Expected null, actual: " + registry);
     }
     //  End: Reflection cycle tests
 
@@ -615,6 +614,244 @@ public class ToStringBuilderTest {
     }
 
     @Test
+    public void testAppendAsObjectToString() {
+        final String objectToAppend1 = "";
+        final Boolean objectToAppend2 = Boolean.TRUE;
+        final Object objectToAppend3 = new Object();
+
+        assertEquals(baseStr + "[" + toBaseString(objectToAppend1) + "]",
+                new ToStringBuilder(base).appendAsObjectToString(objectToAppend1).toString());
+        assertEquals(baseStr + "[" + toBaseString(objectToAppend2) + "]",
+                new ToStringBuilder(base).appendAsObjectToString(objectToAppend2).toString());
+        assertEquals(baseStr + "[" + toBaseString(objectToAppend3) + "]",
+                new ToStringBuilder(base).appendAsObjectToString(objectToAppend3).toString());
+    }
+
+    @Test
+    public void testAppendBooleanArrayWithFieldName() {
+        final boolean[] array = new boolean[] { true, false, false };
+        assertEquals(baseStr + "[flags={true,false,false}]",
+                new ToStringBuilder(base).append("flags", array).toString());
+        assertEquals(baseStr + "[flags=<null>]",
+                new ToStringBuilder(base).append("flags", (boolean[]) null).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null).toString());
+        assertEquals(baseStr + "[{true,false,false}]", new ToStringBuilder(base).append(null, array).toString());
+    }
+
+    @Test
+    public void testAppendBooleanArrayWithFieldNameAndFullDetatil() {
+        final boolean[] array = new boolean[] { true, false, false };
+        assertEquals(baseStr + "[flags={true,false,false}]",
+                new ToStringBuilder(base).append("flags", array, true).toString());
+        assertEquals(baseStr + "[length=<size=3>]",
+                new ToStringBuilder(base).append("length", array, false).toString());
+        assertEquals(baseStr + "[flags=<null>]",
+                new ToStringBuilder(base).append("flags", (boolean[]) null, true).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
+        assertEquals(baseStr + "[<size=3>]", new ToStringBuilder(base).append(null, array, false).toString());
+     }
+
+    @Test
+    public void testAppendCharArrayWithFieldName() {
+        final char[] array = new char[] { 'A', '2', '_', 'D' };
+        assertEquals(baseStr + "[chars={A,2,_,D}]", new ToStringBuilder(base).append("chars", array).toString());
+        assertEquals(baseStr + "[letters={A,2,_,D}]", new ToStringBuilder(base).append("letters", array).toString());
+        assertEquals(baseStr + "[flags=<null>]",
+                new ToStringBuilder(base).append("flags", (boolean[]) null).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null).toString());
+        assertEquals(baseStr + "[{A,2,_,D}]", new ToStringBuilder(base).append(null, array).toString());
+    }
+
+    @Test
+    public void testAppendCharArrayWithFieldNameAndFullDetatil() {
+        final char[] array = new char[] { 'A', '2', '_', 'D' };
+        assertEquals(baseStr + "[chars={A,2,_,D}]", new ToStringBuilder(base).append("chars", array, true).toString());
+        assertEquals(baseStr + "[letters=<size=4>]",
+                new ToStringBuilder(base).append("letters", array, false).toString());
+        assertEquals(baseStr + "[flags=<null>]",
+                new ToStringBuilder(base).append("flags", (boolean[]) null, true).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
+        assertEquals(baseStr + "[<size=4>]", new ToStringBuilder(base).append(null, array, false).toString());
+    }
+
+    @Test
+    public void testAppendDoubleArrayWithFieldName() {
+        final double[] array = new double[] { 1.0, 2.9876, -3.00001, 4.3 };
+        assertEquals(baseStr + "[values={1.0,2.9876,-3.00001,4.3}]",
+                new ToStringBuilder(base).append("values", array).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null).toString());
+        assertEquals(baseStr + "[{1.0,2.9876,-3.00001,4.3}]", new ToStringBuilder(base).append(null, array).toString());
+    }
+
+    @Test
+    public void testAppendDoubleArrayWithFieldNameAndFullDetatil() {
+        final double[] array = new double[] { 1.0, 2.9876, -3.00001, 4.3 };
+        assertEquals(baseStr + "[values={1.0,2.9876,-3.00001,4.3}]",
+                new ToStringBuilder(base).append("values", array, true).toString());
+        assertEquals(baseStr + "[length=<size=4>]",
+                new ToStringBuilder(base).append("length", array, false).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null, true).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
+        assertEquals(baseStr + "[<size=4>]", new ToStringBuilder(base).append(null, array, false).toString());
+    }
+
+    @Test
+    public void testAppendObjectArrayWithFieldName() {
+        final Object[] array = new Object[] { null, base, new int[] { 3, 6 } };
+        assertEquals(baseStr + "[values={<null>,5,{3,6}}]",
+                new ToStringBuilder(base).append("values", array).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null).toString());
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(null, array).toString());
+    }
+
+    @Test
+    public void testAppendObjectArrayWithFieldNameAndFullDetatil() {
+       final Object[] array = new Object[] { null, base, new int[] { 3, 6 } };
+       assertEquals(baseStr + "[values={<null>,5,{3,6}}]",
+               new ToStringBuilder(base).append("values", array, true).toString());
+       assertEquals(baseStr + "[length=<size=3>]",
+               new ToStringBuilder(base).append("length", array, false).toString());
+       assertEquals(baseStr + "[values=<null>]",
+               new ToStringBuilder(base).append("values", (boolean[]) null, true).toString());
+       assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
+       assertEquals(baseStr + "[<size=3>]", new ToStringBuilder(base).append(null, array, false).toString());
+    }
+
+    @Test
+    public void testAppendLongArrayWithFieldName() {
+       final long[] array = new long[] { 1, 2, -3, 4 };
+       assertEquals(baseStr + "[values={1,2,-3,4}]", new ToStringBuilder(base).append("values", array).toString());
+       assertEquals(baseStr + "[values=<null>]",
+               new ToStringBuilder(base).append("values", (boolean[]) null).toString());
+       assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null).toString());
+       assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append(null, array).toString());
+    }
+
+    @Test
+    public void testAppendLongArrayWithFieldNameAndFullDetatil() {
+        final long[] array = new long[] { 1, 2, -3, 4 };
+        assertEquals(baseStr + "[values={1,2,-3,4}]",
+                new ToStringBuilder(base).append("values", array, true).toString());
+        assertEquals(baseStr + "[length=<size=4>]",
+                new ToStringBuilder(base).append("length", array, false).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null, true).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
+        assertEquals(baseStr + "[<size=4>]", new ToStringBuilder(base).append(null, array, false).toString());
+    }
+
+    @Test
+    public void testAppendIntArrayWithFieldName() {
+        final int[] array = new int[] { 1, 2, -3, 4 };
+        assertEquals(baseStr + "[values={1,2,-3,4}]", new ToStringBuilder(base).append("values", array).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null).toString());
+        assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append(null, array).toString());
+    }
+
+    @Test
+    public void testAppendIntArrayWithFieldNameAndFullDetatil() {
+        final int[] array = new int[] { 1, 2, -3, 4 };
+        assertEquals(baseStr + "[values={1,2,-3,4}]",
+                new ToStringBuilder(base).append("values", array, true).toString());
+        assertEquals(baseStr + "[length=<size=4>]",
+                new ToStringBuilder(base).append("length", array, false).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null, true).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
+        assertEquals(baseStr + "[<size=4>]", new ToStringBuilder(base).append(null, array, false).toString());
+    }
+
+    @Test
+    public void testAppendShortArrayWithFieldName() {
+        final short[] array = new short[] { 1, 2, -3, 4 };
+        assertEquals(baseStr + "[values={1,2,-3,4}]", new ToStringBuilder(base).append("values", array).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null).toString());
+        assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append(null, array).toString());
+    }
+
+    @Test
+    public void testAppendShortArrayWithFieldNameAndFullDetatil() {
+        final short[] array = new short[] { 1, 2, -3, 4 };
+        assertEquals(baseStr + "[values={1,2,-3,4}]",
+                new ToStringBuilder(base).append("values", array, true).toString());
+        assertEquals(baseStr + "[length=<size=4>]",
+                new ToStringBuilder(base).append("length", array, false).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null, true).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
+        assertEquals(baseStr + "[<size=4>]", new ToStringBuilder(base).append(null, array, false).toString());
+    }
+
+    @Test
+    public void testAppendByteArrayWithFieldName() {
+        final byte[] array = new byte[] { 1, 2, -3, 4 };
+        assertEquals(baseStr + "[values={1,2,-3,4}]", new ToStringBuilder(base).append("values", array).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null).toString());
+        assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append(null, array).toString());
+    }
+
+    @Test
+    public void testAppendByteArrayWithFieldNameAndFullDetatil() {
+        final byte[] array = new byte[] { 1, 2, -3, 4 };
+        assertEquals(baseStr + "[values={1,2,-3,4}]",
+                new ToStringBuilder(base).append("values", array, true).toString());
+        assertEquals(baseStr + "[length=<size=4>]",
+                new ToStringBuilder(base).append("length", array, false).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null, true).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
+        assertEquals(baseStr + "[<size=4>]", new ToStringBuilder(base).append(null, array, false).toString());
+    }
+
+    @Test
+    public void testAppendFloatArrayWithFieldName() {
+        final float[] array = new float[] { 1.0f, 2.9876f, -3.00001f, 4.3f };
+        assertEquals(baseStr + "[values={1.0,2.9876,-3.00001,4.3}]",
+                new ToStringBuilder(base).append("values", array).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null).toString());
+        assertEquals(baseStr + "[{1.0,2.9876,-3.00001,4.3}]", new ToStringBuilder(base).append(null, array).toString());
+    }
+
+    @Test
+    public void testAppendFloatArrayWithFieldNameAndFullDetatil() {
+        final float[] array = new float[] { 1.0f, 2.9876f, -3.00001f, 4.3f };
+        assertEquals(baseStr + "[values={1.0,2.9876,-3.00001,4.3}]",
+                new ToStringBuilder(base).append("values", array, true).toString());
+        assertEquals(baseStr + "[length=<size=4>]",
+                new ToStringBuilder(base).append("length", array, false).toString());
+        assertEquals(baseStr + "[values=<null>]",
+                new ToStringBuilder(base).append("values", (boolean[]) null, true).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(null, (boolean[]) null, false).toString());
+        assertEquals(baseStr + "[<size=4>]", new ToStringBuilder(base).append(null, array, false).toString());
+    }
+
+    @Test
+    public void testConstructToStringBuilder() {
+        final ToStringBuilder stringBuilder1 = new ToStringBuilder(base, null, null);
+        final ToStringBuilder stringBuilder2 = new ToStringBuilder(base, ToStringStyle.DEFAULT_STYLE, new StringBuffer(1024));
+        assertEquals(ToStringStyle.DEFAULT_STYLE, stringBuilder1.getStyle());
+        assertNotNull(stringBuilder1.getStringBuffer());
+        assertNotNull(stringBuilder1.toString());
+        assertEquals(ToStringStyle.DEFAULT_STYLE, stringBuilder2.getStyle());
+        assertNotNull(stringBuilder2.getStringBuffer());
+        assertNotNull(stringBuilder2.toString());
+    }
+
+
+    @Test
     public void testObject() {
         final Integer i3 = Integer.valueOf(3);
         final Integer i4 = Integer.valueOf(4);
@@ -631,7 +868,7 @@ public class ToStringBuilderTest {
         assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", (Object) new String[0], false).toString());
         assertEquals(baseStr + "[a={}]", new ToStringBuilder(base).append("a", (Object) new String[0], true).toString());
     }
-    
+
     @Test
     public void testObjectBuild() {
         final Integer i3 = Integer.valueOf(3);
@@ -903,16 +1140,16 @@ public class ToStringBuilderTest {
     public void testSimpleReflectionStatics() {
         final SimpleReflectionStaticFieldsFixture instance1 = new SimpleReflectionStaticFieldsFixture();
         assertEquals(
-            this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345]",
+            this.toBaseString(instance1) + "[staticInt=12345,staticString=staticString]",
             ReflectionToStringBuilder.toString(instance1, null, false, true, SimpleReflectionStaticFieldsFixture.class));
         assertEquals(
-            this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345]",
+            this.toBaseString(instance1) + "[staticInt=12345,staticString=staticString]",
             ReflectionToStringBuilder.toString(instance1, null, true, true, SimpleReflectionStaticFieldsFixture.class));
         assertEquals(
-            this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345]",
+            this.toBaseString(instance1) + "[staticInt=12345,staticString=staticString]",
             this.toStringWithStatics(instance1, null, SimpleReflectionStaticFieldsFixture.class));
         assertEquals(
-            this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345]",
+            this.toBaseString(instance1) + "[staticInt=12345,staticString=staticString]",
             this.toStringWithStatics(instance1, null, SimpleReflectionStaticFieldsFixture.class));
     }
 
@@ -923,16 +1160,16 @@ public class ToStringBuilderTest {
     public void testReflectionStatics() {
         final ReflectionStaticFieldsFixture instance1 = new ReflectionStaticFieldsFixture();
         assertEquals(
-            this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345,instanceString=instanceString,instanceInt=67890]",
+            this.toBaseString(instance1) + "[instanceInt=67890,instanceString=instanceString,staticInt=12345,staticString=staticString]",
             ReflectionToStringBuilder.toString(instance1, null, false, true, ReflectionStaticFieldsFixture.class));
         assertEquals(
-            this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345,staticTransientString=staticTransientString,staticTransientInt=54321,instanceString=instanceString,instanceInt=67890,transientString=transientString,transientInt=98765]",
+            this.toBaseString(instance1) + "[instanceInt=67890,instanceString=instanceString,staticInt=12345,staticString=staticString,staticTransientInt=54321,staticTransientString=staticTransientString,transientInt=98765,transientString=transientString]",
             ReflectionToStringBuilder.toString(instance1, null, true, true, ReflectionStaticFieldsFixture.class));
         assertEquals(
-            this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345,instanceString=instanceString,instanceInt=67890]",
+            this.toBaseString(instance1) + "[instanceInt=67890,instanceString=instanceString,staticInt=12345,staticString=staticString]",
             this.toStringWithStatics(instance1, null, ReflectionStaticFieldsFixture.class));
         assertEquals(
-            this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345,instanceString=instanceString,instanceInt=67890]",
+            this.toBaseString(instance1) + "[instanceInt=67890,instanceString=instanceString,staticInt=12345,staticString=staticString]",
             this.toStringWithStatics(instance1, null, ReflectionStaticFieldsFixture.class));
     }
 
@@ -943,24 +1180,24 @@ public class ToStringBuilderTest {
     public void testInheritedReflectionStatics() {
         final InheritedReflectionStaticFieldsFixture instance1 = new InheritedReflectionStaticFieldsFixture();
         assertEquals(
-            this.toBaseString(instance1) + "[staticString2=staticString2,staticInt2=67890]",
+            this.toBaseString(instance1) + "[staticInt2=67890,staticString2=staticString2]",
             ReflectionToStringBuilder.toString(instance1, null, false, true, InheritedReflectionStaticFieldsFixture.class));
         assertEquals(
-            this.toBaseString(instance1) + "[staticString2=staticString2,staticInt2=67890,staticString=staticString,staticInt=12345]",
+            this.toBaseString(instance1) + "[staticInt2=67890,staticString2=staticString2,staticInt=12345,staticString=staticString]",
             ReflectionToStringBuilder.toString(instance1, null, false, true, SimpleReflectionStaticFieldsFixture.class));
         assertEquals(
-            this.toBaseString(instance1) + "[staticString2=staticString2,staticInt2=67890,staticString=staticString,staticInt=12345]",
+            this.toBaseString(instance1) + "[staticInt2=67890,staticString2=staticString2,staticInt=12345,staticString=staticString]",
             this.toStringWithStatics(instance1, null, SimpleReflectionStaticFieldsFixture.class));
         assertEquals(
-            this.toBaseString(instance1) + "[staticString2=staticString2,staticInt2=67890,staticString=staticString,staticInt=12345]",
+            this.toBaseString(instance1) + "[staticInt2=67890,staticString2=staticString2,staticInt=12345,staticString=staticString]",
             this.toStringWithStatics(instance1, null, SimpleReflectionStaticFieldsFixture.class));
     }
 
     /**
      * <p>This method uses reflection to build a suitable
-     * <code>toString</code> value which includes static fields.</p>
+     * {@code toString} value which includes static fields.</p>
      *
-     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
+     * <p>It uses {@code AccessibleObject.setAccessible} to gain access to private
      * fields. This means that it will throw a security exception if run
      * under a security manager, if the permissions are not set up correctly.
      * It is also not as efficient as testing explicitly. </p>
@@ -968,19 +1205,19 @@ public class ToStringBuilderTest {
      * <p>Transient fields are not output.</p>
      *
      * <p>Superclass fields will be appended up to and including the specified superclass.
-     * A null superclass is treated as <code>java.lang.Object</code>.</p>
+     * A null superclass is treated as {@code java.lang.Object}.</p>
      *
-     * <p>If the style is <code>null</code>, the default
-     * <code>ToStringStyle</code> is used.</p>
+     * <p>If the style is {@code null}, the default
+     * {@code ToStringStyle} is used.</p>
      *
      * @param <T> the type of the output object
      * @param object  the Object to be output
-     * @param style  the style of the <code>toString</code> to create,
-     *  may be <code>null</code>
+     * @param style  the style of the {@code toString} to create,
+     *  may be {@code null}
      * @param reflectUpToClass  the superclass to reflect up to (inclusive),
-     *  may be <code>null</code>
+     *  may be {@code null}
      * @return the String result
-     * @throws IllegalArgumentException if the Object is <code>null</code>
+     * @throws IllegalArgumentException if the Object is {@code null}
      */
     public <T> String toStringWithStatics(final T object, final ToStringStyle style, final Class<? super T> reflectUpToClass) {
         return ReflectionToStringBuilder.toString(object, style, false, true, reflectUpToClass);
@@ -1000,15 +1237,12 @@ public class ToStringBuilderTest {
     /**
      * Tests ReflectionToStringBuilder setUpToClass().
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void test_setUpToClass_invalid() {
         final Integer val = Integer.valueOf(5);
         final ReflectionToStringBuilder test = new ReflectionToStringBuilder(val);
-        try {
-            test.setUpToClass(String.class);
-        } finally {
-            test.toString();
-        }
+        assertThrows(IllegalArgumentException.class, () -> test.setUpToClass(String.class));
+        test.toString();
     }
 
     /**
@@ -1036,14 +1270,15 @@ public class ToStringBuilderTest {
     /**
      * Test fixture for ReflectionToStringBuilder.toString() for statics.
      */
+    @SuppressWarnings("unused")
     class InheritedReflectionStaticFieldsFixture extends SimpleReflectionStaticFieldsFixture {
         static final String staticString2 = "staticString2";
         static final int staticInt2 = 67890;
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testReflectionNull() {
-        assertEquals("<null>", ReflectionToStringBuilder.toString(null));
+        assertThrows(NullPointerException.class, () -> ReflectionToStringBuilder.toString(null));
     }
 
     /**
@@ -1063,7 +1298,7 @@ public class ToStringBuilderTest {
         final MultiLineTestObject obj = new MultiLineTestObject();
         final ToStringBuilder testBuilder = new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                                           .appendToString(obj.toString());
-        assertEquals(testBuilder.toString().indexOf("testInt=31337"), -1);
+        assertEquals(-1, testBuilder.toString().indexOf("testInt=31337"));
     }
 
 }

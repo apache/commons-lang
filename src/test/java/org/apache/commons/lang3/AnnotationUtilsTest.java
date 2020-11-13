@@ -22,23 +22,26 @@ import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.CURLY;
 import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.LARRY;
 import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.MOE;
 import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.SHEMP;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.time.Duration;
 import java.util.Collection;
 import java.util.Map;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  */
@@ -350,7 +353,7 @@ public class AnnotationUtilsTest {
         NestAnnotation nest();
         NestAnnotation[] nests();
     }
-    
+
     @Retention(RUNTIME)
     public @interface NestAnnotation {
         String string();
@@ -377,7 +380,18 @@ public class AnnotationUtilsTest {
         Stooge[] stooges();
     }
 
-    public static enum Stooge {
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.METHOD})
+    public @interface TestMethodAnnotation {
+        Class<? extends Throwable> expected() default None.class;
+
+        long timeout() default 0L;
+
+        class None extends Throwable {
+        }
+    }
+
+    public enum Stooge {
         MOE, LARRY, CURLY, JOE, SHEMP
     }
 
@@ -386,7 +400,7 @@ public class AnnotationUtilsTest {
     private Field field3;
     private Field field4;
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         field1 = getClass().getDeclaredField("dummy1");
         field2 = getClass().getDeclaredField("dummy2");
@@ -444,15 +458,13 @@ public class AnnotationUtilsTest {
         }
     }
 
-    @Test(timeout = 666000)
-    public void testGeneratedAnnotationEquivalentToRealAnnotation() throws Exception {
-        final Test real = getClass().getDeclaredMethod(
-                "testGeneratedAnnotationEquivalentToRealAnnotation").getAnnotation(Test.class);
+    @Test
+    public void testGeneratedAnnotationEquivalentToRealAnnotation() {
+        assertTimeoutPreemptively(Duration.ofSeconds(666L), () -> {
+            final Test real = getClass().getDeclaredMethod(
+                    "testGeneratedAnnotationEquivalentToRealAnnotation").getAnnotation(Test.class);
 
-        final InvocationHandler generatedTestInvocationHandler = new InvocationHandler() {
-
-            @Override
-            public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
+            final InvocationHandler generatedTestInvocationHandler = (proxy, method, args) -> {
                 if ("equals".equals(method.getName()) && method.getParameterTypes().length == 1) {
                     return Boolean.valueOf(proxy == args[0]);
                 }
@@ -463,46 +475,52 @@ public class AnnotationUtilsTest {
                     return "Test proxy";
                 }
                 return method.invoke(real, args);
-            }
-        };
+            };
 
-        final Test generated = (Test) Proxy.newProxyInstance(Thread.currentThread()
-                .getContextClassLoader(), new Class[] { Test.class },
-                generatedTestInvocationHandler);
-        assertTrue(real.equals(generated));
-        assertFalse(generated.equals(real));
-        assertTrue(AnnotationUtils.equals(generated, real));
-        assertTrue(AnnotationUtils.equals(real, generated));
+            final Test generated = (Test) Proxy.newProxyInstance(Thread.currentThread()
+                            .getContextClassLoader(), new Class[]{Test.class},
+                    generatedTestInvocationHandler);
+            assertEquals(real, generated);
+            assertNotEquals(generated, real);
+            assertTrue(AnnotationUtils.equals(generated, real));
+            assertTrue(AnnotationUtils.equals(real, generated));
 
-        final Test generated2 = (Test) Proxy.newProxyInstance(Thread.currentThread()
-                .getContextClassLoader(), new Class[] { Test.class },
-                generatedTestInvocationHandler);
-        assertFalse(generated.equals(generated2));
-        assertFalse(generated2.equals(generated));
-        assertTrue(AnnotationUtils.equals(generated, generated2));
-        assertTrue(AnnotationUtils.equals(generated2, generated));
+            final Test generated2 = (Test) Proxy.newProxyInstance(Thread.currentThread()
+                            .getContextClassLoader(), new Class[]{Test.class},
+                    generatedTestInvocationHandler);
+            assertNotEquals(generated, generated2);
+            assertNotEquals(generated2, generated);
+            assertTrue(AnnotationUtils.equals(generated, generated2));
+            assertTrue(AnnotationUtils.equals(generated2, generated));
+        });
     }
 
-    @Test(timeout = 666000)
-    public void testHashCode() throws Exception {
-        final Test test = getClass().getDeclaredMethod("testHashCode").getAnnotation(Test.class);
-        assertEquals(test.hashCode(), AnnotationUtils.hashCode(test));
-        final TestAnnotation testAnnotation1 = field1.getAnnotation(TestAnnotation.class);
-        assertEquals(testAnnotation1.hashCode(), AnnotationUtils.hashCode(testAnnotation1));
-        final TestAnnotation testAnnotation3 = field3.getAnnotation(TestAnnotation.class);
-        assertEquals(testAnnotation3.hashCode(), AnnotationUtils.hashCode(testAnnotation3));
+    @Test
+    public void testHashCode() {
+        assertTimeoutPreemptively(Duration.ofSeconds(666L), () -> {
+            final Test test = getClass().getDeclaredMethod("testHashCode").getAnnotation(Test.class);
+            assertEquals(test.hashCode(), AnnotationUtils.hashCode(test));
+            final TestAnnotation testAnnotation1 = field1.getAnnotation(TestAnnotation.class);
+            assertEquals(testAnnotation1.hashCode(), AnnotationUtils.hashCode(testAnnotation1));
+            final TestAnnotation testAnnotation3 = field3.getAnnotation(TestAnnotation.class);
+            assertEquals(testAnnotation3.hashCode(), AnnotationUtils.hashCode(testAnnotation3));
+        });
     }
 
-    @Test(timeout = 666000)
-    public void testToString() throws Exception {
-        final Test testAnnotation = getClass().getDeclaredMethod("testToString")
-                .getAnnotation(Test.class);
-        final String annotationString = AnnotationUtils.toString(testAnnotation);
-        assertTrue(annotationString.startsWith("@org.junit.Test("));
-        assertTrue(annotationString.endsWith(")"));
-        assertTrue(annotationString.contains("expected=class org.junit.Test$None"));
-        assertTrue(annotationString.contains("timeout=666000"));
-        assertTrue(annotationString.contains(", "));
+    @Test
+    @TestMethodAnnotation(timeout = 666000)
+    public void testToString() {
+        assertTimeoutPreemptively(Duration.ofSeconds(666L), () -> {
+            final TestMethodAnnotation testAnnotation =
+                    getClass().getDeclaredMethod("testToString").getAnnotation(TestMethodAnnotation.class);
+
+            final String annotationString = AnnotationUtils.toString(testAnnotation);
+            assertTrue(annotationString.startsWith("@org.apache.commons.lang3.AnnotationUtilsTest$TestMethodAnnotation("));
+            assertTrue(annotationString.endsWith(")"));
+            assertTrue(annotationString.contains("expected=class org.apache.commons.lang3.AnnotationUtilsTest$TestMethodAnnotation$None"));
+            assertTrue(annotationString.contains("timeout=666000"));
+            assertTrue(annotationString.contains(", "));
+        });
     }
 
 }

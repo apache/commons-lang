@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,37 +34,37 @@ import java.util.Set;
 public class CharSet implements Serializable {
 
     /**
-     * Required for serialization support. Lang version 2.0. 
-     * 
+     * Required for serialization support. Lang version 2.0.
+     *
      * @see java.io.Serializable
      */
     private static final long serialVersionUID = 5947847346149275958L;
 
-    /** 
-     * A CharSet defining no characters. 
+    /**
+     * A CharSet defining no characters.
      * @since 2.0
      */
     public static final CharSet EMPTY = new CharSet((String) null);
 
-    /** 
+    /**
      * A CharSet defining ASCII alphabetic characters "a-zA-Z".
      * @since 2.0
      */
     public static final CharSet ASCII_ALPHA = new CharSet("a-zA-Z");
 
-    /** 
+    /**
      * A CharSet defining ASCII alphabetic characters "a-z".
      * @since 2.0
      */
     public static final CharSet ASCII_ALPHA_LOWER = new CharSet("a-z");
 
-    /** 
+    /**
      * A CharSet defining ASCII alphabetic characters "A-Z".
      * @since 2.0
      */
     public static final CharSet ASCII_ALPHA_UPPER = new CharSet("A-Z");
 
-    /** 
+    /**
      * A CharSet defining ASCII alphabetic characters "0-9".
      * @since 2.0
      */
@@ -75,8 +75,8 @@ public class CharSet implements Serializable {
      * Subclasses can add more common patterns if desired
      * @since 2.0
      */
-    protected static final Map<String, CharSet> COMMON = Collections.synchronizedMap(new HashMap<String, CharSet>());
-    
+    protected static final Map<String, CharSet> COMMON = Collections.synchronizedMap(new HashMap<>());
+
     static {
         COMMON.put(null, EMPTY);
         COMMON.put(StringUtils.EMPTY, EMPTY);
@@ -88,7 +88,7 @@ public class CharSet implements Serializable {
     }
 
     /** The set of CharRange objects. */
-    private final Set<CharRange> set = Collections.synchronizedSet(new HashSet<CharRange>());
+    private final Set<CharRange> set = Collections.synchronizedSet(new HashSet<>());
 
     //-----------------------------------------------------------------------
     /**
@@ -114,7 +114,7 @@ public class CharSet implements Serializable {
      *  <li>Negated single character, such as "^a"
      *  <li>Ordinary single character, such as "a"
      * </ol>
-     * 
+     *
      * <p>Matching works left to right. Once a match is found the
      * search starts again from the next character.</p>
      *
@@ -128,11 +128,11 @@ public class CharSet implements Serializable {
      * as the "a-e" and "e-a" are the same.</p>
      *
      * <p>The set of characters represented is the union of the specified ranges.</p>
-     * 
+     *
      * <p>There are two ways to add a literal negation character ({@code ^}):</p>
      * <ul>
      *     <li>As the last character in a string, e.g. {@code CharSet.getInstance("a-z^")}</li>
-     *     <li>As a separate element, e.g. {@code CharSet.getInstance("^","a-z")}</li>
+     *     <li>As a separate element, e.g. {@code CharSet.getInstance("^", "a-z")}</li>
      * </ul>
      *
      * <p>Examples using the negation character:</p>
@@ -141,11 +141,11 @@ public class CharSet implements Serializable {
      *     CharSet.getInstance("^a-c").contains('d') = true
      *     CharSet.getInstance("^^a-c").contains('a') = true // (only '^' is negated)
      *     CharSet.getInstance("^^a-c").contains('^') = false
-     *     CharSet.getInstance("^a-cd-f").contains('d') = true 
+     *     CharSet.getInstance("^a-cd-f").contains('d') = true
      *     CharSet.getInstance("a-c^").contains('^') = true
      *     CharSet.getInstance("^", "a-c").contains('^') = true
      * </pre>
-     * 
+     *
      * <p>All CharSet objects returned by this method will be immutable.</p>
      *
      * @param setStrs  Strings to merge into the set, may be null
@@ -162,7 +162,7 @@ public class CharSet implements Serializable {
                 return common;
             }
         }
-        return new CharSet(setStrs); 
+        return new CharSet(setStrs);
     }
 
     //-----------------------------------------------------------------------
@@ -175,7 +175,7 @@ public class CharSet implements Serializable {
      */
     protected CharSet(final String... set) {
         super();
-        for (String s : set) {
+        for (final String s : set) {
             add(s);
         }
     }
@@ -222,10 +222,10 @@ public class CharSet implements Serializable {
      * @return an array of immutable CharRange objects
      * @since 2.0
      */
-// NOTE: This is no longer public as CharRange is no longer a public class. 
+// NOTE: This is no longer public as CharRange is no longer a public class.
 //       It may be replaced when CharSet moves to Range.
     /*public*/ CharRange[] getCharRanges() {
-        return set.toArray(new CharRange[set.size()]);
+        return set.toArray(new CharRange[0]);
     }
 
     //-----------------------------------------------------------------------
@@ -237,9 +237,11 @@ public class CharSet implements Serializable {
      * @return {@code true} if the set contains the characters
      */
     public boolean contains(final char ch) {
-        for (final CharRange range : set) {
-            if (range.contains(ch)) {
-                return true;
+        synchronized(set) {
+            for (final CharRange range : set) {
+                if (range.contains(ch)) {
+                    return true;
+                }
             }
         }
         return false;
@@ -263,7 +265,7 @@ public class CharSet implements Serializable {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof CharSet == false) {
+        if (!(obj instanceof CharSet)) {
             return false;
         }
         final CharSet other = (CharSet) obj;

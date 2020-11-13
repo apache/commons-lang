@@ -17,21 +17,21 @@
 
 package org.apache.commons.lang3.text;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang3.mutable.MutableObject;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for StrSubstitutor.
@@ -41,15 +41,15 @@ public class StrSubstitutorTest {
 
     private Map<String, String> values;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() {
         values = new HashMap<>();
         values.put("animal", "quick brown fox");
         values.put("target", "lazy dog");
     }
 
-    @After
-    public void tearDown() throws Exception {
+    @AfterEach
+    public void tearDown() {
         values = null;
     }
 
@@ -245,23 +245,19 @@ public class StrSubstitutorTest {
         map.put("critterSpeed", "quick");
         map.put("critterColor", "brown");
         map.put("critterType", "${animal}");
-        StrSubstitutor sub = new StrSubstitutor(map);
-        try {
-            sub.replace("The ${animal} jumps over the ${target}.");
-            fail("Cyclic replacement was not detected!");
-        } catch (final IllegalStateException ex) {
-            // expected
-        }
+        final StrSubstitutor sub = new StrSubstitutor(map);
+        assertThrows(
+                IllegalStateException.class,
+                () -> sub.replace("The ${animal} jumps over the ${target}."),
+                "Cyclic replacement was not detected!");
 
         // also check even when default value is set.
         map.put("critterType", "${animal:-fox}");
-        sub = new StrSubstitutor(map);
-        try {
-            sub.replace("The ${animal} jumps over the ${target}.");
-            fail("Cyclic replacement was not detected!");
-        } catch (final IllegalStateException ex) {
-            // expected
-        }
+        final StrSubstitutor sub2 = new StrSubstitutor(map);
+        assertThrows(
+                IllegalStateException.class,
+                () -> sub2.replace("The ${animal} jumps over the ${target}."),
+                "Cyclic replacement was not detected!");
     }
 
     /**
@@ -308,18 +304,18 @@ public class StrSubstitutorTest {
         final StrSubstitutor sub = new StrSubstitutor(values);
         sub.setEnableSubstitutionInVariables(true);
         assertEquals(
-                "Wrong result (1)",
                 "The mouse jumps over the lazy dog.",
-                sub.replace("The ${animal.${species}} jumps over the ${target}."));
+                sub.replace("The ${animal.${species}} jumps over the ${target}."),
+                "Wrong result (1)");
         values.put("species", "1");
         assertEquals(
-                "Wrong result (2)",
                 "The fox jumps over the lazy dog.",
-                sub.replace("The ${animal.${species}} jumps over the ${target}."));
+                sub.replace("The ${animal.${species}} jumps over the ${target}."),
+                "Wrong result (2)");
         assertEquals(
-                "Wrong result (3)",
                 "The fox jumps over the lazy dog.",
-                sub.replace("The ${unknown.animal.${unknown.species:-1}:-fox} jumps over the ${unknown.target:-lazy dog}."));
+                sub.replace("The ${unknown.animal.${unknown.species:-1}:-fox} jumps over the ${unknown.target:-lazy dog}."),
+                "Wrong result (3)");
     }
 
     /**
@@ -332,13 +328,13 @@ public class StrSubstitutorTest {
         values.put("species", "2");
         final StrSubstitutor sub = new StrSubstitutor(values);
         assertEquals(
-                "Wrong result (1)",
                 "The ${animal.${species}} jumps over the lazy dog.",
-                sub.replace("The ${animal.${species}} jumps over the ${target}."));
+                sub.replace("The ${animal.${species}} jumps over the ${target}."),
+                "Wrong result (1)");
         assertEquals(
-                "Wrong result (2)",
                 "The ${animal.${species:-1}} jumps over the lazy dog.",
-                sub.replace("The ${animal.${species:-1}} jumps over the ${target}."));
+                sub.replace("The ${animal.${species:-1}} jumps over the ${target}."),
+                "Wrong result (2)");
     }
 
     /**
@@ -354,13 +350,13 @@ public class StrSubstitutorTest {
         final StrSubstitutor sub = new StrSubstitutor(values);
         sub.setEnableSubstitutionInVariables(true);
         assertEquals(
-                "Wrong result (1)",
                 "The white mouse jumps over the lazy dog.",
-                sub.replace("The ${animal.${species.${color}}} jumps over the ${target}."));
+                sub.replace("The ${animal.${species.${color}}} jumps over the ${target}."),
+                "Wrong result (1)");
         assertEquals(
-                "Wrong result (2)",
                 "The brown fox jumps over the lazy dog.",
-                sub.replace("The ${animal.${species.${unknownColor:-brown}}} jumps over the ${target}."));
+                sub.replace("The ${animal.${species.${unknownColor:-brown}}} jumps over the ${target}."),
+                "Wrong result (2)");
     }
 
     @Test
@@ -477,23 +473,13 @@ public class StrSubstitutorTest {
 
         sub.setVariablePrefix("<<");
         assertTrue(sub.getVariablePrefixMatcher() instanceof StrMatcher.StringMatcher);
-        try {
-            sub.setVariablePrefix(null);
-            fail();
-        } catch (final IllegalArgumentException ex) {
-            // expected
-        }
+        assertThrows(IllegalArgumentException.class, () -> sub.setVariablePrefix(null));
         assertTrue(sub.getVariablePrefixMatcher() instanceof StrMatcher.StringMatcher);
 
         final StrMatcher matcher = StrMatcher.commaMatcher();
         sub.setVariablePrefixMatcher(matcher);
         assertSame(matcher, sub.getVariablePrefixMatcher());
-        try {
-            sub.setVariablePrefixMatcher(null);
-            fail();
-        } catch (final IllegalArgumentException ex) {
-            // expected
-        }
+        assertThrows(IllegalArgumentException.class, () -> sub.setVariablePrefixMatcher(null));
         assertSame(matcher, sub.getVariablePrefixMatcher());
     }
 
@@ -509,23 +495,13 @@ public class StrSubstitutorTest {
 
         sub.setVariableSuffix("<<");
         assertTrue(sub.getVariableSuffixMatcher() instanceof StrMatcher.StringMatcher);
-        try {
-            sub.setVariableSuffix(null);
-            fail();
-        } catch (final IllegalArgumentException ex) {
-            // expected
-        }
+        assertThrows(IllegalArgumentException.class, () -> sub.setVariableSuffix(null));
         assertTrue(sub.getVariableSuffixMatcher() instanceof StrMatcher.StringMatcher);
 
         final StrMatcher matcher = StrMatcher.commaMatcher();
         sub.setVariableSuffixMatcher(matcher);
         assertSame(matcher, sub.getVariableSuffixMatcher());
-        try {
-            sub.setVariableSuffixMatcher(null);
-            fail();
-        } catch (final IllegalArgumentException ex) {
-            // expected
-        }
+        assertThrows(IllegalArgumentException.class, () -> sub.setVariableSuffixMatcher(null));
         assertSame(matcher, sub.getVariableSuffixMatcher());
     }
 
@@ -604,7 +580,7 @@ public class StrSubstitutorTest {
      * Test the replace of a properties object
      */
     @Test
-    public void testSubstituteDefaultProperties(){
+    public void testSubstituteDefaultProperties() {
         final String org = "${doesnotwork}";
         System.setProperty("doesnotwork", "It works!");
 
@@ -717,15 +693,15 @@ public class StrSubstitutorTest {
         final StrSubstitutor sub = new StrSubstitutor(values);
 
         if (replaceTemplate == null) {
-            assertEquals(null, sub.replace((String) null));
-            assertEquals(null, sub.replace((String) null, 0, 100));
-            assertEquals(null, sub.replace((char[]) null));
-            assertEquals(null, sub.replace((char[]) null, 0, 100));
-            assertEquals(null, sub.replace((StringBuffer) null));
-            assertEquals(null, sub.replace((StringBuffer) null, 0, 100));
-            assertEquals(null, sub.replace((StrBuilder) null));
-            assertEquals(null, sub.replace((StrBuilder) null, 0, 100));
-            assertEquals(null, sub.replace((Object) null));
+            assertNull(sub.replace((String) null));
+            assertNull(sub.replace((String) null, 0, 100));
+            assertNull(sub.replace((char[]) null));
+            assertNull(sub.replace((char[]) null, 0, 100));
+            assertNull(sub.replace((StringBuffer) null));
+            assertNull(sub.replace((StringBuffer) null, 0, 100));
+            assertNull(sub.replace((StrBuilder) null));
+            assertNull(sub.replace((StrBuilder) null, 0, 100));
+            assertNull(sub.replace((Object) null));
             assertFalse(sub.replaceIn((StringBuffer) null));
             assertFalse(sub.replaceIn((StringBuffer) null, 0, 100));
             assertFalse(sub.replaceIn((StrBuilder) null));

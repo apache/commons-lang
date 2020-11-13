@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,30 +22,30 @@ import java.util.NoSuchElementException;
 
 /**
  * <p>A contiguous range of characters, optionally negated.</p>
- * 
+ *
  * <p>Instances are immutable.</p>
  *
  * <p>#ThreadSafe#</p>
  * @since 1.0
  */
-// TODO: This is no longer public and will be removed later as CharSet is moved 
+// TODO: This is no longer public and will be removed later as CharSet is moved
 // to depend on Range.
 final class CharRange implements Iterable<Character>, Serializable {
 
     /**
-     * Required for serialization support. Lang version 2.0. 
-     * 
+     * Required for serialization support. Lang version 2.0.
+     *
      * @see java.io.Serializable
      */
     private static final long serialVersionUID = 8270183163158333422L;
-    
+
     /** The first character, inclusive, in the range. */
     private final char start;
     /** The last character, inclusive, in the range. */
     private final char end;
     /** True if the range is everything except the characters specified. */
     private final boolean negated;
-    
+
     /** Cached toString. */
     private transient String iToString;
 
@@ -55,7 +55,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      *
      * <p>A negated range includes everything except that defined by the
      * start and end characters.</p>
-     * 
+     *
      * <p>If start and end are in the wrong order, they are reversed.
      * Thus {@code a-e} is the same as {@code e-a}.</p>
      *
@@ -70,7 +70,7 @@ final class CharRange implements Iterable<Character>, Serializable {
             start = end;
             end = temp;
         }
-        
+
         this.start = start;
         this.end = end;
         this.negated = negated;
@@ -81,7 +81,6 @@ final class CharRange implements Iterable<Character>, Serializable {
      *
      * @param ch  only character in this range
      * @return the new CharRange object
-     * @see CharRange#CharRange(char, char, boolean)
      * @since 2.5
      */
     public static CharRange is(final char ch) {
@@ -91,9 +90,11 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * <p>Constructs a negated {@code CharRange} over a single character.</p>
      *
+     * <p>A negated range includes everything except that defined by the
+     * single character.</p>
+     *
      * @param ch  only character in this range
      * @return the new CharRange object
-     * @see CharRange#CharRange(char, char, boolean)
      * @since 2.5
      */
     public static CharRange isNot(final char ch) {
@@ -103,10 +104,12 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * <p>Constructs a {@code CharRange} over a set of characters.</p>
      *
+     * <p>If start and end are in the wrong order, they are reversed.
+     * Thus {@code a-e} is the same as {@code e-a}.</p>
+     *
      * @param start  first character, inclusive, in this range
      * @param end  last character, inclusive, in this range
      * @return the new CharRange object
-     * @see CharRange#CharRange(char, char, boolean)
      * @since 2.5
      */
     public static CharRange isIn(final char start, final char end) {
@@ -116,10 +119,15 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * <p>Constructs a negated {@code CharRange} over a set of characters.</p>
      *
+     * <p>A negated range includes everything except that defined by the
+     * start and end characters.</p>
+     *
+     * <p>If start and end are in the wrong order, they are reversed.
+     * Thus {@code a-e} is the same as {@code e-a}.</p>
+     *
      * @param start  first character, inclusive, in this range
      * @param end  last character, inclusive, in this range
      * @return the new CharRange object
-     * @see CharRange#CharRange(char, char, boolean)
      * @since 2.5
      */
     public static CharRange isNotIn(final char start, final char end) {
@@ -130,7 +138,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     //-----------------------------------------------------------------------
     /**
      * <p>Gets the start character for this character range.</p>
-     * 
+     *
      * @return the start char (inclusive)
      */
     public char getStart() {
@@ -139,7 +147,7 @@ final class CharRange implements Iterable<Character>, Serializable {
 
     /**
      * <p>Gets the end character for this character range.</p>
-     * 
+     *
      * @return the end char (inclusive)
      */
     public char getEnd() {
@@ -148,7 +156,7 @@ final class CharRange implements Iterable<Character>, Serializable {
 
     /**
      * <p>Is this {@code CharRange} negated.</p>
-     * 
+     *
      * <p>A negated range includes everything except that defined by the
      * start and end characters.</p>
      *
@@ -179,7 +187,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * @throws IllegalArgumentException if {@code null} input
      */
     public boolean contains(final CharRange range) {
-        Validate.isTrue(range != null, "The Range must not be null");
+        Validate.notNull(range, "The Range must not be null");
         if (negated) {
             if (range.negated) {
                 return start >= range.start && end <= range.end;
@@ -197,7 +205,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * <p>Compares two CharRange objects, returning true if they represent
      * exactly the same range of characters defined in the same way.</p>
-     * 
+     *
      * @param obj  the object to compare to
      * @return true if equal
      */
@@ -206,7 +214,7 @@ final class CharRange implements Iterable<Character>, Serializable {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof CharRange == false) {
+        if (!(obj instanceof CharRange)) {
             return false;
         }
         final CharRange other = (CharRange) obj;
@@ -215,17 +223,17 @@ final class CharRange implements Iterable<Character>, Serializable {
 
     /**
      * <p>Gets a hashCode compatible with the equals method.</p>
-     * 
+     *
      * @return a suitable hashCode
      */
     @Override
     public int hashCode() {
         return 83 + start + 7 * end + (negated ? 1 : 0);
     }
-    
+
     /**
      * <p>Gets a string representation of the character range.</p>
-     * 
+     *
      * @return string representation of this range
      */
     @Override
@@ -271,7 +279,7 @@ final class CharRange implements Iterable<Character>, Serializable {
         private boolean hasNext;
 
         /**
-         * Construct a new iterator for the character range.
+         * Constructs a new iterator for the character range.
          *
          * @param r The character range
          */
@@ -296,7 +304,7 @@ final class CharRange implements Iterable<Character>, Serializable {
         }
 
         /**
-         * Prepare the next character in the range.
+         * Prepares the next character in the range.
          */
         private void prepareNext() {
             if (range.negated) {
@@ -329,13 +337,13 @@ final class CharRange implements Iterable<Character>, Serializable {
         }
 
         /**
-         * Return the next character in the iteration
+         * Returns the next character in the iteration
          *
          * @return {@code Character} for the next character
          */
         @Override
         public Character next() {
-            if (hasNext == false) {
+            if (!hasNext) {
                 throw new NoSuchElementException();
             }
             final char cur = current;
@@ -346,7 +354,7 @@ final class CharRange implements Iterable<Character>, Serializable {
         /**
          * Always throws UnsupportedOperationException.
          *
-         * @throws UnsupportedOperationException
+         * @throws UnsupportedOperationException Always thrown.
          * @see java.util.Iterator#remove()
          */
         @Override

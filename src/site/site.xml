@@ -27,8 +27,8 @@
             <item name="Overview"        href="/index.html"/>
             <item name="Download"        href="/download_lang.cgi"/>
             <item name="Users guide"     href="/userguide.html"/>
-            <item name="Release History" href="/release-history.html"/>
-            <item name="Javadoc (Latest release)" href="javadocs/api-release/index.html"/>
+            <item name="Release History" href="/changes-report.html"/>
+            <item name="Javadoc"         href="javadocs/api-release/index.html"/>
         </menu>
 
         <menu name="Development">
@@ -37,7 +37,7 @@
             <item name="Issue Tracking"       href="/issue-tracking.html"/>
             <item name="Proposal"             href="/proposal.html"/>
             <item name="Developer guide"      href="/developerguide.html"/>
-            <item name="Source Repository"    href="/source-repository.html"/>
+            <item name="Source Repository"    href="/scm.html"/>
             <item name="Javadoc (GIT latest)" href="apidocs/index.html"/>
         </menu>
 

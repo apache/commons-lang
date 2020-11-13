@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,12 +16,10 @@
  */
 package org.apache.commons.lang3.exception;
 
-import org.junit.Test;
-import org.junit.Before;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -32,6 +30,8 @@ import java.util.Set;
 
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.tuple.Pair;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -51,7 +51,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
     }
 
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         exceptionContext
             .addContextValue("test1", null)
@@ -72,8 +72,8 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
         assertTrue(message.contains("some value"));
         assertTrue(message.contains("5"));
 
-        assertTrue(exceptionContext.getFirstContextValue("test1") == null);
-        assertTrue(exceptionContext.getFirstContextValue("test2").equals("some value"));
+        assertNull(exceptionContext.getFirstContextValue("test1"));
+        assertEquals("some value", exceptionContext.getFirstContextValue("test2"));
 
         assertEquals(5, exceptionContext.getContextLabels().size());
         assertTrue(exceptionContext.getContextLabels().contains("test1"));
@@ -99,7 +99,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
         assertTrue(message.contains("test Poorly written obj"));
         assertTrue(message.contains("Crap"));
 
-        assertTrue(exceptionContext.getFirstContextValue("crap") == null);
+        assertNull(exceptionContext.getFirstContextValue("crap"));
         assertTrue(exceptionContext.getFirstContextValue("test Poorly written obj") instanceof ObjectWithFaultyToString);
 
         assertEquals(7, exceptionContext.getContextEntries().size());
@@ -126,13 +126,13 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
     public void testGetFirstContextValue() {
         exceptionContext.addContextValue("test2", "different value");
 
-        assertTrue(exceptionContext.getFirstContextValue("test1") == null);
-        assertTrue(exceptionContext.getFirstContextValue("test2").equals("some value"));
-        assertTrue(exceptionContext.getFirstContextValue("crap") == null);
+        assertNull(exceptionContext.getFirstContextValue("test1"));
+        assertEquals("some value", exceptionContext.getFirstContextValue("test2"));
+        assertNull(exceptionContext.getFirstContextValue("crap"));
 
         exceptionContext.setContextValue("test2", "another");
 
-        assertTrue(exceptionContext.getFirstContextValue("test2").equals("another"));
+        assertEquals("another", exceptionContext.getFirstContextValue("test2"));
     }
 
     @Test
@@ -144,13 +144,13 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
 
         exceptionContext.setContextValue("test2", "another");
 
-        assertTrue(exceptionContext.getFirstContextValue("test2").equals("another"));
+        assertEquals("another", exceptionContext.getFirstContextValue("test2"));
     }
 
     @Test
     public void testGetContextLabels() {
         assertEquals(5, exceptionContext.getContextEntries().size());
-        
+
         exceptionContext.addContextValue("test2", "different value");
 
         final Set<String> labels = exceptionContext.getContextLabels();
@@ -165,7 +165,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
     @Test
     public void testGetContextEntries() {
         assertEquals(5, exceptionContext.getContextEntries().size());
-        
+
         exceptionContext.addContextValue("test2", "different value");
 
         final List<Pair<String, Object>> entries = exceptionContext.getContextEntries();
@@ -177,7 +177,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
         assertEquals("test Poorly written obj", entries.get(4).getKey());
         assertEquals("test2", entries.get(5).getKey());
     }
-    
+
     @Test
     public void testJavaSerialization() {
         exceptionContext.setContextValue("test Poorly written obj", "serializable replacement");

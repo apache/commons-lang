@@ -55,7 +55,7 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
     /**
      * The initial value of the internal counter.
      */
-    private final static long INITIAL_COUNT = 0L;
+    private static final long INITIAL_COUNT = 0L;
 
     /**
      * The threshold.
@@ -91,7 +91,7 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
      * {@inheritDoc}
      */
     @Override
-    public boolean checkState() throws CircuitBreakingException {
+    public boolean checkState() {
         return isOpen();
     }
 
@@ -112,7 +112,7 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
      * <p>If the threshold is zero, the circuit breaker will be in a permanent <em>open</em> state.</p>
      */
     @Override
-    public boolean incrementAndCheckState(final Long increment) throws CircuitBreakingException {
+    public boolean incrementAndCheckState(final Long increment) {
         if (threshold == 0) {
             open();
         }

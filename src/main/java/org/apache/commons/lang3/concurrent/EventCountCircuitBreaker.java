@@ -269,9 +269,8 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * {@inheritDoc}
      */
     @Override
-    public boolean incrementAndCheckState(final Integer increment)
-            throws CircuitBreakingException {
-        return performStateCheck(1);
+    public boolean incrementAndCheckState(final Integer increment) {
+        return performStateCheck(increment);
     }
 
     /**
@@ -405,8 +404,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * @throws CircuitBreakingException if the strategy cannot be resolved
      */
     private static StateStrategy stateStrategy(final State state) {
-        final StateStrategy strategy = STRATEGY_MAP.get(state);
-        return strategy;
+        return STRATEGY_MAP.get(state);
     }
 
     /**
@@ -440,7 +438,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * @param count the current count value
          * @param intervalStart the start time of the check interval
          */
-        public CheckIntervalData(final int count, final long intervalStart) {
+        CheckIntervalData(final int count, final long intervalStart) {
             eventCount = count;
             checkIntervalStart = intervalStart;
         }
@@ -471,8 +469,8 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * @return the updated instance
          */
         public CheckIntervalData increment(final int delta) {
-            return (delta != 0) ? new CheckIntervalData(getEventCount() + delta,
-                    getCheckIntervalStart()) : this;
+            return (delta == 0) ? this : new CheckIntervalData(getEventCount() + delta,
+                    getCheckIntervalStart());
         }
     }
 
