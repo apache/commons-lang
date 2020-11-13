@@ -6536,4 +6536,15 @@ public class ArrayUtilsTest {
         assertEquals(testSet, ArrayUtils.indexesOf(array, 3));
         assertEquals(emptySet, ArrayUtils.indexesOf(array, 99));
     }
+
+
+    @Test
+    public void testContainsHandleDoubleNaN() {
+
+        double[] a = new double[]{Double.NEGATIVE_INFINITY, Double.NaN, Double.POSITIVE_INFINITY};
+        System.out.println(ArrayUtils.contains(a, Double.POSITIVE_INFINITY));
+        assertTrue(ArrayUtils.contains(a, Double.POSITIVE_INFINITY));
+        assertTrue(ArrayUtils.contains(a, Double.NEGATIVE_INFINITY));
+        assertTrue(ArrayUtils.contains(a, Double.NaN));
+    }
 }

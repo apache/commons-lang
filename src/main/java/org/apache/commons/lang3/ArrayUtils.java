@@ -2438,7 +2438,7 @@ public class ArrayUtils {
             startIndex = 0;
         }
         for (int i = startIndex; i < array.length; i++) {
-            if (valueToFind == array[i]) {
+            if (valueToFind == array[i] || Double.isNaN( valueToFind )) {
                 return i;
             }
         }
