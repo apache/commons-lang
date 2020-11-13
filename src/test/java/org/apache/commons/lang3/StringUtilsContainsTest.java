@@ -175,6 +175,27 @@ public class StringUtilsContainsTest  {
         assertFalse(StringUtils.containsAny("ab", "z"));
     }
 
+    @Test
+    public void testContainsAny_StringStringArray() {
+        assertFalse(StringUtils.containsAny(null, (String[]) null));
+        assertFalse(StringUtils.containsAny(null, new String[0]));
+        assertFalse(StringUtils.containsAny(null, new String[] { "hello" }));
+        assertFalse(StringUtils.containsAny("", (String[]) null));
+        assertFalse(StringUtils.containsAny("", new String[0]));
+        assertFalse(StringUtils.containsAny("", new String[] { "hello" }));
+        assertFalse(StringUtils.containsAny("hello, goodbye", (String[]) null));
+        assertFalse(StringUtils.containsAny("hello, goodbye", new String[0]));
+        assertTrue(StringUtils.containsAny("hello, goodbye", new String[]{"hello", "goodbye"}));
+        assertTrue(StringUtils.containsAny("hello, goodbye", new String[]{"hello", "Goodbye"}));
+        assertFalse(StringUtils.containsAny("hello, goodbye", new String[]{"Hello", "Goodbye"}));
+        assertFalse(StringUtils.containsAny("hello, goodbye", new String[]{"Hello", null}));
+        assertFalse(StringUtils.containsAny("hello, null", new String[] { "Hello", null }));
+        // Javadoc examples:
+        assertTrue(StringUtils.containsAny("abcd", "ab", null));
+        assertTrue(StringUtils.containsAny("abcd", "ab", "cd"));
+        assertTrue(StringUtils.containsAny("abc", "d", "abc"));
+    }
+
     /**
      * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
@@ -204,27 +225,6 @@ public class StringUtilsContainsTest  {
         // Test:
         assertFalse(StringUtils.containsAny(CharU20000, CharU20001));
         assertFalse(StringUtils.containsAny(CharU20001, CharU20000));
-    }
-
-    @Test
-    public void testContainsAny_StringStringArray() {
-        assertFalse(StringUtils.containsAny(null, (String[]) null));
-        assertFalse(StringUtils.containsAny(null, new String[0]));
-        assertFalse(StringUtils.containsAny(null, new String[] { "hello" }));
-        assertFalse(StringUtils.containsAny("", (String[]) null));
-        assertFalse(StringUtils.containsAny("", new String[0]));
-        assertFalse(StringUtils.containsAny("", new String[] { "hello" }));
-        assertFalse(StringUtils.containsAny("hello, goodbye", (String[]) null));
-        assertFalse(StringUtils.containsAny("hello, goodbye", new String[0]));
-        assertTrue(StringUtils.containsAny("hello, goodbye", new String[]{"hello", "goodbye"}));
-        assertTrue(StringUtils.containsAny("hello, goodbye", new String[]{"hello", "Goodbye"}));
-        assertFalse(StringUtils.containsAny("hello, goodbye", new String[]{"Hello", "Goodbye"}));
-        assertFalse(StringUtils.containsAny("hello, goodbye", new String[]{"Hello", null}));
-        assertFalse(StringUtils.containsAny("hello, null", new String[] { "Hello", null }));
-        // Javadoc examples:
-        assertTrue(StringUtils.containsAny("abcd", "ab", null));
-        assertTrue(StringUtils.containsAny("abcd", "ab", "cd"));
-        assertTrue(StringUtils.containsAny("abc", "d", "abc"));
     }
 
     @DefaultLocale(language = "de", country = "DE")
