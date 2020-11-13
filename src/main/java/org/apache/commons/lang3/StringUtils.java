@@ -2878,7 +2878,7 @@ public class StringUtils {
      * @param beginIndex  the start position to search
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match,null input or  the beginIndex smaller than 0
-     * @since 3.2
+     * @since 3.12
      */
     public static int indexOfAny(final CharSequence cs, int beginIndex, final String searchChars) {
         if (isEmpty(cs) || isEmpty(searchChars) || beginIndex < 0) {
