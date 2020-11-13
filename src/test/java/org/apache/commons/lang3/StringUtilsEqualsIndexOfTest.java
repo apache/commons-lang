@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Locale;
 
 import org.hamcrest.core.IsNot;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -373,11 +374,19 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(0, StringUtils.indexOfAny("zzabyycdxx", 'z', 'a'));
         assertEquals(3, StringUtils.indexOfAny("zzabyycdxx", 'b', 'y'));
         assertEquals(-1, StringUtils.indexOfAny("ab", 'z'));
+    }
+
+
+    @DisplayName("testIndexOfAny_String")
+    @Test
+    public void testIndexOfAny_String() {
         assertEquals(1, StringUtils.indexOfAny("aba", 1, "a"));
         assertEquals(-1, StringUtils.indexOfAny("aba", -1, "a"));
         assertEquals(9, StringUtils.indexOfAny("abbbbbbbbbaba", 1, "a"));
-
+        assertEquals(-1, StringUtils.indexOfAny("testNull", 1, null));
+        assertEquals(-1, StringUtils.indexOfAny("testEmpty", 1, "    "));
     }
+
 
     /**
      * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
