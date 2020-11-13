@@ -26,6 +26,7 @@ import java.util.function.Function;
  * <p>
  * This is a <a href="package-summary.html">functional interface</a> whose functional method is
  * {@link #apply(Object, Object, Object)}.
+ * </p>
  *
  * @param <T> the type of the first argument to the function
  * @param <U> the type of the second argument to the function
