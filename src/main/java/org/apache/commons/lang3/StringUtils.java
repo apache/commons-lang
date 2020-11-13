@@ -7293,9 +7293,10 @@ public class StringUtils {
      * @param suffix  the string to append if not blank. Null will be converted to empty string.
      * @return the passed in String with prefix and suffix added, or empty string
      * @see StringUtils#defaultString(String, String)
+     * @since 3.12
      */
     public static String defaultIfNotBlank(final String str, final String prefix, final String suffix) {
-        return isBlank(str) ? "" : defaultString(prefix) + str + defaultString(suffix);
+        return isBlank(str) ? EMPTY : defaultString(prefix) + str + defaultString(suffix);
     }
 
     /**
@@ -7315,9 +7316,10 @@ public class StringUtils {
      * @param suffix  the string to append if not empty. Null will be converted to empty string.
      * @return the passed in String with prefix and suffix added, or empty string
      * @see StringUtils#defaultString(String, String)
+     * @since 3.12
      */
     public static String defaultIfNotEmpty(final String str, final String prefix, final String suffix) {
-        return isEmpty(str) ? "" : defaultString(prefix) + str + defaultString(suffix);
+        return isEmpty(str) ? EMPTY : defaultString(prefix) + str + defaultString(suffix);
     }
 
     /**
