@@ -55,6 +55,7 @@ The <action> type attribute can be add,update,fix,remove.
     <!--  ADDS -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.booleanValues().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.primitiveValues().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StringUtils.containsAnyIgnoreCase(CharSequence, CharSequence...).</action>
     <action                   type="add" dev="ggregory" due-to="Edgar Asatryan">More test coverage for CharSequenceUtils. #631.</action>
     <!--  UPDATES -->
     <action                   type="update" dev="chtompki">Bump junit-jupiter from 5.6.2 to 5.7.0.</action>

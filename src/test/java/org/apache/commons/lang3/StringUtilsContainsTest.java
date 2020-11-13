@@ -196,6 +196,27 @@ public class StringUtilsContainsTest  {
         assertTrue(StringUtils.containsAny("abc", "d", "abc"));
     }
 
+    @Test
+    public void testContainsAnyIgnoreCase_StringStringArray() {
+        assertFalse(StringUtils.containsAnyIgnoreCase(null, (String[]) null));
+        assertFalse(StringUtils.containsAnyIgnoreCase(null, new String[0]));
+        assertFalse(StringUtils.containsAnyIgnoreCase(null, new String[] { "hello" }));
+        assertFalse(StringUtils.containsAnyIgnoreCase("", (String[]) null));
+        assertFalse(StringUtils.containsAnyIgnoreCase("", new String[0]));
+        assertFalse(StringUtils.containsAnyIgnoreCase("", new String[] { "hello" }));
+        assertFalse(StringUtils.containsAnyIgnoreCase("hello, goodbye", (String[]) null));
+        assertFalse(StringUtils.containsAnyIgnoreCase("hello, goodbye", new String[0]));
+        assertTrue(StringUtils.containsAnyIgnoreCase("hello, goodbye", new String[]{"hello", "goodbye"}));
+        assertTrue(StringUtils.containsAnyIgnoreCase("hello, goodbye", new String[]{"hello", "Goodbye"}));
+        assertTrue(StringUtils.containsAnyIgnoreCase("hello, goodbye", new String[]{"Hello", "Goodbye"}));
+        assertTrue(StringUtils.containsAnyIgnoreCase("hello, goodbye", new String[]{"Hello", null}));
+        assertTrue(StringUtils.containsAnyIgnoreCase("hello, null", new String[] { "Hello", null }));
+        // Javadoc examples:
+        assertTrue(StringUtils.containsAnyIgnoreCase("abcd", "ab", null));
+        assertTrue(StringUtils.containsAnyIgnoreCase("abcd", "ab", "cd"));
+        assertTrue(StringUtils.containsAnyIgnoreCase("abc", "d", "abc"));
+    }
+
     /**
      * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
