@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Locale;
 
 import org.hamcrest.core.IsNot;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -377,7 +376,6 @@ public class StringUtilsEqualsIndexOfTest  {
     }
 
 
-    @DisplayName("testIndexOfAny_String")
     @Test
     public void testIndexOfAny_String() {
         assertEquals(1, StringUtils.indexOfAny("aba", 1, "a"));
