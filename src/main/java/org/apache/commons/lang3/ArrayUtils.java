@@ -973,7 +973,7 @@ public class ArrayUtils {
         System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
         return joinedArray;
     }
-
+    
     /**
      * <p>Adds all the elements of the given arrays into a new array.
      * <p>The new array contains all of the element of {@code array1} followed
@@ -2524,50 +2524,50 @@ public class ArrayUtils {
         return INDEX_NOT_FOUND;
     }
 
-   // int IndexOf
-//-----------------------------------------------------------------------
-/**
- * <p>Finds the index of the given value in the array.
- *
- * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
- *
- * @param array  the array to search through for the object, may be {@code null}
- * @param valueToFind  the value to find
- * @return the index of the value within the array,
- *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
- */
-public static int indexOf(final int[] array, final int valueToFind) {
-    return indexOf(array, valueToFind, 0);
-}
-
+    // int IndexOf
+    //-----------------------------------------------------------------------
     /**
-     * <p>Finds the index of the given value in the array starting at the given index.
+     * <p>Finds the index of the given value in the array.
      *
      * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      *
-     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
-     *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
-     * @param startIndex  the index to start searching at
      * @return the index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
-    public static int indexOf(final int[] array, final int valueToFind, int startIndex) {
-        if (array == null) {
-            return INDEX_NOT_FOUND;
-        }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
-        for (int i = startIndex; i < array.length; i++) {
-            if (valueToFind == array[i]) {
-                return i;
-            }
-        }
+    public static int indexOf(final int[] array, final int valueToFind) {
+        return indexOf(array, valueToFind, 0);
+    }
+
+   /**
+ * <p>Finds the index of the given value in the array starting at the given index.
+ *
+ * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
+ *
+ * <p>A negative startIndex is treated as zero. A startIndex larger than the array
+ * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
+ *
+ * @param array  the array to search through for the object, may be {@code null}
+ * @param valueToFind  the value to find
+ * @param startIndex  the index to start searching at
+ * @return the index of the value within the array,
+ *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+ */
+public static int indexOf(final int[] array, final int valueToFind, int startIndex) {
+    if (array == null) {
         return INDEX_NOT_FOUND;
     }
+    if (startIndex < 0) {
+        startIndex = 0;
+    }
+    for (int i = startIndex; i < array.length; i++) {
+        if (valueToFind == array[i]) {
+            return i;
+        }
+    }
+    return INDEX_NOT_FOUND;
+}
 
     // long IndexOf
     //-----------------------------------------------------------------------
@@ -3133,9 +3133,6 @@ public static int indexOf(final int[] array, final int valueToFind) {
         return getLength(array) == 0;
     }
 
-    // IndexOf search
-    // ----------------------------------------------------------------------
-
     /**
      * <p>Checks if an array of primitive bytes is empty or {@code null}.
      *
@@ -3146,6 +3143,9 @@ public static int indexOf(final int[] array, final int valueToFind) {
     public static boolean isEmpty(final byte[] array) {
         return getLength(array) == 0;
     }
+
+    // IndexOf search
+    // ----------------------------------------------------------------------
 
     /**
      * <p>Checks if an array of primitive chars is empty or {@code null}.
@@ -3180,8 +3180,6 @@ public static int indexOf(final int[] array, final int valueToFind) {
         return getLength(array) == 0;
     }
 
-
-
     /**
      * <p>Checks if an array of primitive ints is empty or {@code null}.
      *
@@ -3192,6 +3190,8 @@ public static int indexOf(final int[] array, final int valueToFind) {
     public static boolean isEmpty(final int[] array) {
         return getLength(array) == 0;
     }
+
+
 
     /**
      * <p>Checks if an array of primitive longs is empty or {@code null}.
@@ -3436,7 +3436,6 @@ public static int indexOf(final int[] array, final int valueToFind) {
         return getLength(array1) == getLength(array2);
     }
 
-
     /**
      * <p>Checks whether two arrays are the same length, treating
      * {@code null} arrays as length {@code 0}.
@@ -3452,6 +3451,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
     public static boolean isSameLength(final Object array1, final Object array2) {
         return getLength(array1) == getLength(array2);
     }
+
 
     /**
      * <p>Checks whether two arrays are the same length, treating
@@ -3978,7 +3978,6 @@ public static int indexOf(final int[] array, final int valueToFind) {
         return INDEX_NOT_FOUND;
     }
 
-
     /**
      * <p>Finds the last index of the given value within the array.
      *
@@ -3992,6 +3991,7 @@ public static int indexOf(final int[] array, final int valueToFind) {
     public static int lastIndexOf(final float[] array, final float valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
     }
+
 
     /**
      * <p>Finds the last index of the given value in the array starting at the given index.
@@ -4452,9 +4452,6 @@ public static int indexOf(final int[] array, final int valueToFind) {
         return array;
     }
 
-    // Primitive/Object array converters
-    // ----------------------------------------------------------------------
-
     /**
      * <p>Defensive programming technique to change a {@code null}
      * reference to an empty one.
@@ -4474,6 +4471,9 @@ public static int indexOf(final int[] array, final int valueToFind) {
         }
         return array;
     }
+
+    // Primitive/Object array converters
+    // ----------------------------------------------------------------------
 
     /**
      * <p>Defensive programming technique to change a {@code null}
@@ -7854,6 +7854,20 @@ public static int indexOf(final int[] array, final int valueToFind) {
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
+    }
+
+    /**
+     * Sorts and returns the given array.
+     *
+     * @param <T> the array type.
+     * @param array the array to sort.
+     * @return the given array.
+     * @see Arrays#sort(Object[])
+     * @since 3.12
+     */
+    public static <T> T[] sort(T[] array) {
+        Arrays.sort(array);
+        return array;
     }
 
     /**
