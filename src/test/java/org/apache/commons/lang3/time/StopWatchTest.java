@@ -328,7 +328,6 @@ public class StopWatchTest {
         final long testSuspendMillis = System.currentTimeMillis();
         final long suspendTime = watch.getTime();
         final long stopTime = watch.getStopTime();
-        
         assertTrue(testStartMillis <= stopTime);
         assertTrue(testSuspendMillis <= stopTime);
 
