@@ -973,7 +973,7 @@ public class ArrayUtils {
         System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
         return joinedArray;
     }
-    
+
     /**
      * <p>Adds all the elements of the given arrays into a new array.
      * <p>The new array contains all of the element of {@code array1} followed
@@ -2437,8 +2437,10 @@ public class ArrayUtils {
         if (startIndex < 0) {
             startIndex = 0;
         }
+        final boolean searchNaN = Double.isNaN(valueToFind);
         for (int i = startIndex; i < array.length; i++) {
-            if (valueToFind == array[i]) {
+            final double element = array[i];
+            if (valueToFind == element || (searchNaN && Double.isNaN(element))) {
                 return i;
             }
         }
