@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -236,6 +237,23 @@ public class StopWatchTest {
         stopWatch.start();
         stopWatch.split();
         assertTrue(stopWatch.toSplitString().startsWith(MESSAGE));
+    }
+
+    @DisplayName("Test to check getEndingTime")
+    @Test
+    public void testStopWatchGetEndingTime() {
+        final StopWatch watch = StopWatch.createStarted();
+        try {
+            Thread.sleep(550);
+        } catch (final InterruptedException ex) {
+            // ignore
+        }
+        watch.stop();
+        final long endingTime = watch.getEndingTime();
+        final long diff = endingTime - watch.getStartTime();
+        assertTrue(diff >= 500);
+        assertTrue(diff < 700);
+        assertTrue(watch.getStartTime()-endingTime < 0);
     }
 
     @Test

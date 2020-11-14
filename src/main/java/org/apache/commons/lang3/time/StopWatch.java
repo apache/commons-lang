@@ -262,6 +262,20 @@ public class StopWatch {
     }
 
     /**
+     * Gets the end time on the stopwatch.
+     *
+     * @return the end time in milliseconds
+     * @throws IllegalStateException
+     *             if this StopWatch has not been started
+     * @throws RuntimeException
+     *             if illegal running state has occurre
+     * @since 3.12
+     */
+    public long getEndingTime() {
+        return getStartTime() + getTime();
+    }
+
+    /**
      * Gets the message for string presentation.
      *
      * @return the message for string presentation.
