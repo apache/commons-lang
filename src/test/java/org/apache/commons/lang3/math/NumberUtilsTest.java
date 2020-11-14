@@ -1334,7 +1334,7 @@ public class NumberUtilsTest {
         assertTrue(NumberUtils.createNumber(Double.toString(Double.MAX_VALUE) + "D") instanceof Double);
         assertTrue(NumberUtils.createNumber(Double.toString(Double.MAX_VALUE) + "F") instanceof Double);
         assertTrue(NumberUtils.createNumber("4.9e-324D") instanceof Double);
-        assertTrue(NumberUtils.createNumber("4.9e-324F") instanceof Double);    
+        assertTrue(NumberUtils.createNumber("4.9e-324F") instanceof Double);
     }
 
     /**

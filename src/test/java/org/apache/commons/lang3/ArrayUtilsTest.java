@@ -276,6 +276,14 @@ public class ArrayUtilsTest {
         assertFalse(ArrayUtils.contains(array, (double) 99));
     }
 
+    @Test
+    public void testContainsDoubleNaN() {
+        double[] a = new double[] { Double.NEGATIVE_INFINITY, Double.NaN, Double.POSITIVE_INFINITY };
+        assertTrue(ArrayUtils.contains(a, Double.POSITIVE_INFINITY));
+        assertTrue(ArrayUtils.contains(a, Double.NEGATIVE_INFINITY));
+        assertTrue(ArrayUtils.contains(a, Double.NaN));
+    }
+
     @SuppressWarnings("cast")
     @Test
     public void testContainsDoubleTolerance() {
@@ -1042,6 +1050,15 @@ public class ArrayUtilsTest {
         assertEquals(3, ArrayUtils.indexOf(array, (double) 3));
         assertEquals(3, ArrayUtils.indexOf(array, (double) 3, -1));
         assertEquals(-1, ArrayUtils.indexOf(array, (double) 99));
+    }
+
+    @Test
+    public void testIndexOfDoubleNaN() {
+        double[] array = new double[] { Double.NEGATIVE_INFINITY, Double.NaN, Double.POSITIVE_INFINITY, Double.NaN };
+        assertEquals(0, ArrayUtils.indexOf(array, Double.NEGATIVE_INFINITY));
+        assertEquals(1, ArrayUtils.indexOf(array, Double.NaN));
+        assertEquals(2, ArrayUtils.indexOf(array, Double.POSITIVE_INFINITY));
+
     }
 
     @SuppressWarnings("cast")
