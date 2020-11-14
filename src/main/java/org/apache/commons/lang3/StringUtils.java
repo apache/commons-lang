@@ -2874,14 +2874,14 @@ public class StringUtils {
      * StringUtils.indexOfAny("aba", -1, "a")        = -1
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param cs the CharSequence to check, may be null
      * @param beginIndex  the start position to search
      * @param searchChars  the chars to search for, may be null
-     * @return the index of any of the chars, -1 if no match,null input or  the beginIndex smaller than 0
+     * @return the index of any of the chars, -1 if no match, null input or the beginIndex smaller than 0
      * @since 3.12
      */
     public static int indexOfAny(final CharSequence cs, int beginIndex, final String searchChars) {
-        if (isEmpty(cs) || isEmpty(searchChars ) || beginIndex < 0) {
+        if (isEmpty(cs) || isEmpty(searchChars) || beginIndex < 0) {
             return INDEX_NOT_FOUND;
         }
         return indexOfAny(cs.toString().substring(beginIndex), searchChars.toCharArray());
