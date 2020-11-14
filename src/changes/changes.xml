@@ -55,6 +55,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1579" type="update" dev="aherbert" due-to="XenoAmess">Improve StringUtils.stripAccents conversion of remaining accents.</action>
     <action issue="LANG-1606" type="update" dev="sebb" due-to="Rustem Galiev">StringUtils.countMatches - clarify Javadoc.</action>
     <action issue="LANG-1591" type="update" dev="kinow" due-to="bhawna94">Remove redundant argument from substring call.</action>
+    <action issue="LANG-1613" type="update" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">BigDecimal is created when you pass it the min and max values, #642.</action>
     <!--  ADDS -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.booleanValues().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.primitiveValues().</action>

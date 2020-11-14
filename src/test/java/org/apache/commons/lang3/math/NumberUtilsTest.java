@@ -1323,6 +1323,18 @@ public class NumberUtilsTest {
         assertTrue(NumberUtils.createNumber("0001.797693134862315759e+308") instanceof BigDecimal);
         assertTrue(NumberUtils.createNumber("-001.797693134862315759e+308") instanceof BigDecimal);
         assertTrue(NumberUtils.createNumber("+001.797693134862315759e+308") instanceof BigDecimal);
+        //LANG-1613
+        assertTrue(NumberUtils.createNumber(Double.toString(Double.MIN_NORMAL)) instanceof Double);
+        assertTrue(NumberUtils.createNumber(Double.toString(Double.MIN_NORMAL) + "D") instanceof Double);
+        assertTrue(NumberUtils.createNumber(Double.toString(Double.MIN_NORMAL) + "F") instanceof Double);
+        assertTrue(NumberUtils.createNumber(Double.toString(Double.MIN_VALUE)) instanceof Double);
+        assertTrue(NumberUtils.createNumber(Double.toString(Double.MIN_VALUE) + "D") instanceof Double);
+        assertTrue(NumberUtils.createNumber(Double.toString(Double.MIN_VALUE) + "F") instanceof Double);
+        assertTrue(NumberUtils.createNumber(Double.toString(Double.MAX_VALUE)) instanceof Double);
+        assertTrue(NumberUtils.createNumber(Double.toString(Double.MAX_VALUE) + "D") instanceof Double);
+        assertTrue(NumberUtils.createNumber(Double.toString(Double.MAX_VALUE) + "F") instanceof Double);
+        assertTrue(NumberUtils.createNumber("4.9e-324D") instanceof Double);
+        assertTrue(NumberUtils.createNumber("4.9e-324F") instanceof Double);    
     }
 
     /**
