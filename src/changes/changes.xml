@@ -52,21 +52,21 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="iamchao1129">ContextedException Javadoc add missing semicolon #581.</action>
     <action issue="LANG-1608" type="fix" dev="aherbert" due-to="Edgar Asatryan">Resolve JUnit pioneer transitive dependencies using JUnit BOM.</action>
     <action                   type="fix" dev="aherbert" due-to="HubertWo, Gary Gregory">NumberUtilsTest - incorrect types in min/max tests #634.</action>
+    <action issue="LANG-1579" type="update" dev="aherbert" due-to="XenoAmess">Improve StringUtils.stripAccents conversion of remaining accents.</action>
+    <action issue="LANG-1606" type="update" dev="sebb" due-to="Rustem Galiev">StringUtils.countMatches - clarify Javadoc.</action>
+    <action issue="LANG-1591" type="update" dev="kinow" due-to="bhawna94">Remove redundant argument from substring call.</action>
     <!--  ADDS -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.booleanValues().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.primitiveValues().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StringUtils.containsAnyIgnoreCase(CharSequence, CharSequence...).</action>
     <action issue="LANG-1359" type="add" dev="ggregory" due-to="Gary Gregory, Keegan Witt">Add StopWatch.getStopTime().</action>
     <action                   type="add" dev="ggregory" due-to="Edgar Asatryan">More test coverage for CharSequenceUtils. #631.</action>
+    <action issue="LANG-1596" type="update" dev="aherbert" due-to="Richard Eckart de Castilho">ArrayUtils.toPrimitive(Object) does not support boolean and other types #607.</action>
     <!--  UPDATES -->
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Enable Dependabot #587.</action>
     <action                   type="update" dev="chtompki">Bump junit-jupiter from 5.6.2 to 5.7.0.</action>
     <action                   type="update" dev="chtompki" due-to="chtompki, Dependabot">Bump spotbugs from 4.1.2 to 4.1.4, #627.</action>
     <action                   type="update" dev="chtompki" due-to="chtompki, Dependabot">Bump checkstyle from 8.36 to 8.37, #637.</action>
-    <action issue="LANG-1606" type="update" dev="sebb" due-to="Rustem Galiev">StringUtils.countMatches - clarify Javadoc.</action>
-    <action issue="LANG-1591" type="update" dev="kinow" due-to="bhawna94">Remove redundant argument from substring call.</action>
-    <action issue="LANG-1579" type="update" dev="aherbert" due-to="XenoAmess">Improve StringUtils.stripAccents conversion of remaining accents.</action>
-    <action issue="LANG-1596" type="update" dev="aherbert" due-to="Richard Eckart de Castilho">ArrayUtils.toPrimitive(Object) does not support boolean and other types #607.</action>
-    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Enable Dependabot #587.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Update spotbugs-maven-plugin from 4.0.0 to 4.1.4, #593, #596, #609, #623, #632.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Update biz.aQute.bndlib from 5.1.1 to 5.2.0 #592, #628.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Update junit-pioneer from 0.6.0 to 1.0.0, #589, #597, #600, #624, #625.</action>
@@ -74,6 +74,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Dependabot">Update actions/checkout from v2.3.1 to v2.3.4 #601, #639.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Update actions/setup-java from v1.4.0 to v1.4.2 #612.</action>    
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Update commons.jacoco.version 0.8.5 to 0.8.6 (Fixes Java 15 builds).</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Update maven-surefire-plugin 2.22.2 -> 3.0.0-M5.</action>
   </release>
   <release version="3.11" date="2020-07-12" description="New features and bug fixes.">
     <action                   type="update" dev="chtompki" due-to="Jin Xu">Refine test output for FastDateParserTest</action>
