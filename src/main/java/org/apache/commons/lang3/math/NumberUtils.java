@@ -755,7 +755,7 @@ public class NumberUtils {
                 case 'D' :
                     try {
                         final Double d = createDouble(str);
-                        if (!(d.isInfinite() || d.floatValue() == 0.0D && !allZeros)) {
+                        if (!(d.isInfinite() || d.doubleValue() == 0.0D && !allZeros)) {
                             return d;
                         }
                     } catch (final NumberFormatException nfe) { // NOPMD
