@@ -78,7 +78,6 @@ public class ArrayUtilsTest {
         assertEquals("foo", array[0]);
         assertEquals("bar", array[1]);
     }
-
     /**
      * Tests generic array creation with parameters of common base type.
      */
@@ -4529,7 +4528,6 @@ public class ArrayUtilsTest {
         assertEquals(2, array[3]);
     }
 
-
     @Test
     public void testShiftFloat() {
         final float[] array = new float[]{1, 2, 3, 4};
@@ -4554,6 +4552,7 @@ public class ArrayUtilsTest {
         assertEquals(1, array[2]);
         assertEquals(2, array[3]);
     }
+
 
     @Test
     public void testShiftInt() {
@@ -5095,6 +5094,13 @@ public class ArrayUtilsTest {
         for (final short element : array2) {
             assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
         }
+    }
+
+    public void testSort() {
+        final String[] array1 = ArrayUtils.toArray("foo", "bar");
+        final String[] array2 = array1.clone();
+        Arrays.sort(array1);
+        assertEquals(array1, ArrayUtils.sort(array2));
     }
 
     @Test
