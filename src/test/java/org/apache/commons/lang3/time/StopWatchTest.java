@@ -61,12 +61,20 @@ public class StopWatchTest {
         watch.suspend();
         try {
             final long currentNanos = System.nanoTime();
-            FieldUtils.writeField(watch, "startTime", currentNanos - nanos, true);
-            FieldUtils.writeField(watch, "stopTime", currentNanos, true);
+            FieldUtils.writeField(watch, "startTimeNanos", currentNanos - nanos, true);
+            FieldUtils.writeField(watch, "stopTimeNanos", currentNanos, true);
         } catch (final IllegalAccessException e) {
             return null;
         }
         return watch;
+    }
+
+    private void sleepQuietly(final int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (final InterruptedException ex) {
+            // ignore
+        }
     }
 
     // test bad states
@@ -210,18 +218,10 @@ public class StopWatchTest {
     @Test
     public void testLang315() {
         final StopWatch watch = StopWatch.createStarted();
-        try {
-            Thread.sleep(200);
-        } catch (final InterruptedException ex) {
-            // ignore
-        }
+        sleepQuietly(200);
         watch.suspend();
         final long suspendTime = watch.getTime();
-        try {
-            Thread.sleep(200);
-        } catch (final InterruptedException ex) {
-            // ignore
-        }
+        sleepQuietly(200);
         watch.stop();
         final long totalTime = watch.getTime();
         assertEquals(suspendTime, totalTime);
@@ -256,11 +256,7 @@ public class StopWatchTest {
     @Test
     public void testStopWatchSimple() {
         final StopWatch watch = StopWatch.createStarted();
-        try {
-            Thread.sleep(550);
-        } catch (final InterruptedException ex) {
-            // ignore
-        }
+        sleepQuietly(550);
         watch.stop();
         final long time = watch.getTime();
         assertEquals(time, watch.getTime());
@@ -273,42 +269,40 @@ public class StopWatchTest {
     }
 
     @Test
+    public void testStopTimeSimple() {
+        final StopWatch watch = StopWatch.createStarted();
+        final long testStartMillis = System.currentTimeMillis();
+        sleepQuietly(550);
+        watch.stop();
+        final long testEndMillis = System.currentTimeMillis();
+        final long stopTime = watch.getStopTime();
+        assertEquals(stopTime, watch.getStopTime());
+
+        assertTrue(stopTime >= testStartMillis);
+        assertTrue(stopTime <= testEndMillis);
+    }
+
+    @Test
     public void testStopWatchSimpleGet() {
         final StopWatch watch = new StopWatch();
         assertEquals(0, watch.getTime());
         assertEquals(ZERO_TIME_ELAPSED, watch.toString());
 
         watch.start();
-        try {
-            Thread.sleep(500);
-        } catch (final InterruptedException ex) {
-            // ignore
-        }
+        sleepQuietly(500);
         assertTrue(watch.getTime() < 2000);
     }
 
     @Test
     public void testStopWatchSplit() {
         final StopWatch watch = StopWatch.createStarted();
-        try {
-            Thread.sleep(550);
-        } catch (final InterruptedException ex) {
-            // ignore
-        }
+        sleepQuietly(550);
         watch.split();
         final long splitTime = watch.getSplitTime();
         final String splitStr = watch.toSplitString();
-        try {
-            Thread.sleep(550);
-        } catch (final InterruptedException ex) {
-            // ignore
-        }
+        sleepQuietly(550);
         watch.unsplit();
-        try {
-            Thread.sleep(550);
-        } catch (final InterruptedException ex) {
-            // ignore
-        }
+        sleepQuietly(550);
         watch.stop();
         final long totalTime = watch.getTime();
 
@@ -328,24 +322,19 @@ public class StopWatchTest {
     @Test
     public void testStopWatchSuspend() {
         final StopWatch watch = StopWatch.createStarted();
-        try {
-            Thread.sleep(550);
-        } catch (final InterruptedException ex) {
-            // ignore
-        }
+        final long testStartMillis = System.currentTimeMillis();
+        sleepQuietly(550);
         watch.suspend();
+        final long testSuspendMillis = System.currentTimeMillis();
         final long suspendTime = watch.getTime();
-        try {
-            Thread.sleep(550);
-        } catch (final InterruptedException ex) {
-            // ignore
-        }
+        final long stopTime = watch.getStopTime();
+        
+        assertTrue(testStartMillis <= stopTime);
+        assertTrue(testSuspendMillis <= stopTime);
+
+        sleepQuietly(550);
         watch.resume();
-        try {
-            Thread.sleep(550);
-        } catch (final InterruptedException ex) {
-            // ignore
-        }
+        sleepQuietly(550);
         watch.stop();
         final long totalTime = watch.getTime();
 
@@ -358,11 +347,7 @@ public class StopWatchTest {
     @Test
     public void testToSplitString() {
         final StopWatch watch = StopWatch.createStarted();
-        try {
-            Thread.sleep(550);
-        } catch (final InterruptedException ex) {
-            // ignore
-        }
+        sleepQuietly(550);
         watch.split();
         final String splitStr = watch.toSplitString();
         assertEquals(splitStr.length(), 12, "Formatted split string not the correct length");
@@ -372,11 +357,7 @@ public class StopWatchTest {
     public void testToSplitStringWithMessage() {
         final StopWatch watch = new StopWatch(MESSAGE);
         watch.start();
-        try {
-            Thread.sleep(550);
-        } catch (final InterruptedException ex) {
-            // ignore
-        }
+        sleepQuietly(550);
         watch.split();
         final String splitStr = watch.toSplitString();
         assertEquals(splitStr.length(), 12 + MESSAGE.length() + 1, "Formatted split string not the correct length");
@@ -386,11 +367,7 @@ public class StopWatchTest {
     public void testToString() {
         //
         final StopWatch watch = StopWatch.createStarted();
-        try {
-            Thread.sleep(550);
-        } catch (final InterruptedException ex) {
-            // ignore
-        }
+        sleepQuietly(550);
         watch.split();
         final String splitStr = watch.toString();
         assertEquals(splitStr.length(), 12, "Formatted split string not the correct length");
@@ -402,11 +379,7 @@ public class StopWatchTest {
         //
         final StopWatch watch = new StopWatch(MESSAGE);
         watch.start();
-        try {
-            Thread.sleep(550);
-        } catch (final InterruptedException ex) {
-            // ignore
-        }
+        sleepQuietly(550);
         watch.split();
         final String splitStr = watch.toString();
         assertEquals(splitStr.length(), 12 + MESSAGE.length() + 1, "Formatted split string not the correct length");

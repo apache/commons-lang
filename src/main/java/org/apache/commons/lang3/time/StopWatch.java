@@ -205,21 +205,28 @@ public class StopWatch {
     private SplitState splitState = SplitState.UNSPLIT;
 
     /**
-     * The start time.
+     * The start time in nanoseconds.
      */
-    private long startTime;
+    private long startTimeNanos;
 
     /**
-     * The start time in Millis - nanoTime is only for elapsed time so we
+     * The start time in milliseconds - nanoTime is only for elapsed time so we
      * need to also store the currentTimeMillis to maintain the old
      * getStartTime API.
      */
     private long startTimeMillis;
 
     /**
-     * The stop time.
+     * The end time in milliseconds - nanoTime is only for elapsed time so we
+     * need to also store the currentTimeMillis to maintain the old
+     * getStartTime API.
      */
-    private long stopTime;
+    private long stopTimeMillis;
+
+    /**
+     * The stop time in nanoseconds.
+     */
+    private long stopTimeNanos;
 
     /**
      * <p>
@@ -273,7 +280,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * Gets the time on the stopwatch in nanoseconds.
+     * Gets the <em>elapsed</em> time in nanoseconds.
      * </p>
      *
      * <p>
@@ -281,23 +288,24 @@ public class StopWatch {
      * start and stop.
      * </p>
      *
-     * @return the time in nanoseconds
+     * @return the <em>elapsed</em> time in nanoseconds.
+     * @see System#nanoTime()
      * @since 3.0
      */
     public long getNanoTime() {
         if (this.runningState == State.STOPPED || this.runningState == State.SUSPENDED) {
-            return this.stopTime - this.startTime;
+            return this.stopTimeNanos - this.startTimeNanos;
         } else if (this.runningState == State.UNSTARTED) {
             return 0;
         } else if (this.runningState == State.RUNNING) {
-            return System.nanoTime() - this.startTime;
+            return System.nanoTime() - this.startTimeNanos;
         }
-        throw new RuntimeException("Illegal running state has occurred.");
+        throw new IllegalStateException("Illegal running state has occurred.");
     }
 
     /**
      * <p>
-     * Gets the split time on the stopwatch in nanoseconds.
+     * Gets the split time in nanoseconds.
      * </p>
      *
      * <p>
@@ -312,9 +320,9 @@ public class StopWatch {
      */
     public long getSplitNanoTime() {
         if (this.splitState != SplitState.SPLIT) {
-            throw new IllegalStateException("Stopwatch must be split to get the split time. ");
+            throw new IllegalStateException("Stopwatch must be split to get the split time.");
         }
-        return this.stopTime - this.startTime;
+        return this.stopTimeNanos - this.startTimeNanos;
     }
 
     /**
@@ -337,11 +345,12 @@ public class StopWatch {
     }
 
     /**
-     * Gets the time this stopwatch was started.
+     * Gets the time this stopwatch was started in milliseconds, between the current time and midnight, January 1, 1970
+     * UTC.
      *
-     * @return the time this stopwatch was started
-     * @throws IllegalStateException
-     *             if this StopWatch has not been started
+     * @return the time this stopwatch was started in milliseconds, between the current time and midnight, January 1,
+     *         1970 UTC.
+     * @throws IllegalStateException if this StopWatch has not been started
      * @since 2.4
      */
     public long getStartTime() {
@@ -350,6 +359,23 @@ public class StopWatch {
         }
         // System.nanoTime is for elapsed time
         return this.startTimeMillis;
+    }
+
+    /**
+     * Gets the time this stopwatch was stopped in milliseconds, between the current time and midnight, January 1, 1970
+     * UTC.
+     *
+     * @return the time this stopwatch was started in milliseconds, between the current time and midnight, January 1,
+     *         1970 UTC.
+     * @throws IllegalStateException if this StopWatch has not been started
+     * @since 3.12
+     */
+    public long getStopTime() {
+        if (this.runningState == State.UNSTARTED) {
+            throw new IllegalStateException("Stopwatch has not been started");
+        }
+        // System.nanoTime is for elapsed time
+        return this.stopTimeMillis;
     }
 
     /**
@@ -370,7 +396,7 @@ public class StopWatch {
 
     /**
      * <p>
-     * Gets the time on the stopwatch in the specified TimeUnit.
+     * Gets the time in the specified TimeUnit.
      * </p>
      *
      * <p>
@@ -439,6 +465,7 @@ public class StopWatch {
         this.runningState = State.UNSTARTED;
         this.splitState = SplitState.UNSPLIT;
     }
+
     /**
      * <p>
      * Resumes the stopwatch after a suspend.
@@ -456,7 +483,7 @@ public class StopWatch {
         if (this.runningState != State.SUSPENDED) {
             throw new IllegalStateException("Stopwatch must be suspended to resume. ");
         }
-        this.startTime += System.nanoTime() - this.stopTime;
+        this.startTimeNanos += System.nanoTime() - this.stopTimeNanos;
         this.runningState = State.RUNNING;
     }
 
@@ -477,7 +504,7 @@ public class StopWatch {
         if (this.runningState != State.RUNNING) {
             throw new IllegalStateException("Stopwatch is not running. ");
         }
-        this.stopTime = System.nanoTime();
+        this.stopTimeNanos = System.nanoTime();
         this.splitState = SplitState.SPLIT;
     }
 
@@ -500,7 +527,7 @@ public class StopWatch {
         if (this.runningState != State.UNSTARTED) {
             throw new IllegalStateException("Stopwatch already started. ");
         }
-        this.startTime = System.nanoTime();
+        this.startTimeNanos = System.nanoTime();
         this.startTimeMillis = System.currentTimeMillis();
         this.runningState = State.RUNNING;
     }
@@ -522,7 +549,8 @@ public class StopWatch {
             throw new IllegalStateException("Stopwatch is not running. ");
         }
         if (this.runningState == State.RUNNING) {
-            this.stopTime = System.nanoTime();
+            this.stopTimeNanos = System.nanoTime();
+            this.stopTimeMillis = System.currentTimeMillis();
         }
         this.runningState = State.STOPPED;
     }
@@ -544,7 +572,8 @@ public class StopWatch {
         if (this.runningState != State.RUNNING) {
             throw new IllegalStateException("Stopwatch must be running to suspend. ");
         }
-        this.stopTime = System.nanoTime();
+        this.stopTimeNanos = System.nanoTime();
+        this.stopTimeMillis = System.currentTimeMillis();
         this.runningState = State.SUSPENDED;
     }
 
