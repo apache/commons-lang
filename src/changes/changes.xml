@@ -59,7 +59,6 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1541" type="fix" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">ArrayUtils.contains() and indexOf() fails to handle Double.NaN #647.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix potential NPE in TypeUtils.isAssignable(Type, ParameterizedType, Map, Type>).</action>
     <action issue="LANG-1420" type="fix" dev="ggregory" due-to="Gordon Fraser, Rostislav Krasny, Arturo Bernal, Gary Gregory">TypeUtils.isAssignable returns wrong result for GenericArrayType and ParameterizedType, #643.</action>
-    
     <!--  ADDS -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.booleanValues().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.primitiveValues().</action>
@@ -68,6 +67,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Edgar Asatryan">More test coverage for CharSequenceUtils. #631.</action>
     <action issue="LANG-1596" type="update" dev="aherbert" due-to="Richard Eckart de Castilho">ArrayUtils.toPrimitive(Object) does not support boolean and other types #607.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add fluent-style ArrayUtils.sort(Object[]).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add fluent-style ArrayUtils.sort(Object[], Comparable).</action>
     <!--  UPDATES -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Enable Dependabot #587.</action>
     <action                   type="update" dev="chtompki">Bump junit-jupiter from 5.6.2 to 5.7.0.</action>
