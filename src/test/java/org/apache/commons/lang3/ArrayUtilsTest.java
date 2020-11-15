@@ -5120,6 +5120,13 @@ public class ArrayUtilsTest {
         assertEquals(array1, ArrayUtils.sort(array2));
     }
 
+    public void testSortComparable() {
+        final String[] array1 = ArrayUtils.toArray("foo", "bar");
+        final String[] array2 = array1.clone();
+        Arrays.sort(array1);
+        assertEquals(array1, ArrayUtils.sort(array2, String::compareTo));
+    }
+
     @Test
     public void testSubarrayBoolean() {
         final boolean[] nullArray = null;
