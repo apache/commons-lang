@@ -52,12 +52,13 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="iamchao1129">ContextedException Javadoc add missing semicolon #581.</action>
     <action issue="LANG-1608" type="fix" dev="aherbert" due-to="Edgar Asatryan">Resolve JUnit pioneer transitive dependencies using JUnit BOM.</action>
     <action                   type="fix" dev="aherbert" due-to="HubertWo, Gary Gregory">NumberUtilsTest - incorrect types in min/max tests #634.</action>
-    <action issue="LANG-1579" type="update" dev="aherbert" due-to="XenoAmess">Improve StringUtils.stripAccents conversion of remaining accents.</action>
-    <action issue="LANG-1606" type="update" dev="sebb" due-to="Rustem Galiev">StringUtils.countMatches - clarify Javadoc.</action>
-    <action issue="LANG-1591" type="update" dev="kinow" due-to="bhawna94">Remove redundant argument from substring call.</action>
-    <action issue="LANG-1613" type="update" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">BigDecimal is created when you pass it the min and max values, #642.</action>
-    <action issue="LANG-1541" type="update" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">ArrayUtils.contains() and indexOf() fails to handle Double.NaN #647.</action>
-    <action issue="LANG-1541" type="update" dev="ggregory" due-to="Gary Gregory">Fix potential NPE in TypeUtils.isAssignable(Type, ParameterizedType, Map, Type>).</action>
+    <action issue="LANG-1579" type="fix" dev="aherbert" due-to="XenoAmess">Improve StringUtils.stripAccents conversion of remaining accents.</action>
+    <action issue="LANG-1606" type="fix" dev="sebb" due-to="Rustem Galiev">StringUtils.countMatches - clarify Javadoc.</action>
+    <action issue="LANG-1591" type="fix" dev="kinow" due-to="bhawna94">Remove redundant argument from substring call.</action>
+    <action issue="LANG-1613" type="fix" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">BigDecimal is created when you pass it the min and max values, #642.</action>
+    <action issue="LANG-1541" type="fix" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">ArrayUtils.contains() and indexOf() fails to handle Double.NaN #647.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix potential NPE in TypeUtils.isAssignable(Type, ParameterizedType, Map, Type>).</action>
+    <action issue="LANG-1420" type="fix" dev="ggregory" due-to="Gordon Fraser, Rostislav Krasny, Arturo Bernal, Gary Gregory">TypeUtils.isAssignable returns wrong result for GenericArrayType and ParameterizedType, #643.</action>
     
     <!--  ADDS -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.booleanValues().</action>
