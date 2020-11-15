@@ -388,7 +388,7 @@ public class TypeUtils {
      * the type arguments for the subject class's type variables in that it can
      * only determine those parameters that map from the subject {@link Class}
      * object to the supertype.
-     * 
+     *
      * <p>
      * Example: {@link java.util.TreeSet
      * TreeSet} sets its parameter as the parameter for
@@ -924,7 +924,7 @@ public class TypeUtils {
      * interface {@link Map} are {@link Object} for the subtype
      * {@link java.util.Properties Properties} even though the subtype does not
      * directly implement the {@code Map} interface.
-     * 
+     *
      * <p>
      * This method returns {@code null} if {@code type} is not assignable to
      * {@code toClass}. It returns an empty map if none of the classes or
@@ -1179,6 +1179,11 @@ public class TypeUtils {
         // only a null type can be assigned to null type which
         // would have cause the previous to return true
         if (toParameterizedType == null) {
+            return false;
+        }
+
+        // cannot cast an array type to a parameterized type.
+        if (type instanceof GenericArrayType) {
             return false;
         }
 
@@ -1482,7 +1487,7 @@ public class TypeUtils {
      * Strips out the redundant upper bound types in type
      * variable types and wildcard types (or it would with wildcard types if
      * multiple upper bounds were allowed).
-     * 
+     *
      * <p>
      * Example, with the variable type declaration:
      * </p>
