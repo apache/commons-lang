@@ -39,8 +39,8 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.Builder;
 
 /**
- * <p> Utility methods focusing on type inspection, particularly with regard to
- * generics. </p>
+ * Utility methods focusing on type inspection, particularly with regard to
+ * generics.
  *
  * @since 3.0
  */
@@ -285,21 +285,23 @@ public class TypeUtils {
     public static final WildcardType WILDCARD_ALL = wildcardType().withUpperBounds(Object.class).build();
 
     /**
-     * <p>{@code TypeUtils} instances should NOT be constructed in standard
+     * {@code TypeUtils} instances should NOT be constructed in standard
      * programming. Instead, the class should be used as
-     * {@code TypeUtils.isAssignable(cls, toClass)}.</p> <p>This
-     * constructor is public to permit tools that require a JavaBean instance to
-     * operate.</p>
+     * {@code TypeUtils.isAssignable(cls, toClass)}.
+     * <p>
+     * This constructor is public to permit tools that require a JavaBean instance
+     * to operate.
+     * </p>
      */
     public TypeUtils() {
         super();
     }
 
     /**
-     * <p>Checks if the subject type may be implicitly cast to the target type
+     * Tests if the subject type may be implicitly cast to the target type
      * following the Java generics rules. If both types are {@link Class}
      * objects, the method returns the result of
-     * {@link ClassUtils#isAssignable(Class, Class)}.</p>
+     * {@link ClassUtils#isAssignable(Class, Class)}.
      *
      * @param type the subject type to be assigned to the target type
      * @param toType the target type
@@ -310,8 +312,8 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Checks if the subject type may be implicitly cast to the target type
-     * following the Java generics rules.</p>
+     * Tests if the subject type may be implicitly cast to the target type
+     * following the Java generics rules.
      *
      * @param type the subject type to be assigned to the target type
      * @param toType the target type
@@ -344,8 +346,8 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Checks if the subject type may be implicitly cast to the target class
-     * following the Java generics rules.</p>
+     * Tests if the subject type may be implicitly cast to the target class
+     * following the Java generics rules.
      *
      * @param type the subject type to be assigned to the target type
      * @param toClass the target class
@@ -410,8 +412,8 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Checks if the subject type may be implicitly cast to the target
-     * parameterized type following the Java generics rules.</p>
+     * Tests if the subject type may be implicitly cast to the target
+     * parameterized type following the Java generics rules.
      *
      * @param type the subject type to be assigned to the target type
      * @param toParameterizedType the target parameterized type
@@ -482,6 +484,7 @@ public class TypeUtils {
     /**
      * Look up {@code var} in {@code typeVarAssigns} <em>transitively</em>,
      * i.e. keep looking until the value found is <em>not</em> a type variable.
+     *
      * @param typeVariable the type variable to look up
      * @param typeVarAssigns the map used for the look up
      * @return Type or {@code null} if some variable was not in the map
@@ -502,8 +505,8 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Checks if the subject type may be implicitly cast to the target
-     * generic array type following the Java generics rules.</p>
+     * Tests if the subject type may be implicitly cast to the target
+     * generic array type following the Java generics rules.
      *
      * @param type the subject type to be assigned to the target type
      * @param toGenericArrayType the target generic array type
@@ -578,8 +581,8 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Checks if the subject type may be implicitly cast to the target
-     * wildcard type following the Java generics rules.</p>
+     * Tests if the subject type may be implicitly cast to the target
+     * wildcard type following the Java generics rules.
      *
      * @param type the subject type to be assigned to the target type
      * @param toWildcardType the target wildcard type
@@ -665,8 +668,8 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Checks if the subject type may be implicitly cast to the target type
-     * variable following the Java generics rules.</p>
+     * Tests if the subject type may be implicitly cast to the target type
+     * variable following the Java generics rules.
      *
      * @param type the subject type to be assigned to the target type
      * @param toTypeVariable the target type variable
@@ -713,7 +716,7 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Find the mapping for {@code type} in {@code typeVarAssigns}.</p>
+     * Finds the mapping for {@code type} in {@code typeVarAssigns}.
      *
      * @param type the type to be replaced
      * @param typeVarAssigns the map with type variables
@@ -734,12 +737,11 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Retrieves all the type arguments for this parameterized type
+     * Gets all the type arguments for this parameterized type
      * including owner hierarchy arguments such as
      * {@code Outer<K, V>.Inner<T>.DeepInner<E>} .
      * The arguments are returned in a
      * {@link Map} specifying the argument type for each {@link TypeVariable}.
-     * </p>
      *
      * @param type specifies the subject parameterized type from which to
      *             harvest the parameters.
@@ -751,15 +753,20 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Gets the type arguments of a class/interface based on a subtype. For
+     * Gets the type arguments of a class/interface based on a subtype. For
      * instance, this method will determine that both of the parameters for the
      * interface {@link Map} are {@link Object} for the subtype
      * {@link java.util.Properties Properties} even though the subtype does not
-     * directly implement the {@code Map} interface.</p>
-     * <p>This method returns {@code null} if {@code type} is not assignable to
+     * directly implement the {@code Map} interface.
+     * 
+     * <p>
+     * This method returns {@code null} if {@code type} is not assignable to
      * {@code toClass}. It returns an empty map if none of the classes or
-     * interfaces in its inheritance hierarchy specify any type arguments.</p>
-     * <p>A side effect of this method is that it also retrieves the type
+     * interfaces in its inheritance hierarchy specify any type arguments.
+     * </p>
+     *
+     * <p>
+     * A side effect of this method is that it also retrieves the type
      * arguments for the classes and interfaces that are part of the hierarchy
      * between {@code type} and {@code toClass}. So with the above
      * example, this method will also determine that the type arguments for
@@ -772,7 +779,8 @@ public class TypeUtils {
      * this method will look at the inheritance hierarchy of only one of the
      * implementations/subclasses; the first interface encountered that isn't a
      * subinterface to one of the others in the {@code type} to
-     * {@code toClass} hierarchy.</p>
+     * {@code toClass} hierarchy.
+     * </p>
      *
      * @param type the type from which to determine the type parameters of
      * {@code toClass}
@@ -787,7 +795,7 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Return a map of the type arguments of {@code type} in the context of {@code toClass}.</p>
+     * Gets a map of the type arguments of {@code type} in the context of {@code toClass}.
      *
      * @param type the type in question
      * @param toClass the class
@@ -836,7 +844,7 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Return a map of the type arguments of a parameterized type in the context of {@code toClass}.</p>
+     * Gets a map of the type arguments of a parameterized type in the context of {@code toClass}.
      *
      * @param parameterizedType the parameterized type
      * @param toClass the class
@@ -891,7 +899,7 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Return a map of the type arguments of a class in the context of {@code toClass}.</p>
+     * Gets a map of the type arguments of a class in the context of {@code toClass}.
      *
      * @param cls the class in question
      * @param toClass the context class
@@ -932,13 +940,16 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Tries to determine the type arguments of a class/interface based on a
+     * Tries to determine the type arguments of a class/interface based on a
      * super parameterized type's type arguments. This method is the inverse of
      * {@link #getTypeArguments(Type, Class)} which gets a class/interface's
      * type arguments based on a subtype. It is far more limited in determining
      * the type arguments for the subject class's type variables in that it can
      * only determine those parameters that map from the subject {@link Class}
-     * object to the supertype.</p> <p>Example: {@link java.util.TreeSet
+     * object to the supertype.
+     * 
+     * <p>
+     * Example: {@link java.util.TreeSet
      * TreeSet} sets its parameter as the parameter for
      * {@link java.util.NavigableSet NavigableSet}, which in turn sets the
      * parameter of {@link java.util.SortedSet}, which in turn sets the
@@ -949,7 +960,8 @@ public class TypeUtils {
      * determine that based on the super type {@code Iterable<? extends
      * Map<Integer, ? extends Collection<?>>>}, the parameter of
      * {@code TreeSet} is {@code ? extends Map<Integer, ? extends
-     * Collection<?>>}.</p>
+     * Collection<?>>}.
+     * </p>
      *
      * @param cls the class whose type parameters are to be determined, not {@code null}
      * @param superType the super type from which {@code cls}'s type
@@ -994,7 +1006,7 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Performs a mapping of type variables.</p>
+     * Maps type variables.
      *
      * @param <T> the generic type of the class in question
      * @param cls the class in question
@@ -1041,8 +1053,8 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Get the closest parent type to the
-     * super class specified by {@code superClass}.</p>
+     * Gets the closest parent type to the
+     * super class specified by {@code superClass}.
      *
      * @param cls the class in question
      * @param superClass the super class
@@ -1089,8 +1101,8 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Checks if the given value can be assigned to the target type
-     * following the Java generics rules.</p>
+     * Tests if the given value can be assigned to the target type
+     * following the Java generics rules.
      *
      * @param value the value to be checked
      * @param type the target type
@@ -1106,10 +1118,13 @@ public class TypeUtils {
     }
 
     /**
-     * <p>This method strips out the redundant upper bound types in type
+     * Strips out the redundant upper bound types in type
      * variable types and wildcard types (or it would with wildcard types if
-     * multiple upper bounds were allowed).</p> <p>Example, with the variable
-     * type declaration:
+     * multiple upper bounds were allowed).
+     * 
+     * <p>
+     * Example, with the variable type declaration:
+     * </p>
      *
      * <pre>&lt;K extends java.util.Collection&lt;String&gt; &amp;
      * java.util.List&lt;String&gt;&gt;</pre>
@@ -1154,10 +1169,10 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Returns an array containing the sole type of {@link Object} if
+     * Gets an array containing the sole type of {@link Object} if
      * {@link TypeVariable#getBounds()} returns an empty array. Otherwise, it
      * returns the result of {@link TypeVariable#getBounds()} passed into
-     * {@link #normalizeUpperBounds}.</p>
+     * {@link #normalizeUpperBounds}.
      *
      * @param typeVariable the subject type variable, not {@code null}
      * @return a non-empty array containing the bounds of the type variable.
@@ -1170,10 +1185,10 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Returns an array containing the sole value of {@link Object} if
+     * Gets an array containing the sole value of {@link Object} if
      * {@link WildcardType#getUpperBounds()} returns an empty array. Otherwise,
      * it returns the result of {@link WildcardType#getUpperBounds()}
-     * passed into {@link #normalizeUpperBounds}.</p>
+     * passed into {@link #normalizeUpperBounds}.
      *
      * @param wildcardType the subject wildcard type, not {@code null}
      * @return a non-empty array containing the upper bounds of the wildcard
@@ -1187,9 +1202,9 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Returns an array containing a single value of {@code null} if
+     * Gets an array containing a single value of {@code null} if
      * {@link WildcardType#getLowerBounds()} returns an empty array. Otherwise,
-     * it returns the result of {@link WildcardType#getLowerBounds()}.</p>
+     * it returns the result of {@link WildcardType#getLowerBounds()}.
      *
      * @param wildcardType the subject wildcard type, not {@code null}
      * @return a non-empty array containing the lower bounds of the wildcard
@@ -1203,12 +1218,12 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Determines whether or not specified types satisfy the bounds of their
+     * Determines whether or not specified types satisfy the bounds of their
      * mapped type variables. When a type parameter extends another (such as
      * {@code <T, S extends T>}), uses another as a type parameter (such as
      * {@code <T, S extends Comparable>>}), or otherwise depends on
      * another type variable to be specified, the dependencies must be included
-     * in {@code typeVarAssigns}.</p>
+     * in {@code typeVarAssigns}.
      *
      * @param typeVarAssigns specifies the potential types to be assigned to the
      * type variables, not {@code null}.
@@ -1234,7 +1249,7 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Transforms the passed in type to a {@link Class} object. Type-checking method of convenience.</p>
+     * Transforms the passed in type to a {@link Class} object. Type-checking method of convenience.
      *
      * @param parameterizedType the type to be converted
      * @return the corresponding {@code Class} object
@@ -1256,11 +1271,11 @@ public class TypeUtils {
     }
 
     /**
-     * <p>Get the raw type of a Java type, given its context. Primarily for use
+     * Gets the raw type of a Java type, given its context. Primarily for use
      * with {@link TypeVariable}s and {@link GenericArrayType}s, or when you do
      * not know the runtime type of {@code type}: if you know you have a
      * {@link Class} instance, it is already raw; if you know you have a
-     * {@link ParameterizedType}, its raw type is only a method call away.</p>
+     * {@link ParameterizedType}, its raw type is only a method call away.
      *
      * @param type to resolve
      * @param assigningType type to be resolved against
@@ -1332,7 +1347,8 @@ public class TypeUtils {
     }
 
     /**
-     * Learn whether the specified type denotes an array type.
+     * Tests whether the specified type denotes an array type.
+     *
      * @param type the type to be checked
      * @return {@code true} if {@code type} is an array class or a {@link GenericArrayType}.
      */
@@ -1342,6 +1358,7 @@ public class TypeUtils {
 
     /**
      * Gets the array component type of {@code type}.
+     *
      * @param type the type to be checked
      * @return component type or null if type is not an array type
      */
@@ -1400,7 +1417,7 @@ public class TypeUtils {
     }
 
     /**
-     * Local helper method to unroll variables in a type bounds array.
+     * Unrolls variables in a type bounds array.
      *
      * @param typeArguments assignments {@link Map}
      * @param bounds in which to expand variables
@@ -1422,7 +1439,7 @@ public class TypeUtils {
     }
 
     /**
-     * Learn, recursively, whether any of the type parameters associated with {@code type} are bound to variables.
+     * Tests, recursively, whether any of the type parameters associated with {@code type} are bound to variables.
      *
      * @param type the type to check for type variables
      * @return boolean
@@ -1452,7 +1469,7 @@ public class TypeUtils {
     }
 
     /**
-     * Create a parameterized type instance.
+     * Creates a parameterized type instance.
      *
      * @param rawClass the raw class to create a parameterized type instance for
      * @param typeArguments the types used for parameterization
@@ -1464,7 +1481,7 @@ public class TypeUtils {
     }
 
     /**
-     * Create a parameterized type instance.
+     * Creates a parameterized type instance.
      *
      * @param rawClass the raw class to create a parameterized type instance for
      * @param typeArgMappings the mapping used for parameterization
@@ -1480,7 +1497,7 @@ public class TypeUtils {
     }
 
     /**
-     * Create a parameterized type instance.
+     * Creates a parameterized type instance.
      *
      * @param owner the owning type
      * @param rawClass the raw class to create a parameterized type instance for
@@ -1512,7 +1529,7 @@ public class TypeUtils {
     }
 
     /**
-     * Create a parameterized type instance.
+     * Creates a parameterized type instance.
      *
      * @param owner the owning type
      * @param rawClass the raw class to create a parameterized type instance for
@@ -1530,6 +1547,7 @@ public class TypeUtils {
 
     /**
      * Helper method to establish the formal parameters for a parameterized type.
+     *
      * @param mappings map containing the assignments
      * @param variables expected map keys
      * @return array of map values corresponding to specified keys
@@ -1546,6 +1564,7 @@ public class TypeUtils {
 
     /**
      * Gets a {@link WildcardTypeBuilder}.
+     *
      * @return {@link WildcardTypeBuilder}
      * @since 3.2
      */
@@ -1554,7 +1573,7 @@ public class TypeUtils {
     }
 
     /**
-     * Create a generic array type instance.
+     * Creates a generic array type instance.
      *
      * @param componentType the type of the elements of the array. For example the component type of {@code boolean[]}
      *                      is {@code boolean}
@@ -1566,7 +1585,7 @@ public class TypeUtils {
     }
 
     /**
-     * Check equality of types.
+     * Tests equality of types.
      *
      * @param type1 the first type
      * @param type2 the second type
@@ -1590,7 +1609,8 @@ public class TypeUtils {
     }
 
     /**
-     * Learn whether {@code t} equals {@code p}.
+     * Tests whether {@code t} equals {@code p}.
+     *
      * @param parameterizedType LHS
      * @param type RHS
      * @return boolean
@@ -1608,7 +1628,8 @@ public class TypeUtils {
     }
 
     /**
-     * Learn whether {@code t} equals {@code a}.
+     * Tests whether {@code t} equals {@code a}.
+     *
      * @param genericArrayType LHS
      * @param type RHS
      * @return boolean
@@ -1620,7 +1641,8 @@ public class TypeUtils {
     }
 
     /**
-     * Learn whether {@code t} equals {@code w}.
+     * Tests whether {@code t} equals {@code w}.
+     *
      * @param wildcardType LHS
      * @param type RHS
      * @return boolean
@@ -1636,7 +1658,8 @@ public class TypeUtils {
     }
 
     /**
-     * Learn whether {@code t1} equals {@code t2}.
+     * Tests whether {@code t1} equals {@code t2}.
+     *
      * @param type1 LHS
      * @param type2 RHS
      * @return boolean
@@ -1655,7 +1678,7 @@ public class TypeUtils {
     }
 
     /**
-     * Present a given type as a Java-esque String.
+     * Formats a given type as a Java-esque String.
      *
      * @param type the type to create a String representation for, not {@code null}
      * @return String
@@ -1682,7 +1705,7 @@ public class TypeUtils {
     }
 
     /**
-     * Format a {@link TypeVariable} including its {@link GenericDeclaration}.
+     * Formats a {@link TypeVariable} including its {@link GenericDeclaration}.
      *
      * @param var the type variable to create a String representation for, not {@code null}
      * @return String
@@ -1711,7 +1734,7 @@ public class TypeUtils {
     }
 
     /**
-     * Wrap the specified {@link Type} in a {@link Typed} wrapper.
+     * Wraps the specified {@link Type} in a {@link Typed} wrapper.
      *
      * @param <T> inferred generic type
      * @param type to wrap
@@ -1723,7 +1746,7 @@ public class TypeUtils {
     }
 
     /**
-     * Wrap the specified {@link Class} in a {@link Typed} wrapper.
+     * Wraps the specified {@link Class} in a {@link Typed} wrapper.
      *
      * @param <T> generic type
      * @param type to wrap
@@ -1735,7 +1758,8 @@ public class TypeUtils {
     }
 
     /**
-     * Format a {@link Class} as a {@link String}.
+     * Formats a {@link Class} as a {@link String}.
+     *
      * @param cls {@code Class} to format
      * @return String
      * @since 3.2
@@ -1761,7 +1785,8 @@ public class TypeUtils {
     }
 
     /**
-     * Format a {@link TypeVariable} as a {@link String}.
+     * Formats a {@link TypeVariable} as a {@link String}.
+     *
      * @param typeVariable {@code TypeVariable} to format
      * @return String
      * @since 3.2
@@ -1777,7 +1802,8 @@ public class TypeUtils {
     }
 
     /**
-     * Format a {@link ParameterizedType} as a {@link String}.
+     * Formats a {@link ParameterizedType} as a {@link String}.
+     *
      * @param parameterizedType {@code ParameterizedType} to format
      * @return String
      * @since 3.2
@@ -1844,7 +1870,8 @@ public class TypeUtils {
     }
 
     /**
-     * Format a {@link WildcardType} as a {@link String}.
+     * Formats a {@link WildcardType} as a {@link String}.
+     *
      * @param wildcardType {@code WildcardType} to format
      * @return String
      * @since 3.2
@@ -1862,7 +1889,8 @@ public class TypeUtils {
     }
 
     /**
-     * Format a {@link GenericArrayType} as a {@link String}.
+     * Formats a {@link GenericArrayType} as a {@link String}.
+     *
      * @param genericArrayType {@code GenericArrayType} to format
      * @return String
      * @since 3.2
@@ -1872,7 +1900,8 @@ public class TypeUtils {
     }
 
     /**
-     * Append {@code types} to {@code builder} with separator {@code sep}.
+     * Appends {@code types} to {@code builder} with separator {@code sep}.
+     *
      * @param builder destination
      * @param sep separator
      * @param types to append
