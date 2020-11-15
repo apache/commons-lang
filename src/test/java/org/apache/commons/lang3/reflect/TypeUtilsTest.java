@@ -790,7 +790,7 @@ public class TypeUtilsTest<B> {
         assertFalse(paramType.getClass().isAssignableFrom(WildcardType.class));
 
         WildcardType testType = TypeUtils.WILDCARD_ALL;
-        // TODO This test returns true unlike the test above. 
+        // TODO This test returns true unlike the test above.
         // Is this a bug in this test or in the main code?
         assertFalse(TypeUtils.isAssignable(paramType, testType),
                 () -> String.format("TypeUtils.isAssignable(%s, %s)", paramType, testType));
