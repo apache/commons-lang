@@ -311,10 +311,10 @@ public class ArrayUtilsTest {
 
     @Test
     public void testContainsFloatNaN() {
-        float[] a = new float[] { Float.NEGATIVE_INFINITY, Float.NaN, Float.POSITIVE_INFINITY };
-        assertTrue(ArrayUtils.contains(a, Float.POSITIVE_INFINITY));
-        assertTrue(ArrayUtils.contains(a, Float.NEGATIVE_INFINITY));
-        assertTrue(ArrayUtils.contains(a, Float.NaN));
+        float[] array = new float[] { Float.NEGATIVE_INFINITY, Float.NaN, Float.POSITIVE_INFINITY };
+        assertTrue(ArrayUtils.contains(array, Float.POSITIVE_INFINITY));
+        assertTrue(ArrayUtils.contains(array, Float.NEGATIVE_INFINITY));
+        assertTrue(ArrayUtils.contains(array, Float.NaN));
     }
 
     @Test
