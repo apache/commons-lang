@@ -57,6 +57,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1591" type="update" dev="kinow" due-to="bhawna94">Remove redundant argument from substring call.</action>
     <action issue="LANG-1613" type="update" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">BigDecimal is created when you pass it the min and max values, #642.</action>
     <action issue="LANG-1541" type="update" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">ArrayUtils.contains() and indexOf() fails to handle Double.NaN #647.</action>
+    <action issue="LANG-1541" type="update" dev="ggregory" due-to="Gary Gregory">Fix potential NPE in TypeUtils.isAssignable(Type, ParameterizedType, Map, Type>).</action>
+    
     <!--  ADDS -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.booleanValues().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.primitiveValues().</action>
