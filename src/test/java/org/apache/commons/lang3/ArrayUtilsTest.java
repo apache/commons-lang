@@ -310,6 +310,14 @@ public class ArrayUtilsTest {
     }
 
     @Test
+    public void testContainsFloatNaN() {
+        float[] a = new float[] { Float.NEGATIVE_INFINITY, Float.NaN, Float.POSITIVE_INFINITY };
+        assertTrue(ArrayUtils.contains(a, Float.POSITIVE_INFINITY));
+        assertTrue(ArrayUtils.contains(a, Float.NEGATIVE_INFINITY));
+        assertTrue(ArrayUtils.contains(a, Float.NaN));
+    }
+
+    @Test
     public void testContainsInt() {
         int[] array = null;
         assertFalse(ArrayUtils.contains(array, 1));
@@ -1122,6 +1130,14 @@ public class ArrayUtilsTest {
         assertEquals(2, ArrayUtils.indexOf(array, (float) 2));
         assertEquals(3, ArrayUtils.indexOf(array, (float) 3));
         assertEquals(-1, ArrayUtils.indexOf(array, (float) 99));
+    }
+
+    @Test
+    public void testIndexOfFloatNaN() {
+        float[] array = new float[] { Float.NEGATIVE_INFINITY, Float.NaN, Float.POSITIVE_INFINITY, Float.NaN };
+        assertEquals(0, ArrayUtils.indexOf(array, Float.NEGATIVE_INFINITY));
+        assertEquals(1, ArrayUtils.indexOf(array, Float.NaN));
+        assertEquals(2, ArrayUtils.indexOf(array, Float.POSITIVE_INFINITY));
     }
 
     @SuppressWarnings("cast")

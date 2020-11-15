@@ -2518,8 +2518,10 @@ public class ArrayUtils {
         if (startIndex < 0) {
             startIndex = 0;
         }
+        final boolean searchNaN = Float.isNaN(valueToFind);
         for (int i = startIndex; i < array.length; i++) {
-            if (valueToFind == array[i]) {
+            final float element = array[i];
+            if (valueToFind == element || (searchNaN && Float.isNaN(element))) {
                 return i;
             }
         }
