@@ -2518,8 +2518,10 @@ public class ArrayUtils {
         if (startIndex < 0) {
             startIndex = 0;
         }
+        final boolean searchNaN = Float.isNaN(valueToFind);
         for (int i = startIndex; i < array.length; i++) {
-            if (valueToFind == array[i]) {
+            final float element = array[i];
+            if (valueToFind == element || (searchNaN && Float.isNaN(element))) {
                 return i;
             }
         }
@@ -7877,7 +7879,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      *
      * @param <T> the array type.
      * @param array the array to sort.
-     * @param comparator the comparator to determine the order of the array.  
+     * @param comparator the comparator to determine the order of the array.
      *        A {@code null} value uses the elements' {@link Comparable natural ordering}.
      * @return the given array.
      * @see Arrays#sort(Object[])
@@ -7887,7 +7889,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         Arrays.sort(array, comparator);
         return array;
     }
-    
+
     /**
      * <p>Produces a new {@code boolean} array containing the elements
      * between the start and end indices.
