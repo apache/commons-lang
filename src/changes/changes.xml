@@ -56,7 +56,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1606" type="fix" dev="sebb" due-to="Rustem Galiev">StringUtils.countMatches - clarify Javadoc.</action>
     <action issue="LANG-1591" type="fix" dev="kinow" due-to="bhawna94">Remove redundant argument from substring call.</action>
     <action issue="LANG-1613" type="fix" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">BigDecimal is created when you pass it the min and max values, #642.</action>
-    <action issue="LANG-1541" type="fix" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">ArrayUtils.contains() and indexOf() fails to handle Double.NaN #647.</action>
+    <action issue="LANG-1541" type="fix" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">ArrayUtils.contains() and indexOf() fail to handle Double.NaN #647.</action>
+    <action issue="LANG-1615" type="fix" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">ArrayUtils contains() and indexOf() fail to handle Float.NaN # #561.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix potential NPE in TypeUtils.isAssignable(Type, ParameterizedType, Map, Type>).</action>
     <action issue="LANG-1420" type="fix" dev="ggregory" due-to="Gordon Fraser, Rostislav Krasny, Arturo Bernal, Gary Gregory">TypeUtils.isAssignable returns wrong result for GenericArrayType and ParameterizedType, #643.</action>
     <action issue="LANG-1612" type="fix" dev="ggregory" due-to="XinT, Gary Gregory">testGetAllFields and testGetFieldsWithAnnotation sometimes fail.</action>
