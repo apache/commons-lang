@@ -1221,7 +1221,7 @@ public class TypeUtils {
             // parameters must either be absent from the subject type, within
             // the bounds of the wildcard type, or be an exact match to the
             // parameters of the target type.
-            if (fromTypeArg != null
+            if (fromTypeArg != null && toTypeArg != null
                     && !toTypeArg.equals(fromTypeArg)
                     && !(toTypeArg instanceof WildcardType && isAssignable(fromTypeArg, toTypeArg,
                             typeVarAssigns))) {
