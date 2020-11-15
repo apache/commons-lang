@@ -312,7 +312,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws NumberFormatException if the number format is invalid
      */
     public static Fraction getFraction(String str) {
-        Validate.notNull(str, "The string must not be null");
+        Validate.notNull(str, "str");
         // parse double format
         int pos = str.indexOf('.');
         if (pos >= 0) {
@@ -730,7 +730,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *   cannot be represented in an {@code int}.
      */
     private Fraction addSub(final Fraction fraction, final boolean isAdd) {
-        Validate.notNull(fraction, "The fraction must not be null");
+        Validate.notNull(fraction, "fraction");
         // zero is identity for addition.
         if (numerator == 0) {
             return isAdd ? fraction : fraction.negate();
@@ -778,7 +778,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *  {@code Integer.MAX_VALUE}
      */
     public Fraction multiplyBy(final Fraction fraction) {
-        Validate.notNull(fraction, "The fraction must not be null");
+        Validate.notNull(fraction, "fraction");
         if (numerator == 0 || fraction.numerator == 0) {
             return ZERO;
         }
@@ -801,7 +801,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *  {@code Integer.MAX_VALUE}
      */
     public Fraction divideBy(final Fraction fraction) {
-        Validate.notNull(fraction, "The fraction must not be null");
+        Validate.notNull(fraction, "fraction");
         if (fraction.numerator == 0) {
             throw new ArithmeticException("The fraction to divide by must not be zero");
         }

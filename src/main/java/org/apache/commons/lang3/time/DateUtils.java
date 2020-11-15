@@ -1786,7 +1786,7 @@ public class DateUtils {
     }
 
     private static void validateDateNotNull(final Date date) {
-        Validate.notNull(date, "The date must not be null");
+        Validate.notNull(date, "date");
     }
 
     //-----------------------------------------------------------------------

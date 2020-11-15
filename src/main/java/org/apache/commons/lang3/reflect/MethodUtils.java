@@ -740,8 +740,8 @@ public class MethodUtils {
      */
     public static Method getMatchingMethod(final Class<?> cls, final String methodName,
             final Class<?>... parameterTypes) {
-        Validate.notNull(cls, "Null class not allowed.");
-        Validate.notEmpty(methodName, "Null or blank methodName not allowed.");
+        Validate.notNull(cls, "cls");
+        Validate.notEmpty(methodName, "methodName");
 
         // Address methods in superclasses
         Method[] methodArray = cls.getDeclaredMethods();
@@ -908,8 +908,8 @@ public class MethodUtils {
                                                             final Class<? extends Annotation> annotationCls,
                                                             final boolean searchSupers, final boolean ignoreAccess) {
 
-        Validate.notNull(cls, "The class must not be null");
-        Validate.notNull(annotationCls, "The annotation class must not be null");
+        Validate.notNull(cls, "cls");
+        Validate.notNull(annotationCls, "annotationCls");
         final List<Class<?>> classes = (searchSupers ? getAllSuperclassesAndInterfaces(cls)
                 : new ArrayList<>());
         classes.add(0, cls);
@@ -950,8 +950,8 @@ public class MethodUtils {
     public static <A extends Annotation> A getAnnotation(final Method method, final Class<A> annotationCls,
                                                          final boolean searchSupers, final boolean ignoreAccess) {
 
-        Validate.notNull(method, "The method must not be null");
-        Validate.notNull(annotationCls, "The annotation class must not be null");
+        Validate.notNull(method, "method");
+        Validate.notNull(annotationCls, "annotationCls");
         if (!ignoreAccess && !MemberUtils.isAccessible(method)) {
             return null;
         }

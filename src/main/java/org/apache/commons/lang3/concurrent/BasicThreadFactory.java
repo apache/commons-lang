@@ -280,7 +280,7 @@ public class BasicThreadFactory implements ThreadFactory {
          * is <b>null</b>
          */
         public Builder wrappedFactory(final ThreadFactory factory) {
-            Validate.notNull(factory, "Wrapped ThreadFactory must not be null!");
+            Validate.notNull(factory, "factory");
 
             wrappedFactory = factory;
             return this;
@@ -295,7 +295,7 @@ public class BasicThreadFactory implements ThreadFactory {
          * @throws NullPointerException if the naming pattern is <b>null</b>
          */
         public Builder namingPattern(final String pattern) {
-            Validate.notNull(pattern, "Naming pattern must not be null!");
+            Validate.notNull(pattern, "pattern");
 
             namingPattern = pattern;
             return this;
@@ -337,7 +337,7 @@ public class BasicThreadFactory implements ThreadFactory {
          */
         public Builder uncaughtExceptionHandler(
                 final Thread.UncaughtExceptionHandler handler) {
-            Validate.notNull(handler, "Uncaught exception handler must not be null!");
+            Validate.notNull(handler, "handler");
 
             exceptionHandler = handler;
             return this;

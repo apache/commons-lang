@@ -133,7 +133,7 @@ public class ToStringBuilder implements Builder<String> {
      * @throws IllegalArgumentException if the style is {@code null}
      */
     public static void setDefaultStyle(final ToStringStyle style) {
-        defaultStyle = Validate.notNull(style, "The style must not be null");
+        defaultStyle = Validate.notNull(style, "style");
     }
 
     //----------------------------------------------------------------------------

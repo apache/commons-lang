@@ -312,7 +312,7 @@ public class CharRangeTest  {
     public void testContainsNullArg() {
         final CharRange range = CharRange.is('a');
         final NullPointerException e = assertThrows(NullPointerException.class, () -> range.contains(null));
-        assertEquals("The Range must not be null", e.getMessage());
+        assertEquals("range", e.getMessage());
     }
 
     @Test
