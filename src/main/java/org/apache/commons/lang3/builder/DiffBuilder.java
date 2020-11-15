@@ -104,8 +104,8 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     public DiffBuilder(final T lhs, final T rhs,
             final ToStringStyle style, final boolean testTriviallyEqual) {
 
-        Validate.notNull(lhs, "lhs cannot be null");
-        Validate.notNull(rhs, "rhs cannot be null");
+        Validate.notNull(lhs, "lhs");
+        Validate.notNull(rhs, "rhs");
 
         this.diffs = new ArrayList<>();
         this.left = lhs;
@@ -949,7 +949,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     public DiffBuilder<T> append(final String fieldName,
             final DiffResult<T> diffResult) {
         validateFieldNameNotNull(fieldName);
-        Validate.notNull(diffResult, "Diff result cannot be null");
+        Validate.notNull(diffResult, "diffResult");
         if (objectsTriviallyEqual) {
             return this;
         }
@@ -977,7 +977,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     }
 
     private void validateFieldNameNotNull(final String fieldName) {
-        Validate.notNull(fieldName, "Field name cannot be null");
+        Validate.notNull(fieldName, "fieldName");
     }
 
 }

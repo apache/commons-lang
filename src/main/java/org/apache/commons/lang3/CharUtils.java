@@ -134,7 +134,7 @@ public class CharUtils {
      * @throws NullPointerException if the Character is null
      */
     public static char toChar(final Character ch) {
-        Validate.notNull(ch, "The Character must not be null");
+        Validate.notNull(ch, "ch");
         return ch.charValue();
     }
 
@@ -265,7 +265,7 @@ public class CharUtils {
      * @throws IllegalArgumentException if the Character is not ASCII numeric
      */
     public static int toIntValue(final Character ch) {
-        Validate.notNull(ch, "The character must not be null");
+        Validate.notNull(ch, "ch");
         return toIntValue(ch.charValue());
     }
 

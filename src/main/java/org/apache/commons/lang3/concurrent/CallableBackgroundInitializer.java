@@ -116,10 +116,10 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
      * Tests the passed in {@code Callable} and throws an exception if it is
      * undefined.
      *
-     * @param call the object to check
+     * @param callable the object to check
      * @throws IllegalArgumentException if the {@code Callable} is <b>null</b>
      */
-    private void checkCallable(final Callable<T> call) {
-        Validate.notNull(call, "Callable must not be null!");
+    private void checkCallable(final Callable<T> callable) {
+        Validate.notNull(callable, "callable");
     }
 }

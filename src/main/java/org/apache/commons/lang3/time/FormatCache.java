@@ -69,7 +69,7 @@ abstract class FormatCache<F extends Format> {
      * @throws IllegalArgumentException if pattern is invalid
      */
     public F getInstance(final String pattern, TimeZone timeZone, Locale locale) {
-        Validate.notNull(pattern, "pattern must not be null");
+        Validate.notNull(pattern, "pattern");
         if (timeZone == null) {
             timeZone = TimeZone.getDefault();
         }

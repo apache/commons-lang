@@ -127,21 +127,20 @@ public class MultiBackgroundInitializer
      * been invoked.
      *
      * @param name the name of the initializer (must not be <b>null</b>)
-     * @param init the {@code BackgroundInitializer} to add (must not be
+     * @param backgroundInitializer the {@code BackgroundInitializer} to add (must not be
      * <b>null</b>)
      * @throws IllegalArgumentException if a required parameter is missing
      * @throws IllegalStateException if {@code start()} has already been called
      */
-    public void addInitializer(final String name, final BackgroundInitializer<?> init) {
-        Validate.notNull(name, "Name of child initializer must not be null!");
-        Validate.notNull(init, "Child initializer must not be null!");
+    public void addInitializer(final String name, final BackgroundInitializer<?> backgroundInitializer) {
+        Validate.notNull(name, "name");
+        Validate.notNull(backgroundInitializer, "backgroundInitializer");
 
         synchronized (this) {
             if (isStarted()) {
-                throw new IllegalStateException(
-                        "addInitializer() must not be called after start()!");
+                throw new IllegalStateException("addInitializer() must not be called after start()!");
             }
-            childInitializers.put(name, init);
+            childInitializers.put(name, backgroundInitializer);
         }
     }
 

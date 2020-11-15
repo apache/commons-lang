@@ -140,8 +140,8 @@ public class EventListenerSupport<L> implements Serializable {
      */
     public EventListenerSupport(final Class<L> listenerInterface, final ClassLoader classLoader) {
         this();
-        Validate.notNull(listenerInterface, "Listener interface cannot be null.");
-        Validate.notNull(classLoader, "ClassLoader cannot be null.");
+        Validate.notNull(listenerInterface, "listenerInterface");
+        Validate.notNull(classLoader, "classLoader");
         Validate.isTrue(listenerInterface.isInterface(), "Class %s is not an interface",
                 listenerInterface.getName());
         initializeTransientFields(listenerInterface, classLoader);
@@ -194,7 +194,7 @@ public class EventListenerSupport<L> implements Serializable {
      * @since 3.5
      */
     public void addListener(final L listener, final boolean allowDuplicate) {
-        Validate.notNull(listener, "Listener object cannot be null.");
+        Validate.notNull(listener, "listener");
         if (allowDuplicate || !listeners.contains(listener)) {
             listeners.add(listener);
         }
@@ -218,7 +218,7 @@ public class EventListenerSupport<L> implements Serializable {
      *         {@code null}.
      */
     public void removeListener(final L listener) {
-        Validate.notNull(listener, "Listener object cannot be null.");
+        Validate.notNull(listener, "listener");
         listeners.remove(listener);
     }
 

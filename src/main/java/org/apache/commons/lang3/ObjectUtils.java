@@ -808,7 +808,7 @@ public class ObjectUtils {
      * @since 3.2
      */
     public static void identityToString(final Appendable appendable, final Object object) throws IOException {
-        Validate.notNull(object, "Cannot get the toString of a null object");
+        Validate.notNull(object, "object");
         appendable.append(object.getClass().getName())
               .append(AT_SIGN)
               .append(Integer.toHexString(System.identityHashCode(object)));
@@ -866,7 +866,7 @@ public class ObjectUtils {
      */
     @Deprecated
     public static void identityToString(final StrBuilder builder, final Object object) {
-        Validate.notNull(object, "Cannot get the toString of a null object");
+        Validate.notNull(object, "object");
         final String name = object.getClass().getName();
         final String hexString = Integer.toHexString(System.identityHashCode(object));
         builder.ensureCapacity(builder.length() +  name.length() + 1 + hexString.length());
@@ -891,7 +891,7 @@ public class ObjectUtils {
      * @since 2.4
      */
     public static void identityToString(final StringBuffer buffer, final Object object) {
-        Validate.notNull(object, "Cannot get the toString of a null object");
+        Validate.notNull(object, "object");
         final String name = object.getClass().getName();
         final String hexString = Integer.toHexString(System.identityHashCode(object));
         buffer.ensureCapacity(buffer.length() + name.length() + 1 + hexString.length());
@@ -916,7 +916,7 @@ public class ObjectUtils {
      * @since 3.2
      */
     public static void identityToString(final StringBuilder builder, final Object object) {
-        Validate.notNull(object, "Cannot get the toString of a null object");
+        Validate.notNull(object, "object");
         final String name = object.getClass().getName();
         final String hexString = Integer.toHexString(System.identityHashCode(object));
         builder.ensureCapacity(builder.length() +  name.length() + 1 + hexString.length());
@@ -1063,7 +1063,7 @@ public class ObjectUtils {
     public static <T> T median(final Comparator<T> comparator, final T... items) {
         Validate.notEmpty(items, "null/empty items");
         Validate.noNullElements(items);
-        Validate.notNull(comparator, "null comparator");
+        Validate.notNull(comparator, "comparator");
         final TreeSet<T> sort = new TreeSet<>(comparator);
         Collections.addAll(sort, items);
         @SuppressWarnings("unchecked") //we know all items added were T instances

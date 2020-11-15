@@ -175,7 +175,7 @@ public class SerializationUtils {
      * @throws SerializationException (runtime) if the serialization fails
      */
     public static <T> T deserialize(final byte[] objectData) {
-        Validate.notNull(objectData, "The byte[] must not be null");
+        Validate.notNull(objectData, "objectData");
         return deserialize(new ByteArrayInputStream(objectData));
     }
 
