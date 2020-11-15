@@ -210,7 +210,7 @@ public class FieldUtilsTest {
     @Test
     public void testGetFieldsWithAnnotation() throws NoSuchFieldException {
         assertArrayEquals(new Field[0], FieldUtils.getFieldsWithAnnotation(Object.class, Annotated.class));
-        final Field[] annotatedFields = sort(new Field[] { 
+        final Field[] annotatedFields = sort(new Field[] {
                 FieldUtilsTest.class.getDeclaredField("publicChild"),
                 FieldUtilsTest.class.getDeclaredField("privatelyShadowedChild") });
         assertArrayEquals(annotatedFields,
