@@ -2560,6 +2560,32 @@ public class StringUtilsTest {
         }
     }
 
+    /** Unit test for {@link StringUtils#splitEvery(String, int)}. */
+    @Test
+    public void testSplitEvery() {
+        String[] array = StringUtils.splitEvery( "test1", 10 );
+        Assertions.assertEquals( 1, array.length );
+        Assertions.assertEquals( "test1", array[0] );
+
+        array = StringUtils.splitEvery( "test2", 4 );
+        Assertions.assertEquals( 2, array.length );
+        Assertions.assertEquals( "test", array[0] );
+        Assertions.assertEquals( "2", array[1] );
+
+        array = StringUtils.splitEvery( "", 10 );
+        Assertions.assertEquals( 1, array.length );
+
+        array = StringUtils.splitEvery( "testAbgTestsABG", -2 );
+        Assertions.assertEquals( 1, array.length );
+        Assertions.assertEquals( "testAbgTestsABG", array[0] );
+
+        array = StringUtils.splitEvery( "testAbgTestsABG", 2 );
+        Assertions.assertEquals( 8, array.length );
+        Assertions.assertEquals( "te", array[0] );
+
+        Assertions.assertNull( StringUtils.splitEvery( null, 4 ) );
+    }
+
     @Test
     public void testSplitPreserveAllTokens_String() {
         assertNull(StringUtils.splitPreserveAllTokens(null));
@@ -2875,32 +2901,6 @@ public class StringUtilsTest {
             }
         }
 
-    }
-
-    /** Unit test for {@link StringUtils#splitEvery(String, int)}. */
-    @Test
-    public void testSplitEvery() {
-        String[] array = StringUtils.splitEvery( "test1", 10 );
-        Assertions.assertEquals( 1, array.length );
-        Assertions.assertEquals( "test1", array[0] );
-
-        array = StringUtils.splitEvery( "test2", 4 );
-        Assertions.assertEquals( 2, array.length );
-        Assertions.assertEquals( "test", array[0] );
-        Assertions.assertEquals( "2", array[1] );
-
-        array = StringUtils.splitEvery( "", 10 );
-        Assertions.assertEquals( 1, array.length );
-
-        array = StringUtils.splitEvery( "testAbgTestsABG", -2 );
-        Assertions.assertEquals( 1, array.length );
-        Assertions.assertEquals( "testAbgTestsABG", array[0] );
-
-        array = StringUtils.splitEvery( "testAbgTestsABG", 2 );
-        Assertions.assertEquals( 8, array.length );
-        Assertions.assertEquals( "te", array[0] );
-
-        Assertions.assertNull( StringUtils.splitEvery( null, 4 ) );
     }
 
     // Methods on StringUtils that are immutable in spirit (i.e. calculate the length)
