@@ -9342,7 +9342,7 @@ public class StringUtils {
      * @since 3.6
      */
     public static String unwrap(final String str, final String wrapToken) {
-        if (isEmpty(str) || isEmpty(wrapToken) || str.length() == 1) {
+        if (isEmpty(str) || isEmpty(wrapToken) || str.length() < 2 * wrapToken.length()) {
             return str;
         }
 
