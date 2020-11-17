@@ -61,6 +61,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix potential NPE in TypeUtils.isAssignable(Type, ParameterizedType, Map, Type>).</action>
     <action issue="LANG-1420" type="fix" dev="ggregory" due-to="Gordon Fraser, Rostislav Krasny, Arturo Bernal, Gary Gregory">TypeUtils.isAssignable returns wrong result for GenericArrayType and ParameterizedType, #643.</action>
     <action issue="LANG-1612" type="fix" dev="ggregory" due-to="XinT, Gary Gregory">testGetAllFields and testGetFieldsWithAnnotation sometimes fail.</action>
+    <action                   type="fix" dev="ggregory" due-to="John R. D'Orazio">Fix Javadoc for SystemUtils.isJavaVersionAtMost() #638.</action>
     <!--  ADDS -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.booleanValues().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.primitiveValues().</action>
