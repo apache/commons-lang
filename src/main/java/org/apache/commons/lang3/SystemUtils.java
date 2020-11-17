@@ -1781,7 +1781,7 @@ public class SystemUtils {
      * </p>
      *
      * @param requiredVersion the required version, for example 1.31f
-     * @return {@code true} if the actual version is equal or greater than the required version
+     * @return {@code true} if the actual version is equal or less than the required version
      * @since 3.9
      */
     public static boolean isJavaVersionAtMost(final JavaVersion requiredVersion) {
