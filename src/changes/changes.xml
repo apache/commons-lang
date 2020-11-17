@@ -63,6 +63,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1612" type="fix" dev="ggregory" due-to="XinT, Gary Gregory">testGetAllFields and testGetFieldsWithAnnotation sometimes fail.</action>
     <action                   type="fix" dev="ggregory" due-to="John R. D'Orazio">Fix Javadoc for SystemUtils.isJavaVersionAtMost() #638.</action>
     <action issue="LANG-1610" type="fix" dev="ggregory" due-to="Tony Liang">Fix StringUtils.unwrap throws StringIndexOutOfBoundsException #636.</action>
+    <action                   type="fix" dev="ggregory" due-to="Isira Seneviratne">Fix formatting of isAnyBlank() and isAnyEmpty(). #513.</action>
     <!--  ADDS -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.booleanValues().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.primitiveValues().</action>
