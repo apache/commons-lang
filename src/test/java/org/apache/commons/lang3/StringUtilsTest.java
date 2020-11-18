@@ -745,6 +745,26 @@ public class StringUtilsTest {
     }
 
     @Test
+    public void testdefaultIfNotEmpty() {
+        assertEquals("prefix-string-suffix", StringUtils.defaultIfNotEmpty("string", "prefix-", "-suffix"));
+        assertEquals("prefix-string", StringUtils.defaultIfNotEmpty("string", "prefix-", null));
+        assertEquals("string-suffix", StringUtils.defaultIfNotEmpty("string", null, "-suffix"));
+        assertEquals("", StringUtils.defaultIfNotEmpty(null, "prefix-", "-suffix"));
+        assertEquals("", StringUtils.defaultIfNotEmpty("", "prefix-", "-suffix"));
+        assertEquals("prefix- \t -suffix", StringUtils.defaultIfNotEmpty(" \t ", "prefix-", "-suffix"));
+    }
+
+    @Test
+    public void testdefaultIfNotBlank() {
+        assertEquals("prefix-string-suffix", StringUtils.defaultIfNotBlank("string", "prefix-", "-suffix"));
+        assertEquals("prefix-string", StringUtils.defaultIfNotBlank("string", "prefix-", null));
+        assertEquals("string-suffix", StringUtils.defaultIfNotBlank("string", null, "-suffix"));
+        assertEquals("", StringUtils.defaultIfNotBlank(null, "prefix-", "-suffix"));
+        assertEquals("", StringUtils.defaultIfNotBlank("", "prefix-", "-suffix"));
+        assertEquals("", StringUtils.defaultIfNotBlank(" \t ", "prefix-", "-suffix"));
+    }
+
+    @Test
     public void testGetIfEmpty_StringStringSupplier() {
         assertEquals("NULL", StringUtils.getIfEmpty((String) null, () -> "NULL"));
         assertEquals("NULL", StringUtils.getIfEmpty("", () -> "NULL"));
