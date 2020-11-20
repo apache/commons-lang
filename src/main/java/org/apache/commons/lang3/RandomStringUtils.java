@@ -404,6 +404,7 @@ public class RandomStringUtils {
                 case Character.UNASSIGNED:
                 case Character.PRIVATE_USE:
                 case Character.SURROGATE:
+                case Character.CONTROL:
                     count++;
                     continue;
                 }
