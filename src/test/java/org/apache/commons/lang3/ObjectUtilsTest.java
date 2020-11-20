@@ -730,7 +730,6 @@ public class ObjectUtilsTest {
          * @param value the CharSequence value
          */
         NonComparableCharSequence(final String value) {
-            super();
             Validate.notNull(value);
             this.value = value;
         }

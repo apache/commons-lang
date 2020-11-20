@@ -1126,7 +1126,6 @@ public class BooleanUtils {
      * to operate.</p>
      */
     public BooleanUtils() {
-      super();
     }
 
 }

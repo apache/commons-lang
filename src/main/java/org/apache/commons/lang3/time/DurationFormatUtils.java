@@ -57,7 +57,6 @@ public class DurationFormatUtils {
      * to operate.</p>
      */
     public DurationFormatUtils() {
-        super();
     }
 
     /**

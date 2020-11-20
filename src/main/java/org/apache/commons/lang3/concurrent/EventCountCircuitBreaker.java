@@ -174,7 +174,6 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     public EventCountCircuitBreaker(final int openingThreshold, final long openingInterval,
                                     final TimeUnit openingUnit, final int closingThreshold, final long closingInterval,
                                     final TimeUnit closingUnit) {
-        super();
         checkIntervalData = new AtomicReference<>(new CheckIntervalData(0, 0));
         this.openingThreshold = openingThreshold;
         this.openingInterval = openingUnit.toNanos(openingInterval);

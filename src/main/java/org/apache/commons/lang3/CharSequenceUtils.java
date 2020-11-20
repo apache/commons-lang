@@ -35,7 +35,6 @@ public class CharSequenceUtils {
      * instance to operate.</p>
      */
     public CharSequenceUtils() {
-        super();
     }
 
     //-----------------------------------------------------------------------

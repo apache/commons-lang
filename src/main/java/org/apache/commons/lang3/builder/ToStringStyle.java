@@ -357,7 +357,6 @@ public abstract class ToStringStyle implements Serializable {
      * <p>Constructor.</p>
      */
     protected ToStringStyle() {
-        super();
     }
 
     //----------------------------------------------------------------------------
@@ -2151,7 +2150,6 @@ public abstract class ToStringStyle implements Serializable {
          * <p>Use the static constant rather than instantiating.</p>
          */
         DefaultToStringStyle() {
-            super();
         }
 
         /**
@@ -2184,7 +2182,6 @@ public abstract class ToStringStyle implements Serializable {
          * <p>Use the static constant rather than instantiating.</p>
          */
         NoFieldNameToStringStyle() {
-            super();
             this.setUseFieldNames(false);
         }
 
@@ -2218,7 +2215,6 @@ public abstract class ToStringStyle implements Serializable {
          * <p>Use the static constant rather than instantiating.</p>
          */
         ShortPrefixToStringStyle() {
-            super();
             this.setUseShortClassName(true);
             this.setUseIdentityHashCode(false);
         }
@@ -2252,7 +2248,6 @@ public abstract class ToStringStyle implements Serializable {
          * <p>Use the static constant rather than instantiating.</p>
          */
         SimpleToStringStyle() {
-            super();
             this.setUseClassName(false);
             this.setUseIdentityHashCode(false);
             this.setUseFieldNames(false);
@@ -2288,7 +2283,6 @@ public abstract class ToStringStyle implements Serializable {
          * <p>Use the static constant rather than instantiating.</p>
          */
         MultiLineToStringStyle() {
-            super();
             this.setContentStart("[");
             this.setFieldSeparator(System.lineSeparator() + "  ");
             this.setFieldSeparatorAtStart(true);
@@ -2325,7 +2319,6 @@ public abstract class ToStringStyle implements Serializable {
          * <p>Use the static constant rather than instantiating.</p>
          */
         NoClassNameToStringStyle() {
-            super();
             this.setUseClassName(false);
             this.setUseIdentityHashCode(false);
         }
@@ -2372,8 +2365,6 @@ public abstract class ToStringStyle implements Serializable {
          * </p>
          */
         JsonToStringStyle() {
-            super();
-
             this.setUseClassName(false);
             this.setUseIdentityHashCode(false);
 

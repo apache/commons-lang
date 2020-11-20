@@ -107,7 +107,6 @@ public class MutablePair<L, R> extends Pair<L, R> {
      * Create a new pair instance of two nulls.
      */
     public MutablePair() {
-        super();
     }
 
     /**
@@ -117,7 +116,6 @@ public class MutablePair<L, R> extends Pair<L, R> {
      * @param right  the right value, may be null
      */
     public MutablePair(final L left, final R right) {
-        super();
         this.left = left;
         this.right = right;
     }

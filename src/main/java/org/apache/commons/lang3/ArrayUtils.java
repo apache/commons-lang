@@ -9683,6 +9683,5 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * to operate.
      */
     public ArrayUtils() {
-      super();
     }
 }

@@ -938,6 +938,5 @@ public class ExceptionUtils {
      * </p>
      */
     public ExceptionUtils() {
-        super();
     }
 }

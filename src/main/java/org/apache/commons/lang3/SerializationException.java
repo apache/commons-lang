@@ -38,7 +38,6 @@ public class SerializationException extends RuntimeException {
      * detail message.</p>
      */
     public SerializationException() {
-        super();
     }
 
     /**

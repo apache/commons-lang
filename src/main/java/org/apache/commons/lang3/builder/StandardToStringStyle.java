@@ -40,7 +40,6 @@ public class StandardToStringStyle extends ToStringStyle {
      * <p>Constructor.</p>
      */
     public StandardToStringStyle() {
-        super();
     }
 
     //---------------------------------------------------------------------

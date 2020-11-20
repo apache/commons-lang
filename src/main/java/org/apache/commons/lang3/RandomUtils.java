@@ -52,7 +52,6 @@ public class RandomUtils {
      * </p>
      */
     public RandomUtils() {
-        super();
     }
 
     /**

@@ -1880,7 +1880,6 @@ public class SystemUtils {
      * </p>
      */
     public SystemUtils() {
-        super();
     }
 
 }

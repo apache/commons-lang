@@ -46,7 +46,6 @@ public class WordUtils {
      * instance to operate.</p>
      */
     public WordUtils() {
-      super();
     }
 
     // Wrapping

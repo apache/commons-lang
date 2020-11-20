@@ -146,7 +146,6 @@ public class DateUtils {
      * instance to operate.</p>
      */
     public DateUtils() {
-        super();
     }
 
     //-----------------------------------------------------------------------
@@ -1804,7 +1803,6 @@ public class DateUtils {
          * @param endFinal end date (inclusive)
          */
         DateIterator(final Calendar startFinal, final Calendar endFinal) {
-            super();
             this.endFinal = endFinal;
             spot = startFinal;
             spot.add(Calendar.DATE, -1);

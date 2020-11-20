@@ -42,7 +42,6 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * Constructs a new MutableByte with the default value of zero.
      */
     public MutableByte() {
-        super();
     }
 
     /**
@@ -51,7 +50,6 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @param value  the initial value to store
      */
     public MutableByte(final byte value) {
-        super();
         this.value = value;
     }
 
@@ -62,7 +60,6 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @throws NullPointerException if the object is null
      */
     public MutableByte(final Number value) {
-        super();
         this.value = value.byteValue();
     }
 
@@ -74,7 +71,6 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @since 2.5
      */
     public MutableByte(final String value) {
-        super();
         this.value = Byte.parseByte(value);
     }
 

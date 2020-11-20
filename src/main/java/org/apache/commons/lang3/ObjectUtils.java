@@ -75,7 +75,6 @@ public class ObjectUtils {
          * Restricted constructor - singleton.
          */
         Null() {
-            super();
         }
 
         /**
@@ -1269,7 +1268,6 @@ public class ObjectUtils {
      * instance to operate.</p>
      */
     public ObjectUtils() {
-        super();
     }
 
 }

@@ -45,7 +45,6 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      * Constructs a new MutableBoolean with the default value of false.
      */
     public MutableBoolean() {
-        super();
     }
 
     /**
@@ -54,7 +53,6 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      * @param value  the initial value to store
      */
     public MutableBoolean(final boolean value) {
-        super();
         this.value = value;
     }
 
@@ -65,7 +63,6 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      * @throws NullPointerException if the object is null
      */
     public MutableBoolean(final Boolean value) {
-        super();
         this.value = value.booleanValue();
     }
 

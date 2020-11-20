@@ -55,7 +55,6 @@ public class ConstructorUtils {
      * instance to operate.</p>
      */
     public ConstructorUtils() {
-        super();
     }
 
     /**

@@ -43,7 +43,6 @@ public class ConcurrentRuntimeException extends RuntimeException {
      * ConcurrentRuntimeException}.
      */
     protected ConcurrentRuntimeException() {
-        super();
     }
 
     /**

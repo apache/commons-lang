@@ -40,7 +40,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * Constructs a new MutableFloat with the default value of zero.
      */
     public MutableFloat() {
-        super();
     }
 
     /**
@@ -49,7 +48,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @param value  the initial value to store
      */
     public MutableFloat(final float value) {
-        super();
         this.value = value;
     }
 
@@ -60,7 +58,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @throws NullPointerException if the object is null
      */
     public MutableFloat(final Number value) {
-        super();
         this.value = value.floatValue();
     }
 
@@ -72,7 +69,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @since 2.5
      */
     public MutableFloat(final String value) {
-        super();
         this.value = Float.parseFloat(value);
     }
 
