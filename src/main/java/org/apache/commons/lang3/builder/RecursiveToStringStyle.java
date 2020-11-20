@@ -63,7 +63,6 @@ public class RecursiveToStringStyle extends ToStringStyle {
      * <p>Constructor.</p>
      */
     public RecursiveToStringStyle() {
-        super();
     }
 
     @Override

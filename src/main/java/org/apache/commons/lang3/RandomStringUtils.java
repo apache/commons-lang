@@ -64,7 +64,6 @@ public class RandomStringUtils {
      * to operate.</p>
      */
     public RandomStringUtils() {
-      super();
     }
 
     // Random

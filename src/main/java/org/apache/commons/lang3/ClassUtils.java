@@ -161,7 +161,6 @@ public class ClassUtils {
      * instance to operate.</p>
      */
     public ClassUtils() {
-      super();
     }
 
     // Short class name

@@ -79,7 +79,6 @@ public class NumberUtils {
      * to operate.</p>
      */
     public NumberUtils() {
-        super();
     }
 
     //-----------------------------------------------------------------------

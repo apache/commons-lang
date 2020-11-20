@@ -115,7 +115,6 @@ public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
      * @param right  the right value, may be null
      */
     public ImmutableTriple(final L left, final M middle, final R right) {
-        super();
         this.left = left;
         this.middle = middle;
         this.right = right;

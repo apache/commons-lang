@@ -71,7 +71,6 @@ public class MethodUtils {
      * instance to operate.</p>
      */
     public MethodUtils() {
-        super();
     }
 
     /**

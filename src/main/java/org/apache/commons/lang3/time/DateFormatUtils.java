@@ -201,7 +201,6 @@ public class DateFormatUtils {
      * to operate.</p>
      */
     public DateFormatUtils() {
-        super();
     }
 
     /**

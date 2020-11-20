@@ -167,7 +167,6 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      * @param right  the right value, may be null
      */
     public ImmutablePair(final L left, final R right) {
-        super();
         this.left = left;
         this.right = right;
     }

@@ -233,7 +233,6 @@ public class ThreadUtils {
      * </p>
      */
     public ThreadUtils() {
-        super();
     }
 
     /**
@@ -304,7 +303,6 @@ public class ThreadUtils {
          * @throws IllegalArgumentException if the name is {@code null}
          */
         public NamePredicate(final String name) {
-            super();
             Validate.notNull(name, "name");
             this.name = name;
         }
@@ -334,7 +332,6 @@ public class ThreadUtils {
          * @throws IllegalArgumentException if the threadId is zero or negative
          */
         public ThreadIdPredicate(final long threadId) {
-            super();
             if (threadId <= 0) {
                 throw new IllegalArgumentException("The thread id must be greater than zero");
             }

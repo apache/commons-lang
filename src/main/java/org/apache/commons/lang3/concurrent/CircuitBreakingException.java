@@ -33,7 +33,6 @@ public class CircuitBreakingException extends RuntimeException {
      * Creates a new, uninitialized instance of {@code CircuitBreakingException}.
      */
     public CircuitBreakingException() {
-        super();
     }
 
     /**

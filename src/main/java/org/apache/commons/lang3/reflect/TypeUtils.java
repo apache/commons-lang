@@ -1926,7 +1926,6 @@ public class TypeUtils {
      * </p>
      */
     public TypeUtils() {
-        super();
     }
 
 }

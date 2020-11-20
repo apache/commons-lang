@@ -119,7 +119,6 @@ public class LockingVisitors {
          * @param writeLockSupplier Supplies the write lock, usually from the lock object.
          */
         protected LockVisitor(final O object, L lock, Supplier<Lock> readLockSupplier, Supplier<Lock> writeLockSupplier) {
-            super();
             this.object = Objects.requireNonNull(object, "object");
             this.lock = Objects.requireNonNull(lock, "lock");
             this.readLockSupplier = Objects.requireNonNull(readLockSupplier, "readLockSupplier");

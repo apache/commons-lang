@@ -42,7 +42,6 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * Constructs a new MutableShort with the default value of zero.
      */
     public MutableShort() {
-        super();
     }
 
     /**
@@ -51,7 +50,6 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @param value  the initial value to store
      */
     public MutableShort(final short value) {
-        super();
         this.value = value;
     }
 
@@ -62,7 +60,6 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @throws NullPointerException if the object is null
      */
     public MutableShort(final Number value) {
-        super();
         this.value = value.shortValue();
     }
 
@@ -74,7 +71,6 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @since 2.5
      */
     public MutableShort(final String value) {
-        super();
         this.value = Short.parseShort(value);
     }
 

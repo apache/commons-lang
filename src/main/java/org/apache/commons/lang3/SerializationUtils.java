@@ -283,7 +283,6 @@ public class SerializationUtils {
      * @since 2.0
      */
     public SerializationUtils() {
-        super();
     }
 
 }

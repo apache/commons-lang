@@ -959,7 +959,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          *
          */
         UnpaddedMonthField() {
-            super();
         }
 
         /**
@@ -1092,7 +1091,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * Constructs an instance of {@code TwoDigitYearField}.
          */
         TwoDigitYearField() {
-            super();
         }
 
         /**
@@ -1130,7 +1128,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * Constructs an instance of {@code TwoDigitMonthField}.
          */
         TwoDigitMonthField() {
-            super();
         }
 
         /**

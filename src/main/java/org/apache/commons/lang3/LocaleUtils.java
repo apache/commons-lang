@@ -53,7 +53,6 @@ public class LocaleUtils {
      * to operate.</p>
      */
     public LocaleUtils() {
-      super();
     }
 
     //-----------------------------------------------------------------------

@@ -86,7 +86,6 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
      * Create a new triple instance of three nulls.
      */
     public MutableTriple() {
-        super();
     }
 
     /**
@@ -97,7 +96,6 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
      * @param right  the right value, may be null
      */
     public MutableTriple(final L left, final M middle, final R right) {
-        super();
         this.left = left;
         this.middle = middle;
         this.right = right;

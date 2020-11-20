@@ -64,7 +64,6 @@ final class CharRange implements Iterable<Character>, Serializable {
      * @param negated  true to express everything except the range
      */
     private CharRange(char start, char end, final boolean negated) {
-        super();
         if (start > end) {
             final char temp = start;
             start = end;

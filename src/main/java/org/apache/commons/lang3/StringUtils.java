@@ -9598,7 +9598,6 @@ public class StringUtils {
      * instance to operate.</p>
      */
     public StringUtils() {
-        super();
     }
 
 }

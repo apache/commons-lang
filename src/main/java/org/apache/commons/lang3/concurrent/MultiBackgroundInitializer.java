@@ -106,7 +106,6 @@ public class MultiBackgroundInitializer
      * Creates a new instance of {@code MultiBackgroundInitializer}.
      */
     public MultiBackgroundInitializer() {
-        super();
     }
 
     /**

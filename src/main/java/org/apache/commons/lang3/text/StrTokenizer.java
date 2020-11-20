@@ -240,7 +240,6 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * This constructor is normally used with {@link #reset(String)}.
      */
     public StrTokenizer() {
-        super();
         this.chars = null;
     }
 
@@ -251,7 +250,6 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * @param input  the string which is to be parsed
      */
     public StrTokenizer(final String input) {
-        super();
         if (input != null) {
             chars = input.toCharArray();
         } else {
@@ -325,7 +323,6 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * @param input  the string which is to be parsed, not cloned
      */
     public StrTokenizer(final char[] input) {
-        super();
         this.chars = ArrayUtils.clone(input);
     }
 

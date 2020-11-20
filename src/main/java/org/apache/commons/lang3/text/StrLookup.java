@@ -94,7 +94,6 @@ public abstract class StrLookup<V> {
      * Constructor.
      */
     protected StrLookup() {
-        super();
     }
 
     /**
