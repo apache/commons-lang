@@ -1167,8 +1167,7 @@ public class ClassUtils {
             return declaredMethod;
         }
 
-        final List<Class<?>> candidateClasses = new ArrayList<>();
-        candidateClasses.addAll(getAllInterfaces(cls));
+        final List<Class<?>> candidateClasses = new ArrayList<>(getAllInterfaces(cls));
         candidateClasses.addAll(getAllSuperclasses(cls));
 
         for (final Class<?> candidateClass : candidateClasses) {
