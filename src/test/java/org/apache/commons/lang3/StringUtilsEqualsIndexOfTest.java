@@ -47,7 +47,6 @@ public class StringUtilsEqualsIndexOfTest  {
     private static final String FOOBAR = "foobar";
 
     private static final String[] FOOBAR_SUB_ARRAY = new String[] {"ob", "ba"};
-
     // The purpose of this class is to test StringUtils#equals(CharSequence, CharSequence)
     // with a CharSequence implementation whose equals(Object) override requires that the
     // other object be an instance of CustomCharSequence, even though, as char sequences,
@@ -327,6 +326,26 @@ public class StringUtilsEqualsIndexOfTest  {
     }
 
     @Test
+    public void testLastIndexOfAny_String() {
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar(null, (String) null));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar(null, ""));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar(null, "ab"));
+
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("", (String) null));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("", ""));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("", "ab"));
+
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("zzabyycdxx", (String) null));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("zzabyycdxx", ""));
+        assertEquals(2, StringUtils.lastIndexOfAnyChar("zzabyycdxx", "za"));
+        assertEquals(5, StringUtils.lastIndexOfAnyChar("zzabyycdxx", "by"));
+        assertEquals(1, StringUtils.lastIndexOfAnyChar("ab", "b"));
+        assertEquals(0, StringUtils.lastIndexOfAnyChar("ab", "a"));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("ab", "z"));
+
+    }
+
+    @Test
     public void testIndexOf_StringInt() {
         assertEquals(-1, StringUtils.indexOf(null, null, 0));
         assertEquals(-1, StringUtils.indexOf(null, null, -1));
@@ -373,6 +392,29 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(0, StringUtils.indexOfAny("zzabyycdxx", 'z', 'a'));
         assertEquals(3, StringUtils.indexOfAny("zzabyycdxx", 'b', 'y'));
         assertEquals(-1, StringUtils.indexOfAny("ab", 'z'));
+    }
+
+    @Test
+    public void testLastIndexOfAny_StringCharArray() {
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar(null, (char[]) null));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar(null));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar(null, 'a', 'b'));
+
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("", (char[]) null));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar(""));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("", 'a', 'b'));
+
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("zzabyycdxx", (char[]) null));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("zzabyycdxx"));
+        assertEquals(2, StringUtils.lastIndexOfAnyChar("zzabyycdxx", 'z', 'a'));
+        assertEquals(5, StringUtils.lastIndexOfAnyChar("zzabyycdxx", 'b', 'y'));
+        assertEquals(1, StringUtils.lastIndexOfAnyChar("ab", 'b'));
+        assertEquals(0, StringUtils.lastIndexOfAnyChar("ab", 'a'));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar("ab", 'z'));
+        assertEquals(1, StringUtils.lastIndexOfAnyChar(CharU20000 + CharU20001, CharU20000.toCharArray()));
+        assertEquals(1, StringUtils.lastIndexOfAnyChar(CharU20000, CharU20000.toCharArray()));
+        assertEquals(-1, StringUtils.lastIndexOfAnyChar(CharU20000, CharU20001.toCharArray()));
+
     }
 
     /**
