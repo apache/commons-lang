@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.awt.Insets;
 import java.io.Serializable;
@@ -56,6 +57,12 @@ class AAAClass extends AAClass<String> {
 class AAClass<T> {
 
     public class BBClass<S> {
+    }
+}
+
+class ABClass<T extends ABClass.BBClass> {
+    public static class BBClass {
+
     }
 }
 
@@ -948,5 +955,10 @@ public class TypeUtilsTest<B> {
         assertTrue(TypeUtils.equals(t, TypeUtils.wrap(t).getType()));
 
         assertEquals(String.class, TypeUtils.wrap(String.class).getType());
+    }
+
+    @Test
+    public void testToStringLang1524() {
+        assertThrows(IllegalArgumentException.class, () -> TypeUtils.toString(ABClass.BBClass.class));
     }
 }

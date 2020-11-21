@@ -23,6 +23,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
+import java.lang.reflect.AnnotatedType;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -330,6 +331,10 @@ public class TypeUtils {
             return toString(cls.getComponentType()) + "[]";
         }
 
+        if(detectCycleWithEnclosingClass(cls)) {
+            throw new IllegalArgumentException("Cycle Detected while forming string for input class: " + cls.getName());
+        }
+
         final StringBuilder buf = new StringBuilder();
 
         if (cls.getEnclosingClass() != null) {
@@ -343,6 +348,32 @@ public class TypeUtils {
             buf.append('>');
         }
         return buf.toString();
+    }
+
+    /***
+     * Utility method which can be used to detect a cyclic reference in qualified name of a class. If a nested inner
+     * class is used as type parameter of parent class, that can lead to cyclic reference in name of parent class.
+     * If enclosing class of input class has same type parameter which extends the input class, then it forms a cycle.
+     *
+     * @param cls {@code Class} to format
+     * @return boolean
+     * @since 3.12
+     */
+    private static boolean detectCycleWithEnclosingClass(final Class<?> cls) {
+        boolean formsCycle = false;
+        if(cls.getEnclosingClass() != null) {
+            // current class -> temp$inner
+            // enclosing class-> temp
+            TypeVariable[] types = cls.getEnclosingClass().getTypeParameters();
+
+            for(int i = 0; i < types.length && !formsCycle; i++) {
+                AnnotatedType[] annotatedBounds = types[i].getAnnotatedBounds();
+                for(int j = 0; j < annotatedBounds.length && !formsCycle; j++) {
+                    formsCycle = (annotatedBounds[j].getType() == cls);
+                }
+            }
+        }
+        return formsCycle;
     }
 
     /**
