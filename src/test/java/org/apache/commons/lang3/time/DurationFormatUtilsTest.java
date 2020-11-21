@@ -51,7 +51,7 @@ public class DurationFormatUtilsTest {
     // -----------------------------------------------------------------------
     @Test
     public void testFormatDurationWords() {
-        String text = null;
+        String text;
 
         text = DurationFormatUtils.formatDurationWords(50 * 1000, true, false);
         assertEquals("50 seconds", text);
@@ -121,7 +121,7 @@ public class DurationFormatUtilsTest {
         final long oneMinute = oneSecond * 60;
         final long oneHour = oneMinute * 60;
         final long oneDay = oneHour * 24;
-        String text = null;
+        String text;
 
         text = DurationFormatUtils.formatDurationWords(oneSecond, false, false);
         assertEquals("0 days 0 hours 0 minutes 1 second", text);

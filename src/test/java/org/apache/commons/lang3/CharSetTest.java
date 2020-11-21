@@ -294,7 +294,7 @@ public class CharSetTest  {
     @Test
     public void testConstructor_String_oddCombinations() {
         CharSet set;
-        CharRange[] array = null;
+        CharRange[] array;
 
         set = CharSet.getInstance("a-^c");
         array = set.getCharRanges();
