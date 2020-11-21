@@ -60,9 +60,8 @@ class AAClass<T> {
     }
 }
 
-class ABClass<T extends ABClass.BBClass> {
-    public static class BBClass {
-
+class AAAAClass<T extends AAAAClass.BBBBClass> {
+    public static class BBBBClass {
     }
 }
 
@@ -959,6 +958,6 @@ public class TypeUtilsTest<B> {
 
     @Test
     public void testToStringLang1524() {
-        assertThrows(IllegalArgumentException.class, () -> TypeUtils.toString(ABClass.BBClass.class));
+        assertThrows(IllegalArgumentException.class, () -> TypeUtils.toString(AAAAClass.BBBBClass.class));
     }
 }
