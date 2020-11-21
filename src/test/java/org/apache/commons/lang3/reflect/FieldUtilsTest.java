@@ -181,7 +181,7 @@ public class FieldUtilsTest {
         assertEquals(expected, allFields.length, Arrays.toString(allFields));
     }
 
-    private Field[] sort(Field[] fields) {
+    private Field[] sort(final Field[] fields) {
         // Field does not implement Comparable, so we use a KISS solution here.
         return ArrayUtils.sort(fields, ObjectToStringComparator.INSTANCE);
     }

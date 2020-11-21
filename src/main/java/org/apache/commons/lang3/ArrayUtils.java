@@ -7869,7 +7869,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @see Arrays#sort(Object[])
      * @since 3.12
      */
-    public static <T> T[] sort(T[] array) {
+    public static <T> T[] sort(final T[] array) {
         Arrays.sort(array);
         return array;
     }
@@ -7885,7 +7885,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @see Arrays#sort(Object[])
      * @since 3.12
      */
-    public static <T> T[] sort(T[] array, Comparator<? super T> comparator) {
+    public static <T> T[] sort(final T[] array, final Comparator<? super T> comparator) {
         Arrays.sort(array, comparator);
         return array;
     }

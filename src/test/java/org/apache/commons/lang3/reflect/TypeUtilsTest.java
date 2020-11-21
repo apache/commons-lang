@@ -739,18 +739,18 @@ public class TypeUtilsTest<B> {
         assertTrue(TypeUtils.isAssignable(fClassType, eClassType));
     }
 
-    private void testIsAssignable(Class testUnassignableClass) {
+    private void testIsAssignable(final Class testUnassignableClass) {
         final Class<Constructor> rawClass = Constructor.class;
         final Class<Insets> typeArgClass = Insets.class;
         // Builds a ParameterizedType for Constructor<Insets>
-        ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
+        final ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
         assertEquals(rawClass, paramType.getRawType());
         assertEquals(typeArgClass, paramType.getActualTypeArguments()[0]);
 
         assertFalse(testUnassignableClass.isAssignableFrom(paramType.getClass()));
         assertFalse(paramType.getClass().isAssignableFrom(testUnassignableClass));
 
-        GenericArrayType arrayType = TypeUtils.genericArrayType(paramType);
+        final GenericArrayType arrayType = TypeUtils.genericArrayType(paramType);
         assertFalse(TypeUtils.isAssignable(arrayType, paramType),
                 () -> String.format("TypeUtils.isAssignable(%s, %s)", arrayType, paramType));
         assertFalse(TypeUtils.isAssignable(paramType, arrayType),
@@ -762,14 +762,14 @@ public class TypeUtilsTest<B> {
         final Class<Constructor> rawClass = Constructor.class;
         final Class<Insets> typeArgClass = Insets.class;
         // Builds a ParameterizedType for Constructor<Insets>
-        ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
+        final ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
         assertEquals(rawClass, paramType.getRawType());
         assertEquals(typeArgClass, paramType.getActualTypeArguments()[0]);
 
         assertFalse(GenericArrayType.class.isAssignableFrom(paramType.getClass()));
         assertFalse(paramType.getClass().isAssignableFrom(GenericArrayType.class));
 
-        GenericArrayType testType = TypeUtils.genericArrayType(paramType);
+        final GenericArrayType testType = TypeUtils.genericArrayType(paramType);
         assertFalse(TypeUtils.isAssignable(paramType, testType),
                 () -> String.format("TypeUtils.isAssignable(%s, %s)", paramType, testType));
         assertFalse(TypeUtils.isAssignable(testType, paramType),
@@ -782,14 +782,14 @@ public class TypeUtilsTest<B> {
         final Class<Constructor> rawClass = Constructor.class;
         final Class<Insets> typeArgClass = Insets.class;
         // Builds a ParameterizedType for Constructor<Insets>
-        ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
+        final ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
         assertEquals(rawClass, paramType.getRawType());
         assertEquals(typeArgClass, paramType.getActualTypeArguments()[0]);
 
         assertFalse(WildcardType.class.isAssignableFrom(paramType.getClass()));
         assertFalse(paramType.getClass().isAssignableFrom(WildcardType.class));
 
-        WildcardType testType = TypeUtils.WILDCARD_ALL;
+        final WildcardType testType = TypeUtils.WILDCARD_ALL;
         // TODO This test returns true unlike the test above.
         // Is this a bug in this test or in the main code?
         assertFalse(TypeUtils.isAssignable(paramType, testType),
@@ -803,14 +803,14 @@ public class TypeUtilsTest<B> {
         final Class<Constructor> rawClass = Constructor.class;
         final Class<Insets> typeArgClass = Insets.class;
         // Builds a ParameterizedType for Constructor<Insets>
-        ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
+        final ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
         assertEquals(rawClass, paramType.getRawType());
         assertEquals(typeArgClass, paramType.getActualTypeArguments()[0]);
 
         assertTrue(Object.class.isAssignableFrom(paramType.getClass()));
         assertFalse(paramType.getClass().isAssignableFrom(Object.class));
 
-        Type testType = Object.class;
+        final Type testType = Object.class;
         assertTrue(TypeUtils.isAssignable(paramType, testType),
                 () -> String.format("TypeUtils.isAssignable(%s, %s)", paramType, testType));
         assertFalse(TypeUtils.isAssignable(testType, paramType),
