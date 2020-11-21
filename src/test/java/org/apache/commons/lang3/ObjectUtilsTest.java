@@ -569,7 +569,7 @@ public class ObjectUtilsTest {
      */
     @Test
     public void testCloneOfNotCloneable() {
-        final String string = new String("apache");
+        final String string = "apache";
         assertNull(ObjectUtils.clone(string));
     }
 
@@ -615,7 +615,7 @@ public class ObjectUtilsTest {
      */
     @Test
     public void testPossibleCloneOfNotCloneable() {
-        final String string = new String("apache");
+        final String string = "apache";
         assertSame(string, ObjectUtils.cloneIfPossible(string));
     }
 
