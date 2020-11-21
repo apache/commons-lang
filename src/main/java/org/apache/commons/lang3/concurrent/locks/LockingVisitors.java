@@ -118,7 +118,7 @@ public class LockingVisitors {
          * @param readLockSupplier Supplies the read lock, usually from the lock object.
          * @param writeLockSupplier Supplies the write lock, usually from the lock object.
          */
-        protected LockVisitor(final O object, L lock, Supplier<Lock> readLockSupplier, Supplier<Lock> writeLockSupplier) {
+        protected LockVisitor(final O object, final L lock, final Supplier<Lock> readLockSupplier, final Supplier<Lock> writeLockSupplier) {
             this.object = Objects.requireNonNull(object, "object");
             this.lock = Objects.requireNonNull(lock, "lock");
             this.readLockSupplier = Objects.requireNonNull(readLockSupplier, "readLockSupplier");
@@ -143,7 +143,7 @@ public class LockingVisitors {
          * @see #acceptWriteLocked(FailableConsumer)
          * @see #applyReadLocked(FailableFunction)
          */
-        public void acceptReadLocked(FailableConsumer<O, ?> consumer) {
+        public void acceptReadLocked(final FailableConsumer<O, ?> consumer) {
             lockAcceptUnlock(readLockSupplier, consumer);
         }
 
@@ -205,7 +205,7 @@ public class LockingVisitors {
          * @see #acceptReadLocked(FailableConsumer)
          * @see #applyWriteLocked(FailableFunction)
          */
-        public <T> T applyReadLocked(FailableFunction<O, T, ?> function) {
+        public <T> T applyReadLocked(final FailableFunction<O, T, ?> function) {
             return lockApplyUnlock(readLockSupplier, function);
         }
 
@@ -271,7 +271,7 @@ public class LockingVisitors {
             lock.lock();
             try {
                 consumer.accept(object);
-            } catch (Throwable t) {
+            } catch (final Throwable t) {
                 throw Failable.rethrow(t);
             } finally {
                 lock.unlock();
@@ -298,7 +298,7 @@ public class LockingVisitors {
             lock.lock();
             try {
                 return function.apply(object);
-            } catch (Throwable t) {
+            } catch (final Throwable t) {
                 throw Failable.rethrow(t);
             } finally {
                 lock.unlock();
@@ -348,7 +348,7 @@ public class LockingVisitors {
          * @param object The locked (hidden) object. The caller is supposed to drop all references to the locked object.
          * @param stampedLock the lock to use.
          */
-        protected StampedLockVisitor(final O object, StampedLock stampedLock) {
+        protected StampedLockVisitor(final O object, final StampedLock stampedLock) {
             super(object, stampedLock, stampedLock::asReadLock, stampedLock::asWriteLock);
         }
     }

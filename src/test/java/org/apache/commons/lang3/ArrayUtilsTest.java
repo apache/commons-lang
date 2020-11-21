@@ -278,7 +278,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testContainsDoubleNaN() {
-        double[] a = new double[] { Double.NEGATIVE_INFINITY, Double.NaN, Double.POSITIVE_INFINITY };
+        final double[] a = new double[] { Double.NEGATIVE_INFINITY, Double.NaN, Double.POSITIVE_INFINITY };
         assertTrue(ArrayUtils.contains(a, Double.POSITIVE_INFINITY));
         assertTrue(ArrayUtils.contains(a, Double.NEGATIVE_INFINITY));
         assertTrue(ArrayUtils.contains(a, Double.NaN));
@@ -311,7 +311,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testContainsFloatNaN() {
-        float[] array = new float[] { Float.NEGATIVE_INFINITY, Float.NaN, Float.POSITIVE_INFINITY };
+        final float[] array = new float[] { Float.NEGATIVE_INFINITY, Float.NaN, Float.POSITIVE_INFINITY };
         assertTrue(ArrayUtils.contains(array, Float.POSITIVE_INFINITY));
         assertTrue(ArrayUtils.contains(array, Float.NEGATIVE_INFINITY));
         assertTrue(ArrayUtils.contains(array, Float.NaN));
@@ -1062,7 +1062,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testIndexOfDoubleNaN() {
-        double[] array = new double[] { Double.NEGATIVE_INFINITY, Double.NaN, Double.POSITIVE_INFINITY, Double.NaN };
+        final double[] array = new double[] { Double.NEGATIVE_INFINITY, Double.NaN, Double.POSITIVE_INFINITY, Double.NaN };
         assertEquals(0, ArrayUtils.indexOf(array, Double.NEGATIVE_INFINITY));
         assertEquals(1, ArrayUtils.indexOf(array, Double.NaN));
         assertEquals(2, ArrayUtils.indexOf(array, Double.POSITIVE_INFINITY));
@@ -1134,7 +1134,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testIndexOfFloatNaN() {
-        float[] array = new float[] { Float.NEGATIVE_INFINITY, Float.NaN, Float.POSITIVE_INFINITY, Float.NaN };
+        final float[] array = new float[] { Float.NEGATIVE_INFINITY, Float.NaN, Float.POSITIVE_INFINITY, Float.NaN };
         assertEquals(0, ArrayUtils.indexOf(array, Float.NEGATIVE_INFINITY));
         assertEquals(1, ArrayUtils.indexOf(array, Float.NaN));
         assertEquals(2, ArrayUtils.indexOf(array, Float.POSITIVE_INFINITY));
