@@ -97,6 +97,7 @@ class AClass extends AAClass<String>.BBClass<Number> {
     public GClass gClass;
 
     AClass(final AAClass<String> enclosingInstance) {
+        enclosingInstance.super();
     }
 }
 
