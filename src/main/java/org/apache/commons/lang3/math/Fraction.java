@@ -258,14 +258,14 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         int denom0 = 1; // the pre-previous
         int numer1 = 1; // the previous
         int denom1 = 0; // the previous
-        int numer2 = 0; // the current, setup in calculation
-        int denom2 = 0; // the current, setup in calculation
+        int numer2; // the current, setup in calculation
+        int denom2; // the current, setup in calculation
         int a1 = (int) value;
-        int a2 = 0;
+        int a2;
         double x1 = 1;
-        double x2 = 0;
+        double x2;
         double y1 = value - a1;
-        double y2 = 0;
+        double y2;
         double delta1, delta2 = Double.MAX_VALUE;
         double fraction;
         int i = 1;
@@ -859,7 +859,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      */
     @Override
     public int compareTo(final Fraction other) {
-        if (this == other) {
+        if (this.equals(other)) {
             return 0;
         }
         if (numerator == other.numerator && denominator == other.denominator) {
