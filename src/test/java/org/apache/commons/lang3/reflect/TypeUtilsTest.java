@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.awt.Insets;
 import java.io.Serializable;
@@ -47,6 +48,13 @@ import org.apache.commons.lang3.reflect.testbed.GenericTypeHolder;
 import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+class AAAAClass<T extends AAAAClass.BBBBClass.CCCClass> {
+    public static class BBBBClass {
+        public static class CCCClass {
+        }
+    }
+}
 
 class AAAClass extends AAClass<String> {
     public class BBBClass extends BBClass<String> {
@@ -948,5 +956,12 @@ public class TypeUtilsTest<B> {
         assertTrue(TypeUtils.equals(t, TypeUtils.wrap(t).getType()));
 
         assertEquals(String.class, TypeUtils.wrap(String.class).getType());
+    }
+
+    @Test
+    public void testLand1524() {
+        assertThrows(IllegalArgumentException.class, () -> TypeUtils.toString(AAAAClass.BBBBClass.CCCClass.class));
+        assertThrows(IllegalArgumentException.class, () -> TypeUtils.toString(AAAAClass.BBBBClass.class));
+        assertThrows(IllegalArgumentException.class, () -> TypeUtils.toString(AAAAClass.class));
     }
 }
