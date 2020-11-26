@@ -373,8 +373,7 @@ public class TypeUtils {
                 || containsTypeVariables(getImplicitUpperBounds(wild)[0]);
         }
         if (type instanceof GenericArrayType) {
-            final GenericArrayType array = (GenericArrayType) type;
-            return containsTypeVariables(array.getGenericComponentType());
+            return containsTypeVariables(((GenericArrayType) type).getGenericComponentType());
         }
         return false;
     }
