@@ -5135,18 +5135,20 @@ public class StringUtils {
         if (str == null || searchStr == null) {
             return INDEX_NOT_FOUND;
         }
-        if (startPos > str.length() - searchStr.length()) {
-            startPos = str.length() - searchStr.length();
+        final int searchStrLength = searchStr.length();
+        final int strLength = str.length();
+        if (startPos > strLength - searchStrLength) {
+            startPos = strLength - searchStrLength;
         }
         if (startPos < 0) {
             return INDEX_NOT_FOUND;
         }
-        if (searchStr.length() == 0) {
+        if (searchStrLength == 0) {
             return startPos;
         }
 
         for (int i = startPos; i >= 0; i--) {
-            if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, searchStr.length())) {
+            if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, searchStrLength)) {
                 return i;
             }
         }
