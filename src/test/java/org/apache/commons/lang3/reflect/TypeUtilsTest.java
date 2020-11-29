@@ -959,7 +959,7 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testLand1524() {
+    public void testLang1524() {
         assertThrows(IllegalArgumentException.class, () -> TypeUtils.toString(AAAAClass.BBBBClass.CCCClass.class));
         assertThrows(IllegalArgumentException.class, () -> TypeUtils.toString(AAAAClass.BBBBClass.class));
         assertThrows(IllegalArgumentException.class, () -> TypeUtils.toString(AAAAClass.class));
