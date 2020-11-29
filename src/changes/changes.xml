@@ -68,7 +68,7 @@ The <action> type attribute can be add,update,fix,remove.
     <!--  ADDS -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.booleanValues().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.primitiveValues().</action>
-    <action issue="LANG-1535" type="add" dev="ggregory" due-to="Gary Gregory">Add StringUtils.containsAnyIgnoreCase(CharSequence, CharSequence...).</action>
+    <action issue="LANG-1535" type="add" dev="ggregory" due-to="Gary Gregory, Isira Seneviratne">Add StringUtils.containsAnyIgnoreCase(CharSequence, CharSequence...).</action>
     <action issue="LANG-1359" type="add" dev="ggregory" due-to="Gary Gregory, Keegan Witt">Add StopWatch.getStopTime().</action>
     <action                   type="add" dev="ggregory" due-to="Edgar Asatryan">More test coverage for CharSequenceUtils. #631.</action>
     <action issue="LANG-1596" type="update" dev="aherbert" due-to="Richard Eckart de Castilho">ArrayUtils.toPrimitive(Object) does not support boolean and other types #607.</action>
