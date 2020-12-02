@@ -528,6 +528,25 @@ public class SystemUtils {
      */
     public static final String JAVA_VERSION = getSystemProperty("java.version");
 
+
+    /**
+     * <p>
+     * The {@code java.vm.compressedOopsMode} System Property. Java Virtual Machine Compressed Oop Mode.
+     * </p>
+     * <p>
+     * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
+     * not exist.
+     * </p>
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)} or
+     * {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value will be out of
+     * sync with that System property.
+     * </p>
+     *
+     * @since Java 3.12
+     */
+    public static final String JAVA_VM_COMPRESSED_MODE = getSystemProperty("java.vm.compressedOopsMode");
+
     /**
      * <p>
      * The {@code java.vm.info} System Property. Java Virtual Machine implementation info.

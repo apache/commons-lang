@@ -785,4 +785,14 @@ public class SystemUtilsTest {
         assertEquals(expectedValue, SystemUtils.isJavaAwtHeadless());
         assertEquals(expectedStringValueWithDefault, "" + SystemUtils.isJavaAwtHeadless());
     }
+
+    @Test
+    public void  testJavaVmCompressedMode(){
+        final String expectedStringValue = System.getProperty("java.vm.compressedOopsMode");
+        final String expectedStringValueWithDefault = System.getProperty("java.vm.compressedOopsMode", "Zero based");
+        assertNotNull(expectedStringValueWithDefault);
+        if (expectedStringValue != null) {
+            assertEquals(expectedStringValue, SystemUtils.JAVA_VM_COMPRESSED_MODE);
+        }
+    }
 }
