@@ -65,6 +65,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1610" type="fix" dev="ggregory" due-to="Tony Liang">Fix StringUtils.unwrap throws StringIndexOutOfBoundsException #636.</action>
     <action                   type="fix" dev="ggregory" due-to="Isira Seneviratne">Fix formatting of isAnyBlank() and isAnyEmpty(). #513.</action>
     <action issue="LANG-1618" type="fix" dev="ggregory" due-to="Arturo Bernal">TypeUtils. containsTypeVariables does not support GenericArrayType #661.</action>
+    <action issue="LANG-1622" type="fix" dev="ggregory" due-to="anomen-s">Javadoc of some methods incorrectly refers to another method #668.</action>
     <!--  ADDS -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.booleanValues().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.primitiveValues().</action>
