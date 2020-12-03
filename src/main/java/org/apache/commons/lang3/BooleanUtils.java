@@ -417,10 +417,10 @@ public class BooleanUtils {
      *   BooleanUtils.toBoolean("yes")   = true
      *   BooleanUtils.toBoolean("false") = false
      *   BooleanUtils.toBoolean("x gti") = false
-     *   BooleanUtils.toBooleanObject("y") = true
-     *   BooleanUtils.toBooleanObject("n") = false
-     *   BooleanUtils.toBooleanObject("t") = true
-     *   BooleanUtils.toBooleanObject("f") = false
+     *   BooleanUtils.toBoolean("y") = true
+     *   BooleanUtils.toBoolean("n") = false
+     *   BooleanUtils.toBoolean("t") = true
+     *   BooleanUtils.toBoolean("f") = false
      * </pre>
      *
      * @param str  the String to check
@@ -548,9 +548,9 @@ public class BooleanUtils {
      * if unboxed to a {@code boolean}.</p>
      *
      * <pre>
-     *   BooleanUtils.toBoolean(Integer.valueOf(0))    = Boolean.FALSE
-     *   BooleanUtils.toBoolean(Integer.valueOf(1))    = Boolean.TRUE
-     *   BooleanUtils.toBoolean(Integer.valueOf(null)) = null
+     *   BooleanUtils.toBooleanObject(Integer.valueOf(0))    = Boolean.FALSE
+     *   BooleanUtils.toBooleanObject(Integer.valueOf(1))    = Boolean.TRUE
+     *   BooleanUtils.toBooleanObject(Integer.valueOf(null)) = null
      * </pre>
      *
      * @param value  the Integer to convert
