@@ -3824,8 +3824,8 @@ public class StringUtils {
      * StringUtils.isNumericSpace("  ")   = true
      * StringUtils.isNumericSpace("123")  = true
      * StringUtils.isNumericSpace("12 3") = true
-     * StringUtils.isNumeric("\u0967\u0968\u0969")  = true
-     * StringUtils.isNumeric("\u0967\u0968 \u0969")  = true
+     * StringUtils.isNumericSpace("\u0967\u0968\u0969")  = true
+     * StringUtils.isNumericSpace("\u0967\u0968 \u0969")  = true
      * StringUtils.isNumericSpace("ab2c") = false
      * StringUtils.isNumericSpace("12-3") = false
      * StringUtils.isNumericSpace("12.3") = false
