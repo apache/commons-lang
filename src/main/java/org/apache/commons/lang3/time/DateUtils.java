@@ -18,6 +18,7 @@ package org.apache.commons.lang3.time;
 
 import java.text.ParseException;
 import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -1762,6 +1763,18 @@ public class DateUtils {
         final Calendar truncatedCal1 = truncate(cal1, field);
         final Calendar truncatedCal2 = truncate(cal2, field);
         return truncatedCal1.compareTo(truncatedCal2);
+    }
+
+    /**
+     * It used to return the date string of given unixtime with given format string like yyyy-MM-dd or MM/dd/yyyy
+     * @param ut unix epoch time
+     * @param format target date format, not {@code null}
+     * @return date as string
+     */
+    public static String unixTimeToDateString(long ut, String format) {
+        Date date = new Date(ut*1000L);
+        SimpleDateFormat formatter = new SimpleDateFormat(format);
+        return formatter.format(date);
     }
 
     /**

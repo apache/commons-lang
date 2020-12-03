@@ -1651,5 +1651,12 @@ public class DateUtilsTest {
     public void testLANG799() throws ParseException {
         DateUtils.parseDateStrictly("09 abril 2008 23:55:38 GMT", new Locale("es"), "dd MMM yyyy HH:mm:ss zzz");
     }
+
+    @Test
+    public void testUnixTimeToDateString() throws ParseException {
+        String date = DateUtils.unixTimeToDateString(1607004893, "MM/dd/yyyy");
+        assertEquals(date, "12/03/2020");
+        assertEquals(DateUtils.unixTimeToDateString(1607004893, "yyyy-MM-dd"), "2020-12-03");
+    }
 }
 
