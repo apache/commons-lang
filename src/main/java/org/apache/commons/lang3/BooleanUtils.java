@@ -548,9 +548,9 @@ public class BooleanUtils {
      * if unboxed to a {@code boolean}.</p>
      *
      * <pre>
-     *   BooleanUtils.toBoolean(Integer.valueOf(0))    = Boolean.FALSE
-     *   BooleanUtils.toBoolean(Integer.valueOf(1))    = Boolean.TRUE
-     *   BooleanUtils.toBoolean(Integer.valueOf(null)) = null
+     *   BooleanUtils.toBooleanObject(Integer.valueOf(0))    = Boolean.FALSE
+     *   BooleanUtils.toBooleanObject(Integer.valueOf(1))    = Boolean.TRUE
+     *   BooleanUtils.toBooleanObject(Integer.valueOf(null)) = null
      * </pre>
      *
      * @param value  the Integer to convert
