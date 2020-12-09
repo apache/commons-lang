@@ -132,16 +132,16 @@ public class FastDateParser implements DateParser, Serializable {
         int centuryStartYear;
         if (centuryStart!=null) {
             definingCalendar.setTime(centuryStart);
-            centuryStartYear= definingCalendar.get(Calendar.YEAR);
+            centuryStartYear = definingCalendar.get(Calendar.YEAR);
         } else if (locale.equals(JAPANESE_IMPERIAL)) {
-            centuryStartYear= 0;
+            centuryStartYear = 0;
         } else {
             // from 80 years ago to 20 years from now
             definingCalendar.setTime(new Date());
-            centuryStartYear= definingCalendar.get(Calendar.YEAR)-80;
+            centuryStartYear = definingCalendar.get(Calendar.YEAR)-80;
         }
-        century= centuryStartYear / 100 * 100;
-        startYear= centuryStartYear - century;
+        century = centuryStartYear / 100 * 100;
+        startYear = centuryStartYear - century;
 
         init(definingCalendar);
     }
@@ -351,7 +351,7 @@ public class FastDateParser implements DateParser, Serializable {
     @Override
     public Date parse(final String source) throws ParseException {
         final ParsePosition pp = new ParsePosition(0);
-        final Date date= parse(source, pp);
+        final Date date = parse(source, pp);
         if (date == null) {
             // Add a note re supported date range
             if (locale.equals(JAPANESE_IMPERIAL)) {
@@ -387,7 +387,7 @@ public class FastDateParser implements DateParser, Serializable {
     @Override
     public Date parse(final String source, final ParsePosition pos) {
         // timing tests indicate getting new instance is 19% faster than cloning
-        final Calendar cal= Calendar.getInstance(timeZone, locale);
+        final Calendar cal = Calendar.getInstance(timeZone, locale);
         cal.clear();
 
         return parse(source, pos, cal) ? cal.getTime() : null;

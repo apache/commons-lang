@@ -99,7 +99,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      */
     public static final int SHORT = DateFormat.SHORT;
 
-    private static final FormatCache<FastDateFormat> cache= new FormatCache<FastDateFormat>() {
+    private static final FormatCache<FastDateFormat> cache = new FormatCache<FastDateFormat>() {
         @Override
         protected FastDateFormat createInstance(final String pattern, final TimeZone timeZone, final Locale locale) {
             return new FastDateFormat(pattern, timeZone, locale);
@@ -395,8 +395,8 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @throws NullPointerException if pattern, timeZone, or locale is null.
      */
     protected FastDateFormat(final String pattern, final TimeZone timeZone, final Locale locale, final Date centuryStart) {
-        printer= new FastDatePrinter(pattern, timeZone, locale);
-        parser= new FastDateParser(pattern, timeZone, locale, centuryStart);
+        printer = new FastDatePrinter(pattern, timeZone, locale);
+        parser = new FastDateParser(pattern, timeZone, locale, centuryStart);
     }
 
     // Format methods
