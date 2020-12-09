@@ -38,7 +38,7 @@ abstract class FormatCache<F extends Format> {
     /**
      * No date or no time.  Used in same parameters as DateFormat.SHORT or DateFormat.LONG
      */
-    static final int NONE= -1;
+    static final int NONE = -1;
 
     private final ConcurrentMap<MultipartKey, F> cInstanceCache
         = new ConcurrentHashMap<>(7);
@@ -80,11 +80,11 @@ abstract class FormatCache<F extends Format> {
         F format = cInstanceCache.get(key);
         if (format == null) {
             format = createInstance(pattern, timeZone, locale);
-            final F previousValue= cInstanceCache.putIfAbsent(key, format);
+            final F previousValue = cInstanceCache.putIfAbsent(key, format);
             if (previousValue != null) {
                 // another thread snuck in and did the same work
                 // we should return the instance that is in ConcurrentMap
-                format= previousValue;
+                format = previousValue;
             }
         }
         return format;
@@ -207,7 +207,7 @@ abstract class FormatCache<F extends Format> {
                     // even though it doesn't matter if another thread put the pattern
                     // it's still good practice to return the String instance that is
                     // actually in the ConcurrentMap
-                    pattern= previous;
+                    pattern = previous;
                 }
             } catch (final ClassCastException ex) {
                 throw new IllegalArgumentException("No date time pattern for locale: " + locale);
@@ -248,14 +248,14 @@ abstract class FormatCache<F extends Format> {
          */
         @Override
         public int hashCode() {
-            if (hashCode==0) {
-                int rc= 0;
+            if (hashCode == 0) {
+                int rc = 0;
                 for (final Object key : keys) {
-                    if (key!=null) {
-                        rc= rc*7 + key.hashCode();
+                    if (key !=  null) {
+                        rc = rc * 7 + key.hashCode();
                     }
                 }
-                hashCode= rc;
+                hashCode = rc;
             }
             return hashCode;
         }
