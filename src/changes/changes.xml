@@ -70,6 +70,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1619" type="fix" dev="ggregory" due-to="Arturo Bernal">Refine StringUtils.abbreviate #663.</action>
     <action issue="LANG-1584" type="fix" dev="ggregory" due-to="Arturo Bernal">Refine StringUtils.isNumericSpace #573.</action>
     <action issue="LANG-1580" type="fix" dev="ggregory" due-to="Arturo Bernal">Refine StringUtils.deleteWhitespace #569.</action>
+    <action issue="LANG-1626" type="fix" dev="ggregory" due-to="Kanak Sony">Correction in Javadoc of some methods. #673</action>
     <!--  ADDS -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.booleanValues().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.primitiveValues().</action>
