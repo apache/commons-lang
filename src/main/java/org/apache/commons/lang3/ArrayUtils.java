@@ -1099,9 +1099,9 @@ public class ArrayUtils {
      * </p>
      *
      * <pre>
-     * ArrayUtils.add(null, true)          = [true]
-     * ArrayUtils.add([true], false)       = [false, true]
-     * ArrayUtils.add([true, false], true) = [true, true, false]
+     * ArrayUtils.addFirst(null, true)          = [true]
+     * ArrayUtils.addFirst([true], false)       = [false, true]
+     * ArrayUtils.addFirst([true, false], true) = [true, true, false]
      * </pre>
      *
      * @param array the array to "add" the element to, may be {@code null}.
@@ -1128,9 +1128,9 @@ public class ArrayUtils {
      * </p>
      *
      * <pre>
-     * ArrayUtils.add(null, 1)   = [1]
-     * ArrayUtils.add([1], 0)    = [0, 1]
-     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * ArrayUtils.addFirst(null, 1)   = [1]
+     * ArrayUtils.addFirst([1], 0)    = [0, 1]
+     * ArrayUtils.addFirst([1, 0], 1) = [1, 1, 0]
      * </pre>
      *
      * @param array the array to "add" the element to, may be {@code null}.
@@ -1157,9 +1157,9 @@ public class ArrayUtils {
      * </p>
      *
      * <pre>
-     * ArrayUtils.add(null, '1')       = ['1']
-     * ArrayUtils.add(['1'], '0')      = ['0', '1']
-     * ArrayUtils.add(['1', '0'], '1') = ['1', '1', '0']
+     * ArrayUtils.addFirst(null, '1')       = ['1']
+     * ArrayUtils.addFirst(['1'], '0')      = ['0', '1']
+     * ArrayUtils.addFirst(['1', '0'], '1') = ['1', '1', '0']
      * </pre>
      *
      * @param array the array to "add" the element to, may be {@code null}.
@@ -1186,9 +1186,9 @@ public class ArrayUtils {
      * </p>
      *
      * <pre>
-     * ArrayUtils.add(null, 1)   = [1]
-     * ArrayUtils.add([1], 0)    = [0, 1]
-     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * ArrayUtils.addFirst(null, 1)   = [1]
+     * ArrayUtils.addFirst([1], 0)    = [0, 1]
+     * ArrayUtils.addFirst([1, 0], 1) = [1, 1, 0]
      * </pre>
      *
      * @param array the array to "add" the element to, may be {@code null}.
@@ -1215,9 +1215,9 @@ public class ArrayUtils {
      * </p>
      *
      * <pre>
-     * ArrayUtils.add(null, 1)   = [1]
-     * ArrayUtils.add([1], 0)    = [0, 1]
-     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * ArrayUtils.addFirst(null, 1)   = [1]
+     * ArrayUtils.addFirst([1], 0)    = [0, 1]
+     * ArrayUtils.addFirst([1, 0], 1) = [1, 1, 0]
      * </pre>
      *
      * @param array the array to "add" the element to, may be {@code null}.
@@ -1244,9 +1244,9 @@ public class ArrayUtils {
      * </p>
      *
      * <pre>
-     * ArrayUtils.add(null, 1)   = [1]
-     * ArrayUtils.add([1], 0)    = [0, 1]
-     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * ArrayUtils.addFirst(null, 1)   = [1]
+     * ArrayUtils.addFirst([1], 0)    = [0, 1]
+     * ArrayUtils.addFirst([1, 0], 1) = [1, 1, 0]
      * </pre>
      *
      * @param array the array to "add" the element to, may be {@code null}.
@@ -1273,9 +1273,9 @@ public class ArrayUtils {
      * </p>
      *
      * <pre>
-     * ArrayUtils.add(null, 1)   = [1]
-     * ArrayUtils.add([1], 0)    = [0, 1]
-     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * ArrayUtils.addFirst(null, 1)   = [1]
+     * ArrayUtils.addFirst([1], 0)    = [0, 1]
+     * ArrayUtils.addFirst([1, 0], 1) = [1, 1, 0]
      * </pre>
      *
      * @param array the array to "add" the element to, may be {@code null}.
@@ -1302,9 +1302,9 @@ public class ArrayUtils {
      * </p>
      *
      * <pre>
-     * ArrayUtils.add(null, 1)   = [1]
-     * ArrayUtils.add([1], 0)    = [0, 1]
-     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * ArrayUtils.addFirst(null, 1)   = [1]
+     * ArrayUtils.addFirst([1], 0)    = [0, 1]
+     * ArrayUtils.addFirst([1, 0], 1) = [1, 1, 0]
      * </pre>
      *
      * @param array the array to "add" the element to, may be {@code null}.
@@ -1331,11 +1331,11 @@ public class ArrayUtils {
      * </p>
      *
      * <pre>
-     * ArrayUtils.add(null, null)      = IllegalArgumentException
-     * ArrayUtils.add(null, "a")       = ["a"]
-     * ArrayUtils.add(["a"], null)     = [null, "a"]
-     * ArrayUtils.add(["a"], "b")      = ["b", "a"]
-     * ArrayUtils.add(["a", "b"], "c") = ["c", "a", "b"]
+     * ArrayUtils.addFirst(null, null)      = IllegalArgumentException
+     * ArrayUtils.addFirst(null, "a")       = ["a"]
+     * ArrayUtils.addFirst(["a"], null)     = [null, "a"]
+     * ArrayUtils.addFirst(["a"], "b")      = ["b", "a"]
+     * ArrayUtils.addFirst(["a", "b"], "c") = ["c", "a", "b"]
      * </pre>
      *
      * @param <T> the component type of the array
