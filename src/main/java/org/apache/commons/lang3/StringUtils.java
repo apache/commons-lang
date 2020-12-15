@@ -5406,6 +5406,9 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
+        if (locale == null) {
+            return str.toLowerCase();
+        }
         return str.toLowerCase(locale);
     }
 
@@ -9413,6 +9416,9 @@ public class StringUtils {
     public static String upperCase(final String str, final Locale locale) {
         if (str == null) {
             return null;
+        }
+        if (locale == null) {
+            return str.toUpperCase();
         }
         return str.toUpperCase(locale);
     }

@@ -3353,4 +3353,15 @@ public class StringUtilsTest {
             }
         }
     }
+
+    @Test
+    public void test_upperCase() {
+        assertEquals("TITLE", StringUtils.upperCase("title", (Locale) null));
+    }
+
+    @Test
+    public void test_lowerCase(){
+        assertEquals("title", StringUtils.lowerCase("TITLE", (Locale) null));
+    }
+
 }
