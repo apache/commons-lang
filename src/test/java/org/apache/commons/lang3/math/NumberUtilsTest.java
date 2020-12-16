@@ -645,12 +645,12 @@ public class NumberUtilsTest {
     @Test
     //LANG-1444
     void testCheckDataTypeForFloatDoubleBigDecimal() {
-        assertEquals(NumberUtils.createNumber("1.1").getClass().getName(),Float.class.getName());
-        assertEquals(NumberUtils.createNumber("1.0000001").getClass().getName(),Float.class.getName());
-        assertEquals(NumberUtils.createNumber("1.000000001").getClass().getName(),Double.class.getName());
-        assertEquals(NumberUtils.createNumber("1.000000000000001").getClass().getName(),Double.class.getName());
-        assertEquals(NumberUtils.createNumber("1.00000000000000001").getClass().getName(),BigDecimal.class.getName());
-        assertEquals(NumberUtils.createNumber("1.00000000000000000000001").getClass().getName(),BigDecimal.class.getName());
+        assertEquals(NumberUtils.createNumber("1.1").getClass().getName() , Float.class.getName());
+        assertEquals(NumberUtils.createNumber("1.0000001").getClass().getName() , Float.class.getName());
+        assertEquals(NumberUtils.createNumber("1.000000001").getClass().getName() , Double.class.getName());
+        assertEquals(NumberUtils.createNumber("1.000000000000001").getClass().getName() , Double.class.getName());
+        assertEquals(NumberUtils.createNumber("1.00000000000000001").getClass().getName() , BigDecimal.class.getName());
+        assertEquals(NumberUtils.createNumber("1.00000000000000000000001").getClass().getName() , BigDecimal.class.getName());
     }
 
     /**
