@@ -808,7 +808,7 @@ public class FastDateParser implements DateParser, Serializable {
     };
 
     /**
-     * A strategy that handles a timezone field in the parsing pattern
+     * A strategy that handles a time zone field in the parsing pattern
      */
     static class TimeZoneStrategy extends PatternStrategy {
         private static final String RFC_822_TIME_ZONE = "[+-]\\d{4}";

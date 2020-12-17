@@ -1528,8 +1528,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          *
          * @param timeZone the time zone
          * @param daylight adjust the style for daylight saving time if {@code true}
-         * @param style the timezone style
-         * @param locale the timezone locale
+         * @param style the time zone style
+         * @param locale the time zone locale
          */
         TimeZoneDisplayKey(final TimeZone timeZone,
                            final boolean daylight, final int style, final Locale locale) {
