@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 /**
- * Custom timezone that contains offset from GMT.
+ * Custom time zone that contains offset from GMT.
  *
  * @since 3.7
  */

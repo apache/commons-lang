@@ -254,7 +254,7 @@ public class DurationFormatUtils {
     /**
      * <p>Formats the time gap as a string, using the specified format.
      * Padding the left hand side of numbers with zeroes is optional and
-     * the timezone may be specified. </p>
+     * the time zone may be specified. </p>
      *
      * <p>When calculating the difference between months/days, it chooses to
      * calculate months first. So when working out the number of months and
@@ -288,7 +288,7 @@ public class DurationFormatUtils {
 
         final Token[] tokens = lexx(format);
 
-        // timezones get funky around 0, so normalizing everything to GMT
+        // time zones get funky around 0, so normalizing everything to GMT
         // stops the hours being off
         final Calendar start = Calendar.getInstance(timezone);
         start.setTime(new Date(startMillis));

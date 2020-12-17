@@ -48,7 +48,7 @@ abstract class FormatCache<F extends Format> {
 
     /**
      * <p>Gets a formatter instance using the default pattern in the
-     * default timezone and locale.</p>
+     * default time zone and locale.</p>
      *
      * @return a date/time formatter
      */
