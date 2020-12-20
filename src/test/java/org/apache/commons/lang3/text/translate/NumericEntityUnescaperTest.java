@@ -56,7 +56,7 @@ public class NumericEntityUnescaperTest  {
         String expected = "Test \u0030 not test";
 
         String result = neu.translate(input);
-        assertEquals(expected, result, "Failed to support unfinished entities (i.e. missing semi-colon)");
+        assertEquals(expected, result, "Failed to support unfinished entities (i.e. missing semicolon)");
 
         // ignore it
         neu = new NumericEntityUnescaper();
@@ -64,7 +64,7 @@ public class NumericEntityUnescaperTest  {
         expected = input;
 
         result = neu.translate(input);
-        assertEquals(expected, result, "Failed to ignore unfinished entities (i.e. missing semi-colon)");
+        assertEquals(expected, result, "Failed to ignore unfinished entities (i.e. missing semicolon)");
 
         // fail it
         final NumericEntityUnescaper failingNeu =
