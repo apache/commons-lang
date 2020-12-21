@@ -39,6 +39,8 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.LocaleUtils;
+
 /**
  * <p>FastDateParser is a fast and thread-safe version of
  * {@link java.text.SimpleDateFormat}.</p>
@@ -125,15 +127,15 @@ public class FastDateParser implements DateParser, Serializable {
     protected FastDateParser(final String pattern, final TimeZone timeZone, final Locale locale, final Date centuryStart) {
         this.pattern = pattern;
         this.timeZone = timeZone;
-        this.locale = locale;
+        this.locale = LocaleUtils.toLocale(locale);
 
-        final Calendar definingCalendar = Calendar.getInstance(timeZone, locale);
+        final Calendar definingCalendar = Calendar.getInstance(timeZone, this.locale);
 
         int centuryStartYear;
         if (centuryStart!=null) {
             definingCalendar.setTime(centuryStart);
             centuryStartYear = definingCalendar.get(Calendar.YEAR);
-        } else if (locale.equals(JAPANESE_IMPERIAL)) {
+        } else if (this.locale.equals(JAPANESE_IMPERIAL)) {
             centuryStartYear = 0;
         } else {
             // from 80 years ago to 20 years from now
@@ -458,9 +460,9 @@ public class FastDateParser implements DateParser, Serializable {
      * @param regex The regular expression to build
      * @return The map of string display names to field values
      */
-    private static Map<String, Integer> appendDisplayNames(final Calendar cal, final Locale locale, final int field, final StringBuilder regex) {
+    private static Map<String, Integer> appendDisplayNames(final Calendar cal, Locale locale, final int field, final StringBuilder regex) {
         final Map<String, Integer> values = new HashMap<>();
-
+        locale = LocaleUtils.toLocale(locale);
         final Map<String, Integer> displayNames = cal.getDisplayNames(field, Calendar.ALL_STYLES, locale);
         final TreeSet<String> sorted = new TreeSet<>(LONGER_FIRST_LOWERCASE);
         for (final Map.Entry<String, Integer> displayName : displayNames.entrySet()) {
@@ -697,7 +699,7 @@ public class FastDateParser implements DateParser, Serializable {
          */
         CaseInsensitiveTextStrategy(final int field, final Calendar definingCalendar, final Locale locale) {
             this.field = field;
-            this.locale = locale;
+            this.locale = LocaleUtils.toLocale(locale);
 
             final StringBuilder regex = new StringBuilder();
             regex.append("((?iu)");
@@ -837,7 +839,7 @@ public class FastDateParser implements DateParser, Serializable {
          * @param locale The Locale
          */
         TimeZoneStrategy(final Locale locale) {
-            this.locale = locale;
+            this.locale = LocaleUtils.toLocale(locale);
 
             final StringBuilder sb = new StringBuilder();
             sb.append("((?iu)" + RFC_822_TIME_ZONE + "|" + GMT_OPTION );

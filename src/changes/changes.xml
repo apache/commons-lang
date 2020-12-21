@@ -81,6 +81,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1596" type="update" dev="aherbert" due-to="Richard Eckart de Castilho">ArrayUtils.toPrimitive(Object) does not support boolean and other types #607.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add fluent-style ArrayUtils.sort(Object[]).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add fluent-style ArrayUtils.sort(Object[], Comparable).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use LocaleUtils.toLocale(Locale) to avoid NPEs.</action>
     <!--  UPDATES -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Enable Dependabot #587.</action>
     <action                   type="update" dev="chtompki">Bump junit-jupiter from 5.6.2 to 5.7.0.</action>

@@ -5406,7 +5406,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        return str.toLowerCase(locale);
+        return str.toLowerCase(LocaleUtils.toLocale(locale));
     }
 
     private static int[] matches(final CharSequence first, final CharSequence second) {
@@ -9414,7 +9414,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        return str.toUpperCase(locale);
+        return str.toUpperCase(LocaleUtils.toLocale(locale));
     }
 
     /**
