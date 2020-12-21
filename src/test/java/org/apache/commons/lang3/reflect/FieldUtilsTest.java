@@ -34,6 +34,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.SystemUtils;
@@ -183,7 +184,7 @@ public class FieldUtilsTest {
 
     private Field[] sort(final Field[] fields) {
         // Field does not implement Comparable, so we use a KISS solution here.
-        return ArrayUtils.sort(fields, ObjectToStringComparator.INSTANCE);
+        return ArraySorter.sort(fields, ObjectToStringComparator.INSTANCE);
     }
 
     @Test

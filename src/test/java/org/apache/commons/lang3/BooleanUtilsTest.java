@@ -16,7 +16,7 @@
  */
 package org.apache.commons.lang3;
 
-import static org.apache.commons.lang3.ArrayUtils.sort;
+import static org.apache.commons.lang3.ArraySorter.sort;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

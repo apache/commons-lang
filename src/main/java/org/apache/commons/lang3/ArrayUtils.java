@@ -7861,36 +7861,6 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     }
 
     /**
-     * Sorts and returns the given array.
-     *
-     * @param <T> the array type.
-     * @param array the array to sort.
-     * @return the given array.
-     * @see Arrays#sort(Object[])
-     * @since 3.12
-     */
-    public static <T> T[] sort(final T[] array) {
-        Arrays.sort(array);
-        return array;
-    }
-
-    /**
-     * Sorts and returns the given array.
-     *
-     * @param <T> the array type.
-     * @param array the array to sort.
-     * @param comparator the comparator to determine the order of the array.
-     *        A {@code null} value uses the elements' {@link Comparable natural ordering}.
-     * @return the given array.
-     * @see Arrays#sort(Object[])
-     * @since 3.12
-     */
-    public static <T> T[] sort(final T[] array, final Comparator<? super T> comparator) {
-        Arrays.sort(array, comparator);
-        return array;
-    }
-
-    /**
      * <p>Produces a new {@code boolean} array containing the elements
      * between the start and end indices.
      *
