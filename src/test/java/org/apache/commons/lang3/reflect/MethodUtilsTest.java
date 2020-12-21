@@ -29,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.awt.*;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.Arrays;
@@ -1017,5 +1018,84 @@ public class MethodUtilsTest {
         assertEquals(2, distanceMethod.invoke(null, new Class[]{Integer.class}, new Class[]{Object.class}));
 
         distanceMethod.setAccessible(false);
+    }
+
+    @Test
+    public void testGetMatchingMethod() throws NoSuchMethodException {
+        assertEquals(MethodUtils.getMatchingMethod(GetMatchingMethodClass.class, "testMethod"),
+                GetMatchingMethodClass.class.getMethod("testMethod"));
+
+        assertEquals(MethodUtils.getMatchingMethod(GetMatchingMethodClass.class, "testMethod", Long.TYPE),
+                GetMatchingMethodClass.class.getMethod("testMethod", Long.TYPE));
+
+        assertEquals(MethodUtils.getMatchingMethod(GetMatchingMethodClass.class, "testMethod", Long.class),
+                GetMatchingMethodClass.class.getMethod("testMethod", Long.class));
+
+        assertEquals(MethodUtils.getMatchingMethod(GetMatchingMethodClass.class, "testMethod", (Class<?>) null),
+                GetMatchingMethodClass.class.getMethod("testMethod", Long.class));
+
+        assertThrows(IllegalStateException.class,
+                () -> MethodUtils.getMatchingMethod(GetMatchingMethodClass.class, "testMethod2", (Class<?>) null));
+
+        assertEquals(MethodUtils.getMatchingMethod(GetMatchingMethodClass.class, "testMethod3", Long.TYPE, Long.class),
+                GetMatchingMethodClass.class.getMethod("testMethod3", Long.TYPE, Long.class));
+
+        assertEquals(MethodUtils.getMatchingMethod(GetMatchingMethodClass.class, "testMethod3", Long.class, Long.TYPE),
+                GetMatchingMethodClass.class.getMethod("testMethod3", Long.class, Long.TYPE));
+
+        assertEquals(MethodUtils.getMatchingMethod(GetMatchingMethodClass.class, "testMethod3", null, Long.TYPE),
+                GetMatchingMethodClass.class.getMethod("testMethod3", Long.class, Long.TYPE));
+
+        assertEquals(MethodUtils.getMatchingMethod(GetMatchingMethodClass.class, "testMethod3", Long.TYPE, null),
+                GetMatchingMethodClass.class.getMethod("testMethod3", Long.TYPE, Long.class));
+
+        assertThrows(IllegalStateException.class,
+                () -> MethodUtils.getMatchingMethod(GetMatchingMethodClass.class, "testMethod4", null, null));
+    }
+
+    private static final class GetMatchingMethodClass {
+        public String testMethod() {
+            return "testMethod";
+        }
+
+        public String testMethod(Long aLong) {
+            return String.valueOf(aLong);
+        }
+
+        public String testMethod(long aLong) {
+            return String.valueOf(aLong);
+        }
+
+        public String testMethod2(Long aLong) {
+            return String.valueOf(aLong);
+        }
+
+        public String testMethod2(Color aColor) {
+            return String.valueOf(aColor);
+        }
+
+        public String testMethod2(long aLong) {
+            return String.valueOf(aLong);
+        }
+
+        public String testMethod3(long aLong, Long anotherLong) {
+            return aLong + ", " + anotherLong;
+        }
+
+        public String testMethod3(Long aLong, long anotherLong) {
+            return aLong + ", " + anotherLong;
+        }
+
+        public String testMethod3(Long aLong, Long anotherLong) {
+            return aLong + ", " + anotherLong;
+        }
+
+        public String testMethod4(Long aLong, Long anotherLong) {
+            return aLong + ", " + anotherLong;
+        }
+
+        public String testMethod4(Color aColor1, Color aColor2) {
+            return aColor1 + ", " + aColor2;
+        }
     }
 }
