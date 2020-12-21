@@ -25,6 +25,7 @@ import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -73,9 +74,7 @@ abstract class FormatCache<F extends Format> {
         if (timeZone == null) {
             timeZone = TimeZone.getDefault();
         }
-        if (locale == null) {
-            locale = Locale.getDefault();
-        }
+        locale = LocaleUtils.toLocale(locale);
         final MultipartKey key = new MultipartKey(pattern, timeZone, locale);
         F format = cInstanceCache.get(key);
         if (format == null) {
@@ -118,9 +117,7 @@ abstract class FormatCache<F extends Format> {
      */
     // This must remain private, see LANG-884
     private F getDateTimeInstance(final Integer dateStyle, final Integer timeStyle, final TimeZone timeZone, Locale locale) {
-        if (locale == null) {
-            locale = Locale.getDefault();
-        }
+        locale = LocaleUtils.toLocale(locale);
         final String pattern = getPatternForStyle(dateStyle, timeStyle, locale);
         return getInstance(pattern, timeZone, locale);
     }
@@ -188,18 +185,19 @@ abstract class FormatCache<F extends Format> {
      */
     // package protected, for access from test code; do not make public or protected
     static String getPatternForStyle(final Integer dateStyle, final Integer timeStyle, final Locale locale) {
-        final MultipartKey key = new MultipartKey(dateStyle, timeStyle, locale);
+        final Locale safeLocale = LocaleUtils.toLocale(locale);
+        final MultipartKey key = new MultipartKey(dateStyle, timeStyle, safeLocale);
 
         String pattern = cDateTimeInstanceCache.get(key);
         if (pattern == null) {
             try {
                 DateFormat formatter;
                 if (dateStyle == null) {
-                    formatter = DateFormat.getTimeInstance(timeStyle.intValue(), locale);
+                    formatter = DateFormat.getTimeInstance(timeStyle.intValue(), safeLocale);
                 } else if (timeStyle == null) {
-                    formatter = DateFormat.getDateInstance(dateStyle.intValue(), locale);
+                    formatter = DateFormat.getDateInstance(dateStyle.intValue(), safeLocale);
                 } else {
-                    formatter = DateFormat.getDateTimeInstance(dateStyle.intValue(), timeStyle.intValue(), locale);
+                    formatter = DateFormat.getDateTimeInstance(dateStyle.intValue(), timeStyle.intValue(), safeLocale);
                 }
                 pattern = ((SimpleDateFormat) formatter).toPattern();
                 final String previous = cDateTimeInstanceCache.putIfAbsent(key, pattern);
@@ -210,13 +208,12 @@ abstract class FormatCache<F extends Format> {
                     pattern = previous;
                 }
             } catch (final ClassCastException ex) {
-                throw new IllegalArgumentException("No date time pattern for locale: " + locale);
+                throw new IllegalArgumentException("No date time pattern for locale: " + safeLocale);
             }
         }
         return pattern;
     }
 
-    // ----------------------------------------------------------------------
     /**
      * <p>Helper class to hold multi-part Map keys</p>
      */

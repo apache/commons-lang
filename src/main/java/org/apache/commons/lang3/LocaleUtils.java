@@ -276,7 +276,17 @@ public class LocaleUtils {
         throw new IllegalArgumentException("Invalid locale format: " + str);
     }
 
-    //-----------------------------------------------------------------------
+    /**
+     * Returns the given locale if non-{@code null}, otherwise {@link Locale#getDefault()}.
+     *
+     * @param locale a locale or {@code null}.
+     * @return the given locale if non-{@code null}, otherwise {@link Locale#getDefault()}.
+     * @since 3.12
+     */
+    public static Locale toLocale(final Locale locale) {
+        return locale != null ? locale : Locale.getDefault();
+    }
+
     /**
      * <p>Converts a String to a Locale.</p>
      *

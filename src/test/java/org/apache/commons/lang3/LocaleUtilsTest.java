@@ -123,11 +123,30 @@ public class LocaleUtilsTest  {
     }
 
     /**
-     * Test toLocale() method.
+     * Test toLocale(Locale) method.
+     */
+    @Test
+    public void testToLocale_Locale_defaults() {
+        assertNull(LocaleUtils.toLocale((String) null));
+        assertEquals(Locale.getDefault(), LocaleUtils.toLocale((Locale) null));
+        assertEquals(Locale.getDefault(), LocaleUtils.toLocale(Locale.getDefault()));
+    }
+
+    /**
+     * Test toLocale(Locale) method.
+     */
+    @ParameterizedTest
+    @MethodSource("java.util.Locale#getAvailableLocales")
+    public void testToLocales(final Locale actualLocale) {
+        assertEquals(actualLocale, LocaleUtils.toLocale(actualLocale));
+    }
+
+    /**
+     * Test toLocale(String) method.
      */
     @Test
     public void testToLocale_1Part() {
-        assertNull(LocaleUtils.toLocale(null));
+        assertNull(LocaleUtils.toLocale((String) null));
 
         assertValidToLocale("us");
         assertValidToLocale("fr");
@@ -524,11 +543,11 @@ public class LocaleUtilsTest  {
 
     @ParameterizedTest
     @MethodSource("java.util.Locale#getAvailableLocales")
-    public void testParseAllLocales(final Locale l) {
+    public void testParseAllLocales(final Locale actualLocale) {
         // Check if it's possible to recreate the Locale using just the standard constructor
-        final Locale locale = new Locale(l.getLanguage(), l.getCountry(), l.getVariant());
-        if (l.equals(locale)) { // it is possible for LocaleUtils.toLocale to handle these Locales
-            final String str = l.toString();
+        final Locale locale = new Locale(actualLocale.getLanguage(), actualLocale.getCountry(), actualLocale.getVariant());
+        if (actualLocale.equals(locale)) { // it is possible for LocaleUtils.toLocale to handle these Locales
+            final String str = actualLocale.toString();
             // Look for the script/extension suffix
             int suff = str.indexOf("_#");
             if (suff == - 1) {
@@ -541,7 +560,7 @@ public class LocaleUtilsTest  {
                 localeStr = str.substring(0, suff);
             }
             final Locale loc = LocaleUtils.toLocale(localeStr);
-            assertEquals(l, loc);
+            assertEquals(actualLocale, loc);
         }
     }
 }

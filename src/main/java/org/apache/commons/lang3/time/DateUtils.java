@@ -26,6 +26,7 @@ import java.util.NoSuchElementException;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -367,7 +368,7 @@ public class DateUtils {
         }
 
         final TimeZone tz = TimeZone.getDefault();
-        final Locale lcl = locale == null ? Locale.getDefault() : locale;
+        final Locale lcl = LocaleUtils.toLocale(locale);
         final ParsePosition pos = new ParsePosition(0);
         final Calendar calendar = Calendar.getInstance(tz, lcl);
         calendar.setLenient(lenient);

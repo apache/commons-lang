@@ -31,6 +31,7 @@ import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
@@ -150,7 +151,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     protected FastDatePrinter(final String pattern, final TimeZone timeZone, final Locale locale) {
         mPattern = pattern;
         mTimeZone = timeZone;
-        mLocale = locale;
+        mLocale = LocaleUtils.toLocale(locale);
 
         init();
     }
@@ -1342,7 +1343,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * @param style the style
          */
         TimeZoneNameRule(final TimeZone timeZone, final Locale locale, final int style) {
-            mLocale = locale;
+            mLocale = LocaleUtils.toLocale(locale);
             mStyle = style;
 
             mStandard = getTimeZoneDisplay(timeZone, false, style, locale);
@@ -1539,7 +1540,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             } else {
                 mStyle = style;
             }
-            mLocale = locale;
+            mLocale = LocaleUtils.toLocale(locale);
         }
 
         /**
