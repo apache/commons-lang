@@ -20,12 +20,12 @@ package org.apache.commons.lang3.builder;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
 
@@ -191,8 +191,7 @@ public class HashCodeBuilder implements Builder<Integer> {
         try {
             register(object);
             // The elements in the returned array are not sorted and are not in any particular order.
-            final Field[] fields = clazz.getDeclaredFields();
-            Arrays.sort(fields, Comparator.comparing(Field::getName));
+            final Field[] fields = ArraySorter.sort(clazz.getDeclaredFields(), Comparator.comparing(Field::getName));
             AccessibleObject.setAccessible(fields, true);
             for (final Field field : fields) {
                 if (!ArrayUtils.contains(excludeFields, field.getName())

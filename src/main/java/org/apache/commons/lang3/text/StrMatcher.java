@@ -18,6 +18,7 @@ package org.apache.commons.lang3.text;
 
 import java.util.Arrays;
 
+import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -284,8 +285,7 @@ public abstract class StrMatcher {
          * @param chars  the characters to match, must not be null
          */
         CharSetMatcher(final char[] chars) {
-            this.chars = chars.clone();
-            Arrays.sort(this.chars);
+            this.chars = ArraySorter.sort(chars.clone());
         }
 
         /**
