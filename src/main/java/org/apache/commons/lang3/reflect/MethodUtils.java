@@ -30,13 +30,16 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.ClassUtils.Interfaces;
 import org.apache.commons.lang3.Validate;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * <p>Utility reflection methods focused on {@link Method}s, originally from Commons BeanUtils.
@@ -742,49 +745,70 @@ public class MethodUtils {
         Validate.notNull(cls, "cls");
         Validate.notEmpty(methodName, "methodName");
 
-        // Address methods in superclasses
-        Method[] methodArray = cls.getDeclaredMethods();
-        final List<Class<?>> superclassList = ClassUtils.getAllSuperclasses(cls);
-        for (final Class<?> klass : superclassList) {
-            methodArray = ArrayUtils.addAll(methodArray, klass.getDeclaredMethods());
-        }
+        final List<Method> methods = Arrays.stream(cls.getDeclaredMethods())
+                .filter(method -> method.getName().equals(methodName))
+                .collect(toList());
 
-        Method inexactMatch = null;
-        for (final Method method : methodArray) {
-            if (methodName.equals(method.getName()) &&
-                    Objects.deepEquals(parameterTypes, method.getParameterTypes())) {
+        ClassUtils.getAllSuperclasses(cls).stream()
+                .map(Class::getDeclaredMethods)
+                .flatMap(Arrays::stream)
+                .filter(method -> method.getName().equals(methodName))
+                .forEach(methods::add);
+
+        for (Method method : methods) {
+            if (Arrays.deepEquals(method.getParameterTypes(), parameterTypes)) {
                 return method;
-            } else if (methodName.equals(method.getName()) &&
-                    ClassUtils.isAssignable(parameterTypes, method.getParameterTypes(), true)) {
-                if ((inexactMatch == null) || (distance(parameterTypes, method.getParameterTypes())
-                        < distance(parameterTypes, inexactMatch.getParameterTypes()))) {
-                    inexactMatch = method;
-                }
             }
-
         }
-        return inexactMatch;
+
+        final TreeMap<Integer, List<Method>> candidates = new TreeMap<>();
+
+        methods.stream()
+                .filter(method -> ClassUtils.isAssignable(parameterTypes, method.getParameterTypes(), true))
+                .forEach(method -> {
+                    final int distance = distance(parameterTypes, method.getParameterTypes());
+                    final List<Method> candidatesAtDistance = candidates.computeIfAbsent(distance, k -> new ArrayList<>());
+                    candidatesAtDistance.add(method);
+                });
+
+        if (candidates.isEmpty()) {
+            return null;
+        }
+
+        final List<Method> bestCandidates = candidates.values().iterator().next();
+        if (bestCandidates.size() == 1) {
+            return bestCandidates.get(0);
+        }
+
+        throw new IllegalStateException(
+                String.format("Found multiple candidates for method %s on class %s : %s",
+                        methodName + Arrays.stream(parameterTypes).map(String::valueOf).collect(Collectors.joining(",", "(", ")")),
+                        cls.getName(),
+                        bestCandidates.stream().map(Method::toString).collect(Collectors.joining(",", "[", "]")))
+        );
     }
 
     /**
      * <p>Returns the aggregate number of inheritance hops between assignable argument class types.  Returns -1
      * if the arguments aren't assignable.  Fills a specific purpose for getMatchingMethod and is not generalized.</p>
-     * @param classArray
-     * @param toClassArray
+     * @param fromClassArray the Class array to calculate the distance from.
+     * @param toClassArray the Class array to calculate the distance to.
      * @return the aggregate number of inheritance hops between assignable argument class types.
      */
-    private static int distance(final Class<?>[] classArray, final Class<?>[] toClassArray) {
+    private static int distance(final Class<?>[] fromClassArray, final Class<?>[] toClassArray) {
         int answer = 0;
 
-        if (!ClassUtils.isAssignable(classArray, toClassArray, true)) {
+        if (!ClassUtils.isAssignable(fromClassArray, toClassArray, true)) {
             return -1;
         }
-        for (int offset = 0; offset < classArray.length; offset++) {
+        for (int offset = 0; offset < fromClassArray.length; offset++) {
             // Note InheritanceUtils.distance() uses different scoring system.
-            if (classArray[offset].equals(toClassArray[offset])) {
+            final Class<?> aClass = fromClassArray[offset];
+            final Class<?> toClass = toClassArray[offset];
+            if (aClass == null || aClass.equals(toClass)) {
                 continue;
-            } else if (ClassUtils.isAssignable(classArray[offset], toClassArray[offset], true)
-                    && !ClassUtils.isAssignable(classArray[offset], toClassArray[offset], false)) {
+            } else if (ClassUtils.isAssignable(aClass, toClass, true)
+                    && !ClassUtils.isAssignable(aClass, toClass, false)) {
                 answer++;
             } else {
                 answer = answer + 2;
