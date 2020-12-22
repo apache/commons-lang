@@ -5231,8 +5231,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     static Object removeAll(final Object array, final int... indices) {
         final int length = getLength(array);
         int diff = 0; // number of distinct indexes, i.e. number of entries that will be removed
-        final int[] clonedIndices = clone(indices);
-        Arrays.sort(clonedIndices);
+        final int[] clonedIndices = ArraySorter.sort(clone(indices));
 
         // identify length of result array
         if (isNotEmpty(clonedIndices)) {
