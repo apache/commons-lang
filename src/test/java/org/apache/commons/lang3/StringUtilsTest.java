@@ -1470,6 +1470,7 @@ public class StringUtilsTest {
         assertEquals("foo test thing", StringUtils.lowerCase("fOo test THING", Locale.ENGLISH),
                 "lowerCase(String, Locale) failed");
         assertEquals("", StringUtils.lowerCase("", Locale.ENGLISH), "lowerCase(empty-string, Locale) failed");
+        assertThrows(IllegalArgumentException.class, () -> StringUtils.lowerCase("null locale", null));
     }
 
     @Test
@@ -3198,6 +3199,7 @@ public class StringUtilsTest {
                 "upperCase(String, Locale) failed");
         assertEquals("", StringUtils.upperCase("", Locale.ENGLISH),
                 "upperCase(empty-string, Locale) failed");
+        assertThrows(IllegalArgumentException.class, () -> StringUtils.upperCase("null locale", null));
     }
 
     @Test

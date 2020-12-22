@@ -5398,13 +5398,18 @@ public class StringUtils {
      * </pre>
      *
      * @param str  the String to lower case, may be null
-     * @param locale  the locale that defines the case transformation rules, must not be null
+     * @param locale  the locale that defines the case transformation rules, must not be null. A locale is necessary to
+     * normalize to lower case.
      * @return the lower cased String, {@code null} if null String input
+     * @throws IllegalArgumentException if Locale input {@code null}
      * @since 2.5
      */
     public static String lowerCase(final String str, final Locale locale) {
         if (str == null) {
             return null;
+        }
+        if (locale == null) {
+            throw new IllegalArgumentException("Locale must not be null");
         }
         return str.toLowerCase(locale);
     }
@@ -9406,13 +9411,18 @@ public class StringUtils {
      * </pre>
      *
      * @param str  the String to upper case, may be null
-     * @param locale  the locale that defines the case transformation rules, must not be null
+     * @param locale  the locale that defines the case transformation rules, must not be null. A locale is necessary to
+     * normalize to upper case.
      * @return the upper cased String, {@code null} if null String input
+     * @throws IllegalArgumentException if Locale input {@code null}
      * @since 2.5
      */
     public static String upperCase(final String str, final Locale locale) {
         if (str == null) {
             return null;
+        }
+        if (locale == null) {
+            throw new IllegalArgumentException("Locale must not be null");
         }
         return str.toUpperCase(locale);
     }
