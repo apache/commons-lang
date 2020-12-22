@@ -761,14 +761,14 @@ public class MethodUtils {
             }
         }
 
-        final TreeMap<Double, List<Method>> candidates = new TreeMap<>();
+        final TreeMap<Integer, List<Method>> candidates = new TreeMap<>();
 
         methods.stream()
                 .filter(method -> ClassUtils.isAssignable(parameterTypes, method.getParameterTypes(), true))
                 .forEach(method -> {
-                    final double distance = distance(parameterTypes, method.getParameterTypes());
-                    List<Method> methods1 = candidates.computeIfAbsent(distance, k -> new ArrayList<>());
-                    methods1.add(method);
+                    final int distance = distance(parameterTypes, method.getParameterTypes());
+                    final List<Method> candidatesAtDistance = candidates.computeIfAbsent(distance, k -> new ArrayList<>());
+                    candidatesAtDistance.add(method);
                 });
 
         if (candidates.isEmpty()) {
@@ -780,27 +780,30 @@ public class MethodUtils {
             return bestCandidates.get(0);
         }
 
-        final String target = methodName + Arrays.stream(parameterTypes).map(String::valueOf).collect(Collectors.joining(",", "(", ")"));
-        final String strCandidates = bestCandidates.stream().map(Method::toString).collect(Collectors.joining("\n  "));
-        throw new IllegalStateException("Found multiple candidates for method " + target + " on class " + cls + ":\n  " + strCandidates);
+        throw new IllegalStateException(
+                String.format("Found multiple candidates for method %s on class %s : %s",
+                        methodName + Arrays.stream(parameterTypes).map(String::valueOf).collect(Collectors.joining(",", "(", ")")),
+                        cls.getName(),
+                        bestCandidates.stream().map(Method::toString).collect(Collectors.joining(",", "[", "]")))
+        );
     }
 
     /**
      * <p>Returns the aggregate number of inheritance hops between assignable argument class types.  Returns -1
      * if the arguments aren't assignable.  Fills a specific purpose for getMatchingMethod and is not generalized.</p>
-     * @param classArray the Class array to calculate the distance from.
+     * @param fromClassArray the Class array to calculate the distance from.
      * @param toClassArray the Class array to calculate the distance to.
      * @return the aggregate number of inheritance hops between assignable argument class types.
      */
-    private static int distance(final Class<?>[] classArray, final Class<?>[] toClassArray) {
+    private static int distance(final Class<?>[] fromClassArray, final Class<?>[] toClassArray) {
         int answer = 0;
 
-        if (!ClassUtils.isAssignable(classArray, toClassArray, true)) {
+        if (!ClassUtils.isAssignable(fromClassArray, toClassArray, true)) {
             return -1;
         }
-        for (int offset = 0; offset < classArray.length; offset++) {
+        for (int offset = 0; offset < fromClassArray.length; offset++) {
             // Note InheritanceUtils.distance() uses different scoring system.
-            final Class<?> aClass = classArray[offset];
+            final Class<?> aClass = fromClassArray[offset];
             final Class<?> toClass = toClassArray[offset];
             if (aClass == null || aClass.equals(toClass)) {
                 continue;

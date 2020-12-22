@@ -1054,48 +1054,37 @@ public class MethodUtilsTest {
     }
 
     private static final class GetMatchingMethodClass {
-        public String testMethod() {
-            return "testMethod";
+        public void testMethod() {
         }
 
-        public String testMethod(Long aLong) {
-            return String.valueOf(aLong);
+        public void testMethod(final Long aLong) {
         }
 
-        public String testMethod(long aLong) {
-            return String.valueOf(aLong);
+        public void testMethod(final long aLong) {
         }
 
-        public String testMethod2(Long aLong) {
-            return String.valueOf(aLong);
+        public void testMethod2(final Long aLong) {
         }
 
-        public String testMethod2(Color aColor) {
-            return String.valueOf(aColor);
+        public void testMethod2(final Color aColor) {
         }
 
-        public String testMethod2(long aLong) {
-            return String.valueOf(aLong);
+        public void testMethod2(final long aLong) {
         }
 
-        public String testMethod3(long aLong, Long anotherLong) {
-            return aLong + ", " + anotherLong;
+        public void testMethod3(final long aLong, final Long anotherLong) {
         }
 
-        public String testMethod3(Long aLong, long anotherLong) {
-            return aLong + ", " + anotherLong;
+        public void testMethod3(final Long aLong, final long anotherLong) {
         }
 
-        public String testMethod3(Long aLong, Long anotherLong) {
-            return aLong + ", " + anotherLong;
+        public void testMethod3(final Long aLong, final Long anotherLong) {
         }
 
-        public String testMethod4(Long aLong, Long anotherLong) {
-            return aLong + ", " + anotherLong;
+        public void testMethod4(final Long aLong, final Long anotherLong) {
         }
 
-        public String testMethod4(Color aColor1, Color aColor2) {
-            return aColor1 + ", " + aColor2;
+        public void testMethod4(final Color aColor1, final Color aColor2) {
         }
     }
 }
