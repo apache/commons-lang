@@ -81,8 +81,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1359" type="add" dev="ggregory" due-to="Gary Gregory, Keegan Witt">Add StopWatch.getStopTime().</action>
     <action                   type="add" dev="ggregory" due-to="Edgar Asatryan">More test coverage for CharSequenceUtils. #631.</action>
     <action issue="LANG-1596" type="update" dev="aherbert" due-to="Richard Eckart de Castilho">ArrayUtils.toPrimitive(Object) does not support boolean and other types #607.</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add fluent-style ArrayUtils.sort(Object[]).</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add fluent-style ArrayUtils.sort(Object[], Comparable).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add fluent-style ArraySorter.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use LocaleUtils.toLocale(Locale) to avoid NPEs.</action>
     <!--  UPDATES -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Enable Dependabot #587.</action>
