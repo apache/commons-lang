@@ -43,7 +43,7 @@ import org.apache.commons.lang3.Functions.FailablePredicate;
  * not to throw Exceptions, at least not checked Exceptions, AKA instances
  * of {@link Exception}. This enforces the use of constructs like
  * <pre>
- *     Consumer&lt;java.lang.reflect.Method&gt; consumer = (m) -&gt; {
+ *     Consumer&lt;java.lang.reflect.Method&gt; consumer = m -&gt; {
  *         try {
  *             m.invoke(o, args);
  *         } catch (Throwable t) {
