@@ -42,7 +42,7 @@ import org.apache.commons.lang3.function.FailableBooleanSupplier;
  *
  * <pre>
  * {@code
- *     Consumer<java.lang.reflect.Method> consumer = (m) -> {
+ *     Consumer<java.lang.reflect.Method> consumer = m -> {
  *         try {
  *             m.invoke(o, args);
  *         } catch (Throwable t) {
