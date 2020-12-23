@@ -224,7 +224,7 @@ public class CharSet implements Serializable {
 // NOTE: This is no longer public as CharRange is no longer a public class.
 //       It may be replaced when CharSet moves to Range.
     /*public*/ CharRange[] getCharRanges() {
-        return set.toArray(new CharRange[0]);
+        return set.toArray(CharRange.EMPTY_ARRAY);
     }
 
     //-----------------------------------------------------------------------

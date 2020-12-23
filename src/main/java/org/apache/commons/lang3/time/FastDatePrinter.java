@@ -91,6 +91,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     // taking the value and adding (mathematically) the ASCII value for '0'.
     // So, don't change this code! It works and is very fast.
 
+    /** Empty array. */
+    private static final Rule[] EMPTY_RULE_ARRAY = new Rule[0];
+
     /**
      * Required for serialization support.
      *
@@ -161,7 +164,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     private void init() {
         final List<Rule> rulesList = parsePattern();
-        mRules = rulesList.toArray(new Rule[0]);
+        mRules = rulesList.toArray(EMPTY_RULE_ARRAY);
 
         int len = 0;
         for (int i=mRules.length; --i >= 0; ) {

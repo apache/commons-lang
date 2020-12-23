@@ -479,13 +479,13 @@ public class DurationFormatUtils {
         return padWithZeros ? StringUtils.leftPad(longString, count, '0') : longString;
     }
 
-    static final Object y = "y";
-    static final Object M = "M";
-    static final Object d = "d";
-    static final Object H = "H";
-    static final Object m = "m";
-    static final Object s = "s";
-    static final Object S = "S";
+    static final String y = "y";
+    static final String M = "M";
+    static final String d = "d";
+    static final String H = "H";
+    static final String m = "m";
+    static final String s = "s";
+    static final String S = "S";
 
     /**
      * Parses a classic date format string into Tokens
@@ -507,7 +507,7 @@ public class DurationFormatUtils {
                 buffer.append(ch); // buffer can't be null if inLiteral is true
                 continue;
             }
-            Object value = null;
+            String value = null;
             switch (ch) {
             // TODO: Need to handle escaping of '
             case '\'':
@@ -563,14 +563,16 @@ public class DurationFormatUtils {
         if (inLiteral) { // i.e. we have not found the end of the literal
             throw new IllegalArgumentException("Unmatched quote in format: " + format);
         }
-        return list.toArray(new Token[0]);
+        return list.toArray(Token.EMPTY_ARRAY);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Element that is parsed from the format pattern.
      */
     static class Token {
+
+        /** Empty array. */
+        private static final Token[] EMPTY_ARRAY = new Token[0];
 
         /**
          * Helper method to determine if a set of tokens contain a value
