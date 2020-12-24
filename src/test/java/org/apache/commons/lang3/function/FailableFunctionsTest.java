@@ -1435,7 +1435,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableBooleanSupplier_Object_Throwable() {
+    public void testThrows_FailableBooleanSupplier_Throwable() {
         new FailableBooleanSupplier<Throwable>() {
 
             @Override
@@ -1450,7 +1450,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableBooleanSupplier_String_IOException() {
+    public void testThrows_FailableBooleanSupplier_IOException() {
         new FailableBooleanSupplier<IOException>() {
 
             @Override
@@ -1459,8 +1459,6 @@ public class FailableFunctionsTest {
             }
         };
     }
-
-    ///////////////////////////////////////////////
 
     /**
      * Tests that our failable interface is properly defined to throw any exception. using the top level generic types
@@ -1529,7 +1527,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableDoubleBinaryOperator_Object_Throwable() {
+    public void testThrows_FailableDoubleBinaryOperator_Throwable() {
         new FailableDoubleBinaryOperator<Throwable>() {
 
             @Override
@@ -1544,7 +1542,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableDoubleBinaryOperator_String_IOException() {
+    public void testThrows_FailableDoubleBinaryOperator_IOException() {
         new FailableDoubleBinaryOperator<IOException>() {
 
             @Override
@@ -1559,7 +1557,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableDoubleConsumer_Object_Throwable() {
+    public void testThrows_FailableDoubleConsumer_Throwable() {
         new FailableDoubleConsumer<Throwable>() {
 
             @Override
@@ -1575,7 +1573,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableDoubleConsumer_String_IOException() {
+    public void testThrows_FailableDoubleConsumer_IOException() {
         new FailableDoubleConsumer<IOException>() {
 
             @Override
@@ -1590,7 +1588,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableDoubleFunction_Object_Throwable() {
+    public void testThrows_FailableDoubleFunction_Throwable() {
         new FailableDoubleFunction<Object, Throwable>() {
 
             @Override
@@ -1605,7 +1603,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableDoubleFunction_String_IOException() {
+    public void testThrows_FailableDoubleFunction_IOException() {
         new FailableDoubleFunction<String, IOException>() {
 
             @Override
@@ -1620,7 +1618,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableDoubleSupplier_Object_Throwable() {
+    public void testThrows_FailableDoubleSupplier_Throwable() {
         new FailableDoubleSupplier<Throwable>() {
 
             @Override
@@ -1635,7 +1633,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableDoubleSupplier_String_IOException() {
+    public void testThrows_FailableDoubleSupplier_IOException() {
         new FailableDoubleSupplier<IOException>() {
 
             @Override
@@ -1650,7 +1648,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableDoubleToIntFunction_Object_Throwable() {
+    public void testThrows_FailableDoubleToIntFunction_Throwable() {
         new FailableDoubleToIntFunction<Throwable>() {
 
             @Override
@@ -1665,7 +1663,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableDoubleToIntFunction_String_IOException() {
+    public void testThrows_FailableDoubleToIntFunction_IOException() {
         new FailableDoubleToIntFunction<IOException>() {
 
             @Override
@@ -1680,7 +1678,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableDoubleToLongFunction_Object_Throwable() {
+    public void testThrows_FailableDoubleToLongFunction_Throwable() {
         new FailableDoubleToLongFunction<Throwable>() {
 
             @Override
@@ -1695,7 +1693,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableDoubleToLongFunction_String_IOException() {
+    public void testThrows_FailableDoubleToLongFunction_IOException() {
         new FailableDoubleToLongFunction<IOException>() {
 
             @Override
@@ -1740,7 +1738,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableIntBinaryOperator_Object_Throwable() {
+    public void testThrows_FailableIntBinaryOperator_Throwable() {
         new FailableIntBinaryOperator<Throwable>() {
 
             @Override
@@ -1755,7 +1753,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableIntBinaryOperator_String_IOException() {
+    public void testThrows_FailableIntBinaryOperator_IOException() {
         new FailableIntBinaryOperator<IOException>() {
 
             @Override
@@ -1770,7 +1768,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableIntConsumer_Object_Throwable() {
+    public void testThrows_FailableIntConsumer_Throwable() {
         new FailableIntConsumer<Throwable>() {
 
             @Override
@@ -1786,7 +1784,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableIntConsumer_String_IOException() {
+    public void testThrows_FailableIntConsumer_IOException() {
         new FailableIntConsumer<IOException>() {
 
             @Override
@@ -1831,7 +1829,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableIntSupplier_Object_Throwable() {
+    public void testThrows_FailableIntSupplier_Throwable() {
         new FailableIntSupplier<Throwable>() {
 
             @Override
@@ -1846,7 +1844,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableIntSupplier_String_IOException() {
+    public void testThrows_FailableIntSupplier_IOException() {
         new FailableIntSupplier<IOException>() {
 
             @Override
@@ -1861,7 +1859,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableIntToDoubleFunction_Object_Throwable() {
+    public void testThrows_FailableIntToDoubleFunction_Throwable() {
         new FailableIntToDoubleFunction<Throwable>() {
 
             @Override
@@ -1876,7 +1874,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableIntToDoubleFunction_String_IOException() {
+    public void testThrows_FailableIntToDoubleFunction_IOException() {
         new FailableIntToDoubleFunction<IOException>() {
 
             @Override
@@ -1891,7 +1889,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableIntToLongFunction_Object_Throwable() {
+    public void testThrows_FailableIntToLongFunction_Throwable() {
         new FailableIntToLongFunction<Throwable>() {
 
             @Override
@@ -1906,7 +1904,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableIntToLongFunction_String_IOException() {
+    public void testThrows_FailableIntToLongFunction_IOException() {
         new FailableIntToLongFunction<IOException>() {
 
             @Override
@@ -1921,7 +1919,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableLongBinaryOperator_Object_Throwable() {
+    public void testThrows_FailableLongBinaryOperator_Throwable() {
         new FailableLongBinaryOperator<Throwable>() {
 
             @Override
@@ -1936,7 +1934,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableLongBinaryOperator_String_IOException() {
+    public void testThrows_FailableLongBinaryOperator_IOException() {
         new FailableLongBinaryOperator<IOException>() {
 
             @Override
@@ -1951,7 +1949,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableLongConsumer_Object_Throwable() {
+    public void testThrows_FailableLongConsumer_Throwable() {
         new FailableLongConsumer<Throwable>() {
 
             @Override
@@ -1967,7 +1965,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableLongConsumer_String_IOException() {
+    public void testThrows_FailableLongConsumer_IOException() {
         new FailableLongConsumer<IOException>() {
 
             @Override
@@ -1983,7 +1981,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableLongFunction_Object_Throwable() {
+    public void testThrows_FailableLongFunction_Throwable() {
         new FailableLongFunction<Object, Throwable>() {
 
             @Override
@@ -1998,7 +1996,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableLongFunction_String_IOException() {
+    public void testThrows_FailableLongFunction_IOException() {
         new FailableLongFunction<String, IOException>() {
 
             @Override
@@ -2013,7 +2011,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableLongSupplier_Object_Throwable() {
+    public void testThrows_FailableLongSupplier_Throwable() {
         new FailableLongSupplier<Throwable>() {
 
             @Override
@@ -2028,7 +2026,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableLongSupplier_String_IOException() {
+    public void testThrows_FailableLongSupplier_IOException() {
         new FailableLongSupplier<IOException>() {
 
             @Override
@@ -2043,7 +2041,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableLongToDoubleFunction_Object_Throwable() {
+    public void testThrows_FailableLongToDoubleFunction_Throwable() {
         new FailableLongToDoubleFunction<Throwable>() {
 
             @Override
@@ -2058,7 +2056,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableLongToDoubleFunction_String_IOException() {
+    public void testThrows_FailableLongToDoubleFunction_IOException() {
         new FailableLongToDoubleFunction<IOException>() {
 
             @Override
@@ -2073,7 +2071,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableLongToIntFunction_Object_Throwable() {
+    public void testThrows_FailableLongToIntFunction_Throwable() {
         new FailableLongToIntFunction<Throwable>() {
 
             @Override
@@ -2088,7 +2086,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableLongToIntFunction_String_IOException() {
+    public void testThrows_FailableLongToIntFunction_IOException() {
         new FailableLongToIntFunction<IOException>() {
 
             @Override
@@ -2226,7 +2224,7 @@ public class FailableFunctionsTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableRunnable_Object_Throwable() {
+    public void testThrows_FailableRunnable_Throwable() {
         new FailableRunnable<Throwable>() {
 
             @Override
@@ -2242,7 +2240,7 @@ public class FailableFunctionsTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableRunnable_String_IOException() {
+    public void testThrows_FailableRunnable_IOException() {
         new FailableRunnable<IOException>() {
 
             @Override
