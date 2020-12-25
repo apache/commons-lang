@@ -132,24 +132,25 @@ public class CharSequenceUtils {
      * @param start the start index
      * @return the index where the search sequence was found
      */
-    static int indexOf(final CharSequence cs, final CharSequence searchChar, final int start) {
-        if (cs instanceof String) {
-            return ((String) cs).indexOf(searchChar.toString(), start);
-        } else if (cs instanceof StringBuilder) {
-            return ((StringBuilder) cs).indexOf(searchChar.toString(), start);
-        } else if (cs instanceof StringBuffer) {
-            return ((StringBuffer) cs).indexOf(searchChar.toString(), start);
+    static int indexOf(final CharSequence cs, final CharSequence searchChar, int start) {
+        final int csLength = cs.length();
+        final int searchCharLength = searchChar.length();
+        if (start >= csLength) {
+            return (searchCharLength == 0 ? csLength : -1);
         }
-        return cs.toString().indexOf(searchChar.toString(), start);
-//        if (cs instanceof String && searchChar instanceof String) {
-//            // TODO: Do we assume searchChar is usually relatively small;
-//            //       If so then calling toString() on it is better than reverting to
-//            //       the green implementation in the else block
-//            return ((String) cs).indexOf((String) searchChar, start);
-//        } else {
-//            // TODO: Implement rather than convert to String
-//            return cs.toString().indexOf(searchChar.toString(), start);
-//        }
+        if (start < 0) {
+            start = 0;
+        }
+        outer:
+        for (int i = start; i < csLength - searchCharLength + 1; i++) {
+            for (int j = 0; j < searchCharLength; j++) {
+                if (cs.charAt(i + j) != searchChar.charAt(j)) {
+                    continue outer;
+                }
+            }
+            return i;
+        }
+        return NOT_FOUND;
     }
 
     /**
