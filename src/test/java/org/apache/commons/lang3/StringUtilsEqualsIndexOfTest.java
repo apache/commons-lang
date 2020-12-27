@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.nio.CharBuffer;
 import java.util.Locale;
 
 import org.hamcrest.core.IsNot;
@@ -275,6 +276,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(2, StringUtils.indexOf("aabaabaa", 'b'));
 
         assertEquals(2, StringUtils.indexOf(new StringBuilder("aabaabaa"), 'b'));
+        assertEquals(StringUtils.INDEX_NOT_FOUND, StringUtils.indexOf(new StringBuilder("aabaabaa"), -1738));
     }
 
     @Test
@@ -564,6 +566,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(1, StringUtils.lastIndexOf(builder, CODE_POINT, 1 ));
         assertEquals(-1, StringUtils.lastIndexOf(builder.toString(), CODE_POINT, 0));
         assertEquals(1, StringUtils.lastIndexOf(builder.toString(), CODE_POINT, 1));
+        assertEquals(StringUtils.INDEX_NOT_FOUND, StringUtils.lastIndexOf(CharBuffer.wrap("[%{.c.0rro"), -1738, 982));
     }
 
     @Test

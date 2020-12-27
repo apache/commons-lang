@@ -109,6 +109,7 @@ public class CharSequenceUtils {
                     return i;
                 }
             }
+            return NOT_FOUND;
         }
         //supplementary characters (LANG1300)
         if (searchChar <= Character.MAX_CODE_POINT) {
@@ -195,6 +196,7 @@ public class CharSequenceUtils {
                     return i;
                 }
             }
+            return NOT_FOUND;
         }
         //supplementary characters (LANG1300)
         //NOTE - we must do a forward traversal for this to avoid duplicating code points
@@ -244,7 +246,7 @@ public class CharSequenceUtils {
         }
 
         if (start < 0 || len2 < 0 || len2 > len1) {
-            return -1;
+            return NOT_FOUND;
         }
 
         if (len2 == 0) {
@@ -272,7 +274,7 @@ public class CharSequenceUtils {
             while (cs.charAt(i) != char0) {
                 i--;
                 if (i < 0) {
-                    return -1;
+                    return NOT_FOUND;
                 }
             }
             if (checkLaterThan1(cs, searchChar, len2, i)) {
@@ -280,7 +282,7 @@ public class CharSequenceUtils {
             }
             i--;
             if (i < 0) {
-                return -1;
+                return NOT_FOUND;
             }
         }
     }
