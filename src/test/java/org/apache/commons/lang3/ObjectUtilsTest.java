@@ -246,6 +246,33 @@ public class ObjectUtilsTest {
     }
 
     @Test
+    public void testApplyIfNonNull() {
+        final ApplyIfNonNullBean bean = new ApplyIfNonNullBean();
+        bean.setValue(FOO);
+
+        ObjectUtils.applyIfNonNull(bean::setValue, null);
+        assertEquals(FOO, bean.getValue());
+
+        ObjectUtils.applyIfNonNull(bean::setValue, BAR);
+        assertEquals(BAR, bean.getValue());
+
+        ObjectUtils.applyIfNonNull(v -> bean.setValue(v), FOO);
+        assertEquals(FOO, bean.getValue());
+    }
+
+    @Test
+    public void testApplyFirstNonNull() {
+        final ApplyIfNonNullBean bean = new ApplyIfNonNullBean();
+        bean.setValue(FOO);
+
+        ObjectUtils.applyFirstNonNull(bean::setValue, null, null, null);
+        assertEquals(FOO, bean.getValue());
+
+        ObjectUtils.applyFirstNonNull(bean::setValue, null, null, BAR, FOO, null);
+        assertEquals(BAR, bean.getValue());
+    }
+
+    @Test
     public void testNotEqual() {
         assertFalse(ObjectUtils.notEqual(null, null), "ObjectUtils.notEqual(null, null) returned false");
         assertTrue(ObjectUtils.notEqual(FOO, null), "ObjectUtils.notEqual(\"foo\", null) returned true");
@@ -764,4 +791,13 @@ public class ObjectUtilsTest {
 
     }
 
+    static final class ApplyIfNonNullBean {
+        private String value;
+        public String getValue() {
+            return value;
+        }
+        public void setValue(String value) {
+            this.value = value;
+        }
+    }
 }
