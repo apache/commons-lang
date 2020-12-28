@@ -238,9 +238,9 @@ public class ObjectUtils {
      * </p>
      *
      * <pre>
-     * ObjectUtils.applyIfNonNull(bean::setValue, null)                 - setValue not invoked
-     * ObjectUtils.applyIfNonNull(bean::setValue, null, "abc", "def")   - setValue invoked with "abc"
-     * ObjectUtils.applyIfNonNull(v -&gt; bean.setValue(v), "abc")      - setValue invoked with "abc"
+     * ObjectUtils.applyFirstNonNull(bean::setValue, null)                 - setValue not invoked
+     * ObjectUtils.applyFirstNonNull(bean::setValue, null, "abc", "def")   - setValue invoked with "abc"
+     * ObjectUtils.applyFirstNonNull(v -&gt; bean.setValue(v), "abc")      - setValue invoked with "abc"
      * </pre>
      *
      * @param <T> the type of the object
