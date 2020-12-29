@@ -104,8 +104,8 @@ public class FastDateParserTest {
         );
     }
 
-    private static Calendar initializeCalendar(final TimeZone tz) {
-        final Calendar cal = Calendar.getInstance(tz);
+    private static Calendar initializeCalendar(final TimeZone timeZone) {
+        final Calendar cal = Calendar.getInstance(timeZone);
         cal.set(Calendar.YEAR, 2001);
         cal.set(Calendar.MONTH, 1); // not daylight savings
         cal.set(Calendar.DAY_OF_MONTH, 4);
@@ -117,22 +117,23 @@ public class FastDateParserTest {
     }
 
     private final TriFunction<String, TimeZone, Locale, DateParser> dateParserProvider = (format, timeZone,
-        locale) -> new FastDateParser(format, timeZone, locale, null);
+            locale) -> new FastDateParser(format, timeZone, locale, null);
 
-    static void checkParse(final Locale locale, final Calendar cal, final SimpleDateFormat sdf, final DateParser fdf) {
-        final String formattedDate = sdf.format(cal.getTime());
-        checkParse(locale, sdf, fdf, formattedDate);
-        checkParse(locale, sdf, fdf, formattedDate.toLowerCase(locale));
-        checkParse(locale, sdf, fdf, formattedDate.toUpperCase(locale));
+    static void checkParse(final Locale locale, final Calendar cal, final SimpleDateFormat simpleDateFormat,
+            final DateParser dateParser) {
+        final String formattedDate = simpleDateFormat.format(cal.getTime());
+        checkParse(locale, simpleDateFormat, dateParser, formattedDate);
+        checkParse(locale, simpleDateFormat, dateParser, formattedDate.toLowerCase(locale));
+        checkParse(locale, simpleDateFormat, dateParser, formattedDate.toUpperCase(locale));
     }
 
-    static void checkParse(final Locale locale, final SimpleDateFormat sdf, final DateParser fdf,
-        final String formattedDate) {
+    static void checkParse(final Locale locale, final SimpleDateFormat simpleDateFormat, final DateParser dateParser,
+            final String formattedDate) {
         try {
-            final Date expectedTime = sdf.parse(formattedDate);
-            final Date actualTime = fdf.parse(formattedDate);
+            final Date expectedTime = simpleDateFormat.parse(formattedDate);
+            final Date actualTime = dateParser.parse(formattedDate);
             assertEquals(expectedTime, actualTime, "locale : " + locale + ", formattedDate : " + formattedDate
-                + ", Java: " + SystemUtils.JAVA_RUNTIME_VERSION + "\n");
+                    + ", Java: " + SystemUtils.JAVA_RUNTIME_VERSION + "\n");
         } catch (final Exception e) {
             fail("locale : " + locale + " formattedDate : " + formattedDate + " error : " + e + "\n", e);
         }
