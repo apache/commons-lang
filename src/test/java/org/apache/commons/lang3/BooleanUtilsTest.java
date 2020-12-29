@@ -629,6 +629,16 @@ public class BooleanUtilsTest {
     }
 
     @Test
+    public void testCountTrue() {
+        assertEquals(0, BooleanUtils.countTrue());
+        assertEquals(0, BooleanUtils.countTrue(false));
+        assertEquals(0, BooleanUtils.countTrue((boolean[]) null));
+        assertEquals(1, BooleanUtils.countTrue(true));
+        assertEquals(3, BooleanUtils.countTrue(true, false, true, false, false, true));
+        assertEquals(1, BooleanUtils.countTrue(false, false, true, false, false));
+    }
+
+    @Test
     public void testOr_object_emptyInput() {
         assertThrows(IllegalArgumentException.class, () -> BooleanUtils.or(new Boolean[] {}));
     }

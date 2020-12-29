@@ -126,6 +126,35 @@ public class BooleanUtils {
     }
 
     /**
+     * <p>Returns the number of {@code values} that are {@code true}.</p>
+     *
+     * <pre>
+     * BooleanUtils.countTrue()                                      = 0
+     * BooleanUtils.countTrue(false)                                 = 0
+     * BooleanUtils.countTrue((boolean[]) null)                      = 0
+     * BooleanUtils.countTrue(true)                                  = 1
+     * BooleanUtils.countTrue(true, false, true, false, false, true) = 3
+     * BooleanUtils.countTrue(false, false, true, false, false)      = 1
+     * </pre>
+     *
+     * @param array an array of {@code boolean}s
+     * @return the total count of  {@code true} occurrences
+     * @since 3.12
+     */
+    public static int countTrue(final boolean... array) {
+        if (ArrayUtils.isEmpty(array)) {
+            return 0;
+        }
+        int matches = 0;
+        for (final boolean element : array) {
+            if (element) {
+                matches++;
+            }
+        }
+        return matches;
+    }
+
+    /**
      * <p>Checks if a {@code Boolean} value is {@code false},
      * handling {@code null} by returning {@code false}.</p>
      *
