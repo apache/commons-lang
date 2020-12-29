@@ -399,7 +399,7 @@ public class RandomStringUtils {
         final int gap = end - start;
 
         while (count-- != 0) {
-            int codePoint;
+            final int codePoint;
             if (chars == null) {
                 codePoint = random.nextInt(gap) + start;
 

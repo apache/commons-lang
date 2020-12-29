@@ -5407,8 +5407,8 @@ public class StringUtils {
     }
 
     private static int[] matches(final CharSequence first, final CharSequence second) {
-        CharSequence max;
-        CharSequence min;
+        final CharSequence max;
+        final CharSequence min;
         if (first.length() > second.length()) {
             max = first;
             min = second;

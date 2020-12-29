@@ -885,7 +885,7 @@ public class TypeUtils {
         }
 
         final Type ownerType = parameterizedType.getOwnerType();
-        Map<TypeVariable<?>, Type> typeVarAssigns;
+        final Map<TypeVariable<?>, Type> typeVarAssigns;
 
         if (ownerType instanceof ParameterizedType) {
             // get the owner type arguments first

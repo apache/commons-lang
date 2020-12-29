@@ -176,7 +176,7 @@ public class MultiBackgroundInitializer
      */
     @Override
     protected MultiBackgroundInitializerResults initialize() throws Exception {
-        Map<String, BackgroundInitializer<?>> inits;
+        final Map<String, BackgroundInitializer<?>> inits;
         synchronized (this) {
             // create a snapshot to operate on
             inits = new HashMap<>(

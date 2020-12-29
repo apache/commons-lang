@@ -357,14 +357,14 @@ public class ToStringBuilderTest {
         @SuppressWarnings("unused")
         private final char a='a';
         @SuppressWarnings("unused")
-        private transient char transientA='t';
+        private final transient char transientA='t';
     }
 
     static class ReflectionTestFixtureB extends ReflectionTestFixtureA {
         @SuppressWarnings("unused")
         private final char b='b';
         @SuppressWarnings("unused")
-        private transient char transientB='t';
+        private final transient char transientB='t';
     }
 
     @Test

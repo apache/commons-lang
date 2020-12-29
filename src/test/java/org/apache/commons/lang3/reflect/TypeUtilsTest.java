@@ -750,7 +750,7 @@ public class TypeUtilsTest<B> {
         // int[] ina = ia;
         assertFalse(TypeUtils.isAssignable(Integer[].class, int[].class));
         final int[] ina = null;
-        Object[] oa;
+        final Object[] oa;
         // oa = ina;
         assertFalse(TypeUtils.isAssignable(int[].class, Object[].class));
         oa = new Integer[0];

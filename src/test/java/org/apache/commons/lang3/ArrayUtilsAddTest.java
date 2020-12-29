@@ -653,7 +653,7 @@ public class ArrayUtilsAddTest {
 
     @Test
     public void testJira567() {
-        Number[] n;
+        final Number[] n;
         // Valid array construction
         n = ArrayUtils.addAll(new Number[]{Integer.valueOf(1)}, new Long[]{Long.valueOf(2)});
         assertEquals(2, n.length);
