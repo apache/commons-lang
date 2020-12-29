@@ -99,6 +99,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Update maven-surefire-plugin 2.22.2 -> 3.0.0-M5.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump maven-pmd-plugin from 3.13.0 to 3.14.0 #660.</action>
     <action                   type="update" dev="kinow" due-to="Dependabot">Bump jmh.version from 1.21 to 1.27 #674.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Update commons.japicmp.version 0.14.3 -> 0.14.4.</action>
   </release>
   <release version="3.11" date="2020-07-12" description="New features and bug fixes.">
     <action                   type="update" dev="chtompki" due-to="Jin Xu">Refine test output for FastDateParserTest</action>
