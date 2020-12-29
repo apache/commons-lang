@@ -40,6 +40,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -246,30 +247,30 @@ public class ObjectUtilsTest {
     }
 
     @Test
-    public void testApplyIfNonNull() {
+    public void testAcceptFirstNonNull() {
         final ApplyIfNonNullBean bean = new ApplyIfNonNullBean();
         bean.setValue(FOO);
 
-        ObjectUtils.applyIfNonNull(bean::setValue, null);
+        ObjectUtils.acceptFirstNonNull(bean::setValue, null, null, null);
         assertEquals(FOO, bean.getValue());
 
-        ObjectUtils.applyIfNonNull(bean::setValue, BAR);
+        ObjectUtils.acceptFirstNonNull(bean::setValue, null, null, BAR, FOO, null);
         assertEquals(BAR, bean.getValue());
-
-        ObjectUtils.applyIfNonNull(v -> bean.setValue(v), FOO);
-        assertEquals(FOO, bean.getValue());
     }
 
     @Test
-    public void testApplyFirstNonNull() {
+    public void testAcceptIfNonNull() {
         final ApplyIfNonNullBean bean = new ApplyIfNonNullBean();
         bean.setValue(FOO);
 
-        ObjectUtils.applyFirstNonNull(bean::setValue, null, null, null);
+        ObjectUtils.acceptIfNonNull(null, bean::setValue);
         assertEquals(FOO, bean.getValue());
 
-        ObjectUtils.applyFirstNonNull(bean::setValue, null, null, BAR, FOO, null);
+        ObjectUtils.acceptIfNonNull(BAR, bean::setValue);
         assertEquals(BAR, bean.getValue());
+
+        ObjectUtils.acceptIfNonNull(FOO, v -> bean.setValue(v));
+        assertEquals(FOO, bean.getValue());
     }
 
     @Test
@@ -797,7 +798,7 @@ public class ObjectUtilsTest {
             return value;
         }
         public void setValue(String value) {
-            this.value = value;
+            this.value = Objects.requireNonNull(value, "value");
         }
     }
 }
