@@ -38,6 +38,7 @@ import java.util.stream.Stream;
 
 import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.SerializationUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.function.TriFunction;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -130,7 +131,8 @@ public class FastDateParserTest {
         try {
             final Date expectedTime = sdf.parse(formattedDate);
             final Date actualTime = fdf.parse(formattedDate);
-            assertEquals(expectedTime, actualTime, "locale : " + locale + " formattedDate : " + formattedDate + "\n");
+            assertEquals(expectedTime, actualTime, "locale : " + locale + ", formattedDate : " + formattedDate
+                + ", Java: " + SystemUtils.JAVA_RUNTIME_VERSION + "\n");
         } catch (final Exception e) {
             fail("locale : " + locale + " formattedDate : " + formattedDate + " error : " + e + "\n", e);
         }
