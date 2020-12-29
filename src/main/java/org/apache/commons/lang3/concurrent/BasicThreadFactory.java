@@ -20,6 +20,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -224,17 +225,11 @@ public class BasicThreadFactory implements ThreadFactory {
             thread.setName(String.format(getNamingPattern(), count));
         }
 
-        if (getUncaughtExceptionHandler() != null) {
-            thread.setUncaughtExceptionHandler(getUncaughtExceptionHandler());
-        }
+        ObjectUtils.acceptIfNonNull(getUncaughtExceptionHandler(), thread::setUncaughtExceptionHandler);
 
-        if (getPriority() != null) {
-            thread.setPriority(getPriority().intValue());
-        }
+        ObjectUtils.acceptIfNonNull(getPriority(), p -> thread.setPriority(p.intValue()));
 
-        if (getDaemonFlag() != null) {
-            thread.setDaemon(getDaemonFlag().booleanValue());
-        }
+        ObjectUtils.acceptIfNonNull(getDaemonFlag(), d -> thread.setDaemon(d.booleanValue()));
     }
 
     /**
