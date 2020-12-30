@@ -29,6 +29,8 @@ jobs:
         include:
           - java: 16-ea
             experimental: true        
+          - java: 17-ea
+            experimental: true        
         
     steps:
     - uses: actions/checkout@v2.3.4
