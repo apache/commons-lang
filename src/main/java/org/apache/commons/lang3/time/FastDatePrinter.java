@@ -1118,7 +1118,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          */
         @Override
         public final void appendTo(final Appendable buffer, final int value) throws IOException {
-            appendDigits(buffer, value);
+            appendDigits(buffer, value % 100);
         }
     }
 
