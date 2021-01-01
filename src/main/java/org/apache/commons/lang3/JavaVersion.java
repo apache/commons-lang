@@ -81,60 +81,67 @@ public enum JavaVersion {
     JAVA_1_9(9.0f, "9"),
 
     /**
-     * Java 9
+     * Java 9.
      *
      * @since 3.5
      */
     JAVA_9(9.0f, "9"),
 
     /**
-     * Java 10
+     * Java 10.
      *
      * @since 3.7
      */
     JAVA_10(10.0f, "10"),
 
     /**
-     * Java 11
+     * Java 11.
      *
      * @since 3.8
      */
     JAVA_11(11.0f, "11"),
 
     /**
-     * Java 12
+     * Java 12.
      *
      * @since 3.9
      */
     JAVA_12(12.0f, "12"),
 
     /**
-     * Java 13
+     * Java 13.
      *
      * @since 3.9
      */
     JAVA_13(13.0f, "13"),
 
     /**
-     * Java 14
+     * Java 14.
      *
      * @since 3.11
      */
     JAVA_14(14.0f, "14"),
 
     /**
-     * Java 15
+     * Java 15.
      *
      * @since 3.11
      */
     JAVA_15(15.0f, "15"),
 
     /**
-     * Java 16
+     * Java 16.
      *
      * @since 3.11
      */
     JAVA_16(16.0f, "16"),
+
+    /**
+     * Java 17.
+     *
+     * @since 3.12
+     */
+    JAVA_17(17.0f, "17"),
 
     /**
      * The most recent java version. Mainly introduced to avoid to break when a new version of Java is used.
@@ -251,6 +258,8 @@ public enum JavaVersion {
             return JAVA_15;
         } else if ("16".equals(nom)) {
             return JAVA_16;
+        } else if ("17".equals(nom)) {
+            return JAVA_17;
         }
         final float v = toFloatVersion(nom);
         if ((v - 1.) < 1.) { // then we need to check decimals > .9
