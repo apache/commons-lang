@@ -84,6 +84,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add fluent-style ArraySorter.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use LocaleUtils.toLocale(Locale) to avoid NPEs.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add FailableShortSupplier, handy for JDBC APIs.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_17.</action>
     <!--  UPDATES -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Enable Dependabot #587.</action>
     <action                   type="update" dev="chtompki">Bump junit-jupiter from 5.6.2 to 5.7.0.</action>
