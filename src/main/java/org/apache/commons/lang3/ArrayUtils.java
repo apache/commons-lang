@@ -6823,8 +6823,6 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         }
     }
 
-    // Reverse
-    //-----------------------------------------------------------------------
     /**
      * <p>Reverses the order of the given array.
      *
