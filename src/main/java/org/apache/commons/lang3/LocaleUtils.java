@@ -37,7 +37,6 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class LocaleUtils {
 
-    //-----------------------------------------------------------------------
     // class to avoid synchronization (Init on demand)
     static class SyncAvoid {
         /** Unmodifiable list of available locales. */
@@ -60,7 +59,6 @@ public class LocaleUtils {
     private static final ConcurrentMap<String, List<Locale>> cCountriesByLanguage =
         new ConcurrentHashMap<>();
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Obtains an unmodifiable list of installed locales.</p>
      *
@@ -74,7 +72,6 @@ public class LocaleUtils {
         return SyncAvoid.AVAILABLE_LOCALE_LIST;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Obtains an unmodifiable set of installed locales.</p>
      *
@@ -88,7 +85,6 @@ public class LocaleUtils {
         return SyncAvoid.AVAILABLE_LOCALE_SET;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Obtains the list of countries supported for a given language.</p>
      *
@@ -120,7 +116,6 @@ public class LocaleUtils {
         return countries;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Checks if the locale specified is in the list of available locales.</p>
      *
@@ -161,7 +156,6 @@ public class LocaleUtils {
         return StringUtils.isNumeric(str) && str.length() == 3;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Obtains the list of languages supported for a given country.</p>
      *
@@ -192,7 +186,6 @@ public class LocaleUtils {
         return langs;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Obtains the list of locales to search through when performing
      * a locale search.</p>
@@ -209,7 +202,6 @@ public class LocaleUtils {
         return localeLookupList(locale, locale);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Obtains the list of locales to search through when performing
      * a locale search.</p>
