@@ -614,7 +614,7 @@
     <commons.encoding>utf-8</commons.encoding>
 
     <checkstyle.plugin.version>3.1.1</checkstyle.plugin.version>
-    <checkstyle.version>8.38</checkstyle.version>
+    <checkstyle.version>8.39</checkstyle.version>
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
 
     <spotbugs.plugin.version>4.1.4</spotbugs.plugin.version>
