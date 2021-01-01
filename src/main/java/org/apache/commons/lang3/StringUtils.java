@@ -1324,7 +1324,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from containsNone(String, String) to containsNone(CharSequence, String)
      */
     public static boolean containsNone(final CharSequence cs, final String invalidChars) {
-        if (cs == null || invalidChars == null) {
+        if (invalidChars == null) {
             return true;
         }
         return containsNone(cs, invalidChars.toCharArray());
@@ -4857,7 +4857,7 @@ public class StringUtils {
 
         final Iterator<Object> iterator = Arrays.asList(objects).iterator();
         while (iterator.hasNext()) {
-            final String value = Objects.toString(iterator.next(), "");
+            final String value = Objects.toString(iterator.next(), EMPTY);
             result.append(value);
 
             if (iterator.hasNext()) {
@@ -4892,7 +4892,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from lastIndexOf(String, String) to lastIndexOf(CharSequence, CharSequence)
      */
     public static int lastIndexOf(final CharSequence seq, final CharSequence searchSeq) {
-        if (seq == null || searchSeq == null) {
+        if (seq == null) {
             return INDEX_NOT_FOUND;
         }
         return CharSequenceUtils.lastIndexOf(seq, searchSeq, seq.length());
@@ -4934,9 +4934,6 @@ public class StringUtils {
      * @since 3.0 Changed signature from lastIndexOf(String, String, int) to lastIndexOf(CharSequence, CharSequence, int)
      */
     public static int lastIndexOf(final CharSequence seq, final CharSequence searchSeq, final int startPos) {
-        if (seq == null || searchSeq == null) {
-            return INDEX_NOT_FOUND;
-        }
         return CharSequenceUtils.lastIndexOf(seq, searchSeq, startPos);
     }
 
@@ -6103,9 +6100,6 @@ public class StringUtils {
      * @since 3.5
      */
     public static String removeIgnoreCase(final String str, final String remove) {
-        if (isEmpty(str) || isEmpty(remove)) {
-            return str;
-        }
         return replaceIgnoreCase(str, remove, EMPTY, -1);
     }
 
@@ -6206,11 +6200,8 @@ public class StringUtils {
      * @since 2.4
      */
     public static String removeStartIgnoreCase(final String str, final String remove) {
-        if (isEmpty(str) || isEmpty(remove)) {
-            return str;
-        }
-        if (startsWithIgnoreCase(str, remove)) {
-            return str.substring(remove.length());
+        if (str != null && startsWithIgnoreCase(str, remove)) {
+            return str.substring(length(remove));
         }
         return str;
     }
@@ -7740,7 +7731,6 @@ public class StringUtils {
         return substrings.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
     }
 
-    // -----------------------------------------------------------------------
     /**
      * <p>Splits the provided text into an array, using whitespace as the
      * separator, preserving all tokens, including empty tokens created by
@@ -8070,10 +8060,12 @@ public class StringUtils {
         if (str == null || prefix == null) {
             return str == prefix;
         }
-        if (prefix.length() > str.length()) {
+        // Get length once instead of twice in the unlikely case that it changes.
+        final int preLen = prefix.length();
+        if (preLen > str.length()) {
             return false;
         }
-        return CharSequenceUtils.regionMatches(str, ignoreCase, 0, prefix, 0, prefix.length());
+        return CharSequenceUtils.regionMatches(str, ignoreCase, 0, prefix, 0, preLen);
     }
 
     /**
@@ -8189,9 +8181,6 @@ public class StringUtils {
      * @return the stripped String, {@code null} if null String input
      */
     public static String strip(String str, final String stripChars) {
-        if (isEmpty(str)) {
-            return str;
-        }
         str = stripStart(str, stripChars);
         return stripEnd(str, stripChars);
     }
@@ -8961,19 +8950,19 @@ public class StringUtils {
      * StringUtils.toCodePoints("")     =  []  // empty array
      * </pre>
      *
-     * @param str the character sequence to convert
+     * @param cs the character sequence to convert
      * @return an array of code points
      * @since 3.6
      */
-    public static int[] toCodePoints(final CharSequence str) {
-        if (str == null) {
+    public static int[] toCodePoints(final CharSequence cs) {
+        if (cs == null) {
             return null;
         }
-        if (str.length() == 0) {
+        if (cs.length() == 0) {
             return ArrayUtils.EMPTY_INT_ARRAY;
         }
 
-        final String s = str.toString();
+        final String s = cs.toString();
         final int[] result = new int[s.codePointCount(0, s.length())];
         int index = 0;
         for (int i = 0; i < result.length; i++) {
@@ -9039,7 +9028,7 @@ public class StringUtils {
      */
     @Deprecated
     public static String toString(final byte[] bytes, final String charsetName) throws UnsupportedEncodingException {
-        return charsetName != null ? new String(bytes, charsetName) : new String(bytes, Charset.defaultCharset());
+        return new String(bytes, Charsets.toCharset(charsetName));
     }
 
     /**

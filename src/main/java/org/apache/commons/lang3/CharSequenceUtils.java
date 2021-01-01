@@ -223,11 +223,14 @@ public class CharSequenceUtils {
      * Used by the lastIndexOf(CharSequence methods) as a green implementation of lastIndexOf
      *
      * @param cs the {@code CharSequence} to be processed
-     * @param searchChar the {@code CharSequence} to be searched for
+     * @param searchChar the {@code CharSequence} to find
      * @param start the start index
      * @return the index where the search sequence was found
      */
     static int lastIndexOf(final CharSequence cs, final CharSequence searchChar, int start) {
+        if (searchChar == null || cs == null) {
+            return NOT_FOUND;
+        }
         if (searchChar instanceof String) {
             if (cs instanceof String) {
                 return ((String) cs).lastIndexOf((String) searchChar, start);
