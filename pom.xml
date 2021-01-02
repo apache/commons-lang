@@ -629,9 +629,6 @@
     <commons.jacoco.version>0.8.6</commons.jacoco.version>
     <commons.surefire.version>3.0.0-M5</commons.surefire.version>
     <commons.javadoc.version>3.2.0</commons.javadoc.version>
-
-    <!-- never generate report if there are binary incompatible changes -->
-    <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>true</commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
     <commons.japicmp.version>0.15.1</commons.japicmp.version>
 
     <!-- Commons Release Plugin -->
