@@ -149,7 +149,7 @@ public class Processor {
      * @return {@code true}, if {@link Processor} is {@link Arch#BIT_32}, else {@code false}.
      */
     public boolean is32Bit() {
-        return Arch.BIT_32.equals(arch);
+        return Arch.BIT_32 == arch;
     }
 
     /**
@@ -158,7 +158,7 @@ public class Processor {
      * @return {@code true}, if {@link Processor} is {@link Arch#BIT_64}, else {@code false}.
      */
     public boolean is64Bit() {
-        return Arch.BIT_64.equals(arch);
+        return Arch.BIT_64 == arch;
     }
 
     /**
@@ -167,7 +167,7 @@ public class Processor {
      * @return {@code true}, if {@link Processor} is {@link Type#X86}, else {@code false}.
      */
     public boolean isX86() {
-        return Type.X86.equals(type);
+        return Type.X86 == type;
     }
 
     /**
@@ -176,7 +176,7 @@ public class Processor {
      * @return {@code true}. if {@link Processor} is {@link Type#IA_64}, else {@code false}.
      */
     public boolean isIA64() {
-        return Type.IA_64.equals(type);
+        return Type.IA_64 == type;
     }
 
     /**
@@ -185,7 +185,7 @@ public class Processor {
      * @return {@code true}. if {@link Processor} is {@link Type#PPC}, else {@code false}.
      */
     public boolean isPPC() {
-        return Type.PPC.equals(type);
+        return Type.PPC == type;
     }
 
 }
