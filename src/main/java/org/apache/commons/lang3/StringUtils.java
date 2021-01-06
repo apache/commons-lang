@@ -27,8 +27,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
+import java.util.stream.IntStream;
 
 import org.apache.commons.lang3.function.ToBooleanBiFunction;
 
@@ -1149,6 +1151,35 @@ public class StringUtils {
 
     /**
      * <p>
+     * Checks if the CharSequence contains any of the CharSequences in the given array.
+     * </p>
+     *
+     * <p>
+     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
+     * return {@code false}.
+     * </p>
+     *
+     * @param cs The CharSequence to check, may be null
+     * @param searchCharSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
+     *        null as well.
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
+     * @since 3.12
+     */
+    private static boolean containsAny(final ToBooleanBiFunction<CharSequence, CharSequence> test,
+        final CharSequence cs, final CharSequence... searchCharSequences) {
+        if (isEmpty(cs) || ArrayUtils.isEmpty(searchCharSequences)) {
+            return false;
+        }
+        for (final CharSequence searchCharSequence : searchCharSequences) {
+            if (test.applyAsBoolean(cs, searchCharSequence)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * <p>
      * Checks if the CharSequence contains any of the CharSequences in the given array, ignoring case.
      * </p>
      *
@@ -1178,35 +1209,6 @@ public class StringUtils {
      */
     public static boolean containsAnyIgnoreCase(final CharSequence cs, final CharSequence... searchCharSequences) {
         return containsAny(StringUtils::containsIgnoreCase, cs, searchCharSequences);
-    }
-
-    /**
-     * <p>
-     * Checks if the CharSequence contains any of the CharSequences in the given array.
-     * </p>
-     *
-     * <p>
-     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
-     * return {@code false}.
-     * </p>
-     *
-     * @param cs The CharSequence to check, may be null
-     * @param searchCharSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
-     *        null as well.
-     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
-     * @since 3.12
-     */
-    private static boolean containsAny(final ToBooleanBiFunction<CharSequence, CharSequence> test,
-        final CharSequence cs, final CharSequence... searchCharSequences) {
-        if (isEmpty(cs) || ArrayUtils.isEmpty(searchCharSequences)) {
-            return false;
-        }
-        for (final CharSequence searchCharSequence : searchCharSequences) {
-            if (test.applyAsBoolean(cs, searchCharSequence)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -3877,16 +3879,16 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @return the joined String, {@code null} if null array input
      * @since 3.12
      */
-    public static String join(final boolean[] array, final char separator) {
+    public static String join(final boolean[] array, final char delimiter) {
         if (array == null) {
             return null;
         }
-        return join(array, separator, 0, array.length);
+        return join(array, delimiter, 0, array.length);
     }
 
     /**
@@ -3908,7 +3910,7 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
@@ -3919,21 +3921,18 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      * @since 3.12
      */
-    public static String join(final boolean[] array, final char separator, final int startIndex, final int endIndex) {
+    public static String join(final boolean[] array, final char delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = newStringBuilder(noOfItems);
-        buf.append(array[startIndex]);
-        for (int i = startIndex + 1; i < endIndex; i++) {
-            buf.append(separator);
-            buf.append(array[i]);
+        final StringJoiner joiner = newStringJoiner(delimiter);
+        for (int i = startIndex; i < endIndex; i++) {
+            joiner.add(String.valueOf(array[i]));
         }
-        return buf.toString();
+        return joiner.toString();
     }
 
     /**
@@ -3956,16 +3955,16 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final byte[] array, final char separator) {
+    public static String join(final byte[] array, final char delimiter) {
         if (array == null) {
             return null;
         }
-        return join(array, separator, 0, array.length);
+        return join(array, delimiter, 0, array.length);
     }
 
     /**
@@ -3988,7 +3987,7 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
@@ -3999,21 +3998,18 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final byte[] array, final char separator, final int startIndex, final int endIndex) {
+    public static String join(final byte[] array, final char delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = newStringBuilder(noOfItems);
-        buf.append(array[startIndex]);
-        for (int i = startIndex + 1; i < endIndex; i++) {
-            buf.append(separator);
-            buf.append(array[i]);
+        final StringJoiner joiner = newStringJoiner(delimiter);
+        for (int i = startIndex; i < endIndex; i++) {
+            joiner.add(String.valueOf(array[i]));
         }
-        return buf.toString();
+        return joiner.toString();
     }
 
     /**
@@ -4036,16 +4032,16 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final char[] array, final char separator) {
+    public static String join(final char[] array, final char delimiter) {
         if (array == null) {
             return null;
         }
-        return join(array, separator, 0, array.length);
+        return join(array, delimiter, 0, array.length);
     }
 
     /**
@@ -4068,7 +4064,7 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
@@ -4079,21 +4075,18 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final char[] array, final char separator, final int startIndex, final int endIndex) {
+    public static String join(final char[] array, final char delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = newStringBuilder(noOfItems);
-        buf.append(array[startIndex]);
-        for (int i = startIndex + 1; i < endIndex; i++) {
-            buf.append(separator);
-            buf.append(array[i]);
+        final StringJoiner joiner = newStringJoiner(delimiter);
+        for (int i = startIndex; i < endIndex; i++) {
+            joiner.add(String.valueOf(array[i]));
         }
-        return buf.toString();
+        return joiner.toString();
     }
 
     /**
@@ -4116,16 +4109,16 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final double[] array, final char separator) {
+    public static String join(final double[] array, final char delimiter) {
         if (array == null) {
             return null;
         }
-        return join(array, separator, 0, array.length);
+        return join(array, delimiter, 0, array.length);
     }
 
     /**
@@ -4148,7 +4141,7 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
@@ -4159,21 +4152,18 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final double[] array, final char separator, final int startIndex, final int endIndex) {
+    public static String join(final double[] array, final char delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = newStringBuilder(noOfItems);
-        buf.append(array[startIndex]);
-        for (int i = startIndex + 1; i < endIndex; i++) {
-            buf.append(separator);
-            buf.append(array[i]);
+        final StringJoiner joiner = newStringJoiner(delimiter);
+        for (int i = startIndex; i < endIndex; i++) {
+            joiner.add(String.valueOf(array[i]));
         }
-        return buf.toString();
+        return joiner.toString();
     }
 
     /**
@@ -4196,16 +4186,16 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final float[] array, final char separator) {
+    public static String join(final float[] array, final char delimiter) {
         if (array == null) {
             return null;
         }
-        return join(array, separator, 0, array.length);
+        return join(array, delimiter, 0, array.length);
     }
 
     /**
@@ -4228,7 +4218,7 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
@@ -4239,21 +4229,18 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final float[] array, final char separator, final int startIndex, final int endIndex) {
+    public static String join(final float[] array, final char delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = newStringBuilder(noOfItems);
-        buf.append(array[startIndex]);
-        for (int i = startIndex + 1; i < endIndex; i++) {
-            buf.append(separator);
-            buf.append(array[i]);
+        final StringJoiner joiner = newStringJoiner(delimiter);
+        for (int i = startIndex; i < endIndex; i++) {
+            joiner.add(String.valueOf(array[i]));
         }
-        return buf.toString();
+        return joiner.toString();
     }
 
     /**
@@ -4308,7 +4295,7 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
@@ -4319,21 +4306,18 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final int[] array, final char separator, final int startIndex, final int endIndex) {
+    public static String join(final int[] array, final char delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = newStringBuilder(noOfItems);
-        buf.append(array[startIndex]);
-        for (int i = startIndex + 1; i < endIndex; i++) {
-            buf.append(separator);
-            buf.append(array[i]);
+        final StringJoiner joiner = newStringJoiner(delimiter);
+        for (int i = startIndex; i < endIndex; i++) {
+            joiner.add(String.valueOf(array[i]));
         }
-        return buf.toString();
+        return joiner.toString();
     }
 
     /**
@@ -4403,7 +4387,7 @@ public class StringUtils {
         }
         final Object first = iterator.next();
         if (!iterator.hasNext()) {
-            return Objects.toString(first, EMPTY);
+            return toStringOrEmpty(first);
         }
 
         // two or more elements
@@ -4597,7 +4581,7 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
@@ -4608,21 +4592,18 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final long[] array, final char separator, final int startIndex, final int endIndex) {
+    public static String join(final long[] array, final char delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = newStringBuilder(noOfItems);
-        buf.append(array[startIndex]);
-        for (int i = startIndex + 1; i < endIndex; i++) {
-            buf.append(separator);
-            buf.append(array[i]);
+        final StringJoiner joiner = newStringJoiner(delimiter);
+        for (int i = startIndex; i < endIndex; i++) {
+            joiner.add(String.valueOf(array[i]));
         }
-        return buf.toString();
+        return joiner.toString();
     }
 
     /**
@@ -4643,15 +4624,15 @@ public class StringUtils {
      * </pre>
      *
      * @param array  the array of values to join together, may be null
-     * @param separator  the separator character to use
+     * @param delimiter  the separator character to use
      * @return the joined String, {@code null} if null array input
      * @since 2.0
      */
-    public static String join(final Object[] array, final char separator) {
+    public static String join(final Object[] array, final char delimiter) {
         if (array == null) {
             return null;
         }
-        return join(array, separator, 0, array.length);
+        return join(array, delimiter, 0, array.length);
     }
 
     /**
@@ -4672,7 +4653,7 @@ public class StringUtils {
      * </pre>
      *
      * @param array  the array of values to join together, may be null
-     * @param separator  the separator character to use
+     * @param delimiter  the separator character to use
      * @param startIndex the first index to start joining from.  It is
      * an error to pass in a start index past the end of the array
      * @param endIndex the index to stop joining from (exclusive). It is
@@ -4680,25 +4661,18 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      * @since 2.0
      */
-    public static String join(final Object[] array, final char separator, final int startIndex, final int endIndex) {
+    public static String join(final Object[] array, final char delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = newStringBuilder(noOfItems);
-        if (array[startIndex] != null) {
-            buf.append(array[startIndex]);
+        final StringJoiner joiner = newStringJoiner(delimiter);
+        for (int i = startIndex; i < endIndex; i++) {
+            joiner.add(toStringOrEmpty(array[i]));
         }
-        for (int i = startIndex + 1; i < endIndex; i++) {
-            buf.append(separator);
-            if (array[i] != null) {
-                buf.append(array[i]);
-            }
-        }
-        return buf.toString();
+        return joiner.toString();
     }
 
     /**
@@ -4721,14 +4695,14 @@ public class StringUtils {
      * </pre>
      *
      * @param array  the array of values to join together, may be null
-     * @param separator  the separator character to use, null treated as ""
+     * @param delimiter  the separator character to use, null treated as ""
      * @return the joined String, {@code null} if null array input
      */
-    public static String join(final Object[] array, final String separator) {
+    public static String join(final Object[] array, final String delimiter) {
         if (array == null) {
             return null;
         }
-        return join(array, separator, 0, array.length);
+        return join(array, delimiter, 0, array.length);
     }
 
     /**
@@ -4754,7 +4728,7 @@ public class StringUtils {
      * </pre>
      *
      * @param array  the array of values to join together, may be null
-     * @param separator  the separator character to use, null treated as ""
+     * @param delimiter  the separator character to use, null treated as ""
      * @param startIndex the first index to start joining from.
      * @param endIndex the index to stop joining from (exclusive).
      * @return the joined String, {@code null} if null array input; or the empty string
@@ -4766,35 +4740,18 @@ public class StringUtils {
      * {@code endIndex < 0} or <br>
      * {@code endIndex > array.length()}
      */
-    public static String join(final Object[] array, String separator, final int startIndex, final int endIndex) {
+    public static String join(final Object[] array, String delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
-        if (separator == null) {
-            separator = EMPTY;
-        }
-
-        // endIndex - startIndex > 0:   Len = NofStrings *(len(firstString) + len(separator))
-        //           (Assuming that all Strings are roughly equally long)
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-
-        final StringBuilder buf = newStringBuilder(noOfItems);
-
-        if (array[startIndex] != null) {
-            buf.append(array[startIndex]);
+        final StringJoiner joiner = new StringJoiner(toStringOrEmpty(delimiter));
+        for (int i = startIndex; i < endIndex; i++) {
+            joiner.add(toStringOrEmpty(array[i]));
         }
-
-        for (int i = startIndex + 1; i < endIndex; i++) {
-            buf.append(separator);
-
-            if (array[i] != null) {
-                buf.append(array[i]);
-            }
-        }
-        return buf.toString();
+        return joiner.toString();
     }
 
     /**
@@ -4817,16 +4774,16 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final short[] array, final char separator) {
+    public static String join(final short[] array, final char delimiter) {
         if (array == null) {
             return null;
         }
-        return join(array, separator, 0, array.length);
+        return join(array, delimiter, 0, array.length);
     }
 
     /**
@@ -4849,7 +4806,7 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
@@ -4860,21 +4817,18 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final short[] array, final char separator, final int startIndex, final int endIndex) {
+    public static String join(final short[] array, final char delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = newStringBuilder(noOfItems);
-        buf.append(array[startIndex]);
-        for (int i = startIndex + 1; i < endIndex; i++) {
-            buf.append(separator);
-            buf.append(array[i]);
+        final StringJoiner joiner = newStringJoiner(delimiter);
+        for (int i = startIndex; i < endIndex; i++) {
+            joiner.add(String.valueOf(array[i]));
         }
-        return buf.toString();
+        return joiner.toString();
     }
 
     /**
@@ -4918,32 +4872,17 @@ public class StringUtils {
      * StringUtils.joinWith(null, {"a", "b"})       = "ab"
      * </pre>
      *
-     * @param separator the separator character to use, null treated as ""
-     * @param objects the varargs providing the values to join together. {@code null} elements are treated as ""
+     * @param delimiter the separator character to use, null treated as ""
+     * @param array the varargs providing the values to join together. {@code null} elements are treated as ""
      * @return the joined String.
      * @throws java.lang.IllegalArgumentException if a null varargs is provided
      * @since 3.5
      */
-    public static String joinWith(final String separator, final Object... objects) {
-        if (objects == null) {
+    public static String joinWith(final String delimiter, final Object... array) {
+        if (array == null) {
             throw new IllegalArgumentException("Object varargs must not be null");
         }
-
-        final String sanitizedSeparator = defaultString(separator);
-
-        final StringBuilder result = new StringBuilder();
-
-        final Iterator<Object> iterator = Arrays.asList(objects).iterator();
-        while (iterator.hasNext()) {
-            final String value = Objects.toString(iterator.next(), EMPTY);
-            result.append(value);
-
-            if (iterator.hasNext()) {
-                result.append(sanitizedSeparator);
-            }
-        }
-
-        return result.toString();
+        return join(array, delimiter);
     }
 
     /**
@@ -5582,8 +5521,8 @@ public class StringUtils {
         return str.substring(pos, pos + len);
     }
 
-    private static StringBuilder newStringBuilder(final int noOfItems) {
-        return new StringBuilder(noOfItems * 16);
+    private static StringJoiner newStringJoiner(final char delimiter) {
+        return new StringJoiner(String.valueOf(delimiter));
     }
 
     /**
@@ -9107,6 +9046,10 @@ public class StringUtils {
     @Deprecated
     public static String toString(final byte[] bytes, final String charsetName) throws UnsupportedEncodingException {
         return new String(bytes, Charsets.toCharset(charsetName));
+    }
+
+    private static String toStringOrEmpty(final Object obj) {
+        return Objects.toString(obj, EMPTY);
     }
 
     /**
