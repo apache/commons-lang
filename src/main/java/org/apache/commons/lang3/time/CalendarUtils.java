@@ -40,7 +40,6 @@ public class CalendarUtils {
      * @param calendar A Calendar.
      */
     public CalendarUtils(final Calendar calendar) {
-        super();
         this.calendar = Objects.requireNonNull(calendar, "calendar");
     }
 

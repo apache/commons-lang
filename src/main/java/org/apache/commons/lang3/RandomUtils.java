@@ -52,7 +52,6 @@ public class RandomUtils {
      * </p>
      */
     public RandomUtils() {
-        super();
     }
 
     /**
@@ -167,7 +166,7 @@ public class RandomUtils {
      * @return a random {@code long} value between 0 (inclusive) and {@code n}
      * (exclusive).
      */
-    private static long nextLong(long n) {
+    private static long nextLong(final long n) {
         // Extracted from o.a.c.rng.core.BaseProvider.nextLong(long)
         long bits;
         long val;

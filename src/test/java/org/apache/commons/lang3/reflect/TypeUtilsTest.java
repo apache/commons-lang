@@ -39,6 +39,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.TreeSet;
 
 import org.apache.commons.lang3.reflect.testbed.Foo;
@@ -99,6 +100,27 @@ class AClass extends AAClass<String>.BBClass<Number> {
     AClass(final AAClass<String> enclosingInstance) {
         enclosingInstance.super();
     }
+}
+@SuppressWarnings("rawtypes")
+abstract class Test1<G> {
+    public abstract Object m0();
+    public abstract String[] m1();
+    public abstract <E> E[] m2();
+    public abstract <E> List<? extends E> m3();
+    public abstract <E extends Enum<E>> List<? extends Enum<E>> m4();
+    public abstract List<? extends Enum<?>> m5();
+    public abstract List<? super Enum<?>> m6();
+    public abstract List<?> m7();
+    public abstract Map<? extends Enum<?>, ? super Enum<?>> m8();
+    public abstract <K, V> Map<? extends K, ? super V[]> m9();
+    public abstract <K, V> Map<? extends K, V[]> m10();
+    public abstract <K, V> Map<? extends K, List<V[]>> m11();
+    public abstract List m12();
+    public abstract Map m13();
+    public abstract Properties m14();
+    public abstract G m15();
+    public abstract List<G> m16();
+    public abstract Enum m17();
 }
 
 /**
@@ -208,6 +230,28 @@ public class TypeUtilsTest<B> {
             final List<? super String> list6, final List[] list7, final List<Object>[] list8, final List<?>[] list9,
             final List<? super Object>[] list10, final List<String>[] list11, final List<? extends String>[] list12,
             final List<? super String>[] list13) {
+    }
+
+    @Test
+    public void testContainsTypeVariables() throws Exception {
+        assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m0").getGenericReturnType()));
+        assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m1").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m2").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m3").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m4").getGenericReturnType()));
+        assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m5").getGenericReturnType()));
+        assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m6").getGenericReturnType()));
+        assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m7").getGenericReturnType()));
+        assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m8").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m9").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m10").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m11").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m12").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m13").getGenericReturnType()));
+        assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m14").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m15").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m16").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m17").getGenericReturnType()));
     }
 
     @Test
@@ -739,18 +783,18 @@ public class TypeUtilsTest<B> {
         assertTrue(TypeUtils.isAssignable(fClassType, eClassType));
     }
 
-    private void testIsAssignable(Class testUnassignableClass) {
+    private void testIsAssignable(final Class testUnassignableClass) {
         final Class<Constructor> rawClass = Constructor.class;
         final Class<Insets> typeArgClass = Insets.class;
         // Builds a ParameterizedType for Constructor<Insets>
-        ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
+        final ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
         assertEquals(rawClass, paramType.getRawType());
         assertEquals(typeArgClass, paramType.getActualTypeArguments()[0]);
 
         assertFalse(testUnassignableClass.isAssignableFrom(paramType.getClass()));
         assertFalse(paramType.getClass().isAssignableFrom(testUnassignableClass));
 
-        GenericArrayType arrayType = TypeUtils.genericArrayType(paramType);
+        final GenericArrayType arrayType = TypeUtils.genericArrayType(paramType);
         assertFalse(TypeUtils.isAssignable(arrayType, paramType),
                 () -> String.format("TypeUtils.isAssignable(%s, %s)", arrayType, paramType));
         assertFalse(TypeUtils.isAssignable(paramType, arrayType),
@@ -762,14 +806,14 @@ public class TypeUtilsTest<B> {
         final Class<Constructor> rawClass = Constructor.class;
         final Class<Insets> typeArgClass = Insets.class;
         // Builds a ParameterizedType for Constructor<Insets>
-        ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
+        final ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
         assertEquals(rawClass, paramType.getRawType());
         assertEquals(typeArgClass, paramType.getActualTypeArguments()[0]);
 
         assertFalse(GenericArrayType.class.isAssignableFrom(paramType.getClass()));
         assertFalse(paramType.getClass().isAssignableFrom(GenericArrayType.class));
 
-        GenericArrayType testType = TypeUtils.genericArrayType(paramType);
+        final GenericArrayType testType = TypeUtils.genericArrayType(paramType);
         assertFalse(TypeUtils.isAssignable(paramType, testType),
                 () -> String.format("TypeUtils.isAssignable(%s, %s)", paramType, testType));
         assertFalse(TypeUtils.isAssignable(testType, paramType),
@@ -782,14 +826,14 @@ public class TypeUtilsTest<B> {
         final Class<Constructor> rawClass = Constructor.class;
         final Class<Insets> typeArgClass = Insets.class;
         // Builds a ParameterizedType for Constructor<Insets>
-        ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
+        final ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
         assertEquals(rawClass, paramType.getRawType());
         assertEquals(typeArgClass, paramType.getActualTypeArguments()[0]);
 
         assertFalse(WildcardType.class.isAssignableFrom(paramType.getClass()));
         assertFalse(paramType.getClass().isAssignableFrom(WildcardType.class));
 
-        WildcardType testType = TypeUtils.WILDCARD_ALL;
+        final WildcardType testType = TypeUtils.WILDCARD_ALL;
         // TODO This test returns true unlike the test above.
         // Is this a bug in this test or in the main code?
         assertFalse(TypeUtils.isAssignable(paramType, testType),
@@ -803,14 +847,14 @@ public class TypeUtilsTest<B> {
         final Class<Constructor> rawClass = Constructor.class;
         final Class<Insets> typeArgClass = Insets.class;
         // Builds a ParameterizedType for Constructor<Insets>
-        ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
+        final ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
         assertEquals(rawClass, paramType.getRawType());
         assertEquals(typeArgClass, paramType.getActualTypeArguments()[0]);
 
         assertTrue(Object.class.isAssignableFrom(paramType.getClass()));
         assertFalse(paramType.getClass().isAssignableFrom(Object.class));
 
-        Type testType = Object.class;
+        final Type testType = Object.class;
         assertTrue(TypeUtils.isAssignable(paramType, testType),
                 () -> String.format("TypeUtils.isAssignable(%s, %s)", paramType, testType));
         assertFalse(TypeUtils.isAssignable(testType, paramType),

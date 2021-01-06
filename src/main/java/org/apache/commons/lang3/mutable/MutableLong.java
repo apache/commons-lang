@@ -42,7 +42,6 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * Constructs a new MutableLong with the default value of zero.
      */
     public MutableLong() {
-        super();
     }
 
     /**
@@ -51,7 +50,6 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @param value  the initial value to store
      */
     public MutableLong(final long value) {
-        super();
         this.value = value;
     }
 
@@ -62,7 +60,6 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @throws NullPointerException if the object is null
      */
     public MutableLong(final Number value) {
-        super();
         this.value = value.longValue();
     }
 
@@ -74,7 +71,6 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @since 2.5
      */
     public MutableLong(final String value) {
-        super();
         this.value = Long.parseLong(value);
     }
 

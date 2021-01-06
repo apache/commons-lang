@@ -26,6 +26,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
+import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
 
@@ -38,8 +39,8 @@ import org.apache.commons.lang3.Validate;
  * and the formats supported by {@code java.text.MessageFormat} can be overridden
  * at the format and/or format style level (see MessageFormat).  A "format element"
  * embedded in the message pattern is specified (<b>()?</b> signifies optionality):<br>
- * {@code {}<i>argument-number</i><b>(</b>{@code ,}<i>format-name</i><b>
- * (</b>{@code ,}<i>format-style</i><b>)?)?</b>{@code }}
+ * <code>{</code><i>argument-number</i><b>(</b>{@code ,}<i>format-name</i><b>
+ * (</b>{@code ,}<i>format-style</i><b>)?)?</b><code>}</code>
  *
  * <p>
  * <i>format-name</i> and <i>format-style</i> values are trimmed of surrounding whitespace
@@ -118,14 +119,14 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Create a new ExtendedMessageFormat.
      *
-     * @param pattern  the pattern to use, not null
-     * @param locale  the locale to use, not null
-     * @param registry  the registry of format factories, may be null
+     * @param pattern  the pattern to use, not null.
+     * @param locale  the locale to use.
+     * @param registry  the registry of format factories, may be null.
      * @throws IllegalArgumentException in case of a bad pattern.
      */
     public ExtendedMessageFormat(final String pattern, final Locale locale, final Map<String, ? extends FormatFactory> registry) {
         super(DUMMY_PATTERN);
-        setLocale(locale);
+        setLocale(LocaleUtils.toLocale(locale));
         this.registry = registry;
         applyPattern(pattern);
     }

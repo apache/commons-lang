@@ -428,7 +428,6 @@ public class StringEscapeUtils {
      * instance to operate.</p>
      */
     public StringEscapeUtils() {
-      super();
     }
 
     // Java and JavaScript

@@ -268,8 +268,8 @@ public class CharSequenceUtilsTest {
 
     @ParameterizedTest
     @MethodSource("lastIndexWithStandardCharSequence")
-    public void testLastIndexOfWithDifferentCharSequences(CharSequence cs, CharSequence search, int start,
-                                                          int expected) {
+    public void testLastIndexOfWithDifferentCharSequences(final CharSequence cs, final CharSequence search, final int start,
+                                                          final int expected) {
         assertEquals(expected, CharSequenceUtils.lastIndexOf(cs, search, start));
     }
 

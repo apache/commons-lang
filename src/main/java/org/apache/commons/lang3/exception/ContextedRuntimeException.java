@@ -97,7 +97,6 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
      * The context information is stored using a default implementation.
      */
     public ContextedRuntimeException() {
-        super();
         exceptionContext = new DefaultExceptionContext();
     }
 

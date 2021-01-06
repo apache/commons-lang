@@ -79,7 +79,6 @@ public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
      * Constructor.
      */
     public MultilineRecursiveToStringStyle() {
-        super();
         resetIndent();
     }
 

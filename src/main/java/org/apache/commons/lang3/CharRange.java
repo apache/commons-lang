@@ -49,6 +49,9 @@ final class CharRange implements Iterable<Character>, Serializable {
     /** Cached toString. */
     private transient String iToString;
 
+    /** Empty array. */
+    static final CharRange[] EMPTY_ARRAY = new CharRange[0];
+
     /**
      * <p>Constructs a {@code CharRange} over a set of characters,
      * optionally negating the range.</p>
@@ -64,7 +67,6 @@ final class CharRange implements Iterable<Character>, Serializable {
      * @param negated  true to express everything except the range
      */
     private CharRange(char start, char end, final boolean negated) {
-        super();
         if (start > end) {
             final char temp = start;
             start = end;

@@ -372,6 +372,9 @@ public class TypeUtils {
             return containsTypeVariables(getImplicitLowerBounds(wild)[0])
                 || containsTypeVariables(getImplicitUpperBounds(wild)[0]);
         }
+        if (type instanceof GenericArrayType) {
+            return containsTypeVariables(((GenericArrayType) type).getGenericComponentType());
+        }
         return false;
     }
 
@@ -1926,7 +1929,6 @@ public class TypeUtils {
      * </p>
      */
     public TypeUtils() {
-        super();
     }
 
 }

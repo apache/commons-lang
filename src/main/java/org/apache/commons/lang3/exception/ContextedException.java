@@ -97,7 +97,6 @@ public class ContextedException extends Exception implements ExceptionContext {
      * The context information is stored using a default implementation.
      */
     public ContextedException() {
-        super();
         exceptionContext = new DefaultExceptionContext();
     }
 

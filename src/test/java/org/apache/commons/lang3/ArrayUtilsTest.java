@@ -278,7 +278,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testContainsDoubleNaN() {
-        double[] a = new double[] { Double.NEGATIVE_INFINITY, Double.NaN, Double.POSITIVE_INFINITY };
+        final double[] a = new double[] { Double.NEGATIVE_INFINITY, Double.NaN, Double.POSITIVE_INFINITY };
         assertTrue(ArrayUtils.contains(a, Double.POSITIVE_INFINITY));
         assertTrue(ArrayUtils.contains(a, Double.NEGATIVE_INFINITY));
         assertTrue(ArrayUtils.contains(a, Double.NaN));
@@ -311,7 +311,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testContainsFloatNaN() {
-        float[] array = new float[] { Float.NEGATIVE_INFINITY, Float.NaN, Float.POSITIVE_INFINITY };
+        final float[] array = new float[] { Float.NEGATIVE_INFINITY, Float.NaN, Float.POSITIVE_INFINITY };
         assertTrue(ArrayUtils.contains(array, Float.POSITIVE_INFINITY));
         assertTrue(ArrayUtils.contains(array, Float.NEGATIVE_INFINITY));
         assertTrue(ArrayUtils.contains(array, Float.NaN));
@@ -1062,7 +1062,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testIndexOfDoubleNaN() {
-        double[] array = new double[] { Double.NEGATIVE_INFINITY, Double.NaN, Double.POSITIVE_INFINITY, Double.NaN };
+        final double[] array = new double[] { Double.NEGATIVE_INFINITY, Double.NaN, Double.POSITIVE_INFINITY, Double.NaN };
         assertEquals(0, ArrayUtils.indexOf(array, Double.NEGATIVE_INFINITY));
         assertEquals(1, ArrayUtils.indexOf(array, Double.NaN));
         assertEquals(2, ArrayUtils.indexOf(array, Double.POSITIVE_INFINITY));
@@ -1134,7 +1134,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testIndexOfFloatNaN() {
-        float[] array = new float[] { Float.NEGATIVE_INFINITY, Float.NaN, Float.POSITIVE_INFINITY, Float.NaN };
+        final float[] array = new float[] { Float.NEGATIVE_INFINITY, Float.NaN, Float.POSITIVE_INFINITY, Float.NaN };
         assertEquals(0, ArrayUtils.indexOf(array, Float.NEGATIVE_INFINITY));
         assertEquals(1, ArrayUtils.indexOf(array, Float.NaN));
         assertEquals(2, ArrayUtils.indexOf(array, Float.POSITIVE_INFINITY));
@@ -1294,7 +1294,7 @@ public class ArrayUtilsTest {
     @Test
     public void testIsEmptyObject() {
         final Object[] emptyArray = new Object[]{};
-        final Object[] notEmptyArray = new Object[]{new String("Value")};
+        final Object[] notEmptyArray = new Object[]{"Value"};
         assertTrue(ArrayUtils.isEmpty((Object[]) null));
         assertTrue(ArrayUtils.isEmpty(emptyArray));
         assertFalse(ArrayUtils.isEmpty(notEmptyArray));
@@ -1418,7 +1418,7 @@ public class ArrayUtilsTest {
     @Test
     public void testIsNotEmptyObject() {
         final Object[] emptyArray = new Object[]{};
-        final Object[] notEmptyArray = new Object[]{new String("Value")};
+        final Object[] notEmptyArray = new Object[]{"Value"};
         assertFalse(ArrayUtils.isNotEmpty((Object[]) null));
         assertFalse(ArrayUtils.isNotEmpty(emptyArray));
         assertTrue(ArrayUtils.isNotEmpty(notEmptyArray));
@@ -5127,20 +5127,6 @@ public class ArrayUtilsTest {
         for (final short element : array2) {
             assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
         }
-    }
-
-    public void testSort() {
-        final String[] array1 = ArrayUtils.toArray("foo", "bar");
-        final String[] array2 = array1.clone();
-        Arrays.sort(array1);
-        assertEquals(array1, ArrayUtils.sort(array2));
-    }
-
-    public void testSortComparable() {
-        final String[] array1 = ArrayUtils.toArray("foo", "bar");
-        final String[] array2 = array1.clone();
-        Arrays.sort(array1);
-        assertEquals(array1, ArrayUtils.sort(array2, String::compareTo));
     }
 
     @Test

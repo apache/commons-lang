@@ -62,7 +62,6 @@ public class ExceptionUtilsTest {
         }
 
         ExceptionWithCause(final Throwable cause) {
-            super();
             setCause(cause);
         }
 
@@ -95,7 +94,6 @@ public class ExceptionUtilsTest {
 
         @SuppressWarnings("unused")
         NestableException() {
-            super();
         }
 
         NestableException(final Throwable t) {

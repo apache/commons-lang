@@ -536,7 +536,7 @@
     <dependency>
       <groupId>org.junit-pioneer</groupId>
       <artifactId>junit-pioneer</artifactId>
-      <version>1.0.0</version>
+      <version>1.1.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -614,25 +614,22 @@
     <commons.encoding>utf-8</commons.encoding>
 
     <checkstyle.plugin.version>3.1.1</checkstyle.plugin.version>
-    <checkstyle.version>8.37</checkstyle.version>
+    <checkstyle.version>8.39</checkstyle.version>
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
 
     <spotbugs.plugin.version>4.1.4</spotbugs.plugin.version>
-    <spotbugs.impl.version>4.1.4</spotbugs.impl.version>
+    <spotbugs.impl.version>4.2.0</spotbugs.impl.version>
     <japicmp.skip>false</japicmp.skip>
     <clirr.skip>true</clirr.skip>
 
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
-    <jmh.version>1.21</jmh.version>
+    <jmh.version>1.27</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
 
     <commons.jacoco.version>0.8.6</commons.jacoco.version>
     <commons.surefire.version>3.0.0-M5</commons.surefire.version>
     <commons.javadoc.version>3.2.0</commons.javadoc.version>
-
-    <!-- never generate report if there are binary incompatible changes -->
-    <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>true</commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
-    <commons.japicmp.version>0.14.3</commons.japicmp.version>
+    <commons.japicmp.version>0.15.1</commons.japicmp.version>
 
     <!-- Commons Release Plugin -->
     <commons.bc.version>3.11</commons.bc.version>
@@ -822,7 +819,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.13.0</version>
+        <version>3.14.0</version>
         <configuration>
           <targetJdk>${maven.compiler.target}</targetJdk>
         </configuration>

@@ -3201,6 +3201,7 @@ public class StringUtilsTest {
         assertEquals("abc", StringUtils.unwrap("abc", null));
         assertEquals("abc", StringUtils.unwrap("abc", ""));
         assertEquals("a", StringUtils.unwrap("a", "a"));
+        assertEquals("ababa", StringUtils.unwrap("ababa", "aba"));
         assertEquals("", StringUtils.unwrap("aa", "a"));
         assertEquals("abc", StringUtils.unwrap("\'abc\'", "\'"));
         assertEquals("abc", StringUtils.unwrap("\"abc\"", "\""));

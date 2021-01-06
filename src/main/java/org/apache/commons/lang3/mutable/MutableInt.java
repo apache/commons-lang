@@ -42,7 +42,6 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * Constructs a new MutableInt with the default value of zero.
      */
     public MutableInt() {
-        super();
     }
 
     /**
@@ -51,7 +50,6 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * @param value  the initial value to store
      */
     public MutableInt(final int value) {
-        super();
         this.value = value;
     }
 
@@ -62,7 +60,6 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * @throws NullPointerException if the object is null
      */
     public MutableInt(final Number value) {
-        super();
         this.value = value.intValue();
     }
 
@@ -74,7 +71,6 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * @since 2.5
      */
     public MutableInt(final String value) {
-        super();
         this.value = Integer.parseInt(value);
     }
 

@@ -57,7 +57,6 @@ public class DurationFormatUtils {
      * to operate.</p>
      */
     public DurationFormatUtils() {
-        super();
     }
 
     /**
@@ -255,7 +254,7 @@ public class DurationFormatUtils {
     /**
      * <p>Formats the time gap as a string, using the specified format.
      * Padding the left hand side of numbers with zeroes is optional and
-     * the timezone may be specified. </p>
+     * the time zone may be specified. </p>
      *
      * <p>When calculating the difference between months/days, it chooses to
      * calculate months first. So when working out the number of months and
@@ -289,7 +288,7 @@ public class DurationFormatUtils {
 
         final Token[] tokens = lexx(format);
 
-        // timezones get funky around 0, so normalizing everything to GMT
+        // time zones get funky around 0, so normalizing everything to GMT
         // stops the hours being off
         final Calendar start = Calendar.getInstance(timezone);
         start.setTime(new Date(startMillis));
@@ -344,7 +343,7 @@ public class DurationFormatUtils {
         } else {
             // there are no M's in the format string
 
-            if ( !Token.containsTokenWithValue(tokens, y) ) {
+            if (!Token.containsTokenWithValue(tokens, y)) {
                 int target = end.get(Calendar.YEAR);
                 if (months < 0) {
                     // target is end-year -1
@@ -369,7 +368,7 @@ public class DurationFormatUtils {
                 years = 0;
             }
 
-            while ( start.get(Calendar.MONTH) != end.get(Calendar.MONTH) ) {
+            while (start.get(Calendar.MONTH) != end.get(Calendar.MONTH)) {
                 days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
                 start.add(Calendar.MONTH, 1);
             }
@@ -480,13 +479,13 @@ public class DurationFormatUtils {
         return padWithZeros ? StringUtils.leftPad(longString, count, '0') : longString;
     }
 
-    static final Object y = "y";
-    static final Object M = "M";
-    static final Object d = "d";
-    static final Object H = "H";
-    static final Object m = "m";
-    static final Object s = "s";
-    static final Object S = "S";
+    static final String y = "y";
+    static final String M = "M";
+    static final String d = "d";
+    static final String H = "H";
+    static final String m = "m";
+    static final String s = "s";
+    static final String S = "S";
 
     /**
      * Parses a classic date format string into Tokens
@@ -508,7 +507,7 @@ public class DurationFormatUtils {
                 buffer.append(ch); // buffer can't be null if inLiteral is true
                 continue;
             }
-            Object value = null;
+            String value = null;
             switch (ch) {
             // TODO: Need to handle escaping of '
             case '\'':
@@ -564,14 +563,16 @@ public class DurationFormatUtils {
         if (inLiteral) { // i.e. we have not found the end of the literal
             throw new IllegalArgumentException("Unmatched quote in format: " + format);
         }
-        return list.toArray(new Token[0]);
+        return list.toArray(Token.EMPTY_ARRAY);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Element that is parsed from the format pattern.
      */
     static class Token {
+
+        /** Empty array. */
+        private static final Token[] EMPTY_ARRAY = new Token[0];
 
         /**
          * Helper method to determine if a set of tokens contain a value

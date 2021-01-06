@@ -122,7 +122,6 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @param denominator  the denominator, for example the seven in 'three sevenths'
      */
     private Fraction(final int numerator, final int denominator) {
-        super();
         this.numerator = numerator;
         this.denominator = denominator;
     }

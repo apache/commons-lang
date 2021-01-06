@@ -34,7 +34,6 @@ public class InheritanceUtils {
      * instance to operate.</p>
      */
     public InheritanceUtils() {
-        super();
     }
 
     /**

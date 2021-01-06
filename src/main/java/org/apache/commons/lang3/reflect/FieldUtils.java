@@ -48,7 +48,6 @@ public class FieldUtils {
      * </p>
      */
     public FieldUtils() {
-        super();
     }
 
     /**

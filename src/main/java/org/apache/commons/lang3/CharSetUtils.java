@@ -244,6 +244,5 @@ public class CharSetUtils {
      * to operate.</p>
      */
     public CharSetUtils() {
-      super();
     }
 }

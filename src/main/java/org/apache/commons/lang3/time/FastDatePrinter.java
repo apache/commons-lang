@@ -31,6 +31,7 @@ import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
@@ -89,6 +90,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     // Note that Integer.toString() is not called, the conversion is simply
     // taking the value and adding (mathematically) the ASCII value for '0'.
     // So, don't change this code! It works and is very fast.
+
+    /** Empty array. */
+    private static final Rule[] EMPTY_RULE_ARRAY = new Rule[0];
 
     /**
      * Required for serialization support.
@@ -150,7 +154,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     protected FastDatePrinter(final String pattern, final TimeZone timeZone, final Locale locale) {
         mPattern = pattern;
         mTimeZone = timeZone;
-        mLocale = locale;
+        mLocale = LocaleUtils.toLocale(locale);
 
         init();
     }
@@ -160,7 +164,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     private void init() {
         final List<Rule> rulesList = parsePattern();
-        mRules = rulesList.toArray(new Rule[0]);
+        mRules = rulesList.toArray(EMPTY_RULE_ARRAY);
 
         int len = 0;
         for (int i=mRules.length; --i >= 0; ) {
@@ -959,7 +963,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          *
          */
         UnpaddedMonthField() {
-            super();
         }
 
         /**
@@ -1092,7 +1095,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * Constructs an instance of {@code TwoDigitYearField}.
          */
         TwoDigitYearField() {
-            super();
         }
 
         /**
@@ -1130,7 +1132,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * Constructs an instance of {@code TwoDigitMonthField}.
          */
         TwoDigitMonthField() {
-            super();
         }
 
         /**
@@ -1345,7 +1346,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * @param style the style
          */
         TimeZoneNameRule(final TimeZone timeZone, final Locale locale, final int style) {
-            mLocale = locale;
+            mLocale = LocaleUtils.toLocale(locale);
             mStyle = style;
 
             mStandard = getTimeZoneDisplay(timeZone, false, style, locale);
@@ -1531,8 +1532,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          *
          * @param timeZone the time zone
          * @param daylight adjust the style for daylight saving time if {@code true}
-         * @param style the timezone style
-         * @param locale the timezone locale
+         * @param style the time zone style
+         * @param locale the time zone locale
          */
         TimeZoneDisplayKey(final TimeZone timeZone,
                            final boolean daylight, final int style, final Locale locale) {
@@ -1542,7 +1543,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             } else {
                 mStyle = style;
             }
-            mLocale = locale;
+            mLocale = LocaleUtils.toLocale(locale);
         }
 
         /**

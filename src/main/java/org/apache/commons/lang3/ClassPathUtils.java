@@ -35,7 +35,6 @@ public class ClassPathUtils {
      * instance to operate.</p>
      */
     public ClassPathUtils() {
-        super();
     }
 
     /**

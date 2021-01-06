@@ -41,7 +41,7 @@ import org.apache.commons.lang3.stream.Streams.FailableStream;
  * constructs like:
  *
  * <pre>
- * Consumer&lt;java.lang.reflect.Method-&gt; consumer = (m) -&gt; {
+ * Consumer&lt;java.lang.reflect.Method-&gt; consumer = m -&gt; {
  *     try {
  *         m.invoke(o, args);
  *     } catch (Throwable t) {
@@ -324,7 +324,7 @@ public class Failable {
      *
      * @param supplier The double supplier to invoke.
      * @param <E> The type of checked exception, which the supplier can throw.
-     * @return The boolean, which has been created by the supplier
+     * @return The double, which has been created by the supplier
      */
     public static <E extends Throwable> double getAsDouble(final FailableDoubleSupplier<E> supplier) {
         try {
@@ -339,7 +339,7 @@ public class Failable {
      *
      * @param supplier The int supplier to invoke.
      * @param <E> The type of checked exception, which the supplier can throw.
-     * @return The boolean, which has been created by the supplier
+     * @return The int, which has been created by the supplier
      */
     public static <E extends Throwable> int getAsInt(final FailableIntSupplier<E> supplier) {
         try {
@@ -354,11 +354,26 @@ public class Failable {
      *
      * @param supplier The long supplier to invoke.
      * @param <E> The type of checked exception, which the supplier can throw.
-     * @return The boolean, which has been created by the supplier
+     * @return The long, which has been created by the supplier
      */
     public static <E extends Throwable> long getAsLong(final FailableLongSupplier<E> supplier) {
         try {
             return supplier.getAsLong();
+        } catch (final Throwable t) {
+            throw rethrow(t);
+        }
+    }
+
+    /**
+     * Invokes a short supplier, and returns the result.
+     *
+     * @param supplier The short supplier to invoke.
+     * @param <E> The type of checked exception, which the supplier can throw.
+     * @return The short, which has been created by the supplier
+     */
+    public static <E extends Throwable> short getAsShort(final FailableShortSupplier<E> supplier) {
+        try {
+            return supplier.getAsShort();
         } catch (final Throwable t) {
             throw rethrow(t);
         }

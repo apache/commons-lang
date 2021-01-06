@@ -552,7 +552,6 @@ public class EqualsBuilder implements Builder<Boolean> {
             // If a subclass has ivars that we are trying to test them, we get an
             // exception and we know that the objects are not equal.
             isEquals = false;
-            return this;
         }
         return this;
     }

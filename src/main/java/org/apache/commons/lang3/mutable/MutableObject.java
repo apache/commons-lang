@@ -41,7 +41,6 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
      * Constructs a new MutableObject with the default value of {@code null}.
      */
     public MutableObject() {
-        super();
     }
 
     /**
@@ -50,7 +49,6 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
      * @param value  the initial value to store
      */
     public MutableObject(final T value) {
-        super();
         this.value = value;
     }
 

@@ -41,7 +41,6 @@ public class ConcurrentException extends Exception {
      * Creates a new, uninitialized instance of {@code ConcurrentException}.
      */
     protected ConcurrentException() {
-        super();
     }
 
     /**

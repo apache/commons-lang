@@ -71,7 +71,6 @@ public class CharUtils {
      * to operate.</p>
      */
     public CharUtils() {
-      super();
     }
 
     //-----------------------------------------------------------------------

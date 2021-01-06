@@ -70,7 +70,7 @@ public class FastTimeZone {
      * i.e. <em>[GMT] (+|-) Hours [[:] Minutes]</em>
      *
      * @param id A GMT custom id (or Olson id
-     * @return A timezone
+     * @return A time zone
      */
     public static TimeZone getTimeZone(final String id) {
         final TimeZone tz = getGmtTimeZone(id);

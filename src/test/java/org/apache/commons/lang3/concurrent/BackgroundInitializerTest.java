@@ -280,7 +280,6 @@ public class BackgroundInitializerTest {
         volatile int initializeCalls;
 
         BackgroundInitializerTestImpl() {
-            super();
         }
 
         BackgroundInitializerTestImpl(final ExecutorService exec) {

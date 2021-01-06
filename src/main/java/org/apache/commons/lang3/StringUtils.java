@@ -349,14 +349,15 @@ public class StringUtils {
         if (maxWidth < minAbbrevWidth) {
             throw new IllegalArgumentException(String.format("Minimum abbreviation width is %d", minAbbrevWidth));
         }
-        if (str.length() <= maxWidth) {
+        final int strLen = str.length();
+        if (strLen <= maxWidth) {
             return str;
         }
-        if (offset > str.length()) {
-            offset = str.length();
+        if (offset > strLen) {
+            offset = strLen;
         }
-        if (str.length() - offset < maxWidth - abbrevMarkerLength) {
-            offset = str.length() - (maxWidth - abbrevMarkerLength);
+        if (strLen - offset < maxWidth - abbrevMarkerLength) {
+            offset = strLen - (maxWidth - abbrevMarkerLength);
         }
         if (offset <= abbrevMarkerLength+1) {
             return str.substring(0, maxWidth - abbrevMarkerLength) + abbrevMarker;
@@ -364,10 +365,10 @@ public class StringUtils {
         if (maxWidth < minAbbrevWidthOffset) {
             throw new IllegalArgumentException(String.format("Minimum abbreviation width with offset is %d", minAbbrevWidthOffset));
         }
-        if (offset + maxWidth - abbrevMarkerLength < str.length()) {
+        if (offset + maxWidth - abbrevMarkerLength < strLen) {
             return abbrevMarker + abbreviate(str.substring(offset), abbrevMarker, maxWidth - abbrevMarkerLength);
         }
-        return abbrevMarker + str.substring(str.length() - (maxWidth - abbrevMarkerLength));
+        return abbrevMarker + str.substring(strLen - (maxWidth - abbrevMarkerLength));
     }
 
     /**
@@ -1323,7 +1324,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from containsNone(String, String) to containsNone(CharSequence, String)
      */
     public static boolean containsNone(final CharSequence cs, final String invalidChars) {
-        if (cs == null || invalidChars == null) {
+        if (invalidChars == null) {
             return true;
         }
         return containsNone(cs, invalidChars.toCharArray());
@@ -1612,6 +1613,9 @@ public class StringUtils {
         }
         if (count == sz) {
             return str;
+        }
+        if (count == 0) {
+            return EMPTY;
         }
         return new String(chs, 0, count);
     }
@@ -3397,7 +3401,8 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (!Character.isLetterOrDigit(cs.charAt(i)) && cs.charAt(i) != ' ') {
+            final char nowChar = cs.charAt(i);
+            if (nowChar != ' ' && !Character.isLetterOrDigit(nowChar) ) {
                 return false;
             }
         }
@@ -3432,7 +3437,8 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (!Character.isLetter(cs.charAt(i)) && cs.charAt(i) != ' ') {
+            final char nowChar = cs.charAt(i);
+            if (nowChar != ' ' && !Character.isLetter(nowChar)) {
                 return false;
             }
         }
@@ -3463,15 +3469,15 @@ public class StringUtils {
      * @since 3.2
      */
     public static boolean isAnyBlank(final CharSequence... css) {
-      if (ArrayUtils.isEmpty(css)) {
-        return false;
-      }
-      for (final CharSequence cs : css) {
-        if (isBlank(cs)) {
-          return true;
+        if (ArrayUtils.isEmpty(css)) {
+            return false;
         }
-      }
-      return false;
+        for (final CharSequence cs : css) {
+            if (isBlank(cs)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -3495,15 +3501,15 @@ public class StringUtils {
      * @since 3.2
      */
     public static boolean isAnyEmpty(final CharSequence... css) {
-      if (ArrayUtils.isEmpty(css)) {
-        return false;
-      }
-      for (final CharSequence cs : css) {
-        if (isEmpty(cs)) {
-          return true;
+        if (ArrayUtils.isEmpty(css)) {
+            return false;
         }
-      }
-      return false;
+        for (final CharSequence cs : css) {
+            if (isEmpty(cs)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -3791,8 +3797,8 @@ public class StringUtils {
      * StringUtils.isNumericSpace("  ")   = true
      * StringUtils.isNumericSpace("123")  = true
      * StringUtils.isNumericSpace("12 3") = true
-     * StringUtils.isNumeric("\u0967\u0968\u0969")  = true
-     * StringUtils.isNumeric("\u0967\u0968 \u0969")  = true
+     * StringUtils.isNumericSpace("\u0967\u0968\u0969")  = true
+     * StringUtils.isNumericSpace("\u0967\u0968 \u0969")  = true
      * StringUtils.isNumericSpace("ab2c") = false
      * StringUtils.isNumericSpace("12-3") = false
      * StringUtils.isNumericSpace("12.3") = false
@@ -3809,7 +3815,8 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (!Character.isDigit(cs.charAt(i)) && cs.charAt(i) != ' ') {
+            final char nowChar = cs.charAt(i);
+            if (nowChar != ' ' && !Character.isDigit(nowChar)) {
                 return false;
             }
         }
@@ -4850,7 +4857,7 @@ public class StringUtils {
 
         final Iterator<Object> iterator = Arrays.asList(objects).iterator();
         while (iterator.hasNext()) {
-            final String value = Objects.toString(iterator.next(), "");
+            final String value = Objects.toString(iterator.next(), EMPTY);
             result.append(value);
 
             if (iterator.hasNext()) {
@@ -4885,7 +4892,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from lastIndexOf(String, String) to lastIndexOf(CharSequence, CharSequence)
      */
     public static int lastIndexOf(final CharSequence seq, final CharSequence searchSeq) {
-        if (seq == null || searchSeq == null) {
+        if (seq == null) {
             return INDEX_NOT_FOUND;
         }
         return CharSequenceUtils.lastIndexOf(seq, searchSeq, seq.length());
@@ -4927,9 +4934,6 @@ public class StringUtils {
      * @since 3.0 Changed signature from lastIndexOf(String, String, int) to lastIndexOf(CharSequence, CharSequence, int)
      */
     public static int lastIndexOf(final CharSequence seq, final CharSequence searchSeq, final int startPos) {
-        if (seq == null || searchSeq == null) {
-            return INDEX_NOT_FOUND;
-        }
         return CharSequenceUtils.lastIndexOf(seq, searchSeq, startPos);
     }
 
@@ -5135,18 +5139,20 @@ public class StringUtils {
         if (str == null || searchStr == null) {
             return INDEX_NOT_FOUND;
         }
-        if (startPos > str.length() - searchStr.length()) {
-            startPos = str.length() - searchStr.length();
+        final int searchStrLength = searchStr.length();
+        final int strLength = str.length();
+        if (startPos > strLength - searchStrLength) {
+            startPos = strLength - searchStrLength;
         }
         if (startPos < 0) {
             return INDEX_NOT_FOUND;
         }
-        if (searchStr.length() == 0) {
+        if (searchStrLength == 0) {
             return startPos;
         }
 
         for (int i = startPos; i >= 0; i--) {
-            if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, searchStr.length())) {
+            if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, searchStrLength)) {
                 return i;
             }
         }
@@ -5397,7 +5403,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        return str.toLowerCase(locale);
+        return str.toLowerCase(LocaleUtils.toLocale(locale));
     }
 
     private static int[] matches(final CharSequence first, final CharSequence second) {
@@ -6094,9 +6100,6 @@ public class StringUtils {
      * @since 3.5
      */
     public static String removeIgnoreCase(final String str, final String remove) {
-        if (isEmpty(str) || isEmpty(remove)) {
-            return str;
-        }
         return replaceIgnoreCase(str, remove, EMPTY, -1);
     }
 
@@ -6197,11 +6200,8 @@ public class StringUtils {
      * @since 2.4
      */
     public static String removeStartIgnoreCase(final String str, final String remove) {
-        if (isEmpty(str) || isEmpty(remove)) {
-            return str;
-        }
-        if (startsWithIgnoreCase(str, remove)) {
-            return str.substring(remove.length());
+        if (str != null && startsWithIgnoreCase(str, remove)) {
+            return str.substring(length(remove));
         }
         return str;
     }
@@ -7732,49 +7732,6 @@ public class StringUtils {
     }
 
     /**
-     * Split a {@link String} into a {@code String []} of fixed-length elements.
-     *
-     * <pre>
-     * StringUtils.splitEvery("test1",10)             = ["test1"]
-     * StringUtils.splitEvery("test2", 4)             = ["test","2"]
-     * StringUtils.splitEvery("testAbgTestsABG", -2)  = ["testAbgTestsABG"]
-     * StringUtils.splitEvery("",10)                  = [""]
-     * StringUtils.splitEvery(null,4)                 = {@code null}
-     * StringUtils.splitEvery("testAbgTestsABG",2)    = ["te","st","Ab","gT","es","ts","AB","G"]
-     * </pre>
-     *
-     * @param str {@link String} to split into fixed length elements.
-     * @param length length of the elements into which the String will be divided.
-     * @return a {@code String []} of fixed-length elements.
-     */
-    public static String[] splitEvery( final String str, final int length ) {
-        int interval = length;
-        if (str == null) {
-            return null;
-        }
-        if (interval < 1) {
-            interval = str.length();
-        }
-        final int arrayLength = (int) Math.ceil( str.length() / (double) interval );
-        String[] result = new String[ arrayLength ];
-
-        int j = 0;
-        final int lastIndex = result.length - 1;
-        if (lastIndex >= 0) {
-            for (int i = 0; i < lastIndex; i++) {
-                result[ i ] = str.substring( j, j + interval );
-                j += interval;
-            }
-            result[ lastIndex ] = str.substring( j );
-        } else {
-            result = new String[] { EMPTY };
-        }
-
-        return result;
-    }
-
-    // -----------------------------------------------------------------------
-    /**
      * <p>Splits the provided text into an array, using whitespace as the
      * separator, preserving all tokens, including empty tokens created by
      * adjacent separators. This is an alternative to using StringTokenizer.
@@ -8103,10 +8060,12 @@ public class StringUtils {
         if (str == null || prefix == null) {
             return str == prefix;
         }
-        if (prefix.length() > str.length()) {
+        // Get length once instead of twice in the unlikely case that it changes.
+        final int preLen = prefix.length();
+        if (preLen > str.length()) {
             return false;
         }
-        return CharSequenceUtils.regionMatches(str, ignoreCase, 0, prefix, 0, prefix.length());
+        return CharSequenceUtils.regionMatches(str, ignoreCase, 0, prefix, 0, preLen);
     }
 
     /**
@@ -8222,9 +8181,6 @@ public class StringUtils {
      * @return the stripped String, {@code null} if null String input
      */
     public static String strip(String str, final String stripChars) {
-        if (isEmpty(str)) {
-            return str;
-        }
         str = stripStart(str, stripChars);
         return stripEnd(str, stripChars);
     }
@@ -8994,19 +8950,19 @@ public class StringUtils {
      * StringUtils.toCodePoints("")     =  []  // empty array
      * </pre>
      *
-     * @param str the character sequence to convert
+     * @param cs the character sequence to convert
      * @return an array of code points
      * @since 3.6
      */
-    public static int[] toCodePoints(final CharSequence str) {
-        if (str == null) {
+    public static int[] toCodePoints(final CharSequence cs) {
+        if (cs == null) {
             return null;
         }
-        if (str.length() == 0) {
+        if (cs.length() == 0) {
             return ArrayUtils.EMPTY_INT_ARRAY;
         }
 
-        final String s = str.toString();
+        final String s = cs.toString();
         final int[] result = new int[s.codePointCount(0, s.length())];
         int index = 0;
         for (int i = 0; i < result.length; i++) {
@@ -9072,7 +9028,7 @@ public class StringUtils {
      */
     @Deprecated
     public static String toString(final byte[] bytes, final String charsetName) throws UnsupportedEncodingException {
-        return charsetName != null ? new String(bytes, charsetName) : new String(bytes, Charset.defaultCharset());
+        return new String(bytes, Charsets.toCharset(charsetName));
     }
 
     /**
@@ -9384,7 +9340,7 @@ public class StringUtils {
      * @since 3.6
      */
     public static String unwrap(final String str, final String wrapToken) {
-        if (isEmpty(str) || isEmpty(wrapToken) || str.length() == 1) {
+        if (isEmpty(str) || isEmpty(wrapToken) || str.length() < 2 * wrapToken.length()) {
             return str;
         }
 
@@ -9447,7 +9403,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        return str.toUpperCase(locale);
+        return str.toUpperCase(LocaleUtils.toLocale(locale));
     }
 
     /**
@@ -9640,7 +9596,6 @@ public class StringUtils {
      * instance to operate.</p>
      */
     public StringUtils() {
-        super();
     }
 
 }

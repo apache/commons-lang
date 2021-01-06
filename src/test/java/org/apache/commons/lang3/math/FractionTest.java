@@ -75,7 +75,7 @@ public class FractionTest  {
 
     @Test
     public void testFactory_int_int() {
-        Fraction f = null;
+        Fraction f;
 
         // zero
         f = Fraction.getFraction(0, 1);
@@ -129,7 +129,7 @@ public class FractionTest  {
 
     @Test
     public void testFactory_int_int_int() {
-        Fraction f = null;
+        Fraction f;
 
         // zero
         f = Fraction.getFraction(0, 0, 2);
@@ -183,7 +183,7 @@ public class FractionTest  {
 
     @Test
     public void testReducedFactory_int_int() {
-        Fraction f = null;
+        Fraction f;
 
         // zero
         f = Fraction.getReducedFraction(0, 1);
@@ -330,7 +330,7 @@ public class FractionTest  {
 
     @Test
     public void testFactory_String_double() {
-        Fraction f = null;
+        Fraction f;
 
         f = Fraction.getFraction("0.0");
         assertEquals(0, f.getNumerator());
@@ -355,7 +355,7 @@ public class FractionTest  {
 
     @Test
     public void testFactory_String_proper() {
-        Fraction f = null;
+        Fraction f;
 
         f = Fraction.getFraction("0 0/1");
         assertEquals(0, f.getNumerator());
@@ -391,7 +391,7 @@ public class FractionTest  {
 
     @Test
     public void testFactory_String_improper() {
-        Fraction f = null;
+        Fraction f;
 
         f = Fraction.getFraction("0/1");
         assertEquals(0, f.getNumerator());
@@ -425,7 +425,7 @@ public class FractionTest  {
 
     @Test
     public void testGets() {
-        Fraction f = null;
+        Fraction f;
 
         f = Fraction.getFraction(3, 5, 6);
         assertEquals(23, f.getNumerator());
@@ -448,7 +448,7 @@ public class FractionTest  {
 
     @Test
     public void testConversions() {
-        Fraction f = null;
+        Fraction f;
 
         f = Fraction.getFraction(3, 7, 8);
         assertEquals(3, f.intValue());
@@ -459,7 +459,7 @@ public class FractionTest  {
 
     @Test
     public void testReduce() {
-        Fraction f = null;
+        Fraction f;
 
         f = Fraction.getFraction(50, 75);
         Fraction result = f.reduce();
@@ -508,7 +508,7 @@ public class FractionTest  {
 
     @Test
     public void testInvert() {
-        Fraction f = null;
+        Fraction f;
 
         f = Fraction.getFraction(50, 75);
         f = f.invert();
@@ -536,7 +536,7 @@ public class FractionTest  {
 
     @Test
     public void testNegate() {
-        Fraction f = null;
+        Fraction f;
 
         f = Fraction.getFraction(50, 75);
         f = f.negate();
@@ -559,7 +559,7 @@ public class FractionTest  {
 
     @Test
     public void testAbs() {
-        Fraction f = null;
+        Fraction f;
 
         f = Fraction.getFraction(50, 75);
         f = f.abs();
@@ -586,7 +586,7 @@ public class FractionTest  {
 
     @Test
     public void testPow() {
-        Fraction f = null;
+        Fraction f;
 
         f = Fraction.getFraction(3, 5);
         assertEquals(Fraction.ONE, f.pow(0));
@@ -682,9 +682,9 @@ public class FractionTest  {
 
     @Test
     public void testAdd() {
-        Fraction f = null;
-        Fraction f1 = null;
-        Fraction f2 = null;
+        Fraction f;
+        Fraction f1;
+        Fraction f2;
 
         f1 = Fraction.getFraction(3, 5);
         f2 = Fraction.getFraction(1, 5);
@@ -784,9 +784,9 @@ public class FractionTest  {
 
     @Test
     public void testSubtract() {
-        Fraction f = null;
-        Fraction f1 = null;
-        Fraction f2 = null;
+        Fraction f;
+        Fraction f1;
+        Fraction f2;
 
         f1 = Fraction.getFraction(3, 5);
         f2 = Fraction.getFraction(1, 5);
@@ -884,9 +884,9 @@ public class FractionTest  {
 
     @Test
     public void testMultiply() {
-        Fraction f = null;
-        Fraction f1 = null;
-        Fraction f2 = null;
+        Fraction f;
+        Fraction f1;
+        Fraction f2;
 
         f1 = Fraction.getFraction(3, 5);
         f2 = Fraction.getFraction(2, 5);
@@ -945,9 +945,9 @@ public class FractionTest  {
 
     @Test
     public void testDivide() {
-        Fraction f = null;
-        Fraction f1 = null;
-        Fraction f2 = null;
+        Fraction f;
+        Fraction f1;
+        Fraction f2;
 
         f1 = Fraction.getFraction(3, 5);
         f2 = Fraction.getFraction(2, 5);
@@ -990,8 +990,8 @@ public class FractionTest  {
 
     @Test
     public void testEquals() {
-        Fraction f1 = null;
-        Fraction f2 = null;
+        Fraction f1;
+        Fraction f2;
 
         f1 = Fraction.getFraction(3, 5);
         assertNotEquals(null, f1);
@@ -1027,8 +1027,8 @@ public class FractionTest  {
 
     @Test
     public void testCompareTo() {
-        Fraction f1 = null;
-        Fraction f2 = null;
+        Fraction f1;
+        Fraction f2;
 
         f1 = Fraction.getFraction(3, 5);
         assertEquals(0, f1.compareTo(f1));
@@ -1060,7 +1060,7 @@ public class FractionTest  {
 
     @Test
     public void testToString() {
-        Fraction f = null;
+        Fraction f;
 
         f = Fraction.getFraction(3, 5);
         final String str = f.toString();
@@ -1088,7 +1088,7 @@ public class FractionTest  {
 
     @Test
     public void testToProperString() {
-        Fraction f = null;
+        Fraction f;
 
         f = Fraction.getFraction(3, 5);
         final String str = f.toProperString();

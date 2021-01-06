@@ -26,6 +26,7 @@ import java.util.NoSuchElementException;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -45,7 +46,7 @@ import org.apache.commons.lang3.Validate;
  * <p>
  * Several methods are provided for adding to {@code Date} objects, of the form
  * {@code addXXX(Date date, int amount)}. It is important to note these methods
- * use a {@code Calendar} internally (with default timezone and locale) and may
+ * use a {@code Calendar} internally (with default time zone and locale) and may
  * be affected by changes to daylight saving time (DST).
  * </p>
  *
@@ -146,7 +147,6 @@ public class DateUtils {
      * instance to operate.</p>
      */
     public DateUtils() {
-        super();
     }
 
     //-----------------------------------------------------------------------
@@ -368,7 +368,7 @@ public class DateUtils {
         }
 
         final TimeZone tz = TimeZone.getDefault();
-        final Locale lcl = locale == null ? Locale.getDefault() : locale;
+        final Locale lcl = LocaleUtils.toLocale(locale);
         final ParsePosition pos = new ParsePosition(0);
         final Calendar calendar = Calendar.getInstance(tz, lcl);
         calendar.setLenient(lenient);
@@ -687,7 +687,7 @@ public class DateUtils {
      * 28 Mar 2002 14:00:00.000. If this was passed with MONTH, it
      * would return 1 April 2002 0:00:00.000.</p>
      *
-     * <p>For a date in a timezone that handles the change to daylight
+     * <p>For a date in a time zone that handles the change to daylight
      * saving time, rounding to Calendar.HOUR_OF_DAY will behave as follows.
      * Suppose daylight saving time begins at 02:00 on March 30. Rounding a
      * date that crosses this time would produce the following values:
@@ -721,7 +721,7 @@ public class DateUtils {
      * 28 Mar 2002 14:00:00.000. If this was passed with MONTH, it
      * would return 1 April 2002 0:00:00.000.</p>
      *
-     * <p>For a date in a timezone that handles the change to daylight
+     * <p>For a date in a time zone that handles the change to daylight
      * saving time, rounding to Calendar.HOUR_OF_DAY will behave as follows.
      * Suppose daylight saving time begins at 02:00 on March 30. Rounding a
      * date that crosses this time would produce the following values:
@@ -761,7 +761,7 @@ public class DateUtils {
      * 28 Mar 2002 14:00:00.000. If this was passed with MONTH, it
      * would return 1 April 2002 0:00:00.000.</p>
      *
-     * <p>For a date in a timezone that handles the change to daylight
+     * <p>For a date in a time zone that handles the change to daylight
      * saving time, rounding to Calendar.HOUR_OF_DAY will behave as follows.
      * Suppose daylight saving time begins at 02:00 on March 30. Rounding a
      * date that crosses this time would produce the following values:
@@ -1804,7 +1804,6 @@ public class DateUtils {
          * @param endFinal end date (inclusive)
          */
         DateIterator(final Calendar startFinal, final Calendar endFinal) {
-            super();
             this.endFinal = endFinal;
             spot = startFinal;
             spot.add(Calendar.DATE, -1);

@@ -61,28 +61,47 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix potential NPE in TypeUtils.isAssignable(Type, ParameterizedType, Map, Type>).</action>
     <action issue="LANG-1420" type="fix" dev="ggregory" due-to="Gordon Fraser, Rostislav Krasny, Arturo Bernal, Gary Gregory">TypeUtils.isAssignable returns wrong result for GenericArrayType and ParameterizedType, #643.</action>
     <action issue="LANG-1612" type="fix" dev="ggregory" due-to="XinT, Gary Gregory">testGetAllFields and testGetFieldsWithAnnotation sometimes fail.</action>
+    <action                   type="fix" dev="ggregory" due-to="John R. D'Orazio">Fix Javadoc for SystemUtils.isJavaVersionAtMost() #638.</action>
+    <action issue="LANG-1610" type="fix" dev="ggregory" due-to="Tony Liang">Fix StringUtils.unwrap throws StringIndexOutOfBoundsException #636.</action>
+    <action                   type="fix" dev="ggregory" due-to="Isira Seneviratne">Fix formatting of isAnyBlank() and isAnyEmpty(). #513.</action>
+    <action issue="LANG-1618" type="fix" dev="ggregory" due-to="Arturo Bernal">TypeUtils. containsTypeVariables does not support GenericArrayType #661.</action>
+    <action issue="LANG-1622" type="fix" dev="ggregory" due-to="Kanak Sony, anomen-s">Javadoc of some methods incorrectly refers to another method, #667, #668. #670.</action>
+    <action issue="LANG-1620" type="fix" dev="ggregory" due-to="Arturo Bernal">Refine StringUtils.lastIndexOfIgnoreCase #664.</action>
+    <action issue="LANG-1619" type="fix" dev="ggregory" due-to="Arturo Bernal">Refine StringUtils.abbreviate #663.</action>
+    <action issue="LANG-1584" type="fix" dev="ggregory" due-to="Arturo Bernal">Refine StringUtils.isNumericSpace #573.</action>
+    <action issue="LANG-1580" type="fix" dev="ggregory" due-to="Arturo Bernal">Refine StringUtils.deleteWhitespace #569.</action>
+    <action issue="LANG-1626" type="fix" dev="ggregory" due-to="Kanak Sony">Correction in Javadoc of some methods. #673</action>
+    <action issue="LANG-1628" type="fix" dev="kinow" due-to="Jarkko Rantavuori">Javadoc for RandomStringUtils.random() letters, numbers parameters is wrong.</action>
+    <action                   type="fix" dev="ggregory" due-to="Felix Schumacher ">Correct markup in Javadoc for unbalanced braces #679.</action>
+    <action issue="LANG-1544" type="fix" dev="kinow" due-to="Peter Nagy, Michael Buck, Gary Gregory">MethodUtils.invokeMethod NullPointerException in case of null in args list #680.</action>
     <!--  ADDS -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.booleanValues().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.primitiveValues().</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StringUtils.containsAnyIgnoreCase(CharSequence, CharSequence...).</action>
+    <action issue="LANG-1535" type="add" dev="ggregory" due-to="Gary Gregory, Isira Seneviratne">Add StringUtils.containsAnyIgnoreCase(CharSequence, CharSequence...).</action>
     <action issue="LANG-1359" type="add" dev="ggregory" due-to="Gary Gregory, Keegan Witt">Add StopWatch.getStopTime().</action>
     <action                   type="add" dev="ggregory" due-to="Edgar Asatryan">More test coverage for CharSequenceUtils. #631.</action>
     <action issue="LANG-1596" type="update" dev="aherbert" due-to="Richard Eckart de Castilho">ArrayUtils.toPrimitive(Object) does not support boolean and other types #607.</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add fluent-style ArrayUtils.sort(Object[]).</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add fluent-style ArrayUtils.sort(Object[], Comparable).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add fluent-style ArraySorter.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use LocaleUtils.toLocale(Locale) to avoid NPEs.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add FailableShortSupplier, handy for JDBC APIs.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_17.</action>
     <!--  UPDATES -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Enable Dependabot #587.</action>
     <action                   type="update" dev="chtompki">Bump junit-jupiter from 5.6.2 to 5.7.0.</action>
-    <action                   type="update" dev="chtompki" due-to="chtompki, Dependabot">Bump spotbugs from 4.1.2 to 4.1.4, #627.</action>
+    <action                   type="update" dev="chtompki" due-to="chtompki, Dependabot">Bump spotbugs from 4.1.2 to 4.2.0, #627, #671.</action>
     <action                   type="update" dev="chtompki" due-to="chtompki, Dependabot">Bump checkstyle from 8.36 to 8.37, #637.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Update spotbugs-maven-plugin from 4.0.0 to 4.1.4, #593, #596, #609, #623, #632.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Update biz.aQute.bndlib from 5.1.1 to 5.2.0 #592, #628.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Update junit-pioneer from 0.6.0 to 1.0.0, #589, #597, #600, #624, #625.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Update checkstyle from 8.34 to 8.36 #594, #614.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Update actions/checkout from v2.3.1 to v2.3.4 #601, #639.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Update actions/setup-java from v1.4.0 to v1.4.2 #612.</action>    
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump spotbugs-maven-plugin from 4.0.0 to 4.1.4, #593, #596, #609, #623, #632.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump biz.aQute.bndlib from 5.1.1 to 5.2.0 #592, #628.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump junit-pioneer from 0.6.0 to 1.1.0, #589, #597, #600, #624, #625, #662.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump checkstyle from 8.34 to 8.38 #594, #614, #665.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump actions/checkout from v2.3.1 to v2.3.4 #601, #639.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump actions/setup-java from v1.4.0 to v1.4.2 #612.</action>    
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Update commons.jacoco.version 0.8.5 to 0.8.6 (Fixes Java 15 builds).</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Update maven-surefire-plugin 2.22.2 -> 3.0.0-M5.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump maven-pmd-plugin from 3.13.0 to 3.14.0 #660.</action>
+    <action                   type="update" dev="kinow" due-to="Dependabot">Bump jmh.version from 1.21 to 1.27 #674.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Update commons.japicmp.version 0.14.3 -> 0.15.1.</action>
+    <action                   type="update" dev="ggregory" due-to="Ali K. Nouri">Processor.java: check enum euqality with == instead of .equals() method #690.</action>
   </release>
   <release version="3.11" date="2020-07-12" description="New features and bug fixes.">
     <action                   type="update" dev="chtompki" due-to="Jin Xu">Refine test output for FastDateParserTest</action>

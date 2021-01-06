@@ -35,7 +35,6 @@ public class CharSequenceUtils {
      * instance to operate.</p>
      */
     public CharSequenceUtils() {
-        super();
     }
 
     //-----------------------------------------------------------------------
@@ -110,6 +109,7 @@ public class CharSequenceUtils {
                     return i;
                 }
             }
+            return NOT_FOUND;
         }
         //supplementary characters (LANG1300)
         if (searchChar <= Character.MAX_CODE_POINT) {
@@ -196,6 +196,7 @@ public class CharSequenceUtils {
                     return i;
                 }
             }
+            return NOT_FOUND;
         }
         //supplementary characters (LANG1300)
         //NOTE - we must do a forward traversal for this to avoid duplicating code points
@@ -222,11 +223,14 @@ public class CharSequenceUtils {
      * Used by the lastIndexOf(CharSequence methods) as a green implementation of lastIndexOf
      *
      * @param cs the {@code CharSequence} to be processed
-     * @param searchChar the {@code CharSequence} to be searched for
+     * @param searchChar the {@code CharSequence} to find
      * @param start the start index
      * @return the index where the search sequence was found
      */
     static int lastIndexOf(final CharSequence cs, final CharSequence searchChar, int start) {
+        if (searchChar == null || cs == null) {
+            return NOT_FOUND;
+        }
         if (searchChar instanceof String) {
             if (cs instanceof String) {
                 return ((String) cs).lastIndexOf((String) searchChar, start);
@@ -245,7 +249,7 @@ public class CharSequenceUtils {
         }
 
         if (start < 0 || len2 < 0 || len2 > len1) {
-            return -1;
+            return NOT_FOUND;
         }
 
         if (len2 == 0) {
@@ -273,7 +277,7 @@ public class CharSequenceUtils {
             while (cs.charAt(i) != char0) {
                 i--;
                 if (i < 0) {
-                    return -1;
+                    return NOT_FOUND;
                 }
             }
             if (checkLaterThan1(cs, searchChar, len2, i)) {
@@ -281,7 +285,7 @@ public class CharSequenceUtils {
             }
             i--;
             if (i < 0) {
-                return -1;
+                return NOT_FOUND;
             }
         }
     }

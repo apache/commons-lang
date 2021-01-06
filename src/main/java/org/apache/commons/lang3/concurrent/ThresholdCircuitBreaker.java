@@ -73,7 +73,6 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
      * @param threshold the threshold.
      */
     public ThresholdCircuitBreaker(final long threshold) {
-        super();
         this.used = new AtomicLong(INITIAL_COUNT);
         this.threshold = threshold;
     }

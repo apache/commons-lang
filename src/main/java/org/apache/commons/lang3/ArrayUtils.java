@@ -1099,9 +1099,9 @@ public class ArrayUtils {
      * </p>
      *
      * <pre>
-     * ArrayUtils.add(null, true)          = [true]
-     * ArrayUtils.add([true], false)       = [false, true]
-     * ArrayUtils.add([true, false], true) = [true, true, false]
+     * ArrayUtils.addFirst(null, true)          = [true]
+     * ArrayUtils.addFirst([true], false)       = [false, true]
+     * ArrayUtils.addFirst([true, false], true) = [true, true, false]
      * </pre>
      *
      * @param array the array to "add" the element to, may be {@code null}.
@@ -1128,9 +1128,9 @@ public class ArrayUtils {
      * </p>
      *
      * <pre>
-     * ArrayUtils.add(null, 1)   = [1]
-     * ArrayUtils.add([1], 0)    = [0, 1]
-     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * ArrayUtils.addFirst(null, 1)   = [1]
+     * ArrayUtils.addFirst([1], 0)    = [0, 1]
+     * ArrayUtils.addFirst([1, 0], 1) = [1, 1, 0]
      * </pre>
      *
      * @param array the array to "add" the element to, may be {@code null}.
@@ -1157,9 +1157,9 @@ public class ArrayUtils {
      * </p>
      *
      * <pre>
-     * ArrayUtils.add(null, '1')       = ['1']
-     * ArrayUtils.add(['1'], '0')      = ['0', '1']
-     * ArrayUtils.add(['1', '0'], '1') = ['1', '1', '0']
+     * ArrayUtils.addFirst(null, '1')       = ['1']
+     * ArrayUtils.addFirst(['1'], '0')      = ['0', '1']
+     * ArrayUtils.addFirst(['1', '0'], '1') = ['1', '1', '0']
      * </pre>
      *
      * @param array the array to "add" the element to, may be {@code null}.
@@ -1186,9 +1186,9 @@ public class ArrayUtils {
      * </p>
      *
      * <pre>
-     * ArrayUtils.add(null, 1)   = [1]
-     * ArrayUtils.add([1], 0)    = [0, 1]
-     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * ArrayUtils.addFirst(null, 1)   = [1]
+     * ArrayUtils.addFirst([1], 0)    = [0, 1]
+     * ArrayUtils.addFirst([1, 0], 1) = [1, 1, 0]
      * </pre>
      *
      * @param array the array to "add" the element to, may be {@code null}.
@@ -1215,9 +1215,9 @@ public class ArrayUtils {
      * </p>
      *
      * <pre>
-     * ArrayUtils.add(null, 1)   = [1]
-     * ArrayUtils.add([1], 0)    = [0, 1]
-     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * ArrayUtils.addFirst(null, 1)   = [1]
+     * ArrayUtils.addFirst([1], 0)    = [0, 1]
+     * ArrayUtils.addFirst([1, 0], 1) = [1, 1, 0]
      * </pre>
      *
      * @param array the array to "add" the element to, may be {@code null}.
@@ -1244,9 +1244,9 @@ public class ArrayUtils {
      * </p>
      *
      * <pre>
-     * ArrayUtils.add(null, 1)   = [1]
-     * ArrayUtils.add([1], 0)    = [0, 1]
-     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * ArrayUtils.addFirst(null, 1)   = [1]
+     * ArrayUtils.addFirst([1], 0)    = [0, 1]
+     * ArrayUtils.addFirst([1, 0], 1) = [1, 1, 0]
      * </pre>
      *
      * @param array the array to "add" the element to, may be {@code null}.
@@ -1273,9 +1273,9 @@ public class ArrayUtils {
      * </p>
      *
      * <pre>
-     * ArrayUtils.add(null, 1)   = [1]
-     * ArrayUtils.add([1], 0)    = [0, 1]
-     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * ArrayUtils.addFirst(null, 1)   = [1]
+     * ArrayUtils.addFirst([1], 0)    = [0, 1]
+     * ArrayUtils.addFirst([1, 0], 1) = [1, 1, 0]
      * </pre>
      *
      * @param array the array to "add" the element to, may be {@code null}.
@@ -1302,9 +1302,9 @@ public class ArrayUtils {
      * </p>
      *
      * <pre>
-     * ArrayUtils.add(null, 1)   = [1]
-     * ArrayUtils.add([1], 0)    = [0, 1]
-     * ArrayUtils.add([1, 0], 1) = [1, 1, 0]
+     * ArrayUtils.addFirst(null, 1)   = [1]
+     * ArrayUtils.addFirst([1], 0)    = [0, 1]
+     * ArrayUtils.addFirst([1, 0], 1) = [1, 1, 0]
      * </pre>
      *
      * @param array the array to "add" the element to, may be {@code null}.
@@ -1331,11 +1331,11 @@ public class ArrayUtils {
      * </p>
      *
      * <pre>
-     * ArrayUtils.add(null, null)      = IllegalArgumentException
-     * ArrayUtils.add(null, "a")       = ["a"]
-     * ArrayUtils.add(["a"], null)     = [null, "a"]
-     * ArrayUtils.add(["a"], "b")      = ["b", "a"]
-     * ArrayUtils.add(["a", "b"], "c") = ["c", "a", "b"]
+     * ArrayUtils.addFirst(null, null)      = IllegalArgumentException
+     * ArrayUtils.addFirst(null, "a")       = ["a"]
+     * ArrayUtils.addFirst(["a"], null)     = [null, "a"]
+     * ArrayUtils.addFirst(["a"], "b")      = ["b", "a"]
+     * ArrayUtils.addFirst(["a", "b"], "c") = ["c", "a", "b"]
      * </pre>
      *
      * @param <T> the component type of the array
@@ -5231,8 +5231,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     static Object removeAll(final Object array, final int... indices) {
         final int length = getLength(array);
         int diff = 0; // number of distinct indexes, i.e. number of entries that will be removed
-        final int[] clonedIndices = clone(indices);
-        Arrays.sort(clonedIndices);
+        final int[] clonedIndices = ArraySorter.sort(clone(indices));
 
         // identify length of result array
         if (isNotEmpty(clonedIndices)) {
@@ -6824,8 +6823,6 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         }
     }
 
-    // Reverse
-    //-----------------------------------------------------------------------
     /**
      * <p>Reverses the order of the given array.
      *
@@ -7858,36 +7855,6 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         for (int i = array.length; i > 1; i--) {
             swap(array, i - 1, random.nextInt(i), 1);
         }
-    }
-
-    /**
-     * Sorts and returns the given array.
-     *
-     * @param <T> the array type.
-     * @param array the array to sort.
-     * @return the given array.
-     * @see Arrays#sort(Object[])
-     * @since 3.12
-     */
-    public static <T> T[] sort(T[] array) {
-        Arrays.sort(array);
-        return array;
-    }
-
-    /**
-     * Sorts and returns the given array.
-     *
-     * @param <T> the array type.
-     * @param array the array to sort.
-     * @param comparator the comparator to determine the order of the array.
-     *        A {@code null} value uses the elements' {@link Comparable natural ordering}.
-     * @return the given array.
-     * @see Arrays#sort(Object[])
-     * @since 3.12
-     */
-    public static <T> T[] sort(T[] array, Comparator<? super T> comparator) {
-        Arrays.sort(array, comparator);
-        return array;
     }
 
     /**
@@ -9683,6 +9650,5 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * to operate.
      */
     public ArrayUtils() {
-      super();
     }
 }

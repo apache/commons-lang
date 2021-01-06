@@ -108,7 +108,6 @@ public class CompareToBuilder implements Builder<Integer> {
      * {@link #toComparison} to get the result.</p>
      */
     public CompareToBuilder() {
-        super();
         comparison = 0;
     }
 
