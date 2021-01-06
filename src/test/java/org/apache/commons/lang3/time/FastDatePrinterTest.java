@@ -432,4 +432,19 @@ public class FastDatePrinterTest {
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
         assertEquals("7", printer.format(calendar.getTime()));
     }
+
+    @DefaultLocale(language = "en", country = "US")
+    @DefaultTimeZone("America/New_York")
+    @Test
+    public void testWeekYear() {
+        final GregorianCalendar cal = new GregorianCalendar(2020, 12, 31, 0, 0, 0);
+        final DatePrinter printer4Digits = getInstance("YYYY");
+        final DatePrinter printer4DigitsFallback = getInstance("YYY");
+        final DatePrinter printer2Digits = getInstance("YY");
+        final DatePrinter printer4DigitAnotherFallback = getInstance("Y");
+        assertEquals("2021", printer4Digits.format(cal));
+        assertEquals("2021", printer4DigitsFallback.format(cal));
+        assertEquals("2021", printer4DigitAnotherFallback.format(cal));
+        assertEquals("21", printer2Digits.format(cal));
+    }
 }
