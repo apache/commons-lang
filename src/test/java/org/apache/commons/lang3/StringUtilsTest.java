@@ -114,6 +114,7 @@ public class StringUtilsTest {
 
     private static final String SEPARATOR = ",";
     private static final char SEPARATOR_CHAR = ';';
+    private static final char COMMA_SEPARATOR_CHAR = ',';
 
     private static final String TEXT_LIST = "foo,bar,baz";
     private static final String TEXT_LIST_CHAR = "foo;bar;baz";
@@ -124,6 +125,11 @@ public class StringUtilsTest {
 
     private static final String SENTENCE_UNCAP = "foo bar baz";
     private static final String SENTENCE_CAP = "Foo Bar Baz";
+
+    private static final boolean[] EMPTY = {};
+    private static final boolean[] ARRAY_FALSE_FALSE = {false, false};
+    private static final boolean[] ARRAY_FALSE_TRUE = {false, true};
+    private static final boolean[] ARRAY_FALSE_TRUE_FALSE = {false, true, false};
 
     private void assertAbbreviateWithAbbrevMarkerAndOffset(final String expected, final String abbrevMarker, final int offset, final int maxWidth) {
         final String abcdefghijklmno = "abcdefghijklmno";
@@ -1153,6 +1159,19 @@ public class StringUtilsTest {
         assertNull(StringUtils.join((byte[]) null, SEPARATOR_CHAR, 0, 1));
         assertEquals(StringUtils.EMPTY, StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
         assertEquals(StringUtils.EMPTY, StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
+    }
+
+
+    @Test
+    public void testJoin_ArrayOfBooleans() {
+        assertNull(StringUtils.join((boolean[]) null, COMMA_SEPARATOR_CHAR));
+        assertEquals("false;false", StringUtils.join(ARRAY_FALSE_FALSE, SEPARATOR_CHAR));
+        assertEquals("", StringUtils.join(EMPTY, SEPARATOR_CHAR));
+        assertEquals("false,true,false", StringUtils.join(ARRAY_FALSE_TRUE_FALSE, COMMA_SEPARATOR_CHAR));
+        assertEquals("true", StringUtils.join(ARRAY_FALSE_TRUE, SEPARATOR_CHAR, 1, 2));
+        assertNull(StringUtils.join((boolean[]) null, SEPARATOR_CHAR, 0, 1));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(ARRAY_FALSE_FALSE, SEPARATOR_CHAR, 0, 0));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(ARRAY_FALSE_TRUE_FALSE, SEPARATOR_CHAR, 1, 0));
     }
 
     @Test
