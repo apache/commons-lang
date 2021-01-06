@@ -90,7 +90,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="chtompki">Bump junit-jupiter from 5.6.2 to 5.7.0.</action>
     <action                   type="update" dev="chtompki" due-to="chtompki, Dependabot">Bump spotbugs from 4.1.2 to 4.2.0, #627, #671.</action>
     <action                   type="update" dev="chtompki" due-to="chtompki, Dependabot">Bump checkstyle from 8.36 to 8.37, #637.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump spotbugs-maven-plugin from 4.0.0 to 4.1.4, #593, #596, #609, #623, #632.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump spotbugs-maven-plugin from 4.0.0 to 4.2.0, #593, #596, #609, #623, #632, #692.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump biz.aQute.bndlib from 5.1.1 to 5.2.0 #592, #628.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump junit-pioneer from 0.6.0 to 1.1.0, #589, #597, #600, #624, #625, #662.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump checkstyle from 8.34 to 8.38 #594, #614, #665.</action>
