@@ -6249,9 +6249,7 @@ public class StringUtils {
             return EMPTY;
         }
         final char[] buf = new char[repeat];
-        for (int i = repeat - 1; i >= 0; i--) {
-            buf[i] = ch;
-        }
+        Arrays.fill(buf, ch);
         return new String(buf);
     }
 
@@ -6275,7 +6273,6 @@ public class StringUtils {
      */
     public static String repeat(final String str, final int repeat) {
         // Performance tuned for 2.0 (JDK1.4)
-
         if (str == null) {
             return null;
         }
