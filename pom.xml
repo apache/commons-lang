@@ -629,7 +629,7 @@
     <commons.jacoco.version>0.8.6</commons.jacoco.version>
     <commons.surefire.version>3.0.0-M5</commons.surefire.version>
     <commons.javadoc.version>3.2.0</commons.javadoc.version>
-    <commons.japicmp.version>0.15.1</commons.japicmp.version>
+    <commons.japicmp.version>0.15.2</commons.japicmp.version>
 
     <!-- Commons Release Plugin -->
     <commons.bc.version>3.11</commons.bc.version>
