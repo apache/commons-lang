@@ -3629,7 +3629,7 @@ public class StringUtils {
      * @since 3.5
      */
     public static boolean isMixedCase(final CharSequence cs) {
-        if (isEmpty(cs) || cs.length() == 1) {
+        if (isEmpty(cs)) {
             return false;
         }
         boolean containsUppercase = false;
