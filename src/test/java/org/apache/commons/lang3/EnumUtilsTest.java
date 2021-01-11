@@ -20,6 +20,7 @@ package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -29,6 +30,7 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -161,6 +163,26 @@ public class EnumUtilsTest {
         assertEquals(Traffic.GREEN, EnumUtils.getEnumIgnoreCase(Traffic.class, null, Traffic.GREEN));
         assertEquals(Traffic.RED, EnumUtils.getEnumIgnoreCase(Traffic.class, null, Traffic.RED));
         assertNull(EnumUtils.getEnumIgnoreCase(Traffic.class, "PURPLE", null));
+    }
+
+    @Test
+    public void test_getEnumByPredicate() {
+        assertEquals(WithExtraData.A, EnumUtils.getEnumByPredicate(WithExtraData.class, WithExtraData::isA).get());
+        assertNotEquals(WithExtraData.A, EnumUtils.getEnumByPredicate(WithExtraData.class, WithExtraData::isNotA).get());
+        assertEquals(WithExtraData.A, EnumUtils.getEnumByPredicate(WithExtraData.class, value -> true).get());
+        assertEquals(Optional.empty(), EnumUtils.getEnumByPredicate(WithExtraData.class, value -> false));
+    }
+
+    @Test
+    public void test_getEnumByPredicate_nullInputs() {
+        assertFalse(EnumUtils.getEnumByPredicate(null, WithExtraData::isA).isPresent());
+        assertFalse(EnumUtils.getEnumByPredicate(WithExtraData.class, null).isPresent());
+    }
+
+    @Test
+    public void test_getEnumByPredicate_nonEnumClass() {
+        final Class rawType = Object.class;
+        assertFalse(EnumUtils.getEnumByPredicate(rawType, value -> true).isPresent());
     }
 
     @Test
@@ -502,4 +524,18 @@ enum TooMany {
     A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
     A1, B1, C1, D1, E1, F1, G1, H1, I1, J1, K1, L1, M1, N1, O1, P1, Q1, R1, S1, T1,
     U1, V1, W1, X1, Y1, Z1, A2, B2, C2, D2, E2, F2, G2, H2, I2, J2, K2, L2, M2
+}
+
+enum WithExtraData {
+    A, B, C;
+
+    // matches exactly one value in enum
+    boolean isA() {
+        return this == A;
+    }
+
+    // matches multiple values in enum
+    boolean isNotA() {
+        return this != A;
+    }
 }

@@ -23,6 +23,8 @@ import java.util.EnumSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * <p>Utility library to provide helper methods for Java enums.</p>
@@ -262,6 +264,35 @@ public class EnumUtils {
             }
         }
         return defaultEnum;
+    }
+
+    /**
+     * <p>Tries to find the enum value for the class matching the given predicate. The first hit will be returned.</p>
+     *
+     * <p>This method allows the usage of arbitrary predicates instead of only enum names to get the enum value.
+     * It returns an empty optional if no value matches, or any input is null.</p>
+     *
+     * <p>If multiple values match the predicate only the first one encountered is returned.</p>
+     *
+     * <p>A typical usage example would be finding an enum based on additional information stored inside the enum,
+     * or context information regarding the enum values.</p>
+     *
+     * @param <E>         the type of the enumeration
+     * @param enumClass   the class of the enum to query, not null
+     * @param predicate   the predicate used to test for the value, not null
+     * @return an Optional containing the enum or an empty optional if none was found, or any input is invalid
+     * @since 3.12
+     */
+    public static <E extends Enum<E>> Optional<E> getEnumByPredicate(final Class<E> enumClass, final Predicate<E> predicate) {
+        if (predicate == null || enumClass == null || !enumClass.isEnum()) {
+            return Optional.empty();
+        }
+        for (final E each : enumClass.getEnumConstants()) {
+            if (predicate.test(each)) {
+                return Optional.of(each);
+            }
+        }
+        return Optional.empty();
     }
 
     /**
