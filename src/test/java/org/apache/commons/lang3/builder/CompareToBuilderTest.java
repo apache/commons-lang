@@ -90,7 +90,7 @@ public class CompareToBuilderTest {
 
     static class TestTransientSubObject extends TestObject {
         @SuppressWarnings("unused")
-        private transient int t;
+        private final transient int t;
         TestTransientSubObject(final int a, final int t) {
             super(a);
             this.t = t;

@@ -125,7 +125,7 @@ public class EqualsBuilderTest {
 
     static class TestTSubObject extends TestObject {
         @SuppressWarnings("unused")
-        private transient int t;
+        private final transient int t;
 
         TestTSubObject(final int a, final int t) {
             super(a);
@@ -135,7 +135,7 @@ public class EqualsBuilderTest {
 
     static class TestTTSubObject extends TestTSubObject {
         @SuppressWarnings("unused")
-        private transient int tt;
+        private final transient int tt;
 
         TestTTSubObject(final int a, final int t, final int tt) {
             super(a, t);

@@ -225,7 +225,7 @@ abstract class FormatCache<F extends Format> {
         }
 
         private final Object[] keys;
-        private int hashCode;
+        private final int hashCode;
 
         /**
          * Constructs an instance of {@code MultipartKey} to hold the specified objects.
