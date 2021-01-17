@@ -6707,7 +6707,7 @@ public class StringUtils {
             final Set<String> searchSet = new HashSet<>(Arrays.asList(searchList));
             final Set<String> replacementSet = new HashSet<>(Arrays.asList(replacementList));
             searchSet.retainAll(replacementSet);
-            if (searchSet.size() > 0) {
+            if (!searchSet.isEmpty()) {
                 throw new IllegalStateException("Aborting to protect against StackOverflowError - " +
                         "output of one loop is the input of another");
             }

@@ -283,6 +283,19 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     }
 
     /**
+     * Checks is the string builder is not empty (convenience Collections API style method).
+     * <p>
+     * This method is the same as checking {@link #length()} and is provided to match the
+     * API of Collections.
+     *
+     * @return {@code true} if the size is greater than {@code 0}.
+     * @since 3.12
+     */
+    public boolean isNotEmpty() {
+        return size > 0;
+    }
+
+    /**
      * Clears the string builder (convenience Collections API style method).
      * <p>
      * This method does not reduce the size of the internal character buffer.
@@ -1390,7 +1403,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @since 2.3
      */
     public StrBuilder appendSeparator(final char separator) {
-        if (size() > 0) {
+        if (isNotEmpty()) {
             append(separator);
         }
         return this;
@@ -1408,7 +1421,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @since 2.5
      */
     public StrBuilder appendSeparator(final char standard, final char defaultIfEmpty) {
-        if (size() > 0) {
+        if (isNotEmpty()) {
             append(standard);
         } else {
             append(defaultIfEmpty);

@@ -127,12 +127,12 @@ public class ThreadUtilsTest {
 
     @Test
     public void testAtLeastOneThreadExists() {
-        assertTrue(ThreadUtils.getAllThreads().size() > 0);
+        assertFalse(ThreadUtils.getAllThreads().isEmpty());
     }
 
     @Test
     public void testAtLeastOneThreadGroupsExists() {
-        assertTrue(ThreadUtils.getAllThreadGroups().size() > 0);
+        assertFalse(ThreadUtils.getAllThreadGroups().isEmpty());
     }
 
     @Test
