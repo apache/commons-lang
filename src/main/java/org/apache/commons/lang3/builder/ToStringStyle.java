@@ -263,7 +263,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Whether to use short class names, the default is {@code false}.
      */
-    private boolean useShortClassName = false;
+    private boolean useShortClassName;
 
     /**
      * Whether to use the identity hash code, the default is {@code true}.
@@ -288,12 +288,12 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Whether the field separator should be added before any other fields.
      */
-    private boolean fieldSeparatorAtStart = false;
+    private boolean fieldSeparatorAtStart;
 
     /**
      * Whether the field separator should be added after any other fields.
      */
-    private boolean fieldSeparatorAtEnd = false;
+    private boolean fieldSeparatorAtEnd;
 
     /**
      * The field separator {@code ','}.

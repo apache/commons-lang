@@ -104,15 +104,15 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     /**
      * Cached output hashCode (class is immutable).
      */
-    private transient int hashCode = 0;
+    private transient int hashCode;
     /**
      * Cached output toString (class is immutable).
      */
-    private transient String toString = null;
+    private transient String toString;
     /**
      * Cached output toProperString (class is immutable).
      */
-    private transient String toProperString = null;
+    private transient String toProperString;
 
     /**
      * <p>Constructs a {@code Fraction} instance with the 2 parts
@@ -178,7 +178,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         if (numerator < 0) {
             throw new ArithmeticException("The numerator must not be negative");
         }
-        long numeratorValue;
+        final long numeratorValue;
         if (whole < 0) {
             numeratorValue = whole * (long) denominator - numerator;
         } else {

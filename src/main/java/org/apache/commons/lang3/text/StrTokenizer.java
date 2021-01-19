@@ -126,7 +126,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     private StrMatcher trimmerMatcher = StrMatcher.noneMatcher();
 
     /** Whether to return empty tokens as null */
-    private boolean emptyAsNull = false;
+    private boolean emptyAsNull;
     /** Whether to ignore empty tokens */
     private boolean ignoreEmptyTokens = true;
 

@@ -1061,7 +1061,7 @@ public class ClassUtils {
     public static Class<?> getClass(
             final ClassLoader classLoader, final String className, final boolean initialize) throws ClassNotFoundException {
         try {
-            Class<?> clazz;
+            final Class<?> clazz;
             if (namePrimitiveMap.containsKey(className)) {
                 clazz = namePrimitiveMap.get(className);
             } else {
@@ -1173,7 +1173,7 @@ public class ClassUtils {
             if (!Modifier.isPublic(candidateClass.getModifiers())) {
                 continue;
             }
-            Method candidateMethod;
+            final Method candidateMethod;
             try {
                 candidateMethod = candidateClass.getMethod(methodName, parameterTypes);
             } catch (final NoSuchMethodException ex) {

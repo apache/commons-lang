@@ -507,13 +507,13 @@ public class HashCodeBuilderTest {
 
     static class TestObjectWithMultipleFields {
         @SuppressWarnings("unused")
-        private int one = 0;
+        private int one;
 
         @SuppressWarnings("unused")
-        private int two = 0;
+        private int two;
 
         @SuppressWarnings("unused")
-        private int three = 0;
+        private int three;
 
         TestObjectWithMultipleFields(final int one, final int two, final int three) {
             this.one = one;

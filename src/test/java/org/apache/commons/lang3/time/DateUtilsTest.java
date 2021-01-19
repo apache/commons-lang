@@ -55,35 +55,35 @@ public class DateUtilsTest {
         BASE_DATE = cal.getTime();
     }
 
-    private DateFormat dateParser = null;
-    private DateFormat dateTimeParser = null;
-    private Date dateAmPm1 = null;
-    private Date dateAmPm2 = null;
-    private Date dateAmPm3 = null;
-    private Date dateAmPm4 = null;
-    private Date date0 = null;
-    private Date date1 = null;
-    private Date date2 = null;
-    private Date date3 = null;
-    private Date date4 = null;
-    private Date date5 = null;
-    private Date date6 = null;
-    private Date date7 = null;
-    private Date date8 = null;
-    private Calendar calAmPm1 = null;
-    private Calendar calAmPm2 = null;
-    private Calendar calAmPm3 = null;
-    private Calendar calAmPm4 = null;
-    private Calendar cal1 = null;
-    private Calendar cal2 = null;
-    private Calendar cal3 = null;
-    private Calendar cal4 = null;
-    private Calendar cal5 = null;
-    private Calendar cal6 = null;
-    private Calendar cal7 = null;
-    private Calendar cal8 = null;
-    private TimeZone zone = null;
-    private TimeZone defaultZone = null;
+    private DateFormat dateParser;
+    private DateFormat dateTimeParser;
+    private Date dateAmPm1;
+    private Date dateAmPm2;
+    private Date dateAmPm3;
+    private Date dateAmPm4;
+    private Date date0;
+    private Date date1;
+    private Date date2;
+    private Date date3;
+    private Date date4;
+    private Date date5;
+    private Date date6;
+    private Date date7;
+    private Date date8;
+    private Calendar calAmPm1;
+    private Calendar calAmPm2;
+    private Calendar calAmPm3;
+    private Calendar calAmPm4;
+    private Calendar cal1;
+    private Calendar cal2;
+    private Calendar cal3;
+    private Calendar cal4;
+    private Calendar cal5;
+    private Calendar cal6;
+    private Calendar cal7;
+    private Calendar cal8;
+    private TimeZone zone;
+    private TimeZone defaultZone;
 
     @BeforeEach
     public void setUp() throws Exception {

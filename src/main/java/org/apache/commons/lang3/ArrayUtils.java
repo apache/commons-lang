@@ -785,7 +785,7 @@ public class ArrayUtils {
      * @throws IllegalArgumentException if both arguments are null
      */
     public static <T> T[] add(final T[] array, final T element) {
-        Class<?> type;
+        final Class<?> type;
         if (array != null) {
             type = array.getClass().getComponentType();
         } else if (element != null) {

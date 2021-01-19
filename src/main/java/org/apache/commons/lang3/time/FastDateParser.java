@@ -131,7 +131,7 @@ public class FastDateParser implements DateParser, Serializable {
 
         final Calendar definingCalendar = Calendar.getInstance(timeZone, this.locale);
 
-        int centuryStartYear;
+        final int centuryStartYear;
         if (centuryStart!=null) {
             definingCalendar.setTime(centuryStart);
             centuryStartYear = definingCalendar.get(Calendar.YEAR);
@@ -820,8 +820,8 @@ public class FastDateParser implements DateParser, Serializable {
         private final Map<String, TzInfo> tzNames= new HashMap<>();
 
         private static class TzInfo {
-            TimeZone zone;
-            int dstOffset;
+            final TimeZone zone;
+            final int dstOffset;
 
             TzInfo(final TimeZone tz, final boolean useDst) {
                 zone = tz;

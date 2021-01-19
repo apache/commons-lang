@@ -376,7 +376,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      */
     private CheckIntervalData nextCheckIntervalData(final int increment,
             final CheckIntervalData currentData, final State currentState, final long time) {
-        CheckIntervalData nextData;
+        final CheckIntervalData nextData;
         if (stateStrategy(currentState).isCheckIntervalFinished(this, currentData, time)) {
             nextData = new CheckIntervalData(increment, time);
         } else {

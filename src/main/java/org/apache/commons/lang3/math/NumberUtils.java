@@ -683,9 +683,9 @@ public class NumberUtils {
             return createInteger(str);
         }
         final char lastChar = str.charAt(length - 1);
-        String mant;
-        String dec;
-        String exp;
+        final String mant;
+        final String dec;
+        final String exp;
         final int decPos = str.indexOf('.');
         final int expPos = str.indexOf('e') + str.indexOf('E') + 1; // assumes both not present
         // if both e and E are present, this is caught by the checks on expPos (which prevent IOOBE)

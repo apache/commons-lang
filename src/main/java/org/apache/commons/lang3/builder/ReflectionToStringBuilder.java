@@ -441,12 +441,12 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     /**
      * Whether or not to append static fields.
      */
-    private boolean appendStatics = false;
+    private boolean appendStatics;
 
     /**
      * Whether or not to append transient fields.
      */
-    private boolean appendTransients = false;
+    private boolean appendTransients;
 
     /**
      * Whether or not to append fields that are null.
@@ -463,7 +463,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     /**
      * The last super class to stop appending fields for.
      */
-    private Class<?> upToClass = null;
+    private Class<?> upToClass;
 
     /**
      * <p>

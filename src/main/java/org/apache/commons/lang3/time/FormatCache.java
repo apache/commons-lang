@@ -189,7 +189,7 @@ abstract class FormatCache<F extends Format> {
         String pattern = cDateTimeInstanceCache.get(key);
         if (pattern == null) {
             try {
-                DateFormat formatter;
+                final DateFormat formatter;
                 if (dateStyle == null) {
                     formatter = DateFormat.getTimeInstance(timeStyle.intValue(), safeLocale);
                 } else if (timeStyle == null) {
@@ -217,7 +217,7 @@ abstract class FormatCache<F extends Format> {
      */
     private static final class ArrayKey {
 
-        private static int computeHashCode(Object[] keys) {
+        private static int computeHashCode(final Object[] keys) {
             final int prime = 31;
             int result = 1;
             result = prime * result + Arrays.hashCode(keys);
@@ -243,7 +243,7 @@ abstract class FormatCache<F extends Format> {
         }
 
         @Override
-        public boolean equals(Object obj) {
+        public boolean equals(final Object obj) {
             if (this == obj) {
                 return true;
             }
@@ -253,7 +253,7 @@ abstract class FormatCache<F extends Format> {
             if (getClass() != obj.getClass()) {
                 return false;
             }
-            ArrayKey other = (ArrayKey) obj;
+            final ArrayKey other = (ArrayKey) obj;
             return Arrays.deepEquals(keys, other.keys);
         }
 
