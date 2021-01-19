@@ -175,7 +175,7 @@ public abstract class BackgroundInitializer<T> implements
 
             // Determine the executor to use and whether a temporary one has to
             // be created
-            ExecutorService tempExec;
+            final ExecutorService tempExec;
             executor = getExternalExecutor();
             if (executor == null) {
                 executor = tempExec = createExecutor();
