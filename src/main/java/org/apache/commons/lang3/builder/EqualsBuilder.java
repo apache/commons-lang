@@ -213,11 +213,11 @@ public class EqualsBuilder implements Builder<Boolean> {
      */
     private boolean isEquals = true;
 
-    private boolean testTransients = false;
-    private boolean testRecursive = false;
+    private boolean testTransients;
+    private boolean testRecursive;
     private List<Class<?>> bypassReflectionClasses;
-    private Class<?> reflectUpToClass = null;
-    private String[] excludeFields = null;
+    private Class<?> reflectUpToClass;
+    private String[] excludeFields;
 
     /**
      * <p>Constructor for EqualsBuilder.</p>
