@@ -103,7 +103,6 @@ class GmtTimeZone extends TimeZone {
         final GmtTimeZone that = (GmtTimeZone) o;
         return m_delegate.equals(that.m_delegate);
     }
-    
     @Override
     public int hashCode() {
         return Objects.hash(getID(), m_delegate);
