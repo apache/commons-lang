@@ -94,12 +94,16 @@ class GmtTimeZone extends TimeZone {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         final GmtTimeZone that = (GmtTimeZone) o;
         return m_delegate.equals(that.m_delegate);
     }
-
+    
     @Override
     public int hashCode() {
         return Objects.hash(getID(), m_delegate);
