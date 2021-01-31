@@ -17,6 +17,8 @@
 package org.apache.commons.lang3.time;
 
 import java.util.Date;
+import java.util.Objects;
+import java.util.SimpleTimeZone;
 import java.util.TimeZone;
 
 /**
@@ -33,8 +35,7 @@ class GmtTimeZone extends TimeZone {
     // Serializable!
     static final long serialVersionUID = 1L;
 
-    private final int offset;
-    private final String zoneId;
+    private final SimpleTimeZone m_delegate;
 
     GmtTimeZone(final boolean negate, final int hours, final int minutes) {
         if (hours >= HOURS_PER_DAY) {
@@ -44,11 +45,12 @@ class GmtTimeZone extends TimeZone {
             throw new IllegalArgumentException(minutes + " minutes out of range");
         }
         final int milliseconds = (minutes + (hours * MINUTES_PER_HOUR)) * MILLISECONDS_PER_MINUTE;
-        offset = negate ? -milliseconds : milliseconds;
-        zoneId = twoDigits(
+        final int offset = negate ? -milliseconds : milliseconds;
+        final String zoneId = twoDigits(
             twoDigits(new StringBuilder(9).append("GMT").append(negate ? '-' : '+'), hours)
                 .append(':'), minutes).toString();
 
+        m_delegate = new SimpleTimeZone(offset, zoneId);
     }
 
     private static StringBuilder twoDigits(final StringBuilder sb, final int n) {
@@ -57,7 +59,7 @@ class GmtTimeZone extends TimeZone {
 
     @Override
     public int getOffset(final int era, final int year, final int month, final int day, final int dayOfWeek, final int milliseconds) {
-        return offset;
+        return m_delegate.getOffset(era, year, month, day, dayOfWeek, milliseconds);
     }
 
     @Override
@@ -67,39 +69,39 @@ class GmtTimeZone extends TimeZone {
 
     @Override
     public int getRawOffset() {
-        return offset;
+        return m_delegate.getRawOffset();
     }
 
     @Override
     public String getID() {
-        return zoneId;
+        return m_delegate.getID();
     }
 
     @Override
     public boolean useDaylightTime() {
-        return false;
+        return m_delegate.useDaylightTime();
     }
 
     @Override
     public boolean inDaylightTime(final Date date) {
-        return false;
+        return m_delegate.inDaylightTime(date);
     }
 
     @Override
     public String toString() {
-        return "[GmtTimeZone id=\"" + zoneId + "\",offset=" + offset + ']';
+        return "[GmtTimeZone id=\"" + getID() + "\",offset=" + getRawOffset() + ']';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final GmtTimeZone that = (GmtTimeZone) o;
+        return m_delegate.equals(that.m_delegate);
     }
 
     @Override
     public int hashCode() {
-        return offset;
-    }
-
-    @Override
-    public boolean equals(final Object other) {
-        if (!(other instanceof GmtTimeZone)) {
-            return false;
-        }
-        return zoneId == ((GmtTimeZone) other).zoneId;
+        return Objects.hash(getID(), m_delegate);
     }
 }
