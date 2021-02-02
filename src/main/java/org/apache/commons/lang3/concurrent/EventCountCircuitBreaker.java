@@ -293,7 +293,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     @Override
     public void open() {
         super.open();
-        checkIntervalData.set(new CheckIntervalData(0, now()));
+        checkIntervalData.set(new CheckIntervalData(0, nanoTime()));
     }
 
     /**
@@ -305,7 +305,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     @Override
     public void close() {
         super.close();
-        checkIntervalData.set(new CheckIntervalData(0, now()));
+        checkIntervalData.set(new CheckIntervalData(0, nanoTime()));
     }
 
     /**
@@ -321,7 +321,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
         State currentState;
 
         do {
-            final long time = now();
+            final long time = nanoTime();
             currentState = state.get();
             currentData = checkIntervalData.get();
             nextData = nextCheckIntervalData(increment, currentData, currentState, time);
@@ -360,7 +360,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      */
     private void changeStateAndStartNewCheckInterval(final State newState) {
         changeState(newState);
-        checkIntervalData.set(new CheckIntervalData(0, now()));
+        checkIntervalData.set(new CheckIntervalData(0, nanoTime()));
     }
 
     /**
@@ -391,7 +391,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      *
      * @return the current time in nanoseconds
      */
-    long now() {
+    long nanoTime() {
         return System.nanoTime();
     }
 

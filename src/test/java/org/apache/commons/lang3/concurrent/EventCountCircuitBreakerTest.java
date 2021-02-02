@@ -96,7 +96,7 @@ public class EventCountCircuitBreakerTest {
     public void testNow() {
         final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1,
                 TimeUnit.SECONDS);
-        final long nowNanos = breaker.now();
+        final long nowNanos = breaker.nanoTime();
         final long deltaNanos = Math.abs(System.nanoTime() - nowNanos);
         assertTrue(deltaNanos < 100_000, String.format("Delta %,d ns to current time too large", deltaNanos));
     }
@@ -364,7 +364,7 @@ public class EventCountCircuitBreakerTest {
          * method.
          */
         @Override
-        long now() {
+        long nanoTime() {
             return currentTime;
         }
     }
