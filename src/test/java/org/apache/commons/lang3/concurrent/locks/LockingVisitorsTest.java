@@ -48,7 +48,7 @@ public class LockingVisitorsTest {
         final boolean[] booleanValues, final LockVisitor<boolean[], ?> visitor) throws InterruptedException {
         final boolean[] runningValues = new boolean[10];
 
-        final long startTime = System.currentTimeMillis();
+        final long startTimeMillis = System.currentTimeMillis();
         for (int i = 0; i < booleanValues.length; i++) {
             final int index = i;
             final FailableConsumer<boolean[], ?> consumer = b -> {
@@ -70,12 +70,12 @@ public class LockingVisitorsTest {
         while (containsTrue(runningValues)) {
             Thread.sleep(100);
         }
-        final long endTime = System.currentTimeMillis();
+        final long endTimeMillis = System.currentTimeMillis();
         for (final boolean booleanValue : booleanValues) {
             assertTrue(booleanValue);
         }
         // WRONG assumption
-        // runTimeCheck.accept(endTime - startTime);
+        // runTimeCheck.accept(endTimeMillis - startTimeMillis);
     }
 
     protected void set(final boolean[] booleanArray, final int offset, final boolean value) {

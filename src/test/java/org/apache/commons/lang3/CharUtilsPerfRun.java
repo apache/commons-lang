@@ -99,21 +99,21 @@ public class CharUtilsPerfRun {
 
     private void run() {
         this.printSysInfo();
-        long start;
-        start = System.currentTimeMillis();
-        this.printlnTotal("Do nothing", start);
+        long startMillis;
+        startMillis = System.currentTimeMillis();
+        this.printlnTotal("Do nothing", startMillis);
         run_CharUtils_isAsciiNumeric(WARM_UP);
-        start = System.currentTimeMillis();
+        startMillis = System.currentTimeMillis();
         run_CharUtils_isAsciiNumeric(COUNT);
-        this.printlnTotal("run_CharUtils_isAsciiNumeric", start);
+        this.printlnTotal("run_CharUtils_isAsciiNumeric", startMillis);
         run_inlined_CharUtils_isAsciiNumeric(WARM_UP);
-        start = System.currentTimeMillis();
+        startMillis = System.currentTimeMillis();
         run_inlined_CharUtils_isAsciiNumeric(COUNT);
-        this.printlnTotal("run_inlined_CharUtils_isAsciiNumeric", start);
+        this.printlnTotal("run_inlined_CharUtils_isAsciiNumeric", startMillis);
         run_CharSet(WARM_UP);
-        start = System.currentTimeMillis();
+        startMillis = System.currentTimeMillis();
         run_CharSet(COUNT);
-        this.printlnTotal("run_CharSet", start);
+        this.printlnTotal("run_CharSet", startMillis);
     }
 
     private int run_CharSet(final int loopCount) {
@@ -149,8 +149,8 @@ public class CharUtilsPerfRun {
         return t;
     }
 
-    private void printlnTotal(final String prefix, final long start) {
-        final long total = System.currentTimeMillis() - start;
-        System.out.println(prefix + ": " + NumberFormat.getInstance().format(total) + " milliseconds.");
+    private void printlnTotal(final String prefix, final long startMillis) {
+        final long totalMillis = System.currentTimeMillis() - startMillis;
+        System.out.println(prefix + ": " + NumberFormat.getInstance().format(totalMillis) + " milliseconds.");
     }
 }

@@ -262,13 +262,13 @@ public class FastDateFormatTest {
                         try {
                             final Date date = new Date();
 
-                            final long t0 = System.currentTimeMillis();
+                            final long t0Millis = System.currentTimeMillis();
                             final String formattedDate = printer.format(date);
-                            totalElapsed.addAndGet(0, System.currentTimeMillis() - t0);
+                            totalElapsed.addAndGet(0, System.currentTimeMillis() - t0Millis);
 
-                            final long t1 = System.currentTimeMillis();
+                            final long t1Millis = System.currentTimeMillis();
                             final Object pd = parser.parseObject(formattedDate);
-                            totalElapsed.addAndGet(1, System.currentTimeMillis() - t1);
+                            totalElapsed.addAndGet(1, System.currentTimeMillis() - t1Millis);
 
                             if (!date.equals(pd)) {
                                 failures.incrementAndGet();

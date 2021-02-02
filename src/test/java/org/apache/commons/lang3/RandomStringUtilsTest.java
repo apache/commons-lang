@@ -142,9 +142,9 @@ public class RandomStringUtilsTest {
         assertEquals(50, r2.length(), "random(50) length");
         assertTrue(!r1.equals(r2), "!r1.equals(r2)");
 
-        final long seed = System.currentTimeMillis();
-        r1 = RandomStringUtils.random(50, 0, 0, true, true, null, new Random(seed));
-        r2 = RandomStringUtils.random(50, 0, 0, true, true, null, new Random(seed));
+        final long seedMillis = System.currentTimeMillis();
+        r1 = RandomStringUtils.random(50, 0, 0, true, true, null, new Random(seedMillis));
+        r2 = RandomStringUtils.random(50, 0, 0, true, true, null, new Random(seedMillis));
         assertEquals(r1, r2, "r1.equals(r2)");
 
         r1 = RandomStringUtils.random(0);
@@ -153,8 +153,8 @@ public class RandomStringUtilsTest {
 
     @Test
     public void testLANG805() {
-        final long seed = System.currentTimeMillis();
-        assertEquals("aaa", RandomStringUtils.random(3, 0, 0, false, false, new char[]{'a'}, new Random(seed)));
+        final long seedMillis = System.currentTimeMillis();
+        assertEquals("aaa", RandomStringUtils.random(3, 0, 0, false, false, new char[]{'a'}, new Random(seedMillis)));
     }
 
     @Test

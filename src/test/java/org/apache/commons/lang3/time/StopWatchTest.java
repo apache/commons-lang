@@ -174,14 +174,14 @@ public class StopWatchTest {
 
     @Test
     public void testGetStartTime() {
-        final long beforeStopWatch = System.currentTimeMillis();
+        final long beforeStopWatchMillis = System.currentTimeMillis();
         final StopWatch watch = new StopWatch();
         assertThrows(IllegalStateException.class, watch::getStartTime,
             "Calling getStartTime on an unstarted StopWatch should throw an exception");
         watch.start();
 
         watch.getStartTime();
-        assertTrue(watch.getStartTime() >= beforeStopWatch);
+        assertTrue(watch.getStartTime() >= beforeStopWatchMillis);
 
         watch.reset();
         assertThrows(IllegalStateException.class, watch::getStartTime,
