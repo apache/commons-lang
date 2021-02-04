@@ -613,7 +613,7 @@
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.encoding>utf-8</commons.encoding>
 
-    <checkstyle.plugin.version>3.1.1</checkstyle.plugin.version>
+    <checkstyle.plugin.version>3.1.2</checkstyle.plugin.version>
     <checkstyle.version>8.39</checkstyle.version>
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
 
