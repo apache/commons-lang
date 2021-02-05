@@ -359,4 +359,18 @@ public class StopWatchTest {
         final String splitStr = watch.toString();
         assertEquals(splitStr.length(), 12 + MESSAGE.length() + 1, "Formatted split string not the correct length");
     }
+
+    @Test
+    public void testStopWatchLap() throws InterruptedException {
+        final StopWatch watch = StopWatch.createStarted();
+        sleepQuietly(550);
+        final long lap550 = watch.lap();
+        sleepQuietly(250);
+        final long lap250 = watch.lap();
+
+        assertTrue(lap550 >= 500);
+        assertTrue(lap550 < 700);
+        assertTrue(lap250 >= 200);
+        assertTrue(lap250 < 400);
+    }
 }
