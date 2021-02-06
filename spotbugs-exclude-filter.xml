@@ -153,4 +153,12 @@
     <Method name="compare" />
     <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" />
   </Match>
+
+  <!-- Reason: requireNonNull is supposed to take a nullable parameter,
+       whatever Spotbugs thinks of it. -->
+  <Match>
+    <Class name="org.apache.commons.lang3.function.Objects" />
+    <Method name="requireNonNull" />
+    <Bug pattern="NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" />
+  </Match>
 </FindBugsFilter>
