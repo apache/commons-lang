@@ -26,7 +26,7 @@ import java.util.TimeZone;
  *
  * @since 3.7
  */
-class GmtTimeZone extends TimeZone {
+final class GmtTimeZone extends TimeZone {
 
     private static final int MILLISECONDS_PER_MINUTE = 60 * 1000;
     private static final int MINUTES_PER_HOUR = 60;
@@ -35,7 +35,7 @@ class GmtTimeZone extends TimeZone {
     // Serializable!
     static final long serialVersionUID = 1L;
 
-    private final SimpleTimeZone m_delegate;
+    private final SimpleTimeZone delegate;
 
     GmtTimeZone(final boolean negate, final int hours, final int minutes) {
         if (hours >= HOURS_PER_DAY) {
@@ -50,7 +50,7 @@ class GmtTimeZone extends TimeZone {
             twoDigits(new StringBuilder(9).append("GMT").append(negate ? '-' : '+'), hours)
                 .append(':'), minutes).toString();
 
-        m_delegate = new SimpleTimeZone(offset, zoneId);
+        delegate = new SimpleTimeZone(offset, zoneId);
     }
 
     private static StringBuilder twoDigits(final StringBuilder sb, final int n) {
@@ -59,7 +59,7 @@ class GmtTimeZone extends TimeZone {
 
     @Override
     public int getOffset(final int era, final int year, final int month, final int day, final int dayOfWeek, final int milliseconds) {
-        return m_delegate.getOffset(era, year, month, day, dayOfWeek, milliseconds);
+        return delegate.getOffset(era, year, month, day, dayOfWeek, milliseconds);
     }
 
     @Override
@@ -69,22 +69,22 @@ class GmtTimeZone extends TimeZone {
 
     @Override
     public int getRawOffset() {
-        return m_delegate.getRawOffset();
+        return delegate.getRawOffset();
     }
 
     @Override
     public String getID() {
-        return m_delegate.getID();
+        return delegate.getID();
     }
 
     @Override
     public boolean useDaylightTime() {
-        return m_delegate.useDaylightTime();
+        return delegate.useDaylightTime();
     }
 
     @Override
     public boolean inDaylightTime(final Date date) {
-        return m_delegate.inDaylightTime(date);
+        return delegate.inDaylightTime(date);
     }
 
     @Override
@@ -101,11 +101,11 @@ class GmtTimeZone extends TimeZone {
             return false;
         }
         final GmtTimeZone that = (GmtTimeZone) o;
-        return m_delegate.equals(that.m_delegate);
+        return delegate.equals(that.delegate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getID(), m_delegate);
+        return Objects.hash(getID(), delegate);
     }
 }
