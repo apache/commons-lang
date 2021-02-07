@@ -72,10 +72,7 @@ public class Objects {
      * @see java.util.Objects#requireNonNull(Object)
      */
     public static <T> @Nonnull T requireNonNull(@Nullable T value) throws NullPointerException {
-        if (value == null) {
-            throw new NullPointerException("The value must not be null.");
-        }
-        return value;
+        return requireNonNull(value, "The value must not be null.");
     }
 
     /**
@@ -90,13 +87,7 @@ public class Objects {
      * @see java.util.Objects#requireNonNull(Object)
      */
     public static <T> @Nonnull T requireNonNull(@Nullable T value, @Nonnull T defaultValue) throws NullPointerException {
-        if (value == null) {
-            if (defaultValue == null) {
-                throw new NullPointerException("The default value must not be null.");
-            }
-            return defaultValue;
-        }
-        return value;
+        return value == null ? requireNonNull(defaultValue) : value;
     }
 
     /**
