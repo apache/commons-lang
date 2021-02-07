@@ -27,7 +27,7 @@ import org.apache.commons.lang3.ObjectUtils;
 
 /**
  * This class provides some replacements for the corresponding methods in
- * {@link Objects}. The replacements have the advantage, that they are properly
+ * {@link java.util.Objects}. The replacements have the advantage, that they are properly
  * annotated with {@link Nullable}, and/or {@link Nonnull}, so they let the
  * compiler know, what their respective results are.
  *
