@@ -156,10 +156,10 @@ public class Objects {
      */
     public static <T, E extends Throwable> @Nonnull T requireNonNull(@Nullable T value, @Nonnull FailableSupplier<T, E> defaultValueSupplier) {
         if (value == null) {
-            final FailableSupplier<T, ?> supp = requireNonNull(defaultValueSupplier, "The supplier must not be null");
+            final FailableSupplier<T, ?> supplier = requireNonNull(defaultValueSupplier, "The supplier must not be null");
             final T o;
             try {
-                o = supp.get();
+                o = supplier.get();
             } catch (Throwable t) {
                 throw Failable.rethrow(t);
             }
