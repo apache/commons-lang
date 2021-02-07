@@ -63,13 +63,13 @@ public class Objects {
     /**
      * Checks, whether the given object is non-null. If so, returns the non-null
      * object as a result value. Otherwise, a NullPointerException is thrown.
-     * @param <O> The type of parameter {@code value}, also the result type.
+     * @param <T> The type of parameter {@code value}, also the result type.
      * @param value The value, which is being checked.
      * @return The given input value, if it was found to be non-null.
      * @throws NullPointerException The input value was null.
      * @see java.util.Objects#requireNonNull(Object)
      */
-    public static <O> @Nonnull O requireNonNull(@Nullable O value) throws NullPointerException {
+    public static <T> @Nonnull T requireNonNull(@Nullable T value) throws NullPointerException {
         if (value == null) {
             throw new NullPointerException("The value must not be null.");
         }
@@ -79,7 +79,7 @@ public class Objects {
     /**
      * Checks, whether the given object is non-null. If so, returns the non-null
      * object as a result value. Otherwise, a NullPointerException is thrown.
-     * @param <O> The type of parameter {@code value}, also the result type.
+     * @param <T> The type of parameter {@code value}, also the result type.
      * @param value The value, which is being checked.
      * @param defaultValue The default value, which is being returned, if the
      *   check fails, and the {@code value} is null.
@@ -87,7 +87,7 @@ public class Objects {
      * @return The given input value, if it was found to be non-null.
      * @see java.util.Objects#requireNonNull(Object)
      */
-    public static <O> @Nonnull O requireNonNull(@Nullable O value, @Nonnull O defaultValue) {
+    public static <T> @Nonnull T requireNonNull(@Nullable T value, @Nonnull T defaultValue) {
         if (value == null) {
             if (defaultValue == null) {
                 throw new NullPointerException("The default value must not be null.");
@@ -100,7 +100,7 @@ public class Objects {
     /**
      * Checks, whether the given object is non-null. If so, returns the non-null
      * object as a result value. Otherwise, a NullPointerException is thrown.
-     * @param <O> The type of parameter {@code value}, also the result type.
+     * @param <T> The type of parameter {@code value}, also the result type.
      * @param value The value, which is being checked.
      * @param msg A string, which is being used as the exceptions message, if the
      *   check fails.
@@ -109,7 +109,7 @@ public class Objects {
      * @see java.util.Objects#requireNonNull(Object, String)
      * @see #requireNonNull(Object, Supplier)
      */
-    public static <O> @Nonnull O requireNonNull(@Nullable O value, @Nonnull String msg) throws NullPointerException {
+    public static <T> @Nonnull T requireNonNull(@Nullable T value, @Nonnull String msg) throws NullPointerException {
         if (value == null) {
             throw new NullPointerException(msg);
         }
@@ -119,7 +119,7 @@ public class Objects {
     /**
      * Checks, whether the given object is non-null. If so, returns the non-null
      * object as a result value. Otherwise, a NullPointerException is thrown.
-     * @param <O> The type of parameter {@code value}, also the result type.
+     * @param <T> The type of parameter {@code value}, also the result type.
      * @param value The value, which is being checked.
      * @param msgSupplier A supplier, which creates the exception message, if the check fails.
      *     This supplier will only be invoked, if necessary.
@@ -128,7 +128,7 @@ public class Objects {
      * @see java.util.Objects#requireNonNull(Object, String)
      * @see #requireNonNull(Object, String)
      */
-    public static <O> @Nonnull O requireNonNull(@Nullable O value, @Nonnull Supplier<String> msgSupplier) throws NullPointerException {
+    public static <T> @Nonnull T requireNonNull(@Nullable T value, @Nonnull Supplier<String> msgSupplier) throws NullPointerException {
         if (value == null) {
             throw new NullPointerException(msgSupplier.get());
         }
@@ -138,7 +138,7 @@ public class Objects {
     /** Checks, whether the given object is non-null. If so, returns the non-null
      * object as a result value. Otherwise, invokes the given {@link Supplier},
      * and returns the suppliers result value.
-     * @param <O> The type of parameter {@code value}, also the result type of
+     * @param <T> The type of parameter {@code value}, also the result type of
      *    the default value supplier, and of the method itself.
      * @param <E> The type of exception, that the {@code default value supplier},
      *    may throw.
@@ -154,10 +154,10 @@ public class Objects {
      * @throws NullPointerException The default value supplier is null, or the default
      *   value supplier has returned null.
      */
-    public static <O, E extends Throwable> @Nonnull O requireNonNull(@Nullable O value, @Nonnull FailableSupplier<O, E> defaultValueSupplier) {
+    public static <T, E extends Throwable> @Nonnull T requireNonNull(@Nullable T value, @Nonnull FailableSupplier<T, E> defaultValueSupplier) {
         if (value == null) {
-            final FailableSupplier<O, ?> supp = requireNonNull(defaultValueSupplier, "The supplier must not be null");
-            final O o;
+            final FailableSupplier<T, ?> supp = requireNonNull(defaultValueSupplier, "The supplier must not be null");
+            final T o;
             try {
                 o = supp.get();
             } catch (Throwable t) {
