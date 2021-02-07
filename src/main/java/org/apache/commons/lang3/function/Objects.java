@@ -150,13 +150,13 @@ public class Objects {
     public static <T, E extends Throwable> @Nonnull T requireNonNull(@Nullable T value, @Nonnull FailableSupplier<T, E> defaultValueSupplier) throws NullPointerException {
         if (value == null) {
             final FailableSupplier<T, ?> supplier = requireNonNull(defaultValueSupplier, "The supplier must not be null");
-            final T o;
+            final T defaultValue;
             try {
-                o = supplier.get();
+                defaultValue = supplier.get();
             } catch (Throwable t) {
                 throw Failable.rethrow(t);
             }
-            return requireNonNull(o, "The supplier must not return null.");
+            return requireNonNull(defaultValue, "The supplier must not return null.");
         }
         return value;
     }
