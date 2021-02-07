@@ -87,7 +87,7 @@ public class Objects {
      * @return The given input value, if it was found to be non-null.
      * @see java.util.Objects#requireNonNull(Object)
      */
-    public static <T> @Nonnull T requireNonNull(@Nullable T value, @Nonnull T defaultValue) {
+    public static <T> @Nonnull T requireNonNull(@Nullable T value, @Nonnull T defaultValue) throws NullPointerException {
         if (value == null) {
             if (defaultValue == null) {
                 throw new NullPointerException("The default value must not be null.");
@@ -154,7 +154,7 @@ public class Objects {
      * @throws NullPointerException The default value supplier is null, or the default
      *   value supplier has returned null.
      */
-    public static <T, E extends Throwable> @Nonnull T requireNonNull(@Nullable T value, @Nonnull FailableSupplier<T, E> defaultValueSupplier) {
+    public static <T, E extends Throwable> @Nonnull T requireNonNull(@Nullable T value, @Nonnull FailableSupplier<T, E> defaultValueSupplier) throws NullPointerException {
         if (value == null) {
             final FailableSupplier<T, ?> supplier = requireNonNull(defaultValueSupplier, "The supplier must not be null");
             final T o;
