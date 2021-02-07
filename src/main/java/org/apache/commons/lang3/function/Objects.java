@@ -58,7 +58,7 @@ import org.apache.commons.lang3.ObjectUtils;
  * can't, and the Java compiler confirms this.(An alternative to redundancy
  * would have been to change the {@code ObjectUtils} class. However, that
  * would mean loosing upwards compatibility, and we don't do that.)
- * 
+ *
  * @since 3.12
  */
 public class Objects {
