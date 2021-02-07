@@ -72,9 +72,8 @@ public class Objects {
     public static <O> @Nonnull O requireNonNull(@Nullable O value) throws NullPointerException {
         if (value == null) {
             throw new NullPointerException("The value must not be null.");
-        } else {
-            return value;
         }
+        return value;
     }
 
     /**
@@ -92,12 +91,10 @@ public class Objects {
         if (value == null) {
             if (defaultValue == null) {
                 throw new NullPointerException("The default value must not be null.");
-            } else {
-                return defaultValue;
             }
-        } else {
-            return value;
+            return defaultValue;
         }
+        return value;
     }
 
     /**
@@ -115,9 +112,8 @@ public class Objects {
     public static <O> @Nonnull O requireNonNull(@Nullable O value, @Nonnull String msg) throws NullPointerException {
         if (value == null) {
             throw new NullPointerException(msg);
-        } else {
-            return value;
         }
+        return value;
     }
 
     /**
@@ -135,9 +131,8 @@ public class Objects {
     public static <O> @Nonnull O requireNonNull(@Nullable O value, @Nonnull Supplier<String> msgSupplier) throws NullPointerException {
         if (value == null) {
             throw new NullPointerException(msgSupplier.get());
-        } else {
-            return value;
         }
+        return value;
     }
 
     /** Checks, whether the given object is non-null. If so, returns the non-null
@@ -169,8 +164,7 @@ public class Objects {
                 throw Failable.rethrow(t);
             }
             return requireNonNull(o, "The supplier must not return null.");
-        } else {
-            return value;
         }
+        return value;
     }
 }
