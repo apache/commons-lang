@@ -133,7 +133,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
                 }
             }
 
-            int entityValue;
+            final int entityValue;
             try {
                 if (isHex) {
                     entityValue = Integer.parseInt(input.subSequence(start, end).toString(), 16);

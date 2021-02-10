@@ -4739,7 +4739,7 @@ public class StringUtils {
      * {@code endIndex < 0} or <br>
      * {@code endIndex > array.length()}
      */
-    public static String join(final Object[] array, String delimiter, final int startIndex, final int endIndex) {
+    public static String join(final Object[] array, final String delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
@@ -5423,8 +5423,8 @@ public class StringUtils {
     }
 
     private static int[] matches(final CharSequence first, final CharSequence second) {
-        CharSequence max;
-        CharSequence min;
+        final CharSequence max;
+        final CharSequence min;
         if (first.length() > second.length()) {
             max = first;
             min = second;

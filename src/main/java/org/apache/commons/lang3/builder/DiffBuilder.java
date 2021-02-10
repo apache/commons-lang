@@ -811,7 +811,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
             return this;
         }
 
-        Object objectToTest;
+        final Object objectToTest;
         if (lhs != null) {
             objectToTest = lhs;
         } else {

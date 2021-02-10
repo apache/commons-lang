@@ -178,7 +178,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         if (numerator < 0) {
             throw new ArithmeticException("The numerator must not be negative");
         }
-        long numeratorValue;
+        final long numeratorValue;
         if (whole < 0) {
             numeratorValue = whole * (long) denominator - numerator;
         } else {
