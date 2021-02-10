@@ -46,7 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="3.12.0" date="2020-MM-DD" description="New features and bug fixes.">
-    <!--  FIXES -->
+    <!-- FIX -->
     <action issue="LANG-1592" type="fix" dev="aherbert" due-to="Huang Pingcai, Alex Herbert">Correct implementation of RandomUtils.nextLong(long, long)</action>
     <action issue="LANG-1600" type="fix" dev="ggregory" due-to="Michael F">Restore handling of collections for non-JSON ToStringStyle #610.</action>
     <action                   type="fix" dev="ggregory" due-to="iamchao1129">ContextedException Javadoc add missing semicolon #581.</action>
@@ -75,7 +75,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Felix Schumacher ">Correct markup in Javadoc for unbalanced braces #679.</action>
     <action issue="LANG-1544" type="fix" dev="kinow" due-to="Peter Nagy, Michael Buck, Gary Gregory">MethodUtils.invokeMethod NullPointerException in case of null in args list #680.</action>
     <action issue="LANG-1637" type="fix" dev="ggregory" due-to="Uri Gonen, Gary Gregory, Michael Osipov">Fix 2 digit week year formatting #688.</action>
-    <!--  ADDS -->
+    <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.booleanValues().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.primitiveValues().</action>
     <action issue="LANG-1535" type="add" dev="ggregory" due-to="Gary Gregory, Isira Seneviratne">Add StringUtils.containsAnyIgnoreCase(CharSequence, CharSequence...).</action>
@@ -89,7 +89,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1636" type="add" dev="ggregory" due-to="">Add missing boolean[] join method #686.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StringUtils.substringBefore(String, int).</action>
     <action                   type="add" dev="jochen">Introduce the use of @Nonnull, and @Nullable, and the Objects class as a helper tool.</action>
-    <!--  UPDATES -->
+    <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Enable Dependabot #587.</action>
     <action                   type="update" dev="chtompki">Bump junit-jupiter from 5.6.2 to 5.7.0.</action>
     <action                   type="update" dev="chtompki" due-to="chtompki, Dependabot">Bump spotbugs from 4.1.2 to 4.2.1, #627, #671, #708.</action>
