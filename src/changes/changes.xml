@@ -110,6 +110,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump actions/cache from v2 to v2.1.4 #710.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump junit-bom from 5.7.0 to 5.7.1 #707.</action>
     <action                   type="update" dev="ggregory" due-to="Arturo Bernal">Minor Improvements #701.</action>
+    <action                   type="update" dev="ggregory" due-to="Arturo Bernal">Minor Improvement: Add final variable.try to make the code read-only #700.</action>
   </release>
   <release version="3.11" date="2020-07-12" description="New features and bug fixes.">
     <action                   type="update" dev="chtompki" due-to="Jin Xu">Refine test output for FastDateParserTest</action>
