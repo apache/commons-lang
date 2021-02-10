@@ -88,6 +88,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_17.</action>
     <action issue="LANG-1636" type="add" dev="ggregory" due-to="">Add missing boolean[] join method #686.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StringUtils.substringBefore(String, int).</action>
+    <action                   type="add"    dev="jochen">Introduce the use of @Nonnull, and @Nullable, and the Objects class as a helper tool.</action>
     <!--  UPDATES -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Enable Dependabot #587.</action>
     <action                   type="update" dev="chtompki">Bump junit-jupiter from 5.6.2 to 5.7.0.</action>
@@ -106,7 +107,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Ali K. Nouri">Processor.java: check enum equality with == instead of .equals() method #690.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump junit-pioneer from 1.1.0 to 1.3.0 #702.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump maven-checkstyle-plugin from 3.1.1 to 3.1.2 #705.</action>
-    <action                   type="add"    dev="jochen">Introduce the use of @Nonnull, and @Nullable, and the Objects class as a helper tool.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump actions/cache from v2 to v2.1.4 #710.</action>
   </release>
   <release version="3.11" date="2020-07-12" description="New features and bug fixes.">
     <action                   type="update" dev="chtompki" due-to="Jin Xu">Refine test output for FastDateParserTest</action>
