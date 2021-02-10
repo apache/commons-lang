@@ -127,7 +127,24 @@ public class StringUtilsSubstringTest  {
         assertEquals(FOO, StringUtils.mid(FOOBAR, -1, 3));
     }
 
-    //-----------------------------------------------------------------------
+    @Test
+    public void testSubstringBefore_StringInt() {
+        assertEquals("foo", StringUtils.substringBefore("fooXXbarXXbaz", 'X'));
+
+        assertNull(StringUtils.substringBefore(null, 0));
+        assertNull(StringUtils.substringBefore(null, 'X'));
+        assertEquals("", StringUtils.substringBefore("", 0));
+        assertEquals("", StringUtils.substringBefore("", 'X'));
+
+        assertEquals("foo", StringUtils.substringBefore("foo", 0));
+        assertEquals("foo", StringUtils.substringBefore("foo", 'b'));
+        assertEquals("f", StringUtils.substringBefore("foot", 'o'));
+        assertEquals("", StringUtils.substringBefore("abc", 'a'));
+        assertEquals("a", StringUtils.substringBefore("abcba", 'b'));
+        assertEquals("ab", StringUtils.substringBefore("abc", 'c'));
+        assertEquals("abc", StringUtils.substringBefore("abc", 0));
+    }
+
     @Test
     public void testSubstringBefore_StringString() {
         assertEquals("foo", StringUtils.substringBefore("fooXXbarXXbaz", "XX"));
@@ -146,6 +163,7 @@ public class StringUtilsSubstringTest  {
         assertEquals("a", StringUtils.substringBefore("abcba", "b"));
         assertEquals("ab", StringUtils.substringBefore("abc", "c"));
         assertEquals("", StringUtils.substringBefore("abc", ""));
+        assertEquals("abc", StringUtils.substringBefore("abc", "X"));
     }
 
     @Test
