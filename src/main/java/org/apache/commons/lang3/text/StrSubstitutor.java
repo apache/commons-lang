@@ -173,7 +173,7 @@ public class StrSubstitutor {
     /**
      * Whether escapes should be preserved.  Default is false;
      */
-    private boolean preserveEscapes = false;
+    private boolean preserveEscapes;
 
     //-----------------------------------------------------------------------
     /**
