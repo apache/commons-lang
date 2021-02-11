@@ -1619,17 +1619,29 @@ public class SystemUtils {
 
     /**
      * <p>
-     * Gets the Java home directory as a {@code File}.
+     * Gets an environment variable, defaulting to {@code defaultValue} if the variable cannot be read.
+     * </p>
+     * <p>
+     * If a {@code SecurityException} is caught, the return value is {@code defaultValue} and a message is written to
+     * {@code System.err}.
      * </p>
      *
-     * @return a directory
-     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow
-     * access to the specified system property.
-     * @see System#getProperty(String)
-     * @since 2.1
+     * @param name
+     *            the environment variable name
+     * @param defaultValue
+     *            the default value
+     * @return the environment variable value or {@code defaultValue} if a security problem occurs
+     * @since 3.8
      */
-    public static File getJavaHome() {
-        return new File(System.getProperty(JAVA_HOME_KEY));
+    public static String getEnvironmentVariable(final String name, final String defaultValue) {
+        try {
+            final String value = System.getenv(name);
+            return value == null ? defaultValue : value;
+        } catch (final SecurityException ex) {
+            // we are not allowed to look at this property
+            // System.err.println("Caught a SecurityException reading the environment variable '" + name + "'.");
+            return defaultValue;
+        }
     }
 
     /**
@@ -1645,6 +1657,21 @@ public class SystemUtils {
      */
     public static String getHostName() {
         return IS_OS_WINDOWS ? System.getenv("COMPUTERNAME") : System.getenv("HOSTNAME");
+    }
+
+    /**
+     * <p>
+     * Gets the Java home directory as a {@code File}.
+     * </p>
+     *
+     * @return a directory
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow
+     * access to the specified system property.
+     * @see System#getProperty(String)
+     * @since 2.1
+     */
+    public static File getJavaHome() {
+        return new File(System.getProperty(JAVA_HOME_KEY));
     }
 
     /**
@@ -1716,33 +1743,6 @@ public class SystemUtils {
             // System.err.println("Caught a SecurityException reading the system property '" + property
             // + "'; the SystemUtils property value will default to null.");
             return null;
-        }
-    }
-
-    /**
-     * <p>
-     * Gets an environment variable, defaulting to {@code defaultValue} if the variable cannot be read.
-     * </p>
-     * <p>
-     * If a {@code SecurityException} is caught, the return value is {@code defaultValue} and a message is written to
-     * {@code System.err}.
-     * </p>
-     *
-     * @param name
-     *            the environment variable name
-     * @param defaultValue
-     *            the default value
-     * @return the environment variable value or {@code defaultValue} if a security problem occurs
-     * @since 3.8
-     */
-    public static String getEnvironmentVariable(final String name, final String defaultValue) {
-        try {
-            final String value = System.getenv(name);
-            return value == null ? defaultValue : value;
-        } catch (final SecurityException ex) {
-            // we are not allowed to look at this property
-            // System.err.println("Caught a SecurityException reading the environment variable '" + name + "'.");
-            return defaultValue;
         }
     }
 
