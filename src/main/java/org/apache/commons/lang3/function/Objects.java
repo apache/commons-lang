@@ -71,7 +71,7 @@ public class Objects {
      * @throws NullPointerException The input value was null.
      * @see java.util.Objects#requireNonNull(Object)
      */
-    public static <T> @Nonnull T requireNonNull(@Nullable T value) throws NullPointerException {
+    public static <T> @Nonnull T requireNonNull(@Nullable final T value) throws NullPointerException {
         return requireNonNull(value, "The value must not be null.");
     }
 
@@ -86,7 +86,7 @@ public class Objects {
      * @return The given input value, if it was found to be non-null.
      * @see java.util.Objects#requireNonNull(Object)
      */
-    public static <T> @Nonnull T requireNonNull(@Nullable T value, @Nonnull T defaultValue) throws NullPointerException {
+    public static <T> @Nonnull T requireNonNull(@Nullable final T value, @Nonnull final T defaultValue) throws NullPointerException {
         return value == null ? requireNonNull(defaultValue) : value;
     }
 
@@ -102,7 +102,7 @@ public class Objects {
      * @see java.util.Objects#requireNonNull(Object, String)
      * @see #requireNonNull(Object, Supplier)
      */
-    public static <T> @Nonnull T requireNonNull(@Nullable T value, @Nonnull String msg) throws NullPointerException {
+    public static <T> @Nonnull T requireNonNull(@Nullable final T value, @Nonnull final String msg) throws NullPointerException {
         if (value == null) {
             throw new NullPointerException(msg);
         }
@@ -121,7 +121,7 @@ public class Objects {
      * @see java.util.Objects#requireNonNull(Object, String)
      * @see #requireNonNull(Object, String)
      */
-    public static <T> @Nonnull T requireNonNull(@Nullable T value, @Nonnull Supplier<String> msgSupplier) throws NullPointerException {
+    public static <T> @Nonnull T requireNonNull(@Nullable final T value, @Nonnull final Supplier<String> msgSupplier) throws NullPointerException {
         if (value == null) {
             throw new NullPointerException(msgSupplier.get());
         }
@@ -147,13 +147,13 @@ public class Objects {
      * @throws NullPointerException The default value supplier is null, or the default
      *   value supplier has returned null.
      */
-    public static <T, E extends Throwable> @Nonnull T requireNonNull(@Nullable T value, @Nonnull FailableSupplier<T, E> defaultValueSupplier) throws NullPointerException {
+    public static <T, E extends Throwable> @Nonnull T requireNonNull(@Nullable final T value, @Nonnull final FailableSupplier<T, E> defaultValueSupplier) throws NullPointerException {
         if (value == null) {
             final FailableSupplier<T, ?> supplier = requireNonNull(defaultValueSupplier, "The supplier must not be null");
             final T defaultValue;
             try {
                 defaultValue = supplier.get();
-            } catch (Throwable t) {
+            } catch (final Throwable t) {
                 throw Failable.rethrow(t);
             }
             return requireNonNull(defaultValue, "The supplier must not return null.");

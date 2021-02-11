@@ -35,7 +35,7 @@ class ObjectsTest {
         try {
             Objects.requireNonNull(null);
             fail("Expected Exception");
-        } catch (NullPointerException e) {
+        } catch (final NullPointerException e) {
             assertEquals("The value must not be null.", e.getMessage());
         }
     }
@@ -46,7 +46,7 @@ class ObjectsTest {
         try {
             Objects.requireNonNull(null, "bar");
             fail("Expected Exception");
-        } catch (NullPointerException e) {
+        } catch (final NullPointerException e) {
             assertEquals("bar", e.getMessage());
         }
     }
@@ -55,7 +55,7 @@ class ObjectsTest {
         private final Supplier<O> supplier;
         private boolean invoked;
 
-        TestableSupplier(Supplier<O> pSupplier) {
+        TestableSupplier(final Supplier<O> pSupplier) {
             this.supplier = pSupplier;
         }
 
@@ -78,7 +78,7 @@ class ObjectsTest {
         try {
             Objects.requireNonNull(null, supplier);
             fail("Expected Exception");
-        } catch (NullPointerException e) {
+        } catch (final NullPointerException e) {
             assertEquals("bar", e.getMessage());
             assertTrue(supplier.isInvoked());
         }
@@ -88,7 +88,7 @@ class ObjectsTest {
         private final FailableSupplier<O, E> supplier;
         private boolean invoked;
 
-        TestableFailableSupplier(FailableSupplier<O, E> pSupplier) {
+        TestableFailableSupplier(final FailableSupplier<O, E> pSupplier) {
             this.supplier = pSupplier;
         }
 
@@ -113,7 +113,7 @@ class ObjectsTest {
         try {
             Objects.requireNonNull(null, supplier);
             fail("Expected Exception");
-        } catch (NullPointerException e) {
+        } catch (final NullPointerException e) {
             assertEquals("The supplier must not return null.", e.getMessage());
             assertTrue(supplier.isInvoked());
         }
@@ -123,7 +123,7 @@ class ObjectsTest {
         try {
             Objects.requireNonNull(null, supplier2);
             fail("Expected Exception");
-        } catch (NullPointerException e) {
+        } catch (final NullPointerException e) {
             assertEquals("The supplier must not return null.", e.getMessage());
             assertTrue(supplier2.isInvoked());
         }
@@ -138,7 +138,7 @@ class ObjectsTest {
         try {
             Objects.requireNonNull(null, supplier4);
             fail("Expected Exception");
-        } catch (RuntimeException e) {
+        } catch (final RuntimeException e) {
             assertSame(rte, e);
             assertTrue(supplier4.isInvoked());
         }
