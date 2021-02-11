@@ -70,6 +70,20 @@ public class NumberUtils {
     /** Reusable Float constant for minus one. */
     public static final Float FLOAT_MINUS_ONE = Float.valueOf(-1.0f);
 
+    /**
+     * {@link Integer#MAX_VALUE} as a {@link Long}.
+     *
+     * @since 3.12.0
+     */
+    public static final Long LONG_INT_MAX_VALUE = Long.valueOf(Integer.MAX_VALUE);
+
+    /**
+     * {@link Integer#MIN_VALUE} as a {@link Long}.
+     *
+     * @since 3.12.0
+     */
+    public static final Long LONG_INT_MIN_VALUE = Long.valueOf(Integer.MIN_VALUE);
+
 
     /**
      * <p>{@code NumberUtils} instances should NOT be constructed in standard programming.
