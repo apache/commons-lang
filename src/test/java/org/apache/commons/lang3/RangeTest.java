@@ -91,7 +91,7 @@ public class RangeTest {
     }
 
     // -----------------------------------------------------------------------
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     @Test
     public void testComparableConstructors() {
         final Comparable c = other -> 1;
