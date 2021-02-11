@@ -22,4 +22,6 @@ limitations under the License.
     <!-- exclude generated JMH classes from all checks -->
     <suppress checks="[a-zA-Z0-9]*" files=".*[/\\]generated-test-sources[/\\].*"/>
     <suppress checks="RedundantModifier" files="ConstructorUtilsTest" lines="0-99999"/>
+    <!-- Windows-only workaround -->
+    <suppress checks="NewlineAtEndOfFile" files="target[/\\]maven-archiver[/\\]pom.properties"/>
 </suppressions>
