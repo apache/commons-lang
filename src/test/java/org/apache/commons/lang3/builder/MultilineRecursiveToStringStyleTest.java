@@ -223,7 +223,6 @@ public class MultilineRecursiveToStringStyleTest {
         assertEquals(exp, toString(wa));
     }
 
-
     @Test
     public void floatArray(){
         final WithArrays wa = new WithArrays();
