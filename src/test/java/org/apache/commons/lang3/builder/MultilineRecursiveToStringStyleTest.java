@@ -99,6 +99,7 @@ public class MultilineRecursiveToStringStyleTest {
     public void boolArray() {
         final WithArrays wa = new WithArrays();
         wa.boolArray = new boolean[] { true, false, true };
+        //newly added
         final String exp = getClassPrefix(wa) + "[" + BR
                    + "  boolArray={" + BR
                    + "    true," + BR
