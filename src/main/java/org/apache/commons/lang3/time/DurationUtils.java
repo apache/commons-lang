@@ -18,7 +18,9 @@
 package org.apache.commons.lang3.time;
 
 import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -33,9 +35,57 @@ public class DurationUtils {
     /**
      * An Integer Range that accepts Longs.
      */
-    static final Range<Long> LONG_TO_INT_RANGE = Range.between(
-        NumberUtils.LONG_INT_MIN_VALUE,
-        NumberUtils.LONG_INT_MAX_VALUE);
+    static final Range<Long> LONG_TO_INT_RANGE = Range.between(NumberUtils.LONG_INT_MIN_VALUE,
+            NumberUtils.LONG_INT_MAX_VALUE);
+
+    /**
+     * Tests whether the given Duration is positive (&gt;0).
+     *
+     * @param duration the value to test
+     * @return whether the given Duration is positive (&gt;0).
+     */
+    public static boolean isPositive(final Duration duration) {
+        return !duration.isNegative() && !duration.isZero();
+    }
+
+    /**
+     * Converts a {@link TimeUnit} to a {@link ChronoUnit}.
+     *
+     * @param timeUnit A non-null TimeUnit.
+     * @return The corresponding ChronoUnit.
+     */
+    static ChronoUnit toChronoUnit(final TimeUnit timeUnit) {
+        // TODO when using Java >= 9: Use TimeUnit.toChronoUnit().
+        switch (Objects.requireNonNull(timeUnit)) {
+        case NANOSECONDS:
+            return ChronoUnit.NANOS;
+        case MICROSECONDS:
+            return ChronoUnit.MICROS;
+        case MILLISECONDS:
+            return ChronoUnit.MILLIS;
+        case SECONDS:
+            return ChronoUnit.SECONDS;
+        case MINUTES:
+            return ChronoUnit.MINUTES;
+        case HOURS:
+            return ChronoUnit.HOURS;
+        case DAYS:
+            return ChronoUnit.DAYS;
+        default:
+            throw new IllegalArgumentException(timeUnit.toString());
+        }
+    }
+
+    /**
+     * Converts an amount and TimeUnit into a Duration.
+     *
+     * @param amount   the amount of the duration, measured in terms of the unit, positive or negative
+     * @param timeUnit the unit that the duration is measured in, must have an exact duration, not null
+     * @return a Duration.
+     */
+    public static Duration toDuration(final long amount, final TimeUnit timeUnit) {
+        return Duration.of(amount, toChronoUnit(timeUnit));
+    }
 
     /**
      * Converts a Duration to milliseconds bound to an int (instead of a long).
@@ -57,4 +107,5 @@ public class DurationUtils {
         // intValue() does not do a narrowing conversion here
         return DurationUtils.LONG_TO_INT_RANGE.fit(Long.valueOf(duration.toMillis())).intValue();
     }
+
 }
