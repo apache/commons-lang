@@ -34,7 +34,7 @@ import java.util.Map;
  * @param <V> Unused.
  * @since 2.2
  * @deprecated as of 3.6, use commons-text
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StringLookupFactory.html">
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/lookup/StringLookupFactory.html">
  * StringLookupFactory</a> instead
  */
 @Deprecated
