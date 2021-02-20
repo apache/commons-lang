@@ -22,6 +22,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -106,6 +107,16 @@ public class DurationUtils {
         Objects.requireNonNull(duration, "duration");
         // intValue() does not do a narrowing conversion here
         return LONG_TO_INT_RANGE.fit(Long.valueOf(duration.toMillis())).intValue();
+    }
+
+    /**
+     * Returns the given non-null value or {@link Duration#ZERO} if null. 
+     *
+     * @param duration The duration to test.
+     * @return The given duration or {@link Duration#ZERO}.
+     */
+    public static Duration zeroIfNull(final Duration duration) {
+        return ObjectUtils.defaultIfNull(duration, Duration.ZERO);
     }
 
 }

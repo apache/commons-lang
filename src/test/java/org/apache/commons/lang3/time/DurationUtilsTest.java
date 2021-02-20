@@ -70,7 +70,7 @@ public class DurationUtilsTest {
         assertEquals(-1, DurationUtils.toDuration(-1, TimeUnit.MILLISECONDS).toMillis());
         assertEquals(0, DurationUtils.toDuration(0, TimeUnit.SECONDS).toMillis());
     }
-
+    
     @Test
     public void testToMillisInt() {
         assertEquals(0, DurationUtils.toMillisInt(Duration.ZERO));
@@ -85,5 +85,11 @@ public class DurationUtilsTest {
         //
         assertEquals(Integer.MIN_VALUE, DurationUtils.toMillisInt(Duration.ofNanos(Long.MIN_VALUE)));
         assertEquals(Integer.MAX_VALUE, DurationUtils.toMillisInt(Duration.ofNanos(Long.MAX_VALUE)));
+    }
+
+    @Test
+    public void testZeroIfNull() {
+        assertEquals(Duration.ZERO, DurationUtils.zeroIfNull(null));
+        assertEquals(Duration.ofDays(1), DurationUtils.zeroIfNull(Duration.ofDays(1)));
     }
 }
