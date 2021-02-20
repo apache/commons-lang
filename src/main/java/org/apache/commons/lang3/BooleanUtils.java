@@ -31,6 +31,48 @@ import org.apache.commons.lang3.math.NumberUtils;
 public class BooleanUtils {
 
     /**
+     * The false String {@code "false"}.
+     *
+     * @since 3.12
+     */
+    public static final String FALSE = "false";
+
+    /**
+     * The no String {@code "no"}.
+     *
+     * @since 3.12
+     */
+    public static final String NO = "no";
+
+    /**
+     * The off String {@code "off"}.
+     *
+     * @since 3.12
+     */
+    public static final String OFF = "off";
+
+    /**
+     * The on String {@code "on"}.
+     *
+     * @since 3.12
+     */
+    public static final String ON = "on";
+
+    /**
+     * The true String {@code "true"}.
+     *
+     * @since 3.12
+     */
+    public static final String TRUE = "true";
+
+    /**
+     * The yes String {@code "yes"}.
+     *
+     * @since 3.12
+     */
+    public static final String YES = "yes";
+
+    /**
      * <p>Performs an 'and' operation on a set of booleans.</p>
      *
      * <pre>
@@ -654,7 +696,7 @@ public class BooleanUtils {
         // Optimisation provides same performance as before for interned 'true'.
         // Similar performance for null, 'false', and other strings not length 2/3/4.
         // 'true'/'TRUE' match 4 times slower, 'tRUE'/'True' 7 times slower.
-        if (str == "true") {
+        if (str == TRUE) {
             return Boolean.TRUE;
         }
         if (str == null) {
@@ -970,7 +1012,7 @@ public class BooleanUtils {
      * @return {@code 'on'}, {@code 'off'}, or {@code null}
      */
     public static String toStringOnOff(final boolean bool) {
-        return toString(bool, "on", "off");
+        return toString(bool, ON, OFF);
     }
 
     /**
@@ -987,7 +1029,7 @@ public class BooleanUtils {
      * @return {@code 'on'}, {@code 'off'}, or {@code null}
      */
     public static String toStringOnOff(final Boolean bool) {
-        return toString(bool, "on", "off", null);
+        return toString(bool, ON, OFF, null);
     }
 
     /**
@@ -1003,7 +1045,7 @@ public class BooleanUtils {
      * @return {@code 'true'}, {@code 'false'}, or {@code null}
      */
     public static String toStringTrueFalse(final boolean bool) {
-        return toString(bool, "true", "false");
+        return toString(bool, TRUE, FALSE);
     }
 
     /**
@@ -1020,7 +1062,7 @@ public class BooleanUtils {
      * @return {@code 'true'}, {@code 'false'}, or {@code null}
      */
     public static String toStringTrueFalse(final Boolean bool) {
-        return toString(bool, "true", "false", null);
+        return toString(bool, TRUE, FALSE, null);
     }
 
     /**
@@ -1036,7 +1078,7 @@ public class BooleanUtils {
      * @return {@code 'yes'}, {@code 'no'}, or {@code null}
      */
     public static String toStringYesNo(final boolean bool) {
-        return toString(bool, "yes", "no");
+        return toString(bool, YES, NO);
     }
 
     /**
@@ -1053,7 +1095,7 @@ public class BooleanUtils {
      * @return {@code 'yes'}, {@code 'no'}, or {@code null}
      */
     public static String toStringYesNo(final Boolean bool) {
-        return toString(bool, "yes", "no", null);
+        return toString(bool, YES, NO, null);
     }
 
     /**
