@@ -105,7 +105,7 @@ public class DurationUtils {
     public static int toMillisInt(final Duration duration) {
         Objects.requireNonNull(duration, "duration");
         // intValue() does not do a narrowing conversion here
-        return DurationUtils.LONG_TO_INT_RANGE.fit(Long.valueOf(duration.toMillis())).intValue();
+        return LONG_TO_INT_RANGE.fit(Long.valueOf(duration.toMillis())).intValue();
     }
 
 }
