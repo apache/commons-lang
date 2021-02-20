@@ -30,36 +30,49 @@ import org.apache.commons.lang3.math.NumberUtils;
  */
 public class BooleanUtils {
 
-    /**
-     * The true String {@code "true"}.
-     * @since 3.12
-     */
-    public static final String TRUE = "true";
+
     /**
      * The false String {@code "false"}.
+     * 
      * @since 3.12
      */
     public static final String FALSE = "false";
-    /**
-     * The on String {@code "on"}.
-     * @since 3.12
-     */
-    public static final String ON = "on";
-    /**
-     * The off String {@code "off"}.
-     * @since 3.12
-     */
-    public static final String OFF = "off";
-    /**
-     * The yes String {@code "yes"}.
-     * @since 3.12
-     */
-    public static final String YES = "yes";
+    
     /**
      * The no String {@code "no"}.
+     * 
      * @since 3.12
      */
     public static final String NO = "no";
+    
+    /**
+     * The off String {@code "off"}.
+     * 
+     * @since 3.12
+     */
+    public static final String OFF = "off";
+    
+    /**
+     * The on String {@code "on"}.
+     * 
+     * @since 3.12
+     */
+    public static final String ON = "on";
+    
+    /**
+     * The true String {@code "true"}.
+     * 
+     * @since 3.12
+     */
+    public static final String TRUE = "true";
+    
+    /**
+     * The yes String {@code "yes"}.
+     * 
+     * @since 3.12
+     */
+    public static final String YES = "yes";
+
     /**
      * <p>Performs an 'and' operation on a set of booleans.</p>
      *
