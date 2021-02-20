@@ -110,7 +110,7 @@ public class DurationUtils {
     }
 
     /**
-     * Returns the given non-null value or {@link Duration#ZERO} if null. 
+     * Returns the given non-null value or {@link Duration#ZERO} if null.
      *
      * @param duration The duration to test.
      * @return The given duration or {@link Duration#ZERO}.
