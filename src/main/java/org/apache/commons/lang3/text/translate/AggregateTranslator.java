@@ -27,7 +27,7 @@ import org.apache.commons.lang3.ArrayUtils;
  *
  * @since 3.0
  * @deprecated as of 3.6, use commons-text
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/AggregateTranslator.html">
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/AggregateTranslator.html">
  * AggregateTranslator</a> instead
  */
 @Deprecated
