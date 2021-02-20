@@ -91,6 +91,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Range.INTEGER.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add DurationUtils.</action>
     <action                   type="add" dev="jochen">Introduce the use of @Nonnull, and @Nullable, and the Objects class as a helper tool.</action>
+    <action                   type="add" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">Add and use true & false String constants #714.</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Enable Dependabot #587.</action>
     <action                   type="update" dev="chtompki">Bump junit-jupiter from 5.6.2 to 5.7.0.</action>
