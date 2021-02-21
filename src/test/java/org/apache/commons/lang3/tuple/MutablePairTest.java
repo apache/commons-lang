@@ -32,19 +32,6 @@ import org.junit.jupiter.api.Test;
 public class MutablePairTest {
 
     @Test
-    public void testEmptyArrayLength() {
-        @SuppressWarnings("unchecked")
-        final MutablePair<Integer, String>[] empty = (MutablePair<Integer, String>[]) MutablePair.EMPTY_ARRAY;
-        assertEquals(0, empty.length);
-    }
-
-    @Test
-    public void testEmptyArrayGenerics() {
-        final MutablePair<Integer, String>[] empty = MutablePair.emptyArray();
-        assertEquals(0, empty.length);
-    }
-
-    @Test
     public void testBasic() {
         MutablePair<Integer, String> oldPair = new MutablePair<>(0, "foo");
         MutablePair<Integer, String> nowPair;
@@ -75,6 +62,19 @@ public class MutablePairTest {
         final MutablePair<Integer, String> pair = new MutablePair<>();
         assertNull(pair.getLeft());
         assertNull(pair.getRight());
+    }
+
+    @Test
+    public void testEmptyArrayGenerics() {
+        final MutablePair<Integer, String>[] empty = MutablePair.emptyArray();
+        assertEquals(0, empty.length);
+    }
+
+    @Test
+    public void testEmptyArrayLength() {
+        @SuppressWarnings("unchecked")
+        final MutablePair<Integer, String>[] empty = (MutablePair<Integer, String>[]) MutablePair.EMPTY_ARRAY;
+        assertEquals(0, empty.length);
     }
 
     @Test

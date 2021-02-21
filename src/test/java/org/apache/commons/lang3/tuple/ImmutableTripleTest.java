@@ -37,19 +37,6 @@ import org.junit.jupiter.api.Test;
 public class ImmutableTripleTest {
 
     @Test
-    public void testEmptyArrayLength() {
-        @SuppressWarnings("unchecked")
-        final ImmutableTriple<Integer, String, Boolean>[] empty = (ImmutableTriple<Integer, String, Boolean>[]) ImmutableTriple.EMPTY_ARRAY;
-        assertEquals(0, empty.length);
-    }
-
-    @Test
-    public void testEmptyArrayGenerics() {
-        final ImmutableTriple<Integer, String, Boolean>[] empty = ImmutableTriple.emptyArray();
-        assertEquals(0, empty.length);
-    }
-
-    @Test
     public void testBasic() {
         final ImmutableTriple<Integer, String, Boolean> triple = new ImmutableTriple<>(0, "foo", Boolean.TRUE);
         assertEquals(0, triple.left.intValue());
@@ -65,6 +52,19 @@ public class ImmutableTripleTest {
         assertEquals("bar", triple2.getMiddle());
         assertEquals(new Integer(42), triple2.right);
         assertEquals(new Integer(42), triple2.getRight());
+    }
+
+    @Test
+    public void testEmptyArrayGenerics() {
+        final ImmutableTriple<Integer, String, Boolean>[] empty = ImmutableTriple.emptyArray();
+        assertEquals(0, empty.length);
+    }
+
+    @Test
+    public void testEmptyArrayLength() {
+        @SuppressWarnings("unchecked")
+        final ImmutableTriple<Integer, String, Boolean>[] empty = (ImmutableTriple<Integer, String, Boolean>[]) ImmutableTriple.EMPTY_ARRAY;
+        assertEquals(0, empty.length);
     }
 
     @Test
