@@ -525,8 +525,8 @@ public class FastDateParserTest {
                         cal.set(Calendar.DAY_OF_MONTH, 10);
                         final Date in = cal.getTime();
 
-                        final FastDateParser fdp = new FastDateParser(format, tz, locale, centuryStart);
-                        validateSdfFormatFdpParseEquality(format, locale, tz, fdp, in, year, centuryStart);
+                        final FastDateParser fastDateParser = new FastDateParser(format, tz, locale, centuryStart);
+                        validateSdfFormatFdpParseEquality(format, locale, tz, fastDateParser, in, year, centuryStart);
                     }
                 }
             }
@@ -683,18 +683,18 @@ public class FastDateParserTest {
         }
     }
 
-    private void validateSdfFormatFdpParseEquality(final String format, final Locale locale, final TimeZone tz,
-        final DateParser fdp, final Date in, final int year, final Date cs) throws ParseException {
-        final SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
-        sdf.setTimeZone(tz);
-        if (format.equals(SHORT_FORMAT)) {
-            sdf.set2DigitYearStart(cs);
+    private void validateSdfFormatFdpParseEquality(final String formatStr, final Locale locale, final TimeZone timeZone,
+        final DateParser dateParser, final Date inDate, final int year, final Date csDate) throws ParseException {
+        final SimpleDateFormat sdf = new SimpleDateFormat(formatStr, locale);
+        sdf.setTimeZone(timeZone);
+        if (formatStr.equals(SHORT_FORMAT)) {
+            sdf.set2DigitYearStart(csDate);
         }
-        final String fmt = sdf.format(in);
+        final String fmt = sdf.format(inDate);
         try {
-            final Date out = fdp.parse(fmt);
-            assertEquals(in, out,
-                "Locale: " + locale + ", date: " + in + ", format: '" + format + "', time zone: " + tz.getID());
+            final Date out = dateParser.parse(fmt);
+            assertEquals(inDate, out, "Locale: '" + locale + "', parse: '" + fmt + "', format: '" + formatStr
+                + "', time zone: '" + timeZone.getID() + "'");
         } catch (final ParseException pe) {
             if (year >= 1868 || !locale.getCountry().equals("JP")) {
                 // LANG-978
