@@ -76,6 +76,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1544" type="fix" dev="kinow" due-to="Peter Nagy, Michael Buck, Gary Gregory">MethodUtils.invokeMethod NullPointerException in case of null in args list #680.</action>
     <action issue="LANG-1637" type="fix" dev="ggregory" due-to="Uri Gonen, Gary Gregory, Michael Osipov">Fix 2 digit week year formatting #688.</action>
     <action                   type="fix" dev="ggregory" due-to="Chris Smowton">Fix broken Javadoc links to commons-text #712.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Add and use ThreadUtils.sleep(Duration).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Add and use ThreadUtils.join(Thread, Duration).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Add ObjectUtils.wait(Duration).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.booleanValues().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.primitiveValues().</action>

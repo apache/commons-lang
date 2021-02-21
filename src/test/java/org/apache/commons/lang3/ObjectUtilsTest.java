@@ -30,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -694,6 +695,11 @@ public class ObjectUtilsTest {
                 IllegalArgumentException.class,
                 () -> ObjectUtils.CONST_BYTE(32768),
                 "CONST_SHORT(32768): IllegalArgumentException should have been thrown.");
+    }
+
+    @Test
+    public void testWaitDuration() {
+        assertThrows(IllegalMonitorStateException.class, () -> ObjectUtils.wait(new Object(), Duration.ZERO));
     }
 
     /**

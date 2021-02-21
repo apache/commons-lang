@@ -16,10 +16,13 @@
  */
 package org.apache.commons.lang3;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import org.apache.commons.lang3.time.DurationUtils;
 
 /**
  * <p>
@@ -425,6 +428,31 @@ public class ThreadUtils {
             threadGroup = threadGroup.getParent();
         }
         return threadGroup;
+    }
+
+    /**
+     * Waits for the given thread to die for the given duration. Implemented using {@link Thread#join(long, int)}.
+     *
+     * @param thread The thread to join.
+     * @param duration How long to wait.
+     * @throws InterruptedException if any thread has interrupted the current thread.
+     * @see Thread#join(long, int)
+     * @since 3.12.0
+     */
+    public static void join(final Thread thread, final Duration duration) throws InterruptedException {
+        DurationUtils.accept(thread::join, duration);
+    }
+
+    /**
+     * Sleeps the current thread for the given duration. Implemented using {@link Thread#sleep(long, int)}.
+     *
+     * @param duration How long to sleep.
+     * @throws InterruptedException if any thread has interrupted the current thread.
+     * @see Thread#sleep(long, int)
+     * @since 3.12.0
+     */
+    public static void sleep(final Duration duration) throws InterruptedException {
+        DurationUtils.accept(Thread::sleep, duration);
     }
 
     /**

@@ -29,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -149,6 +150,12 @@ public class ThreadUtilsTest {
     }
 
     @Test
+    public void testJoinDuration() throws InterruptedException {
+        ThreadUtils.join(new Thread(), Duration.ZERO);
+        ThreadUtils.join(new Thread(), Duration.ofMillis(1));
+    }
+
+    @Test
     public void testNoThread() {
         assertEquals(0, ThreadUtils.findThreadsByName("some_thread_which_does_not_exist_18762ZucTT").size());
     }
@@ -196,6 +203,12 @@ public class ThreadUtilsTest {
     @Test
     public void testNullThreadThreadGroupName3() {
         assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadsByName(null, (String) null));
+    }
+
+    @Test
+    public void testSleepDuration() throws InterruptedException {
+        ThreadUtils.sleep(Duration.ZERO);
+        ThreadUtils.sleep(Duration.ofMillis(1));
     }
 
     @Test
@@ -261,6 +274,7 @@ public class ThreadUtilsTest {
                 () -> ThreadUtils.findThreadById(Thread.currentThread().getId(), (String) null));
     }
 
+
     @Test
     public void testThreadgroupsNullParent() {
         assertThrows(NullPointerException.class,
@@ -271,7 +285,6 @@ public class ThreadUtilsTest {
     public void testThreadgroupsNullPredicate() {
         assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadGroups(null));
     }
-
 
     @Test
     public void testThreadGroupsRef() throws InterruptedException {
@@ -333,6 +346,7 @@ public class ThreadUtilsTest {
         }
     }
 
+
     @Test
     public void testThreadsByIdWrongGroup() throws InterruptedException {
         final Thread t1 = new TestThread("thread1_XXOOLL__");
@@ -352,7 +366,6 @@ public class ThreadUtilsTest {
     public void testThreadsNullPredicate() {
         assertThrows(NullPointerException.class, () -> ThreadUtils.findThreads(null));
     }
-
 
     @Test
     public void testThreadsSameName() throws InterruptedException {

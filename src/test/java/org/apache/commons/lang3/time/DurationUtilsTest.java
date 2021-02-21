@@ -33,6 +33,19 @@ import org.junit.jupiter.api.Test;
 public class DurationUtilsTest {
 
     @Test
+    public void testGetNanosOfMilli() {
+        assertEquals(0, DurationUtils.getNanosOfMiili(Duration.ZERO));
+        assertEquals(1, DurationUtils.getNanosOfMiili(Duration.ofNanos(1)));
+        assertEquals(10, DurationUtils.getNanosOfMiili(Duration.ofNanos(10)));
+        assertEquals(100, DurationUtils.getNanosOfMiili(Duration.ofNanos(100)));
+        assertEquals(1_000, DurationUtils.getNanosOfMiili(Duration.ofNanos(1_000)));
+        assertEquals(10_000, DurationUtils.getNanosOfMiili(Duration.ofNanos(10_000)));
+        assertEquals(100_000, DurationUtils.getNanosOfMiili(Duration.ofNanos(100_000)));
+        assertEquals(0, DurationUtils.getNanosOfMiili(Duration.ofNanos(1_000_000)));
+        assertEquals(1, DurationUtils.getNanosOfMiili(Duration.ofNanos(1_000_001)));
+    }
+
+    @Test
     public void testIsPositive() {
         assertFalse(DurationUtils.isPositive(Duration.ZERO));
         assertFalse(DurationUtils.isPositive(Duration.ofMillis(-1)));

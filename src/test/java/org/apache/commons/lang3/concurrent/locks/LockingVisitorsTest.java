@@ -20,8 +20,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.Duration;
 import java.util.function.LongConsumer;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ThreadUtils;
 import org.apache.commons.lang3.concurrent.locks.LockingVisitors.LockVisitor;
 import org.apache.commons.lang3.concurrent.locks.LockingVisitors.StampedLockVisitor;
 import org.apache.commons.lang3.function.FailableConsumer;
@@ -29,22 +32,18 @@ import org.junit.jupiter.api.Test;
 
 public class LockingVisitorsTest {
 
-    private static final long DELAY_MILLIS = 1500;
+    private static final Duration SHORT_DELAY = Duration.ofMillis(100);
+    private static final Duration DELAY = Duration.ofMillis(1500);
     private static final int NUMBER_OF_THREADS = 10;
-    private static final long TOTAL_DELAY_MILLIS = NUMBER_OF_THREADS * DELAY_MILLIS;
+    private static final Duration TOTAL_DELAY = DELAY.multipliedBy(NUMBER_OF_THREADS);
 
     protected boolean containsTrue(final boolean[] booleanArray) {
         synchronized (booleanArray) {
-            for (final boolean element : booleanArray) {
-                if (element) {
-                    return true;
-                }
-            }
-            return false;
+            return ArrayUtils.contains(booleanArray, true);
         }
     }
 
-    private void runTest(final long delayMillis, final boolean exclusiveLock, final LongConsumer runTimeCheck,
+    private void runTest(final Duration delay, final boolean exclusiveLock, final LongConsumer runTimeCheck,
         final boolean[] booleanValues, final LockVisitor<boolean[], ?> visitor) throws InterruptedException {
         final boolean[] runningValues = new boolean[10];
 
@@ -53,7 +52,7 @@ public class LockingVisitorsTest {
             final int index = i;
             final FailableConsumer<boolean[], ?> consumer = b -> {
                 b[index] = false;
-                Thread.sleep(delayMillis);
+                ThreadUtils.sleep(delay);
                 b[index] = true;
                 set(runningValues, index, false);
             };
@@ -68,7 +67,7 @@ public class LockingVisitorsTest {
             t.start();
         }
         while (containsTrue(runningValues)) {
-            Thread.sleep(100);
+            ThreadUtils.sleep(SHORT_DELAY);
         }
         final long endTimeMillis = System.currentTimeMillis();
         for (final boolean booleanValue : booleanValues) {
@@ -91,7 +90,7 @@ public class LockingVisitorsTest {
          * If our threads are running concurrently, then we expect to be no faster than running one after the other.
          */
         final boolean[] booleanValues = new boolean[10];
-        runTest(DELAY_MILLIS, true, l -> assertTrue(l >= TOTAL_DELAY_MILLIS), booleanValues,
+        runTest(DELAY, true, millis -> assertTrue(millis >= TOTAL_DELAY.toMillis()), booleanValues,
             LockingVisitors.reentrantReadWriteLockVisitor(booleanValues));
     }
 
@@ -102,7 +101,7 @@ public class LockingVisitorsTest {
          * If our threads are running concurrently, then we expect to be faster than running one after the other.
          */
         final boolean[] booleanValues = new boolean[10];
-        runTest(DELAY_MILLIS, false, l -> assertTrue(l < TOTAL_DELAY_MILLIS), booleanValues,
+        runTest(DELAY, false, millis -> assertTrue(millis < TOTAL_DELAY.toMillis()), booleanValues,
             LockingVisitors.reentrantReadWriteLockVisitor(booleanValues));
     }
 
@@ -125,7 +124,7 @@ public class LockingVisitorsTest {
          * If our threads are running concurrently, then we expect to be no faster than running one after the other.
          */
         final boolean[] booleanValues = new boolean[10];
-        runTest(DELAY_MILLIS, true, l -> assertTrue(l >= TOTAL_DELAY_MILLIS), booleanValues,
+        runTest(DELAY, true, millis -> assertTrue(millis >= TOTAL_DELAY.toMillis()), booleanValues,
             LockingVisitors.stampedLockVisitor(booleanValues));
     }
 
@@ -136,7 +135,7 @@ public class LockingVisitorsTest {
          * If our threads are running concurrently, then we expect to be faster than running one after the other.
          */
         final boolean[] booleanValues = new boolean[10];
-        runTest(DELAY_MILLIS, false, l -> assertTrue(l < TOTAL_DELAY_MILLIS), booleanValues,
+        runTest(DELAY, false, millis -> assertTrue(millis < TOTAL_DELAY.toMillis()), booleanValues,
             LockingVisitors.stampedLockVisitor(booleanValues));
     }
 }

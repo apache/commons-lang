@@ -21,6 +21,7 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.time.Duration;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -32,6 +33,7 @@ import java.util.function.Supplier;
 import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.text.StrBuilder;
+import org.apache.commons.lang3.time.DurationUtils;
 
 /**
  * <p>Operations on {@code Object}.</p>
@@ -1257,6 +1259,10 @@ public class ObjectUtils {
      */
     public static String toString(final Object obj, final Supplier<String> supplier) {
         return obj == null ? supplier == null ? null : supplier.get() : obj.toString();
+    }
+
+    public static void wait(final Object obj, final Duration duration) throws InterruptedException {
+        DurationUtils.accept(obj::wait, DurationUtils.zeroIfNull(duration));
     }
 
     /**

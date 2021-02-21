@@ -24,12 +24,14 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.Duration;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.apache.commons.lang3.ThreadUtils;
 import org.junit.jupiter.api.Test;
 
 public class BackgroundInitializerTest {
@@ -298,7 +300,7 @@ public class BackgroundInitializerTest {
                 throw ex;
             }
             if (shouldSleep) {
-                Thread.sleep(60000L);
+                ThreadUtils.sleep(Duration.ofMinutes(1));
             }
             return Integer.valueOf(++initializeCalls);
         }

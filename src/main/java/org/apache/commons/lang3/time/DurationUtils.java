@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Range;
+import org.apache.commons.lang3.function.FailableBiConsumer;
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
@@ -38,6 +39,38 @@ public class DurationUtils {
      */
     static final Range<Long> LONG_TO_INT_RANGE = Range.between(NumberUtils.LONG_INT_MIN_VALUE,
             NumberUtils.LONG_INT_MAX_VALUE);
+
+    /**
+     * Accepts the function with the duration as a long milliseconds and int nanoseconds.
+     *
+     * @param <T> The function exception.
+     * @param consumer Accepting function.
+     * @param duration The duration to pick apart.
+     * @throws T See the function signature.
+     */
+    public static <T extends Throwable> void accept(FailableBiConsumer<Long, Integer, T> consumer, Duration duration)
+            throws T {
+        if (consumer != null && duration != null) {
+            consumer.accept(duration.toMillis(), getNanosOfMiili(duration));
+        }
+    }
+
+    /**
+     * Gets the nanosecond part of a Duration converted to milliseconds.
+     * <p>
+     * Handy when calling an API that takes a long of milliseconds and an int of nanoseconds. For example,
+     * {@link Object#wait(long, int)} and {@link Thread#sleep(long, int)}.
+     * </p>
+     * <p>
+     * Note that is this different from {@link Duration#getNano()} because a duration are seconds and nanoseconds.
+     * </p>
+     *
+     * @param duration The duration to query.
+     * @return nanoseconds between 0 and 999,999.
+     */
+    public static int getNanosOfMiili(Duration duration) {
+        return duration.getNano() % 1_000_000;
+    }
 
     /**
      * Tests whether the given Duration is positive (&gt;0).
