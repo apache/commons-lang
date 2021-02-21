@@ -120,13 +120,12 @@ public class MutablePairTest {
         final MutablePair<Object, String> pair2 = MutablePair.of(null, "bar");
         assertNull(pair2.getLeft());
         assertEquals("bar", pair2.getRight());
-        final MutablePair pair3 = MutablePair.of(null, null);
+        final MutablePair<?, ?> pair3 = MutablePair.of(null, null);
         assertNull(pair3.left);
         assertNull(pair3.right);
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     public void testSerialization() throws Exception {
         final MutablePair<Integer, String> origPair = MutablePair.of(0, "foo");
         final MutablePair<Integer, String> deserializedPair = SerializationUtils.roundtrip(origPair);
