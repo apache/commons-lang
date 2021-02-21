@@ -70,7 +70,7 @@ public class DurationUtilsTest {
         assertEquals(-1, DurationUtils.toDuration(-1, TimeUnit.MILLISECONDS).toMillis());
         assertEquals(0, DurationUtils.toDuration(0, TimeUnit.SECONDS).toMillis());
     }
-    
+
     @Test
     public void testToMillisInt() {
         assertEquals(0, DurationUtils.toMillisInt(Duration.ZERO));
