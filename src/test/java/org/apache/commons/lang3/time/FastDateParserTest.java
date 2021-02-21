@@ -696,7 +696,8 @@ public class FastDateParserTest {
             assertEquals(in, out,
                 "Locale: " + locale + ", date: " + in + ", format: '" + format + "', time zone: " + tz.getID());
         } catch (final ParseException pe) {
-            if (year >= 1868 || !locale.getCountry().equals("JP")) {// LANG-978
+            if (year >= 1868 || !locale.getCountry().equals("JP")) {
+                // LANG-978
                 throw pe;
             }
         }
