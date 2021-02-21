@@ -122,20 +122,22 @@ public class FastDateParserTest {
     static void checkParse(final Locale locale, final Calendar cal, final SimpleDateFormat simpleDateFormat,
             final DateParser dateParser) {
         final String formattedDate = simpleDateFormat.format(cal.getTime());
-        checkParse(locale, simpleDateFormat, dateParser, formattedDate);
-        checkParse(locale, simpleDateFormat, dateParser, formattedDate.toLowerCase(locale));
-        checkParse(locale, simpleDateFormat, dateParser, formattedDate.toUpperCase(locale));
+        checkParse(locale, simpleDateFormat, dateParser, formattedDate, formattedDate);
+        checkParse(locale, simpleDateFormat, dateParser, formattedDate.toLowerCase(locale), formattedDate);
+        checkParse(locale, simpleDateFormat, dateParser, formattedDate.toUpperCase(locale), formattedDate);
     }
 
     static void checkParse(final Locale locale, final SimpleDateFormat simpleDateFormat, final DateParser dateParser,
-            final String formattedDate) {
+        final String formattedDate, final String originalFormattedDate) {
         try {
             final Date expectedTime = simpleDateFormat.parse(formattedDate);
             final Date actualTime = dateParser.parse(formattedDate);
-            assertEquals(expectedTime, actualTime, "locale : " + locale + ", formattedDate : " + formattedDate
-                    + ", Java: " + SystemUtils.JAVA_RUNTIME_VERSION + "\n");
+            assertEquals(expectedTime, actualTime,
+                "locale: " + locale + ", formattedDate: '" + formattedDate + "', originalFormattedDate: '"
+                    + originalFormattedDate + ", simpleDateFormat.pattern: '" + simpleDateFormat + "', Java: "
+                    + SystemUtils.JAVA_RUNTIME_VERSION + "\n");
         } catch (final Exception e) {
-            fail("locale : " + locale + " formattedDate : " + formattedDate + " error : " + e + "\n", e);
+            fail("locale: " + locale + ", formattedDate: '" + formattedDate + "', error : " + e + "\n", e);
         }
     }
 
@@ -691,7 +693,8 @@ public class FastDateParserTest {
         final String fmt = sdf.format(in);
         try {
             final Date out = fdp.parse(fmt);
-            assertEquals(in, out, locale.toString() + " " + in + " " + format + " " + tz.getID());
+            assertEquals(in, out,
+                "Locale: " + locale + ", date: " + in + ", format: '" + format + "', time zone: " + tz.getID());
         } catch (final ParseException pe) {
             if (year >= 1868 || !locale.getCountry().equals("JP")) {// LANG-978
                 throw pe;
