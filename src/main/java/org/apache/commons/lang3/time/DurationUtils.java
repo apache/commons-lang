@@ -48,7 +48,7 @@ public class DurationUtils {
      * @param duration The duration to pick apart.
      * @throws T See the function signature.
      */
-    public static <T extends Throwable> void accept(FailableBiConsumer<Long, Integer, T> consumer, Duration duration)
+    public static <T extends Throwable> void accept(final FailableBiConsumer<Long, Integer, T> consumer, final Duration duration)
             throws T {
         if (consumer != null && duration != null) {
             consumer.accept(duration.toMillis(), getNanosOfMiili(duration));
@@ -68,7 +68,7 @@ public class DurationUtils {
      * @param duration The duration to query.
      * @return nanoseconds between 0 and 999,999.
      */
-    public static int getNanosOfMiili(Duration duration) {
+    public static int getNanosOfMiili(final Duration duration) {
         return duration.getNano() % 1_000_000;
     }
 
