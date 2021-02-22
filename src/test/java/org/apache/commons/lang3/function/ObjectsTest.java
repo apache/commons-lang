@@ -105,9 +105,7 @@ class ObjectsTest {
 
     @Test
     void testRequireNonNullObjectFailableSupplierString() {
-        final TestableFailableSupplier<String, ?> supplier = new TestableFailableSupplier<>(() -> {
-            return null;
-        });
+        final TestableFailableSupplier<String, ?> supplier = new TestableFailableSupplier<>(() -> null);
         assertSame("foo", Objects.requireNonNull("foo", supplier));
         assertFalse(supplier.isInvoked());
         try {
@@ -117,9 +115,7 @@ class ObjectsTest {
             assertEquals("The supplier must not return null.", e.getMessage());
             assertTrue(supplier.isInvoked());
         }
-        final TestableFailableSupplier<String, ?> supplier2 = new TestableFailableSupplier<>(() -> {
-            return null;
-        });
+        final TestableFailableSupplier<String, ?> supplier2 = new TestableFailableSupplier<>(() -> null);
         try {
             Objects.requireNonNull(null, supplier2);
             fail("Expected Exception");
@@ -127,9 +123,7 @@ class ObjectsTest {
             assertEquals("The supplier must not return null.", e.getMessage());
             assertTrue(supplier2.isInvoked());
         }
-        final TestableFailableSupplier<String, ?> supplier3 = new TestableFailableSupplier<>(() -> {
-            return "bar";
-        });
+        final TestableFailableSupplier<String, ?> supplier3 = new TestableFailableSupplier<>(() -> "bar");
         assertSame("bar", Objects.requireNonNull(null, supplier3));
         final RuntimeException rte = new RuntimeException();
         final TestableFailableSupplier<String, ?> supplier4 = new TestableFailableSupplier<>(() -> {
