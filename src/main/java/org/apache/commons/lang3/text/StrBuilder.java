@@ -289,7 +289,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * API of Collections.
      *
      * @return {@code true} if the size is greater than {@code 0}.
-     * @since 3.12
+     * @since 3.12.0
      */
     public boolean isNotEmpty() {
         return size > 0;

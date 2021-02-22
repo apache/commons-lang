@@ -273,7 +273,7 @@ public class LocaleUtils {
      *
      * @param locale a locale or {@code null}.
      * @return the given locale if non-{@code null}, otherwise {@link Locale#getDefault()}.
-     * @since 3.12
+     * @since 3.12.0
      */
     public static Locale toLocale(final Locale locale) {
         return locale != null ? locale : Locale.getDefault();

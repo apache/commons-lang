@@ -1294,7 +1294,7 @@ public class SystemUtils {
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
      *
-     * @since 3.12
+     * @since 3.12.0
      */
     public static final boolean IS_OS_MAC_OSX_SIERRA = getOsMatches("Mac OS X", "10.12");
 
@@ -1306,7 +1306,7 @@ public class SystemUtils {
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
      *
-     * @since 3.12
+     * @since 3.12.0
      */
     public static final boolean IS_OS_MAC_OSX_HIGH_SIERRA = getOsMatches("Mac OS X", "10.13");
 
@@ -1318,7 +1318,7 @@ public class SystemUtils {
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
      *
-     * @since 3.12
+     * @since 3.12.0
      */
     public static final boolean IS_OS_MAC_OSX_MOJAVE = getOsMatches("Mac OS X", "10.14");
 
@@ -1330,7 +1330,7 @@ public class SystemUtils {
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
      *
-     * @since 3.12
+     * @since 3.12.0
      */
     public static final boolean IS_OS_MAC_OSX_CATALINA = getOsMatches("Mac OS X", "10.15");
 
@@ -1342,7 +1342,7 @@ public class SystemUtils {
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
      *
-     * @since 3.12
+     * @since 3.12.0
      */
     public static final boolean IS_OS_MAC_OSX_BIG_SUR = getOsMatches("Mac OS X", "10.16");
 

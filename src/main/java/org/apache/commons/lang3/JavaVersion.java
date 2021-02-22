@@ -139,7 +139,7 @@ public enum JavaVersion {
     /**
      * Java 17.
      *
-     * @since 3.12
+     * @since 3.12.0
      */
     JAVA_17(17.0f, "17"),
 

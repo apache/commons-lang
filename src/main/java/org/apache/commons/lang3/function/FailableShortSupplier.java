@@ -23,7 +23,7 @@ import java.util.function.IntSupplier;
  * A functional interface like {@link IntSupplier} but for {@code short} that declares a {@code Throwable}.
  *
  * @param <E> Thrown exception.
- * @since 3.12
+ * @since 3.12.0
  */
 @FunctionalInterface
 public interface FailableShortSupplier<E extends Throwable> {

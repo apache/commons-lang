@@ -22,7 +22,7 @@ import java.util.Comparator;
 /**
  * Sorts and returns arrays in the fluent style.
  *
- * @since 3.12
+ * @since 3.12.0
  */
 public class ArraySorter {
 

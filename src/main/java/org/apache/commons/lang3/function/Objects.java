@@ -59,7 +59,7 @@ import org.apache.commons.lang3.ObjectUtils;
  * would have been to change the {@code ObjectUtils} class. However, that
  * would mean loosing upwards compatibility, and we don't do that.)
  *
- * @since 3.12
+ * @since 3.12.0
  */
 public class Objects {
     /**

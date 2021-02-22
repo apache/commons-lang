@@ -368,7 +368,7 @@ public class StopWatch {
      * @return the time this stopwatch was started in milliseconds, between the current time and midnight, January 1,
      *         1970 UTC.
      * @throws IllegalStateException if this StopWatch has not been started
-     * @since 3.12
+     * @since 3.12.0
      */
     public long getStopTime() {
         if (this.runningState == State.UNSTARTED) {

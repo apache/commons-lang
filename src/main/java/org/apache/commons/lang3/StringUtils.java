@@ -1162,7 +1162,7 @@ public class StringUtils {
      * @param searchCharSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
      *        null as well.
      * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
-     * @since 3.12
+     * @since 3.12.0
      */
     private static boolean containsAny(final ToBooleanBiFunction<CharSequence, CharSequence> test,
         final CharSequence cs, final CharSequence... searchCharSequences) {
@@ -1204,7 +1204,7 @@ public class StringUtils {
      * @param searchCharSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
      *        null as well.
      * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
-     * @since 3.12
+     * @since 3.12.0
      */
     public static boolean containsAnyIgnoreCase(final CharSequence cs, final CharSequence... searchCharSequences) {
         return containsAny(StringUtils::containsIgnoreCase, cs, searchCharSequences);
@@ -3881,7 +3881,7 @@ public class StringUtils {
      * @param delimiter
      *            the separator character to use
      * @return the joined String, {@code null} if null array input
-     * @since 3.12
+     * @since 3.12.0
      */
     public static String join(final boolean[] array, final char delimiter) {
         if (array == null) {
@@ -3918,7 +3918,7 @@ public class StringUtils {
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array
      * @return the joined String, {@code null} if null array input
-     * @since 3.12
+     * @since 3.12.0
      */
     public static String join(final boolean[] array, final char delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
