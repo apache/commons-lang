@@ -431,35 +431,33 @@ public class DurationFormatUtils {
             final int count = token.getCount();
             if (value instanceof StringBuilder) {
                 buffer.append(value.toString());
-            } else {
-                if (value.equals(y)) {
-                    buffer.append(paddedValue(years, padWithZeros, count));
-                    lastOutputSeconds = false;
-                } else if (value.equals(M)) {
-                    buffer.append(paddedValue(months, padWithZeros, count));
-                    lastOutputSeconds = false;
-                } else if (value.equals(d)) {
-                    buffer.append(paddedValue(days, padWithZeros, count));
-                    lastOutputSeconds = false;
-                } else if (value.equals(H)) {
-                    buffer.append(paddedValue(hours, padWithZeros, count));
-                    lastOutputSeconds = false;
-                } else if (value.equals(m)) {
-                    buffer.append(paddedValue(minutes, padWithZeros, count));
-                    lastOutputSeconds = false;
-                } else if (value.equals(s)) {
-                    buffer.append(paddedValue(seconds, padWithZeros, count));
-                    lastOutputSeconds = true;
-                } else if (value.equals(S)) {
-                    if (lastOutputSeconds) {
-                        // ensure at least 3 digits are displayed even if padding is not selected
-                        final int width = padWithZeros ? Math.max(3, count) : 3;
-                        buffer.append(paddedValue(milliseconds, true, width));
-                    } else {
-                        buffer.append(paddedValue(milliseconds, padWithZeros, count));
-                    }
-                    lastOutputSeconds = false;
+            } else if (value.equals(y)) {
+                buffer.append(paddedValue(years, padWithZeros, count));
+                lastOutputSeconds = false;
+            } else if (value.equals(M)) {
+                buffer.append(paddedValue(months, padWithZeros, count));
+                lastOutputSeconds = false;
+            } else if (value.equals(d)) {
+                buffer.append(paddedValue(days, padWithZeros, count));
+                lastOutputSeconds = false;
+            } else if (value.equals(H)) {
+                buffer.append(paddedValue(hours, padWithZeros, count));
+                lastOutputSeconds = false;
+            } else if (value.equals(m)) {
+                buffer.append(paddedValue(minutes, padWithZeros, count));
+                lastOutputSeconds = false;
+            } else if (value.equals(s)) {
+                buffer.append(paddedValue(seconds, padWithZeros, count));
+                lastOutputSeconds = true;
+            } else if (value.equals(S)) {
+                if (lastOutputSeconds) {
+                    // ensure at least 3 digits are displayed even if padding is not selected
+                    final int width = padWithZeros ? Math.max(3, count) : 3;
+                    buffer.append(paddedValue(milliseconds, true, width));
+                } else {
+                    buffer.append(paddedValue(milliseconds, padWithZeros, count));
                 }
+                lastOutputSeconds = false;
             }
         }
         return buffer.toString();

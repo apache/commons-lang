@@ -108,10 +108,8 @@ public class NumericEntityEscaper extends CodePointTranslator {
             if (codepoint < below || codepoint > above) {
                 return false;
             }
-        } else {
-            if (codepoint >= below && codepoint <= above) {
-                return false;
-            }
+        } else if (codepoint >= below && codepoint <= above) {
+            return false;
         }
 
         out.write("&#");

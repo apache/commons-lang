@@ -532,17 +532,15 @@ public class EqualsBuilder implements Builder<Boolean> {
         try {
             if (testClass.isArray()) {
                 append(lhs, rhs);
+            } else //If either class is being excluded, call normal object equals method on lhsClass.
+            if (bypassReflectionClasses != null
+                    && (bypassReflectionClasses.contains(lhsClass) || bypassReflectionClasses.contains(rhsClass))) {
+                isEquals = lhs.equals(rhs);
             } else {
-                //If either class is being excluded, call normal object equals method on lhsClass.
-                if (bypassReflectionClasses != null
-                        && (bypassReflectionClasses.contains(lhsClass) || bypassReflectionClasses.contains(rhsClass))) {
-                    isEquals = lhs.equals(rhs);
-                } else {
+                reflectionAppend(lhs, rhs, testClass);
+                while (testClass.getSuperclass() != null && testClass != reflectUpToClass) {
+                    testClass = testClass.getSuperclass();
                     reflectionAppend(lhs, rhs, testClass);
-                    while (testClass.getSuperclass() != null && testClass != reflectUpToClass) {
-                        testClass = testClass.getSuperclass();
-                        reflectionAppend(lhs, rhs, testClass);
-                    }
                 }
             }
         } catch (final IllegalArgumentException e) {
@@ -644,13 +642,11 @@ public class EqualsBuilder implements Builder<Boolean> {
             // factor out array case in order to keep method small enough
             // to be inlined
             appendArray(lhs, rhs);
+        } else // The simple case, not an array, just test the element
+        if (testRecursive && !ClassUtils.isPrimitiveOrWrapper(lhsClass)) {
+            reflectionAppend(lhs, rhs);
         } else {
-            // The simple case, not an array, just test the element
-            if (testRecursive && !ClassUtils.isPrimitiveOrWrapper(lhsClass)) {
-                reflectionAppend(lhs, rhs);
-            } else {
-                isEquals = lhs.equals(rhs);
-            }
+            isEquals = lhs.equals(rhs);
         }
         return this;
     }

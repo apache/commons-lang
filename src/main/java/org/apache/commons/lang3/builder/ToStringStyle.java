@@ -575,12 +575,10 @@ public abstract class ToStringStyle implements Serializable {
                     appendSummary(buffer, fieldName, (Object[]) value);
                 }
 
+            } else if (detail) {
+                appendDetail(buffer, fieldName, value);
             } else {
-                if (detail) {
-                    appendDetail(buffer, fieldName, value);
-                } else {
-                    appendSummary(buffer, fieldName, value);
-                }
+                appendSummary(buffer, fieldName, value);
             }
         } finally {
             unregister(value);

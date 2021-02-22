@@ -2946,10 +2946,8 @@ public class StringUtils {
                 if (chFound && CharSequenceUtils.indexOf(searchChars, ch2, 0) < 0) {
                     return i;
                 }
-            } else {
-                if (!chFound) {
-                    return i;
-                }
+            } else if (!chFound) {
+                return i;
             }
         }
         return INDEX_NOT_FOUND;
@@ -6747,11 +6745,9 @@ public class StringUtils {
             // see if we need to keep searching for this
             if (tempIndex == -1) {
                 noMoreMatchesForReplIndex[i] = true;
-            } else {
-                if (textIndex == -1 || tempIndex < textIndex) {
-                    textIndex = tempIndex;
-                    replaceIndex = i;
-                }
+            } else if (textIndex == -1 || tempIndex < textIndex) {
+                textIndex = tempIndex;
+                replaceIndex = i;
             }
         }
         // NOTE: logic mostly below END
@@ -6804,11 +6800,9 @@ public class StringUtils {
                 // see if we need to keep searching for this
                 if (tempIndex == -1) {
                     noMoreMatchesForReplIndex[i] = true;
-                } else {
-                    if (textIndex == -1 || tempIndex < textIndex) {
-                        textIndex = tempIndex;
-                        replaceIndex = i;
-                    }
+                } else if (textIndex == -1 || tempIndex < textIndex) {
+                    textIndex = tempIndex;
+                    replaceIndex = i;
                 }
             }
             // NOTE: logic duplicated above END

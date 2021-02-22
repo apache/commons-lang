@@ -420,17 +420,15 @@ public class CompareToBuilder implements Builder<Integer> {
         if (lhs.getClass().isArray()) {
             // factor out array case in order to keep method small enough to be inlined
             appendArray(lhs, rhs, comparator);
+        } else // the simple case, not an array, just test the element
+        if (comparator == null) {
+            @SuppressWarnings("unchecked") // assume this can be done; if not throw CCE as per Javadoc
+            final Comparable<Object> comparable = (Comparable<Object>) lhs;
+            comparison = comparable.compareTo(rhs);
         } else {
-            // the simple case, not an array, just test the element
-            if (comparator == null) {
-                @SuppressWarnings("unchecked") // assume this can be done; if not throw CCE as per Javadoc
-                final Comparable<Object> comparable = (Comparable<Object>) lhs;
-                comparison = comparable.compareTo(rhs);
-            } else {
-                @SuppressWarnings("unchecked") // assume this can be done; if not throw CCE as per Javadoc
-                final Comparator<Object> comparator2 = (Comparator<Object>) comparator;
-                comparison = comparator2.compare(lhs, rhs);
-            }
+            @SuppressWarnings("unchecked") // assume this can be done; if not throw CCE as per Javadoc
+            final Comparator<Object> comparator2 = (Comparator<Object>) comparator;
+            comparison = comparator2.compare(lhs, rhs);
         }
         return this;
     }

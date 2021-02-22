@@ -315,28 +315,26 @@ public class WordUtils {
                 wrappedLine.append(newLineStr);
                 offset = spaceToWrapAt + 1;
 
+            } else // really long word or URL
+            if (wrapLongWords) {
+                // wrap really long word one line at a time
+                wrappedLine.append(str, offset, wrapLength + offset);
+                wrappedLine.append(newLineStr);
+                offset += wrapLength;
             } else {
-                // really long word or URL
-                if (wrapLongWords) {
-                    // wrap really long word one line at a time
-                    wrappedLine.append(str, offset, wrapLength + offset);
-                    wrappedLine.append(newLineStr);
-                    offset += wrapLength;
-                } else {
-                    // do not wrap really long word, just extend beyond limit
-                    matcher = patternToWrapOn.matcher(str.substring(offset + wrapLength));
-                    if (matcher.find()) {
-                        spaceToWrapAt = matcher.start() + offset + wrapLength;
-                    }
+                // do not wrap really long word, just extend beyond limit
+                matcher = patternToWrapOn.matcher(str.substring(offset + wrapLength));
+                if (matcher.find()) {
+                    spaceToWrapAt = matcher.start() + offset + wrapLength;
+                }
 
-                    if (spaceToWrapAt >= 0) {
-                        wrappedLine.append(str, offset, spaceToWrapAt);
-                        wrappedLine.append(newLineStr);
-                        offset = spaceToWrapAt + 1;
-                    } else {
-                        wrappedLine.append(str, offset, str.length());
-                        offset = inputLineLength;
-                    }
+                if (spaceToWrapAt >= 0) {
+                    wrappedLine.append(str, offset, spaceToWrapAt);
+                    wrappedLine.append(newLineStr);
+                    offset = spaceToWrapAt + 1;
+                } else {
+                    wrappedLine.append(str, offset, str.length());
+                    offset = inputLineLength;
                 }
             }
         }

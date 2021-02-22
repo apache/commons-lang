@@ -372,18 +372,14 @@ public class RandomStringUtils {
         if (start == 0 && end == 0) {
             if (chars != null) {
                 end = chars.length;
+            } else if (!letters && !numbers) {
+                end = Character.MAX_CODE_POINT;
             } else {
-                if (!letters && !numbers) {
-                    end = Character.MAX_CODE_POINT;
-                } else {
-                    end = 'z' + 1;
-                    start = ' ';
-                }
+                end = 'z' + 1;
+                start = ' ';
             }
-        } else {
-            if (end <= start) {
-                throw new IllegalArgumentException("Parameter end (" + end + ") must be greater than start (" + start + ")");
-            }
+        } else if (end <= start) {
+            throw new IllegalArgumentException("Parameter end (" + end + ") must be greater than start (" + start + ")");
         }
 
         final int zero_digit_ascii = 48;

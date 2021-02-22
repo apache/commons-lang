@@ -842,14 +842,12 @@ public class HashCodeBuilder implements Builder<Integer> {
         if (object == null) {
             iTotal = iTotal * iConstant;
 
+        } else if (object.getClass().isArray()) {
+            // factor out array case in order to keep method small enough
+            // to be inlined
+            appendArray(object);
         } else {
-            if (object.getClass().isArray()) {
-                // factor out array case in order to keep method small enough
-                // to be inlined
-                appendArray(object);
-            } else {
-                iTotal = iTotal * iConstant + object.hashCode();
-            }
+            iTotal = iTotal * iConstant + object.hashCode();
         }
         return this;
     }

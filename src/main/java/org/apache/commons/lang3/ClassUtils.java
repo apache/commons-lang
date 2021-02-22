@@ -1458,10 +1458,8 @@ public class ClassUtils {
                 className.endsWith(";")
                     ? className.length() - 1
                     : className.length());
-        } else {
-            if (!className.isEmpty()) {
-                className = reverseAbbreviationMap.get(className.substring(0, 1));
-            }
+        } else if (!className.isEmpty()) {
+            className = reverseAbbreviationMap.get(className.substring(0, 1));
         }
         final StringBuilder canonicalClassNameBuffer = new StringBuilder(className);
         for (int i = 0; i < dim; i++) {
