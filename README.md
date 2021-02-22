@@ -43,10 +43,11 @@
 Apache Commons Lang
 ===================
 
-[![Build Status](https://travis-ci.org/apache/commons-lang.svg)](https://travis-ci.org/apache/commons-lang)
+[![Travis-CI Status](https://travis-ci.org/apache/commons-lang.svg)](https://travis-ci.org/apache/commons-lang)
+[![GitHub Actions Status](https://github.com/apache/commons-lang/workflows/Java%20CI/badge.svg)](https://github.com/apache/commons-lang/actions)
 [![Coverage Status](https://coveralls.io/repos/apache/commons-lang/badge.svg)](https://coveralls.io/r/apache/commons-lang)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-lang3/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-lang3/)
-[![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-lang3/3.11.svg)](https://javadoc.io/doc/org.apache.commons/commons-lang3/3.11)
+[![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-lang3/3.12.0.svg)](https://javadoc.io/doc/org.apache.commons/commons-lang3/3.12.0)
 
 Apache Commons Lang, a package of Java utility classes for the
   classes that are in java.lang's hierarchy, or are considered to be so
@@ -69,7 +70,7 @@ Alternatively you can pull it from the central Maven repositories:
 <dependency>
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-lang3</artifactId>
-  <version>3.11</version>
+  <version>3.12.0</version>
 </dependency>
 ```
 
