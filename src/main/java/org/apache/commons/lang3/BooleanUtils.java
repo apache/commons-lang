@@ -29,7 +29,18 @@ import org.apache.commons.lang3.math.NumberUtils;
  * @since 2.0
  */
 public class BooleanUtils {
-
+    /**
+     * The default message for null array.
+     *
+     * @since 3.12.0
+     */
+    private static final String DEFAULT_NULL_ARRAY_EX_MESSAGE = "The Array must not be null";
+    /**
+     * The default message for empty array.
+     *
+     * @since 3.12.0
+     */
+    private static final String DEFAULT_EMPTY_ARRAY_EX_MESSAGE = "Array is empty";
     /**
      * The false String {@code "false"}.
      *
@@ -92,12 +103,7 @@ public class BooleanUtils {
      */
     public static boolean and(final boolean... array) {
         // Validates input
-        if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        }
-        if (array.length == 0) {
-            throw new IllegalArgumentException("Array is empty");
-        }
+        notNullOrEmpty(array);
         for (final boolean element : array) {
             if (!element) {
                 return false;
@@ -130,9 +136,7 @@ public class BooleanUtils {
         if (array == null) {
             throw new IllegalArgumentException("The Array must not be null");
         }
-        if (array.length == 0) {
-            throw new IllegalArgumentException("Array is empty");
-        }
+        Validate.notEmpty(array, DEFAULT_EMPTY_ARRAY_EX_MESSAGE);
         try {
             final boolean[] primitive = ArrayUtils.toPrimitive(array);
             return and(primitive) ? Boolean.TRUE : Boolean.FALSE;
@@ -264,6 +268,23 @@ public class BooleanUtils {
     }
 
     /**
+     * <p>Validate that the specified argument array is neither {@code null}
+     * nor a length of zero (no elements); otherwise throwing an exception.
+     *
+     * @param array  an array of {@code boolean}s
+     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty.
+     */
+    private static void notNullOrEmpty(final boolean... array){
+        if (array == null) {
+            throw new IllegalArgumentException(DEFAULT_NULL_ARRAY_EX_MESSAGE);
+        }
+        if (array.length == 0) {
+            throw new IllegalArgumentException(DEFAULT_EMPTY_ARRAY_EX_MESSAGE);
+        }
+    }
+
+    /**
      * <p>Performs an 'or' operation on a set of booleans.</p>
      *
      * <pre>
@@ -282,12 +303,7 @@ public class BooleanUtils {
      * @since 3.0.1
      */
     public static boolean or(final boolean... array) {
-        if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        }
-        if (array.length == 0) {
-            throw new IllegalArgumentException("Array is empty");
-        }
+        notNullOrEmpty(array);
         for (final boolean element : array) {
             if (element) {
                 return true;
@@ -318,11 +334,9 @@ public class BooleanUtils {
      */
     public static Boolean or(final Boolean... array) {
         if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
+            throw new IllegalArgumentException(DEFAULT_NULL_ARRAY_EX_MESSAGE);
         }
-        if (array.length == 0) {
-            throw new IllegalArgumentException("Array is empty");
-        }
+        Validate.notEmpty(array, DEFAULT_EMPTY_ARRAY_EX_MESSAGE);
         try {
             final boolean[] primitive = ArrayUtils.toPrimitive(array);
             return or(primitive) ? Boolean.TRUE : Boolean.FALSE;
@@ -1113,12 +1127,7 @@ public class BooleanUtils {
      * @throws IllegalArgumentException if {@code array} is empty.
      */
     public static boolean xor(final boolean... array) {
-        if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
-        }
-        if (array.length == 0) {
-            throw new IllegalArgumentException("Array is empty");
-        }
+        notNullOrEmpty(array);
 
         // false if the neutral element of the xor operator
         boolean result = false;
@@ -1147,11 +1156,9 @@ public class BooleanUtils {
      */
     public static Boolean xor(final Boolean... array) {
         if (array == null) {
-            throw new IllegalArgumentException("The Array must not be null");
+            throw new IllegalArgumentException(DEFAULT_NULL_ARRAY_EX_MESSAGE);
         }
-        if (array.length == 0) {
-            throw new IllegalArgumentException("Array is empty");
-        }
+        Validate.notEmpty(array, DEFAULT_EMPTY_ARRAY_EX_MESSAGE);
         try {
             final boolean[] primitive = ArrayUtils.toPrimitive(array);
             return xor(primitive) ? Boolean.TRUE : Boolean.FALSE;
