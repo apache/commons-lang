@@ -20,7 +20,7 @@
 This file is also used by the maven-changes-plugin to generate the release notes.
 Useful ways of finding items to add to this file are:
 
-1.  Add items when you fix a bug or add a feature (this makes the 
+1.  Add items when you fix a bug or add a feature (this makes the
 release process easy :-).
 
 2.  Do a JIRA search for tickets closed since the previous release.
@@ -32,7 +32,7 @@ To generate the release notes from this file:
 
 mvn changes:announcement-generate -Prelease-notes [-Dchanges.version=nnn]
 
-then tweak the formatting if necessary 
+then tweak the formatting if necessary
 and commit
 
 The <action> type attribute can be add,update,fix,remove.
@@ -101,11 +101,11 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="chtompki">Bump junit-jupiter from 5.6.2 to 5.7.0.</action>
     <action                   type="update" dev="chtompki" due-to="chtompki, Dependabot">Bump spotbugs from 4.1.2 to 4.2.1, #627, #671, #708.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump spotbugs-maven-plugin from 4.0.0 to 4.2.0, #593, #596, #609, #623, #632, #692.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump biz.aQute.bndlib from 5.1.1 to 5.2.0 #592, #628.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump biz.aQute.bndlib from 5.1.1 to 5.3.0 #592, #628, #715.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump junit-pioneer from 0.6.0 to 1.1.0, #589, #597, #600, #624, #625, #662.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump checkstyle from 8.34 to 8.40, #594, #614, #637, #665, #706.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump actions/checkout from v2.3.1 to v2.3.4 #601, #639.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump actions/setup-java from v1.4.0 to v1.4.2 #612.</action>    
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump actions/setup-java from v1.4.0 to v1.4.2 #612.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Update commons.jacoco.version 0.8.5 to 0.8.6 (Fixes Java 15 builds).</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Update maven-surefire-plugin 2.22.2 -> 3.0.0-M5.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump maven-pmd-plugin from 3.13.0 to 3.14.0 #660.</action>
@@ -251,7 +251,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1422" type="add" dev="ggregory">Add null-safe StringUtils.valueOf(char[]) to delegate to String.valueOf(char[])</action>
     <action issue="LANG-1427" type="add" dev="ggregory">Add API org.apache.commons.lang3.SystemUtils.isJavaVersionAtMost(JavaVersion)</action>
     <action issue="LANG-1436" type="update" dev="aherbert">Consolidate the StringUtils equals and equalsIgnoreCase Javadoc and implementation</action>
-    <action                   type="update" dev="ggregory" due-to="Andrei Troie aft90">(doc) Fix javadoc for 'startIndex' parameter of StringUtils.join() methods. GitHub PR #412.</action>    
+    <action                   type="update" dev="ggregory" due-to="Andrei Troie aft90">(doc) Fix javadoc for 'startIndex' parameter of StringUtils.join() methods. GitHub PR #412.</action>
   </release>
 
   <release version="3.8.1" date="2018-09-19" description="This release is a bugfix for Restoring Bundle-SymbolicName in the MANIFEST.mf file.">
@@ -276,9 +276,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1352" type="add" dev="pschumacher" due-to="Ruslan Sibgatullin">EnumUtils.getEnumIgnoreCase and isValidEnumIgnoreCase methods added</action>
     <action issue="LANG-1372" type="add" dev="pschumacher" due-to="Sérgio Ozaki">Add ToStringSummary annotation</action>
     <action issue="LANG-1356" type="add" dev="pschumacher" due-to="Yathos UG">Add bypass option for classes to recursive and reflective EqualsBuilder</action>
-    <action issue="LANG-1391" type="add" dev="ggregory" due-to="Sauro Matulli, Oleg Chubaryov">Improve Javadoc for StringUtils.isAnyEmpty(null)</action>   
-    <action issue="LANG-1393" type="add" dev="ggregory" due-to="Gary Gregory">Add API SystemUtils.String getEnvironmentVariable(final String name, final String defaultValue)</action>   
-    <action issue="LANG-1394" type="add" dev="ggregory" due-to="Sebb, Gary Gregory">org.apache.commons.lang3.SystemUtils should not write to System.err.</action>   
+    <action issue="LANG-1391" type="add" dev="ggregory" due-to="Sauro Matulli, Oleg Chubaryov">Improve Javadoc for StringUtils.isAnyEmpty(null)</action>
+    <action issue="LANG-1393" type="add" dev="ggregory" due-to="Gary Gregory">Add API SystemUtils.String getEnvironmentVariable(final String name, final String defaultValue)</action>
+    <action issue="LANG-1394" type="add" dev="ggregory" due-to="Sebb, Gary Gregory">org.apache.commons.lang3.SystemUtils should not write to System.err.</action>
     <action issue="LANG-1238" type="add" dev="ggregory" due-to="Christopher Cordeiro, Gary Gregory, Bruno P. Kinoshita, Oleg Chubaryov">Add RegexUtils class instead of overloading methods in StringUtils that take a regex to take precompiled Pattern.</action>
     <action issue="LANG-1390" type="add" dev="ggregory" due-to="Jochen Schalanda">StringUtils.join() with support for List&lt;?> with configurable start/end indices.</action>
     <action issue="LANG-1392" type="add" dev="pschumacher" due-to="Jeff Nelson">Methods for getting first non empty or non blank value</action>
