@@ -50,6 +50,12 @@ import org.apache.commons.lang3.time.DurationUtils;
 // because it is part of the signature of deprecated methods
 public class ObjectUtils {
 
+    /**
+     * The default message for null array.
+     *
+     */
+    private static final String DEFAULT_EX_MESSAGE = "The object is null or empty";
+
     // Null
     //-----------------------------------------------------------------------
     /**
@@ -1235,6 +1241,49 @@ public class ObjectUtils {
     @Deprecated
     public static String toString(final Object obj, final String nullStr) {
         return obj == null ? nullStr : obj.toString();
+    }
+
+    /**
+     *
+     * Validate that the specified argument object is neither {@code null}
+     * nor a length of zero (no elements); otherwise throwing an exception.
+     *
+     * <p>The message of the exception is &quot;The object is null or empty&quot;.</p>
+     *
+     * <pre>
+     * ObjectUtils.requireNotEmpty(myObject);
+     * </pre>
+     *
+     * @param object the object to check
+     *
+     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty.
+     * @since 3.12.0
+     */
+    public static void requireNotEmpty(final Object object){
+        requireNotEmpty(object, DEFAULT_EX_MESSAGE);
+    }
+    /**
+     *
+     * Validate that the specified argument object is neither {@code null}
+     * nor a length of zero (no elements); otherwise throwing an exception.
+     *
+     * <pre>
+     * ObjectUtils.requireNotEmpty(myObject, "The object is null or empty");
+     * </pre>
+     *
+     * @param object the object to check
+     * @param message the detail message to be used when a {@link IllegalArgumentException} is thrown
+     *
+     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty.
+     * @see #requireNotEmpty(Object)
+     * @since 3.12.0
+     */
+    public static void requireNotEmpty(final Object object, final String message){
+        if (isEmpty(object)) {
+            throw new IllegalArgumentException(message);
+        }
     }
 
     /**
