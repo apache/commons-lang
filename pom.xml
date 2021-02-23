@@ -788,7 +788,7 @@
           <dependency>
             <groupId>biz.aQute.bnd</groupId>
             <artifactId>biz.aQute.bndlib</artifactId>
-            <version>5.2.0</version>
+            <version>5.3.0</version>
           </dependency>
         </dependencies>
       </plugin>
