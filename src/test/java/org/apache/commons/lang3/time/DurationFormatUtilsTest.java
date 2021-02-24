@@ -27,7 +27,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.time.Duration;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
 
 import org.junit.jupiter.api.Test;
@@ -580,17 +583,92 @@ public class DurationFormatUtilsTest {
         assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.lexx("'yMdHms''S"));
     }
 
-    private static final int FOUR_YEARS = 365 * 3 + 366;
+    @Test
+    public void formatDurationWordsRemovedLeadingAndTrailingZeros() {
+        List<DurationFormatTestCase> testCases = Arrays.asList(
+                new DurationFormatTestCase("1 hour 3 minutes",
+                                           Duration.ofHours(1).plusMinutes(3).plusMillis(157)),
+                new DurationFormatTestCase("1 minute",
+                                           Duration.ofMinutes(1)),
+                new DurationFormatTestCase("0 seconds",
+                                           Duration.ZERO));
 
-    // Takes a minute to run, so generally turned off
-//    public void testBrutally() {
-//        Calendar c = Calendar.getInstance();
-//        c.set(2004, 0, 1, 0, 0, 0);
-//        for (int i=0; i < FOUR_YEARS; i++) {
-//            bruteForce(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), "d", Calendar.DAY_OF_MONTH );
-//            c.add(Calendar.DAY_OF_MONTH, 1);
-//        }
-//    }
+        testCases.forEach(testCase-> {
+            String formattedDuration = DurationFormatUtils.formatDurationWords(testCase.duration.toMillis(),
+                                                                               true,
+                                                                               true);
+            assertEquals(testCase.expectedFormat, formattedDuration);
+        });
+    }
+
+    @Test
+    public void formatWordsWithMsRemovedLeadingZeros() {
+        List<DurationFormatTestCase> testCases = Arrays.asList(
+                new DurationFormatTestCase("1 hour 33 minutes 12 seconds 157 milliseconds",
+                                           Duration.ofHours(1).plusMinutes(33).plusSeconds(12).plusMillis(157)),
+                new DurationFormatTestCase("1 hour 33 minutes 0 seconds 0 milliseconds",
+                                           Duration.ofHours(1).plusMinutes(33)),
+                new DurationFormatTestCase("0 milliseconds",
+                                           Duration.ZERO),
+                new DurationFormatTestCase("1 day 0 hours 0 minutes 0 seconds 0 milliseconds",
+                                           Duration.ofDays(1)));
+
+        testCases.forEach(testCase-> {
+            String formattedDuration = DurationFormatUtils.formatDurationWordsWithMs(testCase.duration.toMillis());
+            assertEquals(testCase.expectedFormat, formattedDuration);
+        });
+    }
+
+    @Test
+    public void formatWordsWithMsRemovedLeadingAndTrailingZeros() {
+        List<DurationFormatTestCase> testCases = Arrays.asList(
+                new DurationFormatTestCase("1 hour 33 minutes 12 seconds 157 milliseconds",
+                                           Duration.ofHours(1).plusMinutes(33).plusSeconds(12).plusMillis(157)),
+                new DurationFormatTestCase("0 milliseconds",
+                                           Duration.ZERO),
+                new DurationFormatTestCase("1 hour 33 minutes",
+                                           Duration.ofHours(1).plusMinutes(33)));
+
+        testCases.forEach(testCase-> {
+            String formattedDuration = DurationFormatUtils.formatDurationWordsWithMs(testCase.duration.toMillis(),
+                                                                                     true,
+                                                                                     true);
+            assertEquals(testCase.expectedFormat, formattedDuration);
+        });
+    }
+
+
+    @Test
+    public void formatWordsWithMsWithoutRemovedLeadingAndTrailingZeros() {
+        List<DurationFormatTestCase> testCases = Arrays.asList(
+                new DurationFormatTestCase("0 days 1 hour 33 minutes 12 seconds 157 milliseconds",
+                                           Duration.ofHours(1).plusMinutes(33).plusSeconds(12).plusMillis(157)),
+                new DurationFormatTestCase("0 days 1 hour 33 minutes 12 seconds 0 milliseconds",
+                                           Duration.ofHours(1).plusMinutes(33).plusSeconds(12)),
+                new DurationFormatTestCase("0 days 1 hour 33 minutes 12 seconds 1 millisecond",
+                                           Duration.ofHours(1).plusMinutes(33).plusSeconds(12).plusMillis(1)));
+
+        testCases.forEach(testCase-> {
+            String formattedDuration = DurationFormatUtils.formatDurationWordsWithMs(testCase.duration.toMillis(),
+                                                                                     false,
+                                                                                     false);
+            assertEquals(testCase.expectedFormat, formattedDuration);
+        });
+    }
+
+    @Test
+    public void formatZeroMillisecondsNotRemoveLeadingButRemoveTrailing() {
+        String formattedDuration = DurationFormatUtils.formatDurationWordsWithMs(0, false, true);
+        assertEquals("0 days", formattedDuration);
+    }
+
+    @Test
+    public void formatZeroMillisecondsWithoutMillisNotRemoveLeadingZeroButRemoveTrailing() {
+        String formattedDuration = DurationFormatUtils.formatDurationWords(0, false, true);
+        assertEquals("0 days", formattedDuration);
+    }
+
+    private static final int FOUR_YEARS = 365 * 3 + 366;
 
     private void bruteForce(final int year, final int month, final int day, final String format, final int calendarType) {
         final String msg = year + "-" + month + "-" + day + " to ";
@@ -628,4 +706,13 @@ public class DurationFormatUtilsTest {
         }
     }
 
+    private static class DurationFormatTestCase {
+        private String expectedFormat;
+        private Duration duration;
+
+        private DurationFormatTestCase(String expectedFormat, Duration duration) {
+            this.expectedFormat = expectedFormat;
+            this.duration = duration;
+        }
+    }
 }

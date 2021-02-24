@@ -17,10 +17,13 @@
 package org.apache.commons.lang3.time;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.TimeZone;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -159,6 +162,7 @@ public class DurationFormatUtils {
 
     /**
      * <p>Formats an elapsed time into a pluralization correct string.</p>
+     * <p>Returns duration in format '0 days 0 hours 0 minutes 0 seconds'</p>
      *
      * <p>This method formats durations using the days and lower fields of the
      * format pattern. Months and larger are not used.</p>
@@ -170,56 +174,96 @@ public class DurationFormatUtils {
      * @throws java.lang.IllegalArgumentException if durationMillis is negative
      */
     public static String formatDurationWords(
-        final long durationMillis,
-        final boolean suppressLeadingZeroElements,
-        final boolean suppressTrailingZeroElements) {
+            final long durationMillis,
+            final boolean suppressLeadingZeroElements,
+            final boolean suppressTrailingZeroElements) {
+        return formatDurationWordsWithMs(durationMillis, false,
+                                         suppressLeadingZeroElements, suppressTrailingZeroElements);
+    }
 
-        // This method is generally replaceable by the format method, but
-        // there are a series of tweaks and special cases that require
-        // trickery to replicate.
-        String duration = formatDuration(durationMillis, "d' days 'H' hours 'm' minutes 's' seconds'");
+    /**
+     * <p>Formats an elapsed time into a pluralization correct string.</p>
+     * <p>Returns duration in format '0 days 0 hours 0 minutes 0 seconds 0 milliseconds'
+     * It removes all leading time units with 0 value.</p>
+     *
+     * <p>This method formats durations using the days and lower fields of the
+     * format pattern. Months and larger are not used.</p>
+     *
+     * @param durationMillis  the elapsed time to report in milliseconds
+     * @return the formatted text in days/hours/minutes/seconds/milliseconds, not null
+     * @throws java.lang.IllegalArgumentException if durationMillis is negative
+     */
+    public static String formatDurationWordsWithMs(final long durationMillis) {
+        return formatDurationWordsWithMs(durationMillis, true,
+                                         true, false);
+    }
+
+    /**
+     * <p>Formats an elapsed time into a pluralization correct string.</p>
+     * <p>Returns duration in format '0 days 0 hours 0 minutes 0 seconds 0 milliseconds'</p>
+     *
+     * <p>This method formats durations using the days and lower fields of the
+     * format pattern. Months and larger are not used.</p>
+     *
+     * @param durationMillis  the elapsed time to report in milliseconds
+     * @param suppressLeadingZeroElements  suppresses leading 0 elements
+     * @param suppressTrailingZeroElements  suppresses trailing 0 elements
+     * @return the formatted text in days/hours/minutes/seconds/milliseconds, not null
+     * @throws java.lang.IllegalArgumentException if durationMillis is negative
+     */
+    public static String formatDurationWordsWithMs(
+            final long durationMillis,
+            final boolean suppressLeadingZeroElements,
+            final boolean suppressTrailingZeroElements) {
+        return formatDurationWordsWithMs(durationMillis, true,
+                                         suppressLeadingZeroElements, suppressTrailingZeroElements);
+    }
+
+    /**
+     * <p>Formats an elapsed time into a pluralization correct string.</p>
+     * <p>Returns duration in format '0 days 0 hours 0 minutes 0 seconds 0 milliseconds' </p>
+     *
+     * <p>This method formats durations using the days and lower fields of the
+     * format pattern. Months and larger are not used.</p>
+     *
+     * @param durationMillis  the elapsed time to report in milliseconds
+     * @param withMilliseconds  the elapsed time to report in milliseconds
+     * @param suppressLeadingZeroElements  suppresses leading 0 elements
+     * @param suppressTrailingZeroElements  suppresses trailing 0 elements
+     * @return the formatted text in days/hours/minutes/seconds/milliseconds, not null
+     * @throws java.lang.IllegalArgumentException if durationMillis is negative
+     */
+    private static String formatDurationWordsWithMs(
+            final long durationMillis,
+            final boolean withMilliseconds,
+            final boolean suppressLeadingZeroElements,
+            final boolean suppressTrailingZeroElements) {
+
+        List<String> timeUnits = Arrays.asList("days", "hours", "minutes", "seconds", "milliseconds");
+        String duration = formatDuration(durationMillis, "d H m s SSS");
+        List<TimeUnitPart> timeUnitParts = new ArrayList<>();
+        List<String> timePartsValues = Arrays.asList(duration.split(StringUtils.SPACE));
+        int allowedElements = withMilliseconds ? timeUnits.size() : timeUnits.size() - 1;
+        for (int i = 0; i < allowedElements; i++) {
+            timeUnitParts.add(new TimeUnitPart(timeUnits.get(i), Integer.parseInt(timePartsValues.get(i))));
+        }
+
         if (suppressLeadingZeroElements) {
-            // this is a temporary marker on the front. Like ^ in regexp.
-            duration = " " + duration;
-            String tmp = StringUtils.replaceOnce(duration, " 0 days", StringUtils.EMPTY);
-            if (tmp.length() != duration.length()) {
-                duration = tmp;
-                tmp = StringUtils.replaceOnce(duration, " 0 hours", StringUtils.EMPTY);
-                if (tmp.length() != duration.length()) {
-                    duration = tmp;
-                    tmp = StringUtils.replaceOnce(duration, " 0 minutes", StringUtils.EMPTY);
-                    duration = tmp;
-                    if (tmp.length() != duration.length()) {
-                        duration = StringUtils.replaceOnce(tmp, " 0 seconds", StringUtils.EMPTY);
-                    }
-                }
-            }
-            if (!duration.isEmpty()) {
-                // strip the space off again
-                duration = duration.substring(1);
+            TimeUnitPart timeUnitPart = timeUnitParts.get(0);
+            while (timeUnitPart.value == 0 && timeUnitParts.size() > 1) {
+                timeUnitParts.remove(0);
+                timeUnitPart = timeUnitParts.get(0);
             }
         }
+
         if (suppressTrailingZeroElements) {
-            String tmp = StringUtils.replaceOnce(duration, " 0 seconds", StringUtils.EMPTY);
-            if (tmp.length() != duration.length()) {
-                duration = tmp;
-                tmp = StringUtils.replaceOnce(duration, " 0 minutes", StringUtils.EMPTY);
-                if (tmp.length() != duration.length()) {
-                    duration = tmp;
-                    tmp = StringUtils.replaceOnce(duration, " 0 hours", StringUtils.EMPTY);
-                    if (tmp.length() != duration.length()) {
-                        duration = StringUtils.replaceOnce(tmp, " 0 days", StringUtils.EMPTY);
-                    }
-                }
+            TimeUnitPart timeUnitPart = timeUnitParts.get(getLastIndex(timeUnitParts));
+            while (timeUnitPart.value == 0 && timeUnitParts.size() > 1) {
+                timeUnitParts.remove(getLastIndex(timeUnitParts));
+                timeUnitPart = timeUnitParts.get(getLastIndex(timeUnitParts));
             }
         }
-        // handle plurals
-        duration = " " + duration;
-        duration = StringUtils.replaceOnce(duration, " 1 seconds", " 1 second");
-        duration = StringUtils.replaceOnce(duration, " 1 minutes", " 1 minute");
-        duration = StringUtils.replaceOnce(duration, " 1 hours", " 1 hour");
-        duration = StringUtils.replaceOnce(duration, " 1 days", " 1 day");
-        return duration.trim();
+        return handlePlurals(timeUnitParts);
     }
 
     //-----------------------------------------------------------------------
@@ -461,6 +505,34 @@ public class DurationFormatUtils {
             }
         }
         return buffer.toString();
+    }
+
+    private static int getLastIndex(List<?> list) {
+        return list.size() - 1;
+    }
+
+    private static class TimeUnitPart {
+        private String timeUnit;
+        private int value;
+
+        private TimeUnitPart(String timeUnit, int value) {
+            this.timeUnit = timeUnit;
+            this.value = value;
+        }
+    }
+
+    private static String handlePlurals(List<TimeUnitPart> timeUnitParts) {
+        String duration = StringUtils.SPACE + timeUnitParts.stream()
+                                                           .map(part -> part.value + StringUtils.SPACE + part.timeUnit)
+                                                           .collect(Collectors.joining(StringUtils.SPACE));
+        for (TimeUnitPart timeUnitPart : timeUnitParts) {
+            duration = makePlural(duration, timeUnitPart.timeUnit);
+        }
+        return duration.trim();
+    }
+
+    private static String makePlural(String duration, String timeUnit) {
+        return StringUtils.replaceOnce(duration, " 1 " + timeUnit, " 1 " + timeUnit.substring(0, timeUnit.length() - 1));
     }
 
     /**
