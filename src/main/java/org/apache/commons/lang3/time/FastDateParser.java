@@ -458,17 +458,17 @@ public class FastDateParser implements DateParser, Serializable {
 
     /**
      * Gets the short and long values displayed for a field
-     * @param cal The calendar to obtain the short and long values
+     * @param calendar The calendar to obtain the short and long values
      * @param locale The locale of display names
      * @param field The field of interest
      * @param regex The regular expression to build
      * @return The map of string display names to field values
      */
-    private static Map<String, Integer> appendDisplayNames(final Calendar cal, Locale locale, final int field,
+    private static Map<String, Integer> appendDisplayNames(final Calendar calendar, Locale locale, final int field,
         final StringBuilder regex) {
         final Map<String, Integer> values = new HashMap<>();
         locale = LocaleUtils.toLocale(locale);
-        final Map<String, Integer> displayNames = cal.getDisplayNames(field, Calendar.ALL_STYLES, locale);
+        final Map<String, Integer> displayNames = calendar.getDisplayNames(field, Calendar.ALL_STYLES, locale);
         final TreeSet<String> sorted = new TreeSet<>(LONGER_FIRST_LOWERCASE);
         for (final Map.Entry<String, Integer> displayName : displayNames.entrySet()) {
             final String key = displayName.getKey().toLowerCase(locale);
@@ -548,7 +548,7 @@ public class FastDateParser implements DateParser, Serializable {
             return true;
         }
 
-        abstract void setCalendar(FastDateParser parser, Calendar cal, String value);
+        abstract void setCalendar(FastDateParser parser, Calendar calendar, String value);
 
         /**
          * Converts this instance to a handy debug string.
@@ -947,10 +947,10 @@ public class FastDateParser implements DateParser, Serializable {
          * {@inheritDoc}
          */
         @Override
-        void setCalendar(final FastDateParser parser, final Calendar cal, final String timeZone) {
+        void setCalendar(final FastDateParser parser, final Calendar calendar, final String timeZone) {
             final TimeZone tz = FastTimeZone.getGmtTimeZone(timeZone);
             if (tz != null) {
-                cal.setTimeZone(tz);
+                calendar.setTimeZone(tz);
             } else {
                 final String lowerCase = timeZone.toLowerCase(locale);
                 TzInfo tzInfo = tzNames.get(lowerCase);
@@ -958,8 +958,8 @@ public class FastDateParser implements DateParser, Serializable {
                     // match missing the optional trailing period
                     tzInfo = tzNames.get(lowerCase + '.');
                 }
-                cal.set(Calendar.DST_OFFSET, tzInfo.dstOffset);
-                cal.set(Calendar.ZONE_OFFSET, tzInfo.zone.getRawOffset());
+                calendar.set(Calendar.DST_OFFSET, tzInfo.dstOffset);
+                calendar.set(Calendar.ZONE_OFFSET, tzInfo.zone.getRawOffset());
             }
         }
 
@@ -990,8 +990,8 @@ public class FastDateParser implements DateParser, Serializable {
          * {@inheritDoc}
          */
         @Override
-        void setCalendar(final FastDateParser parser, final Calendar cal, final String value) {
-            cal.setTimeZone(FastTimeZone.getGmtTimeZone(value));
+        void setCalendar(final FastDateParser parser, final Calendar calendar, final String value) {
+            calendar.setTimeZone(FastTimeZone.getGmtTimeZone(value));
         }
 
         private static final Strategy ISO_8601_1_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-]\\d{2}))");
