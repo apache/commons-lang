@@ -324,7 +324,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
     @Override
     public String toString() {
-        return "FastDateParser[" + pattern + "," + locale + "," + timeZone.getID() + "]";
+        return "FastDateParser[" + pattern + ", " + locale + ", " + timeZone.getID() + "]";
     }
 
     // Serializing
