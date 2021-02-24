@@ -742,14 +742,14 @@ public class FastDateParser implements DateParser, Serializable {
          * {@inheritDoc}
          */
         @Override
-        void setCalendar(final FastDateParser parser, final Calendar cal, final String value) {
+        void setCalendar(final FastDateParser parser, final Calendar calendar, final String value) {
             final String lowerCase = value.toLowerCase(locale);
             Integer iVal = lKeyValues.get(lowerCase);
             if (iVal == null) {
                 // match missing the optional trailing period
                 iVal = lKeyValues.get(lowerCase + '.');
             }
-            cal.set(field, iVal.intValue());
+            calendar.set(field, iVal.intValue());
         }
 
         /**
