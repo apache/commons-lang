@@ -327,8 +327,18 @@ public class FastDateParser implements DateParser, Serializable {
         return "FastDateParser[" + pattern + ", " + locale + ", " + timeZone.getID() + "]";
     }
 
+    /**
+     * Converts all state of this instance to a String handy for debugging.
+     *
+     * @return a string.
+     * @since 3.12.0
+     */
+    public String toStringAll() {
+        return "FastDateParser [pattern=" + pattern + ", timeZone=" + timeZone + ", locale=" + locale + ", century="
+            + century + ", startYear=" + startYear + ", patterns=" + patterns + "]";
+    }
+
     // Serializing
-    //-----------------------------------------------------------------------
     /**
      * Creates the object after serialization. This implementation reinitializes the
      * transient properties.
