@@ -42,18 +42,47 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
  */
 public class FastDatePrinterTest {
 
+    private enum Expected1806 {
+        India(INDIA, "+05", "+0530", "+05:30"), Greenwich(GMT, "Z", "Z", "Z"), NewYork(
+                NEW_YORK, "-05", "-0500", "-05:00");
+
+        final TimeZone zone;
+
+        final String one;
+        final String two;
+        final String three;
+        Expected1806(final TimeZone zone, final String one, final String two, final String three) {
+            this.zone = zone;
+            this.one = one;
+            this.two = two;
+            this.three = three;
+        }
+    }
     private static final String YYYY_MM_DD = "yyyy/MM/dd";
     private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");
     private static final TimeZone GMT = TimeZone.getTimeZone("GMT");
     private static final TimeZone INDIA = TimeZone.getTimeZone("Asia/Calcutta");
+
     private static final Locale SWEDEN = new Locale("sv", "SE");
 
-    DatePrinter getInstance(final String format) {
-        return getInstance(format, TimeZone.getDefault(), Locale.getDefault());
+    private static Calendar initializeCalendar(final TimeZone tz) {
+        final Calendar cal = Calendar.getInstance(tz);
+        cal.set(Calendar.YEAR, 2001);
+        cal.set(Calendar.MONTH, 1); // not daylight savings
+        cal.set(Calendar.DAY_OF_MONTH, 4);
+        cal.set(Calendar.HOUR_OF_DAY, 12);
+        cal.set(Calendar.MINUTE, 8);
+        cal.set(Calendar.SECOND, 56);
+        cal.set(Calendar.MILLISECOND, 235);
+        return cal;
     }
 
     private DatePrinter getDateInstance(final int dateStyle, final Locale locale) {
         return getInstance(FormatCache.getPatternForStyle(Integer.valueOf(dateStyle), null, locale), TimeZone.getDefault(), Locale.getDefault());
+    }
+
+    DatePrinter getInstance(final String format) {
+        return getInstance(format, TimeZone.getDefault(), Locale.getDefault());
     }
 
     private DatePrinter getInstance(final String format, final Locale locale) {
@@ -73,6 +102,68 @@ public class FastDatePrinterTest {
      */
     protected DatePrinter getInstance(final String format, final TimeZone timeZone, final Locale locale) {
         return new FastDatePrinter(format, timeZone, locale);
+    }
+
+    @Test
+    public void test1806() {
+        for (final Expected1806 trial : Expected1806.values()) {
+            final Calendar cal = initializeCalendar(trial.zone);
+
+            DatePrinter printer = getInstance("X", trial.zone);
+            assertEquals(trial.one, printer.format(cal));
+
+            printer = getInstance("XX", trial.zone);
+            assertEquals(trial.two, printer.format(cal));
+
+            printer = getInstance("XXX", trial.zone);
+            assertEquals(trial.three, printer.format(cal));
+        }
+    }
+    @Test
+    public void test1806Argument() {
+        assertThrows(IllegalArgumentException.class, () -> getInstance("XXXX"));
+    }
+
+    @Test
+    public void testAppendableOptions() {
+        final DatePrinter format = getInstance("yyyy-MM-dd HH:mm:ss.SSS Z", TimeZone.getTimeZone("GMT"));
+        final Calendar calendar = Calendar.getInstance();
+        final StringBuilder sb = new StringBuilder();
+        final String expected = format.format(calendar, sb).toString();
+        sb.setLength(0);
+
+        final Date date = calendar.getTime();
+        assertEquals(expected, format.format(date, sb).toString());
+        sb.setLength(0);
+
+        final long epoch = date.getTime();
+        assertEquals(expected, format.format(epoch, sb).toString());
+    }
+
+    @Test
+    public void testDayNumberOfWeek() {
+        final DatePrinter printer = getInstance("u");
+        final Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        assertEquals("1", printer.format(calendar.getTime()));
+
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+        assertEquals("6", printer.format(calendar.getTime()));
+
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        assertEquals("7", printer.format(calendar.getTime()));
+    }
+
+    @Test
+    public void testEquals() {
+        final DatePrinter printer1= getInstance(YYYY_MM_DD);
+        final DatePrinter printer2= getInstance(YYYY_MM_DD);
+
+        assertEquals(printer1, printer2);
+        assertEquals(printer1.hashCode(), printer2.hashCode());
+
+        assertNotEquals(printer1, new Object());
     }
 
     @DefaultLocale(language = "en", country = "US")
@@ -123,67 +214,32 @@ public class FastDatePrinterTest {
         assertEquals(sdf.format(date2).replaceAll("2003 03 03 03", "2003 2003 03 2003"), fdf.format(date2));
     }
 
-    /**
-     * Test case for {@link FastDateParser#FastDateParser(String, TimeZone, Locale)}.
-     */
     @Test
-    public void testShortDateStyleWithLocales() {
-        final Locale usLocale = Locale.US;
-        final Locale swedishLocale = new Locale("sv", "SE");
-        final Calendar cal = Calendar.getInstance();
-        cal.set(2004, Calendar.FEBRUARY, 3);
-        DatePrinter fdf = getDateInstance(FastDateFormat.SHORT, usLocale);
-        assertEquals("2/3/04", fdf.format(cal));
+    public void testHourFormats() {
+        final Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        final DatePrinter printer = getInstance("K k H h");
 
-        fdf = getDateInstance(FastDateFormat.SHORT, swedishLocale);
-        assertEquals("2004-02-03", fdf.format(cal));
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        assertEquals("0 24 0 12", printer.format(calendar));
 
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        assertEquals("0 12 12 12", printer.format(calendar));
+
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        assertEquals("11 23 23 11", printer.format(calendar));
     }
 
-    /**
-     * Tests that pre-1000AD years get padded with yyyy
-     */
     @Test
-    public void testLowYearPadding() {
-        final Calendar cal = Calendar.getInstance();
-        final DatePrinter format = getInstance(YYYY_MM_DD);
+    public void testLang1103() {
+        final Calendar cal = Calendar.getInstance(SWEDEN);
+        cal.set(Calendar.DAY_OF_MONTH, 2);
 
-        cal.set(1, Calendar.JANUARY, 1);
-        assertEquals("0001/01/01", format.format(cal));
-        cal.set(10, Calendar.JANUARY, 1);
-        assertEquals("0010/01/01", format.format(cal));
-        cal.set(100, Calendar.JANUARY, 1);
-        assertEquals("0100/01/01", format.format(cal));
-        cal.set(999, Calendar.JANUARY, 1);
-        assertEquals("0999/01/01", format.format(cal));
-    }
-    /**
-     * Show Bug #39410 is solved
-     */
-    @Test
-    public void testMilleniumBug() {
-        final Calendar cal = Calendar.getInstance();
-        final DatePrinter format = getInstance("dd.MM.yyyy");
-
-        cal.set(1000, Calendar.JANUARY, 1);
-        assertEquals("01.01.1000", format.format(cal));
-    }
-
-    /**
-     * testLowYearPadding showed that the date was buggy
-     * This test confirms it, getting 366 back as a date
-     */
-    @Test
-    public void testSimpleDate() {
-        final Calendar cal = Calendar.getInstance();
-        final DatePrinter format = getInstance(YYYY_MM_DD);
-
-        cal.set(2004, Calendar.DECEMBER, 31);
-        assertEquals("2004/12/31", format.format(cal));
-        cal.set(999, Calendar.DECEMBER, 31);
-        assertEquals("0999/12/31", format.format(cal));
-        cal.set(1, Calendar.MARCH, 2);
-        assertEquals("0001/03/02", format.format(cal));
+        assertEquals("2", getInstance("d", SWEDEN).format(cal));
+        assertEquals("02", getInstance("dd", SWEDEN).format(cal));
+        assertEquals("002", getInstance("ddd", SWEDEN).format(cal));
+        assertEquals("0002", getInstance("dddd", SWEDEN).format(cal));
+        assertEquals("00002", getInstance("ddddd", SWEDEN).format(cal));
     }
 
     @Test
@@ -224,117 +280,6 @@ public class FastDatePrinterTest {
         assertEquals("fredag, week 53", fdf.format(d));
     }
 
-    @Test
-    public void testEquals() {
-        final DatePrinter printer1= getInstance(YYYY_MM_DD);
-        final DatePrinter printer2= getInstance(YYYY_MM_DD);
-
-        assertEquals(printer1, printer2);
-        assertEquals(printer1.hashCode(), printer2.hashCode());
-
-        assertNotEquals(printer1, new Object());
-    }
-
-    @Test
-    public void testToStringContainsName() {
-        final DatePrinter printer= getInstance(YYYY_MM_DD);
-        assertTrue(printer.toString().startsWith("FastDate"));
-    }
-
-    @Test
-    public void testPatternMatches() {
-        final DatePrinter printer= getInstance(YYYY_MM_DD);
-        assertEquals(YYYY_MM_DD, printer.getPattern());
-    }
-
-    @Test
-    public void testLocaleMatches() {
-        final DatePrinter printer= getInstance(YYYY_MM_DD, SWEDEN);
-        assertEquals(SWEDEN, printer.getLocale());
-    }
-
-    @Test
-    public void testTimeZoneMatches() {
-        final DatePrinter printer= getInstance(YYYY_MM_DD, NEW_YORK);
-        assertEquals(NEW_YORK, printer.getTimeZone());
-    }
-
-    @DefaultTimeZone("UTC")
-    @Test
-    public void testTimeZoneAsZ() {
-        final Calendar c = Calendar.getInstance(FastTimeZone.getGmtTimeZone());
-        final FastDateFormat noColonFormat = FastDateFormat.getInstance("Z");
-        assertEquals("+0000", noColonFormat.format(c));
-
-        final FastDateFormat isoFormat = FastDateFormat.getInstance("ZZ");
-        assertEquals("Z", isoFormat.format(c));
-
-        final FastDateFormat colonFormat = FastDateFormat.getInstance("ZZZ");
-        assertEquals("+00:00", colonFormat.format(c));
-    }
-
-    private static Calendar initializeCalendar(final TimeZone tz) {
-        final Calendar cal = Calendar.getInstance(tz);
-        cal.set(Calendar.YEAR, 2001);
-        cal.set(Calendar.MONTH, 1); // not daylight savings
-        cal.set(Calendar.DAY_OF_MONTH, 4);
-        cal.set(Calendar.HOUR_OF_DAY, 12);
-        cal.set(Calendar.MINUTE, 8);
-        cal.set(Calendar.SECOND, 56);
-        cal.set(Calendar.MILLISECOND, 235);
-        return cal;
-    }
-
-    @Test
-    public void test1806Argument() {
-        assertThrows(IllegalArgumentException.class, () -> getInstance("XXXX"));
-    }
-
-    private enum Expected1806 {
-        India(INDIA, "+05", "+0530", "+05:30"), Greenwich(GMT, "Z", "Z", "Z"), NewYork(
-                NEW_YORK, "-05", "-0500", "-05:00");
-
-        Expected1806(final TimeZone zone, final String one, final String two, final String three) {
-            this.zone = zone;
-            this.one = one;
-            this.two = two;
-            this.three = three;
-        }
-
-        final TimeZone zone;
-        final String one;
-        final String two;
-        final String three;
-    }
-
-    @Test
-    public void test1806() {
-        for (final Expected1806 trial : Expected1806.values()) {
-            final Calendar cal = initializeCalendar(trial.zone);
-
-            DatePrinter printer = getInstance("X", trial.zone);
-            assertEquals(trial.one, printer.format(cal));
-
-            printer = getInstance("XX", trial.zone);
-            assertEquals(trial.two, printer.format(cal));
-
-            printer = getInstance("XXX", trial.zone);
-            assertEquals(trial.three, printer.format(cal));
-        }
-    }
-
-    @Test
-    public void testLang1103() {
-        final Calendar cal = Calendar.getInstance(SWEDEN);
-        cal.set(Calendar.DAY_OF_MONTH, 2);
-
-        assertEquals("2", getInstance("d", SWEDEN).format(cal));
-        assertEquals("02", getInstance("dd", SWEDEN).format(cal));
-        assertEquals("002", getInstance("ddd", SWEDEN).format(cal));
-        assertEquals("0002", getInstance("dddd", SWEDEN).format(cal));
-        assertEquals("00002", getInstance("ddddd", SWEDEN).format(cal));
-    }
-
     /**
      * According to LANG-916 (https://issues.apache.org/jira/browse/LANG-916),
      * the format method did contain a bug: it did not use the TimeZone data.
@@ -364,19 +309,79 @@ public class FastDatePrinterTest {
     }
 
     @Test
-    public void testHourFormats() {
-        final Calendar calendar = Calendar.getInstance();
-        calendar.clear();
-        final DatePrinter printer = getInstance("K k H h");
+    public void testLocaleMatches() {
+        final DatePrinter printer= getInstance(YYYY_MM_DD, SWEDEN);
+        assertEquals(SWEDEN, printer.getLocale());
+    }
 
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        assertEquals("0 24 0 12", printer.format(calendar));
+    /**
+     * Tests that pre-1000AD years get padded with yyyy
+     */
+    @Test
+    public void testLowYearPadding() {
+        final Calendar cal = Calendar.getInstance();
+        final DatePrinter format = getInstance(YYYY_MM_DD);
 
-        calendar.set(Calendar.HOUR_OF_DAY, 12);
-        assertEquals("0 12 12 12", printer.format(calendar));
+        cal.set(1, Calendar.JANUARY, 1);
+        assertEquals("0001/01/01", format.format(cal));
+        cal.set(10, Calendar.JANUARY, 1);
+        assertEquals("0010/01/01", format.format(cal));
+        cal.set(100, Calendar.JANUARY, 1);
+        assertEquals("0100/01/01", format.format(cal));
+        cal.set(999, Calendar.JANUARY, 1);
+        assertEquals("0999/01/01", format.format(cal));
+    }
 
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        assertEquals("11 23 23 11", printer.format(calendar));
+    /**
+     * Show Bug #39410 is solved
+     */
+    @Test
+    public void testMilleniumBug() {
+        final Calendar cal = Calendar.getInstance();
+        final DatePrinter format = getInstance("dd.MM.yyyy");
+
+        cal.set(1000, Calendar.JANUARY, 1);
+        assertEquals("01.01.1000", format.format(cal));
+    }
+
+    @Test
+    public void testPatternMatches() {
+        final DatePrinter printer= getInstance(YYYY_MM_DD);
+        assertEquals(YYYY_MM_DD, printer.getPattern());
+    }
+
+    /**
+     * Test case for {@link FastDateParser#FastDateParser(String, TimeZone, Locale)}.
+     */
+    @Test
+    public void testShortDateStyleWithLocales() {
+        final Locale usLocale = Locale.US;
+        final Locale swedishLocale = new Locale("sv", "SE");
+        final Calendar cal = Calendar.getInstance();
+        cal.set(2004, Calendar.FEBRUARY, 3);
+        DatePrinter fdf = getDateInstance(FastDateFormat.SHORT, usLocale);
+        assertEquals("2/3/04", fdf.format(cal));
+
+        fdf = getDateInstance(FastDateFormat.SHORT, swedishLocale);
+        assertEquals("2004-02-03", fdf.format(cal));
+
+    }
+
+    /**
+     * testLowYearPadding showed that the date was buggy
+     * This test confirms it, getting 366 back as a date
+     */
+    @Test
+    public void testSimpleDate() {
+        final Calendar cal = Calendar.getInstance();
+        final DatePrinter format = getInstance(YYYY_MM_DD);
+
+        cal.set(2004, Calendar.DECEMBER, 31);
+        assertEquals("2004/12/31", format.format(cal));
+        cal.set(999, Calendar.DECEMBER, 31);
+        assertEquals("0999/12/31", format.format(cal));
+        cal.set(1, Calendar.MARCH, 2);
+        assertEquals("0001/03/02", format.format(cal));
     }
 
     @SuppressWarnings("deprecation")
@@ -402,35 +407,30 @@ public class FastDatePrinterTest {
         assertEquals(expected, format.format(epoch, sb).toString());
     }
 
+    @DefaultTimeZone("UTC")
     @Test
-    public void testAppendableOptions() {
-        final DatePrinter format = getInstance("yyyy-MM-dd HH:mm:ss.SSS Z", TimeZone.getTimeZone("GMT"));
-        final Calendar calendar = Calendar.getInstance();
-        final StringBuilder sb = new StringBuilder();
-        final String expected = format.format(calendar, sb).toString();
-        sb.setLength(0);
+    public void testTimeZoneAsZ() {
+        final Calendar c = Calendar.getInstance(FastTimeZone.getGmtTimeZone());
+        final FastDateFormat noColonFormat = FastDateFormat.getInstance("Z");
+        assertEquals("+0000", noColonFormat.format(c));
 
-        final Date date = calendar.getTime();
-        assertEquals(expected, format.format(date, sb).toString());
-        sb.setLength(0);
+        final FastDateFormat isoFormat = FastDateFormat.getInstance("ZZ");
+        assertEquals("Z", isoFormat.format(c));
 
-        final long epoch = date.getTime();
-        assertEquals(expected, format.format(epoch, sb).toString());
+        final FastDateFormat colonFormat = FastDateFormat.getInstance("ZZZ");
+        assertEquals("+00:00", colonFormat.format(c));
     }
 
     @Test
-    public void testDayNumberOfWeek() {
-        final DatePrinter printer = getInstance("u");
-        final Calendar calendar = Calendar.getInstance();
+    public void testTimeZoneMatches() {
+        final DatePrinter printer= getInstance(YYYY_MM_DD, NEW_YORK);
+        assertEquals(NEW_YORK, printer.getTimeZone());
+    }
 
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        assertEquals("1", printer.format(calendar.getTime()));
-
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-        assertEquals("6", printer.format(calendar.getTime()));
-
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        assertEquals("7", printer.format(calendar.getTime()));
+    @Test
+    public void testToStringContainsName() {
+        final DatePrinter printer= getInstance(YYYY_MM_DD);
+        assertTrue(printer.toString().startsWith("FastDate"));
     }
 
     @DefaultLocale(language = "en", country = "US")

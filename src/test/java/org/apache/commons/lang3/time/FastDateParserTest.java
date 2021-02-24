@@ -95,6 +95,28 @@ public class FastDateParserTest {
 
     private static final Locale SWEDEN = new Locale("sv", "SE");
 
+    static void checkParse(final Locale locale, final Calendar cal, final SimpleDateFormat simpleDateFormat,
+            final DateParser dateParser) {
+        final String formattedDate = simpleDateFormat.format(cal.getTime());
+        checkParse(locale, simpleDateFormat, dateParser, formattedDate, formattedDate);
+        checkParse(locale, simpleDateFormat, dateParser, formattedDate.toLowerCase(locale), formattedDate);
+        checkParse(locale, simpleDateFormat, dateParser, formattedDate.toUpperCase(locale), formattedDate);
+    }
+
+    static void checkParse(final Locale locale, final SimpleDateFormat simpleDateFormat, final DateParser dateParser,
+        final String formattedDate, final String originalFormattedDate) {
+        try {
+            final Date expectedTime = simpleDateFormat.parse(formattedDate);
+            final Date actualTime = dateParser.parse(formattedDate);
+            assertEquals(expectedTime, actualTime,
+                "locale: " + locale + ", formattedDate: '" + formattedDate + "', originalFormattedDate: '"
+                    + originalFormattedDate + ", simpleDateFormat.pattern: '" + simpleDateFormat + "', Java: "
+                    + SystemUtils.JAVA_RUNTIME_VERSION + "\n");
+        } catch (final Exception e) {
+            fail("locale: " + locale + ", formattedDate: '" + formattedDate + "', error : " + e + "\n", e);
+        }
+    }
+
     static Stream<Arguments> dateParserParameters() {
         return Stream.of(
         // @formatter:off
@@ -119,28 +141,6 @@ public class FastDateParserTest {
 
     private final TriFunction<String, TimeZone, Locale, DateParser> dateParserProvider = (format, timeZone,
             locale) -> new FastDateParser(format, timeZone, locale, null);
-
-    static void checkParse(final Locale locale, final Calendar cal, final SimpleDateFormat simpleDateFormat,
-            final DateParser dateParser) {
-        final String formattedDate = simpleDateFormat.format(cal.getTime());
-        checkParse(locale, simpleDateFormat, dateParser, formattedDate, formattedDate);
-        checkParse(locale, simpleDateFormat, dateParser, formattedDate.toLowerCase(locale), formattedDate);
-        checkParse(locale, simpleDateFormat, dateParser, formattedDate.toUpperCase(locale), formattedDate);
-    }
-
-    static void checkParse(final Locale locale, final SimpleDateFormat simpleDateFormat, final DateParser dateParser,
-        final String formattedDate, final String originalFormattedDate) {
-        try {
-            final Date expectedTime = simpleDateFormat.parse(formattedDate);
-            final Date actualTime = dateParser.parse(formattedDate);
-            assertEquals(expectedTime, actualTime,
-                "locale: " + locale + ", formattedDate: '" + formattedDate + "', originalFormattedDate: '"
-                    + originalFormattedDate + ", simpleDateFormat.pattern: '" + simpleDateFormat + "', Java: "
-                    + SystemUtils.JAVA_RUNTIME_VERSION + "\n");
-        } catch (final Exception e) {
-            fail("locale: " + locale + ", formattedDate: '" + formattedDate + "', error : " + e + "\n", e);
-        }
-    }
 
     private DateParser getDateInstance(final int dateStyle, final Locale locale) {
         return getInstance(null, FormatCache.getPatternForStyle(Integer.valueOf(dateStyle), null, locale),

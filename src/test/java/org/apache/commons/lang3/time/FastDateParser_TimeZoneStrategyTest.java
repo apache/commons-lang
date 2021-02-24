@@ -30,6 +30,15 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class FastDateParser_TimeZoneStrategyTest {
 
+    @Test
+    void testLang1219() throws ParseException {
+        final FastDateParser parser = new FastDateParser("dd.MM.yyyy HH:mm:ss z", TimeZone.getDefault(), Locale.GERMAN);
+
+        final Date summer = parser.parse("26.10.2014 02:00:00 MESZ");
+        final Date standard = parser.parse("26.10.2014 02:00:00 MEZ");
+        assertNotEquals(summer.getTime(), standard.getTime());
+    }
+
     @ParameterizedTest
     @MethodSource("java.util.Locale#getAvailableLocales")
     void testTimeZoneStrategyPattern(final Locale locale) throws ParseException {
@@ -45,14 +54,5 @@ class FastDateParser_TimeZoneStrategyTest {
                 parser.parse(tzDisplay);
             }
         }
-    }
-
-    @Test
-    void testLang1219() throws ParseException {
-        final FastDateParser parser = new FastDateParser("dd.MM.yyyy HH:mm:ss z", TimeZone.getDefault(), Locale.GERMAN);
-
-        final Date summer = parser.parse("26.10.2014 02:00:00 MESZ");
-        final Date standard = parser.parse("26.10.2014 02:00:00 MEZ");
-        assertNotEquals(summer.getTime(), standard.getTime());
     }
 }

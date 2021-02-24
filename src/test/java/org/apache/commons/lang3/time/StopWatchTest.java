@@ -216,6 +216,20 @@ public class StopWatchTest {
     }
 
     @Test
+    public void testStopTimeSimple() throws InterruptedException {
+        final StopWatch watch = StopWatch.createStarted();
+        final long testStartMillis = System.currentTimeMillis();
+        sleepQuietly(MILLIS_550);
+        watch.stop();
+        final long testEndMillis = System.currentTimeMillis();
+        final long stopTime = watch.getStopTime();
+        assertEquals(stopTime, watch.getStopTime());
+
+        assertTrue(stopTime >= testStartMillis);
+        assertTrue(stopTime <= testEndMillis);
+    }
+
+    @Test
     public void testStopWatchGetWithTimeUnit() {
         // Create a mock StopWatch with a time of 2:59:01.999
         // @formatter:off
@@ -245,20 +259,6 @@ public class StopWatchTest {
 
         watch.reset();
         assertEquals(0, watch.getTime());
-    }
-
-    @Test
-    public void testStopTimeSimple() throws InterruptedException {
-        final StopWatch watch = StopWatch.createStarted();
-        final long testStartMillis = System.currentTimeMillis();
-        sleepQuietly(MILLIS_550);
-        watch.stop();
-        final long testEndMillis = System.currentTimeMillis();
-        final long stopTime = watch.getStopTime();
-        assertEquals(stopTime, watch.getStopTime());
-
-        assertTrue(stopTime >= testStartMillis);
-        assertTrue(stopTime <= testEndMillis);
     }
 
     @Test
