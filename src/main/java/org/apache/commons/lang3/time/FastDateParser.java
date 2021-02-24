@@ -150,7 +150,7 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     /**
-     * Initialize derived fields from defining fields.
+     * Initializes derived fields from defining fields.
      * This is called from constructor and from readObject (de-serialization)
      *
      * @param definingCalendar the {@link java.util.Calendar} instance used to initialize this FastDateParser
@@ -175,6 +175,7 @@ public class FastDateParser implements DateParser, Serializable {
      * Holds strategy and field width
      */
     private static class StrategyAndWidth {
+
         final Strategy strategy;
         final int width;
 
@@ -190,6 +191,11 @@ public class FastDateParser implements DateParser, Serializable {
             final Strategy nextStrategy = lt.next().strategy;
             lt.previous();
             return nextStrategy.isNumber() ? width : 0;
+        }
+
+        @Override
+        public String toString() {
+            return "StrategyAndWidth [strategy=" + strategy + ", width=" + width + "]";
         }
     }
 
@@ -287,7 +293,7 @@ public class FastDateParser implements DateParser, Serializable {
     // Basics
     //-----------------------------------------------------------------------
     /**
-     * <p>Compare another object for equality with this object.</p>
+     * <p>Compares another object for equality with this object.</p>
      *
      * @param obj  the object to compare to
      * @return {@code true}if equal to this instance
@@ -302,7 +308,7 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     /**
-     * <p>Return a hash code compatible with equals.</p>
+     * <p>Returns a hash code compatible with equals.</p>
      *
      * @return a hash code compatible with equals
      */
@@ -312,7 +318,7 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     /**
-     * <p>Get a string version of this formatter.</p>
+     * <p>Gets a string version of this formatter.</p>
      *
      * @return a debugging string
      */
@@ -324,7 +330,7 @@ public class FastDateParser implements DateParser, Serializable {
     // Serializing
     //-----------------------------------------------------------------------
     /**
-     * Create the object after serialization. This implementation reinitializes the
+     * Creates the object after serialization. This implementation reinitializes the
      * transient properties.
      *
      * @param in ObjectInputStream from which the object is being deserialized.
@@ -394,7 +400,7 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     /**
-     * Parse a formatted date string according to the format.  Updates the Calendar with parsed fields.
+     * Parses a formatted date string according to the format.  Updates the Calendar with parsed fields.
      * Upon success, the ParsePosition index is updated to indicate how much of the source text was consumed.
      * Not all source text needs to be consumed.  Upon parse failure, ParsePosition error index is updated to
      * the offset of the source text which does not match the supplied format.
@@ -477,7 +483,7 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     /**
-     * Adjust dates to be within appropriate century
+     * Adjusts dates to be within appropriate century
      * @param twoDigitYear The year to adjust
      * @return A value between centuryStart(inclusive) to centuryStart+100(exclusive)
      */
@@ -509,7 +515,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
     private abstract static class PatternStrategy extends Strategy {
 
-        private Pattern pattern;
+        Pattern pattern;
 
         void createPattern(final StringBuilder regex) {
             createPattern(regex.toString());
@@ -543,10 +549,21 @@ public class FastDateParser implements DateParser, Serializable {
         }
 
         abstract void setCalendar(FastDateParser parser, Calendar cal, String value);
-    }
+
+        /**
+         * Converts this instance to a handy debug string.
+         *
+         * @since 3.12.0
+         */
+        @Override
+        public String toString() {
+            return getClass().getSimpleName() + " [pattern=" + pattern + "]";
+        }
+
+}
 
     /**
-     * Obtain a Strategy given a field from a SimpleDateFormat pattern
+     * Gets a Strategy given a field from a SimpleDateFormat pattern
      * @param f A sub-sequence of the SimpleDateFormat pattern
      * @param definingCalendar The calendar to obtain the short and long values
      * @return The Strategy that will handle parsing for the field
@@ -682,6 +699,16 @@ public class FastDateParser implements DateParser, Serializable {
             pos.setIndex(formatField.length() + pos.getIndex());
             return true;
         }
+
+        /**
+         * Converts this instance to a handy debug string.
+         *
+         * @since 3.12.0
+         */
+        @Override
+        public String toString() {
+            return "CopyQuotedStrategy [formatField=" + formatField + "]";
+        }
     }
 
     /**
@@ -724,6 +751,17 @@ public class FastDateParser implements DateParser, Serializable {
             }
             cal.set(field, iVal.intValue());
         }
+
+        /**
+         * Converts this instance to a handy debug string.
+         *
+         * @since 3.12.0
+         */
+        @Override
+        public String toString() {
+            return "CaseInsensitiveTextStrategy [field=" + field + ", locale=" + locale + ", lKeyValues=" + lKeyValues
+                + ", pattern=" + pattern + "]";
+        }
     }
 
 
@@ -731,6 +769,7 @@ public class FastDateParser implements DateParser, Serializable {
      * A strategy that handles a number field in the parsing pattern
      */
     private static class NumberStrategy extends Strategy {
+
         private final int field;
 
         /**
@@ -802,6 +841,15 @@ public class FastDateParser implements DateParser, Serializable {
             return iValue;
         }
 
+        /**
+         * Converts this instance to a handy debug string.
+         *
+         * @since 3.12.0
+         */
+        @Override
+        public String toString() {
+            return "NumberStrategy [field=" + field + "]";
+        }
     }
 
     private static final Strategy ABBREVIATED_YEAR_STRATEGY = new NumberStrategy(Calendar.YEAR) {
@@ -914,6 +962,17 @@ public class FastDateParser implements DateParser, Serializable {
                 cal.set(Calendar.ZONE_OFFSET, tzInfo.zone.getRawOffset());
             }
         }
+
+        /**
+         * Converts this instance to a handy debug string.
+         *
+         * @since 3.12.0
+         */
+        @Override
+        public String toString() {
+            return "TimeZoneStrategy [locale=" + locale + ", tzNames=" + tzNames + ", pattern=" + pattern + "]";
+        }
+
     }
 
     private static class ISO8601TimeZoneStrategy extends PatternStrategy {
