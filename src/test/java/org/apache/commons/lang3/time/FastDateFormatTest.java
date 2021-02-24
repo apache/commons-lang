@@ -45,6 +45,8 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
  * @since 2.0
  */
 public class FastDateFormatTest {
+    private static final String ISO_8601_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZZ";
+
     /*
      * Only the cache methods need to be tested here.
      * The print methods are tested by {@link FastDateFormat_PrinterTest}
@@ -318,5 +320,38 @@ public class FastDateFormatTest {
     @Test
     public void testLANG_1267() {
         FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+    }
+
+    @Test
+    public void testCache() {
+        {
+            final FastDateFormat actualInstance1 = FastDateFormat.getInstance(ISO_8601_DATE_FORMAT);
+            final FastDateFormat actualInstance2 = FastDateFormat.getInstance(ISO_8601_DATE_FORMAT);
+
+            assertSame(actualInstance1, actualInstance2);
+        }
+
+        // commons-lang's GMT TimeZone
+        {
+            final FastDateFormat actualInstance1 = FastDateFormat.getInstance(ISO_8601_DATE_FORMAT, FastTimeZone.getGmtTimeZone());
+            final FastDateFormat actualInstance2 = FastDateFormat.getInstance(ISO_8601_DATE_FORMAT, FastTimeZone.getGmtTimeZone());
+
+            assertSame(actualInstance1, actualInstance2);
+        }
+
+        // default TimeZone
+        {
+            final FastDateFormat actualInstance1 = FastDateFormat.getInstance(ISO_8601_DATE_FORMAT, TimeZone.getDefault());
+            final FastDateFormat actualInstance2 = FastDateFormat.getInstance(ISO_8601_DATE_FORMAT, TimeZone.getDefault());
+
+            assertSame(actualInstance1, actualInstance2);
+        }
+
+        // TimeZones that are identical in every way except ID
+        {
+            final FastDateFormat actualInstance1 = FastDateFormat.getInstance(ISO_8601_DATE_FORMAT, TimeZone.getTimeZone("Australia/Broken_Hill"));
+            final FastDateFormat actualInstance2 = FastDateFormat.getInstance(ISO_8601_DATE_FORMAT, TimeZone.getTimeZone("Australia/Yancowinna"));
+            assertNotSame(actualInstance1, actualInstance2);
+        }
     }
 }
