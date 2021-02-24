@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.CharSequenceUtilsRegionMatchesTest.String0;
+import static org.apache.commons.lang3.CharSequenceUtilsRegionMatchesTest.String1;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -128,21 +130,35 @@ public class CharSequenceUtilsTest {
         }
     }
 
+    public static final String STRING0 = String0(5);
+    public static final String STRING1 = String1(5);
+
     private static final TestData[] TEST_DATA = {
             //          Source  IgnoreCase Offset Other  Offset Length Result
             new TestData("",    true,      -1,    "",    -1,    -1,    false),
+            new TestData("",    false,      -1,    "",    -1,    -1,    false),
             new TestData("",    true,      0,     "",    0,     1,     false),
+            new TestData("",    false,      0,     "",    0,     1,     false),
             new TestData("a",   true,      0,     "abc", 0,     0,     true),
+            new TestData("a",   false,      0,     "abc", 0,     0,     true),
             new TestData("a",   true,      0,     "abc", 0,     1,     true),
+            new TestData("a",   false,      0,     "abc", 0,     1,     true),
             new TestData("a",   true,      0,     null,  0,     0,     NullPointerException.class),
+            new TestData("a",   false,      0,     null,  0,     0,     NullPointerException.class),
             new TestData(null,  true,      0,     null,  0,     0,     NullPointerException.class),
+            new TestData(null,  false,      0,     null,  0,     0,     NullPointerException.class),
             new TestData(null,  true,      0,     "",    0,     0,     NullPointerException.class),
+            new TestData(null,  false,      0,     "",    0,     0,     NullPointerException.class),
             new TestData("Abc", true,      0,     "abc", 0,     3,     true),
             new TestData("Abc", false,     0,     "abc", 0,     3,     false),
             new TestData("Abc", true,      1,     "abc", 1,     2,     true),
             new TestData("Abc", false,     1,     "abc", 1,     2,     true),
             new TestData("Abcd", true,      1,     "abcD", 1,     2,     true),
             new TestData("Abcd", false,     1,     "abcD", 1,     2,     true),
+            new TestData(STRING0, false, 0, STRING0, 0, STRING0.length(), true),
+            new TestData(STRING0, true, 0, STRING0, 0, STRING0.length(), true),
+            new TestData(STRING1, false, 0, STRING0, 0, STRING0.length(), false),
+            new TestData(STRING1, true, 0, STRING0, 0, STRING0.length(), true),
     };
 
     private abstract static class RunTest {
