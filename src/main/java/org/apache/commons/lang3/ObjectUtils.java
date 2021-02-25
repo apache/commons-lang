@@ -28,6 +28,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeSet;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
@@ -226,6 +227,63 @@ public class ObjectUtils {
      */
     public static boolean anyNotNull(final Object... values) {
         return firstNonNull(values) != null;
+    }
+
+    /**
+     * <p>
+     * Calls the given {@code consumer's} {@link Consumer#accept(Object)} method with the first {@code non-null} value
+     * from {@code objects}. If all the values are null, the consumer is not invoked. This is equivalent to the call
+     * {@code ObjectUtils.acceptIfNonNull(ObjectUtils.firstNonNull(objects), consumer)}
+     * </p>
+     *
+     * <p>
+     * The caller is responsible for thread-safety and exception handling of consumer.
+     * </p>
+     *
+     * <pre>
+     * ObjectUtils.acceptFirstNonNull(bean::setValue, null)                 - setValue not invoked
+     * ObjectUtils.acceptFirstNonNull(bean::setValue, null, "abc", "def")   - setValue invoked with "abc"
+     * ObjectUtils.acceptFirstNonNull(v -&gt; bean.setValue(v), "abc")      - setValue invoked with "abc"
+     * </pre>
+     *
+     * @param <T> the type of the object
+     * @param objects  the values to test, may be {@code null} or empty
+     * @param consumer the consumer operation to invoke with the first non-null {@code objects}.
+     * @see #firstNonNull(Object...)
+     * @see #acceptIfNonNull(Object, Consumer)
+     * @since 3.12
+     */
+    @SafeVarargs
+    public static <T> void acceptFirstNonNull(final Consumer<T> consumer, final T... objects) {
+        acceptIfNonNull(firstNonNull(objects), consumer);
+    }
+
+    /**
+     * <p>
+     * Calls the given {@code consumer's} {@link Consumer#accept(Object)} method with the {@code object} if it is
+     * {@code non-null}.
+     * </p>
+     *
+     * <p>
+     * The caller is responsible for thread-safety and exception handling of consumer.
+     * </p>
+     *
+     * <pre>
+     * ObjectUtils.acceptIfNonNull(null, bean::setValue)             - setValue not invoked
+     * ObjectUtils.acceptIfNonNull("abc", bean::setValue)            - setValue invoked with "abc"
+     * ObjectUtils.acceptIfNonNull("abc", v -&gt; bean.setValue(v))  - setValue invoked with "abc"
+     * </pre>
+     *
+     * @param <T> the type of the object
+     * @param object the {@code Object} to test, may be {@code null}
+     * @param consumer the consumer operation to invoke with {@code object} if it is {@code non-null}
+     * @see #acceptFirstNonNull(Consumer, Object...)
+     * @since 3.12
+     */
+    public static <T> void acceptIfNonNull(final T object, final Consumer<T> consumer) {
+        if (object != null) {
+            consumer.accept(object);
+        }
     }
 
     // cloning

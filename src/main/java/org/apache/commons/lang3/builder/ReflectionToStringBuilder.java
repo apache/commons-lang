@@ -29,6 +29,7 @@ import java.util.List;
 import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -413,9 +414,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     static String[] toNoNullStringArray(final Object[] array) {
         final List<String> list = new ArrayList<>(array.length);
         for (final Object e : array) {
-            if (e != null) {
-                list.add(e.toString());
-            }
+            ObjectUtils.acceptIfNonNull(e, o -> list.add(e.toString()));
         }
         return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
     }

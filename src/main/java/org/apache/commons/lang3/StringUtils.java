@@ -4389,16 +4389,12 @@ public class StringUtils {
 
         // two or more elements
         final StringBuilder buf = new StringBuilder(STRING_BUILDER_SIZE); // Java default is 16, probably too small
-        if (first != null) {
-            buf.append(first);
-        }
+        ObjectUtils.acceptIfNonNull(first, buf::append);
 
         while (iterator.hasNext()) {
             buf.append(separator);
             final Object obj = iterator.next();
-            if (obj != null) {
-                buf.append(obj);
-            }
+            ObjectUtils.acceptIfNonNull(obj, buf::append);
         }
 
         return buf.toString();
@@ -4433,18 +4429,12 @@ public class StringUtils {
 
         // two or more elements
         final StringBuilder buf = new StringBuilder(STRING_BUILDER_SIZE); // Java default is 16, probably too small
-        if (first != null) {
-            buf.append(first);
-        }
+        ObjectUtils.acceptIfNonNull(first, buf::append);
 
         while (iterator.hasNext()) {
-            if (separator != null) {
-                buf.append(separator);
-            }
+            ObjectUtils.acceptIfNonNull(separator, buf::append);
             final Object obj = iterator.next();
-            if (obj != null) {
-                buf.append(obj);
-            }
+            ObjectUtils.acceptIfNonNull(obj, buf::append);
         }
         return buf.toString();
     }
