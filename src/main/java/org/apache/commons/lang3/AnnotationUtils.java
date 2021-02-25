@@ -116,7 +116,7 @@ public class AnnotationUtils {
         if (a1 == a2) {
             return true;
         }
-        if (a1 == null || a2 == null) {
+        if (ObjectUtils.anyNull(a1, a2)) {
             return false;
         }
         final Class<? extends Annotation> type1 = a1.annotationType();
@@ -255,7 +255,7 @@ public class AnnotationUtils {
         if (o1 == o2) {
             return true;
         }
-        if (o1 == null || o2 == null) {
+        if (ObjectUtils.anyNull(o1, o2)) {
             return false;
         }
         if (type.isArray()) {

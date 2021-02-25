@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.reflect;
 
 import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 /**
  * <p>Utility methods focusing on inheritance.</p>
@@ -46,7 +47,7 @@ public class InheritanceUtils {
      * @since 3.2
      */
     public static int distance(final Class<?> child, final Class<?> parent) {
-        if (child == null || parent == null) {
+        if (ObjectUtils.anyNull(child, parent)) {
             return -1;
         }
 

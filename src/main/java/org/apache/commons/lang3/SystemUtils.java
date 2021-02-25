@@ -1880,7 +1880,7 @@ public class SystemUtils {
      * @return true if matches, or false if not or can't determine
      */
     static boolean isOSMatch(final String osName, final String osVersion, final String osNamePrefix, final String osVersionPrefix) {
-        if (osName == null || osVersion == null) {
+        if (ObjectUtils.anyNull(osName, osVersion)) {
             return false;
         }
         return isOSNameMatch(osName, osNamePrefix) && isOSVersionMatch(osVersion, osVersionPrefix);

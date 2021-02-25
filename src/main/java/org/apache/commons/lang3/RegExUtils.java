@@ -353,7 +353,7 @@ public class RegExUtils {
      * @see java.util.regex.Pattern
      */
     public static String replaceFirst(final String text, final Pattern regex, final String replacement) {
-        if (text == null || regex == null|| replacement == null ) {
+        if (ObjectUtils.anyNull(text, regex, replacement)) {
             return text;
         }
         return regex.matcher(text).replaceFirst(replacement);
@@ -405,7 +405,7 @@ public class RegExUtils {
      * @see java.util.regex.Pattern#DOTALL
      */
     public static String replaceFirst(final String text, final String regex, final String replacement) {
-        if (text == null || regex == null|| replacement == null ) {
+        if (ObjectUtils.anyNull(text, regex, replacement)) {
             return text;
         }
         return text.replaceFirst(regex, replacement);
