@@ -535,6 +535,49 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     public Fraction pow(final int power) {
         if (power == 1) {
             return this;
+        }
+        if (power == 0) {
+            return ONE;
+        }
+        if (power == -1) {
+            return this.invert();
+        }
+        final Fraction base = this.reduce();
+        if (base.denominator == 0) {
+            if (power > 0) {
+                throw new ArithmeticException("The denominator must not be zero");
+            } else {
+                return ZERO;
+            }
+        }
+        if (base.numerator == 0) {
+            if (power < 0) {
+                throw new ArithmeticException("The denominator must not be zero");
+            } else {
+                return ZERO;
+            }
+        }
+        if (power > 0) {
+            return new Fraction(
+                    pow(base.numerator, power),
+                    pow(base.denominator, power)
+            );
+        }
+        if (power == Integer.MIN_VALUE) {
+            return new Fraction(
+                    pow(this.denominator, Integer.MAX_VALUE) * this.denominator,
+                    pow(this.numerator, Integer.MAX_VALUE) * this.numerator
+            );
+        }
+        return new Fraction(
+                pow(base.denominator, -power),
+                pow(base.numerator, -power)
+        );
+    }
+
+    public Fraction powOld(final int power) {
+        if (power == 1) {
+            return this;
         } else if (power == 0) {
             return ONE;
         } else if (power < 0) {
@@ -549,6 +592,36 @@ public final class Fraction extends Number implements Comparable<Fraction> {
             }
             return f.pow(power / 2).multiplyBy(this);
         }
+    }
+
+    /**
+     * Raise an int to an int power.
+     * Notice that this function is copied and modified directly from class ArithmeticUtils in commons-numbers-core.
+     *
+     * @param k Number to raise.
+     * @param e Exponent (must be positive or zero).
+     * @return \( k^e \)
+     * @throws ArithmeticException if the result would overflow.
+     */
+    private static int pow(final int k,
+                           final int e) {
+        int exp = e;
+        int result = 1;
+        int k2p    = k;
+        while (true) {
+            if ((exp & 0x1) != 0) {
+                result = Math.multiplyExact(result, k2p);
+            }
+
+            exp >>= 1;
+            if (exp == 0) {
+                break;
+            }
+
+            k2p = Math.multiplyExact(k2p, k2p);
+        }
+
+        return result;
     }
 
     /**
