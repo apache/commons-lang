@@ -740,8 +740,21 @@ public class ObjectUtilsTest {
     @Test
     public void testPossibleCloneOfUncloneable() {
         final UncloneableString string = new UncloneableString("apache");
-        final CloneFailedException e = assertThrows(CloneFailedException.class, () -> ObjectUtils.cloneIfPossible(string));
+        final CloneFailedException e = assertThrows(CloneFailedException.class,
+                () -> ObjectUtils.cloneIfPossible(string));
         assertEquals(NoSuchMethodException.class, e.getCause().getClass());
+    }
+
+    @Test
+    public void testRequireNonEmpty() {
+        assertEquals("foo", ObjectUtils.requireNonEmpty("foo"));
+        assertEquals("foo", ObjectUtils.requireNonEmpty("foo", "foo"));
+        //
+        assertThrows(NullPointerException.class, () -> ObjectUtils.requireNonEmpty(null));
+        assertThrows(NullPointerException.class, () -> ObjectUtils.requireNonEmpty(null, "foo"));
+        //
+        assertThrows(IllegalArgumentException.class, () -> ObjectUtils.requireNonEmpty(""));
+        assertThrows(IllegalArgumentException.class, () -> ObjectUtils.requireNonEmpty("", "foo"));
     }
 
     @Test

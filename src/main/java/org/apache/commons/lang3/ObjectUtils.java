@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeSet;
 import java.util.function.Supplier;
 
@@ -109,32 +110,6 @@ public class ObjectUtils {
     public static final Null NULL = new Null();
 
     /**
-     * Checks if all values in the given array are {@code null}.
-     *
-     * <p>
-     * If all the values are {@code null} or the array is {@code null}
-     * or empty, then {@code true} is returned, otherwise {@code false} is returned.
-     * </p>
-     *
-     * <pre>
-     * ObjectUtils.allNull(*)                = false
-     * ObjectUtils.allNull(*, null)          = false
-     * ObjectUtils.allNull(null, *)          = false
-     * ObjectUtils.allNull(null, null, *, *) = false
-     * ObjectUtils.allNull(null)             = true
-     * ObjectUtils.allNull(null, null)       = true
-     * </pre>
-     *
-     * @param values  the values to test, may be {@code null} or empty
-     * @return {@code true} if all values in the array are {@code null}s,
-     * {@code false} if there is at least one non-null value in the array.
-     * @since 3.11
-     */
-    public static boolean allNull(final Object... values) {
-        return !anyNotNull(values);
-    }
-
-    /**
      * Checks if all values in the array are not {@code nulls}.
      *
      * <p>
@@ -174,31 +149,29 @@ public class ObjectUtils {
     }
 
     /**
-     * Checks if any value in the given array is {@code null}.
+     * Checks if all values in the given array are {@code null}.
      *
      * <p>
-     * If any of the values are {@code null} or the array is {@code null},
-     * then {@code true} is returned, otherwise {@code false} is returned.
+     * If all the values are {@code null} or the array is {@code null}
+     * or empty, then {@code true} is returned, otherwise {@code false} is returned.
      * </p>
      *
      * <pre>
-     * ObjectUtils.anyNull(*)             = false
-     * ObjectUtils.anyNull(*, *)          = false
-     * ObjectUtils.anyNull(null)          = true
-     * ObjectUtils.anyNull(null, null)    = true
-     * ObjectUtils.anyNull(null, *)       = true
-     * ObjectUtils.anyNull(*, null)       = true
-     * ObjectUtils.anyNull(*, *, null, *) = true
+     * ObjectUtils.allNull(*)                = false
+     * ObjectUtils.allNull(*, null)          = false
+     * ObjectUtils.allNull(null, *)          = false
+     * ObjectUtils.allNull(null, null, *, *) = false
+     * ObjectUtils.allNull(null)             = true
+     * ObjectUtils.allNull(null, null)       = true
      * </pre>
      *
      * @param values  the values to test, may be {@code null} or empty
-     * @return {@code true} if there is at least one {@code null} value in the array,
-     * {@code false} if all the values are non-null.
-     * If the array is {@code null} or empty, {@code true} is also returned.
+     * @return {@code true} if all values in the array are {@code null}s,
+     * {@code false} if there is at least one non-null value in the array.
      * @since 3.11
      */
-    public static boolean anyNull(final Object... values) {
-        return !allNotNull(values);
+    public static boolean allNull(final Object... values) {
+        return !anyNotNull(values);
     }
 
     /**
@@ -226,6 +199,34 @@ public class ObjectUtils {
      */
     public static boolean anyNotNull(final Object... values) {
         return firstNonNull(values) != null;
+    }
+
+    /**
+     * Checks if any value in the given array is {@code null}.
+     *
+     * <p>
+     * If any of the values are {@code null} or the array is {@code null},
+     * then {@code true} is returned, otherwise {@code false} is returned.
+     * </p>
+     *
+     * <pre>
+     * ObjectUtils.anyNull(*)             = false
+     * ObjectUtils.anyNull(*, *)          = false
+     * ObjectUtils.anyNull(null)          = true
+     * ObjectUtils.anyNull(null, null)    = true
+     * ObjectUtils.anyNull(null, *)       = true
+     * ObjectUtils.anyNull(*, null)       = true
+     * ObjectUtils.anyNull(*, *, null, *) = true
+     * </pre>
+     *
+     * @param values  the values to test, may be {@code null} or empty
+     * @return {@code true} if there is at least one {@code null} value in the array,
+     * {@code false} if all the values are non-null.
+     * If the array is {@code null} or empty, {@code true} is also returned.
+     * @since 3.11
+     */
+    public static boolean anyNull(final Object... values) {
+        return !allNotNull(values);
     }
 
     // cloning
@@ -1184,6 +1185,64 @@ public class ObjectUtils {
         return !equals(object1, object2);
     }
 
+    /**
+     * Checks that the specified object reference is not {@code null} or empty per {@link #isEmpty(Object)}. Use this
+     * method for validation, for example:
+     *
+     * <blockquote>
+     *
+     * <pre>
+     * public Foo(Bar bar) {
+     *     this.bar = Objects.requireNonEmpty(bar);
+     * }
+     * </pre>
+     *
+     * </blockquote>
+     *
+     * @param <T> the type of the reference.
+     * @param obj the object reference to check for nullity.
+     * @return {@code obj} if not {@code null}.
+     * @throws NullPointerException     if {@code obj} is {@code null}.
+     * @throws IllegalArgumentException if {@code obj} is empty per {@link #isEmpty(Object)}.
+     * @see #isEmpty(Object)
+     * @since 3.12.0
+     */
+    public static <T> T  requireNonEmpty(final T obj) {
+        return requireNonEmpty(obj, "object");
+    }
+
+    /**
+     * Checks that the specified object reference is not {@code null} or empty per {@link #isEmpty(Object)}. Use this
+     * method for validation, for example:
+     *
+     * <blockquote>
+     *
+     * <pre>
+     * public Foo(Bar bar) {
+     *     this.bar = Objects.requireNonEmpty(bar, "bar");
+     * }
+     * </pre>
+     *
+     * </blockquote>
+     *
+     * @param <T> the type of the reference.
+     * @param obj the object reference to check for nullity.
+     * @param message the exception message.
+     * @return {@code obj} if not {@code null}.
+     * @throws NullPointerException     if {@code obj} is {@code null}.
+     * @throws IllegalArgumentException if {@code obj} is empty per {@link #isEmpty(Object)}.
+     * @see #isEmpty(Object)
+     * @since 3.12.0
+     */
+    public static <T> T requireNonEmpty(final T obj, final String message) {
+        // check for null first to give the most precise exception.
+        Objects.requireNonNull(obj, message);
+        if (isEmpty(obj)) {
+            throw new IllegalArgumentException(message);
+        }
+        return obj;
+    }
+
     // ToString
     //-----------------------------------------------------------------------
     /**
@@ -1210,7 +1269,6 @@ public class ObjectUtils {
     public static String toString(final Object obj) {
         return obj == null ? StringUtils.EMPTY : obj.toString();
     }
-
     /**
      * <p>Gets the {@code toString} of an {@code Object} returning
      * a specified text if {@code null} input.</p>

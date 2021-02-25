@@ -441,7 +441,7 @@ public class BooleanUtilsTest {
 
     @Test
     public void testAnd_object_nullInput() {
-        assertThrows(IllegalArgumentException.class, () -> BooleanUtils.and((Boolean[]) null));
+        assertThrows(NullPointerException.class, () -> BooleanUtils.and((Boolean[]) null));
     }
 
     @Test
@@ -553,7 +553,7 @@ public class BooleanUtilsTest {
 
     @Test
     public void testAnd_primitive_nullInput() {
-        assertThrows(IllegalArgumentException.class, () -> BooleanUtils.and((boolean[]) null));
+        assertThrows(NullPointerException.class, () -> BooleanUtils.and((boolean[]) null));
     }
 
     @Test
@@ -640,7 +640,7 @@ public class BooleanUtilsTest {
 
     @Test
     public void testOr_object_nullInput() {
-        assertThrows(IllegalArgumentException.class, () -> BooleanUtils.or((Boolean[]) null));
+        assertThrows(NullPointerException.class, () -> BooleanUtils.or((Boolean[]) null));
     }
 
     @Test
@@ -752,7 +752,7 @@ public class BooleanUtilsTest {
 
     @Test
     public void testOr_primitive_nullInput() {
-        assertThrows(IllegalArgumentException.class, () -> BooleanUtils.or((boolean[]) null));
+        assertThrows(NullPointerException.class, () -> BooleanUtils.or((boolean[]) null));
     }
 
     @Test
@@ -822,7 +822,7 @@ public class BooleanUtilsTest {
 
     @Test
     public void testXor_object_nullInput() {
-        assertThrows(IllegalArgumentException.class, () -> BooleanUtils.xor((Boolean[]) null));
+        assertThrows(NullPointerException.class, () -> BooleanUtils.xor((Boolean[]) null));
     }
     @Test
     public void testXor_object_validInput_2items() {
@@ -940,7 +940,7 @@ public class BooleanUtilsTest {
 
     @Test
     public void testXor_primitive_nullInput() {
-        assertThrows(IllegalArgumentException.class, () -> BooleanUtils.xor((boolean[]) null));
+        assertThrows(NullPointerException.class, () -> BooleanUtils.xor((boolean[]) null));
     }
 
     @Test
