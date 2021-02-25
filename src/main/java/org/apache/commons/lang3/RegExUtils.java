@@ -256,7 +256,7 @@ public class RegExUtils {
      * @see java.util.regex.Pattern
      */
     public static String replaceAll(final String text, final Pattern regex, final String replacement) {
-        if (text == null || regex == null || replacement == null) {
+        if (ObjectUtils.anyNull(text, regex, replacement)) {
             return text;
         }
         return regex.matcher(text).replaceAll(replacement);
@@ -310,7 +310,7 @@ public class RegExUtils {
      * @see java.util.regex.Pattern#DOTALL
      */
     public static String replaceAll(final String text, final String regex, final String replacement) {
-        if (text == null || regex == null || replacement == null) {
+        if (ObjectUtils.anyNull(text, regex, replacement)) {
             return text;
         }
         return text.replaceAll(regex, replacement);
@@ -449,7 +449,7 @@ public class RegExUtils {
      * @see Pattern#DOTALL
      */
     public static String replacePattern(final String text, final String regex, final String replacement) {
-        if (text == null || regex == null || replacement == null) {
+        if (ObjectUtils.anyNull(text, regex, replacement)) {
             return text;
         }
         return Pattern.compile(regex, Pattern.DOTALL).matcher(text).replaceAll(replacement);
