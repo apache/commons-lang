@@ -564,11 +564,9 @@ public class TypeUtils {
             parameterizedType.getActualTypeArguments().length);
         int[] indexesToRemove = {};
         for (int i = 0; i < filteredArgumentTypes.length; i++) {
-            if (filteredArgumentTypes[i] instanceof TypeVariable<?>) {
-                if (containsVariableTypeSameParametrizedTypeBound(((TypeVariable<?>) filteredArgumentTypes[i]),
-                    parameterizedType)) {
-                    indexesToRemove = ArrayUtils.add(indexesToRemove, i);
-                }
+            if ((filteredArgumentTypes[i] instanceof TypeVariable<?>) && containsVariableTypeSameParametrizedTypeBound(
+                ((TypeVariable<?>) filteredArgumentTypes[i]), parameterizedType)) {
+                indexesToRemove = ArrayUtils.add(indexesToRemove, i);
             }
         }
         return indexesToRemove;

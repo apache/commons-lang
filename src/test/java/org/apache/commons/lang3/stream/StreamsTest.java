@@ -55,10 +55,8 @@ public class StreamsTest {
 
     protected <T extends Throwable> FailablePredicate<Integer, T> asIntPredicate(final T pThrowable) {
         return i -> {
-            if (i.intValue() == 5) {
-                if (pThrowable != null) {
-                    throw pThrowable;
-                }
+            if (i.intValue() == 5 && pThrowable != null) {
+                throw pThrowable;
             }
             return i % 2 == 0;
         };
