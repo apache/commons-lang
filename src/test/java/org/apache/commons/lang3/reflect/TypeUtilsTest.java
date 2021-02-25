@@ -450,18 +450,18 @@ public class TypeUtilsTest<B> {
     public void testIsAssignable() throws SecurityException, NoSuchMethodException,
             NoSuchFieldException {
         List list0 = null;
-        List<Object> list1 = null;
-        List<?> list2 = null;
-        List<? super Object> list3 = null;
-        List<String> list4 = null;
-        List<? extends String> list5 = null;
-        List<? super String> list6 = null;
+        List<Object> list1;
+        List<?> list2;
+        List<? super Object> list3;
+        List<String> list4;
+        List<? extends String> list5;
+        List<? super String> list6;
         List[] list7 = null;
-        List<Object>[] list8 = null;
-        List<?>[] list9 = null;
-        List<? super Object>[] list10 = null;
-        List<String>[] list11 = null;
-        List<? extends String>[] list12 = null;
+        List<Object>[] list8;
+        List<?>[] list9;
+        List<? super Object>[] list10;
+        List<String>[] list11;
+        List<? extends String>[] list12;
         List<? super String>[] list13;
         final Class<?> clazz = getClass();
         final Method method = clazz.getMethod("dummyMethod", List.class, List.class, List.class,
@@ -702,7 +702,7 @@ public class TypeUtilsTest<B> {
         int in = 0;
         long lo = 0;
         final float fl = 0;
-        double du = 0;
+        double du;
         du = ch;
         assertTrue(TypeUtils.isAssignable(char.class, double.class));
         du = by;
