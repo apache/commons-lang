@@ -440,6 +440,9 @@ public class Streams {
     }
 
     /**
+     * A Collector type for arrays.
+     *
+     * @param <O> The array type.
      * @deprecated Use {@link org.apache.commons.lang3.stream.Streams.ArrayCollector}.
      */
     @Deprecated
@@ -447,6 +450,11 @@ public class Streams {
         private static final Set<Characteristics> characteristics = Collections.emptySet();
         private final Class<O> elementType;
 
+        /**
+         * Constructs a new instance for the given element type.
+         *
+         * @param elementType The element type.
+         */
         public ArrayCollector(final Class<O> elementType) {
             this.elementType = elementType;
         }
