@@ -1319,6 +1319,19 @@ public class ObjectUtils {
         return obj == null ? supplier == null ? null : supplier.get() : obj.toString();
     }
 
+    /**
+     * Calls {@link Object#wait(long, int)} for the given Duration.
+     *
+     * @param obj The receiver of the wait call.
+     * @param duration How long to wait.
+     * @throws IllegalArgumentException if the timeout duration is negative.
+     * @throws IllegalMonitorStateException if the current thread is not the owner of the {@code obj}'s monitor.
+     * @throws InterruptedException if any thread interrupted the current thread before or while the current thread was
+     *         waiting for a notification. The <em>interrupted status</em> of the current thread is cleared when this
+     *         exception is thrown.
+     * @see Object#wait(long, int)
+     * @since 3.12.0
+     */
     public static void wait(final Object obj, final Duration duration) throws InterruptedException {
         DurationUtils.accept(obj::wait, DurationUtils.zeroIfNull(duration));
     }
