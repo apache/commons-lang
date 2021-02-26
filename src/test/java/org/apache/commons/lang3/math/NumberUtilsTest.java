@@ -653,6 +653,16 @@ public class NumberUtilsTest {
         assertEquals(NumberUtils.createNumber("1.00000000000000000000001").getClass().getName(), BigDecimal.class.getName());
     }
 
+    @Test
+    void testCheckPrecisionNotLostFloatDoubleBigDecimal() {
+        assertEquals(NumberUtils.createNumber("1.1"), Float.valueOf("1.1"));
+        assertEquals(NumberUtils.createNumber("1.0000001"), Float.valueOf("1.0000001"));
+        assertEquals(NumberUtils.createNumber("1.000000001"), Double.valueOf("1.000000001"));
+        assertEquals(NumberUtils.createNumber("1.000000000000001"), Double.valueOf("1.000000000000001"));
+        assertEquals(NumberUtils.createNumber("1.00000000000000001"), new BigDecimal("1.00000000000000001"));
+        assertEquals(NumberUtils.createNumber("1.00000000000000000000001"), new BigDecimal("1.00000000000000000000001"));
+    }
+
     /**
      * Tests isCreatable(String) and tests that createNumber(String) returns a valid number iff isCreatable(String)
      * returns false.
