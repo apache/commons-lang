@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.time;
 
+import static org.apache.commons.lang3.time.DateUtils.truncateCalendar;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -1126,6 +1127,115 @@ public class DateUtilsTest {
         }
     }
 
+    @Test
+    public void testround2version() throws Exception {
+        // tests for public static Date round2version(Date date, int field)
+        assertEquals(dateParser.parse("January 1, 2002"),
+                DateUtils.round2version(date1, Calendar.YEAR),
+                "round2version year-1 failed");
+        assertEquals(dateParser.parse("January 1, 2002"),
+                DateUtils.round2version(date2, Calendar.YEAR),
+                "round2version year-2 failed");
+        assertEquals(dateParser.parse("February 1, 2002"),
+                DateUtils.round2version(date1, Calendar.MONTH),
+                "round2version month-1 failed");
+        assertEquals(dateParser.parse("December 1, 2001"),
+                DateUtils.round2version(date2, Calendar.MONTH),
+                "round2version month-2 failed");
+        assertEquals(dateParser.parse("February 1, 2002"),
+                DateUtils.round2version(date0, DateUtils.SEMI_MONTH),
+                "round2version semimonth-0 failed");
+        assertEquals(dateParser.parse("February 16, 2002"),
+                DateUtils.round2version(date1, DateUtils.SEMI_MONTH),
+                "round2version semimonth-1 failed");
+        assertEquals(dateParser.parse("November 16, 2001"),
+                DateUtils.round2version(date2, DateUtils.SEMI_MONTH),
+                "round2version semimonth-2 failed");
+
+
+        assertEquals(dateParser.parse("February 13, 2002"),
+                DateUtils.round2version(date1, Calendar.DATE),
+                "round2version date-1 failed");
+        assertEquals(dateParser.parse("November 18, 2001"),
+                DateUtils.round2version(date2, Calendar.DATE),
+                "round2version date-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 13:00:00.000"),
+                DateUtils.round2version(date1, Calendar.HOUR),
+                "round2version hour-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:00:00.000"),
+                DateUtils.round2version(date2, Calendar.HOUR),
+                "round2version hour-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:35:00.000"),
+                DateUtils.round2version(date1, Calendar.MINUTE),
+                "round2version minute-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:00.000"),
+                DateUtils.round2version(date2, Calendar.MINUTE),
+                "round2version minute-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:34:57.000"),
+                DateUtils.round2version(date1, Calendar.SECOND),
+                "round2version second-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:11.000"),
+                DateUtils.round2version(date2, Calendar.SECOND),
+                "round2version second-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 00:00:00.000"),
+                DateUtils.round2version(dateAmPm1, Calendar.AM_PM),
+                "round2version ampm-1 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"),
+                DateUtils.round2version(dateAmPm2, Calendar.AM_PM),
+                "round2version ampm-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"),
+                DateUtils.round2version(dateAmPm3, Calendar.AM_PM),
+                "round2version ampm-3 failed");
+        assertEquals(dateTimeParser.parse("February 4, 2002 00:00:00.000"),
+                DateUtils.round2version(dateAmPm4, Calendar.AM_PM),
+                "round2version ampm-4 failed");
+
+        // tests for public static Date round2version(Object date, int field)
+        assertEquals(dateParser.parse("January 1, 2002"),
+                DateUtils.round2version(date1, Calendar.YEAR),
+                "round2version year-1 failed");
+        assertEquals(dateParser.parse("January 1, 2002"),
+                DateUtils.round2version(date2, Calendar.YEAR),
+                "round2version year-2 failed");
+        assertEquals(dateParser.parse("February 1, 2002"),
+                DateUtils.round2version(date1, Calendar.MONTH),
+                "round2version month-1 failed");
+        assertEquals(dateParser.parse("December 1, 2001"),
+                DateUtils.round2version(date2, Calendar.MONTH),
+                "round2version month-2 failed");
+        assertEquals(dateParser.parse("February 16, 2002"),
+                DateUtils.round2version(date1, DateUtils.SEMI_MONTH),
+                "round2version semimonth-1 failed");
+        assertEquals(dateParser.parse("November 16, 2001"),
+                DateUtils.round2version(date2, DateUtils.SEMI_MONTH),
+                "round2version semimonth-2 failed");
+        assertEquals(dateParser.parse("February 13, 2002"),
+                DateUtils.round2version(date1, Calendar.DATE),
+                "round2version date-1 failed");
+        assertEquals(dateParser.parse("November 18, 2001"),
+                DateUtils.round2version(date2, Calendar.DATE),
+                "round2version date-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 13:00:00.000"),
+                DateUtils.round2version(date1, Calendar.HOUR),
+                "round2version hour-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:00:00.000"),
+                DateUtils.round2version(date2, Calendar.HOUR),
+                "round2version hour-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:35:00.000"),
+                DateUtils.round2version(date1, Calendar.MINUTE),
+                "round2version minute-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:00.000"),
+                DateUtils.round2version(date2, Calendar.MINUTE),
+                "round2version minute-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:34:57.000"),
+                DateUtils.round2version(date1, Calendar.SECOND),
+                "round2version second-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:11.000"),
+                DateUtils.round2version(date2, Calendar.SECOND),
+                "round2version second-2 failed");
+    }
+
+
     /**
      * Tests the Changes Made by LANG-346 to the DateUtils.modify() private method invoked
      * by DateUtils.round().
@@ -1649,6 +1759,18 @@ public class DateUtilsTest {
             assertThrows(UnsupportedOperationException.class, it3::remove);
 
             now.add(Calendar.DATE, 1);
+        }
+    }
+
+    @Test
+    public void testtruncateCalendar(){
+        try {
+            Class<?> enumElement = Class.forName("org.apache.commons.lang3.time.DateUtils$ModifyType");
+            Object[] enumElements = enumElement.getEnumConstants();
+            Calendar calendar = new Calendar.Builder().setDate(2018, 1, 15).build();
+            assertEquals(truncateCalendar(calendar, 2018, enumElements[1]), 1518681600000l);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }
