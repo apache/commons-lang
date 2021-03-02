@@ -19,6 +19,7 @@ package org.apache.commons.lang3.time;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -128,5 +129,13 @@ public class CalendarUtilsTest extends AbstractLangTest {
         final ZonedDateTime zdt1 = ZonedDateTime.of(1, 2, 3, 4, 5, 6, 0, zoneId);
         calendar.setTimeInMillis(zdt1.toInstant().toEpochMilli());
         assertEquals(ZonedDateTime.ofInstant(zdt1.toInstant(), calendar.getTimeZone().toZoneId()), new CalendarUtils(calendar).toZonedDateTime());
+
+    @Test
+    public void testToLocalDate() {
+        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
+        calendar.setTimeInMillis(-27078001200000l);
+        assertEquals(LocalDate.of(1111, 12, 1), new CalendarUtils(calendar).toLocalDate());
+        calendar.setTimeInMillis(1614700215000l);
+        assertEquals(LocalDate.of(2021, 3, 2), new CalendarUtils(calendar).toLocalDate());
     }
 }
