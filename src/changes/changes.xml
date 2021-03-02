@@ -45,7 +45,10 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.12.0" date="2021-02-26" description="New features and bug fixes.">
+  <release version="3.12.1" date="2021-MM-DD" description="New features and bug fixes (Java 8).">
+  </release>
+
+  <release version="3.12.0" date="2021-02-26" description="New features and bug fixes (Java 8).">
     <!-- FIX -->
     <action issue="LANG-1592" type="fix" dev="aherbert" due-to="Huang Pingcai, Alex Herbert">Correct implementation of RandomUtils.nextLong(long, long)</action>
     <action issue="LANG-1600" type="fix" dev="ggregory" due-to="Michael F">Restore handling of collections for non-JSON ToStringStyle #610.</action>
@@ -122,7 +125,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Arturo Bernal">Minor Improvement: Remove redundant initializer #699.</action>
     <action                   type="update" dev="ggregory" due-to="Arturo Bernal">Use own validator ObjectUtils.anyNull to check null String input #718.</action>
   </release>
-  <release version="3.11" date="2020-07-12" description="New features and bug fixes.">
+  <release version="3.11" date="2020-07-12" description="New features and bug fixes (Java 8).">
     <action                   type="update" dev="chtompki" due-to="Jin Xu">Refine test output for FastDateParserTest</action>
     <action issue="LANG-1549" type="update" dev="chtompki" due-to="Jin Xu">CharSequenceUtils.lastIndexOf : remake it</action>
     <action                   type="update" dev="kinow" due-to="XenoAmess">remove encoding and docEncoding and use inherited values from commons-parent</action>
