@@ -69,7 +69,6 @@ public class CharSequenceUtils {
 //        }
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Returns the index within {@code cs} of the first occurrence of the
      * specified character, starting the search at the specified index.
@@ -330,7 +329,6 @@ public class CharSequenceUtils {
         return true;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Returns a new {@code CharSequence} that is a subsequence of this
      * sequence starting with the {@code char} value at the specified index.</p>
