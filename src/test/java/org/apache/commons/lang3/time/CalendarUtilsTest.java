@@ -135,8 +135,8 @@ public class CalendarUtilsTest extends AbstractLangTest {
     public void testToLocalDate() {
         Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
         calendar.setTimeInMillis(-27078001200000L);
-        assertEquals(LocalDate.of(1111, 12, 1), new CalendarUtils(calendar).toLocalDate());
+        assertEquals(LocalDate.of(1111, Month.DECEMBER, 1), new CalendarUtils(calendar).toLocalDate());
         calendar.setTimeInMillis(1614700215000L);
-        assertEquals(LocalDate.of(2021, 3, 2), new CalendarUtils(calendar).toLocalDate());
+        assertEquals(LocalDate.of(2021, Month.MARCH, 2), new CalendarUtils(calendar).toLocalDate());
     }
 }
