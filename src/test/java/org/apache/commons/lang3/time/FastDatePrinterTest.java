@@ -210,8 +210,8 @@ public class FastDatePrinterTest {
         fdf = getInstance(pattern);
         sdf = new SimpleDateFormat(pattern);
         // SDF bug fix starting with Java 7
-        assertEquals(sdf.format(date1).replaceAll("2003 03 03 03", "2003 2003 03 2003"), fdf.format(date1));
-        assertEquals(sdf.format(date2).replaceAll("2003 03 03 03", "2003 2003 03 2003"), fdf.format(date2));
+        assertEquals(sdf.format(date1).replace("2003 03 03 03", "2003 2003 03 2003"), fdf.format(date1));
+        assertEquals(sdf.format(date2).replace("2003 03 03 03", "2003 2003 03 2003"), fdf.format(date2));
     }
 
     @Test
