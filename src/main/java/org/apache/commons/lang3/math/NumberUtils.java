@@ -69,7 +69,6 @@ public class NumberUtils {
     public static final Float FLOAT_ONE = Float.valueOf(1.0f);
     /** Reusable Float constant for minus one. */
     public static final Float FLOAT_MINUS_ONE = Float.valueOf(-1.0f);
-
     /**
      * {@link Integer#MAX_VALUE} as a {@link Long}.
      *
@@ -1742,6 +1741,56 @@ public class NumberUtils {
         return !allowSigns && foundDigit;
     }
 
+    /**
+     * Checks whether the given String is a hex number.
+     *
+     * <p>Valid parameter only include hexadecimal marked with the {@code 0x} or
+     * {@code 0X} or {@code #} qualifier.</p>
+     *
+     * <p>{@code Null} and empty String will return {@code false}.</p>
+     *
+     * <pre>
+     * NumberUtils.isHexNumber(null))                 = false
+     * NumberUtils.isHexNumber(""))                   = false
+     * NumberUtils.isHexNumber("0x12345678"))         = true
+     * NumberUtils.isHexNumber("0x7fffffffffffffff")) = true
+     * NumberUtils.isHexNumber("0x7FFFFFFFFFFFFFFF")) = true
+     * NumberUtils.isHexNumber("5D0"))                = false
+     * NumberUtils.isHexNumber("0x"))                 = false
+     * NumberUtils.isHexNumber("+0xF"))               = true
+     * NumberUtils.isHexNumber("-0xF"))               = true
+     * </pre>
+     *
+     * @param str the String to check.
+     * @return {@code true} if the string is a hex number.
+     * @since 3.12.1
+     */
+    public static boolean isHexNumber(final String str) {
+        if (StringUtils.isEmpty(str) || str.length() <= 2) {
+            return false;
+        }
+        final char[] chars = str.toCharArray();
+        final int offset = chars[0] == '-' || chars[0] == '+' ? 1 : 0;
+        int pfxLen = 0;
+        final String[] hex_prefixes = {"0x", "0X", "#"};
+        for (final String pfx : hex_prefixes) {
+            if (str.startsWith(pfx, offset)) {
+                pfxLen += pfx.length() + offset;
+                break;
+            }
+        }
+        if (pfxLen == 0) {
+            return false;
+        }
+        for (; pfxLen < chars.length; pfxLen++) {
+            if ((chars[pfxLen] < '0' || chars[pfxLen] > '9')
+                    && (chars[pfxLen] < 'a' || chars[pfxLen] > 'f')
+                    && (chars[pfxLen] < 'A' || chars[pfxLen] > 'F')) {
+                return false;
+            }
+        }
+        return true;
+    }
     /**
      * <p>Checks whether the given String is a parsable number.</p>
      *
