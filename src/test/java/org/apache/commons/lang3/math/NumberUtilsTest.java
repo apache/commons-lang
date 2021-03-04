@@ -396,6 +396,10 @@ public class NumberUtilsTest {
         testCreateBigIntegerFailure("-#");
         testCreateBigIntegerFailure("0x");
         testCreateBigIntegerFailure("-0x");
+        // LANG-1645
+        assertEquals(new BigInteger("+FFFFFFFFFFFFFFFF", 16), NumberUtils.createBigInteger("+0xFFFFFFFFFFFFFFFF"));
+        assertEquals(new BigInteger("+FFFFFFFFFFFFFFFF", 16), NumberUtils.createBigInteger("+#FFFFFFFFFFFFFFFF"));
+        assertEquals(new BigInteger("+1234567", 8), NumberUtils.createBigInteger("+01234567"));
     }
 
     protected void testCreateBigIntegerFailure(final String str) {
@@ -444,6 +448,8 @@ public class NumberUtilsTest {
         this.testCreateIntegerFailure("\b\t\n\f\r");
         // Funky whitespaces
         this.testCreateIntegerFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+        // LANG-1645
+        assertEquals(Integer.decode("+0xF"), NumberUtils.createInteger("+0xF"));
     }
 
     protected void testCreateIntegerFailure(final String str) {
@@ -460,6 +466,8 @@ public class NumberUtilsTest {
         this.testCreateLongFailure("\b\t\n\f\r");
         // Funky whitespaces
         this.testCreateLongFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+        // LANG-1645
+        assertEquals(Long.decode("+0xFFFFFFFF"), NumberUtils.createLong("+0xFFFFFFFF"));
     }
 
     protected void testCreateLongFailure(final String str) {
@@ -560,6 +568,13 @@ public class NumberUtilsTest {
             "createNumber(String) LANG-1060m failed");
         assertEquals(Double.valueOf("-001.1E200"), NumberUtils.createNumber("-001.1E200"),
             "createNumber(String) LANG-1060n failed");
+        // LANG-1645
+        assertEquals(Integer.decode("+0xF"), NumberUtils.createNumber("+0xF"),
+            "createNumber(String) LANG-1645a failed");
+        assertEquals(Long.decode("+0xFFFFFFFF"), NumberUtils.createNumber("+0xFFFFFFFF"),
+            "createNumber(String) LANG-1645b failed");
+        assertEquals(new BigInteger("+FFFFFFFFFFFFFFFF", 16), NumberUtils.createNumber("+0xFFFFFFFFFFFFFFFF"),
+            "createNumber(String) LANG-1645c failed");
     }
 
     @Test
@@ -699,6 +714,9 @@ public class NumberUtilsTest {
 
         compareIsCreatableWithCreateNumber("2.", true); // LANG-521
         compareIsCreatableWithCreateNumber("1.1L", false); // LANG-664
+        compareIsCreatableWithCreateNumber("+0xF", true); // LANG-1645
+        compareIsCreatableWithCreateNumber("+0xFFFFFFFF", true); // LANG-1645
+        compareIsCreatableWithCreateNumber("+0xFFFFFFFFFFFFFFFF", true); // LANG-1645
     }
 
     @Test
@@ -774,6 +792,9 @@ public class NumberUtilsTest {
 
         compareIsNumberWithCreateNumber("2.", true); // LANG-521
         compareIsNumberWithCreateNumber("1.1L", false); // LANG-664
+        compareIsNumberWithCreateNumber("+0xF", true); // LANG-1645
+        compareIsNumberWithCreateNumber("+0xFFFFFFFF", true); // LANG-1645
+        compareIsNumberWithCreateNumber("+0xFFFFFFFFFFFFFFFF", true); // LANG-1645
     }
 
     @Test

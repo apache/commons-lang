@@ -668,12 +668,13 @@ public class NumberUtils {
             throw new NumberFormatException("A blank string is not a valid number");
         }
         // Need to deal with all possible hex prefixes here
-        final String[] hex_prefixes = {"0x", "0X", "-0x", "-0X", "#", "-#"};
+        final String[] hex_prefixes = {"0x", "0X", "#"};
         final int length = str.length();
+        final int offset = str.charAt(0) == '+' || str.charAt(0) == '-' ? 1 : 0;
         int pfxLen = 0;
         for (final String pfx : hex_prefixes) {
-            if (str.startsWith(pfx)) {
-                pfxLen += pfx.length();
+            if (str.startsWith(pfx, offset)) {
+                pfxLen += pfx.length() + offset;
                 break;
             }
         }
@@ -962,11 +963,17 @@ public class NumberUtils {
         if (str == null) {
             return null;
         }
+        if (str.isEmpty()) {
+            throw new NumberFormatException("An empty string is not a valid number");
+        }
         int pos = 0; // offset within string
         int radix = 10;
         boolean negate = false; // need to negate later?
-        if (str.startsWith("-")) {
+        final char char0 = str.charAt(0);
+        if (char0 == '-') {
             negate = true;
+            pos = 1;
+        } else if (char0 == '+') {
             pos = 1;
         }
         if (str.startsWith("0x", pos) || str.startsWith("0X", pos)) { // hex
