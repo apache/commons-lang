@@ -812,13 +812,14 @@ public class NumberUtils {
         try {
             final Float f = createFloat(str);
             final Double d = createDouble(str);
+            final BigDecimal b = createBigDecimal(str);
             if (!f.isInfinite()
                     && !(f.floatValue() == 0.0F && !allZeros)
-                    && f.toString().equals(d.toString())) {
+                    && f.toString().equals(d.toString())
+                    && (f.toString().equals(b.stripTrailingZeros().toString().replace("+", "")) || b.compareTo(BigDecimal.valueOf(f)) == 0)) {
                 return f;
             }
             if (!d.isInfinite() && !(d.doubleValue() == 0.0D && !allZeros)) {
-                final BigDecimal b = createBigDecimal(str);
                 if (b.compareTo(BigDecimal.valueOf(d.doubleValue())) == 0) {
                     return d;
                 }
