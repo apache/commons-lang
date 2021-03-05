@@ -4,7 +4,7 @@
 
 INTRODUCTION:
 
-This document contains the release notes for the 3.12.0-SNAPSHOT version of Apache Commons Lang.
+This document contains the release notes for the 3.12.0 version of Apache Commons Lang.
 Commons Lang is a set of utility functions and reusable components that should be of use in any 
 Java environment.
 
