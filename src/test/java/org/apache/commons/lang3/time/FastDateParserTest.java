@@ -317,9 +317,6 @@ public class FastDateParserTest {
         assertNotEquals(parser1, new Object());
     }
 
-    /**
-     * @throws ParseException
-     */
     @Test
     public void testJpLocales() throws ParseException {
 
