@@ -644,8 +644,8 @@ public class NumberUtils {
      * <p>If a type specifier is not found, it will check for a decimal point
      * and then try successively larger types from {@code Integer} to
      * {@code BigInteger} and from {@code Float} to
-    * {@code BigDecimal}.</p>
-    *
+     * {@code BigDecimal}.</p>
+     *
      * <p>
      * Integral values with a leading {@code 0} will be interpreted as octal; the returned number will
      * be Integer, Long or BigDecimal as appropriate.

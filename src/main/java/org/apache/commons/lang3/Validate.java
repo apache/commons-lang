@@ -1000,18 +1000,18 @@ public class Validate {
     }
 
     /**
-    * Validate that the specified primitive value falls between the two
-    * inclusive values specified; otherwise, throws an exception.
-    *
-    * <pre>Validate.inclusiveBetween(0, 2, 1);</pre>
-    *
-    * @param start the inclusive start value
-    * @param end   the inclusive end value
-    * @param value the value to validate
-    * @throws IllegalArgumentException if the value falls outside the boundaries (inclusive)
-    *
-    * @since 3.3
-    */
+     * Validate that the specified primitive value falls between the two
+     * inclusive values specified; otherwise, throws an exception.
+     *
+     * <pre>Validate.inclusiveBetween(0, 2, 1);</pre>
+     *
+     * @param start the inclusive start value
+     * @param end   the inclusive end value
+     * @param value the value to validate
+     * @throws IllegalArgumentException if the value falls outside the boundaries (inclusive)
+     *
+     * @since 3.3
+     */
     @SuppressWarnings("boxing")
     public static void inclusiveBetween(final long start, final long end, final long value) {
         // TODO when breaking BC, consider returning value
@@ -1021,21 +1021,21 @@ public class Validate {
     }
 
     /**
-    * Validate that the specified primitive value falls between the two
-    * inclusive values specified; otherwise, throws an exception with the
-    * specified message.
-    *
-    * <pre>Validate.inclusiveBetween(0, 2, 1, "Not in range");</pre>
-    *
-    * @param start the inclusive start value
-    * @param end   the inclusive end value
-    * @param value the value to validate
-    * @param message the exception message if invalid, not null
-    *
-    * @throws IllegalArgumentException if the value falls outside the boundaries
-    *
-    * @since 3.3
-    */
+     * Validate that the specified primitive value falls between the two
+     * inclusive values specified; otherwise, throws an exception with the
+     * specified message.
+     *
+     * <pre>Validate.inclusiveBetween(0, 2, 1, "Not in range");</pre>
+     *
+     * @param start the inclusive start value
+     * @param end   the inclusive end value
+     * @param value the value to validate
+     * @param message the exception message if invalid, not null
+     *
+     * @throws IllegalArgumentException if the value falls outside the boundaries
+     *
+     * @since 3.3
+     */
     public static void inclusiveBetween(final long start, final long end, final long value, final String message) {
         // TODO when breaking BC, consider returning value
         if (value < start || value > end) {
@@ -1044,18 +1044,18 @@ public class Validate {
     }
 
     /**
-    * Validate that the specified primitive value falls between the two
-    * inclusive values specified; otherwise, throws an exception.
-    *
-    * <pre>Validate.inclusiveBetween(0.1, 2.1, 1.1);</pre>
-    *
-    * @param start the inclusive start value
-    * @param end   the inclusive end value
-    * @param value the value to validate
-    * @throws IllegalArgumentException if the value falls outside the boundaries (inclusive)
-    *
-    * @since 3.3
-    */
+     * Validate that the specified primitive value falls between the two
+     * inclusive values specified; otherwise, throws an exception.
+     *
+     * <pre>Validate.inclusiveBetween(0.1, 2.1, 1.1);</pre>
+     *
+     * @param start the inclusive start value
+     * @param end   the inclusive end value
+     * @param value the value to validate
+     * @throws IllegalArgumentException if the value falls outside the boundaries (inclusive)
+     *
+     * @since 3.3
+     */
     @SuppressWarnings("boxing")
     public static void inclusiveBetween(final double start, final double end, final double value) {
         // TODO when breaking BC, consider returning value
@@ -1065,21 +1065,21 @@ public class Validate {
     }
 
     /**
-    * Validate that the specified primitive value falls between the two
-    * inclusive values specified; otherwise, throws an exception with the
-    * specified message.
-    *
-    * <pre>Validate.inclusiveBetween(0.1, 2.1, 1.1, "Not in range");</pre>
-    *
-    * @param start the inclusive start value
-    * @param end   the inclusive end value
-    * @param value the value to validate
-    * @param message the exception message if invalid, not null
-    *
-    * @throws IllegalArgumentException if the value falls outside the boundaries
-    *
-    * @since 3.3
-    */
+     * Validate that the specified primitive value falls between the two
+     * inclusive values specified; otherwise, throws an exception with the
+     * specified message.
+     *
+     * <pre>Validate.inclusiveBetween(0.1, 2.1, 1.1, "Not in range");</pre>
+     *
+     * @param start the inclusive start value
+     * @param end   the inclusive end value
+     * @param value the value to validate
+     * @param message the exception message if invalid, not null
+     *
+     * @throws IllegalArgumentException if the value falls outside the boundaries
+     *
+     * @since 3.3
+     */
     public static void inclusiveBetween(final double start, final double end, final double value, final String message) {
         // TODO when breaking BC, consider returning value
         if (value < start || value > end) {
@@ -1138,18 +1138,18 @@ public class Validate {
     }
 
     /**
-    * Validate that the specified primitive value falls between the two
-    * exclusive values specified; otherwise, throws an exception.
-    *
-    * <pre>Validate.exclusiveBetween(0, 2, 1);</pre>
-    *
-    * @param start the exclusive start value
-    * @param end   the exclusive end value
-    * @param value the value to validate
-    * @throws IllegalArgumentException if the value falls out of the boundaries
-    *
-    * @since 3.3
-    */
+     * Validate that the specified primitive value falls between the two
+     * exclusive values specified; otherwise, throws an exception.
+     *
+     * <pre>Validate.exclusiveBetween(0, 2, 1);</pre>
+     *
+     * @param start the exclusive start value
+     * @param end   the exclusive end value
+     * @param value the value to validate
+     * @throws IllegalArgumentException if the value falls out of the boundaries
+     *
+     * @since 3.3
+     */
     @SuppressWarnings("boxing")
     public static void exclusiveBetween(final long start, final long end, final long value) {
         // TODO when breaking BC, consider returning value
@@ -1159,21 +1159,21 @@ public class Validate {
     }
 
     /**
-    * Validate that the specified primitive value falls between the two
-    * exclusive values specified; otherwise, throws an exception with the
-    * specified message.
-    *
-    * <pre>Validate.exclusiveBetween(0, 2, 1, "Not in range");</pre>
-    *
-    * @param start the exclusive start value
-    * @param end   the exclusive end value
-    * @param value the value to validate
-    * @param message the exception message if invalid, not null
-    *
-    * @throws IllegalArgumentException if the value falls outside the boundaries
-    *
-    * @since 3.3
-    */
+     * Validate that the specified primitive value falls between the two
+     * exclusive values specified; otherwise, throws an exception with the
+     * specified message.
+     *
+     * <pre>Validate.exclusiveBetween(0, 2, 1, "Not in range");</pre>
+     *
+     * @param start the exclusive start value
+     * @param end   the exclusive end value
+     * @param value the value to validate
+     * @param message the exception message if invalid, not null
+     *
+     * @throws IllegalArgumentException if the value falls outside the boundaries
+     *
+     * @since 3.3
+     */
     public static void exclusiveBetween(final long start, final long end, final long value, final String message) {
         // TODO when breaking BC, consider returning value
         if (value <= start || value >= end) {
@@ -1182,18 +1182,18 @@ public class Validate {
     }
 
     /**
-    * Validate that the specified primitive value falls between the two
-    * exclusive values specified; otherwise, throws an exception.
-    *
-    * <pre>Validate.exclusiveBetween(0.1, 2.1, 1.1);</pre>
-    *
-    * @param start the exclusive start value
-    * @param end   the exclusive end value
-    * @param value the value to validate
-    * @throws IllegalArgumentException if the value falls out of the boundaries
-    *
-    * @since 3.3
-    */
+     * Validate that the specified primitive value falls between the two
+     * exclusive values specified; otherwise, throws an exception.
+     *
+     * <pre>Validate.exclusiveBetween(0.1, 2.1, 1.1);</pre>
+     *
+     * @param start the exclusive start value
+     * @param end   the exclusive end value
+     * @param value the value to validate
+     * @throws IllegalArgumentException if the value falls out of the boundaries
+     *
+     * @since 3.3
+     */
     @SuppressWarnings("boxing")
     public static void exclusiveBetween(final double start, final double end, final double value) {
         // TODO when breaking BC, consider returning value
@@ -1203,21 +1203,21 @@ public class Validate {
     }
 
     /**
-    * Validate that the specified primitive value falls between the two
-    * exclusive values specified; otherwise, throws an exception with the
-    * specified message.
-    *
-    * <pre>Validate.exclusiveBetween(0.1, 2.1, 1.1, "Not in range");</pre>
-    *
-    * @param start the exclusive start value
-    * @param end   the exclusive end value
-    * @param value the value to validate
-    * @param message the exception message if invalid, not null
-    *
-    * @throws IllegalArgumentException if the value falls outside the boundaries
-    *
-    * @since 3.3
-    */
+     * Validate that the specified primitive value falls between the two
+     * exclusive values specified; otherwise, throws an exception with the
+     * specified message.
+     *
+     * <pre>Validate.exclusiveBetween(0.1, 2.1, 1.1, "Not in range");</pre>
+     *
+     * @param start the exclusive start value
+     * @param end   the exclusive end value
+     * @param value the value to validate
+     * @param message the exception message if invalid, not null
+     *
+     * @throws IllegalArgumentException if the value falls outside the boundaries
+     *
+     * @since 3.3
+     */
     public static void exclusiveBetween(final double start, final double end, final double value, final String message) {
         // TODO when breaking BC, consider returning value
         if (value <= start || value >= end) {

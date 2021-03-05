@@ -67,12 +67,12 @@ import org.apache.commons.lang3.Functions.FailablePredicate;
 @Deprecated
 public class Streams {
 
-   /**
-    * A reduced, and simplified version of a {@link Stream} with
-    * failable method signatures.
-    * @param <O> The streams element type.
-    * @deprecated Use {@link org.apache.commons.lang3.stream.Streams.FailableStream}.
-    */
+    /**
+     * A reduced, and simplified version of a {@link Stream} with
+     * failable method signatures.
+     * @param <O> The streams element type.
+     * @deprecated Use {@link org.apache.commons.lang3.stream.Streams.FailableStream}.
+     */
     @Deprecated
     public static class FailableStream<O extends Object> {
 
