@@ -656,11 +656,11 @@ public class DurationFormatUtils {
                 }
                 if (this.value instanceof StringBuilder) {
                     return this.value.toString().equals(tok2.value.toString());
-                } else if (this.value instanceof Number) {
-                    return this.value.equals(tok2.value);
-                } else {
-                    return this.value == tok2.value;
                 }
+                if (this.value instanceof Number) {
+                    return this.value.equals(tok2.value);
+                }
+                return this.value == tok2.value;
             }
             return false;
         }

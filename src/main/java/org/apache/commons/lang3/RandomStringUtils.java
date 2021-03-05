@@ -362,7 +362,8 @@ public class RandomStringUtils {
                                 final char[] chars, final Random random) {
         if (count == 0) {
             return StringUtils.EMPTY;
-        } else if (count < 0) {
+        }
+        if (count < 0) {
             throw new IllegalArgumentException("Requested random string length " + count + " is less than 0.");
         }
         if (chars != null && chars.length == 0) {

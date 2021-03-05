@@ -410,13 +410,14 @@ public class Failable {
         Objects.requireNonNull(throwable, "throwable");
         if (throwable instanceof RuntimeException) {
             throw (RuntimeException) throwable;
-        } else if (throwable instanceof Error) {
-            throw (Error) throwable;
-        } else if (throwable instanceof IOException) {
-            throw new UncheckedIOException((IOException) throwable);
-        } else {
-            throw new UndeclaredThrowableException(throwable);
         }
+        if (throwable instanceof Error) {
+            throw (Error) throwable;
+        }
+        if (throwable instanceof IOException) {
+            throw new UncheckedIOException((IOException) throwable);
+        }
+        throw new UndeclaredThrowableException(throwable);
     }
 
     /**

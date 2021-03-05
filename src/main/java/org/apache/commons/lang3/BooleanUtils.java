@@ -466,12 +466,15 @@ public class BooleanUtils {
     public static boolean toBoolean(final String str, final String trueString, final String falseString) {
         if (str == trueString) {
             return true;
-        } else if (str == falseString) {
+        }
+        if (str == falseString) {
             return false;
-        } else if (str != null) {
+        }
+        if (str != null) {
             if (str.equals(trueString)) {
                 return true;
-            } else if (str.equals(falseString)) {
+            }
+            if (str.equals(falseString)) {
                 return false;
             }
         }

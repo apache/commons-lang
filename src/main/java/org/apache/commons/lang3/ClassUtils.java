@@ -1228,7 +1228,8 @@ public class ClassUtils {
     public static Class<?>[] toClass(final Object... array) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return ArrayUtils.EMPTY_CLASS_ARRAY;
         }
         final Class<?>[] classes = new Class[array.length];

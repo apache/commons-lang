@@ -340,7 +340,8 @@ public class StringUtils {
     public static String abbreviate(final String str, final String abbrevMarker, int offset, final int maxWidth) {
         if (isNotEmpty(str) && EMPTY.equals(abbrevMarker) && maxWidth > 0) {
             return substring(str, 0, maxWidth);
-        } else if (isAnyEmpty(str, abbrevMarker)) {
+        }
+        if (isAnyEmpty(str, abbrevMarker)) {
             return str;
         }
         final int abbrevMarkerLength = abbrevMarker.length();
@@ -1061,16 +1062,15 @@ public class StringUtils {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLength; j++) {
                 if (searchChars[j] == ch) {
-                    if (Character.isHighSurrogate(ch)) {
-                        if (j == searchLast) {
-                            // missing low surrogate, fine, like String.indexOf(String)
-                            return true;
-                        }
-                        if (i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
-                            return true;
-                        }
-                    } else {
+                    if (!Character.isHighSurrogate(ch)) {
                         // ch is in the Basic Multilingual Plane
+                        return true;
+                    }
+                    if (j == searchLast) {
+                        // missing low surrogate, fine, like String.indexOf(String)
+                        return true;
+                    }
+                    if (i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
                         return true;
                     }
                 }
@@ -1283,16 +1283,15 @@ public class StringUtils {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
-                    if (Character.isHighSurrogate(ch)) {
-                        if (j == searchLast) {
-                            // missing low surrogate, fine, like String.indexOf(String)
-                            return false;
-                        }
-                        if (i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
-                            return false;
-                        }
-                    } else {
+                    if (!Character.isHighSurrogate(ch)) {
                         // ch is in the Basic Multilingual Plane
+                        return false;
+                    }
+                    if (j == searchLast) {
+                        // missing low surrogate, fine, like String.indexOf(String)
+                        return false;
+                    }
+                    if (i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
                         return false;
                     }
                 }
@@ -2055,13 +2054,13 @@ public class StringUtils {
                 return EMPTY;
             }
             return strs[0];
-        } else if (smallestIndexOfDiff == 0) {
+        }
+        if (smallestIndexOfDiff == 0) {
             // there were no common initial characters
             return EMPTY;
-        } else {
-            // we found a common initial character sequence
-            return strs[0].substring(0, smallestIndexOfDiff);
         }
+        // we found a common initial character sequence
+        return strs[0].substring(0, smallestIndexOfDiff);
     }
 
     /**
@@ -2134,7 +2133,8 @@ public class StringUtils {
     public static int getFuzzyDistance(final CharSequence term, final CharSequence query, final Locale locale) {
         if (term == null || query == null) {
             throw new IllegalArgumentException("Strings must not be null");
-        } else if (locale == null) {
+        }
+        if (locale == null) {
             throw new IllegalArgumentException("Locale must not be null");
         }
 
@@ -2340,7 +2340,8 @@ public class StringUtils {
 
         if (n == 0) {
             return m;
-        } else if (m == 0) {
+        }
+        if (m == 0) {
             return n;
         }
 
@@ -2478,9 +2479,11 @@ public class StringUtils {
         // if one string is empty, the edit distance is necessarily the length of the other
         if (n == 0) {
             return m <= threshold ? m : -1;
-        } else if (m == 0) {
+        }
+        if (m == 0) {
             return n <= threshold ? n : -1;
-        } else if (Math.abs(n - m) > threshold) {
+        }
+        if (Math.abs(n - m) > threshold) {
             // no need to calculate the distance if the length difference is greater than the threshold
             return -1;
         }
@@ -2762,12 +2765,11 @@ public class StringUtils {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
-                    if (i < csLast && j < searchLast && Character.isHighSurrogate(ch)) {
-                        // ch is a supplementary character
-                        if (searchChars[j + 1] == cs.charAt(i + 1)) {
-                            return i;
-                        }
-                    } else {
+                    if ((i >= csLast) || (j >= searchLast) || !Character.isHighSurrogate(ch)) {
+                        return i;
+                    }
+                    // ch is a supplementary character
+                    if (searchChars[j + 1] == cs.charAt(i + 1)) {
                         return i;
                     }
                 }
@@ -2896,11 +2898,10 @@ public class StringUtils {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
-                    if (i < csLast && j < searchLast && Character.isHighSurrogate(ch)) {
-                        if (searchChars[j + 1] == cs.charAt(i + 1)) {
-                            continue outer;
-                        }
-                    } else {
+                    if ((i >= csLast) || (j >= searchLast) || !Character.isHighSurrogate(ch)) {
+                        continue outer;
+                    }
+                    if (searchChars[j + 1] == cs.charAt(i + 1)) {
                         continue outer;
                     }
                 }
@@ -3636,7 +3637,8 @@ public class StringUtils {
         for (int i = 0; i < sz; i++) {
             if (containsUppercase && containsLowercase) {
                 return true;
-            } else if (Character.isUpperCase(cs.charAt(i))) {
+            }
+            if (Character.isUpperCase(cs.charAt(i))) {
                 containsUppercase = true;
             } else if (Character.isLowerCase(cs.charAt(i))) {
                 containsLowercase = true;
@@ -5344,16 +5346,16 @@ public class StringUtils {
 
         if (pads == padLen) {
             return padStr.concat(str);
-        } else if (pads < padLen) {
-            return padStr.substring(0, pads).concat(str);
-        } else {
-            final char[] padding = new char[pads];
-            final char[] padChars = padStr.toCharArray();
-            for (int i = 0; i < pads; i++) {
-                padding[i] = padChars[i % padLen];
-            }
-            return new String(padding).concat(str);
         }
+        if (pads < padLen) {
+            return padStr.substring(0, pads).concat(str);
+        }
+        final char[] padding = new char[pads];
+        final char[] padChars = padStr.toCharArray();
+        for (int i = 0; i < pads; i++) {
+            padding[i] = padChars[i % padLen];
+        }
+        return new String(padding).concat(str);
     }
 
     /**
@@ -5468,11 +5470,10 @@ public class StringUtils {
         }
         int prefix = 0;
         for (int mi = 0; mi < min.length(); mi++) {
-            if (first.charAt(mi) == second.charAt(mi)) {
-                prefix++;
-            } else {
+            if (first.charAt(mi) != second.charAt(mi)) {
                 break;
             }
+            prefix++;
         }
         return new int[] { matches, transpositions / 2, prefix, max.length() };
     }
@@ -7269,16 +7270,16 @@ public class StringUtils {
 
         if (pads == padLen) {
             return str.concat(padStr);
-        } else if (pads < padLen) {
-            return str.concat(padStr.substring(0, pads));
-        } else {
-            final char[] padding = new char[pads];
-            final char[] padChars = padStr.toCharArray();
-            for (int i = 0; i < pads; i++) {
-                padding[i] = padChars[i % padLen];
-            }
-            return str.concat(new String(padding));
         }
+        if (pads < padLen) {
+            return str.concat(padStr.substring(0, pads));
+        }
+        final char[] padding = new char[pads];
+        final char[] padChars = padStr.toCharArray();
+        for (int i = 0; i < pads; i++) {
+            padding[i] = padChars[i % padLen];
+        }
+        return str.concat(new String(padding));
     }
 
     /**

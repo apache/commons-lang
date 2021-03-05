@@ -97,12 +97,11 @@ public class IEEE754rUtils {
     public static double min(final double a, final double b) {
         if (Double.isNaN(a)) {
             return b;
-        } else
+        }
         if (Double.isNaN(b)) {
             return a;
-        } else {
-            return Math.min(a, b);
         }
+        return Math.min(a, b);
     }
 
     /**
@@ -131,12 +130,11 @@ public class IEEE754rUtils {
     public static float min(final float a, final float b) {
         if (Float.isNaN(a)) {
             return b;
-        } else
+        }
         if (Float.isNaN(b)) {
             return a;
-        } else {
-            return Math.min(a, b);
         }
+        return Math.min(a, b);
     }
 
     /**
@@ -209,12 +207,11 @@ public class IEEE754rUtils {
     public static double max(final double a, final double b) {
         if (Double.isNaN(a)) {
             return b;
-        } else
+        }
         if (Double.isNaN(b)) {
             return a;
-        } else {
-            return Math.max(a, b);
         }
+        return Math.max(a, b);
     }
 
     /**
@@ -243,12 +240,11 @@ public class IEEE754rUtils {
     public static float max(final float a, final float b) {
         if (Float.isNaN(a)) {
             return b;
-        } else
+        }
         if (Float.isNaN(b)) {
             return a;
-        } else {
-            return Math.max(a, b);
         }
+        return Math.max(a, b);
     }
 
 }

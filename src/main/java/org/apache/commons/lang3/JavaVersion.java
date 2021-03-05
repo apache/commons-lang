@@ -311,13 +311,12 @@ public enum JavaVersion {
      */
     private static float toFloatVersion(final String value) {
         final int defaultReturnValue = -1;
-        if (value.contains(".")) {
-            final String[] toParse = value.split("\\.");
-            if (toParse.length >= 2) {
-                return NumberUtils.toFloat(toParse[0] + '.' + toParse[1], defaultReturnValue);
-            }
-        } else {
+        if (!value.contains(".")) {
             return NumberUtils.toFloat(value, defaultReturnValue);
+        }
+        final String[] toParse = value.split("\\.");
+        if (toParse.length >= 2) {
+            return NumberUtils.toFloat(toParse[0] + '.' + toParse[1], defaultReturnValue);
         }
         return defaultReturnValue;
     }

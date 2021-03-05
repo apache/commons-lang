@@ -52,9 +52,11 @@ public class CharSequenceUtils {
     static int indexOf(final CharSequence cs, final CharSequence searchChar, final int start) {
         if (cs instanceof String) {
             return ((String) cs).indexOf(searchChar.toString(), start);
-        } else if (cs instanceof StringBuilder) {
+        }
+        if (cs instanceof StringBuilder) {
             return ((StringBuilder) cs).indexOf(searchChar.toString(), start);
-        } else if (cs instanceof StringBuffer) {
+        }
+        if (cs instanceof StringBuffer) {
             return ((StringBuffer) cs).indexOf(searchChar.toString(), start);
         }
         return cs.toString().indexOf(searchChar.toString(), start);
@@ -152,9 +154,11 @@ public class CharSequenceUtils {
         if (searchChar instanceof String) {
             if (cs instanceof String) {
                 return ((String) cs).lastIndexOf((String) searchChar, start);
-            } else if (cs instanceof StringBuilder) {
+            }
+            if (cs instanceof StringBuilder) {
                 return ((StringBuilder) cs).lastIndexOf((String) searchChar, start);
-            } else if (cs instanceof StringBuffer) {
+            }
+            if (cs instanceof StringBuffer) {
                 return ((StringBuffer) cs).lastIndexOf((String) searchChar, start);
             }
         }
@@ -177,9 +181,11 @@ public class CharSequenceUtils {
         if (len2 <= TO_STRING_LIMIT) {
             if (cs instanceof String) {
                 return ((String) cs).lastIndexOf(searchChar.toString(), start);
-            } else if (cs instanceof StringBuilder) {
+            }
+            if (cs instanceof StringBuilder) {
                 return ((StringBuilder) cs).lastIndexOf(searchChar.toString(), start);
-            } else if (cs instanceof StringBuffer) {
+            }
+            if (cs instanceof StringBuffer) {
                 return ((StringBuffer) cs).lastIndexOf(searchChar.toString(), start);
             }
         }

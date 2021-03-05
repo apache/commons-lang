@@ -786,11 +786,11 @@ public class DateUtils {
         }
         if (date instanceof Date) {
             return round((Date) date, field);
-        } else if (date instanceof Calendar) {
-            return round((Calendar) date, field).getTime();
-        } else {
-            throw new ClassCastException("Could not round " + date);
         }
+        if (date instanceof Calendar) {
+            return round((Calendar) date, field).getTime();
+        }
+        throw new ClassCastException("Could not round " + date);
     }
 
     //-----------------------------------------------------------------------
@@ -863,11 +863,11 @@ public class DateUtils {
         }
         if (date instanceof Date) {
             return truncate((Date) date, field);
-        } else if (date instanceof Calendar) {
-            return truncate((Calendar) date, field).getTime();
-        } else {
-            throw new ClassCastException("Could not truncate " + date);
         }
+        if (date instanceof Calendar) {
+            return truncate((Calendar) date, field).getTime();
+        }
+        throw new ClassCastException("Could not truncate " + date);
     }
 
   //-----------------------------------------------------------------------
@@ -943,11 +943,11 @@ public class DateUtils {
         }
         if (date instanceof Date) {
             return ceiling((Date) date, field);
-        } else if (date instanceof Calendar) {
-            return ceiling((Calendar) date, field).getTime();
-        } else {
-            throw new ClassCastException("Could not find ceiling of for type: " + date.getClass());
         }
+        if (date instanceof Calendar) {
+            return ceiling((Calendar) date, field).getTime();
+        }
+        throw new ClassCastException("Could not find ceiling of for type: " + date.getClass());
     }
 
     //-----------------------------------------------------------------------
@@ -1251,11 +1251,11 @@ public class DateUtils {
         }
         if (focus instanceof Date) {
             return iterator((Date) focus, rangeStyle);
-        } else if (focus instanceof Calendar) {
-            return iterator((Calendar) focus, rangeStyle);
-        } else {
-            throw new ClassCastException("Could not iterate based on " + focus);
         }
+        if (focus instanceof Calendar) {
+            return iterator((Calendar) focus, rangeStyle);
+        }
+        throw new ClassCastException("Could not iterate based on " + focus);
     }
 
     /**

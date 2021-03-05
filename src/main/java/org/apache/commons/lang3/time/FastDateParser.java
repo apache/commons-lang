@@ -242,7 +242,8 @@ public class FastDateParser implements DateParser, Serializable {
                 final char c = pattern.charAt(currentIdx);
                 if (!activeQuote && isFormatLetter(c)) {
                     break;
-                } else if (c == '\'' && (++currentIdx == pattern.length() || pattern.charAt(currentIdx) != '\'')) {
+                }
+                if (c == '\'' && (++currentIdx == pattern.length() || pattern.charAt(currentIdx) != '\'')) {
                     activeQuote = !activeQuote;
                     continue;
                 }

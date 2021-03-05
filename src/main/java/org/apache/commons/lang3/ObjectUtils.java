@@ -329,9 +329,11 @@ public class ObjectUtils {
     public static <T extends Comparable<? super T>> int compare(final T c1, final T c2, final boolean nullGreater) {
         if (c1 == c2) {
             return 0;
-        } else if (c1 == null) {
+        }
+        if (c1 == null) {
             return nullGreater ? 1 : -1;
-        } else if (c2 == null) {
+        }
+        if (c2 == null) {
             return nullGreater ? -1 : 1;
         }
         return c1.compareTo(c2);

@@ -682,11 +682,10 @@ public class NumberUtils {
             char firstSigDigit = 0; // strip leading zeroes
             for (int i = pfxLen; i < length; i++) {
                 firstSigDigit = str.charAt(i);
-                if (firstSigDigit == '0') { // count leading zeroes
-                    pfxLen++;
-                } else {
+                if (firstSigDigit != '0') {
                     break;
                 }
+                pfxLen++;
             }
             final int hexDigits = length - pfxLen;
             if (hexDigits > 16 || hexDigits == 16 && firstSigDigit > '7') { // too many for Long
@@ -1656,16 +1655,17 @@ public class NumberUtils {
                     }
                 }
                 return true;
-           } else if (Character.isDigit(chars[start + 1])) {
-               // leading 0, but not hex, must be octal
-               int i = start + 1;
-               for (; i < chars.length; i++) {
-                   if (chars[i] < '0' || chars[i] > '7') {
-                       return false;
-                   }
-               }
-               return true;
            }
+            if (Character.isDigit(chars[start + 1])) {
+                   // leading 0, but not hex, must be octal
+                   int i = start + 1;
+                   for (; i < chars.length; i++) {
+                       if (chars[i] < '0' || chars[i] > '7') {
+                           return false;
+                       }
+                   }
+                   return true;
+               }
         }
         sz--; // don't want to loop to the last char, check it afterwords
               // for type qualifiers

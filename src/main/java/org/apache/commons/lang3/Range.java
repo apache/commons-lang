@@ -226,11 +226,11 @@ public final class Range<T> implements Serializable {
         Validate.notNull(element, "element");
         if (isAfter(element)) {
             return -1;
-        } else if (isBefore(element)) {
-            return 1;
-        } else {
-            return 0;
         }
+        if (isBefore(element)) {
+            return 1;
+        }
+        return 0;
     }
 
     // Element tests
@@ -249,15 +249,15 @@ public final class Range<T> implements Serializable {
     public boolean equals(final Object obj) {
         if (obj == this) {
             return true;
-        } else if (obj == null || obj.getClass() != getClass()) {
-            return false;
-        } else {
-            @SuppressWarnings("unchecked") // OK because we checked the class above
-            final
-            Range<T> range = (Range<T>) obj;
-            return minimum.equals(range.minimum) &&
-                   maximum.equals(range.maximum);
         }
+        if (obj == null || obj.getClass() != getClass()) {
+            return false;
+        }
+        @SuppressWarnings("unchecked") // OK because we checked the class above
+        final
+        Range<T> range = (Range<T>) obj;
+        return minimum.equals(range.minimum) &&
+               maximum.equals(range.maximum);
     }
 
     /**
@@ -471,11 +471,11 @@ public final class Range<T> implements Serializable {
         Validate.notNull(element, "element");
         if (isAfter(element)) {
             return minimum;
-        } else if (isBefore(element)) {
-            return maximum;
-        } else {
-            return element;
         }
+        if (isBefore(element)) {
+            return maximum;
+        }
+        return element;
     }
 
     /**

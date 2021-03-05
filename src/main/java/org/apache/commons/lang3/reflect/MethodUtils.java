@@ -807,7 +807,8 @@ public class MethodUtils {
             final Class<?> toClass = toClassArray[offset];
             if (aClass == null || aClass.equals(toClass)) {
                 continue;
-            } else if (ClassUtils.isAssignable(aClass, toClass, true)
+            }
+            if (ClassUtils.isAssignable(aClass, toClass, true)
                     && !ClassUtils.isAssignable(aClass, toClass, false)) {
                 answer++;
             } else {

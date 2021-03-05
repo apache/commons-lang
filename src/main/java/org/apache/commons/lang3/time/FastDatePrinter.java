@@ -338,12 +338,11 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
             while (i + 1 < length) {
                 final char peek = pattern.charAt(i + 1);
-                if (peek == c) {
-                    buf.append(c);
-                    i++;
-                } else {
+                if (peek != c) {
                     break;
                 }
+                buf.append(c);
+                i++;
             }
         } else {
             // This will identify token as text.
@@ -410,14 +409,15 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
         if (obj instanceof Date) {
             return format((Date) obj, toAppendTo);
-        } else if (obj instanceof Calendar) {
-            return format((Calendar) obj, toAppendTo);
-        } else if (obj instanceof Long) {
-            return format(((Long) obj).longValue(), toAppendTo);
-        } else {
-            throw new IllegalArgumentException("Unknown class: " +
-                (obj == null ? "<null>" : obj.getClass().getName()));
         }
+        if (obj instanceof Calendar) {
+            return format((Calendar) obj, toAppendTo);
+        }
+        if (obj instanceof Long) {
+            return format(((Long) obj).longValue(), toAppendTo);
+        }
+        throw new IllegalArgumentException("Unknown class: " +
+            (obj == null ? "<null>" : obj.getClass().getName()));
     }
 
     /**
@@ -430,14 +430,15 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     String format(final Object obj) {
         if (obj instanceof Date) {
             return format((Date) obj);
-        } else if (obj instanceof Calendar) {
-            return format((Calendar) obj);
-        } else if (obj instanceof Long) {
-            return format(((Long) obj).longValue());
-        } else {
-            throw new IllegalArgumentException("Unknown class: " +
-                (obj == null ? "<null>" : obj.getClass().getName()));
         }
+        if (obj instanceof Calendar) {
+            return format((Calendar) obj);
+        }
+        if (obj instanceof Long) {
+            return format(((Long) obj).longValue());
+        }
+        throw new IllegalArgumentException("Unknown class: " +
+            (obj == null ? "<null>" : obj.getClass().getName()));
     }
 
     /* (non-Javadoc)

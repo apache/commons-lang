@@ -108,11 +108,10 @@ public class FieldUtils {
                 // getDeclaredField checks for non-public scopes as well
                 // and it returns accurate results
                 if (!Modifier.isPublic(field.getModifiers())) {
-                    if (forceAccess) {
-                        field.setAccessible(true);
-                    } else {
+                    if (!forceAccess) {
                         continue;
                     }
+                    field.setAccessible(true);
                 }
                 return field;
             } catch (final NoSuchFieldException ex) { // NOPMD
@@ -174,11 +173,10 @@ public class FieldUtils {
             // only consider the specified class by using getDeclaredField()
             final Field field = cls.getDeclaredField(fieldName);
             if (!MemberUtils.isAccessible(field)) {
-                if (forceAccess) {
-                    field.setAccessible(true);
-                } else {
+                if (!forceAccess) {
                     return null;
                 }
+                field.setAccessible(true);
             }
             return field;
         } catch (final NoSuchFieldException e) { // NOPMD

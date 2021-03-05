@@ -820,7 +820,8 @@ public class ArrayUtils {
     public static boolean[] addAll(final boolean[] array1, final boolean... array2) {
         if (array1 == null) {
             return clone(array2);
-        } else if (array2 == null) {
+        }
+        if (array2 == null) {
             return clone(array1);
         }
         final boolean[] joinedArray = new boolean[array1.length + array2.length];
@@ -849,7 +850,8 @@ public class ArrayUtils {
     public static byte[] addAll(final byte[] array1, final byte... array2) {
         if (array1 == null) {
             return clone(array2);
-        } else if (array2 == null) {
+        }
+        if (array2 == null) {
             return clone(array1);
         }
         final byte[] joinedArray = new byte[array1.length + array2.length];
@@ -878,7 +880,8 @@ public class ArrayUtils {
     public static char[] addAll(final char[] array1, final char... array2) {
         if (array1 == null) {
             return clone(array2);
-        } else if (array2 == null) {
+        }
+        if (array2 == null) {
             return clone(array1);
         }
         final char[] joinedArray = new char[array1.length + array2.length];
@@ -907,7 +910,8 @@ public class ArrayUtils {
     public static double[] addAll(final double[] array1, final double... array2) {
         if (array1 == null) {
             return clone(array2);
-        } else if (array2 == null) {
+        }
+        if (array2 == null) {
             return clone(array1);
         }
         final double[] joinedArray = new double[array1.length + array2.length];
@@ -936,7 +940,8 @@ public class ArrayUtils {
     public static float[] addAll(final float[] array1, final float... array2) {
         if (array1 == null) {
             return clone(array2);
-        } else if (array2 == null) {
+        }
+        if (array2 == null) {
             return clone(array1);
         }
         final float[] joinedArray = new float[array1.length + array2.length];
@@ -965,7 +970,8 @@ public class ArrayUtils {
     public static int[] addAll(final int[] array1, final int... array2) {
         if (array1 == null) {
             return clone(array2);
-        } else if (array2 == null) {
+        }
+        if (array2 == null) {
             return clone(array1);
         }
         final int[] joinedArray = new int[array1.length + array2.length];
@@ -994,7 +1000,8 @@ public class ArrayUtils {
     public static long[] addAll(final long[] array1, final long... array2) {
         if (array1 == null) {
             return clone(array2);
-        } else if (array2 == null) {
+        }
+        if (array2 == null) {
             return clone(array1);
         }
         final long[] joinedArray = new long[array1.length + array2.length];
@@ -1023,7 +1030,8 @@ public class ArrayUtils {
     public static short[] addAll(final short[] array1, final short... array2) {
         if (array1 == null) {
             return clone(array2);
-        } else if (array2 == null) {
+        }
+        if (array2 == null) {
             return clone(array1);
         }
         final short[] joinedArray = new short[array1.length + array2.length];
@@ -1059,7 +1067,8 @@ public class ArrayUtils {
     public static <T> T[] addAll(final T[] array1, @SuppressWarnings("unchecked") final T... array2) {
         if (array1 == null) {
             return clone(array2);
-        } else if (array2 == null) {
+        }
+        if (array2 == null) {
             return clone(array1);
         }
         final Class<?> type1 = array1.getClass().getComponentType();
@@ -3781,7 +3790,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         }
         if (startIndex < 0) {
             return INDEX_NOT_FOUND;
-        } else if (startIndex >= array.length) {
+        }
+        if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
         for (int i = startIndex; i >= 0; i--) {
@@ -3826,7 +3836,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         }
         if (startIndex < 0) {
             return INDEX_NOT_FOUND;
-        } else if (startIndex >= array.length) {
+        }
+        if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
         for (int i = startIndex; i >= 0; i--) {
@@ -3873,7 +3884,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         }
         if (startIndex < 0) {
             return INDEX_NOT_FOUND;
-        } else if (startIndex >= array.length) {
+        }
+        if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
         for (int i = startIndex; i >= 0; i--) {
@@ -3935,7 +3947,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         }
         if (startIndex < 0) {
             return INDEX_NOT_FOUND;
-        } else if (startIndex >= array.length) {
+        }
+        if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
         for (int i = startIndex; i >= 0; i--) {
@@ -3969,7 +3982,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         }
         if (startIndex < 0) {
             return INDEX_NOT_FOUND;
-        } else if (startIndex >= array.length) {
+        }
+        if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
         final double min = valueToFind - tolerance;
@@ -4017,7 +4031,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         }
         if (startIndex < 0) {
             return INDEX_NOT_FOUND;
-        } else if (startIndex >= array.length) {
+        }
+        if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
         for (int i = startIndex; i >= 0; i--) {
@@ -4062,7 +4077,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         }
         if (startIndex < 0) {
             return INDEX_NOT_FOUND;
-        } else if (startIndex >= array.length) {
+        }
+        if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
         for (int i = startIndex; i >= 0; i--) {
@@ -4107,7 +4123,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         }
         if (startIndex < 0) {
             return INDEX_NOT_FOUND;
-        } else if (startIndex >= array.length) {
+        }
+        if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
         for (int i = startIndex; i >= 0; i--) {
@@ -4152,7 +4169,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         }
         if (startIndex < 0) {
             return INDEX_NOT_FOUND;
-        } else if (startIndex >= array.length) {
+        }
+        if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
         if (objectToFind == null) {
@@ -4205,7 +4223,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         }
         if (startIndex < 0) {
             return INDEX_NOT_FOUND;
-        } else if (startIndex >= array.length) {
+        }
+        if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
         for (int i = startIndex; i >= 0; i--) {
@@ -8978,7 +8997,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static Boolean[] toObject(final boolean[] array) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_BOOLEAN_OBJECT_ARRAY;
         }
         final Boolean[] result = new Boolean[array.length];
@@ -8999,7 +9019,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static Byte[] toObject(final byte[] array) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_BYTE_OBJECT_ARRAY;
         }
         final Byte[] result = new Byte[array.length];
@@ -9020,7 +9041,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static Character[] toObject(final char[] array) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_CHARACTER_OBJECT_ARRAY;
         }
         final Character[] result = new Character[array.length];
@@ -9041,7 +9063,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static Double[] toObject(final double[] array) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_DOUBLE_OBJECT_ARRAY;
         }
         final Double[] result = new Double[array.length];
@@ -9062,7 +9085,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static Float[] toObject(final float[] array) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_FLOAT_OBJECT_ARRAY;
         }
         final Float[] result = new Float[array.length];
@@ -9083,7 +9107,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static Integer[] toObject(final int[] array) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_INTEGER_OBJECT_ARRAY;
         }
         final Integer[] result = new Integer[array.length];
@@ -9104,7 +9129,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static Long[] toObject(final long[] array) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_LONG_OBJECT_ARRAY;
         }
         final Long[] result = new Long[array.length];
@@ -9125,7 +9151,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static Short[] toObject(final short[] array) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_SHORT_OBJECT_ARRAY;
         }
         final Short[] result = new Short[array.length];
@@ -9149,7 +9176,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static boolean[] toPrimitive(final Boolean[] array) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_BOOLEAN_ARRAY;
         }
         final boolean[] result = new boolean[array.length];
@@ -9171,7 +9199,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static boolean[] toPrimitive(final Boolean[] array, final boolean valueForNull) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_BOOLEAN_ARRAY;
         }
         final boolean[] result = new boolean[array.length];
@@ -9196,7 +9225,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static byte[] toPrimitive(final Byte[] array) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_BYTE_ARRAY;
         }
         final byte[] result = new byte[array.length];
@@ -9218,7 +9248,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static byte[] toPrimitive(final Byte[] array, final byte valueForNull) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_BYTE_ARRAY;
         }
         final byte[] result = new byte[array.length];
@@ -9243,7 +9274,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static char[] toPrimitive(final Character[] array) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_CHAR_ARRAY;
         }
         final char[] result = new char[array.length];
@@ -9265,7 +9297,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static char[] toPrimitive(final Character[] array, final char valueForNull) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_CHAR_ARRAY;
         }
         final char[] result = new char[array.length];
@@ -9290,7 +9323,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static double[] toPrimitive(final Double[] array) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_DOUBLE_ARRAY;
         }
         final double[] result = new double[array.length];
@@ -9312,7 +9346,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static double[] toPrimitive(final Double[] array, final double valueForNull) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_DOUBLE_ARRAY;
         }
         final double[] result = new double[array.length];
@@ -9337,7 +9372,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static float[] toPrimitive(final Float[] array) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_FLOAT_ARRAY;
         }
         final float[] result = new float[array.length];
@@ -9359,7 +9395,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static float[] toPrimitive(final Float[] array, final float valueForNull) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_FLOAT_ARRAY;
         }
         final float[] result = new float[array.length];
@@ -9384,7 +9421,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static int[] toPrimitive(final Integer[] array) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_INT_ARRAY;
         }
         final int[] result = new int[array.length];
@@ -9406,7 +9444,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static int[] toPrimitive(final Integer[] array, final int valueForNull) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_INT_ARRAY;
         }
         final int[] result = new int[array.length];
@@ -9431,7 +9470,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static long[] toPrimitive(final Long[] array) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_LONG_ARRAY;
         }
         final long[] result = new long[array.length];
@@ -9453,7 +9493,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static long[] toPrimitive(final Long[] array, final long valueForNull) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_LONG_ARRAY;
         }
         final long[] result = new long[array.length];
@@ -9520,7 +9561,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static short[] toPrimitive(final Short[] array) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_SHORT_ARRAY;
         }
         final short[] result = new short[array.length];
@@ -9542,7 +9584,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static short[] toPrimitive(final Short[] array, final short valueForNull) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_SHORT_ARRAY;
         }
         final short[] result = new short[array.length];
@@ -9603,7 +9646,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static String[] toStringArray(final Object[] array) {
         if (array == null) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_STRING_ARRAY;
         }
 
@@ -9629,7 +9673,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     public static String[] toStringArray(final Object[] array, final String valueForNullElements) {
         if (null == array) {
             return null;
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             return EMPTY_STRING_ARRAY;
         }
 
