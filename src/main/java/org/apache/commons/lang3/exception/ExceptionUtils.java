@@ -586,6 +586,30 @@ public class ExceptionUtils {
         return indexOf(throwable, type, fromIndex, true);
     }
 
+    /**
+     * Return whether the given throwable is a checked exception:
+     * that is, neither a RuntimeException nor an Error.
+     *
+     * <pre>
+     * ExceptionUtils.isChecked(new Exception())                    = true
+     * ExceptionUtils.isChecked(new SQLException())                 = true
+     * ExceptionUtils.isChecked(new RuntimeException())             = false
+     * ExceptionUtils.isChecked(new IllegalArgumentException(""))   = false
+     * ExceptionUtils.isChecked(new Throwable())                    = true
+     * ExceptionUtils.isChecked(null)                               = false
+     * </pre>
+     *
+     * @param throwable the throwable to check
+     * @return whether the throwable is a checked exception
+     * @see java.lang.Exception
+     * @see java.lang.RuntimeException
+     * @see java.lang.Error
+     * @since 3.13.0
+     */
+    public static boolean isChecked(final Throwable throwable) {
+        return throwable != null && !(throwable instanceof RuntimeException || throwable instanceof Error);
+    }
+
     //-----------------------------------------------------------------------
     /**
      * <p>Prints a compact stack trace for the root cause of a throwable

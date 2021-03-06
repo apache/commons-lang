@@ -31,6 +31,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.lang3.test.NotVisibleExceptionFactory;
@@ -498,6 +499,17 @@ public class ExceptionUtilsTest {
 
         assertEquals(0, ExceptionUtils.indexOfType(withCause, Exception.class, 0));
         assertEquals(0, ExceptionUtils.indexOfType(withCause, Throwable.class, 0));
+    }
+
+    @Test
+    void isChecked() {
+        final Exception ex = null;
+        assertTrue(ExceptionUtils.isChecked(new Exception()));
+        assertTrue(ExceptionUtils.isChecked(new SQLException()));
+        assertFalse(ExceptionUtils.isChecked(new RuntimeException()));
+        assertFalse(ExceptionUtils.isChecked(new IllegalArgumentException("")));
+        assertTrue(ExceptionUtils.isChecked(new Throwable()));
+        assertFalse(ExceptionUtils.isChecked(ex));
     }
 
     //-----------------------------------------------------------------------
