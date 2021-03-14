@@ -23,6 +23,7 @@ import java.util.EnumSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * <p>Utility library to provide helper methods for Java enums.</p>
@@ -290,6 +291,25 @@ public class EnumUtils {
         final Map<String, E> map = new LinkedHashMap<>();
         for (final E e: enumClass.getEnumConstants()) {
             map.put(e.name(), e);
+        }
+        return map;
+    }
+
+    /**
+     * <p>Gets the {@code Map} of enums.</p>
+     *
+     * <p>This method is useful when you need a map of enums.</p>
+     *
+     * @param <E> the type of enumeration
+     * @param <K> the type of the map key
+     * @param enumClass the class of the enum to query, not null
+     * @param keyFunction the function to query for the key, not null
+     * @return the modifiable map of enums, never null
+     */
+    public static <E extends Enum<E>, K> Map<K, E> getEnumMap(final Class<E> enumClass, final Function<E, K> keyFunction) {
+        final Map<K, E> map = new LinkedHashMap<>();
+        for (final E e: enumClass.getEnumConstants()) {
+            map.put(keyFunction.apply(e), e);
         }
         return map;
     }
