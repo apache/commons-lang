@@ -344,6 +344,21 @@ public class EnumUtilsTest {
     }
 
     @Test
+    public void test_getEnumSystemProperty() {
+        final String key = getClass().getName();
+        System.setProperty(key, Traffic.RED.toString());
+        try {
+            assertEquals(Traffic.RED, EnumUtils.getEnumSystemProperty(Traffic.class, key, null));
+            assertEquals(Traffic.RED, EnumUtils.getEnumSystemProperty(Traffic.class, "?", Traffic.RED));
+            assertEquals(Traffic.RED, EnumUtils.getEnumSystemProperty(null, null, Traffic.RED));
+            assertEquals(Traffic.RED, EnumUtils.getEnumSystemProperty(null, "?", Traffic.RED));
+            assertEquals(Traffic.RED, EnumUtils.getEnumSystemProperty(Traffic.class, null, Traffic.RED));
+        } finally {
+            System.getProperties().remove(key);
+        }
+    }
+
+    @Test
     public void test_isValidEnum() {
         assertTrue(EnumUtils.isValidEnum(Traffic.class, "RED"));
         assertTrue(EnumUtils.isValidEnum(Traffic.class, "AMBER"));

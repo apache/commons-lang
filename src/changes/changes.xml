@@ -49,6 +49,8 @@ The <action> type attribute can be add,update,fix,remove.
     <!-- FIX -->
     <action issue="LANG-1645" type="fix" dev="aherbert" due-to="Alex Herbert">NumberUtils.createNumber to recognise hex integers prefixed with +.</action>
     <action issue="LANG-1646" type="fix" dev="aherbert" due-to="Alex Herbert">NumberUtils.createNumber to return requested floating point type for zero.</action>
+    <!-- ADD -->
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">EnumUtils.getEnumSystemProperty(...).</action>
   </release>
 
   <release version="3.12.0" date="2021-02-26" description="New features and bug fixes (Java 8).">

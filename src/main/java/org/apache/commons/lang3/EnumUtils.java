@@ -295,6 +295,28 @@ public class EnumUtils {
     }
 
     /**
+     * <p>
+     * Gets the enum for the class in a system property, returning {@code defaultEnum} if not found.
+     * </p>
+     *
+     * <p>
+     * This method differs from {@link Enum#valueOf} in that it does not throw an exception for an invalid enum name.
+     * </p>
+     *
+     * @param <E> the type of the enumeration
+     * @param enumClass the class of the enum to query, not null
+     * @param propName the system property key for the enum name, null returns default enum
+     * @param defaultEnum the default enum
+     * @return the enum, default enum if not found
+     * @since 3.13.0
+     */
+    public static <E extends Enum<E>> E getEnumSystemProperty(final Class<E> enumClass, final String propName,
+        final E defaultEnum) {
+        return enumClass == null || propName == null ? defaultEnum
+            : getEnum(enumClass, System.getProperty(propName), defaultEnum);
+    }
+
+    /**
      * <p>Checks if the specified name is a valid enum for the class.</p>
      *
      * <p>This method differs from {@link Enum#valueOf} in that checks if the name is
