@@ -277,6 +277,21 @@ public class ConstructorUtils {
     }
 
     /**
+     * Check whether the given class has a public constructor with the given signature, checking accessibility.
+     *
+     * @param <T> the constructor type
+     * @param cls the class to find a constructor for, not {@code null}
+     * @param parameterTypes the array of parameter types, {@code null} treated as empty
+     * @return whether the class has a corresponding constructor, {@code false} if no matching accessible
+     * constructor found
+     * @see Class#getConstructor
+     * @since 3.13.0
+     */
+    public static <T> boolean hasConstructor(final Class<T> cls, final Class<?>... parameterTypes) {
+        return getAccessibleConstructor(cls, parameterTypes) != null;
+    }
+
+    /**
      * Tests whether the specified class is generally accessible, i.e. is
      * declared in an entirely {@code public} manner.
      * @param type to check
