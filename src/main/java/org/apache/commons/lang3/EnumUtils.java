@@ -23,6 +23,7 @@ import java.util.EnumSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * <p>Utility library to provide helper methods for Java enums.</p>
@@ -252,12 +253,32 @@ public class EnumUtils {
      * @return the enum, default enum if not found
      * @since 3.10
      */
-    public static <E extends Enum<E>> E getEnumIgnoreCase(final Class<E> enumClass, final String enumName, final E defaultEnum) {
+    public static <E extends Enum<E>> E getEnumIgnoreCase(final Class<E> enumClass, final String enumName,
+        final E defaultEnum) {
+        return getFirstEnumIgnoreCase(enumClass, enumName, Enum::name, defaultEnum);
+    }
+
+    /**
+     * <p>Gets the enum for the class, returning {@code defaultEnum} if not found.</p>
+     *
+     * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
+     * for an invalid enum name and performs case insensitive matching of the name.</p>
+     *
+     * @param <E>         the type of the enumeration
+     * @param enumClass   the class of the enum to query, not null
+     * @param enumName    the enum name, null returns default enum
+     * @param stringFunction the function that gets the string for an enum for comparison to {@code enumName}.
+     * @param defaultEnum the default enum
+     * @return the enum, default enum if not found
+     * @since 3.13.0
+     */
+    public static <E extends Enum<E>> E getFirstEnumIgnoreCase(final Class<E> enumClass, final String enumName,
+        final Function<E, String> stringFunction, final E defaultEnum) {
         if (enumName == null || !enumClass.isEnum()) {
             return defaultEnum;
         }
         for (final E each : enumClass.getEnumConstants()) {
-            if (each.name().equalsIgnoreCase(enumName)) {
+            if (enumName.equalsIgnoreCase(stringFunction.apply(each))) {
                 return each;
             }
         }
