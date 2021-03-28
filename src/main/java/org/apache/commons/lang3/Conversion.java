@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -2398,13 +2399,13 @@ public class Conversion {
      * A lookup table for converting integer values from 0 to 15 into a single hex digit (char).
      * Value: ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F']
      */
-    public static final char[] SINGLE_DIGIT_HEX_LOOKUP_TABLE = new char[] {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    static final char[] SINGLE_DIGIT_HEX_LOOKUP_TABLE = new char[] {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     /**
      * A lookup table for converting integer values from 0 to 255 into a 2 digit hex String.
      * Value: ["00","01","02","03", ... "38","39","3A","3B","3C", ... "9E","9F","A0","A1","A2", ..."FD","FE","FF"]
      */
-    public static final String[] DOUBLE_DIGIT_HEX_LOOKUP_TABLE;
+    static final String[] DOUBLE_DIGIT_HEX_LOOKUP_TABLE;
 
     /**
      * A lookup table for converting a 2 digit hex String into an integer value from 0 to 255.
@@ -2432,7 +2433,7 @@ public class Conversion {
      * "FF":255
      * ]
      */
-    public static final Map<String, Byte> DOUBLE_DIGIT_HEX_REVERSE_LOOKUP_TABLE;
+    static final Map<String, Byte> DOUBLE_DIGIT_HEX_REVERSE_LOOKUP_TABLE;
     static {
         //Init Forward Lookup
         DOUBLE_DIGIT_HEX_LOOKUP_TABLE = new String[256];
@@ -2444,10 +2445,11 @@ public class Conversion {
         }
 
         //Init Reverse Lookup
-        DOUBLE_DIGIT_HEX_REVERSE_LOOKUP_TABLE = new HashMap<String, Byte>(256);
+        HashMap tmpReverseLookup = new HashMap<String, Byte>(256);
         for (int x=0; x<256; x++) {
-            DOUBLE_DIGIT_HEX_REVERSE_LOOKUP_TABLE.put(DOUBLE_DIGIT_HEX_LOOKUP_TABLE[x], (byte) x);
+            tmpReverseLookup.put(DOUBLE_DIGIT_HEX_LOOKUP_TABLE[x], (byte) x);
         }
+        DOUBLE_DIGIT_HEX_REVERSE_LOOKUP_TABLE = Collections.unmodifiableMap(tmpReverseLookup);
     }
 
     /**
