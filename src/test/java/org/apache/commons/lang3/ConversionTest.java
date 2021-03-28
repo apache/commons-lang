@@ -2092,9 +2092,9 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#binaryToByte(boolean[])}.
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testBinaryToByte_convenienceMethod_oversizedException() {
-        Conversion.binaryToByte(TestBinaryByteBlocks.binary_Oversized_Leading_0s[0]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.binaryToByte(TestBinaryByteBlocks.binary_Oversized_Leading_0s[0]));
     }
 
     /**
@@ -2149,9 +2149,9 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#binaryToByteRaw(boolean[])}.
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testBinaryToByteRaw_convenienceMethod_oversizedException() {
-        Conversion.binaryToByteRaw(TestBinaryByteBlocks.binary_Oversized_Leading_0s[0]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.binaryToByteRaw(TestBinaryByteBlocks.binary_Oversized_Leading_0s[0]));
     }
 
     /**
@@ -2206,9 +2206,9 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#binaryToByteMsb0(boolean[])}.
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testBinaryToByteMsb0_convenienceMethod_oversizedException() {
-        Conversion.binaryToByteMsb0(TestBinaryByteBlocks.binary_Oversized_Leading_0s[0]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.binaryToByteMsb0(TestBinaryByteBlocks.binary_Oversized_Leading_0s[0]));
     }
 
     /**
@@ -2554,17 +2554,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#bitStringToByte(String)}.
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testBitStringToByte_oversizedException() {
-        Conversion.bitStringToByte(TestBinaryByteBlocks.bitString_Oversized_Leading_0s[0]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.bitStringToByte(TestBinaryByteBlocks.bitString_Oversized_Leading_0s[0]));
     }
 
     /**
      * Tests {@link Conversion#bitStringToByte(String)}.
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testBitStringToByte_notBitStringException() {
-        Conversion.bitStringToByte("Not Bit String");
+        assertThrows(IllegalArgumentException.class, () -> Conversion.bitStringToByte("Not Bit String"));
     }
 
     /**
@@ -2627,17 +2627,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#bitStringToByteRaw(String)}.
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testBitStringToByteRaw_oversizedException() {
-        Conversion.bitStringToByteRaw(TestBinaryByteBlocks.bitString_Oversized_Leading_0s[0]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.bitStringToByteRaw(TestBinaryByteBlocks.bitString_Oversized_Leading_0s[0]));
     }
 
     /**
      * Tests {@link Conversion#bitStringToByteRaw(String)}.
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testBitStringToByteRaw_notBitStringException() {
-        Conversion.bitStringToByteRaw("Not A Bit String");
+        assertThrows(IllegalArgumentException.class, () -> Conversion.bitStringToByteRaw("Not A Bit String"));
     }
 
     /**
@@ -2700,17 +2700,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#bitStringToByteMsb0(String)}.
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testBitStringToByteMsb0_oversizedException() {
-        Conversion.bitStringToByteMsb0(TestBinaryByteBlocks.bitString_Oversized_Leading_0s[0]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.bitStringToByteMsb0(TestBinaryByteBlocks.bitString_Oversized_Leading_0s[0]));
     }
 
     /**
      * Tests {@link Conversion#bitStringToByteMsb0(String)}.
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testBitStringToByteMsb0_notBitStringException() {
-        Conversion.bitStringToByteMsb0("Not A Bit String");
+        assertThrows(IllegalArgumentException.class, () -> Conversion.bitStringToByteMsb0("Not A Bit String"));
     }
 
     /**
@@ -2743,17 +2743,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#hexToByteArrayRaw(String)}.
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testHexToByteArrayRaw_OddLengthException() {
-        Conversion.hexToByteArrayRaw("FA219");
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToByteArrayRaw("FA219"));
     }
 
     /**
      * Tests {@link Conversion#hexToByteArrayRaw(String)}.
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testHexToByteArrayRaw_OddLengthException_WithEvenTotal() {
-        Conversion.hexToByteArrayRaw("FA.21-_9");
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToByteArrayRaw("FA.21-_9"));
     }
 
 
@@ -2871,17 +2871,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#toShort(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToShort_tooLong() {
-        Conversion.toShort(new byte[TestBinaryByteBlocks.SHORT_BYTES+1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toShort(new byte[TestBinaryByteBlocks.SHORT_BYTES+1]));
     }
 
     /**
      * Tests {@link Conversion#toShort(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToShort_tooSmall() {
-        Conversion.toShort(new byte[TestBinaryByteBlocks.SHORT_BYTES-1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toShort(new byte[TestBinaryByteBlocks.SHORT_BYTES-1]));
     }
 
     /**
@@ -2911,17 +2911,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#toShortBe(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToShortBe_tooLong() {
-        Conversion.toShortBe(new byte[TestBinaryByteBlocks.SHORT_BYTES+1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toShortBe(new byte[TestBinaryByteBlocks.SHORT_BYTES+1]));
     }
 
     /**
      * Tests {@link Conversion#toShortBe(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToShortBe_tooSmall() {
-        Conversion.toShortBe(new byte[TestBinaryByteBlocks.SHORT_BYTES-1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toShortBe(new byte[TestBinaryByteBlocks.SHORT_BYTES-1]));
     }
 
     /* ************************************** *
@@ -2975,17 +2975,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#hexToShort(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToShort_tooLong() {
-        Conversion.hexToShort(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.SHORT_BYTES+1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToShort(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.SHORT_BYTES+1)));
     }
 
     /**
      * Tests {@link Conversion#hexToShort(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToShort_tooSmall() {
-        Conversion.hexToShort(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.SHORT_BYTES-1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToShort(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.SHORT_BYTES-1)));
     }
 
     /**
@@ -3016,17 +3016,18 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#hexToShortBe(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToShortBe_tooLong() {
-        Conversion.hexToShortBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.SHORT_BYTES+1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToShortBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.SHORT_BYTES+1)));
+        ;
     }
 
     /**
      * Tests {@link Conversion#hexToShortBe(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToShortBe_tooSmall() {
-        Conversion.hexToShortBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.SHORT_BYTES-1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToShortBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.SHORT_BYTES-1)));
     }
 
     /* ************************************** *
@@ -3150,17 +3151,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#toInt(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToInt_tooLong() {
-        Conversion.toInt(new byte[TestBinaryByteBlocks.INT_BYTES+1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toInt(new byte[TestBinaryByteBlocks.INT_BYTES+1]));
     }
 
     /**
      * Tests {@link Conversion#toInt(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToInt_tooSmall() {
-        Conversion.toInt(new byte[TestBinaryByteBlocks.INT_BYTES-1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toInt(new byte[TestBinaryByteBlocks.INT_BYTES-1]));
     }
 
     /**
@@ -3190,17 +3191,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#toIntBe(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToIntBe_tooLong() {
-        Conversion.toIntBe(new byte[TestBinaryByteBlocks.INT_BYTES+1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toIntBe(new byte[TestBinaryByteBlocks.INT_BYTES+1]));
     }
 
     /**
      * Tests {@link Conversion#toIntBe(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToIntBe_tooSmall() {
-        Conversion.toIntBe(new byte[TestBinaryByteBlocks.INT_BYTES-1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toIntBe(new byte[TestBinaryByteBlocks.INT_BYTES-1]));
     }
 
     /* ************************************** *
@@ -3254,17 +3255,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#hexToInt(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToInt_tooLong() {
-        Conversion.hexToInt(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.INT_BYTES+1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToInt(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.INT_BYTES+1)));
     }
 
     /**
      * Tests {@link Conversion#hexToInt(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToInt_tooSmall() {
-        Conversion.hexToInt(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.INT_BYTES-1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToInt(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.INT_BYTES-1)));
     }
 
     /**
@@ -3295,17 +3296,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#hexToIntBe(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToIntBe_tooLong() {
-        Conversion.hexToIntBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.INT_BYTES+1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToIntBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.INT_BYTES+1)));
     }
 
     /**
      * Tests {@link Conversion#hexToIntBe(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToIntBe_tooSmall() {
-        Conversion.hexToIntBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.INT_BYTES-1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToIntBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.INT_BYTES-1)));
     }
 
     /* ************************************** *
@@ -3429,17 +3430,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#toLong(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToLong_tooLong() {
-        Conversion.toLong(new byte[TestBinaryByteBlocks.LONG_BYTES+1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toLong(new byte[TestBinaryByteBlocks.LONG_BYTES+1]));
     }
 
     /**
      * Tests {@link Conversion#toLong(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToLong_tooSmall() {
-        Conversion.toLong(new byte[TestBinaryByteBlocks.LONG_BYTES-1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toLong(new byte[TestBinaryByteBlocks.LONG_BYTES-1]));
     }
 
     /**
@@ -3469,17 +3470,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#toLongBe(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToLongBe_tooLong() {
-        Conversion.toLongBe(new byte[TestBinaryByteBlocks.LONG_BYTES+1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toLongBe(new byte[TestBinaryByteBlocks.LONG_BYTES+1]));
     }
 
     /**
      * Tests {@link Conversion#toLongBe(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToLongBe_tooSmall() {
-        Conversion.toLongBe(new byte[TestBinaryByteBlocks.LONG_BYTES-1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toLongBe(new byte[TestBinaryByteBlocks.LONG_BYTES-1]));
     }
 
     /* ************************************** *
@@ -3533,17 +3534,18 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#hexToLong(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToLong_tooLong() {
-        Conversion.hexToLong(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.LONG_BYTES+1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToLong(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.LONG_BYTES+1)));
     }
 
     /**
      * Tests {@link Conversion#hexToLong(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToLong_tooSmall() {
-        Conversion.hexToLong(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.LONG_BYTES-1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToLong(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.LONG_BYTES-1)));
+        ;
     }
 
     /**
@@ -3574,17 +3576,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#hexToLongBe(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToLongBe_tooLong() {
-        Conversion.hexToLongBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.LONG_BYTES+1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToLongBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.LONG_BYTES+1)));
     }
 
     /**
      * Tests {@link Conversion#hexToLongBe(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToLongBe_tooSmall() {
-        Conversion.hexToLongBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.LONG_BYTES-1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToLongBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.LONG_BYTES-1)));
     }
 
     /* ************************************** *
@@ -3670,17 +3672,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#toFloat(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToFloat_tooLong() {
-        Conversion.toFloat(new byte[TestBinaryByteBlocks.FLOAT_BYTES+1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toFloat(new byte[TestBinaryByteBlocks.FLOAT_BYTES+1]));
     }
 
     /**
      * Tests {@link Conversion#toFloat(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToFloat_tooSmall() {
-        Conversion.toFloat(new byte[TestBinaryByteBlocks.FLOAT_BYTES-1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toFloat(new byte[TestBinaryByteBlocks.FLOAT_BYTES-1]));
     }
 
     /**
@@ -3710,17 +3712,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#toFloatBe(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToFloatBe_tooLong() {
-        Conversion.toFloatBe(new byte[TestBinaryByteBlocks.FLOAT_BYTES+1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toFloatBe(new byte[TestBinaryByteBlocks.FLOAT_BYTES+1]));
     }
 
     /**
      * Tests {@link Conversion#toFloatBe(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToFloatBe_tooSmall() {
-        Conversion.toFloatBe(new byte[TestBinaryByteBlocks.FLOAT_BYTES-1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toFloatBe(new byte[TestBinaryByteBlocks.FLOAT_BYTES-1]));
     }
 
     /* ************************************** *
@@ -3774,17 +3776,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#hexToFloat(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToFloat_tooLong() {
-        Conversion.hexToFloat(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.FLOAT_BYTES+1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToFloat(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.FLOAT_BYTES+1)));
     }
 
     /**
      * Tests {@link Conversion#hexToFloat(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToFloat_tooSmall() {
-        Conversion.hexToFloat(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.FLOAT_BYTES-1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToFloat(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.FLOAT_BYTES-1)));
     }
 
     /**
@@ -3815,17 +3817,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#hexToFloatBe(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToFloatBe_tooLong() {
-        Conversion.hexToFloatBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.FLOAT_BYTES+1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToFloatBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.FLOAT_BYTES+1)));
     }
 
     /**
      * Tests {@link Conversion#hexToFloatBe(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToFloatBe_tooSmall() {
-        Conversion.hexToFloatBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.FLOAT_BYTES-1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToFloatBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.FLOAT_BYTES-1)));
     }
 
     /* ************************************** *
@@ -3911,17 +3913,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#toDouble(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToDouble_tooLong() {
-        Conversion.toDouble(new byte[TestBinaryByteBlocks.DOUBLE_BYTES+1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toDouble(new byte[TestBinaryByteBlocks.DOUBLE_BYTES+1]));
     }
 
     /**
      * Tests {@link Conversion#toDouble(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToDouble_tooSmall() {
-        Conversion.toDouble(new byte[TestBinaryByteBlocks.DOUBLE_BYTES-1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toDouble(new byte[TestBinaryByteBlocks.DOUBLE_BYTES-1]));
     }
 
     /**
@@ -3951,17 +3953,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#toDoubleBe(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToDoubleBe_tooLong() {
-        Conversion.toDoubleBe(new byte[TestBinaryByteBlocks.DOUBLE_BYTES+1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toDoubleBe(new byte[TestBinaryByteBlocks.DOUBLE_BYTES+1]));
     }
 
     /**
      * Tests {@link Conversion#toDoubleBe(byte[])}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToDoubleBe_tooSmall() {
-        Conversion.toDoubleBe(new byte[TestBinaryByteBlocks.DOUBLE_BYTES-1]);
+        assertThrows(IllegalArgumentException.class, () -> Conversion.toDoubleBe(new byte[TestBinaryByteBlocks.DOUBLE_BYTES-1]));
     }
 
     /* ************************************** *
@@ -4015,17 +4017,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#hexToDouble(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToDouble_tooLong() {
-        Conversion.hexToDouble(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.DOUBLE_BYTES+1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToDouble(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.DOUBLE_BYTES+1)));
     }
 
     /**
      * Tests {@link Conversion#hexToDouble(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToDouble_tooSmall() {
-        Conversion.hexToDouble(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.DOUBLE_BYTES-1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToDouble(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.DOUBLE_BYTES-1)));
     }
 
     /**
@@ -4056,17 +4058,17 @@ public class ConversionTest {
     /**
      * Tests {@link Conversion#hexToDoubleBe(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToDoubleBe_tooLong() {
-        Conversion.hexToDoubleBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.DOUBLE_BYTES+1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToDoubleBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.DOUBLE_BYTES+1)));
     }
 
     /**
      * Tests {@link Conversion#hexToDoubleBe(String)}.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testHexToDoubleBe_tooSmall() {
-        Conversion.hexToDoubleBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.DOUBLE_BYTES-1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToDoubleBe(TestBinaryByteBlocks.getNumHexDigits(TestBinaryByteBlocks.DOUBLE_BYTES-1)));
     }
 
     /* ************************************** *
