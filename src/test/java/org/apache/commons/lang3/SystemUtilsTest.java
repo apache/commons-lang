@@ -53,92 +53,8 @@ import org.junit.jupiter.api.Test;
 public class SystemUtilsTest {
 
     @Test
-    public void testConstructor() {
-        assertNotNull(new SystemUtils());
-        final Constructor<?>[] cons = SystemUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
-        assertTrue(Modifier.isPublic(SystemUtils.class.getModifiers()));
-        assertFalse(Modifier.isFinal(SystemUtils.class.getModifiers()));
-    }
-
-    @Test
-    public void testGetEnvironmentVariableAbsent() {
-        final String name = "THIS_ENV_VAR_SHOULD_NOT_EXIST_FOR_THIS_TEST_TO_PASS";
-        final String expected = System.getenv(name);
-        assertNull(expected);
-        final String value = SystemUtils.getEnvironmentVariable(name, "DEFAULT");
-        assertEquals("DEFAULT", value);
-    }
-
-    @Test
-    public void testGetEnvironmentVariablePresent() {
-        final String name = "PATH";
-        final String expected = System.getenv(name);
-        final String value = SystemUtils.getEnvironmentVariable(name, null);
-        assertEquals(expected, value);
-    }
-
-    @Test
-    public void testGetHostName() {
-        final String hostName = SystemUtils.getHostName();
-        final String expected = SystemUtils.IS_OS_WINDOWS ? System.getenv("COMPUTERNAME") : System.getenv("HOSTNAME");
-        assertEquals(expected, hostName);
-    }
-
-    /**
-     * Assumes no security manager exists.
-     */
-    @Test
-    public void testGetJavaHome() {
-        final File dir = SystemUtils.getJavaHome();
-        assertNotNull(dir);
-        assertTrue(dir.exists());
-    }
-
-    /**
-     * Assumes no security manager exists.
-     */
-    @Test
-    public void testGetJavaIoTmpDir() {
-        final File dir = SystemUtils.getJavaIoTmpDir();
-        assertNotNull(dir);
-        assertTrue(dir.exists());
-    }
-
-    /**
-     * Assumes no security manager exists.
-     */
-    @Test
-    public void testGetUserDir() {
-        final File dir = SystemUtils.getUserDir();
-        assertNotNull(dir);
-        assertTrue(dir.exists());
-    }
-
-    /**
-     * Assumes no security manager exists.
-     */
-    @Test
-    public void testGetUserHome() {
-        final File dir = SystemUtils.getUserHome();
-        assertNotNull(dir);
-        assertTrue(dir.exists());
-    }
-
-    /**
-     * Assumes no security manager exists.
-     */
-    @Test
-    public void testGetUserName() {
-        assertEquals(System.getProperty("user.name"), SystemUtils.getUserName());
-        // Don't overwrite the system property in this test in case something goes awfully wrong.
-        assertEquals(System.getProperty("user.name", "foo"), SystemUtils.getUserName("foo"));
-    }
-
-    @Test
     @SuppressWarnings("deprecation")
-    public void testIS_JAVA() {
+    public void test_IS_JAVA() {
         final String javaVersion = SystemUtils.JAVA_VERSION;
         if (javaVersion == null) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
@@ -297,7 +213,7 @@ public class SystemUtilsTest {
     }
 
     @Test
-    public void testIS_OS() {
+    public void test_IS_OS() {
         final String osName = System.getProperty("os.name");
         if (osName == null) {
             assertFalse(SystemUtils.IS_OS_WINDOWS);
@@ -338,7 +254,7 @@ public class SystemUtilsTest {
     }
 
     @Test
-    public void testIS_zOS() {
+    public void test_IS_zOS() {
         final String osName = System.getProperty("os.name");
         if (osName == null) {
             assertFalse(SystemUtils.IS_OS_ZOS);
@@ -346,6 +262,98 @@ public class SystemUtilsTest {
             assertFalse(SystemUtils.IS_OS_WINDOWS);
             assertTrue(SystemUtils.IS_OS_ZOS);
         }
+    }
+
+    /**
+     * Assumes no security manager exists.
+     */
+    @Test
+    public void test_USER_NAME() {
+        assertEquals(System.getProperty("user.name"), SystemUtils.USER_NAME);
+    }
+
+    @Test
+    public void testConstructor() {
+        assertNotNull(new SystemUtils());
+        final Constructor<?>[] cons = SystemUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertTrue(Modifier.isPublic(cons[0].getModifiers()));
+        assertTrue(Modifier.isPublic(SystemUtils.class.getModifiers()));
+        assertFalse(Modifier.isFinal(SystemUtils.class.getModifiers()));
+    }
+
+    @Test
+    public void testGetEnvironmentVariableAbsent() {
+        final String name = "THIS_ENV_VAR_SHOULD_NOT_EXIST_FOR_THIS_TEST_TO_PASS";
+        final String expected = System.getenv(name);
+        assertNull(expected);
+        final String value = SystemUtils.getEnvironmentVariable(name, "DEFAULT");
+        assertEquals("DEFAULT", value);
+    }
+
+    @Test
+    public void testGetEnvironmentVariablePresent() {
+        final String name = "PATH";
+        final String expected = System.getenv(name);
+        final String value = SystemUtils.getEnvironmentVariable(name, null);
+        assertEquals(expected, value);
+    }
+
+    @Test
+    public void testGetHostName() {
+        final String hostName = SystemUtils.getHostName();
+        final String expected = SystemUtils.IS_OS_WINDOWS ? System.getenv("COMPUTERNAME") : System.getenv("HOSTNAME");
+        assertEquals(expected, hostName);
+    }
+
+    /**
+     * Assumes no security manager exists.
+     */
+    @Test
+    public void testGetJavaHome() {
+        final File dir = SystemUtils.getJavaHome();
+        assertNotNull(dir);
+        assertTrue(dir.exists());
+    }
+
+    /**
+     * Assumes no security manager exists.
+     */
+    @Test
+    public void testGetJavaIoTmpDir() {
+        final File dir = SystemUtils.getJavaIoTmpDir();
+        assertNotNull(dir);
+        assertTrue(dir.exists());
+    }
+
+    /**
+     * Assumes no security manager exists.
+     */
+    @Test
+    public void testGetUserDir() {
+        final File dir = SystemUtils.getUserDir();
+        assertNotNull(dir);
+        assertTrue(dir.exists());
+    }
+
+    /**
+     * Assumes no security manager exists.
+     */
+    @Test
+    public void testGetUserHome() {
+        final File dir = SystemUtils.getUserHome();
+        assertNotNull(dir);
+        assertTrue(dir.exists());
+    }
+
+    /**
+     * Assumes no security manager exists.
+     */
+    @Test
+    public void testGetUserName() {
+        assertEquals(System.getProperty("user.name"), SystemUtils.getUserName());
+        // Don't overwrite the system property in this test in case something goes awfully wrong.
+        assertEquals(System.getProperty("user.name", "foo"), SystemUtils.getUserName("foo"));
     }
 
     @Test
