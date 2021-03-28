@@ -29,18 +29,36 @@ package org.apache.commons.lang3.tuple;
  */
 public class MutableTriple<L, M, R> extends Triple<L, M, R> {
 
+    /**
+     * The empty array singleton.
+     * <p>
+     * Consider using {@link #emptyArray()} to avoid generics warnings.
+     * </p>
+     *
+     * @since 3.10.
+     */
+    public static final MutableTriple<?, ?, ?>[] EMPTY_ARRAY = new MutableTriple[0];
+
     /** Serialization version */
     private static final long serialVersionUID = 1L;
 
-    /** Left object */
-    public L left;
-    /** Middle object */
-    public M middle;
-    /** Right object */
-    public R right;
+    /**
+     * Returns the empty array singleton that can be assigned without compiler warning.
+     *
+     * @param <L> the left element type
+     * @param <M> the middle element type
+     * @param <R> the right element type
+     * @return the empty array singleton that can be assigned without compiler warning.
+     *
+     * @since 3.10.
+     */
+    @SuppressWarnings("unchecked")
+    public static <L, M, R> MutableTriple<L, M, R>[] emptyArray() {
+        return (MutableTriple<L, M, R>[]) EMPTY_ARRAY;
+    }
 
     /**
-     * <p>Obtains an mutable triple of three objects inferring the generic types.</p>
+     * <p>Obtains a mutable triple of three objects inferring the generic types.</p>
      *
      * <p>This factory allows the triple to be created using inference to
      * obtain the generic types.</p>
@@ -56,12 +74,18 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     public static <L, M, R> MutableTriple<L, M, R> of(final L left, final M middle, final R right) {
         return new MutableTriple<>(left, middle, right);
     }
+    /** Left object */
+    public L left;
+    /** Middle object */
+    public M middle;
+
+    /** Right object */
+    public R right;
 
     /**
      * Create a new triple instance of three nulls.
      */
     public MutableTriple() {
-        super();
     }
 
     /**
@@ -72,7 +96,6 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
      * @param right  the right value, may be null
      */
     public MutableTriple(final L left, final M middle, final R right) {
-        super();
         this.left = left;
         this.middle = middle;
         this.right = right;
@@ -88,6 +111,22 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public M getMiddle() {
+        return middle;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public R getRight() {
+        return right;
+    }
+
+    /**
      * Sets the left element of the triple.
      *
      * @param left  the new value of the left element, may be null
@@ -97,28 +136,12 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public M getMiddle() {
-        return middle;
-    }
-
-    /**
      * Sets the middle element of the triple.
      *
      * @param middle  the new value of the middle element, may be null
      */
     public void setMiddle(final M middle) {
         this.middle = middle;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public R getRight() {
-        return right;
     }
 
     /**

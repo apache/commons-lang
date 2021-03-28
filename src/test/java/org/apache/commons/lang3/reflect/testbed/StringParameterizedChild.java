@@ -24,4 +24,20 @@ public class StringParameterizedChild extends GenericParent<String> {
     public void consume(final String t) {
         super.consume(t);
     }
+
+    @Override
+    public void parentProtectedAnnotatedMethod(final String t) {
+    }
+
+    @Override
+    public void parentNotAnnotatedMethod(final String t) {
+    }
+
+    @Annotated
+    private void privateAnnotatedMethod(final String t) {
+    }
+
+    @Annotated
+    public void publicAnnotatedMethod(final String t) {
+    }
 }

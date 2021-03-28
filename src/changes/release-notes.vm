@@ -43,12 +43,11 @@ This document contains the release notes for the ${version} version of Apache Co
 Commons Lang is a set of utility functions and reusable components that should be of use in any 
 Java environment.
 
-Lang 3.0 and onwards now targets Java 5.0, making use of features that arrived with Java 5.0 such as generics, 
-variable arguments, autoboxing, concurrency and formatted output.
+Lang 3.9 and onwards now targets Java 8, making use of features that arrived with Java 8.
 
 For the advice on upgrading from 2.x to 3.x, see the following page: 
 
-    http://commons.apache.org/lang/article3_0.html
+    https://commons.apache.org/lang/article3_0.html
 
 $introduction.replaceAll("(?<!\015)\012", "
 ").replaceAll("(?m)^ +","")
@@ -138,3 +137,8 @@ For complete information on ${project.name}, including instructions on how to su
 patches, or suggestions for improvement, see the Apache ${project.name} website:
 
 ${project.url}
+
+Download page: ${project.url}download_lang.cgi
+
+Have fun!
+-Apache Commons Team

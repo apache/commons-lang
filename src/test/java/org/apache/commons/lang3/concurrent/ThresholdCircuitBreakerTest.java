@@ -16,11 +16,11 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@code ThresholdCircuitBreaker}.
@@ -41,7 +41,7 @@ public class ThresholdCircuitBreakerTest {
     public void testThreshold() {
         final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
         circuit.incrementAndCheckState(9L);
-        assertFalse("Circuit opened before reaching the threshold", circuit.incrementAndCheckState(1L));
+        assertFalse(circuit.incrementAndCheckState(1L), "Circuit opened before reaching the threshold");
     }
 
     /**
@@ -51,7 +51,7 @@ public class ThresholdCircuitBreakerTest {
     public void testThresholdCircuitBreakingException() {
         final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
         circuit.incrementAndCheckState(9L);
-        assertTrue("The circuit was supposed to be open after increment above the threshold", circuit.incrementAndCheckState(2L));
+        assertTrue(circuit.incrementAndCheckState(2L), "The circuit was supposed to be open after increment above the threshold");
     }
 
     /**
@@ -60,7 +60,7 @@ public class ThresholdCircuitBreakerTest {
     @Test
     public void testThresholdEqualsZero() {
         final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(zeroThreshold);
-        assertTrue("When the threshold is zero, the circuit is supposed to be always open", circuit.incrementAndCheckState(0L));
+        assertTrue(circuit.incrementAndCheckState(0L), "When the threshold is zero, the circuit is supposed to be always open");
     }
 
     /**
@@ -72,7 +72,7 @@ public class ThresholdCircuitBreakerTest {
         circuit.incrementAndCheckState(9L);
         circuit.close();
         // now the internal counter is back at zero, not 9 anymore. So it is safe to increment 9 again
-        assertFalse("Internal counter was not reset back to zero", circuit.incrementAndCheckState(9L));
+        assertFalse(circuit.incrementAndCheckState(9L), "Internal counter was not reset back to zero");
     }
 
     /**
@@ -81,7 +81,7 @@ public class ThresholdCircuitBreakerTest {
     @Test
     public void testGettingThreshold() {
         final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
-        assertEquals("Wrong value of threshold", Long.valueOf(threshold), Long.valueOf(circuit.getThreshold()));
+        assertEquals(Long.valueOf(threshold), Long.valueOf(circuit.getThreshold()), "Wrong value of threshold");
     }
 
 }

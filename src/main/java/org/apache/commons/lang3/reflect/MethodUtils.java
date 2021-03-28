@@ -25,17 +25,21 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.ClassUtils.Interfaces;
 import org.apache.commons.lang3.Validate;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * <p>Utility reflection methods focused on {@link Method}s, originally from Commons BeanUtils.
@@ -43,21 +47,23 @@ import org.apache.commons.lang3.Validate;
  * already existed within Lang.
  * </p>
  *
- * <h3>Known Limitations</h3>
- * <h4>Accessing Public Methods In A Default Access Superclass</h4>
+ * <h2>Known Limitations</h2>
+ * <h3>Accessing Public Methods In A Default Access Superclass</h3>
  * <p>There is an issue when invoking {@code public} methods contained in a default access superclass on JREs prior to 1.4.
  * Reflection locates these methods fine and correctly assigns them as {@code public}.
  * However, an {@link IllegalAccessException} is thrown if the method is invoked.</p>
  *
- * <p>{@link MethodUtils} contains a workaround for this situation. 
+ * <p>{@link MethodUtils} contains a workaround for this situation.
  * It will attempt to call {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} on this method.
  * If this call succeeds, then the method can be invoked as normal.
- * This call will only succeed when the application has sufficient security privileges. 
+ * This call will only succeed when the application has sufficient security privileges.
  * If this call fails then the method may fail.</p>
  *
  * @since 2.5
  */
 public class MethodUtils {
+
+    private static final Comparator<Method> METHOD_BY_SIGNATURE = Comparator.comparing(Method::toString);
 
     /**
      * <p>{@link MethodUtils} instances should NOT be constructed in standard programming.
@@ -68,7 +74,6 @@ public class MethodUtils {
      * instance to operate.</p>
      */
     public MethodUtils() {
-        super();
     }
 
     /**
@@ -77,7 +82,7 @@ public class MethodUtils {
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
      * <p>This is a convenient wrapper for
-     * {@link #invokeMethod(Object object,String methodName, Object[] args, Class[] parameterTypes)}.
+     * {@link #invokeMethod(Object object, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
      * @param object invoke method on this object
@@ -87,19 +92,19 @@ public class MethodUtils {
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
-     *  
+     *
      *  @since 3.4
      */
     public static Object invokeMethod(final Object object, final String methodName) throws NoSuchMethodException,
             IllegalAccessException, InvocationTargetException {
         return invokeMethod(object, methodName, ArrayUtils.EMPTY_OBJECT_ARRAY, null);
     }
-    
+
     /**
      * <p>Invokes a named method without parameters.</p>
      *
      * <p>This is a convenient wrapper for
-     * {@link #invokeMethod(Object object,boolean forceAccess,String methodName, Object[] args, Class[] parameterTypes)}.
+     * {@link #invokeMethod(Object object, boolean forceAccess, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
      * @param object invoke method on this object
@@ -123,12 +128,12 @@ public class MethodUtils {
      *
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
-     * <p>This method supports calls to methods taking primitive parameters 
+     * <p>This method supports calls to methods taking primitive parameters
      * via passing in wrapping classes. So, for example, a {@code Boolean} object
      * would match a {@code boolean} primitive.</p>
      *
      * <p>This is a convenient wrapper for
-     * {@link #invokeMethod(Object object,String methodName, Object[] args, Class[] parameterTypes)}.
+     * {@link #invokeMethod(Object object, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
      * @param object invoke method on this object
@@ -147,16 +152,16 @@ public class MethodUtils {
         final Class<?>[] parameterTypes = ClassUtils.toClass(args);
         return invokeMethod(object, methodName, args, parameterTypes);
     }
-    
+
     /**
      * <p>Invokes a named method whose parameter type matches the object type.</p>
      *
-     * <p>This method supports calls to methods taking primitive parameters 
+     * <p>This method supports calls to methods taking primitive parameters
      * via passing in wrapping classes. So, for example, a {@code Boolean} object
      * would match a {@code boolean} primitive.</p>
      *
      * <p>This is a convenient wrapper for
-     * {@link #invokeMethod(Object object,boolean forceAccess,String methodName, Object[] args, Class[] parameterTypes)}.
+     * {@link #invokeMethod(Object object, boolean forceAccess, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
      * @param object invoke method on this object
@@ -182,7 +187,7 @@ public class MethodUtils {
     /**
      * <p>Invokes a named method whose parameter type matches the object type.</p>
      *
-     * <p>This method supports calls to methods taking primitive parameters 
+     * <p>This method supports calls to methods taking primitive parameters
      * via passing in wrapping classes. So, for example, a {@code Boolean} object
      * would match a {@code boolean} primitive.</p>
      *
@@ -211,10 +216,8 @@ public class MethodUtils {
             messagePrefix = "No such method: ";
             method = getMatchingMethod(object.getClass(),
                     methodName, parameterTypes);
-            if (method != null) {
-                if (!method.isAccessible()) {
-                    method.setAccessible(true);
-                }
+            if (method != null && !method.isAccessible()) {
+                method.setAccessible(true);
             }
         } else {
             messagePrefix = "No such accessible method: ";
@@ -237,7 +240,7 @@ public class MethodUtils {
      *
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
-     * <p>This method supports calls to methods taking primitive parameters 
+     * <p>This method supports calls to methods taking primitive parameters
      * via passing in wrapping classes. So, for example, a {@code Boolean} object
      * would match a {@code boolean} primitive.</p>
      *
@@ -251,7 +254,7 @@ public class MethodUtils {
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
      */
-    public static Object invokeMethod(final Object object, final String methodName, 
+    public static Object invokeMethod(final Object object, final String methodName,
             final Object[] args, final Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException {
@@ -263,7 +266,7 @@ public class MethodUtils {
      * types.</p>
      *
      * <p>This uses reflection to invoke the method obtained from a call to
-     * {@link #getAccessibleMethod}(Class,String,Class[])}.</p>
+     * {@link #getAccessibleMethod}(Class, String, Class[])}.</p>
      *
      * @param object invoke method on this object
      * @param methodName get method with this name
@@ -286,7 +289,7 @@ public class MethodUtils {
      * <p>Invokes a method with no parameters.</p>
      *
      * <p>This uses reflection to invoke the method obtained from a call to
-     * {@link #getAccessibleMethod}(Class,String,Class[])}.</p>
+     * {@link #getAccessibleMethod}(Class, String, Class[])}.</p>
      *
      * @param object invoke method on this object
      * @param methodName get method with this name
@@ -312,7 +315,7 @@ public class MethodUtils {
      * types given.</p>
      *
      * <p>This uses reflection to invoke the method obtained from a call to
-     * {@link #getAccessibleMethod(Class,String,Class[])}.</p>
+     * {@link #getAccessibleMethod(Class, String, Class[])}.</p>
      *
      * @param object invoke method on this object
      * @param methodName get method with this name
@@ -380,7 +383,7 @@ public class MethodUtils {
      *
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
-     * <p>This method supports calls to methods taking primitive parameters 
+     * <p>This method supports calls to methods taking primitive parameters
      * via passing in wrapping classes. So, for example, a {@code Boolean} class
      * would match a {@code boolean} primitive.</p>
      *
@@ -412,7 +415,7 @@ public class MethodUtils {
      *
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
-     * <p>This method supports calls to methods taking primitive parameters 
+     * <p>This method supports calls to methods taking primitive parameters
      * via passing in wrapping classes. So, for example, a {@code Boolean} class
      * would match a {@code boolean} primitive.</p>
      *
@@ -464,8 +467,8 @@ public class MethodUtils {
      * @since 3.5
      */
     static Object[] getVarArgs(final Object[] args, final Class<?>[] methodParameterTypes) {
-        if (args.length == methodParameterTypes.length
-                && args[args.length - 1].getClass().equals(methodParameterTypes[methodParameterTypes.length - 1])) {
+        if (args.length == methodParameterTypes.length && (args[args.length - 1] == null ||
+                args[args.length - 1].getClass().equals(methodParameterTypes[methodParameterTypes.length - 1]))) {
             // The args array is already in the canonical form for the method.
             return args;
         }
@@ -484,7 +487,7 @@ public class MethodUtils {
         // Copy the variadic arguments into the varargs array.
         System.arraycopy(args, methodParameterTypes.length - 1, varArgsArray, 0, varArgLength);
 
-        if(varArgComponentType.isPrimitive()) {
+        if (varArgComponentType.isPrimitive()) {
             // unbox from wrapper type to primitive type
             varArgsArray = ArrayUtils.toPrimitive(varArgsArray);
         }
@@ -624,14 +627,14 @@ public class MethodUtils {
 
             // Check the implemented interfaces of the parent class
             final Class<?>[] interfaces = cls.getInterfaces();
-            for (int i = 0; i < interfaces.length; i++) {
+            for (final Class<?> anInterface : interfaces) {
                 // Is this interface public?
-                if (!Modifier.isPublic(interfaces[i].getModifiers())) {
+                if (!Modifier.isPublic(anInterface.getModifiers())) {
                     continue;
                 }
                 // Does the method exist on this interface?
                 try {
-                    return interfaces[i].getDeclaredMethod(methodName,
+                    return anInterface.getDeclaredMethod(methodName,
                             parameterTypes);
                 } catch (final NoSuchMethodException e) { // NOPMD
                     /*
@@ -640,7 +643,7 @@ public class MethodUtils {
                      */
                 }
                 // Recursively check our parent interfaces
-                final Method method = getAccessibleMethodFromInterfaceNest(interfaces[i],
+                final Method method = getAccessibleMethodFromInterfaceNest(anInterface,
                         methodName, parameterTypes);
                 if (method != null) {
                     return method;
@@ -652,13 +655,13 @@ public class MethodUtils {
 
     /**
      * <p>Finds an accessible method that matches the given name and has compatible parameters.
-     * Compatible parameters mean that every method parameter is assignable from 
+     * Compatible parameters mean that every method parameter is assignable from
      * the given parameters.
-     * In other words, it finds a method with the given name 
+     * In other words, it finds a method with the given name
      * that will take the parameters given.</p>
      *
-     * <p>This method is used by 
-     * {@link 
+     * <p>This method is used by
+     * {@link
      * #invokeMethod(Object object, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
@@ -669,7 +672,7 @@ public class MethodUtils {
      *
      * @param cls find method in this class
      * @param methodName find method with this name
-     * @param parameterTypes find method with most compatible parameters 
+     * @param parameterTypes find method with most compatible parameters
      * @return The accessible method
      */
     public static Method getMatchingAccessibleMethod(final Class<?> cls,
@@ -681,28 +684,52 @@ public class MethodUtils {
         } catch (final NoSuchMethodException e) { // NOPMD - Swallow the exception
         }
         // search through all methods
-        Method bestMatch = null;
         final Method[] methods = cls.getMethods();
+        final List<Method> matchingMethods = new ArrayList<>();
         for (final Method method : methods) {
             // compare name and parameters
             if (method.getName().equals(methodName) &&
                     MemberUtils.isMatchingMethod(method, parameterTypes)) {
-                // get accessible version of method
-                final Method accessibleMethod = getAccessibleMethod(method);
-                if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareMethodFit(
-                            accessibleMethod,
-                            bestMatch,
-                            parameterTypes) < 0)) {
-                    bestMatch = accessibleMethod;
-                }
+                matchingMethods.add (method);
+            }
+        }
+
+        // Sort methods by signature to force deterministic result
+        matchingMethods.sort(METHOD_BY_SIGNATURE);
+
+        Method bestMatch = null;
+        for (final Method method : matchingMethods) {
+            // get accessible version of method
+            final Method accessibleMethod = getAccessibleMethod(method);
+            if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareMethodFit(
+                        accessibleMethod,
+                        bestMatch,
+                        parameterTypes) < 0)) {
+                bestMatch = accessibleMethod;
             }
         }
         if (bestMatch != null) {
             MemberUtils.setAccessibleWorkaround(bestMatch);
         }
+
+        if (bestMatch != null && bestMatch.isVarArgs() && bestMatch.getParameterTypes().length > 0 && parameterTypes.length > 0) {
+            final Class<?>[] methodParameterTypes = bestMatch.getParameterTypes();
+            final Class<?> methodParameterComponentType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
+            final String methodParameterComponentTypeName = ClassUtils.primitiveToWrapper(methodParameterComponentType).getName();
+
+            final Class<?> lastParameterType = parameterTypes[parameterTypes.length - 1];
+            final String parameterTypeName = (lastParameterType==null) ? null : lastParameterType.getName();
+            final String parameterTypeSuperClassName = (lastParameterType==null) ? null : lastParameterType.getSuperclass().getName();
+
+            if (parameterTypeName!= null && parameterTypeSuperClassName != null && !methodParameterComponentTypeName.equals(parameterTypeName)
+                    && !methodParameterComponentTypeName.equals(parameterTypeSuperClassName)) {
+                return null;
+            }
+        }
+
         return bestMatch;
     }
-    
+
     /**
      * <p>Retrieves a method whether or not it's accessible. If no such method
      * can be found, return {@code null}.</p>
@@ -710,59 +737,79 @@ public class MethodUtils {
      * @param methodName The method that we wish to call
      * @param parameterTypes Argument class types
      * @return The method
-     * 
+     *
      * @since 3.5
      */
     public static Method getMatchingMethod(final Class<?> cls, final String methodName,
             final Class<?>... parameterTypes) {
-        Validate.notNull(cls, "Null class not allowed.");
-        Validate.notEmpty(methodName, "Null or blank methodName not allowed.");
+        Validate.notNull(cls, "cls");
+        Validate.notEmpty(methodName, "methodName");
 
-        // Address methods in superclasses
-        Method[] methodArray = cls.getDeclaredMethods();
-        final List<Class<?>> superclassList = ClassUtils.getAllSuperclasses(cls);
-        for (final Class<?> klass : superclassList) {
-            methodArray = ArrayUtils.addAll(methodArray, klass.getDeclaredMethods());
-        }
+        final List<Method> methods = Arrays.stream(cls.getDeclaredMethods())
+                .filter(method -> method.getName().equals(methodName))
+                .collect(toList());
 
-        Method inexactMatch = null;
-        for (final Method method : methodArray) {
-            if (methodName.equals(method.getName()) &&
-                    Objects.deepEquals(parameterTypes, method.getParameterTypes())) {
+        ClassUtils.getAllSuperclasses(cls).stream()
+                .map(Class::getDeclaredMethods)
+                .flatMap(Arrays::stream)
+                .filter(method -> method.getName().equals(methodName))
+                .forEach(methods::add);
+
+        for (final Method method : methods) {
+            if (Arrays.deepEquals(method.getParameterTypes(), parameterTypes)) {
                 return method;
-            } else if (methodName.equals(method.getName()) &&
-                    ClassUtils.isAssignable(parameterTypes, method.getParameterTypes(), true)) {
-                if (inexactMatch == null) {
-                    inexactMatch = method;
-                } else if (distance(parameterTypes, method.getParameterTypes())
-                        < distance(parameterTypes, inexactMatch.getParameterTypes())) {
-                    inexactMatch = method;
-                }
             }
-
         }
-        return inexactMatch;
+
+        final TreeMap<Integer, List<Method>> candidates = new TreeMap<>();
+
+        methods.stream()
+                .filter(method -> ClassUtils.isAssignable(parameterTypes, method.getParameterTypes(), true))
+                .forEach(method -> {
+                    final int distance = distance(parameterTypes, method.getParameterTypes());
+                    final List<Method> candidatesAtDistance = candidates.computeIfAbsent(distance, k -> new ArrayList<>());
+                    candidatesAtDistance.add(method);
+                });
+
+        if (candidates.isEmpty()) {
+            return null;
+        }
+
+        final List<Method> bestCandidates = candidates.values().iterator().next();
+        if (bestCandidates.size() == 1) {
+            return bestCandidates.get(0);
+        }
+
+        throw new IllegalStateException(
+                String.format("Found multiple candidates for method %s on class %s : %s",
+                        methodName + Arrays.stream(parameterTypes).map(String::valueOf).collect(Collectors.joining(",", "(", ")")),
+                        cls.getName(),
+                        bestCandidates.stream().map(Method::toString).collect(Collectors.joining(",", "[", "]")))
+        );
     }
-    
+
     /**
      * <p>Returns the aggregate number of inheritance hops between assignable argument class types.  Returns -1
      * if the arguments aren't assignable.  Fills a specific purpose for getMatchingMethod and is not generalized.</p>
-     * @param classArray
-     * @param toClassArray
+     * @param fromClassArray the Class array to calculate the distance from.
+     * @param toClassArray the Class array to calculate the distance to.
      * @return the aggregate number of inheritance hops between assignable argument class types.
      */
-    private static int distance(final Class<?>[] classArray, final Class<?>[] toClassArray) {
+    private static int distance(final Class<?>[] fromClassArray, final Class<?>[] toClassArray) {
         int answer = 0;
 
-        if (!ClassUtils.isAssignable(classArray, toClassArray, true)) {
+        if (!ClassUtils.isAssignable(fromClassArray, toClassArray, true)) {
             return -1;
         }
-        for (int offset = 0; offset < classArray.length; offset++) {
+        for (int offset = 0; offset < fromClassArray.length; offset++) {
             // Note InheritanceUtils.distance() uses different scoring system.
-            if (classArray[offset].equals(toClassArray[offset])) {
+            final Class<?> aClass = fromClassArray[offset];
+            final Class<?> toClass = toClassArray[offset];
+            if (aClass == null || aClass.equals(toClass)) {
                 continue;
-            } else if (ClassUtils.isAssignable(classArray[offset], toClassArray[offset], true)
-                    && !ClassUtils.isAssignable(classArray[offset], toClassArray[offset], false)) {
+            }
+            if (ClassUtils.isAssignable(aClass, toClass, true)
+                    && !ClassUtils.isAssignable(aClass, toClass, false)) {
                 answer++;
             } else {
                 answer = answer + 2;
@@ -773,7 +820,7 @@ public class MethodUtils {
     }
 
     /**
-     * Get the hierarchy of overridden methods down to {@code result} respecting generics.
+     * Gets the hierarchy of overridden methods down to {@code result} respecting generics.
      * @param method lowest to consider
      * @param interfacesBehavior whether to search interfaces, {@code null} {@code implies} false
      * @return Set&lt;Method&gt; in ascending order from sub- to superclass
@@ -818,23 +865,21 @@ public class MethodUtils {
     }
 
     /**
-     * Gets all methods of the given class that are annotated with the given annotation.
+     * Gets all class level public methods of the given class that are annotated with the given annotation.
      * @param cls
      *            the {@link Class} to query
      * @param annotationCls
      *            the {@link java.lang.annotation.Annotation} that must be present on a method to be matched
      * @return an array of Methods (possibly empty).
-     * @throws IllegalArgumentException
-     *            if the class or annotation are {@code null}
+     * @throws NullPointerException if the class or annotation are {@code null}
      * @since 3.4
      */
     public static Method[] getMethodsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
-        final List<Method> annotatedMethodsList = getMethodsListWithAnnotation(cls, annotationCls);
-        return annotatedMethodsList.toArray(new Method[annotatedMethodsList.size()]);
+        return getMethodsWithAnnotation(cls, annotationCls, false, false);
     }
 
     /**
-     * Gets all methods of the given class that are annotated with the given annotation.
+     * Gets all class level public methods of the given class that are annotated with the given annotation.
      * @param cls
      *            the {@link Class} to query
      * @param annotationCls
@@ -845,16 +890,148 @@ public class MethodUtils {
      * @since 3.4
      */
     public static List<Method> getMethodsListWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
-        Validate.isTrue(cls != null, "The class must not be null");
-        Validate.isTrue(annotationCls != null, "The annotation class must not be null");
-        final Method[] allMethods = cls.getMethods();
+        return getMethodsListWithAnnotation(cls, annotationCls, false, false);
+    }
+
+    /**
+     * Gets all methods of the given class that are annotated with the given annotation.
+     * @param cls
+     *            the {@link Class} to query
+     * @param annotationCls
+     *            the {@link java.lang.annotation.Annotation} that must be present on a method to be matched
+     * @param searchSupers
+     *            determines if a lookup in the entire inheritance hierarchy of the given class should be performed
+     * @param ignoreAccess
+     *            determines if non public methods should be considered
+     * @return an array of Methods (possibly empty).
+     * @throws NullPointerException if the class or annotation are {@code null}
+     * @since 3.6
+     */
+    public static Method[] getMethodsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls,
+                                                    final boolean searchSupers, final boolean ignoreAccess) {
+        final List<Method> annotatedMethodsList = getMethodsListWithAnnotation(cls, annotationCls, searchSupers,
+                ignoreAccess);
+        return annotatedMethodsList.toArray(ArrayUtils.EMPTY_METHOD_ARRAY);
+    }
+
+    /**
+     * Gets all methods of the given class that are annotated with the given annotation.
+     * @param cls
+     *            the {@link Class} to query
+     * @param annotationCls
+     *            the {@link Annotation} that must be present on a method to be matched
+     * @param searchSupers
+     *            determines if a lookup in the entire inheritance hierarchy of the given class should be performed
+     * @param ignoreAccess
+     *            determines if non public methods should be considered
+     * @return a list of Methods (possibly empty).
+     * @throws NullPointerException if either the class or annotation class is {@code null}
+     * @since 3.6
+     */
+    public static List<Method> getMethodsListWithAnnotation(final Class<?> cls,
+                                                            final Class<? extends Annotation> annotationCls,
+                                                            final boolean searchSupers, final boolean ignoreAccess) {
+
+        Validate.notNull(cls, "cls");
+        Validate.notNull(annotationCls, "annotationCls");
+        final List<Class<?>> classes = (searchSupers ? getAllSuperclassesAndInterfaces(cls)
+                : new ArrayList<>());
+        classes.add(0, cls);
         final List<Method> annotatedMethods = new ArrayList<>();
-        for (final Method method : allMethods) {
-            if (method.getAnnotation(annotationCls) != null) {
-                annotatedMethods.add(method);
+        for (final Class<?> acls : classes) {
+            final Method[] methods = (ignoreAccess ? acls.getDeclaredMethods() : acls.getMethods());
+            for (final Method method : methods) {
+                if (method.getAnnotation(annotationCls) != null) {
+                    annotatedMethods.add(method);
+                }
             }
         }
         return annotatedMethods;
     }
 
+    /**
+     * <p>Gets the annotation object with the given annotation type that is present on the given method
+     * or optionally on any equivalent method in super classes and interfaces. Returns null if the annotation
+     * type was not present.</p>
+     *
+     * <p>Stops searching for an annotation once the first annotation of the specified type has been
+     * found. Additional annotations of the specified type will be silently ignored.</p>
+     * @param <A>
+     *            the annotation type
+     * @param method
+     *            the {@link Method} to query
+     * @param annotationCls
+     *            the {@link Annotation} to check if is present on the method
+     * @param searchSupers
+     *            determines if a lookup in the entire inheritance hierarchy of the given class is performed
+     *            if the annotation was not directly present
+     * @param ignoreAccess
+     *            determines if underlying method has to be accessible
+     * @return the first matching annotation, or {@code null} if not found
+     * @throws NullPointerException if either the method or annotation class is {@code null}
+     * @since 3.6
+     */
+    public static <A extends Annotation> A getAnnotation(final Method method, final Class<A> annotationCls,
+                                                         final boolean searchSupers, final boolean ignoreAccess) {
+
+        Validate.notNull(method, "method");
+        Validate.notNull(annotationCls, "annotationCls");
+        if (!ignoreAccess && !MemberUtils.isAccessible(method)) {
+            return null;
+        }
+
+        A annotation = method.getAnnotation(annotationCls);
+
+        if (annotation == null && searchSupers) {
+            final Class<?> mcls = method.getDeclaringClass();
+            final List<Class<?>> classes = getAllSuperclassesAndInterfaces(mcls);
+            for (final Class<?> acls : classes) {
+                final Method equivalentMethod = (ignoreAccess ? MethodUtils.getMatchingMethod(acls, method.getName(), method.getParameterTypes())
+                    : MethodUtils.getMatchingAccessibleMethod(acls, method.getName(), method.getParameterTypes()));
+                if (equivalentMethod != null) {
+                    annotation = equivalentMethod.getAnnotation(annotationCls);
+                    if (annotation != null) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        return annotation;
+    }
+
+    /**
+     * <p>Gets a combination of {@link ClassUtils#getAllSuperclasses(Class)} and
+     * {@link ClassUtils#getAllInterfaces(Class)}, one from superclasses, one
+     * from interfaces, and so on in a breadth first way.</p>
+     *
+     * @param cls  the class to look up, may be {@code null}
+     * @return the combined {@code List} of superclasses and interfaces in order
+     * going up from this one
+     *  {@code null} if null input
+     */
+    private static List<Class<?>> getAllSuperclassesAndInterfaces(final Class<?> cls) {
+        if (cls == null) {
+            return null;
+        }
+
+        final List<Class<?>> allSuperClassesAndInterfaces = new ArrayList<>();
+        final List<Class<?>> allSuperclasses = ClassUtils.getAllSuperclasses(cls);
+        int superClassIndex = 0;
+        final List<Class<?>> allInterfaces = ClassUtils.getAllInterfaces(cls);
+        int interfaceIndex = 0;
+        while (interfaceIndex < allInterfaces.size() ||
+                superClassIndex < allSuperclasses.size()) {
+            final Class<?> acls;
+            if (interfaceIndex >= allInterfaces.size()) {
+                acls = allSuperclasses.get(superClassIndex++);
+            } else if ((superClassIndex >= allSuperclasses.size()) || (interfaceIndex < superClassIndex) || !(superClassIndex < interfaceIndex)) {
+                acls = allInterfaces.get(interfaceIndex++);
+            } else {
+                acls = allSuperclasses.get(superClassIndex++);
+            }
+            allSuperClassesAndInterfaces.add(acls);
+        }
+        return allSuperClassesAndInterfaces;
+    }
 }

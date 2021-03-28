@@ -16,12 +16,12 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import org.apache.commons.lang3.Validate;
-
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang3.Validate;
 
 /**
  * <p>
@@ -65,7 +65,7 @@ import java.util.concurrent.TimeUnit;
  *     // Gather statistics
  *     public void run() {
  *         try {
- *             while(true) {
+ *             while (true) {
  *                 semaphore.acquire();   // limit database load
  *                 performQuery();        // issue a query
  *             }
@@ -417,12 +417,7 @@ public class TimedSemaphore {
      * @return a future object representing the task scheduled
      */
     protected ScheduledFuture<?> startTimer() {
-        return getExecutorService().scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                endOfPeriod();
-            }
-        }, getPeriod(), getPeriod(), getUnit());
+        return getExecutorService().scheduleAtFixedRate(this::endOfPeriod, getPeriod(), getPeriod(), getUnit());
     }
 
     /**

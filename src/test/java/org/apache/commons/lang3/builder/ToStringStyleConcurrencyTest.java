@@ -29,7 +29,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests concurrent access for the default {@link ToStringStyle}.
@@ -40,7 +40,7 @@ import org.junit.Test;
  * <p>
  * This test passes but only tests one aspect of the issue.
  * </p>
- * 
+ *
  * @see <a href="https://issues.apache.org/jira/browse/LANG-762">[LANG-762] Handle or document ReflectionToStringBuilder
  *      and ToStringBuilder for collections that are not thread safe</a>
  * @since 3.1
@@ -68,45 +68,45 @@ public class ToStringStyleConcurrencyTest {
 
     @Test
     public void testLinkedList() throws InterruptedException, ExecutionException {
-        this.testConcurrency(new CollectionHolder<List<Integer>>(new LinkedList<Integer>()));
+        this.testConcurrency(new CollectionHolder<>(new LinkedList<>()));
     }
 
     @Test
     public void testArrayList() throws InterruptedException, ExecutionException {
-        this.testConcurrency(new CollectionHolder<List<Integer>>(new ArrayList<Integer>()));
+        this.testConcurrency(new CollectionHolder<>(new ArrayList<>()));
     }
 
     @Test
     public void testCopyOnWriteArrayList() throws InterruptedException, ExecutionException {
-        this.testConcurrency(new CollectionHolder<List<Integer>>(new CopyOnWriteArrayList<Integer>()));
+        this.testConcurrency(new CollectionHolder<>(new CopyOnWriteArrayList<>()));
     }
 
     private void testConcurrency(final CollectionHolder<List<Integer>> holder) throws InterruptedException,
-            ExecutionException {
+        ExecutionException {
         final List<Integer> list = holder.collection;
         // make a big array that takes a long time to toString()
         list.addAll(LIST);
         // Create a thread pool with two threads to cause the most contention on the underlying resource.
         final ExecutorService threadPool = Executors.newFixedThreadPool(2);
-        // Consumes toStrings
-        final Callable<Integer> consumer = new Callable<Integer>() {
-            @Override
-            public Integer call() {
+        try {
+            // Consumes toStrings
+            final Callable<Integer> consumer = () -> {
                 for (int i = 0; i < REPEAT; i++) {
                     // Calls ToStringStyle
                     new ToStringBuilder(holder).append(holder.collection);
                 }
                 return Integer.valueOf(REPEAT);
+            };
+            final Collection<Callable<Integer>> tasks = new ArrayList<>();
+            tasks.add(consumer);
+            tasks.add(consumer);
+            final List<Future<Integer>> futures = threadPool.invokeAll(tasks);
+            for (final Future<Integer> future : futures) {
+                future.get();
             }
-        };
-        final Collection<Callable<Integer>> tasks = new ArrayList<>();
-        tasks.add(consumer);
-        tasks.add(consumer);
-        final List<Future<Integer>> futures = threadPool.invokeAll(tasks);
-        for (final Future<Integer> future : futures) {
-            future.get();
+        } finally {
+            threadPool.shutdown();
+            threadPool.awaitTermination(1, TimeUnit.SECONDS);
         }
-        threadPool.shutdown();
-        threadPool.awaitTermination(1, TimeUnit.SECONDS);
     }
 }

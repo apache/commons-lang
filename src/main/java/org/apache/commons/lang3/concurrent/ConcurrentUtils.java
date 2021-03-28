@@ -144,7 +144,7 @@ public class ConcurrentUtils {
     static Throwable checkedException(final Throwable ex) {
         Validate.isTrue(ex != null && !(ex instanceof RuntimeException)
                 && !(ex instanceof Error), "Not a checked exception: " + ex);
-        
+
         return ex;
     }
 
@@ -308,7 +308,7 @@ public class ConcurrentUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>
-     * Gets an implementation of <code>Future</code> that is immediately done
+     * Gets an implementation of {@code Future} that is immediately done
      * and returns the specified constant value.
      * </p>
      * <p>

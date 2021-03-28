@@ -19,6 +19,8 @@ package org.apache.commons.lang3.concurrent;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 
+import org.apache.commons.lang3.Validate;
+
 /**
  * <p>
  * A specialized {@link BackgroundInitializer} implementation that wraps a
@@ -114,12 +116,10 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
      * Tests the passed in {@code Callable} and throws an exception if it is
      * undefined.
      *
-     * @param call the object to check
+     * @param callable the object to check
      * @throws IllegalArgumentException if the {@code Callable} is <b>null</b>
      */
-    private void checkCallable(final Callable<T> call) {
-        if (call == null) {
-            throw new IllegalArgumentException("Callable must not be null!");
-        }
+    private void checkCallable(final Callable<T> callable) {
+        Validate.notNull(callable, "callable");
     }
 }

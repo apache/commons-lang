@@ -1,4 +1,4 @@
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,13 +27,13 @@ import org.apache.commons.lang3.tuple.Pair;
  * A {@code Diff} contains the differences between two {@link Diffable} class
  * fields.
  * </p>
- * 
+ *
  * <p>
  * Typically, {@code Diff}s are retrieved by using a {@link DiffBuilder} to
  * produce a {@link DiffResult}, containing the differences between two objects.
  * </p>
- * 
- * 
+ *
+ *
  * @param <T>
  *            The type of object contained within this {@code Diff}. Differences
  *            between primitive objects are stored as their Object wrapper
@@ -51,7 +51,7 @@ public abstract class Diff<T> extends Pair<T, T> {
      * <p>
      * Constructs a new {@code Diff} for the given field name.
      * </p>
-     * 
+     *
      * @param fieldName
      *            the name of the field
      */
@@ -66,7 +66,7 @@ public abstract class Diff<T> extends Pair<T, T> {
      * <p>
      * Returns the type of the field.
      * </p>
-     * 
+     *
      * @return the field type
      */
     public final Type getType() {
@@ -77,7 +77,7 @@ public abstract class Diff<T> extends Pair<T, T> {
      * <p>
      * Returns the name of the field.
      * </p>
-     * 
+     *
      * @return the field name
      */
     public final String getFieldName() {
@@ -88,12 +88,12 @@ public abstract class Diff<T> extends Pair<T, T> {
      * <p>
      * Returns a {@code String} representation of the {@code Diff}, with the
      * following format:</p>
-     * 
+     *
      * <pre>
      * [fieldname: left-value, right-value]
      * </pre>
-     * 
-     * 
+     *
+     *
      * @return the string representation
      */
     @Override
@@ -105,7 +105,7 @@ public abstract class Diff<T> extends Pair<T, T> {
      * <p>
      * Throws {@code UnsupportedOperationException}.
      * </p>
-     * 
+     *
      * @param value
      *            ignored
      * @return nothing

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,21 +16,21 @@
  */
 package org.apache.commons.lang3.exception;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * JUnit tests for DefaultExceptionContext.
  */
 public class DefaultExceptionContextTest extends AbstractExceptionContextTest<DefaultExceptionContext> {
-    
+
     @Override
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         exceptionContext = new DefaultExceptionContext();
         super.setUp();
     }
-    
+
     @Test
     public void testFormattedExceptionMessageNull() {
         exceptionContext = new DefaultExceptionContext();

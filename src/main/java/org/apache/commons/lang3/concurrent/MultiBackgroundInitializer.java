@@ -23,6 +23,8 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 
+import org.apache.commons.lang3.Validate;
+
 /**
  * <p>
  * A specialized {@link BackgroundInitializer} implementation that can deal with
@@ -104,7 +106,6 @@ public class MultiBackgroundInitializer
      * Creates a new instance of {@code MultiBackgroundInitializer}.
      */
     public MultiBackgroundInitializer() {
-        super();
     }
 
     /**
@@ -125,27 +126,20 @@ public class MultiBackgroundInitializer
      * been invoked.
      *
      * @param name the name of the initializer (must not be <b>null</b>)
-     * @param init the {@code BackgroundInitializer} to add (must not be
+     * @param backgroundInitializer the {@code BackgroundInitializer} to add (must not be
      * <b>null</b>)
      * @throws IllegalArgumentException if a required parameter is missing
      * @throws IllegalStateException if {@code start()} has already been called
      */
-    public void addInitializer(final String name, final BackgroundInitializer<?> init) {
-        if (name == null) {
-            throw new IllegalArgumentException(
-                    "Name of child initializer must not be null!");
-        }
-        if (init == null) {
-            throw new IllegalArgumentException(
-                    "Child initializer must not be null!");
-        }
+    public void addInitializer(final String name, final BackgroundInitializer<?> backgroundInitializer) {
+        Validate.notNull(name, "name");
+        Validate.notNull(backgroundInitializer, "backgroundInitializer");
 
         synchronized (this) {
             if (isStarted()) {
-                throw new IllegalStateException(
-                        "addInitializer() must not be called after start()!");
+                throw new IllegalStateException("addInitializer() must not be called after start()!");
             }
-            childInitializers.put(name, init);
+            childInitializers.put(name, backgroundInitializer);
         }
     }
 
@@ -182,7 +176,7 @@ public class MultiBackgroundInitializer
      */
     @Override
     protected MultiBackgroundInitializerResults initialize() throws Exception {
-        Map<String, BackgroundInitializer<?>> inits;
+        final Map<String, BackgroundInitializer<?>> inits;
         synchronized (this) {
             // create a snapshot to operate on
             inits = new HashMap<>(

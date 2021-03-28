@@ -50,7 +50,7 @@ ADDITIONAL INCOMPATIBLE CHANGES WITH VERSION 2.0:
 - The Nestable interface defines the method indexOfThrowable(Class).
 Previously the implementations checked only for a specific Class.
 Now they check for subclasses of that Class as well.
-For most situations this will be the expected behaviour (ie. its a bug fix).
+For most situations this will be the expected behavior (ie. its a bug fix).
 If it causes problems, please use the ExceptionUtils.indexOfThrowable(Class) method instead.
 Note that the ExceptionUtils method is available in v1.0 and v2.0 of commons-lang and has not been changed.
 (An alternative to this is to change the public static matchSubclasses flag on NestableDelegate.
@@ -110,7 +110,7 @@ BUG FIXES IN 2.4:
     * [LANG-372] - ToStringBuilder: MULTI_LINE_STYLE does not print anything from appendToString methods.
     * [LANG-380] - infinite loop in Fraction.reduce when numerator == 0
     * [LANG-381] - NumberUtils.min(floatArray) returns wrong value if floatArray[0] happens to be Float.NaN
-    * [LANG-385] - http://commons.apache.org/lang/developerguide.html "Building" section is incorrect and incomplete
+    * [LANG-385] - https://commons.apache.org/lang/developerguide.html "Building" section is incorrect and incomplete
     * [LANG-393] - EqualsBuilder don't compare BigDecimals correctly
     * [LANG-399] - Javadoc bugs - cannot find object
     * [LANG-410] - Ambiguous / confusing names in StringUtils replace* methods

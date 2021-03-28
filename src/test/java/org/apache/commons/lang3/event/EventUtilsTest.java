@@ -16,11 +16,11 @@
  */
 package org.apache.commons.lang3.event;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -36,14 +36,12 @@ import java.util.TreeMap;
 
 import javax.naming.event.ObjectChangeListener;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @since 3.0
  */
-public class EventUtilsTest 
-{
-
+public class EventUtilsTest {
     @Test
     public void testConstructor() {
         assertNotNull(new EventUtils());
@@ -53,12 +51,11 @@ public class EventUtilsTest
         assertTrue(Modifier.isPublic(EventUtils.class.getModifiers()));
         assertFalse(Modifier.isFinal(EventUtils.class.getModifiers()));
     }
-    
+
     @Test
-    public void testAddEventListener()
-    {
+    public void testAddEventListener() {
         final PropertyChangeSource src = new PropertyChangeSource();
-        final EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
+        final EventCountingInvocationHandler handler = new EventCountingInvocationHandler();
         final PropertyChangeListener listener = handler.createListener(PropertyChangeListener.class);
         assertEquals(0, handler.getEventCount("propertyChange"));
         EventUtils.addEventListener(src, PropertyChangeListener.class, listener);
@@ -68,64 +65,39 @@ public class EventUtilsTest
     }
 
     @Test
-    public void testAddEventListenerWithNoAddMethod()
-    {
+    public void testAddEventListenerWithNoAddMethod() {
         final PropertyChangeSource src = new PropertyChangeSource();
-        final EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
+        final EventCountingInvocationHandler handler = new EventCountingInvocationHandler();
         final ObjectChangeListener listener = handler.createListener(ObjectChangeListener.class);
-        try
-        {
-            EventUtils.addEventListener(src, ObjectChangeListener.class, listener);
-            fail("Should not be allowed to add a listener to an object that doesn't support it.");
-        }
-        catch (final IllegalArgumentException e)
-        {
-            assertEquals("Class " + src.getClass().getName() + " does not have a public add" + ObjectChangeListener.class.getSimpleName() + " method which takes a parameter of type " + ObjectChangeListener.class.getName() + ".", e.getMessage());
-        }
+        final IllegalArgumentException e =
+                assertThrows(IllegalArgumentException.class, () -> EventUtils.addEventListener(src, ObjectChangeListener.class, listener));
+        assertEquals("Class " + src.getClass().getName() + " does not have a public add" + ObjectChangeListener.class.getSimpleName() + " method which takes a parameter of type " + ObjectChangeListener.class.getName() + ".",
+                e.getMessage());
     }
 
     @Test
-    public void testAddEventListenerThrowsException()
-    {
+    public void testAddEventListenerThrowsException() {
         final ExceptionEventSource src = new ExceptionEventSource();
-        try
-        {
-            EventUtils.addEventListener(src, PropertyChangeListener.class, new PropertyChangeListener()
-            {
-                @Override
-                public void propertyChange(final PropertyChangeEvent e)
-                {
-                    // Do nothing!
-                }
-            });
-            fail("Add method should have thrown an exception, so method should fail.");
-        }
-        catch (final RuntimeException e)
-        {
-
-        }
+        assertThrows(RuntimeException.class, () ->
+            EventUtils.addEventListener(src, PropertyChangeListener.class, e -> {
+                // Do nothing!
+            })
+        );
     }
 
     @Test
-    public void testAddEventListenerWithPrivateAddMethod()
-    {
+    public void testAddEventListenerWithPrivateAddMethod() {
         final PropertyChangeSource src = new PropertyChangeSource();
-        final EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
+        final EventCountingInvocationHandler handler = new EventCountingInvocationHandler();
         final VetoableChangeListener listener = handler.createListener(VetoableChangeListener.class);
-        try
-        {
-            EventUtils.addEventListener(src, VetoableChangeListener.class, listener);
-            fail("Should not be allowed to add a listener to an object that doesn't support it.");
-        }
-        catch (final IllegalArgumentException e)
-        {
-            assertEquals("Class " + src.getClass().getName() + " does not have a public add" + VetoableChangeListener.class.getSimpleName() + " method which takes a parameter of type " + VetoableChangeListener.class.getName() + ".", e.getMessage());
-        }
+        final IllegalArgumentException e =
+                assertThrows(IllegalArgumentException.class, () -> EventUtils.addEventListener(src, VetoableChangeListener.class, listener));
+        assertEquals("Class " + src.getClass().getName() + " does not have a public add" + VetoableChangeListener.class.getSimpleName() + " method which takes a parameter of type " + VetoableChangeListener.class.getName() + ".",
+                e.getMessage());
     }
 
     @Test
-    public void testBindEventsToMethod()
-    {
+    public void testBindEventsToMethod() {
         final PropertyChangeSource src = new PropertyChangeSource();
         final EventCounter counter = new EventCounter();
         EventUtils.bindEventsToMethod(counter, "eventOccurred", src, PropertyChangeListener.class);
@@ -136,8 +108,7 @@ public class EventUtilsTest
 
 
     @Test
-    public void testBindEventsToMethodWithEvent()
-    {
+    public void testBindEventsToMethodWithEvent() {
         final PropertyChangeSource src = new PropertyChangeSource();
         final EventCounterWithEvent counter = new EventCounterWithEvent();
         EventUtils.bindEventsToMethod(counter, "eventOccurred", src, PropertyChangeListener.class);
@@ -148,8 +119,7 @@ public class EventUtilsTest
 
 
     @Test
-    public void testBindFilteredEventsToMethod()
-    {
+    public void testBindFilteredEventsToMethod() {
         final MultipleEventSource src = new MultipleEventSource();
         final EventCounter counter = new EventCounter();
         EventUtils.bindEventsToMethod(counter, "eventOccurred", src, MultipleEventListener.class, "event1");
@@ -160,120 +130,97 @@ public class EventUtilsTest
         assertEquals(1, counter.getCount());
     }
 
-    public static interface MultipleEventListener
-    {
-        public void event1(PropertyChangeEvent e);
+    public interface MultipleEventListener {
+        void event1(PropertyChangeEvent e);
 
-        public void event2(PropertyChangeEvent e);
+        void event2(PropertyChangeEvent e);
     }
 
-    public static class EventCounter
-    {
+    public static class EventCounter {
         private int count;
 
-        public void eventOccurred()
-        {
+        public void eventOccurred() {
             count++;
         }
 
-        public int getCount()
-        {
+        public int getCount() {
             return count;
         }
     }
 
-    public static class EventCounterWithEvent
-    {
+    public static class EventCounterWithEvent {
         private int count;
 
-        public void eventOccurred(final PropertyChangeEvent e)
-        {
+        public void eventOccurred(final PropertyChangeEvent e) {
             count++;
         }
 
-        public int getCount()
-        {
+        public int getCount() {
             return count;
         }
     }
 
 
-    private static class EventCountingInvociationHandler implements InvocationHandler
-    {
+    private static class EventCountingInvocationHandler implements InvocationHandler {
         private final Map<String, Integer> eventCounts = new TreeMap<>();
 
-        public <L> L createListener(final Class<L> listenerType)
-        {
+        public <L> L createListener(final Class<L> listenerType) {
             return listenerType.cast(Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
                     new Class[]{listenerType},
                     this));
         }
 
-        public int getEventCount(final String eventName)
-        {
+        public int getEventCount(final String eventName) {
             final Integer count = eventCounts.get(eventName);
             return count == null ? 0 : count.intValue();
         }
 
         @Override
-        public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable
-        {
+        public Object invoke(final Object proxy, final Method method, final Object[] args) {
             final Integer count = eventCounts.get(method.getName());
-            if (count == null)
-            {
+            if (count == null) {
                 eventCounts.put(method.getName(), Integer.valueOf(1));
-            }
-            else
-            {
+            } else {
                 eventCounts.put(method.getName(), Integer.valueOf(count.intValue() + 1));
             }
             return null;
         }
     }
 
-    public static class MultipleEventSource
-    {
+    public static class MultipleEventSource {
         private final EventListenerSupport<MultipleEventListener> listeners = EventListenerSupport.create(MultipleEventListener.class);
 
-        public void addMultipleEventListener(final MultipleEventListener listener)
-        {
+        public void addMultipleEventListener(final MultipleEventListener listener) {
             listeners.addListener(listener);
         }
     }
 
-    public static class ExceptionEventSource
-    {
-        public void addPropertyChangeListener(final PropertyChangeListener listener)
-        {
+    public static class ExceptionEventSource {
+        public void addPropertyChangeListener(final PropertyChangeListener listener) {
             throw new RuntimeException();
         }
     }
 
-    public static class PropertyChangeSource
-    {
+    public static class PropertyChangeSource {
         private final EventListenerSupport<PropertyChangeListener> listeners = EventListenerSupport.create(PropertyChangeListener.class);
 
         private String property;
 
-        public void setProperty(final String property)
-        {
+        public void setProperty(final String property) {
             final String oldValue = this.property;
             this.property = property;
             listeners.fire().propertyChange(new PropertyChangeEvent(this, "property", oldValue, property));
         }
 
-        protected void addVetoableChangeListener(final VetoableChangeListener listener)
-        {
+        protected void addVetoableChangeListener(final VetoableChangeListener listener) {
             // Do nothing!
         }
 
-        public void addPropertyChangeListener(final PropertyChangeListener listener)
-        {
+        public void addPropertyChangeListener(final PropertyChangeListener listener) {
             listeners.addListener(listener);
         }
 
-        public void removePropertyChangeListener(final PropertyChangeListener listener)
-        {
+        public void removePropertyChangeListener(final PropertyChangeListener listener) {
             listeners.removeListener(listener);
         }
     }

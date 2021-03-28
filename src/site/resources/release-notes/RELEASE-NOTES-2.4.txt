@@ -1,4 +1,19 @@
-$Id: RELEASE-NOTES.txt 637522 2008-03-16 03:41:46Z bayard $
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+=============================================================================
 
                         Commons Lang Package
                             Version 2.4
@@ -28,7 +43,7 @@ ADDITIONAL INCOMPATIBLE CHANGES WITH VERSION 2.0:
 - The Nestable interface defines the method indexOfThrowable(Class).
 Previously the implementations checked only for a specific Class.
 Now they check for subclasses of that Class as well.
-For most situations this will be the expected behaviour (ie. its a bug fix).
+For most situations this will be the expected behavior (ie. its a bug fix).
 If it causes problems, please use the ExceptionUtils.indexOfThrowable(Class) method instead.
 Note that the ExceptionUtils method is available in v1.0 and v2.0 of commons-lang and has not been changed.
 (An alternative to this is to change the public static matchSubclasses flag on NestableDelegate.
@@ -88,7 +103,7 @@ BUG FIXES IN 2.4:
     * [LANG-372] - ToStringBuilder: MULTI_LINE_STYLE does not print anything from appendToString methods.
     * [LANG-380] - infinite loop in Fraction.reduce when numerator == 0
     * [LANG-381] - NumberUtils.min(floatArray) returns wrong value if floatArray[0] happens to be Float.NaN
-    * [LANG-385] - http://commons.apache.org/lang/developerguide.html "Building" section is incorrect and incomplete
+    * [LANG-385] - https://commons.apache.org/lang/developerguide.html "Building" section is incorrect and incomplete
     * [LANG-393] - EqualsBuilder don't compare BigDecimals correctly
     * [LANG-399] - Javadoc bugs - cannot find object
     * [LANG-410] - Ambiguous / confusing names in StringUtils replace* methods

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,20 +17,24 @@
 
 package org.apache.commons.lang3;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import java.nio.charset.StandardCharsets;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests CharEncoding.
- * 
+ *
  * @see CharEncoding
  */
+@SuppressWarnings("deprecation")
 public class CharEncodingTest  {
 
     private void assertSupportedEncoding(final String name) {
-        assertTrue("Encoding should be supported: " + name, CharEncoding.isSupported(name));
+        assertTrue(CharEncoding.isSupported(name), "Encoding should be supported: " + name);
     }
 
     /**
@@ -66,5 +70,15 @@ public class CharEncodingTest  {
         assertFalse(CharEncoding.isSupported("\t\r\n"));
         assertFalse(CharEncoding.isSupported("DOESNOTEXIST"));
         assertFalse(CharEncoding.isSupported("this is not a valid encoding name"));
+    }
+
+    @Test
+    public void testStandardCharsetsEquality() {
+        assertEquals(StandardCharsets.ISO_8859_1.name(), CharEncoding.ISO_8859_1);
+        assertEquals(StandardCharsets.US_ASCII.name(), CharEncoding.US_ASCII);
+        assertEquals(StandardCharsets.UTF_8.name(), CharEncoding.UTF_8);
+        assertEquals(StandardCharsets.UTF_16.name(), CharEncoding.UTF_16);
+        assertEquals(StandardCharsets.UTF_16BE.name(), CharEncoding.UTF_16BE);
+        assertEquals(StandardCharsets.UTF_16LE.name(), CharEncoding.UTF_16LE);
     }
 }

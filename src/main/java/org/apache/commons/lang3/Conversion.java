@@ -1,21 +1,19 @@
-/*******************************************************************************
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- *******************************************************************************/
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.apache.commons.lang3;
 
 import java.util.HashMap;
@@ -67,27 +65,27 @@ import java.util.UUID;
  * so far.
  * </p>
  *
- * @since Lang 3.2
+ * @since 3.2
  */
 
 public class Conversion {
 
-    private static final boolean[] TTTT = new boolean[] { true, true, true, true };
-    private static final boolean[] FTTT = new boolean[] { false, true, true, true };
-    private static final boolean[] TFTT = new boolean[] { true, false, true, true };
-    private static final boolean[] FFTT = new boolean[] { false, false, true, true };
-    private static final boolean[] TTFT = new boolean[] { true, true, false, true };
-    private static final boolean[] FTFT = new boolean[] { false, true, false, true };
-    private static final boolean[] TFFT = new boolean[] { true, false, false, true };
-    private static final boolean[] FFFT = new boolean[] { false, false, false, true };
-    private static final boolean[] TTTF = new boolean[] { true, true, true, false };
-    private static final boolean[] FTTF = new boolean[] { false, true, true, false };
-    private static final boolean[] TFTF = new boolean[] { true, false, true, false };
-    private static final boolean[] FFTF = new boolean[] { false, false, true, false };
-    private static final boolean[] TTFF = new boolean[] { true, true, false, false };
-    private static final boolean[] FTFF = new boolean[] { false, true, false, false };
-    private static final boolean[] TFFF = new boolean[] { true, false, false, false };
-    private static final boolean[] FFFF = new boolean[] { false, false, false, false };
+    private static final boolean[] TTTT = {true, true, true, true};
+    private static final boolean[] FTTT = {false, true, true, true};
+    private static final boolean[] TFTT = {true, false, true, true};
+    private static final boolean[] FFTT = {false, false, true, true};
+    private static final boolean[] TTFT = {true, true, false, true};
+    private static final boolean[] FTFT = {false, true, false, true};
+    private static final boolean[] TFFT = {true, false, false, true};
+    private static final boolean[] FFFT = {false, false, false, true};
+    private static final boolean[] TTTF = {true, true, true, false};
+    private static final boolean[] FTTF = {false, true, true, false};
+    private static final boolean[] TFTF = {true, false, true, false};
+    private static final boolean[] FFTF = {false, false, true, false};
+    private static final boolean[] TTFF = {true, true, false, false};
+    private static final boolean[] FTFF = {false, true, false, false};
+    private static final boolean[] TFFF = {true, false, false, false};
+    private static final boolean[] FFFF = {false, false, false, false};
 
     private static final int SHORT_BYTES  = 2;
     private static final int INT_BYTES    = 4;
@@ -326,19 +324,19 @@ public class Conversion {
             throw new IllegalArgumentException("Cannot convert an empty array.");
         }
         if (src.length > srcPos + 3 && src[srcPos + 3]) {
-            if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                if (src.length > srcPos + 1 && src[srcPos + 1]) {
+            if (src[srcPos + 2]) {
+                if (src[srcPos + 1]) {
                     return src[srcPos] ? 'f' : 'e';
                 }
                 return src[srcPos] ? 'd' : 'c';
             }
-            if (src.length > srcPos + 1 && src[srcPos + 1]) {
+            if (src[srcPos + 1]) {
                 return src[srcPos] ? 'b' : 'a';
             }
             return src[srcPos] ? '9' : '8';
         }
         if (src.length > srcPos + 2 && src[srcPos + 2]) {
-            if (src.length > srcPos + 1 && src[srcPos + 1]) {
+            if (src[srcPos + 1]) {
                 return src[srcPos] ? '7' : '6';
             }
             return src[srcPos] ? '5' : '4';
@@ -374,7 +372,7 @@ public class Conversion {
      * ordering.
      * </p>
      * <p>
-     * (1, 0, 0, 0) is converted as follow: '8' (1,0,0,1,1,0,1,0) with srcPos = 3 is converted
+     * (1, 0, 0, 0) is converted as follow: '8' (1, 0, 0, 1, 1, 0, 1, 0) with srcPos = 3 is converted
      * to 'D'
      * </p>
      *
@@ -422,7 +420,7 @@ public class Conversion {
      * bit ordering to a hexadecimal digit.
      * </p>
      * <p>
-     * (1, 0, 0, 0) is converted as follow: '8' (1,0,0,0,0,0,0,0, 0,0,0,0,0,1,0,0) is converted
+     * (1, 0, 0, 0) is converted as follow: '8' (1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0) is converted
      * to '4'
      * </p>
      *
@@ -441,8 +439,8 @@ public class Conversion {
      * hexadecimal digit.
      * </p>
      * <p>
-     * (1, 0, 0, 0) with srcPos = 0 is converted as follow: '8' (1,0,0,0,0,0,0,0,
-     * 0,0,0,1,0,1,0,0) with srcPos = 2 is converted to '5'
+     * (1, 0, 0, 0) with srcPos = 0 is converted as follow: '8' (1, 0, 0, 0, 0, 0, 0, 0,
+     * 0, 0, 0, 1, 0, 1, 0, 0) with srcPos = 2 is converted to '5'
      * </p>
      *
      * @param src the binary to convert
@@ -1549,7 +1547,7 @@ public class Conversion {
         if (nBytes > 16) {
             throw new IllegalArgumentException("nBytes is greater than 16");
         }
-        longToByteArray(src.getMostSignificantBits(), 0, dst, dstPos, nBytes > 8 ? 8 : nBytes);
+        longToByteArray(src.getMostSignificantBits(), 0, dst, dstPos, Math.min(nBytes, 8));
         if (nBytes >= 8) {
             longToByteArray(src.getLeastSignificantBits(), 0, dst, dstPos + 8, nBytes - 8);
         }
