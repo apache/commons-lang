@@ -1521,7 +1521,7 @@ public class ClassUtils {
             final Iterator<Class<?>> wrapped = classes.iterator();
 
             return new Iterator<Class<?>>() {
-                Iterator<Class<?>> interfaces = Collections.<Class<?>>emptySet().iterator();
+                Iterator<Class<?>> interfaces = Collections.emptyIterator();
 
                 @Override
                 public boolean hasNext() {
