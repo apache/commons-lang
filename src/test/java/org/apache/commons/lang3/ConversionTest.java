@@ -2735,7 +2735,7 @@ public class ConversionTest {
                 Conversion.hexToByteArrayRaw(TestBinaryByteBlocks.hexString_Delimited_All));
 
         //Check Null & Empty
-        assertArrayEquals(new byte[0], Conversion.hexToByteArrayRaw((String)null));
+        assertArrayEquals(new byte[0], Conversion.hexToByteArrayRaw((String) null));
         assertArrayEquals(new byte[0], Conversion.hexToByteArrayRaw(""));
         assertArrayEquals(new byte[0], Conversion.hexToByteArrayRaw(".-- .\t\t __  \t-._"));
     }
@@ -4142,8 +4142,8 @@ public class ConversionTest {
                 Conversion.toHexRaw(TestBinaryByteBlocks.LONG_1_BYTES));
 
         //Check Null & Empty
-        assertEquals("00", Conversion.toHexRaw((byte[]) null));
-        assertEquals("00", Conversion.toHexRaw(new byte[0]));
+        assertEquals("", Conversion.toHexRaw((byte[]) null));
+        assertEquals("", Conversion.toHexRaw(new byte[0]));
     }
 
     private String _getHexOctets(byte[] chunks) {
@@ -4255,14 +4255,14 @@ public class ConversionTest {
             }
             return builder.toString();
         }
-        
+
         public static final int SHORT_BYTES  = 2;
         public static final int INT_BYTES    = 4;
         public static final int LONG_BYTES   = 8;
         public static final int FLOAT_BYTES  = 4;
         public static final int DOUBLE_BYTES = 8;
 
-        public static final char[] SINGLE_HEX_LU = new char[] {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+        public static final char[] SINGLE_HEX_LU = new char[] {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
         public static final String[] DOUBLE_HEX_LU;
         public static final Map<String, Byte> DOUBLE_HEX_REV_LU;
         static {
@@ -4278,7 +4278,7 @@ public class ConversionTest {
             //Init Reverse Lookup
             DOUBLE_HEX_REV_LU = new HashMap<String, Byte>(256);
             for (int x=0; x<256; x++) {
-                DOUBLE_HEX_REV_LU.put(DOUBLE_HEX_LU[x], (byte)x);
+                DOUBLE_HEX_REV_LU.put(DOUBLE_HEX_LU[x], (byte) x);
             }
         }
 
