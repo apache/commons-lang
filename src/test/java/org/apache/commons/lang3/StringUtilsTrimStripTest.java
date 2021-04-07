@@ -238,7 +238,7 @@ public class StringUtilsTrimStripTest  {
     }
 
     @Test
-    public void canonicalCompositionAfterStripAccents() {
+    public void canonicalCompositionAfterStripAccentsTest() {
         final String original = "\u00C7\u00FA\u00EA \uBB34\uC57C\uD638";
         final String resultInNFD = "Cue \u1106\u116E\u110B\u1163\u1112\u1169";
         final String expected = "Cue \uBB34\uC57C\uD638";
