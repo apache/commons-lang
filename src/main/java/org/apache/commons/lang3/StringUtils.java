@@ -8222,6 +8222,25 @@ public class StringUtils {
     }
 
     /**
+     * <p>NFC normalization after stripAccents in a specific language (such as Korean)</p>
+     * <pre>
+     * StringUtils.stripAccents(null)                = null
+     * StringUtils.stripAccents("")                  = ""
+     * StringUtils.stripAccents("control")           = "control"
+     * StringUtils.stripAccents("&eacute;clair")     = "eclair"
+     * StringUtils.stripAccents("&eacute; \uBB34")   = "e \uBB34"
+     * </pre>
+     *
+     * @param input String to be stripped
+     * @return input text with diacritics removed
+     *
+     * @since 3.12.0
+     */
+    public static String canonicalCompositionAfterStripAccents(final String input) {
+        return Normalizer.normalize(stripAccents(input), Normalizer.Form.NFC);
+    }
+
+    /**
      * <p>Strips whitespace from the start and end of every String in an array.
      * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *

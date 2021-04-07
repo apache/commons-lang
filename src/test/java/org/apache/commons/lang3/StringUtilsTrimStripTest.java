@@ -236,4 +236,14 @@ public class StringUtilsTrimStripTest  {
         assertEquals("ALOSZZCN aloszzcn", StringUtils.stripAccents("\u0104\u0141\u00D3\u015A\u017B\u0179\u0106\u0143 "
                 + "\u0105\u0142\u00F3\u015B\u017C\u017A\u0107\u0144"));
     }
+
+    @Test
+    public void canonicalCompositionAfterStripAccents() {
+        final String original = "\u00C7\u00FA\u00EA \uBB34\uC57C\uD638";
+        final String resultInNFD = "Cue \u1106\u116E\u110B\u1163\u1112\u1169";
+        final String expected = "Cue \uBB34\uC57C\uD638";
+
+        assertEquals(resultInNFD, StringUtils.stripAccents(original));
+        assertEquals(expected, StringUtils.canonicalCompositionAfterStripAccents(original));
+    }
 }
