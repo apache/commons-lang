@@ -25,7 +25,9 @@ import java.util.BitSet;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
+import java.util.function.Predicate;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -1646,6 +1648,21 @@ public class ArrayUtils {
     }
 
     /**
+     * <p>Checks if a value matching the given predicate is in the given array.
+     *
+     * <p>The method returns {@code false} if a {@code null} array is passed in.
+     *
+     * @param <T>       the type of the array
+     * @param array     the array to search through
+     * @param predicate the predicate to use, must not be {@code null}
+     * @return {@code true} if the array contains the object
+     * @since 3.12
+     */
+    public static <T> boolean contains(final T[] array, final Predicate<T> predicate) {
+        return indexOf(array, predicate) != INDEX_NOT_FOUND;
+    }
+
+    /**
      * Returns a copy of the given array of size 1 greater than the argument.
      * The last value of the array is left to the default value.
      *
@@ -2204,6 +2221,59 @@ public class ArrayUtils {
     }
 
     /**
+     * Finds the indices of values matching the given predicate in the array.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     *
+     * @param <T>       the type of the array
+     * @param array     the array to search through for the object, may be {@code null}
+     * @param predicate the predicate to use, must not be {@code null}
+     * @return a BitSet of all the indices of matching values within the array,
+     *  an empty BitSet if not found or {@code null} array input
+     * @since 3.12
+     */
+    public static <T> BitSet indexesOf(final T[] array, final Predicate<T> predicate) {
+        return indexesOf(array, predicate, 0);
+    }
+
+    /**
+     * Finds the indices of values matching the given predicate in the array starting at the given index.
+     *
+     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     *
+     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return an empty BitSet.</p>
+     *
+     * @param <T>        the type of the array
+     * @param array      the array to search through for the object, may be {@code null}
+     * @param predicate  the predicate to use, must not be {@code null}
+     * @param startIndex the index to start searching at
+     * @return a BitSet of all the indices of matching values within the array starting at the index,
+     *  an empty BitSet if not found or {@code null} array input
+     * @since 3.12
+     */
+    public static <T> BitSet indexesOf(final T[] array, final Predicate<T> predicate, int startIndex) {
+        final BitSet bitSet = new BitSet();
+
+        if (array == null) {
+            return bitSet;
+        }
+
+        while (startIndex < array.length) {
+            startIndex = indexOf(array, predicate, startIndex);
+
+            if (startIndex == INDEX_NOT_FOUND) {
+                break;
+            }
+
+            bitSet.set(startIndex);
+            ++startIndex;
+        }
+
+        return bitSet;
+    }
+
+    /**
      * Finds the indices of the given value in the array.
      *
      * <p>This method returns an empty BitSet for a {@code null} input array.</p>
@@ -2675,6 +2745,54 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
                 if (objectToFind.equals(array[i])) {
                     return i;
                 }
+            }
+        }
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * <p>Finds the index of the first element in the array to match the predicate.
+     *
+     * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
+     *
+     * @param <T>       the type of the array
+     * @param array     the array to search through for the object, may be {@code null}
+     * @param predicate the predicate to be used, must not be {@code null}
+     * @return the index of the object within the array, {@link #INDEX_NOT_FOUND} ({@code -1})
+     * if not found or {@code null} array input
+     * @since 3.12
+     */
+    public static <T> int indexOf(final T[] array, final Predicate<T> predicate) {
+        return indexOf(array, predicate, 0);
+    }
+
+    /**
+     * <p>Finds the index of the first element in the array to match the predicate starting at the given index.
+     *
+     * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
+     *
+     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
+     *
+     * @param <T>        the type of the array
+     * @param array      the array to search through for the object, may be {@code null}
+     * @param predicate  the predicate to be used, must not be {@code null}
+     * @param startIndex the index to start searching at
+     * @return the index of the object within the array starting at the index, {@link #INDEX_NOT_FOUND}
+     * ({@code -1}) if not found or {@code null} array input
+     * @since 3.12
+     */
+    public static <T> int indexOf(final T[] array, final Predicate<T> predicate, int startIndex) {
+        Objects.requireNonNull(predicate, "predicate");
+        if (array == null) {
+            return INDEX_NOT_FOUND;
+        }
+        if (startIndex < 0) {
+            startIndex = 0;
+        }
+        for (int i = startIndex; i < array.length; i++) {
+            if (predicate.test(array[i])) {
+                return i;
             }
         }
         return INDEX_NOT_FOUND;
@@ -4229,6 +4347,57 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         }
         for (int i = startIndex; i >= 0; i--) {
             if (valueToFind == array[i]) {
+                return i;
+            }
+        }
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * <p>Finds the last index of a value that matches the given predicate within the array.
+     *
+     * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
+     *
+     * @param <T>       the type of the array
+     * @param array     the array to traverse backwards looking for the object, may be {@code null}
+     * @param predicate the predicate to use, must not be {@code null}
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1})
+     * if not found or {@code null} array input
+     * @since 3.12
+     */
+    public static <T> int lastIndexOf(final T[] array, final Predicate<T> predicate) {
+        return lastIndexOf(array, predicate, 0);
+    }
+
+    /**
+     * <p>Finds the last index of a value that matches the given predicate in the array starting at
+     * the given index.
+     *
+     * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
+     *
+     * <p>A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the
+     * array length will search from the end of the array.
+     *
+     * @param <T>        the type of the array
+     * @param array      the array to traverse for looking for the object, may be {@code null}
+     * @param predicate  the predicate to use, must not be {@code null}
+     * @param startIndex the start index to traverse backwards from
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1})
+     * if not found or {@code null} array input
+     * @since 3.12
+     */
+    public static <T> int lastIndexOf(final T[] array, final Predicate<T> predicate, int startIndex) {
+        Objects.requireNonNull(predicate, "predicate");
+        if (array == null) {
+            return INDEX_NOT_FOUND;
+        }
+        if (startIndex < 0) {
+            return INDEX_NOT_FOUND;
+        } else if (startIndex >= array.length) {
+            startIndex = array.length - 1;
+        }
+        for (int i = startIndex; i >= 0; i--) {
+            if (predicate.test(array[i])) {
                 return i;
             }
         }

@@ -35,8 +35,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -201,13 +203,13 @@ public class ArrayUtilsTest {
     @Test
     public void testContains() {
         final Object[] array = new Object[]{"0", "1", "2", "3", null, "0"};
-        assertFalse(ArrayUtils.contains(null, null));
+        assertFalse(ArrayUtils.contains(null, (Object) null));
         assertFalse(ArrayUtils.contains(null, "1"));
         assertTrue(ArrayUtils.contains(array, "0"));
         assertTrue(ArrayUtils.contains(array, "1"));
         assertTrue(ArrayUtils.contains(array, "2"));
         assertTrue(ArrayUtils.contains(array, "3"));
-        assertTrue(ArrayUtils.contains(array, null));
+        assertTrue(ArrayUtils.contains(array, (Object) null));
         assertFalse(ArrayUtils.contains(array, "notInArray"));
     }
 
@@ -351,6 +353,15 @@ public class ArrayUtilsTest {
         assertTrue(ArrayUtils.contains(array, (short) 2));
         assertTrue(ArrayUtils.contains(array, (short) 3));
         assertFalse(ArrayUtils.contains(array, (short) 99));
+    }
+
+    @Test
+    void testContainsPredicate() {
+        assertFalse(ArrayUtils.contains((Integer[]) null, num -> num % 2 == 0));
+        Integer[] array = new Integer[]{0, 1, 2, 3, 0};
+        assertTrue(ArrayUtils.contains(array, num -> num % 2 == 0));
+        assertTrue(ArrayUtils.contains(array, num -> num % 3 == 0));
+        assertFalse(ArrayUtils.contains(array, num -> num == 99));
     }
 
     @Test
@@ -506,7 +517,7 @@ public class ArrayUtilsTest {
         final Object[] array = new Object[]{"0", "1", "2", "3", null, "0"};
         final BitSet emptySet = new BitSet();
         final BitSet testSet = new BitSet();
-        assertEquals(emptySet, ArrayUtils.indexesOf((Object[]) null, null));
+        assertEquals(emptySet, ArrayUtils.indexesOf(null, (Object) null));
         assertEquals(emptySet, ArrayUtils.indexesOf(new Object[0], "0"));
         testSet.set(5);
         testSet.set(0);
@@ -519,8 +530,19 @@ public class ArrayUtilsTest {
         assertEquals(testSet, ArrayUtils.indexesOf(array, "3"));
         testSet.clear();
         testSet.set(4);
-        assertEquals(testSet, ArrayUtils.indexesOf(array, null));
+        assertEquals(testSet, ArrayUtils.indexesOf(array, (Object) null));
         assertEquals(emptySet, ArrayUtils.indexesOf(array, "notInArray"));
+    }
+
+    @Test
+    void testIndexesOfPredicate() {
+        final String[] array = new String[]{"0", "1", "2", "3", null, "0"};
+        final BitSet testSet = new BitSet();
+        testSet.set(0);
+        testSet.set(2);
+        testSet.set(4);
+        testSet.set(5);
+        assertEquals(testSet, ArrayUtils.indexesOf(array, string -> NumberUtils.toInt(string) % 2 == 0));
     }
 
     @Test
@@ -922,7 +944,7 @@ public class ArrayUtilsTest {
         final Object[] array = new Object[]{"0", "1", "2", "3", "2", "3", "1", null, "0"};
         final BitSet emptySet = new BitSet();
         final BitSet testSet = new BitSet();
-        assertEquals(emptySet, ArrayUtils.indexesOf(null, null, 2));
+        assertEquals(emptySet, ArrayUtils.indexesOf(null, (Object) null, 2));
         assertEquals(emptySet, ArrayUtils.indexesOf(new Object[0], "0", 0));
         assertEquals(emptySet, ArrayUtils.indexesOf(null, "0", 2));
         testSet.set(8);
@@ -945,22 +967,30 @@ public class ArrayUtilsTest {
         assertEquals(testSet, ArrayUtils.indexesOf(array, "3", 0));
         testSet.clear();
         testSet.set(7);
-        assertEquals(testSet, ArrayUtils.indexesOf(array, null, 0));
-
+        assertEquals(testSet, ArrayUtils.indexesOf(array, (Object) null, 0));
     }
 
     @Test
     public void testIndexOf() {
         final Object[] array = new Object[]{"0", "1", "2", "3", null, "0"};
-        assertEquals(-1, ArrayUtils.indexOf(null, null));
+        assertEquals(-1, ArrayUtils.indexOf(null, (Object) null));
         assertEquals(-1, ArrayUtils.indexOf(null, "0"));
         assertEquals(-1, ArrayUtils.indexOf(new Object[0], "0"));
         assertEquals(0, ArrayUtils.indexOf(array, "0"));
         assertEquals(1, ArrayUtils.indexOf(array, "1"));
         assertEquals(2, ArrayUtils.indexOf(array, "2"));
         assertEquals(3, ArrayUtils.indexOf(array, "3"));
-        assertEquals(4, ArrayUtils.indexOf(array, null));
+        assertEquals(4, ArrayUtils.indexOf(array, (Object) null));
         assertEquals(-1, ArrayUtils.indexOf(array, "notInArray"));
+    }
+
+    @Test
+    void testIndexOfPredicate() {
+        final String[] array = new String[]{"0", "1", "2", "3", null, "0"};
+        assertEquals(-1, ArrayUtils.indexOf(null, Objects::nonNull));
+        assertEquals(4, ArrayUtils.indexOf(array, Objects::isNull));
+        assertEquals(0, ArrayUtils.indexOf(array, Objects::nonNull));
+        assertEquals(3, ArrayUtils.indexOf(array, string -> string.equals("3")));
     }
 
     @Test
@@ -1238,19 +1268,29 @@ public class ArrayUtilsTest {
     @Test
     public void testIndexOfWithStartIndex() {
         final Object[] array = new Object[]{"0", "1", "2", "3", null, "0"};
-        assertEquals(-1, ArrayUtils.indexOf(null, null, 2));
+        assertEquals(-1, ArrayUtils.indexOf(null, (Object) null, 2));
         assertEquals(-1, ArrayUtils.indexOf(new Object[0], "0", 0));
         assertEquals(-1, ArrayUtils.indexOf(null, "0", 2));
         assertEquals(5, ArrayUtils.indexOf(array, "0", 2));
         assertEquals(-1, ArrayUtils.indexOf(array, "1", 2));
         assertEquals(2, ArrayUtils.indexOf(array, "2", 2));
         assertEquals(3, ArrayUtils.indexOf(array, "3", 2));
-        assertEquals(4, ArrayUtils.indexOf(array, null, 2));
+        assertEquals(4, ArrayUtils.indexOf(array, (Object) null, 2));
         assertEquals(-1, ArrayUtils.indexOf(array, "notInArray", 2));
 
-        assertEquals(4, ArrayUtils.indexOf(array, null, -1));
-        assertEquals(-1, ArrayUtils.indexOf(array, null, 8));
+        assertEquals(4, ArrayUtils.indexOf(array, (Object) null, -1));
+        assertEquals(-1, ArrayUtils.indexOf(array, (Object) null, 8));
         assertEquals(-1, ArrayUtils.indexOf(array, "0", 8));
+    }
+
+    @Test
+    void testIndexOfPredicateWithStartIndex() {
+        final String[] array = new String[]{"0", "1", "2", "3", null, "0"};
+        assertEquals(-1, ArrayUtils.indexOf(null, Objects::nonNull, 0));
+        assertEquals(4, ArrayUtils.indexOf(array, Objects::isNull, 2));
+        assertEquals(2, ArrayUtils.indexOf(array, Objects::nonNull, 2));
+        assertEquals(0, ArrayUtils.indexOf(array, string -> Integer.parseInt(string) % 3 == 0, 0));
+        assertEquals(3, ArrayUtils.indexOf(array, string -> Integer.parseInt(string) % 3 == 0, 1));
     }
 
     /**
@@ -1645,13 +1685,13 @@ public class ArrayUtilsTest {
     @Test
     public void testLastIndexOf() {
         final Object[] array = new Object[]{"0", "1", "2", "3", null, "0"};
-        assertEquals(-1, ArrayUtils.lastIndexOf(null, null));
+        assertEquals(-1, ArrayUtils.lastIndexOf(null, (Object) null));
         assertEquals(-1, ArrayUtils.lastIndexOf(null, "0"));
         assertEquals(5, ArrayUtils.lastIndexOf(array, "0"));
         assertEquals(1, ArrayUtils.lastIndexOf(array, "1"));
         assertEquals(2, ArrayUtils.lastIndexOf(array, "2"));
         assertEquals(3, ArrayUtils.lastIndexOf(array, "3"));
-        assertEquals(4, ArrayUtils.lastIndexOf(array, null));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, (Object) null));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, "notInArray"));
     }
 
@@ -1913,19 +1953,29 @@ public class ArrayUtilsTest {
     @Test
     public void testLastIndexOfWithStartIndex() {
         final Object[] array = new Object[]{"0", "1", "2", "3", null, "0"};
-        assertEquals(-1, ArrayUtils.lastIndexOf(null, null, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(null, (Object) null, 2));
         assertEquals(-1, ArrayUtils.lastIndexOf(null, "0", 2));
         assertEquals(0, ArrayUtils.lastIndexOf(array, "0", 2));
         assertEquals(1, ArrayUtils.lastIndexOf(array, "1", 2));
         assertEquals(2, ArrayUtils.lastIndexOf(array, "2", 2));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, "3", 2));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, "3", -1));
-        assertEquals(4, ArrayUtils.lastIndexOf(array, null, 5));
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, null, 2));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, (Object) null, 5));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (Object) null, 2));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, "notInArray", 5));
 
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, null, -1));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (Object) null, -1));
         assertEquals(5, ArrayUtils.lastIndexOf(array, "0", 88));
+    }
+
+    @Test
+    void testLastIndexOfPredicateWithStartIndex() {
+        assertEquals(-1, ArrayUtils.lastIndexOf(null, string -> string.equals("0"), 2));
+        final String[] array = new String[]{"0", "1", "2", "3", null, "0"};
+        assertEquals(0, ArrayUtils.lastIndexOf(array, string -> string.equals("0"), 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, string -> string.equals("4"), 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, Objects::isNull, -1));
+        assertEquals(5, ArrayUtils.lastIndexOf(array, string -> string.equals("0"), 88));
     }
 
     @Test
