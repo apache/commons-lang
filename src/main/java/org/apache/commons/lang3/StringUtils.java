@@ -1949,6 +1949,47 @@ public class StringUtils {
     }
 
     /**
+     * <p>Returns the first value returned in the supplier array which is not empty (""),
+     * {@code null} or whitespace only.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <p>If all values are null or all values returned are blank or the array is {@code null}
+     * or empty then {@code null} is returned.</p>
+     *
+     * <pre>
+     * StringUtils.firstNonBlankReturned(() -> null, () -> null, () -> null)            = null
+     * StringUtils.firstNonBlankReturned(() -> null, () -> "", () -> " ")               = null
+     * StringUtils.firstNonBlankReturned(() -> "abc")                                   = "abc"
+     * StringUtils.firstNonBlankReturned(() -> null, () -> "xyz")                       = "xyz"
+     * StringUtils.firstNonBlankReturned(() -> null, () -> "", () -> " ", () -> "xyz")  = "xyz"
+     * StringUtils.firstNonBlankReturned(() -> null, () -> "xyz", () -> "abc")          = "xyz"
+     * StringUtils.firstNonBlankReturned()                                              = null
+     * </pre>
+     *
+     * @param <T> the specific kind of CharSequence
+     * @param suppliers  the suppliers to test, may be {@code null} or empty
+     * @return the first value returned by {@code suppliers} which is not blank,
+     *  or {@code null} if there are no non-blank values returned
+     * @since 3.12.1
+     */
+    @SafeVarargs
+    public static <T extends CharSequence> T firstNonBlankReturned(final Supplier<T>... suppliers) {
+        if (suppliers != null) {
+            for (final Supplier<T> supplier : suppliers) {
+                if (supplier != null){
+                    T value = supplier.get();
+                    if (isNotBlank(value)) {
+                        return value;
+                    }
+                }
+
+            }
+        }
+        return null;
+    }
+
+    /**
      * <p>Returns the first value in the array which is not empty.</p>
      *
      * <p>If all values are empty or the array is {@code null}
@@ -1977,6 +2018,44 @@ public class StringUtils {
             for (final T val : values) {
                 if (isNotEmpty(val)) {
                     return val;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * <p>Returns the first value returned in the supplier array which is not empty.</p>
+     *
+     * <p>If all values are null or all values returned are empty or the array is {@code null}
+     * or empty then {@code null} is returned.</p>
+     *
+     * <pre>
+     * StringUtils.firstNonEmptyReturned(() -> null, () -> null, () -> null)    = null
+     * StringUtils.firstNonEmptyReturned(() -> null, () -> null, () -> "")      = null
+     * StringUtils.firstNonEmptyReturned(() -> null, () -> "", () -> " ")       = " "
+     * StringUtils.firstNonEmptyReturned(() -> "abc")                           = "abc"
+     * StringUtils.firstNonEmptyReturned(() -> null, () -> "xyz")               = "xyz"
+     * StringUtils.firstNonEmptyReturned(() -> "", () -> "xyz")                 = "xyz"
+     * StringUtils.firstNonEmptyReturned(() -> null, () -> "xyz", () -> "abc")  = "xyz"
+     * StringUtils.firstNonEmptyReturned()                                      = null
+     * </pre>
+     *
+     * @param <T> the specific kind of CharSequence
+     * @param suppliers  the suppliers to test, may be {@code null} or empty
+     * @return the first value returned by {@code suppliers} which is not empty,
+     *  or {@code null} if there are no non-empty values returned
+     * @since 3.12.1
+     */
+    @SafeVarargs
+    public static <T extends CharSequence> T firstNonEmptyReturned(final Supplier<T>... suppliers) {
+        if (suppliers != null) {
+            for (final Supplier<T> supplier : suppliers) {
+                if (supplier != null) {
+                    T value = supplier.get();
+                    if (isNotEmpty(value)) {
+                        return value;
+                    }
                 }
             }
         }
