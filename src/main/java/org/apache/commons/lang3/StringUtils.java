@@ -1958,13 +1958,13 @@ public class StringUtils {
      * or empty then {@code null} is returned.</p>
      *
      * <pre>
-     * StringUtils.firstNonBlankReturned(() -> null, () -> null, () -> null)            = null
-     * StringUtils.firstNonBlankReturned(() -> null, () -> "", () -> " ")               = null
-     * StringUtils.firstNonBlankReturned(() -> "abc")                                   = "abc"
-     * StringUtils.firstNonBlankReturned(() -> null, () -> "xyz")                       = "xyz"
-     * StringUtils.firstNonBlankReturned(() -> null, () -> "", () -> " ", () -> "xyz")  = "xyz"
-     * StringUtils.firstNonBlankReturned(() -> null, () -> "xyz", () -> "abc")          = "xyz"
-     * StringUtils.firstNonBlankReturned()                                              = null
+     * StringUtils.firstNonBlankReturned(() -&gt null, () -&gt null, () -&gt null)              = null
+     * StringUtils.firstNonBlankReturned(() -&gt null, () -&gt "", () -&gt " ")                 = null
+     * StringUtils.firstNonBlankReturned(() -&gt "abc")                                         = "abc"
+     * StringUtils.firstNonBlankReturned(() -&gt null, () -&gt "xyz")                           = "xyz"
+     * StringUtils.firstNonBlankReturned(() -&gt null, () -&gt "", () -&gt " ", () -&gt "xyz")  = "xyz"
+     * StringUtils.firstNonBlankReturned(() -&gt null, () -&gt "xyz", () -&gt "abc")            = "xyz"
+     * StringUtils.firstNonBlankReturned()                                                      = null
      * </pre>
      *
      * @param <T> the specific kind of CharSequence
@@ -2031,14 +2031,14 @@ public class StringUtils {
      * or empty then {@code null} is returned.</p>
      *
      * <pre>
-     * StringUtils.firstNonEmptyReturned(() -> null, () -> null, () -> null)    = null
-     * StringUtils.firstNonEmptyReturned(() -> null, () -> null, () -> "")      = null
-     * StringUtils.firstNonEmptyReturned(() -> null, () -> "", () -> " ")       = " "
-     * StringUtils.firstNonEmptyReturned(() -> "abc")                           = "abc"
-     * StringUtils.firstNonEmptyReturned(() -> null, () -> "xyz")               = "xyz"
-     * StringUtils.firstNonEmptyReturned(() -> "", () -> "xyz")                 = "xyz"
-     * StringUtils.firstNonEmptyReturned(() -> null, () -> "xyz", () -> "abc")  = "xyz"
-     * StringUtils.firstNonEmptyReturned()                                      = null
+     * StringUtils.firstNonEmptyReturned(() -&gt null, () -&gt null, () -&gt null)      = null
+     * StringUtils.firstNonEmptyReturned(() -&gt null, () -&gt null, () -&gt "")        = null
+     * StringUtils.firstNonEmptyReturned(() -&gt null, () -&gt "", () -&gt " ")         = " "
+     * StringUtils.firstNonEmptyReturned(() -&gt "abc")                                 = "abc"
+     * StringUtils.firstNonEmptyReturned(() -&gt null, () -&gt "xyz")                   = "xyz"
+     * StringUtils.firstNonEmptyReturned(() -&gt "", () -&gt "xyz")                     = "xyz"
+     * StringUtils.firstNonEmptyReturned(() -&gt null, () -&gt "xyz", () -&gt "abc")    = "xyz"
+     * StringUtils.firstNonEmptyReturned()                                              = null
      * </pre>
      *
      * @param <T> the specific kind of CharSequence
