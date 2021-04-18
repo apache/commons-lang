@@ -23,6 +23,20 @@
 -->
 <FindBugsFilter>
 
+  <!-- https://github.com/spotbugs/spotbugs/issues/1504 -->
+  <Match>
+    <Class name="org.apache.commons.lang3.ArrayUtils" />
+    <Method name="shuffle" />
+    <Bug pattern="DMI_RANDOM_USED_ONLY_ONCE" />
+  </Match>
+
+  <!-- https://github.com/spotbugs/spotbugs/issues/1504 -->
+  <Match>
+    <Class name="org.apache.commons.lang3.RandomStringUtils" />
+    <Method name="random" />
+    <Bug pattern="DMI_RANDOM_USED_ONLY_ONCE" />
+  </Match>
+
   <Match>
     <Class name="org.apache.commons.lang3.ArrayUtils" />
     <Method name="addFirst" />
