@@ -26,6 +26,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -4644,6 +4645,10 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         return array;
     }
 
+    private static ThreadLocalRandom random() {
+        return ThreadLocalRandom.current();
+    }
+
     /**
      * <p>Removes the element at the specified position from the specified array.
      * All subsequent elements are shifted to the left (subtracts one from
@@ -7659,7 +7664,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @since 3.6
      */
     public static void shuffle(final boolean[] array) {
-        shuffle(array, new Random());
+        shuffle(array, random());
     }
 
     /**
@@ -7684,7 +7689,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @since 3.6
      */
     public static void shuffle(final byte[] array) {
-        shuffle(array, new Random());
+        shuffle(array, random());
     }
 
     /**
@@ -7709,7 +7714,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @since 3.6
      */
     public static void shuffle(final char[] array) {
-        shuffle(array, new Random());
+        shuffle(array, random());
     }
 
     /**
@@ -7734,7 +7739,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @since 3.6
      */
     public static void shuffle(final double[] array) {
-        shuffle(array, new Random());
+        shuffle(array, random());
     }
 
     /**
@@ -7759,7 +7764,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @since 3.6
      */
     public static void shuffle(final float[] array) {
-        shuffle(array, new Random());
+        shuffle(array, random());
     }
 
     /**
@@ -7784,7 +7789,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @since 3.6
      */
     public static void shuffle(final int[] array) {
-        shuffle(array, new Random());
+        shuffle(array, random());
     }
 
     /**
@@ -7809,7 +7814,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @since 3.6
      */
     public static void shuffle(final long[] array) {
-        shuffle(array, new Random());
+        shuffle(array, random());
     }
 
     /**
@@ -7834,7 +7839,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @since 3.6
      */
     public static void shuffle(final Object[] array) {
-        shuffle(array, new Random());
+        shuffle(array, random());
     }
 
     /**
@@ -7859,7 +7864,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @since 3.6
      */
     public static void shuffle(final short[] array) {
-        shuffle(array, new Random());
+        shuffle(array, random());
     }
 
     /**
