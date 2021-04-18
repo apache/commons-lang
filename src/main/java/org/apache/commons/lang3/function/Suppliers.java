@@ -28,7 +28,7 @@ public class Suppliers {
 
     /**
      * Null-safe call to {@link Supplier#get()}.
-     * 
+     *
      * @param <T> the type of results supplied by this supplier.
      * @param supplier the supplier or null.
      * @return Result of {@link Supplier#get()} or null.
