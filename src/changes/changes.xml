@@ -53,6 +53,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TriConsumer.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use EnumUtils.getFirstEnumIgnoreCase(Class, String, Function, E).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use Suppliers.</action>
     <!-- UPDATE -->
     <action                   type="add" dev="ggregory" due-to="Dependabot">Bump spotbugs-maven-plugin from 4.2.0 to 4.2.2 #735.</action>
   </release>

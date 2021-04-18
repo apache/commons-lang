@@ -31,6 +31,7 @@ import java.util.StringJoiner;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.function.ToBooleanBiFunction;
 
 /**
@@ -2210,7 +2211,7 @@ public class StringUtils {
      * @since 3.10
      */
     public static <T extends CharSequence> T getIfBlank(final T str, final Supplier<T> defaultSupplier) {
-        return isBlank(str) ? defaultSupplier == null ? null : defaultSupplier.get() : str;
+        return isBlank(str) ? Suppliers.get(defaultSupplier) : str;
     }
 
     /**
@@ -2238,7 +2239,7 @@ public class StringUtils {
      * @since 3.10
      */
     public static <T extends CharSequence> T getIfEmpty(final T str, final Supplier<T> defaultSupplier) {
-        return isEmpty(str) ? defaultSupplier == null ? null : defaultSupplier.get() : str;
+        return isEmpty(str) ? Suppliers.get(defaultSupplier) : str;
     }
 
     /**

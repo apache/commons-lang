@@ -32,6 +32,7 @@ import java.util.TreeSet;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
+import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.text.StrBuilder;
 import org.apache.commons.lang3.time.DurationUtils;
@@ -737,7 +738,7 @@ public class ObjectUtils {
      * @since 3.10
      */
     public static <T> T getIfNull(final T object, final Supplier<T> defaultSupplier) {
-        return object != null ? object : defaultSupplier == null ? null : defaultSupplier.get();
+        return object != null ? object : Suppliers.get(defaultSupplier);
     }
 
     /**
@@ -1318,7 +1319,7 @@ public class ObjectUtils {
      * @since 3.11
      */
     public static String toString(final Object obj, final Supplier<String> supplier) {
-        return obj == null ? supplier == null ? null : supplier.get() : obj.toString();
+        return obj == null ? Suppliers.get(supplier) : obj.toString();
     }
 
     /**
