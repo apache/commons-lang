@@ -363,7 +363,6 @@ public class ObjectUtilsTest {
                 "CONST_SHORT(32768): IllegalArgumentException should have been thrown.");
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
         assertNotNull(new ObjectUtils());
@@ -374,7 +373,6 @@ public class ObjectUtilsTest {
         assertFalse(Modifier.isFinal(ObjectUtils.class.getModifiers()));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testDefaultIfNull() {
         final Object o = FOO;
@@ -396,7 +394,6 @@ public class ObjectUtilsTest {
         assertEquals(1, callsCounter.getValue());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testEquals() {
         assertTrue(ObjectUtils.equals(null, null), "ObjectUtils.equals(null, null) returned false");
@@ -572,7 +569,6 @@ public class ObjectUtilsTest {
         assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString(new StringBuilder(), null));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testIsEmpty() {
         assertTrue(ObjectUtils.isEmpty(null));
