@@ -83,10 +83,13 @@ public class MultilineRecursiveToStringStyleTest {
         final WithArrays wa = new WithArrays();
         final String exp = getClassPrefix(wa) + "[" + BR
                    + "  boolArray=<null>," + BR
+                   + "  byteArray=<null>," + BR
                    + "  charArray=<null>," + BR
                    + "  doubleArray=<null>," + BR
+                   + "  floatArray=<null>," + BR
                    + "  intArray=<null>," + BR
                    + "  longArray=<null>," + BR
+                   + "  shortArray=<null>," + BR
                    + "  stringArray=<null>" + BR
                    + "]";
         assertEquals(exp, toString(wa));
@@ -96,16 +99,20 @@ public class MultilineRecursiveToStringStyleTest {
     public void boolArray() {
         final WithArrays wa = new WithArrays();
         wa.boolArray = new boolean[] { true, false, true };
+        //newly added
         final String exp = getClassPrefix(wa) + "[" + BR
                    + "  boolArray={" + BR
                    + "    true," + BR
                    + "    false," + BR
                    + "    true" + BR
                    + "  }," + BR
+                   + "  byteArray=<null>," + BR
                    + "  charArray=<null>," + BR
                    + "  doubleArray=<null>," + BR
+                   + "  floatArray=<null>," + BR
                    + "  intArray=<null>," + BR
                    + "  longArray=<null>," + BR
+                   + "  shortArray=<null>," + BR
                    + "  stringArray=<null>" + BR
                    + "]";
         assertEquals(exp, toString(wa));
@@ -117,13 +124,16 @@ public class MultilineRecursiveToStringStyleTest {
         wa.charArray = new char[] { 'a', 'A' };
         final String exp = getClassPrefix(wa) + "[" + BR
                    + "  boolArray=<null>," + BR
+                   + "  byteArray=<null>," + BR
                    + "  charArray={" + BR
                    + "    a," + BR
                    + "    A" + BR
                    + "  }," + BR
                    + "  doubleArray=<null>," + BR
+                   + "  floatArray=<null>," + BR
                    + "  intArray=<null>," + BR
                    + "  longArray=<null>," + BR
+                   + "  shortArray=<null>," + BR
                    + "  stringArray=<null>" + BR
                    + "]";
         assertEquals(exp, toString(wa));
@@ -135,13 +145,16 @@ public class MultilineRecursiveToStringStyleTest {
         wa.intArray = new int[] { 1, 2 };
         final String exp = getClassPrefix(wa) + "[" + BR
                    + "  boolArray=<null>," + BR
+                   + "  byteArray=<null>," + BR
                    + "  charArray=<null>," + BR
                    + "  doubleArray=<null>," + BR
+                   + "  floatArray=<null>," + BR
                    + "  intArray={" + BR
                    + "    1," + BR
                    + "    2" + BR
                    + "  }," + BR
                    + "  longArray=<null>," + BR
+                   + "  shortArray=<null>," + BR
                    + "  stringArray=<null>" + BR
                    + "]";
         assertEquals(exp, toString(wa));
@@ -153,17 +166,87 @@ public class MultilineRecursiveToStringStyleTest {
         wa.doubleArray = new double[] { 1, 2 };
         final String exp = getClassPrefix(wa) + "[" + BR
                    + "  boolArray=<null>," + BR
+                   + "  byteArray=<null>," + BR
                    + "  charArray=<null>," + BR
                    + "  doubleArray={" + BR
                    + "    1.0," + BR
                    + "    2.0" + BR
                    + "  }," + BR
+                   + "  floatArray=<null>," + BR
                    + "  intArray=<null>," + BR
                    + "  longArray=<null>," + BR
+                   + "  shortArray=<null>," + BR
                    + "  stringArray=<null>" + BR
                    + "]";
         assertEquals(exp, toString(wa));
     }
+
+    //SWE 261P the following three methods are for Assignment 3
+    @Test
+    public void shortArray(){
+        final WithArrays wa = new WithArrays();
+        wa.shortArray = new short[] {(short)1, (short)2};
+        final String exp = getClassPrefix(wa) + "[" + BR
+                + "  boolArray=<null>," + BR
+                + "  byteArray=<null>," + BR
+                + "  charArray=<null>," + BR
+                + "  doubleArray=<null>," + BR
+                + "  floatArray=<null>," + BR
+                + "  intArray=<null>," + BR
+                + "  longArray=<null>," + BR
+                + "  shortArray={" + BR
+                + "    1," + BR
+                + "    2" + BR
+                + "  }," + BR
+                + "  stringArray=<null>" + BR
+                + "]";
+        assertEquals(exp,toString(wa));
+    }
+
+    @Test
+    public void byteArray(){
+        final WithArrays wa = new WithArrays();
+        wa.byteArray = new byte[]{(byte)0xFF,(byte)0x00};
+        final String exp = getClassPrefix(wa) + "[" + BR
+                + "  boolArray=<null>," + BR
+                + "  byteArray={" + BR
+                + "    -1," + BR
+                + "    0" + BR
+                + "  }," + BR
+                + "  charArray=<null>," + BR
+                + "  doubleArray=<null>," + BR
+                + "  floatArray=<null>," + BR
+                + "  intArray=<null>," + BR
+                + "  longArray=<null>," + BR
+                + "  shortArray=<null>," + BR
+                + "  stringArray=<null>" + BR
+                + "]";
+        assertEquals(exp, toString(wa));
+    }
+
+
+    @Test
+    public void floatArray(){
+        final WithArrays wa = new WithArrays();
+        wa.floatArray = new float[]{1.0f,2.0f};
+        final String exp = getClassPrefix(wa) + "[" + BR
+                + "  boolArray=<null>," + BR
+                + "  byteArray=<null>," + BR
+                + "  charArray=<null>," + BR
+                + "  doubleArray=<null>," + BR
+                + "  floatArray={" + BR
+                + "    1.0," + BR
+                + "    2.0" + BR
+                + "  }," + BR
+                + "  intArray=<null>," + BR
+                + "  longArray=<null>," + BR
+                + "  shortArray=<null>," + BR
+                + "  stringArray=<null>" + BR
+                + "]";
+        assertEquals(exp,toString(wa));
+
+    }
+
 
     @Test
     public void longArray() {
@@ -171,17 +254,21 @@ public class MultilineRecursiveToStringStyleTest {
         wa.longArray = new long[] { 1L, 2L };
         final String exp = getClassPrefix(wa) + "[" + BR
                    + "  boolArray=<null>," + BR
+                   + "  byteArray=<null>," + BR
                    + "  charArray=<null>," + BR
                    + "  doubleArray=<null>," + BR
+                   + "  floatArray=<null>," + BR
                    + "  intArray=<null>," + BR
                    + "  longArray={" + BR
                    + "    1," + BR
                    + "    2" + BR
                    + "  }," + BR
+                   + "  shortArray=<null>," + BR
                    + "  stringArray=<null>" + BR
                    + "]";
         assertEquals(exp, toString(wa));
     }
+
 
     @Test
     public void stringArray() {
@@ -189,10 +276,13 @@ public class MultilineRecursiveToStringStyleTest {
         wa.stringArray = new String[] { "a", "A" };
         final String exp = getClassPrefix(wa) + "[" + BR
                    + "  boolArray=<null>," + BR
+                   + "  byteArray=<null>," + BR
                    + "  charArray=<null>," + BR
                    + "  doubleArray=<null>," + BR
+                   + "  floatArray=<null>," + BR
                    + "  intArray=<null>," + BR
                    + "  longArray=<null>," + BR
+                   + "  shortArray=<null>," + BR
                    + "  stringArray={" + BR
                    + "    a," + BR
                    + "    A" + BR
@@ -230,6 +320,11 @@ public class MultilineRecursiveToStringStyleTest {
         int[] intArray;
         long[] longArray;
         String[] stringArray;
+
+        //SWE 261P: new added
+        short[] shortArray;
+        byte[] byteArray;
+        float[] floatArray;
     }
 
     static class Bank {
