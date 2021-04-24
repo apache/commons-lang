@@ -38,6 +38,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.ClassUtils.Interfaces;
+import org.apache.commons.lang3.concurrent.AbstractConcurrentInitializerTest;
+import org.apache.commons.lang3.reflect.testbed.AnotherParent;
+import org.apache.commons.lang3.reflect.testbed.Foo;
 import org.apache.commons.lang3.reflect.testbed.GenericConsumer;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
@@ -1248,6 +1251,85 @@ public class ClassUtilsTest  {
         assertEquals( Inner.DeeplyNested.class, ClassUtils.getClass( "org.apache.commons.lang3.ClassUtilsTest.Inner$DeeplyNested" ) );
         assertEquals( Inner.DeeplyNested.class, ClassUtils.getClass( "org.apache.commons.lang3.ClassUtilsTest$Inner$DeeplyNested" ) );
         assertEquals( Inner.DeeplyNested.class, ClassUtils.getClass( "org.apache.commons.lang3.ClassUtilsTest$Inner.DeeplyNested" ) );
+    }
+
+    @Test
+    public void testGetBaseClassesExtends() throws Exception {
+        List<AnotherParent> classes = ClassUtils.getBaseClasses(AnotherParent.class, "org.apache.commons.lang3.reflect.testbed");
+        assertTrue(classes.size() > 0);
+    }
+
+    @Test
+    public void testGetBaseClassesAbstract() throws Exception {
+        List<AbstractConcurrentInitializerTest> classes = ClassUtils.getBaseClasses(AbstractConcurrentInitializerTest.class, "org.apache.commons.lang3.concurrent");
+        assertTrue(classes.size() > 0);
+    }
+
+    @Test
+    public void testGetBaseClassesInterface() throws Exception {
+        List<Foo> classes = ClassUtils.getBaseClasses(Foo.class, "org.apache.commons.lang3.reflect.testbed");
+        assertTrue(classes.size() > 0);
+    }
+
+    // Assumes org.apache.commons.lang3.ClassUtils derivatives will not be present underneath org.apache.commons.lang3.test
+    @Test
+    public void testGetBaseClassesNoneFound() throws Exception {
+        List<ClassUtils> classes = ClassUtils.getBaseClasses(ClassUtils.class, "org.apache.commons.lang3.test");
+        assertEquals(0, classes.size());
+    }
+
+    @Test
+    public void testGetBaseClassesNullDesiredClass() {
+        try {
+            ClassUtils.getBaseClasses(null, "org.apache.commons.lang3.test");
+        } catch (Exception e) {
+            assertTrue(e instanceof NullPointerException);
+        }
+    }
+
+    @Test
+    public void testGetBaseClassesNullClassLoader() {
+        try {
+            ClassUtils.getBaseClasses(String.class, "org.apache.common.lang3.test", null);
+        } catch (Exception e) {
+            assertTrue(e instanceof NullPointerException);
+        }
+    }
+
+    @Test
+    public void testGetBaseClassesNullPackageName() {
+        try {
+            ClassUtils.getBaseClasses(String.class, null);
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+    }
+
+    @Test
+    public void testGetBaseClassesEmptyPackageName() {
+        try {
+            ClassUtils.getBaseClasses(String.class, " ");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+    }
+
+    @Test
+    public void testGetBaseClassesInvalidPackage() {
+        try {
+            ClassUtils.getBaseClasses(String.class, "an.invalid.package");
+        } catch (Exception e) {
+            assertTrue(e instanceof NullPointerException);
+        }
+    }
+
+    @Test
+    public void testGetBaseClassesAnotherInvalidPackage() {
+        try {
+            ClassUtils.getBaseClasses(String.class, "bad formatted package");
+        } catch (Exception e) {
+            assertTrue(e instanceof NullPointerException);
+        }
     }
 
     @Test
