@@ -33,6 +33,7 @@ import java.lang.reflect.Modifier;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -44,8 +45,10 @@ import java.util.regex.PatternSyntaxException;
 
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.text.WordUtils;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Disabled;
+import org.junit.platform.commons.util.CollectionUtils;
 
 /**
  * Unit tests for methods of {@link org.apache.commons.lang3.StringUtils}
@@ -3336,6 +3339,95 @@ public class StringUtilsTest {
         } finally {
             Locale.setDefault(defaultLocale);
         }
+    }
+
+    @Test
+    void extractNumbersFromString() {
+        String input;
+        List<Double> expectedList = new ArrayList<>();
+
+        expectedList.add(123.112);
+        expectedList.add(42.0);
+        input = "Some number 123.112 another is 42.";
+        Assertions.assertEquals(expectedList, StringUtils.extractNumbersFromString(input));
+        expectedList.clear();
+
+        expectedList.add(3.1);
+        expectedList.add(49.0);
+        input = "3.1 pinokio49";
+        Assertions.assertEquals(expectedList, StringUtils.extractNumbersFromString(input));
+        expectedList.clear();
+
+        expectedList.add(1.11);
+        expectedList.add(0.42);
+        input = "Heartbeat : 1.11. pressure is is 0.42";
+        Assertions.assertEquals(expectedList, StringUtils.extractNumbersFromString(input));
+        expectedList.clear();
+
+        expectedList.add(1.11);
+        expectedList.add(0.42);
+        input = "Heartbeat : 1.11. pressure is is 0.42";
+        Assertions.assertEquals(expectedList, StringUtils.extractNumbersFromString(input));
+        expectedList.clear();
+
+        expectedList.add(737.0);
+        expectedList.add(42.23);
+        input = "737 another is 42.23.";
+        Assertions.assertEquals(expectedList, StringUtils.extractNumbersFromString(input));
+        expectedList.clear();
+
+        expectedList.add(737.0);
+        expectedList.add(2193.0);
+        expectedList.add(12.1);
+        expectedList.add(0.11);
+        input = "737 2193, 12.1, 0.11.";
+        Assertions.assertEquals(expectedList, StringUtils.extractNumbersFromString(input));
+        expectedList.clear();
+
+        expectedList.add(737.0);
+        expectedList.add(29.1);
+        expectedList.add(299.0);
+        input = "737. something29.1. 299";
+        Assertions.assertEquals(expectedList, StringUtils.extractNumbersFromString(input));
+        expectedList.clear();
+
+        expectedList.add(737.0);
+        expectedList.add(29.1);
+        expectedList.add(299.0);
+        Assertions.assertThrows(NumberFormatException.class, () -> StringUtils.extractNumbersFromString("737 another is 42.23.32"));
+        expectedList.clear();
+
+        expectedList.add(737.0);
+        expectedList.add(29.1);
+        expectedList.add(299.0);
+        input = "737. something29.1. 299";
+        Assertions.assertEquals(expectedList, StringUtils.extractNumbersFromString(input));
+        expectedList.clear();
+
+        expectedList.add(12.3);
+        expectedList.add(34.0);
+        input = "Duration : 12.3 days, 34minutes";
+        Assertions.assertEquals(expectedList, StringUtils.extractNumbersFromString(input));
+        expectedList.clear();
+
+        expectedList.add(76.0);
+        expectedList.add(180.2);
+        input = "Weight is 76 and height is 180.2 cm";
+        Assertions.assertEquals(expectedList, StringUtils.extractNumbersFromString(input));
+        expectedList.clear();
+
+        expectedList.add(12.22);
+        expectedList.add(90.0);
+        input = "Between 12.22 and 90";
+        Assertions.assertEquals(expectedList, StringUtils.extractNumbersFromString(input));
+        expectedList.clear();
+
+        expectedList.add(1289.0);
+        expectedList.add(9283.112);
+        expectedList.add(281.0);
+        input = "First: 1289.0 Second: 9283.112 Third: 281";
+        Assertions.assertEquals(expectedList, StringUtils.extractNumbersFromString(input));
+        expectedList.clear();
     }
 
     @Test
