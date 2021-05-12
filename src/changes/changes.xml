@@ -62,6 +62,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump spotbugs from 4.2.2 to 4.2.3 #744.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump checkstyle from 8.41 to 8.41.1 #739.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump easymock from 4.2 to 4.3 #746.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">commons.jacoco.version 0.8.6 -> 0.8.7.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">commons.japicmp.version 0.15.2 -> 0.15.3.</action>
   </release>
 
   <release version="3.12.0" date="2021-02-26" description="New features and bug fixes (Java 8).">
