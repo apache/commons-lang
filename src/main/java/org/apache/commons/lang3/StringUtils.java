@@ -9639,6 +9639,79 @@ public class StringUtils {
     }
 
     /**
+     * Method that assembles all the numbers, form the passed string and returns them as list.
+     * It is important to note here, is that bu 'number' method assume any digit sequence, that
+     * can (but not necessary at all) contains dot within it (I mean just plain old floats,
+     * something like 51.82)
+     *
+     * For example, you may pass a string "21.2 days 3 minutes 22 seconds". For this particular string
+     * the result list of doubles will look like this : [21.2, 3.0, 22.0]
+     *
+     * if string contains invalid numbers (for example this string contains
+     * not valid number: "My height is 1234.23.13" This is invalid because it
+     * is not clear how to parse this part - 1234.23.13), {@link NumberFormatException}
+     * will be thrown. Though if string will contain number, where right
+     * after second dot resides not a number, or, any other char, then this
+     * case will be considered as valid. For example, this string contains
+     * only valid numbers: "My pulse is 90.123. and weight is 78.2"
+     * In this case sequence "90.123." will be considered as "90.123", as well as
+     * sequence "90." (imagine that there is no digit right after dot) will be
+     * considered as 90.0 double.
+     *
+     * @param stringThatContainsNumbers - string, that contains number or several numbers.
+     *                                 Not necessary integers, may be numbers with float point.
+     * @return - list of numbers, that this particular string contains
+     *
+     * @throws NumberFormatException - see documentation clarification about cases when thrown above
+     */
+    public static List<Double> extractNumbersFromString(String stringThatContainsNumbers) {
+        boolean hasDigitAlreadyStarted = false;
+        boolean alreadyMetDotInThisNumber = false;
+
+        List<Double> resultList = new ArrayList<>();
+
+        StringBuilder currentNumberAsStringBuilder = new StringBuilder("");
+
+        for (int i = 0; i < stringThatContainsNumbers.length(); i++) {
+            char currentSymbol = stringThatContainsNumbers.charAt(i);
+            if (Character.isDigit(currentSymbol)) {
+                if (!hasDigitAlreadyStarted) {
+                    hasDigitAlreadyStarted = true;
+                }
+                currentNumberAsStringBuilder.append(currentSymbol);
+                continue;
+            } else if (currentSymbol == '.') {
+                if (alreadyMetDotInThisNumber) {
+                    if (i == stringThatContainsNumbers.length() - 1) {
+                        resultList.add(Double.parseDouble(currentNumberAsStringBuilder.toString()));
+                        return resultList;
+                    }
+                    if (Character.isDigit(stringThatContainsNumbers.charAt(i + 1))) {
+                        throw new NumberFormatException(String.format("Cannot parse number : %s. Multiple dots is not permitted",
+                                                                      currentNumberAsStringBuilder.append(currentSymbol)
+                                                                                                  .append(stringThatContainsNumbers.charAt(i + 1))
+                                                                                                  .toString()));
+                    }
+                } else {
+                    currentNumberAsStringBuilder.append(currentSymbol);
+                    alreadyMetDotInThisNumber = true;
+                }
+                continue;
+            }
+            if (hasDigitAlreadyStarted) {
+                resultList.add(Double.parseDouble(currentNumberAsStringBuilder.toString()));
+                currentNumberAsStringBuilder = new StringBuilder("");
+                hasDigitAlreadyStarted = false;
+                alreadyMetDotInThisNumber = false;
+            }
+        }
+        if (hasDigitAlreadyStarted) {
+            resultList.add(Double.parseDouble(currentNumberAsStringBuilder.toString()));
+        }
+        return resultList;
+    }
+
+    /**
      * <p>{@code StringUtils} instances should NOT be constructed in
      * standard programming. Instead, the class should be used as
      * {@code StringUtils.trim(" foo ");}.</p>
