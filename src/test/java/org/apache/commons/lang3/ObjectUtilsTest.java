@@ -618,6 +618,43 @@ public class ObjectUtilsTest {
         assertFalse(ObjectUtils.isEmpty(NON_EMPTY_MAP));
     }
 
+    /**
+     * Test for {@link ObjectUtils#isArray(Object)}.
+     */
+    @Test
+    public void testArray() {
+        assertFalse(ObjectUtils.isArray(null));
+        assertFalse(ObjectUtils.isArray(""));
+        assertFalse(ObjectUtils.isArray("abg"));
+        assertFalse(ObjectUtils.isArray(123));
+        assertTrue(ObjectUtils.isArray(NON_EMPTY_ARRAY));
+        assertTrue(ObjectUtils.isArray(new int[]{1, 2, 3}));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_BOOLEAN_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_BOOLEAN_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_BYTE_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_BYTE_OBJECT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_CHAR_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_CHARACTER_OBJECT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_CLASS_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_DOUBLE_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_FIELD_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_FLOAT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_FLOAT_OBJECT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_INT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_INTEGER_OBJECT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_LONG_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_LONG_OBJECT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_METHOD_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_OBJECT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_SHORT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_SHORT_OBJECT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_STRING_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_THROWABLE_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_TYPE_ARRAY));
+    }
+
     @Test
     public void testIsNotEmpty() {
         assertFalse(ObjectUtils.isNotEmpty(null));

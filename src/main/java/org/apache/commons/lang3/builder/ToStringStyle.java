@@ -568,7 +568,7 @@ public abstract class ToStringStyle implements Serializable {
                     appendSummary(buffer, fieldName, (boolean[]) value);
                 }
 
-            } else if (value.getClass().isArray()) {
+            } else if (ObjectUtils.isArray(value)) {
                 if (detail) {
                     appendDetail(buffer, fieldName, (Object[]) value);
                 } else {
