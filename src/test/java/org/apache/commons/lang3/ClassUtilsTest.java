@@ -38,6 +38,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.ClassUtils.Interfaces;
+import org.apache.commons.lang3.reflect.testbed.ABG2;
 import org.apache.commons.lang3.reflect.testbed.GenericConsumer;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
@@ -88,6 +89,15 @@ public class ClassUtilsTest  {
             // empty
         }
     }
+
+    private static class ABG extends ABG2 {
+        public void publicMethod() {}
+        private void privateMethod() {}
+        void defaultMethod() {}
+        public final void finalMethod() {}
+        public static void staticMethod() {}
+    }
+
 
     private void assertGetClassReturnsClass( final Class<?> c ) throws Exception {
         assertEquals( c, ClassUtils.getClass( c.getName() ) );
@@ -1129,6 +1139,26 @@ public class ClassUtilsTest  {
         assertFalse(ClassUtils.isAssignable(Boolean.TYPE, Float.TYPE), "boolean -> float");
         assertFalse(ClassUtils.isAssignable(Boolean.TYPE, Double.TYPE), "boolean -> double");
         assertTrue(ClassUtils.isAssignable(Boolean.TYPE, Boolean.TYPE), "boolean -> boolean");
+    }
+
+    /**
+     * Test for {@link ClassUtils#isOverridable(Method, Class)}.
+     */
+    @Test
+    public void test_isOverridable() throws Exception {
+        final Method publicMethod = ABG.class.getDeclaredMethod("publicMethod", null);
+        assertTrue(ClassUtils.isOverridable(publicMethod, Object.class));
+        assertFalse(ClassUtils.isOverridable(null, Object.class));
+        final Method privateMethod = ABG.class.getDeclaredMethod("privateMethod", null);
+        assertFalse(ClassUtils.isOverridable(privateMethod, ABG.class));
+        final Method defaultMethod = ABG.class.getDeclaredMethod("defaultMethod", null);
+        assertTrue(ClassUtils.isOverridable(defaultMethod, ABG.class));
+        final Method finalMethod = ABG.class.getDeclaredMethod("finalMethod", null);
+        assertFalse(ClassUtils.isOverridable(finalMethod, ABG.class));
+        final Method staticMethod = ABG.class.getDeclaredMethod("staticMethod", null);
+        assertFalse(ClassUtils.isOverridable(staticMethod, ABG.class));
+        final Method defaultMethodABG2 = ABG2.class.getDeclaredMethod("defaultMethodABG2", null);
+        assertFalse(ClassUtils.isOverridable(defaultMethodABG2, ABG.class));
     }
 
     // -------------------------------------------------------------------------

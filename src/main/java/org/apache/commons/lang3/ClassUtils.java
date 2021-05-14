@@ -936,6 +936,59 @@ public class ClassUtils {
     }
 
     /**
+     * Check if the given {@code Method} is overridable in the given target {@code Class}.
+     *
+     * <p>This method returns {@code false} for any {@code null} input or method with the static or final modifiers.</p>
+     * <pre>
+     * <code>
+     *   private static class ABG {
+     *        private void privateMethod() {
+     *        }
+     *        void defaultMethod() {
+     *        }
+     *        public void publicMethod() {
+     *        }
+     *        public final void finalMethod() {
+     *        }
+     *        public static void  staticMethod() {
+     *        }
+     *    }
+     *   Method publicMethod  = ABG.class.getDeclaredMethod("publicMethod", null)
+     *   Method privateMethod = ABG.class.getDeclaredMethod("privateMethod", null)
+     *   Method defaultMethod = ABG.class.getDeclaredMethod("defaultMethod", null)
+     * </code>
+     *
+     * ClassUtils.isOverridable(null, null)                = false
+     * ClassUtils.isOverridable(null, Class)               = false
+     * ClassUtils.isOverridable(Class, null)               = false
+     * ClassUtils.isOverridable(privateMethod, ABG.class)) = false
+     * ClassUtils.isOverridable(defaultMethod, ABG.class)) = true
+     * ClassUtils.isOverridable(publicMethod, ABG.class))  = true
+     * ClassUtils.isOverridable(finalMethod, ABG.class))   = false
+     * ClassUtils.isOverridable(staticMethod, ABG.class))  = false
+     * </pre>
+     *
+     * @param method the method to check, may be {@code null}
+     * @param cls the target class to check against, may be {@code null}
+     * @return {@code true} if the is overridable, false if not or any {@code null} input
+     * @since 3.13.0
+     */
+    public static boolean isOverridable(final Method method, final Class<?> cls) {
+        if (ObjectUtils.anyNull(method, cls)) {
+            return false;
+        }
+        final int mod = method.getModifiers();
+        if ((mod & (Modifier.STATIC | Modifier.FINAL | Modifier.PRIVATE)) != 0) {
+            return false;
+        }
+        if ((mod & (Modifier.PUBLIC | Modifier.PROTECTED)) != 0) {
+            return true;
+        }
+        // default scope: the package must be the same to allow override
+        return getPackageName(method.getDeclaringClass()).equals(getPackageName(cls));
+    }
+
+    /**
      * <p>Converts the specified primitive Class object to its corresponding
      * wrapper Class object.</p>
      *
