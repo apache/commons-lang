@@ -797,6 +797,27 @@ public class ObjectUtils {
     }
 
     /**
+     * <p>Gets a hex String form of an object's identity hash code.</p>
+     *
+     * <pre>
+     * ObjectUtils.getIdentityHexString(null)    = "0"
+     * ObjectUtils.getIdentityHexString("")      = "1a53155b"
+     * ObjectUtils.getIdentityHexString(102)     = "82638bb"
+     * ObjectUtils.getIdentityHexString("abg")   = "3bd94634"
+     * </pre>
+     *
+     * @param object the object, may be {@code null}
+     * @return the object's identity code in hex notation, zero character {@code '0'}
+     * if {@code null} passed in.
+     * @see Integer#toHexString(int)
+     * @see System#identityHashCode(Object)
+     * @since 3.13.0
+     */
+    public static String getIdentityHexString(final Object object) {
+        return Integer.toHexString(System.identityHashCode(object));
+    }
+
+    /**
      * <p>Appends the toString that would be produced by {@code Object}
      * if a class did not override toString itself. {@code null}
      * will throw a NullPointerException for either of the two parameters. </p>
@@ -816,7 +837,7 @@ public class ObjectUtils {
         Validate.notNull(object, "object");
         appendable.append(object.getClass().getName())
               .append(AT_SIGN)
-              .append(Integer.toHexString(System.identityHashCode(object)));
+              .append(getIdentityHexString(object));
     }
 
     // Identity ToString
@@ -842,7 +863,7 @@ public class ObjectUtils {
             return null;
         }
         final String name = object.getClass().getName();
-        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        final String hexString = getIdentityHexString(object);
         final StringBuilder builder = new StringBuilder(name.length() + 1 + hexString.length());
         // @formatter:off
         builder.append(name)
@@ -873,7 +894,7 @@ public class ObjectUtils {
     public static void identityToString(final StrBuilder builder, final Object object) {
         Validate.notNull(object, "object");
         final String name = object.getClass().getName();
-        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        final String hexString = getIdentityHexString(object);
         builder.ensureCapacity(builder.length() +  name.length() + 1 + hexString.length());
         builder.append(name)
               .append(AT_SIGN)
@@ -898,7 +919,7 @@ public class ObjectUtils {
     public static void identityToString(final StringBuffer buffer, final Object object) {
         Validate.notNull(object, "object");
         final String name = object.getClass().getName();
-        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        final String hexString = getIdentityHexString(object);
         buffer.ensureCapacity(buffer.length() + name.length() + 1 + hexString.length());
         buffer.append(name)
               .append(AT_SIGN)
@@ -923,7 +944,7 @@ public class ObjectUtils {
     public static void identityToString(final StringBuilder builder, final Object object) {
         Validate.notNull(object, "object");
         final String name = object.getClass().getName();
-        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        final String hexString = getIdentityHexString(object);
         builder.ensureCapacity(builder.length() +  name.length() + 1 + hexString.length());
         builder.append(name)
               .append(AT_SIGN)

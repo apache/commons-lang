@@ -45,6 +45,7 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.apache.commons.lang3.text.StrBuilder;
@@ -441,6 +442,16 @@ public class ObjectUtilsTest {
         // test different types
         assertEquals(1, ObjectUtils.getFirstNonNull(() -> null, () -> 1));
         assertEquals(Boolean.TRUE, ObjectUtils.getFirstNonNull(() -> null, () -> Boolean.TRUE));
+    }
+
+    @Test
+    public void testGetIdentityHexString() {
+        final int value = 102;
+        final String expected = Integer.toHexString(System.identityHashCode(value));
+        assertEquals(NumberUtils.INTEGER_ZERO.toString(), ObjectUtils.getIdentityHexString(null));
+        assertEquals(expected, ObjectUtils.getIdentityHexString(value));
+        assertEquals(Integer.toHexString(System.identityHashCode(StringUtils.EMPTY)), ObjectUtils.getIdentityHexString(""));
+        assertEquals(Integer.toHexString(System.identityHashCode("abg")), ObjectUtils.getIdentityHexString("abg"));
     }
 
     @Test
