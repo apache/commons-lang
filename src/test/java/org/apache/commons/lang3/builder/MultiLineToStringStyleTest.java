@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +33,7 @@ import org.junit.jupiter.api.Test;
 public class MultiLineToStringStyleTest {
 
     private final Integer base = Integer.valueOf(5);
-    private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
+    private final String baseStr = ClassUtils.getName(base) + "@" + Integer.toHexString(System.identityHashCode(base));
 
     @BeforeEach
     public void setUp() {

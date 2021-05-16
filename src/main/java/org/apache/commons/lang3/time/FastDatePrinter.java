@@ -31,6 +31,7 @@ import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
@@ -414,7 +415,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             return format(((Long) obj).longValue(), toAppendTo);
         }
         throw new IllegalArgumentException("Unknown class: " +
-            (obj == null ? "<null>" : obj.getClass().getName()));
+            ClassUtils.getName(obj, "<null>"));
     }
 
     /**
@@ -435,7 +436,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             return format(((Long) obj).longValue());
         }
         throw new IllegalArgumentException("Unknown class: " +
-            (obj == null ? "<null>" : obj.getClass().getName()));
+            (ClassUtils.getName(obj, "<null>")));
     }
 
     /* (non-Javadoc)

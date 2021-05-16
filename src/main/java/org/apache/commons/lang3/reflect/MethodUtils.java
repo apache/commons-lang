@@ -226,7 +226,7 @@ public class MethodUtils {
         if (method == null) {
             throw new NoSuchMethodException(messagePrefix
                     + methodName + "() on object: "
-                    + object.getClass().getName());
+                    + ClassUtils.getName(object));
         }
         args = toVarArgs(method, args);
 
@@ -337,7 +337,7 @@ public class MethodUtils {
         if (method == null) {
             throw new NoSuchMethodException("No such accessible method: "
                     + methodName + "() on object: "
-                    + object.getClass().getName());
+                    + ClassUtils.getName(object));
         }
         return method.invoke(object, args);
     }
