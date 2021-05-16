@@ -699,11 +699,7 @@ public class ObjectUtils {
                     if (compareValue == null && value == null) {
                         return true;
                     } else {
-                        if (compareValue != null) {
-                            return compareValue.equals(value);
-                        } else {
-                            return value.equals(compareValue);
-                        }
+                        return (compareValue != null) ? compareValue.equals(value) : value.equals(compareValue);
                     }
                 }
             }
@@ -711,13 +707,16 @@ public class ObjectUtils {
             for (int i=0; i<fields.length; i++) {
                 final Field field = fields[i];
                 if (field.getName().equalsIgnoreCase(targetValues[0])) {
-                    if (targetValues.length >= (i+1)) {
-                        if (field.getModifiers() != 1) {
-                            field.setAccessible(true);
-                        }
-                        return nullSafeEquals(field.get(source), targetPath.substring(targetValues[0].length()+1), value);
+                    if (field.getModifiers() != 1) {
+                        field.setAccessible(true);
                     }
-                    return field.get(source).equals(value);
+
+                    final Object nextSource = field.get(source);
+                    if (nextSource == null) {
+                        return false;
+                    } else if (targetValues.length >= (i+1)) {
+                        return nullSafeEquals(nextSource, targetPath.substring(targetValues[0].length()+1), value);
+                    }
                 }
             }
         }
