@@ -23,13 +23,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.Duration;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
@@ -660,6 +654,9 @@ public class ObjectUtils {
      *     Bar nullBar;
      *     int primitiveInt = 1;
      *     String testFooString = "test";
+     *
+     *     public static final String PUBLIC_STATIC_FINAL_FOO = "foo";
+     *     public static String PUBLIC_STATIC_NULL_FOO;
      * }
      *
      * Foo foo = new Foo();
@@ -670,6 +667,8 @@ public class ObjectUtils {
      * ObjectUtils.nullSafeEquals(foo, "bar.nullBaz.testBazString", "test")      = false
      * ObjectUtils.nullSafeEquals(foo, "primitiveInt", 1)                        = true
      * ObjectUtils.nullSafeEquals(foo, "primitiveInt", 2)                        = false
+     * ObjectUtils.nullSafeEquals(foo, "PUBLIC_STATIC_FINAL_FOO", "foo")         = true
+     * ObjectUtils.nullSafeEquals(foo, "PUBLIC_STATIC_NULL_FOO", "foo")          = false
      * </pre>
      *
      * @param source the first object.
@@ -686,6 +685,9 @@ public class ObjectUtils {
         if (targetValues.length == 0) {
             return false;
         }
+        if (source.getClass().getSimpleName().equals(targetValues[0]) && targetPath.contains(".")) {
+            targetValues = Arrays.copyOfRange(targetValues, 1, targetValues.length);
+        }
         final Field[] fields = source.getClass().getDeclaredFields();
         if (targetValues.length == 1) {
             for (Field field : fields) {
@@ -693,11 +695,15 @@ public class ObjectUtils {
                     if (field.getModifiers() != 1) {
                         field.setAccessible(true);
                     }
-                    Object compareValue = field.get(source);
+                    final Object compareValue = field.get(source);
                     if (compareValue == null && value == null) {
                         return true;
                     } else {
-                        return compareValue.equals(value);
+                        if (compareValue != null) {
+                            return compareValue.equals(value);
+                        } else {
+                            return value.equals(compareValue);
+                        }
                     }
                 }
             }

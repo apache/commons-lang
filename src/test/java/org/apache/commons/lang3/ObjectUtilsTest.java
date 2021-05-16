@@ -417,6 +417,14 @@ public class ObjectUtilsTest {
         assertFalse(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "nullSafeEqualsChildPrivate.primitiveValue", 12), "ObjectUtils.nullSafeEquals(ParentFoo, \"nullSafeEqualsChildPrivate.primitiveValue\", 12) returned false");
         assertTrue(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "nullSafeEqualsChildPublic", null), "ObjectUtils.nullSafeEquals(ParentFoo, \"nullSafeEqualsChildPublic\", null) returned true");
         assertTrue(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "nullSafeEqualsChildPrivate.nullSafeEqualsGrandChildNull", null), "ObjectUtils.nullSafeEquals(ParentFoo, \"nullSafeEqualsChildPrivate.nullSafeEqualsGrandChildNull\", null) returned true");
+        assertTrue(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "STATIC_FINAL_FOO", "foo"), "ObjectUtils.nullSafeEquals(ParentFoo, \"STATIC_FINAL_FOO\", \"foo\") returned true");
+        assertTrue(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "STATIC_FOO", "foo"), "ObjectUtils.nullSafeEquals(ParentFoo, \"STATIC_FINAL_FOO\", \"foo\") returned true");
+        assertTrue(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "NullSafeEqualsParent.PUBLIC_STATIC_FINAL_FOO", "foo"), "ObjectUtils.nullSafeEquals(ParentFoo, \"NullSafeEqualsParent.PUBLIC_STATIC_FINAL_FOO\", \"foo\") returned true");
+        assertTrue(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "NullSafeEqualsParent.STATIC_FINAL_FOO", "foo"), "ObjectUtils.nullSafeEquals(ParentFoo, \"NullSafeEqualsParent.STATIC_FINAL_FOO\", \"foo\") returned true");
+        assertFalse(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "NullSafeEqualsParent.PUBLIC_STATIC_FINAL_FOO", null), "ObjectUtils.nullSafeEquals(ParentFoo, \"NullSafeEqualsParent.PUBLIC_STATIC_FINAL_FOO\", null) returned false");
+        assertFalse(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "NullSafeEqualsParent.PUBLIC_STATIC_FINAL_FOO", "bar"), "ObjectUtils.nullSafeEquals(ParentFoo, \"NullSafeEqualsParent.PUBLIC_STATIC_FINAL_FOO\", null) returned false");
+        assertFalse(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "NullSafeEqualsParent.PUBLIC_STATIC_NULL_FOO", "foo"), "ObjectUtils.nullSafeEquals(ParentFoo, \"NullSafeEqualsParent.PUBLIC_STATIC_NULL_FOO\", \"foo\") returned false");
+        assertTrue(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "NullSafeEqualsParent.PUBLIC_STATIC_NULL_FOO", null), "ObjectUtils.nullSafeEquals(ParentFoo, \"NullSafeEqualsParent.PUBLIC_STATIC_NULL_FOO\", null) returned true");
     }
 
     @Test
