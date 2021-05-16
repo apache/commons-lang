@@ -755,7 +755,8 @@ public class ObjectUtils {
      * @param targetPath object target path to be checked.
      * @param value value to compare.
      * @return {@code true} if the objects are same, {@code false} otherwise
-     * @throws IllegalAccessException, IllegalArgumentException if an Access or Argument error occurs.
+     * @throws IllegalAccessException if an Access error occurs.
+     * @throws IllegalArgumentException if an Argument error occurs.
      */
     public static boolean nullSafeEquals(final Object source, String targetPath, Object value) throws IllegalAccessException, IllegalArgumentException {
         if (source == null || StringUtils.isBlank(targetPath)) {
