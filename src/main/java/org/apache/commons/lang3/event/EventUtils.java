@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 
 /**
@@ -46,10 +47,10 @@ public class EventUtils {
      */
     public static <L> void addEventListener(final Object eventSource, final Class<L> listenerType, final L listener) {
         try {
-            MethodUtils.invokeMethod(eventSource, "add" + listenerType.getSimpleName(), listener);
+            MethodUtils.invokeMethod(eventSource, "add" + ClassUtils.getSimpleName(listenerType), listener);
         } catch (final NoSuchMethodException e) {
             throw new IllegalArgumentException("Class " + eventSource.getClass().getName()
-                    + " does not have a public add" + listenerType.getSimpleName()
+                    + " does not have a public add" + ClassUtils.getSimpleName(listenerType)
                     + " method which takes a parameter of type " + listenerType.getName() + ".");
         } catch (final IllegalAccessException e) {
             throw new IllegalArgumentException("Class " + eventSource.getClass().getName()
