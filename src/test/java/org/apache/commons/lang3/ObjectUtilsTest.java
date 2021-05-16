@@ -47,6 +47,7 @@ import java.util.function.Supplier;
 import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.mutable.MutableObject;
+import org.apache.commons.lang3.test.nullsafeequals.NullSafeEqualsParent;
 import org.apache.commons.lang3.text.StrBuilder;
 import org.junit.jupiter.api.Test;
 
@@ -128,6 +129,8 @@ public class ObjectUtilsTest {
     private static final Set<String> NON_EMPTY_SET = new HashSet<>(NON_EMPTY_LIST);
 
     private static final Map<String, String> NON_EMPTY_MAP = new HashMap<>();
+
+    private static final NullSafeEqualsParent NULL_SAFE_EQUALS_PARENT = new NullSafeEqualsParent();
 
     static {
         NON_EMPTY_MAP.put(FOO, BAR);
@@ -401,6 +404,19 @@ public class ObjectUtilsTest {
         assertTrue(!ObjectUtils.equals(null, BAR), "ObjectUtils.equals(null, \"bar\") returned true");
         assertTrue(!ObjectUtils.equals(FOO, BAR), "ObjectUtils.equals(\"foo\", \"bar\") returned true");
         assertTrue(ObjectUtils.equals(FOO, FOO), "ObjectUtils.equals(\"foo\", \"foo\") returned false");
+    }
+
+    @Test
+    public void testNullSafeEquals() throws IllegalAccessException {
+        assertTrue(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "foo", "parentFoo"), "ObjectUtils.nullSafeEquals(ParentFoo, \"foo\", \"parentFoo\") returned true");
+        assertTrue(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "nullSafeEqualsChildPrivate.foo", "fooValue"), "ObjectUtils.nullSafeEquals(ParentFoo, \"nullSafeEqualsChildPrivate.foo\", \"fooValue\") returned true");
+        assertTrue(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "nullSafeEqualsChildPrivate.nullSafeEqualsGrandChild.var", "varValue"), "ObjectUtils.nullSafeEquals(ParentFoo, \"nullSafeEqualsChildPrivate.nullSafeEqualsGrandChild.var\", \"varValue\") returned true");
+        assertFalse(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "nullSafeEqualsChildPrivate.foo", "foo1Value"), "ObjectUtils.nullSafeEquals(ParentFoo, \"nullSafeEqualsChildPrivate.foo\", \"fooValue\") returned false");
+        assertFalse(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "nullSafeEqualsChildPrivate.nullSafeEqualsGrandChild.var", "var1Value"), "ObjectUtils.nullSafeEquals(ParentFoo, \"nullSafeEqualsChildPrivate.nullSafeEqualsGrandChild.var\", \"varValue\") returned false");
+        assertTrue(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "nullSafeEqualsChildPrivate.primitiveValue", 1), "ObjectUtils.nullSafeEquals(ParentFoo, \"nullSafeEqualsChildPrivate.primitiveValue\", 1) returned true");
+        assertFalse(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "nullSafeEqualsChildPrivate.primitiveValue", 12), "ObjectUtils.nullSafeEquals(ParentFoo, \"nullSafeEqualsChildPrivate.primitiveValue\", 12) returned false");
+        assertTrue(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "nullSafeEqualsChildPublic", null), "ObjectUtils.nullSafeEquals(ParentFoo, \"nullSafeEqualsChildPublic\", null) returned true");
+        assertTrue(ObjectUtils.nullSafeEquals(NULL_SAFE_EQUALS_PARENT, "nullSafeEqualsChildPrivate.nullSafeEqualsGrandChildNull", null), "ObjectUtils.nullSafeEquals(ParentFoo, \"nullSafeEqualsChildPrivate.nullSafeEqualsGrandChildNull\", null) returned true");
     }
 
     @Test

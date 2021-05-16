@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.Duration;
@@ -637,6 +638,84 @@ public class ObjectUtils {
             return false;
         }
         return object1.equals(object2);
+    }
+
+    /**
+     * <p>Compare two objects for equality. Even if the object to be compared is null,
+     * it safely returns false and compares nulls.</p>
+     *
+     * <pre>
+     * class Baz {
+     *     String testBazString = "test";
+     * }
+     *
+     * class Bar {
+     *     String testBarString = "test";
+     *     Baz baz = new Baz();
+     *     Baz nullBaz;
+     * }
+     *
+     * class Foo {
+     *     Bar bar = new Bar();
+     *     Bar nullBar;
+     *     int primitiveInt = 1;
+     *     String testFooString = "test";
+     * }
+     *
+     * Foo foo = new Foo();
+     *
+     * ObjectUtils.nullSafeEquals(foo, "nullBar", null)                          = true
+     * ObjectUtils.nullSafeEquals(foo, "nullBar.testBarString", "test")          = false
+     * ObjectUtils.nullSafeEquals(foo, "bar.testBarString", "test")              = true
+     * ObjectUtils.nullSafeEquals(foo, "bar.nullBaz.testBazString", "test")      = false
+     * ObjectUtils.nullSafeEquals(foo, "primitiveInt", 1)                        = true
+     * ObjectUtils.nullSafeEquals(foo, "primitiveInt", 2)                        = false
+     * </pre>
+     *
+     * @param source the first object.
+     * @param targetPath object target path to be checked.
+     * @param value value to compare.
+     * @return {@code true} if the objects are same, {@code false} otherwise
+     * @throws IllegalAccessException, IllegalArgumentException if an Access or Argument error occurs.
+     */
+    public static boolean nullSafeEquals(final Object source, String targetPath, Object value) throws IllegalAccessException, IllegalArgumentException {
+        if (source == null || targetPath == null) {
+            return false;
+        }
+        String[] targetValues = targetPath.split("\\.");
+        if (targetValues.length == 0) {
+            return false;
+        }
+        final Field[] fields = source.getClass().getDeclaredFields();
+        if (targetValues.length == 1) {
+            for (Field field : fields) {
+                if (field.getName().equalsIgnoreCase(targetValues[0])) {
+                    if (field.getModifiers() != 1) {
+                        field.setAccessible(true);
+                    }
+                    Object compareValue = field.get(source);
+                    if (compareValue == null && value == null) {
+                        return true;
+                    } else {
+                        return compareValue.equals(value);
+                    }
+                }
+            }
+        } else {
+            for (int i=0; i<fields.length; i++) {
+                final Field field = fields[i];
+                if (field.getName().equalsIgnoreCase(targetValues[0])) {
+                    if (targetValues.length >= (i+1)) {
+                        if (field.getModifiers() != 1) {
+                            field.setAccessible(true);
+                        }
+                        return nullSafeEquals(field.get(source), targetPath.substring(targetValues[0].length()+1), value);
+                    }
+                    return field.get(source).equals(value);
+                }
+            }
+        }
+        return false;
     }
 
     /**
