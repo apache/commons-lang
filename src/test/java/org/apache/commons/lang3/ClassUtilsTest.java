@@ -720,6 +720,68 @@ public class ClassUtilsTest  {
     }
 
     @Test
+    public void test_getTypeName_Class() {
+        assertEquals("org.apache.commons.lang3.ClassUtils", ClassUtils.getTypeName(ClassUtils.class));
+        assertEquals("java.util.Map$Entry", ClassUtils.getTypeName(Map.Entry.class));
+        assertEquals("", ClassUtils.getTypeName((Class<?>) null));
+        assertEquals("java.lang.String[]", ClassUtils.getTypeName(String[].class));
+        assertEquals("java.util.Map$Entry[]", ClassUtils.getTypeName(Map.Entry[].class));
+
+        // Primitives
+        assertEquals("boolean", ClassUtils.getTypeName(boolean.class));
+        assertEquals("byte", ClassUtils.getTypeName(byte.class));
+        assertEquals("char", ClassUtils.getTypeName(char.class));
+        assertEquals("short", ClassUtils.getTypeName(short.class));
+        assertEquals("int", ClassUtils.getTypeName(int.class));
+        assertEquals("long", ClassUtils.getTypeName(long.class));
+        assertEquals("float", ClassUtils.getTypeName(float.class));
+        assertEquals("double", ClassUtils.getTypeName(double.class));
+
+        // Primitive Arrays
+        assertEquals("boolean[]", ClassUtils.getTypeName(boolean[].class));
+        assertEquals("byte[]", ClassUtils.getTypeName(byte[].class));
+        assertEquals("char[]", ClassUtils.getTypeName(char[].class));
+        assertEquals("short[]", ClassUtils.getTypeName(short[].class));
+        assertEquals("int[]", ClassUtils.getTypeName(int[].class));
+        assertEquals("long[]", ClassUtils.getTypeName(long[].class));
+        assertEquals("float[]", ClassUtils.getTypeName(float[].class));
+        assertEquals("double[]", ClassUtils.getTypeName(double[].class));
+
+        // Arrays of arrays of ...
+        assertEquals("java.lang.String[][]", ClassUtils.getTypeName(String[][].class));
+        assertEquals("java.lang.String[][][]", ClassUtils.getTypeName(String[][][].class));
+        assertEquals("java.lang.String[][][][]", ClassUtils.getTypeName(String[][][][].class));
+
+        // Inner types
+        class Named {
+            // empty
+        }
+        assertEquals("org.apache.commons.lang3.ClassUtilsTest$15", ClassUtils.getTypeName(new Object() {
+            // empty
+        }.getClass()));
+        assertEquals("org.apache.commons.lang3.ClassUtilsTest$13Named", ClassUtils.getTypeName(Named.class));
+        assertEquals("org.apache.commons.lang3.ClassUtilsTest$Inner", ClassUtils.getTypeName(Inner.class));
+    }
+
+    @Test
+    public void test_getTypeName_Object() {
+        assertEquals("org.apache.commons.lang3.ClassUtils", ClassUtils.getTypeName(new ClassUtils(), "<null>"));
+        assertEquals("org.apache.commons.lang3.ClassUtilsTest$Inner", ClassUtils.getTypeName(new Inner(), "<null>"));
+        assertEquals("java.lang.String", ClassUtils.getTypeName("hello", "<null>"));
+        assertEquals("<null>", ClassUtils.getTypeName(null, "<null>"));
+
+        // Inner types
+        class Named {
+            // empty
+        }
+        assertEquals("org.apache.commons.lang3.ClassUtilsTest$16", ClassUtils.getTypeName(new Object() {
+            // empty
+        }));
+        assertEquals("org.apache.commons.lang3.ClassUtilsTest$14Named", ClassUtils.getTypeName(new Named(), "<null>"));
+        assertEquals("org.apache.commons.lang3.ClassUtilsTest$Inner", ClassUtils.getTypeName(new Inner(), "<null>"));
+    }
+
+    @Test
     public void test_isAssignable() {
         assertFalse(ClassUtils.isAssignable((Class<?>) null, null));
         assertFalse(ClassUtils.isAssignable(String.class, null));
