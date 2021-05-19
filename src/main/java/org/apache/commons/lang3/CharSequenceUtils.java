@@ -78,7 +78,7 @@ public class CharSequenceUtils {
 
         // if len2 == 0 return directly.
         if (len2 == 0) {
-            return start < 0 ? -1 : start;
+            return start < 0 ? NOT_FOUND : start;
         }
 
         // limit means the largest possible value of successful-result
@@ -89,7 +89,7 @@ public class CharSequenceUtils {
         // if len2 < 0, then it is illegal for this function.
         // if limit < 0, then it means len2 > len1, thus fail.
         if (start > limit || len2 < 0 || limit < 0) {
-            return -1;
+            return NOT_FOUND;
         }
 
         // notice that when we enter here, we make sure:
@@ -112,23 +112,12 @@ public class CharSequenceUtils {
 
         char char0 = searchChar.charAt(0);
 
-        int i = start;
-        while (true) {
-            while (cs.charAt(i) != char0) {
-                i++;
-                if (i > limit) {
-                    return -1;
-                }
-            }
-            if (checkLaterThan1(cs, searchChar, len2, i)) {
+        for (int i = start; i <= limit; i++) {
+            if (cs.charAt(i) == char0 && checkLaterThan1(cs, searchChar, len2, i)) {
                 return i;
-            } else {
-                i++;
-                if (i > limit) {
-                    return -1;
-                }
             }
         }
+        return NOT_FOUND;
     }
 
     /**
@@ -274,22 +263,12 @@ public class CharSequenceUtils {
 
         final char char0 = searchChar.charAt(0);
 
-        int i = start;
-        while (true) {
-            while (cs.charAt(i) != char0) {
-                i--;
-                if (i < 0) {
-                    return NOT_FOUND;
-                }
-            }
-            if (checkLaterThan1(cs, searchChar, len2, i)) {
+        for (int i = start; i >= 0; i--) {
+            if (cs.charAt(i) == char0 && checkLaterThan1(cs, searchChar, len2, i)) {
                 return i;
             }
-            i--;
-            if (i < 0) {
-                return NOT_FOUND;
-            }
         }
+        return NOT_FOUND;
     }
 
     /**
