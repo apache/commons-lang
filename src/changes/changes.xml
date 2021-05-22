@@ -38,7 +38,6 @@ and commit
 The <action> type attribute can be add,update,fix,remove.
 -->
 
-
 <document>
   <properties>
     <title>Apache Commons Lang Release Notes</title>
