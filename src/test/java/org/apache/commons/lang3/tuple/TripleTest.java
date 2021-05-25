@@ -131,7 +131,7 @@ public class TripleTest {
         assertTrue(triple2 instanceof ImmutableTriple<?, ?, ?>);
         assertNull(((ImmutableTriple<Object, String, Long>) triple2).left);
         assertEquals("bar", ((ImmutableTriple<Object, String, Long>) triple2).middle);
-        assertEquals(new Long(200L), ((ImmutableTriple<Object, String, Long>) triple2).right);
+        assertEquals(Long.valueOf(200L), ((ImmutableTriple<Object, String, Long>) triple2).right);
     }
 
 }

@@ -50,8 +50,8 @@ public class ImmutableTripleTest {
         assertNull(triple2.getLeft());
         assertEquals("bar", triple2.middle);
         assertEquals("bar", triple2.getMiddle());
-        assertEquals(new Integer(42), triple2.right);
-        assertEquals(new Integer(42), triple2.getRight());
+        assertEquals(Integer.valueOf(42), triple2.right);
+        assertEquals(Integer.valueOf(42), triple2.getRight());
     }
 
     @Test
