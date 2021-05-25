@@ -874,7 +874,7 @@ public class NumberUtils {
      *            can be null)
      * @return true if the magnitude is zero
      */
-    private static boolean isZero(final String mant, String dec) {
+    private static boolean isZero(final String mant, final String dec) {
         return isAllZeros(mant) && isAllZeros(dec);
     }
 

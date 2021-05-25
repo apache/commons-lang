@@ -717,7 +717,7 @@ public class NumberUtilsTest {
         }
     }
 
-    private static void assertCreateNumberZero(String number, Object zero, Object negativeZero) {
+    private static void assertCreateNumberZero(final String number, final Object zero, final Object negativeZero) {
         assertEquals(zero, NumberUtils.createNumber(number), () -> "Input: " + number);
         assertEquals(zero, NumberUtils.createNumber("+" + number), () -> "Input: +" + number);
         assertEquals(negativeZero, NumberUtils.createNumber("-" + number), () -> "Input: -" + number);
