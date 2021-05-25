@@ -478,9 +478,7 @@ public class Streams {
 
         @Override
         public Function<List<O>, O[]> finisher() {
-            return list -> {
-                return list.toArray(ArrayUtils.newInstance(elementType, list.size()));
-            };
+            return list -> list.toArray(ArrayUtils.newInstance(elementType, list.size()));
         }
 
         @Override
