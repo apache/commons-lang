@@ -356,9 +356,9 @@ public class DiffBuilderTest {
     @Test
     public void testObjectsNotSameButEqual() {
         final TypeTestClass left = new TypeTestClass();
-        left.objectField = Integer.valueOf(1);
+        left.objectField = new Integer(1);
         final TypeTestClass right = new TypeTestClass();
-        right.objectField = Integer.valueOf(1);
+        right.objectField = new Integer(1);
         assertNotSame(left.objectField, right.objectField);
         assertEquals(left.objectField, right.objectField);
 
