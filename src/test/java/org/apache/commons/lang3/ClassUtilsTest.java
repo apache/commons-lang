@@ -131,7 +131,6 @@ public class ClassUtilsTest  {
         assertNull(ClassUtils.convertClassesToClassNames(null));
     }
 
-    // -------------------------------------------------------------------------
     @Test
     public void test_convertClassNamesToClasses_List() {
         final List<String> list = new ArrayList<>();
@@ -156,7 +155,6 @@ public class ClassUtilsTest  {
         assertNull(ClassUtils.convertClassNamesToClasses(null));
     }
 
-    // -------------------------------------------------------------------------
     @Test
     public void test_getAbbreviatedName_Class() {
         assertEquals("", ClassUtils.getAbbreviatedName((Class<?>) null, 1));
@@ -231,7 +229,6 @@ public class ClassUtilsTest  {
         assertNull(ClassUtils.getAllInterfaces(null));
     }
 
-    // -------------------------------------------------------------------------
     @Test
     public void test_getAllSuperclasses_Class() {
         final List<?> list = ClassUtils.getAllSuperclasses(CY.class);
@@ -491,7 +488,6 @@ public class ClassUtilsTest  {
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageName(Named.class));
     }
 
-    // -------------------------------------------------------------------------
     @Test
     public void test_getPackageName_Object() {
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageName(new ClassUtils(), "<null>"));
@@ -631,7 +627,6 @@ public class ClassUtilsTest  {
         assertEquals("ClassUtilsTest.Inner", ClassUtils.getShortClassName(Inner.class));
     }
 
-    // -------------------------------------------------------------------------
     @Test
     public void test_getShortClassName_Object() {
         assertEquals("ClassUtils", ClassUtils.getShortClassName(new ClassUtils(), "<null>"));
@@ -773,7 +768,6 @@ public class ClassUtilsTest  {
         assertTrue(ClassUtils.isAssignable(Boolean.class, Boolean.class, true));
     }
 
-    // -------------------------------------------------------------------------
     @Test
     public void test_isAssignable_ClassArray_ClassArray() {
         final Class<?>[] array2 = new Class[] {Object.class, Object.class};
@@ -1131,7 +1125,6 @@ public class ClassUtilsTest  {
         assertTrue(ClassUtils.isAssignable(Boolean.TYPE, Boolean.TYPE), "boolean -> boolean");
     }
 
-    // -------------------------------------------------------------------------
     @Test
     public void test_isInnerClass_Class() {
         assertTrue(ClassUtils.isInnerClass(Inner.class));
@@ -1144,7 +1137,6 @@ public class ClassUtilsTest  {
         assertFalse(ClassUtils.isInnerClass(null));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
         assertNotNull(new ClassUtils());
