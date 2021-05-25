@@ -163,8 +163,6 @@ public class ClassUtils {
     public ClassUtils() {
     }
 
-    // Short class name
-    // ----------------------------------------------------------------------
     /**
      * <p>Gets the class name of the {@code object} without the package name or names.</p>
      *
@@ -426,8 +424,6 @@ public class ClassUtils {
         return className.substring(0, i);
     }
 
-    // Abbreviated name
-    // ----------------------------------------------------------------------
     /**
      * <p>Gets the abbreviated name of a {@code Class}.</p>
      *
@@ -555,8 +551,6 @@ public class ClassUtils {
             runAheadTarget + originalLength - source <= desiredLength;
     }
 
-    // Superclasses/Superinterfaces
-    // ----------------------------------------------------------------------
     /**
      * <p>Gets a {@code List} of superclasses for the given class.</p>
      *
@@ -621,8 +615,6 @@ public class ClassUtils {
          }
      }
 
-    // Convert list
-    // ----------------------------------------------------------------------
     /**
      * <p>Given a {@code List} of class names, this method converts them into classes.</p>
      *
@@ -677,8 +669,6 @@ public class ClassUtils {
         return classNames;
     }
 
-    // Is assignable
-    // ----------------------------------------------------------------------
     /**
      * <p>Checks if an array of Classes can be assigned to another array of Classes.</p>
      *
@@ -1031,8 +1021,6 @@ public class ClassUtils {
         return convertedClasses;
     }
 
-    // Inner class
-    // ----------------------------------------------------------------------
     /**
      * <p>Is the specified class an inner class or static nested class.</p>
      *
@@ -1044,8 +1032,6 @@ public class ClassUtils {
         return cls != null && cls.getEnclosingClass() != null;
     }
 
-    // Class loading
-    // ----------------------------------------------------------------------
     /**
      * Returns the class represented by {@code className} using the
      * {@code classLoader}.  This implementation supports the syntaxes
@@ -1134,8 +1120,6 @@ public class ClassUtils {
         return getClass(loader, className, initialize);
     }
 
-    // Public method
-    // ----------------------------------------------------------------------
     /**
      * <p>Returns the desired Method much like {@code Class.getMethod}, however
      * it ensures that the returned Method is from a public class or interface and not
@@ -1188,7 +1172,6 @@ public class ClassUtils {
                 methodName + " " + ArrayUtils.toString(parameterTypes));
     }
 
-    // ----------------------------------------------------------------------
     /**
      * Converts a class name to a JLS style class name.
      *
@@ -1239,8 +1222,6 @@ public class ClassUtils {
         return classes;
     }
 
-    // Short canonical name
-    // ----------------------------------------------------------------------
     /**
      * <p>Gets the canonical name minus the package name for an {@code Object}.</p>
      *
@@ -1375,8 +1356,6 @@ public class ClassUtils {
         return getShortClassName(getCanonicalName(canonicalName));
     }
 
-    // Package name
-    // ----------------------------------------------------------------------
     /**
      * <p>Gets the package name from the class name of an {@code Object}.</p>
      *
