@@ -56,8 +56,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use EnumUtils.getFirstEnumIgnoreCase(Class, String, Function, E).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use Suppliers.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ArrayUtils.getComponentType(T[]).</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ClassUtils.getComponentType(Class<T[]>).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ClassUtils.getComponentType(Class&gt;T[]>).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ObjectUtils.getClass(T).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ArrayUtils.newInstance(Class&gt;T>, int).</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump spotbugs-maven-plugin from 4.2.0 to 4.2.3 #735.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess">Bump Bump actions/cache from v2.1.4 to v2.1.5 #742, #752.</action>

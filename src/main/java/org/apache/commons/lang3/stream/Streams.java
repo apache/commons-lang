@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3.stream;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -32,6 +31,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.function.Failable;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableFunction;
@@ -105,9 +105,7 @@ public class Streams {
         @Override
         public Function<List<O>, O[]> finisher() {
             return list -> {
-                @SuppressWarnings("unchecked")
-                final O[] array = (O[]) Array.newInstance(elementType, list.size());
-                return list.toArray(array);
+                return list.toArray(ArrayUtils.newInstance(elementType, list.size()));
             };
         }
 

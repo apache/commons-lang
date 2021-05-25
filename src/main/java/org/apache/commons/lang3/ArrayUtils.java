@@ -1082,9 +1082,8 @@ public class ArrayUtils {
         if (array2 == null) {
             return clone(array1);
         }
-        final Class<?> type1 = array1.getClass().getComponentType();
-        @SuppressWarnings("unchecked") // OK, because array is of type T
-        final T[] joinedArray = (T[]) Array.newInstance(type1, array1.length + array2.length);
+        final Class<T> type1 = getComponentType(array1);
+        final T[] joinedArray = newInstance(type1, array1.length + array2.length);
         System.arraycopy(array1, 0, joinedArray, 0, array1.length);
         try {
             System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
@@ -3113,9 +3112,8 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         }
 
         final Class<T> type = getComponentType(array);
-        @SuppressWarnings("unchecked") // OK, because array and values are of type T
-        final
-        T[] result = (T[]) Array.newInstance(type, array.length + values.length);
+        final int length = array.length + values.length;
+        final T[] result = newInstance(type, length);
 
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
@@ -4214,6 +4212,20 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
             }
         }
         return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Delegates to {@link Array#newInstance(Class,int)} using generics.
+     *
+     * @param <T> The array type.
+     * @param type The array class.
+     * @param length the array length
+     * @return The new array.
+     * @since 3.13.0
+     */
+    @SuppressWarnings("unchecked") // OK, because array and values are of type T
+    public static <T> T[] newInstance(final Class<T> type, final int length) {
+        return (T[]) Array.newInstance(type, length);
     }
 
     /**
@@ -8198,13 +8210,9 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         final int newSize = endIndexExclusive - startIndexInclusive;
         final Class<T> type = getComponentType(array);
         if (newSize <= 0) {
-            @SuppressWarnings("unchecked") // OK, because array is of type T
-            final T[] emptyArray = (T[]) Array.newInstance(type, 0);
-            return emptyArray;
+            return newInstance(type, 0);
         }
-        @SuppressWarnings("unchecked") // OK, because array is of type T
-        final
-        T[] subarray = (T[]) Array.newInstance(type, newSize);
+        final T[] subarray = newInstance(type, newSize);
         System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
         return subarray;
     }

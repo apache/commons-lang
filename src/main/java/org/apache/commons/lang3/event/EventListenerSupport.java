@@ -282,9 +282,8 @@ public class EventListenerSupport<L> implements Serializable {
      * @param classLoader the class loader to be used
      */
     private void initializeTransientFields(final Class<L> listenerInterface, final ClassLoader classLoader) {
-        @SuppressWarnings("unchecked") // Will throw CCE here if not correct
-        final L[] array = (L[]) Array.newInstance(listenerInterface, 0);
-        this.prototypeArray = array;
+        // Will throw CCE here if not correct
+        this.prototypeArray = ArrayUtils.newInstance(listenerInterface, 0);
         createProxy(listenerInterface, classLoader);
     }
 

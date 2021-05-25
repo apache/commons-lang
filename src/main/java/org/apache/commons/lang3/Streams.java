@@ -480,9 +480,7 @@ public class Streams {
         @Override
         public Function<List<O>, O[]> finisher() {
             return list -> {
-                @SuppressWarnings("unchecked")
-                final O[] array = (O[]) Array.newInstance(elementType, list.size());
-                return list.toArray(array);
+                return list.toArray(ArrayUtils.newInstance(elementType, list.size()));
             };
         }
 
