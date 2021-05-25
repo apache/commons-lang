@@ -422,6 +422,15 @@ public class ObjectUtilsTest {
     }
 
     @Test
+    public void testGetClass() {
+        final String[] newArray = ArrayUtils.EMPTY_STRING_ARRAY;
+        // No type-cast required.
+        final Class<String[]> cls = ObjectUtils.getClass(newArray);
+        assertEquals(String[].class, cls);
+        assertNull(ObjectUtils.getClass(null));
+    }
+
+    @Test
     public void testGetFirstNonNull() {
         // first non null
         assertEquals("", ObjectUtils.getFirstNonNull(() -> null, () -> ""));

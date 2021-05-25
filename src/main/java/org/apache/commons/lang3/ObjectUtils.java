@@ -674,6 +674,19 @@ public class ObjectUtils {
     }
 
     /**
+     * Delegates to {@link Object#getClass()} using generics.
+     *
+     * @param <T> The argument type or null.
+     * @param object The argument.
+     * @return The argument Class or null.
+     * @since 3.13.0
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> Class<T> getClass(final T object) {
+        return object == null ? null : (Class<T>) object.getClass();
+    }
+
+    /**
      * <p>Executes the given suppliers in order and returns the first return
      * value where a value other than {@code null} is returned.
      * Once a non-{@code null} value is obtained, all following suppliers are

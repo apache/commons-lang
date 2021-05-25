@@ -743,17 +743,27 @@ public class ArrayUtils {
      */
     @Deprecated
     public static <T> T[] add(final T[] array, final int index, final T element) {
-        Class<?> clss = null;
+        Class<T> clss = null;
         if (array != null) {
-            clss = array.getClass().getComponentType();
+            clss = getComponentType(array);
         } else if (element != null) {
-            clss = element.getClass();
+            clss = ObjectUtils.getClass(element);
         } else {
             throw new IllegalArgumentException("Array and element cannot both be null");
         }
-        @SuppressWarnings("unchecked") // the add method creates an array of type clss, which is type T
-        final T[] newArray = (T[]) add(array, index, element, clss);
-        return newArray;
+        return (T[]) add(array, index, element, clss);
+    }
+
+    /**
+     * Gets an array's component type.
+     *
+     * @param <T> The array type.
+     * @param array The array.
+     * @return The component type.
+     * @since 3.13.0
+     */
+    public static <T> Class<T> getComponentType(final T[] array) {
+        return ClassUtils.getComponentType(ObjectUtils.getClass(array));
     }
 
     /**
@@ -3102,7 +3112,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
 
-        final Class<?> type = array.getClass().getComponentType();
+        final Class<T> type = getComponentType(array);
         @SuppressWarnings("unchecked") // OK, because array and values are of type T
         final
         T[] result = (T[]) Array.newInstance(type, array.length + values.length);
@@ -3786,10 +3796,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final boolean[] array, final boolean valueToFind, int startIndex) {
-        if (isEmpty(array)) {
-            return INDEX_NOT_FOUND;
-        }
-        if (startIndex < 0) {
+        if (isEmpty(array) || (startIndex < 0)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -3832,10 +3839,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final byte[] array, final byte valueToFind, int startIndex) {
-        if (array == null) {
-            return INDEX_NOT_FOUND;
-        }
-        if (startIndex < 0) {
+        if ((array == null) || (startIndex < 0)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -3880,10 +3884,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @since 2.1
      */
     public static int lastIndexOf(final char[] array, final char valueToFind, int startIndex) {
-        if (array == null) {
-            return INDEX_NOT_FOUND;
-        }
-        if (startIndex < 0) {
+        if ((array == null) || (startIndex < 0)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -3943,10 +3944,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex) {
-        if (isEmpty(array)) {
-            return INDEX_NOT_FOUND;
-        }
-        if (startIndex < 0) {
+        if (isEmpty(array) || (startIndex < 0)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -3978,10 +3976,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex, final double tolerance) {
-        if (isEmpty(array)) {
-            return INDEX_NOT_FOUND;
-        }
-        if (startIndex < 0) {
+        if (isEmpty(array) || (startIndex < 0)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -4027,10 +4022,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final float[] array, final float valueToFind, int startIndex) {
-        if (isEmpty(array)) {
-            return INDEX_NOT_FOUND;
-        }
-        if (startIndex < 0) {
+        if (isEmpty(array) || (startIndex < 0)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -4073,10 +4065,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final int[] array, final int valueToFind, int startIndex) {
-        if (array == null) {
-            return INDEX_NOT_FOUND;
-        }
-        if (startIndex < 0) {
+        if ((array == null) || (startIndex < 0)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -4119,10 +4108,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final long[] array, final long valueToFind, int startIndex) {
-        if (array == null) {
-            return INDEX_NOT_FOUND;
-        }
-        if (startIndex < 0) {
+        if ((array == null) || (startIndex < 0)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -4165,10 +4151,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final Object[] array, final Object objectToFind, int startIndex) {
-        if (array == null) {
-            return INDEX_NOT_FOUND;
-        }
-        if (startIndex < 0) {
+        if ((array == null) || (startIndex < 0)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -4219,10 +4202,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final short[] array, final short valueToFind, int startIndex) {
-        if (array == null) {
-            return INDEX_NOT_FOUND;
-        }
-        if (startIndex < 0) {
+        if ((array == null) || (startIndex < 0)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -6982,10 +6962,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @since 3.5
      */
     public static void shift(final boolean[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
-        if (array == null) {
-            return;
-        }
-        if (startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
+        if ((array == null) || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
         if (startIndexInclusive < 0) {
@@ -7061,10 +7038,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @since 3.5
      */
     public static void shift(final byte[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
-        if (array == null) {
-            return;
-        }
-        if (startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
+        if ((array == null) || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
         if (startIndexInclusive < 0) {
@@ -7140,10 +7114,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @since 3.5
      */
     public static void shift(final char[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
-        if (array == null) {
-            return;
-        }
-        if (startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
+        if ((array == null) || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
         if (startIndexInclusive < 0) {
@@ -7219,10 +7190,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @since 3.5
      */
     public static void shift(final double[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
-        if (array == null) {
-            return;
-        }
-        if (startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
+        if ((array == null) || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
         if (startIndexInclusive < 0) {
@@ -7298,10 +7266,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @since 3.5
      */
     public static void shift(final float[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
-        if (array == null) {
-            return;
-        }
-        if (startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
+        if ((array == null) || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
         if (startIndexInclusive < 0) {
@@ -7377,10 +7342,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @since 3.5
      */
     public static void shift(final int[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
-        if (array == null) {
-            return;
-        }
-        if (startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
+        if ((array == null) || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
         if (startIndexInclusive < 0) {
@@ -7456,10 +7418,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @since 3.5
      */
     public static void shift(final long[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
-        if (array == null) {
-            return;
-        }
-        if (startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
+        if ((array == null) || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
         if (startIndexInclusive < 0) {
@@ -7537,10 +7496,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @since 3.5
      */
     public static void shift(final Object[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
-        if (array == null) {
-            return;
-        }
-        if (startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
+        if ((array == null) || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
         if (startIndexInclusive < 0) {
@@ -7616,10 +7572,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @since 3.5
      */
     public static void shift(final short[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
-        if (array == null) {
-            return;
-        }
-        if (startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
+        if ((array == null) || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
         if (startIndexInclusive < 0) {
@@ -8243,7 +8196,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
             endIndexExclusive = array.length;
         }
         final int newSize = endIndexExclusive - startIndexInclusive;
-        final Class<?> type = array.getClass().getComponentType();
+        final Class<T> type = getComponentType(array);
         if (newSize <= 0) {
             @SuppressWarnings("unchecked") // OK, because array is of type T
             final T[] emptyArray = (T[]) Array.newInstance(type, 0);

@@ -1121,6 +1121,20 @@ public class ClassUtils {
     }
 
     /**
+     * Delegates to {@link Class#getComponentType()} using generics.
+     *
+     * @param <T> The array class type.
+     * @param cls A class or null.
+     * @return The array component type or null.
+     * @see Class#getComponentType()
+     * @since 3.13.0
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> Class<T> getComponentType(final Class<T[]> cls) {
+        return cls == null ? null : (Class<T>) cls.getComponentType();
+    }
+
+    /**
      * <p>Returns the desired Method much like {@code Class.getMethod}, however
      * it ensures that the returned Method is from a public class or interface and not
      * from an anonymous inner class. This means that the Method is invokable and

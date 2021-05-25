@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -266,14 +267,11 @@ public class EventListenerSupport<L> implements Serializable {
      */
     private void readObject(final ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
         @SuppressWarnings("unchecked") // Will throw CCE here if not correct
-        final
-        L[] srcListeners = (L[]) objectInputStream.readObject();
+        final L[] srcListeners = (L[]) objectInputStream.readObject();
 
         this.listeners = new CopyOnWriteArrayList<>(srcListeners);
 
-        @SuppressWarnings("unchecked") // Will throw CCE here if not correct
-        final
-        Class<L> listenerInterface = (Class<L>) srcListeners.getClass().getComponentType();
+        final Class<L> listenerInterface = ArrayUtils.getComponentType(srcListeners);
 
         initializeTransientFields(listenerInterface, Thread.currentThread().getContextClassLoader());
     }
@@ -285,8 +283,7 @@ public class EventListenerSupport<L> implements Serializable {
      */
     private void initializeTransientFields(final Class<L> listenerInterface, final ClassLoader classLoader) {
         @SuppressWarnings("unchecked") // Will throw CCE here if not correct
-        final
-        L[] array = (L[]) Array.newInstance(listenerInterface, 0);
+        final L[] array = (L[]) Array.newInstance(listenerInterface, 0);
         this.prototypeArray = array;
         createProxy(listenerInterface, classLoader);
     }

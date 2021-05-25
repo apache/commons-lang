@@ -1235,6 +1235,17 @@ public class ClassUtilsTest  {
     }
 
     @Test
+    public void testGetComponentType() {
+        final CX[] newArray = {};
+        @SuppressWarnings("unchecked")
+        final Class<CX[]> classCxArray = (Class<CX[]>) newArray.getClass();
+        // No type-cast required.
+        final Class<CX> componentType = ClassUtils.getComponentType(classCxArray);
+        assertEquals(CX.class, componentType);
+        assertNull(ClassUtils.getComponentType(null));
+    }
+
+    @Test
     public void testGetInnerClass() throws ClassNotFoundException {
         assertEquals( Inner.DeeplyNested.class, ClassUtils.getClass( "org.apache.commons.lang3.ClassUtilsTest.Inner.DeeplyNested" ) );
         assertEquals( Inner.DeeplyNested.class, ClassUtils.getClass( "org.apache.commons.lang3.ClassUtilsTest.Inner$DeeplyNested" ) );

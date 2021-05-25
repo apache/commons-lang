@@ -46,6 +46,7 @@ import org.junit.jupiter.api.Test;
 public class ArrayUtilsTest {
 
     private class TestClass {
+        // empty
     }
 
     /** A predefined seed used to initialize {@link Random} in order to get predictable results */
@@ -213,13 +214,16 @@ public class ArrayUtilsTest {
 
     @Test
     public void testContains_LANG_1261() {
+
         class LANG1261ParentObject {
             @Override
             public boolean equals(final Object o) {
                 return true;
             }
         }
+
         class LANG1261ChildObject extends LANG1261ParentObject {
+            // empty.
         }
 
         final Object[] array = new LANG1261ChildObject[]{new LANG1261ChildObject()};
@@ -401,6 +405,15 @@ public class ArrayUtilsTest {
         assertEquals(null, ArrayUtils.get(array1, -1));
         assertEquals(StringUtils.EMPTY, ArrayUtils.get(array1, 0));
         assertEquals(null, ArrayUtils.get(array1, 1));
+    }
+
+    @Test
+    public void testGetComponentType() {
+        final TestClass[] newArray = {};
+        // No type-cast required.
+        final Class<TestClass> componentType = ArrayUtils.getComponentType(newArray);
+        assertEquals(TestClass.class, componentType);
+        assertNull(ArrayUtils.getComponentType(null));
     }
 
     @Test
@@ -656,7 +669,6 @@ public class ArrayUtilsTest {
         assertEquals(emptySet, ArrayUtils.indexesOf(array, 'e', 0));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testIndexesOfDouble() {
         double[] array = null;
@@ -700,7 +712,6 @@ public class ArrayUtilsTest {
         assertEquals(testSet, ArrayUtils.indexesOf(array, 1.00001324, 0.0001));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testIndexesOfDoubleWithStartIndex() {
         double[] array = null;
@@ -753,7 +764,6 @@ public class ArrayUtilsTest {
         assertEquals(testSet, ArrayUtils.indexesOf(array, 1.00001324, 0, 0.0001));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testIndexesOfFloat() {
         float[] array = null;
@@ -776,7 +786,6 @@ public class ArrayUtilsTest {
         assertEquals(emptySet, ArrayUtils.indexesOf(array, 99));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testIndexesOfFloatWithStartIndex() {
         float[] array = null;
