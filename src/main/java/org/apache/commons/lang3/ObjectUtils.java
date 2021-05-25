@@ -1082,11 +1082,10 @@ public class ObjectUtils {
         Validate.notEmpty(items, "null/empty items");
         Validate.noNullElements(items);
         Validate.notNull(comparator, "comparator");
-        final TreeSet<T> sort = new TreeSet<>(comparator);
-        Collections.addAll(sort, items);
+        final TreeSet<T> treeSet = new TreeSet<>(comparator);
+        Collections.addAll(treeSet, items);
         @SuppressWarnings("unchecked") //we know all items added were T instances
-        final
-        T result = (T) sort.toArray()[(sort.size() - 1) / 2];
+        final T result = (T) treeSet.toArray()[(treeSet.size() - 1) / 2];
         return result;
     }
 
