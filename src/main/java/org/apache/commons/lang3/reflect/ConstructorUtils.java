@@ -270,8 +270,7 @@ public class ConstructorUtils {
                     if (result == null || MemberUtils.compareConstructorFit(ctor, result, parameterTypes) < 0) {
                         // temporary variable for annotation, see comment above (1)
                         @SuppressWarnings("unchecked")
-                        final
-                        Constructor<T> constructor = (Constructor<T>) ctor;
+                        final Constructor<T> constructor = (Constructor<T>) ctor;
                         result = constructor;
                     }
                 }
