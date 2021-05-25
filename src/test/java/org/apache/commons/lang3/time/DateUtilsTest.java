@@ -872,7 +872,7 @@ public class DateUtilsTest {
     public void testParseDate() throws Exception {
         final GregorianCalendar cal = new GregorianCalendar(1972, 11, 3);
         String dateStr = "1972-12-03";
-        final String[] parsers = new String[] {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
+        final String[] parsers = {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
         Date date = DateUtils.parseDate(dateStr, parsers);
         assertEquals(cal.getTime(), date);
 
@@ -887,19 +887,19 @@ public class DateUtilsTest {
 
     @Test
     public void testParseDate_InvalidDateString() {
-        final String[] parsers = new String[] {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
+        final String[] parsers = {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
         assertThrows(ParseException.class, () -> DateUtils.parseDate("197212AB", parsers));
     }
 
     @Test
     public void testParseDate_NoDateString() {
-        final String[] parsers = new String[] {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
+        final String[] parsers = {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
         assertThrows(ParseException.class, () -> DateUtils.parseDate("PURPLE", parsers));
     }
 
     @Test
     public void testParseDate_Null() {
-        final String[] parsers = new String[] {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
+        final String[] parsers = {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
         assertThrows(IllegalArgumentException.class, () -> DateUtils.parseDate(null, parsers));
     }
 
@@ -908,7 +908,7 @@ public class DateUtilsTest {
     public void testParseDateWithLeniency() throws Exception {
         final GregorianCalendar cal = new GregorianCalendar(1998, 6, 30);
         final String dateStr = "02 942, 1996";
-        final String[] parsers = new String[] {"MM DDD, yyyy"};
+        final String[] parsers = {"MM DDD, yyyy"};
 
         final Date date = DateUtils.parseDate(dateStr, parsers);
         assertEquals(cal.getTime(), date);

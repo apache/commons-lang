@@ -64,8 +64,8 @@ public class DurationFormatUtilsTest {
         final String msg = year + "-" + month + "-" + day + " to ";
         final Calendar c = Calendar.getInstance();
         c.set(year, month, day, 0, 0, 0);
-        final int[] array1 = new int[] { year, month, day, 0, 0, 0 };
-        final int[] array2 = new int[] { year, month, day, 0, 0, 0 };
+        final int[] array1 = { year, month, day, 0, 0, 0 };
+        final int[] array2 = { year, month, day, 0, 0, 0 };
         for (int i=0; i < FOUR_YEARS; i++) {
             array2[0] = c.get(Calendar.YEAR);
             array2[1] = c.get(Calendar.MONTH);

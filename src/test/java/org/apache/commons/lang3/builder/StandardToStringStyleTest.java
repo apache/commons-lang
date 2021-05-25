@@ -141,7 +141,7 @@ public class StandardToStringStyleTest {
 
     @Test
     public void testObjectArray() {
-        Object[] array = new Object[] {null, base, new int[] {3, 6}};
+        Object[] array = {null, base, new int[] {3, 6}};
         assertEquals(baseStr + "[[%NULL%, 5, [3, 6]]]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[[%NULL%, 5, [3, 6]]]", new ToStringBuilder(base).append((Object) array).toString());
         array = null;
@@ -151,7 +151,7 @@ public class StandardToStringStyleTest {
 
     @Test
     public void testLongArray() {
-        long[] array = new long[] {1, 2, -3, 4};
+        long[] array = {1, 2, -3, 4};
         assertEquals(baseStr + "[[1, 2, -3, 4]]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[[1, 2, -3, 4]]", new ToStringBuilder(base).append((Object) array).toString());
         array = null;
@@ -161,7 +161,7 @@ public class StandardToStringStyleTest {
 
     @Test
     public void testLongArrayArray() {
-        long[][] array = new long[][] {{1, 2}, null, {5}};
+        long[][] array = {{1, 2}, null, {5}};
         assertEquals(baseStr + "[[[1, 2], %NULL%, [5]]]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[[[1, 2], %NULL%, [5]]]", new ToStringBuilder(base).append((Object) array).toString());
         array = null;

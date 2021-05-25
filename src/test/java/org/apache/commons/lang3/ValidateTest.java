@@ -208,7 +208,7 @@ class ValidateTest {
 
                 @Test
                 void shouldReturnTheSameInstance() {
-                    final String[] array = new String[]{"hi"};
+                    final String[] array = {"hi"};
                     final String[] result = Validate.notEmpty(array);
 
                     assertSame(array, result);
@@ -243,7 +243,7 @@ class ValidateTest {
 
                 @Test
                 void shouldReturnTheSameInstance() {
-                    final String[] array = new String[]{"hi"};
+                    final String[] array = {"hi"};
                     final String[] result = Validate.notEmpty(array, "MSG");
 
                     assertSame(array, result);

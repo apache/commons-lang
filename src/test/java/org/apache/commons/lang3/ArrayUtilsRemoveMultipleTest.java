@@ -103,7 +103,7 @@ public class ArrayUtilsRemoveMultipleTest {
 
     @Test
     public void testRemoveAllBooleanArrayRemoveNone() {
-        final boolean[] array1 = new boolean[] { true, false };
+        final boolean[] array1 = { true, false };
         final boolean[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
         assertArrayEquals(array1, array2);
@@ -175,7 +175,7 @@ public class ArrayUtilsRemoveMultipleTest {
 
     @Test
     public void testRemoveAllByteArrayRemoveNone() {
-        final byte[] array1 = new byte[] { 1, 2 };
+        final byte[] array1 = { 1, 2 };
         final byte[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
         assertArrayEquals(array1, array2);
@@ -247,7 +247,7 @@ public class ArrayUtilsRemoveMultipleTest {
 
     @Test
     public void testRemoveAllCharArrayRemoveNone() {
-        final char[] array1 = new char[] { 'a', 'b' };
+        final char[] array1 = { 'a', 'b' };
         final char[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
         assertArrayEquals(array1, array2);
@@ -319,7 +319,7 @@ public class ArrayUtilsRemoveMultipleTest {
 
     @Test
     public void testRemoveAllDoubleArrayRemoveNone() {
-        final double[] array1 = new double[] { 1, 2 };
+        final double[] array1 = { 1, 2 };
         final double[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
         assertArrayEquals(array1, array2);
@@ -391,7 +391,7 @@ public class ArrayUtilsRemoveMultipleTest {
 
     @Test
     public void testRemoveAllFloatArrayRemoveNone() {
-        final float[] array1 = new float[] { 1, 2 };
+        final float[] array1 = { 1, 2 };
         final float[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
         assertArrayEquals(array1, array2);
@@ -469,7 +469,7 @@ public class ArrayUtilsRemoveMultipleTest {
 
     @Test
     public void testRemoveAllIntArrayRemoveNone() {
-        final int[] array1 = new int[] { 1, 2 };
+        final int[] array1 = { 1, 2 };
         final int[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
         assertArrayEquals(array1, array2);
@@ -541,7 +541,7 @@ public class ArrayUtilsRemoveMultipleTest {
 
     @Test
     public void testRemoveAllLongArrayRemoveNone() {
-        final long[] array1 = new long[] { 1, 2 };
+        final long[] array1 = { 1, 2 };
         final long[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
         assertArrayEquals(array1, array2);
@@ -685,7 +685,7 @@ public class ArrayUtilsRemoveMultipleTest {
 
     @Test
     public void testRemoveAllObjectArrayRemoveNone() {
-        final Object[] array1 = new Object[] { "foo", "bar", "baz" };
+        final Object[] array1 = { "foo", "bar", "baz" };
         final Object[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
         assertArrayEquals(array1, array2);
@@ -757,7 +757,7 @@ public class ArrayUtilsRemoveMultipleTest {
 
     @Test
     public void testRemoveAllShortArrayRemoveNone() {
-        final short[] array1 = new short[] { 1, 2 };
+        final short[] array1 = { 1, 2 };
         final short[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
         assertArrayEquals(array1, array2);

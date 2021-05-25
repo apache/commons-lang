@@ -110,7 +110,7 @@ public class ExtendedMessageFormatTest {
     public void testExtendedAndBuiltInFormats() {
         final Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23, 18, 33, 5);
-        final Object[] args = new Object[] {"John Doe", cal.getTime(), Double.valueOf("12345.67")};
+        final Object[] args = {"John Doe", cal.getTime(), Double.valueOf("12345.67")};
         final String builtinsPattern = "DOB: {1,date,short} Salary: {2,number,currency}";
         final String extendedPattern = "Name: {0,upper} ";
         final String pattern = extendedPattern + builtinsPattern;
@@ -228,7 +228,7 @@ public class ExtendedMessageFormatTest {
     public void testBuiltInDateTimeFormat() {
         final Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23, 18, 33, 5);
-        final Object[] args = new Object[] {cal.getTime()};
+        final Object[] args = {cal.getTime()};
         final Locale[] availableLocales = DateFormat.getAvailableLocales();
 
         checkBuiltInFormat("1: {0,date,short}",    args, availableLocales);
@@ -249,7 +249,7 @@ public class ExtendedMessageFormatTest {
     public void testOverriddenBuiltinFormat() {
         final Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23);
-        final Object[] args = new Object[] {cal.getTime()};
+        final Object[] args = {cal.getTime()};
         final Locale[] availableLocales = DateFormat.getAvailableLocales();
         final Map<String, ? extends FormatFactory> dateRegistry = Collections.singletonMap("date", new OverrideShortDateFormatFactory());
 
@@ -276,7 +276,7 @@ public class ExtendedMessageFormatTest {
      */
     @Test
     public void testBuiltInNumberFormat() {
-        final Object[] args = new Object[] {Double.valueOf("6543.21")};
+        final Object[] args = {Double.valueOf("6543.21")};
         final Locale[] availableLocales = NumberFormat.getAvailableLocales();
         checkBuiltInFormat("1: {0,number}",            args, availableLocales);
         checkBuiltInFormat("2: {0,number,integer}",    args, availableLocales);

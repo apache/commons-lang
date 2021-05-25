@@ -203,7 +203,7 @@ public class WordUtilsTest {
         assertEquals("", WordUtils.capitalize(""));
         assertEquals("  ", WordUtils.capitalize("  "));
 
-        char[] chars = new char[] { '-', '+', ' ', '@' };
+        char[] chars = { '-', '+', ' ', '@' };
         assertEquals("I", WordUtils.capitalize("I", chars) );
         assertEquals("I", WordUtils.capitalize("i", chars) );
         assertEquals("I-Am Here+123", WordUtils.capitalize("i-am here+123", chars) );
@@ -235,7 +235,7 @@ public class WordUtilsTest {
         assertEquals("", WordUtils.capitalizeFully(""));
         assertEquals("  ", WordUtils.capitalizeFully("  "));
 
-        char[] chars = new char[] { '-', '+', ' ', '@' };
+        char[] chars = { '-', '+', ' ', '@' };
         assertEquals("I", WordUtils.capitalizeFully("I", chars) );
         assertEquals("I", WordUtils.capitalizeFully("i", chars) );
         assertEquals("I-Am Here+123", WordUtils.capitalizeFully("i-am here+123", chars) );
@@ -287,7 +287,7 @@ public class WordUtilsTest {
         assertEquals("", WordUtils.uncapitalize(""));
         assertEquals("  ", WordUtils.uncapitalize("  "));
 
-        char[] chars = new char[] { '-', '+', ' ', '@' };
+        char[] chars = { '-', '+', ' ', '@' };
         assertEquals("i", WordUtils.uncapitalize("I", chars) );
         assertEquals("i", WordUtils.uncapitalize("i", chars) );
         assertEquals("i am-here+123", WordUtils.uncapitalize("i am-here+123", chars) );

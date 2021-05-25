@@ -92,7 +92,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     // So, don't change this code! It works and is very fast.
 
     /** Empty array. */
-    private static final Rule[] EMPTY_RULE_ARRAY = new Rule[0];
+    private static final Rule[] EMPTY_RULE_ARRAY = {};
 
     /**
      * Required for serialization support.

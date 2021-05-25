@@ -916,7 +916,7 @@ public class EqualsBuilderTest {
         assertFalse(new EqualsBuilder().append(array1, array2).isEquals());
 
         // compare 1 dim to 2.
-        final boolean[] array3 = new boolean[]{true, true};
+        final boolean[] array3 = {true, true};
         assertFalse(new EqualsBuilder().append(array1, array3).isEquals());
         assertFalse(new EqualsBuilder().append(array3, array1).isEquals());
         assertFalse(new EqualsBuilder().append(array2, array3).isEquals());
@@ -1190,8 +1190,8 @@ public class EqualsBuilderTest {
      */
     @Test
     public void testUnrelatedClasses() {
-        final Object[] x = new Object[]{new TestACanEqualB(1)};
-        final Object[] y = new Object[]{new TestBCanEqualA(1)};
+        final Object[] x = {new TestACanEqualB(1)};
+        final Object[] y = {new TestBCanEqualA(1)};
 
         // sanity checks:
         assertArrayEquals(x, x);
@@ -1214,8 +1214,8 @@ public class EqualsBuilderTest {
      */
     @Test
     public void testNpeForNullElement() {
-        final Object[] x1 = new Object[]{Integer.valueOf(1), null, Integer.valueOf(3)};
-        final Object[] x2 = new Object[]{Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3)};
+        final Object[] x1 = {Integer.valueOf(1), null, Integer.valueOf(3)};
+        final Object[] x2 = {Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3)};
 
         // causes an NPE in 2.0 according to:
         // https://issues.apache.org/bugzilla/show_bug.cgi?id=33067
@@ -1317,9 +1317,9 @@ public class EqualsBuilderTest {
         final TestObject one = new TestObject(1);
         final TestObject two = new TestObject(2);
 
-        final Object[] o1 = new Object[]{one};
-        final Object[] o2 = new Object[]{two};
-        final Object[] o3 = new Object[]{one};
+        final Object[] o1 = {one};
+        final Object[] o2 = {two};
+        final Object[] o3 = {one};
 
         assertFalse(EqualsBuilder.reflectionEquals(o1, o2));
         assertTrue(EqualsBuilder.reflectionEquals(o1, o1));

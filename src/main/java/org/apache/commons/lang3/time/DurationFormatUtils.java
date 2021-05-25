@@ -570,7 +570,7 @@ public class DurationFormatUtils {
     static class Token {
 
         /** Empty array. */
-        private static final Token[] EMPTY_ARRAY = new Token[0];
+        private static final Token[] EMPTY_ARRAY = {};
 
         /**
          * Helper method to determine if a set of tokens contain a value

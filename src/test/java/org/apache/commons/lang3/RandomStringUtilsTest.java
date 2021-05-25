@@ -168,7 +168,7 @@ public class RandomStringUtilsTest {
 
     @Test
     public void testExceptions() {
-        final char[] DUMMY = new char[]{'a'}; // valid char array
+        final char[] DUMMY = {'a'}; // valid char array
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1));
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, true, true));
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, DUMMY));

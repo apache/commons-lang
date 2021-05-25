@@ -84,19 +84,19 @@ public class IEEE754rUtilsTest  {
         assertEquals(2.5f, IEEE754rUtils.max(1.2f, 2.5f, Float.NaN), 0.01);
         assertTrue(Float.isNaN(IEEE754rUtils.max(Float.NaN, Float.NaN, Float.NaN)));
 
-        final double[] a = new double[] { 1.2, Double.NaN, 3.7, 27.0, 42.0, Double.NaN };
+        final double[] a = { 1.2, Double.NaN, 3.7, 27.0, 42.0, Double.NaN };
         assertEquals(42.0, IEEE754rUtils.max(a), 0.01);
         assertEquals(1.2, IEEE754rUtils.min(a), 0.01);
 
-        final double[] b = new double[] { Double.NaN, 1.2, Double.NaN, 3.7, 27.0, 42.0, Double.NaN };
+        final double[] b = { Double.NaN, 1.2, Double.NaN, 3.7, 27.0, 42.0, Double.NaN };
         assertEquals(42.0, IEEE754rUtils.max(b), 0.01);
         assertEquals(1.2, IEEE754rUtils.min(b), 0.01);
 
-        final float[] aF = new float[] { 1.2f, Float.NaN, 3.7f, 27.0f, 42.0f, Float.NaN };
+        final float[] aF = { 1.2f, Float.NaN, 3.7f, 27.0f, 42.0f, Float.NaN };
         assertEquals(1.2f, IEEE754rUtils.min(aF), 0.01);
         assertEquals(42.0f, IEEE754rUtils.max(aF), 0.01);
 
-        final float[] bF = new float[] { Float.NaN, 1.2f, Float.NaN, 3.7f, 27.0f, 42.0f, Float.NaN };
+        final float[] bF = { Float.NaN, 1.2f, Float.NaN, 3.7f, 27.0f, 42.0f, Float.NaN };
         assertEquals(1.2f, IEEE754rUtils.min(bF), 0.01);
         assertEquals(42.0f, IEEE754rUtils.max(bF), 0.01);
     }

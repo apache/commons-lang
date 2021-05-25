@@ -47,7 +47,7 @@ public class StringUtilsEqualsIndexOfTest  {
 
     private static final String FOOBAR = "foobar";
 
-    private static final String[] FOOBAR_SUB_ARRAY = new String[] {"ob", "ba"};
+    private static final String[] FOOBAR_SUB_ARRAY = {"ob", "ba"};
 
     // The purpose of this class is to test StringUtils#equals(CharSequence, CharSequence)
     // with a CharSequence implementation whose equals(Object) override requires that the

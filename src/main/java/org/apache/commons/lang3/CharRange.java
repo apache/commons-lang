@@ -50,7 +50,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     private transient String iToString;
 
     /** Empty array. */
-    static final CharRange[] EMPTY_ARRAY = new CharRange[0];
+    static final CharRange[] EMPTY_ARRAY = {};
 
     /**
      * <p>Constructs a {@code CharRange} over a set of characters,

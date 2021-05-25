@@ -121,7 +121,7 @@ public class ObjectUtilsTest {
     }
     private static final String FOO = "foo";
     private static final String BAR = "bar";
-    private static final String[] NON_EMPTY_ARRAY = new String[] { FOO, BAR, };
+    private static final String[] NON_EMPTY_ARRAY = { FOO, BAR, };
 
     private static final List<String> NON_EMPTY_LIST = Arrays.asList(NON_EMPTY_ARRAY);
 
@@ -460,7 +460,7 @@ public class ObjectUtilsTest {
 
     @Test
     public void testHashCodeMulti_multiple_emptyArray() {
-        final Object[] array = new Object[0];
+        final Object[] array = {};
         assertEquals(1, ObjectUtils.hashCodeMulti(array));
     }
 

@@ -38,7 +38,7 @@ public class BooleanUtilsTest {
 
     @Test
     public void test_booleanValues() {
-        final Boolean[] expected = new Boolean[] {false, true};
+        final Boolean[] expected = {false, true};
         assertArrayEquals(sort(expected), BooleanUtils.booleanValues());
     }
 

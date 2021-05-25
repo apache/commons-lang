@@ -314,7 +314,7 @@ public class StringUtilsContainsTest  {
         final char[] chars1= {'b'};
         final char[] chars2= {'.'};
         final char[] chars3= {'c', 'd'};
-        final char[] emptyChars = new char[0];
+        final char[] emptyChars = {};
         assertTrue(StringUtils.containsNone(null, (char[]) null));
         assertTrue(StringUtils.containsNone("", (char[]) null));
         assertTrue(StringUtils.containsNone(null, emptyChars));
@@ -429,7 +429,7 @@ public class StringUtilsContainsTest  {
         final char[] chars1= {'b'};
         final char[] chars2= {'a'};
         final char[] chars3= {'a', 'b'};
-        final char[] emptyChars = new char[0];
+        final char[] emptyChars = {};
         assertFalse(StringUtils.containsOnly(null, (char[]) null));
         assertFalse(StringUtils.containsOnly("", (char[]) null));
         assertFalse(StringUtils.containsOnly(null, emptyChars));

@@ -1364,7 +1364,7 @@ public class StringUtilsTest {
     @Disabled
     @Test
     public void testLang1593() {
-        final int[] arr = new int[] {1, 2, 3, 4, 5, 6, 7};
+        final int[] arr = {1, 2, 3, 4, 5, 6, 7};
         final String expected = StringUtils.join(arr, '-');
         final String actual = StringUtils.join(arr, "-");
         assertEquals(expected, actual);
@@ -2443,7 +2443,7 @@ public class StringUtilsTest {
 
         // test whitespace
         String input = "ab   de fg";
-        String[] expected = new String[]{"ab", "", "", "de", "fg"};
+        String[] expected = {"ab", "", "", "de", "fg"};
 
         String[] actual = StringUtils.splitByWholeSeparatorPreserveAllTokens(input, null);
         assertEquals(expected.length, actual.length);
@@ -2480,7 +2480,7 @@ public class StringUtilsTest {
 
         // test whitespace
         String input = "ab   de fg";
-        String[] expected = new String[]{"ab", "", "", "de", "fg"};
+        String[] expected = {"ab", "", "", "de", "fg"};
 
         String[] actual = StringUtils.splitByWholeSeparatorPreserveAllTokens(input, null, -1);
         assertEquals(expected.length, actual.length);
@@ -3340,13 +3340,13 @@ public class StringUtilsTest {
 
     @Test
     public void testGeorgianSample() {
-        final char[] arrayI = new char[]{
+        final char[] arrayI = {
                 //Latin Small Letter dotless I
                 (char) 0x0131,
                 //Greek Capital Letter Theta
                 (char) 0x03F4
         };
-        final char[] arrayJ = new char[]{
+        final char[] arrayJ = {
                 //Latin Capital Letter I with dot above
                 (char) 0x0130,
                 //Greek Theta Symbol
