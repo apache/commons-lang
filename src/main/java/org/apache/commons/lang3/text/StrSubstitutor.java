@@ -400,7 +400,7 @@ public class StrSubstitutor {
             return null;
         }
         final StrBuilder buf = new StrBuilder(source);
-        if (substitute(buf, 0, source.length()) == false) {
+        if (!substitute(buf, 0, source.length())) {
             return source;
         }
         return buf.toString();
@@ -423,7 +423,7 @@ public class StrSubstitutor {
             return null;
         }
         final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-        if (substitute(buf, 0, length) == false) {
+        if (!substitute(buf, 0, length)) {
             return source.substring(offset, offset + length);
         }
         return buf.toString();
@@ -640,7 +640,7 @@ public class StrSubstitutor {
             return false;
         }
         final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-        if (substitute(buf, 0, length) == false) {
+        if (!substitute(buf, 0, length)) {
             return false;
         }
         source.replace(offset, offset + length, buf.toString());
@@ -683,7 +683,7 @@ public class StrSubstitutor {
             return false;
         }
         final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-        if (substitute(buf, 0, length) == false) {
+        if (!substitute(buf, 0, length)) {
             return false;
         }
         source.replace(offset, offset + length, buf.toString());
@@ -896,7 +896,7 @@ public class StrSubstitutor {
      * @param priorVariables  the list of prior variables
      */
     private void checkCyclicSubstitution(final String varName, final List<String> priorVariables) {
-        if (priorVariables.contains(varName) == false) {
+        if (!priorVariables.contains(varName)) {
             return;
         }
         final StrBuilder buf = new StrBuilder(256);
