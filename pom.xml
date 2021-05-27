@@ -628,7 +628,7 @@
     <clirr.skip>true</clirr.skip>
 
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
-    <jmh.version>1.27</jmh.version>
+    <jmh.version>1.32</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
 
     <commons.jacoco.version>0.8.7</commons.jacoco.version>
