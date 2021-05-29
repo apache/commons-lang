@@ -791,6 +791,24 @@ public class ClassUtils {
     }
 
     /**
+     * <p>Returns whether the given {@code type} is a primitive array class ({@code boolean}, {@code byte}, {@code char},
+     * {@code short}, {@code int}, {@code long}, {@code double}, {@code float}).</p>
+     *
+     * <p>The method returns {@code false} if a {@code null} type is passed in.</p>
+     *
+     * @param type the class to check, may be {@code null}
+     * @return true if the given {@code type} is a primitive array class ({@code boolean}, {@code byte}, {@code char},
+     *         {@code short}, {@code int}, {@code long}, {@code double}, {@code float}). {@code false} if null input.
+     * @since 3.13.0
+     */
+    public static boolean isPrimitiveArray(final Class<?> type) {
+        if (type == null) {
+            return false;
+        }
+        return type.isArray() && type.getComponentType().isPrimitive();
+    }
+
+    /**
      * <p>Checks if one {@code Class} can be assigned to a variable of
      * another {@code Class}.</p>
      *
