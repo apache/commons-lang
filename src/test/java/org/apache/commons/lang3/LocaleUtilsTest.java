@@ -170,11 +170,10 @@ public class LocaleUtilsTest  {
     @Test
     public void testToLocale_2Part() {
         assertValidToLocale("us_EN", "us", "EN");
+        assertValidToLocale("us-EN", "us", "EN");
         //valid though doesn't exist
         assertValidToLocale("us_ZH", "us", "ZH");
 
-        assertThrows(
-                IllegalArgumentException.class, () -> LocaleUtils.toLocale("us-EN"), "Should fail as not underscore");
         assertThrows(
                 IllegalArgumentException.class,
                 () -> LocaleUtils.toLocale("us_En"),
@@ -203,6 +202,7 @@ public class LocaleUtilsTest  {
     @Test
     public void testToLocale_3Part() {
         assertValidToLocale("us_EN_A", "us", "EN", "A");
+        assertValidToLocale("us-EN-A", "us", "EN", "A");
         // this isn't pretty, but was caused by a jdk bug it seems
         // http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4210525
         if (SystemUtils.isJavaVersionAtLeast(JAVA_1_4)) {
@@ -214,7 +214,7 @@ public class LocaleUtilsTest  {
         }
 
         assertThrows(
-                IllegalArgumentException.class, () -> LocaleUtils.toLocale("us_EN-a"), "Should fail as not underscore");
+                IllegalArgumentException.class, () -> LocaleUtils.toLocale("us_EN-a"), "Should fail as no consistent delimiter");
         assertThrows(
                 IllegalArgumentException.class, () -> LocaleUtils.toLocale("uu_UU_"), "Must be 3, 5 or 7+ in length");
     }
