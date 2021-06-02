@@ -52,8 +52,6 @@ import org.apache.commons.lang3.time.DurationUtils;
 // because it is part of the signature of deprecated methods
 public class ObjectUtils {
 
-    // Null
-    //-----------------------------------------------------------------------
     /**
      * <p>Class used as a null placeholder where {@code null}
      * has another meaning.</p>
@@ -230,8 +228,6 @@ public class ObjectUtils {
         return !allNotNull(values);
     }
 
-    // cloning
-    //-----------------------------------------------------------------------
     /**
      * <p>Clone an object.</p>
      *
@@ -832,8 +828,6 @@ public class ObjectUtils {
               .append(Integer.toHexString(System.identityHashCode(object)));
     }
 
-    // Identity ToString
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets the toString that would be produced by {@code Object}
      * if a class did not override toString itself. {@code null}
@@ -965,8 +959,6 @@ public class ObjectUtils {
      */
 
 
-    // Empty checks
-    //-----------------------------------------------------------------------
     /**
      * <p>Checks if an Object is empty or null.</p>
      *
@@ -1110,8 +1102,6 @@ public class ObjectUtils {
         return result;
     }
 
-    // Comparable
-    //-----------------------------------------------------------------------
     /**
      * <p>Null safe comparison of Comparables.</p>
      *
@@ -1139,8 +1129,6 @@ public class ObjectUtils {
     }
 
 
-    // Mode
-    //-----------------------------------------------------------------------
     /**
      * Find the most frequently occurring item.
      *
@@ -1258,8 +1246,6 @@ public class ObjectUtils {
         return obj;
     }
 
-    // ToString
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets the {@code toString} of an {@code Object} returning
      * an empty string ("") if {@code null} input.</p>
@@ -1284,6 +1270,7 @@ public class ObjectUtils {
     public static String toString(final Object obj) {
         return obj == null ? StringUtils.EMPTY : obj.toString();
     }
+
     /**
      * <p>Gets the {@code toString} of an {@code Object} returning
      * a specified text if {@code null} input.</p>
