@@ -88,12 +88,6 @@ public class Conversion {
     private static final boolean[] TFFF = {true, false, false, false};
     private static final boolean[] FFFF = {false, false, false, false};
 
-    private static final int SHORT_BYTES  = 2;
-    private static final int INT_BYTES    = 4;
-    private static final int LONG_BYTES   = 8;
-    private static final int FLOAT_BYTES  = 4;
-    private static final int DOUBLE_BYTES = 8;
-
     /**
      * <p>
      * Converts a hexadecimal digit into an int using the default (Lsb0) bit ordering.
@@ -2063,7 +2057,7 @@ public class Conversion {
         if (inputBytes == null || inputBytes.length == 0) {
             return 0;
         }
-        final int SIZE = SHORT_BYTES;
+        final int SIZE = Short.BYTES;
         if (inputBytes.length > SIZE) {
             throw new IllegalArgumentException("Input data is longer than size of 'short' primitive ("+SIZE+" bytes)");
         } else if (inputBytes.length < SIZE) {
@@ -2087,7 +2081,7 @@ public class Conversion {
         if (inputBytes == null || inputBytes.length == 0) {
             return 0;
         }
-        final int SIZE = SHORT_BYTES;
+        final int SIZE = Short.BYTES;
         if (inputBytes.length > SIZE) {
             throw new IllegalArgumentException("Input data is longer than size of 'short' primitive ("+SIZE+" bytes)");
         } else if (inputBytes.length < SIZE) {
@@ -2145,7 +2139,7 @@ public class Conversion {
         if (inputBytes == null || inputBytes.length == 0) {
             return 0;
         }
-        final int SIZE = INT_BYTES;
+        final int SIZE = Integer.BYTES;
         if (inputBytes.length > SIZE) {
             throw new IllegalArgumentException("Input data is longer than size of 'int' primitive ("+SIZE+" bytes)");
         } else if (inputBytes.length < SIZE) {
@@ -2171,7 +2165,7 @@ public class Conversion {
         if (inputBytes == null || inputBytes.length == 0) {
             return 0;
         }
-        final int SIZE = INT_BYTES;
+        final int SIZE = Integer.BYTES;
         if (inputBytes.length > SIZE) {
             throw new IllegalArgumentException("Input data is longer than size of 'int' primitive ("+SIZE+" bytes)");
         } else if (inputBytes.length < SIZE) {
@@ -2239,7 +2233,7 @@ public class Conversion {
         if (inputBytes == null || inputBytes.length == 0) {
             return 0;
         }
-        final long SIZE = LONG_BYTES;
+        final long SIZE = Long.BYTES;
         if (inputBytes.length > SIZE) {
             throw new IllegalArgumentException("Input data is longer than size of 'long' primitive ("+SIZE+" bytes)");
         } else if (inputBytes.length < SIZE) {
@@ -2269,7 +2263,7 @@ public class Conversion {
         if (inputBytes == null || inputBytes.length == 0) {
             return 0;
         }
-        final long SIZE = LONG_BYTES;
+        final long SIZE = Long.BYTES;
         if (inputBytes.length > SIZE) {
             throw new IllegalArgumentException("Input data is longer than size of 'long' primitive ("+SIZE+" bytes)");
         } else if (inputBytes.length < SIZE) {
@@ -2693,7 +2687,7 @@ public class Conversion {
         }
 
         //Check Proper Length
-        final long SIZE = SHORT_BYTES;
+        final long SIZE = Short.BYTES;
         if (inputBytes.length > SIZE) {
             throw new IllegalArgumentException("Input data is longer than size of 'short' primitive ("+SIZE+" bytes)");
         } else if (inputBytes.length < SIZE) {
@@ -2733,7 +2727,7 @@ public class Conversion {
         }
 
         //Check Proper Length
-        final long SIZE = SHORT_BYTES;
+        final long SIZE = Short.BYTES;
         if (inputBytes.length > SIZE) {
             throw new IllegalArgumentException("Input data is longer than size of 'short' primitive ("+SIZE+" bytes)");
         } else if (inputBytes.length < SIZE) {
@@ -2773,7 +2767,7 @@ public class Conversion {
         }
 
         //Check Proper Length
-        final long SIZE = INT_BYTES;
+        final long SIZE = Integer.BYTES;
         if (inputBytes.length > SIZE) {
             throw new IllegalArgumentException("Input data is longer than size of 'int' primitive ("+SIZE+" bytes)");
         } else if (inputBytes.length < SIZE) {
@@ -2813,7 +2807,7 @@ public class Conversion {
         }
 
         //Check Proper Length
-        final long SIZE = INT_BYTES;
+        final long SIZE = Integer.BYTES;
         if (inputBytes.length > SIZE) {
             throw new IllegalArgumentException("Input data is longer than size of 'int' primitive ("+SIZE+" bytes)");
         } else if (inputBytes.length < SIZE) {
@@ -2853,7 +2847,7 @@ public class Conversion {
         }
 
         //Check Proper Length
-        final long SIZE = LONG_BYTES;
+        final long SIZE = Long.BYTES;
         if (inputBytes.length > SIZE) {
             throw new IllegalArgumentException("Input data is longer than size of 'long' primitive ("+SIZE+" bytes)");
         } else if (inputBytes.length < SIZE) {
@@ -2893,7 +2887,7 @@ public class Conversion {
         }
 
         //Check Proper Length
-        final long SIZE = LONG_BYTES;
+        final long SIZE = Long.BYTES;
         if (inputBytes.length > SIZE) {
             throw new IllegalArgumentException("Input data is longer than size of 'long' primitive ("+SIZE+" bytes)");
         } else if (inputBytes.length < SIZE) {
@@ -2933,9 +2927,9 @@ public class Conversion {
         }
 
         //Check Proper Length
-        final float SIZE = FLOAT_BYTES;
+        final float SIZE = Float.BYTES;
         if (inputBytes.length > SIZE) {
-            throw new IllegalArgumentException("Input data is floater than size of 'float' primitive ("+SIZE+" bytes)");
+            throw new IllegalArgumentException("Input data is longer than size of 'float' primitive ("+SIZE+" bytes)");
         } else if (inputBytes.length < SIZE) {
             throw new IllegalArgumentException("Input data is smaller than size of 'float' primitive ("+SIZE+" bytes)");
         }
@@ -2973,9 +2967,9 @@ public class Conversion {
         }
 
         //Check Proper Length
-        final float SIZE = FLOAT_BYTES;
+        final float SIZE = Float.BYTES;
         if (inputBytes.length > SIZE) {
-            throw new IllegalArgumentException("Input data is floater than size of 'float' primitive ("+SIZE+" bytes)");
+            throw new IllegalArgumentException("Input data is longer than size of 'float' primitive ("+SIZE+" bytes)");
         } else if (inputBytes.length < SIZE) {
             throw new IllegalArgumentException("Input data is smaller than size of 'float' primitive ("+SIZE+" bytes)");
         }
@@ -3013,9 +3007,9 @@ public class Conversion {
         }
 
         //Check Proper Length
-        final double SIZE = DOUBLE_BYTES;
+        final double SIZE = Double.BYTES;
         if (inputBytes.length > SIZE) {
-            throw new IllegalArgumentException("Input data is doubleer than size of 'double' primitive ("+SIZE+" bytes)");
+            throw new IllegalArgumentException("Input data is longer than size of 'double' primitive ("+SIZE+" bytes)");
         } else if (inputBytes.length < SIZE) {
             throw new IllegalArgumentException("Input data is smaller than size of 'double' primitive ("+SIZE+" bytes)");
         }
@@ -3053,9 +3047,9 @@ public class Conversion {
         }
 
         //Check Proper Length
-        final double SIZE = DOUBLE_BYTES;
+        final double SIZE = Double.BYTES;
         if (inputBytes.length > SIZE) {
-            throw new IllegalArgumentException("Input data is doubleer than size of 'double' primitive ("+SIZE+" bytes)");
+            throw new IllegalArgumentException("Input data is longer than size of 'double' primitive ("+SIZE+" bytes)");
         } else if (inputBytes.length < SIZE) {
             throw new IllegalArgumentException("Input data is smaller than size of 'double' primitive ("+SIZE+" bytes)");
         }
