@@ -30,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.sql.Time;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,6 +45,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 
+import javax.management.relation.RoleList;
 import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.mutable.MutableObject;
@@ -194,6 +196,19 @@ public class ObjectUtilsTest {
         assertFalse(ObjectUtils.anyNull());
         assertFalse(ObjectUtils.anyNull(FOO));
         assertFalse(ObjectUtils.anyNull(FOO, BAR, 1, Boolean.TRUE, new Object(), new Object[]{}));
+    }
+
+    /**
+     * Tests {@Link ObjectUtils#cast(Object, Class)}.
+     */
+    @Test
+    public void testCast() {
+        assertNull(ObjectUtils.cast(null, null));
+        assertNull(ObjectUtils.cast(null, String.class));
+        assertNull(ObjectUtils.cast("apache", null));
+        assertNull(ObjectUtils.cast(new Date(), Time.class));
+        assertNotNull(ObjectUtils.cast("apache", CharSequence.class));
+        assertNotNull(ObjectUtils.cast(new ArrayList<String>(), List.class));
     }
 
     /**
