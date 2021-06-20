@@ -229,6 +229,21 @@ public class ObjectUtils {
     }
 
     /**
+     * Casts the object to the targeted class.
+     * @param value the object to cast
+     * @param castClass the class to which the object must be cast to
+     * @param <T> the type of the cast object
+     * @return the cast object, otherwise {@code null}
+     */
+    public static <T> T cast(Object value, Class<T> castClass) {
+        if ((castClass != null) && castClass.isInstance(value)) {
+            return castClass.cast(value);
+        }
+        return null;
+    }
+
+
+    /**
      * <p>Clone an object.</p>
      *
      * @param <T> the type of the object
