@@ -30,7 +30,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.TreeSet;
 import java.util.function.Supplier;
-
 import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.mutable.MutableInt;
@@ -236,10 +235,7 @@ public class ObjectUtils {
      * @return the cast object, otherwise {@code null}
      */
     public static <T> T cast(Object value, Class<T> castClass) {
-        if ((castClass != null) && castClass.isInstance(value)) {
-            return castClass.cast(value);
-        }
-        return null;
+        return (castClass != null) && castClass.isInstance(value) ? castClass.cast(value) : null;
     }
 
 
