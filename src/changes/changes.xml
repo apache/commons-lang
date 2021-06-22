@@ -61,7 +61,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ArrayUtils.newInstance(Class&gt;T>, int).</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump spotbugs-maven-plugin from 4.2.0 to 4.2.3 #735.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess">Bump Bump actions/cache from v2.1.4 to v2.1.5 #742, #752.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess">Bump Bump actions/cache from v2.1.4 to v2.1.6 #742, #752, #764.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/setup-java from v1.4.3 to v2.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump spotbugs from 4.2.2 to 4.2.3 #744.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump checkstyle from 8.41 to 8.42 #739.</action>
