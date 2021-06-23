@@ -48,6 +48,7 @@ public class DurationUtils {
      * @param duration The duration to pick apart.
      * @throws T See the function signature.
      */
+    @SuppressWarnings("boxing") // boxing unavoidable
     public static <T extends Throwable> void accept(final FailableBiConsumer<Long, Integer, T> consumer, final Duration duration)
             throws T {
         if (consumer != null && duration != null) {
