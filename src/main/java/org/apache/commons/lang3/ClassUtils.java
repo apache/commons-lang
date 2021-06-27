@@ -516,6 +516,56 @@ public class ClassUtils {
     }
 
     /**
+     * <p>Null-safe version of {@code cls.getTypeName()}</p>
+     *
+     * @param cls the class for which to get the class type name; may be null
+     * @return the class type name or the empty string in case the argument is {@code null}
+     * @since 3.13.0
+     * @see Class#getTypeName()
+     */
+    public static String getTypeName(final Class<?> cls) {
+        return getTypeName(cls, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Null-safe version of {@code cls.getTypeName()}</p>
+     *
+     * @param cls the class for which to get the class type name; may be null
+     * @param valueIfNull the return value if the argument {@code cls} is {@code null}
+     * @return the class type name or {@code valueIfNull}
+     * @since 3.13.0
+     * @see Class#getTypeName()
+     */
+    public static String getTypeName(final Class<?> cls, final String valueIfNull) {
+        return cls == null ? valueIfNull : cls.getTypeName();
+    }
+
+    /**
+     * <p>Null-safe version of {@code object.getClass().getTypeName()}</p>
+     *
+     * @param object the object for which to get the class type name; may be null
+     * @return the class type name or the empty String
+     * @since 3.13.0
+     * @see Class#getTypeName()
+     */
+    public static String getTypeName(final Object object) {
+        return getTypeName(object, StringUtils.EMPTY);
+    }
+
+    /**
+     * <p>Null-safe version of {@code object.getClass().getTypeName()}</p>
+     *
+     * @param object the object for which to get the class type name; may be null
+     * @param valueIfNull the value to return if {@code object} is {@code null}
+     * @return the class type name or {@code valueIfNull}
+     * @since 3.13.0
+     * @see Class#getTypeName()
+     */
+    public static String getTypeName(final Object object, final String valueIfNull) {
+        return object == null ? valueIfNull : object.getClass().getTypeName();
+    }
+
+    /**
      * <p>Decides if the part that was just copied to its destination
      * location in the work array can be kept as it was copied or must be
      * abbreviated. It must be kept when the part is the last one, which
