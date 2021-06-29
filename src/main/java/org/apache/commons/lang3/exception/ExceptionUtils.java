@@ -29,6 +29,7 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -476,7 +477,7 @@ public class ExceptionUtils {
      * @return index of the {@code type} within throwables nested within the specified {@code throwable}
      */
     private static int indexOf(final Throwable throwable, final Class<? extends Throwable> type, int fromIndex, final boolean subclass) {
-        if (throwable == null || type == null) {
+        if (ObjectUtils.anyNull(throwable, type)) {
             return NOT_FOUND;
         }
         if (fromIndex < 0) {
@@ -682,7 +683,7 @@ public class ExceptionUtils {
      * @since 2.0
      */
     public static void removeCommonFrames(final List<String> causeFrames, final List<String> wrapperFrames) {
-        if (causeFrames == null || wrapperFrames == null) {
+        if (ObjectUtils.anyNull(causeFrames, wrapperFrames)) {
             throw new IllegalArgumentException("The List must not be null");
         }
         int causeFrameIndex = causeFrames.size() - 1;
@@ -773,7 +774,7 @@ public class ExceptionUtils {
      * @return throwable of the {@code type} within throwables nested within the specified {@code throwable}
      */
     private static <T extends Throwable> T throwableOf(final Throwable throwable, final Class<T> type, int fromIndex, final boolean subclass) {
-        if (throwable == null || type == null) {
+        if (ObjectUtils.anyNull(throwable, type)) {
             return null;
         }
         if (fromIndex < 0) {

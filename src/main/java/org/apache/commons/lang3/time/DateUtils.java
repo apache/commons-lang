@@ -27,6 +27,7 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.LocaleUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -164,7 +165,7 @@ public class DateUtils {
      * @since 2.1
      */
     public static boolean isSameDay(final Date date1, final Date date2) {
-        if (date1 == null || date2 == null) {
+        if (ObjectUtils.anyNull(date1, date2)) {
             throw nullDateIllegalArgumentException();
         }
         final Calendar cal1 = Calendar.getInstance();
@@ -188,7 +189,7 @@ public class DateUtils {
      * @since 2.1
      */
     public static boolean isSameDay(final Calendar cal1, final Calendar cal2) {
-        if (cal1 == null || cal2 == null) {
+        if (ObjectUtils.anyNull(cal1, cal2)) {
             throw nullDateIllegalArgumentException();
         }
         return cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA) &&
@@ -209,7 +210,7 @@ public class DateUtils {
      * @since 2.1
      */
     public static boolean isSameInstant(final Date date1, final Date date2) {
-        if (date1 == null || date2 == null) {
+        if (ObjectUtils.anyNull(date1, date2)) {
             throw nullDateIllegalArgumentException();
         }
         return date1.getTime() == date2.getTime();
@@ -227,7 +228,7 @@ public class DateUtils {
      * @since 2.1
      */
     public static boolean isSameInstant(final Calendar cal1, final Calendar cal2) {
-        if (cal1 == null || cal2 == null) {
+        if (ObjectUtils.anyNull(cal1, cal2)) {
             throw nullDateIllegalArgumentException();
         }
         return cal1.getTime().getTime() == cal2.getTime().getTime();
@@ -247,7 +248,7 @@ public class DateUtils {
      * @since 2.1
      */
     public static boolean isSameLocalTime(final Calendar cal1, final Calendar cal2) {
-        if (cal1 == null || cal2 == null) {
+        if (ObjectUtils.anyNull(cal1, cal2)) {
             throw nullDateIllegalArgumentException();
         }
         return cal1.get(Calendar.MILLISECOND) == cal2.get(Calendar.MILLISECOND) &&
@@ -363,7 +364,7 @@ public class DateUtils {
      */
     private static Date parseDateWithLeniency(final String str, final Locale locale, final String[] parsePatterns,
         final boolean lenient) throws ParseException {
-        if (str == null || parsePatterns == null) {
+        if (ObjectUtils.anyNull(str, parsePatterns)) {
             throw new IllegalArgumentException("Date and Patterns must not be null");
         }
 

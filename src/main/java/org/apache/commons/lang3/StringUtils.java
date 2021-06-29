@@ -993,7 +993,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from contains(String, String) to contains(CharSequence, CharSequence)
      */
     public static boolean contains(final CharSequence seq, final CharSequence searchSeq) {
-        if (seq == null || searchSeq == null) {
+        if (ObjectUtils.anyNull(seq, searchSeq)) {
             return false;
         }
         return CharSequenceUtils.indexOf(seq, searchSeq, 0) >= 0;
@@ -1236,7 +1236,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from containsIgnoreCase(String, String) to containsIgnoreCase(CharSequence, CharSequence)
      */
     public static boolean containsIgnoreCase(final CharSequence str, final CharSequence searchStr) {
-        if (str == null || searchStr == null) {
+        if (ObjectUtils.anyNull(str, searchStr)) {
             return false;
         }
         final int len = searchStr.length();
@@ -1273,7 +1273,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from containsNone(String, char[]) to containsNone(CharSequence, char...)
      */
     public static boolean containsNone(final CharSequence cs, final char... searchChars) {
-        if (cs == null || searchChars == null) {
+        if (ObjectUtils.anyNull(cs, searchChars)) {
             return true;
         }
         final int csLen = cs.length();
@@ -1355,7 +1355,7 @@ public class StringUtils {
      */
     public static boolean containsOnly(final CharSequence cs, final char... valid) {
         // All these pre-checks are to maintain API with an older version
-        if (valid == null || cs == null) {
+        if (ObjectUtils.anyNull(valid, cs)) {
             return false;
         }
         if (cs.length() == 0) {
@@ -1391,7 +1391,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from containsOnly(String, String) to containsOnly(CharSequence, String)
      */
     public static boolean containsOnly(final CharSequence cs, final String validChars) {
-        if (cs == null || validChars == null) {
+        if (ObjectUtils.anyNull(cs, validChars)) {
             return false;
         }
         return containsOnly(cs, validChars.toCharArray());
@@ -1703,7 +1703,7 @@ public class StringUtils {
      *  both {@code null}
      */
     private static boolean endsWith(final CharSequence str, final CharSequence suffix, final boolean ignoreCase) {
-        if (str == null || suffix == null) {
+        if (ObjectUtils.anyNull(str, suffix)) {
             return str == suffix;
         }
         if (suffix.length() > str.length()) {
@@ -1799,7 +1799,7 @@ public class StringUtils {
         if (cs1 == cs2) {
             return true;
         }
-        if (cs1 == null || cs2 == null) {
+        if (ObjectUtils.anyNull(cs1, cs2)) {
             return false;
         }
         if (cs1.length() != cs2.length()) {
@@ -1903,7 +1903,7 @@ public class StringUtils {
         if (cs1 == cs2) {
             return true;
         }
-        if (cs1 == null || cs2 == null) {
+        if (ObjectUtils.anyNull(cs1, cs2)) {
             return false;
         }
         if (cs1.length() != cs2.length()) {
@@ -2581,7 +2581,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from indexOf(String, String) to indexOf(CharSequence, CharSequence)
      */
     public static int indexOf(final CharSequence seq, final CharSequence searchSeq) {
-        if (seq == null || searchSeq == null) {
+        if (ObjectUtils.anyNull(seq, searchSeq)) {
             return INDEX_NOT_FOUND;
         }
         return CharSequenceUtils.indexOf(seq, searchSeq, 0);
@@ -2621,7 +2621,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from indexOf(String, String, int) to indexOf(CharSequence, CharSequence, int)
      */
     public static int indexOf(final CharSequence seq, final CharSequence searchSeq, final int startPos) {
-        if (seq == null || searchSeq == null) {
+        if (ObjectUtils.anyNull(seq, searchSeq)) {
             return INDEX_NOT_FOUND;
         }
         return CharSequenceUtils.indexOf(seq, searchSeq, startPos);
@@ -2807,7 +2807,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from indexOfAny(String, String[]) to indexOfAny(CharSequence, CharSequence...)
      */
     public static int indexOfAny(final CharSequence str, final CharSequence... searchStrs) {
-        if (str == null || searchStrs == null) {
+        if (ObjectUtils.anyNull(str, searchStrs)) {
             return INDEX_NOT_FOUND;
         }
 
@@ -3074,7 +3074,7 @@ public class StringUtils {
         if (cs1 == cs2) {
             return INDEX_NOT_FOUND;
         }
-        if (cs1 == null || cs2 == null) {
+        if (ObjectUtils.anyNull(cs1, cs2)) {
             return 0;
         }
         int i;
@@ -3151,7 +3151,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from indexOfIgnoreCase(String, String, int) to indexOfIgnoreCase(CharSequence, CharSequence, int)
      */
     public static int indexOfIgnoreCase(final CharSequence str, final CharSequence searchStr, int startPos) {
-        if (str == null || searchStr == null) {
+        if (ObjectUtils.anyNull(str, searchStr)) {
             return INDEX_NOT_FOUND;
         }
         if (startPos < 0) {
@@ -5073,7 +5073,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from lastIndexOfAny(String, String[]) to lastIndexOfAny(CharSequence, CharSequence)
      */
     public static int lastIndexOfAny(final CharSequence str, final CharSequence... searchStrs) {
-        if (str == null || searchStrs == null) {
+        if (ObjectUtils.anyNull(str, searchStrs)) {
             return INDEX_NOT_FOUND;
         }
         int ret = INDEX_NOT_FOUND;
@@ -5114,7 +5114,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from lastIndexOfIgnoreCase(String, String) to lastIndexOfIgnoreCase(CharSequence, CharSequence)
      */
     public static int lastIndexOfIgnoreCase(final CharSequence str, final CharSequence searchStr) {
-        if (str == null || searchStr == null) {
+        if (ObjectUtils.anyNull(str, searchStr)) {
             return INDEX_NOT_FOUND;
         }
         return lastIndexOfIgnoreCase(str, searchStr, str.length());
@@ -5153,7 +5153,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from lastIndexOfIgnoreCase(String, String, int) to lastIndexOfIgnoreCase(CharSequence, CharSequence, int)
      */
     public static int lastIndexOfIgnoreCase(final CharSequence str, final CharSequence searchStr, int startPos) {
-        if (str == null || searchStr == null) {
+        if (ObjectUtils.anyNull(str, searchStr)) {
             return INDEX_NOT_FOUND;
         }
         final int searchStrLength = searchStr.length();
@@ -6330,7 +6330,7 @@ public class StringUtils {
      * @since 2.5
      */
     public static String repeat(final String str, final String separator, final int repeat) {
-        if (str == null || separator == null) {
+        if (ObjectUtils.anyNull(str, separator)) {
             return repeat(str, repeat);
         }
         // given that repeat(String, int) is quite optimized, better to rely on it than try and splice this into it
@@ -6766,7 +6766,7 @@ public class StringUtils {
 
         // count the replacement text elements that are larger than their corresponding text being replaced
         for (int i = 0; i < searchList.length; i++) {
-            if (searchList[i] == null || replacementList[i] == null) {
+            if (ObjectUtils.anyNull(searchList[i], replacementList[i])) {
                 continue;
             }
             final int greater = replacementList[i].length() - searchList[i].length();
@@ -8066,7 +8066,7 @@ public class StringUtils {
      *  both {@code null}
      */
     private static boolean startsWith(final CharSequence str, final CharSequence prefix, final boolean ignoreCase) {
-        if (str == null || prefix == null) {
+        if (ObjectUtils.anyNull(str, prefix)) {
             return str == prefix;
         }
         // Get length once instead of twice in the unlikely case that it changes.

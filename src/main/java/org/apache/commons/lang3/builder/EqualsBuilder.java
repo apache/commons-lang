@@ -27,6 +27,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
 /**
@@ -453,7 +454,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (lhs == rhs) {
             return true;
         }
-        if (lhs == null || rhs == null) {
+        if (ObjectUtils.anyNull(lhs, rhs)) {
             return false;
         }
         return new EqualsBuilder()
@@ -499,7 +500,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (lhs == rhs) {
             return this;
         }
-        if (lhs == null || rhs == null) {
+        if (ObjectUtils.anyNull(lhs, rhs)) {
             isEquals = false;
             return this;
         }
@@ -633,7 +634,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (lhs == rhs) {
             return this;
         }
-        if (lhs == null || rhs == null) {
+        if (ObjectUtils.anyNull(lhs, rhs)) {
             this.setEquals(false);
             return this;
         }
@@ -839,7 +840,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (lhs == rhs) {
             return this;
         }
-        if (lhs == null || rhs == null) {
+        if (ObjectUtils.anyNull(lhs, rhs)) {
             this.setEquals(false);
             return this;
         }
@@ -870,7 +871,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (lhs == rhs) {
             return this;
         }
-        if (lhs == null || rhs == null) {
+        if (ObjectUtils.anyNull(lhs, rhs)) {
             this.setEquals(false);
             return this;
         }
@@ -901,7 +902,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (lhs == rhs) {
             return this;
         }
-        if (lhs == null || rhs == null) {
+        if (ObjectUtils.anyNull(lhs, rhs)) {
             this.setEquals(false);
             return this;
         }
@@ -932,7 +933,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (lhs == rhs) {
             return this;
         }
-        if (lhs == null || rhs == null) {
+        if (ObjectUtils.anyNull(lhs, rhs)) {
             this.setEquals(false);
             return this;
         }
@@ -963,7 +964,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (lhs == rhs) {
             return this;
         }
-        if (lhs == null || rhs == null) {
+        if (ObjectUtils.anyNull(lhs, rhs)) {
             this.setEquals(false);
             return this;
         }
@@ -994,7 +995,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (lhs == rhs) {
             return this;
         }
-        if (lhs == null || rhs == null) {
+        if (ObjectUtils.anyNull(lhs, rhs)) {
             this.setEquals(false);
             return this;
         }
@@ -1025,7 +1026,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (lhs == rhs) {
             return this;
         }
-        if (lhs == null || rhs == null) {
+        if (ObjectUtils.anyNull(lhs, rhs)) {
             this.setEquals(false);
             return this;
         }
@@ -1056,7 +1057,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (lhs == rhs) {
             return this;
         }
-        if (lhs == null || rhs == null) {
+        if (ObjectUtils.anyNull(lhs, rhs)) {
             this.setEquals(false);
             return this;
         }
@@ -1087,7 +1088,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (lhs == rhs) {
             return this;
         }
-        if (lhs == null || rhs == null) {
+        if (ObjectUtils.anyNull(lhs, rhs)) {
             this.setEquals(false);
             return this;
         }

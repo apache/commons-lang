@@ -3513,7 +3513,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * @throws IllegalArgumentException if either array is {@code null}
      */
     public static boolean isSameType(final Object array1, final Object array2) {
-        if (array1 == null || array2 == null) {
+        if (ObjectUtils.anyNull(array1, array2)) {
             throw new IllegalArgumentException("The Array must not be null");
         }
         return array1.getClass().getName().equals(array2.getClass().getName());

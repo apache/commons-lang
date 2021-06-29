@@ -629,7 +629,7 @@ public class ObjectUtils {
         if (object1 == object2) {
             return true;
         }
-        if (object1 == null || object2 == null) {
+        if (ObjectUtils.anyNull(object1, object2)) {
             return false;
         }
         return object1.equals(object2);

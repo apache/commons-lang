@@ -163,7 +163,7 @@ public final class Range<T> implements Serializable {
      */
     @SuppressWarnings("unchecked")
     private Range(final T element1, final T element2, final Comparator<T> comp) {
-        if (element1 == null || element2 == null) {
+        if (ObjectUtils.anyNull(element1, element2)) {
             throw new IllegalArgumentException("Elements in a range must not be null: element1=" +
                                                element1 + ", element2=" + element2);
         }
