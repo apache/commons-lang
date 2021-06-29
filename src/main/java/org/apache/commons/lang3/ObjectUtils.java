@@ -811,8 +811,8 @@ public class ObjectUtils {
      * will throw a NullPointerException for either of the two parameters. </p>
      *
      * <pre>
-     * ObjectUtils.identityToString(appendable, "")            = appendable.append("java.lang.String@1e23"
-     * ObjectUtils.identityToString(appendable, Boolean.TRUE)  = appendable.append("java.lang.Boolean@7fa"
+     * ObjectUtils.identityToString(appendable, "")            = appendable.append("java.lang.String@1e23")
+     * ObjectUtils.identityToString(appendable, Boolean.TRUE)  = appendable.append("java.lang.Boolean@7fa")
      * ObjectUtils.identityToString(appendable, Boolean.TRUE)  = appendable.append("java.lang.Boolean@7fa")
      * </pre>
      *
@@ -865,8 +865,8 @@ public class ObjectUtils {
      * will throw a NullPointerException for either of the two parameters. </p>
      *
      * <pre>
-     * ObjectUtils.identityToString(builder, "")            = builder.append("java.lang.String@1e23"
-     * ObjectUtils.identityToString(builder, Boolean.TRUE)  = builder.append("java.lang.Boolean@7fa"
+     * ObjectUtils.identityToString(builder, "")            = builder.append("java.lang.String@1e23")
+     * ObjectUtils.identityToString(builder, Boolean.TRUE)  = builder.append("java.lang.Boolean@7fa")
      * ObjectUtils.identityToString(builder, Boolean.TRUE)  = builder.append("java.lang.Boolean@7fa")
      * </pre>
      *
@@ -893,8 +893,8 @@ public class ObjectUtils {
      * will throw a NullPointerException for either of the two parameters. </p>
      *
      * <pre>
-     * ObjectUtils.identityToString(buf, "")            = buf.append("java.lang.String@1e23"
-     * ObjectUtils.identityToString(buf, Boolean.TRUE)  = buf.append("java.lang.Boolean@7fa"
+     * ObjectUtils.identityToString(buf, "")            = buf.append("java.lang.String@1e23")
+     * ObjectUtils.identityToString(buf, Boolean.TRUE)  = buf.append("java.lang.Boolean@7fa")
      * ObjectUtils.identityToString(buf, Boolean.TRUE)  = buf.append("java.lang.Boolean@7fa")
      * </pre>
      *
@@ -918,8 +918,8 @@ public class ObjectUtils {
      * will throw a NullPointerException for either of the two parameters. </p>
      *
      * <pre>
-     * ObjectUtils.identityToString(builder, "")            = builder.append("java.lang.String@1e23"
-     * ObjectUtils.identityToString(builder, Boolean.TRUE)  = builder.append("java.lang.Boolean@7fa"
+     * ObjectUtils.identityToString(builder, "")            = builder.append("java.lang.String@1e23")
+     * ObjectUtils.identityToString(builder, Boolean.TRUE)  = builder.append("java.lang.Boolean@7fa")
      * ObjectUtils.identityToString(builder, Boolean.TRUE)  = builder.append("java.lang.Boolean@7fa")
      * </pre>
      *
