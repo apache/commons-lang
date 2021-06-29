@@ -49,6 +49,11 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
     }
 
     @Test
+    public void testNullException() {
+        assertEquals("", ExceptionUtils.getStackTrace(null), "Empty response.");
+    }
+
+    @Test
     public void testContextedExceptionString() {
         exceptionContext = new ContextedException(TEST_MESSAGE);
         assertEquals(TEST_MESSAGE, exceptionContext.getMessage());
