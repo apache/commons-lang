@@ -18,9 +18,11 @@ package org.apache.commons.lang3.reflect;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
@@ -203,6 +205,18 @@ public class ConstructorUtilsTest {
         assertNull(ConstructorUtils.getAccessibleConstructor(PrivateClass.class
                 .getConstructor(ArrayUtils.EMPTY_CLASS_ARRAY)));
         assertNull(ConstructorUtils.getAccessibleConstructor(PrivateClass.PublicInnerClass.class));
+    }
+
+    /**
+     * Test for {@link ConstructorUtils#hasConstructor(Class, Class[])}.
+     */
+    @Test
+    public void testHasConstructor() {
+        assertTrue((ConstructorUtils.hasConstructor(Object.class)));
+        assertFalse((ConstructorUtils.hasConstructor(PrivateClass.class)));
+        assertFalse(ConstructorUtils.hasConstructor(PrivateClass.PublicInnerClass.class));
+        assertTrue(ConstructorUtils.hasConstructor(Object.class, ArrayUtils.EMPTY_CLASS_ARRAY));
+        assertFalse(ConstructorUtils.hasConstructor(PrivateClass.class, ArrayUtils.EMPTY_CLASS_ARRAY));
     }
 
     @Test
