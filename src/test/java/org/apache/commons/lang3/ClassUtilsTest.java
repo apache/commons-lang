@@ -1408,6 +1408,24 @@ public class ClassUtilsTest  {
         assertNull(ClassUtils.primitiveToWrapper(null), "null -> null");
     }
 
+    @Test
+    public void testIsPrimitiveArray() {
+        // test null
+        assertFalse(ClassUtils.isPrimitiveArray(null), "null");
+        // test primitive classes
+        assertTrue(ClassUtils.isPrimitiveArray(boolean[].class), "boolean[]");
+        assertTrue(ClassUtils.isPrimitiveArray(byte[].class), "byte[]");
+        assertTrue(ClassUtils.isPrimitiveArray(char[].class), "char[]");
+        assertTrue(ClassUtils.isPrimitiveArray(short[].class), "short[]");
+        assertTrue(ClassUtils.isPrimitiveArray(int[].class), "int[]");
+        assertTrue(ClassUtils.isPrimitiveArray(long[].class), "long[]");
+        assertTrue(ClassUtils.isPrimitiveArray(double[].class), "double[]");
+        assertTrue(ClassUtils.isPrimitiveArray(float[].class), "float[]");
+        // test other classes
+        assertFalse(ClassUtils.isPrimitiveArray(Object[].class), "Object[]");
+        assertFalse(ClassUtils.isPrimitiveArray(String.class), "String");
+    }
+
     // Show the Java bug: http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4071957
     // We may have to delete this if a JDK fixes the bug.
     @Test
