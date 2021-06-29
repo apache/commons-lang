@@ -733,15 +733,15 @@ public class MethodUtilsTest {
         final Method[] methodsWithAnnotation = MethodUtils.getMethodsWithAnnotation(PublicChild.class, Annotated.class,
                 true, true);
         assertEquals(4, methodsWithAnnotation.length);
-        assertEquals("PublicChild", methodsWithAnnotation[0].getDeclaringClass().getSimpleName());
-        assertEquals("PublicChild", methodsWithAnnotation[1].getDeclaringClass().getSimpleName());
+        assertEquals("PublicChild", ClassUtils.getSimpleName(methodsWithAnnotation[0].getDeclaringClass()));
+        assertEquals("PublicChild", ClassUtils.getSimpleName(methodsWithAnnotation[1].getDeclaringClass()));
         assertTrue(methodsWithAnnotation[0].getName().endsWith("AnnotatedMethod"));
         assertTrue(methodsWithAnnotation[1].getName().endsWith("AnnotatedMethod"));
         assertEquals("Foo.doIt",
-                methodsWithAnnotation[2].getDeclaringClass().getSimpleName() + '.' +
+                ClassUtils.getSimpleName(methodsWithAnnotation[2].getDeclaringClass()) + '.' +
                         methodsWithAnnotation[2].getName());
         assertEquals("Parent.parentProtectedAnnotatedMethod",
-                methodsWithAnnotation[3].getDeclaringClass().getSimpleName() + '.' +
+                ClassUtils.getSimpleName(methodsWithAnnotation[3].getDeclaringClass()) + '.' +
                         methodsWithAnnotation[3].getName());
     }
 
@@ -753,8 +753,8 @@ public class MethodUtilsTest {
         final Method[] methodsWithAnnotation = MethodUtils.getMethodsWithAnnotation(PublicChild.class, Annotated.class,
                 false, true);
         assertEquals(2, methodsWithAnnotation.length);
-        assertEquals("PublicChild", methodsWithAnnotation[0].getDeclaringClass().getSimpleName());
-        assertEquals("PublicChild", methodsWithAnnotation[1].getDeclaringClass().getSimpleName());
+        assertEquals("PublicChild", ClassUtils.getSimpleName(methodsWithAnnotation[0].getDeclaringClass()));
+        assertEquals("PublicChild", ClassUtils.getSimpleName(methodsWithAnnotation[1].getDeclaringClass()));
         assertTrue(methodsWithAnnotation[0].getName().endsWith("AnnotatedMethod"));
         assertTrue(methodsWithAnnotation[1].getName().endsWith("AnnotatedMethod"));
     }
@@ -768,10 +768,10 @@ public class MethodUtilsTest {
                 true, false);
         assertEquals(2, methodsWithAnnotation.length);
         assertEquals("PublicChild.publicAnnotatedMethod",
-                methodsWithAnnotation[0].getDeclaringClass().getSimpleName() + '.' +
+                ClassUtils.getSimpleName(methodsWithAnnotation[0].getDeclaringClass()) + '.' +
                         methodsWithAnnotation[0].getName());
         assertEquals("Foo.doIt",
-                methodsWithAnnotation[1].getDeclaringClass().getSimpleName() + '.' +
+                ClassUtils.getSimpleName(methodsWithAnnotation[1].getDeclaringClass()) + '.' +
                         methodsWithAnnotation[1].getName());
     }
 
@@ -784,7 +784,7 @@ public class MethodUtilsTest {
                 false, false);
         assertEquals(1, methodsWithAnnotation.length);
         assertEquals("PublicChild.publicAnnotatedMethod",
-                methodsWithAnnotation[0].getDeclaringClass().getSimpleName() + '.' +
+                ClassUtils.getSimpleName(methodsWithAnnotation[0].getDeclaringClass()) + '.' +
                         methodsWithAnnotation[0].getName());
     }
 

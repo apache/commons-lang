@@ -333,7 +333,7 @@ public class TypeUtils {
         final StringBuilder buf = new StringBuilder();
 
         if (cls.getEnclosingClass() != null) {
-            buf.append(classToString(cls.getEnclosingClass())).append('.').append(cls.getSimpleName());
+            buf.append(classToString(cls.getEnclosingClass())).append('.').append(ClassUtils.getSimpleName(cls));
         } else {
             buf.append(cls.getName());
         }
@@ -1584,7 +1584,7 @@ public class TypeUtils {
             } else {
                 builder.append(useOwner.toString());
             }
-            builder.append('.').append(raw.getSimpleName());
+            builder.append('.').append(ClassUtils.getSimpleName(raw));
         }
 
         final int[] recursiveTypeIndexes = findRecursiveTypes(parameterizedType);
@@ -1686,7 +1686,7 @@ public class TypeUtils {
                     buf.insert(0, c.getName());
                     break;
                 }
-                buf.insert(0, c.getSimpleName()).insert(0, '.');
+                buf.insert(0, ClassUtils.getSimpleName(c)).insert(0, '.');
                 c = c.getEnclosingClass();
             }
         } else if (d instanceof Type) {// not possible as of now

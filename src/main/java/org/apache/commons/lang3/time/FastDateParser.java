@@ -39,6 +39,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.LocaleUtils;
 
 /**
@@ -568,7 +569,7 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         public String toString() {
-            return getClass().getSimpleName() + " [pattern=" + pattern + "]";
+            return ClassUtils.getSimpleName(this) + " [pattern=" + pattern + "]";
         }
 
 }
