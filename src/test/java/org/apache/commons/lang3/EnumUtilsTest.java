@@ -344,7 +344,7 @@ public class EnumUtilsTest {
 
     @Test
     public void test_getEnumSystemProperty() {
-        final String key = getClass().getName();
+        final String key = ClassUtils.getName(this);
         System.setProperty(key, Traffic.RED.toString());
         try {
             assertEquals(Traffic.RED, EnumUtils.getEnumSystemProperty(Traffic.class, key, null));

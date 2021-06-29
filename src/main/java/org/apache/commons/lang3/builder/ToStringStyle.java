@@ -1478,7 +1478,7 @@ public abstract class ToStringStyle implements Serializable {
             if (useShortClassName) {
                 buffer.append(getShortClassName(object.getClass()));
             } else {
-                buffer.append(object.getClass().getName());
+                buffer.append(ClassUtils.getName(object));
             }
         }
     }

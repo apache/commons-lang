@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.ClassUtils;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -216,7 +217,7 @@ public class MultilineRecursiveToStringStyleTest {
     }
 
     private String getClassPrefix(final Object object) {
-        return object.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(object));
+        return ClassUtils.getName(object) + "@" + Integer.toHexString(System.identityHashCode(object));
     }
 
     private String toString(final Object object) {

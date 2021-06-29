@@ -42,6 +42,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.TreeSet;
 
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.reflect.testbed.Foo;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.GenericTypeHolder;
@@ -940,7 +941,7 @@ public class TypeUtilsTest<B> {
 
     @Test
     public void testToLongString() {
-        assertEquals(getClass().getName() + ":B", TypeUtils.toLongString(getClass().getTypeParameters()[0]));
+        assertEquals(ClassUtils.getName(this) + ":B", TypeUtils.toLongString(getClass().getTypeParameters()[0]));
     }
 
     @Test

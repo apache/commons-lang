@@ -257,14 +257,14 @@ public class ObjectUtils {
                     result = clone.invoke(obj);
                 } catch (final NoSuchMethodException e) {
                     throw new CloneFailedException("Cloneable type "
-                        + obj.getClass().getName()
+                        + ClassUtils.getName(obj)
                         + " has no clone method", e);
                 } catch (final IllegalAccessException e) {
                     throw new CloneFailedException("Cannot clone Cloneable type "
-                        + obj.getClass().getName(), e);
+                        + ClassUtils.getName(obj), e);
                 } catch (final InvocationTargetException e) {
                     throw new CloneFailedException("Exception cloning Cloneable type "
-                        + obj.getClass().getName(), e.getCause());
+                        + ClassUtils.getName(obj), e.getCause());
                 }
             }
             @SuppressWarnings("unchecked") // OK because input is of type T

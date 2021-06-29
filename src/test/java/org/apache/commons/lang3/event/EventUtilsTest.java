@@ -36,6 +36,7 @@ import java.util.TreeMap;
 
 import javax.naming.event.ObjectChangeListener;
 
+import org.apache.commons.lang3.ClassUtils;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -71,7 +72,7 @@ public class EventUtilsTest {
         final ObjectChangeListener listener = handler.createListener(ObjectChangeListener.class);
         final IllegalArgumentException e =
                 assertThrows(IllegalArgumentException.class, () -> EventUtils.addEventListener(src, ObjectChangeListener.class, listener));
-        assertEquals("Class " + src.getClass().getName() + " does not have a public add" + ObjectChangeListener.class.getSimpleName() + " method which takes a parameter of type " + ObjectChangeListener.class.getName() + ".",
+        assertEquals("Class " + ClassUtils.getName(src) + " does not have a public add" + ObjectChangeListener.class.getSimpleName() + " method which takes a parameter of type " + ObjectChangeListener.class.getName() + ".",
                 e.getMessage());
     }
 
@@ -92,7 +93,7 @@ public class EventUtilsTest {
         final VetoableChangeListener listener = handler.createListener(VetoableChangeListener.class);
         final IllegalArgumentException e =
                 assertThrows(IllegalArgumentException.class, () -> EventUtils.addEventListener(src, VetoableChangeListener.class, listener));
-        assertEquals("Class " + src.getClass().getName() + " does not have a public add" + VetoableChangeListener.class.getSimpleName() + " method which takes a parameter of type " + VetoableChangeListener.class.getName() + ".",
+        assertEquals("Class " + ClassUtils.getName(src) + " does not have a public add" + VetoableChangeListener.class.getSimpleName() + " method which takes a parameter of type " + VetoableChangeListener.class.getName() + ".",
                 e.getMessage());
     }
 

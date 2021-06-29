@@ -1248,7 +1248,7 @@ public class Validate {
         // TODO when breaking BC, consider returning obj
         if (!type.isInstance(obj)) {
             throw new IllegalArgumentException(String.format(DEFAULT_IS_INSTANCE_OF_EX_MESSAGE, type.getName(),
-                    obj == null ? "null" : obj.getClass().getName()));
+                    ClassUtils.getName(obj, "null")));
         }
     }
 

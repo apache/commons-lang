@@ -3516,7 +3516,7 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         if (array1 == null || array2 == null) {
             throw new IllegalArgumentException("The Array must not be null");
         }
-        return array1.getClass().getName().equals(array2.getClass().getName());
+        return ClassUtils.getName(array1).equals(ClassUtils.getName(array2));
     }
 
     /**
