@@ -447,27 +447,27 @@ public class Conversion {
         src = paddedSrc;
         srcPos = 0;
         if (src[srcPos]) {
-            if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                    return src.length > srcPos + 3 && src[srcPos + 3] ? 'f' : 'e';
+            if (src[srcPos + 1]) {
+                if (src[srcPos + 2]) {
+                    return src[srcPos + 3] ? 'f' : 'e';
                 }
-                return src.length > srcPos + 3 && src[srcPos + 3] ? 'd' : 'c';
+                return src[srcPos + 3] ? 'd' : 'c';
             }
-            if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                return src.length > srcPos + 3 && src[srcPos + 3] ? 'b' : 'a';
+            if (src[srcPos + 2]) {
+                return src[srcPos + 3] ? 'b' : 'a';
             }
-            return src.length > srcPos + 3 && src[srcPos + 3] ? '9' : '8';
+            return src[srcPos + 3] ? '9' : '8';
         }
-        if (src.length > srcPos + 1 && src[srcPos + 1]) {
-            if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                return src.length > srcPos + 3 && src[srcPos + 3] ? '7' : '6';
+        if (src[srcPos + 1]) {
+            if (src[srcPos + 2]) {
+                return src[srcPos + 3] ? '7' : '6';
             }
-            return src.length > srcPos + 3 && src[srcPos + 3] ? '5' : '4';
+            return src[srcPos + 3] ? '5' : '4';
         }
-        if (src.length > srcPos + 2 && src[srcPos + 2]) {
-            return src.length > srcPos + 3 && src[srcPos + 3] ? '3' : '2';
+        if (src[srcPos + 2]) {
+            return src[srcPos + 3] ? '3' : '2';
         }
-        return src.length > srcPos + 3 && src[srcPos + 3] ? '1' : '0';
+        return src[srcPos + 3] ? '1' : '0';
     }
 
     /**
