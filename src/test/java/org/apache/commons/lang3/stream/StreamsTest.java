@@ -136,6 +136,13 @@ public class StreamsTest {
     }
 
     @Test
+    public void testOf() {
+        assertEquals(0, Streams.of((Object[]) null).count());
+        assertEquals(1, Streams.of("foo").count());
+        assertEquals(2, Streams.of("foo", "bar").count());
+    }
+
+    @Test
     public void testSimpleStreamFilter() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Failable.stream(input).map(Integer::valueOf).filter(i -> (i.intValue() % 2 == 0))

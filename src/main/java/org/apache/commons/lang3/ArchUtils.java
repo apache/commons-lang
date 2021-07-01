@@ -18,9 +18,9 @@ package org.apache.commons.lang3;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import org.apache.commons.lang3.arch.Processor;
+import org.apache.commons.lang3.stream.Streams;
 
 /**
  * An utility class for the os.arch System Property. The class defines methods for
@@ -101,7 +101,7 @@ public class ArchUtils {
      * @throws IllegalStateException If the key already exists.
      */
     private static void addProcessors(final Processor processor, final String... keys) {
-        Stream.of(keys).forEach(e -> addProcessor(e, processor));
+        Streams.of(keys).forEach(e -> addProcessor(e, processor));
     }
 
     /**
