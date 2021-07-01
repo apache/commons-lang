@@ -23,6 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.function.Supplier;
+
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Empty/Blank methods
  */
@@ -157,6 +159,21 @@ public class StringUtilsEmptyBlankTest  {
     }
 
     @Test
+    public void testFirstNonBlankReturned() {
+        assertNull(StringUtils.firstNonBlankReturned());
+        assertNull(StringUtils.firstNonBlankReturned((Supplier<String>[]) null));
+        assertNull(StringUtils.firstNonBlankReturned(() -> null, () -> null, () -> null));
+        assertNull(StringUtils.firstNonBlankReturned(null, null, null));
+        assertNull(StringUtils.firstNonBlankReturned(() -> null, () -> "", () -> " "));
+        assertNull(StringUtils.firstNonBlankReturned(() -> null, () -> null, () -> " "));
+        assertEquals("zz", StringUtils.firstNonBlankReturned(() -> null, () -> "zz"));
+        assertEquals("abc", StringUtils.firstNonBlankReturned(() -> "abc"));
+        assertEquals("xyz", StringUtils.firstNonBlankReturned(() -> null, () -> "xyz"));
+        assertEquals("xyz", StringUtils.firstNonBlankReturned(() -> null, () -> "xyz", () -> "abc"));
+        assertEquals("xyz", StringUtils.firstNonBlankReturned(null, () -> "xyz", () -> "abc"));
+    }
+
+    @Test
     public void testFirstNonEmpty() {
         assertNull(StringUtils.firstNonEmpty());
         assertNull(StringUtils.firstNonEmpty((String[]) null));
@@ -167,5 +184,20 @@ public class StringUtilsEmptyBlankTest  {
         assertEquals("abc", StringUtils.firstNonEmpty("abc"));
         assertEquals("xyz", StringUtils.firstNonEmpty(null, "xyz"));
         assertEquals("xyz", StringUtils.firstNonEmpty(null, "xyz", "abc"));
+    }
+
+    @Test
+    public void testFirstNonEmptyReturned() {
+        assertNull(StringUtils.firstNonEmptyReturned());
+        assertNull(StringUtils.firstNonEmptyReturned((Supplier<String>[]) null));
+        assertNull(StringUtils.firstNonEmptyReturned(() -> null, () -> null, () -> null));
+        assertNull(StringUtils.firstNonEmptyReturned(null, null, null));
+        assertEquals(" ", StringUtils.firstNonEmptyReturned(() -> null, () -> "", () -> " "));
+        assertNull(StringUtils.firstNonEmptyReturned(() -> null, () -> null, () -> ""));
+        assertEquals("zz", StringUtils.firstNonEmptyReturned(() -> null, () -> "zz"));
+        assertEquals("abc", StringUtils.firstNonEmptyReturned(() -> "abc"));
+        assertEquals("xyz", StringUtils.firstNonEmptyReturned(() -> null, () -> "xyz"));
+        assertEquals("xyz", StringUtils.firstNonEmptyReturned(() -> null, () -> "xyz", () -> "abc"));
+        assertEquals("xyz", StringUtils.firstNonEmptyReturned(null, () -> "xyz", () -> "abc"));
     }
 }
