@@ -35,6 +35,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
@@ -745,13 +746,13 @@ public class MethodUtils {
         Validate.notNull(cls, "cls");
         Validate.notEmpty(methodName, "methodName");
 
-        final List<Method> methods = Arrays.stream(cls.getDeclaredMethods())
+        final List<Method> methods = Stream.of(cls.getDeclaredMethods())
                 .filter(method -> method.getName().equals(methodName))
                 .collect(toList());
 
         ClassUtils.getAllSuperclasses(cls).stream()
                 .map(Class::getDeclaredMethods)
-                .flatMap(Arrays::stream)
+                .flatMap(Stream::of)
                 .filter(method -> method.getName().equals(methodName))
                 .forEach(methods::add);
 
@@ -782,7 +783,7 @@ public class MethodUtils {
 
         throw new IllegalStateException(
                 String.format("Found multiple candidates for method %s on class %s : %s",
-                        methodName + Arrays.stream(parameterTypes).map(String::valueOf).collect(Collectors.joining(",", "(", ")")),
+                        methodName + Stream.of(parameterTypes).map(String::valueOf).collect(Collectors.joining(",", "(", ")")),
                         cls.getName(),
                         bestCandidates.stream().map(Method::toString).collect(Collectors.joining(",", "[", "]")))
         );
