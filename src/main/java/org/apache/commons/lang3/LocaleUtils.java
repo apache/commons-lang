@@ -117,13 +117,13 @@ public class LocaleUtils {
     }
 
     /**
-     * <p>Checks if the locale specified is in the list of available locales.</p>
+     * <p>Checks if the locale specified is in the set of available locales.</p>
      *
      * @param locale the Locale object to check if it is available
      * @return true if the locale is a known locale
      */
     public static boolean isAvailableLocale(final Locale locale) {
-        return availableLocaleList().contains(locale);
+        return availableLocaleSet().contains(locale);
     }
 
     /**
