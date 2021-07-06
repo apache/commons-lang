@@ -209,9 +209,8 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         } else if (length > size) {
             ensureCapacity(length);
             final int oldEnd = size;
-            final int newEnd = length;
             size = length;
-            for (int i = oldEnd; i < newEnd; i++) {
+            for (int i = oldEnd; i < length; i++) {
                 buffer[i] = CharUtils.NUL;
             }
         }
