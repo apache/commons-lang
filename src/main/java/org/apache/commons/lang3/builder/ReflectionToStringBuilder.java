@@ -386,6 +386,19 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
+     * Builds a String for a toString method with only the selected field names.
+     *
+     * @param object
+     *            The object to "toString".
+     * @param selectedFieldNames
+     *            The field names that must be on toString. Null selects nothing.
+     * @return The toString value.
+     */
+    public static String toStringSelected(final Object object, final Collection<String> selectedFieldNames) {
+        return toStringSelected(object, toNoNullStringArray(selectedFieldNames));
+    }
+
+    /**
      * Converts the given Collection into an array of Strings. The returned array does not contain {@code null}
      * entries. Note that {@link Arrays#sort(Object[])} will throw an {@link NullPointerException} if an array element
      * is {@code null}.
@@ -434,6 +447,19 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         return new ReflectionToStringBuilder(object).setExcludeFieldNames(excludeFieldNames).toString();
     }
 
+    /**
+     * Builds a String for a toString method with only the selected field names.
+     *
+     * @param object
+     *            The object to "toString".
+     * @param selectedFieldNames
+     *            The field names that must be on toString.
+     * @return The toString value.
+     */
+    public static String toStringSelected(final Object object, final String... selectedFieldNames) {
+        return new ReflectionToStringBuilder(object).setSelectedFieldNames(selectedFieldNames).toString();
+    }
+
     private static Object checkNotNull(final Object obj) {
         return Validate.notNull(obj, "obj");
     }
@@ -459,6 +485,11 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @since 3.0 this is protected instead of private
      */
     protected String[] excludeFieldNames;
+
+    /**
+     * Field names that should be on output. Intended for fields like {@code "password"}.
+     */
+    protected String[] selectedFieldNames;
 
     /**
      * The last super class to stop appending fields for.
@@ -618,6 +649,10 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             && Arrays.binarySearch(this.excludeFieldNames, field.getName()) >= 0) {
             // Reject fields from the getExcludeFieldNames list.
             return false;
+        }
+        if (this.selectedFieldNames != null) {
+            // Only accept fields that were selected on getSelectedFieldNames list.
+            return Arrays.binarySearch(this.selectedFieldNames, field.getName()) >= 0;
         }
         return !field.isAnnotationPresent(ToStringExclude.class);
     }
@@ -802,6 +837,23 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         } else {
             //clone and remove nulls
             this.excludeFieldNames = ArraySorter.sort(toNoNullStringArray(excludeFieldNamesParam));
+        }
+        return this;
+    }
+
+    /**
+     * Sets the field names that should be on output.
+     *
+     * @param selectedFieldNamesParam
+     *            The selectedFieldNames that must be on toString or {@code null}.
+     * @return {@code this}
+     */
+    public ReflectionToStringBuilder setSelectedFieldNames(final String... selectedFieldNamesParam) {
+        if (selectedFieldNamesParam == null) {
+            this.selectedFieldNames = null;
+        } else {
+            //clone and remove nulls
+            this.selectedFieldNames = ArraySorter.sort(toNoNullStringArray(selectedFieldNamesParam));
         }
         return this;
     }
