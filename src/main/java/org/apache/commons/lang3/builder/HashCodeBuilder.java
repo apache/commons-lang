@@ -27,6 +27,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -842,7 +843,7 @@ public class HashCodeBuilder implements Builder<Integer> {
         if (object == null) {
             iTotal = iTotal * iConstant;
 
-        } else if (object.getClass().isArray()) {
+        } else if (ObjectUtils.isArray(object)) {
             // factor out array case in order to keep method small enough
             // to be inlined
             appendArray(object);

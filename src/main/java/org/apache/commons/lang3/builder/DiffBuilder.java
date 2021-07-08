@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -819,7 +820,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
             objectToTest = rhs;
         }
 
-        if (objectToTest.getClass().isArray()) {
+        if (ObjectUtils.isArray(objectToTest)) {
             if (objectToTest instanceof boolean[]) {
                 return append(fieldName, (boolean[]) lhs, (boolean[]) rhs);
             }

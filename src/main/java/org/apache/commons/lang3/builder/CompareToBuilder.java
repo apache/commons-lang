@@ -24,6 +24,7 @@ import java.util.Comparator;
 import java.util.Objects;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 /**
  * Assists in implementing {@link java.lang.Comparable#compareTo(Object)} methods.
@@ -417,7 +418,7 @@ public class CompareToBuilder implements Builder<Integer> {
             comparison = 1;
             return this;
         }
-        if (lhs.getClass().isArray()) {
+        if (ObjectUtils.isArray(lhs)) {
             // factor out array case in order to keep method small enough to be inlined
             appendArray(lhs, rhs, comparator);
         } else // the simple case, not an array, just test the element
