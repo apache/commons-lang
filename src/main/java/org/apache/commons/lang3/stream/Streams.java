@@ -425,7 +425,7 @@ public class Streams {
      * @since 3.13.0
      */
     @SafeVarargs // Creating a stream from an array is safe
-    public static <T> Stream<T> of(T... values) {
+    public static <T> Stream<T> of(final T... values) {
         return values == null ? Stream.empty() : Stream.of(values);
     }
 

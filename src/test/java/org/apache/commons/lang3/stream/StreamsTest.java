@@ -46,8 +46,8 @@ public class StreamsTest {
 
     protected <T extends Throwable> FailableConsumer<String, T> asIntConsumer(final T pThrowable) {
         return s -> {
-            final Integer i = Integer.valueOf(s);
-            if (i.intValue() == 4) {
+            final int i = Integer.parseInt(s);
+            if (i == 4) {
                 throw pThrowable;
             }
         };

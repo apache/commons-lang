@@ -100,7 +100,7 @@ public class RandomUtilsTest {
     @Test
     public void testBoolean() {
         final boolean result = RandomUtils.nextBoolean();
-        assertTrue(result == true || result == false);
+        assertTrue(result || !result);
     }
 
     /**
