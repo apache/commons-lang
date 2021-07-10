@@ -45,30 +45,79 @@ public class CharSequenceUtils {
      * Used by the indexOf(CharSequence methods) as a green implementation of indexOf.
      *
      * @param cs the {@code CharSequence} to be processed
-     * @param searchChar the {@code CharSequence} to be searched for
+     * @param searchChar the {@code CharSequence} to find
      * @param start the start index
      * @return the index where the search sequence was found
      */
-    static int indexOf(final CharSequence cs, final CharSequence searchChar, final int start) {
-        if (cs instanceof String) {
-            return ((String) cs).indexOf(searchChar.toString(), start);
+    static int indexOf(final CharSequence cs, final CharSequence searchChar, int start) {
+        // if searchChar is a String, and cs is some specific kind of AbstractString,
+        //   which both have a indexOf function and widely used by normal java codes,
+        // then we just invoke their indexOf function.
+        if (searchChar instanceof String) {
+            if (cs instanceof String) {
+                return ((String) cs).indexOf((String) searchChar, start);
+            } else if (cs instanceof StringBuilder) {
+                return ((StringBuilder) cs).indexOf((String) searchChar, start);
+            } else if (cs instanceof StringBuffer) {
+                return ((StringBuffer) cs).indexOf((String) searchChar, start);
+            }
         }
-        if (cs instanceof StringBuilder) {
-            return ((StringBuilder) cs).indexOf(searchChar.toString(), start);
+
+        int len1 = cs.length();
+        int len2 = searchChar.length();
+
+        // successful-result >= 0
+        if (start < 0) {
+            start = 0;
         }
-        if (cs instanceof StringBuffer) {
-            return ((StringBuffer) cs).indexOf(searchChar.toString(), start);
+
+        // successful-result <= len1
+        if (start > len1) {
+            start = len1;
         }
-        return cs.toString().indexOf(searchChar.toString(), start);
-//        if (cs instanceof String && searchChar instanceof String) {
-//            // TODO: Do we assume searchChar is usually relatively small;
-//            //       If so then calling toString() on it is better than reverting to
-//            //       the green implementation in the else block
-//            return ((String) cs).indexOf((String) searchChar, start);
-//        } else {
-//            // TODO: Implement rather than convert to String
-//            return cs.toString().indexOf(searchChar.toString(), start);
-//        }
+
+        // if len2 == 0 return directly.
+        if (len2 == 0) {
+            return start < 0 ? NOT_FOUND : start;
+        }
+
+        // limit means the largest possible value of successful-result
+        final int limit = len1 - len2;
+
+        // if start > limit, then have no enough length for a search,
+        //   thus cannot find a index, thus fail.
+        // if len2 < 0, then it is illegal for this function.
+        // if limit < 0, then it means len2 > len1, thus fail.
+        if (start > limit || len2 < 0 || limit < 0) {
+            return NOT_FOUND;
+        }
+
+        // notice that when we enter here, we make sure:
+        // start in [0, limit]
+        // limit in [0, len1-1]
+        // len2 in [1, len1]
+
+        // if len2 is small enough, and cs is some specific kind of AbstractString,
+        //   which both have a indexOf function and widely used by normal java codes,
+        // then we just invoke their indexOf function.
+        if (len2 <= TO_STRING_LIMIT) {
+            if (cs instanceof String) {
+                return ((String) cs).indexOf(searchChar.toString(), start);
+            } else if (cs instanceof StringBuilder) {
+                return ((StringBuilder) cs).indexOf(searchChar.toString(), start);
+            } else if (cs instanceof StringBuffer) {
+                return ((StringBuffer) cs).indexOf(searchChar.toString(), start);
+            }
+        }
+
+        char char0 = searchChar.charAt(0);
+
+        for (int i = start; i <= limit; i++) {
+            if (cs.charAt(i) == char0 && checkLaterThan1(cs, searchChar, len2, i)) {
+                return i;
+            }
+        }
+        return NOT_FOUND;
     }
 
     /**
@@ -148,17 +197,18 @@ public class CharSequenceUtils {
      * @return the index where the search sequence was found
      */
     static int lastIndexOf(final CharSequence cs, final CharSequence searchChar, int start) {
+        // if searchChar is a String, and cs is some specific kind of AbstractString,
+        //   which both have a lastIndexOf function and widely used by normal java codes,
+        // then we just invoke their lastIndexOf function.
         if (searchChar == null || cs == null) {
             return NOT_FOUND;
         }
         if (searchChar instanceof String) {
             if (cs instanceof String) {
                 return ((String) cs).lastIndexOf((String) searchChar, start);
-            }
-            if (cs instanceof StringBuilder) {
+            } else if (cs instanceof StringBuilder) {
                 return ((StringBuilder) cs).lastIndexOf((String) searchChar, start);
-            }
-            if (cs instanceof StringBuffer) {
+            } else if (cs instanceof StringBuffer) {
                 return ((StringBuffer) cs).lastIndexOf((String) searchChar, start);
             }
         }
@@ -166,52 +216,59 @@ public class CharSequenceUtils {
         final int len1 = cs.length();
         final int len2 = searchChar.length();
 
+        // successful-result <= len1
         if (start > len1) {
             start = len1;
         }
 
+        // if start < 0, thus cannot find a legal index, thus fail.
+        // if len2 < 0, then it is illegal for this function.
+        // if len2 > len1 fail.
         if (start < 0 || len2 < 0 || len2 > len1) {
             return NOT_FOUND;
         }
 
+        // notice that when we enter here, we make sure:
+        // start in [0, len1]
+        // len2 in [0, len1]
+
+        // if len2 == 0 return directly.
         if (len2 == 0) {
             return start;
         }
 
+        // notice that when we enter here, we make sure:
+        // start in [0, len1]
+        // len2 in [1, len1]
+
+        // if len2 is small enough, and cs is some specific kind of AbstractString,
+        //   which both have a lastIndexOf function and widely used by normal java codes,
+        // then we just invoke their lastIndexOf function.
         if (len2 <= TO_STRING_LIMIT) {
             if (cs instanceof String) {
                 return ((String) cs).lastIndexOf(searchChar.toString(), start);
-            }
-            if (cs instanceof StringBuilder) {
+            } else if (cs instanceof StringBuilder) {
                 return ((StringBuilder) cs).lastIndexOf(searchChar.toString(), start);
-            }
-            if (cs instanceof StringBuffer) {
+            } else if (cs instanceof StringBuffer) {
                 return ((StringBuffer) cs).lastIndexOf(searchChar.toString(), start);
             }
         }
 
-        if (start + len2 > len1) {
-            start = len1 - len2;
+        // limit means the largest possible value of successful-result
+        final int limit = len1 - len2;
+
+        if (start > limit) {
+            start = limit;
         }
 
         final char char0 = searchChar.charAt(0);
 
-        int i = start;
-        while (true) {
-            while (cs.charAt(i) != char0) {
-                i--;
-                if (i < 0) {
-                    return NOT_FOUND;
-                }
-            }
-            if (checkLaterThan1(cs, searchChar, len2, i)) {
+        for (int i = start; i >= 0; i--) {
+            if (cs.charAt(i) == char0 && checkLaterThan1(cs, searchChar, len2, i)) {
                 return i;
             }
-            i--;
-            if (i < 0) {
-                return NOT_FOUND;
-            }
         }
+        return NOT_FOUND;
     }
 
     /**
