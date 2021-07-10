@@ -69,7 +69,7 @@ public class ExceptionUtils {
     static final String WRAPPED_MARKER = " [wrapped] ";
 
     /**
-     * Claims a Throwable is another Exception type using type erasure. This
+     * Claims a Throwable is another Throwable type using type erasure. This
      * hides a checked exception from the Java compiler, allowing a checked
      * exception to be thrown without having the exception in the method's throw
      * clause.
