@@ -8700,7 +8700,7 @@ public class StringUtils {
 
     /**
      * <p>
-     * Gets the substring before the first occurrence of a separator. The separator is not returned.
+     * Gets the substring before the given index of the separator. The separator is not returned.
      * </p>
      *
      * <p>
@@ -8712,17 +8712,17 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.substringBefore(null, *)      = null
-     * StringUtils.substringBefore("", *)        = ""
-     * StringUtils.substringBefore("abc", 'a')   = ""
-     * StringUtils.substringBefore("abcba", 'b') = "a"
-     * StringUtils.substringBefore("abc", 'c')   = "ab"
-     * StringUtils.substringBefore("abc", 'd')   = "abc"
+     * StringUtils.substringBefore(null, *)    = null
+     * StringUtils.substringBefore("", *)      = ""
+     * StringUtils.substringBefore("abc", 0)   = ""
+     * StringUtils.substringBefore("abcba", 1) = "a"
+     * StringUtils.substringBefore("abc", 2)   = "ab"
+     * StringUtils.substringBefore("abc", 4)   = "abc"
      * </pre>
      *
      * @param str the String to get a substring from, may be null
-     * @param separator the String to search for, may be null
-     * @return the substring before the first occurrence of the separator, {@code null} if null String input
+     * @param separator the index of the character present in the string
+     * @return the substring before the given index of the separator, {@code null} if null String input
      * @since 3.12.0
      */
     public static String substringBefore(final String str, final int separator) {
