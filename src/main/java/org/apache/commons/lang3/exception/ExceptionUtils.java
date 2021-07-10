@@ -69,6 +69,17 @@ public class ExceptionUtils {
     static final String WRAPPED_MARKER = " [wrapped] ";
 
     /**
+     * Claims a Throwable is another Exception type using type erasure. This
+     * hides a checked exception from the Java compiler, allowing a checked
+     * exception to be thrown without having the exception in the method's throw
+     * clause.
+     */
+    @SuppressWarnings("unchecked")
+    private static <R, T extends Throwable> R eraseType(final Throwable throwable) throws T {
+        throw (T) throwable;
+    }
+
+    /**
      * Introspects the {@code Throwable} to obtain the cause.
      *
      * <p>The method searches for methods with specific names that return a
@@ -753,7 +764,7 @@ public class ExceptionUtils {
      */
     public static <R> R rethrow(final Throwable throwable) {
         // claim that the typeErasure invocation throws a RuntimeException
-        return ExceptionUtils.<R, RuntimeException>typeErasure(throwable);
+        return ExceptionUtils.<R, RuntimeException>eraseType(throwable);
     }
 
     /**
@@ -883,17 +894,6 @@ public class ExceptionUtils {
      */
     public static <T extends Throwable> T throwableOfType(final Throwable throwable, final Class<T> type, final int fromIndex) {
         return throwableOf(throwable, type, fromIndex, true);
-    }
-
-    /**
-     * Claims a Throwable is another Exception type using type erasure. This
-     * hides a checked exception from the Java compiler, allowing a checked
-     * exception to be thrown without having the exception in the method's throw
-     * clause.
-     */
-    @SuppressWarnings("unchecked")
-    private static <R, T extends Throwable> R typeErasure(final Throwable throwable) throws T {
-        throw (T) throwable;
     }
 
     /**
