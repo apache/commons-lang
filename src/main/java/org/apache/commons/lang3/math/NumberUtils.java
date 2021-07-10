@@ -1033,7 +1033,7 @@ public class NumberUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
      * @since 3.4 Changed signature from min(long[]) to min(long...)
      */
@@ -1057,7 +1057,7 @@ public class NumberUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
      * @since 3.4 Changed signature from min(int[]) to min(int...)
      */
@@ -1081,7 +1081,7 @@ public class NumberUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
      * @since 3.4 Changed signature from min(short[]) to min(short...)
      */
@@ -1105,7 +1105,7 @@ public class NumberUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
      * @since 3.4 Changed signature from min(byte[]) to min(byte...)
      */
@@ -1129,7 +1129,7 @@ public class NumberUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
      * @see IEEE754rUtils#min(double[]) IEEE754rUtils for a version of this method that handles NaN differently
      * @since 3.4 Changed signature from min(double[]) to min(double...)
@@ -1157,7 +1157,7 @@ public class NumberUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
      * @see IEEE754rUtils#min(float[]) IEEE754rUtils for a version of this method that handles NaN differently
      * @since 3.4 Changed signature from min(float[]) to min(float...)
@@ -1187,7 +1187,7 @@ public class NumberUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the maximum value in the array
-     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
      * @since 3.4 Changed signature from max(long[]) to max(long...)
      */
@@ -1211,7 +1211,7 @@ public class NumberUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the maximum value in the array
-     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
      * @since 3.4 Changed signature from max(int[]) to max(int...)
      */
@@ -1235,7 +1235,7 @@ public class NumberUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the maximum value in the array
-     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
      * @since 3.4 Changed signature from max(short[]) to max(short...)
      */
@@ -1259,7 +1259,7 @@ public class NumberUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the maximum value in the array
-     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
      * @since 3.4 Changed signature from max(byte[]) to max(byte...)
      */
@@ -1283,7 +1283,7 @@ public class NumberUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the maximum value in the array
-     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
      * @see IEEE754rUtils#max(double[]) IEEE754rUtils for a version of this method that handles NaN differently
      * @since 3.4 Changed signature from max(double[]) to max(double...)
@@ -1311,7 +1311,7 @@ public class NumberUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the maximum value in the array
-     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
      * @see IEEE754rUtils#max(float[]) IEEE754rUtils for a version of this method that handles NaN differently
      * @since 3.4 Changed signature from max(float[]) to max(float...)
@@ -1338,10 +1338,11 @@ public class NumberUtils {
      * Checks if the specified array is neither null nor empty.
      *
      * @param array  the array to check
-     * @throws IllegalArgumentException if {@code array} is either {@code null} or empty
+     * @throws NullPointerException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty
      */
     private static void validateArray(final Object array) {
-        Validate.notNull(array, "array");
+        Validate.notNull(array, "Array cannot be null.");
         Validate.isTrue(Array.getLength(array) != 0, "Array cannot be empty.");
     }
 
