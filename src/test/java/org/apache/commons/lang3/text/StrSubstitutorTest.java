@@ -53,7 +53,6 @@ public class StrSubstitutorTest {
         values = null;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Tests simple key replace.
      */
@@ -392,7 +391,6 @@ public class StrSubstitutorTest {
                 sub.replace("The ${animal} jumps over the lazy ${target}. ${undefined.number!1234567890}."));
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Tests protected.
      */
@@ -415,7 +413,6 @@ public class StrSubstitutorTest {
         assertEquals("Hi jakarta!", builder.toString());
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Tests constructor.
      */
@@ -449,7 +446,6 @@ public class StrSubstitutorTest {
         assertEquals("Hi < commons", sub.replace("Hi !< <name2||commons>"));
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Tests get set.
      */
@@ -527,7 +523,6 @@ public class StrSubstitutorTest {
         assertNull(sub.getValueDelimiterMatcher());
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Tests static.
      */
@@ -615,7 +610,6 @@ public class StrSubstitutorTest {
         assertEquals("value $${escaped}", sub.replace(org));
     }
 
-    //-----------------------------------------------------------------------
     private void doTestReplace(final String expectedResult, final String replaceTemplate, final boolean substring) {
         final String expectedShortResult = expectedResult.substring(1, expectedResult.length() - 1);
         final StrSubstitutor sub = new StrSubstitutor(values);

@@ -90,7 +90,6 @@ public class CharSet implements Serializable {
     /** The set of CharRange objects. */
     private final Set<CharRange> set = Collections.synchronizedSet(new HashSet<>());
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Factory method to create a new CharSet using a special syntax.</p>
      *
@@ -165,7 +164,6 @@ public class CharSet implements Serializable {
         return new CharSet(setStrs);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Constructs a new CharSet using the set syntax.
      * Each string is merged in with the set.</p>
@@ -179,7 +177,6 @@ public class CharSet implements Serializable {
         }
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Add a set definition string to the {@code CharSet}.</p>
      *
@@ -214,7 +211,6 @@ public class CharSet implements Serializable {
         }
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets the internal set as an array of CharRange objects.</p>
      *
@@ -227,7 +223,6 @@ public class CharSet implements Serializable {
         return set.toArray(CharRange.EMPTY_ARRAY);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Does the {@code CharSet} contain the specified
      * character {@code ch}.</p>
@@ -247,7 +242,6 @@ public class CharSet implements Serializable {
     }
 
     // Basics
-    //-----------------------------------------------------------------------
     /**
      * <p>Compares two {@code CharSet} objects, returning true if they represent
      * exactly the same set of characters defined in the same way.</p>

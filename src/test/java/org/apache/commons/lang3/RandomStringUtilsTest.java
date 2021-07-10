@@ -41,7 +41,6 @@ import org.junit.jupiter.api.Test;
  */
 public class RandomStringUtilsTest {
 
-    //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
         assertNotNull(new RandomStringUtils());
@@ -52,7 +51,6 @@ public class RandomStringUtilsTest {
         assertFalse(Modifier.isFinal(RandomStringUtils.class.getModifiers()));
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Test the implementation
      */

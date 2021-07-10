@@ -144,7 +144,6 @@ public class DateUtilsTest {
 
     private TimeZone defaultZone = null;
 
-    //-----------------------------------------------------------------------
     private void assertDate(final Date date, final int year, final int month, final int day, final int hour, final int min, final int sec, final int mil) {
         final GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(date);
@@ -215,7 +214,6 @@ public class DateUtilsTest {
         }
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAddDays() throws Exception {
         Date result = DateUtils.addDays(BASE_DATE, 0);
@@ -234,7 +232,6 @@ public class DateUtilsTest {
         assertDate(result, 2000, 6, 4, 4, 3, 2, 1);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAddHours() throws Exception {
         Date result = DateUtils.addHours(BASE_DATE, 0);
@@ -253,7 +250,6 @@ public class DateUtilsTest {
         assertDate(result, 2000, 6, 5, 3, 3, 2, 1);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAddMilliseconds() throws Exception {
         Date result = DateUtils.addMilliseconds(BASE_DATE, 0);
@@ -272,7 +268,6 @@ public class DateUtilsTest {
         assertDate(result, 2000, 6, 5, 4, 3, 2, 0);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAddMinutes() throws Exception {
         Date result = DateUtils.addMinutes(BASE_DATE, 0);
@@ -291,7 +286,6 @@ public class DateUtilsTest {
         assertDate(result, 2000, 6, 5, 4, 2, 2, 1);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAddMonths() throws Exception {
         Date result = DateUtils.addMonths(BASE_DATE, 0);
@@ -310,7 +304,6 @@ public class DateUtilsTest {
         assertDate(result, 2000, 5, 5, 4, 3, 2, 1);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAddSeconds() throws Exception {
         Date result = DateUtils.addSeconds(BASE_DATE, 0);
@@ -329,7 +322,6 @@ public class DateUtilsTest {
         assertDate(result, 2000, 6, 5, 4, 3, 1, 1);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAddWeeks() throws Exception {
         Date result = DateUtils.addWeeks(BASE_DATE, 0);
@@ -348,7 +340,6 @@ public class DateUtilsTest {
         assertDate(result, 2000, 5, 28, 4, 3, 2, 1);   // june
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAddYears() throws Exception {
         Date result = DateUtils.addYears(BASE_DATE, 0);
@@ -597,7 +588,6 @@ public class DateUtilsTest {
         assertEquals(0, cal.get(Calendar.HOUR));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
         assertNotNull(new DateUtils());
@@ -608,7 +598,6 @@ public class DateUtilsTest {
         assertFalse(Modifier.isFinal(DateUtils.class.getModifiers()));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testIsSameDay_Cal() {
         final GregorianCalendar cala = new GregorianCalendar(2004, 6, 9, 13, 45);
@@ -637,7 +626,6 @@ public class DateUtilsTest {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay((Calendar) null, null));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testIsSameDay_Date() {
         Date datea = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
@@ -666,7 +654,6 @@ public class DateUtilsTest {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay((Date) null, null));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testIsSameInstant_Cal() {
         final GregorianCalendar cala = new GregorianCalendar(TimeZone.getTimeZone("GMT+1"));
@@ -696,7 +683,6 @@ public class DateUtilsTest {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant((Calendar) null, null));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testIsSameInstant_Date() {
         Date datea = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
@@ -725,7 +711,6 @@ public class DateUtilsTest {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant((Date) null, null));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testIsSameLocalTime_Cal() {
         final GregorianCalendar cala = new GregorianCalendar(TimeZone.getTimeZone("GMT+1"));
@@ -867,7 +852,6 @@ public class DateUtilsTest {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.parseDate("19721203", (String[]) null));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testParseDate() throws Exception {
         final GregorianCalendar cal = new GregorianCalendar(1972, 11, 3);
@@ -916,7 +900,6 @@ public class DateUtilsTest {
         assertThrows(ParseException.class, () -> DateUtils.parseDateStrictly(dateStr, parsers));
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Tests various values with the round method
      *
@@ -1322,14 +1305,12 @@ public class DateUtilsTest {
         assertDate(result, 2005, 6, 5, 4, 3, 2, 1);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testToCalendar() {
         assertEquals(date1, DateUtils.toCalendar(date1).getTime(), "Failed to convert to a Calendar and back");
         assertThrows(NullPointerException.class, () -> DateUtils.toCalendar(null));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testToCalendarWithDateAndTimeZoneNotNull() {
         final Calendar c = DateUtils.toCalendar(date2, defaultZone);
@@ -1337,19 +1318,16 @@ public class DateUtilsTest {
         assertEquals(defaultZone, c.getTimeZone(), "Convert Date and TimeZone to a Calendar, but failed to get the TimeZone back");
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testToCalendarWithDateAndTimeZoneNull() {
         assertThrows(NullPointerException.class, () -> DateUtils.toCalendar(null, null));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testToCalendarWithDateNull() {
         assertThrows(NullPointerException.class, () -> DateUtils.toCalendar(null, zone));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testToCalendarWithTimeZoneNull() {
         assertThrows(NullPointerException.class, () -> DateUtils.toCalendar(date1, null));

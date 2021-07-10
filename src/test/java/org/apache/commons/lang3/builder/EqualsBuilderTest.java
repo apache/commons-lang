@@ -33,7 +33,6 @@ import org.junit.jupiter.api.Test;
  */
 public class EqualsBuilderTest {
 
-    //-----------------------------------------------------------------------
 
     static class TestObject {
         private int a;

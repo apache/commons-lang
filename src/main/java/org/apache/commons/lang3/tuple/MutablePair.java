@@ -120,7 +120,6 @@ public class MutablePair<L, R> extends Pair<L, R> {
         this.right = right;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * {@inheritDoc}
      */

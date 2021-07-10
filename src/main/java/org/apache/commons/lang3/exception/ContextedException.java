@@ -152,7 +152,6 @@ public class ContextedException extends Exception implements ExceptionContext {
         exceptionContext = context;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Adds information helpful to a developer in diagnosing and correcting the problem.
      * For the information to be meaningful, the value passed should have a reasonable

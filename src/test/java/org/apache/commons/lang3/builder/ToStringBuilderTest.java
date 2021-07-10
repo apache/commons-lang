@@ -48,7 +48,6 @@ public class ToStringBuilderTest {
         validateNullToStringStyleRegistry();
     }
 
-    //-----------------------------------------------------------------------
 
     @Test
     public void testConstructorEx1() {

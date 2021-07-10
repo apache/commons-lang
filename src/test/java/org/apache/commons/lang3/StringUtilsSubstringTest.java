@@ -32,7 +32,6 @@ public class StringUtilsSubstringTest  {
     private static final String FOOBAR = "foobar";
     private static final String SENTENCE = "foo bar baz";
 
-    //-----------------------------------------------------------------------
 
     @Test
     public void testSubstring_StringInt() {
@@ -262,7 +261,6 @@ public class StringUtilsSubstringTest  {
         assertEquals("", StringUtils.substringAfterLast("", 'd'));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testSubstringBetween_StringString() {
         assertNull(StringUtils.substringBetween(null, "tag"));
@@ -351,7 +349,6 @@ public class StringUtilsSubstringTest  {
         assertEquals(0, results.length);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testCountMatches_String() {
         assertEquals(0, StringUtils.countMatches(null, null));

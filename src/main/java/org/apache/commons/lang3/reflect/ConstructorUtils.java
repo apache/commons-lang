@@ -181,7 +181,6 @@ public class ConstructorUtils {
         return ctor.newInstance(args);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Finds a constructor given a class and signature, checking accessibility.</p>
      *

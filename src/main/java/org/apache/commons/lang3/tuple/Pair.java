@@ -120,7 +120,6 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
         return ImmutablePair.of(pair);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Compares the pair based on the left element followed by the right element.
      * The types must be {@code Comparable}.</p>
@@ -166,7 +165,6 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
         return getLeft();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets the left element from this pair.</p>
      *

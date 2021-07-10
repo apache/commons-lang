@@ -101,7 +101,6 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
         this.right = right;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * {@inheritDoc}
      */

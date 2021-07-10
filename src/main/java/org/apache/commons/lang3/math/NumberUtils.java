@@ -95,7 +95,6 @@ public class NumberUtils {
     public NumberUtils() {
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Convert a {@code String} to an {@code int}, returning
      * {@code zero} if the conversion fails.</p>
@@ -339,7 +338,6 @@ public class NumberUtils {
         return value == null ? defaultValue : value.doubleValue();
     }
 
-     //-----------------------------------------------------------------------
      /**
      * <p>Convert a {@code String} to a {@code byte}, returning
      * {@code zero} if the conversion fails.</p>
@@ -593,7 +591,6 @@ public class NumberUtils {
         );
     }
 
-    //-----------------------------------------------------------------------
     // must handle Long, Float, Integer, Float, Short,
     //                  BigDecimal, BigInteger and Byte
     // useful methods:
@@ -898,7 +895,6 @@ public class NumberUtils {
         return true;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Convert a {@code String} to a {@code Float}.</p>
      *
@@ -1350,7 +1346,6 @@ public class NumberUtils {
     }
 
     // 3 param min
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets the minimum of three {@code long} values.</p>
      *
@@ -1456,7 +1451,6 @@ public class NumberUtils {
     }
 
     // 3 param max
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets the maximum of three {@code long} values.</p>
      *
@@ -1561,7 +1555,6 @@ public class NumberUtils {
         return Math.max(Math.max(a, b), c);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Checks whether the {@code String} contains only
      * digit characters.</p>

@@ -137,7 +137,6 @@ final class CharRange implements Iterable<Character>, Serializable {
     }
 
     // Accessors
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets the start character for this character range.</p>
      *
@@ -169,7 +168,6 @@ final class CharRange implements Iterable<Character>, Serializable {
     }
 
     // Contains
-    //-----------------------------------------------------------------------
     /**
      * <p>Is the character specified contained in this range.</p>
      *
@@ -203,7 +201,6 @@ final class CharRange implements Iterable<Character>, Serializable {
     }
 
     // Basics
-    //-----------------------------------------------------------------------
     /**
      * <p>Compares two CharRange objects, returning true if they represent
      * exactly the same range of characters defined in the same way.</p>
@@ -256,7 +253,6 @@ final class CharRange implements Iterable<Character>, Serializable {
     }
 
     // Expansions
-    //-----------------------------------------------------------------------
     /**
      * <p>Returns an iterator which can be used to walk through the characters described by this range.</p>
      *

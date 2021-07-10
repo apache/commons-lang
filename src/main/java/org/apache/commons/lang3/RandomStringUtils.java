@@ -54,7 +54,6 @@ public class RandomStringUtils {
     }
 
     // Random
-    //-----------------------------------------------------------------------
     /**
      * <p>Creates a random string whose length is the number of characters
      * specified.</p>

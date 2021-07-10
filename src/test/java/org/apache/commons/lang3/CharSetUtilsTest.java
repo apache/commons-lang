@@ -32,7 +32,6 @@ import org.junit.jupiter.api.Test;
  */
 public class CharSetUtilsTest  {
 
-    //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
         assertNotNull(new CharSetUtils());
@@ -43,7 +42,6 @@ public class CharSetUtilsTest  {
         assertFalse(Modifier.isFinal(CharSetUtils.class.getModifiers()));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testSqueeze_StringString() {
         assertNull(CharSetUtils.squeeze(null, (String) null));
@@ -84,7 +82,6 @@ public class CharSetUtilsTest  {
         assertEquals("fof", CharSetUtils.squeeze("fooooff", "fo"));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testContainsAny_StringString() {
         assertFalse(CharSetUtils.containsAny(null, (String) null));
@@ -124,7 +121,6 @@ public class CharSetUtilsTest  {
         assertFalse(CharSetUtils.containsAny("hello", ""));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testCount_StringString() {
         assertEquals(0, CharSetUtils.count(null, (String) null));
@@ -164,7 +160,6 @@ public class CharSetUtilsTest  {
         assertEquals(0, CharSetUtils.count("hello", ""));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testKeep_StringString() {
         assertNull(CharSetUtils.keep(null, (String) null));
@@ -207,7 +202,6 @@ public class CharSetUtilsTest  {
         assertEquals("ll", CharSetUtils.keep("hello", "l"));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testDelete_StringString() {
         assertNull(CharSetUtils.delete(null, (String) null));

@@ -169,7 +169,6 @@ public enum JavaVersion {
         this.name = name;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Whether this version of Java is at least the version of Java passed in.</p>
      *
@@ -183,7 +182,6 @@ public enum JavaVersion {
         return this.value >= requiredVersion.value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Whether this version of Java is at most the version of Java passed in.</p>
      *
@@ -277,7 +275,6 @@ public enum JavaVersion {
         }
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>The string value is overridden to return the standard name.</p>
      *

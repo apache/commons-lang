@@ -59,7 +59,6 @@ public class LocaleUtilsTest  {
         LocaleUtils.isAvailableLocale(Locale.getDefault());
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Test that constructors are public, and work, etc.
      */
@@ -73,7 +72,6 @@ public class LocaleUtilsTest  {
         assertFalse(Modifier.isFinal(LocaleUtils.class.getModifiers()));
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Pass in a valid language, test toLocale.
      *
@@ -221,7 +219,6 @@ public class LocaleUtilsTest  {
                 IllegalArgumentException.class, () -> LocaleUtils.toLocale("uu_UU_"), "Must be 3, 5 or 7+ in length");
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Helper method for local lookups.
      *
@@ -239,7 +236,6 @@ public class LocaleUtilsTest  {
         assertUnmodifiableCollection(localeList);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Test localeLookupList() method.
      */
@@ -314,7 +310,6 @@ public class LocaleUtilsTest  {
                 LOCALE_EN});
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Test availableLocaleList() method.
      */
@@ -331,7 +326,6 @@ public class LocaleUtilsTest  {
         assertEquals(jdkLocaleList, list);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Test availableLocaleSet() method.
      */
@@ -349,7 +343,6 @@ public class LocaleUtilsTest  {
         assertEquals(jdkLocaleSet, set);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Test availableLocaleSet() method.
      */
@@ -381,7 +374,6 @@ public class LocaleUtilsTest  {
         }
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Make sure the language by country is correct. It checks that
      * the LocaleUtils.languagesByCountry(country) call contains the
@@ -428,7 +420,6 @@ public class LocaleUtilsTest  {
         assertLanguageByCountry("CH", new String[]{"fr", "de", "it"});
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Make sure the country by language is correct. It checks that
      * the LocaleUtils.countryByLanguage(language) call contains the

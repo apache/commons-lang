@@ -56,7 +56,6 @@ public class FormattableUtils {
     public FormattableUtils() {
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets the default formatted representation of the specified
      * {@code Formattable}.

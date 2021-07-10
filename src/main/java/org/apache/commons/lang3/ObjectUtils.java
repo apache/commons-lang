@@ -602,7 +602,6 @@ public class ObjectUtils {
     }
 
     // Null-safe equals/hashCode
-    //-----------------------------------------------------------------------
     /**
      * <p>Compares two objects for equality, where either one or both
      * objects may be {@code null}.</p>

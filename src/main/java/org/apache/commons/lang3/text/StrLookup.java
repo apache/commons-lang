@@ -50,7 +50,6 @@ public abstract class StrLookup<V> {
      */
     private static final StrLookup<String> SYSTEM_PROPERTIES_LOOKUP = new SystemPropertiesStrLookup();
 
-    //-----------------------------------------------------------------------
     /**
      * Returns a lookup which always returns null.
      *
@@ -89,7 +88,6 @@ public abstract class StrLookup<V> {
         return new MapStrLookup<>(map);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Constructor.
      */
@@ -121,7 +119,6 @@ public abstract class StrLookup<V> {
      */
     public abstract String lookup(String key);
 
-    //-----------------------------------------------------------------------
     /**
      * Lookup implementation that uses a Map.
      */
@@ -161,7 +158,6 @@ public abstract class StrLookup<V> {
         }
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Lookup implementation based on system properties.
      */

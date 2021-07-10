@@ -242,7 +242,6 @@ public class StringUtilsTest {
         assertEquals(str.substring(2), res[1], msg);
     }
 
-    //-----------------------------------------------------------------------
     //Fixed LANG-1463
     @Test
     public void testAbbreviateMarkerWithEmptyString() {
@@ -489,7 +488,6 @@ public class StringUtilsTest {
         assertEquals("'cat'", StringUtils.capitalize("'cat'"));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testCenter_StringInt() {
         assertNull(StringUtils.center(null, -1));
@@ -607,7 +605,6 @@ public class StringUtilsTest {
         }
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
         assertNotNull(new StringUtils());
@@ -618,7 +615,6 @@ public class StringUtilsTest {
         assertFalse(Modifier.isFinal(StringUtils.class.getModifiers()));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testDefault_String() {
         assertEquals("", StringUtils.defaultString(null));
@@ -787,7 +783,6 @@ public class StringUtilsTest {
         assertEquals("test", StringUtils.deleteWhitespace("\u000Bt  \t\n\u0009e\rs\n\n   \tt"));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testDifference_StringString() {
         assertNull(StringUtils.difference(null, null));
@@ -993,7 +988,6 @@ public class StringUtilsTest {
         assertThrows(IllegalArgumentException.class, () -> StringUtils.getLevenshteinDistance("a", null, 0));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testGetLevenshteinDistance_StringString() {
         assertEquals(0, StringUtils.getLevenshteinDistance("", ""));
@@ -1370,7 +1364,6 @@ public class StringUtilsTest {
         assertEquals(expected, actual);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testJoin_Objects() {
         assertEquals("abc", StringUtils.join("a", "b", "c"));
@@ -1408,7 +1401,6 @@ public class StringUtilsTest {
         assertEquals("121", StringUtils.stripEnd("121.00", ".0"));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testLeftPad_StringInt() {
         assertNull(StringUtils.leftPad(null, 5));
@@ -2228,7 +2220,6 @@ public class StringUtilsTest {
                      StringUtils.replacePattern("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testReverse_String() {
         assertNull(StringUtils.reverse(null));
@@ -2245,7 +2236,6 @@ public class StringUtilsTest {
         assertEquals("", StringUtils.reverseDelimited("", '.'));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testRightPad_StringInt() {
         assertNull(StringUtils.rightPad(null, 5));
@@ -2282,7 +2272,6 @@ public class StringUtilsTest {
         assertEquals("abc  ", StringUtils.rightPad("abc", 5, ""));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testRotate_StringInt() {
         assertNull(StringUtils.rotate(null, 1));
@@ -3010,7 +2999,6 @@ public class StringUtilsTest {
         assertEquals(expectedString, StringUtils.toString(expectedBytes, encoding));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testTruncate_StringInt() {
         assertNull(StringUtils.truncate(null, 12));

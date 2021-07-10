@@ -72,7 +72,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
         this.value = Double.parseDouble(value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets the value as a Double instance.
      *
@@ -103,7 +102,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
         this.value = value.doubleValue();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Checks whether the double value is the special NaN value.
      *
@@ -122,7 +120,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
         return Double.isInfinite(value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Increments the value.
      *
@@ -191,7 +188,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Adds a value to the value of this instance.
      *
@@ -290,7 +286,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
         return last;
     }
 
-    //-----------------------------------------------------------------------
     // shortValue and byteValue rely on Number implementation
     /**
      * Returns the value of this MutableDouble as an int.
@@ -332,7 +327,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets this mutable as an instance of Double.
      *
@@ -342,7 +336,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
         return Double.valueOf(doubleValue());
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Compares this object against the specified object. The result is {@code true} if and only if the argument
      * is not {@code null} and is a {@code Double} object that represents a double that has the identical
@@ -389,7 +382,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
         return (int) (bits ^ bits >>> 32);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Compares this mutable to another in ascending order.
      *
@@ -401,7 +393,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
         return Double.compare(this.value, other.value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Returns the String value of this mutable.
      *

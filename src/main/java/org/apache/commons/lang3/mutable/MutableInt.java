@@ -74,7 +74,6 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
         this.value = Integer.parseInt(value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets the value as a Integer instance.
      *
@@ -105,7 +104,6 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
         this.value = value.intValue();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Increments the value.
      *
@@ -174,7 +172,6 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Adds a value to the value of this instance.
      *
@@ -273,7 +270,6 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
         return last;
     }
 
-    //-----------------------------------------------------------------------
     // shortValue and byteValue rely on Number implementation
     /**
      * Returns the value of this MutableInt as an int.
@@ -315,7 +311,6 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets this mutable as an instance of Integer.
      *
@@ -325,7 +320,6 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
         return Integer.valueOf(intValue());
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Compares this object to the specified object. The result is {@code true} if and only if the argument is
      * not {@code null} and is a {@code MutableInt} object that contains the same {@code int} value
@@ -352,7 +346,6 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Compares this mutable to another in ascending order.
      *
@@ -364,7 +357,6 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
         return NumberUtils.compare(this.value, other.value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Returns the String value of this mutable.
      *

@@ -124,7 +124,6 @@ public class ExceptionUtilsTest {
 
     private Throwable jdkNoCause;
 
-    //-----------------------------------------------------------------------
 
     private ExceptionWithCause cyclicCause;
 
@@ -142,7 +141,6 @@ public class ExceptionUtilsTest {
         }
     }
 
-    //-----------------------------------------------------------------------
     private Throwable createExceptionWithoutCause() {
         try {
             throw new ExceptionWithoutCause();
@@ -217,7 +215,6 @@ public class ExceptionUtilsTest {
         assertFalse(Modifier.isFinal(ExceptionUtils.class.getModifiers()));
     }
 
-    //-----------------------------------------------------------------------
     @SuppressWarnings("deprecation") // Specifically tests the deprecated methods
     @Test
     public void testGetCause_Throwable() {
@@ -262,7 +259,6 @@ public class ExceptionUtilsTest {
         assertSame(cyclicCause.getCause().getCause(), ExceptionUtils.getRootCause(cyclicCause));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testGetRootCauseStackTrace_Throwable() {
         assertEquals(0, ExceptionUtils.getRootCauseStackTrace(null).length);
@@ -289,7 +285,6 @@ public class ExceptionUtilsTest {
         assertFalse(match);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testGetThrowableCount_Throwable() {
         assertEquals(0, ExceptionUtils.getThrowableCount(null));
@@ -315,7 +310,6 @@ public class ExceptionUtilsTest {
         assertSame(withoutCause, throwables.get(1));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testGetThrowableList_Throwable_null() {
         final List<?> throwables = ExceptionUtils.getThrowableList(null);
@@ -362,7 +356,6 @@ public class ExceptionUtilsTest {
         assertSame(withoutCause, throwables[1]);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testGetThrowables_Throwable_null() {
         assertEquals(0, ExceptionUtils.getThrowables(null).length);
@@ -446,7 +439,6 @@ public class ExceptionUtilsTest {
         assertEquals(-1, ExceptionUtils.indexOfThrowable(withCause, Throwable.class, 0));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testIndexOfType_ThrowableClass() {
         assertEquals(-1, ExceptionUtils.indexOfType(null, null));
@@ -500,7 +492,6 @@ public class ExceptionUtilsTest {
         assertEquals(0, ExceptionUtils.indexOfType(withCause, Throwable.class, 0));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testPrintRootCauseStackTrace_Throwable() {
         ExceptionUtils.printRootCauseStackTrace(null);
@@ -508,7 +499,6 @@ public class ExceptionUtilsTest {
         // internally this method calls stream method anyway
     }
 
-    //-----------------------------------------------------------------------
 
     @Test
     public void testPrintRootCauseStackTrace_ThrowableStream() {

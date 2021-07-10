@@ -73,7 +73,6 @@ public class CharUtils {
     public CharUtils() {
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Converts the character to a Character.</p>
      *
@@ -118,7 +117,6 @@ public class CharUtils {
         return Character.valueOf(str.charAt(0));
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Converts the Character to a char throwing an exception for {@code null}.</p>
      *
@@ -157,7 +155,6 @@ public class CharUtils {
         return ch.charValue();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Converts the String to a char using the first character, throwing
      * an exception on empty Strings.</p>
@@ -201,7 +198,6 @@ public class CharUtils {
         return str.charAt(0);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Converts the character to the Integer it represents, throwing an
      * exception if the character is not numeric.</p>
@@ -291,7 +287,6 @@ public class CharUtils {
         return toIntValue(ch.charValue(), defaultValue);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Converts the character to a String that contains the one character.</p>
      *

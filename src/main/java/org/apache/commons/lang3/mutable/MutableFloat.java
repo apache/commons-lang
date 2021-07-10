@@ -72,7 +72,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
         this.value = Float.parseFloat(value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets the value as a Float instance.
      *
@@ -103,7 +102,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
         this.value = value.floatValue();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Checks whether the float value is the special NaN value.
      *
@@ -122,7 +120,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
         return Float.isInfinite(value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Increments the value.
      *
@@ -191,7 +188,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Adds a value to the value of this instance.
      *
@@ -290,7 +286,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
         return last;
     }
 
-    //-----------------------------------------------------------------------
     // shortValue and byteValue rely on Number implementation
     /**
      * Returns the value of this MutableFloat as an int.
@@ -332,7 +327,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets this mutable as an instance of Float.
      *
@@ -342,7 +336,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
         return Float.valueOf(floatValue());
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Compares this object against some other object. The result is {@code true} if and only if the argument is
      * not {@code null} and is a {@code Float} object that represents a {@code float} that has the
@@ -390,7 +383,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
         return Float.floatToIntBits(value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Compares this mutable to another in ascending order.
      *
@@ -402,7 +394,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
         return Float.compare(this.value, other.value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Returns the String value of this mutable.
      *

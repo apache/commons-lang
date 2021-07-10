@@ -1498,8 +1498,6 @@ public class ArrayUtils {
         return array.clone();
     }
 
-    // Clone
-    //-----------------------------------------------------------------------
     /**
      * <p>Shallow clones an array returning a typecast result and handling
      * {@code null}.
@@ -1701,7 +1699,6 @@ public class ArrayUtils {
         return isArrayIndexValid(array, index) ? array[index] : defaultValue;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Returns the length of the specified array.
      * This method can deal with {@code Object} arrays and with primitive arrays.
@@ -2265,7 +2262,6 @@ public class ArrayUtils {
     }
 
     // boolean IndexOf
-    //-----------------------------------------------------------------------
     /**
      * <p>Finds the index of the given value in the array.
      *
@@ -2311,7 +2307,6 @@ public class ArrayUtils {
     }
 
     // byte IndexOf
-    //-----------------------------------------------------------------------
     /**
      * <p>Finds the index of the given value in the array.
      *
@@ -2356,7 +2351,6 @@ public class ArrayUtils {
     }
 
     // char IndexOf
-    //-----------------------------------------------------------------------
     /**
      * <p>Finds the index of the given value in the array.
      *
@@ -2403,7 +2397,6 @@ public class ArrayUtils {
     }
 
     // double IndexOf
-    //-----------------------------------------------------------------------
     /**
      * <p>Finds the index of the given value in the array.
      *
@@ -2501,7 +2494,6 @@ public class ArrayUtils {
     }
 
     // float IndexOf
-    //-----------------------------------------------------------------------
     /**
      * <p>Finds the index of the given value in the array.
      *
@@ -2548,7 +2540,6 @@ public class ArrayUtils {
     }
 
     // int IndexOf
-    //-----------------------------------------------------------------------
     /**
      * <p>Finds the index of the given value in the array.
      *
@@ -2593,7 +2584,6 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
 }
 
     // long IndexOf
-    //-----------------------------------------------------------------------
     /**
      * <p>Finds the index of the given value in the array.
      *
@@ -2638,7 +2628,6 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     }
 
     // Object IndexOf
-    //-----------------------------------------------------------------------
     /**
      * <p>Finds the index of the given object in the array.
      *
@@ -2691,7 +2680,6 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     }
 
     // short IndexOf
-    //-----------------------------------------------------------------------
     /**
      * <p>Finds the index of the given value in the array.
      *
@@ -4612,7 +4600,6 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     }
 
     // nullToEmpty
-    //-----------------------------------------------------------------------
     /**
      * <p>Defensive programming technique to change a {@code null}
      * reference to an empty one.
@@ -7468,7 +7455,6 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     }
 
     // Shift
-    //-----------------------------------------------------------------------
     /**
      * Shifts the order of the given array.
      *
@@ -8167,7 +8153,6 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     }
 
     // Subarrays
-    //-----------------------------------------------------------------------
     /**
      * <p>Produces a new array containing the elements between
      * the start and end indices.
@@ -8711,7 +8696,6 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     }
 
     // Swap
-    //-----------------------------------------------------------------------
     /**
      * Swaps two elements in the given array.
      *
@@ -8856,7 +8840,6 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
         }
 
     // Generic array
-    //-----------------------------------------------------------------------
     /**
      * <p>Create a type-safe generic array.
      *
@@ -8899,7 +8882,6 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     }
 
     // To map
-    //-----------------------------------------------------------------------
     /**
      * <p>Converts the given array into a {@link java.util.Map}. Each element of the array
      * must be either a {@link java.util.Map.Entry} or an Array, containing at least two
@@ -9563,7 +9545,6 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
     }
 
     // Basic methods handling multi-dimensional arrays
-    //-----------------------------------------------------------------------
     /**
      * <p>Outputs an array as a String, treating {@code null} as an empty array.
      *

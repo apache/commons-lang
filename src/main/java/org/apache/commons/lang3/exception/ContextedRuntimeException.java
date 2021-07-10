@@ -152,7 +152,6 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
         exceptionContext = context;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Adds information helpful to a developer in diagnosing and correcting the problem.
      * For the information to be meaningful, the value passed should have a reasonable

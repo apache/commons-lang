@@ -68,7 +68,6 @@ public class ExceptionUtils {
      */
     static final String WRAPPED_MARKER = " [wrapped] ";
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Introspects the {@code Throwable} to obtain the cause.</p>
      *
@@ -167,7 +166,6 @@ public class ExceptionUtils {
         return null;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Returns the default names used when searching for the cause of an exception.</p>
      *
@@ -182,7 +180,6 @@ public class ExceptionUtils {
         return ArrayUtils.clone(CAUSE_METHOD_NAMES);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets a short message summarising the exception.
      * <p>
@@ -224,7 +221,6 @@ public class ExceptionUtils {
         return list.isEmpty() ? null : list.get(list.size() - 1);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets a short message summarising the root cause exception.
      * <p>
@@ -241,7 +237,6 @@ public class ExceptionUtils {
         return getMessage(root);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Creates a compact stack trace for the root cause of the supplied
      * {@code Throwable}.</p>
@@ -311,7 +306,6 @@ public class ExceptionUtils {
         return list;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Returns an array where each element is a line from the argument.</p>
      *
@@ -350,7 +344,6 @@ public class ExceptionUtils {
         return getStackFrames(getStackTrace(throwable));
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets the stack trace from a Throwable as a String.</p>
      *
@@ -370,7 +363,6 @@ public class ExceptionUtils {
         return sw.getBuffer().toString();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Counts the number of {@code Throwable} objects in the
      * exception chain.</p>
@@ -586,7 +578,6 @@ public class ExceptionUtils {
         return indexOf(throwable, type, fromIndex, true);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Prints a compact stack trace for the root cause of a throwable
      * to {@code System.err}.</p>

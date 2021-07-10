@@ -140,7 +140,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     private transient int mMaxLengthEstimate;
 
     // Constructor
-    //-----------------------------------------------------------------------
     /**
      * <p>Constructs a new FastDatePrinter.</p>
      * Use {@link FastDateFormat#getInstance(String, TimeZone, Locale)}  or another variation of the
@@ -175,7 +174,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     // Parse the pattern
-    //-----------------------------------------------------------------------
     /**
      * <p>Returns a list of Rules given a pattern.</p>
      *
@@ -394,7 +392,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     // Format methods
-    //-----------------------------------------------------------------------
     /**
      * <p>Formats a {@code Date}, {@code Calendar} or
      * {@code Long} (milliseconds) object.</p>
@@ -584,7 +581,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     // Accessors
-    //-----------------------------------------------------------------------
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DatePrinter#getPattern()
      */
@@ -623,7 +619,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     // Basics
-    //-----------------------------------------------------------------------
     /**
      * <p>Compares two objects for equality.</p>
      *
@@ -662,7 +657,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     // Serializing
-    //-----------------------------------------------------------------------
     /**
      * Create the object after serialization. This implementation reinitializes the
      * transient properties.
@@ -762,7 +756,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     // Rules
-    //-----------------------------------------------------------------------
     /**
      * <p>Inner class defining a rule.</p>
      */
@@ -1303,7 +1296,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         }
     }
 
-    //-----------------------------------------------------------------------
 
     private static final ConcurrentMap<TimeZoneDisplayKey, String> cTimeZoneDisplayCache =
         new ConcurrentHashMap<>(7);

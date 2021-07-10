@@ -106,7 +106,6 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
         return new ImmutableTriple<>(left, middle, right);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Compares the triple based on the left element, followed by the middle element,
      * finally the right element.
@@ -142,7 +141,6 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
         return false;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets the left element from this triple.</p>
      *

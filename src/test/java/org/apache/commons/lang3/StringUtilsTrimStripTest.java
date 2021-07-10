@@ -67,7 +67,6 @@ public class StringUtilsTrimStripTest  {
         assertEquals("", StringUtils.trimToEmpty(null));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testStrip_String() {
         assertNull(StringUtils.strip(null));

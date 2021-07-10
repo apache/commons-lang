@@ -605,7 +605,6 @@ public class StringEscapeUtils {
         return ESCAPE_HTML3.translate(input);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Unescapes a string containing entity escapes to a string
      * containing the actual Unicode characters corresponding to the
@@ -641,7 +640,6 @@ public class StringEscapeUtils {
         return UNESCAPE_HTML3.translate(input);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Escapes the characters in a {@code String} using XML entities.</p>
      *
@@ -729,7 +727,6 @@ public class StringEscapeUtils {
         return ESCAPE_XML11.translate(input);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Unescapes a string containing XML entity escapes to a string
      * containing the actual Unicode characters corresponding to the
@@ -751,7 +748,6 @@ public class StringEscapeUtils {
         return UNESCAPE_XML.translate(input);
     }
 
-    //-----------------------------------------------------------------------
 
     /**
      * <p>Returns a {@code String} value for a CSV column enclosed in double quotes,

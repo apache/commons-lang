@@ -100,7 +100,6 @@ public class AnnotationUtils {
     public AnnotationUtils() {
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Checks if two annotations are equal using the criteria for equality
      * presented in the {@link Annotation#equals(Object)} API docs.</p>

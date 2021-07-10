@@ -27,7 +27,6 @@ import org.junit.jupiter.api.Test;
  */
 public class HashCodeBuilderAndEqualsBuilderTest {
 
-    //-----------------------------------------------------------------------
 
     private void testInteger(final boolean testTransients) {
         final Integer i1 = Integer.valueOf(12345);

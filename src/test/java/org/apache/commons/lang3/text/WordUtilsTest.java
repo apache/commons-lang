@@ -33,7 +33,6 @@ import org.junit.jupiter.api.Test;
 @Deprecated
 public class WordUtilsTest {
 
-    //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
         assertNotNull(new WordUtils());
@@ -44,7 +43,6 @@ public class WordUtilsTest {
         assertFalse(Modifier.isFinal(WordUtils.class.getModifiers()));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testWrap_StringInt() {
         assertNull(WordUtils.wrap(null, 20));
@@ -182,7 +180,6 @@ public class WordUtilsTest {
         assertEquals(expected, WordUtils.wrap(input, 15, "\n", true, "/"));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testCapitalize_String() {
         assertNull(WordUtils.capitalize(null));
@@ -299,7 +296,6 @@ public class WordUtilsTest {
         assertEquals("i aM.FINE", WordUtils.uncapitalize("I AM.FINE", null) );
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testInitials_String() {
         assertNull(WordUtils.initials(null));

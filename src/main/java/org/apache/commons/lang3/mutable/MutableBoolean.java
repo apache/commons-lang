@@ -66,7 +66,6 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
         this.value = value.booleanValue();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets the value as a Boolean instance.
      *
@@ -115,7 +114,6 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
         this.value = value.booleanValue();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Checks if the current value is {@code true}.
      *
@@ -136,7 +134,6 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
         return !value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Returns the value of this MutableBoolean as a boolean.
      *
@@ -146,7 +143,6 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets this mutable as an instance of Boolean.
      *
@@ -157,7 +153,6 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
         return Boolean.valueOf(booleanValue());
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Compares this object to the specified object. The result is {@code true} if and only if the argument is
      * not {@code null} and is an {@code MutableBoolean} object that contains the same
@@ -184,7 +179,6 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
         return value ? Boolean.TRUE.hashCode() : Boolean.FALSE.hashCode();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Compares this mutable to another in ascending order.
      *
@@ -197,7 +191,6 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
         return BooleanUtils.compare(this.value, other.value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Returns the String value of this mutable.
      *

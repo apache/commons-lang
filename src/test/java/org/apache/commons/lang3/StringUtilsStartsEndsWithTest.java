@@ -33,7 +33,6 @@ public class StringUtilsStartsEndsWithTest {
     private static final String BAR    = "BAR";
     private static final String FOOBAR = "FOOBAR";
 
-    //-----------------------------------------------------------------------
 
     /**
      * Test StringUtils.startsWith()

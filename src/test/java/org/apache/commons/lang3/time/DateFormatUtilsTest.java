@@ -56,7 +56,6 @@ public class DateFormatUtilsTest {
         return cal;
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
         assertNotNull(new DateFormatUtils());
@@ -81,7 +80,6 @@ public class DateFormatUtilsTest {
         testUTC("2002-02-23T09:11:12Z", DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testFormat() {
         final Calendar c = Calendar.getInstance(FastTimeZone.getGmtTimeZone());
@@ -105,7 +103,6 @@ public class DateFormatUtilsTest {
         assertEquals(buffer.toString(), DateFormatUtils.format(c.getTime().getTime(), "yyyyMdH", Locale.US));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testFormatCalendar() {
         final Calendar c = Calendar.getInstance(FastTimeZone.getGmtTimeZone());

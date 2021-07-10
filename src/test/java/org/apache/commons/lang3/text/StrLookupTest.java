@@ -33,7 +33,6 @@ import org.junit.jupiter.api.Test;
 @Deprecated
 public class StrLookupTest  {
 
-    //-----------------------------------------------------------------------
     @Test
     public void testNoneLookup() {
         assertNull(StrLookup.noneLookup().lookup(null));

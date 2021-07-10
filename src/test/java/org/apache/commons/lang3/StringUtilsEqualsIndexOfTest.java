@@ -198,7 +198,6 @@ public class StringUtilsEqualsIndexOfTest  {
         assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, new StringBuilder("fOo")));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testCompare_StringString() {
         assertEquals(0, StringUtils.compare(null, null));
@@ -267,7 +266,6 @@ public class StringUtilsEqualsIndexOfTest  {
         assertTrue(StringUtils.compareIgnoreCase("abc", "AB ", false) > 0);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testIndexOf_char() {
         assertEquals(-1, StringUtils.indexOf(null, ' '));

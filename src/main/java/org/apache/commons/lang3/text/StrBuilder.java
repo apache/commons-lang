@@ -101,7 +101,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     /** The null text. */
     private String nullText;
 
-    //-----------------------------------------------------------------------
     /**
      * Constructor that creates an empty builder initial capacity 32 characters.
      */
@@ -136,7 +135,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         }
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets the text to be appended when a new line is added.
      *
@@ -157,7 +155,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets the text to be appended when null is added.
      *
@@ -181,7 +178,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets the length of the string builder.
      *
@@ -218,7 +214,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets the current size of the internal character array buffer.
      *
@@ -257,7 +252,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets the length of the string builder.
      * <p>
@@ -311,7 +305,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets the character at the specified index.
      *
@@ -364,7 +357,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Copies the builder's character array into a new character array.
      *
@@ -438,7 +430,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         System.arraycopy(buffer, startIndex, destination, destinationIndex, endIndex - startIndex);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * If possible, reads chars from the provided {@link Readable} directly into underlying
      * character buffer without making extra copies.
@@ -480,7 +471,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return size - oldSize;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Appends the new line string to this string builder.
      * <p>
@@ -969,7 +959,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return append(String.valueOf(value));
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Appends an object followed by a new line to this string builder.
      * Appending null will call {@link #appendNull()}.
@@ -1191,7 +1180,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return append(value).appendNewLine();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Appends each item in an array to the builder without any separators.
      * Appending a null array will have no effect.
@@ -1253,7 +1241,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Appends an array placing separators between each value, but
      * not before the first or after the last.
@@ -1323,7 +1310,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Appends a separator if the builder is currently non-empty.
      * Appending a null separator will have no effect.
@@ -1485,7 +1471,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Appends the pad character to the builder the specified number of times.
      *
@@ -1503,7 +1488,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Appends an object to the builder padding on the left to a fixed width.
      * The {@code toString} of the object is used.
@@ -1598,7 +1582,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return appendFixedWidthPadRight(String.valueOf(value), width, padChar);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Inserts the string representation of an object into this builder.
      * Inserting null will use the stored null text value.
@@ -1793,7 +1776,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return insert(index, String.valueOf(value));
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Internal method to delete a range without validation.
      *
@@ -1825,7 +1807,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Deletes the character wherever it occurs in the builder.
      *
@@ -1865,7 +1846,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Deletes the string wherever it occurs in the builder.
      *
@@ -1901,7 +1881,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Deletes all parts of the builder that the matcher matches.
      * <p>
@@ -1930,7 +1909,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return replace(matcher, null, 0, size, 1);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Internal method to delete a range without validation.
      *
@@ -1971,7 +1949,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Replaces the search character with the replace character
      * throughout the builder.
@@ -2011,7 +1988,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Replaces the search string with the replace string throughout the builder.
      *
@@ -2051,7 +2027,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Replaces all matches within the builder with the replace string.
      * <p>
@@ -2143,7 +2118,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Reverses the string builder placing each character in the opposite index.
      *
@@ -2164,7 +2138,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Trims the builder by removing characters less than or equal to a space
      * from the beginning and end.
@@ -2193,7 +2166,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Checks whether this builder starts with the specified string.
      * <p>
@@ -2249,7 +2221,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return true;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * {@inheritDoc}
      * @since 3.0
@@ -2370,7 +2341,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return new String(buffer, index, length);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Checks if the string builder contains the specified char.
      *
@@ -2412,7 +2382,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return indexOf(matcher, 0) >= 0;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Searches the string builder to find the first reference to the specified char.
      *
@@ -2536,7 +2505,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return -1;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Searches the string builder to find the last reference to the specified char.
      *
@@ -2657,7 +2625,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return -1;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Creates a tokenizer that can tokenize the contents of this builder.
      * <p>
@@ -2694,7 +2661,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return new StrBuilderTokenizer();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets the contents of this builder as a Reader.
      * <p>
@@ -2718,7 +2684,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return new StrBuilderReader();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets this builder as a Writer that can be written to.
      * <p>
@@ -2849,7 +2814,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return hash;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets a String version of the string builder, creating a new instance
      * each time the method is called.
@@ -2896,7 +2860,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return toString();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Validates parameters defining a range of the builder.
      *
@@ -2931,7 +2894,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         }
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Inner class to allow StrBuilder to operate as a tokenizer.
      */
@@ -2963,7 +2925,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         }
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Inner class to allow StrBuilder to operate as a reader.
      */
@@ -3053,7 +3014,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         }
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Inner class to allow StrBuilder to operate as a writer.
      */

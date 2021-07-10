@@ -68,7 +68,6 @@ public class DurationFormatUtils {
      */
     public static final String ISO_EXTENDED_FORMAT_PATTERN = "'P'yyyy'Y'M'M'd'DT'H'H'm'M's.SSS'S'";
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Formats the time gap as a string.</p>
      *
@@ -222,7 +221,6 @@ public class DurationFormatUtils {
         return duration.trim();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Formats the time gap as a string.</p>
      *
@@ -407,7 +405,6 @@ public class DurationFormatUtils {
         return format(tokens, years, months, days, hours, minutes, seconds, milliseconds, padWithZeros);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>The internal method to do the formatting.</p>
      *

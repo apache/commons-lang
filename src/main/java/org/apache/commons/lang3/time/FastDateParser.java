@@ -169,7 +169,6 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     // helper classes to parse the format string
-    //-----------------------------------------------------------------------
 
     /**
      * Holds strategy and field width
@@ -265,7 +264,6 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     // Accessors
-    //-----------------------------------------------------------------------
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DateParser#getPattern()
      */
@@ -292,7 +290,6 @@ public class FastDateParser implements DateParser, Serializable {
 
 
     // Basics
-    //-----------------------------------------------------------------------
     /**
      * <p>Compares another object for equality with this object.</p>
      *
@@ -437,7 +434,6 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     // Support for strategies
-    //-----------------------------------------------------------------------
 
     private static StringBuilder simpleQuote(final StringBuilder sb, final String value) {
         for (int i = 0; i < value.length(); ++i) {
