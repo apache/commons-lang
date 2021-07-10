@@ -552,9 +552,9 @@ public class TypeUtils {
     private static Type[] extractTypeArgumentsFrom(final Map<TypeVariable<?>, Type> mappings, final TypeVariable<?>[] variables) {
         final Type[] result = new Type[variables.length];
         int index = 0;
-        for (final TypeVariable<?> var : variables) {
-            Validate.isTrue(mappings.containsKey(var), "missing argument mapping for %s", toString(var));
-            result[index++] = mappings.get(var);
+        for (final TypeVariable<?> typeVariable : variables) {
+            Validate.isTrue(mappings.containsKey(typeVariable), "missing argument mapping for %s", toString(typeVariable));
+            result[index++] = mappings.get(typeVariable);
         }
         return result;
     }
@@ -1216,9 +1216,9 @@ public class TypeUtils {
                 toClass, typeVarAssigns);
 
         // now to check each type argument
-        for (final TypeVariable<?> var : toTypeVarAssigns.keySet()) {
-            final Type toTypeArg = unrollVariableAssignments(var, toTypeVarAssigns);
-            final Type fromTypeArg = unrollVariableAssignments(var, fromTypeVarAssigns);
+        for (final TypeVariable<?> typeVariable : toTypeVarAssigns.keySet()) {
+            final Type toTypeArg = unrollVariableAssignments(typeVariable, toTypeVarAssigns);
+            final Type fromTypeArg = unrollVariableAssignments(typeVariable, fromTypeVarAssigns);
 
             if (toTypeArg == null && fromTypeArg instanceof Class) {
                 continue;
