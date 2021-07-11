@@ -804,6 +804,42 @@ public class NumberUtilsTest {
     }
 
     /**
+     * Test for {@link NumberUtils#isHexNumber(String)}
+     */
+    @Test
+    public void testIsHexNumber() {
+        assertTrue(NumberUtils.isHexNumber("+0xF"));
+        assertTrue(NumberUtils.isHexNumber("-0xF"));
+        assertFalse(NumberUtils.isHexNumber("0X"));
+        assertTrue(NumberUtils.isHexNumber("0X1"));
+        assertFalse(NumberUtils.isHexNumber("0x"));
+        assertFalse(NumberUtils.isHexNumber("a"));
+        assertFalse(NumberUtils.isHexNumber("X"));
+        assertFalse(NumberUtils.isHexNumber(null));
+        assertFalse(NumberUtils.isHexNumber(""));
+        assertTrue(NumberUtils.isHexNumber("0x12345678"));
+        assertTrue(NumberUtils.isHexNumber("0x123456789"));
+        assertTrue(NumberUtils.isHexNumber("0x7fffffffffffffff"));
+        assertTrue(NumberUtils.isHexNumber("0x7FFFFFFFFFFFFFFF"));
+        assertFalse(NumberUtils.isHexNumber("5D0"));
+        assertFalse(NumberUtils.isHexNumber("6C370D"));
+        assertFalse(NumberUtils.isHexNumber("FFE329AC"));
+        assertFalse(NumberUtils.isHexNumber("130E639"));
+        assertTrue(NumberUtils.isHexNumber("0xff"));
+        assertFalse(NumberUtils.isHexNumber("0xffX"));
+        assertFalse(NumberUtils.isHexNumber("0x"));
+        assertTrue(NumberUtils.isHexNumber("0x12345678"));
+        assertTrue(NumberUtils.isHexNumber("0x7fffffffffffffff0"));
+        assertFalse(NumberUtils.isHexNumber("01777777777777777777777"));
+        assertTrue(NumberUtils.isHexNumber("-0xABC123"));
+        assertTrue(NumberUtils.isHexNumber("-0x0"));
+        assertTrue(NumberUtils.isHexNumber("+#FFFFFFFFFFFFFFFF"));
+        assertTrue(NumberUtils.isHexNumber("0xFFFFFFFFFFFFFFFF"));
+        assertFalse(NumberUtils.isHexNumber(new BigInteger(String.valueOf(Integer.MAX_VALUE), 16).toString()));
+        assertFalse(NumberUtils.isHexNumber(Integer.toHexString(Integer.MAX_VALUE)));
+    }
+
+    /**
      * Tests isCreatable(String) and tests that createNumber(String) returns a valid number iff isCreatable(String)
      * returns false.
      */
