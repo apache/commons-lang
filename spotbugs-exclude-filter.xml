@@ -82,6 +82,10 @@
       <Method name="indexOfDifference"/>
       <Method name="compare" params="java.lang.String,java.lang.String,boolean"/>
       <Method name="compareIgnoreCase" params="java.lang.String,java.lang.String,boolean"/>
+      <Method name="compareNullIsLess" params="java.lang.String,java.lang.String"/>
+      <Method name="compareNullIsGreater" params="java.lang.String,java.lang.String"/>
+      <Method name="compareIgnoreCaseNullIsLess" params="java.lang.String,java.lang.String"/>
+      <Method name="compareIgnoreCaseNullIsGreater" params="java.lang.String,java.lang.String"/>
     </Or>
     <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ" />
   </Match>
