@@ -16,6 +16,10 @@
  */
 package org.apache.commons.lang3.builder;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.tuple.Pair;
+
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -24,10 +28,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.ClassUtils;
-import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * <p>Assists in implementing {@link Object#equals(Object)} methods.</p>
@@ -58,13 +58,16 @@ import org.apache.commons.lang3.tuple.Pair;
  *   }
  *   MyClass rhs = (MyClass) obj;
  *   return new EqualsBuilder()
- *                 .appendSuper(super.equals(obj))
  *                 .append(field1, rhs.field1)
  *                 .append(field2, rhs.field2)
  *                 .append(field3, rhs.field3)
  *                 .isEquals();
  *  }
  * </pre>
+ *
+ * <p>
+ * If required, the superclass <code>appendSuper()</code> can be added using {@link #appendSuper}.
+ * </p>
  *
  * <p> Alternatively, there is a method that uses reflection to determine
  * the fields to test. Because these fields are usually private, the method,
