@@ -8560,7 +8560,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str  the String to get a substring from, may be null
-     * @param separator  the character to search.
+     * @param separator the character (Unicode code point) to search for
      * @return the substring after the first occurrence of the separator,
      *  {@code null} if null String input
      * @since 3.11
@@ -8639,7 +8639,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str  the String to get a substring from, may be null
-     * @param separator  the String to search for, may be null
+     * @param separator the character (Unicode code point) to search for
      * @return the substring after the last occurrence of the separator,
      *  {@code null} if null String input
      * @since 3.11
@@ -8721,7 +8721,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str the String to get a substring from, may be null
-     * @param separator the String to search for, may be null
+     * @param separator the character (Unicode code point) to search for
      * @return the substring before the first occurrence of the separator, {@code null} if null String input
      * @since 3.12.0
      */
