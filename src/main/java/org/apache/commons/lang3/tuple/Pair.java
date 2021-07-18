@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Objects;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
 /**
@@ -61,7 +62,9 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
 
     }
 
-    /** Serialization version */
+    /**
+     * Serialization version
+     */
     private static final long serialVersionUID = 4954918890077093841L;
 
     /**
@@ -146,8 +149,8 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
         }
         if (obj instanceof Map.Entry<?, ?>) {
             final Map.Entry<?, ?> other = (Map.Entry<?, ?>) obj;
-            return Objects.equals(getKey(), other.getKey())
-                    && Objects.equals(getValue(), other.getValue());
+            return ObjectUtils.equalsOrCompareBigDecimal(getKey(), other.getKey())
+                && ObjectUtils.equalsOrCompareBigDecimal(getValue(), other.getValue());
         }
         return false;
     }

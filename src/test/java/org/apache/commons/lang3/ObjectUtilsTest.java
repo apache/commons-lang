@@ -30,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -401,6 +402,20 @@ public class ObjectUtilsTest {
         assertTrue(!ObjectUtils.equals(null, BAR), "ObjectUtils.equals(null, \"bar\") returned true");
         assertTrue(!ObjectUtils.equals(FOO, BAR), "ObjectUtils.equals(\"foo\", \"bar\") returned true");
         assertTrue(ObjectUtils.equals(FOO, FOO), "ObjectUtils.equals(\"foo\", \"foo\") returned false");
+    }
+
+    @Test
+    public void TestEqualsOrCompareBigDecimal(){
+        assertTrue(ObjectUtils.equalsOrCompareBigDecimal(null,null));
+        assertTrue(ObjectUtils.equalsOrCompareBigDecimal(new BigDecimal("100.0"),new BigDecimal("100")));
+        assertTrue(ObjectUtils.equalsOrCompareBigDecimal(FOO,FOO));
+        assertTrue(ObjectUtils.equalsOrCompareBigDecimal(null,null));
+        assertFalse(ObjectUtils.equalsOrCompareBigDecimal(new BigDecimal("100.0"),new BigDecimal("100.1")));
+        assertFalse(ObjectUtils.equalsOrCompareBigDecimal(FOO,BAR));
+        assertFalse(ObjectUtils.equalsOrCompareBigDecimal(FOO,null));
+        assertFalse(ObjectUtils.equalsOrCompareBigDecimal(null,FOO));
+        assertFalse(ObjectUtils.equalsOrCompareBigDecimal(BigDecimal.valueOf(1),null));
+        assertFalse(ObjectUtils.equalsOrCompareBigDecimal(null,BigDecimal.valueOf(1)));
     }
 
     @Test

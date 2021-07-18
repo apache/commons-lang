@@ -19,6 +19,7 @@ package org.apache.commons.lang3.tuple;
 import java.io.Serializable;
 import java.util.Objects;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
 /**
@@ -34,7 +35,6 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
  * @param <L> the left element type
  * @param <M> the middle element type
  * @param <R> the right element type
- *
  * @since 3.2
  */
 public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Serializable {
@@ -80,7 +80,6 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * @param <M> the middle element type
      * @param <R> the right element type
      * @return the empty array singleton that can be assigned without compiler warning.
-     *
      * @since 3.10.
      */
     @SuppressWarnings("unchecked")
@@ -134,9 +133,9 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
         }
         if (obj instanceof Triple<?, ?, ?>) {
             final Triple<?, ?, ?> other = (Triple<?, ?, ?>) obj;
-            return Objects.equals(getLeft(), other.getLeft())
-                && Objects.equals(getMiddle(), other.getMiddle())
-                && Objects.equals(getRight(), other.getRight());
+            return ObjectUtils.equalsOrCompareBigDecimal(getLeft(), other.getLeft())
+                && ObjectUtils.equalsOrCompareBigDecimal(getMiddle(), other.getMiddle())
+                && ObjectUtils.equalsOrCompareBigDecimal(getRight(), other.getRight());
         }
         return false;
     }

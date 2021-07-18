@@ -21,6 +21,7 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Collections;
@@ -632,6 +633,21 @@ public class ObjectUtils {
             return false;
         }
         return object1.equals(object2);
+    }
+
+    /**
+     * <p>Compares two objects for equality taking numeric comparison of BigDecimal into account,
+     *  where either one or both objects may be {@code null}. </p>
+     * @param object1 the first object, may be {@code null}
+     * @param object2 the second object, may be {@code null}
+     * @return {@code true} if the values of both objects are the same
+     */
+    public static boolean equalsOrCompareBigDecimal(final Object object1, final Object object2) {
+        if (Objects.nonNull(object1) && Objects.nonNull(object2) &&
+                object1.getClass().equals(BigDecimal.class) && object2.getClass().equals(BigDecimal.class)) {
+            return ((BigDecimal) object1).compareTo((BigDecimal) object2) == 0;
+        }
+        return Objects.equals(object1, object2);
     }
 
     /**

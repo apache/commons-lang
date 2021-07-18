@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.HashSet;
 
@@ -92,6 +93,15 @@ public class TripleTest {
         @SuppressWarnings("unchecked")
         final Triple<Integer, String, Boolean>[] empty = (Triple<Integer, String, Boolean>[]) Triple.EMPTY_ARRAY;
         assertEquals(0, empty.length);
+    }
+
+    @Test
+    public void testEqualsBigDecimal() {
+        final Triple<BigDecimal, BigDecimal, BigDecimal> triple1 = Triple.of(new BigDecimal("100.0"),
+                new BigDecimal("100.1"), new BigDecimal("100.1000"));
+        final Triple<BigDecimal, BigDecimal, BigDecimal> triple2 = Triple.of(new BigDecimal("100"),
+                new BigDecimal("100.1"), new BigDecimal("100.1"));
+        assertEquals(triple1, triple2);
     }
 
     @Test

@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -80,6 +81,14 @@ public class PairTest {
         final Pair<Integer, String>[] empty = (Pair<Integer, String>[]) Pair.EMPTY_ARRAY;
         assertEquals(0, empty.length);
     }
+
+    @Test
+    public void testEqualsBigDecimal() {
+        final Pair<BigDecimal, BigDecimal> pair1 = Pair.of(new BigDecimal("100.0"), new BigDecimal("100.1"));
+        final Pair<BigDecimal, BigDecimal> pair2 = Pair.of(new BigDecimal("100"), new BigDecimal("100.1"));
+        assertEquals(pair1, pair2);
+    }
+
 
     @Test
     public void testFormattable_padded() {
