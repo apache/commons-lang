@@ -190,11 +190,7 @@ public class ClassUtils {
         }
         final List<String> classNames = new ArrayList<>(classes.size());
         for (final Class<?> cls : classes) {
-            if (cls == null) {
-                classNames.add(null);
-            } else {
-                classNames.add(cls.getName());
-            }
+            classNames.add(getName(cls, null));
         }
         return classNames;
     }
