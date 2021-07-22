@@ -1143,7 +1143,7 @@ public class StringUtilsTest {
         assertEquals("foo/2", StringUtils.join(MIXED_TYPE_LIST, '/', 0, 2));
         assertEquals("2", StringUtils.join(MIXED_TYPE_LIST, '/', 1, 2));
         assertEquals("", StringUtils.join(MIXED_TYPE_LIST, '/', 2, 1));
-        assertEquals("1,2", StringUtils.join(CHAR_PRIM_LIST, SEPARATOR));
+        assertEquals("1;2", StringUtils.join(CHAR_PRIM_LIST, SEPARATOR_CHAR));
     }
 
     @Test

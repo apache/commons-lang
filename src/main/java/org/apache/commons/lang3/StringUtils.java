@@ -4593,13 +4593,17 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final long[] array, final char delimiter, final int startIndex, final int endIndex) {
+        return join(array, Character.toString(delimiter), startIndex, endIndex);
+    }
+
+    public static String join(final long[] array, final String delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = newStringJoiner(delimiter);
+        final StringJoiner joiner = new StringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
             joiner.add(String.valueOf(array[i]));
         }
@@ -4856,6 +4860,10 @@ public class StringUtils {
     @SafeVarargs
     public static <T> String join(final T... elements) {
         return join(elements, null);
+    }
+
+    public static <T> String join(long[] elements, String separator) {
+        return (elements == null) ? null  : join(elements, separator, 0, elements.length);
     }
 
     /**
@@ -5520,6 +5528,8 @@ public class StringUtils {
         return str.substring(pos, pos + len);
     }
 
+    // TODO: remove
+    @Deprecated
     private static StringJoiner newStringJoiner(final char delimiter) {
         return new StringJoiner(String.valueOf(delimiter));
     }
