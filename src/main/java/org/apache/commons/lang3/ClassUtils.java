@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.mutable.MutableObject;
 
@@ -185,14 +186,7 @@ public class ClassUtils {
      * @throws ClassCastException if {@code classes} contains a non-{@code Class} entry
      */
     public static List<String> convertClassesToClassNames(final List<Class<?>> classes) {
-        if (classes == null) {
-            return null;
-        }
-        final List<String> classNames = new ArrayList<>(classes.size());
-        for (final Class<?> cls : classes) {
-            classNames.add(getName(cls, null));
-        }
-        return classNames;
+        return classes == null ? null : classes.stream().map(e -> getName(e, null)).collect(Collectors.toList());
     }
 
     /**
