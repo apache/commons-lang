@@ -36,6 +36,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import org.apache.commons.lang3.ClassUtils.Interfaces;
 import org.apache.commons.lang3.reflect.testbed.GenericConsumer;
@@ -1135,6 +1136,24 @@ public class ClassUtilsTest  {
         assertFalse(ClassUtils.isInnerClass(this.getClass()));
         assertFalse(ClassUtils.isInnerClass(String.class));
         assertFalse(ClassUtils.isInnerClass(null));
+    }
+
+    @Test
+    public void testComparable() {
+        final TreeMap<Class<?>, String> map = new TreeMap<>(ClassUtils.comparator());
+        map.put(String.class, "lastEntry");
+        map.toString();
+        map.put(Character.class, "firstEntry");
+        map.toString();
+        assertEquals("firstEntry", map.firstEntry().getValue());
+        assertEquals(Character.class, map.firstEntry().getKey());
+        //
+        assertEquals("lastEntry", map.lastEntry().getValue());
+        assertEquals(String.class, map.lastEntry().getKey());
+        //
+        map.put(null, "null");
+        map.toString();
+        assertEquals("null", map.get(null));
     }
 
     @Test
