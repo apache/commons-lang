@@ -1168,7 +1168,7 @@ public class StringUtilsTest {
         assertNull(StringUtils.join((boolean[]) null, SEPARATOR_CHAR, 0, 1));
         assertEquals(StringUtils.EMPTY, StringUtils.join(ARRAY_FALSE_FALSE, SEPARATOR_CHAR, 0, 0));
         assertEquals(StringUtils.EMPTY, StringUtils.join(ARRAY_FALSE_TRUE_FALSE, SEPARATOR_CHAR, 1, 0));
-        assertEquals("1,2", StringUtils.join(ARRAY_FALSE_TRUE_FALSE, SEPARATOR));
+        assertEquals("false,true,false", StringUtils.join(ARRAY_FALSE_TRUE_FALSE, SEPARATOR));
     }
 
     @Test

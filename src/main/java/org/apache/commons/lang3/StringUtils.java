@@ -30,6 +30,10 @@ import java.util.Set;
 import java.util.StringJoiner;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.function.ToBooleanBiFunction;
@@ -4603,13 +4607,40 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = new StringJoiner(delimiter);
-        for (int i = startIndex; i < endIndex; i++) {
-            joiner.add(String.valueOf(array[i]));
-        }
-        return joiner.toString();
+
+        return join(LongStream.of(array).boxed().map(String::valueOf), delimiter, startIndex, endIndex);
     }
 
+    public static String join(final byte[] array, final String delimiter, final int startIndex, final int endIndex) {
+        if (array == null) {
+            return null;
+        }
+        if (endIndex - startIndex <= 0) {
+            return EMPTY;
+        }
+
+        // Java Stream API does not provide ByteStream
+        return join(IntStream.range(0, array.length).map(idx -> array[idx]).boxed().map(String::valueOf), delimiter, startIndex, endIndex);
+    }
+
+    public static String join(final boolean[] array, final String delimiter, final int startIndex, final int endIndex) {
+        if (array == null) {
+            return null;
+        }
+        if (endIndex - startIndex <= 0) {
+            return EMPTY;
+        }
+
+        // Java Stream API does not provide BooleanStream
+        return join(IntStream.range(0, array.length).boxed().map(idx -> array[idx]).map(String::valueOf), delimiter, startIndex, endIndex);
+    }
+
+    private static String join(Stream<String> elements, final String delimiter, final int startIndex, final int endIndex) {
+        return elements
+                .skip(startIndex)
+                .limit(endIndex)
+                .collect(Collectors.joining(delimiter));
+    }
     /**
      * <p>Joins the elements of the provided array into a single String
      * containing the provided list of elements.</p>
@@ -4863,6 +4894,14 @@ public class StringUtils {
     }
 
     public static <T> String join(long[] elements, String separator) {
+        return (elements == null) ? null  : join(elements, separator, 0, elements.length);
+    }
+
+    public static <T> String join(byte[] elements, String separator) {
+        return (elements == null) ? null  : join(elements, separator, 0, elements.length);
+    }
+
+    public static <T> String join(boolean[] elements, String separator) {
         return (elements == null) ? null  : join(elements, separator, 0, elements.length);
     }
 
