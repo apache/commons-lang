@@ -172,6 +172,11 @@ public class Streams {
             return stream().anyMatch(Failable.asPredicate(predicate));
         }
 
+        /**
+         * Throws IllegalStateException if this stream is already terminated.
+         *
+         * @throws IllegalStateException if this stream is already terminated.
+         */
         protected void assertNotTerminated() {
             if (terminated) {
                 throw new IllegalStateException("This stream is already terminated.");
@@ -332,6 +337,11 @@ public class Streams {
             stream().forEach(Failable.asConsumer(action));
         }
 
+        /**
+         * Marks this stream as terminated.
+         *
+         * @throws IllegalStateException if this stream is already terminated.
+         */
         protected void makeTerminated() {
             assertNotTerminated();
             terminated = true;
