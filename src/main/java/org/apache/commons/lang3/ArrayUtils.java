@@ -4206,14 +4206,15 @@ public static int indexOf(final int[] array, final int valueToFind, int startInd
      * Delegates to {@link Array#newInstance(Class,int)} using generics.
      *
      * @param <T> The array type.
-     * @param type The array class.
+     * @param componentType The array class.
      * @param length the array length
      * @return The new array.
+     * @exception NullPointerException if the specified {@code componentType} parameter is null.
      * @since 3.13.0
      */
     @SuppressWarnings("unchecked") // OK, because array and values are of type T
-    public static <T> T[] newInstance(final Class<T> type, final int length) {
-        return (T[]) Array.newInstance(type, length);
+    public static <T> T[] newInstance(final Class<T> componentType, final int length) {
+        return (T[]) Array.newInstance(componentType, length);
     }
 
     /**
