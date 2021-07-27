@@ -426,6 +426,10 @@ public class Streams {
         }
     }
 
+    private static <O> Stream<O> nullSafeStream(final Collection<O> collection) {
+        return collection == null ? Stream.empty() : collection.stream();
+    }
+
     /**
      * Null-safe version of {@link Stream#of(Object[])}.
      *
@@ -476,7 +480,7 @@ public class Streams {
      * @return The {@link FailableStream}, which has been created by converting the stream.
      */
     public static <O> FailableStream<O> stream(final Collection<O> stream) {
-        return stream(stream.stream());
+        return stream(nullSafeStream(stream));
     }
 
     /**

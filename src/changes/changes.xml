@@ -50,6 +50,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1646" type="fix" dev="aherbert" due-to="Alex Herbert">NumberUtils.createNumber() to return requested floating point type for zero.</action>
     <action                   type="fix" dev="ggregory" due-to="SpotBugs, Gary Gregory">DMI: Random object created and used only once (DMI_RANDOM_USED_ONLY_ONCE); Better multi-threaded behavior.</action>
     <action issue="LANG-1646" type="fix" dev="aherbert" due-to="rturo Bernal">Redundant Collection operation. Use Collections.emptyIterator() #738.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Make Streams.stream(Collection) null-safe.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TriConsumer.</action>
