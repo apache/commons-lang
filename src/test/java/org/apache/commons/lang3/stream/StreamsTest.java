@@ -136,7 +136,7 @@ public class StreamsTest {
     }
 
     @Test
-    public void testOf() {
+    public void testOfArray() {
         assertEquals(0, Streams.of((Object[]) null).count());
         assertEquals(1, Streams.of("foo").count());
         assertEquals(2, Streams.of("foo", "bar").count());
