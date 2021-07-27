@@ -43,7 +43,7 @@ import org.apache.commons.lang3.function.FailablePredicate;
  * {@code java.util.stream} package, or more generally, with Java 8 lambdas. More
  * specifically, it attempts to address the fact that lambdas are supposed
  * not to throw Exceptions, at least not checked Exceptions, AKA instances
- * of {@link Exception}. This enforces the use of constructs like
+ * of {@link Exception}. This enforces the use of constructs like:
  * <pre>
  *     Consumer&lt;java.lang.reflect.Method&gt; consumer = m -&gt; {
  *         try {
@@ -54,7 +54,9 @@ import org.apache.commons.lang3.function.FailablePredicate;
  *    };
  *    stream.forEach(consumer);
  * </pre>
+ * <p>
  * Using a {@link FailableStream}, this can be rewritten as follows:
+ * </p>
  * <pre>
  *     Streams.failable(stream).forEach((m) -&gt; m.invoke(o, args));
  * </pre>
@@ -140,6 +142,7 @@ public class Streams {
          *
          * <p>
          * This is a short-circuiting terminal operation.
+         * </p>
          *
          * Note This method evaluates the <em>universal quantification</em> of the predicate over the elements of
          * the stream (for all x P(x)). If the stream is empty, the quantification is said to be <em>vacuously
@@ -161,6 +164,7 @@ public class Streams {
          *
          * <p>
          * This is a short-circuiting terminal operation.
+         * </p>
          *
          * Note This method evaluates the <em>existential quantification</em> of the predicate over the elements of
          * the stream (for some x P(x)).
@@ -194,15 +198,18 @@ public class Streams {
          * If the underlying stream is parallel, and the {@code Collector} is concurrent, and either the stream is
          * unordered or the collector is unordered, then a concurrent reduction will be performed (see {@link Collector}
          * for details on concurrent reduction.)
+         * </p>
          *
          * <p>
          * This is a terminal operation.
+         * </p>
          *
          * <p>
          * When executed in parallel, multiple intermediate results may be instantiated, populated, and merged so as to
          * maintain isolation of mutable data structures. Therefore, even when executed in parallel with non-thread-safe
          * data structures (such as {@code ArrayList}), no additional synchronization is needed for a parallel
          * reduction.
+         * </p>
          *
          * Note The following will accumulate strings into an ArrayList:
          *
@@ -214,6 +221,7 @@ public class Streams {
          *
          * <p>
          * The following will classify {@code Person} objects by city:
+         * </p>
          *
          * <pre>
          *     {@code
@@ -224,6 +232,7 @@ public class Streams {
          * <p>
          * The following will classify {@code Person} objects by state and city, cascading two {@code Collector}s
          * together:
+         * </p>
          *
          * <pre>
          *     {@code
@@ -262,9 +271,11 @@ public class Streams {
          * <p>
          * Like {@link #reduce(Object, BinaryOperator)}, {@code collect} operations can be parallelized without
          * requiring additional synchronization.
+         * </p>
          *
          * <p>
          * This is a terminal operation.
+         * </p>
          *
          * Note There are many existing classes in the JDK whose signatures are well-suited for use with method
          * references as arguments to {@code collect()}. For example, the following will accumulate strings into an
@@ -278,6 +289,7 @@ public class Streams {
          *
          * <p>
          * The following will take a stream of strings and concatenates them into a single string:
+         * </p>
          *
          * <pre>
          *     {@code
@@ -307,6 +319,7 @@ public class Streams {
          *
          * <p>
          * This is an intermediate operation.
+         * </p>
          *
          * @param predicate a non-interfering, stateless predicate to apply to each element to determine if it should be
          *        included.
@@ -323,6 +336,7 @@ public class Streams {
          *
          * <p>
          * This is a terminal operation.
+         * </p>
          *
          * <p>
          * The behavior of this operation is explicitly nondeterministic. For parallel stream pipelines, this operation
@@ -330,6 +344,7 @@ public class Streams {
          * benefit of parallelism. For any given element, the action may be performed at whatever time and in whatever
          * thread the library chooses. If the action accesses shared state, it is responsible for providing the required
          * synchronization.
+         * </p>
          *
          * @param action a non-interfering action to perform on the elements
          */
@@ -353,6 +368,7 @@ public class Streams {
          *
          * <p>
          * This is an intermediate operation.
+         * </p>
          *
          * @param <R> The element type of the new stream
          * @param mapper A non-interfering, stateless function to apply to each element
@@ -382,9 +398,11 @@ public class Streams {
          * The {@code identity} value must be an identity for the accumulator function. This means that for all
          * {@code t}, {@code accumulator.apply(identity, t)} is equal to {@code t}. The {@code accumulator} function
          * must be an associative function.
+         * </p>
          *
          * <p>
          * This is a terminal operation.
+         * </p>
          *
          * Note Sum, min, max, average, and string concatenation are all special cases of reduction. Summing a
          * stream of numbers can be expressed as:
@@ -407,6 +425,7 @@ public class Streams {
          * While this may seem a more roundabout way to perform an aggregation compared to simply mutating a running
          * total in a loop, reduction operations parallelize more gracefully, without needing additional synchronization
          * and with greatly reduced risk of data races.
+         * </p>
          *
          * @param identity the identity value for the accumulating function
          * @param accumulator an associative, non-interfering, stateless function for combining two values
