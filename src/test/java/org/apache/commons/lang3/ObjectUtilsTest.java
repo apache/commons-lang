@@ -404,6 +404,25 @@ public class ObjectUtilsTest {
     }
 
     @Test
+    public void testEqualsAny() {
+        assertFalse(ObjectUtils.equalsAny(null), "ObjectUtils.equalsAny(null) returned true");
+        assertFalse(ObjectUtils.equalsAny(null, null), "ObjectUtils.equalsAny(null, null) returned true");
+        assertTrue(ObjectUtils.equalsAny(null, (Object) null), "ObjectUtils.equalsAny(null, (Object) null) returned false");
+        assertTrue(ObjectUtils.equalsAny(null, null, null), "ObjectUtils.equalsAny(null, null, null) returned false");
+        assertFalse(ObjectUtils.equalsAny("", (Object) null), "ObjectUtils.equalsAny(\"\", (Object) null) returned true");
+        assertTrue(ObjectUtils.equalsAny("", ""), "ObjectUtils.equalsAny(\"\", \"\") returned false");
+        assertFalse(ObjectUtils.equalsAny(FOO, BAR), "ObjectUtils.equalsAny(\"foo\", \"bar\") returned true");
+        assertTrue(ObjectUtils.equalsAny(FOO, BAR, FOO), "ObjectUtils.equalsAny(\"foo\", \"bar\", \"foo\") returned false");
+        assertTrue(ObjectUtils.equalsAny(FOO, BAR, BAR, FOO, FOO), "ObjectUtils.equalsAny(\"bar\", \"bar\", \"foo\", \"foo\") returned false");
+
+        assertTrue(ObjectUtils.equalsAny(123, 123, 456), "ObjectUtils.equalsAny(123, 123, 456) returned false");
+        assertFalse(ObjectUtils.equalsAny(123, "123", 456), "ObjectUtils.equalsAny(123, \"123\", 456) returned true");
+
+        assertTrue(ObjectUtils.equalsAny(true, true, false), "ObjectUtils.equalsAny(true, true, false) returned false");
+        assertFalse(ObjectUtils.equalsAny("true", true, false), "ObjectUtils.equalsAny(\"true\", true, false) returned true");
+    }
+
+    @Test
     public void testFirstNonNull() {
         assertEquals("", ObjectUtils.firstNonNull(null, ""));
         final String firstNonNullGenerics = ObjectUtils.firstNonNull(null, null, "123", "456");

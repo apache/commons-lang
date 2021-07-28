@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.TreeSet;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.function.Suppliers;
@@ -632,6 +633,27 @@ public class ObjectUtils {
             return false;
         }
         return object1.equals(object2);
+    }
+
+    /**
+     * <p>Compares given {@code object} to a vararg of {@code searchObjects}</p>
+     *
+     * <pre>
+     * ObjectUtils.equalsAny(null)                                      = false
+     * ObjectUtils.equalsAny(null, null, null)                          = true
+     * ObjectUtils.equalsAny("", "")                                    = true
+     * ObjectUtils.equalsAny(Boolean.TRUE, null)                        = false
+     * ObjectUtils.equalsAny(Boolean.TRUE, "true")                      = false
+     * ObjectUtils.equalsAny(Boolean.TRUE, Boolean.TRUE)                = true
+     * ObjectUtils.equalsAny(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE) = true
+     * </pre>
+     *
+     * @param object to compare, may be {@code null}
+     * @param searchObjects a vararg of objects, may be {@code null}.
+     * @return {@code true} if {@code object} is equal to any of the {@code searchObjects}.
+     */
+    public static boolean equalsAny(final Object object, final Object... searchObjects) {
+        return searchObjects != null && Stream.of(searchObjects).anyMatch(e -> Objects.equals(object, e));
     }
 
     /**
