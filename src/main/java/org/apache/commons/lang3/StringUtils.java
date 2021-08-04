@@ -4885,7 +4885,11 @@ public class StringUtils {
         return join(elements, null);
     }
 
-    public static <T> String join(int[] elements, String separator) {
+    public static <T> String join(byte[] elements, String separator) {
+        return (elements == null) ? null  : join(elements, separator, 0, elements.length);
+    }
+
+    public static <T> String join(boolean[] elements, String separator) {
         return (elements == null) ? null  : join(elements, separator, 0, elements.length);
     }
 
@@ -4893,7 +4897,7 @@ public class StringUtils {
         return (elements == null) ? null  : join(elements, separator, 0, elements.length);
     }
 
-    public static <T> String join(short[] elements, String separator) {
+    public static <T> String join(double[] elements, String separator) {
         return (elements == null) ? null  : join(elements, separator, 0, elements.length);
     }
 
@@ -4901,7 +4905,7 @@ public class StringUtils {
         return (elements == null) ? null  : join(elements, separator, 0, elements.length);
     }
 
-    public static <T> String join(double[] elements, String separator) {
+    public static <T> String join(int[] elements, String separator) {
         return (elements == null) ? null  : join(elements, separator, 0, elements.length);
     }
 
@@ -4909,11 +4913,7 @@ public class StringUtils {
         return (elements == null) ? null  : join(elements, separator, 0, elements.length);
     }
 
-    public static <T> String join(byte[] elements, String separator) {
-        return (elements == null) ? null  : join(elements, separator, 0, elements.length);
-    }
-
-    public static <T> String join(boolean[] elements, String separator) {
+    public static <T> String join(short[] elements, String separator) {
         return (elements == null) ? null  : join(elements, separator, 0, elements.length);
     }
 
