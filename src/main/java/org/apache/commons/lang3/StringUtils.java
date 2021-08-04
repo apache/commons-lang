@@ -4880,35 +4880,35 @@ public class StringUtils {
     }
 
     public static String join(byte[] elements, String separator) {
-        return (elements == null) ? null  : join(elements, separator, 0, elements.length);
+        return (elements == null) ? null : join(elements, separator, 0, elements.length);
     }
 
     public static String join(boolean[] elements, String separator) {
-        return (elements == null) ? null  : join(elements, separator, 0, elements.length);
+        return (elements == null) ? null : join(elements, separator, 0, elements.length);
     }
 
     public static String join(char[] elements, String separator) {
-        return (elements == null) ? null  : join(elements, separator, 0, elements.length);
+        return (elements == null) ? null : join(elements, separator, 0, elements.length);
     }
 
     public static String join(double[] elements, String separator) {
-        return (elements == null) ? null  : join(elements, separator, 0, elements.length);
+        return (elements == null) ? null : join(elements, separator, 0, elements.length);
     }
 
     public static String join(float[] elements, String separator) {
-        return (elements == null) ? null  : join(elements, separator, 0, elements.length);
+        return (elements == null) ? null : join(elements, separator, 0, elements.length);
     }
 
     public static String join(int[] elements, String separator) {
-        return (elements == null) ? null  : join(elements, separator, 0, elements.length);
+        return (elements == null) ? null : join(elements, separator, 0, elements.length);
     }
 
     public static String join(long[] elements, String separator) {
-        return (elements == null) ? null  : join(elements, separator, 0, elements.length);
+        return (elements == null) ? null : join(elements, separator, 0, elements.length);
     }
 
     public static String join(short[] elements, String separator) {
-        return (elements == null) ? null  : join(elements, separator, 0, elements.length);
+        return (elements == null) ? null : join(elements, separator, 0, elements.length);
     }
 
     /**
