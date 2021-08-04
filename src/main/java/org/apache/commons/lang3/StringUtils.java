@@ -4601,6 +4601,29 @@ public class StringUtils {
         return join(array, Character.toString(delimiter), startIndex, endIndex);
     }
 
+    public static String join(final short[] array, final String delimiter, final int startIndex, final int endIndex) {
+        if (array == null) {
+            return null;
+        }
+        if (endIndex - startIndex <= 0) {
+            return EMPTY;
+        }
+
+        // Java Stream API does not provide ShortStream
+        return join(IntStream.range(0, array.length).mapToObj(idx -> String.valueOf(array[idx])), delimiter, startIndex, endIndex);
+    }
+
+    public static String join(final float[] array, final String delimiter, final int startIndex, final int endIndex) {
+        if (array == null) {
+            return null;
+        }
+        if (endIndex - startIndex <= 0) {
+            return EMPTY;
+        }
+
+        // Java Stream API does not provide FloatStream
+        return join(IntStream.range(0, array.length).mapToObj(idx -> String.valueOf(array[idx])), delimiter, startIndex, endIndex);
+    }
 
     public static String join(final double[] array, final String delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
@@ -4919,6 +4942,14 @@ public class StringUtils {
     }
 
     public static <T> String join(char[] elements, String separator) {
+        return (elements == null) ? null  : join(elements, separator, 0, elements.length);
+    }
+
+    public static <T> String join(short[] elements, String separator) {
+        return (elements == null) ? null  : join(elements, separator, 0, elements.length);
+    }
+
+    public static <T> String join(float[] elements, String separator) {
         return (elements == null) ? null  : join(elements, separator, 0, elements.length);
     }
 
