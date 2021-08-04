@@ -31,8 +31,6 @@ import java.util.StringJoiner;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
-import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
@@ -4885,6 +4883,10 @@ public class StringUtils {
     @SafeVarargs
     public static <T> String join(final T... elements) {
         return join(elements, null);
+    }
+
+    public static <T> String join(int[] elements, String separator) {
+        return (elements == null) ? null  : join(elements, separator, 0, elements.length);
     }
 
     public static <T> String join(char[] elements, String separator) {

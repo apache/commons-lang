@@ -1364,15 +1364,6 @@ public class StringUtilsTest {
         assertEquals("foo2", StringUtils.join(MIXED_TYPE_LIST));
     }
 
-    @Disabled
-    @Test
-    public void testLang1593() {
-        final int[] arr = {1, 2, 3, 4, 5, 6, 7};
-        final String expected = StringUtils.join(arr, '-');
-        final String actual = StringUtils.join(arr, "-");
-        assertEquals(expected, actual);
-    }
-
     @Test
     public void testJoin_Objects() {
         assertEquals("abc", StringUtils.join("a", "b", "c"));
