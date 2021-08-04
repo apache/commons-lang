@@ -1190,7 +1190,7 @@ public class StringUtilsTest {
         assertNull(StringUtils.join((double[]) null, SEPARATOR_CHAR, 0, 1));
         assertEquals(StringUtils.EMPTY, StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
         assertEquals(StringUtils.EMPTY, StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
-        assertEquals("1,2", StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR));
+        assertEquals("1.0;2.0", StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR_CHAR));
     }
 
     @Test

@@ -31,6 +31,7 @@ import java.util.StringJoiner;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
@@ -4600,6 +4601,18 @@ public class StringUtils {
         return join(array, Character.toString(delimiter), startIndex, endIndex);
     }
 
+
+    public static String join(final double[] array, final String delimiter, final int startIndex, final int endIndex) {
+        if (array == null) {
+            return null;
+        }
+        if (endIndex - startIndex <= 0) {
+            return EMPTY;
+        }
+
+        return join(DoubleStream.of(array).boxed().map(String::valueOf), delimiter, startIndex, endIndex);
+    }
+
     public static String join(final long[] array, final String delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
@@ -4906,6 +4919,10 @@ public class StringUtils {
     }
 
     public static <T> String join(char[] elements, String separator) {
+        return (elements == null) ? null  : join(elements, separator, 0, elements.length);
+    }
+
+    public static <T> String join(double[] elements, String separator) {
         return (elements == null) ? null  : join(elements, separator, 0, elements.length);
     }
 
