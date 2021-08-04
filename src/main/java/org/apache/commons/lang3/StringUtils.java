@@ -3927,13 +3927,17 @@ public class StringUtils {
      * @since 3.12.0
      */
     public static String join(final boolean[] array, final char delimiter, final int startIndex, final int endIndex) {
+        return join(array, String.valueOf(delimiter), startIndex, endIndex);
+    }
+
+    public static String join(final boolean[] array, final String delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = newStringJoiner(delimiter);
+        final StringJoiner joiner = new StringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
             joiner.add(String.valueOf(array[i]));
         }
@@ -4004,13 +4008,17 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final byte[] array, final char delimiter, final int startIndex, final int endIndex) {
+        return join(array, String.valueOf(delimiter), startIndex, endIndex);
+    }
+
+    public static String join(final byte[] array, final String delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = newStringJoiner(delimiter);
+        final StringJoiner joiner = new StringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
             joiner.add(String.valueOf(array[i]));
         }
@@ -4081,13 +4089,17 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final char[] array, final char delimiter, final int startIndex, final int endIndex) {
+        return join(array, String.valueOf(delimiter), startIndex, endIndex);
+    }
+
+    public static String join(final char[] array, final String delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = newStringJoiner(delimiter);
+        final StringJoiner joiner = new StringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
             joiner.add(String.valueOf(array[i]));
         }
@@ -4158,13 +4170,17 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final double[] array, final char delimiter, final int startIndex, final int endIndex) {
+        return join(array, String.valueOf(delimiter), startIndex, endIndex);
+    }
+
+    public static String join(final double[] array, final String delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = newStringJoiner(delimiter);
+        final StringJoiner joiner = new StringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
             joiner.add(String.valueOf(array[i]));
         }
@@ -4235,13 +4251,16 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final float[] array, final char delimiter, final int startIndex, final int endIndex) {
+        return join(array, String.valueOf(delimiter), startIndex, endIndex);
+    }
+    public static String join(final float[] array, final String delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = newStringJoiner(delimiter);
+        final StringJoiner joiner = new StringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
             joiner.add(String.valueOf(array[i]));
         }
@@ -4312,13 +4331,17 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final int[] array, final char delimiter, final int startIndex, final int endIndex) {
+        return join(array, String.valueOf(delimiter), startIndex, endIndex);
+    }
+
+    public static String join(final int[] array, final String delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = newStringJoiner(delimiter);
+        final StringJoiner joiner = new StringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
             joiner.add(String.valueOf(array[i]));
         }
@@ -4601,41 +4624,6 @@ public class StringUtils {
         return join(array, Character.toString(delimiter), startIndex, endIndex);
     }
 
-    public static String join(final short[] array, final String delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-            return EMPTY;
-        }
-
-        // Java Stream API does not provide ShortStream
-        return join(IntStream.range(0, array.length).mapToObj(idx -> String.valueOf(array[idx])), delimiter, startIndex, endIndex);
-    }
-
-    public static String join(final float[] array, final String delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-            return EMPTY;
-        }
-
-        // Java Stream API does not provide FloatStream
-        return join(IntStream.range(0, array.length).mapToObj(idx -> String.valueOf(array[idx])), delimiter, startIndex, endIndex);
-    }
-
-    public static String join(final double[] array, final String delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-            return EMPTY;
-        }
-
-        return join(DoubleStream.of(array).boxed().map(String::valueOf), delimiter, startIndex, endIndex);
-    }
-
     public static String join(final long[] array, final String delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
@@ -4645,42 +4633,6 @@ public class StringUtils {
         }
 
         return join(LongStream.of(array).boxed().map(String::valueOf), delimiter, startIndex, endIndex);
-    }
-
-    public static String join(final char[] array, final String delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-            return EMPTY;
-        }
-
-        // Java Stream API does not provide CharStream
-        return join(IntStream.range(0, array.length).mapToObj(idx -> String.valueOf(array[idx])), delimiter, startIndex, endIndex);
-    }
-
-    public static String join(final byte[] array, final String delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-            return EMPTY;
-        }
-
-        // Java Stream API does not provide ByteStream
-        return join(IntStream.range(0, array.length).map(idx -> array[idx]).boxed().map(String::valueOf), delimiter, startIndex, endIndex);
-    }
-
-    public static String join(final boolean[] array, final String delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-            return EMPTY;
-        }
-
-        // Java Stream API does not provide BooleanStream
-        return join(IntStream.range(0, array.length).boxed().map(idx -> array[idx]).map(String::valueOf), delimiter, startIndex, endIndex);
     }
 
     private static String join(Stream<String> elements, final String delimiter, final int startIndex, final int endIndex) {
@@ -4745,17 +4697,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String join(final Object[] array, final char delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-            return EMPTY;
-        }
-        final StringJoiner joiner = newStringJoiner(delimiter);
-        for (int i = startIndex; i < endIndex; i++) {
-            joiner.add(toStringOrEmpty(array[i]));
-        }
-        return joiner.toString();
+        return join(array, String.valueOf(delimiter), startIndex, endIndex);
     }
 
     /**
@@ -4901,13 +4843,17 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final short[] array, final char delimiter, final int startIndex, final int endIndex) {
+        return join(array, String.valueOf(delimiter), startIndex, endIndex);
+    }
+
+    public static String join(final short[] array, final String delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = newStringJoiner(delimiter);
+        final StringJoiner joiner = new StringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
             joiner.add(String.valueOf(array[i]));
         }
@@ -5629,12 +5575,6 @@ public class StringUtils {
             return str.substring(pos);
         }
         return str.substring(pos, pos + len);
-    }
-
-    // TODO: remove
-    @Deprecated
-    private static StringJoiner newStringJoiner(final char delimiter) {
-        return new StringJoiner(String.valueOf(delimiter));
     }
 
     /**
