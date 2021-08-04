@@ -4685,7 +4685,7 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = new StringJoiner(toStringOrEmpty(delimiter));
+        final StringJoiner joiner = new StringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
             joiner.add(toStringOrEmpty(array[i]));
         }
