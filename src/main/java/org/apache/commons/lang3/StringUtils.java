@@ -3926,20 +3926,17 @@ public class StringUtils {
     }
 
     /**
-     * <p>
-     * Joins the elements of the provided array into a single String containing the provided list of elements.
-     * </p>
+     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
      *
-     * <p>
-     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
-     * by empty strings.
-     * </p>
+     * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
+     * by empty strings.</p>
      *
      * <pre>
      * StringUtils.join(null, *)                   = null
      * StringUtils.join([], *)                     = ""
      * StringUtils.join([null], *)                 = ""
-     * StringUtils.join([true, false, true], ';')  = "true;false;true"
+     * StringUtils.join([true, false, true], ";")  = "true;false;true"
+     * StringUtils.join([true, false, true], null) = "truefalsetrue"
      * </pre>
      *
      * @param array
@@ -4037,21 +4034,17 @@ public class StringUtils {
     }
 
     /**
-     * <p>
-     * Joins the elements of the provided array into a single String containing the provided list of elements.
-     * </p>
+     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
      *
-     * <p>
-     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
-     * by empty strings.
-     * </p>
+     * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
+     * by empty strings.</p>
      *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
      * StringUtils.join([null], *)             = ""
-     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
-     * StringUtils.join([1, 2, 3], null) = "123"
+     * StringUtils.join([1, 2, 3], ";")        = "1;2;3"
+     * StringUtils.join([1, 2, 3], null)       = "123"
      * </pre>
      *
      * @param array
@@ -4149,21 +4142,17 @@ public class StringUtils {
     }
 
     /**
-     * <p>
-     * Joins the elements of the provided array into a single String containing the provided list of elements.
-     * </p>
+     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
      *
-     * <p>
-     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
-     * by empty strings.
-     * </p>
+     * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
+     * by empty strings.</p>
      *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
      * StringUtils.join([null], *)             = ""
-     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
-     * StringUtils.join([1, 2, 3], null) = "123"
+     * StringUtils.join(['a', 'b', 'c'], ";")  = "a;b;c"
+     * StringUtils.join(['a',b','c'], null)    = "abc"
      * </pre>
      *
      * @param array
@@ -4261,21 +4250,17 @@ public class StringUtils {
     }
 
     /**
-     * <p>
-     * Joins the elements of the provided array into a single String containing the provided list of elements.
-     * </p>
+     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
      *
-     * <p>
-     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
-     * by empty strings.
-     * </p>
+     * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
+     * by empty strings.</p>
      *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
      * StringUtils.join([null], *)             = ""
-     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
-     * StringUtils.join([1, 2, 3], null) = "123"
+     * StringUtils.join([1.0, 2.0, 3.0], ";")  = "1.0;2.0;3.0"
+     * StringUtils.join([1.0, 2.0, 3.0], null) = "1.02.03.0"
      * </pre>
      *
      * @param array
@@ -4373,21 +4358,17 @@ public class StringUtils {
     }
 
     /**
-     * <p>
-     * Joins the elements of the provided array into a single String containing the provided list of elements.
-     * </p>
+     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
      *
-     * <p>
-     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
-     * by empty strings.
-     * </p>
+     * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
+     * by empty strings.</p>
      *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
      * StringUtils.join([null], *)             = ""
-     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
-     * StringUtils.join([1, 2, 3], null) = "123"
+     * StringUtils.join([1.0, 2.0, 3.0], ";")  = "1.0;2.0;3.0"
+     * StringUtils.join([1.0, 2.0, 3.0], null) = "1.02.03.0"
      * </pre>
      *
      * @param array
@@ -4485,21 +4466,17 @@ public class StringUtils {
     }
 
     /**
-     * <p>
-     * Joins the elements of the provided array into a single String containing the provided list of elements.
-     * </p>
+     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
      *
-     * <p>
-     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
-     * by empty strings.
-     * </p>
+     * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
+     * by empty strings.</p>
      *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
      * StringUtils.join([null], *)             = ""
-     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
-     * StringUtils.join([1, 2, 3], null) = "123"
+     * StringUtils.join([1, 2, 3], ";")        = "1;2;3"
+     * StringUtils.join([1, 2, 3], null)       = "123"
      * </pre>
      *
      * @param array
@@ -4806,21 +4783,17 @@ public class StringUtils {
     }
 
     /**
-     * <p>
-     * Joins the elements of the provided array into a single String containing the provided list of elements.
-     * </p>
+     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
      *
-     * <p>
-     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
-     * by empty strings.
-     * </p>
+     * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
+     * by empty strings.</p>
      *
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
      * StringUtils.join([null], *)             = ""
-     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
-     * StringUtils.join([1, 2, 3], null) = "123"
+     * StringUtils.join([1, 2, 3], ";")        = "1;2;3"
+     * StringUtils.join([1, 2, 3], null)       = "123"
      * </pre>
      *
      * @param array
@@ -5056,9 +5029,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>
-     * Joins the elements of the provided array into a single String containing the provided list of elements.
-     * </p>
+     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
      *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
@@ -5069,8 +5040,8 @@ public class StringUtils {
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
      * StringUtils.join([null], *)             = ""
-     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
-     * StringUtils.join([1, 2, 3], null) = "123"
+     * StringUtils.join([1, 2, 3], ";")        = "1;2;3"
+     * StringUtils.join([1, 2, 3], null)       = "123"
      * </pre>
      *
      * @param array
