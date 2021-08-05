@@ -3962,7 +3962,7 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = new StringJoiner(toStringOrEmpty(delimiter));
+        final StringJoiner joiner = newStringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
             joiner.add(String.valueOf(array[i]));
         }
@@ -4074,7 +4074,7 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = new StringJoiner(toStringOrEmpty(delimiter));
+        final StringJoiner joiner = newStringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
             joiner.add(String.valueOf(array[i]));
         }
@@ -4186,7 +4186,7 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = new StringJoiner(toStringOrEmpty(delimiter));
+        final StringJoiner joiner = newStringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
             joiner.add(String.valueOf(array[i]));
         }
@@ -4298,7 +4298,7 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = new StringJoiner(toStringOrEmpty(delimiter));
+        final StringJoiner joiner = newStringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
             joiner.add(String.valueOf(array[i]));
         }
@@ -4410,7 +4410,7 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = new StringJoiner(toStringOrEmpty(delimiter));
+        final StringJoiner joiner = newStringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
             joiner.add(String.valueOf(array[i]));
         }
@@ -4522,7 +4522,7 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = new StringJoiner(toStringOrEmpty(delimiter));
+        final StringJoiner joiner = newStringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
             joiner.add(String.valueOf(array[i]));
         }
@@ -4843,7 +4843,7 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = new StringJoiner(toStringOrEmpty(delimiter));
+        final StringJoiner joiner = newStringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
             joiner.add(toStringOrEmpty(array[i]));
         }
@@ -4981,7 +4981,7 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = new StringJoiner(toStringOrEmpty(delimiter));
+        final StringJoiner joiner = newStringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
             joiner.add(toStringOrEmpty(array[i]));
         }
@@ -5093,7 +5093,7 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = new StringJoiner(toStringOrEmpty(delimiter));
+        final StringJoiner joiner = newStringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
             joiner.add(String.valueOf(array[i]));
         }
@@ -5819,6 +5819,10 @@ public class StringUtils {
             return str.substring(pos);
         }
         return str.substring(pos, pos + len);
+    }
+
+    private static StringJoiner newStringJoiner(final String delimiter) {
+        return new StringJoiner(toStringOrEmpty(delimiter));
     }
 
     /**
