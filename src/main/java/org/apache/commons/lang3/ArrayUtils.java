@@ -755,18 +755,6 @@ public class ArrayUtils {
     }
 
     /**
-     * Gets an array's component type.
-     *
-     * @param <T> The array type.
-     * @param array The array.
-     * @return The component type.
-     * @since 3.13.0
-     */
-    public static <T> Class<T> getComponentType(final T[] array) {
-        return ClassUtils.getComponentType(ObjectUtils.getClass(array));
-    }
-
-    /**
      * <p>Copies the given array and adds the given element at the end of the new array.
      *
      * <p>The new array contains the same elements of the input
@@ -1697,6 +1685,18 @@ public class ArrayUtils {
      */
     public static <T> T get(final T[] array, final int index, final T defaultValue) {
         return isArrayIndexValid(array, index) ? array[index] : defaultValue;
+    }
+
+    /**
+     * Gets an array's component type.
+     *
+     * @param <T> The array type.
+     * @param array The array.
+     * @return The component type.
+     * @since 3.13.0
+     */
+    public static <T> Class<T> getComponentType(final T[] array) {
+        return ClassUtils.getComponentType(ObjectUtils.getClass(array));
     }
 
     /**
