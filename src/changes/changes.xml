@@ -64,6 +64,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use null-safe Streams.of(T...).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ClassUtils.comparator().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ThreadUtils.sleepQuietly(long).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ArrayUtils.setAll(T[], IntFunction).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ArrayUtils.setAll(T[], Supplier).</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump spotbugs-maven-plugin from 4.2.0 to 4.2.3 #735.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess">Bump Bump actions/cache from v2.1.4 to v2.1.6 #742, #752, #764.</action>
