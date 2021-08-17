@@ -136,10 +136,22 @@ public class StreamsTest {
     }
 
     @Test
-    public void testOf() {
+    public void testOfArray() {
         assertEquals(0, Streams.of((Object[]) null).count());
         assertEquals(1, Streams.of("foo").count());
         assertEquals(2, Streams.of("foo", "bar").count());
+    }
+
+    @Test
+    public void testStreamCollection() {
+        final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
+        assertEquals(6, Streams.stream(input).collect(Collectors.toList()).size());
+    }
+
+    @Test
+    public void testStreamCollectionNull() {
+        final List<String> input = null;
+        assertEquals(0, Streams.stream(input).collect(Collectors.toList()).size());
     }
 
     @Test

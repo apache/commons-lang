@@ -49,7 +49,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1645" type="fix" dev="aherbert" due-to="Alex Herbert">NumberUtils.createNumber() to recognize hex integers prefixed with +.</action>
     <action issue="LANG-1646" type="fix" dev="aherbert" due-to="Alex Herbert">NumberUtils.createNumber() to return requested floating point type for zero.</action>
     <action                   type="fix" dev="ggregory" due-to="SpotBugs, Gary Gregory">DMI: Random object created and used only once (DMI_RANDOM_USED_ONLY_ONCE); Better multi-threaded behavior.</action>
-    <action issue="LANG-1646" type="fix" dev="aherbert" due-to="rturo Bernal">Redundant Collection operation. Use Collections.emptyIterator() #738.</action>
+    <action issue="LANG-1646" type="fix" dev="aherbert" due-to="Arturo Bernal">Redundant Collection operation. Use Collections.emptyIterator() #738.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Make Streams.stream(Collection) null-safe.</action>
+    <action issue="LANG-1667" type="fix" dev="ggregory" due-to="Andrew Thomas">Allow tests to access java.util classes such as ArrayList in Java 16 #788.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TriConsumer.</action>
@@ -60,17 +62,23 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ObjectUtils.getClass(T).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ArrayUtils.newInstance(Class&gt;T>, int).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use null-safe Streams.of(T...).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ClassUtils.comparator().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ThreadUtils.sleepQuietly(long).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ArrayUtils.setAll(T[], IntFunction).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ArrayUtils.setAll(T[], Supplier).</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump spotbugs-maven-plugin from 4.2.0 to 4.2.3 #735.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess">Bump Bump actions/cache from v2.1.4 to v2.1.6 #742, #752, #764.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/setup-java from v1.4.3 to v2.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump spotbugs-maven-plugin from 4.2.2 to 4.3.0.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump spotbugs from 4.2.2 to 4.2.3 #744.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump checkstyle from 8.41 to 8.43 #739, #768.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump checkstyle from 8.41 to 8.44 #739, #768.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump easymock from 4.2 to 4.3 #746.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">commons.jacoco.version 0.8.6 -> 0.8.7.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">commons.japicmp.version 0.15.2 -> 0.15.3.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump junit-pioneer from 1.3.8 to 1.4.2 #749, #767.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump junit-bom from 5.7.1 to 5.7.2 #761.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump commons.javadoc.version from 3.2.0 to 3.3.0.</action>
   </release>
 
   <release version="3.12.0" date="2021-02-26" description="New features and bug fixes (Java 8).">

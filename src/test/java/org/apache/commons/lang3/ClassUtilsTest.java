@@ -36,6 +36,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import org.apache.commons.lang3.ClassUtils.Interfaces;
 import org.apache.commons.lang3.reflect.testbed.GenericConsumer;
@@ -166,19 +167,6 @@ public class ClassUtilsTest  {
         assertEquals("java.lang.String", ClassUtils.getAbbreviatedName(String.class, 20));
     }
 
-    /**
-     * Test that in case the required length is larger than the name and thus there is no need for any shortening
-     * then the returned string object is the same as the one passed as argument. Note, however, that this is
-     * tested as an internal implementation detail, but it is not a guaranteed feature of the implementation.
-     */
-    @Test
-    @DisplayName("When the length hint is longer than the actual length then the same String object is returned")
-    public void test_getAbbreviatedName_TooLongHint(){
-        final String className = "java.lang.String";
-        Assertions.assertSame(className, ClassUtils.getAbbreviatedName(className, className.length()+1));
-        Assertions.assertSame(className, ClassUtils.getAbbreviatedName(className, className.length()));
-    }
-
     @Test
     @DisplayName("When the desired length is negative then exception is thrown")
     public void test_getAbbreviatedName_Class_NegativeLen() {
@@ -213,6 +201,19 @@ public class ClassUtilsTest  {
         assertEquals("j.l.String", ClassUtils.getAbbreviatedName("java.lang.String", "j.lang.String".length() - 1));
         assertEquals("j.l.String", ClassUtils.getAbbreviatedName("java.lang.String", "j.l.String".length()));
         assertEquals("j.l.String", ClassUtils.getAbbreviatedName("java.lang.String", "j.l.String".length() - 1));
+    }
+
+    /**
+     * Test that in case the required length is larger than the name and thus there is no need for any shortening
+     * then the returned string object is the same as the one passed as argument. Note, however, that this is
+     * tested as an internal implementation detail, but it is not a guaranteed feature of the implementation.
+     */
+    @Test
+    @DisplayName("When the length hint is longer than the actual length then the same String object is returned")
+    public void test_getAbbreviatedName_TooLongHint(){
+        final String className = "java.lang.String";
+        Assertions.assertSame(className, ClassUtils.getAbbreviatedName(className, className.length()+1));
+        Assertions.assertSame(className, ClassUtils.getAbbreviatedName(className, className.length()));
     }
 
     @Test
@@ -1135,6 +1136,24 @@ public class ClassUtilsTest  {
         assertFalse(ClassUtils.isInnerClass(this.getClass()));
         assertFalse(ClassUtils.isInnerClass(String.class));
         assertFalse(ClassUtils.isInnerClass(null));
+    }
+
+    @Test
+    public void testComparable() {
+        final TreeMap<Class<?>, String> map = new TreeMap<>(ClassUtils.comparator());
+        map.put(String.class, "lastEntry");
+        map.toString();
+        map.put(Character.class, "firstEntry");
+        map.toString();
+        assertEquals("firstEntry", map.firstEntry().getValue());
+        assertEquals(Character.class, map.firstEntry().getKey());
+        //
+        assertEquals("lastEntry", map.lastEntry().getValue());
+        assertEquals(String.class, map.lastEntry().getKey());
+        //
+        map.put(null, "null");
+        map.toString();
+        assertEquals("null", map.get(null));
     }
 
     @Test

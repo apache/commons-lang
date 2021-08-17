@@ -28,6 +28,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.ThreadUtils;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
@@ -99,7 +100,7 @@ public class TimedSemaphoreTest {
                 UNIT, LIMIT);
         final ScheduledFuture<?> future = semaphore.startTimer();
         assertNotNull(future, "No future returned");
-        Thread.sleep(PERIOD);
+        ThreadUtils.sleepQuietly(PERIOD);
         final int trials = 10;
         int count = 0;
         do {
