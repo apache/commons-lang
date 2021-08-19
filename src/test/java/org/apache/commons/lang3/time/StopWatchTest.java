@@ -143,7 +143,7 @@ public class StopWatchTest {
     @Test
     public void testFormatSplitTime() throws InterruptedException {
         final StopWatch watch = StopWatch.createStarted();
-        Thread.sleep(MIN_SLEEP_MILLISECONDS);
+        ThreadUtils.sleepQuietly(MIN_SLEEP_MILLISECONDS);
         watch.split();
         final String formatSplitTime = watch.formatSplitTime();
         assertNotEquals(ZERO_TIME_ELAPSED, formatSplitTime);
@@ -154,7 +154,7 @@ public class StopWatchTest {
     public void testFormatSplitTimeWithMessage() throws InterruptedException {
         final StopWatch watch = new StopWatch(MESSAGE);
         watch.start();
-        Thread.sleep(MIN_SLEEP_MILLISECONDS);
+        ThreadUtils.sleepQuietly(MIN_SLEEP_MILLISECONDS);
         watch.split();
         final String formatSplitTime = watch.formatSplitTime();
         assertFalse(formatSplitTime.startsWith(MESSAGE), formatSplitTime);

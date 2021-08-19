@@ -58,9 +58,7 @@ public class CharUtils {
     public static final char NUL = '\0';
 
     static {
-        for (char c = 0; c < CHAR_STRING_ARRAY.length; c++) {
-            CHAR_STRING_ARRAY[c] = String.valueOf(c);
-        }
+        ArrayUtils.setAll(CHAR_STRING_ARRAY, i -> String.valueOf((char) i));
     }
 
     /**
@@ -302,7 +300,7 @@ public class CharUtils {
      * @return a String containing the one specified character
      */
     public static String toString(final char ch) {
-        if (ch < 128) {
+        if (ch < CHAR_STRING_ARRAY.length) {
             return CHAR_STRING_ARRAY[ch];
         }
         return new String(new char[] {ch});

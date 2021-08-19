@@ -456,6 +456,23 @@ public class ThreadUtils {
     }
 
     /**
+     * Sleeps for the given amount of milliseconds while ignoring {@link InterruptedException}.
+     * <p>
+     * The sleep duration may be shorter than {@code millis} if we catch a {@link InterruptedException}.
+     * </p>
+     *
+     * @param millis the length of time to sleep in milliseconds
+     * @since 3.13.0
+     */
+    public static void sleepQuietly(final long millis) {
+        try {
+            sleep(Duration.ofMillis(millis));
+        } catch (InterruptedException e) {
+            // be quiet.
+        }
+    }
+
+    /**
      * <p>
      * ThreadUtils instances should NOT be constructed in standard programming. Instead, the class should be used as
      * {@code ThreadUtils.getAllThreads()}
