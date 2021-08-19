@@ -756,7 +756,10 @@ public class FastDateParser implements DateParser, Serializable {
                 // match missing the optional trailing period
                 iVal = lKeyValues.get(lowerCase + '.');
             }
-            calendar.set(field, iVal.intValue());
+            //LANG-1669: Mimic fix done in OpenJDK 17 to resolve issue with parsing newly supported day periods added in OpenJDK 16
+            if (Calendar.AM_PM != this.field || iVal <= 1) {
+                calendar.set(field, iVal.intValue());
+            }
         }
 
         /**
