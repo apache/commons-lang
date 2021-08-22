@@ -3926,7 +3926,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
      *
      * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.</p>
@@ -4034,7 +4034,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
      *
      * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.</p>
@@ -4107,9 +4107,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
-     * </p>
      *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
@@ -4142,7 +4140,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
      *
      * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.</p>
@@ -4183,9 +4181,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
-     * </p>
      *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
@@ -4215,9 +4211,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
-     * </p>
      *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
@@ -4250,7 +4244,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
      *
      * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.</p>
@@ -4291,9 +4285,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
-     * </p>
      *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
@@ -4323,9 +4315,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
-     * </p>
      *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
@@ -4358,7 +4348,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
      *
      * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.</p>
@@ -4399,9 +4389,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
-     * </p>
      *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
@@ -4431,9 +4419,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
-     * </p>
      *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
@@ -4466,7 +4452,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
      *
      * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.</p>
@@ -4748,9 +4734,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
-     * </p>
      *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
@@ -4783,7 +4767,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
      *
      * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.</p>
@@ -5029,7 +5013,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
      *
      * <p>
      * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
@@ -5072,8 +5056,8 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided array into a single String
-     * containing the provided list of elements.</p>
+     * Joins the elements of the provided array into a single String
+     * containing the provided list of elements.
      *
      * <p>No separator is added to the joined String.
      * Null objects or empty strings within the array are represented by
@@ -5099,8 +5083,8 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided array into a single String
-     * containing the provided list of elements.</p>
+     * Joins the elements of the provided array into a single String
+     * containing the provided list of elements.
      *
      * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.</p>
@@ -5125,8 +5109,8 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided array into a single String
-     * containing the provided list of elements.</p>
+     * Joins the elements of the provided array into a single String
+     * containing the provided list of elements.
      *
      * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.</p>
@@ -5151,8 +5135,8 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided array into a single String
-     * containing the provided list of elements.</p>
+     * Joins the elements of the provided array into a single String
+     * containing the provided list of elements.
      *
      * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.</p>
@@ -5177,7 +5161,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
      *
      * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.</p>
@@ -5202,7 +5186,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
      *
      * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.</p>
@@ -5227,7 +5211,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
      *
      * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.</p>
@@ -5252,7 +5236,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
      *
      * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.</p>
@@ -5277,7 +5261,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided array into a single String containing the provided list of elements.</p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
      *
      * <p>No delimiter is added before or after the list. Null objects or empty strings within the array are represented
      * by empty strings.</p>
