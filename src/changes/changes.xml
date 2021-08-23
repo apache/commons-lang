@@ -53,6 +53,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Make Streams.stream(Collection) null-safe.</action>
     <action issue="LANG-1667" type="fix" dev="ggregory" due-to="Andrew Thomas">Allow tests to access java.util classes such as ArrayList in Java 16 #788.</action>
     <action issue="LANG-1669" type="fix" dev="ggregory" due-to="Andrew Thomas">OpenJDK 16 Day Period Parsing #791.</action>
+    <action issue="LANG-1663" type="fix" dev="ggregory" due-to="Andrew Thomas">Update documentation to list correct exception for null array parameters #785.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TriConsumer.</action>
