@@ -6848,7 +6848,7 @@ public class ArrayUtils {
     }
 
     /**
-     * >Reverses the order of the given array.
+     * Reverses the order of the given array.
      * <p>
      * This method does nothing for a {@code null} input array.
      * </p>
