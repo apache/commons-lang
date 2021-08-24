@@ -22,7 +22,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.concurrent.atomic.AtomicBoolean;
-
+import java.util.concurrent.atomic.AtomicInteger;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -50,12 +51,32 @@ public class BooleanConsumerTest {
         nop.andThen(nop);
         // Documented in Javadoc edge-case.
         assertThrows(NullPointerException.class, () -> nop.andThen(null));
-        //
+
         final AtomicBoolean aBool1 = new AtomicBoolean();
         final AtomicBoolean aBool2 = new AtomicBoolean();
-        accept(aBool1::lazySet, true).andThen(aBool2::lazySet);
-        accept(aBool1::lazySet, true);
-        accept(aBool2::lazySet, true);
+
+        final BooleanConsumer bc = aBool1::lazySet;
+        final BooleanConsumer composite = bc.andThen(aBool2::lazySet);
+
+        composite.accept(true);
+        assertTrue(aBool1.get());
+        assertTrue(aBool2.get());
+
+        composite.accept(false);
+        assertFalse(aBool1.get());
+        assertFalse(aBool2.get());
+
+        // Check order
+        final BooleanConsumer bad = new BooleanConsumer() {
+            @Override
+            public void accept(boolean value) {
+                throw new IllegalStateException();
+            }
+        };
+        final BooleanConsumer badComposite = bad.andThen(aBool2::lazySet);
+
+        Assertions.assertThrows(IllegalStateException.class, () -> badComposite.accept(true));
+        assertFalse(aBool2.get(), "Second consumer should not be invoked");
     }
 
 }
