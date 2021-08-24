@@ -760,8 +760,8 @@ public class ObjectUtils {
      */
     @Deprecated
     public static int hashCode(final Object obj) {
-        // hashCode(Object) retained for performance, as hash code is often critical
-        return obj == null ? 0 : obj.hashCode();
+        // hashCode(Object) for performance vs. hashCodeMulti(Object[]), as hash code is often critical
+        return Objects.hashCode(obj);
     }
 
     /**
@@ -791,7 +791,7 @@ public class ObjectUtils {
         int hash = 1;
         if (objects != null) {
             for (final Object object : objects) {
-                final int tmpHash = hashCode(object);
+                final int tmpHash = Objects.hashCode(object);
                 hash = hash * 31 + tmpHash;
             }
         }
