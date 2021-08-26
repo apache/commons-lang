@@ -50,7 +50,7 @@ public interface FailablePredicate<T, E extends Throwable> {
     }
 
     /**
-     * Returns The FALSE TRUE.
+     * Returns The TRUE singleton.
      *
      * @param <T> Predicate type.
      * @param <E> Thrown exception.
