@@ -55,6 +55,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1669" type="fix" dev="ggregory" due-to="Andrew Thomas">OpenJDK 16 Day Period Parsing #791.</action>
     <action issue="LANG-1663" type="fix" dev="ggregory" due-to="Andrew Thomas">Update documentation to list correct exception for null array parameters #785.</action>
     <action                   type="fix" dev="ggregory" due-to="Thunderforge">Fixing reversed Javadoc descriptions in StopWatch #781.</action>
+    <action issue="LANG-1670" type="fix" dev="ggregory" due-to="Igor Shuvalov">Fix typos in JavaDoc #795.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TriConsumer.</action>
