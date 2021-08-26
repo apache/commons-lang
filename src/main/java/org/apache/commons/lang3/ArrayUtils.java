@@ -3831,7 +3831,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final boolean[] array, final boolean valueToFind, int startIndex) {
-        if (isEmpty(array) || (startIndex < 0)) {
+        if (isEmpty(array) || startIndex < 0) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -3877,7 +3877,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final byte[] array, final byte valueToFind, int startIndex) {
-        if ((array == null) || (startIndex < 0)) {
+        if (array == null || startIndex < 0) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -3925,7 +3925,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static int lastIndexOf(final char[] array, final char valueToFind, int startIndex) {
-        if ((array == null) || (startIndex < 0)) {
+        if (array == null || startIndex < 0) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -3989,7 +3989,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex) {
-        if (isEmpty(array) || (startIndex < 0)) {
+        if (isEmpty(array) || startIndex < 0) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -4023,7 +4023,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex, final double tolerance) {
-        if (isEmpty(array) || (startIndex < 0)) {
+        if (isEmpty(array) || startIndex < 0) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -4071,7 +4071,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final float[] array, final float valueToFind, int startIndex) {
-        if (isEmpty(array) || (startIndex < 0)) {
+        if (isEmpty(array) || startIndex < 0) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -4118,7 +4118,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final int[] array, final int valueToFind, int startIndex) {
-        if ((array == null) || (startIndex < 0)) {
+        if (array == null || startIndex < 0) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -4164,7 +4164,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final long[] array, final long valueToFind, int startIndex) {
-        if ((array == null) || (startIndex < 0)) {
+        if (array == null || startIndex < 0) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -4210,7 +4210,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final Object[] array, final Object objectToFind, int startIndex) {
-        if ((array == null) || (startIndex < 0)) {
+        if (array == null || startIndex < 0) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -4264,7 +4264,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
     public static int lastIndexOf(final short[] array, final short valueToFind, int startIndex) {
-        if ((array == null) || (startIndex < 0)) {
+        if (array == null || startIndex < 0) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex >= array.length) {
@@ -7051,7 +7051,7 @@ public class ArrayUtils {
      * @return the input array
      * @since 3.13.0
      */
-    public static <T> T[] setAll(T[] array, IntFunction<? extends T> generator) {
+    public static <T> T[] setAll(final T[] array, final IntFunction<? extends T> generator) {
         if (array != null && generator != null) {
             Arrays.setAll(array, generator);
         }
@@ -7071,7 +7071,7 @@ public class ArrayUtils {
      * @return the input array
      * @since 3.13.0
      */
-    public static <T> T[] setAll(T[] array, final Supplier<? extends T> generator) {
+    public static <T> T[] setAll(final T[] array, final Supplier<? extends T> generator) {
         if (array != null && generator != null) {
             for (int i = 0; i < array.length; i++) {
                 array[i] = generator.get();
@@ -7119,7 +7119,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void shift(final boolean[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
-        if ((array == null) || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
+        if (array == null || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
         if (startIndexInclusive < 0) {
@@ -7195,7 +7195,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void shift(final byte[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
-        if ((array == null) || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
+        if (array == null || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
         if (startIndexInclusive < 0) {
@@ -7271,7 +7271,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void shift(final char[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
-        if ((array == null) || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
+        if (array == null || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
         if (startIndexInclusive < 0) {
@@ -7347,7 +7347,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void shift(final double[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
-        if ((array == null) || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
+        if (array == null || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
         if (startIndexInclusive < 0) {
@@ -7423,7 +7423,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void shift(final float[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
-        if ((array == null) || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
+        if (array == null || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
         if (startIndexInclusive < 0) {
@@ -7499,7 +7499,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void shift(final int[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
-        if ((array == null) || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
+        if (array == null || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
         if (startIndexInclusive < 0) {
@@ -7575,7 +7575,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void shift(final long[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
-        if ((array == null) || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
+        if (array == null || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
         if (startIndexInclusive < 0) {
@@ -7727,7 +7727,7 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void shift(final short[] array, int startIndexInclusive, int endIndexExclusive, int offset) {
-        if ((array == null) || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
+        if (array == null || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
         if (startIndexInclusive < 0) {
@@ -9289,7 +9289,7 @@ public class ArrayUtils {
         final boolean[] result = new boolean[array.length];
         for (int i = 0; i < array.length; i++) {
             final Boolean b = array[i];
-            result[i] = (b == null ? valueForNull : b.booleanValue());
+            result[i] = b == null ? valueForNull : b.booleanValue();
         }
         return result;
     }
@@ -9338,7 +9338,7 @@ public class ArrayUtils {
         final byte[] result = new byte[array.length];
         for (int i = 0; i < array.length; i++) {
             final Byte b = array[i];
-            result[i] = (b == null ? valueForNull : b.byteValue());
+            result[i] = b == null ? valueForNull : b.byteValue();
         }
         return result;
     }
@@ -9387,7 +9387,7 @@ public class ArrayUtils {
         final char[] result = new char[array.length];
         for (int i = 0; i < array.length; i++) {
             final Character b = array[i];
-            result[i] = (b == null ? valueForNull : b.charValue());
+            result[i] = b == null ? valueForNull : b.charValue();
         }
         return result;
     }
@@ -9436,7 +9436,7 @@ public class ArrayUtils {
         final double[] result = new double[array.length];
         for (int i = 0; i < array.length; i++) {
             final Double b = array[i];
-            result[i] = (b == null ? valueForNull : b.doubleValue());
+            result[i] = b == null ? valueForNull : b.doubleValue();
         }
         return result;
     }
@@ -9485,7 +9485,7 @@ public class ArrayUtils {
         final float[] result = new float[array.length];
         for (int i = 0; i < array.length; i++) {
             final Float b = array[i];
-            result[i] = (b == null ? valueForNull : b.floatValue());
+            result[i] = b == null ? valueForNull : b.floatValue();
         }
         return result;
     }
@@ -9534,7 +9534,7 @@ public class ArrayUtils {
         final int[] result = new int[array.length];
         for (int i = 0; i < array.length; i++) {
             final Integer b = array[i];
-            result[i] = (b == null ? valueForNull : b.intValue());
+            result[i] = b == null ? valueForNull : b.intValue();
         }
         return result;
     }
@@ -9583,7 +9583,7 @@ public class ArrayUtils {
         final long[] result = new long[array.length];
         for (int i = 0; i < array.length; i++) {
             final Long b = array[i];
-            result[i] = (b == null ? valueForNull : b.longValue());
+            result[i] = b == null ? valueForNull : b.longValue();
         }
         return result;
     }
@@ -9675,7 +9675,7 @@ public class ArrayUtils {
         final short[] result = new short[array.length];
         for (int i = 0; i < array.length; i++) {
             final Short b = array[i];
-            result[i] = (b == null ? valueForNull : b.shortValue());
+            result[i] = b == null ? valueForNull : b.shortValue();
         }
         return result;
     }
@@ -9769,7 +9769,7 @@ public class ArrayUtils {
         final String[] result = new String[array.length];
         for (int i = 0; i < array.length; i++) {
             final Object object = array[i];
-            result[i] = (object == null ? valueForNullElements : object.toString());
+            result[i] = object == null ? valueForNullElements : object.toString();
         }
 
         return result;
