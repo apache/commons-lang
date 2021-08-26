@@ -6865,10 +6865,7 @@ public class StringUtils {
      * @since 2.4
      */
     public static String replaceEachRepeatedly(final String text, final String[] searchList, final String[] replacementList) {
-        // timeToLive should be 0 if not used or nothing to replace, else it's
-        // the length of the replace array
-        final int timeToLive = searchList == null ? 0 : searchList.length;
-        return replaceEach(text, searchList, replacementList, true, timeToLive);
+        return replaceEach(text, searchList, replacementList, true, ArrayUtils.getLength(searchList));
     }
 
     /**
