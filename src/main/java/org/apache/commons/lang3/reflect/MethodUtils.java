@@ -150,8 +150,7 @@ public class MethodUtils {
             Object... args) throws NoSuchMethodException,
             IllegalAccessException, InvocationTargetException {
         args = ArrayUtils.nullToEmpty(args);
-        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
-        return invokeMethod(object, methodName, args, parameterTypes);
+        return invokeMethod(object, methodName, args, ClassUtils.toClass(args));
     }
 
     /**
@@ -181,8 +180,7 @@ public class MethodUtils {
             Object... args) throws NoSuchMethodException,
             IllegalAccessException, InvocationTargetException {
         args = ArrayUtils.nullToEmpty(args);
-        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
-        return invokeMethod(object, forceAccess, methodName, args, parameterTypes);
+        return invokeMethod(object, forceAccess, methodName, args, ClassUtils.toClass(args));
     }
 
     /**
@@ -307,8 +305,7 @@ public class MethodUtils {
             Object... args) throws NoSuchMethodException,
             IllegalAccessException, InvocationTargetException {
         args = ArrayUtils.nullToEmpty(args);
-        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
-        return invokeExactMethod(object, methodName, args, parameterTypes);
+        return invokeExactMethod(object, methodName, args, ClassUtils.toClass(args));
     }
 
     /**
@@ -407,8 +404,7 @@ public class MethodUtils {
             Object... args) throws NoSuchMethodException,
             IllegalAccessException, InvocationTargetException {
         args = ArrayUtils.nullToEmpty(args);
-        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
-        return invokeStaticMethod(cls, methodName, args, parameterTypes);
+        return invokeStaticMethod(cls, methodName, args, ClassUtils.toClass(args));
     }
 
     /**
@@ -522,8 +518,7 @@ public class MethodUtils {
             Object... args) throws NoSuchMethodException,
             IllegalAccessException, InvocationTargetException {
         args = ArrayUtils.nullToEmpty(args);
-        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
-        return invokeExactStaticMethod(cls, methodName, args, parameterTypes);
+        return invokeExactStaticMethod(cls, methodName, args, ClassUtils.toClass(args));
     }
 
     /**
@@ -539,10 +534,9 @@ public class MethodUtils {
      * @return The accessible method
      */
     public static Method getAccessibleMethod(final Class<?> cls, final String methodName,
-            final Class<?>... parameterTypes) {
+        final Class<?>... parameterTypes) {
         try {
-            return getAccessibleMethod(cls.getMethod(methodName,
-                    parameterTypes));
+            return getAccessibleMethod(cls.getMethod(methodName, parameterTypes));
         } catch (final NoSuchMethodException e) {
             return null;
         }
@@ -909,10 +903,8 @@ public class MethodUtils {
      * @since 3.6
      */
     public static Method[] getMethodsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls,
-                                                    final boolean searchSupers, final boolean ignoreAccess) {
-        final List<Method> annotatedMethodsList = getMethodsListWithAnnotation(cls, annotationCls, searchSupers,
-                ignoreAccess);
-        return annotatedMethodsList.toArray(ArrayUtils.EMPTY_METHOD_ARRAY);
+        final boolean searchSupers, final boolean ignoreAccess) {
+        return getMethodsListWithAnnotation(cls, annotationCls, searchSupers, ignoreAccess).toArray(ArrayUtils.EMPTY_METHOD_ARRAY);
     }
 
     /**

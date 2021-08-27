@@ -40,7 +40,7 @@ abstract class MemberUtils {
             Character.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE };
 
     /**
-     * XXX Default access superclass workaround.
+     * Default access superclass workaround.
      *
      * When a {@code public} class has a default access superclass with {@code public} members,
      * these members are accessible. Calling them from compiled code works fine.
