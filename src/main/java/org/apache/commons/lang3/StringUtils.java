@@ -1562,12 +1562,12 @@ public class StringUtils {
      *  was {@code null}
      */
     public static String defaultString(final String str) {
-        return defaultString(str, EMPTY);
+        return Objects.toString(str, EMPTY);
     }
 
     /**
-     * <p>Returns either the passed in String, or if the String is
-     * {@code null}, the value of {@code defaultStr}.</p>
+     * Returns either the given String, or if the String is
+     * {@code null}, {@code nullDefault}.
      *
      * <pre>
      * StringUtils.defaultString(null, "NULL")  = "NULL"
@@ -1575,15 +1575,17 @@ public class StringUtils {
      * StringUtils.defaultString("bat", "NULL") = "bat"
      * </pre>
      *
-     * @see ObjectUtils#toString(Object,String)
+     * @see Objects#toString(Object, String)
      * @see String#valueOf(Object)
      * @param str  the String to check, may be null
-     * @param defaultStr  the default String to return
+     * @param nullDefault  the default String to return
      *  if the input is {@code null}, may be null
      * @return the passed in String, or the default if it was {@code null}
+     * @deprecated Use {@link Objects#toString(Object, String)}
      */
-    public static String defaultString(final String str, final String defaultStr) {
-        return str == null ? defaultStr : str;
+    @Deprecated
+    public static String defaultString(final String str, final String nullDefault) {
+        return Objects.toString(str, nullDefault);
     }
 
     /**
