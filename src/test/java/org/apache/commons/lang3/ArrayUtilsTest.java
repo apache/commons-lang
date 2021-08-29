@@ -402,9 +402,9 @@ public class ArrayUtilsTest {
         assertNull(ArrayUtils.get(array0, 0));
         assertNull(ArrayUtils.get(array0, 1));
         final String[] array1 = { StringUtils.EMPTY };
-        assertEquals(null, ArrayUtils.get(array1, -1));
+        assertNull(ArrayUtils.get(array1, -1));
         assertEquals(StringUtils.EMPTY, ArrayUtils.get(array1, 0));
-        assertEquals(null, ArrayUtils.get(array1, 1));
+        assertNull(ArrayUtils.get(array1, 1));
     }
 
     @Test
@@ -428,9 +428,9 @@ public class ArrayUtilsTest {
             assertNull(ArrayUtils.get(array0, 0, null));
             assertNull(ArrayUtils.get(array0, 1, null));
             final String[] array1 = { StringUtils.EMPTY };
-            assertEquals(null, ArrayUtils.get(array1, -1, null));
+            assertNull(ArrayUtils.get(array1, -1, null));
             assertEquals(StringUtils.EMPTY, ArrayUtils.get(array1, 0, null));
-            assertEquals(null, ArrayUtils.get(array1, 1, null));
+            assertNull(ArrayUtils.get(array1, 1, null));
         }
         // non-null default
         {
