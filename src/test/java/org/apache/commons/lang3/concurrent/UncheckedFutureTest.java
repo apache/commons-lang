@@ -38,16 +38,16 @@ public class UncheckedFutureTest {
 
     private static class TestFuture<V> implements Future<V> {
 
-        private final V get;
+        private final V value;
         private final Exception exception;
 
         TestFuture(final Exception throwable) {
-            this.get = null;
+            this.value = null;
             this.exception = throwable;
         }
 
-        TestFuture(final V get) {
-            this.get = get;
+        TestFuture(final V value) {
+            this.value = value;
             this.exception = null;
         }
 
@@ -66,13 +66,13 @@ public class UncheckedFutureTest {
         @Override
         public V get() throws InterruptedException, ExecutionException {
             checkExecutionException();
-            return get;
+            return value;
         }
 
         @Override
         public V get(final long timeout, final TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
             checkExecutionException();
-            return get;
+            return value;
         }
 
         @Override
