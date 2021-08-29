@@ -39,16 +39,16 @@ public class UncheckedFutureTest {
     private static class TestFuture<V> implements Future<V> {
 
         private final V get;
-        private final Exception executionException;
+        private final Exception exception;
 
         TestFuture(final Exception throwable) {
             this.get = null;
-            this.executionException = throwable;
+            this.exception = throwable;
         }
 
         TestFuture(final V get) {
             this.get = get;
-            this.executionException = null;
+            this.exception = null;
         }
 
         @Override
@@ -58,8 +58,8 @@ public class UncheckedFutureTest {
 
         @SuppressWarnings("unchecked") // Programming error if call site blows up at runtime.
         private <T extends Exception> void checkExecutionException() throws T {
-            if (executionException != null) {
-                throw (T) executionException;
+            if (exception != null) {
+                throw (T) exception;
             }
         }
 
