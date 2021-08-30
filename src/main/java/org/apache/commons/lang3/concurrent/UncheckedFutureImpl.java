@@ -17,7 +17,6 @@
 
 package org.apache.commons.lang3.concurrent;
 
-import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -31,23 +30,16 @@ import org.apache.commons.lang3.exception.UncheckedInterruptedException;
  * @see Future
  * @since 3.13.0
  */
-class UncheckedFutureImpl<V> implements UncheckedFuture<V> {
-
-    private final Future<V> future;
+class UncheckedFutureImpl<V> extends AbstractFutureProxy<V> implements UncheckedFuture<V> {
 
     UncheckedFutureImpl(final Future<V> future) {
-        this.future = Objects.requireNonNull(future, "future");
-    }
-
-    @Override
-    public boolean cancel(final boolean mayInterruptIfRunning) {
-        return future.cancel(mayInterruptIfRunning);
+        super(future);
     }
 
     @Override
     public V get() {
         try {
-            return future.get();
+            return super.get();
         } catch (final InterruptedException e) {
             throw new UncheckedInterruptedException(e);
         } catch (final ExecutionException e) {
@@ -58,7 +50,7 @@ class UncheckedFutureImpl<V> implements UncheckedFuture<V> {
     @Override
     public V get(final long timeout, final TimeUnit unit) {
         try {
-            return future.get(timeout, unit);
+            return super.get(timeout, unit);
         } catch (final InterruptedException e) {
             throw new UncheckedInterruptedException(e);
         } catch (final ExecutionException e) {
@@ -66,16 +58,6 @@ class UncheckedFutureImpl<V> implements UncheckedFuture<V> {
         } catch (final TimeoutException e) {
             throw new UncheckedTimeoutException(e);
         }
-    }
-
-    @Override
-    public boolean isCancelled() {
-        return future.isCancelled();
-    }
-
-    @Override
-    public boolean isDone() {
-        return future.isDone();
     }
 
 }

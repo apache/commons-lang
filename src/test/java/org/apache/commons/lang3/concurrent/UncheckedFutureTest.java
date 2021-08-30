@@ -36,28 +36,22 @@ import org.junit.jupiter.api.Test;
  */
 public class UncheckedFutureTest {
 
-    private static class TestFuture<V> implements Future<V> {
+    private static class TestFuture<V> extends AbstractFutureProxy<V> {
 
-        private final V value;
         private final Exception exception;
 
         TestFuture(final Exception throwable) {
-            this.value = null;
+            super(ConcurrentUtils.constantFuture(null));
             this.exception = throwable;
         }
 
         TestFuture(final V value) {
-            this.value = value;
+            super(ConcurrentUtils.constantFuture(value));
             this.exception = null;
         }
 
-        @Override
-        public boolean cancel(final boolean mayInterruptIfRunning) {
-            return false;
-        }
-
         @SuppressWarnings("unchecked") // Programming error if call site blows up at runtime.
-        private <T extends Exception> void checkExecutionException() throws T {
+        private <T extends Exception> void checkException() throws T {
             if (exception != null) {
                 throw (T) exception;
             }
@@ -65,24 +59,14 @@ public class UncheckedFutureTest {
 
         @Override
         public V get() throws InterruptedException, ExecutionException {
-            checkExecutionException();
-            return value;
+            checkException();
+            return super.get();
         }
 
         @Override
         public V get(final long timeout, final TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
-            checkExecutionException();
-            return value;
-        }
-
-        @Override
-        public boolean isCancelled() {
-            return false;
-        }
-
-        @Override
-        public boolean isDone() {
-            return false;
+            checkException();
+            return super.get(timeout, unit);
         }
 
     }
