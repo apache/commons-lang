@@ -60,7 +60,7 @@ public class FastDatePrinterTest {
     }
     private static final String YYYY_MM_DD = "yyyy/MM/dd";
     private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");
-    private static final TimeZone GMT = TimeZone.getTimeZone(TimeZones.GMT_ID);
+    private static final TimeZone GMT = TimeZones.GMT;
     private static final TimeZone INDIA = TimeZone.getTimeZone("Asia/Calcutta");
 
     private static final Locale SWEDEN = new Locale("sv", "SE");
@@ -126,7 +126,7 @@ public class FastDatePrinterTest {
 
     @Test
     public void testAppendableOptions() {
-        final DatePrinter format = getInstance("yyyy-MM-dd HH:mm:ss.SSS Z", TimeZone.getTimeZone(TimeZones.GMT_ID));
+        final DatePrinter format = getInstance("yyyy-MM-dd HH:mm:ss.SSS Z", TimeZones.GMT);
         final Calendar calendar = Calendar.getInstance();
         final StringBuilder sb = new StringBuilder();
         final String expected = format.format(calendar, sb).toString();
@@ -262,7 +262,7 @@ public class FastDatePrinterTest {
         cal.clear();
         cal.set(2009, Calendar.OCTOBER, 16, 8, 42, 16);
 
-        final DatePrinter format = getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", TimeZone.getTimeZone(TimeZones.GMT_ID));
+        final DatePrinter format = getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", TimeZones.GMT);
         assertEquals("2009-10-16T16:42:16.000Z", format.format(cal.getTime()), "dateTime");
         assertEquals("2009-10-16T16:42:16.000Z", format.format(cal), "dateTime");
     }
@@ -387,7 +387,7 @@ public class FastDatePrinterTest {
     @SuppressWarnings("deprecation")
     @Test
     public void testStringBufferOptions() {
-        final DatePrinter format = getInstance("yyyy-MM-dd HH:mm:ss.SSS Z", TimeZone.getTimeZone(TimeZones.GMT_ID));
+        final DatePrinter format = getInstance("yyyy-MM-dd HH:mm:ss.SSS Z", TimeZones.GMT);
         final Calendar calendar = Calendar.getInstance();
         final StringBuffer sb = new StringBuffer();
         final String expected = format.format(calendar, sb, new FieldPosition(0)).toString();
