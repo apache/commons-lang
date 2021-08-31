@@ -827,22 +827,22 @@ public class BooleanUtilsTest {
     @Test
     public void testXor_object_validInput_2items() {
         assertEquals(
-                false ^ false,
+                false,
                 BooleanUtils.xor(new Boolean[] { Boolean.FALSE, Boolean.FALSE }).booleanValue(),
                 "false ^ false");
 
         assertEquals(
-                false ^ true,
+                true,
                 BooleanUtils.xor(new Boolean[] { Boolean.FALSE, Boolean.TRUE }).booleanValue(),
                 "false ^ true");
 
         assertEquals(
-                true ^ false,
+                true,
                 BooleanUtils.xor(new Boolean[] { Boolean.TRUE, Boolean.FALSE }).booleanValue(),
                 "true ^ false");
 
         assertEquals(
-                true ^ true,
+                false,
                 BooleanUtils.xor(new Boolean[] { Boolean.TRUE, Boolean.TRUE }).booleanValue(),
                 "true ^ true");
     }
@@ -850,7 +850,7 @@ public class BooleanUtilsTest {
     @Test
     public void testXor_object_validInput_3items() {
         assertEquals(
-                false ^ false ^ false,
+                false,
                 BooleanUtils.xor(
                                 new Boolean[] {
                                         Boolean.FALSE,
@@ -860,7 +860,7 @@ public class BooleanUtilsTest {
                 "false ^ false ^ false");
 
         assertEquals(
-                false ^ false ^ true,
+                true,
                 BooleanUtils
                         .xor(
                             new Boolean[] {
@@ -871,7 +871,7 @@ public class BooleanUtilsTest {
                 "false ^ false ^ true");
 
         assertEquals(
-                false ^ true ^ false,
+                true,
                 BooleanUtils
                         .xor(
                             new Boolean[] {
@@ -882,7 +882,7 @@ public class BooleanUtilsTest {
                 "false ^ true ^ false");
 
         assertEquals(
-                true ^ false ^ false,
+                true,
                 BooleanUtils
                         .xor(
                             new Boolean[] {
@@ -893,7 +893,7 @@ public class BooleanUtilsTest {
                 "true ^ false ^ false");
 
         assertEquals(
-                true ^ false ^ true,
+                false,
                 BooleanUtils.xor(
                                 new Boolean[] {
                                         Boolean.TRUE,
@@ -903,7 +903,7 @@ public class BooleanUtilsTest {
                 "true ^ false ^ true");
 
         assertEquals(
-                true ^ true ^ false,
+                false,
                 BooleanUtils.xor(
                             new Boolean[] {
                                 Boolean.TRUE,
@@ -913,7 +913,7 @@ public class BooleanUtilsTest {
                 "true ^ true ^ false");
 
         assertEquals(
-                false ^ true ^ true,
+                false,
                 BooleanUtils.xor(
                             new Boolean[] {
                                 Boolean.FALSE,
@@ -923,7 +923,7 @@ public class BooleanUtilsTest {
                 "false ^ true ^ true");
 
         assertEquals(
-                true ^ true ^ true,
+                true,
                 BooleanUtils.xor(
                         new Boolean[] {
                                 Boolean.TRUE,
@@ -946,22 +946,22 @@ public class BooleanUtilsTest {
     @Test
     public void testXor_primitive_validInput_2items() {
         assertEquals(
-                true ^ true,
+                false,
                 BooleanUtils.xor(new boolean[] { true, true }),
                 "true ^ true");
 
         assertEquals(
-                false ^ false,
+                false,
                 BooleanUtils.xor(new boolean[] { false, false }),
                 "false ^ false");
 
         assertEquals(
-                true ^ false,
+                true,
                 BooleanUtils.xor(new boolean[] { true, false }),
                 "true ^ false");
 
         assertEquals(
-                false ^ true,
+                true,
                 BooleanUtils.xor(new boolean[] { false, true }),
                 "false ^ true");
     }
@@ -969,42 +969,42 @@ public class BooleanUtilsTest {
     @Test
     public void testXor_primitive_validInput_3items() {
         assertEquals(
-                false ^ false ^ false,
+                false,
                 BooleanUtils.xor(new boolean[] { false, false, false }),
                 "false ^ false ^ false");
 
         assertEquals(
-                false ^ false ^ true,
+                true,
                 BooleanUtils.xor(new boolean[] { false, false, true }),
                 "false ^ false ^ true");
 
         assertEquals(
-                false ^ true ^ false,
+                true,
                 BooleanUtils.xor(new boolean[] { false, true, false }),
                 "false ^ true ^ false");
 
         assertEquals(
-                false ^ true ^ true,
+                false,
                 BooleanUtils.xor(new boolean[] { false, true, true }),
                 "false ^ true ^ true");
 
         assertEquals(
-                true ^ false ^ false,
+                true,
                 BooleanUtils.xor(new boolean[] { true, false, false }),
                 "true ^ false ^ false");
 
         assertEquals(
-                true ^ false ^ true,
+                false,
                 BooleanUtils.xor(new boolean[] { true, false, true }),
                 "true ^ false ^ true");
 
         assertEquals(
-                true ^ true ^ false,
+                false,
                 BooleanUtils.xor(new boolean[] { true, true, false }),
                 "true ^ true ^ false");
 
         assertEquals(
-                true ^ true ^ true,
+                true,
                 BooleanUtils.xor(new boolean[] { true, true, true }),
                 "true ^ true ^ true");
     }
