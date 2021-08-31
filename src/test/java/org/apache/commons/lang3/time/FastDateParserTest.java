@@ -90,7 +90,7 @@ public class FastDateParserTest {
 
     private static final TimeZone REYKJAVIK = TimeZone.getTimeZone("Atlantic/Reykjavik");
     private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");
-    static final TimeZone GMT = TimeZone.getTimeZone("GMT");
+    static final TimeZone GMT = TimeZone.getTimeZone(TimeZones.GMT_ID);
     private static final TimeZone INDIA = TimeZone.getTimeZone("Asia/Calcutta");
 
     private static final Locale SWEDEN = new Locale("sv", "SE");

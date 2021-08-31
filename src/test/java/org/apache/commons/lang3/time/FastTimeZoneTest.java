@@ -34,7 +34,7 @@ public class FastTimeZoneTest {
 
     @Test
     public void testBareGmt() {
-        assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone("GMT"));
+        assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone(TimeZones.GMT_ID));
     }
 
     @Test
