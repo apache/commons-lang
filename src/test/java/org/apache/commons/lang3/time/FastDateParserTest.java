@@ -54,7 +54,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class FastDateParserTest {
 
     private enum Expected1806 {
-        India(INDIA, "+05", "+0530", "+05:30", true), Greenwich(GMT, "Z", "Z", "Z", false),
+        India(INDIA, "+05", "+0530", "+05:30", true), Greenwich(TimeZones.GMT, "Z", "Z", "Z", false),
         NewYork(NEW_YORK, "-05", "-0500", "-05:00", false);
 
         final TimeZone zone;
@@ -90,7 +90,6 @@ public class FastDateParserTest {
 
     private static final TimeZone REYKJAVIK = TimeZone.getTimeZone("Atlantic/Reykjavik");
     private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");
-    static final TimeZone GMT = TimeZones.GMT;
     private static final TimeZone INDIA = TimeZone.getTimeZone("Asia/Calcutta");
 
     private static final Locale SWEDEN = new Locale("sv", "SE");
@@ -320,7 +319,7 @@ public class FastDateParserTest {
     @Test
     public void testJpLocales() throws ParseException {
 
-        final Calendar cal = Calendar.getInstance(GMT);
+        final Calendar cal = Calendar.getInstance(TimeZones.GMT);
         cal.clear();
         cal.set(2003, Calendar.FEBRUARY, 10);
         cal.set(Calendar.ERA, GregorianCalendar.BC);
@@ -376,11 +375,11 @@ public class FastDateParserTest {
     @ParameterizedTest
     @MethodSource(DATE_PARSER_PARAMETERS)
     public void testLang1380(final TriFunction<String, TimeZone, Locale, DateParser> dpProvider) throws ParseException {
-        final Calendar expected = Calendar.getInstance(GMT, Locale.FRANCE);
+        final Calendar expected = Calendar.getInstance(TimeZones.GMT, Locale.FRANCE);
         expected.clear();
         expected.set(2014, Calendar.APRIL, 14);
 
-        final DateParser fdp = getInstance(dpProvider, "dd MMM yyyy", GMT, Locale.FRANCE);
+        final DateParser fdp = getInstance(dpProvider, "dd MMM yyyy", TimeZones.GMT, Locale.FRANCE);
         assertEquals(expected.getTime(), fdp.parse("14 avril 2014"));
         assertEquals(expected.getTime(), fdp.parse("14 avr. 2014"));
         assertEquals(expected.getTime(), fdp.parse("14 avr 2014"));
@@ -400,7 +399,7 @@ public class FastDateParserTest {
 
     @Test
     public void testLang538() throws ParseException {
-        final DateParser parser = getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", GMT);
+        final DateParser parser = getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", TimeZones.GMT);
 
         final Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT-8"));
         cal.clear();
@@ -514,7 +513,7 @@ public class FastDateParserTest {
     public void testParses() throws Exception {
         for (final String format : new String[] {LONG_FORMAT, SHORT_FORMAT}) {
             for (final Locale locale : Locale.getAvailableLocales()) {
-                for (final TimeZone timeZone : new TimeZone[] {NEW_YORK, REYKJAVIK, GMT}) {
+                for (final TimeZone timeZone : new TimeZone[] {NEW_YORK, REYKJAVIK, TimeZones.GMT}) {
                     for (final int year : new int[] {2003, 1940, 1868, 1867, 1, -1, -1940}) {
                         final Calendar cal = getEraStart(year, timeZone, locale);
                         final Date centuryStart = cal.getTime();
@@ -691,7 +690,7 @@ public class FastDateParserTest {
         for (final Locale locale : Locale.getAvailableLocales()) {
             final FastDateParser fdp = new FastDateParser("yyyy/MM/dd z", TimeZone.getDefault(), locale);
 
-            for (final TimeZone timeZone : new TimeZone[] {NEW_YORK, REYKJAVIK, GMT}) {
+            for (final TimeZone timeZone : new TimeZone[] {NEW_YORK, REYKJAVIK, TimeZones.GMT}) {
                 final Calendar cal = Calendar.getInstance(timeZone, locale);
                 cal.clear();
                 cal.set(Calendar.YEAR, 2000);

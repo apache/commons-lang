@@ -43,7 +43,7 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
 public class FastDatePrinterTest {
 
     private enum Expected1806 {
-        India(INDIA, "+05", "+0530", "+05:30"), Greenwich(GMT, "Z", "Z", "Z"), NewYork(
+        India(INDIA, "+05", "+0530", "+05:30"), Greenwich(TimeZones.GMT, "Z", "Z", "Z"), NewYork(
                 NEW_YORK, "-05", "-0500", "-05:00");
 
         final TimeZone zone;
@@ -60,7 +60,6 @@ public class FastDatePrinterTest {
     }
     private static final String YYYY_MM_DD = "yyyy/MM/dd";
     private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");
-    private static final TimeZone GMT = TimeZones.GMT;
     private static final TimeZone INDIA = TimeZone.getTimeZone("Asia/Calcutta");
 
     private static final Locale SWEDEN = new Locale("sv", "SE");
