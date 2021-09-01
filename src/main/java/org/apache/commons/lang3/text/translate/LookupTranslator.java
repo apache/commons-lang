@@ -49,23 +49,23 @@ public class LookupTranslator extends CharSequenceTranslator {
     public LookupTranslator(final CharSequence[]... lookup) {
         lookupMap = new HashMap<>();
         prefixSet = new HashSet<>();
-        int _shortest = Integer.MAX_VALUE;
-        int _longest = 0;
+        int tmpShortest = Integer.MAX_VALUE;
+        int tmpLongest = 0;
         if (lookup != null) {
             for (final CharSequence[] seq : lookup) {
                 this.lookupMap.put(seq[0].toString(), seq[1].toString());
                 this.prefixSet.add(seq[0].charAt(0));
                 final int sz = seq[0].length();
-                if (sz < _shortest) {
-                    _shortest = sz;
+                if (sz < tmpShortest) {
+                    tmpShortest = sz;
                 }
-                if (sz > _longest) {
-                    _longest = sz;
+                if (sz > tmpLongest) {
+                    tmpLongest = sz;
                 }
             }
         }
-        shortest = _shortest;
-        longest = _longest;
+        this.shortest = tmpShortest;
+        this.longest = tmpLongest;
     }
 
     /**

@@ -2502,7 +2502,7 @@ public class StringUtils {
 
         int[] p = new int[n + 1]; // 'previous' cost array, horizontally
         int[] d = new int[n + 1]; // cost array, horizontally
-        int[] _d; // placeholder to assist in swapping p and d
+        int[] tmp; // placeholder to assist in swapping p and d
 
         // fill in starting table values
         final int boundary = Math.min(n, threshold) + 1;
@@ -2545,9 +2545,9 @@ public class StringUtils {
             }
 
             // copy current distance counts to 'previous row' distance counts
-            _d = p;
+            tmp = p;
             p = d;
-            d = _d;
+            d = tmp;
         }
 
         // if p[n] is greater than the threshold, there's no guarantee on it being the correct
