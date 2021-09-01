@@ -82,6 +82,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add UncheckedInterruptedException.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TimeZones.GMT.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_16.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ObjectUtils.identityHashCodeHex(Object).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ObjectUtils.hashCodeHex(Object).</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump spotbugs-maven-plugin from 4.2.0 to 4.2.3 #735.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess">Bump Bump actions/cache from v2.1.4 to v2.1.6 #742, #752, #764.</action>

@@ -765,6 +765,21 @@ public class ObjectUtils {
     }
 
     /**
+     * Returns the hex hash code for the given object per {@link Objects#hashCode(Object)}.
+     * <p>
+     * Short hand for {@code Integer.toHexString(Objects.hashCode(object))}.
+     * </p>
+     *
+     * @param object object for which the hashCode is to be calculated
+     * @return Hash code in hexadecimal format.
+     * @since 3.13.0
+     */
+    public static String hashCodeHex(final Object object) {
+        return Integer.toHexString(Objects.hashCode(object));
+    }
+
+
+    /**
      * <p>Gets the hash code for multiple objects.</p>
      *
      * <p>This allows a hash code to be rapidly calculated for a number of objects.
@@ -818,7 +833,21 @@ public class ObjectUtils {
         Validate.notNull(object, "object");
         appendable.append(object.getClass().getName())
               .append(AT_SIGN)
-              .append(Integer.toHexString(System.identityHashCode(object)));
+              .append(identityHashCodeHex(object));
+    }
+
+    /**
+     * Returns the hex hash code for the given object per {@link System#identityHashCode(Object)}.
+     * <p>
+     * Short hand for {@code Integer.toHexString(System.identityHashCode(object))}.
+     * </p>
+     *
+     * @param object object for which the hashCode is to be calculated
+     * @return Hash code in hexadecimal format.
+     * @since 3.13.0
+     */
+    public static String identityHashCodeHex(final Object object) {
+        return Integer.toHexString(System.identityHashCode(object));
     }
 
     /**
@@ -842,7 +871,7 @@ public class ObjectUtils {
             return null;
         }
         final String name = object.getClass().getName();
-        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        final String hexString = identityHashCodeHex(object);
         final StringBuilder builder = new StringBuilder(name.length() + 1 + hexString.length());
         // @formatter:off
         builder.append(name)
@@ -873,7 +902,7 @@ public class ObjectUtils {
     public static void identityToString(final StrBuilder builder, final Object object) {
         Validate.notNull(object, "object");
         final String name = object.getClass().getName();
-        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        final String hexString = identityHashCodeHex(object);
         builder.ensureCapacity(builder.length() +  name.length() + 1 + hexString.length());
         builder.append(name)
               .append(AT_SIGN)
@@ -898,7 +927,7 @@ public class ObjectUtils {
     public static void identityToString(final StringBuffer buffer, final Object object) {
         Validate.notNull(object, "object");
         final String name = object.getClass().getName();
-        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        final String hexString = identityHashCodeHex(object);
         buffer.ensureCapacity(buffer.length() + name.length() + 1 + hexString.length());
         buffer.append(name)
               .append(AT_SIGN)
@@ -923,7 +952,7 @@ public class ObjectUtils {
     public static void identityToString(final StringBuilder builder, final Object object) {
         Validate.notNull(object, "object");
         final String name = object.getClass().getName();
-        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        final String hexString = identityHashCodeHex(object);
         builder.ensureCapacity(builder.length() +  name.length() + 1 + hexString.length());
         builder.append(name)
               .append(AT_SIGN)
