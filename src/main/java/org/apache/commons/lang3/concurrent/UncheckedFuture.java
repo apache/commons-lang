@@ -23,6 +23,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.exception.UncheckedInterruptedException;
 
@@ -39,13 +40,25 @@ public interface UncheckedFuture<V> extends Future<V> {
     /**
      * Maps the given instances as unchecked.
      *
-     * @param <T> The result type returned by this Future's {@link #get()} and {@link #get(long, TimeUnit)} methods.
+     * @param <T> The result type returned by the Futures' {@link #get()} and {@link #get(long, TimeUnit)} methods.
+     *
+     * @param futures The Futures to uncheck.
+     * @return a new stream.
+     */
+    static <T> Stream<UncheckedFuture<T>> map(final Collection<Future<T>> futures) {
+        return futures.stream().map(UncheckedFuture::on);
+    }
+
+    /**
+     * Maps the given instances as unchecked.
+     *
+     * @param <T> The result type returned by the Futures' {@link #get()} and {@link #get(long, TimeUnit)} methods.
      *
      * @param futures The Futures to uncheck.
      * @return a new collection.
      */
     static <T> Collection<UncheckedFuture<T>> on(final Collection<Future<T>> futures) {
-        return futures.stream().map(UncheckedFuture::on).collect(Collectors.toList());
+        return map(futures).collect(Collectors.toList());
     }
 
     /**

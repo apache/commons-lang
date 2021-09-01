@@ -102,6 +102,13 @@ public class UncheckedFutureTest {
     }
 
     @Test
+    public void testMap() {
+        final List<String> expected = Arrays.asList("Y", "Z");
+        final List<Future<String>> input = Arrays.asList(new TestFuture<>("Y"), new TestFuture<>("Z"));
+        assertEquals(expected, UncheckedFuture.map(input).map(UncheckedFuture::get).collect(Collectors.toList()));
+    }
+
+    @Test
     public void testOnCollection() {
         final List<String> expected = Arrays.asList("Y", "Z");
         final List<Future<String>> input = Arrays.asList(new TestFuture<>("Y"), new TestFuture<>("Z"));
