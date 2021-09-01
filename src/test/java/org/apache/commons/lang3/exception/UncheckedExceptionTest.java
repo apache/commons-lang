@@ -27,7 +27,7 @@ public class UncheckedExceptionTest {
 
     @Test
     public void testConstructWithCause() {
-        Exception e = new Exception();
+        final Exception e = new Exception();
         assertSame(e, new UncheckedException(e).getCause());
     }
 

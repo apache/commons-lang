@@ -36,7 +36,7 @@ public class ArrayUtilsSetTest {
         assertArrayEquals(null, ArrayUtils.setAll(null, nullIntFunction));
         assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, ArrayUtils.setAll(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, nullIntFunction));
         assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, ArrayUtils.setAll(ArrayUtils.EMPTY_OBJECT_ARRAY, nullIntFunction));
-        Integer[] array = new Integer[10];
+        final Integer[] array = new Integer[10];
         final Integer[] array2 = ArrayUtils.setAll(array, Integer::valueOf);
         assertSame(array, array2);
         for (int i = 0; i < array.length; i++) {
@@ -51,10 +51,10 @@ public class ArrayUtilsSetTest {
         assertArrayEquals(null, ArrayUtils.setAll(null, nullSupplier));
         assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, ArrayUtils.setAll(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, nullSupplier));
         assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, ArrayUtils.setAll(ArrayUtils.EMPTY_OBJECT_ARRAY, nullSupplier));
-        String[] array = new String[10];
+        final String[] array = new String[10];
         final String[] array2 = ArrayUtils.setAll(array, () -> StringUtils.EMPTY);
         assertSame(array, array2);
-        for (String s : array) {
+        for (final String s : array) {
             assertEquals(StringUtils.EMPTY, s);
         }
     }

@@ -66,11 +66,8 @@ public class BooleanConsumerTest {
         assertFalse(aBool2.get());
 
         // Check order
-        final BooleanConsumer bad = new BooleanConsumer() {
-            @Override
-            public void accept(boolean value) {
-                throw new IllegalStateException();
-            }
+        final BooleanConsumer bad = value -> {
+            throw new IllegalStateException();
         };
         final BooleanConsumer badComposite = bad.andThen(aBool2::lazySet);
 

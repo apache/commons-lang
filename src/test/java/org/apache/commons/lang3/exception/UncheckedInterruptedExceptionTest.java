@@ -27,7 +27,7 @@ public class UncheckedInterruptedExceptionTest {
 
     @Test
     public void testConstructWithCause() {
-        Exception e = new Exception();
+        final Exception e = new Exception();
         assertSame(e, new UncheckedInterruptedException(e).getCause());
     }
 
