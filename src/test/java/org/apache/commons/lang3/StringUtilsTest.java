@@ -1144,6 +1144,7 @@ public class StringUtilsTest {
         assertEquals("", StringUtils.join(MIXED_TYPE_LIST, '/', 2, 1));
         assertEquals("1,2", StringUtils.join(CHAR_PRIM_LIST, SEPARATOR));
         assertEquals("12", StringUtils.join(CHAR_PRIM_LIST, null));
+        assertNull(StringUtils.join((Object []) null, SEPARATOR));
     }
 
     @Test
@@ -1156,6 +1157,7 @@ public class StringUtilsTest {
         assertEquals(StringUtils.EMPTY, StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
         assertEquals("1,2", StringUtils.join(BYTE_PRIM_LIST, SEPARATOR));
         assertEquals("12", StringUtils.join(BYTE_PRIM_LIST, null));
+        assertNull(StringUtils.join((byte[]) null, SEPARATOR));
     }
 
 
@@ -1171,6 +1173,7 @@ public class StringUtilsTest {
         assertEquals(StringUtils.EMPTY, StringUtils.join(ARRAY_FALSE_TRUE_FALSE, SEPARATOR_CHAR, 1, 0));
         assertEquals("false,true,false", StringUtils.join(ARRAY_FALSE_TRUE_FALSE, SEPARATOR));
         assertEquals("falsetruefalse", StringUtils.join(ARRAY_FALSE_TRUE_FALSE, null));
+        assertNull(StringUtils.join((boolean[]) null, SEPARATOR));
     }
 
     @Test
@@ -1183,6 +1186,7 @@ public class StringUtilsTest {
         assertEquals(StringUtils.EMPTY, StringUtils.join(CHAR_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
         assertEquals("1,2", StringUtils.join(CHAR_PRIM_LIST, SEPARATOR));
         assertEquals("12", StringUtils.join(CHAR_PRIM_LIST, null));
+        assertNull(StringUtils.join((char[]) null, SEPARATOR));
     }
 
     @Test
@@ -1195,6 +1199,7 @@ public class StringUtilsTest {
         assertEquals(StringUtils.EMPTY, StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
         assertEquals("1.0,2.0", StringUtils.join(DOUBLE_PRIM_LIST, SEPARATOR));
         assertEquals("1.02.0", StringUtils.join(DOUBLE_PRIM_LIST, null));
+        assertNull(StringUtils.join((double[]) null, SEPARATOR));
     }
 
     @Test
@@ -1207,6 +1212,7 @@ public class StringUtilsTest {
         assertEquals(StringUtils.EMPTY, StringUtils.join(FLOAT_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
         assertEquals("1.0,2.0", StringUtils.join(FLOAT_PRIM_LIST, SEPARATOR));
         assertEquals("1.02.0", StringUtils.join(FLOAT_PRIM_LIST, null));
+        assertNull(StringUtils.join((float[]) null, SEPARATOR));
     }
 
     @Test
@@ -1219,6 +1225,7 @@ public class StringUtilsTest {
         assertEquals(StringUtils.EMPTY, StringUtils.join(INT_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
         assertEquals("1,2", StringUtils.join(INT_PRIM_LIST, SEPARATOR));
         assertEquals("12", StringUtils.join(INT_PRIM_LIST, null));
+        assertNull(StringUtils.join((int[]) null, SEPARATOR));
     }
 
     @Test
@@ -1231,6 +1238,7 @@ public class StringUtilsTest {
         assertEquals(StringUtils.EMPTY, StringUtils.join(LONG_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
         assertEquals("1,2", StringUtils.join(LONG_PRIM_LIST, SEPARATOR));
         assertEquals("12", StringUtils.join(LONG_PRIM_LIST, null));
+        assertNull(StringUtils.join((long[]) null, SEPARATOR));
     }
 
     @Test
@@ -1243,6 +1251,7 @@ public class StringUtilsTest {
         assertEquals(StringUtils.EMPTY, StringUtils.join(SHORT_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
         assertEquals("1,2", StringUtils.join(SHORT_PRIM_LIST, SEPARATOR));
         assertEquals("12", StringUtils.join(SHORT_PRIM_LIST, null));
+        assertNull(StringUtils.join((short[]) null, SEPARATOR));
     }
 
     @Test
