@@ -559,13 +559,20 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- For Javadoc links -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-text</artifactId>
+      <version>1.9</version>
+      <scope>provided</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.openjdk.jmh</groupId>
       <artifactId>jmh-core</artifactId>
       <version>${jmh.version}</version>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>org.openjdk.jmh</groupId>
       <artifactId>jmh-generator-annprocess</artifactId>
@@ -625,7 +632,7 @@
     <commons.encoding>utf-8</commons.encoding>
 
     <checkstyle.plugin.version>3.1.2</checkstyle.plugin.version>
-    <checkstyle.version>8.44</checkstyle.version>
+    <checkstyle.version>8.45.1</checkstyle.version>
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
 
     <spotbugs.plugin.version>4.3.0</spotbugs.plugin.version>
@@ -634,7 +641,7 @@
     <clirr.skip>true</clirr.skip>
 
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
-    <jmh.version>1.27</jmh.version>
+    <jmh.version>1.33</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
 
     <commons.jacoco.version>0.8.7</commons.jacoco.version>
@@ -674,32 +681,34 @@
     <plugins>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <source>${maven.compiler.source}</source>
-          <quiet>true</quiet>
-          <notimestamp>true</notimestamp>
-          <links>
-            <link>https://docs.oracle.com/javase/8/docs/api/</link>
-            <link>http://docs.oracle.com/javaee/6/api/</link>
-          </links>
-          <archive>
-            <manifest>
-              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-            </manifest>
-          </archive>
-        </configuration>
-        <executions>
-          <execution>
-            <id>create-javadoc-jar</id>
-            <goals>
-              <goal>javadoc</goal>
-              <goal>jar</goal>
-            </goals>
-            <phase>package</phase>
-          </execution>
-        </executions>
-      </plugin>
+          <configuration>
+            <source>${maven.compiler.source}</source>
+            <quiet>true</quiet>
+            <notimestamp>true</notimestamp>
+            <links>
+              <link>https://commons.apache.org/proper/commons-text/apidocs</link>
+              <link>https://docs.oracle.com/javase/8/docs/api</link>
+              <link>https://docs.oracle.com/javaee/6/api</link>
+            </links>
+            <validateLinks>true</validateLinks>
+            <archive>
+              <manifest>
+                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+              </manifest>
+            </archive>
+          </configuration>
+          <executions>
+            <execution>
+              <id>create-javadoc-jar</id>
+              <goals>
+                <goal>javadoc</goal>
+                <goal>jar</goal>
+              </goals>
+              <phase>package</phase>
+            </execution>
+          </executions>
+        </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -803,6 +812,26 @@
 
   <reporting>
     <plugins>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <quiet>true</quiet>
+          <notimestamp>true</notimestamp>
+          <links>
+            <link>https://commons.apache.org/proper/commons-text/apidocs</link>
+            <link>https://docs.oracle.com/javase/8/docs/api</link>
+            <link>https://docs.oracle.com/javaee/6/api</link>
+          </links>
+          <validateLinks>true</validateLinks>
+          <archive>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${checkstyle.plugin.version}</version>

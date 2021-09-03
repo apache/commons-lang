@@ -14,31 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.apache.commons.lang3.stream;
 
-package org.apache.commons.lang3.time;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-import java.util.TimeZone;
+import org.junit.jupiter.api.Test;
 
 /**
- * Helps to deal with {@link java.util.TimeZone}s.
- *
- * @since 3.7
+ * Tests {@link IntStreams}.
  */
-public class TimeZones {
+public class IntStreamsTest {
 
-    // Do not instantiate.
-    private TimeZones() {
+    @Test
+    public void testRange() {
+        assertArrayEquals(new int[] {0, 1}, IntStreams.range(2).toArray());
     }
 
-    /**
-     * A public version of {@link java.util.TimeZone}'s package private {@code GMT_ID} field.
-     */
-    public static final String GMT_ID = "GMT";
-
-    /**
-     * The GMT time zone.
-     *
-     * @since 3.13.0
-     */
-    public static final TimeZone GMT = TimeZone.getTimeZone(GMT_ID);
+    @Test
+    public void testRangeClosed() {
+        assertArrayEquals(new int[] {0, 1, 2}, IntStreams.rangeClosed(2).toArray());
+    }
 }

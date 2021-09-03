@@ -14,31 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.apache.commons.lang3.time;
-
-import java.util.TimeZone;
+package org.apache.commons.lang3.exception;
 
 /**
- * Helps to deal with {@link java.util.TimeZone}s.
+ * Unchecked {@link InterruptedException}.
  *
- * @since 3.7
+ * @since 3.13.0
  */
-public class TimeZones {
+public class UncheckedInterruptedException extends UncheckedException {
 
-    // Do not instantiate.
-    private TimeZones() {
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Constructs an instance initialized to the given {@code cause}.
+     *
+     * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method). (A @{code null} value
+     *        is permitted, and indicates that the cause is nonexistent or unknown.)
+     */
+    public UncheckedInterruptedException(final Throwable cause) {
+        super(cause);
     }
 
-    /**
-     * A public version of {@link java.util.TimeZone}'s package private {@code GMT_ID} field.
-     */
-    public static final String GMT_ID = "GMT";
-
-    /**
-     * The GMT time zone.
-     *
-     * @since 3.13.0
-     */
-    public static final TimeZone GMT = TimeZone.getTimeZone(GMT_ID);
 }

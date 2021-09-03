@@ -80,8 +80,7 @@ public class ConstructorUtils {
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
             InstantiationException {
         args = ArrayUtils.nullToEmpty(args);
-        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
-        return invokeConstructor(cls, args, parameterTypes);
+        return invokeConstructor(cls, args, ClassUtils.toClass(args));
     }
 
     /**
@@ -144,8 +143,7 @@ public class ConstructorUtils {
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
             InstantiationException {
         args = ArrayUtils.nullToEmpty(args);
-        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
-        return invokeExactConstructor(cls, args, parameterTypes);
+        return invokeExactConstructor(cls, args, ClassUtils.toClass(args));
     }
 
     /**
@@ -279,7 +277,7 @@ public class ConstructorUtils {
     }
 
     /**
-     * Learn whether the specified class is generally accessible, i.e. is
+     * Tests whether the specified class is generally accessible, i.e. is
      * declared in an entirely {@code public} manner.
      * @param type to check
      * @return {@code true} if {@code type} and any enclosing classes are

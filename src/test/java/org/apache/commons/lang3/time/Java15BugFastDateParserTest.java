@@ -67,7 +67,7 @@ public class Java15BugFastDateParserTest {
     private void testLocales(final TriFunction<String, TimeZone, Locale, DateParser> dbProvider, final String format,
         final boolean eraBC) throws Exception {
 
-        final Calendar cal = Calendar.getInstance(FastDateParserTest.GMT);
+        final Calendar cal = Calendar.getInstance(TimeZones.GMT);
         cal.clear();
         cal.set(2003, Calendar.FEBRUARY, 10);
         if (eraBC) {
@@ -144,7 +144,7 @@ public class Java15BugFastDateParserTest {
     }
 
     private void testSingleLocale(final Locale locale) throws ParseException {
-        final Calendar cal = Calendar.getInstance(FastDateParserTest.GMT);
+        final Calendar cal = Calendar.getInstance(TimeZones.GMT);
         cal.clear();
         cal.set(2003, Calendar.FEBRUARY, 10);
         final SimpleDateFormat sdf = new SimpleDateFormat(FastDateParserTest.LONG_FORMAT, locale);

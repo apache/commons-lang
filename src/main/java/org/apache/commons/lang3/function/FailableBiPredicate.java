@@ -52,7 +52,7 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
     }
 
     /**
-     * Returns The FALSE TRUE.
+     * Returns The TRUE singleton.
      *
      * @param <T> Consumed type 1.
      * @param <U> Consumed type 2.

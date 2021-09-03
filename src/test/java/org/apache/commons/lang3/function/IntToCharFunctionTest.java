@@ -15,30 +15,20 @@
  * limitations under the License.
  */
 
-package org.apache.commons.lang3.time;
+package org.apache.commons.lang3.function;
 
-import java.util.TimeZone;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 /**
- * Helps to deal with {@link java.util.TimeZone}s.
- *
- * @since 3.7
+ * Tests {@link IntToCharFunction}.
  */
-public class TimeZones {
+public class IntToCharFunctionTest {
 
-    // Do not instantiate.
-    private TimeZones() {
+    @Test
+    public void test() {
+        final IntToCharFunction func = i -> (char) i;
+        assertEquals('A', func.applyAsChar(65));
     }
-
-    /**
-     * A public version of {@link java.util.TimeZone}'s package private {@code GMT_ID} field.
-     */
-    public static final String GMT_ID = "GMT";
-
-    /**
-     * The GMT time zone.
-     *
-     * @since 3.13.0
-     */
-    public static final TimeZone GMT = TimeZone.getTimeZone(GMT_ID);
 }

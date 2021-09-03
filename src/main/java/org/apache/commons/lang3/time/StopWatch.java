@@ -249,9 +249,9 @@ public class StopWatch {
     }
 
     /**
-     * Returns the time formatted by {@link DurationFormatUtils#formatDurationHMS}.
+     * Returns the split time formatted by {@link DurationFormatUtils#formatDurationHMS}.
      *
-     * @return the time formatted by {@link DurationFormatUtils#formatDurationHMS}.
+     * @return the split time formatted by {@link DurationFormatUtils#formatDurationHMS}.
      * @since 3.10
      */
     public String formatSplitTime() {
@@ -259,9 +259,9 @@ public class StopWatch {
     }
 
     /**
-     * Returns the split time formatted by {@link DurationFormatUtils#formatDurationHMS}.
+     * Returns the time formatted by {@link DurationFormatUtils#formatDurationHMS}.
      *
-     * @return the split time formatted by {@link DurationFormatUtils#formatDurationHMS}.
+     * @return the time formatted by {@link DurationFormatUtils#formatDurationHMS}.
      * @since 3.10
      */
     public String formatTime() {

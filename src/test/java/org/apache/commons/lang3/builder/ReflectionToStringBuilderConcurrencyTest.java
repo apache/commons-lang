@@ -32,6 +32,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.concurrent.UncheckedFuture;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -109,9 +110,7 @@ public class ReflectionToStringBuilderConcurrencyTest {
             tasks.add(consumer);
             tasks.add(producer);
             final List<Future<Integer>> futures = threadPool.invokeAll(tasks);
-            for (final Future<Integer> future : futures) {
-                assertEquals(REPEAT, future.get().intValue());
-            }
+            UncheckedFuture.on(futures).forEach(f -> assertEquals(REPEAT, f.get().intValue()));
         } finally {
             threadPool.shutdown();
             threadPool.awaitTermination(1, TimeUnit.SECONDS);

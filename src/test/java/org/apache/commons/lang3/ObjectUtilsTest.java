@@ -41,6 +41,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -63,6 +64,7 @@ public class ObjectUtilsTest {
         }
 
     }
+
     /**
      * String that is cloneable.
      */
@@ -77,6 +79,7 @@ public class ObjectUtilsTest {
             return (CloneableString) super.clone();
         }
     }
+
     static final class NonComparableCharSequence implements CharSequence {
         final String value;
 
@@ -110,6 +113,7 @@ public class ObjectUtilsTest {
             return value;
         }
     }
+
     /**
      * String that is not cloneable.
      */
@@ -119,6 +123,7 @@ public class ObjectUtilsTest {
             super(s);
         }
     }
+
     private static final String FOO = "foo";
     private static final String BAR = "bar";
     private static final String[] NON_EMPTY_ARRAY = { FOO, BAR, };
@@ -397,9 +402,9 @@ public class ObjectUtilsTest {
     @Test
     public void testEquals() {
         assertTrue(ObjectUtils.equals(null, null), "ObjectUtils.equals(null, null) returned false");
-        assertTrue(!ObjectUtils.equals(FOO, null), "ObjectUtils.equals(\"foo\", null) returned true");
-        assertTrue(!ObjectUtils.equals(null, BAR), "ObjectUtils.equals(null, \"bar\") returned true");
-        assertTrue(!ObjectUtils.equals(FOO, BAR), "ObjectUtils.equals(\"foo\", \"bar\") returned true");
+        assertFalse(ObjectUtils.equals(FOO, null), "ObjectUtils.equals(\"foo\", null) returned true");
+        assertFalse(ObjectUtils.equals(null, BAR), "ObjectUtils.equals(null, \"bar\") returned true");
+        assertFalse(ObjectUtils.equals(FOO, BAR), "ObjectUtils.equals(\"foo\", \"bar\") returned true");
         assertTrue(ObjectUtils.equals(FOO, FOO), "ObjectUtils.equals(\"foo\", \"foo\") returned false");
     }
 
@@ -459,6 +464,15 @@ public class ObjectUtilsTest {
     }
 
     @Test
+    public void testHashCodeHex() {
+        final Integer i = Integer.valueOf(90);
+        assertEquals(Integer.toHexString(Objects.hashCode(i)), ObjectUtils.hashCodeHex(i));
+        final Integer zero = Integer.valueOf(0);
+        assertEquals(Integer.toHexString(Objects.hashCode(zero)), ObjectUtils.hashCodeHex(zero));
+        assertEquals(Integer.toHexString(Objects.hashCode(null)), ObjectUtils.hashCodeHex(null));
+    }
+
+    @Test
     public void testHashCodeMulti_multiple_emptyArray() {
         final Object[] array = {};
         assertEquals(1, ObjectUtils.hashCodeMulti(array));
@@ -483,6 +497,15 @@ public class ObjectUtilsTest {
     public void testHashCodeMulti_multiple_nullArray() {
         final Object[] array = null;
         assertEquals(1, ObjectUtils.hashCodeMulti(array));
+    }
+
+    @Test
+    public void testIdentityHashCodeHex() {
+        final Integer i = Integer.valueOf(90);
+        assertEquals(Integer.toHexString(System.identityHashCode(i)), ObjectUtils.identityHashCodeHex(i));
+        final Integer zero = Integer.valueOf(0);
+        assertEquals(Integer.toHexString(System.identityHashCode(zero)), ObjectUtils.identityHashCodeHex(zero));
+        assertEquals(Integer.toHexString(System.identityHashCode(null)), ObjectUtils.identityHashCodeHex(null));
     }
 
     @Test
@@ -776,8 +799,8 @@ public class ObjectUtilsTest {
 
     @Test
     public void testToString_SupplierString() {
-        assertEquals(null, ObjectUtils.toString(null, (Supplier<String>) null));
-        assertEquals(null, ObjectUtils.toString(null, () -> null));
+        assertNull(ObjectUtils.toString(null, (Supplier<String>) null));
+        assertNull(ObjectUtils.toString(null, () -> null));
         // Pretend computing BAR is expensive.
         assertEquals(BAR, ObjectUtils.toString(null, () -> BAR));
         assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE, () -> BAR));

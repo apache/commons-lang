@@ -15,30 +15,30 @@
  * limitations under the License.
  */
 
-package org.apache.commons.lang3.time;
+package org.apache.commons.lang3.function;
 
-import java.util.TimeZone;
+import java.util.function.Function;
 
 /**
- * Helps to deal with {@link java.util.TimeZone}s.
+ * Represents a function that accepts an int-valued argument and produces a long-valued result. This is the
+ * {@code int}-to-{@code long} primitive specialization for {@link Function}.
  *
- * @since 3.7
+ * <p>
+ * This is a <a href="package-summary.html">functional interface</a> whose functional method is
+ * {@link #applyAsChar(int)}.
+ * </p>
+ *
+ * @see Function
+ * @since 3.13.0
  */
-public class TimeZones {
-
-    // Do not instantiate.
-    private TimeZones() {
-    }
+@FunctionalInterface
+public interface IntToCharFunction {
 
     /**
-     * A public version of {@link java.util.TimeZone}'s package private {@code GMT_ID} field.
-     */
-    public static final String GMT_ID = "GMT";
-
-    /**
-     * The GMT time zone.
+     * Applies this function to the given argument.
      *
-     * @since 3.13.0
+     * @param value the function argument.
+     * @return the function result.
      */
-    public static final TimeZone GMT = TimeZone.getTimeZone(GMT_ID);
+    char applyAsChar(int value);
 }

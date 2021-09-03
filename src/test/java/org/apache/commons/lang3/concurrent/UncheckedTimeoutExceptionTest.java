@@ -14,31 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.apache.commons.lang3.concurrent;
 
-package org.apache.commons.lang3.time;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
-import java.util.TimeZone;
+import org.junit.jupiter.api.Test;
 
 /**
- * Helps to deal with {@link java.util.TimeZone}s.
- *
- * @since 3.7
+ * Tests {@link UncheckedTimeoutException}.
  */
-public class TimeZones {
+public class UncheckedTimeoutExceptionTest {
 
-    // Do not instantiate.
-    private TimeZones() {
+    @Test
+    public void testConstructWithCause() {
+        final Exception e = new Exception();
+        assertSame(e, new UncheckedTimeoutException(e).getCause());
     }
 
-    /**
-     * A public version of {@link java.util.TimeZone}'s package private {@code GMT_ID} field.
-     */
-    public static final String GMT_ID = "GMT";
-
-    /**
-     * The GMT time zone.
-     *
-     * @since 3.13.0
-     */
-    public static final TimeZone GMT = TimeZone.getTimeZone(GMT_ID);
 }
