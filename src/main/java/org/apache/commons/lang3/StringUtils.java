@@ -2816,7 +2816,7 @@ public class StringUtils {
         // String's can't have a MAX_VALUEth index.
         int ret = Integer.MAX_VALUE;
 
-        int tmp = 0;
+        int tmp;
         for (final CharSequence search : searchStrs) {
             if (search == null) {
                 continue;
@@ -5079,7 +5079,7 @@ public class StringUtils {
             return INDEX_NOT_FOUND;
         }
         int ret = INDEX_NOT_FOUND;
-        int tmp = 0;
+        int tmp;
         for (final CharSequence search : searchStrs) {
             if (search == null) {
                 continue;
@@ -6736,7 +6736,7 @@ public class StringUtils {
         // index on index that the match was found
         int textIndex = -1;
         int replaceIndex = -1;
-        int tempIndex = -1;
+        int tempIndex;
 
         // index of replace array that will replace the search string found
         // NOTE: logic duplicated below START
