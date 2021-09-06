@@ -4285,7 +4285,7 @@ public class ArrayUtils {
      * @param componentType The array class.
      * @param length the array length
      * @return The new array.
-     * @exception NullPointerException if the specified {@code componentType} parameter is null.
+     * @throws NullPointerException if the specified {@code componentType} parameter is null.
      * @since 3.13.0
      */
     @SuppressWarnings("unchecked") // OK, because array and values are of type T
