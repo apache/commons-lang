@@ -22,18 +22,34 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.spy;
 
 /**
  * Test class for {@code AtomicSafeInitializer}.
  */
 public class AtomicSafeInitializerTest extends
         AbstractConcurrentInitializerTest {
+    // Create variables for tracking behaviors of mock object
+
+    AtomicInteger initializerInitCounter = new AtomicInteger();
+
     /** The instance to be tested. */
-    private AtomicSafeInitializerTestImpl initializer;
+    private AtomicSafeInitializer<Object> initializer;
 
     @BeforeEach
     public void setUp() {
-        initializer = new AtomicSafeInitializerTestImpl();
+        // Construct mock object
+        initializer = spy(AtomicSafeInitializer.class);
+        // Method Stubs
+        try {
+            doAnswer((stubInvo) -> {
+                initializerInitCounter.incrementAndGet();
+                return new Object();
+            }).when(initializer).initialize();
+        } catch (Throwable exception) {
+            exception.printStackTrace();
+        }
     }
 
     /**
@@ -56,23 +72,6 @@ public class AtomicSafeInitializerTest extends
     public void testNumberOfInitializeInvocations() throws ConcurrentException,
             InterruptedException {
         testGetConcurrent();
-        assertEquals(1, initializer.initCounter.get(), "Wrong number of invocations");
-    }
-
-    /**
-     * A concrete test implementation of {@code AtomicSafeInitializer}. This
-     * implementation also counts the number of invocations of the initialize()
-     * method.
-     */
-    private static class AtomicSafeInitializerTestImpl extends
-            AtomicSafeInitializer<Object> {
-        /** A counter for initialize() invocations. */
-        final AtomicInteger initCounter = new AtomicInteger();
-
-        @Override
-        protected Object initialize() {
-            initCounter.incrementAndGet();
-            return new Object();
-        }
+        assertEquals(1, initializerInitCounter.get(), "Wrong number of invocations");
     }
 }
