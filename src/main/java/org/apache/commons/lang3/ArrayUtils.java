@@ -1666,6 +1666,670 @@ public class ArrayUtils {
         return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
     }
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public static int ceiling(final Object[] array, final Object valueToFind) {
+        return ceiling(array, 0, array.length, valueToFind, Comparator.comparing(v -> ((Comparable) v)));
+    }
+
+    public static <T> int ceiling(final T[] array,
+                                  final int fromIndex,
+                                  final int toIndex,
+                                  final T valueToFind,
+                                  final Comparator<T> comparator) {
+        Validate.notNull(array);
+        Validate.notNull(comparator);
+        Validate.inclusiveBetween(0, array.length - 1, fromIndex);
+        Validate.inclusiveBetween(0, array.length, toIndex);
+        if (fromIndex >= toIndex) {
+            return -1;
+        }
+        int lo = fromIndex;
+        int hi = toIndex - 1;
+        if (comparator.compare(valueToFind, array[hi]) > 0) {
+            return -1;
+        }
+        if (comparator.compare(valueToFind, array[lo]) <= 0) {
+            return lo;
+        }
+        while (lo <= hi) {
+            final int mid = (lo + hi) / 2;
+            final int cmp = comparator.compare(array[mid], valueToFind);
+            if (cmp == 0) {
+                return mid;
+            } else if (cmp > 0) {
+                if (lo <= mid - 1 && comparator.compare(array[mid - 1], valueToFind) < 0) {
+                    return mid;
+                }
+                hi = mid - 1;
+            } else {
+                if (mid + 1 <= hi && comparator.compare(array[mid + 1], valueToFind) >= 0) {
+                    return mid + 1;
+                }
+                lo = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static int ceiling(final int[] array, final int valueToFind) {
+        return ceiling(array, 0, array.length, valueToFind);
+    }
+
+    public static int ceiling(final int[] array,
+                              final int fromIndex,
+                              final int toIndex,
+                              final int valueToFind) {
+        Validate.notNull(array);
+        Validate.inclusiveBetween(0, array.length - 1, fromIndex);
+        Validate.inclusiveBetween(0, array.length, toIndex);
+        if (fromIndex >= toIndex) {
+            return -1;
+        }
+        int lo = fromIndex;
+        int hi = toIndex - 1;
+        if (valueToFind > array[hi]) {
+            return -1;
+        }
+        if (valueToFind <= array[lo]) {
+            return lo;
+        }
+        while (lo <= hi) {
+            final int mid = (lo + hi) / 2;
+            if (array[mid] == valueToFind) {
+                return mid;
+            } else if (array[mid] > valueToFind) {
+                if (lo <= mid - 1 && array[mid - 1] < valueToFind) {
+                    return mid;
+                }
+                hi = mid - 1;
+            } else {
+                if (mid + 1 <= hi && array[mid + 1] >= valueToFind) {
+                    return mid + 1;
+                }
+                lo = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static int ceiling(final long[] array, final long valueToFind) {
+        return ceiling(array, 0, array.length, valueToFind);
+    }
+
+    public static int ceiling(final long[] array,
+                              final int fromIndex,
+                              final int toIndex,
+                              final long valueToFind) {
+        Validate.notNull(array);
+        Validate.inclusiveBetween(0, array.length - 1, fromIndex);
+        Validate.inclusiveBetween(0, array.length, toIndex);
+        if (fromIndex >= toIndex) {
+            return -1;
+        }
+        int lo = fromIndex;
+        int hi = toIndex - 1;
+        if (valueToFind > array[hi]) {
+            return -1;
+        }
+        if (valueToFind <= array[lo]) {
+            return lo;
+        }
+        while (lo <= hi) {
+            final int mid = (lo + hi) / 2;
+            if (array[mid] == valueToFind) {
+                return mid;
+            } else if (array[mid] > valueToFind) {
+                if (lo <= mid - 1 && array[mid - 1] < valueToFind) {
+                    return mid;
+                }
+                hi = mid - 1;
+            } else {
+                if (mid + 1 <= hi && array[mid + 1] >= valueToFind) {
+                    return mid + 1;
+                }
+                lo = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static int ceiling(final short[] array, final short valueToFind) {
+        return ceiling(array, 0, array.length, valueToFind);
+    }
+
+    public static int ceiling(final short[] array,
+                              final int fromIndex,
+                              final int toIndex,
+                              final short valueToFind) {
+        Validate.notNull(array);
+        Validate.inclusiveBetween(0, array.length - 1, fromIndex);
+        Validate.inclusiveBetween(0, array.length, toIndex);
+        if (fromIndex >= toIndex) {
+            return -1;
+        }
+        int lo = fromIndex;
+        int hi = toIndex - 1;
+        if (valueToFind > array[hi]) {
+            return -1;
+        }
+        if (valueToFind <= array[lo]) {
+            return lo;
+        }
+        while (lo <= hi) {
+            final int mid = (lo + hi) / 2;
+            if (array[mid] == valueToFind) {
+                return mid;
+            } else if (array[mid] > valueToFind) {
+                if (lo <= mid - 1 && array[mid - 1] < valueToFind) {
+                    return mid;
+                }
+                hi = mid - 1;
+            } else {
+                if (mid + 1 <= hi && array[mid + 1] >= valueToFind) {
+                    return mid + 1;
+                }
+                lo = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static int ceiling(final byte[] array, final byte valueToFind) {
+        return ceiling(array, 0, array.length, valueToFind);
+    }
+
+    public static int ceiling(final byte[] array,
+                              final int fromIndex,
+                              final int toIndex,
+                              final byte valueToFind) {
+        Validate.notNull(array);
+        Validate.inclusiveBetween(0, array.length - 1, fromIndex);
+        Validate.inclusiveBetween(0, array.length, toIndex);
+        if (fromIndex >= toIndex) {
+            return -1;
+        }
+        int lo = fromIndex;
+        int hi = toIndex - 1;
+        if (valueToFind > array[hi]) {
+            return -1;
+        }
+        if (valueToFind <= array[lo]) {
+            return lo;
+        }
+        while (lo <= hi) {
+            final int mid = (lo + hi) / 2;
+            if (array[mid] == valueToFind) {
+                return mid;
+            } else if (array[mid] > valueToFind) {
+                if (lo <= mid - 1 && array[mid - 1] < valueToFind) {
+                    return mid;
+                }
+                hi = mid - 1;
+            } else {
+                if (mid + 1 <= hi && array[mid + 1] >= valueToFind) {
+                    return mid + 1;
+                }
+                lo = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static int ceiling(final char[] array, final char valueToFind) {
+        return ceiling(array, 0, array.length, valueToFind);
+    }
+
+    public static int ceiling(final char[] array,
+                              final int fromIndex,
+                              final int toIndex,
+                              final char valueToFind) {
+        Validate.notNull(array);
+        Validate.inclusiveBetween(0, array.length - 1, fromIndex);
+        Validate.inclusiveBetween(0, array.length, toIndex);
+        if (fromIndex >= toIndex) {
+            return -1;
+        }
+        int lo = fromIndex;
+        int hi = toIndex - 1;
+        if (valueToFind > array[hi]) {
+            return -1;
+        }
+        if (valueToFind <= array[lo]) {
+            return lo;
+        }
+        while (lo <= hi) {
+            final int mid = (lo + hi) / 2;
+            if (array[mid] == valueToFind) {
+                return mid;
+            } else if (array[mid] > valueToFind) {
+                if (lo <= mid - 1 && array[mid - 1] < valueToFind) {
+                    return mid;
+                }
+                hi = mid - 1;
+            } else {
+                if (mid + 1 <= hi && array[mid + 1] >= valueToFind) {
+                    return mid + 1;
+                }
+                lo = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static int ceiling(final float[] array, final float valueToFind) {
+        return ceiling(array, 0, array.length, valueToFind);
+    }
+
+    public static int ceiling(final float[] array,
+                              final int fromIndex,
+                              final int toIndex,
+                              final float valueToFind) {
+        Validate.notNull(array);
+        Validate.inclusiveBetween(0, array.length - 1, fromIndex);
+        Validate.inclusiveBetween(0, array.length, toIndex);
+        if (fromIndex >= toIndex) {
+            return -1;
+        }
+        int lo = fromIndex;
+        int hi = toIndex - 1;
+        if (valueToFind > array[hi]) {
+            return -1;
+        }
+        if (valueToFind <= array[lo]) {
+            return lo;
+        }
+        while (lo <= hi) {
+            final int mid = (lo + hi) / 2;
+            if (array[mid] == valueToFind) {
+                return mid;
+            } else if (array[mid] > valueToFind) {
+                if (lo <= mid - 1 && array[mid - 1] < valueToFind) {
+                    return mid;
+                }
+                hi = mid - 1;
+            } else {
+                if (mid + 1 <= hi && array[mid + 1] >= valueToFind) {
+                    return mid + 1;
+                }
+                lo = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static int ceiling(final double[] array, final double valueToFind) {
+        return ceiling(array, 0, array.length, valueToFind);
+    }
+
+    public static int ceiling(final double[] array,
+                              final int fromIndex,
+                              final int toIndex,
+                              final double valueToFind) {
+        Validate.notNull(array);
+        Validate.inclusiveBetween(0, array.length - 1, fromIndex);
+        Validate.inclusiveBetween(0, array.length, toIndex);
+        if (fromIndex >= toIndex) {
+            return -1;
+        }
+        int lo = fromIndex;
+        int hi = toIndex - 1;
+        if (valueToFind > array[hi]) {
+            return -1;
+        }
+        if (valueToFind <= array[lo]) {
+            return lo;
+        }
+        while (lo <= hi) {
+            final int mid = (lo + hi) / 2;
+            if (array[mid] == valueToFind) {
+                return mid;
+            } else if (array[mid] > valueToFind) {
+                if (lo <= mid - 1 && array[mid - 1] < valueToFind) {
+                    return mid;
+                }
+                hi = mid - 1;
+            } else {
+                if (mid + 1 <= hi && array[mid + 1] >= valueToFind) {
+                    return mid + 1;
+                }
+                lo = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public static int floor(final Object[] array, final Object valueToFind) {
+        return floor(array, 0, array.length, valueToFind, Comparator.comparing(v -> ((Comparable) v)));
+    }
+
+    public static <T> int floor(final T[] array,
+                                final int fromIndex,
+                                final int toIndex,
+                                final T valueToFind,
+                                final Comparator<T> comparator) {
+        Validate.notNull(array);
+        Validate.notNull(comparator);
+        Validate.inclusiveBetween(0, array.length - 1, fromIndex);
+        Validate.inclusiveBetween(0, array.length, toIndex);
+        if (fromIndex >= toIndex) {
+            return -1;
+        }
+        int lo = fromIndex;
+        int hi = toIndex - 1;
+        if (comparator.compare(array[lo], valueToFind) > 0) {
+            return -1;
+        }
+        if (comparator.compare(array[hi], valueToFind) <= 0) {
+            return hi;
+        }
+        while (lo <= hi) {
+            final int mid = (lo + hi) / 2;
+            final int cmp = comparator.compare(array[mid], valueToFind);
+            if (cmp == 0) {
+                return mid;
+            } else if (cmp > 0) {
+                if (lo <= mid - 1 && comparator.compare(array[mid - 1], valueToFind) <= 0) {
+                    return mid - 1;
+                }
+                hi = mid - 1;
+            } else {
+                if (mid + 1 <= hi && comparator.compare(array[mid + 1], valueToFind) > 0) {
+                    return mid;
+                }
+                lo = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static int floor(final int[] array, final int valueToFind) {
+        return floor(array, 0, array.length, valueToFind);
+    }
+
+    public static int floor(final int[] array,
+                            final int fromIndex,
+                            final int toIndex,
+                            final int valueToFind) {
+        Validate.notNull(array);
+        Validate.inclusiveBetween(0, array.length - 1, fromIndex);
+        Validate.inclusiveBetween(0, array.length, toIndex);
+        if (fromIndex >= toIndex) {
+            return -1;
+        }
+        int lo = fromIndex;
+        int hi = toIndex - 1;
+        if (array[lo] > valueToFind) {
+            return -1;
+        }
+        if (array[hi] <= valueToFind) {
+            return hi;
+        }
+        while (lo <= hi) {
+            final int mid = (lo + hi) / 2;
+            if (array[mid] == valueToFind) {
+                return mid;
+            } else if (array[mid] > valueToFind) {
+                if (lo <= mid - 1 && array[mid - 1] <= valueToFind) {
+                    return mid - 1;
+                }
+                hi = mid - 1;
+            } else {
+                if (mid + 1 <= hi && array[mid + 1] > valueToFind) {
+                    return mid;
+                }
+                lo = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static int floor(final long[] array, final long valueToFind) {
+        return floor(array, 0, array.length, valueToFind);
+    }
+
+    public static int floor(final long[] array,
+                            final int fromIndex,
+                            final int toIndex,
+                            final long valueToFind) {
+        Validate.notNull(array);
+        Validate.inclusiveBetween(0, array.length - 1, fromIndex);
+        Validate.inclusiveBetween(0, array.length, toIndex);
+        if (fromIndex >= toIndex) {
+            return -1;
+        }
+        int lo = fromIndex;
+        int hi = toIndex - 1;
+        if (array[lo] > valueToFind) {
+            return -1;
+        }
+        if (array[hi] <= valueToFind) {
+            return hi;
+        }
+        while (lo <= hi) {
+            final int mid = (lo + hi) / 2;
+            if (array[mid] == valueToFind) {
+                return mid;
+            } else if (array[mid] > valueToFind) {
+                if (lo <= mid - 1 && array[mid - 1] <= valueToFind) {
+                    return mid - 1;
+                }
+                hi = mid - 1;
+            } else {
+                if (mid + 1 <= hi && array[mid + 1] > valueToFind) {
+                    return mid;
+                }
+                lo = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static int floor(final float[] array, final float valueToFind) {
+        return floor(array, 0, array.length, valueToFind);
+    }
+
+    public static int floor(final float[] array,
+                            final int fromIndex,
+                            final int toIndex,
+                            final float valueToFind) {
+        Validate.notNull(array);
+        Validate.inclusiveBetween(0, array.length - 1, fromIndex);
+        Validate.inclusiveBetween(0, array.length, toIndex);
+        if (fromIndex >= toIndex) {
+            return -1;
+        }
+        int lo = fromIndex;
+        int hi = toIndex - 1;
+        if (array[lo] > valueToFind) {
+            return -1;
+        }
+        if (array[hi] <= valueToFind) {
+            return hi;
+        }
+        while (lo <= hi) {
+            final int mid = (lo + hi) / 2;
+            if (array[mid] == valueToFind) {
+                return mid;
+            } else if (array[mid] > valueToFind) {
+                if (lo <= mid - 1 && array[mid - 1] <= valueToFind) {
+                    return mid - 1;
+                }
+                hi = mid - 1;
+            } else {
+                if (mid + 1 <= hi && array[mid + 1] > valueToFind) {
+                    return mid;
+                }
+                lo = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static int floor(final double[] array, final double valueToFind) {
+        return floor(array, 0, array.length, valueToFind);
+    }
+
+    public static int floor(final double[] array,
+                            final int fromIndex,
+                            final int toIndex,
+                            final double valueToFind) {
+        Validate.notNull(array);
+        Validate.inclusiveBetween(0, array.length - 1, fromIndex);
+        Validate.inclusiveBetween(0, array.length, toIndex);
+        if (fromIndex >= toIndex) {
+            return -1;
+        }
+        int lo = fromIndex;
+        int hi = toIndex - 1;
+        if (array[lo] > valueToFind) {
+            return -1;
+        }
+        if (array[hi] <= valueToFind) {
+            return hi;
+        }
+        while (lo <= hi) {
+            final int mid = (lo + hi) / 2;
+            if (array[mid] == valueToFind) {
+                return mid;
+            } else if (array[mid] > valueToFind) {
+                if (lo <= mid - 1 && array[mid - 1] <= valueToFind) {
+                    return mid - 1;
+                }
+                hi = mid - 1;
+            } else {
+                if (mid + 1 <= hi && array[mid + 1] > valueToFind) {
+                    return mid;
+                }
+                lo = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static int floor(final short[] array, final short valueToFind) {
+        return floor(array, 0, array.length, valueToFind);
+    }
+
+    public static int floor(final short[] array,
+                            final int fromIndex,
+                            final int toIndex,
+                            final short valueToFind) {
+        Validate.notNull(array);
+        Validate.inclusiveBetween(0, array.length - 1, fromIndex);
+        Validate.inclusiveBetween(0, array.length, toIndex);
+        if (fromIndex >= toIndex) {
+            return -1;
+        }
+        int lo = fromIndex;
+        int hi = toIndex - 1;
+        if (array[lo] > valueToFind) {
+            return -1;
+        }
+        if (array[hi] <= valueToFind) {
+            return hi;
+        }
+        while (lo <= hi) {
+            final int mid = (lo + hi) / 2;
+            if (array[mid] == valueToFind) {
+                return mid;
+            } else if (array[mid] > valueToFind) {
+                if (lo <= mid - 1 && array[mid - 1] <= valueToFind) {
+                    return mid - 1;
+                }
+                hi = mid - 1;
+            } else {
+                if (mid + 1 <= hi && array[mid + 1] > valueToFind) {
+                    return mid;
+                }
+                lo = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static int floor(final byte[] array, final byte valueToFind) {
+        return floor(array, 0, array.length, valueToFind);
+    }
+
+    public static int floor(final byte[] array,
+                            final int fromIndex,
+                            final int toIndex,
+                            final byte valueToFind) {
+        Validate.notNull(array);
+        Validate.inclusiveBetween(0, array.length - 1, fromIndex);
+        Validate.inclusiveBetween(0, array.length, toIndex);
+        if (fromIndex >= toIndex) {
+            return -1;
+        }
+        int lo = fromIndex;
+        int hi = toIndex - 1;
+        if (array[lo] > valueToFind) {
+            return -1;
+        }
+        if (array[hi] <= valueToFind) {
+            return hi;
+        }
+        while (lo <= hi) {
+            final int mid = (lo + hi) / 2;
+            if (array[mid] == valueToFind) {
+                return mid;
+            } else if (array[mid] > valueToFind) {
+                if (lo <= mid - 1 && array[mid - 1] <= valueToFind) {
+                    return mid - 1;
+                }
+                hi = mid - 1;
+            } else {
+                if (mid + 1 <= hi && array[mid + 1] > valueToFind) {
+                    return mid;
+                }
+                lo = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static int floor(final char[] array, final char valueToFind) {
+        return floor(array, 0, array.length, valueToFind);
+    }
+
+    public static int floor(final char[] array,
+                            final int fromIndex,
+                            final int toIndex,
+                            final char valueToFind) {
+        Validate.notNull(array);
+        Validate.inclusiveBetween(0, array.length - 1, fromIndex);
+        Validate.inclusiveBetween(0, array.length, toIndex);
+        if (fromIndex >= toIndex) {
+            return -1;
+        }
+        int lo = fromIndex;
+        int hi = toIndex - 1;
+        if (array[lo] > valueToFind) {
+            return -1;
+        }
+        if (array[hi] <= valueToFind) {
+            return hi;
+        }
+        while (lo <= hi) {
+            final int mid = (lo + hi) / 2;
+            if (array[mid] == valueToFind) {
+                return mid;
+            } else if (array[mid] > valueToFind) {
+                if (lo <= mid - 1 && array[mid - 1] <= valueToFind) {
+                    return mid - 1;
+                }
+                hi = mid - 1;
+            } else {
+                if (mid + 1 <= hi && array[mid + 1] > valueToFind) {
+                    return mid;
+                }
+                lo = mid + 1;
+            }
+        }
+        return -1;
+    }
+
     /**
      * Returns a copy of the given array of size 1 greater than the argument.
      * The last value of the array is left to the default value.
