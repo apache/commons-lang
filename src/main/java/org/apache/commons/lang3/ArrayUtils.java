@@ -1666,33 +1666,75 @@ public class ArrayUtils {
         return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
     }
 
+    /**
+     * Searches the specified array for the ceiling of the specified object using binary search algorithm.
+     * The ceiling of a comparable object is the least element in the array that is greater than or equal to the object.
+     * The input array must be sorted in ascending order according to the {@linkplain Comparable natural ordering}
+     * of its element.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     *
+     * @param array The sorted array to be searched
+     * @param valueToFind A comparable object for which we want to find a ceiling
+     * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found.
+     * @throws ClassCastException If the array elements or <code>valueToFind</code> is not comparable
+     * @throws NullPointerException If <code>array</code> is null or comparing null values is not allowed
+     */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public static int ceiling(final Object[] array, final Object valueToFind) {
         return ceiling(array, 0, array.length, valueToFind, Comparator.comparing(v -> ((Comparable) v)));
     }
 
+    /**
+     * Searches the specified array for the ceiling of the specified object using binary search algorithm within
+     * a specified range.
+     * The ceiling of a comparable object is the least element within the range that is greater than or equal to
+     * the object.
+     * The input array must be sorted in ascending order according to the {@linkplain Comparable natural ordering}
+     * of its element within the specified range (other array elements are not checked).
+     * Passing an array that is unsorted within the specified range (or an array that is sorted in descending order
+     * within that range) will lead to undefined behavior.
+     * The range is exclusive from the right end.
+     *
+     * @param <T> the class of the objects in the array
+     * @param array The sorted array to be searched
+     * @param fromIndex The index of the first element (inclusive) to be searched
+     * @param toIndex The index of the last element (exclusive) to be searched
+     * @param valueToFind A comparable object for which we want to find a ceiling
+     * @param comparator The comparator by which the array is ordered.
+     *                   A {@code null} value indicates that the elements' {@linkplain Comparable natural ordering}
+     *                   should be used.
+     * @return The index of the ceiling if it is found; -1 will be returned if no ceiling was found within the
+     *         specified range.
+     * @throws ClassCastException If the array elements or <code>valueToFind</code> is not comparable
+     * @throws NullPointerException If <code>array</code> is null or comparing null values is not allowed
+     * @throws IllegalArgumentException If any of the indices are out of bound
+     */
     public static <T> int ceiling(final T[] array,
                                   final int fromIndex,
                                   final int toIndex,
                                   final T valueToFind,
                                   final Comparator<T> comparator) {
+        if (comparator == null) {
+            return ceiling(array, fromIndex, toIndex, valueToFind,
+                    (v1, v2) -> ((Comparable) v1).compareTo((Comparable) v2));
+        }
         Validate.notNull(array);
-        Validate.notNull(comparator);
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         int lo = fromIndex;
         int hi = toIndex - 1;
         if (comparator.compare(valueToFind, array[hi]) > 0) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (comparator.compare(valueToFind, array[lo]) <= 0) {
             return lo;
         }
         while (lo <= hi) {
-            final int mid = (lo + hi) / 2;
+            final int mid = (lo + hi) >>> 1;
             final int cmp = comparator.compare(array[mid], valueToFind);
             if (cmp == 0) {
                 return mid;
@@ -1708,13 +1750,45 @@ public class ArrayUtils {
                 lo = mid + 1;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
+    /**
+     * Searches the specified array for the ceiling of the specified <code>int</code> value using binary search
+     * algorithm.
+     * The ceiling of an <code>int</code> value is the least element in the array that is greater than or equal to
+     * the value.
+     * The input array must be sorted in ascending order.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     *
+     * @param array The sorted array to be searched
+     * @param valueToFind The <code>int</code> value for which we want to find a ceiling
+     * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found.
+     * @throws NullPointerException If <code>array</code> is null
+     */
     public static int ceiling(final int[] array, final int valueToFind) {
         return ceiling(array, 0, array.length, valueToFind);
     }
 
+    /**
+     * Searches the specified array for the ceiling of the specified <code>int</code> value using binary search
+     * algorithm within the specified range.
+     * The ceiling of an <code>int</code> value within a range is the least element within the range that is greater
+     * than or equal to the value.
+     * The input array must be sorted in ascending order within the specified range.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     * The range is exclusive from the right end.
+     *
+     * @param array The sorted array to be searched
+     * @param fromIndex The index of the first element (inclusive) to be searched
+     * @param toIndex The index of the last element (exclusive) to be searched
+     * @param valueToFind The <code>int</code> value for which we want to find a ceiling
+     * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found within the range.
+     * @throws NullPointerException If <code>array</code> is null
+     * @throws IllegalArgumentException If any of the indices are out of bound
+     */
     public static int ceiling(final int[] array,
                               final int fromIndex,
                               final int toIndex,
@@ -1723,18 +1797,18 @@ public class ArrayUtils {
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         int lo = fromIndex;
         int hi = toIndex - 1;
         if (valueToFind > array[hi]) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (valueToFind <= array[lo]) {
             return lo;
         }
         while (lo <= hi) {
-            final int mid = (lo + hi) / 2;
+            final int mid = (lo + hi) >>> 1;
             if (array[mid] == valueToFind) {
                 return mid;
             } else if (array[mid] > valueToFind) {
@@ -1749,13 +1823,45 @@ public class ArrayUtils {
                 lo = mid + 1;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
+    /**
+     * Searches the specified array for the ceiling of the specified <code>long</code> value using binary search
+     * algorithm.
+     * The ceiling of an <code>long</code> value is the least element in the array that is greater than or equal to
+     * the value.
+     * The input array must be sorted in ascending order.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     *
+     * @param array The sorted array to be searched
+     * @param valueToFind The <code>long</code> value for which we want to find a ceiling
+     * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found.
+     * @throws NullPointerException If <code>array</code> is null
+     */
     public static int ceiling(final long[] array, final long valueToFind) {
         return ceiling(array, 0, array.length, valueToFind);
     }
 
+    /**
+     * Searches the specified array for the ceiling of the specified <code>long</code> value using binary search
+     * algorithm within the specified range.
+     * The ceiling of an <code>long</code> value within a range is the least element within the range that is greater
+     * than or equal to the value.
+     * The input array must be sorted in ascending order within the specified range.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     * The range is exclusive from the right end.
+     *
+     * @param array The sorted array to be searched
+     * @param fromIndex The index of the first element (inclusive) to be searched
+     * @param toIndex The index of the last element (exclusive) to be searched
+     * @param valueToFind The <code>long</code> value for which we want to find a ceiling
+     * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found within the range.
+     * @throws NullPointerException If <code>array</code> is null
+     * @throws IllegalArgumentException If any of the indices are out of bound
+     */
     public static int ceiling(final long[] array,
                               final int fromIndex,
                               final int toIndex,
@@ -1764,18 +1870,18 @@ public class ArrayUtils {
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         int lo = fromIndex;
         int hi = toIndex - 1;
         if (valueToFind > array[hi]) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (valueToFind <= array[lo]) {
             return lo;
         }
         while (lo <= hi) {
-            final int mid = (lo + hi) / 2;
+            final int mid = (lo + hi) >>> 1;
             if (array[mid] == valueToFind) {
                 return mid;
             } else if (array[mid] > valueToFind) {
@@ -1790,13 +1896,45 @@ public class ArrayUtils {
                 lo = mid + 1;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
+    /**
+     * Searches the specified array for the ceiling of the specified <code>short</code> value using binary search
+     * algorithm.
+     * The ceiling of an <code>short</code> value is the least element in the array that is greater than or equal to
+     * the value.
+     * The input array must be sorted in ascending order.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     *
+     * @param array The sorted array to be searched
+     * @param valueToFind The <code>short</code> value for which we want to find a ceiling
+     * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found.
+     * @throws NullPointerException If <code>array</code> is null
+     */
     public static int ceiling(final short[] array, final short valueToFind) {
         return ceiling(array, 0, array.length, valueToFind);
     }
 
+    /**
+     * Searches the specified array for the ceiling of the specified <code>short</code> value using binary search
+     * algorithm within the specified range.
+     * The ceiling of an <code>short</code> value within a range is the least element within the range that is greater
+     * than or equal to the value.
+     * The input array must be sorted in ascending order within the specified range.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     * The range is exclusive from the right end.
+     *
+     * @param array The sorted array to be searched
+     * @param fromIndex The index of the first element (inclusive) to be searched
+     * @param toIndex The index of the last element (exclusive) to be searched
+     * @param valueToFind The <code>short</code> value for which we want to find a ceiling
+     * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found within the range.
+     * @throws NullPointerException If <code>array</code> is null
+     * @throws IllegalArgumentException If any of the indices are out of bound
+     */
     public static int ceiling(final short[] array,
                               final int fromIndex,
                               final int toIndex,
@@ -1805,18 +1943,18 @@ public class ArrayUtils {
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         int lo = fromIndex;
         int hi = toIndex - 1;
         if (valueToFind > array[hi]) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (valueToFind <= array[lo]) {
             return lo;
         }
         while (lo <= hi) {
-            final int mid = (lo + hi) / 2;
+            final int mid = (lo + hi) >>> 1;
             if (array[mid] == valueToFind) {
                 return mid;
             } else if (array[mid] > valueToFind) {
@@ -1831,13 +1969,45 @@ public class ArrayUtils {
                 lo = mid + 1;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
+    /**
+     * Searches the specified array for the ceiling of the specified <code>byte</code> value using binary search
+     * algorithm.
+     * The ceiling of an <code>byte</code> value is the least element in the array that is greater than or equal to
+     * the value.
+     * The input array must be sorted in ascending order.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     *
+     * @param array The sorted array to be searched
+     * @param valueToFind The <code>byte</code> value for which we want to find a ceiling
+     * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found.
+     * @throws NullPointerException If <code>array</code> is null
+     */
     public static int ceiling(final byte[] array, final byte valueToFind) {
         return ceiling(array, 0, array.length, valueToFind);
     }
 
+    /**
+     * Searches the specified array for the ceiling of the specified <code>byte</code> value using binary search
+     * algorithm within the specified range.
+     * The ceiling of an <code>byte</code> value within a range is the least element within the range that is greater
+     * than or equal to the value.
+     * The input array must be sorted in ascending order within the specified range.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     * The range is exclusive from the right end.
+     *
+     * @param array The sorted array to be searched
+     * @param fromIndex The index of the first element (inclusive) to be searched
+     * @param toIndex The index of the last element (exclusive) to be searched
+     * @param valueToFind The <code>byte</code> value for which we want to find a ceiling
+     * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found within the range.
+     * @throws NullPointerException If <code>array</code> is null
+     * @throws IllegalArgumentException If any of the indices are out of bound
+     */
     public static int ceiling(final byte[] array,
                               final int fromIndex,
                               final int toIndex,
@@ -1846,18 +2016,18 @@ public class ArrayUtils {
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         int lo = fromIndex;
         int hi = toIndex - 1;
         if (valueToFind > array[hi]) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (valueToFind <= array[lo]) {
             return lo;
         }
         while (lo <= hi) {
-            final int mid = (lo + hi) / 2;
+            final int mid = (lo + hi) >>> 1;
             if (array[mid] == valueToFind) {
                 return mid;
             } else if (array[mid] > valueToFind) {
@@ -1872,13 +2042,45 @@ public class ArrayUtils {
                 lo = mid + 1;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
+    /**
+     * Searches the specified array for the ceiling of the specified <code>char</code> value using binary search
+     * algorithm.
+     * The ceiling of an <code>char</code> value is the least element in the array that is greater than or equal to
+     * the value.
+     * The input array must be sorted in ascending order.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     *
+     * @param array The sorted array to be searched
+     * @param valueToFind The <code>char</code> value for which we want to find a ceiling
+     * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found.
+     * @throws NullPointerException If <code>array</code> is null
+     */
     public static int ceiling(final char[] array, final char valueToFind) {
         return ceiling(array, 0, array.length, valueToFind);
     }
 
+    /**
+     * Searches the specified array for the ceiling of the specified <code>char</code> value using binary search
+     * algorithm within the specified range.
+     * The ceiling of an <code>char</code> value within a range is the least element within the range that is greater
+     * than or equal to the value.
+     * The input array must be sorted in ascending order within the specified range.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     * The range is exclusive from the right end.
+     *
+     * @param array The sorted array to be searched
+     * @param fromIndex The index of the first element (inclusive) to be searched
+     * @param toIndex The index of the last element (exclusive) to be searched
+     * @param valueToFind The <code>char</code> value for which we want to find a ceiling
+     * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found within the range.
+     * @throws NullPointerException If <code>array</code> is null
+     * @throws IllegalArgumentException If any of the indices are out of bound
+     */
     public static int ceiling(final char[] array,
                               final int fromIndex,
                               final int toIndex,
@@ -1887,18 +2089,18 @@ public class ArrayUtils {
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         int lo = fromIndex;
         int hi = toIndex - 1;
         if (valueToFind > array[hi]) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (valueToFind <= array[lo]) {
             return lo;
         }
         while (lo <= hi) {
-            final int mid = (lo + hi) / 2;
+            final int mid = (lo + hi) >>> 1;
             if (array[mid] == valueToFind) {
                 return mid;
             } else if (array[mid] > valueToFind) {
@@ -1913,13 +2115,45 @@ public class ArrayUtils {
                 lo = mid + 1;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
+    /**
+     * Searches the specified array for the ceiling of the specified <code>float</code> value using binary search
+     * algorithm.
+     * The ceiling of an <code>float</code> value is the least element in the array that is greater than or equal to
+     * the value.
+     * The input array must be sorted in ascending order.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     *
+     * @param array The sorted array to be searched
+     * @param valueToFind The <code>float</code> value for which we want to find a ceiling
+     * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found.
+     * @throws NullPointerException If <code>array</code> is null
+     */
     public static int ceiling(final float[] array, final float valueToFind) {
         return ceiling(array, 0, array.length, valueToFind);
     }
 
+    /**
+     * Searches the specified array for the ceiling of the specified <code>float</code> value using binary search
+     * algorithm within the specified range.
+     * The ceiling of an <code>float</code> value within a range is the least element within the range that is greater
+     * than or equal to the value.
+     * The input array must be sorted in ascending order within the specified range.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     * The range is exclusive from the right end.
+     *
+     * @param array The sorted array to be searched
+     * @param fromIndex The index of the first element (inclusive) to be searched
+     * @param toIndex The index of the last element (exclusive) to be searched
+     * @param valueToFind The <code>float</code> value for which we want to find a ceiling
+     * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found within the range.
+     * @throws NullPointerException If <code>array</code> is null
+     * @throws IllegalArgumentException If any of the indices are out of bound
+     */
     public static int ceiling(final float[] array,
                               final int fromIndex,
                               final int toIndex,
@@ -1928,18 +2162,18 @@ public class ArrayUtils {
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         int lo = fromIndex;
         int hi = toIndex - 1;
         if (valueToFind > array[hi]) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (valueToFind <= array[lo]) {
             return lo;
         }
         while (lo <= hi) {
-            final int mid = (lo + hi) / 2;
+            final int mid = (lo + hi) >>> 1;
             if (array[mid] == valueToFind) {
                 return mid;
             } else if (array[mid] > valueToFind) {
@@ -1954,13 +2188,45 @@ public class ArrayUtils {
                 lo = mid + 1;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
+    /**
+     * Searches the specified array for the ceiling of the specified <code>double</code> value using binary search
+     * algorithm.
+     * The ceiling of an <code>double</code> value is the least element in the array that is greater than or equal to
+     * the value.
+     * The input array must be sorted in ascending order.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     *
+     * @param array The sorted array to be searched
+     * @param valueToFind The <code>double</code> value for which we want to find a ceiling
+     * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found.
+     * @throws NullPointerException If <code>array</code> is null
+     */
     public static int ceiling(final double[] array, final double valueToFind) {
         return ceiling(array, 0, array.length, valueToFind);
     }
 
+    /**
+     * Searches the specified array for the ceiling of the specified <code>double</code> value using binary search
+     * algorithm within the specified range.
+     * The ceiling of an <code>double</code> value within a range is the least element within the range that is greater
+     * than or equal to the value.
+     * The input array must be sorted in ascending order within the specified range.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     * The range is exclusive from the right end.
+     *
+     * @param array The sorted array to be searched
+     * @param fromIndex The index of the first element (inclusive) to be searched
+     * @param toIndex The index of the last element (exclusive) to be searched
+     * @param valueToFind The <code>double</code> value for which we want to find a ceiling
+     * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found within the range.
+     * @throws NullPointerException If <code>array</code> is null
+     * @throws IllegalArgumentException If any of the indices are out of bound
+     */
     public static int ceiling(final double[] array,
                               final int fromIndex,
                               final int toIndex,
@@ -1969,18 +2235,18 @@ public class ArrayUtils {
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         int lo = fromIndex;
         int hi = toIndex - 1;
         if (valueToFind > array[hi]) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (valueToFind <= array[lo]) {
             return lo;
         }
         while (lo <= hi) {
-            final int mid = (lo + hi) / 2;
+            final int mid = (lo + hi) >>> 1;
             if (array[mid] == valueToFind) {
                 return mid;
             } else if (array[mid] > valueToFind) {
@@ -1995,36 +2261,78 @@ public class ArrayUtils {
                 lo = mid + 1;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
+    /**
+     * Searches the specified array for the floor of the specified object using binary search algorithm.
+     * The floor of a comparable object is the greatest element in the array that is less than or equal to the object.
+     * The input array must be sorted in ascending order according to the {@linkplain Comparable natural ordering}
+     * of its element.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     *
+     * @param array The sorted array to be searched
+     * @param valueToFind A comparable object for which we want to find a floor
+     * @return The index of the floor if it is found. -1 will be returned if no floor was found.
+     * @throws ClassCastException If the array elements or <code>valueToFind</code> is not comparable
+     * @throws NullPointerException If <code>array</code> is null or comparing null values is not allowed
+     */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public static int floor(final Object[] array, final Object valueToFind) {
         return floor(array, 0, array.length, valueToFind, Comparator.comparing(v -> ((Comparable) v)));
     }
 
+    /**
+     * Searches the specified array for the floor of the specified object using binary search algorithm within
+     * a specified range.
+     * The floor of a comparable object is the greatest element within the range that is less than or equal to
+     * the object.
+     * The input array must be sorted in ascending order according to the {@linkplain Comparable natural ordering}
+     * of its element within the specified range (other array elements are not checked).
+     * Passing an array that is unsorted within the specified range (or an array that is sorted in descending order
+     * within that range) will lead to undefined behavior.
+     * The range is exclusive from the right end.
+     *
+     * @param <T> the class of the objects in the array
+     * @param array The sorted array to be searched
+     * @param fromIndex The index of the first element (inclusive) to be searched
+     * @param toIndex The index of the last element (exclusive) to be searched
+     * @param valueToFind A comparable object for which we want to find a floor
+     * @param comparator The comparator by which the array is ordered.
+     *                   A {@code null} value indicates that the elements' {@linkplain Comparable natural ordering}
+     *                   should be used.
+     * @return The index of the floor if it is found; -1 will be returned if no floor was found within the
+     *         specified range.
+     * @throws ClassCastException If the array elements or <code>valueToFind</code> is not comparable
+     * @throws NullPointerException If <code>array</code> is null or comparing null values is not allowed
+     * @throws IllegalArgumentException If any of the indices are out of bound
+     */
     public static <T> int floor(final T[] array,
                                 final int fromIndex,
                                 final int toIndex,
                                 final T valueToFind,
                                 final Comparator<T> comparator) {
+        if (comparator == null) {
+            return ceiling(array, fromIndex, toIndex, valueToFind,
+                    (v1, v2) -> ((Comparable) v1).compareTo((Comparable) v2));
+        }
         Validate.notNull(array);
-        Validate.notNull(comparator);
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         int lo = fromIndex;
         int hi = toIndex - 1;
         if (comparator.compare(array[lo], valueToFind) > 0) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (comparator.compare(array[hi], valueToFind) <= 0) {
             return hi;
         }
         while (lo <= hi) {
-            final int mid = (lo + hi) / 2;
+            final int mid = (lo + hi) >>> 1;
             final int cmp = comparator.compare(array[mid], valueToFind);
             if (cmp == 0) {
                 return mid;
@@ -2040,13 +2348,45 @@ public class ArrayUtils {
                 lo = mid + 1;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
+    /**
+     * Searches the specified array for the floor of the specified <code>int</code> value using binary search
+     * algorithm.
+     * The floor of an <code>int</code> value is the greatest element in the array that is smaller than or equal to
+     * the value.
+     * The input array must be sorted in ascending order.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     *
+     * @param array The sorted array to be searched
+     * @param valueToFind The <code>int</code> value for which we want to find a floor
+     * @return The index of the floor if it is found. -1 will be returned if no floor was found.
+     * @throws NullPointerException If <code>array</code> is null
+     */
     public static int floor(final int[] array, final int valueToFind) {
         return floor(array, 0, array.length, valueToFind);
     }
 
+    /**
+     * Searches the specified array for the floor of the specified <code>int</code> value using binary search
+     * algorithm within the specified range.
+     * The floor of an <code>int</code> value within a range is the greatest element within the range that is smaller
+     * than or equal to the value.
+     * The input array must be sorted in ascending order within the specified range.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     * The range is exclusive from the right end.
+     *
+     * @param array The sorted array to be searched
+     * @param fromIndex The index of the first element (inclusive) to be searched
+     * @param toIndex The index of the last element (exclusive) to be searched
+     * @param valueToFind The <code>int</code> value for which we want to find a floor
+     * @return The index of the floor if it is found. -1 will be returned if no floor was found within the range.
+     * @throws NullPointerException If <code>array</code> is null
+     * @throws IllegalArgumentException If any of the indices are out of bound
+     */
     public static int floor(final int[] array,
                             final int fromIndex,
                             final int toIndex,
@@ -2055,18 +2395,18 @@ public class ArrayUtils {
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         int lo = fromIndex;
         int hi = toIndex - 1;
         if (array[lo] > valueToFind) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (array[hi] <= valueToFind) {
             return hi;
         }
         while (lo <= hi) {
-            final int mid = (lo + hi) / 2;
+            final int mid = (lo + hi) >>> 1;
             if (array[mid] == valueToFind) {
                 return mid;
             } else if (array[mid] > valueToFind) {
@@ -2081,13 +2421,45 @@ public class ArrayUtils {
                 lo = mid + 1;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
+    /**
+     * Searches the specified array for the floor of the specified <code>long</code> value using binary search
+     * algorithm.
+     * The floor of an <code>long</code> value is the greatest element in the array that is smaller than or equal to
+     * the value.
+     * The input array must be sorted in ascending order.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     *
+     * @param array The sorted array to be searched
+     * @param valueToFind The <code>long</code> value for which we want to find a floor
+     * @return The index of the floor if it is found. -1 will be returned if no floor was found.
+     * @throws NullPointerException If <code>array</code> is null
+     */
     public static int floor(final long[] array, final long valueToFind) {
         return floor(array, 0, array.length, valueToFind);
     }
 
+    /**
+     * Searches the specified array for the floor of the specified <code>long</code> value using binary search
+     * algorithm within the specified range.
+     * The floor of an <code>long</code> value within a range is the greatest element within the range that is smaller
+     * than or equal to the value.
+     * The input array must be sorted in ascending order within the specified range.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     * The range is exclusive from the right end.
+     *
+     * @param array The sorted array to be searched
+     * @param fromIndex The index of the first element (inclusive) to be searched
+     * @param toIndex The index of the last element (exclusive) to be searched
+     * @param valueToFind The <code>long</code> value for which we want to find a floor
+     * @return The index of the floor if it is found. -1 will be returned if no floor was found within the range.
+     * @throws NullPointerException If <code>array</code> is null
+     * @throws IllegalArgumentException If any of the indices are out of bound
+     */
     public static int floor(final long[] array,
                             final int fromIndex,
                             final int toIndex,
@@ -2096,18 +2468,18 @@ public class ArrayUtils {
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         int lo = fromIndex;
         int hi = toIndex - 1;
         if (array[lo] > valueToFind) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (array[hi] <= valueToFind) {
             return hi;
         }
         while (lo <= hi) {
-            final int mid = (lo + hi) / 2;
+            final int mid = (lo + hi) >>> 1;
             if (array[mid] == valueToFind) {
                 return mid;
             } else if (array[mid] > valueToFind) {
@@ -2122,13 +2494,45 @@ public class ArrayUtils {
                 lo = mid + 1;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
+    /**
+     * Searches the specified array for the floor of the specified <code>float</code> value using binary search
+     * algorithm.
+     * The floor of an <code>float</code> value is the greatest element in the array that is smaller than or equal to
+     * the value.
+     * The input array must be sorted in ascending order.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     *
+     * @param array The sorted array to be searched
+     * @param valueToFind The <code>float</code> value for which we want to find a floor
+     * @return The index of the floor if it is found. -1 will be returned if no floor was found.
+     * @throws NullPointerException If <code>array</code> is null
+     */
     public static int floor(final float[] array, final float valueToFind) {
         return floor(array, 0, array.length, valueToFind);
     }
 
+    /**
+     * Searches the specified array for the floor of the specified <code>float</code> value using binary search
+     * algorithm within the specified range.
+     * The floor of an <code>float</code> value within a range is the greatest element within the range that is smaller
+     * than or equal to the value.
+     * The input array must be sorted in ascending order within the specified range.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     * The range is exclusive from the right end.
+     *
+     * @param array The sorted array to be searched
+     * @param fromIndex The index of the first element (inclusive) to be searched
+     * @param toIndex The index of the last element (exclusive) to be searched
+     * @param valueToFind The <code>float</code> value for which we want to find a floor
+     * @return The index of the floor if it is found. -1 will be returned if no floor was found within the range.
+     * @throws NullPointerException If <code>array</code> is null
+     * @throws IllegalArgumentException If any of the indices are out of bound
+     */
     public static int floor(final float[] array,
                             final int fromIndex,
                             final int toIndex,
@@ -2137,18 +2541,18 @@ public class ArrayUtils {
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         int lo = fromIndex;
         int hi = toIndex - 1;
         if (array[lo] > valueToFind) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (array[hi] <= valueToFind) {
             return hi;
         }
         while (lo <= hi) {
-            final int mid = (lo + hi) / 2;
+            final int mid = (lo + hi) >>> 1;
             if (array[mid] == valueToFind) {
                 return mid;
             } else if (array[mid] > valueToFind) {
@@ -2163,13 +2567,45 @@ public class ArrayUtils {
                 lo = mid + 1;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
+    /**
+     * Searches the specified array for the floor of the specified <code>double</code> value using binary search
+     * algorithm.
+     * The floor of an <code>double</code> value is the greatest element in the array that is smaller than or equal to
+     * the value.
+     * The input array must be sorted in ascending order.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     *
+     * @param array The sorted array to be searched
+     * @param valueToFind The <code>double</code> value for which we want to find a floor
+     * @return The index of the floor if it is found. -1 will be returned if no floor was found.
+     * @throws NullPointerException If <code>array</code> is null
+     */
     public static int floor(final double[] array, final double valueToFind) {
         return floor(array, 0, array.length, valueToFind);
     }
 
+    /**
+     * Searches the specified array for the floor of the specified <code>double</code> value using binary search
+     * algorithm within the specified range.
+     * The floor of an <code>double</code> value within a range is the greatest element within the range that is smaller
+     * than or equal to the value.
+     * The input array must be sorted in ascending order within the specified range.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     * The range is exclusive from the right end.
+     *
+     * @param array The sorted array to be searched
+     * @param fromIndex The index of the first element (inclusive) to be searched
+     * @param toIndex The index of the last element (exclusive) to be searched
+     * @param valueToFind The <code>double</code> value for which we want to find a floor
+     * @return The index of the floor if it is found. -1 will be returned if no floor was found within the range.
+     * @throws NullPointerException If <code>array</code> is null
+     * @throws IllegalArgumentException If any of the indices are out of bound
+     */
     public static int floor(final double[] array,
                             final int fromIndex,
                             final int toIndex,
@@ -2178,18 +2614,18 @@ public class ArrayUtils {
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         int lo = fromIndex;
         int hi = toIndex - 1;
         if (array[lo] > valueToFind) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (array[hi] <= valueToFind) {
             return hi;
         }
         while (lo <= hi) {
-            final int mid = (lo + hi) / 2;
+            final int mid = (lo + hi) >>> 1;
             if (array[mid] == valueToFind) {
                 return mid;
             } else if (array[mid] > valueToFind) {
@@ -2204,13 +2640,45 @@ public class ArrayUtils {
                 lo = mid + 1;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
+    /**
+     * Searches the specified array for the floor of the specified <code>short</code> value using binary search
+     * algorithm.
+     * The floor of an <code>short</code> value is the greatest element in the array that is smaller than or equal to
+     * the value.
+     * The input array must be sorted in ascending order.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     *
+     * @param array The sorted array to be searched
+     * @param valueToFind The <code>short</code> value for which we want to find a floor
+     * @return The index of the floor if it is found. -1 will be returned if no floor was found.
+     * @throws NullPointerException If <code>array</code> is null
+     */
     public static int floor(final short[] array, final short valueToFind) {
         return floor(array, 0, array.length, valueToFind);
     }
 
+    /**
+     * Searches the specified array for the floor of the specified <code>short</code> value using binary search
+     * algorithm within the specified range.
+     * The floor of an <code>short</code> value within a range is the greatest element within the range that is smaller
+     * than or equal to the value.
+     * The input array must be sorted in ascending order within the specified range.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     * The range is exclusive from the right end.
+     *
+     * @param array The sorted array to be searched
+     * @param fromIndex The index of the first element (inclusive) to be searched
+     * @param toIndex The index of the last element (exclusive) to be searched
+     * @param valueToFind The <code>short</code> value for which we want to find a floor
+     * @return The index of the floor if it is found. -1 will be returned if no floor was found within the range.
+     * @throws NullPointerException If <code>array</code> is null
+     * @throws IllegalArgumentException If any of the indices are out of bound
+     */
     public static int floor(final short[] array,
                             final int fromIndex,
                             final int toIndex,
@@ -2219,18 +2687,18 @@ public class ArrayUtils {
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         int lo = fromIndex;
         int hi = toIndex - 1;
         if (array[lo] > valueToFind) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (array[hi] <= valueToFind) {
             return hi;
         }
         while (lo <= hi) {
-            final int mid = (lo + hi) / 2;
+            final int mid = (lo + hi) >>> 1;
             if (array[mid] == valueToFind) {
                 return mid;
             } else if (array[mid] > valueToFind) {
@@ -2245,13 +2713,45 @@ public class ArrayUtils {
                 lo = mid + 1;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
+    /**
+     * Searches the specified array for the floor of the specified <code>byte</code> value using binary search
+     * algorithm.
+     * The floor of an <code>byte</code> value is the greatest element in the array that is smaller than or equal to
+     * the value.
+     * The input array must be sorted in ascending order.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     *
+     * @param array The sorted array to be searched
+     * @param valueToFind The <code>byte</code> value for which we want to find a floor
+     * @return The index of the floor if it is found. -1 will be returned if no floor was found.
+     * @throws NullPointerException If <code>array</code> is null
+     */
     public static int floor(final byte[] array, final byte valueToFind) {
         return floor(array, 0, array.length, valueToFind);
     }
 
+    /**
+     * Searches the specified array for the floor of the specified <code>byte</code> value using binary search
+     * algorithm within the specified range.
+     * The floor of an <code>byte</code> value within a range is the greatest element within the range that is smaller
+     * than or equal to the value.
+     * The input array must be sorted in ascending order within the specified range.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     * The range is exclusive from the right end.
+     *
+     * @param array The sorted array to be searched
+     * @param fromIndex The index of the first element (inclusive) to be searched
+     * @param toIndex The index of the last element (exclusive) to be searched
+     * @param valueToFind The <code>byte</code> value for which we want to find a floor
+     * @return The index of the floor if it is found. -1 will be returned if no floor was found within the range.
+     * @throws NullPointerException If <code>array</code> is null
+     * @throws IllegalArgumentException If any of the indices are out of bound
+     */
     public static int floor(final byte[] array,
                             final int fromIndex,
                             final int toIndex,
@@ -2260,18 +2760,18 @@ public class ArrayUtils {
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         int lo = fromIndex;
         int hi = toIndex - 1;
         if (array[lo] > valueToFind) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (array[hi] <= valueToFind) {
             return hi;
         }
         while (lo <= hi) {
-            final int mid = (lo + hi) / 2;
+            final int mid = (lo + hi) >>> 1;
             if (array[mid] == valueToFind) {
                 return mid;
             } else if (array[mid] > valueToFind) {
@@ -2286,13 +2786,45 @@ public class ArrayUtils {
                 lo = mid + 1;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
+    /**
+     * Searches the specified array for the floor of the specified <code>char</code> value using binary search
+     * algorithm.
+     * The floor of an <code>char</code> value is the greatest element in the array that is smaller than or equal to
+     * the value.
+     * The input array must be sorted in ascending order.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     *
+     * @param array The sorted array to be searched
+     * @param valueToFind The <code>char</code> value for which we want to find a floor
+     * @return The index of the floor if it is found. -1 will be returned if no floor was found.
+     * @throws NullPointerException If <code>array</code> is null
+     */
     public static int floor(final char[] array, final char valueToFind) {
         return floor(array, 0, array.length, valueToFind);
     }
 
+    /**
+     * Searches the specified array for the floor of the specified <code>char</code> value using binary search
+     * algorithm within the specified range.
+     * The floor of an <code>char</code> value within a range is the greatest element within the range that is smaller
+     * than or equal to the value.
+     * The input array must be sorted in ascending order within the specified range.
+     * The behavior of the method when passing an unsorted array (or an array that is sorted in descending order)
+     * is undefined.
+     * The range is exclusive from the right end.
+     *
+     * @param array The sorted array to be searched
+     * @param fromIndex The index of the first element (inclusive) to be searched
+     * @param toIndex The index of the last element (exclusive) to be searched
+     * @param valueToFind The <code>char</code> value for which we want to find a floor
+     * @return The index of the floor if it is found. -1 will be returned if no floor was found within the range.
+     * @throws NullPointerException If <code>array</code> is null
+     * @throws IllegalArgumentException If any of the indices are out of bound
+     */
     public static int floor(final char[] array,
                             final int fromIndex,
                             final int toIndex,
@@ -2301,18 +2833,18 @@ public class ArrayUtils {
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         int lo = fromIndex;
         int hi = toIndex - 1;
         if (array[lo] > valueToFind) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (array[hi] <= valueToFind) {
             return hi;
         }
         while (lo <= hi) {
-            final int mid = (lo + hi) / 2;
+            final int mid = (lo + hi) >>> 1;
             if (array[mid] == valueToFind) {
                 return mid;
             } else if (array[mid] > valueToFind) {
@@ -2327,7 +2859,7 @@ public class ArrayUtils {
                 lo = mid + 1;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**

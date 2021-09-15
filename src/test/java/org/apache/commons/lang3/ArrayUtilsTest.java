@@ -369,17 +369,6 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    void testCeilingNullComparator() {
-        boolean succeed = false;
-        try {
-            ArrayUtils.ceiling(new Integer[] {1, 2}, 0, 0, 1, null);
-        } catch (Exception ignored) {
-            succeed = true;
-        }
-        assertTrue(succeed);
-    }
-
-    @Test
     void testCeilingBoxedNumbers() {
         final Integer[] integers = {12, 14, 40, 70, 90};
         // full array
@@ -426,17 +415,6 @@ public class ArrayUtilsTest {
         boolean succeed = false;
         try {
             ArrayUtils.floor(null, 0, 0, 1, Integer::compareTo);
-        } catch (Exception ignored) {
-            succeed = true;
-        }
-        assertTrue(succeed);
-    }
-
-    @Test
-    void testFloorNullComparator() {
-        boolean succeed = false;
-        try {
-            ArrayUtils.floor(new Integer[] {1, 2}, 0, 0, 1, null);
         } catch (Exception ignored) {
             succeed = true;
         }
