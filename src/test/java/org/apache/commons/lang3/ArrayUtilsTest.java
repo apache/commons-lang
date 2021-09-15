@@ -391,13 +391,13 @@ public class ArrayUtilsTest {
         assertEquals(-1, ArrayUtils.ceiling(integers, 91));
         assertEquals(0, ArrayUtils.ceiling(integers, 0));
         // range
-        assertEquals(1, ArrayUtils.ceiling(integers,1, 3, 12, Integer::compareTo));
-        assertEquals(1, ArrayUtils.ceiling(integers,1, 3, 13, Integer::compareTo));
-        assertEquals(2, ArrayUtils.ceiling(integers,1, 3, 40, Integer::compareTo));
-        assertEquals(-1, ArrayUtils.ceiling(integers,1, 3, 50, Integer::compareTo));
-        assertEquals(-1, ArrayUtils.ceiling(integers,1, 3, 89, Integer::compareTo));
-        assertEquals(-1, ArrayUtils.ceiling(integers,1, 3, 91, Integer::compareTo));
-        assertEquals(1, ArrayUtils.ceiling(integers,1, 3, 0, Integer::compareTo));
+        assertEquals(1, ArrayUtils.ceiling(integers, 1, 3, 12, Integer::compareTo));
+        assertEquals(1, ArrayUtils.ceiling(integers, 1, 3, 13, Integer::compareTo));
+        assertEquals(2, ArrayUtils.ceiling(integers, 1, 3, 40, Integer::compareTo));
+        assertEquals(-1, ArrayUtils.ceiling(integers, 1, 3, 50, Integer::compareTo));
+        assertEquals(-1, ArrayUtils.ceiling(integers, 1, 3, 89, Integer::compareTo));
+        assertEquals(-1, ArrayUtils.ceiling(integers, 1, 3, 91, Integer::compareTo));
+        assertEquals(1, ArrayUtils.ceiling(integers, 1, 3, 0, Integer::compareTo));
     }
 
     @Test
@@ -412,13 +412,13 @@ public class ArrayUtilsTest {
         assertEquals(-1, ArrayUtils.ceiling(integers, 91));
         assertEquals(0, ArrayUtils.ceiling(integers, 0));
         // range
-        assertEquals(1, ArrayUtils.ceiling(integers,1, 3, 12));
-        assertEquals(1, ArrayUtils.ceiling(integers,1, 3, 13));
-        assertEquals(2, ArrayUtils.ceiling(integers,1, 3, 40));
-        assertEquals(-1, ArrayUtils.ceiling(integers,1, 3, 50));
-        assertEquals(-1, ArrayUtils.ceiling(integers,1, 3, 89));
-        assertEquals(-1, ArrayUtils.ceiling(integers,1, 3, 91));
-        assertEquals(1, ArrayUtils.ceiling(integers,1, 3, 0));
+        assertEquals(1, ArrayUtils.ceiling(integers, 1, 3, 12));
+        assertEquals(1, ArrayUtils.ceiling(integers, 1, 3, 13));
+        assertEquals(2, ArrayUtils.ceiling(integers, 1, 3, 40));
+        assertEquals(-1, ArrayUtils.ceiling(integers, 1, 3, 50));
+        assertEquals(-1, ArrayUtils.ceiling(integers, 1, 3, 89));
+        assertEquals(-1, ArrayUtils.ceiling(integers, 1, 3, 91));
+        assertEquals(1, ArrayUtils.ceiling(integers, 1, 3, 0));
     }
 
     @Test
@@ -455,13 +455,13 @@ public class ArrayUtilsTest {
         assertEquals(4, ArrayUtils.floor(integers, 91));
         assertEquals(-1, ArrayUtils.floor(integers, 0));
         // range
-        assertEquals(-1, ArrayUtils.floor(integers,1, 3, 12, Integer::compareTo));
-        assertEquals(-1, ArrayUtils.floor(integers,1, 3, 13, Integer::compareTo));
-        assertEquals(2, ArrayUtils.floor(integers,1, 3, 40, Integer::compareTo));
-        assertEquals(2, ArrayUtils.floor(integers,1, 3, 50, Integer::compareTo));
-        assertEquals(2, ArrayUtils.floor(integers,1, 3, 89, Integer::compareTo));
-        assertEquals(2, ArrayUtils.floor(integers,1, 3, 91, Integer::compareTo));
-        assertEquals(-1, ArrayUtils.floor(integers,1, 3, 0, Integer::compareTo));
+        assertEquals(-1, ArrayUtils.floor(integers, 1, 3, 12, Integer::compareTo));
+        assertEquals(-1, ArrayUtils.floor(integers, 1, 3, 13, Integer::compareTo));
+        assertEquals(2, ArrayUtils.floor(integers, 1, 3, 40, Integer::compareTo));
+        assertEquals(2, ArrayUtils.floor(integers, 1, 3, 50, Integer::compareTo));
+        assertEquals(2, ArrayUtils.floor(integers, 1, 3, 89, Integer::compareTo));
+        assertEquals(2, ArrayUtils.floor(integers, 1, 3, 91, Integer::compareTo));
+        assertEquals(-1, ArrayUtils.floor(integers, 1, 3, 0, Integer::compareTo));
     }
 
     @Test
