@@ -1385,6 +1385,40 @@ public class StringUtilsTest {
     }
 
     @Test
+    public void testJoinNotEmptyWith() {
+        assertEquals("", StringUtils.joinNotEmptyWith(","));        // empty array
+        assertEquals("", StringUtils.joinNotEmptyWith(",", (Object[]) NULL_ARRAY_LIST));
+        assertEquals("", StringUtils.joinNotEmptyWith(",", NULL_TO_STRING_LIST));
+
+        assertEquals("a,b", StringUtils.joinNotEmptyWith(",", "a", "b"));
+        assertEquals("a,b, ", StringUtils.joinNotEmptyWith(",", "a", "b", " "));
+        assertEquals("a,b", StringUtils.joinNotEmptyWith(",", "", "a", null, "b"));
+        assertEquals("ab", StringUtils.joinNotEmptyWith(null, "a", "b"));
+        assertEquals("a b", StringUtils.joinNotEmptyWith(null, "a", " ", "b"));
+    }
+
+    @Test
+    public void testJoinNotBlankWith() {
+        assertEquals("", StringUtils.joinNotBlankWith(","));        // empty array
+        assertEquals("", StringUtils.joinNotBlankWith(",", (Object[]) NULL_ARRAY_LIST));
+        assertEquals("", StringUtils.joinNotBlankWith(",", NULL_TO_STRING_LIST));
+
+        /*
+         * StringUtils.joinNotEmptyWith(",", {"a", "b"})              = "a,b"
+         * StringUtils.joinNotEmptyWith(",", {"a", "b", " "})         = "a,b"
+         * StringUtils.joinNotEmptyWith(",", {"", "a", null, "b"})    = "a,b"
+         * StringUtils.joinNotEmptyWith(null, {"a", "b"})             = "ab"
+         * StringUtils.joinNotEmptyWith(null, {null, "a", " ", "b"})  = "ab"
+         */
+
+        assertEquals("a,b", StringUtils.joinNotBlankWith(",", "a", "b"));
+        assertEquals("a,b", StringUtils.joinNotBlankWith(",", "a", "b", " "));
+        assertEquals("a,b", StringUtils.joinNotBlankWith(",", "", "a", null, "b"));
+        assertEquals("ab", StringUtils.joinNotBlankWith(null, "a", "b"));
+        assertEquals("ab", StringUtils.joinNotBlankWith(null, "a", " ", "b"));
+    }
+
+    @Test
     public void testJoinWithThrowsException() {
         assertThrows(IllegalArgumentException.class, () -> StringUtils.joinWith(",", (Object[]) null));
     }

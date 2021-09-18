@@ -189,6 +189,11 @@ public class StringUtils {
     private static final Pattern STRIP_ACCENTS_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+"); //$NON-NLS-1$
 
     /**
+     * The filter mode for join operations.
+     */
+    private enum JoinFilterMode { NOT_EMPTY, NOT_BLANK }
+
+    /**
      * <p>Abbreviates a String using ellipses. This will turn
      * "Now is the time for all good men" into "Now is the time for..."</p>
      *
@@ -4885,6 +4890,97 @@ public class StringUtils {
             throw new IllegalArgumentException("Object varargs must not be null");
         }
         return join(array, delimiter);
+    }
+
+    /**
+     * <p>Joins the elements of the provided varargs into a
+     * single String containing the filtered provided elements.</p>
+     *
+     * <p>Element that do not match the filter criteria is not added.
+     * No delimiter is added between elements when at least one of them is filtered.
+     * No delimiter is added before or after the list.
+     * {@code null} elements and separator are treated as empty Strings ("").</p>
+     *
+     * @param filterMode the filter mode, must not be null
+     * @param delimiter the separator character to use, null treated as ""
+     * @param array the varargs providing the values to join together. {@code null} elements are treated as ""
+     * @return the joined String.
+     * @throws java.lang.IllegalArgumentException if filterMode is null
+     * @throws java.lang.IllegalArgumentException if a null varargs is provided
+     * @since ???
+     */
+    private static String joinWith(final JoinFilterMode filterMode, final String delimiter, final Object... array) {
+        if (filterMode == null) {
+            throw new IllegalArgumentException("Filter mode must not be null");
+        }
+
+        if (array == null) {
+            throw new IllegalArgumentException("Object varargs must not be null");
+        }
+
+        final StringJoiner joiner = new StringJoiner(toStringOrEmpty(delimiter));
+        for (Object o : array) {
+            String s = toStringOrEmpty(o);
+            if (filterMode == JoinFilterMode.NOT_EMPTY && isNotEmpty(s)
+                    || filterMode == JoinFilterMode.NOT_BLANK && isNotBlank(s)) {
+                joiner.add(s);
+            }
+        }
+        return joiner.toString();
+    }
+
+    /**
+     * <p>Joins the elements of the provided varargs into a
+     * single String containing the filtered provided elements.</p>
+     *
+     * <p>Elements for which the result of isNotEmpty() is false are skipped.
+     * No delimiter is added between elements when at least one of them is filtered.
+     * No delimiter is added before or after the list.
+     * {@code null} elements and separator are treated as empty Strings ("").</p>
+     *
+     * <pre>
+     * StringUtils.joinNotEmptyWith(",", {"a", "b"})              = "a,b"
+     * StringUtils.joinNotEmptyWith(",", {"a", "b", " "})         = "a,b, "
+     * StringUtils.joinNotEmptyWith(",", {"", "a", null, "b"})    = "a,b"
+     * StringUtils.joinNotEmptyWith(null, {"a", "b"})             = "ab"
+     * StringUtils.joinNotEmptyWith(null, {null, "a", " ", "b"})  = "a b"
+     * </pre>
+     *
+     * @param delimiter the separator character to use, null treated as ""
+     * @param array the varargs providing the values to join together. {@code null} elements are treated as ""
+     * @return the joined String.
+     * @throws java.lang.IllegalArgumentException if a null varargs is provided
+     * @since ???
+     */
+    public static String joinNotEmptyWith(final String delimiter, final Object... array) {
+        return joinWith(JoinFilterMode.NOT_EMPTY, delimiter, array);
+    }
+
+    /**
+     * <p>Joins the elements of the provided varargs into a
+     * single String containing the filtered provided elements.</p>
+     *
+     * <p>Elements for which the result of isNotBlank() is false are skipped.
+     * No delimiter is added between elements when at least one of them is filtered.
+     * No delimiter is added before or after the list.
+     * {@code null} elements and separator are treated as empty Strings ("").</p>
+     *
+     * <pre>
+     * StringUtils.joinNotBlankWith(",", {"a", "b"})              = "a,b"
+     * StringUtils.joinNotBlankWith(",", {"a", "b", " "})         = "a,b"
+     * StringUtils.joinNotBlankWith(",", {"", "a", null, "b"})    = "a,b"
+     * StringUtils.joinNotBlankWith(null, {"a", "b"})             = "ab"
+     * StringUtils.joinNotBlankWith(null, {null, "a", " ", "b"})  = "ab"
+     * </pre>
+     *
+     * @param delimiter the separator character to use, null treated as ""
+     * @param array the varargs providing the values to join together. {@code null} elements are treated as ""
+     * @return the joined String.
+     * @throws java.lang.IllegalArgumentException if a null varargs is provided
+     * @since ???
+     */
+    public static String joinNotBlankWith(final String delimiter, final Object... array) {
+        return joinWith(JoinFilterMode.NOT_BLANK, delimiter, array);
     }
 
     /**
