@@ -1403,14 +1403,6 @@ public class StringUtilsTest {
         assertEquals("", StringUtils.joinNotBlankWith(",", (Object[]) NULL_ARRAY_LIST));
         assertEquals("", StringUtils.joinNotBlankWith(",", NULL_TO_STRING_LIST));
 
-        /*
-         * StringUtils.joinNotEmptyWith(",", {"a", "b"})              = "a,b"
-         * StringUtils.joinNotEmptyWith(",", {"a", "b", " "})         = "a,b"
-         * StringUtils.joinNotEmptyWith(",", {"", "a", null, "b"})    = "a,b"
-         * StringUtils.joinNotEmptyWith(null, {"a", "b"})             = "ab"
-         * StringUtils.joinNotEmptyWith(null, {null, "a", " ", "b"})  = "ab"
-         */
-
         assertEquals("a,b", StringUtils.joinNotBlankWith(",", "a", "b"));
         assertEquals("a,b", StringUtils.joinNotBlankWith(",", "a", "b", " "));
         assertEquals("a,b", StringUtils.joinNotBlankWith(",", "", "a", null, "b"));
