@@ -1700,23 +1700,23 @@ public class ArrayUtils {
      * @param array The sorted array to be searched
      * @param fromIndex The index of the first element (inclusive) to be searched
      * @param toIndex The index of the last element (exclusive) to be searched
-     * @param valueToFind A comparable object for which we want to find a ceiling
+     * @param value A comparable object for which we want to find a ceiling
      * @param comparator The comparator by which the array is ordered.
      *                   A {@code null} value indicates that the elements' {@linkplain Comparable natural ordering}
      *                   should be used.
      * @return The index of the ceiling if it is found; -1 will be returned if no ceiling was found within the
      *         specified range.
-     * @throws ClassCastException If the array elements or <code>valueToFind</code> is not comparable
+     * @throws ClassCastException If the array elements or <code>value</code> is not comparable
      * @throws NullPointerException If <code>array</code> is null or comparing null values is not allowed
      * @throws IllegalArgumentException If any of the indices are out of bound
      */
     public static <T> int ceiling(final T[] array,
                                   final int fromIndex,
                                   final int toIndex,
-                                  final T valueToFind,
+                                  final T value,
                                   final Comparator<T> comparator) {
         if (comparator == null) {
-            return ceiling(array, fromIndex, toIndex, valueToFind,
+            return ceiling(array, fromIndex, toIndex, value,
                     (v1, v2) -> ((Comparable) v1).compareTo((Comparable) v2));
         }
         Validate.notNull(array);
@@ -1725,32 +1725,26 @@ public class ArrayUtils {
         if (fromIndex >= toIndex) {
             return INDEX_NOT_FOUND;
         }
-        int lo = fromIndex;
-        int hi = toIndex - 1;
-        if (comparator.compare(valueToFind, array[hi]) > 0) {
+        if (comparator.compare(value, array[toIndex - 1]) > 0) {
             return INDEX_NOT_FOUND;
         }
-        if (comparator.compare(valueToFind, array[lo]) <= 0) {
-            return lo;
+        if (comparator.compare(value, array[fromIndex]) <= 0) {
+            return fromIndex;
         }
-        while (lo <= hi) {
-            final int mid = (lo + hi) >>> 1;
-            final int cmp = comparator.compare(array[mid], valueToFind);
-            if (cmp == 0) {
+        final int mid = (fromIndex + toIndex - 1) >>> 1;
+        final int cmp = comparator.compare(array[mid], value);
+        if (cmp == 0) {
+            return mid;
+        } else if (cmp > 0) {
+            if (fromIndex <= mid - 1 && comparator.compare(array[mid - 1], value) < 0) {
                 return mid;
-            } else if (cmp > 0) {
-                if (lo <= mid - 1 && comparator.compare(array[mid - 1], valueToFind) < 0) {
-                    return mid;
-                }
-                hi = mid - 1;
-            } else {
-                if (mid + 1 <= hi && comparator.compare(array[mid + 1], valueToFind) >= 0) {
-                    return mid + 1;
-                }
-                lo = mid + 1;
             }
+            return ceiling(array, fromIndex, mid, value, comparator);
         }
-        return INDEX_NOT_FOUND;
+        if (mid + 1 <= toIndex - 1 && comparator.compare(array[mid + 1], value) >= 0) {
+            return mid + 1;
+        }
+        return ceiling(array, mid + 1, toIndex, value, comparator);
     }
 
     /**
@@ -1763,12 +1757,12 @@ public class ArrayUtils {
      * is undefined.
      *
      * @param array The sorted array to be searched
-     * @param valueToFind The <code>int</code> value for which we want to find a ceiling
+     * @param value The <code>int</code> value for which we want to find a ceiling
      * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found.
      * @throws NullPointerException If <code>array</code> is null
      */
-    public static int ceiling(final int[] array, final int valueToFind) {
-        return ceiling(array, 0, array.length, valueToFind);
+    public static int ceiling(final int[] array, final int value) {
+        return ceiling(array, 0, array.length, value);
     }
 
     /**
@@ -1784,7 +1778,7 @@ public class ArrayUtils {
      * @param array The sorted array to be searched
      * @param fromIndex The index of the first element (inclusive) to be searched
      * @param toIndex The index of the last element (exclusive) to be searched
-     * @param valueToFind The <code>int</code> value for which we want to find a ceiling
+     * @param value The <code>int</code> value for which we want to find a ceiling
      * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found within the range.
      * @throws NullPointerException If <code>array</code> is null
      * @throws IllegalArgumentException If any of the indices are out of bound
@@ -1792,38 +1786,32 @@ public class ArrayUtils {
     public static int ceiling(final int[] array,
                               final int fromIndex,
                               final int toIndex,
-                              final int valueToFind) {
+                              final int value) {
         Validate.notNull(array);
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
             return INDEX_NOT_FOUND;
         }
-        int lo = fromIndex;
-        int hi = toIndex - 1;
-        if (valueToFind > array[hi]) {
+        if (value > array[toIndex - 1]) {
             return INDEX_NOT_FOUND;
         }
-        if (valueToFind <= array[lo]) {
-            return lo;
+        if (value <= array[fromIndex]) {
+            return fromIndex;
         }
-        while (lo <= hi) {
-            final int mid = (lo + hi) >>> 1;
-            if (array[mid] == valueToFind) {
+        final int mid = (fromIndex + toIndex - 1) >>> 1;
+        if (array[mid] == value) {
+            return mid;
+        } else if (array[mid] > value) {
+            if (fromIndex <= mid - 1 && array[mid - 1] < value) {
                 return mid;
-            } else if (array[mid] > valueToFind) {
-                if (lo <= mid - 1 && array[mid - 1] < valueToFind) {
-                    return mid;
-                }
-                hi = mid - 1;
-            } else {
-                if (mid + 1 <= hi && array[mid + 1] >= valueToFind) {
-                    return mid + 1;
-                }
-                lo = mid + 1;
             }
+            return ceiling(array, fromIndex, mid, value);
         }
-        return INDEX_NOT_FOUND;
+        if (mid + 1 <= toIndex - 1 && array[mid + 1] >= value) {
+            return mid + 1;
+        }
+        return ceiling(array, mid + 1, toIndex, value);
     }
 
     /**
@@ -1836,12 +1824,12 @@ public class ArrayUtils {
      * is undefined.
      *
      * @param array The sorted array to be searched
-     * @param valueToFind The <code>long</code> value for which we want to find a ceiling
+     * @param value The <code>long</code> value for which we want to find a ceiling
      * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found.
      * @throws NullPointerException If <code>array</code> is null
      */
-    public static int ceiling(final long[] array, final long valueToFind) {
-        return ceiling(array, 0, array.length, valueToFind);
+    public static int ceiling(final long[] array, final long value) {
+        return ceiling(array, 0, array.length, value);
     }
 
     /**
@@ -1857,7 +1845,7 @@ public class ArrayUtils {
      * @param array The sorted array to be searched
      * @param fromIndex The index of the first element (inclusive) to be searched
      * @param toIndex The index of the last element (exclusive) to be searched
-     * @param valueToFind The <code>long</code> value for which we want to find a ceiling
+     * @param value The <code>long</code> value for which we want to find a ceiling
      * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found within the range.
      * @throws NullPointerException If <code>array</code> is null
      * @throws IllegalArgumentException If any of the indices are out of bound
@@ -1865,38 +1853,32 @@ public class ArrayUtils {
     public static int ceiling(final long[] array,
                               final int fromIndex,
                               final int toIndex,
-                              final long valueToFind) {
+                              final long value) {
         Validate.notNull(array);
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
             return INDEX_NOT_FOUND;
         }
-        int lo = fromIndex;
-        int hi = toIndex - 1;
-        if (valueToFind > array[hi]) {
+        if (value > array[toIndex - 1]) {
             return INDEX_NOT_FOUND;
         }
-        if (valueToFind <= array[lo]) {
-            return lo;
+        if (value <= array[fromIndex]) {
+            return fromIndex;
         }
-        while (lo <= hi) {
-            final int mid = (lo + hi) >>> 1;
-            if (array[mid] == valueToFind) {
+        final int mid = (fromIndex + toIndex - 1) >>> 1;
+        if (array[mid] == value) {
+            return mid;
+        } else if (array[mid] > value) {
+            if (fromIndex <= mid - 1 && array[mid - 1] < value) {
                 return mid;
-            } else if (array[mid] > valueToFind) {
-                if (lo <= mid - 1 && array[mid - 1] < valueToFind) {
-                    return mid;
-                }
-                hi = mid - 1;
-            } else {
-                if (mid + 1 <= hi && array[mid + 1] >= valueToFind) {
-                    return mid + 1;
-                }
-                lo = mid + 1;
             }
+            return ceiling(array, fromIndex, mid, value);
         }
-        return INDEX_NOT_FOUND;
+        if (mid + 1 <= toIndex - 1 && array[mid + 1] >= value) {
+            return mid + 1;
+        }
+        return ceiling(array, mid + 1, toIndex, value);
     }
 
     /**
@@ -1909,12 +1891,12 @@ public class ArrayUtils {
      * is undefined.
      *
      * @param array The sorted array to be searched
-     * @param valueToFind The <code>short</code> value for which we want to find a ceiling
+     * @param value The <code>short</code> value for which we want to find a ceiling
      * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found.
      * @throws NullPointerException If <code>array</code> is null
      */
-    public static int ceiling(final short[] array, final short valueToFind) {
-        return ceiling(array, 0, array.length, valueToFind);
+    public static int ceiling(final short[] array, final short value) {
+        return ceiling(array, 0, array.length, value);
     }
 
     /**
@@ -1930,7 +1912,7 @@ public class ArrayUtils {
      * @param array The sorted array to be searched
      * @param fromIndex The index of the first element (inclusive) to be searched
      * @param toIndex The index of the last element (exclusive) to be searched
-     * @param valueToFind The <code>short</code> value for which we want to find a ceiling
+     * @param value The <code>short</code> value for which we want to find a ceiling
      * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found within the range.
      * @throws NullPointerException If <code>array</code> is null
      * @throws IllegalArgumentException If any of the indices are out of bound
@@ -1938,38 +1920,32 @@ public class ArrayUtils {
     public static int ceiling(final short[] array,
                               final int fromIndex,
                               final int toIndex,
-                              final short valueToFind) {
+                              final short value) {
         Validate.notNull(array);
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
             return INDEX_NOT_FOUND;
         }
-        int lo = fromIndex;
-        int hi = toIndex - 1;
-        if (valueToFind > array[hi]) {
+        if (value > array[toIndex - 1]) {
             return INDEX_NOT_FOUND;
         }
-        if (valueToFind <= array[lo]) {
-            return lo;
+        if (value <= array[fromIndex]) {
+            return fromIndex;
         }
-        while (lo <= hi) {
-            final int mid = (lo + hi) >>> 1;
-            if (array[mid] == valueToFind) {
+        final int mid = (fromIndex + toIndex - 1) >>> 1;
+        if (array[mid] == value) {
+            return mid;
+        } else if (array[mid] > value) {
+            if (fromIndex <= mid - 1 && array[mid - 1] < value) {
                 return mid;
-            } else if (array[mid] > valueToFind) {
-                if (lo <= mid - 1 && array[mid - 1] < valueToFind) {
-                    return mid;
-                }
-                hi = mid - 1;
-            } else {
-                if (mid + 1 <= hi && array[mid + 1] >= valueToFind) {
-                    return mid + 1;
-                }
-                lo = mid + 1;
             }
+            return ceiling(array, fromIndex, mid, value);
         }
-        return INDEX_NOT_FOUND;
+        if (mid + 1 <= toIndex - 1 && array[mid + 1] >= value) {
+            return mid + 1;
+        }
+        return ceiling(array, mid + 1, toIndex, value);
     }
 
     /**
@@ -1982,12 +1958,12 @@ public class ArrayUtils {
      * is undefined.
      *
      * @param array The sorted array to be searched
-     * @param valueToFind The <code>byte</code> value for which we want to find a ceiling
+     * @param value The <code>byte</code> value for which we want to find a ceiling
      * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found.
      * @throws NullPointerException If <code>array</code> is null
      */
-    public static int ceiling(final byte[] array, final byte valueToFind) {
-        return ceiling(array, 0, array.length, valueToFind);
+    public static int ceiling(final byte[] array, final byte value) {
+        return ceiling(array, 0, array.length, value);
     }
 
     /**
@@ -2003,7 +1979,7 @@ public class ArrayUtils {
      * @param array The sorted array to be searched
      * @param fromIndex The index of the first element (inclusive) to be searched
      * @param toIndex The index of the last element (exclusive) to be searched
-     * @param valueToFind The <code>byte</code> value for which we want to find a ceiling
+     * @param value The <code>byte</code> value for which we want to find a ceiling
      * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found within the range.
      * @throws NullPointerException If <code>array</code> is null
      * @throws IllegalArgumentException If any of the indices are out of bound
@@ -2011,38 +1987,32 @@ public class ArrayUtils {
     public static int ceiling(final byte[] array,
                               final int fromIndex,
                               final int toIndex,
-                              final byte valueToFind) {
+                              final byte value) {
         Validate.notNull(array);
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
             return INDEX_NOT_FOUND;
         }
-        int lo = fromIndex;
-        int hi = toIndex - 1;
-        if (valueToFind > array[hi]) {
+        if (value > array[toIndex - 1]) {
             return INDEX_NOT_FOUND;
         }
-        if (valueToFind <= array[lo]) {
-            return lo;
+        if (value <= array[fromIndex]) {
+            return fromIndex;
         }
-        while (lo <= hi) {
-            final int mid = (lo + hi) >>> 1;
-            if (array[mid] == valueToFind) {
+        final int mid = (fromIndex + toIndex - 1) >>> 1;
+        if (array[mid] == value) {
+            return mid;
+        } else if (array[mid] > value) {
+            if (fromIndex <= mid - 1 && array[mid - 1] < value) {
                 return mid;
-            } else if (array[mid] > valueToFind) {
-                if (lo <= mid - 1 && array[mid - 1] < valueToFind) {
-                    return mid;
-                }
-                hi = mid - 1;
-            } else {
-                if (mid + 1 <= hi && array[mid + 1] >= valueToFind) {
-                    return mid + 1;
-                }
-                lo = mid + 1;
             }
+            return ceiling(array, fromIndex, mid, value);
         }
-        return INDEX_NOT_FOUND;
+        if (mid + 1 <= toIndex - 1 && array[mid + 1] >= value) {
+            return mid + 1;
+        }
+        return ceiling(array, mid + 1, toIndex, value);
     }
 
     /**
@@ -2055,12 +2025,12 @@ public class ArrayUtils {
      * is undefined.
      *
      * @param array The sorted array to be searched
-     * @param valueToFind The <code>char</code> value for which we want to find a ceiling
+     * @param value The <code>char</code> value for which we want to find a ceiling
      * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found.
      * @throws NullPointerException If <code>array</code> is null
      */
-    public static int ceiling(final char[] array, final char valueToFind) {
-        return ceiling(array, 0, array.length, valueToFind);
+    public static int ceiling(final char[] array, final char value) {
+        return ceiling(array, 0, array.length, value);
     }
 
     /**
@@ -2076,7 +2046,7 @@ public class ArrayUtils {
      * @param array The sorted array to be searched
      * @param fromIndex The index of the first element (inclusive) to be searched
      * @param toIndex The index of the last element (exclusive) to be searched
-     * @param valueToFind The <code>char</code> value for which we want to find a ceiling
+     * @param value The <code>char</code> value for which we want to find a ceiling
      * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found within the range.
      * @throws NullPointerException If <code>array</code> is null
      * @throws IllegalArgumentException If any of the indices are out of bound
@@ -2084,38 +2054,32 @@ public class ArrayUtils {
     public static int ceiling(final char[] array,
                               final int fromIndex,
                               final int toIndex,
-                              final char valueToFind) {
+                              final char value) {
         Validate.notNull(array);
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
             return INDEX_NOT_FOUND;
         }
-        int lo = fromIndex;
-        int hi = toIndex - 1;
-        if (valueToFind > array[hi]) {
+        if (value > array[toIndex - 1]) {
             return INDEX_NOT_FOUND;
         }
-        if (valueToFind <= array[lo]) {
-            return lo;
+        if (value <= array[fromIndex]) {
+            return fromIndex;
         }
-        while (lo <= hi) {
-            final int mid = (lo + hi) >>> 1;
-            if (array[mid] == valueToFind) {
+        final int mid = (fromIndex + toIndex - 1) >>> 1;
+        if (array[mid] == value) {
+            return mid;
+        } else if (array[mid] > value) {
+            if (fromIndex <= mid - 1 && array[mid - 1] < value) {
                 return mid;
-            } else if (array[mid] > valueToFind) {
-                if (lo <= mid - 1 && array[mid - 1] < valueToFind) {
-                    return mid;
-                }
-                hi = mid - 1;
-            } else {
-                if (mid + 1 <= hi && array[mid + 1] >= valueToFind) {
-                    return mid + 1;
-                }
-                lo = mid + 1;
             }
+            return ceiling(array, fromIndex, mid, value);
         }
-        return INDEX_NOT_FOUND;
+        if (mid + 1 <= toIndex - 1 && array[mid + 1] >= value) {
+            return mid + 1;
+        }
+        return ceiling(array, mid + 1, toIndex, value);
     }
 
     /**
@@ -2128,12 +2092,12 @@ public class ArrayUtils {
      * is undefined.
      *
      * @param array The sorted array to be searched
-     * @param valueToFind The <code>float</code> value for which we want to find a ceiling
+     * @param value The <code>float</code> value for which we want to find a ceiling
      * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found.
      * @throws NullPointerException If <code>array</code> is null
      */
-    public static int ceiling(final float[] array, final float valueToFind) {
-        return ceiling(array, 0, array.length, valueToFind);
+    public static int ceiling(final float[] array, final float value) {
+        return ceiling(array, 0, array.length, value);
     }
 
     /**
@@ -2149,7 +2113,7 @@ public class ArrayUtils {
      * @param array The sorted array to be searched
      * @param fromIndex The index of the first element (inclusive) to be searched
      * @param toIndex The index of the last element (exclusive) to be searched
-     * @param valueToFind The <code>float</code> value for which we want to find a ceiling
+     * @param value The <code>float</code> value for which we want to find a ceiling
      * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found within the range.
      * @throws NullPointerException If <code>array</code> is null
      * @throws IllegalArgumentException If any of the indices are out of bound
@@ -2157,38 +2121,32 @@ public class ArrayUtils {
     public static int ceiling(final float[] array,
                               final int fromIndex,
                               final int toIndex,
-                              final float valueToFind) {
+                              final float value) {
         Validate.notNull(array);
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
             return INDEX_NOT_FOUND;
         }
-        int lo = fromIndex;
-        int hi = toIndex - 1;
-        if (valueToFind > array[hi]) {
+        if (value > array[toIndex - 1]) {
             return INDEX_NOT_FOUND;
         }
-        if (valueToFind <= array[lo]) {
-            return lo;
+        if (value <= array[fromIndex]) {
+            return fromIndex;
         }
-        while (lo <= hi) {
-            final int mid = (lo + hi) >>> 1;
-            if (array[mid] == valueToFind) {
+        final int mid = (fromIndex + toIndex - 1) >>> 1;
+        if (array[mid] == value) {
+            return mid;
+        } else if (array[mid] > value) {
+            if (fromIndex <= mid - 1 && array[mid - 1] < value) {
                 return mid;
-            } else if (array[mid] > valueToFind) {
-                if (lo <= mid - 1 && array[mid - 1] < valueToFind) {
-                    return mid;
-                }
-                hi = mid - 1;
-            } else {
-                if (mid + 1 <= hi && array[mid + 1] >= valueToFind) {
-                    return mid + 1;
-                }
-                lo = mid + 1;
             }
+            return ceiling(array, fromIndex, mid, value);
         }
-        return INDEX_NOT_FOUND;
+        if (mid + 1 <= toIndex - 1 && array[mid + 1] >= value) {
+            return mid + 1;
+        }
+        return ceiling(array, mid + 1, toIndex, value);
     }
 
     /**
@@ -2201,12 +2159,12 @@ public class ArrayUtils {
      * is undefined.
      *
      * @param array The sorted array to be searched
-     * @param valueToFind The <code>double</code> value for which we want to find a ceiling
+     * @param value The <code>double</code> value for which we want to find a ceiling
      * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found.
      * @throws NullPointerException If <code>array</code> is null
      */
-    public static int ceiling(final double[] array, final double valueToFind) {
-        return ceiling(array, 0, array.length, valueToFind);
+    public static int ceiling(final double[] array, final double value) {
+        return ceiling(array, 0, array.length, value);
     }
 
     /**
@@ -2222,7 +2180,7 @@ public class ArrayUtils {
      * @param array The sorted array to be searched
      * @param fromIndex The index of the first element (inclusive) to be searched
      * @param toIndex The index of the last element (exclusive) to be searched
-     * @param valueToFind The <code>double</code> value for which we want to find a ceiling
+     * @param value The <code>double</code> value for which we want to find a ceiling
      * @return The index of the ceiling if it is found. -1 will be returned if no ceiling was found within the range.
      * @throws NullPointerException If <code>array</code> is null
      * @throws IllegalArgumentException If any of the indices are out of bound
@@ -2230,38 +2188,32 @@ public class ArrayUtils {
     public static int ceiling(final double[] array,
                               final int fromIndex,
                               final int toIndex,
-                              final double valueToFind) {
+                              final double value) {
         Validate.notNull(array);
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
             return INDEX_NOT_FOUND;
         }
-        int lo = fromIndex;
-        int hi = toIndex - 1;
-        if (valueToFind > array[hi]) {
+        if (value > array[toIndex - 1]) {
             return INDEX_NOT_FOUND;
         }
-        if (valueToFind <= array[lo]) {
-            return lo;
+        if (value <= array[fromIndex]) {
+            return fromIndex;
         }
-        while (lo <= hi) {
-            final int mid = (lo + hi) >>> 1;
-            if (array[mid] == valueToFind) {
+        final int mid = (fromIndex + toIndex - 1) >>> 1;
+        if (array[mid] == value) {
+            return mid;
+        } else if (array[mid] > value) {
+            if (fromIndex <= mid - 1 && array[mid - 1] < value) {
                 return mid;
-            } else if (array[mid] > valueToFind) {
-                if (lo <= mid - 1 && array[mid - 1] < valueToFind) {
-                    return mid;
-                }
-                hi = mid - 1;
-            } else {
-                if (mid + 1 <= hi && array[mid + 1] >= valueToFind) {
-                    return mid + 1;
-                }
-                lo = mid + 1;
             }
+            return ceiling(array, fromIndex, mid, value);
         }
-        return INDEX_NOT_FOUND;
+        if (mid + 1 <= toIndex - 1 && array[mid + 1] >= value) {
+            return mid + 1;
+        }
+        return ceiling(array, mid + 1, toIndex, value);
     }
 
     /**
@@ -2273,14 +2225,14 @@ public class ArrayUtils {
      * is undefined.
      *
      * @param array The sorted array to be searched
-     * @param valueToFind A comparable object for which we want to find a floor
+     * @param value A comparable object for which we want to find a floor
      * @return The index of the floor if it is found. -1 will be returned if no floor was found.
-     * @throws ClassCastException If the array elements or <code>valueToFind</code> is not comparable
+     * @throws ClassCastException If the array elements or <code>value</code> is not comparable
      * @throws NullPointerException If <code>array</code> is null or comparing null values is not allowed
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public static int floor(final Object[] array, final Object valueToFind) {
-        return floor(array, 0, array.length, valueToFind, Comparator.comparing(v -> ((Comparable) v)));
+    public static int floor(final Object[] array, final Object value) {
+        return floor(array, 0, array.length, value, Comparator.comparing(v -> ((Comparable) v)));
     }
 
     /**
@@ -2298,23 +2250,23 @@ public class ArrayUtils {
      * @param array The sorted array to be searched
      * @param fromIndex The index of the first element (inclusive) to be searched
      * @param toIndex The index of the last element (exclusive) to be searched
-     * @param valueToFind A comparable object for which we want to find a floor
+     * @param value A comparable object for which we want to find a floor
      * @param comparator The comparator by which the array is ordered.
      *                   A {@code null} value indicates that the elements' {@linkplain Comparable natural ordering}
      *                   should be used.
      * @return The index of the floor if it is found; -1 will be returned if no floor was found within the
      *         specified range.
-     * @throws ClassCastException If the array elements or <code>valueToFind</code> is not comparable
+     * @throws ClassCastException If the array elements or <code>value</code> is not comparable
      * @throws NullPointerException If <code>array</code> is null or comparing null values is not allowed
      * @throws IllegalArgumentException If any of the indices are out of bound
      */
     public static <T> int floor(final T[] array,
                                 final int fromIndex,
                                 final int toIndex,
-                                final T valueToFind,
+                                final T value,
                                 final Comparator<T> comparator) {
         if (comparator == null) {
-            return ceiling(array, fromIndex, toIndex, valueToFind,
+            return ceiling(array, fromIndex, toIndex, value,
                     (v1, v2) -> ((Comparable) v1).compareTo((Comparable) v2));
         }
         Validate.notNull(array);
@@ -2323,32 +2275,26 @@ public class ArrayUtils {
         if (fromIndex >= toIndex) {
             return INDEX_NOT_FOUND;
         }
-        int lo = fromIndex;
-        int hi = toIndex - 1;
-        if (comparator.compare(array[lo], valueToFind) > 0) {
+        if (comparator.compare(array[fromIndex], value) > 0) {
             return INDEX_NOT_FOUND;
         }
-        if (comparator.compare(array[hi], valueToFind) <= 0) {
-            return hi;
+        if (comparator.compare(array[toIndex - 1], value) <= 0) {
+            return toIndex - 1;
         }
-        while (lo <= hi) {
-            final int mid = (lo + hi) >>> 1;
-            final int cmp = comparator.compare(array[mid], valueToFind);
-            if (cmp == 0) {
-                return mid;
-            } else if (cmp > 0) {
-                if (lo <= mid - 1 && comparator.compare(array[mid - 1], valueToFind) <= 0) {
-                    return mid - 1;
-                }
-                hi = mid - 1;
-            } else {
-                if (mid + 1 <= hi && comparator.compare(array[mid + 1], valueToFind) > 0) {
-                    return mid;
-                }
-                lo = mid + 1;
+        final int mid = (fromIndex + toIndex - 1) >>> 1;
+        final int cmp = comparator.compare(array[mid], value);
+        if (cmp == 0) {
+            return mid;
+        } else if (cmp > 0) {
+            if (fromIndex <= mid - 1 && comparator.compare(array[mid - 1], value) <= 0) {
+                return mid - 1;
             }
+            return floor(array, fromIndex, mid, value, comparator);
         }
-        return INDEX_NOT_FOUND;
+        if (mid + 1 <= toIndex - 1 && comparator.compare(array[mid + 1], value) > 0) {
+            return mid;
+        }
+        return floor(array, mid + 1, toIndex, value, comparator);
     }
 
     /**
@@ -2361,12 +2307,12 @@ public class ArrayUtils {
      * is undefined.
      *
      * @param array The sorted array to be searched
-     * @param valueToFind The <code>int</code> value for which we want to find a floor
+     * @param value The <code>int</code> value for which we want to find a floor
      * @return The index of the floor if it is found. -1 will be returned if no floor was found.
      * @throws NullPointerException If <code>array</code> is null
      */
-    public static int floor(final int[] array, final int valueToFind) {
-        return floor(array, 0, array.length, valueToFind);
+    public static int floor(final int[] array, final int value) {
+        return floor(array, 0, array.length, value);
     }
 
     /**
@@ -2382,7 +2328,7 @@ public class ArrayUtils {
      * @param array The sorted array to be searched
      * @param fromIndex The index of the first element (inclusive) to be searched
      * @param toIndex The index of the last element (exclusive) to be searched
-     * @param valueToFind The <code>int</code> value for which we want to find a floor
+     * @param value The <code>int</code> value for which we want to find a floor
      * @return The index of the floor if it is found. -1 will be returned if no floor was found within the range.
      * @throws NullPointerException If <code>array</code> is null
      * @throws IllegalArgumentException If any of the indices are out of bound
@@ -2390,38 +2336,32 @@ public class ArrayUtils {
     public static int floor(final int[] array,
                             final int fromIndex,
                             final int toIndex,
-                            final int valueToFind) {
+                            final int value) {
         Validate.notNull(array);
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
             return INDEX_NOT_FOUND;
         }
-        int lo = fromIndex;
-        int hi = toIndex - 1;
-        if (array[lo] > valueToFind) {
+        if (array[fromIndex] > value) {
             return INDEX_NOT_FOUND;
         }
-        if (array[hi] <= valueToFind) {
-            return hi;
+        if (array[toIndex - 1] <= value) {
+            return toIndex - 1;
         }
-        while (lo <= hi) {
-            final int mid = (lo + hi) >>> 1;
-            if (array[mid] == valueToFind) {
-                return mid;
-            } else if (array[mid] > valueToFind) {
-                if (lo <= mid - 1 && array[mid - 1] <= valueToFind) {
-                    return mid - 1;
-                }
-                hi = mid - 1;
-            } else {
-                if (mid + 1 <= hi && array[mid + 1] > valueToFind) {
-                    return mid;
-                }
-                lo = mid + 1;
+        final int mid = (fromIndex + toIndex - 1) >>> 1;
+        if (array[mid] == value) {
+            return mid;
+        } else if (array[mid] > value) {
+            if (fromIndex <= mid - 1 && array[mid - 1] <= value) {
+                return mid - 1;
             }
+            return floor(array, fromIndex, mid, value);
         }
-        return INDEX_NOT_FOUND;
+        if (mid + 1 <= toIndex - 1 && array[mid + 1] > value) {
+            return mid;
+        }
+        return floor(array, mid + 1, toIndex, value);
     }
 
     /**
@@ -2434,12 +2374,12 @@ public class ArrayUtils {
      * is undefined.
      *
      * @param array The sorted array to be searched
-     * @param valueToFind The <code>long</code> value for which we want to find a floor
+     * @param value The <code>long</code> value for which we want to find a floor
      * @return The index of the floor if it is found. -1 will be returned if no floor was found.
      * @throws NullPointerException If <code>array</code> is null
      */
-    public static int floor(final long[] array, final long valueToFind) {
-        return floor(array, 0, array.length, valueToFind);
+    public static int floor(final long[] array, final long value) {
+        return floor(array, 0, array.length, value);
     }
 
     /**
@@ -2455,7 +2395,7 @@ public class ArrayUtils {
      * @param array The sorted array to be searched
      * @param fromIndex The index of the first element (inclusive) to be searched
      * @param toIndex The index of the last element (exclusive) to be searched
-     * @param valueToFind The <code>long</code> value for which we want to find a floor
+     * @param value The <code>long</code> value for which we want to find a floor
      * @return The index of the floor if it is found. -1 will be returned if no floor was found within the range.
      * @throws NullPointerException If <code>array</code> is null
      * @throws IllegalArgumentException If any of the indices are out of bound
@@ -2463,38 +2403,32 @@ public class ArrayUtils {
     public static int floor(final long[] array,
                             final int fromIndex,
                             final int toIndex,
-                            final long valueToFind) {
+                            final long value) {
         Validate.notNull(array);
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
             return INDEX_NOT_FOUND;
         }
-        int lo = fromIndex;
-        int hi = toIndex - 1;
-        if (array[lo] > valueToFind) {
+        if (array[fromIndex] > value) {
             return INDEX_NOT_FOUND;
         }
-        if (array[hi] <= valueToFind) {
-            return hi;
+        if (array[toIndex - 1] <= value) {
+            return toIndex - 1;
         }
-        while (lo <= hi) {
-            final int mid = (lo + hi) >>> 1;
-            if (array[mid] == valueToFind) {
-                return mid;
-            } else if (array[mid] > valueToFind) {
-                if (lo <= mid - 1 && array[mid - 1] <= valueToFind) {
-                    return mid - 1;
-                }
-                hi = mid - 1;
-            } else {
-                if (mid + 1 <= hi && array[mid + 1] > valueToFind) {
-                    return mid;
-                }
-                lo = mid + 1;
+        final int mid = (fromIndex + toIndex - 1) >>> 1;
+        if (array[mid] == value) {
+            return mid;
+        } else if (array[mid] > value) {
+            if (fromIndex <= mid - 1 && array[mid - 1] <= value) {
+                return mid - 1;
             }
+            return floor(array, fromIndex, mid, value);
         }
-        return INDEX_NOT_FOUND;
+        if (mid + 1 <= toIndex - 1 && array[mid + 1] > value) {
+            return mid;
+        }
+        return floor(array, mid + 1, toIndex, value);
     }
 
     /**
@@ -2507,12 +2441,12 @@ public class ArrayUtils {
      * is undefined.
      *
      * @param array The sorted array to be searched
-     * @param valueToFind The <code>float</code> value for which we want to find a floor
+     * @param value The <code>float</code> value for which we want to find a floor
      * @return The index of the floor if it is found. -1 will be returned if no floor was found.
      * @throws NullPointerException If <code>array</code> is null
      */
-    public static int floor(final float[] array, final float valueToFind) {
-        return floor(array, 0, array.length, valueToFind);
+    public static int floor(final float[] array, final float value) {
+        return floor(array, 0, array.length, value);
     }
 
     /**
@@ -2528,7 +2462,7 @@ public class ArrayUtils {
      * @param array The sorted array to be searched
      * @param fromIndex The index of the first element (inclusive) to be searched
      * @param toIndex The index of the last element (exclusive) to be searched
-     * @param valueToFind The <code>float</code> value for which we want to find a floor
+     * @param value The <code>float</code> value for which we want to find a floor
      * @return The index of the floor if it is found. -1 will be returned if no floor was found within the range.
      * @throws NullPointerException If <code>array</code> is null
      * @throws IllegalArgumentException If any of the indices are out of bound
@@ -2536,38 +2470,32 @@ public class ArrayUtils {
     public static int floor(final float[] array,
                             final int fromIndex,
                             final int toIndex,
-                            final float valueToFind) {
+                            final float value) {
         Validate.notNull(array);
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
             return INDEX_NOT_FOUND;
         }
-        int lo = fromIndex;
-        int hi = toIndex - 1;
-        if (array[lo] > valueToFind) {
+        if (array[fromIndex] > value) {
             return INDEX_NOT_FOUND;
         }
-        if (array[hi] <= valueToFind) {
-            return hi;
+        if (array[toIndex - 1] <= value) {
+            return toIndex - 1;
         }
-        while (lo <= hi) {
-            final int mid = (lo + hi) >>> 1;
-            if (array[mid] == valueToFind) {
-                return mid;
-            } else if (array[mid] > valueToFind) {
-                if (lo <= mid - 1 && array[mid - 1] <= valueToFind) {
-                    return mid - 1;
-                }
-                hi = mid - 1;
-            } else {
-                if (mid + 1 <= hi && array[mid + 1] > valueToFind) {
-                    return mid;
-                }
-                lo = mid + 1;
+        final int mid = (fromIndex + toIndex - 1) >>> 1;
+        if (array[mid] == value) {
+            return mid;
+        } else if (array[mid] > value) {
+            if (fromIndex <= mid - 1 && array[mid - 1] <= value) {
+                return mid - 1;
             }
+            return floor(array, fromIndex, mid, value);
         }
-        return INDEX_NOT_FOUND;
+        if (mid + 1 <= toIndex - 1 && array[mid + 1] > value) {
+            return mid;
+        }
+        return floor(array, mid + 1, toIndex, value);
     }
 
     /**
@@ -2580,12 +2508,12 @@ public class ArrayUtils {
      * is undefined.
      *
      * @param array The sorted array to be searched
-     * @param valueToFind The <code>double</code> value for which we want to find a floor
+     * @param value The <code>double</code> value for which we want to find a floor
      * @return The index of the floor if it is found. -1 will be returned if no floor was found.
      * @throws NullPointerException If <code>array</code> is null
      */
-    public static int floor(final double[] array, final double valueToFind) {
-        return floor(array, 0, array.length, valueToFind);
+    public static int floor(final double[] array, final double value) {
+        return floor(array, 0, array.length, value);
     }
 
     /**
@@ -2601,7 +2529,7 @@ public class ArrayUtils {
      * @param array The sorted array to be searched
      * @param fromIndex The index of the first element (inclusive) to be searched
      * @param toIndex The index of the last element (exclusive) to be searched
-     * @param valueToFind The <code>double</code> value for which we want to find a floor
+     * @param value The <code>double</code> value for which we want to find a floor
      * @return The index of the floor if it is found. -1 will be returned if no floor was found within the range.
      * @throws NullPointerException If <code>array</code> is null
      * @throws IllegalArgumentException If any of the indices are out of bound
@@ -2609,38 +2537,32 @@ public class ArrayUtils {
     public static int floor(final double[] array,
                             final int fromIndex,
                             final int toIndex,
-                            final double valueToFind) {
+                            final double value) {
         Validate.notNull(array);
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
             return INDEX_NOT_FOUND;
         }
-        int lo = fromIndex;
-        int hi = toIndex - 1;
-        if (array[lo] > valueToFind) {
+        if (array[fromIndex] > value) {
             return INDEX_NOT_FOUND;
         }
-        if (array[hi] <= valueToFind) {
-            return hi;
+        if (array[toIndex - 1] <= value) {
+            return toIndex - 1;
         }
-        while (lo <= hi) {
-            final int mid = (lo + hi) >>> 1;
-            if (array[mid] == valueToFind) {
-                return mid;
-            } else if (array[mid] > valueToFind) {
-                if (lo <= mid - 1 && array[mid - 1] <= valueToFind) {
-                    return mid - 1;
-                }
-                hi = mid - 1;
-            } else {
-                if (mid + 1 <= hi && array[mid + 1] > valueToFind) {
-                    return mid;
-                }
-                lo = mid + 1;
+        final int mid = (fromIndex + toIndex - 1) >>> 1;
+        if (array[mid] == value) {
+            return mid;
+        } else if (array[mid] > value) {
+            if (fromIndex <= mid - 1 && array[mid - 1] <= value) {
+                return mid - 1;
             }
+            return floor(array, fromIndex, mid, value);
         }
-        return INDEX_NOT_FOUND;
+        if (mid + 1 <= toIndex - 1 && array[mid + 1] > value) {
+            return mid;
+        }
+        return floor(array, mid + 1, toIndex, value);
     }
 
     /**
@@ -2653,12 +2575,12 @@ public class ArrayUtils {
      * is undefined.
      *
      * @param array The sorted array to be searched
-     * @param valueToFind The <code>short</code> value for which we want to find a floor
+     * @param value The <code>short</code> value for which we want to find a floor
      * @return The index of the floor if it is found. -1 will be returned if no floor was found.
      * @throws NullPointerException If <code>array</code> is null
      */
-    public static int floor(final short[] array, final short valueToFind) {
-        return floor(array, 0, array.length, valueToFind);
+    public static int floor(final short[] array, final short value) {
+        return floor(array, 0, array.length, value);
     }
 
     /**
@@ -2674,7 +2596,7 @@ public class ArrayUtils {
      * @param array The sorted array to be searched
      * @param fromIndex The index of the first element (inclusive) to be searched
      * @param toIndex The index of the last element (exclusive) to be searched
-     * @param valueToFind The <code>short</code> value for which we want to find a floor
+     * @param value The <code>short</code> value for which we want to find a floor
      * @return The index of the floor if it is found. -1 will be returned if no floor was found within the range.
      * @throws NullPointerException If <code>array</code> is null
      * @throws IllegalArgumentException If any of the indices are out of bound
@@ -2682,38 +2604,32 @@ public class ArrayUtils {
     public static int floor(final short[] array,
                             final int fromIndex,
                             final int toIndex,
-                            final short valueToFind) {
+                            final short value) {
         Validate.notNull(array);
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
             return INDEX_NOT_FOUND;
         }
-        int lo = fromIndex;
-        int hi = toIndex - 1;
-        if (array[lo] > valueToFind) {
+        if (array[fromIndex] > value) {
             return INDEX_NOT_FOUND;
         }
-        if (array[hi] <= valueToFind) {
-            return hi;
+        if (array[toIndex - 1] <= value) {
+            return toIndex - 1;
         }
-        while (lo <= hi) {
-            final int mid = (lo + hi) >>> 1;
-            if (array[mid] == valueToFind) {
-                return mid;
-            } else if (array[mid] > valueToFind) {
-                if (lo <= mid - 1 && array[mid - 1] <= valueToFind) {
-                    return mid - 1;
-                }
-                hi = mid - 1;
-            } else {
-                if (mid + 1 <= hi && array[mid + 1] > valueToFind) {
-                    return mid;
-                }
-                lo = mid + 1;
+        final int mid = (fromIndex + toIndex - 1) >>> 1;
+        if (array[mid] == value) {
+            return mid;
+        } else if (array[mid] > value) {
+            if (fromIndex <= mid - 1 && array[mid - 1] <= value) {
+                return mid - 1;
             }
+            return floor(array, fromIndex, mid, value);
         }
-        return INDEX_NOT_FOUND;
+        if (mid + 1 <= toIndex - 1 && array[mid + 1] > value) {
+            return mid;
+        }
+        return floor(array, mid + 1, toIndex, value);
     }
 
     /**
@@ -2726,12 +2642,12 @@ public class ArrayUtils {
      * is undefined.
      *
      * @param array The sorted array to be searched
-     * @param valueToFind The <code>byte</code> value for which we want to find a floor
+     * @param value The <code>byte</code> value for which we want to find a floor
      * @return The index of the floor if it is found. -1 will be returned if no floor was found.
      * @throws NullPointerException If <code>array</code> is null
      */
-    public static int floor(final byte[] array, final byte valueToFind) {
-        return floor(array, 0, array.length, valueToFind);
+    public static int floor(final byte[] array, final byte value) {
+        return floor(array, 0, array.length, value);
     }
 
     /**
@@ -2747,7 +2663,7 @@ public class ArrayUtils {
      * @param array The sorted array to be searched
      * @param fromIndex The index of the first element (inclusive) to be searched
      * @param toIndex The index of the last element (exclusive) to be searched
-     * @param valueToFind The <code>byte</code> value for which we want to find a floor
+     * @param value The <code>byte</code> value for which we want to find a floor
      * @return The index of the floor if it is found. -1 will be returned if no floor was found within the range.
      * @throws NullPointerException If <code>array</code> is null
      * @throws IllegalArgumentException If any of the indices are out of bound
@@ -2755,38 +2671,32 @@ public class ArrayUtils {
     public static int floor(final byte[] array,
                             final int fromIndex,
                             final int toIndex,
-                            final byte valueToFind) {
+                            final byte value) {
         Validate.notNull(array);
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
             return INDEX_NOT_FOUND;
         }
-        int lo = fromIndex;
-        int hi = toIndex - 1;
-        if (array[lo] > valueToFind) {
+        if (array[fromIndex] > value) {
             return INDEX_NOT_FOUND;
         }
-        if (array[hi] <= valueToFind) {
-            return hi;
+        if (array[toIndex - 1] <= value) {
+            return toIndex - 1;
         }
-        while (lo <= hi) {
-            final int mid = (lo + hi) >>> 1;
-            if (array[mid] == valueToFind) {
-                return mid;
-            } else if (array[mid] > valueToFind) {
-                if (lo <= mid - 1 && array[mid - 1] <= valueToFind) {
-                    return mid - 1;
-                }
-                hi = mid - 1;
-            } else {
-                if (mid + 1 <= hi && array[mid + 1] > valueToFind) {
-                    return mid;
-                }
-                lo = mid + 1;
+        final int mid = (fromIndex + toIndex - 1) >>> 1;
+        if (array[mid] == value) {
+            return mid;
+        } else if (array[mid] > value) {
+            if (fromIndex <= mid - 1 && array[mid - 1] <= value) {
+                return mid - 1;
             }
+            return floor(array, fromIndex, mid, value);
         }
-        return INDEX_NOT_FOUND;
+        if (mid + 1 <= toIndex - 1 && array[mid + 1] > value) {
+            return mid;
+        }
+        return floor(array, mid + 1, toIndex, value);
     }
 
     /**
@@ -2799,12 +2709,12 @@ public class ArrayUtils {
      * is undefined.
      *
      * @param array The sorted array to be searched
-     * @param valueToFind The <code>char</code> value for which we want to find a floor
+     * @param value The <code>char</code> value for which we want to find a floor
      * @return The index of the floor if it is found. -1 will be returned if no floor was found.
      * @throws NullPointerException If <code>array</code> is null
      */
-    public static int floor(final char[] array, final char valueToFind) {
-        return floor(array, 0, array.length, valueToFind);
+    public static int floor(final char[] array, final char value) {
+        return floor(array, 0, array.length, value);
     }
 
     /**
@@ -2820,7 +2730,7 @@ public class ArrayUtils {
      * @param array The sorted array to be searched
      * @param fromIndex The index of the first element (inclusive) to be searched
      * @param toIndex The index of the last element (exclusive) to be searched
-     * @param valueToFind The <code>char</code> value for which we want to find a floor
+     * @param value The <code>char</code> value for which we want to find a floor
      * @return The index of the floor if it is found. -1 will be returned if no floor was found within the range.
      * @throws NullPointerException If <code>array</code> is null
      * @throws IllegalArgumentException If any of the indices are out of bound
@@ -2828,38 +2738,32 @@ public class ArrayUtils {
     public static int floor(final char[] array,
                             final int fromIndex,
                             final int toIndex,
-                            final char valueToFind) {
+                            final char value) {
         Validate.notNull(array);
         Validate.inclusiveBetween(0, array.length - 1, fromIndex);
         Validate.inclusiveBetween(0, array.length, toIndex);
         if (fromIndex >= toIndex) {
             return INDEX_NOT_FOUND;
         }
-        int lo = fromIndex;
-        int hi = toIndex - 1;
-        if (array[lo] > valueToFind) {
+        if (array[fromIndex] > value) {
             return INDEX_NOT_FOUND;
         }
-        if (array[hi] <= valueToFind) {
-            return hi;
+        if (array[toIndex - 1] <= value) {
+            return toIndex - 1;
         }
-        while (lo <= hi) {
-            final int mid = (lo + hi) >>> 1;
-            if (array[mid] == valueToFind) {
-                return mid;
-            } else if (array[mid] > valueToFind) {
-                if (lo <= mid - 1 && array[mid - 1] <= valueToFind) {
-                    return mid - 1;
-                }
-                hi = mid - 1;
-            } else {
-                if (mid + 1 <= hi && array[mid + 1] > valueToFind) {
-                    return mid;
-                }
-                lo = mid + 1;
+        final int mid = (fromIndex + toIndex - 1) >>> 1;
+        if (array[mid] == value) {
+            return mid;
+        } else if (array[mid] > value) {
+            if (fromIndex <= mid - 1 && array[mid - 1] <= value) {
+                return mid - 1;
             }
+            return floor(array, fromIndex, mid, value);
         }
-        return INDEX_NOT_FOUND;
+        if (mid + 1 <= toIndex - 1 && array[mid + 1] > value) {
+            return mid;
+        }
+        return floor(array, mid + 1, toIndex, value);
     }
 
     /**
