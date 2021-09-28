@@ -24,16 +24,11 @@ jobs:
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
-#
-# Allow Java 16 to fail to allow Java 8 and 11 to run until we know what's wrong on Java 16.
-#        java: [ 8, 11, 16 ]
-        java: [ 8, 11 ]
+        java: [ 8, 11, 17 ]
         experimental: [false]
-        include:
-          - java: 16
-            experimental: true        
-          - java: 17-ea
-            experimental: true        
+#        include:
+#          - java: 18-ea
+#            experimental: true        
     steps:
     - uses: actions/checkout@v2.3.4
     - uses: actions/cache@v2.1.6
