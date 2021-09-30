@@ -45,7 +45,7 @@ public class ReflectionToStringBuilderExcludeNullValuesTest {
 
     @Test
     public void test_NonExclude() {
-        //normal case=
+        //test normal case
         String toString = ReflectionToStringBuilder.toString(BOTH_NON_NULL, null, false, false, false, null);
         assertTrue(toString.contains(INTEGER_FIELD_NAME));
         assertTrue(toString.contains(STRING_FIELD_NAME));
@@ -60,7 +60,7 @@ public class ReflectionToStringBuilderExcludeNullValuesTest {
         assertTrue(toString.contains(INTEGER_FIELD_NAME));
         assertTrue(toString.contains(STRING_FIELD_NAME));
 
-        //make the both null
+        //both null
         toString = ReflectionToStringBuilder.toString(BOTH_NULL, null, false, false, false, null);
         assertTrue(toString.contains(INTEGER_FIELD_NAME));
         assertTrue(toString.contains(STRING_FIELD_NAME));
