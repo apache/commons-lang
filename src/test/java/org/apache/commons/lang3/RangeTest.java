@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -382,5 +383,32 @@ public class RangeTest {
     public void testToStringFormat() {
         final String str = intRange.toString("From %1$s to %2$s");
         assertEquals("From 10 to 20", str);
+    }
+
+    // -----------------------------------------------------------------------
+    static abstract class AbstractComparable implements Comparable<AbstractComparable> {
+        @Override
+        public int compareTo(final AbstractComparable o) {
+            return 0;
+        }
+    }
+
+    static final class DerivedComparableA extends AbstractComparable {
+    }
+
+    static final class DerivedComparableB extends AbstractComparable {
+    }
+
+    @Test
+    public void testConstructorSignatureWithAbstractComparableClasses() {
+        final DerivedComparableA derivedComparableA = new DerivedComparableA();
+        final DerivedComparableB derivedComparableB = new DerivedComparableB();
+
+        assertDoesNotThrow(() -> { // wrapping to prevent warnings about missing test assertions
+            final Range<AbstractComparable> mixed = Range.between(derivedComparableA, derivedComparableB);
+            final Range<AbstractComparable> same = Range.between(derivedComparableA, derivedComparableA);
+            final Range<DerivedComparableA> rangeA = Range.between(derivedComparableA, derivedComparableA);
+            final Range<DerivedComparableB> rangeB = Range.is(derivedComparableB);
+        });
     }
 }
