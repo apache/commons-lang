@@ -1129,8 +1129,8 @@ public class DateUtils {
         if (focus == null) {
             throw nullDateIllegalArgumentException();
         }
-        Calendar start = null;
-        Calendar end = null;
+        Calendar start;
+        Calendar end;
         int startCutoff = Calendar.SUNDAY;
         int endCutoff = Calendar.SATURDAY;
         switch (rangeStyle) {

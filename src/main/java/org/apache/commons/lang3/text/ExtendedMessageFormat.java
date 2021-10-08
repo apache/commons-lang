@@ -445,7 +445,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param pos current position
      */
     private void seekNonWs(final String pattern, final ParsePosition pos) {
-        int len = 0;
+        int len;
         final char[] buffer = pattern.toCharArray();
         do {
             len = StrMatcher.splitMatcher().isMatch(buffer, pos.getIndex());
