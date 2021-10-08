@@ -6159,6 +6159,36 @@ public class StringUtils {
     }
 
     /**
+     * Removes a char only if it is at the beginning of a source string,
+     * otherwise returns the source string.
+     *
+     * <p>A {@code null} source string will return {@code null}.
+     * An empty ("") source string will return the empty string.
+     * A {@code null} search char will return the source string.</p>
+     *
+     * <pre>
+     * StringUtils.removeStart(null, *)      = null
+     * StringUtils.removeStart("", *)        = ""
+     * StringUtils.removeStart(*, null)      = *
+     * StringUtils.removeStart("/path", '/') = "path"
+     * StringUtils.removeStart("path", '/')  = "path"
+     * StringUtils.removeStart("path", 0)    = "path"
+     * </pre>
+     *
+     * @param str  the source String to search, may be null.
+     * @param remove  the char to search for and remove.
+     * @return the substring with the char removed if found,
+     *  {@code null} if null String input.
+     * @since 3.13.0
+     */
+    public static String removeStart(final String str, final char remove) {
+        if (isEmpty(str)) {
+            return str;
+        }
+        return str.charAt(0) == remove ? str.substring(1) : str;
+    }
+
+    /**
      * <p>Removes a substring only if it is at the beginning of a source string,
      * otherwise returns the source string.</p>
      *

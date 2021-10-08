@@ -1794,7 +1794,23 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testRemoveStart() {
+    public void testRemoveStartChar() {
+        // StringUtils.removeStart("", *)        = ""
+        assertNull(StringUtils.removeStart(null, '\0'));
+        assertNull(StringUtils.removeStart(null, 'a'));
+
+        // StringUtils.removeStart(*, null)      = *
+        assertEquals(StringUtils.removeStart("", '\0'), "");
+        assertEquals(StringUtils.removeStart("", 'a'), "");
+
+        // All others:
+        assertEquals(StringUtils.removeStart("/path", '/'), "path");
+        assertEquals(StringUtils.removeStart("path", '/'), "path");
+        assertEquals(StringUtils.removeStart("path", '\0'), "path");
+    }
+
+    @Test
+    public void testRemoveStartString() {
         // StringUtils.removeStart("", *)        = ""
         assertNull(StringUtils.removeStart(null, null));
         assertNull(StringUtils.removeStart(null, ""));
