@@ -630,7 +630,7 @@ public class TypeUtils {
 
             // find the interface closest to the super class
             for (final Type midType : interfaceTypes) {
-                Class<?> midClass = null;
+                Class<?> midClass;
 
                 if (midType instanceof ParameterizedType) {
                     midClass = getRawType((ParameterizedType) midType);
