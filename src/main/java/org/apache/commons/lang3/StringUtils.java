@@ -3930,11 +3930,15 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = newStringJoiner(delimiter);
+        // Using StringBuilder for joining primitives
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = startIndex; i < endIndex; i++) {
-            joiner.add(String.valueOf(array[i]));
+            stringBuilder.append(array[i]);
+            if (i != endIndex - 1) {
+                stringBuilder.append(delimiter);
+            }
         }
-        return joiner.toString();
+        return stringBuilder.toString();
     }
 
     /**
