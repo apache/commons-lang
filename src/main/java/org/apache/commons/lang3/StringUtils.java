@@ -3930,15 +3930,15 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-
-        StringBuilder stringBuilder = new StringBuilder();
+        final StringBuilder stringBuilder = new StringBuilder();
         for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder.append(array[i]);
-            if (i != endIndex - 1) {
-                stringBuilder.append(delimiter);
-            }
+            stringBuilder
+                    .append(array[i])
+                    .append(delimiter);
         }
-        return stringBuilder.toString();
+        return stringBuilder
+                .deleteCharAt(stringBuilder.length() - 1)
+                .toString();
     }
 
     /**
@@ -4011,14 +4011,15 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        StringBuilder stringBuilder = new StringBuilder();
+        final StringBuilder stringBuilder = new StringBuilder();
         for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder.append(array[i]);
-            if (i != endIndex - 1) {
-                   stringBuilder.append(delimiter);
-            }
+            stringBuilder
+                    .append(array[i])
+                    .append(delimiter);
         }
-        return stringBuilder.toString();
+        return stringBuilder
+                .deleteCharAt(stringBuilder.length() - 1)
+                .toString();
     }
 
     /**
@@ -4091,15 +4092,15 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-
-        StringBuilder stringBuilder = new StringBuilder();
+        final StringBuilder stringBuilder = new StringBuilder();
         for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder.append(array[i]);
-            if (i != endIndex - 1) {
-                stringBuilder.append(delimiter);
-            }
+            stringBuilder
+                    .append(array[i])
+                    .append(delimiter);
         }
-        return stringBuilder.toString();
+        return stringBuilder
+                .deleteCharAt(stringBuilder.length() - 1)
+                .toString();
     }
 
     /**
@@ -4174,12 +4175,13 @@ public class StringUtils {
         }
         final StringBuilder stringBuilder = new StringBuilder();
         for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder.append(array[i]);
-            if (i != endIndex - 1) {
-                stringBuilder.append(delimiter);
-            }
+            stringBuilder
+                    .append(array[i])
+                    .append(delimiter);
         }
-        return stringBuilder.toString();
+        return stringBuilder
+                .deleteCharAt(stringBuilder.length() - 1)
+                .toString();
     }
 
     /**
@@ -4254,12 +4256,13 @@ public class StringUtils {
         }
         final StringBuilder stringBuilder = new StringBuilder();
         for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder.append(array[i]);
-            if (i != endIndex - 1) {
-                stringBuilder.append(delimiter);
-            }
+            stringBuilder
+                    .append(array[i])
+                    .append(delimiter);
         }
-        return stringBuilder.toString();
+        return stringBuilder
+                .deleteCharAt(stringBuilder.length() - 1)
+                .toString();
     }
 
     /**
@@ -4334,12 +4337,13 @@ public class StringUtils {
         }
         final StringBuilder stringBuilder = new StringBuilder();
         for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder.append(array[i]);
-            if (i != endIndex - 1) {
-                stringBuilder.append(delimiter);
-            }
+            stringBuilder
+                    .append(array[i])
+                    .append(delimiter);
         }
-        return stringBuilder.toString();
+        return stringBuilder
+                .deleteCharAt(stringBuilder.length() - 1)
+                .toString();
     }
 
     /**
@@ -4623,12 +4627,13 @@ public class StringUtils {
         }
         final StringBuilder stringBuilder = new StringBuilder();
         for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder.append(array[i]);
-            if (i != endIndex - 1) {
-                stringBuilder.append(delimiter);
-            }
+            stringBuilder
+                    .append(array[i])
+                    .append(delimiter);
         }
-        return stringBuilder.toString();
+        return stringBuilder
+                .deleteCharAt(stringBuilder.length() - 1)
+                .toString();
     }
 
     /**
@@ -4841,12 +4846,13 @@ public class StringUtils {
         }
         final StringBuilder stringBuilder = new StringBuilder();
         for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder.append(array[i]);
-            if (i != endIndex - 1) {
-                stringBuilder.append(delimiter);
-            }
+            stringBuilder
+                    .append(array[i])
+                    .append(delimiter);
         }
-        return stringBuilder.toString();
+        return stringBuilder
+                .deleteCharAt(stringBuilder.length() - 1)
+                .toString();
     }
 
     /**
