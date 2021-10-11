@@ -85,6 +85,7 @@ public class ExceptionUtils {
      * <p>The method searches for methods with specific names that return a
      * {@code Throwable} object. This will pick up most wrapping exceptions,
      * including those from JDK 1.4.
+     * </p>
      *
      * <p>The default list searched for are:</p>
      * <ul>
@@ -240,13 +241,13 @@ public class ExceptionUtils {
      * {ClassNameWithoutPackage}: {ThrowableMessage}
      * </p>
      *
-     * @param th  the throwable to get a message for, null returns empty string
+     * @param throwable  the throwable to get a message for, null returns empty string
      * @return the message, non-null
      * @since 2.2
      */
-    public static String getRootCauseMessage(final Throwable th) {
-        Throwable root = getRootCause(th);
-        root = root == null ? th : root;
+    public static String getRootCauseMessage(final Throwable throwable) {
+        Throwable root = getRootCause(throwable);
+        root = root == null ? throwable : root;
         return getMessage(root);
     }
 
@@ -296,11 +297,11 @@ public class ExceptionUtils {
      * message contains a line that starts with:
      * {@code &quot;&nbsp;&nbsp;&nbsp;at&quot;.}</p>
      *
-     * @param t is any throwable
+     * @param throwable is any throwable
      * @return List of stack frames
      */
-    static List<String> getStackFrameList(final Throwable t) {
-        final String stackTrace = getStackTrace(t);
+    static List<String> getStackFrameList(final Throwable throwable) {
+        final String stackTrace = getStackTrace(throwable);
         final String linebreak = System.lineSeparator();
         final StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
         final List<String> list = new ArrayList<>();
