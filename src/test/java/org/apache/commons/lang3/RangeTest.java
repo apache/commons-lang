@@ -306,6 +306,7 @@ public class RangeTest {
 
         // easy inside range
         assertTrue(intRange.isOverlappedBy(Range.between(12, 18)));
+        assertTrue(intRange.isOverlappedBy(Range.between(5, 25)));
 
         // outside range on each side
         assertFalse(intRange.isOverlappedBy(Range.between(32, 45)));
