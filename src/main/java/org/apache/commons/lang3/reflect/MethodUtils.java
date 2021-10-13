@@ -209,7 +209,7 @@ public class MethodUtils {
         args = ArrayUtils.nullToEmpty(args);
 
         final String messagePrefix;
-        Method method;
+        final Method method;
 
         if (forceAccess) {
             messagePrefix = "No such method: ";

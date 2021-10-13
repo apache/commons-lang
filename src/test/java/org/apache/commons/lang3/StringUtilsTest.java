@@ -2760,7 +2760,7 @@ public class StringUtilsTest {
 
         // Match example in javadoc
         {
-            String[] results;
+            final String[] results;
             final String[] expectedResults = {"a", "", "b", "c"};
             results = StringUtils.splitPreserveAllTokens("a..b.c", '.');
             assertEquals(expectedResults.length, results.length);
@@ -2789,7 +2789,7 @@ public class StringUtilsTest {
         }
 
         {
-            String[] results;
+            final String[] results;
             final String[] expectedResults = {"ab", "de fg"};
             results = StringUtils.splitPreserveAllTokens("ab de fg", null, 2);
             assertEquals(expectedResults.length, results.length);
@@ -2799,7 +2799,7 @@ public class StringUtilsTest {
         }
 
         {
-            String[] results;
+            final String[] results;
             final String[] expectedResults = {"ab", "  de fg"};
             results = StringUtils.splitPreserveAllTokens("ab   de fg", null, 2);
             assertEquals(expectedResults.length, results.length);
@@ -2809,7 +2809,7 @@ public class StringUtilsTest {
         }
 
         {
-            String[] results;
+            final String[] results;
             final String[] expectedResults = {"ab", "::de:fg"};
             results = StringUtils.splitPreserveAllTokens("ab:::de:fg", ":", 2);
             assertEquals(expectedResults.length, results.length);
@@ -2819,7 +2819,7 @@ public class StringUtilsTest {
         }
 
         {
-            String[] results;
+            final String[] results;
             final String[] expectedResults = {"ab", "", " de fg"};
             results = StringUtils.splitPreserveAllTokens("ab   de fg", null, 3);
             assertEquals(expectedResults.length, results.length);
@@ -2829,7 +2829,7 @@ public class StringUtilsTest {
         }
 
         {
-            String[] results;
+            final String[] results;
             final String[] expectedResults = {"ab", "", "", "de fg"};
             results = StringUtils.splitPreserveAllTokens("ab   de fg", null, 4);
             assertEquals(expectedResults.length, results.length);
@@ -2840,7 +2840,7 @@ public class StringUtilsTest {
 
         {
             final String[] expectedResults = {"ab", "cd:ef"};
-            String[] results;
+            final String[] results;
             results = StringUtils.splitPreserveAllTokens("ab:cd:ef", ":", 2);
             assertEquals(expectedResults.length, results.length);
             for (int i = 0; i < expectedResults.length; i++) {
@@ -2849,7 +2849,7 @@ public class StringUtilsTest {
         }
 
         {
-            String[] results;
+            final String[] results;
             final String[] expectedResults = {"ab", ":cd:ef"};
             results = StringUtils.splitPreserveAllTokens("ab::cd:ef", ":", 2);
             assertEquals(expectedResults.length, results.length);
@@ -2859,7 +2859,7 @@ public class StringUtilsTest {
         }
 
         {
-            String[] results;
+            final String[] results;
             final String[] expectedResults = {"ab", "", ":cd:ef"};
             results = StringUtils.splitPreserveAllTokens("ab:::cd:ef", ":", 3);
             assertEquals(expectedResults.length, results.length);
@@ -2869,7 +2869,7 @@ public class StringUtilsTest {
         }
 
         {
-            String[] results;
+            final String[] results;
             final String[] expectedResults = {"ab", "", "", "cd:ef"};
             results = StringUtils.splitPreserveAllTokens("ab:::cd:ef", ":", 4);
             assertEquals(expectedResults.length, results.length);
@@ -2879,7 +2879,7 @@ public class StringUtilsTest {
         }
 
         {
-            String[] results;
+            final String[] results;
             final String[] expectedResults = {"", "ab", "", "", "cd:ef"};
             results = StringUtils.splitPreserveAllTokens(":ab:::cd:ef", ":", 5);
             assertEquals(expectedResults.length, results.length);
@@ -2889,7 +2889,7 @@ public class StringUtilsTest {
         }
 
         {
-            String[] results;
+            final String[] results;
             final String[] expectedResults = {"", "", "ab", "", "", "cd:ef"};
             results = StringUtils.splitPreserveAllTokens("::ab:::cd:ef", ":", 6);
             assertEquals(expectedResults.length, results.length);
