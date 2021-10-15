@@ -314,33 +314,37 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         Validate.notNull(str, "str");
         // parse double format
         int pos = str.indexOf('.');
-        if (pos >= 0) {
-            return getFraction(Double.parseDouble(str));
-        }
+        try {
+            if (pos >= 0) {
+                return getFraction(Double.parseDouble(str));
+            }
 
-        // parse X Y/Z format
-        pos = str.indexOf(' ');
-        if (pos > 0) {
-            final int whole = Integer.parseInt(str.substring(0, pos));
-            str = str.substring(pos + 1);
+            // parse X Y/Z format
+            pos = str.indexOf(' ');
+            if (pos > 0) {
+                final int whole = Integer.parseInt(str.substring(0, pos));
+                str = str.substring(pos + 1);
+                pos = str.indexOf('/');
+                if (pos < 0) {
+                    throw new NumberFormatException("The fraction could not be parsed as the format X Y/Z");
+                }
+                final int numer = Integer.parseInt(str.substring(0, pos));
+                final int denom = Integer.parseInt(str.substring(pos + 1));
+                return getFraction(whole, numer, denom);
+            }
+
+            // parse Y/Z format
             pos = str.indexOf('/');
             if (pos < 0) {
-                throw new NumberFormatException("The fraction could not be parsed as the format X Y/Z");
+                // simple whole number
+                return getFraction(Integer.parseInt(str), 1);
             }
             final int numer = Integer.parseInt(str.substring(0, pos));
             final int denom = Integer.parseInt(str.substring(pos + 1));
-            return getFraction(whole, numer, denom);
+            return getFraction(numer, denom);
+        } catch (NumberFormatException numberFormatException){
+            throw new NumberFormatException("the number format is invalid");
         }
-
-        // parse Y/Z format
-        pos = str.indexOf('/');
-        if (pos < 0) {
-            // simple whole number
-            return getFraction(Integer.parseInt(str), 1);
-        }
-        final int numer = Integer.parseInt(str.substring(0, pos));
-        final int denom = Integer.parseInt(str.substring(pos + 1));
-        return getFraction(numer, denom);
     }
 
     // Accessors
