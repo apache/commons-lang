@@ -23,9 +23,9 @@ import java.util.Comparator;
  * <p>An immutable range of objects from a minimum to maximum point inclusive.</p>
  *
  * <p>The objects need to either be implementations of {@code Comparable}
- * or you need to supply a {@code Comparator}. </p>
+ * or you need to supply a {@code Comparator}.</p>
  *
- * <p>#ThreadSafe# if the objects and comparator are thread-safe</p>
+ * <p>#ThreadSafe# if the objects and comparator are thread-safe.</p>
  *
  * @param <T> The type of range values.
  * @since 3.0
@@ -35,6 +35,7 @@ public final class Range<T> implements Serializable {
     @SuppressWarnings({"rawtypes", "unchecked"})
     private enum ComparableComparator implements Comparator {
         INSTANCE;
+
         /**
          * Comparable based compare implementation.
          *
@@ -50,9 +51,11 @@ public final class Range<T> implements Serializable {
 
     /**
      * Serialization version.
+     *
      * @see java.io.Serializable
      */
     private static final long serialVersionUID = 1L;
+
     /**
      * <p>Obtains a range with the specified minimum and maximum values (both inclusive).</p>
      *
