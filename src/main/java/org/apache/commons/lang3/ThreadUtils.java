@@ -467,7 +467,7 @@ public class ThreadUtils {
     public static void sleepQuietly(final long millis) {
         try {
             sleep(Duration.ofMillis(millis));
-        } catch (InterruptedException e) {
+        } catch (final InterruptedException e) {
             // be quiet.
         }
     }
