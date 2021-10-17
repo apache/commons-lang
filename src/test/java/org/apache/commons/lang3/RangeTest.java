@@ -328,7 +328,10 @@ public class RangeTest {
 
         // negative
         assertFalse(intRange.isOverlappedBy(Range.between(-11, -18)));
-    }
+
+        // outside range whole range
+        assertTrue(intRange.isOverlappedBy(Range.between(9, 21)));
+}
 
     @Test
     public void testIsStartedBy() {
