@@ -240,7 +240,7 @@ public class ObjectUtils {
     public static <T> T clone(final T obj) {
         if (obj instanceof Cloneable) {
             final Object result;
-            if (obj.getClass().isArray()) {
+            if (isArray(obj)) {
                 final Class<?> componentType = obj.getClass().getComponentType();
                 if (componentType.isPrimitive()) {
                     int length = Array.getLength(obj);
@@ -980,6 +980,31 @@ public class ObjectUtils {
             public final static int MAGIC_NUMBER = CONST(5);
      */
 
+    /**
+     * <p>
+     * Checks, whether the given object is an Object array or a primitive array in a null-safe manner.
+     * </p>
+     *
+     * <p>
+     * A {@code null} {@code object} Object will return {@code false}.
+     * </p>
+     *
+     * <pre>
+     * ObjectUtils.isArray(null)             = false
+     * ObjectUtils.isArray("")               = false
+     * ObjectUtils.isArray("ab")             = false
+     * ObjectUtils.isArray(new int[]{})      = true
+     * ObjectUtils.isArray(new int[]{1,2,3}) = true
+     * ObjectUtils.isArray(1234)             = false
+     * </pre>
+     *
+     * @param object the object to check, may be {@code null}
+     * @return {@code true} if the object is an {@code array}, {@code false} otherwise
+     * @since 3.13.0
+     */
+    public static boolean isArray(final Object object) {
+        return object != null && object.getClass().isArray();
+    }
 
     /**
      * <p>Checks if an Object is empty or null.</p>
@@ -1013,7 +1038,7 @@ public class ObjectUtils {
         if (object instanceof CharSequence) {
             return ((CharSequence) object).length() == 0;
         }
-        if (object.getClass().isArray()) {
+        if (isArray(object)) {
             return Array.getLength(object) == 0;
         }
         if (object instanceof Collection<?>) {
