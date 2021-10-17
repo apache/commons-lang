@@ -236,9 +236,6 @@ public final class Range<T> implements Serializable {
         return 0;
     }
 
-    // Element tests
-    //--------------------------------------------------------------------
-
     /**
      * <p>Compares this range to another object to test if they are equal.</p>.
      *

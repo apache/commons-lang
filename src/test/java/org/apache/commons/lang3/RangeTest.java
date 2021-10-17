@@ -105,7 +105,6 @@ public class RangeTest {
         assertFalse(rbstr.contains(""), "should not contain ''");
     }
 
-    // -----------------------------------------------------------------------
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Test
     public void testComparableConstructors() {
@@ -149,7 +148,6 @@ public class RangeTest {
         assertFalse(intRange.contains(25));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testContainsRange() {
 
@@ -193,7 +191,6 @@ public class RangeTest {
         assertEquals(1, intRange.elementCompareTo(25));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testEqualsObject() {
         assertEquals(byteRange, byteRange);
@@ -231,7 +228,6 @@ public class RangeTest {
         assertEquals(20d, doubleRange.getMaximum(), 0.00001d);
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testGetMinimum() {
         assertEquals(10, (int) intRange.getMinimum());
@@ -395,7 +391,6 @@ public class RangeTest {
         assertTrue(ri.contains(11), "should contain 11");
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testRangeOfChars() {
         final Range<Character> chars = Range.between('a', 'z');
@@ -403,7 +398,6 @@ public class RangeTest {
         assertFalse(chars.contains('B'));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testSerializing() {
         SerializationUtils.clone(intRange);
