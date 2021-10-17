@@ -47,6 +47,43 @@ public class RangeTest {
     private Range<Integer> intRange;
     private Range<Long> longRange;
 
+    abstract static class AbstractComparable implements Comparable<AbstractComparable> {
+        @Override
+        public int compareTo(final AbstractComparable o) {
+            return 0;
+        }
+    }
+
+    static final class DerivedComparableA extends AbstractComparable {
+        // empty
+    }
+
+    static final class DerivedComparableB extends AbstractComparable {
+        // empty
+    }
+
+    @Test
+    public void testConstructorSignatureWithAbstractComparableClasses() {
+        final DerivedComparableA derivedComparableA = new DerivedComparableA();
+        final DerivedComparableB derivedComparableB = new DerivedComparableB();
+
+        Range<AbstractComparable> mixed = Range.between(derivedComparableA, derivedComparableB);
+        mixed = Range.between(derivedComparableA, derivedComparableB, null);
+        assertTrue(mixed.contains(derivedComparableA));
+
+        Range<AbstractComparable> same = Range.between(derivedComparableA, derivedComparableA);
+        same = Range.between(derivedComparableA, derivedComparableA, null);
+        assertTrue(same.contains(derivedComparableA));
+
+        Range<DerivedComparableA> rangeA = Range.between(derivedComparableA, derivedComparableA);
+        rangeA = Range.between(derivedComparableA, derivedComparableA, null);
+        assertTrue(rangeA.contains(derivedComparableA));
+
+        Range<DerivedComparableB> rangeB = Range.is(derivedComparableB);
+        rangeB = Range.is(derivedComparableB, null);
+        assertTrue(rangeB.contains(derivedComparableB));
+    }
+
     @BeforeEach
     public void setUp() {
         byteRange = Range.between((byte) 0, (byte) 5);

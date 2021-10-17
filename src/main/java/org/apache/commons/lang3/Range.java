@@ -72,7 +72,7 @@ public final class Range<T> implements Serializable {
      * @throws IllegalArgumentException if either element is null
      * @throws ClassCastException if the elements are not {@code Comparable}
      */
-    public static <T extends Comparable<T>> Range<T> between(final T fromInclusive, final T toInclusive) {
+    public static <T extends Comparable<? super T>> Range<T> between(final T fromInclusive, final T toInclusive) {
         return between(fromInclusive, toInclusive, null);
     }
 
@@ -110,7 +110,7 @@ public final class Range<T> implements Serializable {
      * @throws IllegalArgumentException if the element is null
      * @throws ClassCastException if the element is not {@code Comparable}
      */
-    public static <T extends Comparable<T>> Range<T> is(final T element) {
+    public static <T extends Comparable<? super T>> Range<T> is(final T element) {
         return between(element, element, null);
     }
 
