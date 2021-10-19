@@ -117,7 +117,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     private int tokenPos;
 
     /** The delimiter matcher */
-    private StrMatcher delimMatcher = StrMatcher.splitMatcher();
+    private StrMatcher delimiterMatcher = StrMatcher.splitMatcher();
     /** The quote matcher */
     private StrMatcher quoteMatcher = StrMatcher.noneMatcher();
     /** The ignored matcher */
@@ -836,7 +836,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * @return the delimiter matcher in use
      */
     public StrMatcher getDelimiterMatcher() {
-        return this.delimMatcher;
+        return this.delimiterMatcher;
     }
 
     /**
@@ -849,9 +849,9 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      */
     public StrTokenizer setDelimiterMatcher(final StrMatcher delim) {
         if (delim == null) {
-            this.delimMatcher = StrMatcher.noneMatcher();
+            this.delimiterMatcher = StrMatcher.noneMatcher();
         } else {
-            this.delimMatcher = delim;
+            this.delimiterMatcher = delim;
         }
         return this;
     }

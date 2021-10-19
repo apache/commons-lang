@@ -976,8 +976,8 @@ public class MethodUtils {
         A annotation = method.getAnnotation(annotationCls);
 
         if (annotation == null && searchSupers) {
-            final Class<?> mcls = method.getDeclaringClass();
-            final List<Class<?>> classes = getAllSuperclassesAndInterfaces(mcls);
+            final Class<?> methodDeclaringClass = method.getDeclaringClass();
+            final List<Class<?>> classes = getAllSuperclassesAndInterfaces(methodDeclaringClass);
             for (final Class<?> acls : classes) {
                 final Method equivalentMethod = (ignoreAccess ? MethodUtils.getMatchingMethod(acls, method.getName(), method.getParameterTypes())
                     : MethodUtils.getMatchingAccessibleMethod(acls, method.getName(), method.getParameterTypes()));

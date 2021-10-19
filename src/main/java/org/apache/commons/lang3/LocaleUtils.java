@@ -169,21 +169,21 @@ public class LocaleUtils {
         if (countryCode == null) {
             return Collections.emptyList();
         }
-        List<Locale> langs = cLanguagesByCountry.get(countryCode);
-        if (langs == null) {
-            langs = new ArrayList<>();
+        List<Locale> langByCountry = cLanguagesByCountry.get(countryCode);
+        if (langByCountry == null) {
+            langByCountry = new ArrayList<>();
             final List<Locale> locales = availableLocaleList();
             for (final Locale locale : locales) {
                 if (countryCode.equals(locale.getCountry()) &&
                     locale.getVariant().isEmpty()) {
-                    langs.add(locale);
+                    langByCountry.add(locale);
                 }
             }
-            langs = Collections.unmodifiableList(langs);
-            cLanguagesByCountry.putIfAbsent(countryCode, langs);
-            langs = cLanguagesByCountry.get(countryCode);
+            langByCountry = Collections.unmodifiableList(langByCountry);
+            cLanguagesByCountry.putIfAbsent(countryCode, langByCountry);
+            langByCountry = cLanguagesByCountry.get(countryCode);
         }
-        return langs;
+        return langByCountry;
     }
 
     /**

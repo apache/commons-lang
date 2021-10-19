@@ -746,9 +746,9 @@ public class StrSubstitutor {
      */
     private int substitute(final StrBuilder buf, final int offset, final int length, List<String> priorVariables) {
         final StrMatcher pfxMatcher = getVariablePrefixMatcher();
-        final StrMatcher suffMatcher = getVariableSuffixMatcher();
+        final StrMatcher suffixMatcher = getVariableSuffixMatcher();
         final char escape = getEscapeChar();
-        final StrMatcher valueDelimMatcher = getValueDelimiterMatcher();
+        final StrMatcher delimiterMatcher = getValueDelimiterMatcher();
         final boolean substitutionInVariablesEnabled = isEnableSubstitutionInVariables();
 
         final boolean top = priorVariables == null;
@@ -790,7 +790,7 @@ public class StrSubstitutor {
                         continue;
                     }
 
-                    endMatchLen = suffMatcher.isMatch(chars, pos, offset,
+                    endMatchLen = suffixMatcher.isMatch(chars, pos, offset,
                             bufEnd);
                     if (endMatchLen == 0) {
                         pos++;
@@ -811,7 +811,7 @@ public class StrSubstitutor {
                             String varName = varNameExpr;
                             String varDefaultValue = null;
 
-                            if (valueDelimMatcher != null) {
+                            if (delimiterMatcher != null) {
                                 final char [] varNameExprChars = varNameExpr.toCharArray();
                                 int valueDelimiterMatchLen;
                                 for (int i = 0; i < varNameExprChars.length; i++) {
@@ -820,7 +820,7 @@ public class StrSubstitutor {
                                             && pfxMatcher.isMatch(varNameExprChars, i, i, varNameExprChars.length) != 0) {
                                         break;
                                     }
-                                    if ((valueDelimiterMatchLen = valueDelimMatcher.isMatch(varNameExprChars, i)) != 0) {
+                                    if ((valueDelimiterMatchLen = delimiterMatcher.isMatch(varNameExprChars, i)) != 0) {
                                         varName = varNameExpr.substring(0, i);
                                         varDefaultValue = varNameExpr.substring(i + valueDelimiterMatchLen);
                                         break;

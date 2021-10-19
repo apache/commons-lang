@@ -147,21 +147,21 @@ public class CharSet implements Serializable {
      *
      * <p>All CharSet objects returned by this method will be immutable.</p>
      *
-     * @param setStrs  Strings to merge into the set, may be null
+     * @param args  Strings to merge into the set, may be null
      * @return a CharSet instance
      * @since 2.4
      */
-    public static CharSet getInstance(final String... setStrs) {
-        if (setStrs == null) {
+    public static CharSet getInstance(final String... args) {
+        if (args == null) {
             return null;
         }
-        if (setStrs.length == 1) {
-            final CharSet common = COMMON.get(setStrs[0]);
+        if (args.length == 1) {
+            final CharSet common = COMMON.get(args[0]);
             if (common != null) {
                 return common;
             }
         }
-        return new CharSet(setStrs);
+        return new CharSet(args);
     }
 
     /**

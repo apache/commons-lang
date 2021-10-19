@@ -69,9 +69,9 @@ public class AnnotationUtils {
          */
         @Override
         protected String getShortClassName(final Class<?> cls) {
-            for (final Class<?> iface : ClassUtils.getAllInterfaces(cls)) {
-                if (Annotation.class.isAssignableFrom(iface)) {
-                    return "@" + iface.getName();
+            for (final Class<?> iFace : ClassUtils.getAllInterfaces(cls)) {
+                if (Annotation.class.isAssignableFrom(iFace)) {
+                    return "@" + iFace.getName();
                 }
             }
             return StringUtils.EMPTY;

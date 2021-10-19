@@ -108,16 +108,16 @@ public class ConstructorUtils {
             InstantiationException {
         args = ArrayUtils.nullToEmpty(args);
         parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Constructor<T> ctor = getMatchingAccessibleConstructor(cls, parameterTypes);
-        if (ctor == null) {
+        final Constructor<T> constructor = getMatchingAccessibleConstructor(cls, parameterTypes);
+        if (constructor == null) {
             throw new NoSuchMethodException(
                 "No such accessible constructor on object: " + cls.getName());
         }
-        if (ctor.isVarArgs()) {
-            final Class<?>[] methodParameterTypes = ctor.getParameterTypes();
+        if (constructor.isVarArgs()) {
+            final Class<?>[] methodParameterTypes = constructor.getParameterTypes();
             args = MethodUtils.getVarArgs(args, methodParameterTypes);
         }
-        return ctor.newInstance(args);
+        return constructor.newInstance(args);
     }
 
     /**
@@ -171,12 +171,12 @@ public class ConstructorUtils {
             InvocationTargetException, InstantiationException {
         args = ArrayUtils.nullToEmpty(args);
         parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Constructor<T> ctor = getAccessibleConstructor(cls, parameterTypes);
-        if (ctor == null) {
+        final Constructor<T> constructor = getAccessibleConstructor(cls, parameterTypes);
+        if (constructor == null) {
             throw new NoSuchMethodException(
                 "No such accessible constructor on object: "+ cls.getName());
         }
-        return ctor.newInstance(args);
+        return constructor.newInstance(args);
     }
 
     /**
@@ -209,15 +209,15 @@ public class ConstructorUtils {
      * <p>This simply ensures that the constructor is accessible.</p>
      *
      * @param <T> the constructor type
-     * @param ctor  the prototype constructor object, not {@code null}
+     * @param constructor  the prototype constructor object, not {@code null}
      * @return the constructor, {@code null} if no matching accessible constructor found
      * @see java.lang.SecurityManager
-     * @throws NullPointerException if {@code ctor} is {@code null}
+     * @throws NullPointerException if {@code constructor} is {@code null}
      */
-    public static <T> Constructor<T> getAccessibleConstructor(final Constructor<T> ctor) {
-        Validate.notNull(ctor, "ctor");
-        return MemberUtils.isAccessible(ctor)
-                && isAccessible(ctor.getDeclaringClass()) ? ctor : null;
+    public static <T> Constructor<T> getAccessibleConstructor(final Constructor<T> constructor) {
+        Validate.notNull(constructor, "constructor");
+        return MemberUtils.isAccessible(constructor)
+                && isAccessible(constructor.getDeclaringClass()) ? constructor : null;
     }
 
     /**
@@ -254,21 +254,21 @@ public class ConstructorUtils {
          * (1) Class.getConstructors() is documented to return Constructor<T> so as
          * long as the array is not subsequently modified, everything's fine.
          */
-        final Constructor<?>[] ctors = cls.getConstructors();
+        final Constructor<?>[] constructors = cls.getConstructors();
 
         // return best match:
-        for (Constructor<?> ctor : ctors) {
+        for (Constructor<?> constructor : constructors) {
             // compare parameters
-            if (MemberUtils.isMatchingConstructor(ctor, parameterTypes)) {
+            if (MemberUtils.isMatchingConstructor(constructor, parameterTypes)) {
                 // get accessible version of constructor
-                ctor = getAccessibleConstructor(ctor);
-                if (ctor != null) {
-                    MemberUtils.setAccessibleWorkaround(ctor);
-                    if (result == null || MemberUtils.compareConstructorFit(ctor, result, parameterTypes) < 0) {
+                constructor = getAccessibleConstructor(constructor);
+                if (constructor != null) {
+                    MemberUtils.setAccessibleWorkaround(constructor);
+                    if (result == null || MemberUtils.compareConstructorFit(constructor, result, parameterTypes) < 0) {
                         // temporary variable for annotation, see comment above (1)
                         @SuppressWarnings("unchecked")
-                        final Constructor<T> constructor = (Constructor<T>) ctor;
-                        result = constructor;
+                        final Constructor<T> tmp = (Constructor<T>) constructor;
+                        result = tmp;
                     }
                 }
             }
