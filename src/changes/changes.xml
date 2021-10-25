@@ -90,7 +90,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ObjectUtils.identityHashCodeHex(Object).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ObjectUtils.hashCodeHex(Object).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StringUtils.removeStart(String, char).</action>
-    <action issue="LANG-1659" type="fix" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">Add null-safe ObjectUtils.isArray() #754.</action>
+    <action issue="LANG-1659" type="add" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">Add null-safe ObjectUtils.isArray() #754.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ComparableUtils.max(A, A) and ComparableUtils.min(A, A).</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump spotbugs-maven-plugin from 4.2.0 to 4.4.1 #735, #808.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess">Bump Bump actions/cache from v2.1.4 to v2.1.6 #742, #752, #764.</action>

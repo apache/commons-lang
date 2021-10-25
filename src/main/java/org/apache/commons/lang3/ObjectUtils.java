@@ -299,6 +299,7 @@ public class ObjectUtils {
     /**
      * <p>Null safe comparison of Comparables.
      * {@code null} is assumed to be less than a non-{@code null} value.</p>
+     * <p>TODO Move to ComparableUtils.</p>
      *
      * @param <T> type of the values processed by this method
      * @param c1  the first comparable, may be null
@@ -312,6 +313,7 @@ public class ObjectUtils {
 
     /**
      * <p>Null safe comparison of Comparables.</p>
+     * <p>TODO Move to ComparableUtils.</p>
      *
      * @param <T> type of the values processed by this method
      * @param c1  the first comparable, may be null
@@ -1081,6 +1083,7 @@ public class ObjectUtils {
 
     /**
      * <p>Null safe comparison of Comparables.</p>
+     * <p>TODO Move to ComparableUtils.</p>
      *
      * @param <T> type of the values processed by this method
      * @param values the set of comparable values, may be null
@@ -1151,6 +1154,7 @@ public class ObjectUtils {
 
     /**
      * <p>Null safe comparison of Comparables.</p>
+     * <p>TODO Move to ComparableUtils.</p>
      *
      * @param <T> type of the values processed by this method
      * @param values the set of comparable values, may be null
