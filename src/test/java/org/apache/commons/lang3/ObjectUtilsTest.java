@@ -618,6 +618,43 @@ public class ObjectUtilsTest {
         assertFalse(ObjectUtils.isEmpty(NON_EMPTY_MAP));
     }
 
+    /**
+     * Test for {@link ObjectUtils#isArray(Object)}.
+     */
+    @Test
+    public void testArray() {
+        assertFalse(ObjectUtils.isArray(null));
+        assertFalse(ObjectUtils.isArray(""));
+        assertFalse(ObjectUtils.isArray("abg"));
+        assertFalse(ObjectUtils.isArray(123));
+        assertTrue(ObjectUtils.isArray(NON_EMPTY_ARRAY));
+        assertTrue(ObjectUtils.isArray(new int[]{1, 2, 3}));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_BOOLEAN_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_BOOLEAN_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_BYTE_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_BYTE_OBJECT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_CHAR_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_CHARACTER_OBJECT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_CLASS_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_DOUBLE_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_FIELD_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_FLOAT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_FLOAT_OBJECT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_INT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_INTEGER_OBJECT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_LONG_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_LONG_OBJECT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_METHOD_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_OBJECT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_SHORT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_SHORT_OBJECT_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_STRING_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_THROWABLE_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_TYPE_ARRAY));
+    }
+
     @Test
     public void testIsNotEmpty() {
         assertFalse(ObjectUtils.isNotEmpty(null));
@@ -642,23 +679,23 @@ public class ObjectUtilsTest {
         final Date nonNullComparable2 = calendar.getTime();
         final String[] nullArray = null;
 
-        calendar.set( Calendar.YEAR, calendar.get( Calendar.YEAR ) -1 );
+        calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 1);
         final Date minComparable = calendar.getTime();
 
-        assertNotSame( nonNullComparable1, nonNullComparable2 );
+        assertNotSame(nonNullComparable1, nonNullComparable2);
 
-        assertNull(ObjectUtils.max( (String) null ) );
-        assertNull(ObjectUtils.max( nullArray ) );
-        assertSame( nonNullComparable1, ObjectUtils.max( null, nonNullComparable1 ) );
-        assertSame( nonNullComparable1, ObjectUtils.max( nonNullComparable1, null ) );
-        assertSame( nonNullComparable1, ObjectUtils.max( null, nonNullComparable1, null ) );
-        assertSame( nonNullComparable1, ObjectUtils.max( nonNullComparable1, nonNullComparable2 ) );
-        assertSame( nonNullComparable2, ObjectUtils.max( nonNullComparable2, nonNullComparable1 ) );
-        assertSame( nonNullComparable1, ObjectUtils.max( nonNullComparable1, minComparable ) );
-        assertSame( nonNullComparable1, ObjectUtils.max( minComparable, nonNullComparable1 ) );
-        assertSame( nonNullComparable1, ObjectUtils.max( null, minComparable, null, nonNullComparable1 ) );
+        assertNull(ObjectUtils.max((String) null));
+        assertNull(ObjectUtils.max(nullArray));
+        assertSame(nonNullComparable1, ObjectUtils.max(null, nonNullComparable1));
+        assertSame(nonNullComparable1, ObjectUtils.max(nonNullComparable1, null));
+        assertSame(nonNullComparable1, ObjectUtils.max(null, nonNullComparable1, null));
+        assertSame(nonNullComparable1, ObjectUtils.max(nonNullComparable1, nonNullComparable2));
+        assertSame(nonNullComparable2, ObjectUtils.max(nonNullComparable2, nonNullComparable1));
+        assertSame(nonNullComparable1, ObjectUtils.max(nonNullComparable1, minComparable));
+        assertSame(nonNullComparable1, ObjectUtils.max(minComparable, nonNullComparable1));
+        assertSame(nonNullComparable1, ObjectUtils.max(null, minComparable, null, nonNullComparable1));
 
-        assertNull( ObjectUtils.max(null, null) );
+        assertNull(ObjectUtils.max(null, null));
     }
 
     @Test
@@ -695,23 +732,23 @@ public class ObjectUtilsTest {
         final Date nonNullComparable2 = calendar.getTime();
         final String[] nullArray = null;
 
-        calendar.set( Calendar.YEAR, calendar.get( Calendar.YEAR ) -1 );
+        calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 1);
         final Date minComparable = calendar.getTime();
 
-        assertNotSame( nonNullComparable1, nonNullComparable2 );
+        assertNotSame(nonNullComparable1, nonNullComparable2);
 
-        assertNull(ObjectUtils.min( (String) null ) );
-        assertNull(ObjectUtils.min( nullArray ) );
-        assertSame( nonNullComparable1, ObjectUtils.min( null, nonNullComparable1 ) );
-        assertSame( nonNullComparable1, ObjectUtils.min( nonNullComparable1, null ) );
-        assertSame( nonNullComparable1, ObjectUtils.min( null, nonNullComparable1, null ) );
-        assertSame( nonNullComparable1, ObjectUtils.min( nonNullComparable1, nonNullComparable2 ) );
-        assertSame( nonNullComparable2, ObjectUtils.min( nonNullComparable2, nonNullComparable1 ) );
-        assertSame( minComparable, ObjectUtils.min( nonNullComparable1, minComparable ) );
-        assertSame( minComparable, ObjectUtils.min( minComparable, nonNullComparable1 ) );
-        assertSame( minComparable, ObjectUtils.min( null, nonNullComparable1, null, minComparable ) );
+        assertNull(ObjectUtils.min((String) null));
+        assertNull(ObjectUtils.min(nullArray));
+        assertSame(nonNullComparable1, ObjectUtils.min(null, nonNullComparable1));
+        assertSame(nonNullComparable1, ObjectUtils.min(nonNullComparable1, null));
+        assertSame(nonNullComparable1, ObjectUtils.min(null, nonNullComparable1, null));
+        assertSame(nonNullComparable1, ObjectUtils.min(nonNullComparable1, nonNullComparable2));
+        assertSame(nonNullComparable2, ObjectUtils.min(nonNullComparable2, nonNullComparable1));
+        assertSame(minComparable, ObjectUtils.min(nonNullComparable1, minComparable));
+        assertSame(minComparable, ObjectUtils.min(minComparable, nonNullComparable1));
+        assertSame(minComparable, ObjectUtils.min(null, nonNullComparable1, null, minComparable));
 
-        assertNull( ObjectUtils.min(null, null) );
+        assertNull(ObjectUtils.min(null, null));
     }
 
     @Test

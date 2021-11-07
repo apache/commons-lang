@@ -524,7 +524,7 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.8.0</version>
+        <version>5.8.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -632,10 +632,10 @@
     <commons.encoding>utf-8</commons.encoding>
 
     <checkstyle.plugin.version>3.1.2</checkstyle.plugin.version>
-    <checkstyle.version>8.45.1</checkstyle.version>
+    <checkstyle.version>9.1</checkstyle.version>
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
 
-    <spotbugs.plugin.version>4.3.0</spotbugs.plugin.version>
+    <spotbugs.plugin.version>4.4.2.2</spotbugs.plugin.version>
     <spotbugs.impl.version>4.2.3</spotbugs.impl.version>
     <japicmp.skip>false</japicmp.skip>
     <clirr.skip>true</clirr.skip>
@@ -646,7 +646,7 @@
 
     <commons.jacoco.version>0.8.7</commons.jacoco.version>
     <commons.surefire.version>3.0.0-M5</commons.surefire.version>
-    <commons.javadoc.version>3.3.0</commons.javadoc.version>
+    <commons.javadoc.version>3.3.1</commons.javadoc.version>
     <commons.japicmp.version>0.15.3</commons.japicmp.version>
 
     <!-- Commons Release Plugin -->
@@ -803,7 +803,7 @@
           <dependency>
             <groupId>biz.aQute.bnd</groupId>
             <artifactId>biz.aQute.bndlib</artifactId>
-            <version>5.3.0</version>
+            <version>6.0.0</version>
           </dependency>
         </dependencies>
       </plugin>

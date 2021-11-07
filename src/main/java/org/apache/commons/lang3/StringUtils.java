@@ -2816,7 +2816,7 @@ public class StringUtils {
         // String's can't have a MAX_VALUEth index.
         int ret = Integer.MAX_VALUE;
 
-        int tmp = 0;
+        int tmp;
         for (final CharSequence search : searchStrs) {
             if (search == null) {
                 continue;
@@ -5079,7 +5079,7 @@ public class StringUtils {
             return INDEX_NOT_FOUND;
         }
         int ret = INDEX_NOT_FOUND;
-        int tmp = 0;
+        int tmp;
         for (final CharSequence search : searchStrs) {
             if (search == null) {
                 continue;
@@ -6159,6 +6159,36 @@ public class StringUtils {
     }
 
     /**
+     * Removes a char only if it is at the beginning of a source string,
+     * otherwise returns the source string.
+     *
+     * <p>A {@code null} source string will return {@code null}.
+     * An empty ("") source string will return the empty string.
+     * A {@code null} search char will return the source string.</p>
+     *
+     * <pre>
+     * StringUtils.removeStart(null, *)      = null
+     * StringUtils.removeStart("", *)        = ""
+     * StringUtils.removeStart(*, null)      = *
+     * StringUtils.removeStart("/path", '/') = "path"
+     * StringUtils.removeStart("path", '/')  = "path"
+     * StringUtils.removeStart("path", 0)    = "path"
+     * </pre>
+     *
+     * @param str  the source String to search, may be null.
+     * @param remove  the char to search for and remove.
+     * @return the substring with the char removed if found,
+     *  {@code null} if null String input.
+     * @since 3.13.0
+     */
+    public static String removeStart(final String str, final char remove) {
+        if (isEmpty(str)) {
+            return str;
+        }
+        return str.charAt(0) == remove ? str.substring(1) : str;
+    }
+
+    /**
      * <p>Removes a substring only if it is at the beginning of a source string,
      * otherwise returns the source string.</p>
      *
@@ -6736,7 +6766,7 @@ public class StringUtils {
         // index on index that the match was found
         int textIndex = -1;
         int replaceIndex = -1;
-        int tempIndex = -1;
+        int tempIndex;
 
         // index of replace array that will replace the search string found
         // NOTE: logic duplicated below START
@@ -8559,7 +8589,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str  the String to get a substring from, may be null
-     * @param separator  the character to search.
+     * @param separator  the character (Unicode code point) to search.
      * @return the substring after the first occurrence of the separator,
      *  {@code null} if null String input
      * @since 3.11
@@ -8638,7 +8668,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str  the String to get a substring from, may be null
-     * @param separator  the String to search for, may be null
+     * @param separator  the character (Unicode code point) to search.
      * @return the substring after the last occurrence of the separator,
      *  {@code null} if null String input
      * @since 3.11
@@ -8720,7 +8750,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str the String to get a substring from, may be null
-     * @param separator the String to search for, may be null
+     * @param separator the character (Unicode code point) to search.
      * @return the substring before the first occurrence of the separator, {@code null} if null String input
      * @since 3.12.0
      */

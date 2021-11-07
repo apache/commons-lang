@@ -23,9 +23,9 @@ import java.util.Comparator;
  * <p>An immutable range of objects from a minimum to maximum point inclusive.</p>
  *
  * <p>The objects need to either be implementations of {@code Comparable}
- * or you need to supply a {@code Comparator}. </p>
+ * or you need to supply a {@code Comparator}.</p>
  *
- * <p>#ThreadSafe# if the objects and comparator are thread-safe</p>
+ * <p>#ThreadSafe# if the objects and comparator are thread-safe.</p>
  *
  * @param <T> The type of range values.
  * @since 3.0
@@ -35,6 +35,7 @@ public final class Range<T> implements Serializable {
     @SuppressWarnings({"rawtypes", "unchecked"})
     private enum ComparableComparator implements Comparator {
         INSTANCE;
+
         /**
          * Comparable based compare implementation.
          *
@@ -50,9 +51,11 @@ public final class Range<T> implements Serializable {
 
     /**
      * Serialization version.
+     *
      * @see java.io.Serializable
      */
     private static final long serialVersionUID = 1L;
+
     /**
      * <p>Obtains a range with the specified minimum and maximum values (both inclusive).</p>
      *
@@ -69,7 +72,7 @@ public final class Range<T> implements Serializable {
      * @throws IllegalArgumentException if either element is null
      * @throws ClassCastException if the elements are not {@code Comparable}
      */
-    public static <T extends Comparable<T>> Range<T> between(final T fromInclusive, final T toInclusive) {
+    public static <T extends Comparable<? super T>> Range<T> between(final T fromInclusive, final T toInclusive) {
         return between(fromInclusive, toInclusive, null);
     }
 
@@ -107,7 +110,7 @@ public final class Range<T> implements Serializable {
      * @throws IllegalArgumentException if the element is null
      * @throws ClassCastException if the element is not {@code Comparable}
      */
-    public static <T extends Comparable<T>> Range<T> is(final T element) {
+    public static <T extends Comparable<? super T>> Range<T> is(final T element) {
         return between(element, element, null);
     }
 
@@ -233,9 +236,6 @@ public final class Range<T> implements Serializable {
         return 0;
     }
 
-    // Element tests
-    //--------------------------------------------------------------------
-
     /**
      * <p>Compares this range to another object to test if they are equal.</p>.
      *
@@ -258,6 +258,39 @@ public final class Range<T> implements Serializable {
         Range<T> range = (Range<T>) obj;
         return minimum.equals(range.minimum) &&
                maximum.equals(range.maximum);
+    }
+
+    /**
+     * <p>
+     * Fits the given element into this range by returning the given element or, if out of bounds, the range minimum if
+     * below, or the range maximum if above.
+     * </p>
+     * <pre>
+     * Range&lt;Integer&gt; range = Range.between(16, 64);
+     * range.fit(-9) --&gt;  16
+     * range.fit(0)  --&gt;  16
+     * range.fit(15) --&gt;  16
+     * range.fit(16) --&gt;  16
+     * range.fit(17) --&gt;  17
+     * ...
+     * range.fit(63) --&gt;  63
+     * range.fit(64) --&gt;  64
+     * range.fit(99) --&gt;  64
+     * </pre>
+     * @param element the element to check for, not null
+     * @return the minimum, the element, or the maximum depending on the element's location relative to the range
+     * @since 3.10
+     */
+    public T fit(final T element) {
+        // Comparable API says throw NPE on null
+        Validate.notNull(element, "element");
+        if (isAfter(element)) {
+            return minimum;
+        }
+        if (isBefore(element)) {
+            return maximum;
+        }
+        return element;
     }
 
     /**
@@ -443,39 +476,6 @@ public final class Range<T> implements Serializable {
             return false;
         }
         return comparator.compare(element, minimum) == 0;
-    }
-
-    /**
-     * <p>
-     * Fits the given element into this range by returning the given element or, if out of bounds, the range minimum if
-     * below, or the range maximum if above.
-     * </p>
-     * <pre>
-     * Range&lt;Integer&gt; range = Range.between(16, 64);
-     * range.fit(-9) --&gt;  16
-     * range.fit(0)  --&gt;  16
-     * range.fit(15) --&gt;  16
-     * range.fit(16) --&gt;  16
-     * range.fit(17) --&gt;  17
-     * ...
-     * range.fit(63) --&gt;  63
-     * range.fit(64) --&gt;  64
-     * range.fit(99) --&gt;  64
-     * </pre>
-     * @param element the element to check for, not null
-     * @return the minimum, the element, or the maximum depending on the element's location relative to the range
-     * @since 3.10
-     */
-    public T fit(final T element) {
-        // Comparable API says throw NPE on null
-        Validate.notNull(element, "element");
-        if (isAfter(element)) {
-            return minimum;
-        }
-        if (isBefore(element)) {
-            return maximum;
-        }
-        return element;
     }
 
     /**

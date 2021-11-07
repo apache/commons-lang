@@ -212,7 +212,7 @@ public class CharSetUtils {
         final char[] chrs = str.toCharArray();
         final int sz = chrs.length;
         char lastChar = chrs[0];
-        char ch = ' ';
+        char ch;
         Character inChars = null;
         Character notInChars = null;
         buffer.append(lastChar);
