@@ -19,7 +19,7 @@ package org.apache.commons.lang3.exception;
 /**
  * Abstracts the concept of wrapping a checked exception as unchecked.
  * <p>
- * Subclasses should only be used to wrapped checked exception.
+ * Subclasses should only be used to wrap checked exception.
  * </p>
  *
  * @since 3.13.0
