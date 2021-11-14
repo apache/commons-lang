@@ -290,7 +290,7 @@ public class FieldUtils {
      */
     public static Object readStaticField(final Field field, final boolean forceAccess) throws IllegalAccessException {
         Validate.notNull(field, "field");
-        Validate.isTrue(Modifier.isStatic(field.getModifiers()), "The field '%s' is not static", field.getName());
+        Validate.isTrue(MemberUtils.isStatic(field), "The field '%s' is not static", field.getName());
         return readField(field, (Object) null, forceAccess);
     }
 
@@ -544,7 +544,7 @@ public class FieldUtils {
      */
     public static void writeStaticField(final Field field, final Object value, final boolean forceAccess) throws IllegalAccessException {
         Validate.notNull(field, "field");
-        Validate.isTrue(Modifier.isStatic(field.getModifiers()), "The field %s.%s is not static", field.getDeclaringClass().getName(),
+        Validate.isTrue(MemberUtils.isStatic(field), "The field %s.%s is not static", field.getDeclaringClass().getName(),
                 field.getName());
         writeField(field, (Object) null, value, forceAccess);
     }

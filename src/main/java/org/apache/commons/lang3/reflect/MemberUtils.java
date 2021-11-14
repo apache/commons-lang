@@ -78,6 +78,15 @@ abstract class MemberUtils {
     }
 
     /**
+     * Returns whether a {@link Member} is static.
+     * @param m Member to check
+     * @return {@code true} if {@code m} is static
+     */
+    static boolean isStatic(final Member m) {
+        return m != null && Modifier.isStatic(m.getModifiers());
+    }
+
+    /**
      * Returns whether a {@link Member} is accessible.
      * @param m Member to check
      * @return {@code true} if {@code m} is accessible
