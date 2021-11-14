@@ -75,19 +75,37 @@ public class Objects {
         return requireNonNull(value, "The value must not be null.");
     }
 
-    /**
-     * Checks, whether the given object is non-null. If so, returns the non-null
-     * object as a result value. Otherwise, a NullPointerException is thrown.
-     * @param <T> The type of parameter {@code value}, also the result type.
+    /** Checks, whether the given object is non-null. If so, returns the non-null
+     * object as a result value. Otherwise, invokes the given {@link Supplier},
+     * and returns the suppliers result value.
+     * @param <T> The type of parameter {@code value}, also the result type of
+     *    the default value supplier, and of the method itself.
+     * @param <E> The type of exception, that the {@code default value supplier},
+     *    may throw.
      * @param value The value, which is being checked.
-     * @param defaultValue The default value, which is being returned, if the
-     *   check fails, and the {@code value} is null.
-     * @throws NullPointerException The input value, and the default value are null.
-     * @return The given input value, if it was found to be non-null.
-     * @see java.util.Objects#requireNonNull(Object)
+     * @param defaultValueSupplier The supplier, which returns the default value. This default
+     *   value <em>must</em> be non-null. The supplier will only be invoked, if
+     *   necessary. (If the {@code value} parameter is null, that is.)
+     * @return The given input value, if it was found to be non-null. Otherwise,
+     *   the value, that has been returned by the default value supplier.
+     * @see #requireNonNull(Object)
+     * @see #requireNonNull(Object, String)
+     * @see #requireNonNull(Object, Supplier)
+     * @throws NullPointerException The default value supplier is null, or the default
+     *   value supplier has returned null.
      */
-    public static <T> @Nonnull T requireNonNull(@Nullable final T value, @Nonnull final T defaultValue) throws NullPointerException {
-        return value == null ? requireNonNull(defaultValue) : value;
+    public static <T, E extends Throwable> @Nonnull T requireNonNull(@Nullable final T value, @Nonnull final FailableSupplier<T, E> defaultValueSupplier) throws NullPointerException {
+        if (value == null) {
+            final FailableSupplier<T, ?> supplier = requireNonNull(defaultValueSupplier, "The supplier must not be null");
+            final T defaultValue;
+            try {
+                defaultValue = supplier.get();
+            } catch (final Throwable t) {
+                throw Failable.rethrow(t);
+            }
+            return requireNonNull(defaultValue, "The supplier must not return null.");
+        }
+        return value;
     }
 
     /**
@@ -128,36 +146,18 @@ public class Objects {
         return value;
     }
 
-    /** Checks, whether the given object is non-null. If so, returns the non-null
-     * object as a result value. Otherwise, invokes the given {@link Supplier},
-     * and returns the suppliers result value.
-     * @param <T> The type of parameter {@code value}, also the result type of
-     *    the default value supplier, and of the method itself.
-     * @param <E> The type of exception, that the {@code default value supplier},
-     *    may throw.
+    /**
+     * Checks, whether the given object is non-null. If so, returns the non-null
+     * object as a result value. Otherwise, a NullPointerException is thrown.
+     * @param <T> The type of parameter {@code value}, also the result type.
      * @param value The value, which is being checked.
-     * @param defaultValueSupplier The supplier, which returns the default value. This default
-     *   value <em>must</em> be non-null. The supplier will only be invoked, if
-     *   necessary. (If the {@code value} parameter is null, that is.)
-     * @return The given input value, if it was found to be non-null. Otherwise,
-     *   the value, that has been returned by the default value supplier.
-     * @see #requireNonNull(Object)
-     * @see #requireNonNull(Object, String)
-     * @see #requireNonNull(Object, Supplier)
-     * @throws NullPointerException The default value supplier is null, or the default
-     *   value supplier has returned null.
+     * @param defaultValue The default value, which is being returned, if the
+     *   check fails, and the {@code value} is null.
+     * @throws NullPointerException The input value, and the default value are null.
+     * @return The given input value, if it was found to be non-null.
+     * @see java.util.Objects#requireNonNull(Object)
      */
-    public static <T, E extends Throwable> @Nonnull T requireNonNull(@Nullable final T value, @Nonnull final FailableSupplier<T, E> defaultValueSupplier) throws NullPointerException {
-        if (value == null) {
-            final FailableSupplier<T, ?> supplier = requireNonNull(defaultValueSupplier, "The supplier must not be null");
-            final T defaultValue;
-            try {
-                defaultValue = supplier.get();
-            } catch (final Throwable t) {
-                throw Failable.rethrow(t);
-            }
-            return requireNonNull(defaultValue, "The supplier must not return null.");
-        }
-        return value;
+    public static <T> @Nonnull T requireNonNull(@Nullable final T value, @Nonnull final T defaultValue) throws NullPointerException {
+        return value == null ? requireNonNull(defaultValue) : value;
     }
 }

@@ -29,25 +29,22 @@ import org.junit.jupiter.api.Test;
 
 
 class ObjectsTest {
-    @Test
-    void testRequireNonNullObject() {
-        assertSame("foo", Objects.requireNonNull("foo"));
-        try {
-            Objects.requireNonNull(null);
-            fail("Expected Exception");
-        } catch (final NullPointerException e) {
-            assertEquals("The value must not be null.", e.getMessage());
-        }
-    }
+    public static class TestableFailableSupplier<O, E extends Exception> implements FailableSupplier<O, E> {
+        private final FailableSupplier<O, E> supplier;
+        private boolean invoked;
 
-    @Test
-    void testRequireNonNullObjectString() {
-        assertSame("foo", Objects.requireNonNull("foo", "bar"));
-        try {
-            Objects.requireNonNull(null, "bar");
-            fail("Expected Exception");
-        } catch (final NullPointerException e) {
-            assertEquals("bar", e.getMessage());
+        TestableFailableSupplier(final FailableSupplier<O, E> pSupplier) {
+            this.supplier = pSupplier;
+        }
+
+        @Override
+        public O get() throws E {
+            invoked = true;
+            return supplier.get();
+        }
+
+        public boolean isInvoked() {
+            return invoked;
         }
     }
 
@@ -71,35 +68,13 @@ class ObjectsTest {
     }
 
     @Test
-    void testRequireNonNullObjectSupplierString() {
-        final TestableSupplier<String> supplier = new TestableSupplier<>(() -> "bar");
-        assertSame("foo", Objects.requireNonNull("foo", supplier));
-        assertFalse(supplier.isInvoked());
+    void testRequireNonNullObject() {
+        assertSame("foo", Objects.requireNonNull("foo"));
         try {
-            Objects.requireNonNull(null, supplier);
+            Objects.requireNonNull(null);
             fail("Expected Exception");
         } catch (final NullPointerException e) {
-            assertEquals("bar", e.getMessage());
-            assertTrue(supplier.isInvoked());
-        }
-    }
-
-    public static class TestableFailableSupplier<O, E extends Exception> implements FailableSupplier<O, E> {
-        private final FailableSupplier<O, E> supplier;
-        private boolean invoked;
-
-        TestableFailableSupplier(final FailableSupplier<O, E> pSupplier) {
-            this.supplier = pSupplier;
-        }
-
-        @Override
-        public O get() throws E {
-            invoked = true;
-            return supplier.get();
-        }
-
-        public boolean isInvoked() {
-            return invoked;
+            assertEquals("The value must not be null.", e.getMessage());
         }
     }
 
@@ -135,6 +110,31 @@ class ObjectsTest {
         } catch (final RuntimeException e) {
             assertSame(rte, e);
             assertTrue(supplier4.isInvoked());
+        }
+    }
+
+    @Test
+    void testRequireNonNullObjectString() {
+        assertSame("foo", Objects.requireNonNull("foo", "bar"));
+        try {
+            Objects.requireNonNull(null, "bar");
+            fail("Expected Exception");
+        } catch (final NullPointerException e) {
+            assertEquals("bar", e.getMessage());
+        }
+    }
+
+    @Test
+    void testRequireNonNullObjectSupplierString() {
+        final TestableSupplier<String> supplier = new TestableSupplier<>(() -> "bar");
+        assertSame("foo", Objects.requireNonNull("foo", supplier));
+        assertFalse(supplier.isInvoked());
+        try {
+            Objects.requireNonNull(null, supplier);
+            fail("Expected Exception");
+        } catch (final NullPointerException e) {
+            assertEquals("bar", e.getMessage());
+            assertTrue(supplier.isInvoked());
         }
     }
 }
