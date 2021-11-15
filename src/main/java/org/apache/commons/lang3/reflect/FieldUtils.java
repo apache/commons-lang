@@ -107,7 +107,7 @@ public class FieldUtils {
                 final Field field = acls.getDeclaredField(fieldName);
                 // getDeclaredField checks for non-public scopes as well
                 // and it returns accurate results
-                if (!Modifier.isPublic(field.getModifiers())) {
+                if (!MemberUtils.isPublic(field)) {
                     if (!forceAccess) {
                         continue;
                     }

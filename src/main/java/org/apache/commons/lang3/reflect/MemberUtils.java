@@ -30,7 +30,7 @@ import org.apache.commons.lang3.ClassUtils;
  *
  * @since 2.5
  */
-abstract class MemberUtils {
+final class MemberUtils {
     // TODO extract an interface to implement compareParameterSets(...)?
 
     private static final int ACCESS_TEST = Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE;
@@ -57,7 +57,7 @@ abstract class MemberUtils {
             return false;
         }
         final Member m = (Member) obj;
-        if (!obj.isAccessible() && Modifier.isPublic(m.getModifiers()) && isPackageAccess(m.getDeclaringClass().getModifiers())) {
+        if (!obj.isAccessible() && isPublic(m) && isPackageAccess(m.getDeclaringClass().getModifiers())) {
             try {
                 obj.setAccessible(true);
                 return true;
@@ -78,8 +78,17 @@ abstract class MemberUtils {
     }
 
     /**
+     * Tests whether a {@link Member} is public.
+     * @param member Member to test
+     * @return {@code true} if {@code m} is public
+     */
+    static boolean isPublic(final Member member) {
+        return member != null && Modifier.isPublic(member.getModifiers());
+    }
+
+    /**
      * Tests whether a {@link Member} is static.
-     * @param member Member to check
+     * @param member Member to test
      * @return {@code true} if {@code m} is static
      */
     static boolean isStatic(final Member member) {
@@ -88,11 +97,11 @@ abstract class MemberUtils {
 
     /**
      * Tests whether a {@link Member} is accessible.
-     * @param member Member to check
+     * @param member Member to test
      * @return {@code true} if {@code m} is accessible
      */
     static boolean isAccessible(final Member member) {
-        return member != null && Modifier.isPublic(member.getModifiers()) && !member.isSynthetic();
+        return member != null && isPublic(member) && !member.isSynthetic();
     }
 
     /**
