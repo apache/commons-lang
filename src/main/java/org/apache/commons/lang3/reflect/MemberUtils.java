@@ -49,17 +49,17 @@ abstract class MemberUtils {
      * Calling {@code setAccessible(true)} solves the problem but will only work from
      * sufficiently privileged code. Better workarounds would be gratefully
      * accepted.
-     * @param o the AccessibleObject to set as accessible
+     * @param obj the AccessibleObject to set as accessible
      * @return a boolean indicating whether the accessibility of the object was set to true.
      */
-    static boolean setAccessibleWorkaround(final AccessibleObject o) {
-        if (o == null || o.isAccessible()) {
+    static boolean setAccessibleWorkaround(final AccessibleObject obj) {
+        if (obj == null || obj.isAccessible()) {
             return false;
         }
-        final Member m = (Member) o;
-        if (!o.isAccessible() && Modifier.isPublic(m.getModifiers()) && isPackageAccess(m.getDeclaringClass().getModifiers())) {
+        final Member m = (Member) obj;
+        if (!obj.isAccessible() && Modifier.isPublic(m.getModifiers()) && isPackageAccess(m.getDeclaringClass().getModifiers())) {
             try {
-                o.setAccessible(true);
+                obj.setAccessible(true);
                 return true;
             } catch (final SecurityException e) { // NOPMD
                 // ignore in favor of subsequent IllegalAccessException
@@ -79,20 +79,20 @@ abstract class MemberUtils {
 
     /**
      * Returns whether a {@link Member} is static.
-     * @param m Member to check
+     * @param member Member to check
      * @return {@code true} if {@code m} is static
      */
-    static boolean isStatic(final Member m) {
-        return m != null && Modifier.isStatic(m.getModifiers());
+    static boolean isStatic(final Member member) {
+        return member != null && Modifier.isStatic(member.getModifiers());
     }
 
     /**
      * Returns whether a {@link Member} is accessible.
-     * @param m Member to check
+     * @param member Member to check
      * @return {@code true} if {@code m} is accessible
      */
-    static boolean isAccessible(final Member m) {
-        return m != null && Modifier.isPublic(m.getModifiers()) && !m.isSynthetic();
+    static boolean isAccessible(final Member member) {
+        return member != null && Modifier.isPublic(member.getModifiers()) && !member.isSynthetic();
     }
 
     /**
