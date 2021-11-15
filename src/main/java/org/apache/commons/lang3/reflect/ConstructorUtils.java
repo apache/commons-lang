@@ -18,7 +18,6 @@ package org.apache.commons.lang3.reflect;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
@@ -286,7 +285,7 @@ public class ConstructorUtils {
     private static boolean isAccessible(final Class<?> type) {
         Class<?> cls = type;
         while (cls != null) {
-            if (!Modifier.isPublic(cls.getModifiers())) {
+            if (!ClassUtils.isPublic(cls)) {
                 return false;
             }
             cls = cls.getEnclosingClass();

@@ -22,7 +22,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
@@ -556,7 +555,7 @@ public class MethodUtils {
         }
         // If the declaring class is public, we are done
         final Class<?> cls = method.getDeclaringClass();
-        if (Modifier.isPublic(cls.getModifiers())) {
+        if (ClassUtils.isPublic(cls)) {
             return method;
         }
         final String methodName = method.getName();
@@ -588,7 +587,7 @@ public class MethodUtils {
             final String methodName, final Class<?>... parameterTypes) {
         Class<?> parentClass = cls.getSuperclass();
         while (parentClass != null) {
-            if (Modifier.isPublic(parentClass.getModifiers())) {
+            if (ClassUtils.isPublic(parentClass)) {
                 try {
                     return parentClass.getMethod(methodName, parameterTypes);
                 } catch (final NoSuchMethodException e) {
@@ -624,7 +623,7 @@ public class MethodUtils {
             final Class<?>[] interfaces = cls.getInterfaces();
             for (final Class<?> anInterface : interfaces) {
                 // Is this interface public?
-                if (!Modifier.isPublic(anInterface.getModifiers())) {
+                if (!ClassUtils.isPublic(anInterface)) {
                     continue;
                 }
                 // Does the method exist on this interface?
