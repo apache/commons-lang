@@ -69,7 +69,7 @@ abstract class MemberUtils {
     }
 
     /**
-     * Returns whether a given set of modifiers implies package access.
+     * Tests whether a given set of modifiers implies package access.
      * @param modifiers to test
      * @return {@code true} unless {@code package}/{@code protected}/{@code private} modifier detected
      */
@@ -78,7 +78,7 @@ abstract class MemberUtils {
     }
 
     /**
-     * Returns whether a {@link Member} is static.
+     * Tests whether a {@link Member} is static.
      * @param member Member to check
      * @return {@code true} if {@code m} is static
      */
@@ -87,7 +87,7 @@ abstract class MemberUtils {
     }
 
     /**
-     * Returns whether a {@link Member} is accessible.
+     * Tests whether a {@link Member} is accessible.
      * @param member Member to check
      * @return {@code true} if {@code m} is accessible
      */
