@@ -764,7 +764,7 @@ public class ArrayUtils {
      */
     @Deprecated
     public static <T> T[] add(final T[] array, final int index, final T element) {
-        Class<T> clss;
+        final Class<T> clss;
         if (array != null) {
             clss = getComponentType(array);
         } else if (element != null) {
