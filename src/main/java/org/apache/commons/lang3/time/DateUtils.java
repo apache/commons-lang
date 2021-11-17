@@ -680,10 +680,10 @@ public class DateUtils {
      */
     public static Date round(final Date date, final int field) {
         validateDateNotNull(date);
-        final Calendar gval = Calendar.getInstance();
-        gval.setTime(date);
-        modify(gval, field, ModifyType.ROUND);
-        return gval.getTime();
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        modify(calendar, field, ModifyType.ROUND);
+        return calendar.getTime();
     }
 
     /**
@@ -861,10 +861,10 @@ public class DateUtils {
      */
     public static Date ceiling(final Date date, final int field) {
         validateDateNotNull(date);
-        final Calendar gval = Calendar.getInstance();
-        gval.setTime(date);
-        modify(gval, field, ModifyType.CEILING);
-        return gval.getTime();
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        modify(calendar, field, ModifyType.CEILING);
+        return calendar.getTime();
     }
 
     /**
@@ -887,9 +887,9 @@ public class DateUtils {
         if (date == null) {
             throw nullDateIllegalArgumentException();
         }
-        final Calendar ceiled = (Calendar) date.clone();
-        modify(ceiled, field, ModifyType.CEILING);
-        return ceiled;
+        final Calendar calendar = (Calendar) date.clone();
+        modify(calendar, field, ModifyType.CEILING);
+        return calendar;
     }
 
     /**
@@ -950,9 +950,9 @@ public class DateUtils {
         boolean done = false;
 
         // truncate milliseconds
-        final int millisecs = val.get(Calendar.MILLISECOND);
-        if (ModifyType.TRUNCATE == modType || millisecs < 500) {
-            time = time - millisecs;
+        final int millisecond = val.get(Calendar.MILLISECOND);
+        if (ModifyType.TRUNCATE == modType || millisecond < 500) {
+            time = time - millisecond;
         }
         if (field == Calendar.SECOND) {
             done = true;
@@ -1096,9 +1096,9 @@ public class DateUtils {
      */
     public static Iterator<Calendar> iterator(final Date focus, final int rangeStyle) {
         validateDateNotNull(focus);
-        final Calendar gval = Calendar.getInstance();
-        gval.setTime(focus);
-        return iterator(gval, rangeStyle);
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(focus);
+        return iterator(calendar, rangeStyle);
     }
 
     /**

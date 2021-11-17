@@ -305,7 +305,7 @@ public class NumberUtils {
      *
      * <pre>
      *   NumberUtils.toDouble(null)                     = 0.0d
-     *   NumberUtils.toDouble(BigDecimal.valudOf(8.5d)) = 8.5d
+     *   NumberUtils.toDouble(BigDecimal.valueOf(8.5d)) = 8.5d
      * </pre>
      *
      * @param value the {@code BigDecimal} to convert, may be {@code null}.
@@ -325,7 +325,7 @@ public class NumberUtils {
      *
      * <pre>
      *   NumberUtils.toDouble(null, 1.1d)                     = 1.1d
-     *   NumberUtils.toDouble(BigDecimal.valudOf(8.5d), 1.1d) = 8.5d
+     *   NumberUtils.toDouble(BigDecimal.valueOf(8.5d), 1.1d) = 8.5d
      * </pre>
      *
      * @param value the {@code BigDecimal} to convert, may be {@code null}.
@@ -694,7 +694,7 @@ public class NumberUtils {
             return createInteger(str);
         }
         final char lastChar = str.charAt(length - 1);
-        final String mant;
+        final String mantissa;
         final String dec;
         final String exp;
         final int decPos = str.indexOf('.');
@@ -714,16 +714,16 @@ public class NumberUtils {
                 // No exponent, but there may be a type character to remove
                 dec = str.substring(decPos + 1, requestType ? length - 1 : length);
             }
-            mant = getMantissa(str, decPos);
+            mantissa = getMantissa(str, decPos);
         } else {
             if (expPos > -1) {
                 if (expPos > length) { // prevents double exponent causing IOOBE
                     throw new NumberFormatException(str + " is not a valid number.");
                 }
-                mant = getMantissa(str, expPos);
+                mantissa = getMantissa(str, expPos);
             } else {
                 // No decimal, no exponent, but there may be a type character to remove
-                mant = getMantissa(str, requestType ? length - 1 : length);
+                mantissa = getMantissa(str, requestType ? length - 1 : length);
             }
             dec = null;
         }
@@ -754,7 +754,7 @@ public class NumberUtils {
                 case 'F' :
                     try {
                         final Float f = createFloat(str);
-                        if (!(f.isInfinite() || f.floatValue() == 0.0F && !isZero(mant, dec))) {
+                        if (!(f.isInfinite() || f.floatValue() == 0.0F && !isZero(mantissa, dec))) {
                             //If it's too big for a float or the float value = 0 and the string
                             //has non-zeros in it, then float does not have the precision we want
                             return f;
@@ -768,7 +768,7 @@ public class NumberUtils {
                 case 'D' :
                     try {
                         final Double d = createDouble(str);
-                        if (!(d.isInfinite() || d.doubleValue() == 0.0D && !isZero(mant, dec))) {
+                        if (!(d.isInfinite() || d.doubleValue() == 0.0D && !isZero(mantissa, dec))) {
                             return d;
                         }
                     } catch (final NumberFormatException nfe) { // NOPMD
@@ -812,11 +812,11 @@ public class NumberUtils {
             final Float f = createFloat(str);
             final Double d = createDouble(str);
             if (!f.isInfinite()
-                    && !(f.floatValue() == 0.0F && !isZero(mant, dec))
+                    && !(f.floatValue() == 0.0F && !isZero(mantissa, dec))
                     && f.toString().equals(d.toString())) {
                 return f;
             }
-            if (!d.isInfinite() && !(d.doubleValue() == 0.0D && !isZero(mant, dec))) {
+            if (!d.isInfinite() && !(d.doubleValue() == 0.0D && !isZero(mantissa, dec))) {
                 final BigDecimal b = createBigDecimal(str);
                 if (b.compareTo(BigDecimal.valueOf(d.doubleValue())) == 0) {
                     return d;

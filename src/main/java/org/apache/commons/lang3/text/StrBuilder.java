@@ -617,13 +617,13 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Calls {@link String#format(String, Object...)} and appends the result.
      *
      * @param format the format string
-     * @param objs the objects to use in the format string
+     * @param args the objects to use in the format string
      * @return {@code this} to enable chaining
      * @see String#format(String, Object...)
      * @since 3.2
      */
-    public StrBuilder append(final String format, final Object... objs) {
-        return append(String.format(format, objs));
+    public StrBuilder append(final String format, final Object... args) {
+        return append(String.format(format, args));
     }
 
     /**
@@ -1001,13 +1001,13 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Calls {@link String#format(String, Object...)} and appends the result.
      *
      * @param format the format string
-     * @param objs the objects to use in the format string
+     * @param args the objects to use in the format string
      * @return {@code this} to enable chaining
      * @see String#format(String, Object...)
      * @since 3.2
      */
-    public StrBuilder appendln(final String format, final Object... objs) {
-        return append(format, objs).appendNewLine();
+    public StrBuilder appendln(final String format, final Object... args) {
+        return append(format, args).appendNewLine();
     }
 
     /**
@@ -3045,14 +3045,14 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
 
         /** {@inheritDoc} */
         @Override
-        public void write(final char[] cbuf) {
-            StrBuilder.this.append(cbuf);
+        public void write(final char[] buffer) {
+            StrBuilder.this.append(buffer);
         }
 
         /** {@inheritDoc} */
         @Override
-        public void write(final char[] cbuf, final int off, final int len) {
-            StrBuilder.this.append(cbuf, off, len);
+        public void write(final char[] buffer, final int off, final int len) {
+            StrBuilder.this.append(buffer, off, len);
         }
 
         /** {@inheritDoc} */
