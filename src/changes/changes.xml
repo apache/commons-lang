@@ -62,7 +62,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Fix ObjectUtils Javadocs #755.</action>
     <action                   type="fix" dev="ggregory" due-to="Rushi98, Gary Gregory">Add test idea for RangeTest from PR #815 by Rushi98, but with a new comment.</action>
     <action issue="LANG-1674" type="fix" dev="ggregory" due-to="singhbaljit, Gary Gregory">Make Range constructors more generic #810.</action>
-    <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Add final var and Remove redundant String. #813.</action>
+    <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Use final and Remove redundant String. #813, #816.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TriConsumer.</action>
