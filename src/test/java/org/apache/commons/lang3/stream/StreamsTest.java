@@ -42,6 +42,9 @@ import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.function.Executable;
 import org.xml.sax.SAXException;
 
+/**
+ * Tests {@link Streams}.
+ */
 public class StreamsTest {
 
     protected <T extends Throwable> FailableConsumer<String, T> asIntConsumer(final T pThrowable) {
