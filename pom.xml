@@ -651,6 +651,8 @@
     <commons.surefire.version>3.0.0-M5</commons.surefire.version>
     <commons.javadoc.version>3.3.1</commons.javadoc.version>
     <commons.japicmp.version>0.15.3</commons.japicmp.version>
+    <commons.pmd.version>3.15.0</commons.pmd.version>
+    <commons.pmd-impl.version>6.40.0</commons.pmd-impl.version>
 
     <!-- Commons Release Plugin -->
     <commons.bc.version>3.12.0</commons.bc.version>
@@ -677,6 +679,21 @@
               <exclude>src/site/resources/release-notes/RELEASE-NOTES-*.txt</exclude>
               <exclude>src/test/resources/lang-708-input.txt</exclude>
             </excludes>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-pmd-plugin</artifactId>
+          <version>${commons.pmd.version}</version>
+          <dependencies>
+            <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-java8</artifactId>
+              <version>${commons.pmd-impl.version}</version>
+            </dependency>
+          </dependencies>
+          <configuration>
+            <targetJdk>${maven.compiler.target}</targetJdk>
           </configuration>
         </plugin>
       </plugins>
@@ -861,11 +878,8 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.15.0</version>
-        <configuration>
-          <targetJdk>${maven.compiler.target}</targetJdk>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
