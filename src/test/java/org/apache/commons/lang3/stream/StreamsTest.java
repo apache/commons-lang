@@ -143,18 +143,6 @@ public class StreamsTest {
     }
 
     @Test
-    public void testStreamCollection() {
-        final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
-        assertEquals(6, Streams.stream(input).collect(Collectors.toList()).size());
-    }
-
-    @Test
-    public void testStreamCollectionNull() {
-        final List<String> input = null;
-        assertEquals(0, Streams.stream(input).collect(Collectors.toList()).size());
-    }
-
-    @Test
     public void testSimpleStreamFilter() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Failable.stream(input).map(Integer::valueOf).filter(i -> (i.intValue() % 2 == 0))
@@ -189,6 +177,18 @@ public class StreamsTest {
         final Executable testMethod = () -> Failable.stream(input).map(Integer::valueOf).collect(Collectors.toList());
         final NumberFormatException thrown = assertThrows(NumberFormatException.class, testMethod);
         assertEquals("For input string: \"4 \"", thrown.getMessage());
+    }
+
+    @Test
+    public void testStreamCollection() {
+        final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
+        assertEquals(6, Streams.stream(input).collect(Collectors.toList()).size());
+    }
+
+    @Test
+    public void testStreamCollectionNull() {
+        final List<String> input = null;
+        assertEquals(0, Streams.stream(input).collect(Collectors.toList()).size());
     }
 
     @Test
