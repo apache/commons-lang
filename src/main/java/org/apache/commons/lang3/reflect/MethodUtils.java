@@ -926,8 +926,7 @@ public class MethodUtils {
 
         Validate.notNull(cls, "cls");
         Validate.notNull(annotationCls, "annotationCls");
-        final List<Class<?>> classes = (searchSupers ? getAllSuperclassesAndInterfaces(cls)
-                : new ArrayList<>());
+        final List<Class<?>> classes = searchSupers ? getAllSuperclassesAndInterfaces(cls) : new ArrayList<>();
         classes.add(0, cls);
         final List<Method> annotatedMethods = new ArrayList<>();
         for (final Class<?> acls : classes) {
