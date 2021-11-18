@@ -446,8 +446,20 @@ public class Streams {
         }
     }
 
-    private static <O> Stream<O> nullSafeStream(final Collection<O> collection) {
-        return collection == null ? Stream.empty() : collection.stream();
+    private static <E> Stream<E> filter(final Collection<E> collection, final Predicate<? super E> predicate) {
+        return toStream(collection).filter(predicate);
+    }
+
+    /**
+     * Streams non-null elements of a collection.
+     *
+     * @param <E> the type of elements in the collection.
+     * @param collection the collection to stream or null.
+     * @return A non-null stream that filters out null elements.
+     * @since 3.13.0
+     */
+    public static <E> Stream<E> nullSafeStream(final Collection<E> collection) {
+        return filter(collection, Objects::nonNull);
     }
 
     /**
@@ -498,9 +510,10 @@ public class Streams {
      * @param <O> The streams element type.
      * @param stream The stream, which is being converted.
      * @return The {@link FailableStream}, which has been created by converting the stream.
+     * TODO Rename to failableStream()
      */
     public static <O> FailableStream<O> stream(final Collection<O> stream) {
-        return stream(nullSafeStream(stream));
+        return stream(toStream(stream));
     }
 
     /**
@@ -552,5 +565,17 @@ public class Streams {
      */
     public static <O extends Object> Collector<O, ?, O[]> toArray(final Class<O> pElementType) {
         return new ArrayCollector<>(pElementType);
+    }
+
+    /**
+     * Delegates to {@link Collection#stream()} or returns {@link Stream#empty()} if the collection is null.
+     *
+     * @param <E> the type of elements in the collection.
+     * @param collection the collection to stream or null.
+     * @return {@link Collection#stream()} or {@link Stream#empty()} if the collection is null.
+     * @since 3.13.0
+     */
+    public static <E> Stream<E> toStream(final Collection<E> collection) {
+        return collection == null ? Stream.empty() : collection.stream();
     }
 }

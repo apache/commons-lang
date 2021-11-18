@@ -97,6 +97,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ClassUtils.isPublic(Class).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add UncheckedIllegalAccessException.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add MethodInvokers.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Streams.nullSafeStream(Collection).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Streams.toStream(Collection).</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump spotbugs-maven-plugin from 4.2.0 to 4.4.2.2 #735, #808, #822.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess">Bump Bump actions/cache from v2.1.4 to v2.1.6 #742, #752, #764.</action>
