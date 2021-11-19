@@ -91,7 +91,7 @@ public class Processor {
         X86,
 
         /**
-         * Intel Itanium  64-bit architecture.
+         * Intel Itanium 64-bit architecture.
          */
         IA_64,
 
