@@ -684,7 +684,7 @@ public class MethodUtils {
             // compare name and parameters
             if (method.getName().equals(methodName) &&
                     MemberUtils.isMatchingMethod(method, parameterTypes)) {
-                matchingMethods.add (method);
+                matchingMethods.add(method);
             }
         }
 
@@ -712,8 +712,8 @@ public class MethodUtils {
             final String methodParameterComponentTypeName = ClassUtils.primitiveToWrapper(methodParameterComponentType).getName();
 
             final Class<?> lastParameterType = parameterTypes[parameterTypes.length - 1];
-            final String parameterTypeName = (lastParameterType==null) ? null : lastParameterType.getName();
-            final String parameterTypeSuperClassName = (lastParameterType==null) ? null : lastParameterType.getSuperclass().getName();
+            final String parameterTypeName = lastParameterType==null ? null : lastParameterType.getName();
+            final String parameterTypeSuperClassName = lastParameterType==null ? null : lastParameterType.getSuperclass().getName();
 
             if (parameterTypeName!= null && parameterTypeSuperClassName != null && !methodParameterComponentTypeName.equals(parameterTypeName)
                     && !methodParameterComponentTypeName.equals(parameterTypeSuperClassName)) {
@@ -930,12 +930,8 @@ public class MethodUtils {
         classes.add(0, cls);
         final List<Method> annotatedMethods = new ArrayList<>();
         for (final Class<?> acls : classes) {
-            final Method[] methods = (ignoreAccess ? acls.getDeclaredMethods() : acls.getMethods());
-            for (final Method method : methods) {
-                if (method.getAnnotation(annotationCls) != null) {
-                    annotatedMethods.add(method);
-                }
-            }
+            final Method[] methods = ignoreAccess ? acls.getDeclaredMethods() : acls.getMethods();
+            Stream.of(methods).filter(method -> method.isAnnotationPresent(annotationCls)).forEachOrdered(annotatedMethods::add);
         }
         return annotatedMethods;
     }
@@ -977,8 +973,8 @@ public class MethodUtils {
             final Class<?> mcls = method.getDeclaringClass();
             final List<Class<?>> classes = getAllSuperclassesAndInterfaces(mcls);
             for (final Class<?> acls : classes) {
-                final Method equivalentMethod = (ignoreAccess ? MethodUtils.getMatchingMethod(acls, method.getName(), method.getParameterTypes())
-                    : MethodUtils.getMatchingAccessibleMethod(acls, method.getName(), method.getParameterTypes()));
+                final Method equivalentMethod = ignoreAccess ? MethodUtils.getMatchingMethod(acls, method.getName(), method.getParameterTypes())
+                    : MethodUtils.getMatchingAccessibleMethod(acls, method.getName(), method.getParameterTypes());
                 if (equivalentMethod != null) {
                     annotation = equivalentMethod.getAnnotation(annotationCls);
                     if (annotation != null) {
