@@ -16,6 +16,10 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.Supplementary.CharU20000;
+import static org.apache.commons.lang3.Supplementary.CharU20001;
+import static org.apache.commons.lang3.Supplementary.CharUSuppCharHigh;
+import static org.apache.commons.lang3.Supplementary.CharUSuppCharLow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -29,28 +33,6 @@ import org.junitpioneer.jupiter.DefaultLocale;
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Contains methods
  */
 public class StringUtilsContainsTest  {
-    /**
-     * Supplementary character U+20000
-     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
-     */
-    private static final String CharU20000 = "\uD840\uDC00";
-    /**
-     * Supplementary character U+20001
-     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
-     */
-    private static final String CharU20001 = "\uD840\uDC01";
-    /**
-     * Incomplete supplementary character U+20000, high surrogate only.
-     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
-     */
-    private static final String CharUSuppCharHigh = "\uDC00";
-
-    /**
-     * Incomplete supplementary character U+20000, low surrogate only.
-     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
-     */
-    private static final String CharUSuppCharLow = "\uD840";
-
     @Test
     public void testContains_Char() {
         assertFalse(StringUtils.contains(null, ' '));
