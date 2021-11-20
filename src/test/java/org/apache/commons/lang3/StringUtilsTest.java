@@ -46,6 +46,8 @@ import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.text.WordUtils;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * Unit tests for methods of {@link org.apache.commons.lang3.StringUtils}
@@ -63,7 +65,7 @@ public class StringUtilsTest {
     static {
         final StringBuilder ws = new StringBuilder();
         final StringBuilder nws = new StringBuilder();
-        final String hs = String.valueOf(((char) 160));
+        final String hs = String.valueOf((char) 160);
         final StringBuilder tr = new StringBuilder();
         final StringBuilder ntr = new StringBuilder();
         for (int i = 0; i < Character.MAX_VALUE; i++) {
@@ -1229,7 +1231,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testJoin_ArrayString() {
+    public void testJoin_ArrayString_EmptyDelimiter() {
         assertNull(StringUtils.join((Object[]) null, null));
         assertEquals(TEXT_LIST_NOSEP, StringUtils.join(ARRAY_LIST, null));
         assertEquals(TEXT_LIST_NOSEP, StringUtils.join(ARRAY_LIST, ""));
@@ -1238,18 +1240,24 @@ public class StringUtilsTest {
 
         assertEquals("", StringUtils.join(EMPTY_ARRAY_LIST, null));
         assertEquals("", StringUtils.join(EMPTY_ARRAY_LIST, ""));
-        assertEquals("", StringUtils.join(EMPTY_ARRAY_LIST, SEPARATOR));
 
-        assertEquals(TEXT_LIST, StringUtils.join(ARRAY_LIST, SEPARATOR));
-        assertEquals(",,foo", StringUtils.join(MIXED_ARRAY_LIST, SEPARATOR));
-        assertEquals("foo,2", StringUtils.join(MIXED_TYPE_LIST, SEPARATOR));
-
-        assertEquals("/", StringUtils.join(MIXED_ARRAY_LIST, "/", 0, MIXED_ARRAY_LIST.length - 1));
         assertEquals("", StringUtils.join(MIXED_ARRAY_LIST, "", 0, MIXED_ARRAY_LIST.length - 1));
-        assertEquals("foo", StringUtils.join(MIXED_TYPE_LIST, "/", 0, 1));
-        assertEquals("foo/2", StringUtils.join(MIXED_TYPE_LIST, "/", 0, 2));
-        assertEquals("2", StringUtils.join(MIXED_TYPE_LIST, "/", 1, 2));
-        assertEquals("", StringUtils.join(MIXED_TYPE_LIST, "/", 2, 1));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {",", ";", Supplementary.CharU20000, Supplementary.CharU20001})
+    public void testJoin_ArrayString_NonEmptyDelimiter(final String delimiter) {
+        assertEquals("", StringUtils.join(EMPTY_ARRAY_LIST, delimiter));
+
+        assertEquals(String.join(delimiter, ARRAY_LIST), StringUtils.join(ARRAY_LIST, delimiter));
+        assertEquals(delimiter + delimiter + "foo", StringUtils.join(MIXED_ARRAY_LIST, delimiter));
+        assertEquals(String.join(delimiter, "foo", "2"), StringUtils.join(MIXED_TYPE_LIST, delimiter));
+
+        assertEquals(delimiter, StringUtils.join(MIXED_ARRAY_LIST, delimiter, 0, MIXED_ARRAY_LIST.length - 1));
+        assertEquals("foo", StringUtils.join(MIXED_TYPE_LIST, delimiter, 0, 1));
+        assertEquals(String.join(delimiter, "foo", "2"), StringUtils.join(MIXED_TYPE_LIST, delimiter, 0, 2));
+        assertEquals("2", StringUtils.join(MIXED_TYPE_LIST, delimiter, 1, 2));
+        assertEquals("", StringUtils.join(MIXED_TYPE_LIST, delimiter, 2, 1));
     }
 
     @Test
@@ -1307,7 +1315,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testJoin_List() {
+    public void testJoin_List_EmptyDelimiter() {
         assertNull(StringUtils.join((List<String>) null, null));
         assertEquals(TEXT_LIST_NOSEP, StringUtils.join(STRING_LIST, null));
         assertEquals(TEXT_LIST_NOSEP, StringUtils.join(STRING_LIST, ""));
@@ -1316,26 +1324,35 @@ public class StringUtilsTest {
 
         assertEquals("", StringUtils.join(EMPTY_STRING_LIST, null));
         assertEquals("", StringUtils.join(EMPTY_STRING_LIST, ""));
-        assertEquals("", StringUtils.join(EMPTY_STRING_LIST, SEPARATOR));
 
-        assertEquals(TEXT_LIST, StringUtils.join(STRING_LIST, SEPARATOR));
-        assertEquals(",,foo", StringUtils.join(MIXED_STRING_LIST, SEPARATOR));
-        assertEquals("foo,2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, SEPARATOR));
-
-        assertEquals("/", StringUtils.join(MIXED_STRING_LIST, "/", 0, MIXED_STRING_LIST.size() - 1));
         assertEquals("", StringUtils.join(MIXED_STRING_LIST, "", 0, MIXED_STRING_LIST.size()- 1));
-        assertEquals("foo", StringUtils.join(MIXED_TYPE_OBJECT_LIST, "/", 0, 1));
-        assertEquals("foo/2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, "/", 0, 2));
-        assertEquals("2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, "/", 1, 2));
-        assertEquals("", StringUtils.join(MIXED_TYPE_OBJECT_LIST, "/", 2, 1));
-        assertNull(null, StringUtils.join((List<?>) null, "/", 0, 1));
+    }
 
+    @Test
+    public void testJoin_List_CharDelimiter() {
         assertEquals("/", StringUtils.join(MIXED_STRING_LIST, '/', 0, MIXED_STRING_LIST.size() - 1));
         assertEquals("foo", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 0, 1));
         assertEquals("foo/2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 0, 2));
         assertEquals("2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 1, 2));
         assertEquals("", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 2, 1));
         assertNull(null, StringUtils.join((List<?>) null, '/', 0, 1));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {",", ";", Supplementary.CharU20000, Supplementary.CharU20001})
+    public void testJoin_List_NonEmptyDelimiter(final String delimiter) {
+        assertEquals("", StringUtils.join(EMPTY_STRING_LIST, delimiter));
+
+        assertEquals(String.join(delimiter, STRING_LIST), StringUtils.join(STRING_LIST, delimiter));
+        assertEquals(delimiter + delimiter + "foo", StringUtils.join(MIXED_STRING_LIST, delimiter));
+        assertEquals(String.join(delimiter, "foo", "2"), StringUtils.join(MIXED_TYPE_OBJECT_LIST, delimiter));
+
+        assertEquals(delimiter, StringUtils.join(MIXED_STRING_LIST, delimiter, 0, MIXED_STRING_LIST.size() - 1));
+        assertEquals("foo", StringUtils.join(MIXED_TYPE_OBJECT_LIST, delimiter, 0, 1));
+        assertEquals(String.join(delimiter, "foo", "2"), StringUtils.join(MIXED_TYPE_OBJECT_LIST, delimiter, 0, 2));
+        assertEquals("2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, delimiter, 1, 2));
+        assertEquals("", StringUtils.join(MIXED_TYPE_OBJECT_LIST, delimiter, 2, 1));
+        assertNull(null, StringUtils.join((List<?>) null, delimiter, 0, 1));
     }
 
     @Test
@@ -1371,15 +1388,16 @@ public class StringUtilsTest {
         assertNull(StringUtils.join((Object[]) null));
     }
 
-    @Test
-    public void testJoinWith() {
-        assertEquals("", StringUtils.joinWith(","));        // empty array
-        assertEquals("", StringUtils.joinWith(",", (Object[]) NULL_ARRAY_LIST));
-        assertEquals("null", StringUtils.joinWith(",", NULL_TO_STRING_LIST));   //toString method prints 'null'
+    @ParameterizedTest
+    @ValueSource(strings = {",", ";", Supplementary.CharU20000, Supplementary.CharU20001})
+    public void testJoinWith(final String delimiter) {
+        assertEquals("", StringUtils.joinWith(delimiter)); // empty array
+        assertEquals("", StringUtils.joinWith(delimiter, (Object[]) NULL_ARRAY_LIST));
+        assertEquals("null", StringUtils.joinWith(delimiter, NULL_TO_STRING_LIST)); // toString method prints 'null'
 
-        assertEquals("a,b,c", StringUtils.joinWith(",", "a", "b", "c"));
-        assertEquals(",a,", StringUtils.joinWith(",", null, "a", ""));
-        assertEquals(",a,", StringUtils.joinWith(",", "", "a", ""));
+        assertEquals(String.join(delimiter, "a", "b", "c"), StringUtils.joinWith(delimiter, "a", "b", "c"));
+        assertEquals(String.join(delimiter, "", "a", ""), StringUtils.joinWith(delimiter, null, "a", ""));
+        assertEquals(String.join(delimiter, "", "a", ""), StringUtils.joinWith(delimiter, "", "a", ""));
 
         assertEquals("ab", StringUtils.joinWith(null, "a", "b"));
     }
