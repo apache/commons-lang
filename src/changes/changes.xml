@@ -104,7 +104,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Maxwell Cody, Gary Gregory">Add EnumUtils.getEnumMap(Class, Function). #730</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump spotbugs-maven-plugin from 4.2.0 to 4.4.2.2 #735, #808, #822.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess">Bump Bump actions/cache from v2.1.4 to v2.1.6 #742, #752, #764.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess">Bump Bump actions/cache from v2.1.4 to v2.1.7 #742, #752, #764, #833.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/setup-java from v1.4.3 to v2.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump spotbugs from 4.2.2 to 4.2.3 #744.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump checkstyle from 8.41 to 9.1 #739, #768, #787, #811, #824.</action>
