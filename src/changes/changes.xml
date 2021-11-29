@@ -64,6 +64,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1674" type="fix" dev="ggregory" due-to="singhbaljit, Gary Gregory">Make Range constructors more generic #810.</action>
     <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Use final and Remove redundant String. #813, #816.</action>
     <action                   type="fix" dev="ggregory" due-to="CiprianBodnarescu">Use Set instead of List for checking the contains() method #734.</action>
+    <action                   type="fix" dev="kinow" due-to="Roland Kreuzer">Javadoc for StringUtils.substringBefore(String str, int separator) doesn't mention that the separator is an int.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TriConsumer.</action>
@@ -118,7 +119,6 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump maven-pmd-plugin from 3.14.0 to 3.15.0 #802.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump biz.aQute.bndlib from 5.3.0 to 6.1.0 #814, #835.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump actions/checkout from 2.3.4 to 2.4.0 #819, #825.</action>
-    <action                   type="update" dev="kinow" due-to="Roland Kreuzer">Javadoc for StringUtils.substringBefore(String str, int separator) doesn't mention that the separator is an int.</action>
   </release>
 
   <release version="3.12.0" date="2021-02-26" description="New features and bug fixes (Java 8).">
