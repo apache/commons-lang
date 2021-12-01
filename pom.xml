@@ -650,7 +650,7 @@
     <commons.jacoco.version>0.8.7</commons.jacoco.version>
     <commons.surefire.version>3.0.0-M5</commons.surefire.version>
     <commons.javadoc.version>3.3.1</commons.javadoc.version>
-    <commons.japicmp.version>0.15.3</commons.japicmp.version>
+    <commons.japicmp.version>0.15.4</commons.japicmp.version>
     <commons.pmd.version>3.15.0</commons.pmd.version>
     <commons.pmd-impl.version>6.41.0</commons.pmd-impl.version>
 
