@@ -219,7 +219,7 @@ public class ComparableUtils {
      * @see ObjectUtils#max(Comparable...)
      * @since 3.13.0
      */
-    public static <A extends Comparable<A>> A max(A comparable1, A comparable2) {
+    public static <A extends Comparable<A>> A max(final A comparable1, final A comparable2) {
         return ObjectUtils.compare(comparable1, comparable2, false) > 0 ? comparable1 : comparable2;
     }
 
@@ -236,7 +236,7 @@ public class ComparableUtils {
      * @see ObjectUtils#min(Comparable...)
      * @since 3.13.0
      */
-    public static <A extends Comparable<A>> A min(A comparable1, A comparable2) {
+    public static <A extends Comparable<A>> A min(final A comparable1, final A comparable2) {
         return ObjectUtils.compare(comparable1, comparable2, true) < 0 ? comparable1 : comparable2;
     }
 

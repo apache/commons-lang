@@ -32,7 +32,7 @@ public class UncheckedIllegalAccessException extends UncheckedReflectiveOperatio
      * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method). (A @{code null} value
      *        is permitted, and indicates that the cause is nonexistent or unknown.)
      */
-    public UncheckedIllegalAccessException(Throwable cause) {
+    public UncheckedIllegalAccessException(final Throwable cause) {
         super(cause);
     }
 

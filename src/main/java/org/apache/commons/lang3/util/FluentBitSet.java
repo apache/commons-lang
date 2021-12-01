@@ -191,14 +191,14 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
         if (!(obj instanceof FluentBitSet)) {
             return false;
         }
-        FluentBitSet other = (FluentBitSet) obj;
+        final FluentBitSet other = (FluentBitSet) obj;
         return Objects.equals(bitSet, other.bitSet);
     }
 
