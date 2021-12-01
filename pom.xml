@@ -694,6 +694,9 @@
               <version>${commons.pmd-impl.version}</version>
             </dependency>
           </dependencies>
+          <configuration>
+            <targetJdk>${maven.compiler.target}</targetJdk>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.rat</groupId>
@@ -706,21 +709,6 @@
               <exclude>src/site/resources/release-notes/RELEASE-NOTES-*.txt</exclude>
               <exclude>src/test/resources/lang-708-input.txt</exclude>
             </excludes>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-pmd-plugin</artifactId>
-          <version>${commons.pmd.version}</version>
-          <dependencies>
-            <dependency>
-              <groupId>net.sourceforge.pmd</groupId>
-              <artifactId>pmd-java8</artifactId>
-              <version>${commons.pmd-impl.version}</version>
-            </dependency>
-          </dependencies>
-          <configuration>
-            <targetJdk>${maven.compiler.target}</targetJdk>
           </configuration>
         </plugin>
       </plugins>
