@@ -444,80 +444,6 @@ public class Streams {
         }
     }
 
-    private static <E> Stream<E> filter(final Collection<E> collection, final Predicate<? super E> predicate) {
-        return toStream(collection).filter(predicate);
-    }
-
-    /**
-     * Streams non-null elements of a collection.
-     *
-     * @param <E> the type of elements in the collection.
-     * @param collection the collection to stream or null.
-     * @return A non-null stream that filters out null elements.
-     * @since 3.13.0
-     */
-    public static <E> Stream<E> nullSafeStream(final Collection<E> collection) {
-        return filter(collection, Objects::nonNull);
-    }
-
-    /**
-     * Null-safe version of {@link Stream#of(Object[])}.
-     *
-     * @param <T> the type of stream elements.
-     * @param values the elements of the new stream, may be {@code null}.
-     * @return the new stream on {@code values} or {@link Stream#empty()}.
-     * @since 3.13.0
-     */
-    @SafeVarargs // Creating a stream from an array is safe
-    public static <T> Stream<T> of(final T... values) {
-        return values == null ? Stream.empty() : Stream.of(values);
-    }
-
-    /**
-     * Converts the given {@link Collection} into a {@link FailableStream}. This is basically a simplified, reduced version
-     * of the {@link Stream} class, with the same underlying element stream, except that failable objects, like
-     * {@link FailablePredicate}, {@link FailableFunction}, or {@link FailableConsumer} may be applied, instead of
-     * {@link Predicate}, {@link Function}, or {@link Consumer}. The idea is to rewrite a code snippet like this:
-     *
-     * <pre>
-     * {@code
-     * final List<O> list;
-     * final Method m;
-     * final Function<O, String> mapper = (o) -> {
-     *     try {
-     *         return (String) m.invoke(o);
-     *     } catch (Throwable t) {
-     *         throw Failable.rethrow(t);
-     *     }
-     * };
-     * final List<String> strList = list.stream().map(mapper).collect(Collectors.toList());
-     * }
-     * </pre>
-     *
-     * as follows:
-     *
-     * <pre>
-     * {@code
-     * final List<O> list;
-     * final Method m;
-     * final List<String> strList = Failable.stream(list.stream()).map((o) -> (String) m.invoke(o)).collect(Collectors.toList());
-     * }
-     * </pre>
-     *
-     * While the second version may not be <em>quite</em> as efficient (because it depends on the creation of additional,
-     * intermediate objects, of type FailableStream), it is much more concise, and readable, and meets the spirit of Lambdas
-     * better than the first version.
-     *
-     * @param <E> The streams element type.
-     * @param collection The stream, which is being converted.
-     * @return The {@link FailableStream}, which has been created by converting the stream.
-     * @deprecated Use {@link #failableStream(Collection)}.
-     */
-    @Deprecated
-    public static <E> FailableStream<E> stream(final Collection<E> collection) {
-        return failableStream(collection);
-    }
-
     /**
      * Converts the given {@link Collection} into a {@link FailableStream}. This is basically a simplified, reduced version
      * of the {@link Stream} class, with the same underlying element stream, except that failable objects, like
@@ -604,6 +530,100 @@ public class Streams {
      */
     public static <T> FailableStream<T> failableStream(final Stream<T> stream) {
         return new FailableStream<>(stream);
+    }
+
+    private static <E> Stream<E> filter(final Collection<E> collection, final Predicate<? super E> predicate) {
+        return toStream(collection).filter(predicate);
+    }
+
+    /**
+     * Streams only instances of the give Class in a collection.
+     * <p>
+     * This method shorthand for:
+     * </p>
+     * <pre>
+     * {@code (Stream<E>) Streams.toStream(collection).filter(collection, SomeClass.class::isInstance);}
+     * </pre>
+     *
+     * @param <E> the type of elements in the collection we want to stream.
+     * @param clazz the type of elements in the collection we want to stream.
+     * @param collection the collection to stream or null.
+     * @return A non-null stream that only provides instances we want.
+     * @since 3.13.0
+     */
+    @SuppressWarnings("unchecked") // After the isInstance check, we still need to type-cast.
+    public static <E> Stream<E> instancesOf(Class<? super E> clazz, Collection<? super E> collection) {
+        return (Stream<E>) filter(collection, clazz::isInstance);
+    }
+
+    /**
+     * Streams non-null elements of a collection.
+     *
+     * @param <E> the type of elements in the collection.
+     * @param collection the collection to stream or null.
+     * @return A non-null stream that filters out null elements.
+     * @since 3.13.0
+     */
+    public static <E> Stream<E> nullSafeStream(final Collection<E> collection) {
+        return filter(collection, Objects::nonNull);
+    }
+
+    /**
+     * Null-safe version of {@link Stream#of(Object[])}.
+     *
+     * @param <T> the type of stream elements.
+     * @param values the elements of the new stream, may be {@code null}.
+     * @return the new stream on {@code values} or {@link Stream#empty()}.
+     * @since 3.13.0
+     */
+    @SafeVarargs // Creating a stream from an array is safe
+    public static <T> Stream<T> of(final T... values) {
+        return values == null ? Stream.empty() : Stream.of(values);
+    }
+
+    /**
+     * Converts the given {@link Collection} into a {@link FailableStream}. This is basically a simplified, reduced version
+     * of the {@link Stream} class, with the same underlying element stream, except that failable objects, like
+     * {@link FailablePredicate}, {@link FailableFunction}, or {@link FailableConsumer} may be applied, instead of
+     * {@link Predicate}, {@link Function}, or {@link Consumer}. The idea is to rewrite a code snippet like this:
+     *
+     * <pre>
+     * {@code
+     * final List<O> list;
+     * final Method m;
+     * final Function<O, String> mapper = (o) -> {
+     *     try {
+     *         return (String) m.invoke(o);
+     *     } catch (Throwable t) {
+     *         throw Failable.rethrow(t);
+     *     }
+     * };
+     * final List<String> strList = list.stream().map(mapper).collect(Collectors.toList());
+     * }
+     * </pre>
+     *
+     * as follows:
+     *
+     * <pre>
+     * {@code
+     * final List<O> list;
+     * final Method m;
+     * final List<String> strList = Failable.stream(list.stream()).map((o) -> (String) m.invoke(o)).collect(Collectors.toList());
+     * }
+     * </pre>
+     *
+     * While the second version may not be <em>quite</em> as efficient (because it depends on the creation of additional,
+     * intermediate objects, of type FailableStream), it is much more concise, and readable, and meets the spirit of Lambdas
+     * better than the first version.
+     *
+     * @param <E> The streams element type.
+     * @param collection The stream, which is being converted.
+     * @return The {@link FailableStream}, which has been created by converting the stream.
+     * @deprecated Use {@link #failableStream(Collection)}.
+     */
+    @Deprecated
+    public static <E> FailableStream<E> stream(final Collection<E> collection) {
+        return failableStream(collection);
     }
 
     /**

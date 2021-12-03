@@ -138,6 +138,16 @@ public class StreamsTest {
     }
 
     @Test
+    public void testInstanceOfStream() {
+        assertEquals(2, Streams.instancesOf(String.class, Arrays.asList("A", "B")).collect(Collectors.toList()).size());
+        assertEquals(2, Streams.instancesOf(String.class, Arrays.asList(null, "A", null, "B", null)).collect(Collectors.toList()).size());
+        assertEquals(0, Streams.instancesOf(String.class, Arrays.asList(null, null)).collect(Collectors.toList()).size());
+        //
+        List<Object> objects = Arrays.asList("A", "B");
+        assertEquals(2, Streams.instancesOf(String.class, objects).collect(Collectors.toList()).size());
+    }
+
+    @Test
     public void testNullSafeStreamNull() {
         final List<String> input = null;
         assertEquals(0, Streams.nullSafeStream(input).collect(Collectors.toList()).size());
