@@ -86,12 +86,22 @@ public class Streams {
             this.stream = stream;
         }
 
+        /**
+         * Throws IllegalStateException if this stream is already terminated.
+         *
+         * @throws IllegalStateException if this stream is already terminated.
+         */
         protected void assertNotTerminated() {
             if (terminated) {
                 throw new IllegalStateException("This stream is already terminated.");
             }
         }
 
+        /**
+         * Marks this stream as terminated.
+         *
+         * @throws IllegalStateException if this stream is already terminated.
+         */
         protected void makeTerminated() {
             assertNotTerminated();
             terminated = true;
