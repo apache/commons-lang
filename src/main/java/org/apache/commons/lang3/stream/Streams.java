@@ -551,9 +551,13 @@ public class Streams {
      * @return A non-null stream that only provides instances we want.
      * @since 3.13.0
      */
+    public static <E> Stream<E> instancesOf(final Class<? super E> clazz, final Collection<? super E> collection) {
+        return instancesOf(clazz, toStream(collection));
+    }
+
     @SuppressWarnings("unchecked") // After the isInstance check, we still need to type-cast.
-    public static <E> Stream<E> instancesOf(Class<? super E> clazz, Collection<? super E> collection) {
-        return (Stream<E>) filter(collection, clazz::isInstance);
+    private static <E> Stream<E> instancesOf(final Class<? super E> clazz, final Stream<?> stream) {
+        return (Stream<E>) stream.filter(clazz::isInstance);
     }
 
     /**
