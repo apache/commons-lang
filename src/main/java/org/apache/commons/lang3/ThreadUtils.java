@@ -58,7 +58,7 @@ public class ThreadUtils {
     }
 
     /**
-     * A predicate implementation which matches a thread or threadgroup name.
+     * A predicate implementation which matches a thread or thread group name.
      */
     public static class NamePredicate implements ThreadPredicate, ThreadGroupPredicate {
 
@@ -67,7 +67,7 @@ public class ThreadUtils {
         /**
          * Predicate constructor
          *
-         * @param name thread or threadgroup name
+         * @param name thread or thread group name
          * @throws IllegalArgumentException if the name is {@code null}
          */
         public NamePredicate(final String name) {
@@ -87,15 +87,15 @@ public class ThreadUtils {
     }
 
     /**
-     * A predicate for selecting threadgroups.
+     * A predicate for selecting thread groups.
      */
     // When breaking BC, replace this with Predicate<ThreadGroup>
     @FunctionalInterface
     public interface ThreadGroupPredicate {
 
         /**
-         * Evaluates this predicate on the given threadgroup.
-         * @param threadGroup the threadgroup
+         * Evaluates this predicate on the given thread group.
+         * @param threadGroup the thread group
          * @return {@code true} if the threadGroup matches the predicate, otherwise {@code false}
          */
         boolean test(ThreadGroup threadGroup);
@@ -211,12 +211,12 @@ public class ThreadUtils {
     }
 
     /**
-     * Select all active threadgroups which match the given predicate and which is a subgroup of the given thread group (or one of its subgroups).
+     * Select all active thread groups which match the given predicate and which is a subgroup of the given thread group (or one of its subgroups).
      *
      * @param group the thread group
-     * @param recurse if {@code true} then evaluate the predicate recursively on all threadgroups in all subgroups of the given group
+     * @param recurse if {@code true} then evaluate the predicate recursively on all thread groups in all subgroups of the given group
      * @param predicate the predicate
-     * @return An unmodifiable {@code Collection} of active threadgroups which match the given predicate and which is a subgroup of the given thread group
+     * @return An unmodifiable {@code Collection} of active thread groups which match the given predicate and which is a subgroup of the given thread group
      * @throws IllegalArgumentException if the given group or predicate is null
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
@@ -243,10 +243,10 @@ public class ThreadUtils {
     }
 
     /**
-     * Select all active threadgroups which match the given predicate.
+     * Select all active thread groups which match the given predicate.
      *
      * @param predicate the predicate
-     * @return An unmodifiable {@code Collection} of active threadgroups matching the given predicate
+     * @return An unmodifiable {@code Collection} of active thread groups matching the given predicate
      * @throws IllegalArgumentException if the predicate is null
      * @throws  SecurityException
      *          if the current thread cannot access the system thread group
