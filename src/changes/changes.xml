@@ -65,6 +65,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Use final and Remove redundant String. #813, #816.</action>
     <action                   type="fix" dev="ggregory" due-to="CiprianBodnarescu">Use Set instead of List for checking the contains() method #734.</action>
     <action                   type="fix" dev="kinow" due-to="Roland Kreuzer">Javadoc for StringUtils.substringBefore(String str, int separator) doesn't mention that the separator is an int.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in ThreadUtils.getSystemThreadGroup() when the current thread is stopped.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TriConsumer.</action>

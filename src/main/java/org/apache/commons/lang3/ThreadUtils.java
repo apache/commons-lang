@@ -417,14 +417,17 @@ public class ThreadUtils {
 
     /**
      * Gets the system thread group (sometimes also referred as "root thread group").
+     * <p>
+     * This method returns null if this thread has died (been stopped).
+     * </p>
      *
      * @return the system thread group
-     * @throws  SecurityException  if the current thread cannot modify
-     *          thread groups from this thread's thread group up to the system thread group
+     * @throws SecurityException if the current thread cannot modify thread groups from this thread's thread group up to the
+     *         system thread group
      */
     public static ThreadGroup getSystemThreadGroup() {
         ThreadGroup threadGroup = Thread.currentThread().getThreadGroup();
-        while (threadGroup.getParent() != null) {
+        while (threadGroup != null && threadGroup.getParent() != null) {
             threadGroup = threadGroup.getParent();
         }
         return threadGroup;
