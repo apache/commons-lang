@@ -250,9 +250,9 @@ public class LocaleUtils {
             return new Locale(str);
         }
 
-        final String[] segments = str.indexOf(DASH) != -1
-            ? str.split(String.valueOf(DASH), -1)
-            : str.split(String.valueOf(UNDERSCORE), -1);
+        final String[] segments = str.indexOf(UNDERSCORE) != -1
+            ? str.split(String.valueOf(UNDERSCORE), -1)
+            : str.split(String.valueOf(DASH), -1);
         final String language = segments[0];
         if (segments.length == 2) {
             final String country = segments[1];
