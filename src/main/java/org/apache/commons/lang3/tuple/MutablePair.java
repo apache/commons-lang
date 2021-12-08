@@ -75,15 +75,15 @@ public class MutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
-     * <p>Creates a mutable pair from an existing pair.</p>
+     * <p>Creates a mutable pair from a map entry.</p>
      *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>
      *
      * @param <L> the left element type
      * @param <R> the right element type
-     * @param pair the existing pair.
-     * @return a pair formed from the two parameters, not null
+     * @param pair the existing map entry.
+     * @return a pair formed from the map entry
      */
     public static <L, R> MutablePair<L, R> of(final Map.Entry<L, R> pair) {
         final L left;
