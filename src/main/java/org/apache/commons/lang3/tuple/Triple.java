@@ -39,27 +39,6 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
  */
 public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Serializable {
 
-    private static final class TripleAdapter<L, M, R> extends Triple<L, M, R> {
-
-        private static final long serialVersionUID = 1L;
-
-        @Override
-        public L getLeft() {
-            return null;
-        }
-
-        @Override
-        public M getMiddle() {
-            return null;
-        }
-
-        @Override
-        public R getRight() {
-            return null;
-        }
-
-    }
-
     /** Serialization version */
     private static final long serialVersionUID = 1L;
 
@@ -71,7 +50,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      *
      * @since 3.10.
      */
-    public static final Triple<?, ?, ?>[] EMPTY_ARRAY = new TripleAdapter[0];
+    public static final Triple<?, ?, ?>[] EMPTY_ARRAY = {};
 
     /**
      * Returns the empty array singleton that can be assigned without compiler warning.

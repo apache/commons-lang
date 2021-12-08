@@ -44,7 +44,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      *
      * @since 3.10.
      */
-    public static final ImmutablePair<?, ?>[] EMPTY_ARRAY = new ImmutablePair[0];
+    public static final ImmutablePair<?, ?>[] EMPTY_ARRAY = {};
 
     /**
      * An immutable pair of nulls.

@@ -40,27 +40,6 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
  */
 public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, R>>, Serializable {
 
-    private static final class PairAdapter<L, R> extends Pair<L, R> {
-
-        private static final long serialVersionUID = 1L;
-
-        @Override
-        public L getLeft() {
-            return null;
-        }
-
-        @Override
-        public R getRight() {
-            return null;
-        }
-
-        @Override
-        public R setValue(final R value) {
-            return null;
-        }
-
-    }
-
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
 
@@ -72,7 +51,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      *
      * @since 3.10.
      */
-    public static final Pair<?, ?>[] EMPTY_ARRAY = new PairAdapter[0];
+    public static final Pair<?, ?>[] EMPTY_ARRAY = {};
 
     /**
      * Returns the empty array singleton that can be assigned without compiler warning.

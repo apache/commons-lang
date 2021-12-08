@@ -39,7 +39,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
      *
      * @since 3.10.
      */
-    public static final MutablePair<?, ?>[] EMPTY_ARRAY = new MutablePair[0];
+    public static final MutablePair<?, ?>[] EMPTY_ARRAY = {};
 
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;

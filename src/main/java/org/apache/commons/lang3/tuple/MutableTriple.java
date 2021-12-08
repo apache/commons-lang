@@ -39,7 +39,7 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
      *
      * @since 3.10.
      */
-    public static final MutableTriple<?, ?, ?>[] EMPTY_ARRAY = new MutableTriple[0];
+    public static final MutableTriple<?, ?, ?>[] EMPTY_ARRAY = {};
 
     /** Serialization version */
     private static final long serialVersionUID = 1L;

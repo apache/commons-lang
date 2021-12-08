@@ -44,7 +44,7 @@ public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
      *
      * @since 3.10.
      */
-    public static final ImmutableTriple<?, ?, ?>[] EMPTY_ARRAY = new ImmutableTriple[0];
+    public static final ImmutableTriple<?, ?, ?>[] EMPTY_ARRAY = {};
 
     /**
      * An immutable triple of nulls.
