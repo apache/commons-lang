@@ -130,6 +130,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump biz.aQute.bndlib from 5.3.0 to 6.1.0 #814, #835.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump actions/checkout from 2.3.4 to 2.4.0 #819, #825.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump maven-bundle-plugin from 5.1.1 to 5.1.2.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump animal-sniffer-maven-plugin from 1.19 to 1.20.</action>
   </release>
 
   <release version="3.12.0" date="2021-02-26" description="New features and bug fixes (Java 8).">
