@@ -9253,7 +9253,7 @@ public class ArrayUtils {
      *
      * @param array  a {@code Boolean} array, may be {@code null}
      * @return a {@code boolean} array, {@code null} if null array input
-     * @throws NullPointerException if array content is {@code null}
+     * @throws NullPointerException if an array element is {@code null}
      */
     public static boolean[] toPrimitive(final Boolean[] array) {
         if (array == null) {
@@ -9302,7 +9302,7 @@ public class ArrayUtils {
      *
      * @param array  a {@code Byte} array, may be {@code null}
      * @return a {@code byte} array, {@code null} if null array input
-     * @throws NullPointerException if array content is {@code null}
+     * @throws NullPointerException if an array element is {@code null}
      */
     public static byte[] toPrimitive(final Byte[] array) {
         if (array == null) {
@@ -9351,7 +9351,7 @@ public class ArrayUtils {
      *
      * @param array  a {@code Character} array, may be {@code null}
      * @return a {@code char} array, {@code null} if null array input
-     * @throws NullPointerException if array content is {@code null}
+     * @throws NullPointerException if an array element is {@code null}
      */
     public static char[] toPrimitive(final Character[] array) {
         if (array == null) {
@@ -9400,7 +9400,7 @@ public class ArrayUtils {
      *
      * @param array  a {@code Double} array, may be {@code null}
      * @return a {@code double} array, {@code null} if null array input
-     * @throws NullPointerException if array content is {@code null}
+     * @throws NullPointerException if an array element is {@code null}
      */
     public static double[] toPrimitive(final Double[] array) {
         if (array == null) {
@@ -9449,7 +9449,7 @@ public class ArrayUtils {
      *
      * @param array  a {@code Float} array, may be {@code null}
      * @return a {@code float} array, {@code null} if null array input
-     * @throws NullPointerException if array content is {@code null}
+     * @throws NullPointerException if an array element is {@code null}
      */
     public static float[] toPrimitive(final Float[] array) {
         if (array == null) {
@@ -9498,7 +9498,7 @@ public class ArrayUtils {
      *
      * @param array  a {@code Integer} array, may be {@code null}
      * @return an {@code int} array, {@code null} if null array input
-     * @throws NullPointerException if array content is {@code null}
+     * @throws NullPointerException if an array element is {@code null}
      */
     public static int[] toPrimitive(final Integer[] array) {
         if (array == null) {
@@ -9547,7 +9547,7 @@ public class ArrayUtils {
      *
      * @param array  a {@code Long} array, may be {@code null}
      * @return a {@code long} array, {@code null} if null array input
-     * @throws NullPointerException if array content is {@code null}
+     * @throws NullPointerException if an array element is {@code null}
      */
     public static long[] toPrimitive(final Long[] array) {
         if (array == null) {
@@ -9639,7 +9639,7 @@ public class ArrayUtils {
      *
      * @param array  a {@code Short} array, may be {@code null}
      * @return a {@code byte} array, {@code null} if null array input
-     * @throws NullPointerException if array content is {@code null}
+     * @throws NullPointerException if an array element is {@code null}
      */
     public static short[] toPrimitive(final Short[] array) {
         if (array == null) {
@@ -9727,7 +9727,7 @@ public class ArrayUtils {
      * @param array the {@code Object[]} to be processed, may be null
      * @return {@code String[]} of the same size as the source with its element's string representation,
      * {@code null} if null array input
-     * @throws NullPointerException if array contains {@code null}
+     * @throws NullPointerException if an array element is {@code null}
      * @since 3.6
      */
     public static String[] toStringArray(final Object[] array) {
