@@ -51,7 +51,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      */
     // This is not defined with generics to avoid warnings in call sites.
     @SuppressWarnings("rawtypes")
-    private static final ImmutablePair NULL = of(null, null);
+    private static final ImmutablePair NULL = new ImmutablePair<>(null, null);
 
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
@@ -111,7 +111,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      * @return a pair formed from the two parameters, not null
      */
     public static <L, R> ImmutablePair<L, R> of(final L left, final R right) {
-        return new ImmutablePair<>(left, right);
+        return left != null || right != null ? new ImmutablePair<>(left, right) : NULL;
     }
 
     /**
@@ -127,16 +127,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      * @since 3.10
      */
     public static <L, R> ImmutablePair<L, R> of(final Map.Entry<L, R> pair) {
-        final L left;
-        final R right;
-        if (pair != null) {
-            left = pair.getKey();
-            right = pair.getValue();
-        } else {
-            left = null;
-            right = null;
-        }
-        return new ImmutablePair<>(left, right);
+        return pair != null ? new ImmutablePair<>(pair.getKey(), pair.getValue()) : ImmutablePair.NULL;
     }
 
     /**

@@ -51,7 +51,7 @@ public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
      */
     // This is not defined with generics to avoid warnings in call sites.
     @SuppressWarnings("rawtypes")
-    private static final ImmutableTriple NULL = of(null, null, null);
+    private static final ImmutableTriple NULL = new ImmutableTriple<>(null, null, null);
 
     /** Serialization version */
     private static final long serialVersionUID = 1L;
@@ -99,7 +99,7 @@ public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
      * @return a triple formed from the three parameters, not null
      */
     public static <L, M, R> ImmutableTriple<L, M, R> of(final L left, final M middle, final R right) {
-        return new ImmutableTriple<>(left, middle, right);
+        return left != null | middle != null || right != null ? new ImmutableTriple<>(left, middle, right) : NULL;
     }
 
     /**
