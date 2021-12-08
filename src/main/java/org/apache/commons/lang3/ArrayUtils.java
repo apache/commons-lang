@@ -36,6 +36,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.mutable.MutableInt;
+import org.apache.commons.lang3.stream.Streams;
 
 /**
  * Operations on arrays, primitive arrays (like {@code int[]}) and
@@ -1650,6 +1651,21 @@ public class ArrayUtils {
      */
     public static boolean contains(final Object[] array, final Object objectToFind) {
         return indexOf(array, objectToFind) != INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Checks if any of the objects are in the given array.
+     * <p>
+     * The method returns {@code false} if a {@code null} array is passed in.
+     * </p>
+     *
+     * @param array  the array to search through
+     * @param objectsToFind  any of the objects to find
+     * @return {@code true} if the array contains any of the objects
+     * @since 3.13.0
+     */
+    public static boolean containsAny(final Object[] array, final Object... objectsToFind) {
+        return Streams.of(objectsToFind).anyMatch(e -> contains(array, e));
     }
 
     /**

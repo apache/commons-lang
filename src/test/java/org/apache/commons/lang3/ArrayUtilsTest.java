@@ -208,8 +208,21 @@ public class ArrayUtilsTest {
         assertTrue(ArrayUtils.contains(array, "1"));
         assertTrue(ArrayUtils.contains(array, "2"));
         assertTrue(ArrayUtils.contains(array, "3"));
-        assertTrue(ArrayUtils.contains(array, null));
         assertFalse(ArrayUtils.contains(array, "notInArray"));
+        assertTrue(ArrayUtils.contains(array, null));
+    }
+
+    @Test
+    public void testContainsAny() {
+        final Object[] array = {"0", "1", "2", "3", null, "0"};
+        assertFalse(ArrayUtils.containsAny(null, null));
+        assertFalse(ArrayUtils.containsAny(null, "1"));
+        assertTrue(ArrayUtils.containsAny(array, "0"));
+        assertTrue(ArrayUtils.containsAny(array, "1"));
+        assertTrue(ArrayUtils.containsAny(array, "2"));
+        assertTrue(ArrayUtils.containsAny(array, "3"));
+        assertFalse(ArrayUtils.containsAny(array, "notInArray"));
+        assertTrue(ArrayUtils.containsAny(array, new String[] {null}));
     }
 
     @Test
