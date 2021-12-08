@@ -6282,8 +6282,7 @@ public class ArrayUtilsTest {
         assertNull(ArrayUtils.toPrimitive(b));
         assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.toPrimitive(new Boolean[0]));
         assertArrayEquals(new boolean[]{true, false, true}, ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, Boolean.FALSE, Boolean.TRUE}));
-
-        assertThrows(NullPointerException.class, () -> ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, null}));
+        assertArrayEquals(new boolean[]{true, false}, ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, null}));
     }
 
     @Test

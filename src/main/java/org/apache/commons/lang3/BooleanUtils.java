@@ -101,7 +101,6 @@ public class BooleanUtils {
 
     /**
      * <p>Performs an 'and' operation on an array of Booleans.</p>
-     *
      * <pre>
      *   BooleanUtils.and(Boolean.TRUE, Boolean.TRUE)                 = Boolean.TRUE
      *   BooleanUtils.and(Boolean.FALSE, Boolean.FALSE)               = Boolean.FALSE
@@ -109,23 +108,22 @@ public class BooleanUtils {
      *   BooleanUtils.and(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE)   = Boolean.TRUE
      *   BooleanUtils.and(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE) = Boolean.FALSE
      *   BooleanUtils.and(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE)  = Boolean.FALSE
+     *   BooleanUtils.and(null, null)                                 = Boolean.FALSE
      * </pre>
+     * <p>
+     * Null array elements map to false, like {@code Boolean.parseBoolean(null)} and its callers return false.
+     * </p>
      *
      * @param array  an array of {@code Boolean}s
      * @return the result of the logical 'and' operation. That is {@code false}
      * if any of the parameters is {@code false} and {@code true} otherwise.
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
-     * @throws IllegalArgumentException if {@code array} contains a {@code null}
      * @since 3.0.1
      */
     public static Boolean and(final Boolean... array) {
         ObjectUtils.requireNonEmpty(array, "array");
-        try {
-            return and(ArrayUtils.toPrimitive(array)) ? Boolean.TRUE : Boolean.FALSE;
-        } catch (final NullPointerException ex) {
-            throw new IllegalArgumentException("The array must not contain any null elements");
-        }
+        return and(ArrayUtils.toPrimitive(array)) ? Boolean.TRUE : Boolean.FALSE;
     }
 
     /**
@@ -279,7 +277,6 @@ public class BooleanUtils {
 
     /**
      * <p>Performs an 'or' operation on an array of Booleans.</p>
-     *
      * <pre>
      *   BooleanUtils.or(Boolean.TRUE, Boolean.TRUE)                  = Boolean.TRUE
      *   BooleanUtils.or(Boolean.FALSE, Boolean.FALSE)                = Boolean.FALSE
@@ -288,22 +285,22 @@ public class BooleanUtils {
      *   BooleanUtils.or(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE)  = Boolean.TRUE
      *   BooleanUtils.or(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE)   = Boolean.TRUE
      *   BooleanUtils.or(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE) = Boolean.FALSE
+     *   BooleanUtils.or(Boolean.TRUE, null)                          = Boolean.TRUE
+     *   BooleanUtils.or(Boolean.FALSE, null)                         = Boolean.FALSE
      * </pre>
+     * <p>
+     * Null array elements map to false, like {@code Boolean.parseBoolean(null)} and its callers return false.
+     * </p>
      *
      * @param array  an array of {@code Boolean}s
      * @return {@code true} if any of the arguments is {@code true}, and it returns {@code false} otherwise.
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
-     * @throws IllegalArgumentException if {@code array} contains a {@code null}
      * @since 3.0.1
      */
     public static Boolean or(final Boolean... array) {
         ObjectUtils.requireNonEmpty(array, "array");
-        try {
-            return or(ArrayUtils.toPrimitive(array)) ? Boolean.TRUE : Boolean.FALSE;
-        } catch (final NullPointerException ex) {
-            throw new IllegalArgumentException("The array must not contain any null elements");
-        }
+        return or(ArrayUtils.toPrimitive(array)) ? Boolean.TRUE : Boolean.FALSE;
     }
 
     /**
@@ -1103,27 +1100,26 @@ public class BooleanUtils {
 
     /**
      * <p>Performs an xor on an array of Booleans.</p>
-     *
      * <pre>
-     *   BooleanUtils.xor(new Boolean[] { Boolean.TRUE, Boolean.TRUE })   = Boolean.FALSE
-     *   BooleanUtils.xor(new Boolean[] { Boolean.FALSE, Boolean.FALSE }) = Boolean.FALSE
-     *   BooleanUtils.xor(new Boolean[] { Boolean.TRUE, Boolean.FALSE })  = Boolean.TRUE
-     *   BooleanUtils.xor(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE)     = Boolean.TRUE
+     *   BooleanUtils.xor(Boolean.TRUE, Boolean.TRUE)                 = Boolean.FALSE
+     *   BooleanUtils.xor(Boolean.FALSE, Boolean.FALSE)               = Boolean.FALSE
+     *   BooleanUtils.xor(Boolean.TRUE, Boolean.FALSE)                = Boolean.TRUE
+     *   BooleanUtils.xor(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE) = Boolean.TRUE
+     *   BooleanUtils.xor(Boolean.FALSE, null)                        = Boolean.FALSE
+     *   BooleanUtils.xor(Boolean.TRUE, null)                         = Boolean.TRUE
      * </pre>
+     * <p>
+     * Null array elements map to false, like {@code Boolean.parseBoolean(null)} and its callers return false.
+     * </p>
      *
      * @param array  an array of {@code Boolean}s
      * @return the result of the xor operations
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
-     * @throws IllegalArgumentException if {@code array} contains a {@code null}
      */
     public static Boolean xor(final Boolean... array) {
         ObjectUtils.requireNonEmpty(array, "array");
-        try {
-            return xor(ArrayUtils.toPrimitive(array)) ? Boolean.TRUE : Boolean.FALSE;
-        } catch (final NullPointerException ex) {
-            throw new IllegalArgumentException("The array must not contain any null elements");
-        }
+        return xor(ArrayUtils.toPrimitive(array)) ? Boolean.TRUE : Boolean.FALSE;
     }
 
     /**

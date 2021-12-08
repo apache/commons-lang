@@ -436,7 +436,7 @@ public class BooleanUtilsTest {
 
     @Test
     public void testAnd_object_nullElementInput() {
-        assertThrows(IllegalArgumentException.class, () -> BooleanUtils.and(new Boolean[] {null}));
+        assertEquals(Boolean.FALSE, BooleanUtils.and(new Boolean[] {null}));
     }
 
     @Test
@@ -635,7 +635,7 @@ public class BooleanUtilsTest {
 
     @Test
     public void testOr_object_nullElementInput() {
-        assertThrows(IllegalArgumentException.class, () -> BooleanUtils.or(new Boolean[] {null}));
+        assertEquals(Boolean.FALSE, BooleanUtils.or(new Boolean[] {null}));
     }
 
     @Test
@@ -817,7 +817,7 @@ public class BooleanUtilsTest {
 
     @Test
     public void testXor_object_nullElementInput() {
-        assertThrows(IllegalArgumentException.class, () -> BooleanUtils.xor(new Boolean[] {null}));
+        assertEquals(Boolean.FALSE, BooleanUtils.xor(new Boolean[] {null}));
     }
 
     @Test

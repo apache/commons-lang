@@ -9250,23 +9250,15 @@ public class ArrayUtils {
      * <p>
      * This method returns {@code null} for a {@code null} input array.
      * </p>
+     * <p>
+     * Null array elements map to false, like {@code Boolean.parseBoolean(null)} and its callers return false.
+     * </p>
      *
-     * @param array  a {@code Boolean} array, may be {@code null}
+     * @param array a {@code Boolean} array, may be {@code null}
      * @return a {@code boolean} array, {@code null} if null array input
-     * @throws NullPointerException if an array element is {@code null}
      */
     public static boolean[] toPrimitive(final Boolean[] array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-            return EMPTY_BOOLEAN_ARRAY;
-        }
-        final boolean[] result = new boolean[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].booleanValue();
-        }
-        return result;
+        return toPrimitive(array, false);
     }
 
     /**
