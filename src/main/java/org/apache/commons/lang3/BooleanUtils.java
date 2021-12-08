@@ -122,8 +122,7 @@ public class BooleanUtils {
     public static Boolean and(final Boolean... array) {
         ObjectUtils.requireNonEmpty(array, "array");
         try {
-            final boolean[] primitive = ArrayUtils.toPrimitive(array);
-            return and(primitive) ? Boolean.TRUE : Boolean.FALSE;
+            return and(ArrayUtils.toPrimitive(array)) ? Boolean.TRUE : Boolean.FALSE;
         } catch (final NullPointerException ex) {
             throw new IllegalArgumentException("The array must not contain any null elements");
         }
@@ -301,8 +300,7 @@ public class BooleanUtils {
     public static Boolean or(final Boolean... array) {
         ObjectUtils.requireNonEmpty(array, "array");
         try {
-            final boolean[] primitive = ArrayUtils.toPrimitive(array);
-            return or(primitive) ? Boolean.TRUE : Boolean.FALSE;
+            return or(ArrayUtils.toPrimitive(array)) ? Boolean.TRUE : Boolean.FALSE;
         } catch (final NullPointerException ex) {
             throw new IllegalArgumentException("The array must not contain any null elements");
         }
@@ -1122,8 +1120,7 @@ public class BooleanUtils {
     public static Boolean xor(final Boolean... array) {
         ObjectUtils.requireNonEmpty(array, "array");
         try {
-            final boolean[] primitive = ArrayUtils.toPrimitive(array);
-            return xor(primitive) ? Boolean.TRUE : Boolean.FALSE;
+            return xor(ArrayUtils.toPrimitive(array)) ? Boolean.TRUE : Boolean.FALSE;
         } catch (final NullPointerException ex) {
             throw new IllegalArgumentException("The array must not contain any null elements");
         }
