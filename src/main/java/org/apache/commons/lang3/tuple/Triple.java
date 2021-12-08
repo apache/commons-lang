@@ -107,6 +107,26 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     }
 
     /**
+     * <p>Obtains an immutable triple of three non-null objects inferring the generic types.</p>
+     *
+     * <p>This factory allows the triple to be created using inference to
+     * obtain the generic types.</p>
+     *
+     * @param <L> the left element type
+     * @param <M> the middle element type
+     * @param <R> the right element type
+     * @param left  the left element, may not be null
+     * @param middle  the middle element, may not be null
+     * @param right  the right element, may not be null
+     * @return a triple formed from the three parameters, not null
+     * @throws NullPointerException if any input is null
+     * @since 3.13.0
+     */
+    public static <L, M, R> Triple<L, M, R> ofNonNull(final L left, final M middle, final R right) {
+        return ImmutableTriple.ofNonNull(left, middle, right);
+    }
+
+    /**
      * <p>Compares the triple based on the left element, followed by the middle element,
      * finally the right element.
      * The types must be {@code Comparable}.</p>

@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -114,6 +115,19 @@ public class ImmutableTripleTest {
         // How do we assert that?
         final ImmutableTriple<String, String, String> triple = ImmutableTriple.nullTriple();
         assertNotNull(triple);
+    }
+
+    @Test
+    public void testOfNonNull() {
+        assertThrows(NullPointerException.class, () -> ImmutableTriple.ofNonNull(null, null, null));
+        assertThrows(NullPointerException.class, () -> ImmutableTriple.ofNonNull(null, null, "z"));
+        assertThrows(NullPointerException.class, () -> ImmutableTriple.ofNonNull(null, "y", "z"));
+        assertThrows(NullPointerException.class, () -> ImmutableTriple.ofNonNull("x", null, null));
+        assertThrows(NullPointerException.class, () -> ImmutableTriple.ofNonNull("x", "y", null));
+        final ImmutableTriple<String, String, String> pair = ImmutableTriple.ofNonNull("x", "y", "z");
+        assertEquals("x", pair.left);
+        assertEquals("y", pair.middle);
+        assertEquals("z", pair.right);
     }
 
     @Test

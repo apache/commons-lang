@@ -19,6 +19,7 @@ package org.apache.commons.lang3.tuple;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Calendar;
@@ -101,6 +102,16 @@ public class PairTest {
         final Entry<Integer, String> entry = map.entrySet().iterator().next();
         assertEquals(pair, entry);
         assertEquals(pair.hashCode(), entry.hashCode());
+    }
+
+    @Test
+    public void testOfNonNull() {
+        assertThrows(NullPointerException.class, () -> Pair.ofNonNull(null, null));
+        assertThrows(NullPointerException.class, () -> Pair.ofNonNull(null, "x"));
+        assertThrows(NullPointerException.class, () -> Pair.ofNonNull("x", null));
+        final Pair<String, String> pair = Pair.ofNonNull("x", "y");
+        assertEquals("x", pair.getLeft());
+        assertEquals("y", pair.getRight());
     }
 
     @Test

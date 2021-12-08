@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.tuple;
 
+import java.util.Objects;
+
 /**
  * <p>A mutable triple consisting of three {@code Object} elements.</p>
  *
@@ -74,6 +76,27 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     public static <L, M, R> MutableTriple<L, M, R> of(final L left, final M middle, final R right) {
         return new MutableTriple<>(left, middle, right);
     }
+
+    /**
+     * <p>Obtains a mutable triple of three non-null objects inferring the generic types.</p>
+     *
+     * <p>This factory allows the triple to be created using inference to
+     * obtain the generic types.</p>
+     *
+     * @param <L> the left element type
+     * @param <M> the middle element type
+     * @param <R> the right element type
+     * @param left  the left element, may not be null
+     * @param middle  the middle element, may not be null
+     * @param right  the right element, may not be null
+     * @return a triple formed from the three parameters, not null
+     * @throws NullPointerException if any input is null
+     * @since 3.13.0
+     */
+    public static <L, M, R> MutableTriple<L, M, R> ofNonNull(final L left, final M middle, final R right) {
+        return of(Objects.requireNonNull(left, "left"), Objects.requireNonNull(middle, "middle"), Objects.requireNonNull(right, "right"));
+    }
+
     /** Left object */
     public L left;
     /** Middle object */

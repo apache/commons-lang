@@ -121,6 +121,24 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
+     * <p>Creates an immutable pair of two non-null objects inferring the generic types.</p>
+     *
+     * <p>This factory allows the pair to be created using inference to
+     * obtain the generic types.</p>
+     *
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @param left  the left element, may not be null
+     * @param right  the right element, may not  be null
+     * @return a pair formed from the two parameters, not null
+     * @throws NullPointerException if any input is null
+     * @since 3.13.0
+     */
+    public static <L, R> Pair<L, R> ofNonNull(final L left, final R right) {
+        return ImmutablePair.ofNonNull(left, right);
+    }
+
+    /**
      * <p>Compares the pair based on the left element followed by the right element.
      * The types must be {@code Comparable}.</p>
      *
