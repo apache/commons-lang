@@ -2128,7 +2128,7 @@ public class StringUtils {
      * @return result score
      * @throws IllegalArgumentException if either String input {@code null} or Locale input {@code null}
      * @since 3.4
-     * @deprecated as of 3.6, use commons-text
+     * @deprecated As of 3.6, use Apache Commons Text
      * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/FuzzyScore.html">
      * FuzzyScore</a> instead
      */
@@ -2275,7 +2275,7 @@ public class StringUtils {
      * @return result distance
      * @throws IllegalArgumentException if either String input {@code null}
      * @since 3.3
-     * @deprecated as of 3.6, use commons-text
+     * @deprecated As of 3.6, use Apache Commons Text
      * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/JaroWinklerDistance.html">
      * JaroWinklerDistance</a> instead
      */
@@ -2328,7 +2328,7 @@ public class StringUtils {
      * @throws IllegalArgumentException if either String input {@code null}
      * @since 3.0 Changed signature from getLevenshteinDistance(String, String) to
      * getLevenshteinDistance(CharSequence, CharSequence)
-     * @deprecated as of 3.6, use commons-text
+     * @deprecated As of 3.6, use Apache Commons Text
      * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/LevenshteinDistance.html">
      * LevenshteinDistance</a> instead
      */
@@ -2419,7 +2419,7 @@ public class StringUtils {
      * @param threshold the target threshold, must not be negative
      * @return result distance, or {@code -1} if the distance would be greater than the threshold
      * @throws IllegalArgumentException if either String input {@code null} or negative threshold
-     * @deprecated as of 3.6, use commons-text
+     * @deprecated As of 3.6, use Apache Commons Text
      * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/LevenshteinDistance.html">
      * LevenshteinDistance</a> instead
      */

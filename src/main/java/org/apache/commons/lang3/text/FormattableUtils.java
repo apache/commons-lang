@@ -33,7 +33,7 @@ import org.apache.commons.lang3.Validate;
  * and padding, and is not designed to allow generalised alternate formats.</p>
  *
  * @since 3.0
- * @deprecated as of 3.6, use commons-text
+ * @deprecated As of 3.6, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/FormattableUtils.html">
  * FormattableUtils</a> instead
  */

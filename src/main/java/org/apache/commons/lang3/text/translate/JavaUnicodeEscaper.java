@@ -20,7 +20,7 @@ package org.apache.commons.lang3.text.translate;
  * Translates codepoints to their Unicode escaped value suitable for Java source.
  *
  * @since 3.2
- * @deprecated as of 3.6, use commons-text
+ * @deprecated As of 3.6, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/UnicodeEscaper.html">
  * UnicodeEscaper</a> instead
  */

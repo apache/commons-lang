@@ -24,7 +24,7 @@ import java.io.Writer;
  * will replace up to one character at a time.
  *
  * @since 3.0
- * @deprecated as of 3.6, use commons-text
+ * @deprecated As of 3.6, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/CodePointTranslator.html">
  * CharSequenceTranslator</a> instead
  */

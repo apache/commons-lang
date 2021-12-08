@@ -27,7 +27,7 @@ import java.util.Locale;
  * is completely contextual, the API does not present two separate signatures.
  *
  * @since 3.0
- * @deprecated as of 3.6, use commons-text
+ * @deprecated As of 3.6, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/CharSequenceTranslator.html">
  * CharSequenceTranslator</a> instead
  */
