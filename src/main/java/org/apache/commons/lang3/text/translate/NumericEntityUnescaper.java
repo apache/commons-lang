@@ -29,7 +29,7 @@ import java.util.EnumSet;
  * Note that the semicolon is optional.
  *
  * @since 3.0
- * @deprecated as of 3.6, use commons-text
+ * @deprecated As of 3.6, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/NumericEntityUnescaper.html">
  * NumericEntityUnescaper</a> instead
  */

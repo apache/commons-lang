@@ -20,10 +20,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * <p>Utility library to provide helper methods for Java enums.</p>
@@ -259,6 +260,74 @@ public class EnumUtils {
     }
 
     /**
+     * <p>Gets the {@code List} of enums.</p>
+     *
+     * <p>This method is useful when you need a list of enums rather than an array.</p>
+     *
+     * @param <E> the type of the enumeration
+     * @param enumClass  the class of the enum to query, not null
+     * @return the modifiable list of enums, never null
+     */
+    public static <E extends Enum<E>> List<E> getEnumList(final Class<E> enumClass) {
+        return new ArrayList<>(Arrays.asList(enumClass.getEnumConstants()));
+    }
+
+    /**
+     * <p>Gets the {@code Map} of enums by name.</p>
+     *
+     * <p>This method is useful when you need a map of enums by name.</p>
+     *
+     * @param <E> the type of the enumeration
+     * @param enumClass  the class of the enum to query, not null
+     * @return the modifiable map of enum names to enums, never null
+     */
+    public static <E extends Enum<E>> Map<String, E> getEnumMap(final Class<E> enumClass) {
+        return getEnumMap(enumClass, E::name);
+    }
+
+    /**
+     * <p>
+     * Gets the {@code Map} of enums by name.
+     * </p>
+     *
+     * <p>
+     * This method is useful when you need a map of enums by name.
+     * </p>
+     *
+     * @param <E>         the type of enumeration
+     * @param <K>         the type of the map key
+     * @param enumClass   the class of the enum to query, not null
+     * @param keyFunction the function to query for the key, not null
+     * @return the modifiable map of enums, never null
+     * @since 3.13.0
+     */
+    public static <E extends Enum<E>, K> Map<K, E> getEnumMap(final Class<E> enumClass, final Function<E, K> keyFunction) {
+        return Stream.of(enumClass.getEnumConstants()).collect(Collectors.toMap(keyFunction::apply, Function.identity()));
+    }
+
+    /**
+     * <p>
+     * Gets the enum for the class in a system property, returning {@code defaultEnum} if not found.
+     * </p>
+     *
+     * <p>
+     * This method differs from {@link Enum#valueOf} in that it does not throw an exception for an invalid enum name.
+     * </p>
+     *
+     * @param <E> the type of the enumeration
+     * @param enumClass the class of the enum to query, not null
+     * @param propName the system property key for the enum name, null returns default enum
+     * @param defaultEnum the default enum
+     * @return the enum, default enum if not found
+     * @since 3.13.0
+     */
+    public static <E extends Enum<E>> E getEnumSystemProperty(final Class<E> enumClass, final String propName,
+        final E defaultEnum) {
+        return enumClass == null || propName == null ? defaultEnum
+            : getEnum(enumClass, System.getProperty(propName), defaultEnum);
+    }
+
+    /**
      * <p>Gets the enum for the class, returning {@code defaultEnum} if not found.</p>
      *
      * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
@@ -283,58 +352,6 @@ public class EnumUtils {
             }
         }
         return defaultEnum;
-    }
-
-    /**
-     * <p>Gets the {@code List} of enums.</p>
-     *
-     * <p>This method is useful when you need a list of enums rather than an array.</p>
-     *
-     * @param <E> the type of the enumeration
-     * @param enumClass  the class of the enum to query, not null
-     * @return the modifiable list of enums, never null
-     */
-    public static <E extends Enum<E>> List<E> getEnumList(final Class<E> enumClass) {
-        return new ArrayList<>(Arrays.asList(enumClass.getEnumConstants()));
-    }
-
-    /**
-     * <p>Gets the {@code Map} of enums by name.</p>
-     *
-     * <p>This method is useful when you need a map of enums by name.</p>
-     *
-     * @param <E> the type of the enumeration
-     * @param enumClass  the class of the enum to query, not null
-     * @return the modifiable map of enum names to enums, never null
-     */
-    public static <E extends Enum<E>> Map<String, E> getEnumMap(final Class<E> enumClass) {
-        final Map<String, E> map = new LinkedHashMap<>();
-        for (final E e: enumClass.getEnumConstants()) {
-            map.put(e.name(), e);
-        }
-        return map;
-    }
-
-    /**
-     * <p>
-     * Gets the enum for the class in a system property, returning {@code defaultEnum} if not found.
-     * </p>
-     *
-     * <p>
-     * This method differs from {@link Enum#valueOf} in that it does not throw an exception for an invalid enum name.
-     * </p>
-     *
-     * @param <E> the type of the enumeration
-     * @param enumClass the class of the enum to query, not null
-     * @param propName the system property key for the enum name, null returns default enum
-     * @param defaultEnum the default enum
-     * @return the enum, default enum if not found
-     * @since 3.13.0
-     */
-    public static <E extends Enum<E>> E getEnumSystemProperty(final Class<E> enumClass, final String propName,
-        final E defaultEnum) {
-        return enumClass == null || propName == null ? defaultEnum
-            : getEnum(enumClass, System.getProperty(propName), defaultEnum);
     }
 
     /**

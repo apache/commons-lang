@@ -30,7 +30,7 @@ import org.apache.commons.lang3.ClassUtils;
  *
  * @since 2.5
  */
-abstract class MemberUtils {
+final class MemberUtils {
     // TODO extract an interface to implement compareParameterSets(...)?
 
     private static final int ACCESS_TEST = Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE;
@@ -40,7 +40,7 @@ abstract class MemberUtils {
             Character.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE };
 
     /**
-     * XXX Default access superclass workaround.
+     * Default access superclass workaround.
      *
      * When a {@code public} class has a default access superclass with {@code public} members,
      * these members are accessible. Calling them from compiled code works fine.
@@ -49,17 +49,17 @@ abstract class MemberUtils {
      * Calling {@code setAccessible(true)} solves the problem but will only work from
      * sufficiently privileged code. Better workarounds would be gratefully
      * accepted.
-     * @param o the AccessibleObject to set as accessible
+     * @param obj the AccessibleObject to set as accessible
      * @return a boolean indicating whether the accessibility of the object was set to true.
      */
-    static boolean setAccessibleWorkaround(final AccessibleObject o) {
-        if (o == null || o.isAccessible()) {
+    static boolean setAccessibleWorkaround(final AccessibleObject obj) {
+        if (obj == null || obj.isAccessible()) {
             return false;
         }
-        final Member m = (Member) o;
-        if (!o.isAccessible() && Modifier.isPublic(m.getModifiers()) && isPackageAccess(m.getDeclaringClass().getModifiers())) {
+        final Member m = (Member) obj;
+        if (!obj.isAccessible() && isPublic(m) && isPackageAccess(m.getDeclaringClass().getModifiers())) {
             try {
-                o.setAccessible(true);
+                obj.setAccessible(true);
                 return true;
             } catch (final SecurityException e) { // NOPMD
                 // ignore in favor of subsequent IllegalAccessException
@@ -69,7 +69,7 @@ abstract class MemberUtils {
     }
 
     /**
-     * Returns whether a given set of modifiers implies package access.
+     * Tests whether a given set of modifiers implies package access.
      * @param modifiers to test
      * @return {@code true} unless {@code package}/{@code protected}/{@code private} modifier detected
      */
@@ -78,12 +78,30 @@ abstract class MemberUtils {
     }
 
     /**
-     * Returns whether a {@link Member} is accessible.
-     * @param m Member to check
+     * Tests whether a {@link Member} is public.
+     * @param member Member to test
+     * @return {@code true} if {@code m} is public
+     */
+    static boolean isPublic(final Member member) {
+        return member != null && Modifier.isPublic(member.getModifiers());
+    }
+
+    /**
+     * Tests whether a {@link Member} is static.
+     * @param member Member to test
+     * @return {@code true} if {@code m} is static
+     */
+    static boolean isStatic(final Member member) {
+        return member != null && Modifier.isStatic(member.getModifiers());
+    }
+
+    /**
+     * Tests whether a {@link Member} is accessible.
+     * @param member Member to test
      * @return {@code true} if {@code m} is accessible
      */
-    static boolean isAccessible(final Member m) {
-        return m != null && Modifier.isPublic(m.getModifiers()) && !m.isSynthetic();
+    static boolean isAccessible(final Member member) {
+        return member != null && isPublic(member) && !member.isSynthetic();
     }
 
     /**
@@ -151,7 +169,7 @@ abstract class MemberUtils {
 
         // "source" and "destination" are the actual and declared args respectively.
         float totalCost = 0.0f;
-        final long normalArgsLen = isVarArgs ? destArgs.length-1 : destArgs.length;
+        final long normalArgsLen = isVarArgs ? destArgs.length - 1 : destArgs.length;
         if (srcArgs.length < normalArgsLen) {
             return Float.MAX_VALUE;
         }
@@ -162,19 +180,20 @@ abstract class MemberUtils {
             // When isVarArgs is true, srcArgs and dstArgs may differ in length.
             // There are two special cases to consider:
             final boolean noVarArgsPassed = srcArgs.length < destArgs.length;
-            final boolean explicitArrayForVarargs = srcArgs.length == destArgs.length && srcArgs[srcArgs.length-1] != null && srcArgs[srcArgs.length-1].isArray();
+            final boolean explicitArrayForVarargs = srcArgs.length == destArgs.length && srcArgs[srcArgs.length - 1] != null
+                && srcArgs[srcArgs.length - 1].isArray();
 
             final float varArgsCost = 0.001f;
-            final Class<?> destClass = destArgs[destArgs.length-1].getComponentType();
+            final Class<?> destClass = destArgs[destArgs.length - 1].getComponentType();
             if (noVarArgsPassed) {
                 // When no varargs passed, the best match is the most generic matching type, not the most specific.
                 totalCost += getObjectTransformationCost(destClass, Object.class) + varArgsCost;
             } else if (explicitArrayForVarargs) {
-                final Class<?> sourceClass = srcArgs[srcArgs.length-1].getComponentType();
+                final Class<?> sourceClass = srcArgs[srcArgs.length - 1].getComponentType();
                 totalCost += getObjectTransformationCost(sourceClass, destClass) + varArgsCost;
             } else {
                 // This is typical varargs case.
-                for (int i = destArgs.length-1; i < srcArgs.length; i++) {
+                for (int i = destArgs.length - 1; i < srcArgs.length; i++) {
                     final Class<?> srcClass = srcArgs[i];
                     totalCost += getObjectTransformationCost(srcClass, destClass) + varArgsCost;
                 }

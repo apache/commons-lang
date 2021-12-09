@@ -23,5 +23,8 @@
  * While somewhat ungainly, the {@code Str} prefix has been used to ensure we don't clash with any current or future standard Java classes. </p>
  *
  * @since 2.1
+ * @deprecated As of 3.6, use the Apache Commons Text
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/package-summary.html">
+ * text package</a>.
  */
 package org.apache.commons.lang3.text;

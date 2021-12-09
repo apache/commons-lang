@@ -824,7 +824,7 @@ public class ClassUtils {
     public static Method getPublicMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes) throws NoSuchMethodException {
 
         final Method declaredMethod = cls.getMethod(methodName, parameterTypes);
-        if (Modifier.isPublic(declaredMethod.getDeclaringClass().getModifiers())) {
+        if (isPublic(declaredMethod.getDeclaringClass())) {
             return declaredMethod;
         }
 
@@ -832,7 +832,7 @@ public class ClassUtils {
         candidateClasses.addAll(getAllSuperclasses(cls));
 
         for (final Class<?> candidateClass : candidateClasses) {
-            if (!Modifier.isPublic(candidateClass.getModifiers())) {
+            if (!isPublic(candidateClass)) {
                 continue;
             }
             final Method candidateMethod;
@@ -1365,10 +1365,7 @@ public class ClassUtils {
             if (Float.TYPE.equals(cls)) {
                 return Double.TYPE.equals(toClass);
             }
-            if (Character.TYPE.equals(cls)) {
-                return Integer.TYPE.equals(toClass) || Long.TYPE.equals(toClass) || Float.TYPE.equals(toClass) || Double.TYPE.equals(toClass);
-            }
-            if (Short.TYPE.equals(cls)) {
+            if (Character.TYPE.equals(cls)  || Short.TYPE.equals(cls)) {
                 return Integer.TYPE.equals(toClass) || Long.TYPE.equals(toClass) || Float.TYPE.equals(toClass) || Double.TYPE.equals(toClass);
             }
             if (Byte.TYPE.equals(cls)) {
@@ -1496,6 +1493,15 @@ public class ClassUtils {
         return cls != null && cls.getEnclosingClass() != null;
     }
 
+    /**
+     * Tests whether a {@link Class} is public.
+     * @param cls Class to test.
+     * @return {@code true} if {@code cls} is public.
+     * @since 3.13.0
+     */
+    public static boolean isPublic(final Class<?> cls) {
+        return Modifier.isPublic(cls.getModifiers());
+    }
     /**
      * Returns whether the given {@code type} is a primitive or primitive wrapper ({@link Boolean}, {@link Byte},
      * {@link Character}, {@link Short}, {@link Integer}, {@link Long}, {@link Double}, {@link Float}).

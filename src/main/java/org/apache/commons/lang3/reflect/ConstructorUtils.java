@@ -18,7 +18,6 @@ package org.apache.commons.lang3.reflect;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
@@ -80,8 +79,7 @@ public class ConstructorUtils {
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
             InstantiationException {
         args = ArrayUtils.nullToEmpty(args);
-        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
-        return invokeConstructor(cls, args, parameterTypes);
+        return invokeConstructor(cls, args, ClassUtils.toClass(args));
     }
 
     /**
@@ -144,8 +142,7 @@ public class ConstructorUtils {
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
             InstantiationException {
         args = ArrayUtils.nullToEmpty(args);
-        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
-        return invokeExactConstructor(cls, args, parameterTypes);
+        return invokeExactConstructor(cls, args, ClassUtils.toClass(args));
     }
 
     /**
@@ -279,7 +276,7 @@ public class ConstructorUtils {
     }
 
     /**
-     * Learn whether the specified class is generally accessible, i.e. is
+     * Tests whether the specified class is generally accessible, i.e. is
      * declared in an entirely {@code public} manner.
      * @param type to check
      * @return {@code true} if {@code type} and any enclosing classes are
@@ -288,7 +285,7 @@ public class ConstructorUtils {
     private static boolean isAccessible(final Class<?> type) {
         Class<?> cls = type;
         while (cls != null) {
-            if (!Modifier.isPublic(cls.getModifiers())) {
+            if (!ClassUtils.isPublic(cls)) {
                 return false;
             }
             cls = cls.getEnclosingClass();

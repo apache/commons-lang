@@ -568,7 +568,7 @@ public abstract class ToStringStyle implements Serializable {
                     appendSummary(buffer, fieldName, (boolean[]) value);
                 }
 
-            } else if (value.getClass().isArray()) {
+            } else if (ObjectUtils.isArray(value)) {
                 if (detail) {
                     appendDetail(buffer, fieldName, (Object[]) value);
                 } else {
@@ -1490,10 +1490,10 @@ public abstract class ToStringStyle implements Serializable {
      * @param object  the {@code Object} whose id to output
      */
     protected void appendIdentityHashCode(final StringBuffer buffer, final Object object) {
-        if (this.isUseIdentityHashCode() && object!=null) {
+        if (this.isUseIdentityHashCode() && object != null) {
             register(object);
             buffer.append('@');
-            buffer.append(Integer.toHexString(System.identityHashCode(object)));
+            buffer.append(ObjectUtils.identityHashCodeHex(object));
         }
     }
 

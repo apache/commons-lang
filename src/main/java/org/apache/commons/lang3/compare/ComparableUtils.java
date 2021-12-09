@@ -18,6 +18,8 @@ package org.apache.commons.lang3.compare;
 
 import java.util.function.Predicate;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 /**
  * <p>Utility library to provide helper methods for translating {@link Comparable#compareTo} result into a boolean.</p>
  *
@@ -202,6 +204,40 @@ public class ComparableUtils {
      */
     public static <A extends Comparable<A>> Predicate<A> lt(final A b) {
         return a -> is(a).lessThan(b);
+    }
+
+    /**
+     * Returns the greater of two {@code Comparable} values, ignoring null.
+     * <p>
+     * For three or more values, use {@link ObjectUtils#max(Comparable...)}.
+     * </p>
+     *
+     * @param <A> Type of what we are comparing.
+     * @param comparable1 an argument.
+     * @param comparable2 another argument.
+     * @return the larger of {@code c1} and {@code c2}.
+     * @see ObjectUtils#max(Comparable...)
+     * @since 3.13.0
+     */
+    public static <A extends Comparable<A>> A max(final A comparable1, final A comparable2) {
+        return ObjectUtils.compare(comparable1, comparable2, false) > 0 ? comparable1 : comparable2;
+    }
+
+    /**
+     * Returns the lesser of two {@code Comparable} values, ignoring null.
+     * <p>
+     * For three or more values, use {@link ObjectUtils#min(Comparable...)}.
+     * </p>
+     *
+     * @param <A> Type of what we are comparing.
+     * @param comparable1 an argument.
+     * @param comparable2 another argument.
+     * @return the larger of {@code c1} and {@code c2}.
+     * @see ObjectUtils#min(Comparable...)
+     * @since 3.13.0
+     */
+    public static <A extends Comparable<A>> A min(final A comparable1, final A comparable2) {
+        return ObjectUtils.compare(comparable1, comparable2, true) < 0 ? comparable1 : comparable2;
     }
 
     private ComparableUtils() {}

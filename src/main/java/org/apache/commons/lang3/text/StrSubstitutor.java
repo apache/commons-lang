@@ -121,7 +121,7 @@ import org.apache.commons.lang3.StringUtils;
  * <p>This class is <b>not</b> thread safe.</p>
  *
  * @since 2.2
- * @deprecated as of 3.6, use commons-text
+ * @deprecated As of 3.6, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StringSubstitutor.html">
  * StringSubstitutor</a> instead
  */
@@ -778,7 +778,7 @@ public class StrSubstitutor {
                 // find suffix
                 final int startPos = pos;
                 pos += startMatchLen;
-                int endMatchLen = 0;
+                int endMatchLen;
                 int nestedVarCount = 0;
                 while (pos < bufEnd) {
                     if (substitutionInVariablesEnabled
@@ -813,7 +813,7 @@ public class StrSubstitutor {
 
                             if (valueDelimMatcher != null) {
                                 final char [] varNameExprChars = varNameExpr.toCharArray();
-                                int valueDelimiterMatchLen = 0;
+                                int valueDelimiterMatchLen;
                                 for (int i = 0; i < varNameExprChars.length; i++) {
                                     // if there's any nested variable when nested variable substitution disabled, then stop resolving name and default value.
                                     if (!substitutionInVariablesEnabled

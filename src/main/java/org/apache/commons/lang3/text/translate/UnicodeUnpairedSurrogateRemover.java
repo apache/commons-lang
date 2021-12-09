@@ -22,7 +22,7 @@ import java.io.Writer;
 /**
  * Helper subclass to CharSequenceTranslator to remove unpaired surrogates.
  *
- * @deprecated as of 3.6, use commons-text
+ * @deprecated As of 3.6, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/UnicodeUnpairedSurrogateRemover.html">
  * UnicodeUnpairedSurrogateRemover</a> instead
  */

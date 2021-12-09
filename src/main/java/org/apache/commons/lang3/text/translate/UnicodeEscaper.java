@@ -23,7 +23,7 @@ import java.io.Writer;
  * Translates codepoints to their Unicode escaped value.
  *
  * @since 3.0
- * @deprecated as of 3.6, use commons-text
+ * @deprecated As of 3.6, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/UnicodeEscaper.html">
  * UnicodeEscaper</a> instead
  */

@@ -208,8 +208,21 @@ public class ArrayUtilsTest {
         assertTrue(ArrayUtils.contains(array, "1"));
         assertTrue(ArrayUtils.contains(array, "2"));
         assertTrue(ArrayUtils.contains(array, "3"));
-        assertTrue(ArrayUtils.contains(array, null));
         assertFalse(ArrayUtils.contains(array, "notInArray"));
+        assertTrue(ArrayUtils.contains(array, null));
+    }
+
+    @Test
+    public void testContainsAny() {
+        final Object[] array = {"0", "1", "2", "3", null, "0"};
+        assertFalse(ArrayUtils.containsAny(null, null));
+        assertFalse(ArrayUtils.containsAny(null, "1"));
+        assertTrue(ArrayUtils.containsAny(array, "0"));
+        assertTrue(ArrayUtils.containsAny(array, "1"));
+        assertTrue(ArrayUtils.containsAny(array, "2"));
+        assertTrue(ArrayUtils.containsAny(array, "3"));
+        assertFalse(ArrayUtils.containsAny(array, "notInArray"));
+        assertTrue(ArrayUtils.containsAny(array, new String[] {null}));
     }
 
     @Test
@@ -402,9 +415,9 @@ public class ArrayUtilsTest {
         assertNull(ArrayUtils.get(array0, 0));
         assertNull(ArrayUtils.get(array0, 1));
         final String[] array1 = { StringUtils.EMPTY };
-        assertEquals(null, ArrayUtils.get(array1, -1));
+        assertNull(ArrayUtils.get(array1, -1));
         assertEquals(StringUtils.EMPTY, ArrayUtils.get(array1, 0));
-        assertEquals(null, ArrayUtils.get(array1, 1));
+        assertNull(ArrayUtils.get(array1, 1));
     }
 
     @Test
@@ -428,9 +441,9 @@ public class ArrayUtilsTest {
             assertNull(ArrayUtils.get(array0, 0, null));
             assertNull(ArrayUtils.get(array0, 1, null));
             final String[] array1 = { StringUtils.EMPTY };
-            assertEquals(null, ArrayUtils.get(array1, -1, null));
+            assertNull(ArrayUtils.get(array1, -1, null));
             assertEquals(StringUtils.EMPTY, ArrayUtils.get(array1, 0, null));
-            assertEquals(null, ArrayUtils.get(array1, 1, null));
+            assertNull(ArrayUtils.get(array1, 1, null));
         }
         // non-null default
         {
@@ -6282,8 +6295,7 @@ public class ArrayUtilsTest {
         assertNull(ArrayUtils.toPrimitive(b));
         assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.toPrimitive(new Boolean[0]));
         assertArrayEquals(new boolean[]{true, false, true}, ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, Boolean.FALSE, Boolean.TRUE}));
-
-        assertThrows(NullPointerException.class, () -> ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, null}));
+        assertArrayEquals(new boolean[]{true, false}, ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, null}));
     }
 
     @Test

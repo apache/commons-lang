@@ -630,7 +630,7 @@ public class TypeUtils {
 
             // find the interface closest to the super class
             for (final Type midType : interfaceTypes) {
-                Class<?> midClass = null;
+                final Class<?> midClass;
 
                 if (midType instanceof ParameterizedType) {
                     midClass = getRawType((ParameterizedType) midType);
@@ -1799,24 +1799,22 @@ public class TypeUtils {
     }
 
     /**
-     * Look up {@code var} in {@code typeVarAssigns} <em>transitively</em>,
-     * i.e. keep looking until the value found is <em>not</em> a type variable.
+     * Looks up {@code typeVariable} in {@code typeVarAssigns} <em>transitively</em>, i.e. keep looking until the value
+     * found is <em>not</em> a type variable.
      *
      * @param typeVariable the type variable to look up
      * @param typeVarAssigns the map used for the look up
      * @return Type or {@code null} if some variable was not in the map
      * @since 3.2
      */
-    private static Type unrollVariableAssignments(TypeVariable<?> typeVariable,
-        final Map<TypeVariable<?>, Type> typeVarAssigns) {
+    private static Type unrollVariableAssignments(TypeVariable<?> typeVariable, final Map<TypeVariable<?>, Type> typeVarAssigns) {
         Type result;
         do {
             result = typeVarAssigns.get(typeVariable);
-            if (result instanceof TypeVariable<?> && !result.equals(typeVariable)) {
-                typeVariable = (TypeVariable<?>) result;
-                continue;
+            if (!(result instanceof TypeVariable<?>) || result.equals(typeVariable)) {
+                break;
             }
-            break;
+            typeVariable = (TypeVariable<?>) result;
         } while (true);
         return result;
     }

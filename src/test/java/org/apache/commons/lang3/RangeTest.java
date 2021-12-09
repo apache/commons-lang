@@ -38,13 +38,28 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("boxing")
 public class RangeTest {
 
+    abstract static class AbstractComparable implements Comparable<AbstractComparable> {
+        @Override
+        public int compareTo(final AbstractComparable o) {
+            return 0;
+        }
+    }
+    static final class DerivedComparableA extends AbstractComparable {
+        // empty
+    }
+    static final class DerivedComparableB extends AbstractComparable {
+        // empty
+    }
+
     private Range<Byte> byteRange;
     private Range<Byte> byteRange2;
     private Range<Byte> byteRange3;
-
     private Range<Double> doubleRange;
+
     private Range<Float> floatRange;
+
     private Range<Integer> intRange;
+
     private Range<Long> longRange;
 
     @BeforeEach
@@ -90,7 +105,6 @@ public class RangeTest {
         assertFalse(rbstr.contains(""), "should not contain ''");
     }
 
-    // -----------------------------------------------------------------------
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Test
     public void testComparableConstructors() {
@@ -99,6 +113,28 @@ public class RangeTest {
         final Range r2 = Range.between(c, c);
         assertTrue(r1.isNaturalOrdering());
         assertTrue(r2.isNaturalOrdering());
+    }
+
+    @Test
+    public void testConstructorSignatureWithAbstractComparableClasses() {
+        final DerivedComparableA derivedComparableA = new DerivedComparableA();
+        final DerivedComparableB derivedComparableB = new DerivedComparableB();
+
+        Range<AbstractComparable> mixed = Range.between(derivedComparableA, derivedComparableB);
+        mixed = Range.between(derivedComparableA, derivedComparableB, null);
+        assertTrue(mixed.contains(derivedComparableA));
+
+        Range<AbstractComparable> same = Range.between(derivedComparableA, derivedComparableA);
+        same = Range.between(derivedComparableA, derivedComparableA, null);
+        assertTrue(same.contains(derivedComparableA));
+
+        Range<DerivedComparableA> rangeA = Range.between(derivedComparableA, derivedComparableA);
+        rangeA = Range.between(derivedComparableA, derivedComparableA, null);
+        assertTrue(rangeA.contains(derivedComparableA));
+
+        Range<DerivedComparableB> rangeB = Range.is(derivedComparableB);
+        rangeB = Range.is(derivedComparableB, null);
+        assertTrue(rangeB.contains(derivedComparableB));
     }
 
     @Test
@@ -112,7 +148,6 @@ public class RangeTest {
         assertFalse(intRange.contains(25));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testContainsRange() {
 
@@ -156,7 +191,6 @@ public class RangeTest {
         assertEquals(1, intRange.elementCompareTo(25));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testEqualsObject() {
         assertEquals(byteRange, byteRange);
@@ -194,7 +228,6 @@ public class RangeTest {
         assertEquals(20d, doubleRange.getMaximum(), 0.00001d);
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testGetMinimum() {
         assertEquals(10, (int) intRange.getMinimum());
@@ -328,7 +361,10 @@ public class RangeTest {
 
         // negative
         assertFalse(intRange.isOverlappedBy(Range.between(-11, -18)));
-    }
+
+        // outside range whole range
+        assertTrue(intRange.isOverlappedBy(Range.between(9, 21)));
+}
 
     @Test
     public void testIsStartedBy() {
@@ -355,7 +391,6 @@ public class RangeTest {
         assertTrue(ri.contains(11), "should contain 11");
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testRangeOfChars() {
         final Range<Character> chars = Range.between('a', 'z');
@@ -363,7 +398,6 @@ public class RangeTest {
         assertFalse(chars.contains('B'));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testSerializing() {
         SerializationUtils.clone(intRange);

@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.tuple;
 
+import java.util.Objects;
+
 /**
  * <p>An immutable triple consisting of three {@code Object} elements.</p>
  *
@@ -42,14 +44,14 @@ public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
      *
      * @since 3.10.
      */
-    public static final ImmutableTriple<?, ?, ?>[] EMPTY_ARRAY = new ImmutableTriple[0];
+    public static final ImmutableTriple<?, ?, ?>[] EMPTY_ARRAY = {};
 
     /**
      * An immutable triple of nulls.
      */
     // This is not defined with generics to avoid warnings in call sites.
     @SuppressWarnings("rawtypes")
-    private static final ImmutableTriple NULL = of(null, null, null);
+    private static final ImmutableTriple NULL = new ImmutableTriple<>(null, null, null);
 
     /** Serialization version */
     private static final long serialVersionUID = 1L;
@@ -97,8 +99,29 @@ public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
      * @return a triple formed from the three parameters, not null
      */
     public static <L, M, R> ImmutableTriple<L, M, R> of(final L left, final M middle, final R right) {
-        return new ImmutableTriple<>(left, middle, right);
+        return left != null | middle != null || right != null ? new ImmutableTriple<>(left, middle, right) : NULL;
     }
+
+    /**
+     * <p>Obtains an immutable triple of three non-null objects inferring the generic types.</p>
+     *
+     * <p>This factory allows the triple to be created using inference to
+     * obtain the generic types.</p>
+     *
+     * @param <L> the left element type
+     * @param <M> the middle element type
+     * @param <R> the right element type
+     * @param left  the left element, may not be null
+     * @param middle  the middle element, may not be null
+     * @param right  the right element, may not be null
+     * @return a triple formed from the three parameters, not null
+     * @throws NullPointerException if any input is null
+     * @since 3.13.0
+     */
+    public static <L, M, R> ImmutableTriple<L, M, R> ofNonNull(final L left, final M middle, final R right) {
+        return of(Objects.requireNonNull(left, "left"), Objects.requireNonNull(middle, "middle"), Objects.requireNonNull(right, "right"));
+    }
+
     /** Left object */
     public final L left;
     /** Middle object */

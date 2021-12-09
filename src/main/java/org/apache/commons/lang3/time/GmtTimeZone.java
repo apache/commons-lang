@@ -45,10 +45,13 @@ class GmtTimeZone extends TimeZone {
         }
         final int milliseconds = (minutes + (hours * MINUTES_PER_HOUR)) * MILLISECONDS_PER_MINUTE;
         offset = negate ? -milliseconds : milliseconds;
-        zoneId = twoDigits(
-            twoDigits(new StringBuilder(9).append("GMT").append(negate ? '-' : '+'), hours)
-                .append(':'), minutes).toString();
-
+        // @formatter:off
+        zoneId = twoDigits(twoDigits(new StringBuilder(9)
+            .append(TimeZones.GMT_ID)
+            .append(negate ? '-' : '+'), hours)
+            .append(':'), minutes)
+            .toString();
+        // @formatter:on
     }
 
     private static StringBuilder twoDigits(final StringBuilder sb, final int n) {

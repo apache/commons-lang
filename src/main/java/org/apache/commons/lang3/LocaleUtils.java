@@ -117,13 +117,13 @@ public class LocaleUtils {
     }
 
     /**
-     * <p>Checks if the locale specified is in the list of available locales.</p>
+     * <p>Checks if the locale specified is in the set of available locales.</p>
      *
      * @param locale the Locale object to check if it is available
      * @return true if the locale is a known locale
      */
     public static boolean isAvailableLocale(final Locale locale) {
-        return availableLocaleList().contains(locale);
+        return availableLocaleSet().contains(locale);
     }
 
     /**
@@ -311,6 +311,7 @@ public class LocaleUtils {
      */
     public static Locale toLocale(final String str) {
         if (str == null) {
+            // TODO Should this return the default locale?
             return null;
         }
         if (str.isEmpty()) { // LANG-941 - JDK 8 introduced an empty locale where all fields are blank

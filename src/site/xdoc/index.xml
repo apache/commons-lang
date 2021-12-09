@@ -62,11 +62,11 @@ The <a href="scm.html">git repository</a> can be
 </section>
 <!-- ================================================== -->
 <section name="Release Information">
-<p>The latest stable release of Lang is 3.12.0: </p>
+<p>Read about the latest release:</p>
 <ul>
 <li>Pull it using a build tool like Maven using a <a href="dependency-info.html">dependency management reference</a>.</li>
 <li>Download the latest release from a <a href="https://commons.apache.org/lang/download_lang.cgi">mirror</a>.</li>
-<li>Read the <a href="release-notes/RELEASE-NOTES-3.12.txt">release notes</a>.</li>
+<li>Read the <a href="changes-report.html">change report</a>.</li>
 <li>Examine the <a href="article3_0.html">2.x to 3.0 upgrade notes</a>.</li>
 <li>Compare major versions via the <a href="lang2-lang3-clirr-report.html">Lang2 to Lang3 Clirr report</a>.</li>
 </ul>

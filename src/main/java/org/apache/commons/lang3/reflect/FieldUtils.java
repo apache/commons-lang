@@ -107,7 +107,7 @@ public class FieldUtils {
                 final Field field = acls.getDeclaredField(fieldName);
                 // getDeclaredField checks for non-public scopes as well
                 // and it returns accurate results
-                if (!Modifier.isPublic(field.getModifiers())) {
+                if (!MemberUtils.isPublic(field)) {
                     if (!forceAccess) {
                         continue;
                     }
@@ -196,8 +196,7 @@ public class FieldUtils {
      * @since 3.2
      */
     public static Field[] getAllFields(final Class<?> cls) {
-        final List<Field> allFieldsList = getAllFieldsList(cls);
-        return allFieldsList.toArray(ArrayUtils.EMPTY_FIELD_ARRAY);
+        return getAllFieldsList(cls).toArray(ArrayUtils.EMPTY_FIELD_ARRAY);
     }
 
     /**
@@ -234,8 +233,7 @@ public class FieldUtils {
      * @since 3.4
      */
     public static Field[] getFieldsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
-        final List<Field> annotatedFieldsList = getFieldsListWithAnnotation(cls, annotationCls);
-        return annotatedFieldsList.toArray(ArrayUtils.EMPTY_FIELD_ARRAY);
+        return getFieldsListWithAnnotation(cls, annotationCls).toArray(ArrayUtils.EMPTY_FIELD_ARRAY);
     }
 
     /**
@@ -292,7 +290,7 @@ public class FieldUtils {
      */
     public static Object readStaticField(final Field field, final boolean forceAccess) throws IllegalAccessException {
         Validate.notNull(field, "field");
-        Validate.isTrue(Modifier.isStatic(field.getModifiers()), "The field '%s' is not static", field.getName());
+        Validate.isTrue(MemberUtils.isStatic(field), "The field '%s' is not static", field.getName());
         return readField(field, (Object) null, forceAccess);
     }
 
@@ -546,7 +544,7 @@ public class FieldUtils {
      */
     public static void writeStaticField(final Field field, final Object value, final boolean forceAccess) throws IllegalAccessException {
         Validate.notNull(field, "field");
-        Validate.isTrue(Modifier.isStatic(field.getModifiers()), "The field %s.%s is not static", field.getDeclaringClass().getName(),
+        Validate.isTrue(MemberUtils.isStatic(field), "The field %s.%s is not static", field.getDeclaringClass().getName(),
                 field.getName());
         writeField(field, (Object) null, value, forceAccess);
     }

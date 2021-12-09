@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests {@linkTriConsumer}.
+ * Tests {@link TriConsumer}.
  */
 public class TriConsumerTest {
 

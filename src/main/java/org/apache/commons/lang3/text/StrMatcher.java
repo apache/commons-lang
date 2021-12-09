@@ -29,7 +29,7 @@ import org.apache.commons.lang3.StringUtils;
  * If these do not suffice, you can subclass and implement your own matcher.
  *
  * @since 2.2
- * @deprecated as of 3.6, use commons-text
+ * @deprecated As of 3.6, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/matcher/StringMatcherFactory.html">
  * StringMatcherFactory</a> instead
  */

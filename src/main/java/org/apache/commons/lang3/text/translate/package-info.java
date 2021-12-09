@@ -20,8 +20,8 @@
  * <p>These classes are immutable, and therefore thread-safe.</p>
  *
  * @since 3.0
- * @deprecated as of 3.6, use the commons-text
+ * @deprecated As of 3.6, use the Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/package-summary.html">
- * translate package</a> instead
+ * translate package</a>.
  */
 package org.apache.commons.lang3.text.translate;

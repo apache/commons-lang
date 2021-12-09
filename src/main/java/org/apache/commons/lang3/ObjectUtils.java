@@ -241,7 +241,7 @@ public class ObjectUtils {
     public static <T> T clone(final T obj) {
         if (obj instanceof Cloneable) {
             final Object result;
-            if (obj.getClass().isArray()) {
+            if (isArray(obj)) {
                 final Class<?> componentType = obj.getClass().getComponentType();
                 if (componentType.isPrimitive()) {
                     int length = Array.getLength(obj);
@@ -300,6 +300,7 @@ public class ObjectUtils {
     /**
      * <p>Null safe comparison of Comparables.
      * {@code null} is assumed to be less than a non-{@code null} value.</p>
+     * <p>TODO Move to ComparableUtils.</p>
      *
      * @param <T> type of the values processed by this method
      * @param c1  the first comparable, may be null
@@ -313,6 +314,7 @@ public class ObjectUtils {
 
     /**
      * <p>Null safe comparison of Comparables.</p>
+     * <p>TODO Move to ComparableUtils.</p>
      *
      * @param <T> type of the values processed by this method
      * @param c1  the first comparable, may be null
@@ -626,13 +628,7 @@ public class ObjectUtils {
      */
     @Deprecated
     public static boolean equals(final Object object1, final Object object2) {
-        if (object1 == object2) {
-            return true;
-        }
-        if (object1 == null || object2 == null) {
-            return false;
-        }
-        return object1.equals(object2);
+        return Objects.equals(object1, object2);
     }
 
     /**
@@ -788,9 +784,24 @@ public class ObjectUtils {
      */
     @Deprecated
     public static int hashCode(final Object obj) {
-        // hashCode(Object) retained for performance, as hash code is often critical
-        return obj == null ? 0 : obj.hashCode();
+        // hashCode(Object) for performance vs. hashCodeMulti(Object[]), as hash code is often critical
+        return Objects.hashCode(obj);
     }
+
+    /**
+     * Returns the hex hash code for the given object per {@link Objects#hashCode(Object)}.
+     * <p>
+     * Short hand for {@code Integer.toHexString(Objects.hashCode(object))}.
+     * </p>
+     *
+     * @param object object for which the hashCode is to be calculated
+     * @return Hash code in hexadecimal format.
+     * @since 3.13.0
+     */
+    public static String hashCodeHex(final Object object) {
+        return Integer.toHexString(Objects.hashCode(object));
+    }
+
 
     /**
      * <p>Gets the hash code for multiple objects.</p>
@@ -819,7 +830,7 @@ public class ObjectUtils {
         int hash = 1;
         if (objects != null) {
             for (final Object object : objects) {
-                final int tmpHash = hashCode(object);
+                final int tmpHash = Objects.hashCode(object);
                 hash = hash * 31 + tmpHash;
             }
         }
@@ -832,8 +843,8 @@ public class ObjectUtils {
      * will throw a NullPointerException for either of the two parameters. </p>
      *
      * <pre>
-     * ObjectUtils.identityToString(appendable, "")            = appendable.append("java.lang.String@1e23"
-     * ObjectUtils.identityToString(appendable, Boolean.TRUE)  = appendable.append("java.lang.Boolean@7fa"
+     * ObjectUtils.identityToString(appendable, "")            = appendable.append("java.lang.String@1e23")
+     * ObjectUtils.identityToString(appendable, Boolean.TRUE)  = appendable.append("java.lang.Boolean@7fa")
      * ObjectUtils.identityToString(appendable, Boolean.TRUE)  = appendable.append("java.lang.Boolean@7fa")
      * </pre>
      *
@@ -846,7 +857,21 @@ public class ObjectUtils {
         Validate.notNull(object, "object");
         appendable.append(object.getClass().getName())
               .append(AT_SIGN)
-              .append(Integer.toHexString(System.identityHashCode(object)));
+              .append(identityHashCodeHex(object));
+    }
+
+    /**
+     * Returns the hex hash code for the given object per {@link System#identityHashCode(Object)}.
+     * <p>
+     * Short hand for {@code Integer.toHexString(System.identityHashCode(object))}.
+     * </p>
+     *
+     * @param object object for which the hashCode is to be calculated
+     * @return Hash code in hexadecimal format.
+     * @since 3.13.0
+     */
+    public static String identityHashCodeHex(final Object object) {
+        return Integer.toHexString(System.identityHashCode(object));
     }
 
     /**
@@ -870,7 +895,7 @@ public class ObjectUtils {
             return null;
         }
         final String name = object.getClass().getName();
-        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        final String hexString = identityHashCodeHex(object);
         final StringBuilder builder = new StringBuilder(name.length() + 1 + hexString.length());
         // @formatter:off
         builder.append(name)
@@ -886,8 +911,8 @@ public class ObjectUtils {
      * will throw a NullPointerException for either of the two parameters. </p>
      *
      * <pre>
-     * ObjectUtils.identityToString(builder, "")            = builder.append("java.lang.String@1e23"
-     * ObjectUtils.identityToString(builder, Boolean.TRUE)  = builder.append("java.lang.Boolean@7fa"
+     * ObjectUtils.identityToString(builder, "")            = builder.append("java.lang.String@1e23")
+     * ObjectUtils.identityToString(builder, Boolean.TRUE)  = builder.append("java.lang.Boolean@7fa")
      * ObjectUtils.identityToString(builder, Boolean.TRUE)  = builder.append("java.lang.Boolean@7fa")
      * </pre>
      *
@@ -901,7 +926,7 @@ public class ObjectUtils {
     public static void identityToString(final StrBuilder builder, final Object object) {
         Validate.notNull(object, "object");
         final String name = object.getClass().getName();
-        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        final String hexString = identityHashCodeHex(object);
         builder.ensureCapacity(builder.length() +  name.length() + 1 + hexString.length());
         builder.append(name)
               .append(AT_SIGN)
@@ -914,8 +939,8 @@ public class ObjectUtils {
      * will throw a NullPointerException for either of the two parameters. </p>
      *
      * <pre>
-     * ObjectUtils.identityToString(buf, "")            = buf.append("java.lang.String@1e23"
-     * ObjectUtils.identityToString(buf, Boolean.TRUE)  = buf.append("java.lang.Boolean@7fa"
+     * ObjectUtils.identityToString(buf, "")            = buf.append("java.lang.String@1e23")
+     * ObjectUtils.identityToString(buf, Boolean.TRUE)  = buf.append("java.lang.Boolean@7fa")
      * ObjectUtils.identityToString(buf, Boolean.TRUE)  = buf.append("java.lang.Boolean@7fa")
      * </pre>
      *
@@ -926,7 +951,7 @@ public class ObjectUtils {
     public static void identityToString(final StringBuffer buffer, final Object object) {
         Validate.notNull(object, "object");
         final String name = object.getClass().getName();
-        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        final String hexString = identityHashCodeHex(object);
         buffer.ensureCapacity(buffer.length() + name.length() + 1 + hexString.length());
         buffer.append(name)
               .append(AT_SIGN)
@@ -939,8 +964,8 @@ public class ObjectUtils {
      * will throw a NullPointerException for either of the two parameters. </p>
      *
      * <pre>
-     * ObjectUtils.identityToString(builder, "")            = builder.append("java.lang.String@1e23"
-     * ObjectUtils.identityToString(builder, Boolean.TRUE)  = builder.append("java.lang.Boolean@7fa"
+     * ObjectUtils.identityToString(builder, "")            = builder.append("java.lang.String@1e23")
+     * ObjectUtils.identityToString(builder, Boolean.TRUE)  = builder.append("java.lang.Boolean@7fa")
      * ObjectUtils.identityToString(builder, Boolean.TRUE)  = builder.append("java.lang.Boolean@7fa")
      * </pre>
      *
@@ -951,7 +976,7 @@ public class ObjectUtils {
     public static void identityToString(final StringBuilder builder, final Object object) {
         Validate.notNull(object, "object");
         final String name = object.getClass().getName();
-        final String hexString = Integer.toHexString(System.identityHashCode(object));
+        final String hexString = identityHashCodeHex(object);
         builder.ensureCapacity(builder.length() +  name.length() + 1 + hexString.length());
         builder.append(name)
               .append(AT_SIGN)
@@ -979,6 +1004,31 @@ public class ObjectUtils {
             public final static int MAGIC_NUMBER = CONST(5);
      */
 
+    /**
+     * <p>
+     * Checks, whether the given object is an Object array or a primitive array in a null-safe manner.
+     * </p>
+     *
+     * <p>
+     * A {@code null} {@code object} Object will return {@code false}.
+     * </p>
+     *
+     * <pre>
+     * ObjectUtils.isArray(null)             = false
+     * ObjectUtils.isArray("")               = false
+     * ObjectUtils.isArray("ab")             = false
+     * ObjectUtils.isArray(new int[]{})      = true
+     * ObjectUtils.isArray(new int[]{1,2,3}) = true
+     * ObjectUtils.isArray(1234)             = false
+     * </pre>
+     *
+     * @param object the object to check, may be {@code null}
+     * @return {@code true} if the object is an {@code array}, {@code false} otherwise
+     * @since 3.13.0
+     */
+    public static boolean isArray(final Object object) {
+        return object != null && object.getClass().isArray();
+    }
 
     /**
      * <p>Checks if an Object is empty or null.</p>
@@ -1012,7 +1062,7 @@ public class ObjectUtils {
         if (object instanceof CharSequence) {
             return ((CharSequence) object).length() == 0;
         }
-        if (object.getClass().isArray()) {
+        if (isArray(object)) {
             return Array.getLength(object) == 0;
         }
         if (object instanceof Collection<?>) {
@@ -1055,6 +1105,7 @@ public class ObjectUtils {
 
     /**
      * <p>Null safe comparison of Comparables.</p>
+     * <p>TODO Move to ComparableUtils.</p>
      *
      * @param <T> type of the values processed by this method
      * @param values the set of comparable values, may be null
@@ -1125,6 +1176,7 @@ public class ObjectUtils {
 
     /**
      * <p>Null safe comparison of Comparables.</p>
+     * <p>TODO Move to ComparableUtils.</p>
      *
      * @param <T> type of the values processed by this method
      * @param values the set of comparable values, may be null
@@ -1206,7 +1258,7 @@ public class ObjectUtils {
      * @return {@code false} if the values of both objects are the same
      */
     public static boolean notEqual(final Object object1, final Object object2) {
-        return !equals(object1, object2);
+        return !Objects.equals(object1, object2);
     }
 
     /**

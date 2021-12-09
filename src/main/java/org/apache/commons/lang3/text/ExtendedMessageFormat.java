@@ -66,7 +66,7 @@ import org.apache.commons.lang3.Validate;
  * </ul>
  *
  * @since 2.4
- * @deprecated as of 3.6, use commons-text
+ * @deprecated As of 3.6, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/ExtendedMessageFormat.html">
  * ExtendedMessageFormat</a> instead
  */
@@ -445,7 +445,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param pos current position
      */
     private void seekNonWs(final String pattern, final ParsePosition pos) {
-        int len = 0;
+        int len;
         final char[] buffer = pattern.toCharArray();
         do {
             len = StrMatcher.splitMatcher().isMatch(buffer, pos.getIndex());
