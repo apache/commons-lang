@@ -831,7 +831,7 @@
          </dependency>
         </dependencies>        
         <configuration>
-          <excludeFilterFile>${basedir}/spotbugs-exclude-filter.xml</excludeFilterFile>
+          <excludeFilterFile>${basedir}/src/conf/spotbugs-exclude-filter.xml</excludeFilterFile>
         </configuration>
       </plugin>
     </plugins>
@@ -881,7 +881,7 @@
         <artifactId>spotbugs-maven-plugin</artifactId>
         <version>${spotbugs.plugin.version}</version>
         <configuration>
-          <excludeFilterFile>${basedir}/spotbugs-exclude-filter.xml</excludeFilterFile>
+          <excludeFilterFile>${basedir}/src/conf/spotbugs-exclude-filter.xml</excludeFilterFile>
         </configuration>
       </plugin>
       <plugin>
