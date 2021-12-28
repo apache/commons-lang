@@ -23,10 +23,10 @@ import org.apache.commons.lang3.arch.Processor;
 import org.apache.commons.lang3.stream.Streams;
 
 /**
- * An utility class for the os.arch System Property. The class defines methods for
+ * A utility class for the {@code os.arch} System Property. The class defines methods for
  * identifying the architecture of the current JVM.
  * <p>
- * Important: The os.arch System Property returns the architecture used by the JVM
+ * Important: The {@code os.arch} System Property returns the architecture used by the JVM
  * not of the operating system.
  * </p>
  * @since 3.6
@@ -47,6 +47,12 @@ public class ArchUtils {
         init_IA64_64Bit();
         init_PPC_32Bit();
         init_PPC_64Bit();
+        init_Aarch_64Bit();
+    }
+
+    private static void init_Aarch_64Bit() {
+        final Processor processor = new Processor(Processor.Arch.BIT_64, Processor.Type.AARCH_64);
+        addProcessors(processor, "aarch64");
     }
 
     private static void init_X86_32Bit() {
@@ -120,9 +126,9 @@ public class ArchUtils {
 
     /**
      * Returns a {@link Processor} object the given value {@link String}. The {@link String} must be
-     * like a value returned by the os.arch System Property.
+     * like a value returned by the {@code os.arch} System Property.
      *
-     * @param value A {@link String} like a value returned by the os.arch System Property.
+     * @param value A {@link String} like a value returned by the {@code os.arch} System Property.
      * @return A {@link Processor} when it exists, else {@code null}.
      */
     public static Processor getProcessor(final String value) {

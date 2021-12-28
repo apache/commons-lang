@@ -38,6 +38,7 @@ public class ArchUtilsTest {
     private static final String PPC64 = "ppc64";
     private static final String X86 = "x86";
     private static final String X86_64 = "x86_64";
+    private static final String AARCH_64 = "aarch64";
 
     private void assertEqualsArchNotNull(final Processor.Arch arch, final Processor processor) {
         assertNotNull(arch);
@@ -94,6 +95,10 @@ public class ArchUtilsTest {
         processor = ArchUtils.getProcessor(PPC64);
         assertEqualsTypeNotNull(Processor.Type.PPC, processor);
         assertTrue(processor.isPPC());
+
+        processor = ArchUtils.getProcessor(AARCH_64);
+        assertEqualsTypeNotNull(Processor.Type.AARCH_64, processor);
+        assertTrue(processor.isAarch64());
     }
 
     @Test
@@ -162,6 +167,12 @@ public class ArchUtilsTest {
         processor = ArchUtils.getProcessor(IA64_32);
         assertNotEqualsArchNotNull(Processor.Arch.BIT_64, processor);
         assertFalse(processor.is64Bit());
-    }
+
+        processor = ArchUtils.getProcessor(AARCH_64);
+        assertEqualsArchNotNull(Processor.Arch.BIT_64, processor);
+        assertNotEqualsArchNotNull(Processor.Arch.BIT_32, processor);
+        assertTrue(processor.is64Bit());
+        assertFalse(processor.is32Bit());
+}
 
 }

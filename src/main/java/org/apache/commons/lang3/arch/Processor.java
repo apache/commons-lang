@@ -77,6 +77,7 @@ public class Processor {
      * The {@link Type} enum defines types of a microprocessor.
      * The following types are defined:
      * <ul>
+     *     <li>Aarch64</li>
      *     <li>x86</li>
      *     <li>ia64</li>
      *     <li>PPC</li>
@@ -84,6 +85,13 @@ public class Processor {
      * </ul>
      */
     public enum Type {
+
+        /**
+         * ARM 64-bit.
+         *
+         * @since 3.13.0
+         */
+        AARCH_64,
 
         /**
          * Intel x86 series of instruction set architectures.
@@ -122,7 +130,7 @@ public class Processor {
     }
 
     /**
-     * Returns the processor architecture as an {@link Arch} enum.
+     * Gets the processor architecture as an {@link Arch} enum.
      * The processor architecture defines, if the processor has
      * a 32 or 64 bit architecture.
      *
@@ -133,7 +141,7 @@ public class Processor {
     }
 
     /**
-     * Returns the processor type as {@link Type} enum.
+     * Gets the processor type as {@link Type} enum.
      * The processor type defines, if the processor is for example
      * a x86 or PPA.
      *
@@ -144,7 +152,7 @@ public class Processor {
     }
 
     /**
-     * Checks if {@link Processor} is 32 bit.
+     * Tests if {@link Processor} is 32 bit.
      *
      * @return {@code true}, if {@link Processor} is {@link Arch#BIT_32}, else {@code false}.
      */
@@ -153,7 +161,7 @@ public class Processor {
     }
 
     /**
-     * Checks if {@link Processor} is 64 bit.
+     * Tests if {@link Processor} is 64 bit.
      *
      * @return {@code true}, if {@link Processor} is {@link Arch#BIT_64}, else {@code false}.
      */
@@ -162,16 +170,18 @@ public class Processor {
     }
 
     /**
-     * Checks if {@link Processor} is type of x86.
+     * Tests if {@link Processor} is type of Aarch64.
      *
      * @return {@code true}, if {@link Processor} is {@link Type#X86}, else {@code false}.
+     *
+     * @since 3.13.0
      */
-    public boolean isX86() {
-        return Type.X86 == type;
+    public boolean isAarch64() {
+        return Type.AARCH_64 == type;
     }
 
     /**
-     * Checks if {@link Processor} is type of Intel Itanium.
+     * Tests if {@link Processor} is type of Intel Itanium.
      *
      * @return {@code true}. if {@link Processor} is {@link Type#IA_64}, else {@code false}.
      */
@@ -180,12 +190,21 @@ public class Processor {
     }
 
     /**
-     * Checks if {@link Processor} is type of Power PC.
+     * Tests if {@link Processor} is type of Power PC.
      *
      * @return {@code true}. if {@link Processor} is {@link Type#PPC}, else {@code false}.
      */
     public boolean isPPC() {
         return Type.PPC == type;
+    }
+
+    /**
+     * Tests if {@link Processor} is type of x86.
+     *
+     * @return {@code true}, if {@link Processor} is {@link Type#X86}, else {@code false}.
+     */
+    public boolean isX86() {
+        return Type.X86 == type;
     }
 
 }

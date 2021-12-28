@@ -114,6 +114,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Pair.ofNonNull(L, R).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Triple.ofNonNull(L, M, R).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ArrayUtils.containsAny(Object[], Object...).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Processor.Type.AARCH_64.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Processor.isAarch64().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Update ArchUtils.getProcessor(String) for "aarch64".</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump spotbugs-maven-plugin from 4.2.0 to 4.5.0.0 #735, #808, #822, #834.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess">Bump actions/cache from v2.1.4 to v2.1.7 #742, #752, #764, #833.</action>
