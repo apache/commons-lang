@@ -94,6 +94,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      * @return an immutable pair of nulls.
      * @since 3.6
      */
+    @SuppressWarnings("unchecked")
     public static <L, R> ImmutablePair<L, R> nullPair() {
         return NULL;
     }
@@ -111,7 +112,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      * @return a pair formed from the two parameters, not null
      */
     public static <L, R> ImmutablePair<L, R> of(final L left, final R right) {
-        return left != null || right != null ? new ImmutablePair<>(left, right) : NULL;
+        return left != null || right != null ? new ImmutablePair<>(left, right) : nullPair();
     }
 
     /**
@@ -127,7 +128,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      * @since 3.10
      */
     public static <L, R> ImmutablePair<L, R> of(final Map.Entry<L, R> pair) {
-        return pair != null ? new ImmutablePair<>(pair.getKey(), pair.getValue()) : ImmutablePair.NULL;
+        return pair != null ? new ImmutablePair<>(pair.getKey(), pair.getValue()) : nullPair();
     }
 
     /**
