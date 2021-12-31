@@ -80,6 +80,7 @@ public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
      * @return an immutable triple of nulls.
      * @since 3.6
      */
+    @SuppressWarnings("unchecked")
     public static <L, M, R> ImmutableTriple<L, M, R> nullTriple() {
         return NULL;
     }
@@ -99,7 +100,7 @@ public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
      * @return a triple formed from the three parameters, not null
      */
     public static <L, M, R> ImmutableTriple<L, M, R> of(final L left, final M middle, final R right) {
-        return left != null | middle != null || right != null ? new ImmutableTriple<>(left, middle, right) : NULL;
+        return left != null | middle != null || right != null ? new ImmutableTriple<>(left, middle, right) : nullTriple();
     }
 
     /**
