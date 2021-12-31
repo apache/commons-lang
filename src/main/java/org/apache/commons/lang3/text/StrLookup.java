@@ -121,6 +121,8 @@ public abstract class StrLookup<V> {
 
     /**
      * Lookup implementation that uses a Map.
+     *
+     * @param <V> the type of mapped values.
      */
     static class MapStrLookup<V> extends StrLookup<V> {
 
