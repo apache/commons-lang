@@ -9425,13 +9425,7 @@ public class StringUtils {
         }
 
         if (startsWith(str, wrapToken) && endsWith(str, wrapToken)) {
-            final int startIndex = str.indexOf(wrapToken);
-            final int endIndex = str.lastIndexOf(wrapToken);
-            final int wrapLength = wrapToken.length();
-
-            if (startIndex != -1 && endIndex != -1) {
-                return str.substring(startIndex + wrapLength, endIndex);
-            }
+            return str.substring(wrapToken.length(), str.lastIndexOf(wrapToken));
         }
 
         return str;
