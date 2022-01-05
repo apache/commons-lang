@@ -558,7 +558,7 @@ public class StringUtils {
         if (isEmpty(suffix) || isBlank(str)) {
             return str;
         }
-        return str + suffix;
+        return str + suffix.toString();
     }
 
     /**
