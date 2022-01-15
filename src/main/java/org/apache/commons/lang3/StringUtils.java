@@ -3930,7 +3930,7 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringBuilder stringBuilder = new StringBuilder( array.length * 5 + array.length - 1);
+        final StringBuilder stringBuilder = new StringBuilder(array.length * 5 + array.length - 1);
         for (int i = startIndex; i < endIndex; i++) {
             stringBuilder
                     .append(array[i])
@@ -4088,7 +4088,7 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringBuilder stringBuilder = new StringBuilder( array.length * 2 - 1);
+        final StringBuilder stringBuilder = new StringBuilder(array.length * 2 - 1);
         for (int i = startIndex; i < endIndex; i++) {
             stringBuilder
                     .append(array[i])
