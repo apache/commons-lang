@@ -82,6 +82,9 @@ public class StringUtilsStartsEndsWithTest {
         assertFalse(StringUtils.startsWithIgnoreCase(FOOBAR, bar), "startsWithIgnoreCase(FOOBAR, bar)");
     }
 
+    /**
+     * Test StringUtils.startsWithAny()
+     */
     @Test
     public void testStartsWithAny() {
         assertFalse(StringUtils.startsWithAny(null, (String[]) null));
@@ -99,6 +102,25 @@ public class StringUtilsStartsEndsWithTest {
         assertTrue(StringUtils.startsWithAny(new StringBuffer("abcxyz"), new StringBuilder("xyz"), new StringBuffer("abc")), "StringUtils.startsWithAny(StringBuffer(abcxyz), StringBuilder(xyz), StringBuffer(abc))");
     }
 
+    /**
+     * Test StringUtils.startsWithAnyIgnoreCase()
+     */
+    @Test
+    public void testStartsWithAnyIgnoreCase() {
+        assertFalse(StringUtils.startsWithAnyIgnoreCase(null, (String[]) null));
+        assertFalse(StringUtils.startsWithAnyIgnoreCase(null, "abc"));
+        assertFalse(StringUtils.startsWithAnyIgnoreCase("abcxyz", (String[]) null));
+        assertFalse(StringUtils.startsWithAnyIgnoreCase("abcxyz"));
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("abcxyz", "abc"));
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("abcxyz", null, "xyz", "abc"));
+        assertFalse(StringUtils.startsWithAnyIgnoreCase("abcxyz", null, "xyz", "abcd"));
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("abcxyz", ""));
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("abcxyz", null, "xyz", "ABCX"));
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("ABCXYZ", null, "xyz", "abc"));
+
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("ABCxyz", new StringBuilder("xyz"), new StringBuffer("abc")), "StringUtils.startsWithAnyIgnoreCase(ABCxyz, StringBuilder(xyz), StringBuffer(abc))");
+        assertTrue(StringUtils.startsWithAnyIgnoreCase(new StringBuffer("abcXYZ"), new StringBuilder("xyz"), new StringBuffer("abc")), "StringUtils.startsWithAnyIgnoreCase(StringBuffer(abcXYZ), StringBuilder(xyz), StringBuffer(abc))");
+    }
 
     /**
      * Test StringUtils.endsWith()
