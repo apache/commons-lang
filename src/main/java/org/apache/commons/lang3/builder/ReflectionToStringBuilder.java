@@ -18,7 +18,6 @@
 package org.apache.commons.lang3.builder;
 
 import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
