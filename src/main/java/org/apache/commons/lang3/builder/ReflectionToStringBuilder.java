@@ -391,7 +391,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @param object
      *            The object to "toString".
      * @param selectedFieldNames
-     *            The field names that must be on toString. Null selects nothing.
+     *            The field names that must be on toString. In case the parameter is null or empty, it will skip the validation of the selected fields.
      * @return The toString value.
      */
     public static String toStringSelected(final Object object, final Collection<String> selectedFieldNames) {
