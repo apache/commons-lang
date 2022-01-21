@@ -18,6 +18,7 @@
 package org.apache.commons.lang3.builder;
 
 import java.lang.reflect.AccessibleObject;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -487,7 +488,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     protected String[] excludeFieldNames;
 
     /**
-     * Field names that should be on output. Intended for fields like {@code "password"}.
+     * Field names that will be on output.
      */
     protected String[] selectedFieldNames;
 
@@ -650,10 +651,12 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             // Reject fields from the getExcludeFieldNames list.
             return false;
         }
-        if (this.selectedFieldNames != null) {
+
+        if (ArrayUtils.isNotEmpty(this.selectedFieldNames)) {
             // Only accept fields that were selected on getSelectedFieldNames list.
             return Arrays.binarySearch(this.selectedFieldNames, field.getName()) >= 0;
         }
+
         return !field.isAnnotationPresent(ToStringExclude.class);
     }
 
@@ -704,6 +707,13 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      */
     public String[] getExcludeFieldNames() {
         return this.excludeFieldNames.clone();
+    }
+
+    /**
+     * @return Returns the selectedFieldNames.
+     */
+    public String[] getSelectedFieldNames() {
+        return this.selectedFieldNames.clone();
     }
 
     /**
