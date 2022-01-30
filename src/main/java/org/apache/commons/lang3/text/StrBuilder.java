@@ -2985,7 +2985,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             if (n < 0) {
                 return 0;
             }
-            pos += n;
+            pos = Math.addExact(pos, Math.toIntExact(n));
             return n;
         }
 

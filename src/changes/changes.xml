@@ -67,6 +67,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="kinow" due-to="Roland Kreuzer">Javadoc for StringUtils.substringBefore(String str, int separator) doesn't mention that the separator is an int.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in ThreadUtils.getSystemThreadGroup() when the current thread is stopped.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">ArrayUtils.toPrimitive(Boolean...) null array elements map to false, like Boolean.parseBoolean(null) and its callers return false.</action>
+    <action                   type="fix" dev="ggregory" due-to="CodeQL, Gary Gregory">Throw an exception when an implicit narrowing conversion in a compound assignment would result in information loss or a numeric error such as an overflows.</action>
+    
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TriConsumer.</action>
