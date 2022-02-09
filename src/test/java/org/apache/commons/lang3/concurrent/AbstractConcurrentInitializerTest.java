@@ -116,5 +116,5 @@ public abstract class AbstractConcurrentInitializerTest {
      *
      * @return the initializer object to be tested
      */
-    protected abstract ConcurrentInitializer<Object> createInitializer();
+    protected abstract ConcurrentInitializer<Object> createInitializer() throws ConcurrentException;
 }

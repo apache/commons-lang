@@ -16,33 +16,33 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.concurrent.atomic.AtomicInteger;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@code AtomicSafeInitializer}.
  */
-public class AtomicSafeInitializerTest extends
-        AbstractConcurrentInitializerTest {
-    /** The instance to be tested. */
-    private AtomicSafeInitializerTestImpl initializer;
+@ExtendWith(MockitoExtension.class)
+public class AtomicSafeInitializerTest extends AbstractConcurrentInitializerTest {
 
-    @BeforeEach
-    public void setUp() {
-        initializer = new AtomicSafeInitializerTestImpl();
-    }
+    @Spy
+    private AtomicSafeInitializer<Object> initializer;
 
     /**
      * Returns the initializer to be tested.
      *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because {@link AtomicSafeInitializer#initialize()} may throw it
      * @return the {@code AtomicSafeInitializer} under test
      */
     @Override
-    protected ConcurrentInitializer<Object> createInitializer() {
+    protected ConcurrentInitializer<Object> createInitializer() throws ConcurrentException {
+        when(initializer.initialize()).thenReturn(new Object());
         return initializer;
     }
 
@@ -55,24 +55,10 @@ public class AtomicSafeInitializerTest extends
     @Test
     public void testNumberOfInitializeInvocations() throws ConcurrentException,
             InterruptedException {
+        when(initializer.initialize()).thenReturn(new Object());
+
         testGetConcurrent();
-        assertEquals(1, initializer.initCounter.get(), "Wrong number of invocations");
-    }
 
-    /**
-     * A concrete test implementation of {@code AtomicSafeInitializer}. This
-     * implementation also counts the number of invocations of the initialize()
-     * method.
-     */
-    private static class AtomicSafeInitializerTestImpl extends
-            AtomicSafeInitializer<Object> {
-        /** A counter for initialize() invocations. */
-        final AtomicInteger initCounter = new AtomicInteger();
-
-        @Override
-        protected Object initialize() {
-            initCounter.incrementAndGet();
-            return new Object();
-        }
+        verify(initializer, times(1)).initialize();
     }
 }

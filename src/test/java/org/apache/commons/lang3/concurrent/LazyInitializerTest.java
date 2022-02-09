@@ -16,41 +16,30 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@code LazyInitializer}.
  */
+@ExtendWith(MockitoExtension.class)
 public class LazyInitializerTest extends AbstractConcurrentInitializerTest {
-    /** The initializer to be tested. */
-    private LazyInitializerTestImpl initializer;
 
-    @BeforeEach
-    public void setUp() {
-        initializer = new LazyInitializerTestImpl();
-    }
+    @Spy
+    private LazyInitializer initializer;
 
     /**
-     * Returns the initializer to be tested. This implementation returns the
-     * {@code LazyInitializer} created in the {@code setUp()} method.
+     * Returns the initializer to be tested.
      *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because {@link LazyInitializer#initialize()} may throw it
      * @return the initializer to be tested
      */
     @Override
-    protected ConcurrentInitializer<Object> createInitializer() {
+    protected ConcurrentInitializer<Object> createInitializer() throws ConcurrentException {
+        when(initializer.initialize()).thenReturn(new Object());
         return initializer;
-    }
-
-    /**
-     * A test implementation of LazyInitializer. This class creates a plain
-     * Object. As Object does not provide a specific equals() method, it is easy
-     * to check whether multiple instances were created.
-     */
-    private static class LazyInitializerTestImpl extends
-            LazyInitializer<Object> {
-        @Override
-        protected Object initialize() {
-            return new Object();
-        }
     }
 }
