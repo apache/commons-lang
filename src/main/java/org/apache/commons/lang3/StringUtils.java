@@ -8147,6 +8147,41 @@ public class StringUtils {
      * references are considered to be equal. The comparison is case insensitive.</p>
      *
      * <pre>
+     * StringUtils.startsWithAny(null, null)      = false
+     * StringUtils.startsWithAny(null, new String[] {"abc"})  = false
+     * StringUtils.startsWithAny("abcxyz", null)     = false
+     * StringUtils.startsWithAny("abcxyz", new String[] {""}) = true
+     * StringUtils.startsWithAny("abcxyz", new String[] {"abc"}) = true
+     * StringUtils.startsWithAny("abcxyz", new String[] {null, "xyz", "Abc"}) = true
+     * StringUtils.startsWithAny("abcxyz", null, "xyz", "AbCX") = true
+     * StringUtils.startsWithAny("ABCXYZ", null, "xyz", "aBc") = true
+     * </pre>
+     *
+     * @see java.lang.String#startsWith(String)
+     * @param str  the CharSequence to check, may be null
+     * @param searchStrings the case-insensitive CharSequence prefixes, may be empty or contain {@code null}
+     * @return {@code true} if the CharSequence starts with the prefix, case insensitive, or
+     *  both {@code null}
+     */
+    public static boolean startsWithAnyIgnoreCase(final CharSequence str, final CharSequence... searchStrings) {
+        if (isEmpty(str) || ArrayUtils.isEmpty(searchStrings)) {
+            return false;
+        }
+        for (final CharSequence searchString : searchStrings) {
+            if (startsWith(str, searchString, true)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * <p>Case insensitive check if a CharSequence starts with a specified prefix.</p>
+     *
+     * <p>{@code null}s are handled without exceptions. Two {@code null}
+     * references are considered to be equal. The comparison is case insensitive.</p>
+     *
+     * <pre>
      * StringUtils.startsWithIgnoreCase(null, null)      = true
      * StringUtils.startsWithIgnoreCase(null, "abc")     = false
      * StringUtils.startsWithIgnoreCase("abcdef", null)  = false

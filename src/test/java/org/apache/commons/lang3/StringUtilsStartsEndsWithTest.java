@@ -99,6 +99,22 @@ public class StringUtilsStartsEndsWithTest {
         assertTrue(StringUtils.startsWithAny(new StringBuffer("abcxyz"), new StringBuilder("xyz"), new StringBuffer("abc")), "StringUtils.startsWithAny(StringBuffer(abcxyz), StringBuilder(xyz), StringBuffer(abc))");
     }
 
+    @Test
+    public void startsWithAnyIgnoreCase() {
+        assertFalse(StringUtils.startsWithAnyIgnoreCase(null, (String[]) null));
+        assertFalse(StringUtils.startsWithAnyIgnoreCase(null, "abc"));
+        assertFalse(StringUtils.startsWithAnyIgnoreCase("abcxyz", (String[]) null));
+        assertFalse(StringUtils.startsWithAnyIgnoreCase("abcxyz"));
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("abcxyz", "abc"));
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("abcxyz", null, "xyz", "abc"));
+        assertFalse(StringUtils.startsWithAnyIgnoreCase("abcxyz", null, "xyz", "abcd"));
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("abcxyz", ""));
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("abcxyz", null, "xyZ", "AbCx"));
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("ABCXYZ", null, "xYz", "aBc"));
+
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("abcxyz", new StringBuilder("xYz"), new StringBuffer("ABC")), "StringUtils.startsWithAnyIgnoreCase(abcxyz, StringBuilder(xyz), StringBuffer(abc))");
+        assertTrue(StringUtils.startsWithAnyIgnoreCase(new StringBuffer("ABCxyz"), new StringBuilder("Xyz"), new StringBuffer("aBc")), "StringUtils.startsWithAnyIgnoreCase(StringBuffer(ABCxyz), StringBuilder(xyz), StringBuffer(abc))");
+    }
 
     /**
      * Test StringUtils.endsWith()
