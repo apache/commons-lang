@@ -1432,6 +1432,39 @@ public class StringUtils {
     }
 
     /**
+     * <p>Count how many blank CharSequences are empty (""), null or whitespace only.</p>
+     *
+     * <pre>
+     * StringUtils.countBlanks(null)            = 0
+     * StringUtils.countBlanks((String[]) null) = 0
+     * StringUtils.countBlanks((String) null)   = 1
+     * StringUtils.countBlanks("")              = 1
+     * StringUtils.countBlanks(" ")             = 1
+     * StringUtils.countBlanks(null, null)      = 2
+     * StringUtils.countBlanks("", " ", "bob")  = 2
+     * </pre>
+     *
+     * @param css the CharSequences to count, may be null
+     * @return the number of blank items, {@code 0} if the CharSequences array is null
+     */
+    public static long countBlanks(final CharSequence... css) {
+        if (css == null) {
+            return 0;
+        }
+
+        final int sz = css.length;
+        int count = 0;
+
+        for (final CharSequence charSequence : css) {
+            if (isBlank(charSequence)) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    /**
      * <p>Counts how many times the char appears in the given string.</p>
      *
      * <p>A {@code null} or empty ("") String input returns {@code 0}.</p>

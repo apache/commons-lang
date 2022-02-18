@@ -618,6 +618,17 @@ public class StringUtilsTest {
     }
 
     @Test
+    public void testCountBlanks() {
+        assertEquals(0, StringUtils.countBlanks(null));
+        assertEquals(0, StringUtils.countBlanks((String[]) null));
+        assertEquals(1, StringUtils.countBlanks((String) null));
+        assertEquals(1, StringUtils.countBlanks(""));
+        assertEquals(1, StringUtils.countBlanks(" "));
+        assertEquals(2, StringUtils.countBlanks(null, null));
+        assertEquals(2, StringUtils.countBlanks("", " ", "bob"));
+    }
+
+    @Test
     public void testDefault_String() {
         assertEquals("", StringUtils.defaultString(null));
         assertEquals("", StringUtils.defaultString(""));
