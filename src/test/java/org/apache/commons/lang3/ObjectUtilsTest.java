@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -43,6 +44,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
@@ -723,6 +725,26 @@ public class ObjectUtilsTest {
     @Test
     public void testMedian_nullItems() {
         assertThrows(NullPointerException.class, () -> ObjectUtils.median((String[]) null));
+    }
+
+    @Test
+    void testDefaultIfNull_Lazy() {
+        final String result = ObjectUtils.defaultIfNull(null, () -> "result");
+        assertEquals("result", result);
+
+        ArrayList<?> arrayList = assertDoesNotThrow(() -> ObjectUtils.defaultIfNull(new ArrayList<>(), (Supplier<ArrayList<?>>) () -> {
+            throw new RuntimeException();
+        }));
+
+        assertNotNull(arrayList);
+
+        AtomicInteger atomicInteger = new AtomicInteger(0);
+
+        final Integer integer = assertDoesNotThrow(() -> ObjectUtils.defaultIfNull(1, atomicInteger::incrementAndGet));
+
+        assertEquals(1, integer);
+        assertEquals(0, atomicInteger.get());
+
     }
 
     @Test

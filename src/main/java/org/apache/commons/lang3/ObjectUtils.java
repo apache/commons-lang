@@ -1153,6 +1153,20 @@ public class ObjectUtils {
     }
 
     /**
+     * Get passed {@code object} in case it is not null, otherwise return the value produced by supplier
+     *
+     * Consider to utilize this method if lazy computation of default value makes sense in your case
+     *
+     * @param object to get if not null else to apply passed {@link Supplier}
+     * @param supplier {@link Supplier} to utilize in case provided {@code object} is null
+     * @param <T> the type of the object
+     * @return passed {@code object} in case it is not null, otherwise return the value produced by supplier
+     */
+    public static <T> T defaultIfNull(T object, Supplier<T> supplier) {
+        return object == null ? supplier.get() : object;
+    }
+
+    /**
      * <p>Null safe comparison of Comparables.</p>
      * <p>TODO Move to ComparableUtils.</p>
      *

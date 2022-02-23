@@ -627,7 +627,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    void testDefaultStringLazyComputations() {
+    void testDefaultIfEmpty() {
         String sourceString = "not empty string";
         String result = assertDoesNotThrow(() -> StringUtils.defaultIfEmpty(sourceString, (Supplier<String>) () -> { throw new RuntimeException(); }));
         assertEquals(result, sourceString);
