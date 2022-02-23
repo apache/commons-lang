@@ -1525,6 +1525,26 @@ public class StringUtils {
 
     /**
      * <p>Returns either the passed in CharSequence, or if the CharSequence is
+     * whitespace, empty ("") or {@code null}, the value produced by {@code supplier}.</p>
+     *
+     * Consider to utilize this method instead of {@link #defaultIfBlank(CharSequence, CharSequence)}
+     * in case of lazy computation of default string make sense
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * @param source - CharSequence to check, may be null
+     * @param supplier represents the supplier, that should return instance
+     *                 of type {@literal T} in case source string is empty
+     * @param <T> represents the specific kind of CharSequence
+     * @return the passed source instance of CharSequence in case it is not blank,
+     *                 otherwise the value returned by {@link Supplier}
+     */
+    public static <T extends CharSequence> T defaultIfEmpty(final T source, final Supplier<T> supplier) {
+        return isBlank(source) ? supplier.get() : source;
+    }
+
+    /**
+     * <p>Returns either the passed in CharSequence, or if the CharSequence is
      * empty or {@code null}, the value of {@code defaultStr}.</p>
      *
      * <pre>

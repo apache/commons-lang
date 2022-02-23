@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -39,6 +40,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 import java.util.regex.PatternSyntaxException;
 
@@ -622,6 +624,28 @@ public class StringUtilsTest {
         assertEquals("", StringUtils.defaultString(null));
         assertEquals("", StringUtils.defaultString(""));
         assertEquals("abc", StringUtils.defaultString("abc"));
+    }
+
+    @Test
+    void testDefaultStringLazyComputations() {
+        String sourceString = "not empty string";
+        String result = assertDoesNotThrow(() -> StringUtils.defaultIfEmpty(sourceString, (Supplier<String>) () -> { throw new RuntimeException(); }));
+        assertEquals(result, sourceString);
+
+        AtomicInteger counter = new AtomicInteger(0);
+        result = StringUtils.defaultIfEmpty("", (Supplier<String>) () -> {
+            counter.incrementAndGet();
+            return "default";
+        });
+        assertEquals(1, counter.get());
+        assertEquals(result, "default");
+
+        result = StringUtils.defaultIfEmpty("not empty", (Supplier<String>) () -> {
+            counter.incrementAndGet();
+            return "default";
+        });
+        assertEquals(1, counter.get());
+        assertEquals(result, "not empty");
     }
 
     @Test
