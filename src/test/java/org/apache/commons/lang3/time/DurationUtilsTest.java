@@ -34,6 +34,7 @@ public class DurationUtilsTest {
 
     @Test
     public void testGetNanosOfMilli() {
+        assertEquals(0, DurationUtils.getNanosOfMiili(null));
         assertEquals(0, DurationUtils.getNanosOfMiili(Duration.ZERO));
         assertEquals(1, DurationUtils.getNanosOfMiili(Duration.ofNanos(1)));
         assertEquals(10, DurationUtils.getNanosOfMiili(Duration.ofNanos(10)));

@@ -70,7 +70,7 @@ public class DurationUtils {
      * @return nanoseconds between 0 and 999,999.
      */
     public static int getNanosOfMiili(final Duration duration) {
-        return duration.getNano() % 1_000_000;
+        return zeroIfNull(duration).getNano() % 1_000_000;
     }
 
     /**
