@@ -27,6 +27,7 @@ import static org.apache.commons.lang3.JavaVersion.JAVA_14;
 import static org.apache.commons.lang3.JavaVersion.JAVA_15;
 import static org.apache.commons.lang3.JavaVersion.JAVA_16;
 import static org.apache.commons.lang3.JavaVersion.JAVA_17;
+import static org.apache.commons.lang3.JavaVersion.JAVA_18;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_1;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_2;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_3;
@@ -70,10 +71,11 @@ public class JavaVersionTest {
         assertEquals(JAVA_15, get("15"), "15 failed");
         assertEquals(JAVA_16, get("16"), "16 failed");
         assertEquals(JAVA_17, get("17"), "17 failed");
+        assertEquals(JAVA_18, get("18"), "18 failed");
         assertEquals(JAVA_RECENT, get("1.10"), "1.10 failed");
         // assertNull("2.10 unexpectedly worked", get("2.10"));
         assertEquals(get("1.5"), getJavaVersion("1.5"), "Wrapper method failed");
-        assertEquals(JAVA_RECENT, get("18"), "Unhandled"); // LANG-1384
+        assertEquals(JAVA_RECENT, get("19"), "Unhandled"); // LANG-1384
     }
 
     @Test
