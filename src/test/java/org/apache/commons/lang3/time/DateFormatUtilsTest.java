@@ -231,6 +231,15 @@ public class DateFormatUtilsTest {
         testUTC("09:11:12Z", DateFormatUtils.ISO_TIME_NO_T_TIME_ZONE_FORMAT.getPattern());
     }
 
+    @Test
+    public void testLANG1462() {
+        TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
+        Calendar calendar = createJuneTestDate(timeZone);
+        assertEquals("20030608101112", DateFormatUtils.format(calendar, "yyyyMMddHHmmss"));
+        calendar.setTimeZone(TimeZone.getTimeZone("JST"));
+        assertEquals("20030608221112", DateFormatUtils.format(calendar, "yyyyMMddHHmmss"));
+    }
+
     private void testUTC(final String expectedValue, final String pattern) {
         final TimeZone timeZone = FastTimeZone.getGmtTimeZone();
         assertFormats(expectedValue, pattern, timeZone, createFebruaryTestDate(timeZone));

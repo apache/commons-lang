@@ -271,7 +271,8 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Formats a calendar into a specific pattern.</p>
+     * <p>Formats a calendar into a specific pattern. Timezone from the calendar
+     * will be used for formatting.</p>
      *
      * @param calendar  the calendar to format, not null
      * @param pattern  the pattern to use to format the calendar, not null
@@ -280,7 +281,7 @@ public class DateFormatUtils {
      * @since 2.4
      */
     public static String format(final Calendar calendar, final String pattern) {
-        return format(calendar, pattern, null, null);
+        return format(calendar, pattern, calendar == null ? null : calendar.getTimeZone(), null);
     }
 
     /**
@@ -346,7 +347,8 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Formats a calendar into a specific pattern in a locale.</p>
+     * <p>Formats a calendar into a specific pattern in a locale. Timezone from the calendar
+     * will be used for formatting.</p>
      *
      * @param calendar  the calendar to format, not null
      * @param pattern  the pattern to use to format the calendar, not null
@@ -356,7 +358,7 @@ public class DateFormatUtils {
      * @since 2.4
      */
     public static String format(final Calendar calendar, final String pattern, final Locale locale) {
-        return format(calendar, pattern, null, locale);
+        return format(calendar, pattern, calendar == null ? null : calendar.getTimeZone(), locale);
     }
 
     /**
