@@ -193,7 +193,6 @@ public class ImmutablePairTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     public void testSerialization() throws Exception {
         final ImmutablePair<Integer, String> origPair = ImmutablePair.of(0, "foo");
         final ImmutablePair<Integer, String> deserializedPair = SerializationUtils.roundtrip(origPair);
