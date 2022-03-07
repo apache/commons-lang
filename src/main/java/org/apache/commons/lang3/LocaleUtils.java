@@ -36,6 +36,8 @@ import java.util.concurrent.ConcurrentMap;
  * @since 2.2
  */
 public class LocaleUtils {
+    private static final char UNDERSCORE = '_';
+    private static final char DASH = '-';
 
     // class to avoid synchronization (Init on demand)
     static class SyncAvoid {
@@ -248,7 +250,9 @@ public class LocaleUtils {
             return new Locale(str);
         }
 
-        final String[] segments = str.split("_", -1);
+        final String[] segments = str.indexOf(UNDERSCORE) != -1
+            ? str.split(String.valueOf(UNDERSCORE), -1)
+            : str.split(String.valueOf(DASH), -1);
         final String language = segments[0];
         if (segments.length == 2) {
             final String country = segments[1];
@@ -289,6 +293,7 @@ public class LocaleUtils {
      *   LocaleUtils.toLocale("")           = new Locale("", "")
      *   LocaleUtils.toLocale("en")         = new Locale("en", "")
      *   LocaleUtils.toLocale("en_GB")      = new Locale("en", "GB")
+     *   LocaleUtils.toLocale("en-GB")      = new Locale("en", "GB")
      *   LocaleUtils.toLocale("en_001")     = new Locale("en", "001")
      *   LocaleUtils.toLocale("en_GB_xxx")  = new Locale("en", "GB", "xxx")   (#)
      * </pre>
@@ -300,7 +305,7 @@ public class LocaleUtils {
      * <p>This method validates the input strictly.
      * The language code must be lowercase.
      * The country code must be uppercase.
-     * The separator must be an underscore.
+     * The separator must be an underscore or a dash.
      * The length must be correct.
      * </p>
      *
@@ -325,7 +330,7 @@ public class LocaleUtils {
             throw new IllegalArgumentException("Invalid locale format: " + str);
         }
         final char ch0 = str.charAt(0);
-        if (ch0 == '_') {
+        if (ch0 == UNDERSCORE || ch0 == DASH) {
             if (len < 3) {
                 throw new IllegalArgumentException("Invalid locale format: " + str);
             }
@@ -340,7 +345,7 @@ public class LocaleUtils {
             if (len < 5) {
                 throw new IllegalArgumentException("Invalid locale format: " + str);
             }
-            if (str.charAt(3) != '_') {
+            if (str.charAt(3) != ch0) {
                 throw new IllegalArgumentException("Invalid locale format: " + str);
             }
             return new Locale(StringUtils.EMPTY, str.substring(1, 3), str.substring(4));

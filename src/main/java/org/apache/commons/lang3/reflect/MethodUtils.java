@@ -725,6 +725,7 @@ public class MethodUtils {
      * @param cls The class that will be subjected to the method search
      * @param methodName The method that we wish to call
      * @param parameterTypes Argument class types
+     * @throws IllegalStateException if there is no unique result
      * @return The method
      *
      * @since 3.5
