@@ -26,7 +26,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -65,24 +64,23 @@ public class ReflectionToStringBuilderConcurrencyTest {
 
     @Test
     @Disabled
-    public void testLinkedList() throws InterruptedException, ExecutionException {
+    public void testLinkedList() throws InterruptedException {
         this.testConcurrency(new CollectionHolder<>(new LinkedList<>()));
     }
 
     @Test
     @Disabled
-    public void testArrayList() throws InterruptedException, ExecutionException {
+    public void testArrayList() throws InterruptedException {
         this.testConcurrency(new CollectionHolder<>(new ArrayList<>()));
     }
 
     @Test
     @Disabled
-    public void testCopyOnWriteArrayList() throws InterruptedException, ExecutionException {
+    public void testCopyOnWriteArrayList() throws InterruptedException {
         this.testConcurrency(new CollectionHolder<>(new CopyOnWriteArrayList<>()));
     }
 
-    private void testConcurrency(final CollectionHolder<List<Integer>> holder) throws InterruptedException,
-        ExecutionException {
+    private void testConcurrency(final CollectionHolder<List<Integer>> holder) throws InterruptedException {
         final List<Integer> list = holder.collection;
         // make a big array that takes a long time to toString()
         for (int i = 0; i < DATA_SIZE; i++) {
