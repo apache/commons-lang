@@ -142,7 +142,7 @@ public class EventListenerSupportTest {
 
         //serialize:
         final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        try (final ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {
             objectOutputStream.writeObject(listenerSupport);
         }
 
