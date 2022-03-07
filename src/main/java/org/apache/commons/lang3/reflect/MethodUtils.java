@@ -31,6 +31,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -201,32 +202,29 @@ public class MethodUtils {
      * @throws IllegalAccessException if the requested method is not accessible via reflection
      * @since 3.5
      */
-    public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName,
-            Object[] args, Class<?>[] parameterTypes)
-            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName, Object[] args, Class<?>[] parameterTypes)
+        throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        Objects.requireNonNull(object, "object");
         parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
         args = ArrayUtils.nullToEmpty(args);
 
         final String messagePrefix;
         final Method method;
 
+        final Class<? extends Object> cls = object.getClass();
         if (forceAccess) {
             messagePrefix = "No such method: ";
-            method = getMatchingMethod(object.getClass(),
-                    methodName, parameterTypes);
+            method = getMatchingMethod(cls, methodName, parameterTypes);
             if (method != null && !method.isAccessible()) {
                 method.setAccessible(true);
             }
         } else {
             messagePrefix = "No such accessible method: ";
-            method = getMatchingAccessibleMethod(object.getClass(),
-                    methodName, parameterTypes);
+            method = getMatchingAccessibleMethod(cls, methodName, parameterTypes);
         }
 
         if (method == null) {
-            throw new NoSuchMethodException(messagePrefix
-                    + methodName + "() on object: "
-                    + object.getClass().getName());
+            throw new NoSuchMethodException(messagePrefix + methodName + "() on object: " + cls.getName());
         }
         args = toVarArgs(method, args);
 
