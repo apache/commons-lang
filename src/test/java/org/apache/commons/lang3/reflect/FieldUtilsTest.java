@@ -195,7 +195,7 @@ public class FieldUtilsTest {
         final List<Field> fieldsInteger = Arrays.asList(Integer.class.getDeclaredFields());
         final List<Field> allFieldsInteger = new ArrayList<>(fieldsInteger);
         allFieldsInteger.addAll(fieldsNumber);
-        assertEquals(new HashSet(allFieldsInteger), new HashSet(FieldUtils.getAllFieldsList(Integer.class)));
+        assertEquals(new HashSet<>(allFieldsInteger), new HashSet<>(FieldUtils.getAllFieldsList(Integer.class)));
         final List<Field> allFields = FieldUtils.getAllFieldsList(PublicChild.class);
         // Under Jacoco,0.8.1 and Java 10, the field count is 7.
         int expected = 5;
