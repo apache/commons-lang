@@ -141,7 +141,7 @@ public class StopWatchTest {
     }
 
     @Test
-    public void testFormatSplitTime() throws InterruptedException {
+    public void testFormatSplitTime() {
         final StopWatch watch = StopWatch.createStarted();
         ThreadUtils.sleepQuietly(MIN_SLEEP_MILLISECONDS);
         watch.split();
@@ -151,7 +151,7 @@ public class StopWatchTest {
     }
 
     @Test
-    public void testFormatSplitTimeWithMessage() throws InterruptedException {
+    public void testFormatSplitTimeWithMessage() {
         final StopWatch watch = new StopWatch(MESSAGE);
         watch.start();
         ThreadUtils.sleepQuietly(MIN_SLEEP_MILLISECONDS);
