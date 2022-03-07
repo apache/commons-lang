@@ -142,10 +142,9 @@ public class EventListenerSupportTest {
 
         //serialize:
         final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        final ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-
-        objectOutputStream.writeObject(listenerSupport);
-        objectOutputStream.close();
+        try (final ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {
+            objectOutputStream.writeObject(listenerSupport);
+        }
 
         //deserialize:
         @SuppressWarnings("unchecked")
