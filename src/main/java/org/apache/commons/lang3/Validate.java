@@ -201,7 +201,9 @@ public class Validate {
      * @return the validated object (never {@code null} for method chaining)
      * @throws NullPointerException if the object is {@code null}
      * @see #notNull(Object, String, Object...)
+     * @deprecated Use {@link Objects#requireNonNull(Object)}.
      */
+    @Deprecated
     public static <T> T notNull(final T object) {
         return notNull(object, DEFAULT_IS_NULL_EX_MESSAGE);
     }
@@ -218,7 +220,7 @@ public class Validate {
      * @param values  the optional values for the formatted exception message
      * @return the validated object (never {@code null} for method chaining)
      * @throws NullPointerException if the object is {@code null}
-     * @see #notNull(Object)
+     * @see Objects#requireNonNull(Object)
      */
     public static <T> T notNull(final T object, final String message, final Object... values) {
         return Objects.requireNonNull(object, () -> String.format(message, values));
@@ -493,7 +495,7 @@ public class Validate {
      * @see #noNullElements(Object[])
      */
     public static <T> T[] noNullElements(final T[] array, final String message, final Object... values) {
-        notNull(array);
+        Objects.requireNonNull(array, "array");
         for (int i = 0; i < array.length; i++) {
             if (array[i] == null) {
                 final Object[] values2 = ArrayUtils.add(values, Integer.valueOf(i));
@@ -555,7 +557,7 @@ public class Validate {
      * @see #noNullElements(Iterable)
      */
     public static <T extends Iterable<?>> T noNullElements(final T iterable, final String message, final Object... values) {
-        notNull(iterable);
+        Objects.requireNonNull(iterable, "iterable");
         int i = 0;
         for (final Iterator<?> it = iterable.iterator(); it.hasNext(); i++) {
             if (it.next() == null) {
@@ -616,7 +618,7 @@ public class Validate {
      * @since 3.0
      */
     public static <T> T[] validIndex(final T[] array, final int index, final String message, final Object... values) {
-        notNull(array);
+        Objects.requireNonNull(array, "array");
         if (index < 0 || index >= array.length) {
             throw new IndexOutOfBoundsException(String.format(message, values));
         }
@@ -675,7 +677,7 @@ public class Validate {
      * @since 3.0
      */
     public static <T extends Collection<?>> T validIndex(final T collection, final int index, final String message, final Object... values) {
-        notNull(collection);
+        Objects.requireNonNull(collection, "collection");
         if (index < 0 || index >= collection.size()) {
             throw new IndexOutOfBoundsException(String.format(message, values));
         }
@@ -732,7 +734,7 @@ public class Validate {
      * @since 3.0
      */
     public static <T extends CharSequence> T validIndex(final T chars, final int index, final String message, final Object... values) {
-        notNull(chars);
+        Objects.requireNonNull(chars, "chars");
         if (index < 0 || index >= chars.length()) {
             throw new IndexOutOfBoundsException(String.format(message, values));
         }

@@ -324,18 +324,15 @@ public class MethodUtils {
      * @throws IllegalAccessException if the requested method is not accessible
      *  via reflection
      */
-    public static Object invokeExactMethod(final Object object, final String methodName,
-            Object[] args, Class<?>[] parameterTypes)
-            throws NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException {
+    public static Object invokeExactMethod(final Object object, final String methodName, Object[] args, Class<?>[] parameterTypes)
+        throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        Objects.requireNonNull(object, "object");
         args = ArrayUtils.nullToEmpty(args);
         parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Method method = getAccessibleMethod(object.getClass(), methodName,
-                parameterTypes);
+        final Class<? extends Object> cls = object.getClass();
+        final Method method = getAccessibleMethod(cls, methodName, parameterTypes);
         if (method == null) {
-            throw new NoSuchMethodException("No such accessible method: "
-                    + methodName + "() on object: "
-                    + object.getClass().getName());
+            throw new NoSuchMethodException("No such accessible method: " + methodName + "() on object: " + cls.getName());
         }
         return method.invoke(object, args);
     }
@@ -734,7 +731,7 @@ public class MethodUtils {
      */
     public static Method getMatchingMethod(final Class<?> cls, final String methodName,
             final Class<?>... parameterTypes) {
-        Validate.notNull(cls, "cls");
+        Objects.requireNonNull(cls, "cls");
         Validate.notEmpty(methodName, "methodName");
 
         final List<Method> methods = Stream.of(cls.getDeclaredMethods())
@@ -820,7 +817,7 @@ public class MethodUtils {
      * @since 3.2
      */
     public static Set<Method> getOverrideHierarchy(final Method method, final Interfaces interfacesBehavior) {
-        Validate.notNull(method);
+        Objects.requireNonNull(method, "method");
         final Set<Method> result = new LinkedHashSet<>();
         result.add(method);
 
@@ -922,7 +919,7 @@ public class MethodUtils {
                                                             final Class<? extends Annotation> annotationCls,
                                                             final boolean searchSupers, final boolean ignoreAccess) {
 
-        Validate.notNull(cls, "cls");
+        Objects.requireNonNull(cls, "cls");
         Validate.notNull(annotationCls, "annotationCls");
         final List<Class<?>> classes = searchSupers ? getAllSuperclassesAndInterfaces(cls) : new ArrayList<>();
         classes.add(0, cls);
@@ -959,8 +956,8 @@ public class MethodUtils {
     public static <A extends Annotation> A getAnnotation(final Method method, final Class<A> annotationCls,
                                                          final boolean searchSupers, final boolean ignoreAccess) {
 
-        Validate.notNull(method, "method");
-        Validate.notNull(annotationCls, "annotationCls");
+        Objects.requireNonNull(method, "method");
+        Objects.requireNonNull(annotationCls, "annotationCls");
         if (!ignoreAccess && !MemberUtils.isAccessible(method)) {
             return null;
         }

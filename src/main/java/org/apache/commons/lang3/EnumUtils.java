@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -115,7 +116,7 @@ public class EnumUtils {
      */
     public static <E extends Enum<E>> long generateBitVector(final Class<E> enumClass, final Iterable<? extends E> values) {
         checkBitVectorable(enumClass);
-        Validate.notNull(values);
+        Objects.requireNonNull(values, "values");
         long total = 0;
         for (final E constant : values) {
             Validate.notNull(constant, NULL_ELEMENTS_NOT_PERMITTED);
@@ -172,7 +173,7 @@ public class EnumUtils {
      */
     public static <E extends Enum<E>> long[] generateBitVectors(final Class<E> enumClass, final Iterable<? extends E> values) {
         asEnum(enumClass);
-        Validate.notNull(values);
+        Objects.requireNonNull(values, "values");
         final EnumSet<E> condensed = EnumSet.noneOf(enumClass);
         for (final E constant : values) {
             Validate.notNull(constant, NULL_ELEMENTS_NOT_PERMITTED);
@@ -419,7 +420,7 @@ public class EnumUtils {
      */
     public static <E extends Enum<E>> EnumSet<E> processBitVectors(final Class<E> enumClass, final long... values) {
         final EnumSet<E> results = EnumSet.noneOf(asEnum(enumClass));
-        final long[] lvalues = ArrayUtils.clone(Validate.notNull(values));
+        final long[] lvalues = ArrayUtils.clone(Objects.requireNonNull(values, "values"));
         ArrayUtils.reverse(lvalues);
         for (final E constant : enumClass.getEnumConstants()) {
             final int block = constant.ordinal() / Long.SIZE;

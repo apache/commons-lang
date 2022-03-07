@@ -1709,7 +1709,7 @@ public class TypeUtils {
      * @since 3.2
      */
     public static String toString(final Type type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type, "type");
         if (type instanceof Class<?>) {
             return classToString((Class<?>) type);
         }
