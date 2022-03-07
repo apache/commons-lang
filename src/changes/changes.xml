@@ -69,6 +69,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">ArrayUtils.toPrimitive(Boolean...) null array elements map to false, like Boolean.parseBoolean(null) and its callers return false.</action>
     <action                   type="fix" dev="ggregory" due-to="CodeQL, Gary Gregory">StrBuilder.StrBuilderReader.skip(long): Throw an exception when an implicit narrowing conversion in a compound assignment would result in information loss or a numeric error such as an overflows.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate Validate#notNull(Object) in favor of using Objects#requireNonNull(Object, String).</action>
+    <action issue="LANG-1462" type="fix" dev="ggregory" due-to="Lijun Liang, Arun Avanathan, Tai Dupree, Maria Buiakova, Gary Gregory">Use TimeZone from calendar in DateFormatUtils.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TriConsumer.</action>
