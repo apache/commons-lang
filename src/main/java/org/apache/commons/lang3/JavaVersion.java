@@ -303,10 +303,7 @@ public enum JavaVersion {
      */
     private static float maxVersion() {
         final float v = toFloatVersion(System.getProperty("java.specification.version", "99.0"));
-        if (v > 0) {
-            return v;
-        }
-        return 99f;
+        return v > 0 ? v : 99f;
     }
 
     /**
