@@ -208,13 +208,13 @@ public enum JavaVersion {
      * corresponding constant of this enumeration class. This method is used
      * internally.
      *
-     * @param nom the Java version as string
+     * @param versionStr the Java version as string
      * @return the corresponding enumeration constant or <b>null</b> if the
      * version is unknown
      */
     // helper for static importing
-    static JavaVersion getJavaVersion(final String nom) {
-        return get(nom);
+    static JavaVersion getJavaVersion(final String versionStr) {
+        return get(versionStr);
     }
 
     /**
