@@ -19,12 +19,9 @@ package org.apache.commons.lang3.tuple;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
+import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -33,17 +30,18 @@ import org.junit.jupiter.api.Test;
 public class MutableTripleTest {
 
     @Test
-    public void testEmptyArrayLength() {
-        @SuppressWarnings("unchecked")
-        final MutableTriple<Integer, String, Boolean>[] empty = (MutableTriple<Integer, String, Boolean>[]) MutableTriple.EMPTY_ARRAY;
-        assertEquals(0, empty.length);
+    public void testOfNonNull() {
+        assertThrows(NullPointerException.class, () -> MutableTriple.ofNonNull(null, null, null));
+        assertThrows(NullPointerException.class, () -> MutableTriple.ofNonNull(null, null, "z"));
+        assertThrows(NullPointerException.class, () -> MutableTriple.ofNonNull(null, "y", "z"));
+        assertThrows(NullPointerException.class, () -> MutableTriple.ofNonNull("x", null, null));
+        assertThrows(NullPointerException.class, () -> MutableTriple.ofNonNull("x", "y", null));
+        final MutableTriple<String, String, String> pair = MutableTriple.ofNonNull("x", "y", "z");
+        assertEquals("x", pair.left);
+        assertEquals("y", pair.middle);
+        assertEquals("z", pair.right);
     }
 
-    @Test
-    public void testEmptyArrayGenerics() {
-        final MutableTriple<Integer, String, Boolean>[] empty = MutableTriple.emptyArray();
-        assertEquals(0, empty.length);
-    }
 
     @Test
     public void testBasic() {
@@ -63,6 +61,19 @@ public class MutableTripleTest {
         assertNull(triple.getLeft());
         assertNull(triple.getMiddle());
         assertNull(triple.getRight());
+    }
+
+    @Test
+    public void testEmptyArrayGenerics() {
+        final MutableTriple<Integer, String, Boolean>[] empty = MutableTriple.emptyArray();
+        assertEquals(0, empty.length);
+    }
+
+    @Test
+    public void testEmptyArrayLength() {
+        @SuppressWarnings("unchecked")
+        final MutableTriple<Integer, String, Boolean>[] empty = (MutableTriple<Integer, String, Boolean>[]) MutableTriple.EMPTY_ARRAY;
+        assertEquals(0, empty.length);
     }
 
     @Test
@@ -94,14 +105,9 @@ public class MutableTripleTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     public void testSerialization() throws Exception {
         final MutableTriple<Integer, String, Boolean> origTriple = MutableTriple.of(0, "foo", Boolean.TRUE);
-        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        final ObjectOutputStream out = new ObjectOutputStream(baos);
-        out.writeObject(origTriple);
-        final MutableTriple<Integer, String, Boolean> deserializedTriple = (MutableTriple<Integer, String, Boolean>) new ObjectInputStream(
-                new ByteArrayInputStream(baos.toByteArray())).readObject();
+        final MutableTriple<Integer, String, Boolean> deserializedTriple = SerializationUtils.roundtrip(origTriple);
         assertEquals(origTriple, deserializedTriple);
         assertEquals(origTriple.hashCode(), deserializedTriple.hashCode());
     }

@@ -17,7 +17,7 @@
 package org.apache.commons.lang3.mutable;
 
 /**
- * A mutable <code>double</code> wrapper.
+ * A mutable {@code double} wrapper.
  * <p>
  * Note that as MutableDouble does not extend Double, it is not treated by String.format as a Double parameter.
  *
@@ -40,7 +40,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * Constructs a new MutableDouble with the default value of zero.
      */
     public MutableDouble() {
-        super();
     }
 
     /**
@@ -49,7 +48,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @param value  the initial value to store
      */
     public MutableDouble(final double value) {
-        super();
         this.value = value;
     }
 
@@ -60,7 +58,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @throws NullPointerException if the object is null
      */
     public MutableDouble(final Number value) {
-        super();
         this.value = value.doubleValue();
     }
 
@@ -72,11 +69,9 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @since 2.5
      */
     public MutableDouble(final String value) {
-        super();
         this.value = Double.parseDouble(value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets the value as a Double instance.
      *
@@ -107,7 +102,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
         this.value = value.doubleValue();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Checks whether the double value is the special NaN value.
      *
@@ -126,7 +120,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
         return Double.isInfinite(value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Increments the value.
      *
@@ -195,7 +188,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Adds a value to the value of this instance.
      *
@@ -294,7 +286,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
         return last;
     }
 
-    //-----------------------------------------------------------------------
     // shortValue and byteValue rely on Number implementation
     /**
      * Returns the value of this MutableDouble as an int.
@@ -336,7 +327,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets this mutable as an instance of Double.
      *
@@ -346,16 +336,15 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
         return Double.valueOf(doubleValue());
     }
 
-    //-----------------------------------------------------------------------
     /**
-     * Compares this object against the specified object. The result is <code>true</code> if and only if the argument
-     * is not <code>null</code> and is a <code>Double</code> object that represents a double that has the identical
+     * Compares this object against the specified object. The result is {@code true} if and only if the argument
+     * is not {@code null} and is a {@code Double} object that represents a double that has the identical
      * bit pattern to the bit pattern of the double represented by this object. For this purpose, two
-     * <code>double</code> values are considered to be the same if and only if the method
+     * {@code double} values are considered to be the same if and only if the method
      * {@link Double#doubleToLongBits(double)}returns the same long value when applied to each.
      * <p>
-     * Note that in most cases, for two instances of class <code>Double</code>,<code>d1</code> and <code>d2</code>,
-     * the value of <code>d1.equals(d2)</code> is <code>true</code> if and only if <blockquote>
+     * Note that in most cases, for two instances of class {@code Double},{@code d1} and {@code d2},
+     * the value of {@code d1.equals(d2)} is {@code true} if and only if <blockquote>
      *
      * <pre>
      *   d1.doubleValue()&nbsp;== d2.doubleValue()
@@ -363,18 +352,18 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      *
      * </blockquote>
      * <p>
-     * also has the value <code>true</code>. However, there are two exceptions:
+     * also has the value {@code true}. However, there are two exceptions:
      * <ul>
-     * <li>If <code>d1</code> and <code>d2</code> both represent <code>Double.NaN</code>, then the
-     * <code>equals</code> method returns <code>true</code>, even though <code>Double.NaN==Double.NaN</code> has
-     * the value <code>false</code>.
-     * <li>If <code>d1</code> represents <code>+0.0</code> while <code>d2</code> represents <code>-0.0</code>,
-     * or vice versa, the <code>equal</code> test has the value <code>false</code>, even though
-     * <code>+0.0==-0.0</code> has the value <code>true</code>. This allows hashtables to operate properly.
+     * <li>If {@code d1} and {@code d2} both represent {@code Double.NaN}, then the
+     * {@code equals} method returns {@code true}, even though {@code Double.NaN==Double.NaN} has
+     * the value {@code false}.
+     * <li>If {@code d1} represents {@code +0.0} while {@code d2} represents {@code -0.0},
+     * or vice versa, the {@code equal} test has the value {@code false}, even though
+     * {@code +0.0==-0.0} has the value {@code true}. This allows hashtables to operate properly.
      * </ul>
      *
      * @param obj  the object to compare with, null returns false
-     * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
+     * @return {@code true} if the objects are the same; {@code false} otherwise.
      */
     @Override
     public boolean equals(final Object obj) {
@@ -393,7 +382,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
         return (int) (bits ^ bits >>> 32);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Compares this mutable to another in ascending order.
      *
@@ -405,7 +393,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
         return Double.compare(this.value, other.value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Returns the String value of this mutable.
      *

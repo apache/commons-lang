@@ -19,7 +19,7 @@ package org.apache.commons.lang3.mutable;
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
- * A mutable <code>short</code> wrapper.
+ * A mutable {@code short} wrapper.
  * <p>
  * Note that as MutableShort does not extend Short, it is not treated by String.format as a Short parameter.
  *
@@ -42,7 +42,6 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * Constructs a new MutableShort with the default value of zero.
      */
     public MutableShort() {
-        super();
     }
 
     /**
@@ -51,7 +50,6 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @param value  the initial value to store
      */
     public MutableShort(final short value) {
-        super();
         this.value = value;
     }
 
@@ -62,7 +60,6 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @throws NullPointerException if the object is null
      */
     public MutableShort(final Number value) {
-        super();
         this.value = value.shortValue();
     }
 
@@ -74,11 +71,9 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @since 2.5
      */
     public MutableShort(final String value) {
-        super();
         this.value = Short.parseShort(value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets the value as a Short instance.
      *
@@ -109,7 +104,6 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
         this.value = value.shortValue();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Increments the value.
      *
@@ -178,7 +172,6 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Adds a value to the value of this instance.
      *
@@ -277,7 +270,6 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
         return last;
     }
 
-    //-----------------------------------------------------------------------
     // byteValue relies on Number implementation
     /**
      * Returns the value of this MutableShort as a short.
@@ -329,7 +321,6 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets this mutable as an instance of Short.
      *
@@ -339,14 +330,13 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
         return Short.valueOf(shortValue());
     }
 
-    //-----------------------------------------------------------------------
     /**
-     * Compares this object to the specified object. The result is <code>true</code> if and only if the argument
-     * is not <code>null</code> and is a <code>MutableShort</code> object that contains the same <code>short</code>
+     * Compares this object to the specified object. The result is {@code true} if and only if the argument
+     * is not {@code null} and is a {@code MutableShort} object that contains the same {@code short}
      * value as this object.
      *
      * @param obj  the object to compare with, null returns false
-     * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
+     * @return {@code true} if the objects are the same; {@code false} otherwise.
      */
     @Override
     public boolean equals(final Object obj) {
@@ -366,7 +356,6 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Compares this mutable to another in ascending order.
      *
@@ -378,7 +367,6 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
         return NumberUtils.compare(this.value, other.value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Returns the String value of this mutable.
      *

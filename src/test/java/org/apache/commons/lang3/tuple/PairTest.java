@@ -19,6 +19,7 @@ package org.apache.commons.lang3.tuple;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Calendar;
@@ -32,19 +33,6 @@ import org.junit.jupiter.api.Test;
  * Test the Pair class.
  */
 public class PairTest {
-
-    @Test
-    public void testEmptyArrayLength() {
-        @SuppressWarnings("unchecked")
-        final Pair<Integer, String>[] empty = (Pair<Integer, String>[]) Pair.EMPTY_ARRAY;
-        assertEquals(0, empty.length);
-    }
-
-    @Test
-    public void testEmptyArrayGenerics() {
-        final Pair<Integer, String>[] empty = Pair.emptyArray();
-        assertEquals(0, empty.length);
-    }
 
     @Test
     public void testComparable1() {
@@ -82,6 +70,19 @@ public class PairTest {
     }
 
     @Test
+    public void testEmptyArrayGenerics() {
+        final Pair<Integer, String>[] empty = Pair.emptyArray();
+        assertEquals(0, empty.length);
+    }
+
+    @Test
+    public void testEmptyArrayLength() {
+        @SuppressWarnings("unchecked")
+        final Pair<Integer, String>[] empty = (Pair<Integer, String>[]) Pair.EMPTY_ARRAY;
+        assertEquals(0, empty.length);
+    }
+
+    @Test
     public void testFormattable_padded() {
         final Pair<String, String> pair = Pair.of("Key", "Value");
         assertEquals("         (Key,Value)", String.format("%1$20s", pair));
@@ -104,7 +105,27 @@ public class PairTest {
     }
 
     @Test
-    public void testPairOf() {
+    public void testOfNonNull() {
+        assertThrows(NullPointerException.class, () -> Pair.ofNonNull(null, null));
+        assertThrows(NullPointerException.class, () -> Pair.ofNonNull(null, "x"));
+        assertThrows(NullPointerException.class, () -> Pair.ofNonNull("x", null));
+        final Pair<String, String> pair = Pair.ofNonNull("x", "y");
+        assertEquals("x", pair.getLeft());
+        assertEquals("y", pair.getRight());
+    }
+
+    @Test
+    public void testPairOfMapEntry() {
+        final HashMap<Integer, String> map = new HashMap<>();
+        map.put(0, "foo");
+        final Entry<Integer, String> entry = map.entrySet().iterator().next();
+        final Pair<Integer, String> pair = Pair.of(entry);
+        assertEquals(entry.getKey(), pair.getLeft());
+        assertEquals(entry.getValue(), pair.getRight());
+    }
+
+    @Test
+    public void testPairOfObjects() {
         final Pair<Integer, String> pair = Pair.of(0, "foo");
         assertTrue(pair instanceof ImmutablePair<?, ?>);
         assertEquals(0, ((ImmutablePair<Integer, String>) pair).left.intValue());
@@ -113,6 +134,9 @@ public class PairTest {
         assertTrue(pair2 instanceof ImmutablePair<?, ?>);
         assertNull(((ImmutablePair<Object, String>) pair2).left);
         assertEquals("bar", ((ImmutablePair<Object, String>) pair2).right);
+        final Pair<?, ?> pair3 = Pair.of(null, null);
+        assertNull(pair3.getLeft());
+        assertNull(pair3.getRight());
     }
 
     @Test

@@ -20,8 +20,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 import org.junit.jupiter.api.AfterEach;
@@ -182,6 +187,73 @@ public class JsonToStringStyleTest {
     }
 
     @Test
+    public void testList() {
+        final Student student = new Student();
+        final ArrayList<Hobby> objects = new ArrayList<>();
+
+        objects.add(Hobby.BOOK);
+        objects.add(Hobby.SPORT);
+        objects.add(Hobby.MUSIC);
+
+        student.setHobbies(objects);
+
+        assertEquals(student.toString(), "{\"hobbies\":[\"BOOK\",\"SPORT\",\"MUSIC\"]}");
+        student.setHobbies(new ArrayList<>());
+        assertEquals(student.toString(), "{\"hobbies\":[]}");
+        student.setHobbies(null);
+        assertEquals(student.toString(), "{\"hobbies\":null}");
+    }
+
+    @Test
+    public void testArrayEnum() {
+        final Teacher teacher = new Teacher();
+        final Hobby[] hobbies = new Hobby[3];
+        hobbies[0] = Hobby.BOOK;
+        hobbies[1] = Hobby.SPORT;
+        hobbies[2] = Hobby.MUSIC;
+
+        teacher.setHobbies(hobbies);
+
+        assertEquals(teacher.toString(), "{\"hobbies\":[\"BOOK\",\"SPORT\",\"MUSIC\"]}");
+        teacher.setHobbies(new Hobby[0]);
+        assertEquals(teacher.toString(), "{\"hobbies\":[]}");
+        teacher.setHobbies(null);
+        assertEquals(teacher.toString(), "{\"hobbies\":null}");
+    }
+
+    @Test
+    public void testCombineListAndEnum() {
+        final Teacher teacher = new Teacher();
+
+        final Hobby[] teacherHobbies = new Hobby[3];
+        teacherHobbies[0] = Hobby.BOOK;
+        teacherHobbies[1] = Hobby.SPORT;
+        teacherHobbies[2] = Hobby.MUSIC;
+
+        teacher.setHobbies(teacherHobbies);
+
+        final Student john = new Student();
+        john.setHobbies(Arrays.asList(Hobby.BOOK, Hobby.MUSIC));
+
+        final Student alice = new Student();
+        alice.setHobbies(new ArrayList<>());
+
+        final Student bob = new Student();
+        bob.setHobbies(Collections.singletonList(Hobby.BOOK));
+
+        final ArrayList<Student> students = new ArrayList<>();
+        students.add(john);
+        students.add(alice);
+        students.add(bob);
+
+        final AcademyClass academyClass = new AcademyClass();
+        academyClass.setStudents(students);
+        academyClass.setTeacher(teacher);
+
+        assertEquals(academyClass.toString(), "{\"students\":[{\"hobbies\":[\"BOOK\",\"MUSIC\"]},{\"hobbies\":[]},{\"hobbies\":[\"BOOK\"]}],\"teacher\":{\"hobbies\":[\"BOOK\",\"SPORT\",\"MUSIC\"]}}");
+    }
+
+    @Test
     public void testPerson() {
         final Person p = new Person();
         p.name = "Jane Doe";
@@ -233,7 +305,7 @@ public class JsonToStringStyleTest {
 
     @Test
     public void testObjectArray() {
-        final Object[] array = new Object[]{null, base, new int[]{3, 6}};
+        final Object[] array = {null, base, new int[]{3, 6}};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
         assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
@@ -253,7 +325,7 @@ public class JsonToStringStyleTest {
 
     @Test
     public void testLongArray() {
-        final long[] array = new long[]{1, 2, -3, 4};
+        final long[] array = {1, 2, -3, 4};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
         assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
@@ -273,7 +345,7 @@ public class JsonToStringStyleTest {
 
     @Test
     public void testIntArray() {
-        final int[] array = new int[]{1, 2, -3, 4};
+        final int[] array = {1, 2, -3, 4};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
         assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
@@ -293,7 +365,7 @@ public class JsonToStringStyleTest {
 
     @Test
     public void testByteArray() {
-        final byte[] array = new byte[]{1, 2, -3, 4};
+        final byte[] array = {1, 2, -3, 4};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
         assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
@@ -313,7 +385,7 @@ public class JsonToStringStyleTest {
 
     @Test
     public void testShortArray() {
-        final short[] array = new short[]{1, 2, -3, 4};
+        final short[] array = {1, 2, -3, 4};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
         assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
@@ -333,7 +405,7 @@ public class JsonToStringStyleTest {
 
     @Test
     public void testDoubleArray() {
-        final double[] array = new double[]{1, 2, -3, 4};
+        final double[] array = {1, 2, -3, 4};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
         assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
@@ -353,7 +425,7 @@ public class JsonToStringStyleTest {
 
     @Test
     public void testFloatArray() {
-        final float[] array = new float[]{1, 2, -3, 4};
+        final float[] array = {1, 2, -3, 4};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
         assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
@@ -373,7 +445,7 @@ public class JsonToStringStyleTest {
 
     @Test
     public void testCharArray() {
-        final char[] array = new char[]{'1', '2', '3', '4'};
+        final char[] array = {'1', '2', '3', '4'};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
         assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
@@ -393,7 +465,7 @@ public class JsonToStringStyleTest {
 
     @Test
     public void testBooleanArray() {
-        final boolean[] array = new boolean[]{true, false};
+        final boolean[] array = {true, false};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
         assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
@@ -413,7 +485,7 @@ public class JsonToStringStyleTest {
 
     @Test
     public void testLongArrayArray() {
-        final long[][] array = new long[][]{{1, 2}, null, {5}};
+        final long[][] array = {{1, 2}, null, {5}};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
         assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
@@ -462,9 +534,72 @@ public class JsonToStringStyleTest {
         assertEquals("{\"Let's \\\"quote\\\" this\":\"value\"}", new ToStringBuilder(base).append("Let's \"quote\" this", "value").toString());
     }
 
+    @Test
+    public void testRootMap() {
+        final Map<String, Object> map = new LinkedHashMap<>();
+        map.put("k1", "v1");
+        map.put("k2", 2);
+
+        assertEquals("{\"map\":{\"k1\":\"v1\",\"k2\":2}}",
+                new ToStringBuilder(base).append("map", map).toString());
+    }
+
+    @Test
+    public void testObjectWithInnerMap() {
+        final Map<String, Object> map = new LinkedHashMap<>();
+        map.put("k1", "value1");
+        map.put("k2", 2);
+
+        final InnerMapObject object = new InnerMapObject(){
+            @Override
+            public String toString() {
+                return new ToStringBuilder(this).append("pid", this.pid)
+                        .append("map", this.map).toString();
+            }
+        };
+        object.pid = "dummy-text";
+        object.map = map;
+
+        assertEquals("{\"object\":{\"pid\":\"dummy-text\",\"map\":{\"k1\":\"value1\",\"k2\":2}}}",
+                new ToStringBuilder(base).append("object", object).toString());
+    }
+
+    @Test
+    public void testNestedMaps() {
+        final Map<String, Object> innerMap = new LinkedHashMap<>();
+        innerMap.put("k2.1", "v2.1");
+        innerMap.put("k2.2", "v2.2");
+        final Map<String, Object> baseMap = new LinkedHashMap<>();
+        baseMap.put("k1", "v1");
+        baseMap.put("k2", innerMap);
+
+        final InnerMapObject object = new InnerMapObject(){
+            @Override
+            public String toString() {
+                return new ToStringBuilder(this).append("pid", this.pid)
+                        .append("map", this.map).toString();
+            }
+        };
+        object.pid = "dummy-text";
+        object.map = baseMap;
+
+        assertEquals("{\"object\":{\"pid\":\"dummy-text\",\"map\":{\"k1\":\"v1\"," +
+                        "\"k2\":{\"k2.1\":\"v2.1\",\"k2.2\":\"v2.2\"}}}}",
+                new ToStringBuilder(base).append("object", object).toString());
+    }
+
+    @Test
+    public void testMapSkipNullKey() {
+        final Map<String, Object> map = new LinkedHashMap<>();
+        map.put("k1", "v1");
+        map.put(null, "v2");
+
+        assertEquals("{\"map\":{\"k1\":\"v1\"}}",
+                new ToStringBuilder(base).append("map", map).toString());
+    }
+
     /**
-     * An object with nested object structures used to test {@link ToStringStyle.JsonToStringStyle}.
-     *
+     * An object with nested object structures used to test {@code ToStringStyle.JsonToStringStyle}.
      */
     static class NestingPerson {
         /**
@@ -476,5 +611,89 @@ public class JsonToStringStyleTest {
          * Test nested object field.
          */
         Person person;
+    }
+
+    enum Hobby {
+        SPORT,
+        BOOK,
+        MUSIC
+    }
+
+    enum EmptyEnum {
+    }
+
+    static class Student {
+        List<Hobby> hobbies;
+
+        public List<Hobby> getHobbies() {
+            return hobbies;
+        }
+
+        public void setHobbies(final List<Hobby> hobbies) {
+            this.hobbies = hobbies;
+        }
+
+        @Override
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this);
+        }
+    }
+
+    static class Teacher {
+        Hobby[] hobbies;
+
+        public Hobby[] getHobbies() {
+            return hobbies;
+        }
+
+        public void setHobbies(final Hobby[] hobbies) {
+            this.hobbies = hobbies;
+        }
+
+        @Override
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this);
+        }
+    }
+
+    static class AcademyClass {
+        Teacher teacher;
+        List<Student> students;
+
+        public void setTeacher(final Teacher teacher) {
+            this.teacher = teacher;
+        }
+
+        public void setStudents(final List<Student> students) {
+            this.students = students;
+        }
+
+        public Teacher getTeacher() {
+            return teacher;
+        }
+
+        public List<Student> getStudents() {
+            return students;
+        }
+
+        @Override
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this);
+        }
+    }
+
+    /**
+     * An object with a Map field used to test {@code ToStringStyle.JsonToStringStyle}.
+     */
+    static class InnerMapObject {
+        /**
+         * Test String field.
+         */
+        String pid;
+
+        /**
+         * Test inner map field.
+         */
+        Map<String, Object> map;
     }
 }

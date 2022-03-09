@@ -18,15 +18,16 @@
  */
 package org.apache.commons.lang3;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-
 import static org.apache.commons.lang3.JavaVersion.JAVA_0_9;
 import static org.apache.commons.lang3.JavaVersion.JAVA_10;
 import static org.apache.commons.lang3.JavaVersion.JAVA_11;
 import static org.apache.commons.lang3.JavaVersion.JAVA_12;
 import static org.apache.commons.lang3.JavaVersion.JAVA_13;
+import static org.apache.commons.lang3.JavaVersion.JAVA_14;
+import static org.apache.commons.lang3.JavaVersion.JAVA_15;
+import static org.apache.commons.lang3.JavaVersion.JAVA_16;
+import static org.apache.commons.lang3.JavaVersion.JAVA_17;
+import static org.apache.commons.lang3.JavaVersion.JAVA_18;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_1;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_2;
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_3;
@@ -42,6 +43,10 @@ import static org.apache.commons.lang3.JavaVersion.getJavaVersion;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.JavaVersion}.
@@ -65,10 +70,15 @@ public class JavaVersionTest {
         assertEquals(JAVA_11, get("11.0.2"), "11.0.2 failed");
         assertEquals(JAVA_12, get("12"), "12 failed");
         assertEquals(JAVA_13, get("13"), "13 failed");
+        assertEquals(JAVA_14, get("14"), "14 failed");
+        assertEquals(JAVA_15, get("15"), "15 failed");
+        assertEquals(JAVA_16, get("16"), "16 failed");
+        assertEquals(JAVA_17, get("17"), "17 failed");
+        assertEquals(JAVA_18, get("18"), "18 failed");
         assertEquals(JAVA_RECENT, get("1.10"), "1.10 failed");
         // assertNull("2.10 unexpectedly worked", get("2.10"));
         assertEquals(get("1.5"), getJavaVersion("1.5"), "Wrapper method failed");
-        assertEquals(JAVA_RECENT, get("14"), "Unhandled"); // LANG-1384
+        assertEquals(JAVA_RECENT, get("19"), "Unhandled"); // LANG-1384
     }
 
     @Test

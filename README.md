@@ -25,7 +25,7 @@
  | commons-build-plugin/trunk/src/main/resources/commons-xdoc-templates |
  +======================================================================+
  |                                                                      |
- | 1) Re-generate using: mvn commons:readme-md                          |
+ | 1) Re-generate using: mvn commons-build:readme-md                    |
  |                                                                      |
  | 2) Set the following properties in the component's pom:              |
  |    - commons.componentid (required, alphabetic, lower case)          |
@@ -43,10 +43,11 @@
 Apache Commons Lang
 ===================
 
-[![Build Status](https://travis-ci.org/apache/commons-lang.svg)](https://travis-ci.org/apache/commons-lang)
+[![GitHub Actions Status](https://github.com/apache/commons-lang/workflows/Java%20CI/badge.svg)](https://github.com/apache/commons-lang/actions)
 [![Coverage Status](https://coveralls.io/repos/apache/commons-lang/badge.svg)](https://coveralls.io/r/apache/commons-lang)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-lang3/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-lang3/)
-[![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-lang3/3.9.svg)](https://javadoc.io/doc/org.apache.commons/commons-lang3/3.9)
+[![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-lang3/3.12.0.svg)](https://javadoc.io/doc/org.apache.commons/commons-lang3/3.12.0)
+[![CodeQL](https://github.com/apache/commons-lang/workflows/CodeQL/badge.svg)](https://github.com/apache/commons-lang/actions?query=workflow%3ACodeQL)
 
 Apache Commons Lang, a package of Java utility classes for the
   classes that are in java.lang's hierarchy, or are considered to be so
@@ -55,13 +56,13 @@ Apache Commons Lang, a package of Java utility classes for the
 Documentation
 -------------
 
-More information can be found on the [Apache Commons Lang homepage](https://commons.apache.org/proper/commons-lang/).
-The [Javadoc](https://commons.apache.org/proper/commons-lang/javadocs/api-release/) can be browsed.
+More information can be found on the [Apache Commons Lang homepage](https://commons.apache.org/proper/commons-lang).
+The [Javadoc](https://commons.apache.org/proper/commons-lang/apidocs) can be browsed.
 Questions related to the usage of Apache Commons Lang should be posted to the [user mailing list][ml].
 
 Where can I get the latest release?
 -----------------------------------
-You can download source and binaries from our [download page](https://commons.apache.org/proper/commons-lang3/download_lang3.cgi).
+You can download source and binaries from our [download page](https://commons.apache.org/proper/commons-lang/download_lang.cgi).
 
 Alternatively you can pull it from the central Maven repositories:
 
@@ -69,7 +70,7 @@ Alternatively you can pull it from the central Maven repositories:
 <dependency>
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-lang3</artifactId>
-  <version>3.9</version>
+  <version>3.12.0</version>
 </dependency>
 ```
 

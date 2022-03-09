@@ -21,11 +21,18 @@ import java.nio.charset.Charset;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Set;
+import java.util.StringJoiner;
+import java.util.function.Supplier;
 import java.util.regex.Pattern;
+
+import org.apache.commons.lang3.function.Suppliers;
+import org.apache.commons.lang3.function.ToBooleanBiFunction;
 
 /**
  * <p>Operations on {@link java.lang.String} that are
@@ -37,17 +44,17 @@ import java.util.regex.Pattern;
  *  <li><b>Trim/Strip</b>
  *      - removes leading and trailing whitespace</li>
  *  <li><b>Equals/Compare</b>
- *      - compares two strings null-safe</li>
+ *      - compares two strings in a null-safe manner</li>
  *  <li><b>startsWith</b>
- *      - check if a String starts with a prefix null-safe</li>
+ *      - check if a String starts with a prefix in a null-safe manner</li>
  *  <li><b>endsWith</b>
- *      - check if a String ends with a suffix null-safe</li>
+ *      - check if a String ends with a suffix in a null-safe manner</li>
  *  <li><b>IndexOf/LastIndexOf/Contains</b>
  *      - null-safe index-of checks
  *  <li><b>IndexOfAny/LastIndexOfAny/IndexOfAnyBut/LastIndexOfAnyBut</b>
  *      - index-of any of a set of Strings</li>
  *  <li><b>ContainsOnly/ContainsNone/ContainsAny</b>
- *      - does String contains only/none/any of these characters</li>
+ *      - checks if String contains only/none/any of these characters</li>
  *  <li><b>Substring/Left/Right/Mid</b>
  *      - null-safe substring extractions</li>
  *  <li><b>SubstringBefore/SubstringAfter/SubstringBetween</b>
@@ -79,7 +86,7 @@ import java.util.regex.Pattern;
  *  <li><b>Reverse/ReverseDelimited</b>
  *      - reverses a String</li>
  *  <li><b>Abbreviate</b>
- *      - abbreviates a string using ellipsis or another given String</li>
+ *      - abbreviates a string using ellipses or another given String</li>
  *  <li><b>Difference</b>
  *      - compares Strings and reports on their differences</li>
  *  <li><b>LevenshteinDistance</b>
@@ -106,7 +113,7 @@ import java.util.regex.Pattern;
  * {@code NullPointerException} should be considered a bug in
  * {@code StringUtils}.</p>
  *
- * <p>Methods in this class give sample code to explain their operation.
+ * <p>Methods in this class include sample code in their Javadoc comments to explain their operation.
  * The symbol {@code *} is used to indicate any input including {@code null}.</p>
  *
  * <p>#ThreadSafe#</p>
@@ -176,8 +183,11 @@ public class StringUtils {
      */
     private static final int PAD_LIMIT = 8192;
 
-    // Abbreviating
-    //-----------------------------------------------------------------------
+    /**
+     * Pattern used in {@link #stripAccents(String)}.
+     */
+    private static final Pattern STRIP_ACCENTS_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+"); //$NON-NLS-1$
+
     /**
      * <p>Abbreviates a String using ellipses. This will turn
      * "Now is the time for all good men" into "Now is the time for..."</p>
@@ -210,8 +220,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String abbreviate(final String str, final int maxWidth) {
-        final String defaultAbbrevMarker = "...";
-        return abbreviate(str, defaultAbbrevMarker, 0, maxWidth);
+        return abbreviate(str, "...", 0, maxWidth);
     }
 
     /**
@@ -250,8 +259,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String abbreviate(final String str, final int offset, final int maxWidth) {
-        final String defaultAbbrevMarker = "...";
-        return abbreviate(str, defaultAbbrevMarker, offset, maxWidth);
+        return abbreviate(str, "...", offset, maxWidth);
     }
 
     /**
@@ -293,7 +301,6 @@ public class StringUtils {
     public static String abbreviate(final String str, final String abbrevMarker, final int maxWidth) {
         return abbreviate(str, abbrevMarker, 0, maxWidth);
     }
-
     /**
      * <p>Abbreviates a String using a given replacement marker. This will turn
      * "Now is the time for all good men" into "...is the time for..." if "..." was defined
@@ -332,10 +339,12 @@ public class StringUtils {
      * @since 3.6
      */
     public static String abbreviate(final String str, final String abbrevMarker, int offset, final int maxWidth) {
-        if (isEmpty(str) || isEmpty(abbrevMarker)) {
+        if (isNotEmpty(str) && EMPTY.equals(abbrevMarker) && maxWidth > 0) {
+            return substring(str, 0, maxWidth);
+        }
+        if (isAnyEmpty(str, abbrevMarker)) {
             return str;
         }
-
         final int abbrevMarkerLength = abbrevMarker.length();
         final int minAbbrevWidth = abbrevMarkerLength + 1;
         final int minAbbrevWidthOffset = abbrevMarkerLength + abbrevMarkerLength + 1;
@@ -343,14 +352,15 @@ public class StringUtils {
         if (maxWidth < minAbbrevWidth) {
             throw new IllegalArgumentException(String.format("Minimum abbreviation width is %d", minAbbrevWidth));
         }
-        if (str.length() <= maxWidth) {
+        final int strLen = str.length();
+        if (strLen <= maxWidth) {
             return str;
         }
-        if (offset > str.length()) {
-            offset = str.length();
+        if (offset > strLen) {
+            offset = strLen;
         }
-        if (str.length() - offset < maxWidth - abbrevMarkerLength) {
-            offset = str.length() - (maxWidth - abbrevMarkerLength);
+        if (strLen - offset < maxWidth - abbrevMarkerLength) {
+            offset = strLen - (maxWidth - abbrevMarkerLength);
         }
         if (offset <= abbrevMarkerLength+1) {
             return str.substring(0, maxWidth - abbrevMarkerLength) + abbrevMarker;
@@ -358,10 +368,10 @@ public class StringUtils {
         if (maxWidth < minAbbrevWidthOffset) {
             throw new IllegalArgumentException(String.format("Minimum abbreviation width with offset is %d", minAbbrevWidthOffset));
         }
-        if (offset + maxWidth - abbrevMarkerLength < str.length()) {
+        if (offset + maxWidth - abbrevMarkerLength < strLen) {
             return abbrevMarker + abbreviate(str.substring(offset), abbrevMarker, maxWidth - abbrevMarkerLength);
         }
-        return abbrevMarker + str.substring(str.length() - (maxWidth - abbrevMarkerLength));
+        return abbrevMarker + str.substring(strLen - (maxWidth - abbrevMarkerLength));
     }
 
     /**
@@ -394,11 +404,7 @@ public class StringUtils {
      * @since 2.5
      */
     public static String abbreviateMiddle(final String str, final String middle, final int length) {
-        if (isEmpty(str) || isEmpty(middle)) {
-            return str;
-        }
-
-        if (length >= str.length() || length < middle.length()+2) {
+        if (isAnyEmpty(str, middle) || length >= str.length() || length < middle.length()+2) {
             return str;
         }
 
@@ -426,7 +432,7 @@ public class StringUtils {
         if (str == null || isEmpty(suffix) || endsWith(str, suffix, ignoreCase)) {
             return str;
         }
-        if (suffixes != null && suffixes.length > 0) {
+        if (ArrayUtils.isNotEmpty(suffixes)) {
             for (final CharSequence s : suffixes) {
                 if (endsWith(str, s, ignoreCase)) {
                     return str;
@@ -493,7 +499,7 @@ public class StringUtils {
      * StringUtils.appendIfMissingIgnoreCase("", "xyz", null) = "xyz"
      * StringUtils.appendIfMissingIgnoreCase("abc", "xyz", new CharSequence[]{null}) = "abcxyz"
      * StringUtils.appendIfMissingIgnoreCase("abc", "xyz", "") = "abc"
-     * StringUtils.appendIfMissingIgnoreCase("abc", "xyz", "mno") = "axyz"
+     * StringUtils.appendIfMissingIgnoreCase("abc", "xyz", "mno") = "abcxyz"
      * StringUtils.appendIfMissingIgnoreCase("abcxyz", "xyz", "mno") = "abcxyz"
      * StringUtils.appendIfMissingIgnoreCase("abcmno", "xyz", "mno") = "abcmno"
      * StringUtils.appendIfMissingIgnoreCase("abcXYZ", "xyz", "mno") = "abcXYZ"
@@ -516,7 +522,7 @@ public class StringUtils {
      * <p>Capitalizes a String changing the first character to title case as
      * per {@link Character#toTitleCase(int)}. No other characters are changed.</p>
      *
-     * <p>For a word based algorithm, see {@link org.apache.commons.lang3.text.WordUtils#capitalize(String)}.
+     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#capitalize(String)}.
      * A {@code null} input String returns {@code null}.</p>
      *
      * <pre>
@@ -529,13 +535,13 @@ public class StringUtils {
      *
      * @param str the String to capitalize, may be null
      * @return the capitalized String, {@code null} if null String input
-     * @see org.apache.commons.lang3.text.WordUtils#capitalize(String)
+     * @see org.apache.commons.text.WordUtils#capitalize(String)
      * @see #uncapitalize(String)
      * @since 2.0
      */
     public static String capitalize(final String str) {
-        int strLen;
-        if (str == null || (strLen = str.length()) == 0) {
+        final int strLen = length(str);
+        if (strLen == 0) {
             return str;
         }
 
@@ -546,7 +552,7 @@ public class StringUtils {
             return str;
         }
 
-        final int newCodePoints[] = new int[strLen]; // cannot be longer than the char array
+        final int[] newCodePoints = new int[strLen]; // cannot be longer than the char array
         int outOffset = 0;
         newCodePoints[outOffset++] = newCodePoint; // copy the first codepoint
         for (int inOffset = Character.charCount(firstCodepoint); inOffset < strLen; ) {
@@ -557,13 +563,11 @@ public class StringUtils {
         return new String(newCodePoints, 0, outOffset);
     }
 
-    // Centering
-    //-----------------------------------------------------------------------
     /**
      * <p>Centers a String in a larger String of size {@code size}
      * using the space character (' ').</p>
      *
-     * <p>If the size is less than the String length, the String is returned.
+     * <p>If the size is less than the String length, the original String is returned.
      * A {@code null} String returns {@code null}.
      * A negative size is treated as zero.</p>
      *
@@ -667,8 +671,6 @@ public class StringUtils {
         return str;
     }
 
-    // Chomping
-    //-----------------------------------------------------------------------
     /**
      * <p>Removes one newline from end of a String if it's there,
      * otherwise leave it alone.  A newline is &quot;{@code \n}&quot;,
@@ -752,8 +754,6 @@ public class StringUtils {
         return removeEnd(str, separator);
     }
 
-    // Chopping
-    //-----------------------------------------------------------------------
     /**
      * <p>Remove the last character from a String.</p>
      *
@@ -794,8 +794,6 @@ public class StringUtils {
         return ret;
     }
 
-    // Compare
-    //-----------------------------------------------------------------------
     /**
      * <p>Compare two Strings lexicographically, as per {@link String#compareTo(String)}, returning :</p>
      * <ul>
@@ -867,7 +865,7 @@ public class StringUtils {
      * @since 3.5
      */
     public static int compare(final String str1, final String str2, final boolean nullIsLess) {
-        if (str1 == str2) {
+        if (str1 == str2) { // NOSONARLINT this intentionally uses == to allow for both null
             return 0;
         }
         if (str1 == null) {
@@ -960,7 +958,7 @@ public class StringUtils {
      * @since 3.5
      */
     public static int compareIgnoreCase(final String str1, final String str2, final boolean nullIsLess) {
-        if (str1 == str2) {
+        if (str1 == str2) { // NOSONARLINT this intentionally uses == to allow for both null
             return 0;
         }
         if (str1 == null) {
@@ -1001,8 +999,6 @@ public class StringUtils {
         return CharSequenceUtils.indexOf(seq, searchSeq, 0) >= 0;
     }
 
-    // Contains
-    //-----------------------------------------------------------------------
     /**
      * <p>Checks if CharSequence contains a search character, handling {@code null}.
      * This method uses {@link String#indexOf(int)} if possible.</p>
@@ -1030,8 +1026,6 @@ public class StringUtils {
         return CharSequenceUtils.indexOf(seq, searchChar, 0) >= 0;
     }
 
-    // ContainsAny
-    //-----------------------------------------------------------------------
     /**
      * <p>Checks if the CharSequence contains any character in the given
      * set of characters.</p>
@@ -1069,16 +1063,15 @@ public class StringUtils {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLength; j++) {
                 if (searchChars[j] == ch) {
-                    if (Character.isHighSurrogate(ch)) {
-                        if (j == searchLast) {
-                            // missing low surrogate, fine, like String.indexOf(String)
-                            return true;
-                        }
-                        if (i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
-                            return true;
-                        }
-                    } else {
+                    if (!Character.isHighSurrogate(ch)) {
                         // ch is in the Basic Multilingual Plane
+                        return true;
+                    }
+                    if (j == searchLast) {
+                        // missing low surrogate, fine, like String.indexOf(String)
+                        return true;
+                    }
+                    if (i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
                         return true;
                     }
                 }
@@ -1126,11 +1119,13 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if the CharSequence contains any of the CharSequences in the given array.</p>
+     * <p>
+     * Checks if the CharSequence contains any of the CharSequences in the given array.
+     * </p>
      *
      * <p>
-     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero
-     * length search array will return {@code false}.
+     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
+     * return {@code false}.
      * </p>
      *
      * <pre>
@@ -1145,21 +1140,75 @@ public class StringUtils {
      *
      *
      * @param cs The CharSequence to check, may be null
-     * @param searchCharSequences The array of CharSequences to search for, may be null.
-     * Individual CharSequences may be null as well.
+     * @param searchCharSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
+     *        null as well.
      * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
      * @since 3.4
      */
     public static boolean containsAny(final CharSequence cs, final CharSequence... searchCharSequences) {
+        return containsAny(StringUtils::contains, cs, searchCharSequences);
+    }
+
+    /**
+     * <p>
+     * Checks if the CharSequence contains any of the CharSequences in the given array.
+     * </p>
+     *
+     * <p>
+     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
+     * return {@code false}.
+     * </p>
+     *
+     * @param cs The CharSequence to check, may be null
+     * @param searchCharSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
+     *        null as well.
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
+     * @since 3.12.0
+     */
+    private static boolean containsAny(final ToBooleanBiFunction<CharSequence, CharSequence> test,
+        final CharSequence cs, final CharSequence... searchCharSequences) {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchCharSequences)) {
             return false;
         }
         for (final CharSequence searchCharSequence : searchCharSequences) {
-            if (contains(cs, searchCharSequence)) {
+            if (test.applyAsBoolean(cs, searchCharSequence)) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * <p>
+     * Checks if the CharSequence contains any of the CharSequences in the given array, ignoring case.
+     * </p>
+     *
+     * <p>
+     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
+     * return {@code false}.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.containsAny(null, *)            = false
+     * StringUtils.containsAny("", *)              = false
+     * StringUtils.containsAny(*, null)            = false
+     * StringUtils.containsAny(*, [])              = false
+     * StringUtils.containsAny("abcd", "ab", null) = true
+     * StringUtils.containsAny("abcd", "ab", "cd") = true
+     * StringUtils.containsAny("abc", "d", "abc")  = true
+     * StringUtils.containsAny("abc", "D", "ABC")  = true
+     * StringUtils.containsAny("ABC", "d", "abc")  = true
+     * </pre>
+     *
+     *
+     * @param cs The CharSequence to check, may be null
+     * @param searchCharSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
+     *        null as well.
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
+     * @since 3.12.0
+     */
+    public static boolean containsAnyIgnoreCase(final CharSequence cs, final CharSequence... searchCharSequences) {
+        return containsAny(StringUtils::containsIgnoreCase, cs, searchCharSequences);
     }
 
     /**
@@ -1200,8 +1249,6 @@ public class StringUtils {
         return false;
     }
 
-    // ContainsNone
-    //-----------------------------------------------------------------------
     /**
      * <p>Checks that the CharSequence does not contain certain characters.</p>
      *
@@ -1237,16 +1284,15 @@ public class StringUtils {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
-                    if (Character.isHighSurrogate(ch)) {
-                        if (j == searchLast) {
-                            // missing low surrogate, fine, like String.indexOf(String)
-                            return false;
-                        }
-                        if (i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
-                            return false;
-                        }
-                    } else {
+                    if (!Character.isHighSurrogate(ch)) {
                         // ch is in the Basic Multilingual Plane
+                        return false;
+                    }
+                    if (j == searchLast) {
+                        // missing low surrogate, fine, like String.indexOf(String)
+                        return false;
+                    }
+                    if (i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
                         return false;
                     }
                 }
@@ -1279,14 +1325,12 @@ public class StringUtils {
      * @since 3.0 Changed signature from containsNone(String, String) to containsNone(CharSequence, String)
      */
     public static boolean containsNone(final CharSequence cs, final String invalidChars) {
-        if (cs == null || invalidChars == null) {
+        if (invalidChars == null) {
             return true;
         }
         return containsNone(cs, invalidChars.toCharArray());
     }
 
-    // ContainsOnly
-    //-----------------------------------------------------------------------
     /**
      * <p>Checks if the CharSequence contains only certain characters.</p>
      *
@@ -1380,11 +1424,9 @@ public class StringUtils {
     private static void convertRemainingAccentCharacters(final StringBuilder decomposed) {
         for (int i = 0; i < decomposed.length(); i++) {
             if (decomposed.charAt(i) == '\u0141') {
-                decomposed.deleteCharAt(i);
-                decomposed.insert(i, 'L');
+                decomposed.setCharAt(i, 'L');
             } else if (decomposed.charAt(i) == '\u0142') {
-                decomposed.deleteCharAt(i);
-                decomposed.insert(i, 'l');
+                decomposed.setCharAt(i, 'l');
             }
         }
     }
@@ -1422,10 +1464,9 @@ public class StringUtils {
         return count;
     }
 
-    // Count matches
-    //-----------------------------------------------------------------------
     /**
-     * <p>Counts how many times the substring appears in the larger string.</p>
+     * <p>Counts how many times the substring appears in the larger string.
+     * Note that the code only counts non-overlapping matches.</p>
      *
      * <p>A {@code null} or empty ("") String input returns {@code 0}.</p>
      *
@@ -1437,6 +1478,7 @@ public class StringUtils {
      * StringUtils.countMatches("abba", "a")   = 2
      * StringUtils.countMatches("abba", "ab")  = 1
      * StringUtils.countMatches("abba", "xxx") = 0
+     * StringUtils.countMatches("ababa", "aba") = 1
      * </pre>
      *
      * @param str  the CharSequence to check, may be null
@@ -1481,7 +1523,6 @@ public class StringUtils {
         return isBlank(str) ? defaultStr : str;
     }
 
-
     /**
      * <p>Returns either the passed in CharSequence, or if the CharSequence is
      * empty or {@code null}, the value of {@code defaultStr}.</p>
@@ -1504,8 +1545,6 @@ public class StringUtils {
         return isEmpty(str) ? defaultStr : str;
     }
 
-    // Defaults
-    //-----------------------------------------------------------------------
     /**
      * <p>Returns either the passed in String,
      * or if the String is {@code null}, an empty String ("").</p>
@@ -1516,19 +1555,19 @@ public class StringUtils {
      * StringUtils.defaultString("bat") = "bat"
      * </pre>
      *
-     * @see ObjectUtils#toString(Object)
+     * @see Objects#toString(Object, String)
      * @see String#valueOf(Object)
      * @param str  the String to check, may be null
      * @return the passed in String, or the empty String if it
      *  was {@code null}
      */
     public static String defaultString(final String str) {
-        return defaultString(str, EMPTY);
+        return Objects.toString(str, EMPTY);
     }
 
     /**
-     * <p>Returns either the passed in String, or if the String is
-     * {@code null}, the value of {@code defaultStr}.</p>
+     * Returns either the given String, or if the String is
+     * {@code null}, {@code nullDefault}.
      *
      * <pre>
      * StringUtils.defaultString(null, "NULL")  = "NULL"
@@ -1536,19 +1575,19 @@ public class StringUtils {
      * StringUtils.defaultString("bat", "NULL") = "bat"
      * </pre>
      *
-     * @see ObjectUtils#toString(Object,String)
+     * @see Objects#toString(Object, String)
      * @see String#valueOf(Object)
      * @param str  the String to check, may be null
-     * @param defaultStr  the default String to return
+     * @param nullDefault  the default String to return
      *  if the input is {@code null}, may be null
      * @return the passed in String, or the default if it was {@code null}
+     * @deprecated Use {@link Objects#toString(Object, String)}
      */
-    public static String defaultString(final String str, final String defaultStr) {
-        return str == null ? defaultStr : str;
+    @Deprecated
+    public static String defaultString(final String str, final String nullDefault) {
+        return Objects.toString(str, nullDefault);
     }
 
-    // Delete
-    //-----------------------------------------------------------------------
     /**
      * <p>Deletes all whitespaces from a String as defined by
      * {@link Character#isWhitespace(char)}.</p>
@@ -1578,11 +1617,12 @@ public class StringUtils {
         if (count == sz) {
             return str;
         }
+        if (count == 0) {
+            return EMPTY;
+        }
         return new String(chs, 0, count);
     }
 
-    // Difference
-    //-----------------------------------------------------------------------
     /**
      * <p>Compares two Strings, and returns the portion where they differ.
      * More precisely, return the remainder of the second String,
@@ -1735,8 +1775,6 @@ public class StringUtils {
         return endsWith(str, suffix, true);
     }
 
-    // Equals
-    //-----------------------------------------------------------------------
     /**
      * <p>Compares two CharSequences, returning {@code true} if they represent
      * equal sequences of characters.</p>
@@ -1783,8 +1821,8 @@ public class StringUtils {
     }
 
     /**
-     * <p>Compares given <code>string</code> to a CharSequences vararg of <code>searchStrings</code>,
-     * returning {@code true} if the <code>string</code> is equal to any of the <code>searchStrings</code>.</p>
+     * <p>Compares given {@code string} to a CharSequences vararg of {@code searchStrings},
+     * returning {@code true} if the {@code string} is equal to any of the {@code searchStrings}.</p>
      *
      * <pre>
      * StringUtils.equalsAny(null, (CharSequence[]) null) = false
@@ -1797,8 +1835,8 @@ public class StringUtils {
      *
      * @param string to compare, may be {@code null}.
      * @param searchStrings a vararg of strings, may be {@code null}.
-     * @return {@code true} if the string is equal (case-sensitive) to any other element of <code>searchStrings</code>;
-     * {@code false} if <code>searchStrings</code> is null or contains no matches.
+     * @return {@code true} if the string is equal (case-sensitive) to any other element of {@code searchStrings};
+     * {@code false} if {@code searchStrings} is null or contains no matches.
      * @since 3.5
      */
     public static boolean equalsAny(final CharSequence string, final CharSequence... searchStrings) {
@@ -1813,8 +1851,8 @@ public class StringUtils {
     }
 
     /**
-     * <p>Compares given <code>string</code> to a CharSequences vararg of <code>searchStrings</code>,
-     * returning {@code true} if the <code>string</code> is equal to any of the <code>searchStrings</code>, ignoring case.</p>
+     * <p>Compares given {@code string} to a CharSequences vararg of {@code searchStrings},
+     * returning {@code true} if the {@code string} is equal to any of the {@code searchStrings}, ignoring case.</p>
      *
      * <pre>
      * StringUtils.equalsAnyIgnoreCase(null, (CharSequence[]) null) = false
@@ -1827,8 +1865,8 @@ public class StringUtils {
      *
      * @param string to compare, may be {@code null}.
      * @param searchStrings a vararg of strings, may be {@code null}.
-     * @return {@code true} if the string is equal (case-insensitive) to any other element of <code>searchStrings</code>;
-     * {@code false} if <code>searchStrings</code> is null or contains no matches.
+     * @return {@code true} if the string is equal (case-insensitive) to any other element of {@code searchStrings};
+     * {@code false} if {@code searchStrings} is null or contains no matches.
      * @since 3.5
      */
     public static boolean equalsAnyIgnoreCase(final CharSequence string, final CharSequence...searchStrings) {
@@ -1980,7 +2018,7 @@ public class StringUtils {
      * characters that is common to all of them.</p>
      *
      * <p>For example,
-     * <code>getCommonPrefix(new String[] {"i am a machine", "i am a robot"}) -&gt; "i am a "</code></p>
+     * {@code getCommonPrefix(new String[] {"i am a machine", "i am a robot"}) -&gt; "i am a "}</p>
      *
      * <pre>
      * StringUtils.getCommonPrefix(null) = ""
@@ -2009,7 +2047,7 @@ public class StringUtils {
      * @since 2.4
      */
     public static String getCommonPrefix(final String... strs) {
-        if (strs == null || strs.length == 0) {
+        if (ArrayUtils.isEmpty(strs)) {
             return EMPTY;
         }
         final int smallestIndexOfDiff = indexOfDifference(strs);
@@ -2019,13 +2057,13 @@ public class StringUtils {
                 return EMPTY;
             }
             return strs[0];
-        } else if (smallestIndexOfDiff == 0) {
+        }
+        if (smallestIndexOfDiff == 0) {
             // there were no common initial characters
             return EMPTY;
-        } else {
-            // we found a common initial character sequence
-            return strs[0].substring(0, smallestIndexOfDiff);
         }
+        // we found a common initial character sequence
+        return strs[0].substring(0, smallestIndexOfDiff);
     }
 
     /**
@@ -2090,7 +2128,7 @@ public class StringUtils {
      * @return result score
      * @throws IllegalArgumentException if either String input {@code null} or Locale input {@code null}
      * @since 3.4
-     * @deprecated as of 3.6, use commons-text
+     * @deprecated As of 3.6, use Apache Commons Text
      * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/FuzzyScore.html">
      * FuzzyScore</a> instead
      */
@@ -2098,7 +2136,8 @@ public class StringUtils {
     public static int getFuzzyDistance(final CharSequence term, final CharSequence query, final Locale locale) {
         if (term == null || query == null) {
             throw new IllegalArgumentException("Strings must not be null");
-        } else if (locale == null) {
+        }
+        if (locale == null) {
             throw new IllegalArgumentException("Locale must not be null");
         }
 
@@ -2149,6 +2188,63 @@ public class StringUtils {
     }
 
     /**
+     * <p>Returns either the passed in CharSequence, or if the CharSequence is
+     * whitespace, empty ("") or {@code null}, the value supplied by {@code defaultStrSupplier}.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <p>Caller responsible for thread-safety and exception handling of default value supplier</p>
+     *
+     * <pre>
+     * {@code
+     * StringUtils.getIfBlank(null, () -> "NULL")   = "NULL"
+     * StringUtils.getIfBlank("", () -> "NULL")     = "NULL"
+     * StringUtils.getIfBlank(" ", () -> "NULL")    = "NULL"
+     * StringUtils.getIfBlank("bat", () -> "NULL")  = "bat"
+     * StringUtils.getIfBlank("", () -> null)       = null
+     * StringUtils.getIfBlank("", null)             = null
+     * }</pre>
+     * @param <T> the specific kind of CharSequence
+     * @param str the CharSequence to check, may be null
+     * @param defaultSupplier the supplier of default CharSequence to return
+     *  if the input is whitespace, empty ("") or {@code null}, may be null
+     * @return the passed in CharSequence, or the default
+     * @see StringUtils#defaultString(String, String)
+     * @since 3.10
+     */
+    public static <T extends CharSequence> T getIfBlank(final T str, final Supplier<T> defaultSupplier) {
+        return isBlank(str) ? Suppliers.get(defaultSupplier) : str;
+    }
+
+    /**
+     * <p>Returns either the passed in CharSequence, or if the CharSequence is
+     * empty or {@code null}, the value supplied by {@code defaultStrSupplier}.</p>
+     *
+     * <p>Caller responsible for thread-safety and exception handling of default value supplier</p>
+     *
+     * <pre>
+     * {@code
+     * StringUtils.getIfEmpty(null, () -> "NULL")    = "NULL"
+     * StringUtils.getIfEmpty("", () -> "NULL")      = "NULL"
+     * StringUtils.getIfEmpty(" ", () -> "NULL")     = " "
+     * StringUtils.getIfEmpty("bat", () -> "NULL")   = "bat"
+     * StringUtils.getIfEmpty("", () -> null)        = null
+     * StringUtils.getIfEmpty("", null)              = null
+     * }
+     * </pre>
+     * @param <T> the specific kind of CharSequence
+     * @param str  the CharSequence to check, may be null
+     * @param defaultSupplier  the supplier of default CharSequence to return
+     *  if the input is empty ("") or {@code null}, may be null
+     * @return the passed in CharSequence, or the default
+     * @see StringUtils#defaultString(String, String)
+     * @since 3.10
+     */
+    public static <T extends CharSequence> T getIfEmpty(final T str, final Supplier<T> defaultSupplier) {
+        return isEmpty(str) ? Suppliers.get(defaultSupplier) : str;
+    }
+
+    /**
      * <p>Find the Jaro Winkler Distance which indicates the similarity score between two Strings.</p>
      *
      * <p>The Jaro measure is the weighted sum of percentage of matched characters from each file and transposed characters.
@@ -2179,7 +2275,7 @@ public class StringUtils {
      * @return result distance
      * @throws IllegalArgumentException if either String input {@code null}
      * @since 3.3
-     * @deprecated as of 3.6, use commons-text
+     * @deprecated As of 3.6, use Apache Commons Text
      * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/JaroWinklerDistance.html">
      * JaroWinklerDistance</a> instead
      */
@@ -2196,13 +2292,11 @@ public class StringUtils {
         if (m == 0) {
             return 0D;
         }
-        final double j = ((m / first.length() + m / second.length() + (m - mtp[1]) / m)) / 3;
+        final double j = (m / first.length() + m / second.length() + (m - mtp[1]) / m) / 3;
         final double jw = j < 0.7D ? j : j + Math.min(DEFAULT_SCALING_FACTOR, 1D / mtp[3]) * mtp[2] * (1D - j);
         return Math.round(jw * 100.0D) / 100.0D;
     }
 
-    // Misc
-    //-----------------------------------------------------------------------
     /**
      * <p>Find the Levenshtein distance between two Strings.</p>
      *
@@ -2234,7 +2328,7 @@ public class StringUtils {
      * @throws IllegalArgumentException if either String input {@code null}
      * @since 3.0 Changed signature from getLevenshteinDistance(String, String) to
      * getLevenshteinDistance(CharSequence, CharSequence)
-     * @deprecated as of 3.6, use commons-text
+     * @deprecated As of 3.6, use Apache Commons Text
      * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/LevenshteinDistance.html">
      * LevenshteinDistance</a> instead
      */
@@ -2249,7 +2343,8 @@ public class StringUtils {
 
         if (n == 0) {
             return m;
-        } else if (m == 0) {
+        }
+        if (m == 0) {
             return n;
         }
 
@@ -2262,7 +2357,7 @@ public class StringUtils {
             m = t.length();
         }
 
-        final int p[] = new int[n + 1];
+        final int[] p = new int[n + 1];
         // indexes into strings s and t
         int i; // iterates through s
         int j; // iterates through t
@@ -2324,7 +2419,7 @@ public class StringUtils {
      * @param threshold the target threshold, must not be negative
      * @return result distance, or {@code -1} if the distance would be greater than the threshold
      * @throws IllegalArgumentException if either String input {@code null} or negative threshold
-     * @deprecated as of 3.6, use commons-text
+     * @deprecated As of 3.6, use Apache Commons Text
      * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/LevenshteinDistance.html">
      * LevenshteinDistance</a> instead
      */
@@ -2387,9 +2482,11 @@ public class StringUtils {
         // if one string is empty, the edit distance is necessarily the length of the other
         if (n == 0) {
             return m <= threshold ? m : -1;
-        } else if (m == 0) {
+        }
+        if (m == 0) {
             return n <= threshold ? n : -1;
-        } else if (Math.abs(n - m) > threshold) {
+        }
+        if (Math.abs(n - m) > threshold) {
             // no need to calculate the distance if the length difference is greater than the threshold
             return -1;
         }
@@ -2403,9 +2500,9 @@ public class StringUtils {
             m = t.length();
         }
 
-        int p[] = new int[n + 1]; // 'previous' cost array, horizontally
-        int d[] = new int[n + 1]; // cost array, horizontally
-        int _d[]; // placeholder to assist in swapping p and d
+        int[] p = new int[n + 1]; // 'previous' cost array, horizontally
+        int[] d = new int[n + 1]; // cost array, horizontally
+        int[] tmp; // placeholder to assist in swapping p and d
 
         // fill in starting table values
         final int boundary = Math.min(n, threshold) + 1;
@@ -2448,9 +2545,9 @@ public class StringUtils {
             }
 
             // copy current distance counts to 'previous row' distance counts
-            _d = p;
+            tmp = p;
             p = d;
-            d = _d;
+            d = tmp;
         }
 
         // if p[n] is greater than the threshold, there's no guarantee on it being the correct
@@ -2532,25 +2629,23 @@ public class StringUtils {
         return CharSequenceUtils.indexOf(seq, searchSeq, startPos);
     }
 
-    // IndexOf
-    //-----------------------------------------------------------------------
     /**
-     * Returns the index within <code>seq</code> of the first occurrence of
+     * Returns the index within {@code seq} of the first occurrence of
      * the specified character. If a character with value
-     * <code>searchChar</code> occurs in the character sequence represented by
-     * <code>seq</code> <code>CharSequence</code> object, then the index (in Unicode
+     * {@code searchChar} occurs in the character sequence represented by
+     * {@code seq} {@code CharSequence} object, then the index (in Unicode
      * code units) of the first such occurrence is returned. For
-     * values of <code>searchChar</code> in the range from 0 to 0xFFFF
+     * values of {@code searchChar} in the range from 0 to 0xFFFF
      * (inclusive), this is the smallest value <i>k</i> such that:
      * <blockquote><pre>
      * this.charAt(<i>k</i>) == searchChar
      * </pre></blockquote>
-     * is true. For other values of <code>searchChar</code>, it is the
+     * is true. For other values of {@code searchChar}, it is the
      * smallest value <i>k</i> such that:
      * <blockquote><pre>
      * this.codePointAt(<i>k</i>) == searchChar
      * </pre></blockquote>
-     * is true. In either case, if no such character occurs in <code>seq</code>,
+     * is true. In either case, if no such character occurs in {@code seq},
      * then {@code INDEX_NOT_FOUND (-1)} is returned.
      *
      * <p>Furthermore, a {@code null} or empty ("") CharSequence will
@@ -2569,7 +2664,7 @@ public class StringUtils {
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, int) to indexOf(CharSequence, int)
-     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like <code>String</code>
+     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like {@code String}
      */
     public static int indexOf(final CharSequence seq, final int searchChar) {
         if (isEmpty(seq)) {
@@ -2580,29 +2675,29 @@ public class StringUtils {
 
     /**
      *
-     * Returns the index within <code>seq</code> of the first occurrence of the
+     * Returns the index within {@code seq} of the first occurrence of the
      * specified character, starting the search at the specified index.
      * <p>
-     * If a character with value <code>searchChar</code> occurs in the
-     * character sequence represented by the <code>seq</code> <code>CharSequence</code>
-     * object at an index no smaller than <code>startPos</code>, then
+     * If a character with value {@code searchChar} occurs in the
+     * character sequence represented by the {@code seq} {@code CharSequence}
+     * object at an index no smaller than {@code startPos}, then
      * the index of the first such occurrence is returned. For values
-     * of <code>searchChar</code> in the range from 0 to 0xFFFF (inclusive),
+     * of {@code searchChar} in the range from 0 to 0xFFFF (inclusive),
      * this is the smallest value <i>k</i> such that:
      * <blockquote><pre>
      * (this.charAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= startPos)
      * </pre></blockquote>
-     * is true. For other values of <code>searchChar</code>, it is the
+     * is true. For other values of {@code searchChar}, it is the
      * smallest value <i>k</i> such that:
      * <blockquote><pre>
      * (this.codePointAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= startPos)
      * </pre></blockquote>
-     * is true. In either case, if no such character occurs in <code>seq</code>
-     * at or after position <code>startPos</code>, then
-     * <code>-1</code> is returned.
+     * is true. In either case, if no such character occurs in {@code seq}
+     * at or after position {@code startPos}, then
+     * {@code -1} is returned.
      *
      * <p>
-     * There is no restriction on the value of <code>startPos</code>. If it
+     * There is no restriction on the value of {@code startPos}. If it
      * is negative, it has the same effect as if it were zero: this entire
      * string may be searched. If it is greater than the length of this
      * string, it has the same effect as if it were equal to the length of
@@ -2610,7 +2705,7 @@ public class StringUtils {
      * {@code null} or empty ("") CharSequence will
      * return {@code (INDEX_NOT_FOUND) -1}.
      *
-     * <p>All indices are specified in <code>char</code> values
+     * <p>All indices are specified in {@code char} values
      * (Unicode code units).
      *
      * <pre>
@@ -2629,7 +2724,7 @@ public class StringUtils {
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, int, int) to indexOf(CharSequence, int, int)
-     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like <code>String</code>
+     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like {@code String}
      */
     public static int indexOf(final CharSequence seq, final int searchChar, final int startPos) {
         if (isEmpty(seq)) {
@@ -2638,8 +2733,6 @@ public class StringUtils {
         return CharSequenceUtils.indexOf(seq, searchChar, startPos);
     }
 
-    // IndexOfAny chars
-    //-----------------------------------------------------------------------
     /**
      * <p>Search a CharSequence to find the first index of any
      * character in the given set of characters.</p>
@@ -2675,12 +2768,11 @@ public class StringUtils {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
-                    if (i < csLast && j < searchLast && Character.isHighSurrogate(ch)) {
-                        // ch is a supplementary character
-                        if (searchChars[j + 1] == cs.charAt(i + 1)) {
-                            return i;
-                        }
-                    } else {
+                    if ((i >= csLast) || (j >= searchLast) || !Character.isHighSurrogate(ch)) {
+                        return i;
+                    }
+                    // ch is a supplementary character
+                    if (searchChars[j + 1] == cs.charAt(i + 1)) {
                         return i;
                     }
                 }
@@ -2689,8 +2781,6 @@ public class StringUtils {
         return INDEX_NOT_FOUND;
     }
 
-    // IndexOfAny strings
-    //-----------------------------------------------------------------------
     /**
      * <p>Find the first index of any of a set of potential substrings.</p>
      *
@@ -2726,7 +2816,7 @@ public class StringUtils {
         // String's can't have a MAX_VALUEth index.
         int ret = Integer.MAX_VALUE;
 
-        int tmp = 0;
+        int tmp;
         for (final CharSequence search : searchStrs) {
             if (search == null) {
                 continue;
@@ -2774,8 +2864,6 @@ public class StringUtils {
         return indexOfAny(cs, searchChars.toCharArray());
     }
 
-    // IndexOfAnyBut chars
-    //-----------------------------------------------------------------------
     /**
      * <p>Searches a CharSequence to find the first index of any
      * character not in the given set of characters.</p>
@@ -2813,11 +2901,10 @@ public class StringUtils {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
-                    if (i < csLast && j < searchLast && Character.isHighSurrogate(ch)) {
-                        if (searchChars[j + 1] == cs.charAt(i + 1)) {
-                            continue outer;
-                        }
-                    } else {
+                    if ((i >= csLast) || (j >= searchLast) || !Character.isHighSurrogate(ch)) {
+                        continue outer;
+                    }
+                    if (searchChars[j + 1] == cs.charAt(i + 1)) {
                         continue outer;
                     }
                 }
@@ -2863,10 +2950,8 @@ public class StringUtils {
                 if (chFound && CharSequenceUtils.indexOf(searchChars, ch2, 0) < 0) {
                     return i;
                 }
-            } else {
-                if (!chFound) {
-                    return i;
-                }
+            } else if (!chFound) {
+                return i;
             }
         }
         return INDEX_NOT_FOUND;
@@ -2905,7 +2990,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from indexOfDifference(String...) to indexOfDifference(CharSequence...)
      */
     public static int indexOfDifference(final CharSequence... css) {
-        if (css == null || css.length <= 1) {
+        if (ArrayUtils.getLength(css) <= 1) {
             return INDEX_NOT_FOUND;
         }
         boolean anyStringNull = false;
@@ -3176,7 +3261,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from isAllLowerCase(String) to isAllLowerCase(CharSequence)
      */
     public static boolean isAllLowerCase(final CharSequence cs) {
-        if (cs == null || isEmpty(cs)) {
+        if (isEmpty(cs)) {
             return false;
         }
         final int sz = cs.length();
@@ -3211,7 +3296,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from isAllUpperCase(String) to isAllUpperCase(CharSequence)
      */
     public static boolean isAllUpperCase(final CharSequence cs) {
-        if (cs == null || isEmpty(cs)) {
+        if (isEmpty(cs)) {
             return false;
         }
         final int sz = cs.length();
@@ -3223,8 +3308,6 @@ public class StringUtils {
         return true;
     }
 
-    // Character Tests
-    //-----------------------------------------------------------------------
     /**
      * <p>Checks if the CharSequence contains only Unicode letters.</p>
      *
@@ -3321,7 +3404,8 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (!Character.isLetterOrDigit(cs.charAt(i)) && cs.charAt(i) != ' ') {
+            final char nowChar = cs.charAt(i);
+            if (nowChar != ' ' && !Character.isLetterOrDigit(nowChar) ) {
                 return false;
             }
         }
@@ -3356,7 +3440,8 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (!Character.isLetter(cs.charAt(i)) && cs.charAt(i) != ' ') {
+            final char nowChar = cs.charAt(i);
+            if (nowChar != ' ' && !Character.isLetter(nowChar)) {
                 return false;
             }
         }
@@ -3387,15 +3472,15 @@ public class StringUtils {
      * @since 3.2
      */
     public static boolean isAnyBlank(final CharSequence... css) {
-      if (ArrayUtils.isEmpty(css)) {
-        return false;
-      }
-      for (final CharSequence cs : css) {
-        if (isBlank(cs)) {
-          return true;
+        if (ArrayUtils.isEmpty(css)) {
+            return false;
         }
-      }
-      return false;
+        for (final CharSequence cs : css) {
+            if (isBlank(cs)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -3419,15 +3504,15 @@ public class StringUtils {
      * @since 3.2
      */
     public static boolean isAnyEmpty(final CharSequence... css) {
-      if (ArrayUtils.isEmpty(css)) {
-        return false;
-      }
-      for (final CharSequence cs : css) {
-        if (isEmpty(cs)) {
-          return true;
+        if (ArrayUtils.isEmpty(css)) {
+            return false;
         }
-      }
-      return false;
+        for (final CharSequence cs : css) {
+            if (isEmpty(cs)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -3469,9 +3554,6 @@ public class StringUtils {
         return true;
     }
 
-    // Nested extraction
-    //-----------------------------------------------------------------------
-
     /**
      * <p>Checks if a CharSequence is empty (""), null or whitespace only.</p>
      *
@@ -3491,8 +3573,8 @@ public class StringUtils {
      * @since 3.0 Changed signature from isBlank(String) to isBlank(CharSequence)
      */
     public static boolean isBlank(final CharSequence cs) {
-        int strLen;
-        if (cs == null || (strLen = cs.length()) == 0) {
+        final int strLen = length(cs);
+        if (strLen == 0) {
             return true;
         }
         for (int i = 0; i < strLen; i++) {
@@ -3503,8 +3585,6 @@ public class StringUtils {
         return true;
     }
 
-    // Empty checks
-    //-----------------------------------------------------------------------
     /**
      * <p>Checks if a CharSequence is empty ("") or null.</p>
      *
@@ -3560,7 +3640,8 @@ public class StringUtils {
         for (int i = 0; i < sz; i++) {
             if (containsUppercase && containsLowercase) {
                 return true;
-            } else if (Character.isUpperCase(cs.charAt(i))) {
+            }
+            if (Character.isUpperCase(cs.charAt(i))) {
                 containsUppercase = true;
             } else if (Character.isLowerCase(cs.charAt(i))) {
                 containsLowercase = true;
@@ -3720,8 +3801,8 @@ public class StringUtils {
      * StringUtils.isNumericSpace("  ")   = true
      * StringUtils.isNumericSpace("123")  = true
      * StringUtils.isNumericSpace("12 3") = true
-     * StringUtils.isNumeric("\u0967\u0968\u0969")  = true
-     * StringUtils.isNumeric("\u0967\u0968 \u0969")  = true
+     * StringUtils.isNumericSpace("\u0967\u0968\u0969")  = true
+     * StringUtils.isNumericSpace("\u0967\u0968 \u0969")  = true
      * StringUtils.isNumericSpace("ab2c") = false
      * StringUtils.isNumericSpace("12-3") = false
      * StringUtils.isNumericSpace("12.3") = false
@@ -3738,7 +3819,8 @@ public class StringUtils {
         }
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (!Character.isDigit(cs.charAt(i)) && cs.charAt(i) != ' ') {
+            final char nowChar = cs.charAt(i);
+            if (nowChar != ' ' && !Character.isDigit(nowChar)) {
                 return false;
             }
         }
@@ -3791,25 +3873,68 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.join(null, *)               = null
-     * StringUtils.join([], *)                 = ""
-     * StringUtils.join([null], *)             = ""
-     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
-     * StringUtils.join([1, 2, 3], null) = "123"
+     * StringUtils.join(null, *)              = null
+     * StringUtils.join([], *)                = ""
+     * StringUtils.join([null], *)            = ""
+     * StringUtils.join([false, false], ';')  = "false;false"
      * </pre>
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @return the joined String, {@code null} if null array input
-     * @since 3.2
+     * @since 3.12.0
      */
-    public static String join(final byte[] array, final char separator) {
+    public static String join(final boolean[] array, final char delimiter) {
         if (array == null) {
             return null;
         }
-        return join(array, separator, 0, array.length);
+        return join(array, delimiter, 0, array.length);
+    }
+
+    /**
+     * <p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
+     * </p>
+     *
+     * <p>
+     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
+     * by empty strings.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.join(null, *)                   = null
+     * StringUtils.join([], *)                     = ""
+     * StringUtils.join([null], *)                 = ""
+     * StringUtils.join([true, false, true], ';')  = "true;false;true"
+     * </pre>
+     *
+     * @param array
+     *            the array of values to join together, may be null
+     * @param delimiter
+     *            the separator character to use
+     * @param startIndex
+     *            the first index to start joining from. It is an error to pass in a start index past the end of the
+     *            array
+     * @param endIndex
+     *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
+     *            the array
+     * @return the joined String, {@code null} if null array input
+     * @since 3.12.0
+     */
+    public static String join(final boolean[] array, final char delimiter, final int startIndex, final int endIndex) {
+        if (array == null) {
+            return null;
+        }
+        if (endIndex - startIndex <= 0) {
+            return EMPTY;
+        }
+        final StringJoiner joiner = newStringJoiner(delimiter);
+        for (int i = startIndex; i < endIndex; i++) {
+            joiner.add(String.valueOf(array[i]));
+        }
+        return joiner.toString();
     }
 
     /**
@@ -3832,7 +3957,39 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
+     *            the separator character to use
+     * @return the joined String, {@code null} if null array input
+     * @since 3.2
+     */
+    public static String join(final byte[] array, final char delimiter) {
+        if (array == null) {
+            return null;
+        }
+        return join(array, delimiter, 0, array.length);
+    }
+
+    /**
+     * <p>
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
+     * </p>
+     *
+     * <p>
+     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
+     * by empty strings.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.join(null, *)               = null
+     * StringUtils.join([], *)                 = ""
+     * StringUtils.join([null], *)             = ""
+     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
+     * StringUtils.join([1, 2, 3], null) = "123"
+     * </pre>
+     *
+     * @param array
+     *            the array of values to join together, may be null
+     * @param delimiter
      *            the separator character to use
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
@@ -3843,22 +4000,18 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final byte[] array, final char separator, final int startIndex, final int endIndex) {
+    public static String join(final byte[] array, final char delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = newStringBuilder(noOfItems);
+        final StringJoiner joiner = newStringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
-            if (i > startIndex) {
-                buf.append(separator);
-            }
-            buf.append(array[i]);
+            joiner.add(String.valueOf(array[i]));
         }
-        return buf.toString();
+        return joiner.toString();
     }
 
     /**
@@ -3881,16 +4034,16 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final char[] array, final char separator) {
+    public static String join(final char[] array, final char delimiter) {
         if (array == null) {
             return null;
         }
-        return join(array, separator, 0, array.length);
+        return join(array, delimiter, 0, array.length);
     }
 
     /**
@@ -3913,7 +4066,7 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
@@ -3924,22 +4077,18 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final char[] array, final char separator, final int startIndex, final int endIndex) {
+    public static String join(final char[] array, final char delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = newStringBuilder(noOfItems);
+        final StringJoiner joiner = newStringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
-            if (i > startIndex) {
-                buf.append(separator);
-            }
-            buf.append(array[i]);
+            joiner.add(String.valueOf(array[i]));
         }
-        return buf.toString();
+        return joiner.toString();
     }
 
     /**
@@ -3962,16 +4111,16 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final double[] array, final char separator) {
+    public static String join(final double[] array, final char delimiter) {
         if (array == null) {
             return null;
         }
-        return join(array, separator, 0, array.length);
+        return join(array, delimiter, 0, array.length);
     }
 
     /**
@@ -3994,7 +4143,7 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
@@ -4005,22 +4154,18 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final double[] array, final char separator, final int startIndex, final int endIndex) {
+    public static String join(final double[] array, final char delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = newStringBuilder(noOfItems);
+        final StringJoiner joiner = newStringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
-            if (i > startIndex) {
-                buf.append(separator);
-            }
-            buf.append(array[i]);
+            joiner.add(String.valueOf(array[i]));
         }
-        return buf.toString();
+        return joiner.toString();
     }
 
     /**
@@ -4043,16 +4188,16 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final float[] array, final char separator) {
+    public static String join(final float[] array, final char delimiter) {
         if (array == null) {
             return null;
         }
-        return join(array, separator, 0, array.length);
+        return join(array, delimiter, 0, array.length);
     }
 
     /**
@@ -4075,7 +4220,7 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
@@ -4086,22 +4231,18 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final float[] array, final char separator, final int startIndex, final int endIndex) {
+    public static String join(final float[] array, final char delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = newStringBuilder(noOfItems);
+        final StringJoiner joiner = newStringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
-            if (i > startIndex) {
-                buf.append(separator);
-            }
-            buf.append(array[i]);
+            joiner.add(String.valueOf(array[i]));
         }
-        return buf.toString();
+        return joiner.toString();
     }
 
     /**
@@ -4156,7 +4297,7 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
@@ -4167,22 +4308,18 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final int[] array, final char separator, final int startIndex, final int endIndex) {
+    public static String join(final int[] array, final char delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = newStringBuilder(noOfItems);
+        final StringJoiner joiner = newStringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
-            if (i > startIndex) {
-                buf.append(separator);
-            }
-            buf.append(array[i]);
+            joiner.add(String.valueOf(array[i]));
         }
-        return buf.toString();
+        return joiner.toString();
     }
 
     /**
@@ -4252,7 +4389,7 @@ public class StringUtils {
         }
         final Object first = iterator.next();
         if (!iterator.hasNext()) {
-            return Objects.toString(first, EMPTY);
+            return toStringOrEmpty(first);
         }
 
         // two or more elements
@@ -4393,6 +4530,7 @@ public class StringUtils {
         return join(subList.iterator(), separator);
     }
 
+
     /**
      * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
@@ -4425,7 +4563,6 @@ public class StringUtils {
         return join(array, separator, 0, array.length);
     }
 
-
     /**
      * <p>
      * Joins the elements of the provided array into a single String containing the provided list of elements.
@@ -4446,7 +4583,7 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
@@ -4457,22 +4594,18 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final long[] array, final char separator, final int startIndex, final int endIndex) {
+    public static String join(final long[] array, final char delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = newStringBuilder(noOfItems);
+        final StringJoiner joiner = newStringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
-            if (i > startIndex) {
-                buf.append(separator);
-            }
-            buf.append(array[i]);
+            joiner.add(String.valueOf(array[i]));
         }
-        return buf.toString();
+        return joiner.toString();
     }
 
     /**
@@ -4493,15 +4626,15 @@ public class StringUtils {
      * </pre>
      *
      * @param array  the array of values to join together, may be null
-     * @param separator  the separator character to use
+     * @param delimiter  the separator character to use
      * @return the joined String, {@code null} if null array input
      * @since 2.0
      */
-    public static String join(final Object[] array, final char separator) {
+    public static String join(final Object[] array, final char delimiter) {
         if (array == null) {
             return null;
         }
-        return join(array, separator, 0, array.length);
+        return join(array, delimiter, 0, array.length);
     }
 
     /**
@@ -4522,7 +4655,7 @@ public class StringUtils {
      * </pre>
      *
      * @param array  the array of values to join together, may be null
-     * @param separator  the separator character to use
+     * @param delimiter  the separator character to use
      * @param startIndex the first index to start joining from.  It is
      * an error to pass in a start index past the end of the array
      * @param endIndex the index to stop joining from (exclusive). It is
@@ -4530,24 +4663,18 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      * @since 2.0
      */
-    public static String join(final Object[] array, final char separator, final int startIndex, final int endIndex) {
+    public static String join(final Object[] array, final char delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = newStringBuilder(noOfItems);
+        final StringJoiner joiner = newStringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
-            if (i > startIndex) {
-                buf.append(separator);
-            }
-            if (array[i] != null) {
-                buf.append(array[i]);
-            }
+            joiner.add(toStringOrEmpty(array[i]));
         }
-        return buf.toString();
+        return joiner.toString();
     }
 
     /**
@@ -4570,14 +4697,14 @@ public class StringUtils {
      * </pre>
      *
      * @param array  the array of values to join together, may be null
-     * @param separator  the separator character to use, null treated as ""
+     * @param delimiter  the separator character to use, null treated as ""
      * @return the joined String, {@code null} if null array input
      */
-    public static String join(final Object[] array, final String separator) {
+    public static String join(final Object[] array, final String delimiter) {
         if (array == null) {
             return null;
         }
-        return join(array, separator, 0, array.length);
+        return join(array, delimiter, 0, array.length);
     }
 
     /**
@@ -4603,7 +4730,7 @@ public class StringUtils {
      * </pre>
      *
      * @param array  the array of values to join together, may be null
-     * @param separator  the separator character to use, null treated as ""
+     * @param delimiter  the separator character to use, null treated as ""
      * @param startIndex the first index to start joining from.
      * @param endIndex the index to stop joining from (exclusive).
      * @return the joined String, {@code null} if null array input; or the empty string
@@ -4615,32 +4742,18 @@ public class StringUtils {
      * {@code endIndex < 0} or <br>
      * {@code endIndex > array.length()}
      */
-    public static String join(final Object[] array, String separator, final int startIndex, final int endIndex) {
+    public static String join(final Object[] array, final String delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
-        if (separator == null) {
-            separator = EMPTY;
-        }
-
-        // endIndex - startIndex > 0:   Len = NofStrings *(len(firstString) + len(separator))
-        //           (Assuming that all Strings are roughly equally long)
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-
-        final StringBuilder buf = newStringBuilder(noOfItems);
-
+        final StringJoiner joiner = new StringJoiner(toStringOrEmpty(delimiter));
         for (int i = startIndex; i < endIndex; i++) {
-            if (i > startIndex) {
-                buf.append(separator);
-            }
-            if (array[i] != null) {
-                buf.append(array[i]);
-            }
+            joiner.add(toStringOrEmpty(array[i]));
         }
-        return buf.toString();
+        return joiner.toString();
     }
 
     /**
@@ -4663,16 +4776,16 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final short[] array, final char separator) {
+    public static String join(final short[] array, final char delimiter) {
         if (array == null) {
             return null;
         }
-        return join(array, separator, 0, array.length);
+        return join(array, delimiter, 0, array.length);
     }
 
     /**
@@ -4695,7 +4808,7 @@ public class StringUtils {
      *
      * @param array
      *            the array of values to join together, may be null
-     * @param separator
+     * @param delimiter
      *            the separator character to use
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
@@ -4706,26 +4819,20 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
-    public static String join(final short[] array, final char separator, final int startIndex, final int endIndex) {
+    public static String join(final short[] array, final char delimiter, final int startIndex, final int endIndex) {
         if (array == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringBuilder buf = newStringBuilder(noOfItems);
+        final StringJoiner joiner = newStringJoiner(delimiter);
         for (int i = startIndex; i < endIndex; i++) {
-            if (i > startIndex) {
-                buf.append(separator);
-            }
-            buf.append(array[i]);
+            joiner.add(String.valueOf(array[i]));
         }
-        return buf.toString();
+        return joiner.toString();
     }
 
-    // Joining
-    //-----------------------------------------------------------------------
     /**
      * <p>Joins the elements of the provided array into a single String
      * containing the provided list of elements.</p>
@@ -4753,7 +4860,6 @@ public class StringUtils {
         return join(elements, null);
     }
 
-
     /**
      * <p>Joins the elements of the provided varargs into a
      * single String containing the provided elements.</p>
@@ -4768,32 +4874,17 @@ public class StringUtils {
      * StringUtils.joinWith(null, {"a", "b"})       = "ab"
      * </pre>
      *
-     * @param separator the separator character to use, null treated as ""
-     * @param objects the varargs providing the values to join together. {@code null} elements are treated as ""
+     * @param delimiter the separator character to use, null treated as ""
+     * @param array the varargs providing the values to join together. {@code null} elements are treated as ""
      * @return the joined String.
      * @throws java.lang.IllegalArgumentException if a null varargs is provided
      * @since 3.5
      */
-    public static String joinWith(final String separator, final Object... objects) {
-        if (objects == null) {
+    public static String joinWith(final String delimiter, final Object... array) {
+        if (array == null) {
             throw new IllegalArgumentException("Object varargs must not be null");
         }
-
-        final String sanitizedSeparator = defaultString(separator);
-
-        final StringBuilder result = new StringBuilder();
-
-        final Iterator<Object> iterator = Arrays.asList(objects).iterator();
-        while (iterator.hasNext()) {
-            final String value = Objects.toString(iterator.next(), "");
-            result.append(value);
-
-            if (iterator.hasNext()) {
-                result.append(sanitizedSeparator);
-            }
-        }
-
-        return result.toString();
+        return join(array, delimiter);
     }
 
     /**
@@ -4820,7 +4911,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from lastIndexOf(String, String) to lastIndexOf(CharSequence, CharSequence)
      */
     public static int lastIndexOf(final CharSequence seq, final CharSequence searchSeq) {
-        if (seq == null || searchSeq == null) {
+        if (seq == null) {
             return INDEX_NOT_FOUND;
         }
         return CharSequenceUtils.lastIndexOf(seq, searchSeq, seq.length());
@@ -4862,31 +4953,26 @@ public class StringUtils {
      * @since 3.0 Changed signature from lastIndexOf(String, String, int) to lastIndexOf(CharSequence, CharSequence, int)
      */
     public static int lastIndexOf(final CharSequence seq, final CharSequence searchSeq, final int startPos) {
-        if (seq == null || searchSeq == null) {
-            return INDEX_NOT_FOUND;
-        }
         return CharSequenceUtils.lastIndexOf(seq, searchSeq, startPos);
     }
 
-    // LastIndexOf
-    //-----------------------------------------------------------------------
     /**
-     * Returns the index within <code>seq</code> of the last occurrence of
-     * the specified character. For values of <code>searchChar</code> in the
+     * Returns the index within {@code seq} of the last occurrence of
+     * the specified character. For values of {@code searchChar} in the
      * range from 0 to 0xFFFF (inclusive), the index (in Unicode code
      * units) returned is the largest value <i>k</i> such that:
      * <blockquote><pre>
      * this.charAt(<i>k</i>) == searchChar
      * </pre></blockquote>
-     * is true. For other values of <code>searchChar</code>, it is the
+     * is true. For other values of {@code searchChar}, it is the
      * largest value <i>k</i> such that:
      * <blockquote><pre>
      * this.codePointAt(<i>k</i>) == searchChar
      * </pre></blockquote>
      * is true.  In either case, if no such character occurs in this
-     * string, then <code>-1</code> is returned. Furthermore, a {@code null} or empty ("")
-     * <code>CharSequence</code> will return {@code -1}. The
-     * <code>seq</code> <code>CharSequence</code> object is searched backwards
+     * string, then {@code -1} is returned. Furthermore, a {@code null} or empty ("")
+     * {@code CharSequence} will return {@code -1}. The
+     * {@code seq} {@code CharSequence} object is searched backwards
      * starting at the last character.
      *
      * <pre>
@@ -4896,13 +4982,13 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", 'b') = 5
      * </pre>
      *
-     * @param seq  the <code>CharSequence</code> to check, may be null
+     * @param seq  the {@code CharSequence} to check, may be null
      * @param searchChar  the character to find
      * @return the last index of the search character,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from lastIndexOf(String, int) to lastIndexOf(CharSequence, int)
-     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like <code>String</code>
+     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like {@code String}
      */
     public static int lastIndexOf(final CharSequence seq, final int searchChar) {
         if (isEmpty(seq)) {
@@ -4912,28 +4998,28 @@ public class StringUtils {
     }
 
     /**
-     * Returns the index within <code>seq</code> of the last occurrence of
+     * Returns the index within {@code seq} of the last occurrence of
      * the specified character, searching backward starting at the
-     * specified index. For values of <code>searchChar</code> in the range
+     * specified index. For values of {@code searchChar} in the range
      * from 0 to 0xFFFF (inclusive), the index returned is the largest
      * value <i>k</i> such that:
      * <blockquote><pre>
      * (this.charAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &lt;= startPos)
      * </pre></blockquote>
-     * is true. For other values of <code>searchChar</code>, it is the
+     * is true. For other values of {@code searchChar}, it is the
      * largest value <i>k</i> such that:
      * <blockquote><pre>
      * (this.codePointAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &lt;= startPos)
      * </pre></blockquote>
-     * is true. In either case, if no such character occurs in <code>seq</code>
-     * at or before position <code>startPos</code>, then
-     * <code>-1</code> is returned. Furthermore, a {@code null} or empty ("")
-     * <code>CharSequence</code> will return {@code -1}. A start position greater
+     * is true. In either case, if no such character occurs in {@code seq}
+     * at or before position {@code startPos}, then
+     * {@code -1} is returned. Furthermore, a {@code null} or empty ("")
+     * {@code CharSequence} will return {@code -1}. A start position greater
      * than the string length searches the whole string.
-     * The search starts at the <code>startPos</code> and works backwards;
+     * The search starts at the {@code startPos} and works backwards;
      * matches starting after the start position are ignored.
      *
-     * <p>All indices are specified in <code>char</code> values
+     * <p>All indices are specified in {@code char} values
      * (Unicode code units).
      *
      * <pre>
@@ -4963,7 +5049,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Find the latest index of any of a set of potential substrings.</p>
+     * <p>Find the latest index of any substring in a set of potential substrings.</p>
      *
      * <p>A {@code null} CharSequence will return {@code -1}.
      * A {@code null} search array will return {@code -1}.
@@ -4993,7 +5079,7 @@ public class StringUtils {
             return INDEX_NOT_FOUND;
         }
         int ret = INDEX_NOT_FOUND;
-        int tmp = 0;
+        int tmp;
         for (final CharSequence search : searchStrs) {
             if (search == null) {
                 continue;
@@ -5072,18 +5158,20 @@ public class StringUtils {
         if (str == null || searchStr == null) {
             return INDEX_NOT_FOUND;
         }
-        if (startPos > str.length() - searchStr.length()) {
-            startPos = str.length() - searchStr.length();
+        final int searchStrLength = searchStr.length();
+        final int strLength = str.length();
+        if (startPos > strLength - searchStrLength) {
+            startPos = strLength - searchStrLength;
         }
         if (startPos < 0) {
             return INDEX_NOT_FOUND;
         }
-        if (searchStr.length() == 0) {
+        if (searchStrLength == 0) {
             return startPos;
         }
 
         for (int i = startPos; i >= 0; i--) {
-            if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, searchStr.length())) {
+            if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, searchStrLength)) {
                 return i;
             }
         }
@@ -5128,8 +5216,6 @@ public class StringUtils {
         return ordinalIndexOf(str, searchStr, ordinal, true);
     }
 
-    // Left/Right/Mid
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets the leftmost {@code len} characters of a String.</p>
      *
@@ -5263,16 +5349,16 @@ public class StringUtils {
 
         if (pads == padLen) {
             return padStr.concat(str);
-        } else if (pads < padLen) {
-            return padStr.substring(0, pads).concat(str);
-        } else {
-            final char[] padding = new char[pads];
-            final char[] padChars = padStr.toCharArray();
-            for (int i = 0; i < pads; i++) {
-                padding[i] = padChars[i % padLen];
-            }
-            return new String(padding).concat(str);
         }
+        if (pads < padLen) {
+            return padStr.substring(0, pads).concat(str);
+        }
+        final char[] padding = new char[pads];
+        final char[] padChars = padStr.toCharArray();
+        for (int i = 0; i < pads; i++) {
+            padding[i] = padChars[i % padLen];
+        }
+        return new String(padding).concat(str);
     }
 
     /**
@@ -5336,11 +5422,12 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        return str.toLowerCase(locale);
+        return str.toLowerCase(LocaleUtils.toLocale(locale));
     }
 
     private static int[] matches(final CharSequence first, final CharSequence second) {
-        CharSequence max, min;
+        final CharSequence max;
+        final CharSequence min;
         if (first.length() > second.length()) {
             max = first;
             min = second;
@@ -5386,11 +5473,10 @@ public class StringUtils {
         }
         int prefix = 0;
         for (int mi = 0; mi < min.length(); mi++) {
-            if (first.charAt(mi) == second.charAt(mi)) {
-                prefix++;
-            } else {
+            if (first.charAt(mi) != second.charAt(mi)) {
                 break;
             }
+            prefix++;
         }
         return new int[] { matches, transpositions / 2, prefix, max.length() };
     }
@@ -5436,8 +5522,8 @@ public class StringUtils {
         return str.substring(pos, pos + len);
     }
 
-    private static StringBuilder newStringBuilder(final int noOfItems) {
-        return new StringBuilder(noOfItems * 16);
+    private static StringJoiner newStringJoiner(final char delimiter) {
+        return new StringJoiner(String.valueOf(delimiter));
     }
 
     /**
@@ -5448,7 +5534,7 @@ public class StringUtils {
      * </p>
      * <p>
      * The function returns the argument string with whitespace normalized by using
-     * <code>{@link #trim(String)}</code> to remove leading and trailing whitespace
+     * {@code {@link #trim(String)}} to remove leading and trailing whitespace
      * and then replacing sequences of whitespace characters by a single space.
      * </p>
      * In XML Whitespace characters are the same as those allowed by the <a
@@ -5468,7 +5554,7 @@ public class StringUtils {
      *
      * <p>
      * The difference is that Java's whitespace includes vertical tab and form feed, which this functional will also
-     * normalize. Additionally <code>{@link #trim(String)}</code> removes control characters (char &lt;= 32) from both
+     * normalize. Additionally {@code {@link #trim(String)}} removes control characters (char &lt;= 32) from both
      * ends of this String.
      * </p>
      *
@@ -5606,8 +5692,6 @@ public class StringUtils {
         return index;
     }
 
-    // Overlay
-    //-----------------------------------------------------------------------
     /**
      * <p>Overlays part of a String with another String.</p>
      *
@@ -5682,7 +5766,7 @@ public class StringUtils {
         if (str == null || isEmpty(prefix) || startsWith(str, prefix, ignoreCase)) {
             return str;
         }
-        if (prefixes != null && prefixes.length > 0) {
+        if (ArrayUtils.isNotEmpty(prefixes)) {
             for (final CharSequence p : prefixes) {
                 if (startsWith(str, p, ignoreCase)) {
                     return str;
@@ -5844,7 +5928,7 @@ public class StringUtils {
      *
      * <p>Unlike in the {@link #removePattern(String, String)} method, the {@link Pattern#DOTALL} option
      * is NOT automatically added.
-     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>
@@ -5963,7 +6047,7 @@ public class StringUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <p>The {@link Pattern#DOTALL} option is NOT automatically added.
-     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>
@@ -6034,9 +6118,6 @@ public class StringUtils {
      * @since 3.5
      */
     public static String removeIgnoreCase(final String str, final String remove) {
-        if (isEmpty(str) || isEmpty(remove)) {
-            return str;
-        }
         return replaceIgnoreCase(str, remove, EMPTY, -1);
     }
 
@@ -6077,8 +6158,36 @@ public class StringUtils {
         return RegExUtils.removePattern(source, regex);
     }
 
-    // Remove
-    //-----------------------------------------------------------------------
+    /**
+     * Removes a char only if it is at the beginning of a source string,
+     * otherwise returns the source string.
+     *
+     * <p>A {@code null} source string will return {@code null}.
+     * An empty ("") source string will return the empty string.
+     * A {@code null} search char will return the source string.</p>
+     *
+     * <pre>
+     * StringUtils.removeStart(null, *)      = null
+     * StringUtils.removeStart("", *)        = ""
+     * StringUtils.removeStart(*, null)      = *
+     * StringUtils.removeStart("/path", '/') = "path"
+     * StringUtils.removeStart("path", '/')  = "path"
+     * StringUtils.removeStart("path", 0)    = "path"
+     * </pre>
+     *
+     * @param str  the source String to search, may be null.
+     * @param remove  the char to search for and remove.
+     * @return the substring with the char removed if found,
+     *  {@code null} if null String input.
+     * @since 3.13.0
+     */
+    public static String removeStart(final String str, final char remove) {
+        if (isEmpty(str)) {
+            return str;
+        }
+        return str.charAt(0) == remove ? str.substring(1) : str;
+    }
+
     /**
      * <p>Removes a substring only if it is at the beginning of a source string,
      * otherwise returns the source string.</p>
@@ -6139,11 +6248,8 @@ public class StringUtils {
      * @since 2.4
      */
     public static String removeStartIgnoreCase(final String str, final String remove) {
-        if (isEmpty(str) || isEmpty(remove)) {
-            return str;
-        }
-        if (startsWithIgnoreCase(str, remove)) {
-            return str.substring(remove.length());
+        if (str != null && startsWithIgnoreCase(str, remove)) {
+            return str.substring(length(remove));
         }
         return str;
     }
@@ -6175,14 +6281,10 @@ public class StringUtils {
             return EMPTY;
         }
         final char[] buf = new char[repeat];
-        for (int i = repeat - 1; i >= 0; i--) {
-            buf[i] = ch;
-        }
+        Arrays.fill(buf, ch);
         return new String(buf);
     }
 
-    // Padding
-    //-----------------------------------------------------------------------
     /**
      * <p>Repeat a String {@code repeat} times to form a
      * new String.</p>
@@ -6203,7 +6305,6 @@ public class StringUtils {
      */
     public static String repeat(final String str, final int repeat) {
         // Performance tuned for 2.0 (JDK1.4)
-
         if (str == null) {
             return null;
         }
@@ -6269,9 +6370,6 @@ public class StringUtils {
         return removeEnd(result, separator);
     }
 
-    // Conversion
-    //-----------------------------------------------------------------------
-
     /**
      * <p>Replaces all occurrences of a String within another String.</p>
      *
@@ -6334,7 +6432,7 @@ public class StringUtils {
     /**
      * <p>Replaces a String with another String inside a larger String,
      * for the first {@code max} values of the search String,
-     * case sensitively/insensisitively based on {@code ignoreCase} value.</p>
+     * case sensitively/insensitively based on {@code ignoreCase} value.</p>
      *
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
@@ -6366,20 +6464,17 @@ public class StringUtils {
          if (isEmpty(text) || isEmpty(searchString) || replacement == null || max == 0) {
              return text;
          }
-         String searchText = text;
          if (ignoreCase) {
-             searchText = text.toLowerCase();
              searchString = searchString.toLowerCase();
          }
          int start = 0;
-         int end = searchText.indexOf(searchString, start);
+         int end = ignoreCase ? indexOfIgnoreCase(text, searchString, start) : indexOf(text, searchString, start);
          if (end == INDEX_NOT_FOUND) {
              return text;
          }
          final int replLength = searchString.length();
-         int increase = replacement.length() - replLength;
-         increase = increase < 0 ? 0 : increase;
-         increase *= max < 0 ? 16 : max > 64 ? 64 : max;
+         int increase = Math.max(replacement.length() - replLength, 0);
+         increase *= max < 0 ? 16 : Math.min(max, 64);
          final StringBuilder buf = new StringBuilder(text.length() + increase);
          while (end != INDEX_NOT_FOUND) {
              buf.append(text, start, end).append(replacement);
@@ -6387,7 +6482,7 @@ public class StringUtils {
              if (--max == 0) {
                  break;
              }
-             end = searchText.indexOf(searchString, start);
+             end = ignoreCase ? indexOfIgnoreCase(text, searchString, start) : indexOf(text, searchString, start);
          }
          buf.append(text, start, text.length());
          return buf.toString();
@@ -6407,7 +6502,7 @@ public class StringUtils {
      *
      * <p>Unlike in the {@link #replacePattern(String, String, String)} method, the {@link Pattern#DOTALL} option
      * is NOT automatically added.
-     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>
@@ -6448,8 +6543,6 @@ public class StringUtils {
         return RegExUtils.replaceAll(text, regex, replacement);
     }
 
-    // Replace, character based
-    //-----------------------------------------------------------------------
     /**
      * <p>Replaces all occurrences of a character in a String with another.
      * This is a null-safe version of {@link String#replace(char, char)}.</p>
@@ -6482,7 +6575,7 @@ public class StringUtils {
      * This method can also be used to delete characters.</p>
      *
      * <p>For example:<br>
-     * <code>replaceChars(&quot;hello&quot;, &quot;ho&quot;, &quot;jy&quot;) = jelly</code>.</p>
+     * {@code replaceChars(&quot;hello&quot;, &quot;ho&quot;, &quot;jy&quot;) = jelly}.</p>
      *
      * <p>A {@code null} string input returns {@code null}.
      * An empty ("") string input returns an empty string.
@@ -6641,15 +6734,19 @@ public class StringUtils {
         // mchyzer Performance note: This creates very few new objects (one major goal)
         // let me know if there are performance requests, we can create a harness to measure
 
-        if (text == null || text.isEmpty() || searchList == null ||
-                searchList.length == 0 || replacementList == null || replacementList.length == 0) {
-            return text;
-        }
-
         // if recursing, this shouldn't be less than 0
         if (timeToLive < 0) {
-            throw new IllegalStateException("Aborting to protect against StackOverflowError - " +
-                                            "output of one loop is the input of another");
+            final Set<String> searchSet = new HashSet<>(Arrays.asList(searchList));
+            final Set<String> replacementSet = new HashSet<>(Arrays.asList(replacementList));
+            searchSet.retainAll(replacementSet);
+            if (!searchSet.isEmpty()) {
+                throw new IllegalStateException("Aborting to protect against StackOverflowError - " +
+                        "output of one loop is the input of another");
+            }
+        }
+
+        if (isEmpty(text) || ArrayUtils.isEmpty(searchList) || ArrayUtils.isEmpty(replacementList) || (ArrayUtils.isNotEmpty(searchList) && timeToLive == -1)) {
+            return text;
         }
 
         final int searchLength = searchList.length;
@@ -6669,13 +6766,12 @@ public class StringUtils {
         // index on index that the match was found
         int textIndex = -1;
         int replaceIndex = -1;
-        int tempIndex = -1;
+        int tempIndex;
 
         // index of replace array that will replace the search string found
         // NOTE: logic duplicated below START
         for (int i = 0; i < searchLength; i++) {
-            if (noMoreMatchesForReplIndex[i] || searchList[i] == null ||
-                    searchList[i].isEmpty() || replacementList[i] == null) {
+            if (noMoreMatchesForReplIndex[i] || isEmpty(searchList[i]) || replacementList[i] == null) {
                 continue;
             }
             tempIndex = text.indexOf(searchList[i]);
@@ -6683,11 +6779,9 @@ public class StringUtils {
             // see if we need to keep searching for this
             if (tempIndex == -1) {
                 noMoreMatchesForReplIndex[i] = true;
-            } else {
-                if (textIndex == -1 || tempIndex < textIndex) {
-                    textIndex = tempIndex;
-                    replaceIndex = i;
-                }
+            } else if (textIndex == -1 || tempIndex < textIndex) {
+                textIndex = tempIndex;
+                replaceIndex = i;
             }
         }
         // NOTE: logic mostly below END
@@ -6728,7 +6822,6 @@ public class StringUtils {
 
             textIndex = -1;
             replaceIndex = -1;
-            tempIndex = -1;
             // find the next earliest match
             // NOTE: logic mostly duplicated above START
             for (int i = 0; i < searchLength; i++) {
@@ -6741,11 +6834,9 @@ public class StringUtils {
                 // see if we need to keep searching for this
                 if (tempIndex == -1) {
                     noMoreMatchesForReplIndex[i] = true;
-                } else {
-                    if (textIndex == -1 || tempIndex < textIndex) {
-                        textIndex = tempIndex;
-                        replaceIndex = i;
-                    }
+                } else if (textIndex == -1 || tempIndex < textIndex) {
+                    textIndex = tempIndex;
+                    replaceIndex = i;
                 }
             }
             // NOTE: logic duplicated above END
@@ -6806,10 +6897,7 @@ public class StringUtils {
      * @since 2.4
      */
     public static String replaceEachRepeatedly(final String text, final String[] searchList, final String[] replacementList) {
-        // timeToLive should be 0 if not used or nothing to replace, else it's
-        // the length of the replace array
-        final int timeToLive = searchList == null ? 0 : searchList.length;
-        return replaceEach(text, searchList, replacementList, true, timeToLive);
+        return replaceEach(text, searchList, replacementList, true, ArrayUtils.getLength(searchList));
     }
 
     /**
@@ -6825,7 +6913,7 @@ public class StringUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <p>The {@link Pattern#DOTALL} option is NOT automatically added.
-     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>
@@ -6866,32 +6954,32 @@ public class StringUtils {
     }
 
     /**
-    * <p>Case insensitively replaces all occurrences of a String within another String.</p>
-    *
-    * <p>A {@code null} reference passed to this method is a no-op.</p>
-    *
-    * <pre>
-    * StringUtils.replaceIgnoreCase(null, *, *)        = null
-    * StringUtils.replaceIgnoreCase("", *, *)          = ""
-    * StringUtils.replaceIgnoreCase("any", null, *)    = "any"
-    * StringUtils.replaceIgnoreCase("any", *, null)    = "any"
-    * StringUtils.replaceIgnoreCase("any", "", *)      = "any"
-    * StringUtils.replaceIgnoreCase("aba", "a", null)  = "aba"
-    * StringUtils.replaceIgnoreCase("abA", "A", "")    = "b"
-    * StringUtils.replaceIgnoreCase("aba", "A", "z")   = "zbz"
-    * </pre>
-    *
-    * @see #replaceIgnoreCase(String text, String searchString, String replacement, int max)
-    * @param text  text to search and replace in, may be null
-    * @param searchString  the String to search for (case insensitive), may be null
-    * @param replacement  the String to replace it with, may be null
-    * @return the text with any replacements processed,
-    *  {@code null} if null String input
-    * @since 3.5
-    */
-   public static String replaceIgnoreCase(final String text, final String searchString, final String replacement) {
-       return replaceIgnoreCase(text, searchString, replacement, -1);
-   }
+     * <p>Case insensitively replaces all occurrences of a String within another String.</p>
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <pre>
+     * StringUtils.replaceIgnoreCase(null, *, *)        = null
+     * StringUtils.replaceIgnoreCase("", *, *)          = ""
+     * StringUtils.replaceIgnoreCase("any", null, *)    = "any"
+     * StringUtils.replaceIgnoreCase("any", *, null)    = "any"
+     * StringUtils.replaceIgnoreCase("any", "", *)      = "any"
+     * StringUtils.replaceIgnoreCase("aba", "a", null)  = "aba"
+     * StringUtils.replaceIgnoreCase("abA", "A", "")    = "b"
+     * StringUtils.replaceIgnoreCase("aba", "A", "z")   = "zbz"
+     * </pre>
+     *
+     * @see #replaceIgnoreCase(String text, String searchString, String replacement, int max)
+     * @param text  text to search and replace in, may be null
+     * @param searchString  the String to search for (case insensitive), may be null
+     * @param replacement  the String to replace it with, may be null
+     * @return the text with any replacements processed,
+     *  {@code null} if null String input
+     * @since 3.5
+     */
+     public static String replaceIgnoreCase(final String text, final String searchString, final String replacement) {
+         return replaceIgnoreCase(text, searchString, replacement, -1);
+     }
 
     /**
      * <p>Case insensitively replaces a String with another String inside a larger String,
@@ -6926,8 +7014,6 @@ public class StringUtils {
         return replace(text, searchString, replacement, max, true);
     }
 
-    // Replacing
-    //-----------------------------------------------------------------------
     /**
      * <p>Replaces a String with another String inside a larger String, once.</p>
      *
@@ -7030,8 +7116,6 @@ public class StringUtils {
         return RegExUtils.replacePattern(source, regex, replacement);
     }
 
-    // Reversing
-    //-----------------------------------------------------------------------
     /**
      * <p>Reverses a String as per {@link StringBuilder#reverse()}.</p>
      *
@@ -7216,20 +7300,18 @@ public class StringUtils {
 
         if (pads == padLen) {
             return str.concat(padStr);
-        } else if (pads < padLen) {
-            return str.concat(padStr.substring(0, pads));
-        } else {
-            final char[] padding = new char[pads];
-            final char[] padChars = padStr.toCharArray();
-            for (int i = 0; i < pads; i++) {
-                padding[i] = padChars[i % padLen];
-            }
-            return str.concat(new String(padding));
         }
+        if (pads < padLen) {
+            return str.concat(padStr.substring(0, pads));
+        }
+        final char[] padding = new char[pads];
+        final char[] padChars = padStr.toCharArray();
+        for (int i = 0; i < pads; i++) {
+            padding[i] = padChars[i % padLen];
+        }
+        return str.concat(new String(padding));
     }
 
-    // Rotating (circular shift)
-    //-----------------------------------------------------------------------
     /**
      * <p>Rotate (circular shift) a String of {@code shift} characters.</p>
      * <ul>
@@ -7273,8 +7355,6 @@ public class StringUtils {
         return builder.toString();
     }
 
-    // Splitting
-    //-----------------------------------------------------------------------
     /**
      * <p>Splits the provided text into an array, using whitespace as the
      * separator.
@@ -7458,7 +7538,7 @@ public class StringUtils {
             currentType = type;
         }
         list.add(new String(c, tokenStart, c.length - tokenStart));
-        return list.toArray(new String[list.size()]);
+        return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
     }
 
     /**
@@ -7686,10 +7766,9 @@ public class StringUtils {
             }
         }
 
-        return substrings.toArray(new String[substrings.size()]);
+        return substrings.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
     }
 
-    // -----------------------------------------------------------------------
     /**
      * <p>Splits the provided text into an array, using whitespace as the
      * separator, preserving all tokens, including empty tokens created by
@@ -7854,7 +7933,8 @@ public class StringUtils {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
         final List<String> list = new ArrayList<>();
-        int i = 0, start = 0;
+        int i = 0;
+        int start = 0;
         boolean match = false;
         boolean lastMatch = false;
         while (i < len) {
@@ -7874,7 +7954,7 @@ public class StringUtils {
         if (match || preserveAllTokens && lastMatch) {
             list.add(str.substring(start, i));
         }
-        return list.toArray(new String[list.size()]);
+        return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
     }
 
     /**
@@ -7905,7 +7985,8 @@ public class StringUtils {
         }
         final List<String> list = new ArrayList<>();
         int sizePlus1 = 1;
-        int i = 0, start = 0;
+        int i = 0;
+        int start = 0;
         boolean match = false;
         boolean lastMatch = false;
         if (separatorChars == null) {
@@ -7973,7 +8054,7 @@ public class StringUtils {
         if (match || preserveAllTokens && lastMatch) {
             list.add(str.substring(start, i));
         }
-        return list.toArray(new String[list.size()]);
+        return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
     }
 
     /**
@@ -8017,10 +8098,12 @@ public class StringUtils {
         if (str == null || prefix == null) {
             return str == prefix;
         }
-        if (prefix.length() > str.length()) {
+        // Get length once instead of twice in the unlikely case that it changes.
+        final int preLen = prefix.length();
+        if (preLen > str.length()) {
             return false;
         }
-        return CharSequenceUtils.regionMatches(str, ignoreCase, 0, prefix, 0, prefix.length());
+        return CharSequenceUtils.regionMatches(str, ignoreCase, 0, prefix, 0, preLen);
     }
 
     /**
@@ -8083,8 +8166,6 @@ public class StringUtils {
         return startsWith(str, prefix, true);
     }
 
-    // Stripping
-    //-----------------------------------------------------------------------
     /**
      * <p>Strips whitespace from the start and end of a String.</p>
      *
@@ -8138,9 +8219,6 @@ public class StringUtils {
      * @return the stripped String, {@code null} if null String input
      */
     public static String strip(String str, final String stripChars) {
-        if (isEmpty(str)) {
-            return str;
-        }
         str = stripStart(str, stripChars);
         return stripEnd(str, stripChars);
     }
@@ -8167,15 +8245,12 @@ public class StringUtils {
         if (input == null) {
             return null;
         }
-        final Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+"); //$NON-NLS-1$
         final StringBuilder decomposed = new StringBuilder(Normalizer.normalize(input, Normalizer.Form.NFD));
         convertRemainingAccentCharacters(decomposed);
         // Note that this doesn't correctly remove ligatures...
-        return pattern.matcher(decomposed).replaceAll(EMPTY);
+        return STRIP_ACCENTS_PATTERN.matcher(decomposed).replaceAll(EMPTY);
     }
 
-    // StripAll
-    //-----------------------------------------------------------------------
     /**
      * <p>Strips whitespace from the start and end of every String in an array.
      * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
@@ -8225,8 +8300,8 @@ public class StringUtils {
      * @return the stripped Strings, {@code null} if null array input
      */
     public static String[] stripAll(final String[] strs, final String stripChars) {
-        int strsLen;
-        if (strs == null || (strsLen = strs.length) == 0) {
+        final int strsLen = ArrayUtils.getLength(strs);
+        if (strsLen == 0) {
             return strs;
         }
         final String[] newArr = new String[strsLen];
@@ -8262,8 +8337,8 @@ public class StringUtils {
      * @return the stripped String, {@code null} if null String input
      */
     public static String stripEnd(final String str, final String stripChars) {
-        int end;
-        if (str == null || (end = str.length()) == 0) {
+        int end = length(str);
+        if (end == 0) {
             return str;
         }
 
@@ -8306,8 +8381,8 @@ public class StringUtils {
      * @return the stripped String, {@code null} if null String input
      */
     public static String stripStart(final String str, final String stripChars) {
-        int strLen;
-        if (str == null || (strLen = str.length()) == 0) {
+        final int strLen = length(str);
+        if (strLen == 0) {
             return str;
         }
         int start = 0;
@@ -8379,11 +8454,9 @@ public class StringUtils {
             return null;
         }
         str = strip(str, null);
-        return str.isEmpty() ? null : str;
+        return str.isEmpty() ? null : str; // NOSONARLINT str cannot be null here
     }
 
-    // Substring
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets a substring from the specified String avoiding exceptions.</p>
      *
@@ -8502,6 +8575,42 @@ public class StringUtils {
      *
      * <p>A {@code null} string input will return {@code null}.
      * An empty ("") string input will return the empty string.
+     *
+     * <p>If nothing is found, the empty string is returned.</p>
+     *
+     * <pre>
+     * StringUtils.substringAfter(null, *)      = null
+     * StringUtils.substringAfter("", *)        = ""
+     * StringUtils.substringAfter("abc", 'a')   = "bc"
+     * StringUtils.substringAfter("abcba", 'b') = "cba"
+     * StringUtils.substringAfter("abc", 'c')   = ""
+     * StringUtils.substringAfter("abc", 'd')   = ""
+     * StringUtils.substringAfter(" abc", 32)   = "abc"
+     * </pre>
+     *
+     * @param str  the String to get a substring from, may be null
+     * @param separator  the character (Unicode code point) to search.
+     * @return the substring after the first occurrence of the separator,
+     *  {@code null} if null String input
+     * @since 3.11
+     */
+    public static String substringAfter(final String str, final int separator) {
+        if (isEmpty(str)) {
+            return str;
+        }
+        final int pos = str.indexOf(separator);
+        if (pos == INDEX_NOT_FOUND) {
+            return EMPTY;
+        }
+        return str.substring(pos + 1);
+    }
+
+    /**
+     * <p>Gets the substring after the first occurrence of a separator.
+     * The separator is not returned.</p>
+     *
+     * <p>A {@code null} string input will return {@code null}.
+     * An empty ("") string input will return the empty string.
      * A {@code null} separator will return the empty string if the
      * input string is not {@code null}.</p>
      *
@@ -8536,6 +8645,43 @@ public class StringUtils {
             return EMPTY;
         }
         return str.substring(pos + separator.length());
+    }
+
+    /**
+     * <p>Gets the substring after the last occurrence of a separator.
+     * The separator is not returned.</p>
+     *
+     * <p>A {@code null} string input will return {@code null}.
+     * An empty ("") string input will return the empty string.
+     *
+     * <p>If nothing is found, the empty string is returned.</p>
+     *
+     * <pre>
+     * StringUtils.substringAfterLast(null, *)      = null
+     * StringUtils.substringAfterLast("", *)        = ""
+     * StringUtils.substringAfterLast("abc", 'a')   = "bc"
+     * StringUtils.substringAfterLast(" bc", 32)    = "bc"
+     * StringUtils.substringAfterLast("abcba", 'b') = "a"
+     * StringUtils.substringAfterLast("abc", 'c')   = ""
+     * StringUtils.substringAfterLast("a", 'a')     = ""
+     * StringUtils.substringAfterLast("a", 'z')     = ""
+     * </pre>
+     *
+     * @param str  the String to get a substring from, may be null
+     * @param separator  the character (Unicode code point) to search.
+     * @return the substring after the last occurrence of the separator,
+     *  {@code null} if null String input
+     * @since 3.11
+     */
+    public static String substringAfterLast(final String str, final int separator) {
+        if (isEmpty(str)) {
+            return str;
+        }
+        final int pos = str.lastIndexOf(separator);
+        if (pos == INDEX_NOT_FOUND || pos == str.length() - 1) {
+            return EMPTY;
+        }
+        return str.substring(pos + 1);
     }
 
     /**
@@ -8581,11 +8727,44 @@ public class StringUtils {
         return str.substring(pos + separator.length());
     }
 
-    // startsWith
-    //-----------------------------------------------------------------------
+    /**
+     * <p>
+     * Gets the substring before the first occurrence of a separator. The separator is not returned.
+     * </p>
+     *
+     * <p>
+     * A {@code null} string input will return {@code null}. An empty ("") string input will return the empty string.
+     * </p>
+     *
+     * <p>
+     * If nothing is found, the string input is returned.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.substringBefore(null, *)      = null
+     * StringUtils.substringBefore("", *)        = ""
+     * StringUtils.substringBefore("abc", 'a')   = ""
+     * StringUtils.substringBefore("abcba", 'b') = "a"
+     * StringUtils.substringBefore("abc", 'c')   = "ab"
+     * StringUtils.substringBefore("abc", 'd')   = "abc"
+     * </pre>
+     *
+     * @param str the String to get a substring from, may be null
+     * @param separator the character (Unicode code point) to search.
+     * @return the substring before the first occurrence of the separator, {@code null} if null String input
+     * @since 3.12.0
+     */
+    public static String substringBefore(final String str, final int separator) {
+        if (isEmpty(str)) {
+            return str;
+        }
+        final int pos = str.indexOf(separator);
+        if (pos == INDEX_NOT_FOUND) {
+            return str;
+        }
+        return str.substring(0, pos);
+    }
 
-    // SubStringAfter/SubStringBefore
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets the substring before the first occurrence of a separator.
      * The separator is not returned.</p>
@@ -8665,8 +8844,6 @@ public class StringUtils {
         return str.substring(0, pos);
     }
 
-    // Substring between
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets the String that is nested in between two instances of the
      * same String.</p>
@@ -8720,7 +8897,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String substringBetween(final String str, final String open, final String close) {
-        if (str == null || open == null || close == null) {
+        if (!ObjectUtils.allNotNull(str, open, close)) {
             return null;
         }
         final int start = str.indexOf(open);
@@ -8732,9 +8909,6 @@ public class StringUtils {
         }
         return null;
     }
-
-    // endsWith
-    //-----------------------------------------------------------------------
 
     /**
      * <p>Searches a String for substrings delimited by a start and end tag,
@@ -8786,7 +8960,7 @@ public class StringUtils {
         if (list.isEmpty()) {
             return null;
         }
-        return list.toArray(new String [list.size()]);
+        return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
     }
 
     /**
@@ -8799,7 +8973,7 @@ public class StringUtils {
      *  <li>Lower case character converts to Upper case</li>
      * </ul>
      *
-     * <p>For a word based algorithm, see {@link org.apache.commons.lang3.text.WordUtils#swapCase(String)}.
+     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#swapCase(String)}.
      * A {@code null} input String returns {@code null}.</p>
      *
      * <pre>
@@ -8822,14 +8996,12 @@ public class StringUtils {
         }
 
         final int strLen = str.length();
-        final int newCodePoints[] = new int[strLen]; // cannot be longer than the char array
+        final int[] newCodePoints = new int[strLen]; // cannot be longer than the char array
         int outOffset = 0;
         for (int i = 0; i < strLen; ) {
             final int oldCodepoint = str.codePointAt(i);
             final int newCodePoint;
-            if (Character.isUpperCase(oldCodepoint)) {
-                newCodePoint = Character.toLowerCase(oldCodepoint);
-            } else if (Character.isTitleCase(oldCodepoint)) {
+            if (Character.isUpperCase(oldCodepoint) || Character.isTitleCase(oldCodepoint)) {
                 newCodePoint = Character.toLowerCase(oldCodepoint);
             } else if (Character.isLowerCase(oldCodepoint)) {
                 newCodePoint = Character.toUpperCase(oldCodepoint);
@@ -8854,19 +9026,19 @@ public class StringUtils {
      * StringUtils.toCodePoints("")     =  []  // empty array
      * </pre>
      *
-     * @param str the character sequence to convert
+     * @param cs the character sequence to convert
      * @return an array of code points
      * @since 3.6
      */
-    public static int[] toCodePoints(final CharSequence str) {
-        if (str == null) {
+    public static int[] toCodePoints(final CharSequence cs) {
+        if (cs == null) {
             return null;
         }
-        if (str.length() == 0) {
+        if (cs.length() == 0) {
             return ArrayUtils.EMPTY_INT_ARRAY;
         }
 
-        final String s = str.toString();
+        final String s = cs.toString();
         final int[] result = new int[s.codePointCount(0, s.length())];
         int index = 0;
         for (int i = 0; i < result.length; i++) {
@@ -8877,7 +9049,7 @@ public class StringUtils {
     }
 
     /**
-     * Converts a <code>byte[]</code> to a String using the specified character encoding.
+     * Converts a {@code byte[]} to a String using the specified character encoding.
      *
      * @param bytes
      *            the byte array to read from
@@ -8894,7 +9066,29 @@ public class StringUtils {
     }
 
     /**
-     * Converts a <code>byte[]</code> to a String using the specified character encoding.
+     * Converts the given source String as a lower-case using the {@link Locale#ROOT} locale in a null-safe manner.
+     *
+     * @param source A source String or null.
+     * @return the given source String as a lower-case using the {@link Locale#ROOT} locale or null.
+     * @since 3.10
+     */
+    public static String toRootLowerCase(final String source) {
+        return source == null ? null : source.toLowerCase(Locale.ROOT);
+    }
+
+    /**
+     * Converts the given source String as a upper-case using the {@link Locale#ROOT} locale in a null-safe manner.
+     *
+     * @param source A source String or null.
+     * @return the given source String as a upper-case using the {@link Locale#ROOT} locale or null.
+     * @since 3.10
+     */
+    public static String toRootUpperCase(final String source) {
+        return source == null ? null : source.toUpperCase(Locale.ROOT);
+    }
+
+    /**
+     * Converts a {@code byte[]} to a String using the specified character encoding.
      *
      * @param bytes
      *            the byte array to read from
@@ -8910,11 +9104,13 @@ public class StringUtils {
      */
     @Deprecated
     public static String toString(final byte[] bytes, final String charsetName) throws UnsupportedEncodingException {
-        return charsetName != null ? new String(bytes, charsetName) : new String(bytes, Charset.defaultCharset());
+        return new String(bytes, Charsets.toCharset(charsetName));
     }
 
-    // Trim
-    //-----------------------------------------------------------------------
+    private static String toStringOrEmpty(final Object obj) {
+        return Objects.toString(obj, EMPTY);
+    }
+
     /**
      * <p>Removes control characters (char &lt;= 32) from both
      * ends of this String, handling {@code null} by returning
@@ -9023,6 +9219,7 @@ public class StringUtils {
      * @param str  the String to truncate, may be null
      * @param maxWidth  maximum length of result String, must be positive
      * @return truncated String, {@code null} if null String input
+     * @throws IllegalArgumentException If {@code maxWidth} is less than {@code 0}
      * @since 3.5
      */
     public static String truncate(final String str, final int maxWidth) {
@@ -9059,8 +9256,8 @@ public class StringUtils {
      * StringUtils.truncate("raspberry peach", 10, 15) = "peach"
      * StringUtils.truncate("abcdefghijklmno", 0, 10) = "abcdefghij"
      * StringUtils.truncate("abcdefghijklmno", -1, 10) = throws an IllegalArgumentException
-     * StringUtils.truncate("abcdefghijklmno", Integer.MIN_VALUE, 10) = "abcdefghij"
-     * StringUtils.truncate("abcdefghijklmno", Integer.MIN_VALUE, Integer.MAX_VALUE) = "abcdefghijklmno"
+     * StringUtils.truncate("abcdefghijklmno", Integer.MIN_VALUE, 10) = throws an IllegalArgumentException
+     * StringUtils.truncate("abcdefghijklmno", Integer.MIN_VALUE, Integer.MAX_VALUE) = throws an IllegalArgumentException
      * StringUtils.truncate("abcdefghijklmno", 0, Integer.MAX_VALUE) = "abcdefghijklmno"
      * StringUtils.truncate("abcdefghijklmno", 1, 10) = "bcdefghijk"
      * StringUtils.truncate("abcdefghijklmno", 2, 10) = "cdefghijkl"
@@ -9082,10 +9279,11 @@ public class StringUtils {
      * StringUtils.truncate("abcdefghij", -2, 4) = throws an IllegalArgumentException
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param str  the String to truncate, may be null
      * @param offset  left edge of source String
      * @param maxWidth  maximum length of result String, must be positive
      * @return truncated String, {@code null} if null String input
+     * @throws IllegalArgumentException If {@code offset} or {@code maxWidth} is less than {@code 0}
      * @since 3.5
      */
     public static String truncate(final String str, final int offset, final int maxWidth) {
@@ -9102,7 +9300,7 @@ public class StringUtils {
             return EMPTY;
         }
         if (str.length() > maxWidth) {
-            final int ix = offset + maxWidth > str.length() ? str.length() : offset + maxWidth;
+            final int ix = Math.min(offset + maxWidth, str.length());
             return str.substring(offset, ix);
         }
         return str.substring(offset);
@@ -9112,7 +9310,7 @@ public class StringUtils {
      * <p>Uncapitalizes a String, changing the first character to lower case as
      * per {@link Character#toLowerCase(int)}. No other characters are changed.</p>
      *
-     * <p>For a word based algorithm, see {@link org.apache.commons.lang3.text.WordUtils#uncapitalize(String)}.
+     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#uncapitalize(String)}.
      * A {@code null} input String returns {@code null}.</p>
      *
      * <pre>
@@ -9125,13 +9323,13 @@ public class StringUtils {
      *
      * @param str the String to uncapitalize, may be null
      * @return the uncapitalized String, {@code null} if null String input
-     * @see org.apache.commons.lang3.text.WordUtils#uncapitalize(String)
+     * @see org.apache.commons.text.WordUtils#uncapitalize(String)
      * @see #capitalize(String)
      * @since 2.0
      */
     public static String uncapitalize(final String str) {
-        int strLen;
-        if (str == null || (strLen = str.length()) == 0) {
+        final int strLen = length(str);
+        if (strLen == 0) {
             return str;
         }
 
@@ -9142,7 +9340,7 @@ public class StringUtils {
             return str;
         }
 
-        final int newCodePoints[] = new int[strLen]; // cannot be longer than the char array
+        final int[] newCodePoints = new int[strLen]; // cannot be longer than the char array
         int outOffset = 0;
         newCodePoints[outOffset++] = newCodePoint; // copy the first codepoint
         for (int inOffset = Character.charCount(firstCodepoint); inOffset < strLen; ) {
@@ -9162,8 +9360,10 @@ public class StringUtils {
      * StringUtils.unwrap(null, null)         = null
      * StringUtils.unwrap(null, '\0')         = null
      * StringUtils.unwrap(null, '1')          = null
+     * StringUtils.unwrap("a", 'a')           = "a"
+     * StringUtils.unwrap("aa", 'a')           = ""
      * StringUtils.unwrap("\'abc\'", '\'')    = "abc"
-     * StringUtils.unwrap("AABabcBAA", 'A')  = "ABabcBA"
+     * StringUtils.unwrap("AABabcBAA", 'A')   = "ABabcBA"
      * StringUtils.unwrap("A", '#')           = "A"
      * StringUtils.unwrap("#A", '#')          = "#A"
      * StringUtils.unwrap("A#", '#')          = "A#"
@@ -9178,16 +9378,15 @@ public class StringUtils {
      * @since 3.6
      */
     public static String unwrap(final String str, final char wrapChar) {
-        if (isEmpty(str) || wrapChar == CharUtils.NUL) {
+        if (isEmpty(str) || wrapChar == CharUtils.NUL || str.length() == 1) {
             return str;
         }
 
         if (str.charAt(0) == wrapChar && str.charAt(str.length() - 1) == wrapChar) {
             final int startIndex = 0;
             final int endIndex = str.length() - 1;
-            if (endIndex != -1) {
-                return str.substring(startIndex + 1, endIndex);
-            }
+
+            return str.substring(startIndex + 1, endIndex);
         }
 
         return str;
@@ -9202,6 +9401,8 @@ public class StringUtils {
      * StringUtils.unwrap(null, null)         = null
      * StringUtils.unwrap(null, "")           = null
      * StringUtils.unwrap(null, "1")          = null
+     * StringUtils.unwrap("a", "a")           = "a"
+     * StringUtils.unwrap("aa", "a")          = ""
      * StringUtils.unwrap("\'abc\'", "\'")    = "abc"
      * StringUtils.unwrap("\"abc\"", "\"")    = "abc"
      * StringUtils.unwrap("AABabcBAA", "AA")  = "BabcB"
@@ -9219,7 +9420,7 @@ public class StringUtils {
      * @since 3.6
      */
     public static String unwrap(final String str, final String wrapToken) {
-        if (isEmpty(str) || isEmpty(wrapToken)) {
+        if (isEmpty(str) || isEmpty(wrapToken) || str.length() < 2 * wrapToken.length()) {
             return str;
         }
 
@@ -9227,6 +9428,7 @@ public class StringUtils {
             final int startIndex = str.indexOf(wrapToken);
             final int endIndex = str.lastIndexOf(wrapToken);
             final int wrapLength = wrapToken.length();
+
             if (startIndex != -1 && endIndex != -1) {
                 return str.substring(startIndex + wrapLength, endIndex);
             }
@@ -9235,8 +9437,6 @@ public class StringUtils {
         return str;
     }
 
-    // Case conversion
-    //-----------------------------------------------------------------------
     /**
      * <p>Converts a String to upper case as per {@link String#toUpperCase()}.</p>
      *
@@ -9283,7 +9483,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        return str.toUpperCase(locale);
+        return str.toUpperCase(LocaleUtils.toLocale(locale));
     }
 
     /**
@@ -9371,6 +9571,8 @@ public class StringUtils {
      * Wraps a string with a char if that char is missing from the start or end of the given string.
      * </p>
      *
+     * <p>A new {@code String} will not be created if {@code str} is already wrapped.</p>
+     *
      * <pre>
      * StringUtils.wrapIfMissing(null, *)        = null
      * StringUtils.wrapIfMissing("", *)          = ""
@@ -9395,12 +9597,18 @@ public class StringUtils {
         if (isEmpty(str) || wrapWith == CharUtils.NUL) {
             return str;
         }
+        final boolean wrapStart = str.charAt(0) != wrapWith;
+        final boolean wrapEnd = str.charAt(str.length() - 1) != wrapWith;
+        if (!wrapStart && !wrapEnd) {
+            return str;
+        }
+
         final StringBuilder builder = new StringBuilder(str.length() + 2);
-        if (str.charAt(0) != wrapWith) {
+        if (wrapStart) {
             builder.append(wrapWith);
         }
         builder.append(str);
-        if (str.charAt(str.length() - 1) != wrapWith) {
+        if (wrapEnd) {
             builder.append(wrapWith);
         }
         return builder.toString();
@@ -9410,6 +9618,8 @@ public class StringUtils {
      * <p>
      * Wraps a string with a string if that string is missing from the start or end of the given string.
      * </p>
+     *
+     * <p>A new {@code String} will not be created if {@code str} is already wrapped.</p>
      *
      * <pre>
      * StringUtils.wrapIfMissing(null, *)         = null
@@ -9431,7 +9641,7 @@ public class StringUtils {
      * @param str
      *            the string to be wrapped, may be {@code null}
      * @param wrapWith
-     *            the char that will wrap {@code str}
+     *            the string that will wrap {@code str}
      * @return the wrapped string, or {@code null} if {@code str==null}
      * @since 3.5
      */
@@ -9439,12 +9649,19 @@ public class StringUtils {
         if (isEmpty(str) || isEmpty(wrapWith)) {
             return str;
         }
+
+        final boolean wrapStart = !str.startsWith(wrapWith);
+        final boolean wrapEnd = !str.endsWith(wrapWith);
+        if (!wrapStart && !wrapEnd) {
+            return str;
+        }
+
         final StringBuilder builder = new StringBuilder(str.length() + wrapWith.length() + wrapWith.length());
-        if (!str.startsWith(wrapWith)) {
+        if (wrapStart) {
             builder.append(wrapWith);
         }
         builder.append(str);
-        if (!str.endsWith(wrapWith)) {
+        if (wrapEnd) {
             builder.append(wrapWith);
         }
         return builder.toString();
@@ -9459,7 +9676,6 @@ public class StringUtils {
      * instance to operate.</p>
      */
     public StringUtils() {
-        super();
     }
 
 }

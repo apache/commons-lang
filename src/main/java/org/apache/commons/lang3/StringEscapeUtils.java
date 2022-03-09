@@ -36,7 +36,7 @@ import org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover;
  *
  * <p>#ThreadSafe#</p>
  * @since 2.0
- * @deprecated as of 3.6, use commons-text
+ * @deprecated As of 3.6, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StringEscapeUtils.html">
  * StringEscapeUtils</a> instead
  */
@@ -428,7 +428,6 @@ public class StringEscapeUtils {
      * instance to operate.</p>
      */
     public StringEscapeUtils() {
-      super();
     }
 
     // Java and JavaScript
@@ -568,10 +567,10 @@ public class StringEscapeUtils {
      * <p>
      * For example:
      * </p>
-     * <p><code>"bread" &amp; "butter"</code></p>
+     * <p>{@code "bread" &amp; "butter"}</p>
      * becomes:
      * <p>
-     * <code>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</code>.
+     * {@code &amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;}.
      * </p>
      *
      * <p>Supports all known HTML 4.0 entities, including funky accents.
@@ -606,7 +605,6 @@ public class StringEscapeUtils {
         return ESCAPE_HTML3.translate(input);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Unescapes a string containing entity escapes to a string
      * containing the actual Unicode characters corresponding to the
@@ -642,7 +640,6 @@ public class StringEscapeUtils {
         return UNESCAPE_HTML3.translate(input);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Escapes the characters in a {@code String} using XML entities.</p>
      *
@@ -730,7 +727,6 @@ public class StringEscapeUtils {
         return ESCAPE_XML11.translate(input);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Unescapes a string containing XML entity escapes to a string
      * containing the actual Unicode characters corresponding to the
@@ -752,7 +748,6 @@ public class StringEscapeUtils {
         return UNESCAPE_XML.translate(input);
     }
 
-    //-----------------------------------------------------------------------
 
     /**
      * <p>Returns a {@code String} value for a CSV column enclosed in double quotes,

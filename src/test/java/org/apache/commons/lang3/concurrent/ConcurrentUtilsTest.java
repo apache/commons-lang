@@ -18,8 +18,8 @@ package org.apache.commons.lang3.concurrent;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -107,8 +107,7 @@ public class ConcurrentUtilsTest {
     @Test
     public void testExtractCauseError() {
         final Error err = new AssertionError("Test");
-        AssertionError e =
-                assertThrows(AssertionError.class, () -> ConcurrentUtils.extractCause(new ExecutionException(err)));
+        final AssertionError e = assertThrows(AssertionError.class, () -> ConcurrentUtils.extractCause(new ExecutionException(err)));
         assertEquals(err, e, "Wrong error");
     }
 
@@ -127,8 +126,7 @@ public class ConcurrentUtilsTest {
     @Test
     public void testExtractCauseChecked() {
         final Exception ex = new Exception("Test");
-        final ConcurrentException cex = ConcurrentUtils
-                .extractCause(new ExecutionException(ex));
+        final ConcurrentException cex = ConcurrentUtils.extractCause(new ExecutionException(ex));
         assertSame(ex, cex.getCause(), "Wrong cause");
     }
 
@@ -154,7 +152,7 @@ public class ConcurrentUtilsTest {
     @Test
     public void testExtractCauseUncheckedError() {
         final Error err = new AssertionError("Test");
-        Error e = assertThrows(Error.class, () -> ConcurrentUtils.extractCauseUnchecked(new ExecutionException(err)));
+        final Error e = assertThrows(Error.class, () -> ConcurrentUtils.extractCauseUnchecked(new ExecutionException(err)));
         assertEquals(err, e, "Wrong error");
     }
 
@@ -164,8 +162,7 @@ public class ConcurrentUtilsTest {
     @Test
     public void testExtractCauseUncheckedUncheckedException() {
         final RuntimeException rex = new RuntimeException("Test");
-        RuntimeException r =
-                assertThrows(RuntimeException.class, () -> ConcurrentUtils.extractCauseUnchecked(new ExecutionException(rex)));
+        final RuntimeException r = assertThrows(RuntimeException.class, () -> ConcurrentUtils.extractCauseUnchecked(new ExecutionException(rex)));
         assertEquals(rex, r, "Wrong exception");
     }
 
@@ -175,8 +172,7 @@ public class ConcurrentUtilsTest {
     @Test
     public void testExtractCauseUncheckedChecked() {
         final Exception ex = new Exception("Test");
-        final ConcurrentRuntimeException cex = ConcurrentUtils
-                .extractCauseUnchecked(new ExecutionException(ex));
+        final ConcurrentRuntimeException cex = ConcurrentUtils.extractCauseUnchecked(new ExecutionException(ex));
         assertSame(ex, cex.getCause(), "Wrong cause");
     }
 
@@ -186,7 +182,7 @@ public class ConcurrentUtilsTest {
     @Test
     public void testHandleCauseError() {
         final Error err = new AssertionError("Test");
-        Error e = assertThrows(Error.class, () -> ConcurrentUtils.handleCause(new ExecutionException(err)));
+        final Error e = assertThrows(Error.class, () -> ConcurrentUtils.handleCause(new ExecutionException(err)));
         assertEquals(err, e, "Wrong error");
     }
 
@@ -196,8 +192,7 @@ public class ConcurrentUtilsTest {
     @Test
     public void testHandleCauseUncheckedException() {
         final RuntimeException rex = new RuntimeException("Test");
-        RuntimeException r =
-                assertThrows(RuntimeException.class, () -> ConcurrentUtils.handleCause(new ExecutionException(rex)));
+        final RuntimeException r = assertThrows(RuntimeException.class, () -> ConcurrentUtils.handleCause(new ExecutionException(rex)));
         assertEquals(rex, r, "Wrong exception");
     }
 
@@ -207,15 +202,13 @@ public class ConcurrentUtilsTest {
     @Test
     public void testHandleCauseChecked() {
         final Exception ex = new Exception("Test");
-        ConcurrentException cex =
-                assertThrows(ConcurrentException.class, () -> ConcurrentUtils.handleCause(new ExecutionException(ex)));
+        final ConcurrentException cex = assertThrows(ConcurrentException.class, () -> ConcurrentUtils.handleCause(new ExecutionException(ex)));
         assertEquals(ex, cex.getCause(), "Wrong cause");
     }
 
     /**
-     * Tests handleCause() for a null parameter or a null cause. In this case
-     * the method should do nothing. We can only test that no exception is
-     * thrown.
+     * Tests handleCause() for a null parameter or a null cause. In this case the method should do nothing. We can only test
+     * that no exception is thrown.
      *
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
@@ -231,7 +224,7 @@ public class ConcurrentUtilsTest {
     @Test
     public void testHandleCauseUncheckedError() {
         final Error err = new AssertionError("Test");
-        Error e = assertThrows(Error.class, () -> ConcurrentUtils.handleCauseUnchecked(new ExecutionException(err)));
+        final Error e = assertThrows(Error.class, () -> ConcurrentUtils.handleCauseUnchecked(new ExecutionException(err)));
         assertEquals(err, e, "Wrong error");
     }
 
@@ -241,8 +234,7 @@ public class ConcurrentUtilsTest {
     @Test
     public void testHandleCauseUncheckedUncheckedException() {
         final RuntimeException rex = new RuntimeException("Test");
-        RuntimeException r =
-                assertThrows(RuntimeException.class, () -> ConcurrentUtils.handleCauseUnchecked(new ExecutionException(rex)));
+        final RuntimeException r = assertThrows(RuntimeException.class, () -> ConcurrentUtils.handleCauseUnchecked(new ExecutionException(rex)));
         assertEquals(rex, r, "Wrong exception");
     }
 
@@ -252,24 +244,21 @@ public class ConcurrentUtilsTest {
     @Test
     public void testHandleCauseUncheckedChecked() {
         final Exception ex = new Exception("Test");
-        ConcurrentRuntimeException crex =
-                assertThrows(ConcurrentRuntimeException.class, () -> ConcurrentUtils.handleCauseUnchecked(new ExecutionException(ex)));
+        final ConcurrentRuntimeException crex = assertThrows(ConcurrentRuntimeException.class,
+            () -> ConcurrentUtils.handleCauseUnchecked(new ExecutionException(ex)));
         assertEquals(ex, crex.getCause(), "Wrong cause");
     }
 
     /**
-     * Tests handleCauseUnchecked() for a null parameter or a null cause. In
-     * this case the method should do nothing. We can only test that no
-     * exception is thrown.
+     * Tests handleCauseUnchecked() for a null parameter or a null cause. In this case the method should do nothing. We can
+     * only test that no exception is thrown.
      */
     @Test
     public void testHandleCauseUncheckedNull() {
         ConcurrentUtils.handleCauseUnchecked(null);
-        ConcurrentUtils.handleCauseUnchecked(new ExecutionException("Test",
-                null));
+        ConcurrentUtils.handleCauseUnchecked(new ExecutionException("Test", null));
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Tests initialize() for a null argument.
      *
@@ -287,10 +276,7 @@ public class ConcurrentUtilsTest {
      */
     @Test
     public void testInitialize() throws ConcurrentException {
-        @SuppressWarnings("unchecked")
-        final
-        ConcurrentInitializer<Object> init = EasyMock
-                .createMock(ConcurrentInitializer.class);
+        final ConcurrentInitializer<Object> init = EasyMock.createMock(ConcurrentInitializer.class);
         final Object result = new Object();
         EasyMock.expect(init.get()).andReturn(result);
         EasyMock.replay(init);
@@ -321,10 +307,7 @@ public class ConcurrentUtilsTest {
      */
     @Test
     public void testInitializeUnchecked() throws ConcurrentException {
-        @SuppressWarnings("unchecked")
-        final
-        ConcurrentInitializer<Object> init = EasyMock
-                .createMock(ConcurrentInitializer.class);
+        final ConcurrentInitializer<Object> init = EasyMock.createMock(ConcurrentInitializer.class);
         final Object result = new Object();
         EasyMock.expect(init.get()).andReturn(result);
         EasyMock.replay(init);
@@ -339,20 +322,15 @@ public class ConcurrentUtilsTest {
      */
     @Test
     public void testInitializeUncheckedEx() throws ConcurrentException {
-        @SuppressWarnings("unchecked")
-        final
-        ConcurrentInitializer<Object> init = EasyMock
-                .createMock(ConcurrentInitializer.class);
+        final ConcurrentInitializer<Object> init = EasyMock.createMock(ConcurrentInitializer.class);
         final Exception cause = new Exception();
         EasyMock.expect(init.get()).andThrow(new ConcurrentException(cause));
         EasyMock.replay(init);
-        ConcurrentRuntimeException crex =
-                assertThrows(ConcurrentRuntimeException.class, () -> ConcurrentUtils.initializeUnchecked(init));
+        final ConcurrentRuntimeException crex = assertThrows(ConcurrentRuntimeException.class, () -> ConcurrentUtils.initializeUnchecked(init));
         assertSame(cause, crex.getCause(), "Wrong cause");
         EasyMock.verify(init);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Tests constant future.
      *
@@ -389,7 +367,6 @@ public class ConcurrentUtilsTest {
         assertFalse(test.cancel(false));
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Tests putIfAbsent() if the map contains the key in question.
      */
@@ -430,10 +407,7 @@ public class ConcurrentUtilsTest {
      */
     @Test
     public void testCreateIfAbsentKeyPresent() throws ConcurrentException {
-        @SuppressWarnings("unchecked")
-        final
-        ConcurrentInitializer<Integer> init = EasyMock
-                .createMock(ConcurrentInitializer.class);
+        final ConcurrentInitializer<Integer> init = EasyMock.createMock(ConcurrentInitializer.class);
         EasyMock.replay(init);
         final String key = "testKey";
         final Integer value = 42;
@@ -451,10 +425,7 @@ public class ConcurrentUtilsTest {
      */
     @Test
     public void testCreateIfAbsentKeyNotPresent() throws ConcurrentException {
-        @SuppressWarnings("unchecked")
-        final
-        ConcurrentInitializer<Integer> init = EasyMock
-                .createMock(ConcurrentInitializer.class);
+        final ConcurrentInitializer<Integer> init = EasyMock.createMock(ConcurrentInitializer.class);
         final String key = "testKey";
         final Integer value = 42;
         EasyMock.expect(init.get()).andReturn(value);
@@ -472,10 +443,7 @@ public class ConcurrentUtilsTest {
      */
     @Test
     public void testCreateIfAbsentNullMap() throws ConcurrentException {
-        @SuppressWarnings("unchecked")
-        final
-        ConcurrentInitializer<Integer> init = EasyMock
-                .createMock(ConcurrentInitializer.class);
+        final ConcurrentInitializer<Integer> init = EasyMock.createMock(ConcurrentInitializer.class);
         EasyMock.replay(init);
         assertNull(ConcurrentUtils.createIfAbsent(null, "test", init), "Wrong result");
         EasyMock.verify(init);
@@ -504,8 +472,7 @@ public class ConcurrentUtilsTest {
         final String key = "testKey";
         final Integer value = 42;
         final ConcurrentMap<String, Integer> map = new ConcurrentHashMap<>();
-        assertEquals(value, ConcurrentUtils.createIfAbsentUnchecked(map, key, new ConstantInitializer<>(value)),
-                "Wrong result");
+        assertEquals(value, ConcurrentUtils.createIfAbsentUnchecked(map, key, new ConstantInitializer<>(value)), "Wrong result");
         assertEquals(value, map.get(key), "Wrong value in map");
     }
 
@@ -515,19 +482,13 @@ public class ConcurrentUtilsTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testCreateIfAbsentUncheckedException()
-            throws ConcurrentException {
-        @SuppressWarnings("unchecked")
-        final
-        ConcurrentInitializer<Integer> init = EasyMock
-                .createMock(ConcurrentInitializer.class);
+    public void testCreateIfAbsentUncheckedException() throws ConcurrentException {
+        final ConcurrentInitializer<Integer> init = EasyMock.createMock(ConcurrentInitializer.class);
         final Exception ex = new Exception();
         EasyMock.expect(init.get()).andThrow(new ConcurrentException(ex));
         EasyMock.replay(init);
-        ConcurrentRuntimeException crex =
-                assertThrows(
-                        ConcurrentRuntimeException.class,
-                        () -> ConcurrentUtils.createIfAbsentUnchecked(new ConcurrentHashMap<>(), "test", init));
+        final ConcurrentRuntimeException crex = assertThrows(ConcurrentRuntimeException.class,
+            () -> ConcurrentUtils.createIfAbsentUnchecked(new ConcurrentHashMap<>(), "test", init));
         assertEquals(ex, crex.getCause(), "Wrong cause");
         EasyMock.verify(init);
     }

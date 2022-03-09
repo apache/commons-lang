@@ -34,14 +34,12 @@ import org.junit.jupiter.api.Test;
  */
 public class CharSetTest  {
 
-    //-----------------------------------------------------------------------
     @Test
     public void testClass() {
         assertTrue(Modifier.isPublic(CharSet.class.getModifiers()));
         assertFalse(Modifier.isFinal(CharSet.class.getModifiers()));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testGetInstance() {
         assertSame(CharSet.EMPTY, CharSet.getInstance( (String) null));
@@ -53,7 +51,6 @@ public class CharSetTest  {
         assertSame(CharSet.ASCII_NUMERIC, CharSet.getInstance("0-9"));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testGetInstance_Stringarray() {
         assertNull(CharSet.getInstance((String[]) null));
@@ -62,7 +59,6 @@ public class CharSetTest  {
         assertEquals("[a-e]", CharSet.getInstance(new String[] {"a-e"}).toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testConstructor_String_simple() {
         CharSet set;
@@ -294,7 +290,7 @@ public class CharSetTest  {
     @Test
     public void testConstructor_String_oddCombinations() {
         CharSet set;
-        CharRange[] array = null;
+        CharRange[] array;
 
         set = CharSet.getInstance("a-^c");
         array = set.getCharRanges();
@@ -340,7 +336,6 @@ public class CharSetTest  {
         assertFalse(set.contains('c'));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testEquals_Object() {
         final CharSet abc = CharSet.getInstance("abc");
@@ -385,7 +380,6 @@ public class CharSetTest  {
         assertEquals(notatoc.hashCode(), notatoc2.hashCode());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testContains_Char() {
         final CharSet btod = CharSet.getInstance("b-d");
@@ -429,7 +423,6 @@ public class CharSetTest  {
         assertEquals(1, array.length);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testSerialization() {
         CharSet set = CharSet.getInstance("a");
@@ -440,7 +433,6 @@ public class CharSetTest  {
         assertEquals(set, SerializationUtils.clone(set));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testStatics() {
         CharRange[] array;

@@ -38,7 +38,24 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
  */
 @SuppressWarnings("deprecation") // tests lots of deprecated items
 public class DateFormatUtilsTest {
-    //-----------------------------------------------------------------------
+    private void assertFormats(final String expectedValue, final String pattern, final TimeZone timeZone, final Calendar cal) {
+        assertEquals(expectedValue, DateFormatUtils.format(cal.getTime(), pattern, timeZone));
+        assertEquals(expectedValue, DateFormatUtils.format(cal.getTime().getTime(), pattern, timeZone));
+        assertEquals(expectedValue, DateFormatUtils.format(cal, pattern, timeZone));
+    }
+
+    private Calendar createFebruaryTestDate(final TimeZone timeZone) {
+        final Calendar cal = Calendar.getInstance(timeZone);
+        cal.set(2002, Calendar.FEBRUARY, 23, 9, 11, 12);
+        return cal;
+    }
+
+    private Calendar createJuneTestDate(final TimeZone timeZone) {
+        final Calendar cal = Calendar.getInstance(timeZone);
+        cal.set(2003, Calendar.JUNE, 8, 10, 11, 12);
+        return cal;
+    }
+
     @Test
     public void testConstructor() {
         assertNotNull(new DateFormatUtils());
@@ -49,7 +66,20 @@ public class DateFormatUtilsTest {
         assertFalse(Modifier.isFinal(DateFormatUtils.class.getModifiers()));
     }
 
-    //-----------------------------------------------------------------------
+    @Test
+    public void testDateISO() {
+        testGmtMinus3("2002-02-23", DateFormatUtils.ISO_DATE_FORMAT.getPattern());
+        testGmtMinus3("2002-02-23-03:00", DateFormatUtils.ISO_DATE_TIME_ZONE_FORMAT.getPattern());
+        testUTC("2002-02-23Z", DateFormatUtils.ISO_DATE_TIME_ZONE_FORMAT.getPattern());
+    }
+
+    @Test
+    public void testDateTimeISO() {
+        testGmtMinus3("2002-02-23T09:11:12", DateFormatUtils.ISO_DATETIME_FORMAT.getPattern());
+        testGmtMinus3("2002-02-23T09:11:12-03:00", DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern());
+        testUTC("2002-02-23T09:11:12Z", DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern());
+    }
+
     @Test
     public void testFormat() {
         final Calendar c = Calendar.getInstance(FastTimeZone.getGmtTimeZone());
@@ -73,7 +103,6 @@ public class DateFormatUtilsTest {
         assertEquals(buffer.toString(), DateFormatUtils.format(c.getTime().getTime(), "yyyyMdH", Locale.US));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testFormatCalendar() {
         final Calendar c = Calendar.getInstance(FastTimeZone.getGmtTimeZone());
@@ -110,81 +139,24 @@ public class DateFormatUtilsTest {
         assertEquals ("2005-01-01T12:00:00", DateFormatUtils.formatUTC(c.getTime().getTime(), DateFormatUtils.ISO_DATETIME_FORMAT.getPattern(), Locale.US));
     }
 
-    private void assertFormats(final String expectedValue, final String pattern, final TimeZone timeZone, final Calendar cal) {
-        assertEquals(expectedValue, DateFormatUtils.format(cal.getTime(), pattern, timeZone));
-        assertEquals(expectedValue, DateFormatUtils.format(cal.getTime().getTime(), pattern, timeZone));
-        assertEquals(expectedValue, DateFormatUtils.format(cal, pattern, timeZone));
-    }
-
-    private Calendar createFebruaryTestDate(final TimeZone timeZone) {
-        final Calendar cal = Calendar.getInstance(timeZone);
-        cal.set(2002, Calendar.FEBRUARY, 23, 9, 11, 12);
-        return cal;
-    }
-
-    private Calendar createJuneTestDate(final TimeZone timeZone) {
-        final Calendar cal = Calendar.getInstance(timeZone);
-        cal.set(2003, Calendar.JUNE, 8, 10, 11, 12);
-        return cal;
-    }
-
     private void testGmtMinus3(final String expectedValue, final String pattern) {
         final TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
         assertFormats(expectedValue, pattern, timeZone, createFebruaryTestDate(timeZone));
-    }
-
-    private void testUTC(final String expectedValue, final String pattern) {
-        final TimeZone timeZone = FastTimeZone.getGmtTimeZone();
-        assertFormats(expectedValue, pattern, timeZone, createFebruaryTestDate(timeZone));
-    }
-
-    @Test
-    public void testDateTimeISO() {
-        testGmtMinus3("2002-02-23T09:11:12", DateFormatUtils.ISO_DATETIME_FORMAT.getPattern());
-        testGmtMinus3("2002-02-23T09:11:12-03:00", DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern());
-        testUTC("2002-02-23T09:11:12Z", DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern());
-    }
-
-    @Test
-    public void testDateISO() {
-        testGmtMinus3("2002-02-23", DateFormatUtils.ISO_DATE_FORMAT.getPattern());
-        testGmtMinus3("2002-02-23-03:00", DateFormatUtils.ISO_DATE_TIME_ZONE_FORMAT.getPattern());
-        testUTC("2002-02-23Z", DateFormatUtils.ISO_DATE_TIME_ZONE_FORMAT.getPattern());
-    }
-
-    @Test
-    public void testTimeISO() {
-        testGmtMinus3("T09:11:12", DateFormatUtils.ISO_TIME_FORMAT.getPattern());
-        testGmtMinus3("T09:11:12-03:00", DateFormatUtils.ISO_TIME_TIME_ZONE_FORMAT.getPattern());
-        testUTC("T09:11:12Z", DateFormatUtils.ISO_TIME_TIME_ZONE_FORMAT.getPattern());
-    }
-
-    @Test
-    public void testTimeNoTISO() {
-        testGmtMinus3("09:11:12", DateFormatUtils.ISO_TIME_NO_T_FORMAT.getPattern());
-        testGmtMinus3("09:11:12-03:00", DateFormatUtils.ISO_TIME_NO_T_TIME_ZONE_FORMAT.getPattern());
-        testUTC("09:11:12Z", DateFormatUtils.ISO_TIME_NO_T_TIME_ZONE_FORMAT.getPattern());
-    }
-
-    @DefaultLocale(language = "en")
-    @Test
-    public void testSMTP() {
-        TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
-        Calendar june = createJuneTestDate(timeZone);
-
-        assertFormats("Sun, 08 Jun 2003 10:11:12 -0300", DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
-                timeZone, june);
-
-        timeZone = FastTimeZone.getGmtTimeZone();
-        june = createJuneTestDate(timeZone);
-        assertFormats("Sun, 08 Jun 2003 10:11:12 +0000", DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
-                timeZone, june);
     }
 
     @Test
     public void testLANG1000() throws Exception {
         final String date = "2013-11-18T12:48:05Z";
         DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.parse(date);
+    }
+
+    @Test
+    public void testLANG1462() {
+        TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
+        Calendar calendar = createJuneTestDate(timeZone);
+        assertEquals("20030608101112", DateFormatUtils.format(calendar, "yyyyMMddHHmmss"));
+        calendar.setTimeZone(TimeZone.getTimeZone("JST"));
+        assertEquals("20030608221112", DateFormatUtils.format(calendar, "yyyyMMddHHmmss"));
     }
 
     @DefaultTimeZone("UTC")
@@ -237,5 +209,39 @@ public class DateFormatUtilsTest {
             final String value = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Europe/London"));
             assertEquals("2009-10-16T07:42:16+01:00", value, "calendar");
         }
+    }
+
+    @DefaultLocale(language = "en")
+    @Test
+    public void testSMTP() {
+        TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
+        Calendar june = createJuneTestDate(timeZone);
+
+        assertFormats("Sun, 08 Jun 2003 10:11:12 -0300", DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
+                timeZone, june);
+
+        timeZone = FastTimeZone.getGmtTimeZone();
+        june = createJuneTestDate(timeZone);
+        assertFormats("Sun, 08 Jun 2003 10:11:12 +0000", DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
+                timeZone, june);
+    }
+
+    @Test
+    public void testTimeISO() {
+        testGmtMinus3("T09:11:12", DateFormatUtils.ISO_TIME_FORMAT.getPattern());
+        testGmtMinus3("T09:11:12-03:00", DateFormatUtils.ISO_TIME_TIME_ZONE_FORMAT.getPattern());
+        testUTC("T09:11:12Z", DateFormatUtils.ISO_TIME_TIME_ZONE_FORMAT.getPattern());
+    }
+
+    @Test
+    public void testTimeNoTISO() {
+        testGmtMinus3("09:11:12", DateFormatUtils.ISO_TIME_NO_T_FORMAT.getPattern());
+        testGmtMinus3("09:11:12-03:00", DateFormatUtils.ISO_TIME_NO_T_TIME_ZONE_FORMAT.getPattern());
+        testUTC("09:11:12Z", DateFormatUtils.ISO_TIME_NO_T_TIME_ZONE_FORMAT.getPattern());
+    }
+
+    private void testUTC(final String expectedValue, final String pattern) {
+        final TimeZone timeZone = FastTimeZone.getGmtTimeZone();
+        assertFormats(expectedValue, pattern, timeZone, createFebruaryTestDate(timeZone));
     }
 }

@@ -14,20 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang3.time;
 
-import java.util.Locale;
-import java.util.TimeZone;
+package org.apache.commons.lang3.function;
+
+import java.util.function.DoubleSupplier;
 
 /**
- * Unit tests for the parse methods of FastDateFormat
+ * A functional interface like {@link DoubleSupplier} that declares a {@code Throwable}.
  *
- * @since 3.2
+ * @param <E> Thrown exception.
+ * @since 3.11
  */
-public class FastDateFormat_ParserTest extends FastDateParserTest {
+@FunctionalInterface
+public interface FailableDoubleSupplier<E extends Throwable> {
 
-    @Override
-    protected DateParser getInstance(final String format, final TimeZone timeZone, final Locale locale) {
-        return FastDateFormat.getInstance(format, timeZone, locale);
-    }
+    /**
+     * Supplies a double.
+     *
+     * @return a result
+     * @throws E if the supplier fails
+     */
+    double getAsDouble() throws E;
 }

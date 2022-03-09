@@ -16,8 +16,6 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -26,11 +24,15 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.Duration;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
+
+import org.apache.commons.lang3.ThreadUtils;
+import org.junit.jupiter.api.Test;
 
 public class BackgroundInitializerTest {
     /**
@@ -179,7 +181,7 @@ public class BackgroundInitializerTest {
         final RuntimeException rex = new RuntimeException();
         init.ex = rex;
         init.start();
-        Exception ex = assertThrows(Exception.class, init::get);
+        final Exception ex = assertThrows(Exception.class, init::get);
         assertEquals(rex, ex, "Runtime exception not thrown");
     }
 
@@ -193,7 +195,7 @@ public class BackgroundInitializerTest {
         final Exception ex = new Exception();
         init.ex = ex;
         init.start();
-        ConcurrentException cex = assertThrows(ConcurrentException.class, init::get);
+        final ConcurrentException cex = assertThrows(ConcurrentException.class, init::get);
         assertEquals(ex, cex.getCause(), "Exception not thrown");
     }
 
@@ -280,7 +282,6 @@ public class BackgroundInitializerTest {
         volatile int initializeCalls;
 
         BackgroundInitializerTestImpl() {
-            super();
         }
 
         BackgroundInitializerTestImpl(final ExecutorService exec) {
@@ -299,7 +300,7 @@ public class BackgroundInitializerTest {
                 throw ex;
             }
             if (shouldSleep) {
-                Thread.sleep(60000L);
+                ThreadUtils.sleep(Duration.ofMinutes(1));
             }
             return Integer.valueOf(++initializeCalls);
         }

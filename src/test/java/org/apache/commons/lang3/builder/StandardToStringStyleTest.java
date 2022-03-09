@@ -20,8 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.Collections;
 
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 import org.junit.jupiter.api.AfterEach;
@@ -88,12 +88,38 @@ public class StandardToStringStyleTest {
         assertEquals(baseStr + "[a=3]", new ToStringBuilder(base).append("a", i3).toString());
         assertEquals(baseStr + "[a=3,b=4]", new ToStringBuilder(base).append("a", i3).append("b", i4).toString());
         assertEquals(baseStr + "[a=%Integer%]", new ToStringBuilder(base).append("a", i3, false).toString());
-        assertEquals(baseStr + "[a=%SIZE=0%]", new ToStringBuilder(base).append("a", new ArrayList<>(), false).toString());
-        assertEquals(baseStr + "[a=[]]", new ToStringBuilder(base).append("a", new ArrayList<>(), true).toString());
-        assertEquals(baseStr + "[a=%SIZE=0%]", new ToStringBuilder(base).append("a", new HashMap<>(), false).toString());
-        assertEquals(baseStr + "[a={}]", new ToStringBuilder(base).append("a", new HashMap<>(), true).toString());
-        assertEquals(baseStr + "[a=%SIZE=0%]", new ToStringBuilder(base).append("a", (Object) new String[0], false).toString());
-        assertEquals(baseStr + "[a=[]]", new ToStringBuilder(base).append("a", (Object) new String[0], true).toString());
+    }
+
+    @Test
+    public void testCollection() {
+        final Integer i3 = Integer.valueOf(3);
+        final Integer i4 = Integer.valueOf(4);
+        assertEquals(baseStr + "[a=%SIZE=0%]", new ToStringBuilder(base).append("a", Collections.emptyList(), false).toString());
+        assertEquals(baseStr + "[a=[]]", new ToStringBuilder(base).append("a", Collections.emptyList(), true).toString());
+        assertEquals(baseStr + "[a=%SIZE=1%]", new ToStringBuilder(base).append("a", Collections.singletonList(i3), false).toString());
+        assertEquals(baseStr + "[a=[3]]", new ToStringBuilder(base).append("a", Collections.singletonList(i3), true).toString());
+        assertEquals(baseStr + "[a=%SIZE=2%]", new ToStringBuilder(base).append("a", Arrays.asList(i3, i4), false).toString());
+        assertEquals(baseStr + "[a=[3, 4]]", new ToStringBuilder(base).append("a", Arrays.asList(i3, i4), true).toString());
+    }
+
+    @Test
+    public void testMap() {
+        assertEquals(baseStr + "[a=%SIZE=0%]", new ToStringBuilder(base).append("a", Collections.emptyMap(), false).toString());
+        assertEquals(baseStr + "[a={}]", new ToStringBuilder(base).append("a", Collections.emptyMap(), true).toString());
+        assertEquals(baseStr + "[a=%SIZE=1%]", new ToStringBuilder(base).append("a", Collections.singletonMap("k", "v"), false).toString());
+        assertEquals(baseStr + "[a={k=v}]", new ToStringBuilder(base).append("a", Collections.singletonMap("k", "v"), true).toString());
+    }
+
+    @Test
+    public void testArray() {
+        final Integer i3 = Integer.valueOf(3);
+        final Integer i4 = Integer.valueOf(4);
+        assertEquals(baseStr + "[a=%SIZE=0%]", new ToStringBuilder(base).append("a", (Object) new Integer[0], false).toString());
+        assertEquals(baseStr + "[a=[]]", new ToStringBuilder(base).append("a", (Object) new Integer[0], true).toString());
+        assertEquals(baseStr + "[a=%SIZE=1%]", new ToStringBuilder(base).append("a", (Object) new Integer[] {i3}, false).toString());
+        assertEquals(baseStr + "[a=[3]]", new ToStringBuilder(base).append("a", (Object) new Integer[] {i3}, true).toString());
+        assertEquals(baseStr + "[a=%SIZE=2%]", new ToStringBuilder(base).append("a", (Object) new Integer[] {i3, i4}, false).toString());
+        assertEquals(baseStr + "[a=[3, 4]]", new ToStringBuilder(base).append("a", (Object) new Integer[] {i3, i4}, true).toString());
     }
 
     @Test
@@ -115,7 +141,7 @@ public class StandardToStringStyleTest {
 
     @Test
     public void testObjectArray() {
-        Object[] array = new Object[] {null, base, new int[] {3, 6}};
+        Object[] array = {null, base, new int[] {3, 6}};
         assertEquals(baseStr + "[[%NULL%, 5, [3, 6]]]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[[%NULL%, 5, [3, 6]]]", new ToStringBuilder(base).append((Object) array).toString());
         array = null;
@@ -125,7 +151,7 @@ public class StandardToStringStyleTest {
 
     @Test
     public void testLongArray() {
-        long[] array = new long[] {1, 2, -3, 4};
+        long[] array = {1, 2, -3, 4};
         assertEquals(baseStr + "[[1, 2, -3, 4]]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[[1, 2, -3, 4]]", new ToStringBuilder(base).append((Object) array).toString());
         array = null;
@@ -135,7 +161,7 @@ public class StandardToStringStyleTest {
 
     @Test
     public void testLongArrayArray() {
-        long[][] array = new long[][] {{1, 2}, null, {5}};
+        long[][] array = {{1, 2}, null, {5}};
         assertEquals(baseStr + "[[[1, 2], %NULL%, [5]]]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[[[1, 2], %NULL%, [5]]]", new ToStringBuilder(base).append((Object) array).toString());
         array = null;

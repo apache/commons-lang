@@ -27,7 +27,7 @@ import java.util.Locale;
  * is completely contextual, the API does not present two separate signatures.
  *
  * @since 3.0
- * @deprecated as of 3.6, use commons-text
+ * @deprecated As of 3.6, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/CharSequenceTranslator.html">
  * CharSequenceTranslator</a> instead
  */
@@ -126,11 +126,11 @@ public abstract class CharSequenceTranslator {
     }
 
     /**
-     * <p>Returns an upper case hexadecimal <code>String</code> for the given
+     * <p>Returns an upper case hexadecimal {@code String} for the given
      * character.</p>
      *
      * @param codepoint The codepoint to convert.
-     * @return An upper case hexadecimal <code>String</code>
+     * @return An upper case hexadecimal {@code String}
      */
     public static String hex(final int codepoint) {
         return Integer.toHexString(codepoint).toUpperCase(Locale.ENGLISH);

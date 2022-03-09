@@ -18,8 +18,8 @@ package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.Collections;
 
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 import org.junit.jupiter.api.AfterEach;
@@ -71,12 +71,38 @@ public class MultiLineToStringStyleTest {
         assertEquals(baseStr + "[" + System.lineSeparator() + "  a=3" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", i3).toString());
         assertEquals(baseStr + "[" + System.lineSeparator() + "  a=3" + System.lineSeparator() + "  b=4" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", i3).append("b", i4).toString());
         assertEquals(baseStr + "[" + System.lineSeparator() + "  a=<Integer>" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", i3, false).toString());
-        assertEquals(baseStr + "[" + System.lineSeparator() + "  a=<size=0>" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", new ArrayList<>(), false).toString());
-        assertEquals(baseStr + "[" + System.lineSeparator() + "  a=[]" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", new ArrayList<>(), true).toString());
-        assertEquals(baseStr + "[" + System.lineSeparator() + "  a=<size=0>" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", new HashMap<>(), false).toString());
-        assertEquals(baseStr + "[" + System.lineSeparator() + "  a={}" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", new HashMap<>(), true).toString());
-        assertEquals(baseStr + "[" + System.lineSeparator() + "  a=<size=0>" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", (Object) new String[0], false).toString());
-        assertEquals(baseStr + "[" + System.lineSeparator() + "  a={}" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", (Object) new String[0], true).toString());
+    }
+
+    @Test
+    public void testCollection() {
+        final Integer i3 = Integer.valueOf(3);
+        final Integer i4 = Integer.valueOf(4);
+        assertEquals(baseStr + "[" + System.lineSeparator() + "  a=<size=0>" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", Collections.emptyList(), false).toString());
+        assertEquals(baseStr + "[" + System.lineSeparator() + "  a=[]" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", Collections.emptyList(), true).toString());
+        assertEquals(baseStr + "[" + System.lineSeparator() + "  a=<size=1>" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", Collections.singletonList(i3), false).toString());
+        assertEquals(baseStr + "[" + System.lineSeparator() + "  a=[3]" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", Collections.singletonList(i3), true).toString());
+        assertEquals(baseStr + "[" + System.lineSeparator() + "  a=<size=2>" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", Arrays.asList(i3, i4), false).toString());
+        assertEquals(baseStr + "[" + System.lineSeparator() + "  a=[3, 4]" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", Arrays.asList(i3, i4), true).toString());
+    }
+
+    @Test
+    public void testMap() {
+        assertEquals(baseStr + "[" + System.lineSeparator() + "  a=<size=0>" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", Collections.emptyMap(), false).toString());
+        assertEquals(baseStr + "[" + System.lineSeparator() + "  a={}" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", Collections.emptyMap(), true).toString());
+        assertEquals(baseStr + "[" + System.lineSeparator() + "  a=<size=1>" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", Collections.singletonMap("k", "v"), false).toString());
+        assertEquals(baseStr + "[" + System.lineSeparator() + "  a={k=v}" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", Collections.singletonMap("k", "v"), true).toString());
+    }
+
+    @Test
+    public void testArray() {
+        final Integer i3 = Integer.valueOf(3);
+        final Integer i4 = Integer.valueOf(4);
+        assertEquals(baseStr + "[" + System.lineSeparator() + "  a=<size=0>" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", (Object) new Integer[0], false).toString());
+        assertEquals(baseStr + "[" + System.lineSeparator() + "  a={}" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", (Object) new Integer[0], true).toString());
+        assertEquals(baseStr + "[" + System.lineSeparator() + "  a=<size=1>" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", (Object) new Integer[] {i3}, false).toString());
+        assertEquals(baseStr + "[" + System.lineSeparator() + "  a={3}" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", (Object) new Integer[] {i3}, true).toString());
+        assertEquals(baseStr + "[" + System.lineSeparator() + "  a=<size=2>" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", (Object) new Integer[] {i3, i4}, false).toString());
+        assertEquals(baseStr + "[" + System.lineSeparator() + "  a={3,4}" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", (Object) new Integer[] {i3, i4}, true).toString());
     }
 
     @Test
@@ -98,7 +124,7 @@ public class MultiLineToStringStyleTest {
 
     @Test
     public void testObjectArray() {
-        Object[] array = new Object[] {null, base, new int[] {3, 6}};
+        Object[] array = {null, base, new int[] {3, 6}};
         assertEquals(baseStr + "[" + System.lineSeparator() + "  {<null>,5,{3,6}}" + System.lineSeparator() + "]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[" + System.lineSeparator() + "  {<null>,5,{3,6}}" + System.lineSeparator() + "]", new ToStringBuilder(base).append((Object) array).toString());
         array = null;
@@ -108,7 +134,7 @@ public class MultiLineToStringStyleTest {
 
     @Test
     public void testLongArray() {
-        long[] array = new long[] {1, 2, -3, 4};
+        long[] array = {1, 2, -3, 4};
         assertEquals(baseStr + "[" + System.lineSeparator() + "  {1,2,-3,4}" + System.lineSeparator() + "]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[" + System.lineSeparator() + "  {1,2,-3,4}" + System.lineSeparator() + "]", new ToStringBuilder(base).append((Object) array).toString());
         array = null;
@@ -118,7 +144,7 @@ public class MultiLineToStringStyleTest {
 
     @Test
     public void testLongArrayArray() {
-        long[][] array = new long[][] {{1, 2}, null, {5}};
+        long[][] array = {{1, 2}, null, {5}};
         assertEquals(baseStr + "[" + System.lineSeparator() + "  {{1,2},<null>,{5}}" + System.lineSeparator() + "]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[" + System.lineSeparator() + "  {{1,2},<null>,{5}}" + System.lineSeparator() + "]", new ToStringBuilder(base).append((Object) array).toString());
         array = null;

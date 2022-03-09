@@ -137,3 +137,8 @@ For complete information on ${project.name}, including instructions on how to su
 patches, or suggestions for improvement, see the Apache ${project.name} website:
 
 ${project.url}
+
+Download page: ${project.url}download_lang.cgi
+
+Have fun!
+-Apache Commons Team

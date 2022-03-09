@@ -1,4 +1,321 @@
                         Apache Commons Lang
+                        Version 3.12.0
+                        Release Notes
+
+INTRODUCTION:
+
+This document contains the release notes for the 3.12.0 version of Apache Commons Lang.
+Commons Lang is a set of utility functions and reusable components that should be of use in any 
+Java environment.
+
+Lang 3.9 and onwards now targets Java 8, making use of features that arrived with Java 8.
+
+For the advice on upgrading from 2.x to 3.x, see the following page: 
+
+    https://commons.apache.org/lang/article3_0.html
+
+Apache Commons Lang, a package of Java utility classes for the
+classes that are in java.lang's hierarchy, or are considered to be so
+standard as to justify existence in java.lang.
+
+New features and bug fixes.
+
+Changes in this version include:
+
+New features:
+o            Add BooleanUtils.booleanValues(). Thanks to Gary Gregory.
+o            Add BooleanUtils.primitiveValues(). Thanks to Gary Gregory.
+o LANG-1535: Add StringUtils.containsAnyIgnoreCase(CharSequence, CharSequence...). Thanks to Gary Gregory, Isira Seneviratne.
+o LANG-1359: Add StopWatch.getStopTime(). Thanks to Gary Gregory, Keegan Witt.
+o            More test coverage for CharSequenceUtils. #631. Thanks to Edgar Asatryan.
+o            Add fluent-style ArraySorter. Thanks to Gary Gregory.
+o            Add and use LocaleUtils.toLocale(Locale) to avoid NPEs. Thanks to Gary Gregory.
+o            Add FailableShortSupplier, handy for JDBC APIs. Thanks to Gary Gregory.
+o            Add JavaVersion.JAVA_17. Thanks to Gary Gregory.
+o LANG-1636: Add missing boolean[] join method #686. Thanks to .
+o            Add StringUtils.substringBefore(String, int). Thanks to Gary Gregory.
+o            Add Range.INTEGER. Thanks to Gary Gregory.
+o            Add DurationUtils. Thanks to Gary Gregory.
+o            Introduce the use of @Nonnull, and @Nullable, and the Objects class as a helper tool.
+o            Add and use true and false String constants #714. Thanks to Arturo Bernal, Gary Gregory.
+o            Add and use ObjectUtils.requireNonEmpty() #716. Thanks to Arturo Bernal, Gary Gregory.
+
+Fixed Bugs:
+o LANG-1592: Correct implementation of RandomUtils.nextLong(long, long) Thanks to Huang Pingcai, Alex Herbert.
+o LANG-1600: Restore handling of collections for non-JSON ToStringStyle #610. Thanks to Michael F.
+o            ContextedException Javadoc add missing semicolon #581. Thanks to iamchao1129.
+o LANG-1608: Resolve JUnit pioneer transitive dependencies using JUnit BOM. Thanks to Edgar Asatryan.
+o            NumberUtilsTest - incorrect types in min/max tests #634. Thanks to HubertWo, Gary Gregory.
+o LANG-1579: Improve StringUtils.stripAccents conversion of remaining accents. Thanks to XenoAmess.
+o LANG-1606: StringUtils.countMatches - clarify Javadoc. Thanks to Rustem Galiev.
+o LANG-1591: Remove redundant argument from substring call. Thanks to bhawna94.
+o LANG-1613: BigDecimal is created when you pass it the min and max values, #642. Thanks to Arturo Bernal, Gary Gregory.
+o LANG-1541: ArrayUtils.contains() and indexOf() fail to handle Double.NaN #647. Thanks to Arturo Bernal, Gary Gregory.
+o LANG-1615: ArrayUtils contains() and indexOf() fail to handle Float.NaN # #561. Thanks to Arturo Bernal, Gary Gregory.
+o            Fix potential NPE in TypeUtils.isAssignable(Type, ParameterizedType, Map, Type>). Thanks to Gary Gregory.
+o LANG-1420: TypeUtils.isAssignable returns wrong result for GenericArrayType and ParameterizedType, #643. Thanks to Gordon Fraser, Rostislav Krasny, Arturo Bernal, Gary Gregory.
+o LANG-1612: testGetAllFields and testGetFieldsWithAnnotation sometimes fail. Thanks to XinT, Gary Gregory.
+o            Fix Javadoc for SystemUtils.isJavaVersionAtMost() #638. Thanks to John R. D'Orazio.
+o LANG-1610: Fix StringUtils.unwrap throws StringIndexOutOfBoundsException #636. Thanks to Tony Liang.
+o            Fix formatting of isAnyBlank() and isAnyEmpty(). #513. Thanks to Isira Seneviratne.
+o LANG-1618: TypeUtils. containsTypeVariables does not support GenericArrayType #661. Thanks to Arturo Bernal.
+o LANG-1622: Javadoc of some methods incorrectly refers to another method, #667, #668. #670. Thanks to Kanak Sony, anomen-s.
+o LANG-1620: Refine StringUtils.lastIndexOfIgnoreCase #664. Thanks to Arturo Bernal.
+o LANG-1619: Refine StringUtils.abbreviate #663. Thanks to Arturo Bernal.
+o LANG-1584: Refine StringUtils.isNumericSpace #573. Thanks to Arturo Bernal.
+o LANG-1580: Refine StringUtils.deleteWhitespace #569. Thanks to Arturo Bernal.
+o LANG-1626: Correction in Javadoc of some methods. #673 Thanks to Kanak Sony.
+o LANG-1628: Javadoc for RandomStringUtils.random() letters, numbers parameters is wrong. Thanks to Jarkko Rantavuori.
+o            Correct markup in Javadoc for unbalanced braces #679. Thanks to Felix Schumacher.
+o LANG-1544: MethodUtils.invokeMethod NullPointerException in case of null in args list #680. Thanks to Peter Nagy, Michael Buck, Gary Gregory.
+o LANG-1637: Fix 2 digit week year formatting #688. Thanks to Uri Gonen, Gary Gregory, Michael Osipov.
+o            Fix broken Javadoc links to commons-text #712. Thanks to Chris Smowton.
+o            Add and use ThreadUtils.sleep(Duration). Thanks to Gary Gregory.
+o            Add and use ThreadUtils.join(Thread, Duration). Thanks to Gary Gregory.
+o            Add ObjectUtils.wait(Duration). Thanks to Gary Gregory.
+
+Changes:
+o LANG-1596: ArrayUtils.toPrimitive(Object) does not support boolean and other types #607. Thanks to Richard Eckart de Castilho.
+o            Enable Dependabot #587. Thanks to Gary Gregory.
+o            Bump junit-jupiter from 5.6.2 to 5.7.0.
+o            Bump spotbugs from 4.1.2 to 4.2.1, #627, #671, #708. Thanks to chtompki, Dependabot.
+o            Bump spotbugs-maven-plugin from 4.0.0 to 4.2.0, #593, #596, #609, #623, #632, #692. Thanks to Dependabot.
+o            Bump biz.aQute.bndlib from 5.1.1 to 5.3.0 #592, #628, #715. Thanks to Dependabot.
+o            Bump junit-pioneer from 0.6.0 to 1.1.0, #589, #597, #600, #624, #625, #662. Thanks to Dependabot.
+o            Bump checkstyle from 8.34 to 8.40, #594, #614, #637, #665, #706. Thanks to Dependabot.
+o            Bump actions/checkout from v2.3.1 to v2.3.4 #601, #639. Thanks to Dependabot.
+o            Bump actions/setup-java from v1.4.0 to v1.4.2 #612. Thanks to Dependabot.
+o            Update commons.jacoco.version 0.8.5 to 0.8.6 (Fixes Java 15 builds). Thanks to Gary Gregory.
+o            Update maven-surefire-plugin 2.22.2 -> 3.0.0-M5. Thanks to Gary Gregory.
+o            Bump maven-pmd-plugin from 3.13.0 to 3.14.0 #660. Thanks to Dependabot.
+o            Bump jmh.version from 1.21 to 1.27 #674. Thanks to Dependabot.
+o            Update commons.japicmp.version 0.14.3 -> 0.15.2. Thanks to Gary Gregory.
+o            Processor.java: check enum equality with == instead of .equals() method #690. Thanks to Ali K. Nouri.
+o            Bump junit-pioneer from 1.1.0 to 1.3.0 #702. Thanks to Dependabot.
+o            Bump maven-checkstyle-plugin from 3.1.1 to 3.1.2 #705. Thanks to Dependabot.
+o            Bump actions/cache from v2 to v2.1.4 #710. Thanks to Dependabot.
+o            Bump junit-bom from 5.7.0 to 5.7.1 #707. Thanks to Dependabot.
+o            Minor Improvements #701. Thanks to Arturo Bernal.
+o            Minor Improvement: Add final variable.try to make the code read-only #700. Thanks to Arturo Bernal.
+o            Minor Improvement: Remove redundant initializer #699. Thanks to Arturo Bernal.
+o            Use own validator ObjectUtils.anyNull to check null String input #718. Thanks to Arturo Bernal.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
+
+https://commons.apache.org/proper/commons-lang/
+
+Download page: https://commons.apache.org/proper/commons-lang/download_lang.cgi
+
+Have fun!
+-Apache Commons Team
+
+=============================================================================
+
+                        Apache Commons Lang
+                        Version 3.11
+                        Release Notes
+
+
+INTRODUCTION:
+
+This document contains the release notes for the 3.11 version of Apache Commons Lang.
+Commons Lang is a set of utility functions and reusable components that should be of use in any 
+Java environment.
+
+Lang 3.9 and onwards now targets Java 8, making use of features that arrived with Java 8.
+
+For the advice on upgrading from 2.x to 3.x, see the following page: 
+
+    https://commons.apache.org/lang/article3_0.html
+
+Apache Commons Lang, a package of Java utility classes for the
+classes that are in java.lang's hierarchy, or are considered to be so
+standard as to justify existence in java.lang.
+
+New features and bug fixes.
+
+Changes in this version include:
+
+New features:
+o            Add ArrayUtils.isSameLength() to compare more array types #430. Thanks to XenoAmess, Gary Gregory.
+o            Added the Locks class as a convenient possibility to deal with locked objects.
+o LANG-1568: Add to Functions: FailableBooleanSupplier, FailableIntSupplier, FailableLongSupplier, FailableDoubleSupplier, and so on.
+o LANG-1569: Add ArrayUtils.get(T[], index, T) to provide an out-of-bounds default value.
+o LANG-1570: Add JavaVersion enum constants for Java 14 and 15. #553. Thanks to Edgar Asatryan.
+o            Add JavaVersion enum constants for Java 16. Thanks to Gary Gregory.
+o LANG-1556: Use Java 8 lambdas and Map operations. Thanks to XenoAmess.
+o LANG-1565: Change removeLastFieldSeparator to use endsWith #550. Thanks to XenoAmess.
+o LANG-1557: Change a Pattern to a static final field, for not letting it compile each time the function invoked. #542. Thanks to XenoAmess, Gary Gregory.
+o            Add ImmutablePair factory methods left() and right().
+o            Add ObjectUtils.toString(Object, Supplier<String>).
+o            Add org.apache.commons.lang3.StringUtils.substringAfter(String, int).
+o            Add org.apache.commons.lang3.StringUtils.substringAfterLast(String, int).
+
+Fixed Bugs:
+o            Fix Javadoc for StringUtils.appendIfMissingIgnoreCase() #507. Thanks to contextshuffling.
+o LANG-1560: Refine Javadoc #545. Thanks to XenoAmess.
+o LANG-1554: Fix typos #539. Thanks to XenoAmess.
+o LANG-1555: Ignored exception `ignored`, should not be called so #540. Thanks to XenoAmess.
+o LANG-1528: StringUtils.replaceEachRepeatedly gives IllegalStateException #505. Thanks to Edwin Delgado H.
+o LANG-1543: [JSON string for maps] ToStringBuilder.reflectionToString doesnt render nested maps correctly. Thanks to Swaraj Pal, Wander Costa, Gary Gregory.
+o            Correct Javadocs of methods that use Validate.notNull() and replace some uses of Validate.isTrue() with Validate.notNull(). #525. Thanks to Isira Seneviratne.
+o LANG-1539: Add allNull() and anyNull() methods to ObjectUtils. #522. Thanks to Isira Seneviratne.
+
+Changes:
+o            Refine test output for FastDateParserTest Thanks to Jin Xu.
+o LANG-1549: CharSequenceUtils.lastIndexOf : remake it Thanks to Jin Xu.
+o            remove encoding and docEncoding and use inherited values from commons-parent Thanks to XenoAmess.
+o            Simplify null checks in Pair.hashCode() using Objects.hashCode(). #517. Thanks to Isira Seneviratne, Bruno P. Kinoshita.
+o            Simplify null checks in Triple.hashCode() using Objects.hashCode(). #516. Thanks to Isira Seneviratne, Bruno P. Kinoshita.
+o            Simplify some if statements in StringUtils. #521. Thanks to Isira Seneviratne, Bruno P. Kinoshita.
+o LANG-1537: Simplify a null check in the private replaceEach() method of StringUtils. #514. Thanks to Isira Seneviratne, Bruno P. Kinoshita.
+o LANG-1534: Replace some usages of the ternary operator with calls to Math.max() and Math.min() #512. Thanks to Isira Seneviratne, Bruno P. Kinoshita.
+o            (Javadoc) Fix return tag for throwableOf*() methods #518. Thanks to Arend v. Reinersdorff, Bruno P. Kinoshita.
+o LANG-1545: CharSequenceUtils.regionMatches is wrong dealing with Georgian. Thanks to XenoAmess, Gary Gregory.
+o LANG-1550: Optimize ArrayUtils::isArrayIndexValid method. #551. Thanks to Edgar Asatryan.
+o LANG-1561: Use List.sort instead of Collection.sort #546. Thanks to XenoAmess.
+o LANG-1563: Use StandardCharsets.UTF_8 #548. Thanks to XenoAmess.
+o LANG-1564: Use Collections.singletonList insteadof Arrays.asList when there be only one element. #549. Thanks to XenoAmess.
+o LANG-1553: Change array style from `int a[]` to `int[] a` #537. Thanks to XenoAmess.
+o LANG-1552: Change from addAll to constructors for some List #536. Thanks to XenoAmess.
+o LANG-1558: Simplify if as some conditions are covered by others #543. Thanks to XenoAmess.
+o LANG-1567: Fixed Javadocs for setTestRecursive() #556. Thanks to Miguel Muñoz, Bruno P. Kinoshita, Gary Gregory.
+o LANG-1542: ToStringBuilder.reflectionToString - Wrong JSON format when object has a List of Enum. Thanks to Tr?n Ng?c Khoa, Gary Gregory.
+o            Make org.apache.commons.lang3.CharSequenceUtils.toCharArray(CharSequence) public.
+o            org.apache.commons:commons-parent 50 -> 51.
+o            org.junit-pioneer:junit-pioneer 0.5.4 -> 0.6.0.
+o            org.junit.jupiter:junit-jupiter 5.6.0 -> 5.6.2.
+o            com.github.spotbugs:spotbugs 4.0.0 -> 4.0.6.
+o            com.puppycrawl.tools:checkstyle 8.29 -> 8.34.
+o            commons.surefire.version 3.0.0-M4 -> 3.0.0-M5..
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
+
+https://commons.apache.org/proper/commons-lang/
+
+Download page: https://commons.apache.org/proper/commons-lang/download_csv.cgi
+
+Have fun!
+-Apache Commons Team
+
+=============================================================================
+
+                        Apache Commons Lang
+                        Version 3.10
+                        Release Notes
+
+
+INTRODUCTION:
+
+This document contains the release notes for the 3.10 version of Apache Commons Lang.
+Commons Lang is a set of utility functions and reusable components that should be of use in any 
+Java environment.
+
+Lang 3.9 and onwards now targets Java 8, making use of features that arrived with Java 8.
+
+For the advice on upgrading from 2.x to 3.x, see the following page: 
+
+    https://commons.apache.org/lang/article3_0.html
+
+Apache Commons Lang, a package of Java utility classes for the
+classes that are in java.lang's hierarchy, or are considered to be so
+standard as to justify existence in java.lang.
+
+New features and bug fixes. Requires Java 8, supports Java 9, 10, 11.
+
+Changes in this version include:
+
+New features:
+o LANG-1457: Add ExceptionUtils.throwableOfType(Throwable, Class) and friends.
+o LANG-1458: Add EMPTY_ARRAY constants to classes in org.apache.commons.lang3.tuple.
+o LANG-1461: Add null-safe StringUtils APIs to wrap String#getBytes([Charset|String]).
+o LANG-1467: Add zero arg constructor for org.apache.commons.lang3.NotImplementedException.
+o LANG-1470: Add ArrayUtils.addFirst() methods.
+o LANG-1479: Add Range.fit(T) to fit a value into a range.
+o LANG-1477: Added Functions.as*, and tests thereof, as suggested by Peter Verhas
+o LANG-1485: Add getters for lhs and rhs objects in DiffResult #451. Thanks to nicolasbd.
+o LANG-1486: Generify builder classes Diffable, DiffBuilder, and DiffResult #452. Thanks to Gary Gregory.
+o LANG-1487: Add ClassLoaderUtils with toString() implementations #453. Thanks to Gary Gregory.
+o LANG-1489: Add null-safe APIs as StringUtils.toRootLowerCase(String) and StringUtils.toRootUpperCase(String) #456. Thanks to Gary Gregory.
+o LANG-1494: Add org.apache.commons.lang3.time.Calendars. Thanks to Gary Gregory.
+o LANG-1495: Add EnumUtils getEnum() methods with default values #475. Thanks to Cheong Voon Leong.
+o LANG-1177: Added indexesOf methods and simplified removeAllOccurences #471. Thanks to Liel Fridman.
+o LANG-1498: Add support of lambda value evaluation for defaulting methods #416. Thanks to Lysergid, Gary Gregory.
+o LANG-1503: Add factory methods to Pair classes with Map.Entry input. #454. Thanks to XenoAmess, Gary Gregory.
+o LANG-1505: Add StopWatch convenience APIs to format times and create a simple instance. Thanks to Gary Gregory.
+o LANG-1506: Allow a StopWatch to carry an optional message. Thanks to Gary Gregory.
+o LANG-1507: Add ComparableUtils #398. Thanks to Sam Kruglov, Mark Dacek, Marc Magon, Pascal Schumacher, Rob Tompkins, Bruno P. Kinoshita, Amey Jadiye, Gary Gregory.
+o LANG-1508: Add org.apache.commons.lang3.SystemUtils.getUserName(). Thanks to Gary Gregory.
+o LANG-1509: Add ObjectToStringComparator. #483. Thanks to Gary Gregory.
+o LANG-1510: Add org.apache.commons.lang3.arch.Processor.Arch.getLabel(). Thanks to Gary Gregory.
+o LANG-1512: Add IS_JAVA_14 and IS_JAVA_15 to org.apache.commons.lang3.SystemUtils. Thanks to Gary Gregory.
+o LANG-1513: ObjectUtils: Get first non-null supplier value. Thanks to Bernhard Bonigl, Gary Gregory.
+o            Added the Streams class, and Functions.stream() as an accessor thereof.
+
+Fixed Bugs:
+o LANG-1514: Make test more stable by wrapping assertions in hashset. Thanks to contextshuffling.
+o LANG-1450: Generate Javadoc jar on build.
+o LANG-1460: Trivial: year of release for 3.9 says 2018, should be 2019 Thanks to Larry West.
+o LANG-1476: Use synchronize on a set created with Collections.synchronizedSet before iterating Thanks to emopers.
+o LANG-1475: StringUtils.unwrap incorrect throw StringIndexOutOfBoundsException. Thanks to stzx.
+o LANG-1406: StringIndexOutOfBoundsException in StringUtils.replaceIgnoreCase #423. Thanks to geratorres.
+o LANG-1453: StringUtils.removeIgnoreCase("?a", "a") throws IndexOutOfBoundsException #423. Thanks to geratorres.
+o LANG-1426: Corrected usage examples in Javadocs #458. Thanks to Brower, Mikko Maunu, Suraj Gautam.
+o LANG-1463: StringUtils abbreviate returns String of length greater than maxWidth #477. Thanks to bbeckercscc, Gary Gregory.
+o LANG-1500: Test may fail due to a different order of fields returned by reflection api #480. Thanks to contextshuffling.
+o LANG-1501: Sort fields in ReflectionToStringBuilder for deterministic order #481. Thanks to contextshuffling.
+o LANG-1433: MethodUtils will throw a NPE if invokeMethod() is called for a var-args method #407. Thanks to Christian Franzen.
+o LANG-1518: MethodUtils.getAnnotation() with searchSupers = true does not work if super is generic #494. Thanks to Michele Preti, Bruno P. Kinoshita, Gary Gregory.
+
+Changes:
+o LANG-1437: Remove redundant if statements in join methods #411. Thanks to Andrei Troie.
+o            commons.japicmp.version 0.13.1 -> 0.14.1.
+o            junit-jupiter 5.5.0 -> 5.5.1.
+o            junit-jupiter 5.5.1 -> 5.5.2.
+o            Improve Javadoc based on the discussion of the GitHub PR #459. Thanks to Jonathan Leitschuh, Bruno P. Kinoshita, Rob Tompkins, Gary Gregory.
+o            maven-checkstyle-plugin 3.0.0 -> 3.1.0.
+o LANG-696:  Update documentation related to the issue LANG-696 #449. Thanks to Peter Verhas.
+o            AnnotationUtils little cleanup #467. Thanks to Peter Verhas.
+o            Update test dependency: org.easymock:easymock 4.0.2 -> 4.1. Thanks to Gary Gregory.
+o            Update test dependency: org.hamcrest:hamcrest 2.1 -> 2.2. Thanks to Gary Gregory.
+o            Update test dependency: org.junit-pioneer:junit-pioneer 0.3.0 -> 0.4.2. Thanks to Gary Gregory.
+o            Update build dependency: com.puppycrawl.tools:checkstyle 8.18 -> 8.27. Thanks to Gary Gregory.
+o            Update POM parent: org.apache.commons:commons-parent 48 -> 50. Thanks to Gary Gregory.
+o            BooleanUtils Javadoc #469. Thanks to Peter Verhas.
+o            Functions Javadoc #466. Thanks to Peter Verhas.
+o            org.easymock:easymock 4.1 -> 4.2. Thanks to Gary Gregory.
+o            org.junit-pioneer:junit-pioneer 0.4.2 -> 0.5.4. Thanks to Gary Gregory.
+o            org.junit.jupiter:junit-jupiter 5.5.2 -> 5.6.0. Thanks to Gary Gregory.
+o            Use Javadoc {@code} instead of pre tags. #490. Thanks to Peter Verhas.
+o            ExceptionUtilsTest to 100% #486. Thanks to Peter Verhas.
+o            Reuse own code in Functions.java #493. Thanks to Peter Verhas.
+o LANG-1523: Avoid unnecessary allocation in StringUtils.wrapIfMissing. #496. Thanks to Edgar Asatryan, Bruno P. Kinoshita, Gary Gregory.
+o LANG-1525: Internally use Validate.notNull(foo, ...) instead of Validate.isTrue(foo != null, ...). Thanks to Edgar Asatryan, Bruno P. Kinoshita, Gary Gregory.
+o LANG-1526: Add 1 and 0 in toBooleanObject(final String str) #502. Thanks to Dominik Schramm.
+o LANG-1527: Remove an redundant argument check in NumberUtils #504. Thanks to Pengyu Nie.
+o LANG-1529: Deprecate org.apache.commons.lang3.ArrayUtils.removeAllOccurences(*) for org.apache.commons.lang3.ArrayUtils.removeAllOccurrences(*). Thanks to Gary Gregory, BillCindy, Bruno P. Kinoshita.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
+
+https://commons.apache.org/proper/commons-lang/
+
+Download page: https://commons.apache.org/proper/commons-lang/download_lang.cgi
+
+=============================================================================
+
+                        Apache Commons Lang
                             Version 3.9
                            Release Notes
 
@@ -311,7 +628,7 @@ o LANG-1319: MultilineRecursiveToStringStyle StackOverflowError when object is
              an array.
 o LANG-1320: LocaleUtils#toLocale does not support language followed by UN M.49
              numeric-3 area code followed by variant.
-o LANG-1300: Clarify or improve behaviour of int-based indexOf methods in
+o LANG-1300: Clarify or improve behavior of int-based indexOf methods in
              StringUtils. Thanks to Mark Dacek.
 o LANG-1286: RandomStringUtils random method can overflow and return characters
              outside of specified range.
@@ -1021,7 +1338,7 @@ o LANG-831:  FastDateParser does not handle white-space properly.
 o LANG-830:  FastDateParser could use \Q \E to quote regexes.
 o LANG-828:  FastDateParser does not handle non-Gregorian calendars properly.
 o LANG-826:  FastDateParser does not handle non-ASCII digits correctly.
-o LANG-822:  NumberUtils#createNumber - bad behaviour for leading "--".
+o LANG-822:  NumberUtils#createNumber - bad behavior for leading "--".
 o LANG-818:  FastDateFormat's "z" pattern does not respect timezone of Calendar
              instances passed to format().
 o LANG-817:  Add org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS_8.

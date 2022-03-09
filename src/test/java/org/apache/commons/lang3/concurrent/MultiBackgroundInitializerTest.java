@@ -72,7 +72,7 @@ public class MultiBackgroundInitializerTest {
      */
     @Test
     public void testAddInitializerNullName() {
-        assertThrows(IllegalArgumentException.class, () -> initializer.addInitializer(null, new ChildBackgroundInitializer()));
+        assertThrows(NullPointerException.class, () -> initializer.addInitializer(null, new ChildBackgroundInitializer()));
     }
 
     /**
@@ -81,7 +81,7 @@ public class MultiBackgroundInitializerTest {
      */
     @Test
     public void testAddInitializerNullInit() {
-        assertThrows(IllegalArgumentException.class, () -> initializer.addInitializer(CHILD_INIT, null));
+        assertThrows(NullPointerException.class, () -> initializer.addInitializer(CHILD_INIT, null));
     }
 
     /**
@@ -273,7 +273,7 @@ public class MultiBackgroundInitializerTest {
         child.ex = new RuntimeException();
         initializer.addInitializer(CHILD_INIT, child);
         initializer.start();
-        Exception ex = assertThrows(Exception.class, initializer::get);
+        final Exception ex = assertThrows(Exception.class, initializer::get);
         assertEquals(child.ex, ex, "Wrong exception");
     }
 

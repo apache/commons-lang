@@ -180,7 +180,7 @@ public class HashCodeBuilderTest {
 
     @Test
     public void testReflectionHashCodeEx3() {
-        assertThrows(IllegalArgumentException.class, () -> HashCodeBuilder.reflectionHashCode(13, 19, null, true));
+        assertThrows(NullPointerException.class, () -> HashCodeBuilder.reflectionHashCode(13, 19, null, true));
     }
 
     @Test
@@ -207,7 +207,6 @@ public class HashCodeBuilderTest {
     }
 
     @Test
-    @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testLong() {
         assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0L).toHashCode());
         assertEquals(17 * 37 + (int) (123456789L ^ 123456789L >> 32), new HashCodeBuilder(17, 37).append(
@@ -215,7 +214,6 @@ public class HashCodeBuilderTest {
     }
 
     @Test
-    @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testInt() {
         assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0).toHashCode());
         assertEquals(17 * 37 + 123456, new HashCodeBuilder(17, 37).append(123456).toHashCode());
@@ -240,7 +238,6 @@ public class HashCodeBuilderTest {
     }
 
     @Test
-    @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testDouble() {
         assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0d).toHashCode());
         final double d = 1234567.89;
@@ -249,7 +246,6 @@ public class HashCodeBuilderTest {
     }
 
     @Test
-    @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testFloat() {
         assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0f).toHashCode());
         final float f = 1234.89f;
@@ -490,11 +486,11 @@ public class HashCodeBuilderTest {
     public void testReflectionHashCodeExcludeFields() {
         final TestObjectWithMultipleFields x = new TestObjectWithMultipleFields(1, 2, 3);
 
-        assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x));
+        assertEquals(((17 * 37 + 1) * 37 + 3) * 37 + 2, HashCodeBuilder.reflectionHashCode(x));
 
-        assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, (String[]) null));
-        assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x));
-        assertEquals(((17 * 37 + 1) * 37 + 2) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, "xxx"));
+        assertEquals(((17 * 37 + 1) * 37 + 3) * 37 + 2, HashCodeBuilder.reflectionHashCode(x, (String[]) null));
+        assertEquals(((17 * 37 + 1) * 37 + 3) * 37 + 2, HashCodeBuilder.reflectionHashCode(x));
+        assertEquals(((17 * 37 + 1) * 37 + 3) * 37 + 2, HashCodeBuilder.reflectionHashCode(x, "xxx"));
 
         assertEquals((17 * 37 + 1) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, "two"));
         assertEquals((17 * 37 + 1) * 37 + 2, HashCodeBuilder.reflectionHashCode(x, "three"));

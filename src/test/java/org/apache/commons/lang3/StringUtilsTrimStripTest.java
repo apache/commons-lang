@@ -67,7 +67,6 @@ public class StringUtilsTrimStripTest  {
         assertEquals("", StringUtils.trimToEmpty(null));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testStrip_String() {
         assertNull(StringUtils.strip(null));
@@ -199,10 +198,10 @@ public class StringUtilsTrimStripTest  {
     @Test
     public void testStripAll() {
         // test stripAll method, merely an array version of the above strip
-        final String[] empty = new String[0];
-        final String[] fooSpace = new String[] { "  "+FOO+"  ", "  "+FOO, FOO+"  " };
-        final String[] fooDots = new String[] { ".."+FOO+"..", ".."+FOO, FOO+".." };
-        final String[] foo = new String[] { FOO, FOO, FOO };
+        final String[] empty = {};
+        final String[] fooSpace = { "  "+FOO+"  ", "  "+FOO, FOO+"  " };
+        final String[] fooDots = { ".."+FOO+"..", ".."+FOO, FOO+".." };
+        final String[] foo = { FOO, FOO, FOO };
 
         assertNull(StringUtils.stripAll((String[]) null));
         // Additional varargs tests

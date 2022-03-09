@@ -23,7 +23,7 @@ import java.util.Locale;
  * Format factory.
  *
  * @since 2.4
- * @deprecated as of 3.6, use commons-text
+ * @deprecated As of 3.6, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/FormatFactory.html">
  * FormatFactory</a> instead
  */
@@ -35,8 +35,8 @@ public interface FormatFactory {
      *
      * @param name The format type name
      * @param arguments Arguments used to create the format instance. This allows the
-     *                  <code>FormatFactory</code> to implement the "format style"
-     *                  concept from <code>java.text.MessageFormat</code>.
+     *                  {@code FormatFactory} to implement the "format style"
+     *                  concept from {@code java.text.MessageFormat}.
      * @param locale The locale, may be null
      * @return The format instance
      */

@@ -45,7 +45,7 @@ import org.apache.commons.lang3.tuple.Pair;
  *     throw new ContextedRuntimeException("Error posting account transaction", e)
  *          .addContextValue("Account Number", accountNumber)
  *          .addContextValue("Amount Posted", amountPosted)
- *          .addContextValue("Previous Balance", previousBalance)
+ *          .addContextValue("Previous Balance", previousBalance);
  *   }
  * }
  * </pre>
@@ -97,7 +97,6 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
      * The context information is stored using a default implementation.
      */
     public ContextedRuntimeException() {
-        super();
         exceptionContext = new DefaultExceptionContext();
     }
 
@@ -153,7 +152,6 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
         exceptionContext = context;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Adds information helpful to a developer in diagnosing and correcting the problem.
      * For the information to be meaningful, the value passed should have a reasonable

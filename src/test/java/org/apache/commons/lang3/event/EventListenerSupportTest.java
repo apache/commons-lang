@@ -136,20 +136,15 @@ public class EventListenerSupportTest {
     @Test
     public void testSerialization() throws IOException, ClassNotFoundException, PropertyVetoException {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
-        listenerSupport.addListener(new VetoableChangeListener() {
-
-            @Override
-            public void vetoableChange(final PropertyChangeEvent e) {
-            }
+        listenerSupport.addListener(e -> {
         });
         listenerSupport.addListener(EasyMock.createNiceMock(VetoableChangeListener.class));
 
         //serialize:
         final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        final ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-
-        objectOutputStream.writeObject(listenerSupport);
-        objectOutputStream.close();
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {
+            objectOutputStream.writeObject(listenerSupport);
+        }
 
         //deserialize:
         @SuppressWarnings("unchecked")

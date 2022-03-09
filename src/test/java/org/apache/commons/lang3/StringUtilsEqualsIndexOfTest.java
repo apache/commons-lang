@@ -16,11 +16,14 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.Supplementary.CharU20000;
+import static org.apache.commons.lang3.Supplementary.CharU20001;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.nio.CharBuffer;
 import java.util.Locale;
 
 import org.hamcrest.core.IsNot;
@@ -30,23 +33,14 @@ import org.junit.jupiter.api.Test;
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Equals/IndexOf methods
  */
 public class StringUtilsEqualsIndexOfTest  {
+
     private static final String BAR = "bar";
-    /**
-     * Supplementary character U+20000
-     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
-     */
-    private static final String CharU20000 = "\uD840\uDC00";
-    /**
-     * Supplementary character U+20001
-     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
-     */
-    private static final String CharU20001 = "\uD840\uDC01";
 
     private static final String FOO = "foo";
 
     private static final String FOOBAR = "foobar";
 
-    private static final String[] FOOBAR_SUB_ARRAY = new String[] {"ob", "ba"};
+    private static final String[] FOOBAR_SUB_ARRAY = {"ob", "ba"};
 
     // The purpose of this class is to test StringUtils#equals(CharSequence, CharSequence)
     // with a CharSequence implementation whose equals(Object) override requires that the
@@ -76,7 +70,7 @@ public class StringUtilsEqualsIndexOfTest  {
 
         @Override
         public boolean equals(final Object obj) {
-            if (obj == null || !(obj instanceof CustomCharSequence)) {
+            if (!(obj instanceof CustomCharSequence)) {
                 return false;
             }
             final CustomCharSequence other = (CustomCharSequence) obj;
@@ -197,7 +191,6 @@ public class StringUtilsEqualsIndexOfTest  {
         assertTrue(StringUtils.equalsAnyIgnoreCase(FOO, new StringBuilder("fOo")));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testCompare_StringString() {
         assertEquals(0, StringUtils.compare(null, null));
@@ -266,7 +259,6 @@ public class StringUtilsEqualsIndexOfTest  {
         assertTrue(StringUtils.compareIgnoreCase("abc", "AB ", false) > 0);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testIndexOf_char() {
         assertEquals(-1, StringUtils.indexOf(null, ' '));
@@ -275,6 +267,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(2, StringUtils.indexOf("aabaabaa", 'b'));
 
         assertEquals(2, StringUtils.indexOf(new StringBuilder("aabaabaa"), 'b'));
+        assertEquals(StringUtils.INDEX_NOT_FOUND, StringUtils.indexOf(new StringBuilder("aabaabaa"), -1738));
     }
 
     @Test
@@ -564,6 +557,7 @@ public class StringUtilsEqualsIndexOfTest  {
         assertEquals(1, StringUtils.lastIndexOf(builder, CODE_POINT, 1 ));
         assertEquals(-1, StringUtils.lastIndexOf(builder.toString(), CODE_POINT, 0));
         assertEquals(1, StringUtils.lastIndexOf(builder.toString(), CODE_POINT, 1));
+        assertEquals(StringUtils.INDEX_NOT_FOUND, StringUtils.lastIndexOf(CharBuffer.wrap("[%{.c.0rro"), -1738, 982));
     }
 
     @Test

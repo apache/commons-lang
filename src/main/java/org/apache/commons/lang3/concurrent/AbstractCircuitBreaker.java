@@ -27,6 +27,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * @since 3.5
  */
 public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
+
     /**
      * The name of the <em>open</em> property as it is passed to registered
      * change listeners.
@@ -139,6 +140,8 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
      * {@code CircuitBreaker}.
      */
     protected enum State {
+
+        /** The closed state. */
         CLOSED {
             /**
              * {@inheritDoc}
@@ -149,6 +152,7 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
             }
         },
 
+        /** The open state. */
         OPEN {
             /**
              * {@inheritDoc}

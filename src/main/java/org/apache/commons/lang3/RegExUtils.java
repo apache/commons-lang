@@ -74,7 +74,7 @@ public class RegExUtils {
      *
      * <p>Unlike in the {@link #removePattern(String, String)} method, the {@link Pattern#DOTALL} option
      * is NOT automatically added.
-     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>
@@ -155,7 +155,7 @@ public class RegExUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <p>The {@link Pattern#DOTALL} option is NOT automatically added.
-     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>
@@ -256,7 +256,7 @@ public class RegExUtils {
      * @see java.util.regex.Pattern
      */
     public static String replaceAll(final String text, final Pattern regex, final String replacement) {
-        if (text == null || regex == null || replacement == null) {
+        if (ObjectUtils.anyNull(text, regex, replacement)) {
             return text;
         }
         return regex.matcher(text).replaceAll(replacement);
@@ -276,7 +276,7 @@ public class RegExUtils {
      *
      * <p>Unlike in the {@link #replacePattern(String, String, String)} method, the {@link Pattern#DOTALL} option
      * is NOT automatically added.
-     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>
@@ -310,7 +310,7 @@ public class RegExUtils {
      * @see java.util.regex.Pattern#DOTALL
      */
     public static String replaceAll(final String text, final String regex, final String replacement) {
-        if (text == null || regex == null || replacement == null) {
+        if (ObjectUtils.anyNull(text, regex, replacement)) {
             return text;
         }
         return text.replaceAll(regex, replacement);
@@ -372,7 +372,7 @@ public class RegExUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <p>The {@link Pattern#DOTALL} option is NOT automatically added.
-     * To use the DOTALL option prepend <code>"(?s)"</code> to the regex.
+     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>
@@ -449,7 +449,7 @@ public class RegExUtils {
      * @see Pattern#DOTALL
      */
     public static String replacePattern(final String text, final String regex, final String replacement) {
-        if (text == null || regex == null || replacement == null) {
+        if (ObjectUtils.anyNull(text, regex, replacement)) {
             return text;
         }
         return Pattern.compile(regex, Pattern.DOTALL).matcher(text).replaceAll(replacement);

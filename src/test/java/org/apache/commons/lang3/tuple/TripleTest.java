@@ -18,6 +18,7 @@ package org.apache.commons.lang3.tuple;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Calendar;
@@ -31,16 +32,16 @@ import org.junit.jupiter.api.Test;
 public class TripleTest {
 
     @Test
-    public void testEmptyArrayLength() {
-        @SuppressWarnings("unchecked")
-        final Triple<Integer, String, Boolean>[] empty = (Triple<Integer, String, Boolean>[]) Triple.EMPTY_ARRAY;
-        assertEquals(0, empty.length);
-    }
-
-    @Test
-    public void testEmptyArrayGenerics() {
-        final Triple<Integer, String, Boolean>[] empty = Triple.emptyArray();
-        assertEquals(0, empty.length);
+    public void testOfNonNull() {
+        assertThrows(NullPointerException.class, () -> Triple.ofNonNull(null, null, null));
+        assertThrows(NullPointerException.class, () -> Triple.ofNonNull(null, null, "z"));
+        assertThrows(NullPointerException.class, () -> Triple.ofNonNull(null, "y", "z"));
+        assertThrows(NullPointerException.class, () -> Triple.ofNonNull("x", null, null));
+        assertThrows(NullPointerException.class, () -> Triple.ofNonNull("x", "y", null));
+        final Triple<String, String, String> pair = Triple.ofNonNull("x", "y", "z");
+        assertEquals("x", pair.getLeft());
+        assertEquals("y", pair.getMiddle());
+        assertEquals("z", pair.getRight());
     }
 
     @Test
@@ -95,6 +96,19 @@ public class TripleTest {
     }
 
     @Test
+    public void testEmptyArrayGenerics() {
+        final Triple<Integer, String, Boolean>[] empty = Triple.emptyArray();
+        assertEquals(0, empty.length);
+    }
+
+    @Test
+    public void testEmptyArrayLength() {
+        @SuppressWarnings("unchecked")
+        final Triple<Integer, String, Boolean>[] empty = (Triple<Integer, String, Boolean>[]) Triple.EMPTY_ARRAY;
+        assertEquals(0, empty.length);
+    }
+
+    @Test
     public void testFormattable_padded() {
         final Triple<String, String, String> triple = Triple.of("Key", "Something", "Value");
         assertEquals("         (Key,Something,Value)", String.format("%1$30s", triple));
@@ -131,7 +145,7 @@ public class TripleTest {
         assertTrue(triple2 instanceof ImmutableTriple<?, ?, ?>);
         assertNull(((ImmutableTriple<Object, String, Long>) triple2).left);
         assertEquals("bar", ((ImmutableTriple<Object, String, Long>) triple2).middle);
-        assertEquals(new Long(200L), ((ImmutableTriple<Object, String, Long>) triple2).right);
+        assertEquals(Long.valueOf(200L), ((ImmutableTriple<Object, String, Long>) triple2).right);
     }
 
 }

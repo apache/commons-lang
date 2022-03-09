@@ -117,19 +117,19 @@ public class DiffResultTest {
 
     @Test
     public void testNullLhs() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
             () -> new DiffResult(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE));
     }
 
     @Test
     public void testNullRhs() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
             () -> new DiffResult(SIMPLE_TRUE, null, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE));
     }
 
     @Test
     public void testNullList() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
             () -> new DiffResult(SIMPLE_TRUE, SIMPLE_FALSE, null, SHORT_STYLE));
     }
 
@@ -145,5 +145,17 @@ public class DiffResultTest {
         final DiffResult diffResult = new DiffBuilder(SIMPLE_TRUE, SIMPLE_TRUE,
                 SHORT_STYLE).build();
         assertEquals(DiffResult.OBJECTS_SAME_STRING, diffResult.toString());
+    }
+
+    @Test
+    public void testLeftAndRightGetters() {
+        final SimpleClass left = new SimpleClass(true);
+        final SimpleClass right = new SimpleClass(false);
+
+        final List<Diff<?>> diffs = left.diff(right).getDiffs();
+        final DiffResult diffResult = new DiffResult(left, right, diffs, SHORT_STYLE);
+
+        assertEquals(left, diffResult.getLeft());
+        assertEquals(right, diffResult.getRight());
     }
 }

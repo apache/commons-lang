@@ -21,7 +21,7 @@ package org.apache.commons.lang3;
  *
  * <p>This class tries to handle {@code null} input gracefully.
  * An exception will not be thrown for a {@code null} input.
- * Each method documents its behaviour in more detail.</p>
+ * Each method documents its behavior in more detail.</p>
  *
  * <p>#ThreadSafe#</p>
  * @since 2.1
@@ -33,7 +33,7 @@ public class CharUtils {
     private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
     /**
-     * {@code \u000a} linefeed LF ('\n').
+     * Linefeed character LF ({@code '\n'}, Unicode 000a).
      *
      * @see <a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.10.6">JLF: Escape Sequences
      *      for Character and String Literals</a>
@@ -42,7 +42,7 @@ public class CharUtils {
     public static final char LF = '\n';
 
     /**
-     * {@code \u000d} carriage return CR ('\r').
+     * Carriage return characterf CR ('\r', Unicode 000d).
      *
      * @see <a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.10.6">JLF: Escape Sequences
      *      for Character and String Literals</a>
@@ -58,9 +58,7 @@ public class CharUtils {
     public static final char NUL = '\0';
 
     static {
-        for (char c = 0; c < CHAR_STRING_ARRAY.length; c++) {
-            CHAR_STRING_ARRAY[c] = String.valueOf(c);
-        }
+        ArrayUtils.setAll(CHAR_STRING_ARRAY, i -> String.valueOf((char) i));
     }
 
     /**
@@ -71,10 +69,8 @@ public class CharUtils {
      * to operate.</p>
      */
     public CharUtils() {
-      super();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Converts the character to a Character.</p>
      *
@@ -119,7 +115,6 @@ public class CharUtils {
         return Character.valueOf(str.charAt(0));
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Converts the Character to a char throwing an exception for {@code null}.</p>
      *
@@ -131,10 +126,10 @@ public class CharUtils {
      *
      * @param ch  the character to convert
      * @return the char value of the Character
-     * @throws IllegalArgumentException if the Character is null
+     * @throws NullPointerException if the Character is null
      */
     public static char toChar(final Character ch) {
-        Validate.isTrue(ch != null, "The Character must not be null");
+        Validate.notNull(ch, "ch");
         return ch.charValue();
     }
 
@@ -158,7 +153,6 @@ public class CharUtils {
         return ch.charValue();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Converts the String to a char using the first character, throwing
      * an exception on empty Strings.</p>
@@ -172,10 +166,11 @@ public class CharUtils {
      *
      * @param str  the character to convert
      * @return the char value of the first letter of the String
+     * @throws NullPointerException if the string is null
      * @throws IllegalArgumentException if the String is empty
      */
     public static char toChar(final String str) {
-        Validate.isTrue(StringUtils.isNotEmpty(str), "The String must not be empty");
+        Validate.notEmpty(str, "The String must not be empty");
         return str.charAt(0);
     }
 
@@ -201,7 +196,6 @@ public class CharUtils {
         return str.charAt(0);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Converts the character to the Integer it represents, throwing an
      * exception if the character is not numeric.</p>
@@ -260,10 +254,11 @@ public class CharUtils {
      *
      * @param ch  the character to convert, not null
      * @return the int value of the character
-     * @throws IllegalArgumentException if the Character is not ASCII numeric or is null
+     * @throws NullPointerException if the Character is null
+     * @throws IllegalArgumentException if the Character is not ASCII numeric
      */
     public static int toIntValue(final Character ch) {
-        Validate.isTrue(ch != null, "The character must not be null");
+        Validate.notNull(ch, "ch");
         return toIntValue(ch.charValue());
     }
 
@@ -290,7 +285,6 @@ public class CharUtils {
         return toIntValue(ch.charValue(), defaultValue);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Converts the character to a String that contains the one character.</p>
      *
@@ -306,10 +300,10 @@ public class CharUtils {
      * @return a String containing the one specified character
      */
     public static String toString(final char ch) {
-        if (ch < 128) {
+        if (ch < CHAR_STRING_ARRAY.length) {
             return CHAR_STRING_ARRAY[ch];
         }
-        return new String(new char[] {ch});
+        return String.valueOf(ch);
     }
 
     /**

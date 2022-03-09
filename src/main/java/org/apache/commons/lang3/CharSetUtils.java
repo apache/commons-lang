@@ -21,7 +21,7 @@ package org.apache.commons.lang3;
  *
  * <p>This class handles {@code null} input gracefully.
  * An exception will not be thrown for a {@code null} input.
- * Each method documents its behaviour in more detail.</p>
+ * Each method documents its behavior in more detail.</p>
  *
  * <p>#ThreadSafe#</p>
  * @see CharSet
@@ -212,7 +212,7 @@ public class CharSetUtils {
         final char[] chrs = str.toCharArray();
         final int sz = chrs.length;
         char lastChar = chrs[0];
-        char ch = ' ';
+        char ch;
         Character inChars = null;
         Character notInChars = null;
         buffer.append(lastChar);
@@ -244,6 +244,5 @@ public class CharSetUtils {
      * to operate.</p>
      */
     public CharSetUtils() {
-      super();
     }
 }

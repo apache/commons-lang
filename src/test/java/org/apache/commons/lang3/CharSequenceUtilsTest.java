@@ -23,18 +23,24 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.util.Random;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Tests CharSequenceUtils
  */
 public class CharSequenceUtilsTest {
 
-    //-----------------------------------------------------------------------
     @Test
     public void testConstructor() {
         assertNotNull(new CharSequenceUtils());
@@ -45,7 +51,6 @@ public class CharSequenceUtilsTest {
         assertFalse(Modifier.isFinal(CharSequenceUtils.class.getModifiers()));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testSubSequence() {
         //
@@ -184,6 +189,119 @@ public class CharSequenceUtilsTest {
         final char[] expected = builder.toString().toCharArray();
         assertArrayEquals(expected, CharSequenceUtils.toCharArray(builder));
         assertArrayEquals(expected, CharSequenceUtils.toCharArray(builder.toString()));
+        assertArrayEquals(ArrayUtils.EMPTY_CHAR_ARRAY, CharSequenceUtils.toCharArray(null));
     }
 
+    static class WrapperString implements CharSequence {
+        private final CharSequence inner;
+
+        WrapperString(final CharSequence inner) {
+            this.inner = inner;
+        }
+
+        @Override
+        public int length() {
+            return inner.length();
+        }
+
+        @Override
+        public char charAt(final int index) {
+            return inner.charAt(index);
+        }
+
+        @Override
+        public CharSequence subSequence(final int start, final int end) {
+            return inner.subSequence(start, end);
+        }
+
+        @Override
+        public String toString() {
+            return inner.toString();
+        }
+
+        @Override
+        public IntStream chars() {
+            return inner.chars();
+        }
+
+        @Override
+        public IntStream codePoints() {
+            return inner.codePoints();
+        }
+    }
+
+    @Test
+    public void testNewLastIndexOf() {
+        testNewLastIndexOfSingle("808087847-1321060740-635567660180086727-925755305", "-1321060740-635567660", 21);
+        testNewLastIndexOfSingle("", "");
+        testNewLastIndexOfSingle("1", "");
+        testNewLastIndexOfSingle("", "1");
+        testNewLastIndexOfSingle("1", "1");
+        testNewLastIndexOfSingle("11", "1");
+        testNewLastIndexOfSingle("1", "11");
+
+        testNewLastIndexOfSingle("apache", "a");
+        testNewLastIndexOfSingle("apache", "p");
+        testNewLastIndexOfSingle("apache", "e");
+        testNewLastIndexOfSingle("apache", "x");
+        testNewLastIndexOfSingle("oraoraoraora", "r");
+        testNewLastIndexOfSingle("mudamudamudamuda", "d");
+
+        final Random random = new Random();
+        final StringBuilder seg = new StringBuilder();
+        while (seg.length() <= CharSequenceUtils.TO_STRING_LIMIT) {
+            seg.append(random.nextInt());
+        }
+        StringBuilder original = new StringBuilder(seg);
+        testNewLastIndexOfSingle(original, seg);
+        for (int i = 0; i < 100; i++) {
+            if (random.nextDouble() < 0.5) {
+                original.append(random.nextInt() % 10);
+            } else {
+                original = new StringBuilder().append(String.valueOf(random.nextInt() % 100)).append(original);
+            }
+            testNewLastIndexOfSingle(original, seg);
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("lastIndexWithStandardCharSequence")
+    public void testLastIndexOfWithDifferentCharSequences(final CharSequence cs, final CharSequence search, final int start,
+                                                          final int expected) {
+        assertEquals(expected, CharSequenceUtils.lastIndexOf(cs, search, start));
+    }
+
+    static Stream<Arguments> lastIndexWithStandardCharSequence() {
+        return Stream.of(
+            arguments("abc", "b", 2, 1),
+            arguments(new StringBuilder("abc"), "b", 2, 1),
+            arguments(new StringBuffer("abc"), "b", 2, 1),
+            arguments("abc", new StringBuilder("b"), 2, 1),
+            arguments(new StringBuilder("abc"), new StringBuilder("b"), 2, 1),
+            arguments(new StringBuffer("abc"), new StringBuffer("b"), 2, 1),
+            arguments(new StringBuilder("abc"), new StringBuffer("b"), 2, 1)
+        );
+    }
+
+    private void testNewLastIndexOfSingle(final CharSequence a, final CharSequence b) {
+        final int maxa = Math.max(a.length(), b.length());
+        for (int i = -maxa - 10; i <= maxa + 10; i++) {
+            testNewLastIndexOfSingle(a, b, i);
+        }
+        testNewLastIndexOfSingle(a, b, Integer.MIN_VALUE);
+        testNewLastIndexOfSingle(a, b, Integer.MAX_VALUE);
+    }
+
+    private void testNewLastIndexOfSingle(final CharSequence a, final CharSequence b, final int start) {
+        testNewLastIndexOfSingleSingle(a, b, start);
+        testNewLastIndexOfSingleSingle(b, a, start);
+    }
+
+    private void testNewLastIndexOfSingleSingle(final CharSequence a, final CharSequence b, final int start) {
+        assertEquals(
+                a.toString().lastIndexOf(b.toString(), start),
+                CharSequenceUtils.lastIndexOf(new WrapperString(a.toString()), new WrapperString(b.toString()), start),
+                "testNewLastIndexOf fails! original : " + a + " seg : " + b + " start : " + start
+        );
+    }
 }

@@ -40,27 +40,6 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
  */
 public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, R>>, Serializable {
 
-    private static final class PairAdapter<L, R> extends Pair<L, R> {
-
-        private static final long serialVersionUID = 1L;
-
-        @Override
-        public L getLeft() {
-            return null;
-        }
-
-        @Override
-        public R getRight() {
-            return null;
-        }
-
-        @Override
-        public R setValue(R value) {
-            return null;
-        }
-
-    }
-
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
 
@@ -72,7 +51,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      *
      * @since 3.10.
      */
-    public static final Pair<?, ?>[] EMPTY_ARRAY = new PairAdapter[0];
+    public static final Pair<?, ?>[] EMPTY_ARRAY = {};
 
     /**
      * Returns the empty array singleton that can be assigned without compiler warning.
@@ -89,7 +68,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
-     * <p>Obtains an immutable pair of two objects inferring the generic types.</p>
+     * <p>Creates an immutable pair of two objects inferring the generic types.</p>
      *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>
@@ -101,10 +80,43 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @return a pair formed from the two parameters, not null
      */
     public static <L, R> Pair<L, R> of(final L left, final R right) {
-        return new ImmutablePair<>(left, right);
+        return ImmutablePair.of(left, right);
     }
 
-    //-----------------------------------------------------------------------
+    /**
+     * <p>Creates an immutable pair from a map entry.</p>
+     *
+     * <p>This factory allows the pair to be created using inference to
+     * obtain the generic types.</p>
+     *
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @param pair the map entry.
+     * @return a pair formed from the map entry
+     * @since 3.10
+     */
+    public static <L, R> Pair<L, R> of(final Map.Entry<L, R> pair) {
+        return ImmutablePair.of(pair);
+    }
+
+    /**
+     * <p>Creates an immutable pair of two non-null objects inferring the generic types.</p>
+     *
+     * <p>This factory allows the pair to be created using inference to
+     * obtain the generic types.</p>
+     *
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @param left  the left element, may not be null
+     * @param right  the right element, may not  be null
+     * @return a pair formed from the two parameters, not null
+     * @throws NullPointerException if any input is null
+     * @since 3.13.0
+     */
+    public static <L, R> Pair<L, R> ofNonNull(final L left, final R right) {
+        return ImmutablePair.ofNonNull(left, right);
+    }
+
     /**
      * <p>Compares the pair based on the left element followed by the right element.
      * The types must be {@code Comparable}.</p>
@@ -150,7 +162,6 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
         return getLeft();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets the left element from this pair.</p>
      *
@@ -191,8 +202,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     @Override
     public int hashCode() {
         // see Map.Entry API specification
-        return (getKey() == null ? 0 : getKey().hashCode()) ^
-                (getValue() == null ? 0 : getValue().hashCode());
+        return Objects.hashCode(getKey()) ^ Objects.hashCode(getValue());
     }
 
     /**

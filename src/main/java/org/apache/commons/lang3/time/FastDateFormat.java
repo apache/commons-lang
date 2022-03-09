@@ -99,7 +99,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      */
     public static final int SHORT = DateFormat.SHORT;
 
-    private static final FormatCache<FastDateFormat> cache= new FormatCache<FastDateFormat>() {
+    private static final FormatCache<FastDateFormat> cache = new FormatCache<FastDateFormat>() {
         @Override
         protected FastDateFormat createInstance(final String pattern, final TimeZone timeZone, final Locale locale) {
             return new FastDateFormat(pattern, timeZone, locale);
@@ -109,7 +109,6 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     private final FastDatePrinter printer;
     private final FastDateParser parser;
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets a formatter instance using the default pattern in the
      * default locale.</p>
@@ -179,7 +178,6 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
         return cache.getInstance(pattern, timeZone, locale);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets a date formatter instance using the specified style in the
      * default time zone and locale.</p>
@@ -241,7 +239,6 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
         return cache.getDateInstance(style, timeZone, locale);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets a time formatter instance using the specified style in the
      * default time zone and locale.</p>
@@ -303,7 +300,6 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
         return cache.getTimeInstance(style, timeZone, locale);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets a date/time formatter instance using the specified style
      * in the default time zone and locale.</p>
@@ -370,7 +366,6 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     }
 
     // Constructor
-    //-----------------------------------------------------------------------
     /**
      * <p>Constructs a new FastDateFormat.</p>
      *
@@ -384,7 +379,6 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     }
 
     // Constructor
-    //-----------------------------------------------------------------------
     /**
      * <p>Constructs a new FastDateFormat.</p>
      *
@@ -395,12 +389,11 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @throws NullPointerException if pattern, timeZone, or locale is null.
      */
     protected FastDateFormat(final String pattern, final TimeZone timeZone, final Locale locale, final Date centuryStart) {
-        printer= new FastDatePrinter(pattern, timeZone, locale);
-        parser= new FastDateParser(pattern, timeZone, locale, centuryStart);
+        printer = new FastDatePrinter(pattern, timeZone, locale);
+        parser = new FastDateParser(pattern, timeZone, locale, centuryStart);
     }
 
     // Format methods
-    //-----------------------------------------------------------------------
     /**
      * <p>Formats a {@code Date}, {@code Calendar} or
      * {@code Long} (milliseconds) object.</p>
@@ -539,7 +532,6 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     }
 
     // Parsing
-    //-----------------------------------------------------------------------
 
 
     /* (non-Javadoc)
@@ -576,7 +568,6 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     }
 
     // Accessors
-    //-----------------------------------------------------------------------
     /**
      * <p>Gets the pattern used by this formatter.</p>
      *
@@ -623,7 +614,6 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     }
 
     // Basics
-    //-----------------------------------------------------------------------
     /**
      * <p>Compares two objects for equality.</p>
      *

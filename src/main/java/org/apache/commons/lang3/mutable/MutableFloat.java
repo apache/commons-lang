@@ -17,7 +17,7 @@
 package org.apache.commons.lang3.mutable;
 
 /**
- * A mutable <code>float</code> wrapper.
+ * A mutable {@code float} wrapper.
  * <p>
  * Note that as MutableFloat does not extend Float, it is not treated by String.format as a Float parameter.
  *
@@ -40,7 +40,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * Constructs a new MutableFloat with the default value of zero.
      */
     public MutableFloat() {
-        super();
     }
 
     /**
@@ -49,7 +48,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @param value  the initial value to store
      */
     public MutableFloat(final float value) {
-        super();
         this.value = value;
     }
 
@@ -60,7 +58,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @throws NullPointerException if the object is null
      */
     public MutableFloat(final Number value) {
-        super();
         this.value = value.floatValue();
     }
 
@@ -72,11 +69,9 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @since 2.5
      */
     public MutableFloat(final String value) {
-        super();
         this.value = Float.parseFloat(value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets the value as a Float instance.
      *
@@ -107,7 +102,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
         this.value = value.floatValue();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Checks whether the float value is the special NaN value.
      *
@@ -126,7 +120,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
         return Float.isInfinite(value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Increments the value.
      *
@@ -195,7 +188,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Adds a value to the value of this instance.
      *
@@ -294,7 +286,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
         return last;
     }
 
-    //-----------------------------------------------------------------------
     // shortValue and byteValue rely on Number implementation
     /**
      * Returns the value of this MutableFloat as an int.
@@ -336,7 +327,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets this mutable as an instance of Float.
      *
@@ -346,16 +336,15 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
         return Float.valueOf(floatValue());
     }
 
-    //-----------------------------------------------------------------------
     /**
-     * Compares this object against some other object. The result is <code>true</code> if and only if the argument is
-     * not <code>null</code> and is a <code>Float</code> object that represents a <code>float</code> that has the
-     * identical bit pattern to the bit pattern of the <code>float</code> represented by this object. For this
+     * Compares this object against some other object. The result is {@code true} if and only if the argument is
+     * not {@code null} and is a {@code Float} object that represents a {@code float} that has the
+     * identical bit pattern to the bit pattern of the {@code float} represented by this object. For this
      * purpose, two float values are considered to be the same if and only if the method
      * {@link Float#floatToIntBits(float)}returns the same int value when applied to each.
      * <p>
-     * Note that in most cases, for two instances of class <code>Float</code>,<code>f1</code> and <code>f2</code>,
-     * the value of <code>f1.equals(f2)</code> is <code>true</code> if and only if <blockquote>
+     * Note that in most cases, for two instances of class {@code Float},{@code f1} and {@code f2},
+     * the value of {@code f1.equals(f2)} is {@code true} if and only if <blockquote>
      *
      * <pre>
      *   f1.floatValue() == f2.floatValue()
@@ -363,19 +352,19 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      *
      * </blockquote>
      * <p>
-     * also has the value <code>true</code>. However, there are two exceptions:
+     * also has the value {@code true}. However, there are two exceptions:
      * <ul>
-     * <li>If <code>f1</code> and <code>f2</code> both represent <code>Float.NaN</code>, then the
-     * <code>equals</code> method returns <code>true</code>, even though <code>Float.NaN==Float.NaN</code> has
-     * the value <code>false</code>.
-     * <li>If <code>f1</code> represents <code>+0.0f</code> while <code>f2</code> represents <code>-0.0f</code>,
-     * or vice versa, the <code>equal</code> test has the value <code>false</code>, even though
-     * <code>0.0f==-0.0f</code> has the value <code>true</code>.
+     * <li>If {@code f1} and {@code f2} both represent {@code Float.NaN}, then the
+     * {@code equals} method returns {@code true}, even though {@code Float.NaN==Float.NaN} has
+     * the value {@code false}.
+     * <li>If {@code f1} represents {@code +0.0f} while {@code f2} represents {@code -0.0f},
+     * or vice versa, the {@code equal} test has the value {@code false}, even though
+     * {@code 0.0f==-0.0f} has the value {@code true}.
      * </ul>
      * This definition allows hashtables to operate properly.
      *
      * @param obj  the object to compare with, null returns false
-     * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
+     * @return {@code true} if the objects are the same; {@code false} otherwise.
      * @see java.lang.Float#floatToIntBits(float)
      */
     @Override
@@ -394,7 +383,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
         return Float.floatToIntBits(value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Compares this mutable to another in ascending order.
      *
@@ -406,7 +394,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
         return Float.compare(this.value, other.value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Returns the String value of this mutable.
      *

@@ -32,12 +32,12 @@ public class IEEE754rUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
+     * @throws NullPointerException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty
       * @since 3.4 Changed signature from min(double[]) to min(double...)
      */
     public static double min(final double... array) {
-        Validate.isTrue(array != null, "The Array must not be null");
+        Validate.notNull(array, "array");
         Validate.isTrue(array.length != 0, "Array cannot be empty.");
 
         // Finds and returns min
@@ -54,12 +54,12 @@ public class IEEE754rUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
+     * @throws NullPointerException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty
      * @since 3.4 Changed signature from min(float[]) to min(float...)
      */
     public static float min(final float... array) {
-        Validate.isTrue(array != null, "The Array must not be null");
+        Validate.notNull(array, "array");
         Validate.isTrue(array.length != 0, "Array cannot be empty.");
 
         // Finds and returns min
@@ -72,7 +72,7 @@ public class IEEE754rUtils {
     }
 
     /**
-     * <p>Gets the minimum of three <code>double</code> values.</p>
+     * <p>Gets the minimum of three {@code double} values.</p>
      *
      * <p>NaN is only returned if all numbers are NaN as per IEEE-754r. </p>
      *
@@ -86,7 +86,7 @@ public class IEEE754rUtils {
     }
 
     /**
-     * <p>Gets the minimum of two <code>double</code> values.</p>
+     * <p>Gets the minimum of two {@code double} values.</p>
      *
      * <p>NaN is only returned if all numbers are NaN as per IEEE-754r. </p>
      *
@@ -97,16 +97,15 @@ public class IEEE754rUtils {
     public static double min(final double a, final double b) {
         if (Double.isNaN(a)) {
             return b;
-        } else
+        }
         if (Double.isNaN(b)) {
             return a;
-        } else {
-            return Math.min(a, b);
         }
+        return Math.min(a, b);
     }
 
     /**
-     * <p>Gets the minimum of three <code>float</code> values.</p>
+     * <p>Gets the minimum of three {@code float} values.</p>
      *
      * <p>NaN is only returned if all numbers are NaN as per IEEE-754r. </p>
      *
@@ -120,7 +119,7 @@ public class IEEE754rUtils {
     }
 
     /**
-     * <p>Gets the minimum of two <code>float</code> values.</p>
+     * <p>Gets the minimum of two {@code float} values.</p>
      *
      * <p>NaN is only returned if all numbers are NaN as per IEEE-754r. </p>
      *
@@ -131,12 +130,11 @@ public class IEEE754rUtils {
     public static float min(final float a, final float b) {
         if (Float.isNaN(a)) {
             return b;
-        } else
+        }
         if (Float.isNaN(b)) {
             return a;
-        } else {
-            return Math.min(a, b);
         }
+        return Math.min(a, b);
     }
 
     /**
@@ -144,12 +142,12 @@ public class IEEE754rUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
+     * @throws NullPointerException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty
      * @since 3.4 Changed signature from max(double[]) to max(double...)
      */
     public static double max(final double... array) {
-        Validate.isTrue(array != null, "The Array must not be null");
+        Validate.notNull(array, "array");
         Validate.isTrue(array.length != 0, "Array cannot be empty.");
 
         // Finds and returns max
@@ -166,12 +164,12 @@ public class IEEE754rUtils {
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
-     * @throws IllegalArgumentException if <code>array</code> is empty
+     * @throws NullPointerException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty
      * @since 3.4 Changed signature from max(float[]) to max(float...)
      */
     public static float max(final float... array) {
-        Validate.isTrue(array != null, "The Array must not be null");
+        Validate.notNull(array, "array");
         Validate.isTrue(array.length != 0, "Array cannot be empty.");
 
         // Finds and returns max
@@ -184,7 +182,7 @@ public class IEEE754rUtils {
     }
 
     /**
-     * <p>Gets the maximum of three <code>double</code> values.</p>
+     * <p>Gets the maximum of three {@code double} values.</p>
      *
      * <p>NaN is only returned if all numbers are NaN as per IEEE-754r. </p>
      *
@@ -198,7 +196,7 @@ public class IEEE754rUtils {
     }
 
     /**
-     * <p>Gets the maximum of two <code>double</code> values.</p>
+     * <p>Gets the maximum of two {@code double} values.</p>
      *
      * <p>NaN is only returned if all numbers are NaN as per IEEE-754r. </p>
      *
@@ -209,16 +207,15 @@ public class IEEE754rUtils {
     public static double max(final double a, final double b) {
         if (Double.isNaN(a)) {
             return b;
-        } else
+        }
         if (Double.isNaN(b)) {
             return a;
-        } else {
-            return Math.max(a, b);
         }
+        return Math.max(a, b);
     }
 
     /**
-     * <p>Gets the maximum of three <code>float</code> values.</p>
+     * <p>Gets the maximum of three {@code float} values.</p>
      *
      * <p>NaN is only returned if all numbers are NaN as per IEEE-754r. </p>
      *
@@ -232,7 +229,7 @@ public class IEEE754rUtils {
     }
 
     /**
-     * <p>Gets the maximum of two <code>float</code> values.</p>
+     * <p>Gets the maximum of two {@code float} values.</p>
      *
      * <p>NaN is only returned if all numbers are NaN as per IEEE-754r. </p>
      *
@@ -243,12 +240,11 @@ public class IEEE754rUtils {
     public static float max(final float a, final float b) {
         if (Float.isNaN(a)) {
             return b;
-        } else
+        }
         if (Float.isNaN(b)) {
             return a;
-        } else {
-            return Math.max(a, b);
         }
+        return Math.max(a, b);
     }
 
 }

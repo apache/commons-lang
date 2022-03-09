@@ -16,10 +16,10 @@
  */
 package org.apache.commons.lang3;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -33,7 +33,6 @@ public class StringUtilsStartsEndsWithTest {
     private static final String BAR    = "BAR";
     private static final String FOOBAR = "FOOBAR";
 
-    //-----------------------------------------------------------------------
 
     /**
      * Test StringUtils.startsWith()
@@ -92,7 +91,7 @@ public class StringUtilsStartsEndsWithTest {
         assertTrue(StringUtils.startsWithAny("abcxyz", "abc"));
         assertTrue(StringUtils.startsWithAny("abcxyz", null, "xyz", "abc"));
         assertFalse(StringUtils.startsWithAny("abcxyz", null, "xyz", "abcd"));
-        assertTrue(StringUtils.startsWithAny("abcxyz", new String[]{""}));
+        assertTrue(StringUtils.startsWithAny("abcxyz", ""));
         assertFalse(StringUtils.startsWithAny("abcxyz", null, "xyz", "ABCX"));
         assertFalse(StringUtils.startsWithAny("ABCXYZ", null, "xyz", "abc"));
 
@@ -171,12 +170,12 @@ public class StringUtilsStartsEndsWithTest {
     @Test
     public void testEndsWithAny() {
         assertFalse(StringUtils.endsWithAny(null, (String) null), "StringUtils.endsWithAny(null, null)");
-        assertFalse(StringUtils.endsWithAny(null, new String[] {"abc"}), "StringUtils.endsWithAny(null, new String[] {abc})");
+        assertFalse(StringUtils.endsWithAny(null, "abc"), "StringUtils.endsWithAny(null, new String[] {abc})");
         assertFalse(StringUtils.endsWithAny("abcxyz", (String) null), "StringUtils.endsWithAny(abcxyz, null)");
-        assertTrue(StringUtils.endsWithAny("abcxyz", new String[] {""}), "StringUtils.endsWithAny(abcxyz, new String[] {\"\"})");
-        assertTrue(StringUtils.endsWithAny("abcxyz", new String[] {"xyz"}), "StringUtils.endsWithAny(abcxyz, new String[] {xyz})");
-        assertTrue(StringUtils.endsWithAny("abcxyz", new String[] {null, "xyz", "abc"}), "StringUtils.endsWithAny(abcxyz, new String[] {null, xyz, abc})");
-        assertFalse(StringUtils.endsWithAny("defg", new String[] {null, "xyz", "abc"}), "StringUtils.endsWithAny(defg, new String[] {null, xyz, abc})");
+        assertTrue(StringUtils.endsWithAny("abcxyz", ""), "StringUtils.endsWithAny(abcxyz, new String[] {\"\"})");
+        assertTrue(StringUtils.endsWithAny("abcxyz", "xyz"), "StringUtils.endsWithAny(abcxyz, new String[] {xyz})");
+        assertTrue(StringUtils.endsWithAny("abcxyz", null, "xyz", "abc"), "StringUtils.endsWithAny(abcxyz, new String[] {null, xyz, abc})");
+        assertFalse(StringUtils.endsWithAny("defg", null, "xyz", "abc"), "StringUtils.endsWithAny(defg, new String[] {null, xyz, abc})");
         assertTrue(StringUtils.endsWithAny("abcXYZ", "def", "XYZ"));
         assertFalse(StringUtils.endsWithAny("abcXYZ", "def", "xyz"));
         assertTrue(StringUtils.endsWithAny("abcXYZ", "def", "YZ"));

@@ -27,7 +27,6 @@ import org.junit.jupiter.api.Test;
  */
 public class HashCodeBuilderAndEqualsBuilderTest {
 
-    //-----------------------------------------------------------------------
 
     private void testInteger(final boolean testTransients) {
         final Integer i1 = Integer.valueOf(12345);
@@ -72,7 +71,7 @@ public class HashCodeBuilderAndEqualsBuilderTest {
     }
 
     /**
-     * Asserts that if <code>lhs</code> equals <code>rhs</code>
+     * Asserts that if {@code lhs} equals {@code rhs}
      * then their hash codes MUST be identical.
      *
      * @param lhs The Left-Hand-Side of the equals test

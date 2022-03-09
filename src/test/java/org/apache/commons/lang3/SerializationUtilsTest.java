@@ -62,7 +62,6 @@ public class SerializationUtilsTest {
         iMap.put("BAR", iInteger);
     }
 
-    //-----------------------------------------------------------------------
 
     @Test
     public void testConstructor() {
@@ -96,7 +95,6 @@ public class SerializationUtilsTest {
         assertSame(ex, serEx.getCause());
     }
 
-    //-----------------------------------------------------------------------
 
     @Test
     public void testSerializeStream() throws Exception {
@@ -141,12 +139,12 @@ public class SerializationUtilsTest {
 
     @Test
     public void testSerializeStreamObjNull() {
-        assertThrows(IllegalArgumentException.class, () -> SerializationUtils.serialize(iMap, null));
+        assertThrows(NullPointerException.class, () -> SerializationUtils.serialize(iMap, null));
     }
 
     @Test
     public void testSerializeStreamNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> SerializationUtils.serialize(null, null));
+        assertThrows(NullPointerException.class, () -> SerializationUtils.serialize(null, null));
     }
 
     @Test
@@ -159,12 +157,11 @@ public class SerializationUtilsTest {
                 throw new IOException(SERIALIZE_IO_EXCEPTION_MESSAGE);
             }
         };
-        SerializationException e =
+        final SerializationException e =
                 assertThrows(SerializationException.class, () -> SerializationUtils.serialize(iMap, streamTest));
         assertEquals("java.io.IOException: " + SERIALIZE_IO_EXCEPTION_MESSAGE, e.getMessage());
     }
 
-    //-----------------------------------------------------------------------
 
     @Test
     public void testDeserializeStream() throws Exception {
@@ -214,7 +211,7 @@ public class SerializationUtilsTest {
 
     @Test
     public void testDeserializeStreamNull() {
-        assertThrows(IllegalArgumentException.class, () -> SerializationUtils.deserialize((InputStream) null));
+        assertThrows(NullPointerException.class, () -> SerializationUtils.deserialize((InputStream) null));
     }
 
     @Test
@@ -232,7 +229,7 @@ public class SerializationUtilsTest {
         oos.close();
 
         final ByteArrayInputStream inTest = new ByteArrayInputStream(streamReal.toByteArray());
-        SerializationException se =
+        final SerializationException se =
                 assertThrows(SerializationException.class, () -> SerializationUtils.deserialize(inTest));
         assertEquals("java.lang.ClassNotFoundException: " + CLASS_NOT_FOUND_MESSAGE, se.getMessage());
     }
@@ -243,7 +240,6 @@ public class SerializationUtilsTest {
         assertEquals(iMap, newMap);
     }
 
-    //-----------------------------------------------------------------------
 
     @Test
     public void testSerializeBytes() throws Exception {
@@ -281,7 +277,6 @@ public class SerializationUtilsTest {
         assertArrayEquals(realBytes, testBytes);
     }
 
-    //-----------------------------------------------------------------------
 
     @Test
     public void testDeserializeBytes() throws Exception {
@@ -317,7 +312,7 @@ public class SerializationUtilsTest {
 
     @Test
     public void testDeserializeBytesNull() {
-        assertThrows(IllegalArgumentException.class, () -> SerializationUtils.deserialize((byte[]) null));
+        assertThrows(NullPointerException.class, () -> SerializationUtils.deserialize((byte[]) null));
     }
 
     @Test
@@ -325,7 +320,6 @@ public class SerializationUtilsTest {
         assertThrows(SerializationException.class, () -> SerializationUtils.deserialize(new byte[0]));
     }
 
-    //-----------------------------------------------------------------------
 
     @Test
     public void testClone() {

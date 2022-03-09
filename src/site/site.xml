@@ -24,21 +24,21 @@
 
     <body>
         <menu name="Lang">
-            <item name="Overview"        href="/index.html"/>
-            <item name="Download"        href="/download_lang.cgi"/>
-            <item name="Users guide"     href="/userguide.html"/>
-            <item name="Release History" href="/release-history.html"/>
-            <item name="Javadoc (Latest release)" href="javadocs/api-release/index.html"/>
+            <item name="Overview" href="/index.html" />
+            <item name="Download" href="/download_lang.cgi" />
+            <item name="Users guide" href="/userguide.html" />
+            <item name="Release History" href="/changes-report.html" />
+            <item name="Javadoc" href="/apidocs/index.html" />
+            <item name="Javadoc Archive" href="https://javadoc.io/doc/org.apache.commons/commons-lang3" />
         </menu>
 
         <menu name="Development">
-            <item name="Building"             href="/building.html"/>
-            <item name="Mailing Lists"        href="/mail-lists.html"/>
-            <item name="Issue Tracking"       href="/issue-tracking.html"/>
-            <item name="Proposal"             href="/proposal.html"/>
-            <item name="Developer guide"      href="/developerguide.html"/>
-            <item name="Source Repository"    href="/scm.html"/>
-            <item name="Javadoc (GIT latest)" href="apidocs/index.html"/>
+            <item name="Building" href="/building.html" />
+            <item name="Mailing Lists" href="/mail-lists.html" />
+            <item name="Issue Tracking" href="/issue-tracking.html" />
+            <item name="Proposal" href="/proposal.html" />
+            <item name="Developer guide" href="/developerguide.html" />
+            <item name="Source Repository" href="/scm.html" />
         </menu>
 
     </body>

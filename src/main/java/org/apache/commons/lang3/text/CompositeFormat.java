@@ -25,7 +25,7 @@ import java.text.ParsePosition;
  * Formats using one formatter and parses using a different formatter. An
  * example of use for this would be a webapp where data is taken in one way and
  * stored in a database another way.
- * @deprecated as of 3.6, use commons-text
+ * @deprecated As of 3.6, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/CompositeFormat.html">
  * CompositeFormat</a> instead
  */
@@ -62,7 +62,7 @@ public class CompositeFormat extends Format {
      * @param obj the object to format
      * @param toAppendTo the {@link StringBuffer} to append to
      * @param pos the FieldPosition to use (or ignore).
-     * @return <code>toAppendTo</code>
+     * @return {@code toAppendTo}
      * @see Format#format(Object, StringBuffer, FieldPosition)
      */
     @Override // Therefore has to use StringBuffer

@@ -16,9 +16,6 @@
  */
 package org.apache.commons.lang3.text;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -35,6 +32,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link ExtendedMessageFormat}.
@@ -110,13 +110,12 @@ public class ExtendedMessageFormatTest {
     public void testExtendedAndBuiltInFormats() {
         final Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23, 18, 33, 5);
-        final Object[] args = new Object[] {"John Doe", cal.getTime(), Double.valueOf("12345.67")};
+        final Object[] args = {"John Doe", cal.getTime(), Double.valueOf("12345.67")};
         final String builtinsPattern = "DOB: {1,date,short} Salary: {2,number,currency}";
         final String extendedPattern = "Name: {0,upper} ";
         final String pattern = extendedPattern + builtinsPattern;
 
-        final HashSet<Locale> testLocales = new HashSet<>();
-        testLocales.addAll(Arrays.asList(DateFormat.getAvailableLocales()));
+        final HashSet<Locale> testLocales = new HashSet<>(Arrays.asList(DateFormat.getAvailableLocales()));
         testLocales.retainAll(Arrays.asList(NumberFormat.getAvailableLocales()));
         testLocales.add(null);
 
@@ -208,7 +207,7 @@ public class ExtendedMessageFormatTest {
     @Test
     public void testBuiltInChoiceFormat() {
         final Object[] values = new Number[] {Integer.valueOf(1), Double.valueOf("2.2"), Double.valueOf("1234.5")};
-        String choicePattern = null;
+        String choicePattern;
         final Locale[] availableLocales = NumberFormat.getAvailableLocales();
 
         choicePattern = "{0,choice,1#One|2#Two|3#Many {0,number}}";
@@ -229,7 +228,7 @@ public class ExtendedMessageFormatTest {
     public void testBuiltInDateTimeFormat() {
         final Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23, 18, 33, 5);
-        final Object[] args = new Object[] {cal.getTime()};
+        final Object[] args = {cal.getTime()};
         final Locale[] availableLocales = DateFormat.getAvailableLocales();
 
         checkBuiltInFormat("1: {0,date,short}",    args, availableLocales);
@@ -250,7 +249,7 @@ public class ExtendedMessageFormatTest {
     public void testOverriddenBuiltinFormat() {
         final Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23);
-        final Object[] args = new Object[] {cal.getTime()};
+        final Object[] args = {cal.getTime()};
         final Locale[] availableLocales = DateFormat.getAvailableLocales();
         final Map<String, ? extends FormatFactory> dateRegistry = Collections.singletonMap("date", new OverrideShortDateFormatFactory());
 
@@ -277,7 +276,7 @@ public class ExtendedMessageFormatTest {
      */
     @Test
     public void testBuiltInNumberFormat() {
-        final Object[] args = new Object[] {Double.valueOf("6543.21")};
+        final Object[] args = {Double.valueOf("6543.21")};
         final Locale[] availableLocales = NumberFormat.getAvailableLocales();
         checkBuiltInFormat("1: {0,number}",            args, availableLocales);
         checkBuiltInFormat("2: {0,number,integer}",    args, availableLocales);
@@ -292,12 +291,12 @@ public class ExtendedMessageFormatTest {
     @Test
     public void testEqualsHashcode() {
         final Map<String, ? extends FormatFactory> fmtRegistry = Collections.singletonMap("testfmt", new LowerCaseFormatFactory());
-        final Map<String, ? extends FormatFactory> otherRegitry = Collections.singletonMap("testfmt", new UpperCaseFormatFactory());
+        final Map<String, ? extends FormatFactory> otherRegistry = Collections.singletonMap("testfmt", new UpperCaseFormatFactory());
 
         final String pattern = "Pattern: {0,testfmt}";
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, Locale.US, fmtRegistry);
 
-        ExtendedMessageFormat other = null;
+        ExtendedMessageFormat other;
 
         // Same object
         assertEquals(emf, emf, "same, equals()");
@@ -319,7 +318,7 @@ public class ExtendedMessageFormatTest {
         assertNotEquals(emf.hashCode(), other.hashCode(), "pattern, hashcode()");
 
         // Different registry
-        other = new ExtendedMessageFormat(pattern, Locale.US, otherRegitry);
+        other = new ExtendedMessageFormat(pattern, Locale.US, otherRegistry);
         assertNotEquals(emf, other, "registry, equals()");
         assertNotEquals(emf.hashCode(), other.hashCode(), "registry, hashcode()");
 
@@ -330,7 +329,7 @@ public class ExtendedMessageFormatTest {
     }
 
     /**
-     * Test a built in format for the specified Locales, plus <code>null</code> Locale.
+     * Test a built in format for the specified Locales, plus {@code null} Locale.
      * @param pattern MessageFormat pattern
      * @param args MessageFormat arguments
      * @param locales to test
@@ -340,7 +339,7 @@ public class ExtendedMessageFormatTest {
     }
 
     /**
-     * Test a built in format for the specified Locales, plus <code>null</code> Locale.
+     * Test a built in format for the specified Locales, plus {@code null} Locale.
      * @param pattern MessageFormat pattern
      * @param fmtRegistry FormatFactory registry to use
      * @param args MessageFormat arguments
@@ -355,7 +354,7 @@ public class ExtendedMessageFormatTest {
 
     /**
      * Create an ExtendedMessageFormat for the specified pattern and locale and check the
-     * formated output matches the expected result for the parameters.
+     * formatted output matches the expected result for the parameters.
      * @param pattern string
      * @param registryUnused map (currently unused)
      * @param args Object[]

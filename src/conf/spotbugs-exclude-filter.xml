@@ -23,6 +23,20 @@
 -->
 <FindBugsFilter>
 
+  <!-- https://github.com/spotbugs/spotbugs/issues/1504 -->
+  <Match>
+    <Class name="org.apache.commons.lang3.ArrayUtils" />
+    <Method name="shuffle" />
+    <Bug pattern="DMI_RANDOM_USED_ONLY_ONCE" />
+  </Match>
+
+  <!-- https://github.com/spotbugs/spotbugs/issues/1504 -->
+  <Match>
+    <Class name="org.apache.commons.lang3.RandomStringUtils" />
+    <Method name="random" />
+    <Bug pattern="DMI_RANDOM_USED_ONLY_ONCE" />
+  </Match>
+
   <Match>
     <Class name="org.apache.commons.lang3.ArrayUtils" />
     <Method name="addFirst" />
@@ -100,21 +114,11 @@
     <Bug pattern="CN_IDIOM_NO_SUPER_CALL" />
   </Match>
 
-  <!-- Reason: Testing shows that new Integer(...) etc is quicker than Integer.valueOf -->
-  <Match>
-    <Bug pattern="DM_NUMBER_CTOR" />
-  </Match>
-
   <!-- Reason: FindBugs 2.0.2 used in maven-findbugs-plugin 2.5.2 seems to have problems with detection of default cases
    in switch statements. All the excluded methods have switch statements that conatin a default case. -->
   <Match>
     <Class name="org.apache.commons.lang3.math.NumberUtils"/>
     <Method name="createNumber" />
-    <Bug pattern="SF_SWITCH_NO_DEFAULT" />
-  </Match>
-  <Match>
-    <Class name="org.apache.commons.lang3.text.ExtendedMessageFormat"/>
-    <Method name="insertFormats" />
     <Bug pattern="SF_SWITCH_NO_DEFAULT" />
   </Match>
   <!-- Reason: FindBugs does not correctly recognize default branches in switch statements without break statements.
@@ -136,7 +140,7 @@
     <Bug pattern="SF_SWITCH_NO_DEFAULT" />
   </Match>
 
-  <!-- Reason: The fallthrough on the swich statement is intentional -->
+  <!-- Reason: The fallthrough on the switch statement is intentional -->
   <Match>
     <Class name="org.apache.commons.lang3.time.FastDatePrinter"/>
     <Method name="appendFullDigits" params="java.lang.Appendable, int, int"/>
@@ -155,5 +159,20 @@
     <Class name="org.apache.commons.lang3.time.FormatCache$MultipartKey" />
     <Method name="equals" />
     <Bug pattern="NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT" />
+  </Match>
+  
+  <!-- Reason: toString() can return null! -->
+  <Match>
+    <Class name="org.apache.commons.lang3.compare.ObjectToStringComparator" />
+    <Method name="compare" />
+    <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" />
+  </Match>
+
+  <!-- Reason: requireNonNull is supposed to take a nullable parameter,
+       whatever Spotbugs thinks of it. -->
+  <Match>
+    <Class name="org.apache.commons.lang3.function.Objects" />
+    <Method name="requireNonNull" />
+    <Bug pattern="NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" />
   </Match>
 </FindBugsFilter>

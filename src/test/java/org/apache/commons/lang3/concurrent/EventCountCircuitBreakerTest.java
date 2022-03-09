@@ -96,9 +96,9 @@ public class EventCountCircuitBreakerTest {
     public void testNow() {
         final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1,
                 TimeUnit.SECONDS);
-        final long now = breaker.now();
-        final long delta = Math.abs(System.nanoTime() - now);
-        assertTrue(delta < 100000, String.format("Delta %d ns to current time too large", delta));
+        final long nowNanos = breaker.nanoTime();
+        final long deltaNanos = Math.abs(System.nanoTime() - nowNanos);
+        assertTrue(deltaNanos < 100_000, String.format("Delta %,d ns to current time too large", deltaNanos));
     }
 
     /**
@@ -161,8 +161,8 @@ public class EventCountCircuitBreakerTest {
         final long timeIncrement = NANO_FACTOR / OPENING_THRESHOLD - 1;
         final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 1,
             TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
-        long startTime = timeIncrement * (OPENING_THRESHOLD + 1);
-        boolean open = !breaker.at(startTime).incrementAndCheckState(OPENING_THRESHOLD + 1);
+        final long startTime = timeIncrement * (OPENING_THRESHOLD + 1);
+        final boolean open = !breaker.at(startTime).incrementAndCheckState(OPENING_THRESHOLD + 1);
         assertTrue(open, "Not open");
         assertFalse(breaker.isClosed(), "Closed");
     }
@@ -364,7 +364,7 @@ public class EventCountCircuitBreakerTest {
          * method.
          */
         @Override
-        long now() {
+        long nanoTime() {
             return currentTime;
         }
     }
@@ -407,7 +407,7 @@ public class EventCountCircuitBreakerTest {
          */
         public void verify(final Boolean... values) {
             assertArrayEquals(values,
-                    changedValues.toArray(new Boolean[changedValues.size()]));
+                    changedValues.toArray(new Boolean[0]));
         }
     }
 }

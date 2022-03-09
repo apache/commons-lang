@@ -16,17 +16,17 @@
  */
 package org.apache.commons.lang3.builder;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class ReflectionToStringBuilderSummaryTest {
 
     @SuppressWarnings("unused")
-    private String stringField = "string";
+    private final String stringField = "string";
 
     @ToStringSummary
-    private String summaryString = "summary";
+    private final String summaryString = "summary";
 
     @Test
     public void testSummary() {

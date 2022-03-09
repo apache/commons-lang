@@ -34,7 +34,6 @@ public class StrMatcherTest  {
     private static final char[] BUFFER2 = "abcdef".toCharArray();
 
 
-    //-----------------------------------------------------------------------
     @Test
     public void testCommaMatcher() {
         final StrMatcher matcher = StrMatcher.commaMatcher();
@@ -44,7 +43,6 @@ public class StrMatcherTest  {
         assertEquals(0, matcher.isMatch(BUFFER1, 2));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testTabMatcher() {
         final StrMatcher matcher = StrMatcher.tabMatcher();
@@ -54,7 +52,6 @@ public class StrMatcherTest  {
         assertEquals(0, matcher.isMatch(BUFFER1, 4));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testSpaceMatcher() {
         final StrMatcher matcher = StrMatcher.spaceMatcher();
@@ -64,7 +61,6 @@ public class StrMatcherTest  {
         assertEquals(0, matcher.isMatch(BUFFER1, 6));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testSplitMatcher() {
         final StrMatcher matcher = StrMatcher.splitMatcher();
@@ -80,7 +76,6 @@ public class StrMatcherTest  {
         assertEquals(0, matcher.isMatch(BUFFER1, 10));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testTrimMatcher() {
         final StrMatcher matcher = StrMatcher.trimMatcher();
@@ -96,7 +91,6 @@ public class StrMatcherTest  {
         assertEquals(1, matcher.isMatch(BUFFER1, 10));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testSingleQuoteMatcher() {
         final StrMatcher matcher = StrMatcher.singleQuoteMatcher();
@@ -106,7 +100,6 @@ public class StrMatcherTest  {
         assertEquals(0, matcher.isMatch(BUFFER1, 12));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testDoubleQuoteMatcher() {
         final StrMatcher matcher = StrMatcher.doubleQuoteMatcher();
@@ -115,7 +108,6 @@ public class StrMatcherTest  {
         assertEquals(1, matcher.isMatch(BUFFER1, 12));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testQuoteMatcher() {
         final StrMatcher matcher = StrMatcher.quoteMatcher();
@@ -125,7 +117,6 @@ public class StrMatcherTest  {
         assertEquals(1, matcher.isMatch(BUFFER1, 12));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testNoneMatcher() {
         final StrMatcher matcher = StrMatcher.noneMatcher();
@@ -145,7 +136,6 @@ public class StrMatcherTest  {
         assertEquals(0, matcher.isMatch(BUFFER1, 12));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testCharMatcher_char() {
         final StrMatcher matcher = StrMatcher.charMatcher('c');
@@ -157,7 +147,6 @@ public class StrMatcherTest  {
         assertEquals(0, matcher.isMatch(BUFFER2, 5));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testCharSetMatcher_String() {
         final StrMatcher matcher = StrMatcher.charSetMatcher("ace");
@@ -172,7 +161,6 @@ public class StrMatcherTest  {
         assertTrue(StrMatcher.charSetMatcher("a") instanceof StrMatcher.CharMatcher);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testCharSetMatcher_charArray() {
         final StrMatcher matcher = StrMatcher.charSetMatcher("ace".toCharArray());
@@ -187,7 +175,6 @@ public class StrMatcherTest  {
         assertTrue(StrMatcher.charSetMatcher("a".toCharArray()) instanceof StrMatcher.CharMatcher);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testStringMatcher_String() {
         final StrMatcher matcher = StrMatcher.stringMatcher("bc");
@@ -201,7 +188,6 @@ public class StrMatcherTest  {
         assertSame(StrMatcher.noneMatcher(), StrMatcher.stringMatcher(null));
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testMatcherIndices() {
         // remember that the API contract is tight for the isMatch() method

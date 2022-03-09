@@ -26,12 +26,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.concurrent.UncheckedFuture;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -64,24 +64,23 @@ public class ReflectionToStringBuilderConcurrencyTest {
 
     @Test
     @Disabled
-    public void testLinkedList() throws InterruptedException, ExecutionException {
+    public void testLinkedList() throws InterruptedException {
         this.testConcurrency(new CollectionHolder<>(new LinkedList<>()));
     }
 
     @Test
     @Disabled
-    public void testArrayList() throws InterruptedException, ExecutionException {
+    public void testArrayList() throws InterruptedException {
         this.testConcurrency(new CollectionHolder<>(new ArrayList<>()));
     }
 
     @Test
     @Disabled
-    public void testCopyOnWriteArrayList() throws InterruptedException, ExecutionException {
+    public void testCopyOnWriteArrayList() throws InterruptedException {
         this.testConcurrency(new CollectionHolder<>(new CopyOnWriteArrayList<>()));
     }
 
-    private void testConcurrency(final CollectionHolder<List<Integer>> holder) throws InterruptedException,
-            ExecutionException {
+    private void testConcurrency(final CollectionHolder<List<Integer>> holder) throws InterruptedException {
         final List<Integer> list = holder.collection;
         // make a big array that takes a long time to toString()
         for (int i = 0; i < DATA_SIZE; i++) {
@@ -89,35 +88,30 @@ public class ReflectionToStringBuilderConcurrencyTest {
         }
         // Create a thread pool with two threads to cause the most contention on the underlying resource.
         final ExecutorService threadPool = Executors.newFixedThreadPool(2);
-        // Consumes toStrings
-        final Callable<Integer> consumer = new Callable<Integer>() {
-            @Override
-            public Integer call() {
+        try {
+            // Consumes toStrings
+            final Callable<Integer> consumer = () -> {
                 for (int i = 0; i < REPEAT; i++) {
                     final String s = ReflectionToStringBuilder.toString(holder);
                     assertNotNull(s);
                 }
                 return Integer.valueOf(REPEAT);
-            }
-        };
-        // Produces changes in the list
-        final Callable<Integer> producer = new Callable<Integer>() {
-            @Override
-            public Integer call() {
+            };
+            // Produces changes in the list
+            final Callable<Integer> producer = () -> {
                 for (int i = 0; i < DATA_SIZE; i++) {
                     list.remove(list.get(0));
                 }
                 return Integer.valueOf(REPEAT);
-            }
-        };
-        final Collection<Callable<Integer>> tasks = new ArrayList<>();
-        tasks.add(consumer);
-        tasks.add(producer);
-        final List<Future<Integer>> futures = threadPool.invokeAll(tasks);
-        for (final Future<Integer> future : futures) {
-            assertEquals(REPEAT, future.get().intValue());
+            };
+            final Collection<Callable<Integer>> tasks = new ArrayList<>();
+            tasks.add(consumer);
+            tasks.add(producer);
+            final List<Future<Integer>> futures = threadPool.invokeAll(tasks);
+            UncheckedFuture.on(futures).forEach(f -> assertEquals(REPEAT, f.get().intValue()));
+        } finally {
+            threadPool.shutdown();
+            threadPool.awaitTermination(1, TimeUnit.SECONDS);
         }
-        threadPool.shutdown();
-        threadPool.awaitTermination(1, TimeUnit.SECONDS);
     }
 }

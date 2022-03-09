@@ -36,11 +36,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import org.apache.commons.lang3.ClassUtils.Interfaces;
 import org.apache.commons.lang3.reflect.testbed.GenericConsumer;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -129,7 +132,6 @@ public class ClassUtilsTest  {
         assertNull(ClassUtils.convertClassesToClassNames(null));
     }
 
-    // -------------------------------------------------------------------------
     @Test
     public void test_convertClassNamesToClasses_List() {
         final List<String> list = new ArrayList<>();
@@ -154,23 +156,25 @@ public class ClassUtilsTest  {
         assertNull(ClassUtils.convertClassNamesToClasses(null));
     }
 
-    // -------------------------------------------------------------------------
     @Test
     public void test_getAbbreviatedName_Class() {
         assertEquals("", ClassUtils.getAbbreviatedName((Class<?>) null, 1));
         assertEquals("j.l.String", ClassUtils.getAbbreviatedName(String.class, 1));
         assertEquals("j.l.String", ClassUtils.getAbbreviatedName(String.class, 5));
+        assertEquals("o.a.c.l.ClassUtils", ClassUtils.getAbbreviatedName(ClassUtils.class, 18));
         assertEquals("j.lang.String", ClassUtils.getAbbreviatedName(String.class, 13));
         assertEquals("j.lang.String", ClassUtils.getAbbreviatedName(String.class, 15));
         assertEquals("java.lang.String", ClassUtils.getAbbreviatedName(String.class, 20));
     }
 
     @Test
+    @DisplayName("When the desired length is negative then exception is thrown")
     public void test_getAbbreviatedName_Class_NegativeLen() {
         assertThrows(IllegalArgumentException.class, () -> ClassUtils.getAbbreviatedName(String.class, -10));
     }
 
     @Test
+    @DisplayName("When the desired length is zero then exception is thrown")
     public void test_getAbbreviatedName_Class_ZeroLen() {
         assertThrows(IllegalArgumentException.class, () -> ClassUtils.getAbbreviatedName(String.class, 0));
     }
@@ -178,8 +182,38 @@ public class ClassUtilsTest  {
     @Test
     public void test_getAbbreviatedName_String() {
         assertEquals("", ClassUtils.getAbbreviatedName((String) null, 1));
+        assertEquals("", ClassUtils.getAbbreviatedName("", 1));
         assertEquals("WithoutPackage", ClassUtils.getAbbreviatedName("WithoutPackage", 1));
         assertEquals("j.l.String", ClassUtils.getAbbreviatedName("java.lang.String", 1));
+        assertEquals("o.a.c.l.ClassUtils", ClassUtils.getAbbreviatedName("org.apache.commons.lang3.ClassUtils", 18));
+        assertEquals("org.apache.commons.lang3.ClassUtils",
+                              ClassUtils.getAbbreviatedName("org.apache.commons.lang3.ClassUtils",
+                              "org.apache.commons.lang3.ClassUtils".length()));
+        assertEquals("o.a.c.l.ClassUtils", ClassUtils.getAbbreviatedName("o.a.c.l.ClassUtils", 18));
+        assertEquals("o..c.l.ClassUtils", ClassUtils.getAbbreviatedName("o..c.l.ClassUtils", 18));
+        assertEquals(".", ClassUtils.getAbbreviatedName(".", 18));
+        assertEquals(".", ClassUtils.getAbbreviatedName(".", 1));
+        assertEquals("..", ClassUtils.getAbbreviatedName("..", 1));
+        assertEquals("...", ClassUtils.getAbbreviatedName("...", 2));
+        assertEquals("...", ClassUtils.getAbbreviatedName("...", 3));
+        assertEquals("java.lang.String", ClassUtils.getAbbreviatedName("java.lang.String", Integer.MAX_VALUE));
+        assertEquals("j.lang.String", ClassUtils.getAbbreviatedName("java.lang.String", "j.lang.String".length()));
+        assertEquals("j.l.String", ClassUtils.getAbbreviatedName("java.lang.String", "j.lang.String".length() - 1));
+        assertEquals("j.l.String", ClassUtils.getAbbreviatedName("java.lang.String", "j.l.String".length()));
+        assertEquals("j.l.String", ClassUtils.getAbbreviatedName("java.lang.String", "j.l.String".length() - 1));
+    }
+
+    /**
+     * Test that in case the required length is larger than the name and thus there is no need for any shortening
+     * then the returned string object is the same as the one passed as argument. Note, however, that this is
+     * tested as an internal implementation detail, but it is not a guaranteed feature of the implementation.
+     */
+    @Test
+    @DisplayName("When the length hint is longer than the actual length then the same String object is returned")
+    public void test_getAbbreviatedName_TooLongHint(){
+        final String className = "java.lang.String";
+        Assertions.assertSame(className, ClassUtils.getAbbreviatedName(className, className.length()+1));
+        Assertions.assertSame(className, ClassUtils.getAbbreviatedName(className, className.length()));
     }
 
     @Test
@@ -196,7 +230,6 @@ public class ClassUtilsTest  {
         assertNull(ClassUtils.getAllInterfaces(null));
     }
 
-    // -------------------------------------------------------------------------
     @Test
     public void test_getAllSuperclasses_Class() {
         final List<?> list = ClassUtils.getAllSuperclasses(CY.class);
@@ -456,7 +489,6 @@ public class ClassUtilsTest  {
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageName(Named.class));
     }
 
-    // -------------------------------------------------------------------------
     @Test
     public void test_getPackageName_Object() {
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageName(new ClassUtils(), "<null>"));
@@ -484,9 +516,11 @@ public class ClassUtilsTest  {
         class Named {
             // empty
         }
+        // WARNING: this is fragile, implementation may change, naming is not guaranteed
         assertEquals("ClassUtilsTest.8", ClassUtils.getShortCanonicalName(new Object() {
             // empty
         }.getClass()));
+        // WARNING: this is fragile, implementation may change, naming is not guaranteed
         assertEquals("ClassUtilsTest.8Named", ClassUtils.getShortCanonicalName(Named.class));
         assertEquals("ClassUtilsTest.Inner", ClassUtils.getShortCanonicalName(Inner.class));
     }
@@ -504,6 +538,7 @@ public class ClassUtilsTest  {
         class Named {
             // empty
         }
+        // WARNING: this is fragile, implementation may change, naming is not guaranteed
         assertEquals("ClassUtilsTest.9", ClassUtils.getShortCanonicalName(new Object() {
             // empty
         }, "<null>"));
@@ -513,20 +548,36 @@ public class ClassUtilsTest  {
 
     @Test
     public void test_getShortCanonicalName_String() {
+        assertEquals("", ClassUtils.getShortCanonicalName((String) null));
+        assertEquals("Map.Entry", ClassUtils.getShortCanonicalName(java.util.Map.Entry.class.getName()));
+        assertEquals("Entry", ClassUtils.getShortCanonicalName(java.util.Map.Entry.class.getCanonicalName()));
         assertEquals("ClassUtils", ClassUtils.getShortCanonicalName("org.apache.commons.lang3.ClassUtils"));
         assertEquals("ClassUtils[]", ClassUtils.getShortCanonicalName("[Lorg.apache.commons.lang3.ClassUtils;"));
         assertEquals("ClassUtils[][]", ClassUtils.getShortCanonicalName("[[Lorg.apache.commons.lang3.ClassUtils;"));
         assertEquals("ClassUtils[]", ClassUtils.getShortCanonicalName("org.apache.commons.lang3.ClassUtils[]"));
         assertEquals("ClassUtils[][]", ClassUtils.getShortCanonicalName("org.apache.commons.lang3.ClassUtils[][]"));
         assertEquals("int[]", ClassUtils.getShortCanonicalName("[I"));
+        assertEquals("int[]", ClassUtils.getShortCanonicalName(int[].class.getCanonicalName()));
+        assertEquals("int[]", ClassUtils.getShortCanonicalName(int[].class.getName()));
         assertEquals("int[][]", ClassUtils.getShortCanonicalName("[[I"));
         assertEquals("int[]", ClassUtils.getShortCanonicalName("int[]"));
         assertEquals("int[][]", ClassUtils.getShortCanonicalName("int[][]"));
 
-        // Inner types
+        // this is to demonstrate that the documentation and the naming of the methods
+        // uses the class name and canonical name totally mixed up, which cannot be
+        // fixed without backward compatibility break
+        assertEquals("int[]", int[].class.getCanonicalName());
+        assertEquals("[I", int[].class.getName());
+
+        // Inner types... the problem is that these are not canonical names, classes with this name do not even have canonical name
+        // WARNING: this is fragile, implementation may change, naming is not guaranteed
         assertEquals("ClassUtilsTest.6", ClassUtils.getShortCanonicalName("org.apache.commons.lang3.ClassUtilsTest$6"));
+      // WARNING: this is fragile, implementation may change, naming is not guaranteed
         assertEquals("ClassUtilsTest.5Named", ClassUtils.getShortCanonicalName("org.apache.commons.lang3.ClassUtilsTest$5Named"));
         assertEquals("ClassUtilsTest.Inner", ClassUtils.getShortCanonicalName("org.apache.commons.lang3.ClassUtilsTest$Inner"));
+        // demonstrating what a canonical name is... it is a bigger issue to clean this up
+        assertEquals("org.apache.commons.lang3.ClassUtilsTest$10", new org.apache.commons.lang3.ClassUtilsTest(){}.getClass().getName());
+        assertNull(new org.apache.commons.lang3.ClassUtilsTest(){}.getClass().getCanonicalName());
     }
 
     @Test
@@ -568,14 +619,15 @@ public class ClassUtilsTest  {
         class Named {
             // empty
         }
-        assertEquals("ClassUtilsTest.10", ClassUtils.getShortClassName(new Object() {
+      // WARNING: this is fragile, implementation may change, naming is not guaranteed
+        assertEquals("ClassUtilsTest.12", ClassUtils.getShortClassName(new Object() {
             // empty
         }.getClass()));
+        // WARNING: this is fragile, implementation may change, naming is not guaranteed
         assertEquals("ClassUtilsTest.10Named", ClassUtils.getShortClassName(Named.class));
         assertEquals("ClassUtilsTest.Inner", ClassUtils.getShortClassName(Inner.class));
     }
 
-    // -------------------------------------------------------------------------
     @Test
     public void test_getShortClassName_Object() {
         assertEquals("ClassUtils", ClassUtils.getShortClassName(new ClassUtils(), "<null>"));
@@ -587,9 +639,11 @@ public class ClassUtilsTest  {
         class Named {
             // empty
         }
-        assertEquals("ClassUtilsTest.11", ClassUtils.getShortClassName(new Object() {
+      // WARNING: this is fragile, implementation may change, naming is not guaranteed
+        assertEquals("ClassUtilsTest.13", ClassUtils.getShortClassName(new Object() {
             // empty
         }, "<null>"));
+        // WARNING: this is fragile, implementation may change, naming is not guaranteed
         assertEquals("ClassUtilsTest.11Named", ClassUtils.getShortClassName(new Named(), "<null>"));
         assertEquals("ClassUtilsTest.Inner", ClassUtils.getShortClassName(new Inner(), "<null>"));
     }
@@ -715,7 +769,6 @@ public class ClassUtilsTest  {
         assertTrue(ClassUtils.isAssignable(Boolean.class, Boolean.class, true));
     }
 
-    // -------------------------------------------------------------------------
     @Test
     public void test_isAssignable_ClassArray_ClassArray() {
         final Class<?>[] array2 = new Class[] {Object.class, Object.class};
@@ -1073,7 +1126,6 @@ public class ClassUtilsTest  {
         assertTrue(ClassUtils.isAssignable(Boolean.TYPE, Boolean.TYPE), "boolean -> boolean");
     }
 
-    // -------------------------------------------------------------------------
     @Test
     public void test_isInnerClass_Class() {
         assertTrue(ClassUtils.isInnerClass(Inner.class));
@@ -1086,7 +1138,24 @@ public class ClassUtilsTest  {
         assertFalse(ClassUtils.isInnerClass(null));
     }
 
-    //-----------------------------------------------------------------------
+    @Test
+    public void testComparable() {
+        final TreeMap<Class<?>, String> map = new TreeMap<>(ClassUtils.comparator());
+        map.put(String.class, "lastEntry");
+        map.toString();
+        map.put(Character.class, "firstEntry");
+        map.toString();
+        assertEquals("firstEntry", map.firstEntry().getValue());
+        assertEquals(Character.class, map.firstEntry().getKey());
+        //
+        assertEquals("lastEntry", map.lastEntry().getValue());
+        assertEquals(String.class, map.lastEntry().getKey());
+        //
+        map.put(null, "null");
+        map.toString();
+        assertEquals("null", map.get(null));
+    }
+
     @Test
     public void testConstructor() {
         assertNotNull(new ClassUtils());
@@ -1185,6 +1254,17 @@ public class ClassUtilsTest  {
     }
 
     @Test
+    public void testGetComponentType() {
+        final CX[] newArray = {};
+        @SuppressWarnings("unchecked")
+        final Class<CX[]> classCxArray = (Class<CX[]>) newArray.getClass();
+        // No type-cast required.
+        final Class<CX> componentType = ClassUtils.getComponentType(classCxArray);
+        assertEquals(CX.class, componentType);
+        assertNull(ClassUtils.getComponentType(null));
+    }
+
+    @Test
     public void testGetInnerClass() throws ClassNotFoundException {
         assertEquals( Inner.DeeplyNested.class, ClassUtils.getClass( "org.apache.commons.lang3.ClassUtilsTest.Inner.DeeplyNested" ) );
         assertEquals( Inner.DeeplyNested.class, ClassUtils.getClass( "org.apache.commons.lang3.ClassUtilsTest.Inner$DeeplyNested" ) );
@@ -1202,7 +1282,7 @@ public class ClassUtilsTest  {
 
         // Tests with a public Class
         final Method toStringMethod = ClassUtils.getPublicMethod(Object.class, "toString");
-        assertEquals(Object.class.getMethod("toString", new Class[0]), toStringMethod);
+        assertEquals(Object.class.getMethod("toString"), toStringMethod);
     }
 
     @Test

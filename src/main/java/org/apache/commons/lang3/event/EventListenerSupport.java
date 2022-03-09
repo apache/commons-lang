@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -30,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -100,9 +100,9 @@ public class EventListenerSupport<L> implements Serializable {
      * @return an EventListenerSupport object which supports the specified
      *         listener type.
      *
-     * @throws NullPointerException if <code>listenerInterface</code> is
-     *         <code>null</code>.
-     * @throws IllegalArgumentException if <code>listenerInterface</code> is
+     * @throws NullPointerException if {@code listenerInterface} is
+     *         {@code null}.
+     * @throws IllegalArgumentException if {@code listenerInterface} is
      *         not an interface.
      */
     public static <T> EventListenerSupport<T> create(final Class<T> listenerInterface) {
@@ -116,9 +116,9 @@ public class EventListenerSupport<L> implements Serializable {
      * @param listenerInterface the type of listener interface that will receive
      *        events posted using this class.
      *
-     * @throws NullPointerException if <code>listenerInterface</code> is
-     *         <code>null</code>.
-     * @throws IllegalArgumentException if <code>listenerInterface</code> is
+     * @throws NullPointerException if {@code listenerInterface} is
+     *         {@code null}.
+     * @throws IllegalArgumentException if {@code listenerInterface} is
      *         not an interface.
      */
     public EventListenerSupport(final Class<L> listenerInterface) {
@@ -133,16 +133,16 @@ public class EventListenerSupport<L> implements Serializable {
      * @param listenerInterface the listener interface.
      * @param classLoader       the class loader.
      *
-     * @throws NullPointerException if <code>listenerInterface</code> or
-     *         <code>classLoader</code> is <code>null</code>.
-     * @throws IllegalArgumentException if <code>listenerInterface</code> is
+     * @throws NullPointerException if {@code listenerInterface} or
+     *         {@code classLoader} is {@code null}.
+     * @throws IllegalArgumentException if {@code listenerInterface} is
      *         not an interface.
      */
     public EventListenerSupport(final Class<L> listenerInterface, final ClassLoader classLoader) {
         this();
-        Validate.notNull(listenerInterface, "Listener interface cannot be null.");
-        Validate.notNull(classLoader, "ClassLoader cannot be null.");
-        Validate.isTrue(listenerInterface.isInterface(), "Class {0} is not an interface",
+        Validate.notNull(listenerInterface, "listenerInterface");
+        Validate.notNull(classLoader, "classLoader");
+        Validate.isTrue(listenerInterface.isInterface(), "Class %s is not an interface",
                 listenerInterface.getName());
         initializeTransientFields(listenerInterface, classLoader);
     }
@@ -173,10 +173,10 @@ public class EventListenerSupport<L> implements Serializable {
     /**
      * Registers an event listener.
      *
-     * @param listener the event listener (may not be <code>null</code>).
+     * @param listener the event listener (may not be {@code null}).
      *
-     * @throws NullPointerException if <code>listener</code> is
-     *         <code>null</code>.
+     * @throws NullPointerException if {@code listener} is
+     *         {@code null}.
      */
     public void addListener(final L listener) {
         addListener(listener, true);
@@ -184,20 +184,18 @@ public class EventListenerSupport<L> implements Serializable {
 
     /**
      * Registers an event listener.  Will not add a pre-existing listener
-     * object to the list if <code>allowDuplicate</code> is false.
+     * object to the list if {@code allowDuplicate} is false.
      *
-     * @param listener the event listener (may not be <code>null</code>).
+     * @param listener the event listener (may not be {@code null}).
      * @param allowDuplicate the flag for determining if duplicate listener
      * objects are allowed to be registered.
      *
-     * @throws NullPointerException if <code>listener</code> is <code>null</code>.
+     * @throws NullPointerException if {@code listener} is {@code null}.
      * @since 3.5
      */
     public void addListener(final L listener, final boolean allowDuplicate) {
-        Validate.notNull(listener, "Listener object cannot be null.");
-        if (allowDuplicate) {
-            listeners.add(listener);
-        } else if (!listeners.contains(listener)) {
+        Validate.notNull(listener, "listener");
+        if (allowDuplicate || !listeners.contains(listener)) {
             listeners.add(listener);
         }
     }
@@ -214,18 +212,18 @@ public class EventListenerSupport<L> implements Serializable {
     /**
      * Unregisters an event listener.
      *
-     * @param listener the event listener (may not be <code>null</code>).
+     * @param listener the event listener (may not be {@code null}).
      *
-     * @throws NullPointerException if <code>listener</code> is
-     *         <code>null</code>.
+     * @throws NullPointerException if {@code listener} is
+     *         {@code null}.
      */
     public void removeListener(final L listener) {
-        Validate.notNull(listener, "Listener object cannot be null.");
+        Validate.notNull(listener, "listener");
         listeners.remove(listener);
     }
 
     /**
-     * Get an array containing the currently registered listeners.
+     * Gets an array containing the currently registered listeners.
      * Modification to this array's elements will have no effect on the
      * {@link EventListenerSupport} instance.
      * @return L[]
@@ -268,14 +266,11 @@ public class EventListenerSupport<L> implements Serializable {
      */
     private void readObject(final ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
         @SuppressWarnings("unchecked") // Will throw CCE here if not correct
-        final
-        L[] srcListeners = (L[]) objectInputStream.readObject();
+        final L[] srcListeners = (L[]) objectInputStream.readObject();
 
         this.listeners = new CopyOnWriteArrayList<>(srcListeners);
 
-        @SuppressWarnings("unchecked") // Will throw CCE here if not correct
-        final
-        Class<L> listenerInterface = (Class<L>) srcListeners.getClass().getComponentType();
+        final Class<L> listenerInterface = ArrayUtils.getComponentType(srcListeners);
 
         initializeTransientFields(listenerInterface, Thread.currentThread().getContextClassLoader());
     }
@@ -286,10 +281,8 @@ public class EventListenerSupport<L> implements Serializable {
      * @param classLoader the class loader to be used
      */
     private void initializeTransientFields(final Class<L> listenerInterface, final ClassLoader classLoader) {
-        @SuppressWarnings("unchecked") // Will throw CCE here if not correct
-        final
-        L[] array = (L[]) Array.newInstance(listenerInterface, 0);
-        this.prototypeArray = array;
+        // Will throw CCE here if not correct
+        this.prototypeArray = ArrayUtils.newInstance(listenerInterface, 0);
         createProxy(listenerInterface, classLoader);
     }
 

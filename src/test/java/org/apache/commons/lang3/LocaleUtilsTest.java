@@ -59,7 +59,6 @@ public class LocaleUtilsTest  {
         LocaleUtils.isAvailableLocale(Locale.getDefault());
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Test that constructors are public, and work, etc.
      */
@@ -73,7 +72,6 @@ public class LocaleUtilsTest  {
         assertFalse(Modifier.isFinal(LocaleUtils.class.getModifiers()));
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Pass in a valid language, test toLocale.
      *
@@ -123,11 +121,30 @@ public class LocaleUtilsTest  {
     }
 
     /**
-     * Test toLocale() method.
+     * Test toLocale(Locale) method.
+     */
+    @Test
+    public void testToLocale_Locale_defaults() {
+        assertNull(LocaleUtils.toLocale((String) null));
+        assertEquals(Locale.getDefault(), LocaleUtils.toLocale((Locale) null));
+        assertEquals(Locale.getDefault(), LocaleUtils.toLocale(Locale.getDefault()));
+    }
+
+    /**
+     * Test toLocale(Locale) method.
+     */
+    @ParameterizedTest
+    @MethodSource("java.util.Locale#getAvailableLocales")
+    public void testToLocales(final Locale actualLocale) {
+        assertEquals(actualLocale, LocaleUtils.toLocale(actualLocale));
+    }
+
+    /**
+     * Test toLocale(String) method.
      */
     @Test
     public void testToLocale_1Part() {
-        assertNull(LocaleUtils.toLocale(null));
+        assertNull(LocaleUtils.toLocale((String) null));
 
         assertValidToLocale("us");
         assertValidToLocale("fr");
@@ -153,11 +170,10 @@ public class LocaleUtilsTest  {
     @Test
     public void testToLocale_2Part() {
         assertValidToLocale("us_EN", "us", "EN");
+        assertValidToLocale("us-EN", "us", "EN");
         //valid though doesn't exist
         assertValidToLocale("us_ZH", "us", "ZH");
 
-        assertThrows(
-                IllegalArgumentException.class, () -> LocaleUtils.toLocale("us-EN"), "Should fail as not underscore");
         assertThrows(
                 IllegalArgumentException.class,
                 () -> LocaleUtils.toLocale("us_En"),
@@ -186,6 +202,7 @@ public class LocaleUtilsTest  {
     @Test
     public void testToLocale_3Part() {
         assertValidToLocale("us_EN_A", "us", "EN", "A");
+        assertValidToLocale("us-EN-A", "us", "EN", "A");
         // this isn't pretty, but was caused by a jdk bug it seems
         // http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4210525
         if (SystemUtils.isJavaVersionAtLeast(JAVA_1_4)) {
@@ -197,12 +214,11 @@ public class LocaleUtilsTest  {
         }
 
         assertThrows(
-                IllegalArgumentException.class, () -> LocaleUtils.toLocale("us_EN-a"), "Should fail as not underscore");
+                IllegalArgumentException.class, () -> LocaleUtils.toLocale("us_EN-a"), "Should fail as no consistent delimiter");
         assertThrows(
                 IllegalArgumentException.class, () -> LocaleUtils.toLocale("uu_UU_"), "Must be 3, 5 or 7+ in length");
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Helper method for local lookups.
      *
@@ -220,7 +236,6 @@ public class LocaleUtilsTest  {
         assertUnmodifiableCollection(localeList);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Test localeLookupList() method.
      */
@@ -295,7 +310,6 @@ public class LocaleUtilsTest  {
                 LOCALE_EN});
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Test availableLocaleList() method.
      */
@@ -312,7 +326,6 @@ public class LocaleUtilsTest  {
         assertEquals(jdkLocaleList, list);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Test availableLocaleSet() method.
      */
@@ -330,7 +343,6 @@ public class LocaleUtilsTest  {
         assertEquals(jdkLocaleSet, set);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Test availableLocaleSet() method.
      */
@@ -362,7 +374,6 @@ public class LocaleUtilsTest  {
         }
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Make sure the language by country is correct. It checks that
      * the LocaleUtils.languagesByCountry(country) call contains the
@@ -409,7 +420,6 @@ public class LocaleUtilsTest  {
         assertLanguageByCountry("CH", new String[]{"fr", "de", "it"});
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Make sure the country by language is correct. It checks that
      * the LocaleUtils.countryByLanguage(language) call contains the
@@ -524,11 +534,11 @@ public class LocaleUtilsTest  {
 
     @ParameterizedTest
     @MethodSource("java.util.Locale#getAvailableLocales")
-    public void testParseAllLocales(Locale l) {
+    public void testParseAllLocales(final Locale actualLocale) {
         // Check if it's possible to recreate the Locale using just the standard constructor
-        final Locale locale = new Locale(l.getLanguage(), l.getCountry(), l.getVariant());
-        if (l.equals(locale)) { // it is possible for LocaleUtils.toLocale to handle these Locales
-            final String str = l.toString();
+        final Locale locale = new Locale(actualLocale.getLanguage(), actualLocale.getCountry(), actualLocale.getVariant());
+        if (actualLocale.equals(locale)) { // it is possible for LocaleUtils.toLocale to handle these Locales
+            final String str = actualLocale.toString();
             // Look for the script/extension suffix
             int suff = str.indexOf("_#");
             if (suff == - 1) {
@@ -541,7 +551,7 @@ public class LocaleUtilsTest  {
                 localeStr = str.substring(0, suff);
             }
             final Locale loc = LocaleUtils.toLocale(localeStr);
-            assertEquals(l, loc);
+            assertEquals(actualLocale, loc);
         }
     }
 }

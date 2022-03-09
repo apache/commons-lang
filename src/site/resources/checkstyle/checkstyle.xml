@@ -17,8 +17,8 @@ limitations under the License.
 -->
 
 <!DOCTYPE module PUBLIC
-    "-//Puppy Crawl//DTD Check Configuration 1.1//EN"
-    "http://www.puppycrawl.com/dtds/configuration_1_1.dtd">
+    "-//Checkstyle//DTD Checkstyle Configuration 1.2//EN"
+    "https://checkstyle.org/dtds/configuration_1_2.dtd">
 
 <!-- Apache Commons Lang customization of default Checkstyle behavior -->
 <module name="Checker">
@@ -36,7 +36,7 @@ limitations under the License.
     <property name="message" value="Line has trailing spaces."/>
   </module>
   <module name="SuppressionFilter">
-    <property name="file" value="checkstyle-suppressions.xml"/>
+    <property name="file" value="src/site/resources/checkstyle/checkstyle-suppressions.xml"/>
   </module>
   <module name="TreeWalker">
     <module name="AvoidStarImport"/>
@@ -45,8 +45,7 @@ limitations under the License.
     <module name="UnusedImports"/>
     <module name="NeedBraces"/>
     <module name="JavadocMethod">
-      <property name="allowUndeclaredRTE" value="true"/>
-      <property name="scope" value="public" />
+      <property name="accessModifiers" value="public" />
     </module>
     <module name="ModifierOrder"/>
     <module name="RedundantModifier"/>

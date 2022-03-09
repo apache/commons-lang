@@ -39,6 +39,7 @@ package org.apache.commons.lang3.builder;
  * @param <T> the type of objects that this object may be differentiated against
  * @since 3.3
  */
+@FunctionalInterface
 public interface Diffable<T> {
 
     /**
@@ -49,5 +50,5 @@ public interface Diffable<T> {
      * @return a list of differences
      * @throws NullPointerException if the specified object is {@code null}
      */
-    DiffResult diff(T obj);
+    DiffResult<T> diff(T obj);
 }

@@ -311,19 +311,19 @@ public class Conversion {
             throw new IllegalArgumentException("Cannot convert an empty array.");
         }
         if (src.length > srcPos + 3 && src[srcPos + 3]) {
-            if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                if (src.length > srcPos + 1 && src[srcPos + 1]) {
+            if (src[srcPos + 2]) {
+                if (src[srcPos + 1]) {
                     return src[srcPos] ? 'f' : 'e';
                 }
                 return src[srcPos] ? 'd' : 'c';
             }
-            if (src.length > srcPos + 1 && src[srcPos + 1]) {
+            if (src[srcPos + 1]) {
                 return src[srcPos] ? 'b' : 'a';
             }
             return src[srcPos] ? '9' : '8';
         }
         if (src.length > srcPos + 2 && src[srcPos + 2]) {
-            if (src.length > srcPos + 1 && src[srcPos + 1]) {
+            if (src[srcPos + 1]) {
                 return src[srcPos] ? '7' : '6';
             }
             return src[srcPos] ? '5' : '4';
@@ -1534,7 +1534,7 @@ public class Conversion {
         if (nBytes > 16) {
             throw new IllegalArgumentException("nBytes is greater than 16");
         }
-        longToByteArray(src.getMostSignificantBits(), 0, dst, dstPos, nBytes > 8 ? 8 : nBytes);
+        longToByteArray(src.getMostSignificantBits(), 0, dst, dstPos, Math.min(nBytes, 8));
         if (nBytes >= 8) {
             longToByteArray(src.getLeastSignificantBits(), 0, dst, dstPos + 8, nBytes - 8);
         }

@@ -19,7 +19,7 @@ package org.apache.commons.lang3.mutable;
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
- * A mutable <code>long</code> wrapper.
+ * A mutable {@code long} wrapper.
  * <p>
  * Note that as MutableLong does not extend Long, it is not treated by String.format as a Long parameter.
  *
@@ -42,7 +42,6 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * Constructs a new MutableLong with the default value of zero.
      */
     public MutableLong() {
-        super();
     }
 
     /**
@@ -51,7 +50,6 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @param value  the initial value to store
      */
     public MutableLong(final long value) {
-        super();
         this.value = value;
     }
 
@@ -62,7 +60,6 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @throws NullPointerException if the object is null
      */
     public MutableLong(final Number value) {
-        super();
         this.value = value.longValue();
     }
 
@@ -74,11 +71,9 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @since 2.5
      */
     public MutableLong(final String value) {
-        super();
         this.value = Long.parseLong(value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets the value as a Long instance.
      *
@@ -109,7 +104,6 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
         this.value = value.longValue();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Increments the value.
      *
@@ -178,7 +172,6 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Adds a value to the value of this instance.
      *
@@ -277,7 +270,6 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
         return last;
     }
 
-    //-----------------------------------------------------------------------
     // shortValue and byteValue rely on Number implementation
     /**
      * Returns the value of this MutableLong as an int.
@@ -319,7 +311,6 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets this mutable as an instance of Long.
      *
@@ -329,14 +320,13 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
         return Long.valueOf(longValue());
     }
 
-    //-----------------------------------------------------------------------
     /**
-     * Compares this object to the specified object. The result is <code>true</code> if and only if the argument
-     * is not <code>null</code> and is a <code>MutableLong</code> object that contains the same <code>long</code>
+     * Compares this object to the specified object. The result is {@code true} if and only if the argument
+     * is not {@code null} and is a {@code MutableLong} object that contains the same {@code long}
      * value as this object.
      *
      * @param obj  the object to compare with, null returns false
-     * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
+     * @return {@code true} if the objects are the same; {@code false} otherwise.
      */
     @Override
     public boolean equals(final Object obj) {
@@ -356,7 +346,6 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
         return (int) (value ^ (value >>> 32));
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Compares this mutable to another in ascending order.
      *
@@ -368,7 +357,6 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
         return NumberUtils.compare(this.value, other.value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Returns the String value of this mutable.
      *

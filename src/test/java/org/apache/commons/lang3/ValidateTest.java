@@ -18,8 +18,12 @@
  */
 package org.apache.commons.lang3;
 
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -29,12 +33,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.Validate}.
@@ -208,7 +208,7 @@ class ValidateTest {
 
                 @Test
                 void shouldReturnTheSameInstance() {
-                    final String[] array = new String[]{"hi"};
+                    final String[] array = {"hi"};
                     final String[] result = Validate.notEmpty(array);
 
                     assertSame(array, result);
@@ -243,7 +243,7 @@ class ValidateTest {
 
                 @Test
                 void shouldReturnTheSameInstance() {
-                    final String[] array = new String[]{"hi"};
+                    final String[] array = {"hi"};
                     final String[] result = Validate.notEmpty(array, "MSG");
 
                     assertSame(array, result);
@@ -650,7 +650,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.noNullElements((Object[]) null));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("array", ex.getMessage());
                 }
 
                 @Test
@@ -685,7 +685,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.noNullElements((Object[]) null, "MSG"));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("array", ex.getMessage());
                 }
 
                 @Test
@@ -712,7 +712,7 @@ class ValidateTest {
 
                 @Test
                 void shouldReturnSameInstance() {
-                    Set<String> col = Collections.singleton("a");
+                    final Set<String> col = Collections.singleton("a");
                     final Set<String> result = Validate.noNullElements(col);
 
                     assertSame(col, result);
@@ -724,7 +724,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.noNullElements((Collection<?>) null));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("iterable", ex.getMessage());
                 }
 
                 @Test
@@ -747,7 +747,7 @@ class ValidateTest {
 
                 @Test
                 void shouldReturnSameInstance() {
-                    Set<String> col = Collections.singleton("a");
+                    final Set<String> col = Collections.singleton("a");
                     final Set<String> result = Validate.noNullElements(col, "MSG");
 
                     assertSame(col, result);
@@ -759,7 +759,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.noNullElements((Collection<?>) null, "MSG"));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("iterable", ex.getMessage());
                 }
 
                 @Test
@@ -802,7 +802,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.validIndex((Object[]) null, 1));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("array", ex.getMessage());
                 }
 
                 @Test
@@ -846,7 +846,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.validIndex((Object[]) null, 1, "MSG"));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("array", ex.getMessage());
                 }
 
                 @Test
@@ -894,7 +894,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.validIndex((Collection<?>) null, 1));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("collection", ex.getMessage());
                 }
 
                 @Test
@@ -938,7 +938,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.validIndex((Collection<?>) null, 1, "MSG"));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("collection", ex.getMessage());
                 }
 
                 @Test
@@ -986,7 +986,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.validIndex((String) null, 1));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("chars", ex.getMessage());
                 }
 
                 @Test
@@ -1030,7 +1030,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.validIndex((String) null, 1, "MSG"));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("chars", ex.getMessage());
                 }
 
                 @Test

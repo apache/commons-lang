@@ -17,8 +17,6 @@
 
 package org.apache.commons.lang3.text;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -27,6 +25,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.StrBuilder}.
@@ -45,7 +45,6 @@ public class StrBuilderAppendInsertTest {
         }
     };
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendNewLine() {
         StrBuilder sb = new StrBuilder("---");
@@ -57,7 +56,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("---#" + SEP, sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendWithNullText() {
         final StrBuilder sb = new StrBuilder();
@@ -89,7 +87,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("NULLNULLfooNULLbarNULLbaz", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppend_Object() {
         final StrBuilder sb = new StrBuilder();
@@ -118,7 +115,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foobazyesSeqbld", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppend_StringBuilder() {
         StrBuilder sb = new StrBuilder();
@@ -136,7 +132,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foobar", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppend_String() {
         StrBuilder sb = new StrBuilder();
@@ -154,7 +149,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foobar", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppend_String_int_int() {
         StrBuilder sb = new StrBuilder();
@@ -206,7 +200,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foobarard", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppend_StringBuilder_int_int() {
         StrBuilder sb = new StrBuilder();
@@ -258,7 +251,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foobarard", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppend_StringBuffer() {
         StrBuilder sb = new StrBuilder();
@@ -276,7 +268,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foobar", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppend_StringBuffer_int_int() {
         StrBuilder sb = new StrBuilder();
@@ -325,7 +316,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foobar", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppend_StrBuilder() {
         StrBuilder sb = new StrBuilder();
@@ -343,7 +333,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foobar", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppend_StrBuilder_int_int() {
         StrBuilder sb = new StrBuilder();
@@ -392,7 +381,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foobar", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppend_CharArray() {
         StrBuilder sb = new StrBuilder();
@@ -407,7 +395,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foo", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppend_CharArray_int_int() {
         StrBuilder sb = new StrBuilder();
@@ -456,7 +443,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foobar", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppend_Boolean() {
         final StrBuilder sb = new StrBuilder();
@@ -470,7 +456,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("truefalse!", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppend_PrimitiveNumber() {
         final StrBuilder sb = new StrBuilder();
@@ -487,7 +472,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("012.34.5", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendln_FormattedString() {
         final int[] count = new int[2];
@@ -511,7 +495,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals(1, count[1]);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendln_Object() {
         final StrBuilder sb = new StrBuilder();
@@ -525,7 +508,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals(SEP + "foo" + SEP + "6" + SEP, sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendln_String() {
         final int[] count = new int[2];
@@ -549,7 +531,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals(1, count[1]);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendln_String_int_int() {
         final int[] count = new int[2];
@@ -573,7 +554,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals(1, count[1]);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendln_StringBuffer() {
         final int[] count = new int[2];
@@ -597,7 +577,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals(1, count[1]);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendln_StringBuilder() {
         final int[] count = new int[2];
@@ -621,7 +600,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals(1, count[1]);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendln_StringBuffer_int_int() {
         final int[] count = new int[2];
@@ -645,7 +623,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals(1, count[1]);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendln_StringBuilder_int_int() {
         final int[] count = new int[2];
@@ -669,7 +646,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals(1, count[1]);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendln_StrBuilder() {
         final int[] count = new int[2];
@@ -693,7 +669,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals(1, count[1]);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendln_StrBuilder_int_int() {
         final int[] count = new int[2];
@@ -717,7 +692,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals(1, count[1]);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendln_CharArray() {
         final int[] count = new int[2];
@@ -741,7 +715,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals(1, count[1]);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendln_CharArray_int_int() {
         final int[] count = new int[2];
@@ -765,7 +738,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals(1, count[1]);
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendln_Boolean() {
         final StrBuilder sb = new StrBuilder();
@@ -777,7 +749,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("false" + SEP, sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendln_PrimitiveNumber() {
         final StrBuilder sb = new StrBuilder();
@@ -797,7 +768,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("4.5" + SEP, sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendPadding() {
         final StrBuilder sb = new StrBuilder();
@@ -819,7 +789,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foo-----------------", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendFixedWidthPadLeft() {
         final StrBuilder sb = new StrBuilder();
@@ -858,7 +827,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("-null", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendFixedWidthPadLeft_int() {
         final StrBuilder sb = new StrBuilder();
@@ -892,7 +860,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("-------123", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendFixedWidthPadRight() {
         final StrBuilder sb = new StrBuilder();
@@ -939,7 +906,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("f", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendFixedWidthPadRight_int() {
         final StrBuilder sb = new StrBuilder();
@@ -973,7 +939,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("123-------", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppend_FormattedString() {
         StrBuilder sb;
@@ -998,7 +963,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals(expected, sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendAll_Array() {
         final StrBuilder sb = new StrBuilder();
@@ -1018,7 +982,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foobarbaz", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendAll_Collection() {
         final StrBuilder sb = new StrBuilder();
@@ -1030,11 +993,10 @@ public class StrBuilderAppendInsertTest {
         assertEquals("", sb.toString());
 
         sb.clear();
-        sb.appendAll(Arrays.asList(new Object[]{"foo", "bar", "baz"}));
+        sb.appendAll(Arrays.asList("foo", "bar", "baz"));
         assertEquals("foobarbaz", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendAll_Iterator() {
         final StrBuilder sb = new StrBuilder();
@@ -1046,11 +1008,10 @@ public class StrBuilderAppendInsertTest {
         assertEquals("", sb.toString());
 
         sb.clear();
-        sb.appendAll(Arrays.asList(new Object[]{"foo", "bar", "baz"}).iterator());
+        sb.appendAll(Arrays.asList("foo", "bar", "baz").iterator());
         assertEquals("foobarbaz", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendWithSeparators_Array() {
         final StrBuilder sb = new StrBuilder();
@@ -1074,7 +1035,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foo,,baz", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendWithSeparators_Collection() {
         final StrBuilder sb = new StrBuilder();
@@ -1086,19 +1046,18 @@ public class StrBuilderAppendInsertTest {
         assertEquals("", sb.toString());
 
         sb.clear();
-        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", "bar", "baz"}), ",");
+        sb.appendWithSeparators(Arrays.asList("foo", "bar", "baz"), ",");
         assertEquals("foo,bar,baz", sb.toString());
 
         sb.clear();
-        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", "bar", "baz"}), null);
+        sb.appendWithSeparators(Arrays.asList("foo", "bar", "baz"), null);
         assertEquals("foobarbaz", sb.toString());
 
         sb.clear();
-        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", null, "baz"}), ",");
+        sb.appendWithSeparators(Arrays.asList("foo", null, "baz"), ",");
         assertEquals("foo,,baz", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendWithSeparators_Iterator() {
         final StrBuilder sb = new StrBuilder();
@@ -1110,19 +1069,18 @@ public class StrBuilderAppendInsertTest {
         assertEquals("", sb.toString());
 
         sb.clear();
-        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", "bar", "baz"}).iterator(), ",");
+        sb.appendWithSeparators(Arrays.asList("foo", "bar", "baz").iterator(), ",");
         assertEquals("foo,bar,baz", sb.toString());
 
         sb.clear();
-        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", "bar", "baz"}).iterator(), null);
+        sb.appendWithSeparators(Arrays.asList("foo", "bar", "baz").iterator(), null);
         assertEquals("foobarbaz", sb.toString());
 
         sb.clear();
-        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", null, "baz"}).iterator(), ",");
+        sb.appendWithSeparators(Arrays.asList("foo", null, "baz").iterator(), ",");
         assertEquals("foo,,baz", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendWithSeparatorsWithNullText() {
         final StrBuilder sb = new StrBuilder();
@@ -1131,11 +1089,10 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foo,null,baz", sb.toString());
 
         sb.clear();
-        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", null, "baz"}), ",");
+        sb.appendWithSeparators(Arrays.asList("foo", null, "baz"), ",");
         assertEquals("foo,null,baz", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendSeparator_String() {
         final StrBuilder sb = new StrBuilder();
@@ -1147,7 +1104,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foo,", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendSeparator_String_String() {
         final StrBuilder sb = new StrBuilder();
@@ -1170,7 +1126,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals(startSeparator + foo + standardSeparator, sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendSeparator_char() {
         final StrBuilder sb = new StrBuilder();
@@ -1195,7 +1150,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals(String.valueOf(startSeparator) + foo + standardSeparator, sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendSeparator_String_int() {
         final StrBuilder sb = new StrBuilder();
@@ -1210,7 +1164,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foo,", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testAppendSeparator_char_int() {
         final StrBuilder sb = new StrBuilder();
@@ -1225,7 +1178,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("foo,", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testInsert() {
 
@@ -1444,7 +1396,6 @@ public class StrBuilderAppendInsertTest {
         assertEquals("4.5barbaz", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
     @Test
     public void testInsertWithNullText() {
         final StrBuilder sb = new StrBuilder();

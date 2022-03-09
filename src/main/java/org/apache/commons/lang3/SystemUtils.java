@@ -49,6 +49,11 @@ public class SystemUtils {
     private static final String USER_HOME_KEY = "user.home";
 
     /**
+     * The System property key for the user name.
+     */
+    private static final String USER_NAME_KEY = "user.name";
+
+    /**
      * The System property key for the user directory.
      */
     private static final String USER_DIR_KEY = "user.dir";
@@ -652,7 +657,7 @@ public class SystemUtils {
 
     /**
      * <p>
-     * The {@code line.separator} System Property. Line separator (<code>&quot;\n&quot;</code> on UNIX).
+     * The {@code line.separator} System Property. Line separator ({@code &quot;\n&quot;} on UNIX).
      * </p>
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
@@ -664,7 +669,7 @@ public class SystemUtils {
      * sync with that System property.
      * </p>
      *
-     * @deprecated Use {@link System#lineSeparator} instead, since it does not require a privilege check.
+     * @deprecated Use {@link System#lineSeparator()} instead, since it does not require a privilege check.
      * @since Java 1.1
      */
     @Deprecated
@@ -726,7 +731,7 @@ public class SystemUtils {
 
     /**
      * <p>
-     * The {@code path.separator} System Property. Path separator (<code>&quot;:&quot;</code> on UNIX).
+     * The {@code path.separator} System Property. Path separator ({@code &quot;:&quot;} on UNIX).
      * </p>
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
@@ -837,7 +842,7 @@ public class SystemUtils {
      *
      * @since Java 1.1
      */
-    public static final String USER_NAME = getSystemProperty("user.name");
+    public static final String USER_NAME = getSystemProperty(USER_NAME_KEY);
 
     /**
      * <p>
@@ -1020,6 +1025,40 @@ public class SystemUtils {
      * @since 3.9
      */
     public static final boolean IS_JAVA_13 = getJavaVersionMatches("13");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Java version 14 (also 14.x versions).
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     *
+     * @since 3.10
+     */
+    public static final boolean IS_JAVA_14 = getJavaVersionMatches("14");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Java version 15 (also 15.x versions).
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     *
+     * @since 3.10
+     */
+    public static final boolean IS_JAVA_15 = getJavaVersionMatches("15");
+
+    /**
+     * Is {@code true} if this is Java version 16 (also 16.x versions).
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     *
+     * @since 3.13.0
+     */
+    public static final boolean IS_JAVA_16 = getJavaVersionMatches("16");
 
     // Operating system checks
     // -----------------------------------------------------------------------
@@ -1256,6 +1295,66 @@ public class SystemUtils {
      * @since 3.5
      */
     public static final boolean IS_OS_MAC_OSX_EL_CAPITAN = getOsMatches("Mac OS X", "10.11");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Sierra.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.12.0
+     */
+    public static final boolean IS_OS_MAC_OSX_SIERRA = getOsMatches("Mac OS X", "10.12");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X High Sierra.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.12.0
+     */
+    public static final boolean IS_OS_MAC_OSX_HIGH_SIERRA = getOsMatches("Mac OS X", "10.13");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Mojave.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.12.0
+     */
+    public static final boolean IS_OS_MAC_OSX_MOJAVE = getOsMatches("Mac OS X", "10.14");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Catalina.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.12.0
+     */
+    public static final boolean IS_OS_MAC_OSX_CATALINA = getOsMatches("Mac OS X", "10.15");
+
+    /**
+     * <p>
+     * Is {@code true} if this is Mac OS X Big Sur.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     *
+     * @since 3.12.0
+     */
+    public static final boolean IS_OS_MAC_OSX_BIG_SUR = getOsMatches("Mac OS X", "10.16");
 
     /**
      * <p>
@@ -1530,17 +1629,29 @@ public class SystemUtils {
 
     /**
      * <p>
-     * Gets the Java home directory as a {@code File}.
+     * Gets an environment variable, defaulting to {@code defaultValue} if the variable cannot be read.
+     * </p>
+     * <p>
+     * If a {@code SecurityException} is caught, the return value is {@code defaultValue} and a message is written to
+     * {@code System.err}.
      * </p>
      *
-     * @return a directory
-     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow
-     * access to the specified system property.
-     * @see System#getProperty(String)
-     * @since 2.1
+     * @param name
+     *            the environment variable name
+     * @param defaultValue
+     *            the default value
+     * @return the environment variable value or {@code defaultValue} if a security problem occurs
+     * @since 3.8
      */
-    public static File getJavaHome() {
-        return new File(System.getProperty(JAVA_HOME_KEY));
+    public static String getEnvironmentVariable(final String name, final String defaultValue) {
+        try {
+            final String value = System.getenv(name);
+            return value == null ? defaultValue : value;
+        } catch (final SecurityException ex) {
+            // we are not allowed to look at this property
+            // System.err.println("Caught a SecurityException reading the environment variable '" + name + "'.");
+            return defaultValue;
+        }
     }
 
     /**
@@ -1556,6 +1667,21 @@ public class SystemUtils {
      */
     public static String getHostName() {
         return IS_OS_WINDOWS ? System.getenv("COMPUTERNAME") : System.getenv("HOSTNAME");
+    }
+
+    /**
+     * <p>
+     * Gets the Java home directory as a {@code File}.
+     * </p>
+     *
+     * @return a directory
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow
+     * access to the specified system property.
+     * @see System#getProperty(String)
+     * @since 2.1
+     */
+    public static File getJavaHome() {
+        return new File(System.getProperty(JAVA_HOME_KEY));
     }
 
     /**
@@ -1632,33 +1758,6 @@ public class SystemUtils {
 
     /**
      * <p>
-     * Gets an environment variable, defaulting to {@code defaultValue} if the variable cannot be read.
-     * </p>
-     * <p>
-     * If a {@code SecurityException} is caught, the return value is {@code defaultValue} and a message is written to
-     * {@code System.err}.
-     * </p>
-     *
-     * @param name
-     *            the environment variable name
-     * @param defaultValue
-     *            the default value
-     * @return the environment variable value or {@code defaultValue} if a security problem occurs
-     * @since 3.8
-     */
-    public static String getEnvironmentVariable(final String name, final String defaultValue) {
-        try {
-            final String value = System.getenv(name);
-            return value == null ? defaultValue : value;
-        } catch (final SecurityException ex) {
-            // we are not allowed to look at this property
-            // System.err.println("Caught a SecurityException reading the environment variable '" + name + "'.");
-            return defaultValue;
-        }
-    }
-
-    /**
-     * <p>
      * Gets the user directory as a {@code File}.
      * </p>
      *
@@ -1685,6 +1784,37 @@ public class SystemUtils {
      */
     public static File getUserHome() {
         return new File(System.getProperty(USER_HOME_KEY));
+    }
+
+    /**
+     * <p>
+     * Gets the user name.
+     * </p>
+     *
+     * @return a name
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow
+     * access to the specified system property.
+     * @see System#getProperty(String)
+     * @since 3.10
+     */
+    public static String getUserName() {
+        return System.getProperty(USER_NAME_KEY);
+    }
+
+    /**
+     * <p>
+     * Gets the user name.
+     * </p>
+     *
+     * @param defaultValue A default value.
+     * @return a name
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow
+     * access to the specified system property.
+     * @see System#getProperty(String)
+     * @since 3.10
+     */
+    public static String getUserName(final String defaultValue) {
+        return System.getProperty(USER_NAME_KEY, defaultValue);
     }
 
     /**
@@ -1721,7 +1851,7 @@ public class SystemUtils {
      * </p>
      *
      * @param requiredVersion the required version, for example 1.31f
-     * @return {@code true} if the actual version is equal or greater than the required version
+     * @return {@code true} if the actual version is equal or less than the required version
      * @since 3.9
      */
     public static boolean isJavaVersionAtMost(final JavaVersion requiredVersion) {
@@ -1820,7 +1950,6 @@ public class SystemUtils {
      * </p>
      */
     public SystemUtils() {
-        super();
     }
 
 }

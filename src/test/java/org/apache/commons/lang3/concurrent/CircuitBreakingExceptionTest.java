@@ -16,13 +16,13 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import org.apache.commons.lang3.exception.AbstractExceptionTest;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.apache.commons.lang3.exception.AbstractExceptionTest;
+import org.junit.jupiter.api.Test;
 
 
 /**

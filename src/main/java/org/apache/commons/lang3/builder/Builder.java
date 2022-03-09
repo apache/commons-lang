@@ -76,6 +76,7 @@ package org.apache.commons.lang3.builder;
  *
  * @since 3.0
  */
+@FunctionalInterface
 public interface Builder<T> {
 
     /**

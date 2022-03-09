@@ -72,8 +72,8 @@ package org.apache.commons.lang3;
  */
 public class BitField {
 
-    private final int _mask;
-    private final int _shift_count;
+    private final int mask;
+    private final int shiftCount;
 
     /**
      * <p>Creates a BitField instance.</p>
@@ -83,8 +83,8 @@ public class BitField {
      *  that this BitField operates on
      */
     public BitField(final int mask) {
-        _mask = mask;
-        _shift_count = mask == 0 ? 0 : Integer.numberOfTrailingZeros(mask);
+        this.mask = mask;
+        this.shiftCount = mask == 0 ? 0 : Integer.numberOfTrailingZeros(mask);
     }
 
     /**
@@ -102,7 +102,7 @@ public class BitField {
      * @return the selected bits, shifted right appropriately
      */
     public int getValue(final int holder) {
-        return getRawValue(holder) >> _shift_count;
+        return getRawValue(holder) >> shiftCount;
     }
 
     /**
@@ -131,7 +131,7 @@ public class BitField {
      * @return the selected bits
      */
     public int getRawValue(final int holder) {
-        return holder & _mask;
+        return holder & mask;
     }
 
     /**
@@ -159,7 +159,7 @@ public class BitField {
      *  else {@code false}
      */
     public boolean isSet(final int holder) {
-        return (holder & _mask) != 0;
+        return (holder & mask) != 0;
     }
 
     /**
@@ -175,7 +175,7 @@ public class BitField {
      *  else {@code false}
      */
     public boolean isAllSet(final int holder) {
-        return (holder & _mask) == _mask;
+        return (holder & mask) == mask;
     }
 
     /**
@@ -189,7 +189,7 @@ public class BitField {
      *  parameter replacing the old bits
      */
     public int setValue(final int holder, final int value) {
-        return (holder & ~_mask) | ((value << _shift_count) & _mask);
+        return (holder & ~mask) | ((value << shiftCount) & mask);
     }
 
     /**
@@ -215,7 +215,7 @@ public class BitField {
      *  (set to {@code 0})
      */
     public int clear(final int holder) {
-        return holder & ~_mask;
+        return holder & ~mask;
     }
 
     /**
@@ -252,7 +252,7 @@ public class BitField {
      *  to {@code 1}
      */
     public int set(final int holder) {
-        return holder | _mask;
+        return holder | mask;
     }
 
     /**

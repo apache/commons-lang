@@ -19,7 +19,7 @@ package org.apache.commons.lang3.mutable;
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
- * A mutable <code>byte</code> wrapper.
+ * A mutable {@code byte} wrapper.
  * <p>
  * Note that as MutableByte does not extend Byte, it is not treated by String.format as a Byte parameter.
  *
@@ -42,7 +42,6 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * Constructs a new MutableByte with the default value of zero.
      */
     public MutableByte() {
-        super();
     }
 
     /**
@@ -51,7 +50,6 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @param value  the initial value to store
      */
     public MutableByte(final byte value) {
-        super();
         this.value = value;
     }
 
@@ -62,7 +60,6 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @throws NullPointerException if the object is null
      */
     public MutableByte(final Number value) {
-        super();
         this.value = value.byteValue();
     }
 
@@ -74,11 +71,9 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @since 2.5
      */
     public MutableByte(final String value) {
-        super();
         this.value = Byte.parseByte(value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets the value as a Byte instance.
      *
@@ -109,7 +104,6 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
         this.value = value.byteValue();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Increments the value.
      *
@@ -178,7 +172,6 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Adds a value to the value of this instance.
      *
@@ -277,7 +270,6 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
         return last;
     }
 
-    //-----------------------------------------------------------------------
     // shortValue relies on Number implementation
     /**
      * Returns the value of this MutableByte as a byte.
@@ -329,7 +321,6 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets this mutable as an instance of Byte.
      *
@@ -339,14 +330,13 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
         return Byte.valueOf(byteValue());
     }
 
-    //-----------------------------------------------------------------------
     /**
-     * Compares this object to the specified object. The result is <code>true</code> if and only if the argument is
-     * not <code>null</code> and is a <code>MutableByte</code> object that contains the same <code>byte</code> value
+     * Compares this object to the specified object. The result is {@code true} if and only if the argument is
+     * not {@code null} and is a {@code MutableByte} object that contains the same {@code byte} value
      * as this object.
      *
      * @param obj  the object to compare with, null returns false
-     * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
+     * @return {@code true} if the objects are the same; {@code false} otherwise.
      */
     @Override
     public boolean equals(final Object obj) {
@@ -366,7 +356,6 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
         return value;
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Compares this mutable to another in ascending order.
      *
@@ -378,7 +367,6 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
         return NumberUtils.compare(this.value, other.value);
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Returns the String value of this mutable.
      *

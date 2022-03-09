@@ -43,18 +43,6 @@ public class MutableObjectTest {
     }
 
     @Test
-    public void testGetSet() {
-        final MutableObject<String> mutNum = new MutableObject<>();
-        assertNull(new MutableObject<>().getValue());
-
-        mutNum.setValue("HELLO");
-        assertSame("HELLO", mutNum.getValue());
-
-        mutNum.setValue(null);
-        assertSame(null, mutNum.getValue());
-    }
-
-    @Test
     public void testEquals() {
         final MutableObject<String> mutNumA = new MutableObject<>("ALPHA");
         final MutableObject<String> mutNumB = new MutableObject<>("ALPHA");
@@ -74,6 +62,18 @@ public class MutableObjectTest {
         assertNotEquals(null, mutNumA);
         assertNotEquals(mutNumA, new Object());
         assertNotEquals("0", mutNumA);
+    }
+
+    @Test
+    public void testGetSet() {
+        final MutableObject<String> mutNum = new MutableObject<>();
+        assertNull(new MutableObject<>().getValue());
+
+        mutNum.setValue("HELLO");
+        assertSame("HELLO", mutNum.getValue());
+
+        mutNum.setValue(null);
+        assertSame(null, mutNum.getValue());
     }
 
     @Test

@@ -22,7 +22,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.awt.Insets;
 import java.io.Serializable;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.Method;
@@ -32,19 +34,94 @@ import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.TreeSet;
 
 import org.apache.commons.lang3.reflect.testbed.Foo;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.GenericTypeHolder;
 import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+class AAAClass extends AAClass<String> {
+    public class BBBClass extends BBClass<String> {
+    }
+}
+
+class AAClass<T> {
+
+    public class BBClass<S> {
+    }
+}
+
+@SuppressWarnings("rawtypes")
+//raw types, where used, are used purposely
+class AClass extends AAClass<String>.BBClass<Number> {
+
+    public interface AInterface<T> {
+    }
+
+    public class BClass<T> {
+    }
+
+    public class CClass<T> extends BClass {
+    }
+
+    public class DClass<T> extends CClass<T> {
+    }
+
+    public class EClass<T> extends DClass {
+    }
+
+    public class FClass extends EClass<String> {
+    }
+
+    public class GClass<T extends BClass<? extends T> & AInterface<AInterface<? super T>>> {
+    }
+
+    public BClass<Number> bClass;
+
+    public CClass<? extends String> cClass;
+
+    public DClass<String> dClass;
+
+    public EClass<String> eClass;
+
+    public FClass fClass;
+
+    public GClass gClass;
+
+    AClass(final AAClass<String> enclosingInstance) {
+        enclosingInstance.super();
+    }
+}
+@SuppressWarnings("rawtypes")
+abstract class Test1<G> {
+    public abstract Object m0();
+    public abstract String[] m1();
+    public abstract <E> E[] m2();
+    public abstract <E> List<? extends E> m3();
+    public abstract <E extends Enum<E>> List<? extends Enum<E>> m4();
+    public abstract List<? extends Enum<?>> m5();
+    public abstract List<? super Enum<?>> m6();
+    public abstract List<?> m7();
+    public abstract Map<? extends Enum<?>, ? super Enum<?>> m8();
+    public abstract <K, V> Map<? extends K, ? super V[]> m9();
+    public abstract <K, V> Map<? extends K, V[]> m10();
+    public abstract <K, V> Map<? extends K, List<V[]>> m11();
+    public abstract List m12();
+    public abstract Map m13();
+    public abstract Properties m14();
+    public abstract G m15();
+    public abstract List<G> m16();
+    public abstract Enum m17();
+}
 
 /**
  * Test TypeUtils
@@ -53,25 +130,59 @@ import org.junit.jupiter.api.Test;
 //raw types, where used, are used purposely
 public class TypeUtilsTest<B> {
 
-    public interface This<K, V> {
-    }
-
-    public class That<K, V> implements This<K, V> {
-    }
-
     public interface And<K, V> extends This<Number, Number> {
     }
 
-    public class The<K, V> extends That<Number, Number> implements And<String, String> {
+    public static class ClassWithSuperClassWithGenericType extends ArrayList<Object> {
+        private static final long serialVersionUID = 1L;
+
+        public static <U> Iterable<U> methodWithGenericReturnType() {
+            return null;
+        }
     }
 
     public class Other<T> implements This<String, T> {
     }
 
+    public class Tester implements This<String, B> {
+    }
+
+    public class That<K, V> implements This<K, V> {
+    }
+
+    public class The<K, V> extends That<Number, Number> implements And<String, String> {
+    }
+
     public class Thing<Q> extends Other<B> {
     }
 
-    public class Tester implements This<String, B> {
+    public interface This<K, V> {
+    }
+
+    public static Comparable<String> stringComparable;
+
+    public static Comparable<URI> uriComparable;
+
+    public static Comparable<Integer> intComparable;
+
+    public static Comparable<Long> longComparable;
+
+    public static Comparable<?> wildcardComparable;
+
+    public static URI uri;
+
+    public static List<String>[] stringListArray;
+
+    public static <G extends Comparable<G>> G stub() {
+        return null;
+    }
+
+    public static <G extends Comparable<? super G>> G stub2() {
+        return null;
+    }
+
+    public static <T extends Comparable<? extends T>> T stub3() {
+        return null;
     }
 
     public This<String, String> dis;
@@ -94,19 +205,25 @@ public class TypeUtilsTest<B> {
 
     public Comparable<? extends Integer>[] intWildcardComparable;
 
-    public static Comparable<String> stringComparable;
+    public Iterable<? extends Map<Integer, ? extends Collection<?>>> iterable;
 
-    public static Comparable<URI> uriComparable;
+    public void delegateBooleanAssertion(final Type[] types, final int i2, final int i1, final boolean expected) {
+        final Type type1 = types[i1];
+        final Type type2 = types[i2];
+        final boolean isAssignable = TypeUtils.isAssignable(type2, type1);
 
-    public static Comparable<Integer> intComparable;
-
-    public static Comparable<Long> longComparable;
-
-    public static Comparable<?> wildcardComparable;
-
-    public static URI uri;
-
-    public static List<String>[] stringListArray;
+        if (expected) {
+            assertTrue(isAssignable,
+                    "[" + i1 + ", " + i2 + "]: From "
+                                + String.valueOf(type2) + " to "
+                                + String.valueOf(type1));
+        } else {
+            assertFalse(isAssignable,
+                    "[" + i1 + ", " + i2 + "]: From "
+                                + String.valueOf(type2) + " to "
+                                + String.valueOf(type1));
+        }
+    }
 
     public void dummyMethod(final List list0, final List<Object> list1, final List<?> list2,
             final List<? super Object> list3, final List<String> list4, final List<? extends String> list5,
@@ -115,23 +232,236 @@ public class TypeUtilsTest<B> {
             final List<? super String>[] list13) {
     }
 
+    @Test
+    public void testContainsTypeVariables() throws Exception {
+        assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m0").getGenericReturnType()));
+        assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m1").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m2").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m3").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m4").getGenericReturnType()));
+        assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m5").getGenericReturnType()));
+        assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m6").getGenericReturnType()));
+        assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m7").getGenericReturnType()));
+        assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m8").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m9").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m10").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m11").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m12").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m13").getGenericReturnType()));
+        assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m14").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m15").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m16").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m17").getGenericReturnType()));
+    }
+
+    @Test
+    public void testDetermineTypeVariableAssignments() throws SecurityException,
+            NoSuchFieldException {
+        final ParameterizedType iterableType = (ParameterizedType) getClass().getField("iterable")
+                .getGenericType();
+        final Map<TypeVariable<?>, Type> typeVarAssigns = TypeUtils.determineTypeArguments(TreeSet.class,
+                iterableType);
+        final TypeVariable<?> treeSetTypeVar = TreeSet.class.getTypeParameters()[0];
+        assertTrue(typeVarAssigns.containsKey(treeSetTypeVar));
+        assertEquals(iterableType.getActualTypeArguments()[0], typeVarAssigns
+                .get(treeSetTypeVar));
+    }
+
+    @Test
+    public void testGenericArrayType() throws Exception {
+        final Type expected = getClass().getField("intWildcardComparable").getGenericType();
+        final GenericArrayType actual =
+            TypeUtils.genericArrayType(TypeUtils.parameterize(Comparable.class, TypeUtils.wildcardType()
+                .withUpperBounds(Integer.class).build()));
+        assertTrue(TypeUtils.equals(expected, actual));
+        assertEquals("java.lang.Comparable<? extends java.lang.Integer>[]", actual.toString());
+    }
+
+    @Test
+    public void testGetArrayComponentType() throws Exception {
+        final Method method = getClass().getMethod("dummyMethod", List.class, List.class, List.class,
+                List.class, List.class, List.class, List.class, List[].class, List[].class,
+                List[].class, List[].class, List[].class, List[].class, List[].class);
+
+        final Type[] types = method.getGenericParameterTypes();
+
+        assertNull(TypeUtils.getArrayComponentType(types[0]));
+        assertNull(TypeUtils.getArrayComponentType(types[1]));
+        assertNull(TypeUtils.getArrayComponentType(types[2]));
+        assertNull(TypeUtils.getArrayComponentType(types[3]));
+        assertNull(TypeUtils.getArrayComponentType(types[4]));
+        assertNull(TypeUtils.getArrayComponentType(types[5]));
+        assertNull(TypeUtils.getArrayComponentType(types[6]));
+        assertEquals(types[0], TypeUtils.getArrayComponentType(types[7]));
+        assertEquals(types[1], TypeUtils.getArrayComponentType(types[8]));
+        assertEquals(types[2], TypeUtils.getArrayComponentType(types[9]));
+        assertEquals(types[3], TypeUtils.getArrayComponentType(types[10]));
+        assertEquals(types[4], TypeUtils.getArrayComponentType(types[11]));
+        assertEquals(types[5], TypeUtils.getArrayComponentType(types[12]));
+        assertEquals(types[6], TypeUtils.getArrayComponentType(types[13]));
+    }
+
+    @Test
+    public void testGetPrimitiveArrayComponentType() {
+        assertEquals(boolean.class, TypeUtils.getArrayComponentType(boolean[].class));
+        assertEquals(byte.class, TypeUtils.getArrayComponentType(byte[].class));
+        assertEquals(short.class, TypeUtils.getArrayComponentType(short[].class));
+        assertEquals(int.class, TypeUtils.getArrayComponentType(int[].class));
+        assertEquals(char.class, TypeUtils.getArrayComponentType(char[].class));
+        assertEquals(long.class, TypeUtils.getArrayComponentType(long[].class));
+        assertEquals(float.class, TypeUtils.getArrayComponentType(float[].class));
+        assertEquals(double.class, TypeUtils.getArrayComponentType(double[].class));
+
+        assertNull(TypeUtils.getArrayComponentType(boolean.class));
+        assertNull(TypeUtils.getArrayComponentType(byte.class));
+        assertNull(TypeUtils.getArrayComponentType(short.class));
+        assertNull(TypeUtils.getArrayComponentType(int.class));
+        assertNull(TypeUtils.getArrayComponentType(char.class));
+        assertNull(TypeUtils.getArrayComponentType(long.class));
+        assertNull(TypeUtils.getArrayComponentType(float.class));
+        assertNull(TypeUtils.getArrayComponentType(double.class));
+    }
+
+    @Test
+    public void testGetRawType() throws SecurityException, NoSuchFieldException {
+        final Type stringParentFieldType = GenericTypeHolder.class.getDeclaredField("stringParent")
+                .getGenericType();
+        final Type integerParentFieldType = GenericTypeHolder.class.getDeclaredField("integerParent")
+                .getGenericType();
+        final Type foosFieldType = GenericTypeHolder.class.getDeclaredField("foos").getGenericType();
+        final Type genericParentT = GenericParent.class.getTypeParameters()[0];
+        assertEquals(GenericParent.class, TypeUtils.getRawType(stringParentFieldType, null));
+        assertEquals(GenericParent.class, TypeUtils.getRawType(integerParentFieldType,
+                        null));
+        assertEquals(List.class, TypeUtils.getRawType(foosFieldType, null));
+        assertEquals(String.class, TypeUtils.getRawType(genericParentT,
+                StringParameterizedChild.class));
+        assertEquals(String.class, TypeUtils.getRawType(genericParentT,
+                stringParentFieldType));
+        assertEquals(Foo.class, TypeUtils.getRawType(Iterable.class.getTypeParameters()[0],
+                foosFieldType));
+        assertEquals(Foo.class, TypeUtils.getRawType(List.class.getTypeParameters()[0],
+                foosFieldType));
+        assertNull(TypeUtils.getRawType(genericParentT, GenericParent.class));
+        assertEquals(GenericParent[].class, TypeUtils.getRawType(GenericTypeHolder.class
+                .getDeclaredField("barParents").getGenericType(), null));
+    }
+
+    @Test
+    public void testGetTypeArguments() {
+        Map<TypeVariable<?>, Type> typeVarAssigns;
+        TypeVariable<?> treeSetTypeVar;
+        Type typeArg;
+
+        typeVarAssigns = TypeUtils.getTypeArguments(Integer.class, Comparable.class);
+        treeSetTypeVar = Comparable.class.getTypeParameters()[0];
+        assertTrue(typeVarAssigns.containsKey(treeSetTypeVar),
+                "Type var assigns for Comparable from Integer: " + typeVarAssigns);
+        typeArg = typeVarAssigns.get(treeSetTypeVar);
+        assertEquals(Integer.class, typeVarAssigns.get(treeSetTypeVar),
+                "Type argument of Comparable from Integer: " + typeArg);
+
+        typeVarAssigns = TypeUtils.getTypeArguments(int.class, Comparable.class);
+        treeSetTypeVar = Comparable.class.getTypeParameters()[0];
+        assertTrue(typeVarAssigns.containsKey(treeSetTypeVar),
+                "Type var assigns for Comparable from int: " + typeVarAssigns);
+        typeArg = typeVarAssigns.get(treeSetTypeVar);
+        assertEquals(Integer.class, typeVarAssigns.get(treeSetTypeVar),
+                "Type argument of Comparable from int: " + typeArg);
+
+        final Collection<Integer> col = Collections.emptyList();
+        typeVarAssigns = TypeUtils.getTypeArguments(List.class, Collection.class);
+        treeSetTypeVar = Comparable.class.getTypeParameters()[0];
+        assertFalse(typeVarAssigns.containsKey(treeSetTypeVar),
+                "Type var assigns for Collection from List: " + typeVarAssigns);
+
+        typeVarAssigns = TypeUtils.getTypeArguments(AAAClass.BBBClass.class, AAClass.BBClass.class);
+        assertEquals(2, typeVarAssigns.size());
+        assertEquals(String.class, typeVarAssigns.get(AAClass.class.getTypeParameters()[0]));
+        assertEquals(String.class, typeVarAssigns.get(AAClass.BBClass.class.getTypeParameters()[0]));
+
+        typeVarAssigns = TypeUtils.getTypeArguments(Other.class, This.class);
+        assertEquals(2, typeVarAssigns.size());
+        assertEquals(String.class, typeVarAssigns.get(This.class.getTypeParameters()[0]));
+        assertEquals(Other.class.getTypeParameters()[0], typeVarAssigns.get(This.class.getTypeParameters()[1]));
+
+        typeVarAssigns = TypeUtils.getTypeArguments(And.class, This.class);
+        assertEquals(2, typeVarAssigns.size());
+        assertEquals(Number.class, typeVarAssigns.get(This.class.getTypeParameters()[0]));
+        assertEquals(Number.class, typeVarAssigns.get(This.class.getTypeParameters()[1]));
+
+        typeVarAssigns = TypeUtils.getTypeArguments(Thing.class, Other.class);
+        assertEquals(2, typeVarAssigns.size());
+        assertEquals(getClass().getTypeParameters()[0], typeVarAssigns.get(getClass().getTypeParameters()[0]));
+        assertEquals(getClass().getTypeParameters()[0], typeVarAssigns.get(Other.class.getTypeParameters()[0]));
+    }
+
+    @Test
+    public void testIsArrayGenericTypes() throws Exception {
+        final Method method = getClass().getMethod("dummyMethod", List.class, List.class, List.class,
+                List.class, List.class, List.class, List.class, List[].class, List[].class,
+                List[].class, List[].class, List[].class, List[].class, List[].class);
+
+        final Type[] types = method.getGenericParameterTypes();
+
+        assertFalse(TypeUtils.isArrayType(types[0]));
+        assertFalse(TypeUtils.isArrayType(types[1]));
+        assertFalse(TypeUtils.isArrayType(types[2]));
+        assertFalse(TypeUtils.isArrayType(types[3]));
+        assertFalse(TypeUtils.isArrayType(types[4]));
+        assertFalse(TypeUtils.isArrayType(types[5]));
+        assertFalse(TypeUtils.isArrayType(types[6]));
+        assertTrue(TypeUtils.isArrayType(types[7]));
+        assertTrue(TypeUtils.isArrayType(types[8]));
+        assertTrue(TypeUtils.isArrayType(types[9]));
+        assertTrue(TypeUtils.isArrayType(types[10]));
+        assertTrue(TypeUtils.isArrayType(types[11]));
+        assertTrue(TypeUtils.isArrayType(types[12]));
+        assertTrue(TypeUtils.isArrayType(types[13]));
+    }
+
+    @Test
+    public void testIsArrayTypeClasses() {
+        assertTrue(TypeUtils.isArrayType(boolean[].class));
+        assertTrue(TypeUtils.isArrayType(byte[].class));
+        assertTrue(TypeUtils.isArrayType(short[].class));
+        assertTrue(TypeUtils.isArrayType(int[].class));
+        assertTrue(TypeUtils.isArrayType(char[].class));
+        assertTrue(TypeUtils.isArrayType(long[].class));
+        assertTrue(TypeUtils.isArrayType(float[].class));
+        assertTrue(TypeUtils.isArrayType(double[].class));
+        assertTrue(TypeUtils.isArrayType(Object[].class));
+        assertTrue(TypeUtils.isArrayType(String[].class));
+
+        assertFalse(TypeUtils.isArrayType(boolean.class));
+        assertFalse(TypeUtils.isArrayType(byte.class));
+        assertFalse(TypeUtils.isArrayType(short.class));
+        assertFalse(TypeUtils.isArrayType(int.class));
+        assertFalse(TypeUtils.isArrayType(char.class));
+        assertFalse(TypeUtils.isArrayType(long.class));
+        assertFalse(TypeUtils.isArrayType(float.class));
+        assertFalse(TypeUtils.isArrayType(double.class));
+        assertFalse(TypeUtils.isArrayType(Object.class));
+        assertFalse(TypeUtils.isArrayType(String.class));
+    }
+
     @SuppressWarnings("boxing") // deliberately used here
     @Test
     public void testIsAssignable() throws SecurityException, NoSuchMethodException,
             NoSuchFieldException {
         List list0 = null;
-        List<Object> list1 = null;
-        List<?> list2 = null;
-        List<? super Object> list3 = null;
-        List<String> list4 = null;
-        List<? extends String> list5 = null;
-        List<? super String> list6 = null;
+        List<Object> list1;
+        List<?> list2;
+        List<? super Object> list3;
+        List<String> list4;
+        List<? extends String> list5;
+        List<? super String> list6;
         List[] list7 = null;
-        List<Object>[] list8 = null;
-        List<?>[] list9 = null;
-        List<? super Object>[] list10 = null;
-        List<String>[] list11 = null;
-        List<? extends String>[] list12 = null;
+        List<Object>[] list8;
+        List<?>[] list9;
+        List<? super Object>[] list10;
+        List<String>[] list11;
+        List<? extends String>[] list12;
         List<? super String>[] list13;
         final Class<?> clazz = getClass();
         final Method method = clazz.getMethod("dummyMethod", List.class, List.class, List.class,
@@ -372,7 +702,7 @@ public class TypeUtilsTest<B> {
         int in = 0;
         long lo = 0;
         final float fl = 0;
-        double du = 0;
+        double du;
         du = ch;
         assertTrue(TypeUtils.isAssignable(char.class, double.class));
         du = by;
@@ -420,7 +750,7 @@ public class TypeUtilsTest<B> {
         // int[] ina = ia;
         assertFalse(TypeUtils.isAssignable(Integer[].class, int[].class));
         final int[] ina = null;
-        Object[] oa;
+        final Object[] oa;
         // oa = ina;
         assertFalse(TypeUtils.isAssignable(int[].class, Object[].class));
         oa = new Integer[0];
@@ -453,22 +783,82 @@ public class TypeUtilsTest<B> {
         assertTrue(TypeUtils.isAssignable(fClassType, eClassType));
     }
 
-    public void delegateBooleanAssertion(final Type[] types, final int i2, final int i1, final boolean expected) {
-        final Type type1 = types[i1];
-        final Type type2 = types[i2];
-        final boolean isAssignable = TypeUtils.isAssignable(type2, type1);
+    private void testIsAssignable(final Class testUnassignableClass) {
+        final Class<Constructor> rawClass = Constructor.class;
+        final Class<Insets> typeArgClass = Insets.class;
+        // Builds a ParameterizedType for Constructor<Insets>
+        final ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
+        assertEquals(rawClass, paramType.getRawType());
+        assertEquals(typeArgClass, paramType.getActualTypeArguments()[0]);
 
-        if (expected) {
-            assertTrue(isAssignable,
-                    "[" + i1 + ", " + i2 + "]: From "
-                                + String.valueOf(type2) + " to "
-                                + String.valueOf(type1));
-        } else {
-            assertFalse(isAssignable,
-                    "[" + i1 + ", " + i2 + "]: From "
-                                + String.valueOf(type2) + " to "
-                                + String.valueOf(type1));
-        }
+        assertFalse(testUnassignableClass.isAssignableFrom(paramType.getClass()));
+        assertFalse(paramType.getClass().isAssignableFrom(testUnassignableClass));
+
+        final GenericArrayType arrayType = TypeUtils.genericArrayType(paramType);
+        assertFalse(TypeUtils.isAssignable(arrayType, paramType),
+                () -> String.format("TypeUtils.isAssignable(%s, %s)", arrayType, paramType));
+        assertFalse(TypeUtils.isAssignable(paramType, arrayType),
+                () -> String.format("TypeUtils.isAssignable(%s, %s)", paramType, arrayType));
+    }
+
+    @Test
+    public void testIsAssignableGenericArrayTypeToParameterizedType() {
+        final Class<Constructor> rawClass = Constructor.class;
+        final Class<Insets> typeArgClass = Insets.class;
+        // Builds a ParameterizedType for Constructor<Insets>
+        final ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
+        assertEquals(rawClass, paramType.getRawType());
+        assertEquals(typeArgClass, paramType.getActualTypeArguments()[0]);
+
+        assertFalse(GenericArrayType.class.isAssignableFrom(paramType.getClass()));
+        assertFalse(paramType.getClass().isAssignableFrom(GenericArrayType.class));
+
+        final GenericArrayType testType = TypeUtils.genericArrayType(paramType);
+        assertFalse(TypeUtils.isAssignable(paramType, testType),
+                () -> String.format("TypeUtils.isAssignable(%s, %s)", paramType, testType));
+        assertFalse(TypeUtils.isAssignable(testType, paramType),
+                () -> String.format("TypeUtils.isAssignable(%s, %s)", testType, paramType));
+    }
+
+    @Test
+    @Disabled("TODO")
+    public void testIsAssignableGenericArrayTypeToWildercardType() {
+        final Class<Constructor> rawClass = Constructor.class;
+        final Class<Insets> typeArgClass = Insets.class;
+        // Builds a ParameterizedType for Constructor<Insets>
+        final ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
+        assertEquals(rawClass, paramType.getRawType());
+        assertEquals(typeArgClass, paramType.getActualTypeArguments()[0]);
+
+        assertFalse(WildcardType.class.isAssignableFrom(paramType.getClass()));
+        assertFalse(paramType.getClass().isAssignableFrom(WildcardType.class));
+
+        final WildcardType testType = TypeUtils.WILDCARD_ALL;
+        // TODO This test returns true unlike the test above.
+        // Is this a bug in this test or in the main code?
+        assertFalse(TypeUtils.isAssignable(paramType, testType),
+                () -> String.format("TypeUtils.isAssignable(%s, %s)", paramType, testType));
+        assertFalse(TypeUtils.isAssignable(testType, paramType),
+                () -> String.format("TypeUtils.isAssignable(%s, %s)", testType, paramType));
+    }
+
+    @Test
+    public void testIsAssignableGenericArrayTypeToObject() {
+        final Class<Constructor> rawClass = Constructor.class;
+        final Class<Insets> typeArgClass = Insets.class;
+        // Builds a ParameterizedType for Constructor<Insets>
+        final ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
+        assertEquals(rawClass, paramType.getRawType());
+        assertEquals(typeArgClass, paramType.getActualTypeArguments()[0]);
+
+        assertTrue(Object.class.isAssignableFrom(paramType.getClass()));
+        assertFalse(paramType.getClass().isAssignableFrom(Object.class));
+
+        final Type testType = Object.class;
+        assertTrue(TypeUtils.isAssignable(paramType, testType),
+                () -> String.format("TypeUtils.isAssignable(%s, %s)", paramType, testType));
+        assertFalse(TypeUtils.isAssignable(testType, paramType),
+                () -> String.format("TypeUtils.isAssignable(%s, %s)", testType, paramType));
     }
 
     @SuppressWarnings("boxing") // boxing is deliberate here
@@ -483,199 +873,26 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testGetTypeArguments() {
-        Map<TypeVariable<?>, Type> typeVarAssigns;
-        TypeVariable<?> treeSetTypeVar;
-        Type typeArg;
+    public void testLang1114() throws Exception {
+        final Type nonWildcardType = getClass().getDeclaredField("wildcardComparable").getGenericType();
+        final Type wildcardType = ((ParameterizedType) nonWildcardType).getActualTypeArguments()[0];
 
-        typeVarAssigns = TypeUtils.getTypeArguments(Integer.class, Comparable.class);
-        treeSetTypeVar = Comparable.class.getTypeParameters()[0];
-        assertTrue(typeVarAssigns.containsKey(treeSetTypeVar),
-                "Type var assigns for Comparable from Integer: " + typeVarAssigns);
-        typeArg = typeVarAssigns.get(treeSetTypeVar);
-        assertEquals(Integer.class, typeVarAssigns.get(treeSetTypeVar),
-                "Type argument of Comparable from Integer: " + typeArg);
-
-        typeVarAssigns = TypeUtils.getTypeArguments(int.class, Comparable.class);
-        treeSetTypeVar = Comparable.class.getTypeParameters()[0];
-        assertTrue(typeVarAssigns.containsKey(treeSetTypeVar),
-                "Type var assigns for Comparable from int: " + typeVarAssigns);
-        typeArg = typeVarAssigns.get(treeSetTypeVar);
-        assertEquals(Integer.class, typeVarAssigns.get(treeSetTypeVar),
-                "Type argument of Comparable from int: " + typeArg);
-
-        final Collection<Integer> col = Arrays.asList(new Integer[0]);
-        typeVarAssigns = TypeUtils.getTypeArguments(List.class, Collection.class);
-        treeSetTypeVar = Comparable.class.getTypeParameters()[0];
-        assertFalse(typeVarAssigns.containsKey(treeSetTypeVar),
-                "Type var assigns for Collection from List: " + typeVarAssigns);
-
-        typeVarAssigns = TypeUtils.getTypeArguments(AAAClass.BBBClass.class, AAClass.BBClass.class);
-        assertEquals(2, typeVarAssigns.size());
-        assertEquals(String.class, typeVarAssigns.get(AAClass.class.getTypeParameters()[0]));
-        assertEquals(String.class, typeVarAssigns.get(AAClass.BBClass.class.getTypeParameters()[0]));
-
-        typeVarAssigns = TypeUtils.getTypeArguments(Other.class, This.class);
-        assertEquals(2, typeVarAssigns.size());
-        assertEquals(String.class, typeVarAssigns.get(This.class.getTypeParameters()[0]));
-        assertEquals(Other.class.getTypeParameters()[0], typeVarAssigns.get(This.class.getTypeParameters()[1]));
-
-        typeVarAssigns = TypeUtils.getTypeArguments(And.class, This.class);
-        assertEquals(2, typeVarAssigns.size());
-        assertEquals(Number.class, typeVarAssigns.get(This.class.getTypeParameters()[0]));
-        assertEquals(Number.class, typeVarAssigns.get(This.class.getTypeParameters()[1]));
-
-        typeVarAssigns = TypeUtils.getTypeArguments(Thing.class, Other.class);
-        assertEquals(2, typeVarAssigns.size());
-        assertEquals(getClass().getTypeParameters()[0], typeVarAssigns.get(getClass().getTypeParameters()[0]));
-        assertEquals(getClass().getTypeParameters()[0], typeVarAssigns.get(Other.class.getTypeParameters()[0]));
+        assertFalse(TypeUtils.equals(wildcardType, nonWildcardType));
+        assertFalse(TypeUtils.equals(nonWildcardType, wildcardType));
     }
 
     @Test
-    public void testTypesSatisfyVariables() throws SecurityException,
-            NoSuchMethodException {
-        final Map<TypeVariable<?>, Type> typeVarAssigns = new HashMap<>();
-        final Integer max = TypeUtilsTest.<Integer>stub();
-        typeVarAssigns.put(getClass().getMethod("stub").getTypeParameters()[0], Integer.class);
-        assertTrue(TypeUtils.typesSatisfyVariables(typeVarAssigns));
-        typeVarAssigns.clear();
-        typeVarAssigns.put(getClass().getMethod("stub2").getTypeParameters()[0], Integer.class);
-        assertTrue(TypeUtils.typesSatisfyVariables(typeVarAssigns));
-        typeVarAssigns.clear();
-        typeVarAssigns.put(getClass().getMethod("stub3").getTypeParameters()[0], Integer.class);
-        assertTrue(TypeUtils.typesSatisfyVariables(typeVarAssigns));
+    public void testLANG1190() throws Exception {
+        final Type fromType = ClassWithSuperClassWithGenericType.class.getDeclaredMethod("methodWithGenericReturnType").getGenericReturnType();
+        final Type failingToType = TypeUtils.wildcardType().withLowerBounds(ClassWithSuperClassWithGenericType.class).build();
+
+        assertTrue(TypeUtils.isAssignable(fromType, failingToType));
     }
 
     @Test
-    public void testDetermineTypeVariableAssignments() throws SecurityException,
-            NoSuchFieldException {
-        final ParameterizedType iterableType = (ParameterizedType) getClass().getField("iterable")
-                .getGenericType();
-        final Map<TypeVariable<?>, Type> typeVarAssigns = TypeUtils.determineTypeArguments(TreeSet.class,
-                iterableType);
-        final TypeVariable<?> treeSetTypeVar = TreeSet.class.getTypeParameters()[0];
-        assertTrue(typeVarAssigns.containsKey(treeSetTypeVar));
-        assertEquals(iterableType.getActualTypeArguments()[0], typeVarAssigns
-                .get(treeSetTypeVar));
-    }
-
-    @Test
-    public void testGetRawType() throws SecurityException, NoSuchFieldException {
-        final Type stringParentFieldType = GenericTypeHolder.class.getDeclaredField("stringParent")
-                .getGenericType();
-        final Type integerParentFieldType = GenericTypeHolder.class.getDeclaredField("integerParent")
-                .getGenericType();
-        final Type foosFieldType = GenericTypeHolder.class.getDeclaredField("foos").getGenericType();
-        final Type genericParentT = GenericParent.class.getTypeParameters()[0];
-        assertEquals(GenericParent.class, TypeUtils.getRawType(stringParentFieldType, null));
-        assertEquals(GenericParent.class, TypeUtils.getRawType(integerParentFieldType,
-                        null));
-        assertEquals(List.class, TypeUtils.getRawType(foosFieldType, null));
-        assertEquals(String.class, TypeUtils.getRawType(genericParentT,
-                StringParameterizedChild.class));
-        assertEquals(String.class, TypeUtils.getRawType(genericParentT,
-                stringParentFieldType));
-        assertEquals(Foo.class, TypeUtils.getRawType(Iterable.class.getTypeParameters()[0],
-                foosFieldType));
-        assertEquals(Foo.class, TypeUtils.getRawType(List.class.getTypeParameters()[0],
-                foosFieldType));
-        assertNull(TypeUtils.getRawType(genericParentT, GenericParent.class));
-        assertEquals(GenericParent[].class, TypeUtils.getRawType(GenericTypeHolder.class
-                .getDeclaredField("barParents").getGenericType(), null));
-    }
-
-    @Test
-    public void testIsArrayTypeClasses() {
-        assertTrue(TypeUtils.isArrayType(boolean[].class));
-        assertTrue(TypeUtils.isArrayType(byte[].class));
-        assertTrue(TypeUtils.isArrayType(short[].class));
-        assertTrue(TypeUtils.isArrayType(int[].class));
-        assertTrue(TypeUtils.isArrayType(char[].class));
-        assertTrue(TypeUtils.isArrayType(long[].class));
-        assertTrue(TypeUtils.isArrayType(float[].class));
-        assertTrue(TypeUtils.isArrayType(double[].class));
-        assertTrue(TypeUtils.isArrayType(Object[].class));
-        assertTrue(TypeUtils.isArrayType(String[].class));
-
-        assertFalse(TypeUtils.isArrayType(boolean.class));
-        assertFalse(TypeUtils.isArrayType(byte.class));
-        assertFalse(TypeUtils.isArrayType(short.class));
-        assertFalse(TypeUtils.isArrayType(int.class));
-        assertFalse(TypeUtils.isArrayType(char.class));
-        assertFalse(TypeUtils.isArrayType(long.class));
-        assertFalse(TypeUtils.isArrayType(float.class));
-        assertFalse(TypeUtils.isArrayType(double.class));
-        assertFalse(TypeUtils.isArrayType(Object.class));
-        assertFalse(TypeUtils.isArrayType(String.class));
-    }
-
-    @Test
-    public void testIsArrayGenericTypes() throws Exception {
-        final Method method = getClass().getMethod("dummyMethod", List.class, List.class, List.class,
-                List.class, List.class, List.class, List.class, List[].class, List[].class,
-                List[].class, List[].class, List[].class, List[].class, List[].class);
-
-        final Type[] types = method.getGenericParameterTypes();
-
-        assertFalse(TypeUtils.isArrayType(types[0]));
-        assertFalse(TypeUtils.isArrayType(types[1]));
-        assertFalse(TypeUtils.isArrayType(types[2]));
-        assertFalse(TypeUtils.isArrayType(types[3]));
-        assertFalse(TypeUtils.isArrayType(types[4]));
-        assertFalse(TypeUtils.isArrayType(types[5]));
-        assertFalse(TypeUtils.isArrayType(types[6]));
-        assertTrue(TypeUtils.isArrayType(types[7]));
-        assertTrue(TypeUtils.isArrayType(types[8]));
-        assertTrue(TypeUtils.isArrayType(types[9]));
-        assertTrue(TypeUtils.isArrayType(types[10]));
-        assertTrue(TypeUtils.isArrayType(types[11]));
-        assertTrue(TypeUtils.isArrayType(types[12]));
-        assertTrue(TypeUtils.isArrayType(types[13]));
-    }
-
-    @Test
-    public void testGetPrimitiveArrayComponentType() {
-        assertEquals(boolean.class, TypeUtils.getArrayComponentType(boolean[].class));
-        assertEquals(byte.class, TypeUtils.getArrayComponentType(byte[].class));
-        assertEquals(short.class, TypeUtils.getArrayComponentType(short[].class));
-        assertEquals(int.class, TypeUtils.getArrayComponentType(int[].class));
-        assertEquals(char.class, TypeUtils.getArrayComponentType(char[].class));
-        assertEquals(long.class, TypeUtils.getArrayComponentType(long[].class));
-        assertEquals(float.class, TypeUtils.getArrayComponentType(float[].class));
-        assertEquals(double.class, TypeUtils.getArrayComponentType(double[].class));
-
-        assertNull(TypeUtils.getArrayComponentType(boolean.class));
-        assertNull(TypeUtils.getArrayComponentType(byte.class));
-        assertNull(TypeUtils.getArrayComponentType(short.class));
-        assertNull(TypeUtils.getArrayComponentType(int.class));
-        assertNull(TypeUtils.getArrayComponentType(char.class));
-        assertNull(TypeUtils.getArrayComponentType(long.class));
-        assertNull(TypeUtils.getArrayComponentType(float.class));
-        assertNull(TypeUtils.getArrayComponentType(double.class));
-    }
-
-    @Test
-    public void testGetArrayComponentType() throws Exception {
-        final Method method = getClass().getMethod("dummyMethod", List.class, List.class, List.class,
-                List.class, List.class, List.class, List.class, List[].class, List[].class,
-                List[].class, List[].class, List[].class, List[].class, List[].class);
-
-        final Type[] types = method.getGenericParameterTypes();
-
-        assertNull(TypeUtils.getArrayComponentType(types[0]));
-        assertNull(TypeUtils.getArrayComponentType(types[1]));
-        assertNull(TypeUtils.getArrayComponentType(types[2]));
-        assertNull(TypeUtils.getArrayComponentType(types[3]));
-        assertNull(TypeUtils.getArrayComponentType(types[4]));
-        assertNull(TypeUtils.getArrayComponentType(types[5]));
-        assertNull(TypeUtils.getArrayComponentType(types[6]));
-        assertEquals(types[0], TypeUtils.getArrayComponentType(types[7]));
-        assertEquals(types[1], TypeUtils.getArrayComponentType(types[8]));
-        assertEquals(types[2], TypeUtils.getArrayComponentType(types[9]));
-        assertEquals(types[3], TypeUtils.getArrayComponentType(types[10]));
-        assertEquals(types[4], TypeUtils.getArrayComponentType(types[11]));
-        assertEquals(types[5], TypeUtils.getArrayComponentType(types[12]));
-        assertEquals(types[6], TypeUtils.getArrayComponentType(types[13]));
+    public void testLANG1348() throws Exception {
+        final Method method = Enum.class.getMethod("valueOf", Class.class, String.class);
+        assertEquals("T extends java.lang.Enum<T>", TypeUtils.toString(method.getGenericReturnType()));
     }
 
     @Test
@@ -683,6 +900,18 @@ public class TypeUtilsTest<B> {
         final Type[] typeArray = {String.class, String.class};
         final Type[] expectedArray = {String.class};
         assertArrayEquals(expectedArray, TypeUtils.normalizeUpperBounds(typeArray));
+    }
+
+    @Test
+    public void testLowerBoundedWildcardType() {
+       final WildcardType lowerBounded = TypeUtils.wildcardType().withLowerBounds(java.sql.Date.class).build();
+       assertEquals(String.format("? super %s", java.sql.Date.class.getName()), TypeUtils.toString(lowerBounded));
+       assertEquals(String.format("? super %s", java.sql.Date.class.getName()), lowerBounded.toString());
+
+       final TypeVariable<Class<Iterable>> iterableT0 = Iterable.class.getTypeParameters()[0];
+       final WildcardType lowerTypeVariable = TypeUtils.wildcardType().withLowerBounds(iterableT0).build();
+       assertEquals(String.format("? super %s", iterableT0.getName()), TypeUtils.toString(lowerTypeVariable));
+       assertEquals(String.format("? super %s", iterableT0.getName()), lowerTypeVariable.toString());
     }
 
     @Test
@@ -710,13 +939,31 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testWildcardType() throws Exception {
-        final WildcardType simpleWildcard = TypeUtils.wildcardType().withUpperBounds(String.class).build();
-        final Field cClass = AClass.class.getField("cClass");
-        assertTrue(TypeUtils.equals(((ParameterizedType) cClass.getGenericType()).getActualTypeArguments()[0],
-            simpleWildcard));
-        assertEquals(String.format("? extends %s", String.class.getName()), TypeUtils.toString(simpleWildcard));
-        assertEquals(String.format("? extends %s", String.class.getName()), simpleWildcard.toString());
+    public void testToLongString() {
+        assertEquals(getClass().getName() + ":B", TypeUtils.toLongString(getClass().getTypeParameters()[0]));
+    }
+
+    @Test
+    public void testToStringLang1311() {
+        assertEquals("int[]", TypeUtils.toString(int[].class));
+        assertEquals("java.lang.Integer[]", TypeUtils.toString(Integer[].class));
+        final Field stringListField = FieldUtils.getDeclaredField(getClass(), "stringListArray");
+        assertEquals("java.util.List<java.lang.String>[]", TypeUtils.toString(stringListField.getGenericType()));
+    }
+
+    @Test
+    public void testTypesSatisfyVariables() throws SecurityException,
+            NoSuchMethodException {
+        final Map<TypeVariable<?>, Type> typeVarAssigns = new HashMap<>();
+        final Integer max = TypeUtilsTest.<Integer>stub();
+        typeVarAssigns.put(getClass().getMethod("stub").getTypeParameters()[0], Integer.class);
+        assertTrue(TypeUtils.typesSatisfyVariables(typeVarAssigns));
+        typeVarAssigns.clear();
+        typeVarAssigns.put(getClass().getMethod("stub2").getTypeParameters()[0], Integer.class);
+        assertTrue(TypeUtils.typesSatisfyVariables(typeVarAssigns));
+        typeVarAssigns.clear();
+        typeVarAssigns.put(getClass().getMethod("stub3").getTypeParameters()[0], Integer.class);
+        assertTrue(TypeUtils.typesSatisfyVariables(typeVarAssigns));
     }
 
     @Test
@@ -730,47 +977,13 @@ public class TypeUtilsTest<B> {
     }
 
     @Test
-    public void testLowerBoundedWildcardType() {
-       final WildcardType lowerBounded = TypeUtils.wildcardType().withLowerBounds(java.sql.Date.class).build();
-       assertEquals(String.format("? super %s", java.sql.Date.class.getName()), TypeUtils.toString(lowerBounded));
-       assertEquals(String.format("? super %s", java.sql.Date.class.getName()), lowerBounded.toString());
-
-       final TypeVariable<Class<Iterable>> iterableT0 = Iterable.class.getTypeParameters()[0];
-       final WildcardType lowerTypeVariable = TypeUtils.wildcardType().withLowerBounds(iterableT0).build();
-       assertEquals(String.format("? super %s", iterableT0.getName()), TypeUtils.toString(lowerTypeVariable));
-       assertEquals(String.format("? super %s", iterableT0.getName()), lowerTypeVariable.toString());
-    }
-
-    @Test
-    public void testLang1114() throws Exception {
-        final Type nonWildcardType = getClass().getDeclaredField("wildcardComparable").getGenericType();
-        final Type wildcardType = ((ParameterizedType) nonWildcardType).getActualTypeArguments()[0];
-
-        assertFalse(TypeUtils.equals(wildcardType, nonWildcardType));
-        assertFalse(TypeUtils.equals(nonWildcardType, wildcardType));
-    }
-
-    @Test
-    public void testGenericArrayType() throws Exception {
-        final Type expected = getClass().getField("intWildcardComparable").getGenericType();
-        final GenericArrayType actual =
-            TypeUtils.genericArrayType(TypeUtils.parameterize(Comparable.class, TypeUtils.wildcardType()
-                .withUpperBounds(Integer.class).build()));
-        assertTrue(TypeUtils.equals(expected, actual));
-        assertEquals("java.lang.Comparable<? extends java.lang.Integer>[]", actual.toString());
-    }
-
-    @Test
-    public void testToStringLang1311() {
-        assertEquals("int[]", TypeUtils.toString(int[].class));
-        assertEquals("java.lang.Integer[]", TypeUtils.toString(Integer[].class));
-        final Field stringListField = FieldUtils.getDeclaredField(getClass(), "stringListArray");
-        assertEquals("java.util.List<java.lang.String>[]", TypeUtils.toString(stringListField.getGenericType()));
-    }
-
-    @Test
-    public void testToLongString() {
-        assertEquals(getClass().getName() + ":B", TypeUtils.toLongString(getClass().getTypeParameters()[0]));
+    public void testWildcardType() throws Exception {
+        final WildcardType simpleWildcard = TypeUtils.wildcardType().withUpperBounds(String.class).build();
+        final Field cClass = AClass.class.getField("cClass");
+        assertTrue(TypeUtils.equals(((ParameterizedType) cClass.getGenericType()).getActualTypeArguments()[0],
+            simpleWildcard));
+        assertEquals(String.format("? extends %s", String.class.getName()), TypeUtils.toString(simpleWildcard));
+        assertEquals(String.format("? extends %s", String.class.getName()), simpleWildcard.toString());
     }
 
     @Test
@@ -779,94 +992,5 @@ public class TypeUtilsTest<B> {
         assertTrue(TypeUtils.equals(t, TypeUtils.wrap(t).getType()));
 
         assertEquals(String.class, TypeUtils.wrap(String.class).getType());
-    }
-
-    public static class ClassWithSuperClassWithGenericType extends ArrayList<Object> {
-        private static final long serialVersionUID = 1L;
-
-        public static <U> Iterable<U> methodWithGenericReturnType() {
-            return null;
-        }
-    }
-
-    @Test
-    public void testLANG1190() throws Exception {
-        final Type fromType = ClassWithSuperClassWithGenericType.class.getDeclaredMethod("methodWithGenericReturnType").getGenericReturnType();
-        final Type failingToType = TypeUtils.wildcardType().withLowerBounds(ClassWithSuperClassWithGenericType.class).build();
-
-        assertTrue(TypeUtils.isAssignable(fromType, failingToType));
-    }
-
-    @Test
-    public void testLANG1348() throws Exception {
-        final Method method = Enum.class.getMethod("valueOf", Class.class, String.class);
-        assertEquals("T extends java.lang.Enum<T>", TypeUtils.toString(method.getGenericReturnType()));
-    }
-
-    public Iterable<? extends Map<Integer, ? extends Collection<?>>> iterable;
-
-    public static <G extends Comparable<G>> G stub() {
-        return null;
-    }
-
-    public static <G extends Comparable<? super G>> G stub2() {
-        return null;
-    }
-
-    public static <T extends Comparable<? extends T>> T stub3() {
-        return null;
-    }
-}
-
-class AAClass<T> {
-
-    public class BBClass<S> {
-    }
-}
-
-class AAAClass extends AAClass<String> {
-    public class BBBClass extends BBClass<String> {
-    }
-}
-
-@SuppressWarnings("rawtypes")
-//raw types, where used, are used purposely
-class AClass extends AAClass<String>.BBClass<Number> {
-
-    AClass(final AAClass<String> enclosingInstance) {
-        enclosingInstance.super();
-    }
-
-    public class BClass<T> {
-    }
-
-    public class CClass<T> extends BClass {
-    }
-
-    public class DClass<T> extends CClass<T> {
-    }
-
-    public class EClass<T> extends DClass {
-    }
-
-    public class FClass extends EClass<String> {
-    }
-
-    public class GClass<T extends BClass<? extends T> & AInterface<AInterface<? super T>>> {
-    }
-
-    public BClass<Number> bClass;
-
-    public CClass<? extends String> cClass;
-
-    public DClass<String> dClass;
-
-    public EClass<String> eClass;
-
-    public FClass fClass;
-
-    public GClass gClass;
-
-    public interface AInterface<T> {
     }
 }
