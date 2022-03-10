@@ -19,12 +19,17 @@ package org.apache.commons.lang3.function;
 
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * A functional interface like {@link Consumer} that declares a {@code Throwable}.
  *
- * @param <T> Consumed type 1.
- * @param <E> Thrown exception.
+ * <p>
+ * This is a functional interface whose functional method is {@link #accept(Object)}.
+ * </p>
+ *
+ * @param <T> the type of the input to the operation
+ * @param <E> Thrown exception type.
  * @since 3.11
  */
 @FunctionalInterface
@@ -32,7 +37,7 @@ public interface FailableConsumer<T, E extends Throwable> {
 
     /** NOP singleton */
     @SuppressWarnings("rawtypes")
-    FailableConsumer NOP = t -> {/* NOP */};
+    FailableConsumer NOP = Function.identity()::apply;
 
     /**
      * Returns The NOP singleton.
