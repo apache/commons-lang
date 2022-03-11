@@ -138,7 +138,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump maven-pmd-plugin from 3.14.0 to 3.16.0 #802, #858.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump commons.pmd-impl.version from 6.42.0 to 6.43.0 #861.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump pmd-java8 from 6.40.0 to 6.41.0 #837.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump biz.aQute.bndlib from 5.3.0 to 6.1.0 #814, #835.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump biz.aQute.bndlib from 5.3.0 to 6.2.0 #814, #835.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump actions/checkout from 2.3.4 to 2.4.0 #819, #825.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump maven-bundle-plugin from 5.1.1 to 5.1.2.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump animal-sniffer-maven-plugin from 1.19 to 1.20.</action>
