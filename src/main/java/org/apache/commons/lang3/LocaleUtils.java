@@ -165,21 +165,16 @@ public class LocaleUtils {
         if (countryCode == null) {
             return Collections.emptyList();
         }
-        List<Locale> langs = cLanguagesByCountry.get(countryCode);
-        if (langs == null) {
-            langs = new ArrayList<>();
+        return cLanguagesByCountry.computeIfAbsent(countryCode, k -> {
             final List<Locale> locales = availableLocaleList();
+            List<Locale> langs = new ArrayList<>();
             for (final Locale locale : locales) {
-                if (countryCode.equals(locale.getCountry()) &&
-                    locale.getVariant().isEmpty()) {
+                if (countryCode.equals(locale.getCountry()) && locale.getVariant().isEmpty()) {
                     langs.add(locale);
                 }
             }
-            langs = Collections.unmodifiableList(langs);
-            cLanguagesByCountry.putIfAbsent(countryCode, langs);
-            langs = cLanguagesByCountry.get(countryCode);
-        }
-        return langs;
+            return Collections.unmodifiableList(langs);
+        });
     }
 
     /**
