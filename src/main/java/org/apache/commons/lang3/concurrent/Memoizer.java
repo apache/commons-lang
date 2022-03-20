@@ -112,7 +112,7 @@ public class Memoizer<I, O> implements Computable<I, O> {
     @Override
     public O compute(final I arg) throws InterruptedException {
         while (true) {
-            Future<O> future = cache.computeIfAbsent(arg, k->{return null;});
+            Future<O> future = cache.get(arg);
             if (future == null) {
                 final FutureTask<O> futureTask = new FutureTask<>(() -> computable.compute(arg));
                 future = cache.putIfAbsent(arg, futureTask);
@@ -121,6 +121,7 @@ public class Memoizer<I, O> implements Computable<I, O> {
                     futureTask.run();
                 }
             }
+            
             try {
                 return future.get();
             } catch (final CancellationException e) {
