@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import java.util.concurrent.Callable;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -115,8 +114,7 @@ public class Memoizer<I, O> implements Computable<I, O> {
         while (true) {
             Future<O> future = cache.get(arg);
             if (future == null) {
-                final Callable<O> eval = () -> computable.compute(arg);
-                final FutureTask<O> futureTask = new FutureTask<>(eval);
+                final FutureTask<O> futureTask = new FutureTask<>(() -> computable.compute(arg));
                 future = cache.putIfAbsent(arg, futureTask);
                 if (future == null) {
                     future = futureTask;
