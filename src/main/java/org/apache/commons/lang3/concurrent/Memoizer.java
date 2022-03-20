@@ -129,7 +129,6 @@ public class Memoizer<I, O> implements Computable<I, O> {
                 if (recalculate) {
                     cache.remove(arg, future);
                 }
-
                 throw launderException(e.getCause());
             }
         }
