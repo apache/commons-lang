@@ -1299,6 +1299,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
     private static final ConcurrentMap<TimeZoneDisplayKey, String> cTimeZoneDisplayCache =
         new ConcurrentHashMap<>(7);
+
     /**
      * <p>Gets the time zone display name, using a cache for performance.</p>
      *
@@ -1310,16 +1311,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     static String getTimeZoneDisplay(final TimeZone tz, final boolean daylight, final int style, final Locale locale) {
         final TimeZoneDisplayKey key = new TimeZoneDisplayKey(tz, daylight, style, locale);
-        String value = cTimeZoneDisplayCache.get(key);
-        if (value == null) {
-            // This is a very slow call, so cache the results.
-            value = tz.getDisplayName(daylight, style, locale);
-            final String prior = cTimeZoneDisplayCache.putIfAbsent(key, value);
-            if (prior != null) {
-                value= prior;
-            }
-        }
-        return value;
+        // This is a very slow call, so cache the results.
+        return cTimeZoneDisplayCache.computeIfAbsent(key, k -> tz.getDisplayName(daylight, style, locale));
     }
 
     /**
