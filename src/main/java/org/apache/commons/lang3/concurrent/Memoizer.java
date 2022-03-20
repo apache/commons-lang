@@ -98,7 +98,7 @@ public class Memoizer<I, O> implements Computable<I, O> {
      * </p>
      * <p>
      * This cache will also cache exceptions that occur during the computation
-     * if the {@code recalculate} parameter is the constructor was set to
+     * if the {@code recalculate} parameter in the constructor was set to
      * {@code false}, or not set. Otherwise, if an exception happened on the
      * previous calculation, the method will attempt again to generate a value.
      * </p>
@@ -112,7 +112,7 @@ public class Memoizer<I, O> implements Computable<I, O> {
     @Override
     public O compute(final I arg) throws InterruptedException {
         while (true) {
-            Future<O> future = cache.get(arg);
+            Future<O> future = cache.computeIfAbsent(arg, k->{return null;});
             if (future == null) {
                 final FutureTask<O> futureTask = new FutureTask<>(() -> computable.compute(arg));
                 future = cache.putIfAbsent(arg, futureTask);
