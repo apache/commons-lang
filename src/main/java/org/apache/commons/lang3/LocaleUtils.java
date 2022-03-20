@@ -100,22 +100,16 @@ public class LocaleUtils {
         if (languageCode == null) {
             return Collections.emptyList();
         }
-        List<Locale> countries = cCountriesByLanguage.get(languageCode);
-        if (countries == null) {
-            countries = new ArrayList<>();
+        return cCountriesByLanguage.computeIfAbsent(languageCode, lc -> {
+            List<Locale> countries = new ArrayList<>();
             final List<Locale> locales = availableLocaleList();
             for (final Locale locale : locales) {
-                if (languageCode.equals(locale.getLanguage()) &&
-                        !locale.getCountry().isEmpty() &&
-                    locale.getVariant().isEmpty()) {
+                if (languageCode.equals(locale.getLanguage()) && !locale.getCountry().isEmpty() && locale.getVariant().isEmpty()) {
                     countries.add(locale);
                 }
             }
-            countries = Collections.unmodifiableList(countries);
-            cCountriesByLanguage.putIfAbsent(languageCode, countries);
-            countries = cCountriesByLanguage.get(languageCode);
-        }
-        return countries;
+            return Collections.unmodifiableList(countries);
+        });
     }
 
     /**
