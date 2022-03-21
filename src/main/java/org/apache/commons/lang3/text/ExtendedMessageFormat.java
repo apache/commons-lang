@@ -81,7 +81,14 @@ public class ExtendedMessageFormat extends MessageFormat {
     private static final char START_FE = '{';
     private static final char QUOTE = '\'';
 
+    /**
+     * To pattern string.
+     */
     private String toPattern;
+
+    /**
+     * Our registry of FormatFactory.
+     */
     private final Map<String, ? extends FormatFactory> registry;
 
     /**

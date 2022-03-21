@@ -32,6 +32,9 @@ public final class FluentBitSet implements Cloneable, Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Working BitSet.
+     */
     private final BitSet bitSet;
 
     /**

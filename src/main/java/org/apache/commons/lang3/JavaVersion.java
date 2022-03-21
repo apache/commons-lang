@@ -180,7 +180,7 @@ public enum JavaVersion {
      * <p>Whether this version of Java is at least the version of Java passed in.</p>
      *
      * <p>For example:<br>
-     *  {@code myVersion.atLeast(JavaVersion.JAVA_1_4)}<p>
+     *  {@code myVersion.atLeast(JavaVersion.JAVA_1_4)}</p>
      *
      * @param requiredVersion  the version to check against, not null
      * @return true if this version is equal to or greater than the specified version
@@ -193,7 +193,7 @@ public enum JavaVersion {
      * <p>Whether this version of Java is at most the version of Java passed in.</p>
      *
      * <p>For example:<br>
-     *  {@code myVersion.atMost(JavaVersion.JAVA_1_4)}<p>
+     *  {@code myVersion.atMost(JavaVersion.JAVA_1_4)}</p>
      *
      * @param requiredVersion  the version to check against, not null
      * @return true if this version is equal to or greater than the specified version

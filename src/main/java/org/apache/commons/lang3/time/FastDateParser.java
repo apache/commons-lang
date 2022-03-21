@@ -83,19 +83,32 @@ public class FastDateParser implements DateParser, Serializable {
 
     static final Locale JAPANESE_IMPERIAL = new Locale("ja", "JP", "JP");
 
-    // defining fields
+    /** Input pattern. */
     private final String pattern;
+
+    /** Input TimeZone. */
     private final TimeZone timeZone;
+    
+    /** Input Locale. */
     private final Locale locale;
+    
+    /**
+     * Century from Date.
+     */
     private final int century;
+
+    /**
+     * Start year from Date.
+     */
     private final int startYear;
 
-    // derived fields
+    /** Initialized from Calendar. */
     private transient List<StrategyAndWidth> patterns;
 
-    // comparator used to sort regex alternatives
-    // alternatives should be ordered longer first, and shorter last. ('february' before 'feb')
-    // all entries must be lowercase by locale.
+    /**
+     * comparator used to sort regex alternatives. Alternatives should be ordered longer first, and shorter last.
+     * ('february' before 'feb'). All entries must be lower-case by locale.
+     */
     private static final Comparator<String> LONGER_FIRST_LOWERCASE = Comparator.reverseOrder();
 
     /**

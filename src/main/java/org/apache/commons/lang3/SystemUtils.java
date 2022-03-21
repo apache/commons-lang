@@ -1833,7 +1833,6 @@ public class SystemUtils {
      * <p>
      * Is the Java version at least the requested version.
      * </p>
-     * <p>
      *
      * @param requiredVersion the required version, for example 1.31f
      * @return {@code true} if the actual version is equal or greater than the required version

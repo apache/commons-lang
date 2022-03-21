@@ -44,7 +44,10 @@ public abstract class Diff<T> extends Pair<T, T> {
 
     private static final long serialVersionUID = 1L;
 
+    /** The field type. */
     private final Type type;
+    
+    /** The field name. */
     private final String fieldName;
 
     /**
@@ -53,7 +56,7 @@ public abstract class Diff<T> extends Pair<T, T> {
      * </p>
      *
      * @param fieldName
-     *            the name of the field
+     *            the field name
      */
     protected Diff(final String fieldName) {
         this.type = ObjectUtils.defaultIfNull(

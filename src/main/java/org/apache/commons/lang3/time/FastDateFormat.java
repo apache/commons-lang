@@ -106,7 +106,10 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
         }
     };
 
+    /** Our fast printer. */
     private final FastDatePrinter printer;
+
+    /** Our fast parser. */
     private final FastDateParser parser;
 
     /**

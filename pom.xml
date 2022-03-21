@@ -734,6 +734,7 @@
                 <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
               </manifest>
             </archive>
+            <doclint>all</doclint>
           </configuration>
           <executions>
             <execution>
@@ -856,6 +857,7 @@
               <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
             </manifest>
           </archive>
+          <doclint>all</doclint>
         </configuration>
       </plugin>
       <plugin>
