@@ -55,7 +55,7 @@ public class Memoizer<I, O> implements Computable<I, O> {
      * Constructs a Memoizer for the provided Computable calculation.
      * </p>
      * <p>
-     * If a calculation is thrown an exception for any reason, this exception will be cached and returned for all future
+     * If a calculation throws an exception for any reason, this exception will be cached and returned for all future
      * calls with the provided parameter.
      * </p>
      *
@@ -78,6 +78,38 @@ public class Memoizer<I, O> implements Computable<I, O> {
     public Memoizer(final Computable<I, O> computable, final boolean recalculate) {
         this.recalculate = recalculate;
         this.mappingFunction = k -> FutureTasks.run(() -> computable.compute(k));
+    }
+
+    /**
+     * <p>
+     * Constructs a Memoizer for the provided Function calculation.
+     * </p>
+     * <p>
+     * If a calculation throws an exception for any reason, this exception will be cached and returned for all future
+     * calls with the provided parameter.
+     * </p>
+     *
+     * @param function the function whose results should be memorized
+     * @since 2.13.0
+     */
+    public Memoizer(final Function<I, O> function) {
+        this(function, false);
+    }
+
+    /**
+     * <p>
+     * Constructs a Memoizer for the provided Function calculation, with the option of whether a Function that
+     * experiences an error should recalculate on subsequent calls or return the same cached exception.
+     * </p>
+     *
+     * @param function the computation whose results should be memorized
+     * @param recalculate determines whether the computation should be recalculated on subsequent calls if the previous call
+     *        failed
+     * @since 2.13.0
+     */
+     public Memoizer(final Function<I, O> function, final boolean recalculate) {
+        this.recalculate = recalculate;
+        this.mappingFunction = k -> FutureTasks.run(() -> function.apply(k));
     }
 
     /**
