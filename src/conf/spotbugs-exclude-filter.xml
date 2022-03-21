@@ -23,6 +23,22 @@
 -->
 <FindBugsFilter>
 
+  <!-- TODO Can any of these be done without breaking binary compatibility? -->
+  <Match>
+    <Class name="~.*" />
+    <Or>
+      <Bug pattern="EI_EXPOSE_REP" />
+      <Bug pattern="EI_EXPOSE_REP2" />
+      <Bug pattern="MS_EXPOSE_REP" />
+    </Or>
+  </Match>
+
+  <!-- TODO Can any of these be done without breaking binary compatibility? -->
+  <Match>
+    <Class name="org.apache.commons.lang3.reflect.FieldUtils" />
+    <Bug pattern="REFLF_REFLECTION_MAY_INCREASE_ACCESSIBILITY_OF_FIELD" />
+  </Match>
+
   <!-- https://github.com/spotbugs/spotbugs/issues/1504 -->
   <Match>
     <Class name="org.apache.commons.lang3.ArrayUtils" />
