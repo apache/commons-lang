@@ -46,7 +46,7 @@ public abstract class Diff<T> extends Pair<T, T> {
 
     /** The field type. */
     private final Type type;
-    
+
     /** The field name. */
     private final String fieldName;
 
