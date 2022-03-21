@@ -33,7 +33,11 @@ class GmtTimeZone extends TimeZone {
     // Serializable!
     static final long serialVersionUID = 1L;
 
+    private static StringBuilder twoDigits(final StringBuilder sb, final int n) {
+        return sb.append((char) ('0' + (n / 10))).append((char) ('0' + (n % 10)));
+    }
     private final int offset;
+
     private final String zoneId;
 
     GmtTimeZone(final boolean negate, final int hours, final int minutes) {
@@ -54,23 +58,12 @@ class GmtTimeZone extends TimeZone {
         // @formatter:on
     }
 
-    private static StringBuilder twoDigits(final StringBuilder sb, final int n) {
-        return sb.append((char) ('0' + (n / 10))).append((char) ('0' + (n % 10)));
-    }
-
     @Override
-    public int getOffset(final int era, final int year, final int month, final int day, final int dayOfWeek, final int milliseconds) {
-        return offset;
-    }
-
-    @Override
-    public void setRawOffset(final int offsetMillis) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public int getRawOffset() {
-        return offset;
+    public boolean equals(final Object other) {
+        if (!(other instanceof GmtTimeZone)) {
+            return false;
+        }
+        return zoneId == ((GmtTimeZone) other).zoneId;
     }
 
     @Override
@@ -79,18 +72,13 @@ class GmtTimeZone extends TimeZone {
     }
 
     @Override
-    public boolean useDaylightTime() {
-        return false;
+    public int getOffset(final int era, final int year, final int month, final int day, final int dayOfWeek, final int milliseconds) {
+        return offset;
     }
 
     @Override
-    public boolean inDaylightTime(final Date date) {
-        return false;
-    }
-
-    @Override
-    public String toString() {
-        return "[GmtTimeZone id=\"" + zoneId + "\",offset=" + offset + ']';
+    public int getRawOffset() {
+        return offset;
     }
 
     @Override
@@ -99,10 +87,22 @@ class GmtTimeZone extends TimeZone {
     }
 
     @Override
-    public boolean equals(final Object other) {
-        if (!(other instanceof GmtTimeZone)) {
-            return false;
-        }
-        return zoneId == ((GmtTimeZone) other).zoneId;
+    public boolean inDaylightTime(final Date date) {
+        return false;
+    }
+
+    @Override
+    public void setRawOffset(final int offsetMillis) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String toString() {
+        return "[GmtTimeZone id=\"" + zoneId + "\",offset=" + offset + ']';
+    }
+
+    @Override
+    public boolean useDaylightTime() {
+        return false;
     }
 }
