@@ -46,7 +46,7 @@ import java.util.regex.Pattern;
  */
 public class Validate {
 
-    private static final String DEFAULT_NOT_NAN_EX_MESSAGE =
+    private static final String DEFAULT_IS_NAN_EX_MESSAGE =
         "The validated value is not a number";
     private static final String DEFAULT_FINITE_EX_MESSAGE =
         "The value is invalid: %f";
@@ -56,7 +56,7 @@ public class Validate {
         "The value %s is not in the specified inclusive range of %s to %s";
     private static final String DEFAULT_MATCHES_PATTERN_EX = "The string %s does not match the pattern %s";
     private static final String DEFAULT_IS_NULL_EX_MESSAGE = "The validated object is null";
-    private static final String DEFAULT_IS_TRUE_EX_MESSAGE = "The validated expression is false";
+    private static final String DEFAULT_IS_TRUE_EX_MESSAGE =    "The validated expression is false";
     private static final String DEFAULT_NO_NULL_ELEMENTS_ARRAY_EX_MESSAGE =
         "The validated array contains null element at index: %d";
     private static final String DEFAULT_NO_NULL_ELEMENTS_COLLECTION_EX_MESSAGE =
@@ -887,7 +887,7 @@ public class Validate {
      * @since 3.5
      */
     public static void notNaN(final double value) {
-        notNaN(value, DEFAULT_NOT_NAN_EX_MESSAGE);
+        notNaN(value, DEFAULT_IS_NAN_EX_MESSAGE);
     }
 
     /**

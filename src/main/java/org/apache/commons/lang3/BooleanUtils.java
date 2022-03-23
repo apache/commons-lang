@@ -599,24 +599,40 @@ public class BooleanUtils {
      *   BooleanUtils.toBooleanObject(Integer.valueOf(3), Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3)) = null
      * </pre>
      *
-     * @param value  the Integer to convert
      * @param trueValue  the value to match for {@code true}, may be {@code null}
      * @param falseValue  the value to match for {@code false}, may be {@code null}
      * @param nullValue  the value to to match for {@code null}, may be {@code null}
      * @return Boolean.TRUE, Boolean.FALSE, or {@code null}
      * @throws IllegalArgumentException if no match
      */
+
+    public static Boolean checkTrueFalseNullValues(Integer trueValue, Integer falseValue, Integer nullValue){
+
+        if (trueValue==null){
+            return Boolean.TRUE;
+        }
+        else if (falseValue == null){
+            return Boolean.FALSE;
+        }
+        else if(nullValue == null) {
+            return null;
+        }
+        throw new IllegalArgumentException("The Integer did not match any specified value");
+    }
+
     public static Boolean toBooleanObject(final Integer value, final Integer trueValue, final Integer falseValue, final Integer nullValue) {
         if (value == null) {
-            if (trueValue == null) {
-                return Boolean.TRUE;
-            }
-            if (falseValue == null) {
-                return Boolean.FALSE;
-            }
-            if (nullValue == null) {
-                return null;
-            }
+
+            return checkTrueFalseNullValues(trueValue,falseValue,nullValue);
+//            if (trueValue == null) {
+//                return Boolean.TRUE;
+//            }
+//            if (falseValue == null) {
+//                return Boolean.FALSE;
+//            }
+//            if (nullValue == null) {
+//                return null;
+//            }
         } else if (value.equals(trueValue)) {
             return Boolean.TRUE;
         } else if (value.equals(falseValue)) {
@@ -784,6 +800,7 @@ public class BooleanUtils {
      */
     public static Boolean toBooleanObject(final String str, final String trueString, final String falseString, final String nullString) {
         if (str == null) {
+
             if (trueString == null) {
                 return Boolean.TRUE;
             }
