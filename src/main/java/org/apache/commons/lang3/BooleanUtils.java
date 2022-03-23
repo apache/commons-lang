@@ -622,17 +622,7 @@ public class BooleanUtils {
 
     public static Boolean toBooleanObject(final Integer value, final Integer trueValue, final Integer falseValue, final Integer nullValue) {
         if (value == null) {
-
             return checkTrueFalseNullValues(trueValue,falseValue,nullValue);
-//            if (trueValue == null) {
-//                return Boolean.TRUE;
-//            }
-//            if (falseValue == null) {
-//                return Boolean.FALSE;
-//            }
-//            if (nullValue == null) {
-//                return null;
-//            }
         } else if (value.equals(trueValue)) {
             return Boolean.TRUE;
         } else if (value.equals(falseValue)) {
