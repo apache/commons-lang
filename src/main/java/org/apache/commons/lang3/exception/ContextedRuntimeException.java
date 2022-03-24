@@ -84,12 +84,12 @@ import org.apache.commons.lang3.tuple.Pair;
  * @see ContextedException
  * @since 3.0
  */
-public class ContextedRuntimeException extends RuntimeException implements ExceptionContext {
+public class ContextedRuntimeException extends  ContextLabels implements ExceptionContext {
 
     /** The serialization version. */
     private static final long serialVersionUID = 20110706L;
     /** The context where the data is stored. */
-    private final ExceptionContext exceptionContext;
+//    private final ExceptionContext exceptionContext;
 
     /**
      * Instantiates ContextedRuntimeException without message or cause.
@@ -214,13 +214,13 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
         return this.exceptionContext.getContextEntries();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Set<String> getContextLabels() {
-        return exceptionContext.getContextLabels();
-    }
+//    /**
+//     * {@inheritDoc}
+//     */
+//    @Override
+//    public Set<String> getContextLabels() {
+//        return exceptionContext.getContextLabels();
+//    }
 
     /**
      * Provides the message explaining the exception, including the contextual data.
