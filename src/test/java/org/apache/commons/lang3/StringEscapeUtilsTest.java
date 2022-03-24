@@ -33,6 +33,7 @@ import java.nio.file.Paths;
 
 import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
 import org.apache.commons.lang3.text.translate.NumericEntityEscaper;
+import org.apache.commons.lang3.util.CSVUnescapeUtils;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -438,16 +439,16 @@ public class StringEscapeUtilsTest {
 
     @Test
     public void testUnescapeCsvString() {
-        assertEquals("foo.bar", CSVEscapeUtils.unescapeCsv("foo.bar"));
-        assertEquals("foo,bar", CSVEscapeUtils.unescapeCsv("\"foo,bar\""));
-        assertEquals("foo\nbar",CSVEscapeUtils.unescapeCsv("\"foo\nbar\""));
-        assertEquals("foo\rbar",CSVEscapeUtils.unescapeCsv("\"foo\rbar\""));
-        assertEquals("foo\"bar",CSVEscapeUtils.unescapeCsv("\"foo\"\"bar\""));
-        assertEquals("foo\uD84C\uDFB4bar",CSVEscapeUtils.unescapeCsv("foo\uD84C\uDFB4bar"));
-        assertEquals("",   CSVEscapeUtils.unescapeCsv(""));
-        assertNull(CSVEscapeUtils.unescapeCsv(null));
+        assertEquals("foo.bar", CSVUnescapeUtils.unescapeCsv("foo.bar"));
+        assertEquals("foo,bar", CSVUnescapeUtils.unescapeCsv("\"foo,bar\""));
+        assertEquals("foo\nbar",CSVUnescapeUtils.unescapeCsv("\"foo\nbar\""));
+        assertEquals("foo\rbar",CSVUnescapeUtils.unescapeCsv("\"foo\rbar\""));
+        assertEquals("foo\"bar",CSVUnescapeUtils.unescapeCsv("\"foo\"\"bar\""));
+        assertEquals("foo\uD84C\uDFB4bar",CSVUnescapeUtils.unescapeCsv("foo\uD84C\uDFB4bar"));
+        assertEquals("",   CSVUnescapeUtils.unescapeCsv(""));
+        assertNull(CSVUnescapeUtils.unescapeCsv(null));
 
-        assertEquals("\"foo.bar\"", CSVEscapeUtils.unescapeCsv("\"foo.bar\""));
+        assertEquals("\"foo.bar\"", CSVUnescapeUtils.unescapeCsv("\"foo.bar\""));
     }
 
     @Test
@@ -466,14 +467,14 @@ public class StringEscapeUtilsTest {
 
     private void checkCsvUnescapeWriter(final String expected, final String value) throws IOException {
         final StringWriter writer = new StringWriter();
-        CSVEscapeUtils.UNESCAPE_CSV.translate(value, writer);
+        CSVUnescapeUtils.UNESCAPE_CSV.translate(value, writer);
         assertEquals(expected, writer.toString());
     }
 
     @Test
     public void testUnescapeCsvIllegalStateException() {
         final StringWriter writer = new StringWriter();
-        assertThrows(IllegalStateException.class, () -> CSVEscapeUtils.UNESCAPE_CSV.translate("foo", -1, writer));
+        assertThrows(IllegalStateException.class, () -> CSVUnescapeUtils.UNESCAPE_CSV.translate("foo", -1, writer));
     }
 
     /**

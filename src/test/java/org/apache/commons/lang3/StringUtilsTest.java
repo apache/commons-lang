@@ -44,6 +44,7 @@ import java.util.regex.PatternSyntaxException;
 
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.text.WordUtils;
+import org.apache.commons.lang3.util.CSVUnescapeUtils;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -3178,11 +3179,11 @@ public class StringUtilsTest {
 
     @Test
     public void testUnescapeSurrogatePairs() {
-        assertEquals("\uD83D\uDE30", CSVEscapeUtils.unescapeCsv("\uD83D\uDE30"));
+        assertEquals("\uD83D\uDE30", CSVUnescapeUtils.unescapeCsv("\uD83D\uDE30"));
         // Examples from https://en.wikipedia.org/wiki/UTF-16
-        assertEquals("\uD800\uDC00", CSVEscapeUtils.unescapeCsv("\uD800\uDC00"));
-        assertEquals("\uD834\uDD1E", CSVEscapeUtils.unescapeCsv("\uD834\uDD1E"));
-        assertEquals("\uDBFF\uDFFD", CSVEscapeUtils.unescapeCsv("\uDBFF\uDFFD"));
+        assertEquals("\uD800\uDC00", CSVUnescapeUtils.unescapeCsv("\uD800\uDC00"));
+        assertEquals("\uD834\uDD1E", CSVUnescapeUtils.unescapeCsv("\uD834\uDD1E"));
+        assertEquals("\uDBFF\uDFFD", CSVUnescapeUtils.unescapeCsv("\uDBFF\uDFFD"));
         assertEquals("\uDBFF\uDFFD", StringEscapeUtils.unescapeHtml3("\uDBFF\uDFFD"));
         assertEquals("\uDBFF\uDFFD", StringEscapeUtils.unescapeHtml4("\uDBFF\uDFFD"));
     }
