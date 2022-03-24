@@ -259,7 +259,6 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * threshold values and the check intervals. This may cause a state change of this
      * circuit breaker.
      */
-    @Override
     public boolean checkState() {
         return performStateCheck(0);
     }
