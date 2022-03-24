@@ -236,45 +236,6 @@ public class StringEscapeUtils {
             new LookupTranslator(EntityArrays.HTML40_EXTENDED_ESCAPE())
         );
 
-    /**
-     * Translator object for escaping individual Comma Separated Values.
-     *
-     * While {@link #escapeCsv(String)} is the expected method of use, this
-     * object allows the CSV escaping functionality to be used
-     * as the foundation for a custom translator.
-     *
-     * @since 3.0
-     */
-    public static final CharSequenceTranslator ESCAPE_CSV = new CsvEscaper();
-
-    // TODO: Create a parent class - 'SinglePassTranslator' ?
-    //       It would handle the index checking + length returning,
-    //       and could also have an optimization check method.
-    static class CsvEscaper extends CharSequenceTranslator {
-
-        private static final char CSV_DELIMITER = ',';
-        private static final char CSV_QUOTE = '"';
-        private static final String CSV_QUOTE_STR = String.valueOf(CSV_QUOTE);
-        private static final char[] CSV_SEARCH_CHARS = { CSV_DELIMITER, CSV_QUOTE, CharUtils.CR, CharUtils.LF };
-
-        @Override
-        public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
-
-            if (index != 0) {
-                throw new IllegalStateException("CsvEscaper should never reach the [1] index");
-            }
-
-            if (StringUtils.containsNone(input.toString(), CSV_SEARCH_CHARS)) {
-                out.write(input.toString());
-            } else {
-                out.write(CSV_QUOTE);
-                out.write(StringUtils.replace(input.toString(), CSV_QUOTE_STR, CSV_QUOTE_STR + CSV_QUOTE_STR));
-                out.write(CSV_QUOTE);
-            }
-            return Character.codePointCount(input, 0, input.length());
-        }
-    }
-
     /* UNESCAPE TRANSLATORS */
 
     /**
@@ -748,30 +709,6 @@ public class StringEscapeUtils {
         return UNESCAPE_XML.translate(input);
     }
 
-
-    /**
-     * <p>Returns a {@code String} value for a CSV column enclosed in double quotes,
-     * if required.</p>
-     *
-     * <p>If the value contains a comma, newline or double quote, then the
-     *    String value is returned enclosed in double quotes.</p>
-     *
-     * <p>Any double quote characters in the value are escaped with another double quote.</p>
-     *
-     * <p>If the value does not contain a comma, newline or double quote, then the
-     *    String value is returned unchanged.</p>
-     *
-     * see <a href="http://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia</a> and
-     * <a href="http://tools.ietf.org/html/rfc4180">RFC 4180</a>.
-     *
-     * @param input the input CSV column String, may be null
-     * @return the input String, enclosed in double quotes if the value contains a comma,
-     * newline or double quote, {@code null} if null string input
-     * @since 2.4
-     */
-    public static final String escapeCsv(final String input) {
-        return ESCAPE_CSV.translate(input);
-    }
 
     /**
      * <p>Returns a {@code String} value for an unescaped CSV column. </p>

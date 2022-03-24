@@ -393,14 +393,23 @@ public class StringEscapeUtilsTest {
 
     @Test
     public void testEscapeCsvString() {
-        assertEquals("foo.bar",            StringEscapeUtils.escapeCsv("foo.bar"));
-        assertEquals("\"foo,bar\"",        StringEscapeUtils.escapeCsv("foo,bar"));
-        assertEquals("\"foo\nbar\"",       StringEscapeUtils.escapeCsv("foo\nbar"));
-        assertEquals("\"foo\rbar\"",       StringEscapeUtils.escapeCsv("foo\rbar"));
-        assertEquals("\"foo\"\"bar\"",     StringEscapeUtils.escapeCsv("foo\"bar"));
-        assertEquals("foo\uD84C\uDFB4bar", StringEscapeUtils.escapeCsv("foo\uD84C\uDFB4bar"));
-        assertEquals("",   StringEscapeUtils.escapeCsv(""));
-        assertNull(StringEscapeUtils.escapeCsv(null));
+//        assertEquals("foo.bar",            StringEscapeUtils.escapeCsv("foo.bar"));
+//        assertEquals("\"foo,bar\"",        StringEscapeUtils.escapeCsv("foo,bar"));
+//        assertEquals("\"foo\nbar\"",       StringEscapeUtils.escapeCsv("foo\nbar"));
+//        assertEquals("\"foo\rbar\"",       StringEscapeUtils.escapeCsv("foo\rbar"));
+//        assertEquals("\"foo\"\"bar\"",     StringEscapeUtils.escapeCsv("foo\"bar"));
+//        assertEquals("foo\uD84C\uDFB4bar", StringEscapeUtils.escapeCsv("foo\uD84C\uDFB4bar"));
+//        assertEquals("",   StringEscapeUtils.escapeCsv(""));
+//        assertNull(StringEscapeUtils.escapeCsv(null));
+
+        assertEquals("foo.bar",            CSVEscapeUtils.escapeCsv("foo.bar"));
+        assertEquals("\"foo,bar\"",        CSVEscapeUtils.escapeCsv("foo,bar"));
+        assertEquals("\"foo\nbar\"",       CSVEscapeUtils.escapeCsv("foo\nbar"));
+        assertEquals("\"foo\rbar\"",       CSVEscapeUtils.escapeCsv("foo\rbar"));
+        assertEquals("\"foo\"\"bar\"",     CSVEscapeUtils.escapeCsv("foo\"bar"));
+        assertEquals("foo\uD84C\uDFB4bar", CSVEscapeUtils.escapeCsv("foo\uD84C\uDFB4bar"));
+        assertEquals("",   CSVEscapeUtils.escapeCsv(""));
+        assertNull(CSVEscapeUtils.escapeCsv(null));
     }
 
     @Test
@@ -417,14 +426,14 @@ public class StringEscapeUtilsTest {
 
     private void checkCsvEscapeWriter(final String expected, final String value) throws IOException {
         final StringWriter writer = new StringWriter();
-        StringEscapeUtils.ESCAPE_CSV.translate(value, writer);
+        CSVEscapeUtils.ESCAPE_CSV.translate(value, writer);
         assertEquals(expected, writer.toString());
     }
 
     @Test
     public void testEscapeCsvIllegalStateException() {
         final StringWriter writer = new StringWriter();
-        assertThrows(IllegalStateException.class, () -> StringEscapeUtils.ESCAPE_CSV.translate("foo", -1, writer));
+        assertThrows(IllegalStateException.class, () -> CSVEscapeUtils.ESCAPE_CSV.translate("foo", -1, writer));
     }
 
     @Test

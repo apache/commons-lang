@@ -844,11 +844,11 @@ public class StringUtilsTest {
 
     @Test
     public void testEscapeSurrogatePairs() {
-        assertEquals("\uD83D\uDE30", StringEscapeUtils.escapeCsv("\uD83D\uDE30"));
+        assertEquals("\uD83D\uDE30", CSVEscapeUtils.escapeCsv("\uD83D\uDE30"));
         // Examples from https://en.wikipedia.org/wiki/UTF-16
-        assertEquals("\uD800\uDC00", StringEscapeUtils.escapeCsv("\uD800\uDC00"));
-        assertEquals("\uD834\uDD1E", StringEscapeUtils.escapeCsv("\uD834\uDD1E"));
-        assertEquals("\uDBFF\uDFFD", StringEscapeUtils.escapeCsv("\uDBFF\uDFFD"));
+        assertEquals("\uD800\uDC00", CSVEscapeUtils.escapeCsv("\uD800\uDC00"));
+        assertEquals("\uD834\uDD1E", CSVEscapeUtils.escapeCsv("\uD834\uDD1E"));
+        assertEquals("\uDBFF\uDFFD", CSVEscapeUtils.escapeCsv("\uDBFF\uDFFD"));
         assertEquals("\uDBFF\uDFFD", StringEscapeUtils.escapeHtml3("\uDBFF\uDFFD"));
         assertEquals("\uDBFF\uDFFD", StringEscapeUtils.escapeHtml4("\uDBFF\uDFFD"));
         assertEquals("\uDBFF\uDFFD", StringEscapeUtils.escapeXml("\uDBFF\uDFFD"));
