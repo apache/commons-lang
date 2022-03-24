@@ -438,16 +438,16 @@ public class StringEscapeUtilsTest {
 
     @Test
     public void testUnescapeCsvString() {
-        assertEquals("foo.bar",              StringEscapeUtils.unescapeCsv("foo.bar"));
-        assertEquals("foo,bar",              StringEscapeUtils.unescapeCsv("\"foo,bar\""));
-        assertEquals("foo\nbar",             StringEscapeUtils.unescapeCsv("\"foo\nbar\""));
-        assertEquals("foo\rbar",             StringEscapeUtils.unescapeCsv("\"foo\rbar\""));
-        assertEquals("foo\"bar",             StringEscapeUtils.unescapeCsv("\"foo\"\"bar\""));
-        assertEquals("foo\uD84C\uDFB4bar",   StringEscapeUtils.unescapeCsv("foo\uD84C\uDFB4bar"));
-        assertEquals("",   StringEscapeUtils.unescapeCsv(""));
-        assertNull(StringEscapeUtils.unescapeCsv(null));
+        assertEquals("foo.bar", CSVEscapeUtils.unescapeCsv("foo.bar"));
+        assertEquals("foo,bar", CSVEscapeUtils.unescapeCsv("\"foo,bar\""));
+        assertEquals("foo\nbar",CSVEscapeUtils.unescapeCsv("\"foo\nbar\""));
+        assertEquals("foo\rbar",CSVEscapeUtils.unescapeCsv("\"foo\rbar\""));
+        assertEquals("foo\"bar",CSVEscapeUtils.unescapeCsv("\"foo\"\"bar\""));
+        assertEquals("foo\uD84C\uDFB4bar",CSVEscapeUtils.unescapeCsv("foo\uD84C\uDFB4bar"));
+        assertEquals("",   CSVEscapeUtils.unescapeCsv(""));
+        assertNull(CSVEscapeUtils.unescapeCsv(null));
 
-        assertEquals("\"foo.bar\"",          StringEscapeUtils.unescapeCsv("\"foo.bar\""));
+        assertEquals("\"foo.bar\"", CSVEscapeUtils.unescapeCsv("\"foo.bar\""));
     }
 
     @Test
@@ -466,14 +466,14 @@ public class StringEscapeUtilsTest {
 
     private void checkCsvUnescapeWriter(final String expected, final String value) throws IOException {
         final StringWriter writer = new StringWriter();
-        StringEscapeUtils.UNESCAPE_CSV.translate(value, writer);
+        CSVEscapeUtils.UNESCAPE_CSV.translate(value, writer);
         assertEquals(expected, writer.toString());
     }
 
     @Test
     public void testUnescapeCsvIllegalStateException() {
         final StringWriter writer = new StringWriter();
-        assertThrows(IllegalStateException.class, () -> StringEscapeUtils.UNESCAPE_CSV.translate("foo", -1, writer));
+        assertThrows(IllegalStateException.class, () -> CSVEscapeUtils.UNESCAPE_CSV.translate("foo", -1, writer));
     }
 
     /**

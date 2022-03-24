@@ -3178,11 +3178,11 @@ public class StringUtilsTest {
 
     @Test
     public void testUnescapeSurrogatePairs() {
-        assertEquals("\uD83D\uDE30", StringEscapeUtils.unescapeCsv("\uD83D\uDE30"));
+        assertEquals("\uD83D\uDE30", CSVEscapeUtils.unescapeCsv("\uD83D\uDE30"));
         // Examples from https://en.wikipedia.org/wiki/UTF-16
-        assertEquals("\uD800\uDC00", StringEscapeUtils.unescapeCsv("\uD800\uDC00"));
-        assertEquals("\uD834\uDD1E", StringEscapeUtils.unescapeCsv("\uD834\uDD1E"));
-        assertEquals("\uDBFF\uDFFD", StringEscapeUtils.unescapeCsv("\uDBFF\uDFFD"));
+        assertEquals("\uD800\uDC00", CSVEscapeUtils.unescapeCsv("\uD800\uDC00"));
+        assertEquals("\uD834\uDD1E", CSVEscapeUtils.unescapeCsv("\uD834\uDD1E"));
+        assertEquals("\uDBFF\uDFFD", CSVEscapeUtils.unescapeCsv("\uDBFF\uDFFD"));
         assertEquals("\uDBFF\uDFFD", StringEscapeUtils.unescapeHtml3("\uDBFF\uDFFD"));
         assertEquals("\uDBFF\uDFFD", StringEscapeUtils.unescapeHtml4("\uDBFF\uDFFD"));
     }
