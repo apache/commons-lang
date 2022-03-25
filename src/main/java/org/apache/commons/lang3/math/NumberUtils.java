@@ -735,55 +735,7 @@ public class NumberUtils {
             }
             //Requesting a specific type..
             final String numeric = str.substring(0, length - 1);
-            switch (lastChar) {
-                case 'l' :
-                case 'L' :
-                    if (dec == null
-                        && exp == null
-                        && (!numeric.isEmpty() && numeric.charAt(0) == '-' && isDigits(numeric.substring(1)) || isDigits(numeric))) {
-                        try {
-                            return createLong(numeric);
-                        } catch (final NumberFormatException nfe) { // NOPMD
-                            // Too big for a long
-                        }
-                        return createBigInteger(numeric);
-
-                    }
-                    throw new NumberFormatException(str + " is not a valid number.");
-                case 'f' :
-                case 'F' :
-                    try {
-                        final Float f = createFloat(str);
-                        if (!(f.isInfinite() || f.floatValue() == 0.0F && !isZero(mant, dec))) {
-                            //If it's too big for a float or the float value = 0 and the string
-                            //has non-zeros in it, then float does not have the precision we want
-                            return f;
-                        }
-
-                    } catch (final NumberFormatException nfe) { // NOPMD
-                        // ignore the bad number
-                    }
-                    //$FALL-THROUGH$
-                case 'd' :
-                case 'D' :
-                    try {
-                        final Double d = createDouble(str);
-                        if (!(d.isInfinite() || d.doubleValue() == 0.0D && !isZero(mant, dec))) {
-                            return d;
-                        }
-                    } catch (final NumberFormatException nfe) { // NOPMD
-                        // ignore the bad number
-                    }
-                    try {
-                        return createBigDecimal(numeric);
-                    } catch (final NumberFormatException e) { // NOPMD
-                        // ignore the bad number
-                    }
-                    //$FALL-THROUGH$
-                default :
-                    throw new NumberFormatException(str + " is not a valid number.");
-
-            }
+            return getNumberFromRequestType(str, lastChar, mant, dec, exp, numeric);
         }
         //User doesn't have a preference on the return type, so let's start
         //small and go from there...
@@ -827,6 +779,58 @@ public class NumberUtils {
             // ignore the bad number
         }
         return createBigDecimal(str);
+    }
+
+    private static Number getNumberFromRequestType(String str, char lastChar, String mant, String dec, String exp, String numeric) {
+        switch (lastChar) {
+            case 'l' :
+            case 'L' :
+                if (dec == null
+                    && exp == null
+                    && (!numeric.isEmpty() && numeric.charAt(0) == '-' && isDigits(numeric.substring(1)) || isDigits(numeric))) {
+                    try {
+                        return createLong(numeric);
+                    } catch (final NumberFormatException nfe) { // NOPMD
+                        // Too big for a long
+                    }
+                    return createBigInteger(numeric);
+
+                }
+                throw new NumberFormatException(str + " is not a valid number.");
+            case 'f' :
+            case 'F' :
+                try {
+                    final Float f = createFloat(str);
+                    if (!(f.isInfinite() || f.floatValue() == 0.0F && !isZero(mant, dec))) {
+                        //If it's too big for a float or the float value = 0 and the string
+                        //has non-zeros in it, then float does not have the precision we want
+                        return f;
+                    }
+
+                } catch (final NumberFormatException nfe) { // NOPMD
+                    // ignore the bad number
+                }
+                //$FALL-THROUGH$
+            case 'd' :
+            case 'D' :
+                try {
+                    final Double d = createDouble(str);
+                    if (!(d.isInfinite() || d.doubleValue() == 0.0D && !isZero(mant, dec))) {
+                        return d;
+                    }
+                } catch (final NumberFormatException nfe) { // NOPMD
+                    // ignore the bad number
+                }
+                try {
+                    return createBigDecimal(numeric);
+                } catch (final NumberFormatException e) { // NOPMD
+                    // ignore the bad number
+                }
+                //$FALL-THROUGH$
+            default :
+                throw new NumberFormatException(str + " is not a valid number.");
+
+        }
     }
 
     /**
