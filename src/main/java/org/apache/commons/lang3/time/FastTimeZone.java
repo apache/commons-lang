@@ -47,24 +47,7 @@ public class FastTimeZone {
      * @return A TimeZone with offset from GMT or null, if pattern does not match.
      */
     public static TimeZone getGmtTimeZone(final String pattern) {
-
        return GmtTimeZone.fetchGmtTimeZone(pattern);
-
-
-//        if ("Z".equals(pattern) || "UTC".equals(pattern)) {
-//            return GREENWICH;
-//        }
-//
-//        final Matcher m = GMT_PATTERN.matcher(pattern);
-//        if (m.matches()) {
-//            final int hours = parseInt(m.group(2));
-//            final int minutes = parseInt(m.group(4));
-//            if (hours == 0 && minutes == 0) {
-//                return GREENWICH;
-//            }
-//            return new GmtTimeZone(parseSign(m.group(1)), hours, minutes);
-//        }
-//        return null;
     }
 
     /**
