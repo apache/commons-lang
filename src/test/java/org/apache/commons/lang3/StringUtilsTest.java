@@ -44,7 +44,7 @@ import java.util.regex.PatternSyntaxException;
 
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.text.WordUtils;
-import org.apache.commons.lang3.util.CSVUnescapeUtils;
+import org.apache.commons.lang3.CSVUnescapeUtils;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
