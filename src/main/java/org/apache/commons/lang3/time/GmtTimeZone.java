@@ -19,6 +19,11 @@ package org.apache.commons.lang3.time;
 import java.util.Date;
 import java.util.Objects;
 import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.reverse;
 
 /**
  * Custom time zone that contains offset from GMT.
@@ -30,6 +35,32 @@ class GmtTimeZone extends TimeZone {
     private static final int MILLISECONDS_PER_MINUTE = 60 * 1000;
     private static final int MINUTES_PER_HOUR = 60;
     private static final int HOURS_PER_DAY = 24;
+
+    private static final TimeZone timezone = new GmtTimeZone(false,0,0);
+    private static final Pattern GMT_PATTERN1 = Pattern.compile("^(?:(?i)GMT)?([+-])?(\\d\\d?)?(:?(\\d\\d?))?$");
+
+    public static TimeZone fetchGmtTimeZone(final String pattern) {
+        if ("Z".equals(pattern) || "UTC".equals(pattern)) {
+            return timezone;
+        }
+
+        final Matcher m = GMT_PATTERN1.matcher(pattern);
+
+        if (m.matches()) {
+            String groupOF2 = m.group(2);
+            String groupOF4 = m.group(4);
+
+            final int hours = groupOF2 != null ? Integer.parseInt(groupOF2) : 0;
+            final int minutes = groupOF4 != null ? Integer.parseInt(groupOF4) : 0;
+            if (hours == 0 && minutes == 0) {
+                return timezone;
+            }
+            Boolean b = m.group(1) != null && m.group(1).charAt(0)== '-';
+
+            return new GmtTimeZone(b, hours, minutes);
+        }
+        return null;
+    }
 
     // Serializable!
     static final long serialVersionUID = 1L;

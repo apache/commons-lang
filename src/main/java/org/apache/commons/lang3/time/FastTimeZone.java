@@ -29,14 +29,14 @@ public class FastTimeZone {
 
     private static final Pattern GMT_PATTERN = Pattern.compile("^(?:(?i)GMT)?([+-])?(\\d\\d?)?(:?(\\d\\d?))?$");
 
-    private static final TimeZone GREENWICH = new GmtTimeZone(false, 0, 0);
+    //private static TimeZone GREENWICH =
 
     /**
      * Gets the GMT TimeZone.
      * @return A TimeZone with a raw offset of zero.
      */
     public static TimeZone getGmtTimeZone() {
-        return GREENWICH;
+        return new GmtTimeZone(false, 0, 0);
     }
 
     /**
@@ -47,20 +47,24 @@ public class FastTimeZone {
      * @return A TimeZone with offset from GMT or null, if pattern does not match.
      */
     public static TimeZone getGmtTimeZone(final String pattern) {
-        if ("Z".equals(pattern) || "UTC".equals(pattern)) {
-            return GREENWICH;
-        }
 
-        final Matcher m = GMT_PATTERN.matcher(pattern);
-        if (m.matches()) {
-            final int hours = parseInt(m.group(2));
-            final int minutes = parseInt(m.group(4));
-            if (hours == 0 && minutes == 0) {
-                return GREENWICH;
-            }
-            return new GmtTimeZone(parseSign(m.group(1)), hours, minutes);
-        }
-        return null;
+       return GmtTimeZone.fetchGmtTimeZone(pattern);
+
+
+//        if ("Z".equals(pattern) || "UTC".equals(pattern)) {
+//            return GREENWICH;
+//        }
+//
+//        final Matcher m = GMT_PATTERN.matcher(pattern);
+//        if (m.matches()) {
+//            final int hours = parseInt(m.group(2));
+//            final int minutes = parseInt(m.group(4));
+//            if (hours == 0 && minutes == 0) {
+//                return GREENWICH;
+//            }
+//            return new GmtTimeZone(parseSign(m.group(1)), hours, minutes);
+//        }
+//        return null;
     }
 
     /**
