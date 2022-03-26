@@ -128,7 +128,8 @@ public class MultiBackgroundInitializer
      * @param name the name of the initializer (must not be <b>null</b>)
      * @param backgroundInitializer the {@code BackgroundInitializer} to add (must not be
      * <b>null</b>)
-     * @throws IllegalArgumentException if a required parameter is missing
+     * @throws NullPointerException if either {@code name} or {@code backgroundInitializer}
+     *         is {@code null}
      * @throws IllegalStateException if {@code start()} has already been called
      */
     public void addInitializer(final String name, final BackgroundInitializer<?> backgroundInitializer) {
