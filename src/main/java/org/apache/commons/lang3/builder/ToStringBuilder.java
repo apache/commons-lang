@@ -906,6 +906,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param srcObject  the {@link Object} whose class name and id to output
      * @return this
+     * @throws NullPointerException if {@code srcObject} is {@code null}
      * @since 2.0
      */
     public ToStringBuilder appendAsObjectToString(final Object srcObject) {

@@ -610,6 +610,13 @@ public class ToStringBuilderTest extends AbstractLangTest {
     }
 
     @Test
+    public void testAppendAsObjectToStringNullPointerException() {
+        ToStringBuilder builder = new ToStringBuilder(1);
+        assertThrows(NullPointerException.class, () -> builder.appendAsObjectToString(null));
+        builder.toString();
+    }
+
+    @Test
     public void testAppendBooleanArrayWithFieldName() {
         final boolean[] array = { true, false, false };
         assertEquals(baseStr + "[flags={true,false,false}]",
