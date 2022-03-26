@@ -184,7 +184,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      *
      * @param range  the range to check against
      * @return {@code true} if this range entirely contains the input range
-     * @throws IllegalArgumentException if {@code null} input
+     * @throws NullPointerException if {@code null} input
      */
     public boolean contains(final CharRange range) {
         Validate.notNull(range, "range");
