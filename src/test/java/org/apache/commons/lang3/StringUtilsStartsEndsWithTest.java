@@ -23,16 +23,115 @@ import org.junit.jupiter.api.Test;
 
 
 /**
- * Unit tests {@link org.apache.commons.lang3.StringUtils} - StartsWith/EndsWith methods
+ * Unit tests {@link org.apache.commons.lang3.StringUtils} - StartsAndEndsWith/StartsWith/EndsWith methods
  */
 public class StringUtilsStartsEndsWithTest {
-    private static final String foo    = "foo";
-    private static final String bar    = "bar";
-    private static final String foobar = "foobar";
-    private static final String FOO    = "FOO";
-    private static final String BAR    = "BAR";
-    private static final String FOOBAR = "FOOBAR";
+    private static final String foo       = "foo";
+    private static final String bar       = "bar";
+    private static final String foobar    = "foobar";
+    private static final String foobarfoo = "foobarfoo";
+    private static final String FOO       = "FOO";
+    private static final String BAR       = "BAR";
+    private static final String FOOBAR    = "FOOBAR";
+    private static final String FOOBARFOO = "FOOBARFOO";
 
+
+    /**
+     * Test StringUtils.startsAndEndsWith(str, other)
+     */
+    @Test
+    public void testStartsAndEndsWith_Other() {
+        assertTrue(StringUtils.startsAndEndsWith(null, null), "startsAndEndsWith(null, null)");
+        assertFalse(StringUtils.startsAndEndsWith(FOOBARFOO, null), "startsAndEndsWith(FOOBARFOO, null)");
+        assertFalse(StringUtils.startsAndEndsWith(null, FOO), "startsAndEndsWith(null, FOO)");
+        assertTrue(StringUtils.startsAndEndsWith(FOOBARFOO, ""), "startsAndEndsWith(FOOBARFOO, \"\")");
+
+        assertTrue(StringUtils.startsAndEndsWith(foobarfoo, foo), "startsAndEndsWith(foobarfoo, foo)");
+        assertTrue(StringUtils.startsAndEndsWith(FOOBARFOO, FOO), "startsAndEndsWith(FOOBARFOO, FOO)");
+        assertFalse(StringUtils.startsAndEndsWith(foobarfoo, FOO), "startsAndEndsWith(foobarfoo, FOO)");
+        assertFalse(StringUtils.startsAndEndsWith(FOOBARFOO, foo), "startsAndEndsWith(FOOBARFOO, foo)");
+
+        assertFalse(StringUtils.startsAndEndsWith(foo, foobarfoo), "startsAndEndsWith(foo, foobarfoo)");
+        assertFalse(StringUtils.startsAndEndsWith(bar, foobarfoo), "startsAndEndsWith(foo, foobarfoo)");
+
+        assertFalse(StringUtils.startsAndEndsWith(foobarfoo, bar), "startsAndEndsWith(foobarfoo, bar)");
+        assertFalse(StringUtils.startsAndEndsWith(FOOBARFOO, BAR), "startsAndEndsWith(FOOBARFOO, BAR)");
+        assertFalse(StringUtils.startsAndEndsWith(foobarfoo, BAR), "startsAndEndsWith(foobarfoo, BAR)");
+        assertFalse(StringUtils.startsAndEndsWith(FOOBARFOO, bar), "startsAndEndsWith(FOOBARFOO, bar)");
+    }
+
+    /**
+     * Test StringUtils.startsAndEndsWith(str, prefix, suffix)
+     */
+    @Test
+    public void testStartsAndEndsWith_PrefixAndSuffix() {
+        assertTrue(StringUtils.startsAndEndsWith(null, null, null), "startsAndEndsWith(null, null, null)");
+        assertFalse(StringUtils.startsAndEndsWith(FOOBARFOO, null, null), "startsAndEndsWith(FOOBARFOO, null, null)");
+        assertFalse(StringUtils.startsAndEndsWith(null, FOO, FOO), "startsAndEndsWith(null, FOO, FOO)");
+        assertTrue(StringUtils.startsAndEndsWith(FOOBARFOO, "", ""), "startsAndEndsWith(FOOBARFOO, \"\", \"\")");
+
+        assertTrue(StringUtils.startsAndEndsWith(foobarfoo, foo, foo), "startsAndEndsWith(foobarfoo, foo, foo)");
+        assertTrue(StringUtils.startsAndEndsWith(FOOBARFOO, FOO, FOO), "startsAndEndsWith(FOOBARFOO, FOO, FOO)");
+        assertFalse(StringUtils.startsAndEndsWith(foobarfoo, FOO, FOO), "startsAndEndsWith(foobarfoo, FOO, FOO)");
+        assertFalse(StringUtils.startsAndEndsWith(FOOBARFOO, foo, foo), "startsAndEndsWith(FOOBARFOO, foo, foo)");
+
+        assertFalse(StringUtils.startsAndEndsWith(foo, foobarfoo, foobarfoo), "startsAndEndsWith(foo, foobarfoo, foobarfoo)");
+        assertFalse(StringUtils.startsAndEndsWith(bar, foobarfoo, foobarfoo), "startsAndEndsWith(foo, foobarfoo, foobarfoo)");
+
+        assertFalse(StringUtils.startsAndEndsWith(foobarfoo, bar, bar), "startsAndEndsWith(foobarfoo, bar, bar)");
+        assertFalse(StringUtils.startsAndEndsWith(FOOBARFOO, BAR, BAR), "startsAndEndsWith(FOOBARFOO, BAR, BAR)");
+        assertFalse(StringUtils.startsAndEndsWith(foobarfoo, BAR, BAR), "startsAndEndsWith(foobarfoo, BAR, BAR)");
+        assertFalse(StringUtils.startsAndEndsWith(FOOBARFOO, bar, bar), "startsAndEndsWith(FOOBARFOO, bar, bar)");
+    }
+
+    /**
+     * Test StringUtils.startsAndEndsWithIgnoreCase(str, other)
+     */
+    @Test
+    public void testStartsAndEndsWithIgnoreCase_Other() {
+        assertTrue(StringUtils.startsAndEndsWithIgnoreCase(null, null), "startsAndEndsWithIgnoreCase(null, null)");
+        assertFalse(StringUtils.startsAndEndsWithIgnoreCase(FOOBARFOO, null), "startsAndEndsWithIgnoreCase(FOOBARFOO, null)");
+        assertFalse(StringUtils.startsAndEndsWithIgnoreCase(null, FOO), "startsAndEndsWithIgnoreCase(null, FOO)");
+        assertTrue(StringUtils.startsAndEndsWithIgnoreCase(FOOBARFOO, ""), "startsAndEndsWithIgnoreCase(FOOBARFOO, \"\")");
+
+        assertTrue(StringUtils.startsAndEndsWithIgnoreCase(foobarfoo, foo), "startsAndEndsWithIgnoreCase(foobarfoo, foo)");
+        assertTrue(StringUtils.startsAndEndsWithIgnoreCase(FOOBARFOO, FOO), "startsAndEndsWithIgnoreCase(FOOBARFOO, FOO)");
+        assertTrue(StringUtils.startsAndEndsWithIgnoreCase(foobarfoo, FOO), "startsAndEndsWithIgnoreCase(foobarfoo, FOO)");
+        assertTrue(StringUtils.startsAndEndsWithIgnoreCase(FOOBARFOO, foo), "startsAndEndsWithIgnoreCase(FOOBARFOO, foo)");
+
+        assertFalse(StringUtils.startsAndEndsWithIgnoreCase(foo, foobarfoo), "startsAndEndsWithIgnoreCase(foo, foobarfoo)");
+        assertFalse(StringUtils.startsAndEndsWithIgnoreCase(bar, foobarfoo), "startsAndEndsWithIgnoreCase(foo, foobarfoo)");
+
+        assertFalse(StringUtils.startsAndEndsWithIgnoreCase(foobarfoo, bar), "startsAndEndsWithIgnoreCase(foobarfoo, bar)");
+        assertFalse(StringUtils.startsAndEndsWithIgnoreCase(FOOBARFOO, BAR), "startsAndEndsWithIgnoreCase(FOOBARFOO, BAR)");
+        assertFalse(StringUtils.startsAndEndsWithIgnoreCase(foobarfoo, BAR), "startsAndEndsWithIgnoreCase(foobarfoo, BAR)");
+        assertFalse(StringUtils.startsAndEndsWithIgnoreCase(FOOBARFOO, bar), "startsAndEndsWithIgnoreCase(FOOBARFOO, bar)");
+    }
+
+    /**
+     * Test StringUtils.startsAndEndsWithIgnoreCase(str, prefix, suffix)
+     */
+    @Test
+    public void testStartsAndEndsWithIgnoreCase_PrefixAndSuffix() {
+        assertTrue(StringUtils.startsAndEndsWithIgnoreCase(null, null, null), "startsAndEndsWithIgnoreCase(null, null, null)");
+        assertFalse(StringUtils.startsAndEndsWithIgnoreCase(FOOBARFOO, null, null), "startsAndEndsWithIgnoreCase(FOOBARFOO, null, null)");
+        assertFalse(StringUtils.startsAndEndsWithIgnoreCase(null, FOO, FOO), "startsAndEndsWithIgnoreCase(null, FOO, FOO)");
+        assertTrue(StringUtils.startsAndEndsWithIgnoreCase(FOOBARFOO, "", ""), "startsAndEndsWithIgnoreCase(FOOBARFOO, \"\", \"\")");
+
+        assertTrue(StringUtils.startsAndEndsWithIgnoreCase(foobarfoo, foo, foo), "startsAndEndsWithIgnoreCase(foobarfoo, foo, foo)");
+        assertTrue(StringUtils.startsAndEndsWithIgnoreCase(FOOBARFOO, FOO, foo), "startsAndEndsWithIgnoreCase(FOOBARFOO, FOO, foo)");
+        assertTrue(StringUtils.startsAndEndsWithIgnoreCase(FOOBARFOO, foo, FOO), "startsAndEndsWithIgnoreCase(FOOBARFOO, foo, FOO)");
+        assertTrue(StringUtils.startsAndEndsWithIgnoreCase(foobarfoo, FOO, foo), "startsAndEndsWithIgnoreCase(foobarfoo, FOO, foo)");
+        assertTrue(StringUtils.startsAndEndsWithIgnoreCase(foobarfoo, foo, FOO), "startsAndEndsWithIgnoreCase(foobarfoo, foo, FOO)");
+
+        assertFalse(StringUtils.startsAndEndsWithIgnoreCase(foo, foobarfoo, foobarfoo), "startsAndEndsWithIgnoreCase(foo, foobarfoo, foobarfoo)");
+        assertFalse(StringUtils.startsAndEndsWithIgnoreCase(bar, foobarfoo, foobarfoo), "startsAndEndsWithIgnoreCase(foo, foobarfoo, foobarfoo)");
+
+        assertFalse(StringUtils.startsAndEndsWithIgnoreCase(foobarfoo, bar, bar), "startsAndEndsWithIgnoreCase(foobarfoo, bar, bar)");
+        assertFalse(StringUtils.startsAndEndsWithIgnoreCase(FOOBARFOO, BAR, BAR), "startsAndEndsWithIgnoreCase(FOOBARFOO, BAR, BAR)");
+        assertFalse(StringUtils.startsAndEndsWithIgnoreCase(foobarfoo, BAR, BAR), "startsAndEndsWithIgnoreCase(foobarfoo, BAR, BAR)");
+        assertFalse(StringUtils.startsAndEndsWithIgnoreCase(FOOBARFOO, bar, bar), "startsAndEndsWithIgnoreCase(FOOBARFOO, bar, bar)");
+    }
 
     /**
      * Test StringUtils.startsWith()

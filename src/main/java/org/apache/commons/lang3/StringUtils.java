@@ -8058,6 +8058,133 @@ public class StringUtils {
     }
 
     /**
+     * <p>Check if a CharSequence starts with the provided prefix and ends with the provided suffix.</p>
+     *
+     * <p>{@code null}s are handled without exceptions. Three {@code null}
+     * references are considered to be equal. The comparison is case sensitive.</p>
+     *
+     * <pre>
+     * StringUtils.startsAndEndsWith(null, null, null)          = true
+     * StringUtils.startsAndEndsWith(null, "abc", null)         = false
+     * StringUtils.startsAndEndsWith("abcdef", null, null)      = false
+     * StringUtils.startsAndEndsWith("abcdefabc", "abc", "abc") = true
+     * StringUtils.startsAndEndsWith("ABCDEFABC", "abc", "abc") = false
+     * </pre>
+     *
+     * @param str    The CharSequence to check, may be null.
+     * @param prefix The prefix to find, may be null.
+     * @param suffix The suffix to find, may be null.
+     * @return  {@code true} if the CharSequence starts with the prefix and ends with the suffix
+     * (case sensitive) or all three are {@code null}, otherwise {@code false}
+     * @since 3.11
+     */
+    public static boolean startsAndEndsWith(final CharSequence str, final CharSequence prefix, final CharSequence suffix) {
+        return startsAndEndsWith(str, prefix, suffix, false);
+    }
+
+    /**
+     * <p>Check if a CharSequence starts and ends with a specified CharSequence.</p>
+     *
+     * <p>{@code null}s are handled without exceptions. Two {@code null}
+     * references are considered to be equal. The comparison is case sensitive.</p>
+     *
+     * <pre>
+     * StringUtils.startsAndEndsWith(null, null)      = true
+     * StringUtils.startsAndEndsWith(null, "abc")     = false
+     * StringUtils.startsAndEndsWith("abcdef", null)  = false
+     * StringUtils.startsAndEndsWith("abcdefabc", "abc") = true
+     * StringUtils.startsAndEndsWith("ABCDEFABC", "abc") = false
+     * </pre>
+     *
+     * @param str   The CharSequence to check, may be null.
+     * @param other The CharSequence to find, may be null.
+     * @return  {@code true} if the CharSequence starts and ends with with the other CharSequence
+     * (case sensitive) or both are {@code null}, otherwise {@code false}
+     * @since 3.11
+     */
+    public static boolean startsAndEndsWith(final CharSequence str, final CharSequence other) {
+        return startsAndEndsWith(str, other, false);
+    }
+
+    /**
+     * <p>Check if a CharSequence starts and ends with a specified CharSequence (optionally case insensitive).</p>
+     *
+     * @param str    the CharSequence to check, may be null
+     * @param prefix the prefix to find, may be null
+     * @param suffix the suffix to find, may be null
+     * @param ignoreCase indicates whether the comparison should ignore case (case insensitive) or not.
+     * @return {@code true} if the CharSequence starts with the prefix and ends with the suffix or
+     * all three are {@code null}, otherwise {@code false}
+     */
+    private static boolean startsAndEndsWith(final CharSequence str, final CharSequence prefix, final CharSequence suffix, final boolean ignoreCase) {
+        return startsWith(str, prefix, ignoreCase) && endsWith(str, suffix, ignoreCase);
+    }
+
+    /**
+     * <p>Check if a CharSequence starts and ends with a specified CharSequence (optionally case insensitive).</p>
+     *
+     * @see #startsAndEndsWith(CharSequence, CharSequence, CharSequence, boolean)
+     * @param str   the CharSequence to check, may be null
+     * @param other the CharSequence to find, may be null
+     * @param ignoreCase indicates whether the comparison should ignore case (case insensitive) or not.
+     * @return {@code true} if the CharSequence starts and ends with the other CharSequence or
+     * both are {@code null}, otherwise {@code false}
+     */
+    private static boolean startsAndEndsWith(final CharSequence str, final CharSequence other, final boolean ignoreCase) {
+        return startsAndEndsWith(str, other, other, ignoreCase);
+    }
+
+    /**
+     * <p>Case-insensitively check if a CharSequence starts and ends with a specified CharSequence.</p>
+     *
+     * <p>{@code null}s are handled without exceptions. Two {@code null}
+     * references are considered to be equal. The comparison is case insensitive.</p>
+     *
+     * <pre>
+     * StringUtils.startsAndEndsWithIgnoreCase(null, null)      = true
+     * StringUtils.startsAndEndsWithIgnoreCase(null, "abc")     = false
+     * StringUtils.startsAndEndsWithIgnoreCase("abcdef", null)  = false
+     * StringUtils.startsAndEndsWithIgnoreCase("abcdefabc", "ABC") = true
+     * StringUtils.startsAndEndsWithIgnoreCase("ABCDEFABC", "abc") = true
+     * </pre>
+     *
+     * @param str   The CharSequence to check, may be null.
+     * @param other The CharSequence to find, may be null.
+     * @return  {@code true} if the CharSequence starts and ends with with the other CharSequence
+     * (case insensitive) or both are {@code null}, otherwise {@code false}
+     * @since 3.11
+     */
+    public static boolean startsAndEndsWithIgnoreCase(final CharSequence str, final CharSequence other) {
+        return startsAndEndsWith(str, other, true);
+    }
+
+    /**
+     * <p>Case-insensitively check if a CharSequence starts with the provided prefix and ends with the
+     * provided suffix.</p>
+     *
+     * <p>{@code null}s are handled without exceptions. Three {@code null}
+     * references are considered to be equal. The comparison is case sensitive.</p>
+     *
+     * <pre>
+     * StringUtils.startsAndEndsWithIgnoreCase(null, null, null)          = true
+     * StringUtils.startsAndEndsWithIgnoreCase(null, "abc", null)         = false
+     * StringUtils.startsAndEndsWithIgnoreCase("abcdef", null, null)      = false
+     * StringUtils.startsAndEndsWithIgnoreCase("abcdefabc", "abc", "ABC") = true
+     * StringUtils.startsAndEndsWithIgnoreCase("ABCDEFABC", "ABC", "abc") = false
+     * </pre>
+     *
+     * @param str    The CharSequence to check, may be null.
+     * @param prefix The prefix to find, may be null.
+     * @param suffix The suffix to find, may be null.
+     * @return  {@code true} if the CharSequence starts with the prefix and ends with the suffix
+     * (case insensitive) or all three are {@code null}, otherwise {@code false}
+     * @since 3.11
+     */
+    public static boolean startsAndEndsWithIgnoreCase(final CharSequence str, final CharSequence prefix, final CharSequence suffix) {
+        return startsAndEndsWith(str, prefix, suffix, true);
+    }
+
+    /**
      * <p>Check if a CharSequence starts with a specified prefix.</p>
      *
      * <p>{@code null}s are handled without exceptions. Two {@code null}
@@ -9424,7 +9551,7 @@ public class StringUtils {
             return str;
         }
 
-        if (startsWith(str, wrapToken) && endsWith(str, wrapToken)) {
+        if (startsAndEndsWith(str, wrapToken)) {
             final int startIndex = str.indexOf(wrapToken);
             final int endIndex = str.lastIndexOf(wrapToken);
             final int wrapLength = wrapToken.length();
@@ -9646,22 +9773,16 @@ public class StringUtils {
      * @since 3.5
      */
     public static String wrapIfMissing(final String str, final String wrapWith) {
-        if (isEmpty(str) || isEmpty(wrapWith)) {
-            return str;
-        }
-
-        final boolean wrapStart = !str.startsWith(wrapWith);
-        final boolean wrapEnd = !str.endsWith(wrapWith);
-        if (!wrapStart && !wrapEnd) {
+        if (isEmpty(str) || isEmpty(wrapWith) || startsAndEndsWith(str, wrapWith)) {
             return str;
         }
 
         final StringBuilder builder = new StringBuilder(str.length() + wrapWith.length() + wrapWith.length());
-        if (wrapStart) {
+        if (!str.startsWith(wrapWith)) {
             builder.append(wrapWith);
         }
         builder.append(str);
-        if (wrapEnd) {
+        if (!str.endsWith(wrapWith)) {
             builder.append(wrapWith);
         }
         return builder.toString();
