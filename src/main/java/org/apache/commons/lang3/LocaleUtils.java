@@ -101,7 +101,7 @@ public class LocaleUtils {
             return Collections.emptyList();
         }
         return cCountriesByLanguage.computeIfAbsent(languageCode, lc -> {
-            List<Locale> countries = new ArrayList<>();
+            final List<Locale> countries = new ArrayList<>();
             final List<Locale> locales = availableLocaleList();
             for (final Locale locale : locales) {
                 if (languageCode.equals(locale.getLanguage()) && !locale.getCountry().isEmpty() && locale.getVariant().isEmpty()) {
@@ -167,7 +167,7 @@ public class LocaleUtils {
         }
         return cLanguagesByCountry.computeIfAbsent(countryCode, k -> {
             final List<Locale> locales = availableLocaleList();
-            List<Locale> langs = new ArrayList<>();
+            final List<Locale> langs = new ArrayList<>();
             for (final Locale locale : locales) {
                 if (countryCode.equals(locale.getCountry()) && locale.getVariant().isEmpty()) {
                     langs.add(locale);

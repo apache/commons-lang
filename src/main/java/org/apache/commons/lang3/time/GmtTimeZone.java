@@ -60,14 +60,14 @@ class GmtTimeZone extends TimeZone {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
         if (!(obj instanceof GmtTimeZone)) {
             return false;
         }
-        GmtTimeZone other = (GmtTimeZone) obj;
+        final GmtTimeZone other = (GmtTimeZone) obj;
         return offset == other.offset && Objects.equals(zoneId, other.zoneId);
     }
 
