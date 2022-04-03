@@ -892,15 +892,14 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             buffer[size++] = 't';
             buffer[size++] = 'r';
             buffer[size++] = 'u';
-            buffer[size++] = 'e';
         } else {
             ensureCapacity(size + 5);
             buffer[size++] = 'f';
             buffer[size++] = 'a';
             buffer[size++] = 'l';
             buffer[size++] = 's';
-            buffer[size++] = 'e';
         }
+        buffer[size++] = 'e';
         return this;
     }
 

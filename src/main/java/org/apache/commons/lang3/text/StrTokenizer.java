@@ -759,10 +759,6 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
                     continue;
                 }
 
-                // copy regular character from inside quotes
-                workArea.append(srcChars[pos++]);
-                trimStart = workArea.size();
-
             } else {
                 // Not in quoting mode
 
@@ -797,11 +793,10 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
                     pos += trimmedLen;
                     continue;
                 }
-
-                // copy regular character from outside quotes
-                workArea.append(srcChars[pos++]);
-                trimStart = workArea.size();
             }
+            // copy regular character from inside quotes
+            workArea.append(srcChars[pos++]);
+            trimStart = workArea.size();
         }
 
         // return condition when end of string found
