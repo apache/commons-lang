@@ -193,7 +193,7 @@ public class ExceptionUtils {
     }
 
     /**
-     * Gets a short message summarising the exception.
+     * Gets a short message summarizing the exception.
      * <p>
      * The message returned is of the form
      * {ClassNameWithoutPackage}: {ThrowableMessage}
@@ -235,7 +235,7 @@ public class ExceptionUtils {
     }
 
     /**
-     * Gets a short message summarising the root cause exception.
+     * Gets a short message summarizing the root cause exception.
      * <p>
      * The message returned is of the form
      * {ClassNameWithoutPackage}: {ThrowableMessage}
