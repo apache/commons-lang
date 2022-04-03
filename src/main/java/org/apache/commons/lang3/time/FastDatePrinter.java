@@ -675,6 +675,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      *
      * @param buffer the buffer to append to.
      * @param value the value to append digits from.
+     * @throws IOException If an I/O error occurs
      */
     private static void appendDigits(final Appendable buffer, final int value) throws IOException {
         buffer.append((char) (value / 10 + '0'));
@@ -688,6 +689,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      *
      * @param buffer the buffer to append to.
      * @param value the value to append digits from.
+     * @param minFieldWidth Minimum field width.
+     * @throws IOException If an I/O error occurs
      */
     private static void appendFullDigits(final Appendable buffer, int value, int minFieldWidth) throws IOException {
         // specialized paths for 1 to 4 digits -> avoid the memory allocation from the temporary work array
