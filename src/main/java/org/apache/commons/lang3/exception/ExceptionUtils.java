@@ -371,12 +371,12 @@ public class ExceptionUtils {
      * {@code printStackTrace(PrintWriter)} method, or an empty String if {@code null} input
      */
     public static String getStackTrace(final Throwable throwable) {
-        final StringWriter sw = new StringWriter();
-        final PrintWriter pw = new PrintWriter(sw, true);
-        if (throwable != null) {
-            throwable.printStackTrace(pw);
+        if (throwable == null) {
+            return StringUtils.EMPTY;
         }
-        return sw.getBuffer().toString();
+        final StringWriter sw = new StringWriter();
+        throwable.printStackTrace(new PrintWriter(sw, true));
+        return sw.toString();
     }
 
     /**
