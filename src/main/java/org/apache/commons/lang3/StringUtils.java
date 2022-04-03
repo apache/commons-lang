@@ -4883,7 +4883,7 @@ public class StringUtils {
      * @param delimiter the separator character to use, null treated as ""
      * @param array the varargs providing the values to join together. {@code null} elements are treated as ""
      * @return the joined String.
-     * @throws java.lang.IllegalArgumentException if a null varargs is provided
+     * @throws IllegalArgumentException if a null varargs is provided
      * @since 3.5
      */
     public static String joinWith(final String delimiter, final Object... array) {

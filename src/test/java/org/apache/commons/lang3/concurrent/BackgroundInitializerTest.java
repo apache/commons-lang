@@ -202,7 +202,7 @@ public class BackgroundInitializerTest {
     /**
      * Tests the get() method if waiting for the initialization is interrupted.
      *
-     * @throws java.lang.InterruptedException because we're making use of Java's concurrent API
+     * @throws InterruptedException because we're making use of Java's concurrent API
      */
     @Test
     public void testGetInterruptedException() throws InterruptedException {

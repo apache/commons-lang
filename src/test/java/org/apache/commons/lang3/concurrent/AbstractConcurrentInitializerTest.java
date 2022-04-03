@@ -65,7 +65,7 @@ public abstract class AbstractConcurrentInitializerTest {
      * Always the same object should be returned.
      *
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it.
-     * @throws java.lang.InterruptedException because the threading API my throw it.
+     * @throws InterruptedException because the threading API my throw it.
      */
     @Test
     public void testGetConcurrent() throws ConcurrentException,

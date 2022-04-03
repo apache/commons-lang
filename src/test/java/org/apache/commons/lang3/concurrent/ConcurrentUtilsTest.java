@@ -334,7 +334,7 @@ public class ConcurrentUtilsTest {
     /**
      * Tests constant future.
      *
-     * @throws java.lang.Exception so we don't have to catch it
+     * @throws Exception so we don't have to catch it
      */
     @Test
     public void testConstantFuture_Integer() throws Exception {
@@ -352,7 +352,7 @@ public class ConcurrentUtilsTest {
     /**
      * Tests constant future.
      *
-     * @throws java.lang.Exception so we don't have to catch it
+     * @throws Exception so we don't have to catch it
      */
     @Test
     public void testConstantFuture_null() throws Exception {
