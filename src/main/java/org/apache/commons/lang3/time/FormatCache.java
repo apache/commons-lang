@@ -74,9 +74,7 @@ abstract class FormatCache<F extends Format> {
         final TimeZone actualTimeZone = TimeZones.toTimeZone(timeZone);
         final Locale actualLocale = LocaleUtils.toLocale(locale);
         final ArrayKey key = new ArrayKey(pattern, actualTimeZone, actualLocale);
-        return cInstanceCache.computeIfAbsent(key, k -> {
-            return createInstance(pattern, actualTimeZone, actualLocale);
-        });
+        return cInstanceCache.computeIfAbsent(key, k -> createInstance(pattern, actualTimeZone, actualLocale));
     }
 
     /**
