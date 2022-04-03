@@ -243,6 +243,6 @@ public class StringUtilsTrimStripTest  {
         // LANG-1655
         final String input = "잊지마 넌 흐린 어둠사이 왼손으로 그린 별 하나";
         assertEquals(input, StringUtils.stripAccents(input), "Failed to handle non-accented text");
-        
+
     }
 }

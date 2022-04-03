@@ -58,7 +58,7 @@ public class AtomicSafeInitializerTest extends AbstractConcurrentInitializerTest
     }
 
     /**
-     * A concrete test implementation of {@code AtomicSafeInitializer} which also serves as a simple example. 
+     * A concrete test implementation of {@code AtomicSafeInitializer} which also serves as a simple example.
      * <p>
      * This implementation also counts the number of invocations of the initialize() method.
      * </p>
