@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Test;
  * Test class for {@code AtomicSafeInitializer} which also serves as a simple example.
  */
 public class AtomicSafeInitializerTest extends AbstractConcurrentInitializerTest {
+
     /** The instance to be tested. */
     private AtomicSafeInitializerTestImpl initializer;
 
