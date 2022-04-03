@@ -1769,6 +1769,7 @@ public class DateUtils {
     }
 
     /**
+     * @param date Date to validate.
      * @throws NullPointerException if {@code date == null}
      */
     private static void validateDateNotNull(final Date date) {

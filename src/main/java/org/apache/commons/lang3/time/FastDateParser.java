@@ -585,6 +585,7 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * Gets a Strategy given a field from a SimpleDateFormat pattern
      * @param f A sub-sequence of the SimpleDateFormat pattern
+     * @param width formatting width
      * @param definingCalendar The calendar to obtain the short and long values
      * @return The Strategy that will handle parsing for the field
      */
