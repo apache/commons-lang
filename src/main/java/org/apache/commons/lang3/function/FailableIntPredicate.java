@@ -43,6 +43,7 @@ public interface FailableIntPredicate<E extends Throwable> {
      * @param <E> Thrown exception.
      * @return The NOP singleton.
      */
+    @SuppressWarnings("unchecked")
     static <E extends Throwable> FailableIntPredicate<E> falsePredicate() {
         return FALSE;
     }
@@ -53,6 +54,7 @@ public interface FailableIntPredicate<E extends Throwable> {
      * @param <E> Thrown exception.
      * @return The NOP singleton.
      */
+    @SuppressWarnings("unchecked")
     static <E extends Throwable> FailableIntPredicate<E> truePredicate() {
         return TRUE;
     }

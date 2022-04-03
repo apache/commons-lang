@@ -42,6 +42,7 @@ public interface FailableToDoubleBiFunction<T, U, E extends Throwable> {
      * @param <E> Thrown exception.
      * @return The NOP singleton.
      */
+    @SuppressWarnings("unchecked")
     static <T, U, E extends Throwable> FailableToDoubleBiFunction<T, U, E> nop() {
         return NOP;
     }

@@ -47,6 +47,7 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
      * @param <E> Thrown exception.
      * @return The NOP singleton.
      */
+    @SuppressWarnings("unchecked")
     static <T, U, E extends Throwable> FailableBiPredicate<T, U, E> falsePredicate() {
         return FALSE;
     }
@@ -59,6 +60,7 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
      * @param <E> Thrown exception.
      * @return The NOP singleton.
      */
+    @SuppressWarnings("unchecked")
     static <T, U, E extends Throwable> FailableBiPredicate<T, U, E> truePredicate() {
         return TRUE;
     }

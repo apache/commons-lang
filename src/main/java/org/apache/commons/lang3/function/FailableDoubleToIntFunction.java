@@ -38,7 +38,8 @@ public interface FailableDoubleToIntFunction<E extends Throwable> {
      * @param <E> Thrown exception.
      * @return The NOP singleton.
      */
-    static <E extends Throwable> FailableDoubleToIntFunction<E> nop() {
+   @SuppressWarnings("unchecked")
+   static <E extends Throwable> FailableDoubleToIntFunction<E> nop() {
         return NOP;
     }
 

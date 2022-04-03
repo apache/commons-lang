@@ -43,7 +43,8 @@ public interface FailableDoublePredicate<E extends Throwable> {
      * @param <E> Thrown exception.
      * @return The NOP singleton.
      */
-    static <E extends Throwable> FailableDoublePredicate<E> falsePredicate() {
+   @SuppressWarnings("unchecked")
+   static <E extends Throwable> FailableDoublePredicate<E> falsePredicate() {
         return FALSE;
     }
 
@@ -53,7 +54,8 @@ public interface FailableDoublePredicate<E extends Throwable> {
      * @param <E> Thrown exception.
      * @return The NOP singleton.
      */
-    static <E extends Throwable> FailableDoublePredicate<E> truePredicate() {
+   @SuppressWarnings("unchecked")
+   static <E extends Throwable> FailableDoublePredicate<E> truePredicate() {
         return TRUE;
     }
 
