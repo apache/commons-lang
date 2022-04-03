@@ -3930,11 +3930,13 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = newStringJoiner(delimiter);
+        final StringBuilder stringBuilder = new StringBuilder(array.length * 5 + array.length - 1);
         for (int i = startIndex; i < endIndex; i++) {
-            joiner.add(String.valueOf(array[i]));
+            stringBuilder
+                    .append(array[i])
+                    .append(delimiter);
         }
-        return joiner.toString();
+        return stringBuilder.substring(0, stringBuilder.length() - 1);
     }
 
     /**
@@ -4007,11 +4009,13 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = newStringJoiner(delimiter);
+        final StringBuilder stringBuilder = new StringBuilder();
         for (int i = startIndex; i < endIndex; i++) {
-            joiner.add(String.valueOf(array[i]));
+            stringBuilder
+                    .append(array[i])
+                    .append(delimiter);
         }
-        return joiner.toString();
+        return stringBuilder.substring(0, stringBuilder.length() - 1);
     }
 
     /**
@@ -4084,11 +4088,13 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = newStringJoiner(delimiter);
+        final StringBuilder stringBuilder = new StringBuilder(array.length * 2 - 1);
         for (int i = startIndex; i < endIndex; i++) {
-            joiner.add(String.valueOf(array[i]));
+            stringBuilder
+                    .append(array[i])
+                    .append(delimiter);
         }
-        return joiner.toString();
+        return stringBuilder.substring(0, stringBuilder.length() - 1);
     }
 
     /**
@@ -4161,11 +4167,13 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = newStringJoiner(delimiter);
+        final StringBuilder stringBuilder = new StringBuilder();
         for (int i = startIndex; i < endIndex; i++) {
-            joiner.add(String.valueOf(array[i]));
+            stringBuilder
+                    .append(array[i])
+                    .append(delimiter);
         }
-        return joiner.toString();
+        return stringBuilder.substring(0, stringBuilder.length() - 1);
     }
 
     /**
@@ -4238,11 +4246,13 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = newStringJoiner(delimiter);
+        final StringBuilder stringBuilder = new StringBuilder();
         for (int i = startIndex; i < endIndex; i++) {
-            joiner.add(String.valueOf(array[i]));
+            stringBuilder
+                    .append(array[i])
+                    .append(delimiter);
         }
-        return joiner.toString();
+        return stringBuilder.substring(0, stringBuilder.length() - 1);
     }
 
     /**
@@ -4315,11 +4325,13 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = newStringJoiner(delimiter);
+        final StringBuilder stringBuilder = new StringBuilder();
         for (int i = startIndex; i < endIndex; i++) {
-            joiner.add(String.valueOf(array[i]));
+            stringBuilder
+                    .append(array[i])
+                    .append(delimiter);
         }
-        return joiner.toString();
+        return stringBuilder.substring(0, stringBuilder.length() - 1);
     }
 
     /**
@@ -4601,11 +4613,13 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = newStringJoiner(delimiter);
+        final StringBuilder stringBuilder = new StringBuilder();
         for (int i = startIndex; i < endIndex; i++) {
-            joiner.add(String.valueOf(array[i]));
+            stringBuilder
+                    .append(array[i])
+                    .append(delimiter);
         }
-        return joiner.toString();
+        return stringBuilder.substring(0, stringBuilder.length() - 1);
     }
 
     /**
@@ -4664,17 +4678,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String join(final Object[] array, final char delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-            return EMPTY;
-        }
-        final StringJoiner joiner = newStringJoiner(delimiter);
-        for (int i = startIndex; i < endIndex; i++) {
-            joiner.add(toStringOrEmpty(array[i]));
-        }
-        return joiner.toString();
+        return join(array, String.valueOf(delimiter), startIndex, endIndex);
     }
 
     /**
@@ -4826,11 +4830,13 @@ public class StringUtils {
         if (endIndex - startIndex <= 0) {
             return EMPTY;
         }
-        final StringJoiner joiner = newStringJoiner(delimiter);
+        final StringBuilder stringBuilder = new StringBuilder();
         for (int i = startIndex; i < endIndex; i++) {
-            joiner.add(String.valueOf(array[i]));
+            stringBuilder
+                    .append(array[i])
+                    .append(delimiter);
         }
-        return joiner.toString();
+        return stringBuilder.substring(0, stringBuilder.length() - 1);
     }
 
     /**
@@ -5520,10 +5526,6 @@ public class StringUtils {
             return str.substring(pos);
         }
         return str.substring(pos, pos + len);
-    }
-
-    private static StringJoiner newStringJoiner(final char delimiter) {
-        return new StringJoiner(String.valueOf(delimiter));
     }
 
     /**
