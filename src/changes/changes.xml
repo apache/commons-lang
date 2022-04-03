@@ -72,6 +72,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1462" type="fix" dev="ggregory" due-to="Lijun Liang, Arun Avanathan, Tai Dupree, Maria Buiakova, Gary Gregory">Use TimeZone from calendar in DateFormatUtils.</action>
     <action                   type="fix" dev="ggregory" due-to="Diego Marcilio">Updating javadoc for NullPointerException when Validate.notNull() is called #870.</action>
     <action                   type="fix" dev="ggregory" due-to="Diego Marcilio">Fixing and adding DateUtils exception Javadocs #871.</action>
+    <action issue="LANG-1679" type="fix" dev="ggregory" due-to="clover">Improve performance of StringUtils.unwrap(String, String) #844.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TriConsumer.</action>
