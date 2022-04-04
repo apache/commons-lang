@@ -649,6 +649,16 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             // Reject static fields.
             return false;
         }
+
+        if (ObjectUtils.allNotNull(excludeFieldNames, includeFieldNames)) {
+            Set<String> excludeFieldNamesSet = new HashSet<>(Arrays.asList(excludeFieldNames));
+            Set<String> includeFieldNamesSet = new HashSet<>(Arrays.asList(includeFieldNames));
+
+            if (!includeFieldNamesSet.retainAll(excludeFieldNamesSet) || !includeFieldNamesSet.isEmpty()) {
+                throw new IllegalStateException(String.format("Fields %s set in \"includeFieldsNames\" were set in \"excludeFieldNames\" too.", includeFieldNamesSet));
+            }
+        }
+
         if (this.excludeFieldNames != null
             && Arrays.binarySearch(this.excludeFieldNames, field.getName()) >= 0) {
             // Reject fields from the getExcludeFieldNames list.

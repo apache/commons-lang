@@ -18,6 +18,7 @@
 package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ReflectionToStringBuilderIncludeTest {
@@ -68,6 +70,12 @@ public class ReflectionToStringBuilderIncludeTest {
     public void test_toStringIncludeArray() {
         final String toString = ReflectionToStringBuilder.toStringInclude(new TestFeature(), FIELDS_TO_SHOW);
         this.validateIncludeFieldsPresent(toString, FIELDS_TO_SHOW, FIELDS_VALUES_TO_SHOW);
+    }
+
+    @Test
+    public void test_toStringIncludeWithoutInformingFields() {
+        final String toString = ReflectionToStringBuilder.toStringInclude(new TestFeature());
+        this.validateAllFieldsPresent(toString);
     }
 
     @Test
@@ -129,6 +137,32 @@ public class ReflectionToStringBuilderIncludeTest {
     public void test_toStringIncludeNullCollection() {
         final String toString = ReflectionToStringBuilder.toStringInclude(new TestFeature(), (Collection<String>) null);
         this.validateAllFieldsPresent(toString);
+    }
+
+    @Test
+    public void test_toStringDefaultBehavior() {
+        ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
+        final String toString = builder.toString();
+        this.validateAllFieldsPresent(toString);
+    }
+
+    @Test
+    public void test_toStringSetIncludeAndExcludeWithoutIntersection() {
+        ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
+        builder.setExcludeFieldNames(FIELDS[1], FIELDS[4]);
+        builder.setIncludeFieldNames(FIELDS_TO_SHOW);
+        final String toString = builder.toString();
+        this.validateIncludeFieldsPresent(toString, FIELDS_TO_SHOW, FIELDS_VALUES_TO_SHOW);
+    }
+
+    @Test
+    public void test_toStringSetIncludeAndExcludeWithIntersection() {
+        ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
+        builder.setExcludeFieldNames(FIELDS[1], FIELDS[4]);
+        builder.setIncludeFieldNames(FIELDS[0], FIELDS[1]);
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            builder.toString();
+        });
     }
 
     private void validateAllFieldsPresent(String toString) {
