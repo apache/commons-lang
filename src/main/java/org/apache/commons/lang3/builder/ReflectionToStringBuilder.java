@@ -24,11 +24,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -386,16 +389,16 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Builds a String for a toString method with only the selected field names.
+     * Builds a String for a toString method including the given field names.
      *
      * @param object
      *            The object to "toString".
-     * @param selectedFieldNames
-     *            The field names that must be on toString. In case the parameter is null or empty, it will skip the validation of the selected fields.
+     * @param includeFieldNames
+     *            {@code null} or empty means all fields are included. All fields are included by default. This method will override the default behavior.
      * @return The toString value.
      */
-    public static String toStringSelected(final Object object, final Collection<String> selectedFieldNames) {
-        return toStringSelected(object, toNoNullStringArray(selectedFieldNames));
+    public static String toStringInclude(final Object object, final Collection<String> includeFieldNames) {
+        return toStringInclude(object, toNoNullStringArray(includeFieldNames));
     }
 
     /**
@@ -448,16 +451,17 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Builds a String for a toString method with only the selected field names.
+     * Builds a String for a toString method including the given field names.
      *
      * @param object
      *            The object to "toString".
-     * @param selectedFieldNames
-     *            The field names that must be on toString.
+     * @param includeFieldNames
+     *            The field names to include. {@code null} or empty means all fields are included. All fields are included by default. This method will override the default
+     *             behavior.
      * @return The toString value.
      */
-    public static String toStringSelected(final Object object, final String... selectedFieldNames) {
-        return new ReflectionToStringBuilder(object).setSelectedFieldNames(selectedFieldNames).toString();
+    public static String toStringInclude(final Object object, final String... includeFieldNames) {
+        return new ReflectionToStringBuilder(object).setIncludeFieldNames(includeFieldNames).toString();
     }
 
     private static Object checkNotNull(final Object obj) {
@@ -487,9 +491,9 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     protected String[] excludeFieldNames;
 
     /**
-     * Field names that will be on output.
+     * Field names that will be include in the output. All fields are included by default.
      */
-    protected String[] selectedFieldNames;
+    protected String[] includeFieldNames;
 
     /**
      * The last super class to stop appending fields for.
@@ -651,9 +655,9 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             return false;
         }
 
-        if (ArrayUtils.isNotEmpty(this.selectedFieldNames)) {
-            // Only accept fields that were selected on getSelectedFieldNames list.
-            return Arrays.binarySearch(this.selectedFieldNames, field.getName()) >= 0;
+        if (ArrayUtils.isNotEmpty(includeFieldNames)) {
+            // Accept fields from the getIncludeFieldNames list. {@code null} or empty means all fields are included. All fields are included by default.
+            return Arrays.binarySearch(this.includeFieldNames, field.getName()) >= 0;
         }
 
         return !field.isAnnotationPresent(ToStringExclude.class);
@@ -709,10 +713,10 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * @return Returns the selectedFieldNames.
+     * @return Returns the includeFieldNames.
      */
-    public String[] getSelectedFieldNames() {
-        return this.selectedFieldNames.clone();
+    public String[] getIncludeFieldNames() {
+        return this.includeFieldNames.clone();
     }
 
     /**
@@ -851,18 +855,18 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Sets the field names that should be on output.
+     * Sets the field names to include. {@code null} or empty means all fields are included. All fields are included by default. This method will override the default behavior. 
      *
-     * @param selectedFieldNamesParam
-     *            The selectedFieldNames that must be on toString or {@code null}.
+     * @param includeFieldNamesParam
+     *            The includeFieldNames that must be on toString or {@code null}.
      * @return {@code this}
      */
-    public ReflectionToStringBuilder setSelectedFieldNames(final String... selectedFieldNamesParam) {
-        if (selectedFieldNamesParam == null) {
-            this.selectedFieldNames = null;
+    public ReflectionToStringBuilder setIncludeFieldNames(final String... includeFieldNamesParam) {
+        if (includeFieldNamesParam == null) {
+            this.includeFieldNames = null;
         } else {
             //clone and remove nulls
-            this.selectedFieldNames = ArraySorter.sort(toNoNullStringArray(selectedFieldNamesParam));
+            this.includeFieldNames = ArraySorter.sort(toNoNullStringArray(includeFieldNamesParam));
         }
         return this;
     }
