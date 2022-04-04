@@ -865,7 +865,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Sets the field names to include. {@code null} or empty means all fields are included. All fields are included by default. This method will override the default behavior. 
+     * Sets the field names to include. {@code null} or empty means all fields are included. All fields are included by default. This method will override the default behavior.
      *
      * @param includeFieldNamesParam
      *            The includeFieldNames that must be on toString or {@code null}.
