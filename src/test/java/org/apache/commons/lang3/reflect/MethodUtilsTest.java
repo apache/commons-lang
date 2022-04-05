@@ -491,6 +491,10 @@ public class MethodUtilsTest {
                 NoSuchMethodException.class,
                 () -> MethodUtils.invokeExactMethod(testBean, "foo", NumberUtils.LONG_ONE));
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeExactMethod(testBean, "foo", Boolean.TRUE));
+
+        assertThrows(
+                NullPointerException.class,
+                () -> MethodUtils.invokeExactMethod(testBean, null, NumberUtils.BYTE_ONE));
     }
 
     @Test
@@ -531,6 +535,12 @@ public class MethodUtilsTest {
 
         assertThrows(
                 NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(TestBean.class, "does_not_exist"));
+
+        assertThrows(
+                NullPointerException.class, () -> MethodUtils.invokeStaticMethod(null, "does_not_exist"));
+
+        assertThrows(
+                NullPointerException.class, () -> MethodUtils.invokeStaticMethod(TestBean.class, null));
     }
 
     @Test
@@ -560,6 +570,14 @@ public class MethodUtilsTest {
         assertThrows(
                 NoSuchMethodException.class,
                 () -> MethodUtils.invokeExactStaticMethod(TestBean.class, "bar", Boolean.TRUE));
+
+        assertThrows(
+                NullPointerException.class,
+                () -> MethodUtils.invokeExactStaticMethod(null, "bar", NumberUtils.BYTE_ONE));
+
+        assertThrows(
+                NullPointerException.class,
+                () -> MethodUtils.invokeExactStaticMethod(TestBean.class, null, NumberUtils.BYTE_ONE));
     }
 
     @Test

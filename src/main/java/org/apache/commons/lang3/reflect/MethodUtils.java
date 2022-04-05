@@ -327,6 +327,7 @@ public class MethodUtils {
     public static Object invokeExactMethod(final Object object, final String methodName, Object[] args, Class<?>[] parameterTypes)
         throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Objects.requireNonNull(object, "object");
+        Objects.requireNonNull(object, "methodName");
         args = ArrayUtils.nullToEmpty(args);
         parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
         final Class<? extends Object> cls = object.getClass();
@@ -355,6 +356,7 @@ public class MethodUtils {
      *  method invoked
      * @throws IllegalAccessException if the requested method is not accessible
      *  via reflection
+     * @throws NullPointerException if the specified method or the cls is {@code null}.
      */
     public static Object invokeExactStaticMethod(final Class<?> cls, final String methodName,
             Object[] args, Class<?>[] parameterTypes)
@@ -362,6 +364,8 @@ public class MethodUtils {
             InvocationTargetException {
         args = ArrayUtils.nullToEmpty(args);
         parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
+        Objects.requireNonNull(cls, "cls");
+        Objects.requireNonNull(methodName, "methodName");
         final Method method = getAccessibleMethod(cls, methodName, parameterTypes);
         if (method == null) {
             throw new NoSuchMethodException("No such accessible method: "
@@ -422,6 +426,7 @@ public class MethodUtils {
      *  method invoked
      * @throws IllegalAccessException if the requested method is not accessible
      *  via reflection
+     * @throws NullPointerException if the specified method or the cls is {@code null}.
      */
     public static Object invokeStaticMethod(final Class<?> cls, final String methodName,
             Object[] args, Class<?>[] parameterTypes)
@@ -429,6 +434,8 @@ public class MethodUtils {
             InvocationTargetException {
         args = ArrayUtils.nullToEmpty(args);
         parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
+        Objects.requireNonNull(cls, "cls");
+        Objects.requireNonNull(methodName, "methodName");
         final Method method = getMatchingAccessibleMethod(cls, methodName,
                 parameterTypes);
         if (method == null) {
