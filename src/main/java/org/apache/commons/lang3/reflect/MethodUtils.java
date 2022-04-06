@@ -697,6 +697,8 @@ public class MethodUtils {
 
             if (parameterTypeName != null && parameterTypeSuperClassName != null && !methodParameterComponentTypeName.equals(parameterTypeName)
                 && !methodParameterComponentTypeName.equals(parameterTypeSuperClassName)) {
+            if (parameterTypeName!= null && !methodParameterComponentTypeName.equals(parameterTypeName)
+                    && !methodParameterComponentTypeName.equals(parameterTypeSuperClassName)) {
                 return null;
             }
         }
