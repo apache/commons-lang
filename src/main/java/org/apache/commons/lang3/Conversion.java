@@ -435,39 +435,41 @@ public class Conversion {
      * @return a hexadecimal digit representing the selected bits
      * @throws IllegalArgumentException if {@code src} is empty
      * @throws NullPointerException if {@code src} is {@code null}
+     * @throws IndexOutOfBoundsException if {@code srcPos} is outside the array.
      */
     public static char binaryBeMsb0ToHexDigit(boolean[] src, int srcPos) {
-        if (src.length == 0) {
-            throw new IllegalArgumentException("Cannot convert an empty array.");
+        // JDK 9: Objects.checkIndex(int index, int length)
+        if (Integer.compareUnsigned(srcPos, src.length) >= 0) {
+            // Throw the correct exception
+            if (src.length == 0) {
+                throw new IllegalArgumentException("Cannot convert an empty array.");
+            }
+            throw new IndexOutOfBoundsException(srcPos + " is not within array length " + src.length);
         }
-        final int beSrcPos = src.length - 1 - srcPos;
-        final int srcLen = Math.min(4, beSrcPos + 1);
-        final boolean[] paddedSrc = new boolean[4];
-        System.arraycopy(src, beSrcPos + 1 - srcLen, paddedSrc, 4 - srcLen, srcLen);
-        src = paddedSrc;
-        srcPos = 0;
-        if (src[srcPos]) {
-            if (src.length > srcPos + 1 && src[srcPos + 1]) {
-                if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                    return src.length > srcPos + 3 && src[srcPos + 3] ? 'f' : 'e';
+        // Little-endian bit 0 position
+        final int pos = src.length - 1 - srcPos;
+        if (3 <= pos && src[pos - 3]) {
+            if (src[pos - 2]) {
+                if (src[pos - 1]) {
+                    return src[pos] ? 'f' : 'e';
                 }
-                return src.length > srcPos + 3 && src[srcPos + 3] ? 'd' : 'c';
+                return src[pos] ? 'd' : 'c';
             }
-            if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                return src.length > srcPos + 3 && src[srcPos + 3] ? 'b' : 'a';
+            if (src[pos - 1]) {
+                return src[pos] ? 'b' : 'a';
             }
-            return src.length > srcPos + 3 && src[srcPos + 3] ? '9' : '8';
+            return src[pos] ? '9' : '8';
         }
-        if (src.length > srcPos + 1 && src[srcPos + 1]) {
-            if (src.length > srcPos + 2 && src[srcPos + 2]) {
-                return src.length > srcPos + 3 && src[srcPos + 3] ? '7' : '6';
+        if (2 <= pos && src[pos - 2]) {
+            if (src[pos - 1]) {
+                return src[pos] ? '7' : '6';
             }
-            return src.length > srcPos + 3 && src[srcPos + 3] ? '5' : '4';
+            return src[pos] ? '5' : '4';
         }
-        if (src.length > srcPos + 2 && src[srcPos + 2]) {
-            return src.length > srcPos + 3 && src[srcPos + 3] ? '3' : '2';
+        if (1 <= pos && src[pos - 1]) {
+            return src[pos] ? '3' : '2';
         }
-        return src.length > srcPos + 3 && src[srcPos + 3] ? '1' : '0';
+        return src[pos] ? '1' : '0';
     }
 
     /**
