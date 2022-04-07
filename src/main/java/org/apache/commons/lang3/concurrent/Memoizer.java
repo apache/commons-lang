@@ -47,7 +47,7 @@ import java.util.function.Function;
 public class Memoizer<I, O> implements Computable<I, O> {
 
     private final ConcurrentMap<I, Future<O>> cache = new ConcurrentHashMap<>();
-    private Function<? super I, ? extends Future<O>> mappingFunction;
+    private final Function<? super I, ? extends Future<O>> mappingFunction;
     private final boolean recalculate;
 
     /**
