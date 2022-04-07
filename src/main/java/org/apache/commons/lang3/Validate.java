@@ -1290,7 +1290,7 @@ public class Validate {
      *
      * <p>The message format of the exception is &quot;Cannot assign {type} to {superType}&quot;</p>
      *
-     * @param superType  the class the class must be validated against, not null
+     * @param superType  the class must be validated against, not null
      * @param type  the class to check, not null
      * @throws IllegalArgumentException if type argument is not assignable to the specified superType
      * @see #isAssignableFrom(Class, Class, String, Object...)
@@ -1300,7 +1300,7 @@ public class Validate {
     public static void isAssignableFrom(final Class<?> superType, final Class<?> type) {
         // TODO when breaking BC, consider returning type
         if (!superType.isAssignableFrom(type)) {
-            throw new IllegalArgumentException(String.format(DEFAULT_IS_ASSIGNABLE_EX_MESSAGE, type == null ? "null" : type.getName(),
+            throw new IllegalArgumentException(String.format(DEFAULT_IS_ASSIGNABLE_EX_MESSAGE, type.getName(),
                     superType.getName()));
         }
     }
@@ -1315,7 +1315,7 @@ public class Validate {
      * <p>The message of the exception is &quot;The validated object can not be converted to the&quot;
      * followed by the name of the class and &quot;class&quot;</p>
      *
-     * @param superType  the class the class must be validated against, not null
+     * @param superType  the class must be validated against, not null
      * @param type  the class to check, not null
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message, null array not recommended
