@@ -763,6 +763,7 @@ public class ArrayUtils {
      * may be removed in a future release. Please note the handling of {@code null} input arrays differs
      * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
      */
+    @SuppressWarnings("unchecked")
     @Deprecated
     public static <T> T[] add(final T[] array, final int index, final T element) {
         final Class<T> clss;
@@ -5664,6 +5665,7 @@ public class ArrayUtils {
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(Object[], Object)}
      */
+    @SuppressWarnings("unchecked")
     @Deprecated
     public static <T> T[] removeAllOccurences(final T[] array, final T element) {
         return (T[]) removeAll((Object) array, indexesOf(array, element));
@@ -5828,6 +5830,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
+    @SuppressWarnings("unchecked")
     public static <T> T[] removeAllOccurrences(final T[] array, final T element) {
         return (T[]) removeAll((Object) array, indexesOf(array, element));
     }
