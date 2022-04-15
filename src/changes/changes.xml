@@ -230,6 +230,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Arturo Bernal">Minor Improvement: Add final variable.try to make the code read-only #700.</action>
     <action                   type="update" dev="ggregory" due-to="Arturo Bernal">Minor Improvement: Remove redundant initializer #699.</action>
     <action                   type="update" dev="ggregory" due-to="Arturo Bernal">Use own validator ObjectUtils.anyNull to check null String input #718.</action>
+    <action                   type="update" dev="kinow" due-to="Dependabot">Bump commons-parent from 52 to 53 #885.</action>
   </release>
   <release version="3.11" date="2020-07-12" description="New features and bug fixes (Java 8).">
     <action                   type="update" dev="chtompki" due-to="Jin Xu">Refine test output for FastDateParserTest</action>
