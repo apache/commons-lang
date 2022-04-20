@@ -654,7 +654,9 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             Set<String> excludeFieldNamesSet = new HashSet<>(Arrays.asList(excludeFieldNames));
             Set<String> includeFieldNamesSet = new HashSet<>(Arrays.asList(includeFieldNames));
 
-            if (!includeFieldNamesSet.retainAll(excludeFieldNamesSet) || !includeFieldNamesSet.isEmpty()) {
+            includeFieldNamesSet.retainAll(excludeFieldNamesSet);
+
+            if (!includeFieldNamesSet.isEmpty()) {
                 throw new IllegalStateException(String.format("Fields %s set in \"includeFieldsNames\" were set in \"excludeFieldNames\" too.", includeFieldNamesSet));
             }
         }
