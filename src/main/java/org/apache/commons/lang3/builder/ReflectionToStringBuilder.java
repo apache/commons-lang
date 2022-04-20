@@ -491,7 +491,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     protected String[] excludeFieldNames;
 
     /**
-     * Field names that will be include in the output. All fields are included by default.
+     * Field names that will be included in the output. All fields are included by default.
      */
     protected String[] includeFieldNames;
 
