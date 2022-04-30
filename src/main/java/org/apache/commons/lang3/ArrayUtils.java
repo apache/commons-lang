@@ -1096,7 +1096,8 @@ public class ArrayUtils {
      * @since 2.1
      * @throws IllegalArgumentException if the array types are incompatible
      */
-    public static <T> T[] addAll(final T[] array1, @SuppressWarnings("unchecked") final T... array2) {
+    @SafeVarargs
+    public static <T> T[] addAll(final T[] array1, final T... array2) {
         if (array1 == null) {
             return clone(array2);
         }
@@ -5684,7 +5685,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static boolean[] removeAllOccurrences(final boolean[] array, final boolean element) {
-        return (boolean[]) removeAll((Object) array, indexesOf(array, element));
+        return (boolean[]) removeAll(array, indexesOf(array, element));
     }
 
     /**
@@ -5702,7 +5703,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static byte[] removeAllOccurrences(final byte[] array, final byte element) {
-        return (byte[]) removeAll((Object) array, indexesOf(array, element));
+        return (byte[]) removeAll(array, indexesOf(array, element));
     }
 
     /**
@@ -5720,7 +5721,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static char[] removeAllOccurrences(final char[] array, final char element) {
-        return (char[]) removeAll((Object) array, indexesOf(array, element));
+        return (char[]) removeAll(array, indexesOf(array, element));
     }
 
     /**
@@ -5738,7 +5739,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static double[] removeAllOccurrences(final double[] array, final double element) {
-        return (double[]) removeAll((Object) array, indexesOf(array, element));
+        return (double[]) removeAll(array, indexesOf(array, element));
     }
 
     /**
@@ -5756,7 +5757,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static float[] removeAllOccurrences(final float[] array, final float element) {
-        return (float[]) removeAll((Object) array, indexesOf(array, element));
+        return (float[]) removeAll(array, indexesOf(array, element));
     }
 
     /**
@@ -5774,7 +5775,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static int[] removeAllOccurrences(final int[] array, final int element) {
-        return (int[]) removeAll((Object) array, indexesOf(array, element));
+        return (int[]) removeAll(array, indexesOf(array, element));
     }
 
     /**
@@ -5792,7 +5793,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static long[] removeAllOccurrences(final long[] array, final long element) {
-        return (long[]) removeAll((Object) array, indexesOf(array, element));
+        return (long[]) removeAll(array, indexesOf(array, element));
     }
 
     /**
@@ -5810,7 +5811,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static short[] removeAllOccurrences(final short[] array, final short element) {
-        return (short[]) removeAll((Object) array, indexesOf(array, element));
+        return (short[]) removeAll(array, indexesOf(array, element));
     }
 
     /**
@@ -5828,8 +5829,9 @@ public class ArrayUtils {
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
+    @SuppressWarnings("unchecked")
     public static <T> T[] removeAllOccurrences(final T[] array, final T element) {
-        return (T[]) removeAll((Object) array, indexesOf(array, element));
+        return (T[]) removeAll(array, indexesOf(array, element));
     }
 
     /**
@@ -6163,7 +6165,7 @@ public class ArrayUtils {
         }
         final HashMap<Boolean, MutableInt> occurrences = new HashMap<>(2); // only two possible values here
         for (final boolean v : values) {
-            final Boolean boxed = Boolean.valueOf(v);
+            final Boolean boxed = v;
             final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
@@ -6218,7 +6220,7 @@ public class ArrayUtils {
         }
         final Map<Byte, MutableInt> occurrences = new HashMap<>(values.length);
         for (final byte v : values) {
-            final Byte boxed = Byte.valueOf(v);
+            final Byte boxed = v;
             final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
@@ -6273,7 +6275,7 @@ public class ArrayUtils {
         }
         final HashMap<Character, MutableInt> occurrences = new HashMap<>(values.length);
         for (final char v : values) {
-            final Character boxed = Character.valueOf(v);
+            final Character boxed = v;
             final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
@@ -6328,7 +6330,7 @@ public class ArrayUtils {
         }
         final HashMap<Double, MutableInt> occurrences = new HashMap<>(values.length);
         for (final double v : values) {
-            final Double boxed = Double.valueOf(v);
+            final Double boxed = v;
             final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
@@ -6383,7 +6385,7 @@ public class ArrayUtils {
         }
         final HashMap<Float, MutableInt> occurrences = new HashMap<>(values.length);
         for (final float v : values) {
-            final Float boxed = Float.valueOf(v);
+            final Float boxed = v;
             final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
@@ -6438,7 +6440,7 @@ public class ArrayUtils {
         }
         final HashMap<Integer, MutableInt> occurrences = new HashMap<>(values.length);
         for (final int v : values) {
-            final Integer boxed = Integer.valueOf(v);
+            final Integer boxed = v;
             final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
@@ -6493,7 +6495,7 @@ public class ArrayUtils {
         }
         final HashMap<Long, MutableInt> occurrences = new HashMap<>(values.length);
         for (final long v : values) {
-            final Long boxed = Long.valueOf(v);
+            final Long boxed = v;
             final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
@@ -6548,7 +6550,7 @@ public class ArrayUtils {
         }
         final HashMap<Short, MutableInt> occurrences = new HashMap<>(values.length);
         for (final short v : values) {
-            final Short boxed = Short.valueOf(v);
+            final Short boxed = v;
             final MutableInt count = occurrences.get(boxed);
             if (count == null) {
                 occurrences.put(boxed, new MutableInt(1));
@@ -9058,7 +9060,8 @@ public class ArrayUtils {
      * @return the array, not null unless a null array is passed in
      * @since  3.0
      */
-    public static <T> T[] toArray(@SuppressWarnings("unchecked") final T... items) {
+    @SafeVarargs
+    public static <T> T[] toArray(final T... items) {
         return items;
     }
 
@@ -9150,7 +9153,7 @@ public class ArrayUtils {
         if (array.length == 0) {
             return EMPTY_BYTE_OBJECT_ARRAY;
         }
-        return setAll(new Byte[array.length], i -> Byte.valueOf(array[i]));
+        return setAll(new Byte[array.length], i -> array[i]);
     }
 
     /**
@@ -9168,7 +9171,7 @@ public class ArrayUtils {
         if (array.length == 0) {
             return EMPTY_CHARACTER_OBJECT_ARRAY;
         }
-        return setAll(new Character[array.length], i -> Character.valueOf(array[i]));
+        return setAll(new Character[array.length], i -> array[i]);
      }
 
     /**
@@ -9186,7 +9189,7 @@ public class ArrayUtils {
         if (array.length == 0) {
             return EMPTY_DOUBLE_OBJECT_ARRAY;
         }
-        return setAll(new Double[array.length], i -> Double.valueOf(array[i]));
+        return setAll(new Double[array.length], i -> array[i]);
     }
 
     /**
@@ -9204,7 +9207,7 @@ public class ArrayUtils {
         if (array.length == 0) {
             return EMPTY_FLOAT_OBJECT_ARRAY;
         }
-        return setAll(new Float[array.length], i -> Float.valueOf(array[i]));
+        return setAll(new Float[array.length], i -> array[i]);
     }
 
     /**
@@ -9222,7 +9225,7 @@ public class ArrayUtils {
         if (array.length == 0) {
             return EMPTY_INTEGER_OBJECT_ARRAY;
         }
-        return setAll(new Integer[array.length], i -> Integer.valueOf(array[i]));
+        return setAll(new Integer[array.length], i -> array[i]);
     }
 
     /**
@@ -9240,7 +9243,7 @@ public class ArrayUtils {
         if (array.length == 0) {
             return EMPTY_LONG_OBJECT_ARRAY;
         }
-        return setAll(new Long[array.length], i -> Long.valueOf(array[i]));
+        return setAll(new Long[array.length], i -> array[i]);
     }
 
     /**
@@ -9258,7 +9261,7 @@ public class ArrayUtils {
         if (array.length == 0) {
             return EMPTY_SHORT_OBJECT_ARRAY;
         }
-        return setAll(new Short[array.length], i -> Short.valueOf(array[i]));
+        return setAll(new Short[array.length], i -> array[i]);
     }
 
     /**
@@ -9297,7 +9300,7 @@ public class ArrayUtils {
         final boolean[] result = new boolean[array.length];
         for (int i = 0; i < array.length; i++) {
             final Boolean b = array[i];
-            result[i] = b == null ? valueForNull : b.booleanValue();
+            result[i] = b == null ? valueForNull : b;
         }
         return result;
     }
@@ -9321,7 +9324,7 @@ public class ArrayUtils {
         }
         final byte[] result = new byte[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].byteValue();
+            result[i] = array[i];
         }
         return result;
     }
@@ -9346,7 +9349,7 @@ public class ArrayUtils {
         final byte[] result = new byte[array.length];
         for (int i = 0; i < array.length; i++) {
             final Byte b = array[i];
-            result[i] = b == null ? valueForNull : b.byteValue();
+            result[i] = b == null ? valueForNull : b;
         }
         return result;
     }
@@ -9370,7 +9373,7 @@ public class ArrayUtils {
         }
         final char[] result = new char[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].charValue();
+            result[i] = array[i];
         }
         return result;
     }
@@ -9395,7 +9398,7 @@ public class ArrayUtils {
         final char[] result = new char[array.length];
         for (int i = 0; i < array.length; i++) {
             final Character b = array[i];
-            result[i] = b == null ? valueForNull : b.charValue();
+            result[i] = b == null ? valueForNull : b;
         }
         return result;
     }
@@ -9419,7 +9422,7 @@ public class ArrayUtils {
         }
         final double[] result = new double[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].doubleValue();
+            result[i] = array[i];
         }
         return result;
     }
@@ -9444,7 +9447,7 @@ public class ArrayUtils {
         final double[] result = new double[array.length];
         for (int i = 0; i < array.length; i++) {
             final Double b = array[i];
-            result[i] = b == null ? valueForNull : b.doubleValue();
+            result[i] = b == null ? valueForNull : b;
         }
         return result;
     }
@@ -9468,7 +9471,7 @@ public class ArrayUtils {
         }
         final float[] result = new float[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].floatValue();
+            result[i] = array[i];
         }
         return result;
     }
@@ -9493,7 +9496,7 @@ public class ArrayUtils {
         final float[] result = new float[array.length];
         for (int i = 0; i < array.length; i++) {
             final Float b = array[i];
-            result[i] = b == null ? valueForNull : b.floatValue();
+            result[i] = b == null ? valueForNull : b;
         }
         return result;
     }
@@ -9517,7 +9520,7 @@ public class ArrayUtils {
         }
         final int[] result = new int[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].intValue();
+            result[i] = array[i];
         }
         return result;
     }
@@ -9542,7 +9545,7 @@ public class ArrayUtils {
         final int[] result = new int[array.length];
         for (int i = 0; i < array.length; i++) {
             final Integer b = array[i];
-            result[i] = b == null ? valueForNull : b.intValue();
+            result[i] = b == null ? valueForNull : b;
         }
         return result;
     }
@@ -9566,7 +9569,7 @@ public class ArrayUtils {
         }
         final long[] result = new long[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].longValue();
+            result[i] = array[i];
         }
         return result;
     }
@@ -9591,7 +9594,7 @@ public class ArrayUtils {
         final long[] result = new long[array.length];
         for (int i = 0; i < array.length; i++) {
             final Long b = array[i];
-            result[i] = b == null ? valueForNull : b.longValue();
+            result[i] = b == null ? valueForNull : b;
         }
         return result;
     }
@@ -9658,7 +9661,7 @@ public class ArrayUtils {
         }
         final short[] result = new short[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].shortValue();
+            result[i] = array[i];
         }
         return result;
     }
@@ -9683,7 +9686,7 @@ public class ArrayUtils {
         final short[] result = new short[array.length];
         for (int i = 0; i < array.length; i++) {
             final Short b = array[i];
-            result[i] = b == null ? valueForNull : b.shortValue();
+            result[i] = b == null ? valueForNull : b;
         }
         return result;
     }

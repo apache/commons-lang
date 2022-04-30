@@ -101,7 +101,7 @@ final class MemberUtils {
      * @return {@code true} if {@code m} is accessible
      */
     static boolean isAccessible(final Member member) {
-        return member != null && isPublic(member) && !member.isSynthetic();
+        return isPublic(member) && !member.isSynthetic();
     }
 
     /**

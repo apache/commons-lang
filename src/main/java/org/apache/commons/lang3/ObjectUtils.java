@@ -874,13 +874,11 @@ public class ObjectUtils {
         }
         final String name = object.getClass().getName();
         final String hexString = identityHashCodeHex(object);
-        final StringBuilder builder = new StringBuilder(name.length() + 1 + hexString.length());
         // @formatter:off
-        builder.append(name)
-              .append(AT_SIGN)
-              .append(hexString);
         // @formatter:on
-        return builder.toString();
+        return name +
+                AT_SIGN +
+                hexString;
     }
 
     /**
