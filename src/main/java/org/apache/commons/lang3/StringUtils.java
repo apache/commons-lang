@@ -1589,6 +1589,59 @@ public class StringUtils {
     }
 
     /**
+     * <p>Returns either the passed in String,
+     * or if the String is {@code null}, an empty String ("").</p>
+     *
+     * <pre>
+     * StringUtils.defaultString(null)  = ""
+     * StringUtils.defaultString("")    = ""
+     * StringUtils.defaultString("bat") = "bat"
+     * StringUtils.defaultString(1) = "1"
+     * StringUtils.defaultString(Integer.MIN_VALUE) = "-2147483648"
+     * </pre>
+     *
+     * @see Objects#toString(Object)
+     * @see String#valueOf(Object)
+     * @param str  the Object to check, may be null
+     * @return the passed in String, or the empty String if it
+     *  was {@code null}
+     */
+    public static String defaultString(final Object str) {
+        if(object == null)
+            return "";
+
+        return Objects.toString(object);
+    }
+
+    /**
+     * Returns either the given String, or if the String is
+     * {@code null}, {@code nullDefault}.
+     *
+     * <pre>
+     * StringUtils.defaultString(null, "NULL")  = "NULL"
+     * StringUtils.defaultString("", "NULL")    = ""
+     * StringUtils.defaultString("bat", "NULL") = "bat"
+     * StringUtils.defaultString(1, "20") = "1"
+     * StringUtils.defaultString(Integer.MIN_VALUE, "200") = "-2147483648"
+     * </pre>
+     *
+     * @see Objects#toString(Object, String)
+     * @see String#valueOf(Object)
+     * @param str  the String to check, may be null
+     * @param nullDefault  the default String to return
+     *  if the input is {@code null}, may be null
+     * @return the passed in String, or the default if it was {@code null}
+     * @deprecated Use {@link Objects#toString(Object, String)}
+     */
+    @Deprecated
+    public static String defaultString(final Object str, final String nullDefault) {
+        if(object == null)
+            return defaultString(nullDefault);
+
+        return Objects.toString(object);
+    }
+
+    /**
      * <p>Deletes all whitespaces from a String as defined by
      * {@link Character#isWhitespace(char)}.</p>
      *
