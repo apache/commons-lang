@@ -1606,7 +1606,7 @@ public class StringUtils {
      * @return the passed in String, or the empty String if it
      *  was {@code null}
      */
-    public static String defaultString(final Object str) {
+    public static String defaultString(final Object object) {
         if(object == null)
             return "";
 
@@ -1634,7 +1634,7 @@ public class StringUtils {
      * @deprecated Use {@link Objects#toString(Object, String)}
      */
     @Deprecated
-    public static String defaultString(final Object str, final String nullDefault) {
+    public static String defaultString(final Object object, final String nullDefault) {
         if(object == null)
             return defaultString(nullDefault);
 
