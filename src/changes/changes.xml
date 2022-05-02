@@ -131,6 +131,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add FutureTasks.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Memoizer(Function) and Memoizer(Function, boolean).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Consumers.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add github/codeql-action.</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess, Gary Gregory">Bump actions/cache from 2.1.4 to 3.0.2 #742, #752, #764, #833, #867.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump actions/checkout from 2 to 3 #819, #825, #859.</action>
