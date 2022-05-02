@@ -638,8 +638,8 @@
     <checkstyle.version>9.3</checkstyle.version>
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
 
-    <spotbugs.plugin.version>4.6.0.0</spotbugs.plugin.version>
-    <spotbugs.impl.version>4.6.0</spotbugs.impl.version>
+    <commons.spotbugs.plugin.version>4.6.0.0</commons.spotbugs.plugin.version>
+    <commons.spotbugs.impl.version>4.6.0</commons.spotbugs.impl.version>
     <japicmp.skip>false</japicmp.skip>
     <clirr.skip>true</clirr.skip>
 
@@ -822,12 +822,12 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>${spotbugs.plugin.version}</version>
+        <version>${commons.spotbugs.plugin.version}</version>
         <dependencies>
           <dependency>
             <groupId>com.github.spotbugs</groupId>
             <artifactId>spotbugs</artifactId>
-            <version>${spotbugs.impl.version}</version>
+            <version>${commons.spotbugs.impl.version}</version>
          </dependency>
         </dependencies>        
         <configuration>
@@ -880,7 +880,7 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>${spotbugs.plugin.version}</version>
+        <version>${commons.spotbugs.plugin.version}</version>
         <configuration>
           <excludeFilterFile>${basedir}/src/conf/spotbugs-exclude-filter.xml</excludeFilterFile>
         </configuration>
