@@ -1849,7 +1849,34 @@ class ValidateTest {
 
                 assertEquals("Cannot assign a java.lang.String to a java.util.List", ex.getMessage());
             }
-        }
+
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithNullSuperType() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.isAssignableFrom(null, String.class));
+
+                assertEquals("Cannot assign a java.lang.String to a null type", ex.getMessage());
+            }
+
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithNullType() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.isAssignableFrom(List.class, null));
+
+                assertEquals("Cannot assign a null type to a java.util.List", ex.getMessage());
+            }
+
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithNullTypes() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.isAssignableFrom(null, null));
+
+                assertEquals("Cannot assign a null type to a null type", ex.getMessage());
+            }
+}
 
         @Nested
         class WithMessage {

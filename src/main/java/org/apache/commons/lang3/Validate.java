@@ -1278,9 +1278,6 @@ public class Validate {
         }
     }
 
-    // isAssignableFrom
-    //---------------------------------------------------------------------------------
-
     /**
      * Validates that the argument can be converted to the specified class, if not, throws an exception.
      *
@@ -1299,9 +1296,9 @@ public class Validate {
      */
     public static void isAssignableFrom(final Class<?> superType, final Class<?> type) {
         // TODO when breaking BC, consider returning type
-        if (!superType.isAssignableFrom(type)) {
-            throw new IllegalArgumentException(String.format(DEFAULT_IS_ASSIGNABLE_EX_MESSAGE, type == null ? "null" : type.getName(),
-                    superType.getName()));
+        if (type == null || superType == null || !superType.isAssignableFrom(type)) {
+            throw new IllegalArgumentException(
+                String.format(DEFAULT_IS_ASSIGNABLE_EX_MESSAGE, ClassUtils.getName(type, "null type"), ClassUtils.getName(superType, "null type")));
         }
     }
 
