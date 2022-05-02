@@ -76,6 +76,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1675" type="fix" dev="ggregory" due-to="clover">Improve performance of StringUtils.join for primitives #812.</action>
     <action issue="LANG-1675" type="fix" dev="ggregory" due-to="Arturo Bernal">Fixed NPE getting Stack Trace if Throwable is null #733.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Arturo Bernal">Make Validate.isAssignableFrom() check null inputs.</action>
+    <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Fix Javadoc for Validate.isAssignableFrom().</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TriConsumer.</action>
