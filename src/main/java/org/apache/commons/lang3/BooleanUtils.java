@@ -1086,6 +1086,7 @@ public class BooleanUtils {
      * @return the result of the xor operations
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
+     * @see #xorOneHot(boolean...) One-hot implementation of XOR
      */
     public static boolean xor(final boolean... array) {
         ObjectUtils.requireNonEmpty(array, "array");
@@ -1116,10 +1117,59 @@ public class BooleanUtils {
      * @return the result of the xor operations
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
+     * @see #xorOneHot(Boolean...) One-hot implementation of XOR
      */
     public static Boolean xor(final Boolean... array) {
         ObjectUtils.requireNonEmpty(array, "array");
         return xor(ArrayUtils.toPrimitive(array)) ? Boolean.TRUE : Boolean.FALSE;
+    }
+
+    /**
+     * <p>Performs a one-hot xor on an array of booleans.</p>
+     * <p>
+     * This implementation returns true if one, and only one, of the supplied values is true.
+     * </p>
+     *
+     * @param array  an array of {@code boolean}s
+     * @return the result of the xor operations
+     * @throws NullPointerException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty.
+     * @see #xor(boolean...) Standard implementation of XOR
+     */
+    public static boolean xorOneHot(final boolean... array) {
+        ObjectUtils.requireNonEmpty(array, "array");
+
+        boolean result = false;
+        for (boolean element: array) {
+            if (element) {
+                if (result) {
+                    return false;
+                }
+                result = element;
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * <p>Performs a one-hot xor on an array of booleans.</p>
+     * <p>
+     * This implementation returns true if one, and only one, of the supplied values is true.
+     * </p>
+     * <p>
+     * Null array elements map to false, like {@code Boolean.parseBoolean(null)} and its callers return false.
+     * </p>
+     *
+     * @param array  an array of {@code boolean}s
+     * @return the result of the xor operations
+     * @throws NullPointerException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty.
+     * @see #xor(Boolean...) Standard implementation of XOR
+     */
+    public static Boolean xorOneHot(final Boolean... array) {
+        ObjectUtils.requireNonEmpty(array, "array");
+        return xorOneHot(ArrayUtils.toPrimitive(array)) ? Boolean.TRUE : Boolean.FALSE;
     }
 
     /**
