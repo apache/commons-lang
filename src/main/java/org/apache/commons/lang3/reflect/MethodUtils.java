@@ -1008,7 +1008,7 @@ public class MethodUtils {
             final Class<?> acls;
             if (interfaceIndex >= allInterfaces.size()) {
                 acls = allSuperclasses.get(superClassIndex++);
-            } else if ((superClassIndex >= allSuperclasses.size()) || (interfaceIndex < superClassIndex) || !(superClassIndex < interfaceIndex)) {
+            } else if ((superClassIndex >= allSuperclasses.size()) || !(superClassIndex < interfaceIndex)) {
                 acls = allInterfaces.get(interfaceIndex++);
             } else {
                 acls = allSuperclasses.get(superClassIndex++);

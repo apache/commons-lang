@@ -807,7 +807,6 @@ public class BooleanUtilsTest {
         assertTrue(
                 BooleanUtils.or(new boolean[] { false, true, true }),
                 "False result for (false, true, true)");
-
     }
 
     @Test
@@ -824,6 +823,20 @@ public class BooleanUtilsTest {
     public void testXor_object_nullInput() {
         assertThrows(NullPointerException.class, () -> BooleanUtils.xor((Boolean[]) null));
     }
+
+    @Test
+    public void testXor_object_validInput_1items() {
+        assertEquals(
+                true,
+                BooleanUtils.xor(new Boolean[] { Boolean.TRUE }).booleanValue(),
+                "true");
+
+        assertEquals(
+                false,
+                BooleanUtils.xor(new Boolean[] { Boolean.FALSE }).booleanValue(),
+                "false");
+    }
+
     @Test
     public void testXor_object_validInput_2items() {
         assertEquals(
@@ -941,6 +954,19 @@ public class BooleanUtilsTest {
     @Test
     public void testXor_primitive_nullInput() {
         assertThrows(NullPointerException.class, () -> BooleanUtils.xor((boolean[]) null));
+    }
+
+    @Test
+    public void testXor_primitive_validInput_1items() {
+        assertEquals(
+                true,
+                BooleanUtils.xor(new boolean[] { true }),
+                "true");
+
+        assertEquals(
+                false,
+                BooleanUtils.xor(new boolean[] { false }),
+                "false");
     }
 
     @Test
