@@ -1049,13 +1049,14 @@ public class BooleanUtilsTest {
     public void testXorOneHot_object_nullInput() {
         assertThrows(NullPointerException.class, () -> BooleanUtils.xorOneHot((Boolean[]) null));
     }
+
     @Test
-    public void testXorOneHot_object_validInput_nullItemsTreatedAsFalse() {
-        assertFalse(BooleanUtils.xorOneHot(null, null), "both null");
+    public void testXorOneHot_object_validInput_1item() {
+        assertTrue(BooleanUtils.xorOneHot(new Boolean[]{Boolean.TRUE}), "true");
 
-        assertTrue(BooleanUtils.xorOneHot(true, null), "first true");
+        assertFalse(BooleanUtils.xorOneHot(new Boolean[]{Boolean.FALSE}), "false");
 
-        assertTrue(BooleanUtils.xorOneHot(null, true), "last true");
+        assertFalse(BooleanUtils.xorOneHot(new Boolean[]{null}), "false");
     }
 
     @Test
@@ -1067,6 +1068,15 @@ public class BooleanUtilsTest {
         assertTrue(BooleanUtils.xorOneHot(new Boolean[]{true, false}), "first true");
 
         assertTrue(BooleanUtils.xorOneHot(new Boolean[]{false, true}), "last true");
+    }
+
+    @Test
+    public void testXorOneHot_object_validInput_2ItemsNullsTreatedAsFalse() {
+        assertFalse(BooleanUtils.xorOneHot(null, null), "both null");
+
+        assertTrue(BooleanUtils.xorOneHot(true, null), "first true");
+
+        assertTrue(BooleanUtils.xorOneHot(null, true), "last true");
     }
 
     @Test
@@ -1100,6 +1110,13 @@ public class BooleanUtilsTest {
     @Test
     public void testXorOneHot_primitive_nullInput() {
         assertThrows(NullPointerException.class, () -> BooleanUtils.xorOneHot((boolean[]) null));
+    }
+
+    @Test
+    public void testXorOneHot_primitive_validInput_1item() {
+        assertTrue(BooleanUtils.xorOneHot(new boolean[]{true}), "true");
+
+        assertFalse(BooleanUtils.xorOneHot(new boolean[]{false}), "false");
     }
 
     @Test
