@@ -231,21 +231,25 @@ public class CharSequenceUtilsTest {
     }
 
     @Test
-    public void testNewLastIndexOf() {
-        testNewLastIndexOfSingle("808087847-1321060740-635567660180086727-925755305", "-1321060740-635567660", 21);
-        testNewLastIndexOfSingle("", "");
-        testNewLastIndexOfSingle("1", "");
-        testNewLastIndexOfSingle("", "1");
-        testNewLastIndexOfSingle("1", "1");
-        testNewLastIndexOfSingle("11", "1");
-        testNewLastIndexOfSingle("1", "11");
+    public void testNewLastIndexOfAndIndexOf() {
+        testNewLastIndexOfAndIndexOfSingle("baabaa", "b");
+        testNewLastIndexOfAndIndexOfSingle("baabaa", "a");
+        testNewLastIndexOfAndIndexOfSingle("ab", "a");
+        testNewLastIndexOfAndIndexOfSingle("ab", "b");
+        testNewLastIndexOfAndIndexOfSingle("808087847-1321060740-635567660180086727-925755305", "-1321060740-635567660", 21);
+        testNewLastIndexOfAndIndexOfSingle("", "");
+        testNewLastIndexOfAndIndexOfSingle("1", "");
+        testNewLastIndexOfAndIndexOfSingle("", "1");
+        testNewLastIndexOfAndIndexOfSingle("1", "1");
+        testNewLastIndexOfAndIndexOfSingle("11", "1");
+        testNewLastIndexOfAndIndexOfSingle("1", "11");
 
-        testNewLastIndexOfSingle("apache", "a");
-        testNewLastIndexOfSingle("apache", "p");
-        testNewLastIndexOfSingle("apache", "e");
-        testNewLastIndexOfSingle("apache", "x");
-        testNewLastIndexOfSingle("oraoraoraora", "r");
-        testNewLastIndexOfSingle("mudamudamudamuda", "d");
+        testNewLastIndexOfAndIndexOfSingle("apache", "a");
+        testNewLastIndexOfAndIndexOfSingle("apache", "p");
+        testNewLastIndexOfAndIndexOfSingle("apache", "e");
+        testNewLastIndexOfAndIndexOfSingle("apache", "x");
+        testNewLastIndexOfAndIndexOfSingle("oraoraoraora", "r");
+        testNewLastIndexOfAndIndexOfSingle("mudamudamudamuda", "d");
 
         final Random random = new Random();
         final StringBuilder seg = new StringBuilder();
@@ -253,14 +257,14 @@ public class CharSequenceUtilsTest {
             seg.append(random.nextInt());
         }
         StringBuilder original = new StringBuilder(seg);
-        testNewLastIndexOfSingle(original, seg);
+        testNewLastIndexOfAndIndexOfSingle(original, seg);
         for (int i = 0; i < 100; i++) {
             if (random.nextDouble() < 0.5) {
                 original.append(random.nextInt() % 10);
             } else {
                 original = new StringBuilder().append(String.valueOf(random.nextInt() % 100)).append(original);
             }
-            testNewLastIndexOfSingle(original, seg);
+            testNewLastIndexOfAndIndexOfSingle(original, seg);
         }
     }
 
@@ -283,25 +287,30 @@ public class CharSequenceUtilsTest {
         );
     }
 
-    private void testNewLastIndexOfSingle(final CharSequence a, final CharSequence b) {
+    private void testNewLastIndexOfAndIndexOfSingle(final CharSequence a, final CharSequence b) {
         final int maxa = Math.max(a.length(), b.length());
         for (int i = -maxa - 10; i <= maxa + 10; i++) {
-            testNewLastIndexOfSingle(a, b, i);
+            testNewLastIndexOfAndIndexOfSingle(a, b, i);
         }
-        testNewLastIndexOfSingle(a, b, Integer.MIN_VALUE);
-        testNewLastIndexOfSingle(a, b, Integer.MAX_VALUE);
+        testNewLastIndexOfAndIndexOfSingle(a, b, Integer.MIN_VALUE);
+        testNewLastIndexOfAndIndexOfSingle(a, b, Integer.MAX_VALUE);
     }
 
-    private void testNewLastIndexOfSingle(final CharSequence a, final CharSequence b, final int start) {
-        testNewLastIndexOfSingleSingle(a, b, start);
-        testNewLastIndexOfSingleSingle(b, a, start);
+    private void testNewLastIndexOfAndIndexOfSingle(final CharSequence a, final CharSequence b, final int start) {
+        testNewLastIndexOfAndIndexOfSingleSingle(a, b, start);
+        testNewLastIndexOfAndIndexOfSingleSingle(b, a, start);
     }
 
-    private void testNewLastIndexOfSingleSingle(final CharSequence a, final CharSequence b, final int start) {
+    private void testNewLastIndexOfAndIndexOfSingleSingle(final CharSequence a, final CharSequence b, final int start) {
         assertEquals(
                 a.toString().lastIndexOf(b.toString(), start),
                 CharSequenceUtils.lastIndexOf(new WrapperString(a.toString()), new WrapperString(b.toString()), start),
-                "testNewLastIndexOf fails! original : " + a + " seg : " + b + " start : " + start
+                "testNewLastIndexOf fails! original : \"" + a + "\" seg : \"" + b + "\" start : " + start
+        );
+        assertEquals(
+                a.toString().indexOf(b.toString(), start),
+                CharSequenceUtils.indexOf(new WrapperString(a.toString()), new WrapperString(b.toString()), start),
+                "testNewIndexOf fails! original : \"" + a + "\" seg : \"" + b + "\" start : " + start
         );
     }
 }
