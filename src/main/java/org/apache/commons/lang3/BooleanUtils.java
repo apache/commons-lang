@@ -1075,17 +1075,26 @@ public class BooleanUtils {
 
     /**
      * <p>Performs an xor on a set of booleans.</p>
+     * <p>
+     *   This behaves like an XOR gate;
+     *   it returns true if the number of true values is odd,
+     *   and false if the number of true values is zero or even.
+     * </p>
      *
      * <pre>
-     *   BooleanUtils.xor(true, true)   = false
-     *   BooleanUtils.xor(false, false) = false
-     *   BooleanUtils.xor(true, false)  = true
+     *   BooleanUtils.xor(true, true)          = false
+     *   BooleanUtils.xor(false, false)        = false
+     *   BooleanUtils.xor(true, false)         = true
+     *   BooleanUtils.xor(true, false, false)  = true
+     *   BooleanUtils.xor(true, true, true)       = true
+     *   BooleanUtils.xor(true, true, true, true) = false
      * </pre>
      *
      * @param array  an array of {@code boolean}s
-     * @return the result of the xor operations
+     * @return true if the number of true values in the array is odd; otherwise returns false.
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
+     * @see #xorOneHot(boolean...) One-hot implementation of XOR
      */
     public static boolean xor(final boolean... array) {
         ObjectUtils.requireNonEmpty(array, "array");
@@ -1100,26 +1109,84 @@ public class BooleanUtils {
 
     /**
      * <p>Performs an xor on an array of Booleans.</p>
+     * <p>
+     *   This behaves like an XOR gate;
+     *   it returns true if the number of true values is odd,
+     *   and false if the number of true values is zero or even.
+     * </p>
+     *
      * <pre>
-     *   BooleanUtils.xor(Boolean.TRUE, Boolean.TRUE)                 = Boolean.FALSE
-     *   BooleanUtils.xor(Boolean.FALSE, Boolean.FALSE)               = Boolean.FALSE
-     *   BooleanUtils.xor(Boolean.TRUE, Boolean.FALSE)                = Boolean.TRUE
-     *   BooleanUtils.xor(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE) = Boolean.TRUE
-     *   BooleanUtils.xor(Boolean.FALSE, null)                        = Boolean.FALSE
-     *   BooleanUtils.xor(Boolean.TRUE, null)                         = Boolean.TRUE
+     *   BooleanUtils.xor(Boolean.TRUE, Boolean.TRUE)                  = Boolean.FALSE
+     *   BooleanUtils.xor(Boolean.FALSE, Boolean.FALSE)                = Boolean.FALSE
+     *   BooleanUtils.xor(Boolean.TRUE, Boolean.FALSE)                 = Boolean.TRUE
+     *   BooleanUtils.xor(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE) = Boolean.FALSE
+     *   BooleanUtils.xor(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE)  = Boolean.TRUE
+     *   BooleanUtils.xor(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE)   = Boolean.FALSE
+     *   BooleanUtils.xor(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE)    = Boolean.TRUE
+     *   BooleanUtils.xor(Boolean.FALSE, null)                         = Boolean.FALSE
+     *   BooleanUtils.xor(Boolean.TRUE, null)                          = Boolean.TRUE
      * </pre>
      * <p>
      * Null array elements map to false, like {@code Boolean.parseBoolean(null)} and its callers return false.
      * </p>
      *
      * @param array  an array of {@code Boolean}s
-     * @return the result of the xor operations
+     * @return true if the number of {@code Boolean.TRUE} values in the array is odd; otherwise returns false.
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
+     * @see #xorOneHot(Boolean...) One-hot implementation of XOR
      */
     public static Boolean xor(final Boolean... array) {
         ObjectUtils.requireNonEmpty(array, "array");
         return xor(ArrayUtils.toPrimitive(array)) ? Boolean.TRUE : Boolean.FALSE;
+    }
+
+    /**
+     * <p>Performs a one-hot xor on an array of booleans.</p>
+     * <p>
+     * This implementation returns true if one, and only one, of the supplied values is true.
+     * </p>
+     *
+     * @param array  an array of {@code boolean}s
+     * @return the result of the xor operations
+     * @throws NullPointerException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty.
+     * @see #xor(boolean...) Standard implementation of XOR
+     */
+    public static boolean xorOneHot(final boolean... array) {
+        ObjectUtils.requireNonEmpty(array, "array");
+
+        boolean result = false;
+        for (boolean element: array) {
+            if (element) {
+                if (result) {
+                    return false;
+                }
+                result = element;
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * <p>Performs a one-hot xor on an array of booleans.</p>
+     * <p>
+     * This implementation returns true if one, and only one, of the supplied values is true.
+     * </p>
+     * <p>
+     * Null array elements map to false, like {@code Boolean.parseBoolean(null)} and its callers return false.
+     * </p>
+     *
+     * @param array  an array of {@code boolean}s
+     * @return the result of the xor operations
+     * @throws NullPointerException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty.
+     * @see #xor(Boolean...) Standard implementation of XOR
+     */
+    public static Boolean xorOneHot(final Boolean... array) {
+        ObjectUtils.requireNonEmpty(array, "array");
+        return xorOneHot(ArrayUtils.toPrimitive(array)) ? Boolean.TRUE : Boolean.FALSE;
     }
 
     /**

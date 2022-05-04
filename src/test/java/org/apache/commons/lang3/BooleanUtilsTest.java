@@ -1035,4 +1035,121 @@ public class BooleanUtilsTest {
                 "true ^ true ^ true");
     }
 
+    @Test
+    public void testXorOneHot_object_emptyInput() {
+        assertThrows(IllegalArgumentException.class, () -> BooleanUtils.xorOneHot(new Boolean[] {}));
+    }
+
+    @Test
+    public void testXorOneHot_object_nullElementInput() {
+        assertEquals(Boolean.FALSE, BooleanUtils.xorOneHot(new Boolean[] {null}));
+    }
+
+    @Test
+    public void testXorOneHot_object_nullInput() {
+        assertThrows(NullPointerException.class, () -> BooleanUtils.xorOneHot((Boolean[]) null));
+    }
+
+    @Test
+    public void testXorOneHot_object_validInput_1item() {
+        assertTrue(BooleanUtils.xorOneHot(new Boolean[]{Boolean.TRUE}), "true");
+
+        assertFalse(BooleanUtils.xorOneHot(new Boolean[]{Boolean.FALSE}), "false");
+
+        assertFalse(BooleanUtils.xorOneHot(new Boolean[]{null}), "false");
+    }
+
+    @Test
+    public void testXorOneHot_object_validInput_2items() {
+        assertFalse(BooleanUtils.xorOneHot(new Boolean[]{true, true}), "both true");
+
+        assertFalse(BooleanUtils.xorOneHot(new Boolean[]{false, false}), "both false");
+
+        assertTrue(BooleanUtils.xorOneHot(new Boolean[]{true, false}), "first true");
+
+        assertTrue(BooleanUtils.xorOneHot(new Boolean[]{false, true}), "last true");
+    }
+
+    @Test
+    public void testXorOneHot_object_validInput_2ItemsNullsTreatedAsFalse() {
+        assertFalse(BooleanUtils.xorOneHot(null, null), "both null");
+
+        assertTrue(BooleanUtils.xorOneHot(true, null), "first true");
+
+        assertTrue(BooleanUtils.xorOneHot(null, true), "last true");
+    }
+
+    @Test
+    public void testXorOneHot_object_validInput_3items() {
+        // none true
+        assertFalse(BooleanUtils.xorOneHot(new Boolean[]{false, false, false}), "all false");
+
+        // one true
+        assertTrue(BooleanUtils.xorOneHot(new Boolean[]{true, false, false}), "first true");
+
+        assertTrue(BooleanUtils.xorOneHot(new Boolean[]{false, true, false}), "middle true");
+
+        assertTrue(BooleanUtils.xorOneHot(new Boolean[]{false, false, true}), "last true");
+
+        // two true
+        assertFalse(BooleanUtils.xorOneHot(new Boolean[]{false, true, true}), "first false");
+
+        assertFalse(BooleanUtils.xorOneHot(new Boolean[]{true, false, true}), "middle false");
+
+        assertFalse(BooleanUtils.xorOneHot(new Boolean[]{true, true, false}), "last false");
+
+        // three true
+        assertFalse(BooleanUtils.xorOneHot(new Boolean[]{true, true, true}), "all true");
+    }
+
+    @Test
+    public void testXorOneHot_primitive_emptyInput() {
+        assertThrows(IllegalArgumentException.class, () -> BooleanUtils.xorOneHot(new boolean[] {}));
+    }
+
+    @Test
+    public void testXorOneHot_primitive_nullInput() {
+        assertThrows(NullPointerException.class, () -> BooleanUtils.xorOneHot((boolean[]) null));
+    }
+
+    @Test
+    public void testXorOneHot_primitive_validInput_1item() {
+        assertTrue(BooleanUtils.xorOneHot(new boolean[]{true}), "true");
+
+        assertFalse(BooleanUtils.xorOneHot(new boolean[]{false}), "false");
+    }
+
+    @Test
+    public void testXorOneHot_primitive_validInput_2items() {
+        assertFalse(BooleanUtils.xorOneHot(new boolean[]{true, true}), "both true");
+
+        assertFalse(BooleanUtils.xorOneHot(new boolean[]{false, false}), "both false");
+
+        assertTrue(BooleanUtils.xorOneHot(new boolean[]{true, false}), "first true");
+
+        assertTrue(BooleanUtils.xorOneHot(new boolean[]{false, true}), "last true");
+    }
+
+    @Test
+    public void testXorOneHot_primitive_validInput_3items() {
+        // none true
+        assertFalse(BooleanUtils.xorOneHot(new boolean[]{false, false, false}), "all false");
+
+        // one true
+        assertTrue(BooleanUtils.xorOneHot(new boolean[]{true, false, false}), "first true");
+
+        assertTrue(BooleanUtils.xorOneHot(new boolean[]{false, true, false}), "middle true");
+
+        assertTrue(BooleanUtils.xorOneHot(new boolean[]{false, false, true}), "last true");
+
+        // two true
+        assertFalse(BooleanUtils.xorOneHot(new boolean[]{false, true, true}), "first false");
+
+        assertFalse(BooleanUtils.xorOneHot(new boolean[]{true, false, true}), "middle false");
+
+        assertFalse(BooleanUtils.xorOneHot(new boolean[]{true, true, false}), "last false");
+
+        // three true
+        assertFalse(BooleanUtils.xorOneHot(new boolean[]{true, true, true}), "all true");
+    }
 }
