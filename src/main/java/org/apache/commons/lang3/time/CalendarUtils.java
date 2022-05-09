@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.time;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -68,5 +69,14 @@ public class CalendarUtils {
      */
     public int getYear() {
         return calendar.get(Calendar.YEAR);
+    }
+
+    /**
+     * Creates a LocalDate from a Calendar
+     *
+     * @return a LocalDate
+     */
+    public LocalDate toLocalDate() {
+        return LocalDate.of(getYear(), getMonth()+1, getDayOfMonth());
     }
 }

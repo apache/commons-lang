@@ -19,7 +19,11 @@ package org.apache.commons.lang3.time;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,4 +44,12 @@ public class CalendarUtilsTest {
         assertEquals(Calendar.getInstance().get(Calendar.YEAR), CalendarUtils.INSTANCE.getYear());
     }
 
+    @Test
+    public void testToLocalDate() {
+        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
+        calendar.setTimeInMillis(-27078001200000L);
+        assertEquals(LocalDate.of(1111, Month.DECEMBER, 1), new CalendarUtils(calendar).toLocalDate());
+        calendar.setTimeInMillis(1614700215000L);
+        assertEquals(LocalDate.of(2021, Month.MARCH, 2), new CalendarUtils(calendar).toLocalDate());
+    }
 }
