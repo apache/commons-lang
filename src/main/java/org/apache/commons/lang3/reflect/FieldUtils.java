@@ -36,7 +36,7 @@ import org.apache.commons.lang3.Validate;
  * <p>
  * The ability is provided to break the scoping restrictions coded by the programmer. This can allow fields to be
  * changed that shouldn't be. This facility should be used with care.
- *
+ * </p>
  * @since 2.5
  */
 public class FieldUtils {
