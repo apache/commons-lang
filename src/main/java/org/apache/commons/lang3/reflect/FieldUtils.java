@@ -62,9 +62,7 @@ public class FieldUtils {
      *             if the class is {@code null}, or the field name is blank or empty
      */
     public static Field getField(final Class<?> cls, final String fieldName) {
-        final Field field = getField(cls, fieldName, false);
-        MemberUtils.setAccessibleWorkaround(field);
-        return field;
+        return MemberUtils.setAccessibleWorkaround(getField(cls, fieldName, false));
     }
 
     /**

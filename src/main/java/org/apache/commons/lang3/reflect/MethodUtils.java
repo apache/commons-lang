@@ -667,9 +667,7 @@ public class MethodUtils {
     public static Method getMatchingAccessibleMethod(final Class<?> cls,
             final String methodName, final Class<?>... parameterTypes) {
         try {
-            final Method method = cls.getMethod(methodName, parameterTypes);
-            MemberUtils.setAccessibleWorkaround(method);
-            return method;
+            return MemberUtils.setAccessibleWorkaround(cls.getMethod(methodName, parameterTypes));
         } catch (final NoSuchMethodException e) { // NOPMD - Swallow the exception
         }
         // search through all methods
