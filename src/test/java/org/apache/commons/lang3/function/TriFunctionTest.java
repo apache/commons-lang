@@ -26,7 +26,7 @@ import java.util.function.Function;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests {@link TriConsumer}.
+ * Tests {@link TriFunction}.
  */
 public class TriFunctionTest {
 

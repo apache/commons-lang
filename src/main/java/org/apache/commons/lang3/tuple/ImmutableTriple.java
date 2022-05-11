@@ -80,7 +80,6 @@ public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
      * @return an immutable triple of nulls.
      * @since 3.6
      */
-    @SuppressWarnings("unchecked")
     public static <L, M, R> ImmutableTriple<L, M, R> nullTriple() {
         return NULL;
     }

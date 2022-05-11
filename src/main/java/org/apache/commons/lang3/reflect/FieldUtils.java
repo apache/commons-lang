@@ -36,7 +36,7 @@ import org.apache.commons.lang3.Validate;
  * <p>
  * The ability is provided to break the scoping restrictions coded by the programmer. This can allow fields to be
  * changed that shouldn't be. This facility should be used with care.
- *
+ * </p>
  * @since 2.5
  */
 public class FieldUtils {
@@ -62,9 +62,7 @@ public class FieldUtils {
      *             if the class is {@code null}, or the field name is blank or empty
      */
     public static Field getField(final Class<?> cls, final String fieldName) {
-        final Field field = getField(cls, fieldName, false);
-        MemberUtils.setAccessibleWorkaround(field);
-        return field;
+        return MemberUtils.setAccessibleWorkaround(getField(cls, fieldName, false));
     }
 
     /**
