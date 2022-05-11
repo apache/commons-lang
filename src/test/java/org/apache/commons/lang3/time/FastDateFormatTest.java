@@ -26,6 +26,9 @@ import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -48,6 +51,9 @@ public class FastDateFormatTest {
     private static final int NTHREADS = 10;
 
     private static final int NROUNDS = 10000;
+
+    final Locale FINNISH = Locale.forLanguageTag("fi");
+    final Locale HUNGARIAN = Locale.forLanguageTag("hu");
 
     private AtomicLongArray measureTime(final Format printer, final Format parser) throws InterruptedException {
         final ExecutorService pool = Executors.newFixedThreadPool(NTHREADS);
@@ -318,5 +324,37 @@ public class FastDateFormatTest {
 
         assertEquals(FastDateFormat.getTimeInstance(FastDateFormat.LONG),
                 FastDateFormat.getTimeInstance(FastDateFormat.LONG, TimeZone.getDefault(), Locale.getDefault()));
+    }
+
+    @Test
+    public void testStandaloneShortMonthForm() {
+        final TimeZone utc = FastTimeZone.getGmtTimeZone();
+        Instant testInstant = LocalDate.of(1970, 9, 15).atStartOfDay(ZoneId.of("UTC")).toInstant();
+        final Date date = Date.from(testInstant);
+
+        String dateAsString = FastDateFormat.getInstance("yyyy-LLL-dd", utc, Locale.GERMAN).format(date);
+        assertEquals("1970-Sep-15", dateAsString);
+
+        dateAsString = FastDateFormat.getInstance("yyyy-LLL-dd", utc, FINNISH).format(date);
+        assertEquals("1970-syys-15", dateAsString);
+
+        dateAsString = FastDateFormat.getInstance("yyyy-LLL-dd", utc, HUNGARIAN).format(date);
+        assertEquals("1970-szept.-15", dateAsString);
+    }
+
+    @Test
+    public void testStandaloneLongMonthForm() {
+        final TimeZone utc = FastTimeZone.getGmtTimeZone();
+        Instant testInstant = LocalDate.of(1970, 9, 15).atStartOfDay(ZoneId.of("UTC")).toInstant();
+        final Date date = Date.from(testInstant);
+
+        String dateAsString = FastDateFormat.getInstance("yyyy-LLLL-dd", utc, Locale.GERMAN).format(date);
+        assertEquals("1970-September-15", dateAsString);
+
+        dateAsString = FastDateFormat.getInstance("yyyy-LLLL-dd", utc, FINNISH).format(date);
+        assertEquals("1970-syyskuu-15", dateAsString);
+
+        dateAsString = FastDateFormat.getInstance("yyyy-LLLL-dd", utc, HUNGARIAN).format(date);
+        assertEquals("1970-szeptember-15", dateAsString);
     }
 }
