@@ -1152,5 +1152,4 @@ public class BooleanUtilsTest {
         // three true
         assertFalse(BooleanUtils.xorOneHot(new boolean[]{true, true, true}), "all true");
     }
-    
 }
