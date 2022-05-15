@@ -1860,9 +1860,9 @@ public class DateUtils {
         // Unfortunately standalone month names are not available in DateFormatSymbols,
         // so we have to extract them.
         final Calendar calendar = Calendar.getInstance(locale);
-        Map<String, Integer> displayNames = calendar.getDisplayNames(Calendar.MONTH, style, locale);
+        final Map<String, Integer> displayNames = calendar.getDisplayNames(Calendar.MONTH, style, locale);
         final String[] monthNames = new String[displayNames.size()];
-        for (Map.Entry<String, Integer> entry: displayNames.entrySet()) {
+        for (final Map.Entry<String, Integer> entry: displayNames.entrySet()) {
           monthNames[entry.getValue()] = entry.getKey();
         }
         return monthNames;

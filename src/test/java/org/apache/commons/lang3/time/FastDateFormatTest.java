@@ -329,7 +329,7 @@ public class FastDateFormatTest {
     @Test
     public void testStandaloneShortMonthForm() {
         final TimeZone utc = FastTimeZone.getGmtTimeZone();
-        Instant testInstant = LocalDate.of(1970, 9, 15).atStartOfDay(ZoneId.of("UTC")).toInstant();
+        final Instant testInstant = LocalDate.of(1970, 9, 15).atStartOfDay(ZoneId.of("UTC")).toInstant();
         final Date date = Date.from(testInstant);
 
         String dateAsString = FastDateFormat.getInstance("yyyy-LLL-dd", utc, Locale.GERMAN).format(date);
@@ -345,7 +345,7 @@ public class FastDateFormatTest {
     @Test
     public void testStandaloneLongMonthForm() {
         final TimeZone utc = FastTimeZone.getGmtTimeZone();
-        Instant testInstant = LocalDate.of(1970, 9, 15).atStartOfDay(ZoneId.of("UTC")).toInstant();
+        final Instant testInstant = LocalDate.of(1970, 9, 15).atStartOfDay(ZoneId.of("UTC")).toInstant();
         final Date date = Date.from(testInstant);
 
         String dateAsString = FastDateFormat.getInstance("yyyy-LLLL-dd", utc, Locale.GERMAN).format(date);
