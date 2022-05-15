@@ -121,23 +121,23 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * The pattern.
      */
-    private final String mPattern;
+    private final String pattern;
     /**
      * The time zone.
      */
-    private final TimeZone mTimeZone;
+    private final TimeZone timeZone;
     /**
      * The locale.
      */
-    private final Locale mLocale;
+    private final Locale locale;
     /**
      * The parsed rules.
      */
-    private transient Rule[] mRules;
+    private transient Rule[] rules;
     /**
      * The estimated maximum length.
      */
-    private transient int mMaxLengthEstimate;
+    private transient int maxLengthEstimate;
 
     // Constructor
     /**
@@ -151,10 +151,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @throws NullPointerException if pattern, timeZone, or locale is null.
      */
     protected FastDatePrinter(final String pattern, final TimeZone timeZone, final Locale locale) {
-        mPattern = pattern;
-        mTimeZone = timeZone;
-        mLocale = LocaleUtils.toLocale(locale);
-
+        this.pattern = pattern;
+        this.timeZone = timeZone;
+        this.locale = LocaleUtils.toLocale(locale);
         init();
     }
 
@@ -163,14 +162,14 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     private void init() {
         final List<Rule> rulesList = parsePattern();
-        mRules = rulesList.toArray(EMPTY_RULE_ARRAY);
+        rules = rulesList.toArray(EMPTY_RULE_ARRAY);
 
         int len = 0;
-        for (int i=mRules.length; --i >= 0; ) {
-            len += mRules[i].estimateLength();
+        for (int i=rules.length; --i >= 0; ) {
+            len += rules[i].estimateLength();
         }
 
-        mMaxLengthEstimate = len;
+        maxLengthEstimate = len;
     }
 
     // Parse the pattern
@@ -181,7 +180,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @throws IllegalArgumentException if pattern is invalid
      */
     protected List<Rule> parsePattern() {
-        final DateFormatSymbols symbols = new DateFormatSymbols(mLocale);
+        final DateFormatSymbols symbols = new DateFormatSymbols(locale);
         final List<Rule> rules = new ArrayList<>();
 
         final String[] ERAs = symbols.getEras();
@@ -191,12 +190,12 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         final String[] shortWeekdays = symbols.getShortWeekdays();
         final String[] AmPmStrings = symbols.getAmPmStrings();
 
-        final int length = mPattern.length();
+        final int length = pattern.length();
         final int[] indexRef = new int[1];
 
         for (int i = 0; i < length; i++) {
             indexRef[0] = i;
-            final String token = parseToken(mPattern, indexRef);
+            final String token = parseToken(pattern, indexRef);
             i = indexRef[0];
 
             final int tokenLen = token.length();
@@ -235,9 +234,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 break;
             case 'L': // month in year (text and number)
                 if (tokenLen >= 4) {
-                    rule = new TextField(Calendar.MONTH, CalendarUtils.getInstance(mLocale).getStandaloneLongMonthNames());
+                    rule = new TextField(Calendar.MONTH, CalendarUtils.getInstance(locale).getStandaloneLongMonthNames());
                 } else if (tokenLen == 3) {
-                    rule = new TextField(Calendar.MONTH, CalendarUtils.getInstance(mLocale).getStandaloneShortMonthNames());
+                    rule = new TextField(Calendar.MONTH, CalendarUtils.getInstance(locale).getStandaloneShortMonthNames());
                 } else if (tokenLen == 2) {
                     rule = TwoDigitMonthField.INSTANCE;
                 } else {
@@ -294,9 +293,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 break;
             case 'z': // time zone (text)
                 if (tokenLen >= 4) {
-                    rule = new TimeZoneNameRule(mTimeZone, mLocale, TimeZone.LONG);
+                    rule = new TimeZoneNameRule(timeZone, locale, TimeZone.LONG);
                 } else {
-                    rule = new TimeZoneNameRule(mTimeZone, mLocale, TimeZone.SHORT);
+                    rule = new TimeZoneNameRule(timeZone, locale, TimeZone.SHORT);
                 }
                 break;
             case 'Z': // time zone (value)
@@ -465,7 +464,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @return a String representation of the given Calendar.
      */
     private String applyRulesToString(final Calendar c) {
-        return applyRules(c, new StringBuilder(mMaxLengthEstimate)).toString();
+        return applyRules(c, new StringBuilder(maxLengthEstimate)).toString();
     }
 
     /**
@@ -473,7 +472,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @return a new Calendar instance.
      */
     private Calendar newCalendar() {
-        return Calendar.getInstance(mTimeZone, mLocale);
+        return Calendar.getInstance(timeZone, locale);
     }
 
     /* (non-Javadoc)
@@ -491,7 +490,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public String format(final Calendar calendar) {
-        return format(calendar, new StringBuilder(mMaxLengthEstimate)).toString();
+        return format(calendar, new StringBuilder(maxLengthEstimate)).toString();
     }
 
     /* (non-Javadoc)
@@ -549,9 +548,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     @Override
     public <B extends Appendable> B format(Calendar calendar, final B buf) {
         // do not pass in calendar directly, this will cause TimeZone of FastDatePrinter to be ignored
-        if (!calendar.getTimeZone().equals(mTimeZone)) {
+        if (!calendar.getTimeZone().equals(timeZone)) {
             calendar = (Calendar) calendar.clone();
-            calendar.setTimeZone(mTimeZone);
+            calendar.setTimeZone(timeZone);
         }
         return applyRules(calendar, buf);
     }
@@ -582,7 +581,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     private <B extends Appendable> B applyRules(final Calendar calendar, final B buf) {
         try {
-            for (final Rule rule : mRules) {
+            for (final Rule rule : rules) {
                 rule.appendTo(buf, calendar);
             }
         } catch (final IOException ioe) {
@@ -597,7 +596,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public String getPattern() {
-        return mPattern;
+        return pattern;
     }
 
     /* (non-Javadoc)
@@ -605,7 +604,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public TimeZone getTimeZone() {
-        return mTimeZone;
+        return timeZone;
     }
 
     /* (non-Javadoc)
@@ -613,7 +612,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public Locale getLocale() {
-        return mLocale;
+        return locale;
     }
 
     /**
@@ -626,7 +625,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @return the maximum formatted length
      */
     public int getMaxLengthEstimate() {
-        return mMaxLengthEstimate;
+        return maxLengthEstimate;
     }
 
     // Basics
@@ -642,9 +641,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             return false;
         }
         final FastDatePrinter other = (FastDatePrinter) obj;
-        return mPattern.equals(other.mPattern)
-            && mTimeZone.equals(other.mTimeZone)
-            && mLocale.equals(other.mLocale);
+        return pattern.equals(other.pattern)
+            && timeZone.equals(other.timeZone)
+            && locale.equals(other.locale);
     }
 
     /**
@@ -654,7 +653,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public int hashCode() {
-        return mPattern.hashCode() + 13 * (mTimeZone.hashCode() + 13 * mLocale.hashCode());
+        return pattern.hashCode() + 13 * (timeZone.hashCode() + 13 * locale.hashCode());
     }
 
     /**
@@ -664,7 +663,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public String toString() {
-        return "FastDatePrinter[" + mPattern + "," + mLocale + "," + mTimeZone.getID() + "]";
+        return "FastDatePrinter[" + pattern + "," + locale + "," + timeZone.getID() + "]";
     }
 
     // Serializing
