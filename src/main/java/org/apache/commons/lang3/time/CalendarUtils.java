@@ -95,15 +95,12 @@ public class CalendarUtils {
     String[] getMonthDisplayNames(final int style) {
         // Unfortunately standalone month names are not available in DateFormatSymbols,
         // so we have to extract them.
-        final Calendar calendar = Calendar.getInstance(locale);
         final Map<String, Integer> displayNames = calendar.getDisplayNames(Calendar.MONTH, style, locale);
         if (displayNames == null) {
             return null;
         }
         final String[] monthNames = new String[displayNames.size()];
-        for (final Map.Entry<String, Integer> entry: displayNames.entrySet()) {
-          monthNames[entry.getValue()] = entry.getKey();
-        }
+        displayNames.forEach((k, v) -> monthNames[v] = k);
         return monthNames;
     }
 
