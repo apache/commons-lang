@@ -235,9 +235,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 break;
             case 'L': // month in year (text and number)
                 if (tokenLen >= 4) {
-                    rule = new TextField(Calendar.MONTH, DateUtils.getStandaloneLongMonths(mLocale));
+                    rule = new TextField(Calendar.MONTH, CalendarUtils.getInstance(mLocale).getStandaloneLongMonthNames());
                 } else if (tokenLen == 3) {
-                    rule = new TextField(Calendar.MONTH, DateUtils.getStandaloneShortMonths(mLocale));
+                    rule = new TextField(Calendar.MONTH, CalendarUtils.getInstance(mLocale).getStandaloneShortMonthNames());
                 } else if (tokenLen == 2) {
                     rule = TwoDigitMonthField.INSTANCE;
                 } else {

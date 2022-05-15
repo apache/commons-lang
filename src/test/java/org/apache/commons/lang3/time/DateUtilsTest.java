@@ -1695,40 +1695,5 @@ public class DateUtilsTest {
         }
     }
 
-    @Test
-    public void testGetStandaloneLongMonthNames() {
-        final String[] monthNames = DateUtils.getStandaloneLongMonths(Locale.GERMAN);
-        assertEquals(12, monthNames.length);
-        assertEquals("Januar", monthNames[0]);
-        assertEquals("Februar", monthNames[1]);
-        assertEquals("M\u00e4rz", monthNames[2]);
-        assertEquals("April", monthNames[3]);
-        assertEquals("Mai", monthNames[4]);
-        assertEquals("Juni", monthNames[5]);
-        assertEquals("Juli", monthNames[6]);
-        assertEquals("August", monthNames[7]);
-        assertEquals("September", monthNames[8]);
-        assertEquals("Oktober", monthNames[9]);
-        assertEquals("November", monthNames[10]);
-        assertEquals("Dezember", monthNames[11]);
-    }
-
-    @Test
-    public void testGetStandaloneShortMonthNames() {
-        final String[] monthNames = DateUtils.getStandaloneShortMonths(Locale.GERMAN);
-        assertEquals(12, monthNames.length);
-        assertEquals("Jan", monthNames[0]);
-        assertEquals("Feb", monthNames[1]);
-        assertEquals("M\u00e4r", monthNames[2]);
-        assertEquals("Apr", monthNames[3]);
-        assertEquals("Mai", monthNames[4]);
-        assertEquals("Jun", monthNames[5]);
-        assertEquals("Jul", monthNames[6]);
-        assertEquals("Aug", monthNames[7]);
-        assertEquals("Sep", monthNames[8]);
-        assertEquals("Okt", monthNames[9]);
-        assertEquals("Nov", monthNames[10]);
-        assertEquals("Dez", monthNames[11]);
-    }
 }
 

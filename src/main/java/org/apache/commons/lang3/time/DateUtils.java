@@ -22,7 +22,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
@@ -1830,42 +1829,6 @@ public class DateUtils {
         public void remove() {
             throw new UnsupportedOperationException();
         }
-    }
-
-    /**
-     * Gets full standalone month names as used in "LLLL" date formatting.
-     * @param locale Locale
-     * @return Long names of months
-     */
-    static String[] getStandaloneLongMonths(final Locale locale) {
-        return getMonthNames(locale, Calendar.LONG_STANDALONE);
-    }
-
-    /**
-     * Gets short standalone month names as used in "LLLL" date formatting.
-     * @param locale Locale
-     * @return Short names of months
-     */
-    static String[] getStandaloneShortMonths(final Locale locale) {
-        return getMonthNames(locale, Calendar.SHORT_STANDALONE);
-    }
-
-    /**
-     * Gets month names in the requested style.
-     * @param locale Locale
-     * @param style Must be a valid {@link Calendar#getDisplayNames(int, int, Locale)} month style.
-     * @return Styled names of months
-     */
-    private static String[] getMonthNames(final Locale locale, final int style) {
-        // Unfortunately standalone month names are not available in DateFormatSymbols,
-        // so we have to extract them.
-        final Calendar calendar = Calendar.getInstance(locale);
-        final Map<String, Integer> displayNames = calendar.getDisplayNames(Calendar.MONTH, style, locale);
-        final String[] monthNames = new String[displayNames.size()];
-        for (final Map.Entry<String, Integer> entry: displayNames.entrySet()) {
-          monthNames[entry.getValue()] = entry.getKey();
-        }
-        return monthNames;
     }
 
 }
