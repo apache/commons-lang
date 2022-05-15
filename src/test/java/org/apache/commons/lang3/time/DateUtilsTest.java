@@ -1694,5 +1694,43 @@ public class DateUtilsTest {
             now.add(Calendar.DATE, 1);
         }
     }
+
+    @Test
+    public void testGetStandaloneLongMonthNames() {
+        Locale testLocale = Locale.GERMAN;
+        String[] standaloneShortMonths = DateUtils.getStandaloneLongMonths(testLocale);
+        assertEquals(12, standaloneShortMonths.length);
+        assertEquals("Januar", standaloneShortMonths[0]);
+        assertEquals("Februar", standaloneShortMonths[1]);
+        assertEquals("M\u00e4rz", standaloneShortMonths[2]);
+        assertEquals("April", standaloneShortMonths[3]);
+        assertEquals("Mai", standaloneShortMonths[4]);
+        assertEquals("Juni", standaloneShortMonths[5]);
+        assertEquals("Juli", standaloneShortMonths[6]);
+        assertEquals("August", standaloneShortMonths[7]);
+        assertEquals("September", standaloneShortMonths[8]);
+        assertEquals("Oktober", standaloneShortMonths[9]);
+        assertEquals("November", standaloneShortMonths[10]);
+        assertEquals("Dezember", standaloneShortMonths[11]);
+    }
+
+    @Test
+    public void testGetStandaloneShortMonthNames() {
+        Locale testLocale = Locale.GERMAN;
+        String[] standaloneShortMonths = DateUtils.getStandaloneShortMonths(testLocale);
+        assertEquals(12, standaloneShortMonths.length);
+        assertEquals("Jan", standaloneShortMonths[0]);
+        assertEquals("Feb", standaloneShortMonths[1]);
+        assertEquals("M\u00e4r", standaloneShortMonths[2]);
+        assertEquals("Apr", standaloneShortMonths[3]);
+        assertEquals("Mai", standaloneShortMonths[4]);
+        assertEquals("Jun", standaloneShortMonths[5]);
+        assertEquals("Jul", standaloneShortMonths[6]);
+        assertEquals("Aug", standaloneShortMonths[7]);
+        assertEquals("Sep", standaloneShortMonths[8]);
+        assertEquals("Okt", standaloneShortMonths[9]);
+        assertEquals("Nov", standaloneShortMonths[10]);
+        assertEquals("Dez", standaloneShortMonths[11]);
+    }
 }
 
