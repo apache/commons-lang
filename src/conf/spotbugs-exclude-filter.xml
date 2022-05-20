@@ -30,6 +30,9 @@
       <Bug pattern="EI_EXPOSE_REP" />
       <Bug pattern="EI_EXPOSE_REP2" />
       <Bug pattern="MS_EXPOSE_REP" />
+      <Bug pattern="THROWS_METHOD_THROWS_CLAUSE_BASIC_EXCEPTION" />
+      <Bug pattern="THROWS_METHOD_THROWS_CLAUSE_THROWABLE" />
+      <Bug pattern="THROWS_METHOD_THROWS_RUNTIMEEXCEPTION" />
     </Or>
   </Match>
 
