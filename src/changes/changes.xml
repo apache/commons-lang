@@ -81,6 +81,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Remove unnecessary variable creations #882.</action>
     <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Minor changes #769.</action>
     <action issue="LANG-1680" type="fix" dev="ggregory" due-to="Michael Krause, Steve Bosman, Gary Gregory">FastDateFormat does not support the 'L'-Pattern from SimpleDateFormat.</action>
+    <action                   type="fix" dev="ggregory" due-to="Steve Bosman, Gary Gregory">Increase test coverage of ComparableUtils from 71% to 100% #898.</action>
+    <action                   type="fix" dev="ggregory" due-to="Steve Bosman">Increase method test coverage of MultilineRecursiveToStringStyle #899.</action>       
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TriConsumer.</action>

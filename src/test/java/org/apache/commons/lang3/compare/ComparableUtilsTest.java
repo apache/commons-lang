@@ -55,6 +55,17 @@ public class ComparableUtilsTest {
                 void betweenExclusive_returns_false() {
                     assertFalse(is(a).betweenExclusive(b, c));
                 }
+
+                @Test
+                void static_between_returns_false() {
+                    assertFalse(ComparableUtils.between(b, c).test(a));
+                }
+
+                @Test
+                void static_betweenExclusive_returns_false() {
+                    assertFalse(ComparableUtils.betweenExclusive(b, c).test(a));
+                }
+
             }
 
             @DisplayName("C is 1 (B < A = C)")
@@ -72,6 +83,16 @@ public class ComparableUtilsTest {
                 void betweenExclusive_returns_false() {
                     assertFalse(is(a).betweenExclusive(b, c));
                 }
+
+                @Test
+                void static_between_returns_true() {
+                    assertTrue(ComparableUtils.between(b, c).test(a));
+                }
+
+                @Test
+                void static_betweenExclusive_returns_false() {
+                    assertFalse(ComparableUtils.betweenExclusive(b, c).test(a));
+                }
             }
 
             @DisplayName("C is 10 (B < A < C)")
@@ -88,6 +109,16 @@ public class ComparableUtilsTest {
                 @Test
                 void betweenExclusive_returns_true() {
                     assertTrue(is(a).betweenExclusive(b, c));
+                }
+
+                @Test
+                void static_between_returns_true() {
+                    assertTrue(ComparableUtils.between(b, c).test(a));
+                }
+
+                @Test
+                void static_betweenExclusive_returns_true() {
+                    assertTrue(ComparableUtils.betweenExclusive(b, c).test(a));
                 }
             }
 
@@ -117,6 +148,26 @@ public class ComparableUtilsTest {
             void lessThanOrEqualTo_returns_false() {
                 assertFalse(is(a).lessThanOrEqualTo(b));
             }
+
+            @Test
+            void static_gt_returns_true() {
+                assertTrue(ComparableUtils.gt(b).test(a));
+            }
+
+            @Test
+            void static_ge_returns_true() {
+                assertTrue(ComparableUtils.ge(b).test(a));
+            }
+
+            @Test
+            void static_lt_returns_false() {
+                assertFalse(ComparableUtils.lt(b).test(a));
+            }
+
+            @Test
+            void static_le_returns_false() {
+                assertFalse(ComparableUtils.le(b).test(a));
+            }
         }
 
         @DisplayName("B is 1 (B = A)")
@@ -138,6 +189,16 @@ public class ComparableUtilsTest {
                 void betweenExclusive_returns_false() {
                     assertFalse(is(a).betweenExclusive(b, c));
                 }
+
+                @Test
+                void static_between_returns_true() {
+                    assertTrue(ComparableUtils.between(b, c).test(a));
+                }
+
+                @Test
+                void static_betweenExclusive_returns_false() {
+                    assertFalse(ComparableUtils.betweenExclusive(b, c).test(a));
+                }
             }
 
             @DisplayName("C is 1 (B = A = C)")
@@ -155,6 +216,16 @@ public class ComparableUtilsTest {
                 void betweenExclusive_returns_false() {
                     assertFalse(is(a).betweenExclusive(b, c));
                 }
+
+                @Test
+                void static_between_returns_true() {
+                    assertTrue(ComparableUtils.between(b, c).test(a));
+                }
+
+                @Test
+                void static_betweenExclusive_returns_false() {
+                    assertFalse(ComparableUtils.betweenExclusive(b, c).test(a));
+                }
             }
 
             @DisplayName("C is 10 (B = A < C)")
@@ -171,6 +242,16 @@ public class ComparableUtilsTest {
                 @Test
                 void betweenExclusive_returns_false() {
                     assertFalse(is(a).betweenExclusive(b, c));
+                }
+
+                @Test
+                void static_between_returns_true() {
+                    assertTrue(ComparableUtils.between(b, c).test(a));
+                }
+
+                @Test
+                void static_betweenExclusive_returns_false() {
+                    assertFalse(ComparableUtils.betweenExclusive(b, c).test(a));
                 }
             }
 
@@ -200,6 +281,26 @@ public class ComparableUtilsTest {
             void lessThanOrEqualTo_returns_true() {
                 assertTrue(is(a).lessThanOrEqualTo(b));
             }
+
+            @Test
+            void static_gt_returns_false() {
+                assertFalse(ComparableUtils.gt(b).test(a));
+            }
+
+            @Test
+            void static_ge_returns_true() {
+                assertTrue(ComparableUtils.ge(b).test(a));
+            }
+
+            @Test
+            void static_lt_returns_false() {
+                assertFalse(ComparableUtils.lt(b).test(a));
+            }
+
+            @Test
+            void static_le_returns_true() {
+                assertTrue(ComparableUtils.le(b).test(a));
+            }
         }
 
         @DisplayName("B is 10 (B > A)")
@@ -221,6 +322,16 @@ public class ComparableUtilsTest {
                 void betweenExclusive_returns_true() {
                     assertTrue(is(a).betweenExclusive(b, c));
                 }
+
+                @Test
+                void static_between_returns_true() {
+                    assertTrue(ComparableUtils.between(b, c).test(a));
+                }
+
+                @Test
+                void static_betweenExclusive_returns_true() {
+                    assertTrue(ComparableUtils.betweenExclusive(b, c).test(a));
+                }
             }
 
             @DisplayName("C is 1 (B > A = C)")
@@ -238,6 +349,16 @@ public class ComparableUtilsTest {
                 void betweenExclusive_returns_false() {
                     assertFalse(is(a).betweenExclusive(b, c));
                 }
+
+                @Test
+                void static_between_returns_true() {
+                    assertTrue(ComparableUtils.between(b, c).test(a));
+                }
+
+                @Test
+                void static_betweenExclusive_returns_false() {
+                    assertFalse(ComparableUtils.betweenExclusive(b, c).test(a));
+                }
             }
 
             @DisplayName("C is 10 ([B,C] > A)")
@@ -254,6 +375,16 @@ public class ComparableUtilsTest {
                 @Test
                 void betweenExclusive_returns_false() {
                     assertFalse(is(a).betweenExclusive(b, c));
+                }
+
+                @Test
+                void static_between_returns_false() {
+                    assertFalse(ComparableUtils.between(b, c).test(a));
+                }
+
+                @Test
+                void static_betweenExclusive_returns_false() {
+                    assertFalse(ComparableUtils.betweenExclusive(b, c).test(a));
                 }
             }
 
@@ -282,6 +413,26 @@ public class ComparableUtilsTest {
             @Test
             void lessThanOrEqualTo_returns_true() {
                 assertTrue(is(a).lessThanOrEqualTo(b));
+            }
+
+            @Test
+            void static_gt_returns_false() {
+                assertFalse(ComparableUtils.gt(b).test(a));
+            }
+
+            @Test
+            void static_ge_returns_false() {
+                assertFalse(ComparableUtils.ge(b).test(a));
+            }
+
+            @Test
+            void static_lt_returns_true() {
+                assertTrue(ComparableUtils.lt(b).test(a));
+            }
+
+            @Test
+            void static_le_returns_true() {
+                assertTrue(ComparableUtils.le(b).test(a));
             }
         }
 
