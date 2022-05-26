@@ -28,25 +28,25 @@ import org.junit.jupiter.api.Test;
  */
 public class MultilineRecursiveToStringStyleTest {
 
-    private static final String BR = System.lineSeparator();
-    private static final String BASE_WITH_ARRAYS_TO_STRING = "[" + BR
-            + "  boolArray=#BOOLEAN#," + BR
-            + "  byteArray=#BYTE#," + BR
-            + "  charArray=#CHAR#," + BR
-            + "  doubleArray=#DOUBLE#," + BR
-            + "  floatArray=#FLOAT#," + BR
-            + "  intArray=#INT#," + BR
-            + "  longArray=#LONG#," + BR
-            + "  shortArray=#SHORT#," + BR
-            + "  stringArray=#STRING#" + BR
+    private static final String LS = System.lineSeparator();
+    private static final String BASE_WITH_ARRAYS_TO_STRING = "[" + LS
+            + "  boolArray=#BOOLEAN#," + LS
+            + "  byteArray=#BYTE#," + LS
+            + "  charArray=#CHAR#," + LS
+            + "  doubleArray=#DOUBLE#," + LS
+            + "  floatArray=#FLOAT#," + LS
+            + "  intArray=#INT#," + LS
+            + "  longArray=#LONG#," + LS
+            + "  shortArray=#SHORT#," + LS
+            + "  stringArray=#STRING#" + LS
             + "]";
 
     @Test
     public void simpleObject() {
         final Transaction tx = new Transaction("2014.10.15", 100);
-        final String expected = getClassPrefix(tx) + "[" + BR
-                        + "  amount=100.0," + BR
-                        + "  date=2014.10.15" + BR
+        final String expected = getClassPrefix(tx) + "[" + LS
+                        + "  amount=100.0," + LS
+                        + "  date=2014.10.15" + LS
                         + "]";
         assertEquals(expected, toString(tx));
     }
@@ -56,12 +56,12 @@ public class MultilineRecursiveToStringStyleTest {
         final Customer customer = new Customer("Douglas Adams");
         final Bank bank = new Bank("ASF Bank");
         customer.bank = bank;
-        final String exp = getClassPrefix(customer) + "[" + BR
-                   + "  accounts=<null>," + BR
-                   + "  bank=" + getClassPrefix(bank) + "[" + BR
-                   + "    name=ASF Bank" + BR
-                   + "  ]," + BR
-                   + "  name=Douglas Adams" + BR
+        final String exp = getClassPrefix(customer) + "[" + LS
+                   + "  accounts=<null>," + LS
+                   + "  bank=" + getClassPrefix(bank) + "[" + LS
+                   + "    name=ASF Bank" + LS
+                   + "  ]," + LS
+                   + "  name=Douglas Adams" + LS
                 + "]";
         assertEquals(exp, toString(customer));
     }
@@ -73,18 +73,18 @@ public class MultilineRecursiveToStringStyleTest {
         final Transaction tx2 = new Transaction("2014.10.15", 50);
         acc.transactions.add(tx1);
         acc.transactions.add(tx2);
-        final String expected = getClassPrefix(acc) + "[" + BR
-                        + "  owner=<null>," + BR
-                        + "  transactions=" + getClassPrefix(acc.transactions) + "{" + BR
-                        + "    " + getClassPrefix(tx1) + "[" + BR
-                        + "      amount=100.0," + BR
-                        + "      date=2014.10.14" + BR
-                        + "    ]," + BR
-                        + "    " + getClassPrefix(tx2) + "[" + BR
-                        + "      amount=50.0," + BR
-                        + "      date=2014.10.15" + BR
-                        + "    ]" + BR
-                        + "  }" + BR
+        final String expected = getClassPrefix(acc) + "[" + LS
+                        + "  owner=<null>," + LS
+                        + "  transactions=" + getClassPrefix(acc.transactions) + "{" + LS
+                        + "    " + getClassPrefix(tx1) + "[" + LS
+                        + "      amount=100.0," + LS
+                        + "      date=2014.10.14" + LS
+                        + "    ]," + LS
+                        + "    " + getClassPrefix(tx2) + "[" + LS
+                        + "      amount=50.0," + LS
+                        + "      date=2014.10.15" + LS
+                        + "    ]" + LS
+                        + "  }" + LS
                         + "]";
         assertEquals(expected, toString(acc));
     }
@@ -102,10 +102,10 @@ public class MultilineRecursiveToStringStyleTest {
         wa.boolArray = new boolean[] { true, false, true };
         final String exp = getExpectedToString(
                 wa, WithArraysTestType.BOOLEAN,
-                "{" + BR
-                + "    true," + BR
-                + "    false," + BR
-                + "    true" + BR
+                "{" + LS
+                + "    true," + LS
+                + "    false," + LS
+                + "    true" + LS
                 + "  }");
         assertEquals(exp, toString(wa));
     }
@@ -116,9 +116,9 @@ public class MultilineRecursiveToStringStyleTest {
         wa.byteArray = new byte[] { 1, 2 };
         final String exp = getExpectedToString(
                 wa, WithArraysTestType.BYTE,
-                "{" + BR
-                + "    1," + BR
-                + "    2" + BR
+                "{" + LS
+                + "    1," + LS
+                + "    2" + LS
                 + "  }");
         assertEquals(exp, toString(wa));
     }
@@ -129,9 +129,9 @@ public class MultilineRecursiveToStringStyleTest {
         wa.charArray = new char[] { 'a', 'A' };
         final String exp = getExpectedToString(
                 wa, WithArraysTestType.CHAR,
-                "{" + BR
-                + "    a," + BR
-                + "    A" + BR
+                "{" + LS
+                + "    a," + LS
+                + "    A" + LS
                 + "  }");
         assertEquals(exp, toString(wa));
     }
@@ -142,9 +142,9 @@ public class MultilineRecursiveToStringStyleTest {
         wa.intArray = new int[] { 1, 2 };
         final String exp = getExpectedToString(
                 wa, WithArraysTestType.INT,
-                "{" + BR
-                + "    1," + BR
-                + "    2" + BR
+                "{" + LS
+                + "    1," + LS
+                + "    2" + LS
                 + "  }");
         assertEquals(exp, toString(wa));
     }
@@ -155,9 +155,9 @@ public class MultilineRecursiveToStringStyleTest {
         wa.doubleArray = new double[] { 1, 2 };
         final String exp = getExpectedToString(
                 wa, WithArraysTestType.DOUBLE,
-                "{" + BR
-                + "    1.0," + BR
-                + "    2.0" + BR
+                "{" + LS
+                + "    1.0," + LS
+                + "    2.0" + LS
                 + "  }");
         assertEquals(exp, toString(wa));
     }
@@ -168,9 +168,9 @@ public class MultilineRecursiveToStringStyleTest {
         wa.floatArray = new float[] { 1f, 2f };
         final String exp = getExpectedToString(
                 wa, WithArraysTestType.FLOAT,
-                "{" + BR
-                + "    1.0," + BR
-                + "    2.0" + BR
+                "{" + LS
+                + "    1.0," + LS
+                + "    2.0" + LS
                 + "  }");
         assertEquals(exp, toString(wa));
     }
@@ -181,9 +181,9 @@ public class MultilineRecursiveToStringStyleTest {
         wa.longArray = new long[] { 1L, 2L };
         final String exp = getExpectedToString(
                 wa, WithArraysTestType.LONG,
-                "{" + BR
-                + "    1," + BR
-                + "    2" + BR
+                "{" + LS
+                + "    1," + LS
+                + "    2" + LS
                 + "  }");
         assertEquals(exp, toString(wa));
     }
@@ -194,9 +194,9 @@ public class MultilineRecursiveToStringStyleTest {
         wa.stringArray = new String[] { "a", "A" };
         final String exp = getExpectedToString(
                 wa, WithArraysTestType.STRING,
-                "{" + BR
-                + "    a," + BR
-                + "    A" + BR
+                "{" + LS
+                + "    a," + LS
+                + "    A" + LS
                 + "  }");
         assertEquals(exp, toString(wa));
     }
@@ -207,9 +207,9 @@ public class MultilineRecursiveToStringStyleTest {
         wa.shortArray = new short[] { 1, 2 };
         final String exp = getExpectedToString(
                 wa, WithArraysTestType.SHORT,
-                "{" + BR
-                + "    1," + BR
-                + "    2" + BR
+                "{" + LS
+                + "    1," + LS
+                + "    2" + LS
                 + "  }");
         assertEquals(exp, toString(wa));
     }
@@ -218,11 +218,11 @@ public class MultilineRecursiveToStringStyleTest {
     public void testLANG1319() {
         final String[] stringArray = {"1", "2"};
 
-        final String exp = getClassPrefix(stringArray) + "[" + BR
-                + "  {" + BR
-                + "    1," + BR
-                + "    2" + BR
-                + "  }" + BR
+        final String exp = getClassPrefix(stringArray) + "[" + LS
+                + "  {" + LS
+                + "    1," + LS
+                + "    2" + LS
+                + "  }" + LS
                 + "]";
         assertEquals(exp, toString(stringArray));
     }
