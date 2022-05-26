@@ -88,7 +88,6 @@ public class CalendarUtils {
 
     /**
      * Gets month names in the requested style.
-     * @param locale Locale
      * @param style Must be a valid {@link Calendar#getDisplayNames(int, int, Locale)} month style.
      * @return Styled names of months
      */
