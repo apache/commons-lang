@@ -1352,6 +1352,17 @@ public class FailableFunctionsTest {
     }
 
     @Test
+    public void testPredicateOr() throws Throwable {
+        assertTrue(FailablePredicate.TRUE.or(FailablePredicate.TRUE).test(null));
+        assertTrue(FailablePredicate.TRUE.or(FailablePredicate.FALSE).test(null));
+        assertTrue(FailablePredicate.FALSE.or(FailablePredicate.TRUE).test(null));
+        assertFalse(FailablePredicate.FALSE.or(FailablePredicate.FALSE).test(null));
+        // null tests
+        assertThrows(NullPointerException.class, () -> assertFalse(FailablePredicate.FALSE.or(null).test(null)));
+        assertThrows(NullPointerException.class, () -> assertTrue(FailablePredicate.TRUE.or(null).test(null)));
+    }
+
+    @Test
     public void testPredicateNegate() throws Throwable {
         assertFalse(FailablePredicate.TRUE.negate().test(null));
         assertFalse(FailablePredicate.truePredicate().negate().test(null));
