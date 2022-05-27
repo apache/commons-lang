@@ -429,7 +429,7 @@ public class ConversionTest {
                 ArrayUtils.reverse(b);
                 for (int k = 0; k < j; k++) {
                     assertEquals(Conversion.binaryToHexDigit(a, k),
-                            Conversion.binaryBeMsb0ToHexDigit(b, k));
+                                 Conversion.binaryBeMsb0ToHexDigit(b, k));
                 }
             }
         }
@@ -439,8 +439,9 @@ public class ConversionTest {
     @ValueSource(ints = {-1, 8, 99})
     public void binaryBeMsb0ToHexDigitPosOutsideArray(int index) {
         assertThrows(IndexOutOfBoundsException.class,
-                () -> Conversion.binaryBeMsb0ToHexDigit(new boolean[8], index));
+            () -> Conversion.binaryBeMsb0ToHexDigit(new boolean[8], index));
     }
+
     /**
      * Tests {@link Conversion#intToHexDigit(int)}.
      */
