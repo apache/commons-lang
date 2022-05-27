@@ -18,7 +18,9 @@
 package org.apache.commons.lang3.time;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -81,6 +83,16 @@ public class DurationUtils {
      */
     public static boolean isPositive(final Duration duration) {
         return !duration.isNegative() && !duration.isZero();
+    }
+
+    /**
+     * Computes the Duration between a start instant and now.
+     *
+     * @param startInclusive the start instant, inclusive, not null.
+     * @return a {@code Duration}, not null.
+     */
+    public static Duration since(final Temporal startInclusive) {
+        return Duration.between(startInclusive, Instant.now());
     }
 
     /**
