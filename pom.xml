@@ -639,7 +639,7 @@
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
 
     <commons.spotbugs.plugin.version>4.7.0.0</commons.spotbugs.plugin.version>
-    <commons.spotbugs.impl.version>4.6.0</commons.spotbugs.impl.version>
+    <commons.spotbugs.impl.version>4.7.0</commons.spotbugs.impl.version>
     <japicmp.skip>false</japicmp.skip>
     <clirr.skip>true</clirr.skip>
 
