@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3;
 
+import java.util.Objects;
+
 /**
  * <p>Operations on char primitives and Character objects.</p>
  *
@@ -42,7 +44,7 @@ public class CharUtils {
     public static final char LF = '\n';
 
     /**
-     * Carriage return characterf CR ('\r', Unicode 000d).
+     * Carriage return character CR ('\r', Unicode 000d).
      *
      * @see <a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.10.6">JLF: Escape Sequences
      *      for Character and String Literals</a>
@@ -109,10 +111,7 @@ public class CharUtils {
      * @return the Character value of the first letter of the String
      */
     public static Character toCharacterObject(final String str) {
-        if (StringUtils.isEmpty(str)) {
-            return null;
-        }
-        return Character.valueOf(str.charAt(0));
+        return StringUtils.isEmpty(str) ? null : Character.valueOf(str.charAt(0));
     }
 
     /**
@@ -129,8 +128,7 @@ public class CharUtils {
      * @throws NullPointerException if the Character is null
      */
     public static char toChar(final Character ch) {
-        Validate.notNull(ch, "ch");
-        return ch.charValue();
+        return Objects.requireNonNull(ch, "ch").charValue();
     }
 
     /**
@@ -147,10 +145,7 @@ public class CharUtils {
      * @return the char value of the Character or the default if null
      */
     public static char toChar(final Character ch, final char defaultValue) {
-        if (ch == null) {
-            return defaultValue;
-        }
-        return ch.charValue();
+        return ch != null ? ch.charValue() : defaultValue;
     }
 
     /**
@@ -190,10 +185,7 @@ public class CharUtils {
      * @return the char value of the first letter of the String or the default if null
      */
     public static char toChar(final String str, final char defaultValue) {
-        if (StringUtils.isEmpty(str)) {
-            return defaultValue;
-        }
-        return str.charAt(0);
+        return StringUtils.isEmpty(str) ? defaultValue : str.charAt(0);
     }
 
     /**
@@ -234,10 +226,7 @@ public class CharUtils {
      * @return the int value of the character
      */
     public static int toIntValue(final char ch, final int defaultValue) {
-        if (!isAsciiNumeric(ch)) {
-            return defaultValue;
-        }
-        return ch - 48;
+        return isAsciiNumeric(ch) ? ch - 48 : defaultValue;
     }
 
     /**
@@ -258,8 +247,7 @@ public class CharUtils {
      * @throws IllegalArgumentException if the Character is not ASCII numeric
      */
     public static int toIntValue(final Character ch) {
-        Validate.notNull(ch, "ch");
-        return toIntValue(ch.charValue());
+        return toIntValue(toChar(ch));
     }
 
     /**
@@ -279,10 +267,7 @@ public class CharUtils {
      * @return the int value of the character
      */
     public static int toIntValue(final Character ch, final int defaultValue) {
-        if (ch == null) {
-            return defaultValue;
-        }
-        return toIntValue(ch.charValue(), defaultValue);
+        return ch != null ? toIntValue(ch.charValue(), defaultValue) : defaultValue;
     }
 
     /**
@@ -324,13 +309,9 @@ public class CharUtils {
      * @return a String containing the one specified character
      */
     public static String toString(final Character ch) {
-        if (ch == null) {
-            return null;
-        }
-        return toString(ch.charValue());
+        return ch != null ? toString(ch.charValue()) : null;
     }
 
-    //--------------------------------------------------------------------------
     /**
      * <p>Converts the string to the Unicode format '\u0020'.</p>
      *
@@ -369,13 +350,9 @@ public class CharUtils {
      * @return the escaped Unicode string, null if null input
      */
     public static String unicodeEscaped(final Character ch) {
-        if (ch == null) {
-            return null;
-        }
-        return unicodeEscaped(ch.charValue());
+        return ch != null ? unicodeEscaped(ch.charValue()) : null;
     }
 
-    //--------------------------------------------------------------------------
     /**
      * <p>Checks whether the character is ASCII 7 bit.</p>
      *
@@ -539,6 +516,6 @@ public class CharUtils {
      * @since 3.4
      */
     public static int compare(final char x, final char y) {
-        return x-y;
+        return x - y;
     }
 }
