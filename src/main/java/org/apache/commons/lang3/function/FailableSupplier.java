@@ -23,7 +23,7 @@ import java.util.function.Supplier;
  * A functional interface like {@link Supplier} that declares a {@code Throwable}.
  *
  * @param <R> Return type.
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface

@@ -23,7 +23,7 @@ import java.util.function.LongFunction;
  * A functional interface like {@link LongFunction} that declares a {@code Throwable}.
  *
  * @param <R> Return type.
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -37,7 +37,7 @@ public interface FailableLongFunction<R, E extends Throwable> {
      * Returns The NOP singleton.
      *
      * @param <R> Return type.
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     @SuppressWarnings("unchecked")

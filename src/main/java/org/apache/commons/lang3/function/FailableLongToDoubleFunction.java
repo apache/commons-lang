@@ -22,7 +22,7 @@ import java.util.function.LongToDoubleFunction;
 /**
  * A functional interface like {@link LongToDoubleFunction} that declares a {@code Throwable}.
  *
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -35,7 +35,7 @@ public interface FailableLongToDoubleFunction<E extends Throwable> {
     /**
      * Returns The NOP singleton.
      *
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     @SuppressWarnings("unchecked")

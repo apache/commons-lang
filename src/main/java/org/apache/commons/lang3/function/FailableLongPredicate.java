@@ -23,7 +23,7 @@ import java.util.function.LongPredicate;
 /**
  * A functional interface like {@link LongPredicate} that declares a {@code Throwable}.
  *
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -40,7 +40,7 @@ public interface FailableLongPredicate<E extends Throwable> {
     /**
      * Returns The FALSE singleton.
      *
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     @SuppressWarnings("unchecked")
@@ -51,7 +51,7 @@ public interface FailableLongPredicate<E extends Throwable> {
     /**
      * Returns The TRUE singleton.
      *
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     @SuppressWarnings("unchecked")

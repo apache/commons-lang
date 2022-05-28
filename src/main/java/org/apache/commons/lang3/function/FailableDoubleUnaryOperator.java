@@ -23,7 +23,7 @@ import java.util.function.DoubleUnaryOperator;
 /**
  * A functional interface like {@link DoubleUnaryOperator} that declares a {@code Throwable}.
  *
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 public interface FailableDoubleUnaryOperator<E extends Throwable> {
@@ -35,7 +35,7 @@ public interface FailableDoubleUnaryOperator<E extends Throwable> {
     /**
      * Returns a unary operator that always returns its input argument.
      *
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return a unary operator that always returns its input argument
      */
     static <E extends Throwable> FailableDoubleUnaryOperator<E> identity() {
@@ -45,7 +45,7 @@ public interface FailableDoubleUnaryOperator<E extends Throwable> {
     /**
      * Returns The NOP singleton.
      *
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     @SuppressWarnings("unchecked")

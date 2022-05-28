@@ -18,9 +18,9 @@
 package org.apache.commons.lang3.function;
 
 /**
- * A functional interface like {@link Runnable} that declares a {@code Throwable}.
+ * A functional interface like {@link Runnable} that declares a kind of {@link Throwable}.
  *
- * @param <E> Thrown exception.
+ * @param <E> The kind of {@link Throwable}.
  * @since 3.11
  */
 @FunctionalInterface

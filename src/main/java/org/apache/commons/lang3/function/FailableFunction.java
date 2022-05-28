@@ -25,7 +25,7 @@ import java.util.function.Function;
  *
  * @param <T> Input type 1.
  * @param <R> Return type.
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -39,7 +39,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
      * Returns a function that always returns its input argument.
      *
      * @param <T> the type of the input and output objects to the function
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return a function that always returns its input argument
      */
     static <T, E extends Throwable> FailableFunction<T, T, E> identity() {
@@ -51,7 +51,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
      *
      * @param <T> Consumed type 1.
      * @param <R> Return type.
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     @SuppressWarnings("unchecked")

@@ -24,7 +24,7 @@ import java.util.function.ToIntBiFunction;
  *
  * @param <T> the type of the first argument to the function
  * @param <U> the type of the second argument to the function
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -39,7 +39,7 @@ public interface FailableToIntBiFunction<T, U, E extends Throwable> {
      *
      * @param <T> the type of the first argument to the function
      * @param <U> the type of the second argument to the function
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     @SuppressWarnings("unchecked")

@@ -24,7 +24,7 @@ import java.util.function.Predicate;
  * A functional interface like {@link Predicate} that declares a {@code Throwable}.
  *
  * @param <T> Predicate type.
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -42,7 +42,7 @@ public interface FailablePredicate<T, E extends Throwable> {
      * Returns The FALSE singleton.
      *
      * @param <T> Predicate type.
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     @SuppressWarnings("unchecked")
@@ -54,7 +54,7 @@ public interface FailablePredicate<T, E extends Throwable> {
      * Returns The TRUE singleton.
      *
      * @param <T> Predicate type.
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     @SuppressWarnings("unchecked")

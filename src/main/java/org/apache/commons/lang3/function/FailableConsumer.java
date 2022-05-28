@@ -43,7 +43,7 @@ public interface FailableConsumer<T, E extends Throwable> {
      * Returns The NOP singleton.
      *
      * @param <T> Consumed type 1.
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     @SuppressWarnings("unchecked")

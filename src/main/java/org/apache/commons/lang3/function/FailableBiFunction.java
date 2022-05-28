@@ -27,7 +27,7 @@ import java.util.function.Function;
  * @param <T> Input type 1.
  * @param <U> Input type 2.
  * @param <R> Return type.
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -43,7 +43,7 @@ public interface FailableBiFunction<T, U, R, E extends Throwable> {
      * @param <T> Consumed type 1.
      * @param <U> Consumed type 2.
      * @param <R> Return type.
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     @SuppressWarnings("unchecked")

@@ -23,7 +23,7 @@ import java.util.function.ObjLongConsumer;
  * A functional interface like {@link ObjLongConsumer} that declares a {@code Throwable}.
  *
  * @param <T> the type of the object argument to the operation.
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -37,7 +37,7 @@ public interface FailableObjLongConsumer<T, E extends Throwable> {
      * Returns The NOP singleton.
      *
      * @param <T> the type of the object argument to the operation.
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     @SuppressWarnings("unchecked")

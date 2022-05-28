@@ -23,7 +23,7 @@ import java.util.function.IntConsumer;
 /**
  * A functional interface like {@link IntConsumer} that declares a {@code Throwable}.
  *
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -36,7 +36,7 @@ public interface FailableIntConsumer<E extends Throwable> {
     /**
      * Returns The NOP singleton.
      *
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     @SuppressWarnings("unchecked")

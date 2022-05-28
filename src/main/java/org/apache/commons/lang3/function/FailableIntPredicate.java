@@ -23,7 +23,7 @@ import java.util.function.IntPredicate;
 /**
  * A functional interface like {@link IntPredicate} that declares a {@code Throwable}.
  *
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -40,7 +40,7 @@ public interface FailableIntPredicate<E extends Throwable> {
     /**
      * Returns The FALSE singleton.
      *
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     @SuppressWarnings("unchecked")
@@ -51,7 +51,7 @@ public interface FailableIntPredicate<E extends Throwable> {
     /**
      * Returns The TRUE singleton.
      *
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     @SuppressWarnings("unchecked")

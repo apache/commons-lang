@@ -25,7 +25,7 @@ import java.util.function.BiConsumer;
  *
  * @param <T> Consumed type 1.
  * @param <U> Consumed type 2.
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -40,7 +40,7 @@ public interface FailableBiConsumer<T, U, E extends Throwable> {
      *
      * @param <T> Consumed type 1.
      * @param <U> Consumed type 2.
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     @SuppressWarnings("unchecked")

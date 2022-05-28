@@ -23,7 +23,7 @@ import java.util.function.ToDoubleFunction;
  * A functional interface like {@link ToDoubleFunction} that declares a {@code Throwable}.
  *
  * @param <T> the type of the argument to the function
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -37,7 +37,7 @@ public interface FailableToDoubleFunction<T, E extends Throwable> {
      * Returns The NOP singleton.
      *
      * @param <T> the type of the argument to the function
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     @SuppressWarnings("unchecked")
