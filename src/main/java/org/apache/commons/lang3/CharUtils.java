@@ -115,6 +115,33 @@ public class CharUtils {
     }
 
     /**
+     * <p>Converts the String to a Character using the first character, returning a
+     *  default value if {@code null} or empty is passed in.</p>
+     *
+     * <p>For ASCII 7 bit characters, this uses a cache that will return the
+     * same Character object each time.</p>
+     *
+     * <pre>
+     *   CharUtils.toCharacterObject(null, 'A') = 'A'
+     *   CharUtils.toCharacterObject("", 'A')   = 'A'
+     *   CharUtils.toCharacterObject("A", 'D')  = 'A'
+     *   CharUtils.toCharacterObject("BA", 'D') = 'B'
+     * </pre>
+     *
+     * @param str  the character to convert
+     * @param defaultValue the value to use if the str is null or empty.
+     * @return the Character value of the first letter of the String or the default if null.
+     * @since 3.13.0
+     */
+    public static Character toCharacterObject(final String str, final Character defaultValue) {
+      final Character character = toCharacterObject(str);
+      if (character == null){
+          return defaultValue;
+      }
+      return character;
+    }
+
+    /**
      * Converts the Character to a char throwing an exception for {@code null}.
      *
      * <pre>

@@ -258,6 +258,16 @@ public class CharUtilsTest extends AbstractLangTest {
         assertSame(CharUtils.toCharacterObject("a"), CharUtils.toCharacterObject("a"));
     }
 
+    /**
+     * Test for {@link CharUtils#toCharacterObject(String, Character)}.
+     */
+    @Test
+    public void testToCharacterObject_Default() {
+        assertEquals('A', CharUtils.toCharacterObject(null, 'A'));
+        assertEquals('B', CharUtils.toCharacterObject(StringUtils.EMPTY, 'B'));
+        assertEquals(Character.valueOf('a'), CharUtils.toCharacterObject("a", 'b'));
+    }
+
     @Test
     public void testToIntValue_char() {
         assertEquals(0, CharUtils.toIntValue('0'));
