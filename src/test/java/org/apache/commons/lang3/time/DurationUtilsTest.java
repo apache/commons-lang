@@ -20,7 +20,9 @@ package org.apache.commons.lang3.time;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.TimeUnit;
@@ -70,6 +72,23 @@ public class DurationUtilsTest {
         //
         assertEquals(Short.MIN_VALUE, DurationUtils.LONG_TO_INT_RANGE.fit((long) Short.MIN_VALUE));
         assertEquals(Short.MAX_VALUE, DurationUtils.LONG_TO_INT_RANGE.fit((long) Short.MAX_VALUE));
+    }
+
+    @Test
+    public void testOfRunnble() {
+        assertTrue(DurationUtils.of(() -> testSince()).compareTo(Duration.ZERO) >= 0);
+    }
+
+    @Test
+    public void testOfConsumer() {
+        assertTrue(DurationUtils.of(start -> assertTrue(start.compareTo(Instant.now()) >= 0)).compareTo(Duration.ZERO) >= 0);
+    }
+
+    @Test
+    public void testOfRunnbleThrowing() {
+        assertThrows(IOException.class, () -> DurationUtils.of(() -> {
+            throw new IOException();
+        }));
     }
 
     @Test

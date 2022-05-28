@@ -27,6 +27,8 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.function.FailableBiConsumer;
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableRunnable;
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
@@ -83,6 +85,38 @@ public class DurationUtils {
      */
     public static boolean isPositive(final Duration duration) {
         return !duration.isNegative() && !duration.isZero();
+    }
+
+    /**
+     * Runs the lambda and returns the duration of its execution.
+     *
+     * @param <E> The type of exception throw by the lambda.
+     * @param consumer What to execute.
+     * @return The Duration of execution.
+     * @throws E thrown by the lambda.
+     * @since 3.13.0
+     */
+    public static <E extends Throwable> Duration of(final FailableConsumer<Instant, E> consumer) throws E {
+        return since(now(consumer::accept));
+    }
+
+    /**
+     * Runs the lambda and returns the duration of its execution.
+     *
+     * @param <E> The type of exception throw by the lambda.
+     * @param runnable What to execute.
+     * @return The Duration of execution.
+     * @throws E thrown by the lambda.
+     * @since 3.13.0
+     */
+    public static <E extends Throwable> Duration of(final FailableRunnable<E> runnable) throws E {
+        return of(start -> runnable.run());
+    }
+
+    private static <E extends Throwable> Instant now(final FailableConsumer<Instant, E> nowConsumer) throws E {
+        final Instant start = Instant.now();
+        nowConsumer.accept(start);
+        return start;
     }
 
     /**
