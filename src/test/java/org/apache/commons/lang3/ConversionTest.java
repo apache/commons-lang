@@ -20,9 +20,13 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Arrays;
+import java.util.SplittableRandom;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 
 /**
@@ -411,6 +415,31 @@ public class ConversionTest {
         assertEquals('3', Conversion.binaryBeMsb0ToHexDigit(multiBytesArray, 14));
         assertEquals('1', Conversion.binaryBeMsb0ToHexDigit(multiBytesArray, 15));
 
+    }
+
+    @Test
+    public void testBinaryToHexDigitReverse() {
+        final SplittableRandom rng = new SplittableRandom();
+        final boolean[] x = new boolean[8];
+        for (int i = 0; i < 100; i++) {
+            Conversion.longToBinary(rng.nextLong(), 0, x, 0, 8);
+            for (int j = 1; j <= 8; j++) {
+                final boolean[] a = Arrays.copyOf(x, j);
+                final boolean[] b = a.clone();
+                ArrayUtils.reverse(b);
+                for (int k = 0; k < j; k++) {
+                    assertEquals(Conversion.binaryToHexDigit(a, k),
+                                 Conversion.binaryBeMsb0ToHexDigit(b, k));
+                }
+            }
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {-1, 8, 99})
+    public void binaryBeMsb0ToHexDigitPosOutsideArray(int index) {
+        assertThrows(IndexOutOfBoundsException.class,
+            () -> Conversion.binaryBeMsb0ToHexDigit(new boolean[8], index));
     }
 
     /**
