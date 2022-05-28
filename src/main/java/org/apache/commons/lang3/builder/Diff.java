@@ -67,7 +67,7 @@ public abstract class Diff<T> extends Pair<T, T> {
 
     /**
      * <p>
-     * Returns the type of the field.
+     * Gets the type of the field.
      * </p>
      *
      * @return the field type
@@ -78,7 +78,7 @@ public abstract class Diff<T> extends Pair<T, T> {
 
     /**
      * <p>
-     * Returns the name of the field.
+     * Gets the name of the field.
      * </p>
      *
      * @return the field name
