@@ -40,7 +40,6 @@ public interface FailableToIntFunction<T, E extends Throwable> {
      * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
-    @SuppressWarnings("unchecked")
     static <T, E extends Throwable> FailableToIntFunction<T, E> nop() {
         return NOP;
     }
