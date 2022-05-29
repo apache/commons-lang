@@ -18,6 +18,7 @@ package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
@@ -44,6 +45,8 @@ public class NotImplementedExceptionTest extends AbstractLangTest {
         assertCorrect("Issue in (Throwable, String)", nie, nested.toString(), nested, code);
         nie = new NotImplementedException(message, nested, code);
         assertCorrect("Issue in (String, Throwable, String)", nie, message, nested, code);
+
+        assertNull(new NotImplementedException().getCode());
     }
 
     private void assertCorrect(final String assertMessage, final NotImplementedException nie, final String message, final Throwable nested, final String code) {

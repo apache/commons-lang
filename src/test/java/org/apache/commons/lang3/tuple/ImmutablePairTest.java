@@ -250,4 +250,11 @@ public class ImmutablePairTest extends AbstractLangTest {
             assertEquals(item.getLeft() + "" + item.getRight(), entry.getValue());
         }
     }
+
+    @Test
+    public void testUnsupportedOperation() {
+        final ImmutablePair<Integer, String> pair = new ImmutablePair<>(0, "foo");
+        assertThrows(UnsupportedOperationException.class, () -> pair.setValue("any"));
+
+    }
 }

@@ -1249,6 +1249,7 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertEquals(-10.45, NumberUtils.min(-10.45, -5.56, 0, 5.67, 10.78), "min(double[]) failed for array length 5");
         assertEquals(-10, NumberUtils.min(-10, -5, 0, 5, 10), 0.0001);
         assertEquals(-10, NumberUtils.min(-5, 0, -10, 5, 10), 0.0001);
+        assertEquals(5.12, NumberUtils.min(6.11, 5.12));
     }
 
     @Test
@@ -1268,6 +1269,8 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertEquals(-10.6f, NumberUtils.min(-10.6f, -5.5f, 0, 5.4f, 10.3f), "min(float[]) failed for array length 5");
         assertEquals(-10, NumberUtils.min(-10, -5, 0, 5, 10), 0.0001f);
         assertEquals(-10, NumberUtils.min(-5, 0, -10, 5, 10), 0.0001f);
+        assertEquals(Float.NaN, NumberUtils.min(6.8f, Float.NaN));
+        assertEquals(3.7f, NumberUtils.min(6.8f, 3.7f));
     }
 
     @Test

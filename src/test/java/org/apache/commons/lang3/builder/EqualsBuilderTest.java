@@ -24,6 +24,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.reflect.MethodUtils;
@@ -442,6 +445,14 @@ public class EqualsBuilderTest extends AbstractLangTest {
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1_b, o1_a).isEquals());
 
         assertFalse(new EqualsBuilder().setTestRecursive(true).append(o1_b, o2).isEquals());
+    }
+
+    @Test
+    public void testObjectsBypassReflectionClasses() {
+        final List<Class<?>> bypassReflectionClasses = new ArrayList<>();
+        bypassReflectionClasses.add(List.class);
+        bypassReflectionClasses.add(Boolean.class);
+        assertTrue(new EqualsBuilder().setBypassReflectionClasses(bypassReflectionClasses).isEquals());
     }
 
     @Test
@@ -1245,6 +1256,11 @@ public class EqualsBuilderTest extends AbstractLangTest {
         // still equal as long as both differing fields are among excluded
         assertTrue(EqualsBuilder.reflectionEquals(x1, x2, "one", "two", "three"));
         assertTrue(EqualsBuilder.reflectionEquals(x1, x2, "one", "two", "three", "xxx"));
+
+        // still equal as long as both differing fields are among excluded
+        assertTrue(EqualsBuilder.reflectionEquals(x1, x2, Arrays.asList("one", "two", "three")));
+        assertTrue(EqualsBuilder.reflectionEquals(x1, x2,  Arrays.asList("one", "two", "three", "xxx")));
+
     }
 
     static class TestObjectWithMultipleFields {

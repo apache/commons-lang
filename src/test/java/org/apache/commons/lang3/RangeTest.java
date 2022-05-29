@@ -103,6 +103,10 @@ public class RangeTest extends AbstractLangTest {
         assertTrue(rbstr.contains("i"), "should contain i");
         assertFalse(rbstr.contains("houses"), "should not contain houses");
         assertFalse(rbstr.contains(""), "should not contain ''");
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> Range.between(null, null, lengthComp));
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
