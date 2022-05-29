@@ -81,7 +81,7 @@ public class DurationUtilsTest {
 
     @Test
     public void testOfConsumer() {
-        assertTrue(DurationUtils.of(start -> assertTrue(start.compareTo(Instant.now()) >= 0)).compareTo(Duration.ZERO) >= 0);
+        assertTrue(DurationUtils.of(start -> assertTrue(start.compareTo(Instant.now()) <= 0)).compareTo(Duration.ZERO) <= 0);
     }
 
     @Test
