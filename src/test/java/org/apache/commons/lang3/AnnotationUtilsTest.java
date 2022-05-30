@@ -388,6 +388,8 @@ public class AnnotationUtilsTest {
         long timeout() default 0L;
 
         class None extends Throwable {
+
+            private static final long serialVersionUID = 1L;
         }
     }
 

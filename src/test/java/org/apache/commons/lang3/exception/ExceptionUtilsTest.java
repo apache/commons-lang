@@ -702,6 +702,8 @@ public class ExceptionUtilsTest {
     @DisplayName("getStackFrames returns empty string array when the argument is null")
     public void testgetStackFramesHappyPath() {
         final String[] actual = ExceptionUtils.getStackFrames(new Throwable() {
+            private static final long serialVersionUID = 1L;
+
             // provide static stack trace to make test stable
             @Override
             public void printStackTrace(final PrintWriter s) {
