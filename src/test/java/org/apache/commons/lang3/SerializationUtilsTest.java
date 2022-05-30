@@ -102,10 +102,10 @@ public class SerializationUtilsTest {
         SerializationUtils.serialize(iMap, streamTest);
 
         final ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
-        final ObjectOutputStream oos = new ObjectOutputStream(streamReal);
-        oos.writeObject(iMap);
-        oos.flush();
-        oos.close();
+        try (final ObjectOutputStream oos = new ObjectOutputStream(streamReal)) {
+            oos.writeObject(iMap);
+            oos.flush();
+        }
 
         final byte[] testBytes = streamTest.toByteArray();
         final byte[] realBytes = streamReal.toByteArray();
@@ -126,10 +126,10 @@ public class SerializationUtilsTest {
         SerializationUtils.serialize(null, streamTest);
 
         final ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
-        final ObjectOutputStream oos = new ObjectOutputStream(streamReal);
-        oos.writeObject(null);
-        oos.flush();
-        oos.close();
+        try (final ObjectOutputStream oos = new ObjectOutputStream(streamReal)) {
+            oos.writeObject(null);
+            oos.flush();
+        }
 
         final byte[] testBytes = streamTest.toByteArray();
         final byte[] realBytes = streamReal.toByteArray();
@@ -166,10 +166,10 @@ public class SerializationUtilsTest {
     @Test
     public void testDeserializeStream() throws Exception {
         final ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
-        final ObjectOutputStream oos = new ObjectOutputStream(streamReal);
-        oos.writeObject(iMap);
-        oos.flush();
-        oos.close();
+        try (final ObjectOutputStream oos = new ObjectOutputStream(streamReal)) {
+            oos.writeObject(iMap);
+            oos.flush();
+        }
 
         final ByteArrayInputStream inTest = new ByteArrayInputStream(streamReal.toByteArray());
         final Object test = SerializationUtils.deserialize(inTest);
@@ -199,10 +199,10 @@ public class SerializationUtilsTest {
     @Test
     public void testDeserializeStreamOfNull() throws Exception {
         final ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
-        final ObjectOutputStream oos = new ObjectOutputStream(streamReal);
-        oos.writeObject(null);
-        oos.flush();
-        oos.close();
+        try (final ObjectOutputStream oos = new ObjectOutputStream(streamReal)) {
+            oos.writeObject(null);
+            oos.flush();
+        }
 
         final ByteArrayInputStream inTest = new ByteArrayInputStream(streamReal.toByteArray());
         final Object test = SerializationUtils.deserialize(inTest);
@@ -223,14 +223,13 @@ public class SerializationUtilsTest {
     @Test
     public void testDeserializeStreamClassNotFound() throws Exception {
         final ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
-        final ObjectOutputStream oos = new ObjectOutputStream(streamReal);
-        oos.writeObject(new ClassNotFoundSerialization());
-        oos.flush();
-        oos.close();
+        try (final ObjectOutputStream oos = new ObjectOutputStream(streamReal)) {
+            oos.writeObject(new ClassNotFoundSerialization());
+            oos.flush();
+        }
 
         final ByteArrayInputStream inTest = new ByteArrayInputStream(streamReal.toByteArray());
-        final SerializationException se =
-                assertThrows(SerializationException.class, () -> SerializationUtils.deserialize(inTest));
+        final SerializationException se = assertThrows(SerializationException.class, () -> SerializationUtils.deserialize(inTest));
         assertEquals("java.lang.ClassNotFoundException: " + CLASS_NOT_FOUND_MESSAGE, se.getMessage());
     }
 
@@ -246,10 +245,10 @@ public class SerializationUtilsTest {
         final byte[] testBytes = SerializationUtils.serialize(iMap);
 
         final ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
-        final ObjectOutputStream oos = new ObjectOutputStream(streamReal);
-        oos.writeObject(iMap);
-        oos.flush();
-        oos.close();
+        try (final ObjectOutputStream oos = new ObjectOutputStream(streamReal)) {
+            oos.writeObject(iMap);
+            oos.flush();
+        }
 
         final byte[] realBytes = streamReal.toByteArray();
         assertEquals(testBytes.length, realBytes.length);
@@ -267,10 +266,10 @@ public class SerializationUtilsTest {
         final byte[] testBytes = SerializationUtils.serialize(null);
 
         final ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
-        final ObjectOutputStream oos = new ObjectOutputStream(streamReal);
-        oos.writeObject(null);
-        oos.flush();
-        oos.close();
+        try (final ObjectOutputStream oos = new ObjectOutputStream(streamReal)) {
+            oos.writeObject(null);
+            oos.flush();
+        }
 
         final byte[] realBytes = streamReal.toByteArray();
         assertEquals(testBytes.length, realBytes.length);
@@ -281,10 +280,10 @@ public class SerializationUtilsTest {
     @Test
     public void testDeserializeBytes() throws Exception {
         final ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
-        final ObjectOutputStream oos = new ObjectOutputStream(streamReal);
-        oos.writeObject(iMap);
-        oos.flush();
-        oos.close();
+        try (final ObjectOutputStream oos = new ObjectOutputStream(streamReal)) {
+            oos.writeObject(iMap);
+            oos.flush();
+        }
 
         final Object test = SerializationUtils.deserialize(streamReal.toByteArray());
         assertNotNull(test);
@@ -301,10 +300,10 @@ public class SerializationUtilsTest {
     @Test
     public void testDeserializeBytesOfNull() throws Exception {
         final ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
-        final ObjectOutputStream oos = new ObjectOutputStream(streamReal);
-        oos.writeObject(null);
-        oos.flush();
-        oos.close();
+        try (final ObjectOutputStream oos = new ObjectOutputStream(streamReal)) {
+            oos.writeObject(null);
+            oos.flush();
+        }
 
         final Object test = SerializationUtils.deserialize(streamReal.toByteArray());
         assertNull(test);
