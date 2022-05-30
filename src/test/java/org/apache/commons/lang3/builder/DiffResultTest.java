@@ -46,14 +46,15 @@ public class DiffResultTest {
         }
 
         @Override
-        public DiffResult diff(final SimpleClass obj) {
-            return new DiffBuilder(this, obj, ToStringStyle.SHORT_PREFIX_STYLE)
+        public DiffResult<SimpleClass> diff(final SimpleClass obj) {
+            return new DiffBuilder<>(this, obj, ToStringStyle.SHORT_PREFIX_STYLE)
                     .append(getFieldName(), booleanField, obj.booleanField)
                     .build();
         }
     }
 
     private static class EmptyClass {
+        // empty
     }
 
     @Test
@@ -63,7 +64,7 @@ public class DiffResultTest {
 
         final List<Diff<?>> diffs = lhs.diff(rhs).getDiffs();
 
-        final DiffResult list = new DiffResult(lhs, rhs, diffs, SHORT_STYLE);
+        final DiffResult<SimpleClass> list = new DiffResult<>(lhs, rhs, diffs, SHORT_STYLE);
         assertEquals(diffs, list.getDiffs());
         assertEquals(1, list.getNumberOfDiffs());
         assertThrows(UnsupportedOperationException.class, () -> list.getDiffs().remove(0));
@@ -77,7 +78,7 @@ public class DiffResultTest {
         final List<Diff<?>> diffs = lhs.diff(rhs).getDiffs();
         final Iterator<Diff<?>> expectedIterator = diffs.iterator();
 
-        final DiffResult list = new DiffResult(lhs, rhs, diffs, SHORT_STYLE);
+        final DiffResult<SimpleClass> list = new DiffResult<>(lhs, rhs, diffs, SHORT_STYLE);
         final Iterator<Diff<?>> iterator = list.iterator();
 
         while (iterator.hasNext()) {
@@ -88,7 +89,7 @@ public class DiffResultTest {
 
     @Test
     public void testToStringOutput() {
-        final DiffResult list = new DiffBuilder(new EmptyClass(), new EmptyClass(),
+        final DiffResult<EmptyClass> list = new DiffBuilder<>(new EmptyClass(), new EmptyClass(),
                 ToStringStyle.SHORT_PREFIX_STYLE).append("test", false, true)
                 .build();
         assertEquals(
@@ -98,7 +99,7 @@ public class DiffResultTest {
 
     @Test
     public void testToStringSpecifyStyleOutput() {
-        final DiffResult list = SIMPLE_FALSE.diff(SIMPLE_TRUE);
+        final DiffResult<SimpleClass> list = SIMPLE_FALSE.diff(SIMPLE_TRUE);
         assertEquals(list.getToStringStyle(), SHORT_STYLE);
 
         final String lhsString = new ToStringBuilder(SIMPLE_FALSE,
@@ -118,31 +119,31 @@ public class DiffResultTest {
     @Test
     public void testNullLhs() {
         assertThrows(NullPointerException.class,
-            () -> new DiffResult(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE));
+            () -> new DiffResult<>(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE));
     }
 
     @Test
     public void testNullRhs() {
         assertThrows(NullPointerException.class,
-            () -> new DiffResult(SIMPLE_TRUE, null, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE));
+            () -> new DiffResult<>(SIMPLE_TRUE, null, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE));
     }
 
     @Test
     public void testNullList() {
         assertThrows(NullPointerException.class,
-            () -> new DiffResult(SIMPLE_TRUE, SIMPLE_FALSE, null, SHORT_STYLE));
+            () -> new DiffResult<>(SIMPLE_TRUE, SIMPLE_FALSE, null, SHORT_STYLE));
     }
 
     @Test
     public void testNullStyle() {
-        final DiffResult diffResult = new DiffResult(SIMPLE_TRUE, SIMPLE_FALSE, SIMPLE_TRUE
+        final DiffResult<SimpleClass> diffResult = new DiffResult<>(SIMPLE_TRUE, SIMPLE_FALSE, SIMPLE_TRUE
                 .diff(SIMPLE_FALSE).getDiffs(), null);
         assertEquals(ToStringStyle.DEFAULT_STYLE, diffResult.getToStringStyle());
     }
 
     @Test
     public void testNoDifferencesString() {
-        final DiffResult diffResult = new DiffBuilder(SIMPLE_TRUE, SIMPLE_TRUE,
+        final DiffResult<SimpleClass> diffResult = new DiffBuilder<>(SIMPLE_TRUE, SIMPLE_TRUE,
                 SHORT_STYLE).build();
         assertEquals(DiffResult.OBJECTS_SAME_STRING, diffResult.toString());
     }
