@@ -274,8 +274,13 @@ public class EnumUtilsTest {
         assertNull(EnumUtils.getEnum(Traffic.class, "PURPLE", null));
     }
 
+    /**
+     * Tests raw type.
+     */
+    @SuppressWarnings("unchecked")
     @Test
     public void test_getEnum_nonEnumClass() {
+        @SuppressWarnings("rawtypes")
         final Class rawType = Object.class;
         assertNull(EnumUtils.getEnum(rawType, "rawType"));
     }
@@ -308,8 +313,13 @@ public class EnumUtilsTest {
         assertNull(EnumUtils.getEnumIgnoreCase(Traffic.class, "PURPLE", null));
     }
 
+    /**
+     * Tests raw type.
+     */
+    @SuppressWarnings("unchecked")
     @Test
     public void test_getEnumIgnoreCase_nonEnumClass() {
+        @SuppressWarnings("rawtypes")
         final Class rawType = Object.class;
         assertNull(EnumUtils.getEnumIgnoreCase(rawType, "rawType"));
     }
