@@ -51,12 +51,15 @@ import org.junit.jupiter.api.Test;
 
 class AAAClass extends AAClass<String> {
     public class BBBClass extends BBClass<String> {
+        // empty
     }
 }
 
+@SuppressWarnings("unused") // Unused type parameter for test
 class AAClass<T> {
 
     public class BBClass<S> {
+        // empty
     }
 }
 
@@ -64,25 +67,37 @@ class AAClass<T> {
 //raw types, where used, are used purposely
 class AClass extends AAClass<String>.BBClass<Number> {
 
+    @SuppressWarnings("unused") // Unused type parameter for test
     public interface AInterface<T> {
+        // empty
     }
 
+    @SuppressWarnings("unused") // Unused type parameter for test
     public class BClass<T> {
+        // empty
     }
 
+    @SuppressWarnings("unused") // Unused type parameter for test
     public class CClass<T> extends BClass {
+        // empty
     }
 
+    @SuppressWarnings("unused") // Unused type parameter for test
     public class DClass<T> extends CClass<T> {
+        // empty
     }
 
+    @SuppressWarnings("unused") // Unused type parameter for test
     public class EClass<T> extends DClass {
+        // empty
     }
 
     public class FClass extends EClass<String> {
+        // empty
     }
 
     public class GClass<T extends BClass<? extends T> & AInterface<AInterface<? super T>>> {
+        // empty
     }
 
     public BClass<Number> bClass;
