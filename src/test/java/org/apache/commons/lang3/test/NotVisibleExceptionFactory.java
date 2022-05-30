@@ -45,7 +45,7 @@ public class NotVisibleExceptionFactory {
     }
 
     @Override
-    public Throwable getCause() {
+    public synchronized Throwable getCause() {
       return cause;
     }
   }
