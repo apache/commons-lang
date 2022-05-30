@@ -56,6 +56,7 @@ public class ClassUtilsTest  {
         // empty
     }
 
+    @SuppressWarnings("unused") // IB is redundant but what a test checks
     private static class CY extends CX implements IB, IC {
         // empty
     }
