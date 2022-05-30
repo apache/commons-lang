@@ -67,7 +67,7 @@ public class ExceptionUtilsTest {
         }
 
         @Override
-        public Throwable getCause() {
+        public synchronized Throwable getCause() {
             return cause;
         }
 
