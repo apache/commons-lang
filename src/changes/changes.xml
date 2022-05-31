@@ -145,7 +145,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add DurationUtils.since(Temporal).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add DurationUtils.of(FailableConsumer|FailableRunnbale).</action>
     <!-- UPDATE -->
-    <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess, Gary Gregory">Bump actions/cache from 2.1.4 to 3.0.2 #742, #752, #764, #833, #867.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess, Gary Gregory">Bump actions/cache from 2.1.4 to 3.0.3 #742, #752, #764, #833, #867.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump actions/checkout from 2 to 3 #819, #825, #859.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/setup-java from v1.4.3 to 3 #879.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump spotbugs-maven-plugin from 4.2.0 to 4.7.0.0 #735, #808, #822, #834, #868, #895.</action>
