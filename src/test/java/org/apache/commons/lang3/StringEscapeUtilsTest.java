@@ -172,9 +172,7 @@ public class StringEscapeUtilsTest {
     }
 
 
-    // HTML and XML
-    //--------------------------------------------------------------
-
+    /** HTML and XML */
     private static final String[][] HTML_ESCAPES = {
         {"no escaping", "plain text", "plain text"},
         {"no escaping", "plain text", "plain text"},
