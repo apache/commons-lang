@@ -83,7 +83,6 @@ public class MutableByteTest {
         assertThrows(NullPointerException.class, () -> new MutableByte((Number) null));
     }
 
-    // ----------------------------------------------------------------
     @Test
     public void testConstructors() {
         assertEquals((byte) 0, new MutableByte().byteValue());

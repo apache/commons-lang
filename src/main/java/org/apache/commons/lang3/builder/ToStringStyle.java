@@ -351,15 +351,11 @@ public abstract class ToStringStyle implements Serializable {
      */
     private String summaryObjectEndText = ">";
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Constructor.</p>
      */
     protected ToStringStyle() {
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} the superclass toString.</p>
@@ -442,8 +438,6 @@ public abstract class ToStringStyle implements Serializable {
             buffer.setLength(buffer.length() - fieldSeparator.length());
         }
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} an {@code Object}
@@ -653,8 +647,6 @@ public abstract class ToStringStyle implements Serializable {
         buffer.append(summaryObjectEndText);
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Append to the {@code toString} a {@code long}
      * value.</p>
@@ -680,8 +672,6 @@ public abstract class ToStringStyle implements Serializable {
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final long value) {
         buffer.append(value);
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} an {@code int}
@@ -709,8 +699,6 @@ public abstract class ToStringStyle implements Serializable {
         buffer.append(value);
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Append to the {@code toString} a {@code short}
      * value.</p>
@@ -736,8 +724,6 @@ public abstract class ToStringStyle implements Serializable {
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final short value) {
         buffer.append(value);
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} a {@code byte}
@@ -765,8 +751,6 @@ public abstract class ToStringStyle implements Serializable {
         buffer.append(value);
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Append to the {@code toString} a {@code char}
      * value.</p>
@@ -792,8 +776,6 @@ public abstract class ToStringStyle implements Serializable {
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final char value) {
         buffer.append(value);
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} a {@code double}
@@ -821,8 +803,6 @@ public abstract class ToStringStyle implements Serializable {
         buffer.append(value);
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Append to the {@code toString} a {@code float}
      * value.</p>
@@ -848,8 +828,6 @@ public abstract class ToStringStyle implements Serializable {
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final float value) {
         buffer.append(value);
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} a {@code boolean}
@@ -902,8 +880,6 @@ public abstract class ToStringStyle implements Serializable {
 
         appendFieldEnd(buffer, fieldName);
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} the detail of an
@@ -976,8 +952,6 @@ public abstract class ToStringStyle implements Serializable {
         appendSummarySize(buffer, fieldName, array.length);
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Append to the {@code toString} a {@code long}
      * array.</p>
@@ -1036,8 +1010,6 @@ public abstract class ToStringStyle implements Serializable {
     protected void appendSummary(final StringBuffer buffer, final String fieldName, final long[] array) {
         appendSummarySize(buffer, fieldName, array.length);
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} an {@code int}
@@ -1098,8 +1070,6 @@ public abstract class ToStringStyle implements Serializable {
         appendSummarySize(buffer, fieldName, array.length);
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Append to the {@code toString} a {@code short}
      * array.</p>
@@ -1158,8 +1128,6 @@ public abstract class ToStringStyle implements Serializable {
     protected void appendSummary(final StringBuffer buffer, final String fieldName, final short[] array) {
         appendSummarySize(buffer, fieldName, array.length);
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} a {@code byte}
@@ -1220,8 +1188,6 @@ public abstract class ToStringStyle implements Serializable {
         appendSummarySize(buffer, fieldName, array.length);
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Append to the {@code toString} a {@code char}
      * array.</p>
@@ -1280,8 +1246,6 @@ public abstract class ToStringStyle implements Serializable {
     protected void appendSummary(final StringBuffer buffer, final String fieldName, final char[] array) {
         appendSummarySize(buffer, fieldName, array.length);
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} a {@code double}
@@ -1342,8 +1306,6 @@ public abstract class ToStringStyle implements Serializable {
         appendSummarySize(buffer, fieldName, array.length);
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Append to the {@code toString} a {@code float}
      * array.</p>
@@ -1403,8 +1365,6 @@ public abstract class ToStringStyle implements Serializable {
         appendSummarySize(buffer, fieldName, array.length);
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Append to the {@code toString} a {@code boolean}
      * array.</p>
@@ -1463,8 +1423,6 @@ public abstract class ToStringStyle implements Serializable {
     protected void appendSummary(final StringBuffer buffer, final String fieldName, final boolean[] array) {
         appendSummarySize(buffer, fieldName, array.length);
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} the class name.</p>
@@ -1617,8 +1575,6 @@ public abstract class ToStringStyle implements Serializable {
     // Setters and getters for the customizable parts of the style
     // These methods are not expected to be overridden, except to make public
     // (They are not public so that immutable subclasses can be written)
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets whether to use the class name.</p>
      *
@@ -1636,8 +1592,6 @@ public abstract class ToStringStyle implements Serializable {
     protected void setUseClassName(final boolean useClassName) {
         this.useClassName = useClassName;
     }
-
-    //---------------------------------------------------------------------
 
     /**
      * <p>Gets whether to output short or long class names.</p>
@@ -1659,8 +1613,6 @@ public abstract class ToStringStyle implements Serializable {
         this.useShortClassName = useShortClassName;
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets whether to use the identity hash code.</p>
      *
@@ -1679,8 +1631,6 @@ public abstract class ToStringStyle implements Serializable {
         this.useIdentityHashCode = useIdentityHashCode;
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets whether to use the field names passed in.</p>
      *
@@ -1698,8 +1648,6 @@ public abstract class ToStringStyle implements Serializable {
     protected void setUseFieldNames(final boolean useFieldNames) {
         this.useFieldNames = useFieldNames;
     }
-
-    //---------------------------------------------------------------------
 
     /**
      * <p>Gets whether to use full detail when the caller doesn't
@@ -1721,8 +1669,6 @@ public abstract class ToStringStyle implements Serializable {
         this.defaultFullDetail = defaultFullDetail;
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets whether to output array content detail.</p>
      *
@@ -1740,8 +1686,6 @@ public abstract class ToStringStyle implements Serializable {
     protected void setArrayContentDetail(final boolean arrayContentDetail) {
         this.arrayContentDetail = arrayContentDetail;
     }
-
-    //---------------------------------------------------------------------
 
     /**
      * <p>Gets the array start text.</p>
@@ -1767,8 +1711,6 @@ public abstract class ToStringStyle implements Serializable {
         this.arrayStart = arrayStart;
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets the array end text.</p>
      *
@@ -1792,8 +1734,6 @@ public abstract class ToStringStyle implements Serializable {
         }
         this.arrayEnd = arrayEnd;
     }
-
-    //---------------------------------------------------------------------
 
     /**
      * <p>Gets the array separator text.</p>
@@ -1819,8 +1759,6 @@ public abstract class ToStringStyle implements Serializable {
         this.arraySeparator = arraySeparator;
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets the content start text.</p>
      *
@@ -1844,8 +1782,6 @@ public abstract class ToStringStyle implements Serializable {
         }
         this.contentStart = contentStart;
     }
-
-    //---------------------------------------------------------------------
 
     /**
      * <p>Gets the content end text.</p>
@@ -1871,8 +1807,6 @@ public abstract class ToStringStyle implements Serializable {
         this.contentEnd = contentEnd;
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets the field name value separator text.</p>
      *
@@ -1896,8 +1830,6 @@ public abstract class ToStringStyle implements Serializable {
         }
         this.fieldNameValueSeparator = fieldNameValueSeparator;
     }
-
-    //---------------------------------------------------------------------
 
     /**
      * <p>Gets the field separator text.</p>
@@ -1923,8 +1855,6 @@ public abstract class ToStringStyle implements Serializable {
         this.fieldSeparator = fieldSeparator;
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets whether the field separator should be added at the start
      * of each buffer.</p>
@@ -1947,8 +1877,6 @@ public abstract class ToStringStyle implements Serializable {
         this.fieldSeparatorAtStart = fieldSeparatorAtStart;
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets whether the field separator should be added at the end
      * of each buffer.</p>
@@ -1970,8 +1898,6 @@ public abstract class ToStringStyle implements Serializable {
     protected void setFieldSeparatorAtEnd(final boolean fieldSeparatorAtEnd) {
         this.fieldSeparatorAtEnd = fieldSeparatorAtEnd;
     }
-
-    //---------------------------------------------------------------------
 
     /**
      * <p>Gets the text to output when {@code null} found.</p>
@@ -1996,8 +1922,6 @@ public abstract class ToStringStyle implements Serializable {
         }
         this.nullText = nullText;
     }
-
-    //---------------------------------------------------------------------
 
     /**
      * <p>Gets the start text to output when a {@code Collection},
@@ -2029,8 +1953,6 @@ public abstract class ToStringStyle implements Serializable {
         this.sizeStartText = sizeStartText;
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets the end text to output when a {@code Collection},
      * {@code Map} or array size is output.</p>
@@ -2060,8 +1982,6 @@ public abstract class ToStringStyle implements Serializable {
         }
         this.sizeEndText = sizeEndText;
     }
-
-    //---------------------------------------------------------------------
 
     /**
      * <p>Gets the start text to output when an {@code Object} is
@@ -2093,8 +2013,6 @@ public abstract class ToStringStyle implements Serializable {
         this.summaryObjectStartText = summaryObjectStartText;
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets the end text to output when an {@code Object} is
      * output in summary mode.</p>
@@ -2124,8 +2042,6 @@ public abstract class ToStringStyle implements Serializable {
         }
         this.summaryObjectEndText = summaryObjectEndText;
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Default {@code ToStringStyle}.</p>
@@ -2161,8 +2077,6 @@ public abstract class ToStringStyle implements Serializable {
 
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>{@code ToStringStyle} that does not print out
      * the field names.</p>
@@ -2194,8 +2108,6 @@ public abstract class ToStringStyle implements Serializable {
 
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>{@code ToStringStyle} that prints out the short
      * class name and no identity hashcode.</p>
@@ -2226,8 +2138,6 @@ public abstract class ToStringStyle implements Serializable {
         }
 
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>{@code ToStringStyle} that does not print out the
@@ -2263,8 +2173,6 @@ public abstract class ToStringStyle implements Serializable {
 
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>{@code ToStringStyle} that outputs on multiple lines.</p>
      *
@@ -2298,8 +2206,6 @@ public abstract class ToStringStyle implements Serializable {
 
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>{@code ToStringStyle} that does not print out the classname
      * and identity hash code but prints content start and field names.</p>
@@ -2331,8 +2237,6 @@ public abstract class ToStringStyle implements Serializable {
         }
 
     }
-
-    // ----------------------------------------------------------------------------
 
     /**
      * <p>

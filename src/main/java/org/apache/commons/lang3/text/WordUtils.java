@@ -48,8 +48,6 @@ public class WordUtils {
     public WordUtils() {
     }
 
-    // Wrapping
-    //--------------------------------------------------------------------------
     /**
      * <p>Wraps a single line of text, identifying words by {@code ' '}.</p>
      *

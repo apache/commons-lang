@@ -42,8 +42,6 @@ public class StandardToStringStyle extends ToStringStyle {
     public StandardToStringStyle() {
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets whether to use the class name.</p>
      *
@@ -63,8 +61,6 @@ public class StandardToStringStyle extends ToStringStyle {
     public void setUseClassName(final boolean useClassName) { // NOPMD as this is implementing the abstract class
         super.setUseClassName(useClassName);
     }
-
-    //---------------------------------------------------------------------
 
     /**
      * <p>Gets whether to output short or long class names.</p>
@@ -88,8 +84,6 @@ public class StandardToStringStyle extends ToStringStyle {
         super.setUseShortClassName(useShortClassName);
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets whether to use the identity hash code.</p>
      * @return the current useIdentityHashCode flag
@@ -108,8 +102,6 @@ public class StandardToStringStyle extends ToStringStyle {
     public void setUseIdentityHashCode(final boolean useIdentityHashCode) { // NOPMD as this is implementing the abstract class
         super.setUseIdentityHashCode(useIdentityHashCode);
     }
-
-    //---------------------------------------------------------------------
 
     /**
      * <p>Gets whether to use the field names passed in.</p>
@@ -130,8 +122,6 @@ public class StandardToStringStyle extends ToStringStyle {
     public void setUseFieldNames(final boolean useFieldNames) { // NOPMD as this is implementing the abstract class
         super.setUseFieldNames(useFieldNames);
     }
-
-    //---------------------------------------------------------------------
 
     /**
      * <p>Gets whether to use full detail when the caller doesn't
@@ -155,8 +145,6 @@ public class StandardToStringStyle extends ToStringStyle {
         super.setDefaultFullDetail(defaultFullDetail);
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets whether to output array content detail.</p>
      *
@@ -176,8 +164,6 @@ public class StandardToStringStyle extends ToStringStyle {
     public void setArrayContentDetail(final boolean arrayContentDetail) { // NOPMD as this is implementing the abstract class
         super.setArrayContentDetail(arrayContentDetail);
     }
-
-    //---------------------------------------------------------------------
 
     /**
      * <p>Gets the array start text.</p>
@@ -202,8 +188,6 @@ public class StandardToStringStyle extends ToStringStyle {
         super.setArrayStart(arrayStart);
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets the array end text.</p>
      *
@@ -226,8 +210,6 @@ public class StandardToStringStyle extends ToStringStyle {
     public void setArrayEnd(final String arrayEnd) { // NOPMD as this is implementing the abstract class
         super.setArrayEnd(arrayEnd);
     }
-
-    //---------------------------------------------------------------------
 
     /**
      * <p>Gets the array separator text.</p>
@@ -252,8 +234,6 @@ public class StandardToStringStyle extends ToStringStyle {
         super.setArraySeparator(arraySeparator);
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets the content start text.</p>
      *
@@ -276,8 +256,6 @@ public class StandardToStringStyle extends ToStringStyle {
     public void setContentStart(final String contentStart) { // NOPMD as this is implementing the abstract class
         super.setContentStart(contentStart);
     }
-
-    //---------------------------------------------------------------------
 
     /**
      * <p>Gets the content end text.</p>
@@ -302,8 +280,6 @@ public class StandardToStringStyle extends ToStringStyle {
         super.setContentEnd(contentEnd);
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets the field name value separator text.</p>
      *
@@ -327,8 +303,6 @@ public class StandardToStringStyle extends ToStringStyle {
         super.setFieldNameValueSeparator(fieldNameValueSeparator);
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets the field separator text.</p>
      *
@@ -351,8 +325,6 @@ public class StandardToStringStyle extends ToStringStyle {
     public void setFieldSeparator(final String fieldSeparator) { // NOPMD as this is implementing the abstract class
         super.setFieldSeparator(fieldSeparator);
     }
-
-    //---------------------------------------------------------------------
 
     /**
      * <p>Gets whether the field separator should be added at the start
@@ -378,8 +350,6 @@ public class StandardToStringStyle extends ToStringStyle {
         super.setFieldSeparatorAtStart(fieldSeparatorAtStart);
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets whether the field separator should be added at the end
      * of each buffer.</p>
@@ -404,8 +374,6 @@ public class StandardToStringStyle extends ToStringStyle {
         super.setFieldSeparatorAtEnd(fieldSeparatorAtEnd);
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets the text to output when {@code null} found.</p>
      *
@@ -428,8 +396,6 @@ public class StandardToStringStyle extends ToStringStyle {
     public void setNullText(final String nullText) { // NOPMD as this is implementing the abstract class
         super.setNullText(nullText);
     }
-
-    //---------------------------------------------------------------------
 
     /**
      * <p>Gets the text to output when a {@code Collection},
@@ -460,8 +426,6 @@ public class StandardToStringStyle extends ToStringStyle {
         super.setSizeStartText(sizeStartText);
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets the end text to output when a {@code Collection},
      * {@code Map} or {@code Array} size is output.</p>
@@ -490,8 +454,6 @@ public class StandardToStringStyle extends ToStringStyle {
     public void setSizeEndText(final String sizeEndText) { // NOPMD as this is implementing the abstract class
         super.setSizeEndText(sizeEndText);
     }
-
-    //---------------------------------------------------------------------
 
     /**
      * <p>Gets the start text to output when an {@code Object} is
@@ -522,8 +484,6 @@ public class StandardToStringStyle extends ToStringStyle {
         super.setSummaryObjectStartText(summaryObjectStartText);
     }
 
-    //---------------------------------------------------------------------
-
     /**
      * <p>Gets the end text to output when an {@code Object} is
      * output in summary mode.</p>
@@ -552,7 +512,5 @@ public class StandardToStringStyle extends ToStringStyle {
     public void setSummaryObjectEndText(final String summaryObjectEndText) { // NOPMD as this is implementing the abstract class
         super.setSummaryObjectEndText(summaryObjectEndText);
     }
-
-    //---------------------------------------------------------------------
 
 }

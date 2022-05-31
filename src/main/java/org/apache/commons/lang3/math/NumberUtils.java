@@ -1026,8 +1026,6 @@ public class NumberUtils {
         return new BigDecimal(str);
     }
 
-    // Min in array
-    //--------------------------------------------------------------------
     /**
      * <p>Returns the minimum value in an array.</p>
      *
@@ -1180,8 +1178,6 @@ public class NumberUtils {
         return min;
     }
 
-    // Max in array
-    //--------------------------------------------------------------------
     /**
      * <p>Returns the maximum value in an array.</p>
      *

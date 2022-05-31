@@ -61,8 +61,6 @@ public class StandardToStringStyleTest {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 
-    //----------------------------------------------------------------
-
     @Test
     public void testBlank() {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).toString());

@@ -3159,8 +3159,6 @@ public class StringUtilsTest {
         assertEquals("", StringUtils.truncate("abcdefghijklmno", Integer.MAX_VALUE, Integer.MAX_VALUE));
     }
 
-    // -----------------------------------------------------------------------
-
     @Test
     public void testUnCapitalize() {
         assertNull(StringUtils.uncapitalize(null));

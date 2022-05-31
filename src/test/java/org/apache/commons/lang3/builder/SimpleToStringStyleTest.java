@@ -43,8 +43,6 @@ public class SimpleToStringStyleTest {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 
-    //----------------------------------------------------------------
-
     @Test
     public void testBlank() {
         assertEquals("", new ToStringBuilder(base).toString());

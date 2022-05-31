@@ -85,7 +85,6 @@ public class MutableIntTest {
         assertThrows(NullPointerException.class, () -> new MutableInt((Number) null));
     }
 
-    // ----------------------------------------------------------------
     @Test
     public void testConstructors() {
         assertEquals(0, new MutableInt().intValue());

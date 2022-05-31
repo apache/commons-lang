@@ -458,7 +458,6 @@ public class CompareToBuilder implements Builder<Integer> {
         }
     }
 
-    //-------------------------------------------------------------------------
     /**
      * Appends to the {@code builder} the comparison of
      * two {@code long}s.

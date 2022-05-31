@@ -1188,7 +1188,6 @@ public class DateUtilsTest {
                 "Hour Round Up Failed");
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testSetDays() throws Exception {
         Date result = DateUtils.setDays(BASE_DATE, 1);
@@ -1214,7 +1213,6 @@ public class DateUtilsTest {
         assertThrows(NullPointerException.class, () -> DateUtils.setDays(null, 1));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testSetHours() throws Exception {
         Date result = DateUtils.setHours(BASE_DATE, 0);
@@ -1240,7 +1238,6 @@ public class DateUtilsTest {
         assertThrows(NullPointerException.class, () -> DateUtils.setHours(null, 0));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testSetMilliseconds() throws Exception {
         Date result = DateUtils.setMilliseconds(BASE_DATE, 0);
@@ -1266,7 +1263,6 @@ public class DateUtilsTest {
         assertThrows(NullPointerException.class, () -> DateUtils.setMilliseconds(null, 0));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testSetMinutes() throws Exception {
         Date result = DateUtils.setMinutes(BASE_DATE, 0);
@@ -1292,7 +1288,6 @@ public class DateUtilsTest {
         assertThrows(NullPointerException.class, () -> DateUtils.setMinutes(null, 0));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testSetMonths() throws Exception {
         Date result = DateUtils.setMonths(BASE_DATE, 5);
@@ -1323,7 +1318,6 @@ public class DateUtilsTest {
         assertThrows(NullPointerException.class, () -> DateUtils.setMonths(null, 0));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testSetSeconds() throws Exception {
         Date result = DateUtils.setSeconds(BASE_DATE, 0);
@@ -1349,7 +1343,6 @@ public class DateUtilsTest {
         assertThrows(NullPointerException.class, () -> DateUtils.setSeconds(null, 0));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testSetYears() throws Exception {
         Date result = DateUtils.setYears(BASE_DATE, 2000);

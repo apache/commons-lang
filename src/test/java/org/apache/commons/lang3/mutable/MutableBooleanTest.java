@@ -55,7 +55,6 @@ public class MutableBooleanTest {
         assertThrows(NullPointerException.class, () -> new MutableBoolean(null));
     }
 
-    // ----------------------------------------------------------------
     @Test
     public void testConstructors() {
         assertFalse(new MutableBoolean().booleanValue());

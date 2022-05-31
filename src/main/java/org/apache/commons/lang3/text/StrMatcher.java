@@ -74,8 +74,6 @@ public abstract class StrMatcher {
      */
     private static final StrMatcher NONE_MATCHER = new NoMatcher();
 
-    // -----------------------------------------------------------------------
-
     /**
      * Returns a matcher which matches the comma character.
      *

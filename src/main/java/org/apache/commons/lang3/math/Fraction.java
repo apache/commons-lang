@@ -343,9 +343,6 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         return getFraction(numer, denom);
     }
 
-    // Accessors
-    //-------------------------------------------------------------------
-
     /**
      * <p>Gets the numerator part of the fraction.</p>
      *
@@ -397,9 +394,6 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         return numerator / denominator;
     }
 
-    // Number methods
-    //-------------------------------------------------------------------
-
     /**
      * <p>Gets the fraction as an {@code int}. This returns the whole number
      * part of the fraction.</p>
@@ -443,9 +437,6 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     public double doubleValue() {
         return (double) numerator / (double) denominator;
     }
-
-    // Calculations
-    //-------------------------------------------------------------------
 
     /**
      * <p>Reduce the fraction to the smallest values for the numerator and
@@ -618,9 +609,6 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         } while (t != 0);
         return -u * (1 << k); // gcd is u*2^k
     }
-
-    // Arithmetic
-    //-------------------------------------------------------------------
 
     /**
      * Multiply two integers, checking for overflow.
@@ -807,9 +795,6 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         }
         return multiplyBy(fraction.invert());
     }
-
-    // Basics
-    //-------------------------------------------------------------------
 
     /**
      * <p>Compares this fraction to another object to test if they are equal.</p>.

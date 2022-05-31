@@ -448,8 +448,6 @@ public class HashCodeBuilder implements Builder<Integer> {
         return reflectionHashCode(object, ReflectionToStringBuilder.toNoNullStringArray(excludeFields));
     }
 
-    // -------------------------------------------------------------------------
-
     /**
      * <p>
      * Uses reflection to build a valid hash code from the fields of {@code object}.
@@ -619,8 +617,6 @@ public class HashCodeBuilder implements Builder<Integer> {
         return this;
     }
 
-    // -------------------------------------------------------------------------
-
     /**
      * <p>
      * Append a {@code hashCode} for a {@code byte}.
@@ -634,8 +630,6 @@ public class HashCodeBuilder implements Builder<Integer> {
         iTotal = iTotal * iConstant + value;
         return this;
     }
-
-    // -------------------------------------------------------------------------
 
     /**
      * <p>

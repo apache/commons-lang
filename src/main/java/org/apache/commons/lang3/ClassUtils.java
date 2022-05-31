@@ -745,8 +745,6 @@ public class ClassUtils {
         return getPackageName(cls.getName());
     }
 
-    // Package name
-    // ----------------------------------------------------------------------
     /**
      * <p>
      * Gets the package name of an {@code Object}.

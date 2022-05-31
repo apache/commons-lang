@@ -430,8 +430,6 @@ public class StringEscapeUtils {
     public StringEscapeUtils() {
     }
 
-    // Java and JavaScript
-    //--------------------------------------------------------------------------
     /**
      * <p>Escapes the characters in a {@code String} using Java String rules.</p>
      *
@@ -559,8 +557,6 @@ public class StringEscapeUtils {
         return UNESCAPE_JSON.translate(input);
     }
 
-    // HTML and XML
-    //--------------------------------------------------------------------------
     /**
      * <p>Escapes the characters in a {@code String} using HTML entities.</p>
      *

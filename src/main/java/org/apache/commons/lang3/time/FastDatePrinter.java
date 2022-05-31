@@ -1517,7 +1517,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         }
     }
 
-    // ----------------------------------------------------------------------
     /**
      * <p>Inner class that acts as a compound key for time zone names.</p>
      */

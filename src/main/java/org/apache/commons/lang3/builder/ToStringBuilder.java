@@ -93,8 +93,6 @@ public class ToStringBuilder implements Builder<String> {
      */
     private static volatile ToStringStyle defaultStyle = ToStringStyle.DEFAULT_STYLE;
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Gets the default {@code ToStringStyle} to use.</p>
      *
@@ -136,7 +134,6 @@ public class ToStringBuilder implements Builder<String> {
         defaultStyle = Validate.notNull(style, "style");
     }
 
-    //----------------------------------------------------------------------------
     /**
      * <p>Uses {@code ReflectionToStringBuilder} to generate a
      * {@code toString} for the specified object.</p>
@@ -196,8 +193,6 @@ public class ToStringBuilder implements Builder<String> {
         final Class<? super T> reflectUpToClass) {
         return ReflectionToStringBuilder.toString(object, style, outputTransients, false, reflectUpToClass);
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * Current toString buffer, not null.
@@ -260,8 +255,6 @@ public class ToStringBuilder implements Builder<String> {
         style.appendStart(buffer, object);
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Append to the {@code toString} a {@code boolean}
      * value.</p>
@@ -273,8 +266,6 @@ public class ToStringBuilder implements Builder<String> {
         style.append(buffer, null, value);
         return this;
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} a {@code boolean}
@@ -288,8 +279,6 @@ public class ToStringBuilder implements Builder<String> {
         return this;
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Append to the {@code toString} a {@code byte}
      * value.</p>
@@ -301,8 +290,6 @@ public class ToStringBuilder implements Builder<String> {
         style.append(buffer, null, value);
         return this;
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} a {@code byte}
@@ -316,8 +303,6 @@ public class ToStringBuilder implements Builder<String> {
         return this;
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Append to the {@code toString} a {@code char}
      * value.</p>
@@ -329,8 +314,6 @@ public class ToStringBuilder implements Builder<String> {
         style.append(buffer, null, value);
         return this;
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} a {@code char}
@@ -344,8 +327,6 @@ public class ToStringBuilder implements Builder<String> {
         return this;
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Append to the {@code toString} a {@code double}
      * value.</p>
@@ -357,8 +338,6 @@ public class ToStringBuilder implements Builder<String> {
         style.append(buffer, null, value);
         return this;
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} a {@code double}
@@ -372,8 +351,6 @@ public class ToStringBuilder implements Builder<String> {
         return this;
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Append to the {@code toString} a {@code float}
      * value.</p>
@@ -385,8 +362,6 @@ public class ToStringBuilder implements Builder<String> {
         style.append(buffer, null, value);
         return this;
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} a {@code float}
@@ -400,8 +375,6 @@ public class ToStringBuilder implements Builder<String> {
         return this;
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Append to the {@code toString} an {@code int}
      * value.</p>
@@ -413,8 +386,6 @@ public class ToStringBuilder implements Builder<String> {
         style.append(buffer, null, value);
         return this;
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} an {@code int}
@@ -428,8 +399,6 @@ public class ToStringBuilder implements Builder<String> {
         return this;
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Append to the {@code toString} a {@code long}
      * value.</p>
@@ -441,8 +410,6 @@ public class ToStringBuilder implements Builder<String> {
         style.append(buffer, null, value);
         return this;
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} a {@code long}
@@ -456,8 +423,6 @@ public class ToStringBuilder implements Builder<String> {
         return this;
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Append to the {@code toString} an {@code Object}
      * value.</p>
@@ -469,8 +434,6 @@ public class ToStringBuilder implements Builder<String> {
         style.append(buffer, null, obj, null);
         return this;
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} an {@code Object}
@@ -484,8 +447,6 @@ public class ToStringBuilder implements Builder<String> {
         return this;
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Append to the {@code toString} a {@code short}
      * value.</p>
@@ -497,8 +458,6 @@ public class ToStringBuilder implements Builder<String> {
         style.append(buffer, null, value);
         return this;
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Append to the {@code toString} a {@code short}
@@ -954,8 +913,6 @@ public class ToStringBuilder implements Builder<String> {
         return this;
     }
 
-    //----------------------------------------------------------------------------
-
     /**
      * <p>Append the {@code toString} from the superclass.</p>
      *
@@ -1027,8 +984,6 @@ public class ToStringBuilder implements Builder<String> {
     public StringBuffer getStringBuffer() {
         return buffer;
     }
-
-    //----------------------------------------------------------------------------
 
     /**
      * <p>Gets the {@code ToStringStyle} being used.</p>

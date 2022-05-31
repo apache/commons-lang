@@ -231,8 +231,6 @@ public class EqualsBuilder implements Builder<Boolean> {
         bypassReflectionClasses.add(String.class); //hashCode field being lazy but not transient
     }
 
-    //-------------------------------------------------------------------------
-
     /**
      * Set whether to include transient fields when reflectively comparing objects.
      * @param testTransients whether to test transient fields
@@ -596,8 +594,6 @@ public class EqualsBuilder implements Builder<Boolean> {
         }
     }
 
-    //-------------------------------------------------------------------------
-
     /**
      * <p>Adds the result of {@code super.equals()} to this builder.</p>
      *
@@ -612,8 +608,6 @@ public class EqualsBuilder implements Builder<Boolean> {
         isEquals = superEquals;
         return this;
     }
-
-    //-------------------------------------------------------------------------
 
     /**
      * <p>Test if two {@code Object}s are equal using either

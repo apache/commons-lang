@@ -2055,7 +2055,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return replace(matcher, replaceStr, 0, size, 1);
     }
 
-    // -----------------------------------------------------------------------
     /**
      * Advanced search and replaces within the builder using a matcher.
      * <p>

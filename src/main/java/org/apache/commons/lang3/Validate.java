@@ -82,9 +82,6 @@ public class Validate {
     public Validate() {
     }
 
-    // isTrue
-    //---------------------------------------------------------------------------------
-
     /**
      * <p>Validate that the argument condition is {@code true}; otherwise
      * throwing an exception with the specified message. This method is useful when
@@ -184,9 +181,6 @@ public class Validate {
         }
     }
 
-    // notNull
-    //---------------------------------------------------------------------------------
-
     /**
      * <p>Validate that the specified argument is not {@code null};
      * otherwise throwing an exception.
@@ -273,9 +267,6 @@ public class Validate {
         return notEmpty(array, DEFAULT_NOT_EMPTY_ARRAY_EX_MESSAGE);
     }
 
-    // notEmpty collection
-    //---------------------------------------------------------------------------------
-
     /**
      * <p>Validate that the specified argument collection is neither {@code null}
      * nor a size of zero (no elements); otherwise throwing an exception
@@ -319,9 +310,6 @@ public class Validate {
     public static <T extends Collection<?>> T notEmpty(final T collection) {
         return notEmpty(collection, DEFAULT_NOT_EMPTY_COLLECTION_EX_MESSAGE);
     }
-
-    // notEmpty map
-    //---------------------------------------------------------------------------------
 
     /**
      * <p>Validate that the specified argument map is neither {@code null}
@@ -367,9 +355,6 @@ public class Validate {
         return notEmpty(map, DEFAULT_NOT_EMPTY_MAP_EX_MESSAGE);
     }
 
-    // notEmpty string
-    //---------------------------------------------------------------------------------
-
     /**
      * <p>Validate that the specified argument character sequence is
      * neither {@code null} nor a length of zero (no characters);
@@ -414,9 +399,6 @@ public class Validate {
     public static <T extends CharSequence> T notEmpty(final T chars) {
         return notEmpty(chars, DEFAULT_NOT_EMPTY_CHAR_SEQUENCE_EX_MESSAGE);
     }
-
-    // notBlank string
-    //---------------------------------------------------------------------------------
 
     /**
      * <p>Validate that the specified argument character sequence is
@@ -467,9 +449,6 @@ public class Validate {
     public static <T extends CharSequence> T notBlank(final T chars) {
         return notBlank(chars, DEFAULT_NOT_BLANK_EX_MESSAGE);
     }
-
-    // noNullElements array
-    //---------------------------------------------------------------------------------
 
     /**
      * <p>Validate that the specified argument array is neither
@@ -529,9 +508,6 @@ public class Validate {
     public static <T> T[] noNullElements(final T[] array) {
         return noNullElements(array, DEFAULT_NO_NULL_ELEMENTS_ARRAY_EX_MESSAGE);
     }
-
-    // noNullElements iterable
-    //---------------------------------------------------------------------------------
 
     /**
      * <p>Validate that the specified argument iterable is neither
@@ -593,9 +569,6 @@ public class Validate {
         return noNullElements(iterable, DEFAULT_NO_NULL_ELEMENTS_COLLECTION_EX_MESSAGE);
     }
 
-    // validIndex array
-    //---------------------------------------------------------------------------------
-
     /**
      * <p>Validates that the index is within the bounds of the argument
      * array; otherwise throwing an exception with the specified message.</p>
@@ -652,9 +625,6 @@ public class Validate {
         return validIndex(array, index, DEFAULT_VALID_INDEX_ARRAY_EX_MESSAGE, Integer.valueOf(index));
     }
 
-    // validIndex collection
-    //---------------------------------------------------------------------------------
-
     /**
      * <p>Validates that the index is within the bounds of the argument
      * collection; otherwise throwing an exception with the specified message.</p>
@@ -707,9 +677,6 @@ public class Validate {
     public static <T extends Collection<?>> T validIndex(final T collection, final int index) {
         return validIndex(collection, index, DEFAULT_VALID_INDEX_COLLECTION_EX_MESSAGE, Integer.valueOf(index));
     }
-
-    // validIndex string
-    //---------------------------------------------------------------------------------
 
     /**
      * <p>Validates that the index is within the bounds of the argument
@@ -769,9 +736,6 @@ public class Validate {
         return validIndex(chars, index, DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EX_MESSAGE, Integer.valueOf(index));
     }
 
-    // validState
-    //---------------------------------------------------------------------------------
-
     /**
      * <p>Validate that the stateful condition is {@code true}; otherwise
      * throwing an exception. This method is useful when validating according
@@ -819,9 +783,6 @@ public class Validate {
         }
     }
 
-    // matchesPattern
-    //---------------------------------------------------------------------------------
-
     /**
      * <p>Validate that the specified argument character sequence matches the specified regular
      * expression pattern; otherwise throwing an exception.</p>
@@ -868,9 +829,6 @@ public class Validate {
         }
     }
 
-    // notNaN
-    //---------------------------------------------------------------------------------
-
     /**
      * <p>Validates that the specified argument is not {@code NaN}; otherwise
      * throwing an exception.</p>
@@ -910,9 +868,6 @@ public class Validate {
         }
     }
 
-    // finite
-    //---------------------------------------------------------------------------------
-
     /**
      * <p>Validates that the specified argument is not infinite or {@code NaN};
      * otherwise throwing an exception.</p>
@@ -950,9 +905,6 @@ public class Validate {
             throw new IllegalArgumentException(String.format(message, values));
         }
     }
-
-    // inclusiveBetween
-    //---------------------------------------------------------------------------------
 
     /**
      * <p>Validate that the specified argument object fall between the two
@@ -1226,9 +1178,6 @@ public class Validate {
             throw new IllegalArgumentException(message);
         }
     }
-
-    // isInstanceOf
-    //---------------------------------------------------------------------------------
 
     /**
      * Validates that the argument is an instance of the specified class, if not throws an exception.

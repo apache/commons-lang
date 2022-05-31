@@ -83,7 +83,6 @@ public class DurationFormatUtilsTest {
                              new int[] { 2006, 1, 26, 10, 47, 34 }, "yyyy/MM/dd HH:mm:ss SSS");
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testConstructor() {
         assertNotNull(new DurationFormatUtils());
@@ -322,7 +321,6 @@ public class DurationFormatUtilsTest {
         assertEquals("1 day 1 hour 1 minute 1 second", text);
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testFormatDurationWords() {
         String text;

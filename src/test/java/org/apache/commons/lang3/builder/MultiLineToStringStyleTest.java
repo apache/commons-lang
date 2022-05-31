@@ -44,8 +44,6 @@ public class MultiLineToStringStyleTest {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 
-    //----------------------------------------------------------------
-
     @Test
     public void testBlank() {
         assertEquals(baseStr + "[" + System.lineSeparator() + "]", new ToStringBuilder(base).toString());

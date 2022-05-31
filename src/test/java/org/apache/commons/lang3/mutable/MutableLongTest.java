@@ -85,7 +85,6 @@ public class MutableLongTest {
         assertThrows(NullPointerException.class, () -> new MutableLong((Number) null));
     }
 
-    // ----------------------------------------------------------------
     @Test
     public void testConstructors() {
         assertEquals(0, new MutableLong().longValue());

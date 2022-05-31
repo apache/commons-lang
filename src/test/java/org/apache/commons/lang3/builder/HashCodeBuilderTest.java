@@ -52,8 +52,6 @@ public class HashCodeBuilderTest {
         }
     }
 
-    // -----------------------------------------------------------------------
-
     @Test
     public void testConstructorExZero() {
         assertThrows(IllegalArgumentException.class, () -> new HashCodeBuilder(0, 0));

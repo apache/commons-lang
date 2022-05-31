@@ -50,8 +50,6 @@ public class JsonToStringStyleTest {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 
-    // ----------------------------------------------------------------
-
     @Test
     public void testNull() {
         assertEquals("null", new ToStringBuilder(null).toString());
