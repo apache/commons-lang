@@ -6287,8 +6287,7 @@ public class ArrayUtilsTest {
                 (short) 9999999}));
     }
 
-    // testToPrimitive/Object for boolean
-    //  -----------------------------------------------------------------------
+    /** testToPrimitive/Object for boolean */
     @Test
     public void testToPrimitive_boolean() {
         final Boolean[] b = null;
@@ -6307,8 +6306,7 @@ public class ArrayUtilsTest {
         assertArrayEquals(new boolean[]{true, true, false}, ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, null, Boolean.FALSE}, true));
     }
 
-    // testToPrimitive/Object for byte
-    //  -----------------------------------------------------------------------
+    /** testToPrimitive/Object for byte */
     @Test
     public void testToPrimitive_byte() {
         final Byte[] b = null;
@@ -6339,8 +6337,7 @@ public class ArrayUtilsTest {
                 Byte.valueOf((byte) 9999999)}, Byte.MAX_VALUE));
     }
 
-    // testToPrimitive/Object for byte
-    //  -----------------------------------------------------------------------
+    /** testToPrimitive/Object for byte */
     @Test
     public void testToPrimitive_char() {
         final Character[] b = null;
@@ -6371,8 +6368,7 @@ public class ArrayUtilsTest {
                 Character.valueOf('0')}, Character.MAX_VALUE));
     }
 
-    //  testToPrimitive/Object for double
-    //  -----------------------------------------------------------------------
+    /**  testToPrimitive/Object for double */
     @Test
     public void testToPrimitive_double() {
         final Double[] b = null;
@@ -6403,8 +6399,7 @@ public class ArrayUtilsTest {
                 null, Double.valueOf(9999999)}, Double.MAX_VALUE));
     }
 
-    //  testToPrimitive/Object for float
-    //  -----------------------------------------------------------------------
+    /**  testToPrimitive/Object for float */
     @Test
     public void testToPrimitive_float() {
         final Float[] b = null;
@@ -6435,8 +6430,7 @@ public class ArrayUtilsTest {
                 null, Float.valueOf(9999999)}, Float.MAX_VALUE));
     }
 
-    //  testToPrimitive/Object for int
-    //  -----------------------------------------------------------------------
+    /** testToPrimitive/Object for int */
     @Test
     public void testToPrimitive_int() {
         final Integer[] b = null;
@@ -6467,8 +6461,7 @@ public class ArrayUtilsTest {
         assertNull(ArrayUtils.toPrimitive(iArray, Integer.MIN_VALUE));
     }
 
-    //  testToPrimitive/Object for long
-    //  -----------------------------------------------------------------------
+    /** testToPrimitive/Object for long */
     @Test
     public void testToPrimitive_long() {
         final Long[] b = null;
@@ -6499,8 +6492,7 @@ public class ArrayUtilsTest {
                 null, Long.valueOf(9999999)}, Long.MAX_VALUE));
     }
 
-    // testToPrimitive/Object for short
-    //  -----------------------------------------------------------------------
+    /** testToPrimitive/Object for short */
     @Test
     public void testToPrimitive_short() {
         final Short[] b = null;
