@@ -34,7 +34,7 @@ import java.util.Objects;
  *
  * @since 3.2
  */
-public final class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
+public class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
 
     /**
      * An empty array.

@@ -34,7 +34,7 @@ import java.util.Objects;
  *
  * @since 3.0
  */
-public final class ImmutablePair<L, R> extends Pair<L, R> {
+public class ImmutablePair<L, R> extends Pair<L, R> {
 
     /**
      * An empty array.
