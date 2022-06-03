@@ -652,7 +652,7 @@
     <commons.javadoc.version>3.4.0</commons.javadoc.version>
     <commons.japicmp.version>0.15.7</commons.japicmp.version>
     <commons.pmd.version>3.16.0</commons.pmd.version>
-    <commons.pmd-impl.version>6.45.0</commons.pmd-impl.version>
+    <commons.pmd-impl.version>6.46.0</commons.pmd-impl.version>
     <commons.felix.version>5.1.2</commons.felix.version>
     <biz.aQute.bndlib.version>6.2.0</biz.aQute.bndlib.version>
     <commons.animal-sniffer.version>1.21</commons.animal-sniffer.version>
