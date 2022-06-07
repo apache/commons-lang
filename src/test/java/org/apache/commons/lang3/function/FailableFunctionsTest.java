@@ -2563,4 +2563,108 @@ public class FailableFunctionsTest {
         assertTrue(closeable.isClosed());
     }
 
+    @Test
+    public void testFailableDoubleToIntFunctionNop() throws Throwable {
+        assertEquals(0, FailableDoubleToIntFunction.nop().applyAsInt(Double.MAX_VALUE), "Expect NOP to return 0");
+    }
+
+    @Test
+    public void testFailableDoubleToLongFunctionNop() throws Throwable {
+        assertEquals(0, FailableDoubleToLongFunction.nop().applyAsLong(Double.MAX_VALUE), "Expect NOP to return 0");
+    }
+
+    @Test
+    public void testFailableIntToDoubleFunctionNop() throws Throwable {
+        assertEquals(0, FailableIntToDoubleFunction.nop().applyAsDouble(Integer.MAX_VALUE), "Expect NOP to return 0");
+    }
+
+    @Test
+    public void testFailableIntToLongFunctionNop() throws Throwable {
+        assertEquals(0, FailableIntToLongFunction.nop().applyAsLong(Integer.MAX_VALUE), "Expect NOP to return 0");
+    }
+
+    @Test
+    public void testFailableLongToDoubleFunctionNop() throws Throwable {
+        assertEquals(0, FailableLongToDoubleFunction.nop().applyAsDouble(Long.MAX_VALUE), "Expect NOP to return 0");
+    }
+
+    @Test
+    public void testFailableLongToIntFunctionNop() throws Throwable {
+        assertEquals(0, FailableLongToIntFunction.nop().applyAsInt(Long.MAX_VALUE), "Expect NOP to return 0");
+    }
+
+    @Test
+    public void testFailableToIntFunctionNop() throws Throwable {
+        assertEquals(0, FailableToIntFunction.nop().applyAsInt("Foo"), "Expect NOP to return 0");
+    }
+
+    @Test
+    public void testFailableToIntBiFunctionNop() throws Throwable {
+        assertEquals(0, FailableToIntBiFunction.nop().applyAsInt("Foo", "Bar"), "Expect NOP to return 0");
+    }
+
+    @Test
+    public void testFailableToLongFunctionNop() throws Throwable {
+        assertEquals(0, FailableToLongFunction.nop().applyAsLong("Foo"), "Expect NOP to return 0");
+    }
+
+    @Test
+    public void testFailableToLongBiFunctionNop() throws Throwable {
+        assertEquals(0, FailableToLongBiFunction.nop().applyAsLong("Foo", "Bar"), "Expect NOP to return 0");
+    }
+
+    @Test
+    public void testFailableToDoubleFunctionNop() throws Throwable {
+        assertEquals(0, FailableToDoubleFunction.nop().applyAsDouble("Foo"), "Expect NOP to return 0");
+    }
+
+    @Test
+    public void testFailableToDoubleBiFunctionNop() throws Throwable {
+        assertEquals(0, FailableToDoubleBiFunction.nop().applyAsDouble("Foo", "Bar"), "Expect NOP to return 0");
+    }
+
+    @Test
+    public void testFailableBiFunctionNop() throws Throwable {
+        assertNull(FailableBiFunction.nop().apply("Foo", "Bar"), "Expect NOP to return null");
+    }
+
+    @Test
+    public void testFailableDoubleFunctionNop() throws Throwable {
+        assertNull(FailableDoubleFunction.nop().apply(Double.MAX_VALUE), "Expect NOP to return null");
+    }
+
+    @Test
+    public void testFailableIntFunctionNop() throws Throwable {
+        assertNull(FailableIntFunction.nop().apply(Integer.MAX_VALUE), "Expect NOP to return null");
+    }
+
+    @Test
+    public void testFailableLongFunctionNop() throws Throwable {
+        assertNull(FailableLongFunction.nop().apply(Long.MAX_VALUE), "Expect NOP to return null");
+    }
+
+    @Test
+    public void testFailableConsumerNop() throws Throwable {
+        // Expect nothing thrown
+        FailableConsumer.nop().accept("Foo");
+    }
+
+    @Test
+    public void testFailableObjDoubleConsumerNop() throws Throwable {
+        // Expect nothing thrown
+        FailableObjDoubleConsumer.nop().accept("Foo", Double.MAX_VALUE);
+    }
+
+    @Test
+    public void testFailableObjIntConsumerNop() throws Throwable {
+        // Expect nothing thrown
+        FailableObjIntConsumer.nop().accept("Foo", Integer.MAX_VALUE);
+    }
+
+    @Test
+    public void testFailableObjLongConsumerNop() throws Throwable {
+        // Expect nothing thrown
+        FailableObjLongConsumer.nop().accept("Foo", Long.MAX_VALUE);
+    }
+
 }
