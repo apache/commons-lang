@@ -8889,7 +8889,7 @@ public class StringUtils {
      * StringUtils.substringBetween("", "[", "]")        = null
      * StringUtils.substringBetween("yabcz", "", "")     = ""
      * StringUtils.substringBetween("yabcz", "y", "z")   = "abc"
-     * StringUtils.substringBetween("yabczyabcz", "y", "z")   = "abc"
+     * StringUtils.substringBetween("yabczyabcz", "y", "z")   = "abczyabc"
      * </pre>
      *
      * @param str  the String containing the substring, may be null
