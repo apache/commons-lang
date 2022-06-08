@@ -437,7 +437,7 @@ public class Conversion {
      * @throws NullPointerException if {@code src} is {@code null}
      * @throws IndexOutOfBoundsException if {@code srcPos} is outside the array.
      */
-    public static char binaryBeMsb0ToHexDigit(boolean[] src, int srcPos) {
+    public static char binaryBeMsb0ToHexDigit(final boolean[] src, final int srcPos) {
         // JDK 9: Objects.checkIndex(int index, int length)
         if (Integer.compareUnsigned(srcPos, src.length) >= 0) {
             // Throw the correct exception
