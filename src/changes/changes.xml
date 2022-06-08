@@ -87,6 +87,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="aherbert" due-to="Arturo Bernal">Rewrite Conversion.binaryBeMsb0ToHexDigit to invert logic of binaryToHexDigit.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Allow extension of previously final classes ImmutablePair and ImmutableTriple.</action>
     <!-- ADD -->
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add GitHub coverage.yml.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TriConsumer.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use EnumUtils.getFirstEnumIgnoreCase(Class, String, Function, E).</action>
