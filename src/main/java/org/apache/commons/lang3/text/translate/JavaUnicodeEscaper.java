@@ -17,7 +17,7 @@
 package org.apache.commons.lang3.text.translate;
 
 /**
- * Translates codepoints to their Unicode escaped value suitable for Java source.
+ * Translates code points to their Unicode escaped value suitable for Java source.
  *
  * @since 3.2
  * @deprecated As of 3.6, use Apache Commons Text
@@ -32,12 +32,12 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
      * Constructs a {@code JavaUnicodeEscaper} above the specified value (exclusive).
      * </p>
      *
-     * @param codepoint
+     * @param codePoint
      *            above which to escape
      * @return the newly created {@code UnicodeEscaper} instance
      */
-    public static JavaUnicodeEscaper above(final int codepoint) {
-        return outsideOf(0, codepoint);
+    public static JavaUnicodeEscaper above(final int codePoint) {
+        return outsideOf(0, codePoint);
     }
 
     /**
@@ -45,12 +45,12 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
      * Constructs a {@code JavaUnicodeEscaper} below the specified value (exclusive).
      * </p>
      *
-     * @param codepoint
+     * @param codePoint
      *            below which to escape
      * @return the newly created {@code UnicodeEscaper} instance
      */
-    public static JavaUnicodeEscaper below(final int codepoint) {
-        return outsideOf(codepoint, Integer.MAX_VALUE);
+    public static JavaUnicodeEscaper below(final int codePoint) {
+        return outsideOf(codePoint, Integer.MAX_VALUE);
     }
 
     /**
@@ -58,14 +58,14 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
      * Constructs a {@code JavaUnicodeEscaper} between the specified values (inclusive).
      * </p>
      *
-     * @param codepointLow
+     * @param codePointLow
      *            above which to escape
-     * @param codepointHigh
+     * @param codePointHigh
      *            below which to escape
      * @return the newly created {@code UnicodeEscaper} instance
      */
-    public static JavaUnicodeEscaper between(final int codepointLow, final int codepointHigh) {
-        return new JavaUnicodeEscaper(codepointLow, codepointHigh, true);
+    public static JavaUnicodeEscaper between(final int codePointLow, final int codePointHigh) {
+        return new JavaUnicodeEscaper(codePointLow, codePointHigh, true);
     }
 
     /**
@@ -73,14 +73,14 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
      * Constructs a {@code JavaUnicodeEscaper} outside of the specified values (exclusive).
      * </p>
      *
-     * @param codepointLow
+     * @param codePointLow
      *            below which to escape
-     * @param codepointHigh
+     * @param codePointHigh
      *            above which to escape
      * @return the newly created {@code UnicodeEscaper} instance
      */
-    public static JavaUnicodeEscaper outsideOf(final int codepointLow, final int codepointHigh) {
-        return new JavaUnicodeEscaper(codepointLow, codepointHigh, false);
+    public static JavaUnicodeEscaper outsideOf(final int codePointLow, final int codePointHigh) {
+        return new JavaUnicodeEscaper(codePointLow, codePointHigh, false);
     }
 
     /**
@@ -91,9 +91,9 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
      * </p>
      *
      * @param below
-     *            int value representing the lowest codepoint boundary
+     *            int value representing the lowest code point boundary
      * @param above
-     *            int value representing the highest codepoint boundary
+     *            int value representing the highest code point boundary
      * @param between
      *            whether to escape between the boundaries or outside them
      */
@@ -102,15 +102,15 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
     }
 
     /**
-     * Converts the given codepoint to a hex string of the form {@code "\\uXXXX\\uXXXX"}
+     * Converts the given code point to a hex string of the form {@code "\\uXXXX\\uXXXX"}
      *
-     * @param codepoint
+     * @param codePoint
      *            a Unicode code point
-     * @return the hex string for the given codepoint
+     * @return the hex string for the given code point
      */
     @Override
-    protected String toUtf16Escape(final int codepoint) {
-        final char[] surrogatePair = Character.toChars(codepoint);
+    protected String toUtf16Escape(final int codePoint) {
+        final char[] surrogatePair = Character.toChars(codePoint);
         return "\\u" + hex(surrogatePair[0]) + "\\u" + hex(surrogatePair[1]);
     }
 

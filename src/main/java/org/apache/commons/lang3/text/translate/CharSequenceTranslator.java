@@ -37,15 +37,15 @@ public abstract class CharSequenceTranslator {
     static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     /**
-     * Translate a set of codepoints, represented by an int index into a CharSequence,
-     * into another set of codepoints. The number of codepoints consumed must be returned,
+     * Translate a set of code points, represented by an int index into a CharSequence,
+     * into another set of code points. The number of code points consumed must be returned,
      * and the only IOExceptions thrown must be from interacting with the Writer so that
      * the top level API may reliably ignore StringWriter IOExceptions.
      *
      * @param input CharSequence that is being translated
      * @param index int representing the current point of translation
      * @param out Writer to translate the text to
-     * @return int count of codepoints consumed
+     * @return int count of code points consumed
      * @throws IOException if and only if the Writer produces an IOException
      */
     public abstract int translate(CharSequence input, int index, Writer out) throws IOException;
@@ -103,7 +103,7 @@ public abstract class CharSequenceTranslator {
                 }
                 continue;
             }
-            // contract with translators is that they have to understand codepoints
+            // contract with translators is that they have to understand code points
             // and they just took care of a surrogate pair
             for (int pt = 0; pt < consumed; pt++) {
                 pos += Character.charCount(Character.codePointAt(input, pos));
@@ -129,11 +129,11 @@ public abstract class CharSequenceTranslator {
      * <p>Returns an upper case hexadecimal {@code String} for the given
      * character.</p>
      *
-     * @param codepoint The codepoint to convert.
+     * @param codePoint The code point to convert.
      * @return An upper case hexadecimal {@code String}
      */
-    public static String hex(final int codepoint) {
-        return Integer.toHexString(codepoint).toUpperCase(Locale.ENGLISH);
+    public static String hex(final int codePoint) {
+        return Integer.toHexString(codePoint).toUpperCase(Locale.ENGLISH);
     }
 
 }

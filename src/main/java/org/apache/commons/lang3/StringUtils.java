@@ -554,11 +554,11 @@ public class StringUtils {
 
         final int[] newCodePoints = new int[strLen]; // cannot be longer than the char array
         int outOffset = 0;
-        newCodePoints[outOffset++] = newCodePoint; // copy the first codepoint
+        newCodePoints[outOffset++] = newCodePoint; // copy the first code point
         for (int inOffset = Character.charCount(firstCodepoint); inOffset < strLen; ) {
-            final int codepoint = str.codePointAt(inOffset);
-            newCodePoints[outOffset++] = codepoint; // copy the remaining ones
-            inOffset += Character.charCount(codepoint);
+            final int codePoint = str.codePointAt(inOffset);
+            newCodePoints[outOffset++] = codePoint; // copy the remaining ones
+            inOffset += Character.charCount(codePoint);
          }
         return new String(newCodePoints, 0, outOffset);
     }
@@ -9335,20 +9335,20 @@ public class StringUtils {
             return str;
         }
 
-        final int firstCodepoint = str.codePointAt(0);
-        final int newCodePoint = Character.toLowerCase(firstCodepoint);
-        if (firstCodepoint == newCodePoint) {
+        final int firstCodePoint = str.codePointAt(0);
+        final int newCodePoint = Character.toLowerCase(firstCodePoint);
+        if (firstCodePoint == newCodePoint) {
             // already capitalized
             return str;
         }
 
         final int[] newCodePoints = new int[strLen]; // cannot be longer than the char array
         int outOffset = 0;
-        newCodePoints[outOffset++] = newCodePoint; // copy the first codepoint
-        for (int inOffset = Character.charCount(firstCodepoint); inOffset < strLen; ) {
-            final int codepoint = str.codePointAt(inOffset);
-            newCodePoints[outOffset++] = codepoint; // copy the remaining ones
-            inOffset += Character.charCount(codepoint);
+        newCodePoints[outOffset++] = newCodePoint; // copy the first code point
+        for (int inOffset = Character.charCount(firstCodePoint); inOffset < strLen; ) {
+            final int codePoint = str.codePointAt(inOffset);
+            newCodePoints[outOffset++] = codePoint; // copy the remaining ones
+            inOffset += Character.charCount(codePoint);
          }
         return new String(newCodePoints, 0, outOffset);
     }

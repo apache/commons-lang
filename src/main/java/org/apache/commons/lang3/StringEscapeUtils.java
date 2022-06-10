@@ -669,7 +669,7 @@ public class StringEscapeUtils {
      * </p>
      *
      * <p>Note that XML 1.0 is a text-only format: it cannot represent control
-     * characters or unpaired Unicode surrogate codepoints, even after escaping.
+     * characters or unpaired Unicode surrogate code points, even after escaping.
      * {@code escapeXml10} will remove characters that do not fit in the
      * following ranges:</p>
      *
@@ -701,7 +701,7 @@ public class StringEscapeUtils {
      * </p>
      *
      * <p>XML 1.1 can represent certain control characters, but it cannot represent
-     * the null byte or unpaired Unicode surrogate codepoints, even after escaping.
+     * the null byte or unpaired Unicode surrogate code points, even after escaping.
      * {@code escapeXml11} will remove characters that do not fit in the following
      * ranges:</p>
      *

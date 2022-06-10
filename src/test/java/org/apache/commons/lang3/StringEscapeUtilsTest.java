@@ -473,7 +473,7 @@ public class StringEscapeUtilsTest {
         // this is the utf8 representation of the character:
         // COUNTING ROD UNIT DIGIT THREE
         // in Unicode
-        // codepoint: U+1D362
+        // code point: U+1D362
         final byte[] data = { (byte) 0xF0, (byte) 0x9D, (byte) 0x8D, (byte) 0xA2 };
 
         final String original = new String(data, StandardCharsets.UTF_8);
