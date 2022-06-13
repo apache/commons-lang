@@ -656,6 +656,7 @@
     <commons.felix.version>5.1.2</commons.felix.version>
     <biz.aQute.bndlib.version>6.2.0</biz.aQute.bndlib.version>
     <commons.animal-sniffer.version>1.21</commons.animal-sniffer.version>
+    <commons.rat.version>0.14</commons.rat.version>
     
     <!-- Commons Release Plugin -->
     <commons.bc.version>3.12.0</commons.bc.version>
