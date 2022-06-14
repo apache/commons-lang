@@ -24,12 +24,15 @@ import java.util.Map;
  * This class represents the simplest form of a string to string map.
  * It has a benefit over a map in that it can create the result on
  * demand based on the key.
+ * </p>
  * <p>
  * This class comes complete with various factory methods.
  * If these do not suffice, you can subclass and implement your own matcher.
+ * </p>
  * <p>
  * For example, it would be possible to implement a lookup that used the
  * key as a primary key, and looked up the value on demand from the database.
+ * </p>
  *
  * @param <V> Unused.
  * @since 2.2
@@ -65,8 +68,10 @@ public abstract class StrLookup<V> {
      * <p>
      * If a security manager blocked access to system properties, then null will
      * be returned from every lookup.
+     * </p>
      * <p>
      * If a null key is used, this lookup will throw a NullPointerException.
+     * </p>
      *
      * @return a lookup using system properties, not null
      */
@@ -79,6 +84,7 @@ public abstract class StrLookup<V> {
      * <p>
      * If the map is null, then null will be returned from every lookup.
      * The map result object is converted to a string using toString().
+     * </p>
      *
      * @param <V> the type of the values supported by the lookup
      * @param map  the map of keys to values, may be null
@@ -100,15 +106,18 @@ public abstract class StrLookup<V> {
      * The internal implementation may use any mechanism to return the value.
      * The simplest implementation is to use a Map. However, virtually any
      * implementation is possible.
+     * </p>
      * <p>
      * For example, it would be possible to implement a lookup that used the
      * key as a primary key, and looked up the value on demand from the database
      * Or, a numeric based implementation could be created that treats the key
      * as an integer, increments the value and return the result as a string -
      * converting 1 to 2, 15 to 16 etc.
+     * </p>
      * <p>
      * The {@link #lookup(String)} method always returns a String, regardless of
      * the underlying data, by converting it as necessary. For example:
+     * </p>
      * <pre>
      * Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();
      * map.put("number", Integer.valueOf(2));
@@ -143,6 +152,7 @@ public abstract class StrLookup<V> {
          * <p>
          * If the map is null, then null is returned.
          * The map result object is converted to a string using toString().
+         * </p>
          *
          * @param key  the key to be looked up, may be null
          * @return the matching value, null if no match
