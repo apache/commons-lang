@@ -78,6 +78,7 @@ public class CharSequenceUtils {
      * the index of the first such occurrence is returned. For values
      * of {@code searchChar} in the range from 0 to 0xFFFF (inclusive),
      * this is the smallest value <i>k</i> such that:
+     * </p>
      * <blockquote><pre>
      * (this.charAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= start)
      * </pre></blockquote>
@@ -86,19 +87,21 @@ public class CharSequenceUtils {
      * <blockquote><pre>
      * (this.codePointAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= start)
      * </pre></blockquote>
+     * <p>
      * is true. In either case, if no such character occurs inm {@code cs}
      * at or after position {@code start}, then
      * {@code -1} is returned.
-     *
+     * </p>
      * <p>
      * There is no restriction on the value of {@code start}. If it
      * is negative, it has the same effect as if it were zero: the entire
      * {@code CharSequence} may be searched. If it is greater than
      * the length of {@code cs}, it has the same effect as if it were
      * equal to the length of {@code cs}: {@code -1} is returned.
-     *
+     * </p>
      * <p>All indices are specified in {@code char} values
      * (Unicode code units).
+     * </p>
      *
      * @param cs  the {@code CharSequence} to be processed, not null
      * @param searchChar  the char to be searched for
@@ -228,8 +231,10 @@ public class CharSequenceUtils {
      * is true. In either case, if no such character occurs in {@code cs}
      * at or before position {@code start}, then {@code -1} is returned.
      *
-     * <p>All indices are specified in {@code char} values
+     * <p>
+     * All indices are specified in {@code char} values
      * (Unicode code units).
+     * </p>
      *
      * @param cs  the {@code CharSequence} to be processed
      * @param searchChar  the char to be searched for
@@ -374,7 +379,7 @@ public class CharSequenceUtils {
 
     /**
      * <p>{@code CharSequenceUtils} instances should NOT be constructed in
-     * standard programming. </p>
+     * standard programming.</p>
      *
      * <p>This constructor is public to permit tools that require a JavaBean
      * instance to operate.</p>
