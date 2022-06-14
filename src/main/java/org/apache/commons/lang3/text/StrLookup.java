@@ -172,8 +172,8 @@ public abstract class StrLookup<V> {
             if (!key.isEmpty()) {
                 try {
                     return System.getProperty(key);
-                } catch (final SecurityException scex) {
-                    // Squelched. All lookup(String) will return null.
+                } catch (final SecurityException ignored) {
+                    // ignored, all lookup(String) will return null.
                 }
             }
             return null;
