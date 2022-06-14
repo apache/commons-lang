@@ -467,13 +467,12 @@ public class WordUtils {
      * @return capitalized String, {@code null} if null String input
      * @since 2.1
      */
-    public static String capitalizeFully(String str, final char... delimiters) {
+    public static String capitalizeFully(final String str, final char... delimiters) {
         final int delimLen = delimiters == null ? -1 : delimiters.length;
         if (StringUtils.isEmpty(str) || delimLen == 0) {
             return str;
         }
-        str = str.toLowerCase();
-        return capitalize(str, delimiters);
+        return capitalize(str.toLowerCase(), delimiters);
     }
 
     /**
