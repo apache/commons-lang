@@ -533,6 +533,7 @@ public class ClassUtils {
      * @param classLoader the class loader to use to load the class
      * @param className the class name
      * @return the class represented by {@code className} using the {@code classLoader}
+     * @throws NullPointerException if the className is null
      * @throws ClassNotFoundException if the class is not found
      */
     public static Class<?> getClass(final ClassLoader classLoader, final String className) throws ClassNotFoundException {
@@ -548,6 +549,7 @@ public class ClassUtils {
      * @param className the class name
      * @param initialize whether the class must be initialized
      * @return the class represented by {@code className} using the {@code classLoader}
+     * @throws NullPointerException if the className is null
      * @throws ClassNotFoundException if the class is not found
      */
     public static Class<?> getClass(final ClassLoader classLoader, final String className, final boolean initialize) throws ClassNotFoundException {
@@ -583,6 +585,7 @@ public class ClassUtils {
      *
      * @param className the class name
      * @return the class represented by {@code className} using the current thread's context class loader
+     * @throws NullPointerException if the className is null
      * @throws ClassNotFoundException if the class is not found
      */
     public static Class<?> getClass(final String className) throws ClassNotFoundException {
@@ -597,6 +600,7 @@ public class ClassUtils {
      * @param className the class name
      * @param initialize whether the class must be initialized
      * @return the class represented by {@code className} using the current thread's context class loader
+     * @throws NullPointerException if the className is null
      * @throws ClassNotFoundException if the class is not found
      */
     public static Class<?> getClass(final String className, final boolean initialize) throws ClassNotFoundException {
@@ -1582,6 +1586,7 @@ public class ClassUtils {
      *
      * @param className the class name
      * @return the converted name
+     * @throws NullPointerException if the className is null
      */
     private static String toCanonicalName(String className) {
         className = StringUtils.deleteWhitespace(className);
