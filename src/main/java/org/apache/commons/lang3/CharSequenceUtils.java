@@ -31,10 +31,7 @@ public class CharSequenceUtils {
 
     private static boolean checkLaterThan1(final CharSequence cs, final CharSequence searchChar, final int len2, final int start1) {
         for (int i = 1, j = len2 - 1; i <= j; i++, j--) {
-            if (cs.charAt(start1 + i) != searchChar.charAt(i)
-                    ||
-                    cs.charAt(start1 + j) != searchChar.charAt(j)
-            ) {
+            if (cs.charAt(start1 + i) != searchChar.charAt(i) || cs.charAt(start1 + j) != searchChar.charAt(j)) {
                 return false;
             }
         }
