@@ -61,7 +61,7 @@ final class MemberUtils {
             try {
                 obj.setAccessible(true);
                 return obj;
-            } catch (final SecurityException e) { // NOPMD
+            } catch (final SecurityException ignored) {
                 // ignore in favor of subsequent IllegalAccessException
             }
         }

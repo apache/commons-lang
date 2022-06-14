@@ -244,7 +244,8 @@ public class ConstructorUtils {
         // most of the time this works and it's much faster
         try {
             return MemberUtils.setAccessibleWorkaround(cls.getConstructor(parameterTypes));
-        } catch (final NoSuchMethodException e) { // NOPMD - Swallow
+        } catch (final NoSuchMethodException ignored) {
+            // ignore
         }
         Constructor<T> result = null;
         /*

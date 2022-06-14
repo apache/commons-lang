@@ -625,7 +625,7 @@ public class MethodUtils {
                 try {
                     return anInterface.getDeclaredMethod(methodName,
                             parameterTypes);
-                } catch (final NoSuchMethodException e) { // NOPMD
+                } catch (final NoSuchMethodException ignored) {
                     /*
                      * Swallow, if no method is found after the loop then this
                      * method returns null.
@@ -668,7 +668,8 @@ public class MethodUtils {
             final String methodName, final Class<?>... parameterTypes) {
         try {
             return MemberUtils.setAccessibleWorkaround(cls.getMethod(methodName, parameterTypes));
-        } catch (final NoSuchMethodException e) { // NOPMD - Swallow the exception
+        } catch (final NoSuchMethodException ignored) {
+            // Swallow the exception
         }
         // search through all methods
         final Method[] methods = cls.getMethods();

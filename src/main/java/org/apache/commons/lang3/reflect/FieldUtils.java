@@ -112,7 +112,7 @@ public class FieldUtils {
                     field.setAccessible(true);
                 }
                 return field;
-            } catch (final NoSuchFieldException ex) { // NOPMD
+            } catch (final NoSuchFieldException ignored) {
                 // ignore
             }
         }
@@ -126,7 +126,7 @@ public class FieldUtils {
                 Validate.isTrue(match == null, "Reference to field %s is ambiguous relative to %s"
                         + "; a matching field exists on two or more implemented interfaces.", fieldName, cls);
                 match = test;
-            } catch (final NoSuchFieldException ex) { // NOPMD
+            } catch (final NoSuchFieldException ignored) {
                 // ignore
             }
         }
@@ -177,7 +177,7 @@ public class FieldUtils {
                 field.setAccessible(true);
             }
             return field;
-        } catch (final NoSuchFieldException e) { // NOPMD
+        } catch (final NoSuchFieldException ignored) {
             // ignore
         }
         return null;

@@ -567,7 +567,7 @@ public class ClassUtils {
                 try {
                     return getClass(classLoader, className.substring(0, lastDotIndex) + INNER_CLASS_SEPARATOR_CHAR + className.substring(lastDotIndex + 1),
                         initialize);
-                } catch (final ClassNotFoundException ex2) { // NOPMD
+                } catch (final ClassNotFoundException ignored) {
                     // ignore exception
                 }
             }

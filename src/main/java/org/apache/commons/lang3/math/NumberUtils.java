@@ -743,7 +743,7 @@ public class NumberUtils {
                         && (!numeric.isEmpty() && numeric.charAt(0) == '-' && isDigits(numeric.substring(1)) || isDigits(numeric))) {
                         try {
                             return createLong(numeric);
-                        } catch (final NumberFormatException nfe) { // NOPMD
+                        } catch (final NumberFormatException ignored) {
                             // Too big for a long
                         }
                         return createBigInteger(numeric);
@@ -760,7 +760,7 @@ public class NumberUtils {
                             return f;
                         }
 
-                    } catch (final NumberFormatException nfe) { // NOPMD
+                    } catch (final NumberFormatException ignored) {
                         // ignore the bad number
                     }
                     //$FALL-THROUGH$
@@ -771,12 +771,12 @@ public class NumberUtils {
                         if (!(d.isInfinite() || d.doubleValue() == 0.0D && !isZero(mant, dec))) {
                             return d;
                         }
-                    } catch (final NumberFormatException nfe) { // NOPMD
+                    } catch (final NumberFormatException ignored) {
                         // ignore the bad number
                     }
                     try {
                         return createBigDecimal(numeric);
-                    } catch (final NumberFormatException e) { // NOPMD
+                    } catch (final NumberFormatException ignored) {
                         // ignore the bad number
                     }
                     //$FALL-THROUGH$
@@ -796,12 +796,12 @@ public class NumberUtils {
             //Must be an Integer, Long, Biginteger
             try {
                 return createInteger(str);
-            } catch (final NumberFormatException nfe) { // NOPMD
+            } catch (final NumberFormatException ignored) {
                 // ignore the bad number
             }
             try {
                 return createLong(str);
-            } catch (final NumberFormatException nfe) { // NOPMD
+            } catch (final NumberFormatException ignored) {
                 // ignore the bad number
             }
             return createBigInteger(str);
@@ -823,7 +823,7 @@ public class NumberUtils {
                 }
                 return b;
             }
-        } catch (final NumberFormatException nfe) { // NOPMD
+        } catch (final NumberFormatException ignored) {
             // ignore the bad number
         }
         return createBigDecimal(str);
