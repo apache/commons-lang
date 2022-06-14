@@ -654,7 +654,6 @@ public class WordUtils {
         boolean lastWasGap = true;
         for (int i = 0; i < strLen; i++) {
             final char ch = str.charAt(i);
-
             if (isDelimiter(ch, delimiters)) {
                 lastWasGap = true;
             } else if (lastWasGap) {
@@ -707,22 +706,14 @@ public class WordUtils {
     }
 
     /**
-     * Is the character a delimiter.
+     * Tests if the character is a delimiter.
      *
      * @param ch  the character to check
      * @param delimiters  the delimiters
      * @return true if it is a delimiter
      */
     private static boolean isDelimiter(final char ch, final char[] delimiters) {
-        if (delimiters == null) {
-            return Character.isWhitespace(ch);
-        }
-        for (final char delimiter : delimiters) {
-            if (ch == delimiter) {
-                return true;
-            }
-        }
-        return false;
+        return delimiters == null ? Character.isWhitespace(ch) : ArrayUtils.contains(delimiters, ch);
     }
 
 }
