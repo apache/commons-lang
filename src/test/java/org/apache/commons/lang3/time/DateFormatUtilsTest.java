@@ -152,8 +152,8 @@ public class DateFormatUtilsTest {
 
     @Test
     public void testLANG1462() {
-        TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
-        Calendar calendar = createJuneTestDate(timeZone);
+        final TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
+        final Calendar calendar = createJuneTestDate(timeZone);
         assertEquals("20030608101112", DateFormatUtils.format(calendar, "yyyyMMddHHmmss"));
         calendar.setTimeZone(TimeZone.getTimeZone("JST"));
         assertEquals("20030608221112", DateFormatUtils.format(calendar, "yyyyMMddHHmmss"));

@@ -76,7 +76,7 @@ public class DurationUtilsTest {
 
     @Test
     public void testOfRunnble() {
-        assertTrue(DurationUtils.of(() -> testSince()).compareTo(Duration.ZERO) >= 0);
+        assertTrue(DurationUtils.of(this::testSince).compareTo(Duration.ZERO) >= 0);
     }
 
     @Test

@@ -437,7 +437,7 @@ public class ConversionTest {
 
     @ParameterizedTest
     @ValueSource(ints = {-1, 8, 99})
-    public void binaryBeMsb0ToHexDigitPosOutsideArray(int index) {
+    public void binaryBeMsb0ToHexDigitPosOutsideArray(final int index) {
         assertThrows(IndexOutOfBoundsException.class,
             () -> Conversion.binaryBeMsb0ToHexDigit(new boolean[8], index));
     }

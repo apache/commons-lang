@@ -34,11 +34,11 @@ public class ConsumersTest {
     public void testNop() {
         Stream.of("").forEach(Consumers.nop());
         //
-        Consumer<?> c1 = Consumers.nop();
+        final Consumer<?> c1 = Consumers.nop();
         c1.accept(null);
-        Consumer<Object> c2 = Consumers.nop();
+        final Consumer<Object> c2 = Consumers.nop();
         c2.accept(null);
-        Consumer<String> c3 = Consumers.nop();
+        final Consumer<String> c3 = Consumers.nop();
         c3.accept(null);
         //
         Consumers.nop().accept(null);
