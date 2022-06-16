@@ -103,6 +103,7 @@ public class ClassUtils {
         namePrimitiveMap.put("float", Float.TYPE);
         namePrimitiveMap.put("void", Void.TYPE);
     }
+
     /**
      * Maps primitive {@code Class}es to their corresponding wrapper {@code Class}.
      */
@@ -119,6 +120,7 @@ public class ClassUtils {
         primitiveWrapperMap.put(Float.TYPE, Float.class);
         primitiveWrapperMap.put(Void.TYPE, Void.TYPE);
     }
+
     /**
      * Maps wrapper {@code Class}es to their corresponding primitive types.
      */
@@ -133,6 +135,7 @@ public class ClassUtils {
             }
         }
     }
+
     /**
      * Maps a primitive class name to its corresponding abbreviation used in array class names.
      */
@@ -143,7 +146,7 @@ public class ClassUtils {
      */
     private static final Map<String, String> reverseAbbreviationMap;
 
-    // Feed abbreviation maps
+    /** Feed abbreviation maps. */
     static {
         final Map<String, String> m = new HashMap<>();
         m.put("int", "I");
