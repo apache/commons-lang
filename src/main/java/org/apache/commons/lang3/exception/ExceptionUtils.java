@@ -210,8 +210,7 @@ public class ExceptionUtils {
             return StringUtils.EMPTY;
         }
         final String clsName = ClassUtils.getShortClassName(th, null);
-        final String msg = th.getMessage();
-        return clsName + ": " + StringUtils.defaultString(msg);
+        return clsName + ": " + StringUtils.defaultString(th.getMessage());
     }
 
     /**
@@ -469,8 +468,7 @@ public class ExceptionUtils {
      * @return the array of throwables, never null
      */
     public static Throwable[] getThrowables(final Throwable throwable) {
-        final List<Throwable> list = getThrowableList(throwable);
-        return list.toArray(ArrayUtils.EMPTY_THROWABLE_ARRAY);
+        return getThrowableList(throwable).toArray(ArrayUtils.EMPTY_THROWABLE_ARRAY);
     }
 
     /**
