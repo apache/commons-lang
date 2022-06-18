@@ -287,6 +287,39 @@ public class ExceptionUtilsTest {
     }
 
     @Test
+    @DisplayName("getStackFrames returns empty string array when the argument is null")
+    public void testgetStackFramesHappyPath() {
+        final String[] actual = ExceptionUtils.getStackFrames(new Throwable() {
+            private static final long serialVersionUID = 1L;
+
+            // provide static stack trace to make test stable
+            @Override
+            public void printStackTrace(final PrintWriter s) {
+                s.write("org.apache.commons.lang3.exception.ExceptionUtilsTest$1\n" +
+                    "\tat org.apache.commons.lang3.exception.ExceptionUtilsTest.testgetStackFramesGappyPath(ExceptionUtilsTest.java:706)\n" +
+                    "\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n" +
+                    "\tat com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:230)\n" +
+                    "\tat com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58)\n");
+            }
+        });
+
+        assertArrayEquals(new String[]{
+            "org.apache.commons.lang3.exception.ExceptionUtilsTest$1",
+            "\tat org.apache.commons.lang3.exception.ExceptionUtilsTest.testgetStackFramesGappyPath(ExceptionUtilsTest.java:706)",
+            "\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)",
+            "\tat com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:230)",
+            "\tat com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58)"
+        }, actual);
+    }
+
+    @Test
+    @DisplayName("getStackFrames returns the string array of the stack frames when there is a real exception")
+    public void testgetStackFramesNullArg() {
+        final String[] actual = ExceptionUtils.getStackFrames((Throwable) null);
+        assertEquals(0, actual.length);
+    }
+
+    @Test
     public void testGetThrowableCount_Throwable() {
         assertEquals(0, ExceptionUtils.getThrowableCount(null));
         assertEquals(1, ExceptionUtils.getThrowableCount(withoutCause));
@@ -464,6 +497,7 @@ public class ExceptionUtilsTest {
         assertEquals(0, ExceptionUtils.indexOfType(withCause, Throwable.class));
     }
 
+
     @Test
     public void testIndexOfType_ThrowableClassInt() {
         assertEquals(-1, ExceptionUtils.indexOfType(null, null, 0));
@@ -499,7 +533,6 @@ public class ExceptionUtilsTest {
         // could pipe system.err to a known stream, but not much point as
         // internally this method calls stream method anyway
     }
-
 
     @Test
     public void testPrintRootCauseStackTrace_ThrowableStream() {
@@ -689,38 +722,5 @@ public class ExceptionUtilsTest {
     public void testWrapAndUnwrapThrowable() {
         final Throwable t = assertThrows(Throwable.class, () -> ExceptionUtils.wrapAndThrow(new TestThrowable()));
         assertTrue(ExceptionUtils.hasCause(t, TestThrowable.class));
-    }
-
-    @Test
-    @DisplayName("getStackFrames returns the string array of the stack frames when there is a real exception")
-    public void testgetStackFramesNullArg() {
-        final String[] actual = ExceptionUtils.getStackFrames((Throwable) null);
-        assertEquals(0, actual.length);
-    }
-
-    @Test
-    @DisplayName("getStackFrames returns empty string array when the argument is null")
-    public void testgetStackFramesHappyPath() {
-        final String[] actual = ExceptionUtils.getStackFrames(new Throwable() {
-            private static final long serialVersionUID = 1L;
-
-            // provide static stack trace to make test stable
-            @Override
-            public void printStackTrace(final PrintWriter s) {
-                s.write("org.apache.commons.lang3.exception.ExceptionUtilsTest$1\n" +
-                    "\tat org.apache.commons.lang3.exception.ExceptionUtilsTest.testgetStackFramesGappyPath(ExceptionUtilsTest.java:706)\n" +
-                    "\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n" +
-                    "\tat com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:230)\n" +
-                    "\tat com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58)\n");
-            }
-        });
-
-        assertArrayEquals(new String[]{
-            "org.apache.commons.lang3.exception.ExceptionUtilsTest$1",
-            "\tat org.apache.commons.lang3.exception.ExceptionUtilsTest.testgetStackFramesGappyPath(ExceptionUtilsTest.java:706)",
-            "\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)",
-            "\tat com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:230)",
-            "\tat com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58)"
-        }, actual);
     }
 }
