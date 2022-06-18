@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringTokenizer;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
@@ -428,6 +430,26 @@ public class ExceptionUtils {
     }
 
     /**
+     * Performs an action for each Throwable causes of the given Throwable.
+     * <p>
+     * A throwable without cause will return a stream containing one element - the input throwable. A throwable with one cause
+     * will return a stream containing two elements. - the input throwable and the cause throwable. A {@code null} throwable
+     * will return a stream of count zero.
+     * </p>
+     *
+     * <p>
+     * This method handles recursive cause structures that might otherwise cause infinite loops. The cause chain is
+     * processed until the end is reached, or until the next item in the chain is already in the result set.
+     * </p>
+     * @param throwable The Throwable to traverse.
+     * @param consumer a non-interfering action to perform on the elements.
+     * @since 3.13.0
+     */
+    public static void forEach(final Throwable throwable, final Consumer<Throwable> consumer) {
+        stream(throwable).forEach(consumer);
+    }
+
+    /**
      * Gets the list of {@code Throwable} objects in the
      * exception chain.
      *
@@ -768,6 +790,28 @@ public class ExceptionUtils {
     public static <R> R rethrow(final Throwable throwable) {
         // claim that the typeErasure invocation throws a RuntimeException
         return ExceptionUtils.<R, RuntimeException>eraseType(throwable);
+    }
+
+    /**
+     * Streams causes of a Throwable.
+     * <p>
+     * A throwable without cause will return a stream containing one element - the input throwable. A throwable with one cause
+     * will return a stream containing two elements. - the input throwable and the cause throwable. A {@code null} throwable
+     * will return a stream of count zero.
+     * </p>
+     *
+     * <p>
+     * This method handles recursive cause structures that might otherwise cause infinite loops. The cause chain is
+     * processed until the end is reached, or until the next item in the chain is already in the result set.
+     * </p>
+     *
+     * @param throwable The Throwable to traverse
+     * @return A new Stream of Throwable causes.
+     * @since 3.13.0
+     */
+    public static Stream<Throwable> stream(final Throwable throwable) {
+        // No point building a custom Iterable as it would keep track of visited elements to avoid infinite loops
+        return getThrowableList(throwable).stream();
     }
 
     /**

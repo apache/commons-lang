@@ -32,7 +32,9 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.test.NotVisibleExceptionFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -214,6 +216,58 @@ public class ExceptionUtilsTest {
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(ExceptionUtils.class.getModifiers()));
         assertFalse(Modifier.isFinal(ExceptionUtils.class.getModifiers()));
+    }
+
+    @Test
+    public void testForEach_jdkNoCause() {
+        final List<Throwable> throwables = new ArrayList<>();
+        ExceptionUtils.forEach(jdkNoCause, throwables::add);
+        assertEquals(1, throwables.size());
+        assertSame(jdkNoCause, throwables.get(0));
+    }
+
+    @Test
+    public void testForEach_nested() {
+        final List<Throwable> throwables = new ArrayList<>();
+        ExceptionUtils.forEach(nested, throwables::add);
+        assertEquals(2, throwables.size());
+        assertSame(nested, throwables.get(0));
+        assertSame(withoutCause, throwables.get(1));
+    }
+
+    @Test
+    public void testForEach_null() {
+        final List<Throwable> throwables = new ArrayList<>();
+        ExceptionUtils.forEach(null, throwables::add);
+        assertEquals(0, throwables.size());
+    }
+
+    @Test
+    public void testForEach_recursiveCause() {
+        final List<Throwable> throwables = new ArrayList<>();
+        ExceptionUtils.forEach(cyclicCause, throwables::add);
+        assertEquals(3, throwables.size());
+        assertSame(cyclicCause, throwables.get(0));
+        assertSame(cyclicCause.getCause(), throwables.get(1));
+        assertSame(cyclicCause.getCause().getCause(), throwables.get(2));
+    }
+
+    @Test
+    public void testForEach_withCause() {
+        final List<Throwable> throwables = new ArrayList<>();
+        ExceptionUtils.forEach(withCause, throwables::add);
+        assertEquals(3, throwables.size());
+        assertSame(withCause, throwables.get(0));
+        assertSame(nested, throwables.get(1));
+        assertSame(withoutCause, throwables.get(2));
+    }
+
+    @Test
+    public void testForEach_withoutCause() {
+        final List<Throwable> throwables = new ArrayList<>();
+        ExceptionUtils.forEach(withoutCause, throwables::add);
+        assertEquals(1, throwables.size());
+        assertSame(withoutCause, throwables.get(0));
     }
 
     @SuppressWarnings("deprecation") // Specifically tests the deprecated methods
@@ -497,7 +551,6 @@ public class ExceptionUtilsTest {
         assertEquals(0, ExceptionUtils.indexOfType(withCause, Throwable.class));
     }
 
-
     @Test
     public void testIndexOfType_ThrowableClassInt() {
         assertEquals(-1, ExceptionUtils.indexOfType(null, null, 0));
@@ -585,6 +638,50 @@ public class ExceptionUtilsTest {
     @Test
     public void testRemoveCommonFrames_ListList() {
         assertThrows(IllegalArgumentException.class, () -> ExceptionUtils.removeCommonFrames(null, null));
+    }
+
+    @Test
+    public void testStream_jdkNoCause() {
+        assertEquals(1, ExceptionUtils.stream(jdkNoCause).count());
+        assertSame(jdkNoCause, ExceptionUtils.stream(jdkNoCause).toArray()[0]);
+    }
+
+    @Test
+    public void testStream_nested() {
+        assertEquals(2, ExceptionUtils.stream(nested).count());
+        final Object[] array = ExceptionUtils.stream(nested).toArray();
+        assertSame(nested, array[0]);
+        assertSame(withoutCause, array[1]);
+    }
+
+    @Test
+    public void testStream_null() {
+        assertEquals(0, ExceptionUtils.stream(null).count());
+    }
+
+    @Test
+    public void testStream_recursiveCause() {
+        final List<?> throwables = ExceptionUtils.stream(cyclicCause).collect(Collectors.toList());
+        assertEquals(3, throwables.size());
+        assertSame(cyclicCause, throwables.get(0));
+        assertSame(cyclicCause.getCause(), throwables.get(1));
+        assertSame(cyclicCause.getCause().getCause(), throwables.get(2));
+    }
+
+    @Test
+    public void testStream_withCause() {
+        final List<?> throwables = ExceptionUtils.stream(withCause).collect(Collectors.toList());
+        assertEquals(3, throwables.size());
+        assertSame(withCause, throwables.get(0));
+        assertSame(nested, throwables.get(1));
+        assertSame(withoutCause, throwables.get(2));
+    }
+
+    @Test
+    public void testStream_withoutCause() {
+        final List<?> throwables = ExceptionUtils.stream(withoutCause).collect(Collectors.toList());
+        assertEquals(1, throwables.size());
+        assertSame(withoutCause, throwables.get(0));
     }
 
     @Test

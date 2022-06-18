@@ -147,6 +147,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add coverage.yml.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add DurationUtils.since(Temporal).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add DurationUtils.of(FailableConsumer|FailableRunnbale).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ExceptionUtils.forEach(Throwable, Consumer&lt;Throwable&gt;).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ExceptionUtils.stream(Throwable).</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess, Gary Gregory">Bump actions/cache from 2.1.4 to 3.0.4 #742, #752, #764, #833, #867.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump actions/checkout from 2 to 3 #819, #825, #859.</action>
