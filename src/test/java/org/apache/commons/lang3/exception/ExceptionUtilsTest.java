@@ -344,6 +344,32 @@ public class ExceptionUtilsTest {
     }
 
     @Test
+    public void testGetRootCauseStackTraceList_Throwable() {
+        assertEquals(0, ExceptionUtils.getRootCauseStackTraceList(null).size());
+
+        final Throwable cause = createExceptionWithCause();
+        List<String> stackTrace = ExceptionUtils.getRootCauseStackTraceList(cause);
+        boolean match = false;
+        for (final String element : stackTrace) {
+            if (element.startsWith(ExceptionUtils.WRAPPED_MARKER)) {
+                match = true;
+                break;
+            }
+        }
+        assertTrue(match);
+
+        stackTrace = ExceptionUtils.getRootCauseStackTraceList(withoutCause);
+        match = false;
+        for (final String element : stackTrace) {
+            if (element.startsWith(ExceptionUtils.WRAPPED_MARKER)) {
+                match = true;
+                break;
+            }
+        }
+        assertFalse(match);
+    }
+
+    @Test
     @DisplayName("getStackFrames returns empty string array when the argument is null")
     public void testgetStackFramesHappyPath() {
         final String[] actual = ExceptionUtils.getStackFrames(new Throwable() {

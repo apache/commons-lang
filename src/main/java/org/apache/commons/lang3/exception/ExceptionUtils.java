@@ -23,6 +23,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringTokenizer;
@@ -266,8 +267,24 @@ public class ExceptionUtils {
      * @since 2.0
      */
     public static String[] getRootCauseStackTrace(final Throwable throwable) {
+        return getRootCauseStackTraceList(throwable).toArray(ArrayUtils.EMPTY_STRING_ARRAY);
+    }
+
+    /**
+     * Gets a compact stack trace for the root cause of the supplied {@code Throwable}.
+     *
+     * <p>
+     * The output of this method is consistent across JDK versions. It consists of the root exception followed by each of
+     * its wrapping exceptions separated by '[wrapped]'. Note that this is the opposite order to the JDK1.4 display.
+     * </p>
+     *
+     * @param throwable the throwable to examine, may be null
+     * @return a list of stack trace frames, never null
+     * @since 3.13.0
+     */
+    public static List<String> getRootCauseStackTraceList(final Throwable throwable) {
         if (throwable == null) {
-            return ArrayUtils.EMPTY_STRING_ARRAY;
+            return Collections.emptyList();
         }
         final Throwable[] throwables = getThrowables(throwable);
         final int count = throwables.length;
@@ -286,7 +303,7 @@ public class ExceptionUtils {
             }
             frames.addAll(trace);
         }
-        return frames.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
+        return frames;
     }
 
     /**
@@ -661,10 +678,7 @@ public class ExceptionUtils {
             return;
         }
         Objects.requireNonNull(printStream, "printStream");
-        final String[] trace = getRootCauseStackTrace(throwable);
-        for (final String element : trace) {
-            printStream.println(element);
-        }
+        getRootCauseStackTraceList(throwable).forEach(printStream::println);
         printStream.flush();
     }
 
@@ -693,10 +707,7 @@ public class ExceptionUtils {
             return;
         }
         Objects.requireNonNull(printWriter, "printWriter");
-        final String[] trace = getRootCauseStackTrace(throwable);
-        for (final String element : trace) {
-            printWriter.println(element);
-        }
+        getRootCauseStackTraceList(throwable).forEach(printWriter::println);
         printWriter.flush();
     }
 
