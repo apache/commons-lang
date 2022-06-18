@@ -77,6 +77,7 @@ public class ExceptionUtilsTest {
             this.cause = cause;
         }
     }
+
     /**
      * Provides a method with a well known chained/nested exception
      * name which does not match the full signature (e.g. lacks a
@@ -90,6 +91,7 @@ public class ExceptionUtilsTest {
             // noop
         }
     }
+
     // Temporary classes to allow the nested exception code to be removed
     // prior to a rewrite of this test class.
     private static class NestableException extends Exception {
@@ -103,12 +105,15 @@ public class ExceptionUtilsTest {
             super(t);
         }
     }
+
     public static class TestThrowable extends Throwable {
         private static final long serialVersionUID = 1L;
     }
+
     private static int redeclareCheckedException() {
         return throwsCheckedException();
     }
+
     private static int throwsCheckedException() {
         try {
             throw new IOException();
@@ -116,7 +121,6 @@ public class ExceptionUtilsTest {
             return ExceptionUtils.<Integer>rethrow(e);
         }
     }
-
 
     private NestableException nested;
 
@@ -126,7 +130,6 @@ public class ExceptionUtilsTest {
     private Throwable withoutCause;
 
     private Throwable jdkNoCause;
-
 
     private ExceptionWithCause cyclicCause;
 
