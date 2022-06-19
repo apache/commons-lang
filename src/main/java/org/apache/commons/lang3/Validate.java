@@ -830,7 +830,7 @@ public class Validate {
     }
 
     /**
-     * <p>Validates that the specified argument is not {@code NaN}; otherwise
+     * <p>Validates that the specified argument is not Not-a-Number (NaN); otherwise
      * throwing an exception.</p>
      *
      * <pre>Validate.notNaN(myDouble);</pre>
@@ -849,7 +849,7 @@ public class Validate {
     }
 
     /**
-     * <p>Validates that the specified argument is not {@code NaN}; otherwise
+     * <p>Validates that the specified argument is not Not-a-Number (NaN); otherwise
      * throwing an exception with the specified message.</p>
      *
      * <pre>Validate.notNaN(myDouble, "The value must be a number");</pre>
@@ -869,7 +869,7 @@ public class Validate {
     }
 
     /**
-     * <p>Validates that the specified argument is not infinite or {@code NaN};
+     * <p>Validates that the specified argument is not infinite or Not-a-Number (NaN);
      * otherwise throwing an exception.</p>
      *
      * <pre>Validate.finite(myDouble);</pre>
@@ -877,7 +877,7 @@ public class Validate {
      * <p>The message of the exception is &quot;The value is invalid: %f&quot;.</p>
      *
      * @param value  the value to validate
-     * @throws IllegalArgumentException if the value is infinite or {@code NaN}
+     * @throws IllegalArgumentException if the value is infinite or Not-a-Number (NaN)
      * @see #finite(double, java.lang.String, java.lang.Object...)
      *
      * @since 3.5
@@ -887,7 +887,7 @@ public class Validate {
     }
 
     /**
-     * <p>Validates that the specified argument is not infinite or {@code NaN};
+     * <p>Validates that the specified argument is not infinite or Not-a-Number (NaN);
      * otherwise throwing an exception with the specified message.</p>
      *
      * <pre>Validate.finite(myDouble, "The argument must contain a numeric value");</pre>
@@ -895,7 +895,7 @@ public class Validate {
      * @param value the value to validate
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message
-     * @throws IllegalArgumentException if the value is infinite or {@code NaN}
+     * @throws IllegalArgumentException if the value is infinite or Not-a-Number (NaN)
      * @see #finite(double)
      *
      * @since 3.5

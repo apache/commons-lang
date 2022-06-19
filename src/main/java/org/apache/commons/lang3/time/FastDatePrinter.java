@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.FieldPosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -47,9 +48,9 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
  * </code>
  *
  * <p>This class can be used as a direct replacement to
- * {@code SimpleDateFormat} in most formatting situations.
+ * {@link SimpleDateFormat} in most formatting situations.
  * This class is especially useful in multi-threaded server environments.
- * {@code SimpleDateFormat} is not thread-safe in any JDK version,
+ * {@link SimpleDateFormat} is not thread-safe in any JDK version,
  * nor will it be as Sun have closed the bug/RFE.
  * </p>
  *
@@ -176,7 +177,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * <p>Returns a list of Rules given a pattern.</p>
      *
-     * @return a {@code List} of Rule objects
+     * @return a {@link List} of Rule objects
      * @throws IllegalArgumentException if pattern is invalid
      */
     protected List<Rule> parsePattern() {
@@ -403,8 +404,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
     // Format methods
     /**
-     * <p>Formats a {@code Date}, {@code Calendar} or
-     * {@code Long} (milliseconds) object.</p>
+     * <p>Formats a {@link Date}, {@link Calendar} or
+     * {@link Long} (milliseconds) object.</p>
      * @deprecated Use {{@link #format(Date)}, {{@link #format(Calendar)}, {{@link #format(long)}.
      * @param obj  the object to format
      * @param toAppendTo  the buffer to append to
@@ -428,8 +429,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Formats a {@code Date}, {@code Calendar} or
-     * {@code Long} (milliseconds) object.</p>
+     * <p>Formats a {@link Date}, {@link Calendar} or
+     * {@link Long} (milliseconds) object.</p>
      * @since 3.5
      * @param obj  the object to format
      * @return The formatted value.
@@ -811,7 +812,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         private final char mValue;
 
         /**
-         * Constructs a new instance of {@code CharacterLiteral}
+         * Constructs a new instance of {@link CharacterLiteral}
          * to hold the specified value.
          *
          * @param value the character literal
@@ -844,7 +845,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         private final String mValue;
 
         /**
-         * Constructs a new instance of {@code StringLiteral}
+         * Constructs a new instance of {@link StringLiteral}
          * to hold the specified value.
          *
          * @param value the string literal
@@ -878,7 +879,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         private final String[] mValues;
 
         /**
-         * Constructs an instance of {@code TextField}
+         * Constructs an instance of {@link TextField}
          * with the specified field and values.
          *
          * @param field the field
@@ -920,7 +921,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         private final int mField;
 
         /**
-         * Constructs an instance of {@code UnpadedNumberField} with the specified field.
+         * Constructs an instance of {@link UnpadedNumberField} with the specified field.
          *
          * @param field the field
          */
@@ -966,7 +967,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         static final UnpaddedMonthField INSTANCE = new UnpaddedMonthField();
 
         /**
-         * Constructs an instance of {@code UnpaddedMonthField}.
+         * Constructs an instance of {@link UnpaddedMonthField}.
          *
          */
         UnpaddedMonthField() {
@@ -1009,7 +1010,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         private final int mSize;
 
         /**
-         * Constructs an instance of {@code PaddedNumberField}.
+         * Constructs an instance of {@link PaddedNumberField}.
          *
          * @param field the field
          * @param size size of the output field
@@ -1055,7 +1056,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         private final int mField;
 
         /**
-         * Constructs an instance of {@code TwoDigitNumberField} with the specified field.
+         * Constructs an instance of {@link TwoDigitNumberField} with the specified field.
          *
          * @param field the field
          */
@@ -1099,7 +1100,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         static final TwoDigitYearField INSTANCE = new TwoDigitYearField();
 
         /**
-         * Constructs an instance of {@code TwoDigitYearField}.
+         * Constructs an instance of {@link TwoDigitYearField}.
          */
         TwoDigitYearField() {
         }
@@ -1136,7 +1137,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         static final TwoDigitMonthField INSTANCE = new TwoDigitMonthField();
 
         /**
-         * Constructs an instance of {@code TwoDigitMonthField}.
+         * Constructs an instance of {@link TwoDigitMonthField}.
          */
         TwoDigitMonthField() {
         }
@@ -1173,8 +1174,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         private final NumberRule mRule;
 
         /**
-         * Constructs an instance of {@code TwelveHourField} with the specified
-         * {@code NumberRule}.
+         * Constructs an instance of {@link TwelveHourField} with the specified
+         * {@link NumberRule}.
          *
          * @param rule the rule
          */
@@ -1218,8 +1219,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         private final NumberRule mRule;
 
         /**
-         * Constructs an instance of {@code TwentyFourHourField} with the specified
-         * {@code NumberRule}.
+         * Constructs an instance of {@link TwentyFourHourField} with the specified
+         * {@link NumberRule}.
          *
          * @param rule the rule
          */
@@ -1338,7 +1339,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         private final String mDaylight;
 
         /**
-         * Constructs an instance of {@code TimeZoneNameRule} with the specified properties.
+         * Constructs an instance of {@link TimeZoneNameRule} with the specified properties.
          *
          * @param timeZone the time zone
          * @param locale the locale
@@ -1388,7 +1389,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         final boolean mColon;
 
         /**
-         * Constructs an instance of {@code TimeZoneNumberRule} with the specified properties.
+         * Constructs an instance of {@link TimeZoneNumberRule} with the specified properties.
          *
          * @param colon add colon between HH and MM in the output if {@code true}
          */
@@ -1526,7 +1527,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         private final Locale mLocale;
 
         /**
-         * Constructs an instance of {@code TimeZoneDisplayKey} with the specified properties.
+         * Constructs an instance of {@link TimeZoneDisplayKey} with the specified properties.
          *
          * @param timeZone the time zone
          * @param daylight adjust the style for daylight saving time if {@code true}

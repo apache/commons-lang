@@ -261,7 +261,7 @@ public class EnumUtils {
     }
 
     /**
-     * <p>Gets the {@code List} of enums.</p>
+     * <p>Gets the {@link List} of enums.</p>
      *
      * <p>This method is useful when you need a list of enums rather than an array.</p>
      *
@@ -274,7 +274,7 @@ public class EnumUtils {
     }
 
     /**
-     * <p>Gets the {@code Map} of enums by name.</p>
+     * <p>Gets the {@link Map} of enums by name.</p>
      *
      * <p>This method is useful when you need a map of enums by name.</p>
      *
@@ -288,7 +288,7 @@ public class EnumUtils {
 
     /**
      * <p>
-     * Gets the {@code Map} of enums by name.
+     * Gets the {@link Map} of enums by name.
      * </p>
      *
      * <p>

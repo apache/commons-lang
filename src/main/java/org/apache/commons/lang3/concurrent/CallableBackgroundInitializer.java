@@ -24,13 +24,13 @@ import org.apache.commons.lang3.Validate;
 /**
  * <p>
  * A specialized {@link BackgroundInitializer} implementation that wraps a
- * {@code Callable} object.
+ * {@link Callable} object.
  * </p>
  * <p>
- * An instance of this class is initialized with a {@code Callable} object when
+ * An instance of this class is initialized with a {@link Callable} object when
  * it is constructed. The implementation of the {@link #initialize()} method
- * defined in the super class delegates to this {@code Callable} so that the
- * {@code Callable} is executed in the background thread.
+ * defined in the super class delegates to this {@link Callable} so that the
+ * {@link Callable} is executed in the background thread.
  * </p>
  * <p>
  * The {@code java.util.concurrent.Callable} interface is a standard mechanism
@@ -41,9 +41,9 @@ import org.apache.commons.lang3.Validate;
  * <p>
  * Usage of this class is very similar to the default usage pattern of the
  * {@link BackgroundInitializer} class: Just create an instance and provide the
- * {@code Callable} object to be executed, then call the initializer's
- * {@link #start()} method. This causes the {@code Callable} to be executed in
- * another thread. When the results of the {@code Callable} are needed the
+ * {@link Callable} object to be executed, then call the initializer's
+ * {@link #start()} method. This causes the {@link Callable} to be executed in
+ * another thread. When the results of the {@link Callable} are needed the
  * initializer's {@link #get()} method can be called (which may block until
  * background execution is complete). The following code fragment shows a
  * typical usage example:
@@ -71,11 +71,11 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
     private final Callable<T> callable;
 
     /**
-     * Creates a new instance of {@code CallableBackgroundInitializer} and sets
-     * the {@code Callable} to be executed in a background thread.
+     * Creates a new instance of {@link CallableBackgroundInitializer} and sets
+     * the {@link Callable} to be executed in a background thread.
      *
-     * @param call the {@code Callable} (must not be <b>null</b>)
-     * @throws IllegalArgumentException if the {@code Callable} is <b>null</b>
+     * @param call the {@link Callable} (must not be <b>null</b>)
+     * @throws IllegalArgumentException if the {@link Callable} is <b>null</b>
      */
     public CallableBackgroundInitializer(final Callable<T> call) {
         checkCallable(call);
@@ -83,15 +83,15 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
     }
 
     /**
-     * Creates a new instance of {@code CallableBackgroundInitializer} and
-     * initializes it with the {@code Callable} to be executed in a background
-     * thread and the {@code ExecutorService} for managing the background
+     * Creates a new instance of {@link CallableBackgroundInitializer} and
+     * initializes it with the {@link Callable} to be executed in a background
+     * thread and the {@link ExecutorService} for managing the background
      * execution.
      *
-     * @param call the {@code Callable} (must not be <b>null</b>)
-     * @param exec an external {@code ExecutorService} to be used for task
+     * @param call the {@link Callable} (must not be <b>null</b>)
+     * @param exec an external {@link ExecutorService} to be used for task
      * execution
-     * @throws IllegalArgumentException if the {@code Callable} is <b>null</b>
+     * @throws IllegalArgumentException if the {@link Callable} is <b>null</b>
      */
     public CallableBackgroundInitializer(final Callable<T> call, final ExecutorService exec) {
         super(exec);
@@ -101,7 +101,7 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
 
     /**
      * Performs initialization in a background thread. This implementation
-     * delegates to the {@code Callable} passed at construction time of this
+     * delegates to the {@link Callable} passed at construction time of this
      * object.
      *
      * @return the result of the initialization
@@ -113,11 +113,11 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
     }
 
     /**
-     * Tests the passed in {@code Callable} and throws an exception if it is
+     * Tests the passed in {@link Callable} and throws an exception if it is
      * undefined.
      *
      * @param callable the object to check
-     * @throws IllegalArgumentException if the {@code Callable} is <b>null</b>
+     * @throws IllegalArgumentException if the {@link Callable} is <b>null</b>
      */
     private void checkCallable(final Callable<T> callable) {
         Validate.notNull(callable, "callable");

@@ -35,7 +35,7 @@ public class NumericEntityEscaper extends CodePointTranslator {
     private final boolean between;
 
     /**
-     * <p>Constructs a {@code NumericEntityEscaper} for the specified range. This is
+     * <p>Constructs a {@link NumericEntityEscaper} for the specified range. This is
      * the underlying method for the other constructors/builders. The {@code below}
      * and {@code above} boundaries are inclusive when {@code between} is
      * {@code true} and exclusive when it is {@code false}. </p>
@@ -51,49 +51,49 @@ public class NumericEntityEscaper extends CodePointTranslator {
     }
 
     /**
-     * <p>Constructs a {@code NumericEntityEscaper} for all characters. </p>
+     * <p>Constructs a {@link NumericEntityEscaper} for all characters. </p>
      */
     public NumericEntityEscaper() {
         this(0, Integer.MAX_VALUE, true);
     }
 
     /**
-     * <p>Constructs a {@code NumericEntityEscaper} below the specified value (exclusive). </p>
+     * <p>Constructs a {@link NumericEntityEscaper} below the specified value (exclusive). </p>
      *
      * @param codePoint below which to escape
-     * @return the newly created {@code NumericEntityEscaper} instance
+     * @return the newly created {@link NumericEntityEscaper} instance
      */
     public static NumericEntityEscaper below(final int codePoint) {
         return outsideOf(codePoint, Integer.MAX_VALUE);
     }
 
     /**
-     * <p>Constructs a {@code NumericEntityEscaper} above the specified value (exclusive). </p>
+     * <p>Constructs a {@link NumericEntityEscaper} above the specified value (exclusive). </p>
      *
      * @param codePoint above which to escape
-     * @return the newly created {@code NumericEntityEscaper} instance
+     * @return the newly created {@link NumericEntityEscaper} instance
      */
     public static NumericEntityEscaper above(final int codePoint) {
         return outsideOf(0, codePoint);
     }
 
     /**
-     * <p>Constructs a {@code NumericEntityEscaper} between the specified values (inclusive). </p>
+     * <p>Constructs a {@link NumericEntityEscaper} between the specified values (inclusive). </p>
      *
      * @param codePointLow above which to escape
      * @param codePointHigh below which to escape
-     * @return the newly created {@code NumericEntityEscaper} instance
+     * @return the newly created {@link NumericEntityEscaper} instance
      */
     public static NumericEntityEscaper between(final int codePointLow, final int codePointHigh) {
         return new NumericEntityEscaper(codePointLow, codePointHigh, true);
     }
 
     /**
-     * <p>Constructs a {@code NumericEntityEscaper} outside of the specified values (exclusive). </p>
+     * <p>Constructs a {@link NumericEntityEscaper} outside of the specified values (exclusive). </p>
      *
      * @param codePointLow below which to escape
      * @param codePointHigh above which to escape
-     * @return the newly created {@code NumericEntityEscaper} instance
+     * @return the newly created {@link NumericEntityEscaper} instance
      */
     public static NumericEntityEscaper outsideOf(final int codePointLow, final int codePointHigh) {
         return new NumericEntityEscaper(codePointLow, codePointHigh, false);

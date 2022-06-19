@@ -84,7 +84,7 @@ public class EventUtils {
         private final Set<String> eventTypes;
 
         /**
-         * Creates a new instance of {@code EventBindingInvocationHandler}.
+         * Creates a new instance of {@link EventBindingInvocationHandler}.
          *
          * @param target the target object for method invocations
          * @param methodName the name of the method to be invoked

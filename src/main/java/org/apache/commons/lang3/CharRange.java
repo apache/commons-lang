@@ -53,7 +53,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     static final CharRange[] EMPTY_ARRAY = {};
 
     /**
-     * <p>Constructs a {@code CharRange} over a set of characters,
+     * <p>Constructs a {@link CharRange} over a set of characters,
      * optionally negating the range.</p>
      *
      * <p>A negated range includes everything except that defined by the
@@ -79,7 +79,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     }
 
     /**
-     * <p>Constructs a {@code CharRange} over a single character.</p>
+     * <p>Constructs a {@link CharRange} over a single character.</p>
      *
      * @param ch  only character in this range
      * @return the new CharRange object
@@ -90,7 +90,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     }
 
     /**
-     * <p>Constructs a negated {@code CharRange} over a single character.</p>
+     * <p>Constructs a negated {@link CharRange} over a single character.</p>
      *
      * <p>A negated range includes everything except that defined by the
      * single character.</p>
@@ -104,7 +104,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     }
 
     /**
-     * <p>Constructs a {@code CharRange} over a set of characters.</p>
+     * <p>Constructs a {@link CharRange} over a set of characters.</p>
      *
      * <p>If start and end are in the wrong order, they are reversed.
      * Thus {@code a-e} is the same as {@code e-a}.</p>
@@ -119,7 +119,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     }
 
     /**
-     * <p>Constructs a negated {@code CharRange} over a set of characters.</p>
+     * <p>Constructs a negated {@link CharRange} over a set of characters.</p>
      *
      * <p>A negated range includes everything except that defined by the
      * start and end characters.</p>
@@ -156,7 +156,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     }
 
     /**
-     * <p>Is this {@code CharRange} negated.</p>
+     * <p>Is this {@link CharRange} negated.</p>
      *
      * <p>A negated range includes everything except that defined by the
      * start and end characters.</p>
@@ -337,7 +337,7 @@ final class CharRange implements Iterable<Character>, Serializable {
         /**
          * Returns the next character in the iteration
          *
-         * @return {@code Character} for the next character
+         * @return {@link Character} for the next character
          */
         @Override
         public Character next() {

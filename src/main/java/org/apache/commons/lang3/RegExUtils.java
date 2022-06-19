@@ -210,7 +210,7 @@ public class RegExUtils {
      *            the source string
      * @param regex
      *            the regular expression to which this string is to be matched
-     * @return The resulting {@code String}
+     * @return The resulting {@link String}
      * @see #replacePattern(String, String, String)
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL
@@ -443,7 +443,7 @@ public class RegExUtils {
      *            the regular expression to which this string is to be matched
      * @param replacement
      *            the string to be substituted for each match
-     * @return The resulting {@code String}
+     * @return The resulting {@link String}
      * @see #replaceAll(String, String, String)
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL

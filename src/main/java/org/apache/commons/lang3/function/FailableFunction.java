@@ -21,7 +21,7 @@ import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * A functional interface like {@link Function} that declares a {@code Throwable}.
+ * A functional interface like {@link Function} that declares a {@link Throwable}.
  *
  * @param <T> Input type 1.
  * @param <R> Return type.
@@ -59,10 +59,10 @@ public interface FailableFunction<T, R, E extends Throwable> {
     }
 
     /**
-     * Returns a composed {@code FailableFunction} like {@link Function#andThen(Function)}.
+     * Returns a composed {@link FailableFunction} like {@link Function#andThen(Function)}.
      *
      * @param <V> the output type of the {@code after} function, and of the composed function.
-     * @return a composed {@code FailableFunction} like {@link Function#andThen(Function)}.
+     * @return a composed {@link FailableFunction} like {@link Function#andThen(Function)}.
      * @param after the operation to perform after this one.
      * @throws NullPointerException when {@code after} is null.
      */
@@ -81,11 +81,11 @@ public interface FailableFunction<T, R, E extends Throwable> {
     R apply(T input) throws E;
 
     /**
-     * Returns a composed {@code FailableFunction} like {@link Function#compose(Function)}.
+     * Returns a composed {@link FailableFunction} like {@link Function#compose(Function)}.
      *
      * @param <V> the input type to the {@code before} function, and to the composed function.
      * @param before the operator to apply before this one.
-     * @return a a composed {@code FailableFunction} like {@link Function#compose(Function)}.
+     * @return a a composed {@link FailableFunction} like {@link Function#compose(Function)}.
      * @throws NullPointerException if before is null.
      * @see #andThen(FailableFunction)
      */

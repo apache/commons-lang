@@ -88,7 +88,7 @@ public class ClassUtils {
     public static final String INNER_CLASS_SEPARATOR = String.valueOf(INNER_CLASS_SEPARATOR_CHAR);
 
     /**
-     * Maps names of primitives to their corresponding primitive {@code Class}es.
+     * Maps names of primitives to their corresponding primitive {@link Class}es.
      */
     private static final Map<String, Class<?>> namePrimitiveMap = new HashMap<>();
 
@@ -105,7 +105,7 @@ public class ClassUtils {
     }
 
     /**
-     * Maps primitive {@code Class}es to their corresponding wrapper {@code Class}.
+     * Maps primitive {@link Class}es to their corresponding wrapper {@link Class}.
      */
     private static final Map<Class<?>, Class<?>> primitiveWrapperMap = new HashMap<>();
 
@@ -122,7 +122,7 @@ public class ClassUtils {
     }
 
     /**
-     * Maps wrapper {@code Class}es to their corresponding primitive types.
+     * Maps wrapper {@link Class}es to their corresponding primitive types.
      */
     private static final Map<Class<?>, Class<?>> wrapperPrimitiveMap = new HashMap<>();
 
@@ -177,16 +177,16 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Given a {@code List} of {@code Class} objects, this method converts them into class names.
+     * Given a {@link List} of {@link Class} objects, this method converts them into class names.
      * </p>
      *
      * <p>
-     * A new {@code List} is returned. {@code null} objects will be copied into the returned list as {@code null}.
+     * A new {@link List} is returned. {@code null} objects will be copied into the returned list as {@code null}.
      * </p>
      *
      * @param classes the classes to change
-     * @return a {@code List} of class names corresponding to the Class objects, {@code null} if null input
-     * @throws ClassCastException if {@code classes} contains a non-{@code Class} entry
+     * @return a {@link List} of class names corresponding to the Class objects, {@code null} if null input
+     * @throws ClassCastException if {@code classes} contains a non-{@link Class} entry
      */
     public static List<String> convertClassesToClassNames(final List<Class<?>> classes) {
         return classes == null ? null : classes.stream().map(e -> getName(e, null)).collect(Collectors.toList());
@@ -194,16 +194,16 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Given a {@code List} of class names, this method converts them into classes.
+     * Given a {@link List} of class names, this method converts them into classes.
      * </p>
      *
      * <p>
-     * A new {@code List} is returned. If the class name cannot be found, {@code null} is stored in the {@code List}. If the
-     * class name in the {@code List} is {@code null}, {@code null} is stored in the output {@code List}.
+     * A new {@link List} is returned. If the class name cannot be found, {@code null} is stored in the {@link List}. If the
+     * class name in the {@link List} is {@code null}, {@code null} is stored in the output {@link List}.
      * </p>
      *
      * @param classNames the classNames to change
-     * @return a {@code List} of Class objects corresponding to the class names, {@code null} if null input
+     * @return a {@link List} of Class objects corresponding to the class names, {@code null} if null input
      * @throws ClassCastException if classNames contains a non String entry
      */
     public static List<Class<?>> convertClassNamesToClasses(final List<String> classNames) {
@@ -223,7 +223,7 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Gets the abbreviated name of a {@code Class}.
+     * Gets the abbreviated name of a {@link Class}.
      * </p>
      *
      * @param cls the class to get the abbreviated name for, may be {@code null}
@@ -242,7 +242,7 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Gets the abbreviated class name from a {@code String}.
+     * Gets the abbreviated class name from a {@link String}.
      * </p>
      *
      * <p>
@@ -350,7 +350,7 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Gets a {@code List} of all interfaces implemented by the given class and its superclasses.
+     * Gets a {@link List} of all interfaces implemented by the given class and its superclasses.
      * </p>
      *
      * <p>
@@ -360,7 +360,7 @@ public class ClassUtils {
      * </p>
      *
      * @param cls the class to look up, may be {@code null}
-     * @return the {@code List} of interfaces in order, {@code null} if null input
+     * @return the {@link List} of interfaces in order, {@code null} if null input
      */
     public static List<Class<?>> getAllInterfaces(final Class<?> cls) {
         if (cls == null) {
@@ -377,7 +377,7 @@ public class ClassUtils {
      * Gets the interfaces for the specified class.
      *
      * @param cls the class to look up, may be {@code null}
-     * @param interfacesFound the {@code Set} of interfaces for the class
+     * @param interfacesFound the {@link Set} of interfaces for the class
      */
     private static void getAllInterfaces(Class<?> cls, final HashSet<Class<?>> interfacesFound) {
         while (cls != null) {
@@ -395,11 +395,11 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Gets a {@code List} of superclasses for the given class.
+     * Gets a {@link List} of superclasses for the given class.
      * </p>
      *
      * @param cls the class to look up, may be {@code null}
-     * @return the {@code List} of superclasses in order going up from this one {@code null} if null input
+     * @return the {@link List} of superclasses in order going up from this one {@code null} if null input
      */
     public static List<Class<?>> getAllSuperclasses(final Class<?> cls) {
         if (cls == null) {
@@ -416,7 +416,7 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Gets the canonical class name for a {@code Class}.
+     * Gets the canonical class name for a {@link Class}.
      * </p>
      *
      * @param cls the class for which to get the canonical class name; may be null
@@ -430,7 +430,7 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Gets the canonical name for a {@code Class}.
+     * Gets the canonical name for a {@link Class}.
      * </p>
      *
      * @param cls the class for which to get the canonical class name; may be null
@@ -449,7 +449,7 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Gets the canonical name for an {@code Object}.
+     * Gets the canonical name for an {@link Object}.
      * </p>
      *
      * @param object the object for which to get the canonical class name; may be null
@@ -463,7 +463,7 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Gets the canonical name for an {@code Object}.
+     * Gets the canonical name for an {@link Object}.
      * </p>
      *
      * @param object the object for which to get the canonical class name; may be null
@@ -686,7 +686,7 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Gets the package name from the canonical name of a {@code Class}.
+     * Gets the package name from the canonical name of a {@link Class}.
      * </p>
      *
      * @param cls the class to get the package name for, may be {@code null}.
@@ -702,7 +702,7 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Gets the package name from the class name of an {@code Object}.
+     * Gets the package name from the class name of an {@link Object}.
      * </p>
      *
      * @param object the class to get the package name for, may be null
@@ -739,7 +739,7 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Gets the package name of a {@code Class}.
+     * Gets the package name of a {@link Class}.
      * </p>
      *
      * @param cls the class to get the package name for, may be {@code null}.
@@ -754,7 +754,7 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Gets the package name of an {@code Object}.
+     * Gets the package name of an {@link Object}.
      * </p>
      *
      * @param object the class to get the package name for, may be null
@@ -770,7 +770,7 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Gets the package name from a {@code String}.
+     * Gets the package name from a {@link String}.
      * </p>
      *
      * <p>
@@ -856,7 +856,7 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Gets the canonical name minus the package name from a {@code Class}.
+     * Gets the canonical name minus the package name from a {@link Class}.
      * </p>
      *
      * @param cls the class for which to get the short canonical class name; may be null
@@ -872,7 +872,7 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Gets the canonical name minus the package name for an {@code Object}.
+     * Gets the canonical name minus the package name for an {@link Object}.
      * </p>
      *
      * @param object the class to get the short name for, may be null
@@ -989,7 +989,7 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Gets the class name minus the package name from a {@code Class}.
+     * Gets the class name minus the package name from a {@link Class}.
      * </p>
      *
      * <p>
@@ -1130,7 +1130,7 @@ public class ClassUtils {
      * </p>
      *
      * <p>
-     * It is to note that this method is overloaded and in case the argument {@code object} is a {@code Class} object then
+     * It is to note that this method is overloaded and in case the argument {@code object} is a {@link Class} object then
      * the {@link #getSimpleName(Class)} will be invoked. If this is a significant possibility then the caller should check
      * this case and call {@code
      * getSimpleName(Class.class)} or just simply use the string literal {@code "Class"}, which is the result of the method
@@ -1254,7 +1254,7 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Checks if one {@code Class} can be assigned to a variable of another {@code Class}.
+     * Checks if one {@link Class} can be assigned to a variable of another {@link Class}.
      * </p>
      *
      * <p>
@@ -1268,13 +1268,13 @@ public class ClassUtils {
      * </p>
      *
      * <p>
-     * {@code Null} may be assigned to any reference type. This method will return {@code true} if {@code null} is passed in
+     * {@code null} may be assigned to any reference type. This method will return {@code true} if {@code null} is passed in
      * and the toClass is non-primitive.
      * </p>
      *
      * <p>
-     * Specifically, this method tests whether the type represented by the specified {@code Class} parameter can be
-     * converted to the type represented by this {@code Class} object via an identity conversion widening primitive or
+     * Specifically, this method tests whether the type represented by the specified {@link Class} parameter can be
+     * converted to the type represented by this {@link Class} object via an identity conversion widening primitive or
      * widening reference conversion. See <em><a href="http://docs.oracle.com/javase/specs/">The Java Language
      * Specification</a></em>, sections 5.1.1, 5.1.2 and 5.1.4 for details.
      * </p>
@@ -1295,7 +1295,7 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Checks if one {@code Class} can be assigned to a variable of another {@code Class}.
+     * Checks if one {@link Class} can be assigned to a variable of another {@link Class}.
      * </p>
      *
      * <p>
@@ -1309,13 +1309,13 @@ public class ClassUtils {
      * </p>
      *
      * <p>
-     * {@code Null} may be assigned to any reference type. This method will return {@code true} if {@code null} is passed in
+     * {@code null} may be assigned to any reference type. This method will return {@code true} if {@code null} is passed in
      * and the toClass is non-primitive.
      * </p>
      *
      * <p>
-     * Specifically, this method tests whether the type represented by the specified {@code Class} parameter can be
-     * converted to the type represented by this {@code Class} object via an identity conversion widening primitive or
+     * Specifically, this method tests whether the type represented by the specified {@link Class} parameter can be
+     * converted to the type represented by this {@link Class} object via an identity conversion widening primitive or
      * widening reference conversion. See <em><a href="http://docs.oracle.com/javase/specs/">The Java Language
      * Specification</a></em>, sections 5.1.1, 5.1.2 and 5.1.4 for details.
      * </p>
@@ -1405,13 +1405,13 @@ public class ClassUtils {
      * </p>
      *
      * <p>
-     * {@code Null} may be assigned to any reference type. This method will return {@code true} if {@code null} is passed in
+     * {@code null} may be assigned to any reference type. This method will return {@code true} if {@code null} is passed in
      * and the toClass is non-primitive.
      * </p>
      *
      * <p>
-     * Specifically, this method tests whether the type represented by the specified {@code Class} parameter can be
-     * converted to the type represented by this {@code Class} object via an identity conversion widening primitive or
+     * Specifically, this method tests whether the type represented by the specified {@link Class} parameter can be
+     * converted to the type represented by this {@link Class} object via an identity conversion widening primitive or
      * widening reference conversion. See <em><a href="http://docs.oracle.com/javase/specs/">The Java Language
      * Specification</a></em>, sections 5.1.1, 5.1.2 and 5.1.4 for details.
      * </p>
@@ -1452,13 +1452,13 @@ public class ClassUtils {
      * </p>
      *
      * <p>
-     * {@code Null} may be assigned to any reference type. This method will return {@code true} if {@code null} is passed in
+     * {@code null} may be assigned to any reference type. This method will return {@code true} if {@code null} is passed in
      * and the toClass is non-primitive.
      * </p>
      *
      * <p>
-     * Specifically, this method tests whether the type represented by the specified {@code Class} parameter can be
-     * converted to the type represented by this {@code Class} object via an identity conversion widening primitive or
+     * Specifically, this method tests whether the type represented by the specified {@link Class} parameter can be
+     * converted to the type represented by this {@link Class} object via an identity conversion widening primitive or
      * widening reference conversion. See <em><a href="http://docs.oracle.com/javase/specs/">The Java Language
      * Specification</a></em>, sections 5.1.1, 5.1.2 and 5.1.4 for details.
      * </p>
@@ -1613,7 +1613,7 @@ public class ClassUtils {
 
     /**
      * <p>
-     * Converts an array of {@code Object} in to an array of {@code Class} objects. If any of these objects is null, a null
+     * Converts an array of {@link Object} in to an array of {@link Class} objects. If any of these objects is null, a null
      * element will be inserted into the array.
      * </p>
      *
@@ -1621,8 +1621,8 @@ public class ClassUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array an {@code Object} array
-     * @return a {@code Class} array, {@code null} if null array input
+     * @param array an {@link Object} array
+     * @return a {@link Class} array, {@code null} if null array input
      * @since 2.4
      */
     public static Class<?>[] toClass(final Object... array) {

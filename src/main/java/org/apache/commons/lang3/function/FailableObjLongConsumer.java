@@ -20,7 +20,7 @@ package org.apache.commons.lang3.function;
 import java.util.function.ObjLongConsumer;
 
 /**
- * A functional interface like {@link ObjLongConsumer} that declares a {@code Throwable}.
+ * A functional interface like {@link ObjLongConsumer} that declares a {@link Throwable}.
  *
  * @param <T> the type of the object argument to the operation.
  * @param <E> The kind of thrown exception or error.

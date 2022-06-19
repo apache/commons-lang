@@ -38,7 +38,7 @@ import org.apache.commons.lang3.StringUtils;
 public class WordUtils {
 
     /**
-     * <p>{@code WordUtils} instances should NOT be constructed in
+     * <p>{@link WordUtils} instances should NOT be constructed in
      * standard programming. Instead, the class should be used as
      * {@code WordUtils.wrap("foo bar", 20);}.</p>
      *

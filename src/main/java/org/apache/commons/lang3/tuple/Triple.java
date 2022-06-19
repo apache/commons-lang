@@ -108,7 +108,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     /**
      * <p>Compares the triple based on the left element, followed by the middle element,
      * finally the right element.
-     * The types must be {@code Comparable}.</p>
+     * The types must be {@link Comparable}.</p>
      *
      * @param other  the other triple, not null
      * @return negative if this is less, zero if equal, positive if greater

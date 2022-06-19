@@ -20,7 +20,7 @@ package org.apache.commons.lang3.mutable;
 import java.io.Serializable;
 
 /**
- * A mutable {@code Object} wrapper.
+ * A mutable {@link Object} wrapper.
  *
  * @param <T> the type to set and get
  * @since 2.1
@@ -75,7 +75,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     /**
      * <p>
      * Compares this object against the specified object. The result is {@code true} if and only if the argument
-     * is not {@code null} and is a {@code MutableObject} object that contains the same {@code T}
+     * is not {@code null} and is a {@link MutableObject} object that contains the same {@link T}
      * value as this object.
      * </p>
      *

@@ -19,6 +19,7 @@ package org.apache.commons.lang3.time;
 import java.text.FieldPosition;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -44,7 +45,7 @@ public interface DatePrinter {
     String format(long millis);
 
     /**
-     * <p>Formats a {@code Date} object using a {@code GregorianCalendar}.</p>
+     * <p>Formats a {@link Date} object using a {@link GregorianCalendar}.</p>
      *
      * @param date  the date to format
      * @return the formatted string
@@ -52,7 +53,7 @@ public interface DatePrinter {
     String format(Date date);
 
     /**
-     * <p>Formats a {@code Calendar} object.</p>
+     * <p>Formats a {@link Calendar} object.</p>
      * The TimeZone set on the Calendar is only used to adjust the time offset.
      * The TimeZone specified during the construction of the Parser will determine the TimeZone
      * used in the formatted string.
@@ -64,7 +65,7 @@ public interface DatePrinter {
 
     /**
      * <p>Formats a millisecond {@code long} value into the
-     * supplied {@code StringBuffer}.</p>
+     * supplied {@link StringBuffer}.</p>
      *
      * @param millis  the millisecond value to format
      * @param buf  the buffer to format into
@@ -75,8 +76,8 @@ public interface DatePrinter {
     StringBuffer format(long millis, StringBuffer buf);
 
     /**
-     * <p>Formats a {@code Date} object into the
-     * supplied {@code StringBuffer} using a {@code GregorianCalendar}.</p>
+     * <p>Formats a {@link Date} object into the
+     * supplied {@link StringBuffer} using a {@link GregorianCalendar}.</p>
      *
      * @param date  the date to format
      * @param buf  the buffer to format into
@@ -87,7 +88,7 @@ public interface DatePrinter {
     StringBuffer format(Date date, StringBuffer buf);
 
     /**
-     * <p>Formats a {@code Calendar} object into the supplied {@code StringBuffer}.</p>
+     * <p>Formats a {@link Calendar} object into the supplied {@link StringBuffer}.</p>
      * The TimeZone set on the Calendar is only used to adjust the time offset.
      * The TimeZone specified during the construction of the Parser will determine the TimeZone
      * used in the formatted string.
@@ -102,7 +103,7 @@ public interface DatePrinter {
 
     /**
      * <p>Formats a millisecond {@code long} value into the
-     * supplied {@code Appendable}.</p>
+     * supplied {@link Appendable}.</p>
      *
      * @param millis  the millisecond value to format
      * @param buf  the buffer to format into
@@ -113,8 +114,8 @@ public interface DatePrinter {
     <B extends Appendable> B format(long millis, B buf);
 
     /**
-     * <p>Formats a {@code Date} object into the
-     * supplied {@code Appendable} using a {@code GregorianCalendar}.</p>
+     * <p>Formats a {@link Date} object into the
+     * supplied {@link Appendable} using a {@link GregorianCalendar}.</p>
      *
      * @param date  the date to format
      * @param buf  the buffer to format into
@@ -125,7 +126,7 @@ public interface DatePrinter {
     <B extends Appendable> B format(Date date, B buf);
 
     /**
-     * <p>Formats a {@code Calendar} object into the supplied {@code Appendable}.</p>
+     * <p>Formats a {@link Calendar} object into the supplied {@link Appendable}.</p>
      * The TimeZone set on the Calendar is only used to adjust the time offset.
      * The TimeZone specified during the construction of the Parser will determine the TimeZone
      * used in the formatted string.
@@ -150,7 +151,7 @@ public interface DatePrinter {
     /**
      * <p>Gets the time zone used by this printer.</p>
      *
-     * <p>This zone is always used for {@code Date} printing. </p>
+     * <p>This zone is always used for {@link Date} printing. </p>
      *
      * @return the time zone
      */
@@ -164,8 +165,8 @@ public interface DatePrinter {
     Locale getLocale();
 
     /**
-     * <p>Formats a {@code Date}, {@code Calendar} or
-     * {@code Long} (milliseconds) object.</p>
+     * <p>Formats a {@link Date}, {@link Calendar} or
+     * {@link Long} (milliseconds) object.</p>
      *
      * @param obj  the object to format
      * @param toAppendTo  the buffer to append to

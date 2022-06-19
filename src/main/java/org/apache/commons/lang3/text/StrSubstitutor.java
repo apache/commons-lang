@@ -130,7 +130,7 @@ import org.apache.commons.lang3.StringUtils;
  * ${jre-${java.specification.version}}
  * </pre>
  * <p>
- * {@code StrSubstitutor} supports this recursive substitution in variable
+ * {@link StrSubstitutor} supports this recursive substitution in variable
  * names, but it has to be enabled explicitly by setting the
  * {@link #setEnableSubstitutionInVariables(boolean) enableSubstitutionInVariables}
  * property to <b>true</b>.

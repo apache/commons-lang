@@ -20,7 +20,7 @@ package org.apache.commons.lang3.function;
 import java.util.function.ToDoubleFunction;
 
 /**
- * A functional interface like {@link ToDoubleFunction} that declares a {@code Throwable}.
+ * A functional interface like {@link ToDoubleFunction} that declares a {@link Throwable}.
  *
  * @param <T> the type of the argument to the function
  * @param <E> The kind of thrown exception or error.

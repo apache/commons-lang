@@ -752,7 +752,7 @@ public class SystemUtils {
 
     /**
      * <p>
-     * The {@code user.country} or {@code user.region} System Property. User's country code, such as {@code GB}. First
+     * The {@code user.country} or {@code user.region} System Property. User's country code, such as {@code "GB"}. First
      * in Java version 1.2 as {@code user.region}. Renamed to {@code user.country} in 1.4
      * </p>
      * <p>
@@ -1632,7 +1632,7 @@ public class SystemUtils {
      * Gets an environment variable, defaulting to {@code defaultValue} if the variable cannot be read.
      * </p>
      * <p>
-     * If a {@code SecurityException} is caught, the return value is {@code defaultValue} and a message is written to
+     * If a {@link SecurityException} is caught, the return value is {@code defaultValue} and a message is written to
      * {@code System.err}.
      * </p>
      *
@@ -1671,7 +1671,7 @@ public class SystemUtils {
 
     /**
      * <p>
-     * Gets the Java home directory as a {@code File}.
+     * Gets the Java home directory as a {@link File}.
      * </p>
      *
      * @return a directory
@@ -1686,7 +1686,7 @@ public class SystemUtils {
 
     /**
      * <p>
-     * Gets the Java IO temporary directory as a {@code File}.
+     * Gets the Java IO temporary directory as a {@link File}.
      * </p>
      *
      * @return a directory
@@ -1738,7 +1738,7 @@ public class SystemUtils {
      * Gets a System property, defaulting to {@code null} if the property cannot be read.
      * </p>
      * <p>
-     * If a {@code SecurityException} is caught, the return value is {@code null} and a message is written to
+     * If a {@link SecurityException} is caught, the return value is {@code null} and a message is written to
      * {@code System.err}.
      * </p>
      *
@@ -1758,7 +1758,7 @@ public class SystemUtils {
 
     /**
      * <p>
-     * Gets the user directory as a {@code File}.
+     * Gets the user directory as a {@link File}.
      * </p>
      *
      * @return a directory
@@ -1773,7 +1773,7 @@ public class SystemUtils {
 
     /**
      * <p>
-     * Gets the user home directory as a {@code File}.
+     * Gets the user home directory as a {@link File}.
      * </p>
      *
      * @return a directory

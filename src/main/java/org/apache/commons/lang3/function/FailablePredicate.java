@@ -21,7 +21,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
- * A functional interface like {@link Predicate} that declares a {@code Throwable}.
+ * A functional interface like {@link Predicate} that declares a {@link Throwable}.
  *
  * @param <T> Predicate type.
  * @param <E> The kind of thrown exception or error.
@@ -61,10 +61,10 @@ public interface FailablePredicate<T, E extends Throwable> {
     }
 
     /**
-     * Returns a composed {@code FailablePredicate} like {@link Predicate#and(Predicate)}.
+     * Returns a composed {@link FailablePredicate} like {@link Predicate#and(Predicate)}.
      *
      * @param other a predicate that will be logically-ANDed with this predicate.
-     * @return a composed {@code FailablePredicate} like {@link Predicate#and(Predicate)}.
+     * @return a composed {@link FailablePredicate} like {@link Predicate#and(Predicate)}.
      * @throws NullPointerException if other is null
      */
     default FailablePredicate<T, E> and(final FailablePredicate<? super T, E> other) {
@@ -82,10 +82,10 @@ public interface FailablePredicate<T, E extends Throwable> {
     }
 
     /**
-     * Returns a composed {@code FailablePredicate} like {@link Predicate#and(Predicate)}.
+     * Returns a composed {@link FailablePredicate} like {@link Predicate#and(Predicate)}.
      *
      * @param other a predicate that will be logically-ORed with this predicate.
-     * @return a composed {@code FailablePredicate} like {@link Predicate#and(Predicate)}.
+     * @return a composed {@link FailablePredicate} like {@link Predicate#and(Predicate)}.
      * @throws NullPointerException if other is null
      */
     default FailablePredicate<T, E> or(final FailablePredicate<? super T, E> other) {

@@ -93,7 +93,7 @@ import org.apache.commons.lang3.function.ToBooleanBiFunction;
  *      - the number of changes needed to change one String into another</li>
  * </ul>
  *
- * <p>The {@code StringUtils} class defines certain words related to
+ * <p>The {@link StringUtils} class defines certain words related to
  * String handling.</p>
  *
  * <ul>
@@ -104,14 +104,14 @@ import org.apache.commons.lang3.function.ToBooleanBiFunction;
  *  <li>trim - the characters &lt;= 32 as in {@link String#trim()}</li>
  * </ul>
  *
- * <p>{@code StringUtils} handles {@code null} input Strings quietly.
+ * <p>{@link StringUtils} handles {@code null} input Strings quietly.
  * That is to say that a {@code null} input will return {@code null}.
  * Where a {@code boolean} or {@code int} is being returned
  * details vary by method.</p>
  *
  * <p>A side effect of the {@code null} handling is that a
- * {@code NullPointerException} should be considered a bug in
- * {@code StringUtils}.</p>
+ * {@link NullPointerException} should be considered a bug in
+ * {@link StringUtils}.</p>
  *
  * <p>Methods in this class include sample code in their Javadoc comments to explain their operation.
  * The symbol {@code *} is used to indicate any input including {@code null}.</p>
@@ -198,7 +198,7 @@ public class StringUtils {
      *       {@code maxWidth}, return {@code str}.</li>
      *   <li>Else abbreviate it to {@code (substring(str, 0, max-3) + "...")}.</li>
      *   <li>If {@code maxWidth} is less than {@code 4}, throw an
-     *       {@code IllegalArgumentException}.</li>
+     *       {@link IllegalArgumentException}.</li>
      *   <li>In no case will it return a String of length greater than
      *       {@code maxWidth}.</li>
      * </ul>
@@ -273,7 +273,7 @@ public class StringUtils {
      *       {@code maxWidth}, return {@code str}.</li>
      *   <li>Else abbreviate it to {@code (substring(str, 0, max-abbrevMarker.length) + abbrevMarker)}.</li>
      *   <li>If {@code maxWidth} is less than {@code abbrevMarker.length + 1}, throw an
-     *       {@code IllegalArgumentException}.</li>
+     *       {@link IllegalArgumentException}.</li>
      *   <li>In no case will it return a String of length greater than
      *       {@code maxWidth}.</li>
      * </ul>
@@ -1990,7 +1990,7 @@ public class StringUtils {
      * Calls {@link String#getBytes(Charset)} in a null-safe manner.
      *
      * @param string input string
-     * @param charset The {@link Charset} to encode the {@code String}. If null, then use the default Charset.
+     * @param charset The {@link Charset} to encode the {@link String}. If null, then use the default Charset.
      * @return The empty byte[] if {@code string} is null, the result of {@link String#getBytes(Charset)} otherwise.
      * @see String#getBytes(Charset)
      * @since 3.10
@@ -2003,7 +2003,7 @@ public class StringUtils {
      * Calls {@link String#getBytes(String)} in a null-safe manner.
      *
      * @param string input string
-     * @param charset The {@link Charset} name to encode the {@code String}. If null, then use the default Charset.
+     * @param charset The {@link Charset} name to encode the {@link String}. If null, then use the default Charset.
      * @return The empty byte[] if {@code string} is null, the result of {@link String#getBytes(String)} otherwise.
      * @throws UnsupportedEncodingException Thrown when the named charset is not supported.
      * @see String#getBytes(String)
@@ -2633,7 +2633,7 @@ public class StringUtils {
      * Returns the index within {@code seq} of the first occurrence of
      * the specified character. If a character with value
      * {@code searchChar} occurs in the character sequence represented by
-     * {@code seq} {@code CharSequence} object, then the index (in Unicode
+     * {@code seq} {@link CharSequence} object, then the index (in Unicode
      * code units) of the first such occurrence is returned. For
      * values of {@code searchChar} in the range from 0 to 0xFFFF
      * (inclusive), this is the smallest value <i>k</i> such that:
@@ -2664,7 +2664,7 @@ public class StringUtils {
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, int) to indexOf(CharSequence, int)
-     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like {@code String}
+     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like {@link String}
      */
     public static int indexOf(final CharSequence seq, final int searchChar) {
         if (isEmpty(seq)) {
@@ -2679,7 +2679,7 @@ public class StringUtils {
      * specified character, starting the search at the specified index.
      * <p>
      * If a character with value {@code searchChar} occurs in the
-     * character sequence represented by the {@code seq} {@code CharSequence}
+     * character sequence represented by the {@code seq} {@link CharSequence}
      * object at an index no smaller than {@code startPos}, then
      * the index of the first such occurrence is returned. For values
      * of {@code searchChar} in the range from 0 to 0xFFFF (inclusive),
@@ -2724,7 +2724,7 @@ public class StringUtils {
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, int, int) to indexOf(CharSequence, int, int)
-     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like {@code String}
+     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like {@link String}
      */
     public static int indexOf(final CharSequence seq, final int searchChar, final int startPos) {
         if (isEmpty(seq)) {
@@ -4335,7 +4335,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided {@code Iterable} into
+     * <p>Joins the elements of the provided {@link Iterable} into
      * a single String containing the provided elements.</p>
      *
      * <p>No delimiter is added before or after the list. Null objects or empty
@@ -4343,7 +4343,7 @@ public class StringUtils {
      *
      * <p>See the examples here: {@link #join(Object[],char)}. </p>
      *
-     * @param iterable  the {@code Iterable} providing the values to join together, may be null
+     * @param iterable  the {@link Iterable} providing the values to join together, may be null
      * @param separator  the separator character to use
      * @return the joined String, {@code null} if null iterator input
      * @since 2.3
@@ -4356,7 +4356,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided {@code Iterable} into
+     * <p>Joins the elements of the provided {@link Iterable} into
      * a single String containing the provided elements.</p>
      *
      * <p>No delimiter is added before or after the list.
@@ -4364,7 +4364,7 @@ public class StringUtils {
      *
      * <p>See the examples here: {@link #join(Object[],String)}. </p>
      *
-     * @param iterable  the {@code Iterable} providing the values to join together, may be null
+     * @param iterable  the {@link Iterable} providing the values to join together, may be null
      * @param separator  the separator character to use, null treated as ""
      * @return the joined String, {@code null} if null iterator input
      * @since 2.3
@@ -4377,7 +4377,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided {@code Iterator} into
+     * <p>Joins the elements of the provided {@link Iterator} into
      * a single String containing the provided elements.</p>
      *
      * <p>No delimiter is added before or after the list. Null objects or empty
@@ -4385,7 +4385,7 @@ public class StringUtils {
      *
      * <p>See the examples here: {@link #join(Object[],char)}. </p>
      *
-     * @param iterator  the {@code Iterator} of values to join together, may be null
+     * @param iterator  the {@link Iterator} of values to join together, may be null
      * @param separator  the separator character to use
      * @return the joined String, {@code null} if null iterator input
      * @since 2.0
@@ -4422,7 +4422,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided {@code Iterator} into
+     * <p>Joins the elements of the provided {@link Iterator} into
      * a single String containing the provided elements.</p>
      *
      * <p>No delimiter is added before or after the list.
@@ -4430,7 +4430,7 @@ public class StringUtils {
      *
      * <p>See the examples here: {@link #join(Object[],String)}. </p>
      *
-     * @param iterator  the {@code Iterator} of values to join together, may be null
+     * @param iterator  the {@link Iterator} of values to join together, may be null
      * @param separator  the separator character to use, null treated as ""
      * @return the joined String, {@code null} if null iterator input
      */
@@ -4467,7 +4467,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided {@code List} into a single String
+     * <p>Joins the elements of the provided {@link List} into a single String
      * containing the provided list of elements.</p>
      *
      * <p>No delimiter is added before or after the list.
@@ -4483,7 +4483,7 @@ public class StringUtils {
      * StringUtils.join([null, "", "a"], ';')  = ";;a"
      * </pre>
      *
-     * @param list  the {@code List} of values to join together, may be null
+     * @param list  the {@link List} of values to join together, may be null
      * @param separator  the separator character to use
      * @param startIndex the first index to start joining from.  It is
      * an error to pass in a start index past the end of the list
@@ -4505,7 +4505,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided {@code List} into a single String
+     * <p>Joins the elements of the provided {@link List} into a single String
      * containing the provided list of elements.</p>
      *
      * <p>No delimiter is added before or after the list.
@@ -4521,7 +4521,7 @@ public class StringUtils {
      * StringUtils.join([null, "", "a"], ';')  = ";;a"
      * </pre>
      *
-     * @param list  the {@code List} of values to join together, may be null
+     * @param list  the {@link List} of values to join together, may be null
      * @param separator  the separator character to use
      * @param startIndex the first index to start joining from.  It is
      * an error to pass in a start index past the end of the list
@@ -4977,8 +4977,8 @@ public class StringUtils {
      * </pre></blockquote>
      * is true.  In either case, if no such character occurs in this
      * string, then {@code -1} is returned. Furthermore, a {@code null} or empty ("")
-     * {@code CharSequence} will return {@code -1}. The
-     * {@code seq} {@code CharSequence} object is searched backwards
+     * {@link CharSequence} will return {@code -1}. The
+     * {@code seq} {@link CharSequence} object is searched backwards
      * starting at the last character.
      *
      * <pre>
@@ -4988,13 +4988,13 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", 'b') = 5
      * </pre>
      *
-     * @param seq  the {@code CharSequence} to check, may be null
+     * @param seq  the {@link CharSequence} to check, may be null
      * @param searchChar  the character to find
      * @return the last index of the search character,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from lastIndexOf(String, int) to lastIndexOf(CharSequence, int)
-     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like {@code String}
+     * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like {@link String}
      */
     public static int lastIndexOf(final CharSequence seq, final int searchChar) {
         if (isEmpty(seq)) {
@@ -5020,7 +5020,7 @@ public class StringUtils {
      * is true. In either case, if no such character occurs in {@code seq}
      * at or before position {@code startPos}, then
      * {@code -1} is returned. Furthermore, a {@code null} or empty ("")
-     * {@code CharSequence} will return {@code -1}. A start position greater
+     * {@link CharSequence} will return {@code -1}. A start position greater
      * than the string length searches the whole string.
      * The search starts at the {@code startPos} and works backwards;
      * matches starting after the start position are ignored.
@@ -6146,7 +6146,7 @@ public class StringUtils {
      *            the source string
      * @param regex
      *            the regular expression to which this string is to be matched
-     * @return The resulting {@code String}
+     * @return The resulting {@link String}
      * @see #replacePattern(String, String, String)
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL
@@ -7104,7 +7104,7 @@ public class StringUtils {
      *            the regular expression to which this string is to be matched
      * @param replacement
      *            the string to be substituted for each match
-     * @return The resulting {@code String}
+     * @return The resulting {@link String}
      * @see #replaceAll(String, String, String)
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL
@@ -9017,7 +9017,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Converts a {@code CharSequence} into an array of code points.</p>
+     * <p>Converts a {@link CharSequence} into an array of code points.</p>
      *
      * <p>Valid pairs of surrogate code units will be converted into a single supplementary
      * code point. Isolated surrogate code units (i.e. a high surrogate not followed by a low surrogate or
@@ -9202,7 +9202,7 @@ public class StringUtils {
      *       long, return it.</li>
      *   <li>Else truncate it to {@code substring(str, 0, maxWidth)}.</li>
      *   <li>If {@code maxWidth} is less than {@code 0}, throw an
-     *       {@code IllegalArgumentException}.</li>
+     *       {@link IllegalArgumentException}.</li>
      *   <li>In no case will it return a String of length greater than
      *       {@code maxWidth}.</li>
      * </ul>
@@ -9241,9 +9241,9 @@ public class StringUtils {
      *       long, return it.</li>
      *   <li>Else truncate it to {@code substring(str, offset, maxWidth)}.</li>
      *   <li>If {@code maxWidth} is less than {@code 0}, throw an
-     *       {@code IllegalArgumentException}.</li>
+     *       {@link IllegalArgumentException}.</li>
      *   <li>If {@code offset} is less than {@code 0}, throw an
-     *       {@code IllegalArgumentException}.</li>
+     *       {@link IllegalArgumentException}.</li>
      *   <li>In no case will it return a String of length greater than
      *       {@code maxWidth}.</li>
      * </ul>
@@ -9567,7 +9567,7 @@ public class StringUtils {
      * Wraps a string with a char if that char is missing from the start or end of the given string.
      * </p>
      *
-     * <p>A new {@code String} will not be created if {@code str} is already wrapped.</p>
+     * <p>A new {@link String} will not be created if {@code str} is already wrapped.</p>
      *
      * <pre>
      * StringUtils.wrapIfMissing(null, *)        = null
@@ -9615,7 +9615,7 @@ public class StringUtils {
      * Wraps a string with a string if that string is missing from the start or end of the given string.
      * </p>
      *
-     * <p>A new {@code String} will not be created if {@code str} is already wrapped.</p>
+     * <p>A new {@link String} will not be created if {@code str} is already wrapped.</p>
      *
      * <pre>
      * StringUtils.wrapIfMissing(null, *)         = null
@@ -9664,7 +9664,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>{@code StringUtils} instances should NOT be constructed in
+     * <p>{@link StringUtils} instances should NOT be constructed in
      * standard programming. Instead, the class should be used as
      * {@code StringUtils.trim(" foo ");}.</p>
      *

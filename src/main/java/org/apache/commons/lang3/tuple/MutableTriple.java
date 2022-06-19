@@ -19,7 +19,7 @@ package org.apache.commons.lang3.tuple;
 import java.util.Objects;
 
 /**
- * <p>A mutable triple consisting of three {@code Object} elements.</p>
+ * <p>A mutable triple consisting of three {@link Object} elements.</p>
  *
  * <p>Not #ThreadSafe#</p>
  *

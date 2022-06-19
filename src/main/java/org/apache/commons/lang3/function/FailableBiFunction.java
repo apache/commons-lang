@@ -22,7 +22,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
- * A functional interface like {@link BiFunction} that declares a {@code Throwable}.
+ * A functional interface like {@link BiFunction} that declares a {@link Throwable}.
  *
  * @param <T> Input type 1.
  * @param <U> Input type 2.
@@ -51,11 +51,11 @@ public interface FailableBiFunction<T, U, R, E extends Throwable> {
     }
 
     /**
-     * Returns a composed {@code FailableBiFunction} that like {@link BiFunction#andThen(Function)}.
+     * Returns a composed {@link FailableBiFunction} that like {@link BiFunction#andThen(Function)}.
      *
      * @param <V> the output type of the {@code after} function, and of the composed function.
      * @param after the operation to perform after this one.
-     * @return a composed {@code FailableBiFunction} that like {@link BiFunction#andThen(Function)}.
+     * @return a composed {@link FailableBiFunction} that like {@link BiFunction#andThen(Function)}.
      * @throws NullPointerException when {@code after} is null.
      */
     default <V> FailableBiFunction<T, U, V, E> andThen(final FailableFunction<? super R, ? extends V, E> after) {

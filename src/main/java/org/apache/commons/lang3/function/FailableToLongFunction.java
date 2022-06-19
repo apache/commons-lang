@@ -20,7 +20,7 @@ package org.apache.commons.lang3.function;
 import java.util.function.ToLongFunction;
 
 /**
- * A functional interface like {@link ToLongFunction} that declares a {@code Throwable}.
+ * A functional interface like {@link ToLongFunction} that declares a {@link Throwable}.
  *
  * @param <T> the type of the first argument to the function
  * @param <E> The kind of thrown exception or error.

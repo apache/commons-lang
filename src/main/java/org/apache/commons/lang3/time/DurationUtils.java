@@ -123,7 +123,7 @@ public class DurationUtils {
      * Computes the Duration between a start instant and now.
      *
      * @param startInclusive the start instant, inclusive, not null.
-     * @return a {@code Duration}, not null.
+     * @return a {@link Duration}, not null.
      */
     public static Duration since(final Temporal startInclusive) {
         return Duration.between(startInclusive, Instant.now());

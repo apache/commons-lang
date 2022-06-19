@@ -19,7 +19,7 @@ package org.apache.commons.lang3.tuple;
 import java.util.Objects;
 
 /**
- * <p>An immutable triple consisting of three {@code Object} elements.</p>
+ * <p>An immutable triple consisting of three {@link Object} elements.</p>
  *
  * <p>Although the implementation is immutable, there is no restriction on the objects
  * that may be stored. If mutable objects are stored in the triple, then the triple

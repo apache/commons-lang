@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
+import java.util.StringTokenizer;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -33,8 +34,8 @@ import org.apache.commons.lang3.StringUtils;
  * This class can split a String into many smaller strings. It aims
  * to do a similar job to {@link java.util.StringTokenizer StringTokenizer},
  * however it offers much more control and flexibility including implementing
- * the {@code ListIterator} interface. By default, it is set up
- * like {@code StringTokenizer}.
+ * the {@link ListIterator} interface. By default, it is set up
+ * like {@link StringTokenizer}.
  * </p>
  * <p>
  * The input String is split into a number of <i>tokens</i>.
@@ -625,7 +626,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * multiple strings. It is also be possible to filter the results.
      * </p>
      * <p>
-     * {@code StrTokenizer} will always pass a zero offset and a count
+     * {@link StrTokenizer} will always pass a zero offset and a count
      * equal to the length of the array to this method, however a subclass
      * may pass other values, or even an entirely different array.
      * </p>

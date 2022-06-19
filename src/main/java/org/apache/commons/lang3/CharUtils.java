@@ -64,7 +64,7 @@ public class CharUtils {
     }
 
     /**
-     * <p>{@code CharUtils} instances should NOT be constructed in standard programming.
+     * <p>{@link CharUtils} instances should NOT be constructed in standard programming.
      * Instead, the class should be used as {@code CharUtils.toString('c');}.</p>
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance

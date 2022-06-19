@@ -130,7 +130,7 @@ public class MethodUtils {
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
      * <p>This method supports calls to methods taking primitive parameters
-     * via passing in wrapping classes. So, for example, a {@code Boolean} object
+     * via passing in wrapping classes. So, for example, a {@link Boolean} object
      * would match a {@code boolean} primitive.</p>
      *
      * <p>This is a convenient wrapper for
@@ -157,7 +157,7 @@ public class MethodUtils {
      * <p>Invokes a named method whose parameter type matches the object type.</p>
      *
      * <p>This method supports calls to methods taking primitive parameters
-     * via passing in wrapping classes. So, for example, a {@code Boolean} object
+     * via passing in wrapping classes. So, for example, a {@link Boolean} object
      * would match a {@code boolean} primitive.</p>
      *
      * <p>This is a convenient wrapper for
@@ -187,7 +187,7 @@ public class MethodUtils {
      * <p>Invokes a named method whose parameter type matches the object type.</p>
      *
      * <p>This method supports calls to methods taking primitive parameters
-     * via passing in wrapping classes. So, for example, a {@code Boolean} object
+     * via passing in wrapping classes. So, for example, a {@link Boolean} object
      * would match a {@code boolean} primitive.</p>
      *
      * @param object invoke method on this object
@@ -237,7 +237,7 @@ public class MethodUtils {
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
      * <p>This method supports calls to methods taking primitive parameters
-     * via passing in wrapping classes. So, for example, a {@code Boolean} object
+     * via passing in wrapping classes. So, for example, a {@link Boolean} object
      * would match a {@code boolean} primitive.</p>
      *
      * @param object invoke method on this object
@@ -376,7 +376,7 @@ public class MethodUtils {
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
      * <p>This method supports calls to methods taking primitive parameters
-     * via passing in wrapping classes. So, for example, a {@code Boolean} class
+     * via passing in wrapping classes. So, for example, a {@link Boolean} class
      * would match a {@code boolean} primitive.</p>
      *
      * <p>This is a convenient wrapper for
@@ -407,7 +407,7 @@ public class MethodUtils {
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
      * <p>This method supports calls to methods taking primitive parameters
-     * via passing in wrapping classes. So, for example, a {@code Boolean} class
+     * via passing in wrapping classes. So, for example, a {@link Boolean} class
      * would match a {@code boolean} primitive.</p>
      *
      *
@@ -655,7 +655,7 @@ public class MethodUtils {
      * </p>
      *
      * <p>This method can match primitive parameter by passing in wrapper classes.
-     * For example, a {@code Boolean} will match a primitive {@code boolean}
+     * For example, a {@link Boolean} will match a primitive {@code boolean}
      * parameter.
      * </p>
      *
@@ -988,7 +988,7 @@ public class MethodUtils {
      * from interfaces, and so on in a breadth first way.</p>
      *
      * @param cls  the class to look up, may be {@code null}
-     * @return the combined {@code List} of superclasses and interfaces in order
+     * @return the combined {@link List} of superclasses and interfaces in order
      * going up from this one
      *  {@code null} if null input
      */

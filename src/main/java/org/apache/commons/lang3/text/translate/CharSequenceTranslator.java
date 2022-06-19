@@ -126,11 +126,11 @@ public abstract class CharSequenceTranslator {
     }
 
     /**
-     * <p>Returns an upper case hexadecimal {@code String} for the given
+     * <p>Returns an upper case hexadecimal {@link String} for the given
      * character.</p>
      *
      * @param codePoint The code point to convert.
-     * @return An upper case hexadecimal {@code String}
+     * @return An upper case hexadecimal {@link String}
      */
     public static String hex(final int codePoint) {
         return Integer.toHexString(codePoint).toUpperCase(Locale.ENGLISH);

@@ -208,7 +208,7 @@ abstract class FormatCache<F extends Format> {
         private final int hashCode;
 
         /**
-         * Constructs an instance of {@code MultipartKey} to hold the specified objects.
+         * Constructs an instance of {@link MultipartKey} to hold the specified objects.
          *
          * @param keys the set of objects that make up the key.  Each key may be null.
          */

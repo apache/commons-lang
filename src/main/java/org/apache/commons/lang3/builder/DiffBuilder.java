@@ -19,6 +19,7 @@ package org.apache.commons.lang3.builder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -53,8 +54,8 @@ import org.apache.commons.lang3.Validate;
  * </pre>
  *
  * <p>
- * The {@code ToStringStyle} passed to the constructor is embedded in the
- * returned {@code DiffResult} and influences the style of the
+ * The {@link ToStringStyle} passed to the constructor is embedded in the
+ * returned {@link DiffResult} and influences the style of the
  * {@code DiffResult.toString()} method. This style choice can be overridden by
  * calling {@link DiffResult#toString(ToStringStyle)}.
  * </p>
@@ -789,15 +790,15 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
 
     /**
      * <p>
-     * Test if two {@code Objects}s are equal.
+     * Test if two {@link Objects}s are equal.
      * </p>
      *
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left hand {@code Object}
+     *            the left hand {@link Object}
      * @param rhs
-     *            the right hand {@code Object}
+     *            the right hand {@link Object}
      * @return this
      * @throws IllegalArgumentException
      *             if field name is {@code null}
@@ -914,7 +915,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
 
     /**
      * <p>
-     * Append diffs from another {@code DiffResult}.
+     * Append diffs from another {@link DiffResult}.
      * </p>
      *
      * <p>
@@ -942,7 +943,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param diffResult
-     *            the {@code DiffResult} to append
+     *            the {@link DiffResult} to append
      * @return this
      * @throws NullPointerException if field name is {@code null}
      * @since 3.5
@@ -969,7 +970,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * builder.
      * </p>
      *
-     * @return a {@code DiffResult} containing the differences between the two
+     * @return a {@link DiffResult} containing the differences between the two
      *         objects.
      */
     @Override

@@ -68,7 +68,7 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
     private final AtomicLong used;
 
     /**
-     * <p>Creates a new instance of {@code ThresholdCircuitBreaker} and initializes the threshold.</p>
+     * <p>Creates a new instance of {@link ThresholdCircuitBreaker} and initializes the threshold.</p>
      *
      * @param threshold the threshold.
      */

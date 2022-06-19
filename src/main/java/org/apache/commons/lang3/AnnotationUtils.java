@@ -91,7 +91,7 @@ public class AnnotationUtils {
     };
 
     /**
-     * <p>{@code AnnotationUtils} instances should NOT be constructed in
+     * <p>{@link AnnotationUtils} instances should NOT be constructed in
      * standard programming. Instead, the class should be used statically.</p>
      *
      * <p>This constructor is public to permit tools that require a JavaBean
@@ -149,7 +149,7 @@ public class AnnotationUtils {
      * @param a the Annotation for a hash code calculation is desired, not
      * {@code null}
      * @return the calculated hash code
-     * @throws RuntimeException if an {@code Exception} is encountered during
+     * @throws RuntimeException if an {@link Exception} is encountered during
      * annotation member access
      * @throws IllegalStateException if an annotation method invocation returns
      * {@code null}

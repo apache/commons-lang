@@ -41,7 +41,7 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
     private final PropertyChangeSupport changeSupport;
 
     /**
-     * Creates an {@code AbstractCircuitBreaker}. It also creates an internal {@code PropertyChangeSupport}.
+     * Creates an {@link AbstractCircuitBreaker}. It also creates an internal {@link PropertyChangeSupport}.
      */
     public AbstractCircuitBreaker() {
         changeSupport = new PropertyChangeSupport(this);
@@ -137,7 +137,7 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
      * An internal enumeration representing the different states of a circuit
      * breaker. This class also contains some logic for performing state
      * transitions. This is done to avoid complex if-conditions in the code of
-     * {@code CircuitBreaker}.
+     * {@link CircuitBreaker}.
      */
     protected enum State {
 

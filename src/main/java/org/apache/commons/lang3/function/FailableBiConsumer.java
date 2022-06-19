@@ -21,7 +21,7 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 
 /**
- * A functional interface like {@link BiConsumer} that declares a {@code Throwable}.
+ * A functional interface like {@link BiConsumer} that declares a {@link Throwable}.
  *
  * @param <T> Consumed type 1.
  * @param <U> Consumed type 2.
@@ -57,10 +57,10 @@ public interface FailableBiConsumer<T, U, E extends Throwable> {
     void accept(T t, U u) throws E;
 
     /**
-     * Returns a composed {@code FailableBiConsumer} like {@link BiConsumer#andThen(BiConsumer)}.
+     * Returns a composed {@link FailableBiConsumer} like {@link BiConsumer#andThen(BiConsumer)}.
      *
      * @param after the operation to perform after this one.
-     * @return a composed {@code FailableBiConsumer} like {@link BiConsumer#andThen(BiConsumer)}.
+     * @return a composed {@link FailableBiConsumer} like {@link BiConsumer#andThen(BiConsumer)}.
      * @throws NullPointerException when {@code after} is null.
      */
     default FailableBiConsumer<T, U, E> andThen(final FailableBiConsumer<? super T, ? super U, E> after) {

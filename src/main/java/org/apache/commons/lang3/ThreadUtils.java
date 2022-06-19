@@ -218,7 +218,7 @@ public class ThreadUtils {
      * @param threadGroup the thread group
      * @param recurse if {@code true} then evaluate the predicate recursively on all thread groups in all subgroups of the given group
      * @param predicate the predicate
-     * @return An unmodifiable {@code Collection} of active thread groups which match the given predicate and which is a subgroup of the given thread group
+     * @return An unmodifiable {@link Collection} of active thread groups which match the given predicate and which is a subgroup of the given thread group
      * @throws NullPointerException if the given group or predicate is null
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
@@ -248,7 +248,7 @@ public class ThreadUtils {
      * Select all active thread groups which match the given predicate.
      *
      * @param predicate the predicate
-     * @return An unmodifiable {@code Collection} of active thread groups matching the given predicate
+     * @return An unmodifiable {@link Collection} of active thread groups matching the given predicate
      * @throws NullPointerException if the predicate is null
      * @throws  SecurityException
      *          if the current thread cannot access the system thread group
@@ -281,7 +281,7 @@ public class ThreadUtils {
      * @param threadGroup the thread group
      * @param recurse if {@code true} then evaluate the predicate recursively on all threads in all subgroups of the given group
      * @param predicate the predicate
-     * @return An unmodifiable {@code Collection} of active threads which match the given predicate and which belongs to the given thread group
+     * @return An unmodifiable {@link Collection} of active threads which match the given predicate and which belongs to the given thread group
      * @throws NullPointerException if the given group or predicate is null
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
@@ -311,7 +311,7 @@ public class ThreadUtils {
      * Select all active threads which match the given predicate.
      *
      * @param predicate the predicate
-     * @return An unmodifiable {@code Collection} of active threads matching the given predicate
+     * @return An unmodifiable {@link Collection} of active threads matching the given predicate
      *
      * @throws NullPointerException if the predicate is null
      * @throws  SecurityException

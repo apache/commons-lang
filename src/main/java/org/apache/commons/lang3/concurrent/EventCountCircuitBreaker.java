@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import java.beans.PropertyChangeListener;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -29,7 +30,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * </p>
  * <p>
  * A <em>circuit breaker</em> can be used to protect an application against unreliable
- * services or unexpected load. A newly created {@code EventCountCircuitBreaker} object is
+ * services or unexpected load. A newly created {@link EventCountCircuitBreaker} object is
  * initially in state <em>closed</em> meaning that no problem has been detected. When the
  * application encounters specific events (like errors or service timeouts), it tells the
  * circuit breaker to increment an internal counter. If the number of events reported in a
@@ -40,7 +41,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * certain time frame if the number of events received goes below a threshold.
  * </p>
  * <p>
- * When a {@code EventCountCircuitBreaker} object is constructed the following parameters
+ * When a {@link EventCountCircuitBreaker} object is constructed the following parameters
  * can be provided:
  * </p>
  * <ul>
@@ -66,10 +67,10 @@ import java.util.concurrent.atomic.AtomicReference;
  * Imagine you have a server which can handle a certain number of requests per minute.
  * Suddenly, the number of requests increases significantly - maybe because a connected
  * partner system is going mad or due to a denial of service attack. A
- * {@code EventCountCircuitBreaker} can be configured to stop the application from
+ * {@link EventCountCircuitBreaker} can be configured to stop the application from
  * processing requests when a sudden peak load is detected and to start request processing
  * again when things calm down. The following code fragment shows a typical example of
- * such a scenario. Here the {@code EventCountCircuitBreaker} allows up to 1000 requests
+ * such a scenario. Here the {@link EventCountCircuitBreaker} allows up to 1000 requests
  * per minute before it interferes. When the load goes down again to 800 requests per
  * second it switches back to state <em>closed</em>:
  * </p>
@@ -114,7 +115,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * <p>
  * In addition to automatic state transitions, the state of a circuit breaker can be
  * changed manually using the methods {@link #open()} and {@link #close()}. It is also
- * possible to register {@code PropertyChangeListener} objects that get notified whenever
+ * possible to register {@link PropertyChangeListener} objects that get notified whenever
  * a state transition occurs. This is useful, for instance to directly react on a freshly
  * detected error condition.
  * </p>
@@ -156,7 +157,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     private final long closingInterval;
 
     /**
-     * Creates a new instance of {@code EventCountCircuitBreaker} and initializes all properties for
+     * Creates a new instance of {@link EventCountCircuitBreaker} and initializes all properties for
      * opening and closing it based on threshold values for events occurring in specific
      * intervals.
      *
@@ -164,12 +165,12 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * number of events is received in the time span determined by the opening interval,
      * the circuit breaker is opened
      * @param openingInterval the interval for opening the circuit breaker
-     * @param openingUnit the {@code TimeUnit} defining the opening interval
+     * @param openingUnit the {@link TimeUnit} defining the opening interval
      * @param closingThreshold the threshold for closing the circuit breaker; if the
      * number of events received in the time span determined by the closing interval goes
      * below this threshold, the circuit breaker is closed again
      * @param closingInterval the interval for closing the circuit breaker
-     * @param closingUnit the {@code TimeUnit} defining the closing interval
+     * @param closingUnit the {@link TimeUnit} defining the closing interval
      */
     public EventCountCircuitBreaker(final int openingThreshold, final long openingInterval,
                                     final TimeUnit openingUnit, final int closingThreshold, final long closingInterval,
@@ -182,14 +183,14 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * Creates a new instance of {@code EventCountCircuitBreaker} with the same interval for opening
+     * Creates a new instance of {@link EventCountCircuitBreaker} with the same interval for opening
      * and closing checks.
      *
      * @param openingThreshold the threshold for opening the circuit breaker; if this
      * number of events is received in the time span determined by the check interval, the
      * circuit breaker is opened
      * @param checkInterval the check interval for opening or closing the circuit breaker
-     * @param checkUnit the {@code TimeUnit} defining the check interval
+     * @param checkUnit the {@link TimeUnit} defining the check interval
      * @param closingThreshold the threshold for closing the circuit breaker; if the
      * number of events received in the time span determined by the check interval goes
      * below this threshold, the circuit breaker is closed again
@@ -201,14 +202,14 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * Creates a new instance of {@code EventCountCircuitBreaker} which uses the same parameters for
+     * Creates a new instance of {@link EventCountCircuitBreaker} which uses the same parameters for
      * opening and closing checks.
      *
      * @param threshold the threshold for changing the status of the circuit breaker; if
      * the number of events received in a check interval is greater than this value, the
      * circuit breaker is opened; if it is lower than this value, it is closed again
      * @param checkInterval the check interval for opening or closing the circuit breaker
-     * @param checkUnit the {@code TimeUnit} defining the check interval
+     * @param checkUnit the {@link TimeUnit} defining the check interval
      */
     public EventCountCircuitBreaker(final int threshold, final long checkInterval, final TimeUnit checkUnit) {
         this(threshold, checkInterval, checkUnit, threshold);
@@ -337,7 +338,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * Updates the {@code CheckIntervalData} object. The current data object is replaced
+     * Updates the {@link CheckIntervalData} object. The current data object is replaced
      * by the one modified by the last check. The return value indicates whether this was
      * successful. If it is <strong>false</strong>, another thread interfered, and the
      * whole operation has to be redone.
@@ -354,7 +355,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
 
     /**
      * Changes the state of this circuit breaker and also initializes a new
-     * {@code CheckIntervalData} object.
+     * {@link CheckIntervalData} object.
      *
      * @param newState the new state to be set
      */
@@ -364,7 +365,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * Calculates the next {@code CheckIntervalData} object based on the current data and
+     * Calculates the next {@link CheckIntervalData} object based on the current data and
      * the current state. The next data object takes the counter increment and the current
      * time into account.
      *
@@ -372,7 +373,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * @param currentData the current check data object
      * @param currentState the current state of the circuit breaker
      * @param time the current time
-     * @return the updated {@code CheckIntervalData} object
+     * @return the updated {@link CheckIntervalData} object
      */
     private CheckIntervalData nextCheckIntervalData(final int increment,
             final CheckIntervalData currentData, final State currentState, final long time) {
@@ -396,10 +397,10 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * Returns the {@code StateStrategy} object responsible for the given state.
+     * Returns the {@link StateStrategy} object responsible for the given state.
      *
      * @param state the state
-     * @return the corresponding {@code StateStrategy}
+     * @return the corresponding {@link StateStrategy}
      * @throws CircuitBreakingException if the strategy cannot be resolved
      */
     private static StateStrategy stateStrategy(final State state) {
@@ -432,7 +433,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
         private final long checkIntervalStart;
 
         /**
-         * Creates a new instance of {@code CheckIntervalData}.
+         * Creates a new instance of {@link CheckIntervalData}.
          *
          * @param count the current count value
          * @param intervalStart the start time of the check interval
@@ -461,7 +462,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
         }
 
         /**
-         * Returns a new instance of {@code CheckIntervalData} with the event counter
+         * Returns a new instance of {@link CheckIntervalData} with the event counter
          * incremented by the given delta. If the delta is 0, this object is returned.
          *
          * @param delta the delta
@@ -482,7 +483,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
         /**
          * Returns a flag whether the end of the current check interval is reached.
          *
-         * @param breaker the {@code CircuitBreaker}
+         * @param breaker the {@link CircuitBreaker}
          * @param currentData the current state object
          * @param now the current time
          * @return a flag whether the end of the current check interval is reached
@@ -493,13 +494,13 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
         }
 
         /**
-         * Checks whether the specified {@code CheckIntervalData} objects indicate that a
+         * Checks whether the specified {@link CheckIntervalData} objects indicate that a
          * state transition should occur. Here the logic which checks for thresholds
          * depending on the current state is implemented.
          *
-         * @param breaker the {@code CircuitBreaker}
-         * @param currentData the current {@code CheckIntervalData} object
-         * @param nextData the updated {@code CheckIntervalData} object
+         * @param breaker the {@link CircuitBreaker}
+         * @param currentData the current {@link CheckIntervalData} object
+         * @param nextData the updated {@link CheckIntervalData} object
          * @return a flag whether a state transition should be performed
          */
         public abstract boolean isStateTransition(EventCountCircuitBreaker breaker,
@@ -507,16 +508,16 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
 
         /**
          * Obtains the check interval to applied for the represented state from the given
-         * {@code CircuitBreaker}.
+         * {@link CircuitBreaker}.
          *
-         * @param breaker the {@code CircuitBreaker}
+         * @param breaker the {@link CircuitBreaker}
          * @return the check interval to be applied
          */
         protected abstract long fetchCheckInterval(EventCountCircuitBreaker breaker);
     }
 
     /**
-     * A specialized {@code StateStrategy} implementation for the state closed.
+     * A specialized {@link StateStrategy} implementation for the state closed.
      */
     private static class StateStrategyClosed extends StateStrategy {
 
@@ -539,7 +540,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * A specialized {@code StateStrategy} implementation for the state open.
+     * A specialized {@link StateStrategy} implementation for the state open.
      */
     private static class StateStrategyOpen extends StateStrategy {
         /**

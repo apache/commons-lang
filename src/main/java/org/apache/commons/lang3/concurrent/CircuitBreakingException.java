@@ -30,13 +30,13 @@ public class CircuitBreakingException extends RuntimeException {
     private static final long serialVersionUID = 1408176654686913340L;
 
     /**
-     * Creates a new, uninitialized instance of {@code CircuitBreakingException}.
+     * Creates a new, uninitialized instance of {@link CircuitBreakingException}.
      */
     public CircuitBreakingException() {
     }
 
     /**
-     * Creates a new instance of {@code CircuitBreakingException} and initializes it with the given message and cause.
+     * Creates a new instance of {@link CircuitBreakingException} and initializes it with the given message and cause.
      *
      * @param message the error message
      * @param cause the cause of this exception
@@ -46,7 +46,7 @@ public class CircuitBreakingException extends RuntimeException {
     }
 
     /**
-     * Creates a new instance of {@code CircuitBreakingException} and initializes it with the given message.
+     * Creates a new instance of {@link CircuitBreakingException} and initializes it with the given message.
      *
      * @param message the error message
      */
@@ -55,7 +55,7 @@ public class CircuitBreakingException extends RuntimeException {
     }
 
     /**
-     * Creates a new instance of {@code CircuitBreakingException} and initializes it with the given cause.
+     * Creates a new instance of {@link CircuitBreakingException} and initializes it with the given cause.
      *
      * @param cause the cause of this exception
      */

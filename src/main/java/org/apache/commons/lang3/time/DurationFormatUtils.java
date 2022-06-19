@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.time;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -60,7 +61,7 @@ public class DurationFormatUtils {
     }
 
     /**
-     * <p>Pattern used with {@code FastDateFormat} and {@code SimpleDateFormat}
+     * <p>Pattern used with {@link FastDateFormat} and {@link SimpleDateFormat}
      * for the ISO 8601 period format used in durations.</p>
      *
      * @see org.apache.commons.lang3.time.FastDateFormat
@@ -461,7 +462,7 @@ public class DurationFormatUtils {
     }
 
     /**
-     * <p>Converts a {@code long} to a {@code String} with optional
+     * <p>Converts a {@code long} to a {@link String} with optional
      * zero padding.</p>
      *
      * @param value the value to convert

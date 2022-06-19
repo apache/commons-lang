@@ -94,11 +94,11 @@ public class ToStringBuilder implements Builder<String> {
     private static volatile ToStringStyle defaultStyle = ToStringStyle.DEFAULT_STYLE;
 
     /**
-     * <p>Gets the default {@code ToStringStyle} to use.</p>
+     * <p>Gets the default {@link ToStringStyle} to use.</p>
      *
      * <p>This method gets a singleton default value, typically for the whole JVM.
      * Changing this default should generally only be done during application startup.
-     * It is recommended to pass a {@code ToStringStyle} to the constructor instead
+     * It is recommended to pass a {@link ToStringStyle} to the constructor instead
      * of using this global default.</p>
      *
      * <p>This method can be used from multiple threads.
@@ -109,25 +109,25 @@ public class ToStringBuilder implements Builder<String> {
      * <p>One reason for changing the default could be to have a verbose style during
      * development and a compact style in production.</p>
      *
-     * @return the default {@code ToStringStyle}, never null
+     * @return the default {@link ToStringStyle}, never null
      */
     public static ToStringStyle getDefaultStyle() {
         return defaultStyle;
     }
 
     /**
-     * <p>Sets the default {@code ToStringStyle} to use.</p>
+     * <p>Sets the default {@link ToStringStyle} to use.</p>
      *
      * <p>This method sets a singleton default value, typically for the whole JVM.
      * Changing this default should generally only be done during application startup.
-     * It is recommended to pass a {@code ToStringStyle} to the constructor instead
+     * It is recommended to pass a {@link ToStringStyle} to the constructor instead
      * of changing this global default.</p>
      *
      * <p>This method is not intended for use from multiple threads.
      * Internally, a {@code volatile} variable is used to provide the guarantee
      * that the latest value set is the value returned from {@link #getDefaultStyle}.</p>
      *
-     * @param style  the default {@code ToStringStyle}
+     * @param style  the default {@link ToStringStyle}
      * @throws IllegalArgumentException if the style is {@code null}
      */
     public static void setDefaultStyle(final ToStringStyle style) {
@@ -135,7 +135,7 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * <p>Uses {@code ReflectionToStringBuilder} to generate a
+     * <p>Uses {@link ReflectionToStringBuilder} to generate a
      * {@code toString} for the specified object.</p>
      *
      * @param object  the Object to be output
@@ -147,7 +147,7 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * <p>Uses {@code ReflectionToStringBuilder} to generate a
+     * <p>Uses {@link ReflectionToStringBuilder} to generate a
      * {@code toString} for the specified object.</p>
      *
      * @param object  the Object to be output
@@ -160,7 +160,7 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * <p>Uses {@code ReflectionToStringBuilder} to generate a
+     * <p>Uses {@link ReflectionToStringBuilder} to generate a
      * {@code toString} for the specified object.</p>
      *
      * @param object  the Object to be output
@@ -174,7 +174,7 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * <p>Uses {@code ReflectionToStringBuilder} to generate a
+     * <p>Uses {@link ReflectionToStringBuilder} to generate a
      * {@code toString} for the specified object.</p>
      *
      * @param <T> the type of the object
@@ -239,7 +239,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param object  the Object to build a {@code toString} for, not recommended to be null
      * @param style  the style of the {@code toString} to create, null uses the default style
-     * @param buffer  the {@code StringBuffer} to populate, may be null
+     * @param buffer  the {@link StringBuffer} to populate, may be null
      */
     public ToStringBuilder(final Object object, ToStringStyle style, StringBuffer buffer) {
         if (style == null) {
@@ -424,7 +424,7 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * <p>Append to the {@code toString} an {@code Object}
+     * <p>Append to the {@code toString} an {@link Object}
      * value.</p>
      *
      * @param obj  the value to add to the {@code toString}
@@ -436,7 +436,7 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * <p>Append to the {@code toString} an {@code Object}
+     * <p>Append to the {@code toString} an {@link Object}
      * array.</p>
      *
      * @param array  the array to add to the {@code toString}
@@ -793,7 +793,7 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * <p>Append to the {@code toString} an {@code Object}
+     * <p>Append to the {@code toString} an {@link Object}
      * value.</p>
      *
      * @param fieldName  the field name
@@ -806,7 +806,7 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * <p>Append to the {@code toString} an {@code Object}
+     * <p>Append to the {@code toString} an {@link Object}
      * value.</p>
      *
      * @param fieldName  the field name
@@ -821,7 +821,7 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * <p>Append to the {@code toString} an {@code Object}
+     * <p>Append to the {@code toString} an {@link Object}
      * array.</p>
      *
      * @param fieldName  the field name
@@ -834,7 +834,7 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * <p>Append to the {@code toString} an {@code Object}
+     * <p>Append to the {@code toString} an {@link Object}
      * array.</p>
      *
      * <p>A boolean parameter controls the level of detail to show.
@@ -904,7 +904,7 @@ public class ToStringBuilder implements Builder<String> {
      * </code> method. Appends the class name followed by
      * {@link System#identityHashCode(java.lang.Object)}.</p>
      *
-     * @param srcObject  the {@code Object} whose class name and id to output
+     * @param srcObject  the {@link Object} whose class name and id to output
      * @return this
      * @since 2.0
      */
@@ -916,7 +916,7 @@ public class ToStringBuilder implements Builder<String> {
     /**
      * <p>Append the {@code toString} from the superclass.</p>
      *
-     * <p>This method assumes that the superclass uses the same {@code ToStringStyle}
+     * <p>This method assumes that the superclass uses the same {@link ToStringStyle}
      * as this one.</p>
      *
      * <p>If {@code superToString} is {@code null}, no change is made.</p>
@@ -950,7 +950,7 @@ public class ToStringBuilder implements Builder<String> {
      *       toString();
      *   }</pre>
      *
-     * <p>This method assumes that the other object uses the same {@code ToStringStyle}
+     * <p>This method assumes that the other object uses the same {@link ToStringStyle}
      * as this one.</p>
      *
      * <p>If the {@code toString} is {@code null}, no change is made.</p>
@@ -967,7 +967,7 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * <p>Returns the {@code Object} being output.</p>
+     * <p>Returns the {@link Object} being output.</p>
      *
      * @return The object being output.
      * @since 2.0
@@ -977,18 +977,18 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * <p>Gets the {@code StringBuffer} being populated.</p>
+     * <p>Gets the {@link StringBuffer} being populated.</p>
      *
-     * @return the {@code StringBuffer} being populated
+     * @return the {@link StringBuffer} being populated
      */
     public StringBuffer getStringBuffer() {
         return buffer;
     }
 
     /**
-     * <p>Gets the {@code ToStringStyle} being used.</p>
+     * <p>Gets the {@link ToStringStyle} being used.</p>
      *
-     * @return the {@code ToStringStyle} being used
+     * @return the {@link ToStringStyle} being used
      * @since 2.0
      */
     public ToStringStyle getStyle() {

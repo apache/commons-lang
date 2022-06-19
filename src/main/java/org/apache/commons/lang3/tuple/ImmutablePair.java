@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * <p>An immutable pair consisting of two {@code Object} elements.</p>
+ * <p>An immutable pair consisting of two {@link Object} elements.</p>
  *
  * <p>Although the implementation is immutable, there is no restriction on the objects
  * that may be stored. If mutable objects are stored in the pair, then the pair
@@ -198,7 +198,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
-     * <p>Throws {@code UnsupportedOperationException}.</p>
+     * <p>Throws {@link UnsupportedOperationException}.</p>
      *
      * <p>This pair is immutable, so this operation is not supported.</p>
      *

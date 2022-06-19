@@ -22,7 +22,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
- * A functional interface like {@link Consumer} that declares a {@code Throwable}.
+ * A functional interface like {@link Consumer} that declares a {@link Throwable}.
  *
  * <p>
  * This is a functional interface whose functional method is {@link #accept(Object)}.
@@ -59,10 +59,10 @@ public interface FailableConsumer<T, E extends Throwable> {
     void accept(T object) throws E;
 
     /**
-     * Returns a composed {@code Consumer} like {@link Consumer#andThen(Consumer)}.
+     * Returns a composed {@link Consumer} like {@link Consumer#andThen(Consumer)}.
      *
      * @param after the operation to perform after this operation
-     * @return a composed {@code Consumer} like {@link Consumer#andThen(Consumer)}.
+     * @return a composed {@link Consumer} like {@link Consumer#andThen(Consumer)}.
      * @throws NullPointerException when {@code after} is null
      */
     default FailableConsumer<T, E> andThen(final FailableConsumer<? super T, E> after) {

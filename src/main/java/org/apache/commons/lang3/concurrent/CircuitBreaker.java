@@ -60,7 +60,7 @@ public interface CircuitBreaker<T> {
 
     /**
      * Checks the state of this circuit breaker and changes it if necessary. The return
-     * value indicates whether the circuit breaker is now in state {@code CLOSED}; a value
+     * value indicates whether the circuit breaker is now in state <em>closed</em>; a value
      * of <strong>true</strong> typically means that the current operation can continue.
      *
      * @return <strong>true</strong> if the circuit breaker is now closed;

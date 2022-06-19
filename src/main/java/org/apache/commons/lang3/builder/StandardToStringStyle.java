@@ -16,6 +16,10 @@
  */
 package org.apache.commons.lang3.builder;
 
+import java.lang.reflect.Array;
+import java.util.Collection;
+import java.util.Map;
+
 /**
  * <p>Works with {@link ToStringBuilder} to create a {@code toString}.</p>
  *
@@ -398,8 +402,8 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * <p>Gets the text to output when a {@code Collection},
-     * {@code Map} or {@code Array} size is output.</p>
+     * <p>Gets the text to output when a {@link Collection},
+     * {@link Map} or {@link Array} size is output.</p>
      *
      * <p>This is output before the size value.</p>
      *
@@ -411,8 +415,8 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * <p>Sets the start text to output when a {@code Collection},
-     * {@code Map} or {@code Array} size is output.</p>
+     * <p>Sets the start text to output when a {@link Collection},
+     * {@link Map} or {@link Array} size is output.</p>
      *
      * <p>This is output before the size value.</p>
      *
@@ -427,8 +431,8 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * <p>Gets the end text to output when a {@code Collection},
-     * {@code Map} or {@code Array} size is output.</p>
+     * <p>Gets the end text to output when a {@link Collection},
+     * {@link Map} or {@link Array} size is output.</p>
      *
      * <p>This is output after the size value.</p>
      *
@@ -440,8 +444,8 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * <p>Sets the end text to output when a {@code Collection},
-     * {@code Map} or {@code Array} size is output.</p>
+     * <p>Sets the end text to output when a {@link Collection},
+     * {@link Map} or {@link Array} size is output.</p>
      *
      * <p>This is output after the size value.</p>
      *
@@ -456,7 +460,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * <p>Gets the start text to output when an {@code Object} is
+     * <p>Gets the start text to output when an {@link Object} is
      * output in summary mode.</p>
      *
      * <P>This is output before the size value.</p>
@@ -469,7 +473,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * <p>Sets the start text to output when an {@code Object} is
+     * <p>Sets the start text to output when an {@link Object} is
      * output in summary mode.</p>
      *
      * <p>This is output before the size value.</p>
@@ -485,7 +489,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * <p>Gets the end text to output when an {@code Object} is
+     * <p>Gets the end text to output when an {@link Object} is
      * output in summary mode.</p>
      *
      * <p>This is output after the size value.</p>
@@ -498,7 +502,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * <p>Sets the end text to output when an {@code Object} is
+     * <p>Sets the end text to output when an {@link Object} is
      * output in summary mode.</p>
      *
      * <p>This is output after the size value.</p>

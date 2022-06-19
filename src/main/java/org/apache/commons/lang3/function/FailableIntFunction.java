@@ -20,7 +20,7 @@ package org.apache.commons.lang3.function;
 import java.util.function.IntFunction;
 
 /**
- * A functional interface like {@link IntFunction} that declares a {@code Throwable}.
+ * A functional interface like {@link IntFunction} that declares a {@link Throwable}.
  *
  * @param <R> Return type.
  * @param <E> The kind of thrown exception or error.

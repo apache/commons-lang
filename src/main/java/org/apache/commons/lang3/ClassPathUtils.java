@@ -27,7 +27,7 @@ package org.apache.commons.lang3;
 public class ClassPathUtils {
 
     /**
-     * <p>{@code ClassPathUtils} instances should NOT be constructed in
+     * <p>{@link ClassPathUtils} instances should NOT be constructed in
      * standard programming. Instead, the class should be used as
      * {@code ClassPathUtils.toFullyQualifiedName(MyClass.class, "MyClass.properties");}.</p>
      *

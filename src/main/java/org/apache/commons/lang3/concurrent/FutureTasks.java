@@ -31,7 +31,7 @@ public class FutureTasks {
     }
 
     /**
-     * Creates a {@code FutureTask} and runs the given {@code Callable}.
+     * Creates a {@link FutureTask} and runs the given {@link Callable}.
      *
      * @param <V> The result type returned by this FutureTask's {@code get} methods.
      * @param callable the Callable task.

@@ -20,7 +20,7 @@ package org.apache.commons.lang3.function;
 import java.util.function.ToIntBiFunction;
 
 /**
- * A functional interface like {@link ToIntBiFunction} that declares a {@code Throwable}.
+ * A functional interface like {@link ToIntBiFunction} that declares a {@link Throwable}.
  *
  * @param <T> the type of the first argument to the function
  * @param <U> the type of the second argument to the function

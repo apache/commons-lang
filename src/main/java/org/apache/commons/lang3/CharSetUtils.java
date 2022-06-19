@@ -17,7 +17,7 @@
 package org.apache.commons.lang3;
 
 /**
- * <p>Operations on {@code CharSet} instances.</p>
+ * <p>Operations on {@link CharSet} instances.</p>
  *
  * <p>This class handles {@code null} input gracefully.
  * An exception will not be thrown for a {@code null} input.

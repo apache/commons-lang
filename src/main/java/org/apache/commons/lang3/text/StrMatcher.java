@@ -390,7 +390,7 @@ public abstract class StrMatcher {
     static final class NoMatcher extends StrMatcher {
 
         /**
-         * Constructs a new instance of {@code NoMatcher}.
+         * Constructs a new instance of {@link NoMatcher}.
          */
         NoMatcher() {
         }
@@ -416,7 +416,7 @@ public abstract class StrMatcher {
     static final class TrimMatcher extends StrMatcher {
 
         /**
-         * Constructs a new instance of {@code TrimMatcher}.
+         * Constructs a new instance of {@link TrimMatcher}.
          */
         TrimMatcher() {
         }

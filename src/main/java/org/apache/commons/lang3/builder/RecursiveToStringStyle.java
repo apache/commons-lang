@@ -84,13 +84,13 @@ public class RecursiveToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Returns whether or not to recursively format the given {@code Class}.
+     * Returns whether or not to recursively format the given {@link Class}.
      * By default, this method always returns {@code true}, but may be overwritten by
      * sub-classes to filter specific classes.
      *
      * @param clazz
      *            The class to test.
-     * @return Whether or not to recursively format the given {@code Class}.
+     * @return Whether or not to recursively format the given {@link Class}.
      */
     protected boolean accept(final Class<?> clazz) {
         return true;

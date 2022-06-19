@@ -29,12 +29,12 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
 
     /**
      * <p>
-     * Constructs a {@code JavaUnicodeEscaper} above the specified value (exclusive).
+     * Constructs a {@link JavaUnicodeEscaper} above the specified value (exclusive).
      * </p>
      *
      * @param codePoint
      *            above which to escape
-     * @return the newly created {@code UnicodeEscaper} instance
+     * @return the newly created {@link UnicodeEscaper} instance
      */
     public static JavaUnicodeEscaper above(final int codePoint) {
         return outsideOf(0, codePoint);
@@ -42,12 +42,12 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
 
     /**
      * <p>
-     * Constructs a {@code JavaUnicodeEscaper} below the specified value (exclusive).
+     * Constructs a {@link JavaUnicodeEscaper} below the specified value (exclusive).
      * </p>
      *
      * @param codePoint
      *            below which to escape
-     * @return the newly created {@code UnicodeEscaper} instance
+     * @return the newly created {@link UnicodeEscaper} instance
      */
     public static JavaUnicodeEscaper below(final int codePoint) {
         return outsideOf(codePoint, Integer.MAX_VALUE);
@@ -55,14 +55,14 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
 
     /**
      * <p>
-     * Constructs a {@code JavaUnicodeEscaper} between the specified values (inclusive).
+     * Constructs a {@link JavaUnicodeEscaper} between the specified values (inclusive).
      * </p>
      *
      * @param codePointLow
      *            above which to escape
      * @param codePointHigh
      *            below which to escape
-     * @return the newly created {@code UnicodeEscaper} instance
+     * @return the newly created {@link UnicodeEscaper} instance
      */
     public static JavaUnicodeEscaper between(final int codePointLow, final int codePointHigh) {
         return new JavaUnicodeEscaper(codePointLow, codePointHigh, true);
@@ -70,14 +70,14 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
 
     /**
      * <p>
-     * Constructs a {@code JavaUnicodeEscaper} outside of the specified values (exclusive).
+     * Constructs a {@link JavaUnicodeEscaper} outside of the specified values (exclusive).
      * </p>
      *
      * @param codePointLow
      *            below which to escape
      * @param codePointHigh
      *            above which to escape
-     * @return the newly created {@code UnicodeEscaper} instance
+     * @return the newly created {@link UnicodeEscaper} instance
      */
     public static JavaUnicodeEscaper outsideOf(final int codePointLow, final int codePointHigh) {
         return new JavaUnicodeEscaper(codePointLow, codePointHigh, false);
@@ -85,7 +85,7 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
 
     /**
      * <p>
-     * Constructs a {@code JavaUnicodeEscaper} for the specified range. This is the underlying method for the
+     * Constructs a {@link JavaUnicodeEscaper} for the specified range. This is the underlying method for the
      * other constructors/builders. The {@code below} and {@code above} boundaries are inclusive when
      * {@code between} is {@code true} and exclusive when it is {@code false}.
      * </p>

@@ -22,8 +22,8 @@ import java.util.Comparator;
 /**
  * <p>An immutable range of objects from a minimum to maximum point inclusive.</p>
  *
- * <p>The objects need to either be implementations of {@code Comparable}
- * or you need to supply a {@code Comparator}.</p>
+ * <p>The objects need to either be implementations of {@link Comparable}
+ * or you need to supply a {@link Comparator}.</p>
  *
  * <p>#ThreadSafe# if the objects and comparator are thread-safe.</p>
  *
@@ -70,7 +70,7 @@ public final class Range<T> implements Serializable {
      * @param toInclusive  the second value that defines the edge of the range, inclusive
      * @return the range object, not null
      * @throws IllegalArgumentException if either element is null
-     * @throws ClassCastException if the elements are not {@code Comparable}
+     * @throws ClassCastException if the elements are not {@link Comparable}
      */
     public static <T extends Comparable<? super T>> Range<T> between(final T fromInclusive, final T toInclusive) {
         return between(fromInclusive, toInclusive, null);
@@ -79,7 +79,7 @@ public final class Range<T> implements Serializable {
     /**
      * <p>Obtains a range with the specified minimum and maximum values (both inclusive).</p>
      *
-     * <p>The range uses the specified {@code Comparator} to determine where
+     * <p>The range uses the specified {@link Comparator} to determine where
      * values lie in the range.</p>
      *
      * <p>The arguments may be passed in the order (min,max) or (max,min).
@@ -91,7 +91,7 @@ public final class Range<T> implements Serializable {
      * @param comparator  the comparator to be used, null for natural ordering
      * @return the range object, not null
      * @throws IllegalArgumentException if either element is null
-     * @throws ClassCastException if using natural ordering and the elements are not {@code Comparable}
+     * @throws ClassCastException if using natural ordering and the elements are not {@link Comparable}
      */
     public static <T> Range<T> between(final T fromInclusive, final T toInclusive, final Comparator<T> comparator) {
         return new Range<>(fromInclusive, toInclusive, comparator);
@@ -108,7 +108,7 @@ public final class Range<T> implements Serializable {
      * @param element  the value to use for this range, not null
      * @return the range object, not null
      * @throws IllegalArgumentException if the element is null
-     * @throws ClassCastException if the element is not {@code Comparable}
+     * @throws ClassCastException if the element is not {@link Comparable}
      */
     public static <T extends Comparable<? super T>> Range<T> is(final T element) {
         return between(element, element, null);
@@ -118,7 +118,7 @@ public final class Range<T> implements Serializable {
      * <p>Obtains a range using the specified element as both the minimum
      * and maximum in this range.</p>
      *
-     * <p>The range uses the specified {@code Comparator} to determine where
+     * <p>The range uses the specified {@link Comparator} to determine where
      * values lie in the range.</p>
      *
      * @param <T> the type of the elements in this range
@@ -126,7 +126,7 @@ public final class Range<T> implements Serializable {
      * @param comparator  the comparator to be used, null for natural ordering
      * @return the range object, not null
      * @throws IllegalArgumentException if the element is null
-     * @throws ClassCastException if using natural ordering and the elements are not {@code Comparable}
+     * @throws ClassCastException if using natural ordering and the elements are not {@link Comparable}
      */
     public static <T> Range<T> is(final T element, final Comparator<T> comparator) {
         return between(element, element, comparator);
@@ -479,11 +479,11 @@ public final class Range<T> implements Serializable {
     }
 
     /**
-     * <p>Gets the range as a {@code String}.</p>
+     * <p>Gets the range as a {@link String}.</p>
      *
      * <p>The format of the String is '[<i>min</i>..<i>max</i>]'.</p>
      *
-     * @return the {@code String} representation of this range
+     * @return the {@link String} representation of this range
      */
     @Override
     public String toString() {

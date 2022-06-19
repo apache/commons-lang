@@ -70,7 +70,7 @@ import org.apache.commons.lang3.Validate;
  * <li>{@link #getValue(java.lang.reflect.Field)}</li>
  * </ul>
  * <p>
- * For example, this method does <i>not</i> include the {@code password} field in the returned {@code String}:
+ * For example, this method does <i>not</i> include the {@code password} field in the returned {@link String}:
  * </p>
  * <pre>
  * public String toString() {
@@ -104,7 +104,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
     /**
      * <p>
-     * Builds a {@code toString} value using the default {@code ToStringStyle} through reflection.
+     * Builds a {@code toString} value using the default {@link ToStringStyle} through reflection.
      * </p>
      *
      * <p>
@@ -148,7 +148,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * </p>
      *
      * <p>
-     * If the style is {@code null}, the default {@code ToStringStyle} is used.
+     * If the style is {@code null}, the default {@link ToStringStyle} is used.
      * </p>
      *
      * @param object
@@ -157,7 +157,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            the style of the {@code toString} to create, may be {@code null}
      * @return the String result
      * @throws IllegalArgumentException
-     *             if the Object or {@code ToStringStyle} is {@code null}
+     *             if the Object or {@link ToStringStyle} is {@code null}
      *
      * @see ToStringExclude
      * @see ToStringSummary
@@ -187,7 +187,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * </p>
      *
      * <p>
-     * If the style is {@code null}, the default {@code ToStringStyle} is used.
+     * If the style is {@code null}, the default {@link ToStringStyle} is used.
      * </p>
      *
      * @param object
@@ -233,7 +233,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * </p>
      *
      * <p>
-     * If the style is {@code null}, the default {@code ToStringStyle} is used.
+     * If the style is {@code null}, the default {@link ToStringStyle} is used.
      * </p>
      *
      * @param object
@@ -283,7 +283,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * </p>
      *
      * <p>
-     * If the style is {@code null}, the default {@code ToStringStyle} is used.
+     * If the style is {@code null}, the default {@link ToStringStyle} is used.
      * </p>
      *
      * @param <T>
@@ -340,7 +340,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * </p>
      *
      * <p>
-     * If the style is {@code null}, the default {@code ToStringStyle} is used.
+     * If the style is {@code null}, the default {@link ToStringStyle} is used.
      * </p>
      *
      * @param <T>
@@ -521,7 +521,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @param style
      *            the style of the {@code toString} to create, may be {@code null}
      * @param buffer
-     *            the {@code StringBuffer} to populate, may be {@code null}
+     *            the {@link StringBuffer} to populate, may be {@code null}
      * @throws IllegalArgumentException
      *             if the Object passed in is {@code null}
      */
@@ -539,7 +539,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @param style
      *            the style of the {@code toString} to create, may be {@code null}
      * @param buffer
-     *            the {@code StringBuffer} to populate, may be {@code null}
+     *            the {@link StringBuffer} to populate, may be {@code null}
      * @param reflectUpToClass
      *            the superclass to reflect up to (inclusive), may be {@code null}
      * @param outputTransients
@@ -567,7 +567,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @param style
      *            the style of the {@code toString} to create, may be {@code null}
      * @param buffer
-     *            the {@code StringBuffer} to populate, may be {@code null}
+     *            the {@link StringBuffer} to populate, may be {@code null}
      * @param reflectUpToClass
      *            the superclass to reflect up to (inclusive), may be {@code null}
      * @param outputTransients
@@ -590,7 +590,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Returns whether or not to append the given {@code Field}.
+     * Returns whether or not to append the given {@link Field}.
      * <ul>
      * <li>Transient fields are appended only if {@link #isAppendTransients()} returns {@code true}.
      * <li>Static fields are appended only if {@link #isAppendStatics()} returns {@code true}.
@@ -599,7 +599,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *
      * @param field
      *            The Field to test.
-     * @return Whether or not to append the given {@code Field}.
+     * @return Whether or not to append the given {@link Field}.
      */
     protected boolean accept(final Field field) {
         if (field.getName().indexOf(ClassUtils.INNER_CLASS_SEPARATOR_CHAR) != -1) {
@@ -739,7 +739,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
     /**
      * <p>
-     * Append to the {@code toString} an {@code Object} array.
+     * Append to the {@code toString} an {@link Object} array.
      * </p>
      *
      * @param array

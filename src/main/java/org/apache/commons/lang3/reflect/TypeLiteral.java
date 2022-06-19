@@ -59,7 +59,7 @@ import org.apache.commons.lang3.Validate;
  * <p>
  * This has the effect of "jumping up" a level to tie a {@code java.lang.reflect.Type}
  * to a type variable while simultaneously making it short work to obtain a
- * {@code Type} instance for any given type, inline.
+ * {@link Type} instance for any given type, inline.
  * </p>
  * <p>Additionally {@link TypeLiteral} implements the {@link Typed} interface which
  * is a generalization of this concept, and which may be implemented in custom classes.

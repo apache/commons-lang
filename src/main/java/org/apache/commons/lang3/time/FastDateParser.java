@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -54,9 +55,9 @@ import org.apache.commons.lang3.LocaleUtils;
  * </code>
  *
  * <p>This class can be used as a direct replacement for
- * {@code SimpleDateFormat} in most parsing situations.
+ * {@link SimpleDateFormat} in most parsing situations.
  * This class is especially useful in multi-threaded server environments.
- * {@code SimpleDateFormat} is not thread-safe in any JDK version,
+ * {@link SimpleDateFormat} is not thread-safe in any JDK version,
  * nor will it be as Sun has closed the
  * <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4228335">bug</a>/RFE.
  * </p>

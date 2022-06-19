@@ -2704,7 +2704,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * using any standard method that expects a Reader.
      * </p>
      * <p>
-     * To use, simply create a {@code StrBuilder}, populate it with
+     * To use, simply create a {@link StrBuilder}, populate it with
      * data, call {@code asReader}, and then read away.
      * </p>
      * <p>
@@ -2731,9 +2731,9 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * using any standard method that takes a Writer.
      * </p>
      * <p>
-     * To use, simply create a {@code StrBuilder},
+     * To use, simply create a {@link StrBuilder},
      * call {@code asWriter}, and populate away. The data is available
-     * at any time using the methods of the {@code StrBuilder}.
+     * at any time using the methods of the {@link StrBuilder}.
      * </p>
      * <p>
      * The internal character array is shared between the builder and the writer.
@@ -2753,7 +2753,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     }
 
     /**
-     * Appends current contents of this {@code StrBuilder} to the
+     * Appends current contents of this {@link StrBuilder} to the
      * provided {@link Appendable}.
      * <p>
      * This method tries to avoid doing any extra copies of contents.

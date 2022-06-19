@@ -344,7 +344,7 @@ public class LocaleUtils {
     }
 
     /**
-     * <p>{@code LocaleUtils} instances should NOT be constructed in standard programming.
+     * <p>{@link LocaleUtils} instances should NOT be constructed in standard programming.
      * Instead, the class should be used as {@code LocaleUtils.toLocale("en_GB");}.</p>
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance

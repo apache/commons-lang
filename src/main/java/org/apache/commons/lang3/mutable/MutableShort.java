@@ -332,7 +332,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
 
     /**
      * Compares this object to the specified object. The result is {@code true} if and only if the argument
-     * is not {@code null} and is a {@code MutableShort} object that contains the same {@code short}
+     * is not {@code null} and is a {@link MutableShort} object that contains the same {@code short}
      * value as this object.
      *
      * @param obj  the object to compare with, null returns false

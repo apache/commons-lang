@@ -21,7 +21,7 @@ package org.apache.commons.lang3;
  * used to store a flag or data within an {@code int}, {@code short} or
  * {@code byte}.</p>
  *
- * <p>Each {@code BitField} is constructed with a mask value, which indicates
+ * <p>Each {@link BitField} is constructed with a mask value, which indicates
  * the bits that will be used to store and retrieve the data for that field.
  * For instance, the mask {@code 0xFF} indicates the least-significant byte
  * should be used to store the data.</p>
@@ -43,7 +43,7 @@ package org.apache.commons.lang3;
  *    BitField isMetallic = new BitField(0x1000000);
  *</pre>
  *
- * <p>Using these {@code BitField} instances, a paint instruction can be
+ * <p>Using these {@link BitField} instances, a paint instruction can be
  * encoded into an integer:</p>
  *
  *<pre>
