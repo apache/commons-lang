@@ -1621,9 +1621,11 @@ public class StringUtilsTest {
     @Test
     public void testRemove_char() {
         // StringUtils.remove(null, *)       = null
+        assertNull(StringUtils.remove(null, null));
         assertNull(StringUtils.remove(null, 'a'));
 
         // StringUtils.remove("", *)          = ""
+        assertEquals("", StringUtils.remove("", null));
         assertEquals("", StringUtils.remove("", 'a'));
 
         // StringUtils.remove("queued", 'u') = "qeed"
@@ -2769,6 +2771,7 @@ public class StringUtilsTest {
         assertEquals("b", res[1]);
         assertEquals("c", res[2]);
         assertEquals("", res[3]);
+        assertEquals("", res[4]);
 
         // Match example in javadoc
         {
