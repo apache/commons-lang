@@ -1612,6 +1612,25 @@ public class SystemUtils {
 
     /**
      * <p>
+     * Is {@code true} if this is Windows 11.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     * <p>
+     * OpenJDK fixed the return value for {@code os.name} on Windows 11 to versions 8, 11, and 17:
+     * </p>
+     * <ul>
+     * <li>Affects Java versions 7u321, 8u311, 11.0.13-oracle, 17.0.1: https://bugs.openjdk.org/browse/JDK-8274737</li>
+     * <li>Fixed in OpenJDK commit https://github.com/openjdk/jdk/commit/97ea9dd2f24f9f1fb9b9345a4202a825ee28e014</li>
+     * </ul>
+     *
+     * @since 3.13.0
+     */
+    public static final boolean IS_OS_WINDOWS_11 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 11");
+
+    /**
+     * <p>
      * Is {@code true} if this is z/OS.
      * </p>
      * <p>
