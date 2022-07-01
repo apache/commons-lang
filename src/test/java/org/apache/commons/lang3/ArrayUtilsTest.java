@@ -371,6 +371,112 @@ public class ArrayUtilsTest {
     }
 
     @Test
+    void testCeilingNullArray() {
+        boolean succeed = false;
+        try {
+            ArrayUtils.ceiling(null, 0, 0, 1, Integer::compareTo);
+        } catch (Exception ignored) {
+            succeed = true;
+        }
+        assertTrue(succeed);
+    }
+
+    @Test
+    void testCeilingBoxedNumbers() {
+        final Integer[] integers = {12, 14, 40, 70, 90};
+        // full array
+        assertEquals(0, ArrayUtils.ceiling(integers, 12));
+        assertEquals(1, ArrayUtils.ceiling(integers, 13));
+        assertEquals(2, ArrayUtils.ceiling(integers, 40));
+        assertEquals(3, ArrayUtils.ceiling(integers, 50));
+        assertEquals(4, ArrayUtils.ceiling(integers, 89));
+        assertEquals(-1, ArrayUtils.ceiling(integers, 91));
+        assertEquals(0, ArrayUtils.ceiling(integers, 0));
+        // range
+        assertEquals(1, ArrayUtils.ceiling(integers, 1, 3, 12, Integer::compareTo));
+        assertEquals(1, ArrayUtils.ceiling(integers, 1, 3, 13, Integer::compareTo));
+        assertEquals(2, ArrayUtils.ceiling(integers, 1, 3, 40, Integer::compareTo));
+        assertEquals(-1, ArrayUtils.ceiling(integers, 1, 3, 50, Integer::compareTo));
+        assertEquals(-1, ArrayUtils.ceiling(integers, 1, 3, 89, Integer::compareTo));
+        assertEquals(-1, ArrayUtils.ceiling(integers, 1, 3, 91, Integer::compareTo));
+        assertEquals(1, ArrayUtils.ceiling(integers, 1, 3, 0, Integer::compareTo));
+    }
+
+    @Test
+    void testCeilingPrimitiveNumbers() {
+        final int[] integers = {12, 14, 40, 70, 90};
+        // full array
+        assertEquals(0, ArrayUtils.ceiling(integers, 12));
+        assertEquals(1, ArrayUtils.ceiling(integers, 13));
+        assertEquals(2, ArrayUtils.ceiling(integers, 40));
+        assertEquals(3, ArrayUtils.ceiling(integers, 50));
+        assertEquals(4, ArrayUtils.ceiling(integers, 89));
+        assertEquals(-1, ArrayUtils.ceiling(integers, 91));
+        assertEquals(0, ArrayUtils.ceiling(integers, 0));
+        // range
+        assertEquals(1, ArrayUtils.ceiling(integers, 1, 3, 12));
+        assertEquals(1, ArrayUtils.ceiling(integers, 1, 3, 13));
+        assertEquals(2, ArrayUtils.ceiling(integers, 1, 3, 40));
+        assertEquals(-1, ArrayUtils.ceiling(integers, 1, 3, 50));
+        assertEquals(-1, ArrayUtils.ceiling(integers, 1, 3, 89));
+        assertEquals(-1, ArrayUtils.ceiling(integers, 1, 3, 91));
+        assertEquals(1, ArrayUtils.ceiling(integers, 1, 3, 0));
+    }
+
+    @Test
+    void testFloorNullArray() {
+        boolean succeed = false;
+        try {
+            ArrayUtils.floor(null, 0, 0, 1, Integer::compareTo);
+        } catch (Exception ignored) {
+            succeed = true;
+        }
+        assertTrue(succeed);
+    }
+
+    @Test
+    void testFloorBoxedNumbers() {
+        final Integer[] integers = {12, 14, 40, 70, 90};
+        // full array
+        assertEquals(0, ArrayUtils.floor(integers, 12));
+        assertEquals(0, ArrayUtils.floor(integers, 13));
+        assertEquals(2, ArrayUtils.floor(integers, 40));
+        assertEquals(2, ArrayUtils.floor(integers, 50));
+        assertEquals(3, ArrayUtils.floor(integers, 89));
+        assertEquals(4, ArrayUtils.floor(integers, 91));
+        assertEquals(-1, ArrayUtils.floor(integers, 0));
+        // range
+        assertEquals(-1, ArrayUtils.floor(integers, 1, 3, 12, Integer::compareTo));
+        assertEquals(-1, ArrayUtils.floor(integers, 1, 3, 13, Integer::compareTo));
+        assertEquals(2, ArrayUtils.floor(integers, 1, 3, 40, Integer::compareTo));
+        assertEquals(2, ArrayUtils.floor(integers, 1, 3, 50, Integer::compareTo));
+        assertEquals(2, ArrayUtils.floor(integers, 1, 3, 89, Integer::compareTo));
+        assertEquals(2, ArrayUtils.floor(integers, 1, 3, 91, Integer::compareTo));
+        assertEquals(-1, ArrayUtils.floor(integers, 1, 3, 0, Integer::compareTo));
+    }
+
+    @Test
+    void testFloorPrimitiveNumbers() {
+        final int[] integers = {12, 14, 40, 70, 90};
+        // full array
+        assertEquals(0, ArrayUtils.floor(integers, 12));
+        assertEquals(0, ArrayUtils.floor(integers, 13));
+        assertEquals(2, ArrayUtils.floor(integers, 40));
+        assertEquals(2, ArrayUtils.floor(integers, 50));
+        assertEquals(3, ArrayUtils.floor(integers, 89));
+        assertEquals(4, ArrayUtils.floor(integers, 91));
+        assertEquals(-1, ArrayUtils.floor(integers, 0));
+        // range
+        assertEquals(-1, ArrayUtils.floor(integers, 1, 3, 12));
+        assertEquals(-1, ArrayUtils.floor(integers, 1, 3, 13));
+        assertEquals(2, ArrayUtils.floor(integers, 1, 3, 40));
+        assertEquals(2, ArrayUtils.floor(integers, 1, 3, 50));
+        assertEquals(2, ArrayUtils.floor(integers, 1, 3, 89));
+        assertEquals(2, ArrayUtils.floor(integers, 1, 3, 91));
+        assertEquals(-1, ArrayUtils.floor(integers, 1, 3, 0));
+    }
+
+    @Test
     public void testCreatePrimitiveArray() {
         assertNull(ArrayUtils.toPrimitive((Object[]) null));
         assertArrayEquals(new boolean[]{true}, ArrayUtils.toPrimitive(new Boolean[]{true}));
