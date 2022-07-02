@@ -239,7 +239,6 @@ public class SerializationUtilsTest {
         assertEquals(iMap, newMap);
     }
 
-
     @Test
     public void testSerializeBytes() throws Exception {
         final byte[] testBytes = SerializationUtils.serialize(iMap);
