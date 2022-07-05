@@ -37,9 +37,9 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.Validate}.
+ * Tests {@link Validate}.
  */
-class ValidateTest {
+public class ValidateTest extends AbstractLangTest {
 
     @Nested
     class IsTrue {
@@ -54,10 +54,7 @@ class ValidateTest {
 
             @Test
             void shouldThrowExceptionWithDefaultMessageForFalseExpression() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.isTrue(false));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.isTrue(false));
                 assertEquals("The validated expression is false", ex.getMessage());
             }
 
@@ -73,10 +70,7 @@ class ValidateTest {
 
             @Test
             void shouldThrowExceptionWithGivenMessageForFalseExpression() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.isTrue(false, "MSG"));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.isTrue(false, "MSG"));
                 assertEquals("MSG", ex.getMessage());
             }
         }
@@ -91,10 +85,7 @@ class ValidateTest {
 
             @Test
             void shouldThrowExceptionWithLongInsertedIntoTemplateMessageForFalseExpression() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.isTrue(false, "MSG %s", 6));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.isTrue(false, "MSG %s", 6));
                 assertEquals("MSG 6", ex.getMessage());
             }
         }
@@ -109,10 +100,7 @@ class ValidateTest {
 
             @Test
             void shouldThrowExceptionWithDoubleInsertedIntoTemplateMessageForFalseExpression() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.isTrue(false, "MSG %s", 7.4d));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.isTrue(false, "MSG %s", 7.4d));
                 assertEquals("MSG 7.4", ex.getMessage());
             }
         }
@@ -127,10 +115,8 @@ class ValidateTest {
 
             @Test
             void shouldThrowExceptionWithDoubleInsertedIntoTemplateMessageForFalseExpression() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.isTrue(false, "MSG %s %s", "Object 1", "Object 2"));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                    () -> Validate.isTrue(false, "MSG %s %s", "Object 1", "Object 2"));
                 assertEquals("MSG Object 1 Object 2", ex.getMessage());
             }
         }
@@ -151,16 +137,12 @@ class ValidateTest {
             void shouldReturnTheSameInstance() {
                 final String str = "Hi";
                 final String result = Validate.notNull(str);
-
                 assertSame(str, result);
             }
 
             @Test
             void shouldThrowExceptionWithDefaultMessageForNullReference() {
-                final NullPointerException ex = assertThrows(
-                        NullPointerException.class,
-                        () -> Validate.notNull(null));
-
+                final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notNull(null));
                 assertEquals("The validated object is null", ex.getMessage());
             }
         }
@@ -177,16 +159,12 @@ class ValidateTest {
             void shouldReturnTheSameInstance() {
                 final String str = "Hi";
                 final String result = Validate.notNull(str, "MSG");
-
                 assertSame(str, result);
             }
 
             @Test
             void shouldThrowExceptionWithGivenMessageForNullReference() {
-                final NullPointerException ex = assertThrows(
-                        NullPointerException.class,
-                        () -> Validate.notNull(null, "MSG"));
-
+                final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notNull(null, "MSG"));
                 assertEquals("MSG", ex.getMessage());
             }
         }
@@ -203,32 +181,25 @@ class ValidateTest {
 
                 @Test
                 void shouldNotThrowExceptionForArrayContainingNullReference() {
-                    Validate.notEmpty(new Object[]{null});
+                    Validate.notEmpty(new Object[] {null});
                 }
 
                 @Test
                 void shouldReturnTheSameInstance() {
                     final String[] array = {"hi"};
                     final String[] result = Validate.notEmpty(array);
-
                     assertSame(array, result);
                 }
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullArray() {
-                    final NullPointerException ex = assertThrows(
-                            NullPointerException.class,
-                            () -> Validate.notEmpty((Object[]) null));
-
+                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notEmpty((Object[]) null));
                     assertEquals("The validated array is empty", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageForEmptyArray() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.notEmpty(new Object[0]));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.notEmpty(new Object[0]));
                     assertEquals("The validated array is empty", ex.getMessage());
                 }
             }
@@ -238,32 +209,25 @@ class ValidateTest {
 
                 @Test
                 void shouldNotThrowExceptionForArrayContainingNullReference() {
-                    Validate.notEmpty(new Object[]{null}, "MSG");
+                    Validate.notEmpty(new Object[] {null}, "MSG");
                 }
 
                 @Test
                 void shouldReturnTheSameInstance() {
                     final String[] array = {"hi"};
                     final String[] result = Validate.notEmpty(array, "MSG");
-
                     assertSame(array, result);
                 }
 
                 @Test
                 void shouldThrowNullPointerExceptionWithGivenMessageForNullArray() {
-                    final NullPointerException ex = assertThrows(
-                            NullPointerException.class,
-                            () -> Validate.notEmpty((Object[]) null, "MSG"));
-
+                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notEmpty((Object[]) null, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageForEmptyArray() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.notEmpty(new Object[0], "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.notEmpty(new Object[0], "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }
@@ -284,25 +248,18 @@ class ValidateTest {
                 void shouldReturnTheSameInstance() {
                     final Set<String> col = Collections.singleton("Hi");
                     final Set<String> result = Validate.notEmpty(col);
-
                     assertSame(col, result);
                 }
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullCollection() {
-                    final NullPointerException ex = assertThrows(
-                            NullPointerException.class,
-                            () -> Validate.notEmpty((Collection<?>) null));
-
+                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notEmpty((Collection<?>) null));
                     assertEquals("The validated collection is empty", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageForEmptyCollection() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.notEmpty(Collections.emptySet()));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.notEmpty(Collections.emptySet()));
                     assertEquals("The validated collection is empty", ex.getMessage());
                 }
             }
@@ -319,25 +276,18 @@ class ValidateTest {
                 void shouldReturnTheSameInstance() {
                     final Set<String> col = Collections.singleton("Hi");
                     final Set<String> result = Validate.notEmpty(col, "MSG");
-
                     assertSame(col, result);
                 }
 
                 @Test
                 void shouldThrowNullPointerExceptionWithGivenMessageForNullCollection() {
-                    final NullPointerException ex = assertThrows(
-                            NullPointerException.class,
-                            () -> Validate.notEmpty((Collection<?>) null, "MSG"));
-
+                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notEmpty((Collection<?>) null, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithGivenMessageForEmptyCollection() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.notEmpty(Collections.emptySet(), "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.notEmpty(Collections.emptySet(), "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }
@@ -358,25 +308,18 @@ class ValidateTest {
                 void shouldReturnTheSameInstance() {
                     final Map<String, String> map = Collections.singletonMap("key", "value");
                     final Map<String, String> result = Validate.notEmpty(map);
-
                     assertSame(map, result);
                 }
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullMap() {
-                    final NullPointerException ex = assertThrows(
-                            NullPointerException.class,
-                            () -> Validate.notEmpty((Map<?, ?>) null));
-
+                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notEmpty((Map<?, ?>) null));
                     assertEquals("The validated map is empty", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageForEmptyMap() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.notEmpty(Collections.emptyMap()));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.notEmpty(Collections.emptyMap()));
                     assertEquals("The validated map is empty", ex.getMessage());
                 }
             }
@@ -393,25 +336,18 @@ class ValidateTest {
                 void shouldReturnTheSameInstance() {
                     final Map<String, String> map = Collections.singletonMap("key", "value");
                     final Map<String, String> result = Validate.notEmpty(map, "MSG");
-
                     assertSame(map, result);
                 }
 
                 @Test
                 void shouldThrowNullPointerExceptionWithGivenMessageForNullMap() {
-                    final NullPointerException ex = assertThrows(
-                            NullPointerException.class,
-                            () -> Validate.notEmpty((Map<?, ?>) null, "MSG"));
-
+                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notEmpty((Map<?, ?>) null, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithGivenMessageForEmptyMap() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.notEmpty(Collections.emptyMap(), "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.notEmpty(Collections.emptyMap(), "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }
@@ -432,25 +368,18 @@ class ValidateTest {
                 void shouldReturnTheSameInstance() {
                     final String str = "Hi";
                     final String result = Validate.notEmpty(str);
-
                     assertSame(str, result);
                 }
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullCharSequence() {
-                    final NullPointerException ex = assertThrows(
-                            NullPointerException.class,
-                            () -> Validate.notEmpty((CharSequence) null));
-
+                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notEmpty((CharSequence) null));
                     assertEquals("The validated character sequence is empty", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageForEmptyString() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.notEmpty(""));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.notEmpty(""));
                     assertEquals("The validated character sequence is empty", ex.getMessage());
                 }
             }
@@ -467,25 +396,18 @@ class ValidateTest {
                 void shouldReturnTheSameInstance() {
                     final String str = "Hi";
                     final String result = Validate.notEmpty(str, "MSG");
-
                     assertSame(str, result);
                 }
 
                 @Test
                 void shouldThrowNullPointerExceptionWithGivenMessageForNullCharSequence() {
-                    final NullPointerException ex = assertThrows(
-                            NullPointerException.class,
-                            () -> Validate.notEmpty((CharSequence) null, "MSG"));
-
+                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notEmpty((CharSequence) null, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithGivenMessageForEmptyString() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.notEmpty("", "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.notEmpty("", "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }
@@ -523,37 +445,25 @@ class ValidateTest {
 
             @Test
             void shouldThrowNullPointerExceptionWithDefaultMessageForNullString() {
-                final NullPointerException ex = assertThrows(
-                        NullPointerException.class,
-                        () -> Validate.notBlank(null));
-
+                final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notBlank(null));
                 assertEquals("The validated character sequence is blank", ex.getMessage());
             }
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithDefaultMessageForEmptyString() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.notBlank(""));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.notBlank(""));
                 assertEquals("The validated character sequence is blank", ex.getMessage());
             }
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithDefaultMessageForBlankString() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.notBlank("   "));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.notBlank("   "));
                 assertEquals("The validated character sequence is blank", ex.getMessage());
             }
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithDefaultMessageForStringContainingOnlyWhitespaceChars() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.notBlank(" \n \t \r \n "));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.notBlank(" \n \t \r \n "));
                 assertEquals("The validated character sequence is blank", ex.getMessage());
             }
         }
@@ -580,43 +490,30 @@ class ValidateTest {
             void shouldReturnNonBlankValue() {
                 final String str = "abc";
                 final String result = Validate.notBlank(str, "MSG");
-
                 assertSame(str, result);
             }
 
             @Test
             void shouldThrowNullPointerExceptionWithGivenMessageForNullString() {
-                final NullPointerException ex = assertThrows(
-                        NullPointerException.class,
-                        () -> Validate.notBlank(null, "MSG"));
-
+                final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notBlank(null, "MSG"));
                 assertEquals("MSG", ex.getMessage());
             }
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithGivenMessageForEmptyString() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.notBlank("", "MSG"));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.notBlank("", "MSG"));
                 assertEquals("MSG", ex.getMessage());
             }
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithGivenMessageForBlankString() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.notBlank("   ", "MSG"));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.notBlank("   ", "MSG"));
                 assertEquals("MSG", ex.getMessage());
             }
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithGivenMessageForStringContainingOnlyWhitespaceChars() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.notBlank(" \n \t \r \n ", "MSG"));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.notBlank(" \n \t \r \n ", "MSG"));
                 assertEquals("MSG", ex.getMessage());
             }
         }
@@ -633,32 +530,25 @@ class ValidateTest {
 
                 @Test
                 void shouldNotThrowExceptionForNonEmptyArray() {
-                    Validate.noNullElements(new String[]{"a", "b"});
+                    Validate.noNullElements(new String[] {"a", "b"});
                 }
 
                 @Test
                 void shouldReturnSameInstance() {
                     final String[] array = {"a", "b"};
                     final String[] result = Validate.noNullElements(array);
-
                     assertSame(array, result);
                 }
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullArray() {
-                    final NullPointerException ex = assertThrows(
-                            NullPointerException.class,
-                            () -> Validate.noNullElements((Object[]) null));
-
+                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.noNullElements((Object[]) null));
                     assertEquals("array", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageForArrayWithNullElement() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.noNullElements(new String[]{"a", null}));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.noNullElements(new String[] {"a", null}));
                     assertEquals("The validated array contains null element at index: 1", ex.getMessage());
                 }
             }
@@ -668,32 +558,27 @@ class ValidateTest {
 
                 @Test
                 void shouldNotThrowExceptionForNonEmptyArray() {
-                    Validate.noNullElements(new String[]{"a", "b"}, "MSG");
+                    Validate.noNullElements(new String[] {"a", "b"}, "MSG");
                 }
 
                 @Test
                 void shouldReturnSameInstance() {
                     final String[] array = {"a", "b"};
                     final String[] result = Validate.noNullElements(array, "MSG");
-
                     assertSame(array, result);
                 }
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullArray() {
-                    final NullPointerException ex = assertThrows(
-                            NullPointerException.class,
-                            () -> Validate.noNullElements((Object[]) null, "MSG"));
+                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.noNullElements((Object[]) null, "MSG"));
 
                     assertEquals("array", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithGivenMessageForArrayWithNullElement() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.noNullElements(new String[]{"a", null}, "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.noNullElements(new String[] {"a", null}, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }
@@ -714,25 +599,19 @@ class ValidateTest {
                 void shouldReturnSameInstance() {
                     final Set<String> col = Collections.singleton("a");
                     final Set<String> result = Validate.noNullElements(col);
-
                     assertSame(col, result);
                 }
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullCollection() {
-                    final NullPointerException ex = assertThrows(
-                            NullPointerException.class,
-                            () -> Validate.noNullElements((Collection<?>) null));
-
+                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.noNullElements((Collection<?>) null));
                     assertEquals("iterable", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageForCollectionWithNullElement() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.noNullElements(Collections.singleton(null)));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.noNullElements(Collections.singleton(null)));
                     assertEquals("The validated collection contains null element at index: 0", ex.getMessage());
                 }
             }
@@ -749,25 +628,19 @@ class ValidateTest {
                 void shouldReturnSameInstance() {
                     final Set<String> col = Collections.singleton("a");
                     final Set<String> result = Validate.noNullElements(col, "MSG");
-
                     assertSame(col, result);
                 }
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullCollection() {
-                    final NullPointerException ex = assertThrows(
-                            NullPointerException.class,
-                            () -> Validate.noNullElements((Collection<?>) null, "MSG"));
-
+                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.noNullElements((Collection<?>) null, "MSG"));
                     assertEquals("iterable", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithGivenMessageForCollectionWithNullElement() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.noNullElements(Collections.singleton(null), "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.noNullElements(Collections.singleton(null), "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }
@@ -785,41 +658,31 @@ class ValidateTest {
 
                 @Test
                 void shouldNotThrowExceptionForValidIndex() {
-                    Validate.validIndex(new String[]{"a"}, 0);
+                    Validate.validIndex(new String[] {"a"}, 0);
                 }
 
                 @Test
                 void shouldReturnSameInstance() {
                     final String[] array = {"a"};
                     final String[] result = Validate.validIndex(array, 0);
-
                     assertSame(array, result);
                 }
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultForNullArray() {
-                    final NullPointerException ex = assertThrows(
-                            NullPointerException.class,
-                            () -> Validate.validIndex((Object[]) null, 1));
-
+                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.validIndex((Object[]) null, 1));
                     assertEquals("array", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIndexOutOfBoundsExceptionWithDefaultMessageForNegativeIndex() {
-                    final IndexOutOfBoundsException ex = assertThrows(
-                            IndexOutOfBoundsException.class,
-                            () -> Validate.validIndex(new String[]{"a"}, -1));
-
+                    final IndexOutOfBoundsException ex = assertThrows(IndexOutOfBoundsException.class, () -> Validate.validIndex(new String[] {"a"}, -1));
                     assertEquals("The validated array index is invalid: -1", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIndexOutOfBoundsExceptionWithDefaultMessageForIndexOutOfBounds() {
-                    final IndexOutOfBoundsException ex = assertThrows(
-                            IndexOutOfBoundsException.class,
-                            () -> Validate.validIndex(new String[]{"a"}, 1));
-
+                    final IndexOutOfBoundsException ex = assertThrows(IndexOutOfBoundsException.class, () -> Validate.validIndex(new String[] {"a"}, 1));
                     assertEquals("The validated array index is invalid: 1", ex.getMessage());
                 }
             }
@@ -829,41 +692,32 @@ class ValidateTest {
 
                 @Test
                 void shouldNotThrowExceptionForValidIndex() {
-                    Validate.validIndex(new String[]{"a"}, 0, "MSG");
+                    Validate.validIndex(new String[] {"a"}, 0, "MSG");
                 }
 
                 @Test
                 void shouldReturnSameInstance() {
                     final String[] array = {"a"};
                     final String[] result = Validate.validIndex(array, 0, "MSG");
-
                     assertSame(array, result);
                 }
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullArray() {
-                    final NullPointerException ex = assertThrows(
-                            NullPointerException.class,
-                            () -> Validate.validIndex((Object[]) null, 1, "MSG"));
-
+                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.validIndex((Object[]) null, 1, "MSG"));
                     assertEquals("array", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIndexOutOfBoundsExceptionWithGivenMessageForNegativeIndex() {
-                    final IndexOutOfBoundsException ex = assertThrows(
-                            IndexOutOfBoundsException.class,
-                            () -> Validate.validIndex(new String[]{"a"}, -1, "MSG"));
-
+                    final IndexOutOfBoundsException ex = assertThrows(IndexOutOfBoundsException.class,
+                        () -> Validate.validIndex(new String[] {"a"}, -1, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIndexOutOfBoundsExceptionWithGivenMessageForIndexOutOfBounds() {
-                    final IndexOutOfBoundsException ex = assertThrows(
-                            IndexOutOfBoundsException.class,
-                            () -> Validate.validIndex(new String[]{"a"}, 1, "MSG"));
-
+                    final IndexOutOfBoundsException ex = assertThrows(IndexOutOfBoundsException.class, () -> Validate.validIndex(new String[] {"a"}, 1, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }
@@ -884,34 +738,26 @@ class ValidateTest {
                 void shouldReturnSameInstance() {
                     final Set<String> col = Collections.singleton("a");
                     final Set<String> result = Validate.validIndex(col, 0);
-
                     assertSame(col, result);
                 }
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultForNullCollection() {
-                    final NullPointerException ex = assertThrows(
-                            NullPointerException.class,
-                            () -> Validate.validIndex((Collection<?>) null, 1));
-
+                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.validIndex((Collection<?>) null, 1));
                     assertEquals("collection", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIndexOutOfBoundsExceptionWithDefaultMessageForNegativeIndex() {
-                    final IndexOutOfBoundsException ex = assertThrows(
-                            IndexOutOfBoundsException.class,
-                            () -> Validate.validIndex(Collections.singleton("a"), -1));
-
+                    final IndexOutOfBoundsException ex = assertThrows(IndexOutOfBoundsException.class,
+                        () -> Validate.validIndex(Collections.singleton("a"), -1));
                     assertEquals("The validated collection index is invalid: -1", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIndexOutOfBoundsExceptionWithDefaultMessageForIndexOutOfBounds() {
-                    final IndexOutOfBoundsException ex = assertThrows(
-                            IndexOutOfBoundsException.class,
-                            () -> Validate.validIndex(Collections.singleton("a"), 1));
-
+                    final IndexOutOfBoundsException ex = assertThrows(IndexOutOfBoundsException.class,
+                        () -> Validate.validIndex(Collections.singleton("a"), 1));
                     assertEquals("The validated collection index is invalid: 1", ex.getMessage());
                 }
             }
@@ -928,34 +774,26 @@ class ValidateTest {
                 void shouldReturnSameInstance() {
                     final Set<String> col = Collections.singleton("a");
                     final Set<String> result = Validate.validIndex(col, 0, "MSG");
-
                     assertSame(col, result);
                 }
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullCollection() {
-                    final NullPointerException ex = assertThrows(
-                            NullPointerException.class,
-                            () -> Validate.validIndex((Collection<?>) null, 1, "MSG"));
-
+                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.validIndex((Collection<?>) null, 1, "MSG"));
                     assertEquals("collection", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIndexOutOfBoundsExceptionWithGivenMessageForNegativeIndex() {
-                    final IndexOutOfBoundsException ex = assertThrows(
-                            IndexOutOfBoundsException.class,
-                            () -> Validate.validIndex(Collections.singleton("a"), -1, "MSG"));
-
+                    final IndexOutOfBoundsException ex = assertThrows(IndexOutOfBoundsException.class,
+                        () -> Validate.validIndex(Collections.singleton("a"), -1, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIndexOutOfBoundsExceptionWithGivenMessageForIndexOutOfBounds() {
-                    final IndexOutOfBoundsException ex = assertThrows(
-                            IndexOutOfBoundsException.class,
-                            () -> Validate.validIndex(Collections.singleton("a"), 1, "MSG"));
-
+                    final IndexOutOfBoundsException ex = assertThrows(IndexOutOfBoundsException.class,
+                        () -> Validate.validIndex(Collections.singleton("a"), 1, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }
@@ -976,34 +814,24 @@ class ValidateTest {
                 void shouldReturnSameInstance() {
                     final String str = "a";
                     final String result = Validate.validIndex(str, 0);
-
                     assertSame(str, result);
                 }
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultForNullString() {
-                    final NullPointerException ex = assertThrows(
-                            NullPointerException.class,
-                            () -> Validate.validIndex((String) null, 1));
-
+                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.validIndex((String) null, 1));
                     assertEquals("chars", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIndexOutOfBoundsExceptionWithDefaultMessageForNegativeIndex() {
-                    final IndexOutOfBoundsException ex = assertThrows(
-                            IndexOutOfBoundsException.class,
-                            () -> Validate.validIndex("a", -1));
-
+                    final IndexOutOfBoundsException ex = assertThrows(IndexOutOfBoundsException.class, () -> Validate.validIndex("a", -1));
                     assertEquals("The validated character sequence index is invalid: -1", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIndexOutOfBoundsExceptionWithDefaultMessageForIndexOutOfBounds() {
-                    final IndexOutOfBoundsException ex = assertThrows(
-                            IndexOutOfBoundsException.class,
-                            () -> Validate.validIndex("a", 1));
-
+                    final IndexOutOfBoundsException ex = assertThrows(IndexOutOfBoundsException.class, () -> Validate.validIndex("a", 1));
                     assertEquals("The validated character sequence index is invalid: 1", ex.getMessage());
                 }
             }
@@ -1020,34 +848,24 @@ class ValidateTest {
                 void shouldReturnSameInstance() {
                     final String str = "a";
                     final String result = Validate.validIndex(str, 0, "MSG");
-
                     assertSame(str, result);
                 }
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullStr() {
-                    final NullPointerException ex = assertThrows(
-                            NullPointerException.class,
-                            () -> Validate.validIndex((String) null, 1, "MSG"));
-
+                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.validIndex((String) null, 1, "MSG"));
                     assertEquals("chars", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIndexOutOfBoundsExceptionWithGivenMessageForNegativeIndex() {
-                    final IndexOutOfBoundsException ex = assertThrows(
-                            IndexOutOfBoundsException.class,
-                            () -> Validate.validIndex("a", -1, "MSG"));
-
+                    final IndexOutOfBoundsException ex = assertThrows(IndexOutOfBoundsException.class, () -> Validate.validIndex("a", -1, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIndexOutOfBoundsExceptionWithGivenMessageForIndexOutOfBounds() {
-                    final IndexOutOfBoundsException ex = assertThrows(
-                            IndexOutOfBoundsException.class,
-                            () -> Validate.validIndex("a", 1, "MSG"));
-
+                    final IndexOutOfBoundsException ex = assertThrows(IndexOutOfBoundsException.class, () -> Validate.validIndex("a", 1, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }
@@ -1067,10 +885,7 @@ class ValidateTest {
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenStringDoesNotMatchPattern() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.matchesPattern("hi", "[0-9]*"));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.matchesPattern("hi", "[0-9]*"));
                 assertEquals("The string hi does not match the pattern [0-9]*", ex.getMessage());
             }
         }
@@ -1085,10 +900,7 @@ class ValidateTest {
 
             @Test
             void shouldThrowIllegalArgumentExceptionWhenStringDoesNotMatchPattern() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.matchesPattern("hi", "[0-9]*", "MSG"));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.matchesPattern("hi", "[0-9]*", "MSG"));
                 assertEquals("MSG", ex.getMessage());
             }
         }
@@ -1117,10 +929,7 @@ class ValidateTest {
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithDefaultMessageForNaN() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.notNaN(Double.NaN));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.notNaN(Double.NaN));
                 assertEquals("The validated value is not a number", ex.getMessage());
             }
         }
@@ -1145,10 +954,7 @@ class ValidateTest {
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithGivenMessageForNaN() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.notNaN(Double.NaN, "MSG"));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.notNaN(Double.NaN, "MSG"));
                 assertEquals("MSG", ex.getMessage());
             }
         }
@@ -1167,28 +973,19 @@ class ValidateTest {
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithDefaultMessageForPositiveInfinity() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.finite(Double.POSITIVE_INFINITY));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.finite(Double.POSITIVE_INFINITY));
                 assertEquals("The value is invalid: Infinity", ex.getMessage());
             }
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithDefaultMessageForNegativeInfinity() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.finite(Double.NEGATIVE_INFINITY));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.finite(Double.NEGATIVE_INFINITY));
                 assertEquals("The value is invalid: -Infinity", ex.getMessage());
             }
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithDefaultMessageForNaN() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.finite(Double.NaN));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.finite(Double.NaN));
                 assertEquals("The value is invalid: NaN", ex.getMessage());
             }
         }
@@ -1203,28 +1000,19 @@ class ValidateTest {
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithDefaultMessageForPositiveInfinity() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.finite(Double.POSITIVE_INFINITY, "MSG"));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.finite(Double.POSITIVE_INFINITY, "MSG"));
                 assertEquals("MSG", ex.getMessage());
             }
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithDefaultMessageForNegativeInfinity() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.finite(Double.NEGATIVE_INFINITY, "MSG"));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.finite(Double.NEGATIVE_INFINITY, "MSG"));
                 assertEquals("MSG", ex.getMessage());
             }
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithDefaultMessageForNaN() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.finite(Double.NaN, "MSG"));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.finite(Double.NaN, "MSG"));
                 assertEquals("MSG", ex.getMessage());
             }
         }
@@ -1259,19 +1047,15 @@ class ValidateTest {
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsBelowLowerBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, "0"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, "0"));
                     assertEquals("The value 0 is not in the specified inclusive range of 1 to 3", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsAboveUpperBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, "4"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, "4"));
                     assertEquals("The value 4 is not in the specified inclusive range of 1 to 3", ex.getMessage());
                 }
             }
@@ -1296,19 +1080,15 @@ class ValidateTest {
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsBelowLowerBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, "0", "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, "0", "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsAboveUpperBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, "4", "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, "4", "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }
@@ -1340,19 +1120,15 @@ class ValidateTest {
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsBelowLowerBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0));
                     assertEquals("The value 0 is not in the specified inclusive range of 1 to 3", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsAboveUpperBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4));
                     assertEquals("The value 4 is not in the specified inclusive range of 1 to 3", ex.getMessage());
                 }
             }
@@ -1377,19 +1153,15 @@ class ValidateTest {
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsBelowLowerBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0, "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsAboveUpperBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4, "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }
@@ -1421,19 +1193,15 @@ class ValidateTest {
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsBelowLowerBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0.01));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0.01));
                     assertEquals("The value 0.01 is not in the specified inclusive range of 0.1 to 3.1", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsAboveUpperBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4.1));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4.1));
                     assertEquals("The value 4.1 is not in the specified inclusive range of 0.1 to 3.1", ex.getMessage());
                 }
             }
@@ -1458,19 +1226,15 @@ class ValidateTest {
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsBelowLowerBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0.01, "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0.01, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsAboveUpperBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4.1, "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.inclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4.1, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }
@@ -1496,37 +1260,29 @@ class ValidateTest {
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsLowerBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND));
                     assertEquals("The value 1 is not in the specified exclusive range of 1 to 3", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsUpperBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND));
                     assertEquals("The value 3 is not in the specified exclusive range of 1 to 3", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsBelowLowerBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, "0"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, "0"));
                     assertEquals("The value 0 is not in the specified exclusive range of 1 to 3", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsAboveUpperBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, "4"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, "4"));
                     assertEquals("The value 4 is not in the specified exclusive range of 1 to 3", ex.getMessage());
                 }
             }
@@ -1541,37 +1297,29 @@ class ValidateTest {
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsLowerBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND, "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsUpperBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND, "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsBelowLowerBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, "0", "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, "0", "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsAboveUpperBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, "4", "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, "4", "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }
@@ -1593,37 +1341,29 @@ class ValidateTest {
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsLowerBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND));
                     assertEquals("The value 1 is not in the specified exclusive range of 1 to 3", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsUpperBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND));
                     assertEquals("The value 3 is not in the specified exclusive range of 1 to 3", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsBelowLowerBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0));
                     assertEquals("The value 0 is not in the specified exclusive range of 1 to 3", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsAboveUpperBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4));
                     assertEquals("The value 4 is not in the specified exclusive range of 1 to 3", ex.getMessage());
                 }
             }
@@ -1638,37 +1378,29 @@ class ValidateTest {
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsLowerBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND, "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsUpperBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND, "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsBelowLowerBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0, "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsAboveUpperBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4, "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }
@@ -1690,37 +1422,29 @@ class ValidateTest {
 
                 @Test
                 void shouldThrowIllegalArgumentExcdeptionWhenValueIsLowerBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND));
                     assertEquals("The value 0.1 is not in the specified exclusive range of 0.1 to 3.1", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExcdeptionWhenValueIsUpperBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND));
                     assertEquals("The value 3.1 is not in the specified exclusive range of 0.1 to 3.1", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsBelowLowerBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0.01));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0.01));
                     assertEquals("The value 0.01 is not in the specified exclusive range of 0.1 to 3.1", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsAboveUpperBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4.1));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4.1));
                     assertEquals("The value 4.1 is not in the specified exclusive range of 0.1 to 3.1", ex.getMessage());
                 }
             }
@@ -1735,37 +1459,29 @@ class ValidateTest {
 
                 @Test
                 void shouldThrowIllegalArgumentExcdeptionWhenValueIsLowerBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND, "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExcdeptionWhenValueIsUpperBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND, "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsBelowLowerBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0.01, "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 0.01, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
                 void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsAboveUpperBound() {
-                    final IllegalArgumentException ex = assertThrows(
-                            IllegalArgumentException.class,
-                            () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4.1, "MSG"));
-
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, 4.1, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }
@@ -1785,10 +1501,7 @@ class ValidateTest {
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenValueIsNotInstanceOfClass() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.isInstanceOf(List.class, "hi"));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.isInstanceOf(List.class, "hi"));
                 assertEquals("Expected type: java.util.List, actual: java.lang.String", ex.getMessage());
             }
         }
@@ -1803,10 +1516,7 @@ class ValidateTest {
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsNotInstanceOfClass() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.isInstanceOf(List.class, "hi", "MSG"));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.isInstanceOf(List.class, "hi", "MSG"));
                 assertEquals("MSG", ex.getMessage());
             }
         }
@@ -1821,10 +1531,8 @@ class ValidateTest {
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenValueIsNotInstanceOfClass() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.isInstanceOf(List.class, "hi", "Error %s=%s", "Name", "Value"));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                    () -> Validate.isInstanceOf(List.class, "hi", "Error %s=%s", "Name", "Value"));
                 assertEquals("Error Name=Value", ex.getMessage());
             }
         }
@@ -1843,40 +1551,28 @@ class ValidateTest {
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithDefaultMessageWhenClassIsNotAssignable() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.isAssignableFrom(List.class, String.class));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.isAssignableFrom(List.class, String.class));
                 assertEquals("Cannot assign a java.lang.String to a java.util.List", ex.getMessage());
             }
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithNullSuperType() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.isAssignableFrom(null, String.class));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.isAssignableFrom(null, String.class));
                 assertEquals("Cannot assign a java.lang.String to a null type", ex.getMessage());
             }
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithNullType() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.isAssignableFrom(List.class, null));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.isAssignableFrom(List.class, null));
                 assertEquals("Cannot assign a null type to a java.util.List", ex.getMessage());
             }
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithNullTypes() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.isAssignableFrom(null, null));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.isAssignableFrom(null, null));
                 assertEquals("Cannot assign a null type to a null type", ex.getMessage());
             }
-}
+        }
 
         @Nested
         class WithMessage {
@@ -1888,10 +1584,8 @@ class ValidateTest {
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithGiventMessageWhenClassIsNotAssignable() {
-                final IllegalArgumentException ex = assertThrows(
-                        IllegalArgumentException.class,
-                        () -> Validate.isAssignableFrom(List.class, String.class, "MSG"));
-
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                    () -> Validate.isAssignableFrom(List.class, String.class, "MSG"));
                 assertEquals("MSG", ex.getMessage());
             }
         }
