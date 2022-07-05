@@ -28,6 +28,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +37,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.JsonToStringStyleTest}.
  */
-public class JsonToStringStyleTest {
+public class JsonToStringStyleTest extends AbstractLangTest {
 
     private final Integer base = Integer.valueOf(5);
 

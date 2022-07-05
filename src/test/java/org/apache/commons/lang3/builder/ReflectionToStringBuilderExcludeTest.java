@@ -24,12 +24,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
 
 /**
  */
-public class ReflectionToStringBuilderExcludeTest {
+public class ReflectionToStringBuilderExcludeTest extends AbstractLangTest {
 
     class TestFixture {
         @SuppressWarnings("unused")

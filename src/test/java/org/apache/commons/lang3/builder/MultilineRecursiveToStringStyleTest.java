@@ -22,11 +22,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  */
-public class MultilineRecursiveToStringStyleTest {
+public class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
 
     private static final String LS = System.lineSeparator();
     private static final String BASE_WITH_ARRAYS_TO_STRING = "[" + LS

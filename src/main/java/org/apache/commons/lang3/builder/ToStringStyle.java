@@ -186,7 +186,7 @@ public abstract class ToStringStyle implements Serializable {
      *
      * @return Set the registry of objects being traversed
      */
-    static Map<Object, Object> getRegistry() {
+    public static Map<Object, Object> getRegistry() {
         return REGISTRY.get();
     }
 

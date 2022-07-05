@@ -23,12 +23,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link DiffResult}.
  */
-public class DiffResultTest {
+public class DiffResultTest extends AbstractLangTest {
 
     private static final SimpleClass SIMPLE_FALSE = new SimpleClass(false);
     private static final SimpleClass SIMPLE_TRUE = new SimpleClass(true);

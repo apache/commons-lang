@@ -28,6 +28,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.concurrent.UncheckedFuture;
 import org.junit.jupiter.api.Test;
 
@@ -45,7 +46,7 @@ import org.junit.jupiter.api.Test;
  *      and ToStringBuilder for collections that are not thread safe</a>
  * @since 3.1
  */
-public class ToStringStyleConcurrencyTest {
+public class ToStringStyleConcurrencyTest extends AbstractLangTest {
 
     static class CollectionHolder<T extends Collection<?>> {
         T collection;

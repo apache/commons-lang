@@ -14,25 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang3.builder;
+package org.apache.commons.lang3;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.apache.commons.lang3.AbstractLangTest;
-import org.junit.jupiter.api.Test;
+import java.util.Map;
 
-public class ReflectionToStringBuilderSummaryTest extends AbstractLangTest {
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.junit.jupiter.api.AfterEach;
 
-    @SuppressWarnings("unused")
-    private final String stringField = "string";
+public class AbstractLangTest {
 
-    @ToStringSummary
-    private final String summaryString = "summary";
+    /**
+     * All tests should leave the {@link ToStringStyle} registry empty.
+     */
+    @AfterEach
+    public void after() {
+        validateNullToStringStyleRegistry();
+    }
 
-    @Test
-    public void testSummary() {
-        assertEquals("[stringField=string,summaryString=<String>]",
-                new ReflectionToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE).build());
+    void validateNullToStringStyleRegistry() {
+        final Map<Object, Object> registry = ToStringStyle.getRegistry();
+        assertNull(registry, "Expected null, actual: " + registry);
     }
 
 }

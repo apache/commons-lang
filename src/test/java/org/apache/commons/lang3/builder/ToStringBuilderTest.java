@@ -18,35 +18,25 @@ package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.junit.jupiter.api.AfterEach;
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.builder.ToStringBuilder}.
  */
-public class ToStringBuilderTest {
+public class ToStringBuilderTest extends AbstractLangTest {
 
     // See LANG-1337 for more.
     private static final int ARRAYLIST_INITIAL_CAPACITY = 10;
     private final Integer base = Integer.valueOf(5);
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
-
-    /**
-     * All tests should leave the registry empty.
-     */
-    @AfterEach
-    public void after() {
-        validateNullToStringStyleRegistry();
-    }
 
     @Test
     public void testConstructorEx1() {
@@ -584,12 +574,6 @@ public class ToStringBuilderTest {
                 + "}]",
             ToStringBuilder.reflectionToString(simple));
     }
-
-    void validateNullToStringStyleRegistry() {
-        final Map<Object, Object> registry = ToStringStyle.getRegistry();
-        assertNull(registry, "Expected null, actual: " + registry);
-    }
-    //  End: Reflection cycle tests
 
     @Test
     public void testAppendSuper() {

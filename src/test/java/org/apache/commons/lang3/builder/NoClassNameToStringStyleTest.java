@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link ToStringStyle#NO_CLASS_NAME_STYLE}.
  */
-public class NoClassNameToStringStyleTest {
+public class NoClassNameToStringStyleTest extends AbstractLangTest {
 
     private final Integer base = Integer.valueOf(5);
 

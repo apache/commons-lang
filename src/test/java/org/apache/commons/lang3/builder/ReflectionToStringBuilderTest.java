@@ -18,9 +18,10 @@ package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
-public class ReflectionToStringBuilderTest {
+public class ReflectionToStringBuilderTest extends AbstractLangTest {
 
     @Test
     public void testConstructorWithNullObject() {
