@@ -40,14 +40,13 @@ public class ToStringBuilderTest {
     private final Integer base = Integer.valueOf(5);
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
 
-    /*
+    /**
      * All tests should leave the registry empty.
      */
     @AfterEach
     public void after() {
         validateNullToStringStyleRegistry();
     }
-
 
     @Test
     public void testConstructorEx1() {
