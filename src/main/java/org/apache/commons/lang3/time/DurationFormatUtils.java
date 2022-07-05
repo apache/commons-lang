@@ -131,25 +131,25 @@ public class DurationFormatUtils {
 
         final Token[] tokens = lexx(format);
 
-        long days         = 0;
-        long hours        = 0;
-        long minutes      = 0;
-        long seconds      = 0;
+        long days = 0;
+        long hours = 0;
+        long minutes = 0;
+        long seconds = 0;
         long milliseconds = durationMillis;
 
-        if (Token.containsTokenWithValue(tokens, d) ) {
+        if (Token.containsTokenWithValue(tokens, d)) {
             days = milliseconds / DateUtils.MILLIS_PER_DAY;
             milliseconds = milliseconds - (days * DateUtils.MILLIS_PER_DAY);
         }
-        if (Token.containsTokenWithValue(tokens, H) ) {
+        if (Token.containsTokenWithValue(tokens, H)) {
             hours = milliseconds / DateUtils.MILLIS_PER_HOUR;
             milliseconds = milliseconds - (hours * DateUtils.MILLIS_PER_HOUR);
         }
-        if (Token.containsTokenWithValue(tokens, m) ) {
+        if (Token.containsTokenWithValue(tokens, m)) {
             minutes = milliseconds / DateUtils.MILLIS_PER_MINUTE;
             milliseconds = milliseconds - (minutes * DateUtils.MILLIS_PER_MINUTE);
         }
-        if (Token.containsTokenWithValue(tokens, s) ) {
+        if (Token.containsTokenWithValue(tokens, s)) {
             seconds = milliseconds / DateUtils.MILLIS_PER_SECOND;
             milliseconds = milliseconds - (seconds * DateUtils.MILLIS_PER_SECOND);
         }
