@@ -238,7 +238,7 @@ public class RandomUtils {
 
     /**
      * <p>
-     * {@code RandomUtils} instances should NOT be constructed in standard
+     * {@link RandomUtils} instances should NOT be constructed in standard
      * programming. Instead, the class should be used as
      * {@code RandomUtils.nextBytes(5);}.
      * </p>

@@ -20,7 +20,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * <p>Generates random {@code String}s.</p>
+ * <p>Generates random {@link String}s.</p>
  *
  * <p><b>Caveat: Instances of {@link Random}, upon which the implementation of this
  * class relies, are not cryptographically secure.</b></p>
@@ -462,7 +462,7 @@ public class RandomStringUtils {
     }
 
     /**
-     * <p>{@code RandomStringUtils} instances should NOT be constructed in
+     * <p>{@link RandomStringUtils} instances should NOT be constructed in
      * standard programming. Instead, the class should be used as
      * {@code RandomStringUtils.random(5);}.</p>
      *

@@ -144,6 +144,13 @@ public enum JavaVersion {
     JAVA_17(17.0f, "17"),
 
     /**
+     * Java 18.
+     *
+     * @since 3.13.0
+     */
+    JAVA_18(18.0f, "18"),
+
+    /**
      * The most recent java version. Mainly introduced to avoid to break when a new version of Java is used.
      */
     JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
@@ -173,7 +180,7 @@ public enum JavaVersion {
      * <p>Whether this version of Java is at least the version of Java passed in.</p>
      *
      * <p>For example:<br>
-     *  {@code myVersion.atLeast(JavaVersion.JAVA_1_4)}<p>
+     *  {@code myVersion.atLeast(JavaVersion.JAVA_1_4)}</p>
      *
      * @param requiredVersion  the version to check against, not null
      * @return true if this version is equal to or greater than the specified version
@@ -186,7 +193,7 @@ public enum JavaVersion {
      * <p>Whether this version of Java is at most the version of Java passed in.</p>
      *
      * <p>For example:<br>
-     *  {@code myVersion.atMost(JavaVersion.JAVA_1_4)}<p>
+     *  {@code myVersion.atMost(JavaVersion.JAVA_1_4)}</p>
      *
      * @param requiredVersion  the version to check against, not null
      * @return true if this version is equal to or greater than the specified version
@@ -201,13 +208,13 @@ public enum JavaVersion {
      * corresponding constant of this enumeration class. This method is used
      * internally.
      *
-     * @param nom the Java version as string
+     * @param versionStr the Java version as string
      * @return the corresponding enumeration constant or <b>null</b> if the
      * version is unknown
      */
     // helper for static importing
-    static JavaVersion getJavaVersion(final String nom) {
-        return get(nom);
+    static JavaVersion getJavaVersion(final String versionStr) {
+        return get(versionStr);
     }
 
     /**
@@ -260,6 +267,8 @@ public enum JavaVersion {
             return JAVA_16;
         case "17":
             return JAVA_17;
+        case "18":
+            return JAVA_18;
         default:
             final float v = toFloatVersion(versionStr);
             if ((v - 1.) < 1.) { // then we need to check decimals > .9
@@ -294,10 +303,7 @@ public enum JavaVersion {
      */
     private static float maxVersion() {
         final float v = toFloatVersion(System.getProperty("java.specification.version", "99.0"));
-        if (v > 0) {
-            return v;
-        }
-        return 99f;
+        return v > 0 ? v : 99f;
     }
 
     /**

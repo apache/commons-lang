@@ -38,7 +38,7 @@ import org.apache.commons.lang3.StringUtils;
 public class WordUtils {
 
     /**
-     * <p>{@code WordUtils} instances should NOT be constructed in
+     * <p>{@link WordUtils} instances should NOT be constructed in
      * standard programming. Instead, the class should be used as
      * {@code WordUtils.wrap("foo bar", 20);}.</p>
      *
@@ -48,8 +48,6 @@ public class WordUtils {
     public WordUtils() {
     }
 
-    // Wrapping
-    //--------------------------------------------------------------------------
     /**
      * <p>Wraps a single line of text, identifying words by {@code ' '}.</p>
      *
@@ -469,13 +467,12 @@ public class WordUtils {
      * @return capitalized String, {@code null} if null String input
      * @since 2.1
      */
-    public static String capitalizeFully(String str, final char... delimiters) {
+    public static String capitalizeFully(final String str, final char... delimiters) {
         final int delimLen = delimiters == null ? -1 : delimiters.length;
         if (StringUtils.isEmpty(str) || delimLen == 0) {
             return str;
         }
-        str = str.toLowerCase();
-        return capitalize(str, delimiters);
+        return capitalize(str.toLowerCase(), delimiters);
     }
 
     /**
@@ -656,7 +653,6 @@ public class WordUtils {
         boolean lastWasGap = true;
         for (int i = 0; i < strLen; i++) {
             final char ch = str.charAt(i);
-
             if (isDelimiter(ch, delimiters)) {
                 lastWasGap = true;
             } else if (lastWasGap) {
@@ -709,22 +705,14 @@ public class WordUtils {
     }
 
     /**
-     * Is the character a delimiter.
+     * Tests if the character is a delimiter.
      *
      * @param ch  the character to check
      * @param delimiters  the delimiters
      * @return true if it is a delimiter
      */
     private static boolean isDelimiter(final char ch, final char[] delimiters) {
-        if (delimiters == null) {
-            return Character.isWhitespace(ch);
-        }
-        for (final char delimiter : delimiters) {
-            if (ch == delimiter) {
-                return true;
-            }
-        }
-        return false;
+        return delimiters == null ? Character.isWhitespace(ch) : ArrayUtils.contains(delimiters, ch);
     }
 
 }

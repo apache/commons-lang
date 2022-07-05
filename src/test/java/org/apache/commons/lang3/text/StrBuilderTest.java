@@ -572,7 +572,6 @@ public class StrBuilderTest {
         assertEquals("", sb.toString());
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testDeleteAll_String() {
         StrBuilder sb = new StrBuilder("abcbccba");
@@ -625,7 +624,6 @@ public class StrBuilderTest {
         assertEquals("", sb.toString());
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testDeleteAll_StrMatcher() {
         StrBuilder sb = new StrBuilder("A0xA1A2yA3");
@@ -660,7 +658,6 @@ public class StrBuilderTest {
         assertEquals("", sb.toString());
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testReplace_int_int_String() {
         final StrBuilder sb = new StrBuilder("abc");
@@ -1146,7 +1143,6 @@ public class StrBuilderTest {
         assertThrows(IndexOutOfBoundsException.class, () -> sb.substring(15, 20));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testMidString() {
         final StrBuilder sb = new StrBuilder("hello goodbye hello");
@@ -1176,7 +1172,6 @@ public class StrBuilderTest {
         assertEquals("left right", sb.leftString(15));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testContains_char() {
         final StrBuilder sb = new StrBuilder("abcdefghijklmnopqrstuvwxyz");
@@ -1211,7 +1206,6 @@ public class StrBuilderTest {
         assertTrue(sb.contains(A_NUMBER_MATCHER));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testIndexOf_char() {
         final StrBuilder sb = new StrBuilder("abab");
@@ -1282,7 +1276,6 @@ public class StrBuilderTest {
         assertEquals(-1, sb.lastIndexOf('z', 1));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testIndexOf_String() {
         final StrBuilder sb = new StrBuilder("abab");
@@ -1403,7 +1396,6 @@ public class StrBuilderTest {
         assertEquals(-1, sb.lastIndexOf((String) null, 2));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testIndexOf_StrMatcher() {
         final StrBuilder sb = new StrBuilder();
@@ -1572,7 +1564,6 @@ public class StrBuilderTest {
         assertEquals("a b c d ", t.getContent());
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testAsReader() throws Exception {
         final StrBuilder sb = new StrBuilder("some text");

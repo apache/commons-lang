@@ -195,7 +195,6 @@ public class FractionTest  {
 
     }
 
-    //--------------------------------------------------------------------------
     @Test
     public void testConstants() {
         assertEquals(0, Fraction.ZERO.getNumerator());

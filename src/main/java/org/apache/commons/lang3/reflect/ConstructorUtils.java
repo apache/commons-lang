@@ -243,10 +243,9 @@ public class ConstructorUtils {
         // see if we can find the constructor directly
         // most of the time this works and it's much faster
         try {
-            final Constructor<T> ctor = cls.getConstructor(parameterTypes);
-            MemberUtils.setAccessibleWorkaround(ctor);
-            return ctor;
-        } catch (final NoSuchMethodException e) { // NOPMD - Swallow
+            return MemberUtils.setAccessibleWorkaround(cls.getConstructor(parameterTypes));
+        } catch (final NoSuchMethodException ignored) {
+            // ignore
         }
         Constructor<T> result = null;
         /*

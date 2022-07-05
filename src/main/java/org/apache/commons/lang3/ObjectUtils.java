@@ -22,10 +22,12 @@ import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeSet;
@@ -38,7 +40,7 @@ import org.apache.commons.lang3.text.StrBuilder;
 import org.apache.commons.lang3.time.DurationUtils;
 
 /**
- * <p>Operations on {@code Object}.</p>
+ * <p>Operations on {@link Object}.</p>
  *
  * <p>This class tries to handle {@code null} input gracefully.
  * An exception will generally not be thrown for a {@code null} input.
@@ -56,13 +58,13 @@ public class ObjectUtils {
      * <p>Class used as a null placeholder where {@code null}
      * has another meaning.</p>
      *
-     * <p>For example, in a {@code HashMap} the
+     * <p>For example, in a {@link HashMap} the
      * {@link java.util.HashMap#get(java.lang.Object)} method returns
-     * {@code null} if the {@code Map} contains {@code null} or if there is
-     * no matching key. The {@code Null} placeholder can be used to distinguish
+     * {@code null} if the {@link Map} contains {@code null} or if there is
+     * no matching key. The {@code null} placeholder can be used to distinguish
      * between these two cases.</p>
      *
-     * <p>Another example is {@code Hashtable}, where {@code null}
+     * <p>Another example is {@link Hashtable}, where {@code null}
      * cannot be stored.</p>
      */
     public static class Null implements Serializable {
@@ -95,13 +97,13 @@ public class ObjectUtils {
      * <p>Singleton used as a {@code null} placeholder where
      * {@code null} has another meaning.</p>
      *
-     * <p>For example, in a {@code HashMap} the
+     * <p>For example, in a {@link HashMap} the
      * {@link java.util.HashMap#get(java.lang.Object)} method returns
-     * {@code null} if the {@code Map} contains {@code null} or if there
-     * is no matching key. The {@code Null} placeholder can be used to
+     * {@code null} if the {@link Map} contains {@code null} or if there
+     * is no matching key. The {@code null} placeholder can be used to
      * distinguish between these two cases.</p>
      *
-     * <p>Another example is {@code Hashtable}, where {@code null}
+     * <p>Another example is {@link Hashtable}, where {@code null}
      * cannot be stored.</p>
      *
      * <p>This instance is Serializable.</p>
@@ -594,7 +596,7 @@ public class ObjectUtils {
      * </pre>
      *
      * @param <T> the type of the object
-     * @param object  the {@code Object} to test, may be {@code null}
+     * @param object  the {@link Object} to test, may be {@code null}
      * @param defaultValue  the default value to return, may be {@code null}
      * @return {@code object} if it is not {@code null}, defaultValue otherwise
      * TODO Rename to getIfNull in 4.0
@@ -736,7 +738,7 @@ public class ObjectUtils {
      * </pre>
      *
      * @param <T> the type of the object
-     * @param object the {@code Object} to test, may be {@code null}
+     * @param object the {@link Object} to test, may be {@code null}
      * @param defaultSupplier the default value to return, may be {@code null}
      * @return {@code object} if it is not {@code null}, {@code defaultValueSupplier.get()} otherwise
      * @since 3.10
@@ -787,7 +789,7 @@ public class ObjectUtils {
      * <p>This allows a hash code to be rapidly calculated for a number of objects.
      * The hash code for a single object is the <em>not</em> same as {@link #hashCode(Object)}.
      * The hash code for multiple objects is the same as that calculated by an
-     * {@code ArrayList} containing the specified objects.</p>
+     * {@link ArrayList} containing the specified objects.</p>
      *
      * <pre>
      * ObjectUtils.hashCodeMulti()                 = 1
@@ -816,7 +818,7 @@ public class ObjectUtils {
     }
 
     /**
-     * <p>Appends the toString that would be produced by {@code Object}
+     * <p>Appends the toString that would be produced by {@link Object}
      * if a class did not override toString itself. {@code null}
      * will throw a NullPointerException for either of the two parameters. </p>
      *
@@ -853,7 +855,7 @@ public class ObjectUtils {
     }
 
     /**
-     * <p>Gets the toString that would be produced by {@code Object}
+     * <p>Gets the toString that would be produced by {@link Object}
      * if a class did not override toString itself. {@code null}
      * will return {@code null}.</p>
      *
@@ -884,7 +886,7 @@ public class ObjectUtils {
     }
 
     /**
-     * <p>Appends the toString that would be produced by {@code Object}
+     * <p>Appends the toString that would be produced by {@link Object}
      * if a class did not override toString itself. {@code null}
      * will throw a NullPointerException for either of the two parameters. </p>
      *
@@ -912,7 +914,7 @@ public class ObjectUtils {
     }
 
     /**
-     * <p>Appends the toString that would be produced by {@code Object}
+     * <p>Appends the toString that would be produced by {@link Object}
      * if a class did not override toString itself. {@code null}
      * will throw a NullPointerException for either of the two parameters. </p>
      *
@@ -937,7 +939,7 @@ public class ObjectUtils {
     }
 
     /**
-     * <p>Appends the toString that would be produced by {@code Object}
+     * <p>Appends the toString that would be produced by {@link Object}
      * if a class did not override toString itself. {@code null}
      * will throw a NullPointerException for either of the two parameters. </p>
      *
@@ -1014,7 +1016,7 @@ public class ObjectUtils {
      * The following types are supported:
      * <ul>
      * <li>{@link CharSequence}: Considered empty if its length is zero.</li>
-     * <li>{@code Array}: Considered empty if its length is zero.</li>
+     * <li>{@link Array}: Considered empty if its length is zero.</li>
      * <li>{@link Collection}: Considered empty if it has zero elements.</li>
      * <li>{@link Map}: Considered empty if it has zero key-value mappings.</li>
      * </ul>
@@ -1028,7 +1030,7 @@ public class ObjectUtils {
      * ObjectUtils.isEmpty(1234)             = false
      * </pre>
      *
-     * @param object  the {@code Object} to test, may be {@code null}
+     * @param object  the {@link Object} to test, may be {@code null}
      * @return {@code true} if the object has a supported type and is empty or null,
      * {@code false} otherwise
      * @since 3.9
@@ -1058,7 +1060,7 @@ public class ObjectUtils {
      * The following types are supported:
      * <ul>
      * <li>{@link CharSequence}: Considered empty if its length is zero.</li>
-     * <li>{@code Array}: Considered empty if its length is zero.</li>
+     * <li>{@link Array}: Considered empty if its length is zero.</li>
      * <li>{@link Collection}: Considered empty if it has zero elements.</li>
      * <li>{@link Map}: Considered empty if it has zero key-value mappings.</li>
      * </ul>
@@ -1072,7 +1074,7 @@ public class ObjectUtils {
      * ObjectUtils.isNotEmpty(1234)             = true
      * </pre>
      *
-     * @param object  the {@code Object} to test, may be {@code null}
+     * @param object  the {@link Object} to test, may be {@code null}
      * @return {@code true} if the object has an unsupported type or is not empty
      * and not null, {@code false} otherwise
      * @since 3.9
@@ -1298,7 +1300,7 @@ public class ObjectUtils {
     }
 
     /**
-     * <p>Gets the {@code toString} of an {@code Object} returning
+     * <p>Gets the {@code toString} of an {@link Object} returning
      * an empty string ("") if {@code null} input.</p>
      *
      * <pre>
@@ -1323,7 +1325,7 @@ public class ObjectUtils {
     }
 
     /**
-     * <p>Gets the {@code toString} of an {@code Object} returning
+     * <p>Gets the {@code toString} of an {@link Object} returning
      * a specified text if {@code null} input.</p>
      *
      * <pre>
@@ -1349,7 +1351,7 @@ public class ObjectUtils {
     }
 
     /**
-     * <p>Gets the {@code toString} of an {@code Object} returning
+     * <p>Gets the {@code toString} of an {@link Object} returning
      * a specified text if {@code null} input.</p>
      *
      * <pre>
@@ -1390,7 +1392,7 @@ public class ObjectUtils {
     }
 
     /**
-     * <p>{@code ObjectUtils} instances should NOT be constructed in
+     * <p>{@link ObjectUtils} instances should NOT be constructed in
      * standard programming. Instead, the static methods on the class should
      * be used, such as {@code ObjectUtils.defaultIfNull("a","b");}.</p>
      *

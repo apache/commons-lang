@@ -195,12 +195,12 @@ public class Streams {
         }
 
         /**
-         * Performs a mutable reduction operation on the elements of this stream using a {@code Collector}. A {@code Collector}
+         * Performs a mutable reduction operation on the elements of this stream using a {@link Collector}. A {@link Collector}
          * encapsulates the functions used as arguments to {@link #collect(Supplier, BiConsumer, BiConsumer)}, allowing for
          * reuse of collection strategies and composition of collect operations such as multiple-level grouping or partitioning.
          *
          * <p>
-         * If the underlying stream is parallel, and the {@code Collector} is concurrent, and either the stream is unordered or
+         * If the underlying stream is parallel, and the {@link Collector} is concurrent, and either the stream is unordered or
          * the collector is unordered, then a concurrent reduction will be performed (see {@link Collector} for details on
          * concurrent reduction.)
          * </p>
@@ -212,7 +212,7 @@ public class Streams {
          * <p>
          * When executed in parallel, multiple intermediate results may be instantiated, populated, and merged so as to maintain
          * isolation of mutable data structures. Therefore, even when executed in parallel with non-thread-safe data structures
-         * (such as {@code ArrayList}), no additional synchronization is needed for a parallel reduction.
+         * (such as {@link ArrayList}), no additional synchronization is needed for a parallel reduction.
          * </p>
          *
          * Note The following will accumulate strings into an ArrayList:
@@ -234,7 +234,7 @@ public class Streams {
          * </pre>
          *
          * <p>
-         * The following will classify {@code Person} objects by state and city, cascading two {@code Collector}s together:
+         * The following will classify {@code Person} objects by state and city, cascading two {@link Collector}s together:
          * </p>
          *
          * <pre>
@@ -245,8 +245,8 @@ public class Streams {
          * </pre>
          *
          * @param <R> the type of the result
-         * @param <A> the intermediate accumulation type of the {@code Collector}
-         * @param collector the {@code Collector} describing the reduction
+         * @param <A> the intermediate accumulation type of the {@link Collector}
+         * @param collector the {@link Collector} describing the reduction
          * @return the result of the reduction
          * @see #collect(Supplier, BiConsumer, BiConsumer)
          * @see Collectors
@@ -258,7 +258,7 @@ public class Streams {
 
         /**
          * Performs a mutable reduction operation on the elements of this FailableStream. A mutable reduction is one in which
-         * the reduced value is a mutable result container, such as an {@code ArrayList}, and elements are incorporated by
+         * the reduced value is a mutable result container, such as an {@link ArrayList}, and elements are incorporated by
          * updating the state of the result rather than by replacing the result. This produces a result equivalent to:
          *
          * <pre>
@@ -280,7 +280,7 @@ public class Streams {
          * </p>
          *
          * Note There are many existing classes in the JDK whose signatures are well-suited for use with method references as
-         * arguments to {@code collect()}. For example, the following will accumulate strings into an {@code ArrayList}:
+         * arguments to {@code collect()}. For example, the following will accumulate strings into an {@link ArrayList}:
          *
          * <pre>
          * {@code
@@ -676,11 +676,11 @@ public class Streams {
     }
 
     /**
-     * Returns a {@code Collector} that accumulates the input elements into a new array.
+     * Returns a {@link Collector} that accumulates the input elements into a new array.
      *
      * @param pElementType Type of an element in the array.
      * @param <T> the type of the input elements
-     * @return a {@code Collector} which collects all the input elements into an array, in encounter order
+     * @return a {@link Collector} which collects all the input elements into an array, in encounter order
      */
     public static <T extends Object> Collector<T, ?, T[]> toArray(final Class<T> pElementType) {
         return new ArrayCollector<>(pElementType);

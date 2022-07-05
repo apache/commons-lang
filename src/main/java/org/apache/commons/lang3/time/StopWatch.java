@@ -24,7 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * <p>
- * {@code StopWatch} provides a convenient API for timings.
+ * {@link StopWatch} provides a convenient API for timings.
  * </p>
  *
  * <p>

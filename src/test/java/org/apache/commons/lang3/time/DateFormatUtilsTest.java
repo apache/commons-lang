@@ -150,6 +150,15 @@ public class DateFormatUtilsTest {
         DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.parse(date);
     }
 
+    @Test
+    public void testLANG1462() {
+        final TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
+        final Calendar calendar = createJuneTestDate(timeZone);
+        assertEquals("20030608101112", DateFormatUtils.format(calendar, "yyyyMMddHHmmss"));
+        calendar.setTimeZone(TimeZone.getTimeZone("JST"));
+        assertEquals("20030608221112", DateFormatUtils.format(calendar, "yyyyMMddHHmmss"));
+    }
+
     @DefaultTimeZone("UTC")
     @Test
     public void testLang530() throws ParseException {

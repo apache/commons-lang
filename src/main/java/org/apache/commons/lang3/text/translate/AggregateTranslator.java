@@ -23,7 +23,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * Executes a sequence of translators one after the other. Execution ends whenever
- * the first translator consumes codepoints from the input.
+ * the first translator consumes code points from the input.
  *
  * @since 3.0
  * @deprecated As of 3.6, use Apache Commons Text
@@ -45,8 +45,8 @@ public class AggregateTranslator extends CharSequenceTranslator {
     }
 
     /**
-     * The first translator to consume codepoints from the input is the 'winner'.
-     * Execution stops with the number of consumed codepoints being returned.
+     * The first translator to consume code points from the input is the 'winner'.
+     * Execution stops with the number of consumed code points being returned.
      * {@inheritDoc}
      */
     @Override

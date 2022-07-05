@@ -19,13 +19,14 @@ package org.apache.commons.lang3.builder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 
 /**
  * Unit tests {@link Diff}.
  */
-public class DiffTest {
+public class DiffTest extends AbstractLangTest {
 
     private static final String FIELD_NAME = "field";
     private static final Diff<Boolean> booleanDiff = new BooleanDiff(FIELD_NAME);

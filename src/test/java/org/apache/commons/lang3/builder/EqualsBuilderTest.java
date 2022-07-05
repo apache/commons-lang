@@ -25,13 +25,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Method;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.EqualsBuilder}.
  */
-public class EqualsBuilderTest {
+public class EqualsBuilderTest extends AbstractLangTest {
 
 
     static class TestObject {

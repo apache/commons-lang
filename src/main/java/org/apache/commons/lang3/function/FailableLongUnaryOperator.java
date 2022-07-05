@@ -21,9 +21,9 @@ import java.util.Objects;
 import java.util.function.LongUnaryOperator;
 
 /**
- * A functional interface like {@link LongUnaryOperator} that declares a {@code Throwable}.
+ * A functional interface like {@link LongUnaryOperator} that declares a {@link Throwable}.
  *
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 public interface FailableLongUnaryOperator<E extends Throwable> {
@@ -35,7 +35,7 @@ public interface FailableLongUnaryOperator<E extends Throwable> {
     /**
      * Returns a unary operator that always returns its input argument.
      *
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return a unary operator that always returns its input argument
      */
     static <E extends Throwable> FailableLongUnaryOperator<E> identity() {
@@ -45,18 +45,18 @@ public interface FailableLongUnaryOperator<E extends Throwable> {
     /**
      * Returns The NOP singleton.
      *
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
-    static <E extends Throwable> FailableLongUnaryOperator<E> nop() {
+   static <E extends Throwable> FailableLongUnaryOperator<E> nop() {
         return NOP;
     }
 
     /**
-     * Returns a composed {@code FailableDoubleUnaryOperator} like {@link LongUnaryOperator#andThen(LongUnaryOperator)}.
+     * Returns a composed {@link FailableDoubleUnaryOperator} like {@link LongUnaryOperator#andThen(LongUnaryOperator)}.
      *
      * @param after the operator to apply after this one.
-     * @return a composed {@code FailableLongUnaryOperator} like {@link LongUnaryOperator#andThen(LongUnaryOperator)}.
+     * @return a composed {@link FailableLongUnaryOperator} like {@link LongUnaryOperator#andThen(LongUnaryOperator)}.
      * @throws NullPointerException if after is null.
      * @see #compose(FailableLongUnaryOperator)
      */
@@ -75,10 +75,10 @@ public interface FailableLongUnaryOperator<E extends Throwable> {
     long applyAsLong(long operand) throws E;
 
     /**
-     * Returns a composed {@code FailableLongUnaryOperator} like {@link LongUnaryOperator#compose(LongUnaryOperator)}.
+     * Returns a composed {@link FailableLongUnaryOperator} like {@link LongUnaryOperator#compose(LongUnaryOperator)}.
      *
      * @param before the operator to apply before this one.
-     * @return a composed {@code FailableLongUnaryOperator} like {@link LongUnaryOperator#compose(LongUnaryOperator)}.
+     * @return a composed {@link FailableLongUnaryOperator} like {@link LongUnaryOperator#compose(LongUnaryOperator)}.
      * @throws NullPointerException if before is null.
      * @see #andThen(FailableLongUnaryOperator)
      */

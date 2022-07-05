@@ -22,7 +22,7 @@ package org.apache.commons.lang3.concurrent;
  * </p>
  * <p>
  * The idea behind this interface is to provide access to an object in a
- * thread-safe manner. A {@code ConcurrentInitializer} can be passed to multiple
+ * thread-safe manner. A {@link ConcurrentInitializer} can be passed to multiple
  * threads which can all access the object produced by the initializer. Through
  * the {@link #get()} method the object can be queried.
  * </p>
@@ -45,7 +45,7 @@ public interface ConcurrentInitializer<T> {
      * results are available. Typically, once created the result object is
      * always the same.
      *
-     * @return the object created by this {@code ConcurrentException}
+     * @return the object created by this {@link ConcurrentException}
      * @throws ConcurrentException if an error occurred during initialization of
      * the object
      */

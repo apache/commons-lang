@@ -21,8 +21,10 @@ import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -41,9 +43,9 @@ import java.util.TimeZone;
  * </code>
  *
  * <p>This class can be used as a direct replacement to
- * {@code SimpleDateFormat} in most formatting and parsing situations.
+ * {@link SimpleDateFormat} in most formatting and parsing situations.
  * This class is especially useful in multi-threaded server environments.
- * {@code SimpleDateFormat} is not thread-safe in any JDK version,
+ * {@link SimpleDateFormat} is not thread-safe in any JDK version,
  * nor will it be as Sun have closed the bug/RFE.
  * </p>
  *
@@ -106,7 +108,10 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
         }
     };
 
+    /** Our fast printer. */
     private final FastDatePrinter printer;
+
+    /** Our fast parser. */
     private final FastDateParser parser;
 
     /**
@@ -395,8 +400,8 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
 
     // Format methods
     /**
-     * <p>Formats a {@code Date}, {@code Calendar} or
-     * {@code Long} (milliseconds) object.</p>
+     * <p>Formats a {@link Date}, {@link Calendar} or
+     * {@link Long} (milliseconds) object.</p>
      * This method is an implementation of {@link Format#format(Object, StringBuffer, FieldPosition)}
      *
      * @param obj  the object to format
@@ -422,7 +427,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     }
 
     /**
-     * <p>Formats a {@code Date} object using a {@code GregorianCalendar}.</p>
+     * <p>Formats a {@link Date} object using a {@link GregorianCalendar}.</p>
      *
      * @param date  the date to format
      * @return the formatted string
@@ -433,7 +438,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     }
 
     /**
-     * <p>Formats a {@code Calendar} object.</p>
+     * <p>Formats a {@link Calendar} object.</p>
      *
      * @param calendar  the calendar to format
      * @return the formatted string
@@ -445,7 +450,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
 
     /**
      * <p>Formats a millisecond {@code long} value into the
-     * supplied {@code StringBuffer}.</p>
+     * supplied {@link StringBuffer}.</p>
      *
      * @param millis  the millisecond value to format
      * @param buf  the buffer to format into
@@ -460,8 +465,8 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     }
 
     /**
-     * <p>Formats a {@code Date} object into the
-     * supplied {@code StringBuffer} using a {@code GregorianCalendar}.</p>
+     * <p>Formats a {@link Date} object into the
+     * supplied {@link StringBuffer} using a {@link GregorianCalendar}.</p>
      *
      * @param date  the date to format
      * @param buf  the buffer to format into
@@ -475,8 +480,8 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     }
 
     /**
-     * <p>Formats a {@code Calendar} object into the
-     * supplied {@code StringBuffer}.</p>
+     * <p>Formats a {@link Calendar} object into the
+     * supplied {@link StringBuffer}.</p>
      *
      * @param calendar  the calendar to format
      * @param buf  the buffer to format into
@@ -491,7 +496,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
 
     /**
      * <p>Formats a millisecond {@code long} value into the
-     * supplied {@code StringBuffer}.</p>
+     * supplied {@link StringBuffer}.</p>
      *
      * @param millis  the millisecond value to format
      * @param buf  the buffer to format into
@@ -504,8 +509,8 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     }
 
     /**
-     * <p>Formats a {@code Date} object into the
-     * supplied {@code StringBuffer} using a {@code GregorianCalendar}.</p>
+     * <p>Formats a {@link Date} object into the
+     * supplied {@link StringBuffer} using a {@link GregorianCalendar}.</p>
      *
      * @param date  the date to format
      * @param buf  the buffer to format into
@@ -518,8 +523,8 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     }
 
     /**
-     * <p>Formats a {@code Calendar} object into the
-     * supplied {@code StringBuffer}.</p>
+     * <p>Formats a {@link Calendar} object into the
+     * supplied {@link StringBuffer}.</p>
      *
      * @param calendar  the calendar to format
      * @param buf  the buffer to format into
@@ -581,7 +586,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /**
      * <p>Gets the time zone used by this formatter.</p>
      *
-     * <p>This zone is always used for {@code Date} formatting. </p>
+     * <p>This zone is always used for {@link Date} formatting. </p>
      *
      * @return the time zone
      */

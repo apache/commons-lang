@@ -84,7 +84,6 @@ public class MutableFloatTest {
         assertThrows(NullPointerException.class, () -> new MutableFloat((Number) null));
     }
 
-    // ----------------------------------------------------------------
     @Test
     public void testConstructors() {
         assertEquals(0f, new MutableFloat().floatValue(), 0.0001f);

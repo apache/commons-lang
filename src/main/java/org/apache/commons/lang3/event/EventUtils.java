@@ -56,7 +56,7 @@ public class EventUtils {
                     + " does not have an accessible add" + listenerType.getSimpleName ()
                     + " method which takes a parameter of type " + listenerType.getName() + ".");
         } catch (final InvocationTargetException e) {
-            throw new RuntimeException("Unable to add listener.", e.getCause());
+            throw new IllegalArgumentException("Unable to add listener.", e.getCause());
         }
     }
 
@@ -84,7 +84,7 @@ public class EventUtils {
         private final Set<String> eventTypes;
 
         /**
-         * Creates a new instance of {@code EventBindingInvocationHandler}.
+         * Creates a new instance of {@link EventBindingInvocationHandler}.
          *
          * @param target the target object for method invocations
          * @param methodName the name of the method to be invoked

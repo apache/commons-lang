@@ -31,6 +31,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -129,7 +130,7 @@ public class MethodUtils {
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
      * <p>This method supports calls to methods taking primitive parameters
-     * via passing in wrapping classes. So, for example, a {@code Boolean} object
+     * via passing in wrapping classes. So, for example, a {@link Boolean} object
      * would match a {@code boolean} primitive.</p>
      *
      * <p>This is a convenient wrapper for
@@ -156,7 +157,7 @@ public class MethodUtils {
      * <p>Invokes a named method whose parameter type matches the object type.</p>
      *
      * <p>This method supports calls to methods taking primitive parameters
-     * via passing in wrapping classes. So, for example, a {@code Boolean} object
+     * via passing in wrapping classes. So, for example, a {@link Boolean} object
      * would match a {@code boolean} primitive.</p>
      *
      * <p>This is a convenient wrapper for
@@ -186,7 +187,7 @@ public class MethodUtils {
      * <p>Invokes a named method whose parameter type matches the object type.</p>
      *
      * <p>This method supports calls to methods taking primitive parameters
-     * via passing in wrapping classes. So, for example, a {@code Boolean} object
+     * via passing in wrapping classes. So, for example, a {@link Boolean} object
      * would match a {@code boolean} primitive.</p>
      *
      * @param object invoke method on this object
@@ -201,32 +202,29 @@ public class MethodUtils {
      * @throws IllegalAccessException if the requested method is not accessible via reflection
      * @since 3.5
      */
-    public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName,
-            Object[] args, Class<?>[] parameterTypes)
-            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName, Object[] args, Class<?>[] parameterTypes)
+        throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        Objects.requireNonNull(object, "object");
         parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
         args = ArrayUtils.nullToEmpty(args);
 
         final String messagePrefix;
         final Method method;
 
+        final Class<? extends Object> cls = object.getClass();
         if (forceAccess) {
             messagePrefix = "No such method: ";
-            method = getMatchingMethod(object.getClass(),
-                    methodName, parameterTypes);
+            method = getMatchingMethod(cls, methodName, parameterTypes);
             if (method != null && !method.isAccessible()) {
                 method.setAccessible(true);
             }
         } else {
             messagePrefix = "No such accessible method: ";
-            method = getMatchingAccessibleMethod(object.getClass(),
-                    methodName, parameterTypes);
+            method = getMatchingAccessibleMethod(cls, methodName, parameterTypes);
         }
 
         if (method == null) {
-            throw new NoSuchMethodException(messagePrefix
-                    + methodName + "() on object: "
-                    + object.getClass().getName());
+            throw new NoSuchMethodException(messagePrefix + methodName + "() on object: " + cls.getName());
         }
         args = toVarArgs(method, args);
 
@@ -239,7 +237,7 @@ public class MethodUtils {
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
      * <p>This method supports calls to methods taking primitive parameters
-     * via passing in wrapping classes. So, for example, a {@code Boolean} object
+     * via passing in wrapping classes. So, for example, a {@link Boolean} object
      * would match a {@code boolean} primitive.</p>
      *
      * @param object invoke method on this object
@@ -326,18 +324,15 @@ public class MethodUtils {
      * @throws IllegalAccessException if the requested method is not accessible
      *  via reflection
      */
-    public static Object invokeExactMethod(final Object object, final String methodName,
-            Object[] args, Class<?>[] parameterTypes)
-            throws NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException {
+    public static Object invokeExactMethod(final Object object, final String methodName, Object[] args, Class<?>[] parameterTypes)
+        throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        Objects.requireNonNull(object, "object");
         args = ArrayUtils.nullToEmpty(args);
         parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Method method = getAccessibleMethod(object.getClass(), methodName,
-                parameterTypes);
+        final Class<? extends Object> cls = object.getClass();
+        final Method method = getAccessibleMethod(cls, methodName, parameterTypes);
         if (method == null) {
-            throw new NoSuchMethodException("No such accessible method: "
-                    + methodName + "() on object: "
-                    + object.getClass().getName());
+            throw new NoSuchMethodException("No such accessible method: " + methodName + "() on object: " + cls.getName());
         }
         return method.invoke(object, args);
     }
@@ -381,7 +376,7 @@ public class MethodUtils {
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
      * <p>This method supports calls to methods taking primitive parameters
-     * via passing in wrapping classes. So, for example, a {@code Boolean} class
+     * via passing in wrapping classes. So, for example, a {@link Boolean} class
      * would match a {@code boolean} primitive.</p>
      *
      * <p>This is a convenient wrapper for
@@ -412,7 +407,7 @@ public class MethodUtils {
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
      * <p>This method supports calls to methods taking primitive parameters
-     * via passing in wrapping classes. So, for example, a {@code Boolean} class
+     * via passing in wrapping classes. So, for example, a {@link Boolean} class
      * would match a {@code boolean} primitive.</p>
      *
      *
@@ -630,7 +625,7 @@ public class MethodUtils {
                 try {
                     return anInterface.getDeclaredMethod(methodName,
                             parameterTypes);
-                } catch (final NoSuchMethodException e) { // NOPMD
+                } catch (final NoSuchMethodException ignored) {
                     /*
                      * Swallow, if no method is found after the loop then this
                      * method returns null.
@@ -660,7 +655,7 @@ public class MethodUtils {
      * </p>
      *
      * <p>This method can match primitive parameter by passing in wrapper classes.
-     * For example, a {@code Boolean} will match a primitive {@code boolean}
+     * For example, a {@link Boolean} will match a primitive {@code boolean}
      * parameter.
      * </p>
      *
@@ -672,10 +667,9 @@ public class MethodUtils {
     public static Method getMatchingAccessibleMethod(final Class<?> cls,
             final String methodName, final Class<?>... parameterTypes) {
         try {
-            final Method method = cls.getMethod(methodName, parameterTypes);
-            MemberUtils.setAccessibleWorkaround(method);
-            return method;
-        } catch (final NoSuchMethodException e) { // NOPMD - Swallow the exception
+            return MemberUtils.setAccessibleWorkaround(cls.getMethod(methodName, parameterTypes));
+        } catch (final NoSuchMethodException ignored) {
+            // Swallow the exception
         }
         // search through all methods
         final Method[] methods = cls.getMethods();
@@ -730,13 +724,14 @@ public class MethodUtils {
      * @param cls The class that will be subjected to the method search
      * @param methodName The method that we wish to call
      * @param parameterTypes Argument class types
+     * @throws IllegalStateException if there is no unique result
      * @return The method
      *
      * @since 3.5
      */
     public static Method getMatchingMethod(final Class<?> cls, final String methodName,
             final Class<?>... parameterTypes) {
-        Validate.notNull(cls, "cls");
+        Objects.requireNonNull(cls, "cls");
         Validate.notEmpty(methodName, "methodName");
 
         final List<Method> methods = Stream.of(cls.getDeclaredMethods())
@@ -822,7 +817,7 @@ public class MethodUtils {
      * @since 3.2
      */
     public static Set<Method> getOverrideHierarchy(final Method method, final Interfaces interfacesBehavior) {
-        Validate.notNull(method);
+        Objects.requireNonNull(method, "method");
         final Set<Method> result = new LinkedHashSet<>();
         result.add(method);
 
@@ -924,7 +919,7 @@ public class MethodUtils {
                                                             final Class<? extends Annotation> annotationCls,
                                                             final boolean searchSupers, final boolean ignoreAccess) {
 
-        Validate.notNull(cls, "cls");
+        Objects.requireNonNull(cls, "cls");
         Validate.notNull(annotationCls, "annotationCls");
         final List<Class<?>> classes = searchSupers ? getAllSuperclassesAndInterfaces(cls) : new ArrayList<>();
         classes.add(0, cls);
@@ -961,8 +956,8 @@ public class MethodUtils {
     public static <A extends Annotation> A getAnnotation(final Method method, final Class<A> annotationCls,
                                                          final boolean searchSupers, final boolean ignoreAccess) {
 
-        Validate.notNull(method, "method");
-        Validate.notNull(annotationCls, "annotationCls");
+        Objects.requireNonNull(method, "method");
+        Objects.requireNonNull(annotationCls, "annotationCls");
         if (!ignoreAccess && !MemberUtils.isAccessible(method)) {
             return null;
         }
@@ -993,7 +988,7 @@ public class MethodUtils {
      * from interfaces, and so on in a breadth first way.</p>
      *
      * @param cls  the class to look up, may be {@code null}
-     * @return the combined {@code List} of superclasses and interfaces in order
+     * @return the combined {@link List} of superclasses and interfaces in order
      * going up from this one
      *  {@code null} if null input
      */
@@ -1012,7 +1007,7 @@ public class MethodUtils {
             final Class<?> acls;
             if (interfaceIndex >= allInterfaces.size()) {
                 acls = allSuperclasses.get(superClassIndex++);
-            } else if ((superClassIndex >= allSuperclasses.size()) || (interfaceIndex < superClassIndex) || !(superClassIndex < interfaceIndex)) {
+            } else if ((superClassIndex >= allSuperclasses.size()) || !(superClassIndex < interfaceIndex)) {
                 acls = allInterfaces.get(interfaceIndex++);
             } else {
                 acls = allSuperclasses.get(superClassIndex++);

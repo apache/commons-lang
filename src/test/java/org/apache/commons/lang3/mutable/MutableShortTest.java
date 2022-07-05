@@ -73,7 +73,6 @@ public class MutableShortTest {
         assertThrows(NullPointerException.class, () -> mutNum.compareTo(null));
     }
 
-    // ----------------------------------------------------------------
     @Test
     public void testConstructors() {
         assertEquals((short) 0, new MutableShort().shortValue());

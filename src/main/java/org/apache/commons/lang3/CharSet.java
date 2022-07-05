@@ -178,7 +178,7 @@ public class CharSet implements Serializable {
     }
 
     /**
-     * <p>Add a set definition string to the {@code CharSet}.</p>
+     * <p>Add a set definition string to the {@link CharSet}.</p>
      *
      * @param str  set definition string
      */
@@ -224,7 +224,7 @@ public class CharSet implements Serializable {
     }
 
     /**
-     * <p>Does the {@code CharSet} contain the specified
+     * <p>Does the {@link CharSet} contain the specified
      * character {@code ch}.</p>
      *
      * @param ch  the character to check for
@@ -243,7 +243,7 @@ public class CharSet implements Serializable {
 
     // Basics
     /**
-     * <p>Compares two {@code CharSet} objects, returning true if they represent
+     * <p>Compares two {@link CharSet} objects, returning true if they represent
      * exactly the same set of characters defined in the same way.</p>
      *
      * <p>The two sets {@code abc} and {@code a-c} are <i>not</i>

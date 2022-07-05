@@ -21,9 +21,9 @@ import java.util.Objects;
 import java.util.function.DoubleUnaryOperator;
 
 /**
- * A functional interface like {@link DoubleUnaryOperator} that declares a {@code Throwable}.
+ * A functional interface like {@link DoubleUnaryOperator} that declares a {@link Throwable}.
  *
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 public interface FailableDoubleUnaryOperator<E extends Throwable> {
@@ -35,7 +35,7 @@ public interface FailableDoubleUnaryOperator<E extends Throwable> {
     /**
      * Returns a unary operator that always returns its input argument.
      *
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return a unary operator that always returns its input argument
      */
     static <E extends Throwable> FailableDoubleUnaryOperator<E> identity() {
@@ -45,7 +45,7 @@ public interface FailableDoubleUnaryOperator<E extends Throwable> {
     /**
      * Returns The NOP singleton.
      *
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     static <E extends Throwable> FailableDoubleUnaryOperator<E> nop() {
@@ -53,11 +53,11 @@ public interface FailableDoubleUnaryOperator<E extends Throwable> {
     }
 
     /**
-     * Returns a composed {@code FailableDoubleUnaryOperator} like
+     * Returns a composed {@link FailableDoubleUnaryOperator} like
      * {@link DoubleUnaryOperator#andThen(DoubleUnaryOperator)}.
      *
      * @param after the operator to apply after this one.
-     * @return a composed {@code FailableDoubleUnaryOperator} like
+     * @return a composed {@link FailableDoubleUnaryOperator} like
      *         {@link DoubleUnaryOperator#andThen(DoubleUnaryOperator)}.
      * @throws NullPointerException if after is null.
      * @see #compose(FailableDoubleUnaryOperator)
@@ -77,11 +77,11 @@ public interface FailableDoubleUnaryOperator<E extends Throwable> {
     double applyAsDouble(double operand) throws E;
 
     /**
-     * Returns a composed {@code FailableDoubleUnaryOperator} like
+     * Returns a composed {@link FailableDoubleUnaryOperator} like
      * {@link DoubleUnaryOperator#compose(DoubleUnaryOperator)}.
      *
      * @param before the operator to apply before this one.
-     * @return a composed {@code FailableDoubleUnaryOperator} like
+     * @return a composed {@link FailableDoubleUnaryOperator} like
      *         {@link DoubleUnaryOperator#compose(DoubleUnaryOperator)}.
      * @throws NullPointerException if before is null.
      * @see #andThen(FailableDoubleUnaryOperator)

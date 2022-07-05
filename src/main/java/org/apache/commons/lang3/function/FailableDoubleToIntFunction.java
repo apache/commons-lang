@@ -20,9 +20,9 @@ package org.apache.commons.lang3.function;
 import java.util.function.DoubleToIntFunction;
 
 /**
- * A functional interface like {@link DoubleToIntFunction} that declares a {@code Throwable}.
+ * A functional interface like {@link DoubleToIntFunction} that declares a {@link Throwable}.
  *
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -35,10 +35,10 @@ public interface FailableDoubleToIntFunction<E extends Throwable> {
     /**
      * Returns The NOP singleton.
      *
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
-    static <E extends Throwable> FailableDoubleToIntFunction<E> nop() {
+   static <E extends Throwable> FailableDoubleToIntFunction<E> nop() {
         return NOP;
     }
 

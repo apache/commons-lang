@@ -21,7 +21,26 @@
   false positive nature has been analyzed individually and they have been
   put here to instruct findbugs it must ignore them.
 -->
-<FindBugsFilter>
+<FindBugsFilter
+    xmlns="https://github.com/spotbugs/filter/3.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
+
+  <!-- TODO Can any of these be done without breaking binary compatibility? -->
+  <Match>
+    <Class name="~.*" />
+    <Or>
+      <Bug pattern="EI_EXPOSE_REP" />
+      <Bug pattern="EI_EXPOSE_REP2" />
+      <Bug pattern="MS_EXPOSE_REP" />
+    </Or>
+  </Match>
+
+  <!-- TODO Can any of these be done without breaking binary compatibility? -->
+  <Match>
+    <Class name="org.apache.commons.lang3.reflect.FieldUtils" />
+    <Bug pattern="REFLF_REFLECTION_MAY_INCREASE_ACCESSIBILITY_OF_FIELD" />
+  </Match>
 
   <!-- https://github.com/spotbugs/spotbugs/issues/1504 -->
   <Match>

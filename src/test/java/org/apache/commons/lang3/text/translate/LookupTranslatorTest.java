@@ -35,7 +35,7 @@ public class LookupTranslatorTest  {
         final LookupTranslator lt = new LookupTranslator(new CharSequence[][] { { "one", "two" } });
         final StringWriter out = new StringWriter();
         final int result = lt.translate("one", 0, out);
-        assertEquals(3, result, "Incorrect codepoint consumption");
+        assertEquals(3, result, "Incorrect code point consumption");
         assertEquals("two", out.toString(), "Incorrect value");
     }
 
@@ -45,7 +45,7 @@ public class LookupTranslatorTest  {
         final LookupTranslator lt = new LookupTranslator(new CharSequence[][] { { new StringBuffer("one"), new StringBuffer("two") } });
         final StringWriter out = new StringWriter();
         final int result = lt.translate(new StringBuffer("one"), 0, out);
-        assertEquals(3, result, "Incorrect codepoint consumption");
+        assertEquals(3, result, "Incorrect code point consumption");
         assertEquals("two", out.toString(), "Incorrect value");
     }
 

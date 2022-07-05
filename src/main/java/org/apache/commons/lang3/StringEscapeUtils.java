@@ -31,7 +31,7 @@ import org.apache.commons.lang3.text.translate.UnicodeUnescaper;
 import org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover;
 
 /**
- * <p>Escapes and unescapes {@code String}s for
+ * <p>Escapes and unescapes {@link String}s for
  * Java, Java Script, HTML and XML.</p>
  *
  * <p>#ThreadSafe#</p>
@@ -418,7 +418,7 @@ public class StringEscapeUtils {
     /* Helper functions */
 
     /**
-     * <p>{@code StringEscapeUtils} instances should NOT be constructed in
+     * <p>{@link StringEscapeUtils} instances should NOT be constructed in
      * standard programming.</p>
      *
      * <p>Instead, the class should be used as:</p>
@@ -430,10 +430,8 @@ public class StringEscapeUtils {
     public StringEscapeUtils() {
     }
 
-    // Java and JavaScript
-    //--------------------------------------------------------------------------
     /**
-     * <p>Escapes the characters in a {@code String} using Java String rules.</p>
+     * <p>Escapes the characters in a {@link String} using Java String rules.</p>
      *
      * <p>Deals correctly with quotes and control-chars (tab, backslash, cr, ff, etc.) </p>
      *
@@ -457,7 +455,7 @@ public class StringEscapeUtils {
     }
 
     /**
-     * <p>Escapes the characters in a {@code String} using EcmaScript String rules.</p>
+     * <p>Escapes the characters in a {@link String} using EcmaScript String rules.</p>
      * <p>Escapes any values it finds into their EcmaScript String form.
      * Deals correctly with quotes and control-chars (tab, backslash, cr, ff, etc.) </p>
      *
@@ -485,7 +483,7 @@ public class StringEscapeUtils {
     }
 
     /**
-     * <p>Escapes the characters in a {@code String} using Json String rules.</p>
+     * <p>Escapes the characters in a {@link String} using Json String rules.</p>
      * <p>Escapes any values it finds into their Json String form.
      * Deals correctly with quotes and control-chars (tab, backslash, cr, ff, etc.) </p>
      *
@@ -513,28 +511,28 @@ public class StringEscapeUtils {
     }
 
     /**
-     * <p>Unescapes any Java literals found in the {@code String}.
+     * <p>Unescapes any Java literals found in the {@link String}.
      * For example, it will turn a sequence of {@code '\'} and
      * {@code 'n'} into a newline character, unless the {@code '\'}
      * is preceded by another {@code '\'}.</p>
      *
-     * @param input  the {@code String} to unescape, may be null
-     * @return a new unescaped {@code String}, {@code null} if null string input
+     * @param input  the {@link String} to unescape, may be null
+     * @return a new unescaped {@link String}, {@code null} if null string input
      */
     public static final String unescapeJava(final String input) {
         return UNESCAPE_JAVA.translate(input);
     }
 
     /**
-     * <p>Unescapes any EcmaScript literals found in the {@code String}.</p>
+     * <p>Unescapes any EcmaScript literals found in the {@link String}.</p>
      *
      * <p>For example, it will turn a sequence of {@code '\'} and {@code 'n'}
      * into a newline character, unless the {@code '\'} is preceded by another
      * {@code '\'}.</p>
      *
      * @see #unescapeJava(String)
-     * @param input  the {@code String} to unescape, may be null
-     * @return A new unescaped {@code String}, {@code null} if null string input
+     * @param input  the {@link String} to unescape, may be null
+     * @return A new unescaped {@link String}, {@code null} if null string input
      *
      * @since 3.0
      */
@@ -543,15 +541,15 @@ public class StringEscapeUtils {
     }
 
     /**
-     * <p>Unescapes any Json literals found in the {@code String}.</p>
+     * <p>Unescapes any Json literals found in the {@link String}.</p>
      *
      * <p>For example, it will turn a sequence of {@code '\'} and {@code 'n'}
      * into a newline character, unless the {@code '\'} is preceded by another
      * {@code '\'}.</p>
      *
      * @see #unescapeJava(String)
-     * @param input  the {@code String} to unescape, may be null
-     * @return A new unescaped {@code String}, {@code null} if null string input
+     * @param input  the {@link String} to unescape, may be null
+     * @return A new unescaped {@link String}, {@code null} if null string input
      *
      * @since 3.2
      */
@@ -559,10 +557,8 @@ public class StringEscapeUtils {
         return UNESCAPE_JSON.translate(input);
     }
 
-    // HTML and XML
-    //--------------------------------------------------------------------------
     /**
-     * <p>Escapes the characters in a {@code String} using HTML entities.</p>
+     * <p>Escapes the characters in a {@link String} using HTML entities.</p>
      *
      * <p>
      * For example:
@@ -577,8 +573,8 @@ public class StringEscapeUtils {
      * Note that the commonly used apostrophe escape character (&amp;apos;)
      * is not a legal entity and so is not supported). </p>
      *
-     * @param input  the {@code String} to escape, may be null
-     * @return a new escaped {@code String}, {@code null} if null string input
+     * @param input  the {@link String} to escape, may be null
+     * @return a new escaped {@link String}, {@code null} if null string input
      *
      * @see <a href="http://hotwired.lycos.com/webmonkey/reference/special_characters/">ISO Entities</a>
      * @see <a href="http://www.w3.org/TR/REC-html32#latin1">HTML 3.2 Character Entities for ISO Latin-1</a>
@@ -593,11 +589,11 @@ public class StringEscapeUtils {
     }
 
     /**
-     * <p>Escapes the characters in a {@code String} using HTML entities.</p>
+     * <p>Escapes the characters in a {@link String} using HTML entities.</p>
      * <p>Supports only the HTML 3.0 entities. </p>
      *
-     * @param input  the {@code String} to escape, may be null
-     * @return a new escaped {@code String}, {@code null} if null string input
+     * @param input  the {@link String} to escape, may be null
+     * @return a new escaped {@link String}, {@code null} if null string input
      *
      * @since 3.0
      */
@@ -617,8 +613,8 @@ public class StringEscapeUtils {
      * verbatim into the result string. e.g. {@code "&gt;&zzzz;x"} will
      * become {@code ">&zzzz;x"}.</p>
      *
-     * @param input  the {@code String} to unescape, may be null
-     * @return a new unescaped {@code String}, {@code null} if null string input
+     * @param input  the {@link String} to unescape, may be null
+     * @return a new unescaped {@link String}, {@code null} if null string input
      *
      * @since 3.0
      */
@@ -631,8 +627,8 @@ public class StringEscapeUtils {
      * containing the actual Unicode characters corresponding to the
      * escapes. Supports only HTML 3.0 entities.</p>
      *
-     * @param input  the {@code String} to unescape, may be null
-     * @return a new unescaped {@code String}, {@code null} if null string input
+     * @param input  the {@link String} to unescape, may be null
+     * @return a new unescaped {@link String}, {@code null} if null string input
      *
      * @since 3.0
      */
@@ -641,7 +637,7 @@ public class StringEscapeUtils {
     }
 
     /**
-     * <p>Escapes the characters in a {@code String} using XML entities.</p>
+     * <p>Escapes the characters in a {@link String} using XML entities.</p>
      *
      * <p>For example: {@code "bread" & "butter"} =&gt;
      * {@code &quot;bread&quot; &amp; &quot;butter&quot;}.
@@ -655,8 +651,8 @@ public class StringEscapeUtils {
      *    via the following:
      * {@code StringEscapeUtils.ESCAPE_XML.with( NumericEntityEscaper.between(0x7f, Integer.MAX_VALUE) );}</p>
      *
-     * @param input  the {@code String} to escape, may be null
-     * @return a new escaped {@code String}, {@code null} if null string input
+     * @param input  the {@link String} to escape, may be null
+     * @return a new escaped {@link String}, {@code null} if null string input
      * @see #unescapeXml(java.lang.String)
      * @deprecated use {@link #escapeXml10(java.lang.String)} or {@link #escapeXml11(java.lang.String)} instead.
      */
@@ -666,14 +662,14 @@ public class StringEscapeUtils {
     }
 
     /**
-     * <p>Escapes the characters in a {@code String} using XML entities.</p>
+     * <p>Escapes the characters in a {@link String} using XML entities.</p>
      *
      * <p>For example: {@code "bread" & "butter"} =&gt;
      * {@code &quot;bread&quot; &amp; &quot;butter&quot;}.
      * </p>
      *
      * <p>Note that XML 1.0 is a text-only format: it cannot represent control
-     * characters or unpaired Unicode surrogate codepoints, even after escaping.
+     * characters or unpaired Unicode surrogate code points, even after escaping.
      * {@code escapeXml10} will remove characters that do not fit in the
      * following ranges:</p>
      *
@@ -688,8 +684,8 @@ public class StringEscapeUtils {
      * document. If you want to allow more non-text characters in an XML 1.1
      * document, use {@link #escapeXml11(String)}.</p>
      *
-     * @param input  the {@code String} to escape, may be null
-     * @return a new escaped {@code String}, {@code null} if null string input
+     * @param input  the {@link String} to escape, may be null
+     * @return a new escaped {@link String}, {@code null} if null string input
      * @see #unescapeXml(java.lang.String)
      * @since 3.3
      */
@@ -698,14 +694,14 @@ public class StringEscapeUtils {
     }
 
     /**
-     * <p>Escapes the characters in a {@code String} using XML entities.</p>
+     * <p>Escapes the characters in a {@link String} using XML entities.</p>
      *
      * <p>For example: {@code "bread" & "butter"} =&gt;
      * {@code &quot;bread&quot; &amp; &quot;butter&quot;}.
      * </p>
      *
      * <p>XML 1.1 can represent certain control characters, but it cannot represent
-     * the null byte or unpaired Unicode surrogate codepoints, even after escaping.
+     * the null byte or unpaired Unicode surrogate code points, even after escaping.
      * {@code escapeXml11} will remove characters that do not fit in the following
      * ranges:</p>
      *
@@ -718,8 +714,8 @@ public class StringEscapeUtils {
      * <p>The returned string can be inserted into a valid XML 1.1 document. Do not
      * use it for XML 1.0 documents.</p>
      *
-     * @param input  the {@code String} to escape, may be null
-     * @return a new escaped {@code String}, {@code null} if null string input
+     * @param input  the {@link String} to escape, may be null
+     * @return a new escaped {@link String}, {@code null} if null string input
      * @see #unescapeXml(java.lang.String)
      * @since 3.3
      */
@@ -738,8 +734,8 @@ public class StringEscapeUtils {
      * <p>Note that numerical \\u Unicode codes are unescaped to their respective
      *    Unicode characters. This may change in future releases. </p>
      *
-     * @param input  the {@code String} to unescape, may be null
-     * @return a new unescaped {@code String}, {@code null} if null string input
+     * @param input  the {@link String} to unescape, may be null
+     * @return a new unescaped {@link String}, {@code null} if null string input
      * @see #escapeXml(String)
      * @see #escapeXml10(String)
      * @see #escapeXml11(String)
@@ -750,7 +746,7 @@ public class StringEscapeUtils {
 
 
     /**
-     * <p>Returns a {@code String} value for a CSV column enclosed in double quotes,
+     * <p>Returns a {@link String} value for a CSV column enclosed in double quotes,
      * if required.</p>
      *
      * <p>If the value contains a comma, newline or double quote, then the
@@ -774,7 +770,7 @@ public class StringEscapeUtils {
     }
 
     /**
-     * <p>Returns a {@code String} value for an unescaped CSV column. </p>
+     * <p>Returns a {@link String} value for an unescaped CSV column. </p>
      *
      * <p>If the value is enclosed in double quotes, and contains a comma, newline
      *    or double quote, then quotes are removed.

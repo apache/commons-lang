@@ -20,10 +20,10 @@ package org.apache.commons.lang3.function;
 import java.util.function.ToIntFunction;
 
 /**
- * A functional interface like {@link ToIntFunction} that declares a {@code Throwable}.
+ * A functional interface like {@link ToIntFunction} that declares a {@link Throwable}.
  *
  * @param <T> the type of the argument to the function
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -37,7 +37,7 @@ public interface FailableToIntFunction<T, E extends Throwable> {
      * Returns The NOP singleton.
      *
      * @param <T> the type of the argument to the function
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     static <T, E extends Throwable> FailableToIntFunction<T, E> nop() {

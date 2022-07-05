@@ -47,7 +47,7 @@ import org.apache.commons.lang3.Validate;
  * on a production system in a background process to gather statistical
  * information. This background processing should not produce so much database
  * load that the functionality and the performance of the production system are
- * impacted. Here a {@code TimedSemaphore} could be installed to guarantee that
+ * impacted. Here a {@link TimedSemaphore} could be installed to guarantee that
  * only a given number of database queries are issued per second.
  * </p>
  * <p>
@@ -78,7 +78,7 @@ import org.apache.commons.lang3.Validate;
  * </pre>
  *
  * <p>
- * The following code fragment shows how a {@code TimedSemaphore} is created
+ * The following code fragment shows how a {@link TimedSemaphore} is created
  * that allows only 10 operations per second and passed to the statistics
  * thread:
  * </p>
@@ -91,15 +91,15 @@ import org.apache.commons.lang3.Validate;
  *
  * <p>
  * When creating an instance the time period for the semaphore must be
- * specified. {@code TimedSemaphore} uses an executor service with a
+ * specified. {@link TimedSemaphore} uses an executor service with a
  * corresponding period to monitor this interval. The {@code
  * ScheduledExecutorService} to be used for this purpose can be provided at
  * construction time. Alternatively the class creates an internal executor
  * service.
  * </p>
  * <p>
- * Client code that uses {@code TimedSemaphore} has to call the
- * {@link #acquire()} method in each processing step. {@code TimedSemaphore}
+ * Client code that uses {@link TimedSemaphore} has to call the
+ * {@link #acquire()} method in each processing step. {@link TimedSemaphore}
  * keeps track of the number of invocations of the {@link #acquire()} method and
  * blocks the calling thread if the counter exceeds the limit specified. When
  * the timer signals the end of the time period the counter is reset and all
@@ -128,9 +128,9 @@ import org.apache.commons.lang3.Validate;
  * lets all callers pass directly.
  * </p>
  * <p>
- * When the {@code TimedSemaphore} is no more needed its {@link #shutdown()}
+ * When the {@link TimedSemaphore} is no more needed its {@link #shutdown()}
  * method should be called. This causes the periodic task that monitors the time
- * interval to be canceled. If the {@code ScheduledExecutorService} has been
+ * interval to be canceled. If the {@link ScheduledExecutorService} has been
  * created by the semaphore at construction time, it is also shut down.
  * resources. After that {@link #acquire()} must not be called any more.
  * </p>
@@ -140,7 +140,7 @@ import org.apache.commons.lang3.Validate;
 public class TimedSemaphore {
     /**
      * Constant for a value representing no limit. If the limit is set to a
-     * value less or equal this constant, the {@code TimedSemaphore} will be
+     * value less or equal this constant, the {@link TimedSemaphore} will be
      * effectively switched off.
      */
     public static final int NO_LIMIT = 0;
@@ -293,7 +293,7 @@ public class TimedSemaphore {
      * the limit for the current period has already been reached. If
      * {@link #shutdown()} has already been invoked, calling this method will
      * cause an exception. The very first call of this method starts the timer
-     * task which monitors the time period set for this {@code TimedSemaphore}.
+     * task which monitors the time period set for this {@link TimedSemaphore}.
      * From now on the semaphore is active.
      *
      * @throws InterruptedException if the thread gets interrupted

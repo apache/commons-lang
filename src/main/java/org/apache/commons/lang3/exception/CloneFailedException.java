@@ -23,11 +23,8 @@ package org.apache.commons.lang3.exception;
  * @since 3.0
  */
 public class CloneFailedException extends RuntimeException {
-    // ~ Static fields/initializers ---------------------------------------------
 
     private static final long serialVersionUID = 20091223L;
-
-    // ~ Constructors -----------------------------------------------------------
 
     /**
      * Constructs a CloneFailedException.

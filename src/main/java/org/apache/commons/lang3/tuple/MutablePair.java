@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * <p>A mutable pair consisting of two {@code Object} elements.</p>
+ * <p>A mutable pair consisting of two {@link Object} elements.</p>
  *
  * <p>Not #ThreadSafe#</p>
  *

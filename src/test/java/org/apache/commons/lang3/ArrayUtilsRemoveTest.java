@@ -605,7 +605,6 @@ public class ArrayUtilsRemoveTest {
 
 
     @Test
-    @SuppressWarnings("cast")
     public void testRemoveElementLongArray() {
         long[] array;
         array = ArrayUtils.removeElement((long[]) null, 1L);

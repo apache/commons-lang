@@ -47,7 +47,6 @@ public class StrTokenizerTest {
         assertNotSame(StrTokenizer.getTSVInstance(), tokenizer);
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void test1() {
 
@@ -616,7 +615,6 @@ public class StrTokenizerTest {
         assertEquals("a", clonedTokenizer.nextToken());
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testConstructor_String() {
         StrTokenizer tok = new StrTokenizer("a b");

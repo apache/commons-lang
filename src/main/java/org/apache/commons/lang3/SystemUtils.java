@@ -752,7 +752,7 @@ public class SystemUtils {
 
     /**
      * <p>
-     * The {@code user.country} or {@code user.region} System Property. User's country code, such as {@code GB}. First
+     * The {@code user.country} or {@code user.region} System Property. User's country code, such as {@code "GB"}. First
      * in Java version 1.2 as {@code user.region}. Renamed to {@code user.country} in 1.4
      * </p>
      * <p>
@@ -1059,6 +1059,26 @@ public class SystemUtils {
      * @since 3.13.0
      */
     public static final boolean IS_JAVA_16 = getJavaVersionMatches("16");
+
+    /**
+     * Is {@code true} if this is Java version 17 (also 17.x versions).
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     *
+     * @since 3.13.0
+     */
+    public static final boolean IS_JAVA_17 = getJavaVersionMatches("17");
+
+    /**
+     * Is {@code true} if this is Java version 18 (also 18.x versions).
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     *
+     * @since 3.13.0
+     */
+    public static final boolean IS_JAVA_18 = getJavaVersionMatches("18");
 
     // Operating system checks
     // -----------------------------------------------------------------------
@@ -1561,7 +1581,6 @@ public class SystemUtils {
      */
     public static final boolean IS_OS_WINDOWS_XP = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " XP");
 
-    // -----------------------------------------------------------------------
     /**
      * <p>
      * Is {@code true} if this is Windows Vista.
@@ -1612,6 +1631,25 @@ public class SystemUtils {
 
     /**
      * <p>
+     * Is {@code true} if this is Windows 11.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     * <p>
+     * OpenJDK fixed the return value for {@code os.name} on Windows 11 to versions 8, 11, and 17:
+     * </p>
+     * <ul>
+     * <li>Affects Java versions 7u321, 8u311, 11.0.13-oracle, 17.0.1: https://bugs.openjdk.org/browse/JDK-8274737</li>
+     * <li>Fixed in OpenJDK commit https://github.com/openjdk/jdk/commit/97ea9dd2f24f9f1fb9b9345a4202a825ee28e014</li>
+     * </ul>
+     *
+     * @since 3.13.0
+     */
+    public static final boolean IS_OS_WINDOWS_11 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 11");
+
+    /**
+     * <p>
      * Is {@code true} if this is z/OS.
      * </p>
      * <p>
@@ -1632,7 +1670,7 @@ public class SystemUtils {
      * Gets an environment variable, defaulting to {@code defaultValue} if the variable cannot be read.
      * </p>
      * <p>
-     * If a {@code SecurityException} is caught, the return value is {@code defaultValue} and a message is written to
+     * If a {@link SecurityException} is caught, the return value is {@code defaultValue} and a message is written to
      * {@code System.err}.
      * </p>
      *
@@ -1671,7 +1709,7 @@ public class SystemUtils {
 
     /**
      * <p>
-     * Gets the Java home directory as a {@code File}.
+     * Gets the Java home directory as a {@link File}.
      * </p>
      *
      * @return a directory
@@ -1686,7 +1724,7 @@ public class SystemUtils {
 
     /**
      * <p>
-     * Gets the Java IO temporary directory as a {@code File}.
+     * Gets the Java IO temporary directory as a {@link File}.
      * </p>
      *
      * @return a directory
@@ -1732,13 +1770,12 @@ public class SystemUtils {
         return isOSNameMatch(OS_NAME, osNamePrefix);
     }
 
-    // -----------------------------------------------------------------------
     /**
      * <p>
      * Gets a System property, defaulting to {@code null} if the property cannot be read.
      * </p>
      * <p>
-     * If a {@code SecurityException} is caught, the return value is {@code null} and a message is written to
+     * If a {@link SecurityException} is caught, the return value is {@code null} and a message is written to
      * {@code System.err}.
      * </p>
      *
@@ -1758,7 +1795,7 @@ public class SystemUtils {
 
     /**
      * <p>
-     * Gets the user directory as a {@code File}.
+     * Gets the user directory as a {@link File}.
      * </p>
      *
      * @return a directory
@@ -1773,7 +1810,7 @@ public class SystemUtils {
 
     /**
      * <p>
-     * Gets the user home directory as a {@code File}.
+     * Gets the user home directory as a {@link File}.
      * </p>
      *
      * @return a directory
@@ -1833,7 +1870,6 @@ public class SystemUtils {
      * <p>
      * Is the Java version at least the requested version.
      * </p>
-     * <p>
      *
      * @param requiredVersion the required version, for example 1.31f
      * @return {@code true} if the actual version is equal or greater than the required version
@@ -1939,7 +1975,6 @@ public class SystemUtils {
         return true;
     }
 
-    // -----------------------------------------------------------------------
     /**
      * <p>
      * SystemUtils instances should NOT be constructed in standard programming. Instead, the class should be used as

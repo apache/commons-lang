@@ -338,12 +338,12 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
 
     /**
      * Compares this object against some other object. The result is {@code true} if and only if the argument is
-     * not {@code null} and is a {@code Float} object that represents a {@code float} that has the
+     * not {@code null} and is a {@link Float} object that represents a {@code float} that has the
      * identical bit pattern to the bit pattern of the {@code float} represented by this object. For this
      * purpose, two float values are considered to be the same if and only if the method
      * {@link Float#floatToIntBits(float)}returns the same int value when applied to each.
      * <p>
-     * Note that in most cases, for two instances of class {@code Float},{@code f1} and {@code f2},
+     * Note that in most cases, for two instances of class {@link Float},{@code f1} and {@code f2},
      * the value of {@code f1.equals(f2)} is {@code true} if and only if <blockquote>
      *
      * <pre>

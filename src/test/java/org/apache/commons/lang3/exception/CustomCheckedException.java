@@ -19,19 +19,20 @@ package org.apache.commons.lang3.exception;
 
 public class CustomCheckedException extends Exception {
 
+    private static final long serialVersionUID = 1L;
+
     public CustomCheckedException() {
-        super();
     }
 
-    public CustomCheckedException(String message) {
+    public CustomCheckedException(final String message) {
         super(message);
     }
 
-    public CustomCheckedException(String message, Throwable cause) {
+    public CustomCheckedException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
-    public CustomCheckedException(Throwable cause) {
+    public CustomCheckedException(final Throwable cause) {
         super(cause);
     }
 

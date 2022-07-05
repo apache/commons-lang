@@ -25,24 +25,13 @@ import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class MemoizerTest {
+public class MemoizerComputableTest {
 
     private Computable<Integer, Integer> computable;
 
     @BeforeEach
     public void setUpComputableMock() {
         computable = EasyMock.mock(Computable.class);
-    }
-
-    @Test
-    public void testOnlyCallComputableOnceIfDoesNotThrowException() throws Exception {
-        final Integer input = 1;
-        final Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable);
-        expect(computable.compute(input)).andReturn(input);
-        replay(computable);
-
-        assertEquals(input, memoizer.compute(input), "Should call computable first time");
-        assertEquals(input, memoizer.compute(input), "Should not call the computable the second time");
     }
 
     @Test
@@ -83,14 +72,14 @@ public class MemoizerTest {
     }
 
     @Test
-    public void testWhenComputableThrowsRuntimeException() throws Exception {
+    public void testOnlyCallComputableOnceIfDoesNotThrowException() throws Exception {
         final Integer input = 1;
         final Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable);
-        final RuntimeException runtimeException = new RuntimeException("Some runtime exception");
-        expect(computable.compute(input)).andThrow(runtimeException);
+        expect(computable.compute(input)).andReturn(input);
         replay(computable);
 
-        assertThrows(RuntimeException.class, () -> memoizer.compute(input));
+        assertEquals(input, memoizer.compute(input), "Should call computable first time");
+        assertEquals(input, memoizer.compute(input), "Should not call the computable the second time");
     }
 
     @Test
@@ -102,5 +91,16 @@ public class MemoizerTest {
         replay(computable);
 
         assertThrows(Error.class, () -> memoizer.compute(input));
+    }
+
+    @Test
+    public void testWhenComputableThrowsRuntimeException() throws Exception {
+        final Integer input = 1;
+        final Memoizer<Integer, Integer> memoizer = new Memoizer<>(computable);
+        final RuntimeException runtimeException = new RuntimeException("Some runtime exception");
+        expect(computable.compute(input)).andThrow(runtimeException);
+        replay(computable);
+
+        assertThrows(RuntimeException.class, () -> memoizer.compute(input));
     }
 }

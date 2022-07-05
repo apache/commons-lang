@@ -20,10 +20,10 @@ package org.apache.commons.lang3.function;
 import java.util.function.DoubleFunction;
 
 /**
- * A functional interface like {@link DoubleFunction} that declares a {@code Throwable}.
+ * A functional interface like {@link DoubleFunction} that declares a {@link Throwable}.
  *
  * @param <R> Return type.
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -37,7 +37,7 @@ public interface FailableDoubleFunction<R, E extends Throwable> {
      * Returns The NOP singleton.
      *
      * @param <R> Return type.
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     static <R, E extends Throwable> FailableDoubleFunction<R, E> nop() {

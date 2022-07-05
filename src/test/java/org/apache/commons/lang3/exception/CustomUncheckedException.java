@@ -19,19 +19,20 @@ package org.apache.commons.lang3.exception;
 
 public class CustomUncheckedException extends RuntimeException {
 
+    private static final long serialVersionUID = 1L;
+
     public CustomUncheckedException() {
-        super();
     }
 
-    public CustomUncheckedException(String message) {
+    public CustomUncheckedException(final String message) {
         super(message);
     }
 
-    public CustomUncheckedException(String message, Throwable cause) {
+    public CustomUncheckedException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
-    public CustomUncheckedException(Throwable cause) {
+    public CustomUncheckedException(final Throwable cause) {
         super(cause);
     }
 

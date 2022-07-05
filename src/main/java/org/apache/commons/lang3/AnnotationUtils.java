@@ -17,12 +17,12 @@
 package org.apache.commons.lang3;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.commons.lang3.exception.UncheckedException;
 
 /**
  * <p>Helper methods for working with {@link Annotation} instances.</p>
@@ -91,7 +91,7 @@ public class AnnotationUtils {
     };
 
     /**
-     * <p>{@code AnnotationUtils} instances should NOT be constructed in
+     * <p>{@link AnnotationUtils} instances should NOT be constructed in
      * standard programming. Instead, the class should be used statically.</p>
      *
      * <p>This constructor is public to permit tools that require a JavaBean
@@ -136,7 +136,7 @@ public class AnnotationUtils {
                     }
                 }
             }
-        } catch (final IllegalAccessException | InvocationTargetException ex) {
+        } catch (final ReflectiveOperationException ex) {
             return false;
         }
         return true;
@@ -149,7 +149,7 @@ public class AnnotationUtils {
      * @param a the Annotation for a hash code calculation is desired, not
      * {@code null}
      * @return the calculated hash code
-     * @throws RuntimeException if an {@code Exception} is encountered during
+     * @throws RuntimeException if an {@link Exception} is encountered during
      * annotation member access
      * @throws IllegalStateException if an annotation method invocation returns
      * {@code null}
@@ -161,14 +161,11 @@ public class AnnotationUtils {
             try {
                 final Object value = m.invoke(a);
                 if (value == null) {
-                    throw new IllegalStateException(
-                            String.format("Annotation method %s returned null", m));
+                    throw new IllegalStateException(String.format("Annotation method %s returned null", m));
                 }
                 result += hashMember(m.getName(), value);
-            } catch (final RuntimeException ex) {
-                throw ex;
-            } catch (final Exception ex) {
-                throw new RuntimeException(ex);
+            } catch (final ReflectiveOperationException ex) {
+                throw new UncheckedException(ex);
             }
         }
         return result;
@@ -186,14 +183,12 @@ public class AnnotationUtils {
         final ToStringBuilder builder = new ToStringBuilder(a, TO_STRING_STYLE);
         for (final Method m : a.annotationType().getDeclaredMethods()) {
             if (m.getParameterTypes().length > 0) {
-                continue; //wtf?
+                continue; // wtf?
             }
             try {
                 builder.append(m.getName(), m.invoke(a));
-            } catch (final RuntimeException ex) {
-                throw ex;
-            } catch (final Exception ex) {
-                throw new RuntimeException(ex);
+            } catch (final ReflectiveOperationException ex) {
+                throw new UncheckedException(ex);
             }
         }
         return builder.build();

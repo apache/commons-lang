@@ -21,9 +21,9 @@ import java.util.Objects;
 import java.util.function.LongPredicate;
 
 /**
- * A functional interface like {@link LongPredicate} that declares a {@code Throwable}.
+ * A functional interface like {@link LongPredicate} that declares a {@link Throwable}.
  *
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -40,17 +40,17 @@ public interface FailableLongPredicate<E extends Throwable> {
     /**
      * Returns The FALSE singleton.
      *
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
-    static <E extends Throwable> FailableLongPredicate<E> falsePredicate() {
+   static <E extends Throwable> FailableLongPredicate<E> falsePredicate() {
         return FALSE;
     }
 
     /**
      * Returns The TRUE singleton.
      *
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     static <E extends Throwable> FailableLongPredicate<E> truePredicate() {
@@ -58,10 +58,10 @@ public interface FailableLongPredicate<E extends Throwable> {
     }
 
     /**
-     * Returns a composed {@code FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
+     * Returns a composed {@link FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
      *
      * @param other a predicate that will be logically-ANDed with this predicate.
-     * @return a composed {@code FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
+     * @return a composed {@link FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
      * @throws NullPointerException if other is null
      */
     default FailableLongPredicate<E> and(final FailableLongPredicate<E> other) {
@@ -79,10 +79,10 @@ public interface FailableLongPredicate<E extends Throwable> {
     }
 
     /**
-     * Returns a composed {@code FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
+     * Returns a composed {@link FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
      *
      * @param other a predicate that will be logically-ORed with this predicate.
-     * @return a composed {@code FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
+     * @return a composed {@link FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
      * @throws NullPointerException if other is null
      */
     default FailableLongPredicate<E> or(final FailableLongPredicate<E> other) {

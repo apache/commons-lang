@@ -231,8 +231,6 @@ public class EqualsBuilder implements Builder<Boolean> {
         bypassReflectionClasses.add(String.class); //hashCode field being lazy but not transient
     }
 
-    //-------------------------------------------------------------------------
-
     /**
      * Set whether to include transient fields when reflectively comparing objects.
      * @param testTransients whether to test transient fields
@@ -259,13 +257,13 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * <p>Set {@code Class}es whose instances should be compared by calling their {@code equals}
+     * <p>Set {@link Class}es whose instances should be compared by calling their {@code equals}
      * although being in recursive mode. So the fields of theses classes will not be compared recursively by reflection.</p>
      *
      * <p>Here you should name classes having non-transient fields which are cache fields being set lazily.<br>
      * Prominent example being {@link String} class with its hash code cache field. Due to the importance
-     * of the {@code String} class, it is included in the default bypasses classes. Usually, if you use
-     * your own set of classes here, remember to include {@code String} class, too.</p>
+     * of the {@link String} class, it is included in the default bypasses classes. Usually, if you use
+     * your own set of classes here, remember to include {@link String} class, too.</p>
      * @param bypassReflectionClasses  classes to bypass reflection test
      * @return EqualsBuilder - used to chain calls.
      * @see #setTestRecursive(boolean)
@@ -300,7 +298,7 @@ public class EqualsBuilder implements Builder<Boolean> {
 
 
     /**
-     * <p>This method uses reflection to determine if the two {@code Object}s
+     * <p>This method uses reflection to determine if the two {@link Object}s
      * are equal.</p>
      *
      * <p>It uses {@code AccessibleObject.setAccessible} to gain access to private
@@ -326,7 +324,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * <p>This method uses reflection to determine if the two {@code Object}s
+     * <p>This method uses reflection to determine if the two {@link Object}s
      * are equal.</p>
      *
      * <p>It uses {@code AccessibleObject.setAccessible} to gain access to private
@@ -352,7 +350,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * <p>This method uses reflection to determine if the two {@code Object}s
+     * <p>This method uses reflection to determine if the two {@link Object}s
      * are equal.</p>
      *
      * <p>It uses {@code AccessibleObject.setAccessible} to gain access to private
@@ -363,7 +361,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * <p>If the TestTransients parameter is set to {@code true}, transient
      * members will be tested, otherwise they are ignored, as they are likely
-     * derived fields, and not part of the value of the {@code Object}.</p>
+     * derived fields, and not part of the value of the {@link Object}.</p>
      *
      * <p>Static fields will not be tested. Superclass fields will be included.</p>
      *
@@ -379,7 +377,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * <p>This method uses reflection to determine if the two {@code Object}s
+     * <p>This method uses reflection to determine if the two {@link Object}s
      * are equal.</p>
      *
      * <p>It uses {@code AccessibleObject.setAccessible} to gain access to private
@@ -390,7 +388,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * <p>If the testTransients parameter is set to {@code true}, transient
      * members will be tested, otherwise they are ignored, as they are likely
-     * derived fields, and not part of the value of the {@code Object}.</p>
+     * derived fields, and not part of the value of the {@link Object}.</p>
      *
      * <p>Static fields will not be included. Superclass fields will be appended
      * up to and including the specified superclass. A null superclass is treated
@@ -413,7 +411,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * <p>This method uses reflection to determine if the two {@code Object}s
+     * <p>This method uses reflection to determine if the two {@link Object}s
      * are equal.</p>
      *
      * <p>It uses {@code AccessibleObject.setAccessible} to gain access to private
@@ -424,7 +422,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * <p>If the testTransients parameter is set to {@code true}, transient
      * members will be tested, otherwise they are ignored, as they are likely
-     * derived fields, and not part of the value of the {@code Object}.</p>
+     * derived fields, and not part of the value of the {@link Object}.</p>
      *
      * <p>Static fields will not be included. Superclass fields will be appended
      * up to and including the specified superclass. A null superclass is treated
@@ -432,7 +430,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * <p>If the testRecursive parameter is set to {@code true}, non primitive
      * (and non primitive wrapper) field types will be compared by
-     * {@code EqualsBuilder} recursively instead of invoking their
+     * {@link EqualsBuilder} recursively instead of invoking their
      * {@code equals()} method. Leading to a deep reflection equals test.
      *
      * @param lhs  {@code this} object
@@ -476,7 +474,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * <p>If the testTransients field is set to {@code true}, transient
      * members will be tested, otherwise they are ignored, as they are likely
-     * derived fields, and not part of the value of the {@code Object}.</p>
+     * derived fields, and not part of the value of the {@link Object}.</p>
      *
      * <p>Static fields will not be included. Superclass fields will be appended
      * up to and including the specified superclass in field {@code reflectUpToClass}.
@@ -596,8 +594,6 @@ public class EqualsBuilder implements Builder<Boolean> {
         }
     }
 
-    //-------------------------------------------------------------------------
-
     /**
      * <p>Adds the result of {@code super.equals()} to this builder.</p>
      *
@@ -613,10 +609,8 @@ public class EqualsBuilder implements Builder<Boolean> {
         return this;
     }
 
-    //-------------------------------------------------------------------------
-
     /**
-     * <p>Test if two {@code Object}s are equal using either
+     * <p>Test if two {@link Object}s are equal using either
      * #{@link #reflectionAppend(Object, Object)}, if object are non
      * primitives (or wrapper of primitives) or if field {@code testRecursive}
      * is set to {@code false}. Otherwise, using their
@@ -652,7 +646,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * <p>Test if an {@code Object} is equal to an array.</p>
+     * <p>Test if an {@link Object} is equal to an array.</p>
      *
      * @param lhs  the left hand object, an array
      * @param rhs  the right hand object
@@ -771,7 +765,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * <p>This handles NaNs, Infinities, and {@code -0.0}.</p>
      *
      * <p>It is compatible with the hash code generated by
-     * {@code HashCodeBuilder}.</p>
+     * {@link HashCodeBuilder}.</p>
      *
      * @param lhs  the left hand {@code double}
      * @param rhs  the right hand {@code double}
@@ -791,7 +785,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * <p>This handles NaNs, Infinities, and {@code -0.0}.</p>
      *
      * <p>It is compatible with the hash code generated by
-     * {@code HashCodeBuilder}.</p>
+     * {@link HashCodeBuilder}.</p>
      *
      * @param lhs  the left hand {@code float}
      * @param rhs  the right hand {@code float}
@@ -820,7 +814,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * <p>Performs a deep comparison of two {@code Object} arrays.</p>
+     * <p>Performs a deep comparison of two {@link Object} arrays.</p>
      *
      * <p>This also will be called for the top level of
      * multi-dimensional, ragged, and multi-typed arrays.</p>

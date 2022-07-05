@@ -76,14 +76,13 @@ public class DurationFormatUtilsTest {
         }
     }
 
-    // https://issues.apache.org/bugzilla/show_bug.cgi?id=38401
+    /** https://issues.apache.org/bugzilla/show_bug.cgi?id=38401 */
     @Test
     public void testBugzilla38401() {
         assertEqualDuration( "0000/00/30 16:00:00 000", new int[] { 2006, 0, 26, 18, 47, 34 },
                              new int[] { 2006, 1, 26, 10, 47, 34 }, "yyyy/MM/dd HH:mm:ss SSS");
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testConstructor() {
         assertNotNull(new DurationFormatUtils());
@@ -322,7 +321,6 @@ public class DurationFormatUtilsTest {
         assertEquals("1 day 1 hour 1 minute 1 second", text);
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testFormatDurationWords() {
         String text;

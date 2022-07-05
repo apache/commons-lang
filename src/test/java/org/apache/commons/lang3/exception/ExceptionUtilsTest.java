@@ -32,7 +32,9 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.test.NotVisibleExceptionFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -67,7 +69,7 @@ public class ExceptionUtilsTest {
         }
 
         @Override
-        public Throwable getCause() {
+        public synchronized Throwable getCause() {
             return cause;
         }
 
@@ -75,6 +77,7 @@ public class ExceptionUtilsTest {
             this.cause = cause;
         }
     }
+
     /**
      * Provides a method with a well known chained/nested exception
      * name which does not match the full signature (e.g. lacks a
@@ -88,6 +91,7 @@ public class ExceptionUtilsTest {
             // noop
         }
     }
+
     // Temporary classes to allow the nested exception code to be removed
     // prior to a rewrite of this test class.
     private static class NestableException extends Exception {
@@ -101,12 +105,15 @@ public class ExceptionUtilsTest {
             super(t);
         }
     }
+
     public static class TestThrowable extends Throwable {
         private static final long serialVersionUID = 1L;
     }
+
     private static int redeclareCheckedException() {
         return throwsCheckedException();
     }
+
     private static int throwsCheckedException() {
         try {
             throw new IOException();
@@ -114,7 +121,6 @@ public class ExceptionUtilsTest {
             return ExceptionUtils.<Integer>rethrow(e);
         }
     }
-
 
     private NestableException nested;
 
@@ -124,7 +130,6 @@ public class ExceptionUtilsTest {
     private Throwable withoutCause;
 
     private Throwable jdkNoCause;
-
 
     private ExceptionWithCause cyclicCause;
 
@@ -216,6 +221,58 @@ public class ExceptionUtilsTest {
         assertFalse(Modifier.isFinal(ExceptionUtils.class.getModifiers()));
     }
 
+    @Test
+    public void testForEach_jdkNoCause() {
+        final List<Throwable> throwables = new ArrayList<>();
+        ExceptionUtils.forEach(jdkNoCause, throwables::add);
+        assertEquals(1, throwables.size());
+        assertSame(jdkNoCause, throwables.get(0));
+    }
+
+    @Test
+    public void testForEach_nested() {
+        final List<Throwable> throwables = new ArrayList<>();
+        ExceptionUtils.forEach(nested, throwables::add);
+        assertEquals(2, throwables.size());
+        assertSame(nested, throwables.get(0));
+        assertSame(withoutCause, throwables.get(1));
+    }
+
+    @Test
+    public void testForEach_null() {
+        final List<Throwable> throwables = new ArrayList<>();
+        ExceptionUtils.forEach(null, throwables::add);
+        assertEquals(0, throwables.size());
+    }
+
+    @Test
+    public void testForEach_recursiveCause() {
+        final List<Throwable> throwables = new ArrayList<>();
+        ExceptionUtils.forEach(cyclicCause, throwables::add);
+        assertEquals(3, throwables.size());
+        assertSame(cyclicCause, throwables.get(0));
+        assertSame(cyclicCause.getCause(), throwables.get(1));
+        assertSame(cyclicCause.getCause().getCause(), throwables.get(2));
+    }
+
+    @Test
+    public void testForEach_withCause() {
+        final List<Throwable> throwables = new ArrayList<>();
+        ExceptionUtils.forEach(withCause, throwables::add);
+        assertEquals(3, throwables.size());
+        assertSame(withCause, throwables.get(0));
+        assertSame(nested, throwables.get(1));
+        assertSame(withoutCause, throwables.get(2));
+    }
+
+    @Test
+    public void testForEach_withoutCause() {
+        final List<Throwable> throwables = new ArrayList<>();
+        ExceptionUtils.forEach(withoutCause, throwables::add);
+        assertEquals(1, throwables.size());
+        assertSame(withoutCause, throwables.get(0));
+    }
+
     @SuppressWarnings("deprecation") // Specifically tests the deprecated methods
     @Test
     public void testGetCause_Throwable() {
@@ -284,6 +341,65 @@ public class ExceptionUtilsTest {
             }
         }
         assertFalse(match);
+    }
+
+    @Test
+    public void testGetRootCauseStackTraceList_Throwable() {
+        assertEquals(0, ExceptionUtils.getRootCauseStackTraceList(null).size());
+
+        final Throwable cause = createExceptionWithCause();
+        List<String> stackTrace = ExceptionUtils.getRootCauseStackTraceList(cause);
+        boolean match = false;
+        for (final String element : stackTrace) {
+            if (element.startsWith(ExceptionUtils.WRAPPED_MARKER)) {
+                match = true;
+                break;
+            }
+        }
+        assertTrue(match);
+
+        stackTrace = ExceptionUtils.getRootCauseStackTraceList(withoutCause);
+        match = false;
+        for (final String element : stackTrace) {
+            if (element.startsWith(ExceptionUtils.WRAPPED_MARKER)) {
+                match = true;
+                break;
+            }
+        }
+        assertFalse(match);
+    }
+
+    @Test
+    @DisplayName("getStackFrames returns empty string array when the argument is null")
+    public void testgetStackFramesHappyPath() {
+        final String[] actual = ExceptionUtils.getStackFrames(new Throwable() {
+            private static final long serialVersionUID = 1L;
+
+            // provide static stack trace to make test stable
+            @Override
+            public void printStackTrace(final PrintWriter s) {
+                s.write("org.apache.commons.lang3.exception.ExceptionUtilsTest$1\n" +
+                    "\tat org.apache.commons.lang3.exception.ExceptionUtilsTest.testgetStackFramesGappyPath(ExceptionUtilsTest.java:706)\n" +
+                    "\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n" +
+                    "\tat com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:230)\n" +
+                    "\tat com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58)\n");
+            }
+        });
+
+        assertArrayEquals(new String[]{
+            "org.apache.commons.lang3.exception.ExceptionUtilsTest$1",
+            "\tat org.apache.commons.lang3.exception.ExceptionUtilsTest.testgetStackFramesGappyPath(ExceptionUtilsTest.java:706)",
+            "\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)",
+            "\tat com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:230)",
+            "\tat com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58)"
+        }, actual);
+    }
+
+    @Test
+    @DisplayName("getStackFrames returns the string array of the stack frames when there is a real exception")
+    public void testgetStackFramesNullArg() {
+        final String[] actual = ExceptionUtils.getStackFrames((Throwable) null);
+        assertEquals(0, actual.length);
     }
 
     @Test
@@ -500,7 +616,6 @@ public class ExceptionUtilsTest {
         // internally this method calls stream method anyway
     }
 
-
     @Test
     public void testPrintRootCauseStackTrace_ThrowableStream() {
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
@@ -551,7 +666,51 @@ public class ExceptionUtilsTest {
 
     @Test
     public void testRemoveCommonFrames_ListList() {
-        assertThrows(IllegalArgumentException.class, () -> ExceptionUtils.removeCommonFrames(null, null));
+        assertThrows(NullPointerException.class, () -> ExceptionUtils.removeCommonFrames(null, null));
+    }
+
+    @Test
+    public void testStream_jdkNoCause() {
+        assertEquals(1, ExceptionUtils.stream(jdkNoCause).count());
+        assertSame(jdkNoCause, ExceptionUtils.stream(jdkNoCause).toArray()[0]);
+    }
+
+    @Test
+    public void testStream_nested() {
+        assertEquals(2, ExceptionUtils.stream(nested).count());
+        final Object[] array = ExceptionUtils.stream(nested).toArray();
+        assertSame(nested, array[0]);
+        assertSame(withoutCause, array[1]);
+    }
+
+    @Test
+    public void testStream_null() {
+        assertEquals(0, ExceptionUtils.stream(null).count());
+    }
+
+    @Test
+    public void testStream_recursiveCause() {
+        final List<?> throwables = ExceptionUtils.stream(cyclicCause).collect(Collectors.toList());
+        assertEquals(3, throwables.size());
+        assertSame(cyclicCause, throwables.get(0));
+        assertSame(cyclicCause.getCause(), throwables.get(1));
+        assertSame(cyclicCause.getCause().getCause(), throwables.get(2));
+    }
+
+    @Test
+    public void testStream_withCause() {
+        final List<?> throwables = ExceptionUtils.stream(withCause).collect(Collectors.toList());
+        assertEquals(3, throwables.size());
+        assertSame(withCause, throwables.get(0));
+        assertSame(nested, throwables.get(1));
+        assertSame(withoutCause, throwables.get(2));
+    }
+
+    @Test
+    public void testStream_withoutCause() {
+        final List<?> throwables = ExceptionUtils.stream(withoutCause).collect(Collectors.toList());
+        assertEquals(1, throwables.size());
+        assertSame(withoutCause, throwables.get(0));
     }
 
     @Test
@@ -689,36 +848,5 @@ public class ExceptionUtilsTest {
     public void testWrapAndUnwrapThrowable() {
         final Throwable t = assertThrows(Throwable.class, () -> ExceptionUtils.wrapAndThrow(new TestThrowable()));
         assertTrue(ExceptionUtils.hasCause(t, TestThrowable.class));
-    }
-
-    @Test
-    @DisplayName("getStackFrames returns the string array of the stack frames when there is a real exception")
-    public void testgetStackFramesNullArg() {
-        final String[] actual = ExceptionUtils.getStackFrames((Throwable) null);
-        assertEquals(0, actual.length);
-    }
-
-    @Test
-    @DisplayName("getStackFrames returns empty string array when the argument is null")
-    public void testgetStackFramesHappyPath() {
-        final String[] actual = ExceptionUtils.getStackFrames(new Throwable() {
-            // provide static stack trace to make test stable
-            @Override
-            public void printStackTrace(final PrintWriter s) {
-                s.write("org.apache.commons.lang3.exception.ExceptionUtilsTest$1\n" +
-                    "\tat org.apache.commons.lang3.exception.ExceptionUtilsTest.testgetStackFramesGappyPath(ExceptionUtilsTest.java:706)\n" +
-                    "\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n" +
-                    "\tat com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:230)\n" +
-                    "\tat com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58)\n");
-            }
-        });
-
-        assertArrayEquals(new String[]{
-            "org.apache.commons.lang3.exception.ExceptionUtilsTest$1",
-            "\tat org.apache.commons.lang3.exception.ExceptionUtilsTest.testgetStackFramesGappyPath(ExceptionUtilsTest.java:706)",
-            "\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)",
-            "\tat com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:230)",
-            "\tat com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58)"
-        }, actual);
     }
 }

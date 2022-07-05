@@ -24,13 +24,13 @@ import org.apache.commons.lang3.Validate;
 
 /**
  * <p>
- * A {@code DiffResult} contains a collection of the differences between two
+ * A {@link DiffResult} contains a collection of the differences between two
  * {@link Diffable} objects. Typically these differences are displayed using
  * {@link #toString()} method, which returns a string describing the fields that
  * differ between the objects.
  * </p>
  * <p>
- * Use a {@link DiffBuilder} to build a {@code DiffResult} comparing two objects.
+ * Use a {@link DiffBuilder} to build a {@link DiffResult} comparing two objects.
  * </p>
  * @param <T> type of the left and right object.
  *
@@ -40,7 +40,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
 
     /**
      * <p>
-     * The {@code String} returned when the objects have no differences:
+     * The {@link String} returned when the objects have no differences:
      * {@value}
      * </p>
      */
@@ -110,11 +110,11 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
 
     /**
      * <p>
-     * Returns an unmodifiable list of {@code Diff}s. The list may be empty if
+     * Returns an unmodifiable list of {@link Diff}s. The list may be empty if
      * there were no differences between the objects.
      * </p>
      *
-     * @return an unmodifiable list of {@code Diff}s
+     * @return an unmodifiable list of {@link Diff}s
      */
     public List<Diff<?>> getDiffs() {
         return Collections.unmodifiableList(diffList);
@@ -144,9 +144,9 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
 
     /**
      * <p>
-     * Builds a {@code String} description of the differences contained within
-     * this {@code DiffResult}. A {@link ToStringBuilder} is used for each object
-     * and the style of the output is governed by the {@code ToStringStyle}
+     * Builds a {@link String} description of the differences contained within
+     * this {@link DiffResult}. A {@link ToStringBuilder} is used for each object
+     * and the style of the output is governed by the {@link ToStringStyle}
      * passed to the constructor.
      * </p>
      *
@@ -167,11 +167,11 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
      * </p>
      *
      * <p>
-     * To use a different {@code ToStringStyle} for an instance of this class,
+     * To use a different {@link ToStringStyle} for an instance of this class,
      * use {@link #toString(ToStringStyle)}.
      * </p>
      *
-     * @return a {@code String} description of the differences.
+     * @return a {@link String} description of the differences.
      */
     @Override
     public String toString() {
@@ -180,14 +180,14 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
 
     /**
      * <p>
-     * Builds a {@code String} description of the differences contained within
-     * this {@code DiffResult}, using the supplied {@code ToStringStyle}.
+     * Builds a {@link String} description of the differences contained within
+     * this {@link DiffResult}, using the supplied {@link ToStringStyle}.
      * </p>
      *
      * @param style
-     *            the {@code ToStringStyle} to use when outputting the objects
+     *            the {@link ToStringStyle} to use when outputting the objects
      *
-     * @return a {@code String} description of the differences.
+     * @return a {@link String} description of the differences.
      */
     public String toString(final ToStringStyle style) {
         if (diffList.isEmpty()) {
@@ -208,7 +208,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
 
     /**
      * <p>
-     * Returns an iterator over the {@code Diff} objects contained in this list.
+     * Returns an iterator over the {@link Diff} objects contained in this list.
      * </p>
      *
      * @return the iterator

@@ -650,7 +650,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.noNullElements((Object[]) null));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("array", ex.getMessage());
                 }
 
                 @Test
@@ -685,7 +685,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.noNullElements((Object[]) null, "MSG"));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("array", ex.getMessage());
                 }
 
                 @Test
@@ -724,7 +724,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.noNullElements((Collection<?>) null));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("iterable", ex.getMessage());
                 }
 
                 @Test
@@ -759,7 +759,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.noNullElements((Collection<?>) null, "MSG"));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("iterable", ex.getMessage());
                 }
 
                 @Test
@@ -802,7 +802,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.validIndex((Object[]) null, 1));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("array", ex.getMessage());
                 }
 
                 @Test
@@ -846,7 +846,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.validIndex((Object[]) null, 1, "MSG"));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("array", ex.getMessage());
                 }
 
                 @Test
@@ -894,7 +894,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.validIndex((Collection<?>) null, 1));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("collection", ex.getMessage());
                 }
 
                 @Test
@@ -938,7 +938,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.validIndex((Collection<?>) null, 1, "MSG"));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("collection", ex.getMessage());
                 }
 
                 @Test
@@ -986,7 +986,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.validIndex((String) null, 1));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("chars", ex.getMessage());
                 }
 
                 @Test
@@ -1030,7 +1030,7 @@ class ValidateTest {
                             NullPointerException.class,
                             () -> Validate.validIndex((String) null, 1, "MSG"));
 
-                    assertEquals("The validated object is null", ex.getMessage());
+                    assertEquals("chars", ex.getMessage());
                 }
 
                 @Test
@@ -1849,7 +1849,34 @@ class ValidateTest {
 
                 assertEquals("Cannot assign a java.lang.String to a java.util.List", ex.getMessage());
             }
-        }
+
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithNullSuperType() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.isAssignableFrom(null, String.class));
+
+                assertEquals("Cannot assign a java.lang.String to a null type", ex.getMessage());
+            }
+
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithNullType() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.isAssignableFrom(List.class, null));
+
+                assertEquals("Cannot assign a null type to a java.util.List", ex.getMessage());
+            }
+
+            @Test
+            void shouldThrowIllegalArgumentExceptionWithNullTypes() {
+                final IllegalArgumentException ex = assertThrows(
+                        IllegalArgumentException.class,
+                        () -> Validate.isAssignableFrom(null, null));
+
+                assertEquals("Cannot assign a null type to a null type", ex.getMessage());
+            }
+}
 
         @Nested
         class WithMessage {

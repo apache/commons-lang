@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * <p>An immutable pair consisting of two {@code Object} elements.</p>
+ * <p>An immutable pair consisting of two {@link Object} elements.</p>
  *
  * <p>Although the implementation is immutable, there is no restriction on the objects
  * that may be stored. If mutable objects are stored in the pair, then the pair
@@ -34,7 +34,7 @@ import java.util.Objects;
  *
  * @since 3.0
  */
-public final class ImmutablePair<L, R> extends Pair<L, R> {
+public class ImmutablePair<L, R> extends Pair<L, R> {
 
     /**
      * An empty array.
@@ -94,7 +94,6 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      * @return an immutable pair of nulls.
      * @since 3.6
      */
-    @SuppressWarnings("unchecked")
     public static <L, R> ImmutablePair<L, R> nullPair() {
         return NULL;
     }
@@ -199,7 +198,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
-     * <p>Throws {@code UnsupportedOperationException}.</p>
+     * <p>Throws {@link UnsupportedOperationException}.</p>
      *
      * <p>This pair is immutable, so this operation is not supported.</p>
      *

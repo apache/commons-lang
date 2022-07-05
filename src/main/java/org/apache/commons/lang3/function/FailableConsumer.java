@@ -19,12 +19,17 @@ package org.apache.commons.lang3.function;
 
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
- * A functional interface like {@link Consumer} that declares a {@code Throwable}.
+ * A functional interface like {@link Consumer} that declares a {@link Throwable}.
  *
- * @param <T> Consumed type 1.
- * @param <E> Thrown exception.
+ * <p>
+ * This is a functional interface whose functional method is {@link #accept(Object)}.
+ * </p>
+ *
+ * @param <T> the type of the input to the operation
+ * @param <E> Thrown exception type.
  * @since 3.11
  */
 @FunctionalInterface
@@ -32,13 +37,13 @@ public interface FailableConsumer<T, E extends Throwable> {
 
     /** NOP singleton */
     @SuppressWarnings("rawtypes")
-    FailableConsumer NOP = t -> {/* NOP */};
+    FailableConsumer NOP = Function.identity()::apply;
 
     /**
      * Returns The NOP singleton.
      *
      * @param <T> Consumed type 1.
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     static <T, E extends Throwable> FailableConsumer<T, E> nop() {
@@ -54,10 +59,10 @@ public interface FailableConsumer<T, E extends Throwable> {
     void accept(T object) throws E;
 
     /**
-     * Returns a composed {@code Consumer} like {@link Consumer#andThen(Consumer)}.
+     * Returns a composed {@link Consumer} like {@link Consumer#andThen(Consumer)}.
      *
      * @param after the operation to perform after this operation
-     * @return a composed {@code Consumer} like {@link Consumer#andThen(Consumer)}.
+     * @return a composed {@link Consumer} like {@link Consumer#andThen(Consumer)}.
      * @throws NullPointerException when {@code after} is null
      */
     default FailableConsumer<T, E> andThen(final FailableConsumer<? super T, E> after) {

@@ -204,7 +204,7 @@ public class FastDatePrinterTest {
         assertEquals("-04:00", fdf.format(cal2));
         assertEquals("-04:00", fdf.format(millis2));
 
-        final String pattern = "GGGG GGG GG G yyyy yyy yy y MMMM MMM MM M" +
+        final String pattern = "GGGG GGG GG G yyyy yyy yy y MMMM MMM MM M LLLL LLL LL L" +
                 " dddd ddd dd d DDDD DDD DD D EEEE EEE EE E aaaa aaa aa a zzzz zzz zz z";
         fdf = getInstance(pattern);
         sdf = new SimpleDateFormat(pattern);

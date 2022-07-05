@@ -170,7 +170,7 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Appends the fields and values defined by the given object of the given {@code Class}.
+     * Appends the fields and values defined by the given object of the given {@link Class}.
      * </p>
      *
      * @param object
@@ -228,7 +228,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * <p>
      * Transient members will be not be used, as they are likely derived fields, and not part of the value of the
-     * {@code Object}.
+     * {@link Object}.
      * </p>
      *
      * <p>
@@ -272,7 +272,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * <p>
      * If the TestTransients parameter is set to {@code true}, transient members will be tested, otherwise they
-     * are ignored, as they are likely derived fields, and not part of the value of the {@code Object}.
+     * are ignored, as they are likely derived fields, and not part of the value of the {@link Object}.
      * </p>
      *
      * <p>
@@ -319,7 +319,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * <p>
      * If the TestTransients parameter is set to {@code true}, transient members will be tested, otherwise they
-     * are ignored, as they are likely derived fields, and not part of the value of the {@code Object}.
+     * are ignored, as they are likely derived fields, and not part of the value of the {@link Object}.
      * </p>
      *
      * <p>
@@ -386,7 +386,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * <P>
      * If the TestTransients parameter is set to {@code true}, transient members will be tested, otherwise they
-     * are ignored, as they are likely derived fields, and not part of the value of the {@code Object}.
+     * are ignored, as they are likely derived fields, and not part of the value of the {@link Object}.
      * </p>
      *
      * <p>
@@ -426,7 +426,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * <p>
      * Transient members will be not be used, as they are likely derived fields, and not part of the value of the
-     * {@code Object}.
+     * {@link Object}.
      * </p>
      *
      * <p>
@@ -448,8 +448,6 @@ public class HashCodeBuilder implements Builder<Integer> {
         return reflectionHashCode(object, ReflectionToStringBuilder.toNoNullStringArray(excludeFields));
     }
 
-    // -------------------------------------------------------------------------
-
     /**
      * <p>
      * Uses reflection to build a valid hash code from the fields of {@code object}.
@@ -467,7 +465,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * <p>
      * Transient members will be not be used, as they are likely derived fields, and not part of the value of the
-     * {@code Object}.
+     * {@link Object}.
      * </p>
      *
      * <p>
@@ -619,8 +617,6 @@ public class HashCodeBuilder implements Builder<Integer> {
         return this;
     }
 
-    // -------------------------------------------------------------------------
-
     /**
      * <p>
      * Append a {@code hashCode} for a {@code byte}.
@@ -634,8 +630,6 @@ public class HashCodeBuilder implements Builder<Integer> {
         iTotal = iTotal * iConstant + value;
         return this;
     }
-
-    // -------------------------------------------------------------------------
 
     /**
      * <p>
@@ -832,7 +826,7 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a {@code hashCode} for an {@code Object}.
+     * Append a {@code hashCode} for an {@link Object}.
      * </p>
      *
      * @param object
@@ -888,7 +882,7 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * Append a {@code hashCode} for an {@code Object} array.
+     * Append a {@code hashCode} for an {@link Object} array.
      * </p>
      *
      * @param array

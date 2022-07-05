@@ -1097,7 +1097,6 @@ public class ArrayUtilsRemoveMultipleTest {
     }
 
     @Test
-    @SuppressWarnings("cast")
     public void testRemoveElementLongArray() {
         long[] array;
 

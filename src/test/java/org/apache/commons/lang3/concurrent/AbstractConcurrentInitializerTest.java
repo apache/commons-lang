@@ -38,7 +38,7 @@ public abstract class AbstractConcurrentInitializerTest {
     /**
      * Tests a simple invocation of the get() method.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it.
      */
     @Test
     public void testGet() throws ConcurrentException {
@@ -49,7 +49,7 @@ public abstract class AbstractConcurrentInitializerTest {
      * Tests whether sequential get() invocations always return the same
      * instance.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it.
      */
     @Test
     public void testGetMultipleTimes() throws ConcurrentException {
@@ -64,8 +64,8 @@ public abstract class AbstractConcurrentInitializerTest {
      * Tests whether get() can be invoked from multiple threads concurrently.
      * Always the same object should be returned.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it
-     * @throws java.lang.InterruptedException because the threading API my throw it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it.
+     * @throws InterruptedException because the threading API my throw it.
      */
     @Test
     public void testGetConcurrent() throws ConcurrentException,

@@ -32,7 +32,7 @@ public class IntStreams {
      * Shorthand for {@code IntStream.range(0, i)}.
      *
      * @param endExclusive the exclusive upper bound.
-     * @return a sequential {@code IntStream} for the range of {@code int} elements.
+     * @return a sequential {@link IntStream} for the range of {@code int} elements.
      */
     public static IntStream range(final int endExclusive) {
         return IntStream.range(0, endExclusive);
@@ -42,7 +42,7 @@ public class IntStreams {
      * Shorthand for {@code IntStream.rangeClosed(0, i)}.
      *
      * @param endInclusive the inclusive upper bound.
-     * @return a sequential {@code IntStream} for the range of {@code int} elements.
+     * @return a sequential {@link IntStream} for the range of {@code int} elements.
      */
     public static IntStream rangeClosed(final int endInclusive) {
         return IntStream.rangeClosed(0, endInclusive);

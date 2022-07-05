@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.time;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -60,7 +61,7 @@ public class DurationFormatUtils {
     }
 
     /**
-     * <p>Pattern used with {@code FastDateFormat} and {@code SimpleDateFormat}
+     * <p>Pattern used with {@link FastDateFormat} and {@link SimpleDateFormat}
      * for the ISO 8601 period format used in durations.</p>
      *
      * @see org.apache.commons.lang3.time.FastDateFormat
@@ -75,7 +76,7 @@ public class DurationFormatUtils {
      *
      * @param durationMillis  the duration to format
      * @return the formatted duration, not null
-     * @throws java.lang.IllegalArgumentException if durationMillis is negative
+     * @throws IllegalArgumentException if durationMillis is negative
      */
     public static String formatDurationHMS(final long durationMillis) {
         return formatDuration(durationMillis, "HH:mm:ss.SSS");
@@ -91,7 +92,7 @@ public class DurationFormatUtils {
      *
      * @param durationMillis  the duration to format
      * @return the formatted duration, not null
-     * @throws java.lang.IllegalArgumentException if durationMillis is negative
+     * @throws IllegalArgumentException if durationMillis is negative
      */
     public static String formatDurationISO(final long durationMillis) {
         return formatDuration(durationMillis, ISO_EXTENDED_FORMAT_PATTERN, false);
@@ -106,7 +107,7 @@ public class DurationFormatUtils {
      * @param durationMillis  the duration to format
      * @param format  the way in which to format the duration, not null
      * @return the formatted duration, not null
-     * @throws java.lang.IllegalArgumentException if durationMillis is negative
+     * @throws IllegalArgumentException if durationMillis is negative
      */
     public static String formatDuration(final long durationMillis, final String format) {
         return formatDuration(durationMillis, format, true);
@@ -123,32 +124,32 @@ public class DurationFormatUtils {
      * @param format  the way in which to format the duration, not null
      * @param padWithZeros  whether to pad the left hand side of numbers with 0's
      * @return the formatted duration, not null
-     * @throws java.lang.IllegalArgumentException if durationMillis is negative
+     * @throws IllegalArgumentException if durationMillis is negative
      */
     public static String formatDuration(final long durationMillis, final String format, final boolean padWithZeros) {
         Validate.inclusiveBetween(0, Long.MAX_VALUE, durationMillis, "durationMillis must not be negative");
 
         final Token[] tokens = lexx(format);
 
-        long days         = 0;
-        long hours        = 0;
-        long minutes      = 0;
-        long seconds      = 0;
+        long days = 0;
+        long hours = 0;
+        long minutes = 0;
+        long seconds = 0;
         long milliseconds = durationMillis;
 
-        if (Token.containsTokenWithValue(tokens, d) ) {
+        if (Token.containsTokenWithValue(tokens, d)) {
             days = milliseconds / DateUtils.MILLIS_PER_DAY;
             milliseconds = milliseconds - (days * DateUtils.MILLIS_PER_DAY);
         }
-        if (Token.containsTokenWithValue(tokens, H) ) {
+        if (Token.containsTokenWithValue(tokens, H)) {
             hours = milliseconds / DateUtils.MILLIS_PER_HOUR;
             milliseconds = milliseconds - (hours * DateUtils.MILLIS_PER_HOUR);
         }
-        if (Token.containsTokenWithValue(tokens, m) ) {
+        if (Token.containsTokenWithValue(tokens, m)) {
             minutes = milliseconds / DateUtils.MILLIS_PER_MINUTE;
             milliseconds = milliseconds - (minutes * DateUtils.MILLIS_PER_MINUTE);
         }
-        if (Token.containsTokenWithValue(tokens, s) ) {
+        if (Token.containsTokenWithValue(tokens, s)) {
             seconds = milliseconds / DateUtils.MILLIS_PER_SECOND;
             milliseconds = milliseconds - (seconds * DateUtils.MILLIS_PER_SECOND);
         }
@@ -166,7 +167,7 @@ public class DurationFormatUtils {
      * @param suppressLeadingZeroElements  suppresses leading 0 elements
      * @param suppressTrailingZeroElements  suppresses trailing 0 elements
      * @return the formatted text in days/hours/minutes/seconds, not null
-     * @throws java.lang.IllegalArgumentException if durationMillis is negative
+     * @throws IllegalArgumentException if durationMillis is negative
      */
     public static String formatDurationWords(
         final long durationMillis,
@@ -229,7 +230,7 @@ public class DurationFormatUtils {
      * @param startMillis  the start of the duration to format
      * @param endMillis  the end of the duration to format
      * @return the formatted duration, not null
-     * @throws java.lang.IllegalArgumentException if startMillis is greater than endMillis
+     * @throws IllegalArgumentException if startMillis is greater than endMillis
      */
     public static String formatPeriodISO(final long startMillis, final long endMillis) {
         return formatPeriod(startMillis, endMillis, ISO_EXTENDED_FORMAT_PATTERN, false, TimeZone.getDefault());
@@ -243,7 +244,7 @@ public class DurationFormatUtils {
      * @param endMillis  the end of the duration
      * @param format  the way in which to format the duration, not null
      * @return the formatted duration, not null
-     * @throws java.lang.IllegalArgumentException if startMillis is greater than endMillis
+     * @throws IllegalArgumentException if startMillis is greater than endMillis
      */
     public static String formatPeriod(final long startMillis, final long endMillis, final String format) {
         return formatPeriod(startMillis, endMillis, format, true, TimeZone.getDefault());
@@ -271,7 +272,7 @@ public class DurationFormatUtils {
      * @param padWithZeros  whether to pad the left hand side of numbers with 0's
      * @param timezone  the millis are defined in
      * @return the formatted duration, not null
-     * @throws java.lang.IllegalArgumentException if startMillis is greater than endMillis
+     * @throws IllegalArgumentException if startMillis is greater than endMillis
      */
     public static String formatPeriod(final long startMillis, final long endMillis, final String format, final boolean padWithZeros,
             final TimeZone timezone) {
@@ -461,7 +462,7 @@ public class DurationFormatUtils {
     }
 
     /**
-     * <p>Converts a {@code long} to a {@code String} with optional
+     * <p>Converts a {@code long} to a {@link String} with optional
      * zero padding.</p>
      *
      * @param value the value to convert

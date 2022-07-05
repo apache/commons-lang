@@ -52,20 +52,20 @@ final class MemberUtils {
      * @param obj the AccessibleObject to set as accessible
      * @return a boolean indicating whether the accessibility of the object was set to true.
      */
-    static boolean setAccessibleWorkaround(final AccessibleObject obj) {
+    static <T extends AccessibleObject> T setAccessibleWorkaround(final T obj) {
         if (obj == null || obj.isAccessible()) {
-            return false;
+            return obj;
         }
         final Member m = (Member) obj;
         if (!obj.isAccessible() && isPublic(m) && isPackageAccess(m.getDeclaringClass().getModifiers())) {
             try {
                 obj.setAccessible(true);
-                return true;
-            } catch (final SecurityException e) { // NOPMD
+                return obj;
+            } catch (final SecurityException ignored) {
                 // ignore in favor of subsequent IllegalAccessException
             }
         }
-        return false;
+        return obj;
     }
 
     /**

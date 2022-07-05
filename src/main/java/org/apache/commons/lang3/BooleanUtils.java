@@ -114,7 +114,7 @@ public class BooleanUtils {
      * Null array elements map to false, like {@code Boolean.parseBoolean(null)} and its callers return false.
      * </p>
      *
-     * @param array  an array of {@code Boolean}s
+     * @param array  an array of {@link Boolean}s
      * @return the result of the logical 'and' operation. That is {@code false}
      * if any of the parameters is {@code false} and {@code true} otherwise.
      * @throws NullPointerException if {@code array} is {@code null}
@@ -153,7 +153,7 @@ public class BooleanUtils {
     }
 
     /**
-     * <p>Checks if a {@code Boolean} value is {@code false},
+     * <p>Checks if a {@link Boolean} value is {@code false},
      * handling {@code null} by returning {@code false}.</p>
      *
      * <pre>
@@ -171,7 +171,7 @@ public class BooleanUtils {
     }
 
     /**
-     * <p>Checks if a {@code Boolean} value is <i>not</i> {@code false},
+     * <p>Checks if a {@link Boolean} value is <i>not</i> {@code false},
      * handling {@code null} by returning {@code true}.</p>
      *
      * <pre>
@@ -189,7 +189,7 @@ public class BooleanUtils {
     }
 
     /**
-     * <p>Checks if a {@code Boolean} value is <i>not</i> {@code true},
+     * <p>Checks if a {@link Boolean} value is <i>not</i> {@code true},
      * handling {@code null} by returning {@code true}.</p>
      *
      * <pre>
@@ -207,7 +207,7 @@ public class BooleanUtils {
     }
 
     /**
-     * <p>Checks if a {@code Boolean} value is {@code true},
+     * <p>Checks if a {@link Boolean} value is {@code true},
      * handling {@code null} by returning {@code false}.</p>
      *
      * <pre>
@@ -229,7 +229,7 @@ public class BooleanUtils {
      *
      * <p>If {@code null} is passed in, {@code null} will be returned.</p>
      *
-     * <p>NOTE: This returns {@code null} and will throw a {@code NullPointerException}
+     * <p>NOTE: This returns {@code null} and will throw a {@link NullPointerException}
      * if unboxed to a boolean. </p>
      *
      * <pre>
@@ -292,7 +292,7 @@ public class BooleanUtils {
      * Null array elements map to false, like {@code Boolean.parseBoolean(null)} and its callers return false.
      * </p>
      *
-     * @param array  an array of {@code Boolean}s
+     * @param array  an array of {@link Boolean}s
      * @return {@code true} if any of the arguments is {@code true}, and it returns {@code false} otherwise.
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
@@ -361,7 +361,7 @@ public class BooleanUtils {
      *   BooleanUtils.toBoolean(2, 2, 0) = true
      * </pre>
      *
-     * @param value  the {@code Integer} to convert
+     * @param value  the {@link Integer} to convert
      * @param trueValue  the value to match for {@code true}
      * @param falseValue  the value to match for {@code false}
      * @return {@code true} or {@code false}
@@ -520,7 +520,7 @@ public class BooleanUtils {
     /**
      * <p>Converts an int to a Boolean specifying the conversion values.</p>
      *
-     * <p>NOTE: This method may return {@code null} and may throw a {@code NullPointerException}
+     * <p>NOTE: This method may return {@code null} and may throw a {@link NullPointerException}
      * if unboxed to a {@code boolean}.</p>
      *
      * <p>The checks are done first for the {@code trueValue}, then for the {@code falseValue} and
@@ -561,7 +561,7 @@ public class BooleanUtils {
      *
      * <p>{@code null} will be converted to {@code null}.</p>
      *
-     * <p>NOTE: This method may return {@code null} and may throw a {@code NullPointerException}
+     * <p>NOTE: This method may return {@code null} and may throw a {@link NullPointerException}
      * if unboxed to a {@code boolean}.</p>
      *
      * <pre>
@@ -584,7 +584,7 @@ public class BooleanUtils {
     /**
      * <p>Converts an Integer to a Boolean specifying the conversion values.</p>
      *
-     * <p>NOTE: This method may return {@code null} and may throw a {@code NullPointerException}
+     * <p>NOTE: This method may return {@code null} and may throw a {@link NullPointerException}
      * if unboxed to a {@code boolean}.</p>
      *
      * <p>The checks are done first for the {@code trueValue}, then for the {@code falseValue} and
@@ -636,7 +636,7 @@ public class BooleanUtils {
      * or {@code '0'} (case insensitive) will return {@code false}.
      * Otherwise, {@code null} is returned.</p>
      *
-     * <p>NOTE: This method may return {@code null} and may throw a {@code NullPointerException}
+     * <p>NOTE: This method may return {@code null} and may throw a {@link NullPointerException}
      * if unboxed to a {@code boolean}.</p>
      *
      * <pre>
@@ -759,7 +759,7 @@ public class BooleanUtils {
     /**
      * <p>Converts a String to a Boolean throwing an exception if no match.</p>
      *
-     * <p>NOTE: This method may return {@code null} and may throw a {@code NullPointerException}
+     * <p>NOTE: This method may return {@code null} and may throw a {@link NullPointerException}
      * if unboxed to a {@code boolean}.</p>
      *
      * <pre>
@@ -1112,7 +1112,7 @@ public class BooleanUtils {
      * Null array elements map to false, like {@code Boolean.parseBoolean(null)} and its callers return false.
      * </p>
      *
-     * @param array  an array of {@code Boolean}s
+     * @param array  an array of {@link Boolean}s
      * @return the result of the xor operations
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
@@ -1123,7 +1123,7 @@ public class BooleanUtils {
     }
 
     /**
-     * <p>{@code BooleanUtils} instances should NOT be constructed in standard programming.
+     * <p>{@link BooleanUtils} instances should NOT be constructed in standard programming.
      * Instead, the class should be used as {@code BooleanUtils.negate(true);}.</p>
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance

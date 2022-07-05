@@ -207,7 +207,7 @@ public class ComparableUtils {
     }
 
     /**
-     * Returns the greater of two {@code Comparable} values, ignoring null.
+     * Returns the greater of two {@link Comparable} values, ignoring null.
      * <p>
      * For three or more values, use {@link ObjectUtils#max(Comparable...)}.
      * </p>
@@ -224,7 +224,7 @@ public class ComparableUtils {
     }
 
     /**
-     * Returns the lesser of two {@code Comparable} values, ignoring null.
+     * Returns the lesser of two {@link Comparable} values, ignoring null.
      * <p>
      * For three or more values, use {@link ObjectUtils#min(Comparable...)}.
      * </p>

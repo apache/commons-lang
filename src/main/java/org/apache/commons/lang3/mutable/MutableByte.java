@@ -332,7 +332,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
 
     /**
      * Compares this object to the specified object. The result is {@code true} if and only if the argument is
-     * not {@code null} and is a {@code MutableByte} object that contains the same {@code byte} value
+     * not {@code null} and is a {@link MutableByte} object that contains the same {@code byte} value
      * as this object.
      *
      * @param obj  the object to compare with, null returns false

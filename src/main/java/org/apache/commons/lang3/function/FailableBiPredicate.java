@@ -21,11 +21,11 @@ import java.util.Objects;
 import java.util.function.BiPredicate;
 
 /**
- * A functional interface like {@link BiPredicate} that declares a {@code Throwable}.
+ * A functional interface like {@link BiPredicate} that declares a {@link Throwable}.
  *
  * @param <T> Predicate type 1.
  * @param <U> Predicate type 2.
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -44,7 +44,7 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
      *
      * @param <T> Consumed type 1.
      * @param <U> Consumed type 2.
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     static <T, U, E extends Throwable> FailableBiPredicate<T, U, E> falsePredicate() {
@@ -56,7 +56,7 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
      *
      * @param <T> Consumed type 1.
      * @param <U> Consumed type 2.
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     static <T, U, E extends Throwable> FailableBiPredicate<T, U, E> truePredicate() {
@@ -64,10 +64,10 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
     }
 
     /**
-     * Returns a composed {@code FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
+     * Returns a composed {@link FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
      *
      * @param other a predicate that will be logically-ANDed with this predicate.
-     * @return a composed {@code FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
+     * @return a composed {@link FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
      * @throws NullPointerException if other is null
      */
     default FailableBiPredicate<T, U, E> and(final FailableBiPredicate<? super T, ? super U, E> other) {
@@ -85,10 +85,10 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
     }
 
     /**
-     * Returns a composed {@code FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
+     * Returns a composed {@link FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
      *
      * @param other a predicate that will be logically-ORed with this predicate.
-     * @return a composed {@code FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
+     * @return a composed {@link FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
      * @throws NullPointerException if other is null
      */
     default FailableBiPredicate<T, U, E> or(final FailableBiPredicate<? super T, ? super U, E> other) {

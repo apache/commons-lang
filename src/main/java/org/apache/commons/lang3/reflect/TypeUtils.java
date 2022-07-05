@@ -24,6 +24,7 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
@@ -321,7 +323,7 @@ public class TypeUtils {
     /**
      * Formats a {@link Class} as a {@link String}.
      *
-     * @param cls {@code Class} to format
+     * @param cls {@link Class} to format
      * @return String
      * @since 3.2
      */
@@ -399,18 +401,18 @@ public class TypeUtils {
      * parameter of {@link java.util.SortedSet}, which in turn sets the
      * parameter of {@link Set}, which in turn sets the parameter of
      * {@link java.util.Collection}, which in turn sets the parameter of
-     * {@link java.lang.Iterable}. Since {@code TreeSet}'s parameter maps
-     * (indirectly) to {@code Iterable}'s parameter, it will be able to
+     * {@link java.lang.Iterable}. Since {@link TreeSet}'s parameter maps
+     * (indirectly) to {@link Iterable}'s parameter, it will be able to
      * determine that based on the super type {@code Iterable<? extends
      * Map<Integer, ? extends Collection<?>>>}, the parameter of
-     * {@code TreeSet} is {@code ? extends Map<Integer, ? extends
+     * {@link TreeSet} is {@code ? extends Map<Integer, ? extends
      * Collection<?>>}.
      * </p>
      *
      * @param cls the class whose type parameters are to be determined, not {@code null}
      * @param superParameterizedType the super type from which {@code cls}'s type
      * arguments are to be determined, not {@code null}
-     * @return a {@code Map} of the type assignments that could be determined
+     * @return a {@link Map} of the type assignments that could be determined
      * for the type variables in each type in the inheritance hierarchy from
      * {@code type} to {@code toClass} inclusive.
      */
@@ -587,7 +589,7 @@ public class TypeUtils {
     /**
      * Formats a {@link GenericArrayType} as a {@link String}.
      *
-     * @param genericArrayType {@code GenericArrayType} to format
+     * @param genericArrayType {@link GenericArrayType} to format
      * @return String
      * @since 3.2
      */
@@ -713,7 +715,7 @@ public class TypeUtils {
      * Transforms the passed in type to a {@link Class} object. Type-checking method of convenience.
      *
      * @param parameterizedType the type to be converted
-     * @return the corresponding {@code Class} object
+     * @return the corresponding {@link Class} object
      * @throws IllegalStateException if the conversion fails
      */
     private static Class<?> getRawType(final ParameterizedType parameterizedType) {
@@ -813,7 +815,7 @@ public class TypeUtils {
      * @param cls the class in question
      * @param toClass the context class
      * @param subtypeVarAssigns a map with type variables
-     * @return the {@code Map} with type arguments
+     * @return the {@link Map} with type arguments
      */
     private static Map<TypeVariable<?>, Type> getTypeArguments(Class<?> cls, final Class<?> toClass,
             final Map<TypeVariable<?>, Type> subtypeVarAssigns) {
@@ -857,7 +859,7 @@ public class TypeUtils {
      *
      * @param type specifies the subject parameterized type from which to
      *             harvest the parameters.
-     * @return a {@code Map} of the type arguments to their respective type
+     * @return a {@link Map} of the type arguments to their respective type
      * variables.
      */
     public static Map<TypeVariable<?>, Type> getTypeArguments(final ParameterizedType type) {
@@ -870,7 +872,7 @@ public class TypeUtils {
      * @param parameterizedType the parameterized type
      * @param toClass the class
      * @param subtypeVarAssigns a map with type variables
-     * @return the {@code Map} with type arguments
+     * @return the {@link Map} with type arguments
      */
     private static Map<TypeVariable<?>, Type> getTypeArguments(
             final ParameterizedType parameterizedType, final Class<?> toClass,
@@ -924,7 +926,7 @@ public class TypeUtils {
      * instance, this method will determine that both of the parameters for the
      * interface {@link Map} are {@link Object} for the subtype
      * {@link java.util.Properties Properties} even though the subtype does not
-     * directly implement the {@code Map} interface.
+     * directly implement the {@link Map} interface.
      *
      * <p>
      * This method returns {@code null} if {@code type} is not assignable to
@@ -937,7 +939,7 @@ public class TypeUtils {
      * arguments for the classes and interfaces that are part of the hierarchy
      * between {@code type} and {@code toClass}. So with the above
      * example, this method will also determine that the type arguments for
-     * {@link java.util.Hashtable Hashtable} are also both {@code Object}.
+     * {@link java.util.Hashtable Hashtable} are also both {@link Object}.
      * In cases where the interface specified by {@code toClass} is
      * (indirectly) implemented more than once (e.g. where {@code toClass}
      * specifies the interface {@link java.lang.Iterable Iterable} and
@@ -953,7 +955,7 @@ public class TypeUtils {
      * {@code toClass}
      * @param toClass the class whose type parameters are to be determined based
      * on the subtype {@code type}
-     * @return a {@code Map} of the type assignments for the type variables in
+     * @return a {@link Map} of the type assignments for the type variables in
      * each type in the inheritance hierarchy from {@code type} to
      * {@code toClass} inclusive.
      */
@@ -967,7 +969,7 @@ public class TypeUtils {
      * @param type the type in question
      * @param toClass the class
      * @param subtypeVarAssigns a map with type variables
-     * @return the {@code Map} with type arguments
+     * @return the {@link Map} with type arguments
      */
     private static Map<TypeVariable<?>, Type> getTypeArguments(final Type type, final Class<?> toClass,
             final Map<TypeVariable<?>, Type> subtypeVarAssigns) {
@@ -1497,7 +1499,7 @@ public class TypeUtils {
      * java.util.List&lt;String&gt;&gt;</pre>
      *
      * <p>
-     * since {@code List} is a subinterface of {@code Collection},
+     * since {@link List} is a subinterface of {@link Collection},
      * this method will return the bounds as if the declaration had been:
      * </p>
      *
@@ -1566,7 +1568,7 @@ public class TypeUtils {
     /**
      * Formats a {@link ParameterizedType} as a {@link String}.
      *
-     * @param parameterizedType {@code ParameterizedType} to format
+     * @param parameterizedType {@link ParameterizedType} to format
      * @return String
      * @since 3.2
      */
@@ -1709,7 +1711,7 @@ public class TypeUtils {
      * @since 3.2
      */
     public static String toString(final Type type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type, "type");
         if (type instanceof Class<?>) {
             return classToString((Class<?>) type);
         }
@@ -1762,7 +1764,7 @@ public class TypeUtils {
     /**
      * Formats a {@link TypeVariable} as a {@link String}.
      *
-     * @param typeVariable {@code TypeVariable} to format
+     * @param typeVariable {@link TypeVariable} to format
      * @return String
      * @since 3.2
      */
@@ -1875,7 +1877,7 @@ public class TypeUtils {
     /**
      * Formats a {@link WildcardType} as a {@link String}.
      *
-     * @param wildcardType {@code WildcardType} to format
+     * @param wildcardType {@link WildcardType} to format
      * @return String
      * @since 3.2
      */
@@ -1916,7 +1918,7 @@ public class TypeUtils {
     }
 
     /**
-     * {@code TypeUtils} instances should NOT be constructed in standard
+     * {@link TypeUtils} instances should NOT be constructed in standard
      * programming. Instead, the class should be used as
      * {@code TypeUtils.isAssignable(cls, toClass)}.
      * <p>

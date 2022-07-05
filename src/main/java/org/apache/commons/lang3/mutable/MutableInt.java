@@ -322,7 +322,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
 
     /**
      * Compares this object to the specified object. The result is {@code true} if and only if the argument is
-     * not {@code null} and is a {@code MutableInt} object that contains the same {@code int} value
+     * not {@code null} and is a {@link MutableInt} object that contains the same {@code int} value
      * as this object.
      *
      * @param obj  the object to compare with, null returns false

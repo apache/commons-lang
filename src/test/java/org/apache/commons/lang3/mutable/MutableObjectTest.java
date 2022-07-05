@@ -31,7 +31,6 @@ import org.junit.jupiter.api.Test;
  */
 public class MutableObjectTest {
 
-    // ----------------------------------------------------------------
     @Test
     public void testConstructors() {
         assertNull(new MutableObject<String>().getValue());

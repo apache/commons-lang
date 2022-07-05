@@ -246,6 +246,10 @@ public class CharSequenceUtilsTest {
         testNewLastIndexOfSingle("apache", "x");
         testNewLastIndexOfSingle("oraoraoraora", "r");
         testNewLastIndexOfSingle("mudamudamudamuda", "d");
+        // There is a route through checkLaterThan1#checkLaterThan1
+        // which only gets touched if there is a two letter (or more) partial match
+        // (in this case "st") earlier in the searched string.
+        testNewLastIndexOfSingle("junk-ststarting", "starting");
 
         final Random random = new Random();
         final StringBuilder seg = new StringBuilder();

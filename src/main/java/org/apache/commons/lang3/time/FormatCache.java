@@ -31,6 +31,8 @@ import org.apache.commons.lang3.Validate;
 /**
  * FormatCache is a cache and factory for {@link Format}s.
  *
+ * @param <F> The Format type.
+ *
  * @since 3.0
  */
 // TODO: Before making public move from getDateTimeInstance(Integer, ...) to int; or some other approach.
@@ -67,24 +69,12 @@ abstract class FormatCache<F extends Format> {
      * @throws NullPointerException if pattern is {@code null}
      * @throws IllegalArgumentException if pattern is invalid
      */
-    public F getInstance(final String pattern, TimeZone timeZone, Locale locale) {
+    public F getInstance(final String pattern, final TimeZone timeZone, final Locale locale) {
         Validate.notNull(pattern, "pattern");
-        if (timeZone == null) {
-            timeZone = TimeZone.getDefault();
-        }
-        locale = LocaleUtils.toLocale(locale);
-        final ArrayKey key = new ArrayKey(pattern, timeZone, locale);
-        F format = cInstanceCache.get(key);
-        if (format == null) {
-            format = createInstance(pattern, timeZone, locale);
-            final F previousValue = cInstanceCache.putIfAbsent(key, format);
-            if (previousValue != null) {
-                // another thread snuck in and did the same work
-                // we should return the instance that is in ConcurrentMap
-                format = previousValue;
-            }
-        }
-        return format;
+        final TimeZone actualTimeZone = TimeZones.toTimeZone(timeZone);
+        final Locale actualLocale = LocaleUtils.toLocale(locale);
+        final ArrayKey key = new ArrayKey(pattern, actualTimeZone, actualLocale);
+        return cInstanceCache.computeIfAbsent(key, k -> createInstance(pattern, actualTimeZone, actualLocale));
     }
 
     /**
@@ -185,9 +175,7 @@ abstract class FormatCache<F extends Format> {
     static String getPatternForStyle(final Integer dateStyle, final Integer timeStyle, final Locale locale) {
         final Locale safeLocale = LocaleUtils.toLocale(locale);
         final ArrayKey key = new ArrayKey(dateStyle, timeStyle, safeLocale);
-
-        String pattern = cDateTimeInstanceCache.get(key);
-        if (pattern == null) {
+        return cDateTimeInstanceCache.computeIfAbsent(key, k -> {
             try {
                 final DateFormat formatter;
                 if (dateStyle == null) {
@@ -197,19 +185,11 @@ abstract class FormatCache<F extends Format> {
                 } else {
                     formatter = DateFormat.getDateTimeInstance(dateStyle.intValue(), timeStyle.intValue(), safeLocale);
                 }
-                pattern = ((SimpleDateFormat) formatter).toPattern();
-                final String previous = cDateTimeInstanceCache.putIfAbsent(key, pattern);
-                if (previous != null) {
-                    // even though it doesn't matter if another thread put the pattern
-                    // it's still good practice to return the String instance that is
-                    // actually in the ConcurrentMap
-                    pattern = previous;
-                }
+                return ((SimpleDateFormat) formatter).toPattern();
             } catch (final ClassCastException ex) {
                 throw new IllegalArgumentException("No date time pattern for locale: " + safeLocale);
             }
-        }
-        return pattern;
+        });
     }
 
     /**
@@ -228,7 +208,7 @@ abstract class FormatCache<F extends Format> {
         private final int hashCode;
 
         /**
-         * Constructs an instance of {@code MultipartKey} to hold the specified objects.
+         * Constructs an instance of {@link MultipartKey} to hold the specified objects.
          *
          * @param keys the set of objects that make up the key.  Each key may be null.
          */

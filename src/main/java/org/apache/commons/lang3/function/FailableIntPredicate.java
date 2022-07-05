@@ -21,9 +21,9 @@ import java.util.Objects;
 import java.util.function.IntPredicate;
 
 /**
- * A functional interface like {@link IntPredicate} that declares a {@code Throwable}.
+ * A functional interface like {@link IntPredicate} that declares a {@link Throwable}.
  *
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -40,7 +40,7 @@ public interface FailableIntPredicate<E extends Throwable> {
     /**
      * Returns The FALSE singleton.
      *
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     static <E extends Throwable> FailableIntPredicate<E> falsePredicate() {
@@ -50,7 +50,7 @@ public interface FailableIntPredicate<E extends Throwable> {
     /**
      * Returns The TRUE singleton.
      *
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     static <E extends Throwable> FailableIntPredicate<E> truePredicate() {
@@ -58,10 +58,10 @@ public interface FailableIntPredicate<E extends Throwable> {
     }
 
     /**
-     * Returns a composed {@code FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}.
+     * Returns a composed {@link FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}.
      *
      * @param other a predicate that will be logically-ANDed with this predicate.
-     * @return a composed {@code FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}.
+     * @return a composed {@link FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}.
      * @throws NullPointerException if other is null
      */
     default FailableIntPredicate<E> and(final FailableIntPredicate<E> other) {
@@ -79,10 +79,10 @@ public interface FailableIntPredicate<E extends Throwable> {
     }
 
     /**
-     * Returns a composed {@code FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}.
+     * Returns a composed {@link FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}.
      *
      * @param other a predicate that will be logically-ORed with this predicate.
-     * @return a composed {@code FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}.
+     * @return a composed {@link FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}.
      * @throws NullPointerException if other is null
      */
     default FailableIntPredicate<E> or(final FailableIntPredicate<E> other) {

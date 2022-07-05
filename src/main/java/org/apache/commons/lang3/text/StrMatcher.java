@@ -27,6 +27,7 @@ import org.apache.commons.lang3.StringUtils;
  * <p>
  * This class comes complete with various factory methods.
  * If these do not suffice, you can subclass and implement your own matcher.
+ * </p>
  *
  * @since 2.2
  * @deprecated As of 3.6, use Apache Commons Text
@@ -73,8 +74,6 @@ public abstract class StrMatcher {
      * Matches no characters.
      */
     private static final StrMatcher NONE_MATCHER = new NoMatcher();
-
-    // -----------------------------------------------------------------------
 
     /**
      * Returns a matcher which matches the comma character.
@@ -227,16 +226,20 @@ public abstract class StrMatcher {
      * checked in the string {@code buffer} (a character array which must
      * not be changed).
      * The API guarantees that {@code pos} is a valid index for {@code buffer}.
+     * </p>
      * <p>
      * The character array may be larger than the active area to be matched.
      * Only values in the buffer between the specified indices may be accessed.
+     * </p>
      * <p>
      * The matching code may check one character or many.
      * It may check characters preceding {@code pos} as well as those
      * after, so long as no checks exceed the bounds specified.
+     * </p>
      * <p>
      * It must return zero for no match, or a positive number if a match was found.
      * The number indicates the number of characters that matched.
+     * </p>
      *
      * @param buffer  the text content to match against, do not change
      * @param pos  the starting position for the match, valid for buffer
@@ -254,12 +257,15 @@ public abstract class StrMatcher {
      * checked in the string {@code buffer} (a character array which must
      * not be changed).
      * The API guarantees that {@code pos} is a valid index for {@code buffer}.
+     * </p>
      * <p>
      * The matching code may check one character or many.
      * It may check characters preceding {@code pos} as well as those after.
+     * </p>
      * <p>
      * It must return zero for no match, or a positive number if a match was found.
      * The number indicates the number of characters that matched.
+     * </p>
      *
      * @param buffer  the text content to match against, do not change
      * @param pos  the starting position for the match, valid for buffer
@@ -384,7 +390,7 @@ public abstract class StrMatcher {
     static final class NoMatcher extends StrMatcher {
 
         /**
-         * Constructs a new instance of {@code NoMatcher}.
+         * Constructs a new instance of {@link NoMatcher}.
          */
         NoMatcher() {
         }
@@ -410,7 +416,7 @@ public abstract class StrMatcher {
     static final class TrimMatcher extends StrMatcher {
 
         /**
-         * Constructs a new instance of {@code TrimMatcher}.
+         * Constructs a new instance of {@link TrimMatcher}.
          */
         TrimMatcher() {
         }

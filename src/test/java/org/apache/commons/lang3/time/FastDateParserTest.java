@@ -317,7 +317,7 @@ public class FastDateParserTest {
     }
 
     @Test
-    public void testJpLocales() throws ParseException {
+    public void testJpLocales() {
 
         final Calendar cal = Calendar.getInstance(TimeZones.GMT);
         cal.clear();

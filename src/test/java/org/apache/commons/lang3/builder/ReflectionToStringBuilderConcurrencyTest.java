@@ -26,12 +26,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.concurrent.UncheckedFuture;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -50,7 +50,7 @@ import org.junit.jupiter.api.Test;
  *      and ToStringBuilder for collections that are not thread safe</a>
  * @since 3.1
  */
-public class ReflectionToStringBuilderConcurrencyTest {
+public class ReflectionToStringBuilderConcurrencyTest extends AbstractLangTest {
 
     static class CollectionHolder<T extends Collection<?>> {
         T collection;
@@ -65,24 +65,23 @@ public class ReflectionToStringBuilderConcurrencyTest {
 
     @Test
     @Disabled
-    public void testLinkedList() throws InterruptedException, ExecutionException {
+    public void testLinkedList() throws InterruptedException {
         this.testConcurrency(new CollectionHolder<>(new LinkedList<>()));
     }
 
     @Test
     @Disabled
-    public void testArrayList() throws InterruptedException, ExecutionException {
+    public void testArrayList() throws InterruptedException {
         this.testConcurrency(new CollectionHolder<>(new ArrayList<>()));
     }
 
     @Test
     @Disabled
-    public void testCopyOnWriteArrayList() throws InterruptedException, ExecutionException {
+    public void testCopyOnWriteArrayList() throws InterruptedException {
         this.testConcurrency(new CollectionHolder<>(new CopyOnWriteArrayList<>()));
     }
 
-    private void testConcurrency(final CollectionHolder<List<Integer>> holder) throws InterruptedException,
-        ExecutionException {
+    private void testConcurrency(final CollectionHolder<List<Integer>> holder) throws InterruptedException {
         final List<Integer> list = holder.collection;
         // make a big array that takes a long time to toString()
         for (int i = 0; i < DATA_SIZE; i++) {

@@ -20,11 +20,11 @@ package org.apache.commons.lang3.function;
 import java.util.function.ToLongBiFunction;
 
 /**
- * A functional interface like {@link ToLongBiFunction} that declares a {@code Throwable}.
+ * A functional interface like {@link ToLongBiFunction} that declares a {@link Throwable}.
  *
  * @param <T> the type of the first argument to the function
  * @param <U> the type of the second argument to the function
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -39,7 +39,7 @@ public interface FailableToLongBiFunction<T, U, E extends Throwable> {
      *
      * @param <T> the type of the first argument to the function
      * @param <U> the type of the second argument to the function
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     static <T, U, E extends Throwable> FailableToLongBiFunction<T, U, E> nop() {

@@ -19,9 +19,12 @@ package org.apache.commons.lang3.time;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
 import java.time.Duration;
+import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.math.NumberUtils;
@@ -34,6 +37,7 @@ public class DurationUtilsTest {
 
     @Test
     public void testGetNanosOfMilli() {
+        assertEquals(0, DurationUtils.getNanosOfMiili(null));
         assertEquals(0, DurationUtils.getNanosOfMiili(Duration.ZERO));
         assertEquals(1, DurationUtils.getNanosOfMiili(Duration.ofNanos(1)));
         assertEquals(10, DurationUtils.getNanosOfMiili(Duration.ofNanos(10)));
@@ -68,6 +72,30 @@ public class DurationUtilsTest {
         //
         assertEquals(Short.MIN_VALUE, DurationUtils.LONG_TO_INT_RANGE.fit((long) Short.MIN_VALUE));
         assertEquals(Short.MAX_VALUE, DurationUtils.LONG_TO_INT_RANGE.fit((long) Short.MAX_VALUE));
+    }
+
+    @Test
+    public void testOfRunnble() {
+        assertTrue(DurationUtils.of(this::testSince).compareTo(Duration.ZERO) >= 0);
+    }
+
+    @Test
+    public void testOfConsumer() {
+        assertTrue(DurationUtils.of(start -> assertTrue(start.compareTo(Instant.now()) <= 0)).compareTo(Duration.ZERO) >= 0);
+    }
+
+    @Test
+    public void testOfRunnbleThrowing() {
+        assertThrows(IOException.class, () -> DurationUtils.of(() -> {
+            throw new IOException();
+        }));
+    }
+
+    @Test
+    public void testSince() {
+        assertTrue(DurationUtils.since(Instant.EPOCH).compareTo(Duration.ZERO) >= 0);
+        assertTrue(DurationUtils.since(Instant.MIN).compareTo(Duration.ZERO) >= 0);
+        assertTrue(DurationUtils.since(Instant.MAX).compareTo(Duration.ZERO) <= 0);
     }
 
     @Test

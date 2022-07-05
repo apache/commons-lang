@@ -45,8 +45,6 @@ public class NumberUtilsTest {
         }
     }
 
-    // ---------------------------------------------------------------------
-
     @Test
     public void compareByte() {
         assertTrue(NumberUtils.compare((byte) -3, (byte) 0) < 0);
@@ -337,7 +335,6 @@ public class NumberUtilsTest {
         assertEquals(NumberUtils.FLOAT_MINUS_ONE.floatValue(), -1.0f);
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testConstructor() {
         assertNotNull(new NumberUtils());
@@ -1379,8 +1376,6 @@ public class NumberUtilsTest {
         assertThrows(IllegalArgumentException.class, NumberUtils::min);
     }
 
-    // min/max tests
-    // ----------------------------------------------------------------------
     @Test
     public void testMinLong_nullArray() {
         assertThrows(NullPointerException.class, () -> NumberUtils.min((long[]) null));

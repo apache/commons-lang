@@ -36,6 +36,8 @@ import java.util.concurrent.ConcurrentMap;
  * @since 2.2
  */
 public class LocaleUtils {
+    private static final char UNDERSCORE = '_';
+    private static final char DASH = '-';
 
     // class to avoid synchronization (Init on demand)
     static class SyncAvoid {
@@ -98,22 +100,16 @@ public class LocaleUtils {
         if (languageCode == null) {
             return Collections.emptyList();
         }
-        List<Locale> countries = cCountriesByLanguage.get(languageCode);
-        if (countries == null) {
-            countries = new ArrayList<>();
+        return cCountriesByLanguage.computeIfAbsent(languageCode, lc -> {
+            final List<Locale> countries = new ArrayList<>();
             final List<Locale> locales = availableLocaleList();
             for (final Locale locale : locales) {
-                if (languageCode.equals(locale.getLanguage()) &&
-                        !locale.getCountry().isEmpty() &&
-                    locale.getVariant().isEmpty()) {
+                if (languageCode.equals(locale.getLanguage()) && !locale.getCountry().isEmpty() && locale.getVariant().isEmpty()) {
                     countries.add(locale);
                 }
             }
-            countries = Collections.unmodifiableList(countries);
-            cCountriesByLanguage.putIfAbsent(languageCode, countries);
-            countries = cCountriesByLanguage.get(languageCode);
-        }
-        return countries;
+            return Collections.unmodifiableList(countries);
+        });
     }
 
     /**
@@ -169,21 +165,16 @@ public class LocaleUtils {
         if (countryCode == null) {
             return Collections.emptyList();
         }
-        List<Locale> langs = cLanguagesByCountry.get(countryCode);
-        if (langs == null) {
-            langs = new ArrayList<>();
+        return cLanguagesByCountry.computeIfAbsent(countryCode, k -> {
             final List<Locale> locales = availableLocaleList();
+            final List<Locale> langs = new ArrayList<>();
             for (final Locale locale : locales) {
-                if (countryCode.equals(locale.getCountry()) &&
-                    locale.getVariant().isEmpty()) {
+                if (countryCode.equals(locale.getCountry()) && locale.getVariant().isEmpty()) {
                     langs.add(locale);
                 }
             }
-            langs = Collections.unmodifiableList(langs);
-            cLanguagesByCountry.putIfAbsent(countryCode, langs);
-            langs = cLanguagesByCountry.get(countryCode);
-        }
-        return langs;
+            return Collections.unmodifiableList(langs);
+        });
     }
 
     /**
@@ -248,7 +239,9 @@ public class LocaleUtils {
             return new Locale(str);
         }
 
-        final String[] segments = str.split("_", -1);
+        final String[] segments = str.indexOf(UNDERSCORE) != -1
+            ? str.split(String.valueOf(UNDERSCORE), -1)
+            : str.split(String.valueOf(DASH), -1);
         final String language = segments[0];
         if (segments.length == 2) {
             final String country = segments[1];
@@ -289,6 +282,7 @@ public class LocaleUtils {
      *   LocaleUtils.toLocale("")           = new Locale("", "")
      *   LocaleUtils.toLocale("en")         = new Locale("en", "")
      *   LocaleUtils.toLocale("en_GB")      = new Locale("en", "GB")
+     *   LocaleUtils.toLocale("en-GB")      = new Locale("en", "GB")
      *   LocaleUtils.toLocale("en_001")     = new Locale("en", "001")
      *   LocaleUtils.toLocale("en_GB_xxx")  = new Locale("en", "GB", "xxx")   (#)
      * </pre>
@@ -300,7 +294,7 @@ public class LocaleUtils {
      * <p>This method validates the input strictly.
      * The language code must be lowercase.
      * The country code must be uppercase.
-     * The separator must be an underscore.
+     * The separator must be an underscore or a dash.
      * The length must be correct.
      * </p>
      *
@@ -325,7 +319,7 @@ public class LocaleUtils {
             throw new IllegalArgumentException("Invalid locale format: " + str);
         }
         final char ch0 = str.charAt(0);
-        if (ch0 == '_') {
+        if (ch0 == UNDERSCORE || ch0 == DASH) {
             if (len < 3) {
                 throw new IllegalArgumentException("Invalid locale format: " + str);
             }
@@ -340,7 +334,7 @@ public class LocaleUtils {
             if (len < 5) {
                 throw new IllegalArgumentException("Invalid locale format: " + str);
             }
-            if (str.charAt(3) != '_') {
+            if (str.charAt(3) != ch0) {
                 throw new IllegalArgumentException("Invalid locale format: " + str);
             }
             return new Locale(StringUtils.EMPTY, str.substring(1, 3), str.substring(4));
@@ -350,7 +344,7 @@ public class LocaleUtils {
     }
 
     /**
-     * <p>{@code LocaleUtils} instances should NOT be constructed in standard programming.
+     * <p>{@link LocaleUtils} instances should NOT be constructed in standard programming.
      * Instead, the class should be used as {@code LocaleUtils.toLocale("en_GB");}.</p>
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance

@@ -24,18 +24,18 @@ import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * <p>
- * A {@code Diff} contains the differences between two {@link Diffable} class
+ * A {@link Diff} contains the differences between two {@link Diffable} class
  * fields.
  * </p>
  *
  * <p>
- * Typically, {@code Diff}s are retrieved by using a {@link DiffBuilder} to
+ * Typically, {@link Diff}s are retrieved by using a {@link DiffBuilder} to
  * produce a {@link DiffResult}, containing the differences between two objects.
  * </p>
  *
  *
  * @param <T>
- *            The type of object contained within this {@code Diff}. Differences
+ *            The type of object contained within this {@link Diff}. Differences
  *            between primitive objects are stored as their Object wrapper
  *            equivalent.
  * @since 3.3
@@ -44,16 +44,19 @@ public abstract class Diff<T> extends Pair<T, T> {
 
     private static final long serialVersionUID = 1L;
 
+    /** The field type. */
     private final Type type;
+
+    /** The field name. */
     private final String fieldName;
 
     /**
      * <p>
-     * Constructs a new {@code Diff} for the given field name.
+     * Constructs a new {@link Diff} for the given field name.
      * </p>
      *
      * @param fieldName
-     *            the name of the field
+     *            the field name
      */
     protected Diff(final String fieldName) {
         this.type = ObjectUtils.defaultIfNull(
@@ -64,7 +67,7 @@ public abstract class Diff<T> extends Pair<T, T> {
 
     /**
      * <p>
-     * Returns the type of the field.
+     * Gets the type of the field.
      * </p>
      *
      * @return the field type
@@ -75,7 +78,7 @@ public abstract class Diff<T> extends Pair<T, T> {
 
     /**
      * <p>
-     * Returns the name of the field.
+     * Gets the name of the field.
      * </p>
      *
      * @return the field name
@@ -86,7 +89,7 @@ public abstract class Diff<T> extends Pair<T, T> {
 
     /**
      * <p>
-     * Returns a {@code String} representation of the {@code Diff}, with the
+     * Returns a {@link String} representation of the {@link Diff}, with the
      * following format:</p>
      *
      * <pre>
@@ -103,7 +106,7 @@ public abstract class Diff<T> extends Pair<T, T> {
 
     /**
      * <p>
-     * Throws {@code UnsupportedOperationException}.
+     * Throws {@link UnsupportedOperationException}.
      * </p>
      *
      * @param value

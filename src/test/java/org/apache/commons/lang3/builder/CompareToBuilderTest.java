@@ -22,12 +22,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigInteger;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.CompareToBuilder}.
  */
-public class CompareToBuilderTest {
+public class CompareToBuilderTest extends AbstractLangTest {
 
 
     static class TestObject implements Comparable<TestObject> {

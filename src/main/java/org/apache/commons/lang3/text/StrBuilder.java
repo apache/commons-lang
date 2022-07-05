@@ -67,10 +67,12 @@ import org.apache.commons.lang3.builder.Builder;
  * with invalid indices or null input, have been altered - see individual methods.
  * The biggest of these changes is that by default, null will not output the text
  * 'null'. This can be controlled by a property, {@link #setNullText(String)}.
+ * </p>
  * <p>
  * Prior to 3.0, this class implemented Cloneable but did not implement the
  * clone method so could not be used. From 3.0 onwards it no longer implements
  * the interface.
+ * </p>
  *
  * @since 2.2
  * @deprecated As of 3.6, use Apache Commons Text
@@ -205,9 +207,8 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         } else if (length > size) {
             ensureCapacity(length);
             final int oldEnd = size;
-            final int newEnd = length;
             size = length;
-            for (int i = oldEnd; i < newEnd; i++) {
+            for (int i = oldEnd; i < length; i++) {
                 buffer[i] = CharUtils.NUL;
             }
         }
@@ -257,6 +258,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * <p>
      * This method is the same as {@link #length()} and is provided to match the
      * API of Collections.
+     * </p>
      *
      * @return the length
      */
@@ -269,6 +271,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * <p>
      * This method is the same as checking {@link #length()} and is provided to match the
      * API of Collections.
+     * </p>
      *
      * @return {@code true} if the size is {@code 0}.
      */
@@ -281,6 +284,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * <p>
      * This method is the same as checking {@link #length()} and is provided to match the
      * API of Collections.
+     * </p>
      *
      * @return {@code true} if the size is greater than {@code 0}.
      * @since 3.12.0
@@ -294,9 +298,11 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * <p>
      * This method does not reduce the size of the internal character buffer.
      * To do that, call {@code clear()} followed by {@link #minimizeCapacity()}.
+     * </p>
      * <p>
      * This method is the same as {@link #setLength(int)} called with zero
      * and is provided to match the API of Collections.
+     * </p>
      *
      * @return this, to enable chaining
      */
@@ -477,6 +483,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * The new line string can be altered using {@link #setNewLineText(String)}.
      * This might be used to force the output to always use Unix line endings
      * even when on Windows.
+     * </p>
      *
      * @return this, to enable chaining
      */
@@ -892,15 +899,14 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             buffer[size++] = 't';
             buffer[size++] = 'r';
             buffer[size++] = 'u';
-            buffer[size++] = 'e';
         } else {
             ensureCapacity(size + 5);
             buffer[size++] = 'f';
             buffer[size++] = 'a';
             buffer[size++] = 'l';
             buffer[size++] = 's';
-            buffer[size++] = 'e';
         }
+        buffer[size++] = 'e';
         return this;
     }
 
@@ -1317,14 +1323,17 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * <p>
      * This method is useful for adding a separator each time around the
      * loop except the first.
+     * </p>
      * <pre>
      * for (Iterator it = list.iterator(); it.hasNext(); ) {
      *   appendSeparator(",");
      *   append(it.next());
      * }
      * </pre>
+     * <p>
      * Note that for this simple example, you should use
      * {@link #appendWithSeparators(Iterable, String)}.
+     * </p>
      *
      * @param separator  the separator to use, null means no separator
      * @return this, to enable chaining
@@ -1343,6 +1352,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * The separator is appended using {@link #append(String)}.
      * <p>
      * This method is for example useful for constructing queries
+     * </p>
      * <pre>
      * StrBuilder whereClause = new StrBuilder();
      * if (searchCommand.getPriority() != null) {
@@ -1375,6 +1385,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * <p>
      * This method is useful for adding a separator each time around the
      * loop except the first.
+     * </p>
      * <pre>
      * for (Iterator it = list.iterator(); it.hasNext(); ) {
      *   appendSeparator(',');
@@ -1887,6 +1898,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Matchers can be used to perform advanced deletion behavior.
      * For example you could write a matcher to delete all occurrences
      * where the character 'a' is followed by a number.
+     * </p>
      *
      * @param matcher  the matcher to use to find the deletion, null causes no action
      * @return this, to enable chaining
@@ -1901,6 +1913,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Matchers can be used to perform advanced deletion behavior.
      * For example you could write a matcher to delete
      * where the character 'a' is followed by a number.
+     * </p>
      *
      * @param matcher  the matcher to use to find the deletion, null causes no action
      * @return this, to enable chaining
@@ -2033,6 +2046,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Matchers can be used to perform advanced replace behavior.
      * For example you could write a matcher to replace all occurrences
      * where the character 'a' is followed by a number.
+     * </p>
      *
      * @param matcher  the matcher to use to find the deletion, null causes no action
      * @param replaceStr  the replace string, null is equivalent to an empty string
@@ -2048,6 +2062,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Matchers can be used to perform advanced replace behavior.
      * For example you could write a matcher to replace
      * where the character 'a' is followed by a number.
+     * </p>
      *
      * @param matcher  the matcher to use to find the deletion, null causes no action
      * @param replaceStr  the replace string, null is equivalent to an empty string
@@ -2057,13 +2072,13 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return replace(matcher, replaceStr, 0, size, 1);
     }
 
-    // -----------------------------------------------------------------------
     /**
      * Advanced search and replaces within the builder using a matcher.
      * <p>
      * Matchers can be used to perform advanced behavior.
      * For example you could write a matcher to delete all occurrences
      * where the character 'a' is followed by a number.
+     * </p>
      *
      * @param matcher  the matcher to use to find the deletion, null causes no action
      * @param replaceStr  the string to replace the match with, null is a delete
@@ -2087,6 +2102,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Matchers can be used to perform advanced behavior.
      * For example you could write a matcher to delete all occurrences
      * where the character 'a' is followed by a number.
+     * </p>
      *
      * @param matcher  the matcher to use to find the deletion, null causes no action
      * @param replaceStr  the string to replace the match with, null is a delete
@@ -2170,6 +2186,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Checks whether this builder starts with the specified string.
      * <p>
      * Note that this method handles null input quietly, unlike String.
+     * </p>
      *
      * @param str  the string to search for, null returns false
      * @return true if the builder starts with the string
@@ -2197,6 +2214,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Checks whether this builder ends with the specified string.
      * <p>
      * Note that this method handles null input quietly, unlike String.
+     * </p>
      *
      * @param str  the string to search for, null returns false
      * @return true if the builder ends with the string
@@ -2256,6 +2274,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Note: This method treats an endIndex greater than the length of the
      * builder as equal to the length of the builder, and continues
      * without error, unlike StringBuffer or String.
+     * </p>
      *
      * @param startIndex  the start index, inclusive, must be valid
      * @param endIndex  the end index, exclusive, must be valid except
@@ -2276,6 +2295,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * the builder. If this many characters are not available, the whole
      * builder is returned. Thus the returned string may be shorter than the
      * length requested.
+     * </p>
      *
      * @param length  the number of characters to extract, negative returns empty string
      * @return the new string
@@ -2298,6 +2318,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * the builder. If this many characters are not available, the whole
      * builder is returned. Thus the returned string may be shorter than the
      * length requested.
+     * </p>
      *
      * @param length  the number of characters to extract, negative returns empty string
      * @return the new string
@@ -2323,6 +2344,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * If the length is negative, the empty string is returned.
      * If insufficient characters are available in the builder, as much as possible is returned.
      * Thus the returned string may be shorter than the length requested.
+     * </p>
      *
      * @param index  the index to start at, negative means zero
      * @param length  the number of characters to extract, negative returns empty string
@@ -2374,6 +2396,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Matchers can be used to perform advanced searching behavior.
      * For example you could write a matcher to search for the character
      * 'a' followed by a number.
+     * </p>
      *
      * @param matcher  the matcher to use, null returns -1
      * @return true if the matcher finds a match in the builder
@@ -2417,6 +2440,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Searches the string builder to find the first reference to the specified string.
      * <p>
      * Note that a null input string will return -1, whereas the JDK throws an exception.
+     * </p>
      *
      * @param str  the string to find, null returns -1
      * @return the first index of the string, or -1 if not found
@@ -2430,6 +2454,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * string starting searching from the given index.
      * <p>
      * Note that a null input string will return -1, whereas the JDK throws an exception.
+     * </p>
      *
      * @param str  the string to find, null returns -1
      * @param startIndex  the index to start at, invalid index rounded to edge
@@ -2470,6 +2495,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Matchers can be used to perform advanced searching behavior.
      * For example you could write a matcher to find the character 'a'
      * followed by a number.
+     * </p>
      *
      * @param matcher  the matcher to use, null returns -1
      * @return the first index matched, or -1 if not found
@@ -2485,6 +2511,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Matchers can be used to perform advanced searching behavior.
      * For example you could write a matcher to find the character 'a'
      * followed by a number.
+     * </p>
      *
      * @param matcher  the matcher to use, null returns -1
      * @param startIndex  the index to start at, invalid index rounded to edge
@@ -2539,6 +2566,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Searches the string builder to find the last reference to the specified string.
      * <p>
      * Note that a null input string will return -1, whereas the JDK throws an exception.
+     * </p>
      *
      * @param str  the string to find, null returns -1
      * @return the last index of the string, or -1 if not found
@@ -2552,6 +2580,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * string starting searching from the given index.
      * <p>
      * Note that a null input string will return -1, whereas the JDK throws an exception.
+     * </p>
      *
      * @param str  the string to find, null returns -1
      * @param startIndex  the index to start at, invalid index rounded to edge
@@ -2590,6 +2619,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Matchers can be used to perform advanced searching behavior.
      * For example you could write a matcher to find the character 'a'
      * followed by a number.
+     * </p>
      *
      * @param matcher  the matcher to use, null returns -1
      * @return the last index matched, or -1 if not found
@@ -2605,6 +2635,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Matchers can be used to perform advanced searching behavior.
      * For example you could write a matcher to find the character 'a'
      * followed by a number.
+     * </p>
      *
      * @param matcher  the matcher to use, null returns -1
      * @param startIndex  the index to start at, invalid index rounded to edge
@@ -2632,12 +2663,14 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * The tokenizer will be setup by default to tokenize on space, tab,
      * newline and formfeed (as per StringTokenizer). These values can be
      * changed on the tokenizer class, before retrieving the tokens.
+     * </p>
      * <p>
      * The returned tokenizer is linked to this builder. You may intermix
      * calls to the builder and tokenizer within certain limits, however
      * there is no synchronization. Once the tokenizer has been used once,
      * it must be {@link StrTokenizer#reset() reset} to pickup the latest
      * changes in the builder. For example:
+     * </p>
      * <pre>
      * StrBuilder b = new StrBuilder();
      * b.append("a b ");
@@ -2648,12 +2681,15 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * t.reset();              // reset causes builder changes to be picked up
      * String[] tokens3 = t.getTokenArray();  // returns a,b,c,d
      * </pre>
+     * <p>
      * In addition to simply intermixing appends and tokenization, you can also
      * call the set methods on the tokenizer to alter how it tokenizes. Just
      * remember to call reset when you want to pickup builder changes.
+     * </p>
      * <p>
      * Calling {@link StrTokenizer#reset(String)} or {@link StrTokenizer#reset(char[])}
      * with a non-null value will break the link with the builder.
+     * </p>
      *
      * @return a tokenizer that is linked to this builder
      */
@@ -2666,17 +2702,21 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * <p>
      * This method allows the contents of the builder to be read
      * using any standard method that expects a Reader.
+     * </p>
      * <p>
-     * To use, simply create a {@code StrBuilder}, populate it with
+     * To use, simply create a {@link StrBuilder}, populate it with
      * data, call {@code asReader}, and then read away.
+     * </p>
      * <p>
      * The internal character array is shared between the builder and the reader.
      * This allows you to append to the builder after creating the reader,
      * and the changes will be picked up.
      * Note however, that no synchronization occurs, so you must perform
      * all operations with the builder and the reader in one thread.
+     * </p>
      * <p>
      * The returned reader supports marking, and ignores the flush method.
+     * </p>
      *
      * @return a reader that reads from this builder
      */
@@ -2689,18 +2729,22 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * <p>
      * This method allows you to populate the contents of the builder
      * using any standard method that takes a Writer.
+     * </p>
      * <p>
-     * To use, simply create a {@code StrBuilder},
+     * To use, simply create a {@link StrBuilder},
      * call {@code asWriter}, and populate away. The data is available
-     * at any time using the methods of the {@code StrBuilder}.
+     * at any time using the methods of the {@link StrBuilder}.
+     * </p>
      * <p>
      * The internal character array is shared between the builder and the writer.
      * This allows you to intermix calls that append to the builder and
      * write using the writer and the changes will be occur correctly.
      * Note however, that no synchronization occurs, so you must perform
      * all operations with the builder and the writer in one thread.
+     * </p>
      * <p>
      * The returned writer ignores the close and flush methods.
+     * </p>
      *
      * @return a writer that populates this builder
      */
@@ -2709,10 +2753,11 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     }
 
     /**
-     * Appends current contents of this {@code StrBuilder} to the
+     * Appends current contents of this {@link StrBuilder} to the
      * provided {@link Appendable}.
      * <p>
      * This method tries to avoid doing any extra copies of contents.
+     * </p>
      *
      * @param appendable  the appendable to append data to
      * @throws IOException  if an I/O error occurs
@@ -2820,6 +2865,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * <p>
      * Note that unlike StringBuffer, the string version returned is
      * independent of the string builder.
+     * </p>
      *
      * @return the builder as a String
      */
@@ -2985,7 +3031,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             if (n < 0) {
                 return 0;
             }
-            pos += n;
+            pos = Math.addExact(pos, Math.toIntExact(n));
             return n;
         }
 

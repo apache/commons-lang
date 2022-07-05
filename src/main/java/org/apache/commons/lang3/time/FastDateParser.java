@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -54,9 +55,9 @@ import org.apache.commons.lang3.LocaleUtils;
  * </code>
  *
  * <p>This class can be used as a direct replacement for
- * {@code SimpleDateFormat} in most parsing situations.
+ * {@link SimpleDateFormat} in most parsing situations.
  * This class is especially useful in multi-threaded server environments.
- * {@code SimpleDateFormat} is not thread-safe in any JDK version,
+ * {@link SimpleDateFormat} is not thread-safe in any JDK version,
  * nor will it be as Sun has closed the
  * <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4228335">bug</a>/RFE.
  * </p>
@@ -83,19 +84,32 @@ public class FastDateParser implements DateParser, Serializable {
 
     static final Locale JAPANESE_IMPERIAL = new Locale("ja", "JP", "JP");
 
-    // defining fields
+    /** Input pattern. */
     private final String pattern;
+
+    /** Input TimeZone. */
     private final TimeZone timeZone;
+
+    /** Input Locale. */
     private final Locale locale;
+
+    /**
+     * Century from Date.
+     */
     private final int century;
+
+    /**
+     * Start year from Date.
+     */
     private final int startYear;
 
-    // derived fields
+    /** Initialized from Calendar. */
     private transient List<StrategyAndWidth> patterns;
 
-    // comparator used to sort regex alternatives
-    // alternatives should be ordered longer first, and shorter last. ('february' before 'feb')
-    // all entries must be lowercase by locale.
+    /**
+     * comparator used to sort regex alternatives. Alternatives should be ordered longer first, and shorter last.
+     * ('february' before 'feb'). All entries must be lower-case by locale.
+     */
     private static final Comparator<String> LONGER_FIRST_LOWERCASE = Comparator.reverseOrder();
 
     /**
@@ -572,6 +586,7 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * Gets a Strategy given a field from a SimpleDateFormat pattern
      * @param f A sub-sequence of the SimpleDateFormat pattern
+     * @param width formatting width
      * @param definingCalendar The calendar to obtain the short and long values
      * @return The Strategy that will handle parsing for the field
      */
@@ -592,6 +607,7 @@ public class FastDateParser implements DateParser, Serializable {
         case 'K': // Hour in am/pm (0-11)
             return HOUR_STRATEGY;
         case 'M':
+        case 'L':
             return width >= 3 ? getLocaleSpecificStrategy(Calendar.MONTH, definingCalendar) : NUMBER_MONTH_STRATEGY;
         case 'S':
             return MILLISECOND_STRATEGY;
@@ -653,16 +669,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
     private Strategy getLocaleSpecificStrategy(final int field, final Calendar definingCalendar) {
         final ConcurrentMap<Locale, Strategy> cache = getCache(field);
-        Strategy strategy = cache.get(locale);
-        if (strategy == null) {
-            strategy = field == Calendar.ZONE_OFFSET ? new TimeZoneStrategy(locale)
-                : new CaseInsensitiveTextStrategy(field, definingCalendar, locale);
-            final Strategy inCache = cache.putIfAbsent(locale, strategy);
-            if (inCache != null) {
-                return inCache;
-            }
-        }
-        return strategy;
+        return cache.computeIfAbsent(locale, k -> (field == Calendar.ZONE_OFFSET ? new TimeZoneStrategy(locale) : new CaseInsensitiveTextStrategy(field, definingCalendar, locale)));
     }
 
     /**

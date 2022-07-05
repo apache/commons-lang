@@ -26,7 +26,7 @@ import java.util.TimeZone;
  */
 public class TimeZones {
 
-    // Do not instantiate.
+    /** Do not instantiate. */
     private TimeZones() {
     }
 
@@ -41,4 +41,16 @@ public class TimeZones {
      * @since 3.13.0
      */
     public static final TimeZone GMT = TimeZone.getTimeZone(GMT_ID);
+
+    /**
+     * Returns the given TimeZone if non-{@code null}, otherwise {@link TimeZone#getDefault()}.
+     *
+     * @param timeZone a locale or {@code null}.
+     * @return the given locale if non-{@code null}, otherwise {@link TimeZone#getDefault()}.
+     * @since 3.13.0
+     */
+    public static TimeZone toTimeZone(final TimeZone timeZone) {
+        return timeZone != null ? timeZone : TimeZone.getDefault();
+    }
+
 }

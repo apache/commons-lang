@@ -18,10 +18,10 @@
 package org.apache.commons.lang3.function;
 
 /**
- * A functional interface like {@link java.util.concurrent.Callable} that declares a {@code Throwable}.
+ * A functional interface like {@link java.util.concurrent.Callable} that declares a {@link Throwable}.
  *
  * @param <R> Return type.
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface

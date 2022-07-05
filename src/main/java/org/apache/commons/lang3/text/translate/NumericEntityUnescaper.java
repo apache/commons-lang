@@ -24,7 +24,7 @@ import java.util.EnumSet;
 
 /**
  * Translate XML numeric entities of the form &amp;#[xX]?\d+;? to
- * the specific codepoint.
+ * the specific code point.
  *
  * Note that the semicolon is optional.
  *

@@ -119,7 +119,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
 
     /**
      * <p>Compares the pair based on the left element followed by the right element.
-     * The types must be {@code Comparable}.</p>
+     * The types must be {@link Comparable}.</p>
      *
      * @param other  the other pair, not null
      * @return negative if this is less, zero if equal, positive if greater

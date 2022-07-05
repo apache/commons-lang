@@ -20,25 +20,25 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * <p>
- * A specialized implementation of the {@code ConcurrentInitializer} interface
+ * A specialized implementation of the {@link ConcurrentInitializer} interface
  * based on an {@link AtomicReference} variable.
  * </p>
  * <p>
- * This class maintains a member field of type {@code AtomicReference}. It
+ * This class maintains a member field of type {@link AtomicReference}. It
  * implements the following algorithm to create and initialize an object in its
  * {@link #get()} method:
  * </p>
  * <ul>
- * <li>First it is checked whether the {@code AtomicReference} variable contains
+ * <li>First it is checked whether the {@link AtomicReference} variable contains
  * already a value. If this is the case, the value is directly returned.</li>
  * <li>Otherwise the {@link #initialize()} method is called. This method must be
  * defined in concrete subclasses to actually create the managed object.</li>
  * <li>After the object was created by {@link #initialize()} it is checked
- * whether the {@code AtomicReference} variable is still undefined. This has to
+ * whether the {@link AtomicReference} variable is still undefined. This has to
  * be done because in the meantime another thread may have initialized the
  * object. If the reference is still empty, the newly created object is stored
  * in it and returned by this method.</li>
- * <li>Otherwise the value stored in the {@code AtomicReference} is returned.</li>
+ * <li>Otherwise the value stored in the {@link AtomicReference} is returned.</li>
  * </ul>
  * <p>
  * Because atomic variables are used this class does not need any
@@ -72,7 +72,7 @@ public abstract class AtomicInitializer<T> implements ConcurrentInitializer<T> {
      * it is not available yet and stored internally. This method always returns
      * the same object.
      *
-     * @return the object created by this {@code AtomicInitializer}
+     * @return the object created by this {@link AtomicInitializer}
      * @throws ConcurrentException if an error occurred during initialization of
      * the object
      */

@@ -54,8 +54,8 @@ import org.apache.commons.lang3.reflect.FieldUtils;
  * </pre>
  *
  * <p>
- * The {@code ToStringStyle} passed to the constructor is embedded in the
- * returned {@code DiffResult} and influences the style of the
+ * The {@link ToStringStyle} passed to the constructor is embedded in the
+ * returned {@link DiffResult} and influences the style of the
  * {@code DiffResult.toString()} method. This style choice can be overridden by
  * calling {@link DiffResult#toString(ToStringStyle)}.
  * </p>

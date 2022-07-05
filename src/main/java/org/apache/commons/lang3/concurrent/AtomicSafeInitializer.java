@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * <p>
- * A specialized {@code ConcurrentInitializer} implementation which is similar
+ * A specialized {@link ConcurrentInitializer} implementation which is similar
  * to {@link AtomicInitializer}, but ensures that the {@link #initialize()}
  * method is called only once.
  * </p>
@@ -42,7 +42,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * {@link LazyInitializer}. It is a &quot;save&quot; implementation of the lazy
  * initializer pattern. Comparing both classes in terms of efficiency is
  * difficult because which one is faster depends on multiple factors. Because
- * {@code AtomicSafeInitializer} does not use synchronization at all it probably
+ * {@link AtomicSafeInitializer} does not use synchronization at all it probably
  * outruns {@link LazyInitializer}, at least under low or moderate concurrent
  * access. Developers should run their own benchmarks on the expected target
  * platform to decide which implementation is suitable for their specific use
@@ -83,7 +83,7 @@ public abstract class AtomicSafeInitializer<T> implements
 
     /**
      * Creates and initializes the object managed by this
-     * {@code AtomicInitializer}. This method is called by {@link #get()} when
+     * {@link AtomicInitializer}. This method is called by {@link #get()} when
      * the managed object is not available yet. An implementation can focus on
      * the creation of the object. No synchronization is needed, as this is
      * already handled by {@code get()}. This method is guaranteed to be called

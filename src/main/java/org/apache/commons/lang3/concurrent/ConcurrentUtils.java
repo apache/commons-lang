@@ -41,8 +41,8 @@ public class ConcurrentUtils {
     }
 
     /**
-     * Inspects the cause of the specified {@code ExecutionException} and
-     * creates a {@code ConcurrentException} with the checked cause if
+     * Inspects the cause of the specified {@link ExecutionException} and
+     * creates a {@link ConcurrentException} with the checked cause if
      * necessary. This method performs the following checks on the cause of the
      * passed in exception:
      * <ul>
@@ -56,7 +56,7 @@ public class ConcurrentUtils {
      * </ul>
      *
      * @param ex the exception to be processed
-     * @return a {@code ConcurrentException} with the checked cause
+     * @return a {@link ConcurrentException} with the checked cause
      */
     public static ConcurrentException extractCause(final ExecutionException ex) {
         if (ex == null || ex.getCause() == null) {
@@ -68,16 +68,16 @@ public class ConcurrentUtils {
     }
 
     /**
-     * Inspects the cause of the specified {@code ExecutionException} and
-     * creates a {@code ConcurrentRuntimeException} with the checked cause if
+     * Inspects the cause of the specified {@link ExecutionException} and
+     * creates a {@link ConcurrentRuntimeException} with the checked cause if
      * necessary. This method works exactly like
      * {@link #extractCause(ExecutionException)}. The only difference is that
-     * the cause of the specified {@code ExecutionException} is extracted as a
+     * the cause of the specified {@link ExecutionException} is extracted as a
      * runtime exception. This is an alternative for client code that does not
      * want to deal with checked exceptions.
      *
      * @param ex the exception to be processed
-     * @return a {@code ConcurrentRuntimeException} with the checked cause
+     * @return a {@link ConcurrentRuntimeException} with the checked cause
      */
     public static ConcurrentRuntimeException extractCauseUnchecked(
             final ExecutionException ex) {
@@ -90,11 +90,11 @@ public class ConcurrentUtils {
     }
 
     /**
-     * Handles the specified {@code ExecutionException}. This method calls
+     * Handles the specified {@link ExecutionException}. This method calls
      * {@link #extractCause(ExecutionException)} for obtaining the cause of the
      * exception - which might already cause an unchecked exception or an error
      * being thrown. If the cause is a checked exception however, it is wrapped
-     * in a {@code ConcurrentException}, which is thrown. If the passed in
+     * in a {@link ConcurrentException}, which is thrown. If the passed in
      * exception is <b>null</b> or has no cause, the method simply returns
      * without throwing an exception.
      *
@@ -112,7 +112,7 @@ public class ConcurrentUtils {
     }
 
     /**
-     * Handles the specified {@code ExecutionException} and transforms it into a
+     * Handles the specified {@link ExecutionException} and transforms it into a
      * runtime exception. This method works exactly like
      * {@link #handleCause(ExecutionException)}, but instead of a
      * {@link ConcurrentException} it throws a
@@ -133,12 +133,12 @@ public class ConcurrentUtils {
     }
 
     /**
-     * Tests whether the specified {@code Throwable} is a checked exception. If
+     * Tests whether the specified {@link Throwable} is a checked exception. If
      * not, an exception is thrown.
      *
-     * @param ex the {@code Throwable} to check
+     * @param ex the {@link Throwable} to check
      * @return a flag whether the passed in exception is a checked exception
-     * @throws IllegalArgumentException if the {@code Throwable} is not a
+     * @throws IllegalArgumentException if the {@link Throwable} is not a
      * checked exception
      */
     static Throwable checkedException(final Throwable ex) {
@@ -149,7 +149,7 @@ public class ConcurrentUtils {
     }
 
     /**
-     * Tests whether the cause of the specified {@code ExecutionException}
+     * Tests whether the cause of the specified {@link ExecutionException}
      * should be thrown and does it if necessary.
      *
      * @param ex the exception in question
@@ -165,16 +165,16 @@ public class ConcurrentUtils {
     }
 
     /**
-     * Invokes the specified {@code ConcurrentInitializer} and returns the
+     * Invokes the specified {@link ConcurrentInitializer} and returns the
      * object produced by the initializer. This method just invokes the {@code
-     * get()} method of the given {@code ConcurrentInitializer}. It is
+     * get()} method of the given {@link ConcurrentInitializer}. It is
      * <b>null</b>-safe: if the argument is <b>null</b>, result is also
      * <b>null</b>.
      *
      * @param <T> the type of the object produced by the initializer
-     * @param initializer the {@code ConcurrentInitializer} to be invoked
-     * @return the object managed by the {@code ConcurrentInitializer}
-     * @throws ConcurrentException if the {@code ConcurrentInitializer} throws
+     * @param initializer the {@link ConcurrentInitializer} to be invoked
+     * @return the object managed by the {@link ConcurrentInitializer}
+     * @throws ConcurrentException if the {@link ConcurrentInitializer} throws
      * an exception
      */
     public static <T> T initialize(final ConcurrentInitializer<T> initializer)
@@ -183,7 +183,7 @@ public class ConcurrentUtils {
     }
 
     /**
-     * Invokes the specified {@code ConcurrentInitializer} and transforms
+     * Invokes the specified {@link ConcurrentInitializer} and transforms
      * occurring exceptions to runtime exceptions. This method works like
      * {@link #initialize(ConcurrentInitializer)}, but if the {@code
      * ConcurrentInitializer} throws a {@link ConcurrentException}, it is
@@ -191,8 +191,8 @@ public class ConcurrentUtils {
      * So client code does not have to deal with checked exceptions.
      *
      * @param <T> the type of the object produced by the initializer
-     * @param initializer the {@code ConcurrentInitializer} to be invoked
-     * @return the object managed by the {@code ConcurrentInitializer}
+     * @param initializer the {@link ConcurrentInitializer} to be invoked
+     * @return the object managed by the {@link ConcurrentInitializer}
      * @throws ConcurrentRuntimeException if the initializer throws an exception
      */
     public static <T> T initializeUnchecked(final ConcurrentInitializer<T> initializer) {
@@ -205,9 +205,9 @@ public class ConcurrentUtils {
 
     /**
      * <p>
-     * Puts a value in the specified {@code ConcurrentMap} if the key is not yet
+     * Puts a value in the specified {@link ConcurrentMap} if the key is not yet
      * present. This method works similar to the {@code putIfAbsent()} method of
-     * the {@code ConcurrentMap} interface, but the value returned is different.
+     * the {@link ConcurrentMap} interface, but the value returned is different.
      * Basically, this method is equivalent to the following code fragment:
      * </p>
      *
@@ -305,7 +305,7 @@ public class ConcurrentUtils {
 
     /**
      * <p>
-     * Gets an implementation of {@code Future} that is immediately done
+     * Gets an implementation of {@link Future} that is immediately done
      * and returns the specified constant value.
      * </p>
      * <p>
@@ -314,7 +314,7 @@ public class ConcurrentUtils {
      * A constant future can also be useful in testing.
      * </p>
      *
-     * @param <T> the type of the value used by this {@code Future} object
+     * @param <T> the type of the value used by this {@link Future} object
      * @param value  the constant value to return, may be null
      * @return an instance of Future that will return the value, never null
      */
@@ -323,7 +323,7 @@ public class ConcurrentUtils {
     }
 
     /**
-     * A specialized {@code Future} implementation which wraps a constant value.
+     * A specialized {@link Future} implementation which wraps a constant value.
      * @param <T> the type of the value wrapped by this class
      */
     static final class ConstantFuture<T> implements Future<T> {
@@ -331,7 +331,7 @@ public class ConcurrentUtils {
         private final T value;
 
         /**
-         * Creates a new instance of {@code ConstantFuture} and initializes it
+         * Creates a new instance of {@link ConstantFuture} and initializes it
          * with the constant value.
          *
          * @param value the value (may be <b>null</b>)
@@ -342,7 +342,7 @@ public class ConcurrentUtils {
 
         /**
          * {@inheritDoc} This implementation always returns <b>true</b> because
-         * the constant object managed by this {@code Future} implementation is
+         * the constant object managed by this {@link Future} implementation is
          * always available.
          */
         @Override

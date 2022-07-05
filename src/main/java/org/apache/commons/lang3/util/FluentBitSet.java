@@ -32,6 +32,9 @@ public final class FluentBitSet implements Cloneable, Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Working BitSet.
+     */
     private final BitSet bitSet;
 
     /**
@@ -88,9 +91,9 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     /**
-     * Clears all of the bits in this {@code BitSet} whose corresponding bit is set in the specified {@code BitSet}.
+     * Clears all of the bits in this {@link BitSet} whose corresponding bit is set in the specified {@link BitSet}.
      *
-     * @param set the {@code BitSet} with which to mask this {@code BitSet}.
+     * @param set the {@link BitSet} with which to mask this {@link BitSet}.
      * @return this.
      */
     public FluentBitSet andNot(final BitSet set) {
@@ -99,9 +102,9 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     /**
-     * Clears all of the bits in this {@code BitSet} whose corresponding bit is set in the specified {@code BitSet}.
+     * Clears all of the bits in this {@link BitSet} whose corresponding bit is set in the specified {@link BitSet}.
      *
-     * @param set the {@code BitSet} with which to mask this {@code BitSet}.
+     * @param set the {@link BitSet} with which to mask this {@link BitSet}.
      * @return this.
      */
     public FluentBitSet andNot(final FluentBitSet set) {
@@ -119,9 +122,9 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     /**
-     * Returns the number of bits set to {@code true} in this {@code BitSet}.
+     * Returns the number of bits set to {@code true} in this {@link BitSet}.
      *
-     * @return the number of bits set to {@code true} in this {@code BitSet}.
+     * @return the number of bits set to {@code true} in this {@link BitSet}.
      */
     public int cardinality() {
         return bitSet.cardinality();
@@ -179,7 +182,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     /**
-     * Cloning this {@code BitSet} produces a new {@code BitSet} that is equal to it. The clone of the bit set is another
+     * Cloning this {@link BitSet} produces a new {@link BitSet} that is equal to it. The clone of the bit set is another
      * bit set that has exactly the same bits set to {@code true} as this bit set.
      *
      * @return a clone of this bit set
@@ -231,7 +234,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
 
     /**
      * Returns the value of the bit with the specified index. The value is {@code true} if the bit with the index
-     * {@code bitIndex} is currently set in this {@code BitSet}; otherwise, the result is {@code false}.
+     * {@code bitIndex} is currently set in this {@link BitSet}; otherwise, the result is {@code false}.
      *
      * @param bitIndex the bit index.
      * @return the value of the bit with the specified index.
@@ -242,12 +245,12 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     /**
-     * Returns a new {@code BitSet} composed of bits from this {@code BitSet} from {@code fromIndex} (inclusive) to
+     * Returns a new {@link BitSet} composed of bits from this {@link BitSet} from {@code fromIndex} (inclusive) to
      * {@code toIndex} (exclusive).
      *
      * @param fromIndex index of the first bit to include.
      * @param toIndex index after the last bit to include.
-     * @return a new {@code BitSet} from a range of this {@code BitSet}.
+     * @return a new {@link BitSet} from a range of this {@link BitSet}.
      * @throws IndexOutOfBoundsException if {@code fromIndex} is negative, or {@code toIndex} is negative, or
      *         {@code fromIndex} is larger than {@code toIndex}.
      */
@@ -261,41 +264,41 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     /**
-     * Returns true if the specified {@code BitSet} has any bits set to {@code true} that are also set to {@code true} in
-     * this {@code BitSet}.
+     * Returns true if the specified {@link BitSet} has any bits set to {@code true} that are also set to {@code true} in
+     * this {@link BitSet}.
      *
-     * @param set {@code BitSet} to intersect with.
-     * @return boolean indicating whether this {@code BitSet} intersects the specified {@code BitSet}.
+     * @param set {@link BitSet} to intersect with.
+     * @return boolean indicating whether this {@link BitSet} intersects the specified {@link BitSet}.
      */
     public boolean intersects(final BitSet set) {
         return bitSet.intersects(set);
     }
 
     /**
-     * Returns true if the specified {@code BitSet} has any bits set to {@code true} that are also set to {@code true} in
-     * this {@code BitSet}.
+     * Returns true if the specified {@link BitSet} has any bits set to {@code true} that are also set to {@code true} in
+     * this {@link BitSet}.
      *
-     * @param set {@code BitSet} to intersect with.
-     * @return boolean indicating whether this {@code BitSet} intersects the specified {@code BitSet}.
+     * @param set {@link BitSet} to intersect with.
+     * @return boolean indicating whether this {@link BitSet} intersects the specified {@link BitSet}.
      */
     public boolean intersects(final FluentBitSet set) {
         return bitSet.intersects(set.bitSet);
     }
 
     /**
-     * Returns true if this {@code BitSet} contains no bits that are set to {@code true}.
+     * Returns true if this {@link BitSet} contains no bits that are set to {@code true}.
      *
-     * @return boolean indicating whether this {@code BitSet} is empty.
+     * @return boolean indicating whether this {@link BitSet} is empty.
      */
     public boolean isEmpty() {
         return bitSet.isEmpty();
     }
 
     /**
-     * Returns the "logical size" of this {@code BitSet}: the index of the highest set bit in the {@code BitSet} plus one.
-     * Returns zero if the {@code BitSet} contains no set bits.
+     * Returns the "logical size" of this {@link BitSet}: the index of the highest set bit in the {@link BitSet} plus one.
+     * Returns zero if the {@link BitSet} contains no set bits.
      *
-     * @return the logical size of this {@code BitSet}.
+     * @return the logical size of this {@link BitSet}.
      */
     public int length() {
         return bitSet.length();
@@ -316,7 +319,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
      * Returns the index of the first bit that is set to {@code true} that occurs on or after the specified starting index.
      * If no such bit exists then {@code -1} is returned.
      * <p>
-     * To iterate over the {@code true} bits in a {@code BitSet}, use the following loop:
+     * To iterate over the {@code true} bits in a {@link BitSet}, use the following loop:
      * </p>
      *
      * <pre>
@@ -395,7 +398,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
      * index. If no such bit exists, or if {@code -1} is given as the starting index, then {@code -1} is returned.
      *
      * <p>
-     * To iterate over the {@code true} bits in a {@code BitSet}, use the following loop:
+     * To iterate over the {@code true} bits in a {@link BitSet}, use the following loop:
      *
      * <pre>
      *  {@code
@@ -498,7 +501,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     /**
-     * Returns the number of bits of space actually in use by this {@code BitSet} to represent bit values. The maximum
+     * Returns the number of bits of space actually in use by this {@link BitSet} to represent bit values. The maximum
      * element in the set is the size - 1st element.
      *
      * @return the number of bits currently in this bit set.
@@ -508,7 +511,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     /**
-     * Returns a stream of indices for which this {@code BitSet} contains a bit in the set state. The indices are returned
+     * Returns a stream of indices for which this {@link BitSet} contains a bit in the set state. The indices are returned
      * in order, from lowest to highest. The size of the stream is the number of bits in the set state, equal to the value
      * returned by the {@link #cardinality()} method.
      *

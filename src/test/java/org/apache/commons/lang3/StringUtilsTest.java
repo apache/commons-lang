@@ -305,7 +305,6 @@ public class StringUtilsTest {
         assertAbbreviateWithOffset("...ijklmno", 8, 10);
         assertAbbreviateWithOffset("...ijklmno", 9, 10);
         assertAbbreviateWithOffset("...ijklmno", 10, 10);
-        assertAbbreviateWithOffset("...ijklmno", 10, 10);
         assertAbbreviateWithOffset("...ijklmno", 11, 10);
         assertAbbreviateWithOffset("...ijklmno", 12, 10);
         assertAbbreviateWithOffset("...ijklmno", 13, 10);
@@ -1622,13 +1621,11 @@ public class StringUtilsTest {
     @Test
     public void testRemove_char() {
         // StringUtils.remove(null, *)       = null
-        assertNull(StringUtils.remove(null, 'a'));
-        assertNull(StringUtils.remove(null, 'a'));
+        assertNull(StringUtils.remove(null, null));
         assertNull(StringUtils.remove(null, 'a'));
 
         // StringUtils.remove("", *)          = ""
-        assertEquals("", StringUtils.remove("", 'a'));
-        assertEquals("", StringUtils.remove("", 'a'));
+        assertEquals("", StringUtils.remove("", null));
         assertEquals("", StringUtils.remove("", 'a'));
 
         // StringUtils.remove("queued", 'u') = "qeed"
@@ -2774,7 +2771,7 @@ public class StringUtilsTest {
         assertEquals("b", res[1]);
         assertEquals("c", res[2]);
         assertEquals("", res[3]);
-        assertEquals("", res[3]);
+        assertEquals("", res[4]);
 
         // Match example in javadoc
         {
@@ -3044,7 +3041,6 @@ public class StringUtilsTest {
                 () -> StringUtils.truncate(null, Integer.MIN_VALUE),
                 "maxWith cannot be negative");
         assertEquals("", StringUtils.truncate("", 10));
-        assertEquals("", StringUtils.truncate("", 10));
         assertEquals("abc", StringUtils.truncate("abcdefghij", 3));
         assertEquals("abcdef", StringUtils.truncate("abcdefghij", 6));
         assertEquals("", StringUtils.truncate("abcdefghij", 0));
@@ -3158,8 +3154,6 @@ public class StringUtilsTest {
         assertEquals("", StringUtils.truncate("abcdefghijklmno", 15, Integer.MAX_VALUE));
         assertEquals("", StringUtils.truncate("abcdefghijklmno", Integer.MAX_VALUE, Integer.MAX_VALUE));
     }
-
-    // -----------------------------------------------------------------------
 
     @Test
     public void testUnCapitalize() {

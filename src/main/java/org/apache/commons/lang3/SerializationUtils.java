@@ -48,12 +48,12 @@ public class SerializationUtils {
 
     /**
      * <p>Custom specialization of the standard JDK {@link java.io.ObjectInputStream}
-     * that uses a custom  {@code ClassLoader} to resolve a class.
-     * If the specified {@code ClassLoader} is not able to resolve the class,
+     * that uses a custom  {@link ClassLoader} to resolve a class.
+     * If the specified {@link ClassLoader} is not able to resolve the class,
      * the context classloader of the current thread will be used.
      * This way, the standard deserialization work also in web-application
      * containers and application servers, no matter in which of the
-     * {@code ClassLoader} the particular class that encapsulates
+     * {@link ClassLoader} the particular class that encapsulates
      * serialization/deserialization lives. </p>
      *
      * <p>For more in-depth information about the problem for which this
@@ -79,7 +79,7 @@ public class SerializationUtils {
 
         /**
          * Constructor.
-         * @param in The {@code InputStream}.
+         * @param in The {@link InputStream}.
          * @param classLoader classloader to use
          * @throws IOException if an I/O error occurs while reading stream header.
          * @see java.io.ObjectInputStream
@@ -90,10 +90,10 @@ public class SerializationUtils {
         }
 
         /**
-         * Overridden version that uses the parameterized {@code ClassLoader} or the {@code ClassLoader}
-         * of the current {@code Thread} to resolve the class.
-         * @param desc An instance of class {@code ObjectStreamClass}.
-         * @return A {@code Class} object corresponding to {@code desc}.
+         * Overridden version that uses the parameterized {@link ClassLoader} or the {@link ClassLoader}
+         * of the current {@link Thread} to resolve the class.
+         * @param desc An instance of class {@link ObjectStreamClass}.
+         * @return A {@link Class} object corresponding to {@code desc}.
          * @throws IOException Any of the usual Input/Output exceptions.
          * @throws ClassNotFoundException If class of a serialized object cannot be found.
          */
@@ -118,16 +118,16 @@ public class SerializationUtils {
     }
 
     /**
-     * <p>Deep clone an {@code Object} using serialization.</p>
+     * <p>Deep clone an {@link Object} using serialization.</p>
      *
      * <p>This is many times slower than writing clone methods by hand
      * on all objects in your object graph. However, for complex object
      * graphs, or for those that don't support deep cloning this can
      * be a simple alternative implementation. Of course all the objects
-     * must be {@code Serializable}.</p>
+     * must be {@link Serializable}.</p>
      *
      * @param <T> the type of the object involved
-     * @param object  the {@code Serializable} object to clone
+     * @param object  the {@link Serializable} object to clone
      * @return the cloned object
      * @throws SerializationException (runtime) if the serialization fails
      */
@@ -154,7 +154,7 @@ public class SerializationUtils {
 
     /**
      * <p>
-     * Deserializes a single {@code Object} from an array of bytes.
+     * Deserializes a single {@link Object} from an array of bytes.
      * </p>
      *
      * <p>
@@ -177,7 +177,7 @@ public class SerializationUtils {
 
     /**
      * <p>
-     * Deserializes an {@code Object} from the specified stream.
+     * Deserializes an {@link Object} from the specified stream.
      * </p>
      *
      * <p>
@@ -232,7 +232,7 @@ public class SerializationUtils {
     }
 
     /**
-     * <p>Serializes an {@code Object} to a byte array for
+     * <p>Serializes an {@link Object} to a byte array for
      * storage/serialization.</p>
      *
      * @param obj  the object to serialize to bytes
@@ -246,7 +246,7 @@ public class SerializationUtils {
     }
 
     /**
-     * <p>Serializes an {@code Object} to the specified stream.</p>
+     * <p>Serializes an {@link Object} to the specified stream.</p>
      *
      * <p>The stream will be closed once the object is written.
      * This avoids the need for a finally clause, and maybe also exception

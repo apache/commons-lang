@@ -67,7 +67,29 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="kinow" due-to="Roland Kreuzer">Javadoc for StringUtils.substringBefore(String str, int separator) doesn't mention that the separator is an int.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in ThreadUtils.getSystemThreadGroup() when the current thread is stopped.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">ArrayUtils.toPrimitive(Boolean...) null array elements map to false, like Boolean.parseBoolean(null) and its callers return false.</action>
+    <action                   type="fix" dev="ggregory" due-to="CodeQL, Gary Gregory">StrBuilder.StrBuilderReader.skip(long): Throw an exception when an implicit narrowing conversion in a compound assignment would result in information loss or a numeric error such as an overflows.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate Validate#notNull(Object) in favor of using Objects#requireNonNull(Object, String).</action>
+    <action issue="LANG-1462" type="fix" dev="ggregory" due-to="Lijun Liang, Arun Avanathan, Tai Dupree, Maria Buiakova, Gary Gregory">Use TimeZone from calendar in DateFormatUtils.</action>
+    <action                   type="fix" dev="ggregory" due-to="Diego Marcilio">Updating javadoc for NullPointerException when Validate.notNull() is called #870.</action>
+    <action                   type="fix" dev="ggregory" due-to="Diego Marcilio">Fixing and adding DateUtils exception Javadocs #871.</action>
+    <action issue="LANG-1679" type="fix" dev="ggregory" due-to="clover">Improve performance of StringUtils.unwrap(String, String) #844.</action>
+    <action issue="LANG-1675" type="fix" dev="ggregory" due-to="clover">Improve performance of StringUtils.join for primitives #812.</action>
+    <action issue="LANG-1675" type="fix" dev="ggregory" due-to="Arturo Bernal">Fixed NPE getting Stack Trace if Throwable is null #733.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Arturo Bernal">Make Validate.isAssignableFrom() check null inputs.</action>
+    <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Fix Javadoc for Validate.isAssignableFrom().</action>
+    <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Make final mappingFunction variable #876.</action>
+    <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Remove unnecessary variable creations #882.</action>
+    <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Minor changes #769.</action>
+    <action issue="LANG-1680" type="fix" dev="ggregory" due-to="Michael Krause, Steve Bosman, Gary Gregory">FastDateFormat does not support the 'L'-Pattern from SimpleDateFormat.</action>
+    <action                   type="fix" dev="ggregory" due-to="Steve Bosman, Gary Gregory">Increase test coverage of ComparableUtils from 71% to 100% #898.</action>
+    <action                   type="fix" dev="ggregory" due-to="Steve Bosman">Increase method test coverage of MultilineRecursiveToStringStyle #899.</action>
+    <action                   type="fix" dev="ggregory" due-to="Steve Bosman">Fix unstable coverage of CharSequenceUtils tests noticed during merge of PRs 898 and 899 #901.</action>
+    <action                   type="fix" dev="aherbert" due-to="Arturo Bernal">Rewrite Conversion.binaryBeMsb0ToHexDigit to invert logic of binaryToHexDigit.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Allow extension of previously final classes ImmutablePair and ImmutableTriple.</action>
+    <action                   type="fix" dev="ggregory" due-to="shalk, Bruno P. Kinoshita, Gary Gregory">Update ClassUtils Javadoc with some missing throws NPE #912.</action>
+    <action                   type="fix" dev="ggregory" due-to="guicaiyue">Javadoc: StringUtils.repeat("", "x", 3) = "xx"; #918.</action>
     <!-- ADD -->
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add GitHub coverage.yml.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TriConsumer.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use EnumUtils.getFirstEnumIgnoreCase(Class, String, Function, E).</action>
@@ -90,7 +112,6 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add UncheckedTimeoutException.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add UncheckedInterruptedException.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TimeZones.GMT.</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_16.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ObjectUtils.identityHashCodeHex(Object).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ObjectUtils.hashCodeHex(Object).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StringUtils.removeStart(String, char).</action>
@@ -117,25 +138,45 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Processor.Type.AARCH_64.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Processor.isAarch64().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Update ArchUtils.getProcessor(String) for "aarch64".</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_18.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TimeZones.toTimeZone(TimeZone).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add FutureTasks.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Memoizer(Function) and Memoizer(Function, boolean).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Consumers.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add github/codeql-action.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add coverage.yml.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add DurationUtils.since(Temporal).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add DurationUtils.of(FailableConsumer|FailableRunnbale).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ExceptionUtils.forEach(Throwable, Consumer&lt;Throwable&gt;).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ExceptionUtils.stream(Throwable).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ExceptionUtils.getRootCauseStackTraceList(Throwable).</action>
+    <action                   type="add" dev="ggregory" due-to="Will Herrmann, Gary Gregory, Roland Kreuzer">Add SystemUtils.IS_OS_WINDOWS_11.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_16.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_17.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_18.</action>
     <!-- UPDATE -->
-    <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump spotbugs-maven-plugin from 4.2.0 to 4.5.0.0 #735, #808, #822, #834.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess">Bump actions/cache from v2.1.4 to v2.1.7 #742, #752, #764, #833.</action>
-    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/setup-java from v1.4.3 to v2.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump spotbugs from 4.2.2 to 4.2.3 #744.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess, Gary Gregory">Bump actions/cache from 2.1.4 to 3.0.4 #742, #752, #764, #833, #867.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump actions/checkout from 2 to 3 #819, #825, #859.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/setup-java from v1.4.3 to 3 #879.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump spotbugs-maven-plugin from 4.2.0 to 4.7.0.0 #735, #808, #822, #834, #868, #895.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump spotbugs from 4.2.2 to 4.7.1 #744, #917.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump checkstyle from 8.41 to 9.2.1 #739, #768, #787, #811, #824, #843.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump easymock from 4.2 to 4.3 #746.</action>
-    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump commons.jacoco.version 0.8.6 -> 0.8.7.</action>
-    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump commons.japicmp.version 0.15.2 -> 0.15.4.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump junit-pioneer from 1.3.8 to 1.5.0 #749, #767, #832.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump commons.jacoco.version from 0.8.6 to 0.8.8.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump commons.japicmp.version from 0.15.2 to 0.15.7.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump junit-pioneer from 1.3.8 to 1.7.1 #749, #767, #832, #883.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump junit-bom from 5.7.1 to 5.8.2 #761, #805, #807, #836.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump maven-javadoc-plugin from 3.2.0 to 3.3.1.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump jmh.version from 1.27 to 1.34 #794, #842.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump maven-pmd-plugin from 3.14.0 to 3.15.0 #802.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump pmd-java8 from 6.40.0 to 6.41.0 #837.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump biz.aQute.bndlib from 5.3.0 to 6.1.0 #814, #835.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump actions/checkout from 2.3.4 to 2.4.0 #819, #825.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump maven-javadoc-plugin from 3.2.0 to 3.4.0.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump jmh.version from 1.27 to 1.35 #794, #842, #872.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump maven-pmd-plugin from 3.14.0 to 3.17.0 #802, #858, #909.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump commons.pmd-impl.version from 6.42.0 to 6.46.0 #861, #873, #905.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump pmd from 6.40.0 to 6.47.0 #837, #915.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump biz.aQute.bndlib from 5.3.0 to 6.2.0 #814, #835.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump maven-bundle-plugin from 5.1.1 to 5.1.2.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump animal-sniffer-maven-plugin from 1.19 to 1.20.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump animal-sniffer-maven-plugin from 1.19 to 1.21.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump exec-maven-plugin from 1.6.0 to 3.0.0 #590.</action>
+    <action                   type="update" dev="kinow" due-to="Dependabot">Bump maven-surefire-plugin from 3.0.0-M5 to 3.0.0-M7 #880, #910.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump apache-rat from 0.13 to 0.14.</action>
   </release>
 
   <release version="3.12.0" date="2021-02-26" description="New features and bug fixes (Java 8).">
@@ -214,6 +255,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Arturo Bernal">Minor Improvement: Add final variable.try to make the code read-only #700.</action>
     <action                   type="update" dev="ggregory" due-to="Arturo Bernal">Minor Improvement: Remove redundant initializer #699.</action>
     <action                   type="update" dev="ggregory" due-to="Arturo Bernal">Use own validator ObjectUtils.anyNull to check null String input #718.</action>
+    <action                   type="update" dev="kinow" due-to="Dependabot">Bump commons-parent from 52 to 53 #885.</action>
   </release>
   <release version="3.11" date="2020-07-12" description="New features and bug fixes (Java 8).">
     <action                   type="update" dev="chtompki" due-to="Jin Xu">Refine test output for FastDateParserTest</action>

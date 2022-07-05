@@ -20,9 +20,9 @@ package org.apache.commons.lang3.function;
 import java.util.function.IntToLongFunction;
 
 /**
- * A functional interface like {@link IntToLongFunction} that declares a {@code Throwable}.
+ * A functional interface like {@link IntToLongFunction} that declares a {@link Throwable}.
  *
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -35,7 +35,7 @@ public interface FailableIntToLongFunction<E extends Throwable> {
     /**
      * Returns The NOP singleton.
      *
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     static <E extends Throwable> FailableIntToLongFunction<E> nop() {

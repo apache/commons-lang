@@ -53,29 +53,29 @@ import java.util.concurrent.Future;
  * </pre>
  *
  * <p>
- * After the construction of a {@code BackgroundInitializer} object its
+ * After the construction of a {@link BackgroundInitializer} object its
  * {@link #start()} method has to be called. This starts the background
  * processing. The application can now continue to do other things. When it
- * needs access to the object produced by the {@code BackgroundInitializer} it
+ * needs access to the object produced by the {@link BackgroundInitializer} it
  * calls its {@link #get()} method. If initialization is already complete,
  * {@link #get()} returns the result object immediately. Otherwise it blocks
  * until the result object is fully constructed.
  * </p>
  * <p>
- * {@code BackgroundInitializer} is a thin wrapper around a {@code Future}
- * object and uses an {@code ExecutorService} for running the background
- * initialization task. It is possible to pass in an {@code ExecutorService} at
+ * {@link BackgroundInitializer} is a thin wrapper around a {@link Future}
+ * object and uses an {@link ExecutorService} for running the background
+ * initialization task. It is possible to pass in an {@link ExecutorService} at
  * construction time or set one using {@code setExternalExecutor()} before
  * {@code start()} was called. Then this object is used to spawn the background
- * task. If no {@code ExecutorService} has been provided, {@code
- * BackgroundInitializer} creates a temporary {@code ExecutorService} and
+ * task. If no {@link ExecutorService} has been provided, {@code
+ * BackgroundInitializer} creates a temporary {@link ExecutorService} and
  * destroys it when initialization is complete.
  * </p>
  * <p>
- * The methods provided by {@code BackgroundInitializer} provide for minimal
- * interaction with the wrapped {@code Future} object. It is also possible to
- * obtain the {@code Future} object directly. Then the enhanced functionality
- * offered by {@code Future} can be used, e.g. to check whether the background
+ * The methods provided by {@link BackgroundInitializer} provide for minimal
+ * interaction with the wrapped {@link Future} object. It is also possible to
+ * obtain the {@link Future} object directly. Then the enhanced functionality
+ * offered by {@link Future} can be used, e.g. to check whether the background
  * operation is complete or to cancel the operation.
  * </p>
  *
@@ -94,21 +94,21 @@ public abstract class BackgroundInitializer<T> implements
     private Future<T> future;  // @GuardedBy("this")
 
     /**
-     * Creates a new instance of {@code BackgroundInitializer}. No external
-     * {@code ExecutorService} is used.
+     * Creates a new instance of {@link BackgroundInitializer}. No external
+     * {@link ExecutorService} is used.
      */
     protected BackgroundInitializer() {
         this(null);
     }
 
     /**
-     * Creates a new instance of {@code BackgroundInitializer} and initializes
-     * it with the given {@code ExecutorService}. If the {@code ExecutorService}
+     * Creates a new instance of {@link BackgroundInitializer} and initializes
+     * it with the given {@link ExecutorService}. If the {@link ExecutorService}
      * is not null, the background task for initializing this object will be
      * scheduled at this service. Otherwise a new temporary {@code
      * ExecutorService} is created.
      *
-     * @param exec an external {@code ExecutorService} to be used for task
+     * @param exec an external {@link ExecutorService} to be used for task
      * execution
      */
     protected BackgroundInitializer(final ExecutorService exec) {
@@ -116,16 +116,16 @@ public abstract class BackgroundInitializer<T> implements
     }
 
     /**
-     * Returns the external {@code ExecutorService} to be used by this class.
+     * Returns the external {@link ExecutorService} to be used by this class.
      *
-     * @return the {@code ExecutorService}
+     * @return the {@link ExecutorService}
      */
     public final synchronized ExecutorService getExternalExecutor() {
         return externalExecutor;
     }
 
     /**
-     * Returns a flag whether this {@code BackgroundInitializer} has already
+     * Returns a flag whether this {@link BackgroundInitializer} has already
      * been started.
      *
      * @return a flag whether the {@link #start()} method has already been
@@ -136,16 +136,16 @@ public abstract class BackgroundInitializer<T> implements
     }
 
     /**
-     * Sets an {@code ExecutorService} to be used by this class. The {@code
+     * Sets an {@link ExecutorService} to be used by this class. The {@code
      * ExecutorService} passed to this method is used for executing the
      * background task. Thus it is possible to re-use an already existing
-     * {@code ExecutorService} or to use a specially configured one. If no
-     * {@code ExecutorService} is set, this instance creates a temporary one and
+     * {@link ExecutorService} or to use a specially configured one. If no
+     * {@link ExecutorService} is set, this instance creates a temporary one and
      * destroys it after background initialization is complete. Note that this
      * method must be called before {@link #start()}; otherwise an exception is
      * thrown.
      *
-     * @param externalExecutor the {@code ExecutorService} to be used
+     * @param externalExecutor the {@link ExecutorService} to be used
      * @throws IllegalStateException if this initializer has already been
      * started
      */
@@ -162,7 +162,7 @@ public abstract class BackgroundInitializer<T> implements
     /**
      * Starts the background initialization. With this method the initializer
      * becomes active and invokes the {@link #initialize()} method in a
-     * background task. A {@code BackgroundInitializer} can be started exactly
+     * background task. A {@link BackgroundInitializer} can be started exactly
      * once. The return value of this method determines whether the start was
      * successful: only the first invocation of this method returns <b>true</b>,
      * following invocations will return <b>false</b>.
@@ -195,9 +195,9 @@ public abstract class BackgroundInitializer<T> implements
      * Returns the result of the background initialization. This method blocks
      * until initialization is complete. If the background processing caused a
      * runtime exception, it is directly thrown by this method. Checked
-     * exceptions, including {@code InterruptedException} are wrapped in a
+     * exceptions, including {@link InterruptedException} are wrapped in a
      * {@link ConcurrentException}. Calling this method before {@link #start()}
-     * was called causes an {@code IllegalStateException} exception to be
+     * was called causes an {@link IllegalStateException} exception to be
      * thrown.
      *
      * @return the object produced by this initializer
@@ -220,11 +220,11 @@ public abstract class BackgroundInitializer<T> implements
     }
 
     /**
-     * Returns the {@code Future} object that was created when {@link #start()}
+     * Returns the {@link Future} object that was created when {@link #start()}
      * was called. Therefore this method can only be called after {@code
      * start()}.
      *
-     * @return the {@code Future} object wrapped by this initializer
+     * @return the {@link Future} object wrapped by this initializer
      * @throws IllegalStateException if {@link #start()} has not been called
      */
     public synchronized Future<T> getFuture() {
@@ -236,13 +236,13 @@ public abstract class BackgroundInitializer<T> implements
     }
 
     /**
-     * Returns the {@code ExecutorService} that is actually used for executing
+     * Returns the {@link ExecutorService} that is actually used for executing
      * the background task. This method can be called after {@link #start()}
      * (before {@code start()} it returns <b>null</b>). If an external executor
      * was set, this is also the active executor. Otherwise this method returns
      * the temporary executor that was created by this object.
      *
-     * @return the {@code ExecutorService} for executing the background task
+     * @return the {@link ExecutorService} for executing the background task
      */
     protected final synchronized ExecutorService getActiveExecutor() {
         return executor;
@@ -265,7 +265,7 @@ public abstract class BackgroundInitializer<T> implements
 
     /**
      * Performs the initialization. This method is called in a background task
-     * when this {@code BackgroundInitializer} is started. It must be
+     * when this {@link BackgroundInitializer} is started. It must be
      * implemented by a concrete subclass. An implementation is free to perform
      * arbitrary initialization. The object returned by this method can be
      * queried using the {@link #get()} method.
@@ -276,13 +276,13 @@ public abstract class BackgroundInitializer<T> implements
     protected abstract T initialize() throws Exception;
 
     /**
-     * Creates a task for the background initialization. The {@code Callable}
-     * object returned by this method is passed to the {@code ExecutorService}.
+     * Creates a task for the background initialization. The {@link Callable}
+     * object returned by this method is passed to the {@link ExecutorService}.
      * This implementation returns a task that invokes the {@link #initialize()}
-     * method. If a temporary {@code ExecutorService} is used, it is destroyed
+     * method. If a temporary {@link ExecutorService} is used, it is destroyed
      * at the end of the task.
      *
-     * @param execDestroy the {@code ExecutorService} to be destroyed by the
+     * @param execDestroy the {@link ExecutorService} to be destroyed by the
      * task
      * @return a task for the background initialization
      */
@@ -291,10 +291,10 @@ public abstract class BackgroundInitializer<T> implements
     }
 
     /**
-     * Creates the {@code ExecutorService} to be used. This method is called if
-     * no {@code ExecutorService} was provided at construction time.
+     * Creates the {@link ExecutorService} to be used. This method is called if
+     * no {@link ExecutorService} was provided at construction time.
      *
-     * @return the {@code ExecutorService} to be used
+     * @return the {@link ExecutorService} to be used
      */
     private ExecutorService createExecutor() {
         return Executors.newFixedThreadPool(getTaskCount());
@@ -305,10 +305,10 @@ public abstract class BackgroundInitializer<T> implements
         private final ExecutorService execFinally;
 
         /**
-         * Creates a new instance of {@code InitializationTask} and initializes
-         * it with the {@code ExecutorService} to be destroyed at the end.
+         * Creates a new instance of {@link InitializationTask} and initializes
+         * it with the {@link ExecutorService} to be destroyed at the end.
          *
-         * @param exec the {@code ExecutorService}
+         * @param exec the {@link ExecutorService}
          */
         InitializationTask(final ExecutorService exec) {
             execFinally = exec;

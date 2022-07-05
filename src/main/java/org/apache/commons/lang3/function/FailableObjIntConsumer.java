@@ -20,10 +20,10 @@ package org.apache.commons.lang3.function;
 import java.util.function.ObjIntConsumer;
 
 /**
- * A functional interface like {@link ObjIntConsumer} that declares a {@code Throwable}.
+ * A functional interface like {@link ObjIntConsumer} that declares a {@link Throwable}.
  *
  * @param <T> the type of the object argument to the operation.
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -37,7 +37,7 @@ public interface FailableObjIntConsumer<T, E extends Throwable> {
      * Returns The NOP singleton.
      *
      * @param <T> the type of the object argument to the operation.
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     static <T, E extends Throwable> FailableObjIntConsumer<T, E> nop() {

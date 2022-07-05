@@ -230,6 +230,8 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 4, 4, 3, 2, 1);
+
+        assertThrows(NullPointerException.class, () -> DateUtils.addDays(null, 0));
     }
 
     @Test
@@ -248,6 +250,8 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 3, 3, 2, 1);
+
+        assertThrows(NullPointerException.class, () -> DateUtils.addHours(null, 0));
     }
 
     @Test
@@ -266,6 +270,8 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 2, 0);
+
+        assertThrows(NullPointerException.class, () -> DateUtils.addMilliseconds(null, 0));
     }
 
     @Test
@@ -284,6 +290,8 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 2, 2, 1);
+
+        assertThrows(NullPointerException.class, () -> DateUtils.addMinutes(null, 0));
     }
 
     @Test
@@ -302,6 +310,8 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 5, 5, 4, 3, 2, 1);
+
+        assertThrows(NullPointerException.class, () -> DateUtils.addMonths(null, 0));
     }
 
     @Test
@@ -320,6 +330,8 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 1, 1);
+
+        assertThrows(NullPointerException.class, () -> DateUtils.addSeconds(null, 0));
     }
 
     @Test
@@ -338,6 +350,8 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);      // july
         assertDate(result, 2000, 5, 28, 4, 3, 2, 1);   // june
+
+        assertThrows(NullPointerException.class, () -> DateUtils.addMonths(null, 0));
     }
 
     @Test
@@ -356,12 +370,14 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 1999, 6, 5, 4, 3, 2, 1);
+
+        assertThrows(NullPointerException.class, () -> DateUtils.addYears(null, 0));
     }
 
     /**
      * Tests various values with the ceiling method
      *
-     * @throws java.lang.Exception so we don't have to catch it
+     * @throws Exception so we don't have to catch it
      */
     @Test
     public void testCeil() throws Exception {
@@ -510,8 +526,8 @@ public class DateUtilsTest {
                 "ceiling ampm-4 failed");
 
         assertThrows(NullPointerException.class, () -> DateUtils.ceiling((Date) null, Calendar.SECOND));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.ceiling((Calendar) null, Calendar.SECOND));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.ceiling((Object) null, Calendar.SECOND));
+        assertThrows(NullPointerException.class, () -> DateUtils.ceiling((Calendar) null, Calendar.SECOND));
+        assertThrows(NullPointerException.class, () -> DateUtils.ceiling((Object) null, Calendar.SECOND));
         assertThrows(ClassCastException.class, () -> DateUtils.ceiling("", Calendar.SECOND));
         assertThrows(IllegalArgumentException.class, () -> DateUtils.ceiling(date1, -9999));
 
@@ -613,17 +629,17 @@ public class DateUtilsTest {
 
     @Test
     public void testIsSameDay_CalNotNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay(Calendar.getInstance(), null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameDay(Calendar.getInstance(), null));
     }
 
     @Test
     public void testIsSameDay_CalNullNotNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay(null, Calendar.getInstance()));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameDay(null, Calendar.getInstance()));
     }
 
     @Test
     public void testIsSameDay_CalNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay((Calendar) null, null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameDay((Calendar) null, null));
     }
 
     @Test
@@ -641,17 +657,17 @@ public class DateUtilsTest {
 
     @Test
     public void testIsSameDay_DateNotNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay(new Date(), null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameDay(new Date(), null));
     }
 
     @Test
     public void testIsSameDay_DateNullNotNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay(null, new Date()));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameDay(null, new Date()));
     }
 
     @Test
     public void testIsSameDay_DateNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay((Date) null, null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameDay((Date) null, null));
     }
 
     @Test
@@ -670,17 +686,17 @@ public class DateUtilsTest {
 
     @Test
     public void testIsSameInstant_CalNotNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant(Calendar.getInstance(), null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameInstant(Calendar.getInstance(), null));
     }
 
     @Test
     public void testIsSameInstant_CalNullNotNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant(null, Calendar.getInstance()));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameInstant(null, Calendar.getInstance()));
     }
 
     @Test
     public void testIsSameInstant_CalNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant((Calendar) null, null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameInstant((Calendar) null, null));
     }
 
     @Test
@@ -698,17 +714,17 @@ public class DateUtilsTest {
 
     @Test
     public void testIsSameInstant_DateNotNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant(new Date(), null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameInstant(new Date(), null));
     }
 
     @Test
     public void testIsSameInstant_DateNullNotNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant(null, new Date()));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameInstant(null, new Date()));
     }
 
     @Test
     public void testIsSameInstant_DateNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant((Date) null, null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameInstant((Date) null, null));
     }
 
     @Test
@@ -735,17 +751,17 @@ public class DateUtilsTest {
 
     @Test
     public void testIsSameLocalTime_CalNotNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameLocalTime(Calendar.getInstance(), null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameLocalTime(Calendar.getInstance(), null));
     }
 
     @Test
     public void testIsSameLocalTime_CalNullNotNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameLocalTime(null, Calendar.getInstance()));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameLocalTime(null, Calendar.getInstance()));
     }
 
     @Test
     public void testIsSameLocalTime_CalNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameLocalTime(null, null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameLocalTime(null, null));
     }
 
     /**
@@ -754,12 +770,9 @@ public class DateUtilsTest {
     @Test
     public void testIteratorEx() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.iterator(Calendar.getInstance(), -9999));
-        assertThrows
-                (NullPointerException.class, () -> DateUtils.iterator((Date) null, DateUtils.RANGE_WEEK_CENTER));
-        assertThrows
-                (IllegalArgumentException.class, () -> DateUtils.iterator((Calendar) null, DateUtils.RANGE_WEEK_CENTER));
-        assertThrows
-                (IllegalArgumentException.class, () -> DateUtils.iterator((Object) null, DateUtils.RANGE_WEEK_CENTER));
+        assertThrows(NullPointerException.class, () -> DateUtils.iterator((Date) null, DateUtils.RANGE_WEEK_CENTER));
+        assertThrows(NullPointerException.class, () -> DateUtils.iterator((Calendar) null, DateUtils.RANGE_WEEK_CENTER));
+        assertThrows(NullPointerException.class, () -> DateUtils.iterator((Object) null, DateUtils.RANGE_WEEK_CENTER));
         assertThrows(ClassCastException.class, () -> DateUtils.iterator("", DateUtils.RANGE_WEEK_CENTER));
     }
 
@@ -817,7 +830,7 @@ public class DateUtilsTest {
     /**
      * Tests the calendar iterator for month-based ranges
      *
-     * @throws java.lang.Exception so we don't have to catch it
+     * @throws Exception so we don't have to catch it
      */
     @Test
     public void testMonthIterator() throws Exception {
@@ -849,7 +862,7 @@ public class DateUtilsTest {
 
     @Test
     public void testParse_NullParsers() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.parseDate("19721203", (String[]) null));
+        assertThrows(NullPointerException.class, () -> DateUtils.parseDate("19721203", (String[]) null));
     }
 
     @Test
@@ -884,7 +897,7 @@ public class DateUtilsTest {
     @Test
     public void testParseDate_Null() {
         final String[] parsers = {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.parseDate(null, parsers));
+        assertThrows(NullPointerException.class, () -> DateUtils.parseDate(null, parsers));
     }
 
     // LANG-486
@@ -903,7 +916,7 @@ public class DateUtilsTest {
     /**
      * Tests various values with the round method
      *
-     * @throws java.lang.Exception so we don't have to catch it
+     * @throws Exception so we don't have to catch it
      */
     @Test
     public void testRound() throws Exception {
@@ -1031,8 +1044,8 @@ public class DateUtilsTest {
                 "round ampm-4 failed");
 
         assertThrows(NullPointerException.class, () -> DateUtils.round((Date) null, Calendar.SECOND));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.round((Calendar) null, Calendar.SECOND));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.round((Object) null, Calendar.SECOND));
+        assertThrows(NullPointerException.class, () -> DateUtils.round((Calendar) null, Calendar.SECOND));
+        assertThrows(NullPointerException.class, () -> DateUtils.round((Object) null, Calendar.SECOND));
         assertThrows(ClassCastException.class, () -> DateUtils.round("", Calendar.SECOND));
         assertThrows(IllegalArgumentException.class, () -> DateUtils.round(date1, -9999));
 
@@ -1113,7 +1126,7 @@ public class DateUtilsTest {
      * Tests the Changes Made by LANG-346 to the DateUtils.modify() private method invoked
      * by DateUtils.round().
      *
-     * @throws java.lang.Exception so we don't have to catch it
+     * @throws Exception so we don't have to catch it
      */
     @Test
     public void testRoundLang346() throws Exception {
@@ -1172,7 +1185,6 @@ public class DateUtilsTest {
                 "Hour Round Up Failed");
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testSetDays() throws Exception {
         Date result = DateUtils.setDays(BASE_DATE, 1);
@@ -1185,13 +1197,19 @@ public class DateUtilsTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 29, 4, 3, 2, 1);
 
+        final String outsideOfRangeAssertionMessage = "DateUtils.setDays did not throw an expected IllegalArgumentException for amount outside of range 1 to 31.";
         assertThrows(
                 IllegalArgumentException.class,
                 () -> DateUtils.setDays(BASE_DATE, 32),
-                "DateUtils.setDays did not throw an expected IllegalArgumentException.");
+                outsideOfRangeAssertionMessage);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setDays(BASE_DATE, 0),
+                outsideOfRangeAssertionMessage);
+
+        assertThrows(NullPointerException.class, () -> DateUtils.setDays(null, 1));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testSetHours() throws Exception {
         Date result = DateUtils.setHours(BASE_DATE, 0);
@@ -1204,13 +1222,19 @@ public class DateUtilsTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 23, 3, 2, 1);
 
+        final String outsideOfRangeAssertionMessage = "DateUtils.setHours did not throw an expected IllegalArgumentException for amount outside of range 0 to 23.";
         assertThrows(
                 IllegalArgumentException.class,
                 () -> DateUtils.setHours(BASE_DATE, 24),
-                "DateUtils.setHours did not throw an expected IllegalArgumentException.");
+                outsideOfRangeAssertionMessage);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setHours(BASE_DATE, -1),
+                outsideOfRangeAssertionMessage);
+
+        assertThrows(NullPointerException.class, () -> DateUtils.setHours(null, 0));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testSetMilliseconds() throws Exception {
         Date result = DateUtils.setMilliseconds(BASE_DATE, 0);
@@ -1223,13 +1247,19 @@ public class DateUtilsTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 2, 999);
 
+        final String outsideOfRangeAssertionMessage = "DateUtils.setMilliseconds did not throw an expected IllegalArgumentException for range outside of 0 to 999.";
         assertThrows(
                 IllegalArgumentException.class,
                 () -> DateUtils.setMilliseconds(BASE_DATE, 1000),
-                "DateUtils.setMilliseconds did not throw an expected IllegalArgumentException.");
+                outsideOfRangeAssertionMessage);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setMilliseconds(BASE_DATE, -1),
+                outsideOfRangeAssertionMessage);
+
+        assertThrows(NullPointerException.class, () -> DateUtils.setMilliseconds(null, 0));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testSetMinutes() throws Exception {
         Date result = DateUtils.setMinutes(BASE_DATE, 0);
@@ -1242,13 +1272,19 @@ public class DateUtilsTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 59, 2, 1);
 
+        final String outsideOfRangeAssertionMessage = "DateUtils.setMinutes did not throw an expected IllegalArgumentException for amount outside of range 0 to 59.";
         assertThrows(
                 IllegalArgumentException.class,
                 () -> DateUtils.setMinutes(BASE_DATE, 60),
-                "DateUtils.setMinutes did not throw an expected IllegalArgumentException.");
+                outsideOfRangeAssertionMessage);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setMinutes(BASE_DATE, -1),
+                outsideOfRangeAssertionMessage);
+
+        assertThrows(NullPointerException.class, () -> DateUtils.setMinutes(null, 0));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testSetMonths() throws Exception {
         Date result = DateUtils.setMonths(BASE_DATE, 5);
@@ -1261,13 +1297,24 @@ public class DateUtilsTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 1, 5, 4, 3, 2, 1);
 
+        result = DateUtils.setMonths(BASE_DATE, 0);
+        assertNotSame(BASE_DATE, result);
+        assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 0, 5, 4, 3, 2, 1);
+
+        final String outsideOfRangeAssertionMessage = "DateUtils.setMonths did not throw an expected IllegalArgumentException for amount outside of range 0 to 11.";
         assertThrows(
                 IllegalArgumentException.class,
                 () -> DateUtils.setMonths(BASE_DATE, 12),
-                "DateUtils.setMonths did not throw an expected IllegalArgumentException.");
+                outsideOfRangeAssertionMessage);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setMonths(BASE_DATE, -1),
+                outsideOfRangeAssertionMessage);
+
+        assertThrows(NullPointerException.class, () -> DateUtils.setMonths(null, 0));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testSetSeconds() throws Exception {
         Date result = DateUtils.setSeconds(BASE_DATE, 0);
@@ -1280,13 +1327,19 @@ public class DateUtilsTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 59, 1);
 
+        final String outsideOfRangeAssertionMessage = "DateUtils.setSeconds did not throw an expected IllegalArgumentException for amount outside of range 0 to 59.";
         assertThrows(
                 IllegalArgumentException.class,
                 () -> DateUtils.setSeconds(BASE_DATE, 60),
-                "DateUtils.setSeconds did not throw an expected IllegalArgumentException.");
+                outsideOfRangeAssertionMessage);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setSeconds(BASE_DATE, -1),
+                outsideOfRangeAssertionMessage);
+
+        assertThrows(NullPointerException.class, () -> DateUtils.setSeconds(null, 0));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testSetYears() throws Exception {
         Date result = DateUtils.setYears(BASE_DATE, 2000);
@@ -1303,6 +1356,8 @@ public class DateUtilsTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2005, 6, 5, 4, 3, 2, 1);
+
+        assertThrows(NullPointerException.class, () -> DateUtils.setYears(null, 0));
     }
 
     @Test
@@ -1336,7 +1391,7 @@ public class DateUtilsTest {
     /**
      * Tests various values with the trunc method
      *
-     * @throws java.lang.Exception so we don't have to catch it
+     * @throws Exception so we don't have to catch it
      */
     @Test
     public void testTruncate() throws Exception {
@@ -1473,8 +1528,8 @@ public class DateUtilsTest {
                 "truncate ampm-4 failed");
 
         assertThrows(NullPointerException.class, () -> DateUtils.truncate((Date) null, Calendar.SECOND));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.truncate((Calendar) null, Calendar.SECOND));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.truncate((Object) null, Calendar.SECOND));
+        assertThrows(NullPointerException.class, () -> DateUtils.truncate((Calendar) null, Calendar.SECOND));
+        assertThrows(NullPointerException.class, () -> DateUtils.truncate((Object) null, Calendar.SECOND));
         assertThrows(ClassCastException.class, () -> DateUtils.truncate("", Calendar.SECOND));
 
         // Fix for https://issues.apache.org/bugzilla/show_bug.cgi?id=25560
@@ -1629,5 +1684,6 @@ public class DateUtilsTest {
             now.add(Calendar.DATE, 1);
         }
     }
+
 }
 

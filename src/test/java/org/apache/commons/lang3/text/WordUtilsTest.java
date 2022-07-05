@@ -311,7 +311,6 @@ public class WordUtilsTest {
         assertEquals("iah1", WordUtils.initials("i am here 123"));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testInitials_String_charArray() {
         char[] array = null;
@@ -396,7 +395,6 @@ public class WordUtilsTest {
         assertEquals("i2", WordUtils.initials("i am here 123", array));
     }
 
-    // -----------------------------------------------------------------------
     @Test
     public void testSwapCase_String() {
         assertNull(WordUtils.swapCase(null));

@@ -21,12 +21,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.HashCodeBuilder}.
  */
-public class HashCodeBuilderTest {
+public class HashCodeBuilderTest extends AbstractLangTest {
 
     /**
      * A reflection test fixture.
@@ -51,8 +52,6 @@ public class HashCodeBuilderTest {
             return HashCodeBuilder.reflectionHashCode(this);
         }
     }
-
-    // -----------------------------------------------------------------------
 
     @Test
     public void testConstructorExZero() {
@@ -207,7 +206,6 @@ public class HashCodeBuilderTest {
     }
 
     @Test
-    @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testLong() {
         assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0L).toHashCode());
         assertEquals(17 * 37 + (int) (123456789L ^ 123456789L >> 32), new HashCodeBuilder(17, 37).append(
@@ -215,7 +213,6 @@ public class HashCodeBuilderTest {
     }
 
     @Test
-    @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testInt() {
         assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0).toHashCode());
         assertEquals(17 * 37 + 123456, new HashCodeBuilder(17, 37).append(123456).toHashCode());
@@ -240,7 +237,6 @@ public class HashCodeBuilderTest {
     }
 
     @Test
-    @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testDouble() {
         assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0d).toHashCode());
         final double d = 1234567.89;
@@ -249,7 +245,6 @@ public class HashCodeBuilderTest {
     }
 
     @Test
-    @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testFloat() {
         assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0f).toHashCode());
         final float f = 1234.89f;

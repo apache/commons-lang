@@ -20,9 +20,9 @@ package org.apache.commons.lang3.function;
 import java.util.function.DoubleSupplier;
 
 /**
- * A functional interface like {@link DoubleSupplier} that declares a {@code Throwable}.
+ * A functional interface like {@link DoubleSupplier} that declares a {@link Throwable}.
  *
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface

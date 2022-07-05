@@ -21,9 +21,9 @@ import java.util.Objects;
 import java.util.function.IntConsumer;
 
 /**
- * A functional interface like {@link IntConsumer} that declares a {@code Throwable}.
+ * A functional interface like {@link IntConsumer} that declares a {@link Throwable}.
  *
- * @param <E> Thrown exception.
+ * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -36,7 +36,7 @@ public interface FailableIntConsumer<E extends Throwable> {
     /**
      * Returns The NOP singleton.
      *
-     * @param <E> Thrown exception.
+     * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
     static <E extends Throwable> FailableIntConsumer<E> nop() {
@@ -52,10 +52,10 @@ public interface FailableIntConsumer<E extends Throwable> {
     void accept(int value) throws E;
 
     /**
-     * Returns a composed {@code FailableIntConsumer} like {@link IntConsumer#andThen(IntConsumer)}.
+     * Returns a composed {@link FailableIntConsumer} like {@link IntConsumer#andThen(IntConsumer)}.
      *
      * @param after the operation to perform after this one.
-     * @return a composed {@code FailableLongConsumer} like {@link IntConsumer#andThen(IntConsumer)}.
+     * @return a composed {@link FailableLongConsumer} like {@link IntConsumer#andThen(IntConsumer)}.
      * @throws NullPointerException if {@code after} is null
      */
     default FailableIntConsumer<E> andThen(final FailableIntConsumer<E> after) {
