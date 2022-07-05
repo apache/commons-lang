@@ -18,6 +18,7 @@ package org.apache.commons.lang3.text.translate;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.io.UncheckedIOException;
 import java.io.Writer;
 import java.util.Locale;
 import java.util.Objects;
@@ -66,7 +67,7 @@ public abstract class CharSequenceTranslator {
             return writer.toString();
         } catch (final IOException ioe) {
             // this should never ever happen while writing to a StringWriter
-            throw new RuntimeException(ioe);
+            throw new UncheckedIOException(ioe);
         }
     }
 
