@@ -690,8 +690,7 @@ public class DateUtils {
         validateDateNotNull(date);
         final Calendar gval = Calendar.getInstance();
         gval.setTime(date);
-        modify(gval, field, ModifyType.ROUND);
-        return gval.getTime();
+        return modify(gval, field, ModifyType.ROUND).getTime();
     }
 
     /**
@@ -723,9 +722,7 @@ public class DateUtils {
      */
     public static Calendar round(final Calendar calendar, final int field) {
         Objects.requireNonNull(calendar, "calendar");
-        final Calendar rounded = (Calendar) calendar.clone();
-        modify(rounded, field, ModifyType.ROUND);
-        return rounded;
+        return modify((Calendar) calendar.clone(), field, ModifyType.ROUND);
     }
 
     /**
@@ -786,8 +783,7 @@ public class DateUtils {
         validateDateNotNull(date);
         final Calendar gval = Calendar.getInstance();
         gval.setTime(date);
-        modify(gval, field, ModifyType.TRUNCATE);
-        return gval.getTime();
+        return modify(gval, field, ModifyType.TRUNCATE).getTime();
     }
 
     /**
@@ -807,9 +803,7 @@ public class DateUtils {
      */
     public static Calendar truncate(final Calendar date, final int field) {
         Objects.requireNonNull(date, "date");
-        final Calendar truncated = (Calendar) date.clone();
-        modify(truncated, field, ModifyType.TRUNCATE);
-        return truncated;
+        return modify((Calendar) date.clone(), field, ModifyType.TRUNCATE);
     }
 
     /**
@@ -859,8 +853,7 @@ public class DateUtils {
         validateDateNotNull(date);
         final Calendar gval = Calendar.getInstance();
         gval.setTime(date);
-        modify(gval, field, ModifyType.CEILING);
-        return gval.getTime();
+        return modify(gval, field, ModifyType.CEILING).getTime();
     }
 
     /**
@@ -881,9 +874,7 @@ public class DateUtils {
      */
     public static Calendar ceiling(final Calendar calendar, final int field) {
         Objects.requireNonNull(calendar, "calendar");
-        final Calendar ceiled = (Calendar) calendar.clone();
-        modify(ceiled, field, ModifyType.CEILING);
-        return ceiled;
+        return modify((Calendar) calendar.clone(), field, ModifyType.CEILING);
     }
 
     /**
@@ -920,15 +911,16 @@ public class DateUtils {
      * @param val  the calendar, not null
      * @param field  the field constant
      * @param modType  type to truncate, round or ceiling
+     * @return the given calendar
      * @throws ArithmeticException if the year is over 280 million
      */
-    private static void modify(final Calendar val, final int field, final ModifyType modType) {
+    private static Calendar modify(final Calendar val, final int field, final ModifyType modType) {
         if (val.get(Calendar.YEAR) > 280000000) {
             throw new ArithmeticException("Calendar value too large for accurate calculations");
         }
 
         if (field == Calendar.MILLISECOND) {
-            return;
+            return val;
         }
 
         // ----------------- Fix for LANG-59 ---------------------- START ---------------
@@ -1006,7 +998,7 @@ public class DateUtils {
                             val.add(aField[0], 1);
                         }
                     }
-                    return;
+                    return val;
                 }
             }
             //We have various fields that are not easy roundings
@@ -1059,7 +1051,6 @@ public class DateUtils {
             }
         }
         throw new IllegalArgumentException("The field " + field + " is not supported");
-
     }
 
     /**
