@@ -112,7 +112,6 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add UncheckedTimeoutException.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add UncheckedInterruptedException.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TimeZones.GMT.</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_16.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ObjectUtils.identityHashCodeHex(Object).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ObjectUtils.hashCodeHex(Object).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StringUtils.removeStart(String, char).</action>
@@ -152,6 +151,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ExceptionUtils.stream(Throwable).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ExceptionUtils.getRootCauseStackTraceList(Throwable).</action>
     <action                   type="add" dev="ggregory" due-to="Will Herrmann, Gary Gregory, Roland Kreuzer">Add SystemUtils.IS_OS_WINDOWS_11.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_16.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_17.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_18.</action>
     <!-- UPDATE -->
