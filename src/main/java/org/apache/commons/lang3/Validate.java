@@ -220,9 +220,6 @@ public class Validate {
         return Objects.requireNonNull(object, () -> String.format(message, values));
     }
 
-    // notEmpty array
-    //---------------------------------------------------------------------------------
-
     /**
      * <p>Validate that the specified argument array is neither {@code null}
      * nor a length of zero (no elements); otherwise throwing an exception
@@ -1040,9 +1037,6 @@ public class Validate {
             throw new IllegalArgumentException(message);
         }
     }
-
-    // exclusiveBetween
-    //---------------------------------------------------------------------------------
 
     /**
      * <p>Validate that the specified argument object fall between the two

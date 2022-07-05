@@ -1561,7 +1561,6 @@ public class SystemUtils {
      */
     public static final boolean IS_OS_WINDOWS_XP = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " XP");
 
-    // -----------------------------------------------------------------------
     /**
      * <p>
      * Is {@code true} if this is Windows Vista.
@@ -1751,7 +1750,6 @@ public class SystemUtils {
         return isOSNameMatch(OS_NAME, osNamePrefix);
     }
 
-    // -----------------------------------------------------------------------
     /**
      * <p>
      * Gets a System property, defaulting to {@code null} if the property cannot be read.
@@ -1957,7 +1955,6 @@ public class SystemUtils {
         return true;
     }
 
-    // -----------------------------------------------------------------------
     /**
      * <p>
      * SystemUtils instances should NOT be constructed in standard programming. Instead, the class should be used as
