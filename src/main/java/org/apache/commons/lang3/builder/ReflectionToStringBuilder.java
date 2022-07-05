@@ -24,14 +24,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -104,6 +101,45 @@ import org.apache.commons.lang3.Validate;
  * @since 2.0
  */
 public class ReflectionToStringBuilder extends ToStringBuilder {
+
+    private static Object checkNotNull(final Object obj) {
+        return Validate.notNull(obj, "obj");
+    }
+
+    /**
+     * Converts the given Collection into an array of Strings. The returned array does not contain {@code null}
+     * entries. Note that {@link Arrays#sort(Object[])} will throw an {@link NullPointerException} if an array element
+     * is {@code null}.
+     *
+     * @param collection
+     *            The collection to convert
+     * @return A new array of Strings.
+     */
+    static String[] toNoNullStringArray(final Collection<String> collection) {
+        if (collection == null) {
+            return ArrayUtils.EMPTY_STRING_ARRAY;
+        }
+        return toNoNullStringArray(collection.toArray());
+    }
+
+    /**
+     * Returns a new array of Strings without null elements. Internal method used to normalize exclude lists
+     * (arrays and collections). Note that {@link Arrays#sort(Object[])} will throw an {@link NullPointerException}
+     * if an array element is {@code null}.
+     *
+     * @param array
+     *            The array to check
+     * @return The given array or a new array without null.
+     */
+    static String[] toNoNullStringArray(final Object[] array) {
+        final List<String> list = new ArrayList<>(array.length);
+        for (final Object e : array) {
+            if (e != null) {
+                list.add(e.toString());
+            }
+        }
+        return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
+    }
 
     /**
      * <p>
@@ -299,6 +335,8 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            whether to include transient fields
      * @param outputStatics
      *            whether to include static fields
+     * @param excludeNullValues
+     *            whether to exclude fields whose values are null
      * @param reflectUpToClass
      *            the superclass to reflect up to (inclusive), may be {@code null}
      * @return the String result
@@ -307,12 +345,12 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *
      * @see ToStringExclude
      * @see ToStringSummary
-     * @since 2.1
+     * @since 3.6
      */
     public static <T> String toString(
             final T object, final ToStringStyle style, final boolean outputTransients,
-            final boolean outputStatics, final Class<? super T> reflectUpToClass) {
-        return new ReflectionToStringBuilder(object, style, null, reflectUpToClass, outputTransients, outputStatics)
+            final boolean outputStatics, final boolean excludeNullValues, final Class<? super T> reflectUpToClass) {
+        return new ReflectionToStringBuilder(object, style, null, reflectUpToClass, outputTransients, outputStatics, excludeNullValues)
                 .toString();
     }
 
@@ -356,8 +394,6 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            whether to include transient fields
      * @param outputStatics
      *            whether to include static fields
-     * @param excludeNullValues
-     *            whether to exclude fields whose values are null
      * @param reflectUpToClass
      *            the superclass to reflect up to (inclusive), may be {@code null}
      * @return the String result
@@ -366,12 +402,12 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *
      * @see ToStringExclude
      * @see ToStringSummary
-     * @since 3.6
+     * @since 2.1
      */
     public static <T> String toString(
             final T object, final ToStringStyle style, final boolean outputTransients,
-            final boolean outputStatics, final boolean excludeNullValues, final Class<? super T> reflectUpToClass) {
-        return new ReflectionToStringBuilder(object, style, null, reflectUpToClass, outputTransients, outputStatics, excludeNullValues)
+            final boolean outputStatics, final Class<? super T> reflectUpToClass) {
+        return new ReflectionToStringBuilder(object, style, null, reflectUpToClass, outputTransients, outputStatics)
                 .toString();
     }
 
@@ -387,6 +423,20 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     public static String toStringExclude(final Object object, final Collection<String> excludeFieldNames) {
         return toStringExclude(object, toNoNullStringArray(excludeFieldNames));
     }
+
+    /**
+     * Builds a String for a toString method excluding the given field names.
+     *
+     * @param object
+     *            The object to "toString".
+     * @param excludeFieldNames
+     *            The field names to exclude
+     * @return The toString value.
+     */
+    public static String toStringExclude(final Object object, final String... excludeFieldNames) {
+        return new ReflectionToStringBuilder(object).setExcludeFieldNames(excludeFieldNames).toString();
+    }
+
 
     /**
      * Builds a String for a toString method including the given field names.
@@ -415,59 +465,6 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      */
     public static String toStringInclude(final Object object, final String... includeFieldNames) {
         return new ReflectionToStringBuilder(object).setIncludeFieldNames(includeFieldNames).toString();
-    }
-
-    /**
-     * Converts the given Collection into an array of Strings. The returned array does not contain {@code null}
-     * entries. Note that {@link Arrays#sort(Object[])} will throw an {@link NullPointerException} if an array element
-     * is {@code null}.
-     *
-     * @param collection
-     *            The collection to convert
-     * @return A new array of Strings.
-     */
-    static String[] toNoNullStringArray(final Collection<String> collection) {
-        if (collection == null) {
-            return ArrayUtils.EMPTY_STRING_ARRAY;
-        }
-        return toNoNullStringArray(collection.toArray());
-    }
-
-    /**
-     * Returns a new array of Strings without null elements. Internal method used to normalize exclude lists
-     * (arrays and collections). Note that {@link Arrays#sort(Object[])} will throw an {@link NullPointerException}
-     * if an array element is {@code null}.
-     *
-     * @param array
-     *            The array to check
-     * @return The given array or a new array without null.
-     */
-    static String[] toNoNullStringArray(final Object[] array) {
-        final List<String> list = new ArrayList<>(array.length);
-        for (final Object e : array) {
-            if (e != null) {
-                list.add(e.toString());
-            }
-        }
-        return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
-    }
-
-
-    /**
-     * Builds a String for a toString method excluding the given field names.
-     *
-     * @param object
-     *            The object to "toString".
-     * @param excludeFieldNames
-     *            The field names to exclude
-     * @return The toString value.
-     */
-    public static String toStringExclude(final Object object, final String... excludeFieldNames) {
-        return new ReflectionToStringBuilder(object).setExcludeFieldNames(excludeFieldNames).toString();
-    }
-
-    private static Object checkNotNull(final Object obj) {
-        return Validate.notNull(obj, "obj");
     }
 
     /**
@@ -506,7 +503,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
     /**
      * <p>
-     * Constructor.
+     * Constructs a new instance.
      * </p>
      *
      * <p>
@@ -524,7 +521,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
     /**
      * <p>
-     * Constructor.
+     * Constructs a new instance.
      * </p>
      *
      * <p>
@@ -544,7 +541,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
     /**
      * <p>
-     * Constructor.
+     * Constructs a new instance.
      * </p>
      *
      * <p>
@@ -569,7 +566,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Constructor.
+     * Constructs a new instance.
      *
      * @param <T>
      *            the type of the object
@@ -597,7 +594,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Constructor.
+     * Constructs a new instance.
      *
      * @param <T>
      *            the type of the object
@@ -693,17 +690,14 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             final String fieldName = field.getName();
             if (this.accept(field)) {
                 try {
-                    // Warning: Field.get(Object) creates wrappers objects
-                    // for primitive types.
+                    // Warning: Field.get(Object) creates wrappers objects for primitive types.
                     final Object fieldValue = this.getValue(field);
                     if (!excludeNullValues || fieldValue != null) {
                         this.append(fieldName, fieldValue, !field.isAnnotationPresent(ToStringSummary.class));
                     }
                 } catch (final IllegalAccessException ex) {
-                    //this can't happen. Would get a Security exception
-                    // instead
-                    //throw a runtime exception in case the impossible
-                    // happens.
+                    // this can't happen. Would get a Security exception instead
+                    // throw a runtime exception in case the impossible happens.
                     throw new InternalError("Unexpected IllegalAccessException: " + ex.getMessage());
                 }
             }
@@ -797,7 +791,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
     /**
      * <p>
-     * Append to the {@code toString} an {@link Object} array.
+     * Appends to the {@code toString} an {@link Object} array.
      * </p>
      *
      * @param array
@@ -835,19 +829,6 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
-     * Sets whether or not to append fields whose values are null.
-     * </p>
-     *
-     * @param excludeNullValues
-     *            Whether or not to append fields whose values are null.
-     * @since 3.6
-     */
-    public void setExcludeNullValues(final boolean excludeNullValues) {
-        this.excludeNullValues = excludeNullValues;
-    }
-
-    /**
      * Sets the field names to exclude.
      *
      * @param excludeFieldNamesParam
@@ -862,6 +843,19 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             this.excludeFieldNames = ArraySorter.sort(toNoNullStringArray(excludeFieldNamesParam));
         }
         return this;
+    }
+
+    /**
+     * <p>
+     * Sets whether or not to append fields whose values are null.
+     * </p>
+     *
+     * @param excludeNullValues
+     *            Whether or not to append fields whose values are null.
+     * @since 3.6
+     */
+    public void setExcludeNullValues(final boolean excludeNullValues) {
+        this.excludeNullValues = excludeNullValues;
     }
 
     /**
@@ -924,6 +918,9 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         return super.toString();
     }
 
+    /**
+     * Validates that include and exclude names do not intersect.
+     */
     private void validate() {
         if (ArrayUtils.containsAny(this.excludeFieldNames, (Object[]) this.includeFieldNames)) {
             ToStringStyle.unregister(this.getObject());
