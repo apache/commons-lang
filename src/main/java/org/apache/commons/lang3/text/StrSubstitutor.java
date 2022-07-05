@@ -21,6 +21,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
@@ -996,13 +997,10 @@ public class StrSubstitutor {
      *
      * @param prefixMatcher  the prefix matcher to use, null ignored
      * @return this, to enable chaining
-     * @throws IllegalArgumentException if the prefix matcher is null
+     * @throws NullPointerException if the prefix matcher is null
      */
     public StrSubstitutor setVariablePrefixMatcher(final StrMatcher prefixMatcher) {
-        if (prefixMatcher == null) {
-            throw new IllegalArgumentException("Variable prefix matcher must not be null.");
-        }
-        this.prefixMatcher = prefixMatcher;
+        this.prefixMatcher = Objects.requireNonNull(prefixMatcher, "prefixMatcher");
         return this;
     }
 
@@ -1030,13 +1028,10 @@ public class StrSubstitutor {
      *
      * @param prefix  the prefix for variables, not null
      * @return this, to enable chaining
-     * @throws IllegalArgumentException if the prefix is null
+     * @throws NullPointerException if the prefix is null
      */
     public StrSubstitutor setVariablePrefix(final String prefix) {
-       if (prefix == null) {
-            throw new IllegalArgumentException("Variable prefix must not be null.");
-        }
-        return setVariablePrefixMatcher(StrMatcher.stringMatcher(prefix));
+        return setVariablePrefixMatcher(StrMatcher.stringMatcher(Objects.requireNonNull(prefix)));
     }
 
     /**
@@ -1063,13 +1058,10 @@ public class StrSubstitutor {
      *
      * @param suffixMatcher  the suffix matcher to use, null ignored
      * @return this, to enable chaining
-     * @throws IllegalArgumentException if the suffix matcher is null
+     * @throws NullPointerException if the suffix matcher is null
      */
     public StrSubstitutor setVariableSuffixMatcher(final StrMatcher suffixMatcher) {
-        if (suffixMatcher == null) {
-            throw new IllegalArgumentException("Variable suffix matcher must not be null.");
-        }
-        this.suffixMatcher = suffixMatcher;
+        this.suffixMatcher = Objects.requireNonNull(suffixMatcher);
         return this;
     }
 
@@ -1097,13 +1089,10 @@ public class StrSubstitutor {
      *
      * @param suffix  the suffix for variables, not null
      * @return this, to enable chaining
-     * @throws IllegalArgumentException if the suffix is null
+     * @throws NullPointerException if the suffix is null
      */
     public StrSubstitutor setVariableSuffix(final String suffix) {
-       if (suffix == null) {
-            throw new IllegalArgumentException("Variable suffix must not be null.");
-        }
-        return setVariableSuffixMatcher(StrMatcher.stringMatcher(suffix));
+        return setVariableSuffixMatcher(StrMatcher.stringMatcher(Objects.requireNonNull(suffix)));
     }
 
     /**

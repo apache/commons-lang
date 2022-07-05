@@ -526,8 +526,8 @@ public class DateUtilsTest {
                 "ceiling ampm-4 failed");
 
         assertThrows(NullPointerException.class, () -> DateUtils.ceiling((Date) null, Calendar.SECOND));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.ceiling((Calendar) null, Calendar.SECOND));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.ceiling((Object) null, Calendar.SECOND));
+        assertThrows(NullPointerException.class, () -> DateUtils.ceiling((Calendar) null, Calendar.SECOND));
+        assertThrows(NullPointerException.class, () -> DateUtils.ceiling((Object) null, Calendar.SECOND));
         assertThrows(ClassCastException.class, () -> DateUtils.ceiling("", Calendar.SECOND));
         assertThrows(IllegalArgumentException.class, () -> DateUtils.ceiling(date1, -9999));
 
@@ -629,17 +629,17 @@ public class DateUtilsTest {
 
     @Test
     public void testIsSameDay_CalNotNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay(Calendar.getInstance(), null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameDay(Calendar.getInstance(), null));
     }
 
     @Test
     public void testIsSameDay_CalNullNotNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay(null, Calendar.getInstance()));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameDay(null, Calendar.getInstance()));
     }
 
     @Test
     public void testIsSameDay_CalNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay((Calendar) null, null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameDay((Calendar) null, null));
     }
 
     @Test
@@ -657,17 +657,17 @@ public class DateUtilsTest {
 
     @Test
     public void testIsSameDay_DateNotNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay(new Date(), null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameDay(new Date(), null));
     }
 
     @Test
     public void testIsSameDay_DateNullNotNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay(null, new Date()));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameDay(null, new Date()));
     }
 
     @Test
     public void testIsSameDay_DateNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameDay((Date) null, null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameDay((Date) null, null));
     }
 
     @Test
@@ -686,17 +686,17 @@ public class DateUtilsTest {
 
     @Test
     public void testIsSameInstant_CalNotNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant(Calendar.getInstance(), null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameInstant(Calendar.getInstance(), null));
     }
 
     @Test
     public void testIsSameInstant_CalNullNotNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant(null, Calendar.getInstance()));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameInstant(null, Calendar.getInstance()));
     }
 
     @Test
     public void testIsSameInstant_CalNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant((Calendar) null, null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameInstant((Calendar) null, null));
     }
 
     @Test
@@ -714,17 +714,17 @@ public class DateUtilsTest {
 
     @Test
     public void testIsSameInstant_DateNotNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant(new Date(), null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameInstant(new Date(), null));
     }
 
     @Test
     public void testIsSameInstant_DateNullNotNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant(null, new Date()));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameInstant(null, new Date()));
     }
 
     @Test
     public void testIsSameInstant_DateNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameInstant((Date) null, null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameInstant((Date) null, null));
     }
 
     @Test
@@ -751,17 +751,17 @@ public class DateUtilsTest {
 
     @Test
     public void testIsSameLocalTime_CalNotNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameLocalTime(Calendar.getInstance(), null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameLocalTime(Calendar.getInstance(), null));
     }
 
     @Test
     public void testIsSameLocalTime_CalNullNotNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameLocalTime(null, Calendar.getInstance()));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameLocalTime(null, Calendar.getInstance()));
     }
 
     @Test
     public void testIsSameLocalTime_CalNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.isSameLocalTime(null, null));
+        assertThrows(NullPointerException.class, () -> DateUtils.isSameLocalTime(null, null));
     }
 
     /**
@@ -770,12 +770,9 @@ public class DateUtilsTest {
     @Test
     public void testIteratorEx() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.iterator(Calendar.getInstance(), -9999));
-        assertThrows
-                (NullPointerException.class, () -> DateUtils.iterator((Date) null, DateUtils.RANGE_WEEK_CENTER));
-        assertThrows
-                (IllegalArgumentException.class, () -> DateUtils.iterator((Calendar) null, DateUtils.RANGE_WEEK_CENTER));
-        assertThrows
-                (IllegalArgumentException.class, () -> DateUtils.iterator((Object) null, DateUtils.RANGE_WEEK_CENTER));
+        assertThrows(NullPointerException.class, () -> DateUtils.iterator((Date) null, DateUtils.RANGE_WEEK_CENTER));
+        assertThrows(NullPointerException.class, () -> DateUtils.iterator((Calendar) null, DateUtils.RANGE_WEEK_CENTER));
+        assertThrows(NullPointerException.class, () -> DateUtils.iterator((Object) null, DateUtils.RANGE_WEEK_CENTER));
         assertThrows(ClassCastException.class, () -> DateUtils.iterator("", DateUtils.RANGE_WEEK_CENTER));
     }
 
@@ -865,7 +862,7 @@ public class DateUtilsTest {
 
     @Test
     public void testParse_NullParsers() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.parseDate("19721203", (String[]) null));
+        assertThrows(NullPointerException.class, () -> DateUtils.parseDate("19721203", (String[]) null));
     }
 
     @Test
@@ -900,7 +897,7 @@ public class DateUtilsTest {
     @Test
     public void testParseDate_Null() {
         final String[] parsers = {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.parseDate(null, parsers));
+        assertThrows(NullPointerException.class, () -> DateUtils.parseDate(null, parsers));
     }
 
     // LANG-486
@@ -1047,8 +1044,8 @@ public class DateUtilsTest {
                 "round ampm-4 failed");
 
         assertThrows(NullPointerException.class, () -> DateUtils.round((Date) null, Calendar.SECOND));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.round((Calendar) null, Calendar.SECOND));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.round((Object) null, Calendar.SECOND));
+        assertThrows(NullPointerException.class, () -> DateUtils.round((Calendar) null, Calendar.SECOND));
+        assertThrows(NullPointerException.class, () -> DateUtils.round((Object) null, Calendar.SECOND));
         assertThrows(ClassCastException.class, () -> DateUtils.round("", Calendar.SECOND));
         assertThrows(IllegalArgumentException.class, () -> DateUtils.round(date1, -9999));
 
@@ -1531,8 +1528,8 @@ public class DateUtilsTest {
                 "truncate ampm-4 failed");
 
         assertThrows(NullPointerException.class, () -> DateUtils.truncate((Date) null, Calendar.SECOND));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.truncate((Calendar) null, Calendar.SECOND));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.truncate((Object) null, Calendar.SECOND));
+        assertThrows(NullPointerException.class, () -> DateUtils.truncate((Calendar) null, Calendar.SECOND));
+        assertThrows(NullPointerException.class, () -> DateUtils.truncate((Object) null, Calendar.SECOND));
         assertThrows(ClassCastException.class, () -> DateUtils.truncate("", Calendar.SECOND));
 
         // Fix for https://issues.apache.org/bugzilla/show_bug.cgi?id=25560
