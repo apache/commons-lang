@@ -135,9 +135,7 @@ public class ValidateTest extends AbstractLangTest {
 
             @Test
             void shouldReturnTheSameInstance() {
-                final String str = "Hi";
-                final String result = Validate.notNull(str);
-                assertSame(str, result);
+                assertSame("Hi", Validate.notNull("Hi"));
             }
 
             @Test
@@ -157,9 +155,7 @@ public class ValidateTest extends AbstractLangTest {
 
             @Test
             void shouldReturnTheSameInstance() {
-                final String str = "Hi";
-                final String result = Validate.notNull(str, "MSG");
-                assertSame(str, result);
+                assertSame("Hi", Validate.notNull("Hi", "MSG"));
             }
 
             @Test
@@ -186,9 +182,8 @@ public class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldReturnTheSameInstance() {
-                    final String[] array = {"hi"};
-                    final String[] result = Validate.notEmpty(array);
-                    assertSame(array, result);
+                    final String[] expected = new String[] {"hi"};
+                    assertSame(expected, Validate.notEmpty(expected));
                 }
 
                 @Test
@@ -214,9 +209,8 @@ public class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldReturnTheSameInstance() {
-                    final String[] array = {"hi"};
-                    final String[] result = Validate.notEmpty(array, "MSG");
-                    assertSame(array, result);
+                    final String[] expected = new String[] {"hi"};
+                    assertSame(expected, Validate.notEmpty(expected, "MSG"));
                 }
 
                 @Test
@@ -246,9 +240,8 @@ public class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldReturnTheSameInstance() {
-                    final Set<String> col = Collections.singleton("Hi");
-                    final Set<String> result = Validate.notEmpty(col);
-                    assertSame(col, result);
+                    final Set<String> singleton = Collections.singleton("Hi");
+                    assertSame(singleton, Validate.notEmpty(singleton));
                 }
 
                 @Test
@@ -274,9 +267,8 @@ public class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldReturnTheSameInstance() {
-                    final Set<String> col = Collections.singleton("Hi");
-                    final Set<String> result = Validate.notEmpty(col, "MSG");
-                    assertSame(col, result);
+                    final Set<String> singleton = Collections.singleton("Hi");
+                    assertSame(singleton, Validate.notEmpty(singleton, "MSG"));
                 }
 
                 @Test
@@ -306,9 +298,8 @@ public class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldReturnTheSameInstance() {
-                    final Map<String, String> map = Collections.singletonMap("key", "value");
-                    final Map<String, String> result = Validate.notEmpty(map);
-                    assertSame(map, result);
+                    final Map<String, String> singletonMap = Collections.singletonMap("key", "value");
+                    assertSame(singletonMap, Validate.notEmpty(singletonMap));
                 }
 
                 @Test
@@ -334,9 +325,8 @@ public class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldReturnTheSameInstance() {
-                    final Map<String, String> map = Collections.singletonMap("key", "value");
-                    final Map<String, String> result = Validate.notEmpty(map, "MSG");
-                    assertSame(map, result);
+                    final Map<String, String> singletonMap = Collections.singletonMap("key", "value");
+                    assertSame(singletonMap, Validate.notEmpty(singletonMap, "MSG"));
                 }
 
                 @Test
@@ -366,9 +356,7 @@ public class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldReturnTheSameInstance() {
-                    final String str = "Hi";
-                    final String result = Validate.notEmpty(str);
-                    assertSame(str, result);
+                    assertSame("Hi", Validate.notEmpty("Hi"));
                 }
 
                 @Test
@@ -394,9 +382,7 @@ public class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldReturnTheSameInstance() {
-                    final String str = "Hi";
-                    final String result = Validate.notEmpty(str, "MSG");
-                    assertSame(str, result);
+                    assertSame("Hi", Validate.notEmpty("Hi", "MSG"));
                 }
 
                 @Test
@@ -437,10 +423,7 @@ public class ValidateTest extends AbstractLangTest {
 
             @Test
             void shouldReturnNonBlankValue() {
-                final String str = "abc";
-                final String result = Validate.notBlank(str);
-
-                assertSame(str, result);
+                assertSame("abc", Validate.notBlank("abc"));
             }
 
             @Test
@@ -488,9 +471,7 @@ public class ValidateTest extends AbstractLangTest {
 
             @Test
             void shouldReturnNonBlankValue() {
-                final String str = "abc";
-                final String result = Validate.notBlank(str, "MSG");
-                assertSame(str, result);
+                assertSame("abc", Validate.notBlank("abc", "MSG"));
             }
 
             @Test
@@ -535,9 +516,8 @@ public class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldReturnSameInstance() {
-                    final String[] array = {"a", "b"};
-                    final String[] result = Validate.noNullElements(array);
-                    assertSame(array, result);
+                    final String[] expected = new String[] {"a", "b"};
+                    assertSame(expected, Validate.noNullElements(expected));
                 }
 
                 @Test
@@ -564,14 +544,12 @@ public class ValidateTest extends AbstractLangTest {
                 @Test
                 void shouldReturnSameInstance() {
                     final String[] array = {"a", "b"};
-                    final String[] result = Validate.noNullElements(array, "MSG");
-                    assertSame(array, result);
+                    assertSame(array, Validate.noNullElements(array, "MSG"));
                 }
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullArray() {
                     final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.noNullElements((Object[]) null, "MSG"));
-
                     assertEquals("array", ex.getMessage());
                 }
 
@@ -598,8 +576,7 @@ public class ValidateTest extends AbstractLangTest {
                 @Test
                 void shouldReturnSameInstance() {
                     final Set<String> col = Collections.singleton("a");
-                    final Set<String> result = Validate.noNullElements(col);
-                    assertSame(col, result);
+                    assertSame(col, Validate.noNullElements(col));
                 }
 
                 @Test
@@ -627,8 +604,7 @@ public class ValidateTest extends AbstractLangTest {
                 @Test
                 void shouldReturnSameInstance() {
                     final Set<String> col = Collections.singleton("a");
-                    final Set<String> result = Validate.noNullElements(col, "MSG");
-                    assertSame(col, result);
+                    assertSame(col, Validate.noNullElements(col, "MSG"));
                 }
 
                 @Test
@@ -664,8 +640,7 @@ public class ValidateTest extends AbstractLangTest {
                 @Test
                 void shouldReturnSameInstance() {
                     final String[] array = {"a"};
-                    final String[] result = Validate.validIndex(array, 0);
-                    assertSame(array, result);
+                    assertSame(array, Validate.validIndex(array, 0));
                 }
 
                 @Test
@@ -698,8 +673,7 @@ public class ValidateTest extends AbstractLangTest {
                 @Test
                 void shouldReturnSameInstance() {
                     final String[] array = {"a"};
-                    final String[] result = Validate.validIndex(array, 0, "MSG");
-                    assertSame(array, result);
+                    assertSame(array, Validate.validIndex(array, 0, "MSG"));
                 }
 
                 @Test
@@ -737,8 +711,7 @@ public class ValidateTest extends AbstractLangTest {
                 @Test
                 void shouldReturnSameInstance() {
                     final Set<String> col = Collections.singleton("a");
-                    final Set<String> result = Validate.validIndex(col, 0);
-                    assertSame(col, result);
+                    assertSame(col, Validate.validIndex(col, 0));
                 }
 
                 @Test
@@ -773,8 +746,7 @@ public class ValidateTest extends AbstractLangTest {
                 @Test
                 void shouldReturnSameInstance() {
                     final Set<String> col = Collections.singleton("a");
-                    final Set<String> result = Validate.validIndex(col, 0, "MSG");
-                    assertSame(col, result);
+                    assertSame(col, Validate.validIndex(col, 0, "MSG"));
                 }
 
                 @Test
@@ -813,8 +785,7 @@ public class ValidateTest extends AbstractLangTest {
                 @Test
                 void shouldReturnSameInstance() {
                     final String str = "a";
-                    final String result = Validate.validIndex(str, 0);
-                    assertSame(str, result);
+                    assertSame(str, Validate.validIndex(str, 0));
                 }
 
                 @Test
@@ -847,8 +818,7 @@ public class ValidateTest extends AbstractLangTest {
                 @Test
                 void shouldReturnSameInstance() {
                     final String str = "a";
-                    final String result = Validate.validIndex(str, 0, "MSG");
-                    assertSame(str, result);
+                    assertSame(str, Validate.validIndex(str, 0, "MSG"));
                 }
 
                 @Test
