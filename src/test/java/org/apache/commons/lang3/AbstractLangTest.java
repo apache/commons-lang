@@ -34,8 +34,7 @@ public class AbstractLangTest {
     }
 
     void validateNullToStringStyleRegistry() {
-        final Map<Object, Object> registry = ToStringStyle.getRegistry();
-        assertNull(registry, "Expected null, actual: " + registry);
+        assertNull(ToStringStyle.getRegistry(), "Expected null, actual: " + ToStringStyle.getRegistry());
     }
 
 }
