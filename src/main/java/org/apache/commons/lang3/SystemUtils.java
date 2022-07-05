@@ -1070,6 +1070,16 @@ public class SystemUtils {
      */
     public static final boolean IS_JAVA_17 = getJavaVersionMatches("17");
 
+    /**
+     * Is {@code true} if this is Java version 18 (also 18.x versions).
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     *
+     * @since 3.13.0
+     */
+    public static final boolean IS_JAVA_18 = getJavaVersionMatches("18");
+
     // Operating system checks
     // -----------------------------------------------------------------------
     // These MUST be declared after those above as they depend on the
