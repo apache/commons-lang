@@ -629,6 +629,124 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testOneHot_object_emptyInput() {
+        assertThrows(IllegalArgumentException.class, () -> BooleanUtils.oneHot(new Boolean[] {}));
+    }
+
+    @Test
+    public void testOneHot_object_nullElementInput() {
+        assertEquals(Boolean.FALSE, BooleanUtils.oneHot(new Boolean[] {null}));
+    }
+
+    @Test
+    public void testOneHot_object_nullInput() {
+        assertThrows(NullPointerException.class, () -> BooleanUtils.oneHot((Boolean[]) null));
+    }
+
+    @Test
+    public void testOneHot_object_validInput_1item() {
+        assertTrue(BooleanUtils.oneHot(new Boolean[]{Boolean.TRUE}), "true");
+
+        assertFalse(BooleanUtils.oneHot(new Boolean[]{Boolean.FALSE}), "false");
+
+        assertFalse(BooleanUtils.oneHot(new Boolean[]{null}), "false");
+    }
+
+    @Test
+    public void testOneHot_object_validInput_2items() {
+        assertFalse(BooleanUtils.oneHot(new Boolean[]{true, true}), "both true");
+
+        assertFalse(BooleanUtils.oneHot(new Boolean[]{false, false}), "both false");
+
+        assertTrue(BooleanUtils.oneHot(new Boolean[]{true, false}), "first true");
+
+        assertTrue(BooleanUtils.oneHot(new Boolean[]{false, true}), "last true");
+    }
+
+    @Test
+    public void testOneHot_object_validInput_2ItemsNullsTreatedAsFalse() {
+        assertFalse(BooleanUtils.oneHot(null, null), "both null");
+
+        assertTrue(BooleanUtils.oneHot(true, null), "first true");
+
+        assertTrue(BooleanUtils.oneHot(null, true), "last true");
+    }
+
+    @Test
+    public void testOneHot_object_validInput_3items() {
+        // none true
+        assertFalse(BooleanUtils.oneHot(new Boolean[]{false, false, false}), "all false");
+
+        // one true
+        assertTrue(BooleanUtils.oneHot(new Boolean[]{true, false, false}), "first true");
+
+        assertTrue(BooleanUtils.oneHot(new Boolean[]{false, true, false}), "middle true");
+
+        assertTrue(BooleanUtils.oneHot(new Boolean[]{false, false, true}), "last true");
+
+        // two true
+        assertFalse(BooleanUtils.oneHot(new Boolean[]{false, true, true}), "first false");
+
+        assertFalse(BooleanUtils.oneHot(new Boolean[]{true, false, true}), "middle false");
+
+        assertFalse(BooleanUtils.oneHot(new Boolean[]{true, true, false}), "last false");
+
+        // three true
+        assertFalse(BooleanUtils.oneHot(new Boolean[]{true, true, true}), "all true");
+    }
+
+    @Test
+    public void testOneHot_primitive_emptyInput() {
+        assertThrows(IllegalArgumentException.class, () -> BooleanUtils.oneHot(new boolean[] {}));
+    }
+
+    @Test
+    public void testOneHot_primitive_nullInput() {
+        assertThrows(NullPointerException.class, () -> BooleanUtils.oneHot((boolean[]) null));
+    }
+
+    @Test
+    public void testOneHot_primitive_validInput_1item() {
+        assertTrue(BooleanUtils.oneHot(new boolean[]{true}), "true");
+
+        assertFalse(BooleanUtils.oneHot(new boolean[]{false}), "false");
+    }
+
+    @Test
+    public void testOneHot_primitive_validInput_2items() {
+        assertFalse(BooleanUtils.oneHot(new boolean[]{true, true}), "both true");
+
+        assertFalse(BooleanUtils.oneHot(new boolean[]{false, false}), "both false");
+
+        assertTrue(BooleanUtils.oneHot(new boolean[]{true, false}), "first true");
+
+        assertTrue(BooleanUtils.oneHot(new boolean[]{false, true}), "last true");
+    }
+
+    @Test
+    public void testOneHot_primitive_validInput_3items() {
+        // none true
+        assertFalse(BooleanUtils.oneHot(new boolean[]{false, false, false}), "all false");
+
+        // one true
+        assertTrue(BooleanUtils.oneHot(new boolean[]{true, false, false}), "first true");
+
+        assertTrue(BooleanUtils.oneHot(new boolean[]{false, true, false}), "middle true");
+
+        assertTrue(BooleanUtils.oneHot(new boolean[]{false, false, true}), "last true");
+
+        // two true
+        assertFalse(BooleanUtils.oneHot(new boolean[]{false, true, true}), "first false");
+
+        assertFalse(BooleanUtils.oneHot(new boolean[]{true, false, true}), "middle false");
+
+        assertFalse(BooleanUtils.oneHot(new boolean[]{true, true, false}), "last false");
+
+        // three true
+        assertFalse(BooleanUtils.oneHot(new boolean[]{true, true, true}), "all true");
+    }
+
+    @Test
     public void testOr_object_emptyInput() {
         assertThrows(IllegalArgumentException.class, () -> BooleanUtils.or(new Boolean[] {}));
     }
@@ -1034,5 +1152,4 @@ public class BooleanUtilsTest extends AbstractLangTest {
                 BooleanUtils.xor(new boolean[] { true, true, true }),
                 "true ^ true ^ true");
     }
-
 }

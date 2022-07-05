@@ -248,6 +248,54 @@ public class BooleanUtils {
         return bool.booleanValue() ? Boolean.FALSE : Boolean.TRUE;
     }
     /**
+     * <p>Performs a one-hot on an array of booleans.</p>
+     * <p>
+     * This implementation returns true if one, and only one, of the supplied values is true.
+     * </p>
+     * <p>
+     * See also <a href="https://en.wikipedia.org/wiki/One-hot">One-hot</a>.
+     * </p>
+     * @param array  an array of {@code boolean}s
+     * @return the result of the one-hot operations
+     * @throws NullPointerException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty.
+     */
+    public static boolean oneHot(final boolean... array) {
+        ObjectUtils.requireNonEmpty(array, "array");
+        boolean result = false;
+        for (boolean element: array) {
+            if (element) {
+                if (result) {
+                    return false;
+                }
+                result = element;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * <p>Performs a one-hot on an array of booleans.</p>
+     * <p>
+     * This implementation returns true if one, and only one, of the supplied values is true.
+     * </p>
+     * <p>
+     * Null array elements map to false, like {@code Boolean.parseBoolean(null)} and its callers return false.
+     * </p>
+     * <p>
+     * See also <a href="https://en.wikipedia.org/wiki/One-hot">One-hot</a>.
+     * </p>
+     *
+     * @param array  an array of {@code boolean}s
+     * @return the result of the one-hot operations
+     * @throws NullPointerException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty.
+     */
+    public static Boolean oneHot(final Boolean... array) {
+        return Boolean.valueOf(oneHot(ArrayUtils.toPrimitive(array)));
+    }
+
+    /**
      * <p>Performs an 'or' operation on a set of booleans.</p>
      *
      * <pre>
@@ -1075,15 +1123,23 @@ public class BooleanUtils {
 
     /**
      * <p>Performs an xor on a set of booleans.</p>
+     * <p>
+     *   This behaves like an XOR gate;
+     *   it returns true if the number of true values is odd,
+     *   and false if the number of true values is zero or even.
+     * </p>
      *
      * <pre>
-     *   BooleanUtils.xor(true, true)   = false
-     *   BooleanUtils.xor(false, false) = false
-     *   BooleanUtils.xor(true, false)  = true
+     *   BooleanUtils.xor(true, true)             = false
+     *   BooleanUtils.xor(false, false)           = false
+     *   BooleanUtils.xor(true, false)            = true
+     *   BooleanUtils.xor(true, false, false)     = true
+     *   BooleanUtils.xor(true, true, true)       = true
+     *   BooleanUtils.xor(true, true, true, true) = false
      * </pre>
      *
      * @param array  an array of {@code boolean}s
-     * @return the result of the xor operations
+     * @return true if the number of true values in the array is odd; otherwise returns false.
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
      */

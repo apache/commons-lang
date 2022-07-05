@@ -154,6 +154,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_16.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_17.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_18.</action>
+    <action issue="LANG-1627" type="add" dev="ggregory" due-to="Alberto Scotto, Avijit Chakraborty, Steve Bosman, Bruno P. Kinoshita, Gary Gregory">Add ArrayUtils.oneHot().</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess, Gary Gregory">Bump actions/cache from 2.1.4 to 3.0.4 #742, #752, #764, #833, #867.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump actions/checkout from 2 to 3 #819, #825, #859.</action>
