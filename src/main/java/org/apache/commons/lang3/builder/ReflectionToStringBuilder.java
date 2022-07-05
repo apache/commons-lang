@@ -650,17 +650,6 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             return false;
         }
 
-        if (ObjectUtils.allNotNull(excludeFieldNames, includeFieldNames)) {
-            Set<String> excludeFieldNamesSet = new HashSet<>(Arrays.asList(excludeFieldNames));
-            Set<String> includeFieldNamesSet = new HashSet<>(Arrays.asList(includeFieldNames));
-
-            includeFieldNamesSet.retainAll(excludeFieldNamesSet);
-
-            if (!includeFieldNamesSet.isEmpty()) {
-                throw new IllegalStateException(String.format("Fields %s set in \"includeFieldsNames\" were set in \"excludeFieldNames\" too.", includeFieldNamesSet));
-            }
-        }
-
         if (this.excludeFieldNames != null
             && Arrays.binarySearch(this.excludeFieldNames, field.getName()) >= 0) {
             // Reject fields from the getExcludeFieldNames list.
@@ -714,6 +703,22 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
                     throw new InternalError("Unexpected IllegalAccessException: " + ex.getMessage());
                 }
             }
+        }
+    }
+
+    private void validateIfThereIsIntersectionBetweenTheIncludeAndExcludeFields() {
+        if (ObjectUtils.anyNull(this.excludeFieldNames, this.includeFieldNames)) {
+            return;
+        }
+
+        Set<String> excludeFieldNamesSet = new HashSet<>(Arrays.asList(this.excludeFieldNames));
+        Set<String> includeFieldNamesSet = new HashSet<>(Arrays.asList(this.includeFieldNames));
+
+        includeFieldNamesSet.retainAll(excludeFieldNamesSet);
+
+        if (!includeFieldNamesSet.isEmpty()) {
+            ToStringStyle.unregister(this.getObject());
+            throw new IllegalStateException(String.format("Fields %s set in \"includeFieldsNames\" were set in \"excludeFieldNames\" too.", includeFieldNamesSet));
         }
     }
 
@@ -913,6 +918,9 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         if (this.getObject() == null) {
             return this.getStyle().getNullText();
         }
+
+        validateIfThereIsIntersectionBetweenTheIncludeAndExcludeFields();
+
         Class<?> clazz = this.getObject().getClass();
         this.appendFieldsIn(clazz);
         while (clazz.getSuperclass() != null && clazz != this.getUpToClass()) {
