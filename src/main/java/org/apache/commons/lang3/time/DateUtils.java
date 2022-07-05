@@ -908,7 +908,7 @@ public class DateUtils {
             return val;
         }
 
-        // ----------------- Fix for LANG-59 ---------------------- START ---------------
+        // Fix for LANG-59 START
         // see https://issues.apache.org/jira/browse/LANG-59
         //
         // Manually truncate milliseconds, seconds and minutes, rather than using
@@ -947,7 +947,7 @@ public class DateUtils {
             date.setTime(time);
             val.setTime(date);
         }
-        // ----------------- Fix for LANG-59 ----------------------- END ----------------
+        // Fix for LANG-59 END
 
         boolean roundUp = false;
         for (final int[] aField : fields) {
@@ -965,7 +965,7 @@ public class DateUtils {
                                 val.add(Calendar.DATE, -15);
                                 val.add(Calendar.MONTH, 1);
                             }
-// ----------------- Fix for LANG-440 ---------------------- START ---------------
+                        // Fix for LANG-440 START
                         } else if (field == Calendar.AM_PM) {
                             // This is a special case
                             // If the time is 0, we round up to 12, otherwise
@@ -976,7 +976,7 @@ public class DateUtils {
                                 val.add(Calendar.HOUR_OF_DAY, -12);
                                 val.add(Calendar.DATE, 1);
                             }
-// ----------------- Fix for LANG-440 ---------------------- END ---------------
+                            // Fix for LANG-440 END
                         } else {
                             //We need at add one to this field since the
                             //  last number causes us to round up
