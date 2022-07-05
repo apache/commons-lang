@@ -39,6 +39,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.ClassUtils.Interfaces;
@@ -57,7 +58,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests MethodUtils
  */
-public class MethodUtilsTest {
+public class MethodUtilsTest extends AbstractLangTest {
 
     private interface PrivateInterface {
     }

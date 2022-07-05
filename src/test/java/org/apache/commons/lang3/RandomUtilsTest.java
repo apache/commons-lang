@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests for {@link RandomUtils}
  */
-public class RandomUtilsTest {
+public class RandomUtilsTest extends AbstractLangTest {
 
     /**
      * For comparing doubles and floats

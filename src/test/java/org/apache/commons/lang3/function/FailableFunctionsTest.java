@@ -36,13 +36,14 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests "failable" interfaces defined in this package.
  */
-public class FailableFunctionsTest {
+public class FailableFunctionsTest extends AbstractLangTest {
 
     public static class CloseableObject {
         private boolean closed;

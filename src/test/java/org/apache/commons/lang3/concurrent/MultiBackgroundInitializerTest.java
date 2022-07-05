@@ -28,13 +28,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link MultiBackgroundInitializer}.
  */
-public class MultiBackgroundInitializerTest {
+public class MultiBackgroundInitializerTest extends AbstractLangTest {
     /** Constant for the names of the child initializers. */
     private static final String CHILD_INIT = "childInitializer";
 

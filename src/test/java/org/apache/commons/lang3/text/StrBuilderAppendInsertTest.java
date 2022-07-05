@@ -26,13 +26,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.StrBuilder}.
  */
 @Deprecated
-public class StrBuilderAppendInsertTest {
+public class StrBuilderAppendInsertTest extends AbstractLangTest {
 
     /** The system line separator. */
     private static final String SEP = System.lineSeparator();

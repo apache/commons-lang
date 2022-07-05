@@ -42,6 +42,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.TreeSet;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.reflect.testbed.Foo;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.GenericTypeHolder;
@@ -143,7 +144,7 @@ abstract class Test1<G> {
  */
 @SuppressWarnings({ "unchecked", "unused", "rawtypes" })
 //raw types, where used, are used purposely
-public class TypeUtilsTest<B> {
+public class TypeUtilsTest<B> extends AbstractLangTest {
 
     public interface And<K, V> extends This<Number, Number> {
     }

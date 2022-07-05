@@ -31,10 +31,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ThreadUtils;
 import org.junit.jupiter.api.Test;
 
-public class BackgroundInitializerTest {
+public class BackgroundInitializerTest extends AbstractLangTest {
     /**
      * Helper method for checking whether the initialize() method was correctly
      * called. start() must already have been invoked.

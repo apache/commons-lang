@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -27,7 +28,7 @@ import org.junit.jupiter.api.Test;
  *
  * @see MutableShort
  */
-public class MutableShortTest {
+public class MutableShortTest extends AbstractLangTest {
 
     @Test
     public void testAddAndGetValueObject() {

@@ -30,12 +30,13 @@ import java.lang.reflect.Modifier;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * TestCase for DurationFormatUtils.
  */
-public class DurationFormatUtilsTest {
+public class DurationFormatUtilsTest extends AbstractLangTest {
 
     private static final int FOUR_YEARS = 365 * 3 + 366;
 

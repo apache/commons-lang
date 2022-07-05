@@ -25,10 +25,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.function.Supplier;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
+public class ObjectsTest extends AbstractLangTest {
 
-class ObjectsTest {
     public static class TestableFailableSupplier<O, E extends Exception> implements FailableSupplier<O, E> {
         private final FailableSupplier<O, E> supplier;
         private boolean invoked;

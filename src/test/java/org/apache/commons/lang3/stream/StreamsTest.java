@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.function.Failable;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailablePredicate;
@@ -45,7 +46,7 @@ import org.xml.sax.SAXException;
 /**
  * Tests {@link Streams}.
  */
-public class StreamsTest {
+public class StreamsTest extends AbstractLangTest {
 
     protected <T extends Throwable> FailableConsumer<String, T> asIntConsumer(final T pThrowable) {
         return s -> {

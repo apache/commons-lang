@@ -43,7 +43,7 @@ import org.junit.jupiter.api.Test;
  * Unit tests {@link org.apache.commons.lang3.ArrayUtils}.
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
-public class ArrayUtilsTest {
+public class ArrayUtilsTest extends AbstractLangTest {
 
     private class TestClass {
         // empty

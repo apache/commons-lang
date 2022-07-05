@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -31,7 +32,7 @@ import org.junit.jupiter.api.Test;
  * @since 2.2
  * @see MutableBoolean
  */
-public class MutableBooleanTest {
+public class MutableBooleanTest extends AbstractLangTest {
 
     @Test
     public void testCompareTo() {

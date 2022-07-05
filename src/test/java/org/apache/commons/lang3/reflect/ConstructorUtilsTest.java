@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.mutable.MutableObject;
@@ -36,7 +37,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests ConstructorUtils
  */
-public class ConstructorUtilsTest {
+public class ConstructorUtilsTest extends AbstractLangTest {
     public static class TestBean {
         private final String toString;
         final String[] varArgs;

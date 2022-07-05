@@ -29,13 +29,14 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.Test;
 
 /**
  * Test the Triple class.
  */
-public class ImmutableTripleTest {
+public class ImmutableTripleTest extends AbstractLangTest {
 
     @Test
     public void testBasic() {

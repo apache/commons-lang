@@ -36,6 +36,7 @@ import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,7 +45,7 @@ import org.junitpioneer.jupiter.DefaultLocale;
 /**
  * Unit tests {@link org.apache.commons.lang3.time.DateUtils}.
  */
-public class DateUtilsTest {
+public class DateUtilsTest extends AbstractLangTest {
 
     private static Date BASE_DATE;
 

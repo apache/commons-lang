@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,7 +38,7 @@ import org.junit.jupiter.api.Test;
  * Test class for StrSubstitutor.
  */
 @Deprecated
-public class StrSubstitutorTest {
+public class StrSubstitutorTest extends AbstractLangTest {
 
     private Map<String, String> values;
 

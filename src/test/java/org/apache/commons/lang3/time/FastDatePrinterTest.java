@@ -30,6 +30,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.DefaultLocale;
@@ -40,7 +41,7 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
  *
  * @since 3.0
  */
-public class FastDatePrinterTest {
+public class FastDatePrinterTest extends AbstractLangTest {
 
     private enum Expected1806 {
         India(INDIA, "+05", "+0530", "+05:30"), Greenwich(TimeZones.GMT, "Z", "Z", "Z"), NewYork(

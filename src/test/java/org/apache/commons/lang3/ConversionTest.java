@@ -32,7 +32,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 /**
  * Unit tests {@link Conversion}.
  */
-public class ConversionTest {
+public class ConversionTest extends AbstractLangTest {
 
     /**
      * Tests {@link Conversion#hexDigitToInt(char)}.

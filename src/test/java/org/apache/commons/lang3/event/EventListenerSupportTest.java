@@ -35,13 +35,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
 /**
  * @since 3.0
  */
-public class EventListenerSupportTest {
+public class EventListenerSupportTest extends AbstractLangTest {
 
     @Test
     public void testAddListenerNoDuplicates() {

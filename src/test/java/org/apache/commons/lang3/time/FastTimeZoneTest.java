@@ -20,12 +20,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests for FastTimeZone
  */
-public class FastTimeZoneTest {
+public class FastTimeZoneTest extends AbstractLangTest {
 
     private static final int HOURS_23 = 23 * 60 * 60 * 1000;
     private static final int HOURS_2 = 2 * 60 * 60 * 1000;

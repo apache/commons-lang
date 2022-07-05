@@ -24,12 +24,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@code CallableBackgroundInitializer}
  */
-public class CallableBackgroundInitializerTest  {
+public class CallableBackgroundInitializerTest extends AbstractLangTest {
     /** Constant for the result of the call() invocation. */
     private static final Integer RESULT = Integer.valueOf(42);
 

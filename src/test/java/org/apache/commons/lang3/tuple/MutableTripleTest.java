@@ -21,13 +21,14 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.Test;
 
 /**
  * Test the MutableTriple class.
  */
-public class MutableTripleTest {
+public class MutableTripleTest extends AbstractLangTest {
 
     @Test
     public void testOfNonNull() {

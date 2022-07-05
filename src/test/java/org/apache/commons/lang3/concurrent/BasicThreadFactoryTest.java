@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.concurrent.ThreadFactory;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +35,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@code BasicThreadFactory}.
  */
-public class BasicThreadFactoryTest {
+public class BasicThreadFactoryTest extends AbstractLangTest {
     /** Constant for the test naming pattern. */
     private static final String PATTERN = "testThread-%d";
 

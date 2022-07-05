@@ -20,13 +20,14 @@ package org.apache.commons.lang3.text.translate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.NumericEntityUnescaper}.
  */
 @Deprecated
-public class NumericEntityUnescaperTest  {
+public class NumericEntityUnescaperTest extends AbstractLangTest {
 
     @Test
     public void testSupplementaryUnescaping() {

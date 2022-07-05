@@ -45,7 +45,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  */
-public class AnnotationUtilsTest {
+public class AnnotationUtilsTest extends AbstractLangTest {
     @TestAnnotation(
             booleanValue = false,
             booleanValues = { false },

@@ -24,13 +24,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.Test;
 
 /**
  * Test the MutablePair class.
  */
-public class MutablePairTest {
+public class MutablePairTest extends AbstractLangTest {
 
     @Test
     public void testBasic() {

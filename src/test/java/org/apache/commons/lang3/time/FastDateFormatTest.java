@@ -38,6 +38,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLongArray;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.DefaultTimeZone;
@@ -47,7 +48,7 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
  *
  * @since 2.0
  */
-public class FastDateFormatTest {
+public class FastDateFormatTest extends AbstractLangTest {
     private static final int NTHREADS = 10;
 
     private static final int NROUNDS = 10000;

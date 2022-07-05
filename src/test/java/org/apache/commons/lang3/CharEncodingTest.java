@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
  * @see CharEncoding
  */
 @SuppressWarnings("deprecation")
-public class CharEncodingTest  {
+public class CharEncodingTest extends AbstractLangTest {
 
     private void assertSupportedEncoding(final String name) {
         assertTrue(CharEncoding.isSupported(name), "Encoding should be supported: " + name);

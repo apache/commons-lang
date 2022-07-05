@@ -23,13 +23,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.CharArrayWriter;
 import java.io.IOException;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover}.
  */
 @Deprecated
-public class UnicodeUnpairedSurrogateRemoverTest {
+public class UnicodeUnpairedSurrogateRemoverTest extends AbstractLangTest {
     final UnicodeUnpairedSurrogateRemover subject = new UnicodeUnpairedSurrogateRemover();
     final CharArrayWriter writer = new CharArrayWriter(); // nothing is ever written to it
 

@@ -30,13 +30,14 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link ConcurrentUtils}.
  */
-public class ConcurrentUtilsTest {
+public class ConcurrentUtilsTest extends AbstractLangTest {
     /**
      * Tests creating a ConcurrentException with a runtime exception as cause.
      */

@@ -20,12 +20,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@code ThresholdCircuitBreaker}.
  */
-public class ThresholdCircuitBreakerTest {
+public class ThresholdCircuitBreakerTest extends AbstractLangTest {
 
     /**
      * Threshold used in tests.

@@ -28,13 +28,14 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.exception.UncheckedInterruptedException;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link UncheckedFuture}.
  */
-public class UncheckedFutureTest {
+public class UncheckedFutureTest extends AbstractLangTest {
 
     private static class TestFuture<V> extends AbstractFutureProxy<V> {
 

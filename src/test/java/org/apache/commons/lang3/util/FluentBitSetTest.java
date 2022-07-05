@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.BitSet;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,7 @@ import org.junit.jupiter.api.Test;
  * Test code originally from Apache Harmony for FluentBitSet and adapted.
  * </p>
  */
-public class FluentBitSetTest {
+public class FluentBitSetTest extends AbstractLangTest {
 
     private BitSet eightBs;
     private FluentBitSet eightFbs;

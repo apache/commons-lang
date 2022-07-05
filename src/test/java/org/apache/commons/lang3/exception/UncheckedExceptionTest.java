@@ -18,12 +18,13 @@ package org.apache.commons.lang3.exception;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link UncheckedException}.
  */
-public class UncheckedExceptionTest {
+public class UncheckedExceptionTest extends AbstractLangTest {
 
     @Test
     public void testConstructWithCause() {

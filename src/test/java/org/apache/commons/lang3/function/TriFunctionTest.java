@@ -23,12 +23,13 @@ import java.math.BigInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link TriFunction}.
  */
-public class TriFunctionTest {
+public class TriFunctionTest extends AbstractLangTest {
 
     @Test
     public void testAccept() throws Throwable {

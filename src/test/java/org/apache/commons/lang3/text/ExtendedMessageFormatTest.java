@@ -33,6 +33,7 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -42,7 +43,7 @@ import org.junit.jupiter.api.Test;
  * @since 2.4
  */
 @Deprecated
-public class ExtendedMessageFormatTest {
+public class ExtendedMessageFormatTest extends AbstractLangTest {
 
     private final Map<String, FormatFactory> registry = new HashMap<>();
 

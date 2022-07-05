@@ -29,12 +29,13 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.math.NumberUtils}.
  */
-public class NumberUtilsTest {
+public class NumberUtilsTest extends AbstractLangTest {
 
     private boolean checkCreateNumber(final String val) {
         try {

@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - StartsWith/EndsWith methods
  */
-public class StringUtilsStartsEndsWithTest {
+public class StringUtilsStartsEndsWithTest extends AbstractLangTest {
     private static final String foo    = "foo";
     private static final String bar    = "bar";
     private static final String foobar = "foobar";

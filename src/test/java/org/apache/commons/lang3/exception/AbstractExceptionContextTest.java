@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,7 +38,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Abstract test of an ExceptionContext implementation.
  */
-public abstract class AbstractExceptionContextTest<T extends ExceptionContext & Serializable> {
+public abstract class AbstractExceptionContextTest<T extends ExceptionContext & Serializable> extends AbstractLangTest {
 
     protected static final String TEST_MESSAGE_2 = "This is monotonous";
     protected static final String TEST_MESSAGE = "Test Message";

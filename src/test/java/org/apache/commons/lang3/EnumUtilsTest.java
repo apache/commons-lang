@@ -43,7 +43,7 @@ enum Enum64 {
 /**
  *
  */
-public class EnumUtilsTest {
+public class EnumUtilsTest extends AbstractLangTest {
 
     private void assertArrayEquals(final long[] actual, final long... expected) {
         Assertions.assertArrayEquals(expected, actual);

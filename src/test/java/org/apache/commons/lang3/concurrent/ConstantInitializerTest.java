@@ -21,13 +21,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@code ConstantInitializer}.
  */
-public class ConstantInitializerTest {
+public class ConstantInitializerTest extends AbstractLangTest {
     /** Constant for the object managed by the initializer. */
     private static final Integer VALUE = 42;
 

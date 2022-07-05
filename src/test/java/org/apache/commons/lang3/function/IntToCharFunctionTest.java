@@ -19,12 +19,13 @@ package org.apache.commons.lang3.function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link IntToCharFunction}.
  */
-public class IntToCharFunctionTest {
+public class IntToCharFunctionTest extends AbstractLangTest {
 
     @Test
     public void test() {

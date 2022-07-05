@@ -41,7 +41,7 @@ import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.function.Executable;
 import org.xml.sax.SAXException;
 
-public class StreamsTest {
+public class StreamsTest extends AbstractLangTest {
 
     @Test
     public void testSimpleStreamMap() {

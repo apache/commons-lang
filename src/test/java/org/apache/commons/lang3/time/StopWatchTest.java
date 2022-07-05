@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ThreadUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,7 @@ import org.junit.jupiter.api.Test;
 /**
  * TestCase for StopWatch.
  */
-public class StopWatchTest {
+public class StopWatchTest extends AbstractLangTest {
 
     private static final Duration MILLIS_200 = Duration.ofMillis(200);
     private static final Duration MILLIS_550 = Duration.ofMillis(550);

@@ -23,11 +23,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.function.Function;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class MemoizerFunctionTest {
+public class MemoizerFunctionTest extends AbstractLangTest {
 
     private Function<Integer, Integer> function;
 

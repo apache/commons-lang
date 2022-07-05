@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests ArrayUtils remove and removeElement methods.
  */
-public class ArrayUtilsRemoveMultipleTest {
+public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     @Test
     public void testRemoveAllBooleanArray() {

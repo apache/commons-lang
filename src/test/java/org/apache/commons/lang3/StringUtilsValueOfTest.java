@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
  *
  * @since 3.9
  */
-public class StringUtilsValueOfTest {
+public class StringUtilsValueOfTest extends AbstractLangTest {
 
     @Test
     public void testValueOfChar() {

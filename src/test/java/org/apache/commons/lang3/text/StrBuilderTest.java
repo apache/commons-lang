@@ -35,6 +35,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.CharBuffer;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
 
@@ -42,7 +43,7 @@ import org.junit.jupiter.api.Test;
  * Unit tests for {@link org.apache.commons.lang3.text.StrBuilder}.
  */
 @Deprecated
-public class StrBuilderTest {
+public class StrBuilderTest extends AbstractLangTest {
 
     @Test
     public void testConstructors() {

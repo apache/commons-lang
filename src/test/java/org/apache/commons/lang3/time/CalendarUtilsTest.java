@@ -22,9 +22,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Calendar;
 import java.util.Locale;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
-public class CalendarUtilsTest {
+public class CalendarUtilsTest extends AbstractLangTest {
 
     @Test
     public void testGetDayOfMonth() {

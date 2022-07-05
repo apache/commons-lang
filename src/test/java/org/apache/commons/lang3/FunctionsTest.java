@@ -44,7 +44,7 @@ import org.apache.commons.lang3.Functions.FailableSupplier;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class FunctionsTest {
+public class FunctionsTest extends AbstractLangTest {
 
     public static class CloseableObject {
         private boolean closed;

@@ -20,12 +20,13 @@ package org.apache.commons.lang3.function;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.exception.CustomCheckedException;
 import org.apache.commons.lang3.exception.CustomUncheckedException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
-class MethodFixtures {
+class MethodFixtures extends AbstractLangTest {
 
     static MethodFixtures INSTANCE = new MethodFixtures();
 

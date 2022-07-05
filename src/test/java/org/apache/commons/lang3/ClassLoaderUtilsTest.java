@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link ClassLoaderUtils}.
  */
-public class ClassLoaderUtilsTest {
+public class ClassLoaderUtilsTest extends AbstractLangTest {
 
     @Test
     public void testToString_ClassLoader() throws IOException {

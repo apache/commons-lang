@@ -39,7 +39,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.ThreadUtils}.
  */
-public class ThreadUtilsTest {
+public class ThreadUtilsTest extends AbstractLangTest {
 
     private static class TestThread extends Thread {
         private final CountDownLatch latch = new CountDownLatch(1);

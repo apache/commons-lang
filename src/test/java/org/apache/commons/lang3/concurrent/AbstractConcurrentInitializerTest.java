@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.concurrent.CountDownLatch;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -34,7 +35,7 @@ import org.junit.jupiter.api.Test;
  * tests are executed.
  * </p>
  */
-public abstract class AbstractConcurrentInitializerTest {
+public abstract class AbstractConcurrentInitializerTest extends AbstractLangTest {
     /**
      * Tests a simple invocation of the get() method.
      *

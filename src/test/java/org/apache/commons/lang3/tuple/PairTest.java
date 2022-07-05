@@ -27,12 +27,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Test the Pair class.
  */
-public class PairTest {
+public class PairTest extends AbstractLangTest {
 
     @Test
     public void testComparable1() {

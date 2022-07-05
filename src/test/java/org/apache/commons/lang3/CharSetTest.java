@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.CharSet}.
  */
-public class CharSetTest  {
+public class CharSetTest extends AbstractLangTest {
 
     @Test
     public void testClass() {

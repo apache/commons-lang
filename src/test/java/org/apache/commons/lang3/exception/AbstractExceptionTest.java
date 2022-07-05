@@ -16,11 +16,12 @@
  */
 package org.apache.commons.lang3.exception;
 
+import org.apache.commons.lang3.AbstractLangTest;
 
 /**
  * Base class for testing {@link Exception} descendants
  */
-public abstract class AbstractExceptionTest {
+public abstract class AbstractExceptionTest extends AbstractLangTest {
 
     protected static final String CAUSE_MESSAGE = "Cause message";
     protected static final String EXCEPTION_MESSAGE = "Exception message";

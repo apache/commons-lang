@@ -22,12 +22,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link FutureTask}.
  */
-public class FutureTasksTest {
+public class FutureTasksTest extends AbstractLangTest {
 
     @Test
     public void testRun() throws InterruptedException, ExecutionException {

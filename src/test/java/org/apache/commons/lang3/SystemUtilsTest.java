@@ -50,7 +50,7 @@ import org.junit.jupiter.api.Test;
  *
  * Only limited testing can be performed.
  */
-public class SystemUtilsTest {
+public class SystemUtilsTest extends AbstractLangTest {
 
     @Test
     @SuppressWarnings("deprecation")

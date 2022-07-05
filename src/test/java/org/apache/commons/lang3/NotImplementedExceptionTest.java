@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.NotImplementedException}.
  */
-public class NotImplementedExceptionTest {
+public class NotImplementedExceptionTest extends AbstractLangTest {
 
     @Test
     public void testConstructors() {

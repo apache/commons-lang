@@ -23,12 +23,13 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link ObjectToStringComparator}.
  */
-public class ObjectToStringComparatorTest {
+public class ObjectToStringComparatorTest extends AbstractLangTest {
 
     private static class Thing {
 

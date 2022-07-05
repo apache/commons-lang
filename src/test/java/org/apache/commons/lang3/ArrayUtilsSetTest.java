@@ -27,7 +27,7 @@ import java.util.function.Supplier;
 
 import org.junit.jupiter.api.Test;
 
-public class ArrayUtilsSetTest {
+public class ArrayUtilsSetTest extends AbstractLangTest {
 
     @Test
     public void testSetAll_IntFunction() {

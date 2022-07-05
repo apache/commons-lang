@@ -34,6 +34,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.JavaVersion;
@@ -53,7 +54,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests FieldUtils
  */
-public class FieldUtilsTest {
+public class FieldUtilsTest extends AbstractLangTest {
 
     private static final String JACOCO_DATA_FIELD_NAME = "$jacocoData";
     static final Integer I0 = Integer.valueOf(0);

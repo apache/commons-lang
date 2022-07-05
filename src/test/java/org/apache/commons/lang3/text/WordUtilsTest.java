@@ -25,13 +25,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for WordUtils class.
  */
 @Deprecated
-public class WordUtilsTest {
+public class WordUtilsTest extends AbstractLangTest {
 
     @Test
     public void testConstructor() {

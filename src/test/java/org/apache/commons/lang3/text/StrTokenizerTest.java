@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
 
@@ -36,7 +37,7 @@ import org.junit.jupiter.api.Test;
  * Unit test for Tokenizer.
  */
 @Deprecated
-public class StrTokenizerTest {
+public class StrTokenizerTest extends AbstractLangTest {
 
     private static final String CSV_SIMPLE_FIXTURE = "A,b,c";
 

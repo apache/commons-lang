@@ -24,12 +24,13 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Test cases for the {@link Fraction} class
  */
-public class FractionTest  {
+public class FractionTest extends AbstractLangTest {
 
     private static final int SKIP = 500;  //53
 

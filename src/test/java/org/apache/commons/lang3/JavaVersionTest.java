@@ -49,7 +49,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.JavaVersion}.
  */
-public class JavaVersionTest {
+public class JavaVersionTest extends AbstractLangTest {
 
     @Test
     public void testGetJavaVersion() {

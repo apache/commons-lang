@@ -23,7 +23,7 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-public class ArraySorterTest {
+public class ArraySorterTest extends AbstractLangTest {
 
     @Test
     public void testSortByteArray() {

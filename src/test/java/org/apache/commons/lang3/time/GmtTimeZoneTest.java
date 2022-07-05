@@ -20,12 +20,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests for GmtTimeZone
  */
-public class GmtTimeZoneTest {
+public class GmtTimeZoneTest extends AbstractLangTest {
 
     @Test
     public void getID() {

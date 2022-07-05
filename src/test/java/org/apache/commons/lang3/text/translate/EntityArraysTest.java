@@ -22,13 +22,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.EntityArrays}.
  */
 @Deprecated
-public class EntityArraysTest  {
+public class EntityArraysTest extends AbstractLangTest {
 
     @Test
     public void testConstructorExists() {

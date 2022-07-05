@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  */
-public class ClassPathUtilsTest {
+public class ClassPathUtilsTest extends AbstractLangTest {
 
     @Test
     public void testConstructor() {

@@ -22,13 +22,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Formatter;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests {@link FormattableUtils}.
  */
 @Deprecated
-public class FormattableUtilsTest {
+public class FormattableUtilsTest extends AbstractLangTest {
 
     @Test
     public void testDefaultAppend() {

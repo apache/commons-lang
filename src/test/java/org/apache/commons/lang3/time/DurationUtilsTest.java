@@ -27,13 +27,14 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link DurationUtils}.
  */
-public class DurationUtilsTest {
+public class DurationUtilsTest extends AbstractLangTest {
 
     @Test
     public void testGetNanosOfMilli() {

@@ -28,6 +28,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ThreadUtils;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for TimedSemaphore.
  */
-public class TimedSemaphoreTest {
+public class TimedSemaphoreTest extends AbstractLangTest {
     /** Constant for the time period. */
     private static final long PERIOD = 500;
 

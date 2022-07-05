@@ -18,12 +18,13 @@ package org.apache.commons.lang3.exception;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link UncheckedReflectiveOperationException}.
  */
-public class UncheckedReflectiveOperationExceptionTest {
+public class UncheckedReflectiveOperationExceptionTest extends AbstractLangTest {
 
     @Test
     public void testConstructWithCause() {

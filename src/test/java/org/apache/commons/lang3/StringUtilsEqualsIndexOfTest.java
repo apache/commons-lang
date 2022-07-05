@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Equals/IndexOf methods
  */
-public class StringUtilsEqualsIndexOfTest  {
+public class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
 
     private static final String BAR = "bar";
 

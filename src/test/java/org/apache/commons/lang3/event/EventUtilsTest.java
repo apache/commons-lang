@@ -36,12 +36,13 @@ import java.util.TreeMap;
 
 import javax.naming.event.ObjectChangeListener;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * @since 3.0
  */
-public class EventUtilsTest {
+public class EventUtilsTest extends AbstractLangTest {
     @Test
     public void testConstructor() {
         assertNotNull(new EventUtils());

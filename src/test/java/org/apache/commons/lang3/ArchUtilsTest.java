@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@link ArchUtils}.
  */
-public class ArchUtilsTest {
+public class ArchUtilsTest extends AbstractLangTest {
 
     private static final String IA64 = "ia64";
     private static final String IA64_32 = "ia64_32";

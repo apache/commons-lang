@@ -25,6 +25,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +41,7 @@ import org.junit.jupiter.api.Test;
  *
  * @since 3.0
  */
-public class DateUtilsRoundingTest {
+public class DateUtilsRoundingTest extends AbstractLangTest {
 
     DateFormat dateTimeParser;
 

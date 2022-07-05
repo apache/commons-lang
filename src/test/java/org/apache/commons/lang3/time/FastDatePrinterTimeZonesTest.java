@@ -23,10 +23,11 @@ import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class FastDatePrinterTimeZonesTest {
+public class FastDatePrinterTimeZonesTest extends AbstractLangTest {
 
     private static final String PATTERN = "h:mma z";
 

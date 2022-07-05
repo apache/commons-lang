@@ -24,11 +24,12 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class FastDateParser_TimeZoneStrategyTest {
+public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     @Test
     void testLang1219() throws ParseException {

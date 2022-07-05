@@ -25,13 +25,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Test class for StrLookup.
  */
 @Deprecated
-public class StrLookupTest  {
+public class StrLookupTest extends AbstractLangTest {
 
     @Test
     public void testNoneLookup() {

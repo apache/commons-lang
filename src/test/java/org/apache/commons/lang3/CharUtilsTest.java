@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests {@link org.apache.commons.lang3.CharUtils}.
  */
-public class CharUtilsTest {
+public class CharUtilsTest extends AbstractLangTest {
 
     private static final char CHAR_COPY = '\u00a9';
     private static final Character CHARACTER_A = Character.valueOf('A');

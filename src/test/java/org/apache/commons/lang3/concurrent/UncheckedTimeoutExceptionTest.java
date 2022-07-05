@@ -18,12 +18,13 @@ package org.apache.commons.lang3.concurrent;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link UncheckedTimeoutException}.
  */
-public class UncheckedTimeoutExceptionTest {
+public class UncheckedTimeoutExceptionTest extends AbstractLangTest {
 
     @Test
     public void testConstructWithCause() {
