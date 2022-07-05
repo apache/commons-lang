@@ -26,6 +26,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.IntFunction;
@@ -3794,14 +3795,10 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static <T> boolean isSorted(final T[] array, final Comparator<T> comparator) {
-        if (comparator == null) {
-            throw new IllegalArgumentException("Comparator should not be null.");
-        }
-
+        Objects.requireNonNull(comparator, "comparator");
         if (array == null || array.length < 2) {
             return true;
         }
-
         T previous = array[0];
         final int n = array.length;
         for (int i = 1; i < n; i++) {

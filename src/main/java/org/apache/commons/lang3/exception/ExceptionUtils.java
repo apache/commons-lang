@@ -716,13 +716,12 @@ public class ExceptionUtils {
      *
      * @param causeFrames  stack trace of a cause throwable
      * @param wrapperFrames  stack trace of a wrapper throwable
-     * @throws IllegalArgumentException if either argument is null
+     * @throws NullPointerException if either argument is null
      * @since 2.0
      */
     public static void removeCommonFrames(final List<String> causeFrames, final List<String> wrapperFrames) {
-        if (causeFrames == null || wrapperFrames == null) {
-            throw new IllegalArgumentException("The List must not be null");
-        }
+        Objects.requireNonNull(causeFrames, "causeFrames");
+        Objects.requireNonNull(wrapperFrames, "wrapperFrames");
         int causeFrameIndex = causeFrames.size() - 1;
         int wrapperFrameIndex = wrapperFrames.size() - 1;
         while (causeFrameIndex >= 0 && wrapperFrameIndex >= 0) {

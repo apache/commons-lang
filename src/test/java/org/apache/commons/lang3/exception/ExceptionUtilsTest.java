@@ -666,7 +666,7 @@ public class ExceptionUtilsTest {
 
     @Test
     public void testRemoveCommonFrames_ListList() {
-        assertThrows(IllegalArgumentException.class, () -> ExceptionUtils.removeCommonFrames(null, null));
+        assertThrows(NullPointerException.class, () -> ExceptionUtils.removeCommonFrames(null, null));
     }
 
     @Test

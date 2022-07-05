@@ -1646,7 +1646,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testIsSortedNullComparator() {
-        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.isSorted(null, null));
+        assertThrows(NullPointerException.class, () -> ArrayUtils.isSorted(null, null));
     }
 
     @Test
