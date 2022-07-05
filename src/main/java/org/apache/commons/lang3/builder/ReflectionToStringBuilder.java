@@ -24,11 +24,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -386,6 +389,35 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
+     * Builds a String for a toString method including the given field names.
+     *
+     * @param object
+     *            The object to "toString".
+     * @param includeFieldNames
+     *            {@code null} or empty means all fields are included. All fields are included by default. This method will override the default behavior.
+     * @return The toString value.
+     * @since 3.13.0
+     */
+    public static String toStringInclude(final Object object, final Collection<String> includeFieldNames) {
+        return toStringInclude(object, toNoNullStringArray(includeFieldNames));
+    }
+
+    /**
+     * Builds a String for a toString method including the given field names.
+     *
+     * @param object
+     *            The object to "toString".
+     * @param includeFieldNames
+     *            The field names to include. {@code null} or empty means all fields are included. All fields are included by default. This method will override the default
+     *             behavior.
+     * @return The toString value.
+     * @since 3.13.0
+     */
+    public static String toStringInclude(final Object object, final String... includeFieldNames) {
+        return new ReflectionToStringBuilder(object).setIncludeFieldNames(includeFieldNames).toString();
+    }
+
+    /**
      * Converts the given Collection into an array of Strings. The returned array does not contain {@code null}
      * entries. Note that {@link Arrays#sort(Object[])} will throw an {@link NullPointerException} if an array element
      * is {@code null}.
@@ -459,6 +491,13 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @since 3.0 this is protected instead of private
      */
     protected String[] excludeFieldNames;
+
+    /**
+     * Field names that will be included in the output. All fields are included by default.
+     *
+     * @since 3.13.0
+     */
+    protected String[] includeFieldNames;
 
     /**
      * The last super class to stop appending fields for.
@@ -614,11 +653,18 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             // Reject static fields.
             return false;
         }
+
         if (this.excludeFieldNames != null
             && Arrays.binarySearch(this.excludeFieldNames, field.getName()) >= 0) {
             // Reject fields from the getExcludeFieldNames list.
             return false;
         }
+
+        if (ArrayUtils.isNotEmpty(includeFieldNames)) {
+            // Accept fields from the getIncludeFieldNames list. {@code null} or empty means all fields are included. All fields are included by default.
+            return Arrays.binarySearch(this.includeFieldNames, field.getName()) >= 0;
+        }
+
         return !field.isAnnotationPresent(ToStringExclude.class);
     }
 
@@ -665,10 +711,22 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * @return Returns the excludeFieldNames.
+     * Gets the excludeFieldNames.
+     *
+     * @return the excludeFieldNames.
      */
     public String[] getExcludeFieldNames() {
         return this.excludeFieldNames.clone();
+    }
+
+    /**
+     * Gets the includeFieldNames
+     *
+     * @return the includeFieldNames.
+     * @since 3.13.0
+     */
+    public String[] getIncludeFieldNames() {
+        return this.includeFieldNames.clone();
     }
 
     /**
@@ -800,8 +858,26 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         if (excludeFieldNamesParam == null) {
             this.excludeFieldNames = null;
         } else {
-            //clone and remove nulls
+            // clone and remove nulls
             this.excludeFieldNames = ArraySorter.sort(toNoNullStringArray(excludeFieldNamesParam));
+        }
+        return this;
+    }
+
+    /**
+     * Sets the field names to include. {@code null} or empty means all fields are included. All fields are included by default. This method will override the default behavior.
+     *
+     * @param includeFieldNamesParam
+     *            The includeFieldNames that must be on toString or {@code null}.
+     * @return {@code this}
+     * @since 3.13.0
+     */
+    public ReflectionToStringBuilder setIncludeFieldNames(final String... includeFieldNamesParam) {
+        if (includeFieldNamesParam == null) {
+            this.includeFieldNames = null;
+        } else {
+            // clone and remove nulls
+            this.includeFieldNames = ArraySorter.sort(toNoNullStringArray(includeFieldNamesParam));
         }
         return this;
     }
@@ -836,6 +912,9 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         if (this.getObject() == null) {
             return this.getStyle().getNullText();
         }
+
+        validate();
+
         Class<?> clazz = this.getObject().getClass();
         this.appendFieldsIn(clazz);
         while (clazz.getSuperclass() != null && clazz != this.getUpToClass()) {
@@ -843,6 +922,13 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             this.appendFieldsIn(clazz);
         }
         return super.toString();
+    }
+
+    private void validate() {
+        if (ArrayUtils.containsAny(this.excludeFieldNames, (Object[]) this.includeFieldNames)) {
+            ToStringStyle.unregister(this.getObject());
+            throw new IllegalStateException("includeFieldNames and excludeFieldNames must not intersect");
+        }
     }
 
 }
