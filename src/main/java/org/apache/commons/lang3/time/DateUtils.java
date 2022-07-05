@@ -164,13 +164,7 @@ public class DateUtils {
      * @since 2.1
      */
     public static boolean isSameDay(final Date date1, final Date date2) {
-        Objects.requireNonNull(date1, "date1");
-        Objects.requireNonNull(date2, "date2");
-        final Calendar cal1 = Calendar.getInstance();
-        cal1.setTime(date1);
-        final Calendar cal2 = Calendar.getInstance();
-        cal2.setTime(date2);
-        return isSameDay(cal1, cal2);
+        return isSameDay(toCalendar(date1), toCalendar(date2));
     }
 
     /**
@@ -642,7 +636,7 @@ public class DateUtils {
      */
     public static Calendar toCalendar(final Date date) {
         final Calendar c = Calendar.getInstance();
-        c.setTime(date);
+        c.setTime(Objects.requireNonNull(date, "date"));
         return c;
     }
 
@@ -655,7 +649,7 @@ public class DateUtils {
      */
     public static Calendar toCalendar(final Date date, final TimeZone tz) {
         final Calendar c = Calendar.getInstance(tz);
-        c.setTime(date);
+        c.setTime(Objects.requireNonNull(date, "date"));
         return c;
     }
 
@@ -687,10 +681,7 @@ public class DateUtils {
      * @throws ArithmeticException if the year is over 280 million
      */
     public static Date round(final Date date, final int field) {
-        validateDateNotNull(date);
-        final Calendar gval = Calendar.getInstance();
-        gval.setTime(date);
-        return modify(gval, field, ModifyType.ROUND).getTime();
+        return modify(toCalendar(date), field, ModifyType.ROUND).getTime();
     }
 
     /**
@@ -780,10 +771,7 @@ public class DateUtils {
      * @throws ArithmeticException if the year is over 280 million
      */
     public static Date truncate(final Date date, final int field) {
-        validateDateNotNull(date);
-        final Calendar gval = Calendar.getInstance();
-        gval.setTime(date);
-        return modify(gval, field, ModifyType.TRUNCATE).getTime();
+        return modify(toCalendar(date), field, ModifyType.TRUNCATE).getTime();
     }
 
     /**
@@ -850,10 +838,7 @@ public class DateUtils {
      * @since 2.5
      */
     public static Date ceiling(final Date date, final int field) {
-        validateDateNotNull(date);
-        final Calendar gval = Calendar.getInstance();
-        gval.setTime(date);
-        return modify(gval, field, ModifyType.CEILING).getTime();
+        return modify(toCalendar(date), field, ModifyType.CEILING).getTime();
     }
 
     /**
@@ -1078,10 +1063,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the rangeStyle is invalid
      */
     public static Iterator<Calendar> iterator(final Date focus, final int rangeStyle) {
-        validateDateNotNull(focus);
-        final Calendar gval = Calendar.getInstance();
-        gval.setTime(focus);
-        return iterator(gval, rangeStyle);
+        return iterator(toCalendar(focus), rangeStyle);
     }
 
     /**
