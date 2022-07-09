@@ -21,7 +21,6 @@ import java.text.MessageFormat;
 import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
@@ -208,11 +207,11 @@ public class ExtendedMessageFormat extends MessageFormat {
             // only loop over what we know we have, as MessageFormat on Java 1.3
             // seems to provide an extra format element:
             int i = 0;
-            for (final Iterator<Format> it = foundFormats.iterator(); it.hasNext(); i++) {
-                final Format f = it.next();
+            for (final Format f : foundFormats) {
                 if (f != null) {
                     origFormats[i] = f;
                 }
+                i++;
             }
             super.setFormats(origFormats);
         }
