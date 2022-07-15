@@ -133,9 +133,9 @@ public class StreamsTest extends AbstractLangTest {
 
     @Test
     public void testNullSafeStreamNotNull() {
-        assertEquals(2, Streams.nullSafeStream(Arrays.asList("A", "B")).collect(Collectors.toList()).size());
-        assertEquals(2, Streams.nullSafeStream(Arrays.asList(null, "A", null, "B", null)).collect(Collectors.toList()).size());
-        assertEquals(0, Streams.nullSafeStream(Arrays.asList(null, null)).collect(Collectors.toList()).size());
+        assertEquals(2, Streams.nonNull(Arrays.asList("A", "B")).collect(Collectors.toList()).size());
+        assertEquals(2, Streams.nonNull(Arrays.asList(null, "A", null, "B", null)).collect(Collectors.toList()).size());
+        assertEquals(0, Streams.nonNull(Arrays.asList(null, null)).collect(Collectors.toList()).size());
     }
 
     @Test
@@ -151,7 +151,7 @@ public class StreamsTest extends AbstractLangTest {
     @Test
     public void testNullSafeStreamNull() {
         final List<String> input = null;
-        assertEquals(0, Streams.nullSafeStream(input).collect(Collectors.toList()).size());
+        assertEquals(0, Streams.nonNull(input).collect(Collectors.toList()).size());
     }
 
     @Test

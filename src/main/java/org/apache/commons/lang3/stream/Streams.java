@@ -561,14 +561,14 @@ public class Streams {
     }
 
     /**
-     * Streams non-null elements of a collection.
+     * Streams the non-null elements of a collection.
      *
      * @param <E> the type of elements in the collection.
      * @param collection the collection to stream or null.
      * @return A non-null stream that filters out null elements.
      * @since 3.13.0
      */
-    public static <E> Stream<E> nullSafeStream(final Collection<E> collection) {
+    public static <E> Stream<E> nonNull(final Collection<E> collection) {
         return filter(collection, Objects::nonNull);
     }
 
