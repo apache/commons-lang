@@ -98,9 +98,9 @@ import org.apache.commons.lang3.Validate;
 public class MultiBackgroundInitializer
         extends
         BackgroundInitializer<MultiBackgroundInitializer.MultiBackgroundInitializerResults> {
+
     /** A map with the child initializers. */
-    private final Map<String, BackgroundInitializer<?>> childInitializers =
-        new HashMap<>();
+    private final Map<String, BackgroundInitializer<?>> childInitializers = new HashMap<>();
 
     /**
      * Creates a new instance of {@link MultiBackgroundInitializer}.
@@ -156,13 +156,7 @@ public class MultiBackgroundInitializer
      */
     @Override
     protected int getTaskCount() {
-        int result = 1;
-
-        for (final BackgroundInitializer<?> bi : childInitializers.values()) {
-            result += bi.getTaskCount();
-        }
-
-        return result;
+        return 1 + childInitializers.values().stream().mapToInt(BackgroundInitializer::getTaskCount).sum();
     }
 
     /**
@@ -180,30 +174,29 @@ public class MultiBackgroundInitializer
         final Map<String, BackgroundInitializer<?>> inits;
         synchronized (this) {
             // create a snapshot to operate on
-            inits = new HashMap<>(
-                    childInitializers);
+            inits = new HashMap<>(childInitializers);
         }
 
         // start the child initializers
         final ExecutorService exec = getActiveExecutor();
-        for (final BackgroundInitializer<?> bi : inits.values()) {
+        inits.values().forEach(bi -> {
             if (bi.getExternalExecutor() == null) {
                 // share the executor service if necessary
                 bi.setExternalExecutor(exec);
             }
             bi.start();
-        }
+        });
 
         // collect the results
         final Map<String, Object> results = new HashMap<>();
         final Map<String, ConcurrentException> excepts = new HashMap<>();
-        for (final Map.Entry<String, BackgroundInitializer<?>> e : inits.entrySet()) {
+        inits.entrySet().forEach(e -> {
             try {
                 results.put(e.getKey(), e.getValue().get());
             } catch (final ConcurrentException cex) {
                 excepts.put(e.getKey(), cex);
             }
-        }
+        });
 
         return new MultiBackgroundInitializerResults(inits, results, excepts);
     }

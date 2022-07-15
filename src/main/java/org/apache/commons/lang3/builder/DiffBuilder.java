@@ -948,19 +948,13 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException if field name is {@code null}
      * @since 3.5
      */
-    public DiffBuilder<T> append(final String fieldName,
-            final DiffResult<T> diffResult) {
+    public DiffBuilder<T> append(final String fieldName, final DiffResult<T> diffResult) {
         validateFieldNameNotNull(fieldName);
         Validate.notNull(diffResult, "diffResult");
         if (objectsTriviallyEqual) {
             return this;
         }
-
-        for (final Diff<?> diff : diffResult.getDiffs()) {
-            append(fieldName + "." + diff.getFieldName(),
-                   diff.getLeft(), diff.getRight());
-        }
-
+        diffResult.getDiffs().forEach(diff -> append(fieldName + "." + diff.getFieldName(), diff.getLeft(), diff.getRight()));
         return this;
     }
 
