@@ -23,6 +23,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
@@ -311,19 +312,19 @@ public class EventListenerSupport<L> implements Serializable {
     protected class ProxyInvocationHandler implements InvocationHandler {
 
         /**
-         * Propagates the method call to all registered listeners in place of
-         * the proxy listener object.
+         * Propagates the method call to all registered listeners in place of the proxy listener object.
          *
-         * @param unusedProxy the proxy object representing a listener on which the
-         *        invocation was called; not used
-         * @param method the listener method that will be called on all of the
-         *        listeners.
+         * @param unusedProxy the proxy object representing a listener on which the invocation was called; not used
+         * @param method the listener method that will be called on all of the listeners.
          * @param args event arguments to propagate to the listeners.
          * @return the result of the method call
-         * @throws Throwable if an error occurs
+         * @throws InvocationTargetException if an error occurs
+         * @throws IllegalArgumentException if an error occurs
+         * @throws IllegalAccessException if an error occurs
          */
         @Override
-        public Object invoke(final Object unusedProxy, final Method method, final Object[] args) throws Throwable {
+        public Object invoke(final Object unusedProxy, final Method method, final Object[] args)
+                throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
             for (final L listener : listeners) {
                 method.invoke(listener, args);
             }
