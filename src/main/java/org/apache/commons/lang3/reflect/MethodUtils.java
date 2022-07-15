@@ -891,7 +891,7 @@ public class MethodUtils {
      * @param searchSupers
      *            determines if a lookup in the entire inheritance hierarchy of the given class should be performed
      * @param ignoreAccess
-     *            determines if non public methods should be considered
+     *            determines if non-public methods should be considered
      * @return an array of Methods (possibly empty).
      * @throws NullPointerException if the class or annotation are {@code null}
      * @since 3.6
@@ -910,7 +910,7 @@ public class MethodUtils {
      * @param searchSupers
      *            determines if a lookup in the entire inheritance hierarchy of the given class should be performed
      * @param ignoreAccess
-     *            determines if non public methods should be considered
+     *            determines if non-public methods should be considered
      * @return a list of Methods (possibly empty).
      * @throws NullPointerException if either the class or annotation class is {@code null}
      * @since 3.6

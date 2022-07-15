@@ -158,9 +158,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left hand {@code boolean}
+     *            the left-hand {@code boolean}
      * @param rhs
-     *            the right hand {@code boolean}
+     *            the right-hand {@code boolean}
      * @return this
      * @throws IllegalArgumentException
      *             if field name is {@code null}
@@ -198,9 +198,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left hand {@code boolean[]}
+     *            the left-hand {@code boolean[]}
      * @param rhs
-     *            the right hand {@code boolean[]}
+     *            the right-hand {@code boolean[]}
      * @return this
      * @throws IllegalArgumentException
      *             if field name is {@code null}
@@ -237,9 +237,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left hand {@code byte}
+     *            the left-hand {@code byte}
      * @param rhs
-     *            the right hand {@code byte}
+     *            the right-hand {@code byte}
      * @return this
      * @throws IllegalArgumentException
      *             if field name is {@code null}
@@ -276,9 +276,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left hand {@code byte[]}
+     *            the left-hand {@code byte[]}
      * @param rhs
-     *            the right hand {@code byte[]}
+     *            the right-hand {@code byte[]}
      * @return this
      * @throws IllegalArgumentException
      *             if field name is {@code null}
@@ -316,9 +316,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left hand {@code char}
+     *            the left-hand {@code char}
      * @param rhs
-     *            the right hand {@code char}
+     *            the right-hand {@code char}
      * @return this
      * @throws IllegalArgumentException
      *             if field name is {@code null}
@@ -356,9 +356,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left hand {@code char[]}
+     *            the left-hand {@code char[]}
      * @param rhs
-     *            the right hand {@code char[]}
+     *            the right-hand {@code char[]}
      * @return this
      * @throws IllegalArgumentException
      *             if field name is {@code null}
@@ -396,9 +396,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left hand {@code double}
+     *            the left-hand {@code double}
      * @param rhs
-     *            the right hand {@code double}
+     *            the right-hand {@code double}
      * @return this
      * @throws IllegalArgumentException
      *             if field name is {@code null}
@@ -436,9 +436,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left hand {@code double[]}
+     *            the left-hand {@code double[]}
      * @param rhs
-     *            the right hand {@code double[]}
+     *            the right-hand {@code double[]}
      * @return this
      * @throws IllegalArgumentException
      *             if field name is {@code null}
@@ -476,9 +476,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left hand {@code float}
+     *            the left-hand {@code float}
      * @param rhs
-     *            the right hand {@code float}
+     *            the right-hand {@code float}
      * @return this
      * @throws IllegalArgumentException
      *             if field name is {@code null}
@@ -516,9 +516,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left hand {@code float[]}
+     *            the left-hand {@code float[]}
      * @param rhs
-     *            the right hand {@code float[]}
+     *            the right-hand {@code float[]}
      * @return this
      * @throws IllegalArgumentException
      *             if field name is {@code null}
@@ -556,9 +556,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left hand {@code int}
+     *            the left-hand {@code int}
      * @param rhs
-     *            the right hand {@code int}
+     *            the right-hand {@code int}
      * @return this
      * @throws IllegalArgumentException
      *             if field name is {@code null}
@@ -596,9 +596,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left hand {@code int[]}
+     *            the left-hand {@code int[]}
      * @param rhs
-     *            the right hand {@code int[]}
+     *            the right-hand {@code int[]}
      * @return this
      * @throws IllegalArgumentException
      *             if field name is {@code null}
@@ -636,9 +636,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left hand {@code long}
+     *            the left-hand {@code long}
      * @param rhs
-     *            the right hand {@code long}
+     *            the right-hand {@code long}
      * @return this
      * @throws IllegalArgumentException
      *             if field name is {@code null}
@@ -676,9 +676,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left hand {@code long[]}
+     *            the left-hand {@code long[]}
      * @param rhs
-     *            the right hand {@code long[]}
+     *            the right-hand {@code long[]}
      * @return this
      * @throws IllegalArgumentException
      *             if field name is {@code null}
@@ -716,9 +716,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left hand {@code short}
+     *            the left-hand {@code short}
      * @param rhs
-     *            the right hand {@code short}
+     *            the right-hand {@code short}
      * @return this
      * @throws IllegalArgumentException
      *             if field name is {@code null}
@@ -756,9 +756,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left hand {@code short[]}
+     *            the left-hand {@code short[]}
      * @param rhs
-     *            the right hand {@code short[]}
+     *            the right-hand {@code short[]}
      * @return this
      * @throws IllegalArgumentException
      *             if field name is {@code null}
@@ -796,9 +796,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left hand {@link Object}
+     *            the left-hand {@link Object}
      * @param rhs
-     *            the right hand {@link Object}
+     *            the right-hand {@link Object}
      * @return this
      * @throws IllegalArgumentException
      *             if field name is {@code null}
@@ -880,9 +880,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left hand {@code Object[]}
+     *            the left-hand {@code Object[]}
      * @param rhs
-     *            the right hand {@code Object[]}
+     *            the right-hand {@code Object[]}
      * @return this
      * @throws IllegalArgumentException
      *             if field name is {@code null}

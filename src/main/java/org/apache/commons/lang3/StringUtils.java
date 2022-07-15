@@ -482,7 +482,7 @@ public class StringUtils {
 
     /**
      * Appends the suffix to the end of the string if the string does not
-     * already end, case insensitive, with any of the suffixes.
+     * already end, case-insensitive, with any of the suffixes.
      *
      * <pre>
      * StringUtils.appendIfMissingIgnoreCase(null, null) = null
@@ -1455,7 +1455,7 @@ public class StringUtils {
             return 0;
         }
         int count = 0;
-        // We could also call str.toCharArray() for faster look ups but that would generate more garbage.
+        // We could also call str.toCharArray() for faster lookups but that would generate more garbage.
         for (int i = 0; i < str.length(); i++) {
             if (ch == str.charAt(i)) {
                 count++;
@@ -1669,7 +1669,7 @@ public class StringUtils {
      * <p>Check if a CharSequence ends with a specified suffix.</p>
      *
      * <p>{@code null}s are handled without exceptions. Two {@code null}
-     * references are considered to be equal. The comparison is case sensitive.</p>
+     * references are considered to be equal. The comparison is case-sensitive.</p>
      *
      * <pre>
      * StringUtils.endsWith(null, null)      = true
@@ -1684,7 +1684,7 @@ public class StringUtils {
      * @see java.lang.String#endsWith(String)
      * @param str  the CharSequence to check, may be null
      * @param suffix the suffix to find, may be null
-     * @return {@code true} if the CharSequence ends with the suffix, case sensitive, or
+     * @return {@code true} if the CharSequence ends with the suffix, case-sensitive, or
      *  both {@code null}
      * @since 2.4
      * @since 3.0 Changed signature from endsWith(String, String) to endsWith(CharSequence, CharSequence)
@@ -1700,7 +1700,7 @@ public class StringUtils {
      * @param str  the CharSequence to check, may be null
      * @param suffix the suffix to find, may be null
      * @param ignoreCase indicates whether the compare should ignore case
-     *  (case insensitive) or not.
+     *  (case-insensitive) or not.
      * @return {@code true} if the CharSequence starts with the prefix or
      *  both {@code null}
      */
@@ -1766,7 +1766,7 @@ public class StringUtils {
      * @see java.lang.String#endsWith(String)
      * @param str  the CharSequence to check, may be null
      * @param suffix the suffix to find, may be null
-     * @return {@code true} if the CharSequence ends with the suffix, case insensitive, or
+     * @return {@code true} if the CharSequence ends with the suffix, case-insensitive, or
      *  both {@code null}
      * @since 2.4
      * @since 3.0 Changed signature from endsWithIgnoreCase(String, String) to endsWithIgnoreCase(CharSequence, CharSequence)
@@ -1780,7 +1780,7 @@ public class StringUtils {
      * equal sequences of characters.</p>
      *
      * <p>{@code null}s are handled without exceptions. Two {@code null}
-     * references are considered to be equal. The comparison is <strong>case sensitive</strong>.</p>
+     * references are considered to be equal. The comparison is <strong>case-sensitive</strong>.</p>
      *
      * <pre>
      * StringUtils.equals(null, null)   = true
@@ -2123,7 +2123,7 @@ public class StringUtils {
      *
      * @param term a full term that should be matched against, must not be null
      * @param query the query that will be matched against a term, must not be null
-     * @param locale This string matching logic is case insensitive. A locale is necessary to normalize
+     * @param locale This string matching logic is case-insensitive. A locale is necessary to normalize
      *  both Strings to lower case.
      * @return result score
      * @throws IllegalArgumentException if either String input {@code null} or Locale input {@code null}
@@ -2141,7 +2141,7 @@ public class StringUtils {
             throw new IllegalArgumentException("Locale must not be null");
         }
 
-        // fuzzy logic is case insensitive. We normalize the Strings to lower
+        // fuzzy logic is case-insensitive. We normalize the Strings to lower
         // case right from the start. Turning characters to lower case
         // via Character.toLowerCase(char) is unfortunately insufficient
         // as it does not accept a locale.
@@ -3537,7 +3537,7 @@ public class StringUtils {
      *
      * @param cs the CharSequence to check, may be null
      * @return {@code true} if every character is in the range
-     *  32 thru 126
+     *  32 through 126
      * @since 2.1
      * @since 3.0 Changed signature from isAsciiPrintable(String) to isAsciiPrintable(CharSequence)
      */
@@ -5682,7 +5682,7 @@ public class StringUtils {
         int index = lastIndex ? str.length() : INDEX_NOT_FOUND;
         do {
             if (lastIndex) {
-                index = CharSequenceUtils.lastIndexOf(str, searchStr, index - 1); // step backwards thru string
+                index = CharSequenceUtils.lastIndexOf(str, searchStr, index - 1); // step backwards through string
             } else {
                 index = CharSequenceUtils.indexOf(str, searchStr, index + 1); // step forwards through string
             }
@@ -5818,7 +5818,7 @@ public class StringUtils {
 
     /**
      * Prepends the prefix to the start of the string if the string does not
-     * already start, case insensitive, with any of the prefixes.
+     * already start, case-insensitive, with any of the prefixes.
      *
      * <pre>
      * StringUtils.prependIfMissingIgnoreCase(null, null) = null
@@ -6022,7 +6022,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str  the source String to search, may be null
-     * @param remove  the String to search for (case insensitive) and remove, may be null
+     * @param remove  the String to search for (case-insensitive) and remove, may be null
      * @return the substring with the string removed if found,
      *  {@code null} if null String input
      * @since 2.4
@@ -6113,7 +6113,7 @@ public class StringUtils {
      * @param str
      *            the source String to search, may be null
      * @param remove
-     *            the String to search for (case insensitive) and remove, may be
+     *            the String to search for (case-insensitive) and remove, may be
      *            null
      * @return the substring with the string removed if found, {@code null} if
      *         null String input
@@ -6244,7 +6244,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str  the source String to search, may be null
-     * @param remove  the String to search for (case insensitive) and remove, may be null
+     * @param remove  the String to search for (case-insensitive) and remove, may be null
      * @return the substring with the string removed if found,
      *  {@code null} if null String input
      * @since 2.4
@@ -6434,7 +6434,7 @@ public class StringUtils {
     /**
      * <p>Replaces a String with another String inside a larger String,
      * for the first {@code max} values of the search String,
-     * case sensitively/insensitively based on {@code ignoreCase} value.</p>
+     * case-sensitively/insensitively based on {@code ignoreCase} value.</p>
      *
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
@@ -6455,10 +6455,10 @@ public class StringUtils {
      * </pre>
      *
      * @param text  text to search and replace in, may be null
-     * @param searchString  the String to search for (case insensitive), may be null
+     * @param searchString  the String to search for (case-insensitive), may be null
      * @param replacement  the String to replace it with, may be null
      * @param max  maximum number of values to replace, or {@code -1} if no maximum
-     * @param ignoreCase if true replace is case insensitive, otherwise case sensitive
+     * @param ignoreCase if true replace is case-insensitive, otherwise case-sensitive
      * @return the text with any replacements processed,
      *  {@code null} if null String input
      */
@@ -6973,7 +6973,7 @@ public class StringUtils {
      *
      * @see #replaceIgnoreCase(String text, String searchString, String replacement, int max)
      * @param text  text to search and replace in, may be null
-     * @param searchString  the String to search for (case insensitive), may be null
+     * @param searchString  the String to search for (case-insensitive), may be null
      * @param replacement  the String to replace it with, may be null
      * @return the text with any replacements processed,
      *  {@code null} if null String input
@@ -7005,7 +7005,7 @@ public class StringUtils {
      * </pre>
      *
      * @param text  text to search and replace in, may be null
-     * @param searchString  the String to search for (case insensitive), may be null
+     * @param searchString  the String to search for (case-insensitive), may be null
      * @param replacement  the String to replace it with, may be null
      * @param max  maximum number of values to replace, or {@code -1} if no maximum
      * @return the text with any replacements processed,
@@ -7062,7 +7062,7 @@ public class StringUtils {
      *
      * @see #replaceIgnoreCase(String text, String searchString, String replacement, int max)
      * @param text  text to search and replace in, may be null
-     * @param searchString  the String to search for (case insensitive), may be null
+     * @param searchString  the String to search for (case-insensitive), may be null
      * @param replacement  the String to replace with, may be null
      * @return the text with any replacements processed,
      *  {@code null} if null String input
@@ -8063,7 +8063,7 @@ public class StringUtils {
      * <p>Check if a CharSequence starts with a specified prefix.</p>
      *
      * <p>{@code null}s are handled without exceptions. Two {@code null}
-     * references are considered to be equal. The comparison is case sensitive.</p>
+     * references are considered to be equal. The comparison is case-sensitive.</p>
      *
      * <pre>
      * StringUtils.startsWith(null, null)      = true
@@ -8076,7 +8076,7 @@ public class StringUtils {
      * @see java.lang.String#startsWith(String)
      * @param str  the CharSequence to check, may be null
      * @param prefix the prefix to find, may be null
-     * @return {@code true} if the CharSequence starts with the prefix, case sensitive, or
+     * @return {@code true} if the CharSequence starts with the prefix, case-sensitive, or
      *  both {@code null}
      * @since 2.4
      * @since 3.0 Changed signature from startsWith(String, String) to startsWith(CharSequence, CharSequence)
@@ -8092,7 +8092,7 @@ public class StringUtils {
      * @param str  the CharSequence to check, may be null
      * @param prefix the prefix to find, may be null
      * @param ignoreCase indicates whether the compare should ignore case
-     *  (case insensitive) or not.
+     *  (case-insensitive) or not.
      * @return {@code true} if the CharSequence starts with the prefix or
      *  both {@code null}
      */
@@ -8159,7 +8159,7 @@ public class StringUtils {
      * @see java.lang.String#startsWith(String)
      * @param str  the CharSequence to check, may be null
      * @param prefix the prefix to find, may be null
-     * @return {@code true} if the CharSequence starts with the prefix, case insensitive, or
+     * @return {@code true} if the CharSequence starts with the prefix, case-insensitive, or
      *  both {@code null}
      * @since 2.4
      * @since 3.0 Changed signature from startsWithIgnoreCase(String, String) to startsWithIgnoreCase(CharSequence, CharSequence)
@@ -9450,7 +9450,7 @@ public class StringUtils {
      * should be used with a specific locale (e.g. {@link Locale#ENGLISH}).</p>
      *
      * @param str  the String to upper case, may be null
-     * @return the upper cased String, {@code null} if null String input
+     * @return the upper-cased String, {@code null} if null String input
      */
     public static String upperCase(final String str) {
         if (str == null) {
@@ -9472,7 +9472,7 @@ public class StringUtils {
      *
      * @param str  the String to upper case, may be null
      * @param locale  the locale that defines the case transformation rules, must not be null
-     * @return the upper cased String, {@code null} if null String input
+     * @return the upper-cased String, {@code null} if null String input
      * @since 2.5
      */
     public static String upperCase(final String str, final Locale locale) {

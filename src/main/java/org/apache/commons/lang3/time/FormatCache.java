@@ -193,7 +193,7 @@ abstract class FormatCache<F extends Format> {
     }
 
     /**
-     * Helper class to hold multi-part Map keys as arrays.
+     * Helper class to hold multipart Map keys as arrays.
      */
     private static final class ArrayKey {
 

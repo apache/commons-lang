@@ -69,7 +69,7 @@ public class DateUtilsTest extends AbstractLangTest {
         assertWeekIterator(it, start, end);
     }
     /**
-     * This checks that this is a 7 divisble iterator of Calendar objects
+     * This checks that this is a 7 divisible iterator of Calendar objects
      * that are dates (no time), and exactly 1 day spaced after each other
      * (in addition to the proper start and stop dates)
      */

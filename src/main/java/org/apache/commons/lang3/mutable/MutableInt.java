@@ -314,7 +314,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     /**
      * Gets this mutable as an instance of Integer.
      *
-     * @return a Integer instance containing the value from this mutable, never null
+     * @return an Integer instance containing the value from this mutable, never null
      */
     public Integer toInteger() {
         return Integer.valueOf(intValue());

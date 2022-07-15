@@ -60,9 +60,9 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
      * </p>
      *
      * @param lhs
-     *            the left hand object
+     *            the left-hand object
      * @param rhs
-     *            the right hand object
+     *            the right-hand object
      * @param diffList
      *            the list of differences, may be empty
      * @param style

@@ -403,7 +403,7 @@ public class Failable {
      * follow the method call, like a {@code return} statement from a value returning method.
      * </p>
      *
-     * @param throwable The throwable to rethrow ossibly wrapped into an unchecked exception
+     * @param throwable The throwable to rethrow possibly wrapped into an unchecked exception
      * @return Never returns anything, this method never terminates normally.
      */
     public static RuntimeException rethrow(final Throwable throwable) {
@@ -498,7 +498,7 @@ public class Failable {
      * {@link AutoCloseable} interface. The method executes the {@code action}. The method guarantees, that <em>all</em>
      * the {@code resources} are being executed, in the given order, afterwards, and regardless of success, or failure.
      * If either the original action, or any of the resource action fails, then the <em>first</em> failure (AKA
-     * {@link Throwable} is rethrown. Example use:
+     * {@link Throwable}) is rethrown. Example use:
      *
      * <pre>
      * final FileInputStream fis = new FileInputStream("my.file");
@@ -558,7 +558,7 @@ public class Failable {
      * {@link AutoCloseable} interface. The method executes the {@code action}. The method guarantees, that <em>all</em>
      * the {@code resources} are being executed, in the given order, afterwards, and regardless of success, or failure.
      * If either the original action, or any of the resource action fails, then the <em>first</em> failure (AKA
-     * {@link Throwable} is rethrown. Example use:
+     * {@link Throwable}) is rethrown. Example use:
      *
      * <pre>
      * final FileInputStream fis = new FileInputStream("my.file");
