@@ -134,7 +134,7 @@
   </Match>
 
   <!-- Reason: FindBugs 2.0.2 used in maven-findbugs-plugin 2.5.2 seems to have problems with detection of default cases
-   in switch statements. All the excluded methods have switch statements that conatin a default case. -->
+   in switch statements. All the excluded methods have switch statements that contain a default case. -->
   <Match>
     <Class name="org.apache.commons.lang3.math.NumberUtils"/>
     <Method name="createNumber" />

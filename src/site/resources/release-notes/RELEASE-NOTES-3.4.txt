@@ -83,7 +83,7 @@ o LANG-794:  SystemUtils.IS_OS_WINDOWS_2008, VISTA are incorrect. Thanks to
 o LANG-1104: Parse test fails for TimeZone America/Sao_Paulo
 o LANG-948:  Exception while using ExtendedMessageFormat and escaping braces.
              Thanks to Andrey Khobnya.
-o LANG-1092: Wrong formating of time zones with daylight saving time in
+o LANG-1092: Wrong formatting of time zones with daylight saving time in
              FastDatePrinter
 o LANG-1090: FastDateParser does not set error indication in ParsePosition
 o LANG-1089: FastDateParser does not handle excess hours as per
@@ -113,7 +113,7 @@ o LANG-1000: ParseException when trying to parse UTC dates with Z as zone
 o LANG-1035: Javadoc for EqualsBuilder.reflectionEquals() is unclear
 o LANG-1001: ISO 8601 misspelled throughout the Javadocs. Thanks to
              Michael Osipov.
-o LANG-1088: FastDateParser should be case insensitive
+o LANG-1088: FastDateParser should be case-insensitive
 o LANG-995:  Fix bug with stripping spaces on last line in WordUtils.wrap().
              Thanks to Andrey Khobnya.
 
@@ -123,7 +123,7 @@ CHANGES
 o LANG-1102: Make logic for comparing OS versions in SystemUtils smarter
 o LANG-1091: Shutdown thread pools in test cases. Thanks to Fabian Lange.
 o LANG-1101: FastDateParser and FastDatePrinter support 'X' format
-o LANG-1100: Avoid memory allocation when using date formating to StringBuffer.
+o LANG-1100: Avoid memory allocation when using date formatting to StringBuffer.
              Thanks to mbracher.
 o LANG-935:  Possible performance improvement on string escape functions.
              Thanks to Fabian Lange, Thomas Neidhart.
@@ -433,7 +433,7 @@ NEW FEATURES
 ==============
 
 o LANG-801:  Add Conversion utility to convert between data types on byte level
-o LANG-760:  Add API StringUtils.toString(byte[] intput, String charsetName)
+o LANG-760:  Add API StringUtils.toString(byte[] input, String charsetName)
 o LANG-756:  Add APIs ClassUtils.isPrimitiveWrapper(Class<?>) and 
              isPrimitiveOrWrapper(Class<?>)
 o LANG-695:  SystemUtils.IS_OS_UNIX doesn't recognize FreeBSD as a Unix system
@@ -606,7 +606,7 @@ o LANG-645:  FastDateFormat.format() outputs incorrect week of year because
 o LANG-646:  StringEscapeUtils.unescapeJava doesn't handle octal escapes and
              Unicode with extra u
 o LANG-656:  Example StringUtils.indexOfAnyBut("zzabyycdxx", '') = 0 incorrect
-o LANG-658:  Some Entitys like &Ouml; are not matched properly against its
+o LANG-658:  Some entities like &Ouml; are not matched properly against its
              ISO8859-1 representation
 o LANG-659:  EntityArrays typo: {"\u2122", "&minus;"}, // minus sign, U+2212
              ISOtech
@@ -618,8 +618,8 @@ o LANG-663:  org.apache.commons.lang3.math.Fraction does not always succeed in
 o LANG-664:  NumberUtils.isNumber(String) is not right when the String is
              "1.1L"
 o LANG-672:  Doc bug in DateUtils#ceiling
-o LANG-677:  DateUtils.isSameLocalTime compares using 12 hour clock and not
-             24 hour
+o LANG-677:  DateUtils.isSameLocalTime compares using 12-hour clock and not
+             24-hour
 o LANG-685:  EqualsBuilder synchronizes on HashCodeBuilder.
 o LANG-703:  StringUtils.join throws NPE when toString returns null for one of
              objects in collection

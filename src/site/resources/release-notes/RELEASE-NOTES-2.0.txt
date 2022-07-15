@@ -156,7 +156,7 @@ ID Sev Pri Plt Owner State Result Summary
 17654  EnumUtils nit: The import java.io.Serializable is never used  
 17882  Add join(..., char c) to StringUtils (and some performance f  
 18077  StringUtils.chomp does not match Perl  
-18723  RandomStringUtils infloops with length < 1  
+18723  RandomStringUtils infinite loop with length < 1
 18836  test.lang fails if compiled with non iso-8859-1 locales  
 18948  Resurrect the WordWrapUtils from commons-sandbox/utils  
 19296  [Lang] What to do with FastDateFormat unused private constru  

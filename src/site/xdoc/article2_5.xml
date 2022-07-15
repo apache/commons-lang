@@ -57,7 +57,7 @@ provide boolean fields for both versions. </p>
 received two new types of methods. Firstly, a boolean isNotEmpty(array) set of methods, identifying whether the particular 
 array is null or an empty sized array. This makes it the inverse of the existing isEmpty(array) methods. Secondly, an array 
 nullToEmpty(array) set of methods that converts null or empty arrays to a singleton empty array already available from the 
-ArrayUtils class. Non null/empty arrays are left untouched. </p>
+ArrayUtils class. Non-null/empty arrays are left untouched. </p>
 
 <p>The constructor for the 
 <a href="https://commons.apache.org/lang/api-release/org/apache/commons/lang/CharRange.html">CharRange</a> class is somewhat 
@@ -96,7 +96,7 @@ grown and we cover its new methods in its own section. </p>
 <li>abbreviateMiddle(String, String, int);String - This method turns aRatherLongNameSuchAsAFileName into 'aRatherLo...AFileName'. 
 This is often desirable when you want to restrict the length of a name, but you can afford to have quite long names. </li>
 <li>indexOfIgnoreCase(String, String);int - An indexOf method that ignores the case of what it's matching. Matching lastIndexOfIgnoreCase and 'start at index' variants were also added. </li>
-<li>lastOrdinalIndexOf(String, String, int);int - A matching variant for the already exisitng ordinalIndexOf method - they 
+<li>lastOrdinalIndexOf(String, String, int);int - A matching variant for the already existing ordinalIndexOf method - they
 support finding the Nth indexOf instead of the first time the search term is found. </li>
 <li>isAllLowerCase(String);boolean - Is the String all lower case. </li>
 <li>isAllUpperCase(String);boolean - Is the String all upper case. </li>
@@ -113,7 +113,7 @@ support finding the Nth indexOf instead of the first time the search term is fou
 <li><a href="https://issues.apache.org/jira/browse/LANG-477">LANG-477</a> - fixing an OutOfMemoryError in ExtendedMessageFormat. </li>
 <li><a href="https://issues.apache.org/jira/browse/LANG-76">LANG-76</a> - EnumUtils.getEnum() doesn't work well in 1.5. </li>
 <li><a href="https://issues.apache.org/jira/browse/LANG-204">LANG-204</a> and 
-<a href="https://issues.apache.org/jira/browse/LANG-506">LANG-506</a> - Multithread improvements to the package private Entities 
+<a href="https://issues.apache.org/jira/browse/LANG-506">LANG-506</a> - Multithreading improvements to the package private Entities
 class, used behind the scenes by StringEscapeUtils. </li>
 <li><a href="https://issues.apache.org/jira/browse/LANG-511">LANG-511</a> - Improve performance by deferring LocaleUtils initialization. </li>
 <li><a href="https://issues.apache.org/jira/browse/LANG-523">LANG-523</a> - Two orders of magnitude performance improvement in StrBuilder. </li>
