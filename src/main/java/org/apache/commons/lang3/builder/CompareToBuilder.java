@@ -433,7 +433,7 @@ public class CompareToBuilder implements Builder<Integer> {
 
     private void appendArray(final Object lhs, final Object rhs, final Comparator<?> comparator) {
         // switch on type of array, to dispatch to the correct handler
-        // handles multi dimensional arrays
+        // handles multidimensional arrays
         // throws a ClassCastException if rhs is not the correct array type
         if (lhs instanceof long[]) {
             append((long[]) lhs, (long[]) rhs);

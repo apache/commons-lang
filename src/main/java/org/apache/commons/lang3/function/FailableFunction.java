@@ -85,7 +85,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
      *
      * @param <V> the input type to the {@code before} function, and to the composed function.
      * @param before the operator to apply before this one.
-     * @return a a composed {@link FailableFunction} like {@link Function#compose(Function)}.
+     * @return a composed {@link FailableFunction} like {@link Function#compose(Function)}.
      * @throws NullPointerException if before is null.
      * @see #andThen(FailableFunction)
      */

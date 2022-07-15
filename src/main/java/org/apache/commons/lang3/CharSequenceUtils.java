@@ -284,7 +284,7 @@ public class CharSequenceUtils {
      * Green implementation of regionMatches.
      *
      * @param cs the {@link CharSequence} to be processed
-     * @param ignoreCase whether or not to be case insensitive
+     * @param ignoreCase whether or not to be case-insensitive
      * @param thisStart the index to start on the {@code cs} CharSequence
      * @param substring the {@link CharSequence} to be looked for
      * @param start the index to start on the {@code substring} CharSequence

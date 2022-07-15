@@ -857,7 +857,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      */
     private void appendArray(final Object object) {
         // 'Switch' on type of array, to dispatch to the correct handler
-        // This handles multi dimensional arrays
+        // This handles multidimensional arrays
         if (object instanceof long[]) {
             append((long[]) object);
         } else if (object instanceof int[]) {

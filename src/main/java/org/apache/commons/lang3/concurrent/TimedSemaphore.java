@@ -257,7 +257,7 @@ public class TimedSemaphore {
     }
 
     /**
-     * Initializes a shutdown. After that the object cannot be used any more.
+     * Initializes a shutdown. After that the object cannot be used anymore.
      * This method can be invoked an arbitrary number of times. All invocations
      * after the first one do not have any effect.
      */
@@ -357,7 +357,7 @@ public class TimedSemaphore {
      * can give an indication whether it is safe to call the {@link #acquire()}
      * method without risking to be suspended. However, there is no guarantee
      * that a subsequent call to {@link #acquire()} actually is not-blocking
-     * because in the mean time other threads may have invoked the semaphore.
+     * because in the meantime other threads may have invoked the semaphore.
      *
      * @return the current number of available {@link #acquire()} calls in the
      * current period

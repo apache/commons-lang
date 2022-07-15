@@ -1338,7 +1338,7 @@ public class ArrayUtils {
     /**
      * Copies the given array and adds the given element at the beginning of the new array.
      * <p>
-     * The new array contains the same elements of the input array plus the given element in the first positioaddFirstaddFirstaddFirstn. The
+     * The new array contains the same elements of the input array plus the given element in the first position. The
      * component type of the new array is the same as that of the input array.
      * </p>
      * <p>
@@ -1770,7 +1770,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Get a hash code for an array handling multi-dimensional arrays correctly.
+     * Get a hash code for an array handling multidimensional arrays correctly.
      * <p>
      * Multi-dimensional primitive arrays are also handled correctly by this method.
      * </p>
@@ -1790,7 +1790,7 @@ public class ArrayUtils {
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param valueToFind  the value to find
-     * @return a BitSet of all the the indices of the value within the array,
+     * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
      * @since 3.10
      */
@@ -3306,8 +3306,8 @@ public class ArrayUtils {
      * Multi-dimensional primitive arrays are also handled correctly by this method.
      * </p>
      *
-     * @param array1  the left hand array to compare, may be {@code null}
-     * @param array2  the right hand array to compare, may be {@code null}
+     * @param array1  the left-hand array to compare, may be {@code null}
+     * @param array2  the right-hand array to compare, may be {@code null}
      * @return {@code true} if the arrays are equal
      * @deprecated this method has been replaced by {@code java.util.Objects.deepEquals(Object, Object)} and will be
      * removed from future releases.
@@ -3557,7 +3557,7 @@ public class ArrayUtils {
 
     /**
      * Checks whether two arrays are the same type taking into account
-     * multi-dimensional arrays.
+     * multidimensional arrays.
      *
      * @param array1 the first array, must not be {@code null}
      * @param array2 the second array, must not be {@code null}
@@ -5490,7 +5490,7 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified boolean array.
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5510,7 +5510,7 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified byte array.
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5530,7 +5530,7 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified char array.
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5550,7 +5550,7 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified double array.
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5570,7 +5570,7 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified float array.
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5590,7 +5590,7 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified int array.
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5610,7 +5610,7 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified long array.
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5630,7 +5630,7 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified short array.
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5650,7 +5650,7 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified array.
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5671,7 +5671,7 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified boolean array.
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5689,7 +5689,7 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified byte array.
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5707,7 +5707,7 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified char array.
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5725,7 +5725,7 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified double array.
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5743,7 +5743,7 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified float array.
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5761,7 +5761,7 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified int array.
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5779,7 +5779,7 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified long array.
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5797,7 +5797,7 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified short array.
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5815,7 +5815,7 @@ public class ArrayUtils {
      * Removes the occurrences of the specified element from the specified array.
      * <p>
      * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
+     * If the array doesn't contain such an element, no elements are removed from the array.
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
@@ -5833,7 +5833,7 @@ public class ArrayUtils {
     /**
      * Removes the first occurrence of the specified element from the
      * specified array. All subsequent elements are shifted to the left
-     * (subtracts one from their indices). If the array doesn't contains
+     * (subtracts one from their indices). If the array doesn't contain
      * such an element, no elements are removed from the array.
      * <p>
      * This method returns a new array with the same elements of the input
@@ -5866,7 +5866,7 @@ public class ArrayUtils {
     /**
      * Removes the first occurrence of the specified element from the
      * specified array. All subsequent elements are shifted to the left
-     * (subtracts one from their indices). If the array doesn't contains
+     * (subtracts one from their indices). If the array doesn't contain
      * such an element, no elements are removed from the array.
      * <p>
      * This method returns a new array with the same elements of the input
@@ -5899,7 +5899,7 @@ public class ArrayUtils {
     /**
      * Removes the first occurrence of the specified element from the
      * specified array. All subsequent elements are shifted to the left
-     * (subtracts one from their indices). If the array doesn't contains
+     * (subtracts one from their indices). If the array doesn't contain
      * such an element, no elements are removed from the array.
      * <p>
      * This method returns a new array with the same elements of the input
@@ -5932,7 +5932,7 @@ public class ArrayUtils {
     /**
      * Removes the first occurrence of the specified element from the
      * specified array. All subsequent elements are shifted to the left
-     * (subtracts one from their indices). If the array doesn't contains
+     * (subtracts one from their indices). If the array doesn't contain
      * such an element, no elements are removed from the array.
      * <p>
      * This method returns a new array with the same elements of the input
@@ -5965,7 +5965,7 @@ public class ArrayUtils {
     /**
      * Removes the first occurrence of the specified element from the
      * specified array. All subsequent elements are shifted to the left
-     * (subtracts one from their indices). If the array doesn't contains
+     * (subtracts one from their indices). If the array doesn't contain
      * such an element, no elements are removed from the array.
      * <p>
      * This method returns a new array with the same elements of the input
@@ -5998,7 +5998,7 @@ public class ArrayUtils {
     /**
      * Removes the first occurrence of the specified element from the
      * specified array. All subsequent elements are shifted to the left
-     * (subtracts one from their indices). If the array doesn't contains
+     * (subtracts one from their indices). If the array doesn't contain
      * such an element, no elements are removed from the array.
      * <p>
      * This method returns a new array with the same elements of the input
@@ -6031,7 +6031,7 @@ public class ArrayUtils {
     /**
      * Removes the first occurrence of the specified element from the
      * specified array. All subsequent elements are shifted to the left
-     * (subtracts one from their indices). If the array doesn't contains
+     * (subtracts one from their indices). If the array doesn't contain
      * such an element, no elements are removed from the array.
      * <p>
      * This method returns a new array with the same elements of the input
@@ -6064,7 +6064,7 @@ public class ArrayUtils {
     /**
      * Removes the first occurrence of the specified element from the
      * specified array. All subsequent elements are shifted to the left
-     * (subtracts one from their indices). If the array doesn't contains
+     * (subtracts one from their indices). If the array doesn't contain
      * such an element, no elements are removed from the array.
      * <p>
      * This method returns a new array with the same elements of the input
@@ -6097,7 +6097,7 @@ public class ArrayUtils {
     /**
      * Removes the first occurrence of the specified element from the
      * specified array. All subsequent elements are shifted to the left
-     * (subtracts one from their indices). If the array doesn't contains
+     * (subtracts one from their indices). If the array doesn't contain
      * such an element, no elements are removed from the array.
      * <p>
      * This method returns a new array with the same elements of the input
@@ -9083,7 +9083,7 @@ public class ArrayUtils {
      *  an Array containing at least two elements, may be {@code null}
      * @return a {@link Map} that was created from the array
      * @throws IllegalArgumentException  if one element of this Array is
-     *  itself an Array containing less then two elements
+     *  itself an Array containing less than two elements
      * @throws IllegalArgumentException  if the array contains elements other
      *  than {@link java.util.Map.Entry} and an Array
      */

@@ -797,7 +797,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
                 }
 
                 // check for trimmed character
-                // don't yet know if its at the end, so copy to workArea
+                // don't yet know if it's at the end, so copy to workArea
                 // use trimStart to keep track of trim at the end
                 final int trimmedLen = getTrimmerMatcher().isMatch(srcChars, pos, start, len);
                 if (trimmedLen > 0) {
