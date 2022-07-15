@@ -75,10 +75,10 @@ we will remove the related methods in Lang 4.0. </p>
 </section>
 <section name="New packages">
 <p>Two new packages have shown up. org.apache.commons.lang3.concurrent, which unsurprisingly provides support classes for 
-multi-threaded programming, and org.apache.commons.lang3.text.translate, which provides a pluggable API for text transformation. </p>
+multithreaded programming, and org.apache.commons.lang3.text.translate, which provides a pluggable API for text transformation. </p>
 
 <h3>concurrent.*</h3>
-<p>Java 1.5 adds a great bunch of functionality related to multi-threaded programming
+<p>Java 1.5 adds a great bunch of functionality related to multithreaded programming
 below the <code>java.util.concurrent</code> package. Commons Lang 3.0 provides
 some additional classes in this area which are intended to further simplify the
 development of concurrent applications.</p>
@@ -93,7 +93,7 @@ divided into the following categories:
 typically has to implement manually again and again. Examples are a configurable
 <code>ThreadFactory</code> implementation or utility methods for the handling of
 <code>ExecutionException</code>s thrown by Java's executor service framework.</p>
-<p>Initializer classes deal with the creation of objects in a multi-threaded
+<p>Initializer classes deal with the creation of objects in a multithreaded
 environment. There are several variants of initializer implementations serving
 different purposes. For instance, there are a couple of concrete initializers
 supporting lazy initialization of objects in a safe way. Another example is

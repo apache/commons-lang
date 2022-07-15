@@ -36,7 +36,7 @@ For the advice on upgrading from 2.x to 3.x, see the following page:
 CHANGES IN 3.1
 ================
 
-    [LANG-760] Add API StringUtils.toString(byte[] intput, String charsetName)
+    [LANG-760] Add API StringUtils.toString(byte[] input, String charsetName)
     [LANG-756] Add APIs ClassUtils.isPrimitiveWrapper(Class<?>) and isPrimitiveOrWrapper(Class<?>)
     [LANG-758] Add an example with whitespace in StringUtils.defaultIfEmpty
     [LANG-752] Fix createLong() so it behaves like createInteger()

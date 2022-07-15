@@ -44,7 +44,7 @@ ADDITIONAL INCOMPATIBLE CHANGES WITH VERSION 2.0:
 - The Nestable interface defines the method indexOfThrowable(Class).
 Previously the implementations checked only for a specific Class.
 Now they check for subclasses of that Class as well.
-For most situations this will be the expected behavior (ie. its a bug fix).
+For most situations this will be the expected behavior (i.e. it's a bug fix).
 If it causes problems, please use the ExceptionUtils.indexOfThrowable(Class) method instead.
 Note that the ExceptionUtils method is available in v1.0 and v2.0 of commons-lang and has not been changed.
 (An alternative to this is to change the public static matchSubclasses flag on NestableDelegate.
@@ -67,7 +67,7 @@ DEPRECATIONS FROM 2.1 to 2.2:
 
 DEPRECATIONS FROM 2.0 to 2.1:
 
-- The enum package has been renamed to enums for JDK1.5 compilance.
+- The enum package has been renamed to enums for JDK 1.5 compliance.
 All functionality is identical, just the package has changed.
 This package will be removed in v3.0.
 
@@ -82,7 +82,7 @@ BUG FIXES IN 2.3:
     * [LANG-69 ] - ToStringBuilder throws StackOverflowError when an Object cycle exists
     * [LANG-102] - Refactor Entities methods
     * [LANG-153] - Can't XMLDecode an Enum
-    * [LANG-262] - Use of enum prevents a classloader from being garbage collected resuling in out of memory exceptions.
+    * [LANG-262] - Use of enum prevents a classloader from being garbage collected resulting in out of memory exceptions.
     * [LANG-279] - HashCodeBuilder throws java.lang.StackOverflowError when an object contains a cycle.
     * [LANG-281] - DurationFormatUtils returns wrong result
     * [LANG-286] - Serialization - not backwards compatible

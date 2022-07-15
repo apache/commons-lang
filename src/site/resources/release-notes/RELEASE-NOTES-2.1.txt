@@ -32,7 +32,7 @@ INCOMPATIBLE CHANGES:
 - The Nestable interface defines the method indexOfThrowable(Class).
 Previously the implementations checked only for a specific Class.
 Now they check for subclasses of that Class as well.
-For most situations this will be the expected behavior (ie. its a bug fix).
+For most situations this will be the expected behavior (i.e. it's a bug fix).
 If it causes problems, please use the ExceptionUtils.indexOfThrowable(Class) method instead.
 Note that the ExceptionUtils method is available in v1.0 and v2.0 of commons-lang and has not been changed.
 (An alternative to this is to change the public static matchSubclasses flag on NestableDelegate.
@@ -48,7 +48,7 @@ for more details.
 
 DEPRECATIONS:
 
-- The enum package has been renamed to enums for JDK1.5 compilance.
+- The enum package has been renamed to enums for JDK 1.5 compliance.
 All functionality is identical, just the package has changed.
 This package will be removed in v3.0.
 
@@ -139,7 +139,7 @@ BUG FIXES:
 30929  Nestable.indexOfThrowable(Class)  uses Class.equals() to match
 31395  DateUtils.truncate oddity at the far end of the Date spectrum
 31478  Compile error with JDK 5 "enum" is a keyword
-31572  o.a.c.lang.enum.ValuedEnum: 'enum'is a keyword in JDK1.5.0
+31572  o.a.c.lang.enum.ValuedEnum: 'enum' is a keyword in JDK 1.5.0
 31933  ToStringStyle setArrayEnd handled null incorrectly
 32133  SystemUtils fails init on HP-UX
 32198  Error in Javadoc for StringUtils.chomp(String, String)

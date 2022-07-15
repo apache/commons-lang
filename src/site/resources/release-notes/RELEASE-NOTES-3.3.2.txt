@@ -300,7 +300,7 @@ NEW FEATURES
 ==============
 
 o LANG-801:  Add Conversion utility to convert between data types on byte level
-o LANG-760:  Add API StringUtils.toString(byte[] intput, String charsetName)
+o LANG-760:  Add API StringUtils.toString(byte[] input, String charsetName)
 o LANG-756:  Add APIs ClassUtils.isPrimitiveWrapper(Class<?>) and 
              isPrimitiveOrWrapper(Class<?>)
 o LANG-695:  SystemUtils.IS_OS_UNIX doesn't recognize FreeBSD as a Unix system
@@ -473,7 +473,7 @@ o LANG-645:  FastDateFormat.format() outputs incorrect week of year because
 o LANG-646:  StringEscapeUtils.unescapeJava doesn't handle octal escapes and
              Unicode with extra u
 o LANG-656:  Example StringUtils.indexOfAnyBut("zzabyycdxx", '') = 0 incorrect
-o LANG-658:  Some Entitys like &Ouml; are not matched properly against its
+o LANG-658:  Some entities like &Ouml; are not matched properly against its
              ISO8859-1 representation
 o LANG-659:  EntityArrays typo: {"\u2122", "&minus;"}, // minus sign, U+2212
              ISOtech
@@ -485,8 +485,8 @@ o LANG-663:  org.apache.commons.lang3.math.Fraction does not always succeed in
 o LANG-664:  NumberUtils.isNumber(String) is not right when the String is
              "1.1L"
 o LANG-672:  Doc bug in DateUtils#ceiling
-o LANG-677:  DateUtils.isSameLocalTime compares using 12 hour clock and not
-             24 hour
+o LANG-677:  DateUtils.isSameLocalTime compares using 12-hour clock and not
+             24-hour
 o LANG-685:  EqualsBuilder synchronizes on HashCodeBuilder.
 o LANG-703:  StringUtils.join throws NPE when toString returns null for one of
              objects in collection

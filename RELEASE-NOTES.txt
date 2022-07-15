@@ -605,7 +605,7 @@ o LANG-660:  Add methods to insert arrays into arrays at an index.
 o LANG-1034: Add support for recursive comparison to
              EqualsBuilder#reflectionEquals. Thanks to Yathos UG.
 o LANG-1067: Add a reflection-based variant of DiffBuilder.
-o LANG-740:  Implementation of a Memomizer. Thanks to James Sawle.
+o LANG-740:  Implementation of a Memoizer. Thanks to James Sawle.
 o LANG-1258: Add ArrayUtils#toStringArray method.
              Thanks to IG, Grzegorz Ro?niecki.
 o LANG-1160: StringUtils#abbreviate should support 'custom ellipses' parameter.
@@ -705,7 +705,7 @@ o Numerous extensions to org.apache.commons.lang3.StringUtils including
     truncation.
 o Added org.apache.commons.lang3.ThreadUtils - a utility class to work with
     instances of java.lang.Thread and java.lang.ThreadGroup.
-o Added annotations @EqualsExclude, @HashCodeExclude and @ToStringEclude to
+o Added annotations @EqualsExclude, @HashCodeExclude and @ToStringExclude to
     mark fields which should be ignored by the reflective builders in the
     org.apache.commons.lang3.builder package.
 o Support for various modify and retrieve value use cases added to the classes
@@ -803,7 +803,7 @@ o LANG-1168: Add SystemUtils.IS_OS_WINDOWS_10 property.
              Thanks to Pascal Schumacher.
 o LANG-1115: Add support for varargs in ConstructorUtils, MemberUtils, and
              MethodUtils. Thanks to Jim Lloyd and Joe Ferner.
-o LANG-1134: Add methods to check numbers against NaN and inifinite to
+o LANG-1134: Add methods to check numbers against NaN and infinite to
              Validate. Thanks to Alan Smithee.
 o LANG-1220: Add tests for missed branches in DateUtils.
              Thanks to Casey Scarborough.
@@ -887,7 +887,7 @@ o LANG-1205: NumberUtils.createNumber() behaves inconsistently with
 o LANG-1222: Fix for incorrect comment on StringUtils.containsIgnoreCase
              method. Thanks to Adam J.
 o LANG-1221: Fix typo on appendIfMissing javadoc. Thanks to Pierre Templier.
-o LANG-1202: parseDateStrictly does't pass specified locale. Thanks to
+o LANG-1202: parseDateStrictly doesn't pass specified locale. Thanks to
              Markus Jelsma.
 o LANG-1219: FastDateFormat doesn't respect summer daylight in some localized
              strings. Thanks to Jarek.
@@ -1039,7 +1039,7 @@ o LANG-794:  SystemUtils.IS_OS_WINDOWS_2008, VISTA are incorrect. Thanks to
 o LANG-1104: Parse test fails for TimeZone America/Sao_Paulo
 o LANG-948:  Exception while using ExtendedMessageFormat and escaping braces.
              Thanks to Andrey Khobnya.
-o LANG-1092: Wrong formating of time zones with daylight saving time in
+o LANG-1092: Wrong formatting of time zones with daylight saving time in
              FastDatePrinter
 o LANG-1090: FastDateParser does not set error indication in ParsePosition
 o LANG-1089: FastDateParser does not handle excess hours as per
@@ -1079,7 +1079,7 @@ CHANGES
 o LANG-1102: Make logic for comparing OS versions in SystemUtils smarter
 o LANG-1091: Shutdown thread pools in test cases. Thanks to Fabian Lange.
 o LANG-1101: FastDateParser and FastDatePrinter support 'X' format
-o LANG-1100: Avoid memory allocation when using date formating to StringBuffer.
+o LANG-1100: Avoid memory allocation when using date formatting to StringBuffer.
              Thanks to mbracher.
 o LANG-935:  Possible performance improvement on string escape functions.
              Thanks to Fabian Lange, Thomas Neidhart.
@@ -1400,7 +1400,7 @@ NEW FEATURES
 ==============
 
 o LANG-801:  Add Conversion utility to convert between data types on byte level
-o LANG-760:  Add API StringUtils.toString(byte[] intput, String charsetName)
+o LANG-760:  Add API StringUtils.toString(byte[] input, String charsetName)
 o LANG-756:  Add APIs ClassUtils.isPrimitiveWrapper(Class<?>) and
              isPrimitiveOrWrapper(Class<?>)
 o LANG-695:  SystemUtils.IS_OS_UNIX doesn't recognize FreeBSD as a Unix system
@@ -1574,7 +1574,7 @@ o LANG-645:  FastDateFormat.format() outputs incorrect week of year because
 o LANG-646:  StringEscapeUtils.unescapeJava doesn't handle octal escapes and
              Unicode with extra u
 o LANG-656:  Example StringUtils.indexOfAnyBut("zzabyycdxx", '') = 0 incorrect
-o LANG-658:  Some Entitys like &Ouml; are not matched properly against its
+o LANG-658:  Some entities like &Ouml; are not matched properly against its
              ISO8859-1 representation
 o LANG-659:  EntityArrays typo: {"\u2122", "&minus;"}, // minus sign, U+2212
              ISOtech

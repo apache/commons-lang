@@ -68,7 +68,7 @@ OTHER CHANGES IN 2.6
 
     * [LANG-600] - Javadoc is incorrect for lastIndexOf() method
     * [LANG-628] - Javadoc for HashCodeBuilder.append(boolean) does not match implementation
-    * [LANG-643] - Javadoc StringUtils.left() claims to throw an exception on negative lenth, but doesn't
+    * [LANG-643] - Javadoc StringUtils.left() claims to throw an exception on negative length, but doesn't
     * [LANG-370] - Javadoc - document thread safety
     * [LANG-623] - Test for StringUtils replaceChars() icelandic characters
 

@@ -78,7 +78,7 @@ BUG FIXES IN 2.5
     * [LANG-538] - FastDateFormat - call getTime() on a calendar to ensure timezone is in the right state
     * [LANG-547] - FastDateFormat - Remove unused field
     * [LANG-511] - LocaleUtils - initialization of available locales can be deferred
-    * [LANG-457] - NumberUtils - createNumber() thows a StringIndexOutOfBoundsException for "l"
+    * [LANG-457] - NumberUtils - createNumber() throws a StringIndexOutOfBoundsException for "l"
     * [LANG-521] - NumberUtils - isNumber(String) and createNumber(String) both modified to support '2.'
     * [LANG-432] - StringUtils - improve handling of case-insensitive Strings
     * [LANG-552] - StringUtils - replaceEach() no longer NPEs when null appears in the last String[]

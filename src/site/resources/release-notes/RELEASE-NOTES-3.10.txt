@@ -107,14 +107,14 @@ o            Reuse own code in Functions.java #493. Thanks to Peter Verhas.
 o LANG-1523: Avoid unnecessary allocation in StringUtils.wrapIfMissing. #496. Thanks to Edgar Asatryan, Bruno P. Kinoshita, Gary Gregory.
 o LANG-1525: Internally use Validate.notNull(foo, ...) instead of Validate.isTrue(foo != null, ...). Thanks to Edgar Asatryan, Bruno P. Kinoshita, Gary Gregory.
 o LANG-1526: Add 1 and 0 in toBooleanObject(final String str) #502. Thanks to Dominik Schramm.
-o LANG-1527: Remove an redundant argument check in NumberUtils #504. Thanks to Pengyu Nie.
+o LANG-1527: Remove a redundant argument check in NumberUtils #504. Thanks to Pengyu Nie.
 o LANG-1529: Deprecate org.apache.commons.lang3.ArrayUtils.removeAllOccurences(*) for org.apache.commons.lang3.ArrayUtils.removeAllOccurrences(*). Thanks to Gary Gregory, BillCindy, Bruno P. Kinoshita.
 
 
 Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
 
 For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
-patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
+patches, or suggestions for improvement, see the Apache Commons Lang website:
 
 https://commons.apache.org/proper/commons-lang/
 

@@ -54,7 +54,7 @@ you can read more about it in <a href="https://issues.apache.org/jira/browse/LAN
 interface, both found in the <code>org.apache.commons.lang.text</code> package.</p>
 <p>Together they allow you to take the <code>java.text.MessageFormat</code> class further and insert your own formatting elements.</p>
 <p>
-By way of an example, imagine that we have a need for custom formatting of a employee identification
+By way of an example, imagine that we have a need for custom formatting of an employee identification
 number or EIN. Perhaps, simplistically, our EIN is composed of a two-character department code
 followed by a four-digit number, and that it is customary within our organization to render the EIN
 with a hyphen following the department identifier. Here we'll represent the EIN as a simple
