@@ -88,6 +88,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Allow extension of previously final classes ImmutablePair and ImmutableTriple.</action>
     <action                   type="fix" dev="ggregory" due-to="shalk, Bruno P. Kinoshita, Gary Gregory">Update ClassUtils Javadoc with some missing throws NPE #912.</action>
     <action                   type="fix" dev="ggregory" due-to="guicaiyue">Javadoc: StringUtils.repeat("", "x", 3) = "xx"; #918.</action>
+    <action                   type="fix" dev="ggregory" due-to="Marc Wrobel">(doc) Fix typos in javadoc and comments #920.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add GitHub coverage.yml.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
