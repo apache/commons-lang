@@ -501,8 +501,8 @@ public class BooleanUtils {
      * </pre>
      *
      * @param str  the String to check
-     * @param trueString  the String to match for {@code true} (case sensitive), may be {@code null}
-     * @param falseString  the String to match for {@code false} (case sensitive), may be {@code null}
+     * @param trueString  the String to match for {@code true} (case-sensitive), may be {@code null}
+     * @param falseString  the String to match for {@code false} (case-sensitive), may be {@code null}
      * @return the boolean value of the string
      * @throws IllegalArgumentException if the String doesn't match
      */
@@ -586,7 +586,7 @@ public class BooleanUtils {
      * @param value  the Integer to convert
      * @param trueValue  the value to match for {@code true}
      * @param falseValue  the value to match for {@code false}
-     * @param nullValue  the value to to match for {@code null}
+     * @param nullValue  the value to match for {@code null}
      * @return Boolean.TRUE, Boolean.FALSE, or {@code null}
      * @throws IllegalArgumentException if no match
      */
@@ -650,7 +650,7 @@ public class BooleanUtils {
      * @param value  the Integer to convert
      * @param trueValue  the value to match for {@code true}, may be {@code null}
      * @param falseValue  the value to match for {@code false}, may be {@code null}
-     * @param nullValue  the value to to match for {@code null}, may be {@code null}
+     * @param nullValue  the value to match for {@code null}, may be {@code null}
      * @return Boolean.TRUE, Boolean.FALSE, or {@code null}
      * @throws IllegalArgumentException if no match
      */
@@ -823,9 +823,9 @@ public class BooleanUtils {
      * </pre>
      *
      * @param str  the String to check
-     * @param trueString  the String to match for {@code true} (case sensitive), may be {@code null}
-     * @param falseString  the String to match for {@code false} (case sensitive), may be {@code null}
-     * @param nullString  the String to match for {@code null} (case sensitive), may be {@code null}
+     * @param trueString  the String to match for {@code true} (case-sensitive), may be {@code null}
+     * @param falseString  the String to match for {@code false} (case-sensitive), may be {@code null}
+     * @param nullString  the String to match for {@code null} (case-sensitive), may be {@code null}
      * @return the Boolean value of the string, {@code null} if either the String matches {@code nullString}
      *  or if {@code null} input and {@code nullString} is {@code null}
      * @throws IllegalArgumentException if the String doesn't match

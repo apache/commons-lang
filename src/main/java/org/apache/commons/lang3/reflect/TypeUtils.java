@@ -1805,7 +1805,7 @@ public class TypeUtils {
      * found is <em>not</em> a type variable.
      *
      * @param typeVariable the type variable to look up
-     * @param typeVarAssigns the map used for the look up
+     * @param typeVarAssigns the map used for the look-up
      * @return Type or {@code null} if some variable was not in the map
      * @since 3.2
      */

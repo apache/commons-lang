@@ -80,7 +80,7 @@ public class EventListenerSupport<L> implements Serializable {
 
     /**
      * The proxy representing the collection of listeners. Calls to this proxy
-     * object will sent to all registered listeners.
+     * object will be sent to all registered listeners.
      */
     private transient L proxy;
 

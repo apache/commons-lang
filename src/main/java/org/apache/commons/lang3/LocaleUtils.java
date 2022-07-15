@@ -158,7 +158,7 @@ public class LocaleUtils {
      * <p>This method takes a country code and searches to find the
      * languages available for that country. Variant locales are removed.</p>
      *
-     * @param countryCode  the 2 letter country code, null returns empty
+     * @param countryCode  the 2-letter country code, null returns empty
      * @return an unmodifiable List of Locale objects, not null
      */
     public static List<Locale> languagesByCountry(final String countryCode) {

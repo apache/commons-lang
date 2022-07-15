@@ -203,7 +203,7 @@ final class MemberUtils {
     }
 
     /**
-     * Gets the number of steps required needed to turn the source class into
+     * Gets the number of steps needed to turn the source class into
      * the destination class. This represents the number of steps in the object
      * hierarchy graph.
      * @param srcClass The source class

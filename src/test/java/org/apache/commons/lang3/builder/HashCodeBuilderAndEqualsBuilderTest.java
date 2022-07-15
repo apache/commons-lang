@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link org.apache.commons.lang3.builder.HashCodeBuilder} and
- * {@link org.apache.commons.lang3.builder.EqualsBuilderTest} to insure that equal
+ * {@link org.apache.commons.lang3.builder.EqualsBuilderTest} to ensure that equal
  * objects must have equal hash codes.
  */
 public class HashCodeBuilderAndEqualsBuilderTest extends AbstractLangTest {

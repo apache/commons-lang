@@ -663,10 +663,10 @@ public class FastDateParserTest extends AbstractLangTest {
         testSdfAndFdp(dpProvider, "''''yyyyMMdd'A''B'HHmmssSSS''", "''20030210A'B153320989'", false); // OK
         testSdfAndFdp(dpProvider, "'$\\Ed'", "$\\Ed", false); // OK
 
-        // quoted charaters are case sensitive
+        // quoted characters are case-sensitive
         testSdfAndFdp(dpProvider, "'QED'", "QED", false);
         testSdfAndFdp(dpProvider, "'QED'", "qed", true);
-        // case sensitive after insensitive Month field
+        // case-sensitive after insensitive Month field
         testSdfAndFdp(dpProvider, "yyyy-MM-dd 'QED'", "2003-02-10 QED", false);
         testSdfAndFdp(dpProvider, "yyyy-MM-dd 'QED'", "2003-02-10 qed", true);
     }
@@ -713,7 +713,7 @@ public class FastDateParserTest extends AbstractLangTest {
             sdf.set2DigitYearStart(csDate);
         }
         final String fmt = sdf.format(inDate);
-//        System.out.printf("[Java %s] Date: '%s' formated with '%s' -> '%s'%n", SystemUtils.JAVA_RUNTIME_VERSION, inDate,
+//        System.out.printf("[Java %s] Date: '%s' formatted with '%s' -> '%s'%n", SystemUtils.JAVA_RUNTIME_VERSION, inDate,
 //            formatStr, fmt);
         try {
             final Date out = dateParser.parse(fmt);

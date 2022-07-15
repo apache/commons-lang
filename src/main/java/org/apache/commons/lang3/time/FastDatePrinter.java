@@ -83,7 +83,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     // A lot of the speed in this class comes from caching, but some comes
     // from the special int to StringBuffer conversion.
     //
-    // The following produces a padded 2 digit number:
+    // The following produces a padded 2-digit number:
     //   buffer.append((char)(value / 10 + '0'));
     //   buffer.append((char)(value % 10 + '0'));
     //
@@ -461,7 +461,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
     /**
      * Creates a String representation of the given Calendar by applying the rules of this printer to it.
-     * @param c the Calender to apply the rules to.
+     * @param c the Calendar to apply the rules to.
      * @return a String representation of the given Calendar.
      */
     private String applyRulesToString(final Calendar c) {
@@ -1449,7 +1449,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * Factory method for Iso8601_Rules.
          *
          * @param tokenLen a token indicating the length of the TimeZone String to be formatted.
-         * @return a Iso8601_Rule that can format TimeZone String of length {@code tokenLen}. If no such
+         * @return an Iso8601_Rule that can format TimeZone String of length {@code tokenLen}. If no such
          *          rule exists, an IllegalArgumentException will be thrown.
          */
         static Iso8601_Rule getRule(final int tokenLen) {

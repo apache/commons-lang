@@ -952,7 +952,7 @@ public class FastDateParser implements DateParser, Serializable {
                 }
             }
             // order the regex alternatives with longer strings first, greedy
-            // match will ensure longest string will be consumed
+            // match will ensure the longest string will be consumed
             for (final String zoneName : sorted) {
                 simpleQuote(sb.append('|'), zoneName);
             }

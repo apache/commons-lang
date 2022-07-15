@@ -305,7 +305,7 @@ public class NumberUtils {
      *
      * <pre>
      *   NumberUtils.toDouble(null)                     = 0.0d
-     *   NumberUtils.toDouble(BigDecimal.valudOf(8.5d)) = 8.5d
+     *   NumberUtils.toDouble(BigDecimal.valueOf(8.5d)) = 8.5d
      * </pre>
      *
      * @param value the {@link BigDecimal} to convert, may be {@code null}.
@@ -325,7 +325,7 @@ public class NumberUtils {
      *
      * <pre>
      *   NumberUtils.toDouble(null, 1.1d)                     = 1.1d
-     *   NumberUtils.toDouble(BigDecimal.valudOf(8.5d), 1.1d) = 8.5d
+     *   NumberUtils.toDouble(BigDecimal.valueOf(8.5d), 1.1d) = 8.5d
      * </pre>
      *
      * @param value the {@link BigDecimal} to convert, may be {@code null}.
@@ -733,7 +733,7 @@ public class NumberUtils {
             } else {
                 exp = null;
             }
-            //Requesting a specific type..
+            //Requesting a specific type.
             final String numeric = str.substring(0, length - 1);
             switch (lastChar) {
                 case 'l' :

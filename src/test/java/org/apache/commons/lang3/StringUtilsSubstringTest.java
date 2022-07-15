@@ -290,7 +290,7 @@ public class StringUtilsSubstringTest extends AbstractLangTest {
     }
 
    /**
-     * Tests the substringsBetween method that returns an String Array of substrings.
+     * Tests the substringsBetween method that returns a String Array of substrings.
      */
     @Test
     public void testSubstringsBetween_StringStringString() {

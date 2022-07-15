@@ -203,7 +203,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
 //    }
 
     /**
-     * Test the built in choice format.
+     * Test the built-in choice format.
      */
     @Test
     public void testBuiltInChoiceFormat() {
@@ -223,7 +223,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
     }
 
     /**
-     * Test the built in date/time formats
+     * Test the built-in date/time formats
      */
     @Test
     public void testBuiltInDateTimeFormat() {
@@ -273,7 +273,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
     }
 
     /**
-     * Test the built in number formats.
+     * Test the built-in number formats.
      */
     @Test
     public void testBuiltInNumberFormat() {
@@ -330,7 +330,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
     }
 
     /**
-     * Test a built in format for the specified Locales, plus {@code null} Locale.
+     * Test a built-in format for the specified Locales, plus {@code null} Locale.
      * @param pattern MessageFormat pattern
      * @param args MessageFormat arguments
      * @param locales to test
@@ -340,7 +340,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
     }
 
     /**
-     * Test a built in format for the specified Locales, plus {@code null} Locale.
+     * Test a built-in format for the specified Locales, plus {@code null} Locale.
      * @param pattern MessageFormat pattern
      * @param fmtRegistry FormatFactory registry to use
      * @param args MessageFormat arguments

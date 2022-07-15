@@ -437,7 +437,7 @@ public class ObjectUtilsTest extends AbstractLangTest {
 
     @Test
     public void testGetFirstNonNull() {
-        // first non null
+        // first non-null
         assertEquals("", ObjectUtils.getFirstNonNull(() -> null, () -> ""));
         // first encountered value is used
         assertEquals("1", ObjectUtils.getFirstNonNull(() -> null, () -> "1", () -> "2", () -> null));

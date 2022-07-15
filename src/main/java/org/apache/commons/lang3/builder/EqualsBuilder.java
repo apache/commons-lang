@@ -438,7 +438,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param testTransients  whether to include transient fields
      * @param reflectUpToClass  the superclass to reflect up to (inclusive),
      *  may be {@code null}
-     * @param testRecursive  whether to call reflection equals on non primitive
+     * @param testRecursive  whether to call reflection equals on non-primitive
      *  fields recursively.
      * @param excludeFields  array of field names to exclude from testing
      * @return {@code true} if the two Objects have tested equals.
@@ -484,10 +484,10 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * <p>If either class of the compared objects is contained in
      * {@code bypassReflectionClasses}, both objects are compared by calling
-     * the equals method of the left hand object with the right hand object as an argument.</p>
+     * the equals method of the left-hand object with the right-hand object as an argument.</p>
      *
-     * @param lhs  the left hand object
-     * @param rhs  the left hand object
+     * @param lhs  the left-hand object
+     * @param rhs  the right-hand object
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder reflectionAppend(final Object lhs, final Object rhs) {
@@ -556,8 +556,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      * <p>Appends the fields and values defined by the given object of the
      * given Class.</p>
      *
-     * @param lhs  the left hand object
-     * @param rhs  the right hand object
+     * @param lhs  the left-hand object
+     * @param rhs  the right-hand object
      * @param clazz  the class to append details of
      */
     private void reflectionAppend(
@@ -616,8 +616,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      * is set to {@code false}. Otherwise, using their
      * {@code equals} method.</p>
      *
-     * @param lhs  the left hand object
-     * @param rhs  the right hand object
+     * @param lhs  the left-hand object
+     * @param rhs  the right-hand object
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final Object lhs, final Object rhs) {
@@ -648,13 +648,13 @@ public class EqualsBuilder implements Builder<Boolean> {
     /**
      * <p>Test if an {@link Object} is equal to an array.</p>
      *
-     * @param lhs  the left hand object, an array
-     * @param rhs  the right hand object
+     * @param lhs  the left-hand object, an array
+     * @param rhs  the right-hand object
      */
     private void appendArray(final Object lhs, final Object rhs) {
         // First we compare different dimensions, for example: a boolean[][] to a boolean[]
         // then we 'Switch' on type of array, to dispatch to the correct handler
-        // This handles multi dimensional arrays of the same depth
+        // This handles multidimensional arrays of the same depth
         if (lhs.getClass() != rhs.getClass()) {
             this.setEquals(false);
         } else if (lhs instanceof long[]) {
@@ -685,9 +685,9 @@ public class EqualsBuilder implements Builder<Boolean> {
      * </p>
      *
      * @param lhs
-     *                  the left hand {@code long}
+     *                  the left-hand {@code long}
      * @param rhs
-     *                  the right hand {@code long}
+     *                  the right-hand {@code long}
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final long lhs, final long rhs) {
@@ -701,8 +701,8 @@ public class EqualsBuilder implements Builder<Boolean> {
     /**
      * <p>Test if two {@code int}s are equal.</p>
      *
-     * @param lhs  the left hand {@code int}
-     * @param rhs  the right hand {@code int}
+     * @param lhs  the left-hand {@code int}
+     * @param rhs  the right-hand {@code int}
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final int lhs, final int rhs) {
@@ -716,8 +716,8 @@ public class EqualsBuilder implements Builder<Boolean> {
     /**
      * <p>Test if two {@code short}s are equal.</p>
      *
-     * @param lhs  the left hand {@code short}
-     * @param rhs  the right hand {@code short}
+     * @param lhs  the left-hand {@code short}
+     * @param rhs  the right-hand {@code short}
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final short lhs, final short rhs) {
@@ -731,8 +731,8 @@ public class EqualsBuilder implements Builder<Boolean> {
     /**
      * <p>Test if two {@code char}s are equal.</p>
      *
-     * @param lhs  the left hand {@code char}
-     * @param rhs  the right hand {@code char}
+     * @param lhs  the left-hand {@code char}
+     * @param rhs  the right-hand {@code char}
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final char lhs, final char rhs) {
@@ -746,8 +746,8 @@ public class EqualsBuilder implements Builder<Boolean> {
     /**
      * <p>Test if two {@code byte}s are equal.</p>
      *
-     * @param lhs  the left hand {@code byte}
-     * @param rhs  the right hand {@code byte}
+     * @param lhs  the left-hand {@code byte}
+     * @param rhs  the right-hand {@code byte}
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final byte lhs, final byte rhs) {
@@ -767,8 +767,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      * <p>It is compatible with the hash code generated by
      * {@link HashCodeBuilder}.</p>
      *
-     * @param lhs  the left hand {@code double}
-     * @param rhs  the right hand {@code double}
+     * @param lhs  the left-hand {@code double}
+     * @param rhs  the right-hand {@code double}
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final double lhs, final double rhs) {
@@ -787,8 +787,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      * <p>It is compatible with the hash code generated by
      * {@link HashCodeBuilder}.</p>
      *
-     * @param lhs  the left hand {@code float}
-     * @param rhs  the right hand {@code float}
+     * @param lhs  the left-hand {@code float}
+     * @param rhs  the right-hand {@code float}
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final float lhs, final float rhs) {
@@ -801,8 +801,8 @@ public class EqualsBuilder implements Builder<Boolean> {
     /**
      * <p>Test if two {@code booleans}s are equal.</p>
      *
-     * @param lhs  the left hand {@code boolean}
-     * @param rhs  the right hand {@code boolean}
+     * @param lhs  the left-hand {@code boolean}
+     * @param rhs  the right-hand {@code boolean}
      * @return EqualsBuilder - used to chain calls.
       */
     public EqualsBuilder append(final boolean lhs, final boolean rhs) {
@@ -822,8 +822,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      * <p>Note that this method does not compare the type of the arrays; it only
      * compares the contents.</p>
      *
-     * @param lhs  the left hand {@code Object[]}
-     * @param rhs  the right hand {@code Object[]}
+     * @param lhs  the left-hand {@code Object[]}
+     * @param rhs  the right-hand {@code Object[]}
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final Object[] lhs, final Object[] rhs) {
@@ -853,8 +853,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * <p>The method {@link #append(long, long)} is used.</p>
      *
-     * @param lhs  the left hand {@code long[]}
-     * @param rhs  the right hand {@code long[]}
+     * @param lhs  the left-hand {@code long[]}
+     * @param rhs  the right-hand {@code long[]}
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final long[] lhs, final long[] rhs) {
@@ -884,8 +884,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * <p>The method {@link #append(int, int)} is used.</p>
      *
-     * @param lhs  the left hand {@code int[]}
-     * @param rhs  the right hand {@code int[]}
+     * @param lhs  the left-hand {@code int[]}
+     * @param rhs  the right-hand {@code int[]}
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final int[] lhs, final int[] rhs) {
@@ -915,8 +915,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * <p>The method {@link #append(short, short)} is used.</p>
      *
-     * @param lhs  the left hand {@code short[]}
-     * @param rhs  the right hand {@code short[]}
+     * @param lhs  the left-hand {@code short[]}
+     * @param rhs  the right-hand {@code short[]}
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final short[] lhs, final short[] rhs) {
@@ -946,8 +946,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * <p>The method {@link #append(char, char)} is used.</p>
      *
-     * @param lhs  the left hand {@code char[]}
-     * @param rhs  the right hand {@code char[]}
+     * @param lhs  the left-hand {@code char[]}
+     * @param rhs  the right-hand {@code char[]}
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final char[] lhs, final char[] rhs) {
@@ -977,8 +977,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * <p>The method {@link #append(byte, byte)} is used.</p>
      *
-     * @param lhs  the left hand {@code byte[]}
-     * @param rhs  the right hand {@code byte[]}
+     * @param lhs  the left-hand {@code byte[]}
+     * @param rhs  the right-hand {@code byte[]}
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final byte[] lhs, final byte[] rhs) {
@@ -1008,8 +1008,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * <p>The method {@link #append(double, double)} is used.</p>
      *
-     * @param lhs  the left hand {@code double[]}
-     * @param rhs  the right hand {@code double[]}
+     * @param lhs  the left-hand {@code double[]}
+     * @param rhs  the right-hand {@code double[]}
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final double[] lhs, final double[] rhs) {
@@ -1039,8 +1039,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * <p>The method {@link #append(float, float)} is used.</p>
      *
-     * @param lhs  the left hand {@code float[]}
-     * @param rhs  the right hand {@code float[]}
+     * @param lhs  the left-hand {@code float[]}
+     * @param rhs  the right-hand {@code float[]}
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final float[] lhs, final float[] rhs) {
@@ -1070,8 +1070,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * <p>The method {@link #append(boolean, boolean)} is used.</p>
      *
-     * @param lhs  the left hand {@code boolean[]}
-     * @param rhs  the right hand {@code boolean[]}
+     * @param lhs  the left-hand {@code boolean[]}
+     * @param rhs  the right-hand {@code boolean[]}
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(final boolean[] lhs, final boolean[] rhs) {

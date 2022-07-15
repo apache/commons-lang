@@ -115,14 +115,14 @@ public class DurationFormatUtils {
 
     /**
      * <p>Formats the time gap as a string, using the specified format.
-     * Padding the left hand side of numbers with zeroes is optional.</p>
+     * Padding the left-hand side of numbers with zeroes is optional.</p>
      *
      * <p>This method formats durations using the days and lower fields of the
      * format pattern. Months and larger are not used.</p>
      *
      * @param durationMillis  the duration to format
      * @param format  the way in which to format the duration, not null
-     * @param padWithZeros  whether to pad the left hand side of numbers with 0's
+     * @param padWithZeros  whether to pad the left-hand side of numbers with 0's
      * @return the formatted duration, not null
      * @throws IllegalArgumentException if durationMillis is negative
      */
@@ -238,7 +238,7 @@ public class DurationFormatUtils {
 
     /**
      * <p>Formats the time gap as a string, using the specified format.
-     * Padding the left hand side of numbers with zeroes is optional.
+     * Padding the left-hand side of numbers with zeroes is optional.
      *
      * @param startMillis  the start of the duration
      * @param endMillis  the end of the duration
@@ -252,7 +252,7 @@ public class DurationFormatUtils {
 
     /**
      * <p>Formats the time gap as a string, using the specified format.
-     * Padding the left hand side of numbers with zeroes is optional and
+     * Padding the left-hand side of numbers with zeroes is optional and
      * the time zone may be specified. </p>
      *
      * <p>When calculating the difference between months/days, it chooses to
@@ -269,7 +269,7 @@ public class DurationFormatUtils {
      * @param startMillis  the start of the duration
      * @param endMillis  the end of the duration
      * @param format  the way in which to format the duration, not null
-     * @param padWithZeros  whether to pad the left hand side of numbers with 0's
+     * @param padWithZeros  whether to pad the left-hand side of numbers with 0's
      * @param timezone  the millis are defined in
      * @return the formatted duration, not null
      * @throws IllegalArgumentException if startMillis is greater than endMillis
