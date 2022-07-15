@@ -365,9 +365,7 @@ public class ThreadUtils {
 
         final Collection<Thread> result = new ArrayList<>();
         final NamePredicate threadNamePredicate = new NamePredicate(threadName);
-        for (final ThreadGroup group : threadGroups) {
-            result.addAll(findThreads(group, false, threadNamePredicate));
-        }
+        threadGroups.forEach(group -> result.addAll(findThreads(group, false, threadNamePredicate)));
         return Collections.unmodifiableCollection(result);
     }
 

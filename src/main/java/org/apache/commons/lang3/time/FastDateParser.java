@@ -486,20 +486,18 @@ public class FastDateParser implements DateParser, Serializable {
      * @return The map of string display names to field values
      */
     private static Map<String, Integer> appendDisplayNames(final Calendar calendar, Locale locale, final int field,
-        final StringBuilder regex) {
+            final StringBuilder regex) {
         final Map<String, Integer> values = new HashMap<>();
-        locale = LocaleUtils.toLocale(locale);
-        final Map<String, Integer> displayNames = calendar.getDisplayNames(field, Calendar.ALL_STYLES, locale);
+        final Locale actualLocale = LocaleUtils.toLocale(locale);
+        final Map<String, Integer> displayNames = calendar.getDisplayNames(field, Calendar.ALL_STYLES, actualLocale);
         final TreeSet<String> sorted = new TreeSet<>(LONGER_FIRST_LOWERCASE);
-        for (final Map.Entry<String, Integer> displayName : displayNames.entrySet()) {
-            final String key = displayName.getKey().toLowerCase(locale);
-            if (sorted.add(key)) {
-                values.put(key, displayName.getValue());
+        displayNames.forEach((k, v) -> {
+            final String keyLc = k.toLowerCase(actualLocale);
+            if (sorted.add(keyLc)) {
+                values.put(keyLc, v);
             }
-        }
-        for (final String symbol : sorted) {
-            simpleQuote(regex, symbol).append('|');
-        }
+        });
+        sorted.forEach(symbol -> simpleQuote(regex, symbol).append('|'));
         return values;
     }
 
@@ -953,9 +951,7 @@ public class FastDateParser implements DateParser, Serializable {
             }
             // order the regex alternatives with longer strings first, greedy
             // match will ensure the longest string will be consumed
-            for (final String zoneName : sorted) {
-                simpleQuote(sb.append('|'), zoneName);
-            }
+            sorted.forEach(zoneName -> simpleQuote(sb.append('|'), zoneName));
             sb.append(")");
             createPattern(sb);
         }

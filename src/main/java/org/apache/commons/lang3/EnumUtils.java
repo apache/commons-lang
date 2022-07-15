@@ -175,10 +175,7 @@ public class EnumUtils {
         asEnum(enumClass);
         Objects.requireNonNull(values, "values");
         final EnumSet<E> condensed = EnumSet.noneOf(enumClass);
-        for (final E constant : values) {
-            Validate.notNull(constant, NULL_ELEMENTS_NOT_PERMITTED);
-            condensed.add(constant);
-        }
+        values.forEach(constant -> condensed.add(Validate.notNull(constant, NULL_ELEMENTS_NOT_PERMITTED)));
         final long[] result = new long[(enumClass.getEnumConstants().length - 1) / Long.SIZE + 1];
         for (final E value : condensed) {
             result[value.ordinal() / Long.SIZE] |= 1L << (value.ordinal() % Long.SIZE);

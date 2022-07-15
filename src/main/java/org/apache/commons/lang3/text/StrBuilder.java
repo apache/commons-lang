@@ -1222,9 +1222,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public StrBuilder appendAll(final Iterable<?> iterable) {
         if (iterable != null) {
-            for (final Object o : iterable) {
-                append(o);
-            }
+            iterable.forEach(this::append);
         }
         return this;
     }
@@ -1240,9 +1238,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public StrBuilder appendAll(final Iterator<?> it) {
         if (it != null) {
-            while (it.hasNext()) {
-                append(it.next());
-            }
+            it.forEachRemaining(this::append);
         }
         return this;
     }

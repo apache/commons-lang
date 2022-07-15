@@ -231,14 +231,9 @@ public class CharSet implements Serializable {
      * @return {@code true} if the set contains the characters
      */
     public boolean contains(final char ch) {
-        synchronized(set) {
-            for (final CharRange range : set) {
-                if (range.contains(ch)) {
-                    return true;
-                }
-            }
+        synchronized (set) {
+            return set.stream().anyMatch(range -> range.contains(ch));
         }
-        return false;
     }
 
     // Basics

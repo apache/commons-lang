@@ -22,6 +22,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
@@ -247,14 +248,7 @@ public class FieldUtils {
      */
     public static List<Field> getFieldsListWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
         Validate.notNull(annotationCls, "annotationCls");
-        final List<Field> allFields = getAllFieldsList(cls);
-        final List<Field> annotatedFields = new ArrayList<>();
-        for (final Field field : allFields) {
-            if (field.getAnnotation(annotationCls) != null) {
-                annotatedFields.add(field);
-            }
-        }
-        return annotatedFields;
+        return getAllFieldsList(cls).stream().filter(field -> field.getAnnotation(annotationCls) != null).collect(Collectors.toList());
     }
 
     /**

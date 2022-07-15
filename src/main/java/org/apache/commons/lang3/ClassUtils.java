@@ -127,13 +127,11 @@ public class ClassUtils {
     private static final Map<Class<?>, Class<?>> wrapperPrimitiveMap = new HashMap<>();
 
     static {
-        for (final Map.Entry<Class<?>, Class<?>> entry : primitiveWrapperMap.entrySet()) {
-            final Class<?> primitiveClass = entry.getKey();
-            final Class<?> wrapperClass = entry.getValue();
+        primitiveWrapperMap.forEach((primitiveClass, wrapperClass) -> {
             if (!primitiveClass.equals(wrapperClass)) {
                 wrapperPrimitiveMap.put(wrapperClass, primitiveClass);
             }
-        }
+        });
     }
 
     /**
@@ -148,21 +146,17 @@ public class ClassUtils {
 
     /** Feed abbreviation maps. */
     static {
-        final Map<String, String> m = new HashMap<>();
-        m.put("int", "I");
-        m.put("boolean", "Z");
-        m.put("float", "F");
-        m.put("long", "J");
-        m.put("short", "S");
-        m.put("byte", "B");
-        m.put("double", "D");
-        m.put("char", "C");
-        final Map<String, String> r = new HashMap<>();
-        for (final Map.Entry<String, String> e : m.entrySet()) {
-            r.put(e.getValue(), e.getKey());
-        }
-        abbreviationMap = Collections.unmodifiableMap(m);
-        reverseAbbreviationMap = Collections.unmodifiableMap(r);
+        final Map<String, String> map = new HashMap<>();
+        map.put("int", "I");
+        map.put("boolean", "Z");
+        map.put("float", "F");
+        map.put("long", "J");
+        map.put("short", "S");
+        map.put("byte", "B");
+        map.put("double", "D");
+        map.put("char", "C");
+        abbreviationMap = Collections.unmodifiableMap(map);
+        reverseAbbreviationMap = Collections.unmodifiableMap(map.entrySet().stream().collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey)));
     }
 
     /**
@@ -211,13 +205,13 @@ public class ClassUtils {
             return null;
         }
         final List<Class<?>> classes = new ArrayList<>(classNames.size());
-        for (final String className : classNames) {
+        classNames.forEach(className -> {
             try {
                 classes.add(Class.forName(className));
             } catch (final Exception ex) {
                 classes.add(null);
             }
-        }
+        });
         return classes;
     }
 

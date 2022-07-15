@@ -924,10 +924,10 @@ public class MethodUtils {
         final List<Class<?>> classes = searchSupers ? getAllSuperclassesAndInterfaces(cls) : new ArrayList<>();
         classes.add(0, cls);
         final List<Method> annotatedMethods = new ArrayList<>();
-        for (final Class<?> acls : classes) {
+        classes.forEach(acls -> {
             final Method[] methods = ignoreAccess ? acls.getDeclaredMethods() : acls.getMethods();
             Stream.of(methods).filter(method -> method.isAnnotationPresent(annotationCls)).forEachOrdered(annotatedMethods::add);
-        }
+        });
         return annotatedMethods;
     }
 
