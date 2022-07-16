@@ -190,11 +190,11 @@ public class MultiBackgroundInitializer
         // collect the results
         final Map<String, Object> results = new HashMap<>();
         final Map<String, ConcurrentException> excepts = new HashMap<>();
-        inits.entrySet().forEach(e -> {
+        inits.forEach((k, v) -> {
             try {
-                results.put(e.getKey(), e.getValue().get());
+                results.put(k, v.get());
             } catch (final ConcurrentException cex) {
-                excepts.put(e.getKey(), cex);
+                excepts.put(k, cex);
             }
         });
 

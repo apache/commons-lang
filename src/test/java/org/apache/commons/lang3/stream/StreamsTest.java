@@ -169,8 +169,19 @@ public class StreamsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testOfIterableNotNull() {
+        assertEquals(2, Streams.of((Iterable<String>) Arrays.asList("A", "B")).collect(Collectors.toList()).size());
+    }
+
+    @Test
     public void testOfCollectionNull() {
         final List<String> input = null;
+        assertEquals(0, Streams.of(input).collect(Collectors.toList()).size());
+    }
+
+    @Test
+    public void testOfIterableNull() {
+        final Iterable<String> input = null;
         assertEquals(0, Streams.of(input).collect(Collectors.toList()).size());
     }
 
@@ -186,17 +197,6 @@ public class StreamsTest extends AbstractLangTest {
         assertTrue(collect.contains("One"));
         assertTrue(collect.contains("Two"));
         assertEquals(2, collect.size());
-    }
-
-    @Test
-    public void testOfIterableNotNull() {
-        assertEquals(2, Streams.of((Iterable<String>) Arrays.asList("A", "B")).collect(Collectors.toList()).size());
-    }
-
-    @Test
-    public void testOfIterableNull() {
-        final Iterable<String> input = null;
-        assertEquals(0, Streams.of(input).collect(Collectors.toList()).size());
     }
 
     @Test
