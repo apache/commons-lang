@@ -642,6 +642,18 @@ public class Streams {
     }
 
     /**
+     * Creates a stream on the given Iterable.
+     *
+     * @param <E> the type of elements in the Iterable.
+     * @param iterable the Iterable to stream or null.
+     * @return a new Stream or {@link Stream#empty()} if the Iterable is null.
+     * @since 3.13.0
+     */
+    public static <E> Stream<E> of(final Iterable<E> iterable) {
+        return iterable == null ? Stream.empty() : StreamSupport.stream(iterable.spliterator(), false);
+    }
+
+    /**
      * Null-safe version of {@link Stream#of(Object[])}.
      *
      * @param <T> the type of stream elements.
