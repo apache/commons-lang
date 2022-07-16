@@ -24,11 +24,13 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -159,6 +161,20 @@ public class StreamsTest extends AbstractLangTest {
         assertEquals(0, Streams.of((Object[]) null).count());
         assertEquals(1, Streams.of("foo").count());
         assertEquals(2, Streams.of("foo", "bar").count());
+    }
+
+    @Test
+    public void testOfEnumeration() {
+        final Hashtable<String, Integer> table = new Hashtable<>();
+        assertEquals(0, Streams.of(table.elements()).count());
+        table.put("One", 1);
+        assertEquals(1, Streams.of(table.elements()).count());
+        table.put("Two", 2);
+        assertEquals(2, Streams.of(table.elements()).count());
+        final List<String> collect = Streams.of(table.keys()).collect(Collectors.toList());
+        assertTrue(collect.contains("One"));
+        assertTrue(collect.contains("Two"));
+        assertEquals(2, collect.size());
     }
 
     @Test

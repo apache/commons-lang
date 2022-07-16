@@ -19,9 +19,12 @@ package org.apache.commons.lang3.stream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.Spliterator;
+import java.util.Spliterators.AbstractSpliterator;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
@@ -31,6 +34,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.function.Failable;
@@ -119,6 +123,47 @@ public class Streams {
         @Override
         public Supplier<List<E>> supplier() {
             return ArrayList::new;
+        }
+    }
+
+    /**
+     * Helps implement {@link Streams#of(Enumeration)}.
+     *
+     * @param <T> The element type.
+     */
+    private static class EnumerationSpliterator<T> extends AbstractSpliterator<T> {
+
+        private final Enumeration<T> enumeration;
+
+        /**
+         * Creates a spliterator reporting the given estimated size and additionalCharacteristics.
+         *
+         * @param estimatedSize the estimated size of this spliterator if known, otherwise {@code Long.MAX_VALUE}.
+         * @param additionalCharacteristics properties of this spliterator's source or elements. If {@code SIZED} is reported then this spliterator will
+         *        additionally report {@code SUBSIZED}.
+         * @param enumeration The Enumeration to wrap.
+         */
+        protected EnumerationSpliterator(final long estimatedSize, final int additionalCharacteristics, final Enumeration<T> enumeration) {
+            super(estimatedSize, additionalCharacteristics);
+            this.enumeration = Objects.requireNonNull(enumeration, "enumeration");
+        }
+
+        @Override
+        public void forEachRemaining(final Consumer<? super T> action) {
+            while (enumeration.hasMoreElements()) {
+                next(action);
+            }
+        }
+
+        private boolean next(final Consumer<? super T> action) {
+            action.accept(enumeration.nextElement());
+            return true;
+
+        }
+
+        @Override
+        public boolean tryAdvance(final Consumer<? super T> action) {
+            return enumeration.hasMoreElements() ? next(action) : false;
         }
     }
 
@@ -570,6 +615,18 @@ public class Streams {
      */
     public static <E> Stream<E> nonNull(final Collection<E> collection) {
         return filter(collection, Objects::nonNull);
+    }
+
+    /**
+     * Streams the elements of the given enumeration in order.
+     *
+     * @param <E> The enumeration element type.
+     * @param enumeration The enumeration to stream.
+     * @return a new stream.
+     * @since 3.13.0
+     */
+    public static <E> Stream<E> of(final Enumeration<E> enumeration) {
+        return StreamSupport.stream(new EnumerationSpliterator<>(Long.MAX_VALUE, Spliterator.ORDERED, enumeration), false);
     }
 
     /**
