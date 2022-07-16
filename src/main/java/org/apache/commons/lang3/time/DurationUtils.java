@@ -124,6 +124,7 @@ public class DurationUtils {
      *
      * @param startInclusive the start instant, inclusive, not null.
      * @return a {@link Duration}, not null.
+     * @since 3.13.0
      */
     public static Duration since(final Temporal startInclusive) {
         return Duration.between(startInclusive, Instant.now());
