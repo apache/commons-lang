@@ -530,7 +530,7 @@ public class Streams {
      * @since 3.13.0
      */
     public static <T> FailableStream<T> failableStream(final Collection<T> stream) {
-        return failableStream(toStream(stream));
+        return failableStream(of(stream));
     }
 
     /**
@@ -578,7 +578,7 @@ public class Streams {
     }
 
     private static <E> Stream<E> filter(final Collection<E> collection, final Predicate<? super E> predicate) {
-        return toStream(collection).filter(predicate);
+        return of(collection).filter(predicate);
     }
 
     /**
@@ -597,7 +597,7 @@ public class Streams {
      * @since 3.13.0
      */
     public static <E> Stream<E> instancesOf(final Class<? super E> clazz, final Collection<? super E> collection) {
-        return instancesOf(clazz, toStream(collection));
+        return instancesOf(clazz, of(collection));
     }
 
     @SuppressWarnings("unchecked") // After the isInstance check, we still need to type-cast.
@@ -615,6 +615,18 @@ public class Streams {
      */
     public static <E> Stream<E> nonNull(final Collection<E> collection) {
         return filter(collection, Objects::nonNull);
+    }
+
+    /**
+     * Delegates to {@link Collection#stream()} or returns {@link Stream#empty()} if the collection is null.
+     *
+     * @param <E> the type of elements in the collection.
+     * @param collection the collection to stream or null.
+     * @return {@link Collection#stream()} or {@link Stream#empty()} if the collection is null.
+     * @since 3.13.0
+     */
+    public static <E> Stream<E> of(final Collection<E> collection) {
+        return collection == null ? Stream.empty() : collection.stream();
     }
 
     /**
@@ -741,17 +753,5 @@ public class Streams {
      */
     public static <T extends Object> Collector<T, ?, T[]> toArray(final Class<T> pElementType) {
         return new ArrayCollector<>(pElementType);
-    }
-
-    /**
-     * Delegates to {@link Collection#stream()} or returns {@link Stream#empty()} if the collection is null.
-     *
-     * @param <E> the type of elements in the collection.
-     * @param collection the collection to stream or null.
-     * @return {@link Collection#stream()} or {@link Stream#empty()} if the collection is null.
-     * @since 3.13.0
-     */
-    public static <E> Stream<E> toStream(final Collection<E> collection) {
-        return collection == null ? Stream.empty() : collection.stream();
     }
 }
