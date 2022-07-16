@@ -240,7 +240,7 @@ public class StrSubstitutor {
         final Map<String, String> valueMap = new HashMap<>();
         final Enumeration<?> propNames = valueProperties.propertyNames();
         while (propNames.hasMoreElements()) {
-            final String propName = (String) propNames.nextElement();
+            final String propName = String.valueOf(propNames.nextElement());
             final String propValue = valueProperties.getProperty(propName);
             valueMap.put(propName, propValue);
         }
