@@ -18,9 +18,10 @@ package org.apache.commons.lang3.exception;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -58,37 +59,8 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
      * {@inheritDoc}
      */
     @Override
-    public DefaultExceptionContext setContextValue(final String label, final Object value) {
-        contextValues.removeIf(p -> StringUtils.equals(label, p.getKey()));
-        addContextValue(label, value);
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Object> getContextValues(final String label) {
-        final List<Object> values = new ArrayList<>();
-        for (final Pair<String, Object> pair : contextValues) {
-            if (StringUtils.equals(label, pair.getKey())) {
-                values.add(pair.getValue());
-            }
-        }
-        return values;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getFirstContextValue(final String label) {
-        for (final Pair<String, Object> pair : contextValues) {
-            if (StringUtils.equals(label, pair.getKey())) {
-                return pair.getValue();
-            }
-        }
-        return null;
+    public List<Pair<String, Object>> getContextEntries() {
+        return contextValues;
     }
 
     /**
@@ -96,19 +68,23 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
      */
     @Override
     public Set<String> getContextLabels() {
-        final Set<String> labels = new HashSet<>();
-        for (final Pair<String, Object> pair : contextValues) {
-            labels.add(pair.getKey());
-        }
-        return labels;
+        return stream().map(Pair::getKey).collect(Collectors.toSet());
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<Pair<String, Object>> getContextEntries() {
-        return contextValues;
+    public List<Object> getContextValues(final String label) {
+        return stream().filter(pair -> StringUtils.equals(label, pair.getKey())).map(Pair::getValue).collect(Collectors.toList());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getFirstContextValue(final String label) {
+        return stream().filter(pair -> StringUtils.equals(label, pair.getKey())).findFirst().map(Pair::getValue).orElse(null);
     }
 
     /**
@@ -154,6 +130,20 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
             buffer.append("---------------------------------");
         }
         return buffer.toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public DefaultExceptionContext setContextValue(final String label, final Object value) {
+        contextValues.removeIf(p -> StringUtils.equals(label, p.getKey()));
+        addContextValue(label, value);
+        return this;
+    }
+
+    private Stream<Pair<String, Object>> stream() {
+        return contextValues.stream();
     }
 
 }
