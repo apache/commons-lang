@@ -1377,10 +1377,7 @@ public class ArrayUtils {
      * @return the cloned array, {@code null} if {@code null} input
      */
     public static boolean[] clone(final boolean[] array) {
-        if (array == null) {
-            return null;
-        }
-        return array.clone();
+        return array != null ? array.clone() : null;
     }
 
     /**
@@ -1394,10 +1391,7 @@ public class ArrayUtils {
      * @return the cloned array, {@code null} if {@code null} input
      */
     public static byte[] clone(final byte[] array) {
-        if (array == null) {
-            return null;
-        }
-        return array.clone();
+        return array != null ? array.clone() : null;
     }
 
     /**
@@ -1411,10 +1405,7 @@ public class ArrayUtils {
      * @return the cloned array, {@code null} if {@code null} input
      */
     public static char[] clone(final char[] array) {
-        if (array == null) {
-            return null;
-        }
-        return array.clone();
+        return array != null ? array.clone() : null;
     }
 
     /**
@@ -1428,10 +1419,7 @@ public class ArrayUtils {
      * @return the cloned array, {@code null} if {@code null} input
      */
     public static double[] clone(final double[] array) {
-        if (array == null) {
-            return null;
-        }
-        return array.clone();
+        return array != null ? array.clone() : null;
     }
 
     /**
@@ -1445,10 +1433,7 @@ public class ArrayUtils {
      * @return the cloned array, {@code null} if {@code null} input
      */
     public static float[] clone(final float[] array) {
-        if (array == null) {
-            return null;
-        }
-        return array.clone();
+        return array != null ? array.clone() : null;
     }
 
     /**
@@ -1462,10 +1447,7 @@ public class ArrayUtils {
      * @return the cloned array, {@code null} if {@code null} input
      */
     public static int[] clone(final int[] array) {
-        if (array == null) {
-            return null;
-        }
-        return array.clone();
+        return array != null ? array.clone() : null;
     }
 
     /**
@@ -1479,10 +1461,7 @@ public class ArrayUtils {
      * @return the cloned array, {@code null} if {@code null} input
      */
     public static long[] clone(final long[] array) {
-        if (array == null) {
-            return null;
-        }
-        return array.clone();
+        return array != null ? array.clone() : null;
     }
 
     /**
@@ -1496,10 +1475,7 @@ public class ArrayUtils {
      * @return the cloned array, {@code null} if {@code null} input
      */
     public static short[] clone(final short[] array) {
-        if (array == null) {
-            return null;
-        }
-        return array.clone();
+        return array != null ? array.clone() : null;
     }
 
     /**
@@ -1518,10 +1494,7 @@ public class ArrayUtils {
      * @return the cloned array, {@code null} if {@code null} input
      */
     public static <T> T[] clone(final T[] array) {
-        if (array == null) {
-            return null;
-        }
-        return array.clone();
+        return array != null ? array.clone() : null;
     }
 
     /**
@@ -1763,10 +1736,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static int getLength(final Object array) {
-        if (array == null) {
-            return 0;
-        }
-        return Array.getLength(array);
+        return array != null ? Array.getLength(array) : 0;
     }
 
     /**
@@ -4323,10 +4293,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static boolean[] nullToEmpty(final boolean[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_BOOLEAN_ARRAY;
-        }
-        return array;
+        return isEmpty(array) ? EMPTY_BOOLEAN_ARRAY : array;
     }
 
     /**
@@ -4345,10 +4312,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Boolean[] nullToEmpty(final Boolean[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_BOOLEAN_OBJECT_ARRAY;
-        }
-        return array;
+        return isEmpty(array) ? EMPTY_BOOLEAN_OBJECT_ARRAY : array;
     }
 
     /**
@@ -4367,10 +4331,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static byte[] nullToEmpty(final byte[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_BYTE_ARRAY;
-        }
-        return array;
+        return isEmpty(array) ? EMPTY_BYTE_ARRAY : array;
     }
 
     /**
@@ -4389,10 +4350,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Byte[] nullToEmpty(final Byte[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_BYTE_OBJECT_ARRAY;
-        }
-        return array;
+        return isEmpty(array) ? EMPTY_BYTE_OBJECT_ARRAY : array;
     }
 
     /**
@@ -4411,10 +4369,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static char[] nullToEmpty(final char[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_CHAR_ARRAY;
-        }
-        return array;
+        return isEmpty(array) ? EMPTY_CHAR_ARRAY : array;
     }
 
     /**
@@ -4433,10 +4388,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Character[] nullToEmpty(final Character[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_CHARACTER_OBJECT_ARRAY;
-        }
-        return array;
+        return isEmpty(array) ? EMPTY_CHARACTER_OBJECT_ARRAY : array;
     }
 
     /**
@@ -4455,10 +4407,7 @@ public class ArrayUtils {
      * @since 3.2
      */
     public static Class<?>[] nullToEmpty(final Class<?>[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_CLASS_ARRAY;
-        }
-        return array;
+        return isEmpty(array) ? EMPTY_CLASS_ARRAY : array;
     }
 
     /**
@@ -4477,10 +4426,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static double[] nullToEmpty(final double[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_DOUBLE_ARRAY;
-        }
-        return array;
+        return isEmpty(array) ? EMPTY_DOUBLE_ARRAY : array;
     }
 
     /**
@@ -4499,10 +4445,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Double[] nullToEmpty(final Double[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_DOUBLE_OBJECT_ARRAY;
-        }
-        return array;
+        return isEmpty(array) ? EMPTY_DOUBLE_OBJECT_ARRAY : array;
     }
 
     /**
@@ -4521,10 +4464,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static float[] nullToEmpty(final float[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_FLOAT_ARRAY;
-        }
-        return array;
+        return isEmpty(array) ? EMPTY_FLOAT_ARRAY : array;
     }
 
     /**
@@ -4543,10 +4483,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Float[] nullToEmpty(final Float[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_FLOAT_OBJECT_ARRAY;
-        }
-        return array;
+        return isEmpty(array) ? EMPTY_FLOAT_OBJECT_ARRAY : array;
     }
 
     /**
@@ -4565,10 +4502,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static int[] nullToEmpty(final int[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_INT_ARRAY;
-        }
-        return array;
+        return isEmpty(array) ? EMPTY_INT_ARRAY : array;
     }
 
     /**
@@ -4587,10 +4521,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Integer[] nullToEmpty(final Integer[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_INTEGER_OBJECT_ARRAY;
-        }
-        return array;
+        return isEmpty(array) ? EMPTY_INTEGER_OBJECT_ARRAY : array;
     }
 
     /**
@@ -4609,10 +4540,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static long[] nullToEmpty(final long[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_LONG_ARRAY;
-        }
-        return array;
+        return isEmpty(array) ? EMPTY_LONG_ARRAY : array;
     }
 
     /**
@@ -4631,10 +4559,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Long[] nullToEmpty(final Long[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_LONG_OBJECT_ARRAY;
-        }
-        return array;
+        return isEmpty(array) ? EMPTY_LONG_OBJECT_ARRAY : array;
     }
 
     /**
@@ -4653,10 +4578,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Object[] nullToEmpty(final Object[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_OBJECT_ARRAY;
-        }
-        return array;
+        return isEmpty(array) ? EMPTY_OBJECT_ARRAY : array;
     }
 
     /**
@@ -4675,10 +4597,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static short[] nullToEmpty(final short[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_SHORT_ARRAY;
-        }
-        return array;
+        return isEmpty(array) ? EMPTY_SHORT_ARRAY : array;
     }
 
     /**
@@ -4697,10 +4616,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Short[] nullToEmpty(final Short[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_SHORT_OBJECT_ARRAY;
-        }
-        return array;
+        return isEmpty(array) ? EMPTY_SHORT_OBJECT_ARRAY : array;
     }
 
     /**
@@ -4719,10 +4635,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static String[] nullToEmpty(final String[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_STRING_ARRAY;
-        }
-        return array;
+        return isEmpty(array) ? EMPTY_STRING_ARRAY : array;
     }
 
     /**
@@ -5857,10 +5770,7 @@ public class ArrayUtils {
      */
     public static boolean[] removeElement(final boolean[] array, final boolean element) {
         final int index = indexOf(array, element);
-        if (index == INDEX_NOT_FOUND) {
-            return clone(array);
-        }
-        return remove(array, index);
+        return index == INDEX_NOT_FOUND ? clone(array) : remove(array, index);
     }
 
     /**
@@ -5890,10 +5800,7 @@ public class ArrayUtils {
      */
     public static byte[] removeElement(final byte[] array, final byte element) {
         final int index = indexOf(array, element);
-        if (index == INDEX_NOT_FOUND) {
-            return clone(array);
-        }
-        return remove(array, index);
+        return index == INDEX_NOT_FOUND ? clone(array) : remove(array, index);
     }
 
     /**
@@ -5923,10 +5830,7 @@ public class ArrayUtils {
      */
     public static char[] removeElement(final char[] array, final char element) {
         final int index = indexOf(array, element);
-        if (index == INDEX_NOT_FOUND) {
-            return clone(array);
-        }
-        return remove(array, index);
+        return index == INDEX_NOT_FOUND ? clone(array) : remove(array, index);
     }
 
     /**
@@ -5956,10 +5860,7 @@ public class ArrayUtils {
      */
     public static double[] removeElement(final double[] array, final double element) {
         final int index = indexOf(array, element);
-        if (index == INDEX_NOT_FOUND) {
-            return clone(array);
-        }
-        return remove(array, index);
+        return index == INDEX_NOT_FOUND ? clone(array) : remove(array, index);
     }
 
     /**
@@ -5989,10 +5890,7 @@ public class ArrayUtils {
      */
     public static float[] removeElement(final float[] array, final float element) {
         final int index = indexOf(array, element);
-        if (index == INDEX_NOT_FOUND) {
-            return clone(array);
-        }
-        return remove(array, index);
+        return index == INDEX_NOT_FOUND ? clone(array) : remove(array, index);
     }
 
     /**
@@ -6022,10 +5920,7 @@ public class ArrayUtils {
      */
     public static int[] removeElement(final int[] array, final int element) {
         final int index = indexOf(array, element);
-        if (index == INDEX_NOT_FOUND) {
-            return clone(array);
-        }
-        return remove(array, index);
+        return index == INDEX_NOT_FOUND ? clone(array) : remove(array, index);
     }
 
     /**
@@ -6055,10 +5950,7 @@ public class ArrayUtils {
      */
     public static long[] removeElement(final long[] array, final long element) {
         final int index = indexOf(array, element);
-        if (index == INDEX_NOT_FOUND) {
-            return clone(array);
-        }
-        return remove(array, index);
+        return index == INDEX_NOT_FOUND ? clone(array) : remove(array, index);
     }
 
     /**
@@ -6088,10 +5980,7 @@ public class ArrayUtils {
      */
     public static short[] removeElement(final short[] array, final short element) {
         final int index = indexOf(array, element);
-        if (index == INDEX_NOT_FOUND) {
-            return clone(array);
-        }
-        return remove(array, index);
+        return index == INDEX_NOT_FOUND ? clone(array) : remove(array, index);
     }
 
     /**
@@ -6122,10 +6011,7 @@ public class ArrayUtils {
      */
     public static <T> T[] removeElement(final T[] array, final Object element) {
         final int index = indexOf(array, element);
-        if (index == INDEX_NOT_FOUND) {
-            return clone(array);
-        }
-        return remove(array, index);
+        return index == INDEX_NOT_FOUND ? clone(array) : remove(array, index);
     }
 
     /**
@@ -6682,10 +6568,9 @@ public class ArrayUtils {
      * @param array  the array to reverse, may be {@code null}
      */
     public static void reverse(final byte[] array) {
-        if (array == null) {
-            return;
+        if (array != null) {
+            reverse(array, 0, array.length);
         }
-        reverse(array, 0, array.length);
     }
 
     /**
@@ -6729,10 +6614,9 @@ public class ArrayUtils {
      * @param array  the array to reverse, may be {@code null}
      */
     public static void reverse(final char[] array) {
-        if (array == null) {
-            return;
+        if (array != null) {
+            reverse(array, 0, array.length);
         }
-        reverse(array, 0, array.length);
     }
 
     /**
@@ -6776,10 +6660,9 @@ public class ArrayUtils {
      * @param array  the array to reverse, may be {@code null}
      */
     public static void reverse(final double[] array) {
-        if (array == null) {
-            return;
+        if (array != null) {
+            reverse(array, 0, array.length);
         }
-        reverse(array, 0, array.length);
     }
 
     /**
@@ -6823,10 +6706,9 @@ public class ArrayUtils {
      * @param array  the array to reverse, may be {@code null}
      */
     public static void reverse(final float[] array) {
-        if (array == null) {
-            return;
+        if (array != null) {
+            reverse(array, 0, array.length);
         }
-        reverse(array, 0, array.length);
     }
 
     /**
@@ -6870,10 +6752,9 @@ public class ArrayUtils {
      * @param array  the array to reverse, may be {@code null}
      */
     public static void reverse(final int[] array) {
-        if (array == null) {
-            return;
+        if (array != null) {
+            reverse(array, 0, array.length);
         }
-        reverse(array, 0, array.length);
     }
 
     /**
@@ -6917,10 +6798,9 @@ public class ArrayUtils {
      * @param array  the array to reverse, may be {@code null}
      */
     public static void reverse(final long[] array) {
-        if (array == null) {
-            return;
+        if (array != null) {
+            reverse(array, 0, array.length);
         }
-        reverse(array, 0, array.length);
     }
 
     /**
@@ -6967,10 +6847,9 @@ public class ArrayUtils {
      * @param array  the array to reverse, may be {@code null}
      */
     public static void reverse(final Object[] array) {
-        if (array == null) {
-            return;
+        if (array != null) {
+            reverse(array, 0, array.length);
         }
-        reverse(array, 0, array.length);
     }
 
     /**
@@ -7014,10 +6893,9 @@ public class ArrayUtils {
      * @param array  the array to reverse, may be {@code null}
      */
     public static void reverse(final short[] array) {
-        if (array == null) {
-            return;
+        if (array != null) {
+            reverse(array, 0, array.length);
         }
-        reverse(array, 0, array.length);
     }
 
     /**
@@ -7107,10 +6985,9 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void shift(final boolean[] array, final int offset) {
-        if (array == null) {
-            return;
+        if (array != null) {
+            shift(array, 0, array.length, offset);
         }
-        shift(array, 0, array.length, offset);
     }
 
     /**
@@ -7183,10 +7060,9 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void shift(final byte[] array, final int offset) {
-        if (array == null) {
-            return;
+        if (array != null) {
+            shift(array, 0, array.length, offset);
         }
-        shift(array, 0, array.length, offset);
     }
 
     /**
@@ -7259,10 +7135,9 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void shift(final char[] array, final int offset) {
-        if (array == null) {
-            return;
+        if (array != null) {
+            shift(array, 0, array.length, offset);
         }
-        shift(array, 0, array.length, offset);
     }
 
     /**
@@ -7335,10 +7210,9 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void shift(final double[] array, final int offset) {
-        if (array == null) {
-            return;
+        if (array != null) {
+            shift(array, 0, array.length, offset);
         }
-        shift(array, 0, array.length, offset);
     }
 
     /**
@@ -7411,10 +7285,9 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void shift(final float[] array, final int offset) {
-        if (array == null) {
-            return;
+        if (array != null) {
+            shift(array, 0, array.length, offset);
         }
-        shift(array, 0, array.length, offset);
     }
 
     /**
@@ -7487,10 +7360,9 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void shift(final int[] array, final int offset) {
-        if (array == null) {
-            return;
+        if (array != null) {
+            shift(array, 0, array.length, offset);
         }
-        shift(array, 0, array.length, offset);
     }
 
     /**
@@ -7563,10 +7435,9 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void shift(final long[] array, final int offset) {
-        if (array == null) {
-            return;
+        if (array != null) {
+            shift(array, 0, array.length, offset);
         }
-        shift(array, 0, array.length, offset);
     }
 
     /**
@@ -7639,10 +7510,9 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void shift(final Object[] array, final int offset) {
-        if (array == null) {
-            return;
+        if (array != null) {
+            shift(array, 0, array.length, offset);
         }
-        shift(array, 0, array.length, offset);
     }
 
     /**
@@ -7715,10 +7585,9 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void shift(final short[] array, final int offset) {
-        if (array == null) {
-            return;
+        if (array != null) {
+            shift(array, 0, array.length, offset);
         }
-        shift(array, 0, array.length, offset);
     }
 
     /**
@@ -8403,9 +8272,6 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final boolean[] array, final int offset1, final int offset2) {
-        if (isEmpty(array)) {
-            return;
-        }
         swap(array, offset1, offset2, 1);
     }
 
@@ -8474,9 +8340,6 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final byte[] array, final int offset1, final int offset2) {
-        if (isEmpty(array)) {
-            return;
-        }
         swap(array, offset1, offset2, 1);
     }
 
@@ -8544,9 +8407,6 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final char[] array, final int offset1, final int offset2) {
-        if (isEmpty(array)) {
-            return;
-        }
         swap(array, offset1, offset2, 1);
     }
 
@@ -8614,9 +8474,6 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final double[] array, final int offset1, final int offset2) {
-        if (isEmpty(array)) {
-            return;
-        }
         swap(array, offset1, offset2, 1);
     }
 
@@ -8684,9 +8541,6 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final float[] array, final int offset1, final int offset2) {
-        if (isEmpty(array)) {
-            return;
-        }
         swap(array, offset1, offset2, 1);
     }
 
@@ -8755,9 +8609,6 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final int[] array, final int offset1, final int offset2) {
-        if (isEmpty(array)) {
-            return;
-        }
         swap(array, offset1, offset2, 1);
     }
 
@@ -8826,9 +8677,6 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final long[] array, final int offset1, final int offset2) {
-        if (isEmpty(array)) {
-            return;
-        }
         swap(array, offset1, offset2, 1);
     }
 
@@ -8896,9 +8744,6 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final Object[] array, final int offset1, final int offset2) {
-        if (isEmpty(array)) {
-            return;
-        }
         swap(array, offset1, offset2, 1);
     }
 
@@ -8966,9 +8811,6 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final short[] array, final int offset1, final int offset2) {
-        if (isEmpty(array)) {
-            return;
-        }
         swap(array, offset1, offset2, 1);
     }
 
