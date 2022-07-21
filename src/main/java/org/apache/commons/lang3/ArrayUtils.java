@@ -3550,7 +3550,7 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static boolean isSorted(final boolean[] array) {
-        if (array == null || array.length < 2) {
+        if (getLength(array) < 2) {
             return true;
         }
 
@@ -3575,7 +3575,7 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static boolean isSorted(final byte[] array) {
-        if (array == null || array.length < 2) {
+        if (getLength(array) < 2) {
             return true;
         }
 
@@ -3600,7 +3600,7 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static boolean isSorted(final char[] array) {
-        if (array == null || array.length < 2) {
+        if (getLength(array) < 2) {
             return true;
         }
 
@@ -3625,7 +3625,7 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static boolean isSorted(final double[] array) {
-        if (array == null || array.length < 2) {
+        if (getLength(array) < 2) {
             return true;
         }
 
@@ -3650,7 +3650,7 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static boolean isSorted(final float[] array) {
-        if (array == null || array.length < 2) {
+        if (getLength(array) < 2) {
             return true;
         }
 
@@ -3675,7 +3675,7 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static boolean isSorted(final int[] array) {
-        if (array == null || array.length < 2) {
+        if (getLength(array) < 2) {
             return true;
         }
 
@@ -3700,7 +3700,7 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static boolean isSorted(final long[] array) {
-        if (array == null || array.length < 2) {
+        if (getLength(array) < 2) {
             return true;
         }
 
@@ -3725,7 +3725,7 @@ public class ArrayUtils {
      * @since 3.4
      */
     public static boolean isSorted(final short[] array) {
-        if (array == null || array.length < 2) {
+        if (getLength(array) < 2) {
             return true;
         }
 
@@ -3766,7 +3766,7 @@ public class ArrayUtils {
      */
     public static <T> boolean isSorted(final T[] array, final Comparator<T> comparator) {
         Objects.requireNonNull(comparator, "comparator");
-        if (array == null || array.length < 2) {
+        if (getLength(array) < 2) {
             return true;
         }
         T previous = array[0];
