@@ -1629,6 +1629,20 @@ public class ArrayUtils {
     }
 
     /**
+     * Checks if the value is in the given array.
+     * <p>
+     * The method returns {@code false} if a {@code null} array is passed in.
+     * </p>
+     *
+     * @param array  the array to search through
+     * @param valueToFind  the value to find
+     * @return {@code true} if the array contains the object
+     */
+    public static boolean contains(final short[] array, final short valueToFind) {
+        return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
+    }
+
+    /**
      * Checks if any of the objects are in the given array.
      * <p>
      * The method returns {@code false} if a {@code null} array is passed in.
@@ -1641,20 +1655,6 @@ public class ArrayUtils {
      */
     public static boolean containsAny(final Object[] array, final Object... objectsToFind) {
         return Streams.of(objectsToFind).anyMatch(e -> contains(array, e));
-    }
-
-    /**
-     * Checks if the value is in the given array.
-     * <p>
-     * The method returns {@code false} if a {@code null} array is passed in.
-     * </p>
-     *
-     * @param array  the array to search through
-     * @param valueToFind  the value to find
-     * @return {@code true} if the array contains the object
-     */
-    public static boolean contains(final short[] array, final short valueToFind) {
-        return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
     }
 
     /**
@@ -3152,6 +3152,16 @@ public class ArrayUtils {
     }
 
     /**
+     * Checks if an array is empty or {@code null}.
+     *
+     * @param array the array to test
+     * @return {@code true} if the array is empty or {@code null}
+     */
+    private static boolean isArrayEmpty(final Object array) {
+        return getLength(array) == 0;
+    }
+
+    /**
      * Returns whether a given array can safely be accessed at the given index.
      *
      * <pre>
@@ -3178,7 +3188,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean isEmpty(final boolean[] array) {
-        return getLength(array) == 0;
+        return isArrayEmpty(array);
     }
 
     /**
@@ -3189,7 +3199,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean isEmpty(final byte[] array) {
-        return getLength(array) == 0;
+        return isArrayEmpty(array);
     }
 
     /**
@@ -3200,7 +3210,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean isEmpty(final char[] array) {
-        return getLength(array) == 0;
+        return isArrayEmpty(array);
     }
 
     /**
@@ -3211,7 +3221,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean isEmpty(final double[] array) {
-        return getLength(array) == 0;
+        return isArrayEmpty(array);
     }
 
     /**
@@ -3222,7 +3232,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean isEmpty(final float[] array) {
-        return getLength(array) == 0;
+        return isArrayEmpty(array);
     }
 
     /**
@@ -3233,7 +3243,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean isEmpty(final int[] array) {
-        return getLength(array) == 0;
+        return isArrayEmpty(array);
     }
 
     /**
@@ -3244,7 +3254,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean isEmpty(final long[] array) {
-        return getLength(array) == 0;
+        return isArrayEmpty(array);
     }
 
     /**
@@ -3255,7 +3265,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean isEmpty(final Object[] array) {
-        return getLength(array) == 0;
+        return isArrayEmpty(array);
     }
 
     /**
@@ -3266,7 +3276,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean isEmpty(final short[] array) {
-        return getLength(array) == 0;
+        return isArrayEmpty(array);
     }
 
     /**
