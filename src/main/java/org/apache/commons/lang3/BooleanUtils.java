@@ -268,7 +268,7 @@ public class BooleanUtils {
                 if (result) {
                     return false;
                 }
-                result = element;
+                result = true;
             }
         }
         return result;
