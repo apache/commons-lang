@@ -493,7 +493,7 @@ public class StringEscapeUtils {
      * <p>The only difference between Java strings and Json strings
      * is that in Json, forward-slash (/) is escaped.</p>
      *
-     * <p>See http://www.ietf.org/rfc/rfc4627.txt for further details. </p>
+     * <p>See https://www.ietf.org/rfc/rfc4627.txt for further details. </p>
      *
      * <p>Example:</p>
      * <pre>
@@ -576,11 +576,11 @@ public class StringEscapeUtils {
      * @param input  the {@link String} to escape, may be null
      * @return a new escaped {@link String}, {@code null} if null string input
      *
-     * @see <a href="http://hotwired.lycos.com/webmonkey/reference/special_characters/">ISO Entities</a>
-     * @see <a href="http://www.w3.org/TR/REC-html32#latin1">HTML 3.2 Character Entities for ISO Latin-1</a>
-     * @see <a href="http://www.w3.org/TR/REC-html40/sgml/entities.html">HTML 4.0 Character entity references</a>
-     * @see <a href="http://www.w3.org/TR/html401/charset.html#h-5.3">HTML 4.01 Character References</a>
-     * @see <a href="http://www.w3.org/TR/html401/charset.html#code-position">HTML 4.01 Code positions</a>
+     * @see <a href="https://web.archive.org/web/20060225074150/https://hotwired.lycos.com/webmonkey/reference/special_characters/">ISO Entities</a>
+     * @see <a href="https://www.w3.org/TR/REC-html32#latin1">HTML 3.2 Character Entities for ISO Latin-1</a>
+     * @see <a href="https://www.w3.org/TR/REC-html40/sgml/entities.html">HTML 4.0 Character entity references</a>
+     * @see <a href="https://www.w3.org/TR/html401/charset.html#h-5.3">HTML 4.01 Character References</a>
+     * @see <a href="https://www.w3.org/TR/html401/charset.html#code-position">HTML 4.01 Code positions</a>
      *
      * @since 3.0
      */
@@ -757,8 +757,8 @@ public class StringEscapeUtils {
      * <p>If the value does not contain a comma, newline or double quote, then the
      *    String value is returned unchanged.</p>
      *
-     * see <a href="http://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia</a> and
-     * <a href="http://tools.ietf.org/html/rfc4180">RFC 4180</a>.
+     * see <a href="https://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia</a> and
+     * <a href="https://datatracker.ietf.org/doc/html/rfc4180">RFC 4180</a>.
      *
      * @param input the input CSV column String, may be null
      * @return the input String, enclosed in double quotes if the value contains a comma,
@@ -782,8 +782,8 @@ public class StringEscapeUtils {
      * <p>If the value is not enclosed in double quotes, or is and does not contain a
      *    comma, newline or double quote, then the String value is returned unchanged.</p>
      *
-     * see <a href="http://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia</a> and
-     * <a href="http://tools.ietf.org/html/rfc4180">RFC 4180</a>.
+     * see <a href="https://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia</a> and
+     * <a href="https://datatracker.ietf.org/doc/html/rfc4180">RFC 4180</a>.
      *
      * @param input the input CSV column String, may be null
      * @return the input String, with enclosing double quotes removed and embedded double

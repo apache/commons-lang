@@ -484,7 +484,7 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
         text = DurationFormatUtils.formatPeriod(base.getTime().getTime(), cal.getTime().getTime(),
                 DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN, false, timeZone);
         assertEquals("P32Y1M22DT9H11M12.001S", text);
-        // test fixture from example in http://www.w3.org/TR/xmlschema-2/#duration
+        // test fixture from example in https://www.w3.org/TR/xmlschema-2/#duration
         cal.set(1971, Calendar.FEBRUARY, 3, 10, 30, 0);
         cal.set(Calendar.MILLISECOND, 0);
         text = DurationFormatUtils.formatPeriod(base.getTime().getTime(), cal.getTime().getTime(),

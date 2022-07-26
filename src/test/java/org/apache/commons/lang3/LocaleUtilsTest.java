@@ -204,7 +204,7 @@ public class LocaleUtilsTest extends AbstractLangTest {
         assertValidToLocale("us_EN_A", "us", "EN", "A");
         assertValidToLocale("us-EN-A", "us", "EN", "A");
         // this isn't pretty, but was caused by a jdk bug it seems
-        // http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4210525
+        // https://bugs.java.com/bugdatabase/view_bug.do?bug_id=4210525
         if (SystemUtils.isJavaVersionAtLeast(JAVA_1_4)) {
             assertValidToLocale("us_EN_a", "us", "EN", "a");
             assertValidToLocale("us_EN_SFsafdFDsdfF", "us", "EN", "SFsafdFDsdfF");

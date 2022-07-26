@@ -42,7 +42,7 @@ However, we don't recommend that as a long-term solution.)
 If your code previously relied on unusual aspects, it may no longer work.
 
 - Starting with version 2.1, Ant version 1.6.x is required to build. Copy 
-junit.jar to ANT_HOME/lib. You can get JUnit from http://www.junit.org. See the developer's guide
+junit.jar to ANT_HOME/lib. You can get JUnit from https://www.junit.org. See the developer's guide
 for more details.
 
 

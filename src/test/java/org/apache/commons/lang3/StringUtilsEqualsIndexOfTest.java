@@ -369,7 +369,7 @@ public class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
     }
 
     /**
-     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
+     * See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
      */
     @Test
     public void testIndexOfAny_StringCharArrayWithSupplementaryChars() {
@@ -415,7 +415,7 @@ public class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
     }
 
     /**
-     * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
+     * See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
      */
     @Test
     public void testIndexOfAny_StringStringWithSupplementaryChars() {

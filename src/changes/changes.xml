@@ -1095,7 +1095,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="add" issue="LANG-351">Extension to ClassUtils: Obtain the primitive class from a wrapper.</action>
     <action type="fix" issue="LANG-399">Javadoc bugs - cannot find object.</action>
     <action type="add" issue="LANG-345">Optimize HashCodeBuilder.append(Object).</action>
-    <action type="fix" issue="LANG-385">https://commons.apache.org/lang/developerguide.html "Building" section is incorrect and incomplete.</action>
+    <action type="fix" issue="LANG-385">https://commons.apache.org/proper/commons-lang/developerguide.html "Building" section is incorrect and incomplete.</action>
     <action type="fix" issue="LANG-410">Ambiguous / confusing names in StringUtils replace* methods.</action>
     <action type="add" issue="LANG-257">Add new splitByWholeSeparatorPreserveAllTokens() methods to StringUtils.</action>
     <action type="add" issue="LANG-356">Add getStartTime to StopWatch.</action>

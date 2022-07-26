@@ -233,7 +233,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     /**
      * <p>Creates a {@link Fraction} instance from a {@code double} value.</p>
      *
-     * <p>This method uses the <a href="http://archives.math.utk.edu/articles/atuyl/confrac/">
+     * <p>This method uses the <a href="https://web.archive.org/web/20210516065058/http%3A//archives.math.utk.edu/articles/atuyl/confrac/">
      *  continued fraction algorithm</a>, computing a maximum of
      *  25 convergents and bounding the denominator by 10,000.</p>
      *

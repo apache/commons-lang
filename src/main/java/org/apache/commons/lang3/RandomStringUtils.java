@@ -31,7 +31,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * RandomStringGenerator</a> instead.</p>
  *
  * <p>The Apache Commons project provides
- * <a href="https://commons.apache.org/rng">Commons RNG</a> dedicated to pseudo-random number generation, that may be
+ * <a href="https://commons.apache.org/proper/commons-rng/">Commons RNG</a> dedicated to pseudo-random number generation, that may be
  * a better choice for applications with more stringent requirements
  * (performance and/or correctness).</p>
  *

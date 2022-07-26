@@ -24,8 +24,7 @@ limitations under the License.
 <!-- ================================================== -->
 <section name="Overview">
 <p>
-  Commons Lang uses <a href="http://maven.apache.org">Maven</a> or
-  <a href="http://ant.apache.org">Ant</a> as a build system.
+  Commons Lang uses <a href="https://maven.apache.org">Maven</a>.
 </p>
 <p>
   You may also be interested in the upgrade notes:

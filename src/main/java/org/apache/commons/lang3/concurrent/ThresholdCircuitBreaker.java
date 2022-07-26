@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * <p>
  * A simple implementation of the <a
- * href="http://martinfowler.com/bliki/CircuitBreaker.html">Circuit Breaker</a> pattern
+ * href="https://martinfowler.com/bliki/CircuitBreaker.html">Circuit Breaker</a> pattern
  * that opens if the requested increment amount is greater than a given threshold.
  * </p>
  *

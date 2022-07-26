@@ -151,7 +151,7 @@ public class FastDateParserTest extends AbstractLangTest {
         final Calendar cal = Calendar.getInstance(zone, locale);
         cal.clear();
 
-        // http://docs.oracle.com/javase/6/docs/technotes/guides/intl/calendar.doc.html
+        // https://docs.oracle.com/javase/8/docs/technotes/guides/intl/calendar.doc.html
         if (locale.equals(FastDateParser.JAPANESE_IMPERIAL)) {
             if (year < 1868) {
                 cal.set(Calendar.ERA, 0);

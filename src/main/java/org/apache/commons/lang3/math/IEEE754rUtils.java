@@ -21,7 +21,7 @@ import org.apache.commons.lang3.Validate;
 /**
  * <p>Provides IEEE-754r variants of NumberUtils methods. </p>
  *
- * <p>See: <a href="http://en.wikipedia.org/wiki/IEEE_754r">http://en.wikipedia.org/wiki/IEEE_754r</a></p>
+ * <p>See: <a href="https://en.wikipedia.org/wiki/IEEE_754r">https://en.wikipedia.org/wiki/IEEE_754r</a></p>
  *
  * @since 2.4
  */

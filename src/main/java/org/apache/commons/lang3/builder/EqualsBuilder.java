@@ -34,7 +34,7 @@ import org.apache.commons.lang3.tuple.Pair;
  *
  * <p> This class provides methods to build a good equals method for any
  * class. It follows rules laid out in
- * <a href="http://www.oracle.com/technetwork/java/effectivejava-136174.html">Effective Java</a>
+ * <a href="https://www.oracle.com/technetwork/java/effectivejava-136174.html">Effective Java</a>
  * , by Joshua Bloch. In particular the rule for comparing {@code doubles},
  * {@code floats}, and arrays can be tricky. Also, making sure that
  * {@code equals()} and {@code hashCode()} are consistent can be

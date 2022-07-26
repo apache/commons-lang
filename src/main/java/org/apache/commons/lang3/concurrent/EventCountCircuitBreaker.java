@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * <p>
  * A simple implementation of the <a
- * href="http://martinfowler.com/bliki/CircuitBreaker.html">Circuit Breaker</a> pattern
+ * href="https://martinfowler.com/bliki/CircuitBreaker.html">Circuit Breaker</a> pattern
  * that counts specific events.
  * </p>
  * <p>

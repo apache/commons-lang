@@ -23,14 +23,14 @@ import java.nio.charset.IllegalCharsetNameException;
 /**
  * <p>Character encoding names required of every implementation of the Java platform.</p>
  *
- * <p>According to <a href="http://docs.oracle.com/javase/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character
+ * <p>According to <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/charset/Charset.html">JRE character
  * encoding names</a>:</p>
  *
  * <p><cite>Every implementation of the Java platform is required to support the following character encodings.
  * Consult the release documentation for your implementation to see if any other encodings are supported.
  * </cite></p>
  *
- * @see <a href="http://docs.oracle.com/javase/6/docs/technotes/guides/intl/encoding.doc.html">JRE character encoding names</a>
+ * @see <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/intl/encoding.doc.html">JRE character encoding names</a>
  * @since 2.1
  * @deprecated Java 7 introduced {@link java.nio.charset.StandardCharsets}, which defines these constants as
  * {@link Charset} objects. Use {@link Charset#name()} to get the string values provided in this class.
@@ -87,7 +87,7 @@ public class CharEncoding {
      * <p>Returns whether the named charset is supported.</p>
      *
      * <p>This is similar to <a
-     * href="http://docs.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html#isSupported%28java.lang.String%29">
+     * href="https://docs.oracle.com/javase/8/docs/api/java/nio/charset/Charset.html#isSupported%28java.lang.String%29">
      * java.nio.charset.Charset.isSupported(String)</a> but handles more formats</p>
      *
      * @param name  the name of the requested charset; may be either a canonical name or an alias, null returns false

@@ -1424,7 +1424,7 @@ public class ClassUtilsTest extends AbstractLangTest {
         assertNull(ClassUtils.primitiveToWrapper(null), "null -> null");
     }
 
-    // Show the Java bug: http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4071957
+    // Show the Java bug: https://bugs.java.com/bugdatabase/view_bug.do?bug_id=4071957
     // We may have to delete this if a JDK fixes the bug.
     @Test
     public void testShowJavaBug() throws Exception {
