@@ -100,6 +100,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      *            test is enabled and returns true.  The result of this test
      *            is never changed throughout the life of this {@link DiffBuilder}.
      * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if {@code lhs} or {@code rhs} is {@code null}
      * @since 3.4
      */
