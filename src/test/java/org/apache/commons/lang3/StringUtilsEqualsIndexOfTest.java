@@ -368,6 +368,16 @@ public class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
         assertEquals(-1, StringUtils.indexOfAny("ab", 'z'));
     }
 
+
+    @Test
+    public void testIndexOfAny_String() {
+        assertEquals(1, StringUtils.indexOfAny("aba", 1, "a"));
+        assertEquals(-1, StringUtils.indexOfAny("aba", -1, "a"));
+        assertEquals(9, StringUtils.indexOfAny("abbbbbbbbbaba", 1, "a"));
+        assertEquals(-1, StringUtils.indexOfAny("testNull", 1, null));
+        assertEquals(-1, StringUtils.indexOfAny("testEmpty", 1, "    "));
+    }
+
     /**
      * See http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html
      */
