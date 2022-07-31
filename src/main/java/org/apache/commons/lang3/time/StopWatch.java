@@ -229,6 +229,11 @@ public class StopWatch {
     private long stopTimeNanos;
 
     /**
+     * The lap time in nanoseconds.
+     */
+    private long lapStartTimeNanos;
+
+    /**
      * <p>
      * Constructor.
      * </p>
@@ -485,7 +490,9 @@ public class StopWatch {
         if (this.runningState != State.SUSPENDED) {
             throw new IllegalStateException("Stopwatch must be suspended to resume. ");
         }
-        this.startTimeNanos += System.nanoTime() - this.stopTimeNanos;
+        long offset = System.nanoTime() - this.stopTimeNanos;
+        this.startTimeNanos += offset;
+        this.lapStartTimeNanos += offset;
         this.runningState = State.RUNNING;
     }
 
@@ -510,6 +517,47 @@ public class StopWatch {
         this.splitState = SplitState.SPLIT;
     }
 
+
+    /**
+     * <p>
+     * Gets the time of current lap in the specified TimeUnit. Closes current lap and opens new one.
+     * </p>
+     *
+     * <p>
+     * First lap is opened on start.
+     * </p>
+     *
+     * <p>
+     * The resulting time will be expressed in the desired TimeUnit with any remainder rounded down.
+     * </p>
+     *
+     * @param timeUnit the unit of time, not null
+     * @return the time in the specified TimeUnit, rounded down
+     * @since 3.12
+     */
+    public long lap(final TimeUnit timeUnit) {
+        if (this.runningState != State.RUNNING) {
+            throw new IllegalStateException("Stopwatch is not running. ");
+        }
+        long now = System.nanoTime();
+        long lap = now - this.lapStartTimeNanos;
+        this.lapStartTimeNanos = now;
+        return timeUnit.convert(lap, TimeUnit.NANOSECONDS);
+    }
+
+    /**
+     * <p>
+     * Shortcut for lap(TimeUnit.MILLISECONDS)
+     * </p>
+     *
+     * @see StopWatch#lap(TimeUnit)
+     * @return the lap time in milliseconds
+     * @since 3.12
+     */
+    public long lap() {
+        return lap(TimeUnit.MILLISECONDS);
+    }
+
     /**
      * <p>
      * Starts the stopwatch.
@@ -530,6 +578,7 @@ public class StopWatch {
             throw new IllegalStateException("Stopwatch already started. ");
         }
         this.startTimeNanos = System.nanoTime();
+        this.lapStartTimeNanos = startTimeNanos;
         this.startTimeMillis = System.currentTimeMillis();
         this.runningState = State.RUNNING;
     }
