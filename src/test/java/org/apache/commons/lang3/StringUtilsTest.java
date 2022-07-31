@@ -2318,6 +2318,32 @@ public class StringUtilsTest extends AbstractLangTest {
         assertEquals("defgabc", StringUtils.rotate("abcdefg", -17));
     }
 
+    /** Unit test for {@link StringUtils#splitEvery(String, int)}. */
+    @Test
+    public void testSplitEvery() {
+        String[] array = StringUtils.splitEvery( "test1", 10 );
+        assertEquals( 1, array.length );
+        assertEquals( "test1", array[0] );
+
+        array = StringUtils.splitEvery( "test2", 4 );
+        assertEquals( 2, array.length );
+        assertEquals( "test", array[0] );
+        assertEquals( "2", array[1] );
+
+        array = StringUtils.splitEvery( "", 10 );
+        assertEquals( 1, array.length );
+
+        array = StringUtils.splitEvery( "testAbgTestsABG", -2 );
+        assertEquals( 1, array.length );
+        assertEquals( "testAbgTestsABG", array[0] );
+
+        array = StringUtils.splitEvery( "testAbgTestsABG", 2 );
+        assertEquals( 8, array.length );
+        assertEquals( "te", array[0] );
+
+        assertNull( StringUtils.splitEvery( null, 4 ) );
+    }
+
     @Test
     public void testSplit_String() {
         assertNull(StringUtils.split(null));
