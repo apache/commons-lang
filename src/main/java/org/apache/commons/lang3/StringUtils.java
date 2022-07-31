@@ -519,6 +519,60 @@ public class StringUtils {
     }
 
     /**
+     * Appends the suffix to the end of the string if the string is not
+     * empty ("") or {@code null}.
+     *
+     * <pre>
+     * StringUtils.appendIfNotEmpty(null, " ")      = null
+     * StringUtils.appendIfNotEmpty(null, "-post")  = null
+     * StringUtils.appendIfNotEmpty("", "-post")    = ""
+     * StringUtils.appendIfNotEmpty(" ", " ")       = "  "
+     * StringUtils.appendIfNotEmpty(" ", "-post")   = " -post"
+     * StringUtils.appendIfNotEmpty("abc", null)    = "abc"
+     * StringUtils.appendIfNotEmpty("abc", "")      = "abc"
+     * StringUtils.appendIfNotEmpty("abc", " ")     = "abc "
+     * StringUtils.appendIfNotEmpty("abc", "-post") = "abc-post"
+     * </pre>
+     * @param str The string.
+     * @param suffix The suffix to append if 'str' is not empty. May be null.
+     * @return If 'str' is empty, then 'str', otherwise 'str' with suffix added.
+     */
+    public static String appendIfNotEmpty(final String str, final CharSequence suffix) {
+        if (isEmpty(suffix) || isEmpty(str)) {
+            return str;
+        }
+        return str + suffix.toString();
+    }
+
+    /**
+     * Appends the suffix to the end of the string if the string is not
+     * empty (""), {@code null}, or whitespace only.
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <pre>
+     * StringUtils.appendIfNotBlank(null, " ")      = null
+     * StringUtils.appendIfNotBlank(null, "-post")  = null
+     * StringUtils.appendIfNotBlank("", "-post")    = ""
+     * StringUtils.appendIfNotBlank(" ", " ")       = " "
+     * StringUtils.appendIfNotBlank(" ", "-post")   = " "
+     * StringUtils.appendIfNotBlank("abc", null)    = "abc"
+     * StringUtils.appendIfNotBlank("abc", "")      = "abc"
+     * StringUtils.appendIfNotBlank("abc", " ")     = "abc "
+     * StringUtils.appendIfNotBlank("abc", "-post") = "abc-post"
+     * </pre>
+     * @param str The string.
+     * @param suffix The suffix to append if 'str' is not blank. May be null.
+     * @return If 'str' is blank, then 'str', otherwise 'str' with suffix added.
+     */
+    public static String appendIfNotBlank(final String str, final CharSequence suffix) {
+        if (isEmpty(suffix) || isBlank(str)) {
+            return str;
+        }
+        return str + suffix.toString();
+    }
+
+    /**
      * <p>Capitalizes a String changing the first character to title case as
      * per {@link Character#toTitleCase(int)}. No other characters are changed.</p>
      *
@@ -5852,6 +5906,60 @@ public class StringUtils {
      */
     public static String prependIfMissingIgnoreCase(final String str, final CharSequence prefix, final CharSequence... prefixes) {
         return prependIfMissing(str, prefix, true, prefixes);
+    }
+
+    /**
+     * Prepends the prefix to the start of the string if the string is not
+     * empty ("") or {@code null}.
+     *
+     * <pre>
+     * StringUtils.prependIfNotEmpty(null, " ")     = null
+     * StringUtils.prependIfNotEmpty(null, "pre-")  = null
+     * StringUtils.prependIfNotEmpty("", "pre-")    = ""
+     * StringUtils.prependIfNotEmpty(" ", " ")      = "  "
+     * StringUtils.prependIfNotEmpty(" ", "pre-")   = "pre- "
+     * StringUtils.prependIfNotEmpty("abc", null)   = "abc"
+     * StringUtils.prependIfNotEmpty("abc", "")     = "abc"
+     * StringUtils.prependIfNotEmpty("abc", " ")    = " abc"
+     * StringUtils.prependIfNotEmpty("abc", "pre-") = "pre-abc"
+     * </pre>
+     * @param str The string.
+     * @param prefix The prefix to prepend if 'str' is not empty. May be null.
+     * @return If 'str' is empty, then 'str', otherwise 'str' with prefix added.
+     */
+    public static String prependIfNotEmpty(final String str, final CharSequence prefix) {
+        if (isEmpty(prefix) || isEmpty(str)) {
+            return str;
+        }
+        return prefix.toString() + str;
+    }
+
+    /**
+     * Prepends the prefix to the start of the string if the string is not
+     * empty (""), {@code null}, or whitespace only.
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <pre>
+     * StringUtils.prependIfNotBlank(null, " ")     = null
+     * StringUtils.prependIfNotBlank(null, "pre-")  = null
+     * StringUtils.prependIfNotBlank("", "pre-")    = ""
+     * StringUtils.prependIfNotBlank(" ", " ")      = " "
+     * StringUtils.prependIfNotBlank(" ", "pre-")   = " "
+     * StringUtils.prependIfNotBlank("abc", null)   = "abc"
+     * StringUtils.prependIfNotBlank("abc", "")     = "abc"
+     * StringUtils.prependIfNotBlank("abc", " ")    = "abc"
+     * StringUtils.prependIfNotBlank("abc", "pre-") = "pre-abc"
+     * </pre>
+     * @param str The string.
+     * @param prefix The prefix to prepend if 'str' is not blank. May be null.
+     * @return If 'str' is blank, then 'str', otherwise 'str' with prefix added.
+     */
+    public static String prependIfNotBlank(final String str, final CharSequence prefix) {
+        if (isEmpty(prefix) || isBlank(str)) {
+            return str;
+        }
+        return prefix.toString() + str;
     }
 
     /**
