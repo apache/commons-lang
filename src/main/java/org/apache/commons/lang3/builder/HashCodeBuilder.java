@@ -352,7 +352,8 @@ public class HashCodeBuilder implements Builder<Integer> {
      *             if the Object is {@code null}
      * @throws IllegalArgumentException
      *             if the number is zero or even
-     *
+     * @throws NullPointerException
+     *			   if the Object is {@code null}
      * @see HashCodeExclude
      * @since 2.0
      */
