@@ -41,8 +41,10 @@ final class CharRange implements Iterable<Character>, Serializable {
 
     /** The first character, inclusive, in the range. */
     private final char start;
+
     /** The last character, inclusive, in the range. */
     private final char end;
+
     /** True if the range is everything except the characters specified. */
     private final boolean negated;
 
