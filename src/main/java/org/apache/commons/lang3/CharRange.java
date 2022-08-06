@@ -254,7 +254,6 @@ final class CharRange implements Iterable<Character>, Serializable {
         return iToString;
     }
 
-    // Expansions
     /**
      * <p>Returns an iterator which can be used to walk through the characters described by this range.</p>
      *
