@@ -667,7 +667,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
     private Strategy getLocaleSpecificStrategy(final int field, final Calendar definingCalendar) {
         final ConcurrentMap<Locale, Strategy> cache = getCache(field);
-        return cache.computeIfAbsent(locale, k -> (field == Calendar.ZONE_OFFSET ? new TimeZoneStrategy(locale) : new CaseInsensitiveTextStrategy(field, definingCalendar, locale)));
+        return cache.computeIfAbsent(locale, k -> field == Calendar.ZONE_OFFSET ? new TimeZoneStrategy(locale) : new CaseInsensitiveTextStrategy(field, definingCalendar, locale));
     }
 
     /**
