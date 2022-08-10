@@ -1059,7 +1059,6 @@ public class ObjectUtils {
         if (object instanceof Optional<?>) {
             return !((Optional<?>) object).isPresent();
         }
-        
         return false;
     }
 
