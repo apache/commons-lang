@@ -1053,7 +1053,7 @@ public class ObjectUtils {
             return ((Map<?, ?>) object).isEmpty();
         }
         if (object instanceof Optional<?>) {
-        	return !((Optional<?>) object).isPresent();
+            return !((Optional<?>) object).isPresent();
         }
         
         return false;
