@@ -1020,6 +1020,7 @@ public class ObjectUtils {
      * <li>{@link Array}: Considered empty if its length is zero.</li>
      * <li>{@link Collection}: Considered empty if it has zero elements.</li>
      * <li>{@link Map}: Considered empty if it has zero key-value mappings.</li>
+     * <li>{@link Optional}: Considered empty if {@link Optional#isPresent} returns false, regardless of the "emptiness" of the contents.</li>
      * </ul>
      *
      * <pre>
@@ -1029,6 +1030,9 @@ public class ObjectUtils {
      * ObjectUtils.isEmpty(new int[]{})      = true
      * ObjectUtils.isEmpty(new int[]{1,2,3}) = false
      * ObjectUtils.isEmpty(1234)             = false
+     * ObjectUtils.isEmpty(1234)             = false
+     * ObjectUtils.isEmpty(Optional.of(""))  = false
+     * ObjectUtils.isEmpty(Optional.empty()) = true
      * </pre>
      *
      * @param object  the {@link Object} to test, may be {@code null}
@@ -1068,6 +1072,7 @@ public class ObjectUtils {
      * <li>{@link Array}: Considered empty if its length is zero.</li>
      * <li>{@link Collection}: Considered empty if it has zero elements.</li>
      * <li>{@link Map}: Considered empty if it has zero key-value mappings.</li>
+     * <li>{@link Optional}: Considered empty if {@link Optional#isPresent} returns false, regardless of the "emptiness" of the contents.</li>
      * </ul>
      *
      * <pre>
@@ -1077,6 +1082,8 @@ public class ObjectUtils {
      * ObjectUtils.isNotEmpty(new int[]{})      = false
      * ObjectUtils.isNotEmpty(new int[]{1,2,3}) = true
      * ObjectUtils.isNotEmpty(1234)             = true
+     * ObjectUtils.isNotEmpty(Optional.of(""))  = true
+     * ObjectUtils.isNotEmpty(Optional.empty()) = false
      * </pre>
      *
      * @param object  the {@link Object} to test, may be {@code null}
