@@ -668,6 +668,8 @@ public class ObjectUtilsTest extends AbstractLangTest {
         assertFalse(ObjectUtils.isNotEmpty(Collections.emptyList()));
         assertFalse(ObjectUtils.isNotEmpty(Collections.emptySet()));
         assertFalse(ObjectUtils.isNotEmpty(Collections.emptyMap()));
+        assertFalse(ObjectUtils.isNotEmpty(Optional.empty()));
+        assertFalse(ObjectUtils.isNotEmpty(Optional.ofNullable(null)));
 
         assertTrue(ObjectUtils.isNotEmpty("  "));
         assertTrue(ObjectUtils.isNotEmpty("ab"));
@@ -675,6 +677,8 @@ public class ObjectUtilsTest extends AbstractLangTest {
         assertTrue(ObjectUtils.isNotEmpty(NON_EMPTY_LIST));
         assertTrue(ObjectUtils.isNotEmpty(NON_EMPTY_SET));
         assertTrue(ObjectUtils.isNotEmpty(NON_EMPTY_MAP));
+        assertTrue(ObjectUtils.isNotEmpty(Optional.of(new Object())));
+        assertTrue(ObjectUtils.isNotEmpty(Optional.ofNullable(new Object())));
     }
 
     @Test
