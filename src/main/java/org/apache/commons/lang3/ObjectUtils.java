@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.TreeSet;
 import java.util.function.Supplier;
 
@@ -1051,6 +1052,10 @@ public class ObjectUtils {
         if (object instanceof Map<?, ?>) {
             return ((Map<?, ?>) object).isEmpty();
         }
+        if (object instanceof Optional<?>) {
+        	return !((Optional<?>) object).isPresent();
+        }
+        
         return false;
     }
 
