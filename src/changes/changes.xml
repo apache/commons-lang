@@ -90,6 +90,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="guicaiyue">Javadoc: StringUtils.repeat("", "x", 3) = "xx"; #918.</action>
     <action                   type="fix" dev="ggregory" due-to="Marc Wrobel">Fix typos #920, #923.</action>
     <action                   type="fix" dev="ggregory" due-to="Bhimantoro Suryo Admodjo">Simplify condition #925.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">StringUtils.join(Iterator, String) should only return null when the Iterator is null.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add GitHub coverage.yml.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
@@ -160,7 +161,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1662" type="add" dev="ggregory" due-to="Daniel Augusto Veronezi Salvador, Gary Gregory, Bruno P. Kinoshita">Let ReflectionToStringBuilder only reflect given field names #849.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Streams.of(Enumeration&lt;E&gt;).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Streams.of(Iterable&lt;E&gt;).</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add LangCollectors.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Streams.of(Iterator&lt;E&gt;).</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess, Gary Gregory">Bump actions/cache from 2.1.4 to 3.0.7 #742, #752, #764, #833, #867.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump actions/checkout from 2 to 3 #819, #825, #859.</action>
