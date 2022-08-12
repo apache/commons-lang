@@ -29,11 +29,11 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.function.ToBooleanBiFunction;
 import org.apache.commons.lang3.stream.LangCollectors;
+import org.apache.commons.lang3.stream.Streams;
 
 /**
  * <p>Operations on {@link java.lang.String} that are
@@ -123,8 +123,6 @@ import org.apache.commons.lang3.stream.LangCollectors;
  */
 //@Immutable
 public class StringUtils {
-
-    private static final int STRING_BUILDER_SIZE = 256;
 
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
     // Whitespace:
@@ -4386,7 +4384,6 @@ public class StringUtils {
      * @since 2.0
      */
     public static String join(final Iterator<?> iterator, final char separator) {
-
         // handle null, zero and one elements before building a buffer
         if (iterator == null) {
             return null;
@@ -4394,22 +4391,7 @@ public class StringUtils {
         if (!iterator.hasNext()) {
             return EMPTY;
         }
-
-        // two or more elements
-        final StringBuilder buf = new StringBuilder(STRING_BUILDER_SIZE); // Java default is 16, probably too small
-
-        while (iterator.hasNext()) {
-            final Object obj = iterator.next();
-            if (obj != null) {
-                buf.append(obj);
-            }
-            if (iterator.hasNext()) {
-                buf.append(separator);
-            }
-
-        }
-
-        return buf.toString();
+        return Streams.of(iterator).collect(LangCollectors.joining(toStringOrEmpty(String.valueOf(separator)), EMPTY, EMPTY, StringUtils::toStringOrEmpty));
     }
 
     /**
@@ -4433,20 +4415,7 @@ public class StringUtils {
         if (!iterator.hasNext()) {
             return EMPTY;
         }
-
-        // two or more elements
-        final StringBuilder buf = new StringBuilder(STRING_BUILDER_SIZE); // Java default is 16, probably too small
-
-        while (iterator.hasNext()) {
-            final Object obj = iterator.next();
-            if (obj != null) {
-                buf.append(obj);
-            }
-            if (separator != null && iterator.hasNext()) {
-                buf.append(separator);
-            }
-        }
-        return buf.toString();
+        return Streams.of(iterator).collect(LangCollectors.joining(toStringOrEmpty(separator), EMPTY, EMPTY, StringUtils::toStringOrEmpty));
     }
 
     /**
@@ -4727,7 +4696,7 @@ public class StringUtils {
      * {@code endIndex > array.length()}
      */
     public static String join(final Object[] array, final String delimiter, final int startIndex, final int endIndex) {
-        return array != null ? Stream.of(array).skip(startIndex).limit(Math.max(0, endIndex - startIndex))
+        return array != null ? Streams.of(array).skip(startIndex).limit(Math.max(0, endIndex - startIndex))
             .collect(LangCollectors.joining(delimiter, EMPTY, EMPTY, StringUtils::toStringOrEmpty)) : null;
     }
 

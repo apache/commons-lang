@@ -20,10 +20,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.Spliterator;
+import java.util.Spliterators;
 import java.util.Spliterators.AbstractSpliterator;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
@@ -651,6 +653,18 @@ public class Streams {
      */
     public static <E> Stream<E> of(final Iterable<E> iterable) {
         return iterable == null ? Stream.empty() : StreamSupport.stream(iterable.spliterator(), false);
+    }
+
+    /**
+     * Creates a stream on the given Iterator.
+     *
+     * @param <E> the type of elements in the Iterator.
+     * @param iterator the Iterator to stream or null.
+     * @return a new Stream or {@link Stream#empty()} if the Iterator is null.
+     * @since 3.13.0
+     */
+    public static <E> Stream<E> of(final Iterator<E> iterator) {
+        return iterator == null ? Stream.empty() : StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false);
     }
 
     /**

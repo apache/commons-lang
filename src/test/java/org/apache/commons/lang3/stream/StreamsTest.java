@@ -31,6 +31,7 @@ import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -196,6 +197,17 @@ public class StreamsTest extends AbstractLangTest {
     @Test
     public void testOfIterableNull() {
         final Iterable<String> input = null;
+        assertEquals(0, Streams.of(input).collect(Collectors.toList()).size());
+    }
+
+    @Test
+    public void testOfIteratorNotNull() {
+        assertEquals(2, Streams.of(Arrays.asList("A", "B").iterator()).collect(Collectors.toList()).size());
+    }
+
+    @Test
+    public void testOfIteratorNull() {
+        final Iterator<String> input = null;
         assertEquals(0, Streams.of(input).collect(Collectors.toList()).size());
     }
 
