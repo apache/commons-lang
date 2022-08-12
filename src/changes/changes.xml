@@ -90,6 +90,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="guicaiyue">Javadoc: StringUtils.repeat("", "x", 3) = "xx"; #918.</action>
     <action                   type="fix" dev="ggregory" due-to="Marc Wrobel">Fix typos #920, #923.</action>
     <action                   type="fix" dev="ggregory" due-to="Bhimantoro Suryo Admodjo">Simplify condition #925.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">StringUtils.join(Iterable, String) should only return null when the Iterable is null.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">StringUtils.join(Iterator, String) should only return null when the Iterator is null.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add GitHub coverage.yml.</action>

@@ -4394,23 +4394,19 @@ public class StringUtils {
         if (!iterator.hasNext()) {
             return EMPTY;
         }
-        final Object first = iterator.next();
-        if (!iterator.hasNext()) {
-            return toStringOrEmpty(first);
-        }
 
         // two or more elements
         final StringBuilder buf = new StringBuilder(STRING_BUILDER_SIZE); // Java default is 16, probably too small
-        if (first != null) {
-            buf.append(first);
-        }
 
         while (iterator.hasNext()) {
-            buf.append(separator);
             final Object obj = iterator.next();
             if (obj != null) {
                 buf.append(obj);
             }
+            if (iterator.hasNext()) {
+                buf.append(separator);
+            }
+
         }
 
         return buf.toString();

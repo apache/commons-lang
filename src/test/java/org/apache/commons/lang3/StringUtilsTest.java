@@ -1292,6 +1292,7 @@ public class StringUtilsTest extends AbstractLangTest {
         assertEquals("", StringUtils.join(Arrays.asList(NULL_ARRAY_LIST).iterator(), SEPARATOR_CHAR));
         assertEquals("", StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST).iterator(), SEPARATOR_CHAR));
         assertEquals("foo", StringUtils.join(Collections.singleton("foo").iterator(), 'x'));
+        assertEquals("null", StringUtils.join(Arrays.asList(NULL_TO_STRING_LIST).iterator(), SEPARATOR_CHAR));
     }
 
     @Test
