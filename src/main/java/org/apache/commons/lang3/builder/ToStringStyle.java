@@ -892,8 +892,7 @@ public abstract class ToStringStyle implements Serializable {
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final Object[] array) {
         buffer.append(arrayStart);
         for (int i = 0; i < array.length; i++) {
-            final Object item = array[i];
-            appendDetail(buffer, fieldName, i, item);
+            appendDetail(buffer, fieldName, i, array[i]);
         }
         buffer.append(arrayEnd);
     }
@@ -932,8 +931,7 @@ public abstract class ToStringStyle implements Serializable {
         buffer.append(arrayStart);
         final int length = Array.getLength(array);
         for (int i = 0; i < length; i++) {
-            final Object item = Array.get(array, i);
-            appendDetail(buffer, fieldName, i, item);
+            appendDetail(buffer, fieldName, i, Array.get(array, i));
         }
         buffer.append(arrayEnd);
     }
