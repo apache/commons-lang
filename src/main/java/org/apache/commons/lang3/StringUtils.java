@@ -27,12 +27,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
-import java.util.StringJoiner;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.function.ToBooleanBiFunction;
+import org.apache.commons.lang3.stream.LangCollectors;
 
 /**
  * <p>Operations on {@link java.lang.String} that are
@@ -4705,10 +4706,7 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      */
     public static String join(final Object[] array, final String delimiter) {
-        if (array == null) {
-            return null;
-        }
-        return join(array, delimiter, 0, array.length);
+        return array != null ? join(array, toStringOrEmpty(delimiter), 0, array.length) : null;
     }
 
     /**
@@ -4747,17 +4745,8 @@ public class StringUtils {
      * {@code endIndex > array.length()}
      */
     public static String join(final Object[] array, final String delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-            return EMPTY;
-        }
-        final StringJoiner joiner = new StringJoiner(toStringOrEmpty(delimiter));
-        for (int i = startIndex; i < endIndex; i++) {
-            joiner.add(toStringOrEmpty(array[i]));
-        }
-        return joiner.toString();
+        return array != null ? Stream.of(array).skip(startIndex).limit(Math.max(0, endIndex - startIndex))
+            .collect(LangCollectors.joining(delimiter, EMPTY, EMPTY, StringUtils::toStringOrEmpty)) : null;
     }
 
     /**
