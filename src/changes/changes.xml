@@ -92,6 +92,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Bhimantoro Suryo Admodjo">Simplify condition #925.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">StringUtils.join(Iterable, String) should only return null when the Iterable is null.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">StringUtils.join(Iterator, String) should only return null when the Iterator is null.</action>
+    <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Add tests to increase coverage #904.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add GitHub coverage.yml.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
