@@ -52,6 +52,8 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("boxing") // JUnit4 does not support primitive equality testing apart from long
 public class ClassUtilsTest extends AbstractLangTest {
 
+    private static final String OBJECT_CANONICAL_NAME = "java.lang.Object";
+
     private static class CX implements IB, IA, IE {
         // empty
     }
@@ -121,7 +123,7 @@ public class ClassUtilsTest extends AbstractLangTest {
         assertEquals(3, result.size());
         assertEquals("java.lang.String", result.get(0));
         assertNull(result.get(1));
-        assertEquals("java.lang.Object", result.get(2));
+        assertEquals(OBJECT_CANONICAL_NAME, result.get(2));
 
         @SuppressWarnings("unchecked") // test what happens when non-generic code adds wrong type of element
         final List<Object> olist = (List<Object>) (List<?>) list;
@@ -138,7 +140,7 @@ public class ClassUtilsTest extends AbstractLangTest {
 
         list.add("java.lang.String");
         list.add("java.lang.xxx");
-        list.add("java.lang.Object");
+        list.add(OBJECT_CANONICAL_NAME);
         result = ClassUtils.convertClassNamesToClasses(list);
         assertEquals(3, result.size());
         assertEquals(String.class, result.get(0));
@@ -323,6 +325,13 @@ public class ClassUtilsTest extends AbstractLangTest {
         }.getClass(), "X"));
         assertEquals("X", ClassUtils.getCanonicalName(Named.class, "X"));
         assertEquals("org.apache.commons.lang3.ClassUtilsTest.Inner", ClassUtils.getCanonicalName(Inner.class, "X"));
+        assertEquals("X", ClassUtils.getCanonicalName((Object) null, "X"));
+        assertEquals(OBJECT_CANONICAL_NAME, ClassUtils.getCanonicalName(new Object()));
+    }
+
+    @Test
+    public void test_getClass() {
+       // assertEquals("org.apache.commons.lang3.ClassUtils", ClassUtils.getName(ClassLoader.class, "@"));
     }
 
     @Test
@@ -368,6 +377,7 @@ public class ClassUtilsTest extends AbstractLangTest {
         }.getClass()));
         assertEquals("org.apache.commons.lang3.ClassUtilsTest$3Named", ClassUtils.getName(Named.class));
         assertEquals("org.apache.commons.lang3.ClassUtilsTest$Inner", ClassUtils.getName(Inner.class));
+        assertEquals(OBJECT_CANONICAL_NAME, ClassUtils.getName(new Object()));
     }
 
     @Test
@@ -405,6 +415,7 @@ public class ClassUtilsTest extends AbstractLangTest {
         }.getClass()));
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName(Named.class));
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName(Inner.class));
+        assertEquals(StringUtils.EMPTY, ClassUtils.getPackageCanonicalName((Class<?>) null));
     }
 
     @Test
@@ -513,6 +524,7 @@ public class ClassUtilsTest extends AbstractLangTest {
         // WARNING: this is fragile, implementation may change, naming is not guaranteed
         assertEquals("ClassUtilsTest.8Named", ClassUtils.getShortCanonicalName(Named.class));
         assertEquals("ClassUtilsTest.Inner", ClassUtils.getShortCanonicalName(Inner.class));
+        assertEquals(StringUtils.EMPTY, ClassUtils.getShortCanonicalName((Class<?>) null));
     }
 
     @Test

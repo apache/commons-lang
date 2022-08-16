@@ -624,6 +624,39 @@ public class ValidateTest extends AbstractLangTest {
     }
 
     @Nested
+    class ValidState {
+
+        @Nested
+        class WitMessage {
+            @Test
+            void shouldNotThrowExceptionForValidIndex() {
+                Validate.validState(true, "The Message");
+            }
+
+            @Test
+            void shouldThrowExceptionForTrueExpression() {
+                assertThrows(IllegalStateException.class, () -> Validate.validState(false, "The Message"));
+            }
+
+        }
+
+        @Nested
+        class WithoutMessage {
+
+            @Test
+            void shouldNotThrowExceptionForTrueExpression() {
+                Validate.validState(true);
+            }
+
+            @Test
+            void shouldThrowExceptionForTrueExpression() {
+                assertThrows(IllegalStateException.class, () -> Validate.validState(false));
+            }
+
+        }
+    }
+
+    @Nested
     class ValidIndex {
 
         @Nested
@@ -764,8 +797,7 @@ public class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldThrowIndexOutOfBoundsExceptionWithGivenMessageForIndexOutOfBounds() {
-                    final IndexOutOfBoundsException ex = assertThrows(IndexOutOfBoundsException.class,
-                        () -> Validate.validIndex(Collections.singleton("a"), 1, "MSG"));
+                    final IndexOutOfBoundsException ex = assertThrows(IndexOutOfBoundsException.class, () -> Validate.validIndex(Collections.singleton("a"), 1, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }

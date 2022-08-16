@@ -50,6 +50,13 @@ public class StandardToStringStyleTest extends AbstractLangTest {
         STYLE.setSizeEndText("%");
         STYLE.setSummaryObjectStartText("%");
         STYLE.setSummaryObjectEndText("%");
+        STYLE.setUseClassName(true);
+        STYLE.setUseFieldNames(true);
+        STYLE.setUseClassName(true);
+        STYLE.setUseFieldNames(true);
+        STYLE.setDefaultFullDetail(true);
+        STYLE.setArrayContentDetail(true);
+        STYLE.setFieldNameValueSeparator("=");
     }
 
     @BeforeEach
@@ -188,4 +195,36 @@ public class StandardToStringStyleTest extends AbstractLangTest {
         assertTrue((new StandardToStringStyle()).isUseIdentityHashCode());
     }
 
+    @Test
+    public void testDefaultValueOfFullDetail() {
+        assertTrue((new StandardToStringStyle()).isDefaultFullDetail());
+    }
+
+    @Test
+    public void testDefaultIsArrayContentDetail() {
+        assertTrue((new StandardToStringStyle()).isArrayContentDetail());
+    }
+
+    @Test
+    public void testDefaultIsFieldSeparatorAtStart() {
+        assertFalse((new StandardToStringStyle()).isFieldSeparatorAtStart());
+    }
+
+    @Test
+    public void testDefaultIsFieldSeparatorAtEnd() {
+        assertFalse((new StandardToStringStyle()).isFieldSeparatorAtEnd());
+    }
+
+    @Test
+    public void testDefaultGetter() {
+        assertEquals("[", STYLE.getContentStart());
+        assertEquals("]", STYLE.getContentEnd());
+        assertEquals("=", STYLE.getFieldNameValueSeparator());
+        assertEquals(",", STYLE.getFieldSeparator());
+        assertEquals("%NULL%", STYLE.getNullText());
+        assertEquals("%SIZE=", STYLE.getSizeStartText());
+        assertEquals("%", STYLE.getSizeEndText());
+        assertEquals("%", STYLE.getSummaryObjectStartText());
+        assertEquals("%", STYLE.getSummaryObjectEndText());
+    }
 }
