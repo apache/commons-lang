@@ -42,6 +42,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -610,12 +611,28 @@ public class ObjectUtilsTest extends AbstractLangTest {
         assertTrue(ObjectUtils.isEmpty(Collections.emptySet()));
         assertTrue(ObjectUtils.isEmpty(Collections.emptyMap()));
 
+        // assertTrue Optional tests
+        assertTrue(ObjectUtils.isEmpty(Optional.empty()));
+        assertTrue(ObjectUtils.isEmpty(Optional.of("")));
+        assertTrue(ObjectUtils.isEmpty(Optional.of(new int[] {})));
+        assertTrue(ObjectUtils.isEmpty(Optional.of(Collections.emptyList())));
+        assertTrue(ObjectUtils.isEmpty(Optional.of(Collections.emptySet())));
+        assertTrue(ObjectUtils.isEmpty(Optional.of(Collections.emptyMap())));
+
         assertFalse(ObjectUtils.isEmpty("  "));
         assertFalse(ObjectUtils.isEmpty("ab"));
         assertFalse(ObjectUtils.isEmpty(NON_EMPTY_ARRAY));
         assertFalse(ObjectUtils.isEmpty(NON_EMPTY_LIST));
         assertFalse(ObjectUtils.isEmpty(NON_EMPTY_SET));
         assertFalse(ObjectUtils.isEmpty(NON_EMPTY_MAP));
+
+        // assertFalse Optional tests
+        assertFalse(ObjectUtils.isEmpty(Optional.of("  ")));
+        assertFalse(ObjectUtils.isEmpty(Optional.of("ab")));
+        assertFalse(ObjectUtils.isEmpty(Optional.of(NON_EMPTY_ARRAY)));
+        assertFalse(ObjectUtils.isEmpty(Optional.of(NON_EMPTY_LIST)));
+        assertFalse(ObjectUtils.isEmpty(Optional.of(NON_EMPTY_SET)));
+        assertFalse(ObjectUtils.isEmpty(Optional.of(NON_EMPTY_MAP)));
     }
 
     /**
@@ -664,12 +681,29 @@ public class ObjectUtilsTest extends AbstractLangTest {
         assertFalse(ObjectUtils.isNotEmpty(Collections.emptySet()));
         assertFalse(ObjectUtils.isNotEmpty(Collections.emptyMap()));
 
+        // assertFalse Optional tests
+        assertFalse(ObjectUtils.isNotEmpty(Optional.empty()));
+        assertFalse(ObjectUtils.isNotEmpty(Optional.of("")));
+        assertFalse(ObjectUtils.isNotEmpty(Optional.of(new int[] {})));
+        assertFalse(ObjectUtils.isNotEmpty(Optional.of(Collections.emptyList())));
+        assertFalse(ObjectUtils.isNotEmpty(Optional.of(Collections.emptySet())));
+        assertFalse(ObjectUtils.isNotEmpty(Optional.of(Collections.emptyMap())));
+
         assertTrue(ObjectUtils.isNotEmpty("  "));
         assertTrue(ObjectUtils.isNotEmpty("ab"));
         assertTrue(ObjectUtils.isNotEmpty(NON_EMPTY_ARRAY));
         assertTrue(ObjectUtils.isNotEmpty(NON_EMPTY_LIST));
         assertTrue(ObjectUtils.isNotEmpty(NON_EMPTY_SET));
         assertTrue(ObjectUtils.isNotEmpty(NON_EMPTY_MAP));
+
+        // assertTrue Optional tests
+        assertTrue(ObjectUtils.isNotEmpty(Optional.of("  ")));
+        assertTrue(ObjectUtils.isNotEmpty(Optional.of("ab")));
+        assertTrue(ObjectUtils.isNotEmpty(Optional.of(NON_EMPTY_ARRAY)));
+        assertTrue(ObjectUtils.isNotEmpty(Optional.of(NON_EMPTY_LIST)));
+        assertTrue(ObjectUtils.isNotEmpty(Optional.of(NON_EMPTY_SET)));
+        assertTrue(ObjectUtils.isNotEmpty(Optional.of(NON_EMPTY_MAP)));
+
     }
 
     @Test
