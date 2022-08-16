@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.TreeSet;
 import java.util.function.Supplier;
 
@@ -1030,12 +1031,28 @@ public class ObjectUtils {
      * ObjectUtils.isEmpty(1234)             = false
      * </pre>
      *
+     * An {@link Optional} is also supported. In this case, the optional is "unwrapped"
+     * and the value that the optional holds is checked if it is empty. Consider the following
+     * examples:
+     * 
+     * <pre>
+     * ObjectUtils.isEmpty(Optional.empty())              = true
+     * ObjectUtils.isEmpty(Optional.of(""))               = true
+     * ObjectUtils.isEmpty(Optional.of("ab"))             = false
+     * ObjectUtils.isEmpty(Optional.of(new int[]{}))      = true
+     * ObjectUtils.isEmpty(Optional.of(new int[]{1,2,3})) = false
+     * ObjectUtils.isEmpty(Optional.of(1234))             = false
+     * </pre>
+     *
      * @param object  the {@link Object} to test, may be {@code null}
      * @return {@code true} if the object has a supported type and is empty or null,
      * {@code false} otherwise
      * @since 3.9
      */
-    public static boolean isEmpty(final Object object) {
+    public static boolean isEmpty(Object object) {
+        if (object instanceof Optional<?>) {
+            object = ((Optional<?>) object).orElse(null);
+        }
         if (object == null) {
             return true;
         }
@@ -1072,6 +1089,19 @@ public class ObjectUtils {
      * ObjectUtils.isNotEmpty(new int[]{})      = false
      * ObjectUtils.isNotEmpty(new int[]{1,2,3}) = true
      * ObjectUtils.isNotEmpty(1234)             = true
+     * </pre>
+     * 
+     * An {@link Optional} is also supported. In this case, the optional is "unwrapped"
+     * and the value that the optional holds is checked if it is empty. Consider the following
+     * examples:
+     * 
+     * <pre>
+     * ObjectUtils.isNotEmpty(Optional.empty())              = false
+     * ObjectUtils.isNotEmpty(Optional.of(""))               = false
+     * ObjectUtils.isNotEmpty(Optional.of("ab"))             = true
+     * ObjectUtils.isNotEmpty(Optional.of(new int[]{}))      = false
+     * ObjectUtils.isNotEmpty(Optional.of(new int[]{1,2,3})) = true
+     * ObjectUtils.isNotEmpty(Optional.of(1234))             = true
      * </pre>
      *
      * @param object  the {@link Object} to test, may be {@code null}
