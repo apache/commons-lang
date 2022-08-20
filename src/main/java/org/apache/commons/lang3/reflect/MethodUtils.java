@@ -329,7 +329,7 @@ public class MethodUtils {
         Objects.requireNonNull(object, "object");
         args = ArrayUtils.nullToEmpty(args);
         parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Class<? extends Object> cls = object.getClass();
+        final Class<?> cls = object.getClass();
         final Method method = getAccessibleMethod(cls, methodName, parameterTypes);
         if (method == null) {
             throw new NoSuchMethodException("No such accessible method: " + methodName + "() on object: " + cls.getName());
