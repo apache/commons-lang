@@ -162,6 +162,20 @@ public abstract class ToStringStyle implements Serializable {
     public static final ToStringStyle JSON_STYLE = new JsonToStringStyle();
 
     /**
+     * The no class name Multi Line toString style. Using the <code>Person</code>
+     * example from {@link ToStringBuilder}, the output would look like this:
+     *
+     * <pre>
+     * name=John Doe
+     * age=33
+     * smoker=false
+     * </pre>
+     *
+     * @since 3.10
+     */
+    public static final ToStringStyle NO_CLASS_NAME_MULTI_LINE_STYLE = new NoClassNameMultiLineToStringStyle();
+
+    /**
      * <p>
      * A registry of objects used by {@code reflectionToString} methods
      * to detect cyclical object references and avoid infinite loops.
@@ -2566,5 +2580,49 @@ public abstract class ToStringStyle implements Serializable {
             return JSON_STYLE;
         }
 
+    }
+
+    // ----------------------------------------------------------------------------
+
+    /**
+     * <p>
+     * <code>ToStringStyle</code> that outputs with No Class Name in a Multi Line format.
+     * </p>
+     *
+     * <p>
+     * This is an inner class rather than using
+     * <code>StandardToStringStyle</code> to ensure its immutability.
+     * </p>
+     *
+     * @since 3.10
+     *
+     */
+    private static final class NoClassNameMultiLineToStringStyle extends ToStringStyle {
+
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * <p>Constructor.</p>
+         * <p>
+         * <p>Use the static constant rather than instantiating.</p>
+         */
+        NoClassNameMultiLineToStringStyle() {
+            super();
+            this.setUseClassName(false);
+            this.setUseIdentityHashCode(false);
+            this.setContentStart(StringUtils.EMPTY);
+            this.setFieldSeparator(System.lineSeparator());
+            this.setFieldSeparatorAtStart(false);
+            this.setContentEnd(System.lineSeparator());
+        }
+
+        /**
+         * <p>Ensure <code>Singleton</code> after serialization.</p>
+         *
+         * @return the singleton
+         */
+        private Object readResolve() {
+            return NO_CLASS_NAME_MULTI_LINE_STYLE;
+        }
     }
 }
