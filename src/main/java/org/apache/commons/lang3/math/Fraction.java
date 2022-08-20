@@ -517,7 +517,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * <p>The returned fraction is in reduced form.</p>
      *
      * @param power  the power to raise the fraction to
-     * @return {@code this} if the power is one, {@link ONE} if the power
+     * @return {@code this} if the power is one, {@link #ONE} if the power
      * is zero (even if the fraction equals ZERO) or a new fraction instance
      * raised to the appropriate power
      * @throws ArithmeticException if the resulting numerator or denominator exceeds

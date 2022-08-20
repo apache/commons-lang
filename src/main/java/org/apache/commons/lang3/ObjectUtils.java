@@ -82,7 +82,7 @@ public class ObjectUtils {
         }
 
         /**
-         * <p>Ensure singleton.</p>
+         * <p>Ensure Singleton after serialization.</p>
          *
          * @return the singleton value
          */

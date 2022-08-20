@@ -921,7 +921,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         private final int mField;
 
         /**
-         * Constructs an instance of {@link UnpadedNumberField} with the specified field.
+         * Constructs an instance of {@link UnpaddedNumberField} with the specified field.
          *
          * @param field the field
          */

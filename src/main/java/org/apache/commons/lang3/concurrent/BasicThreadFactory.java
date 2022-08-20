@@ -110,7 +110,7 @@ public class BasicThreadFactory implements ThreadFactory {
     private final Boolean daemon;
 
     /**
-     * Creates a new instance of {@link ThreadFactoryImpl} and configures it
+     * Creates a new instance of {@link ThreadFactory} and configures it
      * from the specified {@link Builder} object.
      *
      * @param builder the {@link Builder} object
