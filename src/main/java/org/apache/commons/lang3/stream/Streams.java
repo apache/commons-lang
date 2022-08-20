@@ -174,7 +174,7 @@ public class Streams {
      *
      * @param <T> The streams element type.
      */
-    public static class FailableStream<T extends Object> {
+    public static class FailableStream<T> {
 
         private Stream<T> stream;
         private boolean terminated;
@@ -777,7 +777,7 @@ public class Streams {
      * @param <T> the type of the input elements
      * @return a {@link Collector} which collects all the input elements into an array, in encounter order
      */
-    public static <T extends Object> Collector<T, ?, T[]> toArray(final Class<T> pElementType) {
+    public static <T> Collector<T, ?, T[]> toArray(final Class<T> pElementType) {
         return new ArrayCollector<>(pElementType);
     }
 }

@@ -73,7 +73,7 @@ public class Streams {
      * @deprecated Use {@link org.apache.commons.lang3.stream.Streams.FailableStream}.
      */
     @Deprecated
-    public static class FailableStream<O extends Object> {
+    public static class FailableStream<O> {
 
         private Stream<O> stream;
         private boolean terminated;
@@ -545,7 +545,7 @@ public class Streams {
      * @return a {@link Collector} which collects all the input elements into an
      * array, in encounter order
      */
-    public static <O extends Object> Collector<O, ?, O[]> toArray(final Class<O> pElementType) {
+    public static <O> Collector<O, ?, O[]> toArray(final Class<O> pElementType) {
         return new ArrayCollector<>(pElementType);
     }
 }
