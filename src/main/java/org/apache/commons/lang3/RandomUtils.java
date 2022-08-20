@@ -30,8 +30,10 @@ import java.util.concurrent.ThreadLocalRandom;
  * a better choice for applications with more stringent requirements
  * (performance and/or correctness).</p>
  *
+ * @deprecated for more optimized implementation from commons-rng
  * @since 3.3
  */
+@Deprecated
 public class RandomUtils {
 
     /**
