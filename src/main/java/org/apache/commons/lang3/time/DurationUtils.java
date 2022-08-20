@@ -56,7 +56,7 @@ public class DurationUtils {
     public static <T extends Throwable> void accept(final FailableBiConsumer<Long, Integer, T> consumer, final Duration duration)
             throws T {
         if (consumer != null && duration != null) {
-            consumer.accept(duration.toMillis(), getNanosOfMiili(duration));
+            consumer.accept(duration.toMillis(), getNanosOfMilli(duration));
         }
     }
 
@@ -72,8 +72,9 @@ public class DurationUtils {
      *
      * @param duration The duration to query.
      * @return nanoseconds between 0 and 999,999.
+     * @since 3.13.0 Renamed method.
      */
-    public static int getNanosOfMiili(final Duration duration) {
+    public static int getNanosOfMilli(final Duration duration) {
         return zeroIfNull(duration).getNano() % 1_000_000;
     }
 
