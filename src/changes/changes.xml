@@ -168,6 +168,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Streams.of(Iterable&lt;E&gt;).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Streams.of(Iterator&lt;E&gt;).</action>
     <action issue="LANG-1689" type="add" dev="ggregory" due-to="Joseph Hendrix, Gary Gregory">Simple support for Optional in ObjectUtils#isEmpty() #933.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">ThreadGroupPredicate extends Predicate&lt;ThreadGroup&gt;.</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess, Gary Gregory">Bump actions/cache from 2.1.4 to 3.0.7 #742, #752, #764, #833, #867.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump actions/checkout from 2 to 3 #819, #825, #859.</action>
