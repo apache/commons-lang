@@ -579,10 +579,6 @@ public class Streams {
         return new FailableStream<>(stream);
     }
 
-    private static <E> Stream<E> filter(final Collection<E> collection, final Predicate<? super E> predicate) {
-        return of(collection).filter(predicate);
-    }
-
     /**
      * Streams only instances of the give Class in a collection.
      * <p>
@@ -604,7 +600,7 @@ public class Streams {
 
     @SuppressWarnings("unchecked") // After the isInstance check, we still need to type-cast.
     private static <E> Stream<E> instancesOf(final Class<? super E> clazz, final Stream<?> stream) {
-        return (Stream<E>) stream.filter(clazz::isInstance);
+        return (Stream<E>) of(stream).filter(clazz::isInstance);
     }
 
     /**
@@ -616,7 +612,32 @@ public class Streams {
      * @since 3.13.0
      */
     public static <E> Stream<E> nonNull(final Collection<E> collection) {
-        return filter(collection, Objects::nonNull);
+        return of(collection).filter(Objects::nonNull);
+    }
+
+    /**
+     * Streams the non-null elements of an array.
+     *
+     * @param <E> the type of elements in the collection.
+     * @param array the array to stream or null.
+     * @return A non-null stream that filters out null elements.
+     * @since 3.13.0
+     */
+    @SafeVarargs
+    public static <E> Stream<E> nonNull(final E... array) {
+        return nonNull(of(array));
+    }
+
+    /**
+     * Streams the non-null elements of a stream.
+     *
+     * @param <E> the type of elements in the collection.
+     * @param stream the stream to stream or null.
+     * @return A non-null stream that filters out null elements.
+     * @since 3.13.0
+     */
+    public static <E> Stream<E> nonNull(final Stream<E> stream) {
+        return of(stream).filter(Objects::nonNull);
     }
 
     /**
@@ -665,6 +686,18 @@ public class Streams {
      */
     public static <E> Stream<E> of(final Iterator<E> iterator) {
         return iterator == null ? Stream.empty() : StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false);
+    }
+
+    /**
+     * Returns the stream or {@link Stream#empty()} if the stream is null.
+     *
+     * @param <E> the type of elements in the collection.
+     * @param stream the stream to stream or null.
+     * @return the stream or {@link Stream#empty()} if the stream is null.
+     * @since 3.13.0
+     */
+    private static <E> Stream<E> of(final Stream<E> stream) {
+        return stream == null ? Stream.empty() : stream;
     }
 
     /**

@@ -20,16 +20,16 @@ package org.apache.commons.lang3.builder;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.List;
+import java.util.Objects;
 
 import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.stream.Streams;
 
 /**
  * <p>
@@ -132,13 +132,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return The given array or a new array without null.
      */
     static String[] toNoNullStringArray(final Object[] array) {
-        final List<String> list = new ArrayList<>(array.length);
-        for (final Object e : array) {
-            if (e != null) {
-                list.add(e.toString());
-            }
-        }
-        return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
+        return Streams.nonNull(array).map(Objects::toString).toArray(String[]::new);
     }
 
     /**
