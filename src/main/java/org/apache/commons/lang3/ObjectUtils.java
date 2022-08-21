@@ -1057,6 +1057,7 @@ public class ObjectUtils {
             return ((Map<?, ?>) object).isEmpty();
         }
         if (object instanceof Optional<?>) {
+            // TODO Java 11 Use Optional#isEmpty()
             return !((Optional<?>) object).isPresent();
         }
         return false;
