@@ -33,12 +33,14 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeSet;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.text.StrBuilder;
 import org.apache.commons.lang3.time.DurationUtils;
+import org.apache.commons.lang3.stream.Streams;
 
 /**
  * <p>Operations on {@link Object}.</p>
@@ -137,17 +139,7 @@ public class ObjectUtils {
      * @since 3.5
      */
     public static boolean allNotNull(final Object... values) {
-        if (values == null) {
-            return false;
-        }
-
-        for (final Object val : values) {
-            if (val == null) {
-                return false;
-            }
-        }
-
-        return true;
+        return values != null ? Stream.of(values).noneMatch(Objects::isNull) : false;
     }
 
     /**
@@ -657,14 +649,7 @@ public class ObjectUtils {
      */
     @SafeVarargs
     public static <T> T firstNonNull(final T... values) {
-        if (values != null) {
-            for (final T val : values) {
-                if (val != null) {
-                    return val;
-                }
-            }
-        }
-        return null;
+        return Streams.of(values).filter(Objects::nonNull).findFirst().orElse(null);
     }
 
     /**
@@ -706,17 +691,7 @@ public class ObjectUtils {
      */
     @SafeVarargs
     public static <T> T getFirstNonNull(final Supplier<T>... suppliers) {
-        if (suppliers != null) {
-            for (final Supplier<T> supplier : suppliers) {
-                if (supplier != null) {
-                    final T value = supplier.get();
-                    if (value != null) {
-                        return value;
-                    }
-                }
-            }
-        }
-        return null;
+        return Streams.of(suppliers).map(s -> s != null ? s.get() : null).filter(Objects::nonNull).findFirst().orElse(null);
     }
 
     /**
