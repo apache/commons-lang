@@ -56,7 +56,7 @@ public class DurationUtils {
     public static <T extends Throwable> void accept(final FailableBiConsumer<Long, Integer, T> consumer, final Duration duration)
             throws T {
         if (consumer != null && duration != null) {
-            consumer.accept(duration.toMillis(), getNanosOfMiili(duration));
+            consumer.accept(duration.toMillis(), getNanosOfMilli(duration));
         }
     }
 
@@ -72,8 +72,28 @@ public class DurationUtils {
      *
      * @param duration The duration to query.
      * @return nanoseconds between 0 and 999,999.
+     * @deprecated Use {@link #getNanosOfMilli(Duration)}.
      */
+    @Deprecated
     public static int getNanosOfMiili(final Duration duration) {
+        return getNanosOfMilli(duration);
+    }
+
+    /**
+     * Gets the nanosecond part of a Duration converted to milliseconds.
+     * <p>
+     * Handy when calling an API that takes a long of milliseconds and an int of nanoseconds. For example,
+     * {@link Object#wait(long, int)} and {@link Thread#sleep(long, int)}.
+     * </p>
+     * <p>
+     * Note that is this different from {@link Duration#getNano()} because a duration are seconds and nanoseconds.
+     * </p>
+     *
+     * @param duration The duration to query.
+     * @return nanoseconds between 0 and 999,999.
+     * @since 3.13.0
+     */
+    public static int getNanosOfMilli(final Duration duration) {
         return zeroIfNull(duration).getNano() % 1_000_000;
     }
 
