@@ -339,17 +339,12 @@ public class EnumUtils {
      * @return the enum, default enum if not found
      * @since 3.13.0
      */
-    public static <E extends Enum<E>> E getFirstEnumIgnoreCase(final Class<E> enumClass, final String enumName,
-        final Function<E, String> stringFunction, final E defaultEnum) {
+    public static <E extends Enum<E>> E getFirstEnumIgnoreCase(final Class<E> enumClass, final String enumName, final Function<E, String> stringFunction,
+        final E defaultEnum) {
         if (enumName == null || !enumClass.isEnum()) {
             return defaultEnum;
         }
-        for (final E each : enumClass.getEnumConstants()) {
-            if (enumName.equalsIgnoreCase(stringFunction.apply(each))) {
-                return each;
-            }
-        }
-        return defaultEnum;
+        return Stream.of(enumClass.getEnumConstants()).filter(e -> enumName.equalsIgnoreCase(stringFunction.apply(e))).findFirst().orElse(defaultEnum);
     }
 
     /**
