@@ -133,26 +133,14 @@ public class ExceptionUtils {
         if (throwable == null) {
             return null;
         }
-
         if (methodNames == null) {
             final Throwable cause = throwable.getCause();
             if (cause != null) {
                 return cause;
             }
-
             methodNames = CAUSE_METHOD_NAMES;
         }
-
-        for (final String methodName : methodNames) {
-            if (methodName != null) {
-                final Throwable legacyCause = getCauseUsingMethodName(throwable, methodName);
-                if (legacyCause != null) {
-                    return legacyCause;
-                }
-            }
-        }
-
-        return null;
+        return Stream.of(methodNames).map(m -> getCauseUsingMethodName(throwable, m)).filter(Objects::nonNull).findFirst().orElse(null);
     }
 
     /**
@@ -164,18 +152,20 @@ public class ExceptionUtils {
      */
     // TODO: Remove in Lang 4.0
     private static Throwable getCauseUsingMethodName(final Throwable throwable, final String methodName) {
-        Method method = null;
-        try {
-            method = throwable.getClass().getMethod(methodName);
-        } catch (final NoSuchMethodException | SecurityException ignored) { // NOPMD
-            // exception ignored
-        }
-
-        if (method != null && Throwable.class.isAssignableFrom(method.getReturnType())) {
+        if (methodName != null) {
+            Method method = null;
             try {
-                return (Throwable) method.invoke(throwable);
-            } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException ignored) { // NOPMD
+                method = throwable.getClass().getMethod(methodName);
+            } catch (final NoSuchMethodException | SecurityException ignored) { // NOPMD
                 // exception ignored
+            }
+
+            if (method != null && Throwable.class.isAssignableFrom(method.getReturnType())) {
+                try {
+                    return (Throwable) method.invoke(throwable);
+                } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException ignored) { // NOPMD
+                    // exception ignored
+                }
             }
         }
         return null;
