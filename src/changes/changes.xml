@@ -110,7 +110,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ArrayUtils.newInstance(Class&gt;T>, int).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use null-safe Streams.of(T...).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ClassUtils.comparator().</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ThreadUtils.sleepQuietly(long).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ThreadUtils.sleepQuietly(Duration).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ArrayUtils.setAll(T[], IntFunction).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ArrayUtils.setAll(T[], Supplier).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanConsumer.</action>

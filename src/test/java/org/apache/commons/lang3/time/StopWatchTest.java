@@ -32,14 +32,14 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.Test;
 
 /**
- * TestCase for StopWatch.
+ * Tests {@link StopWatch}.
  */
 public class StopWatchTest extends AbstractLangTest {
 
     private static final Duration MILLIS_200 = Duration.ofMillis(200);
     private static final Duration MILLIS_550 = Duration.ofMillis(550);
     private static final String MESSAGE = "Baking cookies";
-    private static final int MIN_SLEEP_MILLISECONDS = 20;
+    private static final Duration MIN_SLEEP = Duration.ofMillis(20);
     private static final String ZERO_HOURS_PREFIX = "00:";
     private static final String ZERO_TIME_ELAPSED = "00:00:00.000";
 
@@ -144,7 +144,7 @@ public class StopWatchTest extends AbstractLangTest {
     @Test
     public void testFormatSplitTime() {
         final StopWatch watch = StopWatch.createStarted();
-        ThreadUtils.sleepQuietly(MIN_SLEEP_MILLISECONDS);
+        ThreadUtils.sleepQuietly(MIN_SLEEP);
         watch.split();
         final String formatSplitTime = watch.formatSplitTime();
         assertNotEquals(ZERO_TIME_ELAPSED, formatSplitTime);
@@ -155,7 +155,7 @@ public class StopWatchTest extends AbstractLangTest {
     public void testFormatSplitTimeWithMessage() {
         final StopWatch watch = new StopWatch(MESSAGE);
         watch.start();
-        ThreadUtils.sleepQuietly(MIN_SLEEP_MILLISECONDS);
+        ThreadUtils.sleepQuietly(MIN_SLEEP);
         watch.split();
         final String formatSplitTime = watch.formatSplitTime();
         assertFalse(formatSplitTime.startsWith(MESSAGE), formatSplitTime);

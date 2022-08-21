@@ -554,17 +554,17 @@ public class ThreadUtils {
     }
 
     /**
-     * Sleeps for the given amount of milliseconds while ignoring {@link InterruptedException}.
+     * Sleeps for the given duration while ignoring {@link InterruptedException}.
      * <p>
-     * The sleep duration may be shorter than {@code millis} if we catch a {@link InterruptedException}.
+     * The sleep duration may be shorter than duration if we catch a {@link InterruptedException}.
      * </p>
      *
-     * @param millis the length of time to sleep in milliseconds
+     * @param duration the length of time to sleep.
      * @since 3.13.0
      */
-    public static void sleepQuietly(final long millis) {
+    public static void sleepQuietly(final Duration duration) {
         try {
-            sleep(Duration.ofMillis(millis));
+            sleep(duration);
         } catch (final InterruptedException e) {
             // be quiet.
         }
