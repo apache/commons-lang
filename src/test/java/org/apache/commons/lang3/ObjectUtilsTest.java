@@ -42,6 +42,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -609,6 +610,8 @@ public class ObjectUtilsTest extends AbstractLangTest {
         assertTrue(ObjectUtils.isEmpty(Collections.emptyList()));
         assertTrue(ObjectUtils.isEmpty(Collections.emptySet()));
         assertTrue(ObjectUtils.isEmpty(Collections.emptyMap()));
+        assertTrue(ObjectUtils.isEmpty(Optional.empty()));
+        assertTrue(ObjectUtils.isEmpty(Optional.ofNullable(null)));
 
         assertFalse(ObjectUtils.isEmpty("  "));
         assertFalse(ObjectUtils.isEmpty("ab"));
@@ -616,6 +619,8 @@ public class ObjectUtilsTest extends AbstractLangTest {
         assertFalse(ObjectUtils.isEmpty(NON_EMPTY_LIST));
         assertFalse(ObjectUtils.isEmpty(NON_EMPTY_SET));
         assertFalse(ObjectUtils.isEmpty(NON_EMPTY_MAP));
+        assertFalse(ObjectUtils.isEmpty(Optional.of(new Object())));
+        assertFalse(ObjectUtils.isEmpty(Optional.ofNullable(new Object())));
     }
 
     /**
@@ -663,6 +668,8 @@ public class ObjectUtilsTest extends AbstractLangTest {
         assertFalse(ObjectUtils.isNotEmpty(Collections.emptyList()));
         assertFalse(ObjectUtils.isNotEmpty(Collections.emptySet()));
         assertFalse(ObjectUtils.isNotEmpty(Collections.emptyMap()));
+        assertFalse(ObjectUtils.isNotEmpty(Optional.empty()));
+        assertFalse(ObjectUtils.isNotEmpty(Optional.ofNullable(null)));
 
         assertTrue(ObjectUtils.isNotEmpty("  "));
         assertTrue(ObjectUtils.isNotEmpty("ab"));
@@ -670,6 +677,8 @@ public class ObjectUtilsTest extends AbstractLangTest {
         assertTrue(ObjectUtils.isNotEmpty(NON_EMPTY_LIST));
         assertTrue(ObjectUtils.isNotEmpty(NON_EMPTY_SET));
         assertTrue(ObjectUtils.isNotEmpty(NON_EMPTY_MAP));
+        assertTrue(ObjectUtils.isNotEmpty(Optional.of(new Object())));
+        assertTrue(ObjectUtils.isNotEmpty(Optional.ofNullable(new Object())));
     }
 
     @Test
