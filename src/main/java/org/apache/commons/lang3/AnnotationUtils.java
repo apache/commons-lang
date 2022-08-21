@@ -69,12 +69,11 @@ public class AnnotationUtils {
          */
         @Override
         protected String getShortClassName(final Class<?> cls) {
-            for (final Class<?> iface : ClassUtils.getAllInterfaces(cls)) {
-                if (Annotation.class.isAssignableFrom(iface)) {
-                    return "@" + iface.getName();
-                }
-            }
-            return StringUtils.EMPTY;
+            // formatter:off
+            return ClassUtils.getAllInterfaces(cls).stream().filter(Annotation.class::isAssignableFrom).findFirst()
+                .map(iface -> "@" + iface.getName())
+                .orElse(StringUtils.EMPTY);
+            // formatter:on
         }
 
         /**
