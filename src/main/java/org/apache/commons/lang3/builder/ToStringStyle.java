@@ -2064,7 +2064,7 @@ public abstract class ToStringStyle implements Serializable {
         }
 
         /**
-         * <p>Ensure {@link Singleton} after serialization.</p>
+         * <p>Ensure Singleton after serialization.</p>
          *
          * @return the singleton
          */
@@ -2095,7 +2095,7 @@ public abstract class ToStringStyle implements Serializable {
         }
 
         /**
-         * <p>Ensure {@link Singleton} after serialization.</p>
+         * <p>Ensure Singleton after serialization.</p>
          *
          * @return the singleton
          */
@@ -2193,7 +2193,7 @@ public abstract class ToStringStyle implements Serializable {
         }
 
         /**
-         * <p>Ensure {@link Singleton} after serialization.</p>
+         * <p>Ensure Singleton after serialization.</p>
          *
          * @return the singleton
          */
@@ -2225,7 +2225,7 @@ public abstract class ToStringStyle implements Serializable {
         }
 
         /**
-         * <p>Ensure {@link Singleton} after serialization.</p>
+         * <p>Ensure Singleton after serialization.</p>
          *
          * @return the singleton
          */
@@ -2557,7 +2557,7 @@ public abstract class ToStringStyle implements Serializable {
 
         /**
          * <p>
-         * Ensure {@link Singleton} after serialization.
+         * Ensure Singleton after serialization.
          * </p>
          *
          * @return the singleton
