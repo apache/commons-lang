@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Predicate;
 
 import org.apache.commons.lang3.time.DurationUtils;
 
@@ -90,16 +89,15 @@ public class ThreadUtils {
     /**
      * A predicate for selecting thread groups.
      */
-    // TODO When breaking BC, replace this with Predicate<ThreadGroup>
+    // When breaking BC, replace this with Predicate<ThreadGroup>
     @FunctionalInterface
-    public interface ThreadGroupPredicate extends Predicate<ThreadGroup> {
+    public interface ThreadGroupPredicate {
 
         /**
          * Evaluates this predicate on the given thread group.
          * @param threadGroup the thread group
          * @return {@code true} if the threadGroup matches the predicate, otherwise {@code false}
          */
-        @Override
         boolean test(ThreadGroup threadGroup);
     }
 
