@@ -165,7 +165,7 @@ public class Streams {
 
         @Override
         public boolean tryAdvance(final Consumer<? super T> action) {
-            return enumeration.hasMoreElements() ? next(action) : false;
+            return enumeration.hasMoreElements() && next(action);
         }
     }
 
