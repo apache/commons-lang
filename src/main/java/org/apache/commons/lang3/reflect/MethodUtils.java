@@ -665,7 +665,7 @@ public class MethodUtils {
      * @return The accessible method
      */
     public static Method getMatchingAccessibleMethod(final Class<?> cls,
-            final String methodName, final Class<?>... parameterTypes) {
+        final String methodName, final Class<?>... parameterTypes) {
         try {
             return MemberUtils.setAccessibleWorkaround(cls.getMethod(methodName, parameterTypes));
         } catch (final NoSuchMethodException ignored) {
@@ -673,14 +673,8 @@ public class MethodUtils {
         }
         // search through all methods
         final Method[] methods = cls.getMethods();
-        final List<Method> matchingMethods = new ArrayList<>();
-        for (final Method method : methods) {
-            // compare name and parameters
-            if (method.getName().equals(methodName) &&
-                    MemberUtils.isMatchingMethod(method, parameterTypes)) {
-                matchingMethods.add(method);
-            }
-        }
+        final List<Method> matchingMethods = Stream.of(methods)
+            .filter(method -> method.getName().equals(methodName) && MemberUtils.isMatchingMethod(method, parameterTypes)).collect(Collectors.toList());
 
         // Sort methods by signature to force deterministic result
         matchingMethods.sort(METHOD_BY_SIGNATURE);
@@ -689,10 +683,7 @@ public class MethodUtils {
         for (final Method method : matchingMethods) {
             // get accessible version of method
             final Method accessibleMethod = getAccessibleMethod(method);
-            if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareMethodFit(
-                        accessibleMethod,
-                        bestMatch,
-                        parameterTypes) < 0)) {
+            if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareMethodFit(accessibleMethod, bestMatch, parameterTypes) < 0)) {
                 bestMatch = accessibleMethod;
             }
         }
@@ -706,11 +697,11 @@ public class MethodUtils {
             final String methodParameterComponentTypeName = ClassUtils.primitiveToWrapper(methodParameterComponentType).getName();
 
             final Class<?> lastParameterType = parameterTypes[parameterTypes.length - 1];
-            final String parameterTypeName = lastParameterType==null ? null : lastParameterType.getName();
-            final String parameterTypeSuperClassName = lastParameterType==null ? null : lastParameterType.getSuperclass().getName();
+            final String parameterTypeName = lastParameterType == null ? null : lastParameterType.getName();
+            final String parameterTypeSuperClassName = lastParameterType == null ? null : lastParameterType.getSuperclass().getName();
 
-            if (parameterTypeName!= null && parameterTypeSuperClassName != null && !methodParameterComponentTypeName.equals(parameterTypeName)
-                    && !methodParameterComponentTypeName.equals(parameterTypeSuperClassName)) {
+            if (parameterTypeName != null && parameterTypeSuperClassName != null && !methodParameterComponentTypeName.equals(parameterTypeName)
+                && !methodParameterComponentTypeName.equals(parameterTypeSuperClassName)) {
                 return null;
             }
         }
