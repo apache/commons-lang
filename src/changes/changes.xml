@@ -94,7 +94,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">StringUtils.join(Iterator, String) should only return null when the Iterator is null.</action>
     <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Add tests to increase coverage #904.</action>
     <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Extends Object clauses are redundant #937.</action>
-    <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Simplifiable conditional expression. #941.</action>
+    <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Simplify conditional expression. #941.</action>
     <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Fix some Javadoc comments #938.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add GitHub coverage.yml.</action>
