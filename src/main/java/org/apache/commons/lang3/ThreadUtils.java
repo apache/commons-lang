@@ -17,10 +17,13 @@
 package org.apache.commons.lang3;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.time.DurationUtils;
 
@@ -40,7 +43,10 @@ public class ThreadUtils {
 
     /**
      * A predicate implementation which always returns true.
+     *
+     * @deprecated Use a {@link Predicate}.
      */
+    @Deprecated
     private static final class AlwaysTruePredicate implements ThreadPredicate, ThreadGroupPredicate {
 
         private AlwaysTruePredicate() {
@@ -58,14 +64,20 @@ public class ThreadUtils {
     }
 
     /**
+     * Used internally, consider private.
+     * <p>
      * A predicate implementation which matches a thread or thread group name.
+     * </p>
+     *
+     * @deprecated Use a {@link Predicate}.
      */
+    @Deprecated
     public static class NamePredicate implements ThreadPredicate, ThreadGroupPredicate {
 
         private final String name;
 
         /**
-         * Predicate constructor
+         * Constructs an instance.
          *
          * @param name thread or thread group name
          * @throws NullPointerException if the name is {@code null}
@@ -88,7 +100,10 @@ public class ThreadUtils {
 
     /**
      * A predicate for selecting thread groups.
+     *
+     * @deprecated Use a {@link Predicate}.
      */
+    @Deprecated
     // When breaking BC, replace this with Predicate<ThreadGroup>
     @FunctionalInterface
     public interface ThreadGroupPredicate {
@@ -103,7 +118,10 @@ public class ThreadUtils {
 
     /**
      * A predicate implementation which matches a thread id.
+     *
+     * @deprecated Use a {@link Predicate}.
      */
+    @Deprecated
     public static class ThreadIdPredicate implements ThreadPredicate {
 
         private final long threadId;
@@ -129,7 +147,10 @@ public class ThreadUtils {
 
     /**
      * A predicate for selecting threads.
+     *
+     * @deprecated Use a {@link Predicate}.
      */
+    @Deprecated
     // When breaking BC, replace this with Predicate<Thread>
     @FunctionalInterface
     public interface ThreadPredicate {
@@ -144,8 +165,18 @@ public class ThreadUtils {
 
     /**
      * Predicate which always returns true.
+     *
+     * @deprecated Use a {@link Predicate}.
      */
+    @Deprecated
     public static final AlwaysTruePredicate ALWAYS_TRUE_PREDICATE = new AlwaysTruePredicate();
+
+    private static final Predicate<?> ALWAYS_TRUE = t -> true;
+
+    @SuppressWarnings("unchecked")
+    private static <T> Predicate<T> alwaysTruePredicate() {
+        return (Predicate<T>) ALWAYS_TRUE;
+    }
 
     /**
      * Finds the active thread with the specified id.
@@ -160,7 +191,10 @@ public class ThreadUtils {
      *          thread groups from this thread's thread group up to the system thread group
      */
     public static Thread findThreadById(final long threadId) {
-        final Collection<Thread> result = findThreads(new ThreadIdPredicate(threadId));
+        if (threadId <= 0) {
+            throw new IllegalArgumentException("The thread id must be greater than zero");
+        }
+        final Collection<Thread> result = findThreads((Predicate<Thread>) t -> t != null && t.getId() == threadId);
         return result.isEmpty() ? null : result.iterator().next();
     }
 
@@ -213,39 +247,7 @@ public class ThreadUtils {
     }
 
     /**
-     * Select all active thread groups which match the given predicate and which is a subgroup of the given thread group (or one of its subgroups).
-     *
-     * @param threadGroup the thread group
-     * @param recurse if {@code true} then evaluate the predicate recursively on all thread groups in all subgroups of the given group
-     * @param predicate the predicate
-     * @return An unmodifiable {@link Collection} of active thread groups which match the given predicate and which is a subgroup of the given thread group
-     * @throws NullPointerException if the given group or predicate is null
-     * @throws  SecurityException  if the current thread cannot modify
-     *          thread groups from this thread's thread group up to the system thread group
-     */
-    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroup threadGroup, final boolean recurse, final ThreadGroupPredicate predicate) {
-        Validate.notNull(threadGroup, "group");
-        Validate.notNull(predicate, "predicate");
-
-        int count = threadGroup.activeGroupCount();
-        ThreadGroup[] threadGroups;
-        do {
-            threadGroups = new ThreadGroup[count + (count / 2) + 1]; //slightly grow the array size
-            count = threadGroup.enumerate(threadGroups, recurse);
-            //return value of enumerate() must be strictly less than the array size according to javadoc
-        } while (count >= threadGroups.length);
-
-        final List<ThreadGroup> result = new ArrayList<>(count);
-        for (int i = 0; i < count; ++i) {
-            if (predicate.test(threadGroups[i])) {
-                result.add(threadGroups[i]);
-            }
-        }
-        return Collections.unmodifiableCollection(result);
-    }
-
-    /**
-     * Select all active thread groups which match the given predicate.
+     * Finds all active thread groups which match the given predicate.
      *
      * @param predicate the predicate
      * @return An unmodifiable {@link Collection} of active thread groups matching the given predicate
@@ -254,7 +256,68 @@ public class ThreadUtils {
      *          if the current thread cannot access the system thread group
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
+     * @since 3.13.0
      */
+    public static Collection<ThreadGroup> findThreadGroups(final Predicate<ThreadGroup> predicate) {
+        return findThreadGroups(getSystemThreadGroup(), true, predicate);
+    }
+
+    /**
+     * Finds all active thread groups which match the given predicate and which is a subgroup of the given thread group (or one of its subgroups).
+     *
+     * @param threadGroup the thread group
+     * @param recurse if {@code true} then evaluate the predicate recursively on all thread groups in all subgroups of the given group
+     * @param predicate the predicate
+     * @return An unmodifiable {@link Collection} of active thread groups which match the given predicate and which is a subgroup of the given thread group
+     * @throws NullPointerException if the given group or predicate is null
+     * @throws  SecurityException  if the current thread cannot modify
+     *          thread groups from this thread's thread group up to the system thread group
+     * @since 3.13.0
+     */
+    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroup threadGroup, final boolean recurse, final Predicate<ThreadGroup> predicate) {
+        Validate.notNull(threadGroup, "group");
+        Validate.notNull(predicate, "predicate");
+
+        int count = threadGroup.activeGroupCount();
+        ThreadGroup[] threadGroups;
+        do {
+            threadGroups = new ThreadGroup[count + count / 2 + 1]; //slightly grow the array size
+            count = threadGroup.enumerate(threadGroups, recurse);
+            //return value of enumerate() must be strictly less than the array size according to Javadoc
+        } while (count >= threadGroups.length);
+        return Collections.unmodifiableCollection(Stream.of(threadGroups).filter(predicate).collect(Collectors.toList()));
+    }
+
+    /**
+     * Finds all active thread groups which match the given predicate and which is a subgroup of the given thread group (or one of its subgroups).
+     *
+     * @param threadGroup the thread group
+     * @param recurse if {@code true} then evaluate the predicate recursively on all thread groups in all subgroups of the given group
+     * @param predicate the predicate
+     * @return An unmodifiable {@link Collection} of active thread groups which match the given predicate and which is a subgroup of the given thread group
+     * @throws NullPointerException if the given group or predicate is null
+     * @throws  SecurityException  if the current thread cannot modify
+     *          thread groups from this thread's thread group up to the system thread group
+     * @deprecated Use {@link #findThreadGroups(ThreadGroup, boolean, Predicate)}.
+     */
+    @Deprecated
+    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroup threadGroup, final boolean recurse, final ThreadGroupPredicate predicate) {
+        return findThreadGroups(threadGroup, recurse, (Predicate<ThreadGroup>) predicate::test);
+    }
+
+    /**
+     * Finds all active thread groups which match the given predicate.
+     *
+     * @param predicate the predicate
+     * @return An unmodifiable {@link Collection} of active thread groups matching the given predicate
+     * @throws NullPointerException if the predicate is null
+     * @throws  SecurityException
+     *          if the current thread cannot access the system thread group
+     * @throws  SecurityException  if the current thread cannot modify
+     *          thread groups from this thread's thread group up to the system thread group
+     * @deprecated Use {@link #findThreadGroups(Predicate)}.
+     */
+    @Deprecated
     public static Collection<ThreadGroup> findThreadGroups(final ThreadGroupPredicate predicate) {
         return findThreadGroups(getSystemThreadGroup(), true, predicate);
     }
@@ -272,43 +335,11 @@ public class ThreadUtils {
      *          thread groups from this thread's thread group up to the system thread group
      */
     public static Collection<ThreadGroup> findThreadGroupsByName(final String threadGroupName) {
-        return findThreadGroups(new NamePredicate(threadGroupName));
+        return findThreadGroups(predicateThreadGroup(threadGroupName));
     }
 
     /**
-     * Select all active threads which match the given predicate and which belongs to the given thread group (or one of its subgroups).
-     *
-     * @param threadGroup the thread group
-     * @param recurse if {@code true} then evaluate the predicate recursively on all threads in all subgroups of the given group
-     * @param predicate the predicate
-     * @return An unmodifiable {@link Collection} of active threads which match the given predicate and which belongs to the given thread group
-     * @throws NullPointerException if the given group or predicate is null
-     * @throws  SecurityException  if the current thread cannot modify
-     *          thread groups from this thread's thread group up to the system thread group
-     */
-    public static Collection<Thread> findThreads(final ThreadGroup threadGroup, final boolean recurse, final ThreadPredicate predicate) {
-        Validate.notNull(threadGroup, "The group must not be null");
-        Validate.notNull(predicate, "The predicate must not be null");
-
-        int count = threadGroup.activeCount();
-        Thread[] threads;
-        do {
-            threads = new Thread[count + (count / 2) + 1]; //slightly grow the array size
-            count = threadGroup.enumerate(threads, recurse);
-            //return value of enumerate() must be strictly less than the array size according to javadoc
-        } while (count >= threads.length);
-
-        final List<Thread> result = new ArrayList<>(count);
-        for (int i = 0; i < count; ++i) {
-            if (predicate.test(threads[i])) {
-                result.add(threads[i]);
-            }
-        }
-        return Collections.unmodifiableCollection(result);
-    }
-
-    /**
-     * Select all active threads which match the given predicate.
+     * Finds all active threads which match the given predicate.
      *
      * @param predicate the predicate
      * @return An unmodifiable {@link Collection} of active threads matching the given predicate
@@ -318,7 +349,68 @@ public class ThreadUtils {
      *          if the current thread cannot access the system thread group
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
+     * @since 3.13.0
      */
+    public static Collection<Thread> findThreads(final Predicate<Thread> predicate) {
+        return findThreads(getSystemThreadGroup(), true, predicate);
+    }
+
+    /**
+     * Finds all active threads which match the given predicate and which belongs to the given thread group (or one of its subgroups).
+     *
+     * @param threadGroup the thread group
+     * @param recurse if {@code true} then evaluate the predicate recursively on all threads in all subgroups of the given group
+     * @param predicate the predicate
+     * @return An unmodifiable {@link Collection} of active threads which match the given predicate and which belongs to the given thread group
+     * @throws NullPointerException if the given group or predicate is null
+     * @throws  SecurityException  if the current thread cannot modify
+     *          thread groups from this thread's thread group up to the system thread group
+     * @since 3.13.0
+     */
+    public static Collection<Thread> findThreads(final ThreadGroup threadGroup, final boolean recurse, final Predicate<Thread> predicate) {
+        Validate.notNull(threadGroup, "The group must not be null");
+        Validate.notNull(predicate, "The predicate must not be null");
+        int count = threadGroup.activeCount();
+        Thread[] threads;
+        do {
+            threads = new Thread[count + count / 2 + 1]; //slightly grow the array size
+            count = threadGroup.enumerate(threads, recurse);
+            //return value of enumerate() must be strictly less than the array size according to javadoc
+        } while (count >= threads.length);
+        return Collections.unmodifiableCollection(Stream.of(threads).filter(predicate).collect(Collectors.toList()));
+    }
+
+    /**
+     * Finds all active threads which match the given predicate and which belongs to the given thread group (or one of its subgroups).
+     *
+     * @param threadGroup the thread group
+     * @param recurse if {@code true} then evaluate the predicate recursively on all threads in all subgroups of the given group
+     * @param predicate the predicate
+     * @return An unmodifiable {@link Collection} of active threads which match the given predicate and which belongs to the given thread group
+     * @throws NullPointerException if the given group or predicate is null
+     * @throws  SecurityException  if the current thread cannot modify
+     *          thread groups from this thread's thread group up to the system thread group
+     * @deprecated Use {@link #findThreads(ThreadGroup, boolean, Predicate)}.
+     */
+    @Deprecated
+    public static Collection<Thread> findThreads(final ThreadGroup threadGroup, final boolean recurse, final ThreadPredicate predicate) {
+        return findThreads(threadGroup, recurse, (Predicate<Thread>) predicate::test);
+    }
+
+    /**
+     * Finds all active threads which match the given predicate.
+     *
+     * @param predicate the predicate
+     * @return An unmodifiable {@link Collection} of active threads matching the given predicate
+     *
+     * @throws NullPointerException if the predicate is null
+     * @throws  SecurityException
+     *          if the current thread cannot access the system thread group
+     * @throws  SecurityException  if the current thread cannot modify
+     *          thread groups from this thread's thread group up to the system thread group
+     * @deprecated Use {@link #findThreads(Predicate)}.
+     */
+    @Deprecated
     public static Collection<Thread> findThreads(final ThreadPredicate predicate) {
         return findThreads(getSystemThreadGroup(), true, predicate);
     }
@@ -336,7 +428,7 @@ public class ThreadUtils {
      *          thread groups from this thread's thread group up to the system thread group
      */
     public static Collection<Thread> findThreadsByName(final String threadName) {
-        return findThreads(new NamePredicate(threadName));
+        return findThreads(predicateThread(threadName));
     }
 
     /**
@@ -356,17 +448,8 @@ public class ThreadUtils {
     public static Collection<Thread> findThreadsByName(final String threadName, final String threadGroupName) {
         Validate.notNull(threadName, "threadName");
         Validate.notNull(threadGroupName, "threadGroupName");
-
-        final Collection<ThreadGroup> threadGroups = findThreadGroups(new NamePredicate(threadGroupName));
-
-        if (threadGroups.isEmpty()) {
-            return Collections.emptyList();
-        }
-
-        final Collection<Thread> result = new ArrayList<>();
-        final NamePredicate threadNamePredicate = new NamePredicate(threadName);
-        threadGroups.forEach(group -> result.addAll(findThreads(group, false, threadNamePredicate)));
-        return Collections.unmodifiableCollection(result);
+        return Collections.unmodifiableCollection(findThreadGroups(predicateThreadGroup(threadGroupName)).stream()
+            .flatMap(group -> findThreads(group, false, predicateThread(threadName)).stream()).collect(Collectors.toList()));
     }
 
     /**
@@ -384,7 +467,7 @@ public class ThreadUtils {
      *          thread groups from this thread's thread group up to the system thread group
      */
     public static Collection<Thread> findThreadsByName(final String threadName, final ThreadGroup threadGroup) {
-        return findThreads(threadGroup, false, new NamePredicate(threadName));
+        return findThreads(threadGroup, false, predicateThread(threadName));
     }
 
     /**
@@ -398,7 +481,7 @@ public class ThreadUtils {
      *          thread groups from this thread's thread group up to the system thread group
      */
     public static Collection<ThreadGroup> getAllThreadGroups() {
-        return findThreadGroups(ALWAYS_TRUE_PREDICATE);
+        return findThreadGroups(alwaysTruePredicate());
     }
 
     /**
@@ -412,7 +495,7 @@ public class ThreadUtils {
      *          thread groups from this thread's thread group up to the system thread group
      */
     public static Collection<Thread> getAllThreads() {
-        return findThreads(ALWAYS_TRUE_PREDICATE);
+        return findThreads(alwaysTruePredicate());
     }
 
     /**
@@ -444,6 +527,18 @@ public class ThreadUtils {
      */
     public static void join(final Thread thread, final Duration duration) throws InterruptedException {
         DurationUtils.accept(thread::join, duration);
+    }
+
+    private static <T> Predicate<T> namePredicate(final String name, final Function<T, String> nameGetter) {
+        return (Predicate<T>) t -> t != null && Objects.equals(nameGetter.apply(t), Objects.requireNonNull(name));
+    }
+
+    private static Predicate<Thread> predicateThread(final String threadName) {
+        return namePredicate(threadName, Thread::getName);
+    }
+
+    private static Predicate<ThreadGroup> predicateThreadGroup(final String threadGroupName) {
+        return namePredicate(threadGroupName, ThreadGroup::getName);
     }
 
     /**

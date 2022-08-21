@@ -33,7 +33,10 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.function.Predicate;
 
+import org.apache.commons.lang3.ThreadUtils.ThreadGroupPredicate;
+import org.apache.commons.lang3.ThreadUtils.ThreadPredicate;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -275,13 +278,16 @@ public class ThreadUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testThreadgroupsNullParent() {
+    public void testThreadGroupsNullParent() {
         assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadGroups(null, true, ThreadUtils.ALWAYS_TRUE_PREDICATE));
+        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadGroups(null, false, ThreadUtils.ALWAYS_TRUE_PREDICATE));
     }
 
     @Test
-    public void testThreadgroupsNullPredicate() {
-        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadGroups(null));
+    public void testThreadGroupsNullPredicate() {
+        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadGroups((ThreadGroupPredicate) null));
+        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadGroups((Predicate<ThreadGroup>) null));
+        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadGroups((Predicate) null));
     }
 
     @Test
@@ -361,7 +367,9 @@ public class ThreadUtilsTest extends AbstractLangTest {
 
     @Test
     public void testThreadsNullPredicate() {
-        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreads(null));
+        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreads((ThreadPredicate) null));
+        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreads((Predicate<Thread>) null));
+        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreads((Predicate) null));
     }
 
     @Test
