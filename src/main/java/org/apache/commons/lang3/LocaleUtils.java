@@ -25,6 +25,8 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * <p>Operations to assist when working with a {@link Locale}.</p>
@@ -74,6 +76,10 @@ public class LocaleUtils {
         return SyncAvoid.AVAILABLE_LOCALE_LIST;
     }
 
+    private static List<Locale> availableLocaleList(final Predicate<Locale> predicate) {
+        return availableLocaleList().stream().filter(predicate).collect(Collectors.toList());
+    }
+
     /**
      * <p>Obtains an unmodifiable set of installed locales.</p>
      *
@@ -100,16 +106,8 @@ public class LocaleUtils {
         if (languageCode == null) {
             return Collections.emptyList();
         }
-        return cCountriesByLanguage.computeIfAbsent(languageCode, lc -> {
-            final List<Locale> countries = new ArrayList<>();
-            final List<Locale> locales = availableLocaleList();
-            for (final Locale locale : locales) {
-                if (languageCode.equals(locale.getLanguage()) && !locale.getCountry().isEmpty() && locale.getVariant().isEmpty()) {
-                    countries.add(locale);
-                }
-            }
-            return Collections.unmodifiableList(countries);
-        });
+        return cCountriesByLanguage.computeIfAbsent(languageCode, lc -> Collections.unmodifiableList(
+            availableLocaleList(locale -> languageCode.equals(locale.getLanguage()) && !locale.getCountry().isEmpty() && locale.getVariant().isEmpty())));
     }
 
     /**
@@ -165,16 +163,8 @@ public class LocaleUtils {
         if (countryCode == null) {
             return Collections.emptyList();
         }
-        return cLanguagesByCountry.computeIfAbsent(countryCode, k -> {
-            final List<Locale> locales = availableLocaleList();
-            final List<Locale> langs = new ArrayList<>();
-            for (final Locale locale : locales) {
-                if (countryCode.equals(locale.getCountry()) && locale.getVariant().isEmpty()) {
-                    langs.add(locale);
-                }
-            }
-            return Collections.unmodifiableList(langs);
-        });
+        return cLanguagesByCountry.computeIfAbsent(countryCode,
+            k -> Collections.unmodifiableList(availableLocaleList(locale -> countryCode.equals(locale.getCountry()) && locale.getVariant().isEmpty())));
     }
 
     /**
