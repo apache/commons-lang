@@ -263,7 +263,7 @@ public class BooleanUtils {
     public static boolean oneHot(final boolean... array) {
         ObjectUtils.requireNonEmpty(array, "array");
         boolean result = false;
-        for (boolean element: array) {
+        for (final boolean element: array) {
             if (element) {
                 if (result) {
                     return false;

@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3;
 
+import org.apache.commons.lang3.stream.Streams;
+
 /**
  * <p>Operations on {@link CharSet} instances.</p>
  *
@@ -101,14 +103,7 @@ public class CharSetUtils {
      * @return whether or not the String is empty
      */
     private static boolean deepEmpty(final String[] strings) {
-        if (strings != null) {
-            for (final String s : strings) {
-                if (StringUtils.isNotEmpty(s)) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return Streams.of(strings).allMatch(StringUtils::isEmpty);
     }
 
     /**

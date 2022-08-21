@@ -22,6 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -578,12 +579,7 @@ public class DurationFormatUtils {
          * @return boolean {@code true} if contained
          */
         static boolean containsTokenWithValue(final Token[] tokens, final Object value) {
-            for (final Token token : tokens) {
-                if (token.getValue() == value) {
-                    return true;
-                }
-            }
-            return false;
+            return Stream.of(tokens).anyMatch(token -> token.getValue() == value);
         }
 
         private final Object value;

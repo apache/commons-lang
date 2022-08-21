@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * <p>A set of characters.</p>
@@ -172,9 +173,7 @@ public class CharSet implements Serializable {
      * @throws NullPointerException if set is {@code null}
      */
     protected CharSet(final String... set) {
-        for (final String s : set) {
-            add(s);
-        }
+        Stream.of(set).forEach(this::add);
     }
 
     /**
