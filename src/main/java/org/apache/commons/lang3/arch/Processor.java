@@ -54,8 +54,6 @@ public class Processor {
 
         /**
          * A label suitable for display.
-         *
-         * @since 3.10
          */
         private final String label;
 
@@ -77,7 +75,7 @@ public class Processor {
      * The {@link Type} enum defines types of a microprocessor.
      * The following types are defined:
      * <ul>
-     *     <li>Aarch64</li>
+     *     <li>AArch64</li>
      *     <li>x86</li>
      *     <li>ia64</li>
      *     <li>PPC</li>
@@ -91,27 +89,47 @@ public class Processor {
          *
          * @since 3.13.0
          */
-        AARCH_64,
+        AARCH_64("AArch64"),
 
         /**
          * Intel x86 series of instruction set architectures.
          */
-        X86,
+        X86("x86"),
 
         /**
          * Intel Itanium 64-bit architecture.
          */
-        IA_64,
+        IA_64("IA-64"),
 
         /**
          * Apple–IBM–Motorola PowerPC architecture.
          */
-        PPC,
+        PPC("PPC"),
 
         /**
          * Unknown architecture.
          */
-        UNKNOWN
+        UNKNOWN("Unknown");
+
+        /**
+         * A label suitable for display.
+         */
+        private final String label;
+
+        Type(final String label) {
+            this.label = label;
+        }
+
+        /**
+         * Gets the label suitable for display.
+         *
+         * @return the label.
+         * @since 3.13.0
+         */
+        public String getLabel() {
+            return label;
+        }
+
     }
 
     private final Arch arch;
@@ -205,6 +223,13 @@ public class Processor {
      */
     public boolean isX86() {
         return Type.X86 == type;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(type.getLabel()).append(' ').append(arch.getLabel());
+        return builder.toString();
     }
 
 }
