@@ -32,6 +32,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.stream.Streams;
 import org.apache.commons.lang3.stream.Streams.FailableStream;
 
 /**
@@ -522,11 +523,7 @@ public class Failable {
         } else {
             actualErrorHandler = errorHandler;
         }
-        if (resources != null) {
-            for (final FailableRunnable<? extends Throwable> failableRunnable : resources) {
-                Objects.requireNonNull(failableRunnable, "runnable");
-            }
-        }
+        Streams.of(resources).forEach(r -> Objects.requireNonNull(r, "runnable"));
         Throwable th = null;
         try {
             action.run();
