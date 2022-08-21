@@ -19,7 +19,7 @@ package org.apache.commons.lang3.concurrent;
 /**
  * <p>
  * An interface describing a <a
- * href="http://martinfowler.com/bliki/CircuitBreaker.html">Circuit Breaker</a> component.
+ * href="https://martinfowler.com/bliki/CircuitBreaker.html">Circuit Breaker</a> component.
  * </p>
  * <p>
  * A <em>circuit breaker</em> can be used to protect an application against unreliable

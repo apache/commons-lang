@@ -419,7 +419,7 @@ JAVA 9 SUPPORT
 ==============
 
 Java 9 introduces a new version-string scheme. Details of this new scheme are
-documented in JEP-223 (http://openjdk.java.net/jeps/223). In order to support
+documented in JEP-223 (https://openjdk.org/jeps/223). In order to support
 JEP-223 two classes had to be changed:
 
 o org.apache.commons.lang3.JavaVersion
@@ -439,7 +439,7 @@ BUILDING ON JAVA 9
 
 Java 8 introduced the Unicode Consortium's Common Locale Data Repository as
 alternative source for locale data. Java 9 will use the CLDR provider as
-default provider for locale data (see http://openjdk.java.net/jeps/252). This
+default provider for locale data (see https://openjdk.org/jeps/252). This
 causes an number of locale-sensitive test in Commons Lang to fail. In order
 to build Commons Lang 3.5 on Java 9, the locale provider has to be set to
 'JRE':

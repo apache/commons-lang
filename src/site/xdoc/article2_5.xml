@@ -48,19 +48,19 @@ The classes are: </p>
 </section>
 <section name="New fields">
 <p>With both Java 7 and Windows 7 becoming a reality, 
-<a href="https://commons.apache.org/lang/api-release/org/apache/commons/lang/SystemUtils.html">SystemUtils</a> was updated to 
+<a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.5/org/apache/commons/lang/SystemUtils.html">SystemUtils</a> was updated to
 provide boolean fields for both versions. </p>
 </section>
 <section name="New methods">
 <p>There were 66 new methods added to existing Commons Lang classes. </p>
-<p>The <a href="https://commons.apache.org/lang/api-release/org/apache/commons/lang/ArrayUtils.html">ArrayUtils</a> class 
+<p>The <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.5/org/apache/commons/lang/ArrayUtils.html">ArrayUtils</a> class
 received two new types of methods. Firstly, a boolean isNotEmpty(array) set of methods, identifying whether the particular 
 array is null or an empty sized array. This makes it the inverse of the existing isEmpty(array) methods. Secondly, an array 
 nullToEmpty(array) set of methods that converts null or empty arrays to a singleton empty array already available from the 
 ArrayUtils class. Non-null/empty arrays are left untouched. </p>
 
 <p>The constructor for the 
-<a href="https://commons.apache.org/lang/api-release/org/apache/commons/lang/CharRange.html">CharRange</a> class is somewhat 
+<a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.5/org/apache/commons/lang/CharRange.html">CharRange</a> class is somewhat
 confusing. It takes a boolean parameter that when set to true means the CharRange is negated. To make code easier to read, the 
 following static helper methods were added: </p>
 <ul>
@@ -71,18 +71,18 @@ following static helper methods were added: </p>
 </ul>
 <p>An iterator() method was also added to provide another way of walking the range. </p>
 
-<p>The <a href="https://commons.apache.org/lang/api-release/org/apache/commons/lang/builder/EqualsBuilder.html">EqualsBuilder</a> 
+<p>The <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.5/org/apache/commons/lang/builder/EqualsBuilder.html">EqualsBuilder</a>
 obtained a new reset() method to allow for reuse, while the 
-<a href="https://commons.apache.org/lang/api-release/org/apache/commons/lang/builder/HashCodeBuilder.html">HashCodeBuilder</a> 
+<a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.5/org/apache/commons/lang/builder/HashCodeBuilder.html">HashCodeBuilder</a>
 received a hashCode() method that returns the built hash code instead of the natural hash code of the builder object itself. It 
 doesn't really matter what the builder chooses to use as a hash code and this stops accidental use of the hashCode() instead of 
 toHashCode() method from causing lots of pain. </p>
 
 <p>Helper isFalse(), isTrue() and toBoolean() methods were added to 
-<a href="https://commons.apache.org/lang/api-release/org/apache/commons/lang/mutable/MutableBoolean.html">MutableBoolean</a>, 
+<a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.5/org/apache/commons/lang/mutable/MutableBoolean.html">MutableBoolean</a>,
 while the other mutable classes received String argument constructors. </p>
 
-<p>Lastly, the <a href="https://commons.apache.org/lang/api-release/org/apache/commons/lang/time/DateUtils.html">DateUtils</a> 
+<p>Lastly, the <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.5/org/apache/commons/lang/time/DateUtils.html">DateUtils</a>
 class received a new ceiling set of methods to truncate upwards, and a parseDateStrictly method to parse a Date with the 
 supplied DateFormat classes leniency set to false. </p>
 
@@ -90,7 +90,7 @@ supplied DateFormat classes leniency set to false. </p>
 
 <section name="StringUtils methods">
 <p>As with 2.4, the 
-<a href="https://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html">StringUtils</a> class has 
+<a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.5/org/apache/commons/lang/StringUtils.html">StringUtils</a> class has
 grown and we cover its new methods in its own section. </p>
 <ul>
 <li>abbreviateMiddle(String, String, int);String - This method turns aRatherLongNameSuchAsAFileName into 'aRatherLo...AFileName'. 

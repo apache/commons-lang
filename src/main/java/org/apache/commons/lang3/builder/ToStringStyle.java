@@ -157,7 +157,7 @@ public abstract class ToStringStyle implements Serializable {
      * when calling {@code toString()} on them.
      *
      * @since 3.4
-     * @see <a href="http://json.org">json.org</a>
+     * @see <a href="https://www.json.org/">json.org</a>
      */
     public static final ToStringStyle JSON_STYLE = new JsonToStringStyle();
 
@@ -2246,7 +2246,7 @@ public abstract class ToStringStyle implements Serializable {
      * </p>
      *
      * @since 3.4
-     * @see <a href="http://json.org">json.org</a>
+     * @see <a href="https://www.json.org/">json.org</a>
      */
     private static final class JsonToStringStyle extends ToStringStyle {
 

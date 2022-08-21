@@ -57,7 +57,7 @@ limitations under the License.
       <p>
       To use JIRA you may need to <a href="https://issues.apache.org/jira/secure/Signup!default.jspa">create an account</a>
       (if you have previously created/updated Commons issues using Bugzilla an account will have been automatically
-      created and you can use the <a href="https://issues.apache.org/jira/secure/ForgotPassword!default.jspa">Forgot Password</a>
+      created and you can use the <a href="https://issues.apache.org/jira/secure/ForgotLoginDetails.jspa">Forgot Password</a>
       page to get a new password).
       </p>
 

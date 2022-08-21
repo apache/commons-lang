@@ -1197,7 +1197,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     /**
      * Tests two instances of classes that can be equal and that are not "related". The two classes are not subclasses
      * of each other and do not share a parent aside from Object.
-     * See https://issues.apache.org/bugzilla/show_bug.cgi?id=33069
+     * See https://issues.apache.org/jira/browse/LANG-6
      */
     @Test
     public void testUnrelatedClasses() {
@@ -1221,7 +1221,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     /**
-     * Test from https://issues.apache.org/bugzilla/show_bug.cgi?id=33067
+     * Test from https://issues.apache.org/jira/browse/LANG-42
      */
     @Test
     public void testNpeForNullElement() {
@@ -1229,7 +1229,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
         final Object[] x2 = {Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3)};
 
         // causes an NPE in 2.0 according to:
-        // https://issues.apache.org/bugzilla/show_bug.cgi?id=33067
+        // https://issues.apache.org/jira/browse/LANG-42
         new EqualsBuilder().append(x1, x2);
     }
 

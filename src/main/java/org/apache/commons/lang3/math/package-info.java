@@ -17,7 +17,7 @@
 /**
  * <p>Extends {@link java.math} for business mathematical classes.
  * This package is intended for business mathematical use, not scientific use.
- * See <a href="https://commons.apache.org/math/">Commons Math</a> for a more complete set of mathematical classes.
+ * See <a href="https://commons.apache.org/proper/commons-math/">Commons Math</a> for a more complete set of mathematical classes.
  * These classes are immutable, and therefore thread-safe.</p>
  *
  * <p>Although Commons Math also exists, some basic mathematical functions are contained within Lang.

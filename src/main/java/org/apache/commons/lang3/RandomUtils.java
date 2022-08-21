@@ -26,7 +26,7 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * <p>Please note that the Apache Commons project provides a component
  * dedicated to pseudo-random number generation, namely
- * <a href="https://commons.apache.org/rng">Commons RNG</a>, that may be
+ * <a href="https://commons.apache.org/proper/commons-rng/">Commons RNG</a>, that may be
  * a better choice for applications with more stringent requirements
  * (performance and/or correctness).</p>
  *

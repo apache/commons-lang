@@ -802,7 +802,7 @@ public class ClassUtils {
      * <p>
      * Returns the desired Method much like {@code Class.getMethod}, however it ensures that the returned Method is from a
      * public class or interface and not from an anonymous inner class. This means that the Method is invokable and doesn't
-     * fall foul of Java bug <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4071957">4071957</a>).
+     * fall foul of Java bug <a href="https://bugs.java.com/bugdatabase/view_bug.do?bug_id=4071957">4071957</a>).
      * </p>
      *
      * <pre>
@@ -1269,7 +1269,7 @@ public class ClassUtils {
      * <p>
      * Specifically, this method tests whether the type represented by the specified {@link Class} parameter can be
      * converted to the type represented by this {@link Class} object via an identity conversion widening primitive or
-     * widening reference conversion. See <em><a href="http://docs.oracle.com/javase/specs/">The Java Language
+     * widening reference conversion. See <em><a href="https://docs.oracle.com/javase/specs/">The Java Language
      * Specification</a></em>, sections 5.1.1, 5.1.2 and 5.1.4 for details.
      * </p>
      *
@@ -1310,7 +1310,7 @@ public class ClassUtils {
      * <p>
      * Specifically, this method tests whether the type represented by the specified {@link Class} parameter can be
      * converted to the type represented by this {@link Class} object via an identity conversion widening primitive or
-     * widening reference conversion. See <em><a href="http://docs.oracle.com/javase/specs/">The Java Language
+     * widening reference conversion. See <em><a href="https://docs.oracle.com/javase/specs/">The Java Language
      * Specification</a></em>, sections 5.1.1, 5.1.2 and 5.1.4 for details.
      * </p>
      *
@@ -1406,7 +1406,7 @@ public class ClassUtils {
      * <p>
      * Specifically, this method tests whether the type represented by the specified {@link Class} parameter can be
      * converted to the type represented by this {@link Class} object via an identity conversion widening primitive or
-     * widening reference conversion. See <em><a href="http://docs.oracle.com/javase/specs/">The Java Language
+     * widening reference conversion. See <em><a href="https://docs.oracle.com/javase/specs/">The Java Language
      * Specification</a></em>, sections 5.1.1, 5.1.2 and 5.1.4 for details.
      * </p>
      *
@@ -1453,7 +1453,7 @@ public class ClassUtils {
      * <p>
      * Specifically, this method tests whether the type represented by the specified {@link Class} parameter can be
      * converted to the type represented by this {@link Class} object via an identity conversion widening primitive or
-     * widening reference conversion. See <em><a href="http://docs.oracle.com/javase/specs/">The Java Language
+     * widening reference conversion. See <em><a href="https://docs.oracle.com/javase/specs/">The Java Language
      * Specification</a></em>, sections 5.1.1, 5.1.2 and 5.1.4 for details.
      * </p>
      *
