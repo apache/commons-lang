@@ -37,14 +37,14 @@ import java.util.concurrent.ThreadLocalRandom;
 @Deprecated
 public class RandomUtils {
 
-    //**
+    /**
      * <p>
      * Returns a random boolean value
      * </p>
-            *
-            * @return the random boolean
+     *
+     * @return the random boolean
      * @since 3.5
-            */
+     */
     public static boolean nextBoolean() {
         return random().nextBoolean();
     }
