@@ -39,6 +39,21 @@ public class RandomUtils {
 
     /**
      * <p>
+     * {@link RandomUtils} instances should NOT be constructed in standard
+     * programming. Instead, the class should be used as
+     * {@code RandomUtils.nextBytes(5);}.
+     * </p>
+     *
+     * <p>
+     * This constructor is public to permit tools that require a JavaBean
+     * instance to operate.
+     * </p>
+     */
+    public RandomUtils() {
+    }
+
+    /**
+     * <p>
      * Returns a random boolean value
      * </p>
      *
@@ -54,8 +69,7 @@ public class RandomUtils {
      * Creates an array of random bytes.
      * </p>
      *
-     * @param count
-     *            the size of the returned array
+     * @param count the size of the returned array
      * @return the random byte array
      * @throws IllegalArgumentException if {@code count} is negative
      */
@@ -83,14 +97,11 @@ public class RandomUtils {
      * Returns a random double within the specified range.
      * </p>
      *
-     * @param startInclusive
-     *            the smallest value that can be returned, must be non-negative
-     * @param endExclusive
-     *            the upper bound (not included)
-     * @throws IllegalArgumentException
-     *             if {@code startInclusive > endExclusive} or if
-     *             {@code startInclusive} is negative
+     * @param startInclusive the smallest value that can be returned, must be non-negative
+     * @param endExclusive   the upper bound (not included)
      * @return the random double
+     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if
+     *                                  {@code startInclusive} is negative
      */
     public static double nextDouble(final double startInclusive, final double endExclusive) {
         Validate.isTrue(endExclusive >= startInclusive,
@@ -120,14 +131,11 @@ public class RandomUtils {
      * Returns a random float within the specified range.
      * </p>
      *
-     * @param startInclusive
-     *            the smallest value that can be returned, must be non-negative
-     * @param endExclusive
-     *            the upper bound (not included)
-     * @throws IllegalArgumentException
-     *             if {@code startInclusive > endExclusive} or if
-     *             {@code startInclusive} is negative
+     * @param startInclusive the smallest value that can be returned, must be non-negative
+     * @param endExclusive   the upper bound (not included)
      * @return the random float
+     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if
+     *                                  {@code startInclusive} is negative
      */
     public static float nextFloat(final float startInclusive, final float endExclusive) {
         Validate.isTrue(endExclusive >= startInclusive,
@@ -157,14 +165,11 @@ public class RandomUtils {
      * Returns a random integer within the specified range.
      * </p>
      *
-     * @param startInclusive
-     *            the smallest value that can be returned, must be non-negative
-     * @param endExclusive
-     *            the upper bound (not included)
-     * @throws IllegalArgumentException
-     *             if {@code startInclusive > endExclusive} or if
-     *             {@code startInclusive} is negative
+     * @param startInclusive the smallest value that can be returned, must be non-negative
+     * @param endExclusive   the upper bound (not included)
      * @return the random integer
+     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if
+     *                                  {@code startInclusive} is negative
      */
     public static int nextInt(final int startInclusive, final int endExclusive) {
         Validate.isTrue(endExclusive >= startInclusive,
@@ -203,7 +208,7 @@ public class RandomUtils {
         long val;
         do {
             bits = random().nextLong() >>> 1;
-            val  = bits % n;
+            val = bits % n;
         } while (bits - val + (n - 1) < 0);
 
         return val;
@@ -214,14 +219,11 @@ public class RandomUtils {
      * Returns a random long within the specified range.
      * </p>
      *
-     * @param startInclusive
-     *            the smallest value that can be returned, must be non-negative
-     * @param endExclusive
-     *            the upper bound (not included)
-     * @throws IllegalArgumentException
-     *             if {@code startInclusive > endExclusive} or if
-     *             {@code startInclusive} is negative
+     * @param startInclusive the smallest value that can be returned, must be non-negative
+     * @param endExclusive   the upper bound (not included)
      * @return the random long
+     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if
+     *                                  {@code startInclusive} is negative
      */
     public static long nextLong(final long startInclusive, final long endExclusive) {
         Validate.isTrue(endExclusive >= startInclusive,
@@ -237,20 +239,5 @@ public class RandomUtils {
 
     private static ThreadLocalRandom random() {
         return ThreadLocalRandom.current();
-    }
-
-    /**
-     * <p>
-     * {@link RandomUtils} instances should NOT be constructed in standard
-     * programming. Instead, the class should be used as
-     * {@code RandomUtils.nextBytes(5);}.
-     * </p>
-     *
-     * <p>
-     * This constructor is public to permit tools that require a JavaBean
-     * instance to operate.
-     * </p>
-     */
-    public RandomUtils() {
     }
 }
