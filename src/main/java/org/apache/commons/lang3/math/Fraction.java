@@ -31,7 +31,8 @@ import org.apache.commons.lang3.Validate;
  * based and thus suffers from various overflow issues. For a BigInteger based
  * equivalent, please see the Commons Math BigFraction class. </p>
  *
- * @deprecated for fraction implementation from commons-numbers
+ * @deprecated for <a href="https://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/index.html">Fraction</a>
+ * from commons-numbers
  * @since 2.0
  */
 @Deprecated
