@@ -20,6 +20,7 @@ package org.apache.commons.lang3.mutable;
  * A mutable {@code double} wrapper.
  * <p>
  * Note that as MutableDouble does not extend Double, it is not treated by String.format as a Double parameter.
+ * </p>
  *
  * @see Double
  * @since 2.1

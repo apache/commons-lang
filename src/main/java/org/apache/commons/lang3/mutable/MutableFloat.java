@@ -20,6 +20,7 @@ package org.apache.commons.lang3.mutable;
  * A mutable {@code float} wrapper.
  * <p>
  * Note that as MutableFloat does not extend Float, it is not treated by String.format as a Float parameter.
+ * </p>
  *
  * @see Float
  * @since 2.1

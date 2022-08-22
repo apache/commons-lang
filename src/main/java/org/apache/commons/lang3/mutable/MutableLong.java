@@ -22,6 +22,7 @@ import org.apache.commons.lang3.math.NumberUtils;
  * A mutable {@code long} wrapper.
  * <p>
  * Note that as MutableLong does not extend Long, it is not treated by String.format as a Long parameter.
+ * </p>
  *
  * @see Long
  * @since 2.1

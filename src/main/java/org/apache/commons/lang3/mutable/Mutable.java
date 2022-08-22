@@ -21,10 +21,12 @@ package org.apache.commons.lang3.mutable;
  * Provides mutable access to a value.
  * <p>
  * {@link Mutable} is used as a generic interface to the implementations in this package.
+ * </p>
  * <p>
  * A typical use case would be to enable a primitive or string to be passed to a method and allow that method to
  * effectively change the value of the primitive/string. Another use case is to store a frequently changing primitive in
  * a collection (for example a total in a map) without needing to create new Integer/Long wrapper objects.
+ * </p>
  *
  * @param <T> the type to set and get
  * @since 2.1

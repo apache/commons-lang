@@ -22,6 +22,7 @@ import org.apache.commons.lang3.math.NumberUtils;
  * A mutable {@code short} wrapper.
  * <p>
  * Note that as MutableShort does not extend Short, it is not treated by String.format as a Short parameter.
+ * </p>
  *
  * @see Short
  * @since 2.1

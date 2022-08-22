@@ -22,6 +22,7 @@ import org.apache.commons.lang3.math.NumberUtils;
  * A mutable {@code int} wrapper.
  * <p>
  * Note that as MutableInt does not extend Integer, it is not treated by String.format as an Integer parameter.
+ * </p>
  *
  * @see Integer
  * @since 2.1
