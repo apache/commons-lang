@@ -37,7 +37,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class RandomUtils {
 
     /**
-     * Returns a random boolean value.
+     * Generates a random boolean value.
      *
      * @return the random boolean
      * @since 3.5
@@ -47,7 +47,7 @@ public class RandomUtils {
     }
 
     /**
-     * Creates an array of random bytes.
+     * Generates an array of random bytes.
      *
      * @param count
      *            the size of the returned array
@@ -63,7 +63,7 @@ public class RandomUtils {
     }
 
     /**
-     * Returns a random double within 0 - Double.MAX_VALUE.
+     * Generates a random double within 0 - Double.MAX_VALUE.
      *
      * @return the random double
      * @see #nextDouble(double, double)
@@ -74,7 +74,7 @@ public class RandomUtils {
     }
 
     /**
-     * Returns a random double within the specified range.
+     * Generates a random double within the specified range.
      *
      * @param startInclusive
      *            the smallest value that can be returned, must be non-negative
@@ -98,7 +98,7 @@ public class RandomUtils {
     }
 
     /**
-     * Returns a random float within 0 - Float.MAX_VALUE.
+     * Generates a random float within 0 - Float.MAX_VALUE.
      *
      * @return the random float
      * @see #nextFloat(float, float)
@@ -109,7 +109,7 @@ public class RandomUtils {
     }
 
     /**
-     * Returns a random float within the specified range.
+     * Generates a random float within the specified range.
      *
      * @param startInclusive
      *            the smallest value that can be returned, must be non-negative
@@ -133,7 +133,7 @@ public class RandomUtils {
     }
 
     /**
-     * Returns a random int within 0 - Integer.MAX_VALUE.
+     * Generates a random int within 0 - Integer.MAX_VALUE.
      *
      * @return the random integer
      * @see #nextInt(int, int)
@@ -144,7 +144,7 @@ public class RandomUtils {
     }
 
     /**
-     * Returns a random integer within the specified range.
+     * Generates a random integer within the specified range.
      *
      * @param startInclusive
      *            the smallest value that can be returned, must be non-negative
@@ -168,7 +168,7 @@ public class RandomUtils {
     }
 
     /**
-     * Returns a random long within 0 - Long.MAX_VALUE.
+     * Generates a random long within 0 - Long.MAX_VALUE.
      *
      * @return the random long
      * @see #nextLong(long, long)
@@ -199,7 +199,7 @@ public class RandomUtils {
     }
 
     /**
-     * Returns a random long within the specified range.
+     * Generates a random long within the specified range.
      *
      * @param startInclusive
      *            the smallest value that can be returned, must be non-negative
