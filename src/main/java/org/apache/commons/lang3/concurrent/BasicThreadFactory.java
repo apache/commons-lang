@@ -25,10 +25,9 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.apache.commons.lang3.Validate;
 
 /**
- * <p>
  * An implementation of the {@link ThreadFactory} interface that provides some
  * configuration options for the threads it creates.
- * </p>
+ *
  * <p>
  * A {@link ThreadFactory} is used for instance by an {@link ExecutorService} to
  * create the threads it uses for executing tasks. In many cases users do not
@@ -240,10 +239,9 @@ public class BasicThreadFactory implements ThreadFactory {
     }
 
     /**
-     * <p>
      * A <em>builder</em> class for creating instances of {@code
      * BasicThreadFactory}.
-     * </p>
+     *
      * <p>
      * Using this builder class instances of {@link BasicThreadFactory} can be
      * created and initialized. The class provides methods that correspond to

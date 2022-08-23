@@ -17,9 +17,9 @@
 package org.apache.commons.lang3.builder;
 
 /**
- * <p>{@link Diffable} classes can be compared with other objects
+ * {@link Diffable} classes can be compared with other objects
  * for differences. The {@link DiffResult} object retrieved can be queried
- * for a list of differences or printed using the {@link DiffResult#toString()}.</p>
+ * for a list of differences or printed using the {@link DiffResult#toString()}.
  *
  * <p>The calculation of the differences is <i>consistent with equals</i> if
  * and only if {@code d1.equals(d2)} implies {@code d1.diff(d2) == ""}.
@@ -43,8 +43,8 @@ package org.apache.commons.lang3.builder;
 public interface Diffable<T> {
 
     /**
-     * <p>Retrieves a list of the differences between
-     * this object and the supplied object.</p>
+     * Retrieves a list of the differences between
+     * this object and the supplied object.
      *
      * @param obj the object to diff against, can be {@code null}
      * @return a list of differences

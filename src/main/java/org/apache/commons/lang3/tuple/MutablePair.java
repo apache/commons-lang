@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * <p>A mutable pair consisting of two {@link Object} elements.</p>
+ * A mutable pair consisting of two {@link Object} elements.
  *
  * <p>Not #ThreadSafe#</p>
  *
@@ -59,7 +59,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
-     * <p>Creates a mutable pair of two objects inferring the generic types.</p>
+     * Creates a mutable pair of two objects inferring the generic types.
      *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>
@@ -75,7 +75,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
-     * <p>Creates a mutable pair from a map entry.</p>
+     * Creates a mutable pair from a map entry.
      *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>
@@ -99,7 +99,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
-     * <p>Creates a mutable pair of two non-null objects inferring the generic types.</p>
+     * Creates a mutable pair of two non-null objects inferring the generic types.
      *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>

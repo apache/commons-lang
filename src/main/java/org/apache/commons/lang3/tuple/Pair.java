@@ -23,7 +23,7 @@ import java.util.Objects;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
 /**
- * <p>A pair consisting of two elements.</p>
+ * A pair consisting of two elements.
  *
  * <p>This class is an abstract implementation defining the basic API.
  * It refers to the elements as 'left' and 'right'. It also implements the
@@ -68,7 +68,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
-     * <p>Creates an immutable pair of two objects inferring the generic types.</p>
+     * Creates an immutable pair of two objects inferring the generic types.
      *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>
@@ -84,7 +84,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
-     * <p>Creates an immutable pair from a map entry.</p>
+     * Creates an immutable pair from a map entry.
      *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>
@@ -100,7 +100,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
-     * <p>Creates an immutable pair of two non-null objects inferring the generic types.</p>
+     * Creates an immutable pair of two non-null objects inferring the generic types.
      *
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>
@@ -118,8 +118,8 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
-     * <p>Compares the pair based on the left element followed by the right element.
-     * The types must be {@link Comparable}.</p>
+     * Compares the pair based on the left element followed by the right element.
+     * The types must be {@link Comparable}.
      *
      * @param other  the other pair, not null
      * @return negative if this is less, zero if equal, positive if greater
@@ -131,7 +131,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
-     * <p>Compares this pair to another based on the two elements.</p>
+     * Compares this pair to another based on the two elements.
      *
      * @param obj  the object to compare to, null returns false
      * @return true if the elements of the pair are equal
@@ -150,7 +150,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
-     * <p>Gets the key from this pair.</p>
+     * Gets the key from this pair.
      *
      * <p>This method implements the {@code Map.Entry} interface returning the
      * left element as the key.</p>
@@ -163,7 +163,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
-     * <p>Gets the left element from this pair.</p>
+     * Gets the left element from this pair.
      *
      * <p>When treated as a key-value pair, this is the key.</p>
      *
@@ -172,7 +172,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     public abstract L getLeft();
 
     /**
-     * <p>Gets the right element from this pair.</p>
+     * Gets the right element from this pair.
      *
      * <p>When treated as a key-value pair, this is the value.</p>
      *
@@ -181,7 +181,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     public abstract R getRight();
 
     /**
-     * <p>Gets the value from this pair.</p>
+     * Gets the value from this pair.
      *
      * <p>This method implements the {@code Map.Entry} interface returning the
      * right element as the value.</p>
@@ -194,8 +194,8 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
-     * <p>Returns a suitable hash code.
-     * The hash code follows the definition in {@code Map.Entry}.</p>
+     * Returns a suitable hash code.
+     * The hash code follows the definition in {@code Map.Entry}.
      *
      * @return the hash code
      */
@@ -206,7 +206,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
-     * <p>Returns a String representation of this pair using the format {@code ($left,$right)}.</p>
+     * Returns a String representation of this pair using the format {@code ($left,$right)}.
      *
      * @return a string describing this object, not null
      */
@@ -216,7 +216,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
-     * <p>Formats the receiver using the given format.</p>
+     * Formats the receiver using the given format.
      *
      * <p>This uses {@link java.util.Formattable} to perform the formatting. Two variables may
      * be used to embed the left and right elements. Use {@code %1$s} for the left

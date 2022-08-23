@@ -17,8 +17,8 @@
 package org.apache.commons.lang3;
 
 /**
- * <p>Operations on {@link CharSequence} that are
- * {@code null} safe.</p>
+ * Operations on {@link CharSequence} that are
+ * {@code null} safe.
  *
  * @see CharSequence
  * @since 3.0
@@ -338,8 +338,8 @@ public class CharSequenceUtils {
     }
 
     /**
-     * <p>Returns a new {@link CharSequence} that is a subsequence of this
-     * sequence starting with the {@code char} value at the specified index.</p>
+     * Returns a new {@link CharSequence} that is a subsequence of this
+     * sequence starting with the {@code char} value at the specified index.
      *
      * <p>This provides the {@link CharSequence} equivalent to {@link String#substring(int)}.
      * The length (in {@code char}) of the returned sequence is {@code length() - start},
@@ -378,8 +378,8 @@ public class CharSequenceUtils {
     }
 
     /**
-     * <p>{@link CharSequenceUtils} instances should NOT be constructed in
-     * standard programming.</p>
+     * {@link CharSequenceUtils} instances should NOT be constructed in
+     * standard programming.
      *
      * <p>This constructor is public to permit tools that require a JavaBean
      * instance to operate.</p>

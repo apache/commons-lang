@@ -22,7 +22,7 @@ import java.util.Objects;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
 /**
- * <p>A triple consisting of three elements.</p>
+ * A triple consisting of three elements.
  *
  * <p>This class is an abstract implementation defining the basic API.
  * It refers to the elements as 'left', 'middle' and 'right'.</p>
@@ -68,7 +68,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     }
 
     /**
-     * <p>Obtains an immutable triple of three objects inferring the generic types.</p>
+     * Obtains an immutable triple of three objects inferring the generic types.
      *
      * <p>This factory allows the triple to be created using inference to
      * obtain the generic types.</p>
@@ -86,7 +86,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     }
 
     /**
-     * <p>Obtains an immutable triple of three non-null objects inferring the generic types.</p>
+     * Obtains an immutable triple of three non-null objects inferring the generic types.
      *
      * <p>This factory allows the triple to be created using inference to
      * obtain the generic types.</p>
@@ -106,9 +106,9 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     }
 
     /**
-     * <p>Compares the triple based on the left element, followed by the middle element,
+     * Compares the triple based on the left element, followed by the middle element,
      * finally the right element.
-     * The types must be {@link Comparable}.</p>
+     * The types must be {@link Comparable}.
      *
      * @param other  the other triple, not null
      * @return negative if this is less, zero if equal, positive if greater
@@ -121,7 +121,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     }
 
     /**
-     * <p>Compares this triple to another based on the three elements.</p>
+     * Compares this triple to another based on the three elements.
      *
      * @param obj  the object to compare to, null returns false
      * @return true if the elements of the triple are equal
@@ -141,28 +141,28 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     }
 
     /**
-     * <p>Gets the left element from this triple.</p>
+     * Gets the left element from this triple.
      *
      * @return the left element, may be null
      */
     public abstract L getLeft();
 
     /**
-     * <p>Gets the middle element from this triple.</p>
+     * Gets the middle element from this triple.
      *
      * @return the middle element, may be null
      */
     public abstract M getMiddle();
 
     /**
-     * <p>Gets the right element from this triple.</p>
+     * Gets the right element from this triple.
      *
      * @return the right element, may be null
      */
     public abstract R getRight();
 
     /**
-     * <p>Returns a suitable hash code.</p>
+     * Returns a suitable hash code.
      *
      * @return the hash code
      */
@@ -172,7 +172,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     }
 
     /**
-     * <p>Returns a String representation of this triple using the format {@code ($left,$middle,$right)}.</p>
+     * Returns a String representation of this triple using the format {@code ($left,$middle,$right)}.
      *
      * @return a string describing this object, not null
      */
@@ -182,7 +182,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     }
 
     /**
-     * <p>Formats the receiver using the given format.</p>
+     * Formats the receiver using the given format.
      *
      * <p>This uses {@link java.util.Formattable} to perform the formatting. Three variables may
      * be used to embed the left and right elements. Use {@code %1$s} for the left

@@ -8680,7 +8680,6 @@ public class ArrayUtils {
      *     <li>ArrayUtils.swap([true, false, true], -1, 1) -&gt; [false, true, true]</li>
      * </ul>
      *
-     *
      * @param array  the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap

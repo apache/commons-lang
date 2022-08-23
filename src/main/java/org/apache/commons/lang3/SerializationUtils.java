@@ -29,8 +29,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>Assists with the serialization process and performs additional functionality based
- * on serialization.</p>
+ * Assists with the serialization process and performs additional functionality based
+ * on serialization.
  *
  * <ul>
  * <li>Deep clone using serialization
@@ -47,17 +47,17 @@ import java.util.Map;
 public class SerializationUtils {
 
     /**
-     * <p>Custom specialization of the standard JDK {@link java.io.ObjectInputStream}
+     * Custom specialization of the standard JDK {@link java.io.ObjectInputStream}
      * that uses a custom  {@link ClassLoader} to resolve a class.
      * If the specified {@link ClassLoader} is not able to resolve the class,
      * the context classloader of the current thread will be used.
      * This way, the standard deserialization work also in web-application
      * containers and application servers, no matter in which of the
      * {@link ClassLoader} the particular class that encapsulates
-     * serialization/deserialization lives. </p>
+     * serialization/deserialization lives.
      *
      * <p>For more in-depth information about the problem for which this
-     * class here is a workaround, see the JIRA issue LANG-626. </p>
+     * class here is a workaround, see the JIRA issue LANG-626.</p>
      */
      static class ClassLoaderAwareObjectInputStream extends ObjectInputStream {
         private static final Map<String, Class<?>> primitiveTypes =
@@ -118,7 +118,7 @@ public class SerializationUtils {
     }
 
     /**
-     * <p>Deep clone an {@link Object} using serialization.</p>
+     * Deep clone an {@link Object} using serialization.
      *
      * <p>This is many times slower than writing clone methods by hand
      * on all objects in your object graph. However, for complex object
@@ -153,9 +153,7 @@ public class SerializationUtils {
     }
 
     /**
-     * <p>
      * Deserializes a single {@link Object} from an array of bytes.
-     * </p>
      *
      * <p>
      * If the call site incorrectly types the return value, a {@link ClassCastException} is thrown from the call site.
@@ -176,9 +174,7 @@ public class SerializationUtils {
     }
 
     /**
-     * <p>
      * Deserializes an {@link Object} from the specified stream.
-     * </p>
      *
      * <p>
      * The stream will be closed once the object is written. This avoids the need for a finally clause, and maybe also
@@ -232,8 +228,8 @@ public class SerializationUtils {
     }
 
     /**
-     * <p>Serializes an {@link Object} to a byte array for
-     * storage/serialization.</p>
+     * Serializes an {@link Object} to a byte array for
+     * storage/serialization.
      *
      * @param obj  the object to serialize to bytes
      * @return a byte[] with the converted Serializable
@@ -246,7 +242,7 @@ public class SerializationUtils {
     }
 
     /**
-     * <p>Serializes an {@link Object} to the specified stream.</p>
+     * Serializes an {@link Object} to the specified stream.
      *
      * <p>The stream will be closed once the object is written.
      * This avoids the need for a finally clause, and maybe also exception
@@ -271,8 +267,8 @@ public class SerializationUtils {
     }
 
     /**
-     * <p>SerializationUtils instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as {@code SerializationUtils.clone(object)}.</p>
+     * SerializationUtils instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as {@code SerializationUtils.clone(object)}.
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance
      * to operate.</p>

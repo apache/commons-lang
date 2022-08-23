@@ -19,7 +19,7 @@ package org.apache.commons.lang3.concurrent;
 import org.apache.commons.lang3.function.FailableFunction;
 
 /**
- * <p>Definition of an interface for a wrapper around a calculation that takes a single parameter and returns a result.</p>
+ * Definition of an interface for a wrapper around a calculation that takes a single parameter and returns a result.
  *
  * <p>This interface allows for wrapping a calculation into a class so that it maybe passed around an application.</p>
  *

@@ -17,9 +17,8 @@
 package org.apache.commons.lang3.concurrent;
 
 /**
- * <p>
  * Definition of an interface for the thread-safe initialization of objects.
- * </p>
+ *
  * <p>
  * The idea behind this interface is to provide access to an object in a
  * thread-safe manner. A {@link ConcurrentInitializer} can be passed to multiple

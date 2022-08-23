@@ -32,9 +32,8 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.stream.Streams;
 
 /**
- * <p>
  * Assists in implementing {@link Object#toString()} methods using reflection.
- * </p>
+ *
  * <p>
  * This class uses reflection to determine the fields to append. Because these fields are usually private, the class
  * uses {@link java.lang.reflect.AccessibleObject#setAccessible(java.lang.reflect.AccessibleObject[], boolean)} to
@@ -136,9 +135,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Builds a {@code toString} value using the default {@link ToStringStyle} through reflection.
-     * </p>
      *
      * <p>
      * It uses {@code AccessibleObject.setAccessible} to gain access to private fields. This means that it will
@@ -165,9 +162,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Builds a {@code toString} value through reflection.
-     * </p>
      *
      * <p>
      * It uses {@code AccessibleObject.setAccessible} to gain access to private fields. This means that it will
@@ -200,9 +195,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Builds a {@code toString} value through reflection.
-     * </p>
      *
      * <p>
      * It uses {@code AccessibleObject.setAccessible} to gain access to private fields. This means that it will
@@ -241,9 +234,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Builds a {@code toString} value through reflection.
-     * </p>
      *
      * <p>
      * It uses {@code AccessibleObject.setAccessible} to gain access to private fields. This means that it will
@@ -290,9 +281,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Builds a {@code toString} value through reflection.
-     * </p>
      *
      * <p>
      * It uses {@code AccessibleObject.setAccessible} to gain access to private fields. This means that it will
@@ -349,9 +338,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Builds a {@code toString} value through reflection.
-     * </p>
      *
      * <p>
      * It uses {@code AccessibleObject.setAccessible} to gain access to private fields. This means that it will
@@ -496,9 +483,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     private Class<?> upToClass;
 
     /**
-     * <p>
      * Constructs a new instance.
-     * </p>
      *
      * <p>
      * This constructor outputs using the default style set with {@code setDefaultStyle}.
@@ -514,9 +499,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Constructs a new instance.
-     * </p>
      *
      * <p>
      * If the style is {@code null}, the default style is used.
@@ -534,9 +517,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Constructs a new instance.
-     * </p>
      *
      * <p>
      * If the style is {@code null}, the default style is used.
@@ -660,9 +641,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Appends the fields and values defined by the given object of the given Class.
-     * </p>
      *
      * <p>
      * If a cycle is detected as an object is &quot;toString()'ed&quot;, such an object is rendered as if
@@ -718,9 +697,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Gets the last super class to stop appending fields for.
-     * </p>
      *
      * @return The last super class to stop appending fields for.
      */
@@ -729,9 +706,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Calls {@code java.lang.reflect.Field.get(Object)}.
-     * </p>
      *
      * @param field
      *            The Field to query.
@@ -749,9 +724,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Gets whether or not to append static fields.
-     * </p>
      *
      * @return Whether or not to append static fields.
      * @since 2.1
@@ -761,9 +734,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Gets whether or not to append transient fields.
-     * </p>
      *
      * @return Whether or not to append transient fields.
      */
@@ -772,9 +743,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Gets whether or not to append fields whose values are null.
-     * </p>
      *
      * @return Whether or not to append fields whose values are null.
      * @since 3.6
@@ -784,9 +753,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Appends to the {@code toString} an {@link Object} array.
-     * </p>
      *
      * @param array
      *            the array to add to the {@code toString}
@@ -798,9 +765,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Sets whether or not to append static fields.
-     * </p>
      *
      * @param appendStatics
      *            Whether or not to append static fields.
@@ -811,9 +776,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Sets whether or not to append transient fields.
-     * </p>
      *
      * @param appendTransients
      *            Whether or not to append transient fields.
@@ -840,9 +803,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Sets whether or not to append fields whose values are null.
-     * </p>
      *
      * @param excludeNullValues
      *            Whether or not to append fields whose values are null.
@@ -871,9 +832,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Sets the last super class to stop appending fields for.
-     * </p>
      *
      * @param clazz
      *            The last super class to stop appending fields for.
@@ -889,9 +848,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
      * Gets the String built by this builder.
-     * </p>
      *
      * @return the built string
      */

@@ -25,7 +25,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * <p>A set of characters.</p>
+ * A set of characters.
  *
  * <p>Instances are immutable, but instances of subclasses may not be.</p>
  *
@@ -92,7 +92,7 @@ public class CharSet implements Serializable {
     private final Set<CharRange> set = Collections.synchronizedSet(new HashSet<>());
 
     /**
-     * <p>Factory method to create a new CharSet using a special syntax.</p>
+     * Factory method to create a new CharSet using a special syntax.
      *
      * <ul>
      *  <li>{@code null} or empty string ("")
@@ -166,8 +166,8 @@ public class CharSet implements Serializable {
     }
 
     /**
-     * <p>Constructs a new CharSet using the set syntax.
-     * Each string is merged in with the set.</p>
+     * Constructs a new CharSet using the set syntax.
+     * Each string is merged in with the set.
      *
      * @param set  Strings to merge into the initial set
      * @throws NullPointerException if set is {@code null}
@@ -177,7 +177,7 @@ public class CharSet implements Serializable {
     }
 
     /**
-     * <p>Add a set definition string to the {@link CharSet}.</p>
+     * Add a set definition string to the {@link CharSet}.
      *
      * @param str  set definition string
      */
@@ -211,7 +211,7 @@ public class CharSet implements Serializable {
     }
 
     /**
-     * <p>Gets the internal set as an array of CharRange objects.</p>
+     * Gets the internal set as an array of CharRange objects.
      *
      * @return an array of immutable CharRange objects
      * @since 2.0
@@ -223,8 +223,8 @@ public class CharSet implements Serializable {
     }
 
     /**
-     * <p>Does the {@link CharSet} contain the specified
-     * character {@code ch}.</p>
+     * Does the {@link CharSet} contain the specified
+     * character {@code ch}.
      *
      * @param ch  the character to check for
      * @return {@code true} if the set contains the characters
@@ -237,8 +237,8 @@ public class CharSet implements Serializable {
 
     // Basics
     /**
-     * <p>Compares two {@link CharSet} objects, returning true if they represent
-     * exactly the same set of characters defined in the same way.</p>
+     * Compares two {@link CharSet} objects, returning true if they represent
+     * exactly the same set of characters defined in the same way.
      *
      * <p>The two sets {@code abc} and {@code a-c} are <i>not</i>
      * equal according to this method.</p>
@@ -260,7 +260,7 @@ public class CharSet implements Serializable {
     }
 
     /**
-     * <p>Gets a hash code compatible with the equals method.</p>
+     * Gets a hash code compatible with the equals method.
      *
      * @return a suitable hash code
      * @since 2.0
@@ -271,7 +271,7 @@ public class CharSet implements Serializable {
     }
 
     /**
-     * <p>Gets a string representation of the set.</p>
+     * Gets a string representation of the set.
      *
      * @return string representation of the set
      */

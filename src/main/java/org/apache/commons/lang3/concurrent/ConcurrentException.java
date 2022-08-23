@@ -19,9 +19,8 @@ package org.apache.commons.lang3.concurrent;
 import java.util.concurrent.ExecutionException;
 
 /**
- * <p>
  * An exception class used for reporting error conditions related to accessing data of background tasks.
- * </p>
+ *
  * <p>
  * The purpose of this exception class is analogous to the default JDK exception class {@link ExecutionException}, i.e.
  * it wraps an exception that occurred during the execution of a task. However, in contrast to

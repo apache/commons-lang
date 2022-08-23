@@ -43,10 +43,9 @@ import org.apache.commons.lang3.ClassUtils.Interfaces;
 import org.apache.commons.lang3.Validate;
 
 /**
- * <p>Utility reflection methods focused on {@link Method}s, originally from Commons BeanUtils.
+ * Utility reflection methods focused on {@link Method}s, originally from Commons BeanUtils.
  * Differences from the BeanUtils version may be noted, especially where similar functionality
  * already existed within Lang.
- * </p>
  *
  * <h2>Known Limitations</h2>
  * <h3>Accessing Public Methods In A Default Access Superclass</h3>
@@ -67,9 +66,9 @@ public class MethodUtils {
     private static final Comparator<Method> METHOD_BY_SIGNATURE = Comparator.comparing(Method::toString);
 
     /**
-     * <p>{@link MethodUtils} instances should NOT be constructed in standard programming.
+     * {@link MethodUtils} instances should NOT be constructed in standard programming.
      * Instead, the class should be used as
-     * {@code MethodUtils.getAccessibleMethod(method)}.</p>
+     * {@code MethodUtils.getAccessibleMethod(method)}.
      *
      * <p>This constructor is {@code public} to permit tools that require a JavaBean
      * instance to operate.</p>
@@ -78,7 +77,7 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invokes a named method without parameters.</p>
+     * Invokes a named method without parameters.
      *
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
@@ -102,7 +101,7 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invokes a named method without parameters.</p>
+     * Invokes a named method without parameters.
      *
      * <p>This is a convenient wrapper for
      * {@link #invokeMethod(Object object, boolean forceAccess, String methodName, Object[] args, Class[] parameterTypes)}.
@@ -125,7 +124,7 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invokes a named method whose parameter type matches the object type.</p>
+     * Invokes a named method whose parameter type matches the object type.
      *
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
@@ -154,7 +153,7 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invokes a named method whose parameter type matches the object type.</p>
+     * Invokes a named method whose parameter type matches the object type.
      *
      * <p>This method supports calls to methods taking primitive parameters
      * via passing in wrapping classes. So, for example, a {@link Boolean} object
@@ -184,7 +183,7 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invokes a named method whose parameter type matches the object type.</p>
+     * Invokes a named method whose parameter type matches the object type.
      *
      * <p>This method supports calls to methods taking primitive parameters
      * via passing in wrapping classes. So, for example, a {@link Boolean} object
@@ -232,7 +231,7 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invokes a named method whose parameter type matches the object type.</p>
+     * Invokes a named method whose parameter type matches the object type.
      *
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
@@ -258,8 +257,8 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invokes a method whose parameter types match exactly the object
-     * types.</p>
+     * Invokes a method whose parameter types match exactly the object
+     * types.
      *
      * <p>This uses reflection to invoke the method obtained from a call to
      * {@link #getAccessibleMethod}(Class, String, Class[])}.</p>
@@ -282,7 +281,7 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invokes a method with no parameters.</p>
+     * Invokes a method with no parameters.
      *
      * <p>This uses reflection to invoke the method obtained from a call to
      * {@link #getAccessibleMethod}(Class, String, Class[])}.</p>
@@ -306,8 +305,8 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invokes a method whose parameter types match exactly the parameter
-     * types given.</p>
+     * Invokes a method whose parameter types match exactly the parameter
+     * types given.
      *
      * <p>This uses reflection to invoke the method obtained from a call to
      * {@link #getAccessibleMethod(Class, String, Class[])}.</p>
@@ -338,8 +337,8 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invokes a {@code static} method whose parameter types match exactly the parameter
-     * types given.</p>
+     * Invokes a {@code static} method whose parameter types match exactly the parameter
+     * types given.
      *
      * <p>This uses reflection to invoke the method obtained from a call to
      * {@link #getAccessibleMethod(Class, String, Class[])}.</p>
@@ -371,7 +370,7 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invokes a named {@code static} method whose parameter type matches the object type.</p>
+     * Invokes a named {@code static} method whose parameter type matches the object type.
      *
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
@@ -402,14 +401,13 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invokes a named {@code static} method whose parameter type matches the object type.</p>
+     * Invokes a named {@code static} method whose parameter type matches the object type.
      *
      * <p>This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.</p>
      *
      * <p>This method supports calls to methods taking primitive parameters
      * via passing in wrapping classes. So, for example, a {@link Boolean} class
      * would match a {@code boolean} primitive.</p>
-     *
      *
      * @param cls invoke static method on this class
      * @param methodName get method with this name
@@ -448,9 +446,8 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Given an arguments array passed to a varargs method, return an array of arguments in the canonical form,
+     * Given an arguments array passed to a varargs method, return an array of arguments in the canonical form,
      * i.e. an array with the declared number of parameters, and whose last parameter is an array of the varargs type.
-     * </p>
      *
      * @param args the array of arguments passed to the varags method
      * @param methodParameterTypes the declared array of method parameter types
@@ -491,8 +488,8 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Invokes a {@code static} method whose parameter types match exactly the object
-     * types.</p>
+     * Invokes a {@code static} method whose parameter types match exactly the object
+     * types.
      *
      * <p>This uses reflection to invoke the method obtained from a call to
      * {@link #getAccessibleMethod(Class, String, Class[])}.</p>
@@ -516,11 +513,11 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Returns an accessible method (that is, one that can be invoked via
+     * Returns an accessible method (that is, one that can be invoked via
      * reflection) with given name and parameters. If no such method
      * can be found, return {@code null}.
      * This is just a convenience wrapper for
-     * {@link #getAccessibleMethod(Method)}.</p>
+     * {@link #getAccessibleMethod(Method)}.
      *
      * @param cls get method from this class
      * @param methodName get method with this name
@@ -537,9 +534,9 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Returns an accessible method (that is, one that can be invoked via
+     * Returns an accessible method (that is, one that can be invoked via
      * reflection) that implements the specified Method. If no such method
-     * can be found, return {@code null}.</p>
+     * can be found, return {@code null}.
      *
      * @param method The method that we wish to call
      * @return The accessible method
@@ -569,9 +566,9 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Returns an accessible method (that is, one that can be invoked via
+     * Returns an accessible method (that is, one that can be invoked via
      * reflection) by scanning through the superclasses. If no such method
-     * can be found, return {@code null}.</p>
+     * can be found, return {@code null}.
      *
      * @param cls Class to be checked
      * @param methodName Method name of the method we wish to call
@@ -595,10 +592,10 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Returns an accessible method (that is, one that can be invoked via
+     * Returns an accessible method (that is, one that can be invoked via
      * reflection) that implements the specified method, by scanning through
      * all implemented interfaces and subinterfaces. If no such method
-     * can be found, return {@code null}.</p>
+     * can be found, return {@code null}.
      *
      * <p>There isn't any good reason why this method must be {@code private}.
      * It is because there doesn't seem any reason why other classes should
@@ -643,11 +640,11 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Finds an accessible method that matches the given name and has compatible parameters.
+     * Finds an accessible method that matches the given name and has compatible parameters.
      * Compatible parameters mean that every method parameter is assignable from
      * the given parameters.
      * In other words, it finds a method with the given name
-     * that will take the parameters given.</p>
+     * that will take the parameters given.
      *
      * <p>This method is used by
      * {@link
@@ -710,8 +707,8 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Retrieves a method whether or not it's accessible. If no such method
-     * can be found, return {@code null}.</p>
+     * Retrieves a method whether or not it's accessible. If no such method
+     * can be found, return {@code null}.
      * @param cls The class that will be subjected to the method search
      * @param methodName The method that we wish to call
      * @param parameterTypes Argument class types
@@ -769,8 +766,8 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Returns the aggregate number of inheritance hops between assignable argument class types.  Returns -1
-     * if the arguments aren't assignable.  Fills a specific purpose for getMatchingMethod and is not generalized.</p>
+     * Returns the aggregate number of inheritance hops between assignable argument class types.  Returns -1
+     * if the arguments aren't assignable.  Fills a specific purpose for getMatchingMethod and is not generalized.
      * @param fromClassArray the Class array to calculate the distance from.
      * @param toClassArray the Class array to calculate the distance to.
      * @return the aggregate number of inheritance hops between assignable argument class types.
@@ -923,9 +920,9 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Gets the annotation object with the given annotation type that is present on the given method
+     * Gets the annotation object with the given annotation type that is present on the given method
      * or optionally on any equivalent method in super classes and interfaces. Returns null if the annotation
-     * type was not present.</p>
+     * type was not present.
      *
      * <p>Stops searching for an annotation once the first annotation of the specified type has been
      * found. Additional annotations of the specified type will be silently ignored.</p>
@@ -974,9 +971,9 @@ public class MethodUtils {
     }
 
     /**
-     * <p>Gets a combination of {@link ClassUtils#getAllSuperclasses(Class)} and
+     * Gets a combination of {@link ClassUtils#getAllSuperclasses(Class)} and
      * {@link ClassUtils#getAllInterfaces(Class)}, one from superclasses, one
-     * from interfaces, and so on in a breadth first way.</p>
+     * from interfaces, and so on in a breadth first way.
      *
      * @param cls  the class to look up, may be {@code null}
      * @return the combined {@link List} of superclasses and interfaces in order

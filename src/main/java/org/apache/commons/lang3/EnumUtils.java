@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * <p>Utility library to provide helper methods for Java enums.</p>
+ * Utility library to provide helper methods for Java enums.
  *
  * <p>#ThreadSafe#</p>
  *
@@ -74,7 +74,7 @@ public class EnumUtils {
     }
 
     /**
-     * <p>Creates a long bit vector representation of the given array of Enum values.</p>
+     * Creates a long bit vector representation of the given array of Enum values.
      *
      * <p>This generates a value that is usable by {@link EnumUtils#processBitVector}.</p>
      *
@@ -97,7 +97,7 @@ public class EnumUtils {
     }
 
     /**
-     * <p>Creates a long bit vector representation of the given subset of an Enum.</p>
+     * Creates a long bit vector representation of the given subset of an Enum.
      *
      * <p>This generates a value that is usable by {@link EnumUtils#processBitVector}.</p>
      *
@@ -126,7 +126,7 @@ public class EnumUtils {
     }
 
     /**
-     * <p>Creates a bit vector representation of the given subset of an Enum using as many {@code long}s as needed.</p>
+     * Creates a bit vector representation of the given subset of an Enum using as many {@code long}s as needed.
      *
      * <p>This generates a value that is usable by {@link EnumUtils#processBitVectors}.</p>
      *
@@ -156,7 +156,7 @@ public class EnumUtils {
     }
 
     /**
-     * <p>Creates a bit vector representation of the given subset of an Enum using as many {@code long}s as needed.</p>
+     * Creates a bit vector representation of the given subset of an Enum using as many {@code long}s as needed.
      *
      * <p>This generates a value that is usable by {@link EnumUtils#processBitVectors}.</p>
      *
@@ -185,7 +185,7 @@ public class EnumUtils {
     }
 
     /**
-     * <p>Gets the enum for the class, returning {@code null} if not found.</p>
+     * Gets the enum for the class, returning {@code null} if not found.
      *
      * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
      * for an invalid enum name.</p>
@@ -200,7 +200,7 @@ public class EnumUtils {
     }
 
     /**
-     * <p>Gets the enum for the class, returning {@code defaultEnum} if not found.</p>
+     * Gets the enum for the class, returning {@code defaultEnum} if not found.
      *
      * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
      * for an invalid enum name.</p>
@@ -224,7 +224,7 @@ public class EnumUtils {
     }
 
     /**
-     * <p>Gets the enum for the class, returning {@code null} if not found.</p>
+     * Gets the enum for the class, returning {@code null} if not found.
      *
      * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
      * for an invalid enum name and performs case insensitive matching of the name.</p>
@@ -240,7 +240,7 @@ public class EnumUtils {
     }
 
     /**
-     * <p>Gets the enum for the class, returning {@code defaultEnum} if not found.</p>
+     * Gets the enum for the class, returning {@code defaultEnum} if not found.
      *
      * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
      * for an invalid enum name and performs case insensitive matching of the name.</p>
@@ -258,7 +258,7 @@ public class EnumUtils {
     }
 
     /**
-     * <p>Gets the {@link List} of enums.</p>
+     * Gets the {@link List} of enums.
      *
      * <p>This method is useful when you need a list of enums rather than an array.</p>
      *
@@ -271,7 +271,7 @@ public class EnumUtils {
     }
 
     /**
-     * <p>Gets the {@link Map} of enums by name.</p>
+     * Gets the {@link Map} of enums by name.
      *
      * <p>This method is useful when you need a map of enums by name.</p>
      *
@@ -284,9 +284,7 @@ public class EnumUtils {
     }
 
     /**
-     * <p>
      * Gets the {@link Map} of enums by name.
-     * </p>
      *
      * <p>
      * This method is useful when you need a map of enums by name.
@@ -304,9 +302,7 @@ public class EnumUtils {
     }
 
     /**
-     * <p>
      * Gets the enum for the class in a system property, returning {@code defaultEnum} if not found.
-     * </p>
      *
      * <p>
      * This method differs from {@link Enum#valueOf} in that it does not throw an exception for an invalid enum name.
@@ -326,7 +322,7 @@ public class EnumUtils {
     }
 
     /**
-     * <p>Gets the enum for the class, returning {@code defaultEnum} if not found.</p>
+     * Gets the enum for the class, returning {@code defaultEnum} if not found.
      *
      * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
      * for an invalid enum name and performs case insensitive matching of the name.</p>
@@ -348,7 +344,7 @@ public class EnumUtils {
     }
 
     /**
-     * <p>Checks if the specified name is a valid enum for the class.</p>
+     * Checks if the specified name is a valid enum for the class.
      *
      * <p>This method differs from {@link Enum#valueOf} in that checks if the name is
      * a valid enum without needing to catch the exception.</p>
@@ -363,7 +359,7 @@ public class EnumUtils {
     }
 
     /**
-     * <p>Checks if the specified name is a valid enum for the class.</p>
+     * Checks if the specified name is a valid enum for the class.
      *
      * <p>This method differs from {@link Enum#valueOf} in that checks if the name is
      * a valid enum without needing to catch the exception
@@ -380,8 +376,8 @@ public class EnumUtils {
     }
 
     /**
-     * <p>Convert a long value created by {@link EnumUtils#generateBitVector} into the set of
-     * enum values that it represents.</p>
+     * Convert a long value created by {@link EnumUtils#generateBitVector} into the set of
+     * enum values that it represents.
      *
      * <p>If you store this value, beware any changes to the enum that would affect ordinal values.</p>
      * @param enumClass the class of the enum we are working with, not {@code null}
@@ -398,8 +394,8 @@ public class EnumUtils {
     }
 
     /**
-     * <p>Convert a {@code long[]} created by {@link EnumUtils#generateBitVectors} into the set of
-     * enum values that it represents.</p>
+     * Convert a {@code long[]} created by {@link EnumUtils#generateBitVectors} into the set of
+     * enum values that it represents.
      *
      * <p>If you store this value, beware any changes to the enum that would affect ordinal values.</p>
      * @param enumClass the class of the enum we are working with, not {@code null}

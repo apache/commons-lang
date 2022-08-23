@@ -20,9 +20,8 @@ import java.util.UUID;
 
 
 /**
- * <p>
  * Static methods to convert a type into another, with endianness and bit ordering awareness.
- * </p>
+ *
  * <p>
  * The methods names follow a naming rule:<br>
  * {@code <source type>[source endianness][source bit ordering]To<destination type>[destination endianness][destination bit ordering]}
@@ -81,9 +80,8 @@ public class Conversion {
     private static final boolean[] FFFF = {false, false, false, false};
 
     /**
-     * <p>
      * Converts a hexadecimal digit into an int using the default (Lsb0) bit ordering.
-     * </p>
+     *
      * <p>
      * '1' is converted to 1
      * </p>
@@ -101,9 +99,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts a hexadecimal digit into an int using the Msb0 bit ordering.
-     * </p>
+     *
      * <p>
      * '1' is converted to 8
      * </p>
@@ -158,10 +155,9 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts a hexadecimal digit into binary (represented as boolean array) using the default
      * (Lsb0) bit ordering.
-     * </p>
+     *
      * <p>
      * '1' is converted as follow: (1, 0, 0, 0)
      * </p>
@@ -216,10 +212,9 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts a hexadecimal digit into binary (represented as boolean array) using the Msb0
      * bit ordering.
-     * </p>
+     *
      * <p>
      * '1' is converted as follow: (0, 0, 0, 1)
      * </p>
@@ -274,10 +269,9 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts binary (represented as boolean array) to a hexadecimal digit using the default
      * (Lsb0) bit ordering.
-     * </p>
+     *
      * <p>
      * (1, 0, 0, 0) is converted as follow: '1'
      * </p>
@@ -292,10 +286,9 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts binary (represented as boolean array) to a hexadecimal digit using the default
      * (Lsb0) bit ordering.
-     * </p>
+     *
      * <p>
      * (1, 0, 0, 0) is converted as follow: '1'
      * </p>
@@ -335,10 +328,9 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts binary (represented as boolean array) to a hexadecimal digit using the Msb0 bit
      * ordering.
-     * </p>
+     *
      * <p>
      * (1, 0, 0, 0) is converted as follow: '8'
      * </p>
@@ -354,10 +346,9 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts binary (represented as boolean array) to a hexadecimal digit using the Msb0 bit
      * ordering.
-     * </p>
+     *
      * <p>
      * (1, 0, 0, 0) is converted as follow: '8' (1, 0, 0, 1, 1, 0, 1, 0) with srcPos = 3 is converted
      * to 'D'
@@ -402,10 +393,9 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts the first 4 bits of a binary (represented as boolean array) in big endian Msb0
      * bit ordering to a hexadecimal digit.
-     * </p>
+     *
      * <p>
      * (1, 0, 0, 0) is converted as follow: '8' (1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0) is converted
      * to '4'
@@ -421,10 +411,9 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts a binary (represented as boolean array) in big endian Msb0 bit ordering to a
      * hexadecimal digit.
-     * </p>
+     *
      * <p>
      * (1, 0, 0, 0) with srcPos = 0 is converted as follow: '8' (1, 0, 0, 0, 0, 0, 0, 0,
      * 0, 0, 0, 1, 0, 1, 0, 0) with srcPos = 2 is converted to '5'
@@ -473,9 +462,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts the 4 lsb of an int to a hexadecimal digit.
-     * </p>
+     *
      * <p>
      * 0 returns '0'
      * </p>
@@ -499,9 +487,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts the 4 lsb of an int to a hexadecimal digit encoded using the Msb0 bit ordering.
-     * </p>
+     *
      * <p>
      * 0 returns '0'
      * </p>
@@ -556,10 +543,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts an array of int into a long using the default (little endian, Lsb0) byte and bit
      * ordering.
-     * </p>
      *
      * @param src the int array to convert
      * @param srcPos the position in {@code src}, in int unit, from where to start the
@@ -591,10 +576,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts an array of short into a long using the default (little endian, Lsb0) byte and
      * bit ordering.
-     * </p>
      *
      * @param src the short array to convert
      * @param srcPos the position in {@code src}, in short unit, from where to start the
@@ -626,10 +609,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts an array of short into an int using the default (little endian, Lsb0) byte and
      * bit ordering.
-     * </p>
      *
      * @param src the short array to convert
      * @param srcPos the position in {@code src}, in short unit, from where to start the
@@ -661,10 +642,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts an array of byte into a long using the default (little endian, Lsb0) byte and
      * bit ordering.
-     * </p>
      *
      * @param src the byte array to convert
      * @param srcPos the position in {@code src}, in byte unit, from where to start the
@@ -696,10 +675,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts an array of byte into an int using the default (little endian, Lsb0) byte and bit
      * ordering.
-     * </p>
      *
      * @param src the byte array to convert
      * @param srcPos the position in {@code src}, in byte unit, from where to start the
@@ -731,10 +708,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts an array of byte into a short using the default (little endian, Lsb0) byte and
      * bit ordering.
-     * </p>
      *
      * @param src the byte array to convert
      * @param srcPos the position in {@code src}, in byte unit, from where to start the
@@ -766,10 +741,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts an array of Char into a long using the default (little endian, Lsb0) byte and
      * bit ordering.
-     * </p>
      *
      * @param src the hex string to convert
      * @param srcPos the position in {@code src}, in Char unit, from where to start the
@@ -799,10 +772,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts an array of Char into an int using the default (little endian, Lsb0) byte and bit
      * ordering.
-     * </p>
      *
      * @param src the hex string to convert
      * @param srcPos the position in {@code src}, in Char unit, from where to start the
@@ -831,10 +802,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts an array of Char into a short using the default (little endian, Lsb0) byte and
      * bit ordering.
-     * </p>
      *
      * @param src the hex string to convert
      * @param srcPos the position in {@code src}, in Char unit, from where to start the
@@ -864,10 +833,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts an array of Char into a byte using the default (little endian, Lsb0) byte and
      * bit ordering.
-     * </p>
      *
      * @param src the hex string to convert
      * @param srcPos the position in {@code src}, in Char unit, from where to start the
@@ -897,10 +864,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts binary (represented as boolean array) into a long using the default (little
      * endian, Lsb0) byte and bit ordering.
-     * </p>
      *
      * @param src the binary to convert
      * @param srcPos the position in {@code src}, in boolean unit, from where to start the
@@ -932,10 +897,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts binary (represented as boolean array) into an int using the default (little
      * endian, Lsb0) byte and bit ordering.
-     * </p>
      *
      * @param src the binary to convert
      * @param srcPos the position in {@code src}, in boolean unit, from where to start the
@@ -967,10 +930,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts binary (represented as boolean array) into a short using the default (little
      * endian, Lsb0) byte and bit ordering.
-     * </p>
      *
      * @param src the binary to convert
      * @param srcPos the position in {@code src}, in boolean unit, from where to start the
@@ -1002,10 +963,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts binary (represented as boolean array) into a byte using the default (little
      * endian, Lsb0) byte and bit ordering.
-     * </p>
      *
      * @param src the binary to convert
      * @param srcPos the position in {@code src}, in boolean unit, from where to start the
@@ -1037,10 +996,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts a long into an array of int using the default (little endian, Lsb0) byte and bit
      * ordering.
-     * </p>
      *
      * @param src the long to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
@@ -1069,10 +1026,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts a long into an array of short using the default (little endian, Lsb0) byte and
      * bit ordering.
-     * </p>
      *
      * @param src the long to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
@@ -1101,10 +1056,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts an int into an array of short using the default (little endian, Lsb0) byte and
      * bit ordering.
-     * </p>
      *
      * @param src the int to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
@@ -1133,10 +1086,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts a long into an array of byte using the default (little endian, Lsb0) byte and
      * bit ordering.
-     * </p>
      *
      * @param src the long to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
@@ -1165,10 +1116,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts an int into an array of byte using the default (little endian, Lsb0) byte and bit
      * ordering.
-     * </p>
      *
      * @param src the int to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
@@ -1197,10 +1146,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts a short into an array of byte using the default (little endian, Lsb0) byte and
      * bit ordering.
-     * </p>
      *
      * @param src the short to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
@@ -1229,10 +1176,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts a long into an array of Char using the default (little endian, Lsb0) byte and
      * bit ordering.
-     * </p>
      *
      * @param src the long to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
@@ -1268,10 +1213,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts an int into an array of Char using the default (little endian, Lsb0) byte and bit
      * ordering.
-     * </p>
      *
      * @param src the int to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
@@ -1307,10 +1250,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts a short into an array of Char using the default (little endian, Lsb0) byte and
      * bit ordering.
-     * </p>
      *
      * @param src the short to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
@@ -1346,10 +1287,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts a byte into an array of Char using the default (little endian, Lsb0) byte and
      * bit ordering.
-     * </p>
      *
      * @param src the byte to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
@@ -1385,10 +1324,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts a long into an array of boolean using the default (little endian, Lsb0) byte and
      * bit ordering.
-     * </p>
      *
      * @param src the long to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
@@ -1417,10 +1354,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts an int into an array of boolean using the default (little endian, Lsb0) byte and
      * bit ordering.
-     * </p>
      *
      * @param src the int to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
@@ -1449,10 +1384,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts a short into an array of boolean using the default (little endian, Lsb0) byte
      * and bit ordering.
-     * </p>
      *
      * @param src the short to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
@@ -1482,10 +1415,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts a byte into an array of boolean using the default (little endian, Lsb0) byte and
      * bit ordering.
-     * </p>
      *
      * @param src the byte to convert
      * @param srcPos the position in {@code src}, in bits, from where to start the conversion
@@ -1514,10 +1445,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts UUID into an array of byte using the default (little endian, Lsb0) byte and bit
      * ordering.
-     * </p>
      *
      * @param src the UUID to convert
      * @param dst the destination array
@@ -1544,10 +1473,8 @@ public class Conversion {
     }
 
     /**
-     * <p>
      * Converts bytes from an array into a UUID using the default (little endian, Lsb0) byte and
      * bit ordering.
-     * </p>
      *
      * @param src the byte array to convert
      * @param srcPos the position in {@code src} where to copy the result from

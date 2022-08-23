@@ -25,7 +25,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.lang3.exception.UncheckedException;
 
 /**
- * <p>Helper methods for working with {@link Annotation} instances.</p>
+ * Helper methods for working with {@link Annotation} instances.
  *
  * <p>This class contains various utility methods that make working with
  * annotations simpler.</p>
@@ -90,8 +90,8 @@ public class AnnotationUtils {
     };
 
     /**
-     * <p>{@link AnnotationUtils} instances should NOT be constructed in
-     * standard programming. Instead, the class should be used statically.</p>
+     * {@link AnnotationUtils} instances should NOT be constructed in
+     * standard programming. Instead, the class should be used statically.
      *
      * <p>This constructor is public to permit tools that require a JavaBean
      * instance to operate.</p>
@@ -100,8 +100,8 @@ public class AnnotationUtils {
     }
 
     /**
-     * <p>Checks if two annotations are equal using the criteria for equality
-     * presented in the {@link Annotation#equals(Object)} API docs.</p>
+     * Checks if two annotations are equal using the criteria for equality
+     * presented in the {@link Annotation#equals(Object)} API docs.
      *
      * @param a1 the first Annotation to compare, {@code null} returns
      * {@code false} unless both are {@code null}
@@ -142,8 +142,8 @@ public class AnnotationUtils {
     }
 
     /**
-     * <p>Generate a hash code for the given annotation using the algorithm
-     * presented in the {@link Annotation#hashCode()} API docs.</p>
+     * Generate a hash code for the given annotation using the algorithm
+     * presented in the {@link Annotation#hashCode()} API docs.
      *
      * @param a the Annotation for a hash code calculation is desired, not
      * {@code null}
@@ -171,8 +171,8 @@ public class AnnotationUtils {
     }
 
     /**
-     * <p>Generate a string representation of an Annotation, as suggested by
-     * {@link Annotation#toString()}.</p>
+     * Generate a string representation of an Annotation, as suggested by
+     * {@link Annotation#toString()}.
      *
      * @param a the annotation of which a string representation is desired
      * @return the standard string representation of an annotation, not
@@ -194,7 +194,7 @@ public class AnnotationUtils {
     }
 
     /**
-     * <p>Checks if the specified type is permitted as an annotation member.</p>
+     * Checks if the specified type is permitted as an annotation member.
      *
      * <p>The Java language specification only permits certain types to be used
      * in annotations. These include {@link String}, {@link Class}, primitive

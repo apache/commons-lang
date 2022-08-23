@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 /**
- * <p>Provides highly reusable static utility methods, chiefly concerned with adding value to the {@link java.lang} classes.
+ * Provides highly reusable static utility methods, chiefly concerned with adding value to the {@link java.lang} classes.
  * Most of these classes are immutable and thus thread-safe.
- * However {@link org.apache.commons.lang3.CharSet} is not currently guaranteed thread-safe under all circumstances.</p>
+ * However {@link org.apache.commons.lang3.CharSet} is not currently guaranteed thread-safe under all circumstances.
  *
  * <p>The top level package contains various Utils classes, whilst there are various subpackages including {@link org.apache.commons.lang3.math}, {@link org.apache.commons.lang3.concurrent} and {@link org.apache.commons.lang3.builder}.
  * Using the Utils classes is generally simplicity itself.
@@ -29,7 +29,7 @@
  * In both cases you can find features of later JDKs being maintained by us and likely to be removed or modified in favour of the JDK in the next major version.
  * Note that Lang 3.0 uses a different package than its predecessors, allowing it to be used at the same time as an earlier version.</p>
  *
- * <p>You will find deprecated methods as you stroll through the Lang documentation. These are removed in the next major version. </p>
+ * <p>You will find deprecated methods as you stroll through the Lang documentation. These are removed in the next major version.</p>
  *
  * <p>All util classes contain empty public constructors with warnings not to use.
  * This may seem an odd thing to do, but it allows tools like Velocity to access the class as if it were a bean.
@@ -52,7 +52,7 @@
  * <p>In addition to dealing with Strings, it's also important to deal with chars and Characters.
  * {@link org.apache.commons.lang3.CharUtils} exists for this purpose, while {@link org.apache.commons.lang3.CharSetUtils} exists for set-manipulation of Strings.
  * Be careful, although CharSetUtils takes an argument of type String, it is only as a set of characters.
- * For example, {@code CharSetUtils.delete("testtest", "tr")} will remove all t's and all r's from the String, not just the String "tr". </p>
+ * For example, {@code CharSetUtils.delete("testtest", "tr")} will remove all t's and all r's from the String, not just the String "tr".</p>
  *
  * <p>{@link org.apache.commons.lang3.CharRange} and {@link org.apache.commons.lang3.CharSet} are both used internally by CharSetUtils, and will probably rarely be used.</p>
  *
@@ -63,7 +63,7 @@
  * Having pushed out a few JDK 1.3 bits that had slipped in ({@code Collections.EMPTY_MAP} is a classic offender), I then found that one of the Unit Tests was dying mysteriously under JDK 1.2, but ran fine under JDK 1.3.
  * There was no obvious solution and I needed to move onwards, so the simple solution was to wrap that particular test in a <code>if (SystemUtils.isJavaVersionAtLeast(1.3f)) {</code>, make a note and move on.</p>
  *
- * <p>The {@link org.apache.commons.lang3.CharEncoding} class is also used to interact with the Java environment and may be used to see which character encodings are supported in a particular environment. </p>
+ * <p>The {@link org.apache.commons.lang3.CharEncoding} class is also used to interact with the Java environment and may be used to see which character encodings are supported in a particular environment.</p>
  *
  * <h2>Serialization - SerializationUtils, SerializationException</h2>
  *
@@ -80,7 +80,7 @@
  * <p>Next up, {@link org.apache.commons.lang3.ArrayUtils}.
  * This is a big one with many methods and many overloads of these methods so it is probably worth an in depth look here.
  * Before we begin, assume that every method mentioned is overloaded for all the primitives and for Object.
- * Also, the short-hand 'xxx' implies a generic primitive type, but usually also includes Object. </p>
+ * Also, the short-hand 'xxx' implies a generic primitive type, but usually also includes Object.</p>
  *
  * <ul>
  *  <li>ArrayUtils provides singleton empty arrays for all the basic types. These will largely be of use in the Collections API with its toArray methods, but also will be of use with methods which want to return an empty array on error.</li>
@@ -98,7 +98,7 @@
  * </ul>
  *
  * <p>Lastly, {@link org.apache.commons.lang3.ArrayUtils#toMap(Object[])} is worthy of special note.
- * It is not a heavily overloaded method for working with arrays, but a simple way to create Maps from literals. </p>
+ * It is not a heavily overloaded method for working with arrays, but a simple way to create Maps from literals.</p>
  *
  * <h4>Using toMap</h4>
  * <pre>
@@ -115,8 +115,8 @@
  * It contains various Boolean acting methods, probably of most interest is the {@link org.apache.commons.lang3.BooleanUtils#toBoolean(String)} method which turns various positive/negative Strings into a Boolean object, and not just true/false as with Boolean.valueOf.</p>
  *
  * <h2>Flotsam - BitField, Validate</h2>
- * <p>On reaching the end of our package, we are left with a couple of classes that haven't fit any of the topics so far. </p>
- * <p>The {@link org.apache.commons.lang3.BitField} class provides a wrapper class around the classic bitmask integer, whilst the {@link org.apache.commons.lang3.Validate} class may be used for assertions (remember, we support Java 1.2). </p>
+ * <p>On reaching the end of our package, we are left with a couple of classes that haven't fit any of the topics so far.</p>
+ * <p>The {@link org.apache.commons.lang3.BitField} class provides a wrapper class around the classic bitmask integer, whilst the {@link org.apache.commons.lang3.Validate} class may be used for assertions (remember, we support Java 1.2).</p>
  *
  * @since 1.0
  */

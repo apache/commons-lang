@@ -19,10 +19,9 @@ package org.apache.commons.lang3.concurrent;
 import java.util.Objects;
 
 /**
- * <p>
  * A very simple implementation of the {@link ConcurrentInitializer} interface
  * which always returns the same object.
- * </p>
+ *
  * <p>
  * An instance of this class is passed a reference to an object when it is
  * constructed. The {@link #get()} method just returns this object. No

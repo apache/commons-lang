@@ -43,8 +43,8 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.LocaleUtils;
 
 /**
- * <p>FastDateParser is a fast and thread-safe version of
- * {@link java.text.SimpleDateFormat}.</p>
+ * FastDateParser is a fast and thread-safe version of
+ * {@link java.text.SimpleDateFormat}.
  *
  * <p>To obtain a proxy to a FastDateParser, use {@link FastDateFormat#getInstance(String, TimeZone, Locale)}
  * or another variation of the factory methods of {@link FastDateFormat}.</p>
@@ -113,7 +113,7 @@ public class FastDateParser implements DateParser, Serializable {
     private static final Comparator<String> LONGER_FIRST_LOWERCASE = Comparator.reverseOrder();
 
     /**
-     * <p>Constructs a new FastDateParser.</p>
+     * Constructs a new FastDateParser.
      *
      * Use {@link FastDateFormat#getInstance(String, TimeZone, Locale)} or another variation of the
      * factory methods of {@link FastDateFormat} to get a cached FastDateParser instance.
@@ -128,7 +128,7 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     /**
-     * <p>Constructs a new FastDateParser.</p>
+     * Constructs a new FastDateParser.
      *
      * @param pattern non-null {@link java.text.SimpleDateFormat} compatible
      *  pattern
@@ -305,7 +305,7 @@ public class FastDateParser implements DateParser, Serializable {
 
     // Basics
     /**
-     * <p>Compares another object for equality with this object.</p>
+     * Compares another object for equality with this object.
      *
      * @param obj  the object to compare to
      * @return {@code true}if equal to this instance
@@ -320,7 +320,7 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     /**
-     * <p>Returns a hash code compatible with equals.</p>
+     * Returns a hash code compatible with equals.
      *
      * @return a hash code compatible with equals
      */
@@ -330,7 +330,7 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     /**
-     * <p>Gets a string version of this formatter.</p>
+     * Gets a string version of this formatter.
      *
      * @return a debugging string
      */

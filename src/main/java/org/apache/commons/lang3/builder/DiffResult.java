@@ -23,12 +23,11 @@ import java.util.List;
 import org.apache.commons.lang3.Validate;
 
 /**
- * <p>
  * A {@link DiffResult} contains a collection of the differences between two
  * {@link Diffable} objects. Typically these differences are displayed using
  * {@link #toString()} method, which returns a string describing the fields that
  * differ between the objects.
- * </p>
+ *
  * <p>
  * Use a {@link DiffBuilder} to build a {@link DiffResult} comparing two objects.
  * </p>
@@ -39,10 +38,9 @@ import org.apache.commons.lang3.Validate;
 public class DiffResult<T> implements Iterable<Diff<?>> {
 
     /**
-     * <p>
      * The {@link String} returned when the objects have no differences:
      * {@value}
-     * </p>
+     *
      */
     public static final String OBJECTS_SAME_STRING = "";
 
@@ -54,10 +52,8 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     private final ToStringStyle style;
 
     /**
-     * <p>
      * Creates a {@link DiffResult} containing the differences between two
      * objects.
-     * </p>
      *
      * @param lhs
      *            the left-hand object
@@ -89,7 +85,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     }
 
     /**
-     * <p>Returns the object the right object has been compared to.</p>
+     * Returns the object the right object has been compared to.
      *
      * @return the left object of the diff
      * @since 3.10
@@ -99,7 +95,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     }
 
     /**
-     * <p>Returns the object the left object has been compared to.</p>
+     * Returns the object the left object has been compared to.
      *
      * @return the right object of the diff
      * @since 3.10
@@ -109,10 +105,8 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     }
 
     /**
-     * <p>
      * Returns an unmodifiable list of {@link Diff}s. The list may be empty if
      * there were no differences between the objects.
-     * </p>
      *
      * @return an unmodifiable list of {@link Diff}s
      */
@@ -121,9 +115,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     }
 
     /**
-     * <p>
      * Returns the number of differences between the two objects.
-     * </p>
      *
      * @return the number of differences
      */
@@ -132,9 +124,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     }
 
     /**
-     * <p>
      * Returns the style used by the {@link #toString()} method.
-     * </p>
      *
      * @return the style
      */
@@ -143,12 +133,10 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     }
 
     /**
-     * <p>
      * Builds a {@link String} description of the differences contained within
      * this {@link DiffResult}. A {@link ToStringBuilder} is used for each object
      * and the style of the output is governed by the {@link ToStringStyle}
      * passed to the constructor.
-     * </p>
      *
      * <p>
      * If there are no differences stored in this list, the method will return
@@ -179,10 +167,8 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     }
 
     /**
-     * <p>
      * Builds a {@link String} description of the differences contained within
      * this {@link DiffResult}, using the supplied {@link ToStringStyle}.
-     * </p>
      *
      * @param style
      *            the {@link ToStringStyle} to use when outputting the objects
@@ -206,9 +192,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     }
 
     /**
-     * <p>
      * Returns an iterator over the {@link Diff} objects contained in this list.
-     * </p>
      *
      * @return the iterator
      */

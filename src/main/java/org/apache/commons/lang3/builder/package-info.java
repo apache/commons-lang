@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 /**
- * <p>Assists in creating consistent {@code equals(Object)}, {@code toString()}, {@code hashCode()}, and {@code compareTo(Object)} methods.
- * These classes are not thread-safe.</p>
+ * Assists in creating consistent {@code equals(Object)}, {@code toString()}, {@code hashCode()}, and {@code compareTo(Object)} methods.
+ * These classes are not thread-safe.
  *
  * <p>When you write a {@link java.lang.Object#hashCode() hashCode()}, do you check Bloch's Effective Java? No?
  * You just hack in a quick number?

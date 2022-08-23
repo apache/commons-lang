@@ -22,7 +22,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 /**
- * <p>Date and time formatting utilities and constants.</p>
+ * Date and time formatting utilities and constants.
  *
  * <p>Formatting is performed using the thread-safe
  * {@link org.apache.commons.lang3.time.FastDateFormat} class.</p>
@@ -194,7 +194,7 @@ public class DateFormatUtils {
             = FastDateFormat.getInstance("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
 
     /**
-     * <p>DateFormatUtils instances should NOT be constructed in standard programming.</p>
+     * DateFormatUtils instances should NOT be constructed in standard programming.
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance
      * to operate.</p>
@@ -203,8 +203,8 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Formats a calendar into a specific pattern. The TimeZone from the calendar
-     * will be used for formatting.</p>
+     * Formats a calendar into a specific pattern. The TimeZone from the calendar
+     * will be used for formatting.
      *
      * @param calendar  the calendar to format, not null
      * @param pattern  the pattern to use to format the calendar, not null
@@ -217,8 +217,8 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Formats a calendar into a specific pattern in a locale. The TimeZone from the calendar
-     * will be used for formatting.</p>
+     * Formats a calendar into a specific pattern in a locale. The TimeZone from the calendar
+     * will be used for formatting.
      *
      * @param calendar  the calendar to format, not null
      * @param pattern  the pattern to use to format the calendar, not null
@@ -232,7 +232,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Formats a calendar into a specific pattern in a time zone.</p>
+     * Formats a calendar into a specific pattern in a time zone.
      *
      * @param calendar  the calendar to format, not null
      * @param pattern  the pattern to use to format the calendar, not null
@@ -246,7 +246,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Formats a calendar into a specific pattern in a time zone and locale.</p>
+     * Formats a calendar into a specific pattern in a time zone and locale.
      *
      * @param calendar  the calendar to format, not null
      * @param pattern  the pattern to use to format the calendar, not null
@@ -262,7 +262,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Formats a date/time into a specific pattern.</p>
+     * Formats a date/time into a specific pattern.
      *
      * @param date  the date to format, not null
      * @param pattern  the pattern to use to format the date, not null
@@ -273,7 +273,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Formats a date/time into a specific pattern in a locale.</p>
+     * Formats a date/time into a specific pattern in a locale.
      *
      * @param date  the date to format, not null
      * @param pattern  the pattern to use to format the date, not null
@@ -285,7 +285,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Formats a date/time into a specific pattern in a time zone.</p>
+     * Formats a date/time into a specific pattern in a time zone.
      *
      * @param date  the date to format, not null
      * @param pattern  the pattern to use to format the date, not null
@@ -297,7 +297,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Formats a date/time into a specific pattern in a time zone and locale.</p>
+     * Formats a date/time into a specific pattern in a time zone and locale.
      *
      * @param date  the date to format, not null
      * @param pattern  the pattern to use to format the date, not null, not null
@@ -311,7 +311,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Formats a date/time into a specific pattern.</p>
+     * Formats a date/time into a specific pattern.
      *
      * @param millis  the date to format expressed in milliseconds
      * @param pattern  the pattern to use to format the date, not null
@@ -322,7 +322,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Formats a date/time into a specific pattern in a locale.</p>
+     * Formats a date/time into a specific pattern in a locale.
      *
      * @param millis  the date to format expressed in milliseconds
      * @param pattern  the pattern to use to format the date, not null
@@ -334,7 +334,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Formats a date/time into a specific pattern in a time zone.</p>
+     * Formats a date/time into a specific pattern in a time zone.
      *
      * @param millis  the time expressed in milliseconds
      * @param pattern  the pattern to use to format the date, not null
@@ -346,7 +346,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Formats a date/time into a specific pattern in a time zone and locale.</p>
+     * Formats a date/time into a specific pattern in a time zone and locale.
      *
      * @param millis  the date to format expressed in milliseconds
      * @param pattern  the pattern to use to format the date, not null
@@ -359,7 +359,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Formats a date/time into a specific pattern using the UTC time zone.</p>
+     * Formats a date/time into a specific pattern using the UTC time zone.
      *
      * @param date  the date to format, not null
      * @param pattern  the pattern to use to format the date, not null
@@ -370,7 +370,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Formats a date/time into a specific pattern using the UTC time zone.</p>
+     * Formats a date/time into a specific pattern using the UTC time zone.
      *
      * @param date  the date to format, not null
      * @param pattern  the pattern to use to format the date, not null
@@ -382,7 +382,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Formats a date/time into a specific pattern using the UTC time zone.</p>
+     * Formats a date/time into a specific pattern using the UTC time zone.
      *
      * @param millis  the date to format expressed in milliseconds
      * @param pattern  the pattern to use to format the date, not null
@@ -393,7 +393,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Formats a date/time into a specific pattern using the UTC time zone.</p>
+     * Formats a date/time into a specific pattern using the UTC time zone.
      *
      * @param millis  the date to format expressed in milliseconds
      * @param pattern  the pattern to use to format the date, not null

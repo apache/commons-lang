@@ -31,9 +31,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
- * <p>
  * Assists in implementing {@link Object#hashCode()} methods.
- * </p>
  *
  * <p>
  * This class enables a good {@code hashCode} method to be built for any class. It follows the rules laid out in
@@ -115,9 +113,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     private static final int DEFAULT_MULTIPLIER_VALUE = 37;
 
     /**
-     * <p>
      * A registry of objects used by reflection methods to detect cyclical object references and avoid infinite loops.
-     * </p>
      *
      * @since 2.3
      */
@@ -141,9 +137,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      */
 
     /**
-     * <p>
      * Returns the registry of objects being traversed by the reflection methods in the current thread.
-     * </p>
      *
      * @return Set the registry of objects being traversed
      * @since 2.3
@@ -153,10 +147,8 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Returns {@code true} if the registry contains the given object. Used by the reflection methods to avoid
      * infinite loops.
-     * </p>
      *
      * @param value
      *            The object to lookup in the registry.
@@ -169,9 +161,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Appends the fields and values defined by the given object of the given {@link Class}.
-     * </p>
      *
      * @param object
      *            the object to append details of
@@ -216,9 +206,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Uses reflection to build a valid hash code from the fields of {@code object}.
-     * </p>
      *
      * <p>
      * It uses {@code AccessibleObject.setAccessible} to gain access to private fields. This means that it will
@@ -260,9 +248,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Uses reflection to build a valid hash code from the fields of {@code object}.
-     * </p>
      *
      * <p>
      * It uses {@code AccessibleObject.setAccessible} to gain access to private fields. This means that it will
@@ -307,9 +293,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Uses reflection to build a valid hash code from the fields of {@code object}.
-     * </p>
      *
      * <p>
      * It uses {@code AccessibleObject.setAccessible} to gain access to private fields. This means that it will
@@ -370,9 +354,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Uses reflection to build a valid hash code from the fields of {@code object}.
-     * </p>
      *
      * <p>
      * This constructor uses two hard coded choices for the constants needed to build a hash code.
@@ -410,9 +392,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Uses reflection to build a valid hash code from the fields of {@code object}.
-     * </p>
      *
      * <p>
      * This constructor uses two hard coded choices for the constants needed to build a hash code.
@@ -449,9 +429,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Uses reflection to build a valid hash code from the fields of {@code object}.
-     * </p>
      *
      * <p>
      * This constructor uses two hard coded choices for the constants needed to build a hash code.
@@ -489,9 +467,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Registers the given object. Used by the reflection methods to avoid infinite loops.
-     * </p>
      *
      * @param value
      *            The object to register.
@@ -506,9 +482,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Unregisters the given object.
-     * </p>
      *
      * <p>
      * Used by the reflection methods to avoid infinite loops.
@@ -538,9 +512,8 @@ public class HashCodeBuilder implements Builder<Integer> {
     private int iTotal;
 
     /**
-     * <p>
      * Uses two hard coded choices for the constants needed to build a {@code hashCode}.
-     * </p>
+     *
      */
     public HashCodeBuilder() {
         iConstant = 37;
@@ -548,10 +521,8 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Two randomly chosen, odd numbers must be passed in. Ideally these should be different for each class,
      * however this is not vital.
-     * </p>
      *
      * <p>
      * Prime numbers are preferred, especially for the multiplier.
@@ -572,9 +543,8 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Append a {@code hashCode} for a {@code boolean}.
-     * </p>
+     *
      * <p>
      * This adds {@code 1} when true, and {@code 0} when false to the {@code hashCode}.
      * </p>
@@ -598,9 +568,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Append a {@code hashCode} for a {@code boolean} array.
-     * </p>
      *
      * @param array
      *            the array to add to the {@code hashCode}
@@ -618,9 +586,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Append a {@code hashCode} for a {@code byte}.
-     * </p>
      *
      * @param value
      *            the byte to add to the {@code hashCode}
@@ -632,9 +598,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Append a {@code hashCode} for a {@code byte} array.
-     * </p>
      *
      * @param array
      *            the array to add to the {@code hashCode}
@@ -652,9 +616,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Append a {@code hashCode} for a {@code char}.
-     * </p>
      *
      * @param value
      *            the char to add to the {@code hashCode}
@@ -666,9 +628,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Append a {@code hashCode} for a {@code char} array.
-     * </p>
      *
      * @param array
      *            the array to add to the {@code hashCode}
@@ -686,9 +646,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Append a {@code hashCode} for a {@code double}.
-     * </p>
      *
      * @param value
      *            the double to add to the {@code hashCode}
@@ -699,9 +657,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Append a {@code hashCode} for a {@code double} array.
-     * </p>
      *
      * @param array
      *            the array to add to the {@code hashCode}
@@ -719,9 +675,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Append a {@code hashCode} for a {@code float}.
-     * </p>
      *
      * @param value
      *            the float to add to the {@code hashCode}
@@ -733,9 +687,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Append a {@code hashCode} for a {@code float} array.
-     * </p>
      *
      * @param array
      *            the array to add to the {@code hashCode}
@@ -753,9 +705,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Append a {@code hashCode} for an {@code int}.
-     * </p>
      *
      * @param value
      *            the int to add to the {@code hashCode}
@@ -767,9 +717,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Append a {@code hashCode} for an {@code int} array.
-     * </p>
      *
      * @param array
      *            the array to add to the {@code hashCode}
@@ -787,9 +735,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Append a {@code hashCode} for a {@code long}.
-     * </p>
      *
      * @param value
      *            the long to add to the {@code hashCode}
@@ -805,9 +751,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Append a {@code hashCode} for a {@code long} array.
-     * </p>
      *
      * @param array
      *            the array to add to the {@code hashCode}
@@ -825,9 +769,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Append a {@code hashCode} for an {@link Object}.
-     * </p>
      *
      * @param object
      *            the Object to add to the {@code hashCode}
@@ -848,9 +790,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Append a {@code hashCode} for an array.
-     * </p>
      *
      * @param object
      *            the array to add to the {@code hashCode}
@@ -881,9 +821,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Append a {@code hashCode} for an {@link Object} array.
-     * </p>
      *
      * @param array
      *            the array to add to the {@code hashCode}
@@ -901,9 +839,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Append a {@code hashCode} for a {@code short}.
-     * </p>
      *
      * @param value
      *            the short to add to the {@code hashCode}
@@ -915,9 +851,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Append a {@code hashCode} for a {@code short} array.
-     * </p>
      *
      * @param array
      *            the array to add to the {@code hashCode}
@@ -935,9 +869,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Adds the result of super.hashCode() to this builder.
-     * </p>
      *
      * @param superHashCode
      *            the result of calling {@code super.hashCode()}
@@ -950,9 +882,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * Returns the computed {@code hashCode}.
-     * </p>
      *
      * @return {@code hashCode} based on the fields appended
      */
@@ -973,10 +903,9 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * <p>
      * The computed {@code hashCode} from toHashCode() is returned due to the likelihood
      * of bugs in mis-calling toHashCode() and the unlikeliness of it mattering what the hashCode for
-     * HashCodeBuilder itself is.</p>
+     * HashCodeBuilder itself is.
      *
      * @return {@code hashCode} based on the fields appended
      * @since 2.5

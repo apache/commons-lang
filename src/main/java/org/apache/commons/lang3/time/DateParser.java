@@ -77,16 +77,14 @@ public interface DateParser {
 
     // Accessors
     /**
-     * <p>Gets the pattern used by this parser.</p>
+     * Gets the pattern used by this parser.
      *
      * @return the pattern, {@link java.text.SimpleDateFormat} compatible
      */
     String getPattern();
 
     /**
-     * <p>
      * Gets the time zone used by this parser.
-     * </p>
      *
      * <p>
      * The default {@link TimeZone} used to create a {@link Date} when the {@link TimeZone} is not specified by
@@ -98,7 +96,7 @@ public interface DateParser {
     TimeZone getTimeZone();
 
     /**
-     * <p>Gets the locale used by this parser.</p>
+     * Gets the locale used by this parser.
      *
      * @return the locale
      */

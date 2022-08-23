@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 /**
- * <p>Accumulates common high-level uses of the {@code java.lang.reflect} APIs.</p>
+ * Accumulates common high-level uses of the {@code java.lang.reflect} APIs.
  * <p>These classes are immutable, and therefore thread-safe.</p>
  *
  * @since 3.0

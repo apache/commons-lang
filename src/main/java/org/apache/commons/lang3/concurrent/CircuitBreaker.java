@@ -17,10 +17,9 @@
 package org.apache.commons.lang3.concurrent;
 
 /**
- * <p>
  * An interface describing a <a
  * href="https://martinfowler.com/bliki/CircuitBreaker.html">Circuit Breaker</a> component.
- * </p>
+ *
  * <p>
  * A <em>circuit breaker</em> can be used to protect an application against unreliable
  * services or unexpected load. It typically monitors a specific resource. As long as this

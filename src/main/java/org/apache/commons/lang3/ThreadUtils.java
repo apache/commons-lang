@@ -28,9 +28,8 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.time.DurationUtils;
 
 /**
- * <p>
  * Helpers for {@code java.lang.Thread} and {@code java.lang.ThreadGroup}.
- * </p>
+ *
  * <p>
  * #ThreadSafe#
  * </p>
@@ -571,10 +570,9 @@ public class ThreadUtils {
     }
 
     /**
-     * <p>
      * ThreadUtils instances should NOT be constructed in standard programming. Instead, the class should be used as
      * {@code ThreadUtils.getAllThreads()}
-     * </p>
+     *
      * <p>
      * This constructor is public to permit tools that require a JavaBean instance to operate.
      * </p>

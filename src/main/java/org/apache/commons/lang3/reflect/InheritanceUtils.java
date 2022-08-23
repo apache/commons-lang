@@ -19,16 +19,16 @@ package org.apache.commons.lang3.reflect;
 import org.apache.commons.lang3.BooleanUtils;
 
 /**
- * <p>Utility methods focusing on inheritance.</p>
+ * Utility methods focusing on inheritance.
  *
  * @since 3.2
  */
 public class InheritanceUtils {
 
     /**
-     * <p>{@link InheritanceUtils} instances should NOT be constructed in standard programming.
+     * {@link InheritanceUtils} instances should NOT be constructed in standard programming.
      * Instead, the class should be used as
-     * {@code MethodUtils.getAccessibleMethod(method)}.</p>
+     * {@code MethodUtils.getAccessibleMethod(method)}.
      *
      * <p>This constructor is {@code public} to permit tools that require a JavaBean
      * instance to operate.</p>
@@ -37,7 +37,7 @@ public class InheritanceUtils {
     }
 
     /**
-     * <p>Returns the number of inheritance hops between two classes.</p>
+     * Returns the number of inheritance hops between two classes.
      *
      * @param child the child class, may be {@code null}
      * @param parent the parent class, may be {@code null}

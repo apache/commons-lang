@@ -19,7 +19,7 @@ package org.apache.commons.lang3;
 import org.apache.commons.lang3.stream.Streams;
 
 /**
- * <p>Operations on {@link CharSet} instances.</p>
+ * Operations on {@link CharSet} instances.
  *
  * <p>This class handles {@code null} input gracefully.
  * An exception will not be thrown for a {@code null} input.
@@ -32,8 +32,8 @@ import org.apache.commons.lang3.stream.Streams;
 public class CharSetUtils {
 
     /**
-     * <p>Takes an argument in set-syntax, see evaluateSet,
-     * and identifies whether any of the characters are present in the specified string.</p>
+     * Takes an argument in set-syntax, see evaluateSet,
+     * and identifies whether any of the characters are present in the specified string.
      *
      * <pre>
      * CharSetUtils.containsAny(null, *)        = false
@@ -64,8 +64,8 @@ public class CharSetUtils {
     }
 
     /**
-     * <p>Takes an argument in set-syntax, see evaluateSet,
-     * and returns the number of characters present in the specified string.</p>
+     * Takes an argument in set-syntax, see evaluateSet,
+     * and returns the number of characters present in the specified string.
      *
      * <pre>
      * CharSetUtils.count(null, *)        = 0
@@ -107,8 +107,8 @@ public class CharSetUtils {
     }
 
     /**
-     * <p>Takes an argument in set-syntax, see evaluateSet,
-     * and deletes any of characters present in the specified string.</p>
+     * Takes an argument in set-syntax, see evaluateSet,
+     * and deletes any of characters present in the specified string.
      *
      * <pre>
      * CharSetUtils.delete(null, *)        = null
@@ -132,8 +132,8 @@ public class CharSetUtils {
     }
 
     /**
-     * <p>Takes an argument in set-syntax, see evaluateSet,
-     * and keeps any of characters present in the specified string.</p>
+     * Takes an argument in set-syntax, see evaluateSet,
+     * and keeps any of characters present in the specified string.
      *
      * <pre>
      * CharSetUtils.keep(null, *)        = null
@@ -181,8 +181,8 @@ public class CharSetUtils {
     }
 
     /**
-     * <p>Squeezes any repetitions of a character that is mentioned in the
-     * supplied set.</p>
+     * Squeezes any repetitions of a character that is mentioned in the
+     * supplied set.
      *
      * <pre>
      * CharSetUtils.squeeze(null, *)        = null
@@ -232,8 +232,8 @@ public class CharSetUtils {
     }
 
     /**
-     * <p>CharSetUtils instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as {@code CharSetUtils.evaluateSet(null);}.</p>
+     * CharSetUtils instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as {@code CharSetUtils.evaluateSet(null);}.
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance
      * to operate.</p>

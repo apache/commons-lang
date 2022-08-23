@@ -23,9 +23,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
- * <p>
  * A class that allows complex initialization operations in a background task.
- * </p>
+ *
  * <p>
  * Applications often have to do some expensive initialization steps when they
  * are started, e.g. constructing a connection to a database, reading a

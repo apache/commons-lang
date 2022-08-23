@@ -19,14 +19,14 @@ package org.apache.commons.lang3;
 import java.util.regex.Pattern;
 
 /**
- * <p>Helpers to process Strings using regular expressions.</p>
+ * Helpers to process Strings using regular expressions.
  * @see java.util.regex.Pattern
  * @since 3.8
  */
 public class RegExUtils {
 
     /**
-     * <p>Removes each substring of the text String that matches the given regular expression pattern.</p>
+     * Removes each substring of the text String that matches the given regular expression pattern.
      *
      * This method is a {@code null} safe equivalent to:
      * <ul>
@@ -62,7 +62,7 @@ public class RegExUtils {
     }
 
     /**
-     * <p>Removes each substring of the text String that matches the given regular expression.</p>
+     * Removes each substring of the text String that matches the given regular expression.
      *
      * This method is a {@code null} safe equivalent to:
      * <ul>
@@ -108,7 +108,7 @@ public class RegExUtils {
     }
 
     /**
-     * <p>Removes the first substring of the text string that matches the given regular expression pattern.</p>
+     * Removes the first substring of the text string that matches the given regular expression pattern.
      *
      * This method is a {@code null} safe equivalent to:
      * <ul>
@@ -144,7 +144,7 @@ public class RegExUtils {
     }
 
     /**
-     * <p>Removes the first substring of the text string that matches the given regular expression.</p>
+     * Removes the first substring of the text string that matches the given regular expression.
      *
      * This method is a {@code null} safe equivalent to:
      * <ul>
@@ -189,7 +189,7 @@ public class RegExUtils {
     }
 
     /**
-     * <p>Removes each substring of the source String that matches the given regular expression using the DOTALL option.</p>
+     * Removes each substring of the source String that matches the given regular expression using the DOTALL option.
      *
      * This call is a {@code null} safe equivalent to:
      * <ul>
@@ -220,7 +220,7 @@ public class RegExUtils {
     }
 
     /**
-     * <p>Replaces each substring of the text String that matches the given regular expression pattern with the given replacement.</p>
+     * Replaces each substring of the text String that matches the given regular expression pattern with the given replacement.
      *
      * This method is a {@code null} safe equivalent to:
      * <ul>
@@ -263,8 +263,8 @@ public class RegExUtils {
     }
 
     /**
-     * <p>Replaces each substring of the text String that matches the given regular expression
-     * with the given replacement.</p>
+     * Replaces each substring of the text String that matches the given regular expression
+     * with the given replacement.
      *
      * This method is a {@code null} safe equivalent to:
      * <ul>
@@ -317,8 +317,8 @@ public class RegExUtils {
     }
 
     /**
-     * <p>Replaces the first substring of the text string that matches the given regular expression pattern
-     * with the given replacement.</p>
+     * Replaces the first substring of the text string that matches the given regular expression pattern
+     * with the given replacement.
      *
      * This method is a {@code null} safe equivalent to:
      * <ul>
@@ -360,8 +360,8 @@ public class RegExUtils {
     }
 
     /**
-     * <p>Replaces the first substring of the text string that matches the given regular expression
-     * with the given replacement.</p>
+     * Replaces the first substring of the text string that matches the given regular expression
+     * with the given replacement.
      *
      * This method is a {@code null} safe equivalent to:
      * <ul>
@@ -412,8 +412,8 @@ public class RegExUtils {
     }
 
     /**
-     * <p>Replaces each substring of the source String that matches the given regular expression with the given
-     * replacement using the {@link Pattern#DOTALL} option. DOTALL is also known as single-line mode in Perl.</p>
+     * Replaces each substring of the source String that matches the given regular expression with the given
+     * replacement using the {@link Pattern#DOTALL} option. DOTALL is also known as single-line mode in Perl.
      *
      * This call is a {@code null} safe equivalent to:
      * <ul>

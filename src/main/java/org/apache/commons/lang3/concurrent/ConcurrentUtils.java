@@ -24,10 +24,8 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.Validate;
 
 /**
- * <p>
  * An utility class providing functionality related to the {@code
  * java.util.concurrent} package.
- * </p>
  *
  * @since 3.0
  */
@@ -204,12 +202,10 @@ public class ConcurrentUtils {
     }
 
     /**
-     * <p>
      * Puts a value in the specified {@link ConcurrentMap} if the key is not yet
      * present. This method works similar to the {@code putIfAbsent()} method of
      * the {@link ConcurrentMap} interface, but the value returned is different.
      * Basically, this method is equivalent to the following code fragment:
-     * </p>
      *
      * <pre>
      * if (!map.containsKey(key)) {
@@ -304,10 +300,9 @@ public class ConcurrentUtils {
     }
 
     /**
-     * <p>
      * Gets an implementation of {@link Future} that is immediately done
      * and returns the specified constant value.
-     * </p>
+     *
      * <p>
      * This can be useful to return a simple constant immediately from the
      * concurrent processing, perhaps as part of avoiding nulls.

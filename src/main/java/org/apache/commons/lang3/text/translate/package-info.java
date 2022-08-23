@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 /**
- * <p> An API for creating text translation routines from a set of smaller building blocks. Initially created to make it
- * possible for the user to customize the rules in the StringEscapeUtils class.</p>
+ *  An API for creating text translation routines from a set of smaller building blocks. Initially created to make it
+ * possible for the user to customize the rules in the StringEscapeUtils class.
  * <p>These classes are immutable, and therefore thread-safe.</p>
  *
  * @since 3.0

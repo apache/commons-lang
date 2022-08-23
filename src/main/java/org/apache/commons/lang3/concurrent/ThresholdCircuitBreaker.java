@@ -19,11 +19,9 @@ package org.apache.commons.lang3.concurrent;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * <p>
  * A simple implementation of the <a
  * href="https://martinfowler.com/bliki/CircuitBreaker.html">Circuit Breaker</a> pattern
  * that opens if the requested increment amount is greater than a given threshold.
- * </p>
  *
  * <p>
  * It contains an internal counter that starts in zero, and each call increments the counter by a given amount.
@@ -68,7 +66,7 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
     private final AtomicLong used;
 
     /**
-     * <p>Creates a new instance of {@link ThresholdCircuitBreaker} and initializes the threshold.</p>
+     * Creates a new instance of {@link ThresholdCircuitBreaker} and initializes the threshold.
      *
      * @param threshold the threshold.
      */

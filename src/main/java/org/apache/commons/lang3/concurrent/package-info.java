@@ -15,10 +15,8 @@
  * limitations under the License.
  */
 /**
- * <p>
  * Provides support classes for multi-threaded programming. This package is intended to be an extension to
  * {@link java.util.concurrent}. These classes are thread-safe.
- * </p>
  *
  * <p>
  * A group of classes deals with the correct creation and initialization of objects that are accessed by multiple

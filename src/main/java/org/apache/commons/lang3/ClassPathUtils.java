@@ -27,9 +27,9 @@ package org.apache.commons.lang3;
 public class ClassPathUtils {
 
     /**
-     * <p>{@link ClassPathUtils} instances should NOT be constructed in
+     * {@link ClassPathUtils} instances should NOT be constructed in
      * standard programming. Instead, the class should be used as
-     * {@code ClassPathUtils.toFullyQualifiedName(MyClass.class, "MyClass.properties");}.</p>
+     * {@code ClassPathUtils.toFullyQualifiedName(MyClass.class, "MyClass.properties");}.
      *
      * <p>This constructor is public to permit tools that require a JavaBean
      * instance to operate.</p>

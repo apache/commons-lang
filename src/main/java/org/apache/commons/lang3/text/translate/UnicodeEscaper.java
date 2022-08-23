@@ -35,17 +35,17 @@ public class UnicodeEscaper extends CodePointTranslator {
     private final boolean between;
 
     /**
-     * <p>Constructs a {@link UnicodeEscaper} for all characters. </p>
+     * Constructs a {@link UnicodeEscaper} for all characters.
      */
     public UnicodeEscaper() {
         this(0, Integer.MAX_VALUE, true);
     }
 
     /**
-     * <p>Constructs a {@link UnicodeEscaper} for the specified range. This is
+     * Constructs a {@link UnicodeEscaper} for the specified range. This is
      * the underlying method for the other constructors/builders. The {@code below}
      * and {@code above} boundaries are inclusive when {@code between} is
-     * {@code true} and exclusive when it is {@code false}. </p>
+     * {@code true} and exclusive when it is {@code false}.
      *
      * @param below int value representing the lowest code point boundary
      * @param above int value representing the highest code point boundary
@@ -58,7 +58,7 @@ public class UnicodeEscaper extends CodePointTranslator {
     }
 
     /**
-     * <p>Constructs a {@link UnicodeEscaper} below the specified value (exclusive). </p>
+     * Constructs a {@link UnicodeEscaper} below the specified value (exclusive).
      *
      * @param codePoint below which to escape
      * @return the newly created {@link UnicodeEscaper} instance
@@ -68,7 +68,7 @@ public class UnicodeEscaper extends CodePointTranslator {
     }
 
     /**
-     * <p>Constructs a {@link UnicodeEscaper} above the specified value (exclusive). </p>
+     * Constructs a {@link UnicodeEscaper} above the specified value (exclusive).
      *
      * @param codePoint above which to escape
      * @return the newly created {@link UnicodeEscaper} instance
@@ -78,7 +78,7 @@ public class UnicodeEscaper extends CodePointTranslator {
     }
 
     /**
-     * <p>Constructs a {@link UnicodeEscaper} outside of the specified values (exclusive). </p>
+     * Constructs a {@link UnicodeEscaper} outside of the specified values (exclusive).
      *
      * @param codePointLow below which to escape
      * @param codePointHigh above which to escape
@@ -89,7 +89,7 @@ public class UnicodeEscaper extends CodePointTranslator {
     }
 
     /**
-     * <p>Constructs a {@link UnicodeEscaper} between the specified values (inclusive). </p>
+     * Constructs a {@link UnicodeEscaper} between the specified values (inclusive).
      *
      * @param codePointLow above which to escape
      * @param codePointHigh below which to escape

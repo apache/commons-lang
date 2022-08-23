@@ -36,8 +36,8 @@ import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
- * <p>FastDatePrinter is a fast and thread-safe version of
- * {@link java.text.SimpleDateFormat}.</p>
+ * FastDatePrinter is a fast and thread-safe version of
+ * {@link java.text.SimpleDateFormat}.
  *
  * <p>To obtain a FastDatePrinter, use {@link FastDateFormat#getInstance(String, TimeZone, Locale)}
  * or another variation of the factory methods of {@link FastDateFormat}.</p>
@@ -142,7 +142,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
     // Constructor
     /**
-     * <p>Constructs a new FastDatePrinter.</p>
+     * Constructs a new FastDatePrinter.
      * Use {@link FastDateFormat#getInstance(String, TimeZone, Locale)}  or another variation of the
      * factory methods of {@link FastDateFormat} to get a cached FastDatePrinter instance.
      *
@@ -159,7 +159,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Initializes the instance for first use.</p>
+     * Initializes the instance for first use.
      */
     private void init() {
         final List<Rule> rulesList = parsePattern();
@@ -175,7 +175,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
     // Parse the pattern
     /**
-     * <p>Returns a list of Rules given a pattern.</p>
+     * Returns a list of Rules given a pattern.
      *
      * @return a {@link List} of Rule objects
      * @throws IllegalArgumentException if pattern is invalid
@@ -327,7 +327,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Performs the parsing of tokens.</p>
+     * Performs the parsing of tokens.
      *
      * @param pattern  the pattern
      * @param indexRef  index references
@@ -385,7 +385,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Gets an appropriate rule for the padding required.</p>
+     * Gets an appropriate rule for the padding required.
      *
      * @param field  the field to get a rule for
      * @param padding  the padding required
@@ -404,8 +404,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
     // Format methods
     /**
-     * <p>Formats a {@link Date}, {@link Calendar} or
-     * {@link Long} (milliseconds) object.</p>
+     * Formats a {@link Date}, {@link Calendar} or
+     * {@link Long} (milliseconds) object.
      * @deprecated Use {{@link #format(Date)}, {{@link #format(Calendar)}, {{@link #format(long)}.
      * @param obj  the object to format
      * @param toAppendTo  the buffer to append to
@@ -429,8 +429,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Formats a {@link Date}, {@link Calendar} or
-     * {@link Long} (milliseconds) object.</p>
+     * Formats a {@link Date}, {@link Calendar} or
+     * {@link Long} (milliseconds) object.
      * @since 3.5
      * @param obj  the object to format
      * @return The formatted value.
@@ -572,8 +572,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Performs the formatting by applying the rules to the
-     * specified calendar.</p>
+     * Performs the formatting by applying the rules to the
+     * specified calendar.
      *
      * @param calendar  the calendar to format
      * @param buf  the buffer to format into
@@ -617,8 +617,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Gets an estimate for the maximum string length that the
-     * formatter will produce.</p>
+     * Gets an estimate for the maximum string length that the
+     * formatter will produce.
      *
      * <p>The actual formatted length will almost always be less than or
      * equal to this amount.</p>
@@ -631,7 +631,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
     // Basics
     /**
-     * <p>Compares two objects for equality.</p>
+     * Compares two objects for equality.
      *
      * @param obj  the object to compare to
      * @return {@code true} if equal
@@ -648,7 +648,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Returns a hash code compatible with equals.</p>
+     * Returns a hash code compatible with equals.
      *
      * @return a hash code compatible with equals
      */
@@ -658,7 +658,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Gets a debugging string version of this formatter.</p>
+     * Gets a debugging string version of this formatter.
      *
      * @return a debugging string
      */
@@ -771,7 +771,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
     // Rules
     /**
-     * <p>Inner class defining a rule.</p>
+     * Inner class defining a rule.
      */
     private interface Rule {
         /**
@@ -792,7 +792,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Inner class defining a numeric rule.</p>
+     * Inner class defining a numeric rule.
      */
     private interface NumberRule extends Rule {
         /**
@@ -806,7 +806,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Inner class to output a constant single character.</p>
+     * Inner class to output a constant single character.
      */
     private static class CharacterLiteral implements Rule {
         private final char mValue;
@@ -839,7 +839,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Inner class to output a constant string.</p>
+     * Inner class to output a constant string.
      */
     private static class StringLiteral implements Rule {
         private final String mValue;
@@ -872,7 +872,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Inner class to output one of a set of values.</p>
+     * Inner class to output one of a set of values.
      */
     private static class TextField implements Rule {
         private final int mField;
@@ -915,7 +915,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Inner class to output an unpadded number.</p>
+     * Inner class to output an unpadded number.
      */
     private static class UnpaddedNumberField implements NumberRule {
         private final int mField;
@@ -961,7 +961,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Inner class to output an unpadded month.</p>
+     * Inner class to output an unpadded month.
      */
     private static class UnpaddedMonthField implements NumberRule {
         static final UnpaddedMonthField INSTANCE = new UnpaddedMonthField();
@@ -1003,7 +1003,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Inner class to output a padded number.</p>
+     * Inner class to output a padded number.
      */
     private static class PaddedNumberField implements NumberRule {
         private final int mField;
@@ -1050,7 +1050,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Inner class to output a two digit number.</p>
+     * Inner class to output a two digit number.
      */
     private static class TwoDigitNumberField implements NumberRule {
         private final int mField;
@@ -1094,7 +1094,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Inner class to output a two digit year.</p>
+     * Inner class to output a two digit year.
      */
     private static class TwoDigitYearField implements NumberRule {
         static final TwoDigitYearField INSTANCE = new TwoDigitYearField();
@@ -1131,7 +1131,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Inner class to output a two digit month.</p>
+     * Inner class to output a two digit month.
      */
     private static class TwoDigitMonthField implements NumberRule {
         static final TwoDigitMonthField INSTANCE = new TwoDigitMonthField();
@@ -1168,7 +1168,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Inner class to output the twelve hour field.</p>
+     * Inner class to output the twelve hour field.
      */
     private static class TwelveHourField implements NumberRule {
         private final NumberRule mRule;
@@ -1213,7 +1213,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Inner class to output the twenty four hour field.</p>
+     * Inner class to output the twenty four hour field.
      */
     private static class TwentyFourHourField implements NumberRule {
         private final NumberRule mRule;
@@ -1258,7 +1258,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Inner class to output the numeric day in week.</p>
+     * Inner class to output the numeric day in week.
      */
     private static class DayInWeekField implements NumberRule {
         private final NumberRule mRule;
@@ -1285,7 +1285,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Inner class to output the numeric day in week.</p>
+     * Inner class to output the numeric day in week.
      */
     private static class WeekYear implements NumberRule {
         private final NumberRule mRule;
@@ -1315,7 +1315,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         new ConcurrentHashMap<>(7);
 
     /**
-     * <p>Gets the time zone display name, using a cache for performance.</p>
+     * Gets the time zone display name, using a cache for performance.
      *
      * @param tz  the zone to query
      * @param daylight  true if daylight savings
@@ -1330,7 +1330,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Inner class to output a time zone name.</p>
+     * Inner class to output a time zone name.
      */
     private static class TimeZoneNameRule implements Rule {
         private final Locale mLocale;
@@ -1379,8 +1379,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Inner class to output a time zone as a number {@code +/-HHMM}
-     * or {@code +/-HH:MM}.</p>
+     * Inner class to output a time zone as a number {@code +/-HHMM}
+     * or {@code +/-HH:MM}.
      */
     private static class TimeZoneNumberRule implements Rule {
         static final TimeZoneNumberRule INSTANCE_COLON = new TimeZoneNumberRule(true);
@@ -1433,8 +1433,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Inner class to output a time zone as a number {@code +/-HHMM}
-     * or {@code +/-HH:MM}.</p>
+     * Inner class to output a time zone as a number {@code +/-HHMM}
+     * or {@code +/-HH:MM}.
      */
     private static class Iso8601_Rule implements Rule {
 
@@ -1519,7 +1519,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * <p>Inner class that acts as a compound key for time zone names.</p>
+     * Inner class that acts as a compound key for time zone names.
      */
     private static class TimeZoneDisplayKey {
         private final TimeZone mTimeZone;

@@ -21,7 +21,7 @@ import java.util.Collection;
 import org.apache.commons.lang3.ClassUtils;
 
 /**
- * <p>Works with {@link ToStringBuilder} to create a "deep" {@code toString}.</p>
+ * Works with {@link ToStringBuilder} to create a "deep" {@code toString}.
  *
  * <p>To use this class write code as follows:</p>
  *
@@ -60,7 +60,7 @@ public class RecursiveToStringStyle extends ToStringStyle {
     private static final long serialVersionUID = 1L;
 
     /**
-     * <p>Constructor.</p>
+     * Constructor.
      */
     public RecursiveToStringStyle() {
     }

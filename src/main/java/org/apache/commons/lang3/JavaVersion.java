@@ -19,9 +19,9 @@ package org.apache.commons.lang3;
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
- * <p>An enum representing all the versions of the Java specification.
+ * An enum representing all the versions of the Java specification.
  * This is intended to mirror available values from the
- * <em>java.specification.version</em> System property. </p>
+ * <em>java.specification.version</em> System property.
  *
  * @since 3.0
  */
@@ -177,7 +177,7 @@ public enum JavaVersion {
     }
 
     /**
-     * <p>Whether this version of Java is at least the version of Java passed in.</p>
+     * Whether this version of Java is at least the version of Java passed in.
      *
      * <p>For example:<br>
      *  {@code myVersion.atLeast(JavaVersion.JAVA_1_4)}</p>
@@ -190,7 +190,7 @@ public enum JavaVersion {
     }
 
     /**
-     * <p>Whether this version of Java is at most the version of Java passed in.</p>
+     * Whether this version of Java is at most the version of Java passed in.
      *
      * <p>For example:<br>
      *  {@code myVersion.atMost(JavaVersion.JAVA_1_4)}</p>
@@ -285,7 +285,7 @@ public enum JavaVersion {
     }
 
     /**
-     * <p>The string value is overridden to return the standard name.</p>
+     * The string value is overridden to return the standard name.
      *
      * <p>For example, {@code "1.5"}.</p>
      *

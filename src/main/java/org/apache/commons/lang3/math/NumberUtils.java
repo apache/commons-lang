@@ -25,7 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
- * <p>Provides extra functionality for Java Number classes.</p>
+ * Provides extra functionality for Java Number classes.
  *
  * @since 2.0
  */
@@ -86,8 +86,8 @@ public class NumberUtils {
 
 
     /**
-     * <p>{@link NumberUtils} instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as {@code NumberUtils.toInt("6");}.</p>
+     * {@link NumberUtils} instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as {@code NumberUtils.toInt("6");}.
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance
      * to operate.</p>
@@ -96,8 +96,8 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a {@link String} to an {@code int}, returning
-     * {@code zero} if the conversion fails.</p>
+     * Convert a {@link String} to an {@code int}, returning
+     * {@code zero} if the conversion fails.
      *
      * <p>If the string is {@code null}, {@code zero} is returned.</p>
      *
@@ -117,8 +117,8 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a {@link String} to an {@code int}, returning a
-     * default value if the conversion fails.</p>
+     * Convert a {@link String} to an {@code int}, returning a
+     * default value if the conversion fails.
      *
      * <p>If the string is {@code null}, the default value is returned.</p>
      *
@@ -145,8 +145,8 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a {@link String} to a {@code long}, returning
-     * {@code zero} if the conversion fails.</p>
+     * Convert a {@link String} to a {@code long}, returning
+     * {@code zero} if the conversion fails.
      *
      * <p>If the string is {@code null}, {@code zero} is returned.</p>
      *
@@ -166,8 +166,8 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a {@link String} to a {@code long}, returning a
-     * default value if the conversion fails.</p>
+     * Convert a {@link String} to a {@code long}, returning a
+     * default value if the conversion fails.
      *
      * <p>If the string is {@code null}, the default value is returned.</p>
      *
@@ -194,8 +194,8 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a {@link String} to a {@code float}, returning
-     * {@code 0.0f} if the conversion fails.</p>
+     * Convert a {@link String} to a {@code float}, returning
+     * {@code 0.0f} if the conversion fails.
      *
      * <p>If the string {@code str} is {@code null},
      * {@code 0.0f} is returned.</p>
@@ -216,8 +216,8 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a {@link String} to a {@code float}, returning a
-     * default value if the conversion fails.</p>
+     * Convert a {@link String} to a {@code float}, returning a
+     * default value if the conversion fails.
      *
      * <p>If the string {@code str} is {@code null}, the default
      * value is returned.</p>
@@ -246,8 +246,8 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a {@link String} to a {@code double}, returning
-     * {@code 0.0d} if the conversion fails.</p>
+     * Convert a {@link String} to a {@code double}, returning
+     * {@code 0.0d} if the conversion fails.
      *
      * <p>If the string {@code str} is {@code null},
      * {@code 0.0d} is returned.</p>
@@ -268,8 +268,8 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a {@link String} to a {@code double}, returning a
-     * default value if the conversion fails.</p>
+     * Convert a {@link String} to a {@code double}, returning a
+     * default value if the conversion fails.
      *
      * <p>If the string {@code str} is {@code null}, the default
      * value is returned.</p>
@@ -298,7 +298,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a {@link BigDecimal} to a {@code double}.</p>
+     * Convert a {@link BigDecimal} to a {@code double}.
      *
      * <p>If the {@link BigDecimal} {@code value} is
      * {@code null}, then the specified default value is returned.</p>
@@ -318,7 +318,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a {@link BigDecimal} to a {@code double}.</p>
+     * Convert a {@link BigDecimal} to a {@code double}.
      *
      * <p>If the {@link BigDecimal} {@code value} is
      * {@code null}, then the specified default value is returned.</p>
@@ -339,8 +339,8 @@ public class NumberUtils {
     }
 
      /**
-     * <p>Convert a {@link String} to a {@code byte}, returning
-     * {@code zero} if the conversion fails.</p>
+     * Convert a {@link String} to a {@code byte}, returning
+     * {@code zero} if the conversion fails.
      *
      * <p>If the string is {@code null}, {@code zero} is returned.</p>
      *
@@ -360,8 +360,8 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a {@link String} to a {@code byte}, returning a
-     * default value if the conversion fails.</p>
+     * Convert a {@link String} to a {@code byte}, returning a
+     * default value if the conversion fails.
      *
      * <p>If the string is {@code null}, the default value is returned.</p>
      *
@@ -388,8 +388,8 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a {@link String} to a {@code short}, returning
-     * {@code zero} if the conversion fails.</p>
+     * Convert a {@link String} to a {@code short}, returning
+     * {@code zero} if the conversion fails.
      *
      * <p>If the string is {@code null}, {@code zero} is returned.</p>
      *
@@ -409,8 +409,8 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a {@link String} to an {@code short}, returning a
-     * default value if the conversion fails.</p>
+     * Convert a {@link String} to an {@code short}, returning a
+     * default value if the conversion fails.
      *
      * <p>If the string is {@code null}, the default value is returned.</p>
      *
@@ -627,7 +627,7 @@ public class NumberUtils {
     // plus minus everything. Prolly more. A lot are not separable.
 
     /**
-     * <p>Turns a string value into a java.lang.Number.</p>
+     * Turns a string value into a java.lang.Number.
      *
      * <p>If the string starts with {@code 0x} or {@code -0x} (lower or upper case) or {@code #} or {@code -#}, it
      * will be interpreted as a hexadecimal Integer - or Long, if the number of digits after the
@@ -830,7 +830,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Utility method for {@link #createNumber(java.lang.String)}.</p>
+     * Utility method for {@link #createNumber(java.lang.String)}.
      *
      * <p>Returns mantissa of the given number.</p>
      *
@@ -896,7 +896,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a {@link String} to a {@link Float}.</p>
+     * Convert a {@link String} to a {@link Float}.
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
      *
@@ -912,7 +912,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a {@link String} to a {@link Double}.</p>
+     * Convert a {@link String} to a {@link Double}.
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
      *
@@ -928,9 +928,9 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a {@link String} to a {@link Integer}, handling
+     * Convert a {@link String} to a {@link Integer}, handling
      * hex (0xhhhh) and octal (0dddd) notations.
-     * N.B. a leading zero means octal; spaces are not trimmed.</p>
+     * N.B. a leading zero means octal; spaces are not trimmed.
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
      *
@@ -947,9 +947,9 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a {@link String} to a {@link Long};
+     * Convert a {@link String} to a {@link Long};
      * since 3.1 it handles hex (0Xhhhh) and octal (0ddd) notations.
-     * N.B. a leading zero means octal; spaces are not trimmed.</p>
+     * N.B. a leading zero means octal; spaces are not trimmed.
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
      *
@@ -965,8 +965,8 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a {@link String} to a {@link BigInteger};
-     * since 3.2 it handles hex (0x or #) and octal (0) notations.</p>
+     * Convert a {@link String} to a {@link BigInteger};
+     * since 3.2 it handles hex (0x or #) and octal (0) notations.
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
      *
@@ -1007,7 +1007,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Convert a {@link String} to a {@link BigDecimal}.</p>
+     * Convert a {@link String} to a {@link BigDecimal}.
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
      *
@@ -1027,7 +1027,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Returns the minimum value in an array.</p>
+     * Returns the minimum value in an array.
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
@@ -1051,7 +1051,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Returns the minimum value in an array.</p>
+     * Returns the minimum value in an array.
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
@@ -1075,7 +1075,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Returns the minimum value in an array.</p>
+     * Returns the minimum value in an array.
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
@@ -1099,7 +1099,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Returns the minimum value in an array.</p>
+     * Returns the minimum value in an array.
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
@@ -1123,7 +1123,7 @@ public class NumberUtils {
     }
 
      /**
-     * <p>Returns the minimum value in an array.</p>
+     * Returns the minimum value in an array.
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
@@ -1151,7 +1151,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Returns the minimum value in an array.</p>
+     * Returns the minimum value in an array.
      *
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
@@ -1179,7 +1179,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Returns the maximum value in an array.</p>
+     * Returns the maximum value in an array.
      *
      * @param array  an array, must not be null or empty
      * @return the maximum value in the array
@@ -1203,7 +1203,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Returns the maximum value in an array.</p>
+     * Returns the maximum value in an array.
      *
      * @param array  an array, must not be null or empty
      * @return the maximum value in the array
@@ -1227,7 +1227,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Returns the maximum value in an array.</p>
+     * Returns the maximum value in an array.
      *
      * @param array  an array, must not be null or empty
      * @return the maximum value in the array
@@ -1251,7 +1251,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Returns the maximum value in an array.</p>
+     * Returns the maximum value in an array.
      *
      * @param array  an array, must not be null or empty
      * @return the maximum value in the array
@@ -1275,7 +1275,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Returns the maximum value in an array.</p>
+     * Returns the maximum value in an array.
      *
      * @param array  an array, must not be null or empty
      * @return the maximum value in the array
@@ -1303,7 +1303,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Returns the maximum value in an array.</p>
+     * Returns the maximum value in an array.
      *
      * @param array  an array, must not be null or empty
      * @return the maximum value in the array
@@ -1344,7 +1344,7 @@ public class NumberUtils {
 
     // 3 param min
     /**
-     * <p>Gets the minimum of three {@code long} values.</p>
+     * Gets the minimum of three {@code long} values.
      *
      * @param a  value 1
      * @param b  value 2
@@ -1362,7 +1362,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Gets the minimum of three {@code int} values.</p>
+     * Gets the minimum of three {@code int} values.
      *
      * @param a  value 1
      * @param b  value 2
@@ -1380,7 +1380,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Gets the minimum of three {@code short} values.</p>
+     * Gets the minimum of three {@code short} values.
      *
      * @param a  value 1
      * @param b  value 2
@@ -1398,7 +1398,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Gets the minimum of three {@code byte} values.</p>
+     * Gets the minimum of three {@code byte} values.
      *
      * @param a  value 1
      * @param b  value 2
@@ -1416,7 +1416,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Gets the minimum of three {@code double} values.</p>
+     * Gets the minimum of three {@code double} values.
      *
      * <p>If any value is {@code NaN}, {@code NaN} is
      * returned. Infinity is handled.</p>
@@ -1432,7 +1432,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Gets the minimum of three {@code float} values.</p>
+     * Gets the minimum of three {@code float} values.
      *
      * <p>If any value is {@code NaN}, {@code NaN} is
      * returned. Infinity is handled.</p>
@@ -1449,7 +1449,7 @@ public class NumberUtils {
 
     // 3 param max
     /**
-     * <p>Gets the maximum of three {@code long} values.</p>
+     * Gets the maximum of three {@code long} values.
      *
      * @param a  value 1
      * @param b  value 2
@@ -1467,7 +1467,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Gets the maximum of three {@code int} values.</p>
+     * Gets the maximum of three {@code int} values.
      *
      * @param a  value 1
      * @param b  value 2
@@ -1485,7 +1485,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Gets the maximum of three {@code short} values.</p>
+     * Gets the maximum of three {@code short} values.
      *
      * @param a  value 1
      * @param b  value 2
@@ -1503,7 +1503,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Gets the maximum of three {@code byte} values.</p>
+     * Gets the maximum of three {@code byte} values.
      *
      * @param a  value 1
      * @param b  value 2
@@ -1521,7 +1521,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Gets the maximum of three {@code double} values.</p>
+     * Gets the maximum of three {@code double} values.
      *
      * <p>If any value is {@code NaN}, {@code NaN} is
      * returned. Infinity is handled.</p>
@@ -1537,7 +1537,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Gets the maximum of three {@code float} values.</p>
+     * Gets the maximum of three {@code float} values.
      *
      * <p>If any value is {@code NaN}, {@code NaN} is
      * returned. Infinity is handled.</p>
@@ -1553,8 +1553,8 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Checks whether the {@link String} contains only
-     * digit characters.</p>
+     * Checks whether the {@link String} contains only
+     * digit characters.
      *
      * <p>{@code null} and empty String will return
      * {@code false}.</p>
@@ -1567,7 +1567,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Checks whether the String a valid Java number.</p>
+     * Checks whether the String a valid Java number.
      *
      * <p>Valid numbers include hexadecimal marked with the {@code 0x} or
      * {@code 0X} qualifier, octal numbers, scientific notation and
@@ -1597,7 +1597,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Checks whether the String a valid Java number.</p>
+     * Checks whether the String a valid Java number.
      *
      * <p>Valid numbers include hexadecimal marked with the {@code 0x} or
      * {@code 0X} qualifier, octal numbers, scientific notation and
@@ -1733,7 +1733,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Checks whether the given String is a parsable number.</p>
+     * Checks whether the given String is a parsable number.
      *
      * <p>Parsable numbers include those Strings understood by {@link Integer#parseInt(String)},
      * {@link Long#parseLong(String)}, {@link Float#parseFloat(String)} or
@@ -1783,7 +1783,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Compares two {@code int} values numerically. This is the same functionality as provided in Java 7.</p>
+     * Compares two {@code int} values numerically. This is the same functionality as provided in Java 7.
      *
      * @param x the first {@code int} to compare
      * @param y the second {@code int} to compare
@@ -1800,7 +1800,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Compares to {@code long} values numerically. This is the same functionality as provided in Java 7.</p>
+     * Compares to {@code long} values numerically. This is the same functionality as provided in Java 7.
      *
      * @param x the first {@code long} to compare
      * @param y the second {@code long} to compare
@@ -1817,7 +1817,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Compares to {@code short} values numerically. This is the same functionality as provided in Java 7.</p>
+     * Compares to {@code short} values numerically. This is the same functionality as provided in Java 7.
      *
      * @param x the first {@code short} to compare
      * @param y the second {@code short} to compare
@@ -1834,7 +1834,7 @@ public class NumberUtils {
     }
 
     /**
-     * <p>Compares two {@code byte} values numerically. This is the same functionality as provided in Java 7.</p>
+     * Compares two {@code byte} values numerically. This is the same functionality as provided in Java 7.
      *
      * @param x the first {@code byte} to compare
      * @param y the second {@code byte} to compare

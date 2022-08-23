@@ -19,7 +19,7 @@ package org.apache.commons.lang3.tuple;
 import java.util.Objects;
 
 /**
- * <p>A mutable triple consisting of three {@link Object} elements.</p>
+ * A mutable triple consisting of three {@link Object} elements.
  *
  * <p>Not #ThreadSafe#</p>
  *
@@ -60,7 +60,7 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     }
 
     /**
-     * <p>Obtains a mutable triple of three objects inferring the generic types.</p>
+     * Obtains a mutable triple of three objects inferring the generic types.
      *
      * <p>This factory allows the triple to be created using inference to
      * obtain the generic types.</p>
@@ -78,7 +78,7 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     }
 
     /**
-     * <p>Obtains a mutable triple of three non-null objects inferring the generic types.</p>
+     * Obtains a mutable triple of three non-null objects inferring the generic types.
      *
      * <p>This factory allows the triple to be created using inference to
      * obtain the generic types.</p>

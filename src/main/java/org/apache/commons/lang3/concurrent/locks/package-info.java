@@ -15,10 +15,9 @@
  * limitations under the License.
  */
 /**
- * <p>
  * Provides support classes for multi-threaded programming. This package is intended to be an extension to
  * {@link java.util.concurrent.locks}.
- * </p>
+ *
  * @since 3.11
  */
 package org.apache.commons.lang3.concurrent.locks;

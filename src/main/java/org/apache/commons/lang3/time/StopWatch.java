@@ -23,9 +23,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * <p>
  * {@link StopWatch} provides a convenient API for timings.
- * </p>
  *
  * <p>
  * To start the watch, call {@link #start()} or {@link StopWatch#createStarted()}. At this point you can:
@@ -132,28 +130,22 @@ public class StopWatch {
         };
 
         /**
-         * <p>
          * Returns whether the StopWatch is started. A suspended StopWatch is also started watch.
-         * </p>
          *
          * @return boolean If the StopWatch is started.
          */
         abstract boolean isStarted();
 
         /**
-         * <p>
          * Returns whether the StopWatch is stopped. The stopwatch which's not yet started and explicitly stopped stopwatch is
          * considered as stopped.
-         * </p>
          *
          * @return boolean If the StopWatch is stopped.
          */
         abstract boolean isStopped();
 
         /**
-         * <p>
          * Returns whether the StopWatch is suspended.
-         * </p>
          *
          * @return boolean
          *             If the StopWatch is suspended.
@@ -229,18 +221,16 @@ public class StopWatch {
     private long stopTimeNanos;
 
     /**
-     * <p>
      * Constructor.
-     * </p>
+     *
      */
     public StopWatch() {
         this(null);
     }
 
     /**
-     * <p>
      * Constructor.
-     * </p>
+     *
      * @param message A message for string presentation.
      * @since 3.10
      */
@@ -279,9 +269,7 @@ public class StopWatch {
     }
 
     /**
-     * <p>
      * Gets the <em>elapsed</em> time in nanoseconds.
-     * </p>
      *
      * <p>
      * This is either the time between the start and the moment this method is called, or the amount of time between
@@ -306,9 +294,7 @@ public class StopWatch {
     }
 
     /**
-     * <p>
      * Gets the split time in nanoseconds.
-     * </p>
      *
      * <p>
      * This is the time between start and latest split.
@@ -328,9 +314,7 @@ public class StopWatch {
     }
 
     /**
-     * <p>
      * Gets the split time on the stopwatch.
-     * </p>
      *
      * <p>
      * This is the time between start and latest split.
@@ -381,9 +365,7 @@ public class StopWatch {
     }
 
     /**
-     * <p>
      * Gets the time on the stopwatch.
-     * </p>
      *
      * <p>
      * This is either the time between the start and the moment this method is called, or the amount of time between
@@ -397,9 +379,7 @@ public class StopWatch {
     }
 
     /**
-     * <p>
      * Gets the time in the specified TimeUnit.
-     * </p>
      *
      * <p>
      * This is either the time between the start and the moment this method is called, or the amount of time between
@@ -417,9 +397,7 @@ public class StopWatch {
     }
 
     /**
-     * <p>
      * Returns whether the StopWatch is started. A suspended StopWatch is also started watch.
-     * </p>
      *
      * @return boolean If the StopWatch is started.
      * @since 3.2
@@ -429,10 +407,8 @@ public class StopWatch {
     }
 
     /**
-     * <p>
      * Returns whether StopWatch is stopped. The stopwatch which's not yet started and explicitly stopped stopwatch is considered
      * as stopped.
-     * </p>
      *
      * @return boolean If the StopWatch is stopped.
      * @since 3.2
@@ -442,9 +418,7 @@ public class StopWatch {
     }
 
     /**
-     * <p>
      * Returns whether the StopWatch is suspended.
-     * </p>
      *
      * @return boolean
      *             If the StopWatch is suspended.
@@ -455,9 +429,7 @@ public class StopWatch {
     }
 
     /**
-     * <p>
      * Resets the stopwatch. Stops it if need be.
-     * </p>
      *
      * <p>
      * This method clears the internal values to allow the object to be reused.
@@ -469,9 +441,7 @@ public class StopWatch {
     }
 
     /**
-     * <p>
      * Resumes the stopwatch after a suspend.
-     * </p>
      *
      * <p>
      * This method resumes the watch after it was suspended. The watch will not include time between the suspend and
@@ -490,9 +460,7 @@ public class StopWatch {
     }
 
     /**
-     * <p>
      * Splits the time.
-     * </p>
      *
      * <p>
      * This method sets the stop time of the watch to allow a time to be extracted. The start time is unaffected,
@@ -511,9 +479,7 @@ public class StopWatch {
     }
 
     /**
-     * <p>
      * Starts the stopwatch.
-     * </p>
      *
      * <p>
      * This method starts a new timing session, clearing any previous values.
@@ -535,9 +501,7 @@ public class StopWatch {
     }
 
     /**
-     * <p>
      * Stops the stopwatch.
-     * </p>
      *
      * <p>
      * This method ends a new timing session, allowing the time to be retrieved.
@@ -558,9 +522,7 @@ public class StopWatch {
     }
 
     /**
-     * <p>
      * Suspends the stopwatch for later resumption.
-     * </p>
      *
      * <p>
      * This method suspends the watch until it is resumed. The watch will not include time between the suspend and
@@ -580,9 +542,7 @@ public class StopWatch {
     }
 
     /**
-     * <p>
      * Gets a summary of the split time that the stopwatch recorded as a string.
-     * </p>
      *
      * <p>
      * The format used is ISO 8601-like, [<i>message</i> ]<i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
@@ -599,9 +559,7 @@ public class StopWatch {
     }
 
     /**
-     * <p>
      * Gets a summary of the time that the stopwatch recorded as a string.
-     * </p>
      *
      * <p>
      * The format used is ISO 8601-like, [<i>message</i> ]<i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
@@ -618,9 +576,7 @@ public class StopWatch {
     }
 
     /**
-     * <p>
      * Removes a split.
-     * </p>
      *
      * <p>
      * This method clears the stop time. The start time is unaffected, enabling timing from the original start point to

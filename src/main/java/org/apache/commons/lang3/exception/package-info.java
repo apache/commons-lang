@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 /**
- * <p>Provides functionality for Exceptions.</p>
+ * Provides functionality for Exceptions.
  * <p>Contains the concept of an exception with context i.e. such an exception will contain a map with keys and values.
  * This provides an easy way to pass valuable state information at exception time in useful form to a calling process.</p>
  * <p>Lastly, {@link org.apache.commons.lang3.exception.ExceptionUtils} also contains {@link Throwable} manipulation

@@ -19,7 +19,7 @@ package org.apache.commons.lang3;
 import java.util.Objects;
 
 /**
- * <p>Operations on char primitives and Character objects.</p>
+ * Operations on char primitives and Character objects.
  *
  * <p>This class tries to handle {@code null} input gracefully.
  * An exception will not be thrown for a {@code null} input.
@@ -64,8 +64,8 @@ public class CharUtils {
     }
 
     /**
-     * <p>{@link CharUtils} instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as {@code CharUtils.toString('c');}.</p>
+     * {@link CharUtils} instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as {@code CharUtils.toString('c');}.
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance
      * to operate.</p>
@@ -74,7 +74,7 @@ public class CharUtils {
     }
 
     /**
-     * <p>Converts the character to a Character.</p>
+     * Converts the character to a Character.
      *
      * <p>For ASCII 7 bit characters, this uses a cache that will return the
      * same Character object each time.</p>
@@ -94,8 +94,8 @@ public class CharUtils {
     }
 
     /**
-     * <p>Converts the String to a Character using the first character, returning
-     * null for empty Strings.</p>
+     * Converts the String to a Character using the first character, returning
+     * null for empty Strings.
      *
      * <p>For ASCII 7 bit characters, this uses a cache that will return the
      * same Character object each time.</p>
@@ -115,7 +115,7 @@ public class CharUtils {
     }
 
     /**
-     * <p>Converts the Character to a char throwing an exception for {@code null}.</p>
+     * Converts the Character to a char throwing an exception for {@code null}.
      *
      * <pre>
      *   CharUtils.toChar(' ')  = ' '
@@ -132,7 +132,7 @@ public class CharUtils {
     }
 
     /**
-     * <p>Converts the Character to a char handling {@code null}.</p>
+     * Converts the Character to a char handling {@code null}.
      *
      * <pre>
      *   CharUtils.toChar(null, 'X') = 'X'
@@ -149,8 +149,8 @@ public class CharUtils {
     }
 
     /**
-     * <p>Converts the String to a char using the first character, throwing
-     * an exception on empty Strings.</p>
+     * Converts the String to a char using the first character, throwing
+     * an exception on empty Strings.
      *
      * <pre>
      *   CharUtils.toChar("A")  = 'A'
@@ -170,8 +170,8 @@ public class CharUtils {
     }
 
     /**
-     * <p>Converts the String to a char using the first character, defaulting
-     * the value on empty Strings.</p>
+     * Converts the String to a char using the first character, defaulting
+     * the value on empty Strings.
      *
      * <pre>
      *   CharUtils.toChar(null, 'X') = 'X'
@@ -189,8 +189,8 @@ public class CharUtils {
     }
 
     /**
-     * <p>Converts the character to the Integer it represents, throwing an
-     * exception if the character is not numeric.</p>
+     * Converts the character to the Integer it represents, throwing an
+     * exception if the character is not numeric.
      *
      * <p>This method converts the char '1' to the int 1 and so on.</p>
      *
@@ -211,8 +211,8 @@ public class CharUtils {
     }
 
     /**
-     * <p>Converts the character to the Integer it represents, throwing an
-     * exception if the character is not numeric.</p>
+     * Converts the character to the Integer it represents, throwing an
+     * exception if the character is not numeric.
      *
      * <p>This method converts the char '1' to the int 1 and so on.</p>
      *
@@ -230,8 +230,8 @@ public class CharUtils {
     }
 
     /**
-     * <p>Converts the character to the Integer it represents, throwing an
-     * exception if the character is not numeric.</p>
+     * Converts the character to the Integer it represents, throwing an
+     * exception if the character is not numeric.
      *
      * <p>This method converts the char '1' to the int 1 and so on.</p>
      *
@@ -251,8 +251,8 @@ public class CharUtils {
     }
 
     /**
-     * <p>Converts the character to the Integer it represents, throwing an
-     * exception if the character is not numeric.</p>
+     * Converts the character to the Integer it represents, throwing an
+     * exception if the character is not numeric.
      *
      * <p>This method converts the char '1' to the int 1 and so on.</p>
      *
@@ -271,7 +271,7 @@ public class CharUtils {
     }
 
     /**
-     * <p>Converts the character to a String that contains the one character.</p>
+     * Converts the character to a String that contains the one character.
      *
      * <p>For ASCII 7 bit characters, this uses a cache that will return the
      * same String object each time.</p>
@@ -292,7 +292,7 @@ public class CharUtils {
     }
 
     /**
-     * <p>Converts the character to a String that contains the one character.</p>
+     * Converts the character to a String that contains the one character.
      *
      * <p>For ASCII 7 bit characters, this uses a cache that will return the
      * same String object each time.</p>
@@ -313,7 +313,7 @@ public class CharUtils {
     }
 
     /**
-     * <p>Converts the string to the Unicode format '\u0020'.</p>
+     * Converts the string to the Unicode format '\u0020'.
      *
      * <p>This format is the Java source code format.</p>
      *
@@ -334,7 +334,7 @@ public class CharUtils {
     }
 
     /**
-     * <p>Converts the string to the Unicode format '\u0020'.</p>
+     * Converts the string to the Unicode format '\u0020'.
      *
      * <p>This format is the Java source code format.</p>
      *
@@ -354,7 +354,7 @@ public class CharUtils {
     }
 
     /**
-     * <p>Checks whether the character is ASCII 7 bit.</p>
+     * Checks whether the character is ASCII 7 bit.
      *
      * <pre>
      *   CharUtils.isAscii('a')  = true
@@ -373,7 +373,7 @@ public class CharUtils {
     }
 
     /**
-     * <p>Checks whether the character is ASCII 7 bit printable.</p>
+     * Checks whether the character is ASCII 7 bit printable.
      *
      * <pre>
      *   CharUtils.isAsciiPrintable('a')  = true
@@ -392,7 +392,7 @@ public class CharUtils {
     }
 
     /**
-     * <p>Checks whether the character is ASCII 7 bit control.</p>
+     * Checks whether the character is ASCII 7 bit control.
      *
      * <pre>
      *   CharUtils.isAsciiControl('a')  = false
@@ -411,7 +411,7 @@ public class CharUtils {
     }
 
     /**
-     * <p>Checks whether the character is ASCII 7 bit alphabetic.</p>
+     * Checks whether the character is ASCII 7 bit alphabetic.
      *
      * <pre>
      *   CharUtils.isAsciiAlpha('a')  = true
@@ -430,7 +430,7 @@ public class CharUtils {
     }
 
     /**
-     * <p>Checks whether the character is ASCII 7 bit alphabetic upper case.</p>
+     * Checks whether the character is ASCII 7 bit alphabetic upper case.
      *
      * <pre>
      *   CharUtils.isAsciiAlphaUpper('a')  = false
@@ -449,7 +449,7 @@ public class CharUtils {
     }
 
     /**
-     * <p>Checks whether the character is ASCII 7 bit alphabetic lower case.</p>
+     * Checks whether the character is ASCII 7 bit alphabetic lower case.
      *
      * <pre>
      *   CharUtils.isAsciiAlphaLower('a')  = true
@@ -468,7 +468,7 @@ public class CharUtils {
     }
 
     /**
-     * <p>Checks whether the character is ASCII 7 bit numeric.</p>
+     * Checks whether the character is ASCII 7 bit numeric.
      *
      * <pre>
      *   CharUtils.isAsciiNumeric('a')  = false
@@ -487,7 +487,7 @@ public class CharUtils {
     }
 
     /**
-     * <p>Checks whether the character is ASCII 7 bit numeric.</p>
+     * Checks whether the character is ASCII 7 bit numeric.
      *
      * <pre>
      *   CharUtils.isAsciiAlphanumeric('a')  = true
@@ -506,7 +506,7 @@ public class CharUtils {
     }
 
     /**
-     * <p>Compares two {@code char} values numerically. This is the same functionality as provided in Java 7.</p>
+     * Compares two {@code char} values numerically. This is the same functionality as provided in Java 7.
      *
      * @param x the first {@code char} to compare
      * @param y the second {@code char} to compare

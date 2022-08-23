@@ -28,12 +28,11 @@ import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableFunction;
 
 /**
- * <p>
  * Combines the monitor and visitor pattern to work with {@link java.util.concurrent.locks.Lock locked objects}. Locked
  * objects are an alternative to synchronization. This, on Wikipedia, is known as the Visitor pattern
  * (https://en.wikipedia.org/wiki/Visitor_pattern), and from the "Gang of Four" "Design Patterns" book's Visitor pattern
  * [Gamma, E., Helm, R., &amp; Johnson, R. (1998). Visitor. In Design patterns elements of reusable object oriented software (pp. 331-344). Reading: Addison Wesley.].
- * </p>
+ *
  * <p>
  * Locking is preferable, if there is a distinction between read access (multiple threads may have read access
  * concurrently), and write access (only one thread may have write access at any given time). In comparison,
@@ -126,10 +125,9 @@ public class LockingVisitors {
         }
 
         /**
-         * <p>
          * Provides read (shared, non-exclusive) access to the locked (hidden) object. More precisely, what the method
          * will do (in the given order):
-         * </p>
+         *
          * <ol>
          * <li>Obtain a read (shared) lock on the locked (hidden) object. The current thread may block, until such a
          * lock is granted.</li>
@@ -148,10 +146,9 @@ public class LockingVisitors {
         }
 
         /**
-         * <p>
          * Provides write (exclusive) access to the locked (hidden) object. More precisely, what the method will do (in
          * the given order):
-         * </p>
+         *
          * <ol>
          * <li>Obtain a write (shared) lock on the locked (hidden) object. The current thread may block, until such a
          * lock is granted.</li>
@@ -170,10 +167,9 @@ public class LockingVisitors {
         }
 
         /**
-         * <p>
          * Provides read (shared, non-exclusive) access to the locked (hidden) object for the purpose of computing a
          * result object. More precisely, what the method will do (in the given order):
-         * </p>
+         *
          * <ol>
          * <li>Obtain a read (shared) lock on the locked (hidden) object. The current thread may block, until such a
          * lock is granted.</li>
@@ -210,10 +206,9 @@ public class LockingVisitors {
         }
 
         /**
-         * <p>
          * Provides write (exclusive) access to the locked (hidden) object for the purpose of computing a result object.
          * More precisely, what the method will do (in the given order):
-         * </p>
+         *
          * <ol>
          * <li>Obtain a read (shared) lock on the locked (hidden) object. The current thread may block, until such a
          * lock is granted.</li>

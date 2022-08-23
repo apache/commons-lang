@@ -20,7 +20,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * <p>Generates random {@link String}s.</p>
+ * Generates random {@link String}s.
  *
  * <p><b>Caveat: Instances of {@link Random}, upon which the implementation of this
  * class relies, are not cryptographically secure.</b></p>
@@ -55,8 +55,8 @@ public class RandomStringUtils {
 
     // Random
     /**
-     * <p>Creates a random string whose length is the number of characters
-     * specified.</p>
+     * Creates a random string whose length is the number of characters
+     * specified.
      *
      * <p>Characters will be chosen from the set of all characters.</p>
      *
@@ -68,8 +68,8 @@ public class RandomStringUtils {
     }
 
     /**
-     * <p>Creates a random string whose length is the number of characters
-     * specified.</p>
+     * Creates a random string whose length is the number of characters
+     * specified.
      *
      * <p>Characters will be chosen from the set of alpha-numeric
      * characters as indicated by the arguments.</p>
@@ -86,8 +86,8 @@ public class RandomStringUtils {
     }
 
     /**
-     * <p>Creates a random string whose length is the number of characters
-     * specified.</p>
+     * Creates a random string whose length is the number of characters
+     * specified.
      *
      * <p>Characters will be chosen from the set of characters specified.</p>
      *
@@ -105,8 +105,8 @@ public class RandomStringUtils {
     }
 
     /**
-     * <p>Creates a random string whose length is the number of characters
-     * specified.</p>
+     * Creates a random string whose length is the number of characters
+     * specified.
      *
      * <p>Characters will be chosen from the set of alpha-numeric
      * characters as indicated by the arguments.</p>
@@ -125,8 +125,8 @@ public class RandomStringUtils {
     }
 
     /**
-     * <p>Creates a random string based on a variety of options, using
-     * default source of randomness.</p>
+     * Creates a random string based on a variety of options, using
+     * default source of randomness.
      *
      * <p>This method has exactly the same semantics as
      * {@link #random(int,int,int,boolean,boolean,char[],Random)}, but
@@ -151,8 +151,8 @@ public class RandomStringUtils {
     }
 
     /**
-     * <p>Creates a random string based on a variety of options, using
-     * supplied source of randomness.</p>
+     * Creates a random string based on a variety of options, using
+     * supplied source of randomness.
      *
      * <p>If start and end are both {@code 0}, start and end are set
      * to {@code ' '} and {@code 'z'}, the ASCII printable
@@ -262,8 +262,8 @@ public class RandomStringUtils {
     }
 
     /**
-     * <p>Creates a random string whose length is the number of characters
-     * specified.</p>
+     * Creates a random string whose length is the number of characters
+     * specified.
      *
      * <p>Characters will be chosen from the set of characters
      * specified by the string, must not be empty.
@@ -283,8 +283,8 @@ public class RandomStringUtils {
     }
 
     /**
-     * <p>Creates a random string whose length is the number of characters
-     * specified.</p>
+     * Creates a random string whose length is the number of characters
+     * specified.
      *
      * <p>Characters will be chosen from the set of Latin alphabetic
      * characters (a-z, A-Z).</p>
@@ -297,8 +297,8 @@ public class RandomStringUtils {
     }
 
     /**
-     * <p>Creates a random string whose length is between the inclusive minimum and
-     * the exclusive maximum.</p>
+     * Creates a random string whose length is between the inclusive minimum and
+     * the exclusive maximum.
      *
      * <p>Characters will be chosen from the set of Latin alphabetic characters (a-z, A-Z).</p>
      *
@@ -312,8 +312,8 @@ public class RandomStringUtils {
     }
 
     /**
-     * <p>Creates a random string whose length is the number of characters
-     * specified.</p>
+     * Creates a random string whose length is the number of characters
+     * specified.
      *
      * <p>Characters will be chosen from the set of Latin alphabetic
      * characters (a-z, A-Z) and the digits 0-9.</p>
@@ -326,8 +326,8 @@ public class RandomStringUtils {
     }
 
     /**
-     * <p>Creates a random string whose length is between the inclusive minimum and
-     * the exclusive maximum.</p>
+     * Creates a random string whose length is between the inclusive minimum and
+     * the exclusive maximum.
      *
      * <p>Characters will be chosen from the set of Latin alphabetic
      * characters (a-z, A-Z) and the digits 0-9.</p>
@@ -342,8 +342,8 @@ public class RandomStringUtils {
     }
 
     /**
-     * <p>Creates a random string whose length is the number of characters
-     * specified.</p>
+     * Creates a random string whose length is the number of characters
+     * specified.
      *
      * <p>Characters will be chosen from the set of characters whose
      * ASCII value is between {@code 32} and {@code 126} (inclusive).</p>
@@ -356,8 +356,8 @@ public class RandomStringUtils {
     }
 
     /**
-     * <p>Creates a random string whose length is between the inclusive minimum and
-     * the exclusive maximum.</p>
+     * Creates a random string whose length is between the inclusive minimum and
+     * the exclusive maximum.
      *
      * <p>Characters will be chosen from the set of characters whose
      * ASCII value is between {@code 32} and {@code 126} (inclusive).</p>
@@ -372,7 +372,7 @@ public class RandomStringUtils {
     }
 
     /**
-     * <p>Creates a random string whose length is the number of characters specified.</p>
+     * Creates a random string whose length is the number of characters specified.
      *
      * <p>Characters will be chosen from the set of characters which match the POSIX [:graph:]
      * regular expression character class. This class contains all visible ASCII characters
@@ -387,8 +387,8 @@ public class RandomStringUtils {
     }
 
     /**
-     * <p>Creates a random string whose length is between the inclusive minimum and
-     * the exclusive maximum.</p>
+     * Creates a random string whose length is between the inclusive minimum and
+     * the exclusive maximum.
      *
      * <p>Characters will be chosen from the set of \p{Graph} characters.</p>
      *
@@ -402,8 +402,8 @@ public class RandomStringUtils {
     }
 
     /**
-     * <p>Creates a random string whose length is the number of characters
-     * specified.</p>
+     * Creates a random string whose length is the number of characters
+     * specified.
      *
      * <p>Characters will be chosen from the set of numeric
      * characters.</p>
@@ -416,8 +416,8 @@ public class RandomStringUtils {
     }
 
     /**
-     * <p>Creates a random string whose length is between the inclusive minimum and
-     * the exclusive maximum.</p>
+     * Creates a random string whose length is between the inclusive minimum and
+     * the exclusive maximum.
      *
      * <p>Characters will be chosen from the set of \p{Digit} characters.</p>
      *
@@ -431,7 +431,7 @@ public class RandomStringUtils {
     }
 
     /**
-     * <p>Creates a random string whose length is the number of characters specified.</p>
+     * Creates a random string whose length is the number of characters specified.
      *
      * <p>Characters will be chosen from the set of characters which match the POSIX [:print:]
      * regular expression character class. This class includes all visible ASCII characters and spaces
@@ -447,8 +447,8 @@ public class RandomStringUtils {
 
 
     /**
-     * <p>Creates a random string whose length is between the inclusive minimum and
-     * the exclusive maximum.</p>
+     * Creates a random string whose length is between the inclusive minimum and
+     * the exclusive maximum.
      *
      * <p>Characters will be chosen from the set of \p{Print} characters.</p>
      *
@@ -462,9 +462,9 @@ public class RandomStringUtils {
     }
 
     /**
-     * <p>{@link RandomStringUtils} instances should NOT be constructed in
+     * {@link RandomStringUtils} instances should NOT be constructed in
      * standard programming. Instead, the class should be used as
-     * {@code RandomStringUtils.random(5);}.</p>
+     * {@code RandomStringUtils.random(5);}.
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance
      * to operate.</p>

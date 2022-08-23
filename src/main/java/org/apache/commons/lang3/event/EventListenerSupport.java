@@ -34,12 +34,11 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
- * <p>An EventListenerSupport object can be used to manage a list of event
+ * An EventListenerSupport object can be used to manage a list of event
  * listeners of a particular type. The class provides
  * {@link #addListener(Object)} and {@link #removeListener(Object)} methods
  * for registering listeners, as well as a {@link #fire()} method for firing
  * events to the listeners.
- * </p>
  *
  * <p>
  * To use this class, suppose you want to support ActionEvents.  You would do:

@@ -23,11 +23,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * <p>
  * A simple implementation of the <a
  * href="https://martinfowler.com/bliki/CircuitBreaker.html">Circuit Breaker</a> pattern
  * that counts specific events.
- * </p>
+ *
  * <p>
  * A <em>circuit breaker</em> can be used to protect an application against unreliable
  * services or unexpected load. A newly created {@link EventCountCircuitBreaker} object is

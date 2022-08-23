@@ -26,10 +26,9 @@ import java.util.concurrent.ExecutorService;
 import org.apache.commons.lang3.Validate;
 
 /**
- * <p>
  * A specialized {@link BackgroundInitializer} implementation that can deal with
  * multiple background initialization tasks.
- * </p>
+ *
  * <p>
  * This class has a similar purpose as {@link BackgroundInitializer}. However,
  * it is not limited to a single background initialization task. Rather it

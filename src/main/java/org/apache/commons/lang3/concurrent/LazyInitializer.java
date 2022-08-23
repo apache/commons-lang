@@ -17,10 +17,9 @@
 package org.apache.commons.lang3.concurrent;
 
 /**
- * <p>
  * This class provides a generic implementation of the lazy initialization
  * pattern.
- * </p>
+ *
  * <p>
  * Sometimes an application has to deal with an object only under certain
  * circumstances, e.g. when the user selects a specific menu item or if a

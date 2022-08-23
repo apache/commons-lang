@@ -17,7 +17,7 @@
 package org.apache.commons.lang3;
 
 /**
- * <p>Exception thrown when the Serialization process fails.</p>
+ * Exception thrown when the Serialization process fails.
  *
  * <p>The original error is wrapped within this one.</p>
  *
@@ -34,15 +34,15 @@ public class SerializationException extends RuntimeException {
     private static final long serialVersionUID = 4029025366392702726L;
 
     /**
-     * <p>Constructs a new {@link SerializationException} without specified
-     * detail message.</p>
+     * Constructs a new {@link SerializationException} without specified
+     * detail message.
      */
     public SerializationException() {
     }
 
     /**
-     * <p>Constructs a new {@link SerializationException} with specified
-     * detail message.</p>
+     * Constructs a new {@link SerializationException} with specified
+     * detail message.
      *
      * @param msg  The error message.
      */
@@ -51,8 +51,8 @@ public class SerializationException extends RuntimeException {
     }
 
     /**
-     * <p>Constructs a new {@link SerializationException} with specified
-     * nested {@link Throwable}.</p>
+     * Constructs a new {@link SerializationException} with specified
+     * nested {@link Throwable}.
      *
      * @param cause  The {@link Exception} or {@link Error}
      *  that caused this exception to be thrown.
@@ -62,8 +62,8 @@ public class SerializationException extends RuntimeException {
     }
 
     /**
-     * <p>Constructs a new {@link SerializationException} with specified
-     * detail message and nested {@link Throwable}.</p>
+     * Constructs a new {@link SerializationException} with specified
+     * detail message and nested {@link Throwable}.
      *
      * @param msg    The error message.
      * @param cause  The {@link Exception} or {@link Error}

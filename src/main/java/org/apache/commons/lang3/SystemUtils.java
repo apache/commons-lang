@@ -19,9 +19,8 @@ package org.apache.commons.lang3;
 import java.io.File;
 
 /**
- * <p>
  * Helpers for {@code java.lang.System}.
- * </p>
+ *
  * <p>
  * If a system property cannot be read due to security restrictions, the corresponding field in this class will be set
  * to {@code null} and a message will be written to {@code System.err}.
@@ -69,9 +68,8 @@ public class SystemUtils {
     private static final String JAVA_HOME_KEY = "java.home";
 
     /**
-     * <p>
      * The {@code awt.toolkit} System Property.
-     * </p>
+     *
      * <p>
      * Holds a class name, on Windows XP this is {@code sun.awt.windows.WToolkit}.
      * </p>
@@ -93,9 +91,8 @@ public class SystemUtils {
     public static final String AWT_TOOLKIT = getSystemProperty("awt.toolkit");
 
     /**
-     * <p>
      * The {@code file.encoding} System Property.
-     * </p>
+     *
      * <p>
      * File encoding, such as {@code Cp1252}.
      * </p>
@@ -115,10 +112,9 @@ public class SystemUtils {
     public static final String FILE_ENCODING = getSystemProperty("file.encoding");
 
     /**
-     * <p>
      * The {@code file.separator} System Property.
      * The file separator is:
-     * </p>
+     *
      * <ul>
      * <li>{@code "/"} on UNIX</li>
      * <li>{@code "\"} on Windows.</li>
@@ -142,9 +138,8 @@ public class SystemUtils {
     public static final String FILE_SEPARATOR = getSystemProperty("file.separator");
 
     /**
-     * <p>
      * The {@code java.awt.fonts} System Property.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -160,9 +155,8 @@ public class SystemUtils {
     public static final String JAVA_AWT_FONTS = getSystemProperty("java.awt.fonts");
 
     /**
-     * <p>
      * The {@code java.awt.graphicsenv} System Property.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -178,10 +172,9 @@ public class SystemUtils {
     public static final String JAVA_AWT_GRAPHICSENV = getSystemProperty("java.awt.graphicsenv");
 
     /**
-     * <p>
      * The {@code java.awt.headless} System Property. The value of this property is the String {@code "true"} or
      * {@code "false"}.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -199,9 +192,8 @@ public class SystemUtils {
     public static final String JAVA_AWT_HEADLESS = getSystemProperty("java.awt.headless");
 
     /**
-     * <p>
      * The {@code java.awt.printerjob} System Property.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -217,9 +209,8 @@ public class SystemUtils {
     public static final String JAVA_AWT_PRINTERJOB = getSystemProperty("java.awt.printerjob");
 
     /**
-     * <p>
      * The {@code java.class.path} System Property. Java class path.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -235,9 +226,8 @@ public class SystemUtils {
     public static final String JAVA_CLASS_PATH = getSystemProperty("java.class.path");
 
     /**
-     * <p>
      * The {@code java.class.version} System Property. Java class format version number.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -253,10 +243,9 @@ public class SystemUtils {
     public static final String JAVA_CLASS_VERSION = getSystemProperty("java.class.version");
 
     /**
-     * <p>
      * The {@code java.compiler} System Property. Name of JIT compiler to use. First in JDK version 1.2. Not used in Sun
      * JDKs after 1.2.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -272,9 +261,8 @@ public class SystemUtils {
     public static final String JAVA_COMPILER = getSystemProperty("java.compiler");
 
     /**
-     * <p>
      * The {@code java.endorsed.dirs} System Property. Path of endorsed directory or directories.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -290,9 +278,8 @@ public class SystemUtils {
     public static final String JAVA_ENDORSED_DIRS = getSystemProperty("java.endorsed.dirs");
 
     /**
-     * <p>
      * The {@code java.ext.dirs} System Property. Path of extension directory or directories.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -308,9 +295,8 @@ public class SystemUtils {
     public static final String JAVA_EXT_DIRS = getSystemProperty("java.ext.dirs");
 
     /**
-     * <p>
      * The {@code java.home} System Property. Java installation directory.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -326,9 +312,8 @@ public class SystemUtils {
     public static final String JAVA_HOME = getSystemProperty(JAVA_HOME_KEY);
 
     /**
-     * <p>
      * The {@code java.io.tmpdir} System Property. Default temp file path.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -344,9 +329,8 @@ public class SystemUtils {
     public static final String JAVA_IO_TMPDIR = getSystemProperty(JAVA_IO_TMPDIR_KEY);
 
     /**
-     * <p>
      * The {@code java.library.path} System Property. List of paths to search when loading libraries.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -362,9 +346,8 @@ public class SystemUtils {
     public static final String JAVA_LIBRARY_PATH = getSystemProperty("java.library.path");
 
     /**
-     * <p>
      * The {@code java.runtime.name} System Property. Java Runtime Environment name.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -381,9 +364,8 @@ public class SystemUtils {
     public static final String JAVA_RUNTIME_NAME = getSystemProperty("java.runtime.name");
 
     /**
-     * <p>
      * The {@code java.runtime.version} System Property. Java Runtime Environment version.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -400,9 +382,8 @@ public class SystemUtils {
     public static final String JAVA_RUNTIME_VERSION = getSystemProperty("java.runtime.version");
 
     /**
-     * <p>
      * The {@code java.specification.name} System Property. Java Runtime Environment specification name.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -418,9 +399,8 @@ public class SystemUtils {
     public static final String JAVA_SPECIFICATION_NAME = getSystemProperty("java.specification.name");
 
     /**
-     * <p>
      * The {@code java.specification.vendor} System Property. Java Runtime Environment specification vendor.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -436,9 +416,8 @@ public class SystemUtils {
     public static final String JAVA_SPECIFICATION_VENDOR = getSystemProperty("java.specification.vendor");
 
     /**
-     * <p>
      * The {@code java.specification.version} System Property. Java Runtime Environment specification version.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -455,9 +434,8 @@ public class SystemUtils {
     private static final JavaVersion JAVA_SPECIFICATION_VERSION_AS_ENUM = JavaVersion.get(JAVA_SPECIFICATION_VERSION);
 
     /**
-     * <p>
      * The {@code java.util.prefs.PreferencesFactory} System Property. A class name.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -475,9 +453,8 @@ public class SystemUtils {
         getSystemProperty("java.util.prefs.PreferencesFactory");
 
     /**
-     * <p>
      * The {@code java.vendor} System Property. Java vendor-specific string.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -493,9 +470,8 @@ public class SystemUtils {
     public static final String JAVA_VENDOR = getSystemProperty("java.vendor");
 
     /**
-     * <p>
      * The {@code java.vendor.url} System Property. Java vendor URL.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -511,9 +487,8 @@ public class SystemUtils {
     public static final String JAVA_VENDOR_URL = getSystemProperty("java.vendor.url");
 
     /**
-     * <p>
      * The {@code java.version} System Property. Java version number.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -529,9 +504,8 @@ public class SystemUtils {
     public static final String JAVA_VERSION = getSystemProperty("java.version");
 
     /**
-     * <p>
      * The {@code java.vm.info} System Property. Java Virtual Machine implementation info.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -548,9 +522,8 @@ public class SystemUtils {
     public static final String JAVA_VM_INFO = getSystemProperty("java.vm.info");
 
     /**
-     * <p>
      * The {@code java.vm.name} System Property. Java Virtual Machine implementation name.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -566,9 +539,8 @@ public class SystemUtils {
     public static final String JAVA_VM_NAME = getSystemProperty("java.vm.name");
 
     /**
-     * <p>
      * The {@code java.vm.specification.name} System Property. Java Virtual Machine specification name.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -584,9 +556,8 @@ public class SystemUtils {
     public static final String JAVA_VM_SPECIFICATION_NAME = getSystemProperty("java.vm.specification.name");
 
     /**
-     * <p>
      * The {@code java.vm.specification.vendor} System Property. Java Virtual Machine specification vendor.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -602,9 +573,8 @@ public class SystemUtils {
     public static final String JAVA_VM_SPECIFICATION_VENDOR = getSystemProperty("java.vm.specification.vendor");
 
     /**
-     * <p>
      * The {@code java.vm.specification.version} System Property. Java Virtual Machine specification version.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -620,9 +590,8 @@ public class SystemUtils {
     public static final String JAVA_VM_SPECIFICATION_VERSION = getSystemProperty("java.vm.specification.version");
 
     /**
-     * <p>
      * The {@code java.vm.vendor} System Property. Java Virtual Machine implementation vendor.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -638,9 +607,8 @@ public class SystemUtils {
     public static final String JAVA_VM_VENDOR = getSystemProperty("java.vm.vendor");
 
     /**
-     * <p>
      * The {@code java.vm.version} System Property. Java Virtual Machine implementation version.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -656,9 +624,8 @@ public class SystemUtils {
     public static final String JAVA_VM_VERSION = getSystemProperty("java.vm.version");
 
     /**
-     * <p>
      * The {@code line.separator} System Property. Line separator ({@code &quot;\n&quot;} on UNIX).
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -676,9 +643,8 @@ public class SystemUtils {
     public static final String LINE_SEPARATOR = getSystemProperty("line.separator");
 
     /**
-     * <p>
      * The {@code os.arch} System Property. Operating system architecture.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -694,9 +660,8 @@ public class SystemUtils {
     public static final String OS_ARCH = getSystemProperty("os.arch");
 
     /**
-     * <p>
      * The {@code os.name} System Property. Operating system name.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -712,9 +677,8 @@ public class SystemUtils {
     public static final String OS_NAME = getSystemProperty("os.name");
 
     /**
-     * <p>
      * The {@code os.version} System Property. Operating system version.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -730,9 +694,8 @@ public class SystemUtils {
     public static final String OS_VERSION = getSystemProperty("os.version");
 
     /**
-     * <p>
      * The {@code path.separator} System Property. Path separator ({@code &quot;:&quot;} on UNIX).
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -751,10 +714,9 @@ public class SystemUtils {
     public static final String PATH_SEPARATOR = getSystemProperty("path.separator");
 
     /**
-     * <p>
      * The {@code user.country} or {@code user.region} System Property. User's country code, such as {@code "GB"}. First
      * in Java version 1.2 as {@code user.region}. Renamed to {@code user.country} in 1.4
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -772,9 +734,8 @@ public class SystemUtils {
             getSystemProperty("user.region") : getSystemProperty("user.country");
 
     /**
-     * <p>
      * The {@code user.dir} System Property. User's current working directory.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -790,9 +751,8 @@ public class SystemUtils {
     public static final String USER_DIR = getSystemProperty(USER_DIR_KEY);
 
     /**
-     * <p>
      * The {@code user.home} System Property. User's home directory.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -808,9 +768,8 @@ public class SystemUtils {
     public static final String USER_HOME = getSystemProperty(USER_HOME_KEY);
 
     /**
-     * <p>
      * The {@code user.language} System Property. User's language code, such as {@code "en"}.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -827,9 +786,8 @@ public class SystemUtils {
     public static final String USER_LANGUAGE = getSystemProperty("user.language");
 
     /**
-     * <p>
      * The {@code user.name} System Property. User's account name.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -845,9 +803,8 @@ public class SystemUtils {
     public static final String USER_NAME = getSystemProperty(USER_NAME_KEY);
 
     /**
-     * <p>
      * The {@code user.timezone} System Property. For example: {@code "America/Los_Angeles"}.
-     * </p>
+     *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does
      * not exist.
@@ -868,9 +825,8 @@ public class SystemUtils {
     // values being set up
 
     /**
-     * <p>
      * Is {@code true} if this is Java version 1.1 (also 1.1.x versions).
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
      * </p>
@@ -878,9 +834,8 @@ public class SystemUtils {
     public static final boolean IS_JAVA_1_1 = getJavaVersionMatches("1.1");
 
     /**
-     * <p>
      * Is {@code true} if this is Java version 1.2 (also 1.2.x versions).
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
      * </p>
@@ -888,9 +843,8 @@ public class SystemUtils {
     public static final boolean IS_JAVA_1_2 = getJavaVersionMatches("1.2");
 
     /**
-     * <p>
      * Is {@code true} if this is Java version 1.3 (also 1.3.x versions).
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
      * </p>
@@ -898,9 +852,8 @@ public class SystemUtils {
     public static final boolean IS_JAVA_1_3 = getJavaVersionMatches("1.3");
 
     /**
-     * <p>
      * Is {@code true} if this is Java version 1.4 (also 1.4.x versions).
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
      * </p>
@@ -908,9 +861,8 @@ public class SystemUtils {
     public static final boolean IS_JAVA_1_4 = getJavaVersionMatches("1.4");
 
     /**
-     * <p>
      * Is {@code true} if this is Java version 1.5 (also 1.5.x versions).
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
      * </p>
@@ -918,9 +870,8 @@ public class SystemUtils {
     public static final boolean IS_JAVA_1_5 = getJavaVersionMatches("1.5");
 
     /**
-     * <p>
      * Is {@code true} if this is Java version 1.6 (also 1.6.x versions).
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
      * </p>
@@ -928,9 +879,8 @@ public class SystemUtils {
     public static final boolean IS_JAVA_1_6 = getJavaVersionMatches("1.6");
 
     /**
-     * <p>
      * Is {@code true} if this is Java version 1.7 (also 1.7.x versions).
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
      * </p>
@@ -940,9 +890,8 @@ public class SystemUtils {
     public static final boolean IS_JAVA_1_7 = getJavaVersionMatches("1.7");
 
     /**
-     * <p>
      * Is {@code true} if this is Java version 1.8 (also 1.8.x versions).
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
      * </p>
@@ -952,9 +901,8 @@ public class SystemUtils {
     public static final boolean IS_JAVA_1_8 = getJavaVersionMatches("1.8");
 
     /**
-     * <p>
      * Is {@code true} if this is Java version 1.9 (also 1.9.x versions).
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
      * </p>
@@ -967,9 +915,8 @@ public class SystemUtils {
     public static final boolean IS_JAVA_1_9 = getJavaVersionMatches("9");
 
     /**
-     * <p>
      * Is {@code true} if this is Java version 9 (also 9.x versions).
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
      * </p>
@@ -979,9 +926,8 @@ public class SystemUtils {
     public static final boolean IS_JAVA_9 = getJavaVersionMatches("9");
 
     /**
-     * <p>
      * Is {@code true} if this is Java version 10 (also 10.x versions).
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
      * </p>
@@ -991,9 +937,8 @@ public class SystemUtils {
     public static final boolean IS_JAVA_10 = getJavaVersionMatches("10");
 
     /**
-     * <p>
      * Is {@code true} if this is Java version 11 (also 11.x versions).
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
      * </p>
@@ -1003,9 +948,8 @@ public class SystemUtils {
     public static final boolean IS_JAVA_11 = getJavaVersionMatches("11");
 
     /**
-     * <p>
      * Is {@code true} if this is Java version 12 (also 12.x versions).
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
      * </p>
@@ -1015,9 +959,8 @@ public class SystemUtils {
     public static final boolean IS_JAVA_12 = getJavaVersionMatches("12");
 
     /**
-     * <p>
      * Is {@code true} if this is Java version 13 (also 13.x versions).
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
      * </p>
@@ -1027,9 +970,8 @@ public class SystemUtils {
     public static final boolean IS_JAVA_13 = getJavaVersionMatches("13");
 
     /**
-     * <p>
      * Is {@code true} if this is Java version 14 (also 14.x versions).
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
      * </p>
@@ -1039,9 +981,8 @@ public class SystemUtils {
     public static final boolean IS_JAVA_14 = getJavaVersionMatches("14");
 
     /**
-     * <p>
      * Is {@code true} if this is Java version 15 (also 15.x versions).
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
      * </p>
@@ -1088,9 +1029,8 @@ public class SystemUtils {
     // or a mistake corrected
 
     /**
-     * <p>
      * Is {@code true} if this is AIX.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1100,9 +1040,8 @@ public class SystemUtils {
     public static final boolean IS_OS_AIX = getOsMatchesName("AIX");
 
     /**
-     * <p>
      * Is {@code true} if this is HP-UX.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1112,9 +1051,8 @@ public class SystemUtils {
     public static final boolean IS_OS_HP_UX = getOsMatchesName("HP-UX");
 
     /**
-     * <p>
      * Is {@code true} if this is IBM OS/400.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1124,9 +1062,8 @@ public class SystemUtils {
     public static final boolean IS_OS_400 = getOsMatchesName("OS/400");
 
     /**
-     * <p>
      * Is {@code true} if this is Irix.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1136,9 +1073,8 @@ public class SystemUtils {
     public static final boolean IS_OS_IRIX = getOsMatchesName("Irix");
 
     /**
-     * <p>
      * Is {@code true} if this is Linux.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1148,9 +1084,8 @@ public class SystemUtils {
     public static final boolean IS_OS_LINUX = getOsMatchesName("Linux") || getOsMatchesName("LINUX");
 
     /**
-     * <p>
      * Is {@code true} if this is Mac.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1160,9 +1095,8 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC = getOsMatchesName("Mac");
 
     /**
-     * <p>
      * Is {@code true} if this is Mac.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1172,9 +1106,8 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX = getOsMatchesName("Mac OS X");
 
     /**
-     * <p>
      * Is {@code true} if this is Mac OS X Cheetah.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1184,9 +1117,8 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX_CHEETAH = getOsMatches("Mac OS X", "10.0");
 
     /**
-     * <p>
      * Is {@code true} if this is Mac OS X Puma.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1196,9 +1128,8 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX_PUMA = getOsMatches("Mac OS X", "10.1");
 
     /**
-     * <p>
      * Is {@code true} if this is Mac OS X Jaguar.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1208,9 +1139,8 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX_JAGUAR = getOsMatches("Mac OS X", "10.2");
 
     /**
-     * <p>
      * Is {@code true} if this is Mac OS X Panther.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1220,9 +1150,8 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX_PANTHER = getOsMatches("Mac OS X", "10.3");
 
     /**
-     * <p>
      * Is {@code true} if this is Mac OS X Tiger.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1232,9 +1161,8 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX_TIGER = getOsMatches("Mac OS X", "10.4");
 
     /**
-     * <p>
      * Is {@code true} if this is Mac OS X Leopard.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1244,9 +1172,8 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX_LEOPARD = getOsMatches("Mac OS X", "10.5");
 
     /**
-     * <p>
      * Is {@code true} if this is Mac OS X Snow Leopard.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1256,9 +1183,8 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX_SNOW_LEOPARD = getOsMatches("Mac OS X", "10.6");
 
     /**
-     * <p>
      * Is {@code true} if this is Mac OS X Lion.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1268,9 +1194,8 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX_LION = getOsMatches("Mac OS X", "10.7");
 
     /**
-     * <p>
      * Is {@code true} if this is Mac OS X Mountain Lion.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1280,9 +1205,8 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX_MOUNTAIN_LION = getOsMatches("Mac OS X", "10.8");
 
     /**
-     * <p>
      * Is {@code true} if this is Mac OS X Mavericks.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1292,9 +1216,8 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX_MAVERICKS = getOsMatches("Mac OS X", "10.9");
 
     /**
-     * <p>
      * Is {@code true} if this is Mac OS X Yosemite.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1304,9 +1227,8 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX_YOSEMITE = getOsMatches("Mac OS X", "10.10");
 
     /**
-     * <p>
      * Is {@code true} if this is Mac OS X El Capitan.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1316,9 +1238,8 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX_EL_CAPITAN = getOsMatches("Mac OS X", "10.11");
 
     /**
-     * <p>
      * Is {@code true} if this is Mac OS X Sierra.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1328,9 +1249,8 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX_SIERRA = getOsMatches("Mac OS X", "10.12");
 
     /**
-     * <p>
      * Is {@code true} if this is Mac OS X High Sierra.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1340,9 +1260,8 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX_HIGH_SIERRA = getOsMatches("Mac OS X", "10.13");
 
     /**
-     * <p>
      * Is {@code true} if this is Mac OS X Mojave.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1352,9 +1271,8 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX_MOJAVE = getOsMatches("Mac OS X", "10.14");
 
     /**
-     * <p>
      * Is {@code true} if this is Mac OS X Catalina.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1364,9 +1282,8 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX_CATALINA = getOsMatches("Mac OS X", "10.15");
 
     /**
-     * <p>
      * Is {@code true} if this is Mac OS X Big Sur.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1376,9 +1293,8 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX_BIG_SUR = getOsMatches("Mac OS X", "10.16");
 
     /**
-     * <p>
      * Is {@code true} if this is FreeBSD.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1388,9 +1304,8 @@ public class SystemUtils {
     public static final boolean IS_OS_FREE_BSD = getOsMatchesName("FreeBSD");
 
     /**
-     * <p>
      * Is {@code true} if this is OpenBSD.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1400,9 +1315,8 @@ public class SystemUtils {
     public static final boolean IS_OS_OPEN_BSD = getOsMatchesName("OpenBSD");
 
     /**
-     * <p>
      * Is {@code true} if this is NetBSD.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1412,9 +1326,8 @@ public class SystemUtils {
     public static final boolean IS_OS_NET_BSD = getOsMatchesName("NetBSD");
 
     /**
-     * <p>
      * Is {@code true} if this is OS/2.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1424,9 +1337,8 @@ public class SystemUtils {
     public static final boolean IS_OS_OS2 = getOsMatchesName("OS/2");
 
     /**
-     * <p>
      * Is {@code true} if this is Solaris.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1436,9 +1348,8 @@ public class SystemUtils {
     public static final boolean IS_OS_SOLARIS = getOsMatchesName("Solaris");
 
     /**
-     * <p>
      * Is {@code true} if this is SunOS.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1448,9 +1359,8 @@ public class SystemUtils {
     public static final boolean IS_OS_SUN_OS = getOsMatchesName("SunOS");
 
     /**
-     * <p>
      * Is {@code true} if this is a UNIX like system, as in any of AIX, HP-UX, Irix, Linux, MacOSX, Solaris or SUN OS.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1461,9 +1371,8 @@ public class SystemUtils {
             || IS_OS_SOLARIS || IS_OS_SUN_OS || IS_OS_FREE_BSD || IS_OS_OPEN_BSD || IS_OS_NET_BSD;
 
     /**
-     * <p>
      * Is {@code true} if this is Windows.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1473,9 +1382,8 @@ public class SystemUtils {
     public static final boolean IS_OS_WINDOWS = getOsMatchesName(OS_NAME_WINDOWS_PREFIX);
 
     /**
-     * <p>
      * Is {@code true} if this is Windows 2000.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1485,9 +1393,8 @@ public class SystemUtils {
     public static final boolean IS_OS_WINDOWS_2000 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 2000");
 
     /**
-     * <p>
      * Is {@code true} if this is Windows 2003.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1497,9 +1404,8 @@ public class SystemUtils {
     public static final boolean IS_OS_WINDOWS_2003 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 2003");
 
     /**
-     * <p>
      * Is {@code true} if this is Windows Server 2008.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1509,9 +1415,8 @@ public class SystemUtils {
     public static final boolean IS_OS_WINDOWS_2008 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " Server 2008");
 
     /**
-     * <p>
      * Is {@code true} if this is Windows Server 2012.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1521,9 +1426,8 @@ public class SystemUtils {
     public static final boolean IS_OS_WINDOWS_2012 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " Server 2012");
 
     /**
-     * <p>
      * Is {@code true} if this is Windows 95.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1533,9 +1437,8 @@ public class SystemUtils {
     public static final boolean IS_OS_WINDOWS_95 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 95");
 
     /**
-     * <p>
      * Is {@code true} if this is Windows 98.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1545,9 +1448,8 @@ public class SystemUtils {
     public static final boolean IS_OS_WINDOWS_98 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 98");
 
     /**
-     * <p>
      * Is {@code true} if this is Windows ME.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1557,9 +1459,8 @@ public class SystemUtils {
     public static final boolean IS_OS_WINDOWS_ME = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " Me");
 
     /**
-     * <p>
      * Is {@code true} if this is Windows NT.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1569,9 +1470,8 @@ public class SystemUtils {
     public static final boolean IS_OS_WINDOWS_NT = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " NT");
 
     /**
-     * <p>
      * Is {@code true} if this is Windows XP.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1581,9 +1481,8 @@ public class SystemUtils {
     public static final boolean IS_OS_WINDOWS_XP = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " XP");
 
     /**
-     * <p>
      * Is {@code true} if this is Windows Vista.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1593,9 +1492,8 @@ public class SystemUtils {
     public static final boolean IS_OS_WINDOWS_VISTA = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " Vista");
 
     /**
-     * <p>
      * Is {@code true} if this is Windows 7.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1605,9 +1503,8 @@ public class SystemUtils {
     public static final boolean IS_OS_WINDOWS_7 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 7");
 
     /**
-     * <p>
      * Is {@code true} if this is Windows 8.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1617,9 +1514,8 @@ public class SystemUtils {
     public static final boolean IS_OS_WINDOWS_8 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 8");
 
     /**
-     * <p>
      * Is {@code true} if this is Windows 10.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1629,9 +1525,8 @@ public class SystemUtils {
     public static final boolean IS_OS_WINDOWS_10 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 10");
 
     /**
-     * <p>
      * Is {@code true} if this is Windows 11.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1648,9 +1543,8 @@ public class SystemUtils {
     public static final boolean IS_OS_WINDOWS_11 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 11");
 
     /**
-     * <p>
      * Is {@code true} if this is z/OS.
-     * </p>
+     *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
      * </p>
@@ -1665,9 +1559,8 @@ public class SystemUtils {
     public static final boolean IS_OS_ZOS = getOsMatchesName("z/OS");
 
     /**
-     * <p>
      * Gets an environment variable, defaulting to {@code defaultValue} if the variable cannot be read.
-     * </p>
+     *
      * <p>
      * If a {@link SecurityException} is caught, the return value is {@code defaultValue} and a message is written to
      * {@code System.err}.
@@ -1707,9 +1600,7 @@ public class SystemUtils {
     }
 
     /**
-     * <p>
      * Gets the Java home directory as a {@link File}.
-     * </p>
      *
      * @return a directory
      * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow
@@ -1722,9 +1613,7 @@ public class SystemUtils {
     }
 
     /**
-     * <p>
      * Gets the Java IO temporary directory as a {@link File}.
-     * </p>
      *
      * @return a directory
      * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow
@@ -1737,9 +1626,7 @@ public class SystemUtils {
     }
 
     /**
-     * <p>
      * Decides if the Java version matches.
-     * </p>
      *
      * @param versionPrefix the prefix for the java version
      * @return true if matches, or false if not or can't determine
@@ -1770,9 +1657,8 @@ public class SystemUtils {
     }
 
     /**
-     * <p>
      * Gets a System property, defaulting to {@code null} if the property cannot be read.
-     * </p>
+     *
      * <p>
      * If a {@link SecurityException} is caught, the return value is {@code null} and a message is written to
      * {@code System.err}.
@@ -1793,9 +1679,7 @@ public class SystemUtils {
     }
 
     /**
-     * <p>
      * Gets the user directory as a {@link File}.
-     * </p>
      *
      * @return a directory
      * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow
@@ -1808,9 +1692,7 @@ public class SystemUtils {
     }
 
     /**
-     * <p>
      * Gets the user home directory as a {@link File}.
-     * </p>
      *
      * @return a directory
      * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow
@@ -1823,9 +1705,7 @@ public class SystemUtils {
     }
 
     /**
-     * <p>
      * Gets the user name.
-     * </p>
      *
      * @return a name
      * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow
@@ -1838,9 +1718,7 @@ public class SystemUtils {
     }
 
     /**
-     * <p>
      * Gets the user name.
-     * </p>
      *
      * @param defaultValue A default value.
      * @return a name
@@ -1866,9 +1744,7 @@ public class SystemUtils {
     }
 
     /**
-     * <p>
      * Is the Java version at least the requested version.
-     * </p>
      *
      * @param requiredVersion the required version, for example 1.31f
      * @return {@code true} if the actual version is equal or greater than the required version
@@ -1878,9 +1754,8 @@ public class SystemUtils {
     }
 
     /**
-     * <p>
      * Is the Java version at most the requested version.
-     * </p>
+     *
      * <p>
      * Example input:
      * </p>
@@ -1894,9 +1769,8 @@ public class SystemUtils {
     }
 
     /**
-     * <p>
      * Decides if the Java version matches.
-     * </p>
+     *
      * <p>
      * This method is package private instead of private to support unit test invocation.
      * </p>
@@ -1975,10 +1849,9 @@ public class SystemUtils {
     }
 
     /**
-     * <p>
      * SystemUtils instances should NOT be constructed in standard programming. Instead, the class should be used as
      * {@code SystemUtils.FILE_SEPARATOR}.
-     * </p>
+     *
      * <p>
      * This constructor is public to permit tools that require a JavaBean instance to operate.
      * </p>

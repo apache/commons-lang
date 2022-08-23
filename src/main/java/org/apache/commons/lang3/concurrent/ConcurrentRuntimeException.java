@@ -17,10 +17,9 @@
 package org.apache.commons.lang3.concurrent;
 
 /**
- * <p>
  * An exception class used for reporting runtime error conditions related to
  * accessing data of background tasks.
- * </p>
+ *
  * <p>
  * This class is an analogue of the {@link ConcurrentException} exception class.
  * However, it is a runtime exception and thus does not need explicit catch

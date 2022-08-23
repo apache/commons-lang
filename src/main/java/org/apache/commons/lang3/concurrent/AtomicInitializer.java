@@ -19,10 +19,9 @@ package org.apache.commons.lang3.concurrent;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * <p>
  * A specialized implementation of the {@link ConcurrentInitializer} interface
  * based on an {@link AtomicReference} variable.
- * </p>
+ *
  * <p>
  * This class maintains a member field of type {@link AtomicReference}. It
  * implements the following algorithm to create and initialize an object in its

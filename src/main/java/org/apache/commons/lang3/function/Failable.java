@@ -381,13 +381,11 @@ public class Failable {
     }
 
     /**
-     * <p>
      * Rethrows a {@link Throwable} as an unchecked exception. If the argument is already unchecked, namely a
      * {@link RuntimeException} or {@link Error} then the argument will be rethrown without modification. If the
      * exception is {@link IOException} then it will be wrapped into a {@link UncheckedIOException}. In every other
      * cases the exception will be wrapped into a {@code
      * UndeclaredThrowableException}
-     * </p>
      *
      * <p>
      * Note that there is a declared return type for this method, even though it never returns. The reason for that is

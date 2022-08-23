@@ -19,11 +19,10 @@ package org.apache.commons.lang3.concurrent;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * <p>
  * A specialized {@link ConcurrentInitializer} implementation which is similar
  * to {@link AtomicInitializer}, but ensures that the {@link #initialize()}
  * method is called only once.
- * </p>
+ *
  * <p>
  * As {@link AtomicInitializer} this class is based on atomic variables, so it
  * can create an object under concurrent access without synchronization.

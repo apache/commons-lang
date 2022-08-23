@@ -24,10 +24,9 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.Validate;
 
 /**
- * <p>
  * A specialized <em>semaphore</em> implementation that provides a number of
  * permits in a given time frame.
- * </p>
+ *
  * <p>
  * This class is similar to the {@code java.util.concurrent.Semaphore} class
  * provided by the JDK in that it manages a configurable number of permits.

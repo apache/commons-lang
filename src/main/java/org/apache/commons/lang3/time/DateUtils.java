@@ -31,8 +31,8 @@ import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
- * <p>A suite of utilities surrounding the use of the
- * {@link java.util.Calendar} and {@link java.util.Date} object.</p>
+ * A suite of utilities surrounding the use of the
+ * {@link java.util.Calendar} and {@link java.util.Date} object.
  *
  * <p>DateUtils contains a lot of common methods considering manipulations
  * of Dates or Calendars. Some methods require some extra explanation.
@@ -140,9 +140,9 @@ public class DateUtils {
     }
 
     /**
-     * <p>{@link DateUtils} instances should NOT be constructed in
+     * {@link DateUtils} instances should NOT be constructed in
      * standard programming. Instead, the static methods on the class should
-     * be used, such as {@code DateUtils.parseDate(str);}.</p>
+     * be used, such as {@code DateUtils.parseDate(str);}.
      *
      * <p>This constructor is public to permit tools that require a JavaBean
      * instance to operate.</p>
@@ -151,7 +151,7 @@ public class DateUtils {
     }
 
     /**
-     * <p>Checks if two date objects are on the same day ignoring time.</p>
+     * Checks if two date objects are on the same day ignoring time.
      *
      * <p>28 Mar 2002 13:45 and 28 Mar 2002 06:01 would return true.
      * 28 Mar 2002 13:45 and 12 Mar 2002 13:45 would return false.
@@ -168,7 +168,7 @@ public class DateUtils {
     }
 
     /**
-     * <p>Checks if two calendar objects are on the same day ignoring time.</p>
+     * Checks if two calendar objects are on the same day ignoring time.
      *
      * <p>28 Mar 2002 13:45 and 28 Mar 2002 06:01 would return true.
      * 28 Mar 2002 13:45 and 12 Mar 2002 13:45 would return false.
@@ -189,7 +189,7 @@ public class DateUtils {
     }
 
     /**
-     * <p>Checks if two date objects represent the same instant in time.</p>
+     * Checks if two date objects represent the same instant in time.
      *
      * <p>This method compares the long millisecond time of the two objects.</p>
      *
@@ -206,7 +206,7 @@ public class DateUtils {
     }
 
     /**
-     * <p>Checks if two calendar objects represent the same instant in time.</p>
+     * Checks if two calendar objects represent the same instant in time.
      *
      * <p>This method compares the long millisecond time of the two objects.</p>
      *
@@ -223,7 +223,7 @@ public class DateUtils {
     }
 
     /**
-     * <p>Checks if two calendar objects represent the same local time.</p>
+     * Checks if two calendar objects represent the same local time.
      *
      * <p>This method compares the values of the fields of the two objects.
      * In addition, both calendars must be the same of the same type.</p>
@@ -248,7 +248,7 @@ public class DateUtils {
     }
 
     /**
-     * <p>Parses a string representing a date by trying a variety of different parsers.</p>
+     * Parses a string representing a date by trying a variety of different parsers.
      *
      * <p>The parse will try each parse pattern in turn.
      * A parse is only deemed successful if it parses the whole of the input string.
@@ -266,8 +266,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Parses a string representing a date by trying a variety of different parsers,
-     * using the default date format symbols for the given locale.</p>
+     * Parses a string representing a date by trying a variety of different parsers,
+     * using the default date format symbols for the given locale.
      *
      * <p>The parse will try each parse pattern in turn.
      * A parse is only deemed successful if it parses the whole of the input string.
@@ -288,7 +288,7 @@ public class DateUtils {
     }
 
     /**
-     * <p>Parses a string representing a date by trying a variety of different parsers.</p>
+     * Parses a string representing a date by trying a variety of different parsers.
      *
      * <p>The parse will try each parse pattern in turn.
      * A parse is only deemed successful if it parses the whole of the input string.
@@ -307,8 +307,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Parses a string representing a date by trying a variety of different parsers,
-     * using the default date format symbols for the given locale..</p>
+     * Parses a string representing a date by trying a variety of different parsers,
+     * using the default date format symbols for the given locale..
      *
      * <p>The parse will try each parse pattern in turn.
      * A parse is only deemed successful if it parses the whole of the input string.
@@ -329,7 +329,7 @@ public class DateUtils {
     }
 
     /**
-     * <p>Parses a string representing a date by trying a variety of different parsers.</p>
+     * Parses a string representing a date by trying a variety of different parsers.
      *
      * <p>The parse will try each parse pattern in turn.
      * A parse is only deemed successful if it parses the whole of the input string.
@@ -654,8 +654,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Rounds a date, leaving the field specified as the most
-     * significant field.</p>
+     * Rounds a date, leaving the field specified as the most
+     * significant field.
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if this was passed with HOUR, it would return
@@ -685,8 +685,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Rounds a date, leaving the field specified as the most
-     * significant field.</p>
+     * Rounds a date, leaving the field specified as the most
+     * significant field.
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if this was passed with HOUR, it would return
@@ -717,8 +717,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Rounds a date, leaving the field specified as the most
-     * significant field.</p>
+     * Rounds a date, leaving the field specified as the most
+     * significant field.
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if this was passed with HOUR, it would return
@@ -756,8 +756,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Truncates a date, leaving the field specified as the most
-     * significant field.</p>
+     * Truncates a date, leaving the field specified as the most
+     * significant field.
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
@@ -775,8 +775,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Truncates a date, leaving the field specified as the most
-     * significant field.</p>
+     * Truncates a date, leaving the field specified as the most
+     * significant field.
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
@@ -795,8 +795,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Truncates a date, leaving the field specified as the most
-     * significant field.</p>
+     * Truncates a date, leaving the field specified as the most
+     * significant field.
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
@@ -822,8 +822,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Gets a date ceiling, leaving the field specified as the most
-     * significant field.</p>
+     * Gets a date ceiling, leaving the field specified as the most
+     * significant field.
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
@@ -842,8 +842,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Gets a date ceiling, leaving the field specified as the most
-     * significant field.</p>
+     * Gets a date ceiling, leaving the field specified as the most
+     * significant field.
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
@@ -863,8 +863,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Gets a date ceiling, leaving the field specified as the most
-     * significant field.</p>
+     * Gets a date ceiling, leaving the field specified as the most
+     * significant field.
      *
      * <p>For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
@@ -891,7 +891,7 @@ public class DateUtils {
     }
 
     /**
-     * <p>Internal calculation method.</p>
+     * Internal calculation method.
      *
      * @param val  the calendar, not null
      * @param field  the field constant
@@ -1039,8 +1039,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Constructs an {@link Iterator} over each day in a date
-     * range defined by a focus date and range style.</p>
+     * Constructs an {@link Iterator} over each day in a date
+     * range defined by a focus date and range style.
      *
      * <p>For instance, passing Thursday, July 4, 2002 and a
      * {@code RANGE_MONTH_SUNDAY} will return an {@link Iterator}
@@ -1067,8 +1067,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Constructs an {@link Iterator} over each day in a date
-     * range defined by a focus date and range style.</p>
+     * Constructs an {@link Iterator} over each day in a date
+     * range defined by a focus date and range style.
      *
      * <p>For instance, passing Thursday, July 4, 2002 and a
      * {@code RANGE_MONTH_SUNDAY} will return an {@link Iterator}
@@ -1163,8 +1163,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Constructs an {@link Iterator} over each day in a date
-     * range defined by a focus date and range style.</p>
+     * Constructs an {@link Iterator} over each day in a date
+     * range defined by a focus date and range style.
      *
      * <p>For instance, passing Thursday, July 4, 2002 and a
      * {@code RANGE_MONTH_SUNDAY} will return an {@link Iterator}
@@ -1190,8 +1190,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Returns the number of milliseconds within the
-     * fragment. All datefields greater than the fragment will be ignored.</p>
+     * Returns the number of milliseconds within the
+     * fragment. All datefields greater than the fragment will be ignored.
      *
      * <p>Asking the milliseconds of any date will only return the number of milliseconds
      * of the current second (resulting in a number between 0 and 999). This
@@ -1225,8 +1225,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Returns the number of seconds within the
-     * fragment. All datefields greater than the fragment will be ignored.</p>
+     * Returns the number of seconds within the
+     * fragment. All datefields greater than the fragment will be ignored.
      *
      * <p>Asking the seconds of any date will only return the number of seconds
      * of the current minute (resulting in a number between 0 and 59). This
@@ -1263,8 +1263,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Returns the number of minutes within the
-     * fragment. All datefields greater than the fragment will be ignored.</p>
+     * Returns the number of minutes within the
+     * fragment. All datefields greater than the fragment will be ignored.
      *
      * <p>Asking the minutes of any date will only return the number of minutes
      * of the current hour (resulting in a number between 0 and 59). This
@@ -1301,8 +1301,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Returns the number of hours within the
-     * fragment. All datefields greater than the fragment will be ignored.</p>
+     * Returns the number of hours within the
+     * fragment. All datefields greater than the fragment will be ignored.
      *
      * <p>Asking the hours of any date will only return the number of hours
      * of the current day (resulting in a number between 0 and 23). This
@@ -1339,8 +1339,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Returns the number of days within the
-     * fragment. All datefields greater than the fragment will be ignored.</p>
+     * Returns the number of days within the
+     * fragment. All datefields greater than the fragment will be ignored.
      *
      * <p>Asking the days of any date will only return the number of days
      * of the current month (resulting in a number between 1 and 31). This
@@ -1377,8 +1377,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Returns the number of milliseconds within the
-     * fragment. All datefields greater than the fragment will be ignored.</p>
+     * Returns the number of milliseconds within the
+     * fragment. All datefields greater than the fragment will be ignored.
      *
      * <p>Asking the milliseconds of any date will only return the number of milliseconds
      * of the current second (resulting in a number between 0 and 999). This
@@ -1414,8 +1414,8 @@ public class DateUtils {
     return getFragment(calendar, fragment, TimeUnit.MILLISECONDS);
   }
     /**
-     * <p>Returns the number of seconds within the
-     * fragment. All datefields greater than the fragment will be ignored.</p>
+     * Returns the number of seconds within the
+     * fragment. All datefields greater than the fragment will be ignored.
      *
      * <p>Asking the seconds of any date will only return the number of seconds
      * of the current minute (resulting in a number between 0 and 59). This
@@ -1452,8 +1452,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Returns the number of minutes within the
-     * fragment. All datefields greater than the fragment will be ignored.</p>
+     * Returns the number of minutes within the
+     * fragment. All datefields greater than the fragment will be ignored.
      *
      * <p>Asking the minutes of any date will only return the number of minutes
      * of the current hour (resulting in a number between 0 and 59). This
@@ -1490,8 +1490,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Returns the number of hours within the
-     * fragment. All datefields greater than the fragment will be ignored.</p>
+     * Returns the number of hours within the
+     * fragment. All datefields greater than the fragment will be ignored.
      *
      * <p>Asking the hours of any date will only return the number of hours
      * of the current day (resulting in a number between 0 and 23). This
@@ -1528,8 +1528,8 @@ public class DateUtils {
     }
 
     /**
-     * <p>Returns the number of days within the
-     * fragment. All datefields greater than the fragment will be ignored.</p>
+     * Returns the number of days within the
+     * fragment. All datefields greater than the fragment will be ignored.
      *
      * <p>Asking the days of any date will only return the number of days
      * of the current month (resulting in a number between 1 and 31). This
@@ -1721,7 +1721,7 @@ public class DateUtils {
     }
 
     /**
-     * <p>Date iterator.</p>
+     * Date iterator.
      */
     static class DateIterator implements Iterator<Calendar> {
         private final Calendar endFinal;

@@ -24,10 +24,9 @@ import java.util.concurrent.Future;
 import java.util.function.Function;
 
 /**
- * <p>
  * Definition of an interface for a wrapper around a calculation that takes a single parameter and returns a result. The
  * results for the calculation will be cached for future requests.
- * </p>
+ *
  * <p>
  * This is not a fully functional cache, there is no way of limiting or removing results once they have been generated.
  * However, it is possible to get the implementation to regenerate the result for a given parameter, if an error was
@@ -51,9 +50,8 @@ public class Memoizer<I, O> implements Computable<I, O> {
     private final boolean recalculate;
 
     /**
-     * <p>
      * Constructs a Memoizer for the provided Computable calculation.
-     * </p>
+     *
      * <p>
      * If a calculation throws an exception for any reason, this exception will be cached and returned for all future
      * calls with the provided parameter.
@@ -66,10 +64,8 @@ public class Memoizer<I, O> implements Computable<I, O> {
     }
 
     /**
-     * <p>
      * Constructs a Memoizer for the provided Computable calculation, with the option of whether a Computation that
      * experiences an error should recalculate on subsequent calls or return the same cached exception.
-     * </p>
      *
      * @param computable the computation whose results should be memorized
      * @param recalculate determines whether the computation should be recalculated on subsequent calls if the previous call
@@ -81,9 +77,8 @@ public class Memoizer<I, O> implements Computable<I, O> {
     }
 
     /**
-     * <p>
      * Constructs a Memoizer for the provided Function calculation.
-     * </p>
+     *
      * <p>
      * If a calculation throws an exception for any reason, this exception will be cached and returned for all future
      * calls with the provided parameter.
@@ -97,10 +92,8 @@ public class Memoizer<I, O> implements Computable<I, O> {
     }
 
     /**
-     * <p>
      * Constructs a Memoizer for the provided Function calculation, with the option of whether a Function that
      * experiences an error should recalculate on subsequent calls or return the same cached exception.
-     * </p>
      *
      * @param function the computation whose results should be memorized
      * @param recalculate determines whether the computation should be recalculated on subsequent calls if the previous call
@@ -113,9 +106,8 @@ public class Memoizer<I, O> implements Computable<I, O> {
     }
 
     /**
-     * <p>
      * This method will return the result of the calculation and cache it, if it has not previously been calculated.
-     * </p>
+     *
      * <p>
      * This cache will also cache exceptions that occur during the computation if the {@code recalculate} parameter in the
      * constructor was set to {@code false}, or not set. Otherwise, if an exception happened on the previous calculation,
@@ -144,10 +136,8 @@ public class Memoizer<I, O> implements Computable<I, O> {
     }
 
     /**
-     * <p>
      * This method launders a Throwable to either a RuntimeException, Error or any other Exception wrapped in an
      * IllegalStateException.
-     * </p>
      *
      * @param throwable the throwable to laundered
      * @return a RuntimeException, Error or an IllegalStateException

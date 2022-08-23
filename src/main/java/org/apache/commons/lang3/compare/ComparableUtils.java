@@ -21,7 +21,7 @@ import java.util.function.Predicate;
 import org.apache.commons.lang3.ObjectUtils;
 
 /**
- * <p>Utility library to provide helper methods for translating {@link Comparable#compareTo} result into a boolean.</p>
+ * Utility library to provide helper methods for translating {@link Comparable#compareTo} result into a boolean.
  *
  * <p>Example: {@code boolean x = is(myComparable).lessThanOrEqualTo(otherComparable)}</p>
  *
