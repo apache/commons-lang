@@ -30,8 +30,10 @@ import java.util.concurrent.ThreadLocalRandom;
  * a better choice for applications with more stringent requirements
  * (performance and/or correctness).</p>
  *
+ * @deprecated Use Apache Commons RNG's optimized <a href="https://commons.apache.org/proper/commons-rng/commons-rng-client-api/apidocs/org/apache/commons/rng/UniformRandomProvider.html">UniformRandomProvider</a>
  * @since 3.3
  */
+@Deprecated
 public class RandomUtils {
 
     /**
