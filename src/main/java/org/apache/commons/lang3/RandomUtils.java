@@ -20,7 +20,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * <p>Utility library that supplements the standard {@link Random} class.</p>
+ * Utility library that supplements the standard {@link Random} class.
  *
  * <p>Caveat: Instances of {@link Random} are not cryptographically secure.</p>
  *
@@ -37,9 +37,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class RandomUtils {
 
     /**
-     * <p>
-     * Returns a random boolean value
-     * </p>
+     * Returns a random boolean value.
      *
      * @return the random boolean
      * @since 3.5
@@ -49,9 +47,7 @@ public class RandomUtils {
     }
 
     /**
-     * <p>
      * Creates an array of random bytes.
-     * </p>
      *
      * @param count
      *            the size of the returned array
@@ -67,7 +63,7 @@ public class RandomUtils {
     }
 
     /**
-     * <p> Returns a random double within 0 - Double.MAX_VALUE </p>
+     * Returns a random double within 0 - Double.MAX_VALUE.
      *
      * @return the random double
      * @see #nextDouble(double, double)
@@ -78,9 +74,7 @@ public class RandomUtils {
     }
 
     /**
-     * <p>
      * Returns a random double within the specified range.
-     * </p>
      *
      * @param startInclusive
      *            the smallest value that can be returned, must be non-negative
@@ -104,7 +98,7 @@ public class RandomUtils {
     }
 
     /**
-     * <p> Returns a random float within 0 - Float.MAX_VALUE </p>
+     * Returns a random float within 0 - Float.MAX_VALUE.
      *
      * @return the random float
      * @see #nextFloat(float, float)
@@ -115,9 +109,7 @@ public class RandomUtils {
     }
 
     /**
-     * <p>
      * Returns a random float within the specified range.
-     * </p>
      *
      * @param startInclusive
      *            the smallest value that can be returned, must be non-negative
@@ -141,7 +133,7 @@ public class RandomUtils {
     }
 
     /**
-     * <p> Returns a random int within 0 - Integer.MAX_VALUE </p>
+     * Returns a random int within 0 - Integer.MAX_VALUE.
      *
      * @return the random integer
      * @see #nextInt(int, int)
@@ -152,9 +144,7 @@ public class RandomUtils {
     }
 
     /**
-     * <p>
      * Returns a random integer within the specified range.
-     * </p>
      *
      * @param startInclusive
      *            the smallest value that can be returned, must be non-negative
@@ -178,7 +168,7 @@ public class RandomUtils {
     }
 
     /**
-     * <p> Returns a random long within 0 - Long.MAX_VALUE </p>
+     * Returns a random long within 0 - Long.MAX_VALUE.
      *
      * @return the random long
      * @see #nextLong(long, long)
@@ -209,9 +199,7 @@ public class RandomUtils {
     }
 
     /**
-     * <p>
      * Returns a random long within the specified range.
-     * </p>
      *
      * @param startInclusive
      *            the smallest value that can be returned, must be non-negative
@@ -239,12 +227,9 @@ public class RandomUtils {
     }
 
     /**
-     * <p>
      * {@link RandomUtils} instances should NOT be constructed in standard
      * programming. Instead, the class should be used as
      * {@code RandomUtils.nextBytes(5);}.
-     * </p>
-     *
      * <p>
      * This constructor is public to permit tools that require a JavaBean
      * instance to operate.
