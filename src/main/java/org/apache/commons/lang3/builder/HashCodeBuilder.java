@@ -366,7 +366,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * also not as efficient as testing explicitly.
      * </p>
      *
-     * <P>
+     * <p>
      * If the TestTransients parameter is set to {@code true}, transient members will be tested, otherwise they
      * are ignored, as they are likely derived fields, and not part of the value of the {@link Object}.
      * </p>

@@ -463,7 +463,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * Gets the start text to output when an {@link Object} is
      * output in summary mode.
      *
-     * <P>This is output before the size value.</p>
+     * <p>This is output before the size value.</p>
      *
      * @return the current start of summary text
      */
