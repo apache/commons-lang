@@ -139,7 +139,7 @@ public class ObjectUtils {
      * @since 3.5
      */
     public static boolean allNotNull(final Object... values) {
-        return values != null ? Stream.of(values).noneMatch(Objects::isNull) : false;
+        return values != null && Stream.of(values).noneMatch(Objects::isNull);
     }
 
     /**
