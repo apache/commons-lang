@@ -16,8 +16,6 @@
  */
 package org.apache.commons.lang3.reflect;
 
-import static java.util.stream.Collectors.toList;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -724,7 +722,7 @@ public class MethodUtils {
 
         final List<Method> methods = Stream.of(cls.getDeclaredMethods())
                 .filter(method -> method.getName().equals(methodName))
-                .collect(toList());
+                .collect(Collectors.toList());
 
         ClassUtils.getAllSuperclasses(cls).stream()
                 .map(Class::getDeclaredMethods)
