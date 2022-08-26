@@ -156,14 +156,14 @@ public class ExceptionUtils {
             Method method = null;
             try {
                 method = throwable.getClass().getMethod(methodName);
-            } catch (final NoSuchMethodException | SecurityException ignored) { // NOPMD
+            } catch (final NoSuchMethodException | SecurityException ignored) {
                 // exception ignored
             }
 
             if (method != null && Throwable.class.isAssignableFrom(method.getReturnType())) {
                 try {
                     return (Throwable) method.invoke(throwable);
-                } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException ignored) { // NOPMD
+                } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException ignored) {
                     // exception ignored
                 }
             }
