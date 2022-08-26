@@ -654,7 +654,7 @@
     <commons.pmd.version>3.18.0</commons.pmd.version>
     <commons.pmd-impl.version>6.48.0</commons.pmd-impl.version>
     <commons.felix.version>5.1.2</commons.felix.version>
-    <biz.aQute.bndlib.version>6.3.1</biz.aQute.bndlib.version>
+    <commons.biz.aQute.bndlib.version>6.3.1</commons.biz.aQute.bndlib.version>
     <commons.animal-sniffer.version>1.21</commons.animal-sniffer.version>
     <commons.rat.version>0.14</commons.rat.version>
     
