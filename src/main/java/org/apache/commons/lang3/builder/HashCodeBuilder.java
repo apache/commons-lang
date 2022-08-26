@@ -893,6 +893,11 @@ public class HashCodeBuilder implements Builder<Integer> {
         return Integer.valueOf(toHashCode());
     }
 
+    /**
+     * Implements equals with iTotal.
+     *
+     * @since 3.13.0
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) {
