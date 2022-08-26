@@ -182,7 +182,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump spotbugs-maven-plugin from 4.2.0 to 4.7.1.1 #735, #808, #822, #834, #868, #895, #919, #927.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump spotbugs from 4.2.2 to 4.7.1 #744, #917.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump maven-checkstyle-plugin from 3.1.2 to 3.2.0 #943.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump checkstyle from 8.41 to 9.2.1 #739, #768, #787, #811, #824, #843.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump checkstyle from 8.41 to 9.3 #739, #768, #787, #811, #824, #843.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump easymock from 4.2 to 4.3 #746.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump commons.jacoco.version from 0.8.6 to 0.8.8.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump commons.japicmp.version from 0.15.2 to 0.15.7.</action>
@@ -191,8 +191,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump maven-javadoc-plugin from 3.2.0 to 3.4.0.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump jmh.version from 1.27 to 1.35 #794, #842, #872.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump maven-pmd-plugin from 3.14.0 to 3.18.0 #802, #858, #909.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump commons.pmd-impl.version from 6.42.0 to 6.48.0 #861, #873, #905, #932.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump pmd from 6.40.0 to 6.47.0 #837, #915.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump pmd from 6.40.0 to 6.48.0 #837, #861, #873, #905, #915, #932.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump biz.aQute.bndlib from 5.3.0 to 6.3.1 #814, #835.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump maven-bundle-plugin from 5.1.1 to 5.1.2.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump animal-sniffer-maven-plugin from 1.19 to 1.21.</action>
