@@ -2478,7 +2478,7 @@ public class ArrayUtils {
         final boolean searchNaN = Double.isNaN(valueToFind);
         for (int i = startIndex; i < array.length; i++) {
             final double element = array[i];
-            if (valueToFind == element || (searchNaN && Double.isNaN(element))) {
+            if (valueToFind == element || searchNaN && Double.isNaN(element)) {
                 return i;
             }
         }
@@ -2562,7 +2562,7 @@ public class ArrayUtils {
         final boolean searchNaN = Float.isNaN(valueToFind);
         for (int i = startIndex; i < array.length; i++) {
             final float element = array[i];
-            if (valueToFind == element || (searchNaN && Float.isNaN(element))) {
+            if (valueToFind == element || searchNaN && Float.isNaN(element)) {
                 return i;
             }
         }

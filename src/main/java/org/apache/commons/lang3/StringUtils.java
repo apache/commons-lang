@@ -2756,7 +2756,7 @@ public class StringUtils {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
-                    if ((i >= csLast) || (j >= searchLast) || !Character.isHighSurrogate(ch)) {
+                    if (i >= csLast || j >= searchLast || !Character.isHighSurrogate(ch)) {
                         return i;
                     }
                     // ch is a supplementary character
@@ -2889,7 +2889,7 @@ public class StringUtils {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
-                    if ((i >= csLast) || (j >= searchLast) || !Character.isHighSurrogate(ch)) {
+                    if (i >= csLast || j >= searchLast || !Character.isHighSurrogate(ch)) {
                         continue outer;
                     }
                     if (searchChars[j + 1] == cs.charAt(i + 1)) {
@@ -5486,7 +5486,7 @@ public class StringUtils {
                 whitespacesCount++;
             } else {
                 startWhitespaces = false;
-                newChars[count++] = (actualChar == 160 ? 32 : actualChar);
+                newChars[count++] = actualChar == 160 ? 32 : actualChar;
                 whitespacesCount = 0;
             }
         }
@@ -6636,7 +6636,7 @@ public class StringUtils {
             }
         }
 
-        if (isEmpty(text) || ArrayUtils.isEmpty(searchList) || ArrayUtils.isEmpty(replacementList) || (ArrayUtils.isNotEmpty(searchList) && timeToLive == -1)) {
+        if (isEmpty(text) || ArrayUtils.isEmpty(searchList) || ArrayUtils.isEmpty(replacementList) || ArrayUtils.isNotEmpty(searchList) && timeToLive == -1) {
             return text;
         }
 
