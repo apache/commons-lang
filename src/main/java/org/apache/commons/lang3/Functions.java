@@ -32,6 +32,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.Streams.FailableStream;
+import org.apache.commons.lang3.function.Failable;
 import org.apache.commons.lang3.function.FailableBooleanSupplier;
 
 /**
@@ -629,41 +630,12 @@ public class Functions {
     public static void tryWithResources(final FailableRunnable<? extends Throwable> action,
         final FailableConsumer<Throwable, ? extends Throwable> errorHandler,
         final FailableRunnable<? extends Throwable>... resources) {
-        final FailableConsumer<Throwable, ? extends Throwable> actualErrorHandler;
-        if (errorHandler == null) {
-            actualErrorHandler = Functions::rethrow;
-        } else {
-            actualErrorHandler = errorHandler;
+        org.apache.commons.lang3.function.FailableRunnable<?>[] fr = new org.apache.commons.lang3.function.FailableRunnable[resources.length];
+        for (int i = 0; i < resources.length; i++) {
+            final int fi = i;
+            fr[i] = () -> resources[fi].run();
         }
-        if (resources != null) {
-            for (final FailableRunnable<? extends Throwable> failableRunnable : resources) {
-                Objects.requireNonNull(failableRunnable, "runnable");
-            }
-        }
-        Throwable th = null;
-        try {
-            action.run();
-        } catch (final Throwable t) {
-            th = t;
-        }
-        if (resources != null) {
-            for (final FailableRunnable<?> runnable : resources) {
-                try {
-                    runnable.run();
-                } catch (final Throwable t) {
-                    if (th == null) {
-                        th = t;
-                    }
-                }
-            }
-        }
-        if (th != null) {
-            try {
-                actualErrorHandler.accept(th);
-            } catch (final Throwable t) {
-                throw rethrow(t);
-            }
-        }
+        Failable.tryWithResources(action::run, errorHandler != null ? errorHandler::accept : null, fr);
     }
 
     /**
