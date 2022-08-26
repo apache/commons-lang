@@ -52,7 +52,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current useClassName flag
      */
     @Override
-    public boolean isUseClassName() { // NOPMD as this is implementing the abstract class
+    public boolean isUseClassName() {
         return super.isUseClassName();
     }
 
@@ -62,7 +62,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param useClassName  the new useClassName flag
      */
     @Override
-    public void setUseClassName(final boolean useClassName) { // NOPMD as this is implementing the abstract class
+    public void setUseClassName(final boolean useClassName) {
         super.setUseClassName(useClassName);
     }
 
@@ -73,7 +73,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @since 2.0
      */
     @Override
-    public boolean isUseShortClassName() { // NOPMD as this is implementing the abstract class
+    public boolean isUseShortClassName() {
         return super.isUseShortClassName();
     }
 
@@ -84,7 +84,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @since 2.0
      */
     @Override
-    public void setUseShortClassName(final boolean useShortClassName) { // NOPMD as this is implementing the abstract class
+    public void setUseShortClassName(final boolean useShortClassName) {
         super.setUseShortClassName(useShortClassName);
     }
 
@@ -93,7 +93,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current useIdentityHashCode flag
      */
     @Override
-    public boolean isUseIdentityHashCode() { // NOPMD as this is implementing the abstract class
+    public boolean isUseIdentityHashCode() {
         return super.isUseIdentityHashCode();
     }
 
@@ -103,7 +103,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param useIdentityHashCode  the new useIdentityHashCode flag
      */
     @Override
-    public void setUseIdentityHashCode(final boolean useIdentityHashCode) { // NOPMD as this is implementing the abstract class
+    public void setUseIdentityHashCode(final boolean useIdentityHashCode) {
         super.setUseIdentityHashCode(useIdentityHashCode);
     }
 
@@ -113,7 +113,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current useFieldNames flag
      */
     @Override
-    public boolean isUseFieldNames() { // NOPMD as this is implementing the abstract class
+    public boolean isUseFieldNames() {
         return super.isUseFieldNames();
     }
 
@@ -123,7 +123,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param useFieldNames  the new useFieldNames flag
      */
     @Override
-    public void setUseFieldNames(final boolean useFieldNames) { // NOPMD as this is implementing the abstract class
+    public void setUseFieldNames(final boolean useFieldNames) {
         super.setUseFieldNames(useFieldNames);
     }
 
@@ -134,7 +134,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current defaultFullDetail flag
      */
     @Override
-    public boolean isDefaultFullDetail() { // NOPMD as this is implementing the abstract class
+    public boolean isDefaultFullDetail() {
         return super.isDefaultFullDetail();
     }
 
@@ -145,7 +145,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param defaultFullDetail  the new defaultFullDetail flag
      */
     @Override
-    public void setDefaultFullDetail(final boolean defaultFullDetail) { // NOPMD as this is implementing the abstract class
+    public void setDefaultFullDetail(final boolean defaultFullDetail) {
         super.setDefaultFullDetail(defaultFullDetail);
     }
 
@@ -155,7 +155,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current array content detail setting
      */
     @Override
-    public boolean isArrayContentDetail() { // NOPMD as this is implementing the abstract class
+    public boolean isArrayContentDetail() {
         return super.isArrayContentDetail();
     }
 
@@ -165,7 +165,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param arrayContentDetail  the new arrayContentDetail flag
      */
     @Override
-    public void setArrayContentDetail(final boolean arrayContentDetail) { // NOPMD as this is implementing the abstract class
+    public void setArrayContentDetail(final boolean arrayContentDetail) {
         super.setArrayContentDetail(arrayContentDetail);
     }
 
@@ -175,7 +175,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current array start text
      */
     @Override
-    public String getArrayStart() { // NOPMD as this is implementing the abstract class
+    public String getArrayStart() {
         return super.getArrayStart();
     }
 
@@ -188,7 +188,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param arrayStart  the new array start text
      */
     @Override
-    public void setArrayStart(final String arrayStart) { // NOPMD as this is implementing the abstract class
+    public void setArrayStart(final String arrayStart) {
         super.setArrayStart(arrayStart);
     }
 
@@ -198,7 +198,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current array end text
      */
     @Override
-    public String getArrayEnd() { // NOPMD as this is implementing the abstract class
+    public String getArrayEnd() {
         return super.getArrayEnd();
     }
 
@@ -211,7 +211,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param arrayEnd  the new array end text
      */
     @Override
-    public void setArrayEnd(final String arrayEnd) { // NOPMD as this is implementing the abstract class
+    public void setArrayEnd(final String arrayEnd) {
         super.setArrayEnd(arrayEnd);
     }
 
@@ -221,7 +221,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current array separator text
      */
     @Override
-    public String getArraySeparator() { // NOPMD as this is implementing the abstract class
+    public String getArraySeparator() {
         return super.getArraySeparator();
     }
 
@@ -234,7 +234,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param arraySeparator  the new array separator text
      */
     @Override
-    public void setArraySeparator(final String arraySeparator) { // NOPMD as this is implementing the abstract class
+    public void setArraySeparator(final String arraySeparator) {
         super.setArraySeparator(arraySeparator);
     }
 
@@ -244,7 +244,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current content start text
      */
     @Override
-    public String getContentStart() { // NOPMD as this is implementing the abstract class
+    public String getContentStart() {
         return super.getContentStart();
     }
 
@@ -257,7 +257,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param contentStart  the new content start text
      */
     @Override
-    public void setContentStart(final String contentStart) { // NOPMD as this is implementing the abstract class
+    public void setContentStart(final String contentStart) {
         super.setContentStart(contentStart);
     }
 
@@ -267,7 +267,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current content end text
      */
     @Override
-    public String getContentEnd() { // NOPMD as this is implementing the abstract class
+    public String getContentEnd() {
         return super.getContentEnd();
     }
 
@@ -280,7 +280,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param contentEnd  the new content end text
      */
     @Override
-    public void setContentEnd(final String contentEnd) { // NOPMD as this is implementing the abstract class
+    public void setContentEnd(final String contentEnd) {
         super.setContentEnd(contentEnd);
     }
 
@@ -290,7 +290,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current field name value separator text
      */
     @Override
-    public String getFieldNameValueSeparator() { // NOPMD as this is implementing the abstract class
+    public String getFieldNameValueSeparator() {
         return super.getFieldNameValueSeparator();
     }
 
@@ -303,7 +303,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param fieldNameValueSeparator  the new field name value separator text
      */
     @Override
-    public void setFieldNameValueSeparator(final String fieldNameValueSeparator) { // NOPMD as this is implementing the abstract class
+    public void setFieldNameValueSeparator(final String fieldNameValueSeparator) {
         super.setFieldNameValueSeparator(fieldNameValueSeparator);
     }
 
@@ -313,7 +313,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current field separator text
      */
     @Override
-    public String getFieldSeparator() { // NOPMD as this is implementing the abstract class
+    public String getFieldSeparator() {
         return super.getFieldSeparator();
     }
 
@@ -326,7 +326,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param fieldSeparator  the new field separator text
      */
     @Override
-    public void setFieldSeparator(final String fieldSeparator) { // NOPMD as this is implementing the abstract class
+    public void setFieldSeparator(final String fieldSeparator) {
         super.setFieldSeparator(fieldSeparator);
     }
 
@@ -338,7 +338,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @since 2.0
      */
     @Override
-    public boolean isFieldSeparatorAtStart() { // NOPMD as this is implementing the abstract class
+    public boolean isFieldSeparatorAtStart() {
         return super.isFieldSeparatorAtStart();
     }
 
@@ -350,7 +350,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @since 2.0
      */
     @Override
-    public void setFieldSeparatorAtStart(final boolean fieldSeparatorAtStart) { // NOPMD as this is implementing the abstract class
+    public void setFieldSeparatorAtStart(final boolean fieldSeparatorAtStart) {
         super.setFieldSeparatorAtStart(fieldSeparatorAtStart);
     }
 
@@ -362,7 +362,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @since 2.0
      */
     @Override
-    public boolean isFieldSeparatorAtEnd() { // NOPMD as this is implementing the abstract class
+    public boolean isFieldSeparatorAtEnd() {
         return super.isFieldSeparatorAtEnd();
     }
 
@@ -374,7 +374,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @since 2.0
      */
     @Override
-    public void setFieldSeparatorAtEnd(final boolean fieldSeparatorAtEnd) { // NOPMD as this is implementing the abstract class
+    public void setFieldSeparatorAtEnd(final boolean fieldSeparatorAtEnd) {
         super.setFieldSeparatorAtEnd(fieldSeparatorAtEnd);
     }
 
@@ -384,7 +384,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current text to output when {@code null} found
      */
     @Override
-    public String getNullText() { // NOPMD as this is implementing the abstract class
+    public String getNullText() {
         return super.getNullText();
     }
 
@@ -397,7 +397,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param nullText  the new text to output when {@code null} found
      */
     @Override
-    public void setNullText(final String nullText) { // NOPMD as this is implementing the abstract class
+    public void setNullText(final String nullText) {
         super.setNullText(nullText);
     }
 
@@ -410,7 +410,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current start of size text
      */
     @Override
-    public String getSizeStartText() { // NOPMD as this is implementing the abstract class
+    public String getSizeStartText() {
         return super.getSizeStartText();
     }
 
@@ -426,7 +426,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param sizeStartText  the new start of size text
      */
     @Override
-    public void setSizeStartText(final String sizeStartText) { // NOPMD as this is implementing the abstract class
+    public void setSizeStartText(final String sizeStartText) {
         super.setSizeStartText(sizeStartText);
     }
 
@@ -439,7 +439,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current end of size text
      */
     @Override
-    public String getSizeEndText() { // NOPMD as this is implementing the abstract class
+    public String getSizeEndText() {
         return super.getSizeEndText();
     }
 
@@ -455,7 +455,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param sizeEndText  the new end of size text
      */
     @Override
-    public void setSizeEndText(final String sizeEndText) { // NOPMD as this is implementing the abstract class
+    public void setSizeEndText(final String sizeEndText) {
         super.setSizeEndText(sizeEndText);
     }
 
@@ -468,7 +468,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current start of summary text
      */
     @Override
-    public String getSummaryObjectStartText() { // NOPMD as this is implementing the abstract class
+    public String getSummaryObjectStartText() {
         return super.getSummaryObjectStartText();
     }
 
@@ -484,7 +484,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param summaryObjectStartText  the new start of summary text
      */
     @Override
-    public void setSummaryObjectStartText(final String summaryObjectStartText) { // NOPMD as this is implementing the abstract class
+    public void setSummaryObjectStartText(final String summaryObjectStartText) {
         super.setSummaryObjectStartText(summaryObjectStartText);
     }
 
@@ -497,7 +497,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current end of summary text
      */
     @Override
-    public String getSummaryObjectEndText() { // NOPMD as this is implementing the abstract class
+    public String getSummaryObjectEndText() {
         return super.getSummaryObjectEndText();
     }
 
@@ -513,7 +513,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param summaryObjectEndText  the new end of summary text
      */
     @Override
-    public void setSummaryObjectEndText(final String summaryObjectEndText) { // NOPMD as this is implementing the abstract class
+    public void setSummaryObjectEndText(final String summaryObjectEndText) {
         super.setSummaryObjectEndText(summaryObjectEndText);
     }
 
