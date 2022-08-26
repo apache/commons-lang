@@ -2457,32 +2457,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return the first index of the string, or -1 if not found
      */
     public int indexOf(final String str, int startIndex) {
-        startIndex = Math.max(startIndex, 0);
-        if (str == null || startIndex >= size) {
-            return -1;
-        }
-        final int strLen = str.length();
-        if (strLen == 1) {
-            return indexOf(str.charAt(0), startIndex);
-        }
-        if (strLen == 0) {
-            return startIndex;
-        }
-        if (strLen > size) {
-            return -1;
-        }
-        final char[] thisBuf = buffer;
-        final int len = size - strLen + 1;
-        outer:
-        for (int i = startIndex; i < len; i++) {
-            for (int j = 0; j < strLen; j++) {
-                if (str.charAt(j) != thisBuf[i + j]) {
-                    continue outer;
-                }
-            }
-            return i;
-        }
-        return -1;
+        return StringUtils.indexOf(this, str, startIndex);
     }
 
     /**
@@ -2583,30 +2558,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return the last index of the string, or -1 if not found
      */
     public int lastIndexOf(final String str, int startIndex) {
-        startIndex = startIndex >= size ? size - 1 : startIndex;
-        if (str == null || startIndex < 0) {
-            return -1;
-        }
-        final int strLen = str.length();
-        if (strLen > 0 && strLen <= size) {
-            if (strLen == 1) {
-                return lastIndexOf(str.charAt(0), startIndex);
-            }
-
-            outer:
-            for (int i = startIndex - strLen + 1; i >= 0; i--) {
-                for (int j = 0; j < strLen; j++) {
-                    if (str.charAt(j) != buffer[i + j]) {
-                        continue outer;
-                    }
-                }
-                return i;
-            }
-
-        } else if (strLen == 0) {
-            return startIndex;
-        }
-        return -1;
+        return StringUtils.lastIndexOf(this, str, startIndex);
     }
 
     /**
