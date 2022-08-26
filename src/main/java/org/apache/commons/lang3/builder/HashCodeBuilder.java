@@ -894,7 +894,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * Implements equals with iTotal.
+     * Implements equals using the hash code.
      *
      * @since 3.13.0
      */
