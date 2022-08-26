@@ -668,7 +668,7 @@
   </properties>
 
   <build>
-   <defaultGoal>clean verify apache-rat:check checkstyle:check japicmp:cmp spotbugs:check javadoc:javadoc</defaultGoal>
+   <defaultGoal>clean verify apache-rat:check checkstyle:check japicmp:cmp spotbugs:check pmd:check javadoc:javadoc</defaultGoal>
    <pluginManagement>
       <plugins>
         <plugin>
@@ -699,6 +699,7 @@
           </dependencies>
           <configuration>
             <targetJdk>${maven.compiler.target}</targetJdk>
+            <excludeFromFailureFile>src/conf/exclude-pmd.properties</excludeFromFailureFile>
           </configuration>
         </plugin>
         <plugin>
