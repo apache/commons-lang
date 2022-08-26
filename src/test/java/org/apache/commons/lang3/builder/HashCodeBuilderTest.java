@@ -18,6 +18,7 @@
 package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -329,6 +330,18 @@ public class HashCodeBuilderTest extends AbstractLangTest {
         final long l2 = Double.doubleToLongBits(6.3d);
         final int h2 = (int) (l2 ^ l2 >> 32);
         assertEquals((17 * 37 + h1) * 37 + h2, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+    }
+
+    @Test
+    public void testEquals() {
+        final HashCodeBuilder hcb1 = new HashCodeBuilder(17, 37).append(1).append('a');
+        final HashCodeBuilder hcb2 = new HashCodeBuilder(17, 37).append(1).append('a');
+        final HashCodeBuilder hcb3 = new HashCodeBuilder(17, 37).append(2).append('c');
+        assertEquals(hcb1, hcb1);
+        assertEquals(hcb1, hcb2);
+        assertEquals(hcb2, hcb1);
+        assertNotEquals(hcb1, hcb3);
+        assertNotEquals(hcb2, hcb3);
     }
 
     @Test

@@ -746,7 +746,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     //       some stage. There are backwards compat issues, so
     //       that will have to wait for the time being. cf LANG-342.
     public HashCodeBuilder append(final long value) {
-        iTotal = iTotal * iConstant + ((int) (value ^ (value >> 32)));
+        iTotal = iTotal * iConstant + (int) (value ^ value >> 32);
         return this;
     }
 
@@ -891,6 +891,18 @@ public class HashCodeBuilder implements Builder<Integer> {
     @Override
     public Integer build() {
         return Integer.valueOf(toHashCode());
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof HashCodeBuilder)) {
+            return false;
+        }
+        final HashCodeBuilder other = (HashCodeBuilder) obj;
+        return iTotal == other.iTotal;
     }
 
     /**
