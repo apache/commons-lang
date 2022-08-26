@@ -790,37 +790,6 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * Append a {@code hashCode} for an array.
-     *
-     * @param object
-     *            the array to add to the {@code hashCode}
-     */
-    private void appendArray(final Object object) {
-        // 'Switch' on type of array, to dispatch to the correct handler
-        // This handles multidimensional arrays
-        if (object instanceof long[]) {
-            append((long[]) object);
-        } else if (object instanceof int[]) {
-            append((int[]) object);
-        } else if (object instanceof short[]) {
-            append((short[]) object);
-        } else if (object instanceof char[]) {
-            append((char[]) object);
-        } else if (object instanceof byte[]) {
-            append((byte[]) object);
-        } else if (object instanceof double[]) {
-            append((double[]) object);
-        } else if (object instanceof float[]) {
-            append((float[]) object);
-        } else if (object instanceof boolean[]) {
-            append((boolean[]) object);
-        } else {
-            // Not an array of primitives
-            append((Object[]) object);
-        }
-    }
-
-    /**
      * Append a {@code hashCode} for an {@link Object} array.
      *
      * @param array
@@ -869,6 +838,37 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
+     * Append a {@code hashCode} for an array.
+     *
+     * @param object
+     *            the array to add to the {@code hashCode}
+     */
+    private void appendArray(final Object object) {
+        // 'Switch' on type of array, to dispatch to the correct handler
+        // This handles multidimensional arrays
+        if (object instanceof long[]) {
+            append((long[]) object);
+        } else if (object instanceof int[]) {
+            append((int[]) object);
+        } else if (object instanceof short[]) {
+            append((short[]) object);
+        } else if (object instanceof char[]) {
+            append((char[]) object);
+        } else if (object instanceof byte[]) {
+            append((byte[]) object);
+        } else if (object instanceof double[]) {
+            append((double[]) object);
+        } else if (object instanceof float[]) {
+            append((float[]) object);
+        } else if (object instanceof boolean[]) {
+            append((boolean[]) object);
+        } else {
+            // Not an array of primitives
+            append((Object[]) object);
+        }
+    }
+
+    /**
      * Adds the result of super.hashCode() to this builder.
      *
      * @param superHashCode
@@ -879,15 +879,6 @@ public class HashCodeBuilder implements Builder<Integer> {
     public HashCodeBuilder appendSuper(final int superHashCode) {
         iTotal = iTotal * iConstant + superHashCode;
         return this;
-    }
-
-    /**
-     * Returns the computed {@code hashCode}.
-     *
-     * @return {@code hashCode} based on the fields appended
-     */
-    public int toHashCode() {
-        return iTotal;
     }
 
     /**
@@ -913,6 +904,15 @@ public class HashCodeBuilder implements Builder<Integer> {
     @Override
     public int hashCode() {
         return toHashCode();
+    }
+
+    /**
+     * Returns the computed {@code hashCode}.
+     *
+     * @return {@code hashCode} based on the fields appended
+     */
+    public int toHashCode() {
+        return iTotal;
     }
 
 }
