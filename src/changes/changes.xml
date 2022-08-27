@@ -100,6 +100,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ThreadUtils code that defines custom function interfaces in favor of stock java.util.function.Predicate usage.</action>
     <action                   type="fix" dev="ggregory" due-to="Marc Wrobel">Fix links in Javadoc and documentation #926.</action>
     <action issue="LANG-1604" type="fix" dev="ggregory" due-to="Gilles Sadowski, Maksym Bohachov, Gary Gregory">Deprecate RandomUtils in favor of Apache Commons RNG UniformRandomProvider #942.</action>
+    <action issue="LANG-1638" type="fix" dev="ggregory" due-to="Shailendra Soni, Michael Osipov, Arun Avanathan, Andrew Thomas, Bruno P. Kinoshita, Gary Gregory">Added docs regarding week year support #924.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add GitHub coverage.yml.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
