@@ -30,6 +30,10 @@ import java.util.TimeZone;
  * <p>Note that the JDK has a bug wherein calling Calendar.get(int) will
  * override any previously called Calendar.clear() calls. See LANG-755.</p>
  *
+ * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
+ * will assume current year as week year is not supported. See {@link java.util.GregorianCalendar}
+ * Week Year section for an explanation on the difference between calendar and week years.</p>
+ *
  * @since 2.0
  */
 public class DateFormatUtils {
