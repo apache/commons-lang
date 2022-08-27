@@ -31,7 +31,8 @@ import java.util.TimeZone;
  * override any previously called Calendar.clear() calls. See LANG-755.</p>
  *
  * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
- * will assume current year as week year is not supported.</p>
+ * will assume current year as week year is not supported. See {@link java.util.GregorianCalendar}
+ * Week Year section for an explanation on the difference between calendar and week years.</p>
  *
  * @since 2.0
  */
