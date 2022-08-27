@@ -30,6 +30,9 @@ import java.util.TimeZone;
  * <p>Note that the JDK has a bug wherein calling Calendar.get(int) will
  * override any previously called Calendar.clear() calls. See LANG-755.</p>
  *
+ * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
+ * will assume current year as week year is not supported.</p>
+ *
  * @since 2.0
  */
 public class DateFormatUtils {
@@ -206,9 +209,6 @@ public class DateFormatUtils {
      * <p>Formats a calendar into a specific pattern. The TimeZone from the calendar
      * will be used for formatting.</p>
      *
-     * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
-     * will assume current year as week year is not supported.</p>
-     *
      * @param calendar  the calendar to format, not null
      * @param pattern  the pattern to use to format the calendar, not null
      * @return the formatted calendar
@@ -222,9 +222,6 @@ public class DateFormatUtils {
     /**
      * <p>Formats a calendar into a specific pattern in a locale. The TimeZone from the calendar
      * will be used for formatting.</p>
-     *
-     * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
-     * will assume current year as week year is not supported.</p>
      *
      * @param calendar  the calendar to format, not null
      * @param pattern  the pattern to use to format the calendar, not null
@@ -240,9 +237,6 @@ public class DateFormatUtils {
     /**
      * <p>Formats a calendar into a specific pattern in a time zone.</p>
      *
-     * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
-     * will assume current year as week year is not supported.</p>
-     *
      * @param calendar  the calendar to format, not null
      * @param pattern  the pattern to use to format the calendar, not null
      * @param timeZone  the time zone  to use, may be {@code null}
@@ -256,9 +250,6 @@ public class DateFormatUtils {
 
     /**
      * <p>Formats a calendar into a specific pattern in a time zone and locale.</p>
-     *
-     * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
-     * will assume current year as week year is not supported.</p>
      *
      * @param calendar  the calendar to format, not null
      * @param pattern  the pattern to use to format the calendar, not null
@@ -276,9 +267,6 @@ public class DateFormatUtils {
     /**
      * <p>Formats a date/time into a specific pattern.</p>
      *
-     * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
-     * will assume current year as week year is not supported.</p>
-     *
      * @param date  the date to format, not null
      * @param pattern  the pattern to use to format the date, not null
      * @return the formatted date
@@ -289,9 +277,6 @@ public class DateFormatUtils {
 
     /**
      * <p>Formats a date/time into a specific pattern in a locale.</p>
-     *
-     * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
-     * will assume current year as week year is not supported.</p>
      *
      * @param date  the date to format, not null
      * @param pattern  the pattern to use to format the date, not null
@@ -305,9 +290,6 @@ public class DateFormatUtils {
     /**
      * <p>Formats a date/time into a specific pattern in a time zone.</p>
      *
-     * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
-     * will assume current year as week year is not supported.</p>
-     *
      * @param date  the date to format, not null
      * @param pattern  the pattern to use to format the date, not null
      * @param timeZone  the time zone  to use, may be {@code null}
@@ -319,9 +301,6 @@ public class DateFormatUtils {
 
     /**
      * <p>Formats a date/time into a specific pattern in a time zone and locale.</p>
-     *
-     * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
-     * will assume current year as week year is not supported.</p>
      *
      * @param date  the date to format, not null
      * @param pattern  the pattern to use to format the date, not null, not null
@@ -337,9 +316,6 @@ public class DateFormatUtils {
     /**
      * <p>Formats a date/time into a specific pattern.</p>
      *
-     * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
-     * will assume current year as week year is not supported.</p>
-     *
      * @param millis  the date to format expressed in milliseconds
      * @param pattern  the pattern to use to format the date, not null
      * @return the formatted date
@@ -350,9 +326,6 @@ public class DateFormatUtils {
 
     /**
      * <p>Formats a date/time into a specific pattern in a locale.</p>
-     *
-     * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
-     * will assume current year as week year is not supported.</p>
      *
      * @param millis  the date to format expressed in milliseconds
      * @param pattern  the pattern to use to format the date, not null
@@ -366,9 +339,6 @@ public class DateFormatUtils {
     /**
      * <p>Formats a date/time into a specific pattern in a time zone.</p>
      *
-     * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
-     * will assume current year as week year is not supported.</p>
-     *
      * @param millis  the time expressed in milliseconds
      * @param pattern  the pattern to use to format the date, not null
      * @param timeZone  the time zone  to use, may be {@code null}
@@ -380,9 +350,6 @@ public class DateFormatUtils {
 
     /**
      * <p>Formats a date/time into a specific pattern in a time zone and locale.</p>
-     *
-     * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
-     * will assume current year as week year is not supported.</p>
      *
      * @param millis  the date to format expressed in milliseconds
      * @param pattern  the pattern to use to format the date, not null
@@ -397,9 +364,6 @@ public class DateFormatUtils {
     /**
      * <p>Formats a date/time into a specific pattern using the UTC time zone.</p>
      *
-     * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
-     * will assume current year as week year is not supported.</p>
-     *
      * @param date  the date to format, not null
      * @param pattern  the pattern to use to format the date, not null
      * @return the formatted date
@@ -410,9 +374,6 @@ public class DateFormatUtils {
 
     /**
      * <p>Formats a date/time into a specific pattern using the UTC time zone.</p>
-     *
-     * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
-     * will assume current year as week year is not supported.</p>
      *
      * @param date  the date to format, not null
      * @param pattern  the pattern to use to format the date, not null
@@ -426,9 +387,6 @@ public class DateFormatUtils {
     /**
      * <p>Formats a date/time into a specific pattern using the UTC time zone.</p>
      *
-     * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
-     * will assume current year as week year is not supported.</p>
-     *
      * @param millis  the date to format expressed in milliseconds
      * @param pattern  the pattern to use to format the date, not null
      * @return the formatted date
@@ -439,9 +397,6 @@ public class DateFormatUtils {
 
     /**
      * <p>Formats a date/time into a specific pattern using the UTC time zone.</p>
-     *
-     * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
-     * will assume current year as week year is not supported.</p>
      *
      * @param millis  the date to format expressed in milliseconds
      * @param pattern  the pattern to use to format the date, not null
