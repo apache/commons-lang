@@ -62,7 +62,7 @@ public class ObjectUtils {
      * has another meaning.
      *
      * <p>For example, in a {@link HashMap} the
-     * {@link java.util.HashMap#get(java.lang.Object)} method returns
+     * {@link java.util.HashMap#get(Object)} method returns
      * {@code null} if the {@link Map} contains {@code null} or if there is
      * no matching key. The {@code null} placeholder can be used to distinguish
      * between these two cases.</p>
@@ -101,7 +101,7 @@ public class ObjectUtils {
      * {@code null} has another meaning.
      *
      * <p>For example, in a {@link HashMap} the
-     * {@link java.util.HashMap#get(java.lang.Object)} method returns
+     * {@link java.util.HashMap#get(Object)} method returns
      * {@code null} if the {@link Map} contains {@code null} or if there
      * is no matching key. The {@code null} placeholder can be used to
      * distinguish between these two cases.</p>

@@ -407,7 +407,7 @@
  * The nested {@link org.apache.commons.lang3.concurrent.BasicThreadFactory.Builder} class defines some methods for
  * configuring the new {@link org.apache.commons.lang3.concurrent.BasicThreadFactory} instance. Objects of this class
  * are immutable, so these attributes cannot be changed later. The naming pattern is a string which can be passed to
- * {@link java.lang.String#format(java.util.Locale, String, Object...)}. The placeholder <em>%d</em> is replaced by an
+ * {@link String#format(java.util.Locale, String, Object...)}. The placeholder <em>%d</em> is replaced by an
  * increasing counter value. An instance can wrap another {@link java.util.concurrent.ThreadFactory} implementation;
  * this is achieved by calling the builder's
  * {@link org.apache.commons.lang3.concurrent.BasicThreadFactory.Builder#wrappedFactory(java.util.concurrent.ThreadFactory)

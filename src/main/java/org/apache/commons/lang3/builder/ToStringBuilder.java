@@ -902,7 +902,7 @@ public class ToStringBuilder implements Builder<String> {
     /**
      * Appends with the same format as the default <code>Object toString()
      * </code> method. Appends the class name followed by
-     * {@link System#identityHashCode(java.lang.Object)}.
+     * {@link System#identityHashCode(Object)}.
      *
      * @param srcObject  the {@link Object} whose class name and id to output
      * @return this

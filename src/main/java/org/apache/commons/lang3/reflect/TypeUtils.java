@@ -401,7 +401,7 @@ public class TypeUtils {
      * parameter of {@link java.util.SortedSet}, which in turn sets the
      * parameter of {@link Set}, which in turn sets the parameter of
      * {@link java.util.Collection}, which in turn sets the parameter of
-     * {@link java.lang.Iterable}. Since {@link TreeSet}'s parameter maps
+     * {@link Iterable}. Since {@link TreeSet}'s parameter maps
      * (indirectly) to {@link Iterable}'s parameter, it will be able to
      * determine that based on the super type {@code Iterable<? extends
      * Map<Integer, ? extends Collection<?>>>}, the parameter of
