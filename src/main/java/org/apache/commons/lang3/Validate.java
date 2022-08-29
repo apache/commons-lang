@@ -837,7 +837,7 @@ public class Validate {
      *
      * @param value  the value to validate
      * @throws IllegalArgumentException if the value is not a number
-     * @see #notNaN(double, java.lang.String, Object...)
+     * @see #notNaN(double, String, Object...)
      *
      * @since 3.5
      */
@@ -875,7 +875,7 @@ public class Validate {
      *
      * @param value  the value to validate
      * @throws IllegalArgumentException if the value is infinite or Not-a-Number (NaN)
-     * @see #finite(double, java.lang.String, Object...)
+     * @see #finite(double, String, Object...)
      *
      * @since 3.5
      */

@@ -73,7 +73,7 @@ public class ConstructorUtils {
      * @throws IllegalAccessException if invocation is not permitted by security
      * @throws InvocationTargetException if an error occurs on invocation
      * @throws InstantiationException if an error occurs on instantiation
-     * @see #invokeConstructor(java.lang.Class, java.lang.Object[], Class[])
+     * @see #invokeConstructor(Class, Object[], Class[])
      */
     public static <T> T invokeConstructor(final Class<T> cls, Object... args)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
@@ -136,7 +136,7 @@ public class ConstructorUtils {
      * @throws IllegalAccessException if invocation is not permitted by security
      * @throws InvocationTargetException if an error occurs on invocation
      * @throws InstantiationException if an error occurs on instantiation
-     * @see #invokeExactConstructor(java.lang.Class, java.lang.Object[], Class[])
+     * @see #invokeExactConstructor(Class, Object[], Class[])
      */
     public static <T> T invokeExactConstructor(final Class<T> cls, Object... args)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
