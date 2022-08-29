@@ -23,10 +23,10 @@
  * Well {@link org.apache.commons.lang3.builder.HashCodeBuilder} will save your day.
  * It, and its buddies ({@link org.apache.commons.lang3.builder.EqualsBuilder}, {@link org.apache.commons.lang3.builder.CompareToBuilder}, {@link org.apache.commons.lang3.builder.ToStringBuilder}), take care of the nasty bits while you focus on the important bits, like which fields will go into making up the hashcode.</p>
  *
- * @see java.lang.Object#equals(Object)
- * @see java.lang.Object#toString()
- * @see java.lang.Object#hashCode()
- * @see java.lang.Comparable#compareTo(Object)
+ * @see Object#equals(Object)
+ * @see Object#toString()
+ * @see Object#hashCode()
+ * @see Comparable#compareTo(Object)
  *
  * @since 1.0
  */

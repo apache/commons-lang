@@ -34,8 +34,8 @@ import org.apache.commons.lang3.time.DurationUtils;
  * #ThreadSafe#
  * </p>
  *
- * @see java.lang.Thread
- * @see java.lang.ThreadGroup
+ * @see Thread
+ * @see ThreadGroup
  * @since 3.5
  */
 public class ThreadUtils {

@@ -87,9 +87,9 @@ import org.apache.commons.lang3.ObjectUtils;
  * {@link Class#getDeclaredFields()}. The fields of the class are compared first, followed by those
  * of its parent classes (in order from the bottom to the top of the class hierarchy).</p>
  *
- * @see java.lang.Comparable
- * @see java.lang.Object#equals(Object)
- * @see java.lang.Object#hashCode()
+ * @see Comparable
+ * @see Object#equals(Object)
+ * @see Object#hashCode()
  * @see EqualsBuilder
  * @see HashCodeBuilder
  * @since 1.0

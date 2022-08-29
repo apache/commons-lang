@@ -118,7 +118,7 @@ import org.apache.commons.lang3.stream.Streams;
  * The symbol {@code *} is used to indicate any input including {@code null}.</p>
  *
  * <p>#ThreadSafe#</p>
- * @see java.lang.String
+ * @see String
  * @since 1.0
  */
 //@Immutable
@@ -1670,7 +1670,7 @@ public class StringUtils {
      * StringUtils.endsWith("ABCDEF", "")    = true
      * </pre>
      *
-     * @see java.lang.String#endsWith(String)
+     * @see String#endsWith(String)
      * @param str  the CharSequence to check, may be null
      * @param suffix the suffix to find, may be null
      * @return {@code true} if the CharSequence ends with the suffix, case-sensitive, or
@@ -1685,7 +1685,7 @@ public class StringUtils {
     /**
      * Check if a CharSequence ends with a specified suffix (optionally case insensitive).
      *
-     * @see java.lang.String#endsWith(String)
+     * @see String#endsWith(String)
      * @param str  the CharSequence to check, may be null
      * @param suffix the suffix to find, may be null
      * @param ignoreCase indicates whether the compare should ignore case
@@ -1752,7 +1752,7 @@ public class StringUtils {
      * StringUtils.endsWithIgnoreCase("ABCDEF", "cde") = false
      * </pre>
      *
-     * @see java.lang.String#endsWith(String)
+     * @see String#endsWith(String)
      * @param str  the CharSequence to check, may be null
      * @param suffix the suffix to find, may be null
      * @return {@code true} if the CharSequence ends with the suffix, case-insensitive, or
@@ -7960,7 +7960,7 @@ public class StringUtils {
      * StringUtils.startsWith("ABCDEF", "abc") = false
      * </pre>
      *
-     * @see java.lang.String#startsWith(String)
+     * @see String#startsWith(String)
      * @param str  the CharSequence to check, may be null
      * @param prefix the prefix to find, may be null
      * @return {@code true} if the CharSequence starts with the prefix, case-sensitive, or
@@ -7975,7 +7975,7 @@ public class StringUtils {
     /**
      * Check if a CharSequence starts with a specified prefix (optionally case insensitive).
      *
-     * @see java.lang.String#startsWith(String)
+     * @see String#startsWith(String)
      * @param str  the CharSequence to check, may be null
      * @param prefix the prefix to find, may be null
      * @param ignoreCase indicates whether the compare should ignore case
@@ -8043,7 +8043,7 @@ public class StringUtils {
      * StringUtils.startsWithIgnoreCase("ABCDEF", "abc") = true
      * </pre>
      *
-     * @see java.lang.String#startsWith(String)
+     * @see String#startsWith(String)
      * @param str  the CharSequence to check, may be null
      * @param prefix the prefix to find, may be null
      * @return {@code true} if the CharSequence starts with the prefix, case-insensitive, or

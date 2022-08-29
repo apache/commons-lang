@@ -495,7 +495,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.commons.lang3.time.DatePrinter#format(long, java.lang.StringBuffer)
+     * @see org.apache.commons.lang3.time.DatePrinter#format(long, StringBuffer)
      */
     @Override
     public StringBuffer format(final long millis, final StringBuffer buf) {
@@ -505,7 +505,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.commons.lang3.time.DatePrinter#format(java.util.Date, java.lang.StringBuffer)
+     * @see org.apache.commons.lang3.time.DatePrinter#format(java.util.Date, StringBuffer)
      */
     @Override
     public StringBuffer format(final Date date, final StringBuffer buf) {
@@ -515,7 +515,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.commons.lang3.time.DatePrinter#format(java.util.Calendar, java.lang.StringBuffer)
+     * @see org.apache.commons.lang3.time.DatePrinter#format(java.util.Calendar, StringBuffer)
      */
     @Override
     public StringBuffer format(final Calendar calendar, final StringBuffer buf) {
@@ -524,7 +524,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.commons.lang3.time.DatePrinter#format(long, java.lang.Appendable)
+     * @see org.apache.commons.lang3.time.DatePrinter#format(long, Appendable)
      */
     @Override
     public <B extends Appendable> B format(final long millis, final B buf) {
@@ -534,7 +534,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.commons.lang3.time.DatePrinter#format(java.util.Date, java.lang.Appendable)
+     * @see org.apache.commons.lang3.time.DatePrinter#format(java.util.Date, Appendable)
      */
     @Override
     public <B extends Appendable> B format(final Date date, final B buf) {
@@ -544,7 +544,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.commons.lang3.time.DatePrinter#format(java.util.Calendar, java.lang.Appendable)
+     * @see org.apache.commons.lang3.time.DatePrinter#format(java.util.Calendar, Appendable)
      */
     @Override
     public <B extends Appendable> B format(Calendar calendar, final B buf) {

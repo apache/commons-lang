@@ -653,7 +653,7 @@ public class StringEscapeUtils {
      *
      * @param input  the {@link String} to escape, may be null
      * @return a new escaped {@link String}, {@code null} if null string input
-     * @see #unescapeXml(java.lang.String)
+     * @see #unescapeXml(String)
      * @deprecated use {@link #escapeXml10(java.lang.String)} or {@link #escapeXml11(java.lang.String)} instead.
      */
     @Deprecated
@@ -686,7 +686,7 @@ public class StringEscapeUtils {
      *
      * @param input  the {@link String} to escape, may be null
      * @return a new escaped {@link String}, {@code null} if null string input
-     * @see #unescapeXml(java.lang.String)
+     * @see #unescapeXml(String)
      * @since 3.3
      */
     public static String escapeXml10(final String input) {
@@ -716,7 +716,7 @@ public class StringEscapeUtils {
      *
      * @param input  the {@link String} to escape, may be null
      * @return a new escaped {@link String}, {@code null} if null string input
-     * @see #unescapeXml(java.lang.String)
+     * @see #unescapeXml(String)
      * @since 3.3
      */
     public static String escapeXml11(final String input) {

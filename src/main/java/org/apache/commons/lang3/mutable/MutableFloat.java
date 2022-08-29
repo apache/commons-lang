@@ -366,7 +366,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      *
      * @param obj  the object to compare with, null returns false
      * @return {@code true} if the objects are the same; {@code false} otherwise.
-     * @see java.lang.Float#floatToIntBits(float)
+     * @see Float#floatToIntBits(float)
      */
     @Override
     public boolean equals(final Object obj) {

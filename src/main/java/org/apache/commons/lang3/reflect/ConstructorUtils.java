@@ -73,7 +73,7 @@ public class ConstructorUtils {
      * @throws IllegalAccessException if invocation is not permitted by security
      * @throws InvocationTargetException if an error occurs on invocation
      * @throws InstantiationException if an error occurs on instantiation
-     * @see #invokeConstructor(java.lang.Class, java.lang.Object[], java.lang.Class[])
+     * @see #invokeConstructor(java.lang.Class, java.lang.Object[], Class[])
      */
     public static <T> T invokeConstructor(final Class<T> cls, Object... args)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
@@ -136,7 +136,7 @@ public class ConstructorUtils {
      * @throws IllegalAccessException if invocation is not permitted by security
      * @throws InvocationTargetException if an error occurs on invocation
      * @throws InstantiationException if an error occurs on instantiation
-     * @see #invokeExactConstructor(java.lang.Class, java.lang.Object[], java.lang.Class[])
+     * @see #invokeExactConstructor(java.lang.Class, java.lang.Object[], Class[])
      */
     public static <T> T invokeExactConstructor(final Class<T> cls, Object... args)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
@@ -210,7 +210,7 @@ public class ConstructorUtils {
      * @param <T> the constructor type
      * @param ctor  the prototype constructor object, not {@code null}
      * @return the constructor, {@code null} if no matching accessible constructor found
-     * @see java.lang.SecurityManager
+     * @see SecurityManager
      * @throws NullPointerException if {@code ctor} is {@code null}
      */
     public static <T> Constructor<T> getAccessibleConstructor(final Constructor<T> ctor) {

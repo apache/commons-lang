@@ -540,7 +540,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
 
 
     /* (non-Javadoc)
-     * @see DateParser#parse(java.lang.String)
+     * @see DateParser#parse(String)
      */
     @Override
     public Date parse(final String source) throws ParseException {
@@ -548,7 +548,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     }
 
     /* (non-Javadoc)
-     * @see DateParser#parse(java.lang.String, java.text.ParsePosition)
+     * @see DateParser#parse(String, java.text.ParsePosition)
      */
     @Override
     public Date parse(final String source, final ParsePosition pos) {
@@ -557,7 +557,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
 
     /*
      * (non-Javadoc)
-     * @see org.apache.commons.lang3.time.DateParser#parse(java.lang.String, java.text.ParsePosition, java.util.Calendar)
+     * @see org.apache.commons.lang3.time.DateParser#parse(String, java.text.ParsePosition, java.util.Calendar)
      */
     @Override
     public boolean parse(final String source, final ParsePosition pos, final Calendar calendar) {
@@ -565,7 +565,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     }
 
     /* (non-Javadoc)
-     * @see java.text.Format#parseObject(java.lang.String, java.text.ParsePosition)
+     * @see java.text.Format#parseObject(String, java.text.ParsePosition)
      */
     @Override
     public Object parseObject(final String source, final ParsePosition pos) {

@@ -224,7 +224,7 @@ public class ContextedException extends Exception implements ExceptionContext {
     /**
      * Provides the message explaining the exception, including the contextual data.
      *
-     * @see java.lang.Throwable#getMessage()
+     * @see Throwable#getMessage()
      * @return the message, never null
      */
     @Override
@@ -235,7 +235,7 @@ public class ContextedException extends Exception implements ExceptionContext {
     /**
      * Provides the message explaining the exception without the contextual data.
      *
-     * @see java.lang.Throwable#getMessage()
+     * @see Throwable#getMessage()
      * @return the message
      * @since 3.0.1
      */
