@@ -8905,7 +8905,7 @@ public class ArrayUtils {
      * @param  <T>   the array's element type
      * @param  items  the varargs array items, null allowed
      * @return the array, not null unless a null array is passed in
-     * @since  3.0
+     * @since 3.0
      */
     public static <T> T[] toArray(@SuppressWarnings("unchecked") final T... items) {
         return items;
