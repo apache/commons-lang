@@ -808,12 +808,10 @@ public class ClassUtils {
      * @param cls the class for which to get the short canonical class name; may be null
      * @return the canonical name without the package name or an empty string
      * @since 2.4
+     * @see Class#getCanonicalName()
      */
     public static String getShortCanonicalName(final Class<?> cls) {
-        if (cls == null) {
-            return StringUtils.EMPTY;
-        }
-        return getShortCanonicalName(cls.getCanonicalName());
+        return cls == null ? StringUtils.EMPTY : getShortCanonicalName(cls.getCanonicalName());
     }
 
     /**
@@ -823,12 +821,10 @@ public class ClassUtils {
      * @param valueIfNull the value to return if null
      * @return the canonical name of the object without the package name, or the null value
      * @since 2.4
+     * @see Class#getCanonicalName()
      */
     public static String getShortCanonicalName(final Object object, final String valueIfNull) {
-        if (object == null) {
-            return valueIfNull;
-        }
-        return getShortCanonicalName(object.getClass().getCanonicalName());
+        return object == null ? valueIfNull : getShortCanonicalName(object.getClass().getCanonicalName());
     }
 
     /**
