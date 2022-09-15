@@ -517,13 +517,12 @@ public class ClassUtilsTest extends AbstractLangTest {
         class Named {
             // empty
         }
-        // WARNING: this is fragile, implementation may change, naming is not guaranteed
-        assertEquals("ClassUtilsTest.8", ClassUtils.getShortCanonicalName(new Object() {
+        assertEquals("", ClassUtils.getShortCanonicalName(new Object() {
             // empty
         }.getClass()));
         // WARNING: this is fragile, implementation may change, naming is not guaranteed
-        assertEquals("ClassUtilsTest.8Named", ClassUtils.getShortCanonicalName(Named.class));
-        assertEquals("ClassUtilsTest.Inner", ClassUtils.getShortCanonicalName(Inner.class));
+        assertEquals("", ClassUtils.getShortCanonicalName(Named.class));
+        assertEquals("Inner", ClassUtils.getShortCanonicalName(Inner.class));
         assertEquals(StringUtils.EMPTY, ClassUtils.getShortCanonicalName((Class<?>) null));
     }
 
@@ -540,12 +539,11 @@ public class ClassUtilsTest extends AbstractLangTest {
         class Named {
             // empty
         }
-        // WARNING: this is fragile, implementation may change, naming is not guaranteed
-        assertEquals("ClassUtilsTest.9", ClassUtils.getShortCanonicalName(new Object() {
+        assertEquals("", ClassUtils.getShortCanonicalName(new Object() {
             // empty
         }, "<null>"));
-        assertEquals("ClassUtilsTest.9Named", ClassUtils.getShortCanonicalName(new Named(), "<null>"));
-        assertEquals("ClassUtilsTest.Inner", ClassUtils.getShortCanonicalName(new Inner(), "<null>"));
+        assertEquals("", ClassUtils.getShortCanonicalName(new Named(), "<null>"));
+        assertEquals("Inner", ClassUtils.getShortCanonicalName(new Inner(), "<null>"));
     }
 
     @Test

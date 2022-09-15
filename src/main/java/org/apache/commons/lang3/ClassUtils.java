@@ -813,7 +813,7 @@ public class ClassUtils {
         if (cls == null) {
             return StringUtils.EMPTY;
         }
-        return getShortCanonicalName(cls.getName());
+        return getShortCanonicalName(cls.getCanonicalName());
     }
 
     /**
@@ -828,7 +828,7 @@ public class ClassUtils {
         if (object == null) {
             return valueIfNull;
         }
-        return getShortCanonicalName(object.getClass().getName());
+        return getShortCanonicalName(object.getClass().getCanonicalName());
     }
 
     /**
