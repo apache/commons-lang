@@ -262,7 +262,7 @@ public class FieldUtils {
      * @throws IllegalAccessException
      *             if the field is not accessible
      */
-    public static Object readStaticField(final Field field) throws IllegalAccessException {
+    public static <T> T readStaticField(final Field field) throws IllegalAccessException {
         return readStaticField(field, false);
     }
 
@@ -280,7 +280,7 @@ public class FieldUtils {
      * @throws IllegalAccessException
      *             if the field is not made accessible
      */
-    public static Object readStaticField(final Field field, final boolean forceAccess) throws IllegalAccessException {
+    public static <T> T readStaticField(final Field field, final boolean forceAccess) throws IllegalAccessException {
         Validate.notNull(field, "field");
         Validate.isTrue(MemberUtils.isStatic(field), "The field '%s' is not static", field.getName());
         return readField(field, (Object) null, forceAccess);
@@ -300,7 +300,7 @@ public class FieldUtils {
      * @throws IllegalAccessException
      *             if the field is not accessible
      */
-    public static Object readStaticField(final Class<?> cls, final String fieldName) throws IllegalAccessException {
+    public static <T> T readStaticField(final Class<?> cls, final String fieldName) throws IllegalAccessException {
         return readStaticField(cls, fieldName, false);
     }
 
@@ -322,7 +322,7 @@ public class FieldUtils {
      * @throws IllegalAccessException
      *             if the field is not made accessible
      */
-    public static Object readStaticField(final Class<?> cls, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
+    public static <T> T readStaticField(final Class<?> cls, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
         final Field field = getField(cls, fieldName, forceAccess);
         Validate.notNull(field, "Cannot locate field '%s' on %s", fieldName, cls);
         // already forced access above, don't repeat it here:
@@ -344,7 +344,7 @@ public class FieldUtils {
      * @throws IllegalAccessException
      *             if the field is not accessible
      */
-    public static Object readDeclaredStaticField(final Class<?> cls, final String fieldName) throws IllegalAccessException {
+    public static <T> T readDeclaredStaticField(final Class<?> cls, final String fieldName) throws IllegalAccessException {
         return readDeclaredStaticField(cls, fieldName, false);
     }
 
@@ -366,7 +366,7 @@ public class FieldUtils {
      * @throws IllegalAccessException
      *             if the field is not made accessible
      */
-    public static Object readDeclaredStaticField(final Class<?> cls, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
+    public static <T> T readDeclaredStaticField(final Class<?> cls, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
         final Field field = getDeclaredField(cls, fieldName, forceAccess);
         Validate.notNull(field, "Cannot locate declared field %s.%s", cls.getName(), fieldName);
         // already forced access above, don't repeat it here:
@@ -386,7 +386,7 @@ public class FieldUtils {
      * @throws IllegalAccessException
      *             if the field is not accessible
      */
-    public static Object readField(final Field field, final Object target) throws IllegalAccessException {
+    public static <T> T readField(final Field field, final Object target) throws IllegalAccessException {
         return readField(field, target, false);
     }
 
@@ -406,14 +406,15 @@ public class FieldUtils {
      * @throws IllegalAccessException
      *             if the field is not made accessible
      */
-    public static Object readField(final Field field, final Object target, final boolean forceAccess) throws IllegalAccessException {
+    @SuppressWarnings("unchecked")
+    public static <T> T readField(final Field field, final Object target, final boolean forceAccess) throws IllegalAccessException {
         Validate.notNull(field, "field");
         if (forceAccess && !field.isAccessible()) {
             field.setAccessible(true);
         } else {
             MemberUtils.setAccessibleWorkaround(field);
         }
-        return field.get(target);
+        return (T) field.get(target);
     }
 
     /**
@@ -429,7 +430,7 @@ public class FieldUtils {
      * @throws IllegalAccessException
      *             if the named field is not {@code public}
      */
-    public static Object readField(final Object target, final String fieldName) throws IllegalAccessException {
+    public static <T> T readField(final Object target, final String fieldName) throws IllegalAccessException {
         return readField(target, fieldName, false);
     }
 
@@ -450,7 +451,7 @@ public class FieldUtils {
      * @throws IllegalAccessException
      *             if the named field is not made accessible
      */
-    public static Object readField(final Object target, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
+    public static <T> T readField(final Object target, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
         Validate.notNull(target, "target");
         final Class<?> cls = target.getClass();
         final Field field = getField(cls, fieldName, forceAccess);
@@ -472,7 +473,7 @@ public class FieldUtils {
      * @throws IllegalAccessException
      *             if the named field is not {@code public}
      */
-    public static Object readDeclaredField(final Object target, final String fieldName) throws IllegalAccessException {
+    public static <T> T readDeclaredField(final Object target, final String fieldName) throws IllegalAccessException {
         return readDeclaredField(target, fieldName, false);
     }
 
@@ -493,7 +494,7 @@ public class FieldUtils {
      * @throws IllegalAccessException
      *             if the field is not made accessible
      */
-    public static Object readDeclaredField(final Object target, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
+    public static <T> T readDeclaredField(final Object target, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
         Validate.notNull(target, "target");
         final Class<?> cls = target.getClass();
         final Field field = getDeclaredField(cls, fieldName, forceAccess);
