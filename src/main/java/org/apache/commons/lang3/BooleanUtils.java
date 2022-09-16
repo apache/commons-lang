@@ -16,6 +16,11 @@
  */
 package org.apache.commons.lang3;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Consumer;
+
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
@@ -29,6 +34,9 @@ import org.apache.commons.lang3.math.NumberUtils;
  * @since 2.0
  */
 public class BooleanUtils {
+
+    private static final List<Boolean> BOOLEAN_LIST = Collections.unmodifiableList(Arrays.asList(Boolean.FALSE, Boolean.TRUE));
+
     /**
      * The false String {@code "false"}.
      *
@@ -153,6 +161,16 @@ public class BooleanUtils {
     }
 
     /**
+     * Performs the given action for each Boolean {@link BooleanUtils#values()}.
+     *
+     * @param action The action to be performed for each element
+     * @since 3.13.0
+     */
+    public static void forEach(final Consumer<Boolean> action) {
+        values().forEach(action);
+    }
+
+    /**
      * Checks if a {@link Boolean} value is {@code false},
      * handling {@code null} by returning {@code false}.
      *
@@ -223,7 +241,6 @@ public class BooleanUtils {
     public static boolean isTrue(final Boolean bool) {
         return Boolean.TRUE.equals(bool);
     }
-
     /**
      * Negates the specified boolean.
      *
@@ -247,6 +264,7 @@ public class BooleanUtils {
         }
         return bool.booleanValue() ? Boolean.FALSE : Boolean.TRUE;
     }
+
     /**
      * Performs a one-hot on an array of booleans.
      * <p>
@@ -1119,6 +1137,16 @@ public class BooleanUtils {
      */
     public static String toStringYesNo(final Boolean bool) {
         return toString(bool, YES, NO, null);
+    }
+
+    /**
+     * Returns an unmodifiable list of Booleans {@code [false, true]}.
+     *
+     * @return an unmodifiable list of Booleans {@code [false, true]}.
+     * @since 3.13.0
+     */
+    public static List<Boolean> values() {
+        return BOOLEAN_LIST;
     }
 
     /**

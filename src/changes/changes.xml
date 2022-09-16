@@ -177,6 +177,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Processor.Type.getLabel().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Processor.toString().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add HashCodeBuilder.equals(Object).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.values() and forEach().</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess, Gary Gregory">Bump actions/cache from 2.1.4 to 3.0.8 #742, #752, #764, #833, #867.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump actions/checkout from 2 to 3.0.2 #819, #825, #859.</action>

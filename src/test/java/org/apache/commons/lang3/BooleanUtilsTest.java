@@ -28,18 +28,36 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.BooleanUtils}.
+ * Unit tests {@link BooleanUtils}.
  */
 public class BooleanUtilsTest extends AbstractLangTest {
 
     @Test
     public void test_booleanValues() {
-        final Boolean[] expected = {false, true};
+        final Boolean[] expected = {Boolean.FALSE, Boolean.TRUE};
         assertArrayEquals(sort(expected), BooleanUtils.booleanValues());
+    }
+
+    @Test
+    public void test_values() {
+        final List<Boolean> expected = Arrays.asList(Boolean.FALSE, Boolean.TRUE);
+        Collections.sort(expected);
+        assertEquals(expected, BooleanUtils.values());
+    }
+
+    @Test
+    public void test_forEach() {
+        final List<Boolean> list = new ArrayList<>();
+        BooleanUtils.forEach(list::add);
+        assertEquals(Arrays.asList(Boolean.FALSE, Boolean.TRUE), list);
     }
 
     @Test
