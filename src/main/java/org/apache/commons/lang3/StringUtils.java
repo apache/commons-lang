@@ -9395,7 +9395,6 @@ public class StringUtils {
      * @since 3.4
      */
     public static String wrap(final String str, final char wrapWith) {
-
         if (isEmpty(str) || wrapWith == CharUtils.NUL) {
             return str;
         }
@@ -9431,7 +9430,6 @@ public class StringUtils {
      * @since 3.4
      */
     public static String wrap(final String str, final String wrapWith) {
-
         if (isEmpty(str) || isEmpty(wrapWith)) {
             return str;
         }
