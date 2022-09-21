@@ -73,6 +73,12 @@ public class ValidateTest extends AbstractLangTest {
                 final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.isTrue(false, "MSG"));
                 assertEquals("MSG", ex.getMessage());
             }
+
+            @Test
+            void shouldThrowExceptionWithGivenMessageContainingSpecialCharacterForFalseExpression() {
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.isTrue(false, "%"));
+                assertEquals("%", ex.getMessage());
+            }
         }
 
         @Nested
