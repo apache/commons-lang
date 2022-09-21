@@ -103,7 +103,7 @@ public class Validate {
      */
     public static void isTrue(final boolean expression, final String message, final long value) {
         if (!expression) {
-            throw new IllegalArgumentException(String.format(message, Long.valueOf(value)));
+            throw new IllegalArgumentException(getMessage(message, Long.valueOf(value)));
         }
     }
 
@@ -128,7 +128,7 @@ public class Validate {
      */
     public static void isTrue(final boolean expression, final String message, final double value) {
         if (!expression) {
-            throw new IllegalArgumentException(String.format(message, Double.valueOf(value)));
+            throw new IllegalArgumentException(getMessage(message, Double.valueOf(value)));
         }
     }
 
@@ -139,8 +139,7 @@ public class Validate {
      * primitive number or using your own custom validation expression.
      *
      * <pre>
-     * Validate.isTrue(i &gt;= min &amp;&amp; i &lt;= max, "The value must be between &#37;d and &#37;d", min, max);
-     * Validate.isTrue(myObject.isOk(), "The object is not okay");</pre>
+     * Validate.isTrue(i &gt;= min &amp;&amp; i &lt;= max, "The value must be between &#37;d and &#37;d", min, max);</pre>
      *
      * @param expression  the boolean expression to check
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
@@ -152,7 +151,7 @@ public class Validate {
      */
     public static void isTrue(final boolean expression, final String message, final Object... values) {
         if (!expression) {
-            throw new IllegalArgumentException(String.format(message, values));
+            throw new IllegalArgumentException(getMessage(message, values));
         }
     }
 
@@ -217,7 +216,7 @@ public class Validate {
      * @see Objects#requireNonNull(Object)
      */
     public static <T> T notNull(final T object, final String message, final Object... values) {
-        return Objects.requireNonNull(object, () -> String.format(message, values));
+        return Objects.requireNonNull(object, () -> getMessage(message, values));
     }
 
     /**
@@ -237,9 +236,9 @@ public class Validate {
      * @see #notEmpty(Object[])
      */
     public static <T> T[] notEmpty(final T[] array, final String message, final Object... values) {
-        Objects.requireNonNull(array, () -> String.format(message, values));
+        Objects.requireNonNull(array, () -> getMessage(message, values));
         if (array.length == 0) {
-            throw new IllegalArgumentException(String.format(message, values));
+            throw new IllegalArgumentException(getMessage(message, values));
         }
         return array;
     }
@@ -281,9 +280,9 @@ public class Validate {
      * @see #notEmpty(Object[])
      */
     public static <T extends Collection<?>> T notEmpty(final T collection, final String message, final Object... values) {
-        Objects.requireNonNull(collection, () -> String.format(message, values));
+        Objects.requireNonNull(collection, () -> getMessage(message, values));
         if (collection.isEmpty()) {
-            throw new IllegalArgumentException(String.format(message, values));
+            throw new IllegalArgumentException(getMessage(message, values));
         }
         return collection;
     }
@@ -325,9 +324,9 @@ public class Validate {
      * @see #notEmpty(Object[])
      */
     public static <T extends Map<?, ?>> T notEmpty(final T map, final String message, final Object... values) {
-        Objects.requireNonNull(map, () -> String.format(message, values));
+        Objects.requireNonNull(map, () -> getMessage(message, values));
         if (map.isEmpty()) {
-            throw new IllegalArgumentException(String.format(message, values));
+            throw new IllegalArgumentException(getMessage(message, values));
         }
         return map;
     }
@@ -369,9 +368,9 @@ public class Validate {
      * @see #notEmpty(CharSequence)
      */
     public static <T extends CharSequence> T notEmpty(final T chars, final String message, final Object... values) {
-        Objects.requireNonNull(chars, () -> String.format(message, values));
+        Objects.requireNonNull(chars, () -> getMessage(message, values));
         if (chars.length() == 0) {
-            throw new IllegalArgumentException(String.format(message, values));
+            throw new IllegalArgumentException(getMessage(message, values));
         }
         return chars;
     }
@@ -417,9 +416,9 @@ public class Validate {
      * @since 3.0
      */
     public static <T extends CharSequence> T notBlank(final T chars, final String message, final Object... values) {
-        Objects.requireNonNull(chars, () -> String.format(message, values));
+        Objects.requireNonNull(chars, () -> getMessage(message, values));
         if (StringUtils.isBlank(chars)) {
-            throw new IllegalArgumentException(String.format(message, values));
+            throw new IllegalArgumentException(getMessage(message, values));
         }
         return chars;
     }
@@ -475,7 +474,7 @@ public class Validate {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == null) {
                 final Object[] values2 = ArrayUtils.add(values, Integer.valueOf(i));
-                throw new IllegalArgumentException(String.format(message, values2));
+                throw new IllegalArgumentException(getMessage(message, values2));
             }
         }
         return array;
@@ -535,7 +534,7 @@ public class Validate {
         for (final Iterator<?> it = iterable.iterator(); it.hasNext(); i++) {
             if (it.next() == null) {
                 final Object[] values2 = ArrayUtils.addAll(values, Integer.valueOf(i));
-                throw new IllegalArgumentException(String.format(message, values2));
+                throw new IllegalArgumentException(getMessage(message, values2));
             }
         }
         return iterable;
@@ -590,7 +589,7 @@ public class Validate {
     public static <T> T[] validIndex(final T[] array, final int index, final String message, final Object... values) {
         Objects.requireNonNull(array, "array");
         if (index < 0 || index >= array.length) {
-            throw new IndexOutOfBoundsException(String.format(message, values));
+            throw new IndexOutOfBoundsException(getMessage(message, values));
         }
         return array;
     }
@@ -646,7 +645,7 @@ public class Validate {
     public static <T extends Collection<?>> T validIndex(final T collection, final int index, final String message, final Object... values) {
         Objects.requireNonNull(collection, "collection");
         if (index < 0 || index >= collection.size()) {
-            throw new IndexOutOfBoundsException(String.format(message, values));
+            throw new IndexOutOfBoundsException(getMessage(message, values));
         }
         return collection;
     }
@@ -700,7 +699,7 @@ public class Validate {
     public static <T extends CharSequence> T validIndex(final T chars, final int index, final String message, final Object... values) {
         Objects.requireNonNull(chars, "chars");
         if (index < 0 || index >= chars.length()) {
-            throw new IndexOutOfBoundsException(String.format(message, values));
+            throw new IndexOutOfBoundsException(getMessage(message, values));
         }
         return chars;
     }
@@ -776,7 +775,7 @@ public class Validate {
      */
     public static void validState(final boolean expression, final String message, final Object... values) {
         if (!expression) {
-            throw new IllegalStateException(String.format(message, values));
+            throw new IllegalStateException(getMessage(message, values));
         }
     }
 
@@ -822,7 +821,7 @@ public class Validate {
     public static void matchesPattern(final CharSequence input, final String pattern, final String message, final Object... values) {
         // TODO when breaking BC, consider returning input
         if (!Pattern.matches(pattern, input)) {
-            throw new IllegalArgumentException(String.format(message, values));
+            throw new IllegalArgumentException(getMessage(message, values));
         }
     }
 
@@ -861,7 +860,7 @@ public class Validate {
      */
     public static void notNaN(final double value, final String message, final Object... values) {
         if (Double.isNaN(value)) {
-            throw new IllegalArgumentException(String.format(message, values));
+            throw new IllegalArgumentException(getMessage(message, values));
         }
     }
 
@@ -899,7 +898,7 @@ public class Validate {
      */
     public static void finite(final double value, final String message, final Object... values) {
         if (Double.isNaN(value) || Double.isInfinite(value)) {
-            throw new IllegalArgumentException(String.format(message, values));
+            throw new IllegalArgumentException(getMessage(message, values));
         }
     }
 
@@ -946,7 +945,7 @@ public class Validate {
     public static <T> void inclusiveBetween(final T start, final T end, final Comparable<T> value, final String message, final Object... values) {
         // TODO when breaking BC, consider returning value
         if (value.compareTo(start) < 0 || value.compareTo(end) > 0) {
-            throw new IllegalArgumentException(String.format(message, values));
+            throw new IllegalArgumentException(getMessage(message, values));
         }
     }
 
@@ -1081,7 +1080,7 @@ public class Validate {
     public static <T> void exclusiveBetween(final T start, final T end, final Comparable<T> value, final String message, final Object... values) {
         // TODO when breaking BC, consider returning value
         if (value.compareTo(start) <= 0 || value.compareTo(end) >= 0) {
-            throw new IllegalArgumentException(String.format(message, values));
+            throw new IllegalArgumentException(getMessage(message, values));
         }
     }
 
@@ -1217,7 +1216,7 @@ public class Validate {
     public static void isInstanceOf(final Class<?> type, final Object obj, final String message, final Object... values) {
         // TODO when breaking BC, consider returning obj
         if (!type.isInstance(obj)) {
-            throw new IllegalArgumentException(String.format(message, values));
+            throw new IllegalArgumentException(getMessage(message, values));
         }
     }
 
@@ -1265,7 +1264,23 @@ public class Validate {
     public static void isAssignableFrom(final Class<?> superType, final Class<?> type, final String message, final Object... values) {
         // TODO when breaking BC, consider returning type
         if (!superType.isAssignableFrom(type)) {
-            throw new IllegalArgumentException(String.format(message, values));
+            throw new IllegalArgumentException(getMessage(message, values));
         }
+    }
+
+    /**
+     * Get the message using {@link String#format(String, Object...) String.format(message, values)}
+     * if the values are not empty, otherwise return the message unformatted.
+     * This method exists to allow validation methods declaring a String message and varargs parameters
+     * to be used without any message parameters when the message contains special characters,
+     * e.g. {@code Validate.isTrue(false, "%Failed%")}.
+
+     * @param message the {@link String#format(String, Object...)} exception message if invalid, not null
+     * @param values the optional values for the formatted message
+     * @return formatted message using {@link String#format(String, Object...) String.format(message, values)}
+     * if the values are not empty, otherwise return the unformatted message.
+     */
+    private static String getMessage(final String message, final Object... values) {
+        return values.length == 0 ? message : String.format(message, values);
     }
 }
