@@ -45,6 +45,12 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3.0.2
+    - uses: actions/cache@v3.0.8
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
