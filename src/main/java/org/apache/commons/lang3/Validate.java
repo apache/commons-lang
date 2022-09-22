@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 /**
@@ -216,7 +217,11 @@ public class Validate {
      * @see Objects#requireNonNull(Object)
      */
     public static <T> T notNull(final T object, final String message, final Object... values) {
-        return Objects.requireNonNull(object, () -> getMessage(message, values));
+        return Objects.requireNonNull(object, toSupplier(message, values));
+    }
+
+    private static Supplier<String> toSupplier(final String message, final Object... values) {
+        return () -> getMessage(message, values);
     }
 
     /**
@@ -236,7 +241,7 @@ public class Validate {
      * @see #notEmpty(Object[])
      */
     public static <T> T[] notEmpty(final T[] array, final String message, final Object... values) {
-        Objects.requireNonNull(array, () -> getMessage(message, values));
+        Objects.requireNonNull(array, toSupplier(message, values));
         if (array.length == 0) {
             throw new IllegalArgumentException(getMessage(message, values));
         }
@@ -280,7 +285,7 @@ public class Validate {
      * @see #notEmpty(Object[])
      */
     public static <T extends Collection<?>> T notEmpty(final T collection, final String message, final Object... values) {
-        Objects.requireNonNull(collection, () -> getMessage(message, values));
+        Objects.requireNonNull(collection, toSupplier(message, values));
         if (collection.isEmpty()) {
             throw new IllegalArgumentException(getMessage(message, values));
         }
@@ -324,7 +329,7 @@ public class Validate {
      * @see #notEmpty(Object[])
      */
     public static <T extends Map<?, ?>> T notEmpty(final T map, final String message, final Object... values) {
-        Objects.requireNonNull(map, () -> getMessage(message, values));
+        Objects.requireNonNull(map, toSupplier(message, values));
         if (map.isEmpty()) {
             throw new IllegalArgumentException(getMessage(message, values));
         }
@@ -368,7 +373,7 @@ public class Validate {
      * @see #notEmpty(CharSequence)
      */
     public static <T extends CharSequence> T notEmpty(final T chars, final String message, final Object... values) {
-        Objects.requireNonNull(chars, () -> getMessage(message, values));
+        Objects.requireNonNull(chars, toSupplier(message, values));
         if (chars.length() == 0) {
             throw new IllegalArgumentException(getMessage(message, values));
         }
@@ -416,7 +421,7 @@ public class Validate {
      * @since 3.0
      */
     public static <T extends CharSequence> T notBlank(final T chars, final String message, final Object... values) {
-        Objects.requireNonNull(chars, () -> getMessage(message, values));
+        Objects.requireNonNull(chars, toSupplier(message, values));
         if (StringUtils.isBlank(chars)) {
             throw new IllegalArgumentException(getMessage(message, values));
         }
@@ -1269,7 +1274,7 @@ public class Validate {
     }
 
     /**
-     * Get the message using {@link String#format(String, Object...) String.format(message, values)}
+     * Gets the message using {@link String#format(String, Object...) String.format(message, values)}
      * if the values are not empty, otherwise return the message unformatted.
      * This method exists to allow validation methods declaring a String message and varargs parameters
      * to be used without any message parameters when the message contains special characters,
@@ -1281,6 +1286,6 @@ public class Validate {
      * if the values are not empty, otherwise return the unformatted message.
      */
     private static String getMessage(final String message, final Object... values) {
-        return values.length == 0 ? message : String.format(message, values);
+        return ArrayUtils.isEmpty(values) ? message : String.format(message, values);
     }
 }
