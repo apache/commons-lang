@@ -417,7 +417,6 @@ public class Validate {
      * @throws NullPointerException if the character sequence is {@code null}
      * @throws IllegalArgumentException if the character sequence is blank
      * @see #notBlank(CharSequence)
-     *
      * @since 3.0
      */
     public static <T extends CharSequence> T notBlank(final T chars, final String message, final Object... values) {
@@ -444,7 +443,6 @@ public class Validate {
      * @throws NullPointerException if the character sequence is {@code null}
      * @throws IllegalArgumentException if the character sequence is blank
      * @see #notBlank(CharSequence, String, Object...)
-     *
      * @since 3.0
      */
     public static <T extends CharSequence> T notBlank(final T chars) {
@@ -588,7 +586,6 @@ public class Validate {
      * @throws NullPointerException if the array is {@code null}
      * @throws IndexOutOfBoundsException if the index is invalid
      * @see #validIndex(Object[], int)
-     *
      * @since 3.0
      */
     public static <T> T[] validIndex(final T[] array, final int index, final String message, final Object... values) {
@@ -619,7 +616,6 @@ public class Validate {
      * @throws NullPointerException if the array is {@code null}
      * @throws IndexOutOfBoundsException if the index is invalid
      * @see #validIndex(Object[], int, String, Object...)
-     *
      * @since 3.0
      */
     public static <T> T[] validIndex(final T[] array, final int index) {
@@ -644,7 +640,6 @@ public class Validate {
      * @throws NullPointerException if the collection is {@code null}
      * @throws IndexOutOfBoundsException if the index is invalid
      * @see #validIndex(Collection, int)
-     *
      * @since 3.0
      */
     public static <T extends Collection<?>> T validIndex(final T collection, final int index, final String message, final Object... values) {
@@ -672,7 +667,6 @@ public class Validate {
      * @throws NullPointerException if the collection is {@code null}
      * @throws IndexOutOfBoundsException if the index is invalid
      * @see #validIndex(Collection, int, String, Object...)
-     *
      * @since 3.0
      */
     public static <T extends Collection<?>> T validIndex(final T collection, final int index) {
@@ -698,7 +692,6 @@ public class Validate {
      * @throws NullPointerException if the character sequence is {@code null}
      * @throws IndexOutOfBoundsException if the index is invalid
      * @see #validIndex(CharSequence, int)
-     *
      * @since 3.0
      */
     public static <T extends CharSequence> T validIndex(final T chars, final int index, final String message, final Object... values) {
@@ -730,7 +723,6 @@ public class Validate {
      * @throws NullPointerException if the character sequence is {@code null}
      * @throws IndexOutOfBoundsException if the index is invalid
      * @see #validIndex(CharSequence, int, String, Object...)
-     *
      * @since 3.0
      */
     public static <T extends CharSequence> T validIndex(final T chars, final int index) {
@@ -753,7 +745,6 @@ public class Validate {
      * @param expression  the boolean expression to check
      * @throws IllegalStateException if expression is {@code false}
      * @see #validState(boolean, String, Object...)
-     *
      * @since 3.0
      */
     public static void validState(final boolean expression) {
@@ -775,7 +766,6 @@ public class Validate {
      * @param values  the optional values for the formatted exception message, null array not recommended
      * @throws IllegalStateException if expression is {@code false}
      * @see #validState(boolean)
-     *
      * @since 3.0
      */
     public static void validState(final boolean expression, final String message, final Object... values) {
@@ -796,7 +786,6 @@ public class Validate {
      * @param pattern  the regular expression pattern, not null
      * @throws IllegalArgumentException if the character sequence does not match the pattern
      * @see #matchesPattern(CharSequence, String, String, Object...)
-     *
      * @since 3.0
      */
     public static void matchesPattern(final CharSequence input, final String pattern) {
@@ -820,7 +809,6 @@ public class Validate {
      * @param values  the optional values for the formatted exception message, null array not recommended
      * @throws IllegalArgumentException if the character sequence does not match the pattern
      * @see #matchesPattern(CharSequence, String)
-     *
      * @since 3.0
      */
     public static void matchesPattern(final CharSequence input, final String pattern, final String message, final Object... values) {
@@ -842,7 +830,6 @@ public class Validate {
      * @param value  the value to validate
      * @throws IllegalArgumentException if the value is not a number
      * @see #notNaN(double, String, Object...)
-     *
      * @since 3.5
      */
     public static void notNaN(final double value) {
@@ -860,7 +847,6 @@ public class Validate {
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if the value is not a number
      * @see #notNaN(double)
-     *
      * @since 3.5
      */
     public static void notNaN(final double value, final String message, final Object... values) {
@@ -880,7 +866,6 @@ public class Validate {
      * @param value  the value to validate
      * @throws IllegalArgumentException if the value is infinite or Not-a-Number (NaN)
      * @see #finite(double, String, Object...)
-     *
      * @since 3.5
      */
     public static void finite(final double value) {
@@ -898,7 +883,6 @@ public class Validate {
      * @param values  the optional values for the formatted exception message
      * @throws IllegalArgumentException if the value is infinite or Not-a-Number (NaN)
      * @see #finite(double)
-     *
      * @since 3.5
      */
     public static void finite(final double value, final String message, final Object... values) {
@@ -919,7 +903,6 @@ public class Validate {
      * @param value  the object to validate, not null
      * @throws IllegalArgumentException if the value falls outside the boundaries
      * @see #inclusiveBetween(Object, Object, Comparable, String, Object...)
-     *
      * @since 3.0
      */
     public static <T> void inclusiveBetween(final T start, final T end, final Comparable<T> value) {
@@ -944,7 +927,6 @@ public class Validate {
      * @param values  the optional values for the formatted exception message, null array not recommended
      * @throws IllegalArgumentException if the value falls outside the boundaries
      * @see #inclusiveBetween(Object, Object, Comparable)
-     *
      * @since 3.0
      */
     public static <T> void inclusiveBetween(final T start, final T end, final Comparable<T> value, final String message, final Object... values) {
@@ -964,7 +946,6 @@ public class Validate {
      * @param end   the inclusive end value
      * @param value the value to validate
      * @throws IllegalArgumentException if the value falls outside the boundaries (inclusive)
-     *
      * @since 3.3
      */
     @SuppressWarnings("boxing")
@@ -986,9 +967,7 @@ public class Validate {
      * @param end   the inclusive end value
      * @param value the value to validate
      * @param message the exception message if invalid, not null
-     *
      * @throws IllegalArgumentException if the value falls outside the boundaries
-     *
      * @since 3.3
      */
     public static void inclusiveBetween(final long start, final long end, final long value, final String message) {
@@ -1008,7 +987,6 @@ public class Validate {
      * @param end   the inclusive end value
      * @param value the value to validate
      * @throws IllegalArgumentException if the value falls outside the boundaries (inclusive)
-     *
      * @since 3.3
      */
     @SuppressWarnings("boxing")
@@ -1030,9 +1008,7 @@ public class Validate {
      * @param end   the inclusive end value
      * @param value the value to validate
      * @param message the exception message if invalid, not null
-     *
      * @throws IllegalArgumentException if the value falls outside the boundaries
-     *
      * @since 3.3
      */
     public static void inclusiveBetween(final double start, final double end, final double value, final String message) {
@@ -1054,7 +1030,6 @@ public class Validate {
      * @param value  the object to validate, not null
      * @throws IllegalArgumentException if the value falls outside the boundaries
      * @see #exclusiveBetween(Object, Object, Comparable, String, Object...)
-     *
      * @since 3.0
      */
     public static <T> void exclusiveBetween(final T start, final T end, final Comparable<T> value) {
@@ -1079,7 +1054,6 @@ public class Validate {
      * @param values  the optional values for the formatted exception message, null array not recommended
      * @throws IllegalArgumentException if the value falls outside the boundaries
      * @see #exclusiveBetween(Object, Object, Comparable)
-     *
      * @since 3.0
      */
     public static <T> void exclusiveBetween(final T start, final T end, final Comparable<T> value, final String message, final Object... values) {
@@ -1099,7 +1073,6 @@ public class Validate {
      * @param end   the exclusive end value
      * @param value the value to validate
      * @throws IllegalArgumentException if the value falls out of the boundaries
-     *
      * @since 3.3
      */
     @SuppressWarnings("boxing")
@@ -1121,9 +1094,7 @@ public class Validate {
      * @param end   the exclusive end value
      * @param value the value to validate
      * @param message the exception message if invalid, not null
-     *
      * @throws IllegalArgumentException if the value falls outside the boundaries
-     *
      * @since 3.3
      */
     public static void exclusiveBetween(final long start, final long end, final long value, final String message) {
@@ -1143,7 +1114,6 @@ public class Validate {
      * @param end   the exclusive end value
      * @param value the value to validate
      * @throws IllegalArgumentException if the value falls out of the boundaries
-     *
      * @since 3.3
      */
     @SuppressWarnings("boxing")
@@ -1165,9 +1135,7 @@ public class Validate {
      * @param end   the exclusive end value
      * @param value the value to validate
      * @param message the exception message if invalid, not null
-     *
      * @throws IllegalArgumentException if the value falls outside the boundaries
-     *
      * @since 3.3
      */
     public static void exclusiveBetween(final double start, final double end, final double value, final String message) {
@@ -1190,7 +1158,6 @@ public class Validate {
      * @param obj  the object to check, null throws an exception
      * @throws IllegalArgumentException if argument is not of specified class
      * @see #isInstanceOf(Class, Object, String, Object...)
-     *
      * @since 3.0
      */
     public static void isInstanceOf(final Class<?> type, final Object obj) {
@@ -1215,7 +1182,6 @@ public class Validate {
      * @param values  the optional values for the formatted exception message, null array not recommended
      * @throws IllegalArgumentException if argument is not of specified class
      * @see #isInstanceOf(Class, Object)
-     *
      * @since 3.0
      */
     public static void isInstanceOf(final Class<?> type, final Object obj, final String message, final Object... values) {
@@ -1238,7 +1204,6 @@ public class Validate {
      * @param type  the class to check, not null
      * @throws IllegalArgumentException if type argument is not assignable to the specified superType
      * @see #isAssignableFrom(Class, Class, String, Object...)
-     *
      * @since 3.0
      */
     public static void isAssignableFrom(final Class<?> superType, final Class<?> type) {
