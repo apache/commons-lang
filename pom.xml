@@ -641,7 +641,6 @@
     <commons.spotbugs.plugin.version>4.7.2.0</commons.spotbugs.plugin.version>
     <commons.spotbugs.impl.version>4.7.2</commons.spotbugs.impl.version>
     <japicmp.skip>false</japicmp.skip>
-    <clirr.skip>true</clirr.skip>
 
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
     <jmh.version>1.35</jmh.version>
