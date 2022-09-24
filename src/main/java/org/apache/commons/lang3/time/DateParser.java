@@ -53,8 +53,8 @@ public interface DateParser {
      * @param source A {@link String}, part of which should be parsed.
      * @param pos A {@link ParsePosition} object with index and error index information
      * as described above.
-     * @return A {@link Date} parsed from the string. In case of error, returns null.
-     * @throws NullPointerException if text or pos is null.
+     * @return A {@link Date} parsed from the string. In case of error, returns {@code null}.
+     * @throws NullPointerException if text or pos is {@code null}.
      */
     Date parse(String source, ParsePosition pos);
 

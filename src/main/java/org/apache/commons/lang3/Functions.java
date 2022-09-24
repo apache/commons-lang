@@ -480,7 +480,7 @@ public class Functions {
     }
 
     /**
-     * Invokes a boolean supplier, and returns the result.
+     * Invokes a {@code boolean} supplier, and returns the result.
      *
      * @param supplier The boolean supplier to invoke.
      * @param <T> The type of checked exception, which the supplier can throw.

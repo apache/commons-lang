@@ -37,7 +37,7 @@ public interface FormatFactory {
      * @param arguments Arguments used to create the format instance. This allows the
      *                  {@link FormatFactory} to implement the "format style"
      *                  concept from {@code java.text.MessageFormat}.
-     * @param locale The locale, may be null
+     * @param locale The locale, may be {@code null}
      * @return The format instance
      */
     Format getFormat(String name, String arguments, Locale locale);

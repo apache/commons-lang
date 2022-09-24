@@ -31,7 +31,7 @@ import org.apache.commons.lang3.StringUtils;
  * Tokenizes a string based on delimiters (separators)
  * and supporting quoting and ignored character concepts.
  * <p>
- * This class can split a String into many smaller strings. It aims
+ * This class can split a {@link String} into many smaller strings. It aims
  * to do a similar job to {@link java.util.StringTokenizer StringTokenizer},
  * however it offers much more control and flexibility including implementing
  * the {@link ListIterator} interface. By default, it is set up
@@ -58,7 +58,7 @@ import org.apache.commons.lang3.StringUtils;
  * One usage might be to remove new line characters.
  * </p>
  * <p>
- * Empty tokens may be removed or returned as null.
+ * Empty tokens may be removed or returned as {@code null}.
  * </p>
  * <pre>
  * "a,b,c"         - Three tokens "a","b","c"   (comma delimiter)
@@ -433,7 +433,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     /**
      * Gets a copy of the full token list as an independent modifiable array.
      *
-     * @return the tokens as a String array
+     * @return the tokens as a {@link String} array
      */
     public String[] getTokenArray() {
         checkTokenized();
@@ -443,7 +443,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     /**
      * Gets a copy of the full token list as an independent modifiable list.
      *
-     * @return the tokens as a String array
+     * @return the tokens as a {@link String} array
      */
     public List<String> getTokenList() {
         checkTokenized();
@@ -501,7 +501,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     /**
      * Checks whether there are any more tokens.
      *
-     * @return true if there are more tokens
+     * @return {@code true} if there are more tokens
      */
     @Override
     public boolean hasNext() {
@@ -536,7 +536,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     /**
      * Checks whether there are any previous tokens that can be iterated to.
      *
-     * @return true if there are previous tokens
+     * @return {@code true} if there are previous tokens
      */
     @Override
     public boolean hasPrevious() {
@@ -631,10 +631,10 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * may pass other values, or even an entirely different array.
      * </p>
      *
-     * @param srcChars  the character array being tokenized, may be null
+     * @param srcChars  the character array being tokenized, may be {@code null}
      * @param offset  the start position within the character array, must be valid
      * @param count  the number of characters to tokenize, must be valid
-     * @return the modifiable list of String tokens, unmodifiable if null array or zero count
+     * @return the modifiable list of String tokens, unmodifiable if {@code null} array or zero count
      */
     protected List<String> tokenize(final char[] srcChars, final int offset, final int count) {
         if (srcChars == null || count == 0) {
@@ -825,7 +825,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * @param len  the length of the character array being tokenized
      * @param quoteStart  the start position of the matched quote, 0 if no quoting
      * @param quoteLen  the length of the matched quote, 0 if no quoting
-     * @return true if a quote is matched
+     * @return {@code true} if a quote is matched
      */
     private boolean isQuote(final char[] srcChars, final int pos, final int len, final int quoteStart, final int quoteLen) {
         for (int i = 0; i < quoteLen; i++) {
@@ -1005,17 +1005,17 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     }
 
     /**
-     * Gets whether the tokenizer currently returns empty tokens as null.
+     * Gets whether the tokenizer currently returns empty tokens as {@code null}.
      * The default for this property is false.
      *
-     * @return true if empty tokens are returned as null
+     * @return {@code true} if empty tokens are returned as null
      */
     public boolean isEmptyTokenAsNull() {
         return this.emptyAsNull;
     }
 
     /**
-     * Sets whether the tokenizer should return empty tokens as null.
+     * Sets whether the tokenizer should return empty tokens as {@code null}.
      * The default for this property is false.
      *
      * @param emptyAsNull  whether empty tokens are returned as null
@@ -1030,7 +1030,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * Gets whether the tokenizer currently ignores empty tokens.
      * The default for this property is true.
      *
-     * @return true if empty tokens are not returned
+     * @return {@code true} if empty tokens are not returned
      */
     public boolean isIgnoreEmptyTokens() {
         return ignoreEmptyTokens;

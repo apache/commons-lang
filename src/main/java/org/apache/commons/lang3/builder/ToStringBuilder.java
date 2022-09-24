@@ -89,7 +89,7 @@ import org.apache.commons.lang3.Validate;
 public class ToStringBuilder implements Builder<String> {
 
     /**
-     * The default style of output to use, not null.
+     * The default style of output to use, not {@code null}.
      */
     private static volatile ToStringStyle defaultStyle = ToStringStyle.DEFAULT_STYLE;
 
@@ -195,15 +195,15 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * Current toString buffer, not null.
+     * Current toString buffer, not {@code null}.
      */
     private final StringBuffer buffer;
     /**
-     * The object being output, may be null.
+     * The object being output, may be {@code null}.
      */
     private final Object object;
     /**
-     * The style of output to use, not null.
+     * The style of output to use, not {@code null}.
      */
     private final ToStringStyle style;
 
@@ -239,7 +239,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param object  the Object to build a {@code toString} for, not recommended to be null
      * @param style  the style of the {@code toString} to create, null uses the default style
-     * @param buffer  the {@link StringBuffer} to populate, may be null
+     * @param buffer  the {@link StringBuffer} to populate, may be {@code null}
      */
     public ToStringBuilder(final Object object, ToStringStyle style, StringBuffer buffer) {
         if (style == null) {

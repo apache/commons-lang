@@ -66,7 +66,7 @@ public class MethodUtils {
     /**
      * {@link MethodUtils} instances should NOT be constructed in standard programming.
      * Instead, the class should be used as
-     * {@code MethodUtils.getAccessibleMethod(method)}.
+     * {@link  MethodUtils#getAccessibleMethod(Method)}}.
      *
      * <p>This constructor is {@code public} to permit tools that require a JavaBean
      * instance to operate.</p>
@@ -976,7 +976,7 @@ public class MethodUtils {
      * @param cls  the class to look up, may be {@code null}
      * @return the combined {@link List} of superclasses and interfaces in order
      * going up from this one
-     *  {@code null} if null input
+     *  {@code null} if {@code null} input
      */
     private static List<Class<?>> getAllSuperclassesAndInterfaces(final Class<?> cls) {
         if (cls == null) {

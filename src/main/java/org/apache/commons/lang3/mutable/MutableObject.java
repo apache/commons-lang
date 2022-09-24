@@ -55,7 +55,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     /**
      * Gets the value.
      *
-     * @return the value, may be null
+     * @return the value, may be {@code null}
      */
     @Override
     public T getValue() {

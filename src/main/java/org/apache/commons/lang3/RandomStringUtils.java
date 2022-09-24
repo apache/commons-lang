@@ -93,7 +93,7 @@ public class RandomStringUtils {
      *
      * @param count  the length of random string to create
      * @param chars  the character array containing the set of characters to use,
-     *  may be null
+     *  may be {@code null}
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
      */
@@ -267,11 +267,11 @@ public class RandomStringUtils {
      *
      * <p>Characters will be chosen from the set of characters
      * specified by the string, must not be empty.
-     * If null, the set of all characters is used.</p>
+     * If {@code null}, the set of all characters is used.</p>
      *
      * @param count  the length of random string to create
      * @param chars  the String containing the set of characters to use,
-     *  may be null, but must not be empty
+     *  may be {@code null}, but must not be empty
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0 or the string is empty.
      */

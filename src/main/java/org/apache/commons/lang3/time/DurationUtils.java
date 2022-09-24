@@ -142,8 +142,8 @@ public class DurationUtils {
     /**
      * Computes the Duration between a start instant and now.
      *
-     * @param startInclusive the start instant, inclusive, not null.
-     * @return a {@link Duration}, not null.
+     * @param startInclusive the start instant, inclusive, not {@code null}.
+     * @return a {@link Duration}, not {@code null}.
      * @since 3.13.0
      */
     public static Duration since(final Temporal startInclusive) {
@@ -182,7 +182,7 @@ public class DurationUtils {
      * Converts an amount and TimeUnit into a Duration.
      *
      * @param amount   the amount of the duration, measured in terms of the unit, positive or negative
-     * @param timeUnit the unit that the duration is measured in, must have an exact duration, not null
+     * @param timeUnit the unit that the duration is measured in, must have an exact duration, not {@code null}
      * @return a Duration.
      */
     public static Duration toDuration(final long amount, final TimeUnit timeUnit) {
@@ -201,7 +201,7 @@ public class DurationUtils {
      * {@link Integer#MIN_VALUE}.</li>
      * </ul>
      *
-     * @param duration The duration to convert, not null.
+     * @param duration The duration to convert, not {@code null}.
      * @return int milliseconds.
      */
     public static int toMillisInt(final Duration duration) {
@@ -211,7 +211,7 @@ public class DurationUtils {
     }
 
     /**
-     * Returns the given non-null value or {@link Duration#ZERO} if null.
+     * Returns the given non-null value or {@link Duration#ZERO} if {@code null}.
      *
      * @param duration The duration to test.
      * @return The given duration or {@link Duration#ZERO}.

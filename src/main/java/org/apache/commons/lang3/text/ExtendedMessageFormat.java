@@ -93,7 +93,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Create a new ExtendedMessageFormat for the default locale.
      *
-     * @param pattern  the pattern to use, not null
+     * @param pattern  the pattern to use, not {@code null}
      * @throws IllegalArgumentException in case of a bad pattern.
      */
     public ExtendedMessageFormat(final String pattern) {
@@ -103,8 +103,8 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Create a new ExtendedMessageFormat.
      *
-     * @param pattern  the pattern to use, not null
-     * @param locale  the locale to use, not null
+     * @param pattern  the pattern to use, not {@code null}
+     * @param locale  the locale to use, not {@code null}
      * @throws IllegalArgumentException in case of a bad pattern.
      */
     public ExtendedMessageFormat(final String pattern, final Locale locale) {
@@ -114,8 +114,8 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Create a new ExtendedMessageFormat for the default locale.
      *
-     * @param pattern  the pattern to use, not null
-     * @param registry  the registry of format factories, may be null
+     * @param pattern  the pattern to use, not {@code null}
+     * @param registry  the registry of format factories, may be {@code null}
      * @throws IllegalArgumentException in case of a bad pattern.
      */
     public ExtendedMessageFormat(final String pattern, final Map<String, ? extends FormatFactory> registry) {
@@ -125,9 +125,9 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Create a new ExtendedMessageFormat.
      *
-     * @param pattern  the pattern to use, not null.
+     * @param pattern  the pattern to use, not {@code null}.
      * @param locale  the locale to use.
-     * @param registry  the registry of format factories, may be null.
+     * @param registry  the registry of format factories, may be {@code null}.
      * @throws IllegalArgumentException in case of a bad pattern.
      */
     public ExtendedMessageFormat(final String pattern, final Locale locale, final Map<String, ? extends FormatFactory> registry) {
@@ -267,7 +267,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * Check if this extended message format is equal to another object.
      *
      * @param obj the object to compare to
-     * @return true if this object equals the other, otherwise false
+     * @return {@code true} if this object equals the other, otherwise false
      */
     @Override
     public boolean equals(final Object obj) {

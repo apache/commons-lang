@@ -68,9 +68,9 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
      * @param <L> the left element type
      * @param <M> the middle element type
      * @param <R> the right element type
-     * @param left  the left element, may be null
-     * @param middle  the middle element, may be null
-     * @param right  the right element, may be null
+     * @param left  the left element, may be {@code null}
+     * @param middle  the middle element, may be {@code null}
+     * @param right  the right element, may be {@code null}
      * @return a triple formed from the three parameters, not null
      */
     public static <L, M, R> MutableTriple<L, M, R> of(final L left, final M middle, final R right) {
@@ -114,9 +114,9 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Create a new triple instance.
      *
-     * @param left  the left value, may be null
-     * @param middle  the middle value, may be null
-     * @param right  the right value, may be null
+     * @param left  the left value, may be {@code null}
+     * @param middle  the middle value, may be {@code null}
+     * @param right  the right value, may be {@code null}
      */
     public MutableTriple(final L left, final M middle, final R right) {
         this.left = left;
@@ -151,7 +151,7 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Sets the left element of the triple.
      *
-     * @param left  the new value of the left element, may be null
+     * @param left  the new value of the left element, may be {@code null}
      */
     public void setLeft(final L left) {
         this.left = left;
@@ -160,7 +160,7 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Sets the middle element of the triple.
      *
-     * @param middle  the new value of the middle element, may be null
+     * @param middle  the new value of the middle element, may be {@code null}
      */
     public void setMiddle(final M middle) {
         this.middle = middle;
@@ -169,7 +169,7 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Sets the right element of the triple.
      *
-     * @param right  the new value of the right element, may be null
+     * @param right  the new value of the right element, may be {@code null}
      */
     public void setRight(final R right) {
         this.right = right;

@@ -89,8 +89,8 @@
  *  <li>{@code contains(xxx[], xxx)} searches for a primitive or Object in a primitive or Object array. </li>
  *  <li>{@code getLength(Object)} returns the length of any array or an IllegalArgumentException if the parameter is not an array. {@code hashCode(Object)}, {@code equals(Object, Object)}, {@code toString(Object)} </li>
  *  <li>{@code indexOf(xxx[], xxx)} and {@code indexOf(xxx[], xxx, int)} are copies of the classic String methods, but this time for primitive/Object arrays. In addition, a lastIndexOf set of methods exists. </li>
- *  <li>{@code isEmpty(xxx[])} lets you know if an array is zero-sized or null. </li>
- *  <li>{@code isSameLength(xxx[], xxx[])} returns true if the arrays are the same length. </li>
+ *  <li>{@code isEmpty(xxx[])} lets you know if an array is zero-sized or {@code null}. </li>
+ *  <li>{@code isSameLength(xxx[], xxx[])} returns {@code true} if the arrays are the same length. </li>
  *  <li>Along side the add methods, there are also remove methods of two types. The first type remove the value at an index, {@code remove(xxx[], int)}, while the second type remove the first value from the array, {@code remove(xxx[], xxx)}. </li>
  *  <li>Nearing the end now. The {@code reverse(xxx[])} method turns an array around. </li>
  *  <li>The {@code subarray(xxx[], int, int)} method splices an array out of a larger array. </li>
@@ -112,7 +112,7 @@
  * </pre>
  *
  * <p>Our final util class is {@link org.apache.commons.lang3.BooleanUtils}.
- * It contains various Boolean acting methods, probably of most interest is the {@link org.apache.commons.lang3.BooleanUtils#toBoolean(String)} method which turns various positive/negative Strings into a Boolean object, and not just true/false as with Boolean.valueOf.</p>
+ * It contains various Boolean acting methods, probably of most interest is the {@link org.apache.commons.lang3.BooleanUtils#toBoolean(String)} method which turns various positive/negative Strings into a {@link java.lang.Boolean} object, and not just true/false as with Boolean.valueOf.</p>
  *
  * <h2>Flotsam - BitField, Validate</h2>
  * <p>On reaching the end of our package, we are left with a couple of classes that haven't fit any of the topics so far.</p>

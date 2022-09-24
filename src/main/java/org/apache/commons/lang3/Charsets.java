@@ -35,20 +35,20 @@ import java.nio.charset.UnsupportedCharsetException;
 class Charsets {
 
     /**
-     * Returns the given {@code charset} or the default Charset if {@code charset} is null.
+     * Returns the given {@code charset} or the default Charset if {@code charset} is {@code null}.
      *
-     * @param charset a Charset or null.
-     * @return the given {@code charset} or the default Charset if {@code charset} is null.
+     * @param charset a Charset or {@code null}.
+     * @return the given {@code charset} or the default Charset if {@code charset} is {@code null}.
      */
     static Charset toCharset(final Charset charset) {
         return charset == null ? Charset.defaultCharset() : charset;
     }
 
     /**
-     * Returns the given {@code charset} or the default Charset if {@code charset} is null.
+     * Returns the given {@code charset} or the default Charset if {@code charset} is {@code null}.
      *
-     * @param charsetName a Charset or null.
-     * @return the given {@code charset} or the default Charset if {@code charset} is null.
+     * @param charsetName a Charset or {@code null}.
+     * @return the given {@code charset} or the default Charset if {@code charset} is {@code null}.
      * @throws UnsupportedCharsetException If no support for the named charset is available in this instance of the Java
      *                                     virtual machine
      */
@@ -57,10 +57,10 @@ class Charsets {
     }
 
     /**
-     * Returns the given {@code charset} or the default Charset if {@code charset} is null.
+     * Returns the given {@code charset} or the default Charset if {@code charset} is {@code null}.
      *
-     * @param charsetName a Charset or null.
-     * @return the given {@code charset} or the default Charset if {@code charset} is null.
+     * @param charsetName a Charset or {@code null}.
+     * @return the given {@code charset} or the default Charset if {@code charset} is {@code null}.
      */
     static String toCharsetName(final String charsetName) {
         return charsetName == null ? Charset.defaultCharset().name() : charsetName;

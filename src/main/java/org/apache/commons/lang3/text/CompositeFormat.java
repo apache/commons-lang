@@ -105,7 +105,7 @@ public class CompositeFormat extends Format {
     }
 
     /**
-     * Utility method to parse and then reformat a String.
+     * Utility method to parse and then reformat a {@link String}.
      *
      * @param input String to reformat
      * @return A reformatted String

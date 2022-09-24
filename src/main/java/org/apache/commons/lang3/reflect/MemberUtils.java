@@ -50,7 +50,7 @@ final class MemberUtils {
      * sufficiently privileged code. Better workarounds would be gratefully
      * accepted.
      * @param obj the AccessibleObject to set as accessible
-     * @return a boolean indicating whether the accessibility of the object was set to true.
+     * @return a {@code boolean} indicating whether the accessibility of the object was set to true.
      */
     static <T extends AccessibleObject> T setAccessibleWorkaround(final T obj) {
         if (obj == null || obj.isAccessible()) {

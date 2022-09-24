@@ -548,7 +548,7 @@ public class StopWatch {
      * The format used is ISO 8601-like, [<i>message</i> ]<i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
      * </p>
      *
-     * @return the split time as a String
+     * @return the split time as a {@link String}
      * @since 2.1
      * @since 3.10 Returns the prefix {@code "message "} if the message is set.
      */
@@ -565,7 +565,7 @@ public class StopWatch {
      * The format used is ISO 8601-like, [<i>message</i> ]<i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
      * </p>
      *
-     * @return the time as a String
+     * @return the time as a {@link String}
      * @since 3.10 Returns the prefix {@code "message "} if the message is set.
      */
     @Override

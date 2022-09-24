@@ -92,7 +92,7 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
     }
 
     /**
-     * Converts the given state value to a boolean <em>open</em> property.
+     * Converts the given state value to a {@code boolean} <em>open</em> property.
      *
      * @param state the state to be converted
      * @return the boolean open flag

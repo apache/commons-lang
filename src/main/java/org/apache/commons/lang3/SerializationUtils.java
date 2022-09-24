@@ -251,7 +251,7 @@ public class SerializationUtils {
      * <p>The stream passed in is not buffered internally within this method.
      * This is the responsibility of your application if desired.</p>
      *
-     * @param obj  the object to serialize to bytes, may be null
+     * @param obj  the object to serialize to bytes, may be {@code null}
      * @param outputStream  the stream to write to, must not be null
      * @throws NullPointerException if {@code outputStream} is {@code null}
      * @throws SerializationException (runtime) if the serialization fails

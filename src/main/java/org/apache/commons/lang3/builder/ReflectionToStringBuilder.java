@@ -128,7 +128,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *
      * @param array
      *            The array to check
-     * @return The given array or a new array without null.
+     * @return The given array or a new array without {@code null}.
      */
     static String[] toNoNullStringArray(final Object[] array) {
         return Streams.nonNull(array).map(Objects::toString).toArray(String[]::new);
@@ -300,7 +300,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * </p>
      *
      * <p>
-     * Superclass fields will be appended up to and including the specified superclass. A null superclass is treated as
+     * Superclass fields will be appended up to and including the specified superclass. A {@code null} superclass is treated as
      * {@code java.lang.Object}.
      * </p>
      *
@@ -357,7 +357,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * </p>
      *
      * <p>
-     * Superclass fields will be appended up to and including the specified superclass. A null superclass is treated as
+     * Superclass fields will be appended up to and including the specified superclass. A {@code null} superclass is treated as
      * {@code java.lang.Object}.
      * </p>
      *
@@ -393,7 +393,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Builds a String for a toString method excluding the given field names.
+     * Builds a {@link String} for a toString method excluding the given field names.
      *
      * @param object
      *            The object to "toString".
@@ -406,7 +406,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Builds a String for a toString method excluding the given field names.
+     * Builds a {@link String} for a toString method excluding the given field names.
      *
      * @param object
      *            The object to "toString".
@@ -420,7 +420,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
 
     /**
-     * Builds a String for a toString method including the given field names.
+     * Builds a {@link String} for a toString method including the given field names.
      *
      * @param object
      *            The object to "toString".
@@ -459,7 +459,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     private boolean appendTransients;
 
     /**
-     * Whether or not to append fields that are null.
+     * Whether or not to append fields that are {@code null}.
      */
     private boolean excludeNullValues;
 
@@ -743,9 +743,9 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Gets whether or not to append fields whose values are null.
+     * Gets whether or not to append fields whose values are {@code null}.
      *
-     * @return Whether or not to append fields whose values are null.
+     * @return Whether or not to append fields whose values are {@code null}.
      * @since 3.6
      */
     public boolean isExcludeNullValues() {
@@ -803,10 +803,10 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Sets whether or not to append fields whose values are null.
+     * Sets whether or not to append fields whose values are {@code null}.
      *
      * @param excludeNullValues
-     *            Whether or not to append fields whose values are null.
+     *            Whether or not to append fields whose values are {@code null}.
      * @since 3.6
      */
     public void setExcludeNullValues(final boolean excludeNullValues) {

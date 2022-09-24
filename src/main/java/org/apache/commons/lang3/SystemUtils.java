@@ -1629,7 +1629,7 @@ public class SystemUtils {
      * Decides if the Java version matches.
      *
      * @param versionPrefix the prefix for the java version
-     * @return true if matches, or false if not or can't determine
+     * @return {@code true} if matches, or {@code false} if not or can't determine
      */
     private static boolean getJavaVersionMatches(final String versionPrefix) {
         return isJavaVersionMatch(JAVA_SPECIFICATION_VERSION, versionPrefix);
@@ -1640,7 +1640,7 @@ public class SystemUtils {
      *
      * @param osNamePrefix the prefix for the OS name
      * @param osVersionPrefix the prefix for the version
-     * @return true if matches, or false if not or can't determine
+     * @return {@code true} if matches, or {@code false} if not or can't determine
      */
     private static boolean getOsMatches(final String osNamePrefix, final String osVersionPrefix) {
         return isOSMatch(OS_NAME, OS_VERSION, osNamePrefix, osVersionPrefix);
@@ -1650,7 +1650,7 @@ public class SystemUtils {
      * Decides if the operating system matches.
      *
      * @param osNamePrefix the prefix for the OS name
-     * @return true if matches, or false if not or can't determine
+     * @return {@code true} if matches, or {@code false} if not or can't determine
      */
     private static boolean getOsMatchesName(final String osNamePrefix) {
         return isOSNameMatch(OS_NAME, osNamePrefix);
@@ -1777,7 +1777,7 @@ public class SystemUtils {
      *
      * @param version the actual Java version
      * @param versionPrefix the prefix for the expected Java version
-     * @return true if matches, or false if not or can't determine
+     * @return {@code true} if matches, or {@code false} if not or can't determine
      */
     static boolean isJavaVersionMatch(final String version, final String versionPrefix) {
         if (version == null) {
@@ -1796,7 +1796,7 @@ public class SystemUtils {
      * @param osVersion the actual OS version
      * @param osNamePrefix the prefix for the expected OS name
      * @param osVersionPrefix the prefix for the expected OS version
-     * @return true if matches, or false if not or can't determine
+     * @return {@code true} if matches, or {@code false} if not or can't determine
      */
     static boolean isOSMatch(final String osName, final String osVersion, final String osNamePrefix, final String osVersionPrefix) {
         if (osName == null || osVersion == null) {
@@ -1813,7 +1813,7 @@ public class SystemUtils {
      *
      * @param osName the actual OS name
      * @param osNamePrefix the prefix for the expected OS name
-     * @return true if matches, or false if not or can't determine
+     * @return {@code true} if matches, or {@code false} if not or can't determine
      */
     static boolean isOSNameMatch(final String osName, final String osNamePrefix) {
         if (osName == null) {
@@ -1830,7 +1830,7 @@ public class SystemUtils {
      *
      * @param osVersion the actual OS version
      * @param osVersionPrefix the prefix for the expected OS version
-     * @return true if matches, or false if not or can't determine
+     * @return {@code true} if matches, or {@code false} if not or can't determine
      */
     static boolean isOSVersionMatch(final String osVersion, final String osVersionPrefix) {
         if (StringUtils.isEmpty(osVersion)) {

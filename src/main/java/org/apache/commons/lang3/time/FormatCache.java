@@ -81,9 +81,9 @@ abstract class FormatCache<F extends Format> {
      * Create a format instance using the specified pattern, time zone
      * and locale.
      *
-     * @param pattern  {@link java.text.SimpleDateFormat} compatible pattern, this will not be null.
-     * @param timeZone  time zone, this will not be null.
-     * @param locale  locale, this will not be null.
+     * @param pattern  {@link java.text.SimpleDateFormat} compatible pattern, this will not be {@code null}.
+     * @param timeZone  time zone, this will not be {@code null}.
+     * @param locale  locale, this will not be {@code null}.
      * @return a pattern based date/time formatter
      * @throws IllegalArgumentException if pattern is invalid
      *  or {@code null}
@@ -208,9 +208,9 @@ abstract class FormatCache<F extends Format> {
         private final int hashCode;
 
         /**
-         * Constructs an instance of {@link MultipartKey} to hold the specified objects.
+         * Constructs an instance of {@link ArrayKey} to hold the specified objects.
          *
-         * @param keys the set of objects that make up the key.  Each key may be null.
+         * @param keys the set of objects that make up the key.  Each key may be {@code null}.
          */
         ArrayKey(final Object... keys) {
             this.keys = keys;

@@ -29,7 +29,7 @@ import java.util.function.BooleanSupplier;
 public interface FailableBooleanSupplier<E extends Throwable> {
 
     /**
-     * Supplies a boolean.
+     * Supplies a {@code boolean}.
      *
      * @return a result
      * @throws E if the supplier fails

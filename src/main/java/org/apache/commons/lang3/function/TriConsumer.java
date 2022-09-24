@@ -57,7 +57,7 @@ public interface TriConsumer<T, U, V> {
      * @param after the operation to perform after this operation.
      * @return a composed {@link TriConsumer} that performs in sequence this operation followed by the {@code after}
      *         operation.
-     * @throws NullPointerException if {@code after} is null.
+     * @throws NullPointerException if {@code after} is {@code null}.
      */
     default TriConsumer<T, U, V> andThen(final TriConsumer<? super T, ? super U, ? super V> after) {
         Objects.requireNonNull(after);

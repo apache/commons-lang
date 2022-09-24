@@ -34,7 +34,7 @@ import java.util.UUID;
  * <li>byte or byteArray</li>
  * <li>int or intArray</li>
  * <li>long or longArray</li>
- * <li>hex: a String containing hexadecimal digits (lowercase in destination)</li>
+ * <li>hex: a {@link String} containing hexadecimal digits (lowercase in destination)</li>
  * <li>hexDigit: a Char containing a hexadecimal digit (lowercase in destination)</li>
  * <li>uuid</li>
  * </ul>
@@ -163,7 +163,7 @@ public class Conversion {
      * </p>
      *
      * @param hexDigit the hexadecimal digit to convert
-     * @return a boolean array with the binary representation of {@code hexDigit}
+     * @return a {@code boolean} array with the binary representation of {@code hexDigit}
      * @throws IllegalArgumentException if {@code hexDigit} is not a hexadecimal digit
      */
     public static boolean[] hexDigitToBinary(final char hexDigit) {
@@ -220,7 +220,7 @@ public class Conversion {
      * </p>
      *
      * @param hexDigit the hexadecimal digit to convert
-     * @return a boolean array with the binary representation of {@code hexDigit}
+     * @return a {@code boolean} array with the binary representation of {@code hexDigit}
      * @throws IllegalArgumentException if {@code hexDigit} is not a hexadecimal digit
      */
     public static boolean[] hexDigitMsb0ToBinary(final char hexDigit) {

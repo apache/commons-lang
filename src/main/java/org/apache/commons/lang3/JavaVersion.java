@@ -169,7 +169,7 @@ public enum JavaVersion {
      * Constructor.
      *
      * @param value  the float value
-     * @param name  the standard name, not null
+     * @param name  the standard name, not {@code null}
      */
     JavaVersion(final float value, final String name) {
         this.value = value;
@@ -182,8 +182,8 @@ public enum JavaVersion {
      * <p>For example:<br>
      *  {@code myVersion.atLeast(JavaVersion.JAVA_1_4)}</p>
      *
-     * @param requiredVersion  the version to check against, not null
-     * @return true if this version is equal to or greater than the specified version
+     * @param requiredVersion  the version to check against, not {@code null}
+     * @return {@code true} if this version is equal to or greater than the specified version
      */
     public boolean atLeast(final JavaVersion requiredVersion) {
         return this.value >= requiredVersion.value;
@@ -195,8 +195,8 @@ public enum JavaVersion {
      * <p>For example:<br>
      *  {@code myVersion.atMost(JavaVersion.JAVA_1_4)}</p>
      *
-     * @param requiredVersion  the version to check against, not null
-     * @return true if this version is equal to or greater than the specified version
+     * @param requiredVersion  the version to check against, not {@code null}
+     * @return {@code true} if this version is equal to or greater than the specified version
      * @since 3.9
      */
     public boolean atMost(final JavaVersion requiredVersion) {
@@ -289,7 +289,7 @@ public enum JavaVersion {
      *
      * <p>For example, {@code "1.5"}.</p>
      *
-     * @return the name, not null
+     * @return the name, not {@code null}
      */
     @Override
     public String toString() {
@@ -307,7 +307,7 @@ public enum JavaVersion {
     }
 
     /**
-     * Parses a float value from a String.
+     * Parses a float value from a {@link String}.
      *
      * @param value the String to parse.
      * @return the float value represented by the string or -1 if the given String can not be parsed.

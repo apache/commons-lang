@@ -106,7 +106,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Checks whether the float value is the special NaN value.
      *
-     * @return true if NaN
+     * @return {@code true} if NaN
      */
     public boolean isNaN() {
         return Float.isNaN(value);
@@ -115,7 +115,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Checks whether the float value is infinite.
      *
-     * @return true if infinite
+     * @return {@code true} if infinite
      */
     public boolean isInfinite() {
         return Float.isInfinite(value);

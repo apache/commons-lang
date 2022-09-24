@@ -76,9 +76,9 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * @param <L> the left element type
      * @param <M> the middle element type
      * @param <R> the right element type
-     * @param left  the left element, may be null
-     * @param middle the middle element, may be null
-     * @param right  the right element, may be null
+     * @param left  the left element, may be {@code null}
+     * @param middle the middle element, may be {@code null}
+     * @param right  the right element, may be {@code null}
      * @return a triple formed from the three parameters, not null
      */
     public static <L, M, R> Triple<L, M, R> of(final L left, final M middle, final R right) {
@@ -98,7 +98,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * @param middle  the middle element, may not be null
      * @param right  the right element, may not be null
      * @return a triple formed from the three parameters, not null
-     * @throws NullPointerException if any input is null
+     * @throws NullPointerException if any input is {@code null}
      * @since 3.13.0
      */
     public static <L, M, R> Triple<L, M, R> ofNonNull(final L left, final M middle, final R right) {
@@ -124,7 +124,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * Compares this triple to another based on the three elements.
      *
      * @param obj  the object to compare to, null returns false
-     * @return true if the elements of the triple are equal
+     * @return {@code true} if the elements of the triple are equal
      */
     @Override
     public boolean equals(final Object obj) {
@@ -143,21 +143,21 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     /**
      * Gets the left element from this triple.
      *
-     * @return the left element, may be null
+     * @return the left element, may be {@code null}
      */
     public abstract L getLeft();
 
     /**
      * Gets the middle element from this triple.
      *
-     * @return the middle element, may be null
+     * @return the middle element, may be {@code null}
      */
     public abstract M getMiddle();
 
     /**
      * Gets the right element from this triple.
      *
-     * @return the right element, may be null
+     * @return the right element, may be {@code null}
      */
     public abstract R getRight();
 
@@ -172,7 +172,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     }
 
     /**
-     * Returns a String representation of this triple using the format {@code ($left,$middle,$right)}.
+     * Returns a {@link String} representation of this triple using the format {@code ($left,$middle,$right)}.
      *
      * @return a string describing this object, not null
      */

@@ -107,7 +107,7 @@ public class NumberUtils {
      *   NumberUtils.toInt("1")  = 1
      * </pre>
      *
-     * @param str  the string to convert, may be null
+     * @param str  the string to convert, may be {@code null}
      * @return the int represented by the string, or {@code zero} if
      *  conversion fails
      * @since 2.1
@@ -128,7 +128,7 @@ public class NumberUtils {
      *   NumberUtils.toInt("1", 0)  = 1
      * </pre>
      *
-     * @param str  the string to convert, may be null
+     * @param str  the string to convert, may be {@code null}
      * @param defaultValue  the default value
      * @return the int represented by the string, or the default if conversion fails
      * @since 2.1
@@ -156,7 +156,7 @@ public class NumberUtils {
      *   NumberUtils.toLong("1")  = 1L
      * </pre>
      *
-     * @param str  the string to convert, may be null
+     * @param str  the string to convert, may be {@code null}
      * @return the long represented by the string, or {@code 0} if
      *  conversion fails
      * @since 2.1
@@ -177,7 +177,7 @@ public class NumberUtils {
      *   NumberUtils.toLong("1", 0L)  = 1L
      * </pre>
      *
-     * @param str  the string to convert, may be null
+     * @param str  the string to convert, may be {@code null}
      * @param defaultValue  the default value
      * @return the long represented by the string, or the default if conversion fails
      * @since 2.1
@@ -350,7 +350,7 @@ public class NumberUtils {
      *   NumberUtils.toByte("1")  = 1
      * </pre>
      *
-     * @param str  the string to convert, may be null
+     * @param str  the string to convert, may be {@code null}
      * @return the byte represented by the string, or {@code zero} if
      *  conversion fails
      * @since 2.5
@@ -371,7 +371,7 @@ public class NumberUtils {
      *   NumberUtils.toByte("1", 0)  = 1
      * </pre>
      *
-     * @param str  the string to convert, may be null
+     * @param str  the string to convert, may be {@code null}
      * @param defaultValue  the default value
      * @return the byte represented by the string, or the default if conversion fails
      * @since 2.5
@@ -399,7 +399,7 @@ public class NumberUtils {
      *   NumberUtils.toShort("1")  = 1
      * </pre>
      *
-     * @param str  the string to convert, may be null
+     * @param str  the string to convert, may be {@code null}
      * @return the short represented by the string, or {@code zero} if
      *  conversion fails
      * @since 2.5
@@ -420,7 +420,7 @@ public class NumberUtils {
      *   NumberUtils.toShort("1", 0)  = 1
      * </pre>
      *
-     * @param str  the string to convert, may be null
+     * @param str  the string to convert, may be {@code null}
      * @param defaultValue  the default value
      * @return the short represented by the string, or the default if conversion fails
      * @since 2.5
@@ -439,12 +439,12 @@ public class NumberUtils {
     /**
      * Convert a {@link BigDecimal} to a {@link BigDecimal} with a scale of
      * two that has been rounded using {@code RoundingMode.HALF_EVEN}. If the supplied
-     * {@code value} is null, then {@code BigDecimal.ZERO} is returned.
+     * {@code value} is {@code null}, then {@code BigDecimal.ZERO} is returned.
      *
      * <p>Note, the scale of a {@link BigDecimal} is the number of digits to the right of the
      * decimal point.</p>
      *
-     * @param value the {@link BigDecimal} to convert, may be null.
+     * @param value the {@link BigDecimal} to convert, may be {@code null}.
      * @return the scaled, with appropriate rounding, {@link BigDecimal}.
      * @since 3.8
      */
@@ -457,7 +457,7 @@ public class NumberUtils {
      * specified value with a {@link RoundingMode} applied. If the input {@code value}
      * is {@code null}, we simply return {@code BigDecimal.ZERO}.
      *
-     * @param value the {@link BigDecimal} to convert, may be null.
+     * @param value the {@link BigDecimal} to convert, may be {@code null}.
      * @param scale the number of digits to the right of the decimal point.
      * @param roundingMode a rounding behavior for numerical operations capable of
      *  discarding precision.
@@ -477,12 +477,12 @@ public class NumberUtils {
     /**
      * Convert a {@link Float} to a {@link BigDecimal} with a scale of
      * two that has been rounded using {@code RoundingMode.HALF_EVEN}. If the supplied
-     * {@code value} is null, then {@code BigDecimal.ZERO} is returned.
+     * {@code value} is {@code null}, then {@code BigDecimal.ZERO} is returned.
      *
      * <p>Note, the scale of a {@link BigDecimal} is the number of digits to the right of the
      * decimal point.</p>
      *
-     * @param value the {@link Float} to convert, may be null.
+     * @param value the {@link Float} to convert, may be {@code null}.
      * @return the scaled, with appropriate rounding, {@link BigDecimal}.
      * @since 3.8
      */
@@ -495,7 +495,7 @@ public class NumberUtils {
      * specified value with a {@link RoundingMode} applied. If the input {@code value}
      * is {@code null}, we simply return {@code BigDecimal.ZERO}.
      *
-     * @param value the {@link Float} to convert, may be null.
+     * @param value the {@link Float} to convert, may be {@code null}.
      * @param scale the number of digits to the right of the decimal point.
      * @param roundingMode a rounding behavior for numerical operations capable of
      *  discarding precision.
@@ -516,12 +516,12 @@ public class NumberUtils {
     /**
      * Convert a {@link Double} to a {@link BigDecimal} with a scale of
      * two that has been rounded using {@code RoundingMode.HALF_EVEN}. If the supplied
-     * {@code value} is null, then {@code BigDecimal.ZERO} is returned.
+     * {@code value} is {@code null}, then {@code BigDecimal.ZERO} is returned.
      *
      * <p>Note, the scale of a {@link BigDecimal} is the number of digits to the right of the
      * decimal point.</p>
      *
-     * @param value the {@link Double} to convert, may be null.
+     * @param value the {@link Double} to convert, may be {@code null}.
      * @return the scaled, with appropriate rounding, {@link BigDecimal}.
      * @since 3.8
      */
@@ -534,7 +534,7 @@ public class NumberUtils {
      * specified value with a {@link RoundingMode} applied. If the input {@code value}
      * is {@code null}, we simply return {@code BigDecimal.ZERO}.
      *
-     * @param value the {@link Double} to convert, may be null.
+     * @param value the {@link Double} to convert, may be {@code null}.
      * @param scale the number of digits to the right of the decimal point.
      * @param roundingMode a rounding behavior for numerical operations capable of
      *  discarding precision.
@@ -560,7 +560,7 @@ public class NumberUtils {
      * <p>Note, the scale of a {@link BigDecimal} is the number of digits to the right of the
      * decimal point.</p>
      *
-     * @param value the {@link String} to convert, may be null.
+     * @param value the {@link String} to convert, may be {@code null}.
      * @return the scaled, with appropriate rounding, {@link BigDecimal}.
      * @since 3.8
      */
@@ -573,7 +573,7 @@ public class NumberUtils {
      * specified value with a {@link RoundingMode} applied. If the input {@code value}
      * is {@code null}, we simply return {@code BigDecimal.ZERO}.
      *
-     * @param value the {@link String} to convert, may be null.
+     * @param value the {@link String} to convert, may be {@code null}.
      * @param scale the number of digits to the right of the decimal point.
      * @param roundingMode a rounding behavior for numerical operations capable of
      *  discarding precision.
@@ -653,7 +653,7 @@ public class NumberUtils {
      * <p>This method does not trim the input string, i.e., strings with leading
      * or trailing spaces will generate NumberFormatExceptions.</p>
      *
-     * @param str  String containing a number, may be null
+     * @param str  String containing a number, may be {@code null}
      * @return Number created from the string (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
@@ -869,7 +869,7 @@ public class NumberUtils {
      * @param mant the mantissa decimal digits before the decimal point (sign must be removed; never null)
      * @param dec the decimal digits after the decimal point (exponent and type specifier removed;
      *            can be null)
-     * @return true if the magnitude is zero
+     * @return {@code true} if the magnitude is zero
      */
     private static boolean isZero(final String mant, final String dec) {
         return isAllZeros(mant) && isAllZeros(dec);
@@ -900,7 +900,7 @@ public class NumberUtils {
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
      *
-     * @param str  a {@link String} to convert, may be null
+     * @param str  a {@link String} to convert, may be {@code null}
      * @return converted {@link Float} (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
@@ -916,7 +916,7 @@ public class NumberUtils {
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
      *
-     * @param str  a {@link String} to convert, may be null
+     * @param str  a {@link String} to convert, may be {@code null}
      * @return converted {@link Double} (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
@@ -934,7 +934,7 @@ public class NumberUtils {
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
      *
-     * @param str  a {@link String} to convert, may be null
+     * @param str  a {@link String} to convert, may be {@code null}
      * @return converted {@link Integer} (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
@@ -953,7 +953,7 @@ public class NumberUtils {
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
      *
-     * @param str  a {@link String} to convert, may be null
+     * @param str  a {@link String} to convert, may be {@code null}
      * @return converted {@link Long} (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
@@ -970,7 +970,7 @@ public class NumberUtils {
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
      *
-     * @param str  a {@link String} to convert, may be null
+     * @param str  a {@link String} to convert, may be {@code null}
      * @return converted {@link BigInteger} (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
@@ -1011,7 +1011,7 @@ public class NumberUtils {
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
      *
-     * @param str  a {@link String} to convert, may be null
+     * @param str  a {@link String} to convert, may be {@code null}
      * @return converted {@link BigDecimal} (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
      */
