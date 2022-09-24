@@ -678,6 +678,43 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testReadFieldGeneric() throws Exception {
+        String fieldValue;
+
+        final Field parentS = FieldUtils.getDeclaredField(parentClass, "s");
+
+        fieldValue = FieldUtils.readField(parentS, publicChild);
+        assertEquals("s", fieldValue);
+        fieldValue = FieldUtils.readField(parentS, publicChild, true);
+        assertEquals("s", fieldValue);
+        fieldValue = FieldUtils.readField(publicChild, "s");
+        assertEquals("s", fieldValue);
+        fieldValue = FieldUtils.readField(publicChild, "s", true);
+        assertEquals("s", fieldValue);
+
+        fieldValue = FieldUtils.readDeclaredField(publiclyShadowedChild, "s");
+        assertEquals("ss", fieldValue);
+        fieldValue = FieldUtils.readDeclaredField(publiclyShadowedChild, "s", true);
+        assertEquals("ss", fieldValue);
+
+        final Field fooValue = FieldUtils.getField(Foo.class, "VALUE");
+
+        fieldValue = FieldUtils.readStaticField(fooValue);
+        assertEquals(Foo.VALUE, fieldValue);
+        fieldValue = FieldUtils.readStaticField(fooValue, true);
+        assertEquals(Foo.VALUE, fieldValue);
+        fieldValue = FieldUtils.readStaticField(Foo.class, "VALUE");
+        assertEquals(Foo.VALUE, fieldValue);
+        fieldValue = FieldUtils.readStaticField(Foo.class, "VALUE", true);
+        assertEquals(Foo.VALUE, fieldValue);
+
+        fieldValue = FieldUtils.readDeclaredStaticField(Foo.class, "VALUE");
+        assertEquals(Foo.VALUE, fieldValue);
+        fieldValue = FieldUtils.readDeclaredStaticField(Foo.class, "VALUE", true);
+        assertEquals(Foo.VALUE, fieldValue);
+    }
+
+    @Test
     public void testWriteStaticField() throws Exception {
         final Field field = StaticContainer.class.getDeclaredField("mutablePublic");
         FieldUtils.writeStaticField(field, "new");
