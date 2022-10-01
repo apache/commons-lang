@@ -182,7 +182,7 @@ The <action> type attribute can be add,update,fix,remove.
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess, Gary Gregory">Bump actions/cache from 2.1.4 to 3.0.9 #742, #752, #764, #833, #867, #959.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump actions/checkout from 2 to 3.0.2 #819, #825, #859.</action>
-    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/setup-java from v1.4.3 to 3 #879.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/setup-java from v1.4.3 to 3.5.1 #879.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump spotbugs-maven-plugin from 4.2.0 to 4.7.2.0 #735, #808, #822, #834, #868, #895, #919, #927, #946.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump spotbugs from 4.2.2 to 4.7.2 #744, #917, #947.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump maven-checkstyle-plugin from 3.1.2 to 3.2.0 #943.</action>
