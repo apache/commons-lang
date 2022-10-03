@@ -30,6 +30,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -407,8 +408,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
          * @param values the expected values
          */
         public void verify(final Boolean... values) {
-            assertArrayEquals(values,
-                    changedValues.toArray(new Boolean[0]));
+            assertArrayEquals(values, changedValues.toArray(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY));
         }
     }
 }

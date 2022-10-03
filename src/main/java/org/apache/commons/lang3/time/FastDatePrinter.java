@@ -166,7 +166,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         rules = rulesList.toArray(EMPTY_RULE_ARRAY);
 
         int len = 0;
-        for (int i=rules.length; --i >= 0; ) {
+        for (int i = rules.length; --i >= 0;) {
             len += rules[i].estimateLength();
         }
 
