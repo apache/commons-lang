@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -1468,9 +1469,7 @@ public class ClassUtils {
         }
 
         final Class<?>[] convertedClasses = new Class[classes.length];
-        for (int i = 0; i < classes.length; i++) {
-            convertedClasses[i] = primitiveToWrapper(classes[i]);
-        }
+        Arrays.setAll(convertedClasses, i -> primitiveToWrapper(classes[i]));
         return convertedClasses;
     }
 
@@ -1497,28 +1496,28 @@ public class ClassUtils {
     /**
      * Converts a class name to a JLS style class name.
      *
-     * @param className the class name
+     * @param canonicalName the class name
      * @return the converted name
      * @throws NullPointerException if the className is null
      */
-    private static String toCanonicalName(String className) {
-        className = StringUtils.deleteWhitespace(className);
-        Validate.notNull(className, "className");
-        if (className.endsWith("[]")) {
+    private static String toCanonicalName(final String className) {
+        String canonicalName = StringUtils.deleteWhitespace(className);
+        Validate.notNull(canonicalName, "className");
+        if (canonicalName.endsWith("[]")) {
             final StringBuilder classNameBuffer = new StringBuilder();
-            while (className.endsWith("[]")) {
-                className = className.substring(0, className.length() - 2);
+            while (canonicalName.endsWith("[]")) {
+                canonicalName = canonicalName.substring(0, canonicalName.length() - 2);
                 classNameBuffer.append("[");
             }
-            final String abbreviation = abbreviationMap.get(className);
+            final String abbreviation = abbreviationMap.get(canonicalName);
             if (abbreviation != null) {
                 classNameBuffer.append(abbreviation);
             } else {
-                classNameBuffer.append("L").append(className).append(";");
+                classNameBuffer.append("L").append(canonicalName).append(";");
             }
-            className = classNameBuffer.toString();
+            canonicalName = classNameBuffer.toString();
         }
-        return className;
+        return canonicalName;
     }
 
     /**
@@ -1541,9 +1540,7 @@ public class ClassUtils {
             return ArrayUtils.EMPTY_CLASS_ARRAY;
         }
         final Class<?>[] classes = new Class[array.length];
-        for (int i = 0; i < array.length; i++) {
-            classes[i] = array[i] == null ? null : array[i].getClass();
-        }
+        Arrays.setAll(classes, i -> array[i] == null ? null : array[i].getClass());
         return classes;
     }
 
@@ -1595,9 +1592,7 @@ public class ClassUtils {
         }
 
         final Class<?>[] convertedClasses = new Class[classes.length];
-        for (int i = 0; i < classes.length; i++) {
-            convertedClasses[i] = wrapperToPrimitive(classes[i]);
-        }
+        Arrays.setAll(convertedClasses, i -> wrapperToPrimitive(classes[i]));
         return convertedClasses;
     }
 

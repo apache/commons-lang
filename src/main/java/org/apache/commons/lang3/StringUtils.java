@@ -8194,9 +8194,7 @@ public class StringUtils {
             return strs;
         }
         final String[] newArr = new String[strsLen];
-        for (int i = 0; i < strsLen; i++) {
-            newArr[i] = strip(strs[i], stripChars);
-        }
+        Arrays.setAll(newArr, i -> strip(strs[i], stripChars));
         return newArr;
     }
 

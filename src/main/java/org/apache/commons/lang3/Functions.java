@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.lang.reflect.UndeclaredThrowableException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.concurrent.Callable;
@@ -631,10 +632,7 @@ public class Functions {
         final FailableConsumer<Throwable, ? extends Throwable> errorHandler,
         final FailableRunnable<? extends Throwable>... resources) {
         org.apache.commons.lang3.function.FailableRunnable<?>[] fr = new org.apache.commons.lang3.function.FailableRunnable[resources.length];
-        for (int i = 0; i < resources.length; i++) {
-            final int fi = i;
-            fr[i] = () -> resources[fi].run();
-        }
+        Arrays.setAll(fr, i -> () -> resources[i].run());
         Failable.tryWithResources(action::run, errorHandler != null ? errorHandler::accept : null, fr);
     }
 
