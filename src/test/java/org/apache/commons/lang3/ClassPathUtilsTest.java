@@ -42,6 +42,20 @@ public class ClassPathUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testPackageToPath() {
+        assertEquals("a", ClassPathUtils.packageToPath("a"));
+        assertEquals("a/b", ClassPathUtils.packageToPath("a.b"));
+        assertEquals("a/b/c", ClassPathUtils.packageToPath("a.b.c"));
+    }
+
+    @Test
+    public void testPathToPackage() {
+        assertEquals("a", ClassPathUtils.pathToPackage("a"));
+        assertEquals("a.b", ClassPathUtils.pathToPackage("a/b"));
+        assertEquals("a.b.c", ClassPathUtils.pathToPackage("a/b/c"));
+    }
+
+    @Test
     public void testToFullyQualifiedNameNullClassString() {
         assertThrows(NullPointerException.class,
                 () -> ClassPathUtils.toFullyQualifiedName((Class<?>) null, "Test.properties"));
