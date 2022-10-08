@@ -170,7 +170,7 @@ public class CharSequenceUtils {
             start = len1;
         }
 
-        if (start < 0 || len2 < 0 || len2 > len1) {
+        if (start < 0 || len2 > len1) {
             return NOT_FOUND;
         }
 
