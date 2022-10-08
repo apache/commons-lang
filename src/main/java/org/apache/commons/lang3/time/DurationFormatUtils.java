@@ -190,9 +190,6 @@ public class DurationFormatUtils {
                     duration = tmp;
                     tmp = StringUtils.replaceOnce(duration, " 0 minutes", StringUtils.EMPTY);
                     duration = tmp;
-                    if (tmp.length() != duration.length()) {
-                        duration = StringUtils.replaceOnce(tmp, " 0 seconds", StringUtils.EMPTY);
-                    }
                 }
             }
             if (!duration.isEmpty()) {
