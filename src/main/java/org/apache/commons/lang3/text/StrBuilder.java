@@ -2456,7 +2456,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param startIndex  the index to start at, invalid index rounded to edge
      * @return the first index of the string, or -1 if not found
      */
-    public int indexOf(final String str, int startIndex) {
+    public int indexOf(final String str, final int startIndex) {
         return StringUtils.indexOf(this, str, startIndex);
     }
 
@@ -2557,7 +2557,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param startIndex  the index to start at, invalid index rounded to edge
      * @return the last index of the string, or -1 if not found
      */
-    public int lastIndexOf(final String str, int startIndex) {
+    public int lastIndexOf(final String str, final int startIndex) {
         return StringUtils.lastIndexOf(this, str, startIndex);
     }
 

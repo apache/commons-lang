@@ -631,7 +631,7 @@ public class Functions {
     public static void tryWithResources(final FailableRunnable<? extends Throwable> action,
         final FailableConsumer<Throwable, ? extends Throwable> errorHandler,
         final FailableRunnable<? extends Throwable>... resources) {
-        org.apache.commons.lang3.function.FailableRunnable<?>[] fr = new org.apache.commons.lang3.function.FailableRunnable[resources.length];
+        final org.apache.commons.lang3.function.FailableRunnable<?>[] fr = new org.apache.commons.lang3.function.FailableRunnable[resources.length];
         Arrays.setAll(fr, i -> () -> resources[i].run());
         Failable.tryWithResources(action::run, errorHandler != null ? errorHandler::accept : null, fr);
     }

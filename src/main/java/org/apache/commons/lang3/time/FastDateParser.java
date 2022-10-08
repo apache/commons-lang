@@ -485,7 +485,7 @@ public class FastDateParser implements DateParser, Serializable {
      * @param regex The regular expression to build
      * @return The map of string display names to field values
      */
-    private static Map<String, Integer> appendDisplayNames(final Calendar calendar, Locale locale, final int field,
+    private static Map<String, Integer> appendDisplayNames(final Calendar calendar, final Locale locale, final int field,
             final StringBuilder regex) {
         final Map<String, Integer> values = new HashMap<>();
         final Locale actualLocale = LocaleUtils.toLocale(locale);
