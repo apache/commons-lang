@@ -110,9 +110,8 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         for (final Field field : FieldUtils.getAllFields(clazz)) {
             if (accept(field)) {
                 try {
-                    Object leftObject = readField(field, left, true);
-                    Object rightObject = readField(field, right, true);
-                    diffBuilder.append(field.getName(), leftObject, rightObject);
+                    diffBuilder.append(field.getName(), readField(field, left, true),
+                            readField(field, right, true));
                 } catch (final IllegalAccessException ex) {
                     //this can't happen. Would get a Security exception instead
                     //throw a runtime exception in case the impossible happens.
