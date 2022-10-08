@@ -103,6 +103,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1638" type="fix" dev="ggregory" due-to="Shailendra Soni, Michael Osipov, Arun Avanathan, Andrew Thomas, Bruno P. Kinoshita, Gary Gregory">Added docs regarding week year support #924.</action>
     <action issue="LANG-1691" type="fix" dev="ggregory" due-to="Thiyagarajan, Gary Gregory">ClassUtils.getShortCanonicalName doesn't use the canonicalName #949.</action>
     <action                   type="fix" dev="aherbert" due-to="Piotr Stawirej">Validate: Get error messages without using String.format when varargs is empty.</action>
+    <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Simplify expression (length is never < 0) #962.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add GitHub coverage.yml.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
