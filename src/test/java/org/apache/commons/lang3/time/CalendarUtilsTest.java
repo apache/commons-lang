@@ -33,6 +33,11 @@ public class CalendarUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testGetDayOfYear() {
+        assertEquals(Calendar.getInstance().get(Calendar.DAY_OF_YEAR), CalendarUtils.INSTANCE.getDayOfYear());
+    }
+
+    @Test
     public void testGetMonth() {
         assertEquals(Calendar.getInstance().get(Calendar.MONTH), CalendarUtils.INSTANCE.getMonth());
     }
