@@ -90,7 +90,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      *            the style will use when outputting the objects, {@code null}
      *            uses the default
      * @param testTriviallyEqual
-     *            If true, this will test if lhs and rhs are the same or equal.
+     *            If {@code true}, this will test if lhs and rhs are the same or equal.
      *            All of the append(fieldName, lhs, rhs) methods will abort
      *            without creating a field {@link Diff} if the trivially equal
      *            test is enabled and returns true.  The result of this test

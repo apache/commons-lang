@@ -64,7 +64,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
      * @param <V> the output type of the {@code after} function, and of the composed function.
      * @return a composed {@link FailableFunction} like {@link Function#andThen(Function)}.
      * @param after the operation to perform after this one.
-     * @throws NullPointerException when {@code after} is null.
+     * @throws NullPointerException when {@code after} is {@code null}.
      */
     default <V> FailableFunction<T, V, E> andThen(final FailableFunction<? super R, ? extends V, E> after) {
         Objects.requireNonNull(after);

@@ -66,7 +66,7 @@ public class OctalUnescaper extends CharSequenceTranslator {
     /**
      * Checks if the given char is an octal digit. Octal digits are the character representations of the digits 0 to 7.
      * @param ch the char to check
-     * @return true if the given char is the character representation of one of the digits from 0 to 7
+     * @return {@code true} if the given char is the character representation of one of the digits from 0 to 7
      */
     private boolean isOctalDigit(final char ch) {
         return ch >= '0' && ch <= '7';
@@ -75,7 +75,7 @@ public class OctalUnescaper extends CharSequenceTranslator {
     /**
      * Checks if the given char is the character representation of one of the digit from 0 to 3.
      * @param ch the char to check
-     * @return true if the given char is the character representation of one of the digits from 0 to 3
+     * @return {@code true} if the given char is the character representation of one of the digits from 0 to 3
      */
     private boolean isZeroToThree(final char ch) {
         return ch >= '0' && ch <= '3';

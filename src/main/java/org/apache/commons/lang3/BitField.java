@@ -149,7 +149,7 @@ public class BitField {
      * Returns whether the field is set or not.
      *
      * <p>This is most commonly used for a single-bit field, which is
-     * often used to represent a boolean value; the results of using
+     * often used to represent a {@code boolean} value; the results of using
      * it for a multi-bit field is to determine whether *any* of its
      * bits are set.</p>
      *
@@ -281,7 +281,7 @@ public class BitField {
     }
 
     /**
-     * Sets a boolean BitField.
+     * Sets a {@code boolean} BitField.
      *
      * @param holder the int data containing the bits we're
      *  interested in
@@ -294,7 +294,7 @@ public class BitField {
     }
 
     /**
-     * Sets a boolean BitField.
+     * Sets a {@code boolean} BitField.
      *
      * @param holder the short data containing the bits we're
      *  interested in
@@ -307,7 +307,7 @@ public class BitField {
     }
 
     /**
-     * Sets a boolean BitField.
+     * Sets a {@code boolean} BitField.
      *
      * @param holder the byte data containing the bits we're
      *  interested in

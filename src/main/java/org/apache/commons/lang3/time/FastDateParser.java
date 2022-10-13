@@ -340,7 +340,7 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     /**
-     * Converts all state of this instance to a String handy for debugging.
+     * Converts all state of this instance to a {@link String} handy for debugging.
      *
      * @return a string.
      * @since 3.12.0

@@ -104,7 +104,7 @@ public class ContextedException extends Exception implements ExceptionContext {
      * <p>
      * The context information is stored using a default implementation.
      *
-     * @param message  the exception message, may be null
+     * @param message  the exception message, may be {@code null}
      */
     public ContextedException(final String message) {
         super(message);
@@ -116,7 +116,7 @@ public class ContextedException extends Exception implements ExceptionContext {
      * <p>
      * The context information is stored using a default implementation.
      *
-     * @param cause  the underlying cause of the exception, may be null
+     * @param cause  the underlying cause of the exception, may be {@code null}
      */
     public ContextedException(final Throwable cause) {
         super(cause);
@@ -128,8 +128,8 @@ public class ContextedException extends Exception implements ExceptionContext {
      * <p>
      * The context information is stored using a default implementation.
      *
-     * @param message  the exception message, may be null
-     * @param cause  the underlying cause of the exception, may be null
+     * @param message  the exception message, may be {@code null}
+     * @param cause  the underlying cause of the exception, may be {@code null}
      */
     public ContextedException(final String message, final Throwable cause) {
         super(message, cause);
@@ -139,8 +139,8 @@ public class ContextedException extends Exception implements ExceptionContext {
     /**
      * Instantiates ContextedException with cause, message, and ExceptionContext.
      *
-     * @param message  the exception message, may be null
-     * @param cause  the underlying cause of the exception, may be null
+     * @param message  the exception message, may be {@code null}
+     * @param cause  the underlying cause of the exception, may be {@code null}
      * @param context  the context used to store the additional information, null uses default implementation
      */
     public ContextedException(final String message, final Throwable cause, ExceptionContext context) {

@@ -106,7 +106,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Checks whether the double value is the special NaN value.
      *
-     * @return true if NaN
+     * @return {@code true} if NaN
      */
     public boolean isNaN() {
         return Double.isNaN(value);
@@ -115,7 +115,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Checks whether the double value is infinite.
      *
-     * @return true if infinite
+     * @return {@code true} if infinite
      */
     public boolean isInfinite() {
         return Double.isInfinite(value);

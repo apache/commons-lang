@@ -68,7 +68,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
     }
 
     /**
-     * Tests addInitializer() if a null name is passed in. This should cause an
+     * Tests addInitializer() if a {@code null} name is passed in. This should cause an
      * exception.
      */
     @Test
@@ -77,7 +77,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
     }
 
     /**
-     * Tests addInitializer() if a null initializer is passed in. This should
+     * Tests addInitializer() if a {@code null} initializer is passed in. This should
      * cause an exception.
      */
     @Test

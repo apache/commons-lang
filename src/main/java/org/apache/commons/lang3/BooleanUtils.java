@@ -217,7 +217,7 @@ public class BooleanUtils {
      * </pre>
      *
      * @param bool  the boolean to check, null returns {@code true}
-     * @return {@code true} if the input is null or false
+     * @return {@code true} if the input is {@code null} or false
      * @since 2.3
      */
     public static boolean isNotTrue(final Boolean bool) {
@@ -247,7 +247,7 @@ public class BooleanUtils {
      * <p>If {@code null} is passed in, {@code null} will be returned.</p>
      *
      * <p>NOTE: This returns {@code null} and will throw a {@link NullPointerException}
-     * if unboxed to a boolean.</p>
+     * if unboxed to a {@code boolean}.</p>
      *
      * <pre>
      *   BooleanUtils.negate(Boolean.TRUE)  = Boolean.FALSE;
@@ -255,7 +255,7 @@ public class BooleanUtils {
      *   BooleanUtils.negate(null)          = null;
      * </pre>
      *
-     * @param bool  the Boolean to negate, may be null
+     * @param bool  the Boolean to negate, may be {@code null}
      * @return the negated Boolean, or {@code null} if {@code null} input
      */
     public static Boolean negate(final Boolean bool) {
@@ -268,7 +268,7 @@ public class BooleanUtils {
     /**
      * Performs a one-hot on an array of booleans.
      * <p>
-     * This implementation returns true if one, and only one, of the supplied values is true.
+     * This implementation returns {@code true} if one, and only one, of the supplied values is true.
      * </p>
      * <p>
      * See also <a href="https://en.wikipedia.org/wiki/One-hot">One-hot</a>.
@@ -295,7 +295,7 @@ public class BooleanUtils {
     /**
      * Performs a one-hot on an array of booleans.
      * <p>
-     * This implementation returns true if one, and only one, of the supplied values is true.
+     * This implementation returns {@code true} if one, and only one, of the supplied values is true.
      * </p>
      * <p>
      * Null array elements map to false, like {@code Boolean.parseBoolean(null)} and its callers return false.
@@ -379,7 +379,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a Boolean to a boolean handling {@code null}
+     * Converts a {@link Boolean} to a {@code boolean} handling {@code null}
      * by returning {@code false}.
      *
      * <pre>
@@ -396,7 +396,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts an int to a boolean using the convention that {@code zero}
+     * Converts an int to a {@code boolean} using the convention that {@code zero}
      * is {@code false}, everything else is {@code true}.
      *
      * <pre>
@@ -414,7 +414,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts an int to a boolean specifying the conversion values.
+     * Converts an int to a {@code boolean} specifying the conversion values.
      *
      * <p>If the {@code trueValue} and {@code falseValue} are the same number then
      * the return value will be {@code true} in case {@code value} matches it.</p>
@@ -445,7 +445,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts an Integer to a boolean specifying the conversion values.
+     * Converts an Integer to a {@code boolean} specifying the conversion values.
      *
      * <pre>
      *   BooleanUtils.toBoolean(Integer.valueOf(0), Integer.valueOf(1), Integer.valueOf(0)) = false
@@ -478,7 +478,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a String to a boolean (optimised for performance).
+     * Converts a {@link String} to a {@code boolean} (optimised for performance).
      *
      * <p>{@code 'true'}, {@code 'on'}, {@code 'y'}, {@code 't'} or {@code 'yes'}
      * (case insensitive) will return {@code true}. Otherwise,
@@ -504,14 +504,14 @@ public class BooleanUtils {
      * </pre>
      *
      * @param str  the String to check
-     * @return the boolean value of the string, {@code false} if no match or the String is null
+     * @return the boolean value of the string, {@code false} if no match or the String is {@code null}
      */
     public static boolean toBoolean(final String str) {
         return toBooleanObject(str) == Boolean.TRUE;
     }
 
     /**
-     * Converts a String to a Boolean throwing an exception if no match found.
+     * Converts a {@link String} to a {@link Boolean} throwing an exception if no match found.
      *
      * <pre>
      *   BooleanUtils.toBoolean("true", "true", "false")  = true
@@ -543,7 +543,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a Boolean to a boolean handling {@code null}.
+     * Converts a {@link Boolean} to a {@code boolean} handling {@code null}.
      *
      * <pre>
      *   BooleanUtils.toBooleanDefaultIfNull(Boolean.TRUE, false)  = true
@@ -566,7 +566,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts an int to a Boolean using the convention that {@code zero}
+     * Converts an int to a {@link Boolean} using the convention that {@code zero}
      * is {@code false}, everything else is {@code true}.
      *
      * <pre>
@@ -584,7 +584,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts an int to a Boolean specifying the conversion values.
+     * Converts an int to a {@link Boolean} specifying the conversion values.
      *
      * <p>NOTE: This method may return {@code null} and may throw a {@link NullPointerException}
      * if unboxed to a {@code boolean}.</p>
@@ -622,7 +622,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts an Integer to a Boolean using the convention that {@code zero}
+     * Converts an Integer to a {@link Boolean} using the convention that {@code zero}
      * is {@code false}, every other numeric value is {@code true}.
      *
      * <p>{@code null} will be converted to {@code null}.</p>
@@ -648,7 +648,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts an Integer to a Boolean specifying the conversion values.
+     * Converts an Integer to a {@link Boolean} specifying the conversion values.
      *
      * <p>NOTE: This method may return {@code null} and may throw a {@link NullPointerException}
      * if unboxed to a {@code boolean}.</p>
@@ -694,7 +694,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a String to a Boolean.
+     * Converts a {@link String} to a {@link Boolean}.
      *
      * <p>{@code 'true'}, {@code 'on'}, {@code 'y'}, {@code 't'}, {@code 'yes'}
      * or {@code '1'} (case insensitive) will return {@code true}.
@@ -823,7 +823,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a String to a Boolean throwing an exception if no match.
+     * Converts a {@link String} to a {@link Boolean} throwing an exception if no match.
      *
      * <p>NOTE: This method may return {@code null} and may throw a {@link NullPointerException}
      * if unboxed to a {@code boolean}.</p>
@@ -871,7 +871,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a boolean to an int using the convention that
+     * Converts a {@code boolean} to an int using the convention that
      * {@code true} is {@code 1} and {@code false} is {@code 0}.
      *
      * <pre>
@@ -887,7 +887,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a boolean to an int specifying the conversion values.
+     * Converts a {@code boolean} to an int specifying the conversion values.
      *
      * <pre>
      *   BooleanUtils.toInteger(true, 1, 0)  = 1
@@ -904,7 +904,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a Boolean to an int specifying the conversion values.
+     * Converts a {@link Boolean} to an int specifying the conversion values.
      *
      * <pre>
      *   BooleanUtils.toInteger(Boolean.TRUE, 1, 0, 2)  = 1
@@ -926,7 +926,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a boolean to an Integer using the convention that
+     * Converts a {@code boolean} to an Integer using the convention that
      * {@code true} is {@code 1} and {@code false} is {@code 0}.
      *
      * <pre>
@@ -942,7 +942,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a boolean to an Integer specifying the conversion values.
+     * Converts a {@code boolean} to an Integer specifying the conversion values.
      *
      * <pre>
      *   BooleanUtils.toIntegerObject(true, Integer.valueOf(1), Integer.valueOf(0))  = Integer.valueOf(1)
@@ -959,7 +959,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a Boolean to a Integer using the convention that
+     * Converts a {@link Boolean} to a Integer using the convention that
      * {@code zero} is {@code false}.
      *
      * <p>{@code null} will be converted to {@code null}.</p>
@@ -980,7 +980,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a Boolean to an Integer specifying the conversion values.
+     * Converts a {@link Boolean} to an Integer specifying the conversion values.
      *
      * <pre>
      *   BooleanUtils.toIntegerObject(Boolean.TRUE, Integer.valueOf(1), Integer.valueOf(0), Integer.valueOf(2))  = Integer.valueOf(1)
@@ -1002,7 +1002,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a boolean to a String returning one of the input Strings.
+     * Converts a {@code boolean} to a {@link String} returning one of the input Strings.
      *
      * <pre>
      *   BooleanUtils.toString(true, "true", "false")   = "true"
@@ -1019,7 +1019,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a Boolean to a String returning one of the input Strings.
+     * Converts a {@link Boolean} to a {@link String} returning one of the input Strings.
      *
      * <pre>
      *   BooleanUtils.toString(Boolean.TRUE, "true", "false", null)   = "true"
@@ -1041,7 +1041,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a boolean to a String returning {@code 'on'}
+     * Converts a {@code boolean} to a {@link String} returning {@code 'on'}
      * or {@code 'off'}.
      *
      * <pre>
@@ -1057,7 +1057,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a Boolean to a String returning {@code 'on'},
+     * Converts a {@link Boolean} to a {@link String} returning {@code 'on'},
      * {@code 'off'}, or {@code null}.
      *
      * <pre>
@@ -1074,7 +1074,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a boolean to a String returning {@code 'true'}
+     * Converts a {@code boolean} to a {@link String} returning {@code 'true'}
      * or {@code 'false'}.
      *
      * <pre>
@@ -1090,7 +1090,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a Boolean to a String returning {@code 'true'},
+     * Converts a {@link Boolean} to a {@link String} returning {@code 'true'},
      * {@code 'false'}, or {@code null}.
      *
      * <pre>
@@ -1107,7 +1107,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a boolean to a String returning {@code 'yes'}
+     * Converts a {@code boolean} to a {@link String} returning {@code 'yes'}
      * or {@code 'no'}.
      *
      * <pre>
@@ -1123,7 +1123,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a Boolean to a String returning {@code 'yes'},
+     * Converts a {@link Boolean} to a {@link String} returning {@code 'yes'},
      * {@code 'no'}, or {@code null}.
      *
      * <pre>
@@ -1153,7 +1153,7 @@ public class BooleanUtils {
      * Performs an xor on a set of booleans.
      * <p>
      *   This behaves like an XOR gate;
-     *   it returns true if the number of true values is odd,
+     *   it returns {@code true} if the number of true values is odd,
      *   and false if the number of true values is zero or even.
      * </p>
      *
@@ -1167,7 +1167,7 @@ public class BooleanUtils {
      * </pre>
      *
      * @param array  an array of {@code boolean}s
-     * @return true if the number of true values in the array is odd; otherwise returns false.
+     * @return {@code true} if the number of true values in the array is odd; otherwise returns false.
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
      */

@@ -45,7 +45,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     /** The last character, inclusive, in the range. */
     private final char end;
 
-    /** True if the range is everything except the characters specified. */
+    /** {@code true} if the range is everything except the characters specified. */
     private final boolean negated;
 
     /** Cached toString. */
@@ -204,11 +204,11 @@ final class CharRange implements Iterable<Character>, Serializable {
 
     // Basics
     /**
-     * Compares two CharRange objects, returning true if they represent
+     * Compares two CharRange objects, returning {@code true} if they represent
      * exactly the same range of characters defined in the same way.
      *
      * @param obj  the object to compare to
-     * @return true if equal
+     * @return {@code true} if equal
      */
     @Override
     public boolean equals(final Object obj) {

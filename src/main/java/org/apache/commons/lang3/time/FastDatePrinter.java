@@ -149,7 +149,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @param pattern  {@link java.text.SimpleDateFormat} compatible pattern
      * @param timeZone  non-null time zone to use
      * @param locale  non-null locale to use
-     * @throws NullPointerException if pattern, timeZone, or locale is null.
+     * @throws NullPointerException if pattern, timeZone, or locale is {@code null}.
      */
     protected FastDatePrinter(final String pattern, final TimeZone timeZone, final Locale locale) {
         this.pattern = pattern;
@@ -460,9 +460,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
-     * Creates a String representation of the given Calendar by applying the rules of this printer to it.
+     * Creates a {@link String} representation of the given Calendar by applying the rules of this printer to it.
      * @param c the Calendar to apply the rules to.
-     * @return a String representation of the given Calendar.
+     * @return a {@link String} representation of the given Calendar.
      */
     private String applyRulesToString(final Calendar c) {
         return applyRules(c, new StringBuilder(maxLengthEstimate)).toString();
@@ -1318,7 +1318,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * Gets the time zone display name, using a cache for performance.
      *
      * @param tz  the zone to query
-     * @param daylight  true if daylight savings
+     * @param daylight  {@code true} if daylight savings
      * @param style  the style to use {@code TimeZone.LONG} or {@code TimeZone.SHORT}
      * @param locale  the locale to use
      * @return the textual name of the time zone

@@ -70,7 +70,7 @@ public class BasicThreadFactoryTest extends AbstractLangTest {
     }
 
     /**
-     * Tries to set a null naming pattern.
+     * Tries to set a {@code null} naming pattern.
      */
     @Test
     public void testBuildNamingPatternNull() {
@@ -78,7 +78,7 @@ public class BasicThreadFactoryTest extends AbstractLangTest {
     }
 
     /**
-     * Tries to set a null wrapped factory.
+     * Tries to set a {@code null} wrapped factory.
      */
     @Test
     public void testBuildWrappedFactoryNull() {
@@ -86,7 +86,7 @@ public class BasicThreadFactoryTest extends AbstractLangTest {
     }
 
     /**
-     * Tries to set a null exception handler.
+     * Tries to set a {@code null} exception handler.
      */
     @Test
     public void testBuildUncaughtExceptionHandlerNull() {

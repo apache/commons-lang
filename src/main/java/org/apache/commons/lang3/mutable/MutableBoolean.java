@@ -24,7 +24,7 @@ import org.apache.commons.lang3.BooleanUtils;
 /**
  * A mutable {@code boolean} wrapper.
  * <p>
- * Note that as MutableBoolean does not extend Boolean, it is not treated by String.format as a Boolean parameter.
+ * Note that as MutableBoolean does not extend Boolean, it is not treated by String.format as a {@link Boolean} parameter.
  * </p>
  *
  * @see Boolean
@@ -68,9 +68,9 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     }
 
     /**
-     * Gets the value as a Boolean instance.
+     * Gets the value as a {@link Boolean} instance.
      *
-     * @return the value as a Boolean, never null
+     * @return the value as a {@link Boolean}, never null
      */
     @Override
     public Boolean getValue() {
@@ -136,7 +136,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     }
 
     /**
-     * Returns the value of this MutableBoolean as a boolean.
+     * Returns the value of this MutableBoolean as a {@code boolean}.
      *
      * @return the boolean value represented by this object.
      */
@@ -147,7 +147,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     /**
      * Gets this mutable as an instance of Boolean.
      *
-     * @return a Boolean instance containing the value from this mutable, never null
+     * @return a {@link Boolean} instance containing the value from this mutable, never null
      * @since 2.5
      */
     public Boolean toBoolean() {

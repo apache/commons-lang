@@ -191,7 +191,7 @@ public class EnumUtils {
      * for an invalid enum name.</p>
      *
      * @param <E> the type of the enumeration
-     * @param enumClass  the class of the enum to query, not null
+     * @param enumClass  the class of the enum to query, not {@code null}
      * @param enumName   the enum name, null returns null
      * @return the enum, null if not found
      */
@@ -206,7 +206,7 @@ public class EnumUtils {
      * for an invalid enum name.</p>
      *
      * @param <E> the type of the enumeration
-     * @param enumClass   the class of the enum to query, not null
+     * @param enumClass   the class of the enum to query, not {@code null}
      * @param enumName    the enum name, null returns default enum
      * @param defaultEnum the default enum
      * @return the enum, default enum if not found
@@ -230,7 +230,7 @@ public class EnumUtils {
      * for an invalid enum name and performs case insensitive matching of the name.</p>
      *
      * @param <E>         the type of the enumeration
-     * @param enumClass   the class of the enum to query, not null
+     * @param enumClass   the class of the enum to query, not {@code null}
      * @param enumName    the enum name, null returns null
      * @return the enum, null if not found
      * @since 3.8
@@ -246,7 +246,7 @@ public class EnumUtils {
      * for an invalid enum name and performs case insensitive matching of the name.</p>
      *
      * @param <E>         the type of the enumeration
-     * @param enumClass   the class of the enum to query, not null
+     * @param enumClass   the class of the enum to query, not {@code null}
      * @param enumName    the enum name, null returns default enum
      * @param defaultEnum the default enum
      * @return the enum, default enum if not found
@@ -263,7 +263,7 @@ public class EnumUtils {
      * <p>This method is useful when you need a list of enums rather than an array.</p>
      *
      * @param <E> the type of the enumeration
-     * @param enumClass  the class of the enum to query, not null
+     * @param enumClass  the class of the enum to query, not {@code null}
      * @return the modifiable list of enums, never null
      */
     public static <E extends Enum<E>> List<E> getEnumList(final Class<E> enumClass) {
@@ -276,7 +276,7 @@ public class EnumUtils {
      * <p>This method is useful when you need a map of enums by name.</p>
      *
      * @param <E> the type of the enumeration
-     * @param enumClass  the class of the enum to query, not null
+     * @param enumClass  the class of the enum to query, not {@code null}
      * @return the modifiable map of enum names to enums, never null
      */
     public static <E extends Enum<E>> Map<String, E> getEnumMap(final Class<E> enumClass) {
@@ -292,8 +292,8 @@ public class EnumUtils {
      *
      * @param <E>         the type of enumeration
      * @param <K>         the type of the map key
-     * @param enumClass   the class of the enum to query, not null
-     * @param keyFunction the function to query for the key, not null
+     * @param enumClass   the class of the enum to query, not {@code null}
+     * @param keyFunction the function to query for the key, not {@code null}
      * @return the modifiable map of enums, never null
      * @since 3.13.0
      */
@@ -309,7 +309,7 @@ public class EnumUtils {
      * </p>
      *
      * @param <E> the type of the enumeration
-     * @param enumClass the class of the enum to query, not null
+     * @param enumClass the class of the enum to query, not {@code null}
      * @param propName the system property key for the enum name, null returns default enum
      * @param defaultEnum the default enum
      * @return the enum, default enum if not found
@@ -328,7 +328,7 @@ public class EnumUtils {
      * for an invalid enum name and performs case insensitive matching of the name.</p>
      *
      * @param <E>         the type of the enumeration
-     * @param enumClass   the class of the enum to query, not null
+     * @param enumClass   the class of the enum to query, not {@code null}
      * @param enumName    the enum name, null returns default enum
      * @param stringFunction the function that gets the string for an enum for comparison to {@code enumName}.
      * @param defaultEnum the default enum
@@ -350,9 +350,9 @@ public class EnumUtils {
      * a valid enum without needing to catch the exception.</p>
      *
      * @param <E> the type of the enumeration
-     * @param enumClass  the class of the enum to query, not null
+     * @param enumClass  the class of the enum to query, not {@code null}
      * @param enumName   the enum name, null returns false
-     * @return true if the enum name is valid, otherwise false
+     * @return {@code true} if the enum name is valid, otherwise false
      */
     public static <E extends Enum<E>> boolean isValidEnum(final Class<E> enumClass, final String enumName) {
         return getEnum(enumClass, enumName) != null;
@@ -366,9 +366,9 @@ public class EnumUtils {
      * and performs case insensitive matching of the name.</p>
      *
      * @param <E> the type of the enumeration
-     * @param enumClass  the class of the enum to query, not null
+     * @param enumClass  the class of the enum to query, not {@code null}
      * @param enumName   the enum name, null returns false
-     * @return true if the enum name is valid, otherwise false
+     * @return {@code true} if the enum name is valid, otherwise false
      * @since 3.8
      */
     public static <E extends Enum<E>> boolean isValidEnumIgnoreCase(final Class<E> enumClass, final String enumName) {

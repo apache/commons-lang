@@ -42,7 +42,7 @@ import org.apache.commons.lang3.ObjectUtils;
  * </pre>
  * However, if your Java compiler *does* null analysis, it will reject this
  * example as invalid, because {@link java.util.Map#get(Object)} might return
- * a null value. As a workaround, you can use this:
+ * a {@code null} value. As a workaround, you can use this:
  * <pre>
  *   import static org.apache.commons.lang3.function.Objects.requireNonNull;
  *

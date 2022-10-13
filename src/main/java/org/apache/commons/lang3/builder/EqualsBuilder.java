@@ -379,7 +379,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * derived fields, and not part of the value of the {@link Object}.</p>
      *
      * <p>Static fields will not be included. Superclass fields will be appended
-     * up to and including the specified superclass. A null superclass is treated
+     * up to and including the specified superclass. A {@code null} superclass is treated
      * as java.lang.Object.</p>
      *
      * @param lhs  {@code this} object
@@ -413,7 +413,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * derived fields, and not part of the value of the {@link Object}.</p>
      *
      * <p>Static fields will not be included. Superclass fields will be appended
-     * up to and including the specified superclass. A null superclass is treated
+     * up to and including the specified superclass. A {@code null} superclass is treated
      * as java.lang.Object.</p>
      *
      * <p>If the testRecursive parameter is set to {@code true}, non primitive

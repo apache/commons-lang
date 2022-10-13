@@ -445,7 +445,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
      * Sets the bit at the specified index to the specified value.
      *
      * @param bitIndex a bit index.
-     * @param value a boolean value to set.
+     * @param value a {@code boolean} value to set.
      * @throws IndexOutOfBoundsException if the specified index is negative.
      * @return this.
      */

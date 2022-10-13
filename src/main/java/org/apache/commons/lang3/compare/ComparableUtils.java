@@ -21,7 +21,7 @@ import java.util.function.Predicate;
 import org.apache.commons.lang3.ObjectUtils;
 
 /**
- * Utility library to provide helper methods for translating {@link Comparable#compareTo} result into a boolean.
+ * Utility library to provide helper methods for translating {@link Comparable#compareTo} result into a {@code boolean}.
  *
  * <p>Example: {@code boolean x = is(myComparable).lessThanOrEqualTo(otherComparable)}</p>
  *
@@ -49,7 +49,7 @@ public class ComparableUtils {
          *
          * @param b the object to compare to the base object
          * @param c the object to compare to the base object
-         * @return true if the base object is between b and c
+         * @return {@code true} if the base object is between b and c
          */
         public boolean between(final A b, final A c) {
             return betweenOrdered(b, c) || betweenOrdered(c, b);
@@ -60,7 +60,7 @@ public class ComparableUtils {
          *
          * @param b the object to compare to the base object
          * @param c the object to compare to the base object
-         * @return true if the base object is between b and c and not equal to those
+         * @return {@code true} if the base object is between b and c and not equal to those
          */
         public boolean betweenExclusive(final A b, final A c) {
             return betweenOrderedExclusive(b, c) || betweenOrderedExclusive(c, b);
@@ -78,7 +78,7 @@ public class ComparableUtils {
          * Checks if the object passed to {@link #is} is equal to {@code b}
          *
          * @param b the object to compare to the base object
-         * @return true if the value returned by {@link Comparable#compareTo} is equal to {@code 0}
+         * @return {@code true} if the value returned by {@link Comparable#compareTo} is equal to {@code 0}
          */
         public boolean equalTo(final A b) {
             return a.compareTo(b) == 0;
@@ -88,7 +88,7 @@ public class ComparableUtils {
          * Checks if the object passed to {@link #is} is greater than {@code b}
          *
          * @param b the object to compare to the base object
-         * @return true if the value returned by {@link Comparable#compareTo} is greater than {@code 0}
+         * @return {@code true} if the value returned by {@link Comparable#compareTo} is greater than {@code 0}
          */
         public boolean greaterThan(final A b) {
             return a.compareTo(b) > 0;
@@ -98,7 +98,7 @@ public class ComparableUtils {
          * Checks if the object passed to {@link #is} is greater than or equal to {@code b}
          *
          * @param b the object to compare to the base object
-         * @return true if the value returned by {@link Comparable#compareTo} is greater than or equal to {@code 0}
+         * @return {@code true} if the value returned by {@link Comparable#compareTo} is greater than or equal to {@code 0}
          */
         public boolean greaterThanOrEqualTo(final A b) {
             return a.compareTo(b) >= 0;
@@ -207,7 +207,7 @@ public class ComparableUtils {
     }
 
     /**
-     * Returns the greater of two {@link Comparable} values, ignoring null.
+     * Returns the greater of two {@link Comparable} values, ignoring {@code null}.
      * <p>
      * For three or more values, use {@link ObjectUtils#max(Comparable...)}.
      * </p>
@@ -224,7 +224,7 @@ public class ComparableUtils {
     }
 
     /**
-     * Returns the lesser of two {@link Comparable} values, ignoring null.
+     * Returns the lesser of two {@link Comparable} values, ignoring {@code null}.
      * <p>
      * For three or more values, use {@link ObjectUtils#min(Comparable...)}.
      * </p>

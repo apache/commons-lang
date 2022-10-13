@@ -1673,7 +1673,7 @@ public class TypeUtils {
     /**
      * Formats a {@link TypeVariable} including its {@link GenericDeclaration}.
      *
-     * @param typeVariable the type variable to create a String representation for, not {@code null}
+     * @param typeVariable the type variable to create a {@link String} representation for, not {@code null}
      * @return String
      * @since 3.2
      */
@@ -1706,7 +1706,7 @@ public class TypeUtils {
     /**
      * Formats a given type as a Java-esque String.
      *
-     * @param type the type to create a String representation for, not {@code null}
+     * @param type the type to create a {@link String} representation for, not {@code null}
      * @return String
      * @since 3.2
      */

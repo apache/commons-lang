@@ -58,7 +58,7 @@ public class CallableBackgroundInitializerTest extends AbstractLangTest {
     }
 
     /**
-     * Tries to pass a null Callable to the constructor that takes an executor.
+     * Tries to pass a {@code null} Callable to the constructor that takes an executor.
      * This should cause an exception.
      */
     @Test

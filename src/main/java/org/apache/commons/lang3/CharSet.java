@@ -148,7 +148,7 @@ public class CharSet implements Serializable {
      *
      * <p>All CharSet objects returned by this method will be immutable.</p>
      *
-     * @param setStrs  Strings to merge into the set, may be null
+     * @param setStrs  Strings to merge into the set, may be {@code null}
      * @return a CharSet instance
      * @since 2.4
      */
@@ -237,14 +237,14 @@ public class CharSet implements Serializable {
 
     // Basics
     /**
-     * Compares two {@link CharSet} objects, returning true if they represent
+     * Compares two {@link CharSet} objects, returning {@code true} if they represent
      * exactly the same set of characters defined in the same way.
      *
      * <p>The two sets {@code abc} and {@code a-c} are <i>not</i>
      * equal according to this method.</p>
      *
      * @param obj  the object to compare to
-     * @return true if equal
+     * @return {@code true} if equal
      * @since 2.0
      */
     @Override

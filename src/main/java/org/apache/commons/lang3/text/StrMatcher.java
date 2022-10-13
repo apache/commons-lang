@@ -346,7 +346,7 @@ public abstract class StrMatcher {
         private final char[] chars;
 
         /**
-         * Constructor that creates a matcher from a String.
+         * Constructor that creates a matcher from a {@link String}.
          *
          * @param str  the string to match, must not be null
          */

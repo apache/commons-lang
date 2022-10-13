@@ -87,7 +87,7 @@ public class ConcurrentUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * Tests extractCause() for a null exception.
+     * Tests extractCause() for a {@code null} exception.
      */
     @Test
     public void testExtractCauseNull() {
@@ -132,7 +132,7 @@ public class ConcurrentUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * Tests extractCauseUnchecked() for a null exception.
+     * Tests extractCauseUnchecked() for a {@code null} exception.
      */
     @Test
     public void testExtractCauseUncheckedNull() {
@@ -208,7 +208,7 @@ public class ConcurrentUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * Tests handleCause() for a null parameter or a null cause. In this case the method should do nothing. We can only test
+     * Tests handleCause() for a {@code null} parameter or a {@code null} cause. In this case the method should do nothing. We can only test
      * that no exception is thrown.
      *
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it

@@ -308,7 +308,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * <p>
      * Static fields will not be included. Superclass fields will be included up to and including the specified
-     * superclass. A null superclass is treated as java.lang.Object.
+     * superclass. A {@code null} superclass is treated as java.lang.Object.
      * </p>
      *
      * <p>

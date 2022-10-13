@@ -45,8 +45,8 @@ public class CharSetUtils {
      * </pre>
      *
      * @see CharSet#getInstance(String...) for set-syntax.
-     * @param str  String to look for characters in, may be null
-     * @param set  String[] set of characters to identify, may be null
+     * @param str  String to look for characters in, may be {@code null}
+     * @param set  String[] set of characters to identify, may be {@code null}
      * @return whether or not the characters in the set are in the primary string
      * @since 3.2
      */
@@ -77,9 +77,9 @@ public class CharSetUtils {
      * </pre>
      *
      * @see CharSet#getInstance(String...) for set-syntax.
-     * @param str  String to count characters in, may be null
-     * @param set  String[] set of characters to count, may be null
-     * @return the character count, zero if null string input
+     * @param str  String to count characters in, may be {@code null}
+     * @param set  String[] set of characters to count, may be {@code null}
+     * @return the character count, zero if {@code null} string input
      */
     public static int count(final String str, final String... set) {
         if (StringUtils.isEmpty(str) || deepEmpty(set)) {
@@ -120,9 +120,9 @@ public class CharSetUtils {
      * </pre>
      *
      * @see CharSet#getInstance(String...) for set-syntax.
-     * @param str  String to delete characters from, may be null
-     * @param set  String[] set of characters to delete, may be null
-     * @return the modified String, {@code null} if null string input
+     * @param str  String to delete characters from, may be {@code null}
+     * @param set  String[] set of characters to delete, may be {@code null}
+     * @return the modified String, {@code null} if {@code null} string input
      */
     public static String delete(final String str, final String... set) {
         if (StringUtils.isEmpty(str) || deepEmpty(set)) {
@@ -145,9 +145,9 @@ public class CharSetUtils {
      * </pre>
      *
      * @see CharSet#getInstance(String...) for set-syntax.
-     * @param str  String to keep characters from, may be null
-     * @param set  String[] set of characters to keep, may be null
-     * @return the modified String, {@code null} if null string input
+     * @param str  String to keep characters from, may be {@code null}
+     * @param set  String[] set of characters to keep, may be {@code null}
+     * @return the modified String, {@code null} if {@code null} string input
      * @since 2.0
      */
     public static String keep(final String str, final String... set) {
@@ -166,7 +166,7 @@ public class CharSetUtils {
      * @param str String to modify characters within
      * @param set String[] set of characters to modify
      * @param expect whether to evaluate on match, or non-match
-     * @return the modified String, not null
+     * @return the modified String, not {@code null}
      */
     private static String modify(final String str, final String[] set, final boolean expect) {
         final CharSet chars = CharSet.getInstance(set);
@@ -194,9 +194,9 @@ public class CharSetUtils {
      * </pre>
      *
      * @see CharSet#getInstance(String...) for set-syntax.
-     * @param str  the string to squeeze, may be null
-     * @param set  the character set to use for manipulation, may be null
-     * @return the modified String, {@code null} if null string input
+     * @param str  the string to squeeze, may be {@code null}
+     * @param set  the character set to use for manipulation, may be {@code null}
+     * @return the modified String, {@code null} if {@code null} string input
      */
     public static String squeeze(final String str, final String... set) {
         if (StringUtils.isEmpty(str) || deepEmpty(set)) {

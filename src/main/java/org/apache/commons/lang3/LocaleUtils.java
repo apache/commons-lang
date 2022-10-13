@@ -100,7 +100,7 @@ public class LocaleUtils {
      * countries available for that language. Variant locales are removed.</p>
      *
      * @param languageCode  the 2 letter language code, null returns empty
-     * @return an unmodifiable List of Locale objects, not null
+     * @return an unmodifiable List of Locale objects, not {@code null}
      */
     public static List<Locale> countriesByLanguage(final String languageCode) {
         if (languageCode == null) {
@@ -114,7 +114,7 @@ public class LocaleUtils {
      * Checks if the locale specified is in the set of available locales.
      *
      * @param locale the Locale object to check if it is available
-     * @return true if the locale is a known locale
+     * @return {@code true} if the locale is a known locale
      */
     public static boolean isAvailableLocale(final Locale locale) {
         return availableLocaleSet().contains(locale);
@@ -157,7 +157,7 @@ public class LocaleUtils {
      * languages available for that country. Variant locales are removed.</p>
      *
      * @param countryCode  the 2-letter country code, null returns empty
-     * @return an unmodifiable List of Locale objects, not null
+     * @return an unmodifiable List of Locale objects, not {@code null}
      */
     public static List<Locale> languagesByCountry(final String countryCode) {
         if (countryCode == null) {
@@ -177,7 +177,7 @@ public class LocaleUtils {
      * </pre>
      *
      * @param locale  the locale to start from
-     * @return the unmodifiable list of Locale objects, 0 being locale, not null
+     * @return the unmodifiable list of Locale objects, 0 being locale, not {@code null}
      */
     public static List<Locale> localeLookupList(final Locale locale) {
         return localeLookupList(locale, locale);
@@ -198,7 +198,7 @@ public class LocaleUtils {
      *
      * @param locale  the locale to start from, null returns empty list
      * @param defaultLocale  the default locale to use if no other is found
-     * @return the unmodifiable list of Locale objects, 0 being locale, not null
+     * @return the unmodifiable list of Locale objects, 0 being locale, not {@code null}
      */
     public static List<Locale> localeLookupList(final Locale locale, final Locale defaultLocale) {
         final List<Locale> list = new ArrayList<>(4);
@@ -263,7 +263,7 @@ public class LocaleUtils {
     }
 
     /**
-     * Converts a String to a Locale.
+     * Converts a {@link String} to a Locale.
      *
      * <p>This method takes the string format of a locale and creates the
      * locale object from it.</p>
@@ -289,7 +289,7 @@ public class LocaleUtils {
      * </p>
      *
      * @param str  the locale String to convert, null returns null
-     * @return a Locale, null if null input
+     * @return a Locale, null if {@code null} input
      * @throws IllegalArgumentException if the string is an invalid format
      * @see Locale#forLanguageTag(String)
      */

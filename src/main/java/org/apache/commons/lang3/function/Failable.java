@@ -306,7 +306,7 @@ public class Failable {
     }
 
     /**
-     * Invokes a boolean supplier, and returns the result.
+     * Invokes a {@code boolean} supplier, and returns the result.
      *
      * @param supplier The boolean supplier to invoke.
      * @param <E> The type of checked exception, which the supplier can throw.

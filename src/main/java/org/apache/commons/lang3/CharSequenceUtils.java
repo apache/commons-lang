@@ -103,7 +103,7 @@ public class CharSequenceUtils {
      * (Unicode code units).
      * </p>
      *
-     * @param cs  the {@link CharSequence} to be processed, not null
+     * @param cs  the {@link CharSequence} to be processed, not {@code null}
      * @param searchChar  the char to be searched for
      * @param start  the start index, negative starts at the string start
      * @return the index where the search char was found, -1 if not found
@@ -347,7 +347,7 @@ public class CharSequenceUtils {
      *
      * @param cs  the specified subsequence, null returns null
      * @param start  the start index, inclusive, valid
-     * @return a new subsequence, may be null
+     * @return a new subsequence, may be {@code null}
      * @throws IndexOutOfBoundsException if {@code start} is negative or if
      *  {@code start} is greater than {@code length()}
      */
@@ -359,7 +359,7 @@ public class CharSequenceUtils {
      * Converts the given CharSequence to a char[].
      *
      * @param source the {@link CharSequence} to be processed.
-     * @return the resulting char array, never null.
+     * @return the resulting char array, never {@code null}.
      * @since 3.11
      */
     public static char[] toCharArray(final CharSequence source) {

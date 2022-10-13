@@ -788,7 +788,7 @@ public class ArrayUtils {
      * </p>
      * <p>
      * If the input array is {@code null}, a new one element array is returned
-     * whose component type is the same as the element, unless the element itself is null,
+     * whose component type is the same as the element, unless the element itself is {@code null},
      * in which case the return type is Object[]
      * </p>
      * <pre>
@@ -1094,7 +1094,7 @@ public class ArrayUtils {
      * @param array2  the second array whose elements are added to the new array, may be {@code null}
      * @return The new array, {@code null} if both arrays are {@code null}.
      *      The type of the new array is the type of the first array,
-     *      unless the first array is null, in which case the type is the same as the second array.
+     *      unless the first array is {@code null}, in which case the type is the same as the second array.
      * @since 2.1
      * @throws IllegalArgumentException if the array types are incompatible
      */
@@ -1343,7 +1343,7 @@ public class ArrayUtils {
      * </p>
      * <p>
      * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
-     * element, unless the element itself is null, in which case the return type is Object[]
+     * element, unless the element itself is {@code null}, in which case the return type is Object[]
      * </p>
      * <pre>
      * ArrayUtils.addFirst(null, null)      = IllegalArgumentException
@@ -1566,7 +1566,7 @@ public class ArrayUtils {
      * @param array  the array to search
      * @param valueToFind  the value to find
      * @param tolerance  the array contains the tolerance of the search
-     * @return true if value falling within tolerance is in array
+     * @return {@code true} if value falling within tolerance is in array
      */
     public static boolean contains(final double[] array, final double valueToFind, final double tolerance) {
         return indexOf(array, valueToFind, 0, tolerance) != INDEX_NOT_FOUND;
@@ -1677,12 +1677,12 @@ public class ArrayUtils {
     }
 
     /**
-     * Gets the nTh element of an array or null if the index is out of bounds or the array is null.
+     * Gets the nTh element of an array or null if the index is out of bounds or the array is {@code null}.
      *
      * @param <T> The type of array elements.
      * @param array The array to index.
      * @param index The index
-     * @return the nTh element of an array or null if the index is out of bounds or the array is null.
+     * @return the nTh element of an array or null if the index is out of bounds or the array is {@code null}.
      * @since 3.11
      */
     public static <T> T get(final T[] array, final int index) {
@@ -1730,7 +1730,7 @@ public class ArrayUtils {
      * ArrayUtils.getLength(["a", "b", "c"]) = 3
      * </pre>
      *
-     * @param array  the array to retrieve the length from, may be null
+     * @param array  the array to retrieve the length from, may be {@code null}
      * @return The length of the array, or {@code 0} if the array is {@code null}
      * @throws IllegalArgumentException if the object argument is not an array.
      * @since 2.1
@@ -3171,7 +3171,7 @@ public class ArrayUtils {
      * </pre>
      *
      * @param <T> the component type of the array
-     * @param array the array to inspect, may be null
+     * @param array the array to inspect, may be {@code null}
      * @param index the index of the array to be inspected
      * @return Whether the given index is safely-accessible in the given array
      * @since 3.8
@@ -8971,7 +8971,7 @@ public class ArrayUtils {
      * <p>This method returns {@code null} for a {@code null} input array.</p>
      *
      * @param array  a {@code boolean} array
-     * @return a {@link Boolean} array, {@code null} if null array input
+     * @return a {@link Boolean} array, {@code null} if {@code null} array input
      */
     public static Boolean[] toObject(final boolean[] array) {
         if (array == null) {
@@ -8990,7 +8990,7 @@ public class ArrayUtils {
      * <p>This method returns {@code null} for a {@code null} input array.</p>
      *
      * @param array  a {@code byte} array
-     * @return a {@link Byte} array, {@code null} if null array input
+     * @return a {@link Byte} array, {@code null} if {@code null} array input
      */
     public static Byte[] toObject(final byte[] array) {
         if (array == null) {
@@ -9008,7 +9008,7 @@ public class ArrayUtils {
      * <p>This method returns {@code null} for a {@code null} input array.</p>
      *
      * @param array a {@code char} array
-     * @return a {@link Character} array, {@code null} if null array input
+     * @return a {@link Character} array, {@code null} if {@code null} array input
      */
     public static Character[] toObject(final char[] array) {
         if (array == null) {
@@ -9026,7 +9026,7 @@ public class ArrayUtils {
      * <p>This method returns {@code null} for a {@code null} input array.</p>
      *
      * @param array  a {@code double} array
-     * @return a {@link Double} array, {@code null} if null array input
+     * @return a {@link Double} array, {@code null} if {@code null} array input
      */
     public static Double[] toObject(final double[] array) {
         if (array == null) {
@@ -9044,7 +9044,7 @@ public class ArrayUtils {
      * <p>This method returns {@code null} for a {@code null} input array.</p>
      *
      * @param array  a {@code float} array
-     * @return a {@link Float} array, {@code null} if null array input
+     * @return a {@link Float} array, {@code null} if {@code null} array input
      */
     public static Float[] toObject(final float[] array) {
         if (array == null) {
@@ -9062,7 +9062,7 @@ public class ArrayUtils {
      * <p>This method returns {@code null} for a {@code null} input array.</p>
      *
      * @param array  an {@code int} array
-     * @return an {@link Integer} array, {@code null} if null array input
+     * @return an {@link Integer} array, {@code null} if {@code null} array input
      */
     public static Integer[] toObject(final int[] array) {
         if (array == null) {
@@ -9080,7 +9080,7 @@ public class ArrayUtils {
      * <p>This method returns {@code null} for a {@code null} input array.</p>
      *
      * @param array  a {@code long} array
-     * @return a {@link Long} array, {@code null} if null array input
+     * @return a {@link Long} array, {@code null} if {@code null} array input
      */
     public static Long[] toObject(final long[] array) {
         if (array == null) {
@@ -9098,7 +9098,7 @@ public class ArrayUtils {
      * <p>This method returns {@code null} for a {@code null} input array.</p>
      *
      * @param array  a {@code short} array
-     * @return a {@link Short} array, {@code null} if null array input
+     * @return a {@link Short} array, {@code null} if {@code null} array input
      */
     public static Short[] toObject(final short[] array) {
         if (array == null) {
@@ -9120,7 +9120,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array a {@link Boolean} array, may be {@code null}
-     * @return a {@code boolean} array, {@code null} if null array input
+     * @return a {@code boolean} array, {@code null} if {@code null} array input
      */
     public static boolean[] toPrimitive(final Boolean[] array) {
         return toPrimitive(array, false);
@@ -9134,7 +9134,7 @@ public class ArrayUtils {
      *
      * @param array  a {@link Boolean} array, may be {@code null}
      * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code boolean} array, {@code null} if null array input
+     * @return a {@code boolean} array, {@code null} if {@code null} array input
      */
     public static boolean[] toPrimitive(final Boolean[] array, final boolean valueForNull) {
         if (array == null) {
@@ -9158,7 +9158,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  a {@link Byte} array, may be {@code null}
-     * @return a {@code byte} array, {@code null} if null array input
+     * @return a {@code byte} array, {@code null} if {@code null} array input
      * @throws NullPointerException if an array element is {@code null}
      */
     public static byte[] toPrimitive(final Byte[] array) {
@@ -9183,7 +9183,7 @@ public class ArrayUtils {
      *
      * @param array  a {@link Byte} array, may be {@code null}
      * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code byte} array, {@code null} if null array input
+     * @return a {@code byte} array, {@code null} if {@code null} array input
      */
     public static byte[] toPrimitive(final Byte[] array, final byte valueForNull) {
         if (array == null) {
@@ -9207,7 +9207,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  a {@link Character} array, may be {@code null}
-     * @return a {@code char} array, {@code null} if null array input
+     * @return a {@code char} array, {@code null} if {@code null} array input
      * @throws NullPointerException if an array element is {@code null}
      */
     public static char[] toPrimitive(final Character[] array) {
@@ -9232,7 +9232,7 @@ public class ArrayUtils {
      *
      * @param array  a {@link Character} array, may be {@code null}
      * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code char} array, {@code null} if null array input
+     * @return a {@code char} array, {@code null} if {@code null} array input
      */
     public static char[] toPrimitive(final Character[] array, final char valueForNull) {
         if (array == null) {
@@ -9256,7 +9256,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  a {@link Double} array, may be {@code null}
-     * @return a {@code double} array, {@code null} if null array input
+     * @return a {@code double} array, {@code null} if {@code null} array input
      * @throws NullPointerException if an array element is {@code null}
      */
     public static double[] toPrimitive(final Double[] array) {
@@ -9281,7 +9281,7 @@ public class ArrayUtils {
      *
      * @param array  a {@link Double} array, may be {@code null}
      * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code double} array, {@code null} if null array input
+     * @return a {@code double} array, {@code null} if {@code null} array input
      */
     public static double[] toPrimitive(final Double[] array, final double valueForNull) {
         if (array == null) {
@@ -9305,7 +9305,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  a {@link Float} array, may be {@code null}
-     * @return a {@code float} array, {@code null} if null array input
+     * @return a {@code float} array, {@code null} if {@code null} array input
      * @throws NullPointerException if an array element is {@code null}
      */
     public static float[] toPrimitive(final Float[] array) {
@@ -9330,7 +9330,7 @@ public class ArrayUtils {
      *
      * @param array  a {@link Float} array, may be {@code null}
      * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code float} array, {@code null} if null array input
+     * @return a {@code float} array, {@code null} if {@code null} array input
      */
     public static float[] toPrimitive(final Float[] array, final float valueForNull) {
         if (array == null) {
@@ -9354,7 +9354,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  a {@link Integer} array, may be {@code null}
-     * @return an {@code int} array, {@code null} if null array input
+     * @return an {@code int} array, {@code null} if {@code null} array input
      * @throws NullPointerException if an array element is {@code null}
      */
     public static int[] toPrimitive(final Integer[] array) {
@@ -9379,7 +9379,7 @@ public class ArrayUtils {
      *
      * @param array  a {@link Integer} array, may be {@code null}
      * @param valueForNull  the value to insert if {@code null} found
-     * @return an {@code int} array, {@code null} if null array input
+     * @return an {@code int} array, {@code null} if {@code null} array input
      */
     public static int[] toPrimitive(final Integer[] array, final int valueForNull) {
         if (array == null) {
@@ -9403,7 +9403,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  a {@link Long} array, may be {@code null}
-     * @return a {@code long} array, {@code null} if null array input
+     * @return a {@code long} array, {@code null} if {@code null} array input
      * @throws NullPointerException if an array element is {@code null}
      */
     public static long[] toPrimitive(final Long[] array) {
@@ -9428,7 +9428,7 @@ public class ArrayUtils {
      *
      * @param array  a {@link Long} array, may be {@code null}
      * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code long} array, {@code null} if null array input
+     * @return a {@code long} array, {@code null} if {@code null} array input
      */
     public static long[] toPrimitive(final Long[] array, final long valueForNull) {
         if (array == null) {
@@ -9495,7 +9495,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  a {@link Short} array, may be {@code null}
-     * @return a {@code byte} array, {@code null} if null array input
+     * @return a {@code byte} array, {@code null} if {@code null} array input
      * @throws NullPointerException if an array element is {@code null}
      */
     public static short[] toPrimitive(final Short[] array) {
@@ -9520,7 +9520,7 @@ public class ArrayUtils {
      *
      * @param array  a {@link Short} array, may be {@code null}
      * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code byte} array, {@code null} if null array input
+     * @return a {@code byte} array, {@code null} if {@code null} array input
      */
     public static short[] toPrimitive(final Short[] array, final short valueForNull) {
         if (array == null) {
@@ -9548,7 +9548,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to get a toString for, may be {@code null}
-     * @return a String representation of the array, '{}' if null array input
+     * @return a String representation of the array, '{}' if {@code null} array input
      */
     public static String toString(final Object array) {
         return toString(array, "{}");
@@ -9583,7 +9583,7 @@ public class ArrayUtils {
      *
      * @param array the {@code Object[]} to be processed, may be null
      * @return {@code String[]} of the same size as the source with its element's string representation,
-     * {@code null} if null array input
+     * {@code null} if {@code null} array input
      * @throws NullPointerException if an array element is {@code null}
      * @since 3.6
      */
@@ -9612,7 +9612,7 @@ public class ArrayUtils {
      *
      * @param array the Object[] to be processed, may be null
      * @param valueForNullElements the value to insert if {@code null} is found
-     * @return a {@link String} array, {@code null} if null array input
+     * @return a {@link String} array, {@code null} if {@code null} array input
      * @since 3.6
      */
     public static String[] toStringArray(final Object[] array, final String valueForNullElements) {

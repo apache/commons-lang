@@ -28,7 +28,7 @@ import java.util.Arrays;
 public class ClassLoaderUtils {
 
     /**
-     * Converts the given class loader to a String calling {@link #toString(URLClassLoader)}.
+     * Converts the given class loader to a {@link String} calling {@link #toString(URLClassLoader)}.
      *
      * @param classLoader to URLClassLoader to convert.
      * @return the formatted string.
@@ -41,7 +41,7 @@ public class ClassLoaderUtils {
     }
 
     /**
-     * Converts the given URLClassLoader to a String in the format
+     * Converts the given URLClassLoader to a {@link String} in the format
      * {@code "URLClassLoader.toString() + [URL1, URL2, ...]"}.
      *
      * @param classLoader to URLClassLoader to convert.

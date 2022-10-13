@@ -78,7 +78,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      *
      * @param <L> the left element type
      * @param <R> the right element type
-     * @param left  the left element, may be null
+     * @param left  the left element, may be {@code null}
      * @return a pair formed from the two parameters, not null
      * @since 3.11
      */
@@ -106,8 +106,8 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      *
      * @param <L> the left element type
      * @param <R> the right element type
-     * @param left  the left element, may be null
-     * @param right  the right element, may be null
+     * @param left  the left element, may be {@code null}
+     * @param right  the right element, may be {@code null}
      * @return a pair formed from the two parameters, not null
      */
     public static <L, R> ImmutablePair<L, R> of(final L left, final R right) {
@@ -156,7 +156,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      *
      * @param <L> the left element type
      * @param <R> the right element type
-     * @param right  the right element, may be null
+     * @param right  the right element, may be {@code null}
      * @return a pair formed from the two parameters, not null
      * @since 3.11
      */
@@ -173,8 +173,8 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Create a new pair instance.
      *
-     * @param left  the left value, may be null
-     * @param right  the right value, may be null
+     * @param left  the left value, may be {@code null}
+     * @param right  the right value, may be {@code null}
      */
     public ImmutablePair(final L left, final R right) {
         this.left = left;

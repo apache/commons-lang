@@ -310,7 +310,7 @@ public class ConcurrentUtils {
      * </p>
      *
      * @param <T> the type of the value used by this {@link Future} object
-     * @param value  the constant value to return, may be null
+     * @param value  the constant value to return, may be {@code null}
      * @return an instance of Future that will return the value, never null
      */
     public static <T> Future<T> constantFuture(final T value) {

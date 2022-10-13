@@ -215,7 +215,7 @@ public class ObjectUtils {
      *
      * @param values  the values to test, may be {@code null} or empty
      * @return {@code true} if there is at least one {@code null} value in the array,
-     * {@code false} if all the values are non-null.
+     * {@code false} if all the values are non-{@code null}.
      * If the array is {@code null} or empty, {@code true} is also returned.
      * @since 3.11
      */
@@ -297,8 +297,8 @@ public class ObjectUtils {
      * <p>TODO Move to ComparableUtils.</p>
      *
      * @param <T> type of the values processed by this method
-     * @param c1  the first comparable, may be null
-     * @param c2  the second comparable, may be null
+     * @param c1  the first comparable, may be {@code null}
+     * @param c2  the second comparable, may be {@code null}
      * @return a negative value if c1 &lt; c2, zero if c1 = c2
      *  and a positive value if c1 &gt; c2
      */
@@ -311,10 +311,10 @@ public class ObjectUtils {
      * <p>TODO Move to ComparableUtils.</p>
      *
      * @param <T> type of the values processed by this method
-     * @param c1  the first comparable, may be null
-     * @param c2  the second comparable, may be null
-     * @param nullGreater if true {@code null} is considered greater
-     *  than a non-{@code null} value or if false {@code null} is
+     * @param c1  the first comparable, may be {@code null}
+     * @param c2  the second comparable, may be {@code null}
+     * @param nullGreater if {@code true} {@code null} is considered greater
+     *  than a non-{@code null} value or if {@code false} {@code null} is
      *  considered less than a Non-{@code null} value
      * @return a negative value if c1 &lt; c2, zero if c1 = c2
      *  and a positive value if c1 &gt; c2
@@ -515,8 +515,8 @@ public class ObjectUtils {
      * changes at some future date.
      *
      * @param <T> the Object type
-     * @param v the genericized Object value to return (typically a String).
-     * @return the genericized Object v, unchanged (typically a String).
+     * @param v the genericized Object value to return (typically a {@link String}).
+     * @return the genericized Object v, unchanged (typically a {@link String}).
      * @since 3.2
      */
     public static <T> T CONST(final T v) {
@@ -655,9 +655,9 @@ public class ObjectUtils {
     /**
      * Delegates to {@link Object#getClass()} using generics.
      *
-     * @param <T> The argument type or null.
+     * @param <T> The argument type or {@code null}.
      * @param object The argument.
-     * @return The argument Class or null.
+     * @return The argument Class or {@code null}.
      * @since 3.13.0
      */
     @SuppressWarnings("unchecked")
@@ -731,7 +731,7 @@ public class ObjectUtils {
      * </pre>
      *
      * @param obj  the object to obtain the hash code of, may be {@code null}
-     * @return the hash code of the object, or zero if null
+     * @return the hash code of the object, or zero if {@code null}
      * @since 2.1
      * @deprecated this method has been replaced by {@code java.util.Objects.hashCode(Object)} in Java 7 and will be
      * removed in future releases
@@ -774,7 +774,7 @@ public class ObjectUtils {
      * </pre>
      *
      * @param objects  the objects to obtain the hash code of, may be {@code null}
-     * @return the hash code of the objects, or zero if null
+     * @return the hash code of the objects, or zero if {@code null}
      * @since 3.0
      * @deprecated this method has been replaced by {@code java.util.Objects.hash(Object...)} in Java 7 and will be
      * removed in future releases.
@@ -983,7 +983,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Checks if an Object is empty or null.
+     * Checks if an Object is empty or {@code null}.
      *
      * The following types are supported:
      * <ul>
@@ -1035,7 +1035,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Checks if an Object is not empty and not null.
+     * Checks if an Object is not empty and not {@code null}.
      *
      * The following types are supported:
      * <ul>
@@ -1059,7 +1059,7 @@ public class ObjectUtils {
      *
      * @param object  the {@link Object} to test, may be {@code null}
      * @return {@code true} if the object has an unsupported type or is not empty
-     * and not null, {@code false} otherwise
+     * and not {@code null}, {@code false} otherwise
      * @since 3.9
      */
     public static boolean isNotEmpty(final Object object) {
@@ -1071,7 +1071,7 @@ public class ObjectUtils {
      * <p>TODO Move to ComparableUtils.</p>
      *
      * @param <T> type of the values processed by this method
-     * @param values the set of comparable values, may be null
+     * @param values the set of comparable values, may be {@code null}
      * @return
      *  <ul>
      *   <li>If any objects are non-null and unequal, the greater object.
@@ -1142,7 +1142,7 @@ public class ObjectUtils {
      * <p>TODO Move to ComparableUtils.</p>
      *
      * @param <T> type of the values processed by this method
-     * @param values the set of comparable values, may be null
+     * @param values the set of comparable values, may be {@code null}
      * @return
      *  <ul>
      *   <li>If any objects are non-null and unequal, the lesser object.
@@ -1295,7 +1295,7 @@ public class ObjectUtils {
      *
      * @see StringUtils#defaultString(String)
      * @see String#valueOf(Object)
-     * @param obj  the Object to {@code toString}, may be null
+     * @param obj  the Object to {@code toString}, may be {@code null}
      * @return the passed in Object's toString, or {@code ""} if {@code null} input
      * @since 2.0
      * @deprecated this method has been replaced by {@code java.util.Objects.toString(Object)} in Java 7 and will be
@@ -1321,8 +1321,8 @@ public class ObjectUtils {
      *
      * @see StringUtils#defaultString(String,String)
      * @see String#valueOf(Object)
-     * @param obj  the Object to {@code toString}, may be null
-     * @param nullStr  the String to return if {@code null} input, may be null
+     * @param obj  the Object to {@code toString}, may be {@code null}
+     * @param nullStr  the String to return if {@code null} input, may be {@code null}
      * @return the passed in Object's toString, or {@code nullStr} if {@code null} input
      * @since 2.0
      * @deprecated this method has been replaced by {@code java.util.Objects.toString(Object, String)} in Java 7 and
@@ -1348,8 +1348,8 @@ public class ObjectUtils {
      * ObjectUtils.toString(Boolean.TRUE, () -&gt; expensive()) = "true"
      * </pre>
      *
-     * @param obj  the Object to {@code toString}, may be null
-     * @param supplier  the Supplier of String used on {@code null} input, may be null
+     * @param obj  the Object to {@code toString}, may be {@code null}
+     * @param supplier  the Supplier of String used on {@code null} input, may be {@code null}
      * @return the passed in Object's toString, or {@code nullStr} if {@code null} input
      * @since 3.11
      */

@@ -66,8 +66,8 @@ public class MutablePair<L, R> extends Pair<L, R> {
      *
      * @param <L> the left element type
      * @param <R> the right element type
-     * @param left  the left element, may be null
-     * @param right  the right element, may be null
+     * @param left  the left element, may be {@code null}
+     * @param right  the right element, may be {@code null}
      * @return a pair formed from the two parameters, not null
      */
     public static <L, R> MutablePair<L, R> of(final L left, final R right) {
@@ -109,7 +109,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
      * @param left  the left element, may not be null
      * @param right  the right element, may not be null
      * @return a pair formed from the two parameters, not null
-     * @throws NullPointerException if any input is null
+     * @throws NullPointerException if any input is {@code null}
      * @since 3.13.0
      */
     public static <L, R> MutablePair<L, R> ofNonNull(final L left, final R right) {
@@ -131,8 +131,8 @@ public class MutablePair<L, R> extends Pair<L, R> {
     /**
      * Create a new pair instance.
      *
-     * @param left  the left value, may be null
-     * @param right  the right value, may be null
+     * @param left  the left value, may be {@code null}
+     * @param right  the right value, may be {@code null}
      */
     public MutablePair(final L left, final R right) {
         this.left = left;
@@ -158,7 +158,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
     /**
      * Sets the left element of the pair.
      *
-     * @param left  the new value of the left element, may be null
+     * @param left  the new value of the left element, may be {@code null}
      */
     public void setLeft(final L left) {
         this.left = left;
@@ -167,7 +167,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
     /**
      * Sets the right element of the pair.
      *
-     * @param right  the new value of the right element, may be null
+     * @param right  the new value of the right element, may be {@code null}
      */
     public void setRight(final R right) {
         this.right = right;

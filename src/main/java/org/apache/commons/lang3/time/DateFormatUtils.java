@@ -210,8 +210,8 @@ public class DateFormatUtils {
      * Formats a calendar into a specific pattern. The TimeZone from the calendar
      * will be used for formatting.
      *
-     * @param calendar  the calendar to format, not null
-     * @param pattern  the pattern to use to format the calendar, not null
+     * @param calendar  the calendar to format, not {@code null}
+     * @param pattern  the pattern to use to format the calendar, not {@code null}
      * @return the formatted calendar
      * @see FastDateFormat#format(Calendar)
      * @since 2.4
@@ -224,8 +224,8 @@ public class DateFormatUtils {
      * Formats a calendar into a specific pattern in a locale. The TimeZone from the calendar
      * will be used for formatting.
      *
-     * @param calendar  the calendar to format, not null
-     * @param pattern  the pattern to use to format the calendar, not null
+     * @param calendar  the calendar to format, not {@code null}
+     * @param pattern  the pattern to use to format the calendar, not {@code null}
      * @param locale  the locale to use, may be {@code null}
      * @return the formatted calendar
      * @see FastDateFormat#format(Calendar)
@@ -238,8 +238,8 @@ public class DateFormatUtils {
     /**
      * Formats a calendar into a specific pattern in a time zone.
      *
-     * @param calendar  the calendar to format, not null
-     * @param pattern  the pattern to use to format the calendar, not null
+     * @param calendar  the calendar to format, not {@code null}
+     * @param pattern  the pattern to use to format the calendar, not {@code null}
      * @param timeZone  the time zone  to use, may be {@code null}
      * @return the formatted calendar
      * @see FastDateFormat#format(Calendar)
@@ -252,8 +252,8 @@ public class DateFormatUtils {
     /**
      * Formats a calendar into a specific pattern in a time zone and locale.
      *
-     * @param calendar  the calendar to format, not null
-     * @param pattern  the pattern to use to format the calendar, not null
+     * @param calendar  the calendar to format, not {@code null}
+     * @param pattern  the pattern to use to format the calendar, not {@code null}
      * @param timeZone  the time zone  to use, may be {@code null}
      * @param locale  the locale to use, may be {@code null}
      * @return the formatted calendar
@@ -268,8 +268,8 @@ public class DateFormatUtils {
     /**
      * Formats a date/time into a specific pattern.
      *
-     * @param date  the date to format, not null
-     * @param pattern  the pattern to use to format the date, not null
+     * @param date  the date to format, not {@code null}
+     * @param pattern  the pattern to use to format the date, not {@code null}
      * @return the formatted date
      */
     public static String format(final Date date, final String pattern) {
@@ -279,8 +279,8 @@ public class DateFormatUtils {
     /**
      * Formats a date/time into a specific pattern in a locale.
      *
-     * @param date  the date to format, not null
-     * @param pattern  the pattern to use to format the date, not null
+     * @param date  the date to format, not {@code null}
+     * @param pattern  the pattern to use to format the date, not {@code null}
      * @param locale  the locale to use, may be {@code null}
      * @return the formatted date
      */
@@ -291,8 +291,8 @@ public class DateFormatUtils {
     /**
      * Formats a date/time into a specific pattern in a time zone.
      *
-     * @param date  the date to format, not null
-     * @param pattern  the pattern to use to format the date, not null
+     * @param date  the date to format, not {@code null}
+     * @param pattern  the pattern to use to format the date, not {@code null}
      * @param timeZone  the time zone  to use, may be {@code null}
      * @return the formatted date
      */

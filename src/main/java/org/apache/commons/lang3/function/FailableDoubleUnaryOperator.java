@@ -59,7 +59,7 @@ public interface FailableDoubleUnaryOperator<E extends Throwable> {
      * @param after the operator to apply after this one.
      * @return a composed {@link FailableDoubleUnaryOperator} like
      *         {@link DoubleUnaryOperator#andThen(DoubleUnaryOperator)}.
-     * @throws NullPointerException if after is null.
+     * @throws NullPointerException if after is {@code null}.
      * @see #compose(FailableDoubleUnaryOperator)
      */
     default FailableDoubleUnaryOperator<E> andThen(final FailableDoubleUnaryOperator<E> after) {
@@ -83,7 +83,7 @@ public interface FailableDoubleUnaryOperator<E extends Throwable> {
      * @param before the operator to apply before this one.
      * @return a composed {@link FailableDoubleUnaryOperator} like
      *         {@link DoubleUnaryOperator#compose(DoubleUnaryOperator)}.
-     * @throws NullPointerException if before is null.
+     * @throws NullPointerException if before is {@code null}.
      * @see #andThen(FailableDoubleUnaryOperator)
      */
     default FailableDoubleUnaryOperator<E> compose(final FailableDoubleUnaryOperator<E> before) {

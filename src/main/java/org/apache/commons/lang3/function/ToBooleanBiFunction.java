@@ -20,7 +20,7 @@ package org.apache.commons.lang3.function;
 import java.util.function.BiFunction;
 
 /**
- * A function that accepts two arguments and produces a boolean result. This is the {@code boolean}-producing primitive
+ * A function that accepts two arguments and produces a {@code boolean} result. This is the {@code boolean}-producing primitive
  * specialization for {@link BiFunction}.
  *
  * @param <T> the type of the first argument to the function.
