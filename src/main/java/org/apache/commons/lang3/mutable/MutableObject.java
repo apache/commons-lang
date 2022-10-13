@@ -18,6 +18,7 @@
 package org.apache.commons.lang3.mutable;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * A mutable {@link Object} wrapper.
@@ -114,7 +115,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
      */
     @Override
     public String toString() {
-        return value == null ? "null" : value.toString();
+        return Objects.toString(value);
     }
 
 }
