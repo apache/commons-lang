@@ -24,7 +24,6 @@ import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.ObjectUtils;
 
-
 /**
  * This class provides some replacements for the corresponding methods in
  * {@link java.util.Objects}. The replacements have the advantage, that they are properly
@@ -62,6 +61,7 @@ import org.apache.commons.lang3.ObjectUtils;
  * @since 3.12.0
  */
 public class Objects {
+
     /**
      * Checks, whether the given object is non-null. If so, returns the non-null
      * object as a result value. Otherwise, a NullPointerException is thrown.
@@ -75,7 +75,8 @@ public class Objects {
         return requireNonNull(value, "The value must not be null.");
     }
 
-    /** Checks, whether the given object is non-null. If so, returns the non-null
+    /**
+     * Checks, whether the given object is non-null. If so, returns the non-null
      * object as a result value. Otherwise, invokes the given {@link Supplier},
      * and returns the suppliers result value.
      * @param <T> The type of parameter {@code value}, also the result type of
