@@ -78,6 +78,16 @@ public class CalendarUtils {
     }
 
     /**
+     * Gets the current day of year.
+     *
+     * @return the current day of year.
+     * @since 3.13.0
+     */
+    public int getDayOfYear() {
+        return calendar.get(Calendar.DAY_OF_YEAR);
+    }
+
+    /**
      * Gets the current month.
      *
      * @return the current month.
