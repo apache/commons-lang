@@ -792,6 +792,20 @@ public class ObjectUtils {
     }
 
     /**
+     * Returns the hex hash code for the given object per {@link System#identityHashCode(Object)}.
+     * <p>
+     * Short hand for {@code Integer.toHexString(System.identityHashCode(object))}.
+     * </p>
+     *
+     * @param object object for which the hashCode is to be calculated
+     * @return Hash code in hexadecimal format.
+     * @since 3.13.0
+     */
+    public static String identityHashCodeHex(final Object object) {
+        return Integer.toHexString(System.identityHashCode(object));
+    }
+
+    /**
      * Appends the toString that would be produced by {@link Object}
      * if a class did not override toString itself. {@code null}
      * will throw a NullPointerException for either of the two parameters.
@@ -812,20 +826,6 @@ public class ObjectUtils {
         appendable.append(object.getClass().getName())
               .append(AT_SIGN)
               .append(identityHashCodeHex(object));
-    }
-
-    /**
-     * Returns the hex hash code for the given object per {@link System#identityHashCode(Object)}.
-     * <p>
-     * Short hand for {@code Integer.toHexString(System.identityHashCode(object))}.
-     * </p>
-     *
-     * @param object object for which the hashCode is to be calculated
-     * @return Hash code in hexadecimal format.
-     * @since 3.13.0
-     */
-    public static String identityHashCodeHex(final Object object) {
-        return Integer.toHexString(System.identityHashCode(object));
     }
 
     /**
