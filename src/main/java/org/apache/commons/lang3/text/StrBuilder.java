@@ -1860,7 +1860,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      */
     public StrBuilder deleteAll(final String str) {
-        final int len = str == null ? 0 : str.length();
+        final int len = StringUtils.length(str);
         if (len > 0) {
             int index = indexOf(str, 0);
             while (index >= 0) {
@@ -1878,7 +1878,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      */
     public StrBuilder deleteFirst(final String str) {
-        final int len = str == null ? 0 : str.length();
+        final int len = StringUtils.length(str);
         if (len > 0) {
             final int index = indexOf(str, 0);
             if (index >= 0) {
@@ -1953,7 +1953,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public StrBuilder replace(final int startIndex, int endIndex, final String replaceStr) {
         endIndex = validateRange(startIndex, endIndex);
-        final int insertLen = replaceStr == null ? 0 : replaceStr.length();
+        final int insertLen = StringUtils.length(replaceStr);
         replaceImpl(startIndex, endIndex, endIndex - startIndex, replaceStr, insertLen);
         return this;
     }
@@ -2005,9 +2005,9 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      */
     public StrBuilder replaceAll(final String searchStr, final String replaceStr) {
-        final int searchLen = searchStr == null ? 0 : searchStr.length();
+        final int searchLen = StringUtils.length(searchStr);
         if (searchLen > 0) {
-            final int replaceLen = replaceStr == null ? 0 : replaceStr.length();
+            final int replaceLen = StringUtils.length(replaceStr);
             int index = indexOf(searchStr, 0);
             while (index >= 0) {
                 replaceImpl(index, index + searchLen, searchLen, replaceStr, replaceLen);
@@ -2025,11 +2025,11 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      */
     public StrBuilder replaceFirst(final String searchStr, final String replaceStr) {
-        final int searchLen = searchStr == null ? 0 : searchStr.length();
+        final int searchLen = StringUtils.length(searchStr);
         if (searchLen > 0) {
             final int index = indexOf(searchStr, 0);
             if (index >= 0) {
-                final int replaceLen = replaceStr == null ? 0 : replaceStr.length();
+                final int replaceLen = StringUtils.length(replaceStr);
                 replaceImpl(index, index + searchLen, searchLen, replaceStr, replaceLen);
             }
         }
@@ -2114,7 +2114,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         if (matcher == null || size == 0) {
             return this;
         }
-        final int replaceLen = replaceStr == null ? 0 : replaceStr.length();
+        final int replaceLen = StringUtils.length(replaceStr);
         for (int i = from; i < to && replaceCount != 0; i++) {
             final char[] buf = buffer;
             final int removeLen = matcher.isMatch(buf, i, from, to);
