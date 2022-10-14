@@ -110,6 +110,7 @@ Additional Resources
 Apache Commons Components
 -------------------------
 | Component | GitHub Repository | Apache Homepage |
+| --------- | ----------------- | ----------------|
 | Apache Commons Bcel | [commons-bcel](https://github.com/apache/commons-bcel) | [commons-bcel](https://commons.apache.org/proper/commons-bcel) |
 | Apache Commons Beanutils | [commons-beanutils](https://github.com/apache/commons-beanutils) | [commons-beanutils](https://commons.apache.org/proper/commons-beanutils) |
 | Apache Commons Bsf | [commons-bsf](https://github.com/apache/commons-bsf) | [commons-bsf](https://commons.apache.org/proper/commons-bsf) |
