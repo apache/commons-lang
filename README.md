@@ -111,20 +111,20 @@ Apache Commons Components
 -------------------------
 | Component | GitHub Repository | Apache Homepage |
 | --------- | ----------------- | ----------------|
-| Apache Commons Bcel | [commons-bcel](https://github.com/apache/commons-bcel) | [commons-bcel](https://commons.apache.org/proper/commons-bcel) |
+| Apache Commons BCEL | [commons-bcel](https://github.com/apache/commons-bcel) | [commons-bcel](https://commons.apache.org/proper/commons-bcel) |
 | Apache Commons Beanutils | [commons-beanutils](https://github.com/apache/commons-beanutils) | [commons-beanutils](https://commons.apache.org/proper/commons-beanutils) |
-| Apache Commons Bsf | [commons-bsf](https://github.com/apache/commons-bsf) | [commons-bsf](https://commons.apache.org/proper/commons-bsf) |
+| Apache Commons BSF | [commons-bsf](https://github.com/apache/commons-bsf) | [commons-bsf](https://commons.apache.org/proper/commons-bsf) |
 | Apache Commons Build-plugin | [commons-build-plugin](https://github.com/apache/commons-build-plugin) | [commons-build-plugin](https://commons.apache.org/proper/commons-build-plugin) |
 | Apache Commons Chain | [commons-chain](https://github.com/apache/commons-chain) | [commons-chain](https://commons.apache.org/proper/commons-chain) |
-| Apache Commons Cli | [commons-cli](https://github.com/apache/commons-cli) | [commons-cli](https://commons.apache.org/proper/commons-cli) |
+| Apache Commons CLI | [commons-cli](https://github.com/apache/commons-cli) | [commons-cli](https://commons.apache.org/proper/commons-cli) |
 | Apache Commons Codec | [commons-codec](https://github.com/apache/commons-codec) | [commons-codec](https://commons.apache.org/proper/commons-codec) |
 | Apache Commons Collections | [commons-collections](https://github.com/apache/commons-collections) | [commons-collections](https://commons.apache.org/proper/commons-collections) |
 | Apache Commons Compress | [commons-compress](https://github.com/apache/commons-compress) | [commons-compress](https://commons.apache.org/proper/commons-compress) |
 | Apache Commons Configuration | [commons-configuration](https://github.com/apache/commons-configuration) | [commons-configuration](https://commons.apache.org/proper/commons-configuration) |
 | Apache Commons Crypto | [commons-crypto](https://github.com/apache/commons-crypto) | [commons-crypto](https://commons.apache.org/proper/commons-crypto) |
-| Apache Commons Csv | [commons-csv](https://github.com/apache/commons-csv) | [commons-csv](https://commons.apache.org/proper/commons-csv) |
+| Apache Commons CSV | [commons-csv](https://github.com/apache/commons-csv) | [commons-csv](https://commons.apache.org/proper/commons-csv) |
 | Apache Commons Daemon | [commons-daemon](https://github.com/apache/commons-daemon) | [commons-daemon](https://commons.apache.org/proper/commons-daemon) |
-| Apache Commons Dbcp | [commons-dbcp](https://github.com/apache/commons-dbcp) | [commons-dbcp](https://commons.apache.org/proper/commons-dbcp) |
+| Apache Commons DBCP | [commons-dbcp](https://github.com/apache/commons-dbcp) | [commons-dbcp](https://commons.apache.org/proper/commons-dbcp) |
 | Apache Commons Dbutils | [commons-dbutils](https://github.com/apache/commons-dbutils) | [commons-dbutils](https://commons.apache.org/proper/commons-dbutils) |
 | Apache Commons Digester | [commons-digester](https://github.com/apache/commons-digester) | [commons-digester](https://commons.apache.org/proper/commons-digester) |
 | Apache Commons Email | [commons-email](https://github.com/apache/commons-email) | [commons-email](https://commons.apache.org/proper/commons-email) |
@@ -134,9 +134,9 @@ Apache Commons Components
 | Apache Commons Geometry | [commons-geometry](https://github.com/apache/commons-geometry) | [commons-geometry](https://commons.apache.org/proper/commons-geometry) |
 | Apache Commons Graph | [commons-graph](https://github.com/apache/commons-graph) | [commons-graph](https://commons.apache.org/proper/commons-graph) |
 | Apache Commons Imaging | [commons-imaging](https://github.com/apache/commons-imaging) | [commons-imaging](https://commons.apache.org/proper/commons-imaging) |
-| Apache Commons Io | [commons-io](https://github.com/apache/commons-io) | [commons-io](https://commons.apache.org/proper/commons-io) |
-| Apache Commons Jci | [commons-jci](https://github.com/apache/commons-jci) | [commons-jci](https://commons.apache.org/proper/commons-jci) |
-| Apache Commons Jcs | [commons-jcs](https://github.com/apache/commons-jcs) | [commons-jcs](https://commons.apache.org/proper/commons-jcs) |
+| Apache Commons IO | [commons-io](https://github.com/apache/commons-io) | [commons-io](https://commons.apache.org/proper/commons-io) |
+| Apache Commons JCI | [commons-jci](https://github.com/apache/commons-jci) | [commons-jci](https://commons.apache.org/proper/commons-jci) |
+| Apache Commons JCS | [commons-jcs](https://github.com/apache/commons-jcs) | [commons-jcs](https://commons.apache.org/proper/commons-jcs) |
 | Apache Commons Jelly | [commons-jelly](https://github.com/apache/commons-jelly) | [commons-jelly](https://commons.apache.org/proper/commons-jelly) |
 | Apache Commons Jexl | [commons-jexl](https://github.com/apache/commons-jexl) | [commons-jexl](https://commons.apache.org/proper/commons-jexl) |
 | Apache Commons Jxpath | [commons-jxpath](https://github.com/apache/commons-jxpath) | [commons-jxpath](https://commons.apache.org/proper/commons-jxpath) |
@@ -148,7 +148,7 @@ Apache Commons Components
 | Apache Commons Parent | [commons-parent](https://github.com/apache/commons-parent) | [commons-parent](https://commons.apache.org/proper/commons-parent) |
 | Apache Commons Pool | [commons-pool](https://github.com/apache/commons-pool) | [commons-pool](https://commons.apache.org/proper/commons-pool) |
 | Apache Commons Proxy | [commons-proxy](https://github.com/apache/commons-proxy) | [commons-proxy](https://commons.apache.org/proper/commons-proxy) |
-| Apache Commons Rdf | [commons-rdf](https://github.com/apache/commons-rdf) | [commons-rdf](https://commons.apache.org/proper/commons-rdf) |
+| Apache Commons RDF | [commons-rdf](https://github.com/apache/commons-rdf) | [commons-rdf](https://commons.apache.org/proper/commons-rdf) |
 | Apache Commons Release-plugin | [commons-release-plugin](https://github.com/apache/commons-release-plugin) | [commons-release-plugin](https://commons.apache.org/proper/commons-release-plugin) |
 | Apache Commons Rng | [commons-rng](https://github.com/apache/commons-rng) | [commons-rng](https://commons.apache.org/proper/commons-rng) |
 | Apache Commons Scxml | [commons-scxml](https://github.com/apache/commons-scxml) | [commons-scxml](https://commons.apache.org/proper/commons-scxml) |
@@ -156,8 +156,7 @@ Apache Commons Components
 | Apache Commons Skin | [commons-skin](https://github.com/apache/commons-skin) | [commons-skin](https://commons.apache.org/proper/commons-skin) |
 | Apache Commons Statistics | [commons-statistics](https://github.com/apache/commons-statistics) | [commons-statistics](https://commons.apache.org/proper/commons-statistics) |
 | Apache Commons Testing | [commons-testing](https://github.com/apache/commons-testing) | [commons-testing](https://commons.apache.org/proper/commons-testing) |
-| Apache Commons Testrepo | [commons-testrepo](https://github.com/apache/commons-testrepo) | [commons-testrepo](https://commons.apache.org/proper/commons-testrepo) |
 | Apache Commons Text | [commons-text](https://github.com/apache/commons-text) | [commons-text](https://commons.apache.org/proper/commons-text) |
 | Apache Commons Validator | [commons-validator](https://github.com/apache/commons-validator) | [commons-validator](https://commons.apache.org/proper/commons-validator) |
-| Apache Commons Vfs | [commons-vfs](https://github.com/apache/commons-vfs) | [commons-vfs](https://commons.apache.org/proper/commons-vfs) |
+| Apache Commons VFS | [commons-vfs](https://github.com/apache/commons-vfs) | [commons-vfs](https://commons.apache.org/proper/commons-vfs) |
 | Apache Commons Weaver | [commons-weaver](https://github.com/apache/commons-weaver) | [commons-weaver](https://commons.apache.org/proper/commons-weaver) |
