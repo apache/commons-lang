@@ -637,7 +637,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * @return the modifiable list of String tokens, unmodifiable if null array or zero count
      */
     protected List<String> tokenize(final char[] srcChars, final int offset, final int count) {
-        if (srcChars == null || count == 0) {
+        if (ArrayUtils.isEmpty(srcChars)) {
             return Collections.emptyList();
         }
         final StrBuilder buf = new StrBuilder();
