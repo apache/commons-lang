@@ -470,7 +470,7 @@ public class NumberUtils {
         }
         return value.setScale(
             scale,
-            (roundingMode == null) ? RoundingMode.HALF_EVEN : roundingMode
+            roundingMode == null ? RoundingMode.HALF_EVEN : roundingMode
         );
     }
 
