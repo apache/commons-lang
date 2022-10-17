@@ -31,9 +31,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * <p>
- * Tests the methods in the {@link org.apache.commons.lang3.Range} class.
- * </p>
+ * Tests {@link Range}.
  */
 @SuppressWarnings("boxing")
 public class RangeTest extends AbstractLangTest {
