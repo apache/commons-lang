@@ -57,7 +57,7 @@ public final class Range<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Obtains a range with the specified minimum and maximum values (both inclusive).
+     * Creates a range with the specified minimum and maximum values (both inclusive).
      *
      * <p>The range uses the natural ordering of the elements to determine where
      * values lie in the range.</p>
@@ -77,7 +77,7 @@ public final class Range<T> implements Serializable {
     }
 
     /**
-     * Obtains a range with the specified minimum and maximum values (both inclusive).
+     * Creates a range with the specified minimum and maximum values (both inclusive).
      *
      * <p>The range uses the specified {@link Comparator} to determine where
      * values lie in the range.</p>
@@ -98,7 +98,7 @@ public final class Range<T> implements Serializable {
     }
 
     /**
-     * Obtains a range using the specified element as both the minimum
+     * Creates a range using the specified element as both the minimum
      * and maximum in this range.
      *
      * <p>The range uses the natural ordering of the elements to determine where
@@ -115,7 +115,7 @@ public final class Range<T> implements Serializable {
     }
 
     /**
-     * Obtains a range using the specified element as both the minimum
+     * Creates a range using the specified element as both the minimum
      * and maximum in this range.
      *
      * <p>The range uses the specified {@link Comparator} to determine where
@@ -165,7 +165,7 @@ public final class Range<T> implements Serializable {
      * @param comp  the comparator to be used, null for natural ordering
      */
     @SuppressWarnings("unchecked")
-    private Range(final T element1, final T element2, final Comparator<T> comp) {
+    Range(final T element1, final T element2, final Comparator<T> comp) {
         if (element1 == null || element2 == null) {
             throw new IllegalArgumentException("Elements in a range must not be null: element1=" +
                                                element1 + ", element2=" + element2);
