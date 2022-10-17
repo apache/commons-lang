@@ -24,8 +24,8 @@ import java.time.temporal.Temporal;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.LongRange;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.function.FailableBiConsumer;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
@@ -41,8 +41,7 @@ public class DurationUtils {
     /**
      * An Integer Range that accepts Longs.
      */
-    static final Range<Long> LONG_TO_INT_RANGE = Range.between(NumberUtils.LONG_INT_MIN_VALUE,
-            NumberUtils.LONG_INT_MAX_VALUE);
+    static final LongRange LONG_TO_INT_RANGE = LongRange.of(NumberUtils.LONG_INT_MIN_VALUE, NumberUtils.LONG_INT_MAX_VALUE);
 
     /**
      * Accepts the function with the duration as a long milliseconds and int nanoseconds.

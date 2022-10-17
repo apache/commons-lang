@@ -103,7 +103,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1638" type="fix" dev="ggregory" due-to="Shailendra Soni, Michael Osipov, Arun Avanathan, Andrew Thomas, Bruno P. Kinoshita, Gary Gregory">Added docs regarding week year support #924.</action>
     <action issue="LANG-1691" type="fix" dev="ggregory" due-to="Thiyagarajan, Gary Gregory">ClassUtils.getShortCanonicalName doesn't use the canonicalName #949.</action>
     <action                   type="fix" dev="aherbert" due-to="Piotr Stawirej">Validate: Get error messages without using String.format when varargs is empty.</action>
-    <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Simplify expression (length is never < 0) #962.</action>
+    <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Simplify expression (length is never &lt; 0) #962.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add GitHub coverage.yml.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
@@ -182,6 +182,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BooleanUtils.values() and forEach().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ClassPathUtils.packageToPath(String) and pathToPackage(String)</action>
     <action                   type="add" dev="ggregory" due-to="Arturo Bernal">Add CalendarUtils#getDayOfYear() #968</action>
+    <action                   type="add" dev="ggregory" due-to="ary Gregory">Add NumberRange, DoubleRange, IntegerRange, LongRange.</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess, Gary Gregory">Bump actions/cache from 2.1.4 to 3.0.10 #742, #752, #764, #833, #867, #959, #964.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump actions/checkout from 2 to 3.1.0 #819, #825, #859, #963.</action>

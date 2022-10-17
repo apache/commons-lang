@@ -53,23 +53,20 @@ public class RangeTest extends AbstractLangTest {
     private Range<Byte> byteRange2;
     private Range<Byte> byteRange3;
     private Range<Double> doubleRange;
-
     private Range<Float> floatRange;
-
     private Range<Integer> intRange;
-
     private Range<Long> longRange;
 
     @BeforeEach
     public void setUp() {
-        byteRange = Range.between((byte) 0, (byte) 5);
-        byteRange2 = Range.between((byte) 0, (byte) 5);
-        byteRange3 = Range.between((byte) 0, (byte) 10);
+        byteRange = Range.of((byte) 0, (byte) 5);
+        byteRange2 = Range.of((byte) 0, (byte) 5);
+        byteRange3 = Range.of((byte) 0, (byte) 10);
 
-        intRange = Range.between(10, 20);
-        longRange = Range.between(10L, 20L);
-        floatRange = Range.between((float) 10, (float) 20);
-        doubleRange = Range.between((double) 10, (double) 20);
+        intRange = Range.of(10, 20);
+        longRange = Range.of(10L, 20L);
+        floatRange = Range.of((float) 10, (float) 20);
+        doubleRange = Range.of((double) 10, (double) 20);
     }
 
     @Test
@@ -102,9 +99,40 @@ public class RangeTest extends AbstractLangTest {
         assertFalse(rbstr.contains("houses"), "should not contain houses");
         assertFalse(rbstr.contains(""), "should not contain ''");
 
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> Range.between(null, null, lengthComp));
+        assertThrows(NullPointerException.class, () -> Range.between(null, null, lengthComp));
+    }
+
+    @Test
+    public void testOfWithCompare() {
+        // all integers are equal
+        final Comparator<Integer> c = (o1, o2) -> 0;
+        final Comparator<String> lengthComp = Comparator.comparingInt(String::length);
+        Range<Integer> rb = Range.of(-10, 20);
+        assertFalse(rb.contains(null), "should not contain null");
+        assertTrue(rb.contains(10), "should contain 10");
+        assertTrue(rb.contains(-10), "should contain -10");
+        assertFalse(rb.contains(21), "should not contain 21");
+        assertFalse(rb.contains(-11), "should not contain -11");
+        rb = Range.of(-10, 20, c);
+        assertFalse(rb.contains(null), "should not contain null");
+        assertTrue(rb.contains(10), "should contain 10");
+        assertTrue(rb.contains(-10), "should contain -10");
+        assertTrue(rb.contains(21), "should contain 21");
+        assertTrue(rb.contains(-11), "should contain -11");
+        Range<String> rbstr = Range.of("house", "i");
+        assertFalse(rbstr.contains(null), "should not contain null");
+        assertTrue(rbstr.contains("house"), "should contain house");
+        assertTrue(rbstr.contains("i"), "should contain i");
+        assertFalse(rbstr.contains("hose"), "should not contain hose");
+        assertFalse(rbstr.contains("ice"), "should not contain ice");
+        rbstr = Range.of("house", "i", lengthComp);
+        assertFalse(rbstr.contains(null), "should not contain null");
+        assertTrue(rbstr.contains("house"), "should contain house");
+        assertTrue(rbstr.contains("i"), "should contain i");
+        assertFalse(rbstr.contains("houses"), "should not contain houses");
+        assertFalse(rbstr.contains(""), "should not contain ''");
+
+        assertThrows(NullPointerException.class, () -> Range.of(null, null, lengthComp));
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
