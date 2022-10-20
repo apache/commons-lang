@@ -29,6 +29,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.function.ToBooleanBiFunction;
@@ -1162,12 +1164,7 @@ public class StringUtils {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchCharSequences)) {
             return false;
         }
-        for (final CharSequence searchCharSequence : searchCharSequences) {
-            if (test.applyAsBoolean(cs, searchCharSequence)) {
-                return true;
-            }
-        }
-        return false;
+        return Arrays.stream(searchCharSequences).anyMatch(searchCharSequence -> test.applyAsBoolean(cs, searchCharSequence));
     }
 
     /**
@@ -1230,12 +1227,7 @@ public class StringUtils {
         }
         final int len = searchStr.length();
         final int max = str.length() - len;
-        for (int i = 0; i <= max; i++) {
-            if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, len)) {
-                return true;
-            }
-        }
-        return false;
+        return IntStream.rangeClosed(0, max).anyMatch(i -> CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, len));
     }
 
     /**
@@ -1402,12 +1394,7 @@ public class StringUtils {
             return false;
         }
         final int strLen = seq.length();
-        for (int i = 0; i < strLen; i++) {
-            if (Character.isWhitespace(seq.charAt(i))) {
-                return true;
-            }
-        }
-        return false;
+        return IntStream.range(0, strLen).anyMatch(i -> Character.isWhitespace(seq.charAt(i)));
     }
 
     private static void convertRemainingAccentCharacters(final StringBuilder decomposed) {
@@ -1443,14 +1430,8 @@ public class StringUtils {
         if (isEmpty(str)) {
             return 0;
         }
-        int count = 0;
         // We could also call str.toCharArray() for faster lookups but that would generate more garbage.
-        for (int i = 0; i < str.length(); i++) {
-            if (ch == str.charAt(i)) {
-                count++;
-            }
-        }
-        return count;
+        return (int) IntStream.range(0, str.length()).filter(i -> ch == str.charAt(i)).count();
     }
 
     /**
@@ -1729,12 +1710,7 @@ public class StringUtils {
         if (isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
             return false;
         }
-        for (final CharSequence searchString : searchStrings) {
-            if (endsWith(sequence, searchString)) {
-                return true;
-            }
-        }
-        return false;
+        return Arrays.stream(searchStrings).anyMatch(searchString -> endsWith(sequence, searchString));
     }
 
     /**
@@ -1801,12 +1777,7 @@ public class StringUtils {
         }
         // Step-wise comparison
         final int length = cs1.length();
-        for (int i = 0; i < length; i++) {
-            if (cs1.charAt(i) != cs2.charAt(i)) {
-                return false;
-            }
-        }
-        return true;
+        return IntStream.range(0, length).noneMatch(i -> cs1.charAt(i) != cs2.charAt(i));
     }
 
     /**
@@ -1830,11 +1801,7 @@ public class StringUtils {
      */
     public static boolean equalsAny(final CharSequence string, final CharSequence... searchStrings) {
         if (ArrayUtils.isNotEmpty(searchStrings)) {
-            for (final CharSequence next : searchStrings) {
-                if (equals(string, next)) {
-                    return true;
-                }
-            }
+            return Arrays.stream(searchStrings).anyMatch(next -> equals(string, next));
         }
         return false;
     }
@@ -1860,11 +1827,7 @@ public class StringUtils {
      */
     public static boolean equalsAnyIgnoreCase(final CharSequence string, final CharSequence...searchStrings) {
         if (ArrayUtils.isNotEmpty(searchStrings)) {
-            for (final CharSequence next : searchStrings) {
-                if (equalsIgnoreCase(string, next)) {
-                    return true;
-                }
-            }
+            return Arrays.stream(searchStrings).anyMatch(next -> equalsIgnoreCase(string, next));
         }
         return false;
     }
@@ -1931,11 +1894,7 @@ public class StringUtils {
     @SafeVarargs
     public static <T extends CharSequence> T firstNonBlank(final T... values) {
         if (values != null) {
-            for (final T val : values) {
-                if (isNotBlank(val)) {
-                    return val;
-                }
-            }
+            return Arrays.stream(values).filter(StringUtils::isNotBlank).findFirst().orElse(null);
         }
         return null;
     }
@@ -1966,11 +1925,7 @@ public class StringUtils {
     @SafeVarargs
     public static <T extends CharSequence> T firstNonEmpty(final T... values) {
         if (values != null) {
-            for (final T val : values) {
-                if (isNotEmpty(val)) {
-                    return val;
-                }
-            }
+            return Arrays.stream(values).filter(StringUtils::isNotEmpty).findFirst().orElse(null);
         }
         return null;
     }
@@ -3154,12 +3109,7 @@ public class StringUtils {
         if (searchStr.length() == 0) {
             return startPos;
         }
-        for (int i = startPos; i < endLimit; i++) {
-            if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, searchStr.length())) {
-                return i;
-            }
-        }
-        return INDEX_NOT_FOUND;
+        return IntStream.range(startPos, endLimit).filter(i -> CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, searchStr.length())).findFirst().orElse(INDEX_NOT_FOUND);
     }
 
     /**
@@ -3187,12 +3137,7 @@ public class StringUtils {
         if (ArrayUtils.isEmpty(css)) {
             return true;
         }
-        for (final CharSequence cs : css) {
-            if (isNotBlank(cs)) {
-               return false;
-            }
-        }
-        return true;
+        return Arrays.stream(css).noneMatch(StringUtils::isNotBlank);
     }
 
     /**
@@ -3218,12 +3163,7 @@ public class StringUtils {
         if (ArrayUtils.isEmpty(css)) {
             return true;
         }
-        for (final CharSequence cs : css) {
-            if (isNotEmpty(cs)) {
-                return false;
-            }
-        }
-        return true;
+        return Arrays.stream(css).noneMatch(StringUtils::isNotEmpty);
     }
 
     /**
@@ -3253,12 +3193,7 @@ public class StringUtils {
             return false;
         }
         final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
-            if (!Character.isLowerCase(cs.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
+        return IntStream.range(0, sz).allMatch(i -> Character.isLowerCase(cs.charAt(i)));
     }
 
     /**
@@ -3288,12 +3223,7 @@ public class StringUtils {
             return false;
         }
         final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
-            if (!Character.isUpperCase(cs.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
+        return IntStream.range(0, sz).allMatch(i -> Character.isUpperCase(cs.charAt(i)));
     }
 
     /**
@@ -3321,12 +3251,7 @@ public class StringUtils {
             return false;
         }
         final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
-            if (!Character.isLetter(cs.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
+        return IntStream.range(0, sz).allMatch(i -> Character.isLetter(cs.charAt(i)));
     }
 
     /**
@@ -3356,12 +3281,7 @@ public class StringUtils {
             return false;
         }
         final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
-            if (!Character.isLetterOrDigit(cs.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
+        return IntStream.range(0, sz).allMatch(i -> Character.isLetterOrDigit(cs.charAt(i)));
     }
 
     /**
@@ -3463,12 +3383,7 @@ public class StringUtils {
         if (ArrayUtils.isEmpty(css)) {
             return false;
         }
-        for (final CharSequence cs : css) {
-            if (isBlank(cs)) {
-                return true;
-            }
-        }
-        return false;
+        return Arrays.stream(css).anyMatch(StringUtils::isBlank);
     }
 
     /**
@@ -3495,12 +3410,7 @@ public class StringUtils {
         if (ArrayUtils.isEmpty(css)) {
             return false;
         }
-        for (final CharSequence cs : css) {
-            if (isEmpty(cs)) {
-                return true;
-            }
-        }
-        return false;
+        return Arrays.stream(css).anyMatch(StringUtils::isEmpty);
     }
 
     /**
@@ -3534,12 +3444,7 @@ public class StringUtils {
             return false;
         }
         final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
-            if (!CharUtils.isAsciiPrintable(cs.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
+        return IntStream.range(0, sz).allMatch(i -> CharUtils.isAsciiPrintable(cs.charAt(i)));
     }
 
     /**
@@ -3565,12 +3470,7 @@ public class StringUtils {
         if (strLen == 0) {
             return true;
         }
-        for (int i = 0; i < strLen; i++) {
-            if (!Character.isWhitespace(cs.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
+        return IntStream.range(0, strLen).allMatch(i -> Character.isWhitespace(cs.charAt(i)));
     }
 
     /**
@@ -3767,12 +3667,7 @@ public class StringUtils {
             return false;
         }
         final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
-            if (!Character.isDigit(cs.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
+        return IntStream.range(0, sz).allMatch(i -> Character.isDigit(cs.charAt(i)));
     }
 
     /**
@@ -3842,12 +3737,7 @@ public class StringUtils {
             return false;
         }
         final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
-            if (!Character.isWhitespace(cs.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
+        return IntStream.range(0, sz).allMatch(i -> Character.isWhitespace(cs.charAt(i)));
     }
 
     /**
@@ -5368,12 +5258,7 @@ public class StringUtils {
                 si++;
             }
         }
-        int transpositions = 0;
-        for (int mi = 0; mi < ms1.length; mi++) {
-            if (ms1[mi] != ms2[mi]) {
-                transpositions++;
-            }
-        }
+        int transpositions = (int) IntStream.range(0, ms1.length).filter(mi -> ms1[mi] != ms2[mi]).count();
         int prefix = 0;
         for (int mi = 0; mi < min.length(); mi++) {
             if (first.charAt(mi) != second.charAt(mi)) {
@@ -6228,11 +6113,7 @@ public class StringUtils {
                 }
                 return new String(output2);
             default :
-                final StringBuilder buf = new StringBuilder(outputLength);
-                for (int i = 0; i < repeat; i++) {
-                    buf.append(str);
-                }
-                return buf.toString();
+                return IntStream.range(0, repeat).mapToObj(i -> str).collect(Collectors.joining());
         }
     }
 
@@ -6685,18 +6566,10 @@ public class StringUtils {
         int start = 0;
 
         // get a good guess on the size of the result buffer so it doesn't have to double if it goes over a bit
-        int increase = 0;
+        int increase = IntStream.range(0, searchList.length).filter(i -> searchList[i] != null && replacementList[i] != null).map(i -> replacementList[i].length() - searchList[i].length()).filter(greater -> greater > 0).map(greater -> 3 * greater).sum();
 
         // count the replacement text elements that are larger than their corresponding text being replaced
-        for (int i = 0; i < searchList.length; i++) {
-            if (searchList[i] == null || replacementList[i] == null) {
-                continue;
-            }
-            final int greater = replacementList[i].length() - searchList[i].length();
-            if (greater > 0) {
-                increase += 3 * greater; // assume 3 matches
-            }
-        }
+        // assume 3 matches
         // have upper-bound at 20% increase, then let Java take over
         increase = Math.min(increase, text.length() / 5);
 
@@ -8021,12 +7894,7 @@ public class StringUtils {
         if (isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
             return false;
         }
-        for (final CharSequence searchString : searchStrings) {
-            if (startsWith(sequence, searchString)) {
-                return true;
-            }
-        }
-        return false;
+        return Arrays.stream(searchStrings).anyMatch(searchString -> startsWith(sequence, searchString));
     }
 
     /**
