@@ -31,6 +31,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
+import java.util.stream.IntStream;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -2317,12 +2318,7 @@ public class ArrayUtils {
         if (startIndex < 0) {
             startIndex = 0;
         }
-        for (int i = startIndex; i < array.length; i++) {
-            if (valueToFind == array[i]) {
-                return i;
-            }
-        }
-        return INDEX_NOT_FOUND;
+        return IntStream.range(startIndex, array.length).filter(i -> valueToFind == array[i]).findFirst().orElse(INDEX_NOT_FOUND);
     }
 
     /**
@@ -2363,12 +2359,7 @@ public class ArrayUtils {
         if (startIndex < 0) {
             startIndex = 0;
         }
-        for (int i = startIndex; i < array.length; i++) {
-            if (valueToFind == array[i]) {
-                return i;
-            }
-        }
-        return INDEX_NOT_FOUND;
+        return IntStream.range(startIndex, array.length).filter(i -> valueToFind == array[i]).findFirst().orElse(INDEX_NOT_FOUND);
     }
 
     /**
@@ -2411,12 +2402,7 @@ public class ArrayUtils {
         if (startIndex < 0) {
             startIndex = 0;
         }
-        for (int i = startIndex; i < array.length; i++) {
-            if (valueToFind == array[i]) {
-                return i;
-            }
-        }
-        return INDEX_NOT_FOUND;
+        return IntStream.range(startIndex, array.length).filter(i -> valueToFind == array[i]).findFirst().orElse(INDEX_NOT_FOUND);
     }
 
     /**
@@ -2513,12 +2499,7 @@ public class ArrayUtils {
         }
         final double min = valueToFind - tolerance;
         final double max = valueToFind + tolerance;
-        for (int i = startIndex; i < array.length; i++) {
-            if (array[i] >= min && array[i] <= max) {
-                return i;
-            }
-        }
-        return INDEX_NOT_FOUND;
+        return IntStream.range(startIndex, array.length).filter(i -> array[i] >= min && array[i] <= max).findFirst().orElse(INDEX_NOT_FOUND);
     }
 
     /**
@@ -2607,12 +2588,7 @@ public class ArrayUtils {
         if (startIndex < 0) {
             startIndex = 0;
         }
-        for (int i = startIndex; i < array.length; i++) {
-            if (valueToFind == array[i]) {
-                return i;
-            }
-        }
-        return INDEX_NOT_FOUND;
+        return IntStream.range(startIndex, array.length).filter(i -> valueToFind == array[i]).findFirst().orElse(INDEX_NOT_FOUND);
     }
 
     /**
@@ -2653,12 +2629,7 @@ public class ArrayUtils {
         if (startIndex < 0) {
             startIndex = 0;
         }
-        for (int i = startIndex; i < array.length; i++) {
-            if (valueToFind == array[i]) {
-                return i;
-            }
-        }
-        return INDEX_NOT_FOUND;
+        return IntStream.range(startIndex, array.length).filter(i -> valueToFind == array[i]).findFirst().orElse(INDEX_NOT_FOUND);
     }
 
     /**
@@ -2700,19 +2671,10 @@ public class ArrayUtils {
             startIndex = 0;
         }
         if (objectToFind == null) {
-            for (int i = startIndex; i < array.length; i++) {
-                if (array[i] == null) {
-                    return i;
-                }
-            }
+            return IntStream.range(startIndex, array.length).filter(i -> array[i] == null).findFirst().orElse(INDEX_NOT_FOUND);
         } else {
-            for (int i = startIndex; i < array.length; i++) {
-                if (objectToFind.equals(array[i])) {
-                    return i;
-                }
-            }
+            return IntStream.range(startIndex, array.length).filter(i -> objectToFind.equals(array[i])).findFirst().orElse(INDEX_NOT_FOUND);
         }
-        return INDEX_NOT_FOUND;
     }
 
     /**
@@ -2753,12 +2715,7 @@ public class ArrayUtils {
         if (startIndex < 0) {
             startIndex = 0;
         }
-        for (int i = startIndex; i < array.length; i++) {
-            if (valueToFind == array[i]) {
-                return i;
-            }
-        }
-        return INDEX_NOT_FOUND;
+        return IntStream.range(startIndex, array.length).filter(i -> valueToFind == array[i]).findFirst().orElse(INDEX_NOT_FOUND);
     }
 
     /**
@@ -9266,11 +9223,7 @@ public class ArrayUtils {
         if (array.length == 0) {
             return EMPTY_DOUBLE_ARRAY;
         }
-        final double[] result = new double[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].doubleValue();
-        }
-        return result;
+        return Arrays.stream(array).mapToDouble(Double::doubleValue).toArray();
     }
 
     /**
@@ -9364,11 +9317,7 @@ public class ArrayUtils {
         if (array.length == 0) {
             return EMPTY_INT_ARRAY;
         }
-        final int[] result = new int[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].intValue();
-        }
-        return result;
+        return Arrays.stream(array).mapToInt(Integer::intValue).toArray();
     }
 
     /**
@@ -9413,11 +9362,7 @@ public class ArrayUtils {
         if (array.length == 0) {
             return EMPTY_LONG_ARRAY;
         }
-        final long[] result = new long[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].longValue();
-        }
-        return result;
+        return Arrays.stream(array).mapToLong(Long::longValue).toArray();
     }
 
     /**
@@ -9595,12 +9540,7 @@ public class ArrayUtils {
             return EMPTY_STRING_ARRAY;
         }
 
-        final String[] result = new String[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].toString();
-        }
-
-        return result;
+        return Arrays.stream(array).map(Object::toString).toArray(String[]::new);
     }
 
     /**
