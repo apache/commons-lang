@@ -33,6 +33,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
@@ -299,10 +301,7 @@ public class TypeUtils {
         @SuppressWarnings("unchecked") final T... types) {
         Validate.notEmpty(Validate.noNullElements(types));
         if (types.length > 0) {
-            builder.append(toString(types[0]));
-            for (int i = 1; i < types.length; i++) {
-                builder.append(sep).append(toString(types[i]));
-            }
+            builder.append(IntStream.range(1, types.length).mapToObj(i -> sep + toString(types[i])).collect(Collectors.joining("", toString(types[0]), "")));
         }
         return builder;
     }
@@ -362,12 +361,7 @@ public class TypeUtils {
             return ((Class<?>) type).getTypeParameters().length > 0;
         }
         if (type instanceof ParameterizedType) {
-            for (final Type arg : ((ParameterizedType) type).getActualTypeArguments()) {
-                if (containsTypeVariables(arg)) {
-                    return true;
-                }
-            }
-            return false;
+            return Arrays.stream(((ParameterizedType) type).getActualTypeArguments()).anyMatch(TypeUtils::containsTypeVariables);
         }
         if (type instanceof WildcardType) {
             final WildcardType wild = (WildcardType) type;
@@ -517,12 +511,7 @@ public class TypeUtils {
      */
     private static boolean equals(final Type[] type1, final Type[] type2) {
         if (type1.length == type2.length) {
-            for (int i = 0; i < type1.length; i++) {
-                if (!equals(type1[i], type2[i])) {
-                    return false;
-                }
-            }
-            return true;
+            return IntStream.range(0, type1.length).allMatch(i -> equals(type1[i], type2[i]));
         }
         return false;
     }
@@ -989,25 +978,15 @@ public class TypeUtils {
         // since wildcard types are not assignable to classes, should this just
         // return null?
         if (type instanceof WildcardType) {
-            for (final Type bound : getImplicitUpperBounds((WildcardType) type)) {
-                // find the first bound that is assignable to the target class
-                if (isAssignable(bound, toClass)) {
-                    return getTypeArguments(bound, toClass, subtypeVarAssigns);
-                }
-            }
+            // find the first bound that is assignable to the target class
+            return Arrays.stream(getImplicitUpperBounds((WildcardType) type)).filter(bound -> isAssignable(bound, toClass)).findFirst().map(bound -> getTypeArguments(bound, toClass, subtypeVarAssigns)).orElse(null);
 
-            return null;
         }
 
         if (type instanceof TypeVariable<?>) {
-            for (final Type bound : getImplicitBounds((TypeVariable<?>) type)) {
-                // find the first bound that is assignable to the target class
-                if (isAssignable(bound, toClass)) {
-                    return getTypeArguments(bound, toClass, subtypeVarAssigns);
-                }
-            }
+            // find the first bound that is assignable to the target class
+            return Arrays.stream(getImplicitBounds((TypeVariable<?>) type)).filter(bound -> isAssignable(bound, toClass)).findFirst().map(bound -> getTypeArguments(bound, toClass, subtypeVarAssigns)).orElse(null);
 
-            return null;
         }
         throw new IllegalStateException("found an unhandled type: " + type);
     }
@@ -1061,13 +1040,8 @@ public class TypeUtils {
         if (type instanceof TypeVariable<?>) {
             // if any of the bounds are assignable to the class, then the
             // type is assignable to the class.
-            for (final Type bound : ((TypeVariable<?>) type).getBounds()) {
-                if (isAssignable(bound, toClass)) {
-                    return true;
-                }
-            }
 
-            return false;
+            return Arrays.stream(((TypeVariable<?>) type).getBounds()).anyMatch(bound -> isAssignable(bound, toClass));
         }
 
         // the only classes to which a generic array type can be assigned
@@ -1133,25 +1107,15 @@ public class TypeUtils {
 
         if (type instanceof WildcardType) {
             // so long as one of the upper bounds is assignable, it's good
-            for (final Type bound : getImplicitUpperBounds((WildcardType) type)) {
-                if (isAssignable(bound, toGenericArrayType)) {
-                    return true;
-                }
-            }
 
-            return false;
+            return Arrays.stream(getImplicitUpperBounds((WildcardType) type)).anyMatch(bound -> isAssignable(bound, toGenericArrayType));
         }
 
         if (type instanceof TypeVariable<?>) {
             // probably should remove the following logic and just return false.
             // type variables cannot specify arrays as bounds.
-            for (final Type bound : getImplicitBounds((TypeVariable<?>) type)) {
-                if (isAssignable(bound, toGenericArrayType)) {
-                    return true;
-                }
-            }
 
-            return false;
+            return Arrays.stream(getImplicitBounds((TypeVariable<?>) type)).anyMatch(bound -> isAssignable(bound, toGenericArrayType));
         }
 
         if (type instanceof ParameterizedType) {
@@ -1370,36 +1334,18 @@ public class TypeUtils {
             final Type[] upperBounds = getImplicitUpperBounds(wildcardType);
             final Type[] lowerBounds = getImplicitLowerBounds(wildcardType);
 
-            for (Type toBound : toUpperBounds) {
-                // if there are assignments for unresolved type variables,
-                // now's the time to substitute them.
-                toBound = substituteTypeVariables(toBound, typeVarAssigns);
+            // if there are assignments for unresolved type variables,
+            // now's the time to substitute them.
+            // each upper bound of the subject type has to be assignable to
+            // each
+            // upper bound of the target type
 
-                // each upper bound of the subject type has to be assignable to
-                // each
-                // upper bound of the target type
-                for (final Type bound : upperBounds) {
-                    if (!isAssignable(bound, toBound, typeVarAssigns)) {
-                        return false;
-                    }
-                }
-            }
-
-            for (Type toBound : toLowerBounds) {
-                // if there are assignments for unresolved type variables,
-                // now's the time to substitute them.
-                toBound = substituteTypeVariables(toBound, typeVarAssigns);
-
-                // each lower bound of the target type has to be assignable to
-                // each
-                // lower bound of the subject type
-                for (final Type bound : lowerBounds) {
-                    if (!isAssignable(toBound, bound, typeVarAssigns)) {
-                        return false;
-                    }
-                }
-            }
-            return true;
+            // if there are assignments for unresolved type variables,
+            // now's the time to substitute them.
+            // each lower bound of the target type has to be assignable to
+            // each
+            // lower bound of the subject type
+            return Arrays.stream(toUpperBounds).map(toBound -> substituteTypeVariables(toBound, typeVarAssigns)).noneMatch(toBound -> Arrays.stream(upperBounds).anyMatch(bound -> !isAssignable(bound, toBound, typeVarAssigns))) && Arrays.stream(toLowerBounds).map(toBound -> substituteTypeVariables(toBound, typeVarAssigns)).noneMatch(toBound -> Arrays.stream(lowerBounds).anyMatch(bound -> !isAssignable(toBound, bound, typeVarAssigns)));
         }
 
         for (final Type toBound : toUpperBounds) {
@@ -1411,15 +1357,10 @@ public class TypeUtils {
             }
         }
 
-        for (final Type toBound : toLowerBounds) {
-            // if there are assignments for unresolved type variables,
-            // now's the time to substitute them.
-            if (!isAssignable(substituteTypeVariables(toBound, typeVarAssigns), type,
-                    typeVarAssigns)) {
-                return false;
-            }
-        }
-        return true;
+        // if there are assignments for unresolved type variables,
+        // now's the time to substitute them.
+        return Arrays.stream(toLowerBounds).allMatch(toBound -> isAssignable(substituteTypeVariables(toBound, typeVarAssigns), type,
+                typeVarAssigns));
     }
 
     /**
@@ -1520,14 +1461,7 @@ public class TypeUtils {
         final Set<Type> types = new HashSet<>(bounds.length);
 
         for (final Type type1 : bounds) {
-            boolean subtypeFound = false;
-
-            for (final Type type2 : bounds) {
-                if (type1 != type2 && isAssignable(type2, type1, null)) {
-                    subtypeFound = true;
-                    break;
-                }
-            }
+            boolean subtypeFound = Arrays.stream(bounds).anyMatch(type2 -> type1 != type2 && isAssignable(type2, type1, null));
 
             if (!subtypeFound) {
                 types.add(type1);
