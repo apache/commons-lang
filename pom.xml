@@ -634,6 +634,10 @@
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.encoding>utf-8</commons.encoding>
 
+    <commons.taglist.plugin.version>3.0.0</commons.taglist.plugin.version>
+
+    <commons.exec-maven.plugin.version>3.1.0</commons.exec-maven.plugin.version>
+
     <checkstyle.plugin.version>3.2.0</checkstyle.plugin.version>
     <checkstyle.version>9.3</checkstyle.version>
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
@@ -892,7 +896,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>taglist-maven-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>${commons.taglist.plugin.version}</version>
         <configuration>
           <tagListOptions>
             <tagClasses>
@@ -1037,7 +1041,7 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>
-            <version>3.1.0</version>
+            <version>${commons.exec-maven.plugin.version}</version>
             <executions>
               <execution>
                 <id>benchmark</id>
