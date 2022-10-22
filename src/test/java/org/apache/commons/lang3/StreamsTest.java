@@ -74,7 +74,7 @@ public class StreamsTest extends AbstractLangTest {
 
     @Test
     public void testToArray() {
-        final String[] array = Arrays.asList("2", "3", "1").stream().collect(Streams.toArray(String.class));
+        final String[] array = Stream.of("2", "3", "1").collect(Streams.toArray(String.class));
         assertNotNull(array);
         assertEquals(3, array.length);
         assertEquals("2", array[0]);

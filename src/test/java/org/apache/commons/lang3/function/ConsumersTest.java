@@ -18,7 +18,6 @@
 package org.apache.commons.lang3.function;
 
 import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -33,7 +32,7 @@ public class ConsumersTest extends AbstractLangTest {
      */
     @Test
     public void testNop() {
-        Stream.of("").forEach(Consumers.nop());
+        Consumers.nop().accept("");
         //
         final Consumer<?> c1 = Consumers.nop();
         c1.accept(null);
