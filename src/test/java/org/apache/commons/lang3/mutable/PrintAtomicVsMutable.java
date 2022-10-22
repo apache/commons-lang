@@ -27,14 +27,14 @@ import org.apache.commons.lang3.time.DurationUtils;
 public class PrintAtomicVsMutable {
 
     public static void main(String[] args) {
-        MutableInt mInt = new MutableInt();
+        final MutableInt mInt = new MutableInt();
         final int max = 100_000_000;
         System.out.println("MutableInt " + DurationUtils.of(() -> {
             for (int i = 0; i < max; i++) {
                 mInt.incrementAndGet();
             }
         }));
-        AtomicInteger aInt = new AtomicInteger();
+        final AtomicInteger aInt = new AtomicInteger();
         System.out.println("AtomicInteger " + DurationUtils.of(() -> {
             for (int i = 0; i < max; i++) {
                 aInt.incrementAndGet();

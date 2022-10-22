@@ -147,14 +147,14 @@ public class ReflectionToStringBuilderIncludeTest extends AbstractLangTest {
 
     @Test
     public void test_toStringDefaultBehavior() {
-        ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
+        final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
         final String toString = builder.toString();
         this.validateAllFieldsPresent(toString);
     }
 
     @Test
     public void test_toStringSetIncludeAndExcludeWithoutIntersection() {
-        ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
+        final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
         builder.setExcludeFieldNames(FIELDS[1], FIELDS[4]);
         builder.setIncludeFieldNames(FIELDS_TO_SHOW);
         final String toString = builder.toString();
@@ -163,7 +163,7 @@ public class ReflectionToStringBuilderIncludeTest extends AbstractLangTest {
 
     @Test
     public void test_toStringSetIncludeAndExcludeWithIntersection() {
-        ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
+        final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
         builder.setExcludeFieldNames(FIELDS[1], FIELDS[4]);
         builder.setIncludeFieldNames(FIELDS[0], FIELDS[1]);
         Assertions.assertThrows(IllegalStateException.class, () -> {
@@ -173,7 +173,7 @@ public class ReflectionToStringBuilderIncludeTest extends AbstractLangTest {
 
     @Test
     public void test_toStringSetIncludeWithMultipleNullFields() {
-        ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
+        final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
         builder.setExcludeFieldNames(FIELDS[1], FIELDS[4]);
         builder.setIncludeFieldNames(null, null, null);
         final String toString = builder.toString();
@@ -182,7 +182,7 @@ public class ReflectionToStringBuilderIncludeTest extends AbstractLangTest {
 
     @Test
     public void test_toStringSetIncludeWithArrayWithMultipleNullFields() {
-        ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
+        final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
         builder.setExcludeFieldNames(new String[] {FIELDS[1], FIELDS[4]});
         builder.setIncludeFieldNames(new String[] {null, null, null});
         final String toString = builder.toString();
@@ -191,7 +191,7 @@ public class ReflectionToStringBuilderIncludeTest extends AbstractLangTest {
 
     @Test
     public void test_toStringSetIncludeAndExcludeWithRandomFieldsWithIntersection() {
-        ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
+        final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
         builder.setExcludeFieldNames(FIELDS[1], "random1");
         builder.setIncludeFieldNames("random1");
         Assertions.assertThrows(IllegalStateException.class, () -> {
@@ -201,38 +201,38 @@ public class ReflectionToStringBuilderIncludeTest extends AbstractLangTest {
 
     @Test
     public void test_toStringSetIncludeAndExcludeWithRandomFieldsWithoutIntersection() {
-        ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
+        final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
         builder.setExcludeFieldNames(FIELDS[1], "random1");
         builder.setIncludeFieldNames("random2", FIELDS[2]);
         final String toString = builder.toString();
         this.validateIncludeFieldsPresent(toString, new String[]{FIELDS[2]}, new String[]{VALUES[2]});
     }
 
-    private void validateAllFieldsPresent(String toString) {
+    private void validateAllFieldsPresent(final String toString) {
         validateIncludeFieldsPresent(toString, FIELDS, VALUES);
     }
 
     private void validateIncludeFieldsPresent(final String toString, final String[] fieldsToShow, final String[] valuesToShow) {
-        for (String includeField : fieldsToShow) {
+        for (final String includeField : fieldsToShow) {
             assertTrue(toString.indexOf(includeField) > 0);
         }
 
-        for (String includeValue : valuesToShow) {
+        for (final String includeValue : valuesToShow) {
             assertTrue(toString.indexOf(includeValue) > 0);
         }
 
         this.validateNonIncludeFieldsAbsent(toString, fieldsToShow, valuesToShow);
     }
 
-    private void validateNonIncludeFieldsAbsent(String toString, String[] IncludeFields, String[] IncludeFieldsValues) {
-        String[] nonIncludeFields = ArrayUtils.removeElements(FIELDS.clone(), IncludeFields);
-        String[] nonIncludeFieldsValues = ArrayUtils.removeElements(VALUES.clone(), IncludeFieldsValues);
+    private void validateNonIncludeFieldsAbsent(final String toString, final String[] IncludeFields, final String[] IncludeFieldsValues) {
+        final String[] nonIncludeFields = ArrayUtils.removeElements(FIELDS.clone(), IncludeFields);
+        final String[] nonIncludeFieldsValues = ArrayUtils.removeElements(VALUES.clone(), IncludeFieldsValues);
 
-        for (String nonIncludeField : nonIncludeFields) {
+        for (final String nonIncludeField : nonIncludeFields) {
             assertEquals(ArrayUtils.INDEX_NOT_FOUND, toString.indexOf(nonIncludeField));
         }
 
-        for (String nonIncludeValue : nonIncludeFieldsValues) {
+        for (final String nonIncludeValue : nonIncludeFieldsValues) {
             assertEquals(ArrayUtils.INDEX_NOT_FOUND, toString.indexOf(nonIncludeValue));
         }
     }

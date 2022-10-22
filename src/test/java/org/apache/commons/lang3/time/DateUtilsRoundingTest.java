@@ -82,8 +82,8 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
 
         //Calendar-initiations
         final Calendar roundedUpCalendar;
-        Calendar roundedDownCalendar;
-        Calendar lastRoundDownCalendar;
+        final Calendar roundedDownCalendar;
+        final Calendar lastRoundDownCalendar;
         final Calendar firstRoundUpCalendar;
         roundedDownCalendar = Calendar.getInstance();
         roundedUpCalendar = Calendar.getInstance();
@@ -132,7 +132,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
 
         //Calendar-initiations
         final Calendar truncatedCalendar;
-        Calendar lastTruncateCalendar;
+        final Calendar lastTruncateCalendar;
         final Calendar nextTruncateCalendar;
         truncatedCalendar = Calendar.getInstance();
         lastTruncateCalendar = Calendar.getInstance();
@@ -256,7 +256,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
     public void testRoundDate() throws Exception {
         final int calendarField = Calendar.DATE;
         final Date roundedUpDate;
-        Date roundedDownDate;
+        final Date roundedDownDate;
         final Date lastRoundedDownDate;
         final Date minDate;
         final Date maxDate;
