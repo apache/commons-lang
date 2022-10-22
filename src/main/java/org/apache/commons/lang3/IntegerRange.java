@@ -74,7 +74,6 @@ public final class IntegerRange extends NumberRange<Integer> {
      *
      * @param number1 the first element, not null
      * @param number2 the second element, not null
-     * @param comp the comparator to be used, null for natural ordering
      * @throws NullPointerException when element1 is null.
      * @throws NullPointerException when element2 is null.
      */
