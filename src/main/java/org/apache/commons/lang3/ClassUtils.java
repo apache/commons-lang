@@ -1496,7 +1496,7 @@ public class ClassUtils {
     /**
      * Converts a class name to a JLS style class name.
      *
-     * @param canonicalName the class name
+     * @param className the class name
      * @return the converted name
      * @throws NullPointerException if the className is null
      */
