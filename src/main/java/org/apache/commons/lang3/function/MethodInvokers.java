@@ -201,13 +201,13 @@ public final class MethodInvokers {
      * </p>
      *
      * @param <T> The interface type.
-     * @param intfc The interface type.
+     * @param interfaceClass a class object representing {@code T}.
      * @param method the method to invoke.
      * @return a correctly-typed wrapper for the given target.
      * @see MethodHandleProxies#asInterfaceInstance(Class, MethodHandle)
      */
-    public static <T> T asInterfaceInstance(final Class<T> intfc, final Method method) {
-        return MethodHandleProxies.asInterfaceInstance(Objects.requireNonNull(intfc, "intfc"), unreflectUnchecked(method));
+    public static <T> T asInterfaceInstance(final Class<T> interfaceClass, final Method method) {
+        return MethodHandleProxies.asInterfaceInstance(Objects.requireNonNull(interfaceClass, "interfaceClass"), unreflectUnchecked(method));
     }
 
     /**
