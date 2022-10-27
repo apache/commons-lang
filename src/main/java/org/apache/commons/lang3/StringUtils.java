@@ -6716,8 +6716,7 @@ public class StringUtils {
             // find the next earliest match
             // NOTE: logic mostly duplicated above START
             for (int i = 0; i < searchLength; i++) {
-                if (noMoreMatchesForReplIndex[i] || searchList[i] == null ||
-                        searchList[i].isEmpty() || replacementList[i] == null) {
+                if (noMoreMatchesForReplIndex[i] || isEmpty(searchList[i]) || replacementList[i] == null) {
                     continue;
                 }
                 tempIndex = text.indexOf(searchList[i], start);

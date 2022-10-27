@@ -173,7 +173,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return this, to enable chaining
      */
     public StrBuilder setNullText(String nullText) {
-        if (nullText != null && nullText.isEmpty()) {
+        if (StringUtils.isEmpty(nullText)) {
             nullText = null;
         }
         this.nullText = nullText;
