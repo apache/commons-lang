@@ -1163,8 +1163,7 @@ public class Validate {
     public static void isInstanceOf(final Class<?> type, final Object obj) {
         // TODO when breaking BC, consider returning obj
         if (!type.isInstance(obj)) {
-            throw new IllegalArgumentException(String.format(DEFAULT_IS_INSTANCE_OF_EX_MESSAGE, type.getName(),
-                    obj == null ? "null" : obj.getClass().getName()));
+            throw new IllegalArgumentException(String.format(DEFAULT_IS_INSTANCE_OF_EX_MESSAGE, type.getName(), ClassUtils.getName(obj, "null")));
         }
     }
 
