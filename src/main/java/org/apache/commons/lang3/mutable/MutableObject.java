@@ -105,7 +105,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
      */
     @Override
     public int hashCode() {
-        return value == null ? 0 : value.hashCode();
+        return Objects.hashCode(value);
     }
 
     /**
