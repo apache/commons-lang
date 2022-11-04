@@ -238,9 +238,8 @@ public class ExceptionUtils {
      * @since 2.2
      */
     public static String getRootCauseMessage(final Throwable throwable) {
-        Throwable root = getRootCause(throwable);
-        root = root == null ? throwable : root;
-        return getMessage(root);
+        final Throwable root = getRootCause(throwable);
+        return getMessage(root == null ? throwable : root);
     }
 
     /**
