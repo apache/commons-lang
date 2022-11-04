@@ -20,10 +20,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
-
-import org.apache.commons.lang3.Validate;
 
 /**
  * A specialized {@link BackgroundInitializer} implementation that can deal with
@@ -132,8 +131,8 @@ public class MultiBackgroundInitializer
      * @throws IllegalStateException if {@code start()} has already been called
      */
     public void addInitializer(final String name, final BackgroundInitializer<?> backgroundInitializer) {
-        Validate.notNull(name, "name");
-        Validate.notNull(backgroundInitializer, "backgroundInitializer");
+        Objects.requireNonNull(name, "name");
+        Objects.requireNonNull(backgroundInitializer, "backgroundInitializer");
 
         synchronized (this) {
             if (isStarted()) {

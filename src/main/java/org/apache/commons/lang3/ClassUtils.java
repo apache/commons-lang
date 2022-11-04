@@ -1502,7 +1502,7 @@ public class ClassUtils {
      */
     private static String toCanonicalName(final String className) {
         String canonicalName = StringUtils.deleteWhitespace(className);
-        Validate.notNull(canonicalName, "className");
+        Objects.requireNonNull(canonicalName, "className");
         if (canonicalName.endsWith("[]")) {
             final StringBuilder classNameBuffer = new StringBuilder();
             while (canonicalName.endsWith("[]")) {

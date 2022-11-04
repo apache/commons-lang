@@ -17,12 +17,11 @@
 package org.apache.commons.lang3.concurrent;
 
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicLong;
-
-import org.apache.commons.lang3.Validate;
 
 /**
  * An implementation of the {@link ThreadFactory} interface that provides some
@@ -280,7 +279,7 @@ public class BasicThreadFactory implements ThreadFactory {
          * is <b>null</b>
          */
         public Builder wrappedFactory(final ThreadFactory factory) {
-            Validate.notNull(factory, "factory");
+            Objects.requireNonNull(factory, "factory");
 
             wrappedFactory = factory;
             return this;
@@ -295,7 +294,7 @@ public class BasicThreadFactory implements ThreadFactory {
          * @throws NullPointerException if the naming pattern is <b>null</b>
          */
         public Builder namingPattern(final String pattern) {
-            Validate.notNull(pattern, "pattern");
+            Objects.requireNonNull(pattern, "pattern");
 
             namingPattern = pattern;
             return this;
@@ -337,7 +336,7 @@ public class BasicThreadFactory implements ThreadFactory {
          */
         public Builder uncaughtExceptionHandler(
                 final Thread.UncaughtExceptionHandler handler) {
-            Validate.notNull(handler, "handler");
+            Objects.requireNonNull(handler, "handler");
 
             exceptionHandler = handler;
             return this;

@@ -28,7 +28,6 @@ import java.util.Objects;
 import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.stream.Streams;
 
 /**
@@ -100,10 +99,6 @@ import org.apache.commons.lang3.stream.Streams;
  * @since 2.0
  */
 public class ReflectionToStringBuilder extends ToStringBuilder {
-
-    private static Object checkNotNull(final Object obj) {
-        return Validate.notNull(obj, "obj");
-    }
 
     /**
      * Converts the given Collection into an array of Strings. The returned array does not contain {@code null}
@@ -495,7 +490,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *             if the Object passed in is {@code null}
      */
     public ReflectionToStringBuilder(final Object object) {
-        super(checkNotNull(object));
+        super(Objects.requireNonNull(object, "obj"));
     }
 
     /**
@@ -513,7 +508,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *             if the Object passed in is {@code null}
      */
     public ReflectionToStringBuilder(final Object object, final ToStringStyle style) {
-        super(checkNotNull(object), style);
+        super(Objects.requireNonNull(object, "obj"), style);
     }
 
     /**
@@ -537,7 +532,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *             if the Object passed in is {@code null}
      */
     public ReflectionToStringBuilder(final Object object, final ToStringStyle style, final StringBuffer buffer) {
-        super(checkNotNull(object), style, buffer);
+        super(Objects.requireNonNull(object, "obj"), style, buffer);
     }
 
     /**
@@ -562,7 +557,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     public <T> ReflectionToStringBuilder(
             final T object, final ToStringStyle style, final StringBuffer buffer,
             final Class<? super T> reflectUpToClass, final boolean outputTransients, final boolean outputStatics) {
-        super(checkNotNull(object), style, buffer);
+        super(Objects.requireNonNull(object, "obj"), style, buffer);
         this.setUpToClass(reflectUpToClass);
         this.setAppendTransients(outputTransients);
         this.setAppendStatics(outputStatics);
@@ -593,7 +588,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             final T object, final ToStringStyle style, final StringBuffer buffer,
             final Class<? super T> reflectUpToClass, final boolean outputTransients, final boolean outputStatics,
             final boolean excludeNullValues) {
-        super(checkNotNull(object), style, buffer);
+        super(Objects.requireNonNull(object, "obj"), style, buffer);
         this.setUpToClass(reflectUpToClass);
         this.setAppendTransients(outputTransients);
         this.setAppendStatics(outputStatics);

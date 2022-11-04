@@ -23,7 +23,6 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.Validate;
 
 /**
  * Assists in implementing {@link Diffable#diff(Object)} methods.
@@ -102,8 +101,8 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     public DiffBuilder(final T lhs, final T rhs,
             final ToStringStyle style, final boolean testTriviallyEqual) {
 
-        Validate.notNull(lhs, "lhs");
-        Validate.notNull(rhs, "rhs");
+        Objects.requireNonNull(lhs, "lhs");
+        Objects.requireNonNull(rhs, "rhs");
 
         this.diffs = new ArrayList<>();
         this.left = lhs;
@@ -906,7 +905,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      */
     public DiffBuilder<T> append(final String fieldName, final DiffResult<T> diffResult) {
         validateFieldNameNotNull(fieldName);
-        Validate.notNull(diffResult, "diffResult");
+        Objects.requireNonNull(diffResult, "diffResult");
         if (objectsTriviallyEqual) {
             return this;
         }
@@ -927,7 +926,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     }
 
     private void validateFieldNameNotNull(final String fieldName) {
-        Validate.notNull(fieldName, "fieldName");
+        Objects.requireNonNull(fieldName, "fieldName");
     }
 
 }

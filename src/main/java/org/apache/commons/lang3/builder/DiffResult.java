@@ -19,8 +19,7 @@ package org.apache.commons.lang3.builder;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import org.apache.commons.lang3.Validate;
+import java.util.Objects;
 
 /**
  * A {@link DiffResult} contains a collection of the differences between two
@@ -69,9 +68,9 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
      */
     DiffResult(final T lhs, final T rhs, final List<Diff<?>> diffList,
             final ToStringStyle style) {
-        Validate.notNull(lhs, "lhs");
-        Validate.notNull(rhs, "rhs");
-        Validate.notNull(diffList, "diffList");
+        Objects.requireNonNull(lhs, "lhs");
+        Objects.requireNonNull(rhs, "rhs");
+        Objects.requireNonNull(diffList, "diffList");
 
         this.diffList = diffList;
         this.lhs = lhs;

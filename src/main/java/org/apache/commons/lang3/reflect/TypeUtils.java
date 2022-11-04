@@ -418,8 +418,8 @@ public class TypeUtils {
      */
     public static Map<TypeVariable<?>, Type> determineTypeArguments(final Class<?> cls,
             final ParameterizedType superParameterizedType) {
-        Validate.notNull(cls, "cls");
-        Validate.notNull(superParameterizedType, "superParameterizedType");
+        Objects.requireNonNull(cls, "cls");
+        Objects.requireNonNull(superParameterizedType, "superParameterizedType");
 
         final Class<?> superClass = getRawType(superParameterizedType);
 
@@ -583,7 +583,7 @@ public class TypeUtils {
      * @since 3.2
      */
     public static GenericArrayType genericArrayType(final Type componentType) {
-        return new GenericArrayTypeImpl(Validate.notNull(componentType, "componentType"));
+        return new GenericArrayTypeImpl(Objects.requireNonNull(componentType, "componentType"));
     }
 
     /**
@@ -672,7 +672,7 @@ public class TypeUtils {
      * @return a non-empty array containing the bounds of the type variable.
      */
     public static Type[] getImplicitBounds(final TypeVariable<?> typeVariable) {
-        Validate.notNull(typeVariable, "typeVariable");
+        Objects.requireNonNull(typeVariable, "typeVariable");
         final Type[] bounds = typeVariable.getBounds();
 
         return bounds.length == 0 ? new Type[] { Object.class } : normalizeUpperBounds(bounds);
@@ -688,7 +688,7 @@ public class TypeUtils {
      * type.
      */
     public static Type[] getImplicitLowerBounds(final WildcardType wildcardType) {
-        Validate.notNull(wildcardType, "wildcardType");
+        Objects.requireNonNull(wildcardType, "wildcardType");
         final Type[] bounds = wildcardType.getLowerBounds();
 
         return bounds.length == 0 ? new Type[] { null } : bounds;
@@ -705,7 +705,7 @@ public class TypeUtils {
      * type.
      */
     public static Type[] getImplicitUpperBounds(final WildcardType wildcardType) {
-        Validate.notNull(wildcardType, "wildcardType");
+        Objects.requireNonNull(wildcardType, "wildcardType");
         final Type[] bounds = wildcardType.getUpperBounds();
 
         return bounds.length == 0 ? new Type[] { Object.class } : normalizeUpperBounds(bounds);
@@ -1511,7 +1511,7 @@ public class TypeUtils {
      * redundant types.
      */
     public static Type[] normalizeUpperBounds(final Type[] bounds) {
-        Validate.notNull(bounds, "bounds");
+        Objects.requireNonNull(bounds, "bounds");
         // don't bother if there's only one (or none) type
         if (bounds.length < 2) {
             return bounds;
@@ -1547,8 +1547,8 @@ public class TypeUtils {
      */
     public static final ParameterizedType parameterize(final Class<?> rawClass,
         final Map<TypeVariable<?>, Type> typeVariableMap) {
-        Validate.notNull(rawClass, "rawClass");
-        Validate.notNull(typeVariableMap, "typeVariableMap");
+        Objects.requireNonNull(rawClass, "rawClass");
+        Objects.requireNonNull(typeVariableMap, "typeVariableMap");
         return parameterizeWithOwner(null, rawClass,
             extractTypeArgumentsFrom(typeVariableMap, rawClass.getTypeParameters()));
     }
@@ -1611,8 +1611,8 @@ public class TypeUtils {
      */
     public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> rawClass,
         final Map<TypeVariable<?>, Type> typeVariableMap) {
-        Validate.notNull(rawClass, "rawClass");
-        Validate.notNull(typeVariableMap, "typeVariableMap");
+        Objects.requireNonNull(rawClass, "rawClass");
+        Objects.requireNonNull(typeVariableMap, "typeVariableMap");
         return parameterizeWithOwner(owner, rawClass,
             extractTypeArgumentsFrom(typeVariableMap, rawClass.getTypeParameters()));
     }
@@ -1629,7 +1629,7 @@ public class TypeUtils {
      */
     public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> rawClass,
         final Type... typeArguments) {
-        Validate.notNull(rawClass, "rawClass");
+        Objects.requireNonNull(rawClass, "rawClass");
         final Type useOwner;
         if (rawClass.getEnclosingClass() == null) {
             Validate.isTrue(owner == null, "no owner allowed for top-level %s", rawClass);
@@ -1678,7 +1678,7 @@ public class TypeUtils {
      * @since 3.2
      */
     public static String toLongString(final TypeVariable<?> typeVariable) {
-        Validate.notNull(typeVariable, "typeVariable");
+        Objects.requireNonNull(typeVariable, "typeVariable");
         final StringBuilder buf = new StringBuilder();
         final GenericDeclaration d = typeVariable.getGenericDeclaration();
         if (d instanceof Class<?>) {
@@ -1744,7 +1744,7 @@ public class TypeUtils {
      * variables.
      */
     public static boolean typesSatisfyVariables(final Map<TypeVariable<?>, Type> typeVariableMap) {
-        Validate.notNull(typeVariableMap, "typeVariableMap");
+        Objects.requireNonNull(typeVariableMap, "typeVariableMap");
         // all types must be assignable to all the bounds of their mapped
         // type variable.
         for (final Map.Entry<TypeVariable<?>, Type> entry : typeVariableMap.entrySet()) {

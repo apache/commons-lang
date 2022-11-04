@@ -69,8 +69,8 @@ public class ClassPathUtils {
      * @throws NullPointerException if either {@code context} or {@code resourceName} is null.
      */
     public static String toFullyQualifiedName(final Class<?> context, final String resourceName) {
-        Validate.notNull(context, "context");
-        Validate.notNull(resourceName, "resourceName");
+        Objects.requireNonNull(context, "context");
+        Objects.requireNonNull(resourceName, "resourceName");
         return toFullyQualifiedName(context.getPackage(), resourceName);
     }
 
@@ -91,8 +91,8 @@ public class ClassPathUtils {
      * @throws NullPointerException if either {@code context} or {@code resourceName} is null.
      */
     public static String toFullyQualifiedName(final Package context, final String resourceName) {
-        Validate.notNull(context, "context");
-        Validate.notNull(resourceName, "resourceName");
+        Objects.requireNonNull(context, "context");
+        Objects.requireNonNull(resourceName, "resourceName");
         return context.getName() + "." + resourceName;
     }
 
@@ -113,8 +113,8 @@ public class ClassPathUtils {
      * @throws NullPointerException if either {@code context} or {@code resourceName} is null.
      */
     public static String toFullyQualifiedPath(final Class<?> context, final String resourceName) {
-        Validate.notNull(context, "context");
-        Validate.notNull(resourceName, "resourceName");
+        Objects.requireNonNull(context, "context");
+        Objects.requireNonNull(resourceName, "resourceName");
         return toFullyQualifiedPath(context.getPackage(), resourceName);
     }
 
@@ -135,8 +135,8 @@ public class ClassPathUtils {
      * @throws NullPointerException if either {@code context} or {@code resourceName} is null.
      */
     public static String toFullyQualifiedPath(final Package context, final String resourceName) {
-        Validate.notNull(context, "context");
-        Validate.notNull(resourceName, "resourceName");
+        Objects.requireNonNull(context, "context");
+        Objects.requireNonNull(resourceName, "resourceName");
         return packageToPath(context.getName()) + "/" + resourceName;
     }
 

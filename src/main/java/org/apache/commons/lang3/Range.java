@@ -277,7 +277,7 @@ public class Range<T> implements Serializable {
      */
     public int elementCompareTo(final T element) {
         // Comparable API says throw NPE on null
-        Validate.notNull(element, "element");
+        Objects.requireNonNull(element, "element");
         if (isAfter(element)) {
             return -1;
         }
@@ -333,7 +333,7 @@ public class Range<T> implements Serializable {
      */
     public T fit(final T element) {
         // Comparable API says throw NPE on null
-        Validate.notNull(element, "element");
+        Objects.requireNonNull(element, "element");
         if (isAfter(element)) {
             return minimum;
         }

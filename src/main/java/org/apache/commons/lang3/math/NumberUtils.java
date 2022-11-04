@@ -20,6 +20,7 @@ import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -1338,7 +1339,7 @@ public class NumberUtils {
      * @throws NullPointerException if {@code array} is {@code null}
      */
     private static void validateArray(final Object array) {
-        Validate.notNull(array, "array");
+        Objects.requireNonNull(array, "array");
         Validate.isTrue(Array.getLength(array) != 0, "Array cannot be empty.");
     }
 

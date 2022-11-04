@@ -27,6 +27,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Assists with the serialization process and performs additional functionality based
@@ -169,7 +170,7 @@ public class SerializationUtils {
      * @throws SerializationException (runtime) if the serialization fails
      */
     public static <T> T deserialize(final byte[] objectData) {
-        Validate.notNull(objectData, "objectData");
+        Objects.requireNonNull(objectData, "objectData");
         return deserialize(new ByteArrayInputStream(objectData));
     }
 
@@ -201,7 +202,7 @@ public class SerializationUtils {
      */
     @SuppressWarnings("resource") // inputStream is managed by the caller
     public static <T> T deserialize(final InputStream inputStream) {
-        Validate.notNull(inputStream, "inputStream");
+        Objects.requireNonNull(inputStream, "inputStream");
         try (ObjectInputStream in = new ObjectInputStream(inputStream)) {
             @SuppressWarnings("unchecked")
             final T obj = (T) in.readObject();
@@ -258,7 +259,7 @@ public class SerializationUtils {
      */
     @SuppressWarnings("resource") // outputStream is managed by the caller
     public static void serialize(final Serializable obj, final OutputStream outputStream) {
-        Validate.notNull(outputStream, "outputStream");
+        Objects.requireNonNull(outputStream, "outputStream");
         try (ObjectOutputStream out = new ObjectOutputStream(outputStream)) {
             out.writeObject(obj);
         } catch (final IOException ex) {

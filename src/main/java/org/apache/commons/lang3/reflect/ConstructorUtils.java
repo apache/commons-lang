@@ -18,10 +18,10 @@ package org.apache.commons.lang3.reflect;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Objects;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
-import org.apache.commons.lang3.Validate;
 
 /**
  *  Utility reflection methods focused on constructors, modeled after
@@ -194,7 +194,7 @@ public class ConstructorUtils {
      */
     public static <T> Constructor<T> getAccessibleConstructor(final Class<T> cls,
             final Class<?>... parameterTypes) {
-        Validate.notNull(cls, "cls");
+        Objects.requireNonNull(cls, "cls");
         try {
             return getAccessibleConstructor(cls.getConstructor(parameterTypes));
         } catch (final NoSuchMethodException e) {
@@ -214,7 +214,7 @@ public class ConstructorUtils {
      * @throws NullPointerException if {@code ctor} is {@code null}
      */
     public static <T> Constructor<T> getAccessibleConstructor(final Constructor<T> ctor) {
-        Validate.notNull(ctor, "ctor");
+        Objects.requireNonNull(ctor, "ctor");
         return MemberUtils.isAccessible(ctor)
                 && isAccessible(ctor.getDeclaringClass()) ? ctor : null;
     }
@@ -239,7 +239,7 @@ public class ConstructorUtils {
      */
     public static <T> Constructor<T> getMatchingAccessibleConstructor(final Class<T> cls,
             final Class<?>... parameterTypes) {
-        Validate.notNull(cls, "cls");
+        Objects.requireNonNull(cls, "cls");
         // see if we can find the constructor directly
         // most of the time this works and it's much faster
         try {

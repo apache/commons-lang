@@ -51,7 +51,7 @@ public class EnumUtils {
      * @since 3.2
      */
     private static <E extends Enum<E>> Class<E> asEnum(final Class<E> enumClass) {
-        Validate.notNull(enumClass, ENUM_CLASS_MUST_BE_DEFINED);
+        Objects.requireNonNull(enumClass, ENUM_CLASS_MUST_BE_DEFINED);
         Validate.isTrue(enumClass.isEnum(), S_DOES_NOT_SEEM_TO_BE_AN_ENUM_TYPE, enumClass);
         return enumClass;
     }
@@ -119,7 +119,7 @@ public class EnumUtils {
         Objects.requireNonNull(values, "values");
         long total = 0;
         for (final E constant : values) {
-            Validate.notNull(constant, NULL_ELEMENTS_NOT_PERMITTED);
+            Objects.requireNonNull(constant, NULL_ELEMENTS_NOT_PERMITTED);
             total |= 1L << constant.ordinal();
         }
         return total;
@@ -175,7 +175,7 @@ public class EnumUtils {
         asEnum(enumClass);
         Objects.requireNonNull(values, "values");
         final EnumSet<E> condensed = EnumSet.noneOf(enumClass);
-        values.forEach(constant -> condensed.add(Validate.notNull(constant, NULL_ELEMENTS_NOT_PERMITTED)));
+        values.forEach(constant -> condensed.add(Objects.requireNonNull(constant, NULL_ELEMENTS_NOT_PERMITTED)));
         final long[] result = new long[(enumClass.getEnumConstants().length - 1) / Long.SIZE + 1];
         for (final E value : condensed) {
             result[value.ordinal() / Long.SIZE] |= 1L << (value.ordinal() % Long.SIZE);

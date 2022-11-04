@@ -82,7 +82,7 @@ public class ThreadUtils {
          * @throws NullPointerException if the name is {@code null}
          */
         public NamePredicate(final String name) {
-            Validate.notNull(name, "name");
+            Objects.requireNonNull(name, "name");
             this.name = name;
         }
 
@@ -213,7 +213,7 @@ public class ThreadUtils {
      *          thread groups from this thread's thread group up to the system thread group
      */
     public static Thread findThreadById(final long threadId, final String threadGroupName) {
-        Validate.notNull(threadGroupName, "threadGroupName");
+        Objects.requireNonNull(threadGroupName, "threadGroupName");
         final Thread thread = findThreadById(threadId);
         if (thread != null && thread.getThreadGroup() != null && thread.getThreadGroup().getName().equals(threadGroupName)) {
             return thread;
@@ -237,7 +237,7 @@ public class ThreadUtils {
      *          thread groups from this thread's thread group up to the system thread group
      */
     public static Thread findThreadById(final long threadId, final ThreadGroup threadGroup) {
-        Validate.notNull(threadGroup, "threadGroup");
+        Objects.requireNonNull(threadGroup, "threadGroup");
         final Thread thread = findThreadById(threadId);
         if (thread != null && threadGroup.equals(thread.getThreadGroup())) {
             return thread;
@@ -274,8 +274,8 @@ public class ThreadUtils {
      * @since 3.13.0
      */
     public static Collection<ThreadGroup> findThreadGroups(final ThreadGroup threadGroup, final boolean recurse, final Predicate<ThreadGroup> predicate) {
-        Validate.notNull(threadGroup, "group");
-        Validate.notNull(predicate, "predicate");
+        Objects.requireNonNull(threadGroup, "threadGroup");
+        Objects.requireNonNull(predicate, "predicate");
 
         int count = threadGroup.activeGroupCount();
         ThreadGroup[] threadGroups;
@@ -367,8 +367,8 @@ public class ThreadUtils {
      * @since 3.13.0
      */
     public static Collection<Thread> findThreads(final ThreadGroup threadGroup, final boolean recurse, final Predicate<Thread> predicate) {
-        Validate.notNull(threadGroup, "The group must not be null");
-        Validate.notNull(predicate, "The predicate must not be null");
+        Objects.requireNonNull(threadGroup, "The group must not be null");
+        Objects.requireNonNull(predicate, "The predicate must not be null");
         int count = threadGroup.activeCount();
         Thread[] threads;
         do {
@@ -445,8 +445,8 @@ public class ThreadUtils {
      *          thread groups from this thread's thread group up to the system thread group
      */
     public static Collection<Thread> findThreadsByName(final String threadName, final String threadGroupName) {
-        Validate.notNull(threadName, "threadName");
-        Validate.notNull(threadGroupName, "threadGroupName");
+        Objects.requireNonNull(threadName, "threadName");
+        Objects.requireNonNull(threadGroupName, "threadGroupName");
         return Collections.unmodifiableCollection(findThreadGroups(predicateThreadGroup(threadGroupName)).stream()
             .flatMap(group -> findThreads(group, false, predicateThread(threadName)).stream()).collect(Collectors.toList()));
     }

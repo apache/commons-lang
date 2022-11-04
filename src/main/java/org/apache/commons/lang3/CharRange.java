@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 /**
  * A contiguous range of characters, optionally negated.
@@ -189,7 +190,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * @throws NullPointerException if {@code null} input
      */
     public boolean contains(final CharRange range) {
-        Validate.notNull(range, "range");
+        Objects.requireNonNull(range, "range");
         if (negated) {
             if (range.negated) {
                 return start >= range.start && end <= range.end;
