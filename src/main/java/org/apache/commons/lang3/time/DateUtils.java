@@ -28,7 +28,6 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.LocaleUtils;
-import org.apache.commons.lang3.Validate;
 
 /**
  * A suite of utilities surrounding the use of the
@@ -1717,7 +1716,7 @@ public class DateUtils {
      * @throws NullPointerException if {@code date == null}
      */
     private static void validateDateNotNull(final Date date) {
-        Validate.notNull(date, "date");
+        Objects.requireNonNull(date, "date");
     }
 
     /**
