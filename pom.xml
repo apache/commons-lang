@@ -631,7 +631,7 @@
     <japicmp.skip>false</japicmp.skip>
 
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
-    <jmh.version>1.35</jmh.version>
+    <jmh.version>1.36</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
 
     <commons.jacoco.version>0.8.8</commons.jacoco.version>
