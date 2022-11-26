@@ -661,28 +661,6 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-pmd-plugin</artifactId>
           <version>${commons.pmd.version}</version>
-          <dependencies>
-            <dependency>
-              <groupId>net.sourceforge.pmd</groupId>
-              <artifactId>pmd-core</artifactId>
-              <version>${commons.pmd-impl.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>net.sourceforge.pmd</groupId>
-              <artifactId>pmd-java</artifactId>
-              <version>${commons.pmd-impl.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>net.sourceforge.pmd</groupId>
-              <artifactId>pmd-javascript</artifactId>
-              <version>${commons.pmd-impl.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>net.sourceforge.pmd</groupId>
-              <artifactId>pmd-jsp</artifactId>
-              <version>${commons.pmd-impl.version}</version>
-            </dependency>
-          </dependencies>
           <configuration>
             <targetJdk>${maven.compiler.target}</targetJdk>
             <excludeFromFailureFile>src/conf/exclude-pmd.properties</excludeFromFailureFile>
