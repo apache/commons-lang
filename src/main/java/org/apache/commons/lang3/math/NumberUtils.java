@@ -22,6 +22,7 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.Objects;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
@@ -1846,5 +1847,9 @@ public class NumberUtils {
      */
     public static int compare(final byte x, final byte y) {
         return x - y;
+    }
+
+    public static boolean isNullOrZero(Number number) {
+        return null == number || number.doubleValue() == 0.0d;
     }
 }
