@@ -1789,4 +1789,50 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertFalse(NumberUtils.isNullOrZero(NumberUtils.toDouble("-45.6382")),
                 Double.class.getSimpleName() + " - " + errorMessageNonZeroShouldFalse);
     }
+
+    /**
+     * Test for {@link NumberUtils#isNoneNullOrZero(Number)}
+     */
+    @Test
+    public void testIsNoneNullOrZero() {
+        String errorMessageNullShouldFalse = "A null Object should return false on isNoneNullOrZero(Number)";
+        String errorMessageZeroShouldFalse = "A zero Value of Number should return false on isNoneNullOrZero(Number)";
+        String errorMessageNonZeroShouldTrue = "A non zero Value should return true on isNoneNullOrZero(Number)";
+
+        assertFalse(NumberUtils.isNoneNullOrZero((BigDecimal) null),
+                BigDecimal.class.getSimpleName() + " - " + errorMessageNullShouldFalse);
+        assertFalse(NumberUtils.isNoneNullOrZero(BigDecimal.ZERO),
+                BigDecimal.class.getSimpleName() + " - " + errorMessageZeroShouldFalse);
+        assertFalse(NumberUtils.isNoneNullOrZero(BigDecimal.valueOf(0.00d)),
+                BigDecimal.class.getSimpleName() + " - " + errorMessageZeroShouldFalse);
+        assertFalse(NumberUtils.isNoneNullOrZero((Integer) null),
+                Integer.class.getSimpleName() + " - " + errorMessageNullShouldFalse);
+        assertFalse(NumberUtils.isNoneNullOrZero(NumberUtils.INTEGER_ZERO),
+                Integer.class.getSimpleName() + " - " + errorMessageZeroShouldFalse);
+        assertFalse(NumberUtils.isNoneNullOrZero((Float) null),
+                Float.class.getSimpleName() + " - " + errorMessageNullShouldFalse);
+        assertFalse(NumberUtils.isNoneNullOrZero(NumberUtils.FLOAT_ZERO),
+                Float.class.getSimpleName() + " - " + errorMessageZeroShouldFalse);
+        assertFalse(NumberUtils.isNoneNullOrZero((Double) null),
+                Double.class.getSimpleName() + " - " + errorMessageNullShouldFalse);
+        assertFalse(NumberUtils.isNoneNullOrZero(NumberUtils.DOUBLE_ZERO),
+                Double.class.getSimpleName() + " - " + errorMessageZeroShouldFalse);
+
+        assertTrue(NumberUtils.isNoneNullOrZero(BigDecimal.ONE),
+                BigDecimal.class.getSimpleName() + " - " + errorMessageNonZeroShouldTrue);
+        assertTrue(NumberUtils.isNoneNullOrZero(BigDecimal.valueOf(0.0025)),
+                BigDecimal.class.getSimpleName() + " - " + errorMessageNonZeroShouldTrue);
+        assertTrue(NumberUtils.isNoneNullOrZero(NumberUtils.INTEGER_ONE),
+                Integer.class.getSimpleName() + " - " + errorMessageNonZeroShouldTrue);
+        assertTrue(NumberUtils.isNoneNullOrZero(NumberUtils.toInt("236")),
+                Integer.class.getSimpleName() + " - " + errorMessageNonZeroShouldTrue);
+        assertTrue(NumberUtils.isNoneNullOrZero(NumberUtils.FLOAT_MINUS_ONE),
+                Float.class.getSimpleName() + " - " + errorMessageNonZeroShouldTrue);
+        assertTrue(NumberUtils.isNoneNullOrZero(2.4685f),
+                Float.class.getSimpleName() + " - " + errorMessageNonZeroShouldTrue);
+        assertTrue(NumberUtils.isNoneNullOrZero(NumberUtils.DOUBLE_ONE),
+                Double.class.getSimpleName() + " - " + errorMessageNonZeroShouldTrue);
+        assertTrue(NumberUtils.isNoneNullOrZero(NumberUtils.toDouble("-45.6382")),
+                Double.class.getSimpleName() + " - " + errorMessageNonZeroShouldTrue);
+    }
 }
