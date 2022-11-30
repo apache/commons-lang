@@ -22,7 +22,6 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.Objects;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
@@ -1849,6 +1848,12 @@ public class NumberUtils {
         return x - y;
     }
 
+    /**
+     * Checks whether the specified {@link Number} is {@code null} or {@code 0} as value.
+     *
+     * @param number the {@code number} to check
+     * @return {@code true} if the Object of {@code number} is {@code null} or has the value {@code 0}.
+     */
     public static boolean isNullOrZero(Number number) {
         return null == number || number.doubleValue() == 0.0d;
     }
