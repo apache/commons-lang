@@ -528,13 +528,8 @@ public class ClassUtils {
      */
     public static Class<?> getClass(final ClassLoader classLoader, final String className, final boolean initialize) throws ClassNotFoundException {
         try {
-            final Class<?> clazz;
-            if (namePrimitiveMap.containsKey(className)) {
-                clazz = namePrimitiveMap.get(className);
-            } else {
-                clazz = Class.forName(toCanonicalName(className), initialize, classLoader);
-            }
-            return clazz;
+            Class<?> clazz = namePrimitiveMap.get(className);
+            return clazz != null ? clazz : Class.forName(toCanonicalName(className), initialize, classLoader);
         } catch (final ClassNotFoundException ex) {
             // allow path separators (.) as inner class name separators
             final int lastDotIndex = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
