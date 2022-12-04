@@ -37,6 +37,7 @@ import java.util.Objects;
  * @param <T> the type of the object managed by this initializer
  */
 public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
+
     /** Constant for the format of the string representation. */
     private static final String FMT_TO_STRING = "ConstantInitializer@%d [ object = %s ]";
 
