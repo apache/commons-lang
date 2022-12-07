@@ -37,17 +37,23 @@ import java.util.NoSuchElementException;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.DefaultLocale;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.time.DateUtils}.
+ * Tests {@link org.apache.commons.lang3.time.DateUtils}.
+ * <p>
+ * NOT THREAD_SAFE.
+ * </p>
  */
 public class DateUtilsTest extends AbstractLangTest {
 
     private static Date BASE_DATE;
+    private static TimeZone DEFAULT_ZONE;
+
 
     /**
      * Used to check that Calendar objects are close enough
@@ -68,6 +74,7 @@ public class DateUtilsTest extends AbstractLangTest {
 
         assertWeekIterator(it, start, end);
     }
+
     /**
      * This checks that this is a 7 divisible iterator of Calendar objects
      * that are dates (no time), and exactly 1 day spaced after each other
@@ -94,6 +101,7 @@ public class DateUtilsTest extends AbstractLangTest {
         assertFalse(count % 7 != 0, "There were " + count + " days in this iterator");
         assertCalendarsEquals("", end, cal, 0);
     }
+
     /**
      * Convenience method for when working with Date objects
      */
@@ -105,46 +113,51 @@ public class DateUtilsTest extends AbstractLangTest {
 
         assertWeekIterator(it, calStart, calEnd);
     }
+
     @BeforeAll
     public static void classSetup() {
         final GregorianCalendar cal = new GregorianCalendar(2000, 6, 5, 4, 3, 2);
         cal.set(Calendar.MILLISECOND, 1);
         BASE_DATE = cal.getTime();
     }
-    private DateFormat dateParser = null;
-    private DateFormat dateTimeParser = null;
-    private Date dateAmPm1 = null;
-    private Date dateAmPm2 = null;
-    private Date dateAmPm3 = null;
-    private Date dateAmPm4 = null;
-    private Date date0 = null;
-    private Date date1 = null;
-    private Date date2 = null;
-    private Date date3 = null;
-    private Date date4 = null;
-    private Date date5 = null;
-    private Date date6 = null;
-    private Date date7 = null;
-    private Date date8 = null;
-    private Calendar calAmPm1 = null;
-    private Calendar calAmPm2 = null;
-    private Calendar calAmPm3 = null;
-    private Calendar calAmPm4 = null;
-    private Calendar cal1 = null;
-    private Calendar cal2 = null;
-    private Calendar cal3 = null;
-    private Calendar cal4 = null;
-    private Calendar cal5 = null;
-    private Calendar cal6 = null;
 
-    private Calendar cal7 = null;
+    private DateFormat dateParser;
+    private DateFormat dateTimeParser;
+    private Date dateAmPm1;
+    private Date dateAmPm2;
+    private Date dateAmPm3;
+    private Date dateAmPm4;
+    private Date date0;
+    private Date date1;
+    private Date date2;
+    private Date date3;
+    private Date date4;
+    private Date date5;
+    private Date date6;
+    private Date date7;
+    private Date date8;
+    private Calendar calAmPm1;
+    private Calendar calAmPm2;
+    private Calendar calAmPm3;
+    private Calendar calAmPm4;
+    private Calendar cal1;
+    private Calendar cal2;
+    private Calendar cal3;
+    private Calendar cal4;
+    private Calendar cal5;
+    private Calendar cal6;
 
-    private Calendar cal8 = null;
+    private Calendar cal7;
 
-    private TimeZone zone = null;
+    private Calendar cal8;
 
-    private TimeZone defaultZone = null;
+    private TimeZone zone;
 
+    @AfterEach
+    public void afterEachResetTimeZone() {
+        TimeZone.setDefault(DEFAULT_ZONE);
+    }
+    
     private void assertDate(final Date date, final int year, final int month, final int day, final int hour, final int min, final int sec, final int mil) {
         final GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(date);
@@ -169,7 +182,7 @@ public class DateUtilsTest extends AbstractLangTest {
         date0 = dateTimeParser.parse("February 3, 2002 12:34:56.789");
         date1 = dateTimeParser.parse("February 12, 2002 12:34:56.789");
         date2 = dateTimeParser.parse("November 18, 2001 1:23:11.321");
-        defaultZone = TimeZone.getDefault();
+        DEFAULT_ZONE = TimeZone.getDefault();
         zone = TimeZone.getTimeZone("MET");
         try {
             TimeZone.setDefault(zone);
@@ -181,8 +194,8 @@ public class DateUtilsTest extends AbstractLangTest {
             date7 = dateTimeParser.parse("March 30, 2003 02:40:00.000");
             date8 = dateTimeParser.parse("October 26, 2003 05:30:45.000");
         } finally {
-            dateTimeParser.setTimeZone(defaultZone);
-            TimeZone.setDefault(defaultZone);
+            dateTimeParser.setTimeZone(DEFAULT_ZONE);
+            TimeZone.setDefault(DEFAULT_ZONE);
         }
         calAmPm1 = Calendar.getInstance();
         calAmPm1.setTime(dateAmPm1);
@@ -211,7 +224,7 @@ public class DateUtilsTest extends AbstractLangTest {
             cal8 = Calendar.getInstance();
             cal8.setTime(date8);
         } finally {
-            TimeZone.setDefault(defaultZone);
+            TimeZone.setDefault(DEFAULT_ZONE);
         }
     }
 
@@ -589,8 +602,8 @@ public class DateUtilsTest extends AbstractLangTest {
                     "ceiling MET date across DST change-over");
 
         } finally {
-            TimeZone.setDefault(defaultZone);
-            dateTimeParser.setTimeZone(defaultZone);
+            TimeZone.setDefault(DEFAULT_ZONE);
+            dateTimeParser.setTimeZone(DEFAULT_ZONE);
         }
 
      // Bug 31395, large dates
@@ -1118,8 +1131,8 @@ public class DateUtilsTest extends AbstractLangTest {
                     DateUtils.round((Object) cal7, Calendar.HOUR_OF_DAY),
                     "round MET date across DST change-over");
         } finally {
-            TimeZone.setDefault(defaultZone);
-            dateTimeParser.setTimeZone(defaultZone);
+            TimeZone.setDefault(DEFAULT_ZONE);
+            dateTimeParser.setTimeZone(DEFAULT_ZONE);
         }
     }
 
@@ -1369,9 +1382,9 @@ public class DateUtilsTest extends AbstractLangTest {
 
     @Test
     public void testToCalendarWithDateAndTimeZoneNotNull() {
-        final Calendar c = DateUtils.toCalendar(date2, defaultZone);
+        final Calendar c = DateUtils.toCalendar(date2, DEFAULT_ZONE);
         assertEquals(date2, c.getTime(), "Convert Date and TimeZone to a Calendar, but failed to get the Date back");
-        assertEquals(defaultZone, c.getTimeZone(), "Convert Date and TimeZone to a Calendar, but failed to get the TimeZone back");
+        assertEquals(DEFAULT_ZONE, c.getTimeZone(), "Convert Date and TimeZone to a Calendar, but failed to get the TimeZone back");
     }
 
     @Test
@@ -1552,8 +1565,8 @@ public class DateUtilsTest extends AbstractLangTest {
                     DateUtils.truncate((Object) cal8, Calendar.DATE),
                     "truncate MET date across DST change-over");
         } finally {
-            TimeZone.setDefault(defaultZone);
-            dateTimeParser.setTimeZone(defaultZone);
+            TimeZone.setDefault(DEFAULT_ZONE);
+            dateTimeParser.setTimeZone(DEFAULT_ZONE);
         }
 
         // Bug 31395, large dates
@@ -1640,7 +1653,7 @@ public class DateUtilsTest extends AbstractLangTest {
                     "Round Calendar.DATE");
         } finally {
             // restore default time zone
-            TimeZone.setDefault(defaultZone);
+            TimeZone.setDefault(DEFAULT_ZONE);
         }
     }
 
