@@ -157,7 +157,7 @@ public class DateUtilsTest extends AbstractLangTest {
     public void afterEachResetTimeZone() {
         TimeZone.setDefault(DEFAULT_ZONE);
     }
-    
+
     private void assertDate(final Date date, final int year, final int month, final int day, final int hour, final int min, final int sec, final int mil) {
         final GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(date);
