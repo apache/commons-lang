@@ -32,6 +32,7 @@ import java.util.TimeZone;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.DefaultTimeZone;
 
 /**
  * TestCase for DurationFormatUtils.
@@ -106,8 +107,9 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
         //bruteForce(1996, 1, 29, "M", Calendar.MONTH);  // this will fail
     }
 
-    // Attempting to test edge cases in DurationFormatUtils.formatPeriod
+    /** Attempting to test edge cases in DurationFormatUtils.formatPeriod. */
     @Test
+    @DefaultTimeZone(TimeZones.GMT_ID)
     public void testEdgeDurations() {
         // This test case must use a time zone without DST
         TimeZone.setDefault(FastTimeZone.getGmtTimeZone());
