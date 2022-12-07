@@ -37,7 +37,7 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
 /**
  * TestCase for DurationFormatUtils.
  * <p>
- * NOT THREAD_SAFE.
+ * NOT THREAD-SAFE.
  * </p>
  */
 public class DurationFormatUtilsTest extends AbstractLangTest {

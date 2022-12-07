@@ -46,7 +46,7 @@ import org.junitpioneer.jupiter.DefaultLocale;
 /**
  * Tests {@link org.apache.commons.lang3.time.DateUtils}.
  * <p>
- * NOT THREAD_SAFE.
+ * NOT THREAD-SAFE.
  * </p>
  */
 public class DateUtilsTest extends AbstractLangTest {
