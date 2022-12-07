@@ -54,7 +54,6 @@ public class DateUtilsTest extends AbstractLangTest {
     private static Date BASE_DATE;
     private static TimeZone DEFAULT_ZONE;
 
-
     /**
      * Used to check that Calendar objects are close enough
      * delta is in milliseconds
@@ -606,7 +605,7 @@ public class DateUtilsTest extends AbstractLangTest {
             dateTimeParser.setTimeZone(DEFAULT_ZONE);
         }
 
-     // Bug 31395, large dates
+        // Bug 31395, large dates
         final Date endOfTime = new Date(Long.MAX_VALUE); // fyi: Sun Aug 17 07:12:55 CET 292278994 -- 807 millis
         final GregorianCalendar endCal = new GregorianCalendar();
         endCal.setTime(endOfTime);
@@ -790,7 +789,7 @@ public class DateUtilsTest extends AbstractLangTest {
         assertThrows(ClassCastException.class, () -> DateUtils.iterator("", DateUtils.RANGE_WEEK_CENTER));
     }
 
-    // https://issues.apache.org/jira/browse/LANG-530
+    /** https://issues.apache.org/jira/browse/LANG-530 */
     @SuppressWarnings("deprecation")
     @Test
     public void testLang530() throws ParseException {
@@ -806,7 +805,7 @@ public class DateUtilsTest extends AbstractLangTest {
         DateUtils.parseDateStrictly("09 abril 2008 23:55:38 GMT", new Locale("es"), "dd MMM yyyy HH:mm:ss zzz");
     }
 
-    // Parse English date with German Locale
+    /** Parse English date with German Locale. */
     @DefaultLocale(language = "de")
     @Test
     public void testLANG799_DE_FAIL() {
@@ -834,7 +833,7 @@ public class DateUtilsTest extends AbstractLangTest {
         DateUtils.parseDateStrictly("Wed, 09 Apr 2008 23:55:38 GMT", "EEE, dd MMM yyyy HH:mm:ss zzz");
     }
 
-    // Parse German date with English Locale, specifying German Locale override
+    /** Parse German date with English Locale, specifying German Locale override. */
     @DefaultLocale(language = "en")
     @Test
     public void testLANG799_EN_WITH_DE_LOCALE() throws ParseException {
@@ -914,9 +913,9 @@ public class DateUtilsTest extends AbstractLangTest {
         assertThrows(NullPointerException.class, () -> DateUtils.parseDate(null, parsers));
     }
 
-    // LANG-486
+    /** LANG-486 */
     @Test
-    public void testParseDateWithLeniency() throws Exception {
+    public void testParseDateWithLeniency() throws ParseException {
         final GregorianCalendar cal = new GregorianCalendar(1998, 6, 30);
         final String dateStr = "02 942, 1996";
         final String[] parsers = {"MM DDD, yyyy"};
