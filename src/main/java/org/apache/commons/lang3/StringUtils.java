@@ -9275,7 +9275,7 @@ public class StringUtils {
     }
 
     /**
-     * Unwraps a given string from anther string.
+     * Unwraps a given string from another string.
      *
      * <pre>
      * StringUtils.unwrap(null, null)         = null
