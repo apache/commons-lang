@@ -48,7 +48,7 @@ jobs:
       uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b
       with:
         persist-credentials: false
-    - uses: actions/cache@v3.0.11
+    - uses: actions/cache@v3.2.1
       with:
         path: ~/.m2/repository
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
