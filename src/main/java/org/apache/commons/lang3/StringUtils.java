@@ -3605,6 +3605,7 @@ public class StringUtils {
      * <pre>
      * StringUtils.isMixedCase(null)    = false
      * StringUtils.isMixedCase("")      = false
+     * StringUtils.isMixedCase(" ")     = false
      * StringUtils.isMixedCase("ABC")   = false
      * StringUtils.isMixedCase("abc")   = false
      * StringUtils.isMixedCase("aBc")   = true
