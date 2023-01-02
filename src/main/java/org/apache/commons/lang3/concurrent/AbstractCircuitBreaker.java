@@ -18,6 +18,8 @@ package org.apache.commons.lang3.concurrent;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -38,13 +40,29 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
     protected final AtomicReference<State> state = new AtomicReference<>(State.CLOSED);
 
     /** An object for managing change listeners registered at this instance. */
+    private final StateChangeSupport stateChangeSupport;
+
+    /**
+     * Exists for backwards compatibility, an object for managing change listeners registered at this instance.
+     * <p>
+     * <strong>Requires {@code java.desktop} module.</strong>
+     */
     private final PropertyChangeSupport changeSupport;
 
     /**
-     * Creates an {@link AbstractCircuitBreaker}. It also creates an internal {@link PropertyChangeSupport}.
+     * Creates an {@link AbstractCircuitBreaker}.
      */
     public AbstractCircuitBreaker() {
-        changeSupport = new PropertyChangeSupport(this);
+        changeSupport = newPropertyChangeSupport(this);
+        stateChangeSupport = new StateChangeSupport(this);
+    }
+
+    private static PropertyChangeSupport newPropertyChangeSupport(Object sourceBean) {
+        try {
+            return new PropertyChangeSupport(sourceBean);
+        } catch (NoClassDefFoundError e) {
+            return null;
+        }
     }
 
     /**
@@ -109,8 +127,24 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
      */
     protected void changeState(final State newState) {
         if (state.compareAndSet(newState.oppositeState(), newState)) {
-            changeSupport.firePropertyChange(PROPERTY_NAME, !isOpen(newState), isOpen(newState));
+            if (changeSupport != null) {
+                changeSupport.firePropertyChange(PROPERTY_NAME, !isOpen(newState), isOpen(newState));
+            }
+            stateChangeSupport.fireStateChange(newState);
         }
+    }
+
+    /**
+     * Adds a change listener to this circuit breaker. This listener is notified whenever
+     * the state of this circuit breaker changes. If the listener is
+     * <strong>null</strong>, it is silently ignored.
+     * <p>
+     * <strong>Requires {@code java.desktop} module.</strong>
+     *
+     * @param listener the listener to be added
+     */
+    public void addChangeListener(final PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
     }
 
     /**
@@ -120,8 +154,19 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
      *
      * @param listener the listener to be added
      */
-    public void addChangeListener(final PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
+    public void addStateChangeListener(final StateChangeListener listener) {
+        stateChangeSupport.addStateChangeListener(listener);
+    }
+
+    /**
+     * Removes the specified change listener from this circuit breaker.
+     * <p>
+     * <strong>Requires {@code java.desktop} module.</strong>
+     *
+     * @param listener the listener to be removed
+     */
+    public void removeChangeListener(final PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
 
     /**
@@ -129,8 +174,8 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
      *
      * @param listener the listener to be removed
      */
-    public void removeChangeListener(final PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(listener);
+    public void removeStateChangeListener(final StateChangeListener listener) {
+        stateChangeSupport.removeStateChangeListener(listener);
     }
 
     /**
@@ -170,6 +215,37 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
          * @return the opposite state
          */
         public abstract State oppositeState();
+    }
+
+    private static class StateChangeSupport
+    {
+        private final List<StateChangeListener> list = new ArrayList<>();
+
+        private final Object sourceBean;
+
+        public StateChangeSupport(Object sourceBean) {
+            this.sourceBean = sourceBean;
+        }
+
+        public void addStateChangeListener(StateChangeListener listener) {
+            if (listener == null) {
+                return;
+            }
+            list.add(listener);
+        }
+
+        public void removeStateChangeListener(StateChangeListener listener) {
+            if (listener == null) {
+                return;
+            }
+            list.remove(listener);
+        }
+
+        public void fireStateChange(AbstractCircuitBreaker.State newState) {
+            for (StateChangeListener stateChangeListener : list) {
+                stateChangeListener.stateChange(new StateChangeEvent(sourceBean, newState));
+            }
+        }
     }
 
 }
