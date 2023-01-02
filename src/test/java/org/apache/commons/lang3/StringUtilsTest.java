@@ -2272,6 +2272,8 @@ public class StringUtilsTest extends AbstractLangTest {
     public void testRightPad_StringInt() {
         assertNull(StringUtils.rightPad(null, 5));
         assertEquals("     ", StringUtils.rightPad("", 5));
+        assertEquals("     ", StringUtils.rightPad(" ", 5));
+        assertEquals("     ", StringUtils.rightPad("     ", 5));
         assertEquals("abc  ", StringUtils.rightPad("abc", 5));
         assertEquals("abc", StringUtils.rightPad("abc", 2));
         assertEquals("abc", StringUtils.rightPad("abc", -1));
