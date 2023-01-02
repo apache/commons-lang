@@ -51,8 +51,8 @@ Apache Commons Lang
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-lang/badge)](https://api.securityscorecards.dev/projects/github.com/apache/commons-lang)
 
 Apache Commons Lang, a package of Java utility classes for the
-  classes that are in java.lang's hierarchy, or are considered to be so
-  standard as to justify existence in java.lang.
+  classes that are in `java.lang`'s hierarchy, or are considered to be so
+  standard as to justify existence in `java.lang`.
 
 Documentation
 -------------
