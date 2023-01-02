@@ -7097,6 +7097,8 @@ public class StringUtils {
      * <pre>
      * StringUtils.rightPad(null, *)   = null
      * StringUtils.rightPad("", 3)     = "   "
+     * StringUtils.rightPad(" ", 3)    = "   "
+     * StringUtils.rightPad("   ", 3)  = "   "
      * StringUtils.rightPad("bat", 3)  = "bat"
      * StringUtils.rightPad("bat", 5)  = "bat  "
      * StringUtils.rightPad("bat", 1)  = "bat"
