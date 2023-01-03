@@ -3092,6 +3092,7 @@ public class StringUtils {
      * StringUtils.indexOfIgnoreCase(null, *)          = -1
      * StringUtils.indexOfIgnoreCase(*, null)          = -1
      * StringUtils.indexOfIgnoreCase("", "")           = 0
+     * StringUtils.indexOfIgnoreCase(" ", " ")         = 0
      * StringUtils.indexOfIgnoreCase("aabaabaa", "a")  = 0
      * StringUtils.indexOfIgnoreCase("aabaabaa", "b")  = 2
      * StringUtils.indexOfIgnoreCase("aabaabaa", "ab") = 1
