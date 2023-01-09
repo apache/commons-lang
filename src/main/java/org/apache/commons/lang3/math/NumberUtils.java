@@ -100,7 +100,7 @@ public class NumberUtils {
      * Convert a {@link String} to an {@code int}, returning
      * {@code zero} if the conversion fails.
      *
-     * <p>If the string is {@code null}, {@code zero} is returned.</p>
+     * <p>If the string is empty or {@code null}, {@code zero} is returned.</p>
      *
      * <pre>
      *   NumberUtils.toInt(null) = 0
@@ -121,7 +121,7 @@ public class NumberUtils {
      * Convert a {@link String} to an {@code int}, returning a
      * default value if the conversion fails.
      *
-     * <p>If the string is {@code null}, the default value is returned.</p>
+     * <p>If the string is empty or {@code null}, the default value is returned.</p>
      *
      * <pre>
      *   NumberUtils.toInt(null, 1) = 1
@@ -135,7 +135,7 @@ public class NumberUtils {
      * @since 2.1
      */
     public static int toInt(final String str, final int defaultValue) {
-        if (str == null) {
+        if (StringUtils.isEmpty(str)) {
             return defaultValue;
         }
         try {
@@ -149,7 +149,7 @@ public class NumberUtils {
      * Convert a {@link String} to a {@code long}, returning
      * {@code zero} if the conversion fails.
      *
-     * <p>If the string is {@code null}, {@code zero} is returned.</p>
+     * <p>If the string is empty or {@code null}, {@code zero} is returned.</p>
      *
      * <pre>
      *   NumberUtils.toLong(null) = 0L
@@ -170,7 +170,7 @@ public class NumberUtils {
      * Convert a {@link String} to a {@code long}, returning a
      * default value if the conversion fails.
      *
-     * <p>If the string is {@code null}, the default value is returned.</p>
+     * <p>If the string is empty or {@code null}, the default value is returned.</p>
      *
      * <pre>
      *   NumberUtils.toLong(null, 1L) = 1L
@@ -184,7 +184,7 @@ public class NumberUtils {
      * @since 2.1
      */
     public static long toLong(final String str, final long defaultValue) {
-        if (str == null) {
+        if (StringUtils.isEmpty(str)) {
             return defaultValue;
         }
         try {
@@ -198,7 +198,7 @@ public class NumberUtils {
      * Convert a {@link String} to a {@code float}, returning
      * {@code 0.0f} if the conversion fails.
      *
-     * <p>If the string {@code str} is {@code null},
+     * <p>If the string {@code str} is empty or {@code null},
      * {@code 0.0f} is returned.</p>
      *
      * <pre>
@@ -220,7 +220,7 @@ public class NumberUtils {
      * Convert a {@link String} to a {@code float}, returning a
      * default value if the conversion fails.
      *
-     * <p>If the string {@code str} is {@code null}, the default
+     * <p>If the string {@code str} is empty or {@code null}, the default
      * value is returned.</p>
      *
      * <pre>
@@ -236,7 +236,7 @@ public class NumberUtils {
      * @since 2.1
      */
     public static float toFloat(final String str, final float defaultValue) {
-      if (str == null) {
+      if (StringUtils.isEmpty(str)) {
           return defaultValue;
       }
       try {
@@ -250,7 +250,7 @@ public class NumberUtils {
      * Convert a {@link String} to a {@code double}, returning
      * {@code 0.0d} if the conversion fails.
      *
-     * <p>If the string {@code str} is {@code null},
+     * <p>If the string {@code str} is empty or {@code null},
      * {@code 0.0d} is returned.</p>
      *
      * <pre>
@@ -272,7 +272,7 @@ public class NumberUtils {
      * Convert a {@link String} to a {@code double}, returning a
      * default value if the conversion fails.
      *
-     * <p>If the string {@code str} is {@code null}, the default
+     * <p>If the string {@code str} is empty or {@code null}, the default
      * value is returned.</p>
      *
      * <pre>
@@ -288,7 +288,7 @@ public class NumberUtils {
      * @since 2.1
      */
     public static double toDouble(final String str, final double defaultValue) {
-      if (str == null) {
+      if (StringUtils.isEmpty(str)) {
           return defaultValue;
       }
       try {
@@ -343,7 +343,7 @@ public class NumberUtils {
      * Convert a {@link String} to a {@code byte}, returning
      * {@code zero} if the conversion fails.
      *
-     * <p>If the string is {@code null}, {@code zero} is returned.</p>
+     * <p>If the string is empty or {@code null}, {@code zero} is returned.</p>
      *
      * <pre>
      *   NumberUtils.toByte(null) = 0
@@ -364,7 +364,7 @@ public class NumberUtils {
      * Convert a {@link String} to a {@code byte}, returning a
      * default value if the conversion fails.
      *
-     * <p>If the string is {@code null}, the default value is returned.</p>
+     * <p>If the string is empty or {@code null}, the default value is returned.</p>
      *
      * <pre>
      *   NumberUtils.toByte(null, 1) = 1
@@ -378,7 +378,7 @@ public class NumberUtils {
      * @since 2.5
      */
     public static byte toByte(final String str, final byte defaultValue) {
-        if (str == null) {
+        if (StringUtils.isEmpty(str)) {
             return defaultValue;
         }
         try {
@@ -392,7 +392,7 @@ public class NumberUtils {
      * Convert a {@link String} to a {@code short}, returning
      * {@code zero} if the conversion fails.
      *
-     * <p>If the string is {@code null}, {@code zero} is returned.</p>
+     * <p>If the string is empty or {@code null}, {@code zero} is returned.</p>
      *
      * <pre>
      *   NumberUtils.toShort(null) = 0
@@ -413,7 +413,7 @@ public class NumberUtils {
      * Convert a {@link String} to an {@code short}, returning a
      * default value if the conversion fails.
      *
-     * <p>If the string is {@code null}, the default value is returned.</p>
+     * <p>If the string is empty or {@code null}, the default value is returned.</p>
      *
      * <pre>
      *   NumberUtils.toShort(null, 1) = 1
@@ -427,7 +427,7 @@ public class NumberUtils {
      * @since 2.5
      */
     public static short toShort(final String str, final short defaultValue) {
-        if (str == null) {
+        if (StringUtils.isEmpty(str)) {
             return defaultValue;
         }
         try {
