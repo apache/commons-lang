@@ -21,6 +21,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 /**
  * Date and time formatting utilities and constants.
  *
@@ -409,7 +411,7 @@ public class DateFormatUtils {
     }
 
     private static TimeZone getTimeZone(final Calendar calendar) {
-        return calendar == null ? null : calendar.getTimeZone();
+        return ObjectUtils.get(calendar, Calendar::getTimeZone);
     }
 
 }
