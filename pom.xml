@@ -634,7 +634,6 @@
     <jmh.version>1.36</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
 
-    <commons.surefire.version>3.0.0-M7</commons.surefire.version>
     <commons.javadoc.version>3.4.1</commons.javadoc.version>
     <commons.japicmp.version>0.16.0</commons.japicmp.version>
     <commons.pmd.version>3.19.0</commons.pmd.version>
