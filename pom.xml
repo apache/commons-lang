@@ -634,7 +634,6 @@
     <jmh.version>1.36</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
 
-    <commons.pmd-impl.version>6.52.0</commons.pmd-impl.version>
     <commons.animal-sniffer.version>1.21</commons.animal-sniffer.version>
     
     <!-- Commons Release Plugin -->
