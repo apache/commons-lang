@@ -626,8 +626,6 @@
     <checkstyle.version>9.3</checkstyle.version>
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
 
-    <commons.spotbugs.plugin.version>4.7.3.0</commons.spotbugs.plugin.version>
-    <commons.spotbugs.impl.version>4.7.3</commons.spotbugs.impl.version>
     <japicmp.skip>false</japicmp.skip>
 
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
