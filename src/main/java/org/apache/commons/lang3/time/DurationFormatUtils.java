@@ -179,48 +179,63 @@ public class DurationFormatUtils {
         // there are a series of tweaks and special cases that require
         // trickery to replicate.
         String duration = formatDuration(durationMillis, "d' days 'H' hours 'm' minutes 's' seconds'");
+        boolean hasDays = true;
+        boolean hasHours = true;
+        boolean hasMinutes = true;
+        boolean hasSeconds = true;
         if (suppressLeadingZeroElements) {
-            // this is a temporary marker on the front. Like ^ in regexp.
-            duration = " " + duration;
-            String tmp = StringUtils.replaceOnce(duration, " 0 days", StringUtils.EMPTY);
+            String tmp = StringUtils.removeStart(duration, "0 days ");
             if (tmp.length() != duration.length()) {
+                hasDays = false;
                 duration = tmp;
-                tmp = StringUtils.replaceOnce(duration, " 0 hours", StringUtils.EMPTY);
+                tmp = StringUtils.removeStart(duration, "0 hours ");
                 if (tmp.length() != duration.length()) {
+                    hasHours = false;
                     duration = tmp;
-                    tmp = StringUtils.replaceOnce(duration, " 0 minutes", StringUtils.EMPTY);
-                    duration = tmp;
+                    tmp = StringUtils.removeStart(duration, "0 minutes ");
                     if (tmp.length() != duration.length()) {
-                        duration = StringUtils.replaceOnce(tmp, " 0 seconds", StringUtils.EMPTY);
+                        hasMinutes = false;
+                        duration = tmp;
                     }
                 }
             }
-            if (!duration.isEmpty()) {
-                // strip the space off again
-                duration = duration.substring(1);
-            }
         }
         if (suppressTrailingZeroElements) {
-            String tmp = StringUtils.replaceOnce(duration, " 0 seconds", StringUtils.EMPTY);
+            String tmp = StringUtils.removeEnd(duration, " 0 seconds");
             if (tmp.length() != duration.length()) {
+                hasSeconds = false;
                 duration = tmp;
-                tmp = StringUtils.replaceOnce(duration, " 0 minutes", StringUtils.EMPTY);
-                if (tmp.length() != duration.length()) {
-                    duration = tmp;
-                    tmp = StringUtils.replaceOnce(duration, " 0 hours", StringUtils.EMPTY);
+                if (hasMinutes) {
+                    tmp = StringUtils.removeEnd(duration, " 0 minutes");
                     if (tmp.length() != duration.length()) {
-                        duration = StringUtils.replaceOnce(tmp, " 0 days", StringUtils.EMPTY);
+                        hasMinutes = false;
+                        duration = tmp;
+                        if (hasHours) {
+                            tmp = StringUtils.removeEnd(duration, " 0 hours");
+                            if (tmp.length() != duration.length()) {
+                                hasHours = false;
+                                duration = tmp;
+                            }
+                        }
                     }
                 }
             }
         }
         // handle plurals
         duration = " " + duration;
-        duration = StringUtils.replaceOnce(duration, " 1 seconds", " 1 second");
-        duration = StringUtils.replaceOnce(duration, " 1 minutes", " 1 minute");
-        duration = StringUtils.replaceOnce(duration, " 1 hours", " 1 hour");
-        duration = StringUtils.replaceOnce(duration, " 1 days", " 1 day");
-        return duration.trim();
+        if (hasSeconds) {
+            duration = StringUtils.replaceOnce(duration, " 1 seconds", " 1 second");
+        }
+        if (hasMinutes) {
+            duration = StringUtils.replaceOnce(duration, " 1 minutes", " 1 minute");
+        }
+        if (hasHours) {
+            duration = StringUtils.replaceOnce(duration, " 1 hours", " 1 hour");
+        }
+        if (hasDays) {
+            duration = StringUtils.replaceOnce(duration, " 1 days", " 1 day");
+        }
+        return duration.substring(1);
     }
 
     /**
