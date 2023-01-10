@@ -411,7 +411,7 @@ public class DateFormatUtils {
     }
 
     private static TimeZone getTimeZone(final Calendar calendar) {
-        return ObjectUtils.get(calendar, Calendar::getTimeZone);
+        return calendar == null ? null : calendar.getTimeZone();
     }
 
 }
