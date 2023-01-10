@@ -204,7 +204,7 @@ public class FieldUtils {
      *
      * @param cls
      *            the {@link Class} to query
-     * @return an array of Fields (possibly empty).
+     * @return a list of Fields (possibly empty).
      * @throws IllegalArgumentException
      *             if the class is {@code null}
      * @since 3.2
