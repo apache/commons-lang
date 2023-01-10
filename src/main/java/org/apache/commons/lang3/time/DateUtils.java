@@ -1190,7 +1190,7 @@ public class DateUtils {
 
     /**
      * Returns the number of milliseconds within the
-     * fragment. All datefields greater than the fragment will be ignored.
+     * fragment. All date fields greater than the fragment will be ignored.
      *
      * <p>Asking the milliseconds of any date will only return the number of milliseconds
      * of the current second (resulting in a number between 0 and 999). This
@@ -1225,7 +1225,7 @@ public class DateUtils {
 
     /**
      * Returns the number of seconds within the
-     * fragment. All datefields greater than the fragment will be ignored.
+     * fragment. All date fields greater than the fragment will be ignored.
      *
      * <p>Asking the seconds of any date will only return the number of seconds
      * of the current minute (resulting in a number between 0 and 59). This
@@ -1263,7 +1263,7 @@ public class DateUtils {
 
     /**
      * Returns the number of minutes within the
-     * fragment. All datefields greater than the fragment will be ignored.
+     * fragment. All date fields greater than the fragment will be ignored.
      *
      * <p>Asking the minutes of any date will only return the number of minutes
      * of the current hour (resulting in a number between 0 and 59). This
@@ -1301,7 +1301,7 @@ public class DateUtils {
 
     /**
      * Returns the number of hours within the
-     * fragment. All datefields greater than the fragment will be ignored.
+     * fragment. All date fields greater than the fragment will be ignored.
      *
      * <p>Asking the hours of any date will only return the number of hours
      * of the current day (resulting in a number between 0 and 23). This
@@ -1339,7 +1339,7 @@ public class DateUtils {
 
     /**
      * Returns the number of days within the
-     * fragment. All datefields greater than the fragment will be ignored.
+     * fragment. All date fields greater than the fragment will be ignored.
      *
      * <p>Asking the days of any date will only return the number of days
      * of the current month (resulting in a number between 1 and 31). This
@@ -1377,7 +1377,7 @@ public class DateUtils {
 
     /**
      * Returns the number of milliseconds within the
-     * fragment. All datefields greater than the fragment will be ignored.
+     * fragment. All date fields greater than the fragment will be ignored.
      *
      * <p>Asking the milliseconds of any date will only return the number of milliseconds
      * of the current second (resulting in a number between 0 and 999). This
@@ -1414,7 +1414,7 @@ public class DateUtils {
   }
     /**
      * Returns the number of seconds within the
-     * fragment. All datefields greater than the fragment will be ignored.
+     * fragment. All date fields greater than the fragment will be ignored.
      *
      * <p>Asking the seconds of any date will only return the number of seconds
      * of the current minute (resulting in a number between 0 and 59). This
@@ -1452,7 +1452,7 @@ public class DateUtils {
 
     /**
      * Returns the number of minutes within the
-     * fragment. All datefields greater than the fragment will be ignored.
+     * fragment. All date fields greater than the fragment will be ignored.
      *
      * <p>Asking the minutes of any date will only return the number of minutes
      * of the current hour (resulting in a number between 0 and 59). This
@@ -1490,7 +1490,7 @@ public class DateUtils {
 
     /**
      * Returns the number of hours within the
-     * fragment. All datefields greater than the fragment will be ignored.
+     * fragment. All date fields greater than the fragment will be ignored.
      *
      * <p>Asking the hours of any date will only return the number of hours
      * of the current day (resulting in a number between 0 and 23). This
