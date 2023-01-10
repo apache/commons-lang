@@ -634,7 +634,6 @@
     <jmh.version>1.36</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
 
-    <commons.japicmp.version>0.16.0</commons.japicmp.version>
     <commons.pmd-impl.version>6.52.0</commons.pmd-impl.version>
     <commons.felix.version>5.1.2</commons.felix.version>
     <commons.animal-sniffer.version>1.21</commons.animal-sniffer.version>
