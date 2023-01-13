@@ -622,8 +622,6 @@
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.encoding>utf-8</commons.encoding>
 
-    <checkstyle.plugin.version>3.2.0</checkstyle.plugin.version>
-    <checkstyle.version>9.3</checkstyle.version>
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
 
     <japicmp.skip>false</japicmp.skip>
@@ -760,19 +758,11 @@
       </plugin>
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${checkstyle.plugin.version}</version>
         <configuration>
           <configLocation>${checkstyle.configdir}/checkstyle.xml</configLocation>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
           <enableRulesSummary>false</enableRulesSummary>
         </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>com.puppycrawl.tools</groupId>
-            <artifactId>checkstyle</artifactId>
-            <version>${checkstyle.version}</version>
-          </dependency>
-        </dependencies>
       </plugin>
       <plugin>
         <groupId>com.github.spotbugs</groupId>
