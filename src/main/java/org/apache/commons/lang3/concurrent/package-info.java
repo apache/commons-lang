@@ -138,7 +138,7 @@
  * </p>
  *
  * <p>
- * Now, which one of the lazy initializer implementations should you use? First of all we have to state that is is
+ * Now, which one of the lazy initializer implementations should you use? First of all we have to state that is
  * problematic to give general recommendations regarding the performance of these classes. The initializers make use of
  * low-level functionality whose efficiency depends on multiple factors including the target platform and the number of
  * concurrent threads. So developers should make their own benchmarks in scenarios close to their specific use cases.

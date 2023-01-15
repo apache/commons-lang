@@ -722,7 +722,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-978" type="fix" dev="sebb">Failing tests with Java 8 b128</action>
   </release>
 
-  <release version="3.3" date="2014-03-04" description="Bug fixes and and new features including: DifferenceBuilder, ClassPathUtils, RandomUtils and Jaro-Winkler String distance metric">
+  <release version="3.3" date="2014-03-04" description="Bug fixes and new features including: DifferenceBuilder, ClassPathUtils, RandomUtils and Jaro-Winkler String distance metric">
     <action issue="LANG-621" type="fix" dev="kinow" due-to="Philip Hodges, Thomas Neidhart">ReflectionToStringBuilder.toString does not debug 3rd party object fields within 3rd party object</action>
     <action issue="LANG-955" type="add" dev="britter" due-to="Adam Hooper">Add methods for removing all invalid characters according to XML 1.0 and XML 1.1 in an input string to StringEscapeUtils</action>
     <action issue="LANG-977" type="fix" dev="britter" due-to="Chris Karcher">NumericEntityEscaper incorrectly encodes supplementary characters</action>
