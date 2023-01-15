@@ -104,7 +104,7 @@ o            Use own validator ObjectUtils.anyNull to check null String input #7
 Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
 
 For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
-patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
+patches, or suggestions for improvement, see the Apache Commons Lang website:
 
 https://commons.apache.org/proper/commons-lang/
 
@@ -197,7 +197,7 @@ o            commons.surefire.version 3.0.0-M4 -> 3.0.0-M5..
 Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
 
 For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
-patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
+patches, or suggestions for improvement, see the Apache Commons Lang website:
 
 https://commons.apache.org/proper/commons-lang/
 
@@ -307,7 +307,7 @@ o LANG-1529: Deprecate org.apache.commons.lang3.ArrayUtils.removeAllOccurences(*
 Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
 
 For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
-patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
+patches, or suggestions for improvement, see the Apache Commons Lang website:
 
 https://commons.apache.org/proper/commons-lang/
 
@@ -360,7 +360,7 @@ o            (doc) Fix javadoc for 'startIndex' parameter of StringUtils.join() 
 Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
 
 For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
-patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
+patches, or suggestions for improvement, see the Apache Commons Lang website:
 
 https://commons.apache.org/proper/commons-lang/
 
