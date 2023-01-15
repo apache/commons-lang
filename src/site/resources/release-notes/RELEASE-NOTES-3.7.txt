@@ -62,7 +62,7 @@ o LANG-1361: ExceptionUtils.getThrowableList() is using deprecated ExceptionUtil
 Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
 
 For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
-patches, or suggestions for improvement, see the Apache Apache Commons Lang website:
+patches, or suggestions for improvement, see the Apache Commons Lang website:
 
 https://commons.apache.org/proper/commons-lang/
 
