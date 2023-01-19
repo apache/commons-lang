@@ -1487,7 +1487,7 @@ public class StringUtils {
         }
         return count;
     }
-
+    
     /**
      * Returns either the passed in CharSequence, or if the CharSequence is
      * whitespace, empty ("") or {@code null}, the value of {@code defaultStr}.
@@ -5648,6 +5648,54 @@ public class StringUtils {
         return str.substring(0, start) +
             overlay +
             str.substring(end);
+    }
+    
+    /**
+     * Creates a palindrome if the string is not already a palindrome
+     * 
+     * <p> A {@code null} or empty String ("") input returns null or "" 
+     * respectively. </p>
+     * 
+     * <pre>
+     * StringUtils.palindrome(null)           = null
+     * StringUtils.palindrome("")             = ""
+     * StringUtils.palindrome("ab")           = aba
+     * StringUtils.palindrome("aba")          = aba
+     * StringUtils.palindrome("abba")         = abba
+     * StringUtils.palindrome("hi there")     = "hi therereht ih"
+     * StringUtils.palindrome("Spicy water.") = Spicy water.retaw ycipS
+     * </pre>
+     * 
+     * @param str  the string to check, may be null
+     * @return the palindrome string, null if str is {@code null}
+     * @since 3.12.0
+     */
+    public static String palindrome(final String str) {
+    	if (str == null) {
+    		return null;
+    	} else if (str.isEmpty()) {
+    		return "";
+    	}
+    	
+    	boolean isPalindrome = true;
+    	int startPointer = 0, endPointer = str.length() - 1;
+    	StringBuilder strSb = new StringBuilder(str);
+    	
+    	while (startPointer <= endPointer) {
+    		if (strSb.charAt(startPointer) != strSb.charAt(endPointer)) {
+    			isPalindrome = false;
+    			break;
+    		}
+    		startPointer++;
+    		endPointer--;
+    	}
+    	
+    	if (!isPalindrome) {
+    		String reverse = new StringBuilder(str.substring(0, str.length() - 1)).reverse().toString();
+    		strSb.append(reverse);
+    	}
+    	
+    	return strSb.toString();
     }
 
     /**
