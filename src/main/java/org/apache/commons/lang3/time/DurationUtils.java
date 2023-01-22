@@ -116,7 +116,7 @@ public class DurationUtils {
      * @since 3.13.0
      */
     public static <E extends Throwable> Duration of(final FailableConsumer<Instant, E> consumer) throws E {
-        return since(now(consumer::accept));
+        return since(now(consumer));
     }
 
     /**
