@@ -906,7 +906,7 @@ public class MethodUtils {
                                                             final boolean searchSupers, final boolean ignoreAccess) {
 
         Objects.requireNonNull(cls, "cls");
-        Validate.notNull(annotationCls, "annotationCls");
+        Objects.requireNonNull(annotationCls, "annotationCls");
         final List<Class<?>> classes = searchSupers ? getAllSuperclassesAndInterfaces(cls) : new ArrayList<>();
         classes.add(0, cls);
         final List<Method> annotatedMethods = new ArrayList<>();
