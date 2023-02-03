@@ -114,10 +114,10 @@ public class FastDateParser implements DateParser, Serializable {
 
     /**
      * Constructs a new FastDateParser.
-     *
+     * <p>
      * Use {@link FastDateFormat#getInstance(String, TimeZone, Locale)} or another variation of the
      * factory methods of {@link FastDateFormat} to get a cached FastDateParser instance.
-     *
+     * </p>
      * @param pattern non-null {@link java.text.SimpleDateFormat} compatible
      *  pattern
      * @param timeZone non-null time zone to use

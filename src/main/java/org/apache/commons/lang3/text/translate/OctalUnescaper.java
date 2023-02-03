@@ -21,12 +21,13 @@ import java.io.Writer;
 
 /**
  * Translate escaped octal Strings back to their octal values.
- *
+ * <p>
  * For example, "\45" should go back to being the specific value (a %).
- *
+ * </p>
+ * <p>
  * Note that this currently only supports the viable range of octal for Java; namely
  * 1 to 377. This is because parsing Java is the main use case.
- *
+ * </p>
  * @since 3.0
  * @deprecated As of 3.6, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/OctalUnescaper.html">

@@ -27,12 +27,12 @@ public class RegExUtils {
 
     /**
      * Removes each substring of the text String that matches the given regular expression pattern.
-     *
+     * <p>
      * This method is a {@code null} safe equivalent to:
      * <ul>
      *  <li>{@code pattern.matcher(text).replaceAll(StringUtils.EMPTY)}</li>
      * </ul>
-     *
+     * </p>
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>
@@ -47,7 +47,6 @@ public class RegExUtils {
      * StringUtils.removeAll("A&lt;__&gt;\n&lt;__&gt;B", Pattern.compile("&lt;.*&gt;", Pattern.DOTALL))  = "AB"
      * StringUtils.removeAll("ABCabc123abc", Pattern.compile("[a-z]"))     = "ABC123"
      * </pre>
-     *
      * @param text  text to remove from, may be null
      * @param regex  the regular expression to which this string is to be matched
      * @return  the text with any removes processed,
@@ -63,20 +62,20 @@ public class RegExUtils {
 
     /**
      * Removes each substring of the text String that matches the given regular expression.
-     *
+     * <p>
      * This method is a {@code null} safe equivalent to:
      * <ul>
      *  <li>{@code text.replaceAll(regex, StringUtils.EMPTY)}</li>
      *  <li>{@code Pattern.compile(regex).matcher(text).replaceAll(StringUtils.EMPTY)}</li>
      * </ul>
-     *
+     * </p>
      * <p>A {@code null} reference passed to this method is a no-op.</p>
-     *
+     * </p>
      * <p>Unlike in the {@link #removePattern(String, String)} method, the {@link Pattern#DOTALL} option
      * is NOT automatically added.
      * To use the DOTALL option prepend {@code "(?s)"} to the regex.
      * DOTALL is also known as single-line mode in Perl.</p>
-     *
+     * </p>
      * <pre>
      * StringUtils.removeAll(null, *)      = null
      * StringUtils.removeAll("any", (String) null)  = "any"
@@ -109,12 +108,12 @@ public class RegExUtils {
 
     /**
      * Removes the first substring of the text string that matches the given regular expression pattern.
-     *
+     * <p>
      * This method is a {@code null} safe equivalent to:
      * <ul>
      *  <li>{@code pattern.matcher(text).replaceFirst(StringUtils.EMPTY)}</li>
      * </ul>
-     *
+     * </p>
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>
@@ -145,13 +144,13 @@ public class RegExUtils {
 
     /**
      * Removes the first substring of the text string that matches the given regular expression.
-     *
+     * <p>
      * This method is a {@code null} safe equivalent to:
      * <ul>
      *  <li>{@code text.replaceFirst(regex, StringUtils.EMPTY)}</li>
      *  <li>{@code Pattern.compile(regex).matcher(text).replaceFirst(StringUtils.EMPTY)}</li>
      * </ul>
-     *
+     * </p>
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <p>The {@link Pattern#DOTALL} option is NOT automatically added.
@@ -190,13 +189,13 @@ public class RegExUtils {
 
     /**
      * Removes each substring of the source String that matches the given regular expression using the DOTALL option.
-     *
+     * <p>
      * This call is a {@code null} safe equivalent to:
      * <ul>
      * <li>{@code text.replaceAll(&quot;(?s)&quot; + regex, StringUtils.EMPTY)}</li>
      * <li>{@code Pattern.compile(regex, Pattern.DOTALL).matcher(text).replaceAll(StringUtils.EMPTY)}</li>
      * </ul>
-     *
+     * </p>
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>
@@ -221,12 +220,12 @@ public class RegExUtils {
 
     /**
      * Replaces each substring of the text String that matches the given regular expression pattern with the given replacement.
-     *
+     * <p>
      * This method is a {@code null} safe equivalent to:
      * <ul>
      *  <li>{@code pattern.matcher(text).replaceAll(replacement)}</li>
      * </ul>
-     *
+     * </p>
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>
@@ -265,13 +264,13 @@ public class RegExUtils {
     /**
      * Replaces each substring of the text String that matches the given regular expression
      * with the given replacement.
-     *
+     * <p>
      * This method is a {@code null} safe equivalent to:
      * <ul>
      *  <li>{@code text.replaceAll(regex, replacement)}</li>
      *  <li>{@code Pattern.compile(regex).matcher(text).replaceAll(replacement)}</li>
      * </ul>
-     *
+     * </p>
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <p>Unlike in the {@link #replacePattern(String, String, String)} method, the {@link Pattern#DOTALL} option
@@ -319,12 +318,12 @@ public class RegExUtils {
     /**
      * Replaces the first substring of the text string that matches the given regular expression pattern
      * with the given replacement.
-     *
+     * <p>
      * This method is a {@code null} safe equivalent to:
      * <ul>
      *  <li>{@code pattern.matcher(text).replaceFirst(replacement)}</li>
      * </ul>
-     *
+     * </p>
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>
@@ -362,13 +361,13 @@ public class RegExUtils {
     /**
      * Replaces the first substring of the text string that matches the given regular expression
      * with the given replacement.
-     *
+     * <p>
      * This method is a {@code null} safe equivalent to:
      * <ul>
      *  <li>{@code text.replaceFirst(regex, replacement)}</li>
      *  <li>{@code Pattern.compile(regex).matcher(text).replaceFirst(replacement)}</li>
      * </ul>
-     *
+     * </p>
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <p>The {@link Pattern#DOTALL} option is NOT automatically added.
@@ -414,13 +413,13 @@ public class RegExUtils {
     /**
      * Replaces each substring of the source String that matches the given regular expression with the given
      * replacement using the {@link Pattern#DOTALL} option. DOTALL is also known as single-line mode in Perl.
-     *
+     * <p>
      * This call is a {@code null} safe equivalent to:
      * <ul>
      * <li>{@code text.replaceAll(&quot;(?s)&quot; + regex, replacement)}</li>
      * <li>{@code Pattern.compile(regex, Pattern.DOTALL).matcher(text).replaceAll(replacement)}</li>
      * </ul>
-     *
+     * </p>
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>

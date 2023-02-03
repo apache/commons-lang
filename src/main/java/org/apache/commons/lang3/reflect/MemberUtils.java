@@ -41,11 +41,12 @@ final class MemberUtils {
 
     /**
      * Default access superclass workaround.
-     *
+     * <p>
      * When a {@code public} class has a default access superclass with {@code public} members,
      * these members are accessible. Calling them from compiled code works fine.
      * Unfortunately, on some JVMs, using reflection to invoke these members
      * seems to (wrongly) prevent access even when the modifier is {@code public}.
+     * </p>
      * Calling {@code setAccessible(true)} solves the problem but will only work from
      * sufficiently privileged code. Better workarounds would be gratefully
      * accepted.

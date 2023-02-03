@@ -22,9 +22,10 @@ package org.apache.commons.lang3.builder;
 /**
  * Wrap an identity key (System.identityHashCode())
  * so that an object can only be equal() to itself.
- *
+ * <p>
  * This is necessary to disambiguate the occasional duplicate
  * identityHashCodes that can occur.
+ * </p>
  */
 final class IDKey {
         private final Object value;

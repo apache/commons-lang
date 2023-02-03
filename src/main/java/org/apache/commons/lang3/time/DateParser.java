@@ -30,14 +30,14 @@ import java.util.TimeZone;
  * <p>
  * Warning: Since binary compatible methods may be added to this interface in any
  * release, developers are not expected to implement this interface.
- *
+ * </p>
  * @since 3.2
  */
 public interface DateParser {
 
     /**
      * Equivalent to DateFormat.parse(String).
-     *
+     * <p>
      * See {@link java.text.DateFormat#parse(String)} for more information.
      * @param source A {@link String} whose beginning should be parsed.
      * @return A {@link Date} parsed from the string
@@ -47,7 +47,7 @@ public interface DateParser {
 
     /**
      * Equivalent to DateFormat.parse(String, ParsePosition).
-     *
+     * <p>
      * See {@link java.text.DateFormat#parse(String, ParsePosition)} for more information.
      *
      * @param source A {@link String}, part of which should be parsed.

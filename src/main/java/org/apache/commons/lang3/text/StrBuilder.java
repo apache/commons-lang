@@ -1343,9 +1343,10 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Appends one of both separators to the StrBuilder.
      * If the builder is currently empty it will append the defaultIfEmpty-separator
      * Otherwise it will append the standard-separator
-     *
+     * <p>
      * Appending a null separator will have no effect.
      * The separator is appended using {@link #append(String)}.
+     * </p>
      * <p>
      * This method is for example useful for constructing queries
      * </p>
@@ -1406,8 +1407,9 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Append one of both separators to the builder
      * If the builder is currently empty it will append the defaultIfEmpty-separator
      * Otherwise it will append the standard-separator
-     *
+     * <p>
      * The separator is appended using {@link #append(char)}.
+     * </p>
      * @param standard the separator if builder is not empty
      * @param defaultIfEmpty the separator if builder is empty
      * @return this, to enable chaining

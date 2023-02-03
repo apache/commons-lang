@@ -366,8 +366,9 @@ public class EntityArrays {
 
     /**
      * Mapping to escape the basic XML and HTML character entities.
-     *
+     * <p>
      * Namely: {@code " & < >}
+     * </p>
      * @return the mapping table
      */
     public static String[][] BASIC_ESCAPE() {
@@ -415,8 +416,9 @@ public class EntityArrays {
 
     /**
      * Mapping to escape the Java control characters.
-     *
+     * <p>
      * Namely: {@code \b \n \t \f \r}
+     * </p>
      * @return the mapping table
      */
     public static String[][] JAVA_CTRL_CHARS_ESCAPE() {
