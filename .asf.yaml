@@ -25,3 +25,5 @@ notifications:
     jobs:         notifications@commons.apache.org
     issues_bot_dependabot: notifications@commons.apache.org
     pullrequests_bot_dependabot: notifications@commons.apache.org
+    issues_bot_codecov-commenter: notifications@commons.apache.org
+    pullrequests_bot_codecov-commenter: notifications@commons.apache.org
