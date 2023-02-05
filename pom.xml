@@ -630,8 +630,6 @@
     <jmh.version>1.36</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
 
-    <commons.animal-sniffer.version>1.21</commons.animal-sniffer.version>
-    
     <!-- Commons Release Plugin -->
     <commons.bc.version>3.12.0</commons.bc.version>
     <commons.rc.version>RC1</commons.rc.version>
