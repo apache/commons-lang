@@ -223,7 +223,7 @@ public class SystemPropertiesTest {
 
     @Test
     public void testGetUserCountry() {
-        assertNotNull(SystemProperties.getUserCountry());
+        assertDoesNotThrow(SystemProperties::getUserCountry);
     }
 
     @Test
