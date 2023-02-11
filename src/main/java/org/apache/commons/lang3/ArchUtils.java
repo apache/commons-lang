@@ -121,7 +121,7 @@ public class ArchUtils {
      * @return A {@link Processor} when supported, else {@code null}.
      */
     public static Processor getProcessor() {
-        return getProcessor(SystemUtils.OS_ARCH);
+        return getProcessor(SystemProperties.getOsArch());
     }
 
     /**

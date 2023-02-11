@@ -18,6 +18,8 @@ package org.apache.commons.lang3.text;
 
 import java.util.Map;
 
+import org.apache.commons.lang3.SystemProperties;
+
 /**
  * Lookup a String key to a String value.
  * <p>
@@ -179,14 +181,7 @@ public abstract class StrLookup<V> {
          */
         @Override
         public String lookup(final String key) {
-            if (!key.isEmpty()) {
-                try {
-                    return System.getProperty(key);
-                } catch (final SecurityException ignored) {
-                    // ignored, all lookup(String) will return null.
-                }
-            }
-            return null;
+            return SystemProperties.getProperty(key);
         }
     }
 }

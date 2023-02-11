@@ -19,7 +19,6 @@ package org.apache.commons.lang3.text;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +45,7 @@ public class StrLookupTest extends AbstractLangTest {
         assertEquals(System.getProperty("os.name"), StrLookup.systemPropertiesLookup().lookup("os.name"));
         assertNull(StrLookup.systemPropertiesLookup().lookup(""));
         assertNull(StrLookup.systemPropertiesLookup().lookup("other"));
-        assertThrows(NullPointerException.class, () -> StrLookup.systemPropertiesLookup().lookup(null));
+        assertNull(StrLookup.systemPropertiesLookup().lookup(null));
     }
 
     /**
