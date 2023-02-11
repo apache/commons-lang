@@ -1543,6 +1543,7 @@ public class TypeUtils {
      * @param rawClass the raw class to create a parameterized type instance for
      * @param typeVariableMap the map used for parameterization
      * @return {@link ParameterizedType}
+     * @throws NullPointerException if either {@code rawClass} or {@code typeVariableMap} is {@code null}
      * @since 3.2
      */
     public static final ParameterizedType parameterize(final Class<?> rawClass,
@@ -1559,6 +1560,7 @@ public class TypeUtils {
      * @param rawClass the raw class to create a parameterized type instance for
      * @param typeArguments the types used for parameterization
      * @return {@link ParameterizedType}
+     * @throws NullPointerException if {@code rawClass} is {@code null}
      * @since 3.2
      */
     public static final ParameterizedType parameterize(final Class<?> rawClass, final Type... typeArguments) {
@@ -1607,6 +1609,8 @@ public class TypeUtils {
      * @param rawClass the raw class to create a parameterized type instance for
      * @param typeVariableMap the map used for parameterization
      * @return {@link ParameterizedType}
+     * @throws NullPointerException if either {@code rawClass} or {@code typeVariableMap}
+     *  is {@code null}
      * @since 3.2
      */
     public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> rawClass,
@@ -1625,6 +1629,7 @@ public class TypeUtils {
      * @param typeArguments the types used for parameterization
      *
      * @return {@link ParameterizedType}
+     * @throws NullPointerException if {@code rawClass} is {@code null}
      * @since 3.2
      */
     public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> rawClass,

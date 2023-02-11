@@ -144,6 +144,11 @@ public class DurationUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testToMillisIntNullDuration() {
+        assertThrows(NullPointerException.class, () -> DurationUtils.toMillisInt(null));
+    }
+
+    @Test
     public void testZeroIfNull() {
         assertEquals(Duration.ZERO, DurationUtils.zeroIfNull(null));
         assertEquals(Duration.ofDays(1), DurationUtils.zeroIfNull(Duration.ofDays(1)));

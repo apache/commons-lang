@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.Insets;
@@ -948,10 +949,36 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
+    public void testParameterizeNullPointerException() {
+        assertThrows(NullPointerException.class, () -> TypeUtils.parameterize(null, Collections.emptyMap()));
+        final Map<TypeVariable<?>, Type> nullTypeVariableMap = null;
+        assertThrows(NullPointerException.class, () -> TypeUtils.parameterize(String.class, nullTypeVariableMap));
+    }
+
+    @Test
+    public void testParameterizeVarArgsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> TypeUtils.parameterize(null));
+    }
+
+    @Test
     public void testParameterizeWithOwner() throws Exception {
         final Type owner = TypeUtils.parameterize(TypeUtilsTest.class, String.class);
         final ParameterizedType dat2Type = TypeUtils.parameterizeWithOwner(owner, That.class, String.class, String.class);
         assertTrue(TypeUtils.equals(getClass().getField("dat2").getGenericType(), dat2Type));
+    }
+
+    @Test
+    public void testParameterizeWithOwner3ArgsNullPointerException() {
+        final Type owner = TypeUtils.parameterize(TypeUtilsTest.class, String.class);
+        assertThrows(NullPointerException.class, () -> TypeUtils.parameterizeWithOwner(owner, null, String.class));
+        final Map<TypeVariable<?>, Type> nullTypeVariableMap = null;
+        assertThrows(NullPointerException.class, () -> TypeUtils.parameterizeWithOwner(owner, That.class, nullTypeVariableMap));
+    }
+
+    @Test
+    public void testParameterizeWithOwnerVarArgsNullPointerException() {
+        final Type owner = TypeUtils.parameterize(TypeUtilsTest.class, String.class);
+        assertThrows(NullPointerException.class, () -> TypeUtils.parameterizeWithOwner(owner, null));
     }
 
     @Test

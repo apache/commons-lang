@@ -3772,6 +3772,7 @@ public class ArrayUtils {
      * @param comparator the {@link Comparator} to compare over
      * @param <T> the datatype of the array
      * @return whether the array is sorted
+     * @throws NullPointerException if {@code comparator} is {@code null}
      * @since 3.4
      */
     public static <T> boolean isSorted(final T[] array, final Comparator<T> comparator) {

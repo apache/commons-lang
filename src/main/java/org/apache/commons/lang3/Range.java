@@ -274,6 +274,7 @@ public class Range<T> implements Serializable {
      *
      * @param element  the element to check for, not null
      * @return -1, 0 or +1 depending on the element's location relative to the range
+     * @throws NullPointerException if {@code element} is {@code null}
      */
     public int elementCompareTo(final T element) {
         // Comparable API says throw NPE on null
@@ -329,6 +330,7 @@ public class Range<T> implements Serializable {
      * </pre>
      * @param element the element to check for, not null
      * @return the minimum, the element, or the maximum depending on the element's location relative to the range
+     * @throws NullPointerException if {@code element} is {@code null}
      * @since 3.10
      */
     public T fit(final T element) {
