@@ -448,6 +448,7 @@ public class StringUtils {
      * <pre>
      * StringUtils.appendIfMissing(null, null) = null
      * StringUtils.appendIfMissing("abc", null) = "abc"
+     * StringUtils.appendIfMissing("abc", " ") = "abc "
      * StringUtils.appendIfMissing("", "xyz") = "xyz"
      * StringUtils.appendIfMissing("abc", "xyz") = "abcxyz"
      * StringUtils.appendIfMissing("abcxyz", "xyz") = "abcxyz"
