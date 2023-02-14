@@ -1037,6 +1037,7 @@ public class StringUtils {
      * StringUtils.containsAny("", *)                    = false
      * StringUtils.containsAny(*, null)                  = false
      * StringUtils.containsAny(*, [])                    = false
+     * StringUtils.containsAny("abc ", " ")              = true
      * StringUtils.containsAny("zzabyycdxx", ['z', 'a']) = true
      * StringUtils.containsAny("zzabyycdxx", ['b', 'y']) = true
      * StringUtils.containsAny("zzabyycdxx", ['z', 'y']) = true
