@@ -1568,7 +1568,7 @@ public class NumberUtils {
     }
 
     /**
-     * Checks whether the String a valid Java number.
+     * Checks whether the String is a valid Java number.
      *
      * <p>Valid numbers include hexadecimal marked with the {@code 0x} or
      * {@code 0X} qualifier, octal numbers, scientific notation and
@@ -1598,7 +1598,7 @@ public class NumberUtils {
     }
 
     /**
-     * Checks whether the String a valid Java number.
+     * Checks whether the String is a valid Java number.
      *
      * <p>Valid numbers include hexadecimal marked with the {@code 0x} or
      * {@code 0X} qualifier, octal numbers, scientific notation and
@@ -1658,7 +1658,7 @@ public class NumberUtils {
                    return true;
                }
         }
-        sz--; // don't want to loop to the last char, check it afterwords
+        sz--; // don't want to loop to the last char, check it afterwards
               // for type qualifiers
         int i = start;
         // loop to the next to last char or to the last char if we need another digit to
