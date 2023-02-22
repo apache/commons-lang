@@ -1093,7 +1093,7 @@ public class MethodUtilsTest extends AbstractLangTest {
         }
     }
 
-    protected static abstract class AbstractGetMatchingMethod {
+    protected abstract static class AbstractGetMatchingMethod {
         abstract void testMethod5(Exception e);
     }
 
