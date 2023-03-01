@@ -1053,6 +1053,9 @@ public class MethodUtilsTest extends AbstractLangTest {
 
         assertThrows(IllegalStateException.class,
                 () -> MethodUtils.getMatchingMethod(GetMatchingMethodClass.class, "testMethod4", null, null));
+
+        assertEquals(MethodUtils.getMatchingMethod(GetMatchingMethodImpl.class, "testMethod5", RuntimeException.class),
+                GetMatchingMethodImpl.class.getMethod("testMethod5", Exception.class));
     }
 
     private static final class GetMatchingMethodClass {
@@ -1087,6 +1090,16 @@ public class MethodUtilsTest extends AbstractLangTest {
         }
 
         public void testMethod4(final Color aColor1, final Color aColor2) {
+        }
+    }
+
+    protected abstract static class AbstractGetMatchingMethod {
+        public abstract void testMethod5(Exception exception);
+    }
+
+    private static class GetMatchingMethodImpl extends AbstractGetMatchingMethod {
+        @Override
+        public void testMethod5(final Exception exception) {
         }
     }
 }

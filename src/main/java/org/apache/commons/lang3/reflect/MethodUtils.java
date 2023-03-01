@@ -751,7 +751,8 @@ public class MethodUtils {
         }
 
         final List<Method> bestCandidates = candidates.values().iterator().next();
-        if (bestCandidates.size() == 1) {
+        if (bestCandidates.size() == 1 || !Objects.equals(bestCandidates.get(0).getDeclaringClass(),
+                bestCandidates.get(1).getDeclaringClass())) {
             return bestCandidates.get(0);
         }
 
