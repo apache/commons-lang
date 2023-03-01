@@ -94,6 +94,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      * @return an immutable pair of nulls.
      * @since 3.6
      */
+    @SuppressWarnings("unchecked")
     public static <L, R> ImmutablePair<L, R> nullPair() {
         return NULL;
     }
