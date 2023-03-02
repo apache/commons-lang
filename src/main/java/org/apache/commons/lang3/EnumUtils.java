@@ -346,7 +346,7 @@ public class EnumUtils {
     /**
      * Checks if the specified name is a valid enum for the class.
      *
-     * <p>This method differs from {@link Enum#valueOf} in that checks if the name is
+     * <p>This method differs from {@link Enum#valueOf} in that it checks if the name is
      * a valid enum without needing to catch the exception.</p>
      *
      * @param <E> the type of the enumeration
@@ -361,7 +361,7 @@ public class EnumUtils {
     /**
      * Checks if the specified name is a valid enum for the class.
      *
-     * <p>This method differs from {@link Enum#valueOf} in that checks if the name is
+     * <p>This method differs from {@link Enum#valueOf} in that it checks if the name is
      * a valid enum without needing to catch the exception
      * and performs case insensitive matching of the name.</p>
      *
