@@ -38,7 +38,9 @@ and commit
 The <action> type attribute can be add,update,fix,remove.
 -->
 
-<document>
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <properties>
     <title>Apache Commons Lang Release Notes</title>
   </properties>
@@ -900,7 +902,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="add">Add ClassUtils.getSimpleName() methods.</action>
     <action type="add" issue="LANG-692">Add hashCodeMulti varargs method.</action>
     <action type="remove" issue="LANG-691">Removed DateUtils.UTC_TIME_ZONE.</action>
-    <action type="update" issues="LANG-687">Convert more of the StringUtils API to take CharSequence.</action>
+    <action type="update" issue="LANG-687">Convert more of the StringUtils API to take CharSequence.</action>
     <action type="fix" issue="LANG-685">EqualsBuilder synchronizes on HashCodeBuilder.</action>
     <action type="fix" issue="LANG-428">StringUtils.isAlpha, isAlphanumeric and isNumeric now return false for "".</action>
     <action type="add" issue="LANG-678">Add support for ConcurrentMap.putIfAbsent().</action>
@@ -936,7 +938,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" issue="LANG-638">NumberUtils createNumber throws a StringIndexOutOfBoundsException when argument containing "e" and "E" is passed in.</action>
     <!-- 3.0 beta below here -->
     <action>NOTE: The below were included in the Commons Lang 3.0-beta release.</action>
-    <action type="update" issues="LANG-510">Convert StringUtils API to take CharSequence.</action>
+    <action type="update" issue="LANG-510">Convert StringUtils API to take CharSequence.</action>
     <action type="update">Push down WordUtils to "text" sub-package.</action>
     <action type="add" issue="LANG-610">Extend exception handling in ConcurrentUtils to runtime exceptions.</action>
     <action type="fix" issue="LANG-608">Some StringUtils methods should take an int character instead of char to use String API features.</action>
