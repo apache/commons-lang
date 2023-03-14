@@ -8778,17 +8778,59 @@ public class StringUtils {
      *
      * @param str  the String containing the substring, may be null
      * @param open  the String before the substring, may be null
-     * @param close  the String after the substring, may be null
+     * @param close  the String after the substring, may be null - search first match from left to right, after the <code>open</code> String found
      * @return the substring, {@code null} if no match
      * @since 2.0
      */
     public static String substringBetween(final String str, final String open, final String close) {
+        return substringBetween(str, open, close, false);
+    }
+    /**
+     * Gets the String that is nested in between two Strings.
+     * Only the first match is returned.
+     *
+     * <p>A {@code null} input String returns {@code null}.
+     * A {@code null} open/close returns {@code null} (no match).
+     * An empty ("") open and close returns an empty string.</p>
+     *
+     * <pre>
+     * StringUtils.substringBetween("wx[b]yz", "[", "]", *)          = "b"
+     * StringUtils.substringBetween(null, *, *, *)                   = null
+     * StringUtils.substringBetween(*, null, *, *)                   = null
+     * StringUtils.substringBetween(*, *, null, *)                   = null
+     * StringUtils.substringBetween("", "", "", *)                   = ""
+     * StringUtils.substringBetween("", "", "]", *)                  = null
+     * StringUtils.substringBetween("", "[", "]", *)                 = null
+     * StringUtils.substringBetween("yabcz", "", "", false)          = ""
+     * StringUtils.substringBetween("yabcz", "", "", true)           = "yabcz"
+     * StringUtils.substringBetween("yabcz", "y", "z", *)            = "abc"
+     * StringUtils.substringBetween("yabczyabcz", "y", "z", false)   = "abc"
+     * StringUtils.substringBetween("yabczyabcz", "y", "z", true)    = "abczyabc"
+     * StringUtils.substringBetween("zabcyabc", "y", "z", *)         = null
+     * </pre>
+     *
+     * @param str  the String containing the substring, may be null
+     * @param open  the String before the substring, may be null
+     * @param close  the String after the substring, may be null
+     * @param lastClose  set to <code>true</code> if close String must be searched from the end of the String <code>str</code>
+     * @return the substring, {@code null} if no match
+     * @since 3.13
+     */
+    public static String substringBetween(final String str, final String open, final String close, final boolean lastClose) {
         if (!ObjectUtils.allNotNull(str, open, close)) {
             return null;
         }
         final int start = str.indexOf(open);
         if (start != INDEX_NOT_FOUND) {
-            final int end = str.indexOf(close, start + open.length());
+            int end = INDEX_NOT_FOUND;
+            if (!lastClose) {
+                end = str.indexOf(close, start + open.length());
+            } else {
+                end = str.lastIndexOf(close);
+                if (end < start + open.length()) {
+                    end = INDEX_NOT_FOUND;
+                }
+            }
             if (end != INDEX_NOT_FOUND) {
                 return str.substring(start + open.length(), end);
             }
