@@ -8057,6 +8057,39 @@ public class StringUtils {
     }
 
     /**
+     * Case insensitive check if a CharSequence starts with any of the provided prefixes.
+     *
+     * <pre>
+     * StringUtils.startsWithAny(null, null)      = false
+     * StringUtils.startsWithAny(null, new String[] {"abc"})  = false
+     * StringUtils.startsWithAny("abcxyz", null)     = false
+     * StringUtils.startsWithAny("abcxyz", new String[] {""}) = true
+     * StringUtils.startsWithAny("abcxyz", new String[] {"abc"}) = true
+     * StringUtils.startsWithAny("abcxyz", new String[] {null, "xyz", "abc"}) = true
+     * StringUtils.startsWithAny("abcxyz", null, "xyz", "ABCX") = true
+     * StringUtils.startsWithAny("ABCXYZ", null, "xyz", "abc") = true
+     * </pre>
+     *
+     * @param sequence the CharSequence to check, may be null
+     * @param searchStrings the CharSequence prefixes, may be empty or contain {@code null}
+     * @see StringUtils#startsWithIgnoreCase(CharSequence, CharSequence)
+     * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or
+     *   the input {@code sequence} begins with any of the provided, case-insensitive, {@code searchStrings}.
+     * @since 3.13
+     */
+    public static boolean startsWithAnyIgnoreCase(final CharSequence sequence, final CharSequence... searchStrings) {
+        if (isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
+            return false;
+        }
+        for (final CharSequence searchString : searchStrings) {
+            if (startsWithIgnoreCase(sequence, searchString)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Strips whitespace from the start and end of a String.
      *
      * <p>This is similar to {@link #trim(String)} but removes whitespace.
