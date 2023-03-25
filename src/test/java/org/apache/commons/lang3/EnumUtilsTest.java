@@ -41,7 +41,6 @@ enum Enum64 {
 }
 
 /**
- *
  */
 public class EnumUtilsTest extends AbstractLangTest {
 
