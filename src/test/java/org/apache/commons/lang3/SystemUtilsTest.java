@@ -76,6 +76,7 @@ public class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.IS_JAVA_16);
             assertFalse(SystemUtils.IS_JAVA_17);
             assertFalse(SystemUtils.IS_JAVA_18);
+            assertFalse(SystemUtils.IS_JAVA_19);
         } else if (javaVersion.startsWith("1.8")) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
@@ -96,6 +97,7 @@ public class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.IS_JAVA_16);
             assertFalse(SystemUtils.IS_JAVA_17);
             assertFalse(SystemUtils.IS_JAVA_18);
+            assertFalse(SystemUtils.IS_JAVA_19);
         } else if (javaVersion.startsWith("9")) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
@@ -116,6 +118,7 @@ public class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.IS_JAVA_16);
             assertFalse(SystemUtils.IS_JAVA_17);
             assertFalse(SystemUtils.IS_JAVA_18);
+            assertFalse(SystemUtils.IS_JAVA_19);
         } else if (javaVersion.startsWith("10")) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
@@ -136,6 +139,7 @@ public class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.IS_JAVA_16);
             assertFalse(SystemUtils.IS_JAVA_17);
             assertFalse(SystemUtils.IS_JAVA_18);
+            assertFalse(SystemUtils.IS_JAVA_19);
         } else if (javaVersion.startsWith("11")) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
@@ -156,6 +160,7 @@ public class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.IS_JAVA_16);
             assertFalse(SystemUtils.IS_JAVA_17);
             assertFalse(SystemUtils.IS_JAVA_18);
+            assertFalse(SystemUtils.IS_JAVA_19);
         } else if (javaVersion.startsWith("12")) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
@@ -176,6 +181,7 @@ public class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.IS_JAVA_16);
             assertFalse(SystemUtils.IS_JAVA_17);
             assertFalse(SystemUtils.IS_JAVA_18);
+            assertFalse(SystemUtils.IS_JAVA_19);
         } else if (javaVersion.startsWith("13")) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
@@ -196,6 +202,7 @@ public class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.IS_JAVA_16);
             assertFalse(SystemUtils.IS_JAVA_17);
             assertFalse(SystemUtils.IS_JAVA_18);
+            assertFalse(SystemUtils.IS_JAVA_19);
         } else if (javaVersion.startsWith("14")) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
@@ -216,6 +223,7 @@ public class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.IS_JAVA_16);
             assertFalse(SystemUtils.IS_JAVA_17);
             assertFalse(SystemUtils.IS_JAVA_18);
+            assertFalse(SystemUtils.IS_JAVA_19);
         } else if (javaVersion.startsWith("15")) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
@@ -236,6 +244,7 @@ public class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.IS_JAVA_16);
             assertFalse(SystemUtils.IS_JAVA_17);
             assertFalse(SystemUtils.IS_JAVA_18);
+            assertFalse(SystemUtils.IS_JAVA_19);
         } else if (javaVersion.startsWith("16")) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
@@ -256,6 +265,7 @@ public class SystemUtilsTest extends AbstractLangTest {
             assertTrue(SystemUtils.IS_JAVA_16);
             assertFalse(SystemUtils.IS_JAVA_17);
             assertFalse(SystemUtils.IS_JAVA_18);
+            assertFalse(SystemUtils.IS_JAVA_19);
         } else if (javaVersion.startsWith("17")) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
@@ -276,6 +286,7 @@ public class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.IS_JAVA_16);
             assertTrue(SystemUtils.IS_JAVA_17);
             assertFalse(SystemUtils.IS_JAVA_18);
+            assertFalse(SystemUtils.IS_JAVA_19);
         } else if (javaVersion.startsWith("18")) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
@@ -296,6 +307,28 @@ public class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.IS_JAVA_16);
             assertFalse(SystemUtils.IS_JAVA_17);
             assertTrue(SystemUtils.IS_JAVA_18);
+            assertFalse(SystemUtils.IS_JAVA_19);
+        } else if (javaVersion.startsWith("19")) {
+            assertFalse(SystemUtils.IS_JAVA_1_1);
+            assertFalse(SystemUtils.IS_JAVA_1_2);
+            assertFalse(SystemUtils.IS_JAVA_1_3);
+            assertFalse(SystemUtils.IS_JAVA_1_4);
+            assertFalse(SystemUtils.IS_JAVA_1_5);
+            assertFalse(SystemUtils.IS_JAVA_1_6);
+            assertFalse(SystemUtils.IS_JAVA_1_7);
+            assertFalse(SystemUtils.IS_JAVA_1_8);
+            assertFalse(SystemUtils.IS_JAVA_1_9);
+            assertFalse(SystemUtils.IS_JAVA_9);
+            assertFalse(SystemUtils.IS_JAVA_10);
+            assertFalse(SystemUtils.IS_JAVA_11);
+            assertFalse(SystemUtils.IS_JAVA_12);
+            assertFalse(SystemUtils.IS_JAVA_13);
+            assertFalse(SystemUtils.IS_JAVA_14);
+            assertFalse(SystemUtils.IS_JAVA_15);
+            assertFalse(SystemUtils.IS_JAVA_16);
+            assertFalse(SystemUtils.IS_JAVA_17);
+            assertFalse(SystemUtils.IS_JAVA_18);
+            assertTrue(SystemUtils.IS_JAVA_19);
         } else {
             System.out.println("Can't test IS_JAVA value: " + javaVersion);
         }
