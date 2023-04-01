@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -24,6 +25,30 @@ import java.util.regex.Pattern;
  * @since 3.8
  */
 public class RegExUtils {
+
+    /**
+     * Compiles the given regular expression into a pattern with the {@link Pattern#DOTALL} flag.
+     *
+     * @param regex The expression to be compiled
+     * @return the given regular expression compiled into a pattern with the {@link Pattern#DOTALL} flag.
+     * @since 3.13.0
+     */
+    public static Pattern dotAll(final String regex) {
+        return Pattern.compile(regex, Pattern.DOTALL);
+    }
+
+    /**
+     * Compiles the given regular expression into a pattern with the {@link Pattern#DOTALL} flag, then creates a matcher that will match the given text against
+     * this pattern.
+     *
+     * @param regex The expression to be compiled.
+     * @param text  The character sequence to be matched.
+     * @return A new matcher for this pattern.
+     * @since 3.13.0
+     */
+    public static Matcher dotAllMatcher(final String regex, final String text) {
+        return dotAll(regex).matcher(text);
+    }
 
     /**
      * Removes each substring of the text String that matches the given regular expression pattern.
@@ -452,7 +477,7 @@ public class RegExUtils {
         if (ObjectUtils.anyNull(text, regex, replacement)) {
             return text;
         }
-        return Pattern.compile(regex, Pattern.DOTALL).matcher(text).replaceAll(replacement);
+        return dotAllMatcher(regex, text).replaceAll(replacement);
     }
 
 }

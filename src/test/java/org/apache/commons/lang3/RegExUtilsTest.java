@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -26,9 +27,19 @@ import java.util.regex.PatternSyntaxException;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for methods of {@link org.apache.commons.lang3.RegExUtils} which been moved to their own test classes.
+ * Tests {@link org.apache.commons.lang3.RegExUtils}.
  */
 public class RegExUtilsTest extends AbstractLangTest {
+
+    @Test
+    public void testDotAll() {
+        assertTrue(RegExUtils.dotAll("<A>.*</A>").matcher("<A>\nxy\n</A>").matches());
+    }
+
+    @Test
+    public void testDotAllMatcher() {
+        assertTrue(RegExUtils.dotAllMatcher("<A>.*</A>", "<A>\nxy\n</A>").matches());
+    }
 
     @Test
     public void testRemoveAll_StringPattern() {
