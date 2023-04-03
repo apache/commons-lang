@@ -317,9 +317,10 @@ public class FieldUtils {
      *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @return the Field object
+     * @throws NullPointerException
+     *             if the class is {@code null}, or the field could not be found
      * @throws IllegalArgumentException
-     *             if the class is {@code null}, or the field name is blank or empty, is not {@code static}, or could
-     *             not be found
+     *             if the field name is blank or empty, is not {@code static}
      * @throws IllegalAccessException
      *             if the field is not made accessible
      */
@@ -361,9 +362,10 @@ public class FieldUtils {
      *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @return the Field object
+     * @throws NullPointerException
+     *             if the class is {@code null}, or the field could not be found
      * @throws IllegalArgumentException
-     *             if the class is {@code null}, or the field name is blank or empty, is not {@code static}, or could
-     *             not be found
+     *             if the field name is blank or empty, is not {@code static}
      * @throws IllegalAccessException
      *             if the field is not made accessible
      */
@@ -574,9 +576,10 @@ public class FieldUtils {
      *            whether to break scope restrictions using the
      *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
+     * @throws NullPointerException
+     *             if {@code cls} is {@code null} or the field cannot be located
      * @throws IllegalArgumentException
-     *             if {@code cls} is {@code null}, the field name is blank or empty, the field cannot be located or is
-     *             not {@code static}, or {@code value} is not assignable
+     *             if the field name is blank or empty, the field  not {@code static}, or {@code value} is not assignable
      * @throws IllegalAccessException
      *             if the field is not made accessible or is {@code final}
      */
@@ -619,9 +622,10 @@ public class FieldUtils {
      * @param forceAccess
      *            whether to break scope restrictions using the {@code AccessibleObject#setAccessible(boolean)} method.
      *            {@code false} will only match {@code public} fields.
+     * @throws NullPointerException
+     *             if {@code cls} is {@code null} or the field cannot be located
      * @throws IllegalArgumentException
-     *             if {@code cls} is {@code null}, the field name is blank or empty, the field cannot be located or is
-     *             not {@code static}, or {@code value} is not assignable
+     *             if the field name is blank or empty or is not {@code static}, or {@code value} is not assignable
      * @throws IllegalAccessException
      *             if the field is not made accessible or is {@code final}
      */
