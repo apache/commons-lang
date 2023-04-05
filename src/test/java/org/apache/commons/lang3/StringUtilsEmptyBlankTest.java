@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -31,7 +32,7 @@ public class StringUtilsEmptyBlankTest extends AbstractLangTest {
     @Test
     public void testIsEmpty() {
         assertTrue(StringUtils.isEmpty(null));
-        assertTrue(StringUtils.isEmpty(""));
+        assertTrue(StringUtils.isEmpty(EMPTY));
         assertFalse(StringUtils.isEmpty(" "));
         assertFalse(StringUtils.isEmpty("foo"));
         assertFalse(StringUtils.isEmpty("  foo  "));
@@ -40,7 +41,7 @@ public class StringUtilsEmptyBlankTest extends AbstractLangTest {
     @Test
     public void testIsNotEmpty() {
         assertFalse(StringUtils.isNotEmpty(null));
-        assertFalse(StringUtils.isNotEmpty(""));
+        assertFalse(StringUtils.isNotEmpty(EMPTY));
         assertTrue(StringUtils.isNotEmpty(" "));
         assertTrue(StringUtils.isNotEmpty("foo"));
         assertTrue(StringUtils.isNotEmpty("  foo  "));
@@ -51,8 +52,8 @@ public class StringUtilsEmptyBlankTest extends AbstractLangTest {
         assertTrue(StringUtils.isAnyEmpty((String) null));
         assertFalse(StringUtils.isAnyEmpty((String[]) null));
         assertTrue(StringUtils.isAnyEmpty(null, "foo"));
-        assertTrue(StringUtils.isAnyEmpty("", "bar"));
-        assertTrue(StringUtils.isAnyEmpty("bob", ""));
+        assertTrue(StringUtils.isAnyEmpty(EMPTY, "bar"));
+        assertTrue(StringUtils.isAnyEmpty("bob", EMPTY));
         assertTrue(StringUtils.isAnyEmpty("  bob  ", null));
         assertFalse(StringUtils.isAnyEmpty(" ", "bar"));
         assertFalse(StringUtils.isAnyEmpty("foo", "bar"));
@@ -63,8 +64,8 @@ public class StringUtilsEmptyBlankTest extends AbstractLangTest {
         assertFalse(StringUtils.isNoneEmpty((String) null));
         assertTrue(StringUtils.isNoneEmpty((String[]) null));
         assertFalse(StringUtils.isNoneEmpty(null, "foo"));
-        assertFalse(StringUtils.isNoneEmpty("", "bar"));
-        assertFalse(StringUtils.isNoneEmpty("bob", ""));
+        assertFalse(StringUtils.isNoneEmpty(EMPTY, "bar"));
+        assertFalse(StringUtils.isNoneEmpty("bob", EMPTY));
         assertFalse(StringUtils.isNoneEmpty("  bob  ", null));
         assertTrue(StringUtils.isNoneEmpty(" ", "bar"));
         assertTrue(StringUtils.isNoneEmpty("foo", "bar"));
@@ -77,18 +78,18 @@ public class StringUtilsEmptyBlankTest extends AbstractLangTest {
         assertTrue(StringUtils.isAllEmpty((String) null));
         assertTrue(StringUtils.isAllEmpty((String[]) null));
         assertFalse(StringUtils.isAllEmpty(null, "foo"));
-        assertFalse(StringUtils.isAllEmpty("", "bar"));
-        assertFalse(StringUtils.isAllEmpty("bob", ""));
+        assertFalse(StringUtils.isAllEmpty(EMPTY, "bar"));
+        assertFalse(StringUtils.isAllEmpty("bob", EMPTY));
         assertFalse(StringUtils.isAllEmpty("  bob  ", null));
         assertFalse(StringUtils.isAllEmpty(" ", "bar"));
         assertFalse(StringUtils.isAllEmpty("foo", "bar"));
-        assertTrue(StringUtils.isAllEmpty("", null));
+        assertTrue(StringUtils.isAllEmpty(EMPTY, null));
     }
 
     @Test
     public void testIsBlank() {
         assertTrue(StringUtils.isBlank(null));
-        assertTrue(StringUtils.isBlank(""));
+        assertTrue(StringUtils.isBlank(EMPTY));
         assertTrue(StringUtils.isBlank(StringUtilsTest.WHITESPACE));
         assertFalse(StringUtils.isBlank("foo"));
         assertFalse(StringUtils.isBlank("  foo  "));
@@ -97,7 +98,7 @@ public class StringUtilsEmptyBlankTest extends AbstractLangTest {
     @Test
     public void testIsNotBlank() {
         assertFalse(StringUtils.isNotBlank(null));
-        assertFalse(StringUtils.isNotBlank(""));
+        assertFalse(StringUtils.isNotBlank(EMPTY));
         assertFalse(StringUtils.isNotBlank(StringUtilsTest.WHITESPACE));
         assertTrue(StringUtils.isNotBlank("foo"));
         assertTrue(StringUtils.isNotBlank("  foo  "));
@@ -109,8 +110,8 @@ public class StringUtilsEmptyBlankTest extends AbstractLangTest {
         assertFalse(StringUtils.isAnyBlank((String[]) null));
         assertTrue(StringUtils.isAnyBlank(null, "foo"));
         assertTrue(StringUtils.isAnyBlank(null, null));
-        assertTrue(StringUtils.isAnyBlank("", "bar"));
-        assertTrue(StringUtils.isAnyBlank("bob", ""));
+        assertTrue(StringUtils.isAnyBlank(EMPTY, "bar"));
+        assertTrue(StringUtils.isAnyBlank("bob", EMPTY));
         assertTrue(StringUtils.isAnyBlank("  bob  ", null));
         assertTrue(StringUtils.isAnyBlank(" ", "bar"));
         assertFalse(StringUtils.isAnyBlank("foo", "bar"));
@@ -122,8 +123,8 @@ public class StringUtilsEmptyBlankTest extends AbstractLangTest {
         assertTrue(StringUtils.isNoneBlank((String[]) null));
         assertFalse(StringUtils.isNoneBlank(null, "foo"));
         assertFalse(StringUtils.isNoneBlank(null, null));
-        assertFalse(StringUtils.isNoneBlank("", "bar"));
-        assertFalse(StringUtils.isNoneBlank("bob", ""));
+        assertFalse(StringUtils.isNoneBlank(EMPTY, "bar"));
+        assertFalse(StringUtils.isNoneBlank("bob", EMPTY));
         assertFalse(StringUtils.isNoneBlank("  bob  ", null));
         assertFalse(StringUtils.isNoneBlank(" ", "bar"));
         assertTrue(StringUtils.isNoneBlank("foo", "bar"));
@@ -136,8 +137,8 @@ public class StringUtilsEmptyBlankTest extends AbstractLangTest {
         assertTrue(StringUtils.isAllBlank(null, null));
         assertTrue(StringUtils.isAllBlank(null, " "));
         assertFalse(StringUtils.isAllBlank(null, "foo"));
-        assertFalse(StringUtils.isAllBlank("", "bar"));
-        assertFalse(StringUtils.isAllBlank("bob", ""));
+        assertFalse(StringUtils.isAllBlank(EMPTY, "bar"));
+        assertFalse(StringUtils.isAllBlank("bob", EMPTY));
         assertFalse(StringUtils.isAllBlank("  bob  ", null));
         assertFalse(StringUtils.isAllBlank(" ", "bar"));
         assertFalse(StringUtils.isAllBlank("foo", "bar"));
@@ -148,7 +149,7 @@ public class StringUtilsEmptyBlankTest extends AbstractLangTest {
         assertNull(StringUtils.firstNonBlank());
         assertNull(StringUtils.firstNonBlank((String[]) null));
         assertNull(StringUtils.firstNonBlank(null, null, null));
-        assertNull(StringUtils.firstNonBlank(null, "", " "));
+        assertNull(StringUtils.firstNonBlank(null, EMPTY, " "));
         assertNull(StringUtils.firstNonBlank(null, null, " "));
         assertEquals("zz", StringUtils.firstNonBlank(null, "zz"));
         assertEquals("abc", StringUtils.firstNonBlank("abc"));
@@ -161,8 +162,8 @@ public class StringUtilsEmptyBlankTest extends AbstractLangTest {
         assertNull(StringUtils.firstNonEmpty());
         assertNull(StringUtils.firstNonEmpty((String[]) null));
         assertNull(StringUtils.firstNonEmpty(null, null, null));
-        assertEquals(" ", StringUtils.firstNonEmpty(null, "", " "));
-        assertNull(StringUtils.firstNonEmpty(null, null, ""));
+        assertEquals(" ", StringUtils.firstNonEmpty(null, EMPTY, " "));
+        assertNull(StringUtils.firstNonEmpty(null, null, EMPTY));
         assertEquals("zz", StringUtils.firstNonEmpty(null, "zz"));
         assertEquals("abc", StringUtils.firstNonEmpty("abc"));
         assertEquals("xyz", StringUtils.firstNonEmpty(null, "xyz"));
