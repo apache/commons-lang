@@ -35,6 +35,7 @@ public class ClassPathUtils {
      *
      * @param path the source path.
      * @return a package name.
+     * @throws NullPointerException if {@code path} is null.
      * @since 3.13.0
      */
     public static String packageToPath(final String path) {
@@ -46,6 +47,7 @@ public class ClassPathUtils {
      *
      * @param path the source path.
      * @return a package name.
+     * @throws NullPointerException if {@code path} is null.
      * @since 3.13.0
      */
     public static String pathToPackage(final String path) {

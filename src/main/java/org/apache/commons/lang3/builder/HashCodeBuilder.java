@@ -237,7 +237,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @param object
      *            the Object to create a {@code hashCode} for
      * @return int hash code
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if the Object is {@code null}
      * @throws IllegalArgumentException
      *             if the number is zero or even
@@ -281,7 +281,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @param testTransients
      *            whether to include transient fields
      * @return int hash code
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if the Object is {@code null}
      * @throws IllegalArgumentException
      *             if the number is zero or even
@@ -333,7 +333,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @param excludeFields
      *            array of field names to exclude from use in calculation of hash code
      * @return int hash code
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if the Object is {@code null}
      * @throws IllegalArgumentException
      *             if the number is zero or even
@@ -382,7 +382,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @param testTransients
      *            whether to include transient fields
      * @return int hash code
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if the object is {@code null}
      *
      * @see HashCodeExclude
@@ -420,7 +420,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @param excludeFields
      *            Collection of String field names to exclude from use in calculation of hash code
      * @return int hash code
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if the object is {@code null}
      *
      * @see HashCodeExclude
@@ -457,7 +457,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @param excludeFields
      *            array of field names to exclude from use in calculation of hash code
      * @return int hash code
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if the object is {@code null}
      *
      * @see HashCodeExclude

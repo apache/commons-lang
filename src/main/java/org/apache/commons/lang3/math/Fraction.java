@@ -684,7 +684,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *
      * @param fraction  the fraction to add, must not be {@code null}
      * @return a {@link Fraction} instance with the resulting values
-     * @throws IllegalArgumentException if the fraction is {@code null}
+     * @throws NullPointerException if the fraction is {@code null}
      * @throws ArithmeticException if the resulting numerator or denominator exceeds
      *  {@code Integer.MAX_VALUE}
      */
@@ -698,7 +698,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *
      * @param fraction  the fraction to subtract, must not be {@code null}
      * @return a {@link Fraction} instance with the resulting values
-     * @throws IllegalArgumentException if the fraction is {@code null}
+     * @throws NullPointerException if the fraction is {@code null}
      * @throws ArithmeticException if the resulting numerator or denominator
      *   cannot be represented in an {@code int}.
      */

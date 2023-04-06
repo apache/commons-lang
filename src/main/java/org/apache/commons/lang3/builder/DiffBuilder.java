@@ -94,7 +94,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      *            without creating a field {@link Diff} if the trivially equal
      *            test is enabled and returns true.  The result of this test
      *            is never changed throughout the life of this {@link DiffBuilder}.
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if {@code lhs} or {@code rhs} is {@code null}
      * @since 3.4
      */
@@ -134,7 +134,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param style
      *            the style will use when outputting the objects, {@code null}
      *            uses the default
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if {@code lhs} or {@code rhs} is {@code null}
      */
     public DiffBuilder(final T lhs, final T rhs,
@@ -153,7 +153,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param rhs
      *            the right-hand {@code boolean}
      * @return this
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if field name is {@code null}
      */
     public DiffBuilder<T> append(final String fieldName, final boolean lhs,
@@ -191,7 +191,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param rhs
      *            the right-hand {@code boolean[]}
      * @return this
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if field name is {@code null}
      */
     public DiffBuilder<T> append(final String fieldName, final boolean[] lhs,
@@ -228,7 +228,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param rhs
      *            the right-hand {@code byte}
      * @return this
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if field name is {@code null}
      */
     public DiffBuilder<T> append(final String fieldName, final byte lhs,
@@ -265,7 +265,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param rhs
      *            the right-hand {@code byte[]}
      * @return this
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if field name is {@code null}
      */
     public DiffBuilder<T> append(final String fieldName, final byte[] lhs,
@@ -303,7 +303,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param rhs
      *            the right-hand {@code char}
      * @return this
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if field name is {@code null}
      */
     public DiffBuilder<T> append(final String fieldName, final char lhs,
@@ -341,7 +341,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param rhs
      *            the right-hand {@code char[]}
      * @return this
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if field name is {@code null}
      */
     public DiffBuilder<T> append(final String fieldName, final char[] lhs,
@@ -379,7 +379,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param rhs
      *            the right-hand {@code double}
      * @return this
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if field name is {@code null}
      */
     public DiffBuilder<T> append(final String fieldName, final double lhs,
@@ -417,7 +417,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param rhs
      *            the right-hand {@code double[]}
      * @return this
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if field name is {@code null}
      */
     public DiffBuilder<T> append(final String fieldName, final double[] lhs,
@@ -455,7 +455,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param rhs
      *            the right-hand {@code float}
      * @return this
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if field name is {@code null}
      */
     public DiffBuilder<T> append(final String fieldName, final float lhs,
@@ -493,7 +493,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param rhs
      *            the right-hand {@code float[]}
      * @return this
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if field name is {@code null}
      */
     public DiffBuilder<T> append(final String fieldName, final float[] lhs,
@@ -531,7 +531,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param rhs
      *            the right-hand {@code int}
      * @return this
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if field name is {@code null}
      */
     public DiffBuilder<T> append(final String fieldName, final int lhs,
@@ -569,7 +569,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param rhs
      *            the right-hand {@code int[]}
      * @return this
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if field name is {@code null}
      */
     public DiffBuilder<T> append(final String fieldName, final int[] lhs,
@@ -607,7 +607,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param rhs
      *            the right-hand {@code long}
      * @return this
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if field name is {@code null}
      */
     public DiffBuilder<T> append(final String fieldName, final long lhs,
@@ -645,7 +645,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param rhs
      *            the right-hand {@code long[]}
      * @return this
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if field name is {@code null}
      */
     public DiffBuilder<T> append(final String fieldName, final long[] lhs,
@@ -683,7 +683,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param rhs
      *            the right-hand {@code short}
      * @return this
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if field name is {@code null}
      */
     public DiffBuilder<T> append(final String fieldName, final short lhs,
@@ -721,7 +721,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param rhs
      *            the right-hand {@code short[]}
      * @return this
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if field name is {@code null}
      */
     public DiffBuilder<T> append(final String fieldName, final short[] lhs,
@@ -759,7 +759,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param rhs
      *            the right-hand {@link Object}
      * @return this
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if field name is {@code null}
      */
     public DiffBuilder<T> append(final String fieldName, final Object lhs,
@@ -841,7 +841,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param rhs
      *            the right-hand {@code Object[]}
      * @return this
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *             if field name is {@code null}
      */
     public DiffBuilder<T> append(final String fieldName, final Object[] lhs,
@@ -900,7 +900,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param diffResult
      *            the {@link DiffResult} to append
      * @return this
-     * @throws NullPointerException if field name is {@code null}
+     * @throws NullPointerException if field name is {@code null} or diffResult is {@code null}
      * @since 3.5
      */
     public DiffBuilder<T> append(final String fieldName, final DiffResult<T> diffResult) {

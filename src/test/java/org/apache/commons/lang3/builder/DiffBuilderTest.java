@@ -318,6 +318,16 @@ public class DiffBuilderTest extends AbstractLangTest {
     }
 
     @Test
+    public void testNullLhs_4args() {
+        assertThrows(NullPointerException.class, () -> new DiffBuilder<>(null, this, ToStringStyle.DEFAULT_STYLE, true));
+    }
+
+    @Test
+    public void testNullRhs_4args() {
+        assertThrows(NullPointerException.class, () -> new DiffBuilder<>(this, null, ToStringStyle.DEFAULT_STYLE, true));
+    }
+
+    @Test
     public void testObject() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
