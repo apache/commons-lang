@@ -225,7 +225,8 @@ public class ThreadUtilsTest extends AbstractLangTest {
 
     @Test
     public void testThreadGroups() throws InterruptedException {
-        final ThreadGroup threadGroup = new ThreadGroup("thread_group_DDZZ99__");
+        final String threadGroupName = "thread_group_DDZZ99__for_testThreadGroups";
+        final ThreadGroup threadGroup = new ThreadGroup(threadGroupName);
         final Thread t1 = new TestThread(threadGroup, "thread1_XXOOPP__");
         final Thread t2 = new TestThread(threadGroup, "thread2_XXOOPP__");
 
@@ -233,11 +234,11 @@ public class ThreadUtilsTest extends AbstractLangTest {
             t1.start();
             t2.start();
             assertEquals(1, ThreadUtils.findThreadsByName("thread1_XXOOPP__").size());
-            assertEquals(1, ThreadUtils.findThreadsByName("thread1_XXOOPP__", "thread_group_DDZZ99__").size());
-            assertEquals(1, ThreadUtils.findThreadsByName("thread2_XXOOPP__", "thread_group_DDZZ99__").size());
+            assertEquals(1, ThreadUtils.findThreadsByName("thread1_XXOOPP__", threadGroupName).size());
+            assertEquals(1, ThreadUtils.findThreadsByName("thread2_XXOOPP__", threadGroupName).size());
             assertEquals(0, ThreadUtils.findThreadsByName("thread1_XXOOPP__", "non_existent_thread_group_JJHHZZ__").size());
-            assertEquals(0, ThreadUtils.findThreadsByName("non_existent_thread_BBDDWW__", "thread_group_DDZZ99__").size());
-            assertEquals(1, ThreadUtils.findThreadGroupsByName("thread_group_DDZZ99__").size());
+            assertEquals(0, ThreadUtils.findThreadsByName("non_existent_thread_BBDDWW__", threadGroupName).size());
+            assertEquals(1, ThreadUtils.findThreadGroupsByName(threadGroupName).size());
             assertEquals(0, ThreadUtils.findThreadGroupsByName("non_existent_thread_group_JJHHZZ__").size());
             assertNotNull(ThreadUtils.findThreadById(t1.getId(), threadGroup));
         } finally {
@@ -251,7 +252,8 @@ public class ThreadUtilsTest extends AbstractLangTest {
 
     @Test
     public void testThreadGroupsById() throws InterruptedException {
-        final ThreadGroup threadGroup = new ThreadGroup("thread_group_DDZZ99__");
+        final String threadGroupName = "thread_group_DDZZ99__for_testThreadGroupsById";
+        final ThreadGroup threadGroup = new ThreadGroup(threadGroupName);
         final Thread t1 = new TestThread(threadGroup, "thread1_XXOOPP__");
         final Thread t2 = new TestThread(threadGroup, "thread2_XXOOPP__");
         final long nonExistingId = t1.getId() + t2.getId();
@@ -259,10 +261,10 @@ public class ThreadUtilsTest extends AbstractLangTest {
         try {
             t1.start();
             t2.start();
-            assertSame(t1, ThreadUtils.findThreadById(t1.getId(), "thread_group_DDZZ99__"));
-            assertSame(t2, ThreadUtils.findThreadById(t2.getId(), "thread_group_DDZZ99__"));
+            assertSame(t1, ThreadUtils.findThreadById(t1.getId(), threadGroupName));
+            assertSame(t2, ThreadUtils.findThreadById(t2.getId(), threadGroupName));
             assertNull(ThreadUtils.findThreadById(nonExistingId, "non_existent_thread_group_JJHHZZ__"));
-            assertNull(ThreadUtils.findThreadById(nonExistingId, "thread_group_DDZZ99__"));
+            assertNull(ThreadUtils.findThreadById(nonExistingId, threadGroupName));
         } finally {
             t1.interrupt();
             t2.interrupt();
