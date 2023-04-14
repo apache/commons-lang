@@ -112,6 +112,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1694" type="fix" dev="ggregory" due-to="SeasonPan">MethodUtils.getMatchingMethod() fails with "Found multiple candidates" #1033.</action>
     <action issue="LANG-1643" type="fix" dev="ggregory" due-to="laurentschoelens">Construct ArrayList with better default size #1041.</action>
     <action                   type="fix" dev="ggregory" due-to="remeio">ThreadUtilsTest#testThreadGroups will test failed when using Junit5 parallel test #1051.</action>
+    <action                   type="fix" dev="ggregory" due-to="remeio">Swap the order of assertion args (first excepted then actual) #1054.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add GitHub coverage.yml.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
