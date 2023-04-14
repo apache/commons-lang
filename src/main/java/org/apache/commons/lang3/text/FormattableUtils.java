@@ -16,9 +16,8 @@
  */
 package org.apache.commons.lang3.text;
 
-import static java.util.FormattableFlags.LEFT_JUSTIFY;
-
 import java.util.Formattable;
+import java.util.FormattableFlags;
 import java.util.Formatter;
 
 import org.apache.commons.lang3.ObjectUtils;
@@ -141,7 +140,7 @@ public class FormattableUtils {
             final CharSequence actualEllipsis = ObjectUtils.defaultIfNull(ellipsis, StringUtils.EMPTY);
             buf.replace(precision - actualEllipsis.length(), seq.length(), actualEllipsis.toString());
         }
-        final boolean leftJustify = (flags & LEFT_JUSTIFY) == LEFT_JUSTIFY;
+        final boolean leftJustify = (flags & FormattableFlags.LEFT_JUSTIFY) == FormattableFlags.LEFT_JUSTIFY;
         for (int i = buf.length(); i < width; i++) {
             buf.insert(leftJustify ? i : 0, padChar);
         }
