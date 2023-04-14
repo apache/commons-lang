@@ -140,8 +140,8 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
     public void testGetContextValues() {
         exceptionContext.addContextValue("test2", "different value");
 
-        assertEquals(exceptionContext.getContextValues("test1"), Collections.singletonList(null));
-        assertEquals(exceptionContext.getContextValues("test2"), Arrays.asList("some value", "different value"));
+        assertEquals(Collections.singletonList(null), exceptionContext.getContextValues("test1"));
+        assertEquals(Arrays.asList("some value", "different value"), exceptionContext.getContextValues("test2"));
 
         exceptionContext.setContextValue("test2", "another");
 
