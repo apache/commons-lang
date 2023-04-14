@@ -16,12 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.CURLY;
-import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.LARRY;
-import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.MOE;
-import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.SHEMP;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -78,8 +72,8 @@ public class AnnotationUtilsTest extends AbstractLangTest {
                     longValues = { 0 },
                     shortValue = 0,
                     shortValues = { 0 },
-                    stooge = CURLY,
-                    stooges = { MOE, LARRY, SHEMP },
+                    stooge = Stooge.CURLY,
+                    stooges = { Stooge.MOE, Stooge.LARRY, Stooge.SHEMP },
                     string = "",
                     strings = { "" },
                     type = Object.class,
@@ -103,8 +97,8 @@ public class AnnotationUtilsTest extends AbstractLangTest {
                         longValues = { 0 },
                         shortValue = 0,
                         shortValues = { 0 },
-                        stooge = CURLY,
-                        stooges = { MOE, LARRY, SHEMP },
+                        stooge = Stooge.CURLY,
+                        stooges = { Stooge.MOE, Stooge.LARRY, Stooge.SHEMP },
                         string = "",
                         strings = { "" },
                         type = Object[].class,
@@ -113,8 +107,8 @@ public class AnnotationUtilsTest extends AbstractLangTest {
             },
             shortValue = 0,
             shortValues = { 0 },
-            stooge = SHEMP,
-            stooges = { MOE, LARRY, CURLY },
+            stooge = Stooge.SHEMP,
+            stooges = { Stooge.MOE, Stooge.LARRY, Stooge.CURLY },
             string = "",
             strings = { "" },
             type = Object.class,
@@ -154,8 +148,8 @@ public class AnnotationUtilsTest extends AbstractLangTest {
                     longValues = { 0 },
                     shortValue = 0,
                     shortValues = { 0 },
-                    stooge = CURLY,
-                    stooges = { MOE, LARRY, SHEMP },
+                    stooge = Stooge.CURLY,
+                    stooges = { Stooge.MOE, Stooge.LARRY, Stooge.SHEMP },
                     string = "",
                     strings = { "" },
                     type = Object.class,
@@ -179,8 +173,8 @@ public class AnnotationUtilsTest extends AbstractLangTest {
                         longValues = { 0 },
                         shortValue = 0,
                         shortValues = { 0 },
-                        stooge = CURLY,
-                        stooges = { MOE, LARRY, SHEMP },
+                        stooge = Stooge.CURLY,
+                        stooges = { Stooge.MOE, Stooge.LARRY, Stooge.SHEMP },
                         string = "",
                         strings = { "" },
                         type = Object[].class,
@@ -189,8 +183,8 @@ public class AnnotationUtilsTest extends AbstractLangTest {
             },
             shortValue = 0,
             shortValues = { 0 },
-            stooge = SHEMP,
-            stooges = { MOE, LARRY, CURLY },
+            stooge = Stooge.SHEMP,
+            stooges = { Stooge.MOE, Stooge.LARRY, Stooge.CURLY },
             string = "",
             strings = { "" },
             type = Object.class,
@@ -230,8 +224,8 @@ public class AnnotationUtilsTest extends AbstractLangTest {
                     longValues = { 0 },
                     shortValue = 0,
                     shortValues = { 0 },
-                    stooge = CURLY,
-                    stooges = { MOE, LARRY, SHEMP },
+                    stooge = Stooge.CURLY,
+                    stooges = { Stooge.MOE, Stooge.LARRY, Stooge.SHEMP },
                     string = "",
                     strings = { "" },
                     type = Object.class,
@@ -255,8 +249,8 @@ public class AnnotationUtilsTest extends AbstractLangTest {
                         longValues = { 0 },
                         shortValue = 0,
                         shortValues = { 0 },
-                        stooge = CURLY,
-                        stooges = { MOE, LARRY, SHEMP },
+                        stooge = Stooge.CURLY,
+                        stooges = { Stooge.MOE, Stooge.LARRY, Stooge.SHEMP },
                         string = "",
                         strings = { "" },
                         type = Object[].class,
@@ -280,8 +274,8 @@ public class AnnotationUtilsTest extends AbstractLangTest {
                         longValues = { 0 },
                         shortValue = 0,
                         shortValues = { 0 },
-                        stooge = CURLY,
-                        stooges = { MOE, LARRY, SHEMP },
+                        stooge = Stooge.CURLY,
+                        stooges = { Stooge.MOE, Stooge.LARRY, Stooge.SHEMP },
                         string = "",
                         strings = { "" },
                         type = Object[].class,
@@ -290,8 +284,8 @@ public class AnnotationUtilsTest extends AbstractLangTest {
             },
             shortValue = 0,
             shortValues = { 0 },
-            stooge = SHEMP,
-            stooges = { MOE, LARRY, CURLY },
+            stooge = Stooge.SHEMP,
+            stooges = { Stooge.MOE, Stooge.LARRY, Stooge.CURLY },
             string = "",
             strings = { "" },
             type = Object.class,
@@ -316,8 +310,8 @@ public class AnnotationUtilsTest extends AbstractLangTest {
             longValues = { 0 },
             shortValue = 0,
             shortValues = { 0 },
-            stooge = CURLY,
-            stooges = { MOE, LARRY, SHEMP },
+            stooge = Stooge.CURLY,
+            stooges = { Stooge.MOE, Stooge.LARRY, Stooge.SHEMP },
             string = "",
             strings = { "" },
             type = Object[].class,
@@ -325,8 +319,8 @@ public class AnnotationUtilsTest extends AbstractLangTest {
     )
     public Object dummy4;
 
-    @Target(FIELD)
-    @Retention(RUNTIME)
+    @Target(ElementType.FIELD)
+    @Retention(RetentionPolicy.RUNTIME)
     public @interface TestAnnotation {
         String string();
         String[] strings();
@@ -354,7 +348,7 @@ public class AnnotationUtilsTest extends AbstractLangTest {
         NestAnnotation[] nests();
     }
 
-    @Retention(RUNTIME)
+    @Retention(RetentionPolicy.RUNTIME)
     public @interface NestAnnotation {
         String string();
         String[] strings();
