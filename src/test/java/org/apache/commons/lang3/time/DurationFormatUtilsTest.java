@@ -331,6 +331,8 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
     public void testFormatDurationWords() {
         String text;
 
+        text = DurationFormatUtils.formatDurationWords(0, true, false);
+        assertEquals("0 seconds", text);
         text = DurationFormatUtils.formatDurationWords(50 * 1000, true, false);
         assertEquals("50 seconds", text);
         text = DurationFormatUtils.formatDurationWords(65 * 1000, true, false);
@@ -344,6 +346,8 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
         text = DurationFormatUtils.formatDurationWords(24 * 60 * 60 * 1000, true, false);
         assertEquals("1 day 0 hours 0 minutes 0 seconds", text);
 
+        text = DurationFormatUtils.formatDurationWords(0, true, true);
+        assertEquals("0 seconds", text);
         text = DurationFormatUtils.formatDurationWords(50 * 1000, true, true);
         assertEquals("50 seconds", text);
         text = DurationFormatUtils.formatDurationWords(65 * 1000, true, true);
@@ -357,6 +361,8 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
         text = DurationFormatUtils.formatDurationWords(24 * 60 * 60 * 1000, true, true);
         assertEquals("1 day", text);
 
+        text = DurationFormatUtils.formatDurationWords(0, false, true);
+        assertEquals("0 days", text);
         text = DurationFormatUtils.formatDurationWords(50 * 1000, false, true);
         assertEquals("0 days 0 hours 0 minutes 50 seconds", text);
         text = DurationFormatUtils.formatDurationWords(65 * 1000, false, true);
@@ -370,6 +376,8 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
         text = DurationFormatUtils.formatDurationWords(24 * 60 * 60 * 1000, false, true);
         assertEquals("1 day", text);
 
+        text = DurationFormatUtils.formatDurationWords(0, false, false);
+        assertEquals("0 days 0 hours 0 minutes 0 seconds", text);
         text = DurationFormatUtils.formatDurationWords(50 * 1000, false, false);
         assertEquals("0 days 0 hours 0 minutes 50 seconds", text);
         text = DurationFormatUtils.formatDurationWords(65 * 1000, false, false);
