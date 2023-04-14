@@ -2415,9 +2415,9 @@ public class ArrayUtilsTest extends AbstractLangTest {
     public void testReverseByte() {
         byte[] array = {2, 3, 4};
         ArrayUtils.reverse(array);
-        assertEquals(array[0], 4);
-        assertEquals(array[1], 3);
-        assertEquals(array[2], 2);
+        assertEquals(4, array[0]);
+        assertEquals(3, array[1]);
+        assertEquals(2, array[2]);
 
         array = null;
         ArrayUtils.reverse(array);
@@ -2460,9 +2460,9 @@ public class ArrayUtilsTest extends AbstractLangTest {
     public void testReverseChar() {
         char[] array = {'a', 'f', 'C'};
         ArrayUtils.reverse(array);
-        assertEquals(array[0], 'C');
-        assertEquals(array[1], 'f');
-        assertEquals(array[2], 'a');
+        assertEquals('C', array[0]);
+        assertEquals('f', array[1]);
+        assertEquals('a', array[2]);
 
         array = null;
         ArrayUtils.reverse(array);
@@ -2595,9 +2595,9 @@ public class ArrayUtilsTest extends AbstractLangTest {
     public void testReverseInt() {
         int[] array = {1, 2, 3};
         ArrayUtils.reverse(array);
-        assertEquals(array[0], 3);
-        assertEquals(array[1], 2);
-        assertEquals(array[2], 1);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
 
         array = null;
         ArrayUtils.reverse(array);
@@ -2640,9 +2640,9 @@ public class ArrayUtilsTest extends AbstractLangTest {
     public void testReverseLong() {
         long[] array = {1L, 2L, 3L};
         ArrayUtils.reverse(array);
-        assertEquals(array[0], 3L);
-        assertEquals(array[1], 2L);
-        assertEquals(array[2], 1L);
+        assertEquals(3L, array[0]);
+        assertEquals(2L, array[1]);
+        assertEquals(1L, array[2]);
 
         array = null;
         ArrayUtils.reverse(array);
@@ -2717,9 +2717,9 @@ public class ArrayUtilsTest extends AbstractLangTest {
     public void testReverseShort() {
         short[] array = {1, 2, 3};
         ArrayUtils.reverse(array);
-        assertEquals(array[0], 3);
-        assertEquals(array[1], 2);
-        assertEquals(array[2], 1);
+        assertEquals(3, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(1, array[2]);
 
         array = null;
         ArrayUtils.reverse(array);
