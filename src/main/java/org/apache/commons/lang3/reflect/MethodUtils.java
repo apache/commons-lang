@@ -142,6 +142,7 @@ public class MethodUtils {
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
+     * @throws NullPointerException if the object or method name are {@code null}
      */
     public static Object invokeMethod(final Object object, final String methodName,
             Object... args) throws NoSuchMethodException,
@@ -170,7 +171,7 @@ public class MethodUtils {
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
-     *
+     * @throws NullPointerException if the object or method name are {@code null}
      * @since 3.5
      */
     public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName,
@@ -197,6 +198,7 @@ public class MethodUtils {
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
+     * @throws NullPointerException if the object or method name are {@code null}
      * @since 3.5
      */
     public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName, Object[] args, Class<?>[] parameterTypes)
@@ -294,6 +296,7 @@ public class MethodUtils {
      *  method invoked
      * @throws IllegalAccessException if the requested method is not accessible
      *  via reflection
+     * @throws NullPointerException if the object or method name are {@code null}
      */
     public static Object invokeExactMethod(final Object object, final String methodName,
             Object... args) throws NoSuchMethodException,
@@ -320,6 +323,7 @@ public class MethodUtils {
      *  method invoked
      * @throws IllegalAccessException if the requested method is not accessible
      *  via reflection
+     * @throws NullPointerException if the object or method name are {@code null}
      */
     public static Object invokeExactMethod(final Object object, final String methodName, Object[] args, Class<?>[] parameterTypes)
         throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -711,6 +715,7 @@ public class MethodUtils {
      * @param methodName The method that we wish to call
      * @param parameterTypes Argument class types
      * @throws IllegalStateException if there is no unique result
+     * @throws NullPointerException if the class is {@code null}
      * @return The method
      *
      * @since 3.5
@@ -861,7 +866,7 @@ public class MethodUtils {
      * @param annotationCls
      *            the {@link Annotation} that must be present on a method to be matched
      * @return a list of Methods (possibly empty).
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *            if the class or annotation are {@code null}
      * @since 3.4
      */

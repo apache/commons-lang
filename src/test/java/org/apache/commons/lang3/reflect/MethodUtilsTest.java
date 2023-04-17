@@ -447,6 +447,9 @@ public class MethodUtilsTest extends AbstractLangTest {
                 MethodUtils.invokeMethod(testBean, "varOverloadEcho", "x", "y"));
         TestBean.verify(new ImmutablePair<>("Number...", new Number[]{17, 23, 42}),
                 MethodUtils.invokeMethod(testBean, "varOverloadEcho", 17, 23, 42));
+
+        assertThrows(NullPointerException.class, () -> MethodUtils.invokeMethod(null, "foo", 1, 2));
+        assertThrows(NullPointerException.class, () -> MethodUtils.invokeMethod(testBean, null, 1, 2));
     }
 
     @Test
@@ -492,6 +495,22 @@ public class MethodUtilsTest extends AbstractLangTest {
                 NoSuchMethodException.class,
                 () -> MethodUtils.invokeExactMethod(testBean, "foo", NumberUtils.LONG_ONE));
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeExactMethod(testBean, "foo", Boolean.TRUE));
+
+        assertThrows(
+                NullPointerException.class,
+                () -> MethodUtils.invokeExactMethod(null, "foo", NumberUtils.BYTE_ONE));
+        assertThrows(
+                NullPointerException.class,
+                () -> MethodUtils.invokeExactMethod(testBean, null, NumberUtils.BYTE_ONE));
+
+        assertThrows(
+                NullPointerException.class,
+                () -> MethodUtils.invokeExactMethod(null, "foo", new Object[]{NumberUtils.DOUBLE_ONE},
+                        new Class[]{Double.TYPE}));
+        assertThrows(
+                NullPointerException.class,
+                () -> MethodUtils.invokeExactMethod(testBean, null, new Object[]{NumberUtils.DOUBLE_ONE},
+                        new Class[]{Double.TYPE}));
     }
 
     @Test
@@ -893,17 +912,17 @@ public class MethodUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetMethodsListWithAnnotationIllegalArgumentException1() {
+    public void testGetMethodsListWithAnnotationNullPointerException1() {
         assertThrows(NullPointerException.class, () -> MethodUtils.getMethodsListWithAnnotation(FieldUtilsTest.class, null));
     }
 
     @Test
-    public void testGetMethodsListWithAnnotationIllegalArgumentException2() {
+    public void testGetMethodsListWithAnnotationNullPointerException2() {
         assertThrows(NullPointerException.class, () -> MethodUtils.getMethodsListWithAnnotation(null, Annotated.class));
     }
 
     @Test
-    public void testGetMethodsListWithAnnotationIllegalArgumentException3() {
+    public void testGetMethodsListWithAnnotationNullPointerException3() {
         assertThrows(NullPointerException.class, () -> MethodUtils.getMethodsListWithAnnotation(null, null));
     }
 
@@ -1007,6 +1026,11 @@ public class MethodUtilsTest extends AbstractLangTest {
         assertEquals("privateStringStuff(double)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", 5.0d));
         assertEquals("privateStringStuff(String)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", "Hi There"));
         assertEquals("privateStringStuff(Object)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", new Date()));
+
+        assertThrows(NullPointerException.class,
+                () -> MethodUtils.invokeMethod(null, true, "privateStringStuff", "Hi There"));
+        assertThrows(NullPointerException.class,
+                () -> MethodUtils.invokeMethod(testBean, true, null, "Hi There"));
     }
 
     @Test
@@ -1056,6 +1080,9 @@ public class MethodUtilsTest extends AbstractLangTest {
 
         assertEquals(MethodUtils.getMatchingMethod(GetMatchingMethodImpl.class, "testMethod5", RuntimeException.class),
                 GetMatchingMethodImpl.class.getMethod("testMethod5", Exception.class));
+
+        assertThrows(NullPointerException.class,
+                () -> MethodUtils.getMatchingMethod(null, "testMethod5", RuntimeException.class));
     }
 
     private static final class GetMatchingMethodClass {

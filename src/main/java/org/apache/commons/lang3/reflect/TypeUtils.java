@@ -415,6 +415,7 @@ public class TypeUtils {
      * @return a {@link Map} of the type assignments that could be determined
      * for the type variables in each type in the inheritance hierarchy from
      * {@code type} to {@code toClass} inclusive.
+     * @throws NullPointerException if either {@code cls} or {@code superParameterizedType} is {@code null}
      */
     public static Map<TypeVariable<?>, Type> determineTypeArguments(final Class<?> cls,
             final ParameterizedType superParameterizedType) {
@@ -670,6 +671,7 @@ public class TypeUtils {
      *
      * @param typeVariable the subject type variable, not {@code null}
      * @return a non-empty array containing the bounds of the type variable.
+     * @throws NullPointerException if {@code typeVariable} is {@code null}
      */
     public static Type[] getImplicitBounds(final TypeVariable<?> typeVariable) {
         Objects.requireNonNull(typeVariable, "typeVariable");
@@ -686,6 +688,7 @@ public class TypeUtils {
      * @param wildcardType the subject wildcard type, not {@code null}
      * @return a non-empty array containing the lower bounds of the wildcard
      * type.
+     * @throws NullPointerException if {@code wildcardType} is {@code null}
      */
     public static Type[] getImplicitLowerBounds(final WildcardType wildcardType) {
         Objects.requireNonNull(wildcardType, "wildcardType");
@@ -703,6 +706,7 @@ public class TypeUtils {
      * @param wildcardType the subject wildcard type, not {@code null}
      * @return a non-empty array containing the upper bounds of the wildcard
      * type.
+     * @throws NullPointerException if {@code wildcardType} is {@code null}
      */
     public static Type[] getImplicitUpperBounds(final WildcardType wildcardType) {
         Objects.requireNonNull(wildcardType, "wildcardType");
@@ -1509,6 +1513,7 @@ public class TypeUtils {
      * {@link WildcardType} or {@link TypeVariable}, not {@code null}.
      * @return an array containing the values from {@code bounds} minus the
      * redundant types.
+     * @throws NullPointerException if {@code bounds} is {@code null}
      */
     public static Type[] normalizeUpperBounds(final Type[] bounds) {
         Objects.requireNonNull(bounds, "bounds");
@@ -1680,6 +1685,7 @@ public class TypeUtils {
      *
      * @param typeVariable the type variable to create a String representation for, not {@code null}
      * @return String
+     * @throws NullPointerException if {@code typeVariable} is {@code null}
      * @since 3.2
      */
     public static String toLongString(final TypeVariable<?> typeVariable) {
@@ -1713,6 +1719,7 @@ public class TypeUtils {
      *
      * @param type the type to create a String representation for, not {@code null}
      * @return String
+     * @throws NullPointerException if {@code type} is {@code null}
      * @since 3.2
      */
     public static String toString(final Type type) {
@@ -1747,6 +1754,7 @@ public class TypeUtils {
      * type variables, not {@code null}.
      * @return whether or not the types can be assigned to their respective type
      * variables.
+     * @throws NullPointerException if {@code typeVariableMap} is {@code null}
      */
     public static boolean typesSatisfyVariables(final Map<TypeVariable<?>, Type> typeVariableMap) {
         Objects.requireNonNull(typeVariableMap, "typeVariableMap");

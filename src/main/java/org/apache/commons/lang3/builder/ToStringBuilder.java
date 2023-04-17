@@ -129,7 +129,7 @@ public class ToStringBuilder implements Builder<String> {
      * that the latest value set is the value returned from {@link #getDefaultStyle}.</p>
      *
      * @param style  the default {@link ToStringStyle}
-     * @throws IllegalArgumentException if the style is {@code null}
+     * @throws NullPointerException if the style is {@code null}
      */
     public static void setDefaultStyle(final ToStringStyle style) {
         defaultStyle = Objects.requireNonNull(style, "style");

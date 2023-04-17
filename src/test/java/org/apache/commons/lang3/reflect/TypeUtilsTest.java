@@ -282,6 +282,11 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertTrue(typeVarAssigns.containsKey(treeSetTypeVar));
         assertEquals(iterableType.getActualTypeArguments()[0], typeVarAssigns
                 .get(treeSetTypeVar));
+
+        assertThrows(NullPointerException.class,
+                () -> TypeUtils.determineTypeArguments(TreeSet.class, null));
+        assertThrows(NullPointerException.class,
+                () -> TypeUtils.determineTypeArguments(null, iterableType));
     }
 
     @Test
@@ -984,6 +989,8 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     @Test
     public void testToLongString() {
         assertEquals(getClass().getName() + ":B", TypeUtils.toLongString(getClass().getTypeParameters()[0]));
+
+        assertThrows(NullPointerException.class, () -> TypeUtils.toLongString(null));
     }
 
     @Test
@@ -1007,6 +1014,8 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         typeVarAssigns.clear();
         typeVarAssigns.put(getClass().getMethod("stub3").getTypeParameters()[0], Integer.class);
         assertTrue(TypeUtils.typesSatisfyVariables(typeVarAssigns));
+
+        assertThrows(NullPointerException.class, () -> TypeUtils.typesSatisfyVariables(null));
     }
 
     @Test
@@ -1017,6 +1026,11 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertArrayEquals(new Type[] { null }, TypeUtils.getImplicitLowerBounds(unbounded));
         assertEquals("?", TypeUtils.toString(unbounded));
         assertEquals("?", unbounded.toString());
+
+        assertThrows(NullPointerException.class,
+                () -> TypeUtils.getImplicitLowerBounds(null));
+        assertThrows(NullPointerException.class,
+                () -> TypeUtils.getImplicitUpperBounds(null));
     }
 
     @Test

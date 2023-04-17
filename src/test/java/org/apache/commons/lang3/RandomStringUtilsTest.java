@@ -180,6 +180,11 @@ public class RandomStringUtilsTest extends AbstractLangTest {
                 () -> RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY, new Random()));
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(8, 32, 48, false, true));
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(8, 32, 65, true, false));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomAlphabetic(-1));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomAscii(-1));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomGraph(-1));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomNumeric(-1));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomPrint(-1));
     }
 
     /**
