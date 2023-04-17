@@ -115,6 +115,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="remeio">Swap the order of assertion args (first excepted then actual) #1054.</action>
     <action                   type="fix" dev="aherbert" due-to="remeio">Fix the comment of Failable, redundant "-" #1056.</action>
     <action                   type="fix" dev="aherbert" due-to="remeio">Fix the comment of ComparableUtils, using "smallest", not "largest" #1058.</action>
+    <action                   type="fix" dev="aherbert" due-to="remeio">AnnotationUtilsTest & FormattableUtilsTest Only use static imports to import assert methods in tests #1052.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add GitHub coverage.yml.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
