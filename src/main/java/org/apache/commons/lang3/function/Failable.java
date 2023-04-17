@@ -42,7 +42,7 @@ import org.apache.commons.lang3.stream.Streams.FailableStream;
  * constructs like:
  *
  * <pre>
- * Consumer&lt;java.lang.reflect.Method-&gt; consumer = m -&gt; {
+ * Consumer&lt;java.lang.reflect.Method&gt; consumer = m -&gt; {
  *     try {
  *         m.invoke(o, args);
  *     } catch (Throwable t) {
