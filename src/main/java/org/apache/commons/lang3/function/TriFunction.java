@@ -39,6 +39,19 @@ import java.util.function.Function;
 @FunctionalInterface
 public interface TriFunction<T, U, V, R> {
 
+    /** NOP singleton */
+    @SuppressWarnings("rawtypes")
+    TriFunction NOP = (t, u, v) -> null;
+
+    /**
+     * Returns The NOP singleton.
+     *
+     * @return The NOP singleton.
+     */
+    static <T, U, V, R> TriFunction<T, U, V, R> nop() {
+        return NOP;
+    }
+
     /**
      * Applies this function to the given arguments.
      *

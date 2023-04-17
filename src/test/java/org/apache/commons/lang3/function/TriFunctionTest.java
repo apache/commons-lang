@@ -18,6 +18,7 @@
 package org.apache.commons.lang3.function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.math.BigInteger;
 import java.util.concurrent.atomic.AtomicReference;
@@ -69,6 +70,11 @@ public class TriFunctionTest extends AbstractLangTest {
         assertEquals(Character.valueOf('b'), ref1.get());
         assertEquals(Short.valueOf((short) 2), ref2.get());
         assertEquals("zz", ref3.get());
+    }
+
+    @Test
+    public void testTriFunctionNop() {
+        assertNull(TriFunction.nop().apply(1, 2, 3), "Expect NOP to return null");
     }
 
 }
