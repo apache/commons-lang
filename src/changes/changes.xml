@@ -117,6 +117,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="aherbert" due-to="remeio">Fix the comment of ComparableUtils, using "smallest", not "largest" #1058.</action>
     <action                   type="fix" dev="ggregory" due-to="remeio">AnnotationUtilsTest & FormattableUtilsTest Only use static imports to import assert methods in tests #1052.</action>
     <action                   type="fix" dev="ggregory" due-to="laurentschoelens, Bruno P. Kinoshita, Diego Marcilio">[LANG-1681] Fix some FieldUtils Javadocs #1047.</action>
+    <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Remove unnecessary statement in DurationFormatUtils #965.</action>
+       
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add GitHub coverage.yml.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
