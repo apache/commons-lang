@@ -106,6 +106,11 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      */
+    public static final String JAVA_LOCALE_PROVIDERS = "java.locale.providers";
+
+    /**
+     * The System property name {@value}.
+     */
     public static final String JAVA_RUNTIME_NAME = "java.runtime.name";
 
     /**
@@ -256,6 +261,20 @@ public final class SystemProperties {
     }
 
     /**
+     * Gets the current value for the property named {@code key} as an {@code boolean}.
+     *
+     * @param key
+     *            The key
+     * @param defaultIfAbsent
+     *            The default value
+     * @return an {@code boolean} or defaultIfAbsent
+     */
+    public static boolean getBoolean(final String key, final boolean defaultIfAbsent) {
+        final String str = getProperty(key);
+        return str == null ? defaultIfAbsent : Boolean.parseBoolean(str);
+    }
+
+    /**
      * Gets the current value from the system properties map.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
@@ -280,6 +299,20 @@ public final class SystemProperties {
      */
     public static String getFileSeparator() {
         return getProperty(FILE_SEPARATOR);
+    }
+
+    /**
+     * Gets the current value for the property named {@code key} as an {@code int}.
+     *
+     * @param key
+     *            The key
+     * @param defaultIfAbsent
+     *            The default value
+     * @return an {@code int} or defaultIfAbsent
+     */
+    public static int getInt(final String key, final int defaultIfAbsent) {
+        final String str = getProperty(key);
+        return str == null ? defaultIfAbsent : Integer.parseInt(str);
     }
 
     /**
@@ -424,6 +457,20 @@ public final class SystemProperties {
      */
     public static String getJavaLibraryPath() {
         return getProperty(JAVA_LIBRARY_PATH);
+    }
+
+    /**
+     * Gets the current value from the system properties map.
+     * <p>
+     * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
+     * </p>
+     * <p>
+     * Java 9 and above.
+     * </p>
+     * @return the current value from the system properties map.
+     */
+    public static String getJavaLocaleProviders() {
+        return getProperty(JAVA_LOCALE_PROVIDERS);
     }
 
     /**
@@ -628,6 +675,20 @@ public final class SystemProperties {
      */
     public static String getLineSeparator() {
         return getProperty(LINE_SEPARATOR);
+    }
+
+    /**
+     * Gets the current value for the property named {@code key} as a {@code long}.
+     *
+     * @param key
+     *            The key
+     * @param defaultIfAbsent
+     *            The default value
+     * @return a {@code long} or defaultIfAbsent
+     */
+    public static long getLong(final String key, final long defaultIfAbsent) {
+        final String str = getProperty(key);
+        return str == null ? defaultIfAbsent : Long.parseLong(str);
     }
 
     /**

@@ -56,7 +56,6 @@ run_inlined_CharUtils_isAsciiNumeric: 84,420 milliseconds.
 
  */
 public class CharUtilsPerfRun {
-    private static final String VERSION = "$Id$";
 
     private static final int WARM_UP = 100;
 
@@ -76,23 +75,22 @@ public class CharUtilsPerfRun {
     }
 
     private void printSysInfo() {
-        System.out.println(VERSION);
         System.out.println("Now: " + Calendar.getInstance().getTime());
-        System.out.println(System.getProperty("java.vendor")
+        System.out.println(SystemProperties.getJavaVendor()
                 + " "
-                + System.getProperty("java.runtime.name")
+                + SystemProperties.getJavaRuntimeName()
                 + " "
-                + System.getProperty("java.runtime.version"));
-        System.out.println(System.getProperty("java.vm.vendor")
+                + SystemProperties.getJavaRuntimeVersion());
+        System.out.println(SystemProperties.getJavaVmVendor()
                 + " "
-                + System.getProperty("java.vm.name")
+                + SystemProperties.getJavaVmName()
                 + " "
-                + System.getProperty("java.vm.version"));
-        System.out.println(System.getProperty("os.name")
+                + SystemProperties.getJavaVmVersion());
+        System.out.println(SystemProperties.getOsName()
             + " "
-            + System.getProperty("os.version")
+            + SystemProperties.getOsVersion()
             + " "
-            + System.getProperty("os.arch")
+            + SystemProperties.getOsArch()
             + " "
             + System.getProperty("sun.cpu.isalist"));
     }

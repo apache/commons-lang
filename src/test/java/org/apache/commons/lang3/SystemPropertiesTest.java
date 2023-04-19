@@ -18,8 +18,11 @@
 package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+
 import org.junit.jupiter.api.Test;
 
 public class SystemPropertiesTest {
@@ -117,6 +120,13 @@ public class SystemPropertiesTest {
     }
 
     @Test
+    public void testGetJavaLocaleProviders() {
+        assumeTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9));
+        // default is null
+        assertNull(SystemProperties.getJavaLocaleProviders(), SystemProperties.getJavaVersion());
+    }
+
+    @Test
     public void testGetJavaRuntimeName() {
         assertNotNull(SystemProperties.getJavaRuntimeName());
     }
@@ -210,6 +220,52 @@ public class SystemPropertiesTest {
     public void testGetOsName() {
         assertNotNull(SystemProperties.getOsName());
     }
+
+    @Test
+    public void testGetBoolean() {
+        final String key = RandomStringUtils.random(10);
+        final String absentKey = RandomStringUtils.random(10);
+        assertNull(System.getProperty(absentKey));
+        try {
+            System.setProperty(key, Boolean.toString(Boolean.TRUE));
+            assertEquals(Boolean.TRUE, SystemProperties.getBoolean(key, false));
+            assertEquals(Boolean.TRUE, SystemProperties.getBoolean(absentKey, Boolean.TRUE));
+            assertEquals(false, SystemProperties.getBoolean(absentKey, false));
+        } finally {
+            System.clearProperty(key);
+        }
+    }
+
+    @Test
+    public void testGetInt() {
+        final String key = RandomStringUtils.random(10);
+        final String absentKey = RandomStringUtils.random(10);
+        assertNull(System.getProperty(absentKey));
+        try {
+            System.setProperty(key, Integer.toString(Integer.MAX_VALUE));
+            assertEquals(Integer.MAX_VALUE, SystemProperties.getInt(key, 0));
+            assertEquals(Integer.MAX_VALUE, SystemProperties.getInt(absentKey, Integer.MAX_VALUE));
+            assertEquals(0, SystemProperties.getInt(absentKey, 0));
+        } finally {
+            System.clearProperty(key);
+        }
+    }
+
+    @Test
+    public void testGetLong() {
+        final String key = RandomStringUtils.random(10);
+        final String absentKey = RandomStringUtils.random(10);
+        assertNull(System.getProperty(absentKey));
+        try {
+            System.setProperty(key, Long.toString(Long.MAX_VALUE));
+            assertEquals(Long.MAX_VALUE, SystemProperties.getLong(key, 0));
+            assertEquals(Long.MAX_VALUE, SystemProperties.getLong(absentKey, Long.MAX_VALUE));
+            assertEquals(0, SystemProperties.getLong(absentKey, 0));
+        } finally {
+            System.clearProperty(key);
+        }
+    }
+
 
     @Test
     public void testGetOsVersion() {
