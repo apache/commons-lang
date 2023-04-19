@@ -68,7 +68,7 @@ import org.apache.commons.lang3.Validate;
  *                 semaphore.acquire();   // limit database load
  *                 performQuery();        // issue a query
  *             }
- *         } catch(InterruptedException) {
+ *         } catch (InterruptedException) {
  *             // fall through
  *         }
  *     }

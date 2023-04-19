@@ -140,7 +140,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
                 } else {
                     entityValue = Integer.parseInt(input.subSequence(start, end).toString(), 10);
                 }
-            } catch(final NumberFormatException nfe) {
+            } catch (final NumberFormatException nfe) {
                 return 0;
             }
 
