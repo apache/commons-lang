@@ -228,9 +228,10 @@ public class SystemPropertiesTest {
         assertNull(System.getProperty(absentKey));
         try {
             System.setProperty(key, Boolean.toString(Boolean.TRUE));
-            assertEquals(Boolean.TRUE, SystemProperties.getBoolean(key, false));
-            assertEquals(Boolean.TRUE, SystemProperties.getBoolean(absentKey, Boolean.TRUE));
-            assertEquals(false, SystemProperties.getBoolean(absentKey, false));
+            assertEquals(Boolean.TRUE, SystemProperties.getBoolean(key, () -> false));
+            assertEquals(Boolean.TRUE, SystemProperties.getBoolean(absentKey, () -> Boolean.TRUE));
+            assertEquals(false, SystemProperties.getBoolean(absentKey, () -> false));
+            assertEquals(false, SystemProperties.getBoolean(absentKey, null));
         } finally {
             System.clearProperty(key);
         }
@@ -243,9 +244,10 @@ public class SystemPropertiesTest {
         assertNull(System.getProperty(absentKey));
         try {
             System.setProperty(key, Integer.toString(Integer.MAX_VALUE));
-            assertEquals(Integer.MAX_VALUE, SystemProperties.getInt(key, 0));
-            assertEquals(Integer.MAX_VALUE, SystemProperties.getInt(absentKey, Integer.MAX_VALUE));
-            assertEquals(0, SystemProperties.getInt(absentKey, 0));
+            assertEquals(Integer.MAX_VALUE, SystemProperties.getInt(key, () -> 0));
+            assertEquals(Integer.MAX_VALUE, SystemProperties.getInt(absentKey, () -> Integer.MAX_VALUE));
+            assertEquals(0, SystemProperties.getInt(absentKey, () -> 0));
+            assertEquals(0, SystemProperties.getInt(absentKey, null));
         } finally {
             System.clearProperty(key);
         }
@@ -258,9 +260,10 @@ public class SystemPropertiesTest {
         assertNull(System.getProperty(absentKey));
         try {
             System.setProperty(key, Long.toString(Long.MAX_VALUE));
-            assertEquals(Long.MAX_VALUE, SystemProperties.getLong(key, 0));
-            assertEquals(Long.MAX_VALUE, SystemProperties.getLong(absentKey, Long.MAX_VALUE));
-            assertEquals(0, SystemProperties.getLong(absentKey, 0));
+            assertEquals(Long.MAX_VALUE, SystemProperties.getLong(key, () -> 0));
+            assertEquals(Long.MAX_VALUE, SystemProperties.getLong(absentKey, () -> Long.MAX_VALUE));
+            assertEquals(0, SystemProperties.getLong(absentKey, () -> 0));
+            assertEquals(0, SystemProperties.getLong(absentKey, null));
         } finally {
             System.clearProperty(key);
         }

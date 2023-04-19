@@ -17,6 +17,9 @@
 
 package org.apache.commons.lang3;
 
+import java.util.function.BooleanSupplier;
+import java.util.function.IntSupplier;
+import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
 /**
@@ -269,9 +272,9 @@ public final class SystemProperties {
      *            The default value
      * @return an {@code boolean} or defaultIfAbsent
      */
-    public static boolean getBoolean(final String key, final boolean defaultIfAbsent) {
+    public static boolean getBoolean(final String key, final BooleanSupplier defaultIfAbsent) {
         final String str = getProperty(key);
-        return str == null ? defaultIfAbsent : Boolean.parseBoolean(str);
+        return str == null ? defaultIfAbsent != null && defaultIfAbsent.getAsBoolean() : Boolean.parseBoolean(str);
     }
 
     /**
@@ -310,9 +313,9 @@ public final class SystemProperties {
      *            The default value
      * @return an {@code int} or defaultIfAbsent
      */
-    public static int getInt(final String key, final int defaultIfAbsent) {
+    public static int getInt(final String key, final IntSupplier defaultIfAbsent) {
         final String str = getProperty(key);
-        return str == null ? defaultIfAbsent : Integer.parseInt(str);
+        return str == null ? defaultIfAbsent != null ? defaultIfAbsent.getAsInt() : 0 : Integer.parseInt(str);
     }
 
     /**
@@ -686,9 +689,9 @@ public final class SystemProperties {
      *            The default value
      * @return a {@code long} or defaultIfAbsent
      */
-    public static long getLong(final String key, final long defaultIfAbsent) {
+    public static long getLong(final String key, final LongSupplier defaultIfAbsent) {
         final String str = getProperty(key);
-        return str == null ? defaultIfAbsent : Long.parseLong(str);
+        return str == null ? defaultIfAbsent != null ? defaultIfAbsent.getAsLong() : 0 : Long.parseLong(str);
     }
 
     /**
