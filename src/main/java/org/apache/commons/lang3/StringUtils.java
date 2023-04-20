@@ -2350,10 +2350,10 @@ public class StringUtils {
         // indexes into strings s and t
         int i; // iterates through s
         int j; // iterates through t
-        int upper_left;
+        int upperleft;
         int upper;
 
-        char t_j; // jth character of t
+        char jOfT; // jth character of t
         int cost;
 
         for (i = 0; i <= n; i++) {
@@ -2361,16 +2361,16 @@ public class StringUtils {
         }
 
         for (j = 1; j <= m; j++) {
-            upper_left = p[0];
-            t_j = t.charAt(j - 1);
+            upperleft = p[0];
+            jOfT = t.charAt(j - 1);
             p[0] = j;
 
             for (i = 1; i <= n; i++) {
                 upper = p[i];
-                cost = s.charAt(i - 1) == t_j ? 0 : 1;
+                cost = s.charAt(i - 1) == jOfT ? 0 : 1;
                 // minimum of cell to the left+1, to the top+1, diagonally left and up +cost
-                p[i] = Math.min(Math.min(p[i - 1] + 1, p[i] + 1), upper_left + cost);
-                upper_left = upper;
+                p[i] = Math.min(Math.min(p[i - 1] + 1, p[i] + 1), upperleft + cost);
+                upperleft = upper;
             }
         }
 
@@ -2505,7 +2505,7 @@ public class StringUtils {
 
         // iterates through t
         for (int j = 1; j <= m; j++) {
-            final char t_j = t.charAt(j - 1); // jth character of t
+            final char jOfT = t.charAt(j - 1); // jth character of t
             d[0] = j;
 
             // compute stripe indices, constrain to array size
@@ -2524,7 +2524,7 @@ public class StringUtils {
 
             // iterates through [min, max] in s
             for (int i = min; i <= max; i++) {
-                if (s.charAt(i - 1) == t_j) {
+                if (s.charAt(i - 1) == jOfT) {
                     // diagonally left and up
                     d[i] = p[i - 1];
                 } else {

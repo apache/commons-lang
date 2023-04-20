@@ -7041,18 +7041,18 @@ public class ArrayUtils {
         // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
-            final int n_offset = n - offset;
+            final int nOffset = n - offset;
 
-            if (offset > n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
+            if (offset > nOffset) {
+                swap(array, startIndexInclusive, startIndexInclusive + n - nOffset,  nOffset);
                 n = offset;
-                offset -= n_offset;
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
+                offset -= nOffset;
+            } else if (offset < nOffset) {
+                swap(array, startIndexInclusive, startIndexInclusive + nOffset,  offset);
                 startIndexInclusive += offset;
-                n = n_offset;
+                n = nOffset;
             } else {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset, offset);
+                swap(array, startIndexInclusive, startIndexInclusive + nOffset, offset);
                 break;
             }
         }
@@ -7116,18 +7116,18 @@ public class ArrayUtils {
         // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
-            final int n_offset = n - offset;
+            final int nOffset = n - offset;
 
-            if (offset > n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
+            if (offset > nOffset) {
+                swap(array, startIndexInclusive, startIndexInclusive + n - nOffset,  nOffset);
                 n = offset;
-                offset -= n_offset;
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
+                offset -= nOffset;
+            } else if (offset < nOffset) {
+                swap(array, startIndexInclusive, startIndexInclusive + nOffset,  offset);
                 startIndexInclusive += offset;
-                n = n_offset;
+                n = nOffset;
             } else {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset, offset);
+                swap(array, startIndexInclusive, startIndexInclusive + nOffset, offset);
                 break;
             }
         }
@@ -7191,18 +7191,18 @@ public class ArrayUtils {
         // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
-            final int n_offset = n - offset;
+            final int nOffset = n - offset;
 
-            if (offset > n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
+            if (offset > nOffset) {
+                swap(array, startIndexInclusive, startIndexInclusive + n - nOffset,  nOffset);
                 n = offset;
-                offset -= n_offset;
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
+                offset -= nOffset;
+            } else if (offset < nOffset) {
+                swap(array, startIndexInclusive, startIndexInclusive + nOffset,  offset);
                 startIndexInclusive += offset;
-                n = n_offset;
+                n = nOffset;
             } else {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset, offset);
+                swap(array, startIndexInclusive, startIndexInclusive + nOffset, offset);
                 break;
             }
         }
@@ -7266,18 +7266,18 @@ public class ArrayUtils {
         // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
-            final int n_offset = n - offset;
+            final int nOffset = n - offset;
 
-            if (offset > n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
+            if (offset > nOffset) {
+                swap(array, startIndexInclusive, startIndexInclusive + n - nOffset,  nOffset);
                 n = offset;
-                offset -= n_offset;
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
+                offset -= nOffset;
+            } else if (offset < nOffset) {
+                swap(array, startIndexInclusive, startIndexInclusive + nOffset,  offset);
                 startIndexInclusive += offset;
-                n = n_offset;
+                n = nOffset;
             } else {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset, offset);
+                swap(array, startIndexInclusive, startIndexInclusive + nOffset, offset);
                 break;
             }
         }
@@ -7341,18 +7341,18 @@ public class ArrayUtils {
         // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
-            final int n_offset = n - offset;
+            final int nOffset = n - offset;
 
-            if (offset > n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
+            if (offset > nOffset) {
+                swap(array, startIndexInclusive, startIndexInclusive + n - nOffset,  nOffset);
                 n = offset;
-                offset -= n_offset;
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
+                offset -= nOffset;
+            } else if (offset < nOffset) {
+                swap(array, startIndexInclusive, startIndexInclusive + nOffset,  offset);
                 startIndexInclusive += offset;
-                n = n_offset;
+                n = nOffset;
             } else {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset, offset);
+                swap(array, startIndexInclusive, startIndexInclusive + nOffset, offset);
                 break;
             }
         }
@@ -7416,18 +7416,18 @@ public class ArrayUtils {
         // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
-            final int n_offset = n - offset;
+            final int nOffset = n - offset;
 
-            if (offset > n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
+            if (offset > nOffset) {
+                swap(array, startIndexInclusive, startIndexInclusive + n - nOffset,  nOffset);
                 n = offset;
-                offset -= n_offset;
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
+                offset -= nOffset;
+            } else if (offset < nOffset) {
+                swap(array, startIndexInclusive, startIndexInclusive + nOffset,  offset);
                 startIndexInclusive += offset;
-                n = n_offset;
+                n = nOffset;
             } else {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset, offset);
+                swap(array, startIndexInclusive, startIndexInclusive + nOffset, offset);
                 break;
             }
         }
@@ -7491,18 +7491,18 @@ public class ArrayUtils {
         // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
-            final int n_offset = n - offset;
+            final int nOffset = n - offset;
 
-            if (offset > n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
+            if (offset > nOffset) {
+                swap(array, startIndexInclusive, startIndexInclusive + n - nOffset,  nOffset);
                 n = offset;
-                offset -= n_offset;
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
+                offset -= nOffset;
+            } else if (offset < nOffset) {
+                swap(array, startIndexInclusive, startIndexInclusive + nOffset,  offset);
                 startIndexInclusive += offset;
-                n = n_offset;
+                n = nOffset;
             } else {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset, offset);
+                swap(array, startIndexInclusive, startIndexInclusive + nOffset, offset);
                 break;
             }
         }
@@ -7566,18 +7566,18 @@ public class ArrayUtils {
         // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
-            final int n_offset = n - offset;
+            final int nOffset = n - offset;
 
-            if (offset > n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
+            if (offset > nOffset) {
+                swap(array, startIndexInclusive, startIndexInclusive + n - nOffset,  nOffset);
                 n = offset;
-                offset -= n_offset;
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
+                offset -= nOffset;
+            } else if (offset < nOffset) {
+                swap(array, startIndexInclusive, startIndexInclusive + nOffset,  offset);
                 startIndexInclusive += offset;
-                n = n_offset;
+                n = nOffset;
             } else {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset, offset);
+                swap(array, startIndexInclusive, startIndexInclusive + nOffset, offset);
                 break;
             }
         }
@@ -7641,18 +7641,18 @@ public class ArrayUtils {
         // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
-            final int n_offset = n - offset;
+            final int nOffset = n - offset;
 
-            if (offset > n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
+            if (offset > nOffset) {
+                swap(array, startIndexInclusive, startIndexInclusive + n - nOffset,  nOffset);
                 n = offset;
-                offset -= n_offset;
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
+                offset -= nOffset;
+            } else if (offset < nOffset) {
+                swap(array, startIndexInclusive, startIndexInclusive + nOffset,  offset);
                 startIndexInclusive += offset;
-                n = n_offset;
+                n = nOffset;
             } else {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset, offset);
+                swap(array, startIndexInclusive, startIndexInclusive + nOffset, offset);
                 break;
             }
         }

@@ -214,13 +214,13 @@ public class RandomStringUtils {
             throw new IllegalArgumentException("Parameter end (" + end + ") must be greater than start (" + start + ")");
         }
 
-        final int zero_digit_ascii = 48;
-        final int first_letter_ascii = 65;
+        final int zeroDigitAscii = 48;
+        final int firstLetterAscii = 65;
 
-        if (chars == null && (numbers && end <= zero_digit_ascii
-                || letters && end <= first_letter_ascii)) {
-            throw new IllegalArgumentException("Parameter end (" + end + ") must be greater then (" + zero_digit_ascii + ") for generating digits " +
-                    "or greater then (" + first_letter_ascii + ") for generating letters.");
+        if (chars == null && (numbers && end <= zeroDigitAscii
+                || letters && end <= firstLetterAscii)) {
+            throw new IllegalArgumentException("Parameter end (" + end + ") must be greater then (" + zeroDigitAscii + ") for generating digits " +
+                    "or greater then (" + firstLetterAscii + ") for generating letters.");
         }
 
         final StringBuilder builder = new StringBuilder(count);
