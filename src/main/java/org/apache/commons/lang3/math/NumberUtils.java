@@ -666,11 +666,11 @@ public class NumberUtils {
             throw new NumberFormatException("A blank string is not a valid number");
         }
         // Need to deal with all possible hex prefixes here
-        final String[] hex_prefixes = {"0x", "0X", "#"};
+        final String[] hexPrefixes = {"0x", "0X", "#"};
         final int length = str.length();
         final int offset = str.charAt(0) == '+' || str.charAt(0) == '-' ? 1 : 0;
         int pfxLen = 0;
-        for (final String pfx : hex_prefixes) {
+        for (final String pfx : hexPrefixes) {
             if (str.startsWith(pfx, offset)) {
                 pfxLen += pfx.length() + offset;
                 break;
