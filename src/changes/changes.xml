@@ -118,7 +118,6 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="remeio">AnnotationUtilsTest and FormattableUtilsTest Only use static imports to import assert methods in tests #1052.</action>
     <action                   type="fix" dev="ggregory" due-to="laurentschoelens, Bruno P. Kinoshita, Diego Marcilio">[LANG-1681] Fix some FieldUtils Javadocs #1047.</action>
     <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Remove unnecessary statement in DurationFormatUtils #965.</action>
-       
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add GitHub coverage.yml.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
@@ -226,7 +225,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump exec-maven-plugin from 1.6.0 to 3.1.0 #590, #922.</action>
     <action                   type="update" dev="kinow" due-to="Dependabot">Bump maven-surefire-plugin from 3.0.0-M5 to 3.0.0-M7 #880, #910.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump apache-rat from 0.13 to 0.14.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump commons-parent from 53 to 56 #954, #1000, #1011.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump commons-parent from 53 to 57 #954, #1000, #1011, #1061.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump commons-text from 1.9 to 1.10.0 #957.</action>
     <action                   type="update" dev="kinow" due-to="Dependabot, Gary Gregory">Bump commons.pmd-impl.version from 6.49.0 to 6.51.0 #961.</action>
   </release>
