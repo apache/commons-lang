@@ -48,7 +48,7 @@ public interface FailableBiConsumer<T, U, E extends Throwable> {
     }
 
     /**
-     * Accepts the consumer.
+     * Accepts the given arguments.
      *
      * @param t the first parameter for the consumable to accept
      * @param u the second parameter for the consumable to accept

@@ -42,7 +42,7 @@ public interface BooleanConsumer {
     }
 
     /**
-     * Performs this operation on the given argument.
+     * Accepts the given arguments.
      *
      * @param value the input argument
      */

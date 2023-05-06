@@ -51,7 +51,7 @@ public interface FailableConsumer<T, E extends Throwable> {
     }
 
     /**
-     * Accepts the consumer.
+     * Accepts the given arguments.
      *
      * @param object the parameter for the consumable to accept
      * @throws E Thrown when the consumer fails.
