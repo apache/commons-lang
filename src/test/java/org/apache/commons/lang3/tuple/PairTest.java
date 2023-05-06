@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang3.AbstractLangTest;
@@ -34,6 +35,36 @@ import org.junit.jupiter.api.Test;
  * Test the Pair class.
  */
 public class PairTest extends AbstractLangTest {
+
+    @Test
+    public void testAccept() {
+        final Pair<String, String> pair1 = Pair.of("A", "D");
+        final Pair<String, String> pair2 = Pair.of("B", "C");
+        final Map<String, String> map = new HashMap<>();
+        pair1.accept(map::put);
+        pair2.accept(map::put);
+        assertEquals("D", map.get("A"));
+        assertEquals("C", map.get("B"));
+        pair1.accept(map::put);
+        pair2.accept(map::put);
+        assertEquals("D", map.get("A"));
+        assertEquals("C", map.get("B"));
+    }
+
+    @Test
+    public void testApply() {
+        final Pair<String, String> pair1 = Pair.of("A", "D");
+        final Pair<String, String> pair2 = Pair.of("B", "C");
+        final Map<String, String> map = new HashMap<>();
+        assertEquals(null, pair1.apply(map::put));
+        assertEquals(null, pair2.apply(map::put));
+        assertEquals("D", map.get("A"));
+        assertEquals("C", map.get("B"));
+        assertEquals("D", pair1.apply(map::put));
+        assertEquals("C", pair2.apply(map::put));
+        assertEquals("D", map.get("A"));
+        assertEquals("C", map.get("B"));
+    }
 
     @Test
     public void testComparable1() {

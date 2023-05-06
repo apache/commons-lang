@@ -21,6 +21,8 @@ import java.util.Map;
 import java.util.Objects;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.apache.commons.lang3.function.FailableBiConsumer;
+import org.apache.commons.lang3.function.FailableBiFunction;
 
 /**
  * A pair consisting of two elements.
@@ -115,6 +117,32 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      */
     public static <L, R> Pair<L, R> ofNonNull(final L left, final R right) {
         return ImmutablePair.ofNonNull(left, right);
+    }
+
+    /**
+     * Accepts this key and value as arguments to the given consumer.
+     *
+     * @param <E> The kind of thrown exception or error.
+     * @param consumer the consumer to call.
+     * @throws E Thrown when the consumer fails.
+     * @since 3.13.0
+     */
+    public <E extends Throwable> void accept(final FailableBiConsumer<L, R, E> consumer) throws E {
+        consumer.accept(getKey(), getValue());
+    }
+
+    /**
+     * Applies this key and value as arguments to the given function.
+     *
+     * @param <V> The function return type.
+     * @param <E> The kind of thrown exception or error.
+     * @param function the consumer to call.
+     * @return the function's return value.
+     * @throws E Thrown when the consumer fails.
+     * @since 3.13.0
+     */
+    public <V, E extends Throwable> V apply(final FailableBiFunction<L, R, V, E> function) throws E {
+        return function.apply(getKey(), getValue());
     }
 
     /**
