@@ -148,6 +148,11 @@ public class StringUtils {
     public static final String SPACE = " ";
 
     /**
+     * A space character for pad {@code ' '}.
+     */
+    private static final char PAD = ' ';
+
+    /**
      * The empty String {@code ""}.
      * @since 2.0
      */
@@ -586,7 +591,7 @@ public class StringUtils {
      * @return centered String, {@code null} if null String input
      */
     public static String center(final String str, final int size) {
-        return center(str, size, ' ');
+        return center(str, size, PAD);
     }
 
     /**
@@ -3394,7 +3399,7 @@ public class StringUtils {
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
             final char nowChar = cs.charAt(i);
-            if (nowChar != ' ' && !Character.isLetterOrDigit(nowChar) ) {
+            if (nowChar != PAD && !Character.isLetterOrDigit(nowChar) ) {
                 return false;
             }
         }
@@ -3430,7 +3435,7 @@ public class StringUtils {
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
             final char nowChar = cs.charAt(i);
-            if (nowChar != ' ' && !Character.isLetter(nowChar)) {
+            if (nowChar != PAD && !Character.isLetter(nowChar)) {
                 return false;
             }
         }
@@ -5174,7 +5179,7 @@ public class StringUtils {
      *  {@code null} if null String input
      */
     public static String leftPad(final String str, final int size) {
-        return leftPad(str, size, ' ');
+        return leftPad(str, size, PAD);
     }
 
     /**
@@ -7110,7 +7115,7 @@ public class StringUtils {
      *  {@code null} if null String input
      */
     public static String rightPad(final String str, final int size) {
-        return rightPad(str, size, ' ');
+        return rightPad(str, size, PAD);
     }
 
     /**
