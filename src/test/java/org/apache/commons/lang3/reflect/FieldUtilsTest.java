@@ -43,6 +43,7 @@ import org.apache.commons.lang3.compare.ObjectToStringComparator;
 import org.apache.commons.lang3.reflect.testbed.Ambig;
 import org.apache.commons.lang3.reflect.testbed.Annotated;
 import org.apache.commons.lang3.reflect.testbed.Foo;
+import org.apache.commons.lang3.reflect.testbed.GenericTypeHolder;
 import org.apache.commons.lang3.reflect.testbed.PrivatelyShadowedChild;
 import org.apache.commons.lang3.reflect.testbed.PublicChild;
 import org.apache.commons.lang3.reflect.testbed.PubliclyShadowedChild;
@@ -348,6 +349,12 @@ public class FieldUtilsTest extends AbstractLangTest {
     @Test
     public void testGetDeclaredFieldForceAccessIllegalArgumentException3() {
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.getDeclaredField(PublicChild.class, " ", true));
+    }
+
+    @Test
+    public void testIsConstantField() {
+        assertTrue(FieldUtils.isConstant(FieldUtils.getField(Foo.class, "VALUE")));
+        assertFalse(FieldUtils.isConstant(FieldUtils.getField(GenericTypeHolder.class, "stringParent")));
     }
 
     @Test
