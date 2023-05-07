@@ -1020,7 +1020,7 @@ public class Conversion {
         }
         for (int i = 0; i < nInts; i++) {
             final int shift = i * 32 + srcPos;
-            dst[dstPos + i] = (int) (0xffffffff & (src >> shift));
+            dst[dstPos + i] = (int) (src >> shift);
         }
         return dst;
     }
