@@ -21,7 +21,7 @@
  * <p>When you write a {@link java.lang.Object#hashCode() hashCode()}, do you check Bloch's Effective Java? No?
  * You just hack in a quick number?
  * Well {@link org.apache.commons.lang3.builder.HashCodeBuilder} will save your day.
- * It, and its buddies ({@link org.apache.commons.lang3.builder.EqualsBuilder}, {@link org.apache.commons.lang3.builder.CompareToBuilder}, {@link org.apache.commons.lang3.builder.ToStringBuilder}), take care of the nasty bits while you focus on the important bits, like which fields will go into making up the hashcode.</p>
+ * It, and its buddies ({@link org.apache.commons.lang3.builder.EqualsBuilder}, {@link org.apache.commons.lang3.builder.CompareToBuilder}, {@link org.apache.commons.lang3.builder.ToStringBuilder}), take care of the nasty bits while you focus on the important bits, like which fields will go into making up the hash code.</p>
  *
  * @see Object#equals(Object)
  * @see Object#toString()

@@ -30,7 +30,7 @@ import org.apache.commons.lang3.ObjectUtils;
  * Assists in implementing {@link java.lang.Comparable#compareTo(Object)} methods.
  *
  * <p>It is consistent with {@code equals(Object)} and
- * {@code hashcode()} built with {@link EqualsBuilder} and
+ * {@code hashCode()} built with {@link EqualsBuilder} and
  * {@link HashCodeBuilder}.</p>
  *
  * <p>Two Objects that compare equal using {@code equals(Object)} should normally

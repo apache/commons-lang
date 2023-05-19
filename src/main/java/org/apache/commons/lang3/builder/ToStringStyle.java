@@ -2098,7 +2098,7 @@ public abstract class ToStringStyle implements Serializable {
 
     /**
      * {@link ToStringStyle} that prints out the short
-     * class name and no identity hashcode.
+     * class name and no identity hash code.
      *
      * <p>This is an inner class rather than using
      * {@link StandardToStringStyle} to ensure its immutability.</p>
@@ -2129,7 +2129,7 @@ public abstract class ToStringStyle implements Serializable {
 
     /**
      * {@link ToStringStyle} that does not print out the
-     * classname, identity hashcode, content start or field name.
+     * classname, identity hash code, content start or field name.
      *
      * <p>This is an inner class rather than using
      * {@link StandardToStringStyle} to ensure its immutability.</p>
