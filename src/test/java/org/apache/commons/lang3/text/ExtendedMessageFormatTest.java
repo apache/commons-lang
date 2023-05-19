@@ -287,7 +287,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
     }
 
     /**
-     * Test equals() and hashcode.
+     * Test equals() and hashCode().
      */
     @Test
     public void testEqualsHashcode() {
@@ -301,32 +301,32 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
 
         // Same object
         assertEquals(emf, emf, "same, equals()");
-        assertEquals(emf.hashCode(), emf.hashCode(), "same, hashcode()");
+        assertEquals(emf.hashCode(), emf.hashCode(), "same, hashCode()");
 
         // Equal Object
         other = new ExtendedMessageFormat(pattern, Locale.US, fmtRegistry);
         assertEquals(emf, other, "equal, equals()");
-        assertEquals(emf.hashCode(), other.hashCode(), "equal, hashcode()");
+        assertEquals(emf.hashCode(), other.hashCode(), "equal, hashCode()");
 
         // Different Class
         other = new OtherExtendedMessageFormat(pattern, Locale.US, fmtRegistry);
         assertNotEquals(emf, other, "class, equals()");
-        assertEquals(emf.hashCode(), other.hashCode(), "class, hashcode()"); // same hashcode
+        assertEquals(emf.hashCode(), other.hashCode(), "class, hashCode()"); // same hash code
 
         // Different pattern
         other = new ExtendedMessageFormat("X" + pattern, Locale.US, fmtRegistry);
         assertNotEquals(emf, other, "pattern, equals()");
-        assertNotEquals(emf.hashCode(), other.hashCode(), "pattern, hashcode()");
+        assertNotEquals(emf.hashCode(), other.hashCode(), "pattern, hashCode()");
 
         // Different registry
         other = new ExtendedMessageFormat(pattern, Locale.US, otherRegistry);
         assertNotEquals(emf, other, "registry, equals()");
-        assertNotEquals(emf.hashCode(), other.hashCode(), "registry, hashcode()");
+        assertNotEquals(emf.hashCode(), other.hashCode(), "registry, hashCode()");
 
         // Different Locale
         other = new ExtendedMessageFormat(pattern, Locale.FRANCE, fmtRegistry);
         assertNotEquals(emf, other, "locale, equals()");
-        assertEquals(emf.hashCode(), other.hashCode(), "locale, hashcode()"); // same hashcode
+        assertEquals(emf.hashCode(), other.hashCode(), "locale, hashCode()"); // same hash code
     }
 
     /**
