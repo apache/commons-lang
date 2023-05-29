@@ -136,25 +136,25 @@ public class StreamsTest extends AbstractLangTest {
 
     @Test
     public void testInstanceOfStream() {
-        assertEquals(2, Streams.instancesOf(String.class, Arrays.asList("A", "B")).collect(Collectors.toList()).size());
-        assertEquals(2, Streams.instancesOf(String.class, Arrays.asList(null, "A", null, "B", null)).collect(Collectors.toList()).size());
-        assertEquals(0, Streams.instancesOf(String.class, Arrays.asList(null, null)).collect(Collectors.toList()).size());
+        assertEquals(2, (int) Streams.instancesOf(String.class, Arrays.asList("A", "B")).count());
+        assertEquals(2, (int) Streams.instancesOf(String.class, Arrays.asList(null, "A", null, "B", null)).count());
+        assertEquals(0, (int) Streams.instancesOf(String.class, Arrays.asList(null, null)).count());
         //
         final List<Object> objects = Arrays.asList("A", "B");
-        assertEquals(2, Streams.instancesOf(String.class, objects).collect(Collectors.toList()).size());
+        assertEquals(2, (int) Streams.instancesOf(String.class, objects).count());
     }
 
     @Test
     public void testNullSafeStreamNotNull() {
-        assertEquals(2, Streams.nonNull(Arrays.asList("A", "B")).collect(Collectors.toList()).size());
-        assertEquals(2, Streams.nonNull(Arrays.asList(null, "A", null, "B", null)).collect(Collectors.toList()).size());
-        assertEquals(0, Streams.nonNull(Arrays.asList(null, null)).collect(Collectors.toList()).size());
+        assertEquals(2, (int) Streams.nonNull(Arrays.asList("A", "B")).count());
+        assertEquals(2, (int) Streams.nonNull(Arrays.asList(null, "A", null, "B", null)).count());
+        assertEquals(0, (int) Streams.nonNull(Arrays.asList(null, null)).count());
     }
 
     @Test
     public void testNullSafeStreamNull() {
         final List<String> input = null;
-        assertEquals(0, Streams.nonNull(input).collect(Collectors.toList()).size());
+        assertEquals(0, (int) Streams.nonNull(input).count());
     }
 
     @Test
@@ -166,13 +166,13 @@ public class StreamsTest extends AbstractLangTest {
 
     @Test
     public void testOfCollectionNotNull() {
-        assertEquals(2, Streams.of(Arrays.asList("A", "B")).collect(Collectors.toList()).size());
+        assertEquals(2, (int) Streams.of(Arrays.asList("A", "B")).count());
     }
 
     @Test
     public void testOfCollectionNull() {
         final List<String> input = null;
-        assertEquals(0, Streams.of(input).collect(Collectors.toList()).size());
+        assertEquals(0, (int) Streams.of(input).count());
     }
 
     @Test
@@ -191,24 +191,24 @@ public class StreamsTest extends AbstractLangTest {
 
     @Test
     public void testOfIterableNotNull() {
-        assertEquals(2, Streams.of((Iterable<String>) Arrays.asList("A", "B")).collect(Collectors.toList()).size());
+        assertEquals(2, (int) Streams.of((Iterable<String>) Arrays.asList("A", "B")).count());
     }
 
     @Test
     public void testOfIterableNull() {
         final Iterable<String> input = null;
-        assertEquals(0, Streams.of(input).collect(Collectors.toList()).size());
+        assertEquals(0, (int) Streams.of(input).count());
     }
 
     @Test
     public void testOfIteratorNotNull() {
-        assertEquals(2, Streams.of(Arrays.asList("A", "B").iterator()).collect(Collectors.toList()).size());
+        assertEquals(2, (int) Streams.of(Arrays.asList("A", "B").iterator()).count());
     }
 
     @Test
     public void testOfIteratorNull() {
         final Iterator<String> input = null;
-        assertEquals(0, Streams.of(input).collect(Collectors.toList()).size());
+        assertEquals(0, (int) Streams.of(input).count());
     }
 
     @Test
@@ -261,7 +261,7 @@ public class StreamsTest extends AbstractLangTest {
 
     @Test
     public void testToArray() {
-        final String[] array = Arrays.asList("2", "3", "1").stream().collect(Streams.toArray(String.class));
+        final String[] array = Stream.of("2", "3", "1").collect(Streams.toArray(String.class));
         assertNotNull(array);
         assertEquals(3, array.length);
         assertEquals("2", array[0]);
