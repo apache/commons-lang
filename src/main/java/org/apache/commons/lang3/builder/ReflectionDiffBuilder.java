@@ -106,7 +106,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
     }
 
     /**
-     * Returns the field names that should be excluded from the diff
+     * Gets the field names that should be excluded from the diff
      * @return Returns the excludeFieldNames.
      * @since 3.13.0
      */
