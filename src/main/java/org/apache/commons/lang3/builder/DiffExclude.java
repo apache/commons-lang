@@ -23,7 +23,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Use this annotation to exclude a field from being used by
+ * Excludes a field from being used by
  * the {@link ReflectionDiffBuilder}.
  *
  * @since 3.13.0
