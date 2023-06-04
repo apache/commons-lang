@@ -18,7 +18,10 @@ package org.apache.commons.lang3.builder;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 
+import org.apache.commons.lang3.ArraySorter;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
@@ -71,6 +74,12 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
     private final DiffBuilder<T> diffBuilder;
 
     /**
+     * Which field names to exclude from output. Intended for fields like {@code "password"} or {@code "lastModificationDate"}.
+     * @since 3.13.0
+     */
+    private String[] excludeFieldNames;
+
+    /**
      * Constructs a builder for the specified objects with the specified style.
      *
      * <p>
@@ -92,6 +101,34 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         this.left = lhs;
         this.right = rhs;
         diffBuilder = new DiffBuilder<>(lhs, rhs, style);
+    }
+
+    /**
+     * Gets the field names that should be excluded from the diff
+     * @return Returns the excludeFieldNames.
+     * @since 3.13.0
+     */
+    public String[] getExcludeFieldNames() {
+        return this.excludeFieldNames.clone();
+    }
+
+
+    /**
+     * Sets the field names to exclude.
+     *
+     * @param excludeFieldNamesParam
+     *            The field names to exclude from the diff or {@code null}.
+     * @return {@code this}
+     * @since 3.13.0
+     */
+    public ReflectionDiffBuilder setExcludeFieldNames(final String... excludeFieldNamesParam) {
+        if (excludeFieldNamesParam == null) {
+            this.excludeFieldNames = ArrayUtils.EMPTY_STRING_ARRAY;
+        } else {
+            // clone and remove nulls
+            this.excludeFieldNames = ArraySorter.sort(ReflectionToStringBuilder.toNoNullStringArray(excludeFieldNamesParam));
+        }
+        return this;
     }
 
     @Override
@@ -126,7 +163,15 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         if (Modifier.isTransient(field.getModifiers())) {
             return false;
         }
-        return !Modifier.isStatic(field.getModifiers());
+        if (Modifier.isStatic(field.getModifiers())) {
+            return false;
+        }
+        if (this.excludeFieldNames != null
+                && Arrays.binarySearch(this.excludeFieldNames, field.getName()) >= 0) {
+            // Reject fields from the getExcludeFieldNames list.
+            return false;
+        }
+        return !field.isAnnotationPresent(DiffExclude.class);
     }
 
 }

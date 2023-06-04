@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -48,10 +49,14 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         private final Object[] objectArrayField = {null};
         private static int staticField;
         private transient String transientField;
+        @DiffExclude
+        private String annotatedField = "a";
+        private String excludedField = "a";
+
 
         @Override
         public DiffResult diff(final TypeTestClass obj) {
-            return new ReflectionDiffBuilder(this, obj, style).build();
+            return new ReflectionDiffBuilder(this, obj, style).setExcludeFieldNames("excludedField").build();
         }
 
         @Override
@@ -128,4 +133,55 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         final DiffResult list = firstObject.diff(secondObject);
         assertEquals(1, list.getNumberOfDiffs());
     }
+
+    @Test
+    public void test_no_differences_excluded_field() {
+        final TypeTestClass firstObject = new TypeTestClass();
+        firstObject.excludedField = "b";
+        final TypeTestClass secondObject = new TypeTestClass();
+
+        final DiffResult list = firstObject.diff(secondObject);
+        assertEquals(0, list.getNumberOfDiffs());
+    }
+
+    @Test
+    public void test_no_differences_diff_exclude_annotated_field() {
+        final TypeTestClass firstObject = new TypeTestClass();
+        firstObject.annotatedField = "b";
+        final TypeTestClass secondObject = new TypeTestClass();
+
+        final DiffResult list = firstObject.diff(secondObject);
+        assertEquals(0, list.getNumberOfDiffs());
+    }
+
+    @Test
+    public void test_no_differences_diff_exluded_field_and_exclude_annotated_field() {
+        final TypeTestClass firstObject = new TypeTestClass();
+        firstObject.excludedField = "b";
+        firstObject.annotatedField = "b";
+        final TypeTestClass secondObject = new TypeTestClass();
+
+        final DiffResult list = firstObject.diff(secondObject);
+        assertEquals(0, list.getNumberOfDiffs());
+    }
+
+    @Test
+    public void testGetExcludeFieldNamesWithNullExcludedFieldNames() {
+        final ReflectionDiffBuilder<TypeTestClass> reflectionDiffBuilder = new ReflectionDiffBuilder<>(new TypeTestClass(), new TypeTestChildClass(), SHORT_STYLE);
+        reflectionDiffBuilder.setExcludeFieldNames(null);
+        final String[] excludeFieldNames = reflectionDiffBuilder.getExcludeFieldNames();
+        assertNotNull(excludeFieldNames);
+        assertEquals(0, excludeFieldNames.length);
+    }
+
+    @Test
+    public void testGetExcludeFieldNamesWithNullValuesInExcludedFieldNames() {
+        final ReflectionDiffBuilder<TypeTestClass> reflectionDiffBuilder = new ReflectionDiffBuilder<>(new TypeTestClass(), new TypeTestChildClass(), SHORT_STYLE);
+        reflectionDiffBuilder.setExcludeFieldNames("charField", null);
+        final String[] excludeFieldNames = reflectionDiffBuilder.getExcludeFieldNames();
+        assertNotNull(excludeFieldNames);
+        assertEquals(1, excludeFieldNames.length);
+        assertEquals("charField", excludeFieldNames[0]);
+    }
+
 }
