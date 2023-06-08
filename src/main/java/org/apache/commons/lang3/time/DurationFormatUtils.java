@@ -422,37 +422,55 @@ public class DurationFormatUtils {
             final long milliseconds, final boolean padWithZeros) {
         final StringBuilder buffer = new StringBuilder();
         boolean lastOutputSeconds = false;
+        boolean lastOutputZero = false;
+        boolean optional = false;
         for (final Token token : tokens) {
             final Object value = token.getValue();
             final int count = token.getCount();
+            optional = token.optional;
             if (value instanceof StringBuilder) {
-                buffer.append(value.toString());
+            	if(!optional || !lastOutputZero) buffer.append(value.toString());
             } else if (value.equals(y)) {
-                buffer.append(paddedValue(years, padWithZeros, count));
                 lastOutputSeconds = false;
+                lastOutputZero = years == 0;
+                if(!optional || !lastOutputZero) 
+                	buffer.append(paddedValue(years, padWithZeros, count));
             } else if (value.equals(M)) {
-                buffer.append(paddedValue(months, padWithZeros, count));
                 lastOutputSeconds = false;
+                lastOutputZero = months == 0;
+                if(!optional || !lastOutputZero) 
+                	buffer.append(paddedValue(months, padWithZeros, count));
             } else if (value.equals(d)) {
-                buffer.append(paddedValue(days, padWithZeros, count));
                 lastOutputSeconds = false;
+                lastOutputZero = days == 0;
+                if(!optional || !lastOutputZero) 
+                	buffer.append(paddedValue(days, padWithZeros, count));
             } else if (value.equals(H)) {
-                buffer.append(paddedValue(hours, padWithZeros, count));
                 lastOutputSeconds = false;
+                lastOutputZero = hours == 0;
+                if(!optional || !lastOutputZero) 
+                	buffer.append(paddedValue(hours, padWithZeros, count));
             } else if (value.equals(m)) {
-                buffer.append(paddedValue(minutes, padWithZeros, count));
                 lastOutputSeconds = false;
+                lastOutputZero = minutes == 0;
+                if(!optional || !lastOutputZero) 
+                	buffer.append(paddedValue(minutes, padWithZeros, count));
             } else if (value.equals(s)) {
-                buffer.append(paddedValue(seconds, padWithZeros, count));
                 lastOutputSeconds = true;
+                lastOutputZero = seconds == 0;
+                if(!optional || !lastOutputZero) 
+                	buffer.append(paddedValue(seconds, padWithZeros, count));
             } else if (value.equals(S)) {
-                if (lastOutputSeconds) {
-                    // ensure at least 3 digits are displayed even if padding is not selected
-                    final int width = padWithZeros ? Math.max(3, count) : 3;
-                    buffer.append(paddedValue(milliseconds, true, width));
+            	lastOutputZero = milliseconds == 0;
+            	if(!optional || !lastOutputZero) {
+                    if (lastOutputSeconds) {
+	                        // ensure at least 3 digits are displayed even if padding is not selected
+	                    	final int width = padWithZeros ? Math.max(3, count) : 3;
+	                        buffer.append(paddedValue(milliseconds, true, width));
                 } else {
-                    buffer.append(paddedValue(milliseconds, padWithZeros, count));
-                }
+                    	buffer.append(paddedValue(milliseconds, padWithZeros, count));
+                    }
+            	}
                 lastOutputSeconds = false;
             }
         }
@@ -495,6 +513,7 @@ public class DurationFormatUtils {
         // used internally, so cannot be accessed by other threads
         StringBuilder buffer = null;
         Token previous = null;
+        boolean inOptional = false;
         for (int i = 0; i < format.length(); i++) {
             final char ch = format.charAt(i);
             if (inLiteral && ch != '\'') {
@@ -504,13 +523,19 @@ public class DurationFormatUtils {
             String value = null;
             switch (ch) {
             // TODO: Need to handle escaping of '
+            case '[':
+            	inOptional = true;
+            	break;
+            case ']':
+            	inOptional = false;
+            	break;
             case '\'':
                 if (inLiteral) {
                     buffer = null;
                     inLiteral = false;
                 } else {
                     buffer = new StringBuilder();
-                    list.add(new Token(buffer));
+                    list.add(new Token(buffer,inOptional));
                     inLiteral = true;
                 }
                 break;
@@ -538,7 +563,7 @@ public class DurationFormatUtils {
             default:
                 if (buffer == null) {
                     buffer = new StringBuilder();
-                    list.add(new Token(buffer));
+                    list.add(new Token(buffer,inOptional));
                 }
                 buffer.append(ch);
             }
@@ -547,7 +572,7 @@ public class DurationFormatUtils {
                 if (previous != null && previous.getValue().equals(value)) {
                     previous.increment();
                 } else {
-                    final Token token = new Token(value);
+                    final Token token = new Token(value,inOptional);
                     list.add(token);
                     previous = token;
                 }
@@ -556,6 +581,9 @@ public class DurationFormatUtils {
         }
         if (inLiteral) { // i.e. we have not found the end of the literal
             throw new IllegalArgumentException("Unmatched quote in format: " + format);
+        }
+        if (inOptional) { // i.e. we have not found the end of the literal
+            throw new IllegalArgumentException("Unmatched optional in format: " + format);
         }
         return list.toArray(Token.EMPTY_ARRAY);
     }
@@ -581,15 +609,22 @@ public class DurationFormatUtils {
 
         private final Object value;
         private int count;
+        private boolean optional = false;
 
+        Token(final Object value) {
+            this.value = value;
+            this.count = 1;
+        }
+        
         /**
          * Wraps a token around a value. A value would be something like a 'Y'.
          *
          * @param value to wrap
          */
-        Token(final Object value) {
+        Token(final Object value, final boolean optional) {
             this.value = value;
             this.count = 1;
+            this.optional = optional;
         }
 
         /**

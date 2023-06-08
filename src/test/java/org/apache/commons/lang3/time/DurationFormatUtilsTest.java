@@ -631,5 +631,32 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
             }
         }
     }
+    
+    @Test
+    public void testUnmatchedOptionalToken() {
+    	assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDuration(1, "[s"));
+    }
+    
+    @Test
+    public void testOptionalToken() {
+    	
+    	//make sure optional formats match corresponding adjusted non-optional formats
+    	assertEquals(
+    			DurationFormatUtils.formatDuration(915361000l, "[d'd'H'h'm'm']s's'"), 
+    			DurationFormatUtils.formatDuration(915361000l, "d'd'H'h'm'm's's'"));
+    	
+    	assertEquals(
+    			DurationFormatUtils.formatDuration(9153610l, "[d'd'H'h'm'm']s's'"), 
+    			DurationFormatUtils.formatDuration(9153610l, "H'h'm'm's's'"));
+    	
+    	assertEquals(
+    			DurationFormatUtils.formatDuration(915361l, "[d'd'H'h'm'm']s's'"), 
+    			DurationFormatUtils.formatDuration(915361l, "m'm's's'"));
+    	
+    	assertEquals(
+    			DurationFormatUtils.formatDuration(9153l, "[d'd'H'h'm'm']s's'"), 
+    			DurationFormatUtils.formatDuration(9153l, "s's'"));
+    	
+    }
 
 }
