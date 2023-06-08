@@ -526,9 +526,11 @@ public class DurationFormatUtils {
             switch (ch) {
             // TODO: Need to handle escaping of '
             case '[':
+                if(inOptional) throw new IllegalArgumentException("Nested optional block at index: "+i);
                 inOptional = true;
                 break;
             case ']':
+                if(!inOptional) throw new IllegalArgumentException("Attempting to close unopened optional block at index: "+i);
                 inOptional = false;
                 break;
             case '\'':

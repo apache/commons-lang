@@ -633,8 +633,10 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testUnmatchedOptionalToken() {
+    public void testUnmatchedOptionalTokens() {
         assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDuration(1, "[s"));
+        assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDuration(1, "[[s"));
+        assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDuration(1, "[s]]"));
     }
 
     @Test
