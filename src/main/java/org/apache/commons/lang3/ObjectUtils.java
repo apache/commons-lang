@@ -595,7 +595,11 @@ public class ObjectUtils {
      * TODO Rename to getIfNull in 4.0
      */
     public static <T> T defaultIfNull(final T object, final T defaultValue) {
-        return object != null ? object : defaultValue;
+        try {
+            return object != null ? object : defaultValue;
+        } catch (NullPointerException npe) {
+            return defaultValue;
+        }
     }
 
     // Null-safe equals/hashCode
