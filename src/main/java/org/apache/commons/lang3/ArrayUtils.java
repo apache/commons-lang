@@ -7896,7 +7896,7 @@ public class ArrayUtils {
      *      is promoted to 0, overvalue (&gt;array.length) results
      *      in an empty array.
      * @param endIndexExclusive  elements up to endIndex-1 are present in the
-     *      returned subarray. Undervalue (&lt; startIndex) produces
+     *      returned subarray. Undervalue (&lt;= startIndex) produces
      *      empty array, overvalue (&gt;array.length) is demoted to
      *      array length.
      * @return a new array containing the elements between
@@ -7937,7 +7937,7 @@ public class ArrayUtils {
      *      is promoted to 0, overvalue (&gt;array.length) results
      *      in an empty array.
      * @param endIndexExclusive  elements up to endIndex-1 are present in the
-     *      returned subarray. Undervalue (&lt; startIndex) produces
+     *      returned subarray. Undervalue (&lt;= startIndex) produces
      *      empty array, overvalue (&gt;array.length) is demoted to
      *      array length.
      * @return a new array containing the elements between
@@ -7978,7 +7978,7 @@ public class ArrayUtils {
      *      is promoted to 0, overvalue (&gt;array.length) results
      *      in an empty array.
      * @param endIndexExclusive  elements up to endIndex-1 are present in the
-     *      returned subarray. Undervalue (&lt; startIndex) produces
+     *      returned subarray. Undervalue (&lt;= startIndex) produces
      *      empty array, overvalue (&gt;array.length) is demoted to
      *      array length.
      * @return a new array containing the elements between
@@ -8019,7 +8019,7 @@ public class ArrayUtils {
      *      is promoted to 0, overvalue (&gt;array.length) results
      *      in an empty array.
      * @param endIndexExclusive  elements up to endIndex-1 are present in the
-     *      returned subarray. Undervalue (&lt; startIndex) produces
+     *      returned subarray. Undervalue (&lt;= startIndex) produces
      *      empty array, overvalue (&gt;array.length) is demoted to
      *      array length.
      * @return a new array containing the elements between
@@ -8060,7 +8060,7 @@ public class ArrayUtils {
      *      is promoted to 0, overvalue (&gt;array.length) results
      *      in an empty array.
      * @param endIndexExclusive  elements up to endIndex-1 are present in the
-     *      returned subarray. Undervalue (&lt; startIndex) produces
+     *      returned subarray. Undervalue (&lt;= startIndex) produces
      *      empty array, overvalue (&gt;array.length) is demoted to
      *      array length.
      * @return a new array containing the elements between
@@ -8101,7 +8101,7 @@ public class ArrayUtils {
      *      is promoted to 0, overvalue (&gt;array.length) results
      *      in an empty array.
      * @param endIndexExclusive  elements up to endIndex-1 are present in the
-     *      returned subarray. Undervalue (&lt; startIndex) produces
+     *      returned subarray. Undervalue (&lt;= startIndex) produces
      *      empty array, overvalue (&gt;array.length) is demoted to
      *      array length.
      * @return a new array containing the elements between
@@ -8142,7 +8142,7 @@ public class ArrayUtils {
      *      is promoted to 0, overvalue (&gt;array.length) results
      *      in an empty array.
      * @param endIndexExclusive  elements up to endIndex-1 are present in the
-     *      returned subarray. Undervalue (&lt; startIndex) produces
+     *      returned subarray. Undervalue (&lt;= startIndex) produces
      *      empty array, overvalue (&gt;array.length) is demoted to
      *      array length.
      * @return a new array containing the elements between
@@ -8183,7 +8183,7 @@ public class ArrayUtils {
      *      is promoted to 0, overvalue (&gt;array.length) results
      *      in an empty array.
      * @param endIndexExclusive  elements up to endIndex-1 are present in the
-     *      returned subarray. Undervalue (&lt; startIndex) produces
+     *      returned subarray. Undervalue (&lt;= startIndex) produces
      *      empty array, overvalue (&gt;array.length) is demoted to
      *      array length.
      * @return a new array containing the elements between
@@ -8233,7 +8233,7 @@ public class ArrayUtils {
      *      is promoted to 0, overvalue (&gt;array.length) results
      *      in an empty array.
      * @param endIndexExclusive  elements up to endIndex-1 are present in the
-     *      returned subarray. Undervalue (&lt; startIndex) produces
+     *      returned subarray. Undervalue (&lt;= startIndex) produces
      *      empty array, overvalue (&gt;array.length) is demoted to
      *      array length.
      * @return a new array containing the elements between
