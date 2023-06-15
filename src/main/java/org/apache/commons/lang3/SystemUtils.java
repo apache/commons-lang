@@ -438,10 +438,10 @@ public class SystemUtils {
      * sync with that System property.
      * </p>
      *
-     * @see SystemProperties#getJavaVersion()
+     * @see SystemProperties#getJavaVendor()
      * @since Java 1.1
      */
-    public static final String JAVA_VENDOR = SystemProperties.getJavaVersion();
+    public static final String JAVA_VENDOR = SystemProperties.getJavaVendor();
 
     /**
      * The {@code java.vendor.url} System Property. Java vendor URL.
