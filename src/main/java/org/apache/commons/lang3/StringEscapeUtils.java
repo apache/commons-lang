@@ -47,11 +47,11 @@ public class StringEscapeUtils {
 
     /**
      * Translator object for escaping Java.
-     *
+     * <p>
      * While {@link #escapeJava(String)} is the expected method of use, this
      * object allows the Java escaping functionality to be used
      * as the foundation for a custom translator.
-     *
+     * </p>
      * @since 3.0
      */
     public static final CharSequenceTranslator ESCAPE_JAVA =
@@ -67,11 +67,11 @@ public class StringEscapeUtils {
 
     /**
      * Translator object for escaping EcmaScript/JavaScript.
-     *
+     * <p>
      * While {@link #escapeEcmaScript(String)} is the expected method of use, this
      * object allows the EcmaScript escaping functionality to be used
      * as the foundation for a custom translator.
-     *
+     * </p>
      * @since 3.0
      */
     public static final CharSequenceTranslator ESCAPE_ECMASCRIPT =
@@ -89,11 +89,11 @@ public class StringEscapeUtils {
 
     /**
      * Translator object for escaping Json.
-     *
+     * <p>
      * While {@link #escapeJson(String)} is the expected method of use, this
      * object allows the Json escaping functionality to be used
      * as the foundation for a custom translator.
-     *
+     * </p>
      * @since 3.2
      */
     public static final CharSequenceTranslator ESCAPE_JSON =
@@ -110,11 +110,11 @@ public class StringEscapeUtils {
 
     /**
      * Translator object for escaping XML.
-     *
+     * <p>
      * While {@link #escapeXml(String)} is the expected method of use, this
      * object allows the XML escaping functionality to be used
      * as the foundation for a custom translator.
-     *
+     * </p>
      * @since 3.0
      * @deprecated use {@link #ESCAPE_XML10} or {@link #ESCAPE_XML11} instead.
      */
@@ -127,11 +127,11 @@ public class StringEscapeUtils {
 
     /**
      * Translator object for escaping XML 1.0.
-     *
+     * <p>
      * While {@link #escapeXml10(String)} is the expected method of use, this
      * object allows the XML escaping functionality to be used
      * as the foundation for a custom translator.
-     *
+     * </p>
      * @since 3.3
      */
     public static final CharSequenceTranslator ESCAPE_XML10 =
@@ -179,11 +179,11 @@ public class StringEscapeUtils {
 
     /**
      * Translator object for escaping XML 1.1.
-     *
+     * <p>
      * While {@link #escapeXml11(String)} is the expected method of use, this
      * object allows the XML escaping functionality to be used
      * as the foundation for a custom translator.
-     *
+     * </p>
      * @since 3.3
      */
     public static final CharSequenceTranslator ESCAPE_XML11 =
@@ -207,11 +207,11 @@ public class StringEscapeUtils {
 
     /**
      * Translator object for escaping HTML version 3.0.
-     *
+     * <p>
      * While {@link #escapeHtml3(String)} is the expected method of use, this
      * object allows the HTML escaping functionality to be used
      * as the foundation for a custom translator.
-     *
+     * </p>
      * @since 3.0
      */
     public static final CharSequenceTranslator ESCAPE_HTML3 =
@@ -222,11 +222,11 @@ public class StringEscapeUtils {
 
     /**
      * Translator object for escaping HTML version 4.0.
-     *
+     * <p>
      * While {@link #escapeHtml4(String)} is the expected method of use, this
      * object allows the HTML escaping functionality to be used
      * as the foundation for a custom translator.
-     *
+     * </p>
      * @since 3.0
      */
     public static final CharSequenceTranslator ESCAPE_HTML4 =
@@ -238,11 +238,11 @@ public class StringEscapeUtils {
 
     /**
      * Translator object for escaping individual Comma Separated Values.
-     *
+     * <p>
      * While {@link #escapeCsv(String)} is the expected method of use, this
      * object allows the CSV escaping functionality to be used
      * as the foundation for a custom translator.
-     *
+     * </p>
      * @since 3.0
      */
     public static final CharSequenceTranslator ESCAPE_CSV = new CsvEscaper();
@@ -279,11 +279,11 @@ public class StringEscapeUtils {
 
     /**
      * Translator object for unescaping escaped Java.
-     *
+     * <p>
      * While {@link #unescapeJava(String)} is the expected method of use, this
      * object allows the Java unescaping functionality to be used
      * as the foundation for a custom translator.
-     *
+     * </p>
      * @since 3.0
      */
     // TODO: throw "illegal character: \92" as an Exception if a \ on the end of the Java (as per the compiler)?
@@ -303,33 +303,33 @@ public class StringEscapeUtils {
 
     /**
      * Translator object for unescaping escaped EcmaScript.
-     *
+     * <p>
      * While {@link #unescapeEcmaScript(String)} is the expected method of use, this
      * object allows the EcmaScript unescaping functionality to be used
      * as the foundation for a custom translator.
-     *
+     * </p>
      * @since 3.0
      */
     public static final CharSequenceTranslator UNESCAPE_ECMASCRIPT = UNESCAPE_JAVA;
 
     /**
      * Translator object for unescaping escaped Json.
-     *
+     * <p>
      * While {@link #unescapeJson(String)} is the expected method of use, this
      * object allows the Json unescaping functionality to be used
      * as the foundation for a custom translator.
-     *
+     * </p>
      * @since 3.2
      */
     public static final CharSequenceTranslator UNESCAPE_JSON = UNESCAPE_JAVA;
 
     /**
      * Translator object for unescaping escaped HTML 3.0.
-     *
+     * <p>
      * While {@link #unescapeHtml3(String)} is the expected method of use, this
      * object allows the HTML unescaping functionality to be used
      * as the foundation for a custom translator.
-     *
+     * </p>
      * @since 3.0
      */
     public static final CharSequenceTranslator UNESCAPE_HTML3 =
@@ -341,11 +341,11 @@ public class StringEscapeUtils {
 
     /**
      * Translator object for unescaping escaped HTML 4.0.
-     *
+     * <p>
      * While {@link #unescapeHtml4(String)} is the expected method of use, this
      * object allows the HTML unescaping functionality to be used
      * as the foundation for a custom translator.
-     *
+     * </p>
      * @since 3.0
      */
     public static final CharSequenceTranslator UNESCAPE_HTML4 =
@@ -358,11 +358,11 @@ public class StringEscapeUtils {
 
     /**
      * Translator object for unescaping escaped XML.
-     *
+     * <p>
      * While {@link #unescapeXml(String)} is the expected method of use, this
      * object allows the XML unescaping functionality to be used
      * as the foundation for a custom translator.
-     *
+     * </p>
      * @since 3.0
      */
     public static final CharSequenceTranslator UNESCAPE_XML =
@@ -374,11 +374,11 @@ public class StringEscapeUtils {
 
     /**
      * Translator object for unescaping escaped Comma Separated Value entries.
-     *
+     * <p>
      * While {@link #unescapeCsv(String)} is the expected method of use, this
      * object allows the CSV unescaping functionality to be used
      * as the foundation for a custom translator.
-     *
+     * </p>
      * @since 3.0
      */
     public static final CharSequenceTranslator UNESCAPE_CSV = new CsvUnescaper();

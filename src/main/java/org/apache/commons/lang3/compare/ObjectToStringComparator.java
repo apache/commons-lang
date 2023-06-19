@@ -22,17 +22,18 @@ import java.util.Comparator;
 
 /**
  * Compares Object's {@link Object#toString()} values.
- *
+ * <p>
  * This class is stateless.
- *
+ * </p>
  * @since 3.10
  */
 public final class ObjectToStringComparator implements Comparator<Object>, Serializable {
 
     /**
      * Singleton instance.
-     *
+     * <p>
      * This class is stateless.
+     * </p>
      */
     public static final ObjectToStringComparator INSTANCE = new ObjectToStringComparator();
 

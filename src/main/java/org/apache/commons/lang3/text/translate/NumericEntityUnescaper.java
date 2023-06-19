@@ -25,9 +25,9 @@ import java.util.EnumSet;
 /**
  * Translate XML numeric entities of the form &amp;#[xX]?\d+;? to
  * the specific code point.
- *
+ * <p>
  * Note that the semicolon is optional.
- *
+ * </p>
  * @since 3.0
  * @deprecated As of 3.6, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/NumericEntityUnescaper.html">
@@ -60,18 +60,19 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
 
     /**
      * Create a UnicodeUnescaper.
-     *
+     * <p>
      * The constructor takes a list of options, only one type of which is currently
      * available (whether to allow, error or ignore the semicolon on the end of a
      * numeric entity to being missing).
-     *
+     * <p>
      * For example, to support numeric entities without a ';':
      *    new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.semiColonOptional)
      * and to throw an IllegalArgumentException when they're missing:
      *    new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.errorIfNoSemiColon)
-     *
+     * </p>
+     * <p>
      * Note that the default behavior is to ignore them.
-     *
+     * </p>
      * @param options to apply to this unescaper
      */
     public NumericEntityUnescaper(final OPTION... options) {

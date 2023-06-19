@@ -984,7 +984,7 @@ public class ObjectUtils {
 
     /**
      * Checks if an Object is empty or null.
-     *
+     * <p>
      * The following types are supported:
      * <ul>
      * <li>{@link CharSequence}: Considered empty if its length is zero.</li>
@@ -993,7 +993,7 @@ public class ObjectUtils {
      * <li>{@link Map}: Considered empty if it has zero key-value mappings.</li>
      * <li>{@link Optional}: Considered empty if {@link Optional#isPresent} returns false, regardless of the "emptiness" of the contents.</li>
      * </ul>
-     *
+     * </p>
      * <pre>
      * ObjectUtils.isEmpty(null)             = true
      * ObjectUtils.isEmpty("")               = true
@@ -1036,7 +1036,7 @@ public class ObjectUtils {
 
     /**
      * Checks if an Object is not empty and not null.
-     *
+     * <p>
      * The following types are supported:
      * <ul>
      * <li>{@link CharSequence}: Considered empty if its length is zero.</li>
@@ -1045,7 +1045,7 @@ public class ObjectUtils {
      * <li>{@link Map}: Considered empty if it has zero key-value mappings.</li>
      * <li>{@link Optional}: Considered empty if {@link Optional#isPresent} returns false, regardless of the "emptiness" of the contents.</li>
      * </ul>
-     *
+     * </p>
      * <pre>
      * ObjectUtils.isNotEmpty(null)             = false
      * ObjectUtils.isNotEmpty("")               = false
