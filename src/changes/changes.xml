@@ -119,6 +119,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="laurentschoelens, Bruno P. Kinoshita, Diego Marcilio">[LANG-1681] Fix some FieldUtils Javadocs #1047.</action>
     <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Remove unnecessary statement in DurationFormatUtils #965.</action>
     <action issue="LANG-1699" type="fix" dev="ggregory" due-to="Darren Coleman">Corrected value of SystemUtils.JAVA_VENDOR #1066.</action>
+    <action                   type="fix" dev="ggregory" due-to="step-security-bot, Gary Gregory">[StepSecurity] ci: Harden GitHub Actions #1067.</action>            
+    
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add GitHub coverage.yml.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
