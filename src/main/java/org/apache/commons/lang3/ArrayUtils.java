@@ -20,18 +20,22 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
-
+import java.util.stream.IntStream;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -8867,6 +8871,294 @@ public class ArrayUtils {
             array[offset1] = array[offset2];
             array[offset2] = aux;
         }
+    }
+
+  /**
+   * Returns an array containing elements that exist in the first array but not in the second one.
+   *
+   * @param array1 the first array, must not be {@code null}
+   * @param array2 the second array, may be {@code null}
+   * @return a new array containing the elements that
+   * exist in the first array but not in the second one.
+   */
+  public static char[] difference(final char[] array1, final char[] array2) {
+      if (array1 == null) {
+          return null;
+      }
+
+      if (isEmpty(array1) || isEmpty(array2)) {
+          return array1;
+      }
+
+      Set<Character> secondSet = new HashSet<>(array2.length);
+
+      for (char b : array2) {
+          secondSet.add(b);
+      }
+
+      List<Character> resultTemp = new ArrayList<>();
+
+      for (char a : array1) {
+          if (!secondSet.contains(a)) {
+              resultTemp.add(a);
+          }
+      }
+
+      char[] result = new char[resultTemp.size()];
+      IntStream.range(0, resultTemp.size()).forEach(i -> result[i] = resultTemp.get(i));
+      return result;
+    }
+
+    /**
+     * Returns an array containing elements that exist in the first array but not in the second one.
+     *
+     * @param array1 the first array, must not be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return a new array containing the elements that
+     * exist in the first array but not in the second one.
+     */
+    public static byte[] difference(final byte[] array1, final byte[] array2) {
+        if (array1 == null) {
+            return null;
+        }
+
+        if (isEmpty(array1) || isEmpty(array2)) {
+            return array1;
+        }
+
+        Set<Byte> secondSet = new HashSet<>(array2.length);
+
+        for (byte b : array2) {
+            secondSet.add(b);
+        }
+
+        List<Byte> resultTemp = new ArrayList<>();
+
+        for (byte a : array1) {
+            if (!secondSet.contains(a)) {
+                resultTemp.add(a);
+            }
+        }
+
+        byte[] result = new byte[resultTemp.size()];
+        IntStream.range(0, resultTemp.size()).forEach(i -> result[i] = resultTemp.get(i));
+        return result;
+    }
+
+    /**
+     * Returns an array containing elements that exist in the first array but not in the second one.
+     *
+     * @param array1 the first array, must not be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return a new array containing the elements that
+     * exist in the first array but not in the second one.
+     */
+    public static short[] difference(final short[] array1, final short[] array2) {
+        if (array1 == null) {
+            return null;
+        }
+
+        if (isEmpty(array1) || isEmpty(array2)) {
+            return array1;
+        }
+
+        Set<Short> secondSet = new HashSet<>(array2.length);
+
+        for (short b : array2) {
+            secondSet.add(b);
+        }
+
+        List<Short> resultTemp = new ArrayList<>();
+
+        for (short a : array1) {
+            if (!secondSet.contains(a)) {
+                resultTemp.add(a);
+            }
+        }
+
+        short[] result = new short[resultTemp.size()];
+        IntStream.range(0, resultTemp.size()).forEach(i -> result[i] = resultTemp.get(i));
+        return result;
+    }
+
+    /**
+     * Returns an array containing elements that exist in the first array but not in the second one.
+     *
+     * @param array1 the first array, must not be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return a new array containing the elements that
+     * exist in the first array but not in the second one.
+     */
+    public static int[] difference(final int[] array1, final int[] array2) {
+        if (array1 == null) {
+            return null;
+        }
+
+        if (isEmpty(array1) || isEmpty(array2)) {
+            return array1;
+        }
+
+        Set<Integer> secondSet = new HashSet<>(array2.length);
+
+        for (int b : array2) {
+            secondSet.add(b);
+        }
+
+        List<Integer> resultTemp = new ArrayList<>();
+
+        for (int a : array1) {
+            if (!secondSet.contains(a)) {
+                resultTemp.add(a);
+            }
+        }
+
+        int[] result = new int[resultTemp.size()];
+        IntStream.range(0, resultTemp.size()).forEach(i -> result[i] = resultTemp.get(i));
+        return result;
+    }
+
+    /**
+     * Returns an array containing elements that exist in the first array but not in the second one.
+     *
+     * @param array1 the first array, must not be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return a new array containing the elements that
+     * exist in the first array but not in the second one.
+     */
+    public static long[] difference(final long[] array1, final long[] array2) {
+        if (array1 == null) {
+            return null;
+        }
+
+        if (isEmpty(array1) || isEmpty(array2)) {
+            return array1;
+        }
+
+        Set<Long> secondSet = new HashSet<>(array2.length);
+
+        for (long b : array2) {
+            secondSet.add(b);
+        }
+
+        List<Long> resultTemp = new ArrayList<>();
+
+        for (long a : array1) {
+            if (!secondSet.contains(a)) {
+                resultTemp.add(a);
+            }
+        }
+
+        long[] result = new long[resultTemp.size()];
+        IntStream.range(0, resultTemp.size()).forEach(i -> result[i] = resultTemp.get(i));
+        return result;
+    }
+
+    /**
+     * Returns an array containing elements that exist in the first array but not in the second one.
+     *
+     * @param array1 the first array, must not be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return a new array containing the elements that
+     * exist in the first array but not in the second one.
+     */
+    public static float[] difference(final float[] array1, final float[] array2) {
+        if (array1 == null) {
+            return null;
+        }
+
+        if (isEmpty(array1) || isEmpty(array2)) {
+            return array1;
+        }
+
+        Set<Float> secondSet = new HashSet<>(array2.length);
+
+        for (float b : array2) {
+            secondSet.add(b);
+        }
+
+        List<Float> resultTemp = new ArrayList<>();
+
+        for (float a : array1) {
+            if (!secondSet.contains(a)) {
+                resultTemp.add(a);
+            }
+        }
+
+        float[] result = new float[resultTemp.size()];
+        IntStream.range(0, resultTemp.size()).forEach(i -> result[i] = resultTemp.get(i));
+        return result;
+    }
+
+    /**
+     * Returns an array containing elements that exist in the first array but not in the second one.
+     *
+     * @param array1 the first array, must not be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return a new array containing the elements that
+     * exist in the first array but not in the second one.
+     */
+    public static double[] difference(final double[] array1, final double[] array2) {
+        if (array1 == null) {
+            return null;
+        }
+
+        if (isEmpty(array1) || isEmpty(array2)) {
+            return array1;
+        }
+
+        Set<Double> secondSet = new HashSet<>(array2.length);
+
+        for (double b : array2) {
+            secondSet.add(b);
+        }
+
+        List<Double> resultTemp = new ArrayList<>();
+
+        for (double a : array1) {
+            if (!secondSet.contains(a)) {
+                resultTemp.add(a);
+            }
+        }
+
+        double[] result = new double[resultTemp.size()];
+        IntStream.range(0, resultTemp.size()).forEach(i -> result[i] = resultTemp.get(i));
+        return result;
+    }
+
+    /**
+     * Returns an array containing elements that exist in the first array but not in the second one.
+     *
+     * @param array1 the first array, must not be {@code null}
+     * @param array2 the second array, may be {@code null}
+     * @return a new array containing the elements that
+     * exist in the first array but not in the second one.
+     */
+    public static Object[] difference(final Object[] array1, final Object[] array2) {
+        if (array1 == null) {
+            return null;
+        }
+
+        if (isEmpty(array1) || isEmpty(array2)) {
+            return array1;
+        }
+
+        Set<Object> secondSet = new HashSet<>(array2.length);
+
+        for (Object b : array2) {
+            secondSet.add(b);
+        }
+
+        List<Object> resultTemp = new ArrayList<>();
+
+        for (Object a : array1) {
+            if (!secondSet.contains(a)) {
+                resultTemp.add(a);
+            }
+        }
+
+        Object[] result = new Object[resultTemp.size()];
+        IntStream.range(0, resultTemp.size()).forEach(i -> result[i] = resultTemp.get(i));
+        return result;
     }
 
     /**

@@ -6122,6 +6122,178 @@ public class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testDifference_char_nullOrEmpty() {
+        final char[] nullArray = null;
+        final char[] emptyArray = {};
+        final char[] oneArray = {'a'};
+
+        assertArrayEquals(nullArray, ArrayUtils.difference(null, oneArray));
+        assertArrayEquals(oneArray, ArrayUtils.difference(oneArray, null));
+    }
+
+    @Test
+    public void testDifference_char_notEmpty() {
+        final char[] emptyArray = {};
+        final char[] oneArray = {'a', 'b', 'c'};
+        final char[] twoArray = {'b', 'd', 'e'};
+        final char[] expectedArray = {'a', 'c'};
+
+        assertArrayEquals(emptyArray, ArrayUtils.difference(oneArray, oneArray));
+        assertArrayEquals(expectedArray, ArrayUtils.difference(oneArray, twoArray));
+    }
+
+    @Test
+    public void testDifference_byte_nullOrEmpty() {
+        final byte[] nullArray = null;
+        final byte[] oneArray = {12};
+
+        assertArrayEquals(nullArray, ArrayUtils.difference(null, oneArray));
+        assertArrayEquals(oneArray, ArrayUtils.difference(oneArray, null));
+    }
+
+    @Test
+    public void testDifference_byte_notEmpty() {
+        final byte[] emptyArray = {};
+        final byte[] oneArray = {5, 6, 7};
+        final byte[] twoArray = {6, 8, 9};
+        final byte[] expectedArray = {5, 7};
+
+        assertArrayEquals(emptyArray, ArrayUtils.difference(oneArray, oneArray));
+        assertArrayEquals(expectedArray, ArrayUtils.difference(oneArray, twoArray));
+    }
+
+    @Test
+    public void testDifference_short_nullOrEmpty() {
+        final short[] nullArray = null;
+        final short[] oneArray = {12};
+
+        assertArrayEquals(nullArray, ArrayUtils.difference(null, oneArray));
+        assertArrayEquals(oneArray, ArrayUtils.difference(oneArray, null));
+    }
+
+    @Test
+    public void testDifference_short_notEmpty() {
+        final short[] emptyArray = {};
+        final short[] oneArray = {5, 6, 7};
+        final short[] twoArray = {6, 8, 9};
+        final short[] expectedArray = {5, 7};
+
+        assertArrayEquals(emptyArray, ArrayUtils.difference(oneArray, oneArray));
+        assertArrayEquals(expectedArray, ArrayUtils.difference(oneArray, twoArray));
+    }
+
+    @Test
+    public void testDifference_int_nullOrEmpty() {
+        final int[] nullArray = null;
+        final int[] oneArray = {12};
+
+        assertArrayEquals(nullArray, ArrayUtils.difference(null, oneArray));
+        assertArrayEquals(oneArray, ArrayUtils.difference(oneArray, null));
+    }
+
+    @Test
+    public void testDifference_int_notEmpty() {
+        final int[] emptyArray = {};
+        final int[] oneArray = {5, 6, 7};
+        final int[] twoArray = {6, 8, 9};
+        final int[] expectedArray = {5, 7};
+
+        assertArrayEquals(emptyArray, ArrayUtils.difference(oneArray, oneArray));
+        assertArrayEquals(expectedArray, ArrayUtils.difference(oneArray, twoArray));
+    }
+
+    @Test
+    public void testDifference_long_nullOrEmpty() {
+        final long[] nullArray = null;
+        final long[] oneArray = {12L};
+
+        assertArrayEquals(nullArray, ArrayUtils.difference(null, oneArray));
+        assertArrayEquals(oneArray, ArrayUtils.difference(oneArray, null));
+    }
+
+    @Test
+    public void testDifference_long_notEmpty() {
+        final long[] emptyArray = {};
+        final long[] oneArray = {5L, 6L, 7L};
+        final long[] twoArray = {6L, 8L, 9L};
+        final long[] expectedArray = {5L, 7L};
+
+        assertArrayEquals(emptyArray, ArrayUtils.difference(oneArray, oneArray));
+        assertArrayEquals(expectedArray, ArrayUtils.difference(oneArray, twoArray));
+    }
+
+    @Test
+    public void testDifference_float_nullOrEmpty() {
+        final float[] nullArray = null;
+        final float[] oneArray = {12f};
+
+        assertArrayEquals(nullArray, ArrayUtils.difference(null, oneArray));
+        assertArrayEquals(oneArray, ArrayUtils.difference(oneArray, null));
+    }
+
+    @Test
+    public void testDifference_float_notEmpty() {
+        final float[] emptyArray = {};
+        final float[] oneArray = {5f, 6f, 7f};
+        final float[] twoArray = {6f, 8f, 9f};
+        final float[] expectedArray = {5f, 7f};
+
+        assertArrayEquals(emptyArray, ArrayUtils.difference(oneArray, oneArray));
+        assertArrayEquals(expectedArray, ArrayUtils.difference(oneArray, twoArray));
+    }
+
+    @Test
+    public void testDifference_double_nullOrEmpty() {
+        final double[] nullArray = null;
+        final double[] oneArray = {12d};
+
+        assertArrayEquals(nullArray, ArrayUtils.difference(null, oneArray));
+        assertArrayEquals(oneArray, ArrayUtils.difference(oneArray, null));
+    }
+
+    @Test
+    public void testDifference_double_notEmpty() {
+        final double[] emptyArray = {};
+        final double[] oneArray = {5d, 6d, 7d};
+        final double[] twoArray = {6d, 8d, 9d};
+        final double[] expectedArray = {5d, 7d};
+
+        assertArrayEquals(emptyArray, ArrayUtils.difference(oneArray, oneArray));
+        assertArrayEquals(expectedArray, ArrayUtils.difference(oneArray, twoArray));
+    }
+
+    @Test
+    public void testDifference_object_array_nullOrEmpty() {
+        final Object[] nullArray = null;
+        final Object[] oneArray = {12};
+
+        assertArrayEquals(nullArray, ArrayUtils.difference(null, oneArray));
+        assertArrayEquals(oneArray, ArrayUtils.difference(oneArray, null));
+    }
+
+    @Test
+    public void testDifference_object_int_array_notEmpty() {
+        final Object[] emptyArray = {};
+        final Object[] oneArray = {5, 6, 7};
+        final Object[] twoArray = {6, 8, 9};
+        final Object[] expectedArray = {5, 7};
+
+        assertArrayEquals(emptyArray, ArrayUtils.difference(oneArray, oneArray));
+        assertArrayEquals(expectedArray, ArrayUtils.difference(oneArray, twoArray));
+    }
+
+    @Test
+    public void testDifference_object_mixed_array_notEmpty() {
+        final Object[] emptyArray = {};
+        final Object[] oneArray = {'5', 6d, 7};
+        final Object[] twoArray = {6d, 8, '9'};
+        final Object[] expectedArray = {'5', 7};
+
+        assertArrayEquals(emptyArray, ArrayUtils.difference(oneArray, oneArray));
+        assertArrayEquals(expectedArray, ArrayUtils.difference(oneArray, twoArray));
+    }
+
+    @Test
     public void testToMap() {
         Map<?, ?> map = ArrayUtils.toMap(new String[][]{{"foo", "bar"}, {"hello", "world"}});
 
