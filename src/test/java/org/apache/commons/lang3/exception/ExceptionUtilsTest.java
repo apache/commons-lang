@@ -850,4 +850,40 @@ public class ExceptionUtilsTest extends AbstractLangTest {
         final Throwable t = assertThrows(Throwable.class, () -> ExceptionUtils.wrapAndThrow(new TestThrowable()));
         assertTrue(ExceptionUtils.hasCause(t, TestThrowable.class));
     }
+
+    @Test
+    public void testIsChecked_unchecked() {
+        final boolean result = ExceptionUtils.isChecked(new IllegalArgumentException());
+        assertFalse(result);
+    }
+
+    @Test
+    public void testIsChecked_checked() {
+        final boolean result = ExceptionUtils.isChecked(new IOException());
+        assertTrue(result);
+    }
+
+    @Test
+    public void testIsChecked_error() {
+        final boolean result = ExceptionUtils.isChecked(new StackOverflowError());
+        assertFalse(result);
+    }
+
+    @Test
+    public void testIsUnchecked_unchecked() {
+        final boolean result = ExceptionUtils.isUnchecked(new IllegalArgumentException());
+        assertTrue(result);
+    }
+
+    @Test
+    public void testIsUnchecked_checked() {
+        final boolean result = ExceptionUtils.isUnchecked(new IOException());
+        assertFalse(result);
+    }
+
+    @Test
+    public void testIsUnchecked_error() {
+        final boolean result = ExceptionUtils.isUnchecked(new StackOverflowError());
+        assertTrue(result);
+    }
 }

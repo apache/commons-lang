@@ -973,6 +973,30 @@ public class ExceptionUtils {
     }
 
     /**
+     * Checks if a throwable represents a checked exception
+     *
+     * @param throwable
+     *            The throwable to check.
+     * @return True if the given Throwable is a checked exception.
+     * @since 3.13
+     */
+    public static boolean isChecked(Throwable throwable) {
+        return throwable instanceof Error == false && throwable instanceof RuntimeException == false;
+    }
+
+    /**
+     * Checks if a throwable represents an unchecked exception
+     *
+     * @param throwable
+     *            The throwable to check.
+     * @return True if the given Throwable is an unchecked exception.
+     * @since 3.13
+     */
+    public static boolean isUnchecked(Throwable throwable) {
+        return !isChecked(throwable);
+    }
+
+    /**
      * Public constructor allows an instance of {@link ExceptionUtils} to be created, although that is not
      * normally necessary.
      */
