@@ -1856,9 +1856,9 @@ public class NumberUtils {
      * and {@code 1} if it is.
      * @since 3.13
      */
-    public static boolean isHexadecimal(String str) {
+    public static boolean isHexadecimal(CharSequence str) {
         if (str != null) {
-            return str.matches("^(0x|0X)?[0-9a-fA-F]+$");
+            return str.toString().matches("^(0x|0X)?[0-9a-fA-F]+$");
         }
 
         return false;

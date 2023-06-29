@@ -1745,7 +1745,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * Test for {@link NumberUtils#isHexadecimal(String)}.
+     * Test for {@link NumberUtils#isHexadecimal(CharSequence)}.
      */
     @Test
     public void testIsHexadecimal() {
