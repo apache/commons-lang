@@ -1847,4 +1847,20 @@ public class NumberUtils {
     public static int compare(final byte x, final byte y) {
         return x - y;
     }
+
+    /**
+     * Checks if the given string represents a hexadecimal number without creating a number.
+     *
+     * @param str the {@code String} to check
+     * @return the value {@code 0} if the given string is not a hexadecimal number
+     * and {@code 1} if it is.
+     * @since 3.13
+     */
+    public static boolean isHexadecimal(String str) {
+        if (str != null) {
+            return str.matches("^(0x|0X)?[0-9a-fA-F]+$");
+        }
+
+        return false;
+    }
 }

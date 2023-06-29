@@ -1743,4 +1743,21 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertEquals(12345, NumberUtils.toShort("12345", (short) 5), "toShort(String, short) 1 failed");
         assertEquals(5, NumberUtils.toShort("1234.5", (short) 5), "toShort(String, short) 2 failed");
     }
+
+    /**
+     * Test for {@link NumberUtils#isHexadecimal(String)}.
+     */
+    @Test
+    public void testIsHexadecimal() {
+        assertFalse(NumberUtils.isHexadecimal(null));
+        assertFalse(NumberUtils.isHexadecimal(""));
+        assertTrue(NumberUtils.isHexadecimal("5D0"));
+        assertTrue(NumberUtils.isHexadecimal("0x7FFFFFFFFFFFFFFF"));
+        assertTrue(NumberUtils.isHexadecimal("0X7FFFFFFFFFFFFFFF"));
+        assertTrue(NumberUtils.isHexadecimal("0X7FfFFfFFfFFfFFfF"));
+        assertTrue(NumberUtils.isHexadecimal("0x12345678"));
+        assertFalse(NumberUtils.isHexadecimal("0x"));
+        assertFalse(NumberUtils.isHexadecimal("0X"));
+
+    }
 }
