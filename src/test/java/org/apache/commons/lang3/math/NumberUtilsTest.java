@@ -28,7 +28,8 @@ import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
-
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
@@ -1742,5 +1743,33 @@ public class NumberUtilsTest extends AbstractLangTest {
     public void testToShortStringI() {
         assertEquals(12345, NumberUtils.toShort("12345", (short) 5), "toShort(String, short) 1 failed");
         assertEquals(5, NumberUtils.toShort("1234.5", (short) 5), "toShort(String, short) 2 failed");
+    }
+
+    /**
+     * Test for {@link NumberUtils#extractNumbers(String)}.
+     */
+    @Test
+    public void testExtractNumbers() {
+        List<Double> numbers = new ArrayList<>();
+        assertEquals(numbers, NumberUtils.extractNumbers(null));
+        assertEquals(numbers, NumberUtils.extractNumbers(""));
+        assertEquals(numbers, NumberUtils.extractNumbers("this is test text"));
+        numbers.add(12.3d);
+        assertEquals(numbers, NumberUtils.extractNumbers(" Duration : 12.3 days, some minutes"));
+        numbers.add(34.0d);
+        assertEquals(numbers, NumberUtils.extractNumbers(" Duration : 12.3 days, 34minutes"));
+        numbers.clear();
+        numbers.add(76.0d);
+        numbers.add(180.2d);
+        assertEquals(numbers, NumberUtils.extractNumbers("Weight is 76 and height is 180.2 cm"));
+        numbers.clear();
+        numbers.add(12.22198254786d);
+        numbers.add(90.0d);
+        assertEquals(numbers, NumberUtils.extractNumbers("Between 12.22198254786 and 90"));
+        numbers.clear();
+        numbers.add(1289.0d);
+        numbers.add(9283.112d);
+        numbers.add(281.0d);
+        assertEquals(numbers, NumberUtils.extractNumbers("First: 1289.0 Second: 9283.112 Third: 281"));
     }
 }

@@ -20,8 +20,11 @@ import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
@@ -1846,5 +1849,34 @@ public class NumberUtils {
      */
     public static int compare(final byte x, final byte y) {
         return x - y;
+    }
+
+    /**
+     * Extracts the numbers from the given input.
+     *
+     * This code first compiles the regex pattern and creates a Matcher for the input string.
+     * It then loops over all matches, parses each match as a double, and adds it to the numbers list.
+     * When there are no more matches, it returns the list of numbers.
+     *
+     * This method will handle both integers and floating point numbers,
+     * and it will also handle negative numbers due to the [+-]? part of the regular expression.
+     * It will not handle scientific notation (like "1.23e-4").
+     *
+     * @param str the {@code String} from which to extract numbers.
+     * @return a list of decimal numbers, if any were found.
+     * @since 3.13
+     */
+    public static List<Double> extractNumbers(String str) {
+        List<Double> numbers = new ArrayList<>();
+
+        if (str != null && !str.isEmpty()) {
+            Matcher matcher = Pattern.compile("[+-]?\\d*\\.?\\d+").matcher(str);
+
+            while (matcher.find()) {
+                numbers.add(Double.parseDouble(matcher.group()));
+            }
+        }
+
+        return numbers;
     }
 }
