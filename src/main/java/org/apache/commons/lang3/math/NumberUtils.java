@@ -1754,9 +1754,6 @@ public class NumberUtils {
         if (StringUtils.isEmpty(str)) {
             return false;
         }
-        if (str.charAt(str.length() - 1) == '.') {
-            return false;
-        }
         if (str.charAt(0) == '-') {
             if (str.length() == 1) {
                 return false;
@@ -1776,7 +1773,7 @@ public class NumberUtils {
             if (decimalPoints > 1) {
                 return false;
             }
-            if (!isDecimalPoint && !Character.isDigit(str.charAt(i))) {
+            if (!isDecimalPoint && !Character.isDigit(str.charAt(i)) && !(i == str.length() - 1 && str.charAt(i) == '.')) {
                 return false;
             }
         }
