@@ -655,7 +655,7 @@ public class ArrayUtils {
             Array.set(joinedArray, 0, element);
             return joinedArray;
         }
-        final int length = Array.getLength(array);
+        final int length = getLength(array);
         if (index > length || index < 0) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + length);
         }
@@ -1668,7 +1668,7 @@ public class ArrayUtils {
      */
     private static Object copyArrayGrow1(final Object array, final Class<?> newArrayComponentType) {
         if (array != null) {
-            final int arrayLength = Array.getLength(array);
+            final int arrayLength = getLength(array);
             final Object newArray = Array.newInstance(array.getClass().getComponentType(), arrayLength + 1);
             System.arraycopy(array, 0, newArray, 0, arrayLength);
             return newArray;
