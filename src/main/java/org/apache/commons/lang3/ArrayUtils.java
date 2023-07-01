@@ -1105,8 +1105,8 @@ public class ArrayUtils {
         if (array2 == null) {
             return clone(array1);
         }
-        final Class<T> type1 = getComponentType(array1);
-        final T[] joinedArray = newInstance(type1, array1.length + array2.length);
+
+        final T[] joinedArray = Arrays.copyOf(array1, array1.length + array2.length);
         System.arraycopy(array1, 0, joinedArray, 0, array1.length);
         try {
             System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
@@ -1117,7 +1117,8 @@ public class ArrayUtils {
              * - it would be a wasted check most of the time
              * - safer, in case check turns out to be too strict
              */
-            final Class<?> type2 = array2.getClass().getComponentType();
+            final Class<T> type1 = getComponentType(array1);
+            final Class<?> type2 = getComponentType(array2);
             if (!type1.isAssignableFrom(type2)) {
                 throw new IllegalArgumentException("Cannot store " + type2.getName() + " in an array of "
                         + type1.getName(), ase);
