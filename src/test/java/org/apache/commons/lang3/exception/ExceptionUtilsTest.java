@@ -123,18 +123,18 @@ public class ExceptionUtilsTest extends AbstractLangTest {
         }
     }
 
+    private ExceptionWithCause cyclicCause;
+
+
+    private Throwable jdkNoCause;
+
     private NestableException nested;
 
+    private Throwable notVisibleException;
 
     private Throwable withCause;
 
     private Throwable withoutCause;
-
-    private Throwable jdkNoCause;
-
-    private ExceptionWithCause cyclicCause;
-
-    private Throwable notVisibleException;
 
     private Throwable createExceptionWithCause() {
         try {
@@ -611,6 +611,41 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testIsChecked_checked() {
+        assertTrue(ExceptionUtils.isChecked(new IOException()));
+    }
+
+    @Test
+    public void testIsChecked_error() {
+        assertFalse(ExceptionUtils.isChecked(new StackOverflowError()));
+    }
+
+    @Test
+    public void testIsChecked_null() {
+        assertFalse(ExceptionUtils.isChecked(null));
+    }
+
+    @Test
+    public void testIsChecked_unchecked() {
+        assertFalse(ExceptionUtils.isChecked(new IllegalArgumentException()));
+    }
+
+    @Test
+    public void testIsUnchecked_checked() {
+        assertFalse(ExceptionUtils.isUnchecked(new IOException()));
+    }
+
+    @Test
+    public void testIsUnchecked_error() {
+        assertTrue(ExceptionUtils.isUnchecked(new StackOverflowError()));
+    }
+
+    @Test
+    public void testIsUnchecked_unchecked() {
+        assertTrue(ExceptionUtils.isUnchecked(new IllegalArgumentException()));
+    }
+
+    @Test
     public void testPrintRootCauseStackTrace_Throwable() {
         ExceptionUtils.printRootCauseStackTrace(null);
         // could pipe system.err to a known stream, but not much point as
@@ -849,40 +884,5 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     public void testWrapAndUnwrapThrowable() {
         final Throwable t = assertThrows(Throwable.class, () -> ExceptionUtils.wrapAndThrow(new TestThrowable()));
         assertTrue(ExceptionUtils.hasCause(t, TestThrowable.class));
-    }
-
-    @Test
-    public void testIsChecked_null() {
-        assertFalse(ExceptionUtils.isChecked(null));
-    }
-
-    @Test
-    public void testIsChecked_unchecked() {
-        assertFalse(ExceptionUtils.isChecked(new IllegalArgumentException()));
-    }
-
-    @Test
-    public void testIsChecked_checked() {
-        assertTrue(ExceptionUtils.isChecked(new IOException()));
-    }
-
-    @Test
-    public void testIsChecked_error() {
-        assertFalse(ExceptionUtils.isChecked(new StackOverflowError()));
-    }
-
-    @Test
-    public void testIsUnchecked_unchecked() {
-        assertTrue(ExceptionUtils.isUnchecked(new IllegalArgumentException()));
-    }
-
-    @Test
-    public void testIsUnchecked_checked() {
-        assertFalse(ExceptionUtils.isUnchecked(new IOException()));
-    }
-
-    @Test
-    public void testIsUnchecked_error() {
-        assertTrue(ExceptionUtils.isUnchecked(new StackOverflowError()));
     }
 }
