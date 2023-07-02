@@ -61,8 +61,7 @@ public class ConcurrentUtils {
         if (ex == null || ex.getCause() == null) {
             return null;
         }
-
-        throwCause(ex);
+        ExceptionUtils.throwUnchecked(ex.getCause());
         return new ConcurrentException(ex.getMessage(), ex.getCause());
     }
 
@@ -84,7 +83,7 @@ public class ConcurrentUtils {
             return null;
         }
 
-        throwCause(ex);
+        ExceptionUtils.throwUnchecked(ex.getCause());
         return new ConcurrentRuntimeException(ex.getMessage(), ex.getCause());
     }
 
@@ -143,22 +142,6 @@ public class ConcurrentUtils {
     static Throwable checkedException(final Throwable ex) {
         Validate.isTrue(ExceptionUtils.isChecked(ex), "Not a checked exception: " + ex);
         return ex;
-    }
-
-    /**
-     * Tests whether the cause of the specified {@link ExecutionException}
-     * should be thrown and does it if necessary.
-     *
-     * @param ex the exception in question
-     */
-    private static void throwCause(final ExecutionException ex) {
-        if (ex.getCause() instanceof RuntimeException) {
-            throw (RuntimeException) ex.getCause();
-        }
-
-        if (ex.getCause() instanceof Error) {
-            throw (Error) ex.getCause();
-        }
     }
 
     /**

@@ -42,8 +42,6 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class ExceptionUtils {
 
-    private static final int NOT_FOUND = -1;
-
     /**
      * The names of methods commonly used to access a wrapped exception.
      */
@@ -63,6 +61,8 @@ public class ExceptionUtils {
         "getThrowable",
     };
 
+    private static final int NOT_FOUND = -1;
+
     /**
      * Used when printing stack frames to denote the start of a
      * wrapped exception.
@@ -80,6 +80,26 @@ public class ExceptionUtils {
     @SuppressWarnings("unchecked")
     private static <R, T extends Throwable> R eraseType(final Throwable throwable) throws T {
         throw (T) throwable;
+    }
+
+    /**
+     * Performs an action for each Throwable causes of the given Throwable.
+     * <p>
+     * A throwable without cause will return a stream containing one element - the input throwable. A throwable with one cause
+     * will return a stream containing two elements. - the input throwable and the cause throwable. A {@code null} throwable
+     * will return a stream of count zero.
+     * </p>
+     *
+     * <p>
+     * This method handles recursive cause structures that might otherwise cause infinite loops. The cause chain is
+     * processed until the end is reached, or until the next item in the chain is already in the result set.
+     * </p>
+     * @param throwable The Throwable to traverse.
+     * @param consumer a non-interfering action to perform on the elements.
+     * @since 3.13.0
+     */
+    public static void forEach(final Throwable throwable, final Consumer<Throwable> consumer) {
+        stream(throwable).forEach(consumer);
     }
 
     /**
@@ -435,26 +455,6 @@ public class ExceptionUtils {
     }
 
     /**
-     * Performs an action for each Throwable causes of the given Throwable.
-     * <p>
-     * A throwable without cause will return a stream containing one element - the input throwable. A throwable with one cause
-     * will return a stream containing two elements. - the input throwable and the cause throwable. A {@code null} throwable
-     * will return a stream of count zero.
-     * </p>
-     *
-     * <p>
-     * This method handles recursive cause structures that might otherwise cause infinite loops. The cause chain is
-     * processed until the end is reached, or until the next item in the chain is already in the result set.
-     * </p>
-     * @param throwable The Throwable to traverse.
-     * @param consumer a non-interfering action to perform on the elements.
-     * @since 3.13.0
-     */
-    public static void forEach(final Throwable throwable, final Consumer<Throwable> consumer) {
-        stream(throwable).forEach(consumer);
-    }
-
-    /**
      * Gets the list of {@link Throwable} objects in the
      * exception chain.
      *
@@ -618,6 +618,30 @@ public class ExceptionUtils {
      */
     public static int indexOfType(final Throwable throwable, final Class<? extends Throwable> type, final int fromIndex) {
         return indexOf(throwable, type, fromIndex, true);
+    }
+
+    /**
+     * Checks if a throwable represents a checked exception
+     *
+     * @param throwable
+     *            The throwable to check.
+     * @return True if the given Throwable is a checked exception.
+     * @since 3.13.0
+     */
+    public static boolean isChecked(final Throwable throwable) {
+        return throwable != null && !(throwable instanceof Error) && !(throwable instanceof RuntimeException);
+    }
+
+    /**
+     * Checks if a throwable represents an unchecked exception
+     *
+     * @param throwable
+     *            The throwable to check.
+     * @return True if the given Throwable is an unchecked exception.
+     * @since 3.13.0
+     */
+    public static boolean isUnchecked(final Throwable throwable) {
+        return !isChecked(throwable);
     }
 
     /**
@@ -941,6 +965,25 @@ public class ExceptionUtils {
     }
 
     /**
+     * Tests whether the cause of the specified {@link Throwable}
+     * should be thrown and does it if necessary.
+     *
+     * @param <T> The Throwable type.
+     * @param throwable the throwable to test and throw or return.
+     * @return the given throwable.
+     * @since 3.13.0
+     */
+    public static <T> T throwUnchecked(final T throwable) {
+        if (throwable instanceof RuntimeException) {
+            throw (RuntimeException) throwable;
+        }
+        if (throwable instanceof Error) {
+            throw (Error) throwable;
+        }
+        return throwable;
+    }
+
+    /**
      * Throws a checked exception without adding the exception to the throws
      * clause of the calling method. For checked exceptions, this method throws
      * an UndeclaredThrowableException wrapping the checked exception. For
@@ -963,37 +1006,7 @@ public class ExceptionUtils {
      * @see #hasCause(Throwable, Class)
      */
     public static <R> R wrapAndThrow(final Throwable throwable) {
-        if (throwable instanceof RuntimeException) {
-            throw (RuntimeException) throwable;
-        }
-        if (throwable instanceof Error) {
-            throw (Error) throwable;
-        }
-        throw new UndeclaredThrowableException(throwable);
-    }
-
-    /**
-     * Checks if a throwable represents a checked exception
-     *
-     * @param throwable
-     *            The throwable to check.
-     * @return True if the given Throwable is a checked exception.
-     * @since 3.13.0
-     */
-    public static boolean isChecked(final Throwable throwable) {
-        return throwable != null && !(throwable instanceof Error) && !(throwable instanceof RuntimeException);
-    }
-
-    /**
-     * Checks if a throwable represents an unchecked exception
-     *
-     * @param throwable
-     *            The throwable to check.
-     * @return True if the given Throwable is an unchecked exception.
-     * @since 3.13.0
-     */
-    public static boolean isUnchecked(final Throwable throwable) {
-        return !isChecked(throwable);
+        throw new UndeclaredThrowableException(throwUnchecked(throwable));
     }
 
     /**

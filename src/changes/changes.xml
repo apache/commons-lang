@@ -208,6 +208,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Pair.accept(FailableBiConsumer).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Pair.apply(FailableBiFunction).</action>
     <action issue="LANG-1677" type="add" dev="ggregory" due-to="Dennis Baerten, Gary Gregory">Add ReflectionDiffBuilder.setExcludeFieldNames(...) and DiffExclude a… #838.</action>
+    <action issue="LANG-1647" type="add" dev="ggregory" due-to="Arturo Bernal, Dimitrios Efthymiou, Gary Gregory">Add and ExceptionUtils.isChecked() and isUnchecked() #1069</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ExceptionUtils.throwUnchecked(throwable).</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess, Gary Gregory">Bump actions/cache from 2.1.4 to 3.0.10 #742, #752, #764, #833, #867, #959, #964.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump actions/checkout from 2 to 3.1.0 #819, #825, #859, #963.</action>
