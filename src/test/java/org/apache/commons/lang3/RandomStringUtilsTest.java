@@ -264,6 +264,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     public void testRandomAscii() {
         final char[] testChars = {(char) 32, (char) 126};
         final boolean[] found = {false, false};
+        // Test failures have been observed on GitHub builds with a 100 limit.
         for (int i = 0; i < 1_000; i++) {
             final String randString = RandomStringUtils.randomAscii(10);
             for (int j = 0; j < testChars.length; j++) {
