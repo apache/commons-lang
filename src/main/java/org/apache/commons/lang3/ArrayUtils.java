@@ -2775,7 +2775,7 @@ public class ArrayUtils {
      * @param index the position within {@code array} to insert the new values
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
-     * @return The new array.
+     * @return The new array or {@code null} if the given array is {@code null}.
      * @throws IndexOutOfBoundsException if {@code array} is provided
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
@@ -2817,7 +2817,7 @@ public class ArrayUtils {
      * @param index the position within {@code array} to insert the new values
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
-     * @return The new array.
+     * @return The new array or {@code null} if the given array is {@code null}.
      * @throws IndexOutOfBoundsException if {@code array} is provided
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
@@ -2859,7 +2859,7 @@ public class ArrayUtils {
      * @param index the position within {@code array} to insert the new values
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
-     * @return The new array.
+     * @return The new array or {@code null} if the given array is {@code null}.
      * @throws IndexOutOfBoundsException if {@code array} is provided
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
@@ -2901,7 +2901,7 @@ public class ArrayUtils {
      * @param index the position within {@code array} to insert the new values
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
-     * @return The new array.
+     * @return The new array or {@code null} if the given array is {@code null}.
      * @throws IndexOutOfBoundsException if {@code array} is provided
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
@@ -2943,7 +2943,7 @@ public class ArrayUtils {
      * @param index the position within {@code array} to insert the new values
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
-     * @return The new array.
+     * @return The new array or {@code null} if the given array is {@code null}.
      * @throws IndexOutOfBoundsException if {@code array} is provided
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
@@ -2985,7 +2985,7 @@ public class ArrayUtils {
      * @param index the position within {@code array} to insert the new values
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
-     * @return The new array.
+     * @return The new array or {@code null} if the given array is {@code null}.
      * @throws IndexOutOfBoundsException if {@code array} is provided
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
@@ -3027,7 +3027,7 @@ public class ArrayUtils {
      * @param index the position within {@code array} to insert the new values
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
-     * @return The new array.
+     * @return The new array or {@code null} if the given array is {@code null}.
      * @throws IndexOutOfBoundsException if {@code array} is provided
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
@@ -3069,7 +3069,7 @@ public class ArrayUtils {
      * @param index the position within {@code array} to insert the new values
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
-     * @return The new array.
+     * @return The new array or {@code null} if the given array is {@code null}.
      * @throws IndexOutOfBoundsException if {@code array} is provided
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
@@ -3112,7 +3112,7 @@ public class ArrayUtils {
      * @param index the position within {@code array} to insert the new values
      * @param array the array to insert the values into, may be {@code null}
      * @param values the new values to insert, may be {@code null}
-     * @return The new array.
+     * @return The new array or {@code null} if the given array is {@code null}.
      * @throws IndexOutOfBoundsException if {@code array} is provided
      * and either {@code index < 0} or {@code index > array.length}
      * @since 3.6
