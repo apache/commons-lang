@@ -1012,7 +1012,10 @@ public class ExceptionUtils {
     /**
      * Public constructor allows an instance of {@link ExceptionUtils} to be created, although that is not
      * normally necessary.
+     *
+     * @deprecated Will be private in 3.0.
      */
+    @Deprecated
     public ExceptionUtils() {
     }
 }
