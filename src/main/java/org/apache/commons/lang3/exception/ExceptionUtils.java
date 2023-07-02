@@ -980,7 +980,7 @@ public class ExceptionUtils {
      * @return True if the given Throwable is a checked exception.
      * @since 3.13
      */
-    public static boolean isChecked(Throwable throwable) {
+    public static boolean isChecked(final Throwable throwable) {
         return throwable != null && !(throwable instanceof Error) && !(throwable instanceof RuntimeException);
     }
 
@@ -992,7 +992,7 @@ public class ExceptionUtils {
      * @return True if the given Throwable is an unchecked exception.
      * @since 3.13
      */
-    public static boolean isUnchecked(Throwable throwable) {
+    public static boolean isUnchecked(final Throwable throwable) {
         return !isChecked(throwable);
     }
 
