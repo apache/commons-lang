@@ -852,6 +852,11 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testIsChecked_null() {
+        assertFalse(ExceptionUtils.isChecked(null));
+    }
+
+    @Test
     public void testIsChecked_unchecked() {
         assertFalse(ExceptionUtils.isChecked(new IllegalArgumentException()));
     }

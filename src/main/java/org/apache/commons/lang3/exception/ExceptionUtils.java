@@ -981,7 +981,7 @@ public class ExceptionUtils {
      * @since 3.13
      */
     public static boolean isChecked(Throwable throwable) {
-        return throwable instanceof Error == false && throwable instanceof RuntimeException == false;
+        return throwable != null && !(throwable instanceof Error) && !(throwable instanceof RuntimeException);
     }
 
     /**
