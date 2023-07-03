@@ -636,6 +636,11 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testIsUnchecked_null() {
+        assertFalse(ExceptionUtils.isUnchecked(null));
+    }
+
+    @Test
     public void testIsUnchecked_checked() {
         assertFalse(ExceptionUtils.isUnchecked(new IOException()));
     }
