@@ -631,6 +631,11 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testIsCheckedCustomThrowable() {
+        assertTrue(ExceptionUtils.isChecked(new TestThrowable()));
+    }
+
+    @Test
     public void testIsUnchecked_checked() {
         assertFalse(ExceptionUtils.isUnchecked(new IOException()));
     }
@@ -643,6 +648,11 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     @Test
     public void testIsUnchecked_unchecked() {
         assertTrue(ExceptionUtils.isUnchecked(new IllegalArgumentException()));
+    }
+
+    @Test
+    public void testIsUnCheckedCustomThrowable() {
+        assertFalse(ExceptionUtils.isUnchecked(new TestThrowable()));
     }
 
     @Test
