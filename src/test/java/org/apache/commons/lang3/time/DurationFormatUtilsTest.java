@@ -658,7 +658,40 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
         assertEquals(
                 DurationFormatUtils.formatDuration(9153l, "[d'd'H'h'm'm']s's'"),
                 DurationFormatUtils.formatDuration(9153l, "s's'"));
+        
+       
+        
+        assertEquals(
+                DurationFormatUtils.formatPeriod(9153610l,915361000l, "[d'd'H'h'm'm']s's'") ,
+                DurationFormatUtils.formatPeriod(9153610l,915361000l, "d'd'H'h'm'm's's'") );
 
+        assertEquals(
+                DurationFormatUtils.formatPeriod(915361l,9153610l, "[d'd'H'h'm'm']s's'"),
+                DurationFormatUtils.formatPeriod(915361l,9153610l, "H'h'm'm's's'"));
+
+        assertEquals(
+                DurationFormatUtils.formatPeriod(9153l,915361l, "[d'd'H'h'm'm']s's'") ,
+                DurationFormatUtils.formatPeriod(9153l,915361l, "m'm's's'"));
+
+        assertEquals(
+                DurationFormatUtils.formatPeriod(0l,9153l, "[d'd'H'h'm'm']s's'"),
+                DurationFormatUtils.formatPeriod(0l,9153l, "s's'"));
+        
+        //make sure optional parts are actually omitted when zero
+        
+        assertEquals("2h32m33s610ms",DurationFormatUtils.formatDuration(9153610l, "[d'd'H'h'm'm's's']S'ms'"));
+
+        assertEquals("15m15s361ms",DurationFormatUtils.formatDuration(915361l, "[d'd'H'h'm'm's's']S'ms'"));
+
+        assertEquals("9s153ms", DurationFormatUtils.formatDuration(9153l, "[d'd'H'h'm'm's's']S'ms'"));
+        
+        assertEquals("915ms",DurationFormatUtils.formatDuration(915l, "[d'd'H'h'm'm's's']S'ms'"));
+        
+        //make sure we can handle omitting multiple literals after a token
+
+        assertEquals(
+                DurationFormatUtils.formatPeriod(915361l,9153610l, "[d'd''d2'H'h''h2'm'm']s's'"),
+                DurationFormatUtils.formatPeriod(915361l,9153610l, "H'h''h2'm'm's's'"));
     }
 
 }

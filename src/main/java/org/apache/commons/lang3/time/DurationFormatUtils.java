@@ -48,6 +48,13 @@ import org.apache.commons.lang3.Validate;
  * Token values are printed using decimal digits.
  * A token character can be repeated to ensure that the field occupies a certain minimum
  * size. Values will be left-padded with 0 unless padding is disabled in the method invocation.
+ * <br>
+ * Tokens can be marked as optional by surrounding them with brackets [ ]. These tokens will 
+ * only be printed if the token value is non-zero. Any literals within optional blocks will only be 
+ * printed if the nearest prior non-literal token value was non-zero.
+ * <br>
+ * <b>Note: Optional blocks cannot be nested.</b>
+ * 
  * @since 2.1
  */
 public class DurationFormatUtils {
