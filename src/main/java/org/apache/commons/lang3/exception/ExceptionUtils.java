@@ -641,7 +641,7 @@ public class ExceptionUtils {
      * @since 3.13.0
      */
     public static boolean isUnchecked(final Throwable throwable) {
-        return !isChecked(throwable);
+        return throwable != null && (throwable instanceof Error || throwable instanceof RuntimeException);
     }
 
     /**
