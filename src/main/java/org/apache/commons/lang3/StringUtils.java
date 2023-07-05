@@ -746,7 +746,7 @@ public class StringUtils {
      * @param str  the String to chomp from, may be null
      * @param separator  separator String, may be null
      * @return String without trailing separator, {@code null} if null String input
-     * @deprecated This feature will be removed in Lang 4.0, use {@link StringUtils#removeEnd(String, String)} instead
+     * @deprecated This feature will be removed in Lang 4, use {@link StringUtils#removeEnd(String, String)} instead
      */
     @Deprecated
     public static String chomp(final String str, final String separator) {

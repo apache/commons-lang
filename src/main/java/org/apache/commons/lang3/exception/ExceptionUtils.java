@@ -45,7 +45,7 @@ public class ExceptionUtils {
     /**
      * The names of methods commonly used to access a wrapped exception.
      */
-    // TODO: Remove in Lang 4.0
+    // TODO: Remove in Lang 4
     private static final String[] CAUSE_METHOD_NAMES = {
         "getCause",
         "getNextException",
@@ -128,7 +128,7 @@ public class ExceptionUtils {
      * @return the cause of the {@link Throwable},
      *  {@code null} if none found or null throwable input
      * @since 1.0
-     * @deprecated This feature will be removed in Lang 4.0, use {@link Throwable#getCause} instead
+     * @deprecated This feature will be removed in Lang 4, use {@link Throwable#getCause} instead
      */
     @Deprecated
     public static Throwable getCause(final Throwable throwable) {
@@ -146,7 +146,7 @@ public class ExceptionUtils {
      * @return the cause of the {@link Throwable},
      *  {@code null} if none found or null throwable input
      * @since 1.0
-     * @deprecated This feature will be removed in Lang 4.0, use {@link Throwable#getCause} instead
+     * @deprecated This feature will be removed in Lang 4, use {@link Throwable#getCause} instead
      */
     @Deprecated
     public static Throwable getCause(final Throwable throwable, String[] methodNames) {
@@ -170,7 +170,7 @@ public class ExceptionUtils {
      * @param methodName  the name of the method to find and invoke
      * @return the wrapped exception, or {@code null} if not found
      */
-    // TODO: Remove in Lang 4.0
+    // TODO: Remove in Lang 4
     private static Throwable getCauseUsingMethodName(final Throwable throwable, final String methodName) {
         if (methodName != null) {
             Method method = null;
@@ -198,7 +198,7 @@ public class ExceptionUtils {
      *
      * @return cloned array of the default method names
      * @since 3.0
-     * @deprecated This feature will be removed in Lang 4.0
+     * @deprecated This feature will be removed in Lang 4
      */
     @Deprecated
     public static String[] getDefaultCauseMethodNames() {
