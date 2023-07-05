@@ -173,6 +173,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Processor.isAarch64().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Update ArchUtils.getProcessor(String) for "aarch64".</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_18.</action>
+    <action                   type="add" dev="ebourg"   due-to="Emmanuel Bourg">Add JavaVersion.JAVA_19.</action>
+    <action                   type="add" dev="ebourg"   due-to="Emmanuel Bourg">Add JavaVersion.JAVA_20.</action>
+    <action                   type="add" dev="ebourg"   due-to="Emmanuel Bourg">Add JavaVersion.JAVA_21.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TimeZones.toTimeZone(TimeZone).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add FutureTasks.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Memoizer(Function) and Memoizer(Function, boolean).</action>
