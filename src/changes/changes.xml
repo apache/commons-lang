@@ -190,6 +190,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_18.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_19.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_20.</action>
+    <action                   type="add" dev="ebourg"   due-to="Emmanuel Bourg">Add SystemUtils.IS_JAVA_21.</action>
     <action issue="LANG-1627" type="add" dev="ggregory" due-to="Alberto Scotto, Avijit Chakraborty, Steve Bosman, Bruno P. Kinoshita, Gary Gregory">Add ArrayUtils.oneHot().</action>
     <action issue="LANG-1662" type="add" dev="ggregory" due-to="Daniel Augusto Veronezi Salvador, Gary Gregory, Bruno P. Kinoshita">Let ReflectionToStringBuilder only reflect given field names #849.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Streams.of(Enumeration&lt;E&gt;).</action>
