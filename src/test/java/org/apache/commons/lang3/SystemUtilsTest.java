@@ -377,7 +377,7 @@ public class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.IS_JAVA_18);
             assertFalse(SystemUtils.IS_JAVA_19);
             assertTrue(SystemUtils.IS_JAVA_20);
-            assertTrue(SystemUtils.IS_JAVA_21);
+            assertFalse(SystemUtils.IS_JAVA_21);
         } else if (javaVersion.startsWith("21")) {
             assertFalse(SystemUtils.IS_JAVA_1_1);
             assertFalse(SystemUtils.IS_JAVA_1_2);
