@@ -74,7 +74,8 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
     private final DiffBuilder<T> diffBuilder;
 
     /**
-     * Which field names to exclude from output. Intended for fields like {@code "password"} or {@code "lastModificationDate"}.
+     * Field names to exclude from output. Intended for fields like {@code "password"} or {@code "lastModificationDate"}.
+     *
      * @since 3.13.0
      */
     private String[] excludeFieldNames;
@@ -104,7 +105,8 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
     }
 
     /**
-     * Gets the field names that should be excluded from the diff
+     * Gets the field names that should be excluded from the diff.
+     *
      * @return Returns the excludeFieldNames.
      * @since 3.13.0
      */
