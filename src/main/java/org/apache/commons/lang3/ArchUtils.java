@@ -23,12 +23,11 @@ import org.apache.commons.lang3.arch.Processor;
 import org.apache.commons.lang3.stream.Streams;
 
 /**
- * A utility class for the {@code os.arch} System Property. The class defines methods for
- * identifying the architecture of the current JVM.
+ * Provides methods for identifying the architecture of the current JVM based on the {@code "os.arch"} system property.
  * <p>
- * Important: The {@code os.arch} System Property returns the architecture used by the JVM
- * not of the operating system.
+ * Important: The {@code "os.arch"} system property returns the architecture used by the JVM not of the operating system.
  * </p>
+ *
  * @since 3.6
  */
 public class ArchUtils {
@@ -81,7 +80,7 @@ public class ArchUtils {
     /**
      * Adds the given {@link Processor} with the given key {@link String} to the map.
      *
-     * @param key The key as {@link String}.
+     * @param key       The key as {@link String}.
      * @param processor The {@link Processor} to add.
      * @throws IllegalStateException If the key already exists.
      */
@@ -95,7 +94,7 @@ public class ArchUtils {
     /**
      * Adds the given {@link Processor} with the given keys to the map.
      *
-     * @param keys The keys.
+     * @param keys      The keys.
      * @param processor The {@link Processor} to add.
      * @throws IllegalStateException If the key already exists.
      */
@@ -107,8 +106,7 @@ public class ArchUtils {
      * Gets a {@link Processor} object of the current JVM.
      *
      * <p>
-     * Important: The os.arch System Property returns the architecture used by the JVM
-     * not of the operating system.
+     * Important: The {@code "os.arch"} system property returns the architecture used by the JVM not of the operating system.
      * </p>
      *
      * @return A {@link Processor} when supported, else {@code null}.
@@ -118,8 +116,8 @@ public class ArchUtils {
     }
 
     /**
-     * Gets a {@link Processor} object the given value {@link String}. The {@link String} must be
-     * like a value returned by the {@code os.arch} System Property.
+     * Gets a {@link Processor} object the given value {@link String}. The {@link String} must be like a value returned by the {@code "os.arch"} system
+     * property.
      *
      * @param value A {@link String} like a value returned by the {@code os.arch} System Property.
      * @return A {@link Processor} when it exists, else {@code null}.
