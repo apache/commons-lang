@@ -59,12 +59,16 @@ import org.apache.commons.lang3.reflect.FieldUtils;
  * {@code DiffResult.toString()} method. This style choice can be overridden by
  * calling {@link DiffResult#toString(ToStringStyle)}.
  * </p>
+ * <p>
+ * See {@link DiffBuilder} for a non-reflection based version of this class. 
+ * </p>
  * @param <T>
  *            type of the left and right object to diff.
  * @see Diffable
  * @see Diff
  * @see DiffResult
  * @see ToStringStyle
+ * @see DiffBuilder
  * @since 3.6
  */
 public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
