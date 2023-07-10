@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.time.Duration;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -632,6 +633,7 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
         }
     }
 
+
     @Test
     public void testUnmatchedOptionalTokens() {
         assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDuration(1, "[s"));
@@ -640,58 +642,135 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testOptionalLiteralSpecialCharacters() {
+      assertEquals(
+          DurationFormatUtils.formatDuration(10000L, "s's'"),
+          DurationFormatUtils.formatDuration(10000L, "['['m']']s's'"));
+    }
+
+    @Test
+    public void testAlternatingLiteralOptionals() {
+        String format = "['d'dH'h'][m'm']['s's]['ms'S]";
+
+        assertEquals("d1",
+            DurationFormatUtils.formatDuration(Duration.ofDays(1).toMillis(), format));
+
+        assertEquals("1h",
+            DurationFormatUtils.formatDuration(Duration.ofHours(1).toMillis(), format));
+
+        assertEquals("1m",
+            DurationFormatUtils.formatDuration(Duration.ofMinutes(1).toMillis(), format));
+
+        assertEquals("s1",
+            DurationFormatUtils.formatDuration(Duration.ofSeconds(1).toMillis(), format));
+
+        assertEquals("ms001",
+            DurationFormatUtils.formatDuration(Duration.ofMillis(1).toMillis(), format));
+
+        assertEquals("d1s1",
+            DurationFormatUtils.formatDuration(Duration.ofDays(1).plusSeconds(1).toMillis(), format));
+
+        assertEquals("d11h",
+            DurationFormatUtils.formatDuration(Duration.ofDays(1).plusHours(1).toMillis(), format));
+
+        assertEquals("d11h1m",
+            DurationFormatUtils.formatDuration(Duration.ofDays(1).plusHours(1).plusMinutes(1).toMillis(), format));
+
+        assertEquals("d11h1ms1",
+            DurationFormatUtils.formatDuration(Duration.ofDays(1).plusHours(1).plusMinutes(1).plusSeconds(1).toMillis(), format));
+
+        assertEquals("d11h1ms1ms001",
+            DurationFormatUtils.formatDuration(Duration.ofDays(1).plusHours(1).plusMinutes(1).plusSeconds(1).plusMillis(1).toMillis(), format));
+
+    }
+
+    @Test
+    public void testLiteralPrefixOptionalToken() {
+      assertEquals(
+          DurationFormatUtils.formatDuration(10000L, "s's'"),
+          DurationFormatUtils.formatDuration(10000L, "['['d']']['<'H'>']['{'m'}']s's'"));
+      assertEquals(
+          DurationFormatUtils.formatDuration(10000L, "s's'"),
+          DurationFormatUtils.formatDuration(10000L, "['{'m'}']s's'")
+          );
+    }
+
+    @Test
+    public void testEmptyOptionals() {
+      assertEquals(
+          "",
+          DurationFormatUtils.formatDuration(0L, "[d'd'][H'h'][m'm'][s's']"));
+      assertEquals(
+          "",
+          DurationFormatUtils.formatDuration(0L, "['d''h''m''s's]")
+          );
+    }
+
+    @Test
+    public void testMultipleOptionalBlocks() {
+
+      assertEquals(
+          DurationFormatUtils.formatDuration(Duration.ofHours(1).toMillis(), "'[['H']]'"),
+          DurationFormatUtils.formatDuration(Duration.ofHours(1).toMillis(), "['{'d'}']['[['H']]']"));
+
+      assertEquals(
+          DurationFormatUtils.formatDuration(Duration.ofDays(1).toMillis(), "['{'d'}']"),
+          DurationFormatUtils.formatDuration(Duration.ofDays(1).toMillis(), "['{'d'}']['['H']']"));
+
+    }
+
+    @Test
     public void testOptionalToken() {
 
         //make sure optional formats match corresponding adjusted non-optional formats
         assertEquals(
-                DurationFormatUtils.formatDuration(915361000l, "[d'd'H'h'm'm']s's'"),
-                DurationFormatUtils.formatDuration(915361000l, "d'd'H'h'm'm's's'"));
+                DurationFormatUtils.formatDuration(915361000L, "[d'd'H'h'm'm']s's'"),
+                DurationFormatUtils.formatDuration(915361000L, "d'd'H'h'm'm's's'"));
 
         assertEquals(
-                DurationFormatUtils.formatDuration(9153610l, "[d'd'H'h'm'm']s's'"),
-                DurationFormatUtils.formatDuration(9153610l, "H'h'm'm's's'"));
+                DurationFormatUtils.formatDuration(9153610L, "[d'd'H'h'm'm']s's'"),
+                DurationFormatUtils.formatDuration(9153610L, "H'h'm'm's's'"));
 
         assertEquals(
-                DurationFormatUtils.formatDuration(915361l, "[d'd'H'h'm'm']s's'"),
-                DurationFormatUtils.formatDuration(915361l, "m'm's's'"));
+                DurationFormatUtils.formatDuration(915361L, "[d'd'H'h'm'm']s's'"),
+                DurationFormatUtils.formatDuration(915361L, "m'm's's'"));
 
         assertEquals(
-                DurationFormatUtils.formatDuration(9153l, "[d'd'H'h'm'm']s's'"),
-                DurationFormatUtils.formatDuration(9153l, "s's'"));
-        
-       
-        
-        assertEquals(
-                DurationFormatUtils.formatPeriod(9153610l,915361000l, "[d'd'H'h'm'm']s's'") ,
-                DurationFormatUtils.formatPeriod(9153610l,915361000l, "d'd'H'h'm'm's's'") );
+                DurationFormatUtils.formatDuration(9153L, "[d'd'H'h'm'm']s's'"),
+                DurationFormatUtils.formatDuration(9153L, "s's'"));
 
         assertEquals(
-                DurationFormatUtils.formatPeriod(915361l,9153610l, "[d'd'H'h'm'm']s's'"),
-                DurationFormatUtils.formatPeriod(915361l,9153610l, "H'h'm'm's's'"));
+                DurationFormatUtils.formatPeriod(9153610L, 915361000L, "[d'd'H'h'm'm']s's'"),
+                DurationFormatUtils.formatPeriod(9153610L, 915361000L, "d'd'H'h'm'm's's'") );
 
         assertEquals(
-                DurationFormatUtils.formatPeriod(9153l,915361l, "[d'd'H'h'm'm']s's'") ,
-                DurationFormatUtils.formatPeriod(9153l,915361l, "m'm's's'"));
+                DurationFormatUtils.formatPeriod(915361L, 9153610L, "[d'd'H'h'm'm']s's'"),
+                DurationFormatUtils.formatPeriod(915361L, 9153610L, "H'h'm'm's's'"));
 
         assertEquals(
-                DurationFormatUtils.formatPeriod(0l,9153l, "[d'd'H'h'm'm']s's'"),
-                DurationFormatUtils.formatPeriod(0l,9153l, "s's'"));
-        
+                DurationFormatUtils.formatPeriod(9153L, 915361L, "[d'd'H'h'm'm']s's'"),
+                DurationFormatUtils.formatPeriod(9153L, 915361L, "m'm's's'"));
+
+        assertEquals(
+                DurationFormatUtils.formatPeriod(0L, 9153L, "[d'd'H'h'm'm']s's'"),
+                DurationFormatUtils.formatPeriod(0L, 9153L, "s's'"));
+
         //make sure optional parts are actually omitted when zero
-        
-        assertEquals("2h32m33s610ms",DurationFormatUtils.formatDuration(9153610l, "[d'd'H'h'm'm's's']S'ms'"));
 
-        assertEquals("15m15s361ms",DurationFormatUtils.formatDuration(915361l, "[d'd'H'h'm'm's's']S'ms'"));
+        assertEquals("2h32m33s610ms", DurationFormatUtils.formatDuration(9153610L, "[d'd'H'h'm'm's's']S'ms'"));
 
-        assertEquals("9s153ms", DurationFormatUtils.formatDuration(9153l, "[d'd'H'h'm'm's's']S'ms'"));
-        
-        assertEquals("915ms",DurationFormatUtils.formatDuration(915l, "[d'd'H'h'm'm's's']S'ms'"));
-        
+        assertEquals("15m15s361ms", DurationFormatUtils.formatDuration(915361L, "[d'd'H'h'm'm's's']S'ms'"));
+
+        assertEquals("9s153ms", DurationFormatUtils.formatDuration(9153L, "[d'd'H'h'm'm's's']S'ms'"));
+
+        assertEquals("915ms", DurationFormatUtils.formatDuration(915L, "[d'd'H'h'm'm's's']S'ms'"));
+
         //make sure we can handle omitting multiple literals after a token
 
         assertEquals(
-                DurationFormatUtils.formatPeriod(915361l,9153610l, "[d'd''d2'H'h''h2'm'm']s's'"),
-                DurationFormatUtils.formatPeriod(915361l,9153610l, "H'h''h2'm'm's's'"));
+                DurationFormatUtils.formatPeriod(915361L, 9153610L, "[d'd''d2'H'h''h2'm'm']s's'"),
+                DurationFormatUtils.formatPeriod(915361L, 9153610L, "H'h''h2'm'm's's'"));
     }
+
 
 }
