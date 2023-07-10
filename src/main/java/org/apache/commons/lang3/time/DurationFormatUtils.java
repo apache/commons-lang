@@ -65,7 +65,7 @@ import org.apache.commons.lang3.Validate;
  * <tr><td>[d'd'H'h'm'm']s's'</td><td>1d0s</td><td>1h0s</td><td>1m0s</td></tr>
  * <tr><td>[d'd'H'h'm'm's's']</td><td>1d</td><td>1h</td><td>1m</td></tr>
  * <tr><td>['{'d'}']HH':'mm</td><td>{1}00:00</td><td>01:00</td><td>00:01</td></tr>
- * <tr><td>['{'dd'}']['<'HH'>']['('mm')']</td><td>{01}</td><td>&lt;01&gt;</td><td>(00)</td></tr>
+ * <tr><td>['{'dd'}']['&lt;'HH'&gt;']['('mm')']</td><td>{01}</td><td>&lt;01&gt;</td><td>(00)</td></tr>
  * <tr><td>[dHms]</td><td>1</td><td>1</td><td>1</td></tr>
  * </table>
  * <b>Note: Optional blocks cannot be nested.</b>
