@@ -51,7 +51,8 @@ import org.apache.commons.lang3.Validate;
  * <br>
  * Tokens can be marked as optional by surrounding them with brackets [ ]. These tokens will
  * only be printed if the token value is non-zero. Literals within optional blocks will only be
- * printed if the nearest non-literal token before or after (checked in that order) is non-zero.
+ * printed if the preceding non-literal token is non-zero. Leading optional literals will only
+ * be printed if the following non-literal is non-zero.
  * Multiple optional blocks can be used to group literals with the desired token. Note that
  * multiple optional tokens without literals can result in impossible to understand output.
  * (See examples below)
