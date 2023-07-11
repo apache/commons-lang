@@ -250,6 +250,36 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
+    public void test_LANG_1114() throws Exception {
+        final Type nonWildcardType = getClass().getDeclaredField("wildcardComparable").getGenericType();
+        final Type wildcardType = ((ParameterizedType) nonWildcardType).getActualTypeArguments()[0];
+
+        assertFalse(TypeUtils.equals(wildcardType, nonWildcardType));
+        assertFalse(TypeUtils.equals(nonWildcardType, wildcardType));
+    }
+
+    @Test
+    public void test_LANG_1190() throws Exception {
+        final Type fromType = ClassWithSuperClassWithGenericType.class.getDeclaredMethod("methodWithGenericReturnType").getGenericReturnType();
+        final Type failingToType = TypeUtils.wildcardType().withLowerBounds(ClassWithSuperClassWithGenericType.class).build();
+
+        assertTrue(TypeUtils.isAssignable(fromType, failingToType));
+    }
+
+    @Test
+    public void test_LANG_1348() throws Exception {
+        final Method method = Enum.class.getMethod("valueOf", Class.class, String.class);
+        assertEquals("T extends java.lang.Enum<T>", TypeUtils.toString(method.getGenericReturnType()));
+    }
+
+    @Test
+    public void test_LANG_820() {
+        final Type[] typeArray = {String.class, String.class};
+        final Type[] expectedArray = {String.class};
+        assertArrayEquals(expectedArray, TypeUtils.normalizeUpperBounds(typeArray));
+    }
+
+    @Test
     public void testContainsTypeVariables() throws Exception {
         assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m0").getGenericReturnType()));
         assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m1").getGenericReturnType()));
@@ -901,36 +931,6 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
-    public void testLang1114() throws Exception {
-        final Type nonWildcardType = getClass().getDeclaredField("wildcardComparable").getGenericType();
-        final Type wildcardType = ((ParameterizedType) nonWildcardType).getActualTypeArguments()[0];
-
-        assertFalse(TypeUtils.equals(wildcardType, nonWildcardType));
-        assertFalse(TypeUtils.equals(nonWildcardType, wildcardType));
-    }
-
-    @Test
-    public void testLANG1190() throws Exception {
-        final Type fromType = ClassWithSuperClassWithGenericType.class.getDeclaredMethod("methodWithGenericReturnType").getGenericReturnType();
-        final Type failingToType = TypeUtils.wildcardType().withLowerBounds(ClassWithSuperClassWithGenericType.class).build();
-
-        assertTrue(TypeUtils.isAssignable(fromType, failingToType));
-    }
-
-    @Test
-    public void testLANG1348() throws Exception {
-        final Method method = Enum.class.getMethod("valueOf", Class.class, String.class);
-        assertEquals("T extends java.lang.Enum<T>", TypeUtils.toString(method.getGenericReturnType()));
-    }
-
-    @Test
-    public void testLang820() {
-        final Type[] typeArray = {String.class, String.class};
-        final Type[] expectedArray = {String.class};
-        assertArrayEquals(expectedArray, TypeUtils.normalizeUpperBounds(typeArray));
-    }
-
-    @Test
     public void testLowerBoundedWildcardType() {
        final WildcardType lowerBounded = TypeUtils.wildcardType().withLowerBounds(java.sql.Date.class).build();
        assertEquals(String.format("? super %s", java.sql.Date.class.getName()), TypeUtils.toString(lowerBounded));
@@ -1000,7 +1000,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
-    public void testToStringLang1311() {
+    public void testToString_LANG_1311() {
         assertEquals("int[]", TypeUtils.toString(int[].class));
         assertEquals("java.lang.Integer[]", TypeUtils.toString(Integer[].class));
         final Field stringListField = FieldUtils.getDeclaredField(getClass(), "stringListArray");
