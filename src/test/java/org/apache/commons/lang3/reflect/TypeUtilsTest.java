@@ -346,27 +346,33 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
 
     @Test
     public void testGetRawType() throws SecurityException, NoSuchFieldException {
-        final Type stringParentFieldType = GenericTypeHolder.class.getDeclaredField("stringParent")
-                .getGenericType();
-        final Type integerParentFieldType = GenericTypeHolder.class.getDeclaredField("integerParent")
-                .getGenericType();
+        final Type stringParentFieldType = GenericTypeHolder.class.getDeclaredField("stringParent").getGenericType();
+        final Type integerParentFieldType = GenericTypeHolder.class.getDeclaredField("integerParent").getGenericType();
         final Type foosFieldType = GenericTypeHolder.class.getDeclaredField("foos").getGenericType();
         final Type genericParentT = GenericParent.class.getTypeParameters()[0];
         assertEquals(GenericParent.class, TypeUtils.getRawType(stringParentFieldType, null));
-        assertEquals(GenericParent.class, TypeUtils.getRawType(integerParentFieldType,
-                        null));
+        assertEquals(GenericParent.class, TypeUtils.getRawType(integerParentFieldType, null));
         assertEquals(List.class, TypeUtils.getRawType(foosFieldType, null));
-        assertEquals(String.class, TypeUtils.getRawType(genericParentT,
-                StringParameterizedChild.class));
-        assertEquals(String.class, TypeUtils.getRawType(genericParentT,
-                stringParentFieldType));
-        assertEquals(Foo.class, TypeUtils.getRawType(Iterable.class.getTypeParameters()[0],
-                foosFieldType));
-        assertEquals(Foo.class, TypeUtils.getRawType(List.class.getTypeParameters()[0],
-                foosFieldType));
+        assertEquals(String.class, TypeUtils.getRawType(genericParentT, StringParameterizedChild.class));
+        assertEquals(String.class, TypeUtils.getRawType(genericParentT, stringParentFieldType));
+        assertEquals(Foo.class, TypeUtils.getRawType(Iterable.class.getTypeParameters()[0], foosFieldType));
+        assertEquals(Foo.class, TypeUtils.getRawType(List.class.getTypeParameters()[0], foosFieldType));
         assertNull(TypeUtils.getRawType(genericParentT, GenericParent.class));
-        assertEquals(GenericParent[].class, TypeUtils.getRawType(GenericTypeHolder.class
-                .getDeclaredField("barParents").getGenericType(), null));
+        assertEquals(GenericParent[].class, TypeUtils.getRawType(GenericTypeHolder.class.getDeclaredField("barParents").getGenericType(), null));
+    }
+
+    /**
+     * Tests https://issues.apache.org/jira/browse/LANG-1697
+     */
+    @Test
+    public void testGetRawType_LANG_1697() throws NoSuchFieldException {
+        assertEquals(int[].class, TypeUtils.getRawType(TypeUtils.genericArrayType(Integer.TYPE), Integer.TYPE));
+        // LANG-1697:
+        assertNull(TypeUtils.getRawType(TypeUtils.genericArrayType(TypeUtils.WILDCARD_ALL), null));
+        // TODO: Is this correct?
+        assertNull(TypeUtils.getRawType(TypeUtils.genericArrayType(TypeUtils.WILDCARD_ALL), TypeUtils.WILDCARD_ALL));
+        // TODO: Is this correct?
+        assertNull(TypeUtils.getRawType(TypeUtils.genericArrayType(TypeUtils.WILDCARD_ALL), Integer.TYPE));
     }
 
     @Test
