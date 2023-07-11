@@ -57,7 +57,7 @@ import org.apache.commons.lang3.ObjectUtils;
  * calling {@link DiffResult#toString(ToStringStyle)}.
  * </p>
  * <p>
- * See {@link ReflectionDiffBuilder} for a reflection based version of this class. 
+ * See {@link ReflectionDiffBuilder} for a reflection based version of this class.
  * </p>
  *
  * @param <T> type of the left and right object.

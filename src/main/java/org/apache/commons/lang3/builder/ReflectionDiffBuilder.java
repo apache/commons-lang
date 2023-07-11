@@ -60,7 +60,7 @@ import org.apache.commons.lang3.reflect.FieldUtils;
  * calling {@link DiffResult#toString(ToStringStyle)}.
  * </p>
  * <p>
- * See {@link DiffBuilder} for a non-reflection based version of this class. 
+ * See {@link DiffBuilder} for a non-reflection based version of this class.
  * </p>
  * @param <T>
  *            type of the left and right object to diff.
