@@ -122,14 +122,6 @@ class AClass extends AAClass<String>.BBClass<Number> {
 abstract class Test1<G> {
     public abstract Object m0();
     public abstract String[] m1();
-    public abstract <E> E[] m2();
-    public abstract <E> List<? extends E> m3();
-    public abstract <E extends Enum<E>> List<? extends Enum<E>> m4();
-    public abstract List<? extends Enum<?>> m5();
-    public abstract List<? super Enum<?>> m6();
-    public abstract List<?> m7();
-    public abstract Map<? extends Enum<?>, ? super Enum<?>> m8();
-    public abstract <K, V> Map<? extends K, ? super V[]> m9();
     public abstract <K, V> Map<? extends K, V[]> m10();
     public abstract <K, V> Map<? extends K, List<V[]>> m11();
     public abstract List m12();
@@ -138,6 +130,14 @@ abstract class Test1<G> {
     public abstract G m15();
     public abstract List<G> m16();
     public abstract Enum m17();
+    public abstract <E> E[] m2();
+    public abstract <E> List<? extends E> m3();
+    public abstract <E extends Enum<E>> List<? extends Enum<E>> m4();
+    public abstract List<? extends Enum<?>> m5();
+    public abstract List<? super Enum<?>> m6();
+    public abstract List<?> m7();
+    public abstract Map<? extends Enum<?>, ? super Enum<?>> m8();
+    public abstract <K, V> Map<? extends K, ? super V[]> m9();
 }
 
 /**
@@ -824,6 +824,25 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
+    public void testIsAssignableGenericArrayTypeToObject() {
+        final Class<Constructor> rawClass = Constructor.class;
+        final Class<Insets> typeArgClass = Insets.class;
+        // Builds a ParameterizedType for Constructor<Insets>
+        final ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
+        assertEquals(rawClass, paramType.getRawType());
+        assertEquals(typeArgClass, paramType.getActualTypeArguments()[0]);
+
+        assertTrue(Object.class.isAssignableFrom(paramType.getClass()));
+        assertFalse(paramType.getClass().isAssignableFrom(Object.class));
+
+        final Type testType = Object.class;
+        assertTrue(TypeUtils.isAssignable(paramType, testType),
+                () -> String.format("TypeUtils.isAssignable(%s, %s)", paramType, testType));
+        assertFalse(TypeUtils.isAssignable(testType, paramType),
+                () -> String.format("TypeUtils.isAssignable(%s, %s)", testType, paramType));
+    }
+
+    @Test
     public void testIsAssignableGenericArrayTypeToParameterizedType() {
         final Class<Constructor> rawClass = Constructor.class;
         final Class<Insets> typeArgClass = Insets.class;
@@ -859,25 +878,6 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         // TODO This test returns true unlike the test above.
         // Is this a bug in this test or in the main code?
         assertFalse(TypeUtils.isAssignable(paramType, testType),
-                () -> String.format("TypeUtils.isAssignable(%s, %s)", paramType, testType));
-        assertFalse(TypeUtils.isAssignable(testType, paramType),
-                () -> String.format("TypeUtils.isAssignable(%s, %s)", testType, paramType));
-    }
-
-    @Test
-    public void testIsAssignableGenericArrayTypeToObject() {
-        final Class<Constructor> rawClass = Constructor.class;
-        final Class<Insets> typeArgClass = Insets.class;
-        // Builds a ParameterizedType for Constructor<Insets>
-        final ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
-        assertEquals(rawClass, paramType.getRawType());
-        assertEquals(typeArgClass, paramType.getActualTypeArguments()[0]);
-
-        assertTrue(Object.class.isAssignableFrom(paramType.getClass()));
-        assertFalse(paramType.getClass().isAssignableFrom(Object.class));
-
-        final Type testType = Object.class;
-        assertTrue(TypeUtils.isAssignable(paramType, testType),
                 () -> String.format("TypeUtils.isAssignable(%s, %s)", paramType, testType));
         assertFalse(TypeUtils.isAssignable(testType, paramType),
                 () -> String.format("TypeUtils.isAssignable(%s, %s)", testType, paramType));
