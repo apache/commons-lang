@@ -320,13 +320,13 @@ public class CompareToBuilder implements Builder<Integer> {
         final Field[] fields = clazz.getDeclaredFields();
         AccessibleObject.setAccessible(fields, true);
         for (int i = 0; i < fields.length && builder.comparison == 0; i++) {
-            final Field f = fields[i];
-            if (!ArrayUtils.contains(excludeFields, f.getName())
-                && !f.getName().contains("$")
-                && (useTransients || !Modifier.isTransient(f.getModifiers()))
-                && !Modifier.isStatic(f.getModifiers())) {
+            final Field field = fields[i];
+            if (!ArrayUtils.contains(excludeFields, field.getName())
+                && !field.getName().contains("$")
+                && (useTransients || !Modifier.isTransient(field.getModifiers()))
+                && !Modifier.isStatic(field.getModifiers())) {
                 try {
-                    builder.append(f.get(lhs), f.get(rhs));
+                    builder.append(field.get(lhs), field.get(rhs));
                 } catch (final IllegalAccessException e) {
                     // This can't happen. Would get a Security exception instead.
                     // Throw a runtime exception in case the impossible happens.
