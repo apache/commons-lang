@@ -341,7 +341,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * result of the superclass.
      *
      * @param superCompareTo  result of calling {@code super.compareTo(Object)}
-     * @return this - used to chain append calls
+     * @return this
      * @since 2.0
      */
     public CompareToBuilder appendSuper(final int superCompareTo) {
@@ -367,7 +367,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand object
      * @param rhs  right-hand object
-     * @return this - used to chain append calls
+     * @return this
      * @throws ClassCastException  if {@code rhs} is not assignment-compatible
      *  with {@code lhs}
      */
@@ -395,7 +395,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand object
      * @param comparator  {@link Comparator} used to compare the objects,
      *  {@code null} means treat lhs as {@link Comparable}
-     * @return this - used to chain append calls
+     * @return this
      * @throws ClassCastException  if {@code rhs} is not assignment-compatible
      *  with {@code lhs}
      * @since 2.0
@@ -464,7 +464,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand value
      * @param rhs  right-hand value
-     * @return this - used to chain append calls
+     * @return this
      */
     public CompareToBuilder append(final long lhs, final long rhs) {
         if (comparison != 0) {
@@ -480,7 +480,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand value
      * @param rhs  right-hand value
-     * @return this - used to chain append calls
+     * @return this
      */
     public CompareToBuilder append(final int lhs, final int rhs) {
         if (comparison != 0) {
@@ -496,7 +496,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand value
      * @param rhs  right-hand value
-     * @return this - used to chain append calls
+     * @return this
      */
     public CompareToBuilder append(final short lhs, final short rhs) {
         if (comparison != 0) {
@@ -512,7 +512,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand value
      * @param rhs  right-hand value
-     * @return this - used to chain append calls
+     * @return this
      */
     public CompareToBuilder append(final char lhs, final char rhs) {
         if (comparison != 0) {
@@ -528,7 +528,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand value
      * @param rhs  right-hand value
-     * @return this - used to chain append calls
+     * @return this
      */
     public CompareToBuilder append(final byte lhs, final byte rhs) {
         if (comparison != 0) {
@@ -549,7 +549,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand value
      * @param rhs  right-hand value
-     * @return this - used to chain append calls
+     * @return this
      */
     public CompareToBuilder append(final double lhs, final double rhs) {
         if (comparison != 0) {
@@ -570,7 +570,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand value
      * @param rhs  right-hand value
-     * @return this - used to chain append calls
+     * @return this
      */
     public CompareToBuilder append(final float lhs, final float rhs) {
         if (comparison != 0) {
@@ -586,7 +586,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand value
      * @param rhs  right-hand value
-     * @return this - used to chain append calls
+     * @return this
       */
     public CompareToBuilder append(final boolean lhs, final boolean rhs) {
         if (comparison != 0) {
@@ -619,7 +619,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand array
      * @param rhs  right-hand array
-     * @return this - used to chain append calls
+     * @return this
      * @throws ClassCastException  if {@code rhs} is not assignment-compatible
      *  with {@code lhs}
      */
@@ -645,7 +645,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand array
      * @param comparator  {@link Comparator} to use to compare the array elements,
      *  {@code null} means to treat {@code lhs} elements as {@link Comparable}.
-     * @return this - used to chain append calls
+     * @return this
      * @throws ClassCastException  if {@code rhs} is not assignment-compatible
      *  with {@code lhs}
      * @since 2.0
@@ -688,7 +688,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand array
      * @param rhs  right-hand array
-     * @return this - used to chain append calls
+     * @return this
      */
     public CompareToBuilder append(final long[] lhs, final long[] rhs) {
         if (comparison != 0) {
@@ -728,7 +728,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand array
      * @param rhs  right-hand array
-     * @return this - used to chain append calls
+     * @return this
      */
     public CompareToBuilder append(final int[] lhs, final int[] rhs) {
         if (comparison != 0) {
@@ -768,7 +768,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand array
      * @param rhs  right-hand array
-     * @return this - used to chain append calls
+     * @return this
      */
     public CompareToBuilder append(final short[] lhs, final short[] rhs) {
         if (comparison != 0) {
@@ -808,7 +808,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand array
      * @param rhs  right-hand array
-     * @return this - used to chain append calls
+     * @return this
      */
     public CompareToBuilder append(final char[] lhs, final char[] rhs) {
         if (comparison != 0) {
@@ -848,7 +848,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand array
      * @param rhs  right-hand array
-     * @return this - used to chain append calls
+     * @return this
      */
     public CompareToBuilder append(final byte[] lhs, final byte[] rhs) {
         if (comparison != 0) {
@@ -888,7 +888,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand array
      * @param rhs  right-hand array
-     * @return this - used to chain append calls
+     * @return this
      */
     public CompareToBuilder append(final double[] lhs, final double[] rhs) {
         if (comparison != 0) {
@@ -928,7 +928,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand array
      * @param rhs  right-hand array
-     * @return this - used to chain append calls
+     * @return this
      */
     public CompareToBuilder append(final float[] lhs, final float[] rhs) {
         if (comparison != 0) {
@@ -968,7 +968,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand array
      * @param rhs  right-hand array
-     * @return this - used to chain append calls
+     * @return this
      */
     public CompareToBuilder append(final boolean[] lhs, final boolean[] rhs) {
         if (comparison != 0) {
