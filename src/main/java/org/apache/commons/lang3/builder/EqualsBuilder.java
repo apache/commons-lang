@@ -561,19 +561,13 @@ public class EqualsBuilder implements Builder<Boolean> {
             final Field[] fields = clazz.getDeclaredFields();
             AccessibleObject.setAccessible(fields, true);
             for (int i = 0; i < fields.length && isEquals; i++) {
-                final Field f = fields[i];
-                if (!ArrayUtils.contains(excludeFields, f.getName())
-                    && !f.getName().contains("$")
-                    && (testTransients || !Modifier.isTransient(f.getModifiers()))
-                    && !Modifier.isStatic(f.getModifiers())
-                    && !f.isAnnotationPresent(EqualsExclude.class)) {
-                    try {
-                        append(f.get(lhs), f.get(rhs));
-                    } catch (final IllegalAccessException e) {
-                        //this can't happen. Would get a Security exception instead
-                        //throw a runtime exception in case the impossible happens.
-                        throw new InternalError("Unexpected IllegalAccessException");
-                    }
+                final Field field = fields[i];
+                if (!ArrayUtils.contains(excludeFields, field.getName())
+                    && !field.getName().contains("$")
+                    && (testTransients || !Modifier.isTransient(field.getModifiers()))
+                    && !Modifier.isStatic(field.getModifiers())
+                    && !field.isAnnotationPresent(EqualsExclude.class)) {
+                    append(Reflection.getUnchecked(field, lhs), Reflection.getUnchecked(field, rhs));
                 }
             }
         } finally {

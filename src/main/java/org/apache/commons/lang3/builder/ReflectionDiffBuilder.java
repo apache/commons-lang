@@ -151,12 +151,11 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         for (final Field field : FieldUtils.getAllFields(clazz)) {
             if (accept(field)) {
                 try {
-                    diffBuilder.append(field.getName(), FieldUtils.readField(field, left, true),
-                            FieldUtils.readField(field, right, true));
-                } catch (final IllegalAccessException ex) {
+                    diffBuilder.append(field.getName(), FieldUtils.readField(field, left, true), FieldUtils.readField(field, right, true));
+                } catch (final IllegalAccessException e) {
                     // this can't happen. Would get a Security exception instead
                     // throw a runtime exception in case the impossible happens.
-                    throw new InternalError("Unexpected IllegalAccessException: " + ex.getMessage());
+                    throw new IllegalArgumentException("Unexpected IllegalAccessException: " + e.getMessage(), e);
                 }
             }
         }

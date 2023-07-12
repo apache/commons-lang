@@ -191,14 +191,7 @@ public class HashCodeBuilder implements Builder<Integer> {
                     && (useTransients || !Modifier.isTransient(field.getModifiers()))
                     && !Modifier.isStatic(field.getModifiers())
                     && !field.isAnnotationPresent(HashCodeExclude.class)) {
-                    try {
-                        final Object fieldValue = field.get(object);
-                        builder.append(fieldValue);
-                    } catch (final IllegalAccessException e) {
-                        // this can't happen. Would get a Security exception instead
-                        // throw a runtime exception in case the impossible happens.
-                        throw new InternalError("Unexpected IllegalAccessException");
-                    }
+                    builder.append(Reflection.getUnchecked(field, object));
                 }
             }
         } finally {
