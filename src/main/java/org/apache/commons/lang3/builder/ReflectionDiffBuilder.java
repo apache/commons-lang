@@ -73,8 +73,8 @@ import org.apache.commons.lang3.reflect.FieldUtils;
  */
 public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
 
-    private final Object left;
-    private final Object right;
+    private final T left;
+    private final T right;
     private final DiffBuilder<T> diffBuilder;
 
     /**
@@ -105,7 +105,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
     public ReflectionDiffBuilder(final T lhs, final T rhs, final ToStringStyle style) {
         this.left = lhs;
         this.right = rhs;
-        diffBuilder = new DiffBuilder<>(lhs, rhs, style);
+        this.diffBuilder = new DiffBuilder<>(lhs, rhs, style);
     }
 
     /**
@@ -127,7 +127,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
      * @return {@code this}
      * @since 3.13.0
      */
-    public ReflectionDiffBuilder setExcludeFieldNames(final String... excludeFieldNamesParam) {
+    public ReflectionDiffBuilder<T> setExcludeFieldNames(final String... excludeFieldNamesParam) {
         if (excludeFieldNamesParam == null) {
             this.excludeFieldNames = ArrayUtils.EMPTY_STRING_ARRAY;
         } else {
