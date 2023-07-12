@@ -1187,7 +1187,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
      * <p>It uses {@code AccessibleObject.setAccessible} to gain access to private
      * fields. This means that it will throw a security exception if run
      * under a security manager, if the permissions are not set up correctly.
-     * It is also not as efficient as testing explicitly. </p>
+     * It is also not as efficient as testing explicitly.</p>
      *
      * <p>Transient fields are not output.</p>
      *
