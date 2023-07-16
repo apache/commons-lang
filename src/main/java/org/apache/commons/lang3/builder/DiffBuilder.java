@@ -114,7 +114,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
         this.style = style;
 
         // Don't compare any fields if objects equal
-        this.objectsTriviallyEqual = testTriviallyEqual && (lhs == rhs || lhs.equals(rhs));
+        this.objectsTriviallyEqual = testTriviallyEqual && Objects.equals(lhs, rhs);
     }
 
     /**
@@ -814,7 +814,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
         }
 
         // Not array type
-        if (lhs != null && lhs.equals(rhs)) {
+        if (Objects.equals(lhs, rhs)) {
             return this;
         }
 
