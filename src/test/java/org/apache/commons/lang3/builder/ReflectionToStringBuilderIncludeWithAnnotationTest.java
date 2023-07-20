@@ -45,6 +45,10 @@ public class ReflectionToStringBuilderIncludeWithAnnotationTest extends Abstract
         private String toStringModifiedExcludedField() {
             return EXCLUDED_FIELD_VALUE_MODIFIED;
         }
+
+        private String methodNotAnnotatedWithToStringInclude() {
+            return null;
+        }
     }
 
     private static final String INCLUDED_FIELD_NAME = "includedField";
