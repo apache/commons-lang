@@ -3030,6 +3030,18 @@ public class StringUtilsTest extends AbstractLangTest {
         assertEquals(expectedString, StringUtils.toString(expectedBytes, encoding));
     }
 
+    /**
+     * Tests {@link StringUtils#toUnicodeString(String)}
+     */
+    @Test
+    public void testToUnicodeString(){
+        assertEquals(null, StringUtils.toUnicodeString(null));
+        assertEquals("", StringUtils.toUnicodeString(""));
+        assertEquals("\\u0041", StringUtils.toUnicodeString("A"));
+        String emojiUnicodeStr = StringUtils.toUnicodeString("😅");
+        assertEquals("\\u1F605", emojiUnicodeStr);
+    }
+
     @Test
     public void testTruncate_StringInt() {
         assertNull(StringUtils.truncate(null, 12));

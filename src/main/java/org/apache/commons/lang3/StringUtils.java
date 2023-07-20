@@ -188,6 +188,16 @@ public class StringUtils {
     private static final Pattern STRIP_ACCENTS_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+"); //$NON-NLS-1$
 
     /**
+     * Unicode escape sequences prefix.
+     */
+    public static final String UNICODE_PREFIX = "\\u";
+
+    /**
+     * Format specifier used to represent a number in 4-digit uppercase hexadecimal format.
+     */
+    public static final String HEX_FORMAT = "%04X";
+
+    /**
      * Abbreviates a String using ellipses. This will turn
      * "Now is the time for all good men" into "Now is the time for..."
      *
@@ -8996,6 +9006,46 @@ public class StringUtils {
     private static String toStringOrEmpty(final Object obj) {
         return Objects.toString(obj, EMPTY);
     }
+
+    /**
+     * Converts a String into a Unicode escape string.
+     *
+     * <p>Each character in the input string is represented by a Unicode escape sequence,
+     * which is a string of the form "&#92;uXXXX", where XXXX is the Unicode code point of
+     * the character in hexadecimal. Characters outside the Basic Multilingual Plane (BMP),
+     * which are represented in Java as a surrogate pair, are represented by a single
+     * Unicode escape sequence.</p>
+     *
+     * <pre>
+     * StringUtils.toUnicodeString(null)   =  null
+     * StringUtils.toUnicodeString("")     =  ""
+     * StringUtils.toUnicodeString("A")    =  "&#92;u0041"
+     * StringUtils.toUnicodeString("?")    =  "&#92;u1F601"
+     * </pre>
+     *
+     * @param str A source String or null.
+     * @return a Unicode escape string representing the input string
+     */
+    public static String toUnicodeString(String str) {
+
+        if (isEmpty(str)) {
+            return str;
+        }
+
+        StringBuilder unicodeStr = new StringBuilder();
+
+        for (int i = 0; i < str.length(); i++) {
+            int codePoint = str.codePointAt(i);
+            // If this is a surrogate pair, increment i to skip the second char
+            if (Character.isSupplementaryCodePoint(codePoint)) {
+                i++;
+            }
+            unicodeStr.append(UNICODE_PREFIX).append(String.format(HEX_FORMAT, codePoint));
+        }
+
+        return unicodeStr.toString();
+    }
+
 
     /**
      * Removes control characters (char &lt;= 32) from both
