@@ -18,6 +18,8 @@
 package org.apache.commons.lang3.builder;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Objects;
 
 /**
@@ -37,6 +39,23 @@ class Reflection {
         try {
             return Objects.requireNonNull(field, "field").get(obj);
         } catch (IllegalAccessException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    /**
+     * Delegates to {@link Method#invoke(Object, Object...)} and rethrows {@link IllegalAccessException}
+     * and {@link InvocationTargetException} as {@link IllegalArgumentException}.
+     *
+     * @param method The receiver of the invoke call.
+     * @param obj   The argument of the invoke call.
+     * @return The result of the invoke call.
+     * @throws IllegalArgumentException Thrown after catching {@link IllegalAccessException} and {@link InvocationTargetException}.
+     */
+    static Object getUnchecked(final Method method, final Object obj) {
+        try {
+            return Objects.requireNonNull(method, "method").invoke(obj);
+        } catch (IllegalAccessException | InvocationTargetException e) {
             throw new IllegalArgumentException(e);
         }
     }

@@ -19,6 +19,7 @@ package org.apache.commons.lang3.builder;
 
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collection;
@@ -635,6 +636,10 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         return !field.isAnnotationPresent(ToStringExclude.class);
     }
 
+    protected boolean acceptMethod(final Method method) {
+        return method.isAnnotationPresent(ToStringInclude.class);
+    }
+
     /**
      * Appends the fields and values defined by the given object of the given Class.
      *
@@ -664,6 +669,27 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
                 }
             }
         }
+
+        final Method[] methods = Arrays.stream(clazz.getDeclaredMethods())
+                .filter(this::acceptMethod)
+                .sorted(Comparator.comparing(this::getMethodFieldName))
+                .toArray(Method[]::new);
+        AccessibleObject.setAccessible(methods, true);
+        for (final Method method : methods) {
+            final String fieldName = getMethodFieldName(method);
+            final Object fieldValue = Reflection.getUnchecked(method, getObject());
+            if (!excludeNullValues || fieldValue != null) {
+                this.append(fieldName, fieldValue, true);
+            }
+        }
+    }
+
+    private String getMethodFieldName(Method method) {
+        if (method.isAnnotationPresent(ToStringInclude.class) &&
+                !ToStringInclude.UNDEFINED.equals(method.getDeclaredAnnotation(ToStringInclude.class).value())) {
+            return method.getDeclaredAnnotation(ToStringInclude.class).value();
+        }
+        return method.getName();
     }
 
     /**
