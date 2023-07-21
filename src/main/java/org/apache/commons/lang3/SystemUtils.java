@@ -1451,7 +1451,7 @@ public class SystemUtils {
      *
      * @since 3.12.0
      */
-    public static final boolean IS_OS_MAC_OSX_BIG_SUR = getOsMatches("Mac OS X", "10.16");
+    public static final boolean IS_OS_MAC_OSX_BIG_SUR = getOsMatches("Mac OS X", "11");
 
     /**
      * Is {@code true} if this is FreeBSD.
