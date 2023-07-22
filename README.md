@@ -90,7 +90,7 @@ You can learn more about contributing via GitHub in our [contribution guidelines
 
 License
 -------
-This code is under the [Apache Licence v2](https://www.apache.org/licenses/LICENSE-2.0).
+This code is under the [Apache License v2](https://www.apache.org/licenses/LICENSE-2.0).
 
 See the `NOTICE.txt` file for required notices and attributions.
 
