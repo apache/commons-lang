@@ -1462,6 +1462,7 @@ public class SystemUtils {
      * <p>
      * This value is initialized when the class is loaded.
      * </p>
+     * @since 3.13.0
      */
     public static final boolean IS_OS_MAC_OSX_MONTEREY = getOsMatches("Mac OS X", "12");
 
@@ -1474,6 +1475,7 @@ public class SystemUtils {
      * <p>
      * This value is initialized when the class is loaded.
      * </p>
+     * @since 3.13.0
      */
     public static final boolean IS_OS_MAC_OSX_VENTURA = getOsMatches("Mac OS X", "13");
 
