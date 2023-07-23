@@ -46,7 +46,7 @@ Apache Commons Lang
 [![GitHub Actions Status](https://github.com/apache/commons-lang/workflows/Java%20CI/badge.svg)](https://github.com/apache/commons-lang/actions)
 [![Coverage Status](https://codecov.io/gh/apache/commons-lang/branch/master/graph/badge.svg)](https://app.codecov.io/gh/apache/commons-lang)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-lang3/badge.svg?gav=true)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-lang3/?gav=true)
-[![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-lang3/3.12.0.svg)](https://javadoc.io/doc/org.apache.commons/commons-lang3/3.12.0)
+[![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-lang3/3.13.0.svg)](https://javadoc.io/doc/org.apache.commons/commons-lang3/3.13.0)
 [![CodeQL](https://github.com/apache/commons-lang/workflows/CodeQL/badge.svg)](https://github.com/apache/commons-lang/actions/workflows/codeql-analysis.yml?query=workflow%3ACodeQL)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-lang/badge)](https://api.securityscorecards.dev/projects/github.com/apache/commons-lang)
 
@@ -65,13 +65,13 @@ Where can I get the latest release?
 -----------------------------------
 You can download source and binaries from our [download page](https://commons.apache.org/proper/commons-lang/download_lang.cgi).
 
-Alternatively, you can pull it from the central Maven repositories:
+Alternatively, you can pull it from  the central Maven repositories:
 
 ```xml
 <dependency>
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-lang3</artifactId>
-  <version>3.12.0</version>
+  <version>3.13.0</version>
 </dependency>
 ```
 
@@ -109,6 +109,7 @@ Additional Resources
 
 Apache Commons Components
 -------------------------
+
 | Component | GitHub Repository | Apache Homepage |
 | --------- | ----------------- | ----------------|
 | Apache Commons BCEL | [commons-bcel](https://github.com/apache/commons-bcel) | [commons-bcel](https://commons.apache.org/proper/commons-bcel) |
