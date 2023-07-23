@@ -277,6 +277,25 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertEquals("T extends java.lang.Enum<T>", TypeUtils.toString(method.getGenericReturnType()));
     }
 
+    /**
+     * <pre>{@code
+     * java.lang.StackOverflowError
+    at org.apache.commons.lang3.reflect.TypeUtils.typeVariableToString(TypeUtils.java:1785)
+    at org.apache.commons.lang3.reflect.TypeUtils.toString(TypeUtils.java:1737)
+    at org.apache.commons.lang3.reflect.TypeUtils.toString(TypeUtils.java:1714)
+    at org.apache.commons.lang3.reflect.TypeUtils.appendAllTo(TypeUtils.java:302)
+    at org.apache.commons.lang3.reflect.TypeUtils.wildcardTypeToString(TypeUtils.java:1902)
+    at org.apache.commons.lang3.reflect.TypeUtils.toString(TypeUtils.java:1734)
+    at org.apache.commons.lang3.reflect.TypeUtils.toString(TypeUtils.java:1714)
+    at org.apache.commons.lang3.reflect.TypeUtils.appendAllTo(TypeUtils.java:302)
+    at org.apache.commons.lang3.reflect.TypeUtils.parameterizedTypeToString(TypeUtils.java:1604)
+    at org.apache.commons.lang3.reflect.TypeUtils.toString(TypeUtils.java:1731)
+    at org.apache.commons.lang3.reflect.TypeUtils.toString(TypeUtils.java:1714)
+    at org.apache.commons.lang3.reflect.TypeUtils.appendAllTo(TypeUtils.java:302)
+    at org.apache.commons.lang3.reflect.TypeUtils.typeVariableToString(TypeUtils.java:1789)
+     * }
+     * </pre>
+     */
     @Test
     public void test_LANG_1698() {
         // SO on Java 17
