@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.awt.Insets;
 import java.io.Serializable;
@@ -279,7 +280,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     @Test
     public void test_LANG_1698() {
         // SO on Java 17
-        SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_16);
+        assumeTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_16));
         ParameterizedType comparing = (ParameterizedType) Arrays.stream(Comparator.class.getDeclaredMethods())
                 .filter(k -> k.getName().equals("comparing")).findFirst()
                 .orElse(Comparator.class.getDeclaredMethods()[0]).getGenericParameterTypes()[0];
