@@ -300,7 +300,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     public void test_LANG_1698() {
         // SO on Java 17
         assumeTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_16));
-        ParameterizedType comparing = (ParameterizedType) Arrays.stream(Comparator.class.getDeclaredMethods())
+        final ParameterizedType comparing = (ParameterizedType) Arrays.stream(Comparator.class.getDeclaredMethods())
                 .filter(k -> k.getName().equals("comparing")).findFirst()
                 .orElse(Comparator.class.getDeclaredMethods()[0]).getGenericParameterTypes()[0];
         final String typeName = TypeUtils
@@ -1084,7 +1084,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertEquals(String.format("? extends %s", String.class.getName()), TypeUtils.toString(simpleWildcard));
         assertEquals(String.format("? extends %s", String.class.getName()), simpleWildcard.toString());
     }
-    
+
     @Test
     public void testWrap() {
         final Type t = getClass().getTypeParameters()[0];
