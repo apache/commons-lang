@@ -1451,7 +1451,33 @@ public class SystemUtils {
      *
      * @since 3.12.0
      */
-    public static final boolean IS_OS_MAC_OSX_BIG_SUR = getOsMatches("Mac OS X", "10.16");
+    public static final boolean IS_OS_MAC_OSX_BIG_SUR = getOsMatches("Mac OS X", "11");
+
+    /**
+     * Is {@code true} if this is Mac OS X Monterey.
+     *
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     * <p>
+     * This value is initialized when the class is loaded.
+     * </p>
+     * @since 3.13.0
+     */
+    public static final boolean IS_OS_MAC_OSX_MONTEREY = getOsMatches("Mac OS X", "12");
+
+    /**
+     * Is {@code true} if this is Mac OS X Ventura.
+     *
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     * <p>
+     * This value is initialized when the class is loaded.
+     * </p>
+     * @since 3.13.0
+     */
+    public static final boolean IS_OS_MAC_OSX_VENTURA = getOsMatches("Mac OS X", "13");
 
     /**
      * Is {@code true} if this is FreeBSD.
