@@ -657,7 +657,7 @@ public class ObjectUtils {
      *
      * @param <T> The argument type or null.
      * @param object The argument.
-     * @return The argument Class or null.
+     * @return The argument's Class or null.
      * @since 3.13.0
      */
     @SuppressWarnings("unchecked")
