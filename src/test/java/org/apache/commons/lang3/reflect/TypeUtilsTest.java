@@ -46,6 +46,8 @@ import java.util.Properties;
 import java.util.TreeSet;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.JavaVersion;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.reflect.testbed.Foo;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.GenericTypeHolder;
@@ -276,6 +278,8 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
 
     @Test
     public void test_LANG_1698() {
+        // SO on Java 17
+        SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_16);
         ParameterizedType comparing = (ParameterizedType) Arrays.stream(Comparator.class.getDeclaredMethods())
                 .filter(k -> k.getName().equals("comparing")).findFirst()
                 .orElse(Comparator.class.getDeclaredMethods()[0]).getGenericParameterTypes()[0];
