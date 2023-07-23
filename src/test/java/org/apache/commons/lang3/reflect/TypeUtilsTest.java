@@ -35,8 +35,10 @@ import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -270,6 +272,16 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     public void test_LANG_1348() throws Exception {
         final Method method = Enum.class.getMethod("valueOf", Class.class, String.class);
         assertEquals("T extends java.lang.Enum<T>", TypeUtils.toString(method.getGenericReturnType()));
+    }
+
+    @Test
+    public void test_LANG_1698() {
+        ParameterizedType comparing = (ParameterizedType) Arrays.stream(Comparator.class.getDeclaredMethods())
+                .filter(k -> k.getName().equals("comparing")).findFirst()
+                .orElse(Comparator.class.getDeclaredMethods()[0]).getGenericParameterTypes()[0];
+        final String typeName = TypeUtils
+                .parameterize((Class<?>) comparing.getRawType(), comparing.getActualTypeArguments()).getTypeName();
+        assertEquals("java.util.function.Function<? super T, ? extends U>", typeName);
     }
 
     @Test
@@ -1048,7 +1060,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertEquals(String.format("? extends %s", String.class.getName()), TypeUtils.toString(simpleWildcard));
         assertEquals(String.format("? extends %s", String.class.getName()), simpleWildcard.toString());
     }
-
+    
     @Test
     public void testWrap() {
         final Type t = getClass().getTypeParameters()[0];
