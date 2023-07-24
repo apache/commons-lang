@@ -658,7 +658,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             final String fieldName = field.getName();
             if (this.accept(field)) {
                 // Warning: Field.get(Object) creates wrappers objects for primitive types.
-                final Object fieldValue = Reflection.getUnchecked(field, getObject());
+                final Object fieldValue = this.getValue(field);
                 if (!excludeNullValues || fieldValue != null) {
                     this.append(fieldName, fieldValue, !field.isAnnotationPresent(ToStringSummary.class));
                 }
@@ -703,13 +703,11 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *
      * @throws IllegalArgumentException
      *             see {@link java.lang.reflect.Field#get(Object)}
-     * @throws IllegalAccessException
-     *             see {@link java.lang.reflect.Field#get(Object)}
      *
      * @see java.lang.reflect.Field#get(Object)
      */
-    protected Object getValue(final Field field) throws IllegalAccessException {
-        return field.get(this.getObject());
+    protected Object getValue(final Field field) {
+        return Reflection.getUnchecked(field, getObject());
     }
 
     /**
