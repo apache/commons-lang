@@ -33,11 +33,9 @@ limitations under the License.
 
 
                         ${project.name}
-                            Version ${version}
-                           Release Notes
+                        Version ${version}
+                        Release Notes
 
-
-INTRODUCTION:
 
 This document contains the release notes for the ${version} version of Apache Commons Lang.
 Commons Lang is a set of utility functions and reusable components that should be of use in any 

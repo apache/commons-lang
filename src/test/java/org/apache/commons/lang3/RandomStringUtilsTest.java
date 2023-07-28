@@ -37,9 +37,11 @@ import java.util.Random;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.RandomStringUtils}.
+ * Tests {@link org.apache.commons.lang3.RandomStringUtils}.
  */
 public class RandomStringUtilsTest extends AbstractLangTest {
+
+    private static final int LOOP_COUNT = 1_000;
 
     @Test
     public void testConstructor() {
@@ -195,7 +197,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     public void testRandomAlphaNumeric() {
         final char[] testChars = {'a', 'z', 'A', 'Z', '0', '9'};
         final boolean[] found = {false, false, false, false, false, false};
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < LOOP_COUNT; i++) {
             final String randString = RandomStringUtils.randomAlphanumeric(10);
             for (int j = 0; j < testChars.length; j++) {
                 if (randString.indexOf(testChars[j]) > 0) {
@@ -218,7 +220,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     public void testRandomNumeric() {
         final char[] testChars = {'0', '9'};
         final boolean[] found = {false, false};
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < LOOP_COUNT; i++) {
             final String randString = RandomStringUtils.randomNumeric(10);
             for (int j = 0; j < testChars.length; j++) {
                 if (randString.indexOf(testChars[j]) > 0) {
@@ -241,7 +243,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     public void testRandomAlphabetic() {
         final char[] testChars = {'a', 'z', 'A', 'Z'};
         final boolean[] found = {false, false, false, false};
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < LOOP_COUNT; i++) {
             final String randString = RandomStringUtils.randomAlphabetic(10);
             for (int j = 0; j < testChars.length; j++) {
                 if (randString.indexOf(testChars[j]) > 0) {
@@ -264,7 +266,8 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     public void testRandomAscii() {
         final char[] testChars = {(char) 32, (char) 126};
         final boolean[] found = {false, false};
-        for (int i = 0; i < 100; i++) {
+        // Test failures have been observed on GitHub builds with a 100 limit.
+        for (int i = 0; i < LOOP_COUNT; i++) {
             final String randString = RandomStringUtils.randomAscii(10);
             for (int j = 0; j < testChars.length; j++) {
                 if (randString.indexOf(testChars[j]) > 0) {
@@ -287,7 +290,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
 
         int maxCreatedLength = expectedMinLengthInclusive;
         int minCreatedLength = expectedMaxLengthExclusive - 1;
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < LOOP_COUNT; i++) {
             final String s = RandomStringUtils.randomAscii(expectedMinLengthInclusive, expectedMaxLengthExclusive);
             assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
             assertTrue(s.matches(pattern), s);
@@ -312,7 +315,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
 
         int maxCreatedLength = expectedMinLengthInclusive;
         int minCreatedLength = expectedMaxLengthExclusive - 1;
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < LOOP_COUNT; i++) {
             final String s = RandomStringUtils.randomAlphabetic(expectedMinLengthInclusive, expectedMaxLengthExclusive);
             assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
             assertTrue(s.matches(pattern), s);
@@ -337,7 +340,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
 
         int maxCreatedLength = expectedMinLengthInclusive;
         int minCreatedLength = expectedMaxLengthExclusive - 1;
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < LOOP_COUNT; i++) {
             final String s = RandomStringUtils.randomAlphanumeric(expectedMinLengthInclusive, expectedMaxLengthExclusive);
             assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
             assertTrue(s.matches(pattern), s);
@@ -362,7 +365,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
 
         int maxCreatedLength = expectedMinLengthInclusive;
         int minCreatedLength = expectedMaxLengthExclusive - 1;
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < LOOP_COUNT; i++) {
             final String s = RandomStringUtils.randomGraph(expectedMinLengthInclusive, expectedMaxLengthExclusive);
             assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
             assertTrue(s.matches(pattern), s);
@@ -387,7 +390,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
 
         int maxCreatedLength = expectedMinLengthInclusive;
         int minCreatedLength = expectedMaxLengthExclusive - 1;
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < LOOP_COUNT; i++) {
             final String s = RandomStringUtils.randomNumeric(expectedMinLengthInclusive, expectedMaxLengthExclusive);
             assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
             assertTrue(s.matches(pattern), s);
@@ -412,7 +415,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
 
         int maxCreatedLength = expectedMinLengthInclusive;
         int minCreatedLength = expectedMaxLengthExclusive - 1;
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < LOOP_COUNT; i++) {
             final String s = RandomStringUtils.randomPrint(expectedMinLengthInclusive, expectedMaxLengthExclusive);
             assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
             assertTrue(s.matches(pattern), s);
@@ -432,7 +435,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     /**
      * Test homogeneity of random strings generated --
      * i.e., test that characters show up with expected frequencies
-     * in generated strings.  Will fail randomly about 1 in 1000 times.
+     * in generated strings.  Will fail randomly about 1 in LOOP_COUNT times.
      * Repeated failures indicate a problem.
      */
     @Test
@@ -442,7 +445,8 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         String gen = "";
         final int[] counts = {0, 0, 0};
         final int[] expected = {200, 200, 200};
-        for (int i = 0; i< 100; i++) {
+        // More likely to fail for 1000?
+        for (int i = 0; i < 100; i++) {
             gen = RandomStringUtils.random(6, chars);
             for (int j = 0; j < 6; j++) {
                 switch (gen.charAt(j)) {

@@ -107,38 +107,38 @@ limitations under the License.
         failing that using the <code>SHA512</code> hash (<code>*.sha512</code> checksum files).
       </p>
       <p>
-        The <a href="https://www.apache.org/dist/commons/KEYS">KEYS</a>
+        The <a href="https://downloads.apache.org/commons/KEYS">KEYS</a>
         file contains the public PGP keys used by Apache Commons developers
         to sign releases.
       </p>
     </subsection>
     </section>
-    <section name="Apache Commons Lang 3.12.0 (Java 8+)">
+    <section name="Apache Commons Lang 3.13.0 (Java 8+)">
       <subsection name="Binaries">
         <table>
           <tr>
-              <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.12.0-bin.tar.gz">commons-lang3-3.12.0-bin.tar.gz</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.12.0-bin.tar.gz.sha512">sha512</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.12.0-bin.tar.gz.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.13.0-bin.tar.gz">commons-lang3-3.13.0-bin.tar.gz</a></td>
+              <td><a href="https://downloads.apache.org/commons/lang/binaries/commons-lang3-3.13.0-bin.tar.gz.sha512">sha512</a></td>
+              <td><a href="https://downloads.apache.org/commons/lang/binaries/commons-lang3-3.13.0-bin.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
-              <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.12.0-bin.zip">commons-lang3-3.12.0-bin.zip</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.12.0-bin.zip.sha512">sha512</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang3-3.12.0-bin.zip.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang/binaries/commons-lang3-3.13.0-bin.zip">commons-lang3-3.13.0-bin.zip</a></td>
+              <td><a href="https://downloads.apache.org/commons/lang/binaries/commons-lang3-3.13.0-bin.zip.sha512">sha512</a></td>
+              <td><a href="https://downloads.apache.org/commons/lang/binaries/commons-lang3-3.13.0-bin.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
       <subsection name="Source">
         <table>
           <tr>
-              <td><a href="[preferred]/commons/lang/source/commons-lang3-3.12.0-src.tar.gz">commons-lang3-3.12.0-src.tar.gz</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.12.0-src.tar.gz.sha512">sha512</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.12.0-src.tar.gz.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang/source/commons-lang3-3.13.0-src.tar.gz">commons-lang3-3.13.0-src.tar.gz</a></td>
+              <td><a href="https://downloads.apache.org/commons/lang/source/commons-lang3-3.13.0-src.tar.gz.sha512">sha512</a></td>
+              <td><a href="https://downloads.apache.org/commons/lang/source/commons-lang3-3.13.0-src.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
-              <td><a href="[preferred]/commons/lang/source/commons-lang3-3.12.0-src.zip">commons-lang3-3.12.0-src.zip</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.12.0-src.zip.sha512">sha512</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang3-3.12.0-src.zip.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/lang/source/commons-lang3-3.13.0-src.zip">commons-lang3-3.13.0-src.zip</a></td>
+              <td><a href="https://downloads.apache.org/commons/lang/source/commons-lang3-3.13.0-src.zip.sha512">sha512</a></td>
+              <td><a href="https://downloads.apache.org/commons/lang/source/commons-lang3-3.13.0-src.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
@@ -148,13 +148,13 @@ limitations under the License.
         <table>
           <tr>
               <td><a href="[preferred]/commons/lang/binaries/commons-lang-2.6-bin.tar.gz">commons-lang-2.6-bin.tar.gz</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.tar.gz.sha512">sha512</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.tar.gz.asc">pgp</a></td>
+              <td><a href="https://downloads.apache.org/commons/lang/binaries/commons-lang-2.6-bin.tar.gz.sha512">sha512</a></td>
+              <td><a href="https://downloads.apache.org/commons/lang/binaries/commons-lang-2.6-bin.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
               <td><a href="[preferred]/commons/lang/binaries/commons-lang-2.6-bin.zip">commons-lang-2.6-bin.zip</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.zip.sha512">sha512</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.zip.asc">pgp</a></td>
+              <td><a href="https://downloads.apache.org/commons/lang/binaries/commons-lang-2.6-bin.zip.sha512">sha512</a></td>
+              <td><a href="https://downloads.apache.org/commons/lang/binaries/commons-lang-2.6-bin.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
@@ -162,13 +162,13 @@ limitations under the License.
         <table>
           <tr>
               <td><a href="[preferred]/commons/lang/source/commons-lang-2.6-src.tar.gz">commons-lang-2.6-src.tar.gz</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.tar.gz.sha512">sha512</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.tar.gz.asc">pgp</a></td>
+              <td><a href="https://downloads.apache.org/commons/lang/source/commons-lang-2.6-src.tar.gz.sha512">sha512</a></td>
+              <td><a href="https://downloads.apache.org/commons/lang/source/commons-lang-2.6-src.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
               <td><a href="[preferred]/commons/lang/source/commons-lang-2.6-src.zip">commons-lang-2.6-src.zip</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.zip.sha512">sha512</a></td>
-              <td><a href="https://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.zip.asc">pgp</a></td>
+              <td><a href="https://downloads.apache.org/commons/lang/source/commons-lang-2.6-src.zip.sha512">sha512</a></td>
+              <td><a href="https://downloads.apache.org/commons/lang/source/commons-lang-2.6-src.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>

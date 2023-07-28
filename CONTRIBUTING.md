@@ -55,7 +55,7 @@ Getting Started
   + Clearly describe the issue including steps to reproduce when it is a bug.
   + Make sure you fill in the earliest version that you know has the issue.
 + Find the corresponding [repository on GitHub](https://github.com/apache/?query=commons-),
-[fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and check out your forked repository.
+[fork](https://help.github.com/articles/fork-a-repo/) and check out your forked repository.
 
 Making Changes
 --------------
@@ -106,8 +106,8 @@ Additional Resources
 + [Contributing patches](https://commons.apache.org/patches.html)
 + [Apache Commons Lang JIRA project page][jira]
 + [Contributor License Agreement][cla]
-+ [General GitHub documentation](https://docs.github.com/)
-+ [GitHub pull request documentation](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
++ [General GitHub documentation](https://help.github.com/)
++ [GitHub pull request documentation](https://help.github.com/articles/creating-a-pull-request/)
 + [Apache Commons Twitter Account](https://twitter.com/ApacheCommons)
 + `#apache-commons` IRC channel on `irc.freenode.net`
 

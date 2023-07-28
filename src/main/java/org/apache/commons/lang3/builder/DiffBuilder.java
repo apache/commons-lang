@@ -56,12 +56,16 @@ import org.apache.commons.lang3.ObjectUtils;
  * {@code DiffResult.toString()} method. This style choice can be overridden by
  * calling {@link DiffResult#toString(ToStringStyle)}.
  * </p>
+ * <p>
+ * See {@link ReflectionDiffBuilder} for a reflection based version of this class.
+ * </p>
  *
  * @param <T> type of the left and right object.
  * @see Diffable
  * @see Diff
  * @see DiffResult
  * @see ToStringStyle
+ * @see ReflectionDiffBuilder
  * @since 3.3
  */
 public class DiffBuilder<T> implements Builder<DiffResult<T>> {
@@ -110,7 +114,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
         this.style = style;
 
         // Don't compare any fields if objects equal
-        this.objectsTriviallyEqual = testTriviallyEqual && (lhs == rhs || lhs.equals(rhs));
+        this.objectsTriviallyEqual = testTriviallyEqual && Objects.equals(lhs, rhs);
     }
 
     /**
@@ -810,7 +814,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
         }
 
         // Not array type
-        if (lhs != null && lhs.equals(rhs)) {
+        if (Objects.equals(lhs, rhs)) {
             return this;
         }
 

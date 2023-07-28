@@ -1,3 +1,260 @@
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+                        Apache Commons Lang
+                        Version 3.13.0
+                        Release Notes
+
+
+This document contains the release notes for the 3.13.0 version of Apache Commons Lang.
+Commons Lang is a set of utility functions and reusable components that should be of use in any 
+Java environment.
+
+Lang 3.9 and onwards now targets Java 8, making use of features that arrived with Java 8.
+
+For the advice on upgrading from 2.x to 3.x, see the following page: 
+
+    https://commons.apache.org/lang/article3_0.html
+
+Apache Commons Lang, a package of Java utility classes for the
+classes that are in java.lang's hierarchy, or are considered to be so
+standard as to justify existence in java.lang.
+
+New features and bug fixes (Java 8).
+
+Changes in this version include:
+
+New features:
+o            Add GitHub coverage.yml. Thanks to Gary Gregory.
+o            Add EnumUtils.getEnumSystemProperty(...). Thanks to Gary Gregory.
+o            Add TriConsumer. Thanks to Gary Gregory.
+o            Add and use EnumUtils.getFirstEnumIgnoreCase(Class, String, Function, E). Thanks to Gary Gregory.
+o            Add and use Suppliers. Thanks to Gary Gregory.
+o            Add and use ArrayUtils.getComponentType(T[]). Thanks to Gary Gregory.
+o            Add and use ClassUtils.getComponentType(Class>T[]>). Thanks to Gary Gregory.
+o            Add and use ObjectUtils.getClass(T). Thanks to Gary Gregory.
+o            Add and use ArrayUtils.newInstance(Class>T>, int). Thanks to Gary Gregory.
+o            Add and use null-safe Streams.of(T...). Thanks to Gary Gregory.
+o            Add ClassUtils.comparator(). Thanks to Gary Gregory.
+o            Add and use ThreadUtils.sleepQuietly(Duration). Thanks to Gary Gregory.
+o            Add and use ArrayUtils.setAll(T[], IntFunction). Thanks to Gary Gregory.
+o            Add and use ArrayUtils.setAll(T[], Supplier). Thanks to Gary Gregory.
+o            Add BooleanConsumer. Thanks to Gary Gregory.
+o            Add IntToCharFunction. Thanks to Gary Gregory.
+o            Add IntStreams. Thanks to Gary Gregory.
+o            Add UncheckedFuture. Thanks to Gary Gregory.
+o            Add UncheckedException. Thanks to Gary Gregory.
+o            Add UncheckedExecutionException. Thanks to Gary Gregory.
+o            Add UncheckedTimeoutException. Thanks to Gary Gregory.
+o            Add UncheckedInterruptedException. Thanks to Gary Gregory.
+o            Add TimeZones.GMT. Thanks to Gary Gregory.
+o            Add ObjectUtils.identityHashCodeHex(Object). Thanks to Gary Gregory.
+o            Add ObjectUtils.hashCodeHex(Object). Thanks to Gary Gregory.
+o            Add StringUtils.removeStart(String, char). Thanks to Gary Gregory.
+o LANG-1659: Add null-safe ObjectUtils.isArray() #754. Thanks to Arturo Bernal, Gary Gregory.
+o            Add ComparableUtils.max(A, A) and ComparableUtils.min(A, A). Thanks to Gary Gregory.
+o            Add UncheckedReflectiveOperationException. Thanks to Gary Gregory.
+o            Add and use ClassUtils.isPublic(Class). Thanks to Gary Gregory.
+o            Add UncheckedIllegalAccessException. Thanks to Gary Gregory.
+o            Add MethodInvokers. Thanks to Gary Gregory.
+o            Add Streams.nullSafeStream(Collection). Thanks to Gary Gregory.
+o            Add Streams.toStream(Collection). Thanks to Gary Gregory.
+o            Add Streams.failableStream(Collection) and deprecate misnamed stream(Collection). Thanks to Gary Gregory.
+o            Add Streams.failableStream(Stream) and deprecate misnamed stream(Stream). Thanks to Gary Gregory.
+o            Add EnumUtils.getEnumMap(Class, Function). #730 Thanks to Maxwell Cody, Gary Gregory.
+o            Add FluentBitSet. Thanks to Gary Gregory.
+o            Add Streams.instancesOf(Class, Collection). Thanks to Gary Gregory.
+o            Add ImmutablePair.ofNonNull(L, R). Thanks to Gary Gregory.
+o            Add ImmutableTriple.ofNonNull(L, M, R). Thanks to Gary Gregory.
+o            Add MutablePair.ofNonNull(L, R). Thanks to Gary Gregory.
+o            Add MutableTriple.ofNonNull(L, M, R). Thanks to Gary Gregory.
+o            Add Pair.ofNonNull(L, R). Thanks to Gary Gregory.
+o            Add Triple.ofNonNull(L, M, R). Thanks to Gary Gregory.
+o            Add ArrayUtils.containsAny(Object[], Object...). Thanks to Gary Gregory.
+o            Add Processor.Type.AARCH_64. Thanks to Gary Gregory.
+o            Add Processor.isAarch64(). Thanks to Gary Gregory.
+o            Update ArchUtils.getProcessor(String) for "aarch64". Thanks to Gary Gregory.
+o            Add JavaVersion.JAVA_18. Thanks to Gary Gregory.
+o            Add JavaVersion.JAVA_19. Thanks to Emmanuel Bourg.
+o            Add JavaVersion.JAVA_20. Thanks to Emmanuel Bourg.
+o            Add JavaVersion.JAVA_21. Thanks to Emmanuel Bourg.
+o            Add TimeZones.toTimeZone(TimeZone). Thanks to Gary Gregory.
+o            Add FutureTasks. Thanks to Gary Gregory.
+o            Add Memoizer(Function) and Memoizer(Function, boolean). Thanks to Gary Gregory.
+o            Add Consumers. Thanks to Gary Gregory.
+o            Add github/codeql-action. Thanks to Gary Gregory.
+o            Add coverage.yml. Thanks to Gary Gregory.
+o            Add DurationUtils.since(Temporal). Thanks to Gary Gregory.
+o            Add DurationUtils.of(FailableConsumer|FailableRunnbale). Thanks to Gary Gregory.
+o            Add ExceptionUtils.forEach(Throwable, Consumer<Throwable>). Thanks to Gary Gregory.
+o            Add ExceptionUtils.stream(Throwable). Thanks to Gary Gregory.
+o            Add ExceptionUtils.getRootCauseStackTraceList(Throwable). Thanks to Gary Gregory.
+o            Add SystemUtils.IS_OS_WINDOWS_11. Thanks to Will Herrmann, Gary Gregory, Roland Kreuzer.
+o            Add SystemUtils.IS_JAVA_16. Thanks to Gary Gregory.
+o            Add SystemUtils.IS_JAVA_17. Thanks to Gary Gregory.
+o            Add SystemUtils.IS_JAVA_18. Thanks to Gary Gregory.
+o            Add SystemUtils.IS_JAVA_19. Thanks to Gary Gregory.
+o            Add SystemUtils.IS_JAVA_20. Thanks to Gary Gregory.
+o            Add SystemUtils.IS_JAVA_21. Thanks to Emmanuel Bourg.
+o LANG-1627: Add ArrayUtils.oneHot(). Thanks to Alberto Scotto, Avijit Chakraborty, Steve Bosman, Bruno P. Kinoshita, Gary Gregory.
+o LANG-1662: Let ReflectionToStringBuilder only reflect given field names #849. Thanks to Daniel Augusto Veronezi Salvador, Gary Gregory, Bruno P. Kinoshita.
+o            Add Streams.of(Enumeration<E>). Thanks to Gary Gregory.
+o            Add Streams.of(Iterable<E>). Thanks to Gary Gregory.
+o            Add Streams.of(Iterator<E>). Thanks to Gary Gregory.
+o LANG-1689: Simple support for Optional in ObjectUtils#isEmpty() #933. Thanks to Joseph Hendrix, Gary Gregory.
+o            Add Processor.Type.getLabel(). Thanks to Gary Gregory.
+o            Add Processor.toString(). Thanks to Gary Gregory.
+o            Add HashCodeBuilder.equals(Object). Thanks to Gary Gregory.
+o            Add BooleanUtils.values() and forEach(). Thanks to Gary Gregory.
+o            Add ClassPathUtils.packageToPath(String) and pathToPackage(String) Thanks to Gary Gregory.
+o            Add CalendarUtils#getDayOfYear() #968 Thanks to Arturo Bernal.
+o            Add NumberRange, DoubleRange, IntegerRange, LongRange. Thanks to Gary Gregory.
+o            Add missing exception javadoc/tests for some null arguments #869. Thanks to Diego Marcilio, Bruno P. Kinoshita, Gary Gregory.
+o            Add ClassLoaderUtils.getSystemURLs() and getThreadURLs(). Thanks to Gary Gregory.
+o            Add RegExUtils.dotAll() and dotAllMatcher(). Thanks to Gary Gregory.
+o            Add Pair.accept(FailableBiConsumer). Thanks to Gary Gregory.
+o            Add Pair.apply(FailableBiFunction). Thanks to Gary Gregory.
+o LANG-1677: Add ReflectionDiffBuilder.setExcludeFieldNames(...) and DiffExclude a? #838. Thanks to Dennis Baerten, Gary Gregory.
+o LANG-1647: Add and ExceptionUtils.isChecked() and isUnchecked() #1069 Thanks to Arturo Bernal, Dimitrios Efthymiou, Gary Gregory.
+o            Add and use ExceptionUtils.throwUnchecked(throwable). Thanks to Gary Gregory.
+o            Add LockingVisitors.create(O, ReadWriteLock). Thanks to Gary Gregory.
+
+Fixed Bugs:
+o LANG-1645: NumberUtils.createNumber() to recognize hex integers prefixed with +. Thanks to Alex Herbert.
+o LANG-1646: NumberUtils.createNumber() to return requested floating point type for zero. Thanks to Alex Herbert.
+o            DMI: Random object created and used only once (DMI_RANDOM_USED_ONLY_ONCE); Better multi-threaded behavior. Thanks to SpotBugs, Gary Gregory.
+o LANG-1646: Redundant Collection operation. Use Collections.emptyIterator() #738. Thanks to Arturo Bernal.
+o            Make Streams.stream(Collection) null-safe. Thanks to Gary Gregory.
+o LANG-1667: Allow tests to access java.util classes such as ArrayList in Java 16 #788. Thanks to Andrew Thomas.
+o LANG-1669: OpenJDK 16 Day Period Parsing #791. Thanks to Andrew Thomas.
+o LANG-1663: Update documentation to list correct exception for null array parameters #785. Thanks to Andrew Thomas.
+o            Fixing reversed Javadoc descriptions in StopWatch #781. Thanks to Thunderforge.
+o LANG-1670: Fix typos in JavaDoc #795. Thanks to Igor Shuvalov.
+o            Simplify assertions with equivalent but more simple. #792. Thanks to Arturo Bernal.
+o            Avoid multiple equivalent occurrences of the same expression. #797. Thanks to Arturo Bernal.
+o            Remove redundant initializers #800. Thanks to Arturo Bernal.
+o            Fix ObjectUtils Javadocs #755. Thanks to Arturo Bernal.
+o            Add test idea for RangeTest from PR #815 by Rushi98, but with a new comment. Thanks to Rushi98, Gary Gregory.
+o LANG-1674: Make Range constructors more generic #810. Thanks to singhbaljit, Gary Gregory.
+o            Use final and Remove redundant String. #813, #816. Thanks to Arturo Bernal.
+o            Use Set instead of List for checking the contains() method #734. Thanks to CiprianBodnarescu.
+o            Javadoc for StringUtils.substringBefore(String str, int separator) doesn't mention that the separator is an int. Thanks to Roland Kreuzer.
+o            Fix NullPointerException in ThreadUtils.getSystemThreadGroup() when the current thread is stopped. Thanks to Gary Gregory.
+o            ArrayUtils.toPrimitive(Boolean...) null array elements map to false, like Boolean.parseBoolean(null) and its callers return false. Thanks to Gary Gregory.
+o            StrBuilder.StrBuilderReader.skip(long): Throw an exception when an implicit narrowing conversion in a compound assignment would result in information loss or a numeric error such as an overflows. Thanks to CodeQL, Gary Gregory.
+o            Deprecate Validate#notNull(Object) in favor of using Objects#requireNonNull(Object, String). Thanks to Gary Gregory.
+o LANG-1462: Use TimeZone from calendar in DateFormatUtils. Thanks to Lijun Liang, Arun Avanathan, Tai Dupree, Maria Buiakova, Gary Gregory.
+o            Updating javadoc for NullPointerException when Validate.notNull() is called #870. Thanks to Diego Marcilio.
+o            Fixing and adding DateUtils exception Javadocs #871. Thanks to Diego Marcilio.
+o LANG-1679: Improve performance of StringUtils.unwrap(String, String) #844. Thanks to clover.
+o LANG-1675: Improve performance of StringUtils.join for primitives #812. Thanks to clover.
+o LANG-1675: Fixed NPE getting Stack Trace if Throwable is null #733. Thanks to Arturo Bernal.
+o            Make Validate.isAssignableFrom() check null inputs. Thanks to Gary Gregory, Arturo Bernal.
+o            Fix Javadoc for Validate.isAssignableFrom(). Thanks to Arturo Bernal.
+o            Make final mappingFunction variable #876. Thanks to Arturo Bernal.
+o            Remove unnecessary variable creations #882. Thanks to Arturo Bernal.
+o            Minor changes #769. Thanks to Arturo Bernal.
+o LANG-1680: FastDateFormat does not support the 'L'-Pattern from SimpleDateFormat. Thanks to Michael Krause, Steve Bosman, Gary Gregory.
+o            Increase test coverage of ComparableUtils from 71% to 100% #898. Thanks to Steve Bosman, Gary Gregory.
+o            Increase method test coverage of MultilineRecursiveToStringStyle #899. Thanks to Steve Bosman.
+o            Fix unstable coverage of CharSequenceUtils tests noticed during merge of PRs 898 and 899 #901. Thanks to Steve Bosman.
+o            Rewrite Conversion.binaryBeMsb0ToHexDigit to invert logic of binaryToHexDigit. Thanks to Arturo Bernal.
+o            Allow extension of previously final classes ImmutablePair and ImmutableTriple. Thanks to Gary Gregory.
+o            Update ClassUtils Javadoc with some missing throws NPE #912. Thanks to shalk, Bruno P. Kinoshita, Gary Gregory.
+o            Javadoc: StringUtils.repeat("", "x", 3) = "xx"; #918. Thanks to guicaiyue.
+o            Fix typos #920, #923. Thanks to Marc Wrobel.
+o            Simplify condition #925. Thanks to Bhimantoro Suryo Admodjo.
+o            StringUtils.join(Iterable, String) should only return null when the Iterable is null. Thanks to Gary Gregory.
+o            StringUtils.join(Iterator, String) should only return null when the Iterator is null. Thanks to Gary Gregory.
+o            Add tests to increase coverage #904. Thanks to Arturo Bernal.
+o            Extends Object clauses are redundant #937. Thanks to Arturo Bernal.
+o            Simplify conditional expression. #941. Thanks to Arturo Bernal.
+o            Fix some Javadoc comments #938. Thanks to Arturo Bernal.
+o            Deprecate getNanosOfMiili() method with typo and create proper getNanosOfMilli() #940. Thanks to Arturo Bernal, Gary Gregory.
+o            Deprecate ThreadUtils code that defines custom function interfaces in favor of stock java.util.function.Predicate usage. Thanks to Gary Gregory.
+o            Fix links in Javadoc and documentation #926. Thanks to Marc Wrobel.
+o LANG-1604: Deprecate RandomUtils in favor of Apache Commons RNG UniformRandomProvider #942. Thanks to Gilles Sadowski, Maksym Bohachov, Gary Gregory.
+o LANG-1638: Added docs regarding week year support #924. Thanks to Shailendra Soni, Michael Osipov, Arun Avanathan, Andrew Thomas, Bruno P. Kinoshita, Gary Gregory.
+o LANG-1691: ClassUtils.getShortCanonicalName doesn't use the canonicalName #949. Thanks to Thiyagarajan, Gary Gregory.
+o            Validate: Get error messages without using String.format when varargs is empty. Thanks to Piotr Stawirej.
+o            Simplify expression (length is never < 0) #962. Thanks to Arturo Bernal.
+o            Fix simple broken javadoc. #981. Thanks to Arturo Bernal.
+o            Fix typo #1001. Thanks to LeeJuHyun.
+o            Use Objects.requireNonNull() directly #1022. Thanks to Arturo Bernal.
+o LANG-1694: MethodUtils.getMatchingMethod() fails with "Found multiple candidates" #1033. Thanks to SeasonPan.
+o LANG-1643: Construct ArrayList with better default size #1041. Thanks to laurentschoelens.
+o            ThreadUtilsTest#testThreadGroups will test failed when using Junit5 parallel test #1051. Thanks to remeio.
+o            Swap the order of assertion args (first excepted then actual) #1054. Thanks to remeio.
+o            Fix the comment of Failable, redundant "-" #1056. Thanks to remeio.
+o            Fix the comment of ComparableUtils, using "smallest", not "largest" #1058. Thanks to remeio.
+o            AnnotationUtilsTest and FormattableUtilsTest Only use static imports to import assert methods in tests #1052. Thanks to remeio.
+o            [LANG-1681] Fix some FieldUtils Javadocs #1047. Thanks to laurentschoelens, Bruno P. Kinoshita, Diego Marcilio.
+o            Remove unnecessary statement in DurationFormatUtils #965. Thanks to Arturo Bernal.
+o LANG-1699: Corrected value of SystemUtils.JAVA_VENDOR #1066. Thanks to Darren Coleman.
+o            [StepSecurity] ci: Harden GitHub Actions #1067. Thanks to step-security-bot, Gary Gregory.
+o            Update Javadoc for the insert methods in ArrayUtils #1078. Thanks to Dimitrios Efthymiou.
+o            Deprecate ExceptionUtils.ExceptionUtils(). Thanks to Gary Gregory.
+o LANG-1697: TypeUtils.getRawType() throws a NullPointerException on Wildcard GenericArrayType. Thanks to Jan Arne Sparka, Gary Gregory.
+o            Throw IllegalArgumentException instead of InternalError in the builder package. Thanks to Gary Gregory.
+o            Avoid NPE in MutableObject#equals() for null content. Thanks to Gary Gregory.
+o            SystemUtils fix and updates related to macOS #1085. Thanks to Ali Khaleqi Yekta, Gary Gregory.
+
+Changes:
+o            Bump actions/cache from 2.1.4 to 3.0.10 #742, #752, #764, #833, #867, #959, #964. Thanks to Dependabot, XenoAmess, Gary Gregory.
+o            Bump actions/checkout from 2 to 3.1.0 #819, #825, #859, #963. Thanks to Dependabot, Gary Gregory.
+o            Bump actions/setup-java from v1.4.3 to 3.5.1 #879. Thanks to Gary Gregory.
+o            Bump spotbugs-maven-plugin from 4.2.0 to 4.7.3.0 #735, #808, #822, #834, #868, #895, #919, #927, #946, #989. Thanks to Dependabot, Gary Gregory.
+o            Bump spotbugs from 4.2.2 to 4.7.3 #744, #917, #947, #973. Thanks to Dependabot, Gary Gregory.
+o            Bump maven-checkstyle-plugin from 3.1.2 to 3.2.0 #943. Thanks to Dependabot, Gary Gregory.
+o            Bump checkstyle from 8.41 to 9.3 #739, #768, #787, #811, #824, #843. Thanks to Dependabot, Gary Gregory.
+o            Bump easymock from 4.2 to 5.1.0 #746, #972, #986, #1012. Thanks to Dependabot.
+o            Bump commons.jacoco.version from 0.8.6 to 0.8.8. Thanks to Gary Gregory.
+o            Bump commons.japicmp.version from 0.15.2 to 0.16.0. Thanks to Gary Gregory.
+o            Bump junit-pioneer from 1.3.8 to 1.9.1 #749, #767, #832, #883, #988, #991, #995. Thanks to Dependabot, Gary Gregory.
+o            Bump junit-bom from 5.7.1 to 5.9.1 #761, #805, #807, #836, #928, #955. Thanks to Dependabot.
+o            Bump maven-javadoc-plugin from 3.2.0 to 3.4.1. Thanks to Dependabot, Gary Gregory.
+o            Bump jmh.version from 1.27 to 1.36 #794, #842, #872, #990. Thanks to Dependabot.
+o            Bump maven-pmd-plugin from 3.14.0 to 3.19.0 #802, #858, #909, #948. Thanks to Dependabot.
+o            Bump pmd from 6.40.0 to 6.52.0 #837, #861, #873, #905, #915, #932, #944. Thanks to Dependabot.
+o            Bump biz.aQute.bndlib from 5.3.0 to 6.3.1 #814, #835. Thanks to Dependabot, Gary Gregory.
+o            Bump maven-bundle-plugin from 5.1.1 to 5.1.2. Thanks to Dependabot.
+o            Bump animal-sniffer-maven-plugin from 1.19 to 1.21. Thanks to Dependabot.
+o            Bump exec-maven-plugin from 1.6.0 to 3.1.0 #590, #922. Thanks to Dependabot.
+o            Bump maven-surefire-plugin from 3.0.0-M5 to 3.0.0-M7 #880, #910. Thanks to Dependabot.
+o            Bump apache-rat from 0.13 to 0.14. Thanks to Gary Gregory.
+o            Bump commons-parent from 53 to 58 #954, #1000, #1011, #1061. Thanks to Dependabot, Gary Gregory.
+o            Bump commons-text from 1.9 to 1.10.0 #957. Thanks to Dependabot.
+o            Bump commons.pmd-impl.version from 6.49.0 to 6.51.0 #961. Thanks to Dependabot, Gary Gregory.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Lang website:
+
+https://commons.apache.org/proper/commons-lang/
+
+Download page: https://commons.apache.org/proper/commons-lang/download_lang.cgi
+
+Have fun!
+-Apache Commons Team
+
+=============================================================================
+
                         Apache Commons Lang
                         Version 3.12.0
                         Release Notes

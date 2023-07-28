@@ -59,22 +59,27 @@ import org.apache.commons.lang3.reflect.FieldUtils;
  * {@code DiffResult.toString()} method. This style choice can be overridden by
  * calling {@link DiffResult#toString(ToStringStyle)}.
  * </p>
+ * <p>
+ * See {@link DiffBuilder} for a non-reflection based version of this class.
+ * </p>
  * @param <T>
  *            type of the left and right object to diff.
  * @see Diffable
  * @see Diff
  * @see DiffResult
  * @see ToStringStyle
+ * @see DiffBuilder
  * @since 3.6
  */
 public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
 
-    private final Object left;
-    private final Object right;
+    private final T left;
+    private final T right;
     private final DiffBuilder<T> diffBuilder;
 
     /**
-     * Which field names to exclude from output. Intended for fields like {@code "password"} or {@code "lastModificationDate"}.
+     * Field names to exclude from output. Intended for fields like {@code "password"} or {@code "lastModificationDate"}.
+     *
      * @since 3.13.0
      */
     private String[] excludeFieldNames;
@@ -100,11 +105,12 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
     public ReflectionDiffBuilder(final T lhs, final T rhs, final ToStringStyle style) {
         this.left = lhs;
         this.right = rhs;
-        diffBuilder = new DiffBuilder<>(lhs, rhs, style);
+        this.diffBuilder = new DiffBuilder<>(lhs, rhs, style);
     }
 
     /**
-     * Gets the field names that should be excluded from the diff
+     * Gets the field names that should be excluded from the diff.
+     *
      * @return Returns the excludeFieldNames.
      * @since 3.13.0
      */
@@ -121,7 +127,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
      * @return {@code this}
      * @since 3.13.0
      */
-    public ReflectionDiffBuilder setExcludeFieldNames(final String... excludeFieldNamesParam) {
+    public ReflectionDiffBuilder<T> setExcludeFieldNames(final String... excludeFieldNamesParam) {
         if (excludeFieldNamesParam == null) {
             this.excludeFieldNames = ArrayUtils.EMPTY_STRING_ARRAY;
         } else {
@@ -145,12 +151,11 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         for (final Field field : FieldUtils.getAllFields(clazz)) {
             if (accept(field)) {
                 try {
-                    diffBuilder.append(field.getName(), FieldUtils.readField(field, left, true),
-                            FieldUtils.readField(field, right, true));
-                } catch (final IllegalAccessException ex) {
+                    diffBuilder.append(field.getName(), FieldUtils.readField(field, left, true), FieldUtils.readField(field, right, true));
+                } catch (final IllegalAccessException e) {
                     // this can't happen. Would get a Security exception instead
                     // throw a runtime exception in case the impossible happens.
-                    throw new InternalError("Unexpected IllegalAccessException: " + ex.getMessage());
+                    throw new IllegalArgumentException("Unexpected IllegalAccessException: " + e.getMessage(), e);
                 }
             }
         }

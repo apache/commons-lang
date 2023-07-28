@@ -191,14 +191,7 @@ public class HashCodeBuilder implements Builder<Integer> {
                     && (useTransients || !Modifier.isTransient(field.getModifiers()))
                     && !Modifier.isStatic(field.getModifiers())
                     && !field.isAnnotationPresent(HashCodeExclude.class)) {
-                    try {
-                        final Object fieldValue = field.get(object);
-                        builder.append(fieldValue);
-                    } catch (final IllegalAccessException e) {
-                        // this can't happen. Would get a Security exception instead
-                        // throw a runtime exception in case the impossible happens.
-                        throw new InternalError("Unexpected IllegalAccessException");
-                    }
+                    builder.append(Reflection.getUnchecked(field, object));
                 }
             }
         } finally {
@@ -874,7 +867,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param superHashCode
      *            the result of calling {@code super.hashCode()}
-     * @return this HashCodeBuilder, used to chain calls.
+     * @return this
      * @since 2.0
      */
     public HashCodeBuilder appendSuper(final int superHashCode) {
@@ -886,7 +879,6 @@ public class HashCodeBuilder implements Builder<Integer> {
      * Returns the computed {@code hashCode}.
      *
      * @return {@code hashCode} based on the fields appended
-     *
      * @since 3.0
      */
     @Override

@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.TreeSet;
@@ -133,15 +134,15 @@ public class FastDateParser implements DateParser, Serializable {
      * @param pattern non-null {@link java.text.SimpleDateFormat} compatible
      *  pattern
      * @param timeZone non-null time zone to use
-     * @param locale non-null locale
+     * @param locale locale, null maps to the default Locale.
      * @param centuryStart The start of the century for 2 digit year parsing
      *
      * @since 3.5
      */
     protected FastDateParser(final String pattern, final TimeZone timeZone, final Locale locale,
         final Date centuryStart) {
-        this.pattern = pattern;
-        this.timeZone = timeZone;
+        this.pattern = Objects.requireNonNull(pattern, "pattern");
+        this.timeZone = Objects.requireNonNull(timeZone, "timeZone");
         this.locale = LocaleUtils.toLocale(locale);
 
         final Calendar definingCalendar = Calendar.getInstance(timeZone, this.locale);
