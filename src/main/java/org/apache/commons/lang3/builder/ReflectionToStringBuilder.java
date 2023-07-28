@@ -693,11 +693,6 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            The class of object parameter
      */
     protected void appendMethodsIn(final Class<?> clazz) {
-        if (clazz.isArray()) {
-            this.reflectionAppendArray(this.getObject());
-            return;
-        }
-
         final Method[] methods = Arrays.stream(clazz.getDeclaredMethods())
                 .filter(this::accept)
                 .sorted(Comparator.comparing(this::getMethodFieldName))
@@ -713,9 +708,10 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
 
-    private String getMethodFieldName(Method method) {
+    private String getMethodFieldName(final Method method) {
         if (method.isAnnotationPresent(ToStringInclude.class) &&
-                !ToStringInclude.UNDEFINED.equals(method.getDeclaredAnnotation(ToStringInclude.class).value())) {
+                !ToStringInclude.UNDEFINED.equals(method.getDeclaredAnnotation(
+                        ToStringInclude.class).value())) {
             return method.getDeclaredAnnotation(ToStringInclude.class).value();
         }
         return method.getName();
