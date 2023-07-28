@@ -919,6 +919,7 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertFalse(NumberUtils.isParsable("64, 2"));
         assertFalse(NumberUtils.isParsable("64.2.2"));
         assertTrue(NumberUtils.isParsable("64."));
+        assertFalse(NumberUtils.isParsable("64.."));
         assertTrue(NumberUtils.isParsable("-64."));
         assertFalse(NumberUtils.isParsable("64L"));
         assertFalse(NumberUtils.isParsable("-"));
