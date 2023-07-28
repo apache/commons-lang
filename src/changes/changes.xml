@@ -46,7 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.13.1" date="2023-07-23" description="New features and bug fixes (Java 8).">
+  <release version="3.13.1" date="202Y-MM-DD" description="New features and bug fixes (Java 8).">
     <!-- FIX -->
     <action                   type="fix" dev="ggregory" due-to="remeio">Rename variable names from 'clss' to 'clazz' #1087.</action>
     <!-- UPDATE -->
