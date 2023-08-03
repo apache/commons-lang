@@ -15,20 +15,21 @@
  * limitations under the License.
  */
 
-package org.apache.commons.lang3.builder;
+package org.apache.commons.lang3.reflect;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.junit.jupiter.api.Test;
 
 /**
- * Excludes a field from being used by the {@link ReflectionDiffBuilder}.
+ * A top-level class is parameterised using itself.
  *
- * @since 3.13.0
+ * @param <U> itself
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface DiffExclude {
-    // empty
+public class Lang1703Test<U extends Lang1703Test<U>> {
+
+    @Test
+    public void testStackOverflowError() {
+        // causes a java.lang.StackOverflowError
+        TypeUtils.toString(Lang1703Test.class);
+    }
+
 }

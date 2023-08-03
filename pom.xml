@@ -22,11 +22,11 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>58</version>
+    <version>59</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
-  <version>3.13.0-SNAPSHOT</version>
+  <version>3.13.1-SNAPSHOT</version>
   <name>Apache Commons Lang</name>
 
   <inceptionYear>2001</inceptionYear>
@@ -47,7 +47,7 @@
     <connection>scm:git:http://gitbox.apache.org/repos/asf/commons-lang.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-lang.git</developerConnection>
     <url>https://gitbox.apache.org/repos/asf?p=commons-lang.git</url>
-    <tag>commons-lang-3.12.0</tag>
+    <tag>rel/commons-lang-3.13.0</tag>
   </scm>
 
   <developers>
@@ -607,7 +607,7 @@
     <commons.packageId>lang3</commons.packageId>
     <commons.module.name>org.apache.commons.lang3</commons.module.name>
     <!-- Current 3.x release series -->
-    <commons.release.version>3.13.0</commons.release.version>
+    <commons.release.version>3.13.1</commons.release.version>
     <commons.release.desc>(Java 8+)</commons.release.desc>
     <!-- Previous 2.x release series -->
     <commons.release.2.version>2.6</commons.release.2.version>
@@ -625,13 +625,14 @@
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
 
     <japicmp.skip>false</japicmp.skip>
-
+    <!-- 0.6.0 requires Java 11 -->
+    <commons.spdx.version>0.5.5</commons.spdx.version>
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
     <jmh.version>1.36</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
 
     <!-- Commons Release Plugin -->
-    <commons.bc.version>3.12.0</commons.bc.version>
+    <commons.bc.version>3.13.0</commons.bc.version>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 import java.util.TimeZone;
 import java.util.stream.Stream;
 
@@ -680,7 +681,7 @@ public class DurationFormatUtils {
         /**
          * Wraps a token around a value. A value would be something like a 'Y'.
          *
-         * @param value to wrap
+         * @param value to wrap, non-null.
          */
         Token(final Object value, final boolean optional, final int optionalIndex) {
             this.value = value;
@@ -694,11 +695,11 @@ public class DurationFormatUtils {
          * Wraps a token around a repeated number of a value, for example it would
          * store 'yyyy' as a value for y and a count of 4.
          *
-         * @param value to wrap
-         * @param count to wrap
+         * @param value to wrap, non-null.
+         * @param count to wrap.
          */
         Token(final Object value, final int count) {
-            this.value = value;
+            this.value = Objects.requireNonNull(value, "value");
             this.count = count;
         }
 
@@ -721,7 +722,7 @@ public class DurationFormatUtils {
         /**
          * Gets the particular value this token represents.
          *
-         * @return Object value
+         * @return Object value, non-null.
          */
         Object getValue() {
             return value;

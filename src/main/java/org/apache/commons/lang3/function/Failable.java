@@ -32,6 +32,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.stream.Streams;
 import org.apache.commons.lang3.stream.Streams.FailableStream;
 
@@ -407,12 +408,7 @@ public class Failable {
      */
     public static RuntimeException rethrow(final Throwable throwable) {
         Objects.requireNonNull(throwable, "throwable");
-        if (throwable instanceof RuntimeException) {
-            throw (RuntimeException) throwable;
-        }
-        if (throwable instanceof Error) {
-            throw (Error) throwable;
-        }
+        ExceptionUtils.throwUnchecked(throwable);
         if (throwable instanceof IOException) {
             throw new UncheckedIOException((IOException) throwable);
         }

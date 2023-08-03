@@ -48,7 +48,8 @@ public interface FailableLongUnaryOperator<E extends Throwable> {
      * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
-   static <E extends Throwable> FailableLongUnaryOperator<E> nop() {
+    @SuppressWarnings("unchecked")
+    static <E extends Throwable> FailableLongUnaryOperator<E> nop() {
         return NOP;
     }
 
