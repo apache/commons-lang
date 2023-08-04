@@ -53,20 +53,24 @@ import org.apache.commons.lang3.Validate;
  * only be printed if the token value is non-zero. Literals within optional blocks will only be
  * printed if the preceding non-literal token is non-zero. Leading optional literals will only
  * be printed if the following non-literal is non-zero.
- * Multiple optional blocks can be used to group literals with the desired token. Note that
- * multiple optional tokens without literals can result in impossible to understand output.
+ * Multiple optional blocks can be used to group literals with the desired token.
+ * <p>
+ * Notes on Optional Tokens:<br>
+ * <b>Multiple optional tokens without literals can result in impossible to understand output.</b><br>
+ * <b>Patterns where all tokens are optional can produce empty strings.</b><br>
  * (See examples below)
+ * </p>
  * <br>
  * <table border="1">
  * <caption>Example Output</caption>
- * <tr><th>pattern</th><th>Duration.ofDays(1)</th><th>Duration.ofHours(1)</th><th>Duration.ofMinutes(1)</th></tr>
- * <tr><td>d'd'H'h'm'm's's'</td><td>1d0h0m0s</td><td>0d1h0m0s</td><td>0d0h1m0s</td></tr>
- * <tr><td>d'd'[H'h'm'm']s's'</td><td>1d0s</td><td>0d1h0s</td><td>0d1m0s</td></tr>
- * <tr><td>[d'd'H'h'm'm']s's'</td><td>1d0s</td><td>1h0s</td><td>1m0s</td></tr>
- * <tr><td>[d'd'H'h'm'm's's']</td><td>1d</td><td>1h</td><td>1m</td></tr>
- * <tr><td>['{'d'}']HH':'mm</td><td>{1}00:00</td><td>01:00</td><td>00:01</td></tr>
- * <tr><td>['{'dd'}']['&lt;'HH'&gt;']['('mm')']</td><td>{01}</td><td>&lt;01&gt;</td><td>(00)</td></tr>
- * <tr><td>[dHms]</td><td>1</td><td>1</td><td>1</td></tr>
+ * <tr><th>pattern</th><th>Duration.ofDays(1)</th><th>Duration.ofHours(1)</th><th>Duration.ofMinutes(1)</th><th>Duration.ofMillis(0)</th></tr>
+ * <tr><td>d'd'H'h'm'm's's'</td><td>1d0h0m0s</td><td>0d1h0m0s</td><td>0d0h1m0s</td><td>0d0h0m0s</td></tr>
+ * <tr><td>d'd'[H'h'm'm']s's'</td><td>1d0s</td><td>0d1h0s</td><td>0d1m0s</td><td>0d0s</td></tr>
+ * <tr><td>[d'd'H'h'm'm']s's'</td><td>1d0s</td><td>1h0s</td><td>1m0s</td><td>0s</td></tr>
+ * <tr><td>[d'd'H'h'm'm's's']</td><td>1d</td><td>1h</td><td>1m</td><td></td></tr>
+ * <tr><td>['{'d'}']HH':'mm</td><td>{1}00:00</td><td>01:00</td><td>00:01</td><td>00:00</td></tr>
+ * <tr><td>['{'dd'}']['&lt;'HH'&gt;']['('mm')']</td><td>{01}</td><td>&lt;01&gt;</td><td>(00)</td><td></td></tr>
+ * <tr><td>[dHms]</td><td>1</td><td>1</td><td>1</td><td></td></tr>
  * </table>
  * <b>Note: Optional blocks cannot be nested.</b>
  *
@@ -672,15 +676,13 @@ public class DurationFormatUtils {
         private final Object value;
         private int count;
         private int optionalIndex = -1;
-        Token(final Object value) {
-            this.value = value;
-            this.count = 1;
-        }
 
         /**
          * Wraps a token around a value. A value would be something like a 'Y'.
          *
-         * @param value to wrap
+         * @param value value to wrap
+         * @param optional whether the token is optional
+         * @param optionalIndex the index of the optional token within the pattern
          */
         Token(final Object value, final boolean optional, final int optionalIndex) {
             this.value = value;
@@ -688,18 +690,6 @@ public class DurationFormatUtils {
             if (optional) {
                 this.optionalIndex = optionalIndex;
             }
-        }
-
-        /**
-         * Wraps a token around a repeated number of a value, for example it would
-         * store 'yyyy' as a value for y and a count of 4.
-         *
-         * @param value to wrap
-         * @param count to wrap
-         */
-        Token(final Object value, final int count) {
-            this.value = value;
-            this.count = count;
         }
 
         /**

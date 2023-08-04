@@ -572,49 +572,49 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
     public void testLexx() {
         // tests each constant
         assertArrayEquals(new DurationFormatUtils.Token[]{
-            new DurationFormatUtils.Token(DurationFormatUtils.y, 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.M, 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.d, 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.H, 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.m, 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.s, 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.S, 1)}, DurationFormatUtils.lexx("yMdHmsS"));
+            createTokenWithCount(DurationFormatUtils.y, 1),
+            createTokenWithCount(DurationFormatUtils.M, 1),
+            createTokenWithCount(DurationFormatUtils.d, 1),
+            createTokenWithCount(DurationFormatUtils.H, 1),
+            createTokenWithCount(DurationFormatUtils.m, 1),
+            createTokenWithCount(DurationFormatUtils.s, 1),
+            createTokenWithCount(DurationFormatUtils.S, 1)}, DurationFormatUtils.lexx("yMdHmsS"));
 
         // tests the ISO 8601-like
         assertArrayEquals(new DurationFormatUtils.Token[]{
-            new DurationFormatUtils.Token(DurationFormatUtils.H, 2),
-            new DurationFormatUtils.Token(new StringBuilder(":"), 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.m, 2),
-            new DurationFormatUtils.Token(new StringBuilder(":"), 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.s, 2),
-            new DurationFormatUtils.Token(new StringBuilder("."), 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.S, 3)}, DurationFormatUtils.lexx("HH:mm:ss.SSS"));
+            createTokenWithCount(DurationFormatUtils.H, 2),
+            createTokenWithCount(new StringBuilder(":"), 1),
+            createTokenWithCount(DurationFormatUtils.m, 2),
+            createTokenWithCount(new StringBuilder(":"), 1),
+            createTokenWithCount(DurationFormatUtils.s, 2),
+            createTokenWithCount(new StringBuilder("."), 1),
+            createTokenWithCount(DurationFormatUtils.S, 3)}, DurationFormatUtils.lexx("HH:mm:ss.SSS"));
 
         // test the iso extended format
         assertArrayEquals(new DurationFormatUtils.Token[]{
-            new DurationFormatUtils.Token(new StringBuilder("P"), 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.y, 4),
-            new DurationFormatUtils.Token(new StringBuilder("Y"), 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.M, 1),
-            new DurationFormatUtils.Token(new StringBuilder("M"), 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.d, 1),
-            new DurationFormatUtils.Token(new StringBuilder("DT"), 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.H, 1),
-            new DurationFormatUtils.Token(new StringBuilder("H"), 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.m, 1),
-            new DurationFormatUtils.Token(new StringBuilder("M"), 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.s, 1),
-            new DurationFormatUtils.Token(new StringBuilder("."), 1),
-            new DurationFormatUtils.Token(DurationFormatUtils.S, 3),
-            new DurationFormatUtils.Token(new StringBuilder("S"), 1)}, DurationFormatUtils
+            createTokenWithCount(new StringBuilder("P"), 1),
+            createTokenWithCount(DurationFormatUtils.y, 4),
+            createTokenWithCount(new StringBuilder("Y"), 1),
+            createTokenWithCount(DurationFormatUtils.M, 1),
+            createTokenWithCount(new StringBuilder("M"), 1),
+            createTokenWithCount(DurationFormatUtils.d, 1),
+            createTokenWithCount(new StringBuilder("DT"), 1),
+            createTokenWithCount(DurationFormatUtils.H, 1),
+            createTokenWithCount(new StringBuilder("H"), 1),
+            createTokenWithCount(DurationFormatUtils.m, 1),
+            createTokenWithCount(new StringBuilder("M"), 1),
+            createTokenWithCount(DurationFormatUtils.s, 1),
+            createTokenWithCount(new StringBuilder("."), 1),
+            createTokenWithCount(DurationFormatUtils.S, 3),
+            createTokenWithCount(new StringBuilder("S"), 1)}, DurationFormatUtils
                 .lexx(DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN));
 
         // test failures in equals
-        final DurationFormatUtils.Token token = new DurationFormatUtils.Token(DurationFormatUtils.y, 4);
+        final DurationFormatUtils.Token token = createTokenWithCount(DurationFormatUtils.y, 4);
         assertNotEquals(token, new Object(), "Token equal to non-Token class. ");
-        assertNotEquals(token, new DurationFormatUtils.Token(new Object()), "Token equal to Token with wrong value class. ");
-        assertNotEquals(token, new DurationFormatUtils.Token(DurationFormatUtils.y, 1), "Token equal to Token with different count. ");
-        final DurationFormatUtils.Token numToken = new DurationFormatUtils.Token(Integer.valueOf(1), 4);
+        assertNotEquals(token, createTokenWithCount(new Object(), 1), "Token equal to Token with wrong value class. ");
+        assertNotEquals(token, createTokenWithCount(DurationFormatUtils.y, 1), "Token equal to Token with different count. ");
+        final DurationFormatUtils.Token numToken = createTokenWithCount(Integer.valueOf(1), 4);
         assertEquals(numToken, numToken, "Token with Number value not equal to itself. ");
     }
     // Testing the under a day range in DurationFormatUtils.formatPeriod
@@ -724,36 +724,40 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
 
         //make sure optional formats match corresponding adjusted non-optional formats
         assertEquals(
-                DurationFormatUtils.formatDuration(915361000L, "[d'd'H'h'm'm']s's'"),
-                DurationFormatUtils.formatDuration(915361000L, "d'd'H'h'm'm's's'"));
+                DurationFormatUtils.formatDuration(915361000L, "d'd'H'h'm'm's's'"),
+                DurationFormatUtils.formatDuration(915361000L, "[d'd'H'h'm'm']s's'"));
 
         assertEquals(
-                DurationFormatUtils.formatDuration(9153610L, "[d'd'H'h'm'm']s's'"),
-                DurationFormatUtils.formatDuration(9153610L, "H'h'm'm's's'"));
+                DurationFormatUtils.formatDuration(9153610L, "H'h'm'm's's'"),
+                DurationFormatUtils.formatDuration(9153610L, "[d'd'H'h'm'm']s's'"));
 
         assertEquals(
-                DurationFormatUtils.formatDuration(915361L, "[d'd'H'h'm'm']s's'"),
-                DurationFormatUtils.formatDuration(915361L, "m'm's's'"));
+                DurationFormatUtils.formatDuration(915361L, "m'm's's'"),
+                DurationFormatUtils.formatDuration(915361L, "[d'd'H'h'm'm']s's'"));
 
         assertEquals(
-                DurationFormatUtils.formatDuration(9153L, "[d'd'H'h'm'm']s's'"),
-                DurationFormatUtils.formatDuration(9153L, "s's'"));
+                DurationFormatUtils.formatDuration(9153L, "s's'"),
+                DurationFormatUtils.formatDuration(9153L, "[d'd'H'h'm'm']s's'"));
 
         assertEquals(
-                DurationFormatUtils.formatPeriod(9153610L, 915361000L, "[d'd'H'h'm'm']s's'"),
-                DurationFormatUtils.formatPeriod(9153610L, 915361000L, "d'd'H'h'm'm's's'") );
+                DurationFormatUtils.formatDuration(9153L, "s's'"),
+                DurationFormatUtils.formatDuration(9153L, "[d'd'H'h'm'm']s's'"));
 
         assertEquals(
-                DurationFormatUtils.formatPeriod(915361L, 9153610L, "[d'd'H'h'm'm']s's'"),
-                DurationFormatUtils.formatPeriod(915361L, 9153610L, "H'h'm'm's's'"));
+                DurationFormatUtils.formatPeriod(9153610L, 915361000L, "d'd'H'h'm'm's's'"),
+                DurationFormatUtils.formatPeriod(9153610L, 915361000L, "[d'd'H'h'm'm']s's'"));
 
         assertEquals(
-                DurationFormatUtils.formatPeriod(9153L, 915361L, "[d'd'H'h'm'm']s's'"),
-                DurationFormatUtils.formatPeriod(9153L, 915361L, "m'm's's'"));
+                DurationFormatUtils.formatPeriod(915361L, 9153610L, "H'h'm'm's's'"),
+                DurationFormatUtils.formatPeriod(915361L, 9153610L, "[d'd'H'h'm'm']s's'"));
 
         assertEquals(
-                DurationFormatUtils.formatPeriod(0L, 9153L, "[d'd'H'h'm'm']s's'"),
-                DurationFormatUtils.formatPeriod(0L, 9153L, "s's'"));
+                DurationFormatUtils.formatPeriod(9153L, 915361L, "m'm's's'"),
+                DurationFormatUtils.formatPeriod(9153L, 915361L, "[d'd'H'h'm'm']s's'"));
+
+        assertEquals(
+                DurationFormatUtils.formatPeriod(0L, 9153L, "s's'"),
+                DurationFormatUtils.formatPeriod(0L, 9153L, "[d'd'H'h'm'm']s's'"));
 
         //make sure optional parts are actually omitted when zero
 
@@ -768,9 +772,15 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
         //make sure we can handle omitting multiple literals after a token
 
         assertEquals(
-                DurationFormatUtils.formatPeriod(915361L, 9153610L, "[d'd''d2'H'h''h2'm'm']s's'"),
-                DurationFormatUtils.formatPeriod(915361L, 9153610L, "H'h''h2'm'm's's'"));
+                DurationFormatUtils.formatPeriod(915361L, 9153610L, "H'h''h2'm'm's's'"),
+                DurationFormatUtils.formatPeriod(915361L, 9153610L, "[d'd''d2'H'h''h2'm'm']s's'"));
     }
 
-
+    private DurationFormatUtils.Token createTokenWithCount(final Object value, final int count) {
+        DurationFormatUtils.Token token = new DurationFormatUtils.Token(value, false, -1);
+        for (int i=1; i<count; i++) {
+            token.increment();
+        }
+        return token;
+    }
 }
