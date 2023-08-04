@@ -36,6 +36,20 @@ public interface FailableFunction<T, R, E extends Throwable> {
     FailableFunction NOP = t -> null;
 
     /**
+     * Starts a fluent chain like {@code function(foo::bar).andThen(...).andThen(...).apply(...);}
+     * 
+     * @param <T> Input type.
+     * @param <R> Return type.
+     * @param <E> The kind of thrown exception or error.
+     * @param function   the argument to return.
+     * @return the argument
+     * @since 3.14.0
+     */
+    static <T, R, E extends Throwable> FailableFunction<T, R, E> function(final FailableFunction<T, R, E> function) {
+        return function;
+    }
+
+    /**
      * Returns a function that always returns its input argument.
      *
      * @param <T> the type of the input and output objects to the function
@@ -49,7 +63,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
     /**
      * Returns The NOP singleton.
      *
-     * @param <T> Consumed type 1.
+     * @param <T> Consumed type.
      * @param <R> Return type.
      * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.

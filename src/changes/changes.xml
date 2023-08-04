@@ -46,12 +46,15 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.13.1" date="202Y-MM-DD" description="New features and bug fixes (Java 8).">
+  <release version="3.14.0" date="202Y-MM-DD" description="New features and bug fixes (Java 8).">
     <!-- FIX -->
     <action                   type="fix" dev="ggregory" due-to="remeio">Rename variable names from 'clss' to 'clazz' #1087.</action>
     <action                   type="fix" dev="ggregory" due-to="remeio">Javadoc: ComparableUtils'c1' to 'comparable1', 'c2' to '</action>
     <action                   type="fix" dev="ggregory" due-to="Elliotte Rusty Harold">Javadoc: Remove 2.1 specific comment #1091.</action>
     <action issue="LANG-1704" type="fix" dev="ggregory" due-to="Dan Ziemba, Gilles Sadowski, Alex Herbert, Gary Gregory">ImmutablePair and ImmutableTriple implementation don't match final in Javadoc.</action>
+    <!-- ADD -->
+    <action                   type="add" dev="ggregory" due-to="Rob Spoor, Gary Gregory">Add Functions#function(Function).</action>
+    <action                   type="add" dev="ggregory" due-to="Rob Spoor, Gary Gregory">Add FailableFunction#function(FailableFunction).</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-parent from 58 to 59.</action>
   </release>
