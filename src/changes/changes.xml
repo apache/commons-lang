@@ -46,7 +46,16 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-  <release version="3.13.0" date="2021-MM-DD" description="New features and bug fixes (Java 8).">
+  <release version="3.13.1" date="202Y-MM-DD" description="New features and bug fixes (Java 8).">
+    <!-- FIX -->
+    <action                   type="fix" dev="ggregory" due-to="remeio">Rename variable names from 'clss' to 'clazz' #1087.</action>
+    <action                   type="fix" dev="ggregory" due-to="remeio">Javadoc: ComparableUtils'c1' to 'comparable1', 'c2' to '</action>
+    <action                   type="fix" dev="ggregory" due-to="Elliotte Rusty Harold">Javadoc: Remove 2.1 specific comment #1091.</action>
+    <action issue="LANG-1704" type="fix" dev="ggregory" due-to="Dan Ziemba, Gilles Sadowski, Alex Herbert, Gary Gregory">ImmutablePair and ImmutableTriple implementation don't match final in Javadoc.</action>
+    <!-- UPDATE -->
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-parent from 58 to 59.</action>
+  </release>
+  <release version="3.13.0" date="2023-07-23" description="New features and bug fixes (Java 8).">
     <!-- FIX -->
     <action issue="LANG-1645" type="fix" dev="aherbert" due-to="Alex Herbert">NumberUtils.createNumber() to recognize hex integers prefixed with +.</action>
     <action issue="LANG-1646" type="fix" dev="aherbert" due-to="Alex Herbert">NumberUtils.createNumber() to return requested floating point type for zero.</action>
@@ -118,6 +127,14 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="remeio">AnnotationUtilsTest and FormattableUtilsTest Only use static imports to import assert methods in tests #1052.</action>
     <action                   type="fix" dev="ggregory" due-to="laurentschoelens, Bruno P. Kinoshita, Diego Marcilio">[LANG-1681] Fix some FieldUtils Javadocs #1047.</action>
     <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Remove unnecessary statement in DurationFormatUtils #965.</action>
+    <action issue="LANG-1699" type="fix" dev="ggregory" due-to="Darren Coleman">Corrected value of SystemUtils.JAVA_VENDOR #1066.</action>
+    <action                   type="fix" dev="ggregory" due-to="step-security-bot, Gary Gregory">[StepSecurity] ci: Harden GitHub Actions #1067.</action>
+    <action                   type="fix" dev="ggregory" due-to="Dimitrios Efthymiou">Update Javadoc for the insert methods in ArrayUtils #1078.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ExceptionUtils.ExceptionUtils().</action>
+    <action issue="LANG-1697" type="fix" dev="ggregory" due-to="Jan Arne Sparka, Gary Gregory">TypeUtils.getRawType() throws a NullPointerException on Wildcard GenericArrayType.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Throw IllegalArgumentException instead of InternalError in the builder package.</action>    
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Avoid NPE in MutableObject#equals() for null content.</action>
+    <action                   type="fix" dev="ggregory" due-to="Ali Khaleqi Yekta, Gary Gregory">SystemUtils fix and updates related to macOS #1085.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add GitHub coverage.yml.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
@@ -169,6 +186,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Processor.isAarch64().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Update ArchUtils.getProcessor(String) for "aarch64".</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_18.</action>
+    <action                   type="add" dev="ebourg"   due-to="Emmanuel Bourg">Add JavaVersion.JAVA_19.</action>
+    <action                   type="add" dev="ebourg"   due-to="Emmanuel Bourg">Add JavaVersion.JAVA_20.</action>
+    <action                   type="add" dev="ebourg"   due-to="Emmanuel Bourg">Add JavaVersion.JAVA_21.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TimeZones.toTimeZone(TimeZone).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add FutureTasks.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Memoizer(Function) and Memoizer(Function, boolean).</action>
@@ -186,6 +206,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_18.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_19.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_20.</action>
+    <action                   type="add" dev="ebourg"   due-to="Emmanuel Bourg">Add SystemUtils.IS_JAVA_21.</action>
     <action issue="LANG-1627" type="add" dev="ggregory" due-to="Alberto Scotto, Avijit Chakraborty, Steve Bosman, Bruno P. Kinoshita, Gary Gregory">Add ArrayUtils.oneHot().</action>
     <action issue="LANG-1662" type="add" dev="ggregory" due-to="Daniel Augusto Veronezi Salvador, Gary Gregory, Bruno P. Kinoshita">Let ReflectionToStringBuilder only reflect given field names #849.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Streams.of(Enumeration&lt;E&gt;).</action>
@@ -205,6 +226,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Pair.accept(FailableBiConsumer).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Pair.apply(FailableBiFunction).</action>
     <action issue="LANG-1677" type="add" dev="ggregory" due-to="Dennis Baerten, Gary Gregory">Add ReflectionDiffBuilder.setExcludeFieldNames(...) and DiffExclude a… #838.</action>
+    <action issue="LANG-1647" type="add" dev="ggregory" due-to="Arturo Bernal, Dimitrios Efthymiou, Gary Gregory">Add and ExceptionUtils.isChecked() and isUnchecked() #1069</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use ExceptionUtils.throwUnchecked(throwable).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add LockingVisitors.create(O, ReadWriteLock).</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Dependabot, XenoAmess, Gary Gregory">Bump actions/cache from 2.1.4 to 3.0.10 #742, #752, #764, #833, #867, #959, #964.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump actions/checkout from 2 to 3.1.0 #819, #825, #859, #963.</action>

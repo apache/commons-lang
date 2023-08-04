@@ -349,6 +349,19 @@ public class LockingVisitors {
     }
 
     /**
+     * Creates a new instance of {@link ReadWriteLockVisitor} with the given (hidden) object and lock.
+     *
+     * @param <O> The locked objects type.
+     * @param object The locked (hidden) object.
+     * @param readWriteLock The lock to use.
+     * @return The created instance, a {@link StampedLockVisitor lock} for the given object.
+     * @since 3.13.0
+     */
+    public static <O> ReadWriteLockVisitor<O> create(final O object, final ReadWriteLock readWriteLock) {
+        return new LockingVisitors.ReadWriteLockVisitor<>(object, readWriteLock);
+    }
+
+    /**
      * Creates a new instance of {@link ReadWriteLockVisitor} with the given (hidden) object.
      *
      * @param <O> The locked objects type.
@@ -356,7 +369,7 @@ public class LockingVisitors {
      * @return The created instance, a {@link StampedLockVisitor lock} for the given object.
      */
     public static <O> ReadWriteLockVisitor<O> reentrantReadWriteLockVisitor(final O object) {
-        return new LockingVisitors.ReadWriteLockVisitor<>(object, new ReentrantReadWriteLock());
+        return create(object, new ReentrantReadWriteLock());
     }
 
     /**

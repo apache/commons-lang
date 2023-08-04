@@ -23,8 +23,7 @@ import java.util.Objects;
  *
  * <p>Although the implementation is immutable, there is no restriction on the objects
  * that may be stored. If mutable objects are stored in the triple, then the triple
- * itself effectively becomes mutable. The class is also {@code final}, so a subclass
- * can not add undesirable behavior.</p>
+ * itself effectively becomes mutable.</p>
  *
  * <p>#ThreadSafe# if all three objects are thread-safe</p>
  *

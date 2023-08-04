@@ -46,6 +46,7 @@ public interface FailableBiFunction<T, U, R, E extends Throwable> {
      * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */
+    @SuppressWarnings("unchecked")
     static <T, U, R, E extends Throwable> FailableBiFunction<T, U, R, E> nop() {
         return NOP;
     }

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 import java.util.TimeZone;
 import java.util.stream.Stream;
 
@@ -680,7 +681,7 @@ public class DurationFormatUtils {
         /**
          * Wraps a token around a value. A value would be something like a 'Y'.
          *
-         * @param value value to wrap
+         * @param value value to wrap, non-null.
          * @param optional whether the token is optional
          * @param optionalIndex the index of the optional token within the pattern
          */
@@ -711,7 +712,7 @@ public class DurationFormatUtils {
         /**
          * Gets the particular value this token represents.
          *
-         * @return Object value
+         * @return Object value, non-null.
          */
         Object getValue() {
             return value;

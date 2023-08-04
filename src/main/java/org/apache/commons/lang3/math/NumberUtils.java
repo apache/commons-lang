@@ -1589,7 +1589,7 @@ public class NumberUtils {
      * @return {@code true} if the string is a correctly formatted number
      * @since 3.3 the code supports hex {@code 0Xhhh} an
      *        octal {@code 0ddd} validation
-     * @deprecated This feature will be removed in Lang 4.0,
+     * @deprecated This feature will be removed in Lang 4,
      *             use {@link NumberUtils#isCreatable(String)} instead
      */
     @Deprecated

@@ -16,11 +16,15 @@
  */
 package org.apache.commons.lang3.concurrent.locks;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.LongConsumer;
 
 import org.apache.commons.lang3.AbstractLangTest;
@@ -82,6 +86,16 @@ public class LockingVisitorsTest extends AbstractLangTest {
         synchronized (booleanArray) {
             booleanArray[offset] = value;
         }
+    }
+
+    @Test
+    public void testCreate() {
+        final AtomicInteger res = new AtomicInteger();
+        final ReadWriteLock rwLock = new ReentrantReadWriteLock();
+        LockingVisitors.create(res, rwLock).acceptReadLocked(AtomicInteger::incrementAndGet);
+        assertEquals(1, res.get());
+        LockingVisitors.create(res, rwLock).acceptWriteLocked(AtomicInteger::incrementAndGet);
+        assertEquals(2, res.get());
     }
 
     @Test

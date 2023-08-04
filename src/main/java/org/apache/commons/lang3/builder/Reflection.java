@@ -17,18 +17,28 @@
 
 package org.apache.commons.lang3.builder;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.reflect.Field;
+import java.util.Objects;
 
 /**
- * Excludes a field from being used by the {@link ReflectionDiffBuilder}.
- *
- * @since 3.13.0
+ * Package-private reflection code.
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface DiffExclude {
-    // empty
+class Reflection {
+
+    /**
+     * Delegates to {@link Field#get(Object)} and rethrows {@link IllegalAccessException} as {@link IllegalArgumentException}.
+     *
+     * @param field The receiver of the get call.
+     * @param obj   The argument of the get call.
+     * @return The result of the get call.
+     * @throws IllegalArgumentException Thrown after catching {@link IllegalAccessException}.
+     */
+    static Object getUnchecked(final Field field, final Object obj) {
+        try {
+            return Objects.requireNonNull(field, "field").get(obj);
+        } catch (IllegalAccessException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
 }

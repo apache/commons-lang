@@ -657,16 +657,10 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         for (final Field field : fields) {
             final String fieldName = field.getName();
             if (this.accept(field)) {
-                try {
-                    // Warning: Field.get(Object) creates wrappers objects for primitive types.
-                    final Object fieldValue = this.getValue(field);
-                    if (!excludeNullValues || fieldValue != null) {
-                        this.append(fieldName, fieldValue, !field.isAnnotationPresent(ToStringSummary.class));
-                    }
-                } catch (final IllegalAccessException ex) {
-                    // this can't happen. Would get a Security exception instead
-                    // throw a runtime exception in case the impossible happens.
-                    throw new InternalError("Unexpected IllegalAccessException: " + ex.getMessage());
+                // Warning: Field.get(Object) creates wrappers objects for primitive types.
+                final Object fieldValue = Reflection.getUnchecked(field, getObject());
+                if (!excludeNullValues || fieldValue != null) {
+                    this.append(fieldName, fieldValue, !field.isAnnotationPresent(ToStringSummary.class));
                 }
             }
         }

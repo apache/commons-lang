@@ -33,6 +33,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.Streams.FailableStream;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.function.Failable;
 import org.apache.commons.lang3.function.FailableBooleanSupplier;
 
@@ -521,12 +522,7 @@ public class Functions {
      */
     public static RuntimeException rethrow(final Throwable throwable) {
         Objects.requireNonNull(throwable, "throwable");
-        if (throwable instanceof RuntimeException) {
-            throw (RuntimeException) throwable;
-        }
-        if (throwable instanceof Error) {
-            throw (Error) throwable;
-        }
+        ExceptionUtils.throwUnchecked(throwable);
         if (throwable instanceof IOException) {
             throw new UncheckedIOException((IOException) throwable);
         }

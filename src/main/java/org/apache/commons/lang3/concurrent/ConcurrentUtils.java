@@ -22,6 +22,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
  * An utility class providing functionality related to the {@code
@@ -60,8 +61,7 @@ public class ConcurrentUtils {
         if (ex == null || ex.getCause() == null) {
             return null;
         }
-
-        throwCause(ex);
+        ExceptionUtils.throwUnchecked(ex.getCause());
         return new ConcurrentException(ex.getMessage(), ex.getCause());
     }
 
@@ -83,7 +83,7 @@ public class ConcurrentUtils {
             return null;
         }
 
-        throwCause(ex);
+        ExceptionUtils.throwUnchecked(ex.getCause());
         return new ConcurrentRuntimeException(ex.getMessage(), ex.getCause());
     }
 
@@ -140,26 +140,8 @@ public class ConcurrentUtils {
      * checked exception
      */
     static Throwable checkedException(final Throwable ex) {
-        Validate.isTrue(ex != null && !(ex instanceof RuntimeException)
-                && !(ex instanceof Error), "Not a checked exception: " + ex);
-
+        Validate.isTrue(ExceptionUtils.isChecked(ex), "Not a checked exception: " + ex);
         return ex;
-    }
-
-    /**
-     * Tests whether the cause of the specified {@link ExecutionException}
-     * should be thrown and does it if necessary.
-     *
-     * @param ex the exception in question
-     */
-    private static void throwCause(final ExecutionException ex) {
-        if (ex.getCause() instanceof RuntimeException) {
-            throw (RuntimeException) ex.getCause();
-        }
-
-        if (ex.getCause() instanceof Error) {
-            throw (Error) ex.getCause();
-        }
     }
 
     /**

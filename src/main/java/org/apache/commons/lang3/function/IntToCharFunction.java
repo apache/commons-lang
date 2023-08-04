@@ -20,12 +20,11 @@ package org.apache.commons.lang3.function;
 import java.util.function.Function;
 
 /**
- * Represents a function that accepts an int-valued argument and produces a long-valued result. This is the
- * {@code int}-to-{@code long} primitive specialization for {@link Function}.
+ * Represents a function that accepts an int-valued argument and produces a char-valued result. This is the {@code int}-to-{@code char} primitive specialization
+ * for {@link Function}.
  *
  * <p>
- * This is a <a href="package-summary.html">functional interface</a> whose functional method is
- * {@link #applyAsChar(int)}.
+ * This is a <a href="package-summary.html">functional interface</a> whose functional method is {@link #applyAsChar(int)}.
  * </p>
  *
  * @see Function

@@ -657,7 +657,7 @@ public class ObjectUtils {
      *
      * @param <T> The argument type or null.
      * @param object The argument.
-     * @return The argument Class or null.
+     * @return The argument's Class or null.
      * @since 3.13.0
      */
     @SuppressWarnings("unchecked")
@@ -959,7 +959,7 @@ public class ObjectUtils {
      */
 
     /**
-     * Checks, whether the given object is an Object array or a primitive array in a null-safe manner.
+     * Tests whether the given object is an Object array or a primitive array in a null-safe manner.
      *
      * <p>
      * A {@code null} {@code object} Object will return {@code false}.
@@ -983,7 +983,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Checks if an Object is empty or null.
+     * Tests if an Object is empty or null.
      *
      * The following types are supported:
      * <ul>
@@ -1035,7 +1035,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Checks if an Object is not empty and not null.
+     * Tests if an Object is not empty and not null.
      *
      * The following types are supported:
      * <ul>
