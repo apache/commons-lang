@@ -686,7 +686,7 @@ public class DurationFormatUtils {
          * @param optionalIndex the index of the optional token within the pattern
          */
         Token(final Object value, final boolean optional, final int optionalIndex) {
-            this.value = value;
+            this.value = Objects.requireNonNull(value, "value");
             this.count = 1;
             if (optional) {
                 this.optionalIndex = optionalIndex;
