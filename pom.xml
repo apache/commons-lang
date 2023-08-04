@@ -628,7 +628,7 @@
     <!-- 0.6.0 requires Java 11 -->
     <commons.spdx.version>0.5.5</commons.spdx.version>
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
-    <jmh.version>1.36</jmh.version>
+    <jmh.version>1.37</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
 
     <!-- Commons Release Plugin -->
