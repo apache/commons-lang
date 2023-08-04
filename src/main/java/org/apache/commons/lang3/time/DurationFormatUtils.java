@@ -64,7 +64,7 @@ import org.apache.commons.lang3.Validate;
  * <br>
  * <table border="1">
  * <caption>Example Output</caption>
- * <tr><th>pattern</th><th>Duration.ofDays(1)</th><th>Duration.ofHours(1)</th><th>Duration.ofMinutes(1)</th><th>Duration.ofMillis(0)</th></tr>
+ * <tr><th>pattern</th><th>Duration.ofDays(1)</th><th>Duration.ofHours(1)</th><th>Duration.ofMinutes(1)</th><th>Duration.ZERO</th></tr>
  * <tr><td>d'd'H'h'm'm's's'</td><td>1d0h0m0s</td><td>0d1h0m0s</td><td>0d0h1m0s</td><td>0d0h0m0s</td></tr>
  * <tr><td>d'd'[H'h'm'm']s's'</td><td>1d0s</td><td>0d1h0s</td><td>0d1m0s</td><td>0d0s</td></tr>
  * <tr><td>[d'd'H'h'm'm']s's'</td><td>1d0s</td><td>1h0s</td><td>1m0s</td><td>0s</td></tr>
