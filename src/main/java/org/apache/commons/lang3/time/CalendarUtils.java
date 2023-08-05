@@ -40,7 +40,7 @@ public class CalendarUtils {
 
     /**
      * Creates a new instance based on the current time in the default time zone with the default {@link Category#FORMAT} locale.
-     * 
+     *
      * @return a new instance.
      * @since 3.14.0
      */
