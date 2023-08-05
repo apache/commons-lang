@@ -228,7 +228,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
         }
 
         // strongly recommended but not strictly required
-        assertTrue(CompareToBuilder.reflectionCompare(x, y, testTransients) ==0 == EqualsBuilder.reflectionEquals(x, y, testTransients));
+        assertTrue(CompareToBuilder.reflectionCompare(x, y, testTransients) == 0 == EqualsBuilder.reflectionEquals(x, y, testTransients));
     }
 
     /**
