@@ -37,7 +37,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
 
     /**
      * Starts a fluent chain like {@code function(foo::bar).andThen(...).andThen(...).apply(...);}
-     * 
+     *
      * @param <T> Input type.
      * @param <R> Return type.
      * @param <E> The kind of thrown exception or error.
