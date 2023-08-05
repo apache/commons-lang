@@ -29,17 +29,17 @@ public class CalendarUtilsTest extends AbstractLangTest {
 
     @Test
     public void testGetDayOfMonth() {
-        assertEquals(Calendar.getInstance().get(Calendar.DAY_OF_MONTH), CalendarUtils.INSTANCE.getDayOfMonth());
+        assertEquals(Calendar.getInstance().get(Calendar.DAY_OF_MONTH), CalendarUtils.getInstance().getDayOfMonth());
     }
 
     @Test
     public void testGetDayOfYear() {
-        assertEquals(Calendar.getInstance().get(Calendar.DAY_OF_YEAR), CalendarUtils.INSTANCE.getDayOfYear());
+        assertEquals(Calendar.getInstance().get(Calendar.DAY_OF_YEAR), CalendarUtils.getInstance().getDayOfYear());
     }
 
     @Test
     public void testGetMonth() {
-        assertEquals(Calendar.getInstance().get(Calendar.MONTH), CalendarUtils.INSTANCE.getMonth());
+        assertEquals(Calendar.getInstance().get(Calendar.MONTH), CalendarUtils.getInstance().getMonth());
     }
 
     @Test
@@ -82,6 +82,5 @@ public class CalendarUtilsTest extends AbstractLangTest {
     public void testGetYear() {
         assertEquals(Calendar.getInstance().get(Calendar.YEAR), CalendarUtils.INSTANCE.getYear());
     }
-
 
 }

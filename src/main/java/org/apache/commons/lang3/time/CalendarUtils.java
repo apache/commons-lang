@@ -19,6 +19,7 @@ package org.apache.commons.lang3.time;
 
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Locale.Category;
 import java.util.Map;
 import java.util.Objects;
 
@@ -30,9 +31,22 @@ import java.util.Objects;
 public class CalendarUtils {
 
     /**
-     * The singleton instance for {@link Calendar#getInstance()}.
+     * The singleton instance for {@link Calendar#getInstance()}. The instance is created when the class is initialized and is based on the current time in the
+     * default time zone with the default {@link Category#FORMAT} locale.
+     *
+     * @see CalendarUtils#getInstance()
      */
-    public static final CalendarUtils INSTANCE = new CalendarUtils(Calendar.getInstance());
+    public static final CalendarUtils INSTANCE = getInstance();
+
+    /**
+     * Creates a new instance based on the current time in the default time zone with the default {@link Category#FORMAT} locale.
+     * 
+     * @return a new instance.
+     * @since 3.14.0
+     */
+    public static CalendarUtils getInstance() {
+        return new CalendarUtils(Calendar.getInstance());
+    }
 
     /**
      * Gets a CalendarUtils using the default time zone and specified locale. The <code>CalendarUtils</code> returned is based on the current time in the
