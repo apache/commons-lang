@@ -19,20 +19,26 @@ package org.apache.commons.lang3.function;
 
 import java.util.function.Function;
 
-public class Functions {
+/**
+ * Factory for {@link Function}.
+ *
+ * @since 3.14.0
+ */
+public final class Functions {
 
     /**
      * Starts a fluent chain like {@code function(foo::bar).andThen(...).andThen(...).apply(...);}
      *
-     * @param <T> Input type.
-     * @param <R> Return type.
-     * @param <E> The kind of thrown exception or error.
-     * @param function   the argument to return.
+     * @param <T>      Input type.
+     * @param <R>      Return type.
+     * @param function the argument to return.
      * @return the argument
-     * @since 3.14.0
      */
-    static <T, R> Function<T, R> function(final Function<T, R> function) {
+    public static <T, R> Function<T, R> function(final Function<T, R> function) {
         return function;
     }
 
+    private Functions() {
+        // no instances needed.
+    }
 }
