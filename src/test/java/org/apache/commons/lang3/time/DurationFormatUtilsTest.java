@@ -691,8 +691,7 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
           DurationFormatUtils.formatDuration(10000L, "['['d']']['<'H'>']['{'m'}']s's'"));
       assertEquals(
           DurationFormatUtils.formatDuration(10000L, "s's'"),
-          DurationFormatUtils.formatDuration(10000L, "['{'m'}']s's'")
-          );
+          DurationFormatUtils.formatDuration(10000L, "['{'m'}']s's'"));
     }
 
     @Test
@@ -702,8 +701,7 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
           DurationFormatUtils.formatDuration(0L, "[d'd'][H'h'][m'm'][s's']"));
       assertEquals(
           "",
-          DurationFormatUtils.formatDuration(0L, "['d''h''m''s's]")
-          );
+          DurationFormatUtils.formatDuration(0L, "['d''h''m''s's]"));
     }
 
     @Test
@@ -716,7 +714,6 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
       assertEquals(
           DurationFormatUtils.formatDuration(Duration.ofDays(1).toMillis(), "['{'d'}']"),
           DurationFormatUtils.formatDuration(Duration.ofDays(1).toMillis(), "['{'d'}']['['H']']"));
-
     }
 
     @Test
@@ -778,7 +775,7 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
 
     private DurationFormatUtils.Token createTokenWithCount(final Object value, final int count) {
         DurationFormatUtils.Token token = new DurationFormatUtils.Token(value, false, -1);
-        for (int i=1; i<count; i++) {
+        for (int i = 1; i < count; i++) {
             token.increment();
         }
         return token;
