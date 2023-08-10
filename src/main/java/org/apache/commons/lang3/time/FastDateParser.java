@@ -194,7 +194,7 @@ public class FastDateParser implements DateParser, Serializable {
         final int width;
 
         StrategyAndWidth(final Strategy strategy, final int width) {
-            this.strategy = strategy;
+            this.strategy = Objects.requireNonNull(strategy, "strategy");
             this.width = width;
         }
 
