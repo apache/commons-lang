@@ -896,6 +896,11 @@ public class FastDateParser implements DateParser, Serializable {
                 zone = tz;
                 dstOffset = useDst ? tz.getDSTSavings() : 0;
             }
+
+            @Override
+            public String toString() {
+                return "TzInfo [zone=" + zone + ", dstOffset=" + dstOffset + "]";
+            }
         }
 
         /**
