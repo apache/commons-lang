@@ -222,7 +222,7 @@ public class FastDateParser implements DateParser, Serializable {
         private int currentIdx;
 
         StrategyParser(final Calendar definingCalendar) {
-            this.definingCalendar = definingCalendar;
+            this.definingCalendar = Objects.requireNonNull(definingCalendar, "definingCalendar");
         }
 
         StrategyAndWidth getNextStrategy() {
