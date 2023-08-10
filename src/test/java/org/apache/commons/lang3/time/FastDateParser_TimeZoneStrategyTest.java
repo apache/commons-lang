@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.time;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
@@ -42,7 +43,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource("java.util.Locale#getAvailableLocales")
-    void testTimeZoneStrategyPattern(final Locale locale) throws ParseException {
+    void testTimeZoneStrategyPattern(final Locale locale) {
         final FastDateParser parser = new FastDateParser("z", TimeZone.getDefault(), locale);
         final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
         for (final String[] zone : zones) {
@@ -52,7 +53,11 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                     break;
                 }
                 // An exception will be thrown and the test will fail if parsing isn't successful
-                parser.parse(tzDisplay);
+                try {
+                    parser.parse(tzDisplay);
+                } catch (ParseException e) {
+                    fail(String.format("%s: with zone = '%s', tzDisplay = '%s', parser = '%s'", e, zone, tzDisplay, parser), e);
+                }
             }
         }
     }
