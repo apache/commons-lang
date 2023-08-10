@@ -488,6 +488,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
     private static Map<String, Integer> appendDisplayNames(final Calendar calendar, final Locale locale, final int field,
             final StringBuilder regex) {
+        Objects.requireNonNull(calendar, "calendar");
         final Map<String, Integer> values = new HashMap<>();
         final Locale actualLocale = LocaleUtils.toLocale(locale);
         final Map<String, Integer> displayNames = calendar.getDisplayNames(field, Calendar.ALL_STYLES, actualLocale);
