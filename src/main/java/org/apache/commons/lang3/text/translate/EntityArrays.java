@@ -47,7 +47,7 @@ public class EntityArrays {
         {"\u00A5", "&yen;"}, // yen sign = yuan sign
         {"\u00A6", "&brvbar;"}, // broken bar = broken vertical bar
         {"\u00A7", "&sect;"}, // section sign
-        {"\u00A8", "&uml;"}, // diaeresis = spacing diaeresis
+        {"\u00A8", "&uml;"}, // dieresis = spacing dieresis
         {"\u00A9", "&copy;"}, // © - copyright sign
         {"\u00AA", "&ordf;"}, // feminine ordinal indicator
         {"\u00AB", "&laquo;"}, // left-pointing double angle quotation mark = left pointing guillemet
@@ -324,7 +324,7 @@ public class EntityArrays {
         // <!-- ligature is a misnomer, this is a separate character in some languages -->
         {"\u0160", "&Scaron;"}, // -- latin capital letter S with caron, U+0160 ISOlat2 -->
         {"\u0161", "&scaron;"}, // -- latin small letter s with caron, U+0161 ISOlat2 -->
-        {"\u0178", "&Yuml;"}, // -- latin capital letter Y with diaeresis, U+0178 ISOlat2 -->
+        {"\u0178", "&Yuml;"}, // -- latin capital letter Y with dieresis, U+0178 ISOlat2 -->
         // <!-- Spacing Modifier Letters -->
         {"\u02C6", "&circ;"}, // -- modifier letter circumflex accent, U+02C6 ISOpub -->
         {"\u02DC", "&tilde;"}, // small tilde, U+02DC ISOdia -->
