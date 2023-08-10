@@ -38,7 +38,9 @@ import java.util.stream.Collectors;
  * @since 2.2
  */
 public class LocaleUtils {
+
     private static final char UNDERSCORE = '_';
+    private static final String UNDETERMINED = "und";
     private static final char DASH = '-';
 
     // class to avoid synchronization (Init on demand)
@@ -138,6 +140,22 @@ public class LocaleUtils {
      */
     private static boolean isISO639LanguageCode(final String str) {
         return StringUtils.isAllLowerCase(str) && (str.length() == 2 || str.length() == 3);
+    }
+
+    /**
+     * Tests whether a Locale's language is undetermined.
+     * <p>
+     * A Locale's language tag is undetermined if it's value is {@code "und"}. If a language is empty, or not well-formed (for example, "a" or"e2"), it will be
+     * equal to {@code "und"}.
+     * </p>
+     *
+     * @param locale the locale to test.
+     * @return whether a Locale's language is undetermined.
+     * @see Locale#toLanguageTag()
+     * @since 3.14.0
+     */
+    public static boolean isLanguageUndetermined(final Locale locale) {
+        return locale == null || UNDETERMINED.equals(locale.toLanguageTag());
     }
 
     /**

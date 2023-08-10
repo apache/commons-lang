@@ -59,6 +59,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="aherbert" due-to="Dan Watson">Add syntax for optional tokens to DurationFormatUtils #1062.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ArrayFill.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add FastDateParser.TimeZoneStrategy.TzInfo.toString().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add LocaleUtils.isLanguageUndetermined(Locale).</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-parent from 58 to 59.</action>
   </release>
