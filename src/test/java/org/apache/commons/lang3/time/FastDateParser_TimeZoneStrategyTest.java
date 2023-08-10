@@ -48,8 +48,8 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         final FastDateParser parser = new FastDateParser("z", tzDefault, locale);
         final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
         for (final String[] zone : zones) {
-            for (int t = 1; t < zone.length; ++t) {
-                final String tzDisplay = zone[t];
+            for (int zIndex = 1; zIndex < zone.length; ++zIndex) {
+                final String tzDisplay = zone[zIndex];
                 if (tzDisplay == null) {
                     break;
                 }
@@ -57,8 +57,9 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                 try {
                     parser.parse(tzDisplay);
                 } catch (ParseException e) {
-                    fail(String.format("%s: with tzDefault = %s, locale = %s, zones[][] size = '%s', zone[] size = '%s', tzDisplay = '%s', parser = '%s'", e,
-                            tzDefault, locale, zones.length, zone.length, tzDisplay, parser.toStringAll()), e);
+                    fail(String.format(
+                            "%s: with tzDefault = %s, locale = %s, zones[][] size = '%s', zone[] size = '%s', zIndex = %,d, tzDisplay = '%s', parser = '%s'", e,
+                            tzDefault, locale, zones.length, zone.length, zIndex, tzDisplay, parser.toStringAll()), e);
                 }
             }
         }
