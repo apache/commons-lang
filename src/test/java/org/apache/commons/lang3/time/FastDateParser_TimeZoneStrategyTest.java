@@ -79,13 +79,13 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         }
     }
 
-    private void testTimeZoneStrategyPattern(final String languageTag) throws ParseException {
+    private void testTimeZoneStrategyPattern(final String languageTag, final String source) throws ParseException {
         final Locale locale = Locale.forLanguageTag(languageTag);
         assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, languageTag));
         assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, languageTag));
         final TimeZone tzDefault = TimeZone.getTimeZone("Etc/UTC");
         final FastDateParser parser = new FastDateParser("z", tzDefault, locale);
-        parser.parse("Horário do Meridiano de Greenwich");
+        parser.parse(source);
         testTimeZoneStrategyPattern(locale, tzDefault);
     }
 
@@ -107,7 +107,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
      */
     @Test
     public void testTimeZoneStrategyPatternPortugal() throws ParseException {
-        testTimeZoneStrategyPattern("pt_PT");
+        testTimeZoneStrategyPattern("pt_PT", "Horário do Meridiano de Greenwich");
     }
 
     /**
@@ -123,6 +123,6 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
      */
     @Test
     public void testTimeZoneStrategyPatternSuriname() throws ParseException {
-        testTimeZoneStrategyPattern("sr_ME_#Cyrl");
+        testTimeZoneStrategyPattern("sr_ME_#Cyrl", "Srednje vreme po Griniču");
     }
 }
