@@ -23,6 +23,7 @@ import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.AbstractLangTest;
@@ -33,7 +34,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     @Test
-    void testLang1219() throws ParseException {
+    public void testLang1219() throws ParseException {
         final FastDateParser parser = new FastDateParser("dd.MM.yyyy HH:mm:ss z", TimeZone.getDefault(), Locale.GERMAN);
 
         final Date summer = parser.parse("26.10.2014 02:00:00 MESZ");
@@ -43,8 +44,11 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource("java.util.Locale#getAvailableLocales")
-    void testTimeZoneStrategyPattern(final Locale locale) {
-        final TimeZone tzDefault = TimeZone.getDefault();
+    public void testTimeZoneStrategyPattern(final Locale locale) {
+        testTimeZoneStrategyPattern(Objects.requireNonNull(locale, "locale"), TimeZone.getDefault());
+    }
+
+    private void testTimeZoneStrategyPattern(final Locale locale, final TimeZone tzDefault) {
         final FastDateParser parser = new FastDateParser("z", tzDefault, locale);
         final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
         for (final String[] zone : zones) {
@@ -63,5 +67,13 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                 }
             }
         }
+    }
+
+    /**
+     * Breaks randomly on GitHub.
+     */
+    @Test
+    public void testTimeZoneStrategyPatternPortugal() {
+        testTimeZoneStrategyPattern(Locale.forLanguageTag("pt_PT"), TimeZone.getDefault());
     }
 }
