@@ -18,6 +18,7 @@ package org.apache.commons.lang3.time;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
@@ -27,6 +28,7 @@ import java.util.Objects;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.LocaleUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -45,10 +47,16 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
     @ParameterizedTest
     @MethodSource("java.util.Locale#getAvailableLocales")
     public void testTimeZoneStrategyPattern(final Locale locale) {
-        testTimeZoneStrategyPattern(Objects.requireNonNull(locale, "locale"), TimeZone.getDefault());
+        testTimeZoneStrategyPattern(locale, TimeZone.getDefault());
     }
 
+    /**
+     * Breaks randomly on GitHub for Locale "pt_PT", TimeZone "Etc/UTC" if we do not check if the Locale's language is "undetermined".
+     */
     private void testTimeZoneStrategyPattern(final Locale locale, final TimeZone tzDefault) {
+        Objects.requireNonNull(locale, "locale");
+        Objects.requireNonNull(tzDefault, "tzDefault");
+        assumeFalse(LocaleUtils.isLanguageUndetermined(locale));
         final FastDateParser parser = new FastDateParser("z", tzDefault, locale);
         final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
         for (final String[] zone : zones) {
@@ -70,10 +78,22 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
     }
 
     /**
-     * Breaks randomly on GitHub.
+     * Breaks randomly on GitHub for Locale "pt_PT", TimeZone "Etc/UTC" if we do not check if the Locale's language is "undetermined".
+     *
+     * <pre>{@code
+     * java.text.ParseException: Unparseable date: Horário do Meridiano de Greenwich: with tzDefault =
+     * sun.util.calendar.ZoneInfo[id="Etc/UTC",offset=0,dstSavings=0,useDaylight=false,transitions=0,lastRule=null], locale = pt_LU, zones[][] size = '601',
+     * zone[] size = '7', zIndex = 3, tzDisplay = 'Horário do Meridiano de Greenwich'
+     * }</pre>
      */
     @Test
-    public void testTimeZoneStrategyPatternPortugal() {
-        testTimeZoneStrategyPattern(Locale.forLanguageTag("pt_PT"), TimeZone.getDefault());
+    public void testTimeZoneStrategyPatternPortugal() throws ParseException {
+        final Locale locale = Locale.forLanguageTag("pt_PT");
+        assumeFalse(LocaleUtils.isLanguageUndetermined(locale));
+        final TimeZone tzDefault = TimeZone.getTimeZone("Etc/UTC");
+        testTimeZoneStrategyPattern(locale, tzDefault);
+        final FastDateParser parser = new FastDateParser("z", tzDefault, locale);
+        parser.parse("Horário do Meridiano de Greenwich");
+
     }
 }
