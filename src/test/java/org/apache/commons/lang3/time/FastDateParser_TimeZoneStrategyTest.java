@@ -21,12 +21,16 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.LocaleUtils;
@@ -71,9 +75,13 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                 try {
                     parser.parse(tzDisplay);
                 } catch (final ParseException e) {
+                    // Missing "Zulu" or something else in broken GH builds?
+                    final ByteArrayOutputStream zonesOut = new ByteArrayOutputStream();
+                    final PrintStream zonesPs = new PrintStream(zonesOut);
+                    Stream.of(zones).forEach(z -> zonesPs.println(Arrays.toString(z)));
                     fail(String.format(
-                            "%s: with tzDefault = %s, locale = %s, zones[][] size = '%s', zone[] size = '%s', zIndex = %,d, tzDisplay = '%s', parser = '%s'", e,
-                            tzDefault, locale, zones.length, zone.length, zIndex, tzDisplay, parser.toStringAll()), e);
+                            "%s: with tzDefault = %s, locale = %s, zones[][] size = '%s', zIndex = %,d, tzDisplay = '%s', parser = '%s', zones = %s", e,
+                            tzDefault, locale, zone.length, zIndex, tzDisplay, parser.toStringAll(), zones.length, zonesOut), e);
                 }
             }
         }
