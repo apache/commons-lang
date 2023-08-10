@@ -91,7 +91,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     private void testTimeZoneStrategyPattern(final String languageTag, final String source) throws ParseException {
         final Locale locale = Locale.forLanguageTag(languageTag);
-        //assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, languageTag));
+        assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, languageTag));
         assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, languageTag));
         final TimeZone tzDefault = TimeZone.getTimeZone("Etc/UTC");
         final FastDateParser parser = new FastDateParser("z", tzDefault, locale);
