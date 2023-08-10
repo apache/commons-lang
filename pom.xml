@@ -711,6 +711,7 @@
                 <include>**/*Test.java</include>
               </includes>
               <runOrder>random</runOrder>
+              <trimStackTrace>false</trimStackTrace>
             </configuration>
           </execution>
           <!-- <execution> <id>security-manager-test</id> <phase>integration-test</phase> <goals> <goal>test</goal> </goals> <configuration>
