@@ -44,7 +44,8 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
     @ParameterizedTest
     @MethodSource("java.util.Locale#getAvailableLocales")
     void testTimeZoneStrategyPattern(final Locale locale) {
-        final FastDateParser parser = new FastDateParser("z", TimeZone.getDefault(), locale);
+        final TimeZone tzDefault = TimeZone.getDefault();
+        final FastDateParser parser = new FastDateParser("z", tzDefault, locale);
         final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
         for (final String[] zone : zones) {
             for (int t = 1; t < zone.length; ++t) {
@@ -56,8 +57,8 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                 try {
                     parser.parse(tzDisplay);
                 } catch (ParseException e) {
-                    fail(String.format("%s: with locale = %s, zones[][] size = '%s', zone[] size = '%s', tzDisplay = '%s', parser = '%s'", e, locale,
-                            zones.length, zone.length, tzDisplay, parser.toStringAll()), e);
+                    fail(String.format("%s: with tzDefault = %s, locale = %s, zones[][] size = '%s', zone[] size = '%s', tzDisplay = '%s', parser = '%s'", e,
+                            tzDefault, locale, zones.length, zone.length, tzDisplay, parser.toStringAll()), e);
                 }
             }
         }
