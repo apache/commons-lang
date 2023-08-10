@@ -120,6 +120,7 @@ public final class ArrayFill {
     /**
      * Fills and returns the given array.
      *
+     * @param <T> the array type.
      * @param a   the array to be filled.
      * @param val the value to be stored in all elements of the array.
      * @return the given array.
