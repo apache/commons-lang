@@ -80,7 +80,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                     final PrintStream zonesPs = new PrintStream(zonesOut);
                     Stream.of(zones).forEach(z -> zonesPs.println(Arrays.toString(z)));
                     fail(String.format(
-                            "%s: with tzDefault = %s, locale = %s, zones[][] size = '%s', zIndex = %,d, tzDisplay = '%s', parser = '%s', zones = %s", e,
+                            "%s: with tzDefault = %s, locale = %s, zones[][] size = '%s', zIndex = %,d, tzDisplay = '%s', parser = '%s', zones size = %,d, zones = %s", e,
                             tzDefault, locale, zone.length, zIndex, tzDisplay, parser.toStringAll(), zones.length, zonesOut), e);
                 }
             }
