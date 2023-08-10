@@ -56,8 +56,8 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                 try {
                     parser.parse(tzDisplay);
                 } catch (ParseException e) {
-                    fail(String.format("%s: with zones[][] size = '%s', zone[] size = '%s', tzDisplay = '%s', parser = '%s'", e, zones.length, zone.length,
-                            tzDisplay, parser.toStringAll()), e);
+                    fail(String.format("%s: with locale = %s, zones[][] size = '%s', zone[] size = '%s', tzDisplay = '%s', parser = '%s'", e, locale,
+                            zones.length, zone.length, tzDisplay, parser.toStringAll()), e);
                 }
             }
         }
