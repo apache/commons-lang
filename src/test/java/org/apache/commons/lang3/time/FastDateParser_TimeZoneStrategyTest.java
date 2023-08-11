@@ -21,18 +21,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.text.DateFormatSymbols;
 import java.text.ParseException;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.LocaleUtils;
@@ -76,7 +69,8 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                 parser.parse(displayName);
             } catch (ParseException e) {
                 // Missing "Zulu" or something else in broken JDK's GH builds?
-                fail(String.format("%s: with tzDefault = %s, locale = %s, parser = '%s'", e, tzDefault, locale, displayName, parser.toStringAll()), e);
+                fail(String.format("%s: with tzDefault = %s, locale = %s, id = %s, timeZone = %s, displayName = %s, parser = '%s'", e, tzDefault, locale,
+                        displayName, id, timeZone, displayName, parser.toStringAll()), e);
             }
         }
 
