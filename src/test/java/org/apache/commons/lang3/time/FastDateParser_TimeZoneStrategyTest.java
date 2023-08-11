@@ -53,8 +53,8 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource("java.util.Locale#getAvailableLocales")
-    public void testTimeZoneStrategyPattern(final Locale locale) {
-        testTimeZoneStrategyPattern(locale, TimeZones.GMT);
+    public void testTimeZoneStrategy(final Locale locale) {
+        testTimeZoneStrategyPattern(locale);
     }
 
     /**
@@ -62,26 +62,25 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
      *
      * @throws ParseException
      */
-    private void testTimeZoneStrategyPattern(final Locale locale, final TimeZone tzDefault) {
+    private void testTimeZoneStrategyPattern(final Locale locale) {
         Objects.requireNonNull(locale, "locale");
-        Objects.requireNonNull(tzDefault, "tzDefault");
         assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, null));
         assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, null));
-        final FastDateParser parser = new FastDateParser("z", tzDefault, locale);
 
         for (final String id : TimeZone.getAvailableIDs()) {
             final TimeZone timeZone = TimeZone.getTimeZone(id);
+            final FastDateParser parser = new FastDateParser("z", timeZone, locale);
             final String displayName = timeZone.getDisplayName(locale);
             try {
                 parser.parse(displayName);
             } catch (ParseException e) {
                 // Missing "Zulu" or something else in broken JDK's GH builds?
-                fail(String.format("%s: with tzDefault = %s, locale = %s, id = %s, timeZone = %s, displayName = %s, parser = '%s'", e, tzDefault, locale,
-                        displayName, id, timeZone, displayName, parser.toStringAll()), e);
+                fail(String.format("%s: with locale = %s, id = '%s', timeZone = %s, displayName = '%s', parser = '%s'", e, locale, displayName, id, timeZone,
+                        displayName, parser.toStringAll()), e);
             }
         }
 
-// The above replaces what's below.
+// The above replaces what's below and fails on certain locale/time zones on GH.
 //
 // Calling getZoneStrings() is not recommended in the Javadoc but not deprecated.
 //
@@ -116,7 +115,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         final TimeZone tzDefault = TimeZone.getTimeZone("Etc/UTC");
         final FastDateParser parser = new FastDateParser("z", tzDefault, locale);
         parser.parse(source);
-        testTimeZoneStrategyPattern(locale, tzDefault);
+        testTimeZoneStrategyPattern(locale);
     }
 
     private String toFailureMessage(final Locale locale, final String languageTag) {
