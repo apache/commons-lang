@@ -59,7 +59,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     /**
      * Breaks randomly on GitHub for Locale "pt_PT", TimeZone "Etc/UTC" if we do not check if the Locale's language is "undetermined".
-     * 
+     *
      * @throws ParseException
      */
     private void testTimeZoneStrategyPattern(final Locale locale, final TimeZone tzDefault) {
