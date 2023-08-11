@@ -927,6 +927,8 @@ public class FastDateParser implements DateParser, Serializable {
 
             final Set<String> sorted = new TreeSet<>(LONGER_FIRST_LOWERCASE);
 
+            // Order is undefined.
+            // TODO Use of getZoneStrings() is discouraged per its Javadoc.
             final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
             for (final String[] zoneNames : zones) {
                 // offset 0 is the time zone ID and is not localized
@@ -951,8 +953,9 @@ public class FastDateParser implements DateParser, Serializable {
                     default:
                         break;
                     }
-                    if (zoneNames[i] != null) {
-                        final String key = zoneNames[i].toLowerCase(locale);
+                    final String zoneName = zoneNames[i];
+                    if (zoneName != null) {
+                        final String key = zoneName.toLowerCase(locale);
                         // ignore the data associated with duplicates supplied in
                         // the additional names
                         if (sorted.add(key)) {
