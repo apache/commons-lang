@@ -34,9 +34,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.DefaultTimeZone;
+import org.junitpioneer.jupiter.ReadsDefaultLocale;
+import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 
-@DefaultLocale("en_US") // make test reproducible
-@DefaultTimeZone("GMT") // make test reproducible
+/* make test reproducible */ @DefaultLocale("en_US")
+/* make test reproducible */ @DefaultTimeZone(TimeZones.GMT_ID)
+/* make test reproducible */ @ReadsDefaultLocale
+/* make test reproducible */ @ReadsDefaultTimeZone
 public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     @Test
