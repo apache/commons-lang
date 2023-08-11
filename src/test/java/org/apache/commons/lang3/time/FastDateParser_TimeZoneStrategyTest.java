@@ -75,12 +75,12 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                 parser.parse(displayName);
             } catch (ParseException e) {
                 // Missing "Zulu" or something else in broken JDK's GH builds?
-                fail(String.format("%s: with locale = %s, id = '%s', timeZone = %s, displayName = '%s', parser = '%s'", e, locale, displayName, id, timeZone,
-                        displayName, parser.toStringAll()), e);
+                fail(String.format("%s: with locale = %s, id = '%s', timeZone = %s, displayName = '%s', parser = '%s'", e, locale, id, timeZone, displayName,
+                        parser.toStringAll()), e);
             }
         }
 
-// The above replaces what's below and fails on certain locale/time zones on GH.
+// The above replaces what's below and fails on certain locale/timezones on GH.
 //
 // Calling getZoneStrings() is not recommended in the Javadoc but not deprecated.
 //
