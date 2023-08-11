@@ -28,6 +28,7 @@ import java.util.Objects;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.LocaleUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -67,7 +68,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, null));
         assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, null));
 
-        for (final String id : TimeZone.getAvailableIDs()) {
+        for (final String id : ArraySorter.sort(TimeZone.getAvailableIDs())) {
             final TimeZone timeZone = TimeZone.getTimeZone(id);
             final FastDateParser parser = new FastDateParser("z", timeZone, locale);
             final String displayName = timeZone.getDisplayName(locale);
