@@ -47,7 +47,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
     @ParameterizedTest
     @MethodSource("java.util.Locale#getAvailableLocales")
     public void testTimeZoneStrategyPattern(final Locale locale) {
-        testTimeZoneStrategyPattern(locale, TimeZone.getDefault());
+        testTimeZoneStrategyPattern(locale, TimeZones.GMT);
     }
 
     /**
