@@ -32,13 +32,14 @@ import org.apache.commons.lang3.LocaleUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junitpioneer.jupiter.DefaultTimeZone;
 
+@DefaultTimeZone("GMT") // make test reproducible
 public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     @Test
     public void testLang1219() throws ParseException {
         final FastDateParser parser = new FastDateParser("dd.MM.yyyy HH:mm:ss z", TimeZone.getDefault(), Locale.GERMAN);
-
         final Date summer = parser.parse("26.10.2014 02:00:00 MESZ");
         final Date standard = parser.parse("26.10.2014 02:00:00 MEZ");
         assertNotEquals(summer.getTime(), standard.getTime());
