@@ -37,7 +37,7 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
 import org.junitpioneer.jupiter.ReadsDefaultLocale;
 import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 
-/* make test reproducible */ @DefaultLocale("en_US")
+/* make test reproducible */ @DefaultLocale(language = "en")
 /* make test reproducible */ @DefaultTimeZone(TimeZones.GMT_ID)
 /* make test reproducible */ @ReadsDefaultLocale
 /* make test reproducible */ @ReadsDefaultTimeZone
