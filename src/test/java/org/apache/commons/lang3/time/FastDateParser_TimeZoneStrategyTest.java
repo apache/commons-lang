@@ -31,6 +31,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
@@ -58,6 +59,8 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     /**
      * Breaks randomly on GitHub for Locale "pt_PT", TimeZone "Etc/UTC" if we do not check if the Locale's language is "undetermined".
+     * 
+     * @throws ParseException
      */
     private void testTimeZoneStrategyPattern(final Locale locale, final TimeZone tzDefault) {
         Objects.requireNonNull(locale, "locale");
@@ -65,28 +68,44 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, null));
         assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, null));
         final FastDateParser parser = new FastDateParser("z", tzDefault, locale);
-        final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
-        for (final String[] zone : zones) {
-            for (int zIndex = 1; zIndex < zone.length; ++zIndex) {
-                final String tzDisplay = zone[zIndex];
-                if (tzDisplay == null) {
-                    break;
-                }
-                // An exception will be thrown and the test will fail if parsing isn't successful
-                try {
-                    parser.parse(tzDisplay);
-                } catch (final ParseException e) {
-                    // Missing "Zulu" or something else in broken JDK's GH builds?
-                    final ByteArrayOutputStream zonesOut = new ByteArrayOutputStream();
-                    final PrintStream zonesPs = new PrintStream(zonesOut);
-                    AtomicInteger i = new AtomicInteger();
-                    Stream.of(zones).forEach(zoneArray -> zonesPs.printf("[%,d] %s%n", i.incrementAndGet(), Arrays.toString(zoneArray)));
-                    fail(String.format(
-                            "%s: with tzDefault = %s, locale = %s, zones[][] size = '%s', zIndex = %,d, tzDisplay = '%s', parser = '%s', zones size = %,d, zones = %s",
-                            e, tzDefault, locale, zone.length, zIndex, tzDisplay, parser.toStringAll(), zones.length, zonesOut), e);
-                }
+
+        for (final String id : TimeZone.getAvailableIDs()) {
+            final TimeZone timeZone = TimeZone.getTimeZone(id);
+            final String displayName = timeZone.getDisplayName(locale);
+            try {
+                parser.parse(displayName);
+            } catch (ParseException e) {
+                // Missing "Zulu" or something else in broken JDK's GH builds?
+                fail(String.format("%s: with tzDefault = %s, locale = %s, parser = '%s'", e, tzDefault, locale, displayName, parser.toStringAll()), e);
             }
         }
+
+// The above replaces what's below.
+//
+// Calling getZoneStrings() is not recommended in the Javadoc but not deprecated.
+//
+//        final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
+//        for (final String[] zone : zones) {
+//            for (int zIndex = 1; zIndex < zone.length; ++zIndex) {
+//                final String tzDisplay = zone[zIndex];
+//                if (tzDisplay == null) {
+//                    break;
+//                }
+//                // An exception will be thrown and the test will fail if parsing isn't successful
+//                try {
+//                    parser.parse(tzDisplay);
+//                } catch (ParseException e) {
+//                    // Missing "Zulu" or something else in broken JDK's GH builds?
+//                    final ByteArrayOutputStream zonesOut = new ByteArrayOutputStream();
+//                    final PrintStream zonesPs = new PrintStream(zonesOut);
+//                    final AtomicInteger i = new AtomicInteger();
+//                    Stream.of(zones).forEach(zoneArray -> zonesPs.printf("[%,d] %s%n", i.getAndIncrement(), Arrays.toString(zoneArray)));
+//                    fail(String.format(
+//                            "%s: with tzDefault = %s, locale = %s, zones[][] size = '%s', zIndex = %,d, tzDisplay = '%s', parser = '%s', zones size = %,d, zones = %s",
+//                            e, tzDefault, locale, zone.length, zIndex, tzDisplay, parser.toStringAll(), zones.length, zonesOut), e);
+//                }
+//            }
+//        }
     }
 
     private void testTimeZoneStrategyPattern(final String languageTag, final String source) throws ParseException {
