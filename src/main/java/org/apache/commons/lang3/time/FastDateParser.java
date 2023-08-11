@@ -394,7 +394,7 @@ public class FastDateParser implements DateParser, Serializable {
         if (date == null) {
             // Add a note regarding supported date range
             if (locale.equals(JAPANESE_IMPERIAL)) {
-                throw new ParseException("(The " + locale + " locale does not support dates before 1868 AD)\n" + "Unparseable date: \"" + source,
+                throw new ParseException("(The " + locale + " locale does not support dates before 1868 AD)\nUnparseable date: \"" + source,
                         pp.getErrorIndex());
             }
             throw new ParseException("Unparseable date: " + source, pp.getErrorIndex());
