@@ -21,11 +21,17 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArraySorter;
@@ -54,8 +60,14 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource("java.util.Locale#getAvailableLocales")
-    public void testTimeZoneStrategy(final Locale locale) {
-        testTimeZoneStrategyPattern(locale);
+    public void testTimeZoneStrategy_TimeZone(final Locale locale) {
+        testTimeZoneStrategyPattern_TimeZone_getAvailableIDs(locale);
+    }
+
+    @ParameterizedTest
+    @MethodSource("java.util.Locale#getAvailableLocales")
+    public void testTimeZoneStrategy_DateFormatSymbols(final Locale locale) {
+        testTimeZoneStrategyPattern_DateFormatSymbols_getZoneStrings(locale);
     }
 
     /**
@@ -63,7 +75,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
      *
      * @throws ParseException
      */
-    private void testTimeZoneStrategyPattern(final Locale locale) {
+    private void testTimeZoneStrategyPattern_TimeZone_getAvailableIDs(final Locale locale) {
         Objects.requireNonNull(locale, "locale");
         assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, null));
         assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, null));
@@ -80,33 +92,37 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                         parser.toStringAll()), e);
             }
         }
+    }
 
-// The above replaces what's below and fails on certain locale/timezones on GH.
-//
-// Calling getZoneStrings() is not recommended in the Javadoc but not deprecated.
-//
-//        final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
-//        for (final String[] zone : zones) {
-//            for (int zIndex = 1; zIndex < zone.length; ++zIndex) {
-//                final String tzDisplay = zone[zIndex];
-//                if (tzDisplay == null) {
-//                    break;
-//                }
-//                // An exception will be thrown and the test will fail if parsing isn't successful
-//                try {
-//                    parser.parse(tzDisplay);
-//                } catch (ParseException e) {
-//                    // Missing "Zulu" or something else in broken JDK's GH builds?
-//                    final ByteArrayOutputStream zonesOut = new ByteArrayOutputStream();
-//                    final PrintStream zonesPs = new PrintStream(zonesOut);
-//                    final AtomicInteger i = new AtomicInteger();
-//                    Stream.of(zones).forEach(zoneArray -> zonesPs.printf("[%,d] %s%n", i.getAndIncrement(), Arrays.toString(zoneArray)));
-//                    fail(String.format(
-//                            "%s: with tzDefault = %s, locale = %s, zones[][] size = '%s', zIndex = %,d, tzDisplay = '%s', parser = '%s', zones size = %,d, zones = %s",
-//                            e, tzDefault, locale, zone.length, zIndex, tzDisplay, parser.toStringAll(), zones.length, zonesOut), e);
-//                }
-//            }
-//        }
+    private void testTimeZoneStrategyPattern_DateFormatSymbols_getZoneStrings(final Locale locale) {
+        Objects.requireNonNull(locale, "locale");
+        assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, null));
+        assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, null));
+
+        final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
+        for (final String[] zone : zones) {
+            for (int zIndex = 1; zIndex < zone.length; ++zIndex) {
+                final String tzDisplay = zone[zIndex];
+                if (tzDisplay == null) {
+                    break;
+                }
+                TimeZone timeZone = TimeZone.getDefault();
+                final FastDateParser parser = new FastDateParser("z", timeZone, locale);
+                // An exception will be thrown and the test will fail if parsing isn't successful
+                try {
+                    parser.parse(tzDisplay);
+                } catch (ParseException e) {
+                    // Missing "Zulu" or something else in broken JDK's GH builds?
+                    final ByteArrayOutputStream zonesOut = new ByteArrayOutputStream();
+                    final PrintStream zonesPs = new PrintStream(zonesOut);
+                    final AtomicInteger i = new AtomicInteger();
+                    Stream.of(zones).forEach(zoneArray -> zonesPs.printf("[%,d] %s%n", i.getAndIncrement(), Arrays.toString(zoneArray)));
+                    fail(String.format(
+                            "%s: with tzDefault = %s, locale = %s, zones[][] size = '%s', zIndex = %,d, tzDisplay = '%s', parser = '%s', zones size = %,d, zones = %s",
+                            e, timeZone, locale, zone.length, zIndex, tzDisplay, parser.toStringAll(), zones.length, zonesOut), e);
+                }
+            }
+        }
     }
 
     private void testTimeZoneStrategyPattern(final String languageTag, final String source) throws ParseException {
@@ -116,7 +132,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         final TimeZone tzDefault = TimeZone.getTimeZone("Etc/UTC");
         final FastDateParser parser = new FastDateParser("z", tzDefault, locale);
         parser.parse(source);
-        testTimeZoneStrategyPattern(locale);
+        testTimeZoneStrategyPattern_TimeZone_getAvailableIDs(locale);
     }
 
     private String toFailureMessage(final Locale locale, final String languageTag) {
