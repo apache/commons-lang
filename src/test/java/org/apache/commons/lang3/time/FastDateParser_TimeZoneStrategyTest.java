@@ -109,14 +109,14 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
         final String[][] zones = ArraySorter.sort(DateFormatSymbols.getInstance(locale).getZoneStrings(), Comparator.comparing(array -> array[0]));
         int failCount = 0; // HACK counter
-        List<AssertionFailedError> parseExceptionList = new ArrayList<>();
+        final List<AssertionFailedError> parseExceptionList = new ArrayList<>();
         for (final String[] zone : zones) {
             for (int zIndex = 1; zIndex < zone.length; ++zIndex) {
                 final String tzDisplay = zone[zIndex];
                 if (tzDisplay == null) {
                     break;
                 }
-                TimeZone timeZone = TimeZone.getDefault();
+                final TimeZone timeZone = TimeZone.getDefault();
                 final FastDateParser parser = new FastDateParser("z", timeZone, locale);
                 // An exception will be thrown and the test will fail if parsing isn't successful
                 try {
@@ -124,18 +124,20 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                 } catch (ParseException e) {
                     failCount++;
                     // Missing "Zulu" or something else in broken JDK's GH builds?
-                    final ByteArrayOutputStream zonesOut = new ByteArrayOutputStream();
-                    final PrintStream zonesPs = new PrintStream(zonesOut);
-                    final AtomicInteger i = new AtomicInteger();
-                    // Comment in for more debug data:
-                    Stream.of(zones).forEach(zoneArray -> zonesPs.printf("[%,d] %s%n", i.getAndIncrement(), Arrays.toString(zoneArray)));
-                    parseExceptionList.add(new AssertionFailedError(String.format(
-                            "%s: with tzDefault = %s, locale = %s, zones[][] size = '%s', zIndex = %,d, tzDisplay = '%s', parser = '%s', zones size = %,d, zones = %s",
-                            e, timeZone, locale, zone.length, zIndex, tzDisplay, parser.toStringAll(), zones.length, zonesOut), e));
+                    parseExceptionList.add(new AssertionFailedError(
+                            String.format("%s: with tzDefault = %s, locale = %s, zones[][] size = '%s', zIndex = %,d, tzDisplay = '%s', parser = '%s'", e,
+                                    timeZone, locale, zone.length, zIndex, tzDisplay, parser.toStringAll()),
+                            e));
                     // HACK check
                     if (failCount > 43) {
                         // HACK fail
                         // Why are builds passing locally for me failing on GitHub?
+                        final ByteArrayOutputStream zonesOut = new ByteArrayOutputStream();
+                        final PrintStream zonesPs = new PrintStream(zonesOut);
+                        final AtomicInteger i = new AtomicInteger();
+                        // Comment in for more debug data:
+                        Stream.of(zones).forEach(zoneArray -> zonesPs.printf("[%,d] %s%n", i.getAndIncrement(), Arrays.toString(zoneArray)));
+                        System.err.println(zonesOut);
                         System.err.println(parseExceptionList);
                         fail(e);
                     }
