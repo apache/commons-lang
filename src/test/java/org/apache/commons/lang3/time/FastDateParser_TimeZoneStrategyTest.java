@@ -26,6 +26,7 @@ import java.io.PrintStream;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -36,6 +37,7 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.LocaleUtils;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -58,14 +60,18 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         assertNotEquals(summer.getTime(), standard.getTime());
     }
 
+    public static Locale[] getAvailableLocalesSorted() {
+        return ArraySorter.sort(Locale.getAvailableLocales(), Comparator.comparing(Locale::getDisplayName));
+    }
+
     @ParameterizedTest
-    @MethodSource("java.util.Locale#getAvailableLocales")
+    @MethodSource("org.apache.commons.lang3.time.FastDateParser_TimeZoneStrategyTest#getAvailableLocalesSorted")
     public void testTimeZoneStrategy_TimeZone(final Locale locale) {
         testTimeZoneStrategyPattern_TimeZone_getAvailableIDs(locale);
     }
 
     @ParameterizedTest
-    @MethodSource("java.util.Locale#getAvailableLocales")
+    @MethodSource("org.apache.commons.lang3.time.FastDateParser_TimeZoneStrategyTest#getAvailableLocalesSorted")
     public void testTimeZoneStrategy_DateFormatSymbols(final Locale locale) {
         testTimeZoneStrategyPattern_DateFormatSymbols_getZoneStrings(locale);
     }
@@ -99,7 +105,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, null));
         assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, null));
 
-        final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
+        final String[][] zones = ArraySorter.sort(DateFormatSymbols.getInstance(locale).getZoneStrings(), Comparator.comparing(array -> array[0]));
         for (final String[] zone : zones) {
             for (int zIndex = 1; zIndex < zone.length; ++zIndex) {
                 final String tzDisplay = zone[zIndex];
@@ -116,6 +122,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                     final ByteArrayOutputStream zonesOut = new ByteArrayOutputStream();
                     final PrintStream zonesPs = new PrintStream(zonesOut);
                     final AtomicInteger i = new AtomicInteger();
+                    // Comment in for more debug data:
                     Stream.of(zones).forEach(zoneArray -> zonesPs.printf("[%,d] %s%n", i.getAndIncrement(), Arrays.toString(zoneArray)));
                     fail(String.format(
                             "%s: with tzDefault = %s, locale = %s, zones[][] size = '%s', zIndex = %,d, tzDisplay = '%s', parser = '%s', zones size = %,d, zones = %s",
