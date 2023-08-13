@@ -928,19 +928,6 @@ public class FastDateParser implements DateParser, Serializable {
             final Set<String> sorted = new TreeSet<>(LONGER_FIRST_LOWERCASE);
 
             // Order is undefined.
-            for (final String tzId : TimeZone.getAvailableIDs()) {
-                if (tzId.equalsIgnoreCase(TimeZones.GMT_ID)) {
-                    continue;
-                }
-                final TimeZone tz = TimeZone.getTimeZone(tzId);
-                final String zoneName = tz.getDisplayName(locale);
-                final String key = zoneName.toLowerCase(locale);
-                if (sorted.add(key)) {
-                    tzNames.put(key, new TzInfo(tz, tz.observesDaylightTime()));
-                }
-            }
-
-            // Order is undefined.
             // TODO Use of getZoneStrings() is discouraged per its Javadoc.
             final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
             for (final String[] zoneNames : zones) {
@@ -977,6 +964,20 @@ public class FastDateParser implements DateParser, Serializable {
                     }
                 }
             }
+
+            // Order is undefined.
+            for (final String tzId : TimeZone.getAvailableIDs()) {
+                if (tzId.equalsIgnoreCase(TimeZones.GMT_ID)) {
+                    continue;
+                }
+                final TimeZone tz = TimeZone.getTimeZone(tzId);
+                final String zoneName = tz.getDisplayName(locale);
+                final String key = zoneName.toLowerCase(locale);
+                if (sorted.add(key)) {
+                    tzNames.put(key, new TzInfo(tz, tz.observesDaylightTime()));
+                }
+            }
+
             // order the regex alternatives with longer strings first, greedy
             // match will ensure the longest string will be consumed
             sorted.forEach(zoneName -> simpleQuote(sb.append('|'), zoneName));
