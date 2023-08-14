@@ -125,9 +125,9 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                 } catch (ParseException e) {
                     failCount++;
                     // Missing "Zulu" or something else in broken JDK's GH builds?
-                    parseExceptionList.add(new AssertionFailedError(
-                            String.format("%s: with tzDefault = %s, locale = %s, zones[][] size = '%s', zIndex = %,d, tzDisplay = '%s', parser = '%s'", e,
-                                    timeZone, locale, zone.length, zIndex, tzDisplay, parser.toStringAll()),
+                    final String msg = String.format("%s: with tzDefault = %s, locale = %s, zones[][] size = '%s', zIndex = %,d, tzDisplay = '%s', parser = '%s'", e,
+                            timeZone, locale, zone.length, zIndex, tzDisplay, parser.toStringAll());
+                    parseExceptionList.add(new AssertionFailedError(msg,
                             e));
                     // HACK check
                     if (failCount > 43) {
@@ -140,7 +140,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                         Stream.of(zones).forEach(zoneArray -> zonesPs.printf("[%,d] %s%n", i.getAndIncrement(), Arrays.toString(zoneArray)));
                         System.err.println(zonesOut);
                         System.err.println(parseExceptionList);
-                        fail(e);
+                        fail(String.format("failCount = %,d, %s", failCount, msg), e);
                     }
                 }
             }
