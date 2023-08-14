@@ -54,6 +54,8 @@ import org.opentest4j.AssertionFailedError;
 /* make test reproducible */ @ReadsDefaultTimeZone
 public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
+    static int failCount = 0; // HACK counter
+
     @Test
     public void testLang1219() throws ParseException {
         final FastDateParser parser = new FastDateParser("dd.MM.yyyy HH:mm:ss z", TimeZone.getDefault(), Locale.GERMAN);
@@ -108,7 +110,6 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, null));
 
         final String[][] zones = ArraySorter.sort(DateFormatSymbols.getInstance(locale).getZoneStrings(), Comparator.comparing(array -> array[0]));
-        int failCount = 0; // HACK counter
         final List<AssertionFailedError> parseExceptionList = new ArrayList<>();
         for (final String[] zone : zones) {
             for (int zIndex = 1; zIndex < zone.length; ++zIndex) {
