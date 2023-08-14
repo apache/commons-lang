@@ -130,9 +130,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                     parseExceptionList.add(new AssertionFailedError(msg,
                             e));
                     // HACK check
-                    if (failCount > 43) {
-                        // HACK fail
-                        // Why are builds passing locally for me failing on GitHub?
+                    if (failCount == 1) {
                         final ByteArrayOutputStream zonesOut = new ByteArrayOutputStream();
                         final PrintStream zonesPs = new PrintStream(zonesOut);
                         final AtomicInteger i = new AtomicInteger();
@@ -140,6 +138,10 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                         Stream.of(zones).forEach(zoneArray -> zonesPs.printf("[%,d] %s%n", i.getAndIncrement(), Arrays.toString(zoneArray)));
                         System.err.println(zonesOut);
                         System.err.println(parseExceptionList);
+                    }
+                    if (failCount > 43) {
+                        // HACK fail
+                        // Why are builds passing locally for me failing on GitHub?
                         fail(String.format("failCount = %,d, %s", failCount, msg), e);
                     }
                 }
