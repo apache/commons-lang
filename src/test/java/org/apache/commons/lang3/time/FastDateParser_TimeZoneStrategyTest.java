@@ -122,8 +122,12 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                     parser.parse(tzDisplay);
                 } catch (ParseException e) {
                     // How do I know I'm on GH?
-                    if (SystemUtils.IS_JAVA_17 && Arrays.binarySearch(FAILS_ON_GH_JAVA_17, locale.toString()) > 0) {
+                    final String localeStr = locale.toString();
+                    if (SystemUtils.IS_JAVA_17 && Arrays.binarySearch(FAILS_ON_GH_JAVA_17, localeStr) > 0) {
                         Java17Failures.add(locale);
+                        // Mark as an assumption failure instead of a hard fail
+                        System.err.println("Java 17 - Mark as an assumption failure instead of a hard fail: " + localeStr);
+                        assumeTrue(false, localeStr);
                         continue;
                     }
                     final String msg = String.format("%s: with locale = %s, zIndex = %,d, tzDisplay = '%s', parser = '%s'", e, locale, zIndex, tzDisplay,
