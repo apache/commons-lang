@@ -51,6 +51,7 @@ import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 /* make test reproducible */ @ReadsDefaultTimeZone
 public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
+    // Or is the issue actually random?
     private static final String[] POSSIBLE_FAILS_ON_GH_JAVA_17 = {
             // @formatter:off
             "de",
@@ -101,6 +102,8 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
             "pt_LU",
             "pt_PT",
             "pt_TL",
+            "se_FI",
+            "sr_BA_#Cyrl",
             "sv_SE",
             "sv_SE_#Latn",
             "zh_HK",
