@@ -70,7 +70,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
     }
 
     public static Locale[] getAvailableLocalesSorted() {
-        return ArraySorter.sort(Locale.getAvailableLocales(), Comparator.comparing(Locale::getDisplayName));
+        return ArraySorter.sort(Locale.getAvailableLocales(), Comparator.comparing(Locale::toString));
     }
 
     @Test
@@ -126,13 +126,12 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                     if (SystemUtils.IS_JAVA_17 && Arrays.binarySearch(FAILS_ON_GH_JAVA_17, localeStr) > 0) {
                         Java17Failures.add(locale);
                         // Mark as an assumption failure instead of a hard fail
-                        System.err.println("Java 17 - Mark as an assumption failure instead of a hard fail: " + localeStr);
+                        System.err.printf("Java 17 - Mark as an assumption failure instead of a hard fail: locale = '%s'%n", localeStr);
                         assumeTrue(false, localeStr);
                         continue;
                     }
-                    final String msg = String.format("%s: with locale = %s, zIndex = %,d, tzDisplay = '%s', parser = '%s'", e, locale, zIndex, tzDisplay,
-                            parser.toString());
-                    fail(msg, e);
+                    fail(String.format("%s: with locale = %s, zIndex = %,d, tzDisplay = '%s', parser = '%s'", e, localeStr, zIndex, tzDisplay,
+                            parser.toString()), e);
                 }
             }
         }
