@@ -122,7 +122,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                     parser.parse(tzDisplay);
                 } catch (ParseException e) {
                     // How do I know I'm on GH?
-                    if (SystemUtils.IS_JAVA_17 && Arrays.binarySearch(FAILS_ON_GH_JAVA_17, locale) > 0) {
+                    if (SystemUtils.IS_JAVA_17 && Arrays.binarySearch(FAILS_ON_GH_JAVA_17, locale.toString()) > 0) {
                         Java17Failures.add(locale);
                         continue;
                     }
