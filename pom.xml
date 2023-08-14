@@ -710,7 +710,6 @@
               <includes>
                 <include>**/*Test.java</include>
               </includes>
-              <runOrder>random</runOrder>
               <trimStackTrace>false</trimStackTrace>
             </configuration>
           </execution>
