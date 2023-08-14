@@ -39,8 +39,14 @@ public class NumberUtils {
     public static final char CHAR_DECIMAL_PERIOD = '.';
     /** Reusable char constant for decimal separator character comma. */
     public static final char CHAR_DECIMAL_COMMA = ',';
-    /** Reusable char constant for exponent character (lowercase e). */
-    public static final char CHAR_EXPONENT = 'e';
+    /** Reusable char constant for exponent character - lowercase */
+    public static final char CHAR_EXPONENT_LOWER = 'e';
+    /** Reusable char constant for exponent character - uppercase */
+    public static final char CHAR_EXPONENT_UPPER = 'E';
+    /** Reusable char constant for positive sign */
+    public static final char CHAR_SIGN_POSITIVE = '+';
+    /** Reusable char constant for negative sign */
+    public static final char CHAR_SIGN_NEGATIVE = '-';
     /** Reusable Long constant for zero. */
     public static final Long LONG_ZERO = Long.valueOf(0L);
     /** Reusable Long constant for one. */
@@ -1884,7 +1890,7 @@ public class NumberUtils {
      * and 0.0 are measured on the same apparatus and reported in the same dataset, we should be
      * able to convey that they both have 2 significant figures. <br>
      * <b>Note:</b> Rules 1-6 deal with the non-exponent portion of the string, and by rule apply
-     * only to characters prior to the optional exponent character ('e'). Rule 7 covers the
+     * only to characters prior to the optional exponent character ('e'|'E'). Rule 7 covers the
      * exponential portion. <br>
      * 1) All nonzero digits are always significant. <br>
      * 2) Zeros that appear between other nonzero digits are called "middle zeros", and are always
@@ -1946,8 +1952,8 @@ public class NumberUtils {
      * <a href="https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch1/sigfigs.html">Significant
      * Figures</a>
      *
-     * @param decimalNumber The decimal number string. Must be numeric digits with optional decimal
-     * and optional integer exponential suffix
+     * @param decimalNumber The decimal number string. Must be optional sign + numeric digits with optional decimal
+     * and optional e|E + sign + integer exponential suffix
      * @param decimalSeparator the decimal separator character to use
      * @return The number of significant figures in the string
      */
@@ -1958,7 +1964,7 @@ public class NumberUtils {
         if (CharUtils.isAsciiNumeric(decimalSeparator)) {
             throw new IllegalArgumentException("Decimal Separator cannot be numeric");
         }
-        if (decimalSeparator == CHAR_EXPONENT) {
+        if (decimalSeparator == CHAR_EXPONENT_UPPER || decimalSeparator == CHAR_EXPONENT_LOWER) {
             throw new IllegalArgumentException("Decimal Separator cannot be exponent character 'e'");
         }
         // track current part
@@ -1970,8 +1976,14 @@ public class NumberUtils {
         int middleZeros = 0;
         //track known sigfigs
         int sigFigs = 0;
-        for (int i = 0; i < decimalNumber.length(); i++) {
-            char c = decimalNumber.charAt(i);
+        int index = 0;
+        //skip first character if its the sign
+        char firstChar = decimalNumber.charAt(0);
+        if (firstChar == CHAR_SIGN_NEGATIVE || firstChar ==  CHAR_SIGN_POSITIVE) {
+            index++;
+        }
+        for (; index < decimalNumber.length(); index++) {
+            char c = decimalNumber.charAt(index);
             if (c == CHAR_ZERO) {
                 if (!rightSide) {
                     if (foundNonZero) {
@@ -1991,14 +2003,17 @@ public class NumberUtils {
                     }
                 }
             } else if (c == decimalSeparator) {
+                if (rightSide) {
+                    throw new IllegalArgumentException("Illegal duplicate separator found at index "+index);
+                }
                 rightSide = true;
                 // if a decimal is present, all whole trailing zeros are middle zeros and are
                 // significant significant (Rule 4)
                 sigFigs += middleZeros;
                 middleZeros = 0;
-            } else if (c == CHAR_EXPONENT) {
+            } else if (c == CHAR_EXPONENT_UPPER || c == CHAR_EXPONENT_LOWER) {
                 // exponent is not significant and ends the parsing of sigfigs
-                exponentIndex = i;
+                exponentIndex = index;
                 if (exponentIndex == 0) {
                     throw new IllegalArgumentException("Decimal part was empty");
                 }
@@ -2017,7 +2032,7 @@ public class NumberUtils {
                     middleZeros = 0;
                 }
             } else {
-                throw new IllegalArgumentException("Illegal character '" + c + "' at index " + i);
+                throw new IllegalArgumentException("Illegal character '" + c + "' at index " + index);
             }
         }
         // any remaining zeros were trailing and are not significant (Rule 5)
@@ -2038,7 +2053,13 @@ public class NumberUtils {
             if (exponentIndex + 1 == decimalNumber.length()) {
                 throw new IllegalArgumentException("Exponent part was empty");
             }
-            for (int i = exponentIndex + 1; i < decimalNumber.length(); i++) {
+            int expIndex = exponentIndex+1;
+            //skip first character if its the sign
+            char firstExpChar = decimalNumber.charAt(expIndex);
+            if (firstExpChar == CHAR_SIGN_NEGATIVE || firstExpChar ==  CHAR_SIGN_POSITIVE) {
+                expIndex++;
+            }
+            for (int i = expIndex; i < decimalNumber.length(); i++) {
                 char c = decimalNumber.charAt(i);
                 if (!CharUtils.isAsciiNumeric(c)) {
                     throw new IllegalArgumentException("Illegal character '" + c + "' at index " + i);
