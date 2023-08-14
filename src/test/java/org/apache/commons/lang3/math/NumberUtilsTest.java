@@ -1743,4 +1743,94 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertEquals(12345, NumberUtils.toShort("12345", (short) 5), "toShort(String, short) 1 failed");
         assertEquals(5, NumberUtils.toShort("1234.5", (short) 5), "toShort(String, short) 2 failed");
     }
+
+    @Test
+    public void testCountSignificantFiguresSeparator() {
+        assertEquals(5, NumberUtils.countSignificantFigures("113.33", NumberUtils.CHAR_DECIMAL_PERIOD));
+        assertEquals(5, NumberUtils.countSignificantFigures("113,33", NumberUtils.CHAR_DECIMAL_COMMA));
+        assertEquals(5, NumberUtils.countSignificantFigures("113|33", '|'));
+        assertEquals(5, NumberUtils.countSignificantFigures("113 33", ' '));
+        assertThrows(IllegalArgumentException.class, () -> NumberUtils.countSignificantFigures("1.34e1", '1'));
+        assertThrows(IllegalArgumentException.class, () -> NumberUtils.countSignificantFigures("1.34e1", 'e'));
+        assertThrows(IllegalArgumentException.class, () -> NumberUtils.countSignificantFigures("1.34e1", '0'));
+    }
+
+    @Test
+    public void testCountSignificantFiguresNonZeroDigitsRule1() {
+        assertEquals(1, NumberUtils.countSignificantFigures("1"));
+        assertEquals(1, NumberUtils.countSignificantFigures("1."));
+        assertEquals(1, NumberUtils.countSignificantFigures("1e2"));
+        assertEquals(4, NumberUtils.countSignificantFigures("123.4"));
+        assertEquals(5, NumberUtils.countSignificantFigures("123.44"));
+    }
+
+    @Test
+    public void testCountSignificantFiguresMiddleZerosRule2() {
+        assertEquals(5, NumberUtils.countSignificantFigures("10001"));
+        assertEquals(5, NumberUtils.countSignificantFigures("100.44"));
+        assertEquals(3, NumberUtils.countSignificantFigures("101"));
+        assertEquals(3, NumberUtils.countSignificantFigures("1.01"));
+        assertEquals(3, NumberUtils.countSignificantFigures("101e2"));
+    }
+
+    @Test
+    public void testCountSignificantFiguresLeadingZerosRule3() {
+        assertEquals(5, NumberUtils.countSignificantFigures("0010001"));
+        assertEquals(5, NumberUtils.countSignificantFigures("00100.44"));
+        assertEquals(3, NumberUtils.countSignificantFigures("0000101"));
+        assertEquals(3, NumberUtils.countSignificantFigures("01.01"));
+        assertEquals(3, NumberUtils.countSignificantFigures("0000000101e2"));
+    }
+
+    @Test
+    public void testCountSignificantFiguresTrailingZerosRule4() {
+        assertEquals(5, NumberUtils.countSignificantFigures("1.4400"));
+        assertEquals(9, NumberUtils.countSignificantFigures("101.430000"));
+        assertEquals(2, NumberUtils.countSignificantFigures("1.0e1"));
+        assertEquals(4, NumberUtils.countSignificantFigures("1.000e3"));
+    }
+
+    @Test
+    public void testCountSignificantFiguresTrailingZerosRule5() {
+        assertEquals(3, NumberUtils.countSignificantFigures("14400"));
+        assertEquals(5, NumberUtils.countSignificantFigures("101430000"));
+        assertEquals(1, NumberUtils.countSignificantFigures("10e1"));
+        assertEquals(2, NumberUtils.countSignificantFigures("1200e3"));
+    }
+
+    @Test
+    public void testCountSignificantFiguresZeroValuesRule6() {
+        assertEquals(3, NumberUtils.countSignificantFigures("00.0"));
+        assertEquals(1, NumberUtils.countSignificantFigures("000"));
+        assertEquals(3, NumberUtils.countSignificantFigures("000."));
+        assertEquals(4, NumberUtils.countSignificantFigures("0.000"));
+        assertEquals(1, NumberUtils.countSignificantFigures("000"));
+        assertEquals(1, NumberUtils.countSignificantFigures("000000"));
+        assertEquals(1, NumberUtils.countSignificantFigures("0"));
+        assertEquals(4, NumberUtils.countSignificantFigures("00.00e0"));
+    }
+
+    @Test
+    public void testCountSignificantFiguresExponentRule7() {
+        assertEquals(3, NumberUtils.countSignificantFigures("10.0e1"));
+        assertEquals(1, NumberUtils.countSignificantFigures("100e232"));
+        assertEquals(3, NumberUtils.countSignificantFigures("1.11e1"));
+        assertEquals(7, NumberUtils.countSignificantFigures("12424.22e1442"));
+
+        assertThrows(IllegalArgumentException.class, () -> NumberUtils.countSignificantFigures("1.34e"));
+        assertThrows(IllegalArgumentException.class, () -> NumberUtils.countSignificantFigures("00e"));
+        assertThrows(IllegalArgumentException.class, () -> NumberUtils.countSignificantFigures("0e"));
+        assertThrows(IllegalArgumentException.class, () -> NumberUtils.countSignificantFigures("e"));
+        assertThrows(IllegalArgumentException.class, () -> NumberUtils.countSignificantFigures("e10"));
+    }
+
+    @Test
+    public void testCountSignificantFiguresEmptyParts() {
+        assertThrows(IllegalArgumentException.class, () -> NumberUtils.countSignificantFigures("0e"));
+        assertThrows(IllegalArgumentException.class, () -> NumberUtils.countSignificantFigures("e"));
+        assertThrows(IllegalArgumentException.class, () -> NumberUtils.countSignificantFigures("e10"));
+        assertThrows(IllegalArgumentException.class, () -> NumberUtils.countSignificantFigures(""));
+    }
+
 }
+
