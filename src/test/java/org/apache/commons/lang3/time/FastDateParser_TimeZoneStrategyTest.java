@@ -21,20 +21,13 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArraySorter;
@@ -46,15 +39,12 @@ import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.DefaultTimeZone;
 import org.junitpioneer.jupiter.ReadsDefaultLocale;
 import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
-import org.opentest4j.AssertionFailedError;
 
 /* make test reproducible */ @DefaultLocale(language = "en")
 /* make test reproducible */ @DefaultTimeZone(TimeZones.GMT_ID)
 /* make test reproducible */ @ReadsDefaultLocale
 /* make test reproducible */ @ReadsDefaultTimeZone
 public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
-
-    static int failCount = 0; // HACK counter
 
     @Test
     public void testLang1219() throws ParseException {
@@ -110,7 +100,6 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, null));
 
         final String[][] zones = ArraySorter.sort(DateFormatSymbols.getInstance(locale).getZoneStrings(), Comparator.comparing(array -> array[0]));
-        final List<AssertionFailedError> parseExceptionList = new ArrayList<>();
         for (final String[] zone : zones) {
             for (int zIndex = 1; zIndex < zone.length; ++zIndex) {
                 final String tzDisplay = zone[zIndex];
@@ -123,27 +112,9 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                 try {
                     parser.parse(tzDisplay);
                 } catch (ParseException e) {
-                    failCount++;
-                    // Missing "Zulu" or something else in broken JDK's GH builds?
-                    final String msg = String.format("%s: with tzDefault = %s, locale = %s, zones[][] size = '%s', zIndex = %,d, tzDisplay = '%s', parser = '%s'", e,
-                            timeZone, locale, zone.length, zIndex, tzDisplay, parser.toStringAll());
-                    parseExceptionList.add(new AssertionFailedError(msg,
-                            e));
-                    // HACK check
-                    if (failCount == 1) {
-                        final ByteArrayOutputStream zonesOut = new ByteArrayOutputStream();
-                        final PrintStream zonesPs = new PrintStream(zonesOut);
-                        final AtomicInteger i = new AtomicInteger();
-                        // Comment in for more debug data:
-                        Stream.of(zones).forEach(zoneArray -> zonesPs.printf("[%,d] %s%n", i.getAndIncrement(), Arrays.toString(zoneArray)));
-                        System.err.println(zonesOut);
-                        System.err.println(parseExceptionList);
-                    }
-                    if (failCount > 43) {
-                        // HACK fail
-                        // Why are builds passing locally for me failing on GitHub?
-                        fail(String.format("failCount = %,d, %s", failCount, msg), e);
-                    }
+                    final String msg = String.format("%s: with locale = %s, zIndex = %,d, tzDisplay = '%s', parser = '%s'", e, locale, zIndex, tzDisplay,
+                            parser.toString());
+                    fail(msg, e);
                 }
             }
         }
