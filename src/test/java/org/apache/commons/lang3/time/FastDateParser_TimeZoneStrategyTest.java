@@ -106,6 +106,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
             "sr_BA_#Cyrl",
             "sv_SE",
             "sv_SE_#Latn",
+            "ur_IN",
             "zh_HK",
             "zh_HK_#Hans",
             "zh_MO_#Hans"
