@@ -16,11 +16,15 @@
  */
 package org.apache.commons.lang3;
 
-import org.openjdk.jmh.annotations.*;
-
 import java.util.concurrent.TimeUnit;
 
-import static org.apache.commons.lang3.StringUtils.isEmpty;
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.Warmup;
 
 /**
  * Test to show the better performance of the new implementation of isMixedCase
@@ -77,7 +81,7 @@ public class StringUtilsIsMixedCaseTest {
     }
 
     public static boolean oldIsMixedCase(final CharSequence cs) {
-        if (isEmpty(cs) || cs.length() == 1) {
+        if (StringUtils.isEmpty(cs) || cs.length() == 1) {
             return false;
         }
         boolean containsUppercase = false;
