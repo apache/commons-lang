@@ -925,7 +925,7 @@ public class ClassUtils {
      * Gets the class name minus the package name from a {@link Class}.
      *
      * <p>
-     * This method simply gets the name using {@code Class.getName()} and then calls {@link #getShortClassName(Class)}. See
+     * This method simply gets the name using {@code Class.getName()} and then calls {@link #getShortClassName(String)}. See
      * relevant notes there.
      * </p>
      *
