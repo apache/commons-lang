@@ -3628,16 +3628,17 @@ public class StringUtils {
         boolean containsLowercase = false;
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
+            char nowChar = cs.charAt(i);
+            if (Character.isUpperCase(nowChar)) {
+                containsUppercase = true;
+            } else if (Character.isLowerCase(nowChar)) {
+                containsLowercase = true;
+            }
             if (containsUppercase && containsLowercase) {
                 return true;
             }
-            if (Character.isUpperCase(cs.charAt(i))) {
-                containsUppercase = true;
-            } else if (Character.isLowerCase(cs.charAt(i))) {
-                containsLowercase = true;
-            }
         }
-        return containsUppercase && containsLowercase;
+        return false;
     }
 
     /**
