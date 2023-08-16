@@ -31,7 +31,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.function.Predicate;
 
@@ -146,6 +148,20 @@ public class ThreadUtilsTest extends AbstractLangTest {
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(ThreadUtils.class.getModifiers()));
         assertFalse(Modifier.isFinal(ThreadUtils.class.getModifiers()));
+    }
+
+    @Test
+    public void testGetAllThreadGroupsDoesNotReturnNull() {
+        // LANG-1706 getAllThreadGroups and findThreadGroups should not return null items
+        Collection<ThreadGroup> threads = ThreadUtils.getAllThreadGroups();
+        assertEquals(0, threads.stream().filter(Objects::isNull).count());
+    }
+
+    @Test
+    public void testGetAllThreadsDoesNotReturnNull() {
+        // LANG-1706 getAllThreads and findThreads should not return null items
+        Collection<Thread> threads = ThreadUtils.getAllThreads();
+        assertEquals(0, threads.stream().filter(Objects::isNull).count());
     }
 
     @Test
@@ -390,4 +406,5 @@ public class ThreadUtilsTest extends AbstractLangTest {
             alsot1.join();
         }
     }
+
 }

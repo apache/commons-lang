@@ -284,7 +284,7 @@ public class ThreadUtils {
             count = threadGroup.enumerate(threadGroups, recurse);
             //return value of enumerate() must be strictly less than the array size according to Javadoc
         } while (count >= threadGroups.length);
-        return Collections.unmodifiableCollection(Stream.of(threadGroups).filter(predicate).collect(Collectors.toList()));
+        return Collections.unmodifiableCollection(Stream.of(threadGroups).limit(count).filter(predicate).collect(Collectors.toList()));
     }
 
     /**
@@ -376,7 +376,7 @@ public class ThreadUtils {
             count = threadGroup.enumerate(threads, recurse);
             //return value of enumerate() must be strictly less than the array size according to javadoc
         } while (count >= threads.length);
-        return Collections.unmodifiableCollection(Stream.of(threads).filter(predicate).collect(Collectors.toList()));
+        return Collections.unmodifiableCollection(Stream.of(threads).limit(count).filter(predicate).collect(Collectors.toList()));
     }
 
     /**

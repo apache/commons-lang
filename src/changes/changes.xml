@@ -54,6 +54,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1704" type="fix" dev="ggregory" due-to="Sung Ho Yoon">[Javadoc] Fix Incorrect Description in Processor isAarch64() #1093.</action>
     <action                   type="fix" dev="ggregory" due-to="ljacqu">[Javadoc] Point to right getShortClassName flavor in Javadoc for relevant notes #1097.</action>
     <action                   type="fix" dev="ggregory" due-to="hduelme">Improve performance of StringUtils.isMixedCase() #1096.</action>
+    <action issue="LANG-1706" type="fix" dev="ggregory" due-to="Alberto Fernández">ThreadUtils find methods should not return null items #1098.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Rob Spoor, Gary Gregory">Add Functions#function(Function).</action>
     <action                   type="add" dev="ggregory" due-to="Rob Spoor, Gary Gregory">Add FailableFunction#function(FailableFunction).</action>
