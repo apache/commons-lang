@@ -143,7 +143,7 @@ public class FastDateParserTest extends AbstractLangTest {
             locale) -> new FastDateParser(format, timeZone, locale, null);
 
     private DateParser getDateInstance(final int dateStyle, final Locale locale) {
-        return getInstance(null, FormatCache.getPatternForStyle(Integer.valueOf(dateStyle), null, locale),
+        return getInstance(null, AbstractFormatCache.getPatternForStyle(Integer.valueOf(dateStyle), null, locale),
             TimeZone.getDefault(), Locale.getDefault());
     }
 

@@ -78,7 +78,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
     }
 
     private DatePrinter getDateInstance(final int dateStyle, final Locale locale) {
-        return getInstance(FormatCache.getPatternForStyle(Integer.valueOf(dateStyle), null, locale), TimeZone.getDefault(), Locale.getDefault());
+        return getInstance(AbstractFormatCache.getPatternForStyle(Integer.valueOf(dateStyle), null, locale), TimeZone.getDefault(), Locale.getDefault());
     }
 
     DatePrinter getInstance(final String format) {
