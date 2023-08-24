@@ -42,7 +42,7 @@ public class ThresholdCircuitBreakerTest extends AbstractLangTest {
     public void testThreshold() {
         final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
         circuit.incrementAndCheckState(9L);
-        assertFalse(circuit.incrementAndCheckState(1L), "Circuit opened before reaching the threshold");
+        assertTrue(circuit.incrementAndCheckState(1L), "Circuit opened before reaching the threshold");
     }
 
     /**
@@ -52,7 +52,7 @@ public class ThresholdCircuitBreakerTest extends AbstractLangTest {
     public void testThresholdCircuitBreakingException() {
         final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
         circuit.incrementAndCheckState(9L);
-        assertTrue(circuit.incrementAndCheckState(2L), "The circuit was supposed to be open after increment above the threshold");
+        assertFalse(circuit.incrementAndCheckState(2L), "The circuit was supposed to be open after increment above the threshold");
     }
 
     /**
@@ -61,7 +61,7 @@ public class ThresholdCircuitBreakerTest extends AbstractLangTest {
     @Test
     public void testThresholdEqualsZero() {
         final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(zeroThreshold);
-        assertTrue(circuit.incrementAndCheckState(0L), "When the threshold is zero, the circuit is supposed to be always open");
+        assertFalse(circuit.incrementAndCheckState(0L), "When the threshold is zero, the circuit is supposed to be always open");
     }
 
     /**
@@ -73,7 +73,7 @@ public class ThresholdCircuitBreakerTest extends AbstractLangTest {
         circuit.incrementAndCheckState(9L);
         circuit.close();
         // now the internal counter is back at zero, not 9 anymore. So it is safe to increment 9 again
-        assertFalse(circuit.incrementAndCheckState(9L), "Internal counter was not reset back to zero");
+        assertTrue(circuit.incrementAndCheckState(9L), "Internal counter was not reset back to zero");
     }
 
     /**
