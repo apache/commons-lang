@@ -318,10 +318,10 @@ public class StopWatchTest extends AbstractLangTest {
         watch.stop();
         final long totalTime = watch.getTime();
 
-        assertTrue(suspendTime >= 500);
-        assertTrue(suspendTime < 700);
-        assertTrue(totalTime >= 1000);
-        assertTrue(totalTime < 1300);
+        assertTrue(suspendTime >= 500, "suspendTime = " + suspendTime);
+        assertTrue(suspendTime < 700, "suspendTime = " + suspendTime);
+        assertTrue(totalTime >= 1000, "totalTime = " + totalTime);
+        assertTrue(totalTime < 1300, "totalTime = " + totalTime);
     }
 
     @Test
