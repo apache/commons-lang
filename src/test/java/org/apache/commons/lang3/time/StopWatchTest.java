@@ -306,6 +306,7 @@ public class StopWatchTest extends AbstractLangTest {
         sleepQuietly(MILLIS_550);
         watch.suspend();
         final long testSuspendMillis = System.currentTimeMillis();
+        final long testSuspendTime = testSuspendMillis - testStartMillis;
         final long suspendTime = watch.getTime();
         final long stopTime = watch.getStopTime();
 
@@ -319,7 +320,7 @@ public class StopWatchTest extends AbstractLangTest {
         final long totalTime = watch.getTime();
 
         assertTrue(suspendTime >= 500, "suspendTime = " + suspendTime);
-        assertTrue(suspendTime < 700, "suspendTime = " + suspendTime);
+        assertTrue(suspendTime < testSuspendTime, "suspendTime = " + suspendTime);
         assertTrue(totalTime >= 1000, "totalTime = " + totalTime);
         // Be lenient for slow running builds
         assertTrue(totalTime < 2500, "totalTime = " + totalTime);
