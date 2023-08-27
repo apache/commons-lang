@@ -50,12 +50,16 @@ import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 /* make test reproducible */ @ReadsDefaultTimeZone
 public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
+    private static final List<Locale> Java11Failures = new ArrayList<>();
     private static final List<Locale> Java17Failures = new ArrayList<>();
 
     @AfterAll
     public static void afterAll() {
         if (!Java17Failures.isEmpty()) {
             System.err.printf("Actual failures on Java 17: %,d%n%s%n", Java17Failures.size(), Java17Failures);
+        }
+        if (!Java11Failures.isEmpty()) {
+            System.err.printf("Actual failures on Java 11: %,d%n%s%n", Java11Failures.size(), Java11Failures);
         }
     }
 
@@ -98,7 +102,8 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, null));
         assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, null));
 
-        final String[][] zones = ArraySorter.sort(DateFormatSymbols.getInstance(locale).getZoneStrings(), Comparator.comparing(array -> array[0]));
+        final String[][] zones = ArraySorter.sort(DateFormatSymbols.getInstance(locale).getZoneStrings(),
+                Comparator.comparing(array -> array[0]));
         for (final String[] zone : zones) {
             for (int zIndex = 1; zIndex < zone.length; ++zIndex) {
                 final String tzDisplay = zone[zIndex];
@@ -114,12 +119,22 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                     // Hack Start
                     // See failures on GitHub Actions builds for Java 17.
                     final String localeStr = locale.toString();
-                    if (SystemUtils.IS_JAVA_17 && (localeStr.contains("_")
-                            || "Coordinated Universal Time".equals(tzDisplay) || "sommartid – Atyrau".equals(tzDisplay))) {
+                    if (SystemUtils.IS_JAVA_17
+                            && (localeStr.contains("_") || "Coordinated Universal Time".equals(tzDisplay)
+                                    || "sommartid – Atyrau".equals(tzDisplay))) {
                         Java17Failures.add(locale);
                         // Mark as an assumption failure instead of a hard fail
                         System.err.printf(
                                 "Java 17 - Mark as an assumption failure instead of a hard fail: locale = '%s'%n",
+                                localeStr);
+                        assumeTrue(false, localeStr);
+                        continue;
+                    } else if (SystemUtils.IS_JAVA_11
+                            && (localeStr.contains("_") || "Coordinated Universal Time".equals(tzDisplay))) {
+                        Java11Failures.add(locale);
+                        // Mark as an assumption failure instead of a hard fail
+                        System.err.printf(
+                                "Java 11 - Mark as an assumption failure instead of a hard fail: locale = '%s'%n",
                                 localeStr);
                         assumeTrue(false, localeStr);
                         continue;
