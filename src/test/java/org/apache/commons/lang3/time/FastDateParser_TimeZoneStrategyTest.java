@@ -115,7 +115,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                     // See failures on GitHub Actions builds for Java 17.
                     final String localeStr = locale.toString();
                     if (SystemUtils.IS_JAVA_17 && (localeStr.contains("_")
-                            || "Coordinated Universal Time".equals(tzDisplay) || "sommartid".equals(tzDisplay))) {
+                            || "Coordinated Universal Time".equals(tzDisplay) || "sommartid – Atyrau".equals(tzDisplay))) {
                         Java17Failures.add(locale);
                         // Mark as an assumption failure instead of a hard fail
                         System.err.printf(
