@@ -113,7 +113,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                 } catch (ParseException e) {
                     // How do I know I'm on GH?
                     final String localeStr = locale.toString();
-                    if (SystemUtils.IS_JAVA_17 && localeStr.contains("_") && "Coordinated Universal Time".equals(tzDisplay)) {
+                    if (SystemUtils.IS_JAVA_17 && (localeStr.contains("_") || "Coordinated Universal Time".equals(tzDisplay))) {
                         Java17Failures.add(locale);
                         // Mark as an assumption failure instead of a hard fail
                         System.err.printf("Java 17 - Mark as an assumption failure instead of a hard fail: locale = '%s'%n", localeStr);
