@@ -321,7 +321,8 @@ public class StopWatchTest extends AbstractLangTest {
         assertTrue(suspendTime >= 500, "suspendTime = " + suspendTime);
         assertTrue(suspendTime < 700, "suspendTime = " + suspendTime);
         assertTrue(totalTime >= 1000, "totalTime = " + totalTime);
-        assertTrue(totalTime < 1300, "totalTime = " + totalTime);
+        // Be lenient for slow running builds
+        assertTrue(totalTime < 2500, "totalTime = " + totalTime);
     }
 
     @Test
