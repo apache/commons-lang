@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
