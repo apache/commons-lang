@@ -55,6 +55,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="ljacqu">[Javadoc] Point to right getShortClassName flavor in Javadoc for relevant notes #1097.</action>
     <action                   type="fix" dev="ggregory" due-to="hduelme">Improve performance of StringUtils.isMixedCase() #1096.</action>
     <action issue="LANG-1706" type="fix" dev="ggregory" due-to="Alberto Fernández">ThreadUtils find methods should not return null items #1098.</action>
+    <action issue="LANG-1710" type="fix" dev="ggregory" due-to="Shashank Sharma, Gary Gregory, Oksana">ReflectionToStringBuilder changes in version 3.13.0 has broken the logic for overriding classes.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Rob Spoor, Gary Gregory">Add Functions#function(Function).</action>
     <action                   type="add" dev="ggregory" due-to="Rob Spoor, Gary Gregory">Add FailableFunction#function(FailableFunction).</action>
