@@ -23,6 +23,7 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 
 import org.apache.commons.lang3.ArraySorter;
@@ -653,8 +654,12 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         }
         // The elements in the returned array are not sorted and are not in any particular order.
         final Field[] fields = ArraySorter.sort(clazz.getDeclaredFields(), Comparator.comparing(Field::getName));
-        AccessibleObject.setAccessible(fields, true);
-        for (final Field field : fields) {
+        
+        final List<Field> accessibleFields = Arrays.stream(fields)
+                .filter(AccessibleObject::trySetAccessible)
+                .toList();
+        
+        for (final Field field : accessibleFields) {
             final String fieldName = field.getName();
             if (this.accept(field)) {
                 try {
@@ -664,7 +669,8 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
                     if (!excludeNullValues || fieldValue != null) {
                         this.append(fieldName, fieldValue, !field.isAnnotationPresent(ToStringSummary.class));
                     }
-                } catch (final IllegalAccessException e) {
+                }
+                catch (final IllegalAccessException e) {
                     // this can't happen. Would get a Security exception instead throw a runtime exception in case the
                     // impossible happens.
                     throw new IllegalStateException(e);
