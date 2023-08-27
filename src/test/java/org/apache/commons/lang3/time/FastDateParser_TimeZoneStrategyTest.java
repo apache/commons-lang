@@ -51,78 +51,11 @@ import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 /* make test reproducible */ @ReadsDefaultTimeZone
 public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
-    // Or is the issue actually random?
-    private static final String[] POSSIBLE_FAILS_ON_GH_JAVA_17 = {
-            // @formatter:off
-            "de",
-            "de_AT",
-            "de_BE",
-            "de_CH",
-            "de_DE",
-            "de_DE_#Latn",
-            "de_IT",
-            "de_LI",
-            "de_LU",
-            "es",
-            "es_419",
-            "es_AR",
-            "es_BO",
-            "es_BR",
-            "es_BZ",
-            "es_CL",
-            "es_CO",
-            "es_CR",
-            "es_CU",
-            "es_DO",
-            "es_EA",
-            "es_EC",
-            "es_ES",
-            "es_ES_#Latn",
-            "es_GQ",
-            "es_GT",
-            "es_HN",
-            "es_IC",
-            "es_MX",
-            "es_NI",
-            "es_PA",
-            "es_PE",
-            "es_PH",
-            "es_PR",
-            "es_PY",
-            "es_SV",
-            "es_US",
-            "es_UY",
-            "es_VE",
-            "nn",
-            "nn_NO",
-            "nn_NO_#Latn",
-            "pt_AO",
-            "pt_CV",
-            "pt_GW",
-            "pt_LU",
-            "pt_PT",
-            "pt_TL",
-            "se_FI",
-            "sr_BA_#Cyrl",
-            "sv_SE",
-            "sv_SE_#Latn",
-            "ur_IN",
-            "zh_HK",
-            "zh_HK_#Hans",
-            "zh_MO_#Hans"
-            // @formatter:on
-    };
-
     private static final List<Locale> Java17Failures = new ArrayList<>();
-
-    static {
-        Arrays.sort(POSSIBLE_FAILS_ON_GH_JAVA_17);
-    }
 
     @AfterAll
     public static void afterAll() {
         if (!Java17Failures.isEmpty()) {
-            System.err.printf("Expected failures on Java 17: %,d%n%s%n", POSSIBLE_FAILS_ON_GH_JAVA_17.length, Arrays.toString(POSSIBLE_FAILS_ON_GH_JAVA_17));
             System.err.printf("Actual failures on Java 17: %,d%n%s%n", Java17Failures.size(), Java17Failures);
         }
     }
@@ -181,7 +114,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                 } catch (ParseException e) {
                     // How do I know I'm on GH?
                     final String localeStr = locale.toString();
-                    if (SystemUtils.IS_JAVA_17 && Arrays.binarySearch(POSSIBLE_FAILS_ON_GH_JAVA_17, localeStr) >= 0) {
+                    if (SystemUtils.IS_JAVA_17 && localeStr.contains("_")) {
                         Java17Failures.add(locale);
                         // Mark as an assumption failure instead of a hard fail
                         System.err.printf("Java 17 - Mark as an assumption failure instead of a hard fail: locale = '%s'%n", localeStr);
