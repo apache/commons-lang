@@ -33,6 +33,7 @@ import java.util.TimeZone;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArraySorter;
+import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.junit.jupiter.api.AfterAll;
@@ -119,7 +120,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                     // Hack Start
                     // See failures on GitHub Actions builds for Java 17.
                     final String localeStr = locale.toString();
-                    if (SystemUtils.IS_JAVA_17
+                    if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_17)
                             && (localeStr.contains("_") || "Coordinated Universal Time".equals(tzDisplay)
                                     || "sommartid – Atyrau".equals(tzDisplay))) {
                         Java17Failures.add(locale);
