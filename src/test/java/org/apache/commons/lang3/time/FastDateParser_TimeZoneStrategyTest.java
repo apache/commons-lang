@@ -126,8 +126,9 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                         Java17Failures.add(locale);
                         // Mark as an assumption failure instead of a hard fail
                         System.err.printf(
-                                "Java 17 - Mark as an assumption failure instead of a hard fail: locale = '%s'%n",
-                                localeStr);
+                                "Java %s - Mark as an assumption failure instead of a hard fail: locale = '%s', parse = '%s'%n",
+                                SystemUtils.JAVA_VERSION,
+                                localeStr, tzDisplay);
                         assumeTrue(false, localeStr);
                         continue;
                     } else if (SystemUtils.IS_JAVA_11
@@ -135,8 +136,9 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                         Java11Failures.add(locale);
                         // Mark as an assumption failure instead of a hard fail
                         System.err.printf(
-                                "Java 11 - Mark as an assumption failure instead of a hard fail: locale = '%s'%n",
-                                localeStr);
+                                "Java %s - Mark as an assumption failure instead of a hard fail: locale = '%s', parse = '%s'%n",
+                                SystemUtils.JAVA_VERSION,
+                                localeStr, tzDisplay);
                         assumeTrue(false, localeStr);
                         continue;
                     }
