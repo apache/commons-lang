@@ -30,6 +30,7 @@ import java.util.function.LongConsumer;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ThreadUtils;
+import org.apache.commons.lang3.concurrent.locks.LockingVisitors;
 import org.apache.commons.lang3.concurrent.locks.LockingVisitors.LockVisitor;
 import org.apache.commons.lang3.concurrent.locks.LockingVisitors.StampedLockVisitor;
 import org.apache.commons.lang3.function.FailableConsumer;
@@ -87,6 +88,13 @@ public class LockingVisitorsTest extends AbstractLangTest {
             booleanArray[offset] = value;
         }
     }
+
+	@Test
+	public void testNull() throws Exception {
+		ReadWriteLock readWriteLock2 = null;
+		Object object1 = new Object();
+		LockingVisitors.create(object1, readWriteLock2);
+	}
 
     @Test
     public void testCreate() {
