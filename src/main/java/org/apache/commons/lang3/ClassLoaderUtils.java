@@ -20,6 +20,7 @@ package org.apache.commons.lang3;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Helps work with {@link ClassLoader}.
@@ -64,7 +65,7 @@ public class ClassLoaderUtils {
         if (classLoader instanceof URLClassLoader) {
             return toString((URLClassLoader) classLoader);
         }
-        return classLoader.toString();
+        return Objects.toString(classLoader);
     }
 
     /**
@@ -74,6 +75,6 @@ public class ClassLoaderUtils {
      * @return the formatted string.
      */
     public static String toString(final URLClassLoader classLoader) {
-        return classLoader + Arrays.toString(classLoader.getURLs());
+        return classLoader != null ? classLoader + Arrays.toString(classLoader.getURLs()) : "null";
     }
 }
