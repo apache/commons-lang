@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.text;
 
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.commons.lang3.SystemProperties;
 
@@ -164,11 +165,7 @@ public abstract class StrLookup<V> {
             if (map == null) {
                 return null;
             }
-            final Object obj = map.get(key);
-            if (obj == null) {
-                return null;
-            }
-            return obj.toString();
+            return Objects.toString(map.get(key), null);
         }
     }
 
