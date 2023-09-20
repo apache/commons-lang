@@ -9627,7 +9627,7 @@ public class ArrayUtils {
         final String[] result = new String[array.length];
         for (int i = 0; i < array.length; i++) {
             final Object object = array[i];
-            result[i] = object == null ? valueForNullElements : object.toString();
+            result[i] = Objects.toString(object, valueForNullElements);
         }
 
         return result;
