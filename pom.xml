@@ -624,7 +624,7 @@
 
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
 
-    <japicmp.skip>true</japicmp.skip>
+    <japicmp.skip>false</japicmp.skip>
     <!-- 0.6.0 requires Java 11 -->
     <commons.spdx.version>0.5.5</commons.spdx.version>
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
