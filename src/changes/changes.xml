@@ -66,6 +66,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ArrayFill.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add FastDateParser.TimeZoneStrategy.TzInfo.toString().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add LocaleUtils.isLanguageUndetermined(Locale).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Add ObjectUtils.toString(Supplier&lt;Object&gt;, Supplier&lt;String&gt;).</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-parent from 58 to 62.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump org.easymock:easymock from 5.1.0 to 5.2.0 #1104.</action>

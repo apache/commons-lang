@@ -57,6 +57,9 @@ import org.junit.jupiter.api.Test;
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
 public class ObjectUtilsTest extends AbstractLangTest {
+
+    private static final Supplier<?> NULL_SUPPLIER = null;
+
     static final class CharSequenceComparator implements Comparator<CharSequence> {
 
         @Override
@@ -838,18 +841,30 @@ public class ObjectUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToString_ObjectString() {
+    public void testToString_Object_String() {
         assertEquals(BAR, ObjectUtils.toString(null, BAR) );
         assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE, BAR) );
     }
 
     @Test
-    public void testToString_SupplierString() {
+    public void testToString_String_Supplier() {
         assertNull(ObjectUtils.toString(null, (Supplier<String>) null));
         assertNull(ObjectUtils.toString(null, () -> null));
         // Pretend computing BAR is expensive.
         assertEquals(BAR, ObjectUtils.toString(null, () -> BAR));
         assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE, () -> BAR));
+    }
+
+    @Test
+    public void testToString_Supplier_Supplier() {
+        assertNull(ObjectUtils.toString(NULL_SUPPLIER, (Supplier<String>) null));
+        assertNull(ObjectUtils.toString(() -> null, (Supplier<String>) null));
+        assertNull(ObjectUtils.toString(NULL_SUPPLIER, () -> null));
+        assertNull(ObjectUtils.toString(() -> null, () -> null));
+        // Pretend computing BAR is expensive.
+        assertEquals(BAR, ObjectUtils.toString(NULL_SUPPLIER, () -> BAR));
+        assertEquals(BAR, ObjectUtils.toString(() -> null, () -> BAR));
+        assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(() -> Boolean.TRUE, () -> BAR));
     }
 
     @Test

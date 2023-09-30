@@ -27,6 +27,7 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.CharUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.Builder;
 
@@ -1509,7 +1510,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     public StrBuilder appendFixedWidthPadLeft(final Object obj, final int width, final char padChar) {
         if (width > 0) {
             ensureCapacity(size + width);
-            String str = obj == null ? getNullText() : obj.toString();
+            String str = ObjectUtils.toString(obj, this::getNullText);
             if (str == null) {
                 str = StringUtils.EMPTY;
             }
@@ -1556,7 +1557,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     public StrBuilder appendFixedWidthPadRight(final Object obj, final int width, final char padChar) {
         if (width > 0) {
             ensureCapacity(size + width);
-            String str = obj == null ? getNullText() : obj.toString();
+            String str = ObjectUtils.toString(obj, this::getNullText);
             if (str == null) {
                 str = StringUtils.EMPTY;
             }

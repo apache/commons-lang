@@ -1348,13 +1348,38 @@ public class ObjectUtils {
      * ObjectUtils.toString(Boolean.TRUE, () -&gt; expensive()) = "true"
      * </pre>
      *
+     * @param <T> the obj type (used to provide better source compatibility in 3.14.0).
      * @param obj  the Object to {@code toString}, may be null
      * @param supplier  the Supplier of String used on {@code null} input, may be null
      * @return the passed in Object's toString, or {@code nullStr} if {@code null} input
      * @since 3.11
      */
-    public static String toString(final Object obj, final Supplier<String> supplier) {
+    public static <T> String toString(final T obj, final Supplier<String> supplier) {
         return obj == null ? Suppliers.get(supplier) : obj.toString();
+    }
+
+    /**
+     * Gets the {@code toString} of an {@link Supplier}'s {@link Supplier#get()} returning
+     * a specified text if {@code null} input.
+     *
+     * <pre>
+     * ObjectUtils.toString(() -&gt; obj, () -&gt; expensive())
+     * </pre>
+     * <pre>
+     * ObjectUtils.toString(() -&gt; null, () -&gt; expensive())         = result of expensive()
+     * ObjectUtils.toString(() -&gt; null, () -&gt; expensive())         = result of expensive()
+     * ObjectUtils.toString(() -&gt; "", () -&gt; expensive())           = ""
+     * ObjectUtils.toString(() -&gt; "bat", () -&gt; expensive())        = "bat"
+     * ObjectUtils.toString(() -&gt; Boolean.TRUE, () -&gt; expensive()) = "true"
+     * </pre>
+     *
+     * @param obj  the Object to {@code toString}, may be null
+     * @param supplier  the Supplier of String used on {@code null} input, may be null
+     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input
+     * @since 3.14.0
+     */
+    public static String toString(final Supplier<Object> obj, final Supplier<String> supplier) {
+        return obj == null ? Suppliers.get(supplier) : toString(obj.get(), supplier);
     }
 
     /**
