@@ -136,7 +136,7 @@ public class ConstructorUtilsTest extends AbstractLangTest {
 
     @Test
     public void testConstructor() throws Exception {
-        assertNotNull(MethodUtils.class.newInstance());
+        assertNotNull(MethodUtils.class.getConstructor().newInstance());
     }
 
     @Test

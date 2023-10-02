@@ -32,7 +32,7 @@ public class InheritanceUtilsTest extends AbstractLangTest {
 
     @Test
     public void testConstructor() throws Exception {
-        assertNotNull(InheritanceUtils.class.newInstance());
+        assertNotNull(InheritanceUtils.class.getConstructor().newInstance());
     }
 
     @Test
