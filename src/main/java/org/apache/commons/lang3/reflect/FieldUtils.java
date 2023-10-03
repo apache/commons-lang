@@ -473,7 +473,7 @@ public class FieldUtils {
         Objects.requireNonNull(target, "target");
         final Class<?> cls = target.getClass();
         final Field field = getField(cls, fieldName, forceAccess);
-        Validate.isTrue(field != null, "Cannot locate field %s on %s", fieldName, cls);
+        Validate.notNull(field, "Cannot locate field %s on %s", fieldName, cls);
         // already forced access above, don't repeat it here:
         return readField(field, target, false);
     }
@@ -520,7 +520,7 @@ public class FieldUtils {
         Objects.requireNonNull(target, "target");
         final Class<?> cls = target.getClass();
         final Field field = getDeclaredField(cls, fieldName, forceAccess);
-        Validate.isTrue(field != null, "Cannot locate declared field %s.%s", cls, fieldName);
+        Validate.notNull(field, "Cannot locate declared field %s.%s", cls, fieldName);
         // already forced access above, don't repeat it here:
         return readField(field, target, false);
     }
@@ -822,7 +822,7 @@ public class FieldUtils {
         Objects.requireNonNull(target, "target");
         final Class<?> cls = target.getClass();
         final Field field = getField(cls, fieldName, forceAccess);
-        Validate.isTrue(field != null, "Cannot locate declared field %s.%s", cls.getName(), fieldName);
+        Validate.notNull(field, "Cannot locate declared field %s.%s", cls.getName(), fieldName);
         // already forced access above, don't repeat it here:
         writeField(field, target, value, false);
     }
@@ -872,7 +872,7 @@ public class FieldUtils {
         Objects.requireNonNull(target, "target");
         final Class<?> cls = target.getClass();
         final Field field = getDeclaredField(cls, fieldName, forceAccess);
-        Validate.isTrue(field != null, "Cannot locate declared field %s.%s", cls.getName(), fieldName);
+        Validate.notNull(field, "Cannot locate declared field %s.%s", cls.getName(), fieldName);
         // already forced access above, don't repeat it here:
         writeField(field, target, value, false);
     }
