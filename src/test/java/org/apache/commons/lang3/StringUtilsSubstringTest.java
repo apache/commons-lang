@@ -289,6 +289,38 @@ public class StringUtilsSubstringTest extends AbstractLangTest {
         assertEquals("abc", StringUtils.substringBetween("yabczyabcz", "y", "z"));
     }
 
+    @Test
+    public void testSubstringBetween_StringStringStringBoolean() {
+        // same tests as testSubstringBetween_StringStringString with true parameter
+        assertNull(StringUtils.substringBetween(null, "", "", true));
+        assertNull(StringUtils.substringBetween("", null, "", true));
+        assertNull(StringUtils.substringBetween("", "", null, true));
+        assertEquals("", StringUtils.substringBetween("", "", "", true));
+
+        // not same behaviour for boolean param
+        assertEquals("", StringUtils.substringBetween("foo", "", "", false));
+        assertEquals("foo", StringUtils.substringBetween("foo", "", "", true));
+
+        assertNull(StringUtils.substringBetween("foo", "", "]", true));
+        assertNull(StringUtils.substringBetween("foo", "[", "]", true));
+
+        assertEquals(" ", StringUtils.substringBetween("    ", " ", "  ", true));
+        assertEquals("bar", StringUtils.substringBetween("<foo>bar</foo>", "<foo>", "</foo>", true) );
+
+        // testing javadoc examples
+        assertEquals("b", StringUtils.substringBetween("wx[b]yz", "[", "]", false) );
+        assertEquals("b", StringUtils.substringBetween("wx[b]yz", "[", "]", true) );
+
+        assertEquals("abc", StringUtils.substringBetween("yabcz", "y", "z", false) );
+        assertEquals("abc", StringUtils.substringBetween("yabcz", "y", "z", true) );
+
+        assertEquals("abc", StringUtils.substringBetween("yabczyabcz", "y", "z", false));
+        assertEquals("abczyabc", StringUtils.substringBetween("yabczyabcz", "y", "z", true));
+
+        assertNull(StringUtils.substringBetween("zabcyabc", "y", "z", false));
+        assertNull(StringUtils.substringBetween("zabcyabc", "y", "z", true));
+    }
+
    /**
      * Tests the substringsBetween method that returns a String Array of substrings.
      */
