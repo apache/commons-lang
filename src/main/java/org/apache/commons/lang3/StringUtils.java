@@ -1563,6 +1563,14 @@ public class StringUtils {
      * StringUtils.defaultString("", "NULL")    = ""
      * StringUtils.defaultString("bat", "NULL") = "bat"
      * </pre>
+     * <p>
+     * Since this is now provided by Java, instead call {@link Objects#toString(Object, String)}:
+     * </p>
+     * <pre>
+     * Objects.toString(null, "NULL")  = "NULL"
+     * Objects.toString("", "NULL")    = ""
+     * Objects.toString("bat", "NULL") = "bat"
+     * </pre>
      *
      * @see Objects#toString(Object, String)
      * @see String#valueOf(Object)
