@@ -8991,7 +8991,7 @@ public class StringUtils {
      *            the encoding to use, if null then use the platform default
      * @return a new String
      * @throws UnsupportedEncodingException
-     *             If the named charset is not supported
+     *             Never thrown
      * @throws NullPointerException
      *             if the input is null
      * @deprecated use {@link StringUtils#toEncodedString(byte[], Charset)} instead of String constants in your code
