@@ -3636,7 +3636,7 @@ public class StringUtils {
         boolean containsLowercase = false;
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            char nowChar = cs.charAt(i);
+            final char nowChar = cs.charAt(i);
             if (Character.isUpperCase(nowChar)) {
                 containsUppercase = true;
             } else if (Character.isLowerCase(nowChar)) {
