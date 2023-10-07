@@ -486,11 +486,9 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *
      * @param object
      *            the Object to build a {@code toString} for, must not be {@code null}
-     * @throws IllegalArgumentException
-     *             if the Object passed in is {@code null}
      */
     public ReflectionToStringBuilder(final Object object) {
-        super(Objects.requireNonNull(object, "obj"));
+        super(object);
     }
 
     /**
@@ -504,11 +502,9 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            the Object to build a {@code toString} for, must not be {@code null}
      * @param style
      *            the style of the {@code toString} to create, may be {@code null}
-     * @throws IllegalArgumentException
-     *             if the Object passed in is {@code null}
      */
     public ReflectionToStringBuilder(final Object object, final ToStringStyle style) {
-        super(Objects.requireNonNull(object, "obj"), style);
+        super(object, style);
     }
 
     /**
@@ -528,11 +524,9 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            the style of the {@code toString} to create, may be {@code null}
      * @param buffer
      *            the {@link StringBuffer} to populate, may be {@code null}
-     * @throws IllegalArgumentException
-     *             if the Object passed in is {@code null}
      */
     public ReflectionToStringBuilder(final Object object, final ToStringStyle style, final StringBuffer buffer) {
-        super(Objects.requireNonNull(object, "obj"), style, buffer);
+        super(object, style, buffer);
     }
 
     /**
@@ -557,7 +551,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     public <T> ReflectionToStringBuilder(
             final T object, final ToStringStyle style, final StringBuffer buffer,
             final Class<? super T> reflectUpToClass, final boolean outputTransients, final boolean outputStatics) {
-        super(Objects.requireNonNull(object, "obj"), style, buffer);
+        super(object, style, buffer);
         this.setUpToClass(reflectUpToClass);
         this.setAppendTransients(outputTransients);
         this.setAppendStatics(outputStatics);
@@ -588,7 +582,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             final T object, final ToStringStyle style, final StringBuffer buffer,
             final Class<? super T> reflectUpToClass, final boolean outputTransients, final boolean outputStatics,
             final boolean excludeNullValues) {
-        super(Objects.requireNonNull(object, "obj"), style, buffer);
+        super(object, style, buffer);
         this.setUpToClass(reflectUpToClass);
         this.setAppendTransients(outputTransients);
         this.setAppendStatics(outputStatics);

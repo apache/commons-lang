@@ -16,17 +16,19 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests {@link ReflectionToStringBuilder}.
+ */
 public class ReflectionToStringBuilderTest extends AbstractLangTest {
 
     @Test
     public void testConstructorWithNullObject() {
-        assertThrows(NullPointerException.class,
-            () -> new ReflectionToStringBuilder(null, ToStringStyle.DEFAULT_STYLE, new StringBuffer()));
+        assertEquals("<null>", new ReflectionToStringBuilder(null, ToStringStyle.DEFAULT_STYLE, new StringBuffer()).toString());
     }
 
 }

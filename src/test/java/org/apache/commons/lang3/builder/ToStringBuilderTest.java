@@ -1265,7 +1265,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
 
     @Test
     public void testReflectionNull() {
-        assertThrows(NullPointerException.class, () -> ReflectionToStringBuilder.toString(null));
+        assertEquals("<null>", ReflectionToStringBuilder.toString(null));
     }
 
     /**
