@@ -255,9 +255,12 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * {@inheritDoc} This implementation checks the internal event counter against the
+     * {@inheritDoc}
+     * <p>
+     * This implementation checks the internal event counter against the
      * threshold values and the check intervals. This may cause a state change of this
      * circuit breaker.
+     * </p>
      */
     @Override
     public boolean checkState() {
@@ -285,10 +288,13 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * {@inheritDoc} This circuit breaker may close itself again if the number of events
+     * {@inheritDoc}
+     * <p>
+     * This circuit breaker may close itself again if the number of events
      * received during a check interval goes below the closing threshold. If this circuit
      * breaker is already open, this method has no effect, except that a new check
      * interval is started.
+     * </p>
      */
     @Override
     public void open() {
@@ -297,10 +303,13 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * {@inheritDoc} A new check interval is started. If too many events are received in
+     * {@inheritDoc}
+     * <p>
+     * A new check interval is started. If too many events are received in
      * this interval, the circuit breaker changes again to state open. If this circuit
      * breaker is already closed, this method has no effect, except that a new check
      * interval is started.
+     * </p>
      */
     @Override
     public void close() {
@@ -468,7 +477,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * @return the updated instance
          */
         public CheckIntervalData increment(final int delta) {
-            return (delta == 0) ? this : new CheckIntervalData(getEventCount() + delta,
+            return delta == 0 ? this : new CheckIntervalData(getEventCount() + delta,
                     getCheckIntervalStart());
         }
     }
