@@ -58,7 +58,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1710" type="fix" dev="ggregory" due-to="Shashank Sharma, Gary Gregory, Oksana">ReflectionToStringBuilder changes in version 3.13.0 has broken the logic for overriding classes.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Return "null" instead of NPE in ClassLoaderUtils.toString(ClassLoader).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Return "null" instead of NPE in ClassLoaderUtils.toString(URLClassLoader).</action>
-    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Return ToStringStyle.nullText instead of NPE for ReflectionToStringBuilder.toString(Object) and friends.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Return ToStringStyle.nullText instead of NPE for ReflectionToStringBuilder.toStrin>
+    <action                   type="fix" dev="ggregory" due-to="yichinzhu, Gary Gregory">Fix ThresholdCircuitBreaker#checkState() #1100.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Rob Spoor, Gary Gregory">Add Functions#function(Function).</action>
     <action                   type="add" dev="ggregory" due-to="Rob Spoor, Gary Gregory">Add FailableFunction#function(FailableFunction).</action>
