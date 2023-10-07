@@ -89,7 +89,7 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
      */
     @Override
     public boolean checkState() {
-        return isOpen();
+        return !isOpen();
     }
 
     /**
