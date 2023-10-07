@@ -43,7 +43,7 @@ public interface CircuitBreaker<T> {
     /**
      * Tests the current open state of this circuit breaker. A return value of
      * <strong>true</strong> means that the circuit breaker is currently open indicating a
-     * problem in the monitored sub system.
+     * problem in the monitored subsystem.
      *
      * @return the current open state of this circuit breaker.
      */
@@ -52,7 +52,7 @@ public interface CircuitBreaker<T> {
     /**
      * Tests the current closed state of this circuit breaker. A return value of
      * <strong>true</strong> means that the circuit breaker is currently closed. This
-     * means that everything is okay with the monitored sub system.
+     * means that everything is okay with the monitored subsystem.
      *
      * @return the current closed state of this circuit breaker.
      */
@@ -76,7 +76,7 @@ public interface CircuitBreaker<T> {
 
     /**
      * Opens this circuit breaker. Its state is changed to open. Depending on a concrete
-     * implementation, it may close itself again if the monitored sub system becomes
+     * implementation, it may close itself again if the monitored subsystem becomes
      * available. If this circuit breaker is already open, this method has no effect.
      */
     void open();
