@@ -16,12 +16,12 @@
  */
 package org.apache.commons.lang3.builder;
 
-import org.apache.commons.lang3.AbstractLangTest;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.lang.reflect.Field;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.apache.commons.lang3.AbstractLangTest;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link ReflectionToStringBuilder} always uses {@link ReflectionToStringBuilder#getValue(Field)} to get the

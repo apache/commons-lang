@@ -38,9 +38,9 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.mutable.MutableInt;
+import org.apache.commons.lang3.stream.Streams;
 import org.apache.commons.lang3.text.StrBuilder;
 import org.apache.commons.lang3.time.DurationUtils;
-import org.apache.commons.lang3.stream.Streams;
 
 /**
  * Operations on {@link Object}.
