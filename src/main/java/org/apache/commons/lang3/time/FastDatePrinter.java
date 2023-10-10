@@ -1451,7 +1451,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          *          rule exists, an IllegalArgumentException will be thrown.
          */
         static Iso8601_Rule getRule(final int tokenLen) {
-            switch(tokenLen) {
+            switch (tokenLen) {
             case 1:
                 return ISO8601_HOURS;
             case 2:

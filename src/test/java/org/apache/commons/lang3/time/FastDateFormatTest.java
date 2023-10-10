@@ -282,14 +282,14 @@ public class FastDateFormatTest extends AbstractLangTest {
             public StringBuffer format(final Object obj,
                     final StringBuffer toAppendTo,
                     final FieldPosition fieldPosition) {
-                synchronized(this) {
+                synchronized (this) {
                     return inner.format(obj, toAppendTo, fieldPosition);
                 }
             }
 
             @Override
             public Object parseObject(final String source, final ParsePosition pos) {
-                synchronized(this) {
+                synchronized (this) {
                     return inner.parseObject(source, pos);
                 }
             }
