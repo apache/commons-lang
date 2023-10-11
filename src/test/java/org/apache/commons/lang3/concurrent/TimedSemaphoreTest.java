@@ -412,7 +412,7 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * A specialized implementation of {@code TimedSemaphore} that is easier to
      * test.
      */
-    private static class TimedSemaphoreTestImpl extends TimedSemaphore {
+    private static final class TimedSemaphoreTestImpl extends TimedSemaphore {
         /** A mock scheduled future. */
         ScheduledFuture<?> schedFuture;
 
@@ -479,7 +479,7 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * semaphore. The thread calls the semaphore a configurable number of times.
      * When this is done, it can notify the main thread.
      */
-    private static class SemaphoreThread extends Thread {
+    private static final class SemaphoreThread extends Thread {
         /** The semaphore. */
         private final TimedSemaphore semaphore;
 
@@ -524,7 +524,7 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * A test thread class which invokes {@code tryAcquire()} on the test semaphore and
      * records the return value.
      */
-    private static class TryAcquireThread extends Thread {
+    private static final class TryAcquireThread extends Thread {
         /** The semaphore. */
         private final TimedSemaphore semaphore;
 

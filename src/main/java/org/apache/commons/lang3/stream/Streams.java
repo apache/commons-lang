@@ -133,7 +133,7 @@ public class Streams {
      *
      * @param <T> The element type.
      */
-    private static class EnumerationSpliterator<T> extends AbstractSpliterator<T> {
+    private static final class EnumerationSpliterator<T> extends AbstractSpliterator<T> {
 
         private final Enumeration<T> enumeration;
 

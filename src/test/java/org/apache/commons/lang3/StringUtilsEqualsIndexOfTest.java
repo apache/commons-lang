@@ -46,7 +46,7 @@ public class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
     // with a CharSequence implementation whose equals(Object) override requires that the
     // other object be an instance of CustomCharSequence, even though, as char sequences,
     // `seq` may equal the other object.
-    private static class CustomCharSequence implements CharSequence {
+    private static final class CustomCharSequence implements CharSequence {
         private final CharSequence seq;
 
         CustomCharSequence(final CharSequence seq) {

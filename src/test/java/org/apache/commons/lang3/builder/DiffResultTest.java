@@ -35,7 +35,7 @@ public class DiffResultTest extends AbstractLangTest {
     private static final SimpleClass SIMPLE_TRUE = new SimpleClass(true);
     private static final ToStringStyle SHORT_STYLE = ToStringStyle.SHORT_PREFIX_STYLE;
 
-    private static class SimpleClass implements Diffable<SimpleClass> {
+    private static final class SimpleClass implements Diffable<SimpleClass> {
         private final boolean booleanField;
 
         SimpleClass(final boolean booleanField) {
@@ -54,7 +54,7 @@ public class DiffResultTest extends AbstractLangTest {
         }
     }
 
-    private static class EmptyClass {
+    private static final class EmptyClass {
         // empty
     }
 

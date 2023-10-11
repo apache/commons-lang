@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
  */
 public class ObjectToStringComparatorTest extends AbstractLangTest {
 
-    private static class Thing {
+    private static final class Thing {
 
         final String string;
 

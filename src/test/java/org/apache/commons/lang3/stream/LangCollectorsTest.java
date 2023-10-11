@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
  */
 public class LangCollectorsTest {
 
-    private static class Fixture {
+    private static final class Fixture {
         int value;
 
         private Fixture(final int value) {

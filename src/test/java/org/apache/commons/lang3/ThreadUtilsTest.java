@@ -46,7 +46,7 @@ import org.junit.jupiter.api.Test;
  */
 public class ThreadUtilsTest extends AbstractLangTest {
 
-    private static class TestThread extends Thread {
+    private static final class TestThread extends Thread {
         private final CountDownLatch latch = new CountDownLatch(1);
 
         TestThread(final String name) {

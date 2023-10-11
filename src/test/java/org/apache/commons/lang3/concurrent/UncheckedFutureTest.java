@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
  */
 public class UncheckedFutureTest extends AbstractLangTest {
 
-    private static class TestFuture<V> extends AbstractFutureProxy<V> {
+    private static final class TestFuture<V> extends AbstractFutureProxy<V> {
 
         private final Exception exception;
 

@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
  */
 public class ToStringStyleTest extends AbstractLangTest {
 
-    private static class ToStringStyleImpl extends ToStringStyle {
+    private static final class ToStringStyleImpl extends ToStringStyle {
         private static final long serialVersionUID = 1L;
 
     }

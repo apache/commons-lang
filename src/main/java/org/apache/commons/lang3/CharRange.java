@@ -271,7 +271,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * Character {@link Iterator}.
      * <p>#NotThreadSafe#</p>
      */
-    private static class CharacterIterator implements Iterator<Character> {
+    private static final class CharacterIterator implements Iterator<Character> {
         /** The current character */
         private char current;
 

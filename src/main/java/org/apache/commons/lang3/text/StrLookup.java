@@ -172,7 +172,7 @@ public abstract class StrLookup<V> {
     /**
      * Lookup implementation based on system properties.
      */
-    private static class SystemPropertiesStrLookup extends StrLookup<String> {
+    private static final class SystemPropertiesStrLookup extends StrLookup<String> {
         /**
          * {@inheritDoc} This implementation directly accesses system properties.
          */

@@ -471,7 +471,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
         }
     }
 
-    private static class SelfInstanceVarReflectionTestFixture {
+    private static final class SelfInstanceVarReflectionTestFixture {
         @SuppressWarnings("unused")
         private final SelfInstanceVarReflectionTestFixture typeIsSelf;
 
@@ -485,7 +485,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
         }
       }
 
-    private static class SelfInstanceTwoVarsReflectionTestFixture {
+    private static final class SelfInstanceTwoVarsReflectionTestFixture {
         @SuppressWarnings("unused")
         private final SelfInstanceTwoVarsReflectionTestFixture typeIsSelf;
         private final String otherType = "The Other Type";

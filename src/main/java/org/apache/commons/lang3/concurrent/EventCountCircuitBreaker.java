@@ -433,7 +433,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * this class. Basically, the number of received events and the start time of the
      * current check interval are stored.
      */
-    private static class CheckIntervalData {
+    private static final class CheckIntervalData {
         /** The counter for events. */
         private final int eventCount;
 
@@ -527,7 +527,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     /**
      * A specialized {@link StateStrategy} implementation for the state closed.
      */
-    private static class StateStrategyClosed extends StateStrategy {
+    private static final class StateStrategyClosed extends StateStrategy {
 
         /**
          * {@inheritDoc}
@@ -550,7 +550,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     /**
      * A specialized {@link StateStrategy} implementation for the state open.
      */
-    private static class StateStrategyOpen extends StateStrategy {
+    private static final class StateStrategyOpen extends StateStrategy {
         /**
          * {@inheritDoc}
          */

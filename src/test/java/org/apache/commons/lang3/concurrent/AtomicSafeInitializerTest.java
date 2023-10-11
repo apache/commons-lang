@@ -64,7 +64,7 @@ public class AtomicSafeInitializerTest extends AbstractConcurrentInitializerTest
      * This implementation also counts the number of invocations of the initialize() method.
      * </p>
      */
-    private static class AtomicSafeInitializerTestImpl extends AtomicSafeInitializer<Object> {
+    private static final class AtomicSafeInitializerTestImpl extends AtomicSafeInitializer<Object> {
         /** A counter for initialize() invocations. */
         final AtomicInteger initCounter = new AtomicInteger();
 

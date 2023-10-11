@@ -165,7 +165,7 @@ public class StrBuilderTest extends AbstractLangTest {
         assertEquals("Test 123", sb.toString());
     }
 
-    private static class MockReadable implements Readable {
+    private static final class MockReadable implements Readable {
 
         private final CharBuffer src;
 

@@ -71,7 +71,7 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
     }
 
     @SuppressWarnings("unused")
-    private static class TypeTestChildClass extends TypeTestClass {
+    private static final class TypeTestChildClass extends TypeTestClass {
         String field = "a";
     }
 

@@ -271,7 +271,7 @@ public class BackgroundInitializerTest extends AbstractLangTest {
      * A concrete implementation of BackgroundInitializer. It also overloads
      * some methods that simplify testing.
      */
-    private static class BackgroundInitializerTestImpl extends
+    private static final class BackgroundInitializerTestImpl extends
             BackgroundInitializer<Integer> {
         /** An exception to be thrown by initialize(). */
         Exception ex;

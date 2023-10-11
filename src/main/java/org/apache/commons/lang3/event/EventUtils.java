@@ -78,7 +78,7 @@ public class EventUtils {
         addEventListener(eventSource, listenerType, listener);
     }
 
-    private static class EventBindingInvocationHandler implements InvocationHandler {
+    private static final class EventBindingInvocationHandler implements InvocationHandler {
         private final Object target;
         private final String methodName;
         private final Set<String> eventTypes;

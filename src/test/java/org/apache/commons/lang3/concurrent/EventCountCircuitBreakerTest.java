@@ -339,7 +339,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
      * This is useful for the creation of deterministic tests for switching the circuit
      * breaker's state.
      */
-    private static class EventCountCircuitBreakerTestImpl extends EventCountCircuitBreaker {
+    private static final class EventCountCircuitBreakerTestImpl extends EventCountCircuitBreaker {
         /** The current time in nanoseconds. */
         private long currentTime;
 
@@ -374,7 +374,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
     /**
      * A test change listener for checking whether correct change events are generated.
      */
-    private static class ChangeListener implements PropertyChangeListener {
+    private static final class ChangeListener implements PropertyChangeListener {
         /** The expected event source. */
         private final Object expectedSource;
 

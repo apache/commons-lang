@@ -162,7 +162,7 @@ public class EventUtilsTest extends AbstractLangTest {
     }
 
 
-    private static class EventCountingInvocationHandler implements InvocationHandler {
+    private static final class EventCountingInvocationHandler implements InvocationHandler {
         private final Map<String, Integer> eventCounts = new TreeMap<>();
 
         public <L> L createListener(final Class<L> listenerType) {

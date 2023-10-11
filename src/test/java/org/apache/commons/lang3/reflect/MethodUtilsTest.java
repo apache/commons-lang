@@ -305,7 +305,7 @@ public class MethodUtilsTest extends AbstractLangTest {
 
     }
 
-    private static class TestMutable implements Mutable<Object> {
+    private static final class TestMutable implements Mutable<Object> {
         @Override
         public Object getValue() {
             return null;
@@ -996,7 +996,7 @@ public class MethodUtilsTest extends AbstractLangTest {
     public static class ChildObject extends ParentObject implements ChildInterface {
     }
 
-    private static class MethodDescriptor {
+    private static final class MethodDescriptor {
         final Class<?> declaringClass;
         final String name;
         final Type[] parameterTypes;
@@ -1124,7 +1124,7 @@ public class MethodUtilsTest extends AbstractLangTest {
         public abstract void testMethod5(Exception exception);
     }
 
-    private static class GetMatchingMethodImpl extends AbstractGetMatchingMethod {
+    private static final class GetMatchingMethodImpl extends AbstractGetMatchingMethod {
         @Override
         public void testMethod5(final Exception exception) {
         }

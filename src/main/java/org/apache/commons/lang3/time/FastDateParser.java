@@ -189,7 +189,7 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * Holds strategy and field width
      */
-    private static class StrategyAndWidth {
+    private static final class StrategyAndWidth {
 
         final Strategy strategy;
         final int width;
@@ -684,7 +684,7 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * A strategy that copies the static or quoted field in the parsing pattern
      */
-    private static class CopyQuotedStrategy extends Strategy {
+    private static final class CopyQuotedStrategy extends Strategy {
 
         private final String formatField;
 
@@ -736,7 +736,7 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * A strategy that handles a text field in the parsing pattern
      */
-    private static class CaseInsensitiveTextStrategy extends PatternStrategy {
+    private static final class CaseInsensitiveTextStrategy extends PatternStrategy {
         private final int field;
         final Locale locale;
         private final Map<String, Integer> lKeyValues;
@@ -894,7 +894,7 @@ public class FastDateParser implements DateParser, Serializable {
         private final Locale locale;
         private final Map<String, TzInfo> tzNames = new HashMap<>();
 
-        private static class TzInfo {
+        private static final class TzInfo {
             final TimeZone zone;
             final int dstOffset;
 
@@ -1017,7 +1017,7 @@ public class FastDateParser implements DateParser, Serializable {
 
     }
 
-    private static class ISO8601TimeZoneStrategy extends PatternStrategy {
+    private static final class ISO8601TimeZoneStrategy extends PatternStrategy {
         // Z, +hh, -hh, +hhmm, -hhmm, +hh:mm or -hh:mm
 
         /**

@@ -46,7 +46,7 @@ public final class LangCollectors {
      * @param <T> the type of elements to be collected
      * @param <R> the type of the result
      */
-    private static class SimpleCollector<T, A, R> implements Collector<T, A, R> {
+    private static final class SimpleCollector<T, A, R> implements Collector<T, A, R> {
 
         private final BiConsumer<A, T> accumulator;
         private final Set<Characteristics> characteristics;

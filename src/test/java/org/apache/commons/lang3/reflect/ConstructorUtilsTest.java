@@ -108,7 +108,7 @@ public class ConstructorUtilsTest extends AbstractLangTest {
 
     private static class BaseClass {}
 
-    private static class SubClass extends BaseClass {}
+    private static final class SubClass extends BaseClass {}
 
     static class PrivateClass {
         @SuppressWarnings("unused")

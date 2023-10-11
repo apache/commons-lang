@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
  */
 public class DiffBuilderTest extends AbstractLangTest {
 
-    private static class TypeTestClass implements Diffable<TypeTestClass> {
+    private static final class TypeTestClass implements Diffable<TypeTestClass> {
         private ToStringStyle style = SHORT_STYLE;
         private boolean booleanField = true;
         private boolean[] booleanArrayField = {true};

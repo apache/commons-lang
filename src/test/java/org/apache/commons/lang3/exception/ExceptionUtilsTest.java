@@ -55,7 +55,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
      * name which matches the full signature (e.g. has a return value
      * of {@code Throwable}).
      */
-    private static class ExceptionWithCause extends Exception {
+    private static final class ExceptionWithCause extends Exception {
         private static final long serialVersionUID = 1L;
 
         private Throwable cause;
@@ -84,7 +84,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
      * name which does not match the full signature (e.g. lacks a
      * return value of {@code Throwable}).
      */
-    private static class ExceptionWithoutCause extends Exception {
+    private static final class ExceptionWithoutCause extends Exception {
         private static final long serialVersionUID = 1L;
 
         @SuppressWarnings("unused")
@@ -95,7 +95,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
 
     // Temporary classes to allow the nested exception code to be removed
     // prior to a rewrite of this test class.
-    private static class NestableException extends Exception {
+    private static final class NestableException extends Exception {
         private static final long serialVersionUID = 1L;
 
         @SuppressWarnings("unused")

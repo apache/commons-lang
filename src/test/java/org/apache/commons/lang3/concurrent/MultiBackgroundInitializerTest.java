@@ -370,7 +370,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      * A concrete implementation of {@code BackgroundInitializer} used for
      * defining background tasks for {@code MultiBackgroundInitializer}.
      */
-    private static class ChildBackgroundInitializer extends
+    private static final class ChildBackgroundInitializer extends
             BackgroundInitializer<Integer> {
         /** Stores the current executor service. */
         volatile ExecutorService currentExecutor;

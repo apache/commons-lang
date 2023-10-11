@@ -399,7 +399,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
     /**
      * {@link Format} implementation which converts to lower case.
      */
-    private static class LowerCaseFormat extends Format {
+    private static final class LowerCaseFormat extends Format {
         private static final long serialVersionUID = 1L;
 
         @Override
@@ -415,7 +415,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
     /**
      * {@link Format} implementation which converts to upper case.
      */
-    private static class UpperCaseFormat extends Format {
+    private static final class UpperCaseFormat extends Format {
         private static final long serialVersionUID = 1L;
 
         @Override
@@ -434,7 +434,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
     /**
      * {@link FormatFactory} implementation for lower case format.
      */
-    private static class LowerCaseFormatFactory implements FormatFactory {
+    private static final class LowerCaseFormatFactory implements FormatFactory {
         private static final Format LOWER_INSTANCE = new LowerCaseFormat();
 
         @Override
@@ -445,7 +445,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
     /**
      * {@link FormatFactory} implementation for upper case format.
      */
-    private static class UpperCaseFormatFactory implements FormatFactory {
+    private static final class UpperCaseFormatFactory implements FormatFactory {
         private static final Format UPPER_INSTANCE = new UpperCaseFormat();
 
         @Override
@@ -456,7 +456,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
     /**
      * {@link FormatFactory} implementation to override date format "short" to "default".
      */
-    private static class OverrideShortDateFormatFactory implements FormatFactory {
+    private static final class OverrideShortDateFormatFactory implements FormatFactory {
 
         @Override
         public Format getFormat(final String name, final String arguments, final Locale locale) {
@@ -470,7 +470,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
     /**
      * Alternative ExtendedMessageFormat impl.
      */
-    private static class OtherExtendedMessageFormat extends ExtendedMessageFormat {
+    private static final class OtherExtendedMessageFormat extends ExtendedMessageFormat {
         private static final long serialVersionUID = 1L;
 
         OtherExtendedMessageFormat(final String pattern, final Locale locale,

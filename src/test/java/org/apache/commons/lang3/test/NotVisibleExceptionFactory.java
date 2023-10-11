@@ -34,7 +34,7 @@ public class NotVisibleExceptionFactory {
     return new NotVisibleException(cause);
   }
 
-  private static class NotVisibleException extends Exception {
+  private static final class NotVisibleException extends Exception {
 
     private static final long serialVersionUID = 1L; // avoid warning
 

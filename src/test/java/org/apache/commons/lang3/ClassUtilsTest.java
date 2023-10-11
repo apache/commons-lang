@@ -59,7 +59,7 @@ public class ClassUtilsTest extends AbstractLangTest {
     }
 
     @SuppressWarnings("unused") // IB is redundant but what a test checks
-    private static class CY extends CX implements IB, IC {
+    private static final class CY extends CX implements IB, IC {
         // empty
     }
 
@@ -87,7 +87,7 @@ public class ClassUtilsTest extends AbstractLangTest {
         // empty
     }
 
-    private static class Inner {
+    private static final class Inner {
         private class DeeplyNested {
             // empty
         }

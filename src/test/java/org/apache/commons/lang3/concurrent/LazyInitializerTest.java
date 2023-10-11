@@ -46,7 +46,7 @@ public class LazyInitializerTest extends AbstractConcurrentInitializerTest {
      * Object. As Object does not provide a specific equals() method, it is easy
      * to check whether multiple instances were created.
      */
-    private static class LazyInitializerTestImpl extends
+    private static final class LazyInitializerTestImpl extends
             LazyInitializer<Object> {
         @Override
         protected Object initialize() {
