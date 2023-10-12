@@ -132,5 +132,4 @@ public abstract class LazyInitializer<T> implements ConcurrentInitializer<T> {
         return object != NO_INIT;
     }
 
-
 }
