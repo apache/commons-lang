@@ -36,7 +36,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
  * set the class will return the cached exception.
  * </p>
  * <p>
- * Thanks should go to Brian Goetz, Tim Peierls and the members of JCP JSR-166 Expert Group for coming up with the
+ * Thanks go to Brian Goetz, Tim Peierls and the members of JCP JSR-166 Expert Group for coming up with the
  * original implementation of the class. It was also published within Java Concurrency in Practice as a sample.
  * </p>
  *
