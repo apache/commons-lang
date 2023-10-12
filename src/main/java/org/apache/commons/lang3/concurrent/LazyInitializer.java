@@ -121,4 +121,16 @@ public abstract class LazyInitializer<T> implements ConcurrentInitializer<T> {
      * @throws ConcurrentException if an error occurs during object creation
      */
     protected abstract T initialize() throws ConcurrentException;
+
+    /**
+     * Tests whether this instance is initialized. Once initialized, always returns true.
+     *
+     * @return whether this instance is initialized. Once initialized, always returns true.
+     * @since 3.14.0
+     */
+    public boolean isInitialized() {
+        return object != NO_INIT;
+    }
+
+
 }

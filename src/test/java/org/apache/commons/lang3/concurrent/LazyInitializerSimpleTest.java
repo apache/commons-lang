@@ -16,6 +16,11 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 /**
  * Tests {@code LazyInitializer}.
  */
@@ -38,8 +43,16 @@ public class LazyInitializerSimpleTest extends AbstractConcurrentInitializerTest
      * @return the initializer to be tested
      */
     @Override
-    protected ConcurrentInitializer<Object> createInitializer() {
+    protected LazyInitializer<Object> createInitializer() {
         return new LazyInitializerTestImpl();
+    }
+
+    @Test
+    public void testIsInitialized() throws ConcurrentException {
+        final LazyInitializer<Object> initializer = createInitializer();
+        assertFalse(initializer.isInitialized());
+        initializer.get();
+        assertTrue(initializer.isInitialized());
     }
 
 }
