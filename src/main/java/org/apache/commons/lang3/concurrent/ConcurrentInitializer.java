@@ -16,37 +16,30 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import org.apache.commons.lang3.function.FailableSupplier;
+
 /**
- * Definition of an interface for the thread-safe initialization of objects.
- *
+ * Defines the thread-safe initialization of objects.
  * <p>
- * The idea behind this interface is to provide access to an object in a
- * thread-safe manner. A {@link ConcurrentInitializer} can be passed to multiple
- * threads which can all access the object produced by the initializer. Through
- * the {@link #get()} method the object can be queried.
+ * The idea behind this interface is to provide access to an object in a thread-safe manner. A {@link ConcurrentInitializer} can be passed to multiple threads
+ * which can all access the object produced by the initializer. Through the {@link #get()} method the object can be queried.
  * </p>
  * <p>
- * Concrete implementations of this interface will use different strategies for
- * the creation of the managed object, e.g. lazy initialization or
- * initialization in a background thread. This is completely transparent to
- * client code, so it is possible to change the initialization strategy without
- * affecting clients.
+ * Concrete implementations of this interface will use different strategies for the creation of the managed object, e.g. lazy initialization or initialization
+ * in a background thread. This is completely transparent to client code, so it is possible to change the initialization strategy without affecting clients.
+ * </p>
+ * <p>
+ * An implementation of {@link #get()} returns the fully initialized object produced by this {@code
+ * ConcurrentInitializer}. A concrete implementation here returns the results of the initialization process. This method may block until results are available.
+ * Typically, once created the result object is always the same.
+ * </p>
+ * <p>
+ * An implementation throws {@link ConcurrentException} if an error occurred during initialization of the object.
  * </p>
  *
  * @since 3.0
- * @param <T> the type of the object managed by this initializer class
+ * @param <T> the type of the object managed by this initializer class.
  */
-public interface ConcurrentInitializer<T> {
-    /**
-     * Returns the fully initialized object produced by this {@code
-     * ConcurrentInitializer}. A concrete implementation here returns the
-     * results of the initialization process. This method may block until
-     * results are available. Typically, once created the result object is
-     * always the same.
-     *
-     * @return the object created by this {@link ConcurrentException}
-     * @throws ConcurrentException if an error occurred during initialization of
-     * the object
-     */
-    T get() throws ConcurrentException;
+public interface ConcurrentInitializer<T> extends FailableSupplier<T, ConcurrentException> {
+    // empty
 }
