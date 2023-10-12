@@ -80,8 +80,8 @@ public abstract class LazyInitializer<T> implements ConcurrentInitializer<T> {
 
     private static final Object NO_INIT = new Object();
 
+    /** Stores the managed object. */
     @SuppressWarnings("unchecked")
-    // Stores the managed object.
     private volatile T object = (T) NO_INIT;
 
     /**
