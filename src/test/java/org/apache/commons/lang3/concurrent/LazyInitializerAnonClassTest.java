@@ -16,41 +16,24 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import org.junit.jupiter.api.BeforeEach;
-
 /**
- * Test class for {@code LazyInitializer}.
+ * Tests {@code LazyInitializer}.
  */
-public class LazyInitializerTest extends AbstractConcurrentInitializerTest {
-    /** The initializer to be tested. */
-    private LazyInitializerTestImpl initializer;
-
-    @BeforeEach
-    public void setUp() {
-        initializer = new LazyInitializerTestImpl();
-    }
+public class LazyInitializerAnonClassTest extends AbstractConcurrentInitializerTest {
 
     /**
-     * Returns the initializer to be tested. This implementation returns the
-     * {@code LazyInitializer} created in the {@code setUp()} method.
+     * Creates the initializer to be tested. This implementation returns the {@code LazyInitializer} created in the {@code setUp()} method.
      *
      * @return the initializer to be tested
      */
     @Override
     protected ConcurrentInitializer<Object> createInitializer() {
-        return initializer;
+        return new LazyInitializer<Object>() {
+            @Override
+            protected Object initialize() {
+                return new Object();
+            }
+        };
     }
 
-    /**
-     * A test implementation of LazyInitializer. This class creates a plain
-     * Object. As Object does not provide a specific equals() method, it is easy
-     * to check whether multiple instances were created.
-     */
-    private static final class LazyInitializerTestImpl extends
-            LazyInitializer<Object> {
-        @Override
-        protected Object initialize() {
-            return new Object();
-        }
-    }
 }
