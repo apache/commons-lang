@@ -81,8 +81,8 @@ import java.util.concurrent.Future;
  * @since 3.0
  * @param <T> the type of the object managed by this initializer class
  */
-public abstract class BackgroundInitializer<T> implements
-        ConcurrentInitializer<T> {
+public abstract class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, Exception> {
+
     /** The external executor service for executing tasks. */
     private ExecutorService externalExecutor; // @GuardedBy("this")
 
@@ -261,18 +261,6 @@ public abstract class BackgroundInitializer<T> implements
     protected int getTaskCount() {
         return 1;
     }
-
-    /**
-     * Performs the initialization. This method is called in a background task
-     * when this {@link BackgroundInitializer} is started. It must be
-     * implemented by a concrete subclass. An implementation is free to perform
-     * arbitrary initialization. The object returned by this method can be
-     * queried using the {@link #get()} method.
-     *
-     * @return a result object
-     * @throws Exception if an error occurs
-     */
-    protected abstract T initialize() throws Exception;
 
     /**
      * Creates a task for the background initialization. The {@link Callable}

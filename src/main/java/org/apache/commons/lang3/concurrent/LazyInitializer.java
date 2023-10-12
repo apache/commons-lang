@@ -76,7 +76,7 @@ package org.apache.commons.lang3.concurrent;
  * @since 3.0
  * @param <T> the type of the object managed by this initializer class
  */
-public abstract class LazyInitializer<T> implements ConcurrentInitializer<T> {
+public abstract class LazyInitializer<T> extends AbstractConcurrentInitializer<T, ConcurrentException> {
 
     private static final Object NO_INIT = new Object();
 
@@ -109,18 +109,6 @@ public abstract class LazyInitializer<T> implements ConcurrentInitializer<T> {
 
         return result;
     }
-
-    /**
-     * Creates and initializes the object managed by this {@code
-     * LazyInitializer}. This method is called by {@link #get()} when the object
-     * is accessed for the first time. An implementation can focus on the
-     * creation of the object. No synchronization is needed, as this is already
-     * handled by {@code get()}.
-     *
-     * @return the managed data object
-     * @throws ConcurrentException if an error occurs during object creation
-     */
-    protected abstract T initialize() throws ConcurrentException;
 
     /**
      * Tests whether this instance is initialized. Once initialized, always returns true.

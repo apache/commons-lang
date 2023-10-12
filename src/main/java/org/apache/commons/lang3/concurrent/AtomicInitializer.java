@@ -62,7 +62,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * @since 3.0
  * @param <T> the type of the object managed by this initializer class
  */
-public abstract class AtomicInitializer<T> implements ConcurrentInitializer<T> {
+public abstract class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, RuntimeException> {
     /** Holds the reference to the managed object. */
     private final AtomicReference<T> reference = new AtomicReference<>();
 
@@ -89,17 +89,4 @@ public abstract class AtomicInitializer<T> implements ConcurrentInitializer<T> {
 
         return result;
     }
-
-    /**
-     * Creates and initializes the object managed by this {@code
-     * AtomicInitializer}. This method is called by {@link #get()} when the
-     * managed object is not available yet. An implementation can focus on the
-     * creation of the object. No synchronization is needed, as this is already
-     * handled by {@code get()}. As stated by the class comment, it is possible
-     * that this method is called multiple times.
-     *
-     * @return the managed data object
-     * @throws ConcurrentException if an error occurs during object creation
-     */
-    protected abstract T initialize() throws ConcurrentException;
 }
