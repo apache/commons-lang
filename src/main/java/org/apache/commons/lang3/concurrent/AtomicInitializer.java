@@ -63,8 +63,10 @@ import java.util.concurrent.atomic.AtomicReference;
  * @param <T> the type of the object managed by this initializer class
  */
 public abstract class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, RuntimeException> {
+
+    private final T NO_INIT = (T) new Object(){};
     /** Holds the reference to the managed object. */
-    private final AtomicReference<T> reference = new AtomicReference<>();
+    private final AtomicReference<T> reference = new AtomicReference<>(NO_INIT);
 
     /**
      * Returns the object managed by this initializer. The object is created if
@@ -79,9 +81,9 @@ public abstract class AtomicInitializer<T> extends AbstractConcurrentInitializer
     public T get() throws ConcurrentException {
         T result = reference.get();
 
-        if (result == null) {
+        if (result == NO_INIT) {
             result = initialize();
-            if (!reference.compareAndSet(null, result)) {
+            if (!reference.compareAndSet(NO_INIT, result)) {
                 // another thread has initialized the reference
                 result = reference.get();
             }
