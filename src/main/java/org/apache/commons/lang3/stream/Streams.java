@@ -580,6 +580,19 @@ public class Streams {
     }
 
     /**
+     * Shorthand for {@code Streams.failableStream(Streams.of(arrayValues))}.
+     *
+     * @param <T> the type of stream elements.
+     * @param values the elements of the new stream, may be {@code null}.
+     * @return the new FailableStream on {@code values} or an empty stream.
+     * @since 3.14.0
+     */
+    @SafeVarargs // Creating a stream from an array is safe
+    public static <T> FailableStream<T> failableStream(final T... values) {
+        return failableStream(of(values));
+    }
+
+    /**
      * Streams only instances of the give Class in a collection.
      * <p>
      * This method shorthand for:
