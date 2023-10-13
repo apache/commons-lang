@@ -81,6 +81,17 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
     }
 
     /**
+     * As a {@link ConstantInitializer} is initialized on construction this will
+     * always return true.
+     *
+     * @return true.
+     * @since 3.14.0
+     */
+    public boolean isInitialized() {
+        return true;
+    }
+
+    /**
      * Returns a hash code for this object. This implementation returns the hash
      * code of the managed object.
      *

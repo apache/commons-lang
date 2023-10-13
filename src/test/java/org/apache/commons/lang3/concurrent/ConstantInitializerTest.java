@@ -130,4 +130,14 @@ public class ConstantInitializerTest extends AbstractLangTest {
         final String s = new ConstantInitializer<>(null).toString();
         assertTrue(s.indexOf("object = null") > 0, "Object not found: " + s);
     }
+
+    /**
+     * Tests a simple invocation of the isInitialized() method.
+     */
+    @Test
+    public void testisInitialized() {
+        assertTrue(init.isInitialized(), "was not initialized before get()");
+        assertEquals(VALUE, init.getObject(), "Wrong object");
+        assertTrue(init.isInitialized(), "was not initialized after get()");
+    }
 }

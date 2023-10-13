@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.concurrent;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -121,6 +122,28 @@ public abstract class BackgroundInitializer<T> extends AbstractConcurrentInitial
      */
     public final synchronized ExecutorService getExternalExecutor() {
         return externalExecutor;
+    }
+
+    /**
+     * Tests whether this instance is initialized. Once initialized, always returns true.
+     * If initialization failed then the failure will be cached and this will never return
+     * true.
+     *
+     * @return true if initialization completed successfully, otherwise false
+     * @since 3.14.0
+     */
+    @Override
+    public synchronized boolean isInitialized() {
+        if (future == null || ! future.isDone() ) {
+            return false;
+        }
+
+        try {
+            future.get();
+            return true;
+        } catch (CancellationException | ExecutionException | InterruptedException e) {
+            return false;
+        }
     }
 
     /**
