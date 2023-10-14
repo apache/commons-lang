@@ -70,6 +70,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add LocaleUtils.isLanguageUndetermined(Locale).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ObjectUtils.toString(Supplier&lt;Object&gt;, Supplier&lt;String&gt;).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add LazyInitializer.isInitialized().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory, Benjamin Confino">Add ConcurrentInitializer#isInitialized() #1120.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Streams.failableStream(T...).</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-parent from 58 to 64.</action>
