@@ -65,6 +65,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public abstract class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, RuntimeException> {
 
     private static final Object NO_INIT = new Object();
+
     /** Holds the reference to the managed object. */
     private final AtomicReference<T> reference = new AtomicReference<>((T) NO_INIT);
 
