@@ -56,8 +56,7 @@ public abstract class AtomicSafeInitializer<T> extends AbstractConcurrentInitial
     private static final Object NO_INIT = new Object();
 
     /** A guard which ensures that initialize() is called only once. */
-    private final AtomicReference<AtomicSafeInitializer<T>> factory =
-            new AtomicReference<>();
+    private final AtomicReference<AtomicSafeInitializer<T>> factory = new AtomicReference<>();
 
     /** Holds the reference to the managed object. */
     private final AtomicReference<T> reference = new AtomicReference<>((T) NO_INIT);
