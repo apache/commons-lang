@@ -54,6 +54,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public abstract class AtomicSafeInitializer<T> extends AbstractConcurrentInitializer<T, RuntimeException> {
 
     private static final Object NO_INIT = new Object();
+
     /** A guard which ensures that initialize() is called only once. */
     private final AtomicReference<AtomicSafeInitializer<T>> factory =
             new AtomicReference<>();
