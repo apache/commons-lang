@@ -17,7 +17,9 @@
 package org.apache.commons.lang3.concurrent;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -44,6 +46,20 @@ public abstract class AbstractConcurrentInitializerTest extends AbstractLangTest
     @Test
     public void testGet() throws ConcurrentException {
         assertNotNull(createInitializer().get(), "No managed object");
+    }
+
+    /**
+     * Tests a simple invocation of the isInitialized() method.
+     */
+    @Test
+    public void testisInitialized() throws Throwable {
+        final ConcurrentInitializer<Object> initializer = createInitializer();
+        if (initializer instanceof AbstractConcurrentInitializer) {
+            AbstractConcurrentInitializer castedInitializer = (AbstractConcurrentInitializer) initializer;
+            assertFalse(castedInitializer.isInitialized(), "was initialized before get()");
+            assertNotNull(castedInitializer.get(), "No managed object");
+            assertTrue(castedInitializer.isInitialized(), "was not initialized after get()");
+        }
     }
 
     /**

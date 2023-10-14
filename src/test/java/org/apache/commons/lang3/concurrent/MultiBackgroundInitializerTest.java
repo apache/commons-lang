@@ -21,9 +21,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -41,6 +43,9 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
 
     /** The initializer to be tested. */
     private MultiBackgroundInitializer initializer;
+
+    /** A short time to wait for background threads to run. */
+    private static final long PERIOD_MILLIS = 50;
 
     @BeforeEach
     public void setUp() {
@@ -366,6 +371,43 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
         assertTrue(exec.isShutdown(), "Executor not shutdown");
     }
 
+    @Test
+    public void testIsInitialized()
+            throws ConcurrentException, InterruptedException {
+        final ChildBackgroundInitializer childOne = new ChildBackgroundInitializer();
+        final ChildBackgroundInitializer childTwo = new ChildBackgroundInitializer();
+
+        childOne.enableLatch();
+        childTwo.enableLatch();
+
+        assertFalse(initializer.isInitialized(), "Initalized without having anything to initalize");
+
+        initializer.addInitializer("child one", childOne);
+        initializer.addInitializer("child two", childTwo);
+        initializer.start();
+
+        long startTime = System.currentTimeMillis();
+        long waitTime = 3000;
+        long endTime = startTime + waitTime;
+        //wait for the children to start
+        while (! childOne.isStarted() || ! childTwo.isStarted()) {
+            if (System.currentTimeMillis() > endTime) {
+                fail("children never started");
+                Thread.sleep(PERIOD_MILLIS);
+            }
+        }
+
+        assertFalse(initializer.isInitialized(), "Initalized with two children running");
+
+        childOne.releaseLatch();
+        childOne.get(); //ensure this child finishes initializing
+        assertFalse(initializer.isInitialized(), "Initalized with one child running");
+
+        childTwo.releaseLatch();
+        childTwo.get(); //ensure this child finishes initializing
+        assertTrue(initializer.isInitialized(), "Not initalized with no children running");
+    }
+
     /**
      * A concrete implementation of {@code BackgroundInitializer} used for
      * defining background tasks for {@code MultiBackgroundInitializer}.
@@ -381,6 +423,18 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
         /** An exception to be thrown by initialize(). */
         Exception ex;
 
+        /** A latch tests can use to control when initialize completes. */
+        final CountDownLatch latch = new CountDownLatch(1);
+        boolean waitForLatch = false;
+
+        public void enableLatch() {
+            waitForLatch = true;
+        }
+
+        public void releaseLatch() {
+            latch.countDown();
+        }
+
         /**
          * Records this invocation. Optionally throws an exception.
          */
@@ -391,6 +445,10 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
 
             if (ex != null) {
                 throw ex;
+            }
+
+            if (waitForLatch) {
+                latch.await();
             }
 
             return Integer.valueOf(initializeCalls);

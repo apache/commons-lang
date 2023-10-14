@@ -200,6 +200,22 @@ public class MultiBackgroundInitializer
     }
 
     /**
+     * Tests whether this all child {@code BackgroundInitializer} objects are initialized.
+     * Once initialized, always returns true.
+     *
+     * @return whether all child {@code BackgroundInitializer} objects instance are initialized. Once initialized, always returns true. If there are no child {@code BackgroundInitializer} objects return false.
+     * @since 3.14.0
+     */
+    @Override
+    public boolean isInitialized() {
+        if (childInitializers.isEmpty()) {
+            return false;
+        }
+
+        return childInitializers.values().stream().allMatch(BackgroundInitializer::isInitialized);
+    }
+
+    /**
      * A data class for storing the results of the background initialization
      * performed by {@link MultiBackgroundInitializer}. Objects of this inner
      * class are returned by {@link MultiBackgroundInitializer#initialize()}.

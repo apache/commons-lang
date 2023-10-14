@@ -17,7 +17,9 @@
 package org.apache.commons.lang3.concurrent;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -56,6 +58,25 @@ public class AtomicSafeInitializerTest extends AbstractConcurrentInitializerTest
     public void testNumberOfInitializeInvocations() throws ConcurrentException, InterruptedException {
         testGetConcurrent();
         assertEquals(1, initializer.initCounter.get(), "Wrong number of invocations");
+    }
+
+    @Test
+    public void testGetThatReturnsNullFirstTime() throws ConcurrentException {
+        final AtomicSafeInitializer<Object> initializer = new AtomicSafeInitializer<Object>() {
+            final AtomicBoolean firstRun = new AtomicBoolean(true);
+
+            @Override
+            protected Object initialize() {
+                if (firstRun.getAndSet(false)) {
+                    return null;
+                } else {
+                    return new Object();
+                }
+            }
+        };
+
+        assertNull(initializer.get());
+        assertNull(initializer.get());
     }
 
     /**

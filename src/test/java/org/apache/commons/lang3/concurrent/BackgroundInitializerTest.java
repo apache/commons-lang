@@ -268,6 +268,21 @@ public class BackgroundInitializerTest extends AbstractLangTest {
     }
 
     /**
+     * Tests isInitialized() before and after the background task has finished.
+     */
+    @Test
+    public void testIsInitialized() throws ConcurrentException {
+        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        init.enableLatch();
+        init.start();
+        assertTrue(init.isStarted(), "Not started"); //Started and Initialized should return opposite values
+        assertFalse(init.isInitialized(), "Initalized before releasing latch");
+        init.releaseLatch();
+        init.get(); //to ensure the initialize thread has completed.
+        assertTrue(init.isInitialized(), "Not initalized after releasing latch");
+    }
+
+    /**
      * A concrete implementation of BackgroundInitializer. It also overloads
      * some methods that simplify testing.
      */
@@ -282,11 +297,23 @@ public class BackgroundInitializerTest extends AbstractLangTest {
         /** The number of invocations of initialize(). */
         volatile int initializeCalls;
 
+        /** A latch tests can use to control when initialize completes. */
+        final CountDownLatch latch = new CountDownLatch(1);
+        boolean waitForLatch = false;
+
         BackgroundInitializerTestImpl() {
         }
 
         BackgroundInitializerTestImpl(final ExecutorService exec) {
             super(exec);
+        }
+
+        public void enableLatch() {
+            waitForLatch = true;
+        }
+
+        public void releaseLatch() {
+            latch.countDown();
         }
 
         /**
@@ -302,6 +329,9 @@ public class BackgroundInitializerTest extends AbstractLangTest {
             }
             if (shouldSleep) {
                 ThreadUtils.sleep(Duration.ofMinutes(1));
+            }
+            if (waitForLatch) {
+                latch.await();
             }
             return Integer.valueOf(++initializeCalls);
         }
