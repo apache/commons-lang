@@ -116,6 +116,7 @@ public abstract class LazyInitializer<T> extends AbstractConcurrentInitializer<T
      * @return whether this instance is initialized. Once initialized, always returns true.
      * @since 3.14.0
      */
+    @Override
     public boolean isInitialized() {
         return object != NO_INIT;
     }
