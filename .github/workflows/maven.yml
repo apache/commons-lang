@@ -28,10 +28,10 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        java: [ 8, 11, 17 ]
+        java: [ 8, 11, 17, 21 ]
         experimental: [false]
 #        include:
-#          - java: 21-ea
+#          - java: 22-ea
 #            experimental: true        
     steps:
     - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
