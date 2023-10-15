@@ -59,7 +59,7 @@ public abstract class AtomicSafeInitializer<T> extends AbstractConcurrentInitial
     private final AtomicReference<AtomicSafeInitializer<T>> factory = new AtomicReference<>();
 
     /** Holds the reference to the managed object. */
-    private final AtomicReference<T> reference = new AtomicReference<>((T) NO_INIT);
+    private final AtomicReference<T> reference = new AtomicReference<>(getNoInit());
 
     /**
      * Gets (and initialize, if not initialized yet) the required object
@@ -72,13 +72,19 @@ public abstract class AtomicSafeInitializer<T> extends AbstractConcurrentInitial
     public final T get() throws ConcurrentException {
         T result;
 
-        while ((result = reference.get()) == (T) NO_INIT) {
+        while ((result = reference.get()) == getNoInit()) {
             if (factory.compareAndSet(null, this)) {
                 reference.set(initialize());
             }
         }
 
         return result;
+    }
+
+    /** Gets the internal no-init object cast for this instance. */
+    @SuppressWarnings("unchecked")
+    private T getNoInit() {
+        return (T) NO_INIT;
     }
 
     /**

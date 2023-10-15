@@ -67,7 +67,7 @@ public abstract class AtomicInitializer<T> extends AbstractConcurrentInitializer
     private static final Object NO_INIT = new Object();
 
     /** Holds the reference to the managed object. */
-    private final AtomicReference<T> reference = new AtomicReference<>((T) NO_INIT);
+    private final AtomicReference<T> reference = new AtomicReference<>(getNoInit());
 
     /**
      * Returns the object managed by this initializer. The object is created if
@@ -82,15 +82,21 @@ public abstract class AtomicInitializer<T> extends AbstractConcurrentInitializer
     public T get() throws ConcurrentException {
         T result = reference.get();
 
-        if (result == (T) NO_INIT) {
+        if (result == getNoInit()) {
             result = initialize();
-            if (!reference.compareAndSet((T) NO_INIT, result)) {
+            if (!reference.compareAndSet(getNoInit(), result)) {
                 // another thread has initialized the reference
                 result = reference.get();
             }
         }
 
         return result;
+    }
+
+    /** Gets the internal no-init object cast for this instance. */
+    @SuppressWarnings("unchecked")
+    private T getNoInit() {
+        return (T) NO_INIT;
     }
 
     /**
