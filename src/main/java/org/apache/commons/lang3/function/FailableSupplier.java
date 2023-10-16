@@ -22,12 +22,12 @@ import java.util.function.Supplier;
 /**
  * A functional interface like {@link Supplier} that declares a {@link Throwable}.
  *
- * @param <R> Return type.
+ * @param <T> Return type.
  * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
-public interface FailableSupplier<R, E extends Throwable> {
+public interface FailableSupplier<T, E extends Throwable> {
 
     /**
      * Returns the singleton supplier that always returns null.
@@ -62,5 +62,5 @@ public interface FailableSupplier<R, E extends Throwable> {
      * @return a result
      * @throws E if the supplier fails
      */
-    R get() throws E;
+    T get() throws E;
 }
