@@ -37,6 +37,7 @@ public class SuppliersTest extends AbstractLangTest {
     public void testGet() {
         assertNull(Suppliers.get(null));
         assertNull(Suppliers.get(() -> null));
+        assertNull(Suppliers.get(Suppliers.nul()));
         assertEquals("foo", Suppliers.get(() -> "foo"));
     }
 }

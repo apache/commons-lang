@@ -27,6 +27,30 @@ import java.util.function.Supplier;
 public class Suppliers {
 
     /**
+     * Returns the singleton supplier that always returns null.
+     * <p>
+     * This supplier never throws an exception.
+     * </p>
+     */
+    @SuppressWarnings("rawtypes")
+    private static Supplier NUL = () -> null;
+
+    /**
+     * Returns the singleton supplier that always returns null.
+     * <p>
+     * This supplier never throws an exception.
+     * </p>
+     *
+     * @param <T> Supplied type.
+     * @return The NUL singleton.
+     * @since 3.14.0
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> Supplier<T> nul() {
+        return NUL;
+    }
+
+    /**
      * Null-safe call to {@link Supplier#get()}.
      *
      * @param <T> the type of results supplied by this supplier.

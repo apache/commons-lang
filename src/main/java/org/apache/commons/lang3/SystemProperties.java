@@ -22,14 +22,14 @@ import java.util.function.IntSupplier;
 import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
+import org.apache.commons.lang3.function.Suppliers;
+
 /**
  * Accesses current system property names and values.
  *
  * @since 3.13.0
  */
 public final class SystemProperties {
-
-    private static final Supplier<String> NULL_SUPPLIER = () -> null;
 
     /**
      * The System property name {@value}.
@@ -752,7 +752,7 @@ public final class SystemProperties {
      * @return the system property value or {@code null} if a security problem occurs
      */
     public static String getProperty(final String property) {
-        return getProperty(property, NULL_SUPPLIER);
+        return getProperty(property, Suppliers.nul());
     }
 
     /**

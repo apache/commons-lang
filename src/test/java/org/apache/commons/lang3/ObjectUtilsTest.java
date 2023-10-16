@@ -47,6 +47,7 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
+import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.apache.commons.lang3.text.StrBuilder;
@@ -479,14 +480,14 @@ public class ObjectUtilsTest extends AbstractLangTest {
     @Test
     public void testGetFirstNonNull() {
         // first non-null
-        assertEquals("", ObjectUtils.getFirstNonNull(() -> null, () -> ""));
+        assertEquals("", ObjectUtils.getFirstNonNull(Suppliers.nul(), () -> ""));
         // first encountered value is used
-        assertEquals("1", ObjectUtils.getFirstNonNull(() -> null, () -> "1", () -> "2", () -> null));
-        assertEquals("123", ObjectUtils.getFirstNonNull(() -> "123", () -> null, () -> "456"));
+        assertEquals("1", ObjectUtils.getFirstNonNull(Suppliers.nul(), () -> "1", () -> "2", Suppliers.nul()));
+        assertEquals("123", ObjectUtils.getFirstNonNull(() -> "123", Suppliers.nul(), () -> "456"));
         // don't evaluate suppliers after first value is found
-        assertEquals("123", ObjectUtils.getFirstNonNull(() -> null, () -> "123", () -> fail("Supplier after first non-null value should not be evaluated")));
+        assertEquals("123", ObjectUtils.getFirstNonNull(Suppliers.nul(), () -> "123", () -> fail("Supplier after first non-null value should not be evaluated")));
         // supplier returning null and null supplier both result in null
-        assertNull(ObjectUtils.getFirstNonNull(null, () -> null));
+        assertNull(ObjectUtils.getFirstNonNull(null, Suppliers.nul()));
         // Explicitly pass in an empty array of Object type to ensure compiler doesn't complain of unchecked generic array creation
         assertNull(ObjectUtils.getFirstNonNull());
         // supplier is null
@@ -494,8 +495,8 @@ public class ObjectUtilsTest extends AbstractLangTest {
         // varargs array itself is null
         assertNull(ObjectUtils.getFirstNonNull((Supplier<Object>[]) null));
         // test different types
-        assertEquals(1, ObjectUtils.getFirstNonNull(() -> null, () -> 1));
-        assertEquals(Boolean.TRUE, ObjectUtils.getFirstNonNull(() -> null, () -> Boolean.TRUE));
+        assertEquals(1, ObjectUtils.getFirstNonNull(Suppliers.nul(), () -> 1));
+        assertEquals(Boolean.TRUE, ObjectUtils.getFirstNonNull(Suppliers.nul(), () -> Boolean.TRUE));
     }
 
     @Test
@@ -849,7 +850,7 @@ public class ObjectUtilsTest extends AbstractLangTest {
     @Test
     public void testToString_String_Supplier() {
         assertNull(ObjectUtils.toString(null, (Supplier<String>) null));
-        assertNull(ObjectUtils.toString(null, () -> null));
+        assertNull(ObjectUtils.toString(null, Suppliers.nul()));
         // Pretend computing BAR is expensive.
         assertEquals(BAR, ObjectUtils.toString(null, () -> BAR));
         assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE, () -> BAR));
@@ -858,12 +859,12 @@ public class ObjectUtilsTest extends AbstractLangTest {
     @Test
     public void testToString_Supplier_Supplier() {
         assertNull(ObjectUtils.toString(NULL_SUPPLIER, (Supplier<String>) null));
-        assertNull(ObjectUtils.toString(() -> null, (Supplier<String>) null));
-        assertNull(ObjectUtils.toString(NULL_SUPPLIER, () -> null));
-        assertNull(ObjectUtils.toString(() -> null, () -> null));
+        assertNull(ObjectUtils.toString(Suppliers.nul(), (Supplier<String>) null));
+        assertNull(ObjectUtils.toString(NULL_SUPPLIER, Suppliers.nul()));
+        assertNull(ObjectUtils.toString(Suppliers.nul(), Suppliers.nul()));
         // Pretend computing BAR is expensive.
         assertEquals(BAR, ObjectUtils.toString(NULL_SUPPLIER, () -> BAR));
-        assertEquals(BAR, ObjectUtils.toString(() -> null, () -> BAR));
+        assertEquals(BAR, ObjectUtils.toString(Suppliers.nul(), () -> BAR));
         assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(() -> Boolean.TRUE, () -> BAR));
     }
 

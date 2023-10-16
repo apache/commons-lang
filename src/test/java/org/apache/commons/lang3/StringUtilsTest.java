@@ -42,6 +42,7 @@ import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.regex.PatternSyntaxException;
 
+import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.text.WordUtils;
 import org.junit.jupiter.api.Disabled;
@@ -682,7 +683,7 @@ public class StringUtilsTest extends AbstractLangTest {
         assertEquals("NULL", StringUtils.getIfBlank("",  () -> "NULL"));
         assertEquals("NULL", StringUtils.getIfBlank(" ", () -> "NULL"));
         assertEquals("abc", StringUtils.getIfBlank("abc", () -> "NULL"));
-        assertNull(StringUtils.getIfBlank("", () -> null));
+        assertNull(StringUtils.getIfBlank("", Suppliers.nul()));
         assertNull(StringUtils.defaultIfBlank("", (String) null));
         // Tests compatibility for the API return type
         final String s = StringUtils.getIfBlank("abc", () -> "NULL");
@@ -750,7 +751,7 @@ public class StringUtilsTest extends AbstractLangTest {
         assertEquals("NULL", StringUtils.getIfEmpty((String) null, () -> "NULL"));
         assertEquals("NULL", StringUtils.getIfEmpty("", () -> "NULL"));
         assertEquals("abc", StringUtils.getIfEmpty("abc", () -> "NULL"));
-        assertNull(StringUtils.getIfEmpty("", () -> null));
+        assertNull(StringUtils.getIfEmpty("", Suppliers.nul()));
         assertNull(StringUtils.defaultIfEmpty("", (String) null));
         // Tests compatibility for the API return type
         final String s = StringUtils.getIfEmpty("abc", () -> "NULL");
