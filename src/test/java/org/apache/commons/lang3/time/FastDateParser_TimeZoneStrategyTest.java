@@ -45,10 +45,10 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
 import org.junitpioneer.jupiter.ReadsDefaultLocale;
 import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 
-/* make test reproducible */ @DefaultLocale(language = "en")
-/* make test reproducible */ @DefaultTimeZone(TimeZones.GMT_ID)
-/* make test reproducible */ @ReadsDefaultLocale
-/* make test reproducible */ @ReadsDefaultTimeZone
+/* Make test reproducible */ @DefaultLocale(language = "en")
+/* Make test reproducible */ @DefaultTimeZone(TimeZones.GMT_ID)
+/* Make test reproducible */ @ReadsDefaultLocale
+/* Make test reproducible */ @ReadsDefaultTimeZone
 public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     private static final List<Locale> Java11Failures = new ArrayList<>();
@@ -136,7 +136,8 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                         Java11Failures.add(locale);
                         // Mark as an assumption failure instead of a hard fail
                         System.err.printf(
-                                "Java %s - Mark as an assumption failure instead of a hard fail: locale = '%s', parse = '%s'%n",
+                                "Java %s %s - Mark as an assumption failure instead of a hard fail: locale = '%s', parse = '%s'%n",
+                                SystemUtils.JAVA_VENDOR,
                                 SystemUtils.JAVA_VERSION,
                                 localeStr, tzDisplay);
                         assumeTrue(false, localeStr);
