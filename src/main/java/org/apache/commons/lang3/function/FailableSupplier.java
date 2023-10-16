@@ -30,6 +30,33 @@ import java.util.function.Supplier;
 public interface FailableSupplier<R, E extends Throwable> {
 
     /**
+     * Returns the singleton supplier that always returns null.
+     * <p>
+     * This supplier never throws an exception.
+     * </p>
+     *
+     * @since 3.14.0
+     */
+    @SuppressWarnings("rawtypes")
+    FailableSupplier NUL = () -> null;
+
+    /**
+     * Returns the singleton supplier that always returns null.
+     * <p>
+     * This supplier never throws an exception.
+     * </p>
+     *
+     * @param <T> Supplied type.
+     * @param <E> The kind of thrown exception or error.
+     * @return The NUL singleton.
+     * @since 3.14.0
+     */
+    @SuppressWarnings("unchecked")
+    static <T, E extends Exception> FailableSupplier<T, E> nul() {
+        return NUL;
+    }
+
+    /**
      * Supplies an object
      *
      * @return a result

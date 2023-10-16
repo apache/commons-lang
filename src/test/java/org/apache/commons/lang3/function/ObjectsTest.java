@@ -81,7 +81,7 @@ public class ObjectsTest extends AbstractLangTest {
 
     @Test
     void testRequireNonNullObjectFailableSupplierString() {
-        final TestableFailableSupplier<String, ?> supplier = new TestableFailableSupplier<>(() -> null);
+        final TestableFailableSupplier<String, ?> supplier = new TestableFailableSupplier<>(FailableSupplier.nul());
         assertSame("foo", Objects.requireNonNull("foo", supplier));
         assertFalse(supplier.isInvoked());
         try {
@@ -91,7 +91,7 @@ public class ObjectsTest extends AbstractLangTest {
             assertEquals("The supplier must not return null.", e.getMessage());
             assertTrue(supplier.isInvoked());
         }
-        final TestableFailableSupplier<String, ?> supplier2 = new TestableFailableSupplier<>(() -> null);
+        final TestableFailableSupplier<String, ?> supplier2 = new TestableFailableSupplier<>(FailableSupplier.nul());
         try {
             Objects.requireNonNull(null, supplier2);
             fail("Expected Exception");
