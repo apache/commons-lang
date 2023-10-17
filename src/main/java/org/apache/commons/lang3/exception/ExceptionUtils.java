@@ -971,8 +971,28 @@ public class ExceptionUtils {
      * @param throwable the throwable to test and throw or return.
      * @return the given throwable.
      * @since 3.13.0
+     * @deprecated Use {@link #throwUnchecked(Throwable)}.
      */
+    @Deprecated
     public static <T> T throwUnchecked(final T throwable) {
+        if (throwable instanceof RuntimeException) {
+            throw (RuntimeException) throwable;
+        }
+        if (throwable instanceof Error) {
+            throw (Error) throwable;
+        }
+        return throwable;
+    }
+
+    /**
+     * Tests whether the specified {@link Throwable} is unchecked and throws it if so.
+     *
+     * @param <T> The Throwable type.
+     * @param throwable the throwable to test and throw or return.
+     * @return the given throwable.
+     * @since 3.14.0
+     */
+    public static <T extends Throwable> T throwUnchecked(final T throwable) {
         if (throwable instanceof RuntimeException) {
             throw (RuntimeException) throwable;
         }
