@@ -82,7 +82,7 @@ public class LazyInitializer<T> extends AbstractConcurrentInitializer<T, Concurr
         @SuppressWarnings("unchecked")
         @Override
         public I get() {
-            return (I) new LazyInitializer<>(getInitializer(), getCloser());
+            return (I) new LazyInitializer(getInitializer(), getCloser());
         }
 
     }
@@ -157,6 +157,14 @@ public class LazyInitializer<T> extends AbstractConcurrentInitializer<T, Concurr
     @Override
     public boolean isInitialized() {
         return object != NO_INIT;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected ConcurrentException getTypedException(Exception e) {
+        return new ConcurrentException(e);
     }
 
 }

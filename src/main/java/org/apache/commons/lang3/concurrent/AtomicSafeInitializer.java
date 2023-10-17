@@ -51,7 +51,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * @since 3.0
  * @param <T> the type of the object managed by this initializer class
  */
-public abstract class AtomicSafeInitializer<T> extends AbstractConcurrentInitializer<T, RuntimeException> {
+public abstract class AtomicSafeInitializer<T> extends AbstractConcurrentInitializer<T, ConcurrentException> {
 
     private static final Object NO_INIT = new Object();
 
@@ -96,5 +96,13 @@ public abstract class AtomicSafeInitializer<T> extends AbstractConcurrentInitial
     @Override
     public boolean isInitialized() {
         return reference.get() != NO_INIT;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected ConcurrentException getTypedException(Exception e) {
+        return new ConcurrentException(e);
     }
 }

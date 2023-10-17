@@ -16,8 +16,14 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.io.IOException;
+import java.sql.SQLException;
 
 import org.junit.jupiter.api.Test;
 
@@ -42,6 +48,59 @@ public class LazyInitializerSupplierTest extends AbstractConcurrentInitializerTe
         assertFalse(initializer.isInitialized());
         initializer.get();
         assertTrue(initializer.isInitialized());
+    }
+
+    @Test
+    public void testSupplierThrowsCheckedException() {
+        final LazyInitializer<Object> initializer = LazyInitializer.builder().setInitializer(
+                () -> methodThatThrowsException(ExceptionToThrow.IOException)).get();
+        assertThrows(ConcurrentException.class, () -> initializer.get());
+    }
+
+    @Test
+    public void testSupplierThrowsRuntimeException() {
+        final LazyInitializer<Object> initializer = LazyInitializer.builder().setInitializer(
+                () -> methodThatThrowsException(ExceptionToThrow.NullPointerException)).get();
+        assertThrows(NullPointerException.class, () -> initializer.get());
+    }
+
+    /*
+     * This method tests that if LazyInitializer.initialize catches a ConcurrentException it will rethrow it without wrapping it
+     */
+    @Test
+    public void testSupplierThrowsConcurrentException() {
+        final ConcurrentException concurrentException = new ConcurrentException();
+        final LazyInitializer<Object> initializer = LazyInitializer.builder().setInitializer(
+                () -> {
+                    if ("test".equals("test")) {
+                        throw concurrentException;
+                    }
+                    return new Object();
+                } ).get();
+        try {
+            initializer.get();
+            fail();
+        } catch (ConcurrentException e) {
+            assertEquals(concurrentException, e);
+        }
+    }
+
+    private enum ExceptionToThrow {
+        IOException,
+        SQLException,
+        NullPointerException
+    }
+
+    private static String methodThatThrowsException(final ExceptionToThrow input) throws IOException, SQLException {
+        switch (input) {
+        case IOException:
+            throw new IOException();
+        case SQLException:
+            throw new SQLException();
+        case NullPointerException:
+            throw new NullPointerException();
+        default: return "success";
+        }
     }
 
 }

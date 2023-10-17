@@ -341,4 +341,13 @@ public abstract class BackgroundInitializer<T> extends AbstractConcurrentInitial
             }
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected Exception getTypedException(Exception e) {
+        //This Exception object will be used for type comparison in AbstractConcurrentInitializer.initialize but not thrown
+        return new Exception(e);
+    }
 }
