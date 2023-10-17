@@ -102,10 +102,10 @@ public class ConcurrentUtils {
      */
     public static void handleCause(final ExecutionException ex)
             throws ConcurrentException {
-        final ConcurrentException cex = extractCause(ex);
+        final ConcurrentException cause = extractCause(ex);
 
-        if (cex != null) {
-            throw cex;
+        if (cause != null) {
+            throw cause;
         }
     }
 
