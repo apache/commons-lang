@@ -585,7 +585,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 rule.appendTo(buf, calendar);
             }
         } catch (final IOException ioe) {
-            ExceptionUtils.rethrow(ioe);
+            ExceptionUtils.asRuntimeException(ioe);
         }
         return buf;
     }

@@ -119,7 +119,8 @@ public class ExceptionUtilsTest extends AbstractLangTest {
         try {
             throw new IOException();
         } catch (final Exception e) {
-            return ExceptionUtils.<Integer>rethrow(e);
+            ExceptionUtils.asRuntimeException(e);
+            return -1;
         }
     }
 
@@ -201,6 +202,13 @@ public class ExceptionUtilsTest extends AbstractLangTest {
 
         th = new ExceptionWithCause("Wrapper", th);
         assertEquals("IllegalArgumentException: Base", ExceptionUtils.getRootCauseMessage(th));
+    }
+
+    @Test
+    public void testAsRuntimeException() {
+        final Exception expected = new InterruptedException();
+        final Exception actual = assertThrows(Exception.class, () -> ExceptionUtils.asRuntimeException(expected));
+        assertSame(expected, actual);
     }
 
     @Test
@@ -765,7 +773,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testThrow() {
+    public void testRethrow() {
         final Exception expected = new InterruptedException();
         final Exception actual = assertThrows(Exception.class, () -> ExceptionUtils.rethrow(expected));
         assertSame(expected, actual);
