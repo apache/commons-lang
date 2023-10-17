@@ -644,11 +644,6 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsUnchecked_null() {
-        assertFalse(ExceptionUtils.isUnchecked(null));
-    }
-
-    @Test
     public void testIsUnchecked_checked() {
         assertFalse(ExceptionUtils.isUnchecked(new IOException()));
     }
@@ -656,6 +651,11 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     @Test
     public void testIsUnchecked_error() {
         assertTrue(ExceptionUtils.isUnchecked(new StackOverflowError()));
+    }
+
+    @Test
+    public void testIsUnchecked_null() {
+        assertFalse(ExceptionUtils.isUnchecked(null));
     }
 
     @Test
@@ -729,6 +729,13 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testRethrow() {
+        final Exception expected = new InterruptedException();
+        final Exception actual = assertThrows(Exception.class, () -> ExceptionUtils.rethrow(expected));
+        assertSame(expected, actual);
+    }
+
+    @Test
     public void testStream_jdkNoCause() {
         assertEquals(1, ExceptionUtils.stream(jdkNoCause).count());
         assertSame(jdkNoCause, ExceptionUtils.stream(jdkNoCause).toArray()[0]);
@@ -770,13 +777,6 @@ public class ExceptionUtilsTest extends AbstractLangTest {
         final List<?> throwables = ExceptionUtils.stream(withoutCause).collect(Collectors.toList());
         assertEquals(1, throwables.size());
         assertSame(withoutCause, throwables.get(0));
-    }
-
-    @Test
-    public void testRethrow() {
-        final Exception expected = new InterruptedException();
-        final Exception actual = assertThrows(Exception.class, () -> ExceptionUtils.rethrow(expected));
-        assertSame(expected, actual);
     }
 
     @Test
