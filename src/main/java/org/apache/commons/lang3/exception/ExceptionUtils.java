@@ -113,7 +113,7 @@ public class ExceptionUtils {
      * method declared with that checked exception. If the invoking site wishes
      * to catch the shaded checked exception, it must either invoke the shaded
      * code through a method re-declaring the desired checked exception, or
-     * catch Exception and use the instanceof operator. Either of these
+     * catch Exception and use the {@code instanceof} operator. Either of these
      * techniques are required when interacting with non-java jvm code such as
      * Jython, Scala, or Groovy, since these languages do not consider any
      * exceptions as checked.
@@ -855,7 +855,7 @@ public class ExceptionUtils {
      * method declared with that checked exception. If the invoking site wishes
      * to catch the shaded checked exception, it must either invoke the shaded
      * code through a method re-declaring the desired checked exception, or
-     * catch Exception and use the instanceof operator. Either of these
+     * catch Exception and use the {@code instanceof} operator. Either of these
      * techniques are required when interacting with non-java jvm code such as
      * Jython, Scala, or Groovy, since these languages do not consider any
      * exceptions as checked.
