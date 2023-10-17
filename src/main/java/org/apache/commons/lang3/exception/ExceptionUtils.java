@@ -965,8 +965,7 @@ public class ExceptionUtils {
     }
 
     /**
-     * Tests whether the cause of the specified {@link Throwable}
-     * should be thrown and does it if necessary.
+     * Tests whether the specified {@link Throwable} is unchecked and throws it if so.
      *
      * @param <T> The Throwable type.
      * @param throwable the throwable to test and throw or return.
