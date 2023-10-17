@@ -930,7 +930,7 @@ public class NumberUtils {
 
     /**
      * Convert a {@link String} to a {@link Integer}, handling
-     * hex (0xhhhh) and octal (0dddd) notations.
+     * hexadecimal (0xhhhh) and octal (0dddd) notations.
      * N.B. a leading zero means octal; spaces are not trimmed.
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
@@ -949,7 +949,7 @@ public class NumberUtils {
 
     /**
      * Convert a {@link String} to a {@link Long};
-     * since 3.1 it handles hex (0Xhhhh) and octal (0ddd) notations.
+     * since 3.1 it handles hexadecimal (0Xhhhh) and octal (0ddd) notations.
      * N.B. a leading zero means octal; spaces are not trimmed.
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
@@ -967,7 +967,7 @@ public class NumberUtils {
 
     /**
      * Convert a {@link String} to a {@link BigInteger};
-     * since 3.2 it handles hex (0x or #) and octal (0) notations.
+     * since 3.2 it handles hexadecimal (0x or #) and octal (0) notations.
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
      *
@@ -1587,7 +1587,7 @@ public class NumberUtils {
      *
      * @param str  the {@link String} to check
      * @return {@code true} if the string is a correctly formatted number
-     * @since 3.3 the code supports hex {@code 0Xhhh} an
+     * @since 3.3 the code supports hexadecimal {@code 0Xhhh} an
      *        octal {@code 0ddd} validation
      * @deprecated This feature will be removed in Lang 4,
      *             use {@link NumberUtils#isCreatable(String)} instead

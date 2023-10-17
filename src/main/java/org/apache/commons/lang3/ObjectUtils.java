@@ -743,7 +743,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the hex hash code for the given object per {@link Objects#hashCode(Object)}.
+     * Returns the hexadecimal hash code for the given object per {@link Objects#hashCode(Object)}.
      * <p>
      * Short hand for {@code Integer.toHexString(Objects.hashCode(object))}.
      * </p>
@@ -792,7 +792,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the hex hash code for the given object per {@link System#identityHashCode(Object)}.
+     * Returns the hexadecimal hash code for the given object per {@link System#identityHashCode(Object)}.
      * <p>
      * Short hand for {@code Integer.toHexString(System.identityHashCode(object))}.
      * </p>

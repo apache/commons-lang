@@ -744,7 +744,7 @@ public class Conversion {
      * Converts an array of Char into a long using the default (little endian, Lsb0) byte and
      * bit ordering.
      *
-     * @param src the hex string to convert
+     * @param src the hexadecimal string to convert
      * @param srcPos the position in {@code src}, in Char unit, from where to start the
      *            conversion
      * @param dstInit initial value of the destination long
@@ -775,7 +775,7 @@ public class Conversion {
      * Converts an array of Char into an int using the default (little endian, Lsb0) byte and bit
      * ordering.
      *
-     * @param src the hex string to convert
+     * @param src the hexadecimal string to convert
      * @param srcPos the position in {@code src}, in Char unit, from where to start the
      *            conversion
      * @param dstInit initial value of the destination int
@@ -805,7 +805,7 @@ public class Conversion {
      * Converts an array of Char into a short using the default (little endian, Lsb0) byte and
      * bit ordering.
      *
-     * @param src the hex string to convert
+     * @param src the hexadecimal string to convert
      * @param srcPos the position in {@code src}, in Char unit, from where to start the
      *            conversion
      * @param dstInit initial value of the destination short
@@ -836,7 +836,7 @@ public class Conversion {
      * Converts an array of Char into a byte using the default (little endian, Lsb0) byte and
      * bit ordering.
      *
-     * @param src the hex string to convert
+     * @param src the hexadecimal string to convert
      * @param srcPos the position in {@code src}, in Char unit, from where to start the
      *            conversion
      * @param dstInit initial value of the destination byte
