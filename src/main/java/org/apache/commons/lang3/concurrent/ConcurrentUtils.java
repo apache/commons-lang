@@ -123,10 +123,10 @@ public class ConcurrentUtils {
      * wrapped in the thrown runtime exception
      */
     public static void handleCauseUnchecked(final ExecutionException ex) {
-        final ConcurrentRuntimeException crex = extractCauseUnchecked(ex);
+        final ConcurrentRuntimeException cause = extractCauseUnchecked(ex);
 
-        if (crex != null) {
-            throw crex;
+        if (cause != null) {
+            throw cause;
         }
     }
 
