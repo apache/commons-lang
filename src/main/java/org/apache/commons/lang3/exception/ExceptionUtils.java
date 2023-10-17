@@ -754,7 +754,7 @@ public class ExceptionUtils {
      * Throws a checked exception without adding the exception to the throws
      * clause of the calling method. This method prevents throws clause
      * pollution and reduces the clutter of "Caused by" exceptions in the
-     * stacktrace.
+     * stack trace.
      * <p>
      * The use of this technique may be controversial, but exceedingly useful to
      * library developers.
