@@ -54,7 +54,7 @@ public class BackgroundInitializerTest extends AbstractLangTest {
      */
     @Test
     public void testInitialize() throws ConcurrentException {
-        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl();
         init.start();
         checkInitialize(init);
     }
@@ -65,7 +65,7 @@ public class BackgroundInitializerTest extends AbstractLangTest {
      */
     @Test
     public void testGetActiveExecutorBeforeStart() {
-        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl();
         assertNull(init.getActiveExecutor(), "Got an executor");
     }
 
@@ -76,7 +76,7 @@ public class BackgroundInitializerTest extends AbstractLangTest {
     public void testGetActiveExecutorExternal() throws InterruptedException, ConcurrentException {
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         try {
-            final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl(
+            final BackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl(
                     exec);
             init.start();
             assertSame(exec, init.getActiveExecutor(), "Wrong executor");
@@ -92,7 +92,7 @@ public class BackgroundInitializerTest extends AbstractLangTest {
      */
     @Test
     public void testGetActiveExecutorTemp() throws ConcurrentException {
-        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl();
         init.start();
         assertNotNull(init.getActiveExecutor(), "No active executor");
         checkInitialize(init);
@@ -104,7 +104,7 @@ public class BackgroundInitializerTest extends AbstractLangTest {
      */
     @Test
     public void testInitializeTempExecutor() throws ConcurrentException {
-        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl();
         assertTrue(init.start(), "Wrong result of start()");
         checkInitialize(init);
         assertTrue(init.getActiveExecutor().isShutdown(), "Executor not shutdown");
@@ -118,7 +118,7 @@ public class BackgroundInitializerTest extends AbstractLangTest {
     public void testSetExternalExecutor() throws ConcurrentException {
         final ExecutorService exec = Executors.newCachedThreadPool();
         try {
-            final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+            final BackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl();
             init.setExternalExecutor(exec);
             assertEquals(exec, init.getExternalExecutor(), "Wrong executor service");
             assertTrue(init.start(), "Wrong result of start()");
@@ -137,7 +137,7 @@ public class BackgroundInitializerTest extends AbstractLangTest {
      */
     @Test
     public void testSetExternalExecutorAfterStart() throws ConcurrentException, InterruptedException {
-        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl();
         init.start();
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         try {
@@ -155,7 +155,7 @@ public class BackgroundInitializerTest extends AbstractLangTest {
      */
     @Test
     public void testStartMultipleTimes() throws ConcurrentException {
-        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl();
         assertTrue(init.start(), "Wrong result for start()");
         for (int i = 0; i < 10; i++) {
             assertFalse(init.start(), "Could start again");
@@ -168,7 +168,7 @@ public class BackgroundInitializerTest extends AbstractLangTest {
      */
     @Test
     public void testGetBeforeStart() {
-        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl();
         assertThrows(IllegalStateException.class, init::get);
     }
 
@@ -178,7 +178,7 @@ public class BackgroundInitializerTest extends AbstractLangTest {
      */
     @Test
     public void testGetRuntimeException() {
-        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl();
         final RuntimeException rex = new RuntimeException();
         init.ex = rex;
         init.start();
@@ -192,7 +192,7 @@ public class BackgroundInitializerTest extends AbstractLangTest {
      */
     @Test
     public void testGetCheckedException() {
-        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl();
         final Exception ex = new Exception();
         init.ex = ex;
         init.start();
@@ -208,7 +208,7 @@ public class BackgroundInitializerTest extends AbstractLangTest {
     @Test
     public void testGetInterruptedException() throws InterruptedException {
         final ExecutorService exec = Executors.newSingleThreadExecutor();
-        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl(
+        final BackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl(
                 exec);
         final CountDownLatch latch1 = new CountDownLatch(1);
         init.shouldSleep = true;
@@ -242,7 +242,7 @@ public class BackgroundInitializerTest extends AbstractLangTest {
      */
     @Test
     public void testIsStartedFalse() {
-        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl();
         assertFalse(init.isStarted(), "Already started");
     }
 
@@ -251,7 +251,7 @@ public class BackgroundInitializerTest extends AbstractLangTest {
      */
     @Test
     public void testIsStartedTrue() {
-        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl();
         init.start();
         assertTrue(init.isStarted(), "Not started");
     }
@@ -261,7 +261,7 @@ public class BackgroundInitializerTest extends AbstractLangTest {
      */
     @Test
     public void testIsStartedAfterGet() throws ConcurrentException {
-        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl();
         init.start();
         checkInitialize(init);
         assertTrue(init.isStarted(), "Not started");
@@ -272,7 +272,7 @@ public class BackgroundInitializerTest extends AbstractLangTest {
      */
     @Test
     public void testIsInitialized() throws ConcurrentException {
-        final BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
+        final BackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl();
         init.enableLatch();
         init.start();
         assertTrue(init.isStarted(), "Not started"); //Started and Initialized should return opposite values
@@ -282,11 +282,19 @@ public class BackgroundInitializerTest extends AbstractLangTest {
         assertTrue(init.isInitialized(), "Not initalized after releasing latch");
     }
 
+    protected BackgroundInitializerTestImpl getBackgroundInitializerTestImpl() {
+        return new BackgroundInitializerTestImpl();
+    }
+
+    protected BackgroundInitializerTestImpl getBackgroundInitializerTestImpl(final ExecutorService exec) {
+        return new BackgroundInitializerTestImpl(exec);
+    }
+
     /**
      * A concrete implementation of BackgroundInitializer. It also overloads
      * some methods that simplify testing.
      */
-    private static final class BackgroundInitializerTestImpl extends
+    protected static class BackgroundInitializerTestImpl extends
             BackgroundInitializer<Integer> {
         /** An exception to be thrown by initialize(). */
         Exception ex;

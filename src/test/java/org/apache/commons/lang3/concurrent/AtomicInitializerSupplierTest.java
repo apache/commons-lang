@@ -16,36 +16,32 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.apache.commons.lang3.function.FailableSupplier;
-import org.junit.jupiter.api.Test;
 
 /**
- * Tests {@code LazyInitializer}.
+ * Test class for {@code AtomicInitializer}.
  */
-public class LazyInitializerSupplierTest extends AbstractConcurrentInitializerExceptionsTest {
-
+public class AtomicInitializerSupplierTest extends AbstractConcurrentInitializerExceptionsTest {
     /**
-     * Creates the initializer to be tested. This implementation returns the {@code LazyInitializer} created in the {@code setUp()} method.
+     * Returns the initializer to be tested.
      *
-     * @return the initializer to be tested
+     * @return the {@code AtomicInitializer}
      */
     @Override
     protected ConcurrentInitializer<Object> createInitializer() {
-        return LazyInitializer.<Object>builder().setInitializer(() -> new Object()).get();
+        return AtomicInitializer.<Object>builder().setInitializer(() -> new Object()).get();
     }
 
     @Override
     protected ConcurrentInitializer<Object> createInitializerThatThrowsException(
             final FailableSupplier<Object, ? extends Exception> supplier) {
-        return LazyInitializer.<Object>builder().setInitializer(supplier).get();
+        return AtomicInitializer.<Object>builder().setInitializer(supplier).get();
     }
 
     @Override
     protected ConcurrentInitializer<Object> createInitializerThatThrowsPreCreatedException(
             final FailableSupplier<Object, ? extends Exception> supplier) {
-        return LazyInitializer.<Object>builder().setInitializer(supplier).get();
+        return AtomicInitializer.<Object>builder().setInitializer(supplier).get();
     }
+
 }

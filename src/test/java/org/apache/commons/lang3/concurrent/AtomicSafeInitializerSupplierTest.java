@@ -1,4 +1,6 @@
-/* Licensed to the Apache Software Foundation (ASF) under one or more
+/*
+ /*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
  * The ASF licenses this file to You under the Apache License, Version 2.0
@@ -21,20 +23,39 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.apache.commons.lang3.function.FailableSupplier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@code AtomicSafeInitializer} which also serves as a simple example.
  */
-public class AtomicSafeInitializerTest extends AbstractConcurrentInitializerTest {
+public class AtomicSafeInitializerSupplierTest extends AbstractConcurrentInitializerExceptionsTest {
 
-    /** The instance to be tested. */
-    private AtomicSafeInitializerTestImpl initializer;
+    /** An initCounter used in testing. Reset before each test */
+    private AtomicInteger initCounter = new AtomicInteger();
+
+    /** A supplier method used in testing */
+    private Object incAndMakeObject() {
+        initCounter.incrementAndGet();
+        return new Object();
+    }
+
+    @Override
+    protected ConcurrentInitializer<Object> createInitializerThatThrowsException(
+            FailableSupplier<Object, ? extends Exception> supplier) {
+        return AtomicSafeInitializer.<Object>builder().setInitializer(supplier).get();
+    }
+
+    @Override
+    protected ConcurrentInitializer<Object> createInitializerThatThrowsPreCreatedException(
+            FailableSupplier<Object, ? extends Exception> supplier) {
+        return AtomicSafeInitializer.<Object>builder().setInitializer(supplier).get();
+    }
 
     @BeforeEach
     public void setUp() {
-        initializer = new AtomicSafeInitializerTestImpl();
+        initCounter = new AtomicInteger();
     }
 
     /**
@@ -44,7 +65,7 @@ public class AtomicSafeInitializerTest extends AbstractConcurrentInitializerTest
      */
     @Override
     protected ConcurrentInitializer<Object> createInitializer() {
-        return initializer;
+        return AtomicSafeInitializer.<Object>builder().setInitializer(this::incAndMakeObject).get();
     }
 
     /**
@@ -56,7 +77,7 @@ public class AtomicSafeInitializerTest extends AbstractConcurrentInitializerTest
     @Test
     public void testNumberOfInitializeInvocations() throws ConcurrentException, InterruptedException {
         testGetConcurrent();
-        assertEquals(1, initializer.initCounter.get(), "Wrong number of invocations");
+        assertEquals(1, initCounter.get(), "Wrong number of invocations");
     }
 
     @Test
@@ -76,22 +97,5 @@ public class AtomicSafeInitializerTest extends AbstractConcurrentInitializerTest
 
         assertNull(initializer.get());
         assertNull(initializer.get());
-    }
-
-    /**
-     * A concrete test implementation of {@code AtomicSafeInitializer} which also serves as a simple example.
-     * <p>
-     * This implementation also counts the number of invocations of the initialize() method.
-     * </p>
-     */
-    private static final class AtomicSafeInitializerTestImpl extends AtomicSafeInitializer<Object> {
-        /** A counter for initialize() invocations. */
-        final AtomicInteger initCounter = new AtomicInteger();
-
-        @Override
-        protected Object initialize() {
-            initCounter.incrementAndGet();
-            return new Object();
-        }
     }
 }
