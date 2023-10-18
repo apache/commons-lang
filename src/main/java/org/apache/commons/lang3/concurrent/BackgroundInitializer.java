@@ -169,14 +169,11 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      *
      * @param initializer the initializer supplier called by {@link #initialize()}.
      * @param closer the closer consumer called by {@link #close()}.
-     * @param externalExecutor the {@link ExecutorService} to be used @see #setExternalExecutor(ExecutorService)
+     * @param exec the {@link ExecutorService} to be used @see #setExternalExecutor(ExecutorService)
      */
-    private BackgroundInitializer(final FailableSupplier<T, ConcurrentException> initializer, final FailableConsumer<T, ConcurrentException> closer, final ExecutorService externalExecutor) {
+    private BackgroundInitializer(final FailableSupplier<T, ConcurrentException> initializer, final FailableConsumer<T, ConcurrentException> closer, final ExecutorService exec) {
         super(initializer, closer);
-        //Using setExternalExecutor() here will break the decorator pattern if the decorator
-        //both constructs an instance of BackgroundInitializer in its own constructor and overrides
-        //isStarted()
-        this.externalExecutor = externalExecutor;
+        setExternalExecutor(exec);
     }
 
     /**

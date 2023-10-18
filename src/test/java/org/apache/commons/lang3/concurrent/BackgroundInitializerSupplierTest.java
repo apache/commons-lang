@@ -16,60 +16,133 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
+
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableSupplier;
+import org.junit.jupiter.api.Test;
 
 public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest {
 
-    protected BackgroundInitializerTestImpl getBackgroundInitializerTestImpl() {
-        return new BackgroundInitializerTestImpl();
+    /**
+     * Tests that close() method closes the wrapped object
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testClose() throws Exception {
+        final AbstractBackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl();
+        assertFalse(init.getCloseableCounter().isClosed(), "closed without close() call");
+        init.close();
+        assertFalse(init.getCloseableCounter().isClosed(), "closed() succeeded before start()");
+        init.start();
+        init.get(); //ensure the Future has completed.
+        assertFalse(init.getCloseableCounter().isClosed(), "closed() succeeded after start() but before close()");
+        init.close();
+        assertTrue(init.getCloseableCounter().isClosed(), "closed() did not succeed");
     }
 
-    protected BackgroundInitializerTestImpl getBackgroundInitializerTestImpl(final ExecutorService exec) {
-        return new BackgroundInitializerTestImpl(exec);
+    /**
+     * Tests that close() wraps a checked exception in a IllegalStateException
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testCloseWithCheckedException() throws Exception {
+
+        IOException ioException = new IOException();
+        final FailableConsumer<?, ?> IOExceptionConsumer = (CloseableCounter cc) -> {
+            throw ioException;
+        };
+
+        final AbstractBackgroundInitializerTestImpl init = new SupplierBackgroundInitializerTestImpl(IOExceptionConsumer);
+        init.start();
+        init.get(); //ensure the Future has completed.
+        try {
+            init.close();
+            fail();
+        } catch (Exception e) {
+            assertThat(e, instanceOf(IllegalStateException.class));
+            assertSame(ioException, e.getCause());
+        }
+    }
+
+    /**
+     * Tests that close() throws a runtime exception
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testCloseWithRuntimeException() throws Exception {
+
+        NullPointerException npe = new NullPointerException();
+        final FailableConsumer<?, ?> NullPointerExceptionConsumer = (CloseableCounter cc) -> {
+            throw npe;
+        };
+
+        final AbstractBackgroundInitializerTestImpl init = new SupplierBackgroundInitializerTestImpl(NullPointerExceptionConsumer);
+        init.start();
+        init.get(); //ensure the Future has completed.
+        try {
+            init.close();
+            fail();
+        } catch (Exception e) {
+            assertSame(npe, e);
+        }
     }
 
     /**
      * A concrete implementation of BackgroundInitializer. It is designed as a warpper so the test can
      * use the same builder pattern that real code will.
      */
-    protected static final class BackgroundInitializerTestWrapper extends BackgroundInitializerTestImpl {
+    protected static final class SupplierBackgroundInitializerTestImpl extends AbstractBackgroundInitializerTestImpl {
 
-        /** The BackgroundInitializer we are testing. */
-        final BackgroundInitializer<Integer> wrappedBackgroundInitializer;
-
-        BackgroundInitializerTestWrapper() {
-            this(null);
+        SupplierBackgroundInitializerTestImpl() {
+            super();
+            setSupplierAndCloser((CloseableCounter cc) -> cc.close());
         }
 
-        BackgroundInitializerTestWrapper(final ExecutorService exec) {
-            wrappedBackgroundInitializer = BackgroundInitializer.<Integer>builder()
-                    .setInitializer(this::initialize).setExternalExecutor(exec).get();
+        SupplierBackgroundInitializerTestImpl(FailableConsumer<?, ?> consumer) {
+            super();
+            setSupplierAndCloser(consumer);
         }
 
-        // proxy methods begin here
-        public synchronized boolean isInitialized() {
-            return wrappedBackgroundInitializer.isInitialized();
+        SupplierBackgroundInitializerTestImpl(final ExecutorService exec) {
+            super(exec);
+            setSupplierAndCloser((CloseableCounter cc) -> cc.close());
         }
 
-        public synchronized boolean isStarted() {
-            return wrappedBackgroundInitializer.isStarted();
-        }
+        private void setSupplierAndCloser(FailableConsumer<?, ?> consumer) {
+            try {
+                // Use reflection here because the constructors we need are private
+                FailableSupplier<?, ?> supplier = () -> initializeInternal();
+                Field initializer = AbstractConcurrentInitializer.class.getDeclaredField("initializer");
+                initializer.setAccessible(true);
+                initializer.set(this, supplier);
 
-        public synchronized boolean start() {
-            return wrappedBackgroundInitializer.start();
+                Field closer = AbstractConcurrentInitializer.class.getDeclaredField("closer");
+                closer.setAccessible(true);
+                closer.set(this, consumer);
+            } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+                fail();
+            }
         }
+    }
 
-        public Integer get() throws ConcurrentException {
-            return wrappedBackgroundInitializer.get();
-        }
+    protected AbstractBackgroundInitializerTestImpl getBackgroundInitializerTestImpl() {
+        return new SupplierBackgroundInitializerTestImpl();
+    }
 
-        public synchronized Future<Integer> getFuture() {
-            return wrappedBackgroundInitializer.getFuture();
-        }
-
-        public void close() throws Exception {
-            wrappedBackgroundInitializer.close();
-        }
+    protected SupplierBackgroundInitializerTestImpl getBackgroundInitializerTestImpl(final ExecutorService exec) {
+        return new SupplierBackgroundInitializerTestImpl(exec);
     }
 }

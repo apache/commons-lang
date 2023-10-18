@@ -216,6 +216,32 @@ public class MultiBackgroundInitializer
     }
 
     /**
+     * Calls the closer of all child {@code BackgroundInitializer} objects
+     *
+     * @throws Exception throws an IllegalStateException that will have all other exceptions as suppressed exceptions
+     * @since 3.14.0
+     */
+    @Override
+    public void close() throws Exception {
+        Exception exception = null;
+
+        for (BackgroundInitializer<?> child : childInitializers.values()) {
+            try {
+                child.close();
+            } catch (Exception e) {
+                if (exception == null) {
+                    exception = new IllegalStateException();
+                }
+                exception.addSuppressed(e);
+            }
+        }
+
+        if (exception != null) {
+            throw exception;
+        }
+    }
+
+    /**
      * A data class for storing the results of the background initialization
      * performed by {@link MultiBackgroundInitializer}. Objects of this inner
      * class are returned by {@link MultiBackgroundInitializer#initialize()}.

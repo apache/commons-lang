@@ -16,16 +16,13 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableSupplier;
-import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@code LazyInitializer}.
  */
-public class LazyInitializerSupplierTest extends AbstractConcurrentInitializerExceptionsTest {
+public class LazyInitializerSupplierTest extends AbstractConcurrentInitializerCloseAndExceptionsTest {
 
     /**
      * Creates the initializer to be tested. This implementation returns the {@code LazyInitializer} created in the {@code setUp()} method.
@@ -38,14 +35,16 @@ public class LazyInitializerSupplierTest extends AbstractConcurrentInitializerEx
     }
 
     @Override
-    protected ConcurrentInitializer<Object> createInitializerThatThrowsException(
-            final FailableSupplier<Object, ? extends Exception> supplier) {
-        return LazyInitializer.<Object>builder().setInitializer(supplier).get();
+    protected ConcurrentInitializer<CloseableObject> createInitializerThatThrowsException(
+            final FailableSupplier<CloseableObject, ? extends Exception> supplier,
+            final FailableConsumer<CloseableObject, ? extends Exception> closer) {
+        return LazyInitializer.<CloseableObject>builder().setInitializer(supplier).setCloser(closer).get();
     }
 
     @Override
-    protected ConcurrentInitializer<Object> createInitializerThatThrowsPreCreatedException(
-            final FailableSupplier<Object, ? extends Exception> supplier) {
-        return LazyInitializer.<Object>builder().setInitializer(supplier).get();
+    protected ConcurrentInitializer<CloseableObject> createInitializerThatThrowsPreCreatedException(
+            final FailableSupplier<CloseableObject, ? extends Exception> supplier,
+            final FailableConsumer<CloseableObject, ? extends Exception> closer) {
+        return LazyInitializer.<CloseableObject>builder().setInitializer(supplier).setCloser(closer).get();
     }
 }

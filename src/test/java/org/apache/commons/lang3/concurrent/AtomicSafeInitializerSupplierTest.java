@@ -23,6 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.apache.commons.lang3.concurrent.AbstractConcurrentInitializerCloseAndExceptionsTest.CloseableObject;
+import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableSupplier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,7 +32,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@code AtomicSafeInitializer} which also serves as a simple example.
  */
-public class AtomicSafeInitializerSupplierTest extends AbstractConcurrentInitializerExceptionsTest {
+public class AtomicSafeInitializerSupplierTest extends AbstractConcurrentInitializerCloseAndExceptionsTest {
 
     /** An initCounter used in testing. Reset before each test */
     private AtomicInteger initCounter = new AtomicInteger();
@@ -42,15 +44,17 @@ public class AtomicSafeInitializerSupplierTest extends AbstractConcurrentInitial
     }
 
     @Override
-    protected ConcurrentInitializer<Object> createInitializerThatThrowsException(
-            FailableSupplier<Object, ? extends Exception> supplier) {
-        return AtomicSafeInitializer.<Object>builder().setInitializer(supplier).get();
+    protected ConcurrentInitializer<CloseableObject> createInitializerThatThrowsException(
+            final FailableSupplier<CloseableObject, ? extends Exception> supplier,
+            final FailableConsumer<CloseableObject, ? extends Exception> closer) {
+        return AtomicSafeInitializer.<CloseableObject>builder().setInitializer(supplier).setCloser(closer).get();
     }
 
     @Override
-    protected ConcurrentInitializer<Object> createInitializerThatThrowsPreCreatedException(
-            FailableSupplier<Object, ? extends Exception> supplier) {
-        return AtomicSafeInitializer.<Object>builder().setInitializer(supplier).get();
+    protected ConcurrentInitializer<CloseableObject> createInitializerThatThrowsPreCreatedException(
+            final FailableSupplier<CloseableObject, ? extends Exception> supplier,
+            final FailableConsumer<CloseableObject, ? extends Exception> closer) {
+        return AtomicSafeInitializer.<CloseableObject>builder().setInitializer(supplier).setCloser(closer).get();
     }
 
     @BeforeEach

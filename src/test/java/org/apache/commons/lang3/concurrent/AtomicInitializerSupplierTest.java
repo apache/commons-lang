@@ -16,12 +16,13 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableSupplier;
 
 /**
  * Test class for {@code AtomicInitializer}.
  */
-public class AtomicInitializerSupplierTest extends AbstractConcurrentInitializerExceptionsTest {
+public class AtomicInitializerSupplierTest extends AbstractConcurrentInitializerCloseAndExceptionsTest {
     /**
      * Returns the initializer to be tested.
      *
@@ -33,15 +34,17 @@ public class AtomicInitializerSupplierTest extends AbstractConcurrentInitializer
     }
 
     @Override
-    protected ConcurrentInitializer<Object> createInitializerThatThrowsException(
-            final FailableSupplier<Object, ? extends Exception> supplier) {
-        return AtomicInitializer.<Object>builder().setInitializer(supplier).get();
+    protected ConcurrentInitializer<CloseableObject> createInitializerThatThrowsException(
+            final FailableSupplier<CloseableObject, ? extends Exception> supplier,
+            final FailableConsumer<CloseableObject, ? extends Exception> closer) {
+        return AtomicInitializer.<CloseableObject>builder().setInitializer(supplier).setCloser(closer).get();
     }
 
     @Override
-    protected ConcurrentInitializer<Object> createInitializerThatThrowsPreCreatedException(
-            final FailableSupplier<Object, ? extends Exception> supplier) {
-        return AtomicInitializer.<Object>builder().setInitializer(supplier).get();
+    protected ConcurrentInitializer<CloseableObject> createInitializerThatThrowsPreCreatedException(
+            final FailableSupplier<CloseableObject, ? extends Exception> supplier,
+            final FailableConsumer<CloseableObject, ? extends Exception> closer) {
+        return AtomicInitializer.<CloseableObject>builder().setInitializer(supplier).setCloser(closer).get();
     }
 
 }
