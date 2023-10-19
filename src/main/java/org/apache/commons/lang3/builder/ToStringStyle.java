@@ -1550,7 +1550,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets the short class name for a class.
      *
-     * <p>The short class name is the classname excluding
+     * <p>The short class name is the class name excluding
      * the package name.</p>
      *
      * @param cls  the {@link Class} to get the short name of
@@ -2129,7 +2129,7 @@ public abstract class ToStringStyle implements Serializable {
 
     /**
      * {@link ToStringStyle} that does not print out the
-     * classname, identity hash code, content start or field name.
+     * class name, identity hash code, content start or field name.
      *
      * <p>This is an inner class rather than using
      * {@link StandardToStringStyle} to ensure its immutability.</p>
@@ -2195,7 +2195,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * {@link ToStringStyle} that does not print out the classname
+     * {@link ToStringStyle} that does not print out the class name
      * and identity hash code but prints content start and field names.
      *
      * <p>This is an inner class rather than using
