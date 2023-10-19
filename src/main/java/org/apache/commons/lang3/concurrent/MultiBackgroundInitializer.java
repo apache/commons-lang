@@ -218,21 +218,28 @@ public class MultiBackgroundInitializer
     /**
      * Calls the closer of all child {@code BackgroundInitializer} objects
      *
-     * @throws Exception throws an IllegalStateException that will have all other exceptions as suppressed exceptions
+     * @throws ConcurrentException throws an ConcurrentException that will have all other exceptions as suppressed exceptions. ConcurrentException thrown by children will be unwrapped.
      * @since 3.14.0
      */
     @Override
-    public void close() throws Exception {
-        Exception exception = null;
+    public void close() throws ConcurrentException {
+        ConcurrentException exception = null;
 
         for (BackgroundInitializer<?> child : childInitializers.values()) {
             try {
                 child.close();
             } catch (Exception e) {
                 if (exception == null) {
-                    exception = new IllegalStateException();
+                    exception = new ConcurrentException();
                 }
-                exception.addSuppressed(e);
+
+                if (e instanceof ConcurrentException) {
+                    // Because ConcurrentException is only created by classes in this package
+                    // we can safely unwrap it.
+                    exception.addSuppressed(e.getCause());
+                } else {
+                    exception.addSuppressed(e);
+                }
             }
         }
 

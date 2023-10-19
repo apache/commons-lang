@@ -113,7 +113,7 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
     }
 
     /**
-     * Tests that close() wraps a checked exception from a child initializer in an IllegalStateException as the first suppressed under in an IllegalStateException
+     * Tests that close() wraps a checked exception from a child initializer in an ConcurrentException as the first suppressed under in an ConcurrentException
      *
      * @throws Exception
      */
@@ -140,13 +140,13 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
             initializer.close();
             fail();
         } catch (Exception e) {
-            assertThat(e, instanceOf(IllegalStateException.class));
-            assertSame(ioException, e.getSuppressed()[0].getCause());
+            assertThat(e, instanceOf(ConcurrentException.class));
+            assertSame(ioException, e.getSuppressed()[0]);
         }
     }
 
     /**
-     * Tests that close() wraps a runtime exception from a child initializer as the first suppressed under in an IllegalStateException
+     * Tests that close() wraps a runtime exception from a child initializer as the first suppressed under in an ConcurrentException
      *
      * @throws Exception
      */
@@ -173,14 +173,14 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
             initializer.close();
             fail();
         } catch (Exception e) {
-            assertThat(e, instanceOf(IllegalStateException.class));
+            assertThat(e, instanceOf(ConcurrentException.class));
             assertSame(npe, e.getSuppressed()[0]);
         }
     }
 
     /**
      * Tests that calling close() on a MultiBackgroundInitializer with two children that both throw exceptions throws
-     * an IllegalStateException and both the child exceptions are present
+     * an ConcurrentException and both the child exceptions are present
      *
      * @throws Exception
      */
@@ -219,7 +219,7 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
             boolean foundChildTwoException = false;
 
             for (Throwable t : e.getSuppressed()) {
-                if (t.getCause() != null && t.getCause().equals(ioException)) {
+                if (t.equals(ioException)) {
                     foundChildOneException = true;
                 }
                 if (t.equals(npe)) {

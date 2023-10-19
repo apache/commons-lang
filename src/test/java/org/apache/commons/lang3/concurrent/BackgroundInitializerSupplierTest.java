@@ -52,7 +52,7 @@ public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest
     }
 
     /**
-     * Tests that close() wraps a checked exception in a IllegalStateException
+     * Tests that close() wraps a checked exception in a ConcurrentException
      *
      * @throws Exception
      */
@@ -71,7 +71,7 @@ public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest
             init.close();
             fail();
         } catch (Exception e) {
-            assertThat(e, instanceOf(IllegalStateException.class));
+            assertThat(e, instanceOf(ConcurrentException.class));
             assertSame(ioException, e.getCause());
         }
     }

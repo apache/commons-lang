@@ -127,15 +127,22 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
     /**
      * Calls the closer with the manager object.
      *
-     * @throws E Thrown by the closer.
+     * @throws ConcurrentException Thrown by the closer.
      * @since 3.14.0
      */
-    public void close() throws E {
+    public void close() throws ConcurrentException {
         if (isInitialized()) {
             try {
                 closer.accept(get());
             } catch (final Exception e) {
-                throw new IllegalStateException(ExceptionUtils.throwUnchecked(e));
+                // This intentionally does not duplicate the logic in initialize
+                // or care about the generic type E.
+                //
+                // initialize may run inside a Future and it does not make sense
+                // to wrap an exception stored inside a Future. However close()
+                // always runs on the current thread so it always wraps in a
+                // ConcurrentException
+                throw new ConcurrentException(ExceptionUtils.throwUnchecked(e));
             }
         }
     }

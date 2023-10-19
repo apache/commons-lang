@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -42,7 +44,7 @@ import org.junit.jupiter.api.Test;
 public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extends AbstractConcurrentInitializerTest {
 
     /**
-     * This method tests that if a ConcurrentInitializer.initialize method catches a
+     * This method tests that if a AbstractConcurrentInitializer.initialize method catches a
      * ConcurrentException it will rethrow it without wrapping it.
      */
     @Test
@@ -67,7 +69,8 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
     }
 
     /**
-     * This method tests that if LazyInitializer.initialize catches a ConcurrentException it will rethrow it without wrapping it
+     * This method tests that if AbstractConcurrentInitializer.initialize catches a checked
+     * exception it will rethrow it wrapped in a ConcurrentException
      */
     @SuppressWarnings("unchecked") //for NOP
     @Test
@@ -78,6 +81,10 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
         assertThrows(ConcurrentException.class, () -> initializer.get());
     }
 
+    /**
+     * This method tests that if AbstractConcurrentInitializer.initialize catches a runtime exception
+     * it will not be wrapped in a ConcurrentException
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void testSupplierThrowsRuntimeException() {
@@ -88,30 +95,9 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
     }
 
     /**
-     * This method tests that if LazyInitializer.initialize catches a ConcurrentException it will rethrow it without wrapping it
+     * This method tests that if AbstractConcurrentInitializer.close catches a
+     * ConcurrentException it will rethrow it wrapped in a ConcurrentException
      */
-    @SuppressWarnings("rawtypes")
-    @Test
-    public void testCloserThrowsIllegalStateException() {
-        final IllegalStateException illegalStateException = new IllegalStateException();
-
-        final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsPreCreatedException(
-                CloseableObject::new,
-                (CloseableObject) -> {
-                    throw illegalStateException;
-                    });
-        try {
-            initializer.get();
-            ((AbstractConcurrentInitializer) initializer).close();
-            fail();
-        } catch (Exception e) {
-            // We do not have access to the type information as that is in the concrete subclasses
-            // of AbstractConcurrentInitializer. So catch Exception, the assert checks everything
-            // important
-            assertEquals(illegalStateException, e);
-        }
-    }
-
     @SuppressWarnings("rawtypes")
     @Test
     public void testCloserThrowsCheckedException() throws ConcurrentException {
@@ -119,12 +105,20 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
                 CloseableObject::new,
                 (CloseableObject) -> methodThatThrowsException(ExceptionToThrow.IOException));
 
-        initializer.get();
-        assertThrows(IllegalStateException.class, () -> {
+        try {
+            initializer.get();
             ((AbstractConcurrentInitializer) initializer).close();
-            });
+            fail();
+        } catch (Exception e) {
+            assertThat(e, instanceOf(ConcurrentException.class));
+            assertThat(e.getCause(), instanceOf(IOException.class));
+        }
     }
 
+    /**
+     * This method tests that if AbstractConcurrentInitializer.close catches a
+     * RuntimeException it will throw it withuot wrapping it in a ConcurrentException
+     */
     @SuppressWarnings("rawtypes")
     @Test
     public void testCloserThrowsRuntimeException() throws ConcurrentException {
@@ -138,6 +132,9 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
             });
     }
 
+    /**
+     * This method tests that if AbstractConcurrentInitializer.close actually closes the wrapped object
+     */
     @SuppressWarnings("rawtypes")
     @Test
     public void testWorkingCloser() throws Exception {
