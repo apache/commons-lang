@@ -163,9 +163,13 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
         try {
             return initializer.get();
         } catch (final Exception e) {
-            // Do this first so we don't pass a RuntimeException into an exception constructor
+            // Do this first so we don't pass a RuntimeException or Error into an exception constructor
             ExceptionUtils.throwUnchecked(e);
 
+            // Depending on the subclass of AbstractConcurrentInitializer E can be Exception or ConcurrentException
+            // if E is Exception the if statement below will always be true, and the new Exception object created
+            // in getTypedException will never be thrown. If E is ConcurrentException and the if statement is false
+            // we throw the ConcurrentException returned from getTypedException, which wraps the original exception.
             final E typedException = getTypedException(e);
             if (typedException.getClass().isAssignableFrom(e.getClass())) {
                 throw (E) e;

@@ -40,11 +40,4 @@ public class AtomicInitializerSupplierTest extends AbstractConcurrentInitializer
         return AtomicInitializer.<CloseableObject>builder().setInitializer(supplier).setCloser(closer).get();
     }
 
-    @Override
-    protected ConcurrentInitializer<CloseableObject> createInitializerThatThrowsPreCreatedException(
-            final FailableSupplier<CloseableObject, ? extends Exception> supplier,
-            final FailableConsumer<CloseableObject, ? extends Exception> closer) {
-        return AtomicInitializer.<CloseableObject>builder().setInitializer(supplier).setCloser(closer).get();
-    }
-
 }

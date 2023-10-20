@@ -36,10 +36,10 @@ import org.junit.jupiter.api.Test;
  */
 public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundInitializerTest {
 
-    private NullPointerException npe = null;
-    private IOException ioException = null;
-    private FailableConsumer<?, ?> ioExceptionConsumer = null;
-    private FailableConsumer<?, ?> nullPointerExceptionConsumer = null;
+    private NullPointerException npe;
+    private IOException ioException;
+    private FailableConsumer<?, ?> ioExceptionConsumer;
+    private FailableConsumer<?, ?> nullPointerExceptionConsumer;
 
     @BeforeEach
     public void setUpException() throws Exception {
@@ -86,7 +86,7 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
         long waitTime = 3000;
         long endTime = startTime + waitTime;
         //wait for the children to start
-        while (! childOne.isStarted() || ! childTwo.isStarted()) {
+        while (!childOne.isStarted() || !childTwo.isStarted()) {
             if (System.currentTimeMillis() > endTime) {
                 fail("children never started");
                 Thread.sleep(PERIOD_MILLIS);
@@ -96,11 +96,11 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
         assertFalse(childOne.getCloseableCounter().isClosed(), "child one close() succeeded after start() but before close()");
         assertFalse(childTwo.getCloseableCounter().isClosed(), "child two close() succeeded after start() but before close()");
 
-        childOne.get(); // ensure this child finishes initialising
-        childTwo.get(); // ensure this child finishes initialising
+        childOne.get(); // ensure this child finishes initializing
+        childTwo.get(); // ensure this child finishes initializing
 
-        assertFalse(childOne.getCloseableCounter().isClosed(), "child one initialising succeeded after start() but before close()");
-        assertFalse(childTwo.getCloseableCounter().isClosed(), "child two initialising succeeded after start() but before close()");
+        assertFalse(childOne.getCloseableCounter().isClosed(), "child one initializing succeeded after start() but before close()");
+        assertFalse(childTwo.getCloseableCounter().isClosed(), "child two initializing succeeded after start() but before close()");
 
         try {
             initializer.close();
@@ -196,9 +196,9 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
 
         initializer.start();
 
-        long startTime = System.currentTimeMillis();
-        long waitTime = 3000;
-        long endTime = startTime + waitTime;
+        final long startTime = System.currentTimeMillis();
+        final long waitTime = 3000;
+        final long endTime = startTime + waitTime;
         //wait for the children to start
         while (! childOne.isStarted() || ! childTwo.isStarted()) {
             if (System.currentTimeMillis() > endTime) {
@@ -207,8 +207,8 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
             }
         }
 
-        childOne.get(); // ensure this child finishes initialising
-        childTwo.get(); // ensure this child finishes initialising
+        childOne.get(); // ensure this child finishes initializing
+        childTwo.get(); // ensure this child finishes initializing
 
         try {
             initializer.close();
@@ -245,12 +245,12 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
         SupplierChildBackgroundInitializer(FailableConsumer<?, ?> consumer) {
             try {
                 // Use reflection here because the constructors we need are private
-                FailableSupplier<?, ?> supplier = () -> initializeInternal();
-                Field initializer = AbstractConcurrentInitializer.class.getDeclaredField("initializer");
+                final FailableSupplier<?, ?> supplier = () -> initializeInternal();
+                final Field initializer = AbstractConcurrentInitializer.class.getDeclaredField("initializer");
                 initializer.setAccessible(true);
                 initializer.set(this, supplier);
 
-                Field closer = AbstractConcurrentInitializer.class.getDeclaredField("closer");
+                final Field closer = AbstractConcurrentInitializer.class.getDeclaredField("closer");
                 closer.setAccessible(true);
                 closer.set(this, consumer);
             } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {

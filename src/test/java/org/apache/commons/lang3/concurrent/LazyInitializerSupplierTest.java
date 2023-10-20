@@ -25,7 +25,7 @@ import org.apache.commons.lang3.function.FailableSupplier;
 public class LazyInitializerSupplierTest extends AbstractConcurrentInitializerCloseAndExceptionsTest {
 
     /**
-     * Creates the initializer to be tested. This implementation returns the {@code LazyInitializer} created in the {@code setUp()} method.
+     * Creates the initializer to be tested.
      *
      * @return the initializer to be tested
      */
@@ -36,13 +36,6 @@ public class LazyInitializerSupplierTest extends AbstractConcurrentInitializerCl
 
     @Override
     protected ConcurrentInitializer<CloseableObject> createInitializerThatThrowsException(
-            final FailableSupplier<CloseableObject, ? extends Exception> supplier,
-            final FailableConsumer<CloseableObject, ? extends Exception> closer) {
-        return LazyInitializer.<CloseableObject>builder().setInitializer(supplier).setCloser(closer).get();
-    }
-
-    @Override
-    protected ConcurrentInitializer<CloseableObject> createInitializerThatThrowsPreCreatedException(
             final FailableSupplier<CloseableObject, ? extends Exception> supplier,
             final FailableConsumer<CloseableObject, ? extends Exception> closer) {
         return LazyInitializer.<CloseableObject>builder().setInitializer(supplier).setCloser(closer).get();

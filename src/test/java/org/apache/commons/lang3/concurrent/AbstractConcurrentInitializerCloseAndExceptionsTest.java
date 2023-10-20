@@ -32,11 +32,9 @@ import org.apache.commons.lang3.function.FailableSupplier;
 import org.junit.jupiter.api.Test;
 
 /**
- *
  * An abstract base class for tests of exceptions thrown during initialize and close methods
  * on concrete {@code ConcurrentInitializer} implementations.
- * </p>
- * <p>
+ *
  * This class provides some basic tests for initializer implementations. Derived
  * class have to create a {@link ConcurrentInitializer} object on which the
  * tests are executed.
@@ -52,7 +50,7 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
         final ConcurrentException concurrentException = new ConcurrentException();
 
         @SuppressWarnings("unchecked")
-        final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsPreCreatedException(
+        final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
                 () -> {
                     if ("test".equals("test")) {
                         throw concurrentException;
@@ -104,7 +102,6 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
         final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
                 CloseableObject::new,
                 (CloseableObject) -> methodThatThrowsException(ExceptionToThrow.IOException));
-
         try {
             initializer.get();
             ((AbstractConcurrentInitializer) initializer).close();
@@ -154,7 +151,8 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
         NullPointerException
     }
 
-    //The use of enums makes this look like a realistic method to the compiler
+    // The use of enums rather than accepting an Exception as the input means we can have
+    // multiple exception types on the method signature.
     protected static CloseableObject methodThatThrowsException(ExceptionToThrow input) throws IOException, SQLException, ConcurrentException {
         switch (input) {
         case IOException:
@@ -172,11 +170,8 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
     protected abstract ConcurrentInitializer<CloseableObject> createInitializerThatThrowsException(
             FailableSupplier<CloseableObject, ? extends Exception> supplier, FailableConsumer<CloseableObject, ? extends Exception> closer);
 
-    protected abstract ConcurrentInitializer<CloseableObject> createInitializerThatThrowsPreCreatedException(
-            FailableSupplier<CloseableObject, ? extends Exception> supplier, FailableConsumer<CloseableObject, ? extends Exception> closer);
-
     protected static final class CloseableObject {
-        boolean closed = false;
+        boolean closed;
 
         public boolean isClosed() {
             return closed;

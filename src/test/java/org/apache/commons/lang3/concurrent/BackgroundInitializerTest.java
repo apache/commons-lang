@@ -29,6 +29,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.commons.lang3.AbstractLangTest;
@@ -365,26 +367,26 @@ public class BackgroundInitializerTest extends AbstractLangTest {
 
     protected static class CloseableCounter {
         /** The number of invocations of initialize(). */
-        volatile int initializeCalls;
+        AtomicInteger initializeCalls = new AtomicInteger();
 
         /** Has the close consumer successfully reached this object. */
-        volatile boolean closed;
+        AtomicBoolean closed = new AtomicBoolean();
 
         public CloseableCounter increment() {
-            initializeCalls++;
+            initializeCalls.incrementAndGet();
             return this;
         }
 
         public int getInitializeCalls() {
-            return initializeCalls;
+            return initializeCalls.get();
         }
 
         public void close() {
-            closed = true;
+            closed.set(true);
         }
 
         public boolean isClosed() {
-            return closed;
+            return closed.get();
         }
     }
 }

@@ -99,7 +99,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
         /**
          * The external executor service for executing tasks. null is an permitted value.
          */
-        private ExecutorService externalExecutor = null;
+        private ExecutorService externalExecutor;
 
         /**
          * Sets the external executor service for executing tasks. null is an permitted value.

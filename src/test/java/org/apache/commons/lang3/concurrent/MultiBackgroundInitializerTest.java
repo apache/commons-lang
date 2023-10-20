@@ -400,11 +400,11 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
         assertFalse(initializer.isInitialized(), "Initalized with two children running");
 
         childOne.releaseLatch();
-        childOne.get(); //ensure this child finishes initialising
+        childOne.get(); //ensure this child finishes initializing
         assertFalse(initializer.isInitialized(), "Initalized with one child running");
 
         childTwo.releaseLatch();
-        childTwo.get(); //ensure this child finishes initialising
+        childTwo.get(); //ensure this child finishes initializing
         assertTrue(initializer.isInitialized(), "Not initalized with no children running");
     }
 

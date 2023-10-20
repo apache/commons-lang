@@ -59,7 +59,7 @@ public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest
     @Test
     public void testCloseWithCheckedException() throws Exception {
 
-        IOException ioException = new IOException();
+        final IOException ioException = new IOException();
         final FailableConsumer<?, ?> IOExceptionConsumer = (CloseableCounter cc) -> {
             throw ioException;
         };
@@ -84,7 +84,7 @@ public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest
     @Test
     public void testCloseWithRuntimeException() throws Exception {
 
-        NullPointerException npe = new NullPointerException();
+        final NullPointerException npe = new NullPointerException();
         final FailableConsumer<?, ?> NullPointerExceptionConsumer = (CloseableCounter cc) -> {
             throw npe;
         };
