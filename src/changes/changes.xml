@@ -61,6 +61,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Return ToStringStyle.nullText instead of NPE for ReflectionToStringBuilder.toString().</action>
     <action                   type="fix" dev="ggregory" due-to="yichinzhu, Gary Gregory">Fix ThresholdCircuitBreaker#checkState() #1100.</action>
     <action                   type="fix" dev="ggregory" due-to="Benjamin Confino, Gary Gregory">Use ConcurrentInitializer implementations without subclassing. #1123.</action>
+    <action                   type="fix" dev="ggregory" due-to="Alex Herbert">Update critical value for chi-square test #1125.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Rob Spoor, Gary Gregory">Add Functions#function(Function).</action>
     <action                   type="add" dev="ggregory" due-to="Rob Spoor, Gary Gregory">Add FailableFunction#function(FailableFunction).</action>
