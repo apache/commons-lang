@@ -46,12 +46,12 @@ import org.apache.commons.lang3.StringUtils;
  * resume before suspend or unsplit before split.
  * </p>
  *
- * <p>
- * 1. split(), suspend(), or stop() cannot be invoked twice<br>
- * 2. unsplit() may only be called if the watch has been split()<br>
- * 3. resume() may only be called if the watch has been suspend()<br>
- * 4. start() cannot be called twice without calling reset()
- * </p>
+ * <ol>
+ * <li>{@link #split()}, {@link #suspend()}, or {@link #stop()} cannot be invoked twice</li>
+ * <li>{@link #unsplit()} may only be called if the watch has been {@link #split()}</li>
+ * <li>{@link #resume()} may only be called if the watch has been {@link #suspend()}</li>
+ * <li>{@link #start()} cannot be called twice without calling {@link #reset()}</li>
+ * </ol>
  *
  * <p>This class is not thread-safe</p>
  *
@@ -327,7 +327,7 @@ public class StopWatch {
      * @since 2.1
      */
     public long getSplitTime() {
-        return getSplitNanoTime() / NANO_2_MILLIS;
+        return nanosToMillis(getSplitNanoTime());
     }
 
     /**
@@ -375,7 +375,7 @@ public class StopWatch {
      * @return the time in milliseconds
      */
     public long getTime() {
-        return getNanoTime() / NANO_2_MILLIS;
+        return nanosToMillis(getNanoTime());
     }
 
     /**
@@ -426,6 +426,16 @@ public class StopWatch {
      */
     public boolean isSuspended() {
         return runningState.isSuspended();
+    }
+
+    /**
+     * Converts nanoseconds to milliseconds.
+     *
+     * @param nanos nanoseconds to convert.
+     * @return milliseconds conversion result.
+     */
+    private long nanosToMillis(long nanos) {
+        return nanos / NANO_2_MILLIS;
     }
 
     /**
