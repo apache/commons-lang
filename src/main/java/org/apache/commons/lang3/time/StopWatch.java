@@ -212,12 +212,18 @@ public class StopWatch {
     private long startTimeNanos;
 
     /**
-     * The start time in milliseconds - nanoTime is only for elapsed time so we need to also store the currentTimeMillis to maintain the old getStartTime API.
+     * The start time in milliseconds.
+     * <p>
+     * nanoTime is only for elapsed time so we need to also store the currentTimeMillis to maintain the old getStartTime API.
+     * </p>
      */
     private long startTimeMillis;
 
     /**
-     * The end time in milliseconds - nanoTime is only for elapsed time so we need to also store the currentTimeMillis to maintain the old getStartTime API.
+     * The end time in milliseconds.
+     * <p>
+     * nanoTime is only for elapsed time so we need to also store the currentTimeMillis to maintain the old getStartTime API.
+     * </p>
      */
     private long stopTimeMillis;
 
@@ -228,7 +234,6 @@ public class StopWatch {
 
     /**
      * Constructor.
-     *
      */
     public StopWatch() {
         this(null);
