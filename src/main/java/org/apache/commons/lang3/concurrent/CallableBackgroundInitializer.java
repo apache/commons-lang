@@ -119,4 +119,13 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
     private void checkCallable(final Callable<T> callable) {
         Objects.requireNonNull(callable, "callable");
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected Exception getTypedException(Exception e) {
+        //This Exception object will be used for type comparison in AbstractConcurrentInitializer.initialize but not thrown
+        return new Exception(e);
+    }
 }

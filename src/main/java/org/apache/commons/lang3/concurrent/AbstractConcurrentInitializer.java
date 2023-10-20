@@ -20,6 +20,7 @@ package org.apache.commons.lang3.concurrent;
 import java.util.Objects;
 
 import org.apache.commons.lang3.builder.AbstractSupplier;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableSupplier;
 
@@ -46,19 +47,19 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
         /**
          * Closer consumer called by {@link #close()}.
          */
-        private FailableConsumer<T, E> closer = FailableConsumer.nop();
+        private FailableConsumer<T, ? extends Exception> closer = FailableConsumer.nop();
 
         /**
          * Initializer supplier called by {@link #initialize()}.
          */
-        private FailableSupplier<T, E> initializer = FailableSupplier.nul();
+        private FailableSupplier<T, ? extends Exception> initializer = FailableSupplier.nul();
 
         /**
          * Gets the closer consumer called by {@link #close()}.
          *
          * @return the closer consumer called by {@link #close()}.
          */
-        public FailableConsumer<T, E> getCloser() {
+        public FailableConsumer<T, ? extends Exception> getCloser() {
             return closer;
         }
 
@@ -67,7 +68,7 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
          *
          * @return the initializer supplier called by {@link #initialize()}.
          */
-        public FailableSupplier<T, E> getInitializer() {
+        public FailableSupplier<T, ? extends Exception> getInitializer() {
             return initializer;
         }
 
@@ -77,7 +78,7 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
          * @param closer the consumer called by {@link #close()}.
          * @return this
          */
-        public B setCloser(final FailableConsumer<T, E> closer) {
+        public B setCloser(final FailableConsumer<T, ? extends Exception> closer) {
             this.closer = closer != null ? closer : FailableConsumer.nop();
             return asThis();
         }
@@ -88,7 +89,7 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
          * @param initializer the supplier called by {@link #initialize()}.
          * @return this
          */
-        public B setInitializer(final FailableSupplier<T, E> initializer) {
+        public B setInitializer(final FailableSupplier<T, ? extends Exception> initializer) {
             this.initializer = initializer != null ? initializer : FailableSupplier.nul();
             return asThis();
         }
@@ -98,12 +99,12 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
     /**
      * Closer consumer called by {@link #close()}.
      */
-    private final FailableConsumer<? super T, E> closer;
+    private final FailableConsumer<? super T, ? extends Exception> closer;
 
     /**
      * Initializer supplier called by {@link #initialize()}.
      */
-    private final FailableSupplier<? extends T, E> initializer;
+    private final FailableSupplier<? extends T, ? extends Exception> initializer;
 
     /**
      * Constructs a new instance.
@@ -118,7 +119,7 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
      * @param initializer the initializer supplier called by {@link #initialize()}.
      * @param closer the closer consumer called by {@link #close()}.
      */
-    AbstractConcurrentInitializer(final FailableSupplier<? extends T, E> initializer, final FailableConsumer<? super T, E> closer) {
+    AbstractConcurrentInitializer(final FailableSupplier<? extends T, ? extends Exception> initializer, final FailableConsumer<? super T, ? extends Exception> closer) {
         this.closer = Objects.requireNonNull(closer, "closer");
         this.initializer = Objects.requireNonNull(initializer, "initializer");
     }
@@ -126,16 +127,22 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
     /**
      * Calls the closer with the manager object.
      *
-     * @throws E Thrown by the closer.
+     * @throws ConcurrentException Thrown by the closer.
      * @since 3.14.0
      */
-    public void close() throws E {
+    public void close() throws ConcurrentException {
         if (isInitialized()) {
             try {
                 closer.accept(get());
-            } catch (final ConcurrentException e) {
-                // Should not happen
-                throw new IllegalStateException(e);
+            } catch (final Exception e) {
+                // This intentionally does not duplicate the logic in initialize
+                // or care about the generic type E.
+                //
+                // initialize may run inside a Future and it does not make sense
+                // to wrap an exception stored inside a Future. However close()
+                // always runs on the current thread so it always wraps in a
+                // ConcurrentException
+                throw new ConcurrentException(ExceptionUtils.throwUnchecked(e));
             }
         }
     }
@@ -151,8 +158,24 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
      * @return the managed data object
      * @throws E if an error occurs during object creation
      */
+    @SuppressWarnings("unchecked")
     protected T initialize() throws E {
-        return initializer.get();
+        try {
+            return initializer.get();
+        } catch (final Exception e) {
+            // Do this first so we don't pass a RuntimeException or Error into an exception constructor
+            ExceptionUtils.throwUnchecked(e);
+
+            // Depending on the subclass of AbstractConcurrentInitializer E can be Exception or ConcurrentException
+            // if E is Exception the if statement below will always be true, and the new Exception object created
+            // in getTypedException will never be thrown. If E is ConcurrentException and the if statement is false
+            // we throw the ConcurrentException returned from getTypedException, which wraps the original exception.
+            final E typedException = getTypedException(e);
+            if (typedException.getClass().isAssignableFrom(e.getClass())) {
+                throw (E) e;
+            }
+            throw typedException;
+        }
     }
 
     /**
@@ -163,5 +186,13 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
      * @return true if all initialization is complete, otherwise false
      */
     protected abstract boolean isInitialized();
+
+    /**
+     * Gets an Exception with a type of E as defined by a concrete subclass of this class.
+     *
+     * @param e The actual exception that was thrown
+     * @return a new exception with the actual type of E, that wraps e.
+     */
+    protected abstract E getTypedException(Exception e);
 
 }

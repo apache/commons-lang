@@ -20,24 +20,24 @@ import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableSupplier;
 
 /**
- * Tests {@code LazyInitializer}.
+ * Test class for {@code AtomicInitializer}.
  */
-public class LazyInitializerSupplierTest extends AbstractConcurrentInitializerCloseAndExceptionsTest {
-
+public class AtomicInitializerSupplierTest extends AbstractConcurrentInitializerCloseAndExceptionsTest {
     /**
-     * Creates the initializer to be tested.
+     * Returns the initializer to be tested.
      *
-     * @return the initializer to be tested
+     * @return the {@code AtomicInitializer}
      */
     @Override
     protected ConcurrentInitializer<Object> createInitializer() {
-        return LazyInitializer.<Object>builder().setInitializer(() -> new Object()).get();
+        return AtomicInitializer.<Object>builder().setInitializer(() -> new Object()).get();
     }
 
     @Override
     protected ConcurrentInitializer<CloseableObject> createInitializerThatThrowsException(
             final FailableSupplier<CloseableObject, ? extends Exception> supplier,
             final FailableConsumer<CloseableObject, ? extends Exception> closer) {
-        return LazyInitializer.<CloseableObject>builder().setInitializer(supplier).setCloser(closer).get();
+        return AtomicInitializer.<CloseableObject>builder().setInitializer(supplier).setCloser(closer).get();
     }
+
 }

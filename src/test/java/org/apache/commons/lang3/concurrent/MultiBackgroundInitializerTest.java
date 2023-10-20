@@ -42,10 +42,10 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
     private static final String CHILD_INIT = "childInitializer";
 
     /** The initializer to be tested. */
-    private MultiBackgroundInitializer initializer;
+    protected MultiBackgroundInitializer initializer;
 
     /** A short time to wait for background threads to run. */
-    private static final long PERIOD_MILLIS = 50;
+    protected static final long PERIOD_MILLIS = 50;
 
     @BeforeEach
     public void setUp() {
@@ -63,8 +63,8 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      */
     private void checkChild(final BackgroundInitializer<?> child,
             final ExecutorService expExec) throws ConcurrentException {
-        final ChildBackgroundInitializer cinit = (ChildBackgroundInitializer) child;
-        final Integer result = cinit.get();
+        final AbstractChildBackgroundInitializer cinit = (AbstractChildBackgroundInitializer) child;
+        final Integer result = cinit.get().getInitializeCalls();
         assertEquals(1, result.intValue(), "Wrong result");
         assertEquals(1, cinit.initializeCalls, "Wrong number of executions");
         if (expExec != null) {
@@ -78,7 +78,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      */
     @Test
     public void testAddInitializerNullName() {
-        assertThrows(NullPointerException.class, () -> initializer.addInitializer(null, new ChildBackgroundInitializer()));
+        assertThrows(NullPointerException.class, () -> initializer.addInitializer(null, createChildBackgroundInitializer()));
     }
 
     /**
@@ -117,7 +117,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
         final int count = 5;
         for (int i = 0; i < count; i++) {
             initializer.addInitializer(CHILD_INIT + i,
-                    new ChildBackgroundInitializer());
+                    createChildBackgroundInitializer());
         }
         initializer.start();
         final MultiBackgroundInitializer.MultiBackgroundInitializerResults res = initializer
@@ -126,7 +126,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
         for (int i = 0; i < count; i++) {
             final String key = CHILD_INIT + i;
             assertTrue(res.initializerNames().contains(key), "Name not found: " + key);
-            assertEquals(Integer.valueOf(1), res.getResultObject(key), "Wrong result object");
+            assertEquals(CloseableCounter.wrapInteger(1), res.getResultObject(key), "Wrong result object");
             assertFalse(res.isException(key), "Exception flag");
             assertNull(res.getException(key), "Got an exception");
             checkChild(res.getInitializer(key), initializer.getActiveExecutor());
@@ -175,8 +175,8 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
         final String initExec = "childInitializerWithExecutor";
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         try {
-            final ChildBackgroundInitializer c1 = new ChildBackgroundInitializer();
-            final ChildBackgroundInitializer c2 = new ChildBackgroundInitializer();
+            final AbstractChildBackgroundInitializer c1 = createChildBackgroundInitializer();
+            final AbstractChildBackgroundInitializer c2 = createChildBackgroundInitializer();
             c2.setExternalExecutor(exec);
             initializer.addInitializer(CHILD_INIT, c1);
             initializer.addInitializer(initExec, c2);
@@ -201,7 +201,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
         initializer.start();
         assertThrows(
                 IllegalStateException.class,
-                () -> initializer.addInitializer(CHILD_INIT, new ChildBackgroundInitializer()),
+                () -> initializer.addInitializer(CHILD_INIT, createChildBackgroundInitializer()),
                 "Could add initializer after start()!");
         initializer.get();
     }
@@ -275,7 +275,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      */
     @Test
     public void testInitializeRuntimeEx() {
-        final ChildBackgroundInitializer child = new ChildBackgroundInitializer();
+        final AbstractChildBackgroundInitializer child = createChildBackgroundInitializer();
         child.ex = new RuntimeException();
         initializer.addInitializer(CHILD_INIT, child);
         initializer.start();
@@ -291,7 +291,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      */
     @Test
     public void testInitializeEx() throws ConcurrentException {
-        final ChildBackgroundInitializer child = new ChildBackgroundInitializer();
+        final AbstractChildBackgroundInitializer child = createChildBackgroundInitializer();
         child.ex = new Exception();
         initializer.addInitializer(CHILD_INIT, child);
         initializer.start();
@@ -312,7 +312,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
     @Test
     public void testInitializeResultsIsSuccessfulTrue()
             throws ConcurrentException {
-        final ChildBackgroundInitializer child = new ChildBackgroundInitializer();
+        final AbstractChildBackgroundInitializer child = createChildBackgroundInitializer();
         initializer.addInitializer(CHILD_INIT, child);
         initializer.start();
         final MultiBackgroundInitializer.MultiBackgroundInitializerResults res = initializer
@@ -329,7 +329,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
     @Test
     public void testInitializeResultsIsSuccessfulFalse()
             throws ConcurrentException {
-        final ChildBackgroundInitializer child = new ChildBackgroundInitializer();
+        final AbstractChildBackgroundInitializer child = createChildBackgroundInitializer();
         child.ex = new Exception();
         initializer.addInitializer(CHILD_INIT, child);
         initializer.start();
@@ -348,13 +348,13 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
     public void testInitializeNested() throws ConcurrentException {
         final String nameMulti = "multiChildInitializer";
         initializer
-                .addInitializer(CHILD_INIT, new ChildBackgroundInitializer());
+                .addInitializer(CHILD_INIT, createChildBackgroundInitializer());
         final MultiBackgroundInitializer mi2 = new MultiBackgroundInitializer();
         final int count = 3;
         for (int i = 0; i < count; i++) {
             mi2
                     .addInitializer(CHILD_INIT + i,
-                            new ChildBackgroundInitializer());
+                            createChildBackgroundInitializer());
         }
         initializer.addInitializer(nameMulti, mi2);
         initializer.start();
@@ -374,8 +374,8 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
     @Test
     public void testIsInitialized()
             throws ConcurrentException, InterruptedException {
-        final ChildBackgroundInitializer childOne = new ChildBackgroundInitializer();
-        final ChildBackgroundInitializer childTwo = new ChildBackgroundInitializer();
+        final AbstractChildBackgroundInitializer childOne = createChildBackgroundInitializer();
+        final AbstractChildBackgroundInitializer childTwo = createChildBackgroundInitializer();
 
         childOne.enableLatch();
         childTwo.enableLatch();
@@ -409,13 +409,27 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
     }
 
     /**
-     * A concrete implementation of {@code BackgroundInitializer} used for
-     * defining background tasks for {@code MultiBackgroundInitializer}.
+     * An overrideable method to create concrete implementations of
+     * {@code BackgroundInitializer} used for defining background tasks
+     * for {@code MultiBackgroundInitializer}.
      */
-    private static final class ChildBackgroundInitializer extends
-            BackgroundInitializer<Integer> {
+    protected AbstractChildBackgroundInitializer createChildBackgroundInitializer() {
+        return new MethodChildBackgroundInitializer();
+    }
+
+    /**
+     * A mostly complete implementation of {@code BackgroundInitializer} used for
+     * defining background tasks for {@code MultiBackgroundInitializer}.
+     *
+     * Subclasses will contain the initializer, either as an method implementation
+     * or by using a supplier.
+     */
+    protected static class AbstractChildBackgroundInitializer extends BackgroundInitializer<CloseableCounter> {
         /** Stores the current executor service. */
         volatile ExecutorService currentExecutor;
+
+        /** An object containing the state we are testing */
+        CloseableCounter counter = new CloseableCounter();
 
         /** A counter for the invocations of initialize(). */
         volatile int initializeCalls;
@@ -435,23 +449,76 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
             latch.countDown();
         }
 
+        public CloseableCounter getCloseableCounter() {
+            return counter;
+        }
+
         /**
          * Records this invocation. Optionally throws an exception.
          */
-        @Override
-        protected Integer initialize() throws Exception {
-            currentExecutor = getActiveExecutor();
+        protected CloseableCounter initializeInternal() throws Exception {
             initializeCalls++;
-
-            if (ex != null) {
-                throw ex;
-            }
+            currentExecutor = getActiveExecutor();
 
             if (waitForLatch) {
                 latch.await();
             }
 
-            return Integer.valueOf(initializeCalls);
+            if (ex != null) {
+                throw ex;
+            }
+
+            return counter.increment();
+        }
+    }
+
+    protected static class MethodChildBackgroundInitializer extends AbstractChildBackgroundInitializer {
+        @Override
+        protected CloseableCounter initialize() throws Exception {
+            return initializeInternal();
+        }
+    }
+
+    protected static class CloseableCounter {
+        /** The number of invocations of initialize(). */
+        volatile int initializeCalls;
+
+        /** Has the close consumer successfully reached this object. */
+        volatile boolean closed;
+
+        public CloseableCounter increment() {
+            initializeCalls++;
+            return this;
+        }
+
+        public int getInitializeCalls() {
+            return initializeCalls;
+        }
+
+        public CloseableCounter setInitializeCalls(int i) {
+            initializeCalls = i;
+            return this;
+        }
+
+        public void close() {
+            closed = true;
+        }
+
+        public boolean isClosed() {
+            return closed;
+        }
+
+        @Override
+        public boolean equals(final Object other) {
+            if (other instanceof CloseableCounter) {
+                return initializeCalls == ((CloseableCounter) other).getInitializeCalls();
+            }
+            return false;
+        }
+
+        // A convenience for testing that a CloseableCounter typed as Object has a specific initializeCalls value
+        public static CloseableCounter wrapInteger(int i) {
+            return new CloseableCounter().setInitializeCalls(i);
         }
     }
 }

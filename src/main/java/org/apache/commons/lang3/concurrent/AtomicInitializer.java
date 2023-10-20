@@ -18,6 +18,9 @@ package org.apache.commons.lang3.concurrent;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableSupplier;
+
 /**
  * A specialized implementation of the {@link ConcurrentInitializer} interface
  * based on an {@link AtomicReference} variable.
@@ -62,12 +65,57 @@ import java.util.concurrent.atomic.AtomicReference;
  * @since 3.0
  * @param <T> the type of the object managed by this initializer class
  */
-public abstract class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, RuntimeException> {
+public class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, ConcurrentException> {
+
+    /**
+     * Builds a new instance.
+     *
+     * @param <T> the type of the object managed by the initializer.
+     * @param <I> the type of the initializer managed by this builder.
+     * @since 3.14.0
+     */
+    public static class Builder<I extends AtomicInitializer<T>, T> extends AbstractBuilder<I, T, Builder<I, T>, ConcurrentException> {
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public I get() {
+            return (I) new AtomicInitializer(getInitializer(), getCloser());
+        }
+
+    }
 
     private static final Object NO_INIT = new Object();
 
     /** Holds the reference to the managed object. */
     private final AtomicReference<T> reference = new AtomicReference<>(getNoInit());
+
+    /**
+     * Creates a new builder.
+     *
+     * @param <T> the type of object to build.
+     * @return a new builder.
+     * @since 3.14.0
+     */
+    public static <T> Builder<AtomicInitializer<T>, T> builder() {
+        return new Builder<>();
+    }
+
+    /**
+     * Constructs a new instance.
+     */
+    public AtomicInitializer() {
+        // empty
+    }
+
+    /**
+     * Constructs a new instance.
+     *
+     * @param initializer the initializer supplier called by {@link #initialize()}.
+     * @param closer the closer consumer called by {@link #close()}.
+     */
+    private AtomicInitializer(final FailableSupplier<T, ConcurrentException> initializer, final FailableConsumer<T, ConcurrentException> closer) {
+        super(initializer, closer);
+    }
 
     /**
      * Returns the object managed by this initializer. The object is created if
@@ -108,5 +156,13 @@ public abstract class AtomicInitializer<T> extends AbstractConcurrentInitializer
     @Override
     public boolean isInitialized() {
         return reference.get() != NO_INIT;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected ConcurrentException getTypedException(Exception e) {
+        return new ConcurrentException(e);
     }
 }
