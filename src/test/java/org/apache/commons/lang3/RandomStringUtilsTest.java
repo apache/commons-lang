@@ -435,7 +435,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     /**
      * Test homogeneity of random strings generated --
      * i.e., test that characters show up with expected frequencies
-     * in generated strings.  Will fail randomly about 1 in LOOP_COUNT times.
+     * in generated strings.  Will fail randomly about 1 in 100,000 times.
      * Repeated failures indicate a problem.
      */
     @Test
@@ -445,10 +445,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         String gen = "";
         final int[] counts = {0, 0, 0};
         final int[] expected = {200, 200, 200};
-        // More likely to fail for 1000?
-        // Fails randomly too often when max is 100.
-        final int max = 90;
-        for (int i = 0; i < max; i++) {
+        for (int i = 0; i < 100; i++) {
             gen = RandomStringUtils.random(6, chars);
             for (int j = 0; j < 6; j++) {
                 switch (gen.charAt(j)) {
@@ -470,8 +467,10 @@ public class RandomStringUtilsTest extends AbstractLangTest {
                 }
             }
         }
-        // Perform chi-square test with df = 3-1 = 2, testing at .001 level
-        assertTrue(chiSquare(expected, counts) < 13.82, "test homogeneity -- will fail about 1 in 1000 times");
+        // Perform chi-square test with degrees of freedom = 3-1 = 2, testing at 1e-5 level.
+        // This expects a failure rate of 1 in 100,000.
+        // critical value: from scipy.stats import chi2; chi2(2).isf(1e-5)
+        assertTrue(chiSquare(expected, counts) < 23.025850929940457, "test homogeneity -- will fail about 1 in 100,000 times");
     }
 
     /**
