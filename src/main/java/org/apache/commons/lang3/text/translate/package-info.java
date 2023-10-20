@@ -14,14 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /**
- *  An API for creating text translation routines from a set of smaller building blocks. Initially created to make it
- * possible for the user to customize the rules in the StringEscapeUtils class.
- * <p>These classes are immutable, and therefore thread-safe.</p>
+ * An API for creating text translation routines from a set of smaller building blocks. Initially created to make it possible for the user to customize the
+ * rules in the StringEscapeUtils class.
+ * <p>
+ * These classes are immutable, and therefore thread-safe.
+ * </p>
+ * <p>
+ * <b>Deprecated</b> As of 3.6, use the Apache Commons Text
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/package-summary.html"> translate package</a>.
+ * </p>
  *
  * @since 3.0
- * @deprecated As of 3.6, use the Apache Commons Text
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/package-summary.html">
- * translate package</a>.
  */
 package org.apache.commons.lang3.text.translate;
