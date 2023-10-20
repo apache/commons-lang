@@ -216,6 +216,39 @@ public class MultiBackgroundInitializer
     }
 
     /**
+     * Calls the closer of all child {@code BackgroundInitializer} objects
+     *
+     * @throws ConcurrentException throws an ConcurrentException that will have all other exceptions as suppressed exceptions. ConcurrentException thrown by children will be unwrapped.
+     * @since 3.14.0
+     */
+    @Override
+    public void close() throws ConcurrentException {
+        ConcurrentException exception = null;
+
+        for (BackgroundInitializer<?> child : childInitializers.values()) {
+            try {
+                child.close();
+            } catch (Exception e) {
+                if (exception == null) {
+                    exception = new ConcurrentException();
+                }
+
+                if (e instanceof ConcurrentException) {
+                    // Because ConcurrentException is only created by classes in this package
+                    // we can safely unwrap it.
+                    exception.addSuppressed(e.getCause());
+                } else {
+                    exception.addSuppressed(e);
+                }
+            }
+        }
+
+        if (exception != null) {
+            throw exception;
+        }
+    }
+
+    /**
      * A data class for storing the results of the background initialization
      * performed by {@link MultiBackgroundInitializer}. Objects of this inner
      * class are returned by {@link MultiBackgroundInitializer#initialize()}.
