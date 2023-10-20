@@ -23,6 +23,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableSupplier;
+
 /**
  * A class that allows complex initialization operations in a background task.
  *
@@ -82,7 +85,42 @@ import java.util.concurrent.Future;
  * @since 3.0
  * @param <T> the type of the object managed by this initializer class
  */
-public abstract class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, Exception> {
+public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, Exception> {
+
+    /**
+     * Builds a new instance.
+     *
+     * @param <T> the type of the object managed by the initializer.
+     * @param <I> the type of the initializer managed by this builder.
+     * @since 3.14.0
+     */
+    public static class Builder<I extends BackgroundInitializer<T>, T> extends AbstractBuilder<I, T, Builder<I, T>, Exception> {
+
+        /**
+         * The external executor service for executing tasks. null is an permitted value.
+         */
+        private ExecutorService externalExecutor;
+
+        /**
+         * Sets the external executor service for executing tasks. null is an permitted value.
+         *
+         * @see org.apache.commons.lang3.concurrent.BackgroundInitializer#setExternalExecutor(ExecutorService)
+         *
+         * @param externalExecutor the {@link ExecutorService} to be used.
+         * @return this
+         */
+        public Builder<I, T> setExternalExecutor(final ExecutorService externalExecutor) {
+            this.externalExecutor = externalExecutor;
+            return asThis();
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public I get() {
+            return (I) new BackgroundInitializer(getInitializer(), getCloser(), externalExecutor);
+        }
+
+    }
 
     /** The external executor service for executing tasks. */
     private ExecutorService externalExecutor; // @GuardedBy("this")
@@ -112,6 +150,29 @@ public abstract class BackgroundInitializer<T> extends AbstractConcurrentInitial
      * execution
      */
     protected BackgroundInitializer(final ExecutorService exec) {
+        setExternalExecutor(exec);
+    }
+
+    /**
+     * Creates a new builder.
+     *
+     * @param <T> the type of object to build.
+     * @return a new builder.
+     * @since 3.14.0
+     */
+    public static <T> Builder<BackgroundInitializer<T>, T> builder() {
+        return new Builder<>();
+    }
+
+    /**
+     * Constructs a new instance.
+     *
+     * @param initializer the initializer supplier called by {@link #initialize()}.
+     * @param closer the closer consumer called by {@link #close()}.
+     * @param exec the {@link ExecutorService} to be used @see #setExternalExecutor(ExecutorService)
+     */
+    private BackgroundInitializer(final FailableSupplier<T, ConcurrentException> initializer, final FailableConsumer<T, ConcurrentException> closer, final ExecutorService exec) {
+        super(initializer, closer);
         setExternalExecutor(exec);
     }
 
@@ -340,5 +401,14 @@ public abstract class BackgroundInitializer<T> extends AbstractConcurrentInitial
                 }
             }
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected Exception getTypedException(Exception e) {
+        //This Exception object will be used for type comparison in AbstractConcurrentInitializer.initialize but not thrown
+        return new Exception(e);
     }
 }
