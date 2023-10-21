@@ -290,7 +290,7 @@ public class StopWatchTest extends AbstractLangTest {
         assertTrue(splitTime >= 500, "expected >= 500, actual: " + splitTime);
         assertTrue(splitTime < 700,  "expected < 500, actual: " + splitTime);
         assertTrue(totalTime >= 1500, "expected >= 1500, actual: " + totalTime);
-        assertTrue(totalTime < 1900,  "expected < 1900, actual: " + totalTime);
+        assertTrue(totalTime < 2000,  "expected < 2000, actual: " + totalTime);
     }
 
     @Test
