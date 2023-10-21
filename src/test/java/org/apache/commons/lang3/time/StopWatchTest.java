@@ -287,10 +287,10 @@ public class StopWatchTest extends AbstractLangTest {
         final long totalTime = watch.getTime();
 
         assertEquals(splitStr.length(), 12, "Formatted split string not the correct length");
-        assertTrue(splitTime >= 500);
-        assertTrue(splitTime < 700);
-        assertTrue(totalTime >= 1500);
-        assertTrue(totalTime < 1900);
+        assertTrue(splitTime >= 500, "expected >= 500, actual: " + splitTime);
+        assertTrue(splitTime < 700,  "expected < 500, actual: " + splitTime);
+        assertTrue(totalTime >= 1500, "expected >= 1500, actual: " + totalTime);
+        assertTrue(totalTime < 1900,  "expected < 1900, actual: " + totalTime);
     }
 
     @Test
