@@ -168,7 +168,7 @@ public class RandomUtils {
     }
 
     /**
-     * Generates a random long within 0 - Long.MAX_VALUE.
+     * Generates a random long between 0 (inclusive) and Long.MAX_VALUE (exclusive).
      *
      * @return the random long
      * @see #nextLong(long, long)
