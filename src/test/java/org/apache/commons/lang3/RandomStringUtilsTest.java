@@ -20,6 +20,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -67,7 +68,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         r1 = RandomStringUtils.randomAscii(50);
         assertEquals(50, r1.length(), "randomAscii(50) length");
         for (int i = 0; i < r1.length(); i++) {
-            assertTrue(r1.charAt(i) >= 32 && r1.charAt(i) <= 127, "char between 32 and 127");
+            assertThat("char >= 32 && <= 127", ((int) r1.charAt(i)), allOf(greaterThanOrEqualTo(32), lessThanOrEqualTo(127)));
         }
         r2 = RandomStringUtils.randomAscii(50);
         assertFalse(r1.equals(r2), "!r1.equals(r2)");
@@ -470,7 +471,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         // Perform chi-square test with degrees of freedom = 3-1 = 2, testing at 1e-5 level.
         // This expects a failure rate of 1 in 100,000.
         // critical value: from scipy.stats import chi2; chi2(2).isf(1e-5)
-        assertTrue(chiSquare(expected, counts) < 23.025850929940457, "test homogeneity -- will fail about 1 in 100,000 times");
+        assertThat("test homogeneity -- will fail about 1 in 100,000 times", chiSquare(expected, counts), lessThan(23.025850929940457d));
     }
 
     /**
