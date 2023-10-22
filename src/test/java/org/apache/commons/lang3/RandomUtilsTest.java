@@ -16,6 +16,10 @@
  */
 package org.apache.commons.lang3;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.lessThan;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -134,7 +138,7 @@ public class RandomUtilsTest extends AbstractLangTest {
     @Test
     public void testNextInt() {
         final int result = RandomUtils.nextInt(33, 42);
-        assertTrue(result >= 33 && result < 42);
+        assertThat("result >= 33 && result < 42", result, allOf(greaterThanOrEqualTo(33), lessThan(42)));
     }
 
     /**
@@ -169,7 +173,7 @@ public class RandomUtilsTest extends AbstractLangTest {
     @Test
     public void testNextDouble() {
         final double result = RandomUtils.nextDouble(33d, 42d);
-        assertTrue(result >= 33d && result <= 42d);
+        assertThat("result >= 33d && result < 42d", result, allOf(greaterThanOrEqualTo(33d), lessThan(42d)));
     }
 
     /**
@@ -178,8 +182,7 @@ public class RandomUtilsTest extends AbstractLangTest {
     @Test
     public void testNextDoubleRandomResult() {
         final double randomResult = RandomUtils.nextDouble();
-        assertTrue(randomResult > 0);
-        assertTrue(randomResult < Double.MAX_VALUE);
+        assertThat("randomResult >= 0 0 && randomResult < Double.MAX_VALUE", randomResult, allOf(greaterThanOrEqualTo(0d), lessThan(Double.MAX_VALUE)));
     }
 
     /**
@@ -187,8 +190,8 @@ public class RandomUtilsTest extends AbstractLangTest {
      */
     @Test
     public void testNextFloat() {
-        final double result = RandomUtils.nextFloat(33f, 42f);
-        assertTrue(result >= 33f && result <= 42f);
+        final float result = RandomUtils.nextFloat(33f, 42f);
+        assertThat("result >= 33f && result < 42f", result, allOf(greaterThanOrEqualTo(33f), lessThan(42f)));
     }
 
     /**
@@ -197,8 +200,7 @@ public class RandomUtilsTest extends AbstractLangTest {
     @Test
     public void testNextFloatRandomResult() {
         final float randomResult = RandomUtils.nextFloat();
-        assertTrue(randomResult > 0);
-        assertTrue(randomResult < Float.MAX_VALUE);
+        assertThat("randomResult >= 0 && randomResult < Double.MAX_VALUE", randomResult, allOf(greaterThanOrEqualTo(0f), lessThan(Float.MAX_VALUE)));
     }
 
     /**
@@ -215,7 +217,7 @@ public class RandomUtilsTest extends AbstractLangTest {
     @Test
     public void testNextLong() {
         final long result = RandomUtils.nextLong(33L, 42L);
-        assertTrue(result >= 33L && result < 42L);
+        assertThat("result >= 33L && result < 42L", result, allOf(greaterThanOrEqualTo(33L), lessThan(42L)));
     }
 
     /**
@@ -224,8 +226,7 @@ public class RandomUtilsTest extends AbstractLangTest {
     @Test
     public void testNextLongRandomResult() {
         final long randomResult = RandomUtils.nextLong();
-        assertTrue(randomResult > 0);
-        assertTrue(randomResult < Long.MAX_VALUE);
+        assertThat("randomResult >= 0 && randomResult < Long.MAX_VALUE", randomResult, allOf(greaterThanOrEqualTo(0L), lessThan(Long.MAX_VALUE)));
     }
 
     /**
@@ -234,7 +235,7 @@ public class RandomUtilsTest extends AbstractLangTest {
     @Test
     public void testExtremeRangeInt() {
         final int result = RandomUtils.nextInt(0, Integer.MAX_VALUE);
-        assertTrue(result >= 0 && result < Integer.MAX_VALUE);
+        assertThat("result >= 0 && result < Integer.MAX_VALUE", result, allOf(greaterThanOrEqualTo(0), lessThan(Integer.MAX_VALUE)));
     }
 
     /**
@@ -243,7 +244,7 @@ public class RandomUtilsTest extends AbstractLangTest {
     @Test
     public void testExtremeRangeLong() {
         final long result = RandomUtils.nextLong(0, Long.MAX_VALUE);
-        assertTrue(result >= 0 && result < Long.MAX_VALUE);
+        assertThat("result >= 0 && result < Long.MAX_VALUE", result, allOf(greaterThanOrEqualTo(0L), lessThan(Long.MAX_VALUE)));
     }
 
     /**
@@ -252,7 +253,7 @@ public class RandomUtilsTest extends AbstractLangTest {
     @Test
     public void testExtremeRangeFloat() {
         final float result = RandomUtils.nextFloat(0, Float.MAX_VALUE);
-        assertTrue(result >= 0f && result <= Float.MAX_VALUE);
+        assertTrue(result >= 0f && result <= Float.MAX_VALUE); // TODO: should be <max?
     }
 
     /**
@@ -261,7 +262,7 @@ public class RandomUtilsTest extends AbstractLangTest {
     @Test
     public void testExtremeRangeDouble() {
         final double result = RandomUtils.nextDouble(0, Double.MAX_VALUE);
-        assertTrue(result >= 0 && result <= Double.MAX_VALUE);
+        assertTrue(result >= 0 && result <= Double.MAX_VALUE); // TODO: should be <max?
     }
 
     /**
