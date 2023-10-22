@@ -63,7 +63,7 @@ public class RandomUtils {
     }
 
     /**
-     * Generates a random double within 0 - Double.MAX_VALUE.
+     * Generates a random double between 0 (inclusive) and Double.MAX_VALUE (exclusive).
      *
      * @return the random double
      * @see #nextDouble(double, double)
@@ -98,7 +98,7 @@ public class RandomUtils {
     }
 
     /**
-     * Generates a random float within 0 - Float.MAX_VALUE.
+     * Generates a random float between 0 (inclusive) and Float.MAX_VALUE (exclusive).
      *
      * @return the random float
      * @see #nextFloat(float, float)
@@ -133,7 +133,7 @@ public class RandomUtils {
     }
 
     /**
-     * Generates a random int within 0 - Integer.MAX_VALUE.
+     * Generates a random int between 0 (inclusive) and Integer.MAX_VALUE (exclusive).
      *
      * @return the random integer
      * @see #nextInt(int, int)
