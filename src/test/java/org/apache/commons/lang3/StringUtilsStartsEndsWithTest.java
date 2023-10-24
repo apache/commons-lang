@@ -99,6 +99,22 @@ public class StringUtilsStartsEndsWithTest extends AbstractLangTest {
         assertTrue(StringUtils.startsWithAny(new StringBuffer("abcxyz"), new StringBuilder("xyz"), new StringBuffer("abc")), "StringUtils.startsWithAny(StringBuffer(abcxyz), StringBuilder(xyz), StringBuffer(abc))");
     }
 
+    @Test
+    public void testStartsWithAnyIgnoreCase() {
+        assertFalse(StringUtils.startsWithAnyIgnoreCase(null, (String[]) null));
+        assertFalse(StringUtils.startsWithAnyIgnoreCase(null, "abc"));
+        assertFalse(StringUtils.startsWithAnyIgnoreCase("abcxyz", (String[]) null));
+        assertFalse(StringUtils.startsWithAnyIgnoreCase("abcxyz"));
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("abcxyz", "abc"));
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("abcxyz", null, "xyz", "abc"));
+        assertFalse(StringUtils.startsWithAnyIgnoreCase("abcxyz", null, "xyz", "abcd"));
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("abcxyz", ""));
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("abcxyz", null, "xyz", "ABCX"));
+        assertTrue(StringUtils.startsWithAnyIgnoreCase("ABCXYZ", null, "xyz", "abc"));
+
+        assertTrue(StringUtils.startsWithAny("abcxyz", new StringBuilder("xyz"), new StringBuffer("abc")), "StringUtils.startsWithAny(abcxyz, StringBuilder(xyz), StringBuffer(abc))");
+        assertTrue(StringUtils.startsWithAny(new StringBuffer("abcxyz"), new StringBuilder("xyz"), new StringBuffer("abc")), "StringUtils.startsWithAny(StringBuffer(abcxyz), StringBuilder(xyz), StringBuffer(abc))");
+    }
 
     /**
      * Test StringUtils.endsWith()
