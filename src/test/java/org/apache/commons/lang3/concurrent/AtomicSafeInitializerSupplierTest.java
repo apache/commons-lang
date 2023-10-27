@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.commons.lang3.concurrent.AbstractConcurrentInitializerCloseAndExceptionsTest.CloseableObject;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableSupplier;
 import org.junit.jupiter.api.BeforeEach;
