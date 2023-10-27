@@ -36,6 +36,7 @@ limitations under the License.
     <property name="file" value="src/site/resources/checkstyle/checkstyle-suppressions.xml"/>
   </module>
   <module name="TreeWalker">
+    <module name="ExplicitInitializationCheck" />
     <module name="AvoidStarImport"/>
     <module name="IllegalImport"/>
     <module name="RedundantImport"/>

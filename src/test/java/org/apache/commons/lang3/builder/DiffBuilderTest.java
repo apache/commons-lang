@@ -54,7 +54,7 @@ public class DiffBuilderTest extends AbstractLangTest {
         private long[] longArrayField = {1L};
         private short shortField = 1;
         private short[] shortArrayField = {1};
-        private Object objectField = null;
+        private Object objectField;
         private Object[] objectArrayField = {null};
 
         @Override

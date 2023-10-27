@@ -439,7 +439,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
 
         /** A latch tests can use to control when initialize completes. */
         final CountDownLatch latch = new CountDownLatch(1);
-        boolean waitForLatch = false;
+        boolean waitForLatch;
 
         public void enableLatch() {
             waitForLatch = true;

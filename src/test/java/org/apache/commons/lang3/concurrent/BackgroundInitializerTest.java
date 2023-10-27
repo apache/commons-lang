@@ -306,7 +306,7 @@ public class BackgroundInitializerTest extends AbstractLangTest {
 
         /** A latch tests can use to control when initialize completes. */
         final CountDownLatch latch = new CountDownLatch(1);
-        boolean waitForLatch = false;
+        boolean waitForLatch;
 
         /** An object containing the state we are testing */
         CloseableCounter counter = new CloseableCounter();
