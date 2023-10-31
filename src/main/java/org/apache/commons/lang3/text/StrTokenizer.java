@@ -898,7 +898,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     }
 
     /**
-     * Set the quote matcher to use.
+     * Sets the quote matcher to use.
      * <p>
      * The quote character is used to wrap data between the tokens.
      * This enables delimiters to be entered as data.
@@ -944,7 +944,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     }
 
     /**
-     * Set the matcher for characters to ignore.
+     * Sets the matcher for characters to ignore.
      * <p>
      * These characters are ignored when parsing the String, unless they are
      * within a quoted region.
@@ -961,7 +961,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     }
 
     /**
-     * Set the character to ignore.
+     * Sets the character to ignore.
      * <p>
      * This character is ignored when parsing the String, unless it is
      * within a quoted region.

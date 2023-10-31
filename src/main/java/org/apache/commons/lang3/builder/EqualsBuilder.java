@@ -219,7 +219,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * Set whether to include transient fields when reflectively comparing objects.
+     * Sets whether to include transient fields when reflectively comparing objects.
      * @param testTransients whether to test transient fields
      * @return this
      * @since 3.6
@@ -230,7 +230,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * Set whether to test fields recursively, instead of using their equals method, when reflectively comparing objects.
+     * Sets whether to test fields recursively, instead of using their equals method, when reflectively comparing objects.
      * String objects, which cache a hash value, are automatically excluded from recursive testing.
      * You may specify other exceptions by calling {@link #setBypassReflectionClasses(List)}.
      * @param testRecursive whether to do a recursive test
@@ -244,7 +244,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * Set {@link Class}es whose instances should be compared by calling their {@code equals}
+     * Sets {@link Class}es whose instances should be compared by calling their {@code equals}
      * although being in recursive mode. So the fields of theses classes will not be compared recursively by reflection.
      *
      * <p>Here you should name classes having non-transient fields which are cache fields being set lazily.<br>
@@ -262,7 +262,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * Set the superclass to reflect up to at reflective tests.
+     * Sets the superclass to reflect up to at reflective tests.
      * @param reflectUpToClass the super class to reflect up to
      * @return this
      * @since 3.6
@@ -273,7 +273,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * Set field names to be excluded by reflection tests.
+     * Sets field names to be excluded by reflection tests.
      * @param excludeFields the fields to exclude
      * @return this
      * @since 3.6
