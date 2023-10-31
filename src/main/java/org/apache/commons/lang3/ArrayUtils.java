@@ -1740,7 +1740,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Get a hash code for an array handling multidimensional arrays correctly.
+     * Gets a hash code for an array handling multidimensional arrays correctly.
      * <p>
      * Multi-dimensional primitive arrays are also handled correctly by this method.
      * </p>
