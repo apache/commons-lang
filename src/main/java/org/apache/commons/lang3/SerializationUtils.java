@@ -127,26 +127,23 @@ public class SerializationUtils {
      * be a simple alternative implementation. Of course all the objects
      * must be {@link Serializable}.</p>
      *
-     * @param <T> the type of the object involved
+     * @param <T> the type of the original object
+     * @param <U> the type of the cloned object
      * @param object  the {@link Serializable} object to clone
      * @return the cloned object
      * @throws SerializationException (runtime) if the serialization fails
      */
-    public static <T extends Serializable> T clone(final T object) {
+    public static <U, T extends Serializable> U clone(final T object) {
         if (object == null) {
             return null;
         }
+
         final byte[] objectData = serialize(object);
         final ByteArrayInputStream bais = new ByteArrayInputStream(objectData);
 
         final Class<T> cls = ObjectUtils.getClass(object);
         try (ClassLoaderAwareObjectInputStream in = new ClassLoaderAwareObjectInputStream(bais, cls.getClassLoader())) {
-            /*
-             * when we serialize and deserialize an object, it is reasonable to assume the deserialized object is of the
-             * same type as the original serialized object
-             */
-            return cls.cast(in.readObject());
-
+            return (U) in.readObject();
         } catch (final ClassNotFoundException | IOException ex) {
             throw new SerializationException(
                 String.format("%s while reading cloned object data", ex.getClass().getSimpleName()), ex);

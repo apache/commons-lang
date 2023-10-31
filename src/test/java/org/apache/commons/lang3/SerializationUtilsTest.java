@@ -34,9 +34,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.io.ObjectStreamException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
+import java.util.Objects;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -318,7 +320,6 @@ public class SerializationUtilsTest extends AbstractLangTest {
         assertThrows(SerializationException.class, () -> SerializationUtils.deserialize(new byte[0]));
     }
 
-
     @Test
     public void testClone() {
         final Object test = SerializationUtils.clone(iMap);
@@ -337,6 +338,64 @@ public class SerializationUtilsTest extends AbstractLangTest {
     public void testCloneNull() {
         final Object test = SerializationUtils.clone(null);
         assertNull(test);
+    }
+
+    @Test
+    public void testCloneWriteReplace() {
+        Child before = new Child(true);
+        Parent after = SerializationUtils.deserialize(SerializationUtils.serialize(before));
+        Parent cloned = SerializationUtils.clone(before);
+        assertNotSame(after, cloned);
+        assertNotSame(before, cloned);
+        assertEquals(new Parent(true), cloned);
+    }
+
+    static class Parent implements Serializable {
+        private static final long serialVersionUID = 1L;
+        protected boolean someField;
+
+        Parent(boolean someField) {
+            this.someField = someField;
+        }
+
+        protected Parent(Parent parent) {
+            this.someField = parent.someField;
+        }
+
+        /**
+         * protected modifier lets also child's serialization call this
+         */
+        protected Object writeReplace() throws ObjectStreamException {
+            return new Parent(this);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(someField);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            Parent other = (Parent) obj;
+            return someField == other.someField;
+        }
+    }
+
+    static class Child extends Parent {
+        private static final long serialVersionUID = 2L;
+
+        Child(boolean someField) {
+            super(someField);
+        }
     }
 
     @Test
