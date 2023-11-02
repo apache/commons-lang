@@ -34,7 +34,7 @@ Apache Commons Lang, a package of Java utility classes for the
 classes that are in java.lang's hierarchy, or are considered to be so
 standard as to justify existence in java.lang.
 
-New features and bug fixes (Java 8).
+New features and bug fixes (Java 8 or above).
 
 Changes in this version include:
 
