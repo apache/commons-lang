@@ -37,25 +37,16 @@ import org.junit.jupiter.api.Test;
  */
 public class ReflectionToStringBuilderMutateInspectConcurrencyTest extends AbstractLangTest {
 
-    class TestFixture {
-        private final LinkedList<Integer> listField = new LinkedList<>();
-        private final Random random = new Random();
-        private final int N = 100;
+    class InspectingClient implements Runnable {
+        private final TestFixture testFixture;
 
-        TestFixture() {
-            synchronized (this) {
-                for (int i = 0; i < N; i++) {
-                    listField.add(Integer.valueOf(i));
-                }
-            }
+        InspectingClient(final TestFixture testFixture) {
+            this.testFixture = testFixture;
         }
 
-        public synchronized void add() {
-            listField.add(Integer.valueOf(random.nextInt(N)));
-        }
-
-        public synchronized void delete() {
-            listField.remove(Integer.valueOf(random.nextInt(N)));
+        @Override
+        public void run() {
+            ReflectionToStringBuilder.toString(testFixture);
         }
     }
 
@@ -77,16 +68,25 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest extends Abstr
         }
     }
 
-    class InspectingClient implements Runnable {
-        private final TestFixture testFixture;
+    class TestFixture {
+        private final LinkedList<Integer> listField = new LinkedList<>();
+        private final Random random = new Random();
+        private final int N = 100;
 
-        InspectingClient(final TestFixture testFixture) {
-            this.testFixture = testFixture;
+        TestFixture() {
+            synchronized (this) {
+                for (int i = 0; i < N; i++) {
+                    listField.add(Integer.valueOf(i));
+                }
+            }
         }
 
-        @Override
-        public void run() {
-            ReflectionToStringBuilder.toString(testFixture);
+        public synchronized void add() {
+            listField.add(Integer.valueOf(random.nextInt(N)));
+        }
+
+        public synchronized void delete() {
+            listField.remove(Integer.valueOf(random.nextInt(N)));
         }
     }
 

@@ -49,27 +49,12 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
     }
 
     @Test
-    public void testNullException() {
-        assertEquals("", ExceptionUtils.getStackTrace(null), "Empty response.");
-    }
-
-    @Test
     public void testContextedExceptionString() {
         exceptionContext = new ContextedException(TEST_MESSAGE);
         assertEquals(TEST_MESSAGE, exceptionContext.getMessage());
 
         final String trace = ExceptionUtils.getStackTrace(exceptionContext);
         assertTrue(trace.contains(TEST_MESSAGE));
-    }
-
-    @Test
-    public void testContextedExceptionThrowable() {
-        exceptionContext = new ContextedException(new Exception(TEST_MESSAGE));
-        final String message = exceptionContext.getMessage();
-        final String trace = ExceptionUtils.getStackTrace(exceptionContext);
-        assertTrue(trace.contains("ContextedException"));
-        assertTrue(trace.contains(TEST_MESSAGE));
-        assertTrue(message.contains(TEST_MESSAGE));
     }
 
     @Test
@@ -92,6 +77,21 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
         assertTrue(trace.contains(TEST_MESSAGE));
         assertTrue(trace.contains(TEST_MESSAGE_2));
         assertTrue(message.contains(TEST_MESSAGE_2));
+    }
+
+    @Test
+    public void testContextedExceptionThrowable() {
+        exceptionContext = new ContextedException(new Exception(TEST_MESSAGE));
+        final String message = exceptionContext.getMessage();
+        final String trace = ExceptionUtils.getStackTrace(exceptionContext);
+        assertTrue(trace.contains("ContextedException"));
+        assertTrue(trace.contains(TEST_MESSAGE));
+        assertTrue(message.contains(TEST_MESSAGE));
+    }
+
+    @Test
+    public void testNullException() {
+        assertEquals("", ExceptionUtils.getStackTrace(null), "Empty response.");
     }
 
     @Test

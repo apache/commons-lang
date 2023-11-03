@@ -42,6 +42,16 @@ import org.junit.jupiter.api.Test;
 public class JavaVersionTest extends AbstractLangTest {
 
     @Test
+    public void testAtLeast() {
+        assertFalse(JAVA_1_2.atLeast(JAVA_1_5), "1.2 at least 1.5 passed");
+        assertTrue(JAVA_1_5.atLeast(JAVA_1_2), "1.5 at least 1.2 failed");
+        assertFalse(JAVA_1_6.atLeast(JAVA_1_7), "1.6 at least 1.7 passed");
+
+        assertTrue(JAVA_0_9.atLeast(JAVA_1_5), "0.9 at least 1.5 failed");
+        assertFalse(JAVA_0_9.atLeast(JAVA_1_6), "0.9 at least 1.6 passed");
+    }
+
+    @Test
     public void testGetJavaVersion() throws Exception {
         assertEquals(JAVA_0_9, get("0.9"), "0.9 failed");
         assertEquals(JAVA_1_1, get("1.1"), "1.1 failed");
@@ -62,16 +72,6 @@ public class JavaVersionTest extends AbstractLangTest {
         // assertNull("2.10 unexpectedly worked", get("2.10"));
         assertEquals(get("1.5"), getJavaVersion("1.5"), "Wrapper method failed");
         assertEquals(JAVA_RECENT, get("22"), "Unhandled"); // LANG-1384
-    }
-
-    @Test
-    public void testAtLeast() {
-        assertFalse(JAVA_1_2.atLeast(JAVA_1_5), "1.2 at least 1.5 passed");
-        assertTrue(JAVA_1_5.atLeast(JAVA_1_2), "1.5 at least 1.2 failed");
-        assertFalse(JAVA_1_6.atLeast(JAVA_1_7), "1.6 at least 1.7 passed");
-
-        assertTrue(JAVA_0_9.atLeast(JAVA_1_5), "0.9 at least 1.5 failed");
-        assertFalse(JAVA_0_9.atLeast(JAVA_1_6), "0.9 at least 1.6 passed");
     }
 
     @Test

@@ -37,6 +37,22 @@ public class SystemPropertiesTest {
     }
 
     @Test
+    public void testGetBoolean() {
+        final String key = RandomStringUtils.random(10);
+        final String absentKey = RandomStringUtils.random(10);
+        assertNull(System.getProperty(absentKey));
+        try {
+            System.setProperty(key, Boolean.toString(Boolean.TRUE));
+            assertEquals(Boolean.TRUE, SystemProperties.getBoolean(key, () -> false));
+            assertEquals(Boolean.TRUE, SystemProperties.getBoolean(absentKey, () -> Boolean.TRUE));
+            assertEquals(false, SystemProperties.getBoolean(absentKey, () -> false));
+            assertEquals(false, SystemProperties.getBoolean(absentKey, null));
+        } finally {
+            System.clearProperty(key);
+        }
+    }
+
+    @Test
     public void testGetFileEncoding() {
         assertNotNull(SystemProperties.getFileEncoding());
     }
@@ -44,6 +60,22 @@ public class SystemPropertiesTest {
     @Test
     public void testGetFileSeparator() {
         assertNotNull(SystemProperties.getFileSeparator());
+    }
+
+    @Test
+    public void testGetInt() {
+        final String key = RandomStringUtils.random(10);
+        final String absentKey = RandomStringUtils.random(10);
+        assertNull(System.getProperty(absentKey));
+        try {
+            System.setProperty(key, Integer.toString(Integer.MAX_VALUE));
+            assertEquals(Integer.MAX_VALUE, SystemProperties.getInt(key, () -> 0));
+            assertEquals(Integer.MAX_VALUE, SystemProperties.getInt(absentKey, () -> Integer.MAX_VALUE));
+            assertEquals(0, SystemProperties.getInt(absentKey, () -> 0));
+            assertEquals(0, SystemProperties.getInt(absentKey, null));
+        } finally {
+            System.clearProperty(key);
+        }
     }
 
     @Test
@@ -212,48 +244,6 @@ public class SystemPropertiesTest {
     }
 
     @Test
-    public void testGetOsArch() {
-        assertNotNull(SystemProperties.getOsArch());
-    }
-
-    @Test
-    public void testGetOsName() {
-        assertNotNull(SystemProperties.getOsName());
-    }
-
-    @Test
-    public void testGetBoolean() {
-        final String key = RandomStringUtils.random(10);
-        final String absentKey = RandomStringUtils.random(10);
-        assertNull(System.getProperty(absentKey));
-        try {
-            System.setProperty(key, Boolean.toString(Boolean.TRUE));
-            assertEquals(Boolean.TRUE, SystemProperties.getBoolean(key, () -> false));
-            assertEquals(Boolean.TRUE, SystemProperties.getBoolean(absentKey, () -> Boolean.TRUE));
-            assertEquals(false, SystemProperties.getBoolean(absentKey, () -> false));
-            assertEquals(false, SystemProperties.getBoolean(absentKey, null));
-        } finally {
-            System.clearProperty(key);
-        }
-    }
-
-    @Test
-    public void testGetInt() {
-        final String key = RandomStringUtils.random(10);
-        final String absentKey = RandomStringUtils.random(10);
-        assertNull(System.getProperty(absentKey));
-        try {
-            System.setProperty(key, Integer.toString(Integer.MAX_VALUE));
-            assertEquals(Integer.MAX_VALUE, SystemProperties.getInt(key, () -> 0));
-            assertEquals(Integer.MAX_VALUE, SystemProperties.getInt(absentKey, () -> Integer.MAX_VALUE));
-            assertEquals(0, SystemProperties.getInt(absentKey, () -> 0));
-            assertEquals(0, SystemProperties.getInt(absentKey, null));
-        } finally {
-            System.clearProperty(key);
-        }
-    }
-
-    @Test
     public void testGetLong() {
         final String key = RandomStringUtils.random(10);
         final String absentKey = RandomStringUtils.random(10);
@@ -267,6 +257,16 @@ public class SystemPropertiesTest {
         } finally {
             System.clearProperty(key);
         }
+    }
+
+    @Test
+    public void testGetOsArch() {
+        assertNotNull(SystemProperties.getOsArch());
+    }
+
+    @Test
+    public void testGetOsName() {
+        assertNotNull(SystemProperties.getOsName());
     }
 
 

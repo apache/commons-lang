@@ -29,6 +29,15 @@ import org.junit.jupiter.api.Test;
 public class UnicodeEscaperTest extends AbstractLangTest {
 
     @Test
+    public void testAbove() {
+        final UnicodeEscaper ue = UnicodeEscaper.above('F');
+
+        final String input = "ADFGZ";
+        final String result = ue.translate(input);
+        assertEquals("ADF\\u0047\\u005A", result, "Failed to escape Unicode characters via the above method");
+    }
+
+    @Test
     public void testBelow() {
         final UnicodeEscaper ue = UnicodeEscaper.below('F');
 
@@ -44,14 +53,5 @@ public class UnicodeEscaperTest extends AbstractLangTest {
         final String input = "ADFGZ";
         final String result = ue.translate(input);
         assertEquals("AD\\u0046\\u0047Z", result, "Failed to escape Unicode characters via the between method");
-    }
-
-    @Test
-    public void testAbove() {
-        final UnicodeEscaper ue = UnicodeEscaper.above('F');
-
-        final String input = "ADFGZ";
-        final String result = ue.translate(input);
-        assertEquals("ADF\\u0047\\u005A", result, "Failed to escape Unicode characters via the above method");
     }
 }

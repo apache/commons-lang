@@ -22,18 +22,6 @@ package org.apache.commons.lang3.test;
  */
 public class NotVisibleExceptionFactory {
 
-  private NotVisibleExceptionFactory() {}
-
-  /**
-   * Create a new Exception whose getCause method returns the
-   * provided cause.
-   * @param cause the cause of the exception
-   * @return a new {@link Exception}
-   */
-  public static Exception createException(final Throwable cause) {
-    return new NotVisibleException(cause);
-  }
-
   private static final class NotVisibleException extends Exception {
 
     private static final long serialVersionUID = 1L; // avoid warning
@@ -49,4 +37,16 @@ public class NotVisibleExceptionFactory {
       return cause;
     }
   }
+
+  /**
+   * Create a new Exception whose getCause method returns the
+   * provided cause.
+   * @param cause the cause of the exception
+   * @return a new {@link Exception}
+   */
+  public static Exception createException(final Throwable cause) {
+    return new NotVisibleException(cause);
+  }
+
+  private NotVisibleExceptionFactory() {}
 }

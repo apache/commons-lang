@@ -29,9 +29,9 @@ import org.junit.jupiter.api.Test;
 public class CloneFailedExceptionTest extends AbstractExceptionTest {
 
     @Test
-    public void testThrowingInformativeException() {
+    public void testThrowingExceptionWithCause() {
         assertThrows(CloneFailedException.class, () -> {
-            throw new CloneFailedException(EXCEPTION_MESSAGE, generateCause());
+            throw new CloneFailedException(generateCause());
         });
     }
 
@@ -43,9 +43,9 @@ public class CloneFailedExceptionTest extends AbstractExceptionTest {
     }
 
     @Test
-    public void testThrowingExceptionWithCause() {
+    public void testThrowingInformativeException() {
         assertThrows(CloneFailedException.class, () -> {
-            throw new CloneFailedException(generateCause());
+            throw new CloneFailedException(EXCEPTION_MESSAGE, generateCause());
         });
     }
 

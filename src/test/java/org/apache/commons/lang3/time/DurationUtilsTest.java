@@ -37,20 +37,6 @@ import org.junit.jupiter.api.Test;
 public class DurationUtilsTest extends AbstractLangTest {
 
     @Test
-    public void testGetNanosOfMilli() {
-        assertEquals(0, DurationUtils.getNanosOfMilli(null));
-        assertEquals(0, DurationUtils.getNanosOfMilli(Duration.ZERO));
-        assertEquals(1, DurationUtils.getNanosOfMilli(Duration.ofNanos(1)));
-        assertEquals(10, DurationUtils.getNanosOfMilli(Duration.ofNanos(10)));
-        assertEquals(100, DurationUtils.getNanosOfMilli(Duration.ofNanos(100)));
-        assertEquals(1_000, DurationUtils.getNanosOfMilli(Duration.ofNanos(1_000)));
-        assertEquals(10_000, DurationUtils.getNanosOfMilli(Duration.ofNanos(10_000)));
-        assertEquals(100_000, DurationUtils.getNanosOfMilli(Duration.ofNanos(100_000)));
-        assertEquals(0, DurationUtils.getNanosOfMilli(Duration.ofNanos(1_000_000)));
-        assertEquals(1, DurationUtils.getNanosOfMilli(Duration.ofNanos(1_000_001)));
-    }
-
-    @Test
     public void testGetNanosOfMiili() {
         assertEquals(0, DurationUtils.getNanosOfMiili(null));
         assertEquals(0, DurationUtils.getNanosOfMiili(Duration.ZERO));
@@ -62,6 +48,20 @@ public class DurationUtilsTest extends AbstractLangTest {
         assertEquals(100_000, DurationUtils.getNanosOfMiili(Duration.ofNanos(100_000)));
         assertEquals(0, DurationUtils.getNanosOfMiili(Duration.ofNanos(1_000_000)));
         assertEquals(1, DurationUtils.getNanosOfMiili(Duration.ofNanos(1_000_001)));
+    }
+
+    @Test
+    public void testGetNanosOfMilli() {
+        assertEquals(0, DurationUtils.getNanosOfMilli(null));
+        assertEquals(0, DurationUtils.getNanosOfMilli(Duration.ZERO));
+        assertEquals(1, DurationUtils.getNanosOfMilli(Duration.ofNanos(1)));
+        assertEquals(10, DurationUtils.getNanosOfMilli(Duration.ofNanos(10)));
+        assertEquals(100, DurationUtils.getNanosOfMilli(Duration.ofNanos(100)));
+        assertEquals(1_000, DurationUtils.getNanosOfMilli(Duration.ofNanos(1_000)));
+        assertEquals(10_000, DurationUtils.getNanosOfMilli(Duration.ofNanos(10_000)));
+        assertEquals(100_000, DurationUtils.getNanosOfMilli(Duration.ofNanos(100_000)));
+        assertEquals(0, DurationUtils.getNanosOfMilli(Duration.ofNanos(1_000_000)));
+        assertEquals(1, DurationUtils.getNanosOfMilli(Duration.ofNanos(1_000_001)));
     }
 
     @Test
@@ -90,13 +90,13 @@ public class DurationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testOfRunnble() {
-        assertTrue(DurationUtils.of(this::testSince).compareTo(Duration.ZERO) >= 0);
+    public void testOfConsumer() {
+        assertTrue(DurationUtils.of(start -> assertTrue(start.compareTo(Instant.now()) <= 0)).compareTo(Duration.ZERO) >= 0);
     }
 
     @Test
-    public void testOfConsumer() {
-        assertTrue(DurationUtils.of(start -> assertTrue(start.compareTo(Instant.now()) <= 0)).compareTo(Duration.ZERO) >= 0);
+    public void testOfRunnble() {
+        assertTrue(DurationUtils.of(this::testSince).compareTo(Duration.ZERO) >= 0);
     }
 
     @Test

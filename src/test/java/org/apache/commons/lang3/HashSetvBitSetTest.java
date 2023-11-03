@@ -37,14 +37,24 @@ public class HashSetvBitSetTest extends AbstractLangTest {
 
     private static final int numberOfElementsToCompute = 10;
 
-    @Benchmark
-    public int[] testHashSet() {
-        final HashSet<Integer> toRemove = new HashSet<>();
-        int found = 0;
-        for (int i = 0; i < numberOfElementsToCompute; i++) {
-            toRemove.add(found++);
+    private static int[] extractIndices(final BitSet coll) {
+        final int[] result = new int[coll.cardinality()];
+        int i = 0;
+        int j=0;
+        while ((j=coll.nextSetBit(j)) != -1) {
+            result[i++] = j++;
         }
-        return extractIndices(toRemove);
+        return result;
+    }
+
+    // --- utility methods
+    private static int[] extractIndices(final HashSet<Integer> coll) {
+        final int[] result = new int[coll.size()];
+        int i = 0;
+        for (final Integer index : coll) {
+            result[i++] = index.intValue();
+        }
+        return result;
     }
 
     @Benchmark
@@ -53,6 +63,16 @@ public class HashSetvBitSetTest extends AbstractLangTest {
         int found = 0;
         for (int i = 0; i < numberOfElementsToCompute; i++) {
             toRemove.set(found++);
+        }
+        return extractIndices(toRemove);
+    }
+
+    @Benchmark
+    public int[] testHashSet() {
+        final HashSet<Integer> toRemove = new HashSet<>();
+        int found = 0;
+        for (int i = 0; i < numberOfElementsToCompute; i++) {
+            toRemove.add(found++);
         }
         return extractIndices(toRemove);
     }
@@ -72,25 +92,5 @@ public class HashSetvBitSetTest extends AbstractLangTest {
         toRemove.set(10, 20);
         final int[] extractIndices = extractIndices(toRemove);
         return (int[]) ArrayUtils.removeAll((Object) array, extractIndices);
-    }
-
-    // --- utility methods
-    private static int[] extractIndices(final HashSet<Integer> coll) {
-        final int[] result = new int[coll.size()];
-        int i = 0;
-        for (final Integer index : coll) {
-            result[i++] = index.intValue();
-        }
-        return result;
-    }
-
-    private static int[] extractIndices(final BitSet coll) {
-        final int[] result = new int[coll.cardinality()];
-        int i = 0;
-        int j=0;
-        while ((j=coll.nextSetBit(j)) != -1) {
-            result[i++] = j++;
-        }
-        return result;
     }
 }

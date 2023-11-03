@@ -36,14 +36,6 @@ public class TypeLiteralTest extends AbstractLangTest {
     }
 
     @Test
-    public void testTyped() {
-        final Typed<String> stringType = new TypeLiteral<String>() {};
-        assertTrue(TypeUtils.equals(String.class, stringType.getType()));
-        final Typed<List<String>> listOfStringType = new TypeLiteral<List<String>>() {};
-        assertTrue(TypeUtils.equals(TypeUtils.parameterize(List.class, String.class), listOfStringType.getType()));
-    }
-
-    @Test
     public void testEquals() {
         assertEquals(new TypeLiteral<String>() {}, new TypeLiteral<String>() {});
         assertEquals(new TypeLiteral<List<String>>() {}, new TypeLiteral<List<String>>() {});
@@ -54,5 +46,13 @@ public class TypeLiteralTest extends AbstractLangTest {
     @Test
     public void testRaw() {
         assertThrows(NullPointerException.class, () -> new TypeLiteral() {});
+    }
+
+    @Test
+    public void testTyped() {
+        final Typed<String> stringType = new TypeLiteral<String>() {};
+        assertTrue(TypeUtils.equals(String.class, stringType.getType()));
+        final Typed<List<String>> listOfStringType = new TypeLiteral<List<String>>() {};
+        assertTrue(TypeUtils.equals(TypeUtils.parameterize(List.class, String.class), listOfStringType.getType()));
     }
 }

@@ -37,22 +37,22 @@ public class StaticContainer {
     static Object mutablePackage;
     private static Object mutablePrivate;
 
-    public static void reset() {
-        mutablePublic = null;
-        mutableProtected = null;
-        mutablePackage = null;
-        mutablePrivate = null;
-    }
-
-    public static Object getMutableProtected() {
-        return mutableProtected;
-    }
-
     public static Object getMutablePackage() {
         return mutablePackage;
     }
 
     public static Object getMutablePrivate() {
         return mutablePrivate;
+    }
+
+    public static Object getMutableProtected() {
+        return mutableProtected;
+    }
+
+    public static void reset() {
+        mutablePublic = null;
+        mutableProtected = null;
+        mutablePackage = null;
+        mutablePrivate = null;
     }
 }

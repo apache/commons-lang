@@ -37,6 +37,12 @@ import org.junit.jupiter.api.Test;
  */
 public class NumberUtilsTest extends AbstractLangTest {
 
+    private static void assertCreateNumberZero(final String number, final Object zero, final Object negativeZero) {
+        assertEquals(zero, NumberUtils.createNumber(number), () -> "Input: " + number);
+        assertEquals(zero, NumberUtils.createNumber("+" + number), () -> "Input: +" + number);
+        assertEquals(negativeZero, NumberUtils.createNumber("-" + number), () -> "Input: -" + number);
+    }
+
     private boolean checkCreateNumber(final String val) {
         try {
             final Object obj = NumberUtils.createNumber(val);
@@ -713,12 +719,6 @@ public class NumberUtilsTest extends AbstractLangTest {
                 assertCreateNumberZero(number + "D", d0, dn0);
             }
         }
-    }
-
-    private static void assertCreateNumberZero(final String number, final Object zero, final Object negativeZero) {
-        assertEquals(zero, NumberUtils.createNumber(number), () -> "Input: " + number);
-        assertEquals(zero, NumberUtils.createNumber("+" + number), () -> "Input: +" + number);
-        assertEquals(negativeZero, NumberUtils.createNumber("-" + number), () -> "Input: -" + number);
     }
 
     /**

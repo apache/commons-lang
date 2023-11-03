@@ -36,11 +36,8 @@ public class InheritanceUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDistanceGreaterThanZero() {
-        assertEquals(1, InheritanceUtils.distance(AnotherChild.class, AnotherParent.class));
-        assertEquals(1, InheritanceUtils.distance(Grandchild.class, AnotherChild.class));
-        assertEquals(2, InheritanceUtils.distance(Grandchild.class, AnotherParent.class));
-        assertEquals(3, InheritanceUtils.distance(Grandchild.class, Object.class));
+    public void testDistanceDisjoint() {
+        assertEquals(-1, InheritanceUtils.distance(Boolean.class, String.class));
     }
 
     @Test
@@ -51,6 +48,14 @@ public class InheritanceUtilsTest extends AbstractLangTest {
     @Test
     public void testDistanceEqualObject() {
         assertEquals(0, InheritanceUtils.distance(Object.class, Object.class));
+    }
+
+    @Test
+    public void testDistanceGreaterThanZero() {
+        assertEquals(1, InheritanceUtils.distance(AnotherChild.class, AnotherParent.class));
+        assertEquals(1, InheritanceUtils.distance(Grandchild.class, AnotherChild.class));
+        assertEquals(2, InheritanceUtils.distance(Grandchild.class, AnotherParent.class));
+        assertEquals(3, InheritanceUtils.distance(Grandchild.class, Object.class));
     }
 
     @Test
@@ -66,11 +71,6 @@ public class InheritanceUtilsTest extends AbstractLangTest {
     @Test
     public void testDistanceNullParentNullChild() {
         assertEquals(-1, InheritanceUtils.distance(null, null));
-    }
-
-    @Test
-    public void testDistanceDisjoint() {
-        assertEquals(-1, InheritanceUtils.distance(Boolean.class, String.class));
     }
 
     @Test

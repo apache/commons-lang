@@ -51,16 +51,16 @@ public class LazyInitializerSingleInstanceTest extends AbstractConcurrentInitial
         return initializer;
     }
 
+    @BeforeEach
+    public void setUp() {
+        initializer = new LazyInitializerTestImpl();
+    }
+
     @Test
     public void testIsInitialized() throws ConcurrentException {
         final LazyInitializer<Object> initializer = createInitializer();
         assertFalse(initializer.isInitialized());
         initializer.get();
         assertTrue(initializer.isInitialized());
-    }
-
-    @BeforeEach
-    public void setUp() {
-        initializer = new LazyInitializerTestImpl();
     }
 }

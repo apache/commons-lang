@@ -32,20 +32,6 @@ import org.junit.jupiter.api.Test;
 public class FormattableUtilsTest extends AbstractLangTest {
 
     @Test
-    public void testDefaultAppend() {
-        assertEquals("foo", FormattableUtils.append("foo", new Formatter(), 0, -1, -1).toString());
-        assertEquals("fo", FormattableUtils.append("foo", new Formatter(), 0, -1, 2).toString());
-        assertEquals(" foo", FormattableUtils.append("foo", new Formatter(), 0, 4, -1).toString());
-        assertEquals("   foo", FormattableUtils.append("foo", new Formatter(), 0, 6, -1).toString());
-        assertEquals(" fo", FormattableUtils.append("foo", new Formatter(), 0, 3, 2).toString());
-        assertEquals("   fo", FormattableUtils.append("foo", new Formatter(), 0, 5, 2).toString());
-        assertEquals("foo ", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 4, -1).toString());
-        assertEquals("foo   ", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 6, -1).toString());
-        assertEquals("fo ", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 3, 2).toString());
-        assertEquals("fo   ", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 5, 2).toString());
-    }
-
-    @Test
     public void testAlternatePadCharacter() {
         final char pad='_';
         assertEquals("foo", FormattableUtils.append("foo", new Formatter(), 0, -1, -1, pad).toString());
@@ -58,6 +44,45 @@ public class FormattableUtilsTest extends AbstractLangTest {
         assertEquals("foo___", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 6, -1, pad).toString());
         assertEquals("fo_", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 3, 2, pad).toString());
         assertEquals("fo___", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 5, 2, pad).toString());
+    }
+
+    @Test
+    public void testAlternatePadCharAndEllipsis() {
+        assertEquals("foo", FormattableUtils.append("foo", new Formatter(), 0, -1, -1, '_', "*").toString());
+        assertEquals("f*", FormattableUtils.append("foo", new Formatter(), 0, -1, 2, '_', "*").toString());
+        assertEquals("_foo", FormattableUtils.append("foo", new Formatter(), 0, 4, -1, '_', "*").toString());
+        assertEquals("___foo", FormattableUtils.append("foo", new Formatter(), 0, 6, -1, '_', "*").toString());
+        assertEquals("_f*", FormattableUtils.append("foo", new Formatter(), 0, 3, 2, '_', "*").toString());
+        assertEquals("___f*", FormattableUtils.append("foo", new Formatter(), 0, 5, 2, '_', "*").toString());
+        assertEquals("foo_", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 4, -1, '_', "*").toString());
+        assertEquals("foo___", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 6, -1, '_', "*").toString());
+        assertEquals("f*_", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 3, 2, '_', "*").toString());
+        assertEquals("f*___", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 5, 2, '_', "*").toString());
+
+        assertEquals("foo", FormattableUtils.append("foo", new Formatter(), 0, -1, -1, '_', "+*").toString());
+        assertEquals("+*", FormattableUtils.append("foo", new Formatter(), 0, -1, 2, '_', "+*").toString());
+        assertEquals("_foo", FormattableUtils.append("foo", new Formatter(), 0, 4, -1, '_', "+*").toString());
+        assertEquals("___foo", FormattableUtils.append("foo", new Formatter(), 0, 6, -1, '_', "+*").toString());
+        assertEquals("_+*", FormattableUtils.append("foo", new Formatter(), 0, 3, 2, '_', "+*").toString());
+        assertEquals("___+*", FormattableUtils.append("foo", new Formatter(), 0, 5, 2, '_', "+*").toString());
+        assertEquals("foo_", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 4, -1, '_', "+*").toString());
+        assertEquals("foo___", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 6, -1, '_', "+*").toString());
+        assertEquals("+*_", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 3, 2, '_', "+*").toString());
+        assertEquals("+*___", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 5, 2, '_', "+*").toString());
+    }
+
+    @Test
+    public void testDefaultAppend() {
+        assertEquals("foo", FormattableUtils.append("foo", new Formatter(), 0, -1, -1).toString());
+        assertEquals("fo", FormattableUtils.append("foo", new Formatter(), 0, -1, 2).toString());
+        assertEquals(" foo", FormattableUtils.append("foo", new Formatter(), 0, 4, -1).toString());
+        assertEquals("   foo", FormattableUtils.append("foo", new Formatter(), 0, 6, -1).toString());
+        assertEquals(" fo", FormattableUtils.append("foo", new Formatter(), 0, 3, 2).toString());
+        assertEquals("   fo", FormattableUtils.append("foo", new Formatter(), 0, 5, 2).toString());
+        assertEquals("foo ", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 4, -1).toString());
+        assertEquals("foo   ", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 6, -1).toString());
+        assertEquals("fo ", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 3, 2).toString());
+        assertEquals("fo   ", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 5, 2).toString());
     }
 
     @Test
@@ -88,31 +113,6 @@ public class FormattableUtilsTest extends AbstractLangTest {
     @Test
     public void testIllegalEllipsis() {
         assertThrows(IllegalArgumentException.class, () -> FormattableUtils.append("foo", new Formatter(), 0, -1, 1, "xx"));
-    }
-
-    @Test
-    public void testAlternatePadCharAndEllipsis() {
-        assertEquals("foo", FormattableUtils.append("foo", new Formatter(), 0, -1, -1, '_', "*").toString());
-        assertEquals("f*", FormattableUtils.append("foo", new Formatter(), 0, -1, 2, '_', "*").toString());
-        assertEquals("_foo", FormattableUtils.append("foo", new Formatter(), 0, 4, -1, '_', "*").toString());
-        assertEquals("___foo", FormattableUtils.append("foo", new Formatter(), 0, 6, -1, '_', "*").toString());
-        assertEquals("_f*", FormattableUtils.append("foo", new Formatter(), 0, 3, 2, '_', "*").toString());
-        assertEquals("___f*", FormattableUtils.append("foo", new Formatter(), 0, 5, 2, '_', "*").toString());
-        assertEquals("foo_", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 4, -1, '_', "*").toString());
-        assertEquals("foo___", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 6, -1, '_', "*").toString());
-        assertEquals("f*_", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 3, 2, '_', "*").toString());
-        assertEquals("f*___", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 5, 2, '_', "*").toString());
-
-        assertEquals("foo", FormattableUtils.append("foo", new Formatter(), 0, -1, -1, '_', "+*").toString());
-        assertEquals("+*", FormattableUtils.append("foo", new Formatter(), 0, -1, 2, '_', "+*").toString());
-        assertEquals("_foo", FormattableUtils.append("foo", new Formatter(), 0, 4, -1, '_', "+*").toString());
-        assertEquals("___foo", FormattableUtils.append("foo", new Formatter(), 0, 6, -1, '_', "+*").toString());
-        assertEquals("_+*", FormattableUtils.append("foo", new Formatter(), 0, 3, 2, '_', "+*").toString());
-        assertEquals("___+*", FormattableUtils.append("foo", new Formatter(), 0, 5, 2, '_', "+*").toString());
-        assertEquals("foo_", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 4, -1, '_', "+*").toString());
-        assertEquals("foo___", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 6, -1, '_', "+*").toString());
-        assertEquals("+*_", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 3, 2, '_', "+*").toString());
-        assertEquals("+*___", FormattableUtils.append("foo", new Formatter(), FormattableFlags.LEFT_JUSTIFY, 5, 2, '_', "+*").toString());
     }
 
 }

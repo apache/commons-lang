@@ -56,13 +56,6 @@ public class CharEncodingTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSupported() {
-        assertTrue(CharEncoding.isSupported("UTF8"));
-        assertTrue(CharEncoding.isSupported("UTF-8"));
-        assertTrue(CharEncoding.isSupported("ASCII"));
-    }
-
-    @Test
     public void testNotSupported() {
         assertFalse(CharEncoding.isSupported(null));
         assertFalse(CharEncoding.isSupported(""));
@@ -80,5 +73,12 @@ public class CharEncodingTest extends AbstractLangTest {
         assertEquals(StandardCharsets.UTF_16.name(), CharEncoding.UTF_16);
         assertEquals(StandardCharsets.UTF_16BE.name(), CharEncoding.UTF_16BE);
         assertEquals(StandardCharsets.UTF_16LE.name(), CharEncoding.UTF_16LE);
+    }
+
+    @Test
+    public void testSupported() {
+        assertTrue(CharEncoding.isSupported("UTF8"));
+        assertTrue(CharEncoding.isSupported("UTF-8"));
+        assertTrue(CharEncoding.isSupported("ASCII"));
     }
 }

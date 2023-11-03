@@ -102,39 +102,6 @@ public class RangeTest extends AbstractLangTest {
         assertThrows(NullPointerException.class, () -> Range.between(null, null, lengthComp));
     }
 
-    @Test
-    public void testOfWithCompare() {
-        // all integers are equal
-        final Comparator<Integer> c = (o1, o2) -> 0;
-        final Comparator<String> lengthComp = Comparator.comparingInt(String::length);
-        Range<Integer> rb = Range.of(-10, 20);
-        assertFalse(rb.contains(null), "should not contain null");
-        assertTrue(rb.contains(10), "should contain 10");
-        assertTrue(rb.contains(-10), "should contain -10");
-        assertFalse(rb.contains(21), "should not contain 21");
-        assertFalse(rb.contains(-11), "should not contain -11");
-        rb = Range.of(-10, 20, c);
-        assertFalse(rb.contains(null), "should not contain null");
-        assertTrue(rb.contains(10), "should contain 10");
-        assertTrue(rb.contains(-10), "should contain -10");
-        assertTrue(rb.contains(21), "should contain 21");
-        assertTrue(rb.contains(-11), "should contain -11");
-        Range<String> rbstr = Range.of("house", "i");
-        assertFalse(rbstr.contains(null), "should not contain null");
-        assertTrue(rbstr.contains("house"), "should contain house");
-        assertTrue(rbstr.contains("i"), "should contain i");
-        assertFalse(rbstr.contains("hose"), "should not contain hose");
-        assertFalse(rbstr.contains("ice"), "should not contain ice");
-        rbstr = Range.of("house", "i", lengthComp);
-        assertFalse(rbstr.contains(null), "should not contain null");
-        assertTrue(rbstr.contains("house"), "should contain house");
-        assertTrue(rbstr.contains("i"), "should contain i");
-        assertFalse(rbstr.contains("houses"), "should not contain houses");
-        assertFalse(rbstr.contains(""), "should not contain ''");
-
-        assertThrows(NullPointerException.class, () -> Range.of(null, null, lengthComp));
-    }
-
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Test
     public void testComparableConstructors() {
@@ -419,6 +386,39 @@ public class RangeTest extends AbstractLangTest {
         assertFalse(ri.contains(null), "should not contain null");
         assertTrue(ri.contains(10), "should contain 10");
         assertTrue(ri.contains(11), "should contain 11");
+    }
+
+    @Test
+    public void testOfWithCompare() {
+        // all integers are equal
+        final Comparator<Integer> c = (o1, o2) -> 0;
+        final Comparator<String> lengthComp = Comparator.comparingInt(String::length);
+        Range<Integer> rb = Range.of(-10, 20);
+        assertFalse(rb.contains(null), "should not contain null");
+        assertTrue(rb.contains(10), "should contain 10");
+        assertTrue(rb.contains(-10), "should contain -10");
+        assertFalse(rb.contains(21), "should not contain 21");
+        assertFalse(rb.contains(-11), "should not contain -11");
+        rb = Range.of(-10, 20, c);
+        assertFalse(rb.contains(null), "should not contain null");
+        assertTrue(rb.contains(10), "should contain 10");
+        assertTrue(rb.contains(-10), "should contain -10");
+        assertTrue(rb.contains(21), "should contain 21");
+        assertTrue(rb.contains(-11), "should contain -11");
+        Range<String> rbstr = Range.of("house", "i");
+        assertFalse(rbstr.contains(null), "should not contain null");
+        assertTrue(rbstr.contains("house"), "should contain house");
+        assertTrue(rbstr.contains("i"), "should contain i");
+        assertFalse(rbstr.contains("hose"), "should not contain hose");
+        assertFalse(rbstr.contains("ice"), "should not contain ice");
+        rbstr = Range.of("house", "i", lengthComp);
+        assertFalse(rbstr.contains(null), "should not contain null");
+        assertTrue(rbstr.contains("house"), "should contain house");
+        assertTrue(rbstr.contains("i"), "should contain i");
+        assertFalse(rbstr.contains("houses"), "should not contain houses");
+        assertFalse(rbstr.contains(""), "should not contain ''");
+
+        assertThrows(NullPointerException.class, () -> Range.of(null, null, lengthComp));
     }
 
     @Test

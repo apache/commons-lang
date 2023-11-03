@@ -35,72 +35,6 @@ public class StringUtilsStartsEndsWithTest extends AbstractLangTest {
 
 
     /**
-     * Test StringUtils.startsWith()
-     */
-    @Test
-    public void testStartsWith() {
-        assertTrue(StringUtils.startsWith(null, null), "startsWith(null, null)");
-        assertFalse(StringUtils.startsWith(FOOBAR, null), "startsWith(FOOBAR, null)");
-        assertFalse(StringUtils.startsWith(null, FOO), "startsWith(null, FOO)");
-        assertTrue(StringUtils.startsWith(FOOBAR, ""), "startsWith(FOOBAR, \"\")");
-
-        assertTrue(StringUtils.startsWith(foobar, foo), "startsWith(foobar, foo)");
-        assertTrue(StringUtils.startsWith(FOOBAR, FOO), "startsWith(FOOBAR, FOO)");
-        assertFalse(StringUtils.startsWith(foobar, FOO), "startsWith(foobar, FOO)");
-        assertFalse(StringUtils.startsWith(FOOBAR, foo), "startsWith(FOOBAR, foo)");
-
-        assertFalse(StringUtils.startsWith(foo, foobar), "startsWith(foo, foobar)");
-        assertFalse(StringUtils.startsWith(bar, foobar), "startsWith(foo, foobar)");
-
-        assertFalse(StringUtils.startsWith(foobar, bar), "startsWith(foobar, bar)");
-        assertFalse(StringUtils.startsWith(FOOBAR, BAR), "startsWith(FOOBAR, BAR)");
-        assertFalse(StringUtils.startsWith(foobar, BAR), "startsWith(foobar, BAR)");
-        assertFalse(StringUtils.startsWith(FOOBAR, bar), "startsWith(FOOBAR, bar)");
-    }
-
-    /**
-     * Test StringUtils.testStartsWithIgnoreCase()
-     */
-    @Test
-    public void testStartsWithIgnoreCase() {
-        assertTrue(StringUtils.startsWithIgnoreCase(null, null), "startsWithIgnoreCase(null, null)");
-        assertFalse(StringUtils.startsWithIgnoreCase(FOOBAR, null), "startsWithIgnoreCase(FOOBAR, null)");
-        assertFalse(StringUtils.startsWithIgnoreCase(null, FOO), "startsWithIgnoreCase(null, FOO)");
-        assertTrue(StringUtils.startsWithIgnoreCase(FOOBAR, ""), "startsWithIgnoreCase(FOOBAR, \"\")");
-
-        assertTrue(StringUtils.startsWithIgnoreCase(foobar, foo), "startsWithIgnoreCase(foobar, foo)");
-        assertTrue(StringUtils.startsWithIgnoreCase(FOOBAR, FOO), "startsWithIgnoreCase(FOOBAR, FOO)");
-        assertTrue(StringUtils.startsWithIgnoreCase(foobar, FOO), "startsWithIgnoreCase(foobar, FOO)");
-        assertTrue(StringUtils.startsWithIgnoreCase(FOOBAR, foo), "startsWithIgnoreCase(FOOBAR, foo)");
-
-        assertFalse(StringUtils.startsWithIgnoreCase(foo, foobar), "startsWithIgnoreCase(foo, foobar)");
-        assertFalse(StringUtils.startsWithIgnoreCase(bar, foobar), "startsWithIgnoreCase(foo, foobar)");
-
-        assertFalse(StringUtils.startsWithIgnoreCase(foobar, bar), "startsWithIgnoreCase(foobar, bar)");
-        assertFalse(StringUtils.startsWithIgnoreCase(FOOBAR, BAR), "startsWithIgnoreCase(FOOBAR, BAR)");
-        assertFalse(StringUtils.startsWithIgnoreCase(foobar, BAR), "startsWithIgnoreCase(foobar, BAR)");
-        assertFalse(StringUtils.startsWithIgnoreCase(FOOBAR, bar), "startsWithIgnoreCase(FOOBAR, bar)");
-    }
-
-    @Test
-    public void testStartsWithAny() {
-        assertFalse(StringUtils.startsWithAny(null, (String[]) null));
-        assertFalse(StringUtils.startsWithAny(null, "abc"));
-        assertFalse(StringUtils.startsWithAny("abcxyz", (String[]) null));
-        assertFalse(StringUtils.startsWithAny("abcxyz"));
-        assertTrue(StringUtils.startsWithAny("abcxyz", "abc"));
-        assertTrue(StringUtils.startsWithAny("abcxyz", null, "xyz", "abc"));
-        assertFalse(StringUtils.startsWithAny("abcxyz", null, "xyz", "abcd"));
-        assertTrue(StringUtils.startsWithAny("abcxyz", ""));
-        assertFalse(StringUtils.startsWithAny("abcxyz", null, "xyz", "ABCX"));
-        assertFalse(StringUtils.startsWithAny("ABCXYZ", null, "xyz", "abc"));
-
-        assertTrue(StringUtils.startsWithAny("abcxyz", new StringBuilder("xyz"), new StringBuffer("abc")), "StringUtils.startsWithAny(abcxyz, StringBuilder(xyz), StringBuffer(abc))");
-        assertTrue(StringUtils.startsWithAny(new StringBuffer("abcxyz"), new StringBuilder("xyz"), new StringBuffer("abc")), "StringUtils.startsWithAny(StringBuffer(abcxyz), StringBuilder(xyz), StringBuffer(abc))");
-    }
-
-
-    /**
      * Test StringUtils.endsWith()
      */
     @Test
@@ -129,6 +63,35 @@ public class StringUtilsStartsEndsWithTest extends AbstractLangTest {
         // "alpha, beta, gamma, delta".endsWith("gamma, DELTA")
         assertFalse(StringUtils.endsWith("\u03B1\u03B2\u03B3\u03B4", "\u03B3\u0394"),
                 "endsWith(\u03B1\u03B2\u03B3\u03B4, \u03B3\u0394)");
+    }
+
+    @Test
+    public void testEndsWithAny() {
+        assertFalse(StringUtils.endsWithAny(null, (String) null), "StringUtils.endsWithAny(null, null)");
+        assertFalse(StringUtils.endsWithAny(null, "abc"), "StringUtils.endsWithAny(null, new String[] {abc})");
+        assertFalse(StringUtils.endsWithAny("abcxyz", (String) null), "StringUtils.endsWithAny(abcxyz, null)");
+        assertTrue(StringUtils.endsWithAny("abcxyz", ""), "StringUtils.endsWithAny(abcxyz, new String[] {\"\"})");
+        assertTrue(StringUtils.endsWithAny("abcxyz", "xyz"), "StringUtils.endsWithAny(abcxyz, new String[] {xyz})");
+        assertTrue(StringUtils.endsWithAny("abcxyz", null, "xyz", "abc"), "StringUtils.endsWithAny(abcxyz, new String[] {null, xyz, abc})");
+        assertFalse(StringUtils.endsWithAny("defg", null, "xyz", "abc"), "StringUtils.endsWithAny(defg, new String[] {null, xyz, abc})");
+        assertTrue(StringUtils.endsWithAny("abcXYZ", "def", "XYZ"));
+        assertFalse(StringUtils.endsWithAny("abcXYZ", "def", "xyz"));
+        assertTrue(StringUtils.endsWithAny("abcXYZ", "def", "YZ"));
+
+        /*
+         * Type null of the last argument to method endsWithAny(CharSequence, CharSequence...)
+         * doesn't exactly match the vararg parameter type.
+         * Cast to CharSequence[] to confirm the non-varargs invocation,
+         * or pass individual arguments of type CharSequence for a varargs invocation.
+         *
+         * assertFalse(StringUtils.endsWithAny("abcXYZ", null)); // replace with specific types to avoid warning
+         */
+        assertFalse(StringUtils.endsWithAny("abcXYZ", (CharSequence) null));
+        assertFalse(StringUtils.endsWithAny("abcXYZ", (CharSequence[]) null));
+        assertTrue(StringUtils.endsWithAny("abcXYZ", ""));
+
+        assertTrue(StringUtils.endsWithAny("abcxyz", new StringBuilder("abc"), new StringBuffer("xyz")), "StringUtils.endsWithAny(abcxyz, StringBuilder(abc), StringBuffer(xyz))");
+        assertTrue(StringUtils.endsWithAny(new StringBuffer("abcxyz"), new StringBuilder("abc"), new StringBuffer("xyz")), "StringUtils.endsWithAny(StringBuffer(abcxyz), StringBuilder(abc), StringBuffer(xyz))");
     }
 
     /**
@@ -167,33 +130,70 @@ public class StringUtilsStartsEndsWithTest extends AbstractLangTest {
                 "endsWith(\u03B1\u03B2\u03B3\u03B4, \u0393)");
     }
 
+
+    /**
+     * Test StringUtils.startsWith()
+     */
     @Test
-    public void testEndsWithAny() {
-        assertFalse(StringUtils.endsWithAny(null, (String) null), "StringUtils.endsWithAny(null, null)");
-        assertFalse(StringUtils.endsWithAny(null, "abc"), "StringUtils.endsWithAny(null, new String[] {abc})");
-        assertFalse(StringUtils.endsWithAny("abcxyz", (String) null), "StringUtils.endsWithAny(abcxyz, null)");
-        assertTrue(StringUtils.endsWithAny("abcxyz", ""), "StringUtils.endsWithAny(abcxyz, new String[] {\"\"})");
-        assertTrue(StringUtils.endsWithAny("abcxyz", "xyz"), "StringUtils.endsWithAny(abcxyz, new String[] {xyz})");
-        assertTrue(StringUtils.endsWithAny("abcxyz", null, "xyz", "abc"), "StringUtils.endsWithAny(abcxyz, new String[] {null, xyz, abc})");
-        assertFalse(StringUtils.endsWithAny("defg", null, "xyz", "abc"), "StringUtils.endsWithAny(defg, new String[] {null, xyz, abc})");
-        assertTrue(StringUtils.endsWithAny("abcXYZ", "def", "XYZ"));
-        assertFalse(StringUtils.endsWithAny("abcXYZ", "def", "xyz"));
-        assertTrue(StringUtils.endsWithAny("abcXYZ", "def", "YZ"));
+    public void testStartsWith() {
+        assertTrue(StringUtils.startsWith(null, null), "startsWith(null, null)");
+        assertFalse(StringUtils.startsWith(FOOBAR, null), "startsWith(FOOBAR, null)");
+        assertFalse(StringUtils.startsWith(null, FOO), "startsWith(null, FOO)");
+        assertTrue(StringUtils.startsWith(FOOBAR, ""), "startsWith(FOOBAR, \"\")");
 
-        /*
-         * Type null of the last argument to method endsWithAny(CharSequence, CharSequence...)
-         * doesn't exactly match the vararg parameter type.
-         * Cast to CharSequence[] to confirm the non-varargs invocation,
-         * or pass individual arguments of type CharSequence for a varargs invocation.
-         *
-         * assertFalse(StringUtils.endsWithAny("abcXYZ", null)); // replace with specific types to avoid warning
-         */
-        assertFalse(StringUtils.endsWithAny("abcXYZ", (CharSequence) null));
-        assertFalse(StringUtils.endsWithAny("abcXYZ", (CharSequence[]) null));
-        assertTrue(StringUtils.endsWithAny("abcXYZ", ""));
+        assertTrue(StringUtils.startsWith(foobar, foo), "startsWith(foobar, foo)");
+        assertTrue(StringUtils.startsWith(FOOBAR, FOO), "startsWith(FOOBAR, FOO)");
+        assertFalse(StringUtils.startsWith(foobar, FOO), "startsWith(foobar, FOO)");
+        assertFalse(StringUtils.startsWith(FOOBAR, foo), "startsWith(FOOBAR, foo)");
 
-        assertTrue(StringUtils.endsWithAny("abcxyz", new StringBuilder("abc"), new StringBuffer("xyz")), "StringUtils.endsWithAny(abcxyz, StringBuilder(abc), StringBuffer(xyz))");
-        assertTrue(StringUtils.endsWithAny(new StringBuffer("abcxyz"), new StringBuilder("abc"), new StringBuffer("xyz")), "StringUtils.endsWithAny(StringBuffer(abcxyz), StringBuilder(abc), StringBuffer(xyz))");
+        assertFalse(StringUtils.startsWith(foo, foobar), "startsWith(foo, foobar)");
+        assertFalse(StringUtils.startsWith(bar, foobar), "startsWith(foo, foobar)");
+
+        assertFalse(StringUtils.startsWith(foobar, bar), "startsWith(foobar, bar)");
+        assertFalse(StringUtils.startsWith(FOOBAR, BAR), "startsWith(FOOBAR, BAR)");
+        assertFalse(StringUtils.startsWith(foobar, BAR), "startsWith(foobar, BAR)");
+        assertFalse(StringUtils.startsWith(FOOBAR, bar), "startsWith(FOOBAR, bar)");
+    }
+
+    @Test
+    public void testStartsWithAny() {
+        assertFalse(StringUtils.startsWithAny(null, (String[]) null));
+        assertFalse(StringUtils.startsWithAny(null, "abc"));
+        assertFalse(StringUtils.startsWithAny("abcxyz", (String[]) null));
+        assertFalse(StringUtils.startsWithAny("abcxyz"));
+        assertTrue(StringUtils.startsWithAny("abcxyz", "abc"));
+        assertTrue(StringUtils.startsWithAny("abcxyz", null, "xyz", "abc"));
+        assertFalse(StringUtils.startsWithAny("abcxyz", null, "xyz", "abcd"));
+        assertTrue(StringUtils.startsWithAny("abcxyz", ""));
+        assertFalse(StringUtils.startsWithAny("abcxyz", null, "xyz", "ABCX"));
+        assertFalse(StringUtils.startsWithAny("ABCXYZ", null, "xyz", "abc"));
+
+        assertTrue(StringUtils.startsWithAny("abcxyz", new StringBuilder("xyz"), new StringBuffer("abc")), "StringUtils.startsWithAny(abcxyz, StringBuilder(xyz), StringBuffer(abc))");
+        assertTrue(StringUtils.startsWithAny(new StringBuffer("abcxyz"), new StringBuilder("xyz"), new StringBuffer("abc")), "StringUtils.startsWithAny(StringBuffer(abcxyz), StringBuilder(xyz), StringBuffer(abc))");
+    }
+
+    /**
+     * Test StringUtils.testStartsWithIgnoreCase()
+     */
+    @Test
+    public void testStartsWithIgnoreCase() {
+        assertTrue(StringUtils.startsWithIgnoreCase(null, null), "startsWithIgnoreCase(null, null)");
+        assertFalse(StringUtils.startsWithIgnoreCase(FOOBAR, null), "startsWithIgnoreCase(FOOBAR, null)");
+        assertFalse(StringUtils.startsWithIgnoreCase(null, FOO), "startsWithIgnoreCase(null, FOO)");
+        assertTrue(StringUtils.startsWithIgnoreCase(FOOBAR, ""), "startsWithIgnoreCase(FOOBAR, \"\")");
+
+        assertTrue(StringUtils.startsWithIgnoreCase(foobar, foo), "startsWithIgnoreCase(foobar, foo)");
+        assertTrue(StringUtils.startsWithIgnoreCase(FOOBAR, FOO), "startsWithIgnoreCase(FOOBAR, FOO)");
+        assertTrue(StringUtils.startsWithIgnoreCase(foobar, FOO), "startsWithIgnoreCase(foobar, FOO)");
+        assertTrue(StringUtils.startsWithIgnoreCase(FOOBAR, foo), "startsWithIgnoreCase(FOOBAR, foo)");
+
+        assertFalse(StringUtils.startsWithIgnoreCase(foo, foobar), "startsWithIgnoreCase(foo, foobar)");
+        assertFalse(StringUtils.startsWithIgnoreCase(bar, foobar), "startsWithIgnoreCase(foo, foobar)");
+
+        assertFalse(StringUtils.startsWithIgnoreCase(foobar, bar), "startsWithIgnoreCase(foobar, bar)");
+        assertFalse(StringUtils.startsWithIgnoreCase(FOOBAR, BAR), "startsWithIgnoreCase(FOOBAR, BAR)");
+        assertFalse(StringUtils.startsWithIgnoreCase(foobar, BAR), "startsWithIgnoreCase(foobar, BAR)");
+        assertFalse(StringUtils.startsWithIgnoreCase(FOOBAR, bar), "startsWithIgnoreCase(FOOBAR, bar)");
     }
 
 

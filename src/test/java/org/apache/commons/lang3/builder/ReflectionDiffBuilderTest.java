@@ -24,10 +24,14 @@ import org.junit.jupiter.api.Test;
 
 public class ReflectionDiffBuilderTest extends AbstractLangTest {
 
-    private static final ToStringStyle SHORT_STYLE = ToStringStyle.SHORT_PREFIX_STYLE;
+    @SuppressWarnings("unused")
+    private static final class TypeTestChildClass extends TypeTestClass {
+        String field = "a";
+    }
 
     @SuppressWarnings("unused")
     private static class TypeTestClass implements Diffable<TypeTestClass> {
+        private static int staticField;
         private final ToStringStyle style = SHORT_STYLE;
         private final boolean booleanField = true;
         private final boolean[] booleanArrayField = {true};
@@ -47,7 +51,6 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         private final short[] shortArrayField = {1};
         private final Object objectField = null;
         private final Object[] objectArrayField = {null};
-        private static int staticField;
         private transient String transientField;
         @DiffExclude
         private String annotatedField = "a";
@@ -60,39 +63,17 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         }
 
         @Override
-        public int hashCode() {
-            return HashCodeBuilder.reflectionHashCode(this, false);
-        }
-
-        @Override
         public boolean equals(final Object obj) {
             return EqualsBuilder.reflectionEquals(this, obj, false);
         }
+
+        @Override
+        public int hashCode() {
+            return HashCodeBuilder.reflectionHashCode(this, false);
+        }
     }
 
-    @SuppressWarnings("unused")
-    private static final class TypeTestChildClass extends TypeTestClass {
-        String field = "a";
-    }
-
-    @Test
-    public void test_no_differences() {
-        final TypeTestClass firstObject = new TypeTestClass();
-        final TypeTestClass secondObject = new TypeTestClass();
-
-        final DiffResult list = firstObject.diff(secondObject);
-        assertEquals(0, list.getNumberOfDiffs());
-    }
-
-    @Test
-    public void test_primitive_difference() {
-        final TypeTestClass firstObject = new TypeTestClass();
-        firstObject.charField = 'c';
-        final TypeTestClass secondObject = new TypeTestClass();
-
-        final DiffResult list = firstObject.diff(secondObject);
-        assertEquals(1, list.getNumberOfDiffs());
-    }
+    private static final ToStringStyle SHORT_STYLE = ToStringStyle.SHORT_PREFIX_STYLE;
 
     @Test
     public void test_array_difference() {
@@ -102,26 +83,6 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
 
         final DiffResult list = firstObject.diff(secondObject);
         assertEquals(1, list.getNumberOfDiffs());
-    }
-
-    @Test
-    public void test_transient_field_difference() {
-        final TypeTestClass firstObject = new TypeTestClass();
-        firstObject.transientField = "a";
-        final TypeTestClass secondObject = new TypeTestClass();
-        firstObject.transientField = "b";
-
-        final DiffResult list = firstObject.diff(secondObject);
-        assertEquals(0, list.getNumberOfDiffs());
-    }
-
-    @Test
-    public void test_no_differences_inheritance() {
-        final TypeTestChildClass firstObject = new TypeTestChildClass();
-        final TypeTestChildClass secondObject = new TypeTestChildClass();
-
-        final DiffResult list = firstObject.diff(secondObject);
-        assertEquals(0, list.getNumberOfDiffs());
     }
 
     @Test
@@ -135,9 +96,8 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_no_differences_excluded_field() {
+    public void test_no_differences() {
         final TypeTestClass firstObject = new TypeTestClass();
-        firstObject.excludedField = "b";
         final TypeTestClass secondObject = new TypeTestClass();
 
         final DiffResult list = firstObject.diff(secondObject);
@@ -160,6 +120,46 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         firstObject.excludedField = "b";
         firstObject.annotatedField = "b";
         final TypeTestClass secondObject = new TypeTestClass();
+
+        final DiffResult list = firstObject.diff(secondObject);
+        assertEquals(0, list.getNumberOfDiffs());
+    }
+
+    @Test
+    public void test_no_differences_excluded_field() {
+        final TypeTestClass firstObject = new TypeTestClass();
+        firstObject.excludedField = "b";
+        final TypeTestClass secondObject = new TypeTestClass();
+
+        final DiffResult list = firstObject.diff(secondObject);
+        assertEquals(0, list.getNumberOfDiffs());
+    }
+
+    @Test
+    public void test_no_differences_inheritance() {
+        final TypeTestChildClass firstObject = new TypeTestChildClass();
+        final TypeTestChildClass secondObject = new TypeTestChildClass();
+
+        final DiffResult list = firstObject.diff(secondObject);
+        assertEquals(0, list.getNumberOfDiffs());
+    }
+
+    @Test
+    public void test_primitive_difference() {
+        final TypeTestClass firstObject = new TypeTestClass();
+        firstObject.charField = 'c';
+        final TypeTestClass secondObject = new TypeTestClass();
+
+        final DiffResult list = firstObject.diff(secondObject);
+        assertEquals(1, list.getNumberOfDiffs());
+    }
+
+    @Test
+    public void test_transient_field_difference() {
+        final TypeTestClass firstObject = new TypeTestClass();
+        firstObject.transientField = "a";
+        final TypeTestClass secondObject = new TypeTestClass();
+        firstObject.transientField = "b";
 
         final DiffResult list = firstObject.diff(secondObject);
         assertEquals(0, list.getNumberOfDiffs());

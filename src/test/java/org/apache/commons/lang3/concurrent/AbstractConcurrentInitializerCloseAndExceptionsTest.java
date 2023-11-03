@@ -41,56 +41,42 @@ import org.junit.jupiter.api.Test;
  */
 public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extends AbstractConcurrentInitializerTest {
 
-    /**
-     * This method tests that if a AbstractConcurrentInitializer.initialize method catches a
-     * ConcurrentException it will rethrow it without wrapping it.
-     */
-    @Test
-    public void testSupplierThrowsConcurrentException() {
-        final ConcurrentException concurrentException = new ConcurrentException();
+    protected static final class CloseableObject {
+        boolean closed;
 
-        @SuppressWarnings("unchecked")
-        final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
-                () -> {
-                    if ("test".equals("test")) {
-                        throw concurrentException;
-                    }
-                    return new CloseableObject();
-                },
-                FailableConsumer.NOP);
-        try {
-            initializer.get();
-            fail();
-        } catch (ConcurrentException e) {
-            assertEquals(concurrentException, e);
+        public void close() {
+            closed = true;
+        }
+
+        public boolean isClosed() {
+            return closed;
         }
     }
 
-    /**
-     * This method tests that if AbstractConcurrentInitializer.initialize catches a checked
-     * exception it will rethrow it wrapped in a ConcurrentException
-     */
-    @SuppressWarnings("unchecked") //for NOP
-    @Test
-    public void testSupplierThrowsCheckedException() {
-        final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
-                () -> methodThatThrowsException(ExceptionToThrow.IOException),
-                FailableConsumer.NOP);
-        assertThrows(ConcurrentException.class, () -> initializer.get());
+    protected enum ExceptionToThrow {
+        IOException,
+        SQLException,
+        NullPointerException
     }
 
-    /**
-     * This method tests that if AbstractConcurrentInitializer.initialize catches a runtime exception
-     * it will not be wrapped in a ConcurrentException
-     */
-    @SuppressWarnings("unchecked")
-    @Test
-    public void testSupplierThrowsRuntimeException() {
-        final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
-                () -> methodThatThrowsException(ExceptionToThrow.NullPointerException),
-                FailableConsumer.NOP);
-        assertThrows(NullPointerException.class, () -> initializer.get());
+    // The use of enums rather than accepting an Exception as the input means we can have
+    // multiple exception types on the method signature.
+    protected static CloseableObject methodThatThrowsException(ExceptionToThrow input) throws IOException, SQLException, ConcurrentException {
+        switch (input) {
+        case IOException:
+            throw new IOException();
+        case SQLException:
+            throw new SQLException();
+        case NullPointerException:
+            throw new NullPointerException();
+        default:
+            fail();
+            return new CloseableObject();
+        }
     }
+
+    protected abstract ConcurrentInitializer<CloseableObject> createInitializerThatThrowsException(
+            FailableSupplier<CloseableObject, ? extends Exception> supplier, FailableConsumer<CloseableObject, ? extends Exception> closer);
 
     /**
      * This method tests that if AbstractConcurrentInitializer.close catches a
@@ -130,6 +116,57 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
     }
 
     /**
+     * This method tests that if AbstractConcurrentInitializer.initialize catches a checked
+     * exception it will rethrow it wrapped in a ConcurrentException
+     */
+    @SuppressWarnings("unchecked") //for NOP
+    @Test
+    public void testSupplierThrowsCheckedException() {
+        final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
+                () -> methodThatThrowsException(ExceptionToThrow.IOException),
+                FailableConsumer.NOP);
+        assertThrows(ConcurrentException.class, () -> initializer.get());
+    }
+
+    /**
+     * This method tests that if a AbstractConcurrentInitializer.initialize method catches a
+     * ConcurrentException it will rethrow it without wrapping it.
+     */
+    @Test
+    public void testSupplierThrowsConcurrentException() {
+        final ConcurrentException concurrentException = new ConcurrentException();
+
+        @SuppressWarnings("unchecked")
+        final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
+                () -> {
+                    if ("test".equals("test")) {
+                        throw concurrentException;
+                    }
+                    return new CloseableObject();
+                },
+                FailableConsumer.NOP);
+        try {
+            initializer.get();
+            fail();
+        } catch (ConcurrentException e) {
+            assertEquals(concurrentException, e);
+        }
+    }
+
+    /**
+     * This method tests that if AbstractConcurrentInitializer.initialize catches a runtime exception
+     * it will not be wrapped in a ConcurrentException
+     */
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testSupplierThrowsRuntimeException() {
+        final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
+                () -> methodThatThrowsException(ExceptionToThrow.NullPointerException),
+                FailableConsumer.NOP);
+        assertThrows(NullPointerException.class, () -> initializer.get());
+    }
+
+    /**
      * This method tests that if AbstractConcurrentInitializer.close actually closes the wrapped object
      */
     @SuppressWarnings("rawtypes")
@@ -143,42 +180,5 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
         assertFalse(cloesableObject.isClosed());
         ((AbstractConcurrentInitializer) initializer).close();
         assertTrue(cloesableObject.isClosed());
-    }
-
-    protected enum ExceptionToThrow {
-        IOException,
-        SQLException,
-        NullPointerException
-    }
-
-    // The use of enums rather than accepting an Exception as the input means we can have
-    // multiple exception types on the method signature.
-    protected static CloseableObject methodThatThrowsException(ExceptionToThrow input) throws IOException, SQLException, ConcurrentException {
-        switch (input) {
-        case IOException:
-            throw new IOException();
-        case SQLException:
-            throw new SQLException();
-        case NullPointerException:
-            throw new NullPointerException();
-        default:
-            fail();
-            return new CloseableObject();
-        }
-    }
-
-    protected abstract ConcurrentInitializer<CloseableObject> createInitializerThatThrowsException(
-            FailableSupplier<CloseableObject, ? extends Exception> supplier, FailableConsumer<CloseableObject, ? extends Exception> closer);
-
-    protected static final class CloseableObject {
-        boolean closed;
-
-        public boolean isClosed() {
-            return closed;
-        }
-
-        public void close() {
-            closed = true;
-        }
     }
 }

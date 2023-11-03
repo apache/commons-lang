@@ -44,6 +44,46 @@ public class RandomStringUtilsTest extends AbstractLangTest {
 
     private static final int LOOP_COUNT = 1_000;
 
+    /**
+     * Computes Chi-Square statistic given observed and expected counts
+     * @param observed array of observed frequency counts
+     * @param expected array of expected frequency counts
+     */
+    private double chiSquare(final int[] expected, final int[] observed) {
+        double sumSq = 0.0d;
+        double dev = 0.0d;
+        for (int i = 0; i < observed.length; i++) {
+            dev = observed[i] - expected[i];
+            sumSq += dev * dev / expected[i];
+        }
+        return sumSq;
+    }
+
+    /**
+     * Test for LANG-1286. Creates situation where old code would
+     * overflow a char and result in a code point outside the specified
+     * range.
+     */
+    @Test
+    public void testCharOverflow() {
+        final int start = Character.MAX_VALUE;
+        final int end = Integer.MAX_VALUE;
+
+        @SuppressWarnings("serial")
+        final
+        Random fixedRandom = new Random() {
+            @Override
+            public int nextInt(final int n) {
+                // Prevents selection of 'start' as the character
+                return super.nextInt(n - 1) + 1;
+            }
+        };
+
+        final String result = RandomStringUtils.random(2, start, end, false, false, null, fixedRandom);
+        final int c = result.codePointAt(0);
+        assertTrue(c >= start && c < end, String.format("Character '%d' not in range [%d,%d).", c, start, end));
+    }
+
     @Test
     public void testConstructor() {
         assertNotNull(new RandomStringUtils());
@@ -52,6 +92,315 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(RandomStringUtils.class.getModifiers()));
         assertFalse(Modifier.isFinal(RandomStringUtils.class.getModifiers()));
+    }
+
+    @Test
+    public void testExceptions() {
+        final char[] DUMMY = {'a'}; // valid char array
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, true, true));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, DUMMY));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(1, new char[0]));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, ""));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, (String) null));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, 'a', 'z', false, false));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY));
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY, new Random()));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(8, 32, 48, false, true));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(8, 32, 65, true, false));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomAlphabetic(-1));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomAscii(-1));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomGraph(-1));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomNumeric(-1));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomPrint(-1));
+    }
+
+    /**
+     * Checks if the string got by {@link RandomStringUtils#random(int)}
+     * can be converted to UTF-8 and back without loss.
+     *
+     * @see <a href="https://issues.apache.org/jira/browse/LANG-100">LANG-100</a>
+     */
+    @Test
+    public void testLang100() {
+        final int size = 5000;
+        final Charset charset = StandardCharsets.UTF_8;
+        final String orig = RandomStringUtils.random(size);
+        final byte[] bytes = orig.getBytes(charset);
+        final String copy = new String(bytes, charset);
+
+        // for a verbose compare:
+        for (int i=0; i < orig.length() && i < copy.length(); i++) {
+            final char o = orig.charAt(i);
+            final char c = copy.charAt(i);
+            assertEquals(o, c,
+                    "differs at " + i + "(" + Integer.toHexString(Character.valueOf(o).hashCode()) + "," +
+                            Integer.toHexString(Character.valueOf(c).hashCode()) + ")");
+        }
+        // compare length also
+        assertEquals(orig.length(), copy.length());
+        // just to be complete
+        assertEquals(orig, copy);
+    }
+
+    @Test
+    public void testLANG805() {
+        final long seedMillis = System.currentTimeMillis();
+        assertEquals("aaa", RandomStringUtils.random(3, 0, 0, false, false, new char[]{'a'}, new Random(seedMillis)));
+    }
+
+    @Test
+    public void testLANG807() {
+        final IllegalArgumentException ex =
+                assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(3, 5, 5, false, false));
+        final String msg = ex.getMessage();
+        assertTrue(msg.contains("start"), "Message (" + msg + ") must contain 'start'");
+        assertTrue(msg.contains("end"), "Message (" + msg + ") must contain 'end'");
+    }
+
+    /**
+     * Make sure boundary alpha characters are generated by randomAlphabetic
+     * This test will fail randomly with probability = 4 * (51/52)**1000 ~ 1.58E-8
+     */
+    @Test
+    public void testRandomAlphabetic() {
+        final char[] testChars = {'a', 'z', 'A', 'Z'};
+        final boolean[] found = {false, false, false, false};
+        for (int i = 0; i < LOOP_COUNT; i++) {
+            final String randString = RandomStringUtils.randomAlphabetic(10);
+            for (int j = 0; j < testChars.length; j++) {
+                if (randString.indexOf(testChars[j]) > 0) {
+                    found[j] = true;
+                }
+            }
+        }
+        for (int i = 0; i < testChars.length; i++) {
+            assertTrue(found[i],
+                    "alphanumeric character not generated in 1000 attempts: " + testChars[i] +
+                            " -- repeated failures indicate a problem ");
+        }
+    }
+
+    @Test
+    public void testRandomAlphabeticRange() {
+        final int expectedMinLengthInclusive = 1;
+        final int expectedMaxLengthExclusive = 11;
+        final String pattern = "^\\p{Alpha}{" + expectedMinLengthInclusive + ',' + expectedMaxLengthExclusive + "}$";
+
+        int maxCreatedLength = expectedMinLengthInclusive;
+        int minCreatedLength = expectedMaxLengthExclusive - 1;
+        for (int i = 0; i < LOOP_COUNT; i++) {
+            final String s = RandomStringUtils.randomAlphabetic(expectedMinLengthInclusive, expectedMaxLengthExclusive);
+            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
+            assertTrue(s.matches(pattern), s);
+
+            if (s.length() < minCreatedLength) {
+                minCreatedLength = s.length();
+            }
+
+            if (s.length() > maxCreatedLength) {
+                maxCreatedLength = s.length();
+            }
+        }
+        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(expectedMinLengthInclusive));
+        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(expectedMaxLengthExclusive - 1));
+    }
+
+    /**
+     * Make sure boundary alphanumeric characters are generated by randomAlphaNumeric
+     * This test will fail randomly with probability = 6 * (61/62)**1000 ~ 5.2E-7
+     */
+    @Test
+    public void testRandomAlphaNumeric() {
+        final char[] testChars = {'a', 'z', 'A', 'Z', '0', '9'};
+        final boolean[] found = {false, false, false, false, false, false};
+        for (int i = 0; i < LOOP_COUNT; i++) {
+            final String randString = RandomStringUtils.randomAlphanumeric(10);
+            for (int j = 0; j < testChars.length; j++) {
+                if (randString.indexOf(testChars[j]) > 0) {
+                    found[j] = true;
+                }
+            }
+        }
+        for (int i = 0; i < testChars.length; i++) {
+            assertTrue(found[i],
+                    "alphanumeric character not generated in 1000 attempts: " +
+                            testChars[i] + " -- repeated failures indicate a problem ");
+        }
+    }
+
+    @Test
+    public void testRandomAlphanumericRange() {
+        final int expectedMinLengthInclusive = 1;
+        final int expectedMaxLengthExclusive = 11;
+        final String pattern = "^\\p{Alnum}{" + expectedMinLengthInclusive + ',' + expectedMaxLengthExclusive + "}$";
+
+        int maxCreatedLength = expectedMinLengthInclusive;
+        int minCreatedLength = expectedMaxLengthExclusive - 1;
+        for (int i = 0; i < LOOP_COUNT; i++) {
+            final String s = RandomStringUtils.randomAlphanumeric(expectedMinLengthInclusive, expectedMaxLengthExclusive);
+            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
+            assertTrue(s.matches(pattern), s);
+
+            if (s.length() < minCreatedLength) {
+                minCreatedLength = s.length();
+            }
+
+            if (s.length() > maxCreatedLength) {
+                maxCreatedLength = s.length();
+            }
+        }
+        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(expectedMinLengthInclusive));
+        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(expectedMaxLengthExclusive - 1));
+    }
+
+    /**
+     * Make sure 32 and 127 are generated by randomNumeric
+     * This test will fail randomly with probability = 2*(95/96)**1000 ~ 5.7E-5
+     */
+    @Test
+    public void testRandomAscii() {
+        final char[] testChars = {(char) 32, (char) 126};
+        final boolean[] found = {false, false};
+        // Test failures have been observed on GitHub builds with a 100 limit.
+        for (int i = 0; i < LOOP_COUNT; i++) {
+            final String randString = RandomStringUtils.randomAscii(10);
+            for (int j = 0; j < testChars.length; j++) {
+                if (randString.indexOf(testChars[j]) > 0) {
+                    found[j] = true;
+                }
+            }
+        }
+        for (int i = 0; i < testChars.length; i++) {
+            assertTrue(found[i],
+                    "ascii character not generated in 1000 attempts: " + (int) testChars[i] +
+                            " -- repeated failures indicate a problem");
+        }
+    }
+
+    @Test
+    public void testRandomAsciiRange() {
+        final int expectedMinLengthInclusive = 1;
+        final int expectedMaxLengthExclusive = 11;
+        final String pattern = "^\\p{ASCII}{" + expectedMinLengthInclusive + ',' + expectedMaxLengthExclusive + "}$";
+
+        int maxCreatedLength = expectedMinLengthInclusive;
+        int minCreatedLength = expectedMaxLengthExclusive - 1;
+        for (int i = 0; i < LOOP_COUNT; i++) {
+            final String s = RandomStringUtils.randomAscii(expectedMinLengthInclusive, expectedMaxLengthExclusive);
+            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
+            assertTrue(s.matches(pattern), s);
+
+            if (s.length() < minCreatedLength) {
+                minCreatedLength = s.length();
+            }
+
+            if (s.length() > maxCreatedLength) {
+                maxCreatedLength = s.length();
+            }
+        }
+        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(expectedMinLengthInclusive));
+        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(expectedMaxLengthExclusive - 1));
+    }
+
+    @Test
+    public void testRandomGraphRange() {
+        final int expectedMinLengthInclusive = 1;
+        final int expectedMaxLengthExclusive = 11;
+        final String pattern = "^\\p{Graph}{" + expectedMinLengthInclusive + ',' + expectedMaxLengthExclusive + "}$";
+
+        int maxCreatedLength = expectedMinLengthInclusive;
+        int minCreatedLength = expectedMaxLengthExclusive - 1;
+        for (int i = 0; i < LOOP_COUNT; i++) {
+            final String s = RandomStringUtils.randomGraph(expectedMinLengthInclusive, expectedMaxLengthExclusive);
+            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
+            assertTrue(s.matches(pattern), s);
+
+            if (s.length() < minCreatedLength) {
+                minCreatedLength = s.length();
+            }
+
+            if (s.length() > maxCreatedLength) {
+                maxCreatedLength = s.length();
+            }
+        }
+        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(expectedMinLengthInclusive));
+        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(expectedMaxLengthExclusive - 1));
+    }
+
+    /**
+     * Make sure '0' and '9' are generated by randomNumeric
+     * This test will fail randomly with probability = 2 * (9/10)**1000 ~ 3.5E-46
+     */
+    @Test
+    public void testRandomNumeric() {
+        final char[] testChars = {'0', '9'};
+        final boolean[] found = {false, false};
+        for (int i = 0; i < LOOP_COUNT; i++) {
+            final String randString = RandomStringUtils.randomNumeric(10);
+            for (int j = 0; j < testChars.length; j++) {
+                if (randString.indexOf(testChars[j]) > 0) {
+                    found[j] = true;
+                }
+            }
+        }
+        for (int i = 0; i < testChars.length; i++) {
+            assertTrue(found[i],
+                    "digit not generated in 1000 attempts: " + testChars[i] +
+                            " -- repeated failures indicate a problem ");
+        }
+    }
+
+    @Test
+    public void testRandomNumericRange() {
+        final int expectedMinLengthInclusive = 1;
+        final int expectedMaxLengthExclusive = 11;
+        final String pattern = "^\\p{Digit}{" + expectedMinLengthInclusive + ',' + expectedMaxLengthExclusive + "}$";
+
+        int maxCreatedLength = expectedMinLengthInclusive;
+        int minCreatedLength = expectedMaxLengthExclusive - 1;
+        for (int i = 0; i < LOOP_COUNT; i++) {
+            final String s = RandomStringUtils.randomNumeric(expectedMinLengthInclusive, expectedMaxLengthExclusive);
+            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
+            assertTrue(s.matches(pattern), s);
+
+            if (s.length() < minCreatedLength) {
+                minCreatedLength = s.length();
+            }
+
+            if (s.length() > maxCreatedLength) {
+                maxCreatedLength = s.length();
+            }
+        }
+        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(expectedMinLengthInclusive));
+        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(expectedMaxLengthExclusive - 1));
+    }
+
+    @Test
+    public void testRandomPrintRange() {
+        final int expectedMinLengthInclusive = 1;
+        final int expectedMaxLengthExclusive = 11;
+        final String pattern = "^\\p{Print}{" + expectedMinLengthInclusive + ',' + expectedMaxLengthExclusive + "}$";
+
+        int maxCreatedLength = expectedMinLengthInclusive;
+        int minCreatedLength = expectedMaxLengthExclusive - 1;
+        for (int i = 0; i < LOOP_COUNT; i++) {
+            final String s = RandomStringUtils.randomPrint(expectedMinLengthInclusive, expectedMaxLengthExclusive);
+            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
+            assertTrue(s.matches(pattern), s);
+
+            if (s.length() < minCreatedLength) {
+                minCreatedLength = s.length();
+            }
+
+            if (s.length() > maxCreatedLength) {
+                maxCreatedLength = s.length();
+            }
+        }
+        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(expectedMinLengthInclusive));
+        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(expectedMaxLengthExclusive - 1));
     }
 
     /**
@@ -152,286 +501,6 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         assertEquals("", r1, "random(0).equals(\"\")");
     }
 
-    @Test
-    public void testLANG805() {
-        final long seedMillis = System.currentTimeMillis();
-        assertEquals("aaa", RandomStringUtils.random(3, 0, 0, false, false, new char[]{'a'}, new Random(seedMillis)));
-    }
-
-    @Test
-    public void testLANG807() {
-        final IllegalArgumentException ex =
-                assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(3, 5, 5, false, false));
-        final String msg = ex.getMessage();
-        assertTrue(msg.contains("start"), "Message (" + msg + ") must contain 'start'");
-        assertTrue(msg.contains("end"), "Message (" + msg + ") must contain 'end'");
-    }
-
-    @Test
-    public void testExceptions() {
-        final char[] DUMMY = {'a'}; // valid char array
-        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1));
-        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, true, true));
-        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, DUMMY));
-        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(1, new char[0]));
-        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, ""));
-        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, (String) null));
-        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, 'a', 'z', false, false));
-        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY));
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY, new Random()));
-        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(8, 32, 48, false, true));
-        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(8, 32, 65, true, false));
-        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomAlphabetic(-1));
-        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomAscii(-1));
-        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomGraph(-1));
-        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomNumeric(-1));
-        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomPrint(-1));
-    }
-
-    /**
-     * Make sure boundary alphanumeric characters are generated by randomAlphaNumeric
-     * This test will fail randomly with probability = 6 * (61/62)**1000 ~ 5.2E-7
-     */
-    @Test
-    public void testRandomAlphaNumeric() {
-        final char[] testChars = {'a', 'z', 'A', 'Z', '0', '9'};
-        final boolean[] found = {false, false, false, false, false, false};
-        for (int i = 0; i < LOOP_COUNT; i++) {
-            final String randString = RandomStringUtils.randomAlphanumeric(10);
-            for (int j = 0; j < testChars.length; j++) {
-                if (randString.indexOf(testChars[j]) > 0) {
-                    found[j] = true;
-                }
-            }
-        }
-        for (int i = 0; i < testChars.length; i++) {
-            assertTrue(found[i],
-                    "alphanumeric character not generated in 1000 attempts: " +
-                            testChars[i] + " -- repeated failures indicate a problem ");
-        }
-    }
-
-    /**
-     * Make sure '0' and '9' are generated by randomNumeric
-     * This test will fail randomly with probability = 2 * (9/10)**1000 ~ 3.5E-46
-     */
-    @Test
-    public void testRandomNumeric() {
-        final char[] testChars = {'0', '9'};
-        final boolean[] found = {false, false};
-        for (int i = 0; i < LOOP_COUNT; i++) {
-            final String randString = RandomStringUtils.randomNumeric(10);
-            for (int j = 0; j < testChars.length; j++) {
-                if (randString.indexOf(testChars[j]) > 0) {
-                    found[j] = true;
-                }
-            }
-        }
-        for (int i = 0; i < testChars.length; i++) {
-            assertTrue(found[i],
-                    "digit not generated in 1000 attempts: " + testChars[i] +
-                            " -- repeated failures indicate a problem ");
-        }
-    }
-
-    /**
-     * Make sure boundary alpha characters are generated by randomAlphabetic
-     * This test will fail randomly with probability = 4 * (51/52)**1000 ~ 1.58E-8
-     */
-    @Test
-    public void testRandomAlphabetic() {
-        final char[] testChars = {'a', 'z', 'A', 'Z'};
-        final boolean[] found = {false, false, false, false};
-        for (int i = 0; i < LOOP_COUNT; i++) {
-            final String randString = RandomStringUtils.randomAlphabetic(10);
-            for (int j = 0; j < testChars.length; j++) {
-                if (randString.indexOf(testChars[j]) > 0) {
-                    found[j] = true;
-                }
-            }
-        }
-        for (int i = 0; i < testChars.length; i++) {
-            assertTrue(found[i],
-                    "alphanumeric character not generated in 1000 attempts: " + testChars[i] +
-                            " -- repeated failures indicate a problem ");
-        }
-    }
-
-    /**
-     * Make sure 32 and 127 are generated by randomNumeric
-     * This test will fail randomly with probability = 2*(95/96)**1000 ~ 5.7E-5
-     */
-    @Test
-    public void testRandomAscii() {
-        final char[] testChars = {(char) 32, (char) 126};
-        final boolean[] found = {false, false};
-        // Test failures have been observed on GitHub builds with a 100 limit.
-        for (int i = 0; i < LOOP_COUNT; i++) {
-            final String randString = RandomStringUtils.randomAscii(10);
-            for (int j = 0; j < testChars.length; j++) {
-                if (randString.indexOf(testChars[j]) > 0) {
-                    found[j] = true;
-                }
-            }
-        }
-        for (int i = 0; i < testChars.length; i++) {
-            assertTrue(found[i],
-                    "ascii character not generated in 1000 attempts: " + (int) testChars[i] +
-                            " -- repeated failures indicate a problem");
-        }
-    }
-
-    @Test
-    public void testRandomAsciiRange() {
-        final int expectedMinLengthInclusive = 1;
-        final int expectedMaxLengthExclusive = 11;
-        final String pattern = "^\\p{ASCII}{" + expectedMinLengthInclusive + ',' + expectedMaxLengthExclusive + "}$";
-
-        int maxCreatedLength = expectedMinLengthInclusive;
-        int minCreatedLength = expectedMaxLengthExclusive - 1;
-        for (int i = 0; i < LOOP_COUNT; i++) {
-            final String s = RandomStringUtils.randomAscii(expectedMinLengthInclusive, expectedMaxLengthExclusive);
-            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
-            assertTrue(s.matches(pattern), s);
-
-            if (s.length() < minCreatedLength) {
-                minCreatedLength = s.length();
-            }
-
-            if (s.length() > maxCreatedLength) {
-                maxCreatedLength = s.length();
-            }
-        }
-        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(expectedMinLengthInclusive));
-        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(expectedMaxLengthExclusive - 1));
-    }
-
-    @Test
-    public void testRandomAlphabeticRange() {
-        final int expectedMinLengthInclusive = 1;
-        final int expectedMaxLengthExclusive = 11;
-        final String pattern = "^\\p{Alpha}{" + expectedMinLengthInclusive + ',' + expectedMaxLengthExclusive + "}$";
-
-        int maxCreatedLength = expectedMinLengthInclusive;
-        int minCreatedLength = expectedMaxLengthExclusive - 1;
-        for (int i = 0; i < LOOP_COUNT; i++) {
-            final String s = RandomStringUtils.randomAlphabetic(expectedMinLengthInclusive, expectedMaxLengthExclusive);
-            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
-            assertTrue(s.matches(pattern), s);
-
-            if (s.length() < minCreatedLength) {
-                minCreatedLength = s.length();
-            }
-
-            if (s.length() > maxCreatedLength) {
-                maxCreatedLength = s.length();
-            }
-        }
-        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(expectedMinLengthInclusive));
-        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(expectedMaxLengthExclusive - 1));
-    }
-
-    @Test
-    public void testRandomAlphanumericRange() {
-        final int expectedMinLengthInclusive = 1;
-        final int expectedMaxLengthExclusive = 11;
-        final String pattern = "^\\p{Alnum}{" + expectedMinLengthInclusive + ',' + expectedMaxLengthExclusive + "}$";
-
-        int maxCreatedLength = expectedMinLengthInclusive;
-        int minCreatedLength = expectedMaxLengthExclusive - 1;
-        for (int i = 0; i < LOOP_COUNT; i++) {
-            final String s = RandomStringUtils.randomAlphanumeric(expectedMinLengthInclusive, expectedMaxLengthExclusive);
-            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
-            assertTrue(s.matches(pattern), s);
-
-            if (s.length() < minCreatedLength) {
-                minCreatedLength = s.length();
-            }
-
-            if (s.length() > maxCreatedLength) {
-                maxCreatedLength = s.length();
-            }
-        }
-        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(expectedMinLengthInclusive));
-        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(expectedMaxLengthExclusive - 1));
-    }
-
-    @Test
-    public void testRandomGraphRange() {
-        final int expectedMinLengthInclusive = 1;
-        final int expectedMaxLengthExclusive = 11;
-        final String pattern = "^\\p{Graph}{" + expectedMinLengthInclusive + ',' + expectedMaxLengthExclusive + "}$";
-
-        int maxCreatedLength = expectedMinLengthInclusive;
-        int minCreatedLength = expectedMaxLengthExclusive - 1;
-        for (int i = 0; i < LOOP_COUNT; i++) {
-            final String s = RandomStringUtils.randomGraph(expectedMinLengthInclusive, expectedMaxLengthExclusive);
-            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
-            assertTrue(s.matches(pattern), s);
-
-            if (s.length() < minCreatedLength) {
-                minCreatedLength = s.length();
-            }
-
-            if (s.length() > maxCreatedLength) {
-                maxCreatedLength = s.length();
-            }
-        }
-        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(expectedMinLengthInclusive));
-        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(expectedMaxLengthExclusive - 1));
-    }
-
-    @Test
-    public void testRandomNumericRange() {
-        final int expectedMinLengthInclusive = 1;
-        final int expectedMaxLengthExclusive = 11;
-        final String pattern = "^\\p{Digit}{" + expectedMinLengthInclusive + ',' + expectedMaxLengthExclusive + "}$";
-
-        int maxCreatedLength = expectedMinLengthInclusive;
-        int minCreatedLength = expectedMaxLengthExclusive - 1;
-        for (int i = 0; i < LOOP_COUNT; i++) {
-            final String s = RandomStringUtils.randomNumeric(expectedMinLengthInclusive, expectedMaxLengthExclusive);
-            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
-            assertTrue(s.matches(pattern), s);
-
-            if (s.length() < minCreatedLength) {
-                minCreatedLength = s.length();
-            }
-
-            if (s.length() > maxCreatedLength) {
-                maxCreatedLength = s.length();
-            }
-        }
-        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(expectedMinLengthInclusive));
-        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(expectedMaxLengthExclusive - 1));
-    }
-
-    @Test
-    public void testRandomPrintRange() {
-        final int expectedMinLengthInclusive = 1;
-        final int expectedMaxLengthExclusive = 11;
-        final String pattern = "^\\p{Print}{" + expectedMinLengthInclusive + ',' + expectedMaxLengthExclusive + "}$";
-
-        int maxCreatedLength = expectedMinLengthInclusive;
-        int minCreatedLength = expectedMaxLengthExclusive - 1;
-        for (int i = 0; i < LOOP_COUNT; i++) {
-            final String s = RandomStringUtils.randomPrint(expectedMinLengthInclusive, expectedMaxLengthExclusive);
-            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
-            assertTrue(s.matches(pattern), s);
-
-            if (s.length() < minCreatedLength) {
-                minCreatedLength = s.length();
-            }
-
-            if (s.length() > maxCreatedLength) {
-                maxCreatedLength = s.length();
-            }
-        }
-        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(expectedMinLengthInclusive));
-        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(expectedMaxLengthExclusive - 1));
-    }
 
     /**
      * Test homogeneity of random strings generated --
@@ -472,75 +541,6 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         // This expects a failure rate of 1 in 100,000.
         // critical value: from scipy.stats import chi2; chi2(2).isf(1e-5)
         assertThat("test homogeneity -- will fail about 1 in 100,000 times", chiSquare(expected, counts), lessThan(23.025850929940457d));
-    }
-
-    /**
-     * Computes Chi-Square statistic given observed and expected counts
-     * @param observed array of observed frequency counts
-     * @param expected array of expected frequency counts
-     */
-    private double chiSquare(final int[] expected, final int[] observed) {
-        double sumSq = 0.0d;
-        double dev = 0.0d;
-        for (int i = 0; i < observed.length; i++) {
-            dev = observed[i] - expected[i];
-            sumSq += dev * dev / expected[i];
-        }
-        return sumSq;
-    }
-
-    /**
-     * Checks if the string got by {@link RandomStringUtils#random(int)}
-     * can be converted to UTF-8 and back without loss.
-     *
-     * @see <a href="https://issues.apache.org/jira/browse/LANG-100">LANG-100</a>
-     */
-    @Test
-    public void testLang100() {
-        final int size = 5000;
-        final Charset charset = StandardCharsets.UTF_8;
-        final String orig = RandomStringUtils.random(size);
-        final byte[] bytes = orig.getBytes(charset);
-        final String copy = new String(bytes, charset);
-
-        // for a verbose compare:
-        for (int i=0; i < orig.length() && i < copy.length(); i++) {
-            final char o = orig.charAt(i);
-            final char c = copy.charAt(i);
-            assertEquals(o, c,
-                    "differs at " + i + "(" + Integer.toHexString(Character.valueOf(o).hashCode()) + "," +
-                            Integer.toHexString(Character.valueOf(c).hashCode()) + ")");
-        }
-        // compare length also
-        assertEquals(orig.length(), copy.length());
-        // just to be complete
-        assertEquals(orig, copy);
-    }
-
-
-    /**
-     * Test for LANG-1286. Creates situation where old code would
-     * overflow a char and result in a code point outside the specified
-     * range.
-     */
-    @Test
-    public void testCharOverflow() {
-        final int start = Character.MAX_VALUE;
-        final int end = Integer.MAX_VALUE;
-
-        @SuppressWarnings("serial")
-        final
-        Random fixedRandom = new Random() {
-            @Override
-            public int nextInt(final int n) {
-                // Prevents selection of 'start' as the character
-                return super.nextInt(n - 1) + 1;
-            }
-        };
-
-        final String result = RandomStringUtils.random(2, start, end, false, false, null, fixedRandom);
-        final int c = result.codePointAt(0);
-        assertTrue(c >= start && c < end, String.format("Character '%d' not in range [%d,%d).", c, start, end));
     }
 }
 

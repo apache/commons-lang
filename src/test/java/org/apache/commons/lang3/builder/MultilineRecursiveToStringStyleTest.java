@@ -29,7 +29,64 @@ import org.junit.jupiter.api.Test;
  */
 public class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
 
+    static class Account {
+        Customer owner;
+        List<Transaction> transactions = new ArrayList<>();
+
+        public double getBalance() {
+            double balance = 0;
+            for (final Transaction tx : transactions) {
+                balance += tx.amount;
+            }
+            return balance;
+        }
+    }
+    static class Bank {
+        String name;
+
+        Bank(final String name) {
+            this.name = name;
+        }
+    }
+
+    static class Customer {
+        String name;
+        Bank bank;
+        List<Account> accounts;
+
+        Customer(final String name) {
+            this.name = name;
+        }
+    }
+
+    static class Transaction {
+        double amount;
+        String date;
+
+        Transaction(final String datum, final double betrag) {
+            this.date = datum;
+            this.amount = betrag;
+        }
+    }
+
+    static class WithArrays {
+        boolean[] boolArray;
+        byte[] byteArray;
+        char[] charArray;
+        double[] doubleArray;
+        float[] floatArray;
+        int[] intArray;
+        long[] longArray;
+        short[] shortArray;
+        String[] stringArray;
+    }
+
+    private enum WithArraysTestType {
+        NONE, BOOLEAN, BYTE, CHAR, DOUBLE, FLOAT, INT, LONG, SHORT, STRING
+    }
+
     private static final String LS = System.lineSeparator();
+
     private static final String BASE_WITH_ARRAYS_TO_STRING = "[" + LS
             + "  boolArray=#BOOLEAN#," + LS
             + "  byteArray=#BYTE#," + LS
@@ -41,61 +98,6 @@ public class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
             + "  shortArray=#SHORT#," + LS
             + "  stringArray=#STRING#" + LS
             + "]";
-
-    @Test
-    public void simpleObject() {
-        final Transaction tx = new Transaction("2014.10.15", 100);
-        final String expected = getClassPrefix(tx) + "[" + LS
-                        + "  amount=100.0," + LS
-                        + "  date=2014.10.15" + LS
-                        + "]";
-        assertEquals(expected, toString(tx));
-    }
-
-    @Test
-    public void nestedElements() {
-        final Customer customer = new Customer("Douglas Adams");
-        final Bank bank = new Bank("ASF Bank");
-        customer.bank = bank;
-        final String exp = getClassPrefix(customer) + "[" + LS
-                   + "  accounts=<null>," + LS
-                   + "  bank=" + getClassPrefix(bank) + "[" + LS
-                   + "    name=ASF Bank" + LS
-                   + "  ]," + LS
-                   + "  name=Douglas Adams" + LS
-                + "]";
-        assertEquals(exp, toString(customer));
-    }
-
-    @Test
-    public void nestedAndArray() {
-        final Account acc = new Account();
-        final Transaction tx1 = new Transaction("2014.10.14", 100);
-        final Transaction tx2 = new Transaction("2014.10.15", 50);
-        acc.transactions.add(tx1);
-        acc.transactions.add(tx2);
-        final String expected = getClassPrefix(acc) + "[" + LS
-                        + "  owner=<null>," + LS
-                        + "  transactions=" + getClassPrefix(acc.transactions) + "{" + LS
-                        + "    " + getClassPrefix(tx1) + "[" + LS
-                        + "      amount=100.0," + LS
-                        + "      date=2014.10.14" + LS
-                        + "    ]," + LS
-                        + "    " + getClassPrefix(tx2) + "[" + LS
-                        + "      amount=50.0," + LS
-                        + "      date=2014.10.15" + LS
-                        + "    ]" + LS
-                        + "  }" + LS
-                        + "]";
-        assertEquals(expected, toString(acc));
-    }
-
-    @Test
-    public void noArray() {
-        final WithArrays wa = new WithArrays();
-        final String exp = getExpectedToString(wa, WithArraysTestType.NONE, "");
-        assertEquals(exp, toString(wa));
-    }
 
     @Test
     public void boolArray() {
@@ -138,19 +140,6 @@ public class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void intArray() {
-        final WithArrays wa = new WithArrays();
-        wa.intArray = new int[] { 1, 2 };
-        final String exp = getExpectedToString(
-                wa, WithArraysTestType.INT,
-                "{" + LS
-                + "    1," + LS
-                + "    2" + LS
-                + "  }");
-        assertEquals(exp, toString(wa));
-    }
-
-    @Test
     public void doubleArray() {
         final WithArrays wa = new WithArrays();
         wa.doubleArray = new double[] { 1, 2 };
@@ -176,6 +165,37 @@ public class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
         assertEquals(exp, toString(wa));
     }
 
+    private String getClassPrefix(final Object object) {
+        return object.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(object));
+    }
+
+    /**
+     * Create an expected to String for the given WithArraysInstance
+     * @param wa                 Instance
+     * @param arrayType          Type - empty used to indicate expect all nulls
+     * @param expectedArrayValue Expected value for the array type
+     * @return expected toString
+     */
+    private String getExpectedToString(final WithArrays wa, final WithArraysTestType arrayType, final String expectedArrayValue) {
+        return getClassPrefix(wa)
+                + BASE_WITH_ARRAYS_TO_STRING
+                .replace("#" + arrayType + "#", expectedArrayValue)
+                .replaceAll("#[A-Z]+#", "<null>");
+    }
+
+    @Test
+    public void intArray() {
+        final WithArrays wa = new WithArrays();
+        wa.intArray = new int[] { 1, 2 };
+        final String exp = getExpectedToString(
+                wa, WithArraysTestType.INT,
+                "{" + LS
+                + "    1," + LS
+                + "    2" + LS
+                + "  }");
+        assertEquals(exp, toString(wa));
+    }
+
     @Test
     public void longArray() {
         final WithArrays wa = new WithArrays();
@@ -190,15 +210,47 @@ public class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void stringArray() {
+    public void nestedAndArray() {
+        final Account acc = new Account();
+        final Transaction tx1 = new Transaction("2014.10.14", 100);
+        final Transaction tx2 = new Transaction("2014.10.15", 50);
+        acc.transactions.add(tx1);
+        acc.transactions.add(tx2);
+        final String expected = getClassPrefix(acc) + "[" + LS
+                        + "  owner=<null>," + LS
+                        + "  transactions=" + getClassPrefix(acc.transactions) + "{" + LS
+                        + "    " + getClassPrefix(tx1) + "[" + LS
+                        + "      amount=100.0," + LS
+                        + "      date=2014.10.14" + LS
+                        + "    ]," + LS
+                        + "    " + getClassPrefix(tx2) + "[" + LS
+                        + "      amount=50.0," + LS
+                        + "      date=2014.10.15" + LS
+                        + "    ]" + LS
+                        + "  }" + LS
+                        + "]";
+        assertEquals(expected, toString(acc));
+    }
+
+    @Test
+    public void nestedElements() {
+        final Customer customer = new Customer("Douglas Adams");
+        final Bank bank = new Bank("ASF Bank");
+        customer.bank = bank;
+        final String exp = getClassPrefix(customer) + "[" + LS
+                   + "  accounts=<null>," + LS
+                   + "  bank=" + getClassPrefix(bank) + "[" + LS
+                   + "    name=ASF Bank" + LS
+                   + "  ]," + LS
+                   + "  name=Douglas Adams" + LS
+                + "]";
+        assertEquals(exp, toString(customer));
+    }
+
+    @Test
+    public void noArray() {
         final WithArrays wa = new WithArrays();
-        wa.stringArray = new String[] { "a", "A" };
-        final String exp = getExpectedToString(
-                wa, WithArraysTestType.STRING,
-                "{" + LS
-                + "    a," + LS
-                + "    A" + LS
-                + "  }");
+        final String exp = getExpectedToString(wa, WithArraysTestType.NONE, "");
         assertEquals(exp, toString(wa));
     }
 
@@ -216,6 +268,29 @@ public class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
+    public void simpleObject() {
+        final Transaction tx = new Transaction("2014.10.15", 100);
+        final String expected = getClassPrefix(tx) + "[" + LS
+                        + "  amount=100.0," + LS
+                        + "  date=2014.10.15" + LS
+                        + "]";
+        assertEquals(expected, toString(tx));
+    }
+
+    @Test
+    public void stringArray() {
+        final WithArrays wa = new WithArrays();
+        wa.stringArray = new String[] { "a", "A" };
+        final String exp = getExpectedToString(
+                wa, WithArraysTestType.STRING,
+                "{" + LS
+                + "    a," + LS
+                + "    A" + LS
+                + "  }");
+        assertEquals(exp, toString(wa));
+    }
+
+    @Test
     public void testLANG1319() {
         final String[] stringArray = {"1", "2"};
 
@@ -228,83 +303,8 @@ public class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
         assertEquals(exp, toString(stringArray));
     }
 
-    private String getClassPrefix(final Object object) {
-        return object.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(object));
-    }
-
     private String toString(final Object object) {
         return new ReflectionToStringBuilder(object, new MultilineRecursiveToStringStyle()).toString();
-    }
-
-    static class WithArrays {
-        boolean[] boolArray;
-        byte[] byteArray;
-        char[] charArray;
-        double[] doubleArray;
-        float[] floatArray;
-        int[] intArray;
-        long[] longArray;
-        short[] shortArray;
-        String[] stringArray;
-    }
-
-    /**
-     * Create an expected to String for the given WithArraysInstance
-     * @param wa                 Instance
-     * @param arrayType          Type - empty used to indicate expect all nulls
-     * @param expectedArrayValue Expected value for the array type
-     * @return expected toString
-     */
-    private String getExpectedToString(final WithArrays wa, final WithArraysTestType arrayType, final String expectedArrayValue) {
-        return getClassPrefix(wa)
-                + BASE_WITH_ARRAYS_TO_STRING
-                .replace("#" + arrayType + "#", expectedArrayValue)
-                .replaceAll("#[A-Z]+#", "<null>");
-    }
-
-    private enum WithArraysTestType {
-        NONE, BOOLEAN, BYTE, CHAR, DOUBLE, FLOAT, INT, LONG, SHORT, STRING
-    }
-
-    static class Bank {
-        String name;
-
-        Bank(final String name) {
-            this.name = name;
-        }
-    }
-
-    static class Customer {
-        String name;
-        Bank bank;
-        List<Account> accounts;
-
-        Customer(final String name) {
-            this.name = name;
-        }
-    }
-
-    static class Account {
-        Customer owner;
-        List<Transaction> transactions = new ArrayList<>();
-
-        public double getBalance() {
-            double balance = 0;
-            for (final Transaction tx : transactions) {
-                balance += tx.amount;
-            }
-            return balance;
-        }
-    }
-
-    static class Transaction {
-        double amount;
-        String date;
-
-        Transaction(final String datum, final double betrag) {
-            this.date = datum;
-            this.amount = betrag;
-        }
     }
 
 }

@@ -39,6 +39,14 @@ import org.junit.jupiter.api.Test;
  */
 public abstract class AbstractConcurrentInitializerTest extends AbstractLangTest {
     /**
+     * Creates the {@link ConcurrentInitializer} object to be tested. This
+     * method is called whenever the test fixture needs to be obtained.
+     *
+     * @return the initializer object to be tested
+     */
+    protected abstract ConcurrentInitializer<Object> createInitializer();
+
+    /**
      * Tests a simple invocation of the get() method.
      *
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it.
@@ -46,35 +54,6 @@ public abstract class AbstractConcurrentInitializerTest extends AbstractLangTest
     @Test
     public void testGet() throws ConcurrentException {
         assertNotNull(createInitializer().get(), "No managed object");
-    }
-
-    /**
-     * Tests a simple invocation of the isInitialized() method.
-     */
-    @Test
-    public void testisInitialized() throws Throwable {
-        final ConcurrentInitializer<Object> initializer = createInitializer();
-        if (initializer instanceof AbstractConcurrentInitializer) {
-            AbstractConcurrentInitializer castedInitializer = (AbstractConcurrentInitializer) initializer;
-            assertFalse(castedInitializer.isInitialized(), "was initialized before get()");
-            assertNotNull(castedInitializer.get(), "No managed object");
-            assertTrue(castedInitializer.isInitialized(), "was not initialized after get()");
-        }
-    }
-
-    /**
-     * Tests whether sequential get() invocations always return the same
-     * instance.
-     *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it.
-     */
-    @Test
-    public void testGetMultipleTimes() throws ConcurrentException {
-        final ConcurrentInitializer<Object> initializer = createInitializer();
-        final Object obj = initializer.get();
-        for (int i = 0; i < 10; i++) {
-            assertEquals(obj, initializer.get(), "Got different object at " + i);
-        }
     }
 
     /**
@@ -128,10 +107,31 @@ public abstract class AbstractConcurrentInitializerTest extends AbstractLangTest
     }
 
     /**
-     * Creates the {@link ConcurrentInitializer} object to be tested. This
-     * method is called whenever the test fixture needs to be obtained.
+     * Tests whether sequential get() invocations always return the same
+     * instance.
      *
-     * @return the initializer object to be tested
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it.
      */
-    protected abstract ConcurrentInitializer<Object> createInitializer();
+    @Test
+    public void testGetMultipleTimes() throws ConcurrentException {
+        final ConcurrentInitializer<Object> initializer = createInitializer();
+        final Object obj = initializer.get();
+        for (int i = 0; i < 10; i++) {
+            assertEquals(obj, initializer.get(), "Got different object at " + i);
+        }
+    }
+
+    /**
+     * Tests a simple invocation of the isInitialized() method.
+     */
+    @Test
+    public void testisInitialized() throws Throwable {
+        final ConcurrentInitializer<Object> initializer = createInitializer();
+        if (initializer instanceof AbstractConcurrentInitializer) {
+            AbstractConcurrentInitializer castedInitializer = (AbstractConcurrentInitializer) initializer;
+            assertFalse(castedInitializer.isInitialized(), "was initialized before get()");
+            assertNotNull(castedInitializer.get(), "No managed object");
+            assertTrue(castedInitializer.isInitialized(), "was not initialized after get()");
+        }
+    }
 }

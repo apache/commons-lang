@@ -151,23 +151,23 @@ public class ComparableUtilsTest extends AbstractLangTest {
             }
 
             @Test
-            void static_gt_returns_true() {
-                assertTrue(ComparableUtils.gt(b).test(a));
-            }
-
-            @Test
             void static_ge_returns_true() {
                 assertTrue(ComparableUtils.ge(b).test(a));
             }
 
             @Test
-            void static_lt_returns_false() {
-                assertFalse(ComparableUtils.lt(b).test(a));
+            void static_gt_returns_true() {
+                assertTrue(ComparableUtils.gt(b).test(a));
             }
 
             @Test
             void static_le_returns_false() {
                 assertFalse(ComparableUtils.le(b).test(a));
+            }
+
+            @Test
+            void static_lt_returns_false() {
+                assertFalse(ComparableUtils.lt(b).test(a));
             }
         }
 
@@ -284,23 +284,23 @@ public class ComparableUtilsTest extends AbstractLangTest {
             }
 
             @Test
-            void static_gt_returns_false() {
-                assertFalse(ComparableUtils.gt(b).test(a));
-            }
-
-            @Test
             void static_ge_returns_true() {
                 assertTrue(ComparableUtils.ge(b).test(a));
             }
 
             @Test
-            void static_lt_returns_false() {
-                assertFalse(ComparableUtils.lt(b).test(a));
+            void static_gt_returns_false() {
+                assertFalse(ComparableUtils.gt(b).test(a));
             }
 
             @Test
             void static_le_returns_true() {
                 assertTrue(ComparableUtils.le(b).test(a));
+            }
+
+            @Test
+            void static_lt_returns_false() {
+                assertFalse(ComparableUtils.lt(b).test(a));
             }
         }
 
@@ -417,23 +417,23 @@ public class ComparableUtilsTest extends AbstractLangTest {
             }
 
             @Test
-            void static_gt_returns_false() {
-                assertFalse(ComparableUtils.gt(b).test(a));
-            }
-
-            @Test
             void static_ge_returns_false() {
                 assertFalse(ComparableUtils.ge(b).test(a));
             }
 
             @Test
-            void static_lt_returns_true() {
-                assertTrue(ComparableUtils.lt(b).test(a));
+            void static_gt_returns_false() {
+                assertFalse(ComparableUtils.gt(b).test(a));
             }
 
             @Test
             void static_le_returns_true() {
                 assertTrue(ComparableUtils.le(b).test(a));
+            }
+
+            @Test
+            void static_lt_returns_true() {
+                assertTrue(ComparableUtils.lt(b).test(a));
             }
         }
 

@@ -31,7 +31,36 @@ import org.junit.jupiter.api.Test;
  */
 public class RecursiveToStringStyleTest extends AbstractLangTest {
 
+    static class Job {
+        /**
+         * Test String field.
+         */
+        String title;
+    }
+    static class Person {
+        /**
+         * Test String field.
+         */
+        String name;
+
+        /**
+         * Test integer field.
+         */
+        int age;
+
+        /**
+         * Test boolean field.
+         */
+        boolean smoker;
+
+        /**
+         * Test Object field.
+         */
+        Job job;
+    }
+
     private final Integer base = Integer.valueOf(5);
+
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
 
     @BeforeEach
@@ -45,11 +74,6 @@ public class RecursiveToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testBlank() {
-        assertEquals(baseStr + "[]", new ToStringBuilder(base).toString());
-    }
-
-    @Test
     public void testAppendSuper() {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).appendSuper("Integer@8888[]").toString());
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).appendSuper("Integer@8888[<null>]").toString());
@@ -57,6 +81,38 @@ public class RecursiveToStringStyleTest extends AbstractLangTest {
         assertEquals(baseStr + "[a=hello]", new ToStringBuilder(base).appendSuper("Integer@8888[]").append("a", "hello").toString());
         assertEquals(baseStr + "[<null>,a=hello]", new ToStringBuilder(base).appendSuper("Integer@8888[<null>]").append("a", "hello").toString());
         assertEquals(baseStr + "[a=hello]", new ToStringBuilder(base).appendSuper(null).append("a", "hello").toString());
+    }
+
+    @Test
+    public void testBlank() {
+        assertEquals(baseStr + "[]", new ToStringBuilder(base).toString());
+    }
+
+    @Test
+    public void testLong() {
+        assertEquals(baseStr + "[3]", new ToStringBuilder(base).append(3L).toString());
+        assertEquals(baseStr + "[a=3]", new ToStringBuilder(base).append("a", 3L).toString());
+        assertEquals(baseStr + "[a=3,b=4]", new ToStringBuilder(base).append("a", 3L).append("b", 4L).toString());
+    }
+
+    @Test
+    public void testLongArray() {
+        long[] array = {1, 2, -3, 4};
+        assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append(array).toString());
+        assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append((Object) array).toString());
+        array = null;
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(array).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) array).toString());
+    }
+
+    @Test
+    public void testLongArrayArray() {
+        long[][] array = {{1, 2}, null, {5}};
+        assertEquals(baseStr + "[{{1,2},<null>,{5}}]", new ToStringBuilder(base).append(array).toString());
+        assertEquals(baseStr + "[{{1,2},<null>,{5}}]", new ToStringBuilder(base).append((Object) array).toString());
+        array = null;
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(array).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) array).toString());
     }
 
     @Test
@@ -81,6 +137,16 @@ public class RecursiveToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
+    public void testObjectArray() {
+        Object[] array = {null, base, new int[] {3, 6}};
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(array).toString());
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append((Object) array).toString());
+        array = null;
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(array).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) array).toString());
+    }
+
+    @Test
     public void testPerson() {
         final Person p = new Person();
         p.name = "John Doe";
@@ -92,72 +158,6 @@ public class RecursiveToStringStyleTest extends AbstractLangTest {
         final String pJobStr  = p.job.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p.job));
         assertEquals(pBaseStr + "[age=33,job=" + pJobStr + "[title=Manager],name=John Doe,smoker=false]",
                      new ReflectionToStringBuilder(p, new RecursiveToStringStyle()).toString());
-    }
-
-    @Test
-    public void testLong() {
-        assertEquals(baseStr + "[3]", new ToStringBuilder(base).append(3L).toString());
-        assertEquals(baseStr + "[a=3]", new ToStringBuilder(base).append("a", 3L).toString());
-        assertEquals(baseStr + "[a=3,b=4]", new ToStringBuilder(base).append("a", 3L).append("b", 4L).toString());
-    }
-
-    @Test
-    public void testObjectArray() {
-        Object[] array = {null, base, new int[] {3, 6}};
-        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(array).toString());
-        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append((Object) array).toString());
-        array = null;
-        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(array).toString());
-        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) array).toString());
-    }
-
-    @Test
-    public void testLongArray() {
-        long[] array = {1, 2, -3, 4};
-        assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append(array).toString());
-        assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append((Object) array).toString());
-        array = null;
-        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(array).toString());
-        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) array).toString());
-    }
-
-    @Test
-    public void testLongArrayArray() {
-        long[][] array = {{1, 2}, null, {5}};
-        assertEquals(baseStr + "[{{1,2},<null>,{5}}]", new ToStringBuilder(base).append(array).toString());
-        assertEquals(baseStr + "[{{1,2},<null>,{5}}]", new ToStringBuilder(base).append((Object) array).toString());
-        array = null;
-        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(array).toString());
-        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) array).toString());
-    }
-
-    static class Person {
-        /**
-         * Test String field.
-         */
-        String name;
-
-        /**
-         * Test integer field.
-         */
-        int age;
-
-        /**
-         * Test boolean field.
-         */
-        boolean smoker;
-
-        /**
-         * Test Object field.
-         */
-        Job job;
-    }
-
-    static class Job {
-        /**
-         * Test String field.
-         */
-        String title;
     }
 
 }

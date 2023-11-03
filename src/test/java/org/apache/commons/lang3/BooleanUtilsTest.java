@@ -47,13 +47,6 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_values() {
-        final List<Boolean> expected = Arrays.asList(Boolean.FALSE, Boolean.TRUE);
-        Collections.sort(expected);
-        assertEquals(expected, BooleanUtils.values());
-    }
-
-    @Test
     public void test_forEach() {
         final List<Boolean> list = new ArrayList<>();
         BooleanUtils.forEach(list::add);
@@ -445,6 +438,13 @@ public class BooleanUtilsTest extends AbstractLangTest {
         assertNull(BooleanUtils.toStringYesNo(null));
         assertEquals("yes", BooleanUtils.toStringYesNo(Boolean.TRUE));
         assertEquals("no", BooleanUtils.toStringYesNo(Boolean.FALSE));
+    }
+
+    @Test
+    public void test_values() {
+        final List<Boolean> expected = Arrays.asList(Boolean.FALSE, Boolean.TRUE);
+        Collections.sort(expected);
+        assertEquals(expected, BooleanUtils.values());
     }
 
     @Test

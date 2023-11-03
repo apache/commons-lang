@@ -35,24 +35,6 @@ public class AtomicSafeInitializerSupplierTest extends AbstractConcurrentInitial
     /** An initCounter used in testing. Reset before each test */
     private AtomicInteger initCounter = new AtomicInteger();
 
-    /** A supplier method used in testing */
-    private Object incAndMakeObject() {
-        initCounter.incrementAndGet();
-        return new Object();
-    }
-
-    @Override
-    protected ConcurrentInitializer<CloseableObject> createInitializerThatThrowsException(
-            final FailableSupplier<CloseableObject, ? extends Exception> supplier,
-            final FailableConsumer<CloseableObject, ? extends Exception> closer) {
-        return AtomicSafeInitializer.<CloseableObject>builder().setInitializer(supplier).setCloser(closer).get();
-    }
-
-    @BeforeEach
-    public void setUp() {
-        initCounter = new AtomicInteger();
-    }
-
     /**
      * Creates the initializer to be tested.
      *
@@ -63,16 +45,22 @@ public class AtomicSafeInitializerSupplierTest extends AbstractConcurrentInitial
         return AtomicSafeInitializer.<Object>builder().setInitializer(this::incAndMakeObject).get();
     }
 
-    /**
-     * Tests that initialize() is called only once.
-     *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because {@link #testGetConcurrent()} may throw it
-     * @throws InterruptedException because {@link #testGetConcurrent()} may throw it
-     */
-    @Test
-    public void testNumberOfInitializeInvocations() throws ConcurrentException, InterruptedException {
-        testGetConcurrent();
-        assertEquals(1, initCounter.get(), "Wrong number of invocations");
+    @Override
+    protected ConcurrentInitializer<CloseableObject> createInitializerThatThrowsException(
+            final FailableSupplier<CloseableObject, ? extends Exception> supplier,
+            final FailableConsumer<CloseableObject, ? extends Exception> closer) {
+        return AtomicSafeInitializer.<CloseableObject>builder().setInitializer(supplier).setCloser(closer).get();
+    }
+
+    /** A supplier method used in testing */
+    private Object incAndMakeObject() {
+        initCounter.incrementAndGet();
+        return new Object();
+    }
+
+    @BeforeEach
+    public void setUp() {
+        initCounter = new AtomicInteger();
     }
 
     @Test
@@ -92,5 +80,17 @@ public class AtomicSafeInitializerSupplierTest extends AbstractConcurrentInitial
 
         assertNull(initializer.get());
         assertNull(initializer.get());
+    }
+
+    /**
+     * Tests that initialize() is called only once.
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because {@link #testGetConcurrent()} may throw it
+     * @throws InterruptedException because {@link #testGetConcurrent()} may throw it
+     */
+    @Test
+    public void testNumberOfInitializeInvocations() throws ConcurrentException, InterruptedException {
+        testGetConcurrent();
+        assertEquals(1, initCounter.get(), "Wrong number of invocations");
     }
 }

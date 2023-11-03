@@ -42,9 +42,22 @@ public class BasicThreadFactoryTest extends AbstractLangTest {
     /** The builder for creating a thread factory. */
     private BasicThreadFactory.Builder builder;
 
-    @BeforeEach
-    public void setUp() {
-        builder = new BasicThreadFactory.Builder();
+    /**
+     * Helper method for testing whether the daemon flag is taken into account.
+     *
+     * @param flag the value of the flag
+     */
+    private void checkDaemonFlag(final boolean flag) {
+        final ThreadFactory wrapped = EasyMock.createMock(ThreadFactory.class);
+        final Runnable r = EasyMock.createMock(Runnable.class);
+        final Thread t = new Thread();
+        EasyMock.expect(wrapped.newThread(r)).andReturn(t);
+        EasyMock.replay(wrapped, r);
+        final BasicThreadFactory factory = builder.wrappedFactory(wrapped).daemon(
+                flag).build();
+        assertSame(t, factory.newThread(r), "Wrong thread");
+        assertEquals(flag, t.isDaemon(), "Wrong daemon flag");
+        EasyMock.verify(wrapped, r);
     }
 
     /**
@@ -60,6 +73,11 @@ public class BasicThreadFactoryTest extends AbstractLangTest {
         assertNotNull(factory.getWrappedFactory(), "No wrapped factory");
     }
 
+    @BeforeEach
+    public void setUp() {
+        builder = new BasicThreadFactory.Builder();
+    }
+
     /**
      * Tests the default values used by the builder.
      */
@@ -67,30 +85,6 @@ public class BasicThreadFactoryTest extends AbstractLangTest {
     public void testBuildDefaults() {
         final BasicThreadFactory factory = builder.build();
         checkFactoryDefaults(factory);
-    }
-
-    /**
-     * Tries to set a null naming pattern.
-     */
-    @Test
-    public void testBuildNamingPatternNull() {
-        assertThrows(NullPointerException.class, () -> builder.namingPattern(null));
-    }
-
-    /**
-     * Tries to set a null wrapped factory.
-     */
-    @Test
-    public void testBuildWrappedFactoryNull() {
-        assertThrows(NullPointerException.class, () -> builder.wrappedFactory(null));
-    }
-
-    /**
-     * Tries to set a null exception handler.
-     */
-    @Test
-    public void testBuildUncaughtExceptionHandlerNull() {
-        assertThrows(NullPointerException.class, () -> builder.uncaughtExceptionHandler(null));
     }
 
     /**
@@ -123,6 +117,65 @@ public class BasicThreadFactoryTest extends AbstractLangTest {
     }
 
     /**
+     * Tries to set a null naming pattern.
+     */
+    @Test
+    public void testBuildNamingPatternNull() {
+        assertThrows(NullPointerException.class, () -> builder.namingPattern(null));
+    }
+
+    /**
+     * Tries to set a null exception handler.
+     */
+    @Test
+    public void testBuildUncaughtExceptionHandlerNull() {
+        assertThrows(NullPointerException.class, () -> builder.uncaughtExceptionHandler(null));
+    }
+
+    /**
+     * Tries to set a null wrapped factory.
+     */
+    @Test
+    public void testBuildWrappedFactoryNull() {
+        assertThrows(NullPointerException.class, () -> builder.wrappedFactory(null));
+    }
+
+    /**
+     * Tests whether the daemon status of new threads can be turned off.
+     */
+    @Test
+    public void testNewThreadDaemonFalse() {
+        checkDaemonFlag(false);
+    }
+
+    /**
+     * Tests whether daemon threads can be created.
+     */
+    @Test
+    public void testNewThreadDaemonTrue() {
+        checkDaemonFlag(true);
+    }
+
+    /**
+     * Tests whether the exception handler is set if one is provided.
+     */
+    @Test
+    public void testNewThreadExHandler() {
+        final ThreadFactory wrapped = EasyMock.createMock(ThreadFactory.class);
+        final Runnable r = EasyMock.createMock(Runnable.class);
+        final Thread.UncaughtExceptionHandler handler = EasyMock
+                .createMock(Thread.UncaughtExceptionHandler.class);
+        final Thread t = new Thread();
+        EasyMock.expect(wrapped.newThread(r)).andReturn(t);
+        EasyMock.replay(wrapped, r, handler);
+        final BasicThreadFactory factory = builder.wrappedFactory(wrapped)
+                .uncaughtExceptionHandler(handler).build();
+        assertSame(t, factory.newThread(r), "Wrong thread");
+        assertEquals(handler, t.getUncaughtExceptionHandler(), "Wrong exception handler");
+        EasyMock.verify(wrapped, r, handler);
+    }
+
+    /**
      * Tests whether the naming pattern is applied to new threads.
      */
     @Test
@@ -142,58 +195,6 @@ public class BasicThreadFactoryTest extends AbstractLangTest {
             assertEquals(i + 1, factory.getThreadCount(), "Wrong thread count");
         }
         EasyMock.verify(wrapped, r);
-    }
-
-    /**
-     * Tests whether the thread name is not modified if no naming pattern is
-     * set.
-     */
-    @Test
-    public void testNewThreadNoNamingPattern() {
-        final ThreadFactory wrapped = EasyMock.createMock(ThreadFactory.class);
-        final Runnable r = EasyMock.createMock(Runnable.class);
-        final String name = "unchangedThreadName";
-        final Thread t = new Thread(name);
-        EasyMock.expect(wrapped.newThread(r)).andReturn(t);
-        EasyMock.replay(wrapped, r);
-        final BasicThreadFactory factory = builder.wrappedFactory(wrapped).build();
-        assertSame(t, factory.newThread(r), "Wrong thread");
-        assertEquals(name, t.getName(), "Name was changed");
-        EasyMock.verify(wrapped, r);
-    }
-
-    /**
-     * Helper method for testing whether the daemon flag is taken into account.
-     *
-     * @param flag the value of the flag
-     */
-    private void checkDaemonFlag(final boolean flag) {
-        final ThreadFactory wrapped = EasyMock.createMock(ThreadFactory.class);
-        final Runnable r = EasyMock.createMock(Runnable.class);
-        final Thread t = new Thread();
-        EasyMock.expect(wrapped.newThread(r)).andReturn(t);
-        EasyMock.replay(wrapped, r);
-        final BasicThreadFactory factory = builder.wrappedFactory(wrapped).daemon(
-                flag).build();
-        assertSame(t, factory.newThread(r), "Wrong thread");
-        assertEquals(flag, t.isDaemon(), "Wrong daemon flag");
-        EasyMock.verify(wrapped, r);
-    }
-
-    /**
-     * Tests whether daemon threads can be created.
-     */
-    @Test
-    public void testNewThreadDaemonTrue() {
-        checkDaemonFlag(true);
-    }
-
-    /**
-     * Tests whether the daemon status of new threads can be turned off.
-     */
-    @Test
-    public void testNewThreadDaemonFalse() {
-        checkDaemonFlag(false);
     }
 
     /**
@@ -220,20 +221,40 @@ public class BasicThreadFactoryTest extends AbstractLangTest {
     }
 
     /**
-     * Tests whether the priority is set on newly created threads.
+     * Tests whether the original exception handler is not touched if none is
+     * specified.
      */
     @Test
-    public void testNewThreadPriority() {
+    public void testNewThreadNoExHandler() {
         final ThreadFactory wrapped = EasyMock.createMock(ThreadFactory.class);
         final Runnable r = EasyMock.createMock(Runnable.class);
+        final Thread.UncaughtExceptionHandler handler = EasyMock
+                .createMock(Thread.UncaughtExceptionHandler.class);
         final Thread t = new Thread();
+        t.setUncaughtExceptionHandler(handler);
+        EasyMock.expect(wrapped.newThread(r)).andReturn(t);
+        EasyMock.replay(wrapped, r, handler);
+        final BasicThreadFactory factory = builder.wrappedFactory(wrapped).build();
+        assertSame(t, factory.newThread(r), "Wrong thread");
+        assertEquals(handler, t.getUncaughtExceptionHandler(), "Wrong exception handler");
+        EasyMock.verify(wrapped, r, handler);
+    }
+
+    /**
+     * Tests whether the thread name is not modified if no naming pattern is
+     * set.
+     */
+    @Test
+    public void testNewThreadNoNamingPattern() {
+        final ThreadFactory wrapped = EasyMock.createMock(ThreadFactory.class);
+        final Runnable r = EasyMock.createMock(Runnable.class);
+        final String name = "unchangedThreadName";
+        final Thread t = new Thread(name);
         EasyMock.expect(wrapped.newThread(r)).andReturn(t);
         EasyMock.replay(wrapped, r);
-        final int priority = Thread.NORM_PRIORITY + 1;
-        final BasicThreadFactory factory = builder.wrappedFactory(wrapped).priority(
-                priority).build();
+        final BasicThreadFactory factory = builder.wrappedFactory(wrapped).build();
         assertSame(t, factory.newThread(r), "Wrong thread");
-        assertEquals(priority, t.getPriority(), "Wrong priority");
+        assertEquals(name, t.getName(), "Name was changed");
         EasyMock.verify(wrapped, r);
     }
 
@@ -257,41 +278,20 @@ public class BasicThreadFactoryTest extends AbstractLangTest {
     }
 
     /**
-     * Tests whether the exception handler is set if one is provided.
+     * Tests whether the priority is set on newly created threads.
      */
     @Test
-    public void testNewThreadExHandler() {
+    public void testNewThreadPriority() {
         final ThreadFactory wrapped = EasyMock.createMock(ThreadFactory.class);
         final Runnable r = EasyMock.createMock(Runnable.class);
-        final Thread.UncaughtExceptionHandler handler = EasyMock
-                .createMock(Thread.UncaughtExceptionHandler.class);
         final Thread t = new Thread();
         EasyMock.expect(wrapped.newThread(r)).andReturn(t);
-        EasyMock.replay(wrapped, r, handler);
-        final BasicThreadFactory factory = builder.wrappedFactory(wrapped)
-                .uncaughtExceptionHandler(handler).build();
+        EasyMock.replay(wrapped, r);
+        final int priority = Thread.NORM_PRIORITY + 1;
+        final BasicThreadFactory factory = builder.wrappedFactory(wrapped).priority(
+                priority).build();
         assertSame(t, factory.newThread(r), "Wrong thread");
-        assertEquals(handler, t.getUncaughtExceptionHandler(), "Wrong exception handler");
-        EasyMock.verify(wrapped, r, handler);
-    }
-
-    /**
-     * Tests whether the original exception handler is not touched if none is
-     * specified.
-     */
-    @Test
-    public void testNewThreadNoExHandler() {
-        final ThreadFactory wrapped = EasyMock.createMock(ThreadFactory.class);
-        final Runnable r = EasyMock.createMock(Runnable.class);
-        final Thread.UncaughtExceptionHandler handler = EasyMock
-                .createMock(Thread.UncaughtExceptionHandler.class);
-        final Thread t = new Thread();
-        t.setUncaughtExceptionHandler(handler);
-        EasyMock.expect(wrapped.newThread(r)).andReturn(t);
-        EasyMock.replay(wrapped, r, handler);
-        final BasicThreadFactory factory = builder.wrappedFactory(wrapped).build();
-        assertSame(t, factory.newThread(r), "Wrong thread");
-        assertEquals(handler, t.getUncaughtExceptionHandler(), "Wrong exception handler");
-        EasyMock.verify(wrapped, r, handler);
+        assertEquals(priority, t.getPriority(), "Wrong priority");
+        EasyMock.verify(wrapped, r);
     }
 }

@@ -74,6 +74,11 @@ public class CharUtilsPerfRun {
         new CharUtilsPerfRun().run();
     }
 
+    private void printlnTotal(final String prefix, final long startMillis) {
+        final long totalMillis = System.currentTimeMillis() - startMillis;
+        System.out.println(prefix + ": " + NumberFormat.getInstance().format(totalMillis) + " milliseconds.");
+    }
+
     private void printSysInfo() {
         System.out.println("Now: " + Calendar.getInstance().getTime());
         System.out.println(SystemProperties.getJavaVendor()
@@ -145,10 +150,5 @@ public class CharUtilsPerfRun {
             }
         }
         return t;
-    }
-
-    private void printlnTotal(final String prefix, final long startMillis) {
-        final long totalMillis = System.currentTimeMillis() - startMillis;
-        System.out.println(prefix + ": " + NumberFormat.getInstance().format(totalMillis) + " milliseconds.");
     }
 }

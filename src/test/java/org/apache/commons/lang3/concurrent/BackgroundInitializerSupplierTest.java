@@ -34,6 +34,52 @@ import org.junit.jupiter.api.Test;
 public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest {
 
     /**
+     * A concrete implementation of BackgroundInitializer. It is designed as a warpper so the test can
+     * use the same builder pattern that real code will.
+     */
+    protected static final class SupplierBackgroundInitializerTestImpl extends AbstractBackgroundInitializerTestImpl {
+
+        SupplierBackgroundInitializerTestImpl() {
+            super();
+            setSupplierAndCloser((CloseableCounter cc) -> cc.close());
+        }
+
+        SupplierBackgroundInitializerTestImpl(final ExecutorService exec) {
+            super(exec);
+            setSupplierAndCloser((CloseableCounter cc) -> cc.close());
+        }
+
+        SupplierBackgroundInitializerTestImpl(FailableConsumer<?, ?> consumer) {
+            super();
+            setSupplierAndCloser(consumer);
+        }
+
+        private void setSupplierAndCloser(FailableConsumer<?, ?> consumer) {
+            try {
+                // Use reflection here because the constructors we need are private
+                FailableSupplier<?, ?> supplier = () -> initializeInternal();
+                Field initializer = AbstractConcurrentInitializer.class.getDeclaredField("initializer");
+                initializer.setAccessible(true);
+                initializer.set(this, supplier);
+
+                Field closer = AbstractConcurrentInitializer.class.getDeclaredField("closer");
+                closer.setAccessible(true);
+                closer.set(this, consumer);
+            } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+                fail();
+            }
+        }
+    }
+
+    protected AbstractBackgroundInitializerTestImpl getBackgroundInitializerTestImpl() {
+        return new SupplierBackgroundInitializerTestImpl();
+    }
+
+    protected SupplierBackgroundInitializerTestImpl getBackgroundInitializerTestImpl(final ExecutorService exec) {
+        return new SupplierBackgroundInitializerTestImpl(exec);
+    }
+
+    /**
      * Tests that close() method closes the wrapped object
      *
      * @throws Exception
@@ -98,51 +144,5 @@ public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest
         } catch (Exception e) {
             assertSame(npe, e);
         }
-    }
-
-    /**
-     * A concrete implementation of BackgroundInitializer. It is designed as a warpper so the test can
-     * use the same builder pattern that real code will.
-     */
-    protected static final class SupplierBackgroundInitializerTestImpl extends AbstractBackgroundInitializerTestImpl {
-
-        SupplierBackgroundInitializerTestImpl() {
-            super();
-            setSupplierAndCloser((CloseableCounter cc) -> cc.close());
-        }
-
-        SupplierBackgroundInitializerTestImpl(FailableConsumer<?, ?> consumer) {
-            super();
-            setSupplierAndCloser(consumer);
-        }
-
-        SupplierBackgroundInitializerTestImpl(final ExecutorService exec) {
-            super(exec);
-            setSupplierAndCloser((CloseableCounter cc) -> cc.close());
-        }
-
-        private void setSupplierAndCloser(FailableConsumer<?, ?> consumer) {
-            try {
-                // Use reflection here because the constructors we need are private
-                FailableSupplier<?, ?> supplier = () -> initializeInternal();
-                Field initializer = AbstractConcurrentInitializer.class.getDeclaredField("initializer");
-                initializer.setAccessible(true);
-                initializer.set(this, supplier);
-
-                Field closer = AbstractConcurrentInitializer.class.getDeclaredField("closer");
-                closer.setAccessible(true);
-                closer.set(this, consumer);
-            } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-                fail();
-            }
-        }
-    }
-
-    protected AbstractBackgroundInitializerTestImpl getBackgroundInitializerTestImpl() {
-        return new SupplierBackgroundInitializerTestImpl();
-    }
-
-    protected SupplierBackgroundInitializerTestImpl getBackgroundInitializerTestImpl(final ExecutorService exec) {
-        return new SupplierBackgroundInitializerTestImpl(exec);
     }
 }

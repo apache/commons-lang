@@ -58,16 +58,6 @@ public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<
     }
 
     @Test
-    public void testContextedExceptionThrowable() {
-        exceptionContext = new ContextedRuntimeException(new Exception(TEST_MESSAGE));
-        final String message = exceptionContext.getMessage();
-        final String trace = ExceptionUtils.getStackTrace(exceptionContext);
-        assertTrue(trace.contains("ContextedException"));
-        assertTrue(trace.contains(TEST_MESSAGE));
-        assertTrue(message.contains(TEST_MESSAGE));
-    }
-
-    @Test
     public void testContextedExceptionStringThrowable() {
         exceptionContext = new ContextedRuntimeException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE));
         final String message = exceptionContext.getMessage();
@@ -91,6 +81,16 @@ public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<
         assertTrue(trace.contains(TEST_MESSAGE));
         assertTrue(trace.contains(TEST_MESSAGE_2));
         assertTrue(message.contains(TEST_MESSAGE_2));
+    }
+
+    @Test
+    public void testContextedExceptionThrowable() {
+        exceptionContext = new ContextedRuntimeException(new Exception(TEST_MESSAGE));
+        final String message = exceptionContext.getMessage();
+        final String trace = ExceptionUtils.getStackTrace(exceptionContext);
+        assertTrue(trace.contains("ContextedException"));
+        assertTrue(trace.contains(TEST_MESSAGE));
+        assertTrue(message.contains(TEST_MESSAGE));
     }
 
     @Test

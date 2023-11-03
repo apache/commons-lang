@@ -313,13 +313,13 @@ public class DiffBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testNullRhs() {
-        assertThrows(NullPointerException.class, () -> new DiffBuilder<>(this, null, ToStringStyle.DEFAULT_STYLE));
+    public void testNullLhs_4args() {
+        assertThrows(NullPointerException.class, () -> new DiffBuilder<>(null, this, ToStringStyle.DEFAULT_STYLE, true));
     }
 
     @Test
-    public void testNullLhs_4args() {
-        assertThrows(NullPointerException.class, () -> new DiffBuilder<>(null, this, ToStringStyle.DEFAULT_STYLE, true));
+    public void testNullRhs() {
+        assertThrows(NullPointerException.class, () -> new DiffBuilder<>(this, null, ToStringStyle.DEFAULT_STYLE));
     }
 
     @Test

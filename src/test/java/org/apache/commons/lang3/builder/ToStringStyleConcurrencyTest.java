@@ -68,18 +68,8 @@ public class ToStringStyleConcurrencyTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLinkedList() throws InterruptedException {
-        this.testConcurrency(new CollectionHolder<>(new LinkedList<>()));
-    }
-
-    @Test
     public void testArrayList() throws InterruptedException {
         this.testConcurrency(new CollectionHolder<>(new ArrayList<>()));
-    }
-
-    @Test
-    public void testCopyOnWriteArrayList() throws InterruptedException {
-        this.testConcurrency(new CollectionHolder<>(new CopyOnWriteArrayList<>()));
     }
 
     private void testConcurrency(final CollectionHolder<List<Integer>> holder) throws InterruptedException {
@@ -106,5 +96,15 @@ public class ToStringStyleConcurrencyTest extends AbstractLangTest {
             threadPool.shutdown();
             threadPool.awaitTermination(1, TimeUnit.SECONDS);
         }
+    }
+
+    @Test
+    public void testCopyOnWriteArrayList() throws InterruptedException {
+        this.testConcurrency(new CollectionHolder<>(new CopyOnWriteArrayList<>()));
+    }
+
+    @Test
+    public void testLinkedList() throws InterruptedException {
+        this.testConcurrency(new CollectionHolder<>(new LinkedList<>()));
     }
 }

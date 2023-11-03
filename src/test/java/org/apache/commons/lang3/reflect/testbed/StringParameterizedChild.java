@@ -26,11 +26,11 @@ public class StringParameterizedChild extends GenericParent<String> {
     }
 
     @Override
-    public void parentProtectedAnnotatedMethod(final String t) {
+    public void parentNotAnnotatedMethod(final String t) {
     }
 
     @Override
-    public void parentNotAnnotatedMethod(final String t) {
+    public void parentProtectedAnnotatedMethod(final String t) {
     }
 
     @Annotated

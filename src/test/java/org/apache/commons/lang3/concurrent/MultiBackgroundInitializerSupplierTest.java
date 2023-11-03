@@ -36,10 +36,45 @@ import org.junit.jupiter.api.Test;
  */
 public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundInitializerTest {
 
+    /**
+     * A concrete implementation of {@code BackgroundInitializer} used for
+     * defining background tasks for {@code MultiBackgroundInitializer}.
+     */
+    private static final class SupplierChildBackgroundInitializer extends AbstractChildBackgroundInitializer {
+
+        SupplierChildBackgroundInitializer() {
+            this((CloseableCounter cc) -> cc.close());
+        }
+
+        SupplierChildBackgroundInitializer(FailableConsumer<?, ?> consumer) {
+            try {
+                // Use reflection here because the constructors we need are private
+                final FailableSupplier<?, ?> supplier = () -> initializeInternal();
+                final Field initializer = AbstractConcurrentInitializer.class.getDeclaredField("initializer");
+                initializer.setAccessible(true);
+                initializer.set(this, supplier);
+
+                final Field closer = AbstractConcurrentInitializer.class.getDeclaredField("closer");
+                closer.setAccessible(true);
+                closer.set(this, consumer);
+            } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+                fail();
+            }
+        }
+    }
     private NullPointerException npe;
     private IOException ioException;
     private FailableConsumer<?, ?> ioExceptionConsumer;
+
     private FailableConsumer<?, ?> nullPointerExceptionConsumer;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected AbstractChildBackgroundInitializer createChildBackgroundInitializer() {
+        return new SupplierChildBackgroundInitializer();
+    }
 
     @BeforeEach
     public void setUpException() throws Exception {
@@ -51,14 +86,6 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
         nullPointerExceptionConsumer = (CloseableCounter cc) -> {
             throw npe;
         };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected AbstractChildBackgroundInitializer createChildBackgroundInitializer() {
-        return new SupplierChildBackgroundInitializer();
     }
 
     /**
@@ -229,33 +256,6 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
 
             assertTrue(foundChildOneException);
             assertTrue(foundChildTwoException);
-        }
-    }
-
-    /**
-     * A concrete implementation of {@code BackgroundInitializer} used for
-     * defining background tasks for {@code MultiBackgroundInitializer}.
-     */
-    private static final class SupplierChildBackgroundInitializer extends AbstractChildBackgroundInitializer {
-
-        SupplierChildBackgroundInitializer() {
-            this((CloseableCounter cc) -> cc.close());
-        }
-
-        SupplierChildBackgroundInitializer(FailableConsumer<?, ?> consumer) {
-            try {
-                // Use reflection here because the constructors we need are private
-                final FailableSupplier<?, ?> supplier = () -> initializeInternal();
-                final Field initializer = AbstractConcurrentInitializer.class.getDeclaredField("initializer");
-                initializer.setAccessible(true);
-                initializer.set(this, supplier);
-
-                final Field closer = AbstractConcurrentInitializer.class.getDeclaredField("closer");
-                closer.setAccessible(true);
-                closer.set(this, consumer);
-            } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-                fail();
-            }
         }
     }
 }

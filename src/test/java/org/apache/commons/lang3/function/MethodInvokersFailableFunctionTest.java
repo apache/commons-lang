@@ -43,13 +43,13 @@ public class MethodInvokersFailableFunctionTest extends MethodFixtures {
     }
 
     @Test
-    public void testConstructorForNull() throws SecurityException {
-        assertThrows(NullPointerException.class, () -> MethodInvokers.asFailableFunction((Method) null));
+    public void testBuildVarArg() throws SecurityException, NoSuchMethodException {
+        MethodInvokers.asFailableFunction(getMethodForGetStringVarStringArgs());
     }
 
     @Test
-    public void testBuildVarArg() throws SecurityException, NoSuchMethodException {
-        MethodInvokers.asFailableFunction(getMethodForGetStringVarStringArgs());
+    public void testConstructorForNull() throws SecurityException {
+        assertThrows(NullPointerException.class, () -> MethodInvokers.asFailableFunction((Method) null));
     }
 
     @Test

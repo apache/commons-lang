@@ -31,20 +31,6 @@ import org.junit.jupiter.api.Test;
 public class MutableTripleTest extends AbstractLangTest {
 
     @Test
-    public void testOfNonNull() {
-        assertThrows(NullPointerException.class, () -> MutableTriple.ofNonNull(null, null, null));
-        assertThrows(NullPointerException.class, () -> MutableTriple.ofNonNull(null, null, "z"));
-        assertThrows(NullPointerException.class, () -> MutableTriple.ofNonNull(null, "y", "z"));
-        assertThrows(NullPointerException.class, () -> MutableTriple.ofNonNull("x", null, null));
-        assertThrows(NullPointerException.class, () -> MutableTriple.ofNonNull("x", "y", null));
-        final MutableTriple<String, String, String> pair = MutableTriple.ofNonNull("x", "y", "z");
-        assertEquals("x", pair.left);
-        assertEquals("y", pair.middle);
-        assertEquals("z", pair.right);
-    }
-
-
-    @Test
     public void testBasic() {
         final MutableTriple<Integer, String, Boolean> triple = new MutableTriple<>(0, "foo", Boolean.FALSE);
         assertEquals(0, triple.getLeft().intValue());
@@ -55,6 +41,7 @@ public class MutableTripleTest extends AbstractLangTest {
         assertEquals("bar", triple2.getMiddle());
         assertEquals("hello", triple2.getRight());
     }
+
 
     @Test
     public void testDefault() {
@@ -103,6 +90,19 @@ public class MutableTripleTest extends AbstractLangTest {
         assertEquals(42, triple.getLeft().intValue());
         assertEquals("bar", triple.getMiddle());
         assertEquals(Boolean.FALSE, triple.getRight());
+    }
+
+    @Test
+    public void testOfNonNull() {
+        assertThrows(NullPointerException.class, () -> MutableTriple.ofNonNull(null, null, null));
+        assertThrows(NullPointerException.class, () -> MutableTriple.ofNonNull(null, null, "z"));
+        assertThrows(NullPointerException.class, () -> MutableTriple.ofNonNull(null, "y", "z"));
+        assertThrows(NullPointerException.class, () -> MutableTriple.ofNonNull("x", null, null));
+        assertThrows(NullPointerException.class, () -> MutableTriple.ofNonNull("x", "y", null));
+        final MutableTriple<String, String, String> pair = MutableTriple.ofNonNull("x", "y", "z");
+        assertEquals("x", pair.left);
+        assertEquals("y", pair.middle);
+        assertEquals("z", pair.right);
     }
 
     @Test

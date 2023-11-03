@@ -40,6 +40,78 @@ import org.junit.jupiter.api.Test;
 /**
  */
 public class AnnotationUtilsTest extends AbstractLangTest {
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface NestAnnotation {
+        boolean booleanValue();
+        boolean[] booleanValues();
+        byte byteValue();
+        byte[] byteValues();
+        char charValue();
+        char[] charValues();
+        double doubleValue();
+        double[] doubleValues();
+        float floatValue();
+        float[] floatValues();
+        int intValue();
+        int[] intValues();
+        long longValue();
+        long[] longValues();
+        short shortValue();
+        short[] shortValues();
+        Stooge stooge();
+        Stooge[] stooges();
+        String string();
+        String[] strings();
+        Class<?> type();
+        Class<?>[] types();
+    }
+
+    public enum Stooge {
+        MOE, LARRY, CURLY, JOE, SHEMP
+    }
+
+    @Target(ElementType.FIELD)
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface TestAnnotation {
+        boolean booleanValue();
+        boolean[] booleanValues();
+        byte byteValue();
+        byte[] byteValues();
+        char charValue();
+        char[] charValues();
+        double doubleValue();
+        double[] doubleValues();
+        float floatValue();
+        float[] floatValues();
+        int intValue();
+        int[] intValues();
+        long longValue();
+        long[] longValues();
+        NestAnnotation nest();
+        NestAnnotation[] nests();
+        short shortValue();
+        short[] shortValues();
+        Stooge stooge();
+        Stooge[] stooges();
+        String string();
+        String[] strings();
+        Class<?> type();
+        Class<?>[] types();
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.METHOD})
+    public @interface TestMethodAnnotation {
+        class None extends Throwable {
+
+            private static final long serialVersionUID = 1L;
+        }
+
+        Class<? extends Throwable> expected() default None.class;
+
+        long timeout() default 0L;
+    }
+
     @TestAnnotation(
             booleanValue = false,
             booleanValues = { false },
@@ -319,78 +391,6 @@ public class AnnotationUtilsTest extends AbstractLangTest {
     )
     public Object dummy4;
 
-    @Target(ElementType.FIELD)
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface TestAnnotation {
-        String string();
-        String[] strings();
-        Class<?> type();
-        Class<?>[] types();
-        byte byteValue();
-        byte[] byteValues();
-        short shortValue();
-        short[] shortValues();
-        int intValue();
-        int[] intValues();
-        char charValue();
-        char[] charValues();
-        long longValue();
-        long[] longValues();
-        float floatValue();
-        float[] floatValues();
-        double doubleValue();
-        double[] doubleValues();
-        boolean booleanValue();
-        boolean[] booleanValues();
-        Stooge stooge();
-        Stooge[] stooges();
-        NestAnnotation nest();
-        NestAnnotation[] nests();
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface NestAnnotation {
-        String string();
-        String[] strings();
-        Class<?> type();
-        Class<?>[] types();
-        byte byteValue();
-        byte[] byteValues();
-        short shortValue();
-        short[] shortValues();
-        int intValue();
-        int[] intValues();
-        char charValue();
-        char[] charValues();
-        long longValue();
-        long[] longValues();
-        float floatValue();
-        float[] floatValues();
-        double doubleValue();
-        double[] doubleValues();
-        boolean booleanValue();
-        boolean[] booleanValues();
-        Stooge stooge();
-        Stooge[] stooges();
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD})
-    public @interface TestMethodAnnotation {
-        Class<? extends Throwable> expected() default None.class;
-
-        long timeout() default 0L;
-
-        class None extends Throwable {
-
-            private static final long serialVersionUID = 1L;
-        }
-    }
-
-    public enum Stooge {
-        MOE, LARRY, CURLY, JOE, SHEMP
-    }
-
     private Field field1;
     private Field field2;
     private Field field3;
@@ -405,32 +405,9 @@ public class AnnotationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEquivalence() {
-        assertTrue(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), field2.getAnnotation(TestAnnotation.class)));
-        assertTrue(AnnotationUtils.equals(field2.getAnnotation(TestAnnotation.class), field1.getAnnotation(TestAnnotation.class)));
-    }
-
-    @Test
-    public void testSameInstance() {
-        assertTrue(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), field1.getAnnotation(TestAnnotation.class)));
-    }
-
-    @Test
-    public void testNonEquivalentAnnotationsOfSameType() {
-        assertFalse(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), field3.getAnnotation(TestAnnotation.class)));
-        assertFalse(AnnotationUtils.equals(field3.getAnnotation(TestAnnotation.class), field1.getAnnotation(TestAnnotation.class)));
-    }
-
-    @Test
     public void testAnnotationsOfDifferingTypes() {
         assertFalse(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), field4.getAnnotation(NestAnnotation.class)));
         assertFalse(AnnotationUtils.equals(field4.getAnnotation(NestAnnotation.class), field1.getAnnotation(TestAnnotation.class)));
-    }
-
-    @Test
-    public void testOneArgNull() {
-        assertFalse(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), null));
-        assertFalse(AnnotationUtils.equals(null, field1.getAnnotation(TestAnnotation.class)));
     }
 
     @Test
@@ -439,19 +416,9 @@ public class AnnotationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsValidAnnotationMemberType() {
-        for (final Class<?> type : new Class[] { byte.class, short.class, int.class, char.class,
-                long.class, float.class, double.class, boolean.class, String.class, Class.class,
-                NestAnnotation.class, TestAnnotation.class, Stooge.class, ElementType.class }) {
-            assertTrue(AnnotationUtils.isValidAnnotationMemberType(type));
-            assertTrue(AnnotationUtils.isValidAnnotationMemberType(Array.newInstance(type, 0)
-                    .getClass()));
-        }
-        for (final Class<?> type : new Class[] { Object.class, Map.class, Collection.class }) {
-            assertFalse(AnnotationUtils.isValidAnnotationMemberType(type));
-            assertFalse(AnnotationUtils.isValidAnnotationMemberType(Array.newInstance(type, 0)
-                    .getClass()));
-        }
+    public void testEquivalence() {
+        assertTrue(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), field2.getAnnotation(TestAnnotation.class)));
+        assertTrue(AnnotationUtils.equals(field2.getAnnotation(TestAnnotation.class), field1.getAnnotation(TestAnnotation.class)));
     }
 
     @Test
@@ -501,6 +468,39 @@ public class AnnotationUtilsTest extends AbstractLangTest {
             final TestAnnotation testAnnotation3 = field3.getAnnotation(TestAnnotation.class);
             assertEquals(testAnnotation3.hashCode(), AnnotationUtils.hashCode(testAnnotation3));
         });
+    }
+
+    @Test
+    public void testIsValidAnnotationMemberType() {
+        for (final Class<?> type : new Class[] { byte.class, short.class, int.class, char.class,
+                long.class, float.class, double.class, boolean.class, String.class, Class.class,
+                NestAnnotation.class, TestAnnotation.class, Stooge.class, ElementType.class }) {
+            assertTrue(AnnotationUtils.isValidAnnotationMemberType(type));
+            assertTrue(AnnotationUtils.isValidAnnotationMemberType(Array.newInstance(type, 0)
+                    .getClass()));
+        }
+        for (final Class<?> type : new Class[] { Object.class, Map.class, Collection.class }) {
+            assertFalse(AnnotationUtils.isValidAnnotationMemberType(type));
+            assertFalse(AnnotationUtils.isValidAnnotationMemberType(Array.newInstance(type, 0)
+                    .getClass()));
+        }
+    }
+
+    @Test
+    public void testNonEquivalentAnnotationsOfSameType() {
+        assertFalse(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), field3.getAnnotation(TestAnnotation.class)));
+        assertFalse(AnnotationUtils.equals(field3.getAnnotation(TestAnnotation.class), field1.getAnnotation(TestAnnotation.class)));
+    }
+
+    @Test
+    public void testOneArgNull() {
+        assertFalse(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), null));
+        assertFalse(AnnotationUtils.equals(null, field1.getAnnotation(TestAnnotation.class)));
+    }
+
+    @Test
+    public void testSameInstance() {
+        assertTrue(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), field1.getAnnotation(TestAnnotation.class)));
     }
 
     @Test

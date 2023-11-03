@@ -34,6 +34,26 @@ import org.junit.jupiter.api.Test;
 public class StrLookupTest extends AbstractLangTest {
 
     @Test
+    public void testMapLookup() {
+        final Map<String, Object> map = new HashMap<>();
+        map.put("key", "value");
+        map.put("number", Integer.valueOf(2));
+        assertEquals("value", StrLookup.mapLookup(map).lookup("key"));
+        assertEquals("2", StrLookup.mapLookup(map).lookup("number"));
+        assertNull(StrLookup.mapLookup(map).lookup(null));
+        assertNull(StrLookup.mapLookup(map).lookup(""));
+        assertNull(StrLookup.mapLookup(map).lookup("other"));
+    }
+
+    @Test
+    public void testMapLookup_nullMap() {
+        final Map<String, ?> map = null;
+        assertNull(StrLookup.mapLookup(map).lookup(null));
+        assertNull(StrLookup.mapLookup(map).lookup(""));
+        assertNull(StrLookup.mapLookup(map).lookup("any"));
+    }
+
+    @Test
     public void testNoneLookup() {
         assertNull(StrLookup.noneLookup().lookup(null));
         assertNull(StrLookup.noneLookup().lookup(""));
@@ -87,26 +107,6 @@ public class StrLookupTest extends AbstractLangTest {
         } finally {
             System.setProperty(osName, oldOs);
         }
-    }
-
-    @Test
-    public void testMapLookup() {
-        final Map<String, Object> map = new HashMap<>();
-        map.put("key", "value");
-        map.put("number", Integer.valueOf(2));
-        assertEquals("value", StrLookup.mapLookup(map).lookup("key"));
-        assertEquals("2", StrLookup.mapLookup(map).lookup("number"));
-        assertNull(StrLookup.mapLookup(map).lookup(null));
-        assertNull(StrLookup.mapLookup(map).lookup(""));
-        assertNull(StrLookup.mapLookup(map).lookup("other"));
-    }
-
-    @Test
-    public void testMapLookup_nullMap() {
-        final Map<String, ?> map = null;
-        assertNull(StrLookup.mapLookup(map).lookup(null));
-        assertNull(StrLookup.mapLookup(map).lookup(""));
-        assertNull(StrLookup.mapLookup(map).lookup("any"));
     }
 
 }

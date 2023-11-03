@@ -45,107 +45,92 @@ import org.junit.jupiter.api.Test;
 @Deprecated
 public class ExtendedMessageFormatTest extends AbstractLangTest {
 
-    private final Map<String, FormatFactory> registry = new HashMap<>();
-
-    @BeforeEach
-    public void setUp() {
-        registry.put("lower", new LowerCaseFormatFactory());
-        registry.put("upper", new UpperCaseFormatFactory());
-    }
-
     /**
-     * Test extended formats.
+     * {@link Format} implementation which converts to lower case.
      */
-    @Test
-    public void testExtendedFormats() {
-        final String pattern = "Lower: {0,lower} Upper: {1,upper}";
-        final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
-        assertEquals(pattern, emf.toPattern(), "TOPATTERN");
-        assertEquals(emf.format(new Object[] {"foo", "bar"}), "Lower: foo Upper: BAR");
-        assertEquals(emf.format(new Object[] {"Foo", "Bar"}), "Lower: foo Upper: BAR");
-        assertEquals(emf.format(new Object[] {"FOO", "BAR"}), "Lower: foo Upper: BAR");
-        assertEquals(emf.format(new Object[] {"FOO", "bar"}), "Lower: foo Upper: BAR");
-        assertEquals(emf.format(new Object[] {"foo", "BAR"}), "Lower: foo Upper: BAR");
-    }
+    private static final class LowerCaseFormat extends Format {
+        private static final long serialVersionUID = 1L;
 
-    /**
-     * Test Bug LANG-477 - out of memory error with escaped quote
-     */
-    @Test
-    public void testEscapedQuote_LANG_477() {
-        final String pattern = "it''s a {0,lower} 'test'!";
-        final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
-        assertEquals("it's a dummy test!", emf.format(new Object[] {"DUMMY"}));
-    }
-
-    /**
-     * Test Bug LANG-917 - IndexOutOfBoundsException and/or infinite loop when using a choice pattern
-     */
-    @Test
-    public void testEmbeddedPatternInChoice() {
-        final String pattern = "Hi {0,lower}, got {1,choice,0#none|1#one|1<{1,number}}, {2,upper}!";
-        final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
-        assertEquals(emf.format(new Object[] {"there", 3, "great"}), "Hi there, got 3, GREAT!");
-    }
-
-    /**
-     * Test Bug LANG-948 - Exception while using ExtendedMessageFormat and escaping braces
-     */
-    @Test
-    public void testEscapedBraces_LANG_948() {
-        // message without placeholder because braces are escaped by quotes
-        final String pattern = "Message without placeholders '{}'";
-        final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
-        assertEquals("Message without placeholders {}", emf.format(new Object[] {"DUMMY"}));
-
-        // message with placeholder because quotes are escaped by quotes
-        final String pattern2 = "Message with placeholder ''{0}''";
-        final ExtendedMessageFormat emf2 = new ExtendedMessageFormat(pattern2, registry);
-        assertEquals("Message with placeholder 'DUMMY'", emf2.format(new Object[] {"DUMMY"}));
-    }
-
-    /**
-     * Test extended and built in formats.
-     */
-    @Test
-    public void testExtendedAndBuiltInFormats() {
-        final Calendar cal = Calendar.getInstance();
-        cal.set(2007, Calendar.JANUARY, 23, 18, 33, 5);
-        final Object[] args = {"John Doe", cal.getTime(), Double.valueOf("12345.67")};
-        final String builtinsPattern = "DOB: {1,date,short} Salary: {2,number,currency}";
-        final String extendedPattern = "Name: {0,upper} ";
-        final String pattern = extendedPattern + builtinsPattern;
-
-        final HashSet<Locale> testLocales = new HashSet<>(Arrays.asList(DateFormat.getAvailableLocales()));
-        testLocales.retainAll(Arrays.asList(NumberFormat.getAvailableLocales()));
-        testLocales.add(null);
-
-        for (final Locale locale : testLocales) {
-            final MessageFormat builtins = createMessageFormat(builtinsPattern, locale);
-            final String expectedPattern = extendedPattern + builtins.toPattern();
-            DateFormat df = null;
-            NumberFormat nf = null;
-            ExtendedMessageFormat emf = null;
-            if (locale == null) {
-                df = DateFormat.getDateInstance(DateFormat.SHORT);
-                nf = NumberFormat.getCurrencyInstance();
-                emf = new ExtendedMessageFormat(pattern, registry);
-            } else {
-                df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-                nf = NumberFormat.getCurrencyInstance(locale);
-                emf = new ExtendedMessageFormat(pattern, locale, registry);
-            }
-            final StringBuilder expected = new StringBuilder();
-            expected.append("Name: ");
-            expected.append(args[0].toString().toUpperCase(Locale.ROOT));
-            expected.append(" DOB: ");
-            expected.append(df.format(args[1]));
-            expected.append(" Salary: ");
-            expected.append(nf.format(args[2]));
-            assertEquals(expectedPattern, emf.toPattern(), "pattern comparison for locale " + locale);
-            assertEquals(expected.toString(), emf.format(args), String.valueOf(locale));
+        @Override
+        public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
+            return toAppendTo.append(((String) obj).toLowerCase(Locale.ROOT));
+        }
+        @Override
+        public Object parseObject(final String source, final ParsePosition pos) {
+            throw new UnsupportedOperationException();
         }
     }
+
+    // ------------------------ Test Format Factories ---------------
+    /**
+     * {@link FormatFactory} implementation for lower case format.
+     */
+    private static final class LowerCaseFormatFactory implements FormatFactory {
+        private static final Format LOWER_INSTANCE = new LowerCaseFormat();
+
+        @Override
+        public Format getFormat(final String name, final String arguments, final Locale locale) {
+            return LOWER_INSTANCE;
+        }
+    }
+
+    /**
+     * Alternative ExtendedMessageFormat impl.
+     */
+    private static final class OtherExtendedMessageFormat extends ExtendedMessageFormat {
+        private static final long serialVersionUID = 1L;
+
+        OtherExtendedMessageFormat(final String pattern, final Locale locale,
+                final Map<String, ? extends FormatFactory> registry) {
+            super(pattern, locale, registry);
+        }
+
+    }
+
+    /**
+     * {@link FormatFactory} implementation to override date format "short" to "default".
+     */
+    private static final class OverrideShortDateFormatFactory implements FormatFactory {
+
+        @Override
+        public Format getFormat(final String name, final String arguments, final Locale locale) {
+            return !"short".equals(arguments) ? null
+                    : locale == null ? DateFormat
+                            .getDateInstance(DateFormat.DEFAULT) : DateFormat
+                            .getDateInstance(DateFormat.DEFAULT, locale);
+        }
+    }
+
+    /**
+     * {@link Format} implementation which converts to upper case.
+     */
+    private static final class UpperCaseFormat extends Format {
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
+            return toAppendTo.append(((String) obj).toUpperCase(Locale.ROOT));
+        }
+
+        @Override
+        public Object parseObject(final String source, final ParsePosition pos) {
+            throw new UnsupportedOperationException();
+        }
+    }
+
+    /**
+     * {@link FormatFactory} implementation for upper case format.
+     */
+    private static final class UpperCaseFormatFactory implements FormatFactory {
+        private static final Format UPPER_INSTANCE = new UpperCaseFormat();
+
+        @Override
+        public Format getFormat(final String name, final String arguments, final Locale locale) {
+            return UPPER_INSTANCE;
+        }
+    }
+
+    private final Map<String, FormatFactory> registry = new HashMap<>();
 
 //    /**
 //     * Test extended formats with choice format.
@@ -203,6 +188,77 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
 //    }
 
     /**
+     * Create an ExtendedMessageFormat for the specified pattern and locale and check the
+     * formatted output matches the expected result for the parameters.
+     * @param pattern string
+     * @param registryUnused map (currently unused)
+     * @param args Object[]
+     * @param locale Locale
+     */
+    private void checkBuiltInFormat(final String pattern, final Map<String, ?> registryUnused, final Object[] args, final Locale locale) {
+        final StringBuilder buffer = new StringBuilder();
+        buffer.append("Pattern=[");
+        buffer.append(pattern);
+        buffer.append("], locale=[");
+        buffer.append(locale);
+        buffer.append("]");
+        final MessageFormat mf = createMessageFormat(pattern, locale);
+        ExtendedMessageFormat emf = null;
+        if (locale == null) {
+            emf = new ExtendedMessageFormat(pattern);
+        } else {
+            emf = new ExtendedMessageFormat(pattern, locale);
+        }
+        assertEquals(mf.format(args), emf.format(args), "format "    + buffer.toString());
+        assertEquals(mf.toPattern(), emf.toPattern(), "toPattern " + buffer.toString());
+    }
+
+    /**
+     * Test a built-in format for the specified Locales, plus {@code null} Locale.
+     * @param pattern MessageFormat pattern
+     * @param fmtRegistry FormatFactory registry to use
+     * @param args MessageFormat arguments
+     * @param locales to test
+     */
+    private void checkBuiltInFormat(final String pattern, final Map<String, ?> fmtRegistry, final Object[] args, final Locale[] locales) {
+        checkBuiltInFormat(pattern, fmtRegistry, args, (Locale) null);
+        for (final Locale locale : locales) {
+            checkBuiltInFormat(pattern, fmtRegistry, args, locale);
+        }
+    }
+
+    /**
+     * Test a built-in format for the specified Locales, plus {@code null} Locale.
+     * @param pattern MessageFormat pattern
+     * @param args MessageFormat arguments
+     * @param locales to test
+     */
+    private void checkBuiltInFormat(final String pattern, final Object[] args, final Locale[] locales) {
+        checkBuiltInFormat(pattern, null, args, locales);
+    }
+
+    /**
+     * Replace MessageFormat(String, Locale) constructor (not available until JDK 1.4).
+     * @param pattern string
+     * @param locale Locale
+     * @return MessageFormat
+     */
+    private MessageFormat createMessageFormat(final String pattern, final Locale locale) {
+        final MessageFormat result = new MessageFormat(pattern);
+        if (locale != null) {
+            result.setLocale(locale);
+            result.applyPattern(pattern);
+        }
+        return result;
+    }
+
+    @BeforeEach
+    public void setUp() {
+        registry.put("lower", new LowerCaseFormatFactory());
+        registry.put("upper", new UpperCaseFormatFactory());
+    }
+
+    /**
      * Test the built-in choice format.
      */
     @Test
@@ -246,32 +302,6 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
         checkBuiltInFormat("12: {0,time}",         args, availableLocales);
     }
 
-    @Test
-    public void testOverriddenBuiltinFormat() {
-        final Calendar cal = Calendar.getInstance();
-        cal.set(2007, Calendar.JANUARY, 23);
-        final Object[] args = {cal.getTime()};
-        final Locale[] availableLocales = DateFormat.getAvailableLocales();
-        final Map<String, ? extends FormatFactory> dateRegistry = Collections.singletonMap("date", new OverrideShortDateFormatFactory());
-
-        //check the non-overridden builtins:
-        checkBuiltInFormat("1: {0,date}", dateRegistry,          args, availableLocales);
-        checkBuiltInFormat("2: {0,date,medium}", dateRegistry,   args, availableLocales);
-        checkBuiltInFormat("3: {0,date,long}", dateRegistry,     args, availableLocales);
-        checkBuiltInFormat("4: {0,date,full}", dateRegistry,     args, availableLocales);
-        checkBuiltInFormat("5: {0,date,d MMM yy}", dateRegistry, args, availableLocales);
-
-        //check the overridden format:
-        for (int i = -1; i < availableLocales.length; i++) {
-            final Locale locale = i < 0 ? null : availableLocales[i];
-            final MessageFormat dateDefault = createMessageFormat("{0,date}", locale);
-            final String pattern = "{0,date,short}";
-            final ExtendedMessageFormat dateShort = new ExtendedMessageFormat(pattern, locale, dateRegistry);
-            assertEquals(dateDefault.format(args), dateShort.format(args), "overridden date,short format");
-            assertEquals(pattern, dateShort.toPattern(), "overridden date,short pattern");
-        }
-    }
-
     /**
      * Test the built-in number formats.
      */
@@ -285,6 +315,18 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
         checkBuiltInFormat("4: {0,number,percent}",    args, availableLocales);
         checkBuiltInFormat("5: {0,number,00000.000}",  args, availableLocales);
     }
+
+    /**
+     * Test Bug LANG-917 - IndexOutOfBoundsException and/or infinite loop when using a choice pattern
+     */
+    @Test
+    public void testEmbeddedPatternInChoice() {
+        final String pattern = "Hi {0,lower}, got {1,choice,0#none|1#one|1<{1,number}}, {2,upper}!";
+        final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
+        assertEquals(emf.format(new Object[] {"there", 3, "great"}), "Hi there, got 3, GREAT!");
+    }
+
+    // ------------------------ Test Formats ------------------------
 
     /**
      * Test equals() and hashCode().
@@ -330,154 +372,112 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
     }
 
     /**
-     * Test a built-in format for the specified Locales, plus {@code null} Locale.
-     * @param pattern MessageFormat pattern
-     * @param args MessageFormat arguments
-     * @param locales to test
+     * Test Bug LANG-948 - Exception while using ExtendedMessageFormat and escaping braces
      */
-    private void checkBuiltInFormat(final String pattern, final Object[] args, final Locale[] locales) {
-        checkBuiltInFormat(pattern, null, args, locales);
-    }
+    @Test
+    public void testEscapedBraces_LANG_948() {
+        // message without placeholder because braces are escaped by quotes
+        final String pattern = "Message without placeholders '{}'";
+        final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
+        assertEquals("Message without placeholders {}", emf.format(new Object[] {"DUMMY"}));
 
-    /**
-     * Test a built-in format for the specified Locales, plus {@code null} Locale.
-     * @param pattern MessageFormat pattern
-     * @param fmtRegistry FormatFactory registry to use
-     * @param args MessageFormat arguments
-     * @param locales to test
-     */
-    private void checkBuiltInFormat(final String pattern, final Map<String, ?> fmtRegistry, final Object[] args, final Locale[] locales) {
-        checkBuiltInFormat(pattern, fmtRegistry, args, (Locale) null);
-        for (final Locale locale : locales) {
-            checkBuiltInFormat(pattern, fmtRegistry, args, locale);
-        }
-    }
-
-    /**
-     * Create an ExtendedMessageFormat for the specified pattern and locale and check the
-     * formatted output matches the expected result for the parameters.
-     * @param pattern string
-     * @param registryUnused map (currently unused)
-     * @param args Object[]
-     * @param locale Locale
-     */
-    private void checkBuiltInFormat(final String pattern, final Map<String, ?> registryUnused, final Object[] args, final Locale locale) {
-        final StringBuilder buffer = new StringBuilder();
-        buffer.append("Pattern=[");
-        buffer.append(pattern);
-        buffer.append("], locale=[");
-        buffer.append(locale);
-        buffer.append("]");
-        final MessageFormat mf = createMessageFormat(pattern, locale);
-        ExtendedMessageFormat emf = null;
-        if (locale == null) {
-            emf = new ExtendedMessageFormat(pattern);
-        } else {
-            emf = new ExtendedMessageFormat(pattern, locale);
-        }
-        assertEquals(mf.format(args), emf.format(args), "format "    + buffer.toString());
-        assertEquals(mf.toPattern(), emf.toPattern(), "toPattern " + buffer.toString());
-    }
-
-    /**
-     * Replace MessageFormat(String, Locale) constructor (not available until JDK 1.4).
-     * @param pattern string
-     * @param locale Locale
-     * @return MessageFormat
-     */
-    private MessageFormat createMessageFormat(final String pattern, final Locale locale) {
-        final MessageFormat result = new MessageFormat(pattern);
-        if (locale != null) {
-            result.setLocale(locale);
-            result.applyPattern(pattern);
-        }
-        return result;
-    }
-
-    // ------------------------ Test Formats ------------------------
-
-    /**
-     * {@link Format} implementation which converts to lower case.
-     */
-    private static final class LowerCaseFormat extends Format {
-        private static final long serialVersionUID = 1L;
-
-        @Override
-        public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
-            return toAppendTo.append(((String) obj).toLowerCase(Locale.ROOT));
-        }
-        @Override
-        public Object parseObject(final String source, final ParsePosition pos) {
-            throw new UnsupportedOperationException();
-        }
-    }
-
-    /**
-     * {@link Format} implementation which converts to upper case.
-     */
-    private static final class UpperCaseFormat extends Format {
-        private static final long serialVersionUID = 1L;
-
-        @Override
-        public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
-            return toAppendTo.append(((String) obj).toUpperCase(Locale.ROOT));
-        }
-
-        @Override
-        public Object parseObject(final String source, final ParsePosition pos) {
-            throw new UnsupportedOperationException();
-        }
+        // message with placeholder because quotes are escaped by quotes
+        final String pattern2 = "Message with placeholder ''{0}''";
+        final ExtendedMessageFormat emf2 = new ExtendedMessageFormat(pattern2, registry);
+        assertEquals("Message with placeholder 'DUMMY'", emf2.format(new Object[] {"DUMMY"}));
     }
 
 
-    // ------------------------ Test Format Factories ---------------
     /**
-     * {@link FormatFactory} implementation for lower case format.
+     * Test Bug LANG-477 - out of memory error with escaped quote
      */
-    private static final class LowerCaseFormatFactory implements FormatFactory {
-        private static final Format LOWER_INSTANCE = new LowerCaseFormat();
+    @Test
+    public void testEscapedQuote_LANG_477() {
+        final String pattern = "it''s a {0,lower} 'test'!";
+        final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
+        assertEquals("it's a dummy test!", emf.format(new Object[] {"DUMMY"}));
+    }
+    /**
+     * Test extended and built in formats.
+     */
+    @Test
+    public void testExtendedAndBuiltInFormats() {
+        final Calendar cal = Calendar.getInstance();
+        cal.set(2007, Calendar.JANUARY, 23, 18, 33, 5);
+        final Object[] args = {"John Doe", cal.getTime(), Double.valueOf("12345.67")};
+        final String builtinsPattern = "DOB: {1,date,short} Salary: {2,number,currency}";
+        final String extendedPattern = "Name: {0,upper} ";
+        final String pattern = extendedPattern + builtinsPattern;
 
-        @Override
-        public Format getFormat(final String name, final String arguments, final Locale locale) {
-            return LOWER_INSTANCE;
+        final HashSet<Locale> testLocales = new HashSet<>(Arrays.asList(DateFormat.getAvailableLocales()));
+        testLocales.retainAll(Arrays.asList(NumberFormat.getAvailableLocales()));
+        testLocales.add(null);
+
+        for (final Locale locale : testLocales) {
+            final MessageFormat builtins = createMessageFormat(builtinsPattern, locale);
+            final String expectedPattern = extendedPattern + builtins.toPattern();
+            DateFormat df = null;
+            NumberFormat nf = null;
+            ExtendedMessageFormat emf = null;
+            if (locale == null) {
+                df = DateFormat.getDateInstance(DateFormat.SHORT);
+                nf = NumberFormat.getCurrencyInstance();
+                emf = new ExtendedMessageFormat(pattern, registry);
+            } else {
+                df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
+                nf = NumberFormat.getCurrencyInstance(locale);
+                emf = new ExtendedMessageFormat(pattern, locale, registry);
+            }
+            final StringBuilder expected = new StringBuilder();
+            expected.append("Name: ");
+            expected.append(args[0].toString().toUpperCase(Locale.ROOT));
+            expected.append(" DOB: ");
+            expected.append(df.format(args[1]));
+            expected.append(" Salary: ");
+            expected.append(nf.format(args[2]));
+            assertEquals(expectedPattern, emf.toPattern(), "pattern comparison for locale " + locale);
+            assertEquals(expected.toString(), emf.format(args), String.valueOf(locale));
         }
     }
     /**
-     * {@link FormatFactory} implementation for upper case format.
+     * Test extended formats.
      */
-    private static final class UpperCaseFormatFactory implements FormatFactory {
-        private static final Format UPPER_INSTANCE = new UpperCaseFormat();
-
-        @Override
-        public Format getFormat(final String name, final String arguments, final Locale locale) {
-            return UPPER_INSTANCE;
-        }
-    }
-    /**
-     * {@link FormatFactory} implementation to override date format "short" to "default".
-     */
-    private static final class OverrideShortDateFormatFactory implements FormatFactory {
-
-        @Override
-        public Format getFormat(final String name, final String arguments, final Locale locale) {
-            return !"short".equals(arguments) ? null
-                    : locale == null ? DateFormat
-                            .getDateInstance(DateFormat.DEFAULT) : DateFormat
-                            .getDateInstance(DateFormat.DEFAULT, locale);
-        }
+    @Test
+    public void testExtendedFormats() {
+        final String pattern = "Lower: {0,lower} Upper: {1,upper}";
+        final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
+        assertEquals(pattern, emf.toPattern(), "TOPATTERN");
+        assertEquals(emf.format(new Object[] {"foo", "bar"}), "Lower: foo Upper: BAR");
+        assertEquals(emf.format(new Object[] {"Foo", "Bar"}), "Lower: foo Upper: BAR");
+        assertEquals(emf.format(new Object[] {"FOO", "BAR"}), "Lower: foo Upper: BAR");
+        assertEquals(emf.format(new Object[] {"FOO", "bar"}), "Lower: foo Upper: BAR");
+        assertEquals(emf.format(new Object[] {"foo", "BAR"}), "Lower: foo Upper: BAR");
     }
 
-    /**
-     * Alternative ExtendedMessageFormat impl.
-     */
-    private static final class OtherExtendedMessageFormat extends ExtendedMessageFormat {
-        private static final long serialVersionUID = 1L;
+    @Test
+    public void testOverriddenBuiltinFormat() {
+        final Calendar cal = Calendar.getInstance();
+        cal.set(2007, Calendar.JANUARY, 23);
+        final Object[] args = {cal.getTime()};
+        final Locale[] availableLocales = DateFormat.getAvailableLocales();
+        final Map<String, ? extends FormatFactory> dateRegistry = Collections.singletonMap("date", new OverrideShortDateFormatFactory());
 
-        OtherExtendedMessageFormat(final String pattern, final Locale locale,
-                final Map<String, ? extends FormatFactory> registry) {
-            super(pattern, locale, registry);
+        //check the non-overridden builtins:
+        checkBuiltInFormat("1: {0,date}", dateRegistry,          args, availableLocales);
+        checkBuiltInFormat("2: {0,date,medium}", dateRegistry,   args, availableLocales);
+        checkBuiltInFormat("3: {0,date,long}", dateRegistry,     args, availableLocales);
+        checkBuiltInFormat("4: {0,date,full}", dateRegistry,     args, availableLocales);
+        checkBuiltInFormat("5: {0,date,d MMM yy}", dateRegistry, args, availableLocales);
+
+        //check the overridden format:
+        for (int i = -1; i < availableLocales.length; i++) {
+            final Locale locale = i < 0 ? null : availableLocales[i];
+            final MessageFormat dateDefault = createMessageFormat("{0,date}", locale);
+            final String pattern = "{0,date,short}";
+            final ExtendedMessageFormat dateShort = new ExtendedMessageFormat(pattern, locale, dateRegistry);
+            assertEquals(dateDefault.format(args), dateShort.format(args), "overridden date,short format");
+            assertEquals(pattern, dateShort.toPattern(), "overridden date,short pattern");
         }
-
     }
 
 }

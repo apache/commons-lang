@@ -26,16 +26,30 @@ import org.junit.jupiter.api.Test;
  */
 public class ToStringStyleTest extends AbstractLangTest {
 
+    /**
+     * An object used to test {@link ToStringStyle}.
+     *
+     */
+    static class Person {
+        /**
+         * Test String field.
+         */
+        String name;
+
+        /**
+         * Test integer field.
+         */
+        int age;
+
+        /**
+         * Test boolean field.
+         */
+        boolean smoker;
+    }
+
     private static final class ToStringStyleImpl extends ToStringStyle {
         private static final long serialVersionUID = 1L;
 
-    }
-
-    @Test
-    public void testSetArrayStart() {
-        final ToStringStyle style = new ToStringStyleImpl();
-        style.setArrayStart(null);
-        assertEquals("", style.getArrayStart());
     }
 
     @Test
@@ -53,10 +67,10 @@ public class ToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSetContentStart() {
+    public void testSetArrayStart() {
         final ToStringStyle style = new ToStringStyleImpl();
-        style.setContentStart(null);
-        assertEquals("", style.getContentStart());
+        style.setArrayStart(null);
+        assertEquals("", style.getArrayStart());
     }
 
     @Test
@@ -64,6 +78,13 @@ public class ToStringStyleTest extends AbstractLangTest {
         final ToStringStyle style = new ToStringStyleImpl();
         style.setContentEnd(null);
         assertEquals("", style.getContentEnd());
+    }
+
+    @Test
+    public void testSetContentStart() {
+        final ToStringStyle style = new ToStringStyleImpl();
+        style.setContentStart(null);
+        assertEquals("", style.getContentStart());
     }
 
     @Test
@@ -88,13 +109,6 @@ public class ToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSetSizeStartText() {
-        final ToStringStyle style = new ToStringStyleImpl();
-        style.setSizeStartText(null);
-        assertEquals("", style.getSizeStartText());
-    }
-
-    @Test
     public void testSetSizeEndText() {
         final ToStringStyle style = new ToStringStyleImpl();
         style.setSizeEndText(null);
@@ -102,10 +116,10 @@ public class ToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSetSummaryObjectStartText() {
+    public void testSetSizeStartText() {
         final ToStringStyle style = new ToStringStyleImpl();
-        style.setSummaryObjectStartText(null);
-        assertEquals("", style.getSummaryObjectStartText());
+        style.setSizeStartText(null);
+        assertEquals("", style.getSizeStartText());
     }
 
     @Test
@@ -115,24 +129,10 @@ public class ToStringStyleTest extends AbstractLangTest {
         assertEquals("", style.getSummaryObjectEndText());
     }
 
-    /**
-     * An object used to test {@link ToStringStyle}.
-     *
-     */
-    static class Person {
-        /**
-         * Test String field.
-         */
-        String name;
-
-        /**
-         * Test integer field.
-         */
-        int age;
-
-        /**
-         * Test boolean field.
-         */
-        boolean smoker;
+    @Test
+    public void testSetSummaryObjectStartText() {
+        final ToStringStyle style = new ToStringStyleImpl();
+        style.setSummaryObjectStartText(null);
+        assertEquals("", style.getSummaryObjectStartText());
     }
 }

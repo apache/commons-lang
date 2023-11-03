@@ -31,17 +31,26 @@ import org.junit.jupiter.api.Test;
  * Test class for {@code CallableBackgroundInitializer}
  */
 public class CallableBackgroundInitializerTest extends AbstractLangTest {
+    /**
+     * A test Callable implementation for checking the initializer's
+     * implementation of the initialize() method.
+     */
+    private static final class TestCallable implements Callable<Integer> {
+        /** A counter for the number of call() invocations. */
+        int callCount;
+
+        /**
+         * Records this invocation and returns the test result.
+         */
+        @Override
+        public Integer call() {
+            callCount++;
+            return RESULT;
+        }
+    }
+
     /** Constant for the result of the call() invocation. */
     private static final Integer RESULT = Integer.valueOf(42);
-
-    /**
-     * Tries to create an instance without a Callable. This should cause an
-     * exception.
-     */
-    @Test()
-    public void testInitNullCallable() {
-        assertThrows(NullPointerException.class, () -> new CallableBackgroundInitializer<>(null));
-    }
 
     /**
      * Tests whether the executor service is correctly passed to the super
@@ -88,20 +97,11 @@ public class CallableBackgroundInitializerTest extends AbstractLangTest {
     }
 
     /**
-     * A test Callable implementation for checking the initializer's
-     * implementation of the initialize() method.
+     * Tries to create an instance without a Callable. This should cause an
+     * exception.
      */
-    private static final class TestCallable implements Callable<Integer> {
-        /** A counter for the number of call() invocations. */
-        int callCount;
-
-        /**
-         * Records this invocation and returns the test result.
-         */
-        @Override
-        public Integer call() {
-            callCount++;
-            return RESULT;
-        }
+    @Test()
+    public void testInitNullCallable() {
+        assertThrows(NullPointerException.class, () -> new CallableBackgroundInitializer<>(null));
     }
 }

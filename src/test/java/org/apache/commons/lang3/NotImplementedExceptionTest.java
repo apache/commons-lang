@@ -27,6 +27,13 @@ import org.junit.jupiter.api.Test;
  */
 public class NotImplementedExceptionTest extends AbstractLangTest {
 
+    private void assertCorrect(final String assertMessage, final NotImplementedException nie, final String message, final Throwable nested, final String code) {
+        assertNotNull(nie, assertMessage + ": target is null");
+        assertEquals(message, nie.getMessage(), assertMessage + ": Message not equal");
+        assertEquals(nested, nie.getCause(), assertMessage + ": Nested throwable not equal");
+        assertEquals(code, nie.getCode(), assertMessage + ": Code not equal");
+    }
+
     @Test
     public void testConstructors() {
         final Throwable nested = new RuntimeException();
@@ -47,12 +54,5 @@ public class NotImplementedExceptionTest extends AbstractLangTest {
         assertCorrect("Issue in (String, Throwable, String)", nie, message, nested, code);
 
         assertNull(new NotImplementedException().getCode());
-    }
-
-    private void assertCorrect(final String assertMessage, final NotImplementedException nie, final String message, final Throwable nested, final String code) {
-        assertNotNull(nie, assertMessage + ": target is null");
-        assertEquals(message, nie.getMessage(), assertMessage + ": Message not equal");
-        assertEquals(nested, nie.getCause(), assertMessage + ": Nested throwable not equal");
-        assertEquals(code, nie.getCode(), assertMessage + ": Code not equal");
     }
 }

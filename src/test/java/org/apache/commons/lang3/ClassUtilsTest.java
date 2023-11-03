@@ -52,8 +52,6 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("boxing") // JUnit4 does not support primitive equality testing apart from long
 public class ClassUtilsTest extends AbstractLangTest {
 
-    private static final String OBJECT_CANONICAL_NAME = "java.lang.Object";
-
     private static class CX implements IB, IA, IE {
         // empty
     }
@@ -92,6 +90,8 @@ public class ClassUtilsTest extends AbstractLangTest {
             // empty
         }
     }
+
+    private static final String OBJECT_CANONICAL_NAME = "java.lang.Object";
 
     private void assertGetClassReturnsClass(final Class<?> c) throws Exception {
         assertEquals(c, ClassUtils.getClass(c.getName()));

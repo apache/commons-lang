@@ -35,11 +35,6 @@ public class ConstantInitializerTest extends AbstractLangTest {
     /** The initializer to be tested. */
     private ConstantInitializer<Integer> init;
 
-    @BeforeEach
-    public void setUp() {
-        init = new ConstantInitializer<>(VALUE);
-    }
-
     /**
      * Helper method for testing equals() and hashCode().
      *
@@ -56,22 +51,21 @@ public class ConstantInitializerTest extends AbstractLangTest {
         }
     }
 
-    /**
-     * Tests whether the correct object is returned.
-     */
-    @Test
-    public void testGetObject() {
-        assertEquals(VALUE, init.getObject(), "Wrong object");
+    @BeforeEach
+    public void setUp() {
+        init = new ConstantInitializer<>(VALUE);
     }
 
     /**
-     * Tests whether get() returns the correct object.
-     *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * Tests equals() if the expected result is false.
      */
     @Test
-    public void testGet() throws ConcurrentException {
-        assertEquals(VALUE, init.get(), "Wrong object");
+    public void testEqualsFalse() {
+        ConstantInitializer<Integer> init2 = new ConstantInitializer<>(
+                null);
+        checkEquals(init2, false);
+        init2 = new ConstantInitializer<>(VALUE + 1);
+        checkEquals(init2, false);
     }
 
     /**
@@ -89,18 +83,6 @@ public class ConstantInitializerTest extends AbstractLangTest {
     }
 
     /**
-     * Tests equals() if the expected result is false.
-     */
-    @Test
-    public void testEqualsFalse() {
-        ConstantInitializer<Integer> init2 = new ConstantInitializer<>(
-                null);
-        checkEquals(init2, false);
-        init2 = new ConstantInitializer<>(VALUE + 1);
-        checkEquals(init2, false);
-    }
-
-    /**
      * Tests equals() with objects of other classes.
      */
     @Test
@@ -108,6 +90,34 @@ public class ConstantInitializerTest extends AbstractLangTest {
         checkEquals(null, false);
         checkEquals(this, false);
         checkEquals(new ConstantInitializer<>("Test"), false);
+    }
+
+    /**
+     * Tests whether get() returns the correct object.
+     *
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     */
+    @Test
+    public void testGet() throws ConcurrentException {
+        assertEquals(VALUE, init.get(), "Wrong object");
+    }
+
+    /**
+     * Tests whether the correct object is returned.
+     */
+    @Test
+    public void testGetObject() {
+        assertEquals(VALUE, init.getObject(), "Wrong object");
+    }
+
+    /**
+     * Tests a simple invocation of the isInitialized() method.
+     */
+    @Test
+    public void testisInitialized() {
+        assertTrue(init.isInitialized(), "was not initialized before get()");
+        assertEquals(VALUE, init.getObject(), "Wrong object");
+        assertTrue(init.isInitialized(), "was not initialized after get()");
     }
 
     /**
@@ -129,15 +139,5 @@ public class ConstantInitializerTest extends AbstractLangTest {
     public void testToStringNull() {
         final String s = new ConstantInitializer<>(null).toString();
         assertTrue(s.indexOf("object = null") > 0, "Object not found: " + s);
-    }
-
-    /**
-     * Tests a simple invocation of the isInitialized() method.
-     */
-    @Test
-    public void testisInitialized() {
-        assertTrue(init.isInitialized(), "was not initialized before get()");
-        assertEquals(VALUE, init.getObject(), "Wrong object");
-        assertTrue(init.isInitialized(), "was not initialized after get()");
     }
 }

@@ -56,12 +56,6 @@ public class ClassPathUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToFullyQualifiedNameNullClassString() {
-        assertThrows(NullPointerException.class,
-                () -> ClassPathUtils.toFullyQualifiedName((Class<?>) null, "Test.properties"));
-    }
-
-    @Test
     public void testToFullyQualifiedNameClassNull() {
         assertThrows(NullPointerException.class, () -> ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class, null));
     }
@@ -72,6 +66,12 @@ public class ClassPathUtilsTest extends AbstractLangTest {
         final String actual = ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class, "Test.properties");
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testToFullyQualifiedNameNullClassString() {
+        assertThrows(NullPointerException.class,
+                () -> ClassPathUtils.toFullyQualifiedName((Class<?>) null, "Test.properties"));
     }
 
     @Test
@@ -95,17 +95,6 @@ public class ClassPathUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToFullyQualifiedPathClassNullString() {
-        assertThrows(NullPointerException.class,
-                () -> ClassPathUtils.toFullyQualifiedPath((Class<?>) null, "Test.properties"));
-    }
-
-    @Test
-    public void testToFullyQualifiedPathClassNull() {
-        assertThrows(NullPointerException.class, () -> ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class, null));
-    }
-
-    @Test
     public void testToFullyQualifiedPathClass() {
         final String expected = "org/apache/commons/lang3/Test.properties";
         final String actual = ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class, "Test.properties");
@@ -114,9 +103,22 @@ public class ClassPathUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToFullyQualifiedPathPackageNullString() {
+    public void testToFullyQualifiedPathClassNull() {
+        assertThrows(NullPointerException.class, () -> ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class, null));
+    }
+
+    @Test
+    public void testToFullyQualifiedPathClassNullString() {
         assertThrows(NullPointerException.class,
-                () -> ClassPathUtils.toFullyQualifiedPath((Package) null, "Test.properties"));
+                () -> ClassPathUtils.toFullyQualifiedPath((Class<?>) null, "Test.properties"));
+    }
+
+    @Test
+    public void testToFullyQualifiedPathPackage() {
+        final String expected = "org/apache/commons/lang3/Test.properties";
+        final String actual = ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class.getPackage(), "Test.properties");
+
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -126,10 +128,8 @@ public class ClassPathUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToFullyQualifiedPathPackage() {
-        final String expected = "org/apache/commons/lang3/Test.properties";
-        final String actual = ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class.getPackage(), "Test.properties");
-
-        assertEquals(expected, actual);
+    public void testToFullyQualifiedPathPackageNullString() {
+        assertThrows(NullPointerException.class,
+                () -> ClassPathUtils.toFullyQualifiedPath((Package) null, "Test.properties"));
     }
 }

@@ -29,6 +29,15 @@ import org.junit.jupiter.api.Test;
 public class NumericEntityEscaperTest extends AbstractLangTest {
 
     @Test
+    public void testAbove() {
+        final NumericEntityEscaper nee = NumericEntityEscaper.above('F');
+
+        final String input = "ADFGZ";
+        final String result = nee.translate(input);
+        assertEquals("ADF&#71;&#90;", result, "Failed to escape numeric entities via the above method");
+    }
+
+    @Test
     public void testBelow() {
         final NumericEntityEscaper nee = NumericEntityEscaper.below('F');
 
@@ -44,15 +53,6 @@ public class NumericEntityEscaperTest extends AbstractLangTest {
         final String input = "ADFGZ";
         final String result = nee.translate(input);
         assertEquals("AD&#70;&#71;Z", result, "Failed to escape numeric entities via the between method");
-    }
-
-    @Test
-    public void testAbove() {
-        final NumericEntityEscaper nee = NumericEntityEscaper.above('F');
-
-        final String input = "ADFGZ";
-        final String result = nee.translate(input);
-        assertEquals("ADF&#71;&#90;", result, "Failed to escape numeric entities via the above method");
     }
 
     // See LANG-617

@@ -34,6 +34,93 @@ public class StringUtilsSubstringTest extends AbstractLangTest {
 
 
     @Test
+    public void testCountMatches_char() {
+        assertEquals(0, StringUtils.countMatches(null, 'D'));
+        assertEquals(5, StringUtils.countMatches("one long someone sentence of one", ' '));
+        assertEquals(6, StringUtils.countMatches("one long someone sentence of one", 'o'));
+        assertEquals(4, StringUtils.countMatches("oooooooooooo", "ooo"));
+    }
+
+    @Test
+    public void testCountMatches_String() {
+        assertEquals(0, StringUtils.countMatches(null, null));
+        assertEquals(0, StringUtils.countMatches("blah", null));
+        assertEquals(0, StringUtils.countMatches(null, "DD"));
+
+        assertEquals(0, StringUtils.countMatches("x", ""));
+        assertEquals(0, StringUtils.countMatches("", ""));
+
+        assertEquals(3,
+             StringUtils.countMatches("one long someone sentence of one", "one"));
+        assertEquals(0,
+             StringUtils.countMatches("one long someone sentence of one", "two"));
+        assertEquals(4,
+             StringUtils.countMatches("oooooooooooo", "ooo"));
+        assertEquals(0, StringUtils.countMatches(null, "?"));
+        assertEquals(0, StringUtils.countMatches("", "?"));
+        assertEquals(0, StringUtils.countMatches("abba", null));
+        assertEquals(0, StringUtils.countMatches("abba", ""));
+        assertEquals(2, StringUtils.countMatches("abba", "a"));
+        assertEquals(1, StringUtils.countMatches("abba", "ab"));
+        assertEquals(0, StringUtils.countMatches("abba", "xxx"));
+        assertEquals(1, StringUtils.countMatches("ababa", "aba"));
+    }
+
+    @Test
+    public void testLeft_String() {
+        assertSame(null, StringUtils.left(null, -1));
+        assertSame(null, StringUtils.left(null, 0));
+        assertSame(null, StringUtils.left(null, 2));
+
+        assertEquals("", StringUtils.left("", -1));
+        assertEquals("", StringUtils.left("", 0));
+        assertEquals("", StringUtils.left("", 2));
+
+        assertEquals("", StringUtils.left(FOOBAR, -1));
+        assertEquals("", StringUtils.left(FOOBAR, 0));
+        assertEquals(FOO, StringUtils.left(FOOBAR, 3));
+        assertSame(FOOBAR, StringUtils.left(FOOBAR, 80));
+    }
+
+    @Test
+    public void testMid_String() {
+        assertSame(null, StringUtils.mid(null, -1, 0));
+        assertSame(null, StringUtils.mid(null, 0, -1));
+        assertSame(null, StringUtils.mid(null, 3, 0));
+        assertSame(null, StringUtils.mid(null, 3, 2));
+
+        assertEquals("", StringUtils.mid("", 0, -1));
+        assertEquals("", StringUtils.mid("", 0, 0));
+        assertEquals("", StringUtils.mid("", 0, 2));
+
+        assertEquals("", StringUtils.mid(FOOBAR, 3, -1));
+        assertEquals("", StringUtils.mid(FOOBAR, 3, 0));
+        assertEquals("b", StringUtils.mid(FOOBAR, 3, 1));
+        assertEquals(FOO, StringUtils.mid(FOOBAR, 0, 3));
+        assertEquals(BAR, StringUtils.mid(FOOBAR, 3, 3));
+        assertEquals(FOOBAR, StringUtils.mid(FOOBAR, 0, 80));
+        assertEquals(BAR, StringUtils.mid(FOOBAR, 3, 80));
+        assertEquals("", StringUtils.mid(FOOBAR, 9, 3));
+        assertEquals(FOO, StringUtils.mid(FOOBAR, -1, 3));
+    }
+
+    @Test
+    public void testRight_String() {
+        assertSame(null, StringUtils.right(null, -1));
+        assertSame(null, StringUtils.right(null, 0));
+        assertSame(null, StringUtils.right(null, 2));
+
+        assertEquals("", StringUtils.right("", -1));
+        assertEquals("", StringUtils.right("", 0));
+        assertEquals("", StringUtils.right("", 2));
+
+        assertEquals("", StringUtils.right(FOOBAR, -1));
+        assertEquals("", StringUtils.right(FOOBAR, 0));
+        assertEquals(BAR, StringUtils.right(FOOBAR, 3));
+        assertSame(FOOBAR, StringUtils.right(FOOBAR, 80));
+    }
+
+    @Test
     public void testSubstring_StringInt() {
         assertNull(StringUtils.substring(null, 0));
         assertEquals("", StringUtils.substring("", 0));
@@ -73,57 +160,75 @@ public class StringUtilsSubstringTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLeft_String() {
-        assertSame(null, StringUtils.left(null, -1));
-        assertSame(null, StringUtils.left(null, 0));
-        assertSame(null, StringUtils.left(null, 2));
+    public void testSubstringAfter_StringInt() {
+        assertNull(StringUtils.substringAfter(null, 0));
+        assertNull(StringUtils.substringAfter(null, 'X'));
+        assertEquals("", StringUtils.substringAfter("", 0));
+        assertEquals("", StringUtils.substringAfter("", 'X'));
 
-        assertEquals("", StringUtils.left("", -1));
-        assertEquals("", StringUtils.left("", 0));
-        assertEquals("", StringUtils.left("", 2));
-
-        assertEquals("", StringUtils.left(FOOBAR, -1));
-        assertEquals("", StringUtils.left(FOOBAR, 0));
-        assertEquals(FOO, StringUtils.left(FOOBAR, 3));
-        assertSame(FOOBAR, StringUtils.left(FOOBAR, 80));
+        assertEquals("", StringUtils.substringAfter("foo", 0));
+        assertEquals("ot", StringUtils.substringAfter("foot", 'o'));
+        assertEquals("bc", StringUtils.substringAfter("abc", 'a'));
+        assertEquals("cba", StringUtils.substringAfter("abcba", 'b'));
+        assertEquals("", StringUtils.substringAfter("abc", 'c'));
+        assertEquals("", StringUtils.substringAfter("abc", 'd'));
     }
 
     @Test
-    public void testRight_String() {
-        assertSame(null, StringUtils.right(null, -1));
-        assertSame(null, StringUtils.right(null, 0));
-        assertSame(null, StringUtils.right(null, 2));
+    public void testSubstringAfter_StringString() {
+        assertEquals("barXXbaz", StringUtils.substringAfter("fooXXbarXXbaz", "XX"));
 
-        assertEquals("", StringUtils.right("", -1));
-        assertEquals("", StringUtils.right("", 0));
-        assertEquals("", StringUtils.right("", 2));
+        assertNull(StringUtils.substringAfter(null, null));
+        assertNull(StringUtils.substringAfter(null, ""));
+        assertNull(StringUtils.substringAfter(null, "XX"));
+        assertEquals("", StringUtils.substringAfter("", null));
+        assertEquals("", StringUtils.substringAfter("", ""));
+        assertEquals("", StringUtils.substringAfter("", "XX"));
 
-        assertEquals("", StringUtils.right(FOOBAR, -1));
-        assertEquals("", StringUtils.right(FOOBAR, 0));
-        assertEquals(BAR, StringUtils.right(FOOBAR, 3));
-        assertSame(FOOBAR, StringUtils.right(FOOBAR, 80));
+        assertEquals("", StringUtils.substringAfter("foo", null));
+        assertEquals("ot", StringUtils.substringAfter("foot", "o"));
+        assertEquals("bc", StringUtils.substringAfter("abc", "a"));
+        assertEquals("cba", StringUtils.substringAfter("abcba", "b"));
+        assertEquals("", StringUtils.substringAfter("abc", "c"));
+        assertEquals("abc", StringUtils.substringAfter("abc", ""));
+        assertEquals("", StringUtils.substringAfter("abc", "d"));
     }
 
     @Test
-    public void testMid_String() {
-        assertSame(null, StringUtils.mid(null, -1, 0));
-        assertSame(null, StringUtils.mid(null, 0, -1));
-        assertSame(null, StringUtils.mid(null, 3, 0));
-        assertSame(null, StringUtils.mid(null, 3, 2));
+    public void testSubstringAfterLast_StringInt() {
+        assertNull(StringUtils.substringAfterLast(null, 0));
+        assertNull(StringUtils.substringAfterLast(null, 'X'));
+        assertEquals("", StringUtils.substringAfterLast("", 0));
+        assertEquals("", StringUtils.substringAfterLast("", 'a'));
 
-        assertEquals("", StringUtils.mid("", 0, -1));
-        assertEquals("", StringUtils.mid("", 0, 0));
-        assertEquals("", StringUtils.mid("", 0, 2));
+        assertEquals("", StringUtils.substringAfterLast("foo", 0));
+        assertEquals("", StringUtils.substringAfterLast("foo", 'b'));
+        assertEquals("t", StringUtils.substringAfterLast("foot", 'o'));
+        assertEquals("bc", StringUtils.substringAfterLast("abc", 'a'));
+        assertEquals("a", StringUtils.substringAfterLast("abcba", 'b'));
+        assertEquals("", StringUtils.substringAfterLast("abc", 'c'));
+        assertEquals("", StringUtils.substringAfterLast("", 'd'));
+    }
 
-        assertEquals("", StringUtils.mid(FOOBAR, 3, -1));
-        assertEquals("", StringUtils.mid(FOOBAR, 3, 0));
-        assertEquals("b", StringUtils.mid(FOOBAR, 3, 1));
-        assertEquals(FOO, StringUtils.mid(FOOBAR, 0, 3));
-        assertEquals(BAR, StringUtils.mid(FOOBAR, 3, 3));
-        assertEquals(FOOBAR, StringUtils.mid(FOOBAR, 0, 80));
-        assertEquals(BAR, StringUtils.mid(FOOBAR, 3, 80));
-        assertEquals("", StringUtils.mid(FOOBAR, 9, 3));
-        assertEquals(FOO, StringUtils.mid(FOOBAR, -1, 3));
+    @Test
+    public void testSubstringAfterLast_StringString() {
+        assertEquals("baz", StringUtils.substringAfterLast("fooXXbarXXbaz", "XX"));
+
+        assertNull(StringUtils.substringAfterLast(null, null));
+        assertNull(StringUtils.substringAfterLast(null, ""));
+        assertNull(StringUtils.substringAfterLast(null, "XX"));
+        assertEquals("", StringUtils.substringAfterLast("", null));
+        assertEquals("", StringUtils.substringAfterLast("", ""));
+        assertEquals("", StringUtils.substringAfterLast("", "a"));
+
+        assertEquals("", StringUtils.substringAfterLast("foo", null));
+        assertEquals("", StringUtils.substringAfterLast("foo", "b"));
+        assertEquals("t", StringUtils.substringAfterLast("foot", "o"));
+        assertEquals("bc", StringUtils.substringAfterLast("abc", "a"));
+        assertEquals("a", StringUtils.substringAfterLast("abcba", "b"));
+        assertEquals("", StringUtils.substringAfterLast("abc", "c"));
+        assertEquals("", StringUtils.substringAfterLast("", "d"));
+        assertEquals("", StringUtils.substringAfterLast("abc", ""));
     }
 
     @Test
@@ -166,41 +271,6 @@ public class StringUtilsSubstringTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSubstringAfter_StringString() {
-        assertEquals("barXXbaz", StringUtils.substringAfter("fooXXbarXXbaz", "XX"));
-
-        assertNull(StringUtils.substringAfter(null, null));
-        assertNull(StringUtils.substringAfter(null, ""));
-        assertNull(StringUtils.substringAfter(null, "XX"));
-        assertEquals("", StringUtils.substringAfter("", null));
-        assertEquals("", StringUtils.substringAfter("", ""));
-        assertEquals("", StringUtils.substringAfter("", "XX"));
-
-        assertEquals("", StringUtils.substringAfter("foo", null));
-        assertEquals("ot", StringUtils.substringAfter("foot", "o"));
-        assertEquals("bc", StringUtils.substringAfter("abc", "a"));
-        assertEquals("cba", StringUtils.substringAfter("abcba", "b"));
-        assertEquals("", StringUtils.substringAfter("abc", "c"));
-        assertEquals("abc", StringUtils.substringAfter("abc", ""));
-        assertEquals("", StringUtils.substringAfter("abc", "d"));
-    }
-
-    @Test
-    public void testSubstringAfter_StringInt() {
-        assertNull(StringUtils.substringAfter(null, 0));
-        assertNull(StringUtils.substringAfter(null, 'X'));
-        assertEquals("", StringUtils.substringAfter("", 0));
-        assertEquals("", StringUtils.substringAfter("", 'X'));
-
-        assertEquals("", StringUtils.substringAfter("foo", 0));
-        assertEquals("ot", StringUtils.substringAfter("foot", 'o'));
-        assertEquals("bc", StringUtils.substringAfter("abc", 'a'));
-        assertEquals("cba", StringUtils.substringAfter("abcba", 'b'));
-        assertEquals("", StringUtils.substringAfter("abc", 'c'));
-        assertEquals("", StringUtils.substringAfter("abc", 'd'));
-    }
-
-    @Test
     public void testSubstringBeforeLast_StringString() {
         assertEquals("fooXXbar", StringUtils.substringBeforeLast("fooXXbarXXbaz", "XX"));
 
@@ -224,56 +294,19 @@ public class StringUtilsSubstringTest extends AbstractLangTest {
         assertEquals("", StringUtils.substringBeforeLast("a", "a"));
     }
 
-    @Test
-    public void testSubstringAfterLast_StringString() {
-        assertEquals("baz", StringUtils.substringAfterLast("fooXXbarXXbaz", "XX"));
-
-        assertNull(StringUtils.substringAfterLast(null, null));
-        assertNull(StringUtils.substringAfterLast(null, ""));
-        assertNull(StringUtils.substringAfterLast(null, "XX"));
-        assertEquals("", StringUtils.substringAfterLast("", null));
-        assertEquals("", StringUtils.substringAfterLast("", ""));
-        assertEquals("", StringUtils.substringAfterLast("", "a"));
-
-        assertEquals("", StringUtils.substringAfterLast("foo", null));
-        assertEquals("", StringUtils.substringAfterLast("foo", "b"));
-        assertEquals("t", StringUtils.substringAfterLast("foot", "o"));
-        assertEquals("bc", StringUtils.substringAfterLast("abc", "a"));
-        assertEquals("a", StringUtils.substringAfterLast("abcba", "b"));
-        assertEquals("", StringUtils.substringAfterLast("abc", "c"));
-        assertEquals("", StringUtils.substringAfterLast("", "d"));
-        assertEquals("", StringUtils.substringAfterLast("abc", ""));
-    }
-
-    @Test
-    public void testSubstringAfterLast_StringInt() {
-        assertNull(StringUtils.substringAfterLast(null, 0));
-        assertNull(StringUtils.substringAfterLast(null, 'X'));
-        assertEquals("", StringUtils.substringAfterLast("", 0));
-        assertEquals("", StringUtils.substringAfterLast("", 'a'));
-
-        assertEquals("", StringUtils.substringAfterLast("foo", 0));
-        assertEquals("", StringUtils.substringAfterLast("foo", 'b'));
-        assertEquals("t", StringUtils.substringAfterLast("foot", 'o'));
-        assertEquals("bc", StringUtils.substringAfterLast("abc", 'a'));
-        assertEquals("a", StringUtils.substringAfterLast("abcba", 'b'));
-        assertEquals("", StringUtils.substringAfterLast("abc", 'c'));
-        assertEquals("", StringUtils.substringAfterLast("", 'd'));
-    }
-
-    @Test
-    public void testSubstringBetween_StringString() {
-        assertNull(StringUtils.substringBetween(null, "tag"));
-        assertEquals("", StringUtils.substringBetween("", ""));
-        assertNull(StringUtils.substringBetween("", "abc"));
-        assertEquals("", StringUtils.substringBetween("    ", " "));
-        assertNull(StringUtils.substringBetween("abc", null));
-        assertEquals("", StringUtils.substringBetween("abc", ""));
-        assertNull(StringUtils.substringBetween("abc", "a"));
-        assertEquals("bc", StringUtils.substringBetween("abca", "a"));
-        assertEquals("bc", StringUtils.substringBetween("abcabca", "a"));
-        assertEquals("bar", StringUtils.substringBetween("\nbar\n", "\n"));
-    }
+   @Test
+public void testSubstringBetween_StringString() {
+    assertNull(StringUtils.substringBetween(null, "tag"));
+    assertEquals("", StringUtils.substringBetween("", ""));
+    assertNull(StringUtils.substringBetween("", "abc"));
+    assertEquals("", StringUtils.substringBetween("    ", " "));
+    assertNull(StringUtils.substringBetween("abc", null));
+    assertEquals("", StringUtils.substringBetween("abc", ""));
+    assertNull(StringUtils.substringBetween("abc", "a"));
+    assertEquals("bc", StringUtils.substringBetween("abca", "a"));
+    assertEquals("bc", StringUtils.substringBetween("abcabca", "a"));
+    assertEquals("bar", StringUtils.substringBetween("\nbar\n", "\n"));
+}
 
     @Test
     public void testSubstringBetween_StringStringString() {
@@ -289,98 +322,65 @@ public class StringUtilsSubstringTest extends AbstractLangTest {
         assertEquals("abc", StringUtils.substringBetween("yabczyabcz", "y", "z"));
     }
 
-   /**
-     * Tests the substringsBetween method that returns a String Array of substrings.
-     */
-    @Test
-    public void testSubstringsBetween_StringStringString() {
-
-        String[] results = StringUtils.substringsBetween("[one], [two], [three]", "[", "]");
-        assertEquals(3, results.length);
-        assertEquals("one", results[0]);
-        assertEquals("two", results[1]);
-        assertEquals("three", results[2]);
-
-        results = StringUtils.substringsBetween("[one], [two], three", "[", "]");
-        assertEquals(2, results.length);
-        assertEquals("one", results[0]);
-        assertEquals("two", results[1]);
-
-        results = StringUtils.substringsBetween("[one], [two], three]", "[", "]");
-        assertEquals(2, results.length);
-        assertEquals("one", results[0]);
-        assertEquals("two", results[1]);
-
-        results = StringUtils.substringsBetween("[one], two], three]", "[", "]");
-        assertEquals(1, results.length);
-        assertEquals("one", results[0]);
-
-        results = StringUtils.substringsBetween("one], two], [three]", "[", "]");
-        assertEquals(1, results.length);
-        assertEquals("three", results[0]);
-
-        // 'ab hello ba' will match, but 'ab non ba' won't
-        // this is because the 'a' is shared between the two and can't be matched twice
-        results = StringUtils.substringsBetween("aabhellobabnonba", "ab", "ba");
-        assertEquals(1, results.length);
-        assertEquals("hello", results[0]);
-
-        results = StringUtils.substringsBetween("one, two, three", "[", "]");
-        assertNull(results);
-
-        results = StringUtils.substringsBetween("[one, two, three", "[", "]");
-        assertNull(results);
-
-        results = StringUtils.substringsBetween("one, two, three]", "[", "]");
-        assertNull(results);
-
-        results = StringUtils.substringsBetween("[one], [two], [three]", "[", null);
-        assertNull(results);
-
-        results = StringUtils.substringsBetween("[one], [two], [three]", null, "]");
-        assertNull(results);
-
-        results = StringUtils.substringsBetween("[one], [two], [three]", "", "");
-        assertNull(results);
-
-        results = StringUtils.substringsBetween(null, "[", "]");
-        assertNull(results);
-
-        results = StringUtils.substringsBetween("", "[", "]");
-        assertEquals(0, results.length);
-    }
-
-    @Test
-    public void testCountMatches_String() {
-        assertEquals(0, StringUtils.countMatches(null, null));
-        assertEquals(0, StringUtils.countMatches("blah", null));
-        assertEquals(0, StringUtils.countMatches(null, "DD"));
-
-        assertEquals(0, StringUtils.countMatches("x", ""));
-        assertEquals(0, StringUtils.countMatches("", ""));
-
-        assertEquals(3,
-             StringUtils.countMatches("one long someone sentence of one", "one"));
-        assertEquals(0,
-             StringUtils.countMatches("one long someone sentence of one", "two"));
-        assertEquals(4,
-             StringUtils.countMatches("oooooooooooo", "ooo"));
-        assertEquals(0, StringUtils.countMatches(null, "?"));
-        assertEquals(0, StringUtils.countMatches("", "?"));
-        assertEquals(0, StringUtils.countMatches("abba", null));
-        assertEquals(0, StringUtils.countMatches("abba", ""));
-        assertEquals(2, StringUtils.countMatches("abba", "a"));
-        assertEquals(1, StringUtils.countMatches("abba", "ab"));
-        assertEquals(0, StringUtils.countMatches("abba", "xxx"));
-        assertEquals(1, StringUtils.countMatches("ababa", "aba"));
-    }
-
-    @Test
-    public void testCountMatches_char() {
-        assertEquals(0, StringUtils.countMatches(null, 'D'));
-        assertEquals(5, StringUtils.countMatches("one long someone sentence of one", ' '));
-        assertEquals(6, StringUtils.countMatches("one long someone sentence of one", 'o'));
-        assertEquals(4, StringUtils.countMatches("oooooooooooo", "ooo"));
-    }
+    /**
+         * Tests the substringsBetween method that returns a String Array of substrings.
+         */
+        @Test
+        public void testSubstringsBetween_StringStringString() {
+    
+            String[] results = StringUtils.substringsBetween("[one], [two], [three]", "[", "]");
+            assertEquals(3, results.length);
+            assertEquals("one", results[0]);
+            assertEquals("two", results[1]);
+            assertEquals("three", results[2]);
+    
+            results = StringUtils.substringsBetween("[one], [two], three", "[", "]");
+            assertEquals(2, results.length);
+            assertEquals("one", results[0]);
+            assertEquals("two", results[1]);
+    
+            results = StringUtils.substringsBetween("[one], [two], three]", "[", "]");
+            assertEquals(2, results.length);
+            assertEquals("one", results[0]);
+            assertEquals("two", results[1]);
+    
+            results = StringUtils.substringsBetween("[one], two], three]", "[", "]");
+            assertEquals(1, results.length);
+            assertEquals("one", results[0]);
+    
+            results = StringUtils.substringsBetween("one], two], [three]", "[", "]");
+            assertEquals(1, results.length);
+            assertEquals("three", results[0]);
+    
+            // 'ab hello ba' will match, but 'ab non ba' won't
+            // this is because the 'a' is shared between the two and can't be matched twice
+            results = StringUtils.substringsBetween("aabhellobabnonba", "ab", "ba");
+            assertEquals(1, results.length);
+            assertEquals("hello", results[0]);
+    
+            results = StringUtils.substringsBetween("one, two, three", "[", "]");
+            assertNull(results);
+    
+            results = StringUtils.substringsBetween("[one, two, three", "[", "]");
+            assertNull(results);
+    
+            results = StringUtils.substringsBetween("one, two, three]", "[", "]");
+            assertNull(results);
+    
+            results = StringUtils.substringsBetween("[one], [two], [three]", "[", null);
+            assertNull(results);
+    
+            results = StringUtils.substringsBetween("[one], [two], [three]", null, "]");
+            assertNull(results);
+    
+            results = StringUtils.substringsBetween("[one], [two], [three]", "", "");
+            assertNull(results);
+    
+            results = StringUtils.substringsBetween(null, "[", "]");
+            assertNull(results);
+    
+            results = StringUtils.substringsBetween("", "[", "]");
+            assertEquals(0, results.length);
+        }
 
 }

@@ -29,10 +29,10 @@ class Parent implements Foo {
     public void doIt() {
     }
 
-    @Annotated
-    protected void parentProtectedAnnotatedMethod() {
+    public void parentNotAnnotatedMethod() {
     }
 
-    public void parentNotAnnotatedMethod() {
+    @Annotated
+    protected void parentProtectedAnnotatedMethod() {
     }
 }

@@ -40,46 +40,6 @@ public class StringUtilsIsMixedCaseTest {
     public static final String Middle_MATCH = "at tHe Mid";
     public static final String EARLY_MATCH = "At tHe beginning";
 
-    @Benchmark
-    public boolean newIsMixedCaseNoneMatch() {
-        return StringUtils.isMixedCase(LOWER_CASE_LETTERS);
-    }
-
-    @Benchmark
-    public boolean oldIsMixedCaseNoneMatch() {
-        return oldIsMixedCase(LOWER_CASE_LETTERS);
-    }
-
-    @Benchmark
-    public boolean newIsMixedCaseEndMatch() {
-        return StringUtils.isMixedCase(END_MATCH);
-    }
-
-    @Benchmark
-    public boolean oldIsMixedCaseEndMatch() {
-        return oldIsMixedCase(END_MATCH);
-    }
-
-    @Benchmark
-    public boolean newIsMixedCaseMiddleMatch() {
-        return StringUtils.isMixedCase(Middle_MATCH);
-    }
-
-    @Benchmark
-    public boolean oldIsMixedCaseMiddleMatch() {
-        return oldIsMixedCase(Middle_MATCH);
-    }
-
-    @Benchmark
-    public boolean newIsMixedCaseBeginningMatch() {
-        return StringUtils.isMixedCase(EARLY_MATCH);
-    }
-
-    @Benchmark
-    public boolean oldIsMixedCaseBeginningMatch() {
-        return oldIsMixedCase(EARLY_MATCH);
-    }
-
     public static boolean oldIsMixedCase(final CharSequence cs) {
         if (StringUtils.isEmpty(cs) || cs.length() == 1) {
             return false;
@@ -98,5 +58,45 @@ public class StringUtilsIsMixedCaseTest {
             }
         }
         return containsUppercase && containsLowercase;
+    }
+
+    @Benchmark
+    public boolean newIsMixedCaseBeginningMatch() {
+        return StringUtils.isMixedCase(EARLY_MATCH);
+    }
+
+    @Benchmark
+    public boolean newIsMixedCaseEndMatch() {
+        return StringUtils.isMixedCase(END_MATCH);
+    }
+
+    @Benchmark
+    public boolean newIsMixedCaseMiddleMatch() {
+        return StringUtils.isMixedCase(Middle_MATCH);
+    }
+
+    @Benchmark
+    public boolean newIsMixedCaseNoneMatch() {
+        return StringUtils.isMixedCase(LOWER_CASE_LETTERS);
+    }
+
+    @Benchmark
+    public boolean oldIsMixedCaseBeginningMatch() {
+        return oldIsMixedCase(EARLY_MATCH);
+    }
+
+    @Benchmark
+    public boolean oldIsMixedCaseEndMatch() {
+        return oldIsMixedCase(END_MATCH);
+    }
+
+    @Benchmark
+    public boolean oldIsMixedCaseMiddleMatch() {
+        return oldIsMixedCase(Middle_MATCH);
+    }
+
+    @Benchmark
+    public boolean oldIsMixedCaseNoneMatch() {
+        return oldIsMixedCase(LOWER_CASE_LETTERS);
     }
 }

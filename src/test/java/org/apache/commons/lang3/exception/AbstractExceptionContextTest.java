@@ -40,16 +40,16 @@ import org.junit.jupiter.api.Test;
  */
 public abstract class AbstractExceptionContextTest<T extends ExceptionContext & Serializable> extends AbstractLangTest {
 
-    protected static final String TEST_MESSAGE_2 = "This is monotonous";
-    protected static final String TEST_MESSAGE = "Test Message";
-    protected T exceptionContext;
-
     protected static class ObjectWithFaultyToString {
         @Override
         public String toString() {
             throw new RuntimeException("Crap");
         }
     }
+    protected static final String TEST_MESSAGE_2 = "This is monotonous";
+    protected static final String TEST_MESSAGE = "Test Message";
+
+    protected T exceptionContext;
 
 
     @BeforeEach
@@ -91,6 +91,71 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
     }
 
     @Test
+    public void testGetContextEntries() {
+        assertEquals(5, exceptionContext.getContextEntries().size());
+
+        exceptionContext.addContextValue("test2", "different value");
+
+        final List<Pair<String, Object>> entries = exceptionContext.getContextEntries();
+        assertEquals(6, entries.size());
+        assertEquals("test1", entries.get(0).getKey());
+        assertEquals("test2", entries.get(1).getKey());
+        assertEquals("test Date", entries.get(2).getKey());
+        assertEquals("test Nbr", entries.get(3).getKey());
+        assertEquals("test Poorly written obj", entries.get(4).getKey());
+        assertEquals("test2", entries.get(5).getKey());
+    }
+
+    @Test
+    public void testGetContextLabels() {
+        assertEquals(5, exceptionContext.getContextEntries().size());
+
+        exceptionContext.addContextValue("test2", "different value");
+
+        final Set<String> labels = exceptionContext.getContextLabels();
+        assertEquals(6, exceptionContext.getContextEntries().size());
+        assertEquals(5, labels.size());
+        assertTrue(labels.contains("test1"));
+        assertTrue(labels.contains("test2"));
+        assertTrue(labels.contains("test Date"));
+        assertTrue(labels.contains("test Nbr"));
+    }
+
+    @Test
+    public void testGetContextValues() {
+        exceptionContext.addContextValue("test2", "different value");
+
+        assertEquals(Collections.singletonList(null), exceptionContext.getContextValues("test1"));
+        assertEquals(Arrays.asList("some value", "different value"), exceptionContext.getContextValues("test2"));
+
+        exceptionContext.setContextValue("test2", "another");
+
+        assertEquals("another", exceptionContext.getFirstContextValue("test2"));
+    }
+
+    @Test
+    public void testGetFirstContextValue() {
+        exceptionContext.addContextValue("test2", "different value");
+
+        assertNull(exceptionContext.getFirstContextValue("test1"));
+        assertEquals("some value", exceptionContext.getFirstContextValue("test2"));
+        assertNull(exceptionContext.getFirstContextValue("crap"));
+
+        exceptionContext.setContextValue("test2", "another");
+
+        assertEquals("another", exceptionContext.getFirstContextValue("test2"));
+    }
+
+    @Test
+    public void testJavaSerialization() {
+        exceptionContext.setContextValue("test Poorly written obj", "serializable replacement");
+
+        final T clone = SerializationUtils.deserialize(SerializationUtils.serialize(exceptionContext));
+
+        assertEquals(exceptionContext.getFormattedExceptionMessage(null), clone.getFormattedExceptionMessage(null));
+    }
+
+    @Test
     public void testSetContextValue() {
         exceptionContext.addContextValue("test2", "different value");
         exceptionContext.setContextValue("test3", "3");
@@ -121,70 +186,5 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
 
         final String contextMessage = exceptionContext.getFormattedExceptionMessage(null);
         assertFalse(contextMessage.contains(TEST_MESSAGE));
-    }
-
-    @Test
-    public void testGetFirstContextValue() {
-        exceptionContext.addContextValue("test2", "different value");
-
-        assertNull(exceptionContext.getFirstContextValue("test1"));
-        assertEquals("some value", exceptionContext.getFirstContextValue("test2"));
-        assertNull(exceptionContext.getFirstContextValue("crap"));
-
-        exceptionContext.setContextValue("test2", "another");
-
-        assertEquals("another", exceptionContext.getFirstContextValue("test2"));
-    }
-
-    @Test
-    public void testGetContextValues() {
-        exceptionContext.addContextValue("test2", "different value");
-
-        assertEquals(Collections.singletonList(null), exceptionContext.getContextValues("test1"));
-        assertEquals(Arrays.asList("some value", "different value"), exceptionContext.getContextValues("test2"));
-
-        exceptionContext.setContextValue("test2", "another");
-
-        assertEquals("another", exceptionContext.getFirstContextValue("test2"));
-    }
-
-    @Test
-    public void testGetContextLabels() {
-        assertEquals(5, exceptionContext.getContextEntries().size());
-
-        exceptionContext.addContextValue("test2", "different value");
-
-        final Set<String> labels = exceptionContext.getContextLabels();
-        assertEquals(6, exceptionContext.getContextEntries().size());
-        assertEquals(5, labels.size());
-        assertTrue(labels.contains("test1"));
-        assertTrue(labels.contains("test2"));
-        assertTrue(labels.contains("test Date"));
-        assertTrue(labels.contains("test Nbr"));
-    }
-
-    @Test
-    public void testGetContextEntries() {
-        assertEquals(5, exceptionContext.getContextEntries().size());
-
-        exceptionContext.addContextValue("test2", "different value");
-
-        final List<Pair<String, Object>> entries = exceptionContext.getContextEntries();
-        assertEquals(6, entries.size());
-        assertEquals("test1", entries.get(0).getKey());
-        assertEquals("test2", entries.get(1).getKey());
-        assertEquals("test Date", entries.get(2).getKey());
-        assertEquals("test Nbr", entries.get(3).getKey());
-        assertEquals("test Poorly written obj", entries.get(4).getKey());
-        assertEquals("test2", entries.get(5).getKey());
-    }
-
-    @Test
-    public void testJavaSerialization() {
-        exceptionContext.setContextValue("test Poorly written obj", "serializable replacement");
-
-        final T clone = SerializationUtils.deserialize(SerializationUtils.serialize(exceptionContext));
-
-        assertEquals(exceptionContext.getFormattedExceptionMessage(null), clone.getFormattedExceptionMessage(null));
     }
 }

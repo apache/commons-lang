@@ -213,19 +213,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testContainsAny() {
-        final Object[] array = {"0", "1", "2", "3", null, "0"};
-        assertFalse(ArrayUtils.containsAny(null, null));
-        assertFalse(ArrayUtils.containsAny(null, "1"));
-        assertTrue(ArrayUtils.containsAny(array, "0"));
-        assertTrue(ArrayUtils.containsAny(array, "1"));
-        assertTrue(ArrayUtils.containsAny(array, "2"));
-        assertTrue(ArrayUtils.containsAny(array, "3"));
-        assertFalse(ArrayUtils.containsAny(array, "notInArray"));
-        assertTrue(ArrayUtils.containsAny(array, new String[] {null}));
-    }
-
-    @Test
     public void testContains_LANG_1261() {
 
         class LANG1261ParentObject {
@@ -242,6 +229,19 @@ public class ArrayUtilsTest extends AbstractLangTest {
         final Object[] array = new LANG1261ChildObject[]{new LANG1261ChildObject()};
 
         assertTrue(ArrayUtils.contains(array, new LANG1261ParentObject()));
+    }
+
+    @Test
+    public void testContainsAny() {
+        final Object[] array = {"0", "1", "2", "3", null, "0"};
+        assertFalse(ArrayUtils.containsAny(null, null));
+        assertFalse(ArrayUtils.containsAny(null, "1"));
+        assertTrue(ArrayUtils.containsAny(array, "0"));
+        assertTrue(ArrayUtils.containsAny(array, "1"));
+        assertTrue(ArrayUtils.containsAny(array, "2"));
+        assertTrue(ArrayUtils.containsAny(array, "3"));
+        assertFalse(ArrayUtils.containsAny(array, "notInArray"));
+        assertTrue(ArrayUtils.containsAny(array, new String[] {null}));
     }
 
     @Test

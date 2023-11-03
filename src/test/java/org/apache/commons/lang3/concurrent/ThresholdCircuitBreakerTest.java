@@ -36,6 +36,27 @@ public class ThresholdCircuitBreakerTest extends AbstractLangTest {
     private static final long zeroThreshold = 0L;
 
     /**
+     * Tests that closing a {@code ThresholdCircuitBreaker} resets the internal counter.
+     */
+    @Test
+    public void testClosingThresholdCircuitBreaker() {
+        final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
+        circuit.incrementAndCheckState(9L);
+        circuit.close();
+        // now the internal counter is back at zero, not 9 anymore. So it is safe to increment 9 again
+        assertTrue(circuit.incrementAndCheckState(9L), "Internal counter was not reset back to zero");
+    }
+
+    /**
+     * Tests that we can get the threshold value correctly.
+     */
+    @Test
+    public void testGettingThreshold() {
+        final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
+        assertEquals(Long.valueOf(threshold), Long.valueOf(circuit.getThreshold()), "Wrong value of threshold");
+    }
+
+    /**
      * Tests that the threshold is working as expected when incremented and no exception is thrown.
      */
     @Test
@@ -62,27 +83,6 @@ public class ThresholdCircuitBreakerTest extends AbstractLangTest {
     public void testThresholdEqualsZero() {
         final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(zeroThreshold);
         assertFalse(circuit.incrementAndCheckState(0L), "When the threshold is zero, the circuit is supposed to be always open");
-    }
-
-    /**
-     * Tests that closing a {@code ThresholdCircuitBreaker} resets the internal counter.
-     */
-    @Test
-    public void testClosingThresholdCircuitBreaker() {
-        final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
-        circuit.incrementAndCheckState(9L);
-        circuit.close();
-        // now the internal counter is back at zero, not 9 anymore. So it is safe to increment 9 again
-        assertTrue(circuit.incrementAndCheckState(9L), "Internal counter was not reset back to zero");
-    }
-
-    /**
-     * Tests that we can get the threshold value correctly.
-     */
-    @Test
-    public void testGettingThreshold() {
-        final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
-        assertEquals(Long.valueOf(threshold), Long.valueOf(circuit.getThreshold()), "Wrong value of threshold");
     }
 
 }

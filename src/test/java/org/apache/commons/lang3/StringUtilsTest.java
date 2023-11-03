@@ -245,13 +245,6 @@ public class StringUtilsTest extends AbstractLangTest {
         assertEquals(str.substring(2), res[1], msg);
     }
 
-    //Fixed LANG-1463
-    @Test
-    public void testAbbreviateMarkerWithEmptyString() {
-        final String greaterThanMaxTest = "much too long text";
-        assertEquals("much too long", StringUtils.abbreviate(greaterThanMaxTest, "", 13));
-    }
-
     @Test
     public void testAbbreviate_StringInt() {
         assertNull(StringUtils.abbreviate(null, 10));
@@ -380,6 +373,13 @@ public class StringUtilsTest extends AbstractLangTest {
         assertAbbreviateWithAbbrevMarkerAndOffset("999ijklmno", "999", 15, 10);
         assertAbbreviateWithAbbrevMarkerAndOffset("_ghijklmno", "_", 16, 10);
         assertAbbreviateWithAbbrevMarkerAndOffset("+ghijklmno", "+", Integer.MAX_VALUE, 10);
+    }
+
+    //Fixed LANG-1463
+    @Test
+    public void testAbbreviateMarkerWithEmptyString() {
+        final String greaterThanMaxTest = "much too long text";
+        assertEquals("much too long", StringUtils.abbreviate(greaterThanMaxTest, "", 13));
     }
 
     @Test
@@ -678,33 +678,6 @@ public class StringUtilsTest extends AbstractLangTest {
 
 
     @Test
-    public void testGetIfBlank_StringStringSupplier() {
-        assertEquals("NULL", StringUtils.getIfBlank(null, () -> "NULL"));
-        assertEquals("NULL", StringUtils.getIfBlank("",  () -> "NULL"));
-        assertEquals("NULL", StringUtils.getIfBlank(" ", () -> "NULL"));
-        assertEquals("abc", StringUtils.getIfBlank("abc", () -> "NULL"));
-        assertNull(StringUtils.getIfBlank("", Suppliers.nul()));
-        assertNull(StringUtils.defaultIfBlank("", (String) null));
-        // Tests compatibility for the API return type
-        final String s = StringUtils.getIfBlank("abc", () -> "NULL");
-        assertEquals("abc", s);
-        //Checking that default value supplied only on demand
-        final MutableInt numberOfCalls = new MutableInt(0);
-        final Supplier<String> countingDefaultSupplier = () -> {
-            numberOfCalls.increment();
-            return "NULL";
-        };
-        StringUtils.getIfBlank("abc", countingDefaultSupplier);
-        assertEquals(0, numberOfCalls.getValue());
-        StringUtils.getIfBlank("", countingDefaultSupplier);
-        assertEquals(1, numberOfCalls.getValue());
-        StringUtils.getIfBlank(" ", countingDefaultSupplier);
-        assertEquals(2, numberOfCalls.getValue());
-        StringUtils.getIfBlank(null, countingDefaultSupplier);
-        assertEquals(3, numberOfCalls.getValue());
-    }
-
-    @Test
     public void testDefaultIfEmpty_CharBuffers() {
         assertEquals("NULL", StringUtils.defaultIfEmpty(CharBuffer.wrap(""), CharBuffer.wrap("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfEmpty(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL")).toString());
@@ -713,7 +686,6 @@ public class StringUtilsTest extends AbstractLangTest {
         final CharBuffer s = StringUtils.defaultIfEmpty(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL"));
         assertEquals("abc", s.toString());
     }
-
 
     @Test
     public void testDefaultIfEmpty_StringBuffers() {
@@ -724,6 +696,7 @@ public class StringUtilsTest extends AbstractLangTest {
         final StringBuffer s = StringUtils.defaultIfEmpty(new StringBuffer("abc"), new StringBuffer("NULL"));
         assertEquals("abc", s.toString());
     }
+
 
     @Test
     public void testDefaultIfEmpty_StringBuilders() {
@@ -745,31 +718,6 @@ public class StringUtilsTest extends AbstractLangTest {
         final String s = StringUtils.defaultIfEmpty("abc", "NULL");
         assertEquals("abc", s);
     }
-
-    @Test
-    public void testGetIfEmpty_StringStringSupplier() {
-        assertEquals("NULL", StringUtils.getIfEmpty((String) null, () -> "NULL"));
-        assertEquals("NULL", StringUtils.getIfEmpty("", () -> "NULL"));
-        assertEquals("abc", StringUtils.getIfEmpty("abc", () -> "NULL"));
-        assertNull(StringUtils.getIfEmpty("", Suppliers.nul()));
-        assertNull(StringUtils.defaultIfEmpty("", (String) null));
-        // Tests compatibility for the API return type
-        final String s = StringUtils.getIfEmpty("abc", () -> "NULL");
-        assertEquals("abc", s);
-        //Checking that default value supplied only on demand
-        final MutableInt numberOfCalls = new MutableInt(0);
-        final Supplier<String> countingDefaultSupplier = () -> {
-            numberOfCalls.increment();
-            return "NULL";
-        };
-        StringUtils.getIfEmpty("abc", countingDefaultSupplier);
-        assertEquals(0, numberOfCalls.getValue());
-        StringUtils.getIfEmpty("", countingDefaultSupplier);
-        assertEquals(1, numberOfCalls.getValue());
-        StringUtils.getIfEmpty(null, countingDefaultSupplier);
-        assertEquals(2, numberOfCalls.getValue());
-    }
-
 
     @Test
     public void testDeleteWhitespace_String() {
@@ -797,6 +745,7 @@ public class StringUtilsTest extends AbstractLangTest {
         assertEquals("", StringUtils.difference("abc", "abc"));
         assertEquals("you are a robot", StringUtils.difference("i am a robot", "you are a robot"));
     }
+
 
     @Test
     public void testDifferenceAt_StringArray() {
@@ -861,6 +810,41 @@ public class StringUtilsTest extends AbstractLangTest {
     public void testEscapeSurrogatePairsLang858() {
         assertEquals("\\uDBFF\\uDFFD", StringEscapeUtils.escapeJava("\uDBFF\uDFFD"));       //fail LANG-858
         assertEquals("\\uDBFF\\uDFFD", StringEscapeUtils.escapeEcmaScript("\uDBFF\uDFFD")); //fail LANG-858
+    }
+
+    @Test
+    public void testGeorgianSample() {
+        final char[] arrayI = {
+                //Latin Small Letter dotless I
+                (char) 0x0131,
+                //Greek Capital Letter Theta
+                (char) 0x03F4
+        };
+        final char[] arrayJ = {
+                //Latin Capital Letter I with dot above
+                (char) 0x0130,
+                //Greek Theta Symbol
+                (char) 0x03D1
+        };
+        for (final char i : arrayI) {
+            for (final char j : arrayJ) {
+                final String si = String.valueOf(i);
+                final String sj = String.valueOf(j);
+                final boolean res1 = si.equalsIgnoreCase(sj);
+                final CharSequence ci = new StringBuilder(si);
+                final CharSequence cj = new StringBuilder(sj);
+                boolean res2 = StringUtils.startsWithIgnoreCase(ci, cj);
+                assertEquals(res1, res2, "si : " + si + " sj : " + sj);
+                res2 = StringUtils.endsWithIgnoreCase(ci, cj);
+                assertEquals(res1, res2, "si : " + si + " sj : " + sj);
+                res2 = StringUtils.compareIgnoreCase(ci.toString(), cj.toString()) == 0;
+                assertEquals(res1, res2, "si : " + si + " sj : " + sj);
+                res2 = StringUtils.indexOfIgnoreCase(ci.toString(), cj.toString()) == 0;
+                assertEquals(res1, res2, "si : " + si + " sj : " + sj);
+                res2 = StringUtils.lastIndexOfIgnoreCase(ci.toString(), cj.toString()) == 0;
+                assertEquals(res1, res2, "si : " + si + " sj : " + sj);
+            }
+        }
     }
 
     @Test
@@ -940,6 +924,57 @@ public class StringUtilsTest extends AbstractLangTest {
     @Test
     public void testGetFuzzyDistance_StringStringNull() {
         assertThrows(IllegalArgumentException.class, () -> StringUtils.getFuzzyDistance(" ", "clear", null));
+    }
+
+    @Test
+    public void testGetIfBlank_StringStringSupplier() {
+        assertEquals("NULL", StringUtils.getIfBlank(null, () -> "NULL"));
+        assertEquals("NULL", StringUtils.getIfBlank("",  () -> "NULL"));
+        assertEquals("NULL", StringUtils.getIfBlank(" ", () -> "NULL"));
+        assertEquals("abc", StringUtils.getIfBlank("abc", () -> "NULL"));
+        assertNull(StringUtils.getIfBlank("", Suppliers.nul()));
+        assertNull(StringUtils.defaultIfBlank("", (String) null));
+        // Tests compatibility for the API return type
+        final String s = StringUtils.getIfBlank("abc", () -> "NULL");
+        assertEquals("abc", s);
+        //Checking that default value supplied only on demand
+        final MutableInt numberOfCalls = new MutableInt(0);
+        final Supplier<String> countingDefaultSupplier = () -> {
+            numberOfCalls.increment();
+            return "NULL";
+        };
+        StringUtils.getIfBlank("abc", countingDefaultSupplier);
+        assertEquals(0, numberOfCalls.getValue());
+        StringUtils.getIfBlank("", countingDefaultSupplier);
+        assertEquals(1, numberOfCalls.getValue());
+        StringUtils.getIfBlank(" ", countingDefaultSupplier);
+        assertEquals(2, numberOfCalls.getValue());
+        StringUtils.getIfBlank(null, countingDefaultSupplier);
+        assertEquals(3, numberOfCalls.getValue());
+    }
+
+    @Test
+    public void testGetIfEmpty_StringStringSupplier() {
+        assertEquals("NULL", StringUtils.getIfEmpty((String) null, () -> "NULL"));
+        assertEquals("NULL", StringUtils.getIfEmpty("", () -> "NULL"));
+        assertEquals("abc", StringUtils.getIfEmpty("abc", () -> "NULL"));
+        assertNull(StringUtils.getIfEmpty("", Suppliers.nul()));
+        assertNull(StringUtils.defaultIfEmpty("", (String) null));
+        // Tests compatibility for the API return type
+        final String s = StringUtils.getIfEmpty("abc", () -> "NULL");
+        assertEquals("abc", s);
+        //Checking that default value supplied only on demand
+        final MutableInt numberOfCalls = new MutableInt(0);
+        final Supplier<String> countingDefaultSupplier = () -> {
+            numberOfCalls.increment();
+            return "NULL";
+        };
+        StringUtils.getIfEmpty("abc", countingDefaultSupplier);
+        assertEquals(0, numberOfCalls.getValue());
+        StringUtils.getIfEmpty("", countingDefaultSupplier);
+        assertEquals(1, numberOfCalls.getValue());
+        StringUtils.getIfEmpty(null, countingDefaultSupplier);
+        assertEquals(2, numberOfCalls.getValue());
     }
 
     @Test
@@ -1147,16 +1182,6 @@ public class StringUtilsTest extends AbstractLangTest {
         assertEquals("", StringUtils.join(MIXED_TYPE_LIST, '/', 2, 1));
     }
 
-    @Test
-    public void testJoin_ArrayOfBytes() {
-        assertNull(StringUtils.join((byte[]) null, ','));
-        assertEquals("1;2", StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR));
-        assertEquals("2", StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
-        assertNull(StringUtils.join((byte[]) null, SEPARATOR_CHAR, 0, 1));
-        assertEquals(StringUtils.EMPTY, StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
-        assertEquals(StringUtils.EMPTY, StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
-    }
-
 
     @Test
     public void testJoin_ArrayOfBooleans() {
@@ -1168,6 +1193,16 @@ public class StringUtilsTest extends AbstractLangTest {
         assertNull(StringUtils.join((boolean[]) null, SEPARATOR_CHAR, 0, 1));
         assertEquals(StringUtils.EMPTY, StringUtils.join(ARRAY_FALSE_FALSE, SEPARATOR_CHAR, 0, 0));
         assertEquals(StringUtils.EMPTY, StringUtils.join(ARRAY_FALSE_TRUE_FALSE, SEPARATOR_CHAR, 1, 0));
+    }
+
+    @Test
+    public void testJoin_ArrayOfBytes() {
+        assertNull(StringUtils.join((byte[]) null, ','));
+        assertEquals("1;2", StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR));
+        assertEquals("2", StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR, 1, 2));
+        assertNull(StringUtils.join((byte[]) null, SEPARATOR_CHAR, 0, 1));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR, 0, 0));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(BYTE_PRIM_LIST, SEPARATOR_CHAR, 1, 0));
     }
 
     @Test
@@ -1316,6 +1351,16 @@ public class StringUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testJoin_List_CharDelimiter() {
+        assertEquals("/", StringUtils.join(MIXED_STRING_LIST, '/', 0, MIXED_STRING_LIST.size() - 1));
+        assertEquals("foo", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 0, 1));
+        assertEquals("foo/2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 0, 2));
+        assertEquals("2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 1, 2));
+        assertEquals("", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 2, 1));
+        assertNull(null, StringUtils.join((List<?>) null, '/', 0, 1));
+    }
+
+    @Test
     public void testJoin_List_EmptyDelimiter() {
         assertNull(StringUtils.join((List<String>) null, null));
         assertEquals(TEXT_LIST_NOSEP, StringUtils.join(STRING_LIST, null));
@@ -1327,16 +1372,6 @@ public class StringUtilsTest extends AbstractLangTest {
         assertEquals("", StringUtils.join(EMPTY_STRING_LIST, ""));
 
         assertEquals("", StringUtils.join(MIXED_STRING_LIST, "", 0, MIXED_STRING_LIST.size()- 1));
-    }
-
-    @Test
-    public void testJoin_List_CharDelimiter() {
-        assertEquals("/", StringUtils.join(MIXED_STRING_LIST, '/', 0, MIXED_STRING_LIST.size() - 1));
-        assertEquals("foo", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 0, 1));
-        assertEquals("foo/2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 0, 2));
-        assertEquals("2", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 1, 2));
-        assertEquals("", StringUtils.join(MIXED_TYPE_OBJECT_LIST, '/', 2, 1));
-        assertNull(null, StringUtils.join((List<?>) null, '/', 0, 1));
     }
 
     @ParameterizedTest
@@ -1373,15 +1408,6 @@ public class StringUtilsTest extends AbstractLangTest {
         assertEquals("foo2", StringUtils.join(MIXED_TYPE_LIST));
     }
 
-    @Disabled
-    @Test
-    public void testLang1593() {
-        final int[] arr = {1, 2, 3, 4, 5, 6, 7};
-        final String expected = StringUtils.join(arr, '-');
-        final String actual = StringUtils.join(arr, "-");
-        assertEquals(expected, actual);
-    }
-
     @Test
     public void testJoin_Objects() {
         assertEquals("abc", StringUtils.join("a", "b", "c"));
@@ -1406,6 +1432,15 @@ public class StringUtilsTest extends AbstractLangTest {
     @Test
     public void testJoinWithThrowsException() {
         assertThrows(IllegalArgumentException.class, () -> StringUtils.joinWith(",", (Object[]) null));
+    }
+
+    @Disabled
+    @Test
+    public void testLang1593() {
+        final int[] arr = {1, 2, 3, 4, 5, 6, 7};
+        final String expected = StringUtils.join(arr, '-');
+        final String actual = StringUtils.join(arr, "-");
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -1827,25 +1862,6 @@ public class StringUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveStartString() {
-        // StringUtils.removeStart("", *)        = ""
-        assertNull(StringUtils.removeStart(null, null));
-        assertNull(StringUtils.removeStart(null, ""));
-        assertNull(StringUtils.removeStart(null, "a"));
-
-        // StringUtils.removeStart(*, null)      = *
-        assertEquals(StringUtils.removeStart("", null), "");
-        assertEquals(StringUtils.removeStart("", ""), "");
-        assertEquals(StringUtils.removeStart("", "a"), "");
-
-        // All others:
-        assertEquals(StringUtils.removeStart("www.domain.com", "www."), "domain.com");
-        assertEquals(StringUtils.removeStart("domain.com", "www."), "domain.com");
-        assertEquals(StringUtils.removeStart("domain.com", ""), "domain.com");
-        assertEquals(StringUtils.removeStart("domain.com", null), "domain.com");
-    }
-
-    @Test
     public void testRemoveStartIgnoreCase() {
         // StringUtils.removeStart("", *)        = ""
         assertNull(StringUtils.removeStartIgnoreCase(null, null), "removeStartIgnoreCase(null, null)");
@@ -1865,6 +1881,25 @@ public class StringUtilsTest extends AbstractLangTest {
 
         // Case-insensitive:
         assertEquals(StringUtils.removeStartIgnoreCase("www.domain.com", "WWW."), "domain.com", "removeStartIgnoreCase(\"www.domain.com\", \"WWW.\")");
+    }
+
+    @Test
+    public void testRemoveStartString() {
+        // StringUtils.removeStart("", *)        = ""
+        assertNull(StringUtils.removeStart(null, null));
+        assertNull(StringUtils.removeStart(null, ""));
+        assertNull(StringUtils.removeStart(null, "a"));
+
+        // StringUtils.removeStart(*, null)      = *
+        assertEquals(StringUtils.removeStart("", null), "");
+        assertEquals(StringUtils.removeStart("", ""), "");
+        assertEquals(StringUtils.removeStart("", "a"), "");
+
+        // All others:
+        assertEquals(StringUtils.removeStart("www.domain.com", "www."), "domain.com");
+        assertEquals(StringUtils.removeStart("domain.com", "www."), "domain.com");
+        assertEquals(StringUtils.removeStart("domain.com", ""), "domain.com");
+        assertEquals(StringUtils.removeStart("domain.com", null), "domain.com");
     }
 
     @Test
@@ -3011,6 +3046,46 @@ public class StringUtilsTest extends AbstractLangTest {
         assertEquals(expectedString, StringUtils.toEncodedString(expectedBytes, Charset.forName(encoding)));
     }
 
+    @Test
+    public void testToRootLowerCase() {
+        assertNull(StringUtils.toRootLowerCase(null));
+        assertEquals("a", StringUtils.toRootLowerCase("A"));
+        assertEquals("a", StringUtils.toRootLowerCase("a"));
+        final Locale TURKISH = Locale.forLanguageTag("tr");
+        // Sanity checks:
+        assertNotEquals("title", "TITLE".toLowerCase(TURKISH));
+        assertEquals("title", "TITLE".toLowerCase(Locale.ROOT));
+        assertEquals("title", StringUtils.toRootLowerCase("TITLE"));
+        // Make sure we are not using the default Locale:
+        final Locale defaultLocale = Locale.getDefault();
+        try {
+            Locale.setDefault(TURKISH);
+            assertEquals("title", StringUtils.toRootLowerCase("TITLE"));
+        } finally {
+            Locale.setDefault(defaultLocale);
+        }
+    }
+
+    @Test
+    public void testToRootUpperCase() {
+        assertNull(StringUtils.toRootUpperCase(null));
+        assertEquals("A", StringUtils.toRootUpperCase("a"));
+        assertEquals("A", StringUtils.toRootUpperCase("A"));
+        final Locale TURKISH = Locale.forLanguageTag("tr");
+        // Sanity checks:
+        assertNotEquals("TITLE", "title".toUpperCase(TURKISH));
+        assertEquals("TITLE", "title".toUpperCase(Locale.ROOT));
+        assertEquals("TITLE", StringUtils.toRootUpperCase("title"));
+        // Make sure we are not using the default Locale:
+        final Locale defaultLocale = Locale.getDefault();
+        try {
+            Locale.setDefault(TURKISH);
+            assertEquals("TITLE", StringUtils.toRootUpperCase("title"));
+        } finally {
+            Locale.setDefault(defaultLocale);
+        }
+    }
+
     /**
      * Tests {@link StringUtils#toString(byte[], String)}
      *
@@ -3313,80 +3388,5 @@ public class StringUtilsTest extends AbstractLangTest {
 
         assertSame("ab/ab", StringUtils.wrapIfMissing("ab/ab", "ab"));
         assertSame("//x//", StringUtils.wrapIfMissing("//x//", "//"));
-    }
-
-    @Test
-    public void testToRootLowerCase() {
-        assertNull(StringUtils.toRootLowerCase(null));
-        assertEquals("a", StringUtils.toRootLowerCase("A"));
-        assertEquals("a", StringUtils.toRootLowerCase("a"));
-        final Locale TURKISH = Locale.forLanguageTag("tr");
-        // Sanity checks:
-        assertNotEquals("title", "TITLE".toLowerCase(TURKISH));
-        assertEquals("title", "TITLE".toLowerCase(Locale.ROOT));
-        assertEquals("title", StringUtils.toRootLowerCase("TITLE"));
-        // Make sure we are not using the default Locale:
-        final Locale defaultLocale = Locale.getDefault();
-        try {
-            Locale.setDefault(TURKISH);
-            assertEquals("title", StringUtils.toRootLowerCase("TITLE"));
-        } finally {
-            Locale.setDefault(defaultLocale);
-        }
-    }
-
-    @Test
-    public void testToRootUpperCase() {
-        assertNull(StringUtils.toRootUpperCase(null));
-        assertEquals("A", StringUtils.toRootUpperCase("a"));
-        assertEquals("A", StringUtils.toRootUpperCase("A"));
-        final Locale TURKISH = Locale.forLanguageTag("tr");
-        // Sanity checks:
-        assertNotEquals("TITLE", "title".toUpperCase(TURKISH));
-        assertEquals("TITLE", "title".toUpperCase(Locale.ROOT));
-        assertEquals("TITLE", StringUtils.toRootUpperCase("title"));
-        // Make sure we are not using the default Locale:
-        final Locale defaultLocale = Locale.getDefault();
-        try {
-            Locale.setDefault(TURKISH);
-            assertEquals("TITLE", StringUtils.toRootUpperCase("title"));
-        } finally {
-            Locale.setDefault(defaultLocale);
-        }
-    }
-
-    @Test
-    public void testGeorgianSample() {
-        final char[] arrayI = {
-                //Latin Small Letter dotless I
-                (char) 0x0131,
-                //Greek Capital Letter Theta
-                (char) 0x03F4
-        };
-        final char[] arrayJ = {
-                //Latin Capital Letter I with dot above
-                (char) 0x0130,
-                //Greek Theta Symbol
-                (char) 0x03D1
-        };
-        for (final char i : arrayI) {
-            for (final char j : arrayJ) {
-                final String si = String.valueOf(i);
-                final String sj = String.valueOf(j);
-                final boolean res1 = si.equalsIgnoreCase(sj);
-                final CharSequence ci = new StringBuilder(si);
-                final CharSequence cj = new StringBuilder(sj);
-                boolean res2 = StringUtils.startsWithIgnoreCase(ci, cj);
-                assertEquals(res1, res2, "si : " + si + " sj : " + sj);
-                res2 = StringUtils.endsWithIgnoreCase(ci, cj);
-                assertEquals(res1, res2, "si : " + si + " sj : " + sj);
-                res2 = StringUtils.compareIgnoreCase(ci.toString(), cj.toString()) == 0;
-                assertEquals(res1, res2, "si : " + si + " sj : " + sj);
-                res2 = StringUtils.indexOfIgnoreCase(ci.toString(), cj.toString()) == 0;
-                assertEquals(res1, res2, "si : " + si + " sj : " + sj);
-                res2 = StringUtils.lastIndexOfIgnoreCase(ci.toString(), cj.toString()) == 0;
-                assertEquals(res1, res2, "si : " + si + " sj : " + sj);
-            }
-        }
     }
 }

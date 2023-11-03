@@ -31,139 +31,6 @@ public class BitFieldTest extends AbstractLangTest {
     private static final BitField bf_single = new BitField(0x4000);
     private static final BitField bf_zero = new BitField(0);
 
-    /**
-     * test the getValue() method
-     */
-    @Test
-    public void testGetValue() {
-        assertEquals(bf_multi.getValue(-1), 127);
-        assertEquals(bf_multi.getValue(0), 0);
-        assertEquals(bf_single.getValue(-1), 1);
-        assertEquals(bf_single.getValue(0), 0);
-        assertEquals(bf_zero.getValue(-1), 0);
-        assertEquals(bf_zero.getValue(0), 0);
-    }
-
-    /**
-     * test the getShortValue() method
-     */
-    @Test
-    public void testGetShortValue() {
-        assertEquals(bf_multi.getShortValue((short) - 1), (short) 127);
-        assertEquals(bf_multi.getShortValue((short) 0), (short) 0);
-        assertEquals(bf_single.getShortValue((short) - 1), (short) 1);
-        assertEquals(bf_single.getShortValue((short) 0), (short) 0);
-        assertEquals(bf_zero.getShortValue((short) -1), (short) 0);
-        assertEquals(bf_zero.getShortValue((short) 0), (short) 0);
-    }
-
-    /**
-     * test the getRawValue() method
-     */
-    @Test
-    public void testGetRawValue() {
-        assertEquals(bf_multi.getRawValue(-1), 0x3F80);
-        assertEquals(bf_multi.getRawValue(0), 0);
-        assertEquals(bf_single.getRawValue(-1), 0x4000);
-        assertEquals(bf_single.getRawValue(0), 0);
-        assertEquals(bf_zero.getRawValue(-1), 0);
-        assertEquals(bf_zero.getRawValue(0), 0);
-    }
-
-    /**
-     * test the getShortRawValue() method
-     */
-    @Test
-    public void testGetShortRawValue() {
-        assertEquals(bf_multi.getShortRawValue((short) - 1), (short) 0x3F80);
-        assertEquals(bf_multi.getShortRawValue((short) 0), (short) 0);
-        assertEquals(bf_single.getShortRawValue((short) - 1), (short) 0x4000);
-        assertEquals(bf_single.getShortRawValue((short) 0), (short) 0);
-        assertEquals(bf_zero.getShortRawValue((short) -1), (short) 0);
-        assertEquals(bf_zero.getShortRawValue((short) 0), (short) 0);
-    }
-
-    /**
-     * test the isSet() method
-     */
-    @Test
-    public void testIsSet() {
-        assertFalse(bf_multi.isSet(0));
-        assertFalse(bf_zero.isSet(0));
-        for (int j = 0x80; j <= 0x3F80; j += 0x80) {
-            assertTrue(bf_multi.isSet(j));
-        }
-        for (int j = 0x80; j <= 0x3F80; j += 0x80) {
-            assertFalse(bf_zero.isSet(j));
-        }
-        assertFalse(bf_single.isSet(0));
-        assertTrue(bf_single.isSet(0x4000));
-    }
-
-    /**
-     * test the isAllSet() method
-     */
-    @Test
-    public void testIsAllSet() {
-        for (int j = 0; j < 0x3F80; j += 0x80) {
-            assertFalse(bf_multi.isAllSet(j));
-            assertTrue(bf_zero.isAllSet(j));
-        }
-        assertTrue(bf_multi.isAllSet(0x3F80));
-        assertFalse(bf_single.isAllSet(0));
-        assertTrue(bf_single.isAllSet(0x4000));
-    }
-
-    /**
-     * test the setValue() method
-     */
-    @Test
-    public void testSetValue() {
-        for (int j = 0; j < 128; j++) {
-            assertEquals(bf_multi.getValue(bf_multi.setValue(0, j)), j);
-            assertEquals(bf_multi.setValue(0, j), j << 7);
-        }
-        for (int j = 0; j < 128; j++) {
-          assertEquals(bf_zero.getValue(bf_zero.setValue(0, j)), 0);
-          assertEquals(bf_zero.setValue(0, j), 0);
-      }
-
-        // verify that excess bits are stripped off
-        assertEquals(bf_multi.setValue(0x3f80, 128), 0);
-        for (int j = 0; j < 2; j++) {
-            assertEquals(bf_single.getValue(bf_single.setValue(0, j)), j);
-            assertEquals(bf_single.setValue(0, j), j << 14);
-        }
-
-        // verify that excess bits are stripped off
-        assertEquals(bf_single.setValue(0x4000, 2), 0);
-    }
-
-    /**
-     * test the setShortValue() method
-     */
-    @Test
-    public void testSetShortValue() {
-        for (int j = 0; j < 128; j++) {
-            assertEquals(bf_multi.getShortValue(bf_multi.setShortValue((short) 0, (short) j)), (short) j);
-            assertEquals(bf_multi.setShortValue((short) 0, (short) j), (short) (j << 7));
-        }
-        for (int j = 0; j < 128; j++) {
-            assertEquals(bf_zero.getShortValue(bf_zero.setShortValue((short) 0, (short) j)), (short) 0);
-            assertEquals(bf_zero.setShortValue((short) 0, (short) j), (short) 0);
-        }
-
-        // verify that excess bits are stripped off
-        assertEquals(bf_multi.setShortValue((short) 0x3f80, (short) 128), (short) 0);
-        for (int j = 0; j < 2; j++) {
-            assertEquals(bf_single.getShortValue(bf_single.setShortValue((short) 0, (short) j)), (short) j);
-            assertEquals(bf_single.setShortValue((short) 0, (short) j), (short) (j << 14));
-        }
-
-        // verify that excess bits are stripped off
-        assertEquals(bf_single.setShortValue((short) 0x4000, (short) 2), (short) 0);
-    }
-
     @Test
     public void testByte() {
         assertEquals(0, new BitField(0).setByteBoolean((byte) 0, true));
@@ -211,6 +78,89 @@ public class BitFieldTest extends AbstractLangTest {
     }
 
     /**
+     * test the getRawValue() method
+     */
+    @Test
+    public void testGetRawValue() {
+        assertEquals(bf_multi.getRawValue(-1), 0x3F80);
+        assertEquals(bf_multi.getRawValue(0), 0);
+        assertEquals(bf_single.getRawValue(-1), 0x4000);
+        assertEquals(bf_single.getRawValue(0), 0);
+        assertEquals(bf_zero.getRawValue(-1), 0);
+        assertEquals(bf_zero.getRawValue(0), 0);
+    }
+
+    /**
+     * test the getShortRawValue() method
+     */
+    @Test
+    public void testGetShortRawValue() {
+        assertEquals(bf_multi.getShortRawValue((short) - 1), (short) 0x3F80);
+        assertEquals(bf_multi.getShortRawValue((short) 0), (short) 0);
+        assertEquals(bf_single.getShortRawValue((short) - 1), (short) 0x4000);
+        assertEquals(bf_single.getShortRawValue((short) 0), (short) 0);
+        assertEquals(bf_zero.getShortRawValue((short) -1), (short) 0);
+        assertEquals(bf_zero.getShortRawValue((short) 0), (short) 0);
+    }
+
+    /**
+     * test the getShortValue() method
+     */
+    @Test
+    public void testGetShortValue() {
+        assertEquals(bf_multi.getShortValue((short) - 1), (short) 127);
+        assertEquals(bf_multi.getShortValue((short) 0), (short) 0);
+        assertEquals(bf_single.getShortValue((short) - 1), (short) 1);
+        assertEquals(bf_single.getShortValue((short) 0), (short) 0);
+        assertEquals(bf_zero.getShortValue((short) -1), (short) 0);
+        assertEquals(bf_zero.getShortValue((short) 0), (short) 0);
+    }
+
+    /**
+     * test the getValue() method
+     */
+    @Test
+    public void testGetValue() {
+        assertEquals(bf_multi.getValue(-1), 127);
+        assertEquals(bf_multi.getValue(0), 0);
+        assertEquals(bf_single.getValue(-1), 1);
+        assertEquals(bf_single.getValue(0), 0);
+        assertEquals(bf_zero.getValue(-1), 0);
+        assertEquals(bf_zero.getValue(0), 0);
+    }
+
+    /**
+     * test the isAllSet() method
+     */
+    @Test
+    public void testIsAllSet() {
+        for (int j = 0; j < 0x3F80; j += 0x80) {
+            assertFalse(bf_multi.isAllSet(j));
+            assertTrue(bf_zero.isAllSet(j));
+        }
+        assertTrue(bf_multi.isAllSet(0x3F80));
+        assertFalse(bf_single.isAllSet(0));
+        assertTrue(bf_single.isAllSet(0x4000));
+    }
+
+    /**
+     * test the isSet() method
+     */
+    @Test
+    public void testIsSet() {
+        assertFalse(bf_multi.isSet(0));
+        assertFalse(bf_zero.isSet(0));
+        for (int j = 0x80; j <= 0x3F80; j += 0x80) {
+            assertTrue(bf_multi.isSet(j));
+        }
+        for (int j = 0x80; j <= 0x3F80; j += 0x80) {
+            assertFalse(bf_zero.isSet(j));
+        }
+        assertFalse(bf_single.isSet(0));
+        assertTrue(bf_single.isSet(0x4000));
+    }
+
+    /**
      * test the set() method
      */
     @Test
@@ -218,16 +168,6 @@ public class BitFieldTest extends AbstractLangTest {
         assertEquals(bf_multi.set(0), 0x3F80);
         assertEquals(bf_single.set(0), 0x4000);
         assertEquals(bf_zero.set(0), 0);
-    }
-
-    /**
-     * test the setShort() method
-     */
-    @Test
-    public void testSetShort() {
-        assertEquals(bf_multi.setShort((short) 0), (short) 0x3F80);
-        assertEquals(bf_single.setShort((short) 0), (short) 0x4000);
-        assertEquals(bf_zero.setShort((short) 0), (short) 0);
     }
 
     /**
@@ -244,6 +184,16 @@ public class BitFieldTest extends AbstractLangTest {
     }
 
     /**
+     * test the setShort() method
+     */
+    @Test
+    public void testSetShort() {
+        assertEquals(bf_multi.setShort((short) 0), (short) 0x3F80);
+        assertEquals(bf_single.setShort((short) 0), (short) 0x4000);
+        assertEquals(bf_zero.setShort((short) 0), (short) 0);
+    }
+
+    /**
      * test the setShortBoolean() method
      */
     @Test
@@ -254,6 +204,56 @@ public class BitFieldTest extends AbstractLangTest {
         assertEquals(bf_multi.clearShort((short) - 1), bf_multi.setShortBoolean((short) - 1, false));
         assertEquals(bf_single.clearShort((short) - 1), bf_single.setShortBoolean((short) - 1, false));
         assertEquals(bf_zero.clearShort((short) -1), bf_zero.setShortBoolean((short) -1, false));
+    }
+
+    /**
+     * test the setShortValue() method
+     */
+    @Test
+    public void testSetShortValue() {
+        for (int j = 0; j < 128; j++) {
+            assertEquals(bf_multi.getShortValue(bf_multi.setShortValue((short) 0, (short) j)), (short) j);
+            assertEquals(bf_multi.setShortValue((short) 0, (short) j), (short) (j << 7));
+        }
+        for (int j = 0; j < 128; j++) {
+            assertEquals(bf_zero.getShortValue(bf_zero.setShortValue((short) 0, (short) j)), (short) 0);
+            assertEquals(bf_zero.setShortValue((short) 0, (short) j), (short) 0);
+        }
+
+        // verify that excess bits are stripped off
+        assertEquals(bf_multi.setShortValue((short) 0x3f80, (short) 128), (short) 0);
+        for (int j = 0; j < 2; j++) {
+            assertEquals(bf_single.getShortValue(bf_single.setShortValue((short) 0, (short) j)), (short) j);
+            assertEquals(bf_single.setShortValue((short) 0, (short) j), (short) (j << 14));
+        }
+
+        // verify that excess bits are stripped off
+        assertEquals(bf_single.setShortValue((short) 0x4000, (short) 2), (short) 0);
+    }
+
+    /**
+     * test the setValue() method
+     */
+    @Test
+    public void testSetValue() {
+        for (int j = 0; j < 128; j++) {
+            assertEquals(bf_multi.getValue(bf_multi.setValue(0, j)), j);
+            assertEquals(bf_multi.setValue(0, j), j << 7);
+        }
+        for (int j = 0; j < 128; j++) {
+          assertEquals(bf_zero.getValue(bf_zero.setValue(0, j)), 0);
+          assertEquals(bf_zero.setValue(0, j), 0);
+      }
+
+        // verify that excess bits are stripped off
+        assertEquals(bf_multi.setValue(0x3f80, 128), 0);
+        for (int j = 0; j < 2; j++) {
+            assertEquals(bf_single.getValue(bf_single.setValue(0, j)), j);
+            assertEquals(bf_single.setValue(0, j), j << 14);
+        }
+
+        // verify that excess bits are stripped off
+        assertEquals(bf_single.setValue(0x4000, 2), 0);
     }
 
 }

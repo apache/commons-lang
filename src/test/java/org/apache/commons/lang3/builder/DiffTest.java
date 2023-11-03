@@ -28,9 +28,6 @@ import org.junit.jupiter.api.Test;
  */
 public class DiffTest extends AbstractLangTest {
 
-    private static final String FIELD_NAME = "field";
-    private static final Diff<Boolean> booleanDiff = new BooleanDiff(FIELD_NAME);
-
     private static final class BooleanDiff extends Diff<Boolean> {
         private static final long serialVersionUID = 1L;
 
@@ -48,6 +45,9 @@ public class DiffTest extends AbstractLangTest {
             return Boolean.FALSE;
         }
     }
+    private static final String FIELD_NAME = "field";
+
+    private static final Diff<Boolean> booleanDiff = new BooleanDiff(FIELD_NAME);
 
     @Test
     public void testCannotModify() {

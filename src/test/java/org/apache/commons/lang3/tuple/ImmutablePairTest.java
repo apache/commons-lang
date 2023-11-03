@@ -222,6 +222,13 @@ public class ImmutablePairTest extends AbstractLangTest {
     }
 
     @Test
+    public void testUnsupportedOperation() {
+        final ImmutablePair<Integer, String> pair = new ImmutablePair<>(0, "foo");
+        assertThrows(UnsupportedOperationException.class, () -> pair.setValue("any"));
+
+    }
+
+    @Test
     public void testUseAsKeyOfHashMap() {
         final HashMap<ImmutablePair<Object, Object>, String> map = new HashMap<>();
         final Object o1 = new Object();
@@ -249,12 +256,5 @@ public class ImmutablePairTest extends AbstractLangTest {
             assertEquals(item, entry.getKey());
             assertEquals(item.getLeft() + "" + item.getRight(), entry.getValue());
         }
-    }
-
-    @Test
-    public void testUnsupportedOperation() {
-        final ImmutablePair<Integer, String> pair = new ImmutablePair<>(0, "foo");
-        assertThrows(UnsupportedOperationException.class, () -> pair.setValue("any"));
-
     }
 }

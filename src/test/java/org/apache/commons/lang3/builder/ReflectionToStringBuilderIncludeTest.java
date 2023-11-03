@@ -61,6 +61,13 @@ public class ReflectionToStringBuilderIncludeTest extends AbstractLangTest {
     private static final String[] FIELDS_VALUES_TO_SHOW = {VALUES[0], VALUES[3]};
 
     @Test
+    public void test_toStringDefaultBehavior() {
+        final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
+        final String toString = builder.toString();
+        this.validateAllFieldsPresent(toString);
+    }
+
+    @Test
     public void test_toStringInclude() {
         final String toString = ReflectionToStringBuilder.toStringInclude(new TestFeature(), SINGLE_FIELD_TO_SHOW);
         this.validateIncludeFieldsPresent(toString, new String[]{ SINGLE_FIELD_TO_SHOW }, new String[]{ SINGLE_FIELD_VALUE_TO_SHOW });
@@ -70,12 +77,6 @@ public class ReflectionToStringBuilderIncludeTest extends AbstractLangTest {
     public void test_toStringIncludeArray() {
         final String toString = ReflectionToStringBuilder.toStringInclude(new TestFeature(), FIELDS_TO_SHOW);
         this.validateIncludeFieldsPresent(toString, FIELDS_TO_SHOW, FIELDS_VALUES_TO_SHOW);
-    }
-
-    @Test
-    public void test_toStringIncludeWithoutInformingFields() {
-        final String toString = ReflectionToStringBuilder.toStringInclude(new TestFeature());
-        this.validateAllFieldsPresent(toString);
     }
 
     @Test
@@ -146,19 +147,9 @@ public class ReflectionToStringBuilderIncludeTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_toStringDefaultBehavior() {
-        final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
-        final String toString = builder.toString();
+    public void test_toStringIncludeWithoutInformingFields() {
+        final String toString = ReflectionToStringBuilder.toStringInclude(new TestFeature());
         this.validateAllFieldsPresent(toString);
-    }
-
-    @Test
-    public void test_toStringSetIncludeAndExcludeWithoutIntersection() {
-        final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
-        builder.setExcludeFieldNames(FIELDS[1], FIELDS[4]);
-        builder.setIncludeFieldNames(FIELDS_TO_SHOW);
-        final String toString = builder.toString();
-        this.validateIncludeFieldsPresent(toString, FIELDS_TO_SHOW, FIELDS_VALUES_TO_SHOW);
     }
 
     @Test
@@ -172,21 +163,12 @@ public class ReflectionToStringBuilderIncludeTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_toStringSetIncludeWithMultipleNullFields() {
+    public void test_toStringSetIncludeAndExcludeWithoutIntersection() {
         final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
         builder.setExcludeFieldNames(FIELDS[1], FIELDS[4]);
-        builder.setIncludeFieldNames(null, null, null);
+        builder.setIncludeFieldNames(FIELDS_TO_SHOW);
         final String toString = builder.toString();
-        this.validateIncludeFieldsPresent(toString, new String[]{FIELDS[0], FIELDS[2], FIELDS[3]}, new String[]{VALUES[0], VALUES[2], VALUES[3]});
-    }
-
-    @Test
-    public void test_toStringSetIncludeWithArrayWithMultipleNullFields() {
-        final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
-        builder.setExcludeFieldNames(new String[] {FIELDS[1], FIELDS[4]});
-        builder.setIncludeFieldNames(new String[] {null, null, null});
-        final String toString = builder.toString();
-        this.validateIncludeFieldsPresent(toString, new String[]{FIELDS[0], FIELDS[2], FIELDS[3]}, new String[]{VALUES[0], VALUES[2], VALUES[3]});
+        this.validateIncludeFieldsPresent(toString, FIELDS_TO_SHOW, FIELDS_VALUES_TO_SHOW);
     }
 
     @Test
@@ -206,6 +188,24 @@ public class ReflectionToStringBuilderIncludeTest extends AbstractLangTest {
         builder.setIncludeFieldNames("random2", FIELDS[2]);
         final String toString = builder.toString();
         this.validateIncludeFieldsPresent(toString, new String[]{FIELDS[2]}, new String[]{VALUES[2]});
+    }
+
+    @Test
+    public void test_toStringSetIncludeWithArrayWithMultipleNullFields() {
+        final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
+        builder.setExcludeFieldNames(new String[] {FIELDS[1], FIELDS[4]});
+        builder.setIncludeFieldNames(new String[] {null, null, null});
+        final String toString = builder.toString();
+        this.validateIncludeFieldsPresent(toString, new String[]{FIELDS[0], FIELDS[2], FIELDS[3]}, new String[]{VALUES[0], VALUES[2], VALUES[3]});
+    }
+
+    @Test
+    public void test_toStringSetIncludeWithMultipleNullFields() {
+        final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
+        builder.setExcludeFieldNames(FIELDS[1], FIELDS[4]);
+        builder.setIncludeFieldNames(null, null, null);
+        final String toString = builder.toString();
+        this.validateIncludeFieldsPresent(toString, new String[]{FIELDS[0], FIELDS[2], FIELDS[3]}, new String[]{VALUES[0], VALUES[2], VALUES[3]});
     }
 
     private void validateAllFieldsPresent(final String toString) {

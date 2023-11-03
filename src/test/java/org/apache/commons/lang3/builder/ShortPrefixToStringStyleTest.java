@@ -46,11 +46,6 @@ public class ShortPrefixToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testBlank() {
-        assertEquals(baseStr + "[]", new ToStringBuilder(base).toString());
-    }
-
-    @Test
     public void testAppendSuper() {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).appendSuper("Integer@8888[]").toString());
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).appendSuper("Integer@8888[<null>]").toString());
@@ -58,38 +53,6 @@ public class ShortPrefixToStringStyleTest extends AbstractLangTest {
         assertEquals(baseStr + "[a=hello]", new ToStringBuilder(base).appendSuper("Integer@8888[]").append("a", "hello").toString());
         assertEquals(baseStr + "[<null>,a=hello]", new ToStringBuilder(base).appendSuper("Integer@8888[<null>]").append("a", "hello").toString());
         assertEquals(baseStr + "[a=hello]", new ToStringBuilder(base).appendSuper(null).append("a", "hello").toString());
-    }
-
-    @Test
-    public void testObject() {
-        final Integer i3 = Integer.valueOf(3);
-        final Integer i4 = Integer.valueOf(4);
-        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) null).toString());
-        assertEquals(baseStr + "[3]", new ToStringBuilder(base).append(i3).toString());
-        assertEquals(baseStr + "[a=<null>]", new ToStringBuilder(base).append("a", (Object) null).toString());
-        assertEquals(baseStr + "[a=3]", new ToStringBuilder(base).append("a", i3).toString());
-        assertEquals(baseStr + "[a=3,b=4]", new ToStringBuilder(base).append("a", i3).append("b", i4).toString());
-        assertEquals(baseStr + "[a=<Integer>]", new ToStringBuilder(base).append("a", i3, false).toString());
-    }
-
-    @Test
-    public void testCollection() {
-        final Integer i3 = Integer.valueOf(3);
-        final Integer i4 = Integer.valueOf(4);
-        assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", Collections.emptyList(), false).toString());
-        assertEquals(baseStr + "[a=[]]", new ToStringBuilder(base).append("a", Collections.emptyList(), true).toString());
-        assertEquals(baseStr + "[a=<size=1>]", new ToStringBuilder(base).append("a", Collections.singletonList(i3), false).toString());
-        assertEquals(baseStr + "[a=[3]]", new ToStringBuilder(base).append("a", Collections.singletonList(i3), true).toString());
-        assertEquals(baseStr + "[a=<size=2>]", new ToStringBuilder(base).append("a", Arrays.asList(i3, i4), false).toString());
-        assertEquals(baseStr + "[a=[3, 4]]", new ToStringBuilder(base).append("a", Arrays.asList(i3, i4), true).toString());
-    }
-
-    @Test
-    public void testMap() {
-        assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", Collections.emptyMap(), false).toString());
-        assertEquals(baseStr + "[a={}]", new ToStringBuilder(base).append("a", Collections.emptyMap(), true).toString());
-        assertEquals(baseStr + "[a=<size=1>]", new ToStringBuilder(base).append("a", Collections.singletonMap("k", "v"), false).toString());
-        assertEquals(baseStr + "[a={k=v}]", new ToStringBuilder(base).append("a", Collections.singletonMap("k", "v"), true).toString());
     }
 
     @Test
@@ -105,13 +68,20 @@ public class ShortPrefixToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testPerson() {
-        final Person p = new Person();
-        p.name = "John Q. Public";
-        p.age = 45;
-        p.smoker = true;
-        final String pBaseStr = "ToStringStyleTest.Person";
-        assertEquals(pBaseStr + "[name=John Q. Public,age=45,smoker=true]", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).toString());
+    public void testBlank() {
+        assertEquals(baseStr + "[]", new ToStringBuilder(base).toString());
+    }
+
+    @Test
+    public void testCollection() {
+        final Integer i3 = Integer.valueOf(3);
+        final Integer i4 = Integer.valueOf(4);
+        assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", Collections.emptyList(), false).toString());
+        assertEquals(baseStr + "[a=[]]", new ToStringBuilder(base).append("a", Collections.emptyList(), true).toString());
+        assertEquals(baseStr + "[a=<size=1>]", new ToStringBuilder(base).append("a", Collections.singletonList(i3), false).toString());
+        assertEquals(baseStr + "[a=[3]]", new ToStringBuilder(base).append("a", Collections.singletonList(i3), true).toString());
+        assertEquals(baseStr + "[a=<size=2>]", new ToStringBuilder(base).append("a", Arrays.asList(i3, i4), false).toString());
+        assertEquals(baseStr + "[a=[3, 4]]", new ToStringBuilder(base).append("a", Arrays.asList(i3, i4), true).toString());
     }
 
     @Test
@@ -119,16 +89,6 @@ public class ShortPrefixToStringStyleTest extends AbstractLangTest {
         assertEquals(baseStr + "[3]", new ToStringBuilder(base).append(3L).toString());
         assertEquals(baseStr + "[a=3]", new ToStringBuilder(base).append("a", 3L).toString());
         assertEquals(baseStr + "[a=3,b=4]", new ToStringBuilder(base).append("a", 3L).append("b", 4L).toString());
-    }
-
-    @Test
-    public void testObjectArray() {
-        Object[] array = {null, base, new int[] {3, 6}};
-        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(array).toString());
-        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append((Object) array).toString());
-        array = null;
-        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(array).toString());
-        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) array).toString());
     }
 
     @Test
@@ -149,6 +109,46 @@ public class ShortPrefixToStringStyleTest extends AbstractLangTest {
         array = null;
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) array).toString());
+    }
+
+    @Test
+    public void testMap() {
+        assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", Collections.emptyMap(), false).toString());
+        assertEquals(baseStr + "[a={}]", new ToStringBuilder(base).append("a", Collections.emptyMap(), true).toString());
+        assertEquals(baseStr + "[a=<size=1>]", new ToStringBuilder(base).append("a", Collections.singletonMap("k", "v"), false).toString());
+        assertEquals(baseStr + "[a={k=v}]", new ToStringBuilder(base).append("a", Collections.singletonMap("k", "v"), true).toString());
+    }
+
+    @Test
+    public void testObject() {
+        final Integer i3 = Integer.valueOf(3);
+        final Integer i4 = Integer.valueOf(4);
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) null).toString());
+        assertEquals(baseStr + "[3]", new ToStringBuilder(base).append(i3).toString());
+        assertEquals(baseStr + "[a=<null>]", new ToStringBuilder(base).append("a", (Object) null).toString());
+        assertEquals(baseStr + "[a=3]", new ToStringBuilder(base).append("a", i3).toString());
+        assertEquals(baseStr + "[a=3,b=4]", new ToStringBuilder(base).append("a", i3).append("b", i4).toString());
+        assertEquals(baseStr + "[a=<Integer>]", new ToStringBuilder(base).append("a", i3, false).toString());
+    }
+
+    @Test
+    public void testObjectArray() {
+        Object[] array = {null, base, new int[] {3, 6}};
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(array).toString());
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append((Object) array).toString());
+        array = null;
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(array).toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) array).toString());
+    }
+
+    @Test
+    public void testPerson() {
+        final Person p = new Person();
+        p.name = "John Q. Public";
+        p.age = 45;
+        p.smoker = true;
+        final String pBaseStr = "ToStringStyleTest.Person";
+        assertEquals(pBaseStr + "[name=John Q. Public,age=45,smoker=true]", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).toString());
     }
 
 }
