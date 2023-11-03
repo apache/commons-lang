@@ -327,58 +327,58 @@ public void testSubstringBetween_StringString() {
          */
         @Test
         public void testSubstringsBetween_StringStringString() {
-    
+
             String[] results = StringUtils.substringsBetween("[one], [two], [three]", "[", "]");
             assertEquals(3, results.length);
             assertEquals("one", results[0]);
             assertEquals("two", results[1]);
             assertEquals("three", results[2]);
-    
+
             results = StringUtils.substringsBetween("[one], [two], three", "[", "]");
             assertEquals(2, results.length);
             assertEquals("one", results[0]);
             assertEquals("two", results[1]);
-    
+
             results = StringUtils.substringsBetween("[one], [two], three]", "[", "]");
             assertEquals(2, results.length);
             assertEquals("one", results[0]);
             assertEquals("two", results[1]);
-    
+
             results = StringUtils.substringsBetween("[one], two], three]", "[", "]");
             assertEquals(1, results.length);
             assertEquals("one", results[0]);
-    
+
             results = StringUtils.substringsBetween("one], two], [three]", "[", "]");
             assertEquals(1, results.length);
             assertEquals("three", results[0]);
-    
+
             // 'ab hello ba' will match, but 'ab non ba' won't
             // this is because the 'a' is shared between the two and can't be matched twice
             results = StringUtils.substringsBetween("aabhellobabnonba", "ab", "ba");
             assertEquals(1, results.length);
             assertEquals("hello", results[0]);
-    
+
             results = StringUtils.substringsBetween("one, two, three", "[", "]");
             assertNull(results);
-    
+
             results = StringUtils.substringsBetween("[one, two, three", "[", "]");
             assertNull(results);
-    
+
             results = StringUtils.substringsBetween("one, two, three]", "[", "]");
             assertNull(results);
-    
+
             results = StringUtils.substringsBetween("[one], [two], [three]", "[", null);
             assertNull(results);
-    
+
             results = StringUtils.substringsBetween("[one], [two], [three]", null, "]");
             assertNull(results);
-    
+
             results = StringUtils.substringsBetween("[one], [two], [three]", "", "");
             assertNull(results);
-    
+
             results = StringUtils.substringsBetween(null, "[", "]");
             assertNull(results);
-    
+
             results = StringUtils.substringsBetween("", "[", "]");
             assertEquals(0, results.length);
         }
