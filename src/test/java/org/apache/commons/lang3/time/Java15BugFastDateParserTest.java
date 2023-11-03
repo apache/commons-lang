@@ -43,7 +43,7 @@ public class Java15BugFastDateParserTest extends AbstractLangTest {
     private static final String DATE_PARSER_PARAMETERS = "org.apache.commons.lang3.time.FastDateParserTest#dateParserParameters()";
 
     @Test
-    public void java15BuggyLocaleTest() throws ParseException {
+    public void testJava15BuggyLocaleTest() throws ParseException {
         final String buggyLocaleName = "ff_LR_#Adlm";
         Locale buggyLocale = null;
         for (final Locale locale : Locale.getAvailableLocales()) {
@@ -59,7 +59,7 @@ public class Java15BugFastDateParserTest extends AbstractLangTest {
     }
 
     @Test
-    public void java15BuggyLocaleTestAll() throws ParseException {
+    public void testJava15BuggyLocaleTestAll() throws ParseException {
         for (final Locale locale : Locale.getAvailableLocales()) {
             testSingleLocale(locale);
         }
